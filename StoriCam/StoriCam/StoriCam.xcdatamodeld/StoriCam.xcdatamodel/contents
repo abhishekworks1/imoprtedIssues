@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14903" systemVersion="18F132" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="DownloadData" representedClassName="DownloadData" syncable="YES" codeGenerationType="class">
+        <attribute name="destinationPath" optional="YES" attributeType="String"/>
+        <attribute name="fileName" optional="YES" attributeType="String"/>
+        <attribute name="fileURL" optional="YES" attributeType="String"/>
+        <attribute name="isCompleted" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="playlistName" optional="YES" attributeType="String"/>
+        <attribute name="progress" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="startTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="status" optional="YES" attributeType="String"/>
+        <attribute name="thumbImage" optional="YES" attributeType="String"/>
+        <attribute name="userID" optional="YES" attributeType="String"/>
+        <relationship name="downloadPlayListData" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="DownloadPlayListData" inverseName="downloadData" inverseEntity="DownloadPlayListData"/>
+    </entity>
+    <entity name="DownloadPlayListData" representedClassName="DownloadPlayListData" syncable="YES" codeGenerationType="class">
+        <attribute name="isCompleted" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isDownloadAll" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="playlistName" optional="YES" attributeType="String"/>
+        <attribute name="priority" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="downloadData" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="DownloadData" inverseName="downloadPlayListData" inverseEntity="DownloadData"/>
+    </entity>
+    <entity name="PostData" representedClassName="PostData" syncable="YES" codeGenerationType="class">
+        <attribute name="createdDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="isCompleted" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isPostUploaded" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isThumbUploaded" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="priority" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="serverURL" optional="YES" attributeType="String"/>
+        <attribute name="thumbServerURL" optional="YES" attributeType="String"/>
+        <attribute name="thumbTime" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="url" optional="YES" attributeType="String"/>
+        <relationship name="postUploadData" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="PostUploadData" inverseName="postData" inverseEntity="PostUploadData"/>
+    </entity>
+    <entity name="PostUploadData" representedClassName="PostUploadData" syncable="YES" codeGenerationType="class">
+        <attribute name="actionType" optional="YES" attributeType="String"/>
+        <attribute name="albumID" optional="YES" attributeType="String"/>
+        <attribute name="checkedIn" optional="YES" attributeType="String"/>
+        <attribute name="feelings" optional="YES" attributeType="String"/>
+        <attribute name="friendExcept" optional="YES" attributeType="String"/>
+        <attribute name="friendsOnly" optional="YES" attributeType="String"/>
+        <attribute name="hashTags" optional="YES" attributeType="String"/>
+        <attribute name="isCheckIn" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isCompleted" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="mentions" optional="YES" attributeType="Transformable" customClassName="[String]"/>
+        <attribute name="oldPostId" optional="YES" attributeType="String"/>
+        <attribute name="postMedia" optional="YES" attributeType="String"/>
+        <attribute name="postText" optional="YES" attributeType="String"/>
+        <attribute name="postType" optional="YES" attributeType="String"/>
+        <attribute name="previewUrlData" optional="YES" attributeType="String"/>
+        <attribute name="priority" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="privacy" optional="YES" attributeType="String"/>
+        <attribute name="removedMedia" optional="YES" attributeType="String"/>
+        <attribute name="userID" optional="YES" attributeType="String"/>
+        <attribute name="wallTheme" optional="YES" attributeType="String"/>
+        <relationship name="postData" optional="YES" toMany="YES" deletionRule="No Action" destinationEntity="PostData" inverseName="postUploadData" inverseEntity="PostData"/>
+    </entity>
+    <entity name="StoryData" representedClassName="StoryData" syncable="YES" codeGenerationType="class">
+        <attribute name="address" optional="YES" attributeType="String"/>
+        <attribute name="createdDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="duration" optional="YES" attributeType="String"/>
+        <attribute name="filterName" optional="YES" attributeType="String"/>
+        <attribute name="hasTransformation" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="hiddenHashtags" optional="YES" attributeType="String"/>
+        <attribute name="isCompleted" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isExported" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isMute" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isStoryUploaded" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isThumbUploaded" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="lat" optional="YES" attributeType="String"/>
+        <attribute name="long" optional="YES" attributeType="String"/>
+        <attribute name="priority" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="publish" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="serverURL" optional="YES" attributeType="String"/>
+        <attribute name="storiType" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="thumbTime" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="thumbURL" optional="YES" attributeType="String"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
+        <attribute name="url" optional="YES" attributeType="String"/>
+        <attribute name="userId" optional="YES" attributeType="String"/>
+        <attribute name="videoRotation" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="videoScaleX" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="videoScaleY" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="videotx" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="videoty" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="watermarkURL" optional="YES" attributeType="String"/>
+        <relationship name="storyExport" optional="YES" toMany="YES" deletionRule="No Action" destinationEntity="StoryExport" inverseName="storyData" inverseEntity="StoryExport"/>
+        <relationship name="storyUploadData" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="StoryUploadData" inverseName="storyData" inverseEntity="StoryUploadData"/>
+        <relationship name="tags" optional="YES" toMany="YES" deletionRule="No Action" destinationEntity="StoryTag" inverseName="storyData" inverseEntity="StoryTag"/>
+    </entity>
+    <entity name="StoryExport" representedClassName="StoryExport" syncable="YES" codeGenerationType="class">
+        <attribute name="priority" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="url" optional="YES" attributeType="String"/>
+        <relationship name="storyData" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="StoryData" inverseName="storyExport" inverseEntity="StoryData"/>
+    </entity>
+    <entity name="StoryTag" representedClassName="StoryTag" syncable="YES" codeGenerationType="class">
+        <attribute name="askQuestionTag" optional="YES" attributeType="String"/>
+        <attribute name="centerX" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="centerY" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="hasRatio" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="lattitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="placeId" optional="YES" attributeType="String"/>
+        <attribute name="playlistId" optional="YES" attributeType="String"/>
+        <attribute name="pollTag" optional="YES" attributeType="String"/>
+        <attribute name="postId" optional="YES" attributeType="String"/>
+        <attribute name="rotation" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="scaleX" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="scaleY" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="sliderTag" optional="YES" attributeType="String"/>
+        <attribute name="storyId" optional="YES" attributeType="String"/>
+        <attribute name="tagFontSize" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="tagHeight" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="tagText" optional="YES" attributeType="String"/>
+        <attribute name="tagType" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="tagWidth" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="themeType" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="userId" optional="YES" attributeType="String"/>
+        <attribute name="userProfileURL" optional="YES" attributeType="String"/>
+        <attribute name="videoID" optional="YES" attributeType="String"/>
+        <relationship name="storyData" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="StoryData" inverseName="tags" inverseEntity="StoryData"/>
+    </entity>
+    <entity name="StoryUploadData" representedClassName="StoryUploadData" syncable="YES" codeGenerationType="class">
+        <attribute name="isCompleted" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="priority" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="storyData" optional="YES" toMany="YES" deletionRule="No Action" destinationEntity="StoryData" inverseName="storyUploadData" inverseEntity="StoryData"/>
+    </entity>
+    <elements>
+        <element name="DownloadPlayListData" positionX="-63" positionY="-18" width="128" height="118"/>
+        <element name="DownloadData" positionX="-54" positionY="-9" width="128" height="208"/>
+        <element name="PostUploadData" positionX="-36" positionY="9" width="128" height="358"/>
+        <element name="StoryTag" positionX="-18" positionY="27" width="128" height="418"/>
+        <element name="StoryUploadData" positionX="0" positionY="45" width="128" height="88"/>
+        <element name="StoryData" positionX="18" positionY="63" width="128" height="508"/>
+        <element name="PostData" positionX="36" positionY="81" width="128" height="193"/>
+        <element name="StoryExport" positionX="-9" positionY="36" width="128" height="88"/>
+    </elements>
+</model>
