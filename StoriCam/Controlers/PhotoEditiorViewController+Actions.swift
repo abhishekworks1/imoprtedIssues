@@ -13,34 +13,80 @@ import SCRecorder
 import SwiftVideoGenerator
 
 extension PhotoEditorViewController {
-
-   @IBAction func outtakesMediaTapped(_ sender: Any) {
-       saveButtonTapped()
-   }
+   
+    @IBAction func btnShowHideSegmentEditOption(_ sender: UIButton) {
+        segmentEditOptionView.isHidden = !sender.isSelected
+        sender.isSelected = !sender.isSelected
+    }
     
-    @IBAction func addHashtagButtonTapped(_ sender: Any) {
-            guard let selectHashtagVC = R.storyboard.photoEditor.selectStoryHashtagVC() else {
+    @IBAction func btnChangeSpeedWithHistroGramClick(_ sender: AnyObject) {
+        let mergeSession = SCRecordSession.init()
+        for segementModel in videoUrls[currentPage].videos {
+            let segment = SCRecordSessionSegment(url: segementModel.url!, info: nil)
+            mergeSession.addSegment(segment)
+        }
+        let currentAsset = mergeSession.assetRepresentingSegments()
+        guard currentCamaraMode != .boomerang else {
+            let alert = UIAlertController.Style
+                .alert
+                .controller(title: "",
+                            message: "This feature not available for boomerang video.",
+                            actions: [UIAlertAction(title: "OK", style: .default, handler: nil)])
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
+        guard currentAsset.duration.seconds > 2.0 else {
+            let alert = UIAlertController.Style
+                .alert
+                .controller(title: "",
+                            message: "Minimum two seconds video required to change speed",
+                            actions: [UIAlertAction(title: "OK", style: .default, handler: nil)])
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
+        let histroGramVC = R.storyboard.photoEditor.histroGramVC()
+        histroGramVC?.videoSegments = videoUrls
+        histroGramVC?.currentAsset = currentAsset
+        histroGramVC?.currentIndex = currentPage
+        histroGramVC?.doneHandler = { [weak self] updatedSegments in
+            guard let strongSelf = self else {
                 return
             }
-            let storyHashtags = self.storyTags.filter { $0.tag.tagType == StoryTagType.hashtag.rawValue }
-            var hashtags = [String]()
-            for storyHashtag in storyHashtags {
-                hashtags.append("#\(storyHashtag.tag.tagText)")
-            }
-            selectHashtagVC.selectedVisibleHashtags = hashtags
-            var hiddenhashtags = [String]()
-            for hiddentag in self.hiddenHashtags {
-                hiddenhashtags.append("#\(hiddentag)")
-            }
-            selectHashtagVC.selectedHiddenHashtags = hiddenhashtags
-            selectHashtagVC.selectHashtagDelegate = self
-    
-            let navigationController = UINavigationController(rootViewController: selectHashtagVC)
-            navigationController.setNavigationBarHidden(true, animated: false)
-    
-            self.present(navigationController, animated: true, completion: nil)
+            strongSelf.videoUrls = updatedSegments
+            strongSelf.currentPlayVideo = strongSelf.currentPage - 1
+            strongSelf.connVideoPlay()
         }
+        self.navigationController?.pushViewController(histroGramVC!, animated: true)
+    }
+    
+    
+    @IBAction func outtakesMediaTapped(_ sender: Any) {
+        saveButtonTapped()
+    }
+    
+    @IBAction func addHashtagButtonTapped(_ sender: Any) {
+        guard let selectHashtagVC = R.storyboard.photoEditor.selectStoryHashtagVC() else {
+            return
+        }
+        let storyHashtags = self.storyTags.filter { $0.tag.tagType == StoryTagType.hashtag.rawValue }
+        var hashtags = [String]()
+        for storyHashtag in storyHashtags {
+            hashtags.append("#\(storyHashtag.tag.tagText)")
+        }
+        selectHashtagVC.selectedVisibleHashtags = hashtags
+        var hiddenhashtags = [String]()
+        for hiddentag in self.hiddenHashtags {
+            hiddenhashtags.append("#\(hiddentag)")
+        }
+        selectHashtagVC.selectedHiddenHashtags = hiddenhashtags
+        selectHashtagVC.selectHashtagDelegate = self
         
+        let navigationController = UINavigationController(rootViewController: selectHashtagVC)
+        navigationController.setNavigationBarHidden(true, animated: false)
+        
+        self.present(navigationController, animated: true, completion: nil)
+    }
+    
     @IBAction func doneButtonTapped(_ sender: Any) {
         view.endEditing(true)
         self.setView(view: selectStoryTimeView, hidden: true)
@@ -661,7 +707,7 @@ extension PhotoEditorViewController {
     }
     
     @IBAction func btnPostToFeedClick(_ sender: Any) {
-        
+        return
         // Post to feed
         if currentCamaraMode == .slideshow {
             self.saveSlideShow(exportType: SlideShowExportType.feed,
@@ -720,9 +766,10 @@ extension PhotoEditorViewController {
             let dispatchSemaphore = DispatchSemaphore(value: 0)
             
             exportQueue.async {
-                DispatchQueue.main.async {
-                    self.feedExportLabel.text = "0/\(self.videoUrls.count)"
-                }
+                
+            
+                self.feedExportLabel.text = "0/\(self.videoUrls.count)"
+                
                 
                 for (index, url) in self.videoUrls.enumerated() {
                     exportGroup.enter()
@@ -736,9 +783,9 @@ extension PhotoEditorViewController {
                         guard let strongSelf = self else { return }
                         
                         if let exportURL = url {
-                            DispatchQueue.main.async {
+                            
                                 strongSelf.feedExportLabel.text = "\(index+1)/\(strongSelf.videoUrls.count)"
-                            }
+                            
                             let video = FilterImage(url: exportURL, index: 0)
                             video.thumbImage = strongSelf.videoUrls[index].image!
                             mediaArray.append(video)
@@ -757,7 +804,7 @@ extension PhotoEditorViewController {
             
             exportGroup.notify(queue: exportQueue) {
                 
-                DispatchQueue.main.async {
+                
                     self.feedExportLabel.text = ""
                     self.postToFeedProgress.updateProgress(0)
                     //                    if let obj = R.storyboard.main.navControllerPlush() {
@@ -765,7 +812,7 @@ extension PhotoEditorViewController {
                     //                        createPostObj?.mediaArrayStory = mediaArray
                     //                        self.present(obj, animated: true, completion: nil)
                     //                    }
-                }
+                
                 
             }
         }
@@ -797,7 +844,7 @@ extension PhotoEditorViewController {
     }
     
     @IBAction func messageClicked(_ sender: Any) {
-        
+        return
         if currentCamaraMode == .slideshow {
             saveSlideShow(exportType: SlideShowExportType.chat,
                           success: { [weak self] url in
@@ -835,9 +882,9 @@ extension PhotoEditorViewController {
                     recordSession.addSegment(segment)
                 }
             }
-            DispatchQueue.main.async {
+            
                 self.chatExportLabel.text = "0/1"
-            }
+            
             self.exportViewWithURL(recordSession.assetRepresentingSegments(), completionHandler: { (url) in
                 if let exportURL = url {
                     DispatchQueue.main.async {
@@ -853,6 +900,7 @@ extension PhotoEditorViewController {
     }
     
     @IBAction func uploadToYouTubeClicked(_ sender: Any) {
+        return
         guard image == nil else { return }
         let youtubeButton = sender as! UIButton
         youtubeButton.isUserInteractionEnabled = false
@@ -1035,6 +1083,7 @@ extension PhotoEditorViewController {
         }
     }
     
+    
     func saveToCameraRoll(_ isOuttakes: Bool = true, _ isNotes: Bool = false) {
         self.videos = []
         if !isOuttakes && !isNotes {
@@ -1202,167 +1251,41 @@ extension PhotoEditorViewController {
             }
             return
         }
+        
         let exportGroup = DispatchGroup()
         let exportQueue = DispatchQueue(label: "exportFilterQueue")
-        let dispatchSemaphore = DispatchSemaphore(value: 0)
+        let dispatchSemaphore = DispatchSemaphore(value: 1)
         
-        
-        exportQueue.async {
-            if let url = self.selectedVideoUrlSave {
+        if let url = self.selectedVideoUrlSave {
+            exportQueue.async {
                 exportGroup.enter()
-                let mergeSession = SCRecordSession.init()
-                for segementModel in url.videos {
-                    let segment = SCRecordSessionSegment(url: segementModel.url!, info: nil)
-                    mergeSession.addSegment(segment)
-                }
-                self.exportViewWithURL(mergeSession.assetRepresentingSegments()) { [weak self] url in
-                    guard let strongSelf = self else { return }
-                    if let exportURL = url {
-                        
-                        let album = SCAlbum.shared
-                        if isOuttakes {
-                            album.albumName = "\(Constant.Application.displayName) - Outtakes"
-                        } else if isNotes {
-                            album.albumName = "\(Constant.Application.displayName) - Notes"
-                        } else {
-                            album.albumName = "\(Constant.Application.displayName)"
-                        }
-                        
-                        album.saveMovieToLibrary(movieURL: exportURL)
-                        
-                        
-                        if let storyId = strongSelf.storyId, !strongSelf.storyRePost {
-                            let fileName = String.fileName + ".mp4"
-                            
-                            if let imgThumb = UIImage.getThumbnailFrom(videoUrl: exportURL) {
-                                strongSelf.showHUD()
-                                let resizeImg = imgThumb.resizeImage(newWidth: 180)
-                                let thumbName = "thumb" + fileName.replacingOccurrences(of: ".mp4", with: FileExtension.jpg.rawValue)
-                                Utils.uploadImage(imgName: thumbName,
-                                                  img: resizeImg,
-                                                  callBack: { url1 -> Void in
-                                                    if let videoData = try? Data(contentsOf: exportURL,
-                                                                                 options: Data.ReadingOptions.alwaysMapped) {
-                                                        Utils.uploadVideo(videoName: fileName,
-                                                                          videoData: videoData,
-                                                                          progressBlock: { _ in
-                                                                            
-                                                        },
-                                                                          callBack: { url in
-                                                                            strongSelf.editStory(storyId, storyURL: url, thumbURL:url1)
-                                                        })
-                                                    }
-                                })
-                            }
-                        } else {
-                            album.saveMovieToLibrary(movieURL: exportURL)
-                        }
-                        if !isOuttakes && !isNotes {
-                            do {
-                                try strongSelf.videoUrls[(strongSelf.draggingCell?.row)!].image!.compressImage(300, completion: { [weak self] (image, compressRatio) in
-                                    guard let strongSelf = self else { return }
-                                    let avPlayer = AVPlayer(url: exportURL)
-                                    if let duration = avPlayer.currentItem?.asset.duration {
-                                        let video = FilterImage(url: exportURL, index: 0)
-                                        video.thumbImage = image
-                                        video.thumbTime = duration
-                                        strongSelf.videos.append(video)
-                                    }
-                                })
-                            } catch {
-                                
-                            }
-                        }
-                    }
-                    
+               
+                self.exportVideo(segmentVideos: url, isOuttakes, isNotes) { (compltd) in
                     dispatchSemaphore.signal()
                     exportGroup.leave()
                 }
+                
                 dispatchSemaphore.wait()
             }
-            else
-            {
-                DispatchQueue.main.async {
-                    if isOuttakes {
-                        self.outtakesExportLabel.text = "0/\(self.videoUrls.count)"
-                    } else if isNotes {
-                        self.notesExportLabel.text = "0/\(self.videoUrls.count)"
-                    } else {
-                        self.storyExportLabel.text = "0/\(self.videoUrls.count)"
-                    }
-                }
-                
-                for (index, url) in self.videoUrls.enumerated() {
+        }
+        else
+        {
+            if isOuttakes {
+                self.outtakesExportLabel.text = "0/\(self.videoUrls.count)"
+            } else if isNotes {
+                self.notesExportLabel.text = "0/\(self.videoUrls.count)"
+            } else {
+                self.storyExportLabel.text = "0/\(self.videoUrls.count)"
+            }
+            
+            
+            for (index, url) in self.videoUrls.enumerated() {
+                exportQueue.async {
                     exportGroup.enter()
                     
-                    let mergeSession = SCRecordSession.init()
-                    for segementModel in url.videos {
-                        let segment = SCRecordSessionSegment(url: segementModel.url!, info: nil)
-                        mergeSession.addSegment(segment)
-                    }
-                    self.exportViewWithURL(mergeSession.assetRepresentingSegments()) { [weak self] url in
-                        guard let strongSelf = self else { return }
-                        if let exportURL = url {
-                            
-                            let album = SCAlbum.shared
-                            if isOuttakes {
-                                album.albumName = "\(Constant.Application.displayName) - Outtakes"
-                                DispatchQueue.main.async {
-                                    strongSelf.outtakesExportLabel.text = "\(index+1)/\(strongSelf.videoUrls.count)"
-                                }
-                            } else if isNotes {
-                                album.albumName = "\(Constant.Application.displayName) - Notes"
-                                DispatchQueue.main.async {
-                                    strongSelf.notesExportLabel.text = "\(index+1)/\(strongSelf.videoUrls.count)"
-                                }
-                            } else {
-                                album.albumName = "\(Constant.Application.displayName)"
-                                DispatchQueue.main.async {
-                                    strongSelf.storyExportLabel.text = "\(index+1)/\(strongSelf.videoUrls.count)"
-                                }
-                            }
-                            
-                            album.saveMovieToLibrary(movieURL: exportURL)
-                            
-                            if let storyId = strongSelf.storyId, strongSelf.videoUrls.count == 1, !strongSelf.storyRePost {
-                                let fileName = String.fileName + ".mp4"
-                                
-                                if let imgThumb = UIImage.getThumbnailFrom(videoUrl: exportURL) {
-                                    strongSelf.showHUD()
-                                    let resizeImg = imgThumb.resizeImage(newWidth: 180)
-                                    let thumbName = "thumb" + fileName.replacingOccurrences(of: ".mp4", with: FileExtension.jpg.rawValue)
-                                    Utils.uploadImage(imgName: thumbName,
-                                                      img: resizeImg,
-                                                      callBack: { url1 -> Void in
-                                                        if let videoData = try? Data(contentsOf: exportURL,
-                                                                                     options: Data.ReadingOptions.alwaysMapped) {
-                                                            Utils.uploadVideo(videoName: fileName,
-                                                                              videoData: videoData,
-                                                                              progressBlock: { _ in
-                                                            },
-                                                                              callBack: { url in
-                                                                                strongSelf.editStory(storyId, storyURL: url, thumbURL:url1)
-                                                            })
-                                                        }
-                                    })
-                                }
-                            }
-                            
-                            if !isOuttakes && !isNotes {
-                                
-                                let avPlayer = AVPlayer(url: exportURL)
-                                if let duration = avPlayer.currentItem?.asset.duration {
-                                    let video = FilterImage(url: exportURL, index: 0)
-                                    video.thumbImage = strongSelf.videoUrls[index].image!
-                                    video.thumbTime = duration
-                                    strongSelf.videos.append(video)
-                                }
-                            }
-                        }
-                        
+                    self.exportVideo(segmentVideos: url, isOuttakes, isNotes, index: index) { (compltd) in
                         dispatchSemaphore.signal()
                         exportGroup.leave()
-                        
                     }
                     
                     dispatchSemaphore.wait()
@@ -1372,7 +1295,12 @@ extension PhotoEditorViewController {
         
         exportGroup.notify(queue: exportQueue) {
             if self.selectedVideoUrlSave == nil && self.storyId == nil {
-                self.navigationController?.popViewController(animated: false)
+                self.videos.removeAll()
+                self.videoUrls.removeAll()
+                self.videoResetUrls.removeAll()
+                self._displayKeyframeImages.removeAll()
+                self.selectedSlideShowImages.removeAll()
+                self.dismiss()
             }
             else
             {
@@ -1391,6 +1319,86 @@ extension PhotoEditorViewController {
             }
         }
     }
+    
+    func exportVideo(segmentVideos: SegmentVideos, _ isOuttakes: Bool = true, _ isNotes: Bool = false, index: Int = 0, completionHandler: @escaping (_ url: Bool?) -> ()) {
+        
+        let mergeSession = SCRecordSession.init()
+        for segementModel in segmentVideos.videos {
+            let segment = SCRecordSessionSegment(url: segementModel.url!, info: nil)
+            mergeSession.addSegment(segment)
+        }
+        self.exportViewWithURL(mergeSession.assetRepresentingSegments()) { [weak self] url in
+            guard let strongSelf = self else { return }
+            if let exportURL = url {
+                
+                let album = SCAlbum.shared
+                if isOuttakes {
+                    album.albumName = "\(Constant.Application.displayName) - Outtakes"
+                    DispatchQueue.main.async {
+                        strongSelf.outtakesExportLabel.text = "\(index+1)/\(strongSelf.videoUrls.count)"
+                    }
+                } else if isNotes {
+                    album.albumName = "\(Constant.Application.displayName) - Notes"
+                    DispatchQueue.main.async {
+                        strongSelf.notesExportLabel.text = "\(index+1)/\(strongSelf.videoUrls.count)"
+                    }
+                } else {
+                    album.albumName = "\(Constant.Application.displayName)"
+                    DispatchQueue.main.async {
+                        strongSelf.storyExportLabel.text = "\(index+1)/\(strongSelf.videoUrls.count)"
+                    }
+                }
+                
+                album.saveMovieToLibrary(movieURL: exportURL)
+                
+                if let storyId = strongSelf.storyId, !strongSelf.storyRePost {
+                    let fileName = String.fileName + ".mp4"
+                    
+                    if let imgThumb = UIImage.getThumbnailFrom(videoUrl: exportURL) {
+                        strongSelf.showHUD()
+                        let resizeImg = imgThumb.resizeImage(newWidth: 180)
+                        let thumbName = "thumb" + fileName.replacingOccurrences(of: ".mp4", with: FileExtension.jpg.rawValue)
+                        Utils.uploadImage(imgName: thumbName,
+                                          img: resizeImg,
+                                          callBack: { url1 -> Void in
+                                            if let videoData = try? Data(contentsOf: exportURL,
+                                                                         options: Data.ReadingOptions.alwaysMapped) {
+                                                Utils.uploadVideo(videoName: fileName,
+                                                                  videoData: videoData,
+                                                                  progressBlock: { _ in
+                                                                    
+                                                },
+                                                                  callBack: { url in
+                                                                    strongSelf.editStory(storyId, storyURL: url, thumbURL:url1)
+                                                })
+                                            }
+                        })
+                    }
+                } else {
+                    album.saveMovieToLibrary(movieURL: exportURL)
+                }
+                if !isOuttakes && !isNotes {
+                    do {
+                        try strongSelf.videoUrls[(strongSelf.draggingCell?.row)!].image!.compressImage(300, completion: { [weak self] (image, compressRatio) in
+                            guard let strongSelf = self else { return }
+                            let avPlayer = AVPlayer(url: exportURL)
+                            if let duration = avPlayer.currentItem?.asset.duration {
+                                let video = FilterImage(url: exportURL, index: 0)
+                                video.thumbImage = image
+                                video.thumbTime = duration
+                                strongSelf.videos.append(video)
+                            }
+                        })
+                    } catch {
+                        
+                    }
+                }
+                completionHandler(true)
+            }
+            
+        }
+    }
+    
     
     func exportViewWithURL(_ asset: AVAsset, completionHandler: @escaping (_ url: URL?) -> ()) {
         let exportSession = StoryAssetExportSession()
@@ -1693,16 +1701,16 @@ extension PhotoEditorViewController {
             album.albumName = "\(Constant.Application.displayName) - Outtakes"
             album.save(image: image)
             self.outtakesDelegate?.didTakeOuttakes("Outtakes saved.")
-            DispatchQueue.main.async {
+            
                 self.navigationController?.popViewController(animated: false)
-            }
+            
         case .notes:
             album.albumName = "\(Constant.Application.displayName) - Notes"
             album.save(image: image)
             self.outtakesDelegate?.didTakeOuttakes("Notes saved.")
-            DispatchQueue.main.async {
+            
                 self.navigationController?.popViewController(animated: false)
-            }
+            
         case .chat:
             DispatchQueue.main.async {
                 self.postImage(img: image)

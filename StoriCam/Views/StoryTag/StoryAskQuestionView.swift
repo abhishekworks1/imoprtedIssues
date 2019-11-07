@@ -85,11 +85,9 @@ class StoryAskQuestionView: BaseQuestionTagView {
     lazy var imageView: UIImageView = {
         let sView = UIImageView()
         if Defaults.shared.currentUser?.profileType == ProfilePicType.videoType.rawValue {
-            sView.setImageFromURL(Defaults.shared.currentUser?.profileThumbnail,
-                                  placeholderImage: ApplicationSettings.userPlaceHolder)
+            sView.setImageFromURL(Defaults.shared.currentUser?.profileThumbnail)
         } else {
-            sView.setImageFromURL(Defaults.shared.currentUser?.profileImageURL,
-                                  placeholderImage: ApplicationSettings.userPlaceHolder)
+            sView.setImageFromURL(Defaults.shared.currentUser?.profileImageURL)
         }
         sView.backgroundColor = ApplicationSettings.appClearColor
         sView.layer.cornerRadius = 25.0

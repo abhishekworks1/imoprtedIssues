@@ -103,7 +103,7 @@ extension YouTubePlayerVC: YoutubePlayerViewDelegate {
     
     func playerViewPreferredInitialLoadingView(_ playerView: YoutubePlayerView) -> UIView? {
         let view = UIImageView(frame: CGRect(x: 0, y: 0, width: playerView.bounds.width, height: playerView.bounds.height))
-        view.setImageFromURL(previewUrl?.absoluteString ?? "")
+        view.setImageFromURL(previewUrl?.absoluteString ?? "", placeholderImage: nil)
         view.backgroundColor = ApplicationSettings.appBlackColor
         return view
     }

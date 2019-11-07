@@ -37,7 +37,7 @@ class MensionCollectionViewDelegate: NSObject, UICollectionViewDataSource, UICol
             fatalError("Unable to find cell with 'MensionCollectionViewCell' reuseIdentifier")
         }
         cell.userChannelName.text = mensions[indexPath.row].channelId
-        cell.userImageView.setImageFromURL( mensions[indexPath.row].profileImageURL, placeholderImage: ApplicationSettings.userPlaceHolder, indicatorStyle: UIActivityIndicatorView.Style.gray)
+        cell.userImageView.setImageFromURL(mensions[indexPath.row].profileImageURL)
         return cell
     }
     

@@ -20,39 +20,6 @@ class EmojiSlider {
     ]
 }
 
-//extension PhotoEditorViewController {
-//    func configureEmojiCollectionView() {
-//        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-//        layout.itemSize = CGSize(width: (UIScreen.width - 20)/8,
-//                                 height: (UIScreen.width - 20)/8)
-//        layout.scrollDirection = .horizontal
-//        layout.minimumInteritemSpacing = 0
-//        layout.minimumLineSpacing = 0
-//        emojiCollectionView.collectionViewLayout = layout
-//        emojiCollectionView.isPagingEnabled = true
-//        emojiCollectionViewDelegate = EmojiCollectionViewDelegate()
-//        emojiCollectionViewDelegate.emojiDelegate = self
-//        emojiCollectionView.delegate = emojiCollectionViewDelegate
-//        emojiCollectionView.dataSource = emojiCollectionViewDelegate
-//
-//        emojiCollectionView.register(
-//            UINib(resource: R.nib.queSliderCollectionViewCell),
-//            forCellWithReuseIdentifier: R.nib.queSliderCollectionViewCell.identifier)
-//    }
-//}
-
-//extension PhotoEditorViewController: EmojiDelegate {
-//
-//    func didSelectEmoji(emoji: String) {
-//        if let queTagView = self.currentTagView as? StorySliderQueView {
-//            DispatchQueue.main.async {
-//                queTagView.slider.emojiText = emoji
-//            }
-//        }
-//    }
-//
-//}
-
 class EmojiCollectionViewDelegate: NSObject, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     weak var emojiDelegate: EmojiDelegate?

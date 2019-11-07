@@ -219,8 +219,6 @@ class PhotoEditorViewController: UIViewController {
     @IBOutlet weak var slideShowView: UIView!
     @IBOutlet weak var slideShowCollectionView: KDDragAndDropCollectionView!
     
-    var dragAndDropController: DNDDragAndDropController!
-    
     // select story time
     @IBOutlet weak var selectStoryTimeView: UIView! {
         didSet {
@@ -247,7 +245,6 @@ class PhotoEditorViewController: UIViewController {
     
     public var asset: AVAsset?
     
-    
     public var videoPath: String?
     /// current playback time of video
     public private(set) var currentTime = CMTime.zero
@@ -273,6 +270,8 @@ class PhotoEditorViewController: UIViewController {
     var textViews: [UITextView] = []
     var lastImageOrientation: UIImage.Orientation?
     var editingStack: EditingStack?
+     
+    var dragAndDropController: DNDDragAndDropController!
     
     var isViewEditMode: Bool = false {
         didSet {
@@ -474,27 +473,8 @@ class PhotoEditorViewController: UIViewController {
     
     var isPlayerInitialize = false
     
-    override func loadView() {
-        registerFont()
-        super.loadView()
-    }
-    
-    func registerFont() {
-        let bundle = Bundle(for: PhotoEditorViewController.self)
-        let url =  bundle.url(forResource: "icomoon", withExtension: "ttf")
-        
-        guard let fontDataProvider = CGDataProvider(url: url! as CFURL) else {
-            return
-        }
-        let font = CGFont(fontDataProvider)
-        var error: Unmanaged<CFError>?
-        guard CTFontManagerRegisterGraphicsFont(font!, &error) else {
-            return
-        }
-    }
-    
     deinit {
-        // self.scPlayer?.unsetupDisplayLink()
+        self.scPlayer?.unsetupDisplayLink()
         print("PhotoEditiorViewController Deinit")
     }
     
@@ -936,9 +916,12 @@ class PhotoEditorViewController: UIViewController {
         if let _asset = _asset {
             let imageGenerator = KeyframeImageGenerator()
             imageGenerator.generateDefaultSequenceOfImages(from: _asset) { [weak self] in
-                self?._displayKeyframeImages.removeAll()
-                self?._displayKeyframeImages.append(contentsOf: $0)
-                self?.collectionView.reloadData()
+                guard let `self` = self else {
+                    return
+                }
+                self._displayKeyframeImages.removeAll()
+                self._displayKeyframeImages.append(contentsOf: $0)
+                self.collectionView.reloadData()
             }
         }
     }
@@ -1245,7 +1228,9 @@ extension PhotoEditorViewController: UIGestureRecognizerDelegate {
             self.dismiss(animated: true)
         } else if let navViewcontrollers = self.navigationController?.viewControllers, navViewcontrollers.count > 2 { self.navigationController?.popToViewController(navViewcontrollers[navViewcontrollers.count - 3], animated: false)
         } else {
-            self.navigationController?.popViewController(animated: true)
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
+                self.navigationController?.popViewController(animated: true)
+            }
         }
     }
     

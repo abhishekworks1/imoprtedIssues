@@ -359,6 +359,12 @@
 		8205FDA2236C3B79002B2603 /* CollageMaker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8205FDA1236C3B78002B2603 /* CollageMaker.storyboard */; };
 		8205FDA4236C3B81002B2603 /* TextImageCreaterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FDA3236C3B7F002B2603 /* TextImageCreaterVC.swift */; };
 		8205FDA6236C3B85002B2603 /* UpgradeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FDA5236C3B85002B2603 /* UpgradeViewController.swift */; };
+		8206AEF02374108C000CDD2A /* Queuer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8206AEEA2374108C000CDD2A /* Queuer.swift */; };
+		8206AEF12374108C000CDD2A /* ConcurrentOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8206AEEB2374108C000CDD2A /* ConcurrentOperation.swift */; };
+		8206AEF22374108C000CDD2A /* SynchronousOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8206AEEC2374108C000CDD2A /* SynchronousOperation.swift */; };
+		8206AEF32374108C000CDD2A /* OperationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8206AEED2374108C000CDD2A /* OperationState.swift */; };
+		8206AEF42374108C000CDD2A /* Semaphore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8206AEEE2374108C000CDD2A /* Semaphore.swift */; };
+		8206AEF52374108C000CDD2A /* Scheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8206AEEF2374108C000CDD2A /* Scheduler.swift */; };
 		820B236F2371849300906BF0 /* StoryCameraViewController+Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820B236E2371849300906BF0 /* StoryCameraViewController+Events.swift */; };
 		820B23712371961F00906BF0 /* ProManagerApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820B23702371961F00906BF0 /* ProManagerApi.swift */; };
 		820B23752371975000906BF0 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820B23742371975000906BF0 /* Result.swift */; };
@@ -416,7 +422,6 @@
 		8299F56E23714FCC00963318 /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8299F56D23714FCC00963318 /* Layout.swift */; };
 		8299F570237158D200963318 /* FeedUploadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8299F56F237158D100963318 /* FeedUploadVC.swift */; };
 		8299F57223715A9200963318 /* Post+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8299F57123715A9200963318 /* Post+CoreDataClass.swift */; };
-		82AD6B6E237049AF0090498A /* PhotoEditor.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82AD6B6D237049AB0090498A /* PhotoEditor.storyboard */; };
 		82AD6B7023704B330090498A /* UIViewUtilsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AD6B6F23704B330090498A /* UIViewUtilsExtension.swift */; };
 		82AD6B7223704BA60090498A /* PhotoEditiorViewController+CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AD6B7123704BA60090498A /* PhotoEditiorViewController+CollectionView.swift */; };
 		82CCB16E2372CC2600EC76E8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CCB16D2372CC2600EC76E8 /* LoginViewController.swift */; };
@@ -525,6 +530,9 @@
 		82D1EC8423703DE300A680E7 /* PhotoEditioViewController+Picker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EC7E23703DE100A680E7 /* PhotoEditioViewController+Picker.swift */; };
 		82D1EC8523703DE300A680E7 /* PhotoEditioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EC7F23703DE100A680E7 /* PhotoEditioViewController.swift */; };
 		82D1EC882370426200A680E7 /* PhotoEditorViewController+LifeCycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EC8123703DE300A680E7 /* PhotoEditorViewController+LifeCycle.swift */; };
+		82EEF72A2375234800DE4845 /* PhotoEditor.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82AD6B6D237049AB0090498A /* PhotoEditor.storyboard */; };
+		82EEF72C2375288C00DE4845 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 82EEF72B2375288C00DE4845 /* GoogleService-Info.plist */; };
+		82EEF72E23752B0D00DE4845 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82EEF72D23752B0D00DE4845 /* AdSupport.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -897,6 +905,12 @@
 		8205FDA1236C3B78002B2603 /* CollageMaker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CollageMaker.storyboard; sourceTree = "<group>"; };
 		8205FDA3236C3B7F002B2603 /* TextImageCreaterVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextImageCreaterVC.swift; sourceTree = "<group>"; };
 		8205FDA5236C3B85002B2603 /* UpgradeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradeViewController.swift; sourceTree = "<group>"; };
+		8206AEEA2374108C000CDD2A /* Queuer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queuer.swift; sourceTree = "<group>"; };
+		8206AEEB2374108C000CDD2A /* ConcurrentOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcurrentOperation.swift; sourceTree = "<group>"; };
+		8206AEEC2374108C000CDD2A /* SynchronousOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SynchronousOperation.swift; sourceTree = "<group>"; };
+		8206AEED2374108C000CDD2A /* OperationState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationState.swift; sourceTree = "<group>"; };
+		8206AEEE2374108C000CDD2A /* Semaphore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Semaphore.swift; sourceTree = "<group>"; };
+		8206AEEF2374108C000CDD2A /* Scheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scheduler.swift; sourceTree = "<group>"; };
 		820B236E2371849300906BF0 /* StoryCameraViewController+Events.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StoryCameraViewController+Events.swift"; sourceTree = "<group>"; };
 		820B23702371961F00906BF0 /* ProManagerApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProManagerApi.swift; sourceTree = "<group>"; };
 		820B23742371975000906BF0 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
@@ -1068,6 +1082,8 @@
 		82D1EC7E23703DE100A680E7 /* PhotoEditioViewController+Picker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PhotoEditioViewController+Picker.swift"; sourceTree = "<group>"; };
 		82D1EC7F23703DE100A680E7 /* PhotoEditioViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoEditioViewController.swift; sourceTree = "<group>"; };
 		82D1EC8123703DE300A680E7 /* PhotoEditorViewController+LifeCycle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PhotoEditorViewController+LifeCycle.swift"; sourceTree = "<group>"; };
+		82EEF72B2375288C00DE4845 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		82EEF72D23752B0D00DE4845 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		AF2344015DB0E6C36CA210BF /* Pods_StoriCam.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StoriCam.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -1077,6 +1093,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A414FD0BE9C5025F283F9F0 /* Pods_StoriCam.framework in Frameworks */,
+				82EEF72E23752B0D00DE4845 /* AdSupport.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1169,6 +1186,7 @@
 		8205FAC6236C10A6002B2603 /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
+				8206AEE92374108C000CDD2A /* Queuer */,
 				824EB3D623619FB000205993 /* NextLevelSource */,
 				8299F55D237135BF00963318 /* UIAppleColor */,
 				82D1EBA9236FED4F00A680E7 /* SemiModelPresentation */,
@@ -1825,6 +1843,19 @@
 			path = TransitionPatch;
 			sourceTree = "<group>";
 		};
+		8206AEE92374108C000CDD2A /* Queuer */ = {
+			isa = PBXGroup;
+			children = (
+				8206AEEA2374108C000CDD2A /* Queuer.swift */,
+				8206AEEB2374108C000CDD2A /* ConcurrentOperation.swift */,
+				8206AEEC2374108C000CDD2A /* SynchronousOperation.swift */,
+				8206AEED2374108C000CDD2A /* OperationState.swift */,
+				8206AEEE2374108C000CDD2A /* Semaphore.swift */,
+				8206AEEF2374108C000CDD2A /* Scheduler.swift */,
+			);
+			path = Queuer;
+			sourceTree = "<group>";
+		};
 		820B236D23717C3100906BF0 /* DataBase */ = {
 			isa = PBXGroup;
 			children = (
@@ -1859,6 +1890,7 @@
 			children = (
 				824EB37B2361959800205993 /* AppDelegate.swift */,
 				820B23702371961F00906BF0 /* ProManagerApi.swift */,
+				82EEF72B2375288C00DE4845 /* GoogleService-Info.plist */,
 				82D1EBA0236FECFA00A680E7 /* Delegates */,
 				8205FB7F236C2057002B2603 /* Cells */,
 				8205FB31236C1B6A002B2603 /* Models */,
@@ -2161,6 +2193,7 @@
 		F6303928DF96F75577001E96 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				82EEF72D23752B0D00DE4845 /* AdSupport.framework */,
 				AF2344015DB0E6C36CA210BF /* Pods_StoriCam.framework */,
 			);
 			name = Frameworks;
@@ -2179,6 +2212,7 @@
 				824EB3752361959800205993 /* Frameworks */,
 				824EB3762361959800205993 /* Resources */,
 				8F55EF2E66D9FEBCAB33F172 /* [CP] Embed Pods Frameworks */,
+				82EEF72F2375347300DE4845 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -2276,6 +2310,7 @@
 				82D1EC4F23702B4300A680E7 /* GreenGrass.JPG in Resources */,
 				8205FC38236C2C2F002B2603 /* SF-UI-Text-Ultrathin.otf in Resources */,
 				82D1EC6923702B4300A680E7 /* GreenGrass.png in Resources */,
+				82EEF72C2375288C00DE4845 /* GoogleService-Info.plist in Resources */,
 				8205FC1F236C2C2F002B2603 /* Courier Prime.ttf in Resources */,
 				8205FC2C236C2C2F002B2603 /* Sofia Pro Extra Light Italic.otf in Resources */,
 				82D1EC6523702B4300A680E7 /* Sundae.png in Resources */,
@@ -2360,7 +2395,7 @@
 				8205FD31236C3B06002B2603 /* LUT_M02.png in Resources */,
 				8205FC1C236C2C2F002B2603 /* Duration.ttf in Resources */,
 				824EB3832361959800205993 /* Main.storyboard in Resources */,
-				82AD6B6E237049AF0090498A /* PhotoEditor.storyboard in Resources */,
+				82EEF72A2375234800DE4845 /* PhotoEditor.storyboard in Resources */,
 				8205FB91236C2A0F002B2603 /* AllPhotosCollectionViewCell.xib in Resources */,
 				82D1EC5023702B4300A680E7 /* Cute.JPG in Resources */,
 				8205FB82236C205E002B2603 /* ImageCollectionViewCell.xib in Resources */,
@@ -2394,6 +2429,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"--import\" \"MXPagerView\" \"$SRCROOT/R.generated.swift\" \n";
+		};
+		82EEF72F2375347300DE4845 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/Fabric/run\"\n";
 		};
 		8F55EF2E66D9FEBCAB33F172 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2448,6 +2500,7 @@
 				8205FB2E236C1B2D002B2603 /* Channel.swift in Sources */,
 				8205FBC0236C2A88002B2603 /* MMPlayerPassViewPushConfig.swift in Sources */,
 				82D1EBDB236FF29600A680E7 /* MensionCollectionViewCell.swift in Sources */,
+				8206AEF42374108C000CDD2A /* Semaphore.swift in Sources */,
 				82D1EBEF236FF4B200A680E7 /* CropRectView.swift in Sources */,
 				8205FBD6236C2B54002B2603 /* StoryAssetExportSession.swift in Sources */,
 				8205FAAD236C0FF0002B2603 /* ZeroPaddingTextView.swift in Sources */,
@@ -2659,6 +2712,7 @@
 				8205FB90236C2A0F002B2603 /* AllPhotosCollectionViewCell.swift in Sources */,
 				82D1EC8423703DE300A680E7 /* PhotoEditioViewController+Picker.swift in Sources */,
 				8205FCBD236C3AFA002B2603 /* CollageViewT306.swift in Sources */,
+				8206AEF52374108C000CDD2A /* Scheduler.swift in Sources */,
 				8205FB26236C160E002B2603 /* StoryTagView.swift in Sources */,
 				820B23772371A0A500906BF0 /* StoryTwoColumnsLayout.swift in Sources */,
 				8205FB73236C1D0F002B2603 /* Extensions.swift in Sources */,
@@ -2754,6 +2808,7 @@
 				8205FCB5236C3AFA002B2603 /* CollageViewT407.swift in Sources */,
 				8205FAB6236C1037002B2603 /* ArrowButton.swift in Sources */,
 				82D1EBE7236FF35600A680E7 /* SlideshowImagesCell.swift in Sources */,
+				8206AEF32374108C000CDD2A /* OperationState.swift in Sources */,
 				8205FCB1236C3AFA002B2603 /* CollageViewT405.swift in Sources */,
 				8205FD76236C3B06002B2603 /* ControlStackView.swift in Sources */,
 				8205FC68236C3AE7002B2603 /* DrawTextEditView.swift in Sources */,
@@ -2771,6 +2826,7 @@
 				8205FB28236C160E002B2603 /* BaseWeatherTagView.swift in Sources */,
 				8299F570237158D200963318 /* FeedUploadVC.swift in Sources */,
 				8205FCB8236C3AFA002B2603 /* CollageView.swift in Sources */,
+				8206AEF02374108C000CDD2A /* Queuer.swift in Sources */,
 				824EB3E823619FB000205993 /* NextLevelSession.swift in Sources */,
 				8205FC53236C3A4E002B2603 /* MusicPickerVC.swift in Sources */,
 				8205FB2C236C17DB002B2603 /* Story.swift in Sources */,
@@ -2783,9 +2839,11 @@
 				8205FAF6236C110C002B2603 /* PryntTrimmerView.swift in Sources */,
 				8205FD72236C3B06002B2603 /* FadeControl.swift in Sources */,
 				824EB3C923619E5C00205993 /* UITextField+Extension.swift in Sources */,
+				8206AEF22374108C000CDD2A /* SynchronousOperation.swift in Sources */,
 				8205FB93236C2A6C002B2603 /* PlayerView.swift in Sources */,
 				8205FD58236C3B06002B2603 /* FilterUnsharpMask.swift in Sources */,
 				8205FCCA236C3AFA002B2603 /* PhotoScrollView.swift in Sources */,
+				8206AEF12374108C000CDD2A /* ConcurrentOperation.swift in Sources */,
 				8205FCC9236C3AFA002B2603 /* LineHandleView.swift in Sources */,
 				8205FD49236C3B06002B2603 /* InternalUtils.swift in Sources */,
 				8205FB75236C1D0F002B2603 /* ReactionSelector.swift in Sources */,
@@ -3001,7 +3059,9 @@
 			baseConfigurationReference = 6BD37B5CE4A9A88355958224 /* Pods-StoriCam.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = StoriCam/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
@@ -3009,8 +3069,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.simform.StoriCam;
+				PRODUCT_BUNDLE_IDENTIFIER = com.simform.storiCamPro;
 				PRODUCT_NAME = "StoriCam Pro";
+				PROVISIONING_PROFILE_SPECIFIER = StoriCamPro_Dev;
 				SWIFT_OBJC_BRIDGING_HEADER = "StoriCam/StoriCam-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -3022,7 +3083,9 @@
 			baseConfigurationReference = 03989C2153541DEC0E04A6FA /* Pods-StoriCam.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = StoriCam/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
@@ -3030,8 +3093,9 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.simform.StoriCam;
+				PRODUCT_BUNDLE_IDENTIFIER = com.simform.storiCamPro;
 				PRODUCT_NAME = "StoriCam Pro";
+				PROVISIONING_PROFILE_SPECIFIER = StoriCamPro_Dev;
 				SWIFT_OBJC_BRIDGING_HEADER = "StoriCam/StoriCam-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

@@ -132,6 +132,10 @@ public class SegmentVideos: NSObject, NSCopying {
 }
 
 public class SegmentMultiVideos: NSObject, NSCopying {
+    internal init(currentAsset: AVAsset?) {
+        self.currentAsset = currentAsset
+    }
+    
     var videos: [SegmentVideos] = []
     var currentAsset: AVAsset?
     

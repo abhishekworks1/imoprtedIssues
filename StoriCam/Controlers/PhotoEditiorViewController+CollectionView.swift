@@ -174,7 +174,10 @@ extension PhotoEditorViewController: UICollectionViewDataSource, KDDragAndDropCo
             return cell
         } else if collectionView == self.collectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "KeyframePickerCollectionViewCell", for: indexPath) as! KeyframePickerCollectionViewCell
-            cell.keyframeImage = _displayKeyframeImages[indexPath.row]
+            if _displayKeyframeImages.count != 0 {
+                cell.keyframeImage = _displayKeyframeImages[indexPath.row]
+            }
+            
             return cell
         } else {
             return UICollectionViewCell()

@@ -142,7 +142,7 @@ public class ImageCropperView: UIImageView {
 
 class ImageCropperVC: UIViewController {
     
-    public var delegate: ImageCropperDelegate?
+    public weak var delegate: ImageCropperDelegate?
     
     @IBOutlet weak var imageView: ImageCropperView! {
         didSet {
@@ -155,6 +155,10 @@ class ImageCropperVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.imageView.image = image
+    }
+    
+    deinit {
+        print("deinit ImageCropperVC")
     }
     
     @IBAction func backButtonClicked(_ sender: Any) {

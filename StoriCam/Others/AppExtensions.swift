@@ -205,12 +205,8 @@ extension UIImageView {
         }
     }
     
-    func setImageFromURL(_ urlString: String?, placeholderImage: UIImage? = nil, indicatorStyle: UIActivityIndicatorView.Style = UIActivityIndicatorView.Style.gray) {
+    func setImageFromURL(_ urlString: String?, placeholderImage: UIImage? = ApplicationSettings.userPlaceHolder) {
         sd_imageIndicator = SDWebImageActivityIndicator.gray
-        let urlString = urlString
-        //urlString = urlString?.addingPercentEscapes(using: .utf8)
-        // urlString = urlString?.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)
-        
         let url = URL(string: urlString ?? "")
         sd_setImage(with: url, placeholderImage: placeholderImage)
     }

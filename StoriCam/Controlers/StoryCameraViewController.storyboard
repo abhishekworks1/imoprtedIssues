@@ -2279,7 +2279,7 @@ Countdown</string>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back" translatesAutoresizingMaskIntoConstraints="NO" id="RhE-hV-uD7">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="storyBack" translatesAutoresizingMaskIntoConstraints="NO" id="RhE-hV-uD7">
                                                 <rect key="frame" x="5" y="21.5" width="12" height="23"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="23" id="WUE-ca-B2g"/>
@@ -2684,7 +2684,6 @@ Countdown</string>
                     <connections>
                         <outlet property="headerView" destination="gI0-77-aCY" id="ppW-Bf-fcE"/>
                         <segue destination="ibP-kP-x2s" kind="custom" identifier="mx_page_0" customClass="MXPageSegue" id="0rq-Pp-dHI"/>
-                        <segue destination="Dur-gm-XdC" kind="custom" identifier="mx_page_1" customClass="MXPageSegue" id="NHe-Dy-Bu1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aDh-u8-1MC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2725,7 +2724,6 @@ Countdown</string>
         </scene>
     </scenes>
     <resources>
-        <image name="back" width="16" height="16"/>
         <image name="cameraFlip" width="27" height="27"/>
         <image name="cancelDownload" width="16" height="16"/>
         <image name="checkOff" width="20" height="20"/>

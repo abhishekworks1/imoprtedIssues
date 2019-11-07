@@ -15,6 +15,10 @@ class BaseUploadVC: MXSegmentedPagerController {
     
     var firstModalPersiontage: Double = 0.0
     var firstModalUploadCompletedSize: Double = 0.0
+   
+    deinit {
+        print("deinit BaseUploadVC")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,12 +54,6 @@ class BaseUploadVC: MXSegmentedPagerController {
                 storyUploadVC.firstModalUploadCompletedSize = firstModalUploadCompletedSize
             }
         }
-        if segue.identifier == "mx_page_1" {
-            if let feedUploadVC = R.storyboard.storyCameraViewController.feedUploadVC() {
-                            feedUploadVC.firstModalPersiontage = firstModalPersiontage
-                            feedUploadVC.firstModalUploadCompletedSize = firstModalUploadCompletedSize
-                        }
-        }
     }
     
     @IBAction func onBack(_ sender: Any) {
@@ -64,10 +62,9 @@ class BaseUploadVC: MXSegmentedPagerController {
     
     @IBAction func onRestartUploadClick(_ sender: Any) {
         StoryDataManager.shared.restartAll()
-        PostDataManager.shared.restartAll()
     }
     
     override func segmentedPager(_ segmentedPager: MXSegmentedPager, titleForSectionAt index: Int) -> String {
-        return ["Story", "Feed"][index]
+        return ["Story"][index]
     }
 }

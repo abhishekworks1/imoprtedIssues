@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GKc-0J-97B">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GKc-0J-97B">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -300,49 +300,12 @@
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r4f-s8-jb3" customClass="RoundedView" customModule="StoriCam_Pro" customModuleProvider="target">
-                                                <rect key="frame" x="44.5" y="73" width="325" height="57.5"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gV6-Cp-7P7" customClass="PButton" customModule="StoriCam_Pro" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="325" height="57.5"/>
-                                                    </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SIGN UP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M7t-R9-eZj" customClass="PLabel" customModule="StoriCam_Pro" customModuleProvider="target">
-                                                        <rect key="frame" x="130" y="19.5" width="65" height="19"/>
-                                                        <fontDescription key="fontDescription" name="SFUIText-Bold" family="SF UI Text" pointSize="16"/>
-                                                        <color key="textColor" red="0.098039215690000001" green="0.12549019610000001" blue="0.18039215689999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <constraints>
-                                                    <constraint firstItem="gV6-Cp-7P7" firstAttribute="height" secondItem="r4f-s8-jb3" secondAttribute="height" id="4gD-BX-mRx"/>
-                                                    <constraint firstItem="M7t-R9-eZj" firstAttribute="centerX" secondItem="r4f-s8-jb3" secondAttribute="centerX" id="OX1-rA-E1a"/>
-                                                    <constraint firstItem="M7t-R9-eZj" firstAttribute="centerY" secondItem="r4f-s8-jb3" secondAttribute="centerY" id="WnN-zD-aPz"/>
-                                                    <constraint firstItem="gV6-Cp-7P7" firstAttribute="centerX" secondItem="r4f-s8-jb3" secondAttribute="centerX" id="cpJ-dj-MXZ"/>
-                                                    <constraint firstItem="gV6-Cp-7P7" firstAttribute="centerY" secondItem="r4f-s8-jb3" secondAttribute="centerY" id="gAv-et-e4O"/>
-                                                    <constraint firstItem="gV6-Cp-7P7" firstAttribute="width" secondItem="r4f-s8-jb3" secondAttribute="width" id="qM4-q8-4eM"/>
-                                                </constraints>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                        <real key="value" value="1"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="hasGridiantLayer" value="NO"/>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" red="0.61960784310000006" green="0.75686274509999996" blue="0.83921568629999999" alpha="0.21725171230000001" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
-                                                </userDefinedRuntimeAttributes>
-                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="bGX-Gp-O7p" firstAttribute="centerX" secondItem="lUm-GV-bvf" secondAttribute="centerX" id="5bU-rY-1dY"/>
-                                            <constraint firstItem="r4f-s8-jb3" firstAttribute="centerX" secondItem="bGX-Gp-O7p" secondAttribute="centerX" id="YWE-ID-La1"/>
-                                            <constraint firstItem="r4f-s8-jb3" firstAttribute="height" secondItem="bGX-Gp-O7p" secondAttribute="height" id="Zcb-bp-RqN"/>
-                                            <constraint firstItem="r4f-s8-jb3" firstAttribute="top" secondItem="bGX-Gp-O7p" secondAttribute="bottom" constant="20" id="gDc-fD-1pn"/>
                                             <constraint firstItem="bGX-Gp-O7p" firstAttribute="top" secondItem="lUm-GV-bvf" secondAttribute="top" constant="-4" id="lMo-ch-GHa"/>
                                             <constraint firstItem="bGX-Gp-O7p" firstAttribute="width" secondItem="lUm-GV-bvf" secondAttribute="width" multiplier="0.784" id="urv-e9-ChA"/>
-                                            <constraint firstItem="r4f-s8-jb3" firstAttribute="width" secondItem="bGX-Gp-O7p" secondAttribute="width" id="yYC-y5-mgR"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -401,7 +364,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="hidePassword" width="64" height="64"/>
+        <image name="hidePassword" width="18" height="14"/>
         <image name="spinachcafe" width="374" height="53"/>
     </resources>
 </document>

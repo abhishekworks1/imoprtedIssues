@@ -435,6 +435,9 @@ class StoryCameraViewController: UIViewController {
         setupCountDownView()
         
         addAskQuestionReplyView()
+       
+        StoryDataManager.shared.delegate = self
+        StoryDataManager.shared.startUpload()
         
         view.bringSubviewToFront(baseView)
         view.bringSubviewToFront(blurView)
@@ -490,8 +493,6 @@ class StoryCameraViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        StoryDataManager.shared.delegate = self
-        StoryDataManager.shared.startUpload()
         
         if recordingType == .slideshow {
             recordingType = .slideshow

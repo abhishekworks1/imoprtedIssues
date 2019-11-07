@@ -10,6 +10,9 @@ import UIKit
 import CoreData
 import Tiercel
 import IQKeyboardManagerSwift
+import Firebase
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -35,6 +38,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         configureAppTheme()
         
         ColorCubeStorage.loadToDefault()
+        FirebaseApp.configure()
+        #if DEBUG
+        Fabric.sharedSDK().debug = true
+        #else
+        Fabric.sharedSDK().debug = false
+        #endif
         
         var rootViewController: UIViewController? = R.storyboard.loginViewController.loginNavigation()
         if let user = Defaults.shared.currentUser,
@@ -49,7 +58,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
         }
-        Utils.appDelegate?.window?.rootViewController = rootViewController
+        
+        UIApplication.shared.delegate!.window!!.rootViewController = rootViewController
         
         return true
     }
@@ -123,5 +133,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
+    
+    
 }
 

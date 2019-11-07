@@ -182,9 +182,10 @@ extension StoryCameraViewController {
     }
     
     @IBAction func onUploadsClick(_ sender: Any) {
-        if let storyUploadVC = R.storyboard.storyCameraViewController.storyUploadVC() {
+        if let storyUploadVC = R.storyboard.storyCameraViewController.baseUploadVC() {
             storyUploadVC.firstModalPersiontage = firstPercentage
             storyUploadVC.firstModalUploadCompletedSize = firstUploadCompletedSize
+            
             navigationController?.pushViewController(storyUploadVC, animated: true)
         }
     }

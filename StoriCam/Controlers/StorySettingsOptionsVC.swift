@@ -31,6 +31,10 @@ class StorySettingsOptionsVC: UIViewController {
         
     }
     
+    deinit {
+        print("deinit StorySettingsOptionsVC")
+    }
+
     @IBAction func onBack(_ sender: Any) {
         navigationController?.popViewController(animated: true)
     }

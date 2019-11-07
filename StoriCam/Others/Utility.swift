@@ -102,18 +102,18 @@ public struct Utils {
         let data = image.jpegData(compressionQuality: 0.6)
         let url = Utils.getLocalPath(imgName)
         try? data?.write(to: url)
-        DispatchQueue.main.async {
-            AWSManager.shareInstance().uploadImageToAmazon(currentFileName: imgName, soundFileURL: url, nil, progressBlock: progressBlock, callBack: callBack)
-        }
+        
+        AWSManager.shareInstance().uploadImageToAmazon(currentFileName: imgName, soundFileURL: url, nil, progressBlock: progressBlock, callBack: callBack)
+        
     }
     
     static func uploadVideo(videoName: String, videoData: Data, progressBlock: @escaping (Float) -> () = { _ in }, callBack: @escaping (String) -> ()) {
         let data = videoData
         let url = Utils.getLocalPath(videoName)
         try?data.write(to: url)
-        DispatchQueue.main.async {
-            AWSManager.shareInstance().uploadImageToAmazon(currentFileName: videoName, soundFileURL: url, nil, progressBlock: progressBlock, callBack: callBack)
-        }
+        
+        AWSManager.shareInstance().uploadImageToAmazon(currentFileName: videoName, soundFileURL: url, nil, progressBlock: progressBlock, callBack: callBack)
+        
     }
     
     static func uploadVideo(videoData: Data, progressBlock: @escaping (Float) -> () = { _ in }, callBack: @escaping (String) -> (), failedBlock: @escaping (Swift.Error?) -> () = { _ in }) {
