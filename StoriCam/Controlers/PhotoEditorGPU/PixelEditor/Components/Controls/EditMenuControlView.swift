@@ -37,13 +37,13 @@ open class EditMenuControl : EditMenuControlBase {
   public let scrollView = UIScrollView()
   
   public lazy var adjustmentButton: ButtonView = {
-    let button = ButtonView(name: L10n.editAdjustment, image: UIImage(named: "adjustment") ?? UIImage())
+    let button = ButtonView(name: L10n.editAdjustment, image: R.image.adjustment() ?? UIImage())
     button.addTarget(self, action: #selector(adjustment), for: .touchUpInside)
     return button
   }()
   
   public lazy var maskButton: ButtonView = {
-    let button = ButtonView(name: L10n.editMask, image: UIImage(named: "maskImage") ?? UIImage())
+    let button = ButtonView(name: L10n.editMask, image: R.image.maskImage() ?? UIImage())
     button.addTarget(self, action: #selector(masking), for: .touchUpInside)
     return button
   }()
@@ -55,61 +55,61 @@ open class EditMenuControl : EditMenuControlBase {
   }()
   
   public lazy var gaussianBlurButton: ButtonView = {
-    let button = ButtonView(name: L10n.editBlur, image: UIImage(named: "blur") ?? UIImage())
+    let button = ButtonView(name: L10n.editBlur, image: R.image.blur() ?? UIImage())
     button.addTarget(self, action: #selector(blur), for: .touchUpInside)
     return button
   }()
   
   public lazy var contrastButton: ButtonView = {
-    let button = ButtonView(name: L10n.editContrast, image: UIImage(named: "contrast") ?? UIImage())
+    let button = ButtonView(name: L10n.editContrast, image: R.image.contrast() ?? UIImage())
     button.addTarget(self, action: #selector(contrast), for: .touchUpInside)
     return button
   }()
   
   public lazy var temperatureButton: ButtonView = {
-    let button = ButtonView(name: L10n.editTemperature, image: UIImage(named: "temperature") ?? UIImage())
+    let button = ButtonView(name: L10n.editTemperature, image: R.image.temperature() ?? UIImage())
     button.addTarget(self, action: #selector(warmth), for: .touchUpInside)
     return button
   }()
   
   public lazy var saturationButton: ButtonView = {
-    let button = ButtonView(name: L10n.editSaturation, image: UIImage(named: "saturation") ?? UIImage())
+    let button = ButtonView(name: L10n.editSaturation, image: R.image.saturation() ?? UIImage())
     button.addTarget(self, action: #selector(saturation), for: .touchUpInside)
     return button
   }()
   
   public lazy var highlightsButton: ButtonView = {
-    let button = ButtonView(name: L10n.editHighlights, image: UIImage(named: "highlights") ?? UIImage())
+    let button = ButtonView(name: L10n.editHighlights, image: R.image.highlights() ?? UIImage())
     button.addTarget(self, action: #selector(highlights), for: .touchUpInside)
     return button
   }()
   
   public lazy var shadowsButton: ButtonView = {
-    let button = ButtonView(name: L10n.editShadows, image: UIImage(named: "shadows") ?? UIImage())
+    let button = ButtonView(name: L10n.editShadows, image: R.image.shadows() ?? UIImage())
     button.addTarget(self, action: #selector(shadows), for: .touchUpInside)
     return button
   }()
   
   public lazy var vignetteButton: ButtonView = {
-    let button = ButtonView(name: L10n.editVignette, image: UIImage(named: "vignette") ?? UIImage())
+    let button = ButtonView(name: L10n.editVignette, image: R.image.vignette() ?? UIImage())
     button.addTarget(self, action: #selector(vignette), for: .touchUpInside)
     return button
   }()
   
   public lazy var fadeButton: ButtonView = {
-    let button = ButtonView(name: L10n.editFade, image: UIImage(named: "fade") ?? UIImage())
+    let button = ButtonView(name: L10n.editFade, image: R.image.fade() ?? UIImage())
     button.addTarget(self, action: #selector(fade), for: .touchUpInside)
     return button
   }()
   
   public lazy var sharpenButton: ButtonView = {
-    let button = ButtonView(name: L10n.editSharpen, image: UIImage(named: "sharpen") ?? UIImage())
+    let button = ButtonView(name: L10n.editSharpen, image: R.image.sharpen() ?? UIImage())
     button.addTarget(self, action: #selector(sharpen), for: .touchUpInside)
     return button
   }()
   
   public lazy var clarityButton: ButtonView = {
-    let button = ButtonView(name: L10n.editClarity, image: UIImage(named: "structure") ?? UIImage())
+    let button = ButtonView(name: L10n.editClarity, image: R.image.structure() ?? UIImage())
     button.addTarget(self, action: #selector(clarity), for: .touchUpInside)
     return button
   }()

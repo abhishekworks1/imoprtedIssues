@@ -18,7 +18,7 @@ class WeatherTagView: BaseStoryTagView {
     }
     
     lazy var imageView: UIImageView = {
-        let imageView = UIImageView.init(image: UIImage(named: "weather"))
+        let imageView = UIImageView.init(image: R.image.weather())
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()

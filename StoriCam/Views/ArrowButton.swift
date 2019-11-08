@@ -80,7 +80,7 @@ class ArrowButton: UIButton {
 
     private func makeArrow() -> UIImageView {
         let arrow = UIImageView()
-        arrow.image = UIImage(named: "gallery_title_arrow")?.withRenderingMode(.alwaysTemplate)
+        arrow.image = R.image.gallery_title_arrow()?.withRenderingMode(.alwaysTemplate)
         arrow.tintColor = ApplicationSettings.appBlackColor
         arrow.alpha = 0
         return arrow

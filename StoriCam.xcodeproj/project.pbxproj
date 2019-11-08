@@ -420,8 +420,6 @@
 		8299F56A23713A8B00963318 /* StoryCameraViewController+NextLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8299F56923713A8B00963318 /* StoryCameraViewController+NextLevel.swift */; };
 		8299F56C23714F5F00963318 /* DottedLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8299F56B23714F5F00963318 /* DottedLineView.swift */; };
 		8299F56E23714FCC00963318 /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8299F56D23714FCC00963318 /* Layout.swift */; };
-		8299F570237158D200963318 /* FeedUploadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8299F56F237158D100963318 /* FeedUploadVC.swift */; };
-		8299F57223715A9200963318 /* Post+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8299F57123715A9200963318 /* Post+CoreDataClass.swift */; };
 		82AD6B7023704B330090498A /* UIViewUtilsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AD6B6F23704B330090498A /* UIViewUtilsExtension.swift */; };
 		82AD6B7223704BA60090498A /* PhotoEditiorViewController+CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AD6B7123704BA60090498A /* PhotoEditiorViewController+CollectionView.swift */; };
 		82CCB16E2372CC2600EC76E8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CCB16D2372CC2600EC76E8 /* LoginViewController.swift */; };
@@ -971,7 +969,6 @@
 		8299F56923713A8B00963318 /* StoryCameraViewController+NextLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StoryCameraViewController+NextLevel.swift"; sourceTree = "<group>"; };
 		8299F56B23714F5F00963318 /* DottedLineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DottedLineView.swift; sourceTree = "<group>"; };
 		8299F56D23714FCC00963318 /* Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
-		8299F56F237158D100963318 /* FeedUploadVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedUploadVC.swift; sourceTree = "<group>"; };
 		8299F57123715A9200963318 /* Post+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Post+CoreDataClass.swift"; sourceTree = "<group>"; };
 		82AD6B6D237049AB0090498A /* PhotoEditor.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PhotoEditor.storyboard; sourceTree = "<group>"; };
 		82AD6B6F23704B330090498A /* UIViewUtilsExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewUtilsExtension.swift; sourceTree = "<group>"; };
@@ -1929,7 +1926,6 @@
 				8205FD93236C3B35002B2603 /* HistroGramVC+Controls.swift */,
 				8205FD95236C3B39002B2603 /* BaseUploadVC.swift */,
 				8205FD97236C3B49002B2603 /* StoryUploadVC.swift */,
-				8299F56F237158D100963318 /* FeedUploadVC.swift */,
 				8205FD99236C3B50002B2603 /* StorySettingsVC.swift */,
 				8205FD9B236C3B5E002B2603 /* YouTubePlayerVC.swift */,
 				8205FD9D236C3B65002B2603 /* StorySettingsOptionsVC.swift */,
@@ -2213,6 +2209,7 @@
 				824EB3762361959800205993 /* Resources */,
 				8F55EF2E66D9FEBCAB33F172 /* [CP] Embed Pods Frameworks */,
 				82EEF72F2375347300DE4845 /* ShellScript */,
+				7BA9086DBCFF29959054AB55 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2411,6 +2408,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		7BA9086DBCFF29959054AB55 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-StoriCam/Pods-StoriCam-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-StoriCam/Pods-StoriCam-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-StoriCam/Pods-StoriCam-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		8205FA75236C0D87002B2603 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2699,7 +2713,6 @@
 				8205FCCD236C3AFA002B2603 /* CollageCell.swift in Sources */,
 				82D1EBA2236FED0500A680E7 /* MensionCollectionViewDelegate.swift in Sources */,
 				8205FBBF236C2A88002B2603 /* MMPlayerPassViewPushTransition.swift in Sources */,
-				8299F57223715A9200963318 /* Post+CoreDataClass.swift in Sources */,
 				8205FCB7236C3AFA002B2603 /* CollageViewT302.swift in Sources */,
 				8205FA7A236C0F5B002B2603 /* ImageLibrary.swift in Sources */,
 				8205FB15236C1532002B2603 /* CountdownView.swift in Sources */,
@@ -2824,7 +2837,6 @@
 				8205FCCB236C3AFA002B2603 /* SwipeView.m in Sources */,
 				8205FC4B236C2E4E002B2603 /* StoryCameraViewController.swift in Sources */,
 				8205FB28236C160E002B2603 /* BaseWeatherTagView.swift in Sources */,
-				8299F570237158D200963318 /* FeedUploadVC.swift in Sources */,
 				8205FCB8236C3AFA002B2603 /* CollageView.swift in Sources */,
 				8206AEF02374108C000CDD2A /* Queuer.swift in Sources */,
 				824EB3E823619FB000205993 /* NextLevelSession.swift in Sources */,

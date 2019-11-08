@@ -64,7 +64,7 @@ class CropRectView: UIView, ResizeControlDelegate {
         
         resizeImageView = UIImageView(frame: bounds.insetBy(dx: -2.0, dy: -2.0))
         resizeImageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        let image = UIImage(named: "photoCropEditorBorder")
+        let image = R.image.photoCropEditorBorder()
         resizeImageView.image = image?.resizableImage(withCapInsets: UIEdgeInsets(top: 23.0, left: 23.0, bottom: 23.0, right: 23.0))
         addSubview(resizeImageView)
         

@@ -13,6 +13,8 @@ import IQKeyboardManagerSwift
 import Firebase
 import Fabric
 import Crashlytics
+import GooglePlaces
+import GoogleMaps
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -45,6 +47,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Fabric.sharedSDK().debug = false
         #endif
         
+        configureGoogleService()
+        
         var rootViewController: UIViewController? = R.storyboard.loginViewController.loginNavigation()
         if let user = Defaults.shared.currentUser,
             let _ = Defaults.shared.sessionToken,
@@ -54,7 +58,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             InternetConnectionAlert.shared.internetConnectionHandler = { reachability in
                 if reachability.connection != .none {
                     StoryDataManager.shared.startUpload()
-                    PostDataManager.shared.startUpload()
                 }
             }
         }
@@ -70,6 +73,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITabBar.appearance().tintColor = ApplicationSettings.appPrimaryColor
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: ApplicationSettings.appPrimaryColor], for: .selected)
         UISegmentedControl.appearance().tintColor = ApplicationSettings.appPrimaryColor
+    }
+    
+    func configureGoogleService() {
+        GMSServices.provideAPIKey(Constant.GoogleService.serviceKey)
+        GMSPlacesClient.provideAPIKey(Constant.GoogleService.placeClientKey)
     }
     
     func configureIQKeyboardManager() {

@@ -41,4 +41,6 @@ target 'StoriCam' do
   pod 'Spring', :git => 'https://github.com/MengTo/Spring.git'
   pod 'Firebase/Core'
   pod 'Firebase/Analytics'
+  pod 'GooglePlaces'
+  pod 'GooglePlacePicker'
 end

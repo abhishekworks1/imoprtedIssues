@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import CoreLocation
 import SCRecorder
+import GooglePlacePicker
 
 extension PhotoEditorViewController: UITextViewDelegate {
     
@@ -454,12 +455,41 @@ extension PhotoEditorViewController: StickersViewControllerDelegate {
         }
         
         func openPlacePickerView() {
-    //        let config = GMSPlacePickerConfig(viewport: nil)
-    //        let placePicker = GMSPlacePickerViewController(config: config)
-    //        placePicker.delegate = self
-    //        present(placePicker, animated: true, completion: nil)
+            let config = GMSPlacePickerConfig(viewport: nil)
+            let placePicker = GMSPlacePickerViewController(config: config)
+            placePicker.delegate = self
+            present(placePicker, animated: true, completion: nil)
         }
     
+}
+// MARK: GMSPlacePickerViewControllerDelegate
+
+extension PhotoEditorViewController: GMSPlacePickerViewControllerDelegate {
+    
+    public func placePicker(_ viewController: GMSPlacePickerViewController, didPick place: GMSPlace) {
+        addLocationTagView(place)
+        viewController.dismiss(animated: true, completion: nil)
+    }
+    
+    public func placePickerDidCancel(_ viewController: GMSPlacePickerViewController) {
+        viewController.dismiss(animated: true, completion: nil)
+    }
+    
+    func addLocationTagView(_ place: GMSPlace) {
+        let tagView = addTagViewFor(place.name ?? "", type: StoryTagType.location)
+        let tag = setUpStoryTagFor(tagView: tagView,
+                                   tagType: StoryTagType.location,
+                                   tagText: place.name ?? "")
+        tag.latitude = place.coordinate.latitude
+        tag.longitude = place.coordinate.longitude
+        tag.placeId = place.placeID
+        
+        if let locationIndex = storyTags.index(where: { $0.tag.tagType == StoryTagType.location.rawValue }) {
+            storyTags[locationIndex].view.removeFromSuperview()
+            storyTags.remove(at: locationIndex)
+        }
+        storyTags.append(BaseStoryTag(view: tagView, tag: tag))
+    }
 }
 
 extension PhotoEditorViewController: CollageMakerVCDelegate {

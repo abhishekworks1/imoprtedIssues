@@ -19,7 +19,7 @@ class StoryQueTextView: UITextView {
         }
     }
     
-    var placeholderColor: UIColor = UIColor(named: "quetag_Ice") ?? ApplicationSettings.appLightGrayColor {
+    var placeholderColor: UIColor = R.color.quetag_Ice() ?? ApplicationSettings.appLightGrayColor {
         didSet {
             setNeedsDisplay()
         }
@@ -215,9 +215,9 @@ class IBStoryQueSlider: UISlider {
 
 class StoryQueSlider: UISlider {
     
-    var minFillColor = UIColor(named: "quetag_darkSkyBlue") ?? UIColor.blue
+    var minFillColor = R.color.quetag_darkSkyBlue() ?? UIColor.blue
     
-    var maxFillColor = UIColor(named: "quetag_lightLavender") ?? ApplicationSettings.appLightGrayColor
+    var maxFillColor = R.color.quetag_lightLavender() ?? ApplicationSettings.appLightGrayColor
     
     var emojiText: String = "😍" {
         didSet {
@@ -367,14 +367,14 @@ class StoryQueSlider: UISlider {
 
 class StorySliderQueView: BaseQuestionTagView {
     
-    var startColor: UIColor = UIColor(named: "quetag_darkSkyBlue") ?? UIColor.blue
+    var startColor: UIColor = R.color.quetag_darkSkyBlue() ?? UIColor.blue
     
-    var endColor: UIColor = UIColor(named: "quetag_darkSkyBlue") ?? UIColor.blue
+    var endColor: UIColor = R.color.quetag_darkSkyBlue() ?? UIColor.blue
     
     lazy var textView: StoryQueTextView = {
         let txtView = StoryQueTextView(frame: CGRect.zero)
         txtView.font = UIFont.systemFont(ofSize: 26)
-        txtView.textColor = UIColor(named: "quetag_darkSkyBlue") ?? UIColor.blue
+        txtView.textColor = R.color.quetag_darkSkyBlue() ?? UIColor.blue
         txtView.isScrollEnabled = false
         txtView.textAlignment = .center
         txtView.backgroundColor = ApplicationSettings.appClearColor
