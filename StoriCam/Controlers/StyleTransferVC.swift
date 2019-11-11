@@ -1,0 +1,733 @@
+//
+//  ViewController.swift
+//  StyleTrasfer
+//
+//  Created by Jasmin Patel on 30/04/19.
+//  Copyright © 2019 Simform. All rights reserved.
+//
+
+import UIKit
+import CoreML
+import SCRecorder
+
+enum StyleTransferType {
+    case image(image: UIImage)
+    case video(videoSegments: [SegmentVideos], index: Int)
+}
+
+class StyleCollectionViewCell: UICollectionViewCell {
+    @IBOutlet weak var styleImageView: UIImageView!
+}
+
+extension StyleTransferVC: UIGestureRecognizerDelegate {
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+    
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        if gestureRecognizer is UILongPressGestureRecognizer {
+            return true
+        } else {
+            return false
+        }
+    }
+}
+
+class StyleTransferVC: UIViewController {
+    
+    @IBOutlet weak var collectionView: KDDragAndDropCollectionView!
+    
+    var dragAndDropManager: KDDragAndDropManager?
+    @IBOutlet weak var btnSlideShow: UIButton!
+    @IBOutlet weak var btnCollage: UIButton!
+    @IBOutlet weak var btnDropDown: UIButton!
+    @IBOutlet weak var btnAddImage: UIButton!
+    
+    var isShowHideMode: Bool = false {
+        didSet {
+            btnDropDown.isHidden = isShowHideMode
+            btnSlideShow.isHidden = !isShowHideMode
+            btnCollage.isHidden = !isShowHideMode
+        }
+    }
+    
+    @IBOutlet weak var progressView: UIProgressView!
+    
+    @IBOutlet weak var videoView: MLVideoView!
+    
+    @IBOutlet weak var filterImageView: UIImageView!{
+        didSet {
+            filterImageView.isUserInteractionEnabled = true
+            filterImageView.clipsToBounds = true
+            let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressOnImageView(_:)))
+            longPressGesture.minimumPressDuration = 0.1
+            filterImageView.addGestureRecognizer(longPressGesture)
+        }
+    }
+    
+    @IBOutlet weak var scrollView: UIScrollView! {
+        didSet {
+            scrollView.contentSize = CGSize.init(width: UIScreen.width*11, height: scrollView.frame.height)
+            let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressOnImageView(_:)))
+            longPressGesture.minimumPressDuration = 0.1
+            scrollView.addGestureRecognizer(longPressGesture)
+        }
+    }
+    
+    // Gesture recognizers
+    fileprivate var pinchRecognizer: UIPinchGestureRecognizer?
+    fileprivate var rotationRecognizer: UIRotationGestureRecognizer?
+    fileprivate var panRecognizer: UIPanGestureRecognizer?
+    fileprivate var referenceCenter: CGPoint = .zero
+    
+    var isZooming = false {
+        didSet {
+            scrollView.isScrollEnabled = !isZooming
+        }
+    }
+    
+    func addGestureRecognizers() {
+        pinchRecognizer = UIPinchGestureRecognizer(target: self,
+                                                   action: #selector(handlePinchOrRotate(gesture:)))
+        
+        rotationRecognizer = UIRotationGestureRecognizer(target: self,
+                                                         action: #selector(handlePinchOrRotate(gesture:)))
+        panRecognizer = UIPanGestureRecognizer(target: self,
+                                               action: #selector(handlePan(gesture:)))
+        
+        let gestures: [UIGestureRecognizer] = [
+            pinchRecognizer!,
+            rotationRecognizer!,
+            panRecognizer!
+        ]
+        gestures.forEach {
+            $0.delegate = self
+            scrollView.addGestureRecognizer($0)
+        }
+    }
+    
+    /// Tells the DrawTextView to handle a pan gesture.
+    ///
+    /// - Parameter gesture: The pan gesture recognizer to handle.
+    /// - Note: This method is triggered by the DrawDrawController's internal pan gesture recognizer.
+    @objc func handlePan(gesture: UIPanGestureRecognizer) {
+        if !isZooming {
+            return
+        }
+        switch (gesture.state) {
+        case .began:
+            referenceCenter = filterImageView.center
+        case .changed:
+            let panTranslation = gesture.translation(in: self.view)
+            filterImageView.center = CGPoint(x: referenceCenter.x + panTranslation.x,
+                                             y: referenceCenter.y + panTranslation.y)
+        case .ended:
+            referenceCenter = filterImageView.center
+        default: break
+        }
+    }
+    
+    @objc func handlePinchOrRotate(gesture: UIGestureRecognizer) {
+        switch gesture.state {
+        case .began:
+            self.isZooming = true
+            break
+        case .changed:
+            break
+        case .ended, .failed, .cancelled:
+            self.isZooming = false
+            break
+        case .possible:
+            break
+        @unknown default:
+            break
+        }
+        if let gesture = gesture as? UIRotationGestureRecognizer {
+            filterImageView.transform = filterImageView.transform.rotated(by: gesture.rotation)
+            gesture.rotation = 0
+        }
+        if let gesture = gesture as? UIPinchGestureRecognizer {
+            filterImageView.transform = filterImageView.transform.scaledBy(x: gesture.scale, y: gesture.scale)
+            gesture.scale = 1
+        }
+    }
+    
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var transparentActivityView: UIView!
+    @IBOutlet weak var imageCollectionView: UICollectionView!
+    
+    public var selectedItemArray: [SegmentVideos] = [] {
+        didSet {
+            if selectedItemArray.count >= 2 {
+                isShowHideMode = true
+            } else {
+                isShowHideMode = false
+            }
+        }
+    }
+    let numberOfStyles: NSNumber = NSNumber(value: 43)
+    
+    var styleData: [StyleData] = []
+    var orignalImage: UIImage?
+    var filteredImage: UIImage?
+    var selectedFilterIndexPath: IndexPath = IndexPath.init(row: 0, section: 0)
+    
+    var selectedIndex = -1
+    
+    var isProcessing: Bool = false {
+        didSet {
+            activityIndicator.isHidden = !isProcessing
+            transparentActivityView.isHidden = !isProcessing
+            isProcessing ? activityIndicator.startAnimating() : activityIndicator.stopAnimating()
+        }
+    }
+    
+    var doneHandler: ((Any, Int) -> ())? = nil
+    
+    var type: StyleTransferType = .image(image: UIImage())
+    
+    var coreMLExporter = CoreMLExporter()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        for i in 1...43 {
+            styleData.append(StyleData(name: "", image: UIImage(named: "styletransfer_\(i)")!, styleImage: nil))
+        }
+        setData()
+        setupLayout()
+        addGestureRecognizers()
+        
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        if !self.videoView.isHidden {
+            removeObserveState()
+        }
+    }
+    
+    fileprivate func setupLayout() {
+        self.dragAndDropManager = KDDragAndDropManager(
+            canvas: self.view,
+            collectionViews: [imageCollectionView]
+        )
+        
+        let imageCollectionViewLayout = self.imageCollectionView.collectionViewLayout as! UPCarouselFlowLayout
+        imageCollectionViewLayout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: 0.1)
+        imageCollectionView.register(R.nib.imageCollectionViewCell)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if !self.videoView.isHidden {
+            observeState()
+        }
+    }
+    
+    func observeState() {
+        NotificationCenter.default.addObserver(self, selector: #selector(self.enterBackground), name: UIApplication.willResignActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.enterForeground), name: UIApplication.didBecomeActiveNotification, object: nil)
+    }
+    
+    func removeObserveState() {
+        NotificationCenter.default.removeObserver(self, name: UIApplication.willResignActiveNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+    }
+    
+    @objc func enterBackground(_ notifi: Notification) {
+        videoView.player.pause()
+    }
+    
+    @objc func enterForeground(_ notifi: Notification) {
+        videoView.player.play()
+    }
+    
+    @IBAction func backButtonClicked(_ sender: Any) {
+        DispatchQueue.main.async {
+            if !self.videoView.isHidden {
+                self.videoView.stop()
+            }
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+    
+    @IBAction func btnShowHide(_ sender: UIButton) {
+        switch type {
+        case .image(_ ):
+            if let filterImage = filteredImage {
+                self.doneHandler?(filterImage, sender.tag)
+                self.navigationController?.popViewController(animated: false)
+            }
+            break
+        case .video(_ , _):
+            saveImage(sender)
+            break
+        }
+    }
+    
+    @IBAction func saveImage(_ sender: UIButton) {
+        switch type {
+        case .image:
+            if selectedItemArray.count >= 1 {
+                self.doneHandler?(selectedItemArray, sender.tag)
+            } else {
+                if let filterImage = filteredImage {
+                    self.doneHandler?(filterImage, sender.tag)
+                }
+            }
+            self.navigationController?.popViewController(animated: false)
+            break
+        case .video(let videoSegments, let index):
+            let mergeSession = SCRecordSession()
+            for segementModel in videoSegments[index].videos {
+                let segment = SCRecordSessionSegment(url: segementModel.url!, info: nil)
+                mergeSession.addSegment(segment)
+            }
+            videoView.player.pause()
+            let viewData = LoadingView.instanceFromNib()
+            viewData.show(on: view, completion: {
+                viewData.cancleClick = {
+                    self.cancelExporting(UIButton())
+                    viewData.hide()
+                }
+            })
+            
+            coreMLExporter.exportVideo(for: mergeSession.assetRepresentingSegments(), and: selectedIndex, progress: { progress in
+                DispatchQueue.main.async {
+                    viewData.progressView.setProgress(to: Double(progress), withAnimation: true)
+                }
+            }, completion: { exportedURL in
+                if let url = exportedURL {
+                    DispatchQueue.main.async {
+                        self.videoView.stop()
+                        viewData.hide()
+                    }
+                    var updatedSegments = videoSegments
+                    let updatedSegment = SegmentVideos(urlStr: url,
+                                                       thumbimage: videoSegments[index].image,
+                                                       latitued: nil,
+                                                       longitued: nil,
+                                                       placeAddress: nil,
+                                                       numberOfSegement: videoSegments[index].numberOfSegementtext,
+                                                       videoduration: nil,
+                                                       combineOneVideo: true)
+                    updatedSegments.remove(at: index)
+                    updatedSegments.insert(updatedSegment, at: index)
+                    DispatchQueue.main.async {
+                        self.doneHandler?(updatedSegments, sender.tag)
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                }
+            })
+            break
+        }
+    }
+    
+    @IBAction func addImageClick(_ sender: Any) {
+        if let filterImage = filteredImage {
+            
+            let fileName = String.fileName + FileExtension.png.rawValue
+            let data = filterImage.pngData()
+            let destinationImageURL = Utils.getLocalPath(fileName)
+            try? data?.write(to: destinationImageURL)
+            
+            selectedItemArray.append(SegmentVideos(urlStr: destinationImageURL, thumbimage: filteredImage, latitued: nil, longitued: nil, placeAddress: nil, numberOfSegement: "\(self.selectedItemArray.count + 1)", videoduration: nil))
+            self.imageCollectionView.reloadData()
+        }
+    }
+    
+    @IBAction func downloadImage(_ sender: Any) {
+        switch type {
+        case .image:
+            if let image = filteredImage {
+                let album = SCAlbum.shared
+                album.albumName = "\(Constant.Application.displayName) - Outtakes"
+                album.save(image: image)
+                self.view.makeToast("saved", duration: 2.0, position: .bottom)
+            }
+            break
+        case .video(let videoSegments, let index):
+            let mergeSession = SCRecordSession()
+            for segementModel in videoSegments[index].videos {
+                let segment = SCRecordSessionSegment(url: segementModel.url!, info: nil)
+                mergeSession.addSegment(segment)
+            }
+            videoView.player.pause()
+            let viewData = LoadingView.instanceFromNib()
+            viewData.show(on: view, completion: {
+                viewData.cancleClick = {
+                    self.cancelExporting(UIButton())
+                    viewData.hide()
+                }
+            })
+            
+            coreMLExporter.exportVideo(for: mergeSession.assetRepresentingSegments(), and: selectedIndex, progress: { progress in
+                DispatchQueue.main.async {
+                    viewData.progressView.setProgress(to: Double(progress), withAnimation: true)
+                }
+            }, completion: { exportedURL in
+                if let url = exportedURL {
+                    DispatchQueue.main.async {
+                        self.videoView.player.play()
+                        viewData.hide()
+                    }
+                    SCAlbum.shared.saveMovieToLibrary(movieURL: url)
+                    self.view.makeToast("saved", duration: 2.0, position: .bottom)
+                }
+            })
+            break
+        }
+        
+    }
+    
+    @IBAction func cancelExporting(_ sender: Any) {
+        DispatchQueue.main.async {
+            self.videoView.player.play()
+        }
+        coreMLExporter.cancelExporting()
+    }
+    
+    @objc func handleLongPressOnImageView(_ gesture: UILongPressGestureRecognizer) {
+        if gesture.state == .began || gesture.state == .changed {
+            removeFilter()
+        } else {
+            applyFilter()
+        }
+    }
+    
+    @objc func handleLongPressOnFilterImageView(_ gesture: UILongPressGestureRecognizer) {
+        if gesture.state == .began {
+            selectedFilterIndexPath = IndexPath.init(row: gesture.view!.tag, section: 0)
+            type = .image(image: filteredImage!)
+            self.applyStyle(index: gesture.view!.tag)
+            styleData[selectedFilterIndexPath.row].isSelected = true
+            self.collectionView.reloadData()
+            applyFilter()
+        }
+    }
+    
+    func removeFilter() {
+        type = .image(image: orignalImage!)
+        switch type {
+        case .image(let image):
+            filterImageView.image = image
+        default:
+            break
+        }
+    }
+    
+    func applyFilter() {
+        filterImageView.image = filteredImage
+    }
+    
+    func setData() {
+        isShowHideMode = false
+        selectedIndex = 0
+        self.styleData[selectedIndex].isSelected = true
+        switch type {
+        case .image(let image):
+            videoView.isHidden = true
+            let size = scaledSize(size: image.size)
+            let rect = CGRect.init(x: 0, y: 0, width: size.width, height: size.height)
+            UIGraphicsBeginImageContextWithOptions(size, false, 1.0)
+            image.draw(in: rect)
+            guard let newImage = UIGraphicsGetImageFromCurrentImageContext() else { return }
+            UIGraphicsEndImageContext()
+            filteredImage = newImage
+            type = .image(image: newImage)
+            filterImageView.image = newImage
+            orignalImage = newImage
+            self.applyStyle(index: selectedIndex)
+        case .video(let videoSegments, let index):
+            btnAddImage.isHidden = true
+            btnDropDown.setImage(R.image.rightIconSetting(), for: UIControl.State())
+            btnDropDown.tag = 2
+            let mergeSession = SCRecordSession()
+            for segementModel in videoSegments[index].videos {
+                let segment = SCRecordSessionSegment(url: segementModel.url!, info: nil)
+                mergeSession.addSegment(segment)
+            }
+            videoView.play(asset: mergeSession.assetRepresentingSegments())
+        }
+        selectedItemArray = []
+    }
+    
+    func scaledSize(size: CGSize) -> CGSize {
+        var scale: CGFloat = 1.0
+        
+        if size.width > size.height {
+            if size.width > 1280 {
+                scale = 1280/size.width
+            }
+        } else  {
+            if size.height > 1280 {
+                scale = 1280/size.height
+            }
+        }
+        
+        
+        let targetSize = CGSize(width: floor(size.width * scale), height: floor(size.height * scale))
+        
+        let widthRatio  = targetSize.width  / size.width
+        let heightRatio = targetSize.height / size.height
+        
+        var newSize: CGSize
+        if(widthRatio > heightRatio) {
+            newSize = CGSize.init(width: size.width * heightRatio, height: size.height * heightRatio)
+        } else {
+            newSize = CGSize.init(width: size.width * widthRatio, height: size.height * widthRatio)
+        }
+        
+        return newSize
+    }
+    
+    func pixelBuffer(from image: UIImage) -> CVPixelBuffer? {
+        let maxWidth: CGFloat = image.size.width
+        let maxHeight: CGFloat = image.size.height
+        
+        UIGraphicsBeginImageContextWithOptions(CGSize(width: maxWidth, height: maxHeight), true, 2.0)
+        image.draw(in: CGRect(x: 0, y: 0, width: maxWidth, height: maxHeight))
+        UIGraphicsEndImageContext()
+        
+        let attrs = [kCVPixelBufferCGImageCompatibilityKey: kCFBooleanTrue, kCVPixelBufferCGBitmapContextCompatibilityKey: kCFBooleanTrue] as CFDictionary
+        var pixelBuffer : CVPixelBuffer?
+        let status = CVPixelBufferCreate(kCFAllocatorDefault, Int(maxWidth), Int(maxHeight), kCVPixelFormatType_32ARGB, attrs, &pixelBuffer)
+        guard (status == kCVReturnSuccess) else {
+            return nil
+        }
+        
+        CVPixelBufferLockBaseAddress(pixelBuffer!, CVPixelBufferLockFlags(rawValue: 0))
+        let pixelData = CVPixelBufferGetBaseAddress(pixelBuffer!)
+        
+        let rgbColorSpace = CGColorSpaceCreateDeviceRGB()
+        let context = CGContext(data: pixelData, width: Int(maxWidth), height: Int(maxHeight), bitsPerComponent: 8, bytesPerRow: CVPixelBufferGetBytesPerRow(pixelBuffer!), space: rgbColorSpace, bitmapInfo: CGImageAlphaInfo.noneSkipFirst.rawValue)
+        
+        context?.translateBy(x: 0, y: maxHeight)
+        context?.scaleBy(x: 1.0, y: -1.0)
+        
+        UIGraphicsPushContext(context!)
+        image.draw(in: CGRect(x: 0, y: 0, width: maxWidth, height: maxHeight))
+        UIGraphicsPopContext()
+        CVPixelBufferUnlockBaseAddress(pixelBuffer!, CVPixelBufferLockFlags(rawValue: 0))
+        
+        return pixelBuffer
+    }
+    
+    func applyStyle(index: Int) {
+        if #available(iOS 12.0, *) {
+            selectedIndex = index
+            switch type {
+            case .image(let image):
+                guard !self.isProcessing else {
+                    return
+                }
+                DispatchQueue.main.async {
+                    self.isProcessing = true
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    let model = StyleTransferModel43()
+                    do {
+                        let styles = try MLMultiArray(shape: [self.numberOfStyles],
+                                                      dataType: .double)
+                        for i in 0..<styles.count {
+                            styles[i] = 0.0
+                        }
+                        styles[self.selectedIndex] = 1.0
+                        if let image = self.pixelBuffer(from: image) {
+                            do {
+                                let predictionOutput = try model.prediction(image: image, index: styles)
+                                let ciImage = CIImage(cvPixelBuffer: predictionOutput.stylizedImage)
+                                let tempContext = CIContext(options: nil)
+                                let tempImage = tempContext.createCGImage(ciImage, from: CGRect(x: 0, y: 0, width: CVPixelBufferGetWidth(predictionOutput.stylizedImage), height: CVPixelBufferGetHeight(predictionOutput.stylizedImage)))
+                                self.filteredImage = UIImage(cgImage: tempImage!)
+                                self.applyFilter()
+                            } catch let error as NSError {
+                                print("CoreML Model Error: \(error)")
+                            }
+                        }
+                    } catch let error as NSError {
+                        print("CoreML Model Error: \(error)")
+                    }
+                    self.isProcessing = false
+                }
+                
+                break
+            case .video:
+                videoView.selectedIndex = selectedIndex
+                break
+            }
+        }
+    }
+    
+}
+
+extension StyleTransferVC: UIScrollViewDelegate {
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if scrollView == self.scrollView {
+            let scrollIndex = Int(scrollView.contentOffset.x/UIScreen.width)
+            guard scrollIndex != selectedIndex, !self.isProcessing else {
+                return
+            }
+            for (index, style) in self.styleData.enumerated() {
+                style.isSelected = (index == scrollIndex)
+            }
+            self.collectionView.reloadData()
+            self.collectionView.scrollToItem(at: IndexPath(row: scrollIndex, section: 0),
+                                             at: .centeredHorizontally,
+                                             animated: true)
+            self.applyStyle(index: scrollIndex)
+        }
+    }
+    
+}
+
+extension StyleTransferVC: KDDragAndDropCollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, indexPathForDataItem dataItem: AnyObject) -> IndexPath? {
+        guard let candidate = dataItem as? SegmentVideos else { return nil }
+        
+        for (i, item) in selectedItemArray.enumerated() {
+            if candidate.id != item.id {
+                continue
+            }
+            return IndexPath(item: i, section: 0)
+        }
+        
+        return nil
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, dataItemForIndexPath indexPath: IndexPath) -> AnyObject {
+        return selectedItemArray[indexPath.item]
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, deleteDataItemAtIndexPath indexPath: IndexPath) {
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, moveDataItemFromIndexPath from: IndexPath, toIndexPath to: IndexPath) {
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, insertDataItem dataItem: AnyObject, atIndexPath indexPath: IndexPath) {
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellIsDraggableAtIndexPath indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func collectionViewEdgesAndScroll(_ collectionView: UICollectionView, rect: CGRect) {
+        
+    }
+    
+    func collectionViewLastEdgesAndScroll(_ collectionView: UICollectionView, rect: CGRect) {
+        let newrect = rect.origin.y + collectionView.frame.origin.y
+        let newrectData = CGRect.init(x: rect.origin.x, y: newrect, width: rect.width, height: rect.height)
+        
+        let checkframeDelete = CGRect.init(x: collectionView.frame.origin.x, y: collectionView.frame.origin.y, width: collectionView.frame.width, height: collectionView.frame.height)
+        
+        if !checkframeDelete.intersects(newrectData) {
+            if let kdCollectionView = collectionView as? KDDragAndDropCollectionView {
+                if let draggingPathOfCellBeingDragged = kdCollectionView.draggingPathOfCellBeingDragged {
+                    selectedItemArray.remove(at: draggingPathOfCellBeingDragged.row)
+                    self.collectionView.reloadData()
+                }
+            }
+        }
+    }
+    
+}
+
+
+
+extension StyleTransferVC: UICollectionViewDelegate {
+    
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if collectionView.tag == 0 {
+            return styleData.count
+        } else if collectionView.tag == 2 {
+            return selectedItemArray.count
+        } else {
+            return 0
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if collectionView == self.imageCollectionView {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: indexPath) as! ImageCollectionViewCell
+            
+            let borderColor: CGColor! = ApplicationSettings.appBlackColor.cgColor
+            let borderWidth: CGFloat = 3
+            
+            cell.imagesStackView.tag = indexPath.row
+            
+            var images = [SegmentVideos]()
+            
+            images = [selectedItemArray[indexPath.row]]
+            
+            let views = cell.imagesStackView.subviews
+            for view in views {
+                cell.imagesStackView.removeArrangedSubview(view)
+            }
+            
+            cell.lblSegmentCount.text = String(indexPath.row + 1)
+            
+            for imageName in images {
+                let mainView = UIView.init(frame: CGRect(x: 0, y: 3, width: 41, height: 52))
+                
+                let imageView = UIImageView.init(frame: CGRect(x: 0, y: 0, width: 41, height: 52))
+                imageView.image = imageName.image
+                imageView.contentMode = .scaleToFill
+                imageView.clipsToBounds = true
+                mainView.addSubview(imageView)
+                cell.imagesStackView.addArrangedSubview(mainView)
+            }
+            
+            cell.imagesView.layer.cornerRadius = 5
+            cell.imagesView.layer.borderWidth = borderWidth
+            cell.imagesView.layer.borderColor = borderColor
+            
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "StyleCollectionViewCell", for: indexPath) as! StyleCollectionViewCell
+            cell.styleImageView.image = styleData[indexPath.row].image
+            cell.tag = indexPath.row
+            let borderWidth: CGFloat = styleData[indexPath.row].isSelected ? 2.0 : 0.0
+            cell.layer.borderWidth = borderWidth
+            switch type {
+            case .image(_ ):
+                let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressOnFilterImageView(_:)))
+                longPressGesture.minimumPressDuration = 0.2
+                cell.addGestureRecognizer(longPressGesture)
+            default:
+                break
+            }
+            return cell
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        guard indexPath.row != selectedIndex, !self.isProcessing, collectionView != self.imageCollectionView else {
+            return
+        }
+        switch type {
+        case .image(_ ):
+            type = .image(image: orignalImage!)
+            break
+        case .video(_ , _):
+            break
+        }
+        
+        for (index, style) in self.styleData.enumerated() {
+            style.isSelected = (index == indexPath.row)
+        }
+        collectionView.reloadData()
+        let xScrollOffset = CGFloat(indexPath.row)*UIScreen.width
+        self.scrollView.setContentOffset(CGPoint(x: xScrollOffset, y: 0),
+                                         animated: false)
+        self.applyStyle(index: indexPath.row)
+    }
+}

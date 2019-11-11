@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SF-UI-Text-Medium.otf">
+            <string>SFUIText-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MensionCollectionViewCell" id="gTV-IL-0wX" customClass="MensionCollectionViewCell" customModule="ProManager" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="90" height="100"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="90" height="100"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="awD-Bf-rE7">
+                        <rect key="frame" x="17" y="10" width="56" height="56"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="56" id="dD7-7D-HHI"/>
+                            <constraint firstAttribute="height" constant="56" id="vcU-Vn-iKX"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                <real key="value" value="28"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColorChat">
+                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidthChat">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bEb-dG-1gA">
+                        <rect key="frame" x="5" y="90" width="80" height="0.0"/>
+                        <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="12"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+            </view>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="awD-Bf-rE7" firstAttribute="centerX" secondItem="ZTg-uK-7eu" secondAttribute="centerX" id="4EE-np-0yP"/>
+                <constraint firstAttribute="bottom" secondItem="bEb-dG-1gA" secondAttribute="bottom" constant="10" id="Syt-ZX-YaZ"/>
+                <constraint firstItem="bEb-dG-1gA" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="bZw-s7-BN1"/>
+                <constraint firstAttribute="trailing" secondItem="bEb-dG-1gA" secondAttribute="trailing" constant="5" id="ieu-my-sMa"/>
+                <constraint firstItem="awD-Bf-rE7" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="oaf-vH-fSb"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <size key="customSize" width="90" height="100"/>
+            <connections>
+                <outlet property="userChannelName" destination="bEb-dG-1gA" id="zut-Ef-cWa"/>
+                <outlet property="userImageView" destination="awD-Bf-rE7" id="u9I-Xz-cGk"/>
+            </connections>
+            <point key="canvasLocation" x="45" y="77"/>
+        </collectionViewCell>
+    </objects>
+</document>

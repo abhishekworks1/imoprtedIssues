@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SF-UI-Text-Medium.otf">
+            <string>SFUIText-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="0Lx-Qt-fc6" customClass="LoadingView" customModule="ProManager" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7iU-JH-nNW" customClass="CircularProgressBar" customModule="ProManager" customModuleProvider="target">
+                    <rect key="frame" x="137.5" y="283.5" width="100" height="100"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="100" id="HPy-Lm-fYa"/>
+                        <constraint firstAttribute="width" constant="100" id="ahi-Rl-sxL"/>
+                    </constraints>
+                </view>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u64-IR-Na2" customClass="FSLoading" customModule="ProManager" customModuleProvider="target">
+                    <rect key="frame" x="137.5" y="283.5" width="100" height="100"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Completed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ffb-vb-TLv">
+                    <rect key="frame" x="145" y="393.5" width="85" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.9986641839" green="0.9986641839" blue="0.9986641839" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vpg-dw-Xh5">
+                    <rect key="frame" x="157.5" y="434" width="60" height="34"/>
+                    <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="18"/>
+                    <state key="normal" title="Cancel">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="btnCancleClick:" destination="0Lx-Qt-fc6" eventType="touchUpInside" id="ZlK-v8-hpk"/>
+                    </connections>
+                </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ad1" translatesAutoresizingMaskIntoConstraints="NO" id="U9d-aU-XfD">
+                    <rect key="frame" x="0.0" y="607" width="375" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="L5Y-pU-eTe"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" red="0.25771130180000001" green="0.25771130180000001" blue="0.25771130180000001" alpha="0.82881272009999996" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="u64-IR-Na2" firstAttribute="centerX" secondItem="7iU-JH-nNW" secondAttribute="centerX" id="593-wg-vxN"/>
+                <constraint firstItem="u64-IR-Na2" firstAttribute="height" secondItem="7iU-JH-nNW" secondAttribute="height" id="CaJ-Jy-YYZ"/>
+                <constraint firstItem="u64-IR-Na2" firstAttribute="centerY" secondItem="7iU-JH-nNW" secondAttribute="centerY" id="Hdl-ld-aDU"/>
+                <constraint firstItem="u64-IR-Na2" firstAttribute="width" secondItem="7iU-JH-nNW" secondAttribute="width" id="KaW-XS-IGe"/>
+                <constraint firstItem="U9d-aU-XfD" firstAttribute="leading" secondItem="0Lx-Qt-fc6" secondAttribute="leading" id="MUw-xO-FiQ"/>
+                <constraint firstItem="7iU-JH-nNW" firstAttribute="centerX" secondItem="0Lx-Qt-fc6" secondAttribute="centerX" id="eVD-he-xKh"/>
+                <constraint firstItem="7iU-JH-nNW" firstAttribute="centerY" secondItem="0Lx-Qt-fc6" secondAttribute="centerY" id="fWP-K1-A3u"/>
+                <constraint firstItem="ffb-vb-TLv" firstAttribute="bottom" secondItem="Vpg-dw-Xh5" secondAttribute="top" constant="-20" id="fo5-Oe-PZU"/>
+                <constraint firstAttribute="bottom" secondItem="U9d-aU-XfD" secondAttribute="bottom" id="kDU-JS-Ztf"/>
+                <constraint firstAttribute="trailing" secondItem="U9d-aU-XfD" secondAttribute="trailing" id="qcu-I3-xUR"/>
+                <constraint firstItem="Vpg-dw-Xh5" firstAttribute="centerX" secondItem="ffb-vb-TLv" secondAttribute="centerX" id="rTG-IK-lqf"/>
+                <constraint firstItem="ffb-vb-TLv" firstAttribute="top" secondItem="7iU-JH-nNW" secondAttribute="bottom" constant="10" id="uBZ-iN-gDQ"/>
+                <constraint firstItem="ffb-vb-TLv" firstAttribute="centerX" secondItem="7iU-JH-nNW" secondAttribute="centerX" id="yFC-5D-8j9"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="z6i-ay-gi9"/>
+            <connections>
+                <outlet property="btnCancle" destination="Vpg-dw-Xh5" id="63S-td-MsW"/>
+                <outlet property="imgAdvertise" destination="U9d-aU-XfD" id="Oz0-h2-djd"/>
+                <outlet property="lblCompleted" destination="ffb-vb-TLv" id="W0G-CR-rwa"/>
+                <outlet property="loadingView" destination="u64-IR-Na2" id="Yrs-2t-dWn"/>
+                <outlet property="progressView" destination="7iU-JH-nNW" id="DA9-0Y-g3Q"/>
+            </connections>
+            <point key="canvasLocation" x="40.799999999999997" y="46.326836581709152"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="ad1" width="375" height="60"/>
+    </resources>
+</document>
