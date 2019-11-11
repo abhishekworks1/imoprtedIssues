@@ -160,9 +160,9 @@ class StoryTagView: BaseStoryTagView {
     func onThirdTap() {
         refreshLayout()
         self.backgroundColor = ApplicationSettings.appWhiteColor
-        self.addStoryGradientLayer(startColor: UIColor(named: "storytag_bluePurple") ?? ApplicationSettings.appWhiteColor,
-                                   middleColor: UIColor(named: "storytag_fadedRed") ?? ApplicationSettings.appBlackColor,
-                                   endColor: UIColor(named: "storytag_paleOrange") ?? ApplicationSettings.appWhiteColor)
+        self.addStoryGradientLayer(startColor: R.color.storytag_bluePurple() ?? ApplicationSettings.appWhiteColor,
+                                   middleColor: R.color.storytag_fadedRed() ?? ApplicationSettings.appBlackColor,
+                                   endColor: R.color.storytag_paleOrange() ?? ApplicationSettings.appWhiteColor)
         setupViewsWith(sColor: ApplicationSettings.appWhiteColor,
                        mColor: ApplicationSettings.appWhiteColor,
                        eColor: ApplicationSettings.appWhiteColor)
@@ -201,9 +201,9 @@ class StoryTagView: BaseStoryTagView {
             text = "@"
             break
         case .location:
-            return UIImage(named: "ico_location_gradient")?.withImageTintColor(gradientColorFrom(color: startColor, toColor: endColor, withSize: UIImage(named: "ico_location_gradient")?.size ?? CGSize.zero))
+            return R.image.ico_location_gradient()?.withImageTintColor(gradientColorFrom(color: startColor, toColor: endColor, withSize: R.image.ico_location_gradient()?.size ?? CGSize.zero))
         case .youtube:
-            return UIImage(named: "youtubeFeedTabIcon")?.withImageTintColor(gradientColorFrom(color: startColor, toColor: endColor, withSize: UIImage(named: "youtubeFeedTabIcon")?.size ?? CGSize.zero))
+            return R.image.youtubeFeedTabIcon()?.withImageTintColor(gradientColorFrom(color: startColor, toColor: endColor, withSize: R.image.youtubeFeedTabIcon()?.size ?? CGSize.zero))
         case .feed:
             return UIImage(named: "iconFeed")?.withImageTintColor(gradientColorFrom(color: startColor, toColor: endColor, withSize: UIImage(named: "iconFeed")?.size ?? CGSize.zero))
         case .story:
@@ -233,22 +233,22 @@ class StoryTagView: BaseStoryTagView {
     func getTagColors() -> (UIColor?, UIColor?, UIColor?) {
         switch type {
         case .hashtag:
-            return (UIColor(named: "hashtag_lightGold"), nil, UIColor(named: "hashtag_orange"))
+            return (R.color.hashtag_lightGold(), nil, R.color.hashtag_orange())
         case .mension:
-            return (UIColor(named: "mension_militaryGreen"), nil, UIColor(named: "mension_kiwiGreen"))
+            return (R.color.mension_militaryGreen(), nil, R.color.mension_kiwiGreen())
         case .location:
-            return (UIColor(named: "locationtag_sapphire"), nil, UIColor(named: "locationtag_orchid"))
+            return (R.color.locationtag_sapphire(), nil, R.color.locationtag_orchid())
         case .youtube:
-            return (UIColor(named: "youtubetag_lightRed"), nil, UIColor(named: "youtubetag_lightRed"))
+            return (R.color.youtubetag_lightRed(), nil, R.color.youtubetag_lightRed())
         case .feed:
-            return (UIColor(named: "feedtag_skyblue"), nil, UIColor(named: "feedtag_red"))
+            return (R.color.feedtag_skyblue(), nil, R.color.feedtag_red())
         case .story:
-            return (UIColor(named: "storytag_lightRed"), nil, UIColor(named: "storytag_darkRed"))
+            return (R.color.storytag_lightRed(), nil, R.color.storytag_darkRed())
         case .playlist:
-            return (UIColor(named: "playlisttag_pumpkinOrange"), nil, UIColor(named: "playlisttag_redOrange"))
+            return (R.color.playlisttag_pumpkinOrange(), nil, R.color.playlisttag_redOrange())
         default: break
         }
-        return (UIColor(named: "storytag_lightPurple"), nil, UIColor(named: "storytag_watermelon"))
+        return (R.color.storytag_lightPurple(), nil, R.color.storytag_watermelon())
     }
     
     @objc func textFieldDidChange(_ sender: UITextField) {

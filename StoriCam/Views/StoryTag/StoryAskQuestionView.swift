@@ -44,9 +44,9 @@ class CornerButton: UIButton {
 
 class StoryAskQuestionView: BaseQuestionTagView {
     
-    var textStartColor: UIColor = UIColor(named: "quetag_LightUrple") ?? UIColor.green
+    var textStartColor: UIColor = R.color.quetag_LightUrple() ?? UIColor.green
         
-    var textEndColor: UIColor = UIColor(named: "storytag_watermelon") ?? UIColor.blue
+    var textEndColor: UIColor = R.color.storytag_watermelon() ?? UIColor.blue
     
     lazy var textView: StoryQueTextView = {
         let txtView = StoryQueTextView(frame: CGRect.zero)
@@ -63,13 +63,13 @@ class StoryAskQuestionView: BaseQuestionTagView {
     lazy var replyTextView: StoryQueTextView = {
         let txtView = StoryQueTextView(frame: CGRect.zero)
         txtView.font = UIFont.systemFont(ofSize: 14)
-        txtView.textColor = UIColor(named: "quetag_GreyishBrown")
+        txtView.textColor = R.color.quetag_GreyishBrown()
         txtView.isScrollEnabled = false
         txtView.textAlignment = .center
         txtView.backgroundColor = ApplicationSettings.appClearColor
         txtView.textContainer.maximumNumberOfLines = 2
         txtView.placeHolder = "Viewers respond here"
-        txtView.placeholderColor = UIColor(named: "quetag_GreyishBrown") ?? ApplicationSettings.appBlackColor.withAlphaComponent(0.5)
+        txtView.placeholderColor = R.color.quetag_GreyishBrown() ?? ApplicationSettings.appBlackColor.withAlphaComponent(0.5)
             
         txtView.isUserInteractionEnabled = false
         return txtView
@@ -77,7 +77,7 @@ class StoryAskQuestionView: BaseQuestionTagView {
     
     lazy var baseReplyView: UIView = {
         let sView = UIView()
-        sView.backgroundColor = UIColor(named: "quetag_Ice")
+        sView.backgroundColor = R.color.quetag_Ice()
         sView.layer.cornerRadius = 4.0
         return sView
     }()
@@ -227,8 +227,8 @@ class StoryAskQuestionView: BaseQuestionTagView {
         textView.resignFirstResponder()
         if textView.text.isEmpty {
             textView.placeholderColor = UIColor
-                .gradientColorFrom(colors: [UIColor(named: "quetag_LightUrple") ?? UIColor.green,
-                                            UIColor(named: "storytag_watermelon") ?? UIColor.blue],
+                .gradientColorFrom(colors: [R.color.quetag_LightUrple() ?? UIColor.green,
+                                            R.color.storytag_watermelon() ?? UIColor.blue],
                                    and: textView.bounds.size) ?? ApplicationSettings.appBlackColor
         }
     }
@@ -238,13 +238,13 @@ class StoryAskQuestionView: BaseQuestionTagView {
         textView.becomeFirstResponder()
         if textView.text.isEmpty {
             textView.textColor = UIColor
-                .gradientColorFrom(colors: [UIColor(named: "quetag_LightUrple") ?? UIColor.green,
-                                            UIColor(named: "storytag_watermelon") ?? UIColor.blue],
+                .gradientColorFrom(colors: [R.color.quetag_LightUrple() ?? UIColor.green,
+                                            R.color.storytag_watermelon() ?? UIColor.blue],
                                    and: textView.bounds.size) ?? ApplicationSettings.appBlackColor
             
             textView.placeholderColor = UIColor
-                .gradientColorFrom(colors: [UIColor(named: "quetag_LightUrple") ?? UIColor.green,
-                                            UIColor(named: "storytag_watermelon") ?? UIColor.blue],
+                .gradientColorFrom(colors: [R.color.quetag_LightUrple() ?? UIColor.green,
+                                            R.color.storytag_watermelon() ?? UIColor.blue],
                                    and: textView.bounds.size)?.withAlphaComponent(0.5) ?? ApplicationSettings.appBlackColor
         }
     }
@@ -377,14 +377,14 @@ class AskQuestionReplyView: UIView {
     
     func updateColors() {
         textView.backgroundColor = UIColor
-            .gradientColorFrom(colors: [UIColor(named: "quetag_LightUrple") ?? UIColor.green,
-                                        UIColor(named: "storytag_watermelon") ?? UIColor.blue],
+            .gradientColorFrom(colors: [R.color.quetag_LightUrple() ?? UIColor.green,
+                                        R.color.storytag_watermelon() ?? UIColor.blue],
                                and: textView.bounds.size) ?? UIColor.green
         textView.textColor = ApplicationSettings.appWhiteColor
         
         replyTextView.textColor = UIColor
-            .gradientColorFrom(colors: [UIColor(named: "quetag_LightUrple") ?? UIColor.green,
-                                        UIColor(named: "storytag_watermelon") ?? UIColor.blue],
+            .gradientColorFrom(colors: [R.color.quetag_LightUrple() ?? UIColor.green,
+                                        R.color.storytag_watermelon() ?? UIColor.blue],
                                and: replyTextView.bounds.size) ?? UIColor.green
         replyTextView.backgroundColor = ApplicationSettings.appWhiteColor
     }

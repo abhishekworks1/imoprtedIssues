@@ -356,12 +356,12 @@ class StoryPollQueView: BaseQuestionTagView {
     
     func updateOptionsColors() {
         firstOptionTextView.textColor = UIColor
-            .gradientColorFrom(colors: [UIColor(named: "quetag_brightLightGreen") ?? UIColor.red,
-                                        UIColor(named: "quetag_darkPastelGreen") ?? UIColor.green],
+            .gradientColorFrom(colors: [R.color.quetag_brightLightGreen() ?? UIColor.red,
+                                        R.color.quetag_darkPastelGreen() ?? UIColor.green],
                                and: firstOptionTextView.bounds.size)
         secondOptionTextView.textColor = UIColor
-            .gradientColorFrom(colors: [UIColor(named: "quetag_lightishPurple") ?? UIColor.blue,
-                                        UIColor(named: "quetag_pinkish") ?? UIColor.green],
+            .gradientColorFrom(colors: [R.color.quetag_lightishPurple() ?? UIColor.blue,
+                                        R.color.quetag_pinkish() ?? UIColor.green],
                                and: secondOptionTextView.bounds.size)
         firstOptionTextView.placeholderColor = firstOptionTextView.textColor?.withAlphaComponent(0.5) ?? ApplicationSettings.appLightGrayColor
         secondOptionTextView.placeholderColor = secondOptionTextView.textColor?.withAlphaComponent(0.5) ?? ApplicationSettings.appLightGrayColor

@@ -90,7 +90,6 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
         let objAlert = UIAlertController(title: "Log out", message: "Are you sure want to log out?", preferredStyle: .alert)
         let actionlogOut = UIAlertAction(title: "Log out", style: .default) { (action : UIAlertAction) in
             StoryDataManager.shared.deleteAllRecords()
-            PostDataManager.shared.deleteAllRecords()
             
             SelectedTimer.removeAll()
             self.logoutApi(token: "")

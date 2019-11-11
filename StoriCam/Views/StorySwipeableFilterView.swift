@@ -185,7 +185,7 @@ class StorySwipeableFilterView: StoryImageView {
     }
     
     func renderWithTransformation(of inputImage: CIImage) -> CIImage? {
-        guard let backgroundImage = UIImage(named: "videoBackground"),
+        guard let backgroundImage = R.image.videoBackground(),
             let cgBackgroundImage = backgroundImage.cgImage,
             let transformation = self.inputTransformation else {
                 return inputImage

@@ -339,13 +339,13 @@ class CheckButton: PButton {
     var isCheck: Bool = false {
         didSet {
             if isCheck == true {
-                self.setImage(UIImage(named: "checkOn"), for: UIControl.State())
+                self.setImage(R.image.checkOn(), for: UIControl.State())
                 self.borderColor = ApplicationSettings.appClearColor
                 imageColor = ApplicationSettings.appPrimaryColor
                 self.borderWidth = 0.0
                 self.clipsToBounds = true
             } else {
-                self.setImage(UIImage(named: "checkOff"), for: UIControl.State())
+                self.setImage(R.image.checkOff(), for: UIControl.State())
                 self.isRounded = true
                 self.borderColor = UIColor.gray
                 self.borderWidth = 0.0
