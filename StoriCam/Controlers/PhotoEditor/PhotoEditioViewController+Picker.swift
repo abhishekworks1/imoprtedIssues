@@ -34,7 +34,7 @@ extension PhotoEditorViewController: PickerViewDelegate {
     
     public func pickerView(_ pickerView: PickerView, styleForLabel label: UILabel, highlighted: Bool) {
         
-        label.font = UIFont(name: "Avenir-Heavy", size: 72.0)
+        label.font = UIFont.avenirHeavy
         if highlighted {
             label.textColor = ApplicationSettings.appWhiteColor
         } else {
@@ -42,9 +42,9 @@ extension PhotoEditorViewController: PickerViewDelegate {
         }
         
         if label.text == "∞" {
-            pickerView.selectionTitle.text = "no limit"
+            pickerView.selectionTitle.text = R.string.localizable.noLimit()
         } else {
-            pickerView.selectionTitle.text = "seconds"
+            pickerView.selectionTitle.text = R.string.localizable.seconds()
         }
     }
     

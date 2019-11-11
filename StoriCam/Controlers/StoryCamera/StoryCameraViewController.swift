@@ -1004,7 +1004,7 @@ extension StoryCameraViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: indexPath) as! ImageCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.nib.imageCollectionViewCell.identifier, for: indexPath) as! ImageCollectionViewCell
         
         let borderColor: CGColor! = ApplicationSettings.appWhiteColor.cgColor
         let borderWidth: CGFloat = 3

@@ -84,7 +84,7 @@ class HistroGramVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let yourAttributes = [NSAttributedString.Key.foregroundColor: ApplicationSettings.appWhiteColor, NSAttributedString.Key.font: UIFont(name: "SFUIText-Regular", size: 18)]
+        let yourAttributes = [NSAttributedString.Key.foregroundColor: ApplicationSettings.appWhiteColor, NSAttributedString.Key.font: UIFont.sfuiTextRegular]
         
         let finalString =  NSMutableAttributedString(string: "", attributes: yourAttributes as [NSAttributedString.Key : Any])
         self.lblShowCurrentTime.text = ""

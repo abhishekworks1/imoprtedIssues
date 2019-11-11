@@ -223,12 +223,8 @@ class VideoScaler {
                     break
                 }
             }
-            
         }
-        
-        
     }
-
 }
 
 extension AVPlayer {

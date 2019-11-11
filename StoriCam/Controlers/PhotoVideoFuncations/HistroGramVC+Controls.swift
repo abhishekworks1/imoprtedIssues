@@ -291,7 +291,7 @@ extension HistroGramVC {
             let (progressTimeM,progressTimeS) = secondsToHoursMinutesSeconds(Int(Float(progressTime).roundToPlaces(places: 0)))
             let (totalTimeM,totalTimeS) = secondsToHoursMinutesSeconds(Int(Float(totalTime).roundToPlaces(places: 0)))
             
-            let yourAttributes = [NSAttributedString.Key.foregroundColor: ApplicationSettings.appWhiteColor, NSAttributedString.Key.font: UIFont(name: "SFUIText-Regular", size: 18)]
+            let yourAttributes = [NSAttributedString.Key.foregroundColor: ApplicationSettings.appWhiteColor, NSAttributedString.Key.font: UIFont.sfuiTextRegular]
             
             let finalString =  NSMutableAttributedString(string: "", attributes: yourAttributes as [NSAttributedString.Key : Any])
             
@@ -300,7 +300,7 @@ extension HistroGramVC {
             let attributeStr =  NSMutableAttributedString(string: progressTimeString, attributes: yourAttributes as [NSAttributedString.Key : Any])
             finalString.append(attributeStr)
             
-            let yourOtherAttributes = [NSAttributedString.Key.foregroundColor: UIColor.blue, NSAttributedString.Key.font: UIFont(name: "SFUIText-Regular", size: 18)]
+            let yourOtherAttributes = [NSAttributedString.Key.foregroundColor: UIColor.blue, NSAttributedString.Key.font: UIFont.sfuiTextRegular]
             
             let totalTimeString = String.init(format: "%02d:%02d", totalTimeM, totalTimeS)
             

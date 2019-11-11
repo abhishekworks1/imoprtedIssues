@@ -484,7 +484,7 @@ extension PhotoEditorViewController: GMSPlacePickerViewControllerDelegate {
         tag.longitude = place.coordinate.longitude
         tag.placeId = place.placeID
         
-        if let locationIndex = storyTags.index(where: { $0.tag.tagType == StoryTagType.location.rawValue }) {
+        if let locationIndex = storyTags.firstIndex(where: { $0.tag.tagType == StoryTagType.location.rawValue }) {
             storyTags[locationIndex].view.removeFromSuperview()
             storyTags.remove(at: locationIndex)
         }

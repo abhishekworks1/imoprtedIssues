@@ -43,7 +43,7 @@ public final class ReactionButtonConfig: Configurable {
   public var iconMarging: CGFloat = 4
 
   /// The font of the text.
-  public var font: UIFont! = UIFont(name: "SFUIText-Medium", size: 13)
+    public var font: UIFont! = UIFont.sfuifont
 
   /// The color of the text (and image) when no reaction is selected.
   public var neutralTintColor: UIColor = UIColor(red: 39.0/255.0, green: 37.0/255.0 , blue: 37.0/255.0, alpha: 1)

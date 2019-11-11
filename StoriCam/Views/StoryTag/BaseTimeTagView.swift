@@ -376,7 +376,7 @@ class AnalogClockView: UIView {
     public var graduationOffset: CGFloat = 10.0
     
     public var digitColor = ApplicationSettings.appWhiteColor
-    public var digitFont = UIFont(name: "HelveticaNeue-Thin", size: 17) ?? UIFont.systemFont(ofSize: 17)
+    public var digitFont = UIFont.helveticaNeuethin ?? UIFont.systemFont(ofSize: 17)
     public var digitOffset: CGFloat = 0.0
     
     var hourHand: AnalogClockHand?

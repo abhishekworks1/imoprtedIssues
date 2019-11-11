@@ -1191,38 +1191,6 @@ extension PhotoEditorViewController: UIGestureRecognizerDelegate {
         }
     }
     
-    func postImage(img: UIImage) {
-        //        let fileName = String.fileName + FileExtension.jpg.rawValue
-        //        let msgObj = Message(JSON: [:])
-        //        msgObj?.text = "\u{f03e}  Image"
-        //        msgObj?.type = MessageType.image.rawValue
-        //        msgObj?.url = AWSImageBaseURL + fileName
-        //        msgObj?.thumburl = AWSImageBaseURL + "thumb" + fileName
-        //
-        //        let resizeImg = img.resizeImage(newWidth: 50)
-        //        let thumbName = ("thumb" + fileName)
-        //        Utils.uploadImage(imgName: thumbName, img: resizeImg, callBack: { url -> Void in
-        //
-        //        })
-        //
-        //        Utils.uploadImage(imgName: fileName, img: img, callBack: { url -> Void in
-        //
-        //        })
-        //        let msgForwardVC = R.storyboard.chatMain.messageForwardVC()!
-        //        msgForwardVC.msgObj = msgObj
-        //        msgForwardVC.doneHandler = { [weak self] in
-        //            guard let strongSelf = self else {
-        //                return
-        //            }
-        //            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
-        //                strongSelf.view.makeToast("Story has been sent successfully.", duration: 2.0, position: .bottom)
-        //            })
-        //        }
-        //        DispatchQueue.main.async {
-        //            self.navigationController?.pushViewController(msgForwardVC, animated: true)
-        //        }
-    }
-    
     func dismiss() {
         if self.storiType == .review {
             self.dismiss(animated: true)

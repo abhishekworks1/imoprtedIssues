@@ -11,6 +11,7 @@ import UIKit
 import AVKit
 import SCRecorder
 import SwiftVideoGenerator
+import MobileCoreServices
 
 extension PhotoEditorViewController {
    
@@ -646,6 +647,29 @@ extension PhotoEditorViewController {
         }
     }
     
+    @IBAction func notesButtonClicked(_ sender: Any) {
+        if image != nil && currentCamaraMode != .slideshow {
+            let album = SCAlbum.shared
+            album.albumName = "\(Constant.Application.displayName) - Notes"
+            album.save(image: canvasView.toImage())
+            self.navigationController?.popViewController(animated: false)
+            outtakesDelegate?.didTakeOuttakes("Notes saved.")
+        } else if currentCamaraMode == .slideshow {
+            saveSlideShow(exportType: SlideShowExportType.notes,
+                          success: { [weak self] url in
+                            guard let `self` = self else { return }
+                            self.saveVideo(exportType: SlideShowExportType.notes, url: url)
+                },
+                          failure: { error in
+                            
+            })
+            
+        } else {
+            saveToCameraRoll(false, true)
+        }
+        
+    }
+    
     func storyButtonAction() {
         if currentCamaraMode == .slideshow {
             self.saveSlideShow(exportType: SlideShowExportType.story,
@@ -707,8 +731,7 @@ extension PhotoEditorViewController {
     }
     
     @IBAction func btnPostToFeedClick(_ sender: Any) {
-        return
-        // Post to feed
+        // Instgram Share
         if currentCamaraMode == .slideshow {
             self.saveSlideShow(exportType: SlideShowExportType.feed,
                                success: { [weak self] url in
@@ -726,11 +749,9 @@ extension PhotoEditorViewController {
         
         if image != nil {
             mediaArray  = [FilterImage(image: canvasView.toImage(), index: 0)]
-            //            if let obj = R.storyboard.main.navControllerPlush() {
-            //                let createPostObj = obj.viewControllers[0] as? CreatePostViewController
-            //                createPostObj?.mediaArrayStory = mediaArray
-            //                self.present(obj, animated: true, completion: nil)
-            //            }
+            // Todo - For temp snapchat testing
+            // SocialShareVideo.shared.snapChatShareImage(image: canvasView.toImage(), caption: "ProManager")
+            SocialShareVideo.shared.sharePhoto(image: canvasView.toImage(), isFacebook: false)
         } else if let url = selectedVideoUrlSave {
             let recordSession = SCRecordSession()
             for segementModel in url.videos {
@@ -743,18 +764,8 @@ extension PhotoEditorViewController {
                     let video = FilterImage(url: exportURL, index: 0)
                     video.thumbImage = strongSelf.videoUrls[(strongSelf.draggingCell?.row)!].image!
                     mediaArray.append(video)
-                    //                    if let obj = R.storyboard.main.navControllerPlush() {
-                    //                        let createPostObj = obj.viewControllers[0] as? CreatePostViewController
-                    //                        createPostObj?.mediaArrayStory = mediaArray
-                    //                        createPostObj?.doneHandler = { [weak self] in
-                    //                            guard let strongSelf = self else {
-                    //                                return
-                    //                            }
-                    //                            strongSelf.navigationController?.popViewController(animated: false)
-                    //                            strongSelf.scPlayer?.isMuted = true
-                    //                        }
-                    //                        strongSelf.present(obj, animated: true, completion: nil)
-                    //                    }
+                    
+                    SocialShareVideo.shared.shareVideo(url: exportURL, isFacebook: false)
                 }
             })
             
@@ -766,11 +777,7 @@ extension PhotoEditorViewController {
             let dispatchSemaphore = DispatchSemaphore(value: 0)
             
             exportQueue.async {
-                
-            
                 self.feedExportLabel.text = "0/\(self.videoUrls.count)"
-                
-                
                 for (index, url) in self.videoUrls.enumerated() {
                     exportGroup.enter()
                     
@@ -803,48 +810,18 @@ extension PhotoEditorViewController {
             }
             
             exportGroup.notify(queue: exportQueue) {
-                
-                
                     self.feedExportLabel.text = ""
                     self.postToFeedProgress.updateProgress(0)
-                    //                    if let obj = R.storyboard.main.navControllerPlush() {
-                    //                        let createPostObj = obj.viewControllers[0] as? CreatePostViewController
-                    //                        createPostObj?.mediaArrayStory = mediaArray
-                    //                        self.present(obj, animated: true, completion: nil)
-                    //                    }
                 
-                
+                SocialShareVideo.shared.shareVideo(url: mediaArray[0].url, isFacebook: false)
             }
         }
         
     }
-    @IBAction func notesButtonClicked(_ sender: Any) {
-        
-        
-        if image != nil && currentCamaraMode != .slideshow {
-            let album = SCAlbum.shared
-            album.albumName = "\(Constant.Application.displayName) - Notes"
-            album.save(image: canvasView.toImage())
-            self.navigationController?.popViewController(animated: false)
-            outtakesDelegate?.didTakeOuttakes("Notes saved.")
-        } else if currentCamaraMode == .slideshow {
-            saveSlideShow(exportType: SlideShowExportType.notes,
-                          success: { [weak self] url in
-                            guard let `self` = self else { return }
-                            self.saveVideo(exportType: SlideShowExportType.notes, url: url)
-                },
-                          failure: { error in
-                            
-            })
-            
-        } else {
-            saveToCameraRoll(false, true)
-        }
-        
-    }
+    
+    
     
     @IBAction func messageClicked(_ sender: Any) {
-        return
         if currentCamaraMode == .slideshow {
             saveSlideShow(exportType: SlideShowExportType.chat,
                           success: { [weak self] url in
@@ -858,7 +835,7 @@ extension PhotoEditorViewController {
         }
         
         if image != nil {
-            self.postImage(img: canvasView.toImage())
+            SocialShareVideo.shared.sharePhoto(image: canvasView.toImage(), isFacebook: true)
         }
         else if let url = selectedVideoUrlSave {
             let recordSession = SCRecordSession()
@@ -870,7 +847,7 @@ extension PhotoEditorViewController {
                 guard let strongSelf = self else { return }
                 if let exportURL = url {
                     strongSelf.postToChatProgress.updateProgress(0.0)
-                    strongSelf.postVideo(videoPath: exportURL)
+                    SocialShareVideo.shared.shareVideo(url: exportURL, isFacebook: true)
                 }
             })
         }
@@ -891,7 +868,7 @@ extension PhotoEditorViewController {
                         self.chatExportLabel.text = "1/1"
                     }
                     self.postToChatProgress.updateProgress(0.0)
-                    self.postVideo(videoPath: exportURL)
+                    SocialShareVideo.shared.shareVideo(url: exportURL, isFacebook: true)
                 }
             })
             
@@ -900,79 +877,7 @@ extension PhotoEditorViewController {
     }
     
     @IBAction func uploadToYouTubeClicked(_ sender: Any) {
-        return
-        guard image == nil else { return }
-        let youtubeButton = sender as! UIButton
-        youtubeButton.isUserInteractionEnabled = false
-        if currentCamaraMode == .slideshow {
-            saveSlideShow(exportType: SlideShowExportType.chat,
-                          success: { [weak self] url in
-                            guard let `self` = self else { return }
-                            youtubeButton.isUserInteractionEnabled = true
-                            //                            DispatchQueue.main.async {
-                            //                                if let youTubeUploadVC = R.storyboard.youTubeUpload.youTubeUploadViewController() {
-                            //                                    youTubeUploadVC.videoUrl = url
-                            //                                    self.navigationController?.pushViewController(youTubeUploadVC, animated: true)
-                            //                                }
-                            //                            }
-                },
-                          failure: { error in
-                            youtubeButton.isUserInteractionEnabled = true
-            })
-            
-            return
-        } else if let url = selectedVideoUrlSave {
-            let recordSession = SCRecordSession()
-            for segementModel in url.videos {
-                let segment = SCRecordSessionSegment(url: segementModel.url!, info: nil)
-                recordSession.addSegment(segment)
-            }
-            DispatchQueue.main.async {
-                self.youTubeExportLabel.text = "0/1"
-            }
-            self.exportViewWithURL(recordSession.assetRepresentingSegments(), completionHandler: { [weak self]  (url) in
-                guard let `self` = self else { return }
-                youtubeButton.isUserInteractionEnabled = true
-                if let exportURL = url {
-                    DispatchQueue.main.async {
-                        self.youTubeExportLabel.text = "1/1"
-                        self.youTubeExportLabel.text = ""
-                        //                        if let youTubeUploadVC = R.storyboard.youTubeUpload.youTubeUploadViewController() {
-                        //                            youTubeUploadVC.videoUrl = exportURL
-                        //                            self.navigationController?.pushViewController(youTubeUploadVC, animated: true)
-                        //                        }
-                    }
-                }
-            })
-        }
-        else {
-            let recordSession = SCRecordSession()
-            for url in self.videoUrls {
-                for segementModel in url.videos {
-                    let segment = SCRecordSessionSegment(url: segementModel.url!, info: nil)
-                    recordSession.addSegment(segment)
-                }
-            }
-            DispatchQueue.main.async {
-                self.youTubeExportLabel.text = "0/1"
-            }
-            self.exportViewWithURL(recordSession.assetRepresentingSegments(), completionHandler: { [weak self] (url) in
-                guard let `self` = self else { return }
-                youtubeButton.isUserInteractionEnabled = true
-                if let exportURL = url {
-                    DispatchQueue.main.async {
-                        self.youTubeExportLabel.text = "1/1"
-                        self.youTubeExportLabel.text = ""
-                        //                        if let youTubeUploadVC = R.storyboard.youTubeUpload.youTubeUploadViewController() {
-                        //                            youTubeUploadVC.videoUrl = exportURL
-                        //                            self.navigationController?.pushViewController(youTubeUploadVC, animated: true)
-                        //                        }
-                    }
-                }
-            })
-            
-        }
-        
+       
     }
     
     @IBAction func setCoverClicked(_ sender: Any) {
@@ -1625,7 +1530,6 @@ extension PhotoEditorViewController {
         case .chat:
             DispatchQueue.main.async {
                 self.chatExportLabel.text = "1/1"
-                self.postVideo(videoPath: url)
             }
         case .feed:
             DispatchQueue.main.async {
@@ -1633,17 +1537,6 @@ extension PhotoEditorViewController {
                 let video = FilterImage(url: url, index: 0)
                 video.thumbImage = thumbImage
                 mediaArray.append(video)
-                //                if let obj = R.storyboard.main.navControllerPlush() {
-                //                    let createPostObj = obj.viewControllers[0] as? CreatePostViewController
-                //                    createPostObj?.mediaArrayStory = mediaArray
-                //                    createPostObj?.doneHandler = { [weak self] in
-                //                        guard let aaSelf = self else { return }
-                //                        DispatchQueue.main.async {
-                //                            aaSelf.navigationController?.popViewController(animated: false)
-                //                        }
-                //                    }
-                //                    self.present(obj, animated: true, completion: nil)
-                //                }
             }
         case .story:
             let videoSegment = AVAsset.init(url: url)
@@ -1693,8 +1586,6 @@ extension PhotoEditorViewController {
             }
         }
         
-        var mediaArray: [FilterImage] = []
-        
         let album = SCAlbum.shared
         switch exportType {
         case .outtakes:
@@ -1712,18 +1603,9 @@ extension PhotoEditorViewController {
                 self.navigationController?.popViewController(animated: false)
             
         case .chat:
-            DispatchQueue.main.async {
-                self.postImage(img: image)
-            }
+            break
         case .feed:
-            DispatchQueue.main.async {
-                mediaArray = [FilterImage(image: image, index: 0)]
-                //                if let obj = R.storyboard.main.navControllerPlush() {
-                //                    let createPostObj = obj.viewControllers[0] as? CreatePostViewController
-                //                    createPostObj?.mediaArrayStory = mediaArray
-                //                    self.present(obj, animated: true, completion: nil)
-                //                }
-            }
+            break
         case .story:
             let image = self.canvasView.toImage()
             album.save(image: image)
@@ -1749,51 +1631,6 @@ extension PhotoEditorViewController {
             break
         }
     }
-    
-    func postVideo(videoPath: URL) {
-        //        let fileName = String.fileName + ".mp4"
-        //        let msgObj = Message(JSON: [:])
-        //        msgObj?.text = "\u{f03d}  Video"
-        //        msgObj?.url = AWSImageBaseURL + fileName
-        //        msgObj?.thumburl = AWSImageBaseURL + "thumb" + fileName.replacingOccurrences(of: ".mp4", with: FileExtension.jpg.rawValue)
-        //        msgObj?.type = MessageType.video.rawValue
-        //        if let imgThumb = UIImage.getThumbnailFrom(videoUrl: videoPath) {
-        //            let resizeImg = imgThumb.resizeImage(newWidth: 50)
-        //            let thumbName = ("thumb" + fileName.replacingOccurrences(of: ".mp4", with: FileExtension.jpg.rawValue))
-        //            Utils.uploadImage(imgName: thumbName, img: resizeImg, callBack: { url -> Void in
-        //
-        //            })
-        //        }
-        //        let videoData: Data?
-        //        do {
-        //            videoData = try Data(contentsOf: URL(fileURLWithPath: (videoPath.relativePath)), options: NSData.ReadingOptions.alwaysMapped)
-        //
-        //            Utils.uploadVideo(videoName: fileName, videoData: videoData!, callBack: { url -> Void in
-        //
-        //            })
-        //
-        //        } catch _ {
-        //            videoData = nil
-        //            return
-        //        }
-        //        let msgForwardVC = R.storyboard.chatMain.messageForwardVC()!
-        //        msgForwardVC.msgObj = msgObj
-        //        msgForwardVC.doneHandler = { [weak self] in
-        //            guard let strongSelf = self else {
-        //                return
-        //            }
-        //            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
-        //                strongSelf.view.makeToast("Story has been sent successfully.", duration: 2.0, position: .bottom)
-        //            })
-        //        }
-        //        DispatchQueue.main.async {
-        //            self.chatExportLabel.text = ""
-        //        }
-        //        DispatchQueue.main.async {
-        //            self.navigationController?.pushViewController(msgForwardVC, animated: true)
-        //        }
-        
-    }
 }
 
 extension PhotoEditorViewController {
@@ -1803,19 +1640,7 @@ extension PhotoEditorViewController {
     }
     
     func btnChannelClicked() {
-        //        let chVc = R.storyboard.profile.channelListViewController()
-        //        chVc?.delegate = self
-        //        let transition = CATransition()
-        //        transition.duration = 0.9
-        //        transition.type = kCATransitionFromTop
-        //        transition.subtype = kCATransitionFromTop
-        //        view.window!.layer.add(transition, forKey: kCATransition)
-        //        let navController = PresentedPageNavigationController(rootViewController: chVc!)
-        //        navController.navigationBar.isHidden = true
-        //        navController.view.backgroundColor = ApplicationSettings.appClearColor
-        //        navController.modalTransitionStyle = .crossDissolve
-        //        navController.modalPresentationStyle = .overCurrentContext
-        //        self.present(navController, animated: true, completion: nil)
+        
     }
     
     func configureMensionCollectionView() {

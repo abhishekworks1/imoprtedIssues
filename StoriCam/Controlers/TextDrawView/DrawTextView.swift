@@ -49,7 +49,7 @@ public class DrawTextView: UIView {
     /// The font of the text displayed in the DrawTextView.
     ///
     /// - Note: Set font in DrawViewController to control this property.
-    var font: UIFont = UIFont.init(name: "DurationBook-Regular", size: 90) ?? UIFont.systemFont(ofSize: 90) {
+    var font: UIFont = UIFont.durationBookRegular ?? UIFont.systemFont(ofSize: 90) {
         didSet { updateFont(font) }
     }
     

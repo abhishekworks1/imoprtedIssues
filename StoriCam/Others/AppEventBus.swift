@@ -13,7 +13,7 @@ open class AppEventBus {
 
     struct Static {
         static let instance = AppEventBus()
-        static let queue = DispatchQueue(label: "com.AppEventBus", attributes: [])
+        static let queue = DispatchQueue(label: Constant.Application.simformIdentifier, attributes: [])
     }
 
     struct NamedObserver {

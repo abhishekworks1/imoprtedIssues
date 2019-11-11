@@ -332,7 +332,7 @@ extension CollageMakerVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if currentModeType == .frames && collectionView == self.collectionView {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FrameCollectionViewCell.identifier, for: indexPath) as! FrameCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.nib.frameCollectionViewCell.identifier, for: indexPath) as! FrameCollectionViewCell
             
             if selectedIndex == indexPath {
                 cell.frameImageView.image = collageImagesItems[indexPath.row].withImageTintColor(ApplicationSettings.appPrimaryColor)
@@ -343,7 +343,7 @@ extension CollageMakerVC: UICollectionViewDataSource {
             
             return cell
         } else if currentModeType == .photos && collectionView == self.imageCollectionView {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: indexPath) as! ImageCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.nib.imageCollectionViewCell.identifier, for: indexPath) as! ImageCollectionViewCell
             
             let borderColor: CGColor! = ApplicationSettings.appBlackColor.cgColor
             let borderWidth: CGFloat = 3

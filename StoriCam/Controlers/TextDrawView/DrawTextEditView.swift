@@ -48,7 +48,7 @@ internal class DrawTextEditView: UIView {
     /// The font of the text displayed in the DrawTextEditView.
     ///
     /// - Note: Set font in DrawViewController to control this property.
-    var font = UIFont.init(name: "DurationBook-Regular", size: 90) ?? UIFont.systemFont(ofSize: 90) {
+    var font = UIFont.durationBookRegular ?? UIFont.systemFont(ofSize: 90) {
         didSet { updateFont(font) }
     }
     

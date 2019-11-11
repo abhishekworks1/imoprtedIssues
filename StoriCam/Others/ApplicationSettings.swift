@@ -15,18 +15,16 @@ import SafariServices
 class ApplicationSettings {
     
     static let shared = ApplicationSettings()
+     
+    static let appPrimaryColor: UIColor = R.color.appPrimaryColor() ?? UIColor.blue
     
-    static let coverImage: UIImage = UIImage.init(named: "bgSidemenuTop") ?? UIImage()
+    static let appWhiteColor: UIColor = R.color.appWhiteColor() ?? UIColor.white
     
-    static let appPrimaryColor: UIColor = UIColor.init(named: "AppPrimaryColor") ?? UIColor.blue
+    static let appBlackColor: UIColor = R.color.appBlackColor() ?? UIColor.black
     
-    static let appWhiteColor: UIColor = UIColor.init(named: "AppWhiteColor") ?? UIColor.white
-    
-    static let appBlackColor: UIColor = UIColor.init(named: "AppBlackColor") ?? UIColor.black
-    
-    static let appLightWhiteColor: UIColor = UIColor.init(named: "AppLightWhiteColor") ?? UIColor.black
+    static let appLightWhiteColor: UIColor = R.color.appLightWhiteColor() ?? UIColor.black
 
-    static let appClearColor: UIColor = UIColor.init(named: "AppClearColor") ?? UIColor.clear
+    static let appClearColor: UIColor = R.color.appClearColor() ?? UIColor.clear
     
     static let appLightGrayColor: UIColor = UIColor.lightGray
     
@@ -64,7 +62,7 @@ class ApplicationSettings {
     
     var isAllowForward: Bool = false
 
-    static let userPlaceHolder: UIImage = UIImage.init(named: "userProfilePlaceholder")?.sd_tintedImage(with: ApplicationSettings.appPrimaryColor) ?? UIImage()
+    static let userPlaceHolder: UIImage = R.image.userProfilePlaceholder()?.sd_tintedImage(with: ApplicationSettings.appPrimaryColor) ?? UIImage()
    
     var needtoRefresh: Bool = false
     
