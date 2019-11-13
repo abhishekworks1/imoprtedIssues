@@ -730,149 +730,62 @@ extension PhotoEditorViewController {
         }
     }
     
-    @IBAction func btnPostToFeedClick(_ sender: Any) {
-        // Instgram Share
+    @IBAction func btnSocialShareClick(_ sender: Any) {
+        BasePopConfiguration.shared.backgoundTintColor = R.color.lightBlackColor()!
+        BasePopConfiguration.shared.menuWidth = 35
+        BasePopOverMenu
+            .showForSender(sender: sender as! UIButton, with: ["","",""], menuImageArray: [R.image.icoFacebook()!, R.image.icoInstagram()!, R.image.icoYoutube()!], done: { [weak self] (selectedIndex) in
+                guard let `self` = self else { return }
+                debugPrint("SelectedIndex :\(selectedIndex)")
+                self.shareSocialMedia(type: SocialShare(rawValue: selectedIndex) ?? SocialShare.facebook)
+            }) {
+                
+        }
+    }
+    
+    func shareSocialMedia(type: SocialShare) {
         if currentCamaraMode == .slideshow {
             self.saveSlideShow(exportType: SlideShowExportType.feed,
-                               success: { [weak self] url in
-                                guard let `self` = self else { return }
-                                self.saveVideo(exportType: SlideShowExportType.feed, url: url)
+                               success: { exportURL in
+                                SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type)
                 },
                                failure: { error in
                                 print(error)
             })
-            
             return
         }
         
-        var mediaArray: [FilterImage] = []
-        
         if image != nil {
-            mediaArray  = [FilterImage(image: canvasView.toImage(), index: 0)]
-            // Todo - For temp snapchat testing
-            // SocialShareVideo.shared.snapChatShareImage(image: canvasView.toImage(), caption: "ProManager")
-            SocialShareVideo.shared.sharePhoto(image: canvasView.toImage(), isFacebook: false)
-        } else if let url = selectedVideoUrlSave {
-            let recordSession = SCRecordSession()
-            for segementModel in url.videos {
-                let segment = SCRecordSessionSegment(url: segementModel.url!, info: nil)
-                recordSession.addSegment(segment)
-            }
-            self.exportViewWithURL(recordSession.assetRepresentingSegments(), completionHandler: { [weak self] (url) in
-                guard let strongSelf = self else { return }
-                if let exportURL = url {
-                    let video = FilterImage(url: exportURL, index: 0)
-                    video.thumbImage = strongSelf.videoUrls[(strongSelf.draggingCell?.row)!].image!
-                    mediaArray.append(video)
-                    
-                    SocialShareVideo.shared.shareVideo(url: exportURL, isFacebook: false)
-                }
-            })
-            
-            
+            SocialShareVideo.shared.sharePhoto(image: canvasView.toImage(), socialType: type)
         } else {
-            
-            let exportGroup = DispatchGroup()
-            let exportQueue = DispatchQueue(label: "exportFilterFeedQueue")
-            let dispatchSemaphore = DispatchSemaphore(value: 0)
-            
-            exportQueue.async {
-                self.feedExportLabel.text = "0/\(self.videoUrls.count)"
-                for (index, url) in self.videoUrls.enumerated() {
-                    exportGroup.enter()
-                    
-                    let recordSession = SCRecordSession()
-                    for segementModel in url.videos {
-                        let segment = SCRecordSessionSegment(url: segementModel.url!, info: nil)
-                        recordSession.addSegment(segment)
-                    }
-                    self.exportViewWithURL(recordSession.assetRepresentingSegments()) { [weak self] url in
-                        guard let strongSelf = self else { return }
-                        
-                        if let exportURL = url {
-                            
-                                strongSelf.feedExportLabel.text = "\(index+1)/\(strongSelf.videoUrls.count)"
-                            
-                            let video = FilterImage(url: exportURL, index: 0)
-                            video.thumbImage = strongSelf.videoUrls[index].image!
-                            mediaArray.append(video)
-                            dispatchSemaphore.signal()
-                            exportGroup.leave()
-                        } else {
-                            dispatchSemaphore.signal()
-                            exportGroup.leave()
-                        }
-                        
-                        
-                    }
-                    dispatchSemaphore.wait()
-                }
-            }
-            
-            exportGroup.notify(queue: exportQueue) {
-                    self.feedExportLabel.text = ""
-                    self.postToFeedProgress.updateProgress(0)
-                
-                SocialShareVideo.shared.shareVideo(url: mediaArray[0].url, isFacebook: false)
-            }
-        }
-        
-    }
-    
-    
-    
-    @IBAction func messageClicked(_ sender: Any) {
-        if currentCamaraMode == .slideshow {
-            saveSlideShow(exportType: SlideShowExportType.chat,
-                          success: { [weak self] url in
-                            guard let `self` = self else { return }
-                            self.saveVideo(exportType: SlideShowExportType.chat, url: url)
-                },
-                          failure: { error in
-            })
-            
-            return
-        }
-        
-        if image != nil {
-            SocialShareVideo.shared.sharePhoto(image: canvasView.toImage(), isFacebook: true)
-        }
-        else if let url = selectedVideoUrlSave {
             let recordSession = SCRecordSession()
-            for segementModel in url.videos {
-                let segment = SCRecordSessionSegment(url: segementModel.url!, info: nil)
-                recordSession.addSegment(segment)
-            }
-            self.exportViewWithURL(recordSession.assetRepresentingSegments(), completionHandler: { [weak self]  (url) in
-                guard let strongSelf = self else { return }
-                if let exportURL = url {
-                    strongSelf.postToChatProgress.updateProgress(0.0)
-                    SocialShareVideo.shared.shareVideo(url: exportURL, isFacebook: true)
-                }
-            })
-        }
-        else {
-            let recordSession = SCRecordSession()
-            for url in self.videoUrls {
+            if let url = selectedVideoUrlSave {
                 for segementModel in url.videos {
                     let segment = SCRecordSessionSegment(url: segementModel.url!, info: nil)
                     recordSession.addSegment(segment)
                 }
+            } else {
+                for (_, url) in self.videoUrls.enumerated() {
+                    for segementModel in url.videos {
+                        let segment = SCRecordSessionSegment(url: segementModel.url!, info: nil)
+                        recordSession.addSegment(segment)
+                    }
+                }
             }
             
-                self.chatExportLabel.text = "0/1"
-            
-            self.exportViewWithURL(recordSession.assetRepresentingSegments(), completionHandler: { (url) in
+            self.exportViewWithURL(recordSession.assetRepresentingSegments()) { url in
                 if let exportURL = url {
-                    DispatchQueue.main.async {
-                        self.chatExportLabel.text = "1/1"
-                    }
-                    self.postToChatProgress.updateProgress(0.0)
-                    SocialShareVideo.shared.shareVideo(url: exportURL, isFacebook: true)
+                    SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type)
                 }
-            })
-            
+            }
         }
+    }
+    
+    @IBAction func btnPostToFeedClick(_ sender: Any) {
+        
+    }
+    
+    @IBAction func messageClicked(_ sender: Any) {
         
     }
     
@@ -881,7 +794,6 @@ extension PhotoEditorViewController {
     }
     
     @IBAction func setCoverClicked(_ sender: Any) {
-        
         if thumbHeight.constant == 0.0 {
             guard let player = self.scPlayer else { return }
             player.pause()
@@ -1306,7 +1218,18 @@ extension PhotoEditorViewController {
     
     
     func exportViewWithURL(_ asset: AVAsset, completionHandler: @escaping (_ url: URL?) -> ()) {
+        
         let exportSession = StoryAssetExportSession()
+    
+        let viewData = LoadingView.instanceFromNib()
+        viewData.progressView.setProgress(to: Double(0), withAnimation: true)
+        viewData.show(on: view, completion: {
+            viewData.cancleClick = {
+                exportSession.cancelExporting()
+                viewData.hide()
+            }
+        })
+        
         if let filter = self.filterSwitcherView?.selectedFilter,
             filter.name != "" {
             exportSession.filter = filter.ciFilter
@@ -1330,6 +1253,7 @@ extension PhotoEditorViewController {
         exportSession.inputTransformation = transformation
         exportSession.export(for: asset, progress: { progress in
             print("New progress \(progress)")
+            viewData.progressView.setProgress(to: Double(progress), withAnimation: true)
         }) { exportedURL in
             completionHandler(exportedURL)
         }

@@ -15,6 +15,13 @@ enum ShapeType : Int {
     case star
 }
 
+enum SocialShare : Int {
+    case facebook = 0
+    case instagram
+    case snapchat
+    case tiktok
+}
+
 public enum CameraMode: Int {
     case type = 0
     case live

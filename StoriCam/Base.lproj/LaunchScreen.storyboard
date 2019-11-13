@@ -17,19 +17,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="StoriCam Pro" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Gn-hR-zid">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                <color key="textColor" name="AppPrimaryColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="socialCam" translatesAutoresizingMaskIntoConstraints="NO" id="c1b-OD-UT2">
+                                <rect key="frame" x="40" y="0.0" width="334" height="896"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </imageView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" name="AppLunchScreen"/>
                         <constraints>
-                            <constraint firstItem="7Gn-hR-zid" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="Yhk-fg-JQf"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="7Gn-hR-zid" secondAttribute="trailing" id="ob0-HI-rOQ"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="7Gn-hR-zid" secondAttribute="bottom" id="yGb-TT-Jin"/>
-                            <constraint firstItem="7Gn-hR-zid" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="zAR-ah-weh"/>
+                            <constraint firstItem="c1b-OD-UT2" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="B1W-BT-RzD"/>
+                            <constraint firstAttribute="trailing" secondItem="c1b-OD-UT2" secondAttribute="trailing" constant="40" id="CnS-ZU-890"/>
+                            <constraint firstItem="c1b-OD-UT2" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="40" id="k6y-09-kH7"/>
+                            <constraint firstAttribute="bottom" secondItem="c1b-OD-UT2" secondAttribute="bottom" id="kc9-rC-4DW"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -40,8 +38,9 @@
         </scene>
     </scenes>
     <resources>
-        <namedColor name="AppPrimaryColor">
-            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <image name="socialCam" width="289" height="48"/>
+        <namedColor name="AppLunchScreen">
+            <color red="0.96078431372549022" green="0.98039215686274506" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
