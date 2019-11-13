@@ -18,8 +18,6 @@ class ImageCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var lblVideoersiontag: UILabel!
     @IBOutlet weak var trimmerView: TrimmerView!
     
-    static let identifier = "ImageCollectionViewCell"
-    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         trimmerView?.isHidden = true
@@ -29,8 +27,8 @@ class ImageCollectionViewCell: UICollectionViewCell {
         trimmerView.layoutIfNeeded()
         trimmerView.minVideoDurationAfterTrimming = 3.0
         trimmerView.thumbnailsView.asset = asset
-        trimmerView.rightImage = UIImage.init(named: "cut_handle_icon")
-        trimmerView.leftImage = UIImage.init(named: "cut_handle_icon")
+        trimmerView.rightImage = R.image.cut_handle_icon()
+        trimmerView.leftImage = R.image.cut_handle_icon()
         trimmerView.thumbnailsView.isReloadImages = true
         trimmerView.layoutIfNeeded()
     }

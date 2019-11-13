@@ -72,7 +72,7 @@ class ArrowButton: UIButton {
     private func makeLabel() -> UILabel {
         let label = UILabel()
         label.textColor = ApplicationSettings.appBlackColor
-        label.font = UIFont(name: "AvenirNext-DemiBold", size: 15)
+        label.font = UIFont.sfuiBoldfont
         label.textAlignment = .center
 
         return label

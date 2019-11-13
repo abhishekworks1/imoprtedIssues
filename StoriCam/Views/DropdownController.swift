@@ -196,7 +196,7 @@ class AlbumCell: UITableViewCell {
     private func makeAlbumTitleLabel() -> UILabel {
         let label = UILabel()
         label.numberOfLines = 1
-        label.font = UIFont(name: "AvenirNext-DemiBold", size: 15)
+        label.font = UIFont.sfuiBoldfont
 
         return label
     }
@@ -204,7 +204,7 @@ class AlbumCell: UITableViewCell {
     private func makeItemCountLabel() -> UILabel {
         let label = UILabel()
         label.numberOfLines = 1
-        label.font = UIFont(name: "AvenirNext-DemiBold", size: 15)
+        label.font = UIFont.sfuiBoldfont
 
         return label
     }

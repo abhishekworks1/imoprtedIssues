@@ -43,7 +43,7 @@ public final class ReactionSummaryConfig: Configurable {
   public var iconMarging: CGFloat = 2
 
   /// The font of the text.
-  public var font: UIFont! = UIFont(name: "SFUIText-Medium", size: 12)
+    public var font: UIFont! = UIFont.sfuifont
 
   /// The color of the text.
   public var textColor: UIColor! = UIColor(red: 0.66, green: 0.66, blue: 0.66, alpha: 1)

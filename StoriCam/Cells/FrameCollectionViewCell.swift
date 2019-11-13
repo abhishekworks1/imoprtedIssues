@@ -14,8 +14,6 @@ class FrameCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIView!
     @IBOutlet weak var frameImageView: UIImageView!
      
-    static let identifier = "FrameCollectionViewCell"
-    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }

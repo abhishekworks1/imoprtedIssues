@@ -78,7 +78,7 @@ class VideoFactory: NSObject
                         guard let cvimgabuffer = CMSampleBufferGetImageBuffer(buffer!) else {
                             fatalError("cvimgabuffer is nil")
                         }
-                        cvimgbuffer.append(cvimgabuffer.deepcopy())
+                        cvimgbuffer.append(cvimgabuffer)
                         buffer = trackoutput.copyNextSampleBuffer()
                     }
                 }

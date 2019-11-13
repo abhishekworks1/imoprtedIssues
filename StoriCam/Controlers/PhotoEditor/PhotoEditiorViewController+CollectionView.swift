@@ -32,13 +32,13 @@ extension PhotoEditorViewController: UICollectionViewDataSource, KDDragAndDropCo
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == self.slideShowCollectionView {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SlideshowImagesCell.identifier, for: indexPath) as? SlideshowImagesCell else {
-                fatalError("Unable to find cell with '\(SlideshowImagesCell.identifier)' reuseIdentifier")
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.nib.slideshowImagesCell.identifier, for: indexPath) as? SlideshowImagesCell else {
+                fatalError("Unable to find cell with '\(R.nib.slideshowImagesCell.identifier)' reuseIdentifier")
             }
             return cell
         } else if collectionView == self.stopMotionCollectionView {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: indexPath) as? ImageCollectionViewCell else {
-                fatalError("Unable to find cell with '\(ImageCollectionViewCell.identifier)' reuseIdentifier")
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.nib.imageCollectionViewCell.identifier, for: indexPath) as? ImageCollectionViewCell else {
+                fatalError("Unable to find cell with '\(R.nib.imageCollectionViewCell.identifier)' reuseIdentifier")
             }
             
             var borderColor = ApplicationSettings.appClearColor.cgColor

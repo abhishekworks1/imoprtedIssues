@@ -147,7 +147,7 @@ public class DrawViewController: UIViewController {
     /// The font of the text displayed in the DrawTextView and DrawTextEditView.
     ///
     /// - Note: To change the default size of the font, you must also set the fontSize property to the desired font size.
-    public var font: UIFont = UIFont.init(name: "DurationBook-Regular", size: 75) ?? UIFont.systemFont(ofSize: 75) {
+    public var font: UIFont = UIFont.durationBookRegularSize75 ?? UIFont.systemFont(ofSize: 75) {
         didSet { updateFont(font) }
     }
     
@@ -483,33 +483,22 @@ public class DrawViewController: UIViewController {
     func setBackground(_ state: FontViewState) {
         self.textEditView.fontState = state
         if state == .default {
-            self.textView.font = UIFont.init(name: "CourierPrime-Italic", size: 50) ?? UIFont.systemFont(ofSize: 50)
-            self.textEditView.textView.font = UIFont.init(name: "CourierPrime-Italic", size: 50) ?? UIFont.systemFont(ofSize: 50)
-            // self.textView.textLabel.underline()
+            self.textView.font = UIFont.courierPrimeItalic ?? UIFont.systemFont(ofSize: 50)
+            self.textEditView.textView.font = UIFont.courierPrimeItalic ?? UIFont.systemFont(ofSize: 50)
             self.textEditView.textView.setTextViewWith(self.textEditView.textView.text)
-            // self.textEditView.textView.attributedStringSet(underline: true)
             self.btnChangeView.setTitle("MODERN", for: UIControl.State())
             
             self.textView.textLabel.neonEffectRemove()
-            //            startColor = UIColor.orange
-            //            endColor = UIColor.purple
-            //            configure()
             drawingContainer.backgroundColor = UIColor.gradientColorFrom(colors: modernBGColors[defaultBGColorsIndex], and: self.view.bounds.size) ?? ApplicationSettings.appBlackColor
             btnChangeColor.backgroundColor = UIColor.gradientColorFrom(colors: modernBGColors[defaultBGColorsIndex], and: btnChangeColor.bounds.size) ?? ApplicationSettings.appBlackColor
             self.textView.textColor = defaultFontColors[defaultBGColorsIndex][0]
             self.textEditView.textView.textColor = defaultFontColors[defaultBGColorsIndex][0]
         }
         else if state == .neon {
-            self.textView.font = UIFont.init(name: "LinoleoScript", size: 70) ?? UIFont.systemFont(ofSize: 70)
-            self.textEditView.textView.font = UIFont.init(name: "LinoleoScript", size: 70) ?? UIFont.systemFont(ofSize: 70)
-            //drawingContainer.backgroundColor = UIColor.gradientColorFrom(colors: [UIColor.purple.withAlphaComponent(0.4), UIColor.purple.withAlphaComponent(0.8)], and: self.view.bounds.size) ?? ApplicationSettings.appBlackColor
+            self.textView.font = UIFont.linoleoScript ?? UIFont.systemFont(ofSize: 70)
+            self.textEditView.textView.font = UIFont.linoleoScript ?? UIFont.systemFont(ofSize: 70)
             self.textEditView.textView.setTextViewWith(self.textEditView.textView.text)
-            // self.textEditView.textView.attributedStringSet(underline: false)
             self.btnChangeView.setTitle("NEON", for: UIControl.State())
-            //            startColor = UIColor.purple.withAlphaComponent(0.4)
-            //            endColor = UIColor.purple.withAlphaComponent(0.8)
-            //            configure()
-            // self.textView.textLabel.removeUnderline()
             self.textView.textLabel.neonEffectAdd()
             
             drawingContainer.backgroundColor = UIColor.gradientColorFrom(colors: defaultBGColors[defaultBGColorsIndex], and: self.view.bounds.size) ?? ApplicationSettings.appBlackColor
@@ -519,16 +508,10 @@ public class DrawViewController: UIViewController {
             
         }
         else if state == .typeWriter {
-            self.textView.font = UIFont.init(name: "DurationBook-Regular", size: 75) ?? UIFont.systemFont(ofSize: 75)
-            self.textEditView.textView.font = UIFont.init(name: "DurationBook-Regular", size: 75) ?? UIFont.systemFont(ofSize: 75)
+            self.textView.font = UIFont.durationBookRegularSize75 ?? UIFont.systemFont(ofSize: 75)
+            self.textEditView.textView.font = UIFont.durationBookRegularSize75 ?? UIFont.systemFont(ofSize: 75)
             self.textEditView.textView.setTextViewWith(self.textEditView.textView.text)
-            //drawingContainer.backgroundColor = UIColor.gradientColorFrom(colors: [ApplicationSettings.appLightGrayColor.withAlphaComponent(0.3),ApplicationSettings.appLightGrayColor.withAlphaComponent(0.7)], and: self.view.bounds.size) ?? ApplicationSettings.appBlackColor
-            // self.textEditView.textView.attributedStringSet(underline: false)
-            //            startColor = ApplicationSettings.appLightGrayColor.withAlphaComponent(0.1)
-            //            endColor = ApplicationSettings.appLightGrayColor.withAlphaComponent(0.4)
-            //            configure()
             self.btnChangeView.setTitle("TYPEWRITER", for: UIControl.State())
-            // self.textView.textLabel.removeUnderline()
             self.textView.textLabel.neonEffectRemove()
             drawingContainer.backgroundColor = UIColor.gradientColorFrom(colors: typeWritingBGColors[defaultBGColorsIndex], and: self.view.bounds.size) ?? ApplicationSettings.appBlackColor
             btnChangeColor.backgroundColor = UIColor.gradientColorFrom(colors: typeWritingBGColors[defaultBGColorsIndex], and: btnChangeColor.bounds.size) ?? ApplicationSettings.appBlackColor

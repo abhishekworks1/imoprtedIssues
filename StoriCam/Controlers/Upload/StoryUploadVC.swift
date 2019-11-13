@@ -235,7 +235,7 @@ class CustomHeader: UITableViewHeaderFooterView {
     override public init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         
-        customLabel.font = UIFont.init(name: "SFUIText-Bold", size: 14)!
+        customLabel.font = UIFont.sfuiBoldfont
       
         self.contentView.backgroundColor = ApplicationSettings.appWhiteColor
         self.backgroundColor = ApplicationSettings.appWhiteColor
@@ -269,7 +269,7 @@ class CustomFooter: UITableViewHeaderFooterView {
     override public init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         
-        customLabel.font = UIFont.init(name: "SFUIText-Medium", size: 17)!
+        customLabel.font = UIFont.sfuifontSize17
         
         self.contentView.backgroundColor = ApplicationSettings.appWhiteColor
         self.backgroundColor = ApplicationSettings.appWhiteColor

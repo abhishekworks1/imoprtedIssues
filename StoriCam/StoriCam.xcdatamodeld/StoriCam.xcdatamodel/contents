@@ -20,41 +20,6 @@
         <attribute name="priority" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="downloadData" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="DownloadData" inverseName="downloadPlayListData" inverseEntity="DownloadData"/>
     </entity>
-    <entity name="PostData" representedClassName="PostData" syncable="YES" codeGenerationType="class">
-        <attribute name="createdDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="isCompleted" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="isPostUploaded" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="isThumbUploaded" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="priority" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="serverURL" optional="YES" attributeType="String"/>
-        <attribute name="thumbServerURL" optional="YES" attributeType="String"/>
-        <attribute name="thumbTime" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="url" optional="YES" attributeType="String"/>
-        <relationship name="postUploadData" optional="YES" maxCount="1" deletionRule="No Action" destinationEntity="PostUploadData" inverseName="postData" inverseEntity="PostUploadData"/>
-    </entity>
-    <entity name="PostUploadData" representedClassName="PostUploadData" syncable="YES" codeGenerationType="class">
-        <attribute name="actionType" optional="YES" attributeType="String"/>
-        <attribute name="albumID" optional="YES" attributeType="String"/>
-        <attribute name="checkedIn" optional="YES" attributeType="String"/>
-        <attribute name="feelings" optional="YES" attributeType="String"/>
-        <attribute name="friendExcept" optional="YES" attributeType="String"/>
-        <attribute name="friendsOnly" optional="YES" attributeType="String"/>
-        <attribute name="hashTags" optional="YES" attributeType="String"/>
-        <attribute name="isCheckIn" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="isCompleted" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="mentions" optional="YES" attributeType="Transformable" customClassName="[String]"/>
-        <attribute name="oldPostId" optional="YES" attributeType="String"/>
-        <attribute name="postMedia" optional="YES" attributeType="String"/>
-        <attribute name="postText" optional="YES" attributeType="String"/>
-        <attribute name="postType" optional="YES" attributeType="String"/>
-        <attribute name="previewUrlData" optional="YES" attributeType="String"/>
-        <attribute name="priority" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="privacy" optional="YES" attributeType="String"/>
-        <attribute name="removedMedia" optional="YES" attributeType="String"/>
-        <attribute name="userID" optional="YES" attributeType="String"/>
-        <attribute name="wallTheme" optional="YES" attributeType="String"/>
-        <relationship name="postData" optional="YES" toMany="YES" deletionRule="No Action" destinationEntity="PostData" inverseName="postUploadData" inverseEntity="PostData"/>
-    </entity>
     <entity name="StoryData" representedClassName="StoryData" syncable="YES" codeGenerationType="class">
         <attribute name="address" optional="YES" attributeType="String"/>
         <attribute name="createdDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -126,13 +91,11 @@
         <relationship name="storyData" optional="YES" toMany="YES" deletionRule="No Action" destinationEntity="StoryData" inverseName="storyUploadData" inverseEntity="StoryData"/>
     </entity>
     <elements>
-        <element name="DownloadPlayListData" positionX="-63" positionY="-18" width="128" height="118"/>
         <element name="DownloadData" positionX="-54" positionY="-9" width="128" height="208"/>
-        <element name="PostUploadData" positionX="-36" positionY="9" width="128" height="358"/>
+        <element name="DownloadPlayListData" positionX="-63" positionY="-18" width="128" height="118"/>
+        <element name="StoryData" positionX="18" positionY="63" width="128" height="508"/>
+        <element name="StoryExport" positionX="-9" positionY="36" width="128" height="88"/>
         <element name="StoryTag" positionX="-18" positionY="27" width="128" height="418"/>
         <element name="StoryUploadData" positionX="0" positionY="45" width="128" height="88"/>
-        <element name="StoryData" positionX="18" positionY="63" width="128" height="508"/>
-        <element name="PostData" positionX="36" positionY="81" width="128" height="193"/>
-        <element name="StoryExport" positionX="-9" positionY="36" width="128" height="88"/>
     </elements>
 </model>

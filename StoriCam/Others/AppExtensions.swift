@@ -13,8 +13,17 @@ import SDWebImage
 import AVKit
 
 extension UIFont {
-    @nonobjc public static let tagTxtSel = UIFont.init(name: "HelveticaNeue", size: 12)
-    @nonobjc public static let sfuifont = UIFont.init(name: "SFUIText-Medium", size: 13)
+    @nonobjc public static let tagTxtSel = UIFont(name: "HelveticaNeue", size: 12)
+    @nonobjc public static let helveticaNeuethin = UIFont(name: "HelveticaNeue-Thin", size: 17)
+    @nonobjc public static let avenirHeavy = UIFont(name: "Avenir-Heavy", size: 72)
+    @nonobjc public static let sfuiTextRegular = R.font.sfuiTextRegular(size: 18)
+    @nonobjc public static let sfuifont = R.font.sfuiTextMedium(size: 13)
+    @nonobjc public static let sfuifontSize17 = R.font.sfuiTextMedium(size: 17)
+    @nonobjc public static let sfuiBoldfont = R.font.sfuiTextBold(size: 14)
+    @nonobjc public static let durationBookRegular = R.font.durationBookRegular(size: 90)
+    @nonobjc public static let courierPrimeItalic = R.font.courierPrimeItalic(size: 50)
+    @nonobjc public static let linoleoScript = R.font.linoleoScript(size: 70)
+    @nonobjc public static let durationBookRegularSize75 = R.font.durationBookRegular(size: 75)
 }
 
 extension UIViewController {
@@ -37,12 +46,9 @@ extension UIViewController {
     }
     
     func changeChannelData(newChannel channel:User) {
-         
         Defaults.shared.currentUser = channel
-       
-//        StoryDataManager.shared.deleteAllRecords()
-//        StoryDataManager.shared.stopAll()
-        
+        StoryDataManager.shared.deleteAllRecords()
+        StoryDataManager.shared.stopAll()
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "SwitchChannel"), object: nil)
     }
     

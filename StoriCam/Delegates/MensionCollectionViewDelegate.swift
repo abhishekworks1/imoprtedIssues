@@ -33,10 +33,11 @@ class MensionCollectionViewDelegate: NSObject, UICollectionViewDataSource, UICol
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MensionCollectionViewCell", for: indexPath) as? MensionCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.nib.mensionCollectionViewCell.identifier, for: indexPath) as? MensionCollectionViewCell else {
             fatalError("Unable to find cell with 'MensionCollectionViewCell' reuseIdentifier")
         }
         cell.userChannelName.text = mensions[indexPath.row].channelId
+        cell.userImageView.backgroundColor = .white
         cell.userImageView.setImageFromURL(mensions[indexPath.row].profileImageURL)
         return cell
     }

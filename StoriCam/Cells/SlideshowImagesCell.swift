@@ -16,8 +16,6 @@ class SlideshowImagesCell: UICollectionViewCell {
     @IBOutlet weak var borderImage: UIImageView!
     @IBOutlet var btnImageClose: UIButton!
 
-    static let identifier = "SlideshowImagesCell"
-    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         

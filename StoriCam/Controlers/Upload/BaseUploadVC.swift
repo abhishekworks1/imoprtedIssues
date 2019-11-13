@@ -35,8 +35,8 @@ class BaseUploadVC: MXSegmentedPagerController {
         // Segmented Control customization
         segmentedPager.segmentedControl.selectionIndicatorLocation = .down
         segmentedPager.segmentedControl.backgroundColor = ApplicationSettings.appWhiteColor
-        segmentedPager.segmentedControl.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.gray85, NSAttributedString.Key.font: UIFont(name: "SFUIText-Medium", size: 14)!]
-        segmentedPager.segmentedControl.selectedTitleTextAttributes = [NSAttributedString.Key.foregroundColor: ApplicationSettings.appPrimaryColor, NSAttributedString.Key.font: UIFont(name: "SFUIText-Medium", size: 14)!]
+        segmentedPager.segmentedControl.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.gray85, NSAttributedString.Key.font: UIFont.sfuiTextRegular]
+        segmentedPager.segmentedControl.selectedTitleTextAttributes = [NSAttributedString.Key.foregroundColor: ApplicationSettings.appPrimaryColor, NSAttributedString.Key.font: UIFont.sfuiTextRegular]
         segmentedPager.segmentedControl.selectionStyle = .fullWidthStripe
         segmentedPager.segmentedControl.selectionIndicatorColor = ApplicationSettings.appPrimaryColor
         segmentedPager.segmentedControl.borderType = .bottom

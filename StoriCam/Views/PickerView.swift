@@ -158,9 +158,8 @@ open class PickerView: UIView {
                                                width: screenRect.width/2-20,
                                                height: 134))
         titleLabel.textAlignment = .left
-//        self.addSubview(titleLabel)
         titleLabel.textColor = ApplicationSettings.appWhiteColor
-        titleLabel.font = UIFont(name: "Avenir-Medium", size: 24.0)
+        titleLabel.font = UIFont.sfuifontSize17
         titleLabel.backgroundColor = ApplicationSettings.appClearColor
         return titleLabel
     }()

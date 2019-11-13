@@ -656,7 +656,7 @@ extension StyleTransferVC: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == self.imageCollectionView {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: indexPath) as! ImageCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.nib.imageCollectionViewCell.identifier, for: indexPath) as! ImageCollectionViewCell
             
             let borderColor: CGColor! = ApplicationSettings.appBlackColor.cgColor
             let borderWidth: CGFloat = 3
