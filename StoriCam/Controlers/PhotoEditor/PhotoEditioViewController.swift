@@ -167,6 +167,10 @@ class PhotoEditorViewController: UIViewController {
     @IBOutlet weak var notesExportLabel: UILabel!
     @IBOutlet weak var notesProgress: StoryExportProgress!
     
+    @IBOutlet weak var socialShareView: UIView!
+    @IBOutlet weak var socialShareExportLabel: UILabel!
+    @IBOutlet weak var socialShareProgress: StoryExportProgress!
+    
     @IBOutlet weak var chatView: UIView!
     @IBOutlet weak var chatExportLabel: UILabel!
     @IBOutlet weak var postToChatProgress: StoryExportProgress!

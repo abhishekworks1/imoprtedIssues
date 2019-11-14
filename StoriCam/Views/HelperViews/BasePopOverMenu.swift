@@ -385,7 +385,7 @@ private class BasePopOverMenuView: UIControl {
     
     lazy var menuTableView: UITableView = {
         let tableView = UITableView.init(frame: CGRect.zero, style: UITableView.Style.plain)
-        tableView.backgroundColor = ApplicationSettings.appWhiteColor
+        tableView.backgroundColor = BasePopConfiguration.shared.backgoundTintColor
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorColor = BasePopConfiguration.shared.menuSeparatorColor
@@ -572,7 +572,6 @@ class BasePopOverMenuCell: UITableViewCell {
     
     fileprivate lazy var iconImageView: UIImageView = {
         let imageView = UIImageView(frame: CGRect.zero)
-        imageView.backgroundColor = ApplicationSettings.appWhiteColor
         imageView.contentMode = UIView.ContentMode.scaleAspectFit
         self.contentView.addSubview(imageView)
         return imageView
@@ -585,7 +584,7 @@ class BasePopOverMenuCell: UITableViewCell {
     }()
     
     fileprivate func setupCellWith(menuName: String, menuImage: UIImage?) {
-        self.backgroundColor = ApplicationSettings.appWhiteColor
+        self.backgroundColor = BasePopConfiguration.shared.backgoundTintColor
         if menuImage != nil {
             if var iconImage: UIImage = menuImage {
                 if configuration.ignoreImageOriginalColor {

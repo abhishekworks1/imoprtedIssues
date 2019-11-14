@@ -45,7 +45,7 @@ class EmojiCollectionViewDelegate: NSObject, UICollectionViewDataSource, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.nib.queSliderCollectionViewCell.identifier, for: indexPath) else {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.nib.queSliderCollectionViewCell.identifier, for: indexPath) as? QueSliderCollectionViewCell else {
             fatalError("Unable to find cell with 'QueSliderCollectionViewCell' reuseIdentifier")
         }
         cell.lblEmoji.text = emojis[indexPath.row]

@@ -23,36 +23,56 @@ open class SocialShareVideo {
   
     var delegate: ShareStoriesDelegate?
     
-    func sharePhoto(image : UIImage, isFacebook: Bool) {
-        if isFacebook {
+    func sharePhoto(image : UIImage, socialType: SocialShare) {
+        switch socialType {
+        case .facebook:
             self.fbShareImage(image)
-        } else {
+        case .instagram:
             self.saveImageToCameraRoll(image: image, completion: { (result, phAsset) in
                 DispatchQueue.runOnMainThread {
                     self.instaImageVideoShare(phAsset!)
                 }
             })
+        case .snapchat:
+            self.snapChatShareImage(image: image)
+        default:
+            break
         }
     }
     
-    func shareVideo(url: URL?, isFacebook: Bool) {
-        PHPhotoLibrary.requestAuthorization({ [weak self]
-            (newStatus) in
-            guard let strongSelf = self else {
-                return
-            }
-            if newStatus ==  PHAuthorizationStatus.authorized {
-                strongSelf.saveVideoToCameraRoll(url: url!, completion: { (result, phAsset) in
-                    DispatchQueue.runOnMainThread {
-                        if isFacebook {
-                            self?.fbShareVideo(phAsset)
-                        } else {
-                            self?.instaImageVideoShare(phAsset!)
+    func shareVideo(url: URL?, socialType: SocialShare) {
+        guard let url = url else { return }
+        switch socialType {
+        case .facebook, .instagram:
+            PHPhotoLibrary.requestAuthorization({ [weak self]
+                (newStatus) in
+                guard let strongSelf = self else {
+                    return
+                }
+                if newStatus ==  PHAuthorizationStatus.authorized {
+                    strongSelf.saveVideoToCameraRoll(url: url, completion: { [weak self] (result, phAsset) in
+                        guard let strongSelf = self else {
+                            return
                         }
-                    }
-                })
-            }
-        })
+                        DispatchQueue.runOnMainThread {
+                            switch socialType {
+                            case .facebook:
+                                strongSelf.fbShareVideo(phAsset)
+                            case .instagram:
+                                strongSelf.instaImageVideoShare(phAsset!)
+                            default:
+                                break
+                            }
+                        }
+                    })
+                }
+            })
+        case .snapchat:
+            snapChatShareVideo(url)
+            break
+        default:
+            break
+        }
     }
     
     func showShareDialog<C: SharingContent>(_ content: C, mode: ShareDialog.Mode = .automatic) {
@@ -126,17 +146,24 @@ open class SocialShareVideo {
         }
     }
     
-    public func snapChatShareImage(image: UIImage, caption: String) {
+    func snapChatShareImage(image: UIImage) {
         let photo = SCSDKSnapPhoto(image: image)
-        let snap = SCSDKPhotoSnapContent(snapPhoto: photo)
-        snap.caption = caption
-        let api = SCSDKSnapAPI.init()
-        api.startSending(snap) { (error) in
-            if let error = error {
-                print(error.localizedDescription)
-            } else {
-                // success
-            }
+        let snapPhoto = SCSDKPhotoSnapContent(snapPhoto: photo)
+        snapChatShare(snapContent: snapPhoto)
+    }
+    
+    func snapChatShareVideo(_ videoUrl: URL) {
+        let video = SCSDKSnapVideo(videoUrl: videoUrl)
+        let snapVideo = SCSDKVideoSnapContent(snapVideo: video)
+        snapChatShare(snapContent: snapVideo)
+    }
+    
+    func snapChatShare(snapContent: SCSDKSnapContent) {
+        snapContent.caption = Constant.Application.displayName
+        let api = SCSDKSnapAPI.init(content: snapContent)
+        api.startSnapping { _ in
+           
         }
     }
+    
 }
