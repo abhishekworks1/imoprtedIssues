@@ -349,6 +349,10 @@ public struct Constant {
         static let consumerSecret: String = "a5ZhCvWFPJIR3g7vzzGWMGUh3CuzbnFh2cROxHjEdUlvnERtMB"
     }
     
+    struct AppCenter {
+        static let apiKey: String = "b8e186c4-5b4e-45a2-96e5-7904b346ab00"
+    }
+    
     struct GoogleService {
         static let serviceKey: String = "AIzaSyAhDvrppyVLvXTAD2fMj1wdBsUgyf1bZpM"
         static let placeClientKey: String = "AIzaSyDRFfyh2Dce1bj7e8WuJyY8ub7sNLPfwrY"

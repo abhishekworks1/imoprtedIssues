@@ -17,6 +17,9 @@ import GooglePlaces
 import GoogleMaps
 import FBSDKCoreKit
 import TikTokOpenPlatformSDK
+import AppCenter
+import AppCenterAnalytics
+import AppCenterCrashes
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -48,6 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #else
         Fabric.sharedSDK().debug = false
         #endif
+        Fabric.with([Crashlytics.self])
         
         configureGoogleService()
         
@@ -67,6 +71,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         
         TiktokShare.shared.setupTiktok(application, didFinishLaunchingWithOptions: launchOptions)
+        
+        MSAppCenter.start(Constant.AppCenter.apiKey, withServices:[])
         
         UIApplication.shared.delegate!.window!!.rootViewController = rootViewController
         

@@ -46,4 +46,5 @@ target 'SocialCAM' do
   pod 'FBSDKShareKit/Swift'
   pod 'SnapSDK', :subspecs => ['SCSDKCreativeKit']
   pod 'TikTokOpenSDK', '~> 2.0.0'
+  pod 'AppCenter'
 end

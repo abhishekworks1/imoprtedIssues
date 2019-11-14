@@ -2173,11 +2173,11 @@
 			buildPhases = (
 				F2244E43A2F45C1A4860C3D7 /* [CP] Check Pods Manifest.lock */,
 				8205FA75236C0D87002B2603 /* ShellScript */,
+				82F4CA04237D7315001EF701 /* ShellScript */,
 				824EB3742361959800205993 /* Sources */,
 				824EB3752361959800205993 /* Frameworks */,
 				824EB3762361959800205993 /* Resources */,
 				8F55EF2E66D9FEBCAB33F172 /* [CP] Embed Pods Frameworks */,
-				82EEF72F2375347300DE4845 /* ShellScript */,
 				7BA9086DBCFF29959054AB55 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -2383,7 +2383,7 @@
 			shellPath = /bin/sh;
 			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"--import\" \"MXPagerView\" \"$SRCROOT/R.generated.swift\" \n";
 		};
-		82EEF72F2375347300DE4845 /* ShellScript */ = {
+		82F4CA04237D7315001EF701 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2398,7 +2398,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/Fabric/run\"\n";
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 96c68e9c0138cb4916e862697ecd5746657596e6 26c18e9bb11b79d4fbf2b036d87c05bdbfef408cb7e58a4f496f2fa1451a1d1f\n";
 		};
 		8F55EF2E66D9FEBCAB33F172 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
