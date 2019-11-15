@@ -112,7 +112,7 @@
 		8205FB79236C1D0F002B2603 /* ReactionFeedbackDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB5E236C1D0F002B2603 /* ReactionFeedbackDelegate.swift */; };
 		8205FB7A236C1D0F002B2603 /* ReactionSelectorConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB5F236C1D0F002B2603 /* ReactionSelectorConfig.swift */; };
 		8205FB7B236C1D0F002B2603 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB60236C1D0F002B2603 /* Components.swift */; };
-		8205FB7E236C1FC6002B2603 /* StoriCam.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB7C236C1FC6002B2603 /* StoriCam.xcdatamodeld */; };
+		8205FB7E236C1FC6002B2603 /* SocialCAM.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB7C236C1FC6002B2603 /* SocialCAM.xcdatamodeld */; };
 		8205FB82236C205E002B2603 /* ImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8205FB80236C205E002B2603 /* ImageCollectionViewCell.xib */; };
 		8205FB83236C205E002B2603 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB81236C205E002B2603 /* ImageCollectionViewCell.swift */; };
 		8205FB87236C28F3002B2603 /* EditOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB86236C28F3002B2603 /* EditOption.swift */; };
@@ -339,7 +339,8 @@
 		820B23752371975000906BF0 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820B23742371975000906BF0 /* Result.swift */; };
 		820B23772371A0A500906BF0 /* StoryTwoColumnsLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820B23762371A0A400906BF0 /* StoryTwoColumnsLayout.swift */; };
 		820C3AF923797896007FCF15 /* SocialShareVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820C3AF823797896007FCF15 /* SocialShareVideo.swift */; };
-		824AD526237BEAD700BF226F /* TiktokClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824AD525237BEAD700BF226F /* TiktokClass.swift */; };
+		824E5171237E77F100339809 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 824E5170237E77F100339809 /* WebKit.framework */; };
+		824E5173237E77F700339809 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 824E5172237E77F700339809 /* Security.framework */; };
 		824EB37C2361959800205993 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB37B2361959800205993 /* AppDelegate.swift */; };
 		824EB3832361959800205993 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 824EB3812361959800205993 /* Main.storyboard */; };
 		824EB3852361959900205993 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 824EB3842361959900205993 /* Assets.xcassets */; };
@@ -468,32 +469,6 @@
 		82D1EC5123702B4300A680E7 /* Wonderful.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 82D1EC1C23702B4200A680E7 /* Wonderful.JPG */; };
 		82D1EC5223702B4300A680E7 /* Philharmonic.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 82D1EC1D23702B4200A680E7 /* Philharmonic.JPG */; };
 		82D1EC5323702B4300A680E7 /* Rouge.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 82D1EC1E23702B4200A680E7 /* Rouge.JPG */; };
-		82D1EC5423702B4300A680E7 /* Innocence.png in Resources */ = {isa = PBXBuildFile; fileRef = 82D1EC2023702B4200A680E7 /* Innocence.png */; };
-		82D1EC5523702B4300A680E7 /* peach.png in Resources */ = {isa = PBXBuildFile; fileRef = 82D1EC2123702B4200A680E7 /* peach.png */; };
-		82D1EC5623702B4300A680E7 /* Detached.png in Resources */ = {isa = PBXBuildFile; fileRef = 82D1EC2223702B4200A680E7 /* Detached.png */; };
-		82D1EC5723702B4300A680E7 /* Youth.png in Resources */ = {isa = PBXBuildFile; fileRef = 82D1EC2323702B4200A680E7 /* Youth.png */; };
-		82D1EC5823702B4300A680E7 /* Naive.png in Resources */ = {isa = PBXBuildFile; fileRef = 82D1EC2423702B4200A680E7 /* Naive.png */; };
-		82D1EC5923702B4300A680E7 /* RedLips.png in Resources */ = {isa = PBXBuildFile; fileRef = 82D1EC2523702B4200A680E7 /* RedLips.png */; };
-		82D1EC5A23702B4300A680E7 /* FairyTales.png in Resources */ = {isa = PBXBuildFile; fileRef = 82D1EC2623702B4200A680E7 /* FairyTales.png */; };
-		82D1EC5B23702B4300A680E7 /* Clear.png in Resources */ = {isa = PBXBuildFile; fileRef = 82D1EC2723702B4200A680E7 /* Clear.png */; };
-		82D1EC5C23702B4300A680E7 /* Mood.png in Resources */ = {isa = PBXBuildFile; fileRef = 82D1EC2823702B4200A680E7 /* Mood.png */; };
-		82D1EC5D23702B4300A680E7 /* Pink.png in Resources */ = {isa = PBXBuildFile; fileRef = 82D1EC2923702B4200A680E7 /* Pink.png */; };
-		82D1EC5E23702B4300A680E7 /* Marshmallow.png in Resources */ = {isa = PBXBuildFile; fileRef = 82D1EC2A23702B4200A680E7 /* Marshmallow.png */; };
-		82D1EC5F23702B4300A680E7 /* EarlySummer.png in Resources */ = {isa = PBXBuildFile; fileRef = 82D1EC2B23702B4200A680E7 /* EarlySummer.png */; };
-		82D1EC6023702B4300A680E7 /* Fragrance.png in Resources */ = {isa = PBXBuildFile; fileRef = 82D1EC2C23702B4200A680E7 /* Fragrance.png */; };
-		82D1EC6123702B4300A680E7 /* Light.png in Resources */ = {isa = PBXBuildFile; fileRef = 82D1EC2D23702B4200A680E7 /* Light.png */; };
-		82D1EC6223702B4300A680E7 /* Thursday.png in Resources */ = {isa = PBXBuildFile; fileRef = 82D1EC2E23702B4200A680E7 /* Thursday.png */; };
-		82D1EC6323702B4300A680E7 /* Playful.png in Resources */ = {isa = PBXBuildFile; fileRef = 82D1EC2F23702B4200A680E7 /* Playful.png */; };
-		82D1EC6423702B4300A680E7 /* Rejoicing.png in Resources */ = {isa = PBXBuildFile; fileRef = 82D1EC3023702B4200A680E7 /* Rejoicing.png */; };
-		82D1EC6523702B4300A680E7 /* Sundae.png in Resources */ = {isa = PBXBuildFile; fileRef = 82D1EC3123702B4200A680E7 /* Sundae.png */; };
-		82D1EC6623702B4300A680E7 /* Muse.png in Resources */ = {isa = PBXBuildFile; fileRef = 82D1EC3223702B4200A680E7 /* Muse.png */; };
-		82D1EC6723702B4300A680E7 /* Warm.png in Resources */ = {isa = PBXBuildFile; fileRef = 82D1EC3323702B4200A680E7 /* Warm.png */; };
-		82D1EC6823702B4300A680E7 /* Snowflakes.png in Resources */ = {isa = PBXBuildFile; fileRef = 82D1EC3423702B4200A680E7 /* Snowflakes.png */; };
-		82D1EC6923702B4300A680E7 /* GreenGrass.png in Resources */ = {isa = PBXBuildFile; fileRef = 82D1EC3523702B4200A680E7 /* GreenGrass.png */; };
-		82D1EC6A23702B4300A680E7 /* Cute.png in Resources */ = {isa = PBXBuildFile; fileRef = 82D1EC3623702B4200A680E7 /* Cute.png */; };
-		82D1EC6B23702B4300A680E7 /* Philharmonic.png in Resources */ = {isa = PBXBuildFile; fileRef = 82D1EC3723702B4200A680E7 /* Philharmonic.png */; };
-		82D1EC6C23702B4300A680E7 /* Wonderful.png in Resources */ = {isa = PBXBuildFile; fileRef = 82D1EC3823702B4200A680E7 /* Wonderful.png */; };
-		82D1EC6D23702B4300A680E7 /* Rouge.png in Resources */ = {isa = PBXBuildFile; fileRef = 82D1EC3923702B4200A680E7 /* Rouge.png */; };
 		82D1EC8223703DE300A680E7 /* PhotoEditiorViewController+Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EC7C23703DE000A680E7 /* PhotoEditiorViewController+Delegates.swift */; };
 		82D1EC8323703DE300A680E7 /* PhotoEditiorViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EC7D23703DE100A680E7 /* PhotoEditiorViewController+Actions.swift */; };
 		82D1EC8423703DE300A680E7 /* PhotoEditioViewController+Picker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EC7E23703DE100A680E7 /* PhotoEditioViewController+Picker.swift */; };
@@ -506,9 +481,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		03989C2153541DEC0E04A6FA /* Pods-StoriCam.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StoriCam.release.xcconfig"; path = "Target Support Files/Pods-StoriCam/Pods-StoriCam.release.xcconfig"; sourceTree = "<group>"; };
 		2FFDFF034EAEBD1B2183306F /* Pods_SocialCAM.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SocialCAM.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6BD37B5CE4A9A88355958224 /* Pods-StoriCam.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StoriCam.debug.xcconfig"; path = "Target Support Files/Pods-StoriCam/Pods-StoriCam.debug.xcconfig"; sourceTree = "<group>"; };
 		8205FA76236C0EE4002B2603 /* ColorImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorImageButton.swift; sourceTree = "<group>"; };
 		8205FA79236C0F5A002B2603 /* ImageLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageLibrary.swift; sourceTree = "<group>"; };
 		8205FA7B236C0F8C002B2603 /* HorizontalFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalFlowLayout.swift; sourceTree = "<group>"; };
@@ -633,7 +606,7 @@
 		8205FB5E236C1D0F002B2603 /* ReactionFeedbackDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReactionFeedbackDelegate.swift; sourceTree = "<group>"; };
 		8205FB5F236C1D0F002B2603 /* ReactionSelectorConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReactionSelectorConfig.swift; sourceTree = "<group>"; };
 		8205FB60236C1D0F002B2603 /* Components.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
-		8205FB7D236C1FC6002B2603 /* StoriCam.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = StoriCam.xcdatamodel; sourceTree = "<group>"; };
+		8205FB7D236C1FC6002B2603 /* StoriCAM.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = StoriCAM.xcdatamodel; sourceTree = "<group>"; };
 		8205FB80236C205E002B2603 /* ImageCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageCollectionViewCell.xib; sourceTree = "<group>"; };
 		8205FB81236C205E002B2603 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		8205FB86236C28F3002B2603 /* EditOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditOption.swift; sourceTree = "<group>"; };
@@ -858,6 +831,8 @@
 		820B23762371A0A400906BF0 /* StoryTwoColumnsLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryTwoColumnsLayout.swift; sourceTree = "<group>"; };
 		820C3AF823797896007FCF15 /* SocialShareVideo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialShareVideo.swift; sourceTree = "<group>"; };
 		824AD525237BEAD700BF226F /* TiktokClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TiktokClass.swift; sourceTree = "<group>"; };
+		824E5170237E77F100339809 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		824E5172237E77F700339809 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		824EB3782361959800205993 /* SocialCAM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SocialCAM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		824EB37B2361959800205993 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		824EB3822361959800205993 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -992,32 +967,6 @@
 		82D1EC1C23702B4200A680E7 /* Wonderful.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Wonderful.JPG; sourceTree = "<group>"; };
 		82D1EC1D23702B4200A680E7 /* Philharmonic.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Philharmonic.JPG; sourceTree = "<group>"; };
 		82D1EC1E23702B4200A680E7 /* Rouge.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Rouge.JPG; sourceTree = "<group>"; };
-		82D1EC2023702B4200A680E7 /* Innocence.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Innocence.png; sourceTree = "<group>"; };
-		82D1EC2123702B4200A680E7 /* peach.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = peach.png; sourceTree = "<group>"; };
-		82D1EC2223702B4200A680E7 /* Detached.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Detached.png; sourceTree = "<group>"; };
-		82D1EC2323702B4200A680E7 /* Youth.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Youth.png; sourceTree = "<group>"; };
-		82D1EC2423702B4200A680E7 /* Naive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Naive.png; sourceTree = "<group>"; };
-		82D1EC2523702B4200A680E7 /* RedLips.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RedLips.png; sourceTree = "<group>"; };
-		82D1EC2623702B4200A680E7 /* FairyTales.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FairyTales.png; sourceTree = "<group>"; };
-		82D1EC2723702B4200A680E7 /* Clear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Clear.png; sourceTree = "<group>"; };
-		82D1EC2823702B4200A680E7 /* Mood.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Mood.png; sourceTree = "<group>"; };
-		82D1EC2923702B4200A680E7 /* Pink.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Pink.png; sourceTree = "<group>"; };
-		82D1EC2A23702B4200A680E7 /* Marshmallow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Marshmallow.png; sourceTree = "<group>"; };
-		82D1EC2B23702B4200A680E7 /* EarlySummer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EarlySummer.png; sourceTree = "<group>"; };
-		82D1EC2C23702B4200A680E7 /* Fragrance.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Fragrance.png; sourceTree = "<group>"; };
-		82D1EC2D23702B4200A680E7 /* Light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Light.png; sourceTree = "<group>"; };
-		82D1EC2E23702B4200A680E7 /* Thursday.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Thursday.png; sourceTree = "<group>"; };
-		82D1EC2F23702B4200A680E7 /* Playful.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Playful.png; sourceTree = "<group>"; };
-		82D1EC3023702B4200A680E7 /* Rejoicing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Rejoicing.png; sourceTree = "<group>"; };
-		82D1EC3123702B4200A680E7 /* Sundae.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Sundae.png; sourceTree = "<group>"; };
-		82D1EC3223702B4200A680E7 /* Muse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Muse.png; sourceTree = "<group>"; };
-		82D1EC3323702B4200A680E7 /* Warm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Warm.png; sourceTree = "<group>"; };
-		82D1EC3423702B4200A680E7 /* Snowflakes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Snowflakes.png; sourceTree = "<group>"; };
-		82D1EC3523702B4200A680E7 /* GreenGrass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GreenGrass.png; sourceTree = "<group>"; };
-		82D1EC3623702B4200A680E7 /* Cute.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Cute.png; sourceTree = "<group>"; };
-		82D1EC3723702B4200A680E7 /* Philharmonic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Philharmonic.png; sourceTree = "<group>"; };
-		82D1EC3823702B4200A680E7 /* Wonderful.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Wonderful.png; sourceTree = "<group>"; };
-		82D1EC3923702B4200A680E7 /* Rouge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Rouge.png; sourceTree = "<group>"; };
 		82D1EC7C23703DE000A680E7 /* PhotoEditiorViewController+Delegates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PhotoEditiorViewController+Delegates.swift"; sourceTree = "<group>"; };
 		82D1EC7D23703DE100A680E7 /* PhotoEditiorViewController+Actions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PhotoEditiorViewController+Actions.swift"; sourceTree = "<group>"; };
 		82D1EC7E23703DE100A680E7 /* PhotoEditioViewController+Picker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PhotoEditioViewController+Picker.swift"; sourceTree = "<group>"; };
@@ -1041,6 +990,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				824E5173237E77F700339809 /* Security.framework in Frameworks */,
+				824E5171237E77F100339809 /* WebKit.framework in Frameworks */,
 				82EEF72E23752B0D00DE4845 /* AdSupport.framework in Frameworks */,
 				AB8ACBA225496B14EAAC36D8 /* Pods_SocialCAM.framework in Frameworks */,
 			);
@@ -1052,8 +1003,6 @@
 		42EECCA896FCF095AA83BB36 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				6BD37B5CE4A9A88355958224 /* Pods-StoriCam.debug.xcconfig */,
-				03989C2153541DEC0E04A6FA /* Pods-StoriCam.release.xcconfig */,
 				AB071E2B0A788A2E1F2574EF /* Pods-SocialCAM.debug.xcconfig */,
 				86BA1F168DE2A3CF91C622CB /* Pods-SocialCAM.release.xcconfig */,
 			);
@@ -1780,15 +1729,6 @@
 			path = Queuer;
 			sourceTree = "<group>";
 		};
-		820B236D23717C3100906BF0 /* DataBase */ = {
-			isa = PBXGroup;
-			children = (
-				8205FB7C236C1FC6002B2603 /* StoriCam.xcdatamodeld */,
-				8205FBD3236C2B25002B2603 /* Story+CoreDataClass.swift */,
-			);
-			name = DataBase;
-			sourceTree = "<group>";
-		};
 		824AD520237BDA9100BF226F /* Upload */ = {
 			isa = PBXGroup;
 			children = (
@@ -1891,11 +1831,12 @@
 				824EB39423619DFF00205993 /* Views */,
 				824EB393236197F600205993 /* Controlers */,
 				8205FBD7236C2C2E002B2603 /* Resources */,
-				820B236D23717C3100906BF0 /* DataBase */,
 				8205FAC6236C10A6002B2603 /* Vendors */,
 				824EB3812361959800205993 /* Main.storyboard */,
 				824EB3842361959900205993 /* Assets.xcassets */,
 				824EB3862361959900205993 /* LaunchScreen.storyboard */,
+				8205FB7C236C1FC6002B2603 /* SocialCAM.xcdatamodeld */,
+				8205FBD3236C2B25002B2603 /* Story+CoreDataClass.swift */,
 				824EB3892361959900205993 /* Info.plist */,
 				82EEF72B2375288C00DE4845 /* GoogleService-Info.plist */,
 				8205FAC5236C107B002B2603 /* SocialCAM-Bridging-Header.h */,
@@ -2080,7 +2021,6 @@
 			isa = PBXGroup;
 			children = (
 				82D1EC0423702B4200A680E7 /* filter */,
-				82D1EC1F23702B4200A680E7 /* icon */,
 			);
 			path = FilterResources;
 			sourceTree = "<group>";
@@ -2118,42 +2058,11 @@
 			path = filter;
 			sourceTree = "<group>";
 		};
-		82D1EC1F23702B4200A680E7 /* icon */ = {
-			isa = PBXGroup;
-			children = (
-				82D1EC2023702B4200A680E7 /* Innocence.png */,
-				82D1EC2123702B4200A680E7 /* peach.png */,
-				82D1EC2223702B4200A680E7 /* Detached.png */,
-				82D1EC2323702B4200A680E7 /* Youth.png */,
-				82D1EC2423702B4200A680E7 /* Naive.png */,
-				82D1EC2523702B4200A680E7 /* RedLips.png */,
-				82D1EC2623702B4200A680E7 /* FairyTales.png */,
-				82D1EC2723702B4200A680E7 /* Clear.png */,
-				82D1EC2823702B4200A680E7 /* Mood.png */,
-				82D1EC2923702B4200A680E7 /* Pink.png */,
-				82D1EC2A23702B4200A680E7 /* Marshmallow.png */,
-				82D1EC2B23702B4200A680E7 /* EarlySummer.png */,
-				82D1EC2C23702B4200A680E7 /* Fragrance.png */,
-				82D1EC2D23702B4200A680E7 /* Light.png */,
-				82D1EC2E23702B4200A680E7 /* Thursday.png */,
-				82D1EC2F23702B4200A680E7 /* Playful.png */,
-				82D1EC3023702B4200A680E7 /* Rejoicing.png */,
-				82D1EC3123702B4200A680E7 /* Sundae.png */,
-				82D1EC3223702B4200A680E7 /* Muse.png */,
-				82D1EC3323702B4200A680E7 /* Warm.png */,
-				82D1EC3423702B4200A680E7 /* Snowflakes.png */,
-				82D1EC3523702B4200A680E7 /* GreenGrass.png */,
-				82D1EC3623702B4200A680E7 /* Cute.png */,
-				82D1EC3723702B4200A680E7 /* Philharmonic.png */,
-				82D1EC3823702B4200A680E7 /* Wonderful.png */,
-				82D1EC3923702B4200A680E7 /* Rouge.png */,
-			);
-			path = icon;
-			sourceTree = "<group>";
-		};
 		F6303928DF96F75577001E96 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				824E5172237E77F700339809 /* Security.framework */,
+				824E5170237E77F100339809 /* WebKit.framework */,
 				82E7EFD0237937B900501345 /* FBSDKCoreKit.framework */,
 				82E7EFC423792E8B00501345 /* FBSDKCoreKit.framework */,
 				82E7EFC523792E8B00501345 /* FBSDKLoginKit.framework */,
@@ -2173,10 +2082,10 @@
 			buildPhases = (
 				F2244E43A2F45C1A4860C3D7 /* [CP] Check Pods Manifest.lock */,
 				8205FA75236C0D87002B2603 /* ShellScript */,
-				82F4CA04237D7315001EF701 /* ShellScript */,
 				824EB3742361959800205993 /* Sources */,
 				824EB3752361959800205993 /* Frameworks */,
 				824EB3762361959800205993 /* Resources */,
+				824E5174237E7F8D00339809 /* ShellScript */,
 				8F55EF2E66D9FEBCAB33F172 /* [CP] Embed Pods Frameworks */,
 				7BA9086DBCFF29959054AB55 /* [CP] Copy Pods Resources */,
 			);
@@ -2234,31 +2143,21 @@
 				824EB391236197DE00205993 /* StoryCameraViewController.storyboard in Resources */,
 				82D1EBCB236FEE9D00A680E7 /* FrameCollectionViewCell.xib in Resources */,
 				8205FC27236C2C2F002B2603 /* 03 Mysterious Intro.mp3 in Resources */,
-				82D1EC6823702B4300A680E7 /* Snowflakes.png in Resources */,
 				8205FC44236C2C2F002B2603 /* SF-UI-Text-Semibold.otf in Resources */,
-				82D1EC6023702B4300A680E7 /* Fragrance.png in Resources */,
-				82D1EC6323702B4300A680E7 /* Playful.png in Resources */,
 				8205FC31236C2C2F002B2603 /* Linoleo Script.ttf in Resources */,
-				82D1EC5B23702B4300A680E7 /* Clear.png in Resources */,
 				8205FB67236C1D0F002B2603 /* wow.json in Resources */,
 				82D1EC4223702B4300A680E7 /* Pink.JPG in Resources */,
 				82D1EC5223702B4300A680E7 /* Philharmonic.JPG in Resources */,
 				82D1EC4C23702B4300A680E7 /* Rejoicing.JPG in Resources */,
-				82D1EC6B23702B4300A680E7 /* Philharmonic.png in Resources */,
-				82D1EC5F23702B4300A680E7 /* EarlySummer.png in Resources */,
-				82D1EC6C23702B4300A680E7 /* Wonderful.png in Resources */,
 				824EB3882361959900205993 /* LaunchScreen.storyboard in Resources */,
 				8205FB6A236C1D0F002B2603 /* laugh.json in Resources */,
 				82D1EBFB236FF68A00A680E7 /* StoryEmojiCollectionViewCell.xib in Resources */,
 				82CCB1762372E9D000EC76E8 /* LoginViewController.storyboard in Resources */,
 				8205FC26236C2C2F002B2603 /* 01 Instrumental Theme (Intro).mp3 in Resources */,
 				82D1EC4B23702B4300A680E7 /* Sundae.JPG in Resources */,
-				82D1EC6723702B4300A680E7 /* Warm.png in Resources */,
-				82D1EC6623702B4300A680E7 /* Muse.png in Resources */,
 				8205FA85236C0F9C002B2603 /* CameraView.xib in Resources */,
 				8205FBD0236C2A88002B2603 /* CoverA.xib in Resources */,
 				8205FB65236C1D0F002B2603 /* ReactionSummaryLocalizable.strings in Resources */,
-				82D1EC5E23702B4300A680E7 /* Marshmallow.png in Resources */,
 				8205FD8C236C3B25002B2603 /* StickersViewController.xib in Resources */,
 				82D1EC3D23702B4300A680E7 /* Youth.JPG in Resources */,
 				82D1EC4E23702B4300A680E7 /* Snowflakes.JPG in Resources */,
@@ -2266,27 +2165,18 @@
 				8205FC33236C2C2F002B2603 /* Duration Book.ttf in Resources */,
 				8205FD34236C3B06002B2603 /* LUT_M06.png in Resources */,
 				82D1EC4F23702B4300A680E7 /* GreenGrass.JPG in Resources */,
-				82D1EC6923702B4300A680E7 /* GreenGrass.png in Resources */,
 				82EEF72C2375288C00DE4845 /* GoogleService-Info.plist in Resources */,
 				8205FC1F236C2C2F002B2603 /* Courier Prime.ttf in Resources */,
-				82D1EC6523702B4300A680E7 /* Sundae.png in Resources */,
 				8205FB61236C1D0F002B2603 /* angry.json in Resources */,
 				82D1EC5323702B4300A680E7 /* Rouge.JPG in Resources */,
 				8205FB8C236C29E7002B2603 /* PhotosPickerViewController.xib in Resources */,
-				82D1EC5923702B4300A680E7 /* RedLips.png in Resources */,
-				82D1EC6223702B4300A680E7 /* Thursday.png in Resources */,
 				8205FD62236C3B06002B2603 /* Media.xcassets in Resources */,
 				8205FD39236C3B06002B2603 /* LUT_M09.png in Resources */,
 				82D1EC3C23702B4300A680E7 /* peach.JPG in Resources */,
 				82D1EC4723702B4300A680E7 /* Light.JPG in Resources */,
 				82D1EC4123702B4300A680E7 /* Clear.JPG in Resources */,
 				8205FB62236C1D0F002B2603 /* love.json in Resources */,
-				82D1EC5523702B4300A680E7 /* peach.png in Resources */,
-				82D1EC5723702B4300A680E7 /* Youth.png in Resources */,
-				82D1EC5423702B4300A680E7 /* Innocence.png in Resources */,
-				82D1EC6D23702B4300A680E7 /* Rouge.png in Resources */,
 				8205FB13236C14C7002B2603 /* Localizable.strings in Resources */,
-				82D1EC5A23702B4300A680E7 /* FairyTales.png in Resources */,
 				8205FC3E236C2C2F002B2603 /* SF-UI-Text-Light.otf in Resources */,
 				8205FD37236C3B06002B2603 /* LUT_M05.png in Resources */,
 				82D1EC3F23702B4300A680E7 /* Naive.JPG in Resources */,
@@ -2295,13 +2185,9 @@
 				8205FD36236C3B06002B2603 /* LUT_M11.png in Resources */,
 				82D1EC4023702B4300A680E7 /* FairyTales.JPG in Resources */,
 				8205FB69236C1D0F002B2603 /* sad.json in Resources */,
-				82D1EC6423702B4300A680E7 /* Rejoicing.png in Resources */,
 				8205FDA2236C3B79002B2603 /* CollageMaker.storyboard in Resources */,
 				82D1EC3B23702B4300A680E7 /* Detached.JPG in Resources */,
 				8205FB68236C1D0F002B2603 /* like.json in Resources */,
-				82D1EC5C23702B4300A680E7 /* Mood.png in Resources */,
-				82D1EC5823702B4300A680E7 /* Naive.png in Resources */,
-				82D1EC5D23702B4300A680E7 /* Pink.png in Resources */,
 				82D1EC4D23702B4300A680E7 /* Warm.JPG in Resources */,
 				8205FD38236C3B06002B2603 /* LUT_M08.png in Resources */,
 				82D1EC5123702B4300A680E7 /* Wonderful.JPG in Resources */,
@@ -2310,14 +2196,12 @@
 				8205FB64236C1D0F002B2603 /* FeedbackLocalizable.strings in Resources */,
 				82D1EC4423702B4300A680E7 /* Marshmallow.JPG in Resources */,
 				82D1EC4A23702B4300A680E7 /* Muse.JPG in Resources */,
-				82D1EC6A23702B4300A680E7 /* Cute.png in Resources */,
 				82D1EBC7236FEE7F00A680E7 /* StickerCollectionViewCell.xib in Resources */,
 				8205FD33236C3B06002B2603 /* LUT_M07.png in Resources */,
 				8205FD35236C3B06002B2603 /* LUT_M12.png in Resources */,
 				82D1EC3E23702B4300A680E7 /* RedLips.JPG in Resources */,
 				8205FC3A236C2C2F002B2603 /* SF-UI-Text-Bold.otf in Resources */,
 				8205FC30236C2C2F002B2603 /* Courier Prime Italic.ttf in Resources */,
-				82D1EC6123702B4300A680E7 /* Light.png in Resources */,
 				8205FA89236C0F9C002B2603 /* LoadingView.xib in Resources */,
 				824EB3852361959900205993 /* Assets.xcassets in Resources */,
 				82D1EC3A23702B4300A680E7 /* Innocence.JPG in Resources */,
@@ -2326,7 +2210,6 @@
 				8205FD32236C3B06002B2603 /* LUT_M03.png in Resources */,
 				82D1EBE9236FF35900A680E7 /* SlideshowImagesCell.xib in Resources */,
 				8205FC28236C2C2F002B2603 /* 02 Instrumental Theme (Orchestral Sunset).mp3 in Resources */,
-				82D1EC5623702B4300A680E7 /* Detached.png in Resources */,
 				8205FC3C236C2C2F002B2603 /* SF-UI-Text-Regular.otf in Resources */,
 				8205FD30236C3B06002B2603 /* LUT_M01.png in Resources */,
 				8205FD31236C3B06002B2603 /* LUT_M02.png in Resources */,
@@ -2383,7 +2266,7 @@
 			shellPath = /bin/sh;
 			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"--import\" \"MXPagerView\" \"$SRCROOT/R.generated.swift\" \n";
 		};
-		82F4CA04237D7315001EF701 /* ShellScript */ = {
+		824E5174237E7F8D00339809 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2630,7 +2513,6 @@
 				8205FC48236C2D35002B2603 /* ReactionButtonConfig.swift in Sources */,
 				8205FBBB236C2A88002B2603 /* MMPlayerPassViewPresentatinController.swift in Sources */,
 				8205FB6E236C1D0F002B2603 /* Configurable.swift in Sources */,
-				824AD526237BEAD700BF226F /* TiktokClass.swift in Sources */,
 				824EB3CE23619E5C00205993 /* ImageAssetExtension.swift in Sources */,
 				8205FC59236C3A91002B2603 /* KeyframeImageGenerator.swift in Sources */,
 				8205FD5C236C3B06002B2603 /* ImageRenderer.swift in Sources */,
@@ -2749,7 +2631,7 @@
 				82D1EBB7236FED7800A680E7 /* MLVideoView.swift in Sources */,
 				8205FC51236C3A29002B2603 /* KeyframePickerCursorVC.swift in Sources */,
 				8205FD3D236C3B06002B2603 /* MetalImageView.swift in Sources */,
-				8205FB7E236C1FC6002B2603 /* StoriCam.xcdatamodeld in Sources */,
+				8205FB7E236C1FC6002B2603 /* SocialCAM.xcdatamodeld in Sources */,
 				8205FAFD236C1199002B2603 /* SnapGesture.swift in Sources */,
 				82D1EBB3236FED4F00A680E7 /* HalfModalTransitioningDelegate.swift in Sources */,
 				82D1EC8523703DE300A680E7 /* PhotoEditioViewController.swift in Sources */,
@@ -3015,10 +2897,10 @@
 			baseConfigurationReference = AB071E2B0A788A2E1F2574EF /* Pods-SocialCAM.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 2;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = "$(SRCROOT)/SocialCAM/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -3026,6 +2908,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_CFLAGS = "-fembed-bitcode-marker";
 				PRODUCT_BUNDLE_IDENTIFIER = com.simform.storiCamPro;
 				PRODUCT_NAME = SocialCAM;
 				PROVISIONING_PROFILE_SPECIFIER = StoriCamPro_Dev;
@@ -3040,10 +2923,10 @@
 			baseConfigurationReference = 86BA1F168DE2A3CF91C622CB /* Pods-SocialCAM.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BITCODE_GENERATION_MODE = bitcode;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 2;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = "$(SRCROOT)/SocialCAM/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -3051,6 +2934,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_CFLAGS = "-fembed-bitcode";
 				PRODUCT_BUNDLE_IDENTIFIER = com.simform.storiCamPro;
 				PRODUCT_NAME = SocialCAM;
 				PROVISIONING_PROFILE_SPECIFIER = StoriCamPro_Dev;
@@ -3084,13 +2968,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		8205FB7C236C1FC6002B2603 /* StoriCam.xcdatamodeld */ = {
+		8205FB7C236C1FC6002B2603 /* SocialCAM.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				8205FB7D236C1FC6002B2603 /* StoriCam.xcdatamodel */,
+				8205FB7D236C1FC6002B2603 /* StoriCAM.xcdatamodel */,
 			);
-			currentVersion = 8205FB7D236C1FC6002B2603 /* StoriCam.xcdatamodel */;
-			path = StoriCam.xcdatamodeld;
+			currentVersion = 8205FB7D236C1FC6002B2603 /* StoriCAM.xcdatamodel */;
+			path = SocialCAM.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

@@ -17,8 +17,8 @@ public protocol ShareStoriesDelegate {
     func success()
 }
 
-open class SocialShareVideo {
-    
+open class SocialShareVideo: NSObject, SharingDelegate {
+       
     static let shared: SocialShareVideo = SocialShareVideo()
   
     var delegate: ShareStoriesDelegate?
@@ -59,7 +59,7 @@ open class SocialShareVideo {
                             case .facebook:
                                 strongSelf.fbShareVideo(phAsset)
                             case .instagram:
-                                strongSelf.instaImageVideoShare(phAsset!)
+                                strongSelf.instaImageVideoShare(phAsset)
                             default:
                                 break
                             }
@@ -76,9 +76,22 @@ open class SocialShareVideo {
     }
     
     func showShareDialog<C: SharingContent>(_ content: C, mode: ShareDialog.Mode = .automatic) {
-        let dialog = ShareDialog(fromViewController: Utils.appDelegate?.window?.visibleViewController()!, content: content, delegate: nil)
+        let dialog = ShareDialog(fromViewController: Utils.appDelegate?.window?.visibleViewController()!, content: content, delegate: self)
         dialog.mode = mode
         dialog.show()
+    }
+    
+    public func sharer(_ sharer: Sharing, didCompleteWithResults results: [String : Any]) {
+        
+    }
+    
+    public func sharer(_ sharer: Sharing, didFailWithError error: Error) {
+
+        Utils.appDelegate?.window?.makeToast(R.string.localizable.youNeedToInstallFacebookToShareThisPhotoVideo())
+    }
+    
+    public func sharerDidCancel(_ sharer: Sharing) {
+        
     }
     
     func saveVideoToCameraRoll(url: URL, completion:@escaping (Bool, PHAsset?) -> ()) {
@@ -128,11 +141,12 @@ open class SocialShareVideo {
         showShareDialog(content)
     }
     
-    func instaImageVideoShare(_ phAsset: PHAsset) {
+    func instaImageVideoShare(_ phAsset: PHAsset?) {
+        guard let phAsset = phAsset else { return }
         let localIdentifier = phAsset.localIdentifier
-        let urlFeed = "instagram://library?LocalIdentifier=" + localIdentifier
+        let urlFeed = Constant.Instagram.link + localIdentifier
         guard let url = URL(string: urlFeed) else {
-            self.delegate?.error(message: "Could not open url")
+            self.delegate?.error(message: R.string.localizable.youNeedToInstallInstagramToShareThisPhotoVideo())
             return
         }
         DispatchQueue.main.async {
@@ -141,7 +155,7 @@ open class SocialShareVideo {
                     self.delegate?.success()
                 })
             } else {
-                self.delegate?.error(message: "Instagram not found")
+                Utils.appDelegate?.window?.makeToast(R.string.localizable.youNeedToInstallInstagramToShareThisPhotoVideo())
             }
         }
     }
