@@ -1196,13 +1196,8 @@ extension PhotoEditorViewController: UIGestureRecognizerDelegate {
     }
     
     func dismiss() {
-        if self.storiType == .review {
-            self.dismiss(animated: true)
-        } else if let navViewcontrollers = self.navigationController?.viewControllers, navViewcontrollers.count > 2 { self.navigationController?.popToViewController(navViewcontrollers[navViewcontrollers.count - 3], animated: false)
-        } else {
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
-                self.navigationController?.popViewController(animated: true)
-            }
+        DispatchQueue.runOnMainThread {
+            self.navigationController?.popViewController(animated: false)
         }
     }
     

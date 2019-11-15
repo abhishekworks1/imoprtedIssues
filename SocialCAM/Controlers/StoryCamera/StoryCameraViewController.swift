@@ -1301,7 +1301,7 @@ extension StoryCameraViewController {
         if !self.hideControls {
             DispatchQueue.main.async {
                 UIView.animate(withDuration: 0.1, animations: {
-                    if self.recordingType == .slideshow || self.recordingType == .collage || self.recordingType == .capture {
+                    if self.recordingType == .slideshow || self.recordingType == .collage || self.recordingType == .capture || self.recordingType == .custom {
                         self.nextButtonView.alpha = 1
                     }
                     self.cameraSliderView.alpha = 1

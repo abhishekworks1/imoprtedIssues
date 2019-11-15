@@ -513,7 +513,7 @@ extension PhotoEditorViewController: UICollectionViewDataSource, KDDragAndDropCo
                             if currentCamaraMode == .slideshow {
                                 self.saveImage(exportType: .outtakes, image: selectedVideoUrlSave!.image!)
                             } else {
-                                self.saveButtonTapped()
+                                self.saveButtonTapped(isOuttake: true)
                             }
                             videoUrls.remove(at: draggingPathOfCellBeingDragged.item)
                             self.currentPlayVideo = -1

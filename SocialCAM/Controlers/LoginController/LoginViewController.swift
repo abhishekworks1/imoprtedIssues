@@ -11,6 +11,7 @@ import AVKit
 import SkyFloatingLabelTextField
 import FontAwesome_swift
 import Spring
+import Crashlytics
 
 class UpAnimation: SpringView {
         
@@ -129,6 +130,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
                 Defaults.shared.sessionToken = responce.sessionToken
                 Defaults.shared.currentUser = responce.result
                 CurrentUser.shared.setActiveUser(responce.result)
+                Answers.logLogin(withMethod: nil, success: 1, customAttributes: ["id": CurrentUser.shared.activeUser?.username ?? ""])
                 CurrentUser.shared.createNewReferrerChannelURL { (isNew, url) -> (Void) in
 
                 }

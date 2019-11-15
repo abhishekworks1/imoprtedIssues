@@ -370,6 +370,11 @@ public struct Constant {
     struct Sentry {
         static let dsn = "https://e7751d4eaf0746dab650503adbb943fa@sentry.io/1548827"
     }
+    
+    struct Instagram {
+        static let link = "instagram://library?LocalIdentifier="
+    }
+    
 }
 
 class StoryTagGradientLayer: CAGradientLayer { }

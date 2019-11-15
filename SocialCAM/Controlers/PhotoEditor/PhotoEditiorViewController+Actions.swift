@@ -60,11 +60,6 @@ extension PhotoEditorViewController {
         self.navigationController?.pushViewController(histroGramVC!, animated: true)
     }
     
-    
-    @IBAction func outtakesMediaTapped(_ sender: Any) {
-        saveButtonTapped()
-    }
-    
     @IBAction func addHashtagButtonTapped(_ sender: Any) {
         guard let selectHashtagVC = R.storyboard.photoEditor.selectStoryHashtagVC() else {
             return
@@ -626,7 +621,7 @@ extension PhotoEditorViewController {
             default:
                 break
             }
-            self.navigationController?.popViewController(animated: false)
+            self.dismiss()
         }
     }
     
@@ -635,7 +630,7 @@ extension PhotoEditorViewController {
     }
     
     func handleDismiss(alertAction: UIAlertAction!) -> Void {
-        self.navigationController?.popViewController(animated: false)
+        self.dismiss()
     }
     
     @IBAction func continueButtonPressed(_ sender: Any) {
@@ -647,27 +642,38 @@ extension PhotoEditorViewController {
         }
     }
     
+    @IBAction func outtakesMediaTapped(_ sender: Any) {
+        saveButtonTapped(isOuttake: true)
+    }
+    
     @IBAction func notesButtonClicked(_ sender: Any) {
+        saveButtonTapped(isOuttake: false)
+    }
+    
+    func saveButtonTapped(isOuttake: Bool) {
         if image != nil && currentCamaraMode != .slideshow {
             let album = SCAlbum.shared
-            album.albumName = "\(Constant.Application.displayName) - Notes"
+            album.albumName = isOuttake ? "\(Constant.Application.displayName) - Outtakes" :  "\(Constant.Application.displayName) - Notes"
             album.save(image: canvasView.toImage())
-            self.navigationController?.popViewController(animated: false)
-            outtakesDelegate?.didTakeOuttakes("Notes saved.")
+            if isOuttake {
+                outtakesDelegate?.didTakeOuttakes("Outtakes saved.")
+            } else {
+                outtakesDelegate?.didTakeOuttakes("Notes saved.")
+            }
+            self.dismiss()
         } else if currentCamaraMode == .slideshow {
-            saveSlideShow(exportType: SlideShowExportType.notes,
+            saveSlideShow(exportType: isOuttake ? SlideShowExportType.outtakes : SlideShowExportType.notes,
                           success: { [weak self] url in
                             guard let `self` = self else { return }
-                            self.saveVideo(exportType: SlideShowExportType.notes, url: url)
+                            self.saveVideo(exportType: isOuttake ? SlideShowExportType.outtakes : SlideShowExportType.notes, url: url)
                 },
                           failure: { error in
                             
             })
             
         } else {
-            saveToCameraRoll(false, true)
+            isOuttake ? saveToCameraRoll(true, false) : saveToCameraRoll(false, true)
         }
-        
     }
     
     func storyButtonAction() {
@@ -723,10 +729,9 @@ extension PhotoEditorViewController {
                 saveToCameraRoll(false)
             }
             if self.selectedVideoUrlSave != nil {
-                self.navigationController?.popViewController(animated: false)
                 self.scPlayer?.isMuted = true
+                self.dismiss()
             }
-            
         }
     }
     
@@ -734,7 +739,7 @@ extension PhotoEditorViewController {
         BasePopConfiguration.shared.backgoundTintColor = R.color.lightBlackColor()!
         BasePopConfiguration.shared.menuWidth = 35
         BasePopOverMenu
-            .showForSender(sender: sender as! UIButton, with: ["","",""], menuImageArray: [R.image.icoFacebook()!, R.image.icoInstagram()!, R.image.icoYoutube()!], done: { [weak self] (selectedIndex) in
+            .showForSender(sender: sender as! UIButton, with: ["","",""], menuImageArray: [R.image.icoFacebook()!, R.image.icoInstagram()!, R.image.icoSnapchat()!], done: { [weak self] (selectedIndex) in
                 guard let `self` = self else { return }
                 debugPrint("SelectedIndex :\(selectedIndex)")
                 self.shareSocialMedia(type: SocialShare(rawValue: selectedIndex) ?? SocialShare.facebook)
@@ -765,8 +770,8 @@ extension PhotoEditorViewController {
                     recordSession.addSegment(segment)
                 }
             } else {
-                for (_, url) in self.videoUrls.enumerated() {
-                    for segementModel in url.videos {
+                    for (_, url) in self.videoUrls.enumerated() {
+                        for segementModel in url.videos {
                         let segment = SCRecordSessionSegment(url: segementModel.url!, info: nil)
                         recordSession.addSegment(segment)
                     }
@@ -775,7 +780,9 @@ extension PhotoEditorViewController {
             
             self.exportViewWithURL(recordSession.assetRepresentingSegments()) { url in
                 if let exportURL = url {
-                    SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type)
+                    DispatchQueue.runOnMainThread {
+                        SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type)
+                    }
                 }
             }
         }
@@ -878,28 +885,6 @@ extension PhotoEditorViewController {
             view.removeFromSuperview()
         }
     }
-    
-    func saveButtonTapped() {
-        
-        if image != nil && currentCamaraMode != .slideshow {
-            let album = SCAlbum.shared
-            album.albumName = "\(Constant.Application.displayName) - Outtakes"
-            album.save(image: canvasView.toImage())
-            self.navigationController?.popViewController(animated: false)
-            outtakesDelegate?.didTakeOuttakes("Outtakes saved.")
-        } else if currentCamaraMode == .slideshow {
-            saveSlideShow(exportType: SlideShowExportType.outtakes,
-                          success: { [weak self] url in
-                            guard let `self` = self else { return }
-                            self.saveVideo(exportType: SlideShowExportType.outtakes, url: url)
-                },
-                          failure: { error in
-            })
-        } else {
-            saveToCameraRoll()
-        }
-    }
-    
     
     func saveToCameraRoll(_ isOuttakes: Bool = true, _ isNotes: Bool = false) {
         self.videos = []
@@ -1071,7 +1056,7 @@ extension PhotoEditorViewController {
         
         let exportGroup = DispatchGroup()
         let exportQueue = DispatchQueue(label: "exportFilterQueue")
-        let dispatchSemaphore = DispatchSemaphore(value: 1)
+        let dispatchSemaphore = DispatchSemaphore(value: 0)
         
         if let url = self.selectedVideoUrlSave {
             exportQueue.async {
@@ -1095,45 +1080,52 @@ extension PhotoEditorViewController {
                 self.storyExportLabel.text = "0/\(self.videoUrls.count)"
             }
             
-            
-            for (index, url) in self.videoUrls.enumerated() {
-                exportQueue.async {
+            exportQueue.async {
+                for (index, url) in self.videoUrls.enumerated() {
                     exportGroup.enter()
-                    
-                    self.exportVideo(segmentVideos: url, isOuttakes, isNotes, index: index) { (compltd) in
-                        dispatchSemaphore.signal()
-                        exportGroup.leave()
+                    DispatchQueue.runOnMainThread {
+                        self.exportVideo(segmentVideos: url, isOuttakes, isNotes, index: index) { (compltd) in
+                            dispatchSemaphore.signal()
+                            exportGroup.leave()
+                        }
                     }
-                    
                     dispatchSemaphore.wait()
                 }
             }
         }
         
         exportGroup.notify(queue: exportQueue) {
-            if self.selectedVideoUrlSave == nil && self.storyId == nil {
-                self.videos.removeAll()
-                self.videoUrls.removeAll()
-                self.videoResetUrls.removeAll()
-                self._displayKeyframeImages.removeAll()
-                self.selectedSlideShowImages.removeAll()
-                self.dismiss()
-            }
-            else
-            {
-                self.outtakesView.isUserInteractionEnabled = true
-                self.selectedVideoUrlSave = nil
-                self.outtakesProgress.updateProgress(0)
-                self.notesProgress.updateProgress(0)
-                self.postStoryProgress.updateProgress(0)
-            }
-            
-            for modelVideo in self.videos {
-                var thumbImage = modelVideo.thumbImage
-                if thumbImage == nil {
-                    thumbImage = UIImage.getThumbnailFrom(videoUrl: modelVideo.url!) ?? UIImage()
+            DispatchQueue.runOnMainThread {
+                if self.selectedVideoUrlSave == nil && self.storyId == nil {
+                    self.videos.removeAll()
+                    self.videoUrls.removeAll()
+                    self.videoResetUrls.removeAll()
+                    self._displayKeyframeImages.removeAll()
+                    self.selectedSlideShowImages.removeAll()
+                    if isOuttakes {
+                        self.outtakesDelegate?.didTakeOuttakes("Outtakes saved.")
+                    } else {
+                        self.outtakesDelegate?.didTakeOuttakes("Notes saved.")
+                    }
+                    self.dismiss()
+                }
+                else
+                {
+                    self.outtakesView.isUserInteractionEnabled = true
+                    self.selectedVideoUrlSave = nil
+                    self.outtakesProgress.updateProgress(0)
+                    self.notesProgress.updateProgress(0)
+                    self.postStoryProgress.updateProgress(0)
+                }
+                
+                for modelVideo in self.videos {
+                    var thumbImage = modelVideo.thumbImage
+                    if thumbImage == nil {
+                        thumbImage = UIImage.getThumbnailFrom(videoUrl: modelVideo.url!) ?? UIImage()
+                    }
                 }
             }
+            
         }
     }
     
@@ -1225,6 +1217,10 @@ extension PhotoEditorViewController {
         viewData.progressView.setProgress(to: Double(0), withAnimation: true)
         viewData.show(on: view, completion: {
             viewData.cancleClick = {
+                DispatchQueue.runOnMainThread {
+                    self.outtakesExportLabel.text = ""
+                    self.notesExportLabel.text = ""
+                }
                 exportSession.cancelExporting()
                 viewData.hide()
             }
@@ -1255,7 +1251,18 @@ extension PhotoEditorViewController {
             print("New progress \(progress)")
             viewData.progressView.setProgress(to: Double(progress), withAnimation: true)
         }) { exportedURL in
-            completionHandler(exportedURL)
+            if let url = exportedURL {
+                viewData.hide()
+                completionHandler(url)
+            } else {
+                viewData.hide()
+                let alert = UIAlertController.Style
+                    .alert
+                    .controller(title: "",
+                                message: "Exporting Fail",
+                                actions: [UIAlertAction(title: "OK", style: .default, handler: nil)])
+                self.present(alert, animated: true, completion: nil)
+            }
         }
     }
     
@@ -1441,16 +1448,12 @@ extension PhotoEditorViewController {
             album.albumName = "\(Constant.Application.displayName) - Outtakes"
             album.saveMovieToLibrary(movieURL: url)
             self.outtakesDelegate?.didTakeOuttakes("Outtakes saved.")
-            DispatchQueue.main.async {
-                self.navigationController?.popViewController(animated: false)
-            }
+            self.dismiss()
         case .notes:
             album.albumName = "\(Constant.Application.displayName) - Notes"
             album.saveMovieToLibrary(movieURL: url)
             self.outtakesDelegate?.didTakeOuttakes("Notes saved.")
-            DispatchQueue.main.async {
-                self.navigationController?.popViewController(animated: false)
-            }
+            self.dismiss()
         case .chat:
             DispatchQueue.main.async {
                 self.chatExportLabel.text = "1/1"
@@ -1489,9 +1492,7 @@ extension PhotoEditorViewController {
             
             StoryDataManager.shared.startUpload()
             
-            DispatchQueue.main.async {
-                self.dismiss()
-            }
+            self.dismiss()
         case .sendChat:
             break
         }
@@ -1516,16 +1517,12 @@ extension PhotoEditorViewController {
             album.albumName = "\(Constant.Application.displayName) - Outtakes"
             album.save(image: image)
             self.outtakesDelegate?.didTakeOuttakes("Outtakes saved.")
-            
-                self.navigationController?.popViewController(animated: false)
-            
+            self.dismiss()
         case .notes:
             album.albumName = "\(Constant.Application.displayName) - Notes"
             album.save(image: image)
             self.outtakesDelegate?.didTakeOuttakes("Notes saved.")
-            
-                self.navigationController?.popViewController(animated: false)
-            
+            self.dismiss()
         case .chat:
             break
         case .feed:
@@ -1547,10 +1544,7 @@ extension PhotoEditorViewController {
             storyData.storiType = storyRePost ? .shared : self.storiType
             _ = StoryDataManager.shared.createStoryUploadData([storyData])
             StoryDataManager.shared.startUpload()
-            
-            DispatchQueue.main.async {
-                self.dismiss()
-            }
+            self.dismiss()
         case .sendChat:
             break
         }

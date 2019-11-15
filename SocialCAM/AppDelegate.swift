@@ -16,7 +16,6 @@ import Crashlytics
 import GooglePlaces
 import GoogleMaps
 import FBSDKCoreKit
-import TikTokOpenPlatformSDK
 import AppCenter
 import AppCenterAnalytics
 import AppCenterCrashes
@@ -45,12 +44,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         configureAppTheme()
         
         ColorCubeStorage.loadToDefault()
+        
         FirebaseApp.configure()
-        #if DEBUG
+        
         Fabric.sharedSDK().debug = true
-        #else
-        Fabric.sharedSDK().debug = false
-        #endif
+        
         Fabric.with([Crashlytics.self])
         
         configureGoogleService()
@@ -69,8 +67,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
-        
-        TiktokShare.shared.setupTiktok(application, didFinishLaunchingWithOptions: launchOptions)
         
         MSAppCenter.start(Constant.AppCenter.apiKey, withServices:[])
         
@@ -153,18 +149,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-    
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        if TiktokOpenPlatformApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: UIApplication.OpenURLOptionsKey.sourceApplication.rawValue, annotation: UIApplication.OpenURLOptionsKey.annotation) {
-            return true
-        }
-        return false
-    }
    
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-        if TiktokOpenPlatformApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: sourceApplication, annotation: annotation) {
-            return true
-        } else if ApplicationDelegate.shared.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation) {
+        if ApplicationDelegate.shared.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation) {
             return true
         }
         return false
