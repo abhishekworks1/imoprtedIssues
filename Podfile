@@ -48,4 +48,6 @@ target 'SocialCAM' do
   pod 'FBSDKShareKit/Swift'
   pod 'SnapSDK', :subspecs => ['SCSDKCreativeKit']
   pod 'AppCenter'
+  pod 'GoogleSignIn', '4.4.0'
+  pod 'TagListView', '1.3.2'
 end

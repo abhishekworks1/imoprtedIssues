@@ -19,6 +19,7 @@ enum SocialShare : Int {
     case facebook = 0
     case instagram
     case snapchat
+    case youtube
     case tiktok
 }
 
@@ -354,8 +355,8 @@ public struct Constant {
     }
     
     struct GoogleService {
-        static let serviceKey: String = "AIzaSyAhDvrppyVLvXTAD2fMj1wdBsUgyf1bZpM"
-        static let placeClientKey: String = "AIzaSyDRFfyh2Dce1bj7e8WuJyY8ub7sNLPfwrY"
+        static let serviceKey: String = "AIzaSyByYKvdBZiTuBogp55PWogJ_NDokbD_8hg"
+        static let placeClientKey: String = "AIzaSyBOPskgf7r5ylpQBZv6GMWXcyl1BU5ZTbo"
         static let youtubeScope: String = "https://www.googleapis.com/auth/youtube.force-ssl"
         
         static func staticMapURL(format: String = "png32", size: CGSize = CGSize(width: 500, height: 500), type: String = "roadmap", latitude: Double, longitude: Double) -> String {

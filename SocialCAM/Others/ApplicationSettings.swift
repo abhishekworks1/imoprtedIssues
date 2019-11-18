@@ -64,6 +64,8 @@ class ApplicationSettings {
     
     var isAllowForward: Bool = false
 
+    var videos: [Item] = []
+    
     static let userPlaceHolder: UIImage = R.image.userProfilePlaceholder()?.sd_tintedImage(with: ApplicationSettings.appPrimaryColor) ?? UIImage()
    
     var needtoRefresh: Bool = false
