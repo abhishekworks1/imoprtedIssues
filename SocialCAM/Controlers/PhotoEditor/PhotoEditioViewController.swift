@@ -840,6 +840,8 @@ class PhotoEditorViewController: UIViewController {
         sendChatView.alpha = alpha
         youTubeView.isUserInteractionEnabled = isEnable
         youTubeView.alpha = alpha
+        socialShareView.isUserInteractionEnabled = isEnable
+        socialShareView.alpha = alpha
     }
     
     func newVideoCreate(url: URL, newUrl urls: URL) {

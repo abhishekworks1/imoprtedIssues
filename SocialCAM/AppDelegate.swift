@@ -19,6 +19,7 @@ import FBSDKCoreKit
 import AppCenter
 import AppCenterAnalytics
 import AppCenterCrashes
+import GoogleSignIn
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -46,6 +47,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ColorCubeStorage.loadToDefault()
         
         FirebaseApp.configure()
+        
+        GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         
         Fabric.sharedSDK().debug = true
         

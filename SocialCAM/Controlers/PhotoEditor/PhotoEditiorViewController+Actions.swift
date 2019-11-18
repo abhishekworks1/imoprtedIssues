@@ -14,7 +14,7 @@ import SwiftVideoGenerator
 import MobileCoreServices
 
 extension PhotoEditorViewController {
-   
+    
     @IBAction func btnShowHideSegmentEditOption(_ sender: UIButton) {
         segmentEditOptionView.isHidden = !sender.isSelected
         sender.isSelected = !sender.isSelected
@@ -636,10 +636,78 @@ extension PhotoEditorViewController {
     @IBAction func continueButtonPressed(_ sender: Any) {
         let youtubeTags = self.storyTags.filter { $0.tag.tagType == StoryTagType.youtube.rawValue }
         if youtubeTags.count > 0 {
-            //            createPostAPICall()
+            createPostAPICall()
         } else {
             storyButtonAction()
         }
+    }
+    
+    func createPostAPICall() {
+        var pData: CreatePostData? = nil
+        if case StoriCamType.shareYoutube(let postData) = self.storiCamType {
+            pData = postData
+        } else if let yData = self.youTubeData {
+            pData = CreatePostData(type: "youtube",
+                                   text: "",
+                                   isChekedIn: false,
+                                   userID: Defaults.shared.currentUser?.id ?? "",
+                                   mediaData: nil,
+                                   youTubeData: yData,
+                                   wallTheme: nil,
+                                   albumId: nil,
+                                   checkedInData: nil,
+                                   hashTags: self.youTubeHashtags,
+                                   privacy: "Public",
+                                   friendExcept: nil,
+                                   friendsOnly: nil,
+                                   feelingType: nil,
+                                   feelings: nil,
+                                   previewUrlData: nil)
+            
+        }
+        guard let postData = pData else {
+            storyButtonAction()
+            return
+        }
+        self.showHUD()
+        self.storyExportLabel.text = "0/1"
+        ProManagerApi.writePost(type: postData.type,
+                                text: postData.text,
+                                IschekedIn: postData.isChekedIn,
+                                user: postData.userID,
+                                media: postData.mediaData,
+                                youTubeData: postData.youTubeData,
+                                wallTheme: postData.wallTheme,
+                                albumId: postData.albumId,
+                                checkedIn: postData.checkedInData,
+                                hashTags: postData.hashTags,
+                                privacy: postData.privacy,
+                                friendExcept: postData.friendExcept,
+                                friendsOnly: postData.friendsOnly,
+                                feelingType: postData.feelingType,
+                                feelings: postData.feelings,
+                                previewUrlData: postData.previewUrlData, tagChannelAry: nil)
+            .request(Result<Posts>.self)
+            .subscribe(onNext: { [weak self] (response) in
+                guard let `self` = self else { return }
+                self.dismissHUD()
+                self.storyExportLabel.text = "1/1"
+                guard response.result != nil else {
+                    return
+                }
+                if response.status == ResponseType.success,
+                    let postId = response.result?.id {
+                    if let youtubeTagIndex = self.storyTags.firstIndex(where: { $0.tag.tagType == StoryTagType.youtube.rawValue }) {
+                        self.storyTags[youtubeTagIndex].tag.postId = postId
+                    }
+                    self.storyButtonAction()
+                } else {
+                    self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+                }
+                }, onError: { [weak self] error in
+                    guard let `self` = self else { return }
+                    self.dismissHUDWithError(error.localizedDescription)
+            }).disposed(by: rx.disposeBag)
     }
     
     @IBAction func outtakesMediaTapped(_ sender: Any) {
@@ -736,15 +804,20 @@ extension PhotoEditorViewController {
     }
     
     @IBAction func btnSocialShareClick(_ sender: Any) {
+        var menuOptions: [UIImage] = [R.image.icoFacebook()!, R.image.icoInstagram()!, R.image.icoSnapchat()!]
+        var menuOptionsString: [String] = ["","",""]
+        if image == nil {
+            menuOptions.append(R.image.icoYoutube()!)
+            menuOptionsString.append("")
+        }
+        
         BasePopConfiguration.shared.backgoundTintColor = R.color.lightBlackColor()!
         BasePopConfiguration.shared.menuWidth = 35
         BasePopOverMenu
-            .showForSender(sender: sender as! UIButton, with: ["","",""], menuImageArray: [R.image.icoFacebook()!, R.image.icoInstagram()!, R.image.icoSnapchat()!], done: { [weak self] (selectedIndex) in
+            .showForSender(sender: sender as! UIButton, with: menuOptionsString, menuImageArray: menuOptions, done: { [weak self] (selectedIndex) in
                 guard let `self` = self else { return }
-                debugPrint("SelectedIndex :\(selectedIndex)")
                 self.shareSocialMedia(type: SocialShare(rawValue: selectedIndex) ?? SocialShare.facebook)
             }) {
-                
         }
     }
     
@@ -753,7 +826,7 @@ extension PhotoEditorViewController {
             self.saveSlideShow(exportType: SlideShowExportType.feed,
                                success: { exportURL in
                                 SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type)
-                },
+            },
                                failure: { error in
                                 print(error)
             })
@@ -770,8 +843,8 @@ extension PhotoEditorViewController {
                     recordSession.addSegment(segment)
                 }
             } else {
-                    for (_, url) in self.videoUrls.enumerated() {
-                        for segementModel in url.videos {
+                for (_, url) in self.videoUrls.enumerated() {
+                    for segementModel in url.videos {
                         let segment = SCRecordSessionSegment(url: segementModel.url!, info: nil)
                         recordSession.addSegment(segment)
                     }
@@ -788,6 +861,64 @@ extension PhotoEditorViewController {
         }
     }
     
+    func uploadYoutube() {
+        guard image == nil else { return }
+        if currentCamaraMode == .slideshow {
+            saveSlideShow(exportType: SlideShowExportType.chat,
+                          success: { [weak self] url in
+                            guard let `self` = self else { return }
+                            DispatchQueue.runOnMainThread {
+                                if let youTubeUploadVC = R.storyboard.youTubeUpload.youTubeUploadViewController() {
+                                    youTubeUploadVC.videoUrl = url
+                                    self.navigationController?.pushViewController(youTubeUploadVC, animated: true)
+                                }
+                            }
+                },
+                          failure: { error in
+                            
+            })
+            
+            return
+        } else if let url = selectedVideoUrlSave {
+            let recordSession = SCRecordSession()
+            for segementModel in url.videos {
+                let segment = SCRecordSessionSegment(url: segementModel.url!, info: nil)
+                recordSession.addSegment(segment)
+            }
+            self.exportViewWithURL(recordSession.assetRepresentingSegments(), completionHandler: { [weak self]  (url) in
+                guard let `self` = self else { return }
+                if let exportURL = url {
+                    DispatchQueue.main.async {
+                        if let youTubeUploadVC = R.storyboard.youTubeUpload.youTubeUploadViewController() {
+                            youTubeUploadVC.videoUrl = exportURL
+                            self.navigationController?.pushViewController(youTubeUploadVC, animated: true)
+                        }
+                    }
+                }
+            })
+        }
+        else {
+            let recordSession = SCRecordSession()
+            for url in self.videoUrls {
+                for segementModel in url.videos {
+                    let segment = SCRecordSessionSegment(url: segementModel.url!, info: nil)
+                    recordSession.addSegment(segment)
+                }
+            }
+            self.exportViewWithURL(recordSession.assetRepresentingSegments(), completionHandler: { [weak self] (url) in
+                guard let `self` = self else { return }
+                if let exportURL = url {
+                    DispatchQueue.main.async {
+                        if let youTubeUploadVC = R.storyboard.youTubeUpload.youTubeUploadViewController() {
+                            youTubeUploadVC.videoUrl = exportURL
+                            self.navigationController?.pushViewController(youTubeUploadVC, animated: true)
+                        }
+                    }
+                }
+            })
+        }
+    }
+    
     @IBAction func btnPostToFeedClick(_ sender: Any) {
         
     }
@@ -797,7 +928,7 @@ extension PhotoEditorViewController {
     }
     
     @IBAction func uploadToYouTubeClicked(_ sender: Any) {
-       
+        
     }
     
     @IBAction func setCoverClicked(_ sender: Any) {
@@ -1061,7 +1192,7 @@ extension PhotoEditorViewController {
         if let url = self.selectedVideoUrlSave {
             exportQueue.async {
                 exportGroup.enter()
-               
+                
                 self.exportVideo(segmentVideos: url, isOuttakes, isNotes) { (compltd) in
                     dispatchSemaphore.signal()
                     exportGroup.leave()
@@ -1212,7 +1343,7 @@ extension PhotoEditorViewController {
     func exportViewWithURL(_ asset: AVAsset, completionHandler: @escaping (_ url: URL?) -> ()) {
         
         let exportSession = StoryAssetExportSession()
-    
+        
         let viewData = LoadingView.instanceFromNib()
         viewData.progressView.setProgress(to: Double(0), withAnimation: true)
         viewData.show(on: view, completion: {

@@ -11,6 +11,7 @@ import UIKit
 import CoreLocation
 import SCRecorder
 import GooglePlacePicker
+import URLEmbeddedView
 
 extension PhotoEditorViewController: UITextViewDelegate {
     
@@ -88,51 +89,51 @@ extension PhotoEditorViewController: StickersViewControllerDelegate {
             self.canvasImageView.addSubview(imageView)
             addGestures(view: imageView)
         case .youtube:
-//            let objSerach = R.storyboard.youTube.youTubeViewController()
-//            objSerach?.shareHandler = { [weak self] (url, hash, title, channelId) in
-//                guard let `self` = self else { return }
-//                self.youTubeHashtags = hash
-//                if let hashtags = self.youTubeHashtags,
-//                    hashtags.count > 0 {
-//                    var tags = [String]()
-//                    for hashtag in hashtags {
-//                        tags.append("#\(hashtag)")
-//                    }
-//                    self.youTubeHashtags = tags
-//                }
-//                OGDataProvider.shared.fetchOGData(urlString: url) { [weak self] ogData, error in
-//                    guard let `self` = self else { return }
-//                    if let _ = error {
-//                        return
-//                    }
-//                    let youtubeUrl = ogData.sourceUrl?.absoluteString
-//                    if let YouId = youtubeUrl?.youTubeId {
-//                        self.youTubeData = ["videoUrl": youtubeUrl ?? "", "videoId": YouId]
-//                        if let chId = channelId {
-//                            self.youTubeData?["channelId"] = chId
-//                        }
-//                        if let thumbUrl = ogData.imageUrl?.absoluteString {
-//                            self.youTubeData?["previewThumb"] = thumbUrl
-//                            if let title = ogData.pageTitle {
-//                                self.youTubeData?["title"] = title
-//                            }
-//                        }
-//                    }
-//                }
-//                self.removeStickersView()
-//                let tagView = self.addTagViewFor(title ?? url, type: StoryTagType.youtube)
-//                let tag = self.setUpStoryTagFor(tagView: tagView,
-//                                                tagType: StoryTagType.youtube,
-//                                                tagText: title ?? url)
-//                tag.videoId = url.youTubeId ?? ""
-//                if let youtubeTagIndex = self.storyTags.index(where: { $0.tag.tagType == StoryTagType.youtube.rawValue }) {
-//                    self.storyTags[youtubeTagIndex].view.removeFromSuperview()
-//                    self.storyTags[youtubeTagIndex] = BaseStoryTag(view: tagView, tag: tag)
-//                } else {
-//                    self.storyTags.append(BaseStoryTag(view: tagView, tag: tag))
-//                }
-//            }
-//            self.navigationController?.pushViewController(objSerach!, animated: true)
+            let objSerach = R.storyboard.youTube.youTubeViewController()
+            objSerach?.shareHandler = { [weak self] (url, hash, title, channelId) in
+                guard let `self` = self else { return }
+                self.youTubeHashtags = hash
+                if let hashtags = self.youTubeHashtags,
+                    hashtags.count > 0 {
+                    var tags = [String]()
+                    for hashtag in hashtags {
+                        tags.append("#\(hashtag)")
+                    }
+                    self.youTubeHashtags = tags
+                }
+                OGDataProvider.shared.fetchOGData(urlString: url) { [weak self] ogData, error in
+                    guard let `self` = self else { return }
+                    if let _ = error {
+                        return
+                    }
+                    let youtubeUrl = ogData.sourceUrl?.absoluteString
+                    if let YouId = youtubeUrl?.youTubeId {
+                        self.youTubeData = ["videoUrl": youtubeUrl ?? "", "videoId": YouId]
+                        if let chId = channelId {
+                            self.youTubeData?["channelId"] = chId
+                        }
+                        if let thumbUrl = ogData.imageUrl?.absoluteString {
+                            self.youTubeData?["previewThumb"] = thumbUrl
+                            if let title = ogData.pageTitle {
+                                self.youTubeData?["title"] = title
+                            }
+                        }
+                    }
+                }
+                self.removeStickersView()
+                let tagView = self.addTagViewFor(title ?? url, type: StoryTagType.youtube)
+                let tag = self.setUpStoryTagFor(tagView: tagView,
+                                                tagType: StoryTagType.youtube,
+                                                tagText: title ?? url)
+                tag.videoId = url.youTubeId ?? ""
+                if let youtubeTagIndex = self.storyTags.index(where: { $0.tag.tagType == StoryTagType.youtube.rawValue }) {
+                    self.storyTags[youtubeTagIndex].view.removeFromSuperview()
+                    self.storyTags[youtubeTagIndex] = BaseStoryTag(view: tagView, tag: tag)
+                } else {
+                    self.storyTags.append(BaseStoryTag(view: tagView, tag: tag))
+                }
+            }
+            self.navigationController?.pushViewController(objSerach!, animated: true)
             break
         case .location:
             self.removeStickersView()
@@ -232,234 +233,234 @@ extension PhotoEditorViewController: StickersViewControllerDelegate {
     }
     
     func addMentionTagView() -> StoryTagView {
-            let tagView = StoryTagView.init(tagType: StoryTagType.mension)
-            
-            tagView.searchHandler = { text in
-                guard text.count > 0 else {
-                    self.mensionCollectionViewDelegate.mensions = []
-                    self.mensionCollectionView.reloadData()
-                    return
-                }
-                ProManagerApi
-                    .tagUserSearch(user: Defaults.shared.currentUser?.id ?? "",
-                                   channelName: text)
-                    .request(ResultArray<Channel>.self)
-                    .subscribe(onNext: { (channels) in
-                        self.mensionCollectionViewDelegate.mensions = channels.result ?? []
-                        self.mensionCollectionView.reloadData()
-                    }, onError: { (error) in
-                    }).disposed(by: self.rx.disposeBag)
-            }
-            addTransparentView()
-            self.canvasImageView.addSubview(tagView)
-            tagView.translatesAutoresizingMaskIntoConstraints = false
-            
-            tagView.centerXAnchor.constraint(equalTo: self.canvasImageView.centerXAnchor, constant: 0).isActive = true
-            tagView.centerYAnchor.constraint(equalTo: self.canvasImageView.centerYAnchor, constant: 0).isActive = true
-            tagView.heightAnchor.constraint(equalToConstant: 40).isActive = true
-            
-            tagView.startEdit()
-            
-            return tagView
-        }
+        let tagView = StoryTagView.init(tagType: StoryTagType.mension)
         
-    func addSliderQuestionView() {
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
-                self.hideToolbar(hide: true)
-                self.doneTagEditButton.isHidden = false
-                let queViews = self.canvasImageView.allSubViewsOf(type: StorySliderQueView.self)
-                if queViews.count > 0 {
-                    let queView = queViews[0]
-                    queView.translatesAutoresizingMaskIntoConstraints = false
-                    queView.transform = .identity
-                    queView.startEdit()
-                    self.removeGestures(view: queView)
-                    self.currentTagView = queView
-                } else {
-                    let tagView = self.sliderQueView()
-                    let tag = self.setUpStoryTagFor(tagView: tagView,
-                                                    tagType: StoryTagType.slider,
-                                                    tagText: "")
-                    self.storyTags.append(BaseStoryTag(view: tagView, tag: tag))
-                    self.currentTagView = tagView
-                }
-                self.isQuetionTyping = true
-                
-            }
-            
-        }
-        
-        func sliderQueView() -> StorySliderQueView {
-            let sView = StorySliderQueView.init()
-            self.addTransparentView()
-            self.canvasImageView.addSubview(sView)
-            sView.backgroundColor = ApplicationSettings.appWhiteColor
-            sView.translatesAutoresizingMaskIntoConstraints = false
-            
-            sView.centerXAnchor.constraint(equalTo: self.canvasImageView.centerXAnchor, constant: 0).isActive = true
-            sView.topAnchor.constraint(equalTo: self.canvasImageView.topAnchor, constant: 100).isActive = true
-            sView.widthAnchor.constraint(equalTo: self.canvasImageView.widthAnchor, multiplier: 0.6).isActive = true
-            sView.startEdit()
-            return sView
-        }
-        
-        func removeGestures(view: UIView) {
-            guard let gestures = view.gestureRecognizers else {
+        tagView.searchHandler = { text in
+            guard text.count > 0 else {
+                self.mensionCollectionViewDelegate.mensions = []
+                self.mensionCollectionView.reloadData()
                 return
             }
-            for gesture in gestures {
-                view.removeGestureRecognizer(gesture)
+            ProManagerApi
+                .tagUserSearch(user: Defaults.shared.currentUser?.id ?? "",
+                               channelName: text)
+                .request(ResultArray<Channel>.self)
+                .subscribe(onNext: { (channels) in
+                    self.mensionCollectionViewDelegate.mensions = channels.result ?? []
+                    self.mensionCollectionView.reloadData()
+                }, onError: { (error) in
+                }).disposed(by: self.rx.disposeBag)
+        }
+        addTransparentView()
+        self.canvasImageView.addSubview(tagView)
+        tagView.translatesAutoresizingMaskIntoConstraints = false
+        
+        tagView.centerXAnchor.constraint(equalTo: self.canvasImageView.centerXAnchor, constant: 0).isActive = true
+        tagView.centerYAnchor.constraint(equalTo: self.canvasImageView.centerYAnchor, constant: 0).isActive = true
+        tagView.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        tagView.startEdit()
+        
+        return tagView
+    }
+    
+    func addSliderQuestionView() {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
+            self.hideToolbar(hide: true)
+            self.doneTagEditButton.isHidden = false
+            let queViews = self.canvasImageView.allSubViewsOf(type: StorySliderQueView.self)
+            if queViews.count > 0 {
+                let queView = queViews[0]
+                queView.translatesAutoresizingMaskIntoConstraints = false
+                queView.transform = .identity
+                queView.startEdit()
+                self.removeGestures(view: queView)
+                self.currentTagView = queView
+            } else {
+                let tagView = self.sliderQueView()
+                let tag = self.setUpStoryTagFor(tagView: tagView,
+                                                tagType: StoryTagType.slider,
+                                                tagText: "")
+                self.storyTags.append(BaseStoryTag(view: tagView, tag: tag))
+                self.currentTagView = tagView
             }
+            self.isQuetionTyping = true
+            
         }
         
-        func addAskQuestionView() {
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
-                self.hideToolbar(hide: true)
-                self.doneTagEditButton.isHidden = false
-                let queViews = self.canvasImageView.allSubViewsOf(type: StoryAskQuestionView.self)
-                if queViews.count > 0 {
-                    let queView = queViews[0]
-                    queView.translatesAutoresizingMaskIntoConstraints = false
-                    queView.transform = .identity
-                    queView.startEdit()
-                    self.removeGestures(view: queView)
-                    self.currentTagView = queView
-                } else {
-                    let tagView = self.askQueView()
-                    let tag = self.setUpStoryTagFor(tagView: tagView,
-                                                    tagType: StoryTagType.askQuestion,
-                                                    tagText: "")
-                    self.storyTags.append(BaseStoryTag(view: tagView, tag: tag))
-                    self.currentTagView = tagView
-                }
-                
+    }
+    
+    func sliderQueView() -> StorySliderQueView {
+        let sView = StorySliderQueView.init()
+        self.addTransparentView()
+        self.canvasImageView.addSubview(sView)
+        sView.backgroundColor = ApplicationSettings.appWhiteColor
+        sView.translatesAutoresizingMaskIntoConstraints = false
+        
+        sView.centerXAnchor.constraint(equalTo: self.canvasImageView.centerXAnchor, constant: 0).isActive = true
+        sView.topAnchor.constraint(equalTo: self.canvasImageView.topAnchor, constant: 100).isActive = true
+        sView.widthAnchor.constraint(equalTo: self.canvasImageView.widthAnchor, multiplier: 0.6).isActive = true
+        sView.startEdit()
+        return sView
+    }
+    
+    func removeGestures(view: UIView) {
+        guard let gestures = view.gestureRecognizers else {
+            return
+        }
+        for gesture in gestures {
+            view.removeGestureRecognizer(gesture)
+        }
+    }
+    
+    func addAskQuestionView() {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
+            self.hideToolbar(hide: true)
+            self.doneTagEditButton.isHidden = false
+            let queViews = self.canvasImageView.allSubViewsOf(type: StoryAskQuestionView.self)
+            if queViews.count > 0 {
+                let queView = queViews[0]
+                queView.translatesAutoresizingMaskIntoConstraints = false
+                queView.transform = .identity
+                queView.startEdit()
+                self.removeGestures(view: queView)
+                self.currentTagView = queView
+            } else {
+                let tagView = self.askQueView()
+                let tag = self.setUpStoryTagFor(tagView: tagView,
+                                                tagType: StoryTagType.askQuestion,
+                                                tagText: "")
+                self.storyTags.append(BaseStoryTag(view: tagView, tag: tag))
+                self.currentTagView = tagView
             }
             
         }
         
-        func askQueView() -> StoryAskQuestionView {
-            let sView = StoryAskQuestionView.init()
-            self.addTransparentView()
-            self.canvasImageView.addSubview(sView)
-            sView.translatesAutoresizingMaskIntoConstraints = false
-            sView.centerXAnchor.constraint(equalTo: self.canvasImageView.centerXAnchor, constant: 0).isActive = true
-            sView.topAnchor.constraint(equalTo: self.canvasImageView.topAnchor, constant: 100).isActive = true
-            sView.widthAnchor.constraint(equalTo: self.canvasImageView.widthAnchor, multiplier: 0.6).isActive = true
-            sView.startEdit()
-            return sView
-        }
-        
-        func addPollQuestionView() {
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
-                self.hideToolbar(hide: true)
-                self.doneTagEditButton.isHidden = false
-                let queViews = self.canvasImageView.allSubViewsOf(type: StoryPollQueView.self)
-                if queViews.count > 0 {
-                    let queView = queViews[0]
-                    queView.translatesAutoresizingMaskIntoConstraints = false
-                    queView.transform = .identity
-                    queView.updateOptionsColors()
-                    queView.startEdit()
-                    self.removeGestures(view: queView)
-                    self.currentTagView = queView
-                } else {
-                    let tagView = self.pollQueView()
-                    let tag = self.setUpStoryTagFor(tagView: tagView,
-                                                    tagType: StoryTagType.poll,
-                                                    tagText: "")
-                    self.storyTags.append(BaseStoryTag(view: tagView, tag: tag))
-                    self.currentTagView = tagView
-                }
+    }
+    
+    func askQueView() -> StoryAskQuestionView {
+        let sView = StoryAskQuestionView.init()
+        self.addTransparentView()
+        self.canvasImageView.addSubview(sView)
+        sView.translatesAutoresizingMaskIntoConstraints = false
+        sView.centerXAnchor.constraint(equalTo: self.canvasImageView.centerXAnchor, constant: 0).isActive = true
+        sView.topAnchor.constraint(equalTo: self.canvasImageView.topAnchor, constant: 100).isActive = true
+        sView.widthAnchor.constraint(equalTo: self.canvasImageView.widthAnchor, multiplier: 0.6).isActive = true
+        sView.startEdit()
+        return sView
+    }
+    
+    func addPollQuestionView() {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
+            self.hideToolbar(hide: true)
+            self.doneTagEditButton.isHidden = false
+            let queViews = self.canvasImageView.allSubViewsOf(type: StoryPollQueView.self)
+            if queViews.count > 0 {
+                let queView = queViews[0]
+                queView.translatesAutoresizingMaskIntoConstraints = false
+                queView.transform = .identity
+                queView.updateOptionsColors()
+                queView.startEdit()
+                self.removeGestures(view: queView)
+                self.currentTagView = queView
+            } else {
+                let tagView = self.pollQueView()
+                let tag = self.setUpStoryTagFor(tagView: tagView,
+                                                tagType: StoryTagType.poll,
+                                                tagText: "")
+                self.storyTags.append(BaseStoryTag(view: tagView, tag: tag))
+                self.currentTagView = tagView
             }
         }
+    }
+    
+    func pollQueView() -> StoryPollQueView {
+        let sView = StoryPollQueView.init()
+        self.addTransparentView()
+        self.canvasImageView.addSubview(sView)
+        sView.backgroundColor = ApplicationSettings.appClearColor
+        sView.translatesAutoresizingMaskIntoConstraints = false
+        sView.centerXAnchor.constraint(equalTo: self.canvasImageView.centerXAnchor, constant: 0).isActive = true
+        sView.topAnchor.constraint(equalTo: self.canvasImageView.topAnchor, constant: 100).isActive = true
+        sView.widthAnchor.constraint(equalTo: self.canvasImageView.widthAnchor, multiplier: 0.6).isActive = true
+        sView.startEdit()
+        sView.layoutIfNeeded()
+        sView.updateOptionsColors()
+        return sView
+    }
+    
+    func addTimeTag(for date: Date) {
+        let aView = BaseTimeTagView.init(date: date)
+        aView.backgroundColor = ApplicationSettings.appClearColor
+        self.canvasImageView.addSubview(aView)
+        aView.translatesAutoresizingMaskIntoConstraints = false
+        aView.centerXAnchor.constraint(equalTo: self.canvasImageView.centerXAnchor).isActive = true
+        aView.centerYAnchor.constraint(equalTo: self.canvasImageView.centerYAnchor).isActive = true
+        aView.layoutIfNeeded()
+        aView.translatesAutoresizingMaskIntoConstraints = true
+        self.addGestures(view: aView)
+        aView.center = self.canvasImageView.center
+    }
+    
+    func addDayTag() {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEE"
+        let dayString = formatter.string(from: Date())
+        let tagView = StoryTagView.init(tagType: .youtube, isImage: false)
+        self.canvasImageView.addSubview(tagView)
+        tagView.translatesAutoresizingMaskIntoConstraints = false
+        // apply constraint
+        tagView.centerXAnchor.constraint(equalTo: self.canvasImageView.centerXAnchor, constant: 0).isActive = true
+        tagView.centerYAnchor.constraint(equalTo: self.canvasImageView.centerYAnchor, constant: 0).isActive = true
+        tagView.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        tagView.widthAnchor.constraint(lessThanOrEqualToConstant: UIScreen.width - 10).isActive = true
+        // set text
+        tagView.text = dayString
+        tagView.translatesAutoresizingMaskIntoConstraints = true
+        tagView.completeEdit()
+        self.addGestures(view: tagView)
+        tagView.center = self.canvasImageView.center
+    }
+    
+    func addCameraView() {
         
-        func pollQueView() -> StoryPollQueView {
-            let sView = StoryPollQueView.init()
-            self.addTransparentView()
-            self.canvasImageView.addSubview(sView)
-            sView.backgroundColor = ApplicationSettings.appClearColor
-            sView.translatesAutoresizingMaskIntoConstraints = false
-            sView.centerXAnchor.constraint(equalTo: self.canvasImageView.centerXAnchor, constant: 0).isActive = true
-            sView.topAnchor.constraint(equalTo: self.canvasImageView.topAnchor, constant: 100).isActive = true
-            sView.widthAnchor.constraint(equalTo: self.canvasImageView.widthAnchor, multiplier: 0.6).isActive = true
-            sView.startEdit()
-            sView.layoutIfNeeded()
-            sView.updateOptionsColors()
-            return sView
-        }
-        
-        func addTimeTag(for date: Date) {
-            let aView = BaseTimeTagView.init(date: date)
-            aView.backgroundColor = ApplicationSettings.appClearColor
-            self.canvasImageView.addSubview(aView)
-            aView.translatesAutoresizingMaskIntoConstraints = false
-            aView.centerXAnchor.constraint(equalTo: self.canvasImageView.centerXAnchor).isActive = true
-            aView.centerYAnchor.constraint(equalTo: self.canvasImageView.centerYAnchor).isActive = true
-            aView.layoutIfNeeded()
-            aView.translatesAutoresizingMaskIntoConstraints = true
-            self.addGestures(view: aView)
-            aView.center = self.canvasImageView.center
-        }
-        
-        func addDayTag() {
-            let formatter = DateFormatter()
-            formatter.dateFormat = "EEEE"
-            let dayString = formatter.string(from: Date())
-            let tagView = StoryTagView.init(tagType: .youtube, isImage: false)
-            self.canvasImageView.addSubview(tagView)
-            tagView.translatesAutoresizingMaskIntoConstraints = false
-            // apply constraint
-            tagView.centerXAnchor.constraint(equalTo: self.canvasImageView.centerXAnchor, constant: 0).isActive = true
-            tagView.centerYAnchor.constraint(equalTo: self.canvasImageView.centerYAnchor, constant: 0).isActive = true
-            tagView.heightAnchor.constraint(equalToConstant: 40).isActive = true
-            tagView.widthAnchor.constraint(lessThanOrEqualToConstant: UIScreen.width - 10).isActive = true
-            // set text
-            tagView.text = dayString
-            tagView.translatesAutoresizingMaskIntoConstraints = true
-            tagView.completeEdit()
-            self.addGestures(view: tagView)
-            tagView.center = self.canvasImageView.center
-        }
-        
-        func addCameraView() {
+        let cameraView = CameraView.instanceFromNib()
+        self.canvasImageView.addSubview(cameraView)
+        cameraView.translatesAutoresizingMaskIntoConstraints = false
+        // apply constraint
+        cameraView.centerXAnchor.constraint(equalTo: self.canvasImageView.centerXAnchor, constant: 0).isActive = true
+        cameraView.centerYAnchor.constraint(equalTo: self.canvasImageView.centerYAnchor, constant: 0).isActive = true
+        cameraView.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        cameraView.widthAnchor.constraint(equalToConstant: 150).isActive = true
+        // set text
+        cameraView.setup()
+        cameraView.translatesAutoresizingMaskIntoConstraints = true
+        cameraView.cameraClick = { image in
             
-            let cameraView = CameraView.instanceFromNib()
-            self.canvasImageView.addSubview(cameraView)
-            cameraView.translatesAutoresizingMaskIntoConstraints = false
-            // apply constraint
-            cameraView.centerXAnchor.constraint(equalTo: self.canvasImageView.centerXAnchor, constant: 0).isActive = true
-            cameraView.centerYAnchor.constraint(equalTo: self.canvasImageView.centerYAnchor, constant: 0).isActive = true
-            cameraView.heightAnchor.constraint(equalToConstant: 200).isActive = true
-            cameraView.widthAnchor.constraint(equalToConstant: 150).isActive = true
-            // set text
-            cameraView.setup()
-            cameraView.translatesAutoresizingMaskIntoConstraints = true
-            cameraView.cameraClick = { image in
-                
-            }
-            self.addGestures(view: cameraView)
-            cameraView.center = self.canvasImageView.center
         }
-         
-        func addWeatherTag(for temperature: String) {
-            let aView = WeatherTagView.init(temperature: temperature)
-            aView.backgroundColor = ApplicationSettings.appClearColor
-            self.canvasImageView.addSubview(aView)
-            aView.translatesAutoresizingMaskIntoConstraints = false
-            aView.centerXAnchor.constraint(equalTo: self.canvasImageView.centerXAnchor).isActive = true
-            aView.centerYAnchor.constraint(equalTo: self.canvasImageView.centerYAnchor).isActive = true
-            aView.layoutIfNeeded()
-            aView.translatesAutoresizingMaskIntoConstraints = true
-            self.addGestures(view: aView)
-            aView.center = self.canvasImageView.center
-        }
-        
-        func openPlacePickerView() {
-            let config = GMSPlacePickerConfig(viewport: nil)
-            let placePicker = GMSPlacePickerViewController(config: config)
-            placePicker.delegate = self
-            present(placePicker, animated: true, completion: nil)
-        }
+        self.addGestures(view: cameraView)
+        cameraView.center = self.canvasImageView.center
+    }
+    
+    func addWeatherTag(for temperature: String) {
+        let aView = WeatherTagView.init(temperature: temperature)
+        aView.backgroundColor = ApplicationSettings.appClearColor
+        self.canvasImageView.addSubview(aView)
+        aView.translatesAutoresizingMaskIntoConstraints = false
+        aView.centerXAnchor.constraint(equalTo: self.canvasImageView.centerXAnchor).isActive = true
+        aView.centerYAnchor.constraint(equalTo: self.canvasImageView.centerYAnchor).isActive = true
+        aView.layoutIfNeeded()
+        aView.translatesAutoresizingMaskIntoConstraints = true
+        self.addGestures(view: aView)
+        aView.center = self.canvasImageView.center
+    }
+    
+    func openPlacePickerView() {
+        let config = GMSPlacePickerConfig(viewport: nil)
+        let placePicker = GMSPlacePickerViewController(config: config)
+        placePicker.delegate = self
+        present(placePicker, animated: true, completion: nil)
+    }
     
 }
 // MARK: GMSPlacePickerViewControllerDelegate

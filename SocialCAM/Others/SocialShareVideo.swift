@@ -70,8 +70,20 @@ open class SocialShareVideo: NSObject, SharingDelegate {
         case .snapchat:
             snapChatShareVideo(url)
             break
+        case .youtube:
+            youTubeUpload(url)
+            break
         default:
             break
+        }
+    }
+    
+    func youTubeUpload(_ url: URL) {
+        DispatchQueue.main.async {
+            if let youTubeUploadVC = R.storyboard.youTubeUpload.youTubeUploadViewController() {
+                youTubeUploadVC.videoUrl = url
+                Utils.appDelegate?.window?.visibleViewController()!.navigationController?.pushViewController(youTubeUploadVC, animated: true)
+            }
         }
     }
     
