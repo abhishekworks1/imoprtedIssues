@@ -33,6 +33,9 @@ open class SocialShareVideo: NSObject, SharingDelegate {
                     self.instaImageVideoShare(phAsset!)
                 }
             })
+        case .twitter:
+            twitterVideoShare(image: image)
+            break
         case .snapchat:
             self.snapChatShareImage(image: image)
         default:
@@ -70,6 +73,9 @@ open class SocialShareVideo: NSObject, SharingDelegate {
         case .snapchat:
             snapChatShareVideo(url)
             break
+        case .twitter:
+            twitterVideoShare(url, image: nil)
+            break
         case .youtube:
             youTubeUpload(url)
             break
@@ -77,6 +83,32 @@ open class SocialShareVideo: NSObject, SharingDelegate {
             break
         }
     }
+    
+    func twitterVideoShare(_ url: URL? = nil, image: UIImage?) {
+        if TwitterShare.shared.isTwitterLogin {
+            if let image = image {
+                TwitterShare.shared.uploadImageOnTwitter(image: image)
+            } else if let videoUrl = url {
+                TwitterShare.shared.uploadVideoOnTwitter(videoUrl: videoUrl)
+            }
+        }
+        else {
+            TwitterShare.shared.login { (isLogin, userName) in
+                if isLogin {
+                    if let image = image {
+                        TwitterShare.shared.uploadImageOnTwitter(image: image)
+                    } else if let videoUrl = url {
+                        TwitterShare.shared.uploadVideoOnTwitter(videoUrl: videoUrl)
+                    }
+                } else {
+                    Utils.appDelegate?.window?.makeToast(R.string.localizable.pleaseFirstLoginOnTwitter())
+                }
+            }
+        }
+    }
+    
+    
+    
     
     func youTubeUpload(_ url: URL) {
         DispatchQueue.main.async {

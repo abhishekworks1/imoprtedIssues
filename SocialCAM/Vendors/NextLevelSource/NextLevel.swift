@@ -2850,13 +2850,12 @@ extension NextLevel: AVCapturePhotoCaptureDelegate {
             self.photoDelegate?.nextLevel(self, didFinishProcessingPhoto: photo)
         }
         
-        if #available(iOS 12.0, *){
-            if let portraitEffectsMatte = photo.portraitEffectsMatte {
-                DispatchQueue.main.async {
-                    self.portraitEffectsMatteDelegate?.portraitEffectsMatteOutput(self, didOutput: portraitEffectsMatte)
-                }
+        if let portraitEffectsMatte = photo.portraitEffectsMatte {
+            DispatchQueue.main.async {
+                self.portraitEffectsMatteDelegate?.portraitEffectsMatteOutput(self, didOutput: portraitEffectsMatte)
             }
         }
+        
     }
     
 }
