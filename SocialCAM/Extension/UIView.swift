@@ -470,6 +470,38 @@ extension UIView {
         g_pin(on: .centerX, view: view)
         g_pin(on: .centerY, view: view)
     }
+    
+    /// Find the size of the image, once the parent imageView has been given a contentMode of .scaleAspectFit
+    /// Querying the image.size returns the non-scaled size. This helper property is needed for accurate results.
+    func aspectFitSize(for size: CGSize) -> CGSize {
+        var aspectFitSize = CGSize(width: frame.size.width, height: frame.size.height)
+        let newWidth: CGFloat = frame.size.width / size.width
+        let newHeight: CGFloat = frame.size.height / size.height
+
+        if newHeight < newWidth {
+            aspectFitSize.width = newHeight * size.width
+        } else if newWidth < newHeight {
+            aspectFitSize.height = newWidth * size.height
+        }
+
+        return aspectFitSize
+    }
+
+    /// Find the size of the image, once the parent imageView has been given a contentMode of .scaleAspectFill
+    /// Querying the image.size returns the non-scaled, vastly too large size. This helper property is needed for accurate results.
+    func aspectFillSize(for size: CGSize) -> CGSize {
+        var aspectFillSize = CGSize(width: frame.size.width, height: frame.size.height)
+        let newWidth: CGFloat = frame.size.width / size.width
+        let newHeight: CGFloat = frame.size.height / size.height
+
+        if newHeight > newWidth {
+            aspectFillSize.width = newHeight * size.width
+        } else if newWidth > newHeight {
+            aspectFillSize.height = newWidth * size.height
+        }
+
+        return aspectFillSize
+    }
 }
 
 

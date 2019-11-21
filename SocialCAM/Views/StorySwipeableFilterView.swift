@@ -63,9 +63,7 @@ class StorySwipeableFilterView: StoryImageView {
      Default is YES
      */
     var refreshAutomaticallyWhenScrolling = false
-    
-    var inputTransformation: InputImageTransformation?
-    
+            
     override init(frame: CGRect) {
         super.init(frame: frame)
         _swipeableCommonInit()
@@ -86,7 +84,7 @@ class StorySwipeableFilterView: StoryImageView {
         selectFilterScrollView.bounces = true
         selectFilterScrollView.alwaysBounceHorizontal = true
         selectFilterScrollView.alwaysBounceVertical = true
-        selectFilterScrollView.backgroundColor = ApplicationSettings.appClearColor
+        selectFilterScrollView.backgroundColor = .clear
         addSubview(selectFilterScrollView)
     }
     
@@ -138,11 +136,7 @@ class StorySwipeableFilterView: StoryImageView {
     }
     
     override func renderedCIImage(in rect: CGRect) -> CIImage? {
-        var image = super.renderedCIImage(in: rect)
-        
-        if let inputImage = image {
-            image = renderWithTransformation(of: inputImage)
-        }
+        let image = super.renderedCIImage(in: rect)
         
         let contentSize = selectFilterScrollView.frame.size
         guard contentSize.width != 0,
@@ -182,45 +176,6 @@ class StorySwipeableFilterView: StoryImageView {
         outputImage = outputImage.cropped(to: extent ?? CGRect.zero)
         
         return outputImage
-    }
-    
-    func renderWithTransformation(of inputImage: CIImage) -> CIImage? {
-        guard let backgroundImage = R.image.videoBackground(),
-            let cgBackgroundImage = backgroundImage.cgImage,
-            let transformation = self.inputTransformation else {
-                return inputImage
-        }
-        
-        let backgroundCIImage = CIImage(cgImage: cgBackgroundImage)
-        let backgroundCIImageWidth = backgroundCIImage.extent.width
-        let backgroundCIImageHeight = backgroundCIImage.extent.height
-        
-        var overlayCIImage = inputImage
-        let overlayCIImageWidth: CGFloat = overlayCIImage.extent.width
-        let overlayCIImageHeight: CGFloat = overlayCIImage.extent.height
-        
-        
-        var xscale = backgroundCIImageWidth.scaleValueFrom(transformation.scaleX)
-        var yscale = backgroundCIImageHeight.scaleValueFrom(transformation.scaleY)
-        if overlayCIImageWidth > overlayCIImageHeight {
-            xscale = backgroundCIImageHeight.scaleValueFrom(transformation.scaleX)*backgroundCIImageHeight/backgroundCIImageWidth
-            yscale = backgroundCIImageWidth.scaleValueFrom(transformation.scaleY)*backgroundCIImageHeight/backgroundCIImageWidth
-        } else if overlayCIImageHeight/overlayCIImageWidth < 1.77 {
-            xscale = backgroundCIImageWidth.scaleValueFrom(transformation.scaleX)*overlayCIImageHeight/overlayCIImageWidth
-        }
-        
-        overlayCIImage = overlayCIImage.transformed(by: CGAffineTransform(scaleX: xscale, y: yscale))
-        
-        overlayCIImage = overlayCIImage.transformed(by: CGAffineTransform(rotationAngle: -transformation.rotation))
-        
-        let txValue = backgroundCIImageWidth.scaleValueFrom(transformation.tx) - overlayCIImage.extent.origin.x
-        let tyValue = backgroundCIImageHeight - backgroundCIImageHeight.scaleValueFrom(transformation.ty) - overlayCIImage.extent.height - overlayCIImage.extent.origin.y
-        overlayCIImage = overlayCIImage.transformed(by: CGAffineTransform(translationX: txValue, y: tyValue))
-        
-        var combinedCIImage = overlayCIImage.composited(over: backgroundCIImage)
-        combinedCIImage = combinedCIImage.cropped(to: backgroundCIImage.extent)
-        
-        return combinedCIImage
     }
     
 }

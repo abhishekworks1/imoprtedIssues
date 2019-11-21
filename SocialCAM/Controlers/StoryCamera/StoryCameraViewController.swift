@@ -1204,26 +1204,6 @@ extension StoryCameraViewController: PhotosPickerViewControllerDelegate {
                                     
                                     let storyData = InternalStoryData(address: "", duration: "", lat: "", long: "", thumbTime: url.thumbTime!.seconds, type: "video", url: "", userId: Defaults.shared.currentUser?.id ?? "", watermarkURL: watermarkURL.absoluteString, isMute: false, filterName: nil, exportedUrls: urls, hiddenHashtags: nil, tags: nil)
                                     storyData.publish = Defaults.shared.isPublish ? 1 : 0
-                                    
-                                    let xPoint = self.view.xGlobalPoint
-                                    let yPoint = self.view.yGlobalPoint
-                                    let rotation = self.view.rotationValue
-                                    let aVAsset = AVAsset(url: URL.init(fileURLWithPath: urls[0]))
-                                    let track = aVAsset.tracks(withMediaType: .video)[0]
-                                    var theNaturalSize = track.naturalSize
-                                    theNaturalSize = theNaturalSize.applying(track.preferredTransform)
-                                    theNaturalSize.width = CGFloat(abs(Float(theNaturalSize.width)))
-                                    theNaturalSize.height = CGFloat(abs(Float(theNaturalSize.height)))
-                                    
-                                    let scaleX = self.view.originalScaleXValue(for: theNaturalSize.width)
-                                    let scaleY = self.view.originalScaleYValue(for: theNaturalSize.height)
-                                    storyData.videotx = Double(xPoint)
-                                    storyData.videoty = Double(yPoint)
-                                    storyData.videoScaleX = Double(scaleX)
-                                    storyData.videoScaleY = Double(scaleY)
-                                    storyData.videoRotation = Double(rotation)
-                                    storyData.hasTransformation = true
-                                    
                                     internalStoryData.append(storyData)
                                 }
                             }

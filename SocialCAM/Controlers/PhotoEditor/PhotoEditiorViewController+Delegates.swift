@@ -552,7 +552,7 @@ extension PhotoEditorViewController : PixelEditViewControllerDelegate {
         self.editingStack = editingStack
         let image = editingStack.makeRenderer().render(resolution: .full)
         self.image = image
-        filterSwitcherView?.setImageBy(self.image)
+        filterSwitcherView?.setImageBy(image)
         controller.dismiss(animated: true) {
             
         }

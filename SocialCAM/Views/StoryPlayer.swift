@@ -6,7 +6,7 @@
 //  Copyright © 2018 Simform. All rights reserved.
 //
 
-import AVKit
+import AVFoundation
 import CoreImage
 
 protocol StoryPlayerDelegate: class {
@@ -103,7 +103,7 @@ class StoryPlayer: AVPlayer {
      */
     public var itemDuration: CMTime {
         guard let currentItem = self.currentItem else {
-            return CMTime.zero
+            return .zero
         }
         let ratio = Float64(1.0 / itemsLoopLength)
         return CMTimeMultiply(currentItem.duration, multiplier: Int32(ratio))
@@ -113,9 +113,9 @@ class StoryPlayer: AVPlayer {
      */
     public var playableDuration: CMTime {
         guard let currentItem = currentItem else {
-            return CMTime.zero
+            return .zero
         }
-        var playableDuration: CMTime = CMTime.zero
+        var playableDuration: CMTime = .zero
         if currentItem.status != .failed {
             for value in currentItem.loadedTimeRanges {
                 let timeRange = value.timeRangeValue
@@ -260,13 +260,13 @@ class StoryPlayer: AVPlayer {
      */
     public func beginSendingPlayMessages() {
         if !isSendingPlayMessages {
-            timeObserver = addPeriodicTimeObserver(forInterval: CMTimeMake(value: 1, timescale: 24), queue: DispatchQueue.main, using: { [weak self] time in
+            timeObserver = addPeriodicTimeObserver(forInterval: CMTime(value: 1, timescale: 24), queue: DispatchQueue.main, using: { [weak self] time in
                 guard let `self` = self else { return }
                 if let delegate = self.delegate {
                     let ratio = Float64(1.0 / Double(self.itemsLoopLength))
                     let currentTime: CMTime = CMTimeMultiplyByFloat64(time, multiplier: ratio)
                     
-                    let loopCount = Int(CMTimeGetSeconds(time) / (CMTimeGetSeconds(self.currentItem?.duration ?? CMTime.zero) / Float64(self.itemsLoopLength)))
+                    let loopCount = Int(CMTimeGetSeconds(time) / (CMTimeGetSeconds(self.currentItem?.duration ?? .zero) / Float64(self.itemsLoopLength)))
                     
                     delegate.player(self, didPlay: currentTime, loopsCount: loopCount)
                 }
@@ -331,7 +331,7 @@ class StoryPlayer: AVPlayer {
     public func setSmoothLoopItemBy(_ asset: AVAsset, smoothLoopCount loopCount: Int) {
         let composition = AVMutableComposition()
         
-        let timeRange: CMTimeRange = CMTimeRangeMake(start: CMTime.zero, duration: asset.duration)
+        let timeRange: CMTimeRange = CMTimeRange(start: .zero, duration: asset.duration)
         
         for _ in 0..<loopCount {
             try? composition.insertTimeRange(timeRange, of: asset, at: composition.duration)
@@ -347,7 +347,7 @@ class StoryPlayer: AVPlayer {
             return
         }
         if loopEnabled {
-            seek(to: CMTime.zero)
+            seek(to: .zero)
             if isPlaying {
                 play()
             }
@@ -430,7 +430,7 @@ extension StoryPlayer {
             displayLink = CADisplayLink(target: self, selector: #selector(self.willRenderFrame(_:)))
             displayLink?.preferredFramesPerSecond = 60
             setupVideoOutput(to: currentItem)
-            displayLink?.add(to: RunLoop.main, forMode: RunLoop.Mode.common)
+            displayLink?.add(to: RunLoop.main, forMode: .common)
             suspendDisplay()
         }
         rendererWasSetup = false
