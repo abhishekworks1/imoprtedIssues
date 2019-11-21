@@ -20,6 +20,7 @@ import AppCenter
 import AppCenterAnalytics
 import AppCenterCrashes
 import GoogleSignIn
+import TwitterKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -70,6 +71,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
+        
+        _ = TwitterShare.shared
         
         MSAppCenter.start(Constant.AppCenter.apiKey, withServices:[])
         
@@ -152,12 +155,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-   
+    open func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        return TWTRTwitter.sharedInstance().application(app, open: url, options: options)
+    }
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        let options: [String: AnyObject] = [UIApplication.OpenURLOptionsKey.sourceApplication.rawValue: sourceApplication as AnyObject, UIApplication.OpenURLOptionsKey.annotation.rawValue: annotation as AnyObject]
+        
         if ApplicationDelegate.shared.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation) {
             return true
+        } else if TWTRTwitter.sharedInstance().application(application, open: url, options: options) {
+            return true
         }
-        return false
+        return true
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {

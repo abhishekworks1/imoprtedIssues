@@ -804,8 +804,8 @@ extension PhotoEditorViewController {
     }
     
     @IBAction func btnSocialShareClick(_ sender: Any) {
-        var menuOptions: [UIImage] = [R.image.icoFacebook()!, R.image.icoInstagram()!, R.image.icoSnapchat()!]
-        var menuOptionsString: [String] = ["","",""]
+        var menuOptions: [UIImage] = [R.image.icoFacebook()!, R.image.icoInstagram()!, R.image.icoSnapchat()!, R.image.icoTweeter()!]
+        var menuOptionsString: [String] = ["","","",""]
         if image == nil {
             menuOptions.append(R.image.icoYoutube()!)
             menuOptionsString.append("")

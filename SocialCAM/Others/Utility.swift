@@ -65,109 +65,40 @@ public struct Utils {
    
     static func uploadFile(fileName: String, fileURL: URL, contentType: String, progressBlock: @escaping (Float) -> () = { _ in }, otherProgressBlock: ((Float, Float, Float) -> ())? = { _,_,_  in }, callBack: @escaping (_ url: String) -> Void?, failedBlock: @escaping (Swift.Error?) -> () = { _ in })
     {
-        AWSManager.shareInstance().uploadImageToAmazon(currentFileName: fileName, soundFileURL: fileURL, contentType: contentType, nil, progressBlock: progressBlock, otherProgressBlock: otherProgressBlock, callBack: callBack)
+        AWSManager.shared.uploadImageToAmazon(currentFileName: fileName, soundFileURL: fileURL, contentType: contentType, nil, progressBlock: progressBlock, otherProgressBlock: otherProgressBlock, callBack: callBack)
     }
     
     static func uploadSingleUrlStop(_ itemUrl : String?) {
         guard let itemUrlString = itemUrl else {
             return
         }
-        for (_, uploadRequestCancle) in AWSManager.shareInstance().uploadRequests.enumerated() {
-            if uploadRequestCancle?.body.absoluteString == itemUrlString {
-                uploadRequestCancle?.cancel()?.continueWith(block: { (task) -> Any? in
-                    if let error = task.error {
-                        debugPrint("cancel() failed: [\(error)]")
-                    }
-                    return ""
-                })
-                
-            }
-        }
+        AWSManager.shared.cancelOneFileUpload(itemUrlString)
     }
     
     static func uploadStopAll() {
-        for (_, uploadRequestCancle) in AWSManager.shareInstance().uploadRequests.enumerated() {
-            uploadRequestCancle?.cancel().continueWith(block: { (task) -> Any? in
-                if let error = task.error {
-                    debugPrint("cancel() failed: [\(error)]")
-                }
-                return ""
-            })
-        }
+        AWSManager.shared.cancelAllUploads()
     }
-    
+
     static func uploadImage(imgName: String, img: UIImage, progressBlock: @escaping (Float) -> () = { _ in }, callBack: @escaping (_ url: String) -> Void?) {
         let width = 400.0
         let image = img.resizeImage(newWidth: CGFloat(width))
         let data = image.jpegData(compressionQuality: 0.6)
         let url = Utils.getLocalPath(imgName)
         try? data?.write(to: url)
-        
-        AWSManager.shareInstance().uploadImageToAmazon(currentFileName: imgName, soundFileURL: url, nil, progressBlock: progressBlock, callBack: callBack)
-        
+
+        AWSManager.shared.uploadImageToAmazon(currentFileName: imgName, soundFileURL: url, contentType: nil, nil, progressBlock: progressBlock, otherProgressBlock: nil, callBack: callBack) { (error) in
+            
+        }
     }
-    
+
     static func uploadVideo(videoName: String, videoData: Data, progressBlock: @escaping (Float) -> () = { _ in }, callBack: @escaping (String) -> ()) {
         let data = videoData
         let url = Utils.getLocalPath(videoName)
         try?data.write(to: url)
-        
-        AWSManager.shareInstance().uploadImageToAmazon(currentFileName: videoName, soundFileURL: url, nil, progressBlock: progressBlock, callBack: callBack)
-        
+
+        AWSManager.shared.uploadImageToAmazon(currentFileName: videoName, soundFileURL: url, contentType: "video/mp4", nil, progressBlock: progressBlock, callBack: callBack)
     }
-    
-    static func uploadVideo(videoData: Data, progressBlock: @escaping (Float) -> () = { _ in }, callBack: @escaping (String) -> (), failedBlock: @escaping (Swift.Error?) -> () = { _ in }) {
-        let videoName = String.fileName + FileExtension.mov.rawValue
-        let data = videoData
-        let url = Utils.getLocalPath(videoName)
-        try? data.write(to: url)
-        DispatchQueue.main.async {
-            AWSManager.shareInstance().uploadImageToAmazon(currentFileName: videoName, soundFileURL: url, nil, progressBlock: progressBlock, callBack: callBack, failedBlock: failedBlock)
-        }
-    }
-    
-    static func uploadAudio(audioName: String, audioData: Data, callBack: @escaping (_ url: String) -> Void?) {
-        let data = audioData
-        let url = Utils.getLocalPath(audioName)
-        try? data.write(to: url)
-        DispatchQueue.main.async {
-            AWSManager.shareInstance().uploadAudioToAmazon(currentFileName: audioName, soundFileURL: url, callBack: callBack)
-        }
-    }
-    
-    static func uploadImage(img: UIImage, progressBlock: @escaping (Float) -> () = { _ in }, callBack: @escaping (_ url: String) -> Void?, failedBlock: @escaping (Swift.Error?) -> () = { _ in }) {
-        let fileName = String.fileName + FileExtension.jpg.rawValue
-        
-        let width = 400.0
-        let image = img.resizeImage(newWidth: CGFloat(width))
-        let data = image.jpegData(compressionQuality: 0.6)
-        let url = Utils.getLocalPath(fileName)
-        try? data?.write(to: url)
-        DispatchQueue.main.async {
-            AWSManager.shareInstance().uploadImageToAmazon(currentFileName: fileName, soundFileURL: url, nil, progressBlock: progressBlock, callBack: callBack, failedBlock: failedBlock)
-        }
-    }
-    
-    static func uploadVideo(videoData: Data, callBack: @escaping (_ url: String) -> Void?) {
-        let fileName = String.fileName + FileExtension.mov.rawValue
-        let data = videoData
-        let url = Utils.getLocalPath(fileName)
-        try? data.write(to: url)
-        DispatchQueue.main.async {
-            AWSManager.shareInstance().uploadImageToAmazon(currentFileName: fileName, soundFileURL: url, nil, callBack: callBack)
-        }
-    }
-    
-    static func uploadProfileVideo(videoData: Data, callBack: @escaping (_ url: String) -> Void?) {
-        let fileName = String.fileName + FileExtension.mov.rawValue
-        let data = videoData
-        let url = Utils.getLocalPath(fileName)
-        try?data.write(to: url)
-        DispatchQueue.main.async {
-            AWSManager.shareInstance().uploadImageToAmazon(currentFileName: fileName, soundFileURL: url, Constant.AWS.PROFILE_VIDEO_BUCKET_NAME, callBack: callBack)
-        }
-    }
-    
+
     static func clearAllFilesFromTestFolder() {
         do {
             guard let allFiles = try? FileSystem().documentFolder?.subfolder(named: "StoryCacheVideo").files else {

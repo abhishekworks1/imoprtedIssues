@@ -19,6 +19,7 @@ enum SocialShare : Int {
     case facebook = 0
     case instagram
     case snapchat
+    case twitter
     case youtube
     case tiktok
 }
@@ -314,6 +315,9 @@ public struct Constant {
         static let endPoint = "s3-us-west-2.amazonaws.com"
         static let baseUrl = "https://s3-us-west-2.amazonaws.com/"
         static let PROFILE_VIDEO_BUCKET_NAME = "profile-video/original"
+        static let NAME = "spinach-cafe"
+        static let FOLDER = "main-image"
+        static let URL = "http://\(Constant.AWS.NAME).s3.amazonaws.com/"
     }
     
     struct URLs {
@@ -346,8 +350,8 @@ public struct Constant {
     }
     
     struct TWTRTwitter {
-        static let consumerKey: String = "pqsDvPyRwFKtwWAGFtxUWpP2C"
-        static let consumerSecret: String = "a5ZhCvWFPJIR3g7vzzGWMGUh3CuzbnFh2cROxHjEdUlvnERtMB"
+        static let consumerKey: String = "WfJWdYHUDmPil9oIOf9yT2WLQ"
+        static let consumerSecret: String = "wZO81VCWknVry5PsUeA9TPYaB79yBt3RyRGAaZZZm68uOuCRRT"
     }
     
     struct AppCenter {

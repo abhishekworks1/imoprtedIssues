@@ -339,6 +339,7 @@
 		820B23752371975000906BF0 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820B23742371975000906BF0 /* Result.swift */; };
 		820B23772371A0A500906BF0 /* StoryTwoColumnsLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820B23762371A0A400906BF0 /* StoryTwoColumnsLayout.swift */; };
 		820C3AF923797896007FCF15 /* SocialShareVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820C3AF823797896007FCF15 /* SocialShareVideo.swift */; };
+		820DA4EE2385392F0027A207 /* AWSManager+S3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820DA4ED2385392F0027A207 /* AWSManager+S3.swift */; };
 		824E5171237E77F100339809 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 824E5170237E77F100339809 /* WebKit.framework */; };
 		824E5173237E77F700339809 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 824E5172237E77F700339809 /* Security.framework */; };
 		824EB37C2361959800205993 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB37B2361959800205993 /* AppDelegate.swift */; };
@@ -349,7 +350,6 @@
 		824EB39623619E1D00205993 /* PickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB39523619E1D00205993 /* PickerView.swift */; };
 		824EB39823619E2800205993 /* ApplicationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB39723619E2700205993 /* ApplicationSettings.swift */; };
 		824EB39C23619E3600205993 /* StoryCamShared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB39923619E3600205993 /* StoryCamShared.swift */; };
-		824EB39D23619E3600205993 /* AWSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB39A23619E3600205993 /* AWSManager.swift */; };
 		824EB39E23619E3600205993 /* SharedClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB39B23619E3600205993 /* SharedClass.swift */; };
 		824EB3A023619E3D00205993 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB39F23619E3D00205993 /* Utility.swift */; };
 		824EB3BA23619E5C00205993 /* CIFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB3A223619E5A00205993 /* CIFilter.swift */; };
@@ -413,6 +413,7 @@
 		8299F56E23714FCC00963318 /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8299F56D23714FCC00963318 /* Layout.swift */; };
 		82AD6B7023704B330090498A /* UIViewUtilsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AD6B6F23704B330090498A /* UIViewUtilsExtension.swift */; };
 		82AD6B7223704BA60090498A /* PhotoEditiorViewController+CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AD6B7123704BA60090498A /* PhotoEditiorViewController+CollectionView.swift */; };
+		82C4B2B12383F3CB00551B51 /* TwitterShare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C4B2B02383F3CB00551B51 /* TwitterShare.swift */; };
 		82CCB16E2372CC2600EC76E8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CCB16D2372CC2600EC76E8 /* LoginViewController.swift */; };
 		82CCB1702372D0F800EC76E8 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CCB16F2372D0F800EC76E8 /* CurrentUser.swift */; };
 		82CCB1722372D21E00EC76E8 /* PromanagerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CCB1712372D21E00EC76E8 /* PromanagerData.swift */; };
@@ -849,6 +850,7 @@
 		820B23742371975000906BF0 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		820B23762371A0A400906BF0 /* StoryTwoColumnsLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryTwoColumnsLayout.swift; sourceTree = "<group>"; };
 		820C3AF823797896007FCF15 /* SocialShareVideo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialShareVideo.swift; sourceTree = "<group>"; };
+		820DA4ED2385392F0027A207 /* AWSManager+S3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AWSManager+S3.swift"; sourceTree = "<group>"; };
 		824AD525237BEAD700BF226F /* TiktokClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TiktokClass.swift; sourceTree = "<group>"; };
 		824E5170237E77F100339809 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		824E5172237E77F700339809 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -930,6 +932,7 @@
 		82AD6B6D237049AB0090498A /* PhotoEditor.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PhotoEditor.storyboard; sourceTree = "<group>"; };
 		82AD6B6F23704B330090498A /* UIViewUtilsExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewUtilsExtension.swift; sourceTree = "<group>"; };
 		82AD6B7123704BA60090498A /* PhotoEditiorViewController+CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotoEditiorViewController+CollectionView.swift"; sourceTree = "<group>"; };
+		82C4B2B02383F3CB00551B51 /* TwitterShare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterShare.swift; sourceTree = "<group>"; };
 		82CCB16D2372CC2600EC76E8 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		82CCB16F2372D0F800EC76E8 /* CurrentUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
 		82CCB1712372D21E00EC76E8 /* PromanagerData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromanagerData.swift; sourceTree = "<group>"; };
@@ -1050,6 +1053,9 @@
 		8205FA78236C0F52002B2603 /* Others */ = {
 			isa = PBXGroup;
 			children = (
+				820DA4ED2385392F0027A207 /* AWSManager+S3.swift */,
+				824EB39A23619E3600205993 /* AWSManager.swift */,
+				82C4B2B02383F3CB00551B51 /* TwitterShare.swift */,
 				824AD525237BEAD700BF226F /* TiktokClass.swift */,
 				820B23702371961F00906BF0 /* ProManagerApi.swift */,
 				824EB39F23619E3D00205993 /* Utility.swift */,
@@ -1058,7 +1064,6 @@
 				824EB39923619E3600205993 /* StoryCamShared.swift */,
 				8205FB0E236C123B002B2603 /* AppExtensions.swift */,
 				824EB39723619E2700205993 /* ApplicationSettings.swift */,
-				824EB39A23619E3600205993 /* AWSManager.swift */,
 				8299F56D23714FCC00963318 /* Layout.swift */,
 				82D1EBD4236FF21700A680E7 /* StoryContext.swift */,
 				82D1EBBA236FEDD800A680E7 /* VideoSpeeder.swift */,
@@ -2422,7 +2427,6 @@
 				8299F564237135BF00963318 /* UIColor+Extension.swift in Sources */,
 				8205FCA5236C3AFA002B2603 /* CollageViewT502.swift in Sources */,
 				8205FA93236C0FA5002B2603 /* TrimmerView.swift in Sources */,
-				824EB39D23619E3600205993 /* AWSManager.swift in Sources */,
 				8205FD7F236C3B06002B2603 /* PixelEditViewController.swift in Sources */,
 				8287D21223826F130074FC39 /* YouCategoryTableViewCell.swift in Sources */,
 				82D1EBCD236FEFA700A680E7 /* StoryImageView.swift in Sources */,
@@ -2480,6 +2484,7 @@
 				8205FD6F236C3B06002B2603 /* TemperatureControl.swift in Sources */,
 				8205FAA5236C0FD7002B2603 /* ThumbSelectorView.swift in Sources */,
 				82CCB1702372D0F800EC76E8 /* CurrentUser.swift in Sources */,
+				820DA4EE2385392F0027A207 /* AWSManager+S3.swift in Sources */,
 				8205FAE6236C10F3002B2603 /* DNDLongPressDragRecognizer.m in Sources */,
 				8205FBC8236C2A88002B2603 /* MMPlayer+UINavigationController+LastDelegate.swift in Sources */,
 				8205FAD8236C10DD002B2603 /* StringExtension.swift in Sources */,
@@ -2696,6 +2701,7 @@
 				8205FC46236C2D30002B2603 /* ReactionSummaryConfig.swift in Sources */,
 				8287D21A238296C20074FC39 /* ChannelVideoListViewController.swift in Sources */,
 				8205FBC1236C2A88002B2603 /* MMPlayerTransition.swift in Sources */,
+				82C4B2B12383F3CB00551B51 /* TwitterShare.swift in Sources */,
 				8205FBC3236C2A88002B2603 /* MMPlayerBaseTransition.swift in Sources */,
 				8205FD4C236C3B06002B2603 /* FilterHighlightShadowTint.swift in Sources */,
 				8205FBBD236C2A88002B2603 /* MMPlayerPresentAnimator.swift in Sources */,

@@ -140,6 +140,7 @@ class StoryDataManager {
     var isStoryUploaded: Bool = false
     
     weak var delegate: StoryUploadDelegate?
+    let exportSession = StoryAssetExportSession()
     
     static let shared = StoryDataManager(context: (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)
     
@@ -400,8 +401,8 @@ extension StoryDataManager {
                 self.isStoryUploaded = false
                 self.currentStoryData = nil
                 self.currentStoryUploadData = nil
+                exportSession.cancelExporting()
                 Utils.uploadSingleUrlStop(storyData.url)
-                
                 StoryDataManager.shared.startUpload()
                 self.delegate?.didCompletedStory()
                 
@@ -441,7 +442,7 @@ extension StoryDataManager {
             session.addSegment(SCRecordSessionSegment(url: url, info: nil))
         }
         
-        let exportSession = StoryAssetExportSession()
+        
         if let filterName = storyData.filterName,
             filterName != "CIFilter" {
             var filter: CIFilter?

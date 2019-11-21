@@ -11,9 +11,9 @@
 				<key>Default</key>
 				<dict>
 					<key>PoolId</key>
-					<string>us-east-1:ed78a620-7677-4c87-a83c-520ca121ecea</string>
+					<string>us-west-2:4918c1f8-d173-4668-8891-d6892a147259</string>
 					<key>Region</key>
-					<string>us-east-1</string>
+					<string>us-west-2</string>
 				</dict>
 			</dict>
 		</dict>
@@ -22,7 +22,7 @@
 			<key>Default</key>
 			<dict>
 				<key>Region</key>
-				<string>us-west-1</string>
+				<string>us-west-2</string>
 			</dict>
 		</dict>
 	</dict>
@@ -66,6 +66,26 @@
 				<string>com.googleusercontent.apps.987089186916-afgu3da6iqnfhqosqkvqm0e9k8febisg</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>twitterkit-WfJWdYHUDmPil9oIOf9yT2WLQ</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array/>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array/>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
@@ -74,7 +94,19 @@
 		<key>APIKey</key>
 		<string>96c68e9c0138cb4916e862697ecd5746657596e6</string>
 		<key>Kits</key>
-		<array/>
+		<array>
+			<dict>
+				<key>KitInfo</key>
+				<dict>
+					<key>consumerKey</key>
+					<string>pqsDvPyRwFKtwWAGFtxUWpP2C</string>
+					<key>consumerSecret</key>
+					<string>a5ZhCvWFPJIR3g7vzzGWMGUh3CuzbnFh2cROxHjEdUlvnERtMB</string>
+				</dict>
+				<key>KitName</key>
+				<string>Twitter</string>
+			</dict>
+		</array>
 	</dict>
 	<key>FacebookAppID</key>
 	<string>207454689773413</string>
@@ -100,6 +132,8 @@
 		<string>storiCamPro</string>
 		<string>comgooglemaps-x-callback</string>
 		<string>comgooglemaps</string>
+		<string>twitter</string>
+		<string>twitterauth</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
