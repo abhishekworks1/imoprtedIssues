@@ -312,12 +312,10 @@ extension StoryUploadVC: StoryUploadDelegate {
         }
         DispatchQueue.main.async {
             if let cell = self.collectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? StoryUploadCollectionViewCell {
-                DispatchQueue.main.async {
-                    let downloadedSizeUnit = self.getOneDecimalPlaceValue(Float(Double(self.getOneDecimalPlaceValue(Float(progress)))! / 1000000.0))
-                    let totalSizeUnit = self.getOneDecimalPlaceValue(Float(Double(self.getOneDecimalPlaceValue(Float(totalFile)))! / 1000000.0))
-                    cell.fileNameLabel.text = storyData.createdDate?.asString(style: .medium)
-                    cell.remainBytesLabel.text = "\(downloadedSizeUnit) MB of \(totalSizeUnit) MB"
-                }
+                let downloadedSizeUnit = self.getOneDecimalPlaceValue(Float(Double(self.getOneDecimalPlaceValue(Float(progress)))! / 1000000.0))
+                let totalSizeUnit = self.getOneDecimalPlaceValue(Float(Double(self.getOneDecimalPlaceValue(Float(totalFile)))! / 1000000.0))
+                cell.fileNameLabel.text = storyData.createdDate?.asString(style: .medium)
+                cell.remainBytesLabel.text = "\(downloadedSizeUnit) MB of \(totalSizeUnit) MB"
             }
         }
     }
@@ -334,9 +332,7 @@ extension StoryUploadVC: StoryUploadDelegate {
     func didUpdateProgress(_ progress: Double) {
         DispatchQueue.main.async {
             if let cell = self.collectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? StoryUploadCollectionViewCell {
-                DispatchQueue.main.async {
-                    cell.uploadProgressView.progress = Float(progress/100)
-                }
+                cell.uploadProgressView.progress = Float(progress)
             }
         }
     }

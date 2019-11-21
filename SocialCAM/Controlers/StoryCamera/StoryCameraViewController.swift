@@ -169,6 +169,8 @@ class StoryCameraViewController: UIViewController {
         }
     }
     
+    let storyUploadManager = StoryDataManager.shared
+    
     var hideControls: Bool = false {
         didSet {
             DispatchQueue.main.async {
@@ -284,7 +286,7 @@ class StoryCameraViewController: UIViewController {
                 DispatchQueue.main.async {
                     self.closeButton.tag = 2
                     self.closeButton.setImage(R.image.handsfree(), for: UIControl.State.normal)
-                    self.closeButton.setImage(R.image.handsfreeSelected(), for: UIControl.State.selected)
+                    self.closeButton.setImage(R.image.handsfreeSelected()?.sd_tintedImage(with: ApplicationSettings.appPrimaryColor), for: UIControl.State.selected)
                 }
             } else {
                 DispatchQueue.main.async {
@@ -436,8 +438,8 @@ class StoryCameraViewController: UIViewController {
         
         addAskQuestionReplyView()
        
-        StoryDataManager.shared.delegate = self
-        StoryDataManager.shared.startUpload()
+        self.storyUploadManager.delegate = self
+        self.storyUploadManager.startUpload()
         
         view.bringSubviewToFront(baseView)
         view.bringSubviewToFront(blurView)
@@ -488,6 +490,7 @@ class StoryCameraViewController: UIViewController {
         if hideControls {
             hideControls = true
         }
+        self.reloadUploadViewData()
         self.stopMotionCollectionView.reloadData()
     }
     
@@ -2043,7 +2046,7 @@ extension StoryCameraViewController: StoryUploadDelegate {
     }
     
     func didCompletedStory() {
-        
+        reloadUploadViewData()
     }
     
     func didChangeThumbImage(_ image: UIImage) {
@@ -2059,7 +2062,7 @@ extension StoryCameraViewController: StoryUploadDelegate {
                 percentage = 100.0
             }
             self.firstPercentage = percentage
-            self.lblStoryPercentage.text = "\(Int(percentage))%"
+            self.lblStoryPercentage.text = "\(Int(percentage * 100))%"
         }
     }
     
@@ -2076,6 +2079,17 @@ extension StoryCameraViewController: StoryUploadDelegate {
         }
     }
     
+    func reloadUploadViewData() {
+        var storyUploads: [StoryData] = []
+        for storyUploadData in storyUploadManager.getStoryUploadDataNotCompleted() {
+            for storyData in storyUploadData.storyData?.allObjects as? [StoryData] ?? [] {
+                if !storyData.isCompleted {
+                    storyUploads.append(storyData)
+                }
+            }
+        }
+        self.storyUploadView.isHidden = !(storyUploads.count > 0)
+    }
 }
 // MARK: KDDragAndDropCollectionViewDataSource
 extension StoryCameraViewController: KDDragAndDropCollectionViewDataSource {

@@ -404,8 +404,8 @@ extension StoryDataManager {
                 exportSession.cancelExporting()
                 Utils.uploadSingleUrlStop(storyData.url)
                 StoryDataManager.shared.startUpload()
+                self.delegate?.didChangeStoryCount("")
                 self.delegate?.didCompletedStory()
-                
                 break
             }
         }
@@ -553,7 +553,7 @@ extension StoryDataManager {
             self.delegate?.didChangeStoryCount(remainString)
             self.delegate?.didUpdateProgress(Double(progress))
         }, otherProgressBlock: { bytesSent, totalBytesSent, totalBytesExpectedToSend in
-            self.delegate?.didUpdateBytes(Double(totalBytesSent), Double(totalBytesExpectedToSend), storyData)
+            self.delegate?.didUpdateBytes(Double(bytesSent), Double(totalBytesSent), storyData)
         }, callBack: { url -> Void? in
             storyData.serverURL = url
             storyData.isStoryUploaded = true

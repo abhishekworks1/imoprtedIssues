@@ -101,7 +101,7 @@ public class SegmentVideos: NSObject, NSCopying {
         currentAsset = SegmentVideos.getRecordSession(videoModel: videos)
     }
     
-    init(urlStr: URL, thumbimage: UIImage? = nil, latitued: String? = "", longitued: String? = "", placeAddress: String?  = "", numberOfSegement: String?  = "", videoduration: String?  = "0.0", allVideos : [SegmentVideo]){
+    init(urlStr: URL, thumbimage: UIImage? = nil, latitued: String? = "", longitued: String? = "", placeAddress: String?  = "", numberOfSegement: String?  = "", videoduration: String?  = "0.0", allVideos : [SegmentVideo]) {
         super.init()
         url = urlStr
         id = UUID().uuidString
@@ -127,40 +127,6 @@ public class SegmentVideos: NSObject, NSCopying {
     
     public func copy(with zone: NSZone? = nil) -> Any {
         let copy = SegmentVideos.init(urlStr: url!, thumbimage: image, latitued: lat, longitued: long, placeAddress: address, numberOfSegement: numberOfSegementtext, videoduration: videoDuration, allVideos : videos)
-        return copy
-    }
-}
-
-public class SegmentMultiVideos: NSObject, NSCopying {
-    internal init(currentAsset: AVAsset?) {
-        self.currentAsset = currentAsset
-    }
-    
-    var videos: [SegmentVideos] = []
-    var currentAsset: AVAsset?
-    
-    // MARK: - INITIALIZATION
-    override init() {
-        super.init()
-    }
-    
-    init(videos: [SegmentVideos]){
-        super.init()
-        self.videos = videos
-        currentAsset = SegmentMultiVideos.getRecordSession(videoModel: videos)
-    }
-    
-    class func getRecordSession(videoModel: [SegmentVideos]) -> AVAsset {
-        let recodeSession = SCRecordSession.init()
-        for segementModel in videoModel {
-            let segment = SCRecordSessionSegment(url: segementModel.url!, info: nil)
-            recodeSession.addSegment(segment)
-        }
-        return recodeSession.assetRepresentingSegments()
-    }
-   
-    public func copy(with zone: NSZone? = nil) -> Any {
-        let copy = SegmentMultiVideos.init(videos : videos)
         return copy
     }
 }
