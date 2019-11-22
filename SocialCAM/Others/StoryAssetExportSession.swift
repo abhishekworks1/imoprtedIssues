@@ -28,11 +28,15 @@ class StoryAssetExportSession {
     public var overlayImage: UIImage?
     public var filter: CIFilter?
     public var isMute = false
-    public var inputTransformation: InputImageTransformation?
-    
+    public var inputTransformation: StoryImageView.ImageTransformation?
+    public var imageContentMode: StoryImageView.ImageContentMode = .scaleAspectFit
+
     private func fileURL() -> URL {
-        let fileName = String.fileName + FileExtension.mov.rawValue
-        return Utils.getLocalPath(fileName)
+        let fileName = "\(UUID().uuidString).mov"
+        var documentDirectoryPath = NSSearchPathForDirectoriesInDomains(.documentDirectory,
+                                                                        .userDomainMask, true)[0]
+        documentDirectoryPath = documentDirectoryPath.appending("/\(fileName)")
+        return URL(fileURLWithPath: documentDirectoryPath)
     }
     
     public func export(for asset: AVAsset, progress: ((Float) -> ())? = nil, completion: @escaping (URL?) -> Void) {
@@ -40,6 +44,7 @@ class StoryAssetExportSession {
         var audioFinished = false
         var videoFinished = false
         
+        // Setup Reader
         do {
             reader = try AVAssetReader(asset: asset)
         } catch {
@@ -71,7 +76,7 @@ class StoryAssetExportSession {
             }
         }
         
-        
+        // Setup Writer
         do {
             writer = try AVAssetWriter(outputURL: fileURL(), fileType: .mov)
         } catch {
@@ -103,7 +108,7 @@ class StoryAssetExportSession {
         writer.shouldOptimizeForNetworkUse = true
         
         writer.startWriting()
-        writer.startSession(atSourceTime: CMTime.zero)
+        writer.startSession(atSourceTime: .zero)
         
         reader.startReading()
         
@@ -165,8 +170,24 @@ class StoryAssetExportSession {
         writer?.cancelWriting()
     }
     
+    func scaleAndResizeTransform(_ image: CIImage, for rect: CGRect) -> CGAffineTransform {
+        let imageSize = image.extent.size
+        
+        var horizontalScale: CGFloat = rect.size.width / imageSize.width
+        var verticalScale: CGFloat = rect.size.height / imageSize.height
+        
+        if imageContentMode == .scaleAspectFill {
+            horizontalScale = max(horizontalScale, verticalScale)
+            verticalScale = horizontalScale
+        } else if imageContentMode == .scaleAspectFit {
+            horizontalScale = min(horizontalScale, verticalScale)
+            verticalScale = horizontalScale
+        }
+        return CGAffineTransform(scaleX: horizontalScale, y: verticalScale)
+    }
+    
     private func renderWithTransformation(sampleBuffer: CMSampleBuffer) -> CVPixelBuffer {
-        guard let backgroundImageBuffer = UIImage.init(named: "videoBackground")?.buffer(),
+        guard let backgroundImageBuffer = R.image.videoBackground()?.buffer(),
             let videoBuffer = CMSampleBufferGetImageBuffer(sampleBuffer),
             let transformation = self.inputTransformation else {
                 let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)!
@@ -187,41 +208,39 @@ class StoryAssetExportSession {
         
         var overlayCIImage = CIImage(cvImageBuffer: videoBuffer)
         if let preferredTransform = self.preferredTransform {
-            overlayCIImage = overlayCIImage.transformed(by: CGAffineTransform(rotationAngle: -preferredTransform.rotationValue))
-        }
-        let overlayCIImageWidth = overlayCIImage.extent.width
-        let overlayCIImageHeight = overlayCIImage.extent.height
-        
-        
-        var xscale = backgroundCIImageWidth.scaleValueFrom(transformation.scaleX)
-        var yscale = backgroundCIImageHeight.scaleValueFrom(transformation.scaleY)
-        
-        if overlayCIImageWidth > overlayCIImageHeight {
-            xscale = backgroundCIImageHeight.scaleValueFrom(transformation.scaleX)*overlayCIImageWidth/overlayCIImageHeight
-            yscale = backgroundCIImageWidth.scaleValueFrom(transformation.scaleY)*overlayCIImageWidth/overlayCIImageHeight
+            overlayCIImage = overlayCIImage.transformed(by: CGAffineTransform(rotationAngle: -(atan2(preferredTransform.b, preferredTransform.a))))
         }
         
-        overlayCIImage = overlayCIImage.transformed(by: CGAffineTransform(scaleX: xscale, y: yscale))
+        let scaleTransform = scaleAndResizeTransform(overlayCIImage, for: backgroundCIImage.extent)
+        overlayCIImage = overlayCIImage.transformed(by: scaleTransform)
         
+        overlayCIImage = overlayCIImage.transformed(by: CGAffineTransform(scaleX: transformation.scaleX, y: transformation.scaleY))
+        
+        overlayCIImage = overlayCIImage.transformed(by: CGAffineTransform(translationX: 0, y: backgroundCIImageHeight/2 - overlayCIImage.extent.height/2))
+                
         overlayCIImage = overlayCIImage.transformed(by: CGAffineTransform(rotationAngle: -transformation.rotation))
         
-        let txValue = backgroundCIImageWidth.scaleValueFrom(transformation.tx) - overlayCIImage.extent.origin.x
-        
-        let tyValue = backgroundCIImageHeight - backgroundCIImageHeight.scaleValueFrom(transformation.ty) - (overlayCIImage.extent.height) - overlayCIImage.extent.origin.y
+        let txValue = (backgroundCIImageWidth*transformation.tx/100) - overlayCIImage.extent.origin.x
+        let tyValue = backgroundCIImageHeight - (backgroundCIImageHeight*transformation.ty/100) - overlayCIImage.extent.height - overlayCIImage.extent.origin.y
         
         overlayCIImage = overlayCIImage.transformed(by: CGAffineTransform(translationX: txValue, y: tyValue))
         
-        var finalCIImage = overlayCIImage.composited(over: backgroundCIImage)
+        var combinedCIImage = overlayCIImage.composited(over: backgroundCIImage)
+        combinedCIImage = combinedCIImage.cropped(to: backgroundCIImage.extent)
         
-        if let overlaidCIImage = overlaidCIImage(finalCIImage) {
-            finalCIImage = overlaidCIImage
+        #if targetEnvironment(simulator)
+        combinedCIImage = combinedCIImage.transformed(by: CGAffineTransform(scaleX: 1, y: -1))
+        #endif
+                
+        if let overlaidCIImage = overlaidCIImage(combinedCIImage) {
+            combinedCIImage = overlaidCIImage
         }
         
-        if let filteredCIImage = self.filteredCIImage(finalCIImage) {
-            finalCIImage = filteredCIImage
+        if let filteredCIImage = self.filteredCIImage(combinedCIImage) {
+            combinedCIImage = filteredCIImage
         }
         
-        self.ciContext.render(finalCIImage, to: backgroundImageBuffer, bounds: finalCIImage.extent, colorSpace: CGColorSpaceCreateDeviceRGB())
+        self.ciContext.render(combinedCIImage, to: backgroundImageBuffer, bounds: combinedCIImage.extent, colorSpace: CGColorSpaceCreateDeviceRGB())
         
         return backgroundImageBuffer
     }

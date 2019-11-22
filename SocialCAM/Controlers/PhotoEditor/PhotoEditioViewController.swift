@@ -47,7 +47,11 @@ class PhotoEditorViewController: UIViewController {
     
     @IBOutlet weak var canvasView: UIView!
     @IBOutlet weak var canvasViewWidth: NSLayoutConstraint!
-    @IBOutlet weak var canvasImageView: UIImageView!
+    @IBOutlet weak var canvasImageView: UIImageView! {
+        didSet {
+            canvasImageView.contentMode = .scaleAspectFit
+        }
+    }
     
     @IBOutlet weak var topToolbar: UIView!
     
@@ -523,11 +527,9 @@ class PhotoEditorViewController: UIViewController {
     }
     
     var storyRect: CGRect {
-        var theVideoRect = CGRect.zero
-        let theLayerRect = canvasImageView.frame
-        var theNaturalSize = CGSize.zero
+        var mediaSize = CGSize.zero
         if let image = self.image {
-            theNaturalSize = image.size
+            mediaSize = image.size
         } else {
             var assetTrack: AVAssetTrack?
             if let player = self.scPlayer {
@@ -538,27 +540,25 @@ class PhotoEditorViewController: UIViewController {
             guard let track = assetTrack else {
                 return canvasImageView.frame
             }
-            theNaturalSize = track.naturalSize
-            theNaturalSize = theNaturalSize.applying(track.preferredTransform)
-            theNaturalSize.width = CGFloat(abs(Float(theNaturalSize.width)))
-            theNaturalSize.height = CGFloat(abs(Float(theNaturalSize.height)))
+            mediaSize = track.naturalSize
+            mediaSize = mediaSize.applying(track.preferredTransform)
+            mediaSize.width = CGFloat(abs(Float(mediaSize.width)))
+            mediaSize.height = CGFloat(abs(Float(mediaSize.height)))
         }
-        let movieAspectRatio = theNaturalSize.width / theNaturalSize.height
-        let viewAspectRatio = theLayerRect.size.width / theLayerRect.size.height
-        if viewAspectRatio > movieAspectRatio {
-            theVideoRect.size.width = theLayerRect.size.width
-            theVideoRect.size.height = theLayerRect.size.width / movieAspectRatio
-            theVideoRect.origin.x = 0
-            theVideoRect.origin.y = (theLayerRect.size.height - theVideoRect.size.height) / 2
-        } else if viewAspectRatio < movieAspectRatio {
-            theVideoRect.size.width = movieAspectRatio * theLayerRect.size.height
-            theVideoRect.size.height = theLayerRect.size.height
-            theVideoRect.origin.x = (theLayerRect.size.width - theVideoRect.size.width) / 2
-            theVideoRect.origin.y = 0
-        } else {
-            theVideoRect = canvasImageView.frame
+        
+        if canvasImageView.contentMode == .scaleAspectFill {
+            let fillSize = self.canvasImageView.aspectFillSize(for: mediaSize)
+            
+            return CGRect(origin: CGPoint(x: canvasImageView.frame.origin.x - fillSize.width/2,
+                                          y: 0),
+                          size: fillSize)
+            
+        } else if canvasImageView.contentMode == .scaleAspectFit {
+            return AVMakeRect(aspectRatio: mediaSize,
+                              insideRect: canvasImageView.bounds)
         }
-        return theVideoRect
+        
+        return canvasImageView.frame
     }
     var dummyView: UIView!
     
@@ -580,7 +580,7 @@ class PhotoEditorViewController: UIViewController {
         self.filterSwitcherView?.isUserInteractionEnabled = true
         self.filterSwitcherView?.isMultipleTouchEnabled = true
         self.filterSwitcherView?.isExclusiveTouch = false
-        filterSwitcherView?.contentMode = .scaleAspectFill
+        filterSwitcherView?.contentMode = canvasImageView.contentMode
         self.filterSwitcherView?.backgroundColor = ApplicationSettings.appClearColor
         
         for subview in (filterSwitcherView?.subviews)! {
@@ -645,51 +645,23 @@ class PhotoEditorViewController: UIViewController {
             self.setTransformationInFilterSwitcherView()
         }
         if storyRePost {
-            self.setTransformationInFilterSwitcherView(true)
+            self.setTransformationInFilterSwitcherView()
         }
     }
     
-    func setTransformationInFilterSwitcherView(_ isShared: Bool = false) {
-        if isShared {
-            self.dummyView.transform = self.dummyView.transform.scaledBy(x: 0.75, y: 0.75)
+    func setTransformationInFilterSwitcherView() {
+        guard let filterSwitcherView = self.filterSwitcherView else {
+            return
         }
-        let transformation = InputImageTransformation()
-        self.filterSwitcherView?.inputTransformation = transformation
-        
-        self.filterSwitcherView?.inputTransformation?.tx = self.dummyView.xGlobalPoint
-        self.filterSwitcherView?.inputTransformation?.ty = self.dummyView.yGlobalPoint
-        
-        var theNaturalSize: CGSize
-        if let image = self.image {
-            theNaturalSize = image.size
-        } else {
-            var assetTrack: AVAssetTrack?
-            if let player = self.scPlayer {
-                assetTrack = player.currentItem!.asset.tracks(withMediaType: .video).first
-            } else if videoUrls.count > 0, let asset = videoUrls.first?.currentAsset {
-                assetTrack = asset.tracks(withMediaType: .video).first
-            }
-            guard let track = assetTrack else {
-                return
-            }
-            theNaturalSize = track.naturalSize
-            theNaturalSize = theNaturalSize.applying(track.preferredTransform)
-            theNaturalSize.width = CGFloat(abs(Float(theNaturalSize.width)))
-            theNaturalSize.height = CGFloat(abs(Float(theNaturalSize.height)))
-        }
-        
-        let height = UIScreen.height*UIScreen.main.scale
-        var width = height*theNaturalSize.width/theNaturalSize.height
-        if theNaturalSize.width > theNaturalSize.height {
-            width = height*UIScreen.height/UIScreen.ratioWidth
-        }
-        
-        self.filterSwitcherView?.inputTransformation?.scaleX = self.dummyView.originalScaleXValue(for: width)
-        self.filterSwitcherView?.inputTransformation?.scaleY = self.dummyView.originalScaleYValue(for: height)
-        self.filterSwitcherView?.inputTransformation?.rotation = self.dummyView.rotationValue
-        
+        let tx = self.dummyView.frame.origin.x*100 / filterSwitcherView.frame.size.width
+        let ty = self.dummyView.frame.origin.y*100 / filterSwitcherView.frame.size.height
+
+        let scaleX = sqrt(pow(dummyView.transform.a, 2) + pow(dummyView.transform.c, 2))
+        let scaleY = sqrt(pow(dummyView.transform.b, 2) + pow(dummyView.transform.d, 2))
+
+        let rotation = atan2(self.dummyView.transform.b, self.dummyView.transform.a)
+        self.filterSwitcherView?.imageTransformation = StoryImageView.ImageTransformation(tx: tx, ty: ty, scaleX: scaleX, scaleY: scaleY, rotation: rotation)
         self.filterSwitcherView?.setNeedsDisplay()
-        
     }
     
     func setupSketchView() {

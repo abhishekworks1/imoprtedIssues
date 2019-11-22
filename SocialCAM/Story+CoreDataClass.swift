@@ -467,13 +467,7 @@ extension StoryDataManager {
             exportSession.overlayImage = image
         }
         if storyData.hasTransformation {
-            let transformation = InputImageTransformation()
-            transformation.tx =  CGFloat(storyData.videotx)
-            transformation.ty = CGFloat(storyData.videoty)
-            transformation.scaleX = CGFloat(storyData.videoScaleX)
-            transformation.scaleY = CGFloat(storyData.videoScaleY)
-            transformation.rotation = CGFloat(storyData.videoRotation)
-            exportSession.inputTransformation = transformation
+            exportSession.inputTransformation = StoryImageView.ImageTransformation(tx: CGFloat(storyData.videotx), ty: CGFloat(storyData.videoty), scaleX: CGFloat(storyData.videoScaleX), scaleY: CGFloat(storyData.videoScaleY), rotation: CGFloat(storyData.videoRotation))
         }
         
         exportSession.export(for: session.assetRepresentingSegments(), progress: { progress in
