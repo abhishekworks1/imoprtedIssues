@@ -316,7 +316,7 @@ class PhotoEditorViewController: UIViewController {
         }
     }
     
-    fileprivate var _asset: AVAsset? {
+    var _asset: AVAsset? {
         if let asset = asset {
             return asset
         }
@@ -482,6 +482,7 @@ class PhotoEditorViewController: UIViewController {
     var isPlayerInitialize = false
     
     deinit {
+        self.undoMgr.removeAll()
         self.scPlayer?.unsetupDisplayLink()
         print("PhotoEditiorViewController Deinit")
     }
