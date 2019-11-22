@@ -163,6 +163,8 @@ class PhotoEditorViewController: UIViewController {
     
     @IBOutlet weak var bottomToolbar: UIView!
     
+    @IBOutlet weak var selectCropView: UIView!
+    
     @IBOutlet weak var outtakesView: UIView!
     @IBOutlet weak var outtakesExportLabel: UILabel!
     @IBOutlet weak var outtakesProgress: StoryExportProgress!
@@ -527,13 +529,16 @@ class PhotoEditorViewController: UIViewController {
     
     var storyRect: CGRect {
         var mediaSize = CGSize.zero
-        if let image = self.image {
+        if self.currentCamaraMode == .slideshow {
+            guard videoUrls.count > 0, let image = videoUrls.first?.image else {
+                return canvasImageView.frame
+            }
+            mediaSize = image.size
+        } else if let image = self.image {
             mediaSize = image.size
         } else {
             var assetTrack: AVAssetTrack?
-            if let player = self.scPlayer {
-                assetTrack = player.currentItem!.asset.tracks(withMediaType: .video).first
-            } else if videoUrls.count > 0, let asset = videoUrls.first?.currentAsset {
+            if videoUrls.count > 0, let asset = videoUrls.first?.currentAsset {
                 assetTrack = asset.tracks(withMediaType: .video).first
             }
             guard let track = assetTrack else {
@@ -568,12 +573,9 @@ class PhotoEditorViewController: UIViewController {
         self.canvasView.layoutSubviews()
         self.canvasImageView.layoutIfNeeded()
         self.canvasImageView.layoutSubviews()
-        if self.currentCamaraMode != .slideshow {
-            dummyView = UIView()
-            dummyView.frame = self.storyRect
-            self.canvasImageView.addSubview(dummyView)
-        }
-        
+        dummyView = UIView()
+        dummyView.frame = self.storyRect
+        self.canvasImageView.addSubview(dummyView)
         self.filterSwitcherView = StorySwipeableFilterView(frame: CGRect(x: 0, y: 0, width: self.canvasImageView.frame.width, height: self.canvasImageView.frame.height))
         self.filterSwitcherView?.delegate = self
         self.filterSwitcherView?.isUserInteractionEnabled = true
@@ -641,11 +643,8 @@ class PhotoEditorViewController: UIViewController {
         filterSwitcherView?.filters = filters
         if self.currentCamaraMode != .slideshow {
             self.addGesturesTo(view: self.filterSwitcherView!)
-            self.setTransformationInFilterSwitcherView()
         }
-        if storyRePost {
-            self.setTransformationInFilterSwitcherView()
-        }
+        self.setTransformationInFilterSwitcherView()
     }
     
     func setTransformationInFilterSwitcherView() {
@@ -700,6 +699,7 @@ class PhotoEditorViewController: UIViewController {
         trimView.isHidden = (isImage || isBoom || isSlideShow)
         pausePlayButton.isHidden = (isImage || isSlideShow)
         pic2ArtView.isHidden = !isImage
+        selectCropView.isHidden = isSlideShow
     }
     
     func setupUIForStoryType() {

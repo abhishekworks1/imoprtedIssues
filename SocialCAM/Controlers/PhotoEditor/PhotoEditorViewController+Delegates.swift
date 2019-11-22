@@ -864,3 +864,21 @@ extension PhotoEditorViewController: ImageCropperDelegate {
     }
 }
 
+extension PhotoEditorViewController: CropViewControllerDelegate {
+    func cropViewControllerDidCrop(_ cropViewController: CropViewController, updatedVideoSegments: [SegmentVideos]) {
+        videoUrls = updatedVideoSegments
+        currentPlayVideo = currentPage - 1
+        connVideoPlay()
+        dummyView.transform = .identity
+        dummyView.frame = self.storyRect
+        setTransformationInFilterSwitcherView()
+    }
+    
+    func cropViewControllerDidCrop(_ cropViewController: CropViewController, cropped: UIImage) {
+        self.image = cropped
+        self.filterSwitcherView?.setImageBy(cropped)
+        self.dummyView.transform = .identity
+        self.dummyView.frame = self.storyRect
+        self.setTransformationInFilterSwitcherView()
+    }
+}
