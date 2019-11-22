@@ -413,6 +413,77 @@ extension PhotoEditorViewController {
         textViews.append(textView)
     }
     
+    @IBAction func segmentBeforeMergeButtonTapped(_ sender: AnyObject) {
+        mergeVideo(isBefore: true)
+    }
+    
+    @IBAction func segmentAfterMergeButtonTapped(_ sender: AnyObject) {
+        mergeVideo(isBefore: false)
+    }
+    
+    func registerReplaceNewData(data: SegmentVideos, index: Int) {
+        undoMgr.add(undo: getReplaceRedo(model: data, index: index), redo: getReplaceRedo(model: data, index: index))
+    }
+    
+    func registerReplaceDeleteData(data: SegmentVideos, index: Int) {
+        undoMgr.add(undo: getReplace(model: data, index: index), redo: getReplace(model: data, index: index))
+    }
+    
+    func getReplace(model: SegmentVideos, index: Int) -> (()->Void) {
+        return { ()->Void in
+            self.videoUrls.insert(model, at: index)
+        }
+    }
+    
+    func getReplaceRedo(model: SegmentVideos, index: Int) -> (()->Void) {
+        return { () -> Void in
+            self.videoUrls.remove(at: index)
+            self.videoUrls.insert(model, at: index)
+        }
+    }
+    
+    func mergeVideo(isBefore: Bool) {
+        DispatchQueue.main.async {
+            if self.lastMargeCell != self.draggingCell {
+                let _: SegmentVideos = self.videoUrls[self.draggingCell!.item]
+                
+                let model = self.videoUrls[self.lastMargeCell!.row] as? SegmentVideos
+                let modelDrag = self.videoUrls[self.draggingCell!.row] as? SegmentVideos
+                
+                self.registerReplaceNewData(data: model!, index: self.lastMargeCell!.row)
+                self.registerReplaceDeleteData(data: modelDrag!, index: self.draggingCell!.row)
+                
+                if isBefore
+                {
+                    self.videoUrls[self.lastMargeCell!.row].numberOfSegementtext = "\(self.videoUrls[self.draggingCell!.row].numberOfSegementtext!) - \(self.videoUrls[self.lastMargeCell!.row].numberOfSegementtext!)"
+                }
+                else {
+                    self.videoUrls[self.lastMargeCell!.row].numberOfSegementtext = "\(self.videoUrls[self.lastMargeCell!.row].numberOfSegementtext!) - \(self.videoUrls[self.draggingCell!.row].numberOfSegementtext!)"
+                }
+                
+                for (_,item) in self.videoUrls[self.draggingCell!.row].videos.enumerated() {
+                    if isBefore
+                    {
+                        self.videoUrls[self.lastMargeCell!.row].videos.insert(item, at: 0)
+                    }
+                    else{
+                        self.videoUrls[self.lastMargeCell!.row].videos.append(item)
+                    }
+                }
+                
+                self.videoUrls[self.lastMargeCell!.row].currentAsset = SegmentVideos.getRecordSession(videoModel:
+                    self.videoUrls[self.lastMargeCell!.row].videos)
+                
+                self.videoUrls.remove(at: self.draggingCell!.row)
+            }
+            
+            self.currentPlayVideo = -1
+            self.connVideoPlay()
+            self.segmentTypeMergeView.isHidden = true
+            self.segmentEditOptionView.isHidden = false
+            self.stopMotionCollectionView.isUserInteractionEnabled = true
+        }
+    }
     
     @IBAction func undoButtonTapped(_ sender: Any) {
         sketchView?.undo()
@@ -812,10 +883,8 @@ extension PhotoEditorViewController {
         } else {
             if let _ = self.storyId, !storyRePost {
                 publish = PublishMode.publish.rawValue
-                saveToCameraRoll(false)
-            } else {
-                saveToCameraRoll(false)
             }
+            saveToCameraRoll(false)
             if self.selectedVideoUrlSave != nil {
                 self.scPlayer?.isMuted = true
                 self.dismiss()
@@ -856,6 +925,7 @@ extension PhotoEditorViewController {
         if image != nil {
             SocialShareVideo.shared.sharePhoto(image: canvasView.toImage(), socialType: type)
         } else {
+          
             let recordSession = SCRecordSession()
             if let url = selectedVideoUrlSave {
                 for segementModel in url.videos {
@@ -870,7 +940,6 @@ extension PhotoEditorViewController {
                     }
                 }
             }
-            
             self.exportViewWithURL(recordSession.assetRepresentingSegments()) { url in
                 if let exportURL = url {
                     DispatchQueue.runOnMainThread {
@@ -1259,13 +1328,6 @@ extension PhotoEditorViewController {
                     self.notesProgress.updateProgress(0)
                     self.postStoryProgress.updateProgress(0)
                 }
-                
-                for modelVideo in self.videos {
-                    var thumbImage = modelVideo.thumbImage
-                    if thumbImage == nil {
-                        thumbImage = UIImage.getThumbnailFrom(videoUrl: modelVideo.url!) ?? UIImage()
-                    }
-                }
             }
             
         }
@@ -1299,8 +1361,6 @@ extension PhotoEditorViewController {
                         strongSelf.storyExportLabel.text = "\(index+1)/\(strongSelf.videoUrls.count)"
                     }
                 }
-                
-                album.saveMovieToLibrary(movieURL: exportURL)
                 
                 if let storyId = strongSelf.storyId, !strongSelf.storyRePost {
                     let fileName = String.fileName + ".mp4"

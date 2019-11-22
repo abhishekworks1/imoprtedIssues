@@ -64,6 +64,7 @@ class AWSManager {
         AWSS3TransferUtility.default().enumerateToAssignBlocks(forUploadTask: { (uploadTask, progress, error) in
             if uploadTask.key.dropFirst(13) == URL.init(string: itemUrl)!.lastPathComponent {
                 uploadTask.cancel()
+                return
             }
         }, downloadTask: nil)
     }

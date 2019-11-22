@@ -26,7 +26,7 @@
         <!--Story Camera View Controller-->
         <scene sceneID="MQe-k1-nqm">
             <objects>
-                <viewController storyboardIdentifier="StoryCameraViewController" id="aJT-JN-hbU" customClass="StoryCameraViewController" customModule="StoriCam_Pro" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StoryCameraViewController" id="aJT-JN-hbU" customClass="StoryCameraViewController" customModule="SocialCAM" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="QjN-ny-SBW">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -34,7 +34,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6VI-Pb-DwZ">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZUZ-cn-K4S" customClass="TransparentGradientView" customModule="StoriCam_Pro" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZUZ-cn-K4S" customClass="TransparentGradientView" customModule="SocialCAM" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -162,7 +162,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Pre-Co-z2n">
                                                 <rect key="frame" x="248.5" y="0.0" width="82.5" height="54"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0m8-ct-tbU" customClass="ColorImageButton" customModule="StoriCam_Pro" customModuleProvider="target">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0m8-ct-tbU" customClass="ColorImageButton" customModule="SocialCAM" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="82.5" height="54"/>
                                                         <state key="normal" image="hideStoryCamIcons"/>
                                                         <state key="selected" image="showStoryCamIcons"/>
@@ -232,7 +232,7 @@
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="zoomSliderPlus" translatesAutoresizingMaskIntoConstraints="NO" id="Kqa-Wc-ok7">
                                                 <rect key="frame" x="0.0" y="0.0" width="32.5" height="22"/>
                                             </imageView>
-                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L5P-xy-2qE" customClass="VSSlider" customModule="StoriCam_Pro" customModuleProvider="target">
+                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L5P-xy-2qE" customClass="VSSlider" customModule="SocialCAM" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="25.5" width="32.5" height="179"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
@@ -317,7 +317,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="h0B-cP-kp3">
                                                 <rect key="frame" x="0.0" y="0.0" width="138.5" height="44"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="imE-7V-6ps" customClass="ColorLabel" customModule="StoriCam_Pro" customModuleProvider="target">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="imE-7V-6ps" customClass="ColorLabel" customModule="SocialCAM" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="39.5" height="44"/>
                                                         <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="36"/>
                                                         <color key="textColor" red="0.32156862749999998" green="0.59607843140000005" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -498,7 +498,7 @@
                                                     </stackView>
                                                 </subviews>
                                             </stackView>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sXN-Gy-lVv" customClass="CircularProgress" customModule="StoriCam_Pro" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sXN-Gy-lVv" customClass="CircularProgress" customModule="SocialCAM" customModuleProvider="target">
                                                 <rect key="frame" x="172" y="12.5" width="70" height="70"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -507,45 +507,59 @@
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="RgQ-nL-Vqq">
-                                                <rect key="frame" x="262" y="27.5" width="152" height="40"/>
+                                                <rect key="frame" x="262" y="20.5" width="152" height="54"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Ufs-oL-mFR">
-                                                        <rect key="frame" x="0.0" y="0.0" width="76" height="40"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="76" height="54"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hKO-uR-VmG">
-                                                                <rect key="frame" x="0.0" y="0.0" width="76" height="40"/>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hcq-z7-KFp">
+                                                                <rect key="frame" x="0.0" y="0.0" width="76" height="54"/>
+                                                                <subviews>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fTo-5U-EmR">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="76" height="54"/>
+                                                                        <fontDescription key="fontDescription" name="SFUIText-Semibold" family="SF UI Text" pointSize="17"/>
+                                                                        <state key="normal" image="unmute"/>
+                                                                    </button>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mic On" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Za-bh-GFx">
+                                                                        <rect key="frame" x="0.0" y="54" width="76" height="0.0"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" id="GYh-5Y-Nvi"/>
+                                                                        </constraints>
+                                                                        <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="12"/>
+                                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                        <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        <size key="shadowOffset" width="0.0" height="1"/>
+                                                                    </label>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HCa-9g-KKD">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="76" height="54"/>
+                                                                        <connections>
+                                                                            <action selector="muteButtonClicked:" destination="aJT-JN-hbU" eventType="touchUpInside" id="bkQ-E5-s6Q"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                </subviews>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="40" id="ulE-TT-HSc"/>
+                                                                    <constraint firstItem="6Za-bh-GFx" firstAttribute="leading" secondItem="Hcq-z7-KFp" secondAttribute="leading" id="BxH-LA-w2t"/>
+                                                                    <constraint firstItem="HCa-9g-KKD" firstAttribute="leading" secondItem="Hcq-z7-KFp" secondAttribute="leading" id="FuJ-L5-bAE"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="6Za-bh-GFx" secondAttribute="trailing" id="Mif-0N-BM2"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="fTo-5U-EmR" secondAttribute="trailing" id="Vpd-Jp-pRJ"/>
+                                                                    <constraint firstItem="6Za-bh-GFx" firstAttribute="top" secondItem="fTo-5U-EmR" secondAttribute="bottom" id="Za3-0w-e7Z"/>
+                                                                    <constraint firstItem="fTo-5U-EmR" firstAttribute="top" secondItem="Hcq-z7-KFp" secondAttribute="top" id="cZ1-sq-wQd"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="HCa-9g-KKD" secondAttribute="trailing" id="eDn-Qj-Slc"/>
+                                                                    <constraint firstItem="HCa-9g-KKD" firstAttribute="top" secondItem="Hcq-z7-KFp" secondAttribute="top" id="nbm-bg-l2R"/>
+                                                                    <constraint firstItem="fTo-5U-EmR" firstAttribute="leading" secondItem="Hcq-z7-KFp" secondAttribute="leading" id="ox3-MG-nRo"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="6Za-bh-GFx" secondAttribute="bottom" id="pjF-eT-uud"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="HCa-9g-KKD" secondAttribute="bottom" id="tUU-bY-Xt1"/>
                                                                 </constraints>
-                                                                <fontDescription key="fontDescription" name="SFUIText-Semibold" family="SF UI Text" pointSize="17"/>
-                                                                <state key="normal" image="unmute"/>
-                                                                <connections>
-                                                                    <action selector="muteButtonClicked:" destination="aJT-JN-hbU" eventType="touchUpInside" id="OAV-ur-O9f"/>
-                                                                </connections>
-                                                            </button>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mic On" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Sk-wx-c1U">
-                                                                <rect key="frame" x="0.0" y="40" width="76" height="14"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="14" id="jmC-Hr-anV"/>
-                                                                </constraints>
-                                                                <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="12"/>
-                                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                                <nil key="highlightedColor"/>
-                                                                <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                                <size key="shadowOffset" width="0.0" height="1"/>
-                                                            </label>
+                                                            </view>
                                                         </subviews>
-                                                        <variation key="default">
-                                                            <mask key="subviews">
-                                                                <exclude reference="4Sk-wx-c1U"/>
-                                                            </mask>
-                                                        </variation>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="pZZ-bn-Erv">
-                                                        <rect key="frame" x="76" y="0.0" width="76" height="40"/>
+                                                        <rect key="frame" x="76" y="0.0" width="76" height="54"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pa1-CV-4dq">
-                                                                <rect key="frame" x="0.0" y="0.0" width="76" height="40"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="76" height="54"/>
                                                                 <state key="normal" image="cameraFlip"/>
                                                                 <connections>
                                                                     <action selector="flipButtonClicked:" destination="aJT-JN-hbU" eventType="touchUpInside" id="B4R-cp-qwl"/>
@@ -582,7 +596,7 @@
                                             <constraint firstItem="Jw3-EJ-0d8" firstAttribute="leading" secondItem="DHl-MY-q5r" secondAttribute="leading" constant="8" id="mhn-VW-uIx"/>
                                             <constraint firstItem="RgQ-nL-Vqq" firstAttribute="centerY" secondItem="sXN-Gy-lVv" secondAttribute="centerY" id="mij-yD-ZK4"/>
                                             <constraint firstAttribute="trailing" secondItem="RgQ-nL-Vqq" secondAttribute="trailing" id="phg-dt-d1W"/>
-                                            <constraint firstAttribute="trailing" secondItem="RgQ-nL-Vqq" secondAttribute="trailing" constant="35" id="tFc-vb-j2Y" customClass="LayoutConstraint" customModule="StoriCam_Pro" customModuleProvider="target">
+                                            <constraint firstAttribute="trailing" secondItem="RgQ-nL-Vqq" secondAttribute="trailing" constant="35" id="tFc-vb-j2Y" customClass="LayoutConstraint" customModule="SocialCAM" customModuleProvider="target">
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isResize" value="YES"/>
                                                 </userDefinedRuntimeAttributes>
@@ -757,13 +771,13 @@
                                     <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="oHF-iu-wga">
                                         <rect key="frame" x="10" y="539" width="404" height="110"/>
                                         <subviews>
-                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="aT4-ca-ew8" customClass="KDDragAndDropCollectionView" customModule="StoriCam_Pro" customModuleProvider="target">
+                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="aT4-ca-ew8" customClass="KDDragAndDropCollectionView" customModule="SocialCAM" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="314" height="110"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="110" id="nUc-iw-j4z"/>
                                                 </constraints>
-                                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="nGr-Hw-RWW" customClass="UPCarouselFlowLayout" customModule="StoriCam_Pro" customModuleProvider="target">
+                                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="nGr-Hw-RWW" customClass="UPCarouselFlowLayout" customModule="SocialCAM" customModuleProvider="target">
                                                     <size key="itemSize" width="41" height="98"/>
                                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -820,7 +834,6 @@
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y8x-W3-EHE">
                                                         <rect key="frame" x="0.0" y="0.0" width="90" height="110"/>
                                                         <connections>
-                                                            <action selector="onCloseTimerView:" destination="aJT-JN-hbU" eventType="touchUpInside" id="Guk-7R-Kra"/>
                                                             <action selector="onUploadsClick:" destination="aJT-JN-hbU" eventType="touchUpInside" id="o2K-cN-96M"/>
                                                         </connections>
                                                     </button>
@@ -857,7 +870,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dXC-Is-gzh">
                                                 <rect key="frame" x="0.0" y="0.0" width="2" height="590"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xbu-ZM-nce" customClass="DottedLineView" customModule="StoriCam_Pro" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xbu-ZM-nce" customClass="DottedLineView" customModule="SocialCAM" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="2" height="590"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
@@ -886,7 +899,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aiz-o8-Kdr">
                                                 <rect key="frame" x="159" y="0.0" width="2" height="590"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZVe-OT-q0n" customClass="DottedLineView" customModule="StoriCam_Pro" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZVe-OT-q0n" customClass="DottedLineView" customModule="SocialCAM" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="2" height="590"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <constraints>
@@ -925,7 +938,7 @@
                                             <constraint firstAttribute="bottom" secondItem="dXC-Is-gzh" secondAttribute="bottom" id="tIE-Ie-vxo"/>
                                         </constraints>
                                     </view>
-                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jpr-Aq-u3h" customClass="InstaSlider" customModule="StoriCam_Pro" customModuleProvider="target">
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jpr-Aq-u3h" customClass="InstaSlider" customModule="SocialCAM" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="791" width="414" height="85"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -1111,7 +1124,7 @@
                                                                     <action selector="onTimerClick:" destination="aJT-JN-hbU" eventType="touchUpInside" id="vla-eU-qcl"/>
                                                                 </connections>
                                                             </button>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AuR-YY-OnU" customClass="ColorBGLabel" customModule="StoriCam_Pro" customModuleProvider="target">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AuR-YY-OnU" customClass="ColorBGLabel" customModule="SocialCAM" customModuleProvider="target">
                                                                 <rect key="frame" x="16.5" y="65" width="49.5" height="2"/>
                                                                 <color key="backgroundColor" red="0.32156862749999998" green="0.59607843140000005" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
@@ -1183,7 +1196,7 @@ Countdown</string>
                                                                     <action selector="onTimerClick:" destination="aJT-JN-hbU" eventType="touchUpInside" id="xMH-Vu-pR4"/>
                                                                 </connections>
                                                             </button>
-                                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wIj-um-7uW" customClass="ColorBGLabel" customModule="StoriCam_Pro" customModuleProvider="target">
+                                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wIj-um-7uW" customClass="ColorBGLabel" customModule="SocialCAM" customModuleProvider="target">
                                                                 <rect key="frame" x="16.5" y="65" width="49.5" height="2"/>
                                                                 <color key="backgroundColor" red="0.32156862749999998" green="0.59607843140000005" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
@@ -1258,7 +1271,7 @@ Countdown</string>
                                                                     <action selector="onTimerClick:" destination="aJT-JN-hbU" eventType="touchUpInside" id="Mnd-DD-jvM"/>
                                                                 </connections>
                                                             </button>
-                                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D4P-hQ-tbI" customClass="ColorBGLabel" customModule="StoriCam_Pro" customModuleProvider="target">
+                                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D4P-hQ-tbI" customClass="ColorBGLabel" customModule="SocialCAM" customModuleProvider="target">
                                                                 <rect key="frame" x="16.5" y="65" width="49.5" height="2"/>
                                                                 <color key="backgroundColor" red="0.32156862749999998" green="0.59607843140000005" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
@@ -1333,7 +1346,7 @@ Countdown</string>
                                                                     <action selector="onTimerClick:" destination="aJT-JN-hbU" eventType="touchUpInside" id="Dx0-Pb-nT9"/>
                                                                 </connections>
                                                             </button>
-                                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DRv-0v-hBl" customClass="ColorBGLabel" customModule="StoriCam_Pro" customModuleProvider="target">
+                                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DRv-0v-hBl" customClass="ColorBGLabel" customModule="SocialCAM" customModuleProvider="target">
                                                                 <rect key="frame" x="16.5" y="65" width="49.5" height="2"/>
                                                                 <color key="backgroundColor" red="0.32156862749999998" green="0.59607843140000005" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
@@ -1392,7 +1405,7 @@ Countdown</string>
                                             <constraint firstAttribute="bottom" secondItem="0rW-PI-F2x" secondAttribute="bottom" id="oXl-tA-iHc"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Byt-R1-vfR" customClass="PickerView" customModule="StoriCam_Pro" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Byt-R1-vfR" customClass="PickerView" customModule="SocialCAM" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="114" width="414" height="782"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
@@ -1475,8 +1488,8 @@ Countdown</string>
                         <outlet property="fpsView" destination="pZY-Ca-BLp" id="p5q-FQ-cbH"/>
                         <outlet property="lblStoryCount" destination="gtB-xV-Xsk" id="gO2-Td-fGO"/>
                         <outlet property="lblStoryPercentage" destination="ezq-l3-Xmx" id="cjG-iJ-olb"/>
-                        <outlet property="muteButton" destination="hKO-uR-VmG" id="k4a-V1-hMx"/>
-                        <outlet property="muteLabel" destination="4Sk-wx-c1U" id="zKu-dC-ZIk"/>
+                        <outlet property="muteButton" destination="fTo-5U-EmR" id="hA5-rR-7JN"/>
+                        <outlet property="muteLabel" destination="6Za-bh-GFx" id="eks-5Q-E6d"/>
                         <outlet property="nextButtonView" destination="Qbg-AX-n5f" id="7Gw-WG-83s"/>
                         <outlet property="outtakesButton" destination="K4U-i5-t1h" id="cjt-LE-L20"/>
                         <outlet property="outtakesView" destination="6aZ-KD-6Tz" id="13v-iw-zwg"/>
@@ -1541,7 +1554,7 @@ Countdown</string>
         <!--Story SettingsVC-->
         <scene sceneID="cX1-Uq-h6u">
             <objects>
-                <viewController storyboardIdentifier="StorySettingsVC" id="Tnp-J8-3Je" customClass="StorySettingsVC" customModule="StoriCam_Pro" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StorySettingsVC" id="Tnp-J8-3Je" customClass="StorySettingsVC" customModule="SocialCAM" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FgY-Cq-1Ko">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1568,7 +1581,7 @@ Countdown</string>
                                 <rect key="frame" x="8" y="95" width="398" height="757"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="StorySettingsHeader" rowHeight="61" id="Qfd-3Z-mOX" customClass="StorySettingsHeader" customModule="StoriCam_Pro" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="StorySettingsHeader" rowHeight="61" id="Qfd-3Z-mOX" customClass="StorySettingsHeader" customModule="SocialCAM" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="55.5" width="398" height="61"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Qfd-3Z-mOX" id="DZQ-x1-CR4">
@@ -1582,7 +1595,7 @@ Countdown</string>
                                                         <constraint firstAttribute="height" constant="2" id="TX3-c5-5cg"/>
                                                     </constraints>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set Privacy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zK1-TT-d86" customClass="ColorLabel" customModule="StoriCam_Pro" customModuleProvider="target">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set Privacy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zK1-TT-d86" customClass="ColorLabel" customModule="SocialCAM" customModuleProvider="target">
                                                     <rect key="frame" x="20" y="21" width="85.5" height="19.5"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                                     <color key="textColor" red="0.32156862749999998" green="0.59607843140000005" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
@@ -1603,7 +1616,7 @@ Countdown</string>
                                             <outlet property="title" destination="zK1-TT-d86" id="2V9-SU-U1K"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="StorySettingsCell" rowHeight="43" id="WST-z2-GwX" customClass="StorySettingsCell" customModule="StoriCam_Pro" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="StorySettingsCell" rowHeight="43" id="WST-z2-GwX" customClass="StorySettingsCell" customModule="SocialCAM" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="116.5" width="398" height="43"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WST-z2-GwX" id="u5h-Xu-o4t">
@@ -1613,7 +1626,7 @@ Countdown</string>
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="q1K-Id-wpK">
                                                     <rect key="frame" x="15" y="0.0" width="93.5" height="35"/>
                                                     <subviews>
-                                                        <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eiX-DR-pOS" customClass="ColorImageButton" customModule="StoriCam_Pro" customModuleProvider="target">
+                                                        <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eiX-DR-pOS" customClass="ColorImageButton" customModule="SocialCAM" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="35" id="6fu-XC-pWb"/>
@@ -1688,7 +1701,7 @@ Countdown</string>
         <!--Story Settings OptionsVC-->
         <scene sceneID="OAE-8p-bPk">
             <objects>
-                <viewController storyboardIdentifier="StorySettingsOptionsVC" id="X2c-Jo-9u0" customClass="StorySettingsOptionsVC" customModule="StoriCam_Pro" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StorySettingsOptionsVC" id="X2c-Jo-9u0" customClass="StorySettingsOptionsVC" customModule="SocialCAM" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bWl-cL-g3A">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1715,7 +1728,7 @@ Countdown</string>
                                 <rect key="frame" x="8" y="95" width="398" height="791"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="StorySettingsCell" rowHeight="43" id="f9s-xS-CEQ" customClass="StorySettingsCell" customModule="StoriCam_Pro" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="StorySettingsCell" rowHeight="43" id="f9s-xS-CEQ" customClass="StorySettingsCell" customModule="SocialCAM" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="55.5" width="398" height="43"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="f9s-xS-CEQ" id="Hig-yr-ewn">
@@ -1725,7 +1738,7 @@ Countdown</string>
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="77B-G9-mWE">
                                                     <rect key="frame" x="15" y="0.0" width="93.5" height="35"/>
                                                     <subviews>
-                                                        <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yGS-8o-LRp" customClass="ColorImageButton" customModule="StoriCam_Pro" customModuleProvider="target">
+                                                        <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yGS-8o-LRp" customClass="ColorImageButton" customModule="SocialCAM" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="35" id="Sp7-sq-zU7"/>
@@ -1790,15 +1803,15 @@ Countdown</string>
         <!--UpgradeViewCotroller-->
         <scene sceneID="2RL-K7-dEg">
             <objects>
-                <viewController storyboardIdentifier="UpgradeViewController" id="efg-Ag-5fk" userLabel="UpgradeViewCotroller" customClass="UpgradeViewController" customModule="StoriCam_Pro" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UpgradeViewController" id="efg-Ag-5fk" userLabel="UpgradeViewCotroller" customClass="UpgradeViewController" customModule="SocialCAM" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="leN-Uy-qsN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v29-eN-Mfq" customClass="BorderView" customModule="StoriCam_Pro" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v29-eN-Mfq" customClass="BorderView" customModule="SocialCAM" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="48.5"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5o0-1K-Jse" customClass="PButton" customModule="StoriCam_Pro" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5o0-1K-Jse" customClass="PButton" customModule="SocialCAM" customModuleProvider="target">
                                         <rect key="frame" x="8" y="0.0" width="44" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="44" id="C0P-xj-PZy"/>
@@ -1837,7 +1850,7 @@ Countdown</string>
                                     <constraint firstAttribute="height" constant="10" id="xdI-5I-ofi"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g1P-oc-vK0" customClass="BorderView" customModule="StoriCam_Pro" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g1P-oc-vK0" customClass="BorderView" customModule="SocialCAM" customModuleProvider="target">
                                 <rect key="frame" x="7" y="91.5" width="400" height="770.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WJ7-FH-U9c">
@@ -1876,7 +1889,7 @@ Countdown</string>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b57-bD-VA1">
                                         <rect key="frame" x="0.0" y="582" width="400" height="188.5"/>
                                         <subviews>
-                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QSA-3z-BnF" customClass="ColorRoundedView" customModule="StoriCam_Pro" customModuleProvider="target">
+                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QSA-3z-BnF" customClass="ColorRoundedView" customModule="SocialCAM" customModuleProvider="target">
                                                 <rect key="frame" x="40" y="68" width="320" height="52"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upgrade Now" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wn8-8a-54R">
@@ -1948,7 +1961,7 @@ Countdown</string>
         <!--Story UploadVC-->
         <scene sceneID="eaX-eK-iV6">
             <objects>
-                <viewController storyboardIdentifier="StoryUploadVC" id="ibP-kP-x2s" customClass="StoryUploadVC" customModule="StoriCam_Pro" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StoryUploadVC" id="ibP-kP-x2s" customClass="StoryUploadVC" customModule="SocialCAM" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ay9-cH-EZT">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2046,7 +2059,7 @@ Countdown</string>
                                 <rect key="frame" x="0.0" y="44" width="375" height="734"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="StoryUploadCell" rowHeight="82" id="JDr-1i-sWc" customClass="StoryUploadCell" customModule="StoriCam_Pro" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="StoryUploadCell" rowHeight="82" id="JDr-1i-sWc" customClass="StoryUploadCell" customModule="SocialCAM" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="82"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JDr-1i-sWc" id="EbK-OO-bYP">
@@ -2147,23 +2160,23 @@ Countdown</string>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="2aL-rB-3d2">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <collectionViewLayout key="collectionViewLayout" id="ale-6f-Sdj" customClass="StoryTwoColumnsLayout" customModule="StoriCam_Pro" customModuleProvider="target"/>
+                                <collectionViewLayout key="collectionViewLayout" id="ale-6f-Sdj" customClass="StoryTwoColumnsLayout" customModule="SocialCAM" customModuleProvider="target"/>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="StoryUploadCollectionViewCell" id="WGA-OR-MX2" customClass="StoryUploadCollectionViewCell" customModule="StoriCam_Pro" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="StoryUploadCollectionViewCell" id="WGA-OR-MX2" customClass="StoryUploadCollectionViewCell" customModule="SocialCAM" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="173" height="179"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="173" height="179"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uqc-cB-07T" customClass="BorderView" customModule="StoriCam_Pro" customModuleProvider="target">
+                                                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uqc-cB-07T" customClass="BorderView" customModule="SocialCAM" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="173" height="179"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XDH-bg-hH0">
                                                             <rect key="frame" x="0.0" y="0.0" width="173" height="179"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         </imageView>
-                                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E6z-Qm-s1z" customClass="BottomTransparentGradientView" customModule="StoriCam_Pro" customModuleProvider="target">
+                                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E6z-Qm-s1z" customClass="BottomTransparentGradientView" customModule="SocialCAM" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="122" width="173" height="57"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </view>
@@ -2348,7 +2361,7 @@ Countdown</string>
         <!--Base UploadVC-->
         <scene sceneID="KWh-jj-53h">
             <objects>
-                <viewController storyboardIdentifier="BaseUploadVC" id="FlE-AJ-F1x" customClass="BaseUploadVC" customModule="StoriCam_Pro" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BaseUploadVC" id="FlE-AJ-F1x" customClass="BaseUploadVC" customModule="SocialCAM" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gEC-Xc-Y2D">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -578,7 +578,8 @@ extension PhotoEditorViewController: LocationUpdateProtocol {
         ProManagerApi
             .getWeather(lattitude: lat, longitude: long)
             .request(BaseWeather.self)
-            .subscribe(onNext: { (response) in
+            .subscribe(onNext: { [weak self] (response) in
+                guard let `self` = self else { return }
                 if let temp = response.main?.temp {
                     Defaults.shared.currentTemperature = "\(temp)"
                     self.temperature = "\(temp)"

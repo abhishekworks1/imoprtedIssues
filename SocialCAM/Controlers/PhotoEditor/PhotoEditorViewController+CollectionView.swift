@@ -10,6 +10,130 @@ import Foundation
 import AVKit
 
 // MARK: UICollectionViewDataSource
+extension PhotoEditorViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == self.stopMotionCollectionView {
+            if currentCamaraMode != .slideshow {
+                selectedItem = indexPath.row
+                isImageCellSelect = true
+                self.currentPlayVideo = (indexPath as NSIndexPath).row - 1
+                self.connVideoPlay()
+            }
+            else {
+                if let img = self.videoUrls[indexPath.row].image {
+                    filterSwitcherView?.setImageBy(img)
+                }
+            }
+        }
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if collectionView == self.stopMotionCollectionView {
+            let images = self.videoUrls[indexPath.row].videos
+            if videoUrls[indexPath.row].isCombineOneVideo {
+                if currentPage == indexPath.row {
+                    if isEditMode {
+                        return CGSize(width: 250 , height: Double(98 * 1.17))
+                    }
+                    else {
+                        return CGSize(width: 41 * 1.2 , height: Double(98 * 1.17))
+                    }
+                }
+                else {
+                    return CGSize(width: 41, height: 98)
+                }
+            }
+            else {
+                if currentPage == indexPath.row && currentCamaraMode != .slideshow {
+                    if isEditMode {
+                        return CGSize(width: 250 , height: Double(98 * 1.17))
+                    }
+                    else {
+                        return CGSize(width: (Double(images.count * 41) * 1.2) , height: Double(98 * 1.17))
+                    }
+                }
+                else {
+                    if self.videoUrls[indexPath.row].isSelected {
+                        if isEditMode {
+                            return CGSize(width: 250 , height: Double(98 * 1.17))
+                        }
+                        else {
+                            return CGSize(width: (Double(images.count * 41) * 1.2) , height: Double(98 * 1.17))
+                        }
+                    } else {
+                        return CGSize(width: (images.count * 41), height: 98)
+                    }
+                }
+            }
+        }
+        else if collectionView == self.collectionView {
+            return CGSize(width: 67, height: collectionView.frame.size.height)
+        }
+        else {
+            return CGSize(width: 0, height: 0)
+        }
+    }
+   
+    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        if let player = scPlayer {
+            player.pause()
+            stopPlaybackTimeChecker()
+        }
+    }
+    
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        if scrollView == collectionView {
+            guard  let _asset = _asset else {
+                return
+            }
+            
+            let videoTrackLength = 67 * _displayKeyframeImages.count
+            var position = scrollView.contentOffset.x + UIScreen.main.bounds.size.width / 2
+            if position < 0 {
+                cursorContainerViewCenterConstraint.constant = -position
+            } else if position > CGFloat(videoTrackLength) {
+                cursorContainerViewCenterConstraint.constant = CGFloat(videoTrackLength) - position
+            }
+            position = max(position, 0)
+            position = min(position, CGFloat(videoTrackLength))
+            
+            let percent = position / CGFloat(videoTrackLength)
+            var currentSecond = _asset.duration.seconds * Double(percent)
+            currentSecond = max(currentSecond, 0)
+            currentSecond = min(currentSecond, _asset.duration.seconds)
+     
+            if !currentSecond.isNaN {
+                cursorContainerViewController.seconds = currentSecond
+                let currentTime = CMTimeMakeWithSeconds(currentSecond, preferredTimescale: _asset.duration.timescale)
+                if currentTime.seconds >= 0 && !currentSecond.isNaN {
+                    if !(scPlayer?.isPlaying)! {
+                        scPlayer?.seek(to: currentTime, toleranceBefore: CMTimeMake(value: 0, timescale: _asset.duration.timescale), toleranceAfter: CMTimeMake(value: 0, timescale: _asset.duration.timescale)) {_ in
+                            
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        if let player = scPlayer {
+            player.isPlaying ? player.play() : nil
+            startPlaybackTimeChecker()
+            if let cell : ImageCollectionViewCell = self.stopMotionCollectionView.cellForItem(at: IndexPath.init(row: self.currentPage, section: 0)) as? ImageCollectionViewCell {
+                
+                guard let startTime = cell.trimmerView.startTime else {
+                    return
+                }
+                
+                player.seek(to: startTime, toleranceBefore: CMTime.zero, toleranceAfter: CMTime.zero)
+            }
+        }
+    }
+    
+}
 
 extension PhotoEditorViewController: UICollectionViewDataSource, KDDragAndDropCollectionViewDataSource {
     
