@@ -1,0 +1,486 @@
+//
+//  CropViewController.swift
+//  Mantis
+//
+//  Created by Echo on 10/30/18.
+//  Copyright © 2018 Echo. All rights reserved.
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to
+//  deal in the Software without restriction, including without limitation the
+//  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+//  sell copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+//  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+//  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
+//  IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+import UIKit
+import AVFoundation
+
+public protocol CropViewControllerDelegate: class {
+    func cropViewControllerDidCrop(_ cropViewController: CropViewController, cropped: UIImage)
+    func cropViewControllerDidCrop(_ cropViewController: CropViewController, updatedVideoSegments: [SegmentVideos])
+    func cropViewControllerDidFailToCrop(_ cropViewController: CropViewController, original: UIImage)
+    func cropViewControllerDidCancel(_ cropViewController: CropViewController, original: UIImage)
+    func cropViewControllerWillDismiss(_ cropViewController: CropViewController)
+}
+
+public extension CropViewControllerDelegate {
+    func cropViewControllerWillDismiss(_ cropViewController: CropViewController) {}
+    func cropViewControllerDidFailToCrop(_ cropViewController: CropViewController, original: UIImage) {}
+    func cropViewControllerDidCancel(_ cropViewController: CropViewController, original: UIImage) {}
+}
+
+public enum CropViewControllerMode {
+    case normal
+    case customizable    
+}
+
+class VideoTimeSliderContainer: UIView {
+    
+    private lazy var currentTimeLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: 14)
+        return label
+    }()
+    private lazy var remainTimeLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: 14)
+        return label
+    }()
+    private lazy var slider: UISlider = {
+        let slider = UISlider()
+        slider.minimumTrackTintColor = .white
+        slider.addTarget(self, action: #selector(sliderValueChanged), for: .valueChanged)
+        return slider
+    }()
+    
+    public var timeChanged: (_ time: CMTime) -> Void = { _ in }
+
+    public var minimumValue: Float = 0.0 {
+        didSet {
+            slider.minimumValue = minimumValue
+            currentTimeLabel.text = hmsString(from: minimumValue)
+        }
+    }
+    
+    public var maximumValue: Float = 1.0 {
+        didSet {
+            slider.maximumValue = maximumValue
+            remainTimeLabel.text = "-\(hmsString(from: maximumValue))"
+        }
+    }
+    
+    public var value: Float = 0.5 {
+        didSet {
+            slider.value = value
+            currentTimeLabel.text = hmsString(from: value)
+            remainTimeLabel.text = "-\(hmsString(from: maximumValue - value))"
+        }
+    }
+        
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupUI()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupUI() {
+        addSubview(currentTimeLabel)
+        addSubview(remainTimeLabel)
+        addSubview(slider)
+        
+        slider.translatesAutoresizingMaskIntoConstraints = false
+        currentTimeLabel.translatesAutoresizingMaskIntoConstraints = false
+        remainTimeLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        currentTimeLabel.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
+        currentTimeLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20).isActive = true
+        
+        remainTimeLabel.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
+        remainTimeLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20).isActive = true
+
+        slider.topAnchor.constraint(equalTo: currentTimeLabel.bottomAnchor, constant: 10).isActive = true
+        slider.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8).isActive = true
+        slider.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20).isActive = true
+        slider.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20).isActive = true
+    }
+    
+    private func hmsString(from seconds: Float) -> String {
+        let roundedSeconds = Int(seconds.rounded())
+        let hours = (roundedSeconds / 3600)
+        let minutes = (roundedSeconds % 3600) / 60
+        let seconds = (roundedSeconds % 3600) % 60
+        func timeString(_ time: Int) -> String {
+            return time < 10 ? "0\(time)" : "\(time)"
+        }
+        if hours > 0 {
+            return "\(timeString(hours)):\(timeString(minutes)):\(timeString(seconds))"
+        }
+        return "\(timeString(minutes)):\(timeString(seconds))"
+    }
+    
+    @objc func sliderValueChanged(_ sender: UISlider) {
+        self.value = sender.value
+        timeChanged(CMTime(value: CMTimeValue(self.value*10000), timescale: 10000))
+    }
+    
+}
+
+public class CropViewController: UIViewController {
+    /// When a CropViewController is used in a storyboard,
+    /// passing an image to it is needed after the CropViewController is created.
+    public var image: UIImage! {
+        didSet {
+            cropView.image = image
+        }
+    }
+    
+    public var avAsset: AVAsset? {
+        didSet {
+            cropView.avAsset = avAsset
+        }
+    }
+    public var videoSegments: [SegmentVideos] = []
+    
+    public var currentIndex: Int = 0
+
+    public weak var delegate: CropViewControllerDelegate?
+    public var mode: CropViewControllerMode = .normal
+    public var config = MantisConfig()
+    
+    private var orientation: UIInterfaceOrientation = .unknown
+    private lazy var cropView = CropView(image: image, viewModel: CropViewModel())
+    private lazy var cropToolbar = CropToolbar(frame: CGRect.zero)
+    private lazy var sliderContainer = VideoTimeSliderContainer(frame: .zero)
+    private var ratioPresenter: RatioPresenter?
+    private var stackView: UIStackView?
+    private var initialLayout = false
+    
+    deinit {
+        print("CropViewController deinit.")
+    }
+    
+    init(image: UIImage, config: MantisConfig = MantisConfig(), mode: CropViewControllerMode = .normal) {
+        self.image = image
+        self.config = config
+        self.mode = mode
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    init(avAsset: AVAsset, config: MantisConfig = MantisConfig(), mode: CropViewControllerMode = .normal) {
+        self.avAsset = avAsset
+        self.image = avAsset.thumbnailImage()
+        self.config = config
+        self.mode = mode
+        
+        super.init(nibName: nil, bundle: nil)
+        cropView.avAsset = self.avAsset
+        sliderContainer.minimumValue = 0
+        sliderContainer.maximumValue = Float(avAsset.duration.seconds)
+        sliderContainer.timeChanged = { [weak self] time in
+            self?.image = self?.avAsset?.thumbnailImage(at: time)
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    fileprivate func setPresetFixedRatio() {
+        let fixedRatioManager = getFixedRatioManager()
+        
+        var ratioItem: RatioItemType
+        if fixedRatioManager.ratios.count == 0 {
+            ratioItem = fixedRatioManager.getOriginalRatioItem()
+        } else {
+            ratioItem = fixedRatioManager.ratios[0]
+        }
+
+        let ratioValue = (fixedRatioManager.type == .horizontal) ? ratioItem.ratioH : ratioItem.ratioV
+        setFixedRatio(ratioValue)
+    }
+    
+    fileprivate func createCropToolbar() {
+        cropToolbar.backgroundColor = .clear
+        
+        cropToolbar.selectedCancel = {[weak self] in self?.handleCancel() }
+        cropToolbar.selectedRotate = {[weak self] in self?.handleRotate() }
+        cropToolbar.selectedReset = {[weak self] in self?.handleReset() }
+        cropToolbar.selectedSetRatio = {[weak self] in self?.handleSetRatio() }
+        cropToolbar.selectedCrop = {[weak self] in self?.handleCrop() }
+        
+        let showRatioButton: Bool
+        
+        if config.alwaysUsingOnePresetFixedRatio {
+            showRatioButton = false
+            setPresetFixedRatio()
+        } else {
+            showRatioButton = true
+        }
+        
+        if mode == .normal {
+            cropToolbar.createToolbarUI(mode: .normal, includeSetRatioButton: showRatioButton)
+        } else {
+            cropToolbar.createToolbarUI(mode: .simple, includeSetRatioButton: showRatioButton)
+        }
+    }
+    
+    fileprivate func createToolbarUI() {
+        if mode == .normal {
+            cropToolbar.createToolbarUI()
+        } else {
+            cropToolbar.createToolbarUI(mode: .simple)
+        }
+    }
+    
+    fileprivate func getFixedRatioManager() -> FixedRatioManager {
+        let type: RatioType = cropView.getRatioType(byImageIsOriginalisHorizontal: cropView.image.isHorizontal())
+        
+        let ratio = cropView.getImageRatioH()
+        
+        return FixedRatioManager(type: type,
+                                 originalRatioH: ratio,
+                                 ratioOptions: config.ratioOptions,
+                                 customRatios: config.getCustomRatioItems())
+    }
+    
+    override public func viewDidLoad() {
+        super.viewDidLoad()
+        
+        view.backgroundColor = .black
+        
+        createCropToolbar()
+        createCropView()
+        initLayout()
+        updateLayout()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(rotated), name: UIApplication.didChangeStatusBarOrientationNotification, object: nil)
+    }
+    
+    override public func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if initialLayout == false {
+            initialLayout = true
+            view.layoutIfNeeded()
+            cropView.adaptForCropBox()
+        }
+    }
+    
+    public override var prefersStatusBarHidden: Bool {
+        return true
+    }
+    
+    public override var preferredScreenEdgesDeferringSystemGestures: UIRectEdge {
+        return [.top, .bottom]
+    }
+    
+    public override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        cropView.prepareForDeviceRotation()
+    }    
+    
+    @objc func rotated() {
+        let statusBarOrientation = UIApplication.shared.statusBarOrientation
+        
+        guard statusBarOrientation != .unknown else { return }
+        guard statusBarOrientation != orientation else { return }
+        
+        orientation = statusBarOrientation
+        
+        if UIDevice.current.userInterfaceIdiom == .phone
+            && statusBarOrientation == .portraitUpsideDown {
+            return
+        }
+        
+        updateLayout()
+        view.layoutIfNeeded()
+        
+        // When it is embedded in a container, the timing of viewDidLayoutSubviews
+        // is different with the normal mode.
+        // So delay the execution to make sure handleRotate runs after the final
+        // viewDidLayoutSubviews
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+            self?.cropView.handleRotate()
+        }
+    }
+    
+    func setFixedRatio(_ ratio: Double) {
+        cropToolbar.setRatioButton?.tintColor = nil
+        cropView.aspectRatioLockEnabled = true
+        cropView.viewModel.aspectRatio = CGFloat(ratio)
+        
+        UIView.animate(withDuration: 0.5) {
+            self.cropView.setFixedRatioCropBox()
+        }
+    }
+    
+    private func createCropView() {
+        cropView.delegate = self
+        cropView.clipsToBounds = true
+    }
+    
+    private func handleCancel() {
+        delegate?.cropViewControllerWillDismiss(self)
+        dismiss(animated: true) { [weak self] in
+            guard let self = self else { return }
+            self.delegate?.cropViewControllerDidCancel(self, original: self.image)
+        }
+    }
+    
+    private func resetRatioButton() {
+        cropView.aspectRatioLockEnabled = false
+        cropToolbar.setRatioButton?.tintColor = .white
+    }
+    
+    @objc private func handleSetRatio() {
+        if cropView.aspectRatioLockEnabled {
+            resetRatioButton()
+            return
+        }
+        
+        let fixedRatioManager = getFixedRatioManager()
+        
+        guard fixedRatioManager.ratios.count > 0 else { return }
+        
+        if fixedRatioManager.ratios.count == 1 {
+            let ratioItem = fixedRatioManager.ratios[0]
+            let ratioValue = (fixedRatioManager.type == .horizontal) ? ratioItem.ratioH : ratioItem.ratioV
+            setFixedRatio(ratioValue)
+            return
+        }
+        
+        ratioPresenter = RatioPresenter(type: fixedRatioManager.type, originalRatioH: fixedRatioManager.originalRatioH, ratios: fixedRatioManager.ratios)
+        ratioPresenter?.didGetRatio = {[weak self] ratio in
+            self?.setFixedRatio(ratio)
+        }
+        ratioPresenter?.present(by: self, in: cropToolbar.setRatioButton!)
+    }
+    
+    private func handleReset() {
+        resetRatioButton()
+        cropView.reset(forceFixedRatio: config.alwaysUsingOnePresetFixedRatio)
+    }
+    
+    private func handleRotate() {
+        cropView.counterclockwiseRotate90()
+    }
+    
+    private func handleCrop() {
+        cropView.crop { [weak self] croppedObject in
+            guard let `self` = self else {
+                return
+            }
+            guard let croppedObject = croppedObject else {
+                self.delegate?.cropViewControllerDidFailToCrop(self, original: self.cropView.image)
+                return
+            }
+            self.delegate?.cropViewControllerWillDismiss(self)
+            if let image = croppedObject as? UIImage {
+                self.delegate?.cropViewControllerDidCrop(self, cropped: image)
+            } else if let url = croppedObject as? URL {
+                let updatedSegment = SegmentVideos(urlStr: url,
+                                                   thumbimage: self.videoSegments[self.currentIndex].image,
+                                                   latitued: nil,
+                                                   longitued: nil,
+                                                   placeAddress: nil,
+                                                   numberOfSegement: self.videoSegments[self.currentIndex].numberOfSegementtext,
+                                                   videoduration: nil,
+                                                   combineOneVideo: true)
+                self.videoSegments.remove(at: self.currentIndex)
+                self.videoSegments.insert(updatedSegment, at: self.currentIndex)
+                self.delegate?.cropViewControllerDidCrop(self, updatedVideoSegments: self.videoSegments)
+            }
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+}
+
+// Auto layout
+extension CropViewController {
+    fileprivate func initLayout() {
+        stackView = UIStackView()
+        view.addSubview(stackView!)
+        
+        stackView?.translatesAutoresizingMaskIntoConstraints = false
+        cropToolbar.translatesAutoresizingMaskIntoConstraints = false
+        cropView.translatesAutoresizingMaskIntoConstraints = false
+        sliderContainer.translatesAutoresizingMaskIntoConstraints = false
+        
+        stackView?.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        stackView?.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        stackView?.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
+        stackView?.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor).isActive = true
+    }
+    
+    fileprivate func setStackViewAxis() {
+        if UIApplication.shared.statusBarOrientation.isPortrait {
+            stackView?.axis = .vertical
+        } else if UIApplication.shared.statusBarOrientation.isLandscape {
+            stackView?.axis = .horizontal
+        }
+    }
+    
+    fileprivate func changeStackViewOrder() {
+        stackView?.removeArrangedSubview(cropToolbar)
+        stackView?.removeArrangedSubview(cropView)
+        stackView?.removeArrangedSubview(sliderContainer)
+        
+        if UIApplication.shared.statusBarOrientation.isPortrait || UIApplication.shared.statusBarOrientation == .landscapeRight {
+            stackView?.addArrangedSubview(cropToolbar)
+            stackView?.addArrangedSubview(cropView)
+            stackView?.addArrangedSubview(sliderContainer)
+        } else if UIApplication.shared.statusBarOrientation == .landscapeLeft {
+            stackView?.addArrangedSubview(cropView)
+            stackView?.addArrangedSubview(cropToolbar)
+            stackView?.addArrangedSubview(sliderContainer)
+        }
+    }
+    
+    fileprivate func updateLayout() {
+        setStackViewAxis()
+        cropToolbar.checkOrientation()
+        changeStackViewOrder()
+    }
+}
+
+extension CropViewController: CropViewDelegate {
+    func cropViewDidBecomeResettable(_ cropView: CropView) {
+        cropToolbar.resetButton?.isHidden = false
+    }
+    
+    func cropViewDidBecomeNonResettable(_ cropView: CropView) {
+        cropToolbar.resetButton?.isHidden = true
+    }
+}
+
+extension AVAsset {
+    
+    func thumbnailImage(at time: CMTime = CMTime(value: 0, timescale: 1)) -> UIImage? {
+        do {
+            let imgGenerator = AVAssetImageGenerator(asset: self)
+            imgGenerator.appliesPreferredTrackTransform = true
+            let cgImage = try imgGenerator.copyCGImage(at: time, actualTime: nil)
+            let thumbnail = UIImage(cgImage: cgImage)
+            return thumbnail
+        } catch let error {
+            print("*** Error generating thumbnail: \(error.localizedDescription)")
+            return nil
+        }
+    }
+    
+}

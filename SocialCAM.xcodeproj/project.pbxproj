@@ -311,7 +311,6 @@
 		8205FD82236C3B06002B2603 /* BlurredMosaicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FD2C236C3B06002B2603 /* BlurredMosaicView.swift */; };
 		8205FD83236C3B06002B2603 /* CropAndStraightenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FD2D236C3B06002B2603 /* CropAndStraightenView.swift */; };
 		8205FD84236C3B06002B2603 /* Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FD2F236C3B06002B2603 /* Source.swift */; };
-		8205FD86236C3B16002B2603 /* CropViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FD85236C3B13002B2603 /* CropViewController.swift */; };
 		8205FD88236C3B1D002B2603 /* TrimEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FD87236C3B1C002B2603 /* TrimEditorViewController.swift */; };
 		8205FD8A236C3B22002B2603 /* StickersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FD89236C3B21002B2603 /* StickersViewController.swift */; };
 		8205FD8C236C3B25002B2603 /* StickersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8205FD8B236C3B25002B2603 /* StickersViewController.xib */; };
@@ -412,7 +411,7 @@
 		8299F56C23714F5F00963318 /* DottedLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8299F56B23714F5F00963318 /* DottedLineView.swift */; };
 		8299F56E23714FCC00963318 /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8299F56D23714FCC00963318 /* Layout.swift */; };
 		82AD6B7023704B330090498A /* UIViewUtilsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AD6B6F23704B330090498A /* UIViewUtilsExtension.swift */; };
-		82AD6B7223704BA60090498A /* PhotoEditiorViewController+CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AD6B7123704BA60090498A /* PhotoEditiorViewController+CollectionView.swift */; };
+		82AD6B7223704BA60090498A /* PhotoEditorViewController+CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AD6B7123704BA60090498A /* PhotoEditorViewController+CollectionView.swift */; };
 		82C4B2B12383F3CB00551B51 /* TwitterShare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C4B2B02383F3CB00551B51 /* TwitterShare.swift */; };
 		82CCB16E2372CC2600EC76E8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CCB16D2372CC2600EC76E8 /* LoginViewController.swift */; };
 		82CCB1702372D0F800EC76E8 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CCB16F2372D0F800EC76E8 /* CurrentUser.swift */; };
@@ -441,7 +440,6 @@
 		82D1EBCD236FEFA700A680E7 /* StoryImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EBCC236FEFA600A680E7 /* StoryImageView.swift */; };
 		82D1EBCF236FF13900A680E7 /* StorySettingsHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EBCE236FF13900A680E7 /* StorySettingsHeaderCell.swift */; };
 		82D1EBD1236FF16200A680E7 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EBD0236FF16100A680E7 /* Protocols.swift */; };
-		82D1EBD3236FF1F300A680E7 /* CropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EBD2236FF1F300A680E7 /* CropView.swift */; };
 		82D1EBD5236FF21700A680E7 /* StoryContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EBD4236FF21700A680E7 /* StoryContext.swift */; };
 		82D1EBD8236FF23D00A680E7 /* SketchTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EBD6236FF23C00A680E7 /* SketchTool.swift */; };
 		82D1EBD9236FF23D00A680E7 /* SketchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EBD7236FF23D00A680E7 /* SketchView.swift */; };
@@ -489,14 +487,49 @@
 		82D1EC5123702B4300A680E7 /* Wonderful.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 82D1EC1C23702B4200A680E7 /* Wonderful.JPG */; };
 		82D1EC5223702B4300A680E7 /* Philharmonic.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 82D1EC1D23702B4200A680E7 /* Philharmonic.JPG */; };
 		82D1EC5323702B4300A680E7 /* Rouge.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 82D1EC1E23702B4200A680E7 /* Rouge.JPG */; };
-		82D1EC8223703DE300A680E7 /* PhotoEditiorViewController+Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EC7C23703DE000A680E7 /* PhotoEditiorViewController+Delegates.swift */; };
-		82D1EC8323703DE300A680E7 /* PhotoEditiorViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EC7D23703DE100A680E7 /* PhotoEditiorViewController+Actions.swift */; };
-		82D1EC8423703DE300A680E7 /* PhotoEditioViewController+Picker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EC7E23703DE100A680E7 /* PhotoEditioViewController+Picker.swift */; };
-		82D1EC8523703DE300A680E7 /* PhotoEditioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EC7F23703DE100A680E7 /* PhotoEditioViewController.swift */; };
+		82D1EC8223703DE300A680E7 /* PhotoEditorViewController+Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EC7C23703DE000A680E7 /* PhotoEditorViewController+Delegates.swift */; };
+		82D1EC8323703DE300A680E7 /* PhotoEditorViewController+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EC7D23703DE100A680E7 /* PhotoEditorViewController+Actions.swift */; };
+		82D1EC8423703DE300A680E7 /* PhotoEditorViewController+Picker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EC7E23703DE100A680E7 /* PhotoEditorViewController+Picker.swift */; };
+		82D1EC8523703DE300A680E7 /* PhotoEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EC7F23703DE100A680E7 /* PhotoEditorViewController.swift */; };
 		82D1EC882370426200A680E7 /* PhotoEditorViewController+LifeCycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EC8123703DE300A680E7 /* PhotoEditorViewController+LifeCycle.swift */; };
 		82EEF72A2375234800DE4845 /* PhotoEditor.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82AD6B6D237049AB0090498A /* PhotoEditor.storyboard */; };
 		82EEF72C2375288C00DE4845 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 82EEF72B2375288C00DE4845 /* GoogleService-Info.plist */; };
 		82EEF72E23752B0D00DE4845 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82EEF72D23752B0D00DE4845 /* AdSupport.framework */; };
+		954660472387B5CC00A37AE0 /* MantisLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9546600F2387B5CB00A37AE0 /* MantisLocalizable.strings */; };
+		954660482387B5CC00A37AE0 /* RatioOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9546601D2387B5CB00A37AE0 /* RatioOptions.swift */; };
+		954660492387B5CC00A37AE0 /* Mantis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9546601E2387B5CB00A37AE0 /* Mantis.swift */; };
+		9546604A2387B5CC00A37AE0 /* CropToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954660202387B5CB00A37AE0 /* CropToolbar.swift */; };
+		9546604B2387B5CC00A37AE0 /* RatioPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954660212387B5CB00A37AE0 /* RatioPresenter.swift */; };
+		9546604C2387B5CC00A37AE0 /* FixedRatioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954660222387B5CB00A37AE0 /* FixedRatioManager.swift */; };
+		9546604E2387B5CC00A37AE0 /* ToolBarButtonImageBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954660242387B5CB00A37AE0 /* ToolBarButtonImageBuilder.swift */; };
+		9546604F2387B5CC00A37AE0 /* CropViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954660252387B5CB00A37AE0 /* CropViewController.swift */; };
+		954660512387B5CC00A37AE0 /* CGImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954660282387B5CB00A37AE0 /* CGImageExtensions.swift */; };
+		954660522387B5CC00A37AE0 /* UIImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954660292387B5CB00A37AE0 /* UIImageExtensions.swift */; };
+		954660532387B5CC00A37AE0 /* CoreGraphicsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9546602A2387B5CB00A37AE0 /* CoreGraphicsExtensions.swift */; };
+		954660542387B5CC00A37AE0 /* CropViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9546602C2387B5CB00A37AE0 /* CropViewModel.swift */; };
+		954660552387B5CC00A37AE0 /* CropView+Touches.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9546602D2387B5CB00A37AE0 /* CropView+Touches.swift */; };
+		954660562387B5CC00A37AE0 /* CropView+UIScrollViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9546602E2387B5CB00A37AE0 /* CropView+UIScrollViewDelegate.swift */; };
+		954660572387B5CC00A37AE0 /* CropScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9546602F2387B5CB00A37AE0 /* CropScrollView.swift */; };
+		954660582387B5CC00A37AE0 /* CropViewStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954660302387B5CB00A37AE0 /* CropViewStatus.swift */; };
+		954660592387B5CC00A37AE0 /* ImageContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954660312387B5CB00A37AE0 /* ImageContainer.swift */; };
+		9546605A2387B5CC00A37AE0 /* CropBoxFreeAspectFrameUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954660322387B5CB00A37AE0 /* CropBoxFreeAspectFrameUpdater.swift */; };
+		9546605B2387B5CC00A37AE0 /* CropOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954660332387B5CB00A37AE0 /* CropOverlayView.swift */; };
+		9546605C2387B5CC00A37AE0 /* CropBoxLockedAspectFrameUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954660342387B5CB00A37AE0 /* CropBoxLockedAspectFrameUpdater.swift */; };
+		9546605D2387B5CC00A37AE0 /* CropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954660352387B5CB00A37AE0 /* CropView.swift */; };
+		9546605E2387B5CC00A37AE0 /* CropMaskViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954660362387B5CB00A37AE0 /* CropMaskViewManager.swift */; };
+		9546605F2387B5CC00A37AE0 /* CropVisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954660382387B5CB00A37AE0 /* CropVisualEffectView.swift */; };
+		954660602387B5CC00A37AE0 /* CropDimmingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954660392387B5CB00A37AE0 /* CropDimmingView.swift */; };
+		954660612387B5CC00A37AE0 /* CropMaskProtocal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9546603A2387B5CB00A37AE0 /* CropMaskProtocal.swift */; };
+		954660622387B5CC00A37AE0 /* GeometryHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9546603C2387B5CB00A37AE0 /* GeometryHelper.swift */; };
+		954660632387B5CC00A37AE0 /* CropAssetExportSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9546603D2387B5CB00A37AE0 /* CropAssetExportSession.swift */; };
+		954660642387B5CC00A37AE0 /* LocalizedHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9546603E2387B5CB00A37AE0 /* LocalizedHelper.swift */; };
+		954660652387B5CC00A37AE0 /* RotationDial+Touches.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954660402387B5CB00A37AE0 /* RotationDial+Touches.swift */; };
+		954660662387B5CC00A37AE0 /* RotationDialViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954660412387B5CB00A37AE0 /* RotationDialViewModel.swift */; };
+		954660672387B5CC00A37AE0 /* RotationCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954660422387B5CB00A37AE0 /* RotationCalculator.swift */; };
+		954660682387B5CC00A37AE0 /* RotationDialPlate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954660432387B5CB00A37AE0 /* RotationDialPlate.swift */; };
+		954660692387B5CC00A37AE0 /* RotationDial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954660442387B5CB00A37AE0 /* RotationDial.swift */; };
+		9546606A2387B5CC00A37AE0 /* CGAngle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954660452387B5CB00A37AE0 /* CGAngle.swift */; };
+		9546606B2387B5CC00A37AE0 /* DialConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954660462387B5CB00A37AE0 /* DialConfig.swift */; };
 		AB8ACBA225496B14EAAC36D8 /* Pods_SocialCAM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FFDFF034EAEBD1B2183306F /* Pods_SocialCAM.framework */; };
 /* End PBXBuildFile section */
 
@@ -931,7 +964,7 @@
 		8299F56D23714FCC00963318 /* Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
 		82AD6B6D237049AB0090498A /* PhotoEditor.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PhotoEditor.storyboard; sourceTree = "<group>"; };
 		82AD6B6F23704B330090498A /* UIViewUtilsExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewUtilsExtension.swift; sourceTree = "<group>"; };
-		82AD6B7123704BA60090498A /* PhotoEditiorViewController+CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotoEditiorViewController+CollectionView.swift"; sourceTree = "<group>"; };
+		82AD6B7123704BA60090498A /* PhotoEditorViewController+CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotoEditorViewController+CollectionView.swift"; sourceTree = "<group>"; };
 		82C4B2B02383F3CB00551B51 /* TwitterShare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterShare.swift; sourceTree = "<group>"; };
 		82CCB16D2372CC2600EC76E8 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		82CCB16F2372D0F800EC76E8 /* CurrentUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
@@ -1008,10 +1041,10 @@
 		82D1EC1C23702B4200A680E7 /* Wonderful.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Wonderful.JPG; sourceTree = "<group>"; };
 		82D1EC1D23702B4200A680E7 /* Philharmonic.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Philharmonic.JPG; sourceTree = "<group>"; };
 		82D1EC1E23702B4200A680E7 /* Rouge.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Rouge.JPG; sourceTree = "<group>"; };
-		82D1EC7C23703DE000A680E7 /* PhotoEditiorViewController+Delegates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PhotoEditiorViewController+Delegates.swift"; sourceTree = "<group>"; };
-		82D1EC7D23703DE100A680E7 /* PhotoEditiorViewController+Actions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PhotoEditiorViewController+Actions.swift"; sourceTree = "<group>"; };
-		82D1EC7E23703DE100A680E7 /* PhotoEditioViewController+Picker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PhotoEditioViewController+Picker.swift"; sourceTree = "<group>"; };
-		82D1EC7F23703DE100A680E7 /* PhotoEditioViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoEditioViewController.swift; sourceTree = "<group>"; };
+		82D1EC7C23703DE000A680E7 /* PhotoEditorViewController+Delegates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PhotoEditorViewController+Delegates.swift"; sourceTree = "<group>"; };
+		82D1EC7D23703DE100A680E7 /* PhotoEditorViewController+Actions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PhotoEditorViewController+Actions.swift"; sourceTree = "<group>"; };
+		82D1EC7E23703DE100A680E7 /* PhotoEditorViewController+Picker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PhotoEditorViewController+Picker.swift"; sourceTree = "<group>"; };
+		82D1EC7F23703DE100A680E7 /* PhotoEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoEditorViewController.swift; sourceTree = "<group>"; };
 		82D1EC8123703DE300A680E7 /* PhotoEditorViewController+LifeCycle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PhotoEditorViewController+LifeCycle.swift"; sourceTree = "<group>"; };
 		82E7EFC423792E8B00501345 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		82E7EFC523792E8B00501345 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1023,6 +1056,53 @@
 		82F4C9FE237D2FB6001EF701 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		82F4CA00237D2FB7001EF701 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		86BA1F168DE2A3CF91C622CB /* Pods-SocialCAM.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialCAM.release.xcconfig"; path = "Target Support Files/Pods-SocialCAM/Pods-SocialCAM.release.xcconfig"; sourceTree = "<group>"; };
+		954660102387B5CB00A37AE0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/MantisLocalizable.strings; sourceTree = "<group>"; };
+		954660112387B5CB00A37AE0 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/MantisLocalizable.strings; sourceTree = "<group>"; };
+		954660122387B5CB00A37AE0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/MantisLocalizable.strings"; sourceTree = "<group>"; };
+		954660132387B5CB00A37AE0 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/MantisLocalizable.strings; sourceTree = "<group>"; };
+		954660142387B5CB00A37AE0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MantisLocalizable.strings; sourceTree = "<group>"; };
+		954660152387B5CB00A37AE0 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/MantisLocalizable.strings; sourceTree = "<group>"; };
+		954660162387B5CB00A37AE0 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/MantisLocalizable.strings; sourceTree = "<group>"; };
+		954660172387B5CB00A37AE0 /* ko-KR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "ko-KR"; path = "ko-KR.lproj/MantisLocalizable.strings"; sourceTree = "<group>"; };
+		954660182387B5CB00A37AE0 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/MantisLocalizable.strings; sourceTree = "<group>"; };
+		954660192387B5CB00A37AE0 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/MantisLocalizable.strings"; sourceTree = "<group>"; };
+		9546601A2387B5CB00A37AE0 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/MantisLocalizable.strings; sourceTree = "<group>"; };
+		9546601B2387B5CB00A37AE0 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/MantisLocalizable.strings; sourceTree = "<group>"; };
+		9546601C2387B5CB00A37AE0 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/MantisLocalizable.strings"; sourceTree = "<group>"; };
+		9546601D2387B5CB00A37AE0 /* RatioOptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatioOptions.swift; sourceTree = "<group>"; };
+		9546601E2387B5CB00A37AE0 /* Mantis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mantis.swift; sourceTree = "<group>"; };
+		954660202387B5CB00A37AE0 /* CropToolbar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropToolbar.swift; sourceTree = "<group>"; };
+		954660212387B5CB00A37AE0 /* RatioPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatioPresenter.swift; sourceTree = "<group>"; };
+		954660222387B5CB00A37AE0 /* FixedRatioManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FixedRatioManager.swift; sourceTree = "<group>"; };
+		954660242387B5CB00A37AE0 /* ToolBarButtonImageBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolBarButtonImageBuilder.swift; sourceTree = "<group>"; };
+		954660252387B5CB00A37AE0 /* CropViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropViewController.swift; sourceTree = "<group>"; };
+		954660282387B5CB00A37AE0 /* CGImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGImageExtensions.swift; sourceTree = "<group>"; };
+		954660292387B5CB00A37AE0 /* UIImageExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtensions.swift; sourceTree = "<group>"; };
+		9546602A2387B5CB00A37AE0 /* CoreGraphicsExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreGraphicsExtensions.swift; sourceTree = "<group>"; };
+		9546602C2387B5CB00A37AE0 /* CropViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropViewModel.swift; sourceTree = "<group>"; };
+		9546602D2387B5CB00A37AE0 /* CropView+Touches.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CropView+Touches.swift"; sourceTree = "<group>"; };
+		9546602E2387B5CB00A37AE0 /* CropView+UIScrollViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CropView+UIScrollViewDelegate.swift"; sourceTree = "<group>"; };
+		9546602F2387B5CB00A37AE0 /* CropScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropScrollView.swift; sourceTree = "<group>"; };
+		954660302387B5CB00A37AE0 /* CropViewStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropViewStatus.swift; sourceTree = "<group>"; };
+		954660312387B5CB00A37AE0 /* ImageContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageContainer.swift; sourceTree = "<group>"; };
+		954660322387B5CB00A37AE0 /* CropBoxFreeAspectFrameUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropBoxFreeAspectFrameUpdater.swift; sourceTree = "<group>"; };
+		954660332387B5CB00A37AE0 /* CropOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropOverlayView.swift; sourceTree = "<group>"; };
+		954660342387B5CB00A37AE0 /* CropBoxLockedAspectFrameUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropBoxLockedAspectFrameUpdater.swift; sourceTree = "<group>"; };
+		954660352387B5CB00A37AE0 /* CropView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropView.swift; sourceTree = "<group>"; };
+		954660362387B5CB00A37AE0 /* CropMaskViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropMaskViewManager.swift; sourceTree = "<group>"; };
+		954660382387B5CB00A37AE0 /* CropVisualEffectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropVisualEffectView.swift; sourceTree = "<group>"; };
+		954660392387B5CB00A37AE0 /* CropDimmingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropDimmingView.swift; sourceTree = "<group>"; };
+		9546603A2387B5CB00A37AE0 /* CropMaskProtocal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropMaskProtocal.swift; sourceTree = "<group>"; };
+		9546603C2387B5CB00A37AE0 /* GeometryHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeometryHelper.swift; sourceTree = "<group>"; };
+		9546603D2387B5CB00A37AE0 /* CropAssetExportSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropAssetExportSession.swift; sourceTree = "<group>"; };
+		9546603E2387B5CB00A37AE0 /* LocalizedHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalizedHelper.swift; sourceTree = "<group>"; };
+		954660402387B5CB00A37AE0 /* RotationDial+Touches.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RotationDial+Touches.swift"; sourceTree = "<group>"; };
+		954660412387B5CB00A37AE0 /* RotationDialViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotationDialViewModel.swift; sourceTree = "<group>"; };
+		954660422387B5CB00A37AE0 /* RotationCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotationCalculator.swift; sourceTree = "<group>"; };
+		954660432387B5CB00A37AE0 /* RotationDialPlate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotationDialPlate.swift; sourceTree = "<group>"; };
+		954660442387B5CB00A37AE0 /* RotationDial.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotationDial.swift; sourceTree = "<group>"; };
+		954660452387B5CB00A37AE0 /* CGAngle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGAngle.swift; sourceTree = "<group>"; };
+		954660462387B5CB00A37AE0 /* DialConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DialConfig.swift; sourceTree = "<group>"; };
 		AB071E2B0A788A2E1F2574EF /* Pods-SocialCAM.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialCAM.debug.xcconfig"; path = "Target Support Files/Pods-SocialCAM/Pods-SocialCAM.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1132,6 +1212,7 @@
 		8205FAC6236C10A6002B2603 /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
+				9546600D2387B5CB00A37AE0 /* Mantis */,
 				8206AEE92374108C000CDD2A /* Queuer */,
 				824EB3D623619FB000205993 /* NextLevelSource */,
 				8299F55D237135BF00963318 /* UIAppleColor */,
@@ -1791,11 +1872,11 @@
 		824AD521237BDAA500BF226F /* PhotoEditor */ = {
 			isa = PBXGroup;
 			children = (
-				82D1EC7F23703DE100A680E7 /* PhotoEditioViewController.swift */,
-				82D1EC7D23703DE100A680E7 /* PhotoEditiorViewController+Actions.swift */,
-				82D1EC7C23703DE000A680E7 /* PhotoEditiorViewController+Delegates.swift */,
-				82AD6B7123704BA60090498A /* PhotoEditiorViewController+CollectionView.swift */,
-				82D1EC7E23703DE100A680E7 /* PhotoEditioViewController+Picker.swift */,
+				82D1EC7F23703DE100A680E7 /* PhotoEditorViewController.swift */,
+				82D1EC7D23703DE100A680E7 /* PhotoEditorViewController+Actions.swift */,
+				82D1EC7C23703DE000A680E7 /* PhotoEditorViewController+Delegates.swift */,
+				82AD6B7123704BA60090498A /* PhotoEditorViewController+CollectionView.swift */,
+				82D1EC7E23703DE100A680E7 /* PhotoEditorViewController+Picker.swift */,
 				82D1EC8123703DE300A680E7 /* PhotoEditorViewController+LifeCycle.swift */,
 				82AD6B6D237049AB0090498A /* PhotoEditor.storyboard */,
 			);
@@ -2128,6 +2209,104 @@
 			path = filter;
 			sourceTree = "<group>";
 		};
+		9546600D2387B5CB00A37AE0 /* Mantis */ = {
+			isa = PBXGroup;
+			children = (
+				9546600E2387B5CB00A37AE0 /* Resources */,
+				9546601D2387B5CB00A37AE0 /* RatioOptions.swift */,
+				9546601E2387B5CB00A37AE0 /* Mantis.swift */,
+				9546601F2387B5CB00A37AE0 /* CropViewController */,
+				954660272387B5CB00A37AE0 /* Extentions */,
+				9546602B2387B5CB00A37AE0 /* CropView */,
+				954660372387B5CB00A37AE0 /* MaskBackground */,
+				9546603B2387B5CB00A37AE0 /* Helpers */,
+				9546603F2387B5CB00A37AE0 /* RotationDial */,
+			);
+			path = Mantis;
+			sourceTree = "<group>";
+		};
+		9546600E2387B5CB00A37AE0 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				9546600F2387B5CB00A37AE0 /* MantisLocalizable.strings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		9546601F2387B5CB00A37AE0 /* CropViewController */ = {
+			isa = PBXGroup;
+			children = (
+				954660202387B5CB00A37AE0 /* CropToolbar.swift */,
+				954660212387B5CB00A37AE0 /* RatioPresenter.swift */,
+				954660222387B5CB00A37AE0 /* FixedRatioManager.swift */,
+				954660242387B5CB00A37AE0 /* ToolBarButtonImageBuilder.swift */,
+				954660252387B5CB00A37AE0 /* CropViewController.swift */,
+			);
+			path = CropViewController;
+			sourceTree = "<group>";
+		};
+		954660272387B5CB00A37AE0 /* Extentions */ = {
+			isa = PBXGroup;
+			children = (
+				954660282387B5CB00A37AE0 /* CGImageExtensions.swift */,
+				954660292387B5CB00A37AE0 /* UIImageExtensions.swift */,
+				9546602A2387B5CB00A37AE0 /* CoreGraphicsExtensions.swift */,
+			);
+			path = Extentions;
+			sourceTree = "<group>";
+		};
+		9546602B2387B5CB00A37AE0 /* CropView */ = {
+			isa = PBXGroup;
+			children = (
+				9546602C2387B5CB00A37AE0 /* CropViewModel.swift */,
+				9546602D2387B5CB00A37AE0 /* CropView+Touches.swift */,
+				9546602E2387B5CB00A37AE0 /* CropView+UIScrollViewDelegate.swift */,
+				9546602F2387B5CB00A37AE0 /* CropScrollView.swift */,
+				954660302387B5CB00A37AE0 /* CropViewStatus.swift */,
+				954660312387B5CB00A37AE0 /* ImageContainer.swift */,
+				954660322387B5CB00A37AE0 /* CropBoxFreeAspectFrameUpdater.swift */,
+				954660332387B5CB00A37AE0 /* CropOverlayView.swift */,
+				954660342387B5CB00A37AE0 /* CropBoxLockedAspectFrameUpdater.swift */,
+				954660352387B5CB00A37AE0 /* CropView.swift */,
+				954660362387B5CB00A37AE0 /* CropMaskViewManager.swift */,
+			);
+			path = CropView;
+			sourceTree = "<group>";
+		};
+		954660372387B5CB00A37AE0 /* MaskBackground */ = {
+			isa = PBXGroup;
+			children = (
+				954660382387B5CB00A37AE0 /* CropVisualEffectView.swift */,
+				954660392387B5CB00A37AE0 /* CropDimmingView.swift */,
+				9546603A2387B5CB00A37AE0 /* CropMaskProtocal.swift */,
+			);
+			path = MaskBackground;
+			sourceTree = "<group>";
+		};
+		9546603B2387B5CB00A37AE0 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				9546603C2387B5CB00A37AE0 /* GeometryHelper.swift */,
+				9546603D2387B5CB00A37AE0 /* CropAssetExportSession.swift */,
+				9546603E2387B5CB00A37AE0 /* LocalizedHelper.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		9546603F2387B5CB00A37AE0 /* RotationDial */ = {
+			isa = PBXGroup;
+			children = (
+				954660402387B5CB00A37AE0 /* RotationDial+Touches.swift */,
+				954660412387B5CB00A37AE0 /* RotationDialViewModel.swift */,
+				954660422387B5CB00A37AE0 /* RotationCalculator.swift */,
+				954660432387B5CB00A37AE0 /* RotationDialPlate.swift */,
+				954660442387B5CB00A37AE0 /* RotationDial.swift */,
+				954660452387B5CB00A37AE0 /* CGAngle.swift */,
+				954660462387B5CB00A37AE0 /* DialConfig.swift */,
+			);
+			path = RotationDial;
+			sourceTree = "<group>";
+		};
 		F6303928DF96F75577001E96 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -2192,6 +2371,17 @@
 				Base,
 				"en-GB",
 				fr,
+				de,
+				ar,
+				"zh-Hans",
+				ja,
+				es,
+				it,
+				"ko-KR",
+				ko,
+				"zh-Hant",
+				ru,
+				"pt-PT",
 			);
 			mainGroup = 824EB36F2361959800205993;
 			productRefGroup = 824EB3792361959800205993 /* Products */;
@@ -2239,6 +2429,7 @@
 				8205FC1F236C2C2F002B2603 /* Courier Prime.ttf in Resources */,
 				8205FB61236C1D0F002B2603 /* angry.json in Resources */,
 				82D1EC5323702B4300A680E7 /* Rouge.JPG in Resources */,
+				954660472387B5CC00A37AE0 /* MantisLocalizable.strings in Resources */,
 				8205FB8C236C29E7002B2603 /* PhotosPickerViewController.xib in Resources */,
 				8205FD62236C3B06002B2603 /* Media.xcassets in Resources */,
 				8205FD39236C3B06002B2603 /* LUT_M09.png in Resources */,
@@ -2411,6 +2602,7 @@
 				82D1EBDB236FF29600A680E7 /* MensionCollectionViewCell.swift in Sources */,
 				8206AEF42374108C000CDD2A /* Semaphore.swift in Sources */,
 				82D1EBEF236FF4B200A680E7 /* CropRectView.swift in Sources */,
+				954660552387B5CC00A37AE0 /* CropView+Touches.swift in Sources */,
 				8205FBD6236C2B54002B2603 /* StoryAssetExportSession.swift in Sources */,
 				8205FAAD236C0FF0002B2603 /* ZeroPaddingTextView.swift in Sources */,
 				8205FBBE236C2A88002B2603 /* MMPlayerPushAnimator.swift in Sources */,
@@ -2432,9 +2624,10 @@
 				82D1EBCD236FEFA700A680E7 /* StoryImageView.swift in Sources */,
 				8205FCA8236C3AFA002B2603 /* CollageViewT209.swift in Sources */,
 				8205FD41236C3B06002B2603 /* EngineLog.swift in Sources */,
-				82D1EC8223703DE300A680E7 /* PhotoEditiorViewController+Delegates.swift in Sources */,
+				82D1EC8223703DE300A680E7 /* PhotoEditorViewController+Delegates.swift in Sources */,
 				8205FAAE236C0FF0002B2603 /* VerticalCenteredTextView.swift in Sources */,
 				82D1EBF1236FF4CC00A680E7 /* UpgradePageCollectionViewCell.swift in Sources */,
+				9546606B2387B5CC00A37AE0 /* DialConfig.swift in Sources */,
 				8205FAF5236C110C002B2603 /* HandlerView.swift in Sources */,
 				82D1EBBB236FEDD800A680E7 /* VideoSpeeder.swift in Sources */,
 				8205FB22236C160E002B2603 /* StorySliderQueView.swift in Sources */,
@@ -2446,6 +2639,7 @@
 				8205FB89236C2982002B2603 /* CreatePostData.swift in Sources */,
 				8205FCCC236C3AFA002B2603 /* BaseLineView.swift in Sources */,
 				8205FAAF236C0FF0002B2603 /* BasePopOverMenu.swift in Sources */,
+				954660642387B5CC00A37AE0 /* LocalizedHelper.swift in Sources */,
 				8205FB36236C1CB5002B2603 /* ReactionTypeEnum.swift in Sources */,
 				8205FC57236C3A64002B2603 /* StyleTransferVC.swift in Sources */,
 				8205FCB9236C3AFA002B2603 /* CollageViewT204.swift in Sources */,
@@ -2453,6 +2647,8 @@
 				8205FCAF236C3AFA002B2603 /* CollageViewT401.swift in Sources */,
 				8205FA87236C0F9C002B2603 /* LoadingView.swift in Sources */,
 				8205FBD1236C2A88002B2603 /* CoverA.swift in Sources */,
+				954660592387B5CC00A37AE0 /* ImageContainer.swift in Sources */,
+				9546604B2387B5CC00A37AE0 /* RatioPresenter.swift in Sources */,
 				8205FA7C236C0F8C002B2603 /* HorizontalFlowLayout.swift in Sources */,
 				82AD6B7023704B330090498A /* UIViewUtilsExtension.swift in Sources */,
 				8205FB77236C1D0F002B2603 /* CAReactionSummaryLayer.swift in Sources */,
@@ -2477,8 +2673,9 @@
 				8205FBCD236C2A88002B2603 /* MMPlayerProtocol.swift in Sources */,
 				824EB3C323619E5C00205993 /* ControllersEnumShared.swift in Sources */,
 				824EB3F123619FB000205993 /* NextLevel+AVFoundation.swift in Sources */,
+				954660492387B5CC00A37AE0 /* Mantis.swift in Sources */,
 				82D1EBC5236FEE7C00A680E7 /* StickerCollectionViewCell.swift in Sources */,
-				82D1EC8323703DE300A680E7 /* PhotoEditiorViewController+Actions.swift in Sources */,
+				82D1EC8323703DE300A680E7 /* PhotoEditorViewController+Actions.swift in Sources */,
 				8205FB25236C160E002B2603 /* BaseStoryTagView.swift in Sources */,
 				824EB3BC23619E5C00205993 /* UIWindow.swift in Sources */,
 				8205FD6F236C3B06002B2603 /* TemperatureControl.swift in Sources */,
@@ -2499,13 +2696,16 @@
 				8287D22623829BDB0074FC39 /* StatsViewController.swift in Sources */,
 				82D1EBBF236FEE2A00A680E7 /* EditFilterCell.swift in Sources */,
 				8205FD59236C3B06002B2603 /* DrawnPath.swift in Sources */,
+				9546605F2387B5CC00A37AE0 /* CropVisualEffectView.swift in Sources */,
 				8299F56C23714F5F00963318 /* DottedLineView.swift in Sources */,
 				8205FAB7236C1037002B2603 /* InternetConnectionAlert.swift in Sources */,
 				8205FAC3236C1055002B2603 /* UIView+YGPulseView.m in Sources */,
+				954660522387B5CC00A37AE0 /* UIImageExtensions.swift in Sources */,
 				8205FAF2236C110C002B2603 /* VideoCropView.swift in Sources */,
 				8205FD7E236C3B06002B2603 /* Style.swift in Sources */,
 				8205FAC4236C1055002B2603 /* TransparentGradientView.swift in Sources */,
 				8205FC4A236C2E41002B2603 /* R.generated.swift in Sources */,
+				9546604F2387B5CC00A37AE0 /* CropViewController.swift in Sources */,
 				8205FD3B236C3B06002B2603 /* ColorCube.swift in Sources */,
 				8205FD42236C3B06002B2603 /* ColorCubeStorage.swift in Sources */,
 				8205FC69236C3AE7002B2603 /* DrawViewController.swift in Sources */,
@@ -2555,13 +2755,20 @@
 				8205FAA4236C0FD6002B2603 /* AssetVideoScrollView.swift in Sources */,
 				82D1EBD5236FF21700A680E7 /* StoryContext.swift in Sources */,
 				8205FD78236C3B06002B2603 /* MaskControlView.swift in Sources */,
+				9546604C2387B5CC00A37AE0 /* FixedRatioManager.swift in Sources */,
 				8205FB35236C1C09002B2603 /* GetPlayList.swift in Sources */,
 				824EB3CA23619E5C00205993 /* AVMutableComposition+AVAsset.swift in Sources */,
+				9546605D2387B5CC00A37AE0 /* CropView.swift in Sources */,
+				954660692387B5CC00A37AE0 /* RotationDial.swift in Sources */,
 				8287D20E23826ECD0074FC39 /* YouTubeCategoriesViewController.swift in Sources */,
+				954660542387B5CC00A37AE0 /* CropViewModel.swift in Sources */,
+				9546604E2387B5CC00A37AE0 /* ToolBarButtonImageBuilder.swift in Sources */,
 				8205FABD236C104B002B2603 /* ProgressView.swift in Sources */,
 				8205FD63236C3B06002B2603 /* DryDrawingView.swift in Sources */,
 				8205FC55236C3A58002B2603 /* SelectStoryHashtagVC.swift in Sources */,
+				954660652387B5CC00A37AE0 /* RotationDial+Touches.swift in Sources */,
 				824EB39E23619E3600205993 /* SharedClass.swift in Sources */,
+				954660562387B5CC00A37AE0 /* CropView+UIScrollViewDelegate.swift in Sources */,
 				82D1EBBD236FEE0700A680E7 /* RoundedButton.swift in Sources */,
 				8205FD6B236C3B06002B2603 /* HighlightsControl.swift in Sources */,
 				82D1EBD9236FF23D00A680E7 /* SketchView.swift in Sources */,
@@ -2586,6 +2793,7 @@
 				824EB3C423619E5C00205993 /* UIAlertController.swift in Sources */,
 				8205FD9A236C3B50002B2603 /* StorySettingsVC.swift in Sources */,
 				8205FD80236C3B06002B2603 /* EditorLog.swift in Sources */,
+				954660572387B5CC00A37AE0 /* CropScrollView.swift in Sources */,
 				824EB3BF23619E5C00205993 /* URL.swift in Sources */,
 				824EB3CC23619E5C00205993 /* CGRect+Extension.swift in Sources */,
 				8205FC65236C3AE7002B2603 /* DrawTextView.swift in Sources */,
@@ -2604,6 +2812,7 @@
 				824EB3C123619E5C00205993 /* String+Extension.swift in Sources */,
 				82D1EBE1236FF30800A680E7 /* Hash.swift in Sources */,
 				8205FB01236C11F5002B2603 /* RPCircularProgress.swift in Sources */,
+				954660672387B5CC00A37AE0 /* RotationCalculator.swift in Sources */,
 				824EB3BD23619E5C00205993 /* CoreML+Helpers.swift in Sources */,
 				824EB3E923619FB000205993 /* NextLevel+CIContext.swift in Sources */,
 				8205FD6A236C3B06002B2603 /* FilterControlBase.swift in Sources */,
@@ -2617,17 +2826,18 @@
 				82D1EBA2236FED0500A680E7 /* MensionCollectionViewDelegate.swift in Sources */,
 				8205FBBF236C2A88002B2603 /* MMPlayerPassViewPushTransition.swift in Sources */,
 				8205FCB7236C3AFA002B2603 /* CollageViewT302.swift in Sources */,
+				954660532387B5CC00A37AE0 /* CoreGraphicsExtensions.swift in Sources */,
 				8205FA7A236C0F5B002B2603 /* ImageLibrary.swift in Sources */,
 				8205FB15236C1532002B2603 /* CountdownView.swift in Sources */,
+				9546605A2387B5CC00A37AE0 /* CropBoxFreeAspectFrameUpdater.swift in Sources */,
 				8205FBC9236C2A88002B2603 /* UIView+LayoutFit.swift in Sources */,
 				82CCB1722372D21E00EC76E8 /* PromanagerData.swift in Sources */,
 				8287D21E23829AAA0074FC39 /* YouTubeTableViewCell.swift in Sources */,
 				824EB3D523619EEA00205993 /* BoomerangEffect.swift in Sources */,
 				8205FD98236C3B49002B2603 /* StoryUploadVC.swift in Sources */,
-				8205FD86236C3B16002B2603 /* CropViewController.swift in Sources */,
 				824EB3EE23619FB000205993 /* CircularProgress.swift in Sources */,
 				8205FB90236C2A0F002B2603 /* AllPhotosCollectionViewCell.swift in Sources */,
-				82D1EC8423703DE300A680E7 /* PhotoEditioViewController+Picker.swift in Sources */,
+				82D1EC8423703DE300A680E7 /* PhotoEditorViewController+Picker.swift in Sources */,
 				8205FCBD236C3AFA002B2603 /* CollageViewT306.swift in Sources */,
 				8206AEF52374108C000CDD2A /* Scheduler.swift in Sources */,
 				8205FB26236C160E002B2603 /* StoryTagView.swift in Sources */,
@@ -2638,12 +2848,13 @@
 				8205FD3E236C3B06002B2603 /* HardwareImageView.swift in Sources */,
 				8205FCC6236C3AFA002B2603 /* CollageViewT201.swift in Sources */,
 				8287D22423829BD60074FC39 /* SimpleKeyWordViewController.swift in Sources */,
+				9546605E2387B5CC00A37AE0 /* CropMaskViewManager.swift in Sources */,
 				8205FB87236C28F3002B2603 /* EditOption.swift in Sources */,
 				8205FD61236C3B06002B2603 /* L10n.swift in Sources */,
-				82D1EBD3236FF1F300A680E7 /* CropView.swift in Sources */,
 				8205FBCF236C2A88002B2603 /* MMLandscapeWindow.swift in Sources */,
 				8205FCAD236C3AFA002B2603 /* CollageViewT505.swift in Sources */,
 				8205FAF9236C1172002B2603 /* UPCarouselFlowLayout.swift in Sources */,
+				954660622387B5CC00A37AE0 /* GeometryHelper.swift in Sources */,
 				8205FD71236C3B06002B2603 /* ShadowsControl.swift in Sources */,
 				8205FAE7236C10F3002B2603 /* DNDDragOperation.m in Sources */,
 				8205FC9F236C3AFA002B2603 /* CollageViewT504.swift in Sources */,
@@ -2654,6 +2865,7 @@
 				824EB3D123619E5C00205993 /* NSObject.swift in Sources */,
 				8287D21423826F800074FC39 /* GrowingTextView.swift in Sources */,
 				8205FB6B236C1D0F002B2603 /* ComponentBuilder.swift in Sources */,
+				954660632387B5CC00A37AE0 /* CropAssetExportSession.swift in Sources */,
 				8205FCA0236C3AFA002B2603 /* CollageViewT309.swift in Sources */,
 				8205FCBB236C3AFA002B2603 /* CollageViewT304.swift in Sources */,
 				8287D22A23829E620074FC39 /* StatTableViewCell.swift in Sources */,
@@ -2666,11 +2878,13 @@
 				8205FD92236C3B32002B2603 /* HistroGramVC.swift in Sources */,
 				8205FA77236C0EE4002B2603 /* ColorImageButton.swift in Sources */,
 				8205FD5F236C3B06002B2603 /* PixelEditor.swift in Sources */,
+				954660512387B5CC00A37AE0 /* CGImageExtensions.swift in Sources */,
 				824EB39C23619E3600205993 /* StoryCamShared.swift in Sources */,
 				8205FD4E236C3B06002B2603 /* FilterShadows.swift in Sources */,
 				8205FD48236C3B06002B2603 /* OvalBrush.swift in Sources */,
 				82D1EBB1236FED4F00A680E7 /* HalfModalInteractiveTransition.swift in Sources */,
 				8205FAB1236C1001002B2603 /* ImageCropperView.swift in Sources */,
+				9546604A2387B5CC00A37AE0 /* CropToolbar.swift in Sources */,
 				824EB3EA23619FB000205993 /* NextLevelGIFCreator.swift in Sources */,
 				8205FCBE236C3AFA002B2603 /* CollageViewT202.swift in Sources */,
 				8205FB30236C1B61002B2603 /* SegmentVideos.swift in Sources */,
@@ -2682,10 +2896,12 @@
 				8205FA97236C0FAE002B2603 /* VSSlider.swift in Sources */,
 				8205FAF4236C110C002B2603 /* CropMaskView.swift in Sources */,
 				8205FBC4236C2A88002B2603 /* MMPlayerLayer.swift in Sources */,
+				9546605C2387B5CC00A37AE0 /* CropBoxLockedAspectFrameUpdater.swift in Sources */,
 				8205FB0D236C121F002B2603 /* LocationManager.swift in Sources */,
 				82D1EBA4236FED1700A680E7 /* EmojiCollectionViewDelegate.swift in Sources */,
 				824EB3E623619FB000205993 /* NextLevel+Foundation.swift in Sources */,
 				824EB3EB23619FB000205993 /* NextLevelBufferRenderer.swift in Sources */,
+				9546606A2387B5CC00A37AE0 /* CGAngle.swift in Sources */,
 				8205FBBA236C2A88002B2603 /* MMPlayerPassViewPresentConfig.swift in Sources */,
 				8205FDA6236C3B85002B2603 /* UpgradeViewController.swift in Sources */,
 				8205FD77236C3B06002B2603 /* RootControlView.swift in Sources */,
@@ -2713,6 +2929,7 @@
 				820B23752371975000906BF0 /* Result.swift in Sources */,
 				8205FCB4236C3AFA002B2603 /* CollageViewT602.swift in Sources */,
 				8205FD56236C3B06002B2603 /* FilterGaussianBlur.swift in Sources */,
+				954660482387B5CC00A37AE0 /* RatioOptions.swift in Sources */,
 				824EB39823619E2800205993 /* ApplicationSettings.swift in Sources */,
 				8287D20A23826D070074FC39 /* YouTubeUploadViewController.swift in Sources */,
 				82D1EBB7236FED7800A680E7 /* MLVideoView.swift in Sources */,
@@ -2721,7 +2938,7 @@
 				8205FB7E236C1FC6002B2603 /* SocialCAM.xcdatamodeld in Sources */,
 				8205FAFD236C1199002B2603 /* SnapGesture.swift in Sources */,
 				82D1EBB3236FED4F00A680E7 /* HalfModalTransitioningDelegate.swift in Sources */,
-				82D1EC8523703DE300A680E7 /* PhotoEditioViewController.swift in Sources */,
+				82D1EC8523703DE300A680E7 /* PhotoEditorViewController.swift in Sources */,
 				8205FCA1236C3AFA002B2603 /* CollageViewT310.swift in Sources */,
 				824EB3EC23619FB000205993 /* NextLevel.swift in Sources */,
 				82D1EBB5236FED4F00A680E7 /* BubbleTransition.swift in Sources */,
@@ -2740,6 +2957,7 @@
 				82D1EBDF236FF2DF00A680E7 /* UILabel+Extension.swift in Sources */,
 				8205FCC3236C3AFA002B2603 /* CollageViewT303.swift in Sources */,
 				8299F56A23713A8B00963318 /* StoryCameraViewController+NextLevel.swift in Sources */,
+				954660582387B5CC00A37AE0 /* CropViewStatus.swift in Sources */,
 				8287D22023829BC60074FC39 /* KeywordViewController.swift in Sources */,
 				8287D21023826EE80074FC39 /* YouTubeSubscription.swift in Sources */,
 				8205FA88236C0F9C002B2603 /* CameraView.swift in Sources */,
@@ -2750,6 +2968,7 @@
 				8205FC4B236C2E4E002B2603 /* StoryCameraViewController.swift in Sources */,
 				8205FB28236C160E002B2603 /* BaseWeatherTagView.swift in Sources */,
 				8205FCB8236C3AFA002B2603 /* CollageView.swift in Sources */,
+				954660682387B5CC00A37AE0 /* RotationDialPlate.swift in Sources */,
 				8206AEF02374108C000CDD2A /* Queuer.swift in Sources */,
 				824EB3E823619FB000205993 /* NextLevelSession.swift in Sources */,
 				8205FC53236C3A4E002B2603 /* MusicPickerVC.swift in Sources */,
@@ -2760,6 +2979,7 @@
 				824EB3CB23619E5C00205993 /* UIView.swift in Sources */,
 				8205FB23236C160E002B2603 /* StoryPollQueView.swift in Sources */,
 				8205FAFF236C11A4002B2603 /* CustomPhotoAlbum.swift in Sources */,
+				954660612387B5CC00A37AE0 /* CropMaskProtocal.swift in Sources */,
 				8205FAF6236C110C002B2603 /* PryntTrimmerView.swift in Sources */,
 				8205FD72236C3B06002B2603 /* FadeControl.swift in Sources */,
 				824EB3C923619E5C00205993 /* UITextField+Extension.swift in Sources */,
@@ -2767,6 +2987,7 @@
 				8205FB93236C2A6C002B2603 /* PlayerView.swift in Sources */,
 				8205FD58236C3B06002B2603 /* FilterUnsharpMask.swift in Sources */,
 				8205FCCA236C3AFA002B2603 /* PhotoScrollView.swift in Sources */,
+				954660602387B5CC00A37AE0 /* CropDimmingView.swift in Sources */,
 				8206AEF12374108C000CDD2A /* ConcurrentOperation.swift in Sources */,
 				8205FCC9236C3AFA002B2603 /* LineHandleView.swift in Sources */,
 				8205FD49236C3B06002B2603 /* InternalUtils.swift in Sources */,
@@ -2779,11 +3000,12 @@
 				8205FD4F236C3B06002B2603 /* FilterSaturation.swift in Sources */,
 				8205FB6D236C1D0F002B2603 /* ReactionFeedback.swift in Sources */,
 				8205FB8D236C29E7002B2603 /* PhotosPickerViewController.swift in Sources */,
-				82AD6B7223704BA60090498A /* PhotoEditiorViewController+CollectionView.swift in Sources */,
+				82AD6B7223704BA60090498A /* PhotoEditorViewController+CollectionView.swift in Sources */,
 				8205FD74236C3B06002B2603 /* NavigationView.swift in Sources */,
 				8205FBB9236C2A88002B2603 /* MMPlayerPassViewPresentTransition.swift in Sources */,
 				824EB3BA23619E5C00205993 /* CIFilter.swift in Sources */,
 				8205FB27236C160E002B2603 /* Weather.swift in Sources */,
+				9546605B2387B5CC00A37AE0 /* CropOverlayView.swift in Sources */,
 				8205FCAB236C3AFA002B2603 /* CollageViewT313.swift in Sources */,
 				82D1EBA8236FED2F00A680E7 /* StorySwipeableFilterView.swift in Sources */,
 				8287D21C23829A840074FC39 /* YTSerchResponse.swift in Sources */,
@@ -2799,6 +3021,7 @@
 				824EB3BB23619E5C00205993 /* UIButton.swift in Sources */,
 				8299F563237135BF00963318 /* UIAppleColorWrapper.swift in Sources */,
 				8205FD96236C3B3D002B2603 /* BaseUploadVC.swift in Sources */,
+				954660662387B5CC00A37AE0 /* RotationDialViewModel.swift in Sources */,
 				8205FB03236C11FA002B2603 /* MyUndoManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2863,6 +3086,26 @@
 				82F4CA00237D2FB7001EF701 /* en-GB */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		9546600F2387B5CB00A37AE0 /* MantisLocalizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				954660102387B5CB00A37AE0 /* de */,
+				954660112387B5CB00A37AE0 /* ar */,
+				954660122387B5CB00A37AE0 /* zh-Hans */,
+				954660132387B5CB00A37AE0 /* ja */,
+				954660142387B5CB00A37AE0 /* en */,
+				954660152387B5CB00A37AE0 /* es */,
+				954660162387B5CB00A37AE0 /* it */,
+				954660172387B5CB00A37AE0 /* ko-KR */,
+				954660182387B5CB00A37AE0 /* ko */,
+				954660192387B5CB00A37AE0 /* zh-Hant */,
+				9546601A2387B5CB00A37AE0 /* ru */,
+				9546601B2387B5CB00A37AE0 /* fr */,
+				9546601C2387B5CB00A37AE0 /* pt-PT */,
+			);
+			name = MantisLocalizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

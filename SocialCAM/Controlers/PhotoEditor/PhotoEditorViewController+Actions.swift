@@ -659,6 +659,26 @@ extension PhotoEditorViewController {
     }
     
     @IBAction func cropButtonClicked(_ sender: Any) {
+        var cropViewController: CropViewController
+        if let image = self.image {
+            cropViewController = CropViewController(image: image)
+        } else {
+            let mergeSession = SCRecordSession.init()
+            for segementModel in videoUrls[currentPage].videos {
+                let segment = SCRecordSessionSegment(url: segementModel.url!, info: nil)
+                mergeSession.addSegment(segment)
+            }
+            let currentAsset = mergeSession.assetRepresentingSegments()
+            cropViewController = CropViewController(avAsset: currentAsset)
+        }
+        cropViewController.delegate = self
+        cropViewController.videoSegments = videoUrls
+        cropViewController.currentIndex = currentPage
+        cropViewController.modalPresentationStyle = .fullScreen
+        present(cropViewController, animated: true)
+    }
+    
+    @IBAction func maskButtonClicked(_ sender: Any) {
         guard let imageCropperVC = R.storyboard.photoEditor.imageCropperVC() else {
             return
         }

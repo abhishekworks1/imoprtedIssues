@@ -108,10 +108,10 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7PL-Bo-YkF">
-                                        <rect key="frame" x="269" y="44" width="94" height="390"/>
+                                        <rect key="frame" x="269" y="44" width="94" height="440"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="FLd-wJ-IJ7">
-                                                <rect key="frame" x="0.0" y="0.0" width="94" height="390"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="94" height="440"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2o9-5t-c2Q">
                                                         <rect key="frame" x="0.0" y="0.0" width="94" height="40"/>
@@ -647,7 +647,7 @@
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A9z-jK-0Ab">
                                                                 <rect key="frame" x="0.0" y="0.0" width="94" height="40"/>
                                                                 <connections>
-                                                                    <action selector="cropButtonClicked:" destination="osR-bb-bJY" eventType="touchUpInside" id="Vxj-If-3mo"/>
+                                                                    <action selector="maskButtonClicked:" destination="osR-bb-bJY" eventType="touchUpInside" id="BcT-zr-WcK"/>
                                                                 </connections>
                                                             </button>
                                                         </subviews>
@@ -667,8 +667,52 @@
                                                             <constraint firstAttribute="bottom" secondItem="A9z-jK-0Ab" secondAttribute="bottom" id="xie-g6-Eza"/>
                                                         </constraints>
                                                     </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qgH-Ne-ibi">
+                                                        <rect key="frame" x="0.0" y="400" width="94" height="40"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D3r-n6-1aC">
+                                                                <rect key="frame" x="0.0" y="0.0" width="94" height="22"/>
+                                                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
+                                                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <state key="normal" image="crop"/>
+                                                                <state key="selected" image="storyHorizontalFlip"/>
+                                                            </button>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Crop" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="acb-va-lDG">
+                                                                <rect key="frame" x="0.0" y="26" width="94" height="14"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="14" id="7uU-3L-K7o"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="12"/>
+                                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <nil key="highlightedColor"/>
+                                                                <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <size key="shadowOffset" width="0.0" height="1"/>
+                                                            </label>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LWW-tS-OMd">
+                                                                <rect key="frame" x="0.0" y="0.0" width="94" height="40"/>
+                                                                <connections>
+                                                                    <action selector="cropButtonClicked:" destination="osR-bb-bJY" eventType="touchUpInside" id="taV-qB-SBg"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="trailing" secondItem="D3r-n6-1aC" secondAttribute="trailing" id="4NS-UA-v4E"/>
+                                                            <constraint firstItem="acb-va-lDG" firstAttribute="top" secondItem="D3r-n6-1aC" secondAttribute="bottom" constant="4" id="4zb-Jy-96g"/>
+                                                            <constraint firstItem="LWW-tS-OMd" firstAttribute="top" secondItem="qgH-Ne-ibi" secondAttribute="top" id="DNY-uw-j4l"/>
+                                                            <constraint firstAttribute="bottom" secondItem="acb-va-lDG" secondAttribute="bottom" id="F9q-eR-Kze"/>
+                                                            <constraint firstItem="acb-va-lDG" firstAttribute="leading" secondItem="qgH-Ne-ibi" secondAttribute="leading" id="LxU-0E-rb2"/>
+                                                            <constraint firstItem="D3r-n6-1aC" firstAttribute="leading" secondItem="qgH-Ne-ibi" secondAttribute="leading" id="Ojp-JT-khq"/>
+                                                            <constraint firstAttribute="height" constant="40" id="VtD-TB-lMX"/>
+                                                            <constraint firstItem="LWW-tS-OMd" firstAttribute="leading" secondItem="qgH-Ne-ibi" secondAttribute="leading" id="Yim-Oe-ldb"/>
+                                                            <constraint firstItem="D3r-n6-1aC" firstAttribute="top" secondItem="qgH-Ne-ibi" secondAttribute="top" id="bTD-vV-TuF"/>
+                                                            <constraint firstAttribute="bottom" secondItem="LWW-tS-OMd" secondAttribute="bottom" id="gAw-Yp-0ex"/>
+                                                            <constraint firstAttribute="trailing" secondItem="acb-va-lDG" secondAttribute="trailing" id="i3P-8O-8bt"/>
+                                                            <constraint firstAttribute="trailing" secondItem="LWW-tS-OMd" secondAttribute="trailing" id="jKo-rS-yAh"/>
+                                                        </constraints>
+                                                    </view>
                                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5hI-fF-14h">
-                                                        <rect key="frame" x="0.0" y="390" width="94" height="40"/>
+                                                        <rect key="frame" x="0.0" y="440" width="94" height="40"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B5p-e5-d6a">
                                                                 <rect key="frame" x="0.0" y="0.0" width="94" height="22"/>
@@ -712,7 +756,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8yG-6f-hbM">
-                                                        <rect key="frame" x="0.0" y="390" width="94" height="40"/>
+                                                        <rect key="frame" x="0.0" y="440" width="94" height="40"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dLp-tL-lv9">
                                                                 <rect key="frame" x="0.0" y="0.0" width="94" height="22"/>
@@ -2594,10 +2638,11 @@
                         <viewLayoutGuide key="safeArea" id="O0V-DG-Jz2"/>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="i1N-Ih-VXR"/>
+                                <exclude reference="dq7-3d-yW8"/>
                                 <exclude reference="f57-Ps-T8Q"/>
                                 <exclude reference="i1N-Ih-VXR"/>
                                 <exclude reference="BhR-mE-dNB"/>
-                                <exclude reference="dq7-3d-yW8"/>
                             </mask>
                         </variation>
                     </view>
@@ -2672,6 +2717,7 @@
                         <outlet property="segmentEditOptionView" destination="2II-Py-fJ3" id="PUN-t1-n33"/>
                         <outlet property="segmentTypeMergeView" destination="dcU-29-SPy" id="PGv-MD-Ol8"/>
                         <outlet property="segmentedProgressBar" destination="mcv-Uf-3wq" id="Chu-Q1-evW"/>
+                        <outlet property="selectCropView" destination="qgH-Ne-ibi" id="i2G-Xd-d0K"/>
                         <outlet property="selectStoryTimeView" destination="3Dk-8w-DiF" id="zpE-Cd-igL"/>
                         <outlet property="sendChatExportLabel" destination="TId-3t-OtO" id="aAT-Zd-2WC"/>
                         <outlet property="sendChatView" destination="303-J9-sdF" id="HmN-9t-Igy"/>
@@ -4224,6 +4270,7 @@
         <image name="addNewMusic" width="22" height="22"/>
         <image name="checkOff" width="20" height="20"/>
         <image name="checkOn" width="20" height="20"/>
+        <image name="crop" width="25" height="25"/>
         <image name="deletewhitesmall" width="30" height="30"/>
         <image name="done" width="21" height="15"/>
         <image name="downHistoGram" width="38" height="31"/>
