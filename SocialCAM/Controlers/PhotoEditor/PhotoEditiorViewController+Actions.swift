@@ -1107,18 +1107,14 @@ extension PhotoEditorViewController {
                         }
                         let internalStoryTags = getTags()
                         let storyData = InternalStoryData(address: self.address, duration: "", lat: self.lat, long: self.long, thumbTime: url.thumbTime!.seconds, type: "video", url: "", userId: Defaults.shared.currentUser?.id ?? "", watermarkURL: watermarkURL.absoluteString, isMute: self.isMute, filterName: filterName, exportedUrls: urls, hiddenHashtags: self.hiddenHashtags.joined(separator: " "), tags: internalStoryTags)
-                        let tx =  self.dummyView.xGlobalPoint
-                        let ty = self.dummyView.yGlobalPoint
-                        let rotation = self.dummyView.rotationValue
+                        let tx = self.dummyView.frame.origin.x*100 / self.filterSwitcherView!.frame.size.width
+                        let ty = self.dummyView.frame.origin.y*100 / self.filterSwitcherView!.frame.size.height
                         
-                        let track = scPlayer!.currentItem!.asset.tracks(withMediaType: .video)[0]
-                        var theNaturalSize = track.naturalSize
-                        theNaturalSize = theNaturalSize.applying(track.preferredTransform)
-                        theNaturalSize.width = CGFloat(abs(Float(theNaturalSize.width)))
-                        theNaturalSize.height = CGFloat(abs(Float(theNaturalSize.height)))
+                        let scaleX = sqrt(pow(dummyView.transform.a, 2) + pow(dummyView.transform.c, 2))
+                        let scaleY = sqrt(pow(dummyView.transform.b, 2) + pow(dummyView.transform.d, 2))
                         
-                        let scaleX = self.dummyView.originalScaleXValue(for: theNaturalSize.width)
-                        let scaleY = self.dummyView.originalScaleYValue(for: theNaturalSize.height)
+                        let rotation = atan2(self.dummyView.transform.b, self.dummyView.transform.a)
+
                         storyData.videotx = Double(tx)
                         storyData.videoty = Double(ty)
                         storyData.videoScaleX = Double(scaleX)
@@ -1155,18 +1151,13 @@ extension PhotoEditorViewController {
                     }
                     let internalStoryTags = getTags()
                     let storyData = InternalStoryData(address: self.address, duration: "", lat: self.lat, long: self.long, thumbTime: url.thumbTime!.seconds, type: "video", url: "", userId: Defaults.shared.currentUser?.id ?? "", watermarkURL: watermarkURL.absoluteString, isMute: self.isMute, filterName: filterName, exportedUrls: urls, hiddenHashtags: self.hiddenHashtags.joined(separator: " "), tags: internalStoryTags)
-                    let tx =  self.dummyView.xGlobalPoint
-                    let ty = self.dummyView.yGlobalPoint
-                    let rotation = self.dummyView.rotationValue
+                    let tx = self.dummyView.frame.origin.x*100 / self.filterSwitcherView!.frame.size.width
+                    let ty = self.dummyView.frame.origin.y*100 / self.filterSwitcherView!.frame.size.height
                     
-                    let track = scPlayer!.currentItem!.asset.tracks(withMediaType: .video)[0]
-                    var theNaturalSize = track.naturalSize
-                    theNaturalSize = theNaturalSize.applying(track.preferredTransform)
-                    theNaturalSize.width = CGFloat(abs(Float(theNaturalSize.width)))
-                    theNaturalSize.height = CGFloat(abs(Float(theNaturalSize.height)))
+                    let scaleX = sqrt(pow(dummyView.transform.a, 2) + pow(dummyView.transform.c, 2))
+                    let scaleY = sqrt(pow(dummyView.transform.b, 2) + pow(dummyView.transform.d, 2))
                     
-                    let scaleX = self.dummyView.originalScaleXValue(for: theNaturalSize.width)
-                    let scaleY = self.dummyView.originalScaleYValue(for: theNaturalSize.height)
+                    let rotation = atan2(self.dummyView.transform.b, self.dummyView.transform.a)
                     storyData.videotx = Double(tx)
                     storyData.videoty = Double(ty)
                     storyData.videoScaleX = Double(scaleX)
@@ -1363,21 +1354,15 @@ extension PhotoEditorViewController {
         }
         exportSession.isMute = isMute
         exportSession.overlayImage = canvasView.toVideoImage()
-        let transformation = InputImageTransformation()
+        let tx = self.dummyView.frame.origin.x*100 / self.filterSwitcherView!.frame.size.width
+        let ty = self.dummyView.frame.origin.y*100 / self.filterSwitcherView!.frame.size.height
         
-        transformation.tx =  self.dummyView.xGlobalPoint
-        transformation.ty = self.dummyView.yGlobalPoint
+        let scaleX = sqrt(pow(dummyView.transform.a, 2) + pow(dummyView.transform.c, 2))
+        let scaleY = sqrt(pow(dummyView.transform.b, 2) + pow(dummyView.transform.d, 2))
         
-        let track = scPlayer!.currentItem!.asset.tracks(withMediaType: .video)[0]
-        var theNaturalSize = track.naturalSize
-        theNaturalSize = theNaturalSize.applying(track.preferredTransform)
-        theNaturalSize.width = CGFloat(abs(Float(theNaturalSize.width)))
-        theNaturalSize.height = CGFloat(abs(Float(theNaturalSize.height)))
+        let rotation = atan2(self.dummyView.transform.b, self.dummyView.transform.a)
         
-        transformation.scaleX = self.dummyView.originalScaleXValue(for: theNaturalSize.width)
-        transformation.scaleY = self.dummyView.originalScaleYValue(for: theNaturalSize.height)
-        transformation.rotation = self.dummyView.rotationValue
-        exportSession.inputTransformation = transformation
+        exportSession.inputTransformation = StoryImageView.ImageTransformation(tx: tx, ty: ty, scaleX: scaleX, scaleY: scaleY, rotation: rotation)
         exportSession.export(for: asset, progress: { progress in
             print("New progress \(progress)")
             viewData.progressView.setProgress(to: Double(progress), withAnimation: true)
