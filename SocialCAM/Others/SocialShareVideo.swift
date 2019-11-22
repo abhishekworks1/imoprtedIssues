@@ -28,9 +28,14 @@ open class SocialShareVideo: NSObject, SharingDelegate {
         case .facebook:
             self.fbShareImage(image)
         case .instagram:
-            self.saveImageToCameraRoll(image: image, completion: { (result, phAsset) in
+            self.saveImageToCameraRoll(image: image, completion: { [weak self] (result, phAsset) in
+                guard let `self` = self else {
+                    return
+                }
                 DispatchQueue.runOnMainThread {
-                    self.instaImageVideoShare(phAsset!)
+                    if let asset = phAsset {
+                        self.instaImageVideoShare(asset)
+                    }
                 }
             })
         case .twitter:
@@ -38,6 +43,17 @@ open class SocialShareVideo: NSObject, SharingDelegate {
             break
         case .snapchat:
             self.snapChatShareImage(image: image)
+        case .tiktok:
+            self.saveImageToCameraRoll(image: image, completion: { [weak self] (result, phAsset) in
+                guard let `self` = self else {
+                    return
+                }
+                DispatchQueue.runOnMainThread {
+                    if let asset = phAsset {
+                        self.tikTokImageVideoShare(asset)
+                    }
+                }
+            })
         default:
             break
         }
@@ -47,27 +63,19 @@ open class SocialShareVideo: NSObject, SharingDelegate {
         guard let url = url else { return }
         switch socialType {
         case .facebook, .instagram:
-            PHPhotoLibrary.requestAuthorization({ [weak self]
-                (newStatus) in
-                guard let strongSelf = self else {
+            self.saveVideoToCameraRoll(url: url, completion: { [weak self] (result, phAsset) in
+                guard let `self` = self else {
                     return
                 }
-                if newStatus ==  PHAuthorizationStatus.authorized {
-                    strongSelf.saveVideoToCameraRoll(url: url, completion: { [weak self] (result, phAsset) in
-                        guard let strongSelf = self else {
-                            return
-                        }
-                        DispatchQueue.runOnMainThread {
-                            switch socialType {
-                            case .facebook:
-                                strongSelf.fbShareVideo(phAsset)
-                            case .instagram:
-                                strongSelf.instaImageVideoShare(phAsset)
-                            default:
-                                break
-                            }
-                        }
-                    })
+                DispatchQueue.runOnMainThread {
+                    switch socialType {
+                    case .facebook:
+                        self.fbShareVideo(phAsset)
+                    case .instagram:
+                        self.instaImageVideoShare(phAsset)
+                    default:
+                        break
+                    }
                 }
             })
         case .snapchat:
@@ -79,7 +87,17 @@ open class SocialShareVideo: NSObject, SharingDelegate {
         case .youtube:
             youTubeUpload(url)
             break
-        default:
+        case .tiktok:
+            self.saveVideoToCameraRoll(url: url) { [weak self] (result, phAsset) in
+                guard let `self` = self else {
+                    return
+                }
+                DispatchQueue.runOnMainThread {
+                    if let asset = phAsset {
+                        self.tikTokImageVideoShare(asset)
+                    }
+                }
+            }
             break
         }
     }
@@ -139,19 +157,26 @@ open class SocialShareVideo: NSObject, SharingDelegate {
     }
     
     func saveVideoToCameraRoll(url: URL, completion:@escaping (Bool, PHAsset?) -> ()) {
-        PHPhotoLibrary.shared().performChanges({
-            PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: url)
-        }) { saved, error in
-            if saved {
-                let fetchOptions = PHFetchOptions()
-                fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-                fetchOptions.fetchLimit = 1
-                let fetchResult = PHAsset.fetchAssets(with: .video, options: fetchOptions).firstObject
-                completion(true, fetchResult)
+        PHPhotoLibrary.requestAuthorization({
+            (newStatus) in
+            if newStatus ==  PHAuthorizationStatus.authorized {
+                PHPhotoLibrary.shared().performChanges({
+                    PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: url)
+                }) { saved, error in
+                    if saved {
+                        let fetchOptions = PHFetchOptions()
+                        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+                        fetchOptions.fetchLimit = 1
+                        let fetchResult = PHAsset.fetchAssets(with: .video, options: fetchOptions).firstObject
+                        completion(true, fetchResult)
+                    } else {
+                        completion(false, nil)
+                    }
+                }
             } else {
                 completion(false, nil)
             }
-        }
+        })
     }
     
     func saveImageToCameraRoll(image: UIImage, completion:@escaping (Bool, PHAsset?) -> ()) {
@@ -202,6 +227,12 @@ open class SocialShareVideo: NSObject, SharingDelegate {
                 Utils.appDelegate?.window?.makeToast(R.string.localizable.youNeedToInstallInstagramToShareThisPhotoVideo())
             }
         }
+    }
+    
+    func tikTokImageVideoShare(_ phAsset: PHAsset?) {
+        guard let phAsset = phAsset else { return }
+        let localIdentifier = phAsset.localIdentifier
+        // Todo - In Development 
     }
     
     func snapChatShareImage(image: UIImage) {

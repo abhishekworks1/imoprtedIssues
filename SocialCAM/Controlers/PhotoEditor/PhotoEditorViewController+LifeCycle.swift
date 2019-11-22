@@ -14,12 +14,10 @@ import IQKeyboardManagerSwift
 extension PhotoEditorViewController {
     
     // LifeCycle
-    
     override public func viewDidLoad() {
         super.viewDidLoad()
         bottomToolbar.isHidden = (storiCamType == .chat || storiCamType == .feed)
-        sendChatView.isHidden = !(storiCamType == .chat || storiCamType == .feed)
-        
+       
         initLocation()
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         setupColorSlider()
@@ -40,7 +38,12 @@ extension PhotoEditorViewController {
         tagVC = TagVC(nibName: "TagVC", bundle: Bundle(for: TagVC.self))
         
         setupExistingTags()
-        
+        #if PRO
+        self.isProVersionApp(true)
+        #else
+        self.isProVersionApp(false)
+       
+        #endif
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -109,14 +109,13 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
             CurrentUser.shared.setActiveUser(nil)
             
             if let loginNav = R.storyboard.loginViewController.loginNavigation() {
-                Utils.appDelegate?.window?.rootViewController = loginNav
+                Utils.appDelegate?.window?.switchRootViewController(loginNav)
             }
         }, onError: { (error) in
             self.dismissHUD()
             
             if let loginNav = R.storyboard.loginViewController.loginNavigation() {
-                Utils.appDelegate?.window?.rootViewController = loginNav
-                Utils.appDelegate?.window?.makeKeyAndVisible()
+                Utils.appDelegate?.window?.switchRootViewController(loginNav)
             }
         }, onCompleted: {
             self.dismissHUD()

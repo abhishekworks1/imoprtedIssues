@@ -195,8 +195,6 @@ class PhotoEditorViewController: UIViewController {
     @IBOutlet weak var postStoryButton: UIButton!
     
     @IBOutlet weak var editImageWithOptionsView: UIView!
-    @IBOutlet weak var sendChatView: UIView!
-    @IBOutlet weak var sendChatExportLabel: UILabel!
     
     @IBOutlet weak var mensionPickerView: UIView!
     @IBOutlet weak var mensionCollectionView: UICollectionView!
@@ -247,6 +245,12 @@ class PhotoEditorViewController: UIViewController {
             storyTimePickerView.selectionTitle.text = "seconds"
         }
     }
+    
+    @IBOutlet weak var storiCamBottomToolBar: UIStackView!
+    
+    @IBOutlet weak var socialShareBottomToolBar: UIStackView!
+    
+    @IBOutlet weak var youtubeShareView: UIView!
     
     // MARK: Variables
     
@@ -410,6 +414,7 @@ class PhotoEditorViewController: UIViewController {
             soundView.isHidden = !isVideo
             coverView.isHidden = !isVideo
             youTubeView.isHidden = !isVideo
+            youtubeShareView.isHidden = !isVideo
         }
     }
     
@@ -809,12 +814,15 @@ class PhotoEditorViewController: UIViewController {
         feedView.alpha = alpha
         notesView.isUserInteractionEnabled = isEnable
         notesView.alpha = alpha
-        sendChatView.isUserInteractionEnabled = isEnable
-        sendChatView.alpha = alpha
         youTubeView.isUserInteractionEnabled = isEnable
         youTubeView.alpha = alpha
         socialShareView.isUserInteractionEnabled = isEnable
         socialShareView.alpha = alpha
+    }
+    
+    func isProVersionApp(_ isPro: Bool) {
+        socialShareBottomToolBar.isHidden = isPro
+        storiCamBottomToolBar.isHidden = !isPro
     }
     
     func newVideoCreate(url: URL, newUrl urls: URL) {

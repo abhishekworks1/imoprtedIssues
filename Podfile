@@ -51,4 +51,5 @@ target 'SocialCAM' do
   pod 'GoogleSignIn', '4.4.0'
   pod 'TagListView', '1.3.2'
   pod 'TwitterKit'
+  pod 'TikTokOpenSDK', '~> 2.0.0'
 end
