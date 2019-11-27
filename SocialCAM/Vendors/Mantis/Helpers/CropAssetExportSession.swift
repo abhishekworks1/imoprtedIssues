@@ -35,7 +35,6 @@ class CropAssetExportSession {
         cancelled = false
         var audioFinished = false
         var videoFinished = false
-        var trimDurationAdded = false
         // Setup Reader
         do {
             reader = try AVAssetReader(asset: asset)
@@ -164,14 +163,16 @@ class CropAssetExportSession {
     
     private func renderWithTransformation(sampleBuffer: CMSampleBuffer) -> CVPixelBuffer {
         let cvBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)!
-        guard let cgImage = CGImage.create(from: cvBuffer) else {
-            return cvBuffer
+        var ciImage = CIImage(cvImageBuffer: cvBuffer)
+        if let preferredTransform = self.preferredTransform {
+            ciImage = ciImage.transformed(by: CGAffineTransform(rotationAngle: -(atan2(preferredTransform.b, preferredTransform.a))))
         }
-        guard let trasformedCGImage = cgImage.transformedImage(config.transform,
-                                                               zoomScale: config.zoomScale,
-                                                               sourceSize: config.sourceSize,
-                                                               cropSize: config.cropSize,
-                                                               imageViewSize: config.imageViewSize),
+        let cgImage = ciContext.createCGImage(ciImage, from: ciImage.extent)
+        guard let trasformedCGImage = cgImage?.transformedImage(config.transform,
+                                                                zoomScale: config.zoomScale,
+                                                                sourceSize: config.sourceSize,
+                                                                cropSize: config.cropSize,
+                                                                imageViewSize: config.imageViewSize),
             let buffer = trasformedCGImage.pixelBuffer() else {
                 return cvBuffer
         }
