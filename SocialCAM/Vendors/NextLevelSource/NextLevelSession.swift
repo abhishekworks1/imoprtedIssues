@@ -196,6 +196,8 @@ public class NextLevelSession {
     internal var _lastAudioTimestamp: CMTime = CMTime.invalid
     internal var _lastVideoTimestamp: CMTime = CMTime.invalid
     
+    internal var _audioSkipCount: Int = 0
+
     private let NextLevelSessionAudioQueueIdentifier = "engineering.NextLevel.session.audioQueue"
     private let NextLevelSessionQueueIdentifier = "engineering.NextLevel.sessionQueue"
     private let NextLevelSessionSpecificKey = DispatchSpecificKey<()>()
@@ -470,25 +472,65 @@ extension NextLevelSession {
         
         let duration = CMSampleBufferGetDuration(sampleBuffer)
         if let adjustedBuffer = CMSampleBuffer.createSampleBuffer(fromSampleBuffer: sampleBuffer, withTimeOffset: self._timeOffset, duration: duration) {
-            let presentationTimestamp = CMSampleBufferGetPresentationTimeStamp(adjustedBuffer)
-            let lastTimestamp = CMTimeAdd(presentationTimestamp, duration)
-            
-            self._audioQueue.async {
-                if let audioInput = self._audioInput,
-                    audioInput.isReadyForMoreMediaData,
-                    audioInput.append(adjustedBuffer) {
-                    self._lastAudioTimestamp = lastTimestamp
-                    
-                    if !self.currentClipHasVideo {
-                        self._currentClipDuration = CMTimeSubtract(lastTimestamp, self._startTimestamp)
+            if let timeScale = self._videoConfiguration?.timescale {
+                let scaleFactor = Int(timeScale)
+                if scaleFactor > 0 {
+                    // Slow Motion
+                    _audioSkipCount = 0
+                    for _ in 0..<scaleFactor {
+                        self.appendAudioBuffer(adjustedBuffer,
+                                               dur: duration,
+                                               completionHandler: completionHandler)
                     }
-                    
-                    self._currentClipHasAudio = true
-                    
-                    completionHandler(true)
                 } else {
-                    completionHandler(false)
+                    // Fast Motion
+                    var fastScaleFactor = 1
+                    if timeScale*2 == 1 {
+                        fastScaleFactor = 2
+                    } else if timeScale*3 == 1 {
+                        fastScaleFactor = 3
+                    }
+                    if fastScaleFactor > 1 {
+                        _audioSkipCount += 1
+                        if _audioSkipCount == fastScaleFactor {
+                            _audioSkipCount = 0
+                            self.appendAudioBuffer(adjustedBuffer,
+                                                   dur: duration,
+                                                   completionHandler: completionHandler)
+                        }
+                    } else {
+                        self.appendAudioBuffer(adjustedBuffer,
+                                               dur: duration,
+                                               completionHandler: completionHandler)
+                    }
                 }
+            } else {
+                _audioSkipCount = 0
+                self.appendAudioBuffer(adjustedBuffer,
+                                       dur: duration,
+                                       completionHandler: completionHandler)
+            }
+        }
+    }
+    
+    func appendAudioBuffer(_ buffer: CMSampleBuffer, dur: CMTime, completionHandler: @escaping NextLevelSessionAppendSampleBufferCompletionHandler) {
+        let presentationTimestamp = CMSampleBufferGetPresentationTimeStamp(buffer)
+        let lastTimestamp = CMTimeAdd(presentationTimestamp, dur)
+        self._audioQueue.async {
+            if let audioInput = self._audioInput,
+                audioInput.isReadyForMoreMediaData,
+                audioInput.append(buffer) {
+                self._lastAudioTimestamp = lastTimestamp
+                
+                if !self.currentClipHasVideo {
+                    self._currentClipDuration = CMTimeSubtract(lastTimestamp, self._startTimestamp)
+                }
+                
+                self._currentClipHasAudio = true
+                
+                completionHandler(true)
+            } else {
+                completionHandler(false)
             }
         }
     }
