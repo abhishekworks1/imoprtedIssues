@@ -61,8 +61,13 @@ public class SegmentVideo: NSObject, NSCopying {
     
 }
 
+enum ExportRecordState {
+  case new, export, failed
+}
+
 public class SegmentVideos: NSObject, NSCopying {
     
+    var state = ExportRecordState.new
     var id: String?
     var url: URL?
     var fileName: String? = nil

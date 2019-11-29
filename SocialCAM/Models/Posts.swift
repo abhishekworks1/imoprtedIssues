@@ -249,9 +249,7 @@ class PostComment: Mappable {
     var isLiked : Bool?
     var likeCounts : Int?
     var likes : [PostLikes]?
-    #if IS_PROMANAGER
     var myLike : ReactionType?
-    #endif
     var picture : String?
     var post : String?
     var replyCounts : Int?
@@ -273,9 +271,7 @@ class PostComment: Mappable {
         isLiked <- map["isLiked"]
         likeCounts <- map["likeCounts"]
         likes <- map["likes"]
-        #if IS_PROMANAGER
         myLike <- map["myLike"]
-        #endif
         picture <- map["picture"]
         post <- map["post"]
         replyCounts <- map["replyCounts"]
@@ -297,9 +293,7 @@ class CommentReply: Mappable {
     var isLiked : Bool?
     var likeCounts : Int?
     var likes : [PostLikes]?
-    #if IS_PROMANAGER
     var myLike : ReactionType?
-    #endif
     var picture : String?
     var post : String?
     var text : String?
@@ -321,9 +315,7 @@ class CommentReply: Mappable {
         isLiked <- map["isLiked"]
         likeCounts <- map["likeCounts"]
         likes <- map["likes"]
-        #if IS_PROMANAGER
         myLike <- map["myLike"]
-        #endif
         picture <- map["picture"]
         post <- map["post"]
         text <- map["text"]

@@ -1358,17 +1358,14 @@ extension ProManagerApi : TargetType {
             return self.endpoint
         }
         return Observable.create { observer in
-            #if IS_PROMANAGER
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
-            #endif
+    
             
             let lockService = MoyaProvider<ProManagerApi>(endpointClosure: endPointClosure,
                                                           plugins: [CachePolicyPlugin()])
             let request = lockService.rx.requestWithProgress(self)
                 .subscribe { event -> Void in
-                    #if IS_PROMANAGER
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                    #endif
                     switch event {
                     case .next(let lockSatatus):
                         observer.onNext(lockSatatus)
@@ -1461,11 +1458,9 @@ final class CachePolicyPlugin: PluginType {
 }
 extension ProManagerApi: CachePolicyGettable {
     var cachePolicy: URLRequest.CachePolicy {
-        #if IS_PROMANAGER
         guard !UIApplication.checkInternetConnection() else {
             return .reloadIgnoringLocalAndRemoteCacheData
         }
-        #endif
         if self.method == .get {
             return .returnCacheDataElseLoad
         }

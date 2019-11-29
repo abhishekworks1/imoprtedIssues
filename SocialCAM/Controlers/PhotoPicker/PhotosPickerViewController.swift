@@ -696,6 +696,9 @@ extension PhotosPickerViewController: UICollectionViewDelegate, UICollectionView
             if selectedAssets.count == 0 {
                 selectionType = asset.assetType
             }
+            if selectionType != asset.assetType {
+                return
+            }
             guard !maxCheck() else { return }
             
             asset.selectedOrder = self.selectedAssets.count + 1

@@ -24,6 +24,15 @@ class Defaults {
         }
     }
     
+    var isPro: Bool {
+        get {
+            return appDefaults?.bool(forKey: "isPro") ?? false
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isPro")
+        }
+    }
+    
     var isFirstLaunch: Bool? {
         get {
             return appDefaults?.bool(forKey: "isFirstLaunch")
