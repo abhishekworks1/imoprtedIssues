@@ -910,6 +910,10 @@ extension PhotoEditorViewController {
         }
     }
     
+    @IBAction func btnSocialMediaShareClick(_ sender: UIButton) {
+        self.shareSocialMedia(type: SocialShare(rawValue: sender.tag) ?? SocialShare.facebook)
+    }
+    
     func shareSocialMedia(type: SocialShare) {
         if currentCamaraMode == .slideshow {
             self.saveSlideShow(exportType: SlideShowExportType.feed,
@@ -1607,7 +1611,7 @@ extension PhotoEditorViewController {
         case .story:
             self.storyExportLabel.text = "0/1"
         case .sendChat:
-            self.sendChatExportLabel.text = "0/1"
+            break
         }
         
         VideoGenerator.current.fileName = String.fileName

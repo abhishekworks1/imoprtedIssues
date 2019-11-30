@@ -33,13 +33,11 @@ open class InstaSlider: UIView {
     
     private var collectionViewLayout: HorizontalFlowLayout!
     
-    var offscreenCells = Dictionary<String, UICollectionViewCell>()
     open var selectCell : Int = 0 {
         didSet {
             selectedCell = selectCell
-            DispatchQueue.main.async {
-                let rect = self.collectionView.layoutAttributesForItem(at: IndexPath(item: self.selectCell, section: 0))?.frame
-                self.collectionView.scrollRectToVisible(rect!, animated: true)
+            DispatchQueue.runOnMainThread {
+                self.collectionView.selectItem(at: IndexPath(item: self.selectCell, section: 0), animated: true, scrollPosition: UICollectionView.ScrollPosition.centeredHorizontally)
             }
             if (self.currentCell != nil) {
                 self.currentCell!(self.selectCell)
@@ -52,7 +50,7 @@ open class InstaSlider: UIView {
     open var currentCell: CurrentCellCallBack?
     
     convenience init() {
-        self.init(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 64))
+        self.init(frame: CGRect(x: 0, y: 0, width: UIScreen.ratioWidth, height: 64))
     }
     
     override init(frame: CGRect) {
@@ -61,40 +59,39 @@ open class InstaSlider: UIView {
         self.layoutSubviews()
         self.layoutIfNeeded()
         collectionViewInitialization()
-        
     }
     
-  func collectionViewInitialization() {
-    // Initialization code
-           backgroundColor = UIColor.clear
-           backgroundImage = UIImageView(frame: CGRect.init(x: (self.bounds.minX), y: (self.bounds.maxY) - 37, width: (self.bounds.width), height: 37))
-           backgroundImage?.contentMode = .scaleAspectFit
-           let image = bottomImage
-           backgroundImage?.image = image
-           if let anImage = backgroundImage {
-               self.addSubview(anImage)
-           }
-           let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-           self.collectionView = UICollectionView(frame: bounds, collectionViewLayout: layout)
-           collectionViewLayout = HorizontalFlowLayout
-               .configureLayout(collectionView: self.collectionView, itemSize: CGSize.init(width: 110, height: self.collectionView.frame.height/2), minimumLineSpacing: 2)
-           
-           self.collectionView.collectionViewLayout = collectionViewLayout
-           self.collectionView.showsHorizontalScrollIndicator = false
-           self.collectionView.isPagingEnabled = false
-           self.collectionView.register(CollectionViewCustomCell.self, forCellWithReuseIdentifier: cellId)
-           self.collectionView.backgroundColor = UIColor.clear
-           self.addSubview(self.collectionView)
-           self.collectionView.delegate = self
-           self.collectionView.dataSource = self
-           layer.shouldRasterize = true
-           layer.rasterizationScale = UIScreen.main.scale
-  }
-  
+    func collectionViewInitialization() {
+        // Initialization code
+        backgroundColor = UIColor.clear
+        backgroundImage = UIImageView(frame: CGRect.init(x: (self.bounds.minX), y: (self.bounds.maxY) - 37, width: UIScreen.ratioWidth, height: 37))
+        backgroundImage?.contentMode = .scaleAspectFit
+        let image = bottomImage
+        backgroundImage?.image = image
+        if let anImage = backgroundImage {
+            self.addSubview(anImage)
+        }
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        self.collectionView = UICollectionView(frame: bounds, collectionViewLayout: layout)
+        collectionViewLayout = HorizontalFlowLayout
+            .configureLayout(collectionView: self.collectionView, itemSize: CGSize.init(width: 110, height: self.collectionView.frame.height/2), minimumLineSpacing: 2)
+        
+        self.collectionView.collectionViewLayout = collectionViewLayout
+        self.collectionView.showsHorizontalScrollIndicator = false
+        self.collectionView.isPagingEnabled = false
+        self.collectionView.register(CollectionViewCustomCell.self, forCellWithReuseIdentifier: cellId)
+        self.collectionView.backgroundColor = UIColor.clear
+        self.addSubview(self.collectionView)
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = self
+        layer.shouldRasterize = true
+        layer.rasterizationScale = UIScreen.main.scale
+    }
+    
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-       collectionViewInitialization()
+        collectionViewInitialization()
     }
     
     override open func layoutSubviews() {
@@ -191,9 +188,9 @@ extension InstaSlider: UICollectionViewDataSource, UICollectionViewDelegate, UIC
     }
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-         return CGSize.init(width: 110, height: self.collectionView.frame.height/2)
+        return CGSize.init(width: 110, height: self.collectionView.frame.height/2)
     }
-  
+    
     public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         self.findCenterIndex(scrollView: scrollView)
     }
@@ -223,7 +220,7 @@ class CollectionViewCustomCell: UICollectionViewCell {
         super.init(frame: frame)
         addViews()
     }
-  
+    
     func addViews() {
         backgroundColor = UIColor.clear
         addSubview(label)

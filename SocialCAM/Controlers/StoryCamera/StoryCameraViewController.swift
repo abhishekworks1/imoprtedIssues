@@ -17,8 +17,27 @@ import SCRecorder
 import AVKit
 
 class StoryCameraViewController: UIViewController {
+   
+    let popupOffset: CGFloat = 110
+    var bottomConstraint = NSLayoutConstraint()
+    // MARK: - Animation
+    
+    /// The current state of the animation. This variable is changed only when an animation completes.
+    var currentState: State = .closed
+    
+    /// All of the currently running animators.
+    var runningAnimators = [UIViewPropertyAnimator]()
+    
+    /// The progress of each animator. This array is parallel to the `runningAnimators` array.
+    var animationProgress = [CGFloat]()
+    private lazy var panRecognizer: InstantPanGestureRecognizer = {
+        let recognizer = InstantPanGestureRecognizer()
+        recognizer.addTarget(self, action: #selector(popupViewPanned(recognizer:)))
+        return recognizer
+    }()
     
     // MARK: IBOutlets
+    @IBOutlet weak var bottomCameraViews: UIView!
     @IBOutlet weak var collectionViewStackVIew: UIStackView!
     @IBOutlet weak var settingsView: UIStackView!
     
@@ -234,7 +253,7 @@ class StoryCameraViewController: UIViewController {
                 }
                 DispatchQueue.main.async {
                     self.timerButton.isUserInteractionEnabled = true
-                    UIView.animate(withDuration: 0.3, animations: {
+                    UIView.animate(withDuration: 0.1, animations: {
                         self.timerButton.alpha = 1
                     })
                 }
@@ -250,24 +269,24 @@ class StoryCameraViewController: UIViewController {
                 self.collectionViewStackVIew.isUserInteractionEnabled = true
                 DispatchQueue.main.async {
                     self.timerButton.isUserInteractionEnabled = false
-                    UIView.animate(withDuration: 0.3, animations: {
+                    UIView.animate(withDuration: 0.1, animations: {
                         self.timerButton.alpha = 0.5
                     })
                 }
             } else if recordingType == .capture || recordingType == .boomerang {
                 DispatchQueue.main.async {
                     self.timerButton.isUserInteractionEnabled = false
-                    UIView.animate(withDuration: 0.3, animations: {
+                    UIView.animate(withDuration: 0.1, animations: {
                         self.timerButton.alpha = 0.5
                     })
                 }
             }
             
-            if recordingType == .slideshow || recordingType == .collage  {
+            if recordingType == .slideshow || recordingType == .collage || recordingType == .boomerang {
                 DispatchQueue.main.async {
                     self.timerButton.isUserInteractionEnabled = false
                     self.muteButton.isUserInteractionEnabled = false
-                    UIView.animate(withDuration: 0.3, animations: {
+                    UIView.animate(withDuration: 0.1, animations: {
                         self.timerButton.alpha = 0.5
                         self.muteButton.alpha = 0.5
                     })
@@ -276,7 +295,7 @@ class StoryCameraViewController: UIViewController {
                 DispatchQueue.main.async {
                     self.timerButton.isUserInteractionEnabled = true
                     self.muteButton.isUserInteractionEnabled = true
-                    UIView.animate(withDuration: 0.3, animations: {
+                    UIView.animate(withDuration: 0.1, animations: {
                         self.timerButton.alpha = 1
                         self.muteButton.alpha = 1
                     })
@@ -445,6 +464,15 @@ class StoryCameraViewController: UIViewController {
         view.bringSubviewToFront(blurView)
         view.bringSubviewToFront(enableAccessView)
         view.bringSubviewToFront(selectTimersView)
+        
+        layout()
+        self.view.addGestureRecognizer(panRecognizer)
+        
+        #if SOCIAL
+        speedSlider.isHidden = true
+        speedSliderView.isHidden = true
+        #endif
+        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -590,11 +618,7 @@ class StoryCameraViewController: UIViewController {
         photoTimerSelectedLabel.text = selectedPhotoTimerValue.value
         
         recordingType = Defaults.shared.cameraMode
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1) {
-            self.cameraSliderView.layoutSubviews()
-            self.cameraSliderView.layoutIfNeeded()
-            self.cameraSliderView.selectCell = Defaults.shared.cameraMode.rawValue
-        }
+        cameraSliderView.selectCell = Defaults.shared.cameraMode.rawValue
     }
     
     func setupLayoutCameraSliderView() {
@@ -607,7 +631,8 @@ class StoryCameraViewController: UIViewController {
             self.isRecording = false
             self.removeData()
             self.showControls()
-            
+            self.currentState = .open
+            self.animateTransitionIfNeeded(to: self.currentState.opposite, duration: 1)
             self.timerValueView.isHidden = false
             self.segmentLengthSelectedLabel.text = self.selectedSegmentLengthValue.value
             self.circularProgress.centerImage = UIImage()
@@ -764,13 +789,13 @@ class StoryCameraViewController: UIViewController {
     
     func showCollectionView(_ mode: CollectionMode = .effect) {
         self.collectionMode = mode
-        UIView.animate(withDuration: 0.3, animations: { () -> Void in
+        UIView.animate(withDuration: 0.1, animations: { () -> Void in
             self.view.layoutIfNeeded()
         })
     }
     
     func hidenCollectionView() {
-        UIView.animate(withDuration: 0.3, animations: { () -> Void in
+        UIView.animate(withDuration: 0.1, animations: { () -> Void in
             self.view.layoutIfNeeded()
         })
     }
@@ -1686,19 +1711,27 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
                         if difference > screenPart {
                             if videoSpeedType != VideoSpeedType.slow(scaleFactor: 3.0) {
                                 DispatchQueue.main.async {
+                                    #if PRO
                                     self.nextLevel.videoConfiguration.timescale = 3
                                     self.setSpeed(type: .slow(scaleFactor: 3.0),
                                                   value: 0,
                                                   text: "Slow 3x")
+                                    #else
+                                    self.setNormalSpeed()
+                                    #endif
                                 }
                             }
                         } else {
                             if videoSpeedType != VideoSpeedType.slow(scaleFactor: 2.0) {
                                 DispatchQueue.main.async {
+                                    #if PRO
                                     self.nextLevel.videoConfiguration.timescale = 2
                                     self.setSpeed(type: .slow(scaleFactor: 2.0),
                                                   value: 1,
                                                   text: "Slow 2x")
+                                    #else
+                                    self.setNormalSpeed()
+                                    #endif
                                 }
                             }
                         }
@@ -1707,19 +1740,27 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
                         if difference > screenPart {
                             if videoSpeedType != VideoSpeedType.fast(scaleFactor: 3.0) {
                                 DispatchQueue.main.async {
+                                    #if PRO
                                     self.nextLevel.videoConfiguration.timescale = 1/3
                                     self.setSpeed(type: .fast(scaleFactor: 3.0),
                                                   value: 4,
                                                   text: "Fast 3x")
+                                    #else
+                                    self.setNormalSpeed()
+                                    #endif
                                 }
                             }
                         } else {
                             if videoSpeedType != VideoSpeedType.fast(scaleFactor: 2.0) {
                                 DispatchQueue.main.async {
+                                    #if PRO
                                     self.nextLevel.videoConfiguration.timescale = 1/2
                                     self.setSpeed(type: .fast(scaleFactor: 2.0),
                                                   value: 3,
                                                   text: "Fast 2x")
+                                    #else
+                                    self.setNormalSpeed()
+                                    #endif
                                 }
                             }
                         }

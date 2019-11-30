@@ -8,6 +8,7 @@
 
 import Foundation
 import TikTokOpenPlatformSDK
+import Photos
 
 open class TiktokShare: NSObject, TikTokOpenPlatformLogDelegate {
     
@@ -32,5 +33,19 @@ open class TiktokShare: NSObject, TikTokOpenPlatformLogDelegate {
     
     public func tiktok(onLog logInfo: String) {
         debugPrint(logInfo)
+    }
+    
+    func uploadImageOrVideoOnTiktok(withText text: String = Constant.Application.displayName, phAsset: PHAsset, isImage: Bool) {
+        let shareRequest = TikTokOpenPlatformShareRequest.init(appType: .I18N)
+        shareRequest.mediaType = isImage ? .image : .video
+        shareRequest.localIdentifiers = [phAsset.localIdentifier]
+        shareRequest.state = text
+        shareRequest.send { (tikTokOpenPlatformShareResponse) in
+            if tikTokOpenPlatformShareResponse.isSucceed {
+                Utils.appDelegate?.window?.makeToast(R.string.localizable.postSuccess())
+            } else  {
+                
+            }
+        }
     }
 }

@@ -168,8 +168,9 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
     
     
     func goToHomeScreen() {
-        UIApplication.shared.delegate!.window!!.rootViewController = R.storyboard.storyCameraViewController.storyCameraNavigation()
-        
+        if let homeVC = R.storyboard.storyCameraViewController.storyCameraNavigation() {
+            Utils.appDelegate?.window?.switchRootViewController(homeVC)
+        }
     }
     
     func step2Redirection() {
