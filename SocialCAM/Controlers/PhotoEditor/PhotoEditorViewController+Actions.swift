@@ -204,14 +204,12 @@ extension PhotoEditorViewController {
             for (index, _) in self.videoUrls.enumerated() {
                 if index != 0 {
                     self.videoUrls[0].numberOfSegementtext = "\(self.videoUrls[0].numberOfSegementtext!) - \(self.videoUrls[index].numberOfSegementtext!)"
-                    
-                    for (_,item) in self.videoUrls[index].videos.enumerated() {
-                        self.videoUrls[0].videos.append(item)
-                    }
+                    let videos = self.videoUrls[index].videos
+                    self.videoUrls[0].videos.append(contentsOf: videos)
                 }
             }
             
-            self.videoUrls[0].currentAsset = SegmentVideos.getRecordSession(videoModel: self.videoUrls[0].videos)
+            self.videoUrls.first!.currentAsset = SegmentVideos.getRecordSession(videoModel: self.videoUrls.first!.videos)
             
             let tempFirstSegment = self.videoUrls.first
             self.videoUrls.removeAll()
@@ -271,15 +269,17 @@ extension PhotoEditorViewController {
     }
     
     @IBAction func resetButtonTapped(_ sender: AnyObject) {
-        undoMgr.removeAll()
-        combineButton.isSelected = false
-        videoUrls.removeAll()
-        mergeButton.isSelected = false
-        isMovable = true
-        
-        videoUrls = videoResetUrls
-        self.currentPlayVideo = -1
-        self.connVideoPlay()
+        if undoMgr.canUndo() {
+            undoMgr.removeAll()
+            combineButton.isSelected = false
+            videoUrls.removeAll()
+            mergeButton.isSelected = false
+            isMovable = true
+            
+            videoUrls = videoResetUrls
+            self.currentPlayVideo = -1
+            self.connVideoPlay()
+        }
     }
     
     @IBAction func btnShowHideEditOptionsClick(_ sender: AnyObject) {
@@ -291,7 +291,6 @@ extension PhotoEditorViewController {
             
             isSegmentEditOptionViewShoworNot = segmentEditOptionView.isHidden
             isVideoCoverViewShoworNot = videoCoverView.isHidden
-            
         }
         isViewEditMode = !isViewEditMode
     }
@@ -944,6 +943,7 @@ extension PhotoEditorViewController {
                     }
                 }
             }
+           
             self.exportViewWithURL(recordSession.assetRepresentingSegments()) { url in
                 if let exportURL = url {
                     DispatchQueue.runOnMainThread {
@@ -1272,16 +1272,16 @@ extension PhotoEditorViewController {
         let exportGroup = DispatchGroup()
         let exportQueue = DispatchQueue(label: "exportFilterQueue")
         let dispatchSemaphore = DispatchSemaphore(value: 0)
-        
+
         if let url = self.selectedVideoUrlSave {
             exportQueue.async {
                 exportGroup.enter()
-                
+
                 self.exportVideo(segmentVideos: url, isOuttakes, isNotes) { (compltd) in
                     dispatchSemaphore.signal()
                     exportGroup.leave()
                 }
-                
+
                 dispatchSemaphore.wait()
             }
         }
@@ -1294,7 +1294,7 @@ extension PhotoEditorViewController {
             } else {
                 self.storyExportLabel.text = "0/\(self.videoUrls.count)"
             }
-            
+
             exportQueue.async {
                 for (index, url) in self.videoUrls.enumerated() {
                     exportGroup.enter()
@@ -1308,7 +1308,7 @@ extension PhotoEditorViewController {
                 }
             }
         }
-        
+
         exportGroup.notify(queue: exportQueue) {
             DispatchQueue.runOnMainThread {
                 if self.selectedVideoUrlSave == nil && self.storyId == nil {
@@ -1333,7 +1333,7 @@ extension PhotoEditorViewController {
                     self.postStoryProgress.updateProgress(0)
                 }
             }
-            
+
         }
     }
     
@@ -1419,18 +1419,19 @@ extension PhotoEditorViewController {
         
         let exportSession = StoryAssetExportSession()
         
-        let viewData = LoadingView.instanceFromNib()
-        viewData.progressView.setProgress(to: Double(0), withAnimation: true)
-        viewData.show(on: view, completion: {
-            viewData.cancleClick = {
-                DispatchQueue.runOnMainThread {
-                    self.outtakesExportLabel.text = ""
-                    self.notesExportLabel.text = ""
+        DispatchQueue.runOnMainThread {
+            self.loadingView.progressView.setProgress(to: Double(0), withAnimation: true)
+            self.loadingView.show(on: self.view, completion: {
+               self.loadingView.cancleClick = {
+                    DispatchQueue.runOnMainThread {
+                        self.outtakesExportLabel.text = ""
+                        self.notesExportLabel.text = ""
+                    }
+                    exportSession.cancelExporting()
+                    self.loadingView.hide()
                 }
-                exportSession.cancelExporting()
-                viewData.hide()
-            }
-        })
+            })
+        }
         
         if let filter = self.filterSwitcherView?.selectedFilter,
             filter.name != "" {
@@ -1449,13 +1450,16 @@ extension PhotoEditorViewController {
         exportSession.inputTransformation = StoryImageView.ImageTransformation(tx: tx, ty: ty, scaleX: scaleX, scaleY: scaleY, rotation: rotation)
         exportSession.export(for: asset, progress: { progress in
             print("New progress \(progress)")
-            viewData.progressView.setProgress(to: Double(progress), withAnimation: true)
+            DispatchQueue.runOnMainThread {
+                self.loadingView.progressView.setProgress(to: Double(progress), withAnimation: true)
+            }
         }) { exportedURL in
+            DispatchQueue.runOnMainThread {
+                self.loadingView.hide()
+            }
             if let url = exportedURL {
-                viewData.hide()
                 completionHandler(url)
             } else {
-                viewData.hide()
                 let alert = UIAlertController.Style
                     .alert
                     .controller(title: "",
@@ -2062,4 +2066,15 @@ extension PhotoEditorViewController {
         })
     }
     
+}
+
+class PendingOperations {
+  lazy var exportInProgress: [Int: Operation] = [:]
+  lazy var exportQueue: OperationQueue = {
+    var queue = OperationQueue()
+    queue.name = "Download queue"
+    queue.maxConcurrentOperationCount = 1
+    return queue
+  }()
+  
 }

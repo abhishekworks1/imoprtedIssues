@@ -32,11 +32,8 @@ class StoryAssetExportSession {
     public var imageContentMode: StoryImageView.ImageContentMode = .scaleAspectFit
 
     private func fileURL() -> URL {
-        let fileName = "\(UUID().uuidString).mov"
-        var documentDirectoryPath = NSSearchPathForDirectoriesInDomains(.documentDirectory,
-                                                                        .userDomainMask, true)[0]
-        documentDirectoryPath = documentDirectoryPath.appending("/\(fileName)")
-        return URL(fileURLWithPath: documentDirectoryPath)
+        let fileName = String.fileName + FileExtension.mov.rawValue
+        return Utils.getLocalPath(fileName)
     }
     
     public func export(for asset: AVAsset, progress: ((Float) -> ())? = nil, completion: @escaping (URL?) -> Void) {

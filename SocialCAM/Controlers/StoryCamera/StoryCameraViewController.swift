@@ -467,12 +467,6 @@ class StoryCameraViewController: UIViewController {
         
         layout()
         self.view.addGestureRecognizer(panRecognizer)
-        
-        #if SOCIAL
-        speedSlider.isHidden = true
-        speedSliderView.isHidden = true
-        #endif
-        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -520,6 +514,9 @@ class StoryCameraViewController: UIViewController {
         }
         self.reloadUploadViewData()
         self.stopMotionCollectionView.reloadData()
+       
+        speedSlider.isHidden = !Defaults.shared.isPro
+        speedSliderView.isHidden = !Defaults.shared.isPro
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -629,7 +626,10 @@ class StoryCameraViewController: UIViewController {
             guard let `self` = self else { return }
             Defaults.shared.cameraMode = CameraMode(rawValue: index) ?? .normal
             self.isRecording = false
-            self.removeData()
+            
+            self.totalDurationOfOneSegment = 0.0
+            self.circularProgress.animate(toAngle: 0, duration: 0, completion: nil)
+        
             self.showControls()
             self.currentState = .open
             self.animateTransitionIfNeeded(to: self.currentState.opposite, duration: 1)
@@ -1099,7 +1099,6 @@ extension StoryCameraViewController: PhotosPickerViewControllerDelegate {
     
     func dismissPhotoPicker(withTLPHAssets: [ImageAsset])
     {
-        
         if withTLPHAssets.count != 0 {
             if self.recordingType == .slideshow || self.recordingType == .collage {
                 for image in withTLPHAssets {
@@ -1123,10 +1122,14 @@ extension StoryCameraViewController: PhotosPickerViewControllerDelegate {
                                 let data = videodata
                                 let url = Utils.getLocalPath(videoName)
                                 try? data.write(to: url)
-                                
-                                DispatchQueue.main.async {
-                                    self.openPhotoEditorForVideo(videoURLs: [SegmentVideos.init(urlStr: url, thumbimage: withTLPHAssets[0].thumbImage, latitued: nil, longitued: nil, placeAddress: nil, numberOfSegement: "\(self.takenVideoUrls.count + 1)", videoduration: nil)],
-                                                                 images: [withTLPHAssets[0].thumbImage])
+                                if self.recordingType == .custom {
+                                    self.takenVideoUrls.append(SegmentVideos(urlStr: url, thumbimage: withTLPHAssets[0].thumbImage, latitued: nil, longitued: nil, placeAddress: nil, numberOfSegement: String(self.takenSlideShowImages.count + 1), videoduration: nil, combineOneVideo: false))
+                                    self.stopMotionCollectionView.reloadData()
+                                } else {
+                                    DispatchQueue.main.async {
+                                        self.openPhotoEditorForVideo(videoURLs: [SegmentVideos.init(urlStr: url, thumbimage: withTLPHAssets[0].thumbImage, latitued: nil, longitued: nil, placeAddress: nil, numberOfSegement: "\(self.takenVideoUrls.count + 1)", videoduration: nil)],
+                                                                     images: [withTLPHAssets[0].thumbImage])
+                                    }
                                 }
                             }
                             catch {
@@ -1138,9 +1141,14 @@ extension StoryCameraViewController: PhotosPickerViewControllerDelegate {
                             let manager = PHImageManager.default()
                             manager.requestAVAsset(forVideo: asset, options: nil) { (avasset, audio, info) in
                                 if let avassetURL = avasset as? AVURLAsset {
-                                    DispatchQueue.main.async {
-                                        self.openPhotoEditorForVideo(videoURLs: [SegmentVideos.init(urlStr: avassetURL.url, thumbimage: withTLPHAssets[0].thumbImage, latitued: nil, longitued: nil, placeAddress: nil, numberOfSegement: "\(self.takenVideoUrls.count + 1)", videoduration: nil)],
-                                                                     images: [withTLPHAssets[0].thumbImage])
+                                    if self.recordingType == .custom {
+                                        self.takenVideoUrls.append(SegmentVideos(urlStr: avassetURL.url, thumbimage: withTLPHAssets[0].thumbImage, latitued: nil, longitued: nil, placeAddress: nil, numberOfSegement: String(self.takenSlideShowImages.count + 1), videoduration: nil, combineOneVideo: false))
+                                        self.stopMotionCollectionView.reloadData()
+                                    } else {
+                                        DispatchQueue.main.async {
+                                            self.openPhotoEditorForVideo(videoURLs: [SegmentVideos.init(urlStr: avassetURL.url, thumbimage: withTLPHAssets[0].thumbImage, latitued: nil, longitued: nil, placeAddress: nil, numberOfSegement: "\(self.takenVideoUrls.count + 1)", videoduration: nil)],
+                                                                         images: [withTLPHAssets[0].thumbImage])
+                                        }
                                     }
                                 } else {
                                     self.showAlert(alertMessage: R.string.localizable.selectedVideoIsnTSupported())
@@ -1154,7 +1162,6 @@ extension StoryCameraViewController: PhotosPickerViewControllerDelegate {
                     }
                     
                 } else {
-                    
                     let exportGroup = DispatchGroup()
                     let exportQueue = DispatchQueue(label: "com.queue.videoQueue")
                     let dispatchSemaphore = DispatchSemaphore(value: 0)
@@ -1168,7 +1175,7 @@ extension StoryCameraViewController: PhotosPickerViewControllerDelegate {
                                 let data = videodata
                                 let url = Utils.getLocalPath(videoName)
                                 try? data.write(to: url)
-                                self.takenSlideShowImages.append(SegmentVideos(urlStr: url, thumbimage: video.thumbImage, latitued: nil, longitued: nil, placeAddress: nil, numberOfSegement: String(self.takenSlideShowImages.count + 1), videoduration: nil, combineOneVideo: false))
+                                self.takenVideoUrls.append(SegmentVideos(urlStr: url, thumbimage: video.thumbImage, latitued: nil, longitued: nil, placeAddress: nil, numberOfSegement: String(self.takenSlideShowImages.count + 1), videoduration: nil, combineOneVideo: false))
                                 
                                 dispatchSemaphore.signal()
                                 exportGroup.leave()
@@ -1182,7 +1189,7 @@ extension StoryCameraViewController: PhotosPickerViewControllerDelegate {
                             manager.requestAVAsset(forVideo: asset, options: nil) { (avasset, audio, info) in
                                 if let avassetURL = avasset as? AVURLAsset {
                                     DispatchQueue.main.async {
-                                        self.takenSlideShowImages.append(SegmentVideos(urlStr: avassetURL.url, thumbimage: video.thumbImage, latitued: nil, longitued: nil, placeAddress: nil, numberOfSegement: String(self.takenSlideShowImages.count + 1), videoduration: nil, combineOneVideo: false))
+                                        self.takenVideoUrls.append(SegmentVideos(urlStr: avassetURL.url, thumbimage: video.thumbImage, latitued: nil, longitued: nil, placeAddress: nil, numberOfSegement: String(self.takenSlideShowImages.count + 1), videoduration: nil, combineOneVideo: false))
                                     }
                                     dispatchSemaphore.signal()
                                     exportGroup.leave()
@@ -1235,10 +1242,36 @@ extension StoryCameraViewController: PhotosPickerViewControllerDelegate {
                                     internalStoryData.append(storyData)
                                 }
                             }
-                            
-                            _ = StoryDataManager.shared.createStoryUploadData(internalStoryData)
-                            StoryDataManager.shared.startUpload()
-                            self.takenSlideShowImages.removeAll()
+                            if Defaults.shared.isPro {
+                                _ = StoryDataManager.shared.createStoryUploadData(internalStoryData)
+                                StoryDataManager.shared.startUpload()
+                                self.takenSlideShowImages.removeAll()
+                            } else {
+                                if self.takenSlideShowImages.count > 0 {
+                                    self.takenVideoUrls.removeAll()
+                                    var tempTakenImagesURLs: [SegmentVideos] = []
+                                    for item in self.takenSlideShowImages {
+                                        tempTakenImagesURLs.append(item.copy() as! SegmentVideos)
+                                    }
+                                    self.recordingType = .slideshow
+                                    self.cameraSliderView.selectCell = self.recordingType.rawValue
+                                    
+                                    self.takenSlideShowImages = tempTakenImagesURLs
+                                } else {
+                                    self.takenSlideShowImages.removeAll()
+                                    if self.recordingType != .custom {
+                                        var tempTakenVideoURLs: [SegmentVideos] = []
+                                        for item in self.takenVideoUrls {
+                                            tempTakenVideoURLs.append(item.copy() as! SegmentVideos)
+                                        }
+                                        self.recordingType = .custom
+                                        self.cameraSliderView.selectCell = self.recordingType.rawValue
+                                        self.takenVideoUrls = tempTakenVideoURLs
+                                    }
+                                }
+                                
+                                self.stopMotionCollectionView.reloadData()
+                            }
                         }
                     }
                 }
@@ -1711,27 +1744,27 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
                         if difference > screenPart {
                             if videoSpeedType != VideoSpeedType.slow(scaleFactor: 3.0) {
                                 DispatchQueue.main.async {
-                                    #if PRO
-                                    self.nextLevel.videoConfiguration.timescale = 3
-                                    self.setSpeed(type: .slow(scaleFactor: 3.0),
-                                                  value: 0,
-                                                  text: "Slow 3x")
-                                    #else
-                                    self.setNormalSpeed()
-                                    #endif
+                                    if Defaults.shared.isPro {
+                                        self.nextLevel.videoConfiguration.timescale = 3
+                                        self.setSpeed(type: .slow(scaleFactor: 3.0),
+                                                      value: 0,
+                                                      text: "Slow 3x")
+                                    } else {
+                                        self.setNormalSpeed()
+                                    }
                                 }
                             }
                         } else {
                             if videoSpeedType != VideoSpeedType.slow(scaleFactor: 2.0) {
                                 DispatchQueue.main.async {
-                                    #if PRO
-                                    self.nextLevel.videoConfiguration.timescale = 2
-                                    self.setSpeed(type: .slow(scaleFactor: 2.0),
-                                                  value: 1,
-                                                  text: "Slow 2x")
-                                    #else
-                                    self.setNormalSpeed()
-                                    #endif
+                                    if Defaults.shared.isPro {
+                                        self.nextLevel.videoConfiguration.timescale = 2
+                                        self.setSpeed(type: .slow(scaleFactor: 2.0),
+                                                      value: 1,
+                                                      text: "Slow 2x")
+                                    } else {
+                                        self.setNormalSpeed()
+                                    }
                                 }
                             }
                         }
@@ -1740,27 +1773,27 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
                         if difference > screenPart {
                             if videoSpeedType != VideoSpeedType.fast(scaleFactor: 3.0) {
                                 DispatchQueue.main.async {
-                                    #if PRO
-                                    self.nextLevel.videoConfiguration.timescale = 1/3
-                                    self.setSpeed(type: .fast(scaleFactor: 3.0),
-                                                  value: 4,
-                                                  text: "Fast 3x")
-                                    #else
-                                    self.setNormalSpeed()
-                                    #endif
+                                    if Defaults.shared.isPro {
+                                        self.nextLevel.videoConfiguration.timescale = 1/3
+                                        self.setSpeed(type: .fast(scaleFactor: 3.0),
+                                                      value: 4,
+                                                      text: "Fast 3x")
+                                    } else {
+                                        self.setNormalSpeed()
+                                    }
                                 }
                             }
                         } else {
                             if videoSpeedType != VideoSpeedType.fast(scaleFactor: 2.0) {
                                 DispatchQueue.main.async {
-                                    #if PRO
-                                    self.nextLevel.videoConfiguration.timescale = 1/2
-                                    self.setSpeed(type: .fast(scaleFactor: 2.0),
-                                                  value: 3,
-                                                  text: "Fast 2x")
-                                    #else
-                                    self.setNormalSpeed()
-                                    #endif
+                                    if Defaults.shared.isPro {
+                                        self.nextLevel.videoConfiguration.timescale = 1/2
+                                        self.setSpeed(type: .fast(scaleFactor: 2.0),
+                                                      value: 3,
+                                                      text: "Fast 2x")
+                                    } else {
+                                        self.setNormalSpeed()
+                                    }
                                 }
                             }
                         }

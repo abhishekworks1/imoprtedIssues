@@ -38,12 +38,11 @@ extension PhotoEditorViewController {
         tagVC = TagVC(nibName: "TagVC", bundle: Bundle(for: TagVC.self))
         
         setupExistingTags()
-        #if PRO
-        self.isProVersionApp(true)
-        #else
-        self.isProVersionApp(false)
-       
-        #endif
+        if Defaults.shared.isPro {
+            self.isProVersionApp(true)
+        } else {
+            self.isProVersionApp(false)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -16,13 +16,14 @@ class StorySettingsOptionsVC: UIViewController {
     var firstUploadCompletedSize: Double = 0.0
     
     
-    var settingsOptions = ["Privacy Settings",
-                           "Control Center",
-                           "Story Recover",
-                           "Logout"]
+    var settingsOptions = [R.string.localizable.privacySettings(),
+                           R.string.localizable.controlCenter(),
+                           R.string.localizable.prO(),
+                           R.string.localizable.logout()]
     
     var settingsOptionsImages = [#imageLiteral(resourceName: "ico-privacy-s"),
                                  #imageLiteral(resourceName: "ico-control center"),
+                                 #imageLiteral(resourceName: "ico-story recover"),
                                  #imageLiteral(resourceName: "ico-story recover"),
                                  #imageLiteral(resourceName: "ico-story recover")]
     
@@ -76,7 +77,7 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
             
             break
         case 2:
-            self.showAlert(alertMessage: "Coming Soon...")
+            self.isProEnable()
             break
         case 3:
             self.logoutUser()
@@ -86,16 +87,27 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
+    func isProEnable() {
+        let objAlert = UIAlertController(title: Constant.Application.displayName, message: !Defaults.shared.isPro ? R.string.localizable.areYouSureYouWantToEnablePro() : R.string.localizable.areYouSureYouWantToDisablePro(), preferredStyle: .alert)
+        let actionlogOut = UIAlertAction(title: R.string.localizable.oK(), style: .default) { (action : UIAlertAction) in
+            Defaults.shared.isPro = !Defaults.shared.isPro
+        }
+        let cancelAction = UIAlertAction(title: R.string.localizable.cancel(), style: .default) { (action : UIAlertAction) in }
+        objAlert.addAction(actionlogOut)
+        objAlert.addAction(cancelAction)
+        self.present(objAlert, animated: true, completion: nil)
+    }
+    
     func logoutUser() {
-        let objAlert = UIAlertController(title: "Log out", message: "Are you sure want to log out?", preferredStyle: .alert)
-        let actionlogOut = UIAlertAction(title: "Log out", style: .default) { (action : UIAlertAction) in
+        let objAlert = UIAlertController(title: Constant.Application.displayName, message: R.string.localizable.areYouSureYouWantToLogout(), preferredStyle: .alert)
+        let actionlogOut = UIAlertAction(title: R.string.localizable.logout(), style: .default) { (action : UIAlertAction) in
             StoryDataManager.shared.deleteAllRecords()
             
             SelectedTimer.removeAll()
             self.logoutApi(token: "")
             Defaults.shared.clearData()
         }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (action : UIAlertAction) in }
+        let cancelAction = UIAlertAction(title: R.string.localizable.cancel(), style: .default) { (action : UIAlertAction) in }
         objAlert.addAction(actionlogOut)
         objAlert.addAction(cancelAction)
         self.present(objAlert, animated: true, completion: nil)

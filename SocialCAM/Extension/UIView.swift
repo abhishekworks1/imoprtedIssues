@@ -291,8 +291,10 @@ extension UIView {
             if let aView = view as? T{
                 all.append(aView)
             }
-            guard view.subviews.count>0 else { return }
-            view.subviews.forEach{ getSubview(view: $0) }
+            DispatchQueue.main.async {
+                guard view.subviews.count>0 else { return }
+                view.subviews.forEach{ getSubview(view: $0) }
+            }
         }
         getSubview(view: self)
         return all
@@ -337,9 +339,11 @@ extension UIView {
         let format = UIGraphicsImageRendererFormat()
         format.opaque = false
         format.scale = 0.0
-        let renderer = UIGraphicsImageRenderer(bounds: bounds, format: format)
+        let renderer = UIGraphicsImageRenderer(bounds: self.bounds, format: format)
         return renderer.image { rendererContext in
-            layer.render(in: rendererContext.cgContext)
+            DispatchQueue.main.async {
+                self.layer.render(in: rendererContext.cgContext)
+            }
         }
     }
     

@@ -43,6 +43,9 @@ class StoryExportProgress: RPCircularProgress {
 class PhotoEditorViewController: UIViewController {
     
     // MARK: Outlets
+    
+    var loadingView = LoadingView.instanceFromNib()
+    
     @IBOutlet weak var topGradient: UIView!
     
     @IBOutlet weak var canvasView: UIView!
@@ -821,8 +824,9 @@ class PhotoEditorViewController: UIViewController {
     }
     
     func isProVersionApp(_ isPro: Bool) {
-        socialShareBottomToolBar.isHidden = isPro
-        storiCamBottomToolBar.isHidden = !isPro
+        socialShareBottomToolBar.isHidden = false
+        storiCamBottomToolBar.isHidden = true
+        timeSpeedView.isHidden = !isPro
     }
     
     func newVideoCreate(url: URL, newUrl urls: URL) {
