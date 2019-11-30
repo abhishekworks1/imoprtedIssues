@@ -180,11 +180,16 @@ class StoryCameraViewController: UIViewController {
         didSet {
             isPageScrollEnable = !isRecording
             deleteView.isHidden = isRecording
-            if isRecording {
-                collectionViewStackVIew.isHidden = self.takenVideoUrls.count <= 0
-            } else {
-                collectionViewStackVIew.isHidden = false
+            DispatchQueue.main.async {
+                if self.isRecording {
+                    self.collectionViewStackVIew.isHidden = self.takenVideoUrls.count <= 0
+                } else {
+                    self.collectionViewStackVIew.isHidden = false
+                }
+                self.view.setNeedsLayout()
+                self.view.layoutIfNeeded()
             }
+            
         }
     }
     
@@ -1105,7 +1110,6 @@ extension StoryCameraViewController: PhotosPickerViewControllerDelegate {
                     self.takenSlideShowImages.append(SegmentVideos(urlStr: URL.init(string: Constant.Application.imageIdentifier)!, thumbimage: image.fullResolutionImage!, latitued: nil, longitued: nil, placeAddress: nil, numberOfSegement: String(self.takenSlideShowImages.count + 1), videoduration: nil, combineOneVideo: false))
                 }
                 DispatchQueue.main.async {
-                    self.stopMotionCollectionView.isHidden = false
                     self.stopMotionCollectionView.reloadData()
                     
                     if self.takenSlideShowImages.count == 20 {
@@ -1481,7 +1485,6 @@ extension StoryCameraViewController {
         
         if self.recordingType == .custom {
             self.showControls()
-            self.stopMotionCollectionView.isHidden = false
             totalDurationOfOneSegment = totalDurationOfOneSegment + self.getDurationOf(videoPath: (self.takenVideoUrls.last?.url)!)
             self.isRecording = false
             if totalDurationOfOneSegment > 240.0 {

@@ -91,6 +91,7 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
         let objAlert = UIAlertController(title: Constant.Application.displayName, message: !Defaults.shared.isPro ? R.string.localizable.areYouSureYouWantToEnablePro() : R.string.localizable.areYouSureYouWantToDisablePro(), preferredStyle: .alert)
         let actionlogOut = UIAlertAction(title: R.string.localizable.oK(), style: .default) { (action : UIAlertAction) in
             Defaults.shared.isPro = !Defaults.shared.isPro
+            self.navigationController?.popViewController(animated: true)
         }
         let cancelAction = UIAlertAction(title: R.string.localizable.cancel(), style: .default) { (action : UIAlertAction) in }
         objAlert.addAction(actionlogOut)
