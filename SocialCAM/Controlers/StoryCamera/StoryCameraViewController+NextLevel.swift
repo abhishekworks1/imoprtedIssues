@@ -138,7 +138,6 @@ extension StoryCameraViewController: NextLevelVideoDelegate {
                 self.takenSlideShowImages.append(SegmentVideos(urlStr: URL(string: Constant.Application.imageIdentifier)!, thumbimage: image, latitued: nil, longitued: nil, placeAddress: nil, numberOfSegement: String(self.takenSlideShowImages.count + 1), videoduration: nil, combineOneVideo: false))
                 
                 DispatchQueue.main.async {
-                    self.stopMotionCollectionView.isHidden = false
                     self.stopMotionCollectionView.reloadData()
                     let layout = self.stopMotionCollectionView.collectionViewLayout as! UPCarouselFlowLayout
                     let pageSide = (layout.scrollDirection == .horizontal) ? self.pageSize.width : self.pageSize.height
