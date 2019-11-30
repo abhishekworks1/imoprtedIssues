@@ -72,7 +72,7 @@ struct Components {
       let title = option.title
       let font  = UIFont(name: "HelveticaNeue", size: 10) ?? .systemFont(ofSize: 10)
       let size       = CGSize(width: 200, height: 200)
-        let attributes = [NSAttributedString.Key.font:font]
+        let attributes = [NSAttributedString.Key.font: font]
       let bounds = title.boundingRect(with: size, options: [], attributes: attributes, context: nil)
       return UILabel().build {
         $0.text                = title

@@ -13,10 +13,10 @@ import RxSwift
 import NSObject_Rx
 
 class YTSerchResponse <T: Mappable> : Mappable {
-    var pageInfo : PageInfo?
+    var pageInfo: PageInfo?
     var result: [T]?
-    var nextPageToken : String?
-    var message : String?
+    var nextPageToken: String?
+    var message: String?
     var page_flag: String?
     var result_count: Int?
     
@@ -36,8 +36,8 @@ class YTSerchResponse <T: Mappable> : Mappable {
 }
 
 class PageInfo: Mappable {
-    var totalResults:Int?
-    var resultsPerPage :Int?
+    var totalResults: Int?
+    var resultsPerPage: Int?
     
     required init?(map: Map) {
         
@@ -50,13 +50,13 @@ class PageInfo: Mappable {
     
 }
 
-class Item : Mappable {
-    var kind : String?
-    var etag : String?
-    var id : ID?
-    var ids : String?
+class Item: Mappable {
+    var kind: String?
+    var etag: String?
+    var id: ID?
+    var ids: String?
     var snippet: Snippet?
-    var statistics :Statistics?
+    var statistics: Statistics?
     
     required init?(map: Map) {
         
@@ -73,9 +73,9 @@ class Item : Mappable {
 
 }
 
-class ID :Mappable {
-    var kind : String?
-    var videoId : String?
+class ID: Mappable {
+    var kind: String?
+    var videoId: String?
     
     required init?(map: Map) {
         
@@ -89,14 +89,14 @@ class ID :Mappable {
 }
 
 class Snippet: Mappable {
-    var title : String?
-    var description :String?
-    var tags:[String]?
-    var thumbnail : String?
-    var publishedAt : String?
-    var channelTitle : String?
-    var channelId : String?
-    var resourcechannelId : String?
+    var title: String?
+    var description: String?
+    var tags: [String]?
+    var thumbnail: String?
+    var publishedAt: String?
+    var channelTitle: String?
+    var channelId: String?
+    var resourcechannelId: String?
 
     required init?(map: Map) {
         
@@ -117,12 +117,12 @@ class Snippet: Mappable {
 }
 
 class Statistics: Mappable {
-    var viewCount : String?
-    var likeCount : String?
+    var viewCount: String?
+    var likeCount: String?
     var dislikeCount: String?
     var favoriteCount: String?
     var commentCount: String?
-     var viewInt : Int?
+     var viewInt: Int?
     
     required init?(map: Map) {
         
@@ -130,7 +130,7 @@ class Statistics: Mappable {
     
     func mapping(map: Map) {
         viewCount <- map["viewCount"]
-        if let longValue : Int = Int(viewCount ?? "") {
+        if let longValue: Int = Int(viewCount ?? "") {
             viewInt =  longValue
             let numberFormatter = NumberFormatter()
             numberFormatter.numberStyle = .decimal
@@ -138,19 +138,18 @@ class Statistics: Mappable {
         }
         likeCount <- map["likeCount"]
         
-        if let longValue : Int = Int(likeCount ?? "") {
+        if let longValue: Int = Int(likeCount ?? "") {
             let numberFormatter = NumberFormatter()
             numberFormatter.numberStyle = .decimal
             likeCount = numberFormatter.string(from: NSNumber(value: longValue)) ?? ""
         }
         dislikeCount <- map["dislikeCount"]
        
-        if let longValue : Int = Int(dislikeCount ?? "") {
+        if let longValue: Int = Int(dislikeCount ?? "") {
             let numberFormatter = NumberFormatter()
             numberFormatter.numberStyle = .decimal
             dislikeCount = numberFormatter.string(from: NSNumber(value: longValue)) ?? ""
         }
-        
         
         favoriteCount <- map["favoriteCount"]
         commentCount <- map["commentCount"]

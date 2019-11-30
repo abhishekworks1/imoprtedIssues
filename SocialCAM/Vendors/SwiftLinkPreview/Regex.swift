@@ -34,11 +34,11 @@ class Regex {
     // Match first occurrency
     static func pregMatchFirst(_ string: String!, regex: String!, index: Int = 0) -> String? {
         
-        do{
+        do {
             
             let rx = try NSRegularExpression(pattern: regex, options: [.caseInsensitive])
             
-            if let match = rx.firstMatch(in: string, options: [], range: NSMakeRange(0, string.count)) {
+            if let match = rx.firstMatch(in: string, options: [], range: NSRange(location: 0, length: string.count)) {
                 
                 let result: [String] = Regex.stringMatches([match], text: string, index: index)
                 return result.count == 0 ? nil : result[0]
@@ -60,11 +60,11 @@ class Regex {
     // Match all occurrencies
     static func pregMatchAll(_ string: String!, regex: String!, index: Int = 0) -> [String] {
         
-        do{
+        do {
             
             let rx = try NSRegularExpression(pattern: regex, options: [.caseInsensitive])
             
-            let matches: [NSTextCheckingResult] = rx.matches(in: string, options: [], range: NSMakeRange(0, string.count))
+            let matches: [NSTextCheckingResult] = rx.matches(in: string, options: [], range: NSRange(location: 0, length: string.count))
             
             return !matches.isEmpty ? Regex.stringMatches(matches, text: string, index: index) : []
             
@@ -83,8 +83,7 @@ class Regex {
             let range = $0.range(at: index)
             if text.count > range.location + range.length {
                 return (text as NSString).substring(with: range)
-            }
-            else {
+            } else {
                 return ""
             }
         }

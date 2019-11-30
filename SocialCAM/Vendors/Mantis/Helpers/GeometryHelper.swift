@@ -20,7 +20,6 @@ enum CropViewOverlayEdge {
     case left
 }
 
-
 struct GeometryHelper {    
     static func getIncribeRect(fromOutsideRect outsideRect: CGRect, andInsideRect insideRect: CGRect) -> CGRect {
         let insideRectRatio = insideRect.width / insideRect.height
@@ -73,6 +72,6 @@ struct GeometryHelper {
     }
     
     static func scale(from transform: CGAffineTransform) -> Double {
-        return sqrt(Double(transform.a * transform.a + transform.c * transform.c));
+        return sqrt(Double(transform.a * transform.a + transform.c * transform.c))
     }
 }

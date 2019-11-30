@@ -93,7 +93,7 @@ extension FocusIndicatorView {
     
 }
 
-class RoundedVisualEffectView : UIVisualEffectView {
+class RoundedVisualEffectView: UIVisualEffectView {
     
     override func layoutSubviews() {
         super.layoutSubviews()

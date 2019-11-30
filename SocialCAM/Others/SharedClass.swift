@@ -9,13 +9,13 @@
 import Foundation
 import UIKit
 
-enum ShapeType : Int {
+enum ShapeType: Int {
     case heart
     case hexa
     case star
 }
 
-enum SocialShare : Int {
+enum SocialShare: Int {
     case facebook = 0
     case instagram
     case snapchat
@@ -59,7 +59,7 @@ public enum RecordingType {
     case customImageVideoSave
 }
 
-enum SearchListType : Int {
+enum SearchListType: Int {
     case hashSearch
     case locationSeacrh
 }
@@ -113,7 +113,7 @@ public enum ImageFormat {
     case JPEG(Float)
 }
 
-enum ProfilePicType : Int {
+enum ProfilePicType: Int {
     case imageType = 1
     case videoType = 2
 }
@@ -421,7 +421,7 @@ enum StoriCamType: Equatable {
         switch (lhs, rhs) {
         case (.story, .story), (.chat, .chat), (.feed, .feed):
             return true
-        case (.shareYoutube(_), .shareYoutube(_)):
+        case (.shareYoutube, .shareYoutube):
             return true
         case (let .shareFeed(lhsPostID), let .shareFeed(rhsPostID)):
             return (lhsPostID == rhsPostID)
@@ -434,14 +434,13 @@ enum StoriCamType: Equatable {
             } else {
                 return false
             }
-        case (.replyStory(_), .replyStory(_)):
+        case (.replyStory, .replyStory):
             return true
         default:
             return false
         }
     }
 }
-
 
 enum StorySelectionType {
     case image(image: UIImage)
@@ -452,15 +451,15 @@ enum StorySelectionType {
 enum VideoSpeedType: Equatable {
     
     static func ==(lhs: VideoSpeedType, rhs: VideoSpeedType) -> Bool {
-        switch (lhs,rhs) {
-        case (VideoSpeedType.normal,VideoSpeedType.normal):
+        switch (lhs, rhs) {
+        case (VideoSpeedType.normal, VideoSpeedType.normal):
             return true
-        case (VideoSpeedType.slow(let scaleFactor),VideoSpeedType.slow(let scaleFactor2)):
+        case (VideoSpeedType.slow(let scaleFactor), VideoSpeedType.slow(let scaleFactor2)):
             if scaleFactor == scaleFactor2 {
                 return true
             }
             return false
-        case (VideoSpeedType.fast(let scaleFactor),VideoSpeedType.fast(let scaleFactor2)):
+        case (VideoSpeedType.fast(let scaleFactor), VideoSpeedType.fast(let scaleFactor2)):
             if scaleFactor == scaleFactor2 {
                 return true
             }
@@ -478,7 +477,6 @@ enum StoryType: String {
     case image = "image"
     case video = "video"
 }
-
 
 enum StoriType: Int {
     case `default` = 0
@@ -578,7 +576,6 @@ class StyleData {
         self.styleImage = styleImage
     }
 }
-
 
 protocol OuttakesTakenDelegate: class {
     func didTakeOuttakes(_ message: String)

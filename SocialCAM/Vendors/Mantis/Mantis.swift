@@ -23,11 +23,10 @@
 //  IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import UIKit
-
     
 private(set) var mantisBundle: Bundle? = {
     return MantisConfig.bundle
-} ()
+}()
 
 public func cropViewController(image: UIImage, config: MantisConfig = MantisConfig()) -> CropViewController {
     return CropViewController(image: image, config: config, mode: .normal)
@@ -64,7 +63,7 @@ public struct  MantisConfig {
         }
         
         return "com.echo.framework.Mantis"
-    } ()
+    }()
     
     static private(set) var bundle: Bundle? = {
         guard let bundle = Bundle(identifier: bundleIdentifier) else {
@@ -76,7 +75,7 @@ public struct  MantisConfig {
             return bundle
         }
         return nil
-    } ()
+    }()
     
     public init() {
     }

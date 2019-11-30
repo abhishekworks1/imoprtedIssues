@@ -24,8 +24,7 @@ public enum VideoProcessType {
     case reverse
 }
 
-class VideoFactory: NSObject
-{
+class VideoFactory: NSObject {
     var buffertoVideo: BufferToVideo?
     var videoorigin: VideoOrigin?
     var cvimgbuffer: [CVImageBuffer] = [CVImageBuffer]()
@@ -33,48 +32,40 @@ class VideoFactory: NSObject
     var type: VideoProcessType!
     var videoAsset: AVAsset?
 
-    override init()
-    {
+    override init() {
         super.init()
     }
 
-    init(type: VideoProcessType, video: VideoOrigin)
-    {
+    init(type: VideoProcessType, video: VideoOrigin) {
         super.init()
         self.type = type
         self.videoorigin = video
     }
 
-    init(type: VideoProcessType, video: AVAsset)
-    {
+    init(type: VideoProcessType, video: AVAsset) {
         super.init()
         self.type = type
         self.videoAsset = video
     }
 
-    func assetTOcvimgbuffer(_ sucess: @escaping ((URL) -> Void), _ progress: @escaping ((Progress) -> Void), failure: ((NSError) -> Void))
-    {
+    func assetTOcvimgbuffer(_ sucess: @escaping ((URL) -> Void), _ progress: @escaping ((Progress) -> Void), failure: ((NSError) -> Void)) {
         if videoAsset == nil {
             videoAsset = AVAsset(url: videoorigin?.mediaUrl! as! URL)
         }
         let trackreader = try! AVAssetReader(asset: videoAsset!)
         let videoTracks = videoAsset?.tracks(withMediaType: AVMediaType.video)
 
-        for track in videoTracks!
-        {
+        for track in videoTracks! {
             let trackoutput: AVAssetReaderTrackOutput = AVAssetReaderTrackOutput(track: track, outputSettings: [
                 String(kCVPixelBufferPixelFormatTypeKey): Int(kCVPixelFormatType_420YpCbCr8BiPlanarFullRange)
             ])
             fps = Int(track.nominalFrameRate)
-            if trackreader.canAdd(trackoutput)
-                {
+            if trackreader.canAdd(trackoutput) {
                 trackreader.add(trackoutput)
                 var buffer: CMSampleBuffer?
-                if trackreader.startReading()
-                    {
+                if trackreader.startReading() {
                     buffer = trackoutput.copyNextSampleBuffer()
-                    while buffer != nil
-                    {
+                    while buffer != nil {
                         guard let cvimgabuffer = CMSampleBufferGetImageBuffer(buffer!) else {
                             fatalError("cvimgabuffer is nil")
                         }
@@ -94,16 +85,12 @@ class VideoFactory: NSObject
         }
     }
 
-    func bufferToVideo(videoorigin: VideoOrigin?, _ sucess: @escaping ((URL) -> Void), _ progress: @escaping ((Progress) -> Void), failure: ((NSError) -> Void))
-    {
-        if self.type == .reverse
-        {
+    func bufferToVideo(videoorigin: VideoOrigin?, _ sucess: @escaping ((URL) -> Void), _ progress: @escaping ((Progress) -> Void), failure: ((NSError) -> Void)) {
+        if self.type == .reverse {
             cvimgbuffer.reverse()
         }
-        if self.type == .boom
-        {
-            if(cvimgbuffer.count > self.fps * 2)
-            {
+        if self.type == .boom {
+            if(cvimgbuffer.count > self.fps * 2) {
                 let slice = cvimgbuffer.dropLast(cvimgbuffer.count - self.fps * 2)
                 cvimgbuffer = Array(slice)
             }
@@ -121,13 +108,11 @@ class VideoFactory: NSObject
         }
 
         let buffer = BufferToVideo(buffer: cvimgbuffer, fps: Int32(fps))
-        if self.type == .boom
-        {
+        if self.type == .boom {
             buffer.filename = "BoomVideo.mov"
             buffer.fps = buffer.fps * 2
         }
-        if self.type == .speed
-        {
+        if self.type == .speed {
             buffer.fps = buffer.fps * 2
         }
 
@@ -142,8 +127,7 @@ class VideoFactory: NSObject
 
 }
 
-class BufferToVideo: NSObject
-{
+class BufferToVideo: NSObject {
     let buffer: [CVPixelBuffer]
     var fps: Int32 = 30
     let kErrorDomain = "TimeLapseBuilder"
@@ -194,8 +178,7 @@ class BufferToVideo: NSObject
         let videoTrack: AVAssetTrack = asset.tracks(withMediaType: AVMediaType.video).last!
 
         ///
-        if let videoWriter = videoWriter
-            {
+        if let videoWriter = videoWriter {
             /// Add Input to Writer , AVAssetWriterInput use CVSampleBuffer , AVAssetWriterInputPixelBufferAdaptor use CVPixelBuffer
             let videoWriterInput = AVAssetWriterInput(mediaType: AVMediaType.video, outputSettings: videoSettings)
             let pixelBufferAdaptor = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: videoWriterInput, sourcePixelBufferAttributes: attr)
@@ -206,45 +189,37 @@ class BufferToVideo: NSObject
             videoWriterInput.expectsMediaDataInRealTime = false
             videoWriter.add(videoWriterInput)
 
-            if videoWriter.startWriting()
-                {
+            if videoWriter.startWriting() {
                 // start session pixel buffer != nil
                 videoWriter.startSession(atSourceTime: CMTime.zero)
-                if pixelBufferAdaptor.pixelBufferPool == nil
-                    {
+                if pixelBufferAdaptor.pixelBufferPool == nil {
                     fatalError("pixelBufferPool is nil")
                 }
 
                 let media_queue = DispatchQueue(label: "mediaInputQueue")
                 //
-                videoWriterInput.requestMediaDataWhenReady(on: media_queue)
-                {
+                videoWriterInput.requestMediaDataWhenReady(on: media_queue) {
                     let welf = self
                     let currentProgress = Progress(totalUnitCount: Int64(welf.buffer.count))
                     var frameCount: Int64 = 0
                     let frameDuration = CMTimeMake(value: 1, timescale: welf.fps)
                     var remainingPhotoURLs = welf.buffer
 
-                    while !remainingPhotoURLs.isEmpty
-                    {
+                    while !remainingPhotoURLs.isEmpty {
                         autoreleasepool {
                             let nextPhotoURL: CVPixelBuffer? = remainingPhotoURLs.remove(at: 0)
                             let newPixelBufferoutputs: CVPixelBuffer = nextPhotoURL!
                             let lastFrameTime = CMTimeMake(value: frameCount, timescale: welf.fps)
                             let presentationTime = frameCount == 0 ? lastFrameTime : CMTimeAdd(lastFrameTime, frameDuration)
-                            while !videoWriterInput.isReadyForMoreMediaData
-                            {
+                            while !videoWriterInput.isReadyForMoreMediaData {
                                 Thread.sleep(forTimeInterval: 0.1)
                             }
 
-                            if pixelBufferAdaptor.append(newPixelBufferoutputs, withPresentationTime: presentationTime)
-                                {
+                            if pixelBufferAdaptor.append(newPixelBufferoutputs, withPresentationTime: presentationTime) {
                                 frameCount += 1
                                 currentProgress.completedUnitCount = frameCount
                                 progress(currentProgress)
-                            }
-                            else
-                            {
+                            } else {
                                 fatalError("pixelBufferAdaptor can't append")
                             }
                         }
@@ -283,7 +258,7 @@ extension CVPixelBuffer {
 
         /// 2
         let attr = CVBufferGetAttachments(self, .shouldPropagate)
-        var _copy: CVPixelBuffer? = nil
+        var _copy: CVPixelBuffer?
 
         /// 3
         CVPixelBufferCreate(

@@ -9,9 +9,9 @@
 import UIKit
 
 class SubscribeChannelCell: UICollectionViewCell {
-    @IBOutlet var imgViewChannel : UIImageView!
-    @IBOutlet var lblTitle : UILabel!
-    var channel : YouTubeSubscription? {
+    @IBOutlet var imgViewChannel: UIImageView!
+    @IBOutlet var lblTitle: UILabel!
+    var channel: YouTubeSubscription? {
         didSet {
             if let channel =  channel {
                 self.configData(channel: channel)
@@ -19,7 +19,7 @@ class SubscribeChannelCell: UICollectionViewCell {
         }
     }
     
-    func configData(channel:YouTubeSubscription) {
+    func configData(channel: YouTubeSubscription) {
         if let thumbnail = channel.snippet?.thumbnail {
             self.imgViewChannel.setImageFromURL(thumbnail)
         }

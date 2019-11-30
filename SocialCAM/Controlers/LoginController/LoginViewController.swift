@@ -39,9 +39,9 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
     // MARK: Properites
     var parentId: String = ""
     // MARK: IBOutlets
-    @IBOutlet var txtEmail : SkyFloatingLabelTextFieldWithIcon!
-    @IBOutlet var txtPassword : SkyFloatingLabelTextFieldWithIcon!
-    @IBOutlet var btnHidePassWord : PButton!
+    @IBOutlet var txtEmail: SkyFloatingLabelTextFieldWithIcon!
+    @IBOutlet var txtPassword: SkyFloatingLabelTextFieldWithIcon!
+    @IBOutlet var btnHidePassWord: PButton!
     @IBOutlet weak var logoView: UIView!
     @IBOutlet weak var logoLable: UILabel!
     
@@ -54,7 +54,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         txtPassword.iconFont = UIFont.fontAwesome(ofSize: 12, style: .solid)
         txtPassword.iconText = String.fontAwesomeIcon(name: .lock)
 //        touchIdPopUp()
-        setColorTextField(views: [txtEmail,txtPassword])
+        setColorTextField(views: [txtEmail, txtPassword])
     }
     
     func touchIdPopUp() {
@@ -90,7 +90,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         super.viewWillAppear(animated)
     }
     
-    func setColorTextField(views : [SkyFloatingLabelTextFieldWithIcon]) {
+    func setColorTextField(views: [SkyFloatingLabelTextFieldWithIcon]) {
         for textField in views {
             textField.titleColor = ApplicationSettings.appPrimaryColor
             textField.selectedTitleColor = ApplicationSettings.appPrimaryColor
@@ -131,7 +131,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
                 Defaults.shared.currentUser = responce.result
                 CurrentUser.shared.setActiveUser(responce.result)
                 Answers.logLogin(withMethod: nil, success: 1, customAttributes: ["id": CurrentUser.shared.activeUser?.username ?? ""])
-                CurrentUser.shared.createNewReferrerChannelURL { (isNew, url) -> (Void) in
+                CurrentUser.shared.createNewReferrerChannelURL { (_, _) -> Void in
 
                 }
                 
@@ -151,7 +151,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func newShareURL() {
-        let param: [String:Any] = ["deepLinkUrl": CurrentUser.shared.referrerChannelURL ?? ""]
+        let param: [String: Any] = ["deepLinkUrl": CurrentUser.shared.referrerChannelURL ?? ""]
        
         ProManagerApi.updateProfile(param: param).request(Result<User>.self).subscribe(onNext: { response in
             if response.status == ResponseType.success {
@@ -166,7 +166,6 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         }).disposed(by: (rx.disposeBag))
     }
     
-    
     func goToHomeScreen() {
         if let homeVC = R.storyboard.storyCameraViewController.storyCameraNavigation() {
             Utils.appDelegate?.window?.switchRootViewController(homeVC)
@@ -174,17 +173,17 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func step2Redirection() {
-         let tupele : [String:Any?] = ["email":Defaults.shared.currentUser?.email ,"channel":Defaults.shared.currentUser?.channelId,"socialId":Defaults.shared.currentUser?.socialId, "provider":Defaults.shared.currentUser?.provider]
+         let tupele: [String: Any?] = ["email": Defaults.shared.currentUser?.email, "channel": Defaults.shared.currentUser?.channelId, "socialId": Defaults.shared.currentUser?.socialId, "provider": Defaults.shared.currentUser?.provider]
          self.performSegue(withIdentifier: "Step2Segue", sender: tupele)
     }
     
     func doLogin() {
-        ProManagerApi.doLogin(userId:(Defaults.shared.currentUser?.id)!).request(Result<PromanagerData>.self).subscribe { event in
+        ProManagerApi.doLogin(userId: (Defaults.shared.currentUser?.id)!).request(Result<PromanagerData>.self).subscribe { _ in
             
             }.disposed(by: rx.disposeBag)
     }
     
-    @IBAction func btnLinkedinClicked(sender:Any) {
+    @IBAction func btnLinkedinClicked(sender: Any) {
         UIApplication.showAlert(title: Constant.Application.displayName, message: R.string.localizable.comingSoon())
         return
     }
@@ -194,7 +193,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         return
     }
     
-    @IBAction func btnShowHidePassWordClicked(sender:Any) {
+    @IBAction func btnShowHidePassWordClicked(sender: Any) {
         self.txtPassword.isSecureTextEntry = !self.txtPassword.isSecureTextEntry
         if self.txtPassword.isSecureTextEntry == true {
             self.btnHidePassWord.setImage(R.image.hidePassword(), for: .normal)
@@ -203,21 +202,21 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    @IBAction func btnGoogleClicked(sender:Any) {
+    @IBAction func btnGoogleClicked(sender: Any) {
         
     }
     
-    @IBAction func btnTwClicked(sender:Any) {
+    @IBAction func btnTwClicked(sender: Any) {
         UIApplication.showAlert(title: Constant.Application.displayName, message: R.string.localizable.comingSoon())
         return
     }
     
-    @IBAction func btnFbClicked(sender:Any) {
+    @IBAction func btnFbClicked(sender: Any) {
         UIApplication.showAlert(title: Constant.Application.displayName, message: R.string.localizable.comingSoon())
         return
     }
     
-    @IBAction func btnForgotClicked(_ sender:Any?) {
+    @IBAction func btnForgotClicked(_ sender: Any?) {
 //        if let obj = R.storyboard.login.forgotPasswordViewController() {
 //          self.navigationController?.pushViewController(obj, animated: true)
 //        }
@@ -225,7 +224,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
     
 }
 
-extension LoginViewController : UITextFieldDelegate {
+extension LoginViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if txtEmail == textField {

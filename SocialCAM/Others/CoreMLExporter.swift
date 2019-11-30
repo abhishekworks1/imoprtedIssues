@@ -22,7 +22,7 @@ class CoreMLExporter {
         assetReader?.cancelReading()
     }
     
-    func exportVideo(for asset: AVAsset, and index: Int, progress: ((Float) -> ())? = nil, completion: @escaping (URL?) -> Void) {
+    func exportVideo(for asset: AVAsset, and index: Int, progress: ((Float) -> Void)? = nil, completion: @escaping (URL?) -> Void) {
         isCancel = false
         let fileName = String.fileName
         let outputURL = Utils.getLocalPath(fileName)
@@ -36,7 +36,7 @@ class CoreMLExporter {
             assetReader = nil
         }
         
-        guard let reader = assetReader else{
+        guard let reader = assetReader else {
             print("Could not initalize asset reader probably failed its try catch")
             return
         }
@@ -47,13 +47,13 @@ class CoreMLExporter {
         
         let audioTrack = asset.tracks(withMediaType: AVMediaType.audio).first
         
-        let videoReaderSettings: [String : Any] = [kCVPixelBufferPixelFormatTypeKey as String : kCVPixelFormatType_32ARGB ]
+        let videoReaderSettings: [String: Any] = [kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32ARGB ]
         
-        let videoSettings:[String:Any] = [
-            AVVideoCompressionPropertiesKey : [AVVideoAverageBitRateKey : NSNumber.init(value: videoTrack.estimatedDataRate)],
-            AVVideoCodecKey : AVVideoCodecType.h264,
-            AVVideoHeightKey : videoTrack.naturalSize.height,
-            AVVideoWidthKey : videoTrack.naturalSize.width
+        let videoSettings: [String: Any] = [
+            AVVideoCompressionPropertiesKey: [AVVideoAverageBitRateKey: NSNumber.init(value: videoTrack.estimatedDataRate)],
+            AVVideoCodecKey: AVVideoCodecType.h264,
+            AVVideoHeightKey: videoTrack.naturalSize.height,
+            AVVideoWidthKey: videoTrack.naturalSize.width
         ]
         
         let assetReaderVideoOutput = AVAssetReaderTrackOutput(track: videoTrack, outputSettings: videoReaderSettings)
@@ -100,7 +100,7 @@ class CoreMLExporter {
         reader.startReading()
         writer.startSession(atSourceTime: CMTime.zero)
         
-        let closeWriter: (() -> ()) = {
+        let closeWriter: (() -> Void) = {
             if audioFinished && videoFinished && !self.isCancel {
                 assetWriter?.finishWriting(completionHandler: {
                     completion(assetWriter?.outputURL)

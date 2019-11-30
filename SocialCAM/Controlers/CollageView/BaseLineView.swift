@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-enum BaseLineViewMoveType : Int {
+enum BaseLineViewMoveType: Int {
     case leftRight
     case upDown
 }
@@ -24,8 +24,8 @@ class BaseLineView: UIView {
      }
      */
     
-    var id : Int = 0
-    var moveType : BaseLineViewMoveType = .leftRight
-    var baseLC : NSLayoutConstraint?
+    var id: Int = 0
+    var moveType: BaseLineViewMoveType = .leftRight
+    var baseLC: NSLayoutConstraint?
     
 }

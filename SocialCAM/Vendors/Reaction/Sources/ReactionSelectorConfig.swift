@@ -40,7 +40,7 @@ public final class ReactionSelectorConfig: Configurable {
   public var spacing: CGFloat = 4
 
   /// The icon size when the selector is inactive.
-  public var iconSize: CGFloat? = nil
+  public var iconSize: CGFloat?
 
   /// Boolean value to know whether the reactions needs to be sticked when they are selected.
   public var stickyReaction: Bool = false
@@ -89,8 +89,7 @@ public final class ReactionSelectorConfig: Configurable {
       let highlightedSize = computedHighlightedIconSizeInBounds(bounds, reactionCount: reactionCount)
 
       return CGRect(x: (iconSize + spacing) * fi, y: bounds.height - highlightedSize - spacing, width: highlightedSize, height: highlightedSize)
-    }
-    else if let hi = highlightedIndex, index > hi {
+    } else if let hi = highlightedIndex, index > hi {
       let highlightedSize = computedHighlightedIconSizeInBounds(bounds, reactionCount: reactionCount)
 
       return CGRect(x: (iconSize + spacing) * (fi - 1) + highlightedSize, y: topMargin, width: iconSize, height: iconSize)

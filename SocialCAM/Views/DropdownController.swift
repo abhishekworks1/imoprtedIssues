@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 
-
 protocol DropdownControllerDelegate: class {
     func dropdownController(_ controller: DropdownController, didSelect album: ImageAlbum)
 }
@@ -75,7 +74,7 @@ class DropdownController: UIViewController {
 
         UIView.animate(withDuration: 0.25, delay: 0, options: UIView.AnimationOptions(), animations: {
             self.view.superview?.layoutIfNeeded()
-        }, completion: { finished in
+        }, completion: { _ in
             self.animating = false
         })
     }

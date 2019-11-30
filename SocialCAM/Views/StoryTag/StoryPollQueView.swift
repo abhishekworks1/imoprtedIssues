@@ -13,7 +13,7 @@ class FillView: UIView {
     
     private let fillView = UIView(frame: CGRect.zero)
     
-    private var coeff:CGFloat = 0 {
+    private var coeff: CGFloat = 0 {
         didSet {
             // Make sure the fillView frame is updated everytime the coeff changes
             updateFillViewFrame()
@@ -223,9 +223,9 @@ class StoryPollQueView: BaseQuestionTagView {
     
     var firstOptionWidthConstraint: NSLayoutConstraint?
     
-    var startUpdateAnswer: (() -> Swift.Void)? = nil
+    var startUpdateAnswer: (() -> Swift.Void)?
     
-    var didUpdateAnswer: ((Int, StoryTags?, StoryPollQueView) -> Swift.Void)? = nil
+    var didUpdateAnswer: ((Int, StoryTags?, StoryPollQueView) -> Swift.Void)?
     
     var storyTag: StoryTags?
     

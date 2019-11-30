@@ -92,7 +92,7 @@ extension UIImage {
     }
     
     func isHorizontal() -> Bool {
-        let orientationArray: [UIImage.Orientation] = [.up,.upMirrored,.down,.downMirrored]
+        let orientationArray: [UIImage.Orientation] = [.up, .upMirrored, .down, .downMirrored]
         
         if orientationArray.contains(imageOrientation) {
             return size.width > size.height
@@ -102,7 +102,7 @@ extension UIImage {
     }
     
     func ratioH() -> CGFloat {
-        let orientationArray: [UIImage.Orientation] = [.up,.upMirrored,.down,.downMirrored]
+        let orientationArray: [UIImage.Orientation] = [.up, .upMirrored, .down, .downMirrored]
         if orientationArray.contains(imageOrientation) {
             return size.width / size.height
         } else {
@@ -154,7 +154,7 @@ extension UIImage {
             if size.width > maximumSize {
                 scale = maximumSize/size.width
             }
-        } else  {
+        } else {
             if size.height > maximumSize {
                 scale = maximumSize/size.height
             }
@@ -175,4 +175,3 @@ extension UIImage {
     }
 
 }
-

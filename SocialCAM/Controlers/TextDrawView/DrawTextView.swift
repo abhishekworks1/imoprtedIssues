@@ -93,7 +93,6 @@ public class DrawTextView: UIView {
     fileprivate var activePinchRecognizer: UIPinchGestureRecognizer?
     fileprivate var activeRotationRecognizer: UIRotationGestureRecognizer?
     
-    
     // MARK: - Init
     
     private func commonInit() {
@@ -116,7 +115,6 @@ public class DrawTextView: UIView {
         commonInit()
     }
     
-    
     // MARK: - Layout
     
     override public func layoutSubviews() {
@@ -127,7 +125,6 @@ public class DrawTextView: UIView {
                                        y: self.bounds.midY)
         }
     }
-    
     
     // MARK: - Property updates
     
@@ -190,7 +187,6 @@ public class DrawTextView: UIView {
         textLabel.center = labelCenter
     }
     
-    
     // MARK: - Format
     
     fileprivate func sizeLabel() {
@@ -221,7 +217,6 @@ public class DrawTextView: UIView {
         labelFrame = tempLabel.frame
     }
     
-    
     // MARK: - Undo
     
     /// Clears text from the drawing, giving a blank slate.
@@ -233,7 +228,6 @@ public class DrawTextView: UIView {
         textLabel.transform = .identity
         textString = ""
     }
-    
     
     // MARK: - Gesture handling
     
@@ -320,7 +314,6 @@ public class DrawTextView: UIView {
             return transform
         }
     }
-    
     
     // MARK: - Image rendering
     

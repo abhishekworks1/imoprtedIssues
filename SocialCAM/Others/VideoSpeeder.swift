@@ -98,13 +98,13 @@ class VideoScaler {
         return (scaleComposition, scalerParts)
     }
     
-    func exportVideo(scaleComposition: AVMutableComposition, completion: @escaping (_ outputURL: URL) -> ()) {
+    func exportVideo(scaleComposition: AVMutableComposition, completion: @escaping (_ outputURL: URL) -> Void) {
         compressFile(scaleComposition: scaleComposition) { (outputURL) in
             completion(outputURL)
         }
     }
     
-    func compressFile(scaleComposition: AVMutableComposition, completion:@escaping (URL)->Void){
+    func compressFile(scaleComposition: AVMutableComposition, completion:@escaping (URL) -> Void) {
         let fileName = String.fileName + FileExtension.mov.rawValue
         let outputURL = Utils.getLocalPath(fileName)
         
@@ -132,13 +132,13 @@ class VideoScaler {
         
         let audioTrack = asset.tracks(withMediaType: AVMediaType.audio).first
         
-        let videoReaderSettings: [String : Any] = [kCVPixelBufferPixelFormatTypeKey as String : kCVPixelFormatType_32ARGB ]
+        let videoReaderSettings: [String: Any] = [kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32ARGB ]
         
-        let videoSettings:[String:Any] = [
-            AVVideoCompressionPropertiesKey : [AVVideoAverageBitRateKey : NSNumber.init(value: videoTrack.estimatedDataRate)],
-            AVVideoCodecKey : AVVideoCodecType.h264,
-            AVVideoHeightKey : videoTrack.naturalSize.height,
-            AVVideoWidthKey : videoTrack.naturalSize.width
+        let videoSettings: [String: Any] = [
+            AVVideoCompressionPropertiesKey: [AVVideoAverageBitRateKey: NSNumber.init(value: videoTrack.estimatedDataRate)],
+            AVVideoCodecKey: AVVideoCodecType.h264,
+            AVVideoHeightKey: videoTrack.naturalSize.height,
+            AVVideoWidthKey: videoTrack.naturalSize.width
         ]
         
         let assetReaderVideoOutput = AVAssetReaderTrackOutput(track: videoTrack, outputSettings: videoReaderSettings)
@@ -184,7 +184,7 @@ class VideoScaler {
         reader.startReading()
         writer.startSession(atSourceTime: CMTime.zero)
         
-        let closeWriter: (() -> ()) = {
+        let closeWriter: (() -> Void) = {
             if audioFinished && videoFinished {
                 self.assetWriter?.finishWriting(completionHandler: {
                     completion((self.assetWriter?.outputURL)!)

@@ -10,10 +10,10 @@ import UIKit
 import FSPagerView
 
 class UpgradePageCollectionViewCell: FSPagerViewCell {
-    @IBOutlet var viewTitle : UIView!
-    @IBOutlet var lblPrice : UILabel!
-    @IBOutlet var lblNumberOfChannel : UILabel!
-    var primumTuple : PrimumTuple? {
+    @IBOutlet var viewTitle: UIView!
+    @IBOutlet var lblPrice: UILabel!
+    @IBOutlet var lblNumberOfChannel: UILabel!
+    var primumTuple: PrimumTuple? {
         didSet {
             if let primumTuple = self.primumTuple {
                 self.viewTitle.backgroundColor = primumTuple.color

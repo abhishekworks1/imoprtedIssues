@@ -12,7 +12,7 @@ import MetalKit
 
 class StoryImageView: UIView {
     
-    public enum ImageContentMode : Int {
+    public enum ImageContentMode: Int {
         
         case scaleToFill
         
@@ -182,8 +182,8 @@ class StoryImageView: UIView {
             self.mtlDevice = MTLCreateSystemDefaultDevice()
             if let device = self.mtlDevice {
                 self.ciContext = CIContext(mtlDevice: device,
-                                           options: [CIContextOption.workingColorSpace : NSNull(),
-                                                     CIContextOption.outputColorSpace : NSNull()])
+                                           options: [CIContextOption.workingColorSpace: NSNull(),
+                                                     CIContextOption.outputColorSpace: NSNull()])
             }
         }
         return true
@@ -198,7 +198,7 @@ class StoryImageView: UIView {
         }
     }
 }
-// MARK:
+// MARK: 
 extension StoryImageView {
     
     func scaleAndResizeTransform(_ image: CIImage, for rect: CGRect) -> CGAffineTransform {

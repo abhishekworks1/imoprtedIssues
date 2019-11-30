@@ -15,7 +15,6 @@ class StorySettingsOptionsVC: UIViewController {
     var firstPercentage: Double = 0.0
     var firstUploadCompletedSize: Double = 0.0
     
-    
     var settingsOptions = [R.string.localizable.privacySettings(),
                            R.string.localizable.controlCenter(),
                            R.string.localizable.prO(),
@@ -89,11 +88,11 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
     
     func isProEnable() {
         let objAlert = UIAlertController(title: Constant.Application.displayName, message: !Defaults.shared.isPro ? R.string.localizable.areYouSureYouWantToEnablePro() : R.string.localizable.areYouSureYouWantToDisablePro(), preferredStyle: .alert)
-        let actionlogOut = UIAlertAction(title: R.string.localizable.oK(), style: .default) { (action : UIAlertAction) in
+        let actionlogOut = UIAlertAction(title: R.string.localizable.oK(), style: .default) { (_: UIAlertAction) in
             Defaults.shared.isPro = !Defaults.shared.isPro
             self.navigationController?.popViewController(animated: true)
         }
-        let cancelAction = UIAlertAction(title: R.string.localizable.cancel(), style: .default) { (action : UIAlertAction) in }
+        let cancelAction = UIAlertAction(title: R.string.localizable.cancel(), style: .default) { (_: UIAlertAction) in }
         objAlert.addAction(actionlogOut)
         objAlert.addAction(cancelAction)
         self.present(objAlert, animated: true, completion: nil)
@@ -101,14 +100,14 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
     
     func logoutUser() {
         let objAlert = UIAlertController(title: Constant.Application.displayName, message: R.string.localizable.areYouSureYouWantToLogout(), preferredStyle: .alert)
-        let actionlogOut = UIAlertAction(title: R.string.localizable.logout(), style: .default) { (action : UIAlertAction) in
+        let actionlogOut = UIAlertAction(title: R.string.localizable.logout(), style: .default) { (_: UIAlertAction) in
             StoryDataManager.shared.deleteAllRecords()
             
             SelectedTimer.removeAll()
             self.logoutApi(token: "")
             Defaults.shared.clearData()
         }
-        let cancelAction = UIAlertAction(title: R.string.localizable.cancel(), style: .default) { (action : UIAlertAction) in }
+        let cancelAction = UIAlertAction(title: R.string.localizable.cancel(), style: .default) { (_: UIAlertAction) in }
         objAlert.addAction(actionlogOut)
         objAlert.addAction(cancelAction)
         self.present(objAlert, animated: true, completion: nil)
@@ -116,7 +115,7 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
     
     func logoutApi(token: String) {
         self.showHUD()
-        ProManagerApi.logOut(deviceToken: token, userId: "").request(Result<User>.self).subscribe(onNext: { (result) in
+        ProManagerApi.logOut(deviceToken: token, userId: "").request(Result<User>.self).subscribe(onNext: { (_) in
             self.dismissHUD()
             Defaults.shared.currentUser = nil
             CurrentUser.shared.setActiveUser(nil)
@@ -124,7 +123,7 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
             if let loginNav = R.storyboard.loginViewController.loginNavigation() {
                 Utils.appDelegate?.window?.switchRootViewController(loginNav)
             }
-        }, onError: { (error) in
+        }, onError: { (_) in
             self.dismissHUD()
             
             if let loginNav = R.storyboard.loginViewController.loginNavigation() {

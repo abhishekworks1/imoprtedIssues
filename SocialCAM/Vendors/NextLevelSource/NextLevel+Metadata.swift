@@ -36,10 +36,10 @@ extension CMSampleBuffer {
     ///
     /// - Parameter sampleBuffer: sample buffer to be processed
     /// - Returns: metadata dictionary from the provided sample buffer
-    public func metadata() -> [String : Any]? {
+    public func metadata() -> [String: Any]? {
         
         if let cfmetadata = CMCopyDictionaryOfAttachments(allocator: kCFAllocatorDefault, target: self, attachmentMode: kCMAttachmentMode_ShouldPropagate) {
-            if let metadata = cfmetadata as? [String : Any] {
+            if let metadata = cfmetadata as? [String: Any] {
                 return metadata
             }
         }
@@ -72,15 +72,15 @@ extension CMSampleBuffer {
     
 }
 
-fileprivate let NextLevelMetadataTitle = "NextLevel"
-fileprivate let NextLevelMetadataArtist = "http://nextlevel.engineering/"
+private let NextLevelMetadataTitle = "NextLevel"
+private let NextLevelMetadataArtist = "http://nextlevel.engineering/"
 
 extension NextLevel {
     
     internal class func tiffMetadata() -> [String: Any] {
-        return [ kCGImagePropertyTIFFSoftware as String : NextLevelMetadataTitle,
-                 kCGImagePropertyTIFFArtist as String : NextLevelMetadataArtist,
-                 kCGImagePropertyTIFFDateTime as String : Date().iso8601() ]
+        return [ kCGImagePropertyTIFFSoftware as String: NextLevelMetadataTitle,
+                 kCGImagePropertyTIFFArtist as String: NextLevelMetadataArtist,
+                 kCGImagePropertyTIFFDateTime as String: Date().iso8601() ]
     }
     
     internal class func assetWriterMetadata() -> [AVMutableMetadataItem] {

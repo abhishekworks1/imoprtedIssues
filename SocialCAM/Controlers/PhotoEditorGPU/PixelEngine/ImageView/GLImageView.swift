@@ -23,7 +23,7 @@ import Foundation
 import GLKit
 import AVKit
 
-public class GLImageView : GLKView, HardwareImageViewType {
+public class GLImageView: GLKView, HardwareImageViewType {
 
   // MARK: - Properties
 

@@ -91,8 +91,7 @@ public final class ReactionSelector: UIReactionControl {
     set {
       if let reaction = newValue, config.stickyReaction {
         stateHighlightedReactionIndex = reactions.firstIndex(of: reaction)
-      }
-      else {
+      } else {
         stateHighlightedReactionIndex = nil
       }
 
@@ -212,8 +211,7 @@ public final class ReactionSelector: UIReactionControl {
         
         sendActions(for: isInside ? .touchDragEnter : .touchDragExit)
       }
-    }
-    else if gestureRecognizer.state != .changed {
+    } else if gestureRecognizer.state != .changed {
       if gestureRecognizer.state == .ended && !config.stickyReaction {
         stateHighlightedReactionIndex = nil
       }

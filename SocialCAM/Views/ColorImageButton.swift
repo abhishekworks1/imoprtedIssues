@@ -35,8 +35,7 @@ class ColorImageButton: UIButton {
         didSet {
             if isChangeBackgroundColor {
                 self.backgroundColor = ApplicationSettings.appWhiteColor
-            }
-            else {
+            } else {
                 self.backgroundColor = ApplicationSettings.appClearColor
             }
         }
@@ -50,16 +49,13 @@ class ColorImageButton: UIButton {
                 let tintedImage = origImage?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
                 self.setImage(tintedImage, for: .selected)
                 self.tintColor = imageTintColor
-                if isSelected && self.frame.size.width == self.frame.size.height  {
+                if isSelected && self.frame.size.width == self.frame.size.height {
                     
                     self.backgroundColor = ApplicationSettings.appWhiteColor
-                }
-                else {
+                } else {
                     self.backgroundColor = ApplicationSettings.appClearColor
                 }
-            }
-            else if self.frame.size.width == self.frame.size.height
-            {
+            } else if self.frame.size.width == self.frame.size.height {
                 self.backgroundColor = ApplicationSettings.appClearColor
             }
         }
@@ -88,7 +84,6 @@ class ColorImageButton: UIButton {
         self.titleLabel?.font = UIFont(name: (self.titleLabel?.font.fontName)!, size: (self.fontSize * ratio))
     }
     
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         if isRounded {
@@ -96,8 +91,7 @@ class ColorImageButton: UIButton {
             layer.masksToBounds = (self.frame.size.width / 2.0) > 0
         }
      
-        if self.frame.size.width == self.frame.size.height
-        {
+        if self.frame.size.width == self.frame.size.height {
             if isChangeBackgroundColor {
                 self.backgroundColor = ApplicationSettings.appWhiteColor
             }
@@ -105,8 +99,7 @@ class ColorImageButton: UIButton {
         
         if !isSelectedChange {
             imageTintColor = ApplicationSettings.appPrimaryColor
-        }
-        else {
+        } else {
             isSelectedChange = true
         }
         

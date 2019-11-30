@@ -294,7 +294,7 @@ class StickersViewController: UIViewController, UIGestureRecognizerDelegate {
                         frame.origin.y = UIScreen.main.bounds.maxY
                         self.view.frame = frame
                         
-        }, completion: { (finished) -> Void in
+        }, completion: { (_) -> Void in
             self.view.removeFromSuperview()
             self.removeFromParent()
             self.stickersViewControllerDelegate?.stickersViewDidDisappear()

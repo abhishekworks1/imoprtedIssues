@@ -250,7 +250,7 @@ class FlowChartView: UIView {
         let index = dotViews.firstIndex { (dotView) -> Bool in
             return dotView == view
         }
-        if let index = index  {
+        if let index = index {
             dotViews.remove(at: index)
         }
         view.removeFromSuperview()
@@ -302,7 +302,7 @@ class FlowChartView: UIView {
             pathGradiantLayer.mask = pathMaskLayer
             pathGradiantLayer.colors = [UIColor.green.cgColor,
                                         UIColor.yellow.cgColor,
-                                        UIColor.red.cgColor];
+                                        UIColor.red.cgColor]
             pathGradiantLayer.locations = [NSNumber(value: 0.0),
                                            NSNumber(value: 0.45),
                                            NSNumber(value: 0.95)]
@@ -341,7 +341,7 @@ class FlowChartView: UIView {
             newPoint = points[i]
             
             let midPoint = CGPoint(x: (currentPoint.x + newPoint.x)/2.0,
-                                   y:  (currentPoint.y + newPoint.y)/2.0)
+                                   y: (currentPoint.y + newPoint.y)/2.0)
             
             if currentPoint.y > newPoint.y {
                 let y =  currentPoint.y > midPoint.y ? currentPoint.y : midPoint.y

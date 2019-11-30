@@ -41,7 +41,7 @@ class HistroGramVC: UIViewController {
     
     var currentDotView: FlowDotView?
     
-    var doneHandler: (([SegmentVideos]) -> ())? = nil
+    var doneHandler: (([SegmentVideos]) -> Void)?
     
     var isExporting: Bool = false {
         didSet {
@@ -86,7 +86,7 @@ class HistroGramVC: UIViewController {
         super.viewDidAppear(animated)
         let yourAttributes = [NSAttributedString.Key.foregroundColor: ApplicationSettings.appWhiteColor, NSAttributedString.Key.font: UIFont.sfuiTextRegular]
         
-        let finalString =  NSMutableAttributedString(string: "", attributes: yourAttributes as [NSAttributedString.Key : Any])
+        let finalString =  NSMutableAttributedString(string: "", attributes: yourAttributes as [NSAttributedString.Key: Any])
         self.lblShowCurrentTime.text = ""
         self.lblShowCurrentTime.attributedText = finalString
         self.playPauseClicked(btnPlayPause!)
@@ -176,7 +176,7 @@ class HistroGramVC: UIViewController {
             let actualDuration = asset.duration.seconds
             let currentTm = currentTime(adjustedTime: Double((gesture.view!.center.x*CGFloat(actualDuration))/UIScreen.main.bounds.width))
             let seekTime = CMTime.init(value: CMTimeValue.init(currentTm*1000000000), timescale: 1000000000)
-            player?.seek(to: seekTime, completionHandler: { [weak self] isCompleted in
+            player?.seek(to: seekTime, completionHandler: { [weak self] _ in
                 if self?.shouldPlayAfterDrag ?? false {
                     self?.startPlaybackTimeChecker()
                 }
@@ -242,7 +242,7 @@ extension HistroGramVC: FlowChartViewDelegate {
             btnPlayPause.isSelected = true
         }
         let seekTime = CMTime.init(value: CMTimeValue.init(self.currentTime(adjustedTime: draggedSeconds)*1000000000), timescale: 1000000000)
-        player?.seek(to: seekTime, completionHandler: { [weak self]isCompleted in
+        player?.seek(to: seekTime, completionHandler: { [weak self]_ in
             if self?.shouldPlayAfterDrag ?? false {
                 self?.startPlaybackTimeChecker()
             }
@@ -274,7 +274,7 @@ extension HistroGramVC: FlowChartViewDelegate {
             btnPlayPause.isSelected = true
         }
         let seekTime = CMTime.zero
-        player?.seek(to: seekTime, completionHandler: { [weak self]isCompleted in
+        player?.seek(to: seekTime, completionHandler: { [weak self]_ in
             if self?.shouldPlayAfterDrag ?? false {
                 self?.startPlaybackTimeChecker()
             }
@@ -355,10 +355,9 @@ extension HistroGramVC {
                     return
             }
             
-            currentPlayerItem.seek(to: CMTime.zero, completionHandler: { (isCompleted) in
+            currentPlayerItem.seek(to: CMTime.zero, completionHandler: { (_) in
                 self.player?.play()
             })
         }
     }
 }
-

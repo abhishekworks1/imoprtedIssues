@@ -28,24 +28,23 @@ public protocol KDDraggable {
     func canDragAtPoint(_ point: CGPoint) -> Bool
     func representationImageAtPoint(_ point: CGPoint) -> UIView?
     func dataItemAtPoint(_ point: CGPoint) -> AnyObject?
-    func dragDataItem(_ item: AnyObject) -> Void
+    func dragDataItem(_ item: AnyObject)
 
-    /* optional */ func startDraggingAtPoint(_ point: CGPoint) -> Void
-    /* optional */ func stopDragging() -> Void
+    /* optional */ func startDraggingAtPoint(_ point: CGPoint)
+    /* optional */ func stopDragging()
 }
 
 extension KDDraggable {
-    public func startDraggingAtPoint(_ point: CGPoint) -> Void { }
-    public func stopDragging() -> Void { }
+    public func startDraggingAtPoint(_ point: CGPoint) { }
+    public func stopDragging() { }
 }
-
 
 public protocol KDDroppable {
     func canDropAtRect(_ rect: CGRect) -> Bool
-    func willMoveItem(_ item: AnyObject, inRect rect: CGRect) -> Void
-    func didMoveItem(_ item: AnyObject, inRect rect: CGRect) -> Void
-    func didMoveOutItem(_ item: AnyObject) -> Void
-    func dropDataItem(_ item: AnyObject, atRect: CGRect) -> Void
+    func willMoveItem(_ item: AnyObject, inRect rect: CGRect)
+    func didMoveItem(_ item: AnyObject, inRect rect: CGRect)
+    func didMoveOutItem(_ item: AnyObject)
+    func dropDataItem(_ item: AnyObject, atRect: CGRect)
 }
 
 public class KDDragAndDropManager: NSObject, UIGestureRecognizerDelegate {
@@ -119,7 +118,7 @@ public class KDDragAndDropManager: NSObject, UIGestureRecognizerDelegate {
 
     }
 
-    @objc public func updateForLongPress(_ recogniser: UILongPressGestureRecognizer) -> Void {
+    @objc public func updateForLongPress(_ recogniser: UILongPressGestureRecognizer) {
 
         guard let bundle = self.bundle else { return }
 
@@ -128,7 +127,6 @@ public class KDDragAndDropManager: NSObject, UIGestureRecognizerDelegate {
         let pointOnSourceDraggable = recogniser.location(in: bundle.sourceDraggableView)
 
         switch recogniser.state {
-
 
         case .began:
             self.canvas.addSubview(bundle.representationImageView)
@@ -184,11 +182,9 @@ public class KDDragAndDropManager: NSObject, UIGestureRecognizerDelegate {
                 self.bundle!.overDroppableView = mainOverView
 
                 droppable.didMoveItem(bundle.dataItem, inRect: rect)
-                
 
 //                }
             }
-
 
         case .ended:
 
@@ -236,7 +232,6 @@ public class KDDragAndDropManager: NSObject, UIGestureRecognizerDelegate {
 
 }
 
-
 extension CGRect: Comparable {
 
     public var area: CGFloat {
@@ -256,4 +251,3 @@ extension CGRect: Comparable {
         return lhs.area >= rhs.area
     }
 }
-

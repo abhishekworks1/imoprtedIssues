@@ -12,10 +12,10 @@ import AVKit
 class MMPlayerCache: NSObject {
     
     var cacheCount = 20
-    fileprivate var cache = [URL : AVPlayerItem]()
+    fileprivate var cache = [URL: AVPlayerItem]()
     fileprivate var queueURL = [URL]()
     
-    func appendCache(key: URL , item: AVPlayerItem) {
+    func appendCache(key: URL, item: AVPlayerItem) {
         if cache.keys.count >= cacheCount {
             if let f = queueURL.first {
                 self.removeCache(key: f)

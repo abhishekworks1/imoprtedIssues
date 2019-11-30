@@ -15,22 +15,22 @@ import NVActivityIndicatorView
 
 class KeywordViewController: UIViewController {
     
-    @IBOutlet var tblYouTube : UITableView!
-    @IBOutlet var emptyView : UIView?
-    @IBOutlet var indicatorView : NVActivityIndicatorView! {
+    @IBOutlet var tblYouTube: UITableView!
+    @IBOutlet var emptyView: UIView?
+    @IBOutlet var indicatorView: NVActivityIndicatorView! {
         didSet {
             indicatorView.color = ApplicationSettings.appPrimaryColor
         }
     }
     
-    var Videos : [Observable<YTSerchResponse<Item>>] = []
-    var textObservable : Observable<String>?
+    var Videos: [Observable<YTSerchResponse<Item>>] = []
+    var textObservable: Observable<String>?
     var isReview = false
-    var searchText : String = ""
-    var nextPageToken : String?
-    var totalResult : Int?
+    var searchText: String = ""
+    var nextPageToken: String?
+    var totalResult: Int?
     var resultPerPage: Int?
-    var popHandler : ((_ youTubeUrl:String, _ hash:[String]?, _ title: String?, _ channelId:String?) -> Void)?
+    var popHandler : ((_ youTubeUrl: String, _ hash: [String]?, _ title: String?, _ channelId: String?) -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +49,7 @@ class KeywordViewController: UIViewController {
           self.tblYouTube.reloadData()
     }
     
-    func getVideo(q:String) {
+    func getVideo(q: String) {
         self.indicatorView.startAnimating()
         ProManagerApi.youTubeKeyWordSerch(q: q, order: nil, nextPageToken: self.nextPageToken).request(YTSerchResponse<Item>.self).subscribe(onNext: { response in
             self.nextPageToken = response.nextPageToken
@@ -66,7 +66,7 @@ class KeywordViewController: UIViewController {
                     self.indicatorView.stopAnimating()
                     ApplicationSettings.shared.videos.append((response.result?[0])!)
                     self.tblYouTube.reloadData()
-                }, onError: { error in
+                }, onError: { _ in
                     self.indicatorView.stopAnimating()
                 }, onCompleted: {
                     self.indicatorView.stopAnimating()
@@ -74,14 +74,14 @@ class KeywordViewController: UIViewController {
                 }).disposed(by: self.rx.disposeBag)
                 return ""
             })
-        } , onCompleted: {
+        }, onCompleted: {
             self.tblYouTube.reloadData()
         }).disposed(by: rx.disposeBag)
     }
 
 }
 
-extension KeywordViewController: UITableViewDataSource , UITableViewDelegate {
+extension KeywordViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return ApplicationSettings.shared.videos.count

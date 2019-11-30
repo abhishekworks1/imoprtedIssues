@@ -20,7 +20,7 @@
 // THE SOFTWARE.
 import Foundation
 
-open class NavigationView : UIStackView {
+open class NavigationView: UIStackView {
 
   public var didTapDoneButton: () -> Void = {}
   public var didTapCancelButton: () -> Void = {}

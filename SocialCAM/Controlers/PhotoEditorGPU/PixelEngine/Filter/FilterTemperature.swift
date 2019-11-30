@@ -39,10 +39,9 @@ public struct FilterTemperature: Filtering, Equatable, Codable {
           "CITemperatureAndTint",
           parameters: [
             "inputNeutral": CIVector.init(x: CGFloat(value) + 6500, y: 0),
-            "inputTargetNeutral": CIVector.init(x: 6500, y: 0),
+            "inputTargetNeutral": CIVector.init(x: 6500, y: 0)
           ]
     )
   }
-
 
 }

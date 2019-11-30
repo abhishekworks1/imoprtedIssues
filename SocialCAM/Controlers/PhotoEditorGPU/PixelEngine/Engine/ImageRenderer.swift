@@ -36,8 +36,8 @@ public final class ImageRenderer {
   }
 
   private let cicontext = CIContext(options: [
-    CIContextOption.useSoftwareRenderer : false,
-    CIContextOption.highQualityDownsample: true,
+    CIContextOption.useSoftwareRenderer: false,
+    CIContextOption.highQualityDownsample: true
     ])
   
   public let source: ImageSource
@@ -100,7 +100,7 @@ public final class ImageRenderer {
     let image = autoreleasepool { () -> UIImage in
       
       UIGraphicsImageRenderer.init(size: canvasSize, format: format)
-        .image { c in
+        .image { _ in
           
           let cgContext = UIGraphicsGetCurrentContext()!
           
@@ -122,4 +122,3 @@ public final class ImageRenderer {
     return image
   }
 }
-

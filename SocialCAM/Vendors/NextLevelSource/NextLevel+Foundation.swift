@@ -45,7 +45,7 @@ extension Data {
     /// - Parameter metadata: metadata dictionary to be added
     /// - Returns: JPEG formatted image data
     public func jpegData(withMetadataDictionary metadata: [String: Any]) -> Data? {
-        var imageDataWithMetadata: Data? = nil
+        var imageDataWithMetadata: Data?
         if let source = CGImageSourceCreateWithData(self as CFData, nil),
             let sourceType = CGImageSourceGetType(source) {
             let mutableData = NSMutableData()

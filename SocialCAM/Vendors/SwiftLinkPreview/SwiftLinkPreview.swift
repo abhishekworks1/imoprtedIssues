@@ -7,7 +7,7 @@
 //
 import Foundation
 
-public enum SwiftLinkResponseKey : String {
+public enum SwiftLinkResponseKey: String {
     case url
     case finalUrl
     case canonicalUrl
@@ -17,15 +17,15 @@ public enum SwiftLinkResponseKey : String {
     case images
 }
 
-open class Cancellable : NSObject {
-    public private(set) var isCancelled : Bool = false
+open class Cancellable: NSObject {
+    public private(set) var isCancelled: Bool = false
 
     open func cancelSwiftLinkPreview() {
         isCancelled = true
     }
 }
 
-open class SwiftLinkPreview : NSObject {
+open class SwiftLinkPreview: NSObject {
     
     public typealias Response = [SwiftLinkResponseKey: Any]
 
@@ -55,7 +55,7 @@ open class SwiftLinkPreview : NSObject {
         let _session = URLSession.shared
         let _workQueue: DispatchQueue = SwiftLinkPreview.defaultWorkQueue
         let _responseQueue: DispatchQueue = DispatchQueue.main
-        let _cache : Cache  = DisabledCache.instance
+        let _cache: Cache  = DisabledCache.instance
         
         self.workQueue = _workQueue
         self.responseQueue = _responseQueue
@@ -64,19 +64,18 @@ open class SwiftLinkPreview : NSObject {
     }
 
     //Objective-C init with paramaters.  nil objects will default.  Timeout values are ignored if InMemoryCache is disabled.
-    @objc public init(session: URLSession?, workQueue: DispatchQueue?, responseQueue: DispatchQueue? , disableInMemoryCache : Bool, cacheInvalidationTimeout: TimeInterval, cacheCleanupInterval: TimeInterval) {
+    @objc public init(session: URLSession?, workQueue: DispatchQueue?, responseQueue: DispatchQueue?, disableInMemoryCache: Bool, cacheInvalidationTimeout: TimeInterval, cacheCleanupInterval: TimeInterval) {
         
         let _session = session ?? URLSession.shared
         let _workQueue = workQueue ?? SwiftLinkPreview.defaultWorkQueue
         let _responseQueue = responseQueue ?? DispatchQueue.main
-        let _cache : Cache  = disableInMemoryCache ? DisabledCache.instance : InMemoryCache(invalidationTimeout: cacheInvalidationTimeout, cleanupInterval: cacheCleanupInterval)
+        let _cache: Cache  = disableInMemoryCache ? DisabledCache.instance : InMemoryCache(invalidationTimeout: cacheInvalidationTimeout, cleanupInterval: cacheCleanupInterval)
     
         self.workQueue = _workQueue
         self.responseQueue = _responseQueue
         self.cache = _cache
         self.session = _session
     }
-    
     
     // MARK: - Functions
     // Make preview
@@ -157,19 +156,18 @@ open class SwiftLinkPreview : NSObject {
       images
      
      */
-    @objc @discardableResult open func previewLink(_ text: String!, onSuccess: @escaping (Dictionary<String, Any>) -> Void, onError: @escaping (NSError) -> Void) -> Cancellable {
+    @objc @discardableResult open func previewLink(_ text: String!, onSuccess: @escaping ([String: Any]) -> Void, onError: @escaping (NSError) -> Void) -> Cancellable {
         
-        func success (_ result : Response) -> Void {
-            var ResponseData = [String : Any]()
+        func success (_ result: Response) {
+            var ResponseData = [String: Any]()
             for item in result {
                 ResponseData.updateValue(item.value, forKey: item.key.rawValue)
             }
             onSuccess(ResponseData)
         }
         
-        
-        func failure (_ theError : PreviewError) -> Void  {
-            var ErrorCode : Int
+        func failure (_ theError: PreviewError) {
+            var ErrorCode: Int
             ErrorCode = 1
             
             switch theError {
@@ -183,7 +181,7 @@ open class SwiftLinkPreview : NSObject {
                 ErrorCode = 4
             }
             
-            onError( NSError(domain: "SwiftLinkPreviewDomain", code: ErrorCode, userInfo: [NSLocalizedDescriptionKey : theError.description]))
+            onError( NSError(domain: "SwiftLinkPreviewDomain", code: ErrorCode, userInfo: [NSLocalizedDescriptionKey: theError.description]))
         }
         
         return self.preview(text, onSuccess: success, onError: failure)
@@ -207,11 +205,11 @@ extension SwiftLinkPreview {
 
         if cancellable.isCancelled {return}
 
-        var task: URLSessionDataTask? = nil
+        var task: URLSessionDataTask?
         var request = URLRequest(url: url)
         request.httpMethod = "HEAD"
 
-        task = session.dataTask(with: request, completionHandler: { data, response, error in
+        task = session.dataTask(with: request, completionHandler: { _, response, error in
             if let _ = error {
                 self.workQueue.async {
                     if !cancellable.isCancelled {
@@ -256,7 +254,7 @@ extension SwiftLinkPreview {
     }
 
     // Extract HTML code and the information contained on it
-    fileprivate func extractInfo(_ url: URL, cancellable: Cancellable, canonicalUrl: String?, completion: @escaping (Response) -> Void, onError: (PreviewError) -> ()) {
+    fileprivate func extractInfo(_ url: URL, cancellable: Cancellable, canonicalUrl: String?, completion: @escaping (Response) -> Void, onError: (PreviewError) -> Void) {
         if cancellable.isCancelled {return}
 
         if(url.absoluteString.isImage()) {
@@ -272,7 +270,7 @@ extension SwiftLinkPreview {
             let sourceUrl = url.absoluteString.hasPrefix("http://") || url.absoluteString.hasPrefix("https://") ? url : URL(string: "http://\(url)")
             do {
                 let data = try Data(contentsOf: sourceUrl!)
-                var source: NSString? = nil
+                var source: NSString?
                 NSString.stringEncoding(for: data, encodingOptions: nil, convertedString: &source, usedLossyConversion: nil)
 
                 if let source = source {
@@ -292,7 +290,6 @@ extension SwiftLinkPreview {
         }
     }
 
-
     private func parseHtmlString(_ htmlString: String, canonicalUrl: String?, completion: @escaping (Response) -> Void) {
         completion(self.performPageCrawling(self.cleanSource(htmlString), canonicalUrl: canonicalUrl))
     }
@@ -311,7 +308,6 @@ extension SwiftLinkPreview {
 
     }
 
-
     // Perform the page crawiling
     private func performPageCrawling(_ htmlCode: String, canonicalUrl: String?) -> Response {
         let result = self.crawlMetaTags(htmlCode, canonicalUrl: canonicalUrl, result: Response())
@@ -322,7 +318,6 @@ extension SwiftLinkPreview {
 
         return self.crawlImages(response.htmlCode, canonicalUrl: canonicalUrl, result: response.result)
     }
-
 
     // Extract canonical URL
     internal func extractCanonicalURL(_ finalUrl: URL!) -> String {
@@ -548,7 +543,6 @@ extension SwiftLinkPreview {
                     
                 }
                 
-                
             }
             
         }
@@ -563,7 +557,7 @@ extension SwiftLinkPreview {
         let index = 2
         let rawMatches = Regex.pregMatchAll(content, regex: pattern, index: index)
         
-        let matches = rawMatches.filter( { $0.extendedTrim.tagsStripped.count >= minimum })
+        let matches = rawMatches.filter({ $0.extendedTrim.tagsStripped.count >= minimum })
         var result = matches.count > 0 ? matches[0] : ""
         
         if result.isEmpty {

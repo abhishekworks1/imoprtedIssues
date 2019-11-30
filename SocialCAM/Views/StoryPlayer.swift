@@ -160,11 +160,11 @@ class StoryPlayer: AVPlayer {
         addObserver(self, forKeyPath: "currentItem", options: .new, context: nil)
     }
     
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "currentItem" {
             initObserver()
         } else if keyPath == "status" {
-            let block: (() -> ()) = { [weak self] in
+            let block: (() -> Void) = { [weak self] in
                 guard let `self` = self else {
                     return
                 }
@@ -179,7 +179,7 @@ class StoryPlayer: AVPlayer {
                 DispatchQueue.main.async(execute: block)
             }
         } else if keyPath == "loadedTimeRanges" {
-            let block: (() -> ()) = { [weak self] in
+            let block: (() -> Void) = { [weak self] in
                 guard let `self` = self else {
                     return
                 }
@@ -195,7 +195,7 @@ class StoryPlayer: AVPlayer {
                 DispatchQueue.main.async(execute: block)
             }
         } else if keyPath == "playbackBufferEmpty" {
-            let block: (() -> ()) = { [weak self] in
+            let block: (() -> Void) = { [weak self] in
                 guard let `self` = self else {
                     return
                 }
@@ -368,7 +368,7 @@ extension StoryPlayer {
             item.status == .readyToPlay {
             let pixBuffAttributes = [kCVPixelBufferPixelFormatTypeKey: kCVPixelFormatType_32BGRA]
             
-            videoOutput = AVPlayerItemVideoOutput(pixelBufferAttributes: pixBuffAttributes as [String : Any])
+            videoOutput = AVPlayerItemVideoOutput(pixelBufferAttributes: pixBuffAttributes as [String: Any])
             
             videoOutput?.setDelegate(self, queue: DispatchQueue.main)
             videoOutput?.suppressesPlayerRendering = shouldSuppressPlayerRendering

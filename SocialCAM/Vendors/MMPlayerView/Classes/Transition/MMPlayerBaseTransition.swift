@@ -13,7 +13,7 @@ public class MMPlayerBasePresentTransition: NSObject {
     var source: UIViewController?
     internal var config: MMPlayerConfig!
 
-    convenience init(config: MMPlayerConfig , isPresent: Bool) {
+    convenience init(config: MMPlayerConfig, isPresent: Bool) {
         self.init()
         self.config = config
         self.isPresent = isPresent
@@ -21,14 +21,13 @@ public class MMPlayerBasePresentTransition: NSObject {
 }
 
 public class MMPlayerBaseNavTransition: NSObject {
-    var operation:UINavigationController.Operation = .none
+    var operation: UINavigationController.Operation = .none
     var source: UIViewController?
-    internal var config:MMPlayerConfig!
+    internal var config: MMPlayerConfig!
     
-    convenience init(config: MMPlayerConfig , operation: UINavigationController.Operation) {
+    convenience init(config: MMPlayerConfig, operation: UINavigationController.Operation) {
         self.init()
         self.config = config
         self.operation = operation
     }    
 }
-

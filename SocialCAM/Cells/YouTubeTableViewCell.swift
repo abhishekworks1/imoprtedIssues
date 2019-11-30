@@ -12,17 +12,17 @@ import RxCocoa
 import WebKit
 
 class YouTubeTableViewCell: UITableViewCell {
-    @IBOutlet var webView : WKWebView!
-    @IBOutlet var imgView : UIImageView!
-    @IBOutlet var lblTitle : UILabel!
-    @IBOutlet var lblTag : UILabel!
-    @IBOutlet var lblDiscribtion : UILabel!
-    @IBOutlet var lblLike : UILabel!
-    @IBOutlet var lblDisLike : UILabel!
-    @IBOutlet var lblViews : UILabel!
-    var playHandler : ((_ item:Item)->Void)?
-    var shareHandler : ((_ item:Item)->Void)?
-    var observable : Item? {
+    @IBOutlet var webView: WKWebView!
+    @IBOutlet var imgView: UIImageView!
+    @IBOutlet var lblTitle: UILabel!
+    @IBOutlet var lblTag: UILabel!
+    @IBOutlet var lblDiscribtion: UILabel!
+    @IBOutlet var lblLike: UILabel!
+    @IBOutlet var lblDisLike: UILabel!
+    @IBOutlet var lblViews: UILabel!
+    var playHandler : ((_ item: Item) -> Void)?
+    var shareHandler : ((_ item: Item) -> Void)?
+    var observable: Item? {
         didSet {
             if let items = observable {
                 let video = items
@@ -31,7 +31,7 @@ class YouTubeTableViewCell: UITableViewCell {
                 self.lblLike.text = "\(video.statistics?.likeCount ?? "")"
                 self.lblDisLike.text = "\(video.statistics?.dislikeCount ?? "")"
                 self.lblViews.text = "\(video.statistics?.viewCount ?? "")"
-                if let tags = video.snippet?.tags , tags.count > 0 {
+                if let tags = video.snippet?.tags, !tags.isEmpty {
                     let tempString = tags.joined(separator: ",#")
                     let hash = "#"
                     let tagText = hash.appending(tempString)
@@ -49,7 +49,7 @@ class YouTubeTableViewCell: UITableViewCell {
         }
     }
     
-    @IBAction func btnPlayClicked(_ sender : Any) {
+    @IBAction func btnPlayClicked(_ sender: Any) {
         if let handler = self.playHandler {
             handler(self.observable!)
         }

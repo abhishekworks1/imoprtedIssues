@@ -21,7 +21,7 @@
 
 import UIKit
 
-final class CropAndStraightenView : UIView {
+final class CropAndStraightenView: UIView {
 
   // MARK: - Properties
 
@@ -166,7 +166,6 @@ final class CropAndStraightenView : UIView {
     }
   }
 }
-
 
 private func _ratio(to: CGSize, from: CGSize) -> CGFloat {
 

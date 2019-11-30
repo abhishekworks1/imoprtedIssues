@@ -67,9 +67,9 @@ class StorySettings {
                                               settings: [StorySetting(name: "Mirror image",
                                                                       selected: true)]),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: "Combine Segment",selected: false)]),
+                                              settings: [StorySetting(name: "Combine Segment", selected: false)]),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: "Publish",selected: false)])]
+                                              settings: [StorySetting(name: "Publish", selected: false)])]
     
 }
 
@@ -165,7 +165,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        for (index,setting) in StorySettings.storySettings[indexPath.section].settings.enumerated() {
+        for (index, setting) in StorySettings.storySettings[indexPath.section].settings.enumerated() {
             if indexPath.section == 6 && index == indexPath.row {
                 
                 setting.selected = !setting.selected

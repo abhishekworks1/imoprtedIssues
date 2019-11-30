@@ -97,7 +97,7 @@ class CropToolbar: UIView {
     }
     
     private func addButtonsToContainer(buttons: [UIButton?]) {
-        buttons.forEach{
+        buttons.forEach {
             if let button = $0 {
                 optionButtonStackView?.addArrangedSubview(button)
             }

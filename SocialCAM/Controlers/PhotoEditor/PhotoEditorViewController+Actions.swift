@@ -140,7 +140,6 @@ extension PhotoEditorViewController {
         return imageOrientation
     }
     
-    
     @IBAction func verticalFlipTapped(_ sender: AnyObject) {
         verticalFlipButton.isSelected = !verticalFlipButton.isSelected
         if let img = image {
@@ -219,8 +218,8 @@ extension PhotoEditorViewController {
         }
     }
     
-    func getCombineUndo(data: [SegmentVideos]) -> (()->Void) {
-        return { ()->Void in
+    func getCombineUndo(data: [SegmentVideos]) -> (() -> Void) {
+        return { () -> Void in
             self.videoUrls.removeAll()
             for video in data {
                 self.videoUrls.append(video)
@@ -250,7 +249,7 @@ extension PhotoEditorViewController {
             guard let strongSelf = self else {
                 return
             }
-            let videourls : [SegmentVideos] = urls!
+            let videourls: [SegmentVideos] = urls!
             strongSelf.videoUrls.removeAll()
             strongSelf.videoUrls = videourls
             strongSelf.currentPlayVideo = -1
@@ -428,13 +427,13 @@ extension PhotoEditorViewController {
         undoMgr.add(undo: getReplace(model: data, index: index), redo: getReplace(model: data, index: index))
     }
     
-    func getReplace(model: SegmentVideos, index: Int) -> (()->Void) {
-        return { ()->Void in
+    func getReplace(model: SegmentVideos, index: Int) -> (() -> Void) {
+        return { () -> Void in
             self.videoUrls.insert(model, at: index)
         }
     }
     
-    func getReplaceRedo(model: SegmentVideos, index: Int) -> (()->Void) {
+    func getReplaceRedo(model: SegmentVideos, index: Int) -> (() -> Void) {
         return { () -> Void in
             self.videoUrls.remove(at: index)
             self.videoUrls.insert(model, at: index)
@@ -452,20 +451,16 @@ extension PhotoEditorViewController {
                 self.registerReplaceNewData(data: model!, index: self.lastMargeCell!.row)
                 self.registerReplaceDeleteData(data: modelDrag!, index: self.draggingCell!.row)
                 
-                if isBefore
-                {
+                if isBefore {
                     self.videoUrls[self.lastMargeCell!.row].numberOfSegementtext = "\(self.videoUrls[self.draggingCell!.row].numberOfSegementtext!) - \(self.videoUrls[self.lastMargeCell!.row].numberOfSegementtext!)"
-                }
-                else {
+                } else {
                     self.videoUrls[self.lastMargeCell!.row].numberOfSegementtext = "\(self.videoUrls[self.lastMargeCell!.row].numberOfSegementtext!) - \(self.videoUrls[self.draggingCell!.row].numberOfSegementtext!)"
                 }
                 
-                for (_,item) in self.videoUrls[self.draggingCell!.row].videos.enumerated() {
-                    if isBefore
-                    {
+                for (_, item) in self.videoUrls[self.draggingCell!.row].videos.enumerated() {
+                    if isBefore {
                         self.videoUrls[self.lastMargeCell!.row].videos.insert(item, at: 0)
-                    }
-                    else{
+                    } else {
                         self.videoUrls[self.lastMargeCell!.row].videos.append(item)
                     }
                 }
@@ -508,7 +503,7 @@ extension PhotoEditorViewController {
         }
     }
     
-    //MARK: - Button Actions
+    // MARK: - Button Actions
     
     @IBAction func onPlay(_ sender: AnyObject) {
         if playButton.isSelected {
@@ -559,8 +554,7 @@ extension PhotoEditorViewController {
         
         if allSegment.count < 2 {
             enableSaveButtons(false, alpha: 0.5)
-        }
-        else {
+        } else {
             enableSaveButtons(true, alpha: 1.0)
         }
         
@@ -569,8 +563,7 @@ extension PhotoEditorViewController {
         })
         if nilCount.count != 0 {
             coverImageView.image = nilCount[0]?.image
-        }
-        else {
+        } else {
             coverImageView.image = UIImage()
         }
         
@@ -704,9 +697,9 @@ extension PhotoEditorViewController {
             self.present(alert, animated: true, completion: nil)
         } else {
             switch self.storiCamType {
-            case .shareYoutube(_), .shareFeed(_), .shareStory(_): UIApplication.shared.delegate?.window??.makeToast("Retake")
+            case .shareYoutube, .shareFeed, .shareStory: UIApplication.shared.delegate?.window??.makeToast("Retake")
                 break
-            case .replyStory(_,_):
+            case .replyStory:
                 break
             default:
                 break
@@ -715,11 +708,11 @@ extension PhotoEditorViewController {
         }
     }
     
-    func handleUnPublishSave(alertAction: UIAlertAction!) -> Void {
+    func handleUnPublishSave(alertAction: UIAlertAction!) {
         saveToCameraRoll(false)
     }
     
-    func handleDismiss(alertAction: UIAlertAction!) -> Void {
+    func handleDismiss(alertAction: UIAlertAction!) {
         self.dismiss()
     }
     
@@ -733,7 +726,7 @@ extension PhotoEditorViewController {
     }
     
     func createPostAPICall() {
-        var pData: CreatePostData? = nil
+        var pData: CreatePostData?
         if case StoriCamType.shareYoutube(let postData) = self.storiCamType {
             pData = postData
         } else if let yData = self.youTubeData {
@@ -825,7 +818,7 @@ extension PhotoEditorViewController {
                             guard let `self` = self else { return }
                             self.saveVideo(exportType: isOuttake ? SlideShowExportType.outtakes : SlideShowExportType.notes, url: url)
                 },
-                          failure: { error in
+                          failure: { _ in
                             
             })
             
@@ -863,13 +856,13 @@ extension PhotoEditorViewController {
                 storyTime = "6.0"
             }
             if let storyId = self.storyId, !storyRePost {
-                let viewData = LoadingView.instanceFromNib()
-                viewData.shouldCancleShow = true
-                viewData.loadingViewShow = true
-                viewData.show(on: view)
+                let loadingView = LoadingView.instanceFromNib()
+                loadingView.shouldCancelShow = true
+                loadingView.loadingViewShow = true
+                loadingView.show(on: view)
                 Utils.uploadImage(imgName: fileName, img: image, callBack: { url -> Void in
                     self.publish = PublishMode.publish.rawValue
-                    viewData.hide()
+                    loadingView.hide()
                     self.editStory(storyId, storyURL: url, thumbURL: nil)
                 })
                 return
@@ -893,14 +886,17 @@ extension PhotoEditorViewController {
     
     @IBAction func btnSocialShareClick(_ sender: Any) {
         var menuOptions: [UIImage] = [R.image.icoFacebook()!, R.image.icoInstagram()!, R.image.icoSnapchat()!, R.image.icoTweeter()!]
-        var menuOptionsString: [String] = ["","","",""]
+        var menuOptionsString: [String] = ["", "", "", ""]
         if image == nil {
             menuOptions.append(R.image.icoYoutube()!)
             menuOptionsString.append("")
         }
+        menuOptions.append(R.image.icoTikTok()!)
+        menuOptionsString.append("")
         
         BasePopConfiguration.shared.backgoundTintColor = R.color.lightBlackColor()!
         BasePopConfiguration.shared.menuWidth = 35
+        BasePopConfiguration.shared.showCheckMark = .none
         BasePopOverMenu
             .showForSender(sender: sender as! UIButton, with: menuOptionsString, menuImageArray: menuOptions, done: { [weak self] (selectedIndex) in
                 guard let `self` = self else { return }
@@ -915,13 +911,18 @@ extension PhotoEditorViewController {
     
     func shareSocialMedia(type: SocialShare) {
         if currentCamaraMode == .slideshow {
-            self.saveSlideShow(exportType: SlideShowExportType.feed,
-                               success: { exportURL in
-                                SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type)
-            },
-                               failure: { error in
-                                print(error)
+            let slideShowImages = self.selectedSlideShowImages.filter({ (segmentVideo) -> Bool in
+                return (segmentVideo != nil)
             })
+            if slideShowImages.count != 0 {
+                self.saveSlideShow(exportType: SlideShowExportType.feed,
+                                   success: { exportURL in
+                                    SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type)
+                },
+                                   failure: { error in
+                                    print(error)
+                })
+            }
             return
         }
         
@@ -943,8 +944,8 @@ extension PhotoEditorViewController {
                     }
                 }
             }
-           
-            self.exportViewWithURL(recordSession.assetRepresentingSegments()) { url in
+            self.exportViewWithURL(recordSession.assetRepresentingSegments()) { [weak self] url in
+                guard let `self` = self else { return }
                 if let exportURL = url {
                     DispatchQueue.runOnMainThread {
                         SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type)
@@ -967,7 +968,7 @@ extension PhotoEditorViewController {
                                 }
                             }
                 },
-                          failure: { error in
+                          failure: { _ in
                             
             })
             
@@ -989,8 +990,7 @@ extension PhotoEditorViewController {
                     }
                 }
             })
-        }
-        else {
+        } else {
             let recordSession = SCRecordSession()
             for url in self.videoUrls {
                 for segementModel in url.videos {
@@ -1068,7 +1068,7 @@ extension PhotoEditorViewController {
                             guard let `self` = self else { return }
                             self.saveVideo(exportType: SlideShowExportType.outtakes, url: url)
                 },
-                          failure: { error in
+                          failure: { _ in
                             
             })
             
@@ -1145,7 +1145,7 @@ extension PhotoEditorViewController {
                             if index != 0 {
                                 self.videoUrls[0].numberOfSegementtext = "\(self.videoUrls[0].numberOfSegementtext!) - \(self.videoUrls[index].numberOfSegementtext!)"
                                 
-                                for (_,item) in self.videoUrls[index].videos.enumerated() {
+                                for (_, item) in self.videoUrls[index].videos.enumerated() {
                                     self.videoUrls[0].videos.append(item)
                                 }
                             }
@@ -1161,10 +1161,10 @@ extension PhotoEditorViewController {
                 
                 if let storyId = self.storyId, !storyRePost {
                     
-                    let viewData = LoadingView.instanceFromNib()
-                    viewData.shouldCancleShow = true
-                    viewData.loadingViewShow = true
-                    viewData.show(on: view)
+                    let loadingView = LoadingView.instanceFromNib()
+                    loadingView.shouldCancelShow = true
+                    loadingView.loadingViewShow = true
+                    loadingView.show(on: view)
                     
                     let mergeSession = SCRecordSession.init()
                     for segementModel in self.videoUrls.first!.videos {
@@ -1191,8 +1191,8 @@ extension PhotoEditorViewController {
                                                                             
                                                         },
                                                                           callBack: { url in
-                                                                            viewData.hide()
-                                                                            strongSelf.editStory(storyId, storyURL: url, thumbURL:url1)
+                                                                            loadingView.hide()
+                                                                            strongSelf.editStory(storyId, storyURL: url, thumbURL: url1)
                                                         })
                                                     }
                                 })
@@ -1282,7 +1282,6 @@ extension PhotoEditorViewController {
                     internalStoryData.append(storyData)
                 }
                 
-                
                 _ = StoryDataManager.shared.createStoryUploadData(internalStoryData)
                 StoryDataManager.shared.startUpload()
                 
@@ -1297,16 +1296,14 @@ extension PhotoEditorViewController {
         if let url = self.selectedVideoUrlSave {
             exportQueue.async {
                 exportGroup.enter()
-                self.exportVideo(segmentVideos: url, isOuttakes, isNotes) { (compltd) in
+                self.exportVideo(segmentVideos: url, isOuttakes, isNotes) { (_) in
                     dispatchSemaphore.signal()
                     exportGroup.leave()
                 }
 
                 dispatchSemaphore.wait()
             }
-        }
-        else
-        {
+        } else {
             if isOuttakes {
                 self.outtakesExportLabel.text = "0/\(self.videoUrls.count)"
             } else if isNotes {
@@ -1319,7 +1316,7 @@ extension PhotoEditorViewController {
                 for (index, url) in self.videoUrls.enumerated() {
                     exportGroup.enter()
                     DispatchQueue.runOnMainThread {
-                        self.exportVideo(segmentVideos: url, isOuttakes, isNotes, index: index) { (compltd) in
+                        self.exportVideo(segmentVideos: url, isOuttakes, isNotes, index: index) { (_) in
                             dispatchSemaphore.signal()
                             exportGroup.leave()
                         }
@@ -1335,9 +1332,7 @@ extension PhotoEditorViewController {
                     if isOuttakes {
                         self.view.makeToast(R.string.localizable.videoSaved(), duration: 2.0, position: .bottom)
                     }
-                }
-                else
-                {
+                } else {
                     self.outtakesView.isUserInteractionEnabled = true
                     self.selectedVideoUrlSave = nil
                     self.outtakesProgress.updateProgress(0)
@@ -1349,7 +1344,7 @@ extension PhotoEditorViewController {
         }
     }
     
-    func exportVideo(segmentVideos: SegmentVideos, _ isOuttakes: Bool = true, _ isNotes: Bool = false, index: Int = 0, completionHandler: @escaping (_ url: Bool?) -> ()) {
+    func exportVideo(segmentVideos: SegmentVideos, _ isOuttakes: Bool = true, _ isNotes: Bool = false, index: Int = 0, completionHandler: @escaping (_ url: Bool?) -> Void) {
         
         let mergeSession = SCRecordSession.init()
         for segementModel in segmentVideos.videos {
@@ -1396,7 +1391,7 @@ extension PhotoEditorViewController {
                                                                     
                                                 },
                                                                   callBack: { url in
-                                                                    strongSelf.editStory(storyId, storyURL: url, thumbURL:url1)
+                                                                    strongSelf.editStory(storyId, storyURL: url, thumbURL: url1)
                                                 })
                                             }
                         })
@@ -1406,7 +1401,7 @@ extension PhotoEditorViewController {
                 }
                 if !isOuttakes && !isNotes {
                     do {
-                        try strongSelf.videoUrls[(strongSelf.draggingCell?.row)!].image!.compressImage(300, completion: { [weak self] (image, compressRatio) in
+                        try strongSelf.videoUrls[(strongSelf.draggingCell?.row)!].image!.compressImage(300, completion: { [weak self] (image, _) in
                             guard let strongSelf = self else { return }
                             let avPlayer = AVPlayer(url: exportURL)
                             if let duration = avPlayer.currentItem?.asset.duration {
@@ -1426,23 +1421,26 @@ extension PhotoEditorViewController {
         }
     }
     
-    
-    func exportViewWithURL(_ asset: AVAsset, completionHandler: @escaping (_ url: URL?) -> ()) {
+    func exportViewWithURL(_ asset: AVAsset, completionHandler: @escaping (_ url: URL?) -> Void) {
         
         let exportSession = StoryAssetExportSession()
         
         DispatchQueue.runOnMainThread {
-            self.loadingView.progressView.setProgress(to: Double(0), withAnimation: true)
-            self.loadingView.show(on: self.view, completion: {
-               self.loadingView.cancleClick = {
-                    DispatchQueue.runOnMainThread {
-                        self.outtakesExportLabel.text = ""
-                        self.notesExportLabel.text = ""
+            if let loadingView = self.loadingView {
+                loadingView.progressView.setProgress(to: Double(0), withAnimation: true)
+                loadingView.show(on: self.view, completion: {
+                    loadingView.cancelClick = { [weak self] _ in
+                        guard let `self` = self else { return }
+                        DispatchQueue.runOnMainThread {
+                            self.outtakesExportLabel.text = ""
+                            self.notesExportLabel.text = ""
+                        }
+                        exportSession.cancelExporting()
+                        loadingView.hide()
                     }
-                    exportSession.cancelExporting()
-                    self.loadingView.hide()
-                }
-            })
+                })
+            }
+            
         }
         
         if let filter = self.filterSwitcherView?.selectedFilter,
@@ -1460,14 +1458,20 @@ extension PhotoEditorViewController {
         let rotation = atan2(self.dummyView.transform.b, self.dummyView.transform.a)
         
         exportSession.inputTransformation = StoryImageView.ImageTransformation(tx: tx, ty: ty, scaleX: scaleX, scaleY: scaleY, rotation: rotation)
-        exportSession.export(for: asset, progress: { progress in
+        exportSession.export(for: asset, progress: { [weak self] progress in
+            guard let `self` = self else { return }
             print("New progress \(progress)")
             DispatchQueue.runOnMainThread {
-                self.loadingView.progressView.setProgress(to: Double(progress), withAnimation: true)
+                if let loadingView = self.loadingView {
+                    loadingView.progressView.setProgress(to: Double(progress), withAnimation: true)
+                }
             }
-        }) { exportedURL in
+        }) { [weak self] exportedURL in
+            guard let `self` = self else { return }
             DispatchQueue.runOnMainThread {
-                self.loadingView.hide()
+                if let loadingView = self.loadingView {
+                    loadingView.hide()
+                }
             }
             if let url = exportedURL {
                 completionHandler(url)
@@ -1483,34 +1487,34 @@ extension PhotoEditorViewController {
     }
     
     func editStory(_ storyId: String, storyURL: String, thumbURL: String?) {
-        let viewData = LoadingView.instanceFromNib()
-        viewData.shouldCancleShow = true
-        viewData.loadingViewShow = true
-        viewData.show(on: view)
+        let loadingView = LoadingView.instanceFromNib()
+        loadingView.shouldCancelShow = true
+        loadingView.loadingViewShow = true
+        loadingView.show(on: view)
         let storyTagsSet = getTags()
         
-        var storyTagDict: [[String : Any]]?
+        var storyTagDict: [[String: Any]]?
         var storyHashTags: [String]?
         if let storyTags = Array(storyTagsSet) as? [InternalStoryTag] {
             for tag in storyTags {
                 var tagDict = [
-                    "tagType" : tag.tagType,
-                    "tagFontSize" : tag.tagFontSize,
-                    "tagHeight" : tag.tagHeight,
-                    "tagWidth" : tag.tagWidth,
-                    "centerX" : tag.centerX,
-                    "centerY" : tag.centerY,
-                    "scaleX" : tag.scaleX,
-                    "scaleY" : tag.scaleY,
-                    "rotation" : tag.rotation,
-                    "tagText" : tag.tagText,
-                    "Latitude" : tag.latitude ,
-                    "Longitude" : tag.longitude ,
-                    "themeType" : tag.themeType,
-                    "videoId" : tag.videoId,
-                    "userProfileURL" : tag.userProfileURL ?? "",
-                    "hasRatio" : UIScreen.haveRatio
-                    ] as [String : Any]
+                    "tagType": tag.tagType,
+                    "tagFontSize": tag.tagFontSize,
+                    "tagHeight": tag.tagHeight,
+                    "tagWidth": tag.tagWidth,
+                    "centerX": tag.centerX,
+                    "centerY": tag.centerY,
+                    "scaleX": tag.scaleX,
+                    "scaleY": tag.scaleY,
+                    "rotation": tag.rotation,
+                    "tagText": tag.tagText,
+                    "Latitude": tag.latitude ,
+                    "Longitude": tag.longitude ,
+                    "themeType": tag.themeType,
+                    "videoId": tag.videoId,
+                    "userProfileURL": tag.userProfileURL ?? "",
+                    "hasRatio": UIScreen.haveRatio
+                    ] as [String: Any]
                 if let postID = tag.postId {
                     tagDict["postId"] = postID
                 }
@@ -1564,16 +1568,16 @@ extension PhotoEditorViewController {
         ProManagerApi
             .editStory(storyId: storyId, storyURL: storyURL, duration: nil, type: nil, storiType: nil, user: Defaults.shared.currentUser?.id ?? "", thumb: thumbURL, lat: nil, long: nil, address: nil, tags: storyTagDict, hashtags: storyHashTags, publish: publish)
             .request(ResultArray<Channel>.self)
-            .subscribe(onNext: { (channels) in
+            .subscribe(onNext: { (_) in
                 AppEventBus.post("ReloadStoryAfterPost", sender: self)
                 self.dismissHUD()
-                viewData.hide()
+                loadingView.hide()
                 self.dismiss()
-            }, onError: { (error) in
+            }, onError: { (_) in
             }).disposed(by: self.rx.disposeBag)
     }
     
-    func saveSlideShow(exportType: SlideShowExportType, success: @escaping ((URL) -> ()), failure: @escaping ((Error) -> ())) {
+    func saveSlideShow(exportType: SlideShowExportType, success: @escaping ((URL) -> Void), failure: @escaping ((Error) -> Void)) {
         var imageData: [UIImage] = []
         for segmentVideo in self.selectedSlideShowImages {
             if segmentVideo != nil {
@@ -1638,7 +1642,7 @@ extension PhotoEditorViewController {
         VideoGenerator.current.scaleWidth = 720
         VideoGenerator.current.scaleHeight = 1280
         
-        VideoGenerator.current.generate(withImages: imageData, andAudios: self.selectedUrl != nil ? [self.selectedUrl!] : [] , andType: .singleAudioMultipleImage, { (_) in
+        VideoGenerator.current.generate(withImages: imageData, andAudios: self.selectedUrl != nil ? [self.selectedUrl!] : [], andType: .singleAudioMultipleImage, { (_) in
             
         }, success: success, failure: failure)
     }
@@ -1809,7 +1813,6 @@ extension PhotoEditorViewController {
         emojiCollectionView.delegate = emojiCollectionViewDelegate
         emojiCollectionView.dataSource = emojiCollectionViewDelegate
         
-        
     }
     
     func setupExistingTags() {
@@ -1900,9 +1903,8 @@ extension PhotoEditorViewController {
                                 videoId: "")
     }
     
-    
-    func getPosition(from time: CMTime, cell: ImageCollectionViewCell, index : IndexPath) -> CGFloat? {
-        if let cell : ImageCollectionViewCell = self.stopMotionCollectionView.cellForItem(at: IndexPath.init(row: self.currentPage, section: 0)) as? ImageCollectionViewCell {
+    func getPosition(from time: CMTime, cell: ImageCollectionViewCell, index: IndexPath) -> CGFloat? {
+        if let cell: ImageCollectionViewCell = self.stopMotionCollectionView.cellForItem(at: IndexPath.init(row: self.currentPage, section: 0)) as? ImageCollectionViewCell {
             let asset = self.videoUrls[self.currentPage].currentAsset
             let timeRatio = CGFloat(time.value) * CGFloat(asset!.duration.timescale) /
                 (CGFloat(time.timescale) * CGFloat(asset!.duration.value))
@@ -2055,7 +2057,7 @@ extension PhotoEditorViewController {
         stickersViewController.didMove(toParent: self)
         let height = view.frame.height
         let width  = view.frame.width
-        stickersViewController.view.frame = CGRect(x: 0, y: self.view.frame.maxY , width: width, height: height)
+        stickersViewController.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
     }
     
     func removeStickersView() {
@@ -2069,7 +2071,7 @@ extension PhotoEditorViewController {
                         frame.origin.y = UIScreen.main.bounds.maxY
                         self.stickersViewController.view.frame = frame
                         
-        }, completion: { (finished) -> Void in
+        }, completion: { (_) -> Void in
             self.stickersViewController.view.removeFromSuperview()
             self.stickersViewController.removeFromParent()
             self.hideToolbar(hide: false)

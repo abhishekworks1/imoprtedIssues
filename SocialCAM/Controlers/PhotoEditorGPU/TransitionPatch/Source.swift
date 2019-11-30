@@ -1,4 +1,3 @@
-
 import Foundation
 
 public protocol PatchType {
@@ -88,4 +87,3 @@ public struct VectorPatch: PatchType {
     return sqrt(pow(value.dx, 2) + pow(value.dy, 2))
   }
 }
-

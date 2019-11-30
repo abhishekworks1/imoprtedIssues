@@ -183,7 +183,6 @@ extension String {
         return data
     }
     
-    
     var pathComponents: [String] {
         return components(separatedBy: "/")
     }
@@ -200,7 +199,7 @@ extension String {
         return image
     }
     
-    func lastCharAtLocation(range:NSRange)->String? {
+    func lastCharAtLocation(range: NSRange) -> String? {
         let lastString = (self as NSString).substring(to: range.location)
         if let ch = lastString.last {
             let chSTr = String.init(describing: ch)
@@ -233,17 +232,17 @@ extension String {
         return (self as NSString).floatValue
     }
     
-    var json: [String:Any]? {
+    var json: [String: Any]? {
         do {
             let jsonData = self.data(using: .utf8)
             let dictionary = try JSONSerialization.jsonObject(with: jsonData!, options: [])
-            return dictionary as? [String : Any] ?? [:]
+            return dictionary as? [String: Any] ?? [:]
         } catch {
             return nil
         }
     }
     
-    func json2dict() -> [String:Any]? {
+    func json2dict() -> [String: Any]? {
         return json
     }
     
@@ -251,7 +250,7 @@ extension String {
         // image formats which you want to check
         let imageFormats = ["jpg", "png", "gif"]
         
-        if URL(string: self) != nil  {
+        if URL(string: self) != nil {
             
             let extensi = (self as NSString).pathExtension
             
@@ -286,16 +285,16 @@ extension String {
         return String(self[i] as Character)
     }
     
-    var youTubeId : String? {
-        get{
+    var youTubeId: String? {
+        get {
             let pattern =  "((?<=(v|V)/)|(?<=be/)|(?<=(\\?|\\&)v=)|(?<=embed/))([\\w-]++)"
-            let regex : NSRegularExpression = try! NSRegularExpression.init(pattern: pattern, options: .caseInsensitive)
-            let match : NSTextCheckingResult? = regex.firstMatch(in: self, options: [], range: NSMakeRange(0, self.count))
+            let regex: NSRegularExpression = try! NSRegularExpression.init(pattern: pattern, options: .caseInsensitive)
+            let match: NSTextCheckingResult? = regex.firstMatch(in: self, options: [], range: NSRange(location: 0, length: self.count))
             if let m  = match {
                 let vRange = m.range
                 let substringForFirstMatch = (self as NSString).substring(with: vRange)
                 return substringForFirstMatch
-            }else {
+            } else {
                 return nil
             }
         }
@@ -367,7 +366,7 @@ extension String {
         let gradientText = self
         
         let name = NSAttributedString.Key.font
-        let textSize = gradientText.size(withAttributes: [name : font])
+        let textSize = gradientText.size(withAttributes: [name: font])
         let width = textSize.width
         let height = textSize.height
         

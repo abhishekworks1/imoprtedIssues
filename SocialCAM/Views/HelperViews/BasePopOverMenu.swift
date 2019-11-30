@@ -11,24 +11,24 @@ import UIKit
 
 extension BasePopOverMenu {
     
-    public static func showForSender(sender: UIView, with menuArray: [String], withSelectedName: String? = nil, done: @escaping (NSInteger) -> (), cancel: @escaping () -> ()) {
+    public static func showForSender(sender: UIView, with menuArray: [String], withSelectedName: String? = nil, done: @escaping (NSInteger) -> Void, cancel: @escaping () -> Void) {
         self.sharedMenu.showForSender(sender: sender, or: nil, with: menuArray, menuImageArray: [], withSelectedName: withSelectedName, done: done, cancel: cancel)
     }
-    public static func showForSender(sender: UIView, with menuArray: [String], menuImageArray: [UIImage], done: @escaping (NSInteger) -> (), cancel: @escaping () -> ()) {
+    public static func showForSender(sender: UIView, with menuArray: [String], menuImageArray: [UIImage], done: @escaping (NSInteger) -> Void, cancel: @escaping () -> Void) {
         self.sharedMenu.showForSender(sender: sender, or: nil, with: menuArray, menuImageArray: menuImageArray, done: done, cancel: cancel)
     }
     
-    public static func showForEvent(event: UIEvent, with menuArray: [String], done: @escaping (NSInteger) -> (), cancel: @escaping () -> ()) {
+    public static func showForEvent(event: UIEvent, with menuArray: [String], done: @escaping (NSInteger) -> Void, cancel: @escaping () -> Void) {
         self.sharedMenu.showForSender(sender: event.allTouches?.first?.view!, or: nil, with: menuArray, menuImageArray: [], done: done, cancel: cancel)
     }
-    public static func showForEvent(event: UIEvent, with menuArray: [String], menuImageArray: [UIImage], done: @escaping (NSInteger) -> (), cancel: @escaping () -> ()) {
+    public static func showForEvent(event: UIEvent, with menuArray: [String], menuImageArray: [UIImage], done: @escaping (NSInteger) -> Void, cancel: @escaping () -> Void) {
         self.sharedMenu.showForSender(sender: event.allTouches?.first?.view!, or: nil, with: menuArray, menuImageArray: menuImageArray, done: done, cancel: cancel)
     }
     
-    public static func showFromSenderFrame(senderFrame: CGRect, with menuArray: [String], done: @escaping (NSInteger) -> (), cancel: @escaping () -> ()) {
+    public static func showFromSenderFrame(senderFrame: CGRect, with menuArray: [String], done: @escaping (NSInteger) -> Void, cancel: @escaping () -> Void) {
         self.sharedMenu.showForSender(sender: nil, or: senderFrame, with: menuArray, menuImageArray: [], done: done, cancel: cancel)
     }
-    public static func showFromSenderFrame(senderFrame: CGRect, with menuArray: [String], menuImageArray: [UIImage], done: @escaping (NSInteger) -> (), cancel: @escaping () -> ()) {
+    public static func showFromSenderFrame(senderFrame: CGRect, with menuArray: [String], menuImageArray: [UIImage], done: @escaping (NSInteger) -> Void, cancel: @escaping () -> Void) {
         self.sharedMenu.showForSender(sender: nil, or: senderFrame, with: menuArray, menuImageArray: menuImageArray, done: done, cancel: cancel)
     }
     
@@ -41,6 +41,7 @@ public class BasePopConfiguration: NSObject {
     
     public var menuRowHeight: CGFloat = DefaultMenuRowHeight
     public var menuWidth: CGFloat = DefaultMenuWidth
+    public var showCheckMark: UITableViewCell.AccessoryType = .none
     public var textColor: UIColor = ApplicationSettings.appBlackColor
     public var textFont: UIFont = UIFont.systemFont(ofSize: 14)
     public var borderColor: UIColor = DefaultTintColor
@@ -62,22 +63,22 @@ public class BasePopConfiguration: NSObject {
     
 }
 
-fileprivate let DefaultMargin: CGFloat = 4
-fileprivate let DefaultCellMargin: CGFloat = 6
-fileprivate let DefaultMenuIconSize: CGFloat = 24
-fileprivate let DefaultMenuCornerRadius: CGFloat = 4
-fileprivate let DefaultMenuArrowWidth: CGFloat = 8
-fileprivate let DefaultMenuArrowHeight: CGFloat = 10
-fileprivate let DefaultAnimationDuration: TimeInterval = 0.2
-fileprivate let DefaultBorderWidth: CGFloat = 0.5
-fileprivate let DefaultCornerRadius: CGFloat = 6
-fileprivate let DefaultMenuRowHeight: CGFloat = 40
-fileprivate let DefaultMenuWidth: CGFloat = 120
-fileprivate let DefaultTintColor: UIColor = ApplicationSettings.appWhiteColor
+private let DefaultMargin: CGFloat = 4
+private let DefaultCellMargin: CGFloat = 6
+private let DefaultMenuIconSize: CGFloat = 24
+private let DefaultMenuCornerRadius: CGFloat = 4
+private let DefaultMenuArrowWidth: CGFloat = 8
+private let DefaultMenuArrowHeight: CGFloat = 10
+private let DefaultAnimationDuration: TimeInterval = 0.2
+private let DefaultBorderWidth: CGFloat = 0.5
+private let DefaultCornerRadius: CGFloat = 6
+private let DefaultMenuRowHeight: CGFloat = 40
+private let DefaultMenuWidth: CGFloat = 120
+private let DefaultTintColor: UIColor = ApplicationSettings.appWhiteColor
 
-fileprivate let BasePopOverMenuTableViewCellIndentifier: String = "BasePopOverMenuTableViewCellIndentifier"
+private let BasePopOverMenuTableViewCellIndentifier: String = "BasePopOverMenuTableViewCellIndentifier"
 
-fileprivate enum BasePopOverMenuArrowDirection {
+private enum BasePopOverMenuArrowDirection {
     case Up
     case Down
 }
@@ -87,10 +88,10 @@ public class BasePopOverMenu: NSObject {
     var sender: UIView?
     var senderFrame: CGRect?
     var menuNameArray: [String]!
-    var selectedName: String? = nil
+    var selectedName: String?
     var menuImageArray: [UIImage]!
-    var done: ((_ selectedIndex: NSInteger) -> ())!
-    var cancel: (() -> ())!
+    var done: ((_ selectedIndex: NSInteger) -> Void)!
+    var cancel: (() -> Void)!
     
     fileprivate static var sharedMenu: BasePopOverMenu {
         struct Static {
@@ -133,7 +134,7 @@ public class BasePopOverMenu: NSObject {
         return gesture
     }()
     
-    fileprivate func showForSender(sender: UIView?, or senderFrame: CGRect?, with menuNameArray: [String]!, menuImageArray: [UIImage]?, withSelectedName: String? = nil, done: @escaping (NSInteger) -> (), cancel: @escaping () -> ()) {
+    fileprivate func showForSender(sender: UIView?, or senderFrame: CGRect?, with menuNameArray: [String]!, menuImageArray: [UIImage]?, withSelectedName: String? = nil, done: @escaping (NSInteger) -> Void, cancel: @escaping () -> Void) {
         
         if sender == nil && senderFrame == nil {
             return
@@ -374,10 +375,10 @@ extension BasePopOverMenu: UIGestureRecognizerDelegate {
 private class BasePopOverMenuView: UIControl {
     
     fileprivate var menuNameArray: [String]!
-    fileprivate var selectedName: String? = nil
+    fileprivate var selectedName: String?
     fileprivate var menuImageArray: [UIImage]?
     fileprivate var arrowDirection: BasePopOverMenuArrowDirection = .Up
-    fileprivate var done: ((NSInteger) -> ())!
+    fileprivate var done: ((NSInteger) -> Void)!
     
     fileprivate lazy var configuration: BasePopConfiguration = {
         return BasePopConfiguration.shared
@@ -400,7 +401,7 @@ private class BasePopOverMenuView: UIControl {
         return tableView
     }()
     
-    fileprivate func showWithAnglePoint(point: CGPoint, frame: CGRect, menuNameArray: [String]!, menuImageArray: [UIImage]!, with selectedName: String? = nil, arrowDirection: BasePopOverMenuArrowDirection, done: @escaping ((NSInteger) -> ())) {
+    fileprivate func showWithAnglePoint(point: CGPoint, frame: CGRect, menuNameArray: [String]!, menuImageArray: [UIImage]!, with selectedName: String? = nil, arrowDirection: BasePopOverMenuArrowDirection, done: @escaping ((NSInteger) -> Void)) {
         
         self.frame = frame
         self.menuNameArray = menuNameArray
@@ -431,7 +432,6 @@ private class BasePopOverMenuView: UIControl {
         let layer: CAShapeLayer = CAShapeLayer()
         return layer
     }()
-    
     
     fileprivate func drawBackgroundLayerWithArrowPoint(arrowPoint: CGPoint) {
         if self.backgroundLayer.superlayer != nil {
@@ -513,8 +513,6 @@ private class BasePopOverMenuView: UIControl {
         return path
     }
     
-    
-    
 }
 
 extension BasePopOverMenuView: UITableViewDelegate {
@@ -554,7 +552,8 @@ extension BasePopOverMenuView: UITableViewDataSource {
             cell.separatorInset = configuration.menuSeparatorInset
         }
         cell.selectionStyle = configuration.cellSelectionStyle
-   
+        cell.accessoryType = configuration.showCheckMark
+        
         if let selectedItem = selectedName, menuNameArray[indexPath.row] == selectedItem {
             cell.backgroundColor = ApplicationSettings.appLightGrayColor
         }
@@ -597,14 +596,12 @@ class BasePopOverMenuCell: UITableViewCell {
             } else {
                 nameLabel.frame = CGRect(x: DefaultCellMargin, y: 0, width: configuration.menuWidth - DefaultCellMargin * 2, height: configuration.menuRowHeight)
             }
-        }
-        else
-        {
+        } else {
             nameLabel.frame = CGRect(x: DefaultCellMargin, y: 0, width: configuration.menuWidth - DefaultCellMargin * 2, height: configuration.menuRowHeight)
         }
         nameLabel.font = configuration.textFont
         nameLabel.textColor = configuration.textColor
         nameLabel.textAlignment = configuration.textAlignment
-        nameLabel.text = menuName
+        nameLabel.text = configuration.showCheckMark == .none ? menuName : "\(menuName) FPS"
     }
 }

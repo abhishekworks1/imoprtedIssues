@@ -21,13 +21,13 @@ protocol SelectHashSetDelegate {
 
 class SelectHashTagViewController: UIViewController {
     
-    // MARK: -- Variables
-    var hashSet : [HashTagSetList] = []
-    var hashTagList : [String] = []
+    // MARK: - - Variables
+    var hashSet: [HashTagSetList] = []
+    var hashTagList: [String] = []
     var delegate: SelectHashSetDelegate?
     var isDone: Bool = false
     
-    // MARK: -- Outlets
+    // MARK: - - Outlets
     @IBOutlet var tableView: UITableView!
     @IBOutlet var activityIndicator: NVActivityIndicatorView! {
         didSet {
@@ -35,7 +35,7 @@ class SelectHashTagViewController: UIViewController {
         }
     }
     
-    // MARK: -- View Did Load
+    // MARK: - - View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
         activityIndicator.startAnimating()
@@ -49,7 +49,7 @@ class SelectHashTagViewController: UIViewController {
         }
     }
     
-    // MARK: -- Functions
+    // MARK: - - Functions
     
     func getHashTags() {
         ProManagerApi.getHashTagSets(Void()).request(ResultArray<HashTagSetList>.self).subscribe(onNext: { (response) in
@@ -60,7 +60,7 @@ class SelectHashTagViewController: UIViewController {
                     self.activityIndicator.stopAnimating()
                 }
             }
-        }, onError: { error in
+        }, onError: { _ in
             
         }, onCompleted: {
             
@@ -73,14 +73,14 @@ class SelectHashTagViewController: UIViewController {
                 self.getHashTags()
                 self.activityIndicator.stopAnimating()
             }
-        }, onError: { error in
+        }, onError: { _ in
             UIApplication.showAlert(title: Constant.Application.displayName, message: R.string.localizable.somethingWentWrongPleaseTryAgainLater())
         }, onCompleted: {
             
         }).disposed(by: (rx.disposeBag))
     }
     
-    // MARK: -- Actions
+    // MARK: - - Actions
     
     @IBAction func backBtnClicked(_ sender: Any) {
         if let delegate = self.delegate {
@@ -101,9 +101,9 @@ class SelectHashTagViewController: UIViewController {
     
 }
 
-// MARK: -- TableView Delegate Methods
+// MARK: - - TableView Delegate Methods
 
-extension SelectHashTagViewController : UITableViewDelegate, UITableViewDataSource {
+extension SelectHashTagViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.hashSet.count > 0 {
@@ -118,7 +118,7 @@ extension SelectHashTagViewController : UITableViewDelegate, UITableViewDataSour
             fatalError("HashTagCell Not Found")
         }
         let hashSet = self.hashSet[indexPath.row].hashTags?.joined(separator: " ")
-        cell.setData(name: self.hashSet[indexPath.row].categoryName ?? "", subName: self.hashSet[indexPath.row].hashTags?.count ?? 0, set: hashSet ?? "",count: self.hashSet[indexPath.row].usedCount ?? 0)
+        cell.setData(name: self.hashSet[indexPath.row].categoryName ?? "", subName: self.hashSet[indexPath.row].hashTags?.count ?? 0, set: hashSet ?? "", count: self.hashSet[indexPath.row].usedCount ?? 0)
         cell.selectionStyle = .none
         cell.setNeedsUpdateConstraints()
         cell.updateConstraintsIfNeeded()
@@ -129,7 +129,7 @@ extension SelectHashTagViewController : UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if let delegate = self.delegate {
-            let arrayOfData : [String:Any] = ["id" : self.hashSet[indexPath.row]._id!,"hashTags": self.hashSet[indexPath.row].hashTags!,"usedCount": self.hashSet[indexPath.row].usedCount ?? 0]
+            let arrayOfData: [String: Any] = ["id": self.hashSet[indexPath.row]._id!, "hashTags": self.hashSet[indexPath.row].hashTags!, "usedCount": self.hashSet[indexPath.row].usedCount ?? 0]
             dictOfSets.append(arrayOfData)
             
             print(dictOfSets)
@@ -142,21 +142,21 @@ extension SelectHashTagViewController : UITableViewDelegate, UITableViewDataSour
     @available(iOS 11.0, *)
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let delete = UIContextualAction(style: .normal, title: "") { (action, view, nil) in
+        let delete = UIContextualAction(style: .normal, title: "") { (_, _, _) in
             let refreshAlert = UIAlertController(title: Constant.Application.displayName, message: "Are you sure you want to remove this tag from set?", preferredStyle: .alert)
             
-            refreshAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action: UIAlertAction!) in
+            refreshAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (_: UIAlertAction!) in
                 self.activityIndicator.startAnimating()
                 self.deleteHashSet(hashID: self.hashSet[indexPath.row]._id ?? "")
             }))
             
-            refreshAlert.addAction(UIAlertAction(title: "No", style: .default, handler: { (action: UIAlertAction!) in
+            refreshAlert.addAction(UIAlertAction(title: "No", style: .default, handler: { (_: UIAlertAction!) in
                 refreshAlert .dismiss(animated: true, completion: nil)
                 self.tableView.reloadData()
             }))
             self.present(refreshAlert, animated: true, completion: nil)
         }
-        let edit = UIContextualAction(style: .normal, title: "") { (action, view, nil) in
+        let edit = UIContextualAction(style: .normal, title: "") { (_, _, _) in
             //            let vc = R.storyboard.addPost.createHashTagViewController()!
             //            vc.setData = self.hashSet[indexPath.row]
             //            vc.isEdit = true
@@ -168,7 +168,7 @@ extension SelectHashTagViewController : UITableViewDelegate, UITableViewDataSour
         delete.backgroundColor = #colorLiteral(red: 0.3215686275, green: 0.5960784314, blue: 0.2470588235, alpha: 1)
         delete.image = #imageLiteral(resourceName: "storyDelete")
         delete.title = "Delete"
-        let config = UISwipeActionsConfiguration(actions: [delete,edit])
+        let config = UISwipeActionsConfiguration(actions: [delete, edit])
         config.performsFirstActionWithFullSwipe = false
         return config
     }
@@ -182,4 +182,3 @@ extension SelectHashTagViewController: FinishedTag {
     }
     
 }
-

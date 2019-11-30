@@ -22,7 +22,7 @@ extension SaveUserDefaultsProtocol where Self: Codable {
         }
     }
 
-    static func loadWithKey<T:Codable>(key: String, in suiteName: String = "SaveInUserDefaults", T: T.Type) -> T? {
+    static func loadWithKey<T: Codable>(key: String, in suiteName: String = "SaveInUserDefaults", T: T.Type) -> T? {
         let decoder = JSONDecoder()
         if let userDefaults = UserDefaults(suiteName: suiteName),
             let obj = userDefaults.object(forKey: key) as? Data,
@@ -34,7 +34,7 @@ extension SaveUserDefaultsProtocol where Self: Codable {
     
     static func removeAll(for suiteName: String = "SaveInUserDefaults") {
         let defaults = UserDefaults(suiteName: suiteName)
-        UserDefaults(suiteName: suiteName)?.dictionaryRepresentation().keys.forEach({ (key) -> () in
+        UserDefaults(suiteName: suiteName)?.dictionaryRepresentation().keys.forEach({ (key) -> Void in
             if key != "sessionToken" {
                  defaults?.removeObject(forKey: key)
             }

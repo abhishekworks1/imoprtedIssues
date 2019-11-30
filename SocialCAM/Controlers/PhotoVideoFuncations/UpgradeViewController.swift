@@ -9,10 +9,10 @@
 import UIKit
 import FSPagerView
 
-typealias PrimumTuple = (color:UIColor, price : String ,channel:String)
+typealias PrimumTuple = (color: UIColor, price: String, channel: String)
 class UpgradeViewController: UIViewController {
-    var isFromUpgrade : Bool = false
-    var pages : [PrimumTuple] = [(ApplicationSettings.appPrimaryColor,"$5.00/mo","( 5 Channels )")]
+    var isFromUpgrade: Bool = false
+    var pages: [PrimumTuple] = [(ApplicationSettings.appPrimaryColor, "$5.00/mo", "( 5 Channels )")]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,10 +25,9 @@ class UpgradeViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func btnBackClicked(_ sender:Any) {
+    @IBAction func btnBackClicked(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
-    
     
     @IBOutlet weak var pagerView: FSPagerView! {
         didSet {
@@ -72,7 +71,7 @@ class UpgradeViewController: UIViewController {
 
 extension UpgradeViewController: FSPagerViewDataSource, FSPagerViewDelegate {
     
-    // MARK:- FSPagerViewDataSource
+    // MARK: - FSPagerViewDataSource
     
     public func numberOfItems(in pagerView: FSPagerView) -> Int {
         return pages.count

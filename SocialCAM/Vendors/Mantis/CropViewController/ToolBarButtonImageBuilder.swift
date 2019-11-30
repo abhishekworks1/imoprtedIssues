@@ -30,7 +30,7 @@ import UIKit
 
 struct ToolBarButtonImageBuilder {
     static func rotateCCWImage() -> UIImage? {
-        var rotateImage: UIImage? = nil
+        var rotateImage: UIImage?
         
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 18, height: 21), false, 0.0)
         
@@ -67,7 +67,7 @@ struct ToolBarButtonImageBuilder {
     static func rotateCWImage() -> UIImage? {
         guard let rotateCCWImage = self.rotateCCWImage(), let cgImage = rotateCCWImage.cgImage else { return nil }
         
-        UIGraphicsBeginImageContextWithOptions(rotateCCWImage.size, false,  rotateCCWImage.scale )
+        UIGraphicsBeginImageContextWithOptions(rotateCCWImage.size, false, rotateCCWImage.scale )
         let context = UIGraphicsGetCurrentContext()
         context?.translateBy(x: rotateCCWImage.size.width, y: rotateCCWImage.size.height)
         context?.rotate(by: .pi)
@@ -78,7 +78,7 @@ struct ToolBarButtonImageBuilder {
     }
     
     static func clampImage() -> UIImage? {
-        var clampImage: UIImage? = nil
+        var clampImage: UIImage?
         
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 22, height: 16), false, 0.0)
         
@@ -90,7 +90,6 @@ struct ToolBarButtonImageBuilder {
         let rectanglePath = UIBezierPath(rect: CGRect(x: 0, y: 3, width: 13, height: 13))
         UIColor.white.setFill()
         rectanglePath.fill()
-        
         
         //// Outer
         //// Top Drawing
@@ -115,7 +114,7 @@ struct ToolBarButtonImageBuilder {
     }
     
     static func resetImage() -> UIImage? {
-        var resetImage: UIImage? = nil
+        var resetImage: UIImage?
         
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 22, height: 18), false, 0.0)            //// Bezier 2 Drawing
         let bezier2Path = UIBezierPath()

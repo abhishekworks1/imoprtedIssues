@@ -78,7 +78,7 @@ open class RoundedButton: UIButton {
         })
     }
     
-    var activityIndicator: UIActivityIndicatorView? = nil
+    var activityIndicator: UIActivityIndicatorView?
     
     private func createActivityIndicator() -> UIActivityIndicatorView {
         let activityIndicator = UIActivityIndicatorView(style: .white)

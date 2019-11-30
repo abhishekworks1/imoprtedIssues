@@ -9,14 +9,14 @@
 import UIKit
 
 class ChannelVideoListViewController: UIViewController {
-    @IBOutlet var tblYouTube : UITableView!
-    @IBOutlet var emptyView : UIView?
-    var videos:[Item] = []
-    var channelId : String?
-    var nextPageToken : String?
-    var totalResult : Int?
+    @IBOutlet var tblYouTube: UITableView!
+    @IBOutlet var emptyView: UIView?
+    var videos: [Item] = []
+    var channelId: String?
+    var nextPageToken: String?
+    var totalResult: Int?
     var resultPerPage: Int?
-    var popHandler : ((_ youTubeUrl:String, _ hash:[String]?, _ title: String?, _ channelId:String?) -> Void)?
+    var popHandler : ((_ youTubeUrl: String, _ hash: [String]?, _ title: String?, _ channelId: String?) -> Void)?
     var isReview = false
     
     override func viewDidLoad() {
@@ -33,7 +33,7 @@ class ChannelVideoListViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func getVideo(q:String) {
+    func getVideo(q: String) {
         ProManagerApi.youTubeChannelSearch(channelId: q, order: nil, nextPageToken: self.nextPageToken).request(YTSerchResponse<Item>.self).subscribe(onNext: { response in
             self.nextPageToken = response.nextPageToken
             self.totalResult = response.pageInfo?.totalResults
@@ -47,18 +47,18 @@ class ChannelVideoListViewController: UIViewController {
                 ProManagerApi.youTubeDetail(id: (item.id?.videoId)!).request(YTSerchResponse<Item>.self).subscribe(onNext: { response in
                     self.videos.append((response.result?[0])!)
                     self.tblYouTube.reloadData()
-                }, onError: { error in
+                }, onError: { _ in
                 }, onCompleted: {
                     
                 }).disposed(by: self.rx.disposeBag)
                 return ""
             })
-        } , onCompleted: {
+        }, onCompleted: {
             self.tblYouTube.reloadData()
         }).disposed(by: rx.disposeBag)
     }
     
-    @IBAction func btnBackClciked(_ sender:Any) {
+    @IBAction func btnBackClciked(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
 
@@ -74,7 +74,7 @@ class ChannelVideoListViewController: UIViewController {
 
 }
 
-extension ChannelVideoListViewController : UITableViewDataSource , UITableViewDelegate {
+extension ChannelVideoListViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.videos.count
@@ -117,4 +117,3 @@ extension ChannelVideoListViewController : UITableViewDataSource , UITableViewDe
     }
     
 }
-

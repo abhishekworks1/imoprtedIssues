@@ -79,7 +79,6 @@ open class BubbleTransition: NSObject {
   }
 }
 
-
 /// The interactive swipe direction
 ///
 /// - up: swipe up
@@ -247,7 +246,7 @@ extension BubbleTransition: UIViewControllerAnimatedTransitioning {
           containerView.insertSubview(returningControllerView, belowSubview: returningControllerView)
           containerView.insertSubview(self.bubble, belowSubview: returningControllerView)
         }
-      }, completion: { (completed) in
+      }, completion: { (_) in
         transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
         
         if !transitionContext.transitionWasCancelled {

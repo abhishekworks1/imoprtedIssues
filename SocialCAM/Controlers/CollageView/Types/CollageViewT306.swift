@@ -53,7 +53,7 @@ class CollageViewT306: CollageView {
         NSLayoutConstraint.activate([ lc09, lc10, lc11, lc12])
         baseLine03.baseLC = lc10
         
-        self.baseLineViews += [baseLine01,baseLine02,baseLine03]
+        self.baseLineViews += [baseLine01, baseLine02, baseLine03]
         self.initCells()
     }
     
@@ -64,7 +64,7 @@ class CollageViewT306: CollageView {
         self.addSubview(cell01)
         let lc01 = NSLayoutConstraint(item: cell01, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: 0)
         let lc02 = NSLayoutConstraint(item: cell01, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 0)
-        let lc03 = NSLayoutConstraint(item: cell01, attribute: .right, relatedBy: .equal, toItem: self.baseLineViews[1], attribute: .right, multiplier: 1, constant:0.0)
+        let lc03 = NSLayoutConstraint(item: cell01, attribute: .right, relatedBy: .equal, toItem: self.baseLineViews[1], attribute: .right, multiplier: 1, constant: 0.0)
         let lc04 = NSLayoutConstraint(item: cell01, attribute: .bottom, relatedBy: .equal, toItem: self.baseLineViews[2], attribute: .top, multiplier: 1, constant: 0.0)
         NSLayoutConstraint.activate([ lc01, lc02, lc03, lc04])
         
@@ -86,11 +86,11 @@ class CollageViewT306: CollageView {
         let lc16 = NSLayoutConstraint(item: cell03, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 0)
         NSLayoutConstraint.activate([ lc13, lc14, lc15, lc16])
         
-        self.marginLeftTopContraints += [lc01,lc02,lc06,lc13]
-        self.marginRightBottomContraints += [lc07,lc15,lc16]
-        self.paddingLeftTopContraints += [lc05,lc14]
-        self.paddingRightBottomContraints += [lc03,lc04,lc08]
-        self.collageCells += [cell01,cell02,cell03]
+        self.marginLeftTopContraints += [lc01, lc02, lc06, lc13]
+        self.marginRightBottomContraints += [lc07, lc15, lc16]
+        self.paddingLeftTopContraints += [lc05, lc14]
+        self.paddingRightBottomContraints += [lc03, lc04, lc08]
+        self.collageCells += [cell01, cell02, cell03]
         
         initHandles()
     }
@@ -98,7 +98,7 @@ class CollageViewT306: CollageView {
     private func initHandles() {
         
         let cell01 = self.collageCells[0]
-        var handle01, handle02 : LineHandleView!
+        var handle01, handle02: LineHandleView!
         
         handle01 = LineHandleView()
         self.addSubview(handle01)
@@ -108,7 +108,7 @@ class CollageViewT306: CollageView {
         self.addSubview(handle02)
         handle02.initialize(attach: .bottom, blview: self.baseLineViews[0], cell: cell01)
         handle02.datasource = self
-        cell01.setHandles(handles: [handle01,handle02])
+        cell01.setHandles(handles: [handle01, handle02])
         
         let cell03 = self.collageCells[1]
         handle01 = LineHandleView()
@@ -119,7 +119,7 @@ class CollageViewT306: CollageView {
         self.addSubview(handle02)
         handle02.initialize(attach: .left, blview: self.baseLineViews[1], cell: cell03)
         handle02.datasource = self
-        cell03.setHandles(handles: [handle01,handle02])
+        cell03.setHandles(handles: [handle01, handle02])
         
         let cell04 = self.collageCells[2]
         handle01 = LineHandleView()

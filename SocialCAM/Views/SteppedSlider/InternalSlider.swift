@@ -45,7 +45,7 @@ class InternalSlider: UISlider {
     }
 }
 
-fileprivate func round(_ value: Float, to increment: Float) -> Float {
+private func round(_ value: Float, to increment: Float) -> Float {
     if increment == 0 {
         return value
     }

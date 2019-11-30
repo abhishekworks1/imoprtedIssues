@@ -16,10 +16,10 @@ class MLVideoView: UIView {
 
     private var output: AVPlayerItemVideoOutput!
     private var displayLink: CADisplayLink!
-    private var context: CIContext = CIContext(options: [CIContextOption.workingColorSpace : NSNull()])
+    private var context: CIContext = CIContext(options: [CIContextOption.workingColorSpace: NSNull()])
     private var playerItemObserver: NSKeyValueObservation?
 
-    func play(asset: AVAsset, completion: (()->Void)? = nil) {
+    func play(asset: AVAsset, completion: (() -> Void)? = nil) {
         layer.isOpaque = true
 
         let item = AVPlayerItem(asset: asset)
@@ -101,4 +101,3 @@ class MLVideoView: UIView {
         layer.contents = cgImg
     }
 }
-

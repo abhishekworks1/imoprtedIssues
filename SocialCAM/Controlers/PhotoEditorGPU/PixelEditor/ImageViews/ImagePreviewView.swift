@@ -21,7 +21,7 @@
 
 import Foundation
 
-final class ImagePreviewView : UIView {
+final class ImagePreviewView: UIView {
 
   let originalImageView: UIImageView = .init()
   let imageView: UIImageView = .init()

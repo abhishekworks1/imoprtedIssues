@@ -13,7 +13,7 @@ enum ModalScaleState {
     case normal
 }
 
-class HalfModalPresentationController : UIPresentationController {
+class HalfModalPresentationController: UIPresentationController {
     var isMaximized: Bool = false
     
     var _dimmingView: UIView?
@@ -63,7 +63,7 @@ class HalfModalPresentationController : UIPresentationController {
         presentedViewController.view.addGestureRecognizer(panGestureRecognizer)
     }
     
-    @objc func onPan(pan: UIPanGestureRecognizer) -> Void {
+    @objc func onPan(pan: UIPanGestureRecognizer) {
         let endPoint = pan.translation(in: pan.view?.superview)
         
         switch pan.state {
@@ -120,7 +120,7 @@ class HalfModalPresentationController : UIPresentationController {
                     navController.isNavigationBarHidden = true
                     navController.isNavigationBarHidden = false
                 }
-            }, completion: { (isFinished) in
+            }, completion: { (_) in
                 self.state = state
             })
         }
@@ -139,7 +139,7 @@ class HalfModalPresentationController : UIPresentationController {
             containerView.addSubview(dimmedView)
             dimmedView.addSubview(presentedViewController.view)
             
-            coordinator.animate(alongsideTransition: { (context) -> Void in
+            coordinator.animate(alongsideTransition: { (_) -> Void in
                 dimmedView.alpha = 1
                 self.presentingViewController.view.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
             }, completion: nil)
@@ -149,10 +149,10 @@ class HalfModalPresentationController : UIPresentationController {
     override func dismissalTransitionWillBegin() {
         if let coordinator = presentingViewController.transitionCoordinator {
             
-            coordinator.animate(alongsideTransition: { (context) -> Void in
+            coordinator.animate(alongsideTransition: { (_) -> Void in
                 self.dimmingView.alpha = 0
                 self.presentingViewController.view.transform = CGAffineTransform.identity
-            }, completion: { (completed) -> Void in
+            }, completion: { (_) -> Void in
                 print("done dismiss animation")
             })
             
@@ -174,7 +174,7 @@ class HalfModalPresentationController : UIPresentationController {
 protocol HalfModalPresentable { }
 
 extension HalfModalPresentable where Self: UIViewController {
-    func maximizeToFullScreen() -> Void {
+    func maximizeToFullScreen() {
         if let presetation = navigationController?.presentationController as? HalfModalPresentationController {
             presetation.changeScale(to: .adjustedOnce)
         }

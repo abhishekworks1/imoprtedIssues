@@ -14,41 +14,41 @@ import SVProgressHUD
 import NVActivityIndicatorView
 import TagListView
 
-class YouTubeChannelViewController: UIViewController , TagListViewDelegate {
+class YouTubeChannelViewController: UIViewController, TagListViewDelegate {
     
-    @IBOutlet var tblYouTube : UITableView!
-    @IBOutlet var indicatorView : NVActivityIndicatorView! {
+    @IBOutlet var tblYouTube: UITableView!
+    @IBOutlet var indicatorView: NVActivityIndicatorView! {
         didSet {
             indicatorView.color = ApplicationSettings.appPrimaryColor
         }
     }
     
-    @IBOutlet var emptyView : UIView?
+    @IBOutlet var emptyView: UIView?
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var tagView: UIView!
     @IBOutlet var tagList: TagListView!
     @IBOutlet var scrollHeight: NSLayoutConstraint!
-    @IBOutlet var sectionHeader : UIView!
-    @IBOutlet var imgArrowView : UIImageView!
-    @IBOutlet var imgArrowDate : UIImageView!
+    @IBOutlet var sectionHeader: UIView!
+    @IBOutlet var imgArrowView: UIImageView!
+    @IBOutlet var imgArrowDate: UIImageView!
     
-    var textObservable : Observable<String>?
-    var popHandler : ((_ youTubeUrl:String,_ hash:[String]?, _ title: String?, _ channelId:String?) -> Void)?
-    var videos:[Item] = []
+    var textObservable: Observable<String>?
+    var popHandler : ((_ youTubeUrl: String, _ hash: [String]?, _ title: String?, _ channelId: String?) -> Void)?
+    var videos: [Item] = []
     var isReview = false
-    var searchText : String = ""
-    var nextPageToken : String?
-    var totalResult : Int?
+    var searchText: String = ""
+    var nextPageToken: String?
+    var totalResult: Int?
     var resultPerPage: Int?
-    var  keyboardCloseHandler:(()->Void)?
-    var channelId : String? {
+    var  keyboardCloseHandler:(() -> Void)?
+    var channelId: String? {
        didSet {
           self.videos = []
           self.tblYouTube.reloadData()
            self.getVideo(q: self.channelId!)
         }
     }
-    var isOrderByView : Bool? {
+    var isOrderByView: Bool? {
         didSet {
             if let isV = isOrderByView {
                 if isV == true {
@@ -73,7 +73,7 @@ class YouTubeChannelViewController: UIViewController , TagListViewDelegate {
             }
         }
     }
-    var isOrderByDate : Bool? {
+    var isOrderByDate: Bool? {
         didSet {
             if let isD = isOrderByDate {
                 if isD == true {
@@ -118,7 +118,7 @@ class YouTubeChannelViewController: UIViewController , TagListViewDelegate {
         ApplicationSettings.shared.shouldRotate = false
     }
     
-    func setTagView(tagArr : [String]) {
+    func setTagView(tagArr: [String]) {
         tagList.removeAllTags()
         tagList.textFont = UIFont.systemFont(ofSize: 16)
         tagList.alignment = .center
@@ -131,7 +131,7 @@ class YouTubeChannelViewController: UIViewController , TagListViewDelegate {
         scrollHeight.constant = tagList.intrinsicContentSize.height
     }
     
-    func getVideo(q:String) {
+    func getVideo(q: String) {
         self.indicatorView.startAnimating()
         ProManagerApi.youTubeChannelSearch(channelId: q, order: nil, nextPageToken: self.nextPageToken).request(YTSerchResponse<Item>.self).subscribe(onNext: { response in
             self.nextPageToken = response.nextPageToken
@@ -148,7 +148,7 @@ class YouTubeChannelViewController: UIViewController , TagListViewDelegate {
                     self.indicatorView.stopAnimating()
                     self.videos.append((response.result?[0])!)
                     self.tblYouTube.reloadData()
-                }, onError: { error in
+                }, onError: { _ in
                     self.indicatorView.stopAnimating()
                 }, onCompleted: {
                     self.indicatorView.stopAnimating()
@@ -156,7 +156,7 @@ class YouTubeChannelViewController: UIViewController , TagListViewDelegate {
                 }).disposed(by: self.rx.disposeBag)
                 return ""
             })
-        } , onCompleted: {
+        }, onCompleted: {
             self.tblYouTube.reloadData()
         }).disposed(by: rx.disposeBag)
     }
@@ -173,10 +173,10 @@ class YouTubeChannelViewController: UIViewController , TagListViewDelegate {
         
     }
     
-    @IBAction func orderByViews(sender:Any) {
+    @IBAction func orderByViews(sender: Any) {
         self.isOrderByDate = nil
         if let ov = self.isOrderByView {
-            if ov == true{
+            if ov == true {
                 self.isOrderByView = false
             } else {
                 self.isOrderByView = true
@@ -186,10 +186,10 @@ class YouTubeChannelViewController: UIViewController , TagListViewDelegate {
         }
     }
     
-    @IBAction func orderByDate(sender:Any) {
+    @IBAction func orderByDate(sender: Any) {
         self.isOrderByView = nil
         if let ob = self.isOrderByDate {
-            if ob == true{
+            if ob == true {
                 self.isOrderByDate = false
             } else {
                 self.isOrderByDate = true
@@ -201,7 +201,7 @@ class YouTubeChannelViewController: UIViewController , TagListViewDelegate {
     
 }
 
-extension YouTubeChannelViewController: UITableViewDataSource , UITableViewDelegate {
+extension YouTubeChannelViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -230,7 +230,7 @@ extension YouTubeChannelViewController: UITableViewDataSource , UITableViewDeleg
             }
         }
         cell.tagHandler = { item in
-            if let tags = item.snippet?.tags , tags.count > 0 {
+            if let tags = item.snippet?.tags, tags.count > 0 {
                 if let clsHandler = self.keyboardCloseHandler {
                     clsHandler()
                 }

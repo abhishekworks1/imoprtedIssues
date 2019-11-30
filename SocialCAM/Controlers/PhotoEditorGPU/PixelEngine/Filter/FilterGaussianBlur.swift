@@ -21,7 +21,7 @@
 import Foundation
 import CoreImage
 
-public struct FilterGaussianBlur : Filtering, Equatable, Codable {
+public struct FilterGaussianBlur: Filtering, Equatable, Codable {
 
   public static let range: ParameterRange<Double, FilterGaussianBlur> = .init(min: 0, max: 100)
 
@@ -41,7 +41,7 @@ public struct FilterGaussianBlur : Filtering, Equatable, Codable {
         .applyingFilter(
           "CIGaussianBlur",
           parameters: [
-            "inputRadius" : radius
+            "inputRadius": radius
           ])
         .cropped(to: image.extent)
   }

@@ -53,8 +53,7 @@ class TrimEditorViewController: UIViewController {
         didSet {
             if isViewEditMode {
                 bottomToolbar.isHidden = true
-            }
-            else {
+            } else {
                 bottomToolbar.isHidden = (storiCamType == .chat)
             }
         }
@@ -402,7 +401,6 @@ class TrimEditorViewController: UIViewController {
     }
 }
 
-
 // MARK: UICollectionViewDataSource
 extension TrimEditorViewController: UICollectionViewDataSource {
     
@@ -465,14 +463,12 @@ extension TrimEditorViewController: UICollectionViewDataSource {
                         cell.trimmerView.isHidden = false
                         cell.imagesView.isHidden = true
                         cell.imagesStackView.isHidden = true
-                    }
-                    else {
+                    } else {
                         cell.trimmerView.isHidden = true
                         cell.imagesView.isHidden = false
                         cell.imagesStackView.isHidden = false
                     }
-                }
-                else {
+                } else {
                     let mainView = UIView.init(frame: CGRect(x: 0, y: 3, width: Double(41 * 1.2), height: Double(cell.imagesView.frame.height * 1.18)))
                     let imageView = UIImageView.init(frame: CGRect(x: 0, y: 0, width: Double(41 * 1.2), height: Double(cell.imagesView.frame.height * 1.18)))
                     imageView.image = images[0].image
@@ -490,16 +486,14 @@ extension TrimEditorViewController: UICollectionViewDataSource {
                         cell.trimmerView.isHidden = false
                         cell.imagesView.isHidden = true
                         cell.imagesStackView.isHidden = true
-                    }
-                    else {
+                    } else {
                         self.setupPositionBar(cell: cell)
                         cell.trimmerView.isHidden = true
                         cell.imagesView.isHidden = false
                         cell.imagesStackView.isHidden = false
                     }
                 }
-            }
-            else {
+            } else {
                 if videoUrls[(indexPath as NSIndexPath).row].isCombineOneVideo {
                     let mainView = UIView.init(frame: CGRect(x: 0, y: 3, width: 41, height: 52))
                     let imageView = UIImageView.init(frame: CGRect(x: 0, y: 0, width: 41, height: 52))
@@ -565,8 +559,7 @@ extension TrimEditorViewController: UICollectionViewDelegate, UICollectionViewDe
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if selectedItem == indexPath.row {
             isEditMode = !isEditMode
-        }
-        else {
+        } else {
             isEditMode = true
         }
         selectedItem = indexPath.row
@@ -586,29 +579,24 @@ extension TrimEditorViewController: UICollectionViewDelegate, UICollectionViewDe
                 if currentPage == indexPath.row {
                     if isEditMode {
                         return CGSize(width: 225, height: Double(98 * 1.17))
-                    }
-                    else {
+                    } else {
                         return CGSize(width: 41 * 1.2, height: Double(98 * 1.17))
                     }
-                }
-                else {
+                } else {
                     return CGSize(width: 41, height: 98)
                 }
             } else {
                 if currentPage == indexPath.row {
                     if isEditMode {
                         return CGSize(width: 225, height: Double(98 * 1.17))
-                    }
-                    else {
+                    } else {
                         return CGSize(width: (Double(1 * 41) * 1.2), height: Double(98 * 1.17))
                     }
-                }
-                else {
+                } else {
                     if self.videoUrls[indexPath.row].isSelected {
                         if isEditMode {
                             return CGSize(width: 225, height: Double(98 * 1.17))
-                        }
-                        else {
+                        } else {
                             return CGSize(width: (Double(1 * 41) * 1.2), height: Double(98 * 1.17))
                         }
                     } else {
@@ -616,8 +604,7 @@ extension TrimEditorViewController: UICollectionViewDelegate, UICollectionViewDe
                     }
                 }
             }
-        }
-        else {
+        } else {
             return CGSize(width: 0, height: 0)
         }
     }
@@ -722,8 +709,7 @@ extension TrimEditorViewController: TrimmerViewDelegate {
             } catch let error {
                 print("💩 \(error)")
             }
-        }
-        else if let player = scPlayer {
+        } else if let player = scPlayer {
             self.view.makeToast("Minimum 3 second require to split or trim.")
             player.seek(to: currentTimeScrub, toleranceBefore: tolerance, toleranceAfter: tolerance)
             if player.isPlaying {

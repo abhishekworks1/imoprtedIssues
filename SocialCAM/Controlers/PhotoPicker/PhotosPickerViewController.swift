@@ -12,8 +12,8 @@ import PhotosUI
 import MobileCoreServices
 
 struct AssetsCollection {
-    var phAssetCollection: PHAssetCollection? = nil
-    var fetchResult: PHFetchResult<PHAsset>? = nil
+    var phAssetCollection: PHAssetCollection?
+    var fetchResult: PHFetchResult<PHAsset>?
     var useCameraButton: Bool = false
     var recentPosition: CGPoint = CGPoint.zero
     var title: String
@@ -35,20 +35,20 @@ struct AssetsCollection {
         if self.useCameraButton && index == 0 { return nil }
         let index = index - (self.useCameraButton ? 1 : 0)
         guard let result = self.fetchResult, index < result.count else { return nil }
-        return result.object(at: max(index,0))
+        return result.object(at: max(index, 0))
     }
     
     func getTLAsset(at index: Int) -> ImageAsset? {
         if self.useCameraButton && index == 0 { return nil }
         let index = index - (self.useCameraButton ? 1 : 0)
         guard let result = self.fetchResult, index < result.count else { return nil }
-        return ImageAsset(asset: result.object(at: max(index,0)))
+        return ImageAsset(asset: result.object(at: max(index, 0)))
     }
     
     func getAssets(at range: CountableClosedRange<Int>) -> [PHAsset]? {
         let lowerBound = range.lowerBound - (self.useCameraButton ? 1 : 0)
         let upperBound = range.upperBound - (self.useCameraButton ? 1 : 0)
-        return self.fetchResult?.objects(at: IndexSet(integersIn: max(lowerBound,0)...min(upperBound,count)))
+        return self.fetchResult?.objects(at: IndexSet(integersIn: max(lowerBound, 0)...min(upperBound, count)))
     }
     
     static func ==(lhs: AssetsCollection, rhs: AssetsCollection) -> Bool {
@@ -101,7 +101,6 @@ extension PhotosPickerLogDelegate {
     func selectedAlbum(picker: PhotosPickerViewController, collections: [AssetsCollection], at: Int) { }
 }
 
-
 public struct PhotosPickerConfigure {
     public var defaultCameraRollTitle = "Camera Roll"
     public var tapHereToChange = "Tap here to change"
@@ -115,22 +114,22 @@ public struct PhotosPickerConfigure {
     public var allowedVideo = false
     public var allowedVideoRecording = false
     public var recordingVideoQuality: UIImagePickerController.QualityType = .typeMedium
-    public var maxVideoDuration: TimeInterval? = nil
+    public var maxVideoDuration: TimeInterval?
     public var autoPlay = false
     public var muteAudio = true
-    public var mediaType: PHAssetMediaType? = nil
+    public var mediaType: PHAssetMediaType?
     public var numberOfColumn = 3
     public var singleSelectedMode = true
-    public var maxSelectedAssets: Int? = nil
-    public var fetchOption: PHFetchOptions? = nil
+    public var maxSelectedAssets: Int?
+    public var fetchOption: PHFetchOptions?
     public var selectedRedColor = UIColor.red
     public var selectedColor = UIColor(red: 88 / 255, green: 144 / 255, blue: 255 / 255, alpha: 1.0)
     public var cameraBgColor = UIColor(red: 221 / 255, green: 223 / 255, blue: 226 / 255, alpha: 1)
     public var cameraIcon = #imageLiteral(resourceName: "icoCamara")
     public var videoIcon = #imageLiteral(resourceName: "video_icon")
     public var placeholderIcon = UIImage()
-    public var nibSet: (nibName: String, bundle: Bundle)? = nil
-    public var cameraCellNibSet: (nibName: String, bundle: Bundle)? = nil
+    public var nibSet: (nibName: String, bundle: Bundle)?
+    public var cameraCellNibSet: (nibName: String, bundle: Bundle)?
     public init() {
         
     }
@@ -166,8 +165,8 @@ open class PhotosPickerViewController: UIViewController {
     @IBOutlet open var emptyImageView: UIImageView!
     @IBOutlet open var emptyMessageLabel: UILabel!
     open var onlyCellUIChange: Bool = false
-    public weak var delegate: PhotosPickerViewControllerDelegate? = nil
-    public weak var logDelegate: PhotosPickerLogDelegate? = nil
+    public weak var delegate: PhotosPickerViewControllerDelegate?
+    public weak var logDelegate: PhotosPickerLogDelegate?
     public var configure = PhotosPickerConfigure()
     
     var items: [ImageAsset] = []
@@ -230,27 +229,27 @@ open class PhotosPickerViewController: UIViewController {
         }
     }
     
-    @objc open var canSelectAsset: ((PHAsset) -> Bool)? = nil
-    @objc open var didExceedMaximumNumberOfSelection: ((PhotosPickerViewController) -> Void)? = nil
-    @objc open var handleNoAlbumPermissions: ((PhotosPickerViewController) -> Void)? = nil
-    @objc open var handleNoCameraPermissions: ((PhotosPickerViewController) -> Void)? = nil
-    @objc open var dismissCompletion: (() -> Void)? = nil
-    fileprivate var completionWithPHAssets: (([PHAsset]) -> Void)? = nil
-    fileprivate var completionWithTLPHAssets: (([PHAsset]) -> Void)? = nil
-    fileprivate var didCancel: (() -> Void)? = nil
+    @objc open var canSelectAsset: ((PHAsset) -> Bool)?
+    @objc open var didExceedMaximumNumberOfSelection: ((PhotosPickerViewController) -> Void)?
+    @objc open var handleNoAlbumPermissions: ((PhotosPickerViewController) -> Void)?
+    @objc open var handleNoCameraPermissions: ((PhotosPickerViewController) -> Void)?
+    @objc open var dismissCompletion: (() -> Void)?
+    fileprivate var completionWithPHAssets: (([PHAsset]) -> Void)?
+    fileprivate var completionWithTLPHAssets: (([PHAsset]) -> Void)?
+    fileprivate var didCancel: (() -> Void)?
     
     fileprivate var collections = [AssetsCollection]()
-    fileprivate var focusedCollection: AssetsCollection? = nil
+    fileprivate var focusedCollection: AssetsCollection?
     
     fileprivate var requestIds = [IndexPath: PHImageRequestID]()
     fileprivate var cloudRequestIds = [IndexPath: PHImageRequestID]()
     
-    fileprivate var oldIndexSelected: IndexPath? = nil
+    fileprivate var oldIndexSelected: IndexPath?
     
     fileprivate var queue = DispatchQueue(label: "tilltue.photos.pikcker.queue")
     fileprivate var thumbnailSize = CGSize.zero
-    fileprivate var placeholderThumbnail: UIImage? = nil
-    fileprivate var cameraImage: UIImage? = nil
+    fileprivate var placeholderThumbnail: UIImage?
+    fileprivate var cameraImage: UIImage?
     
     deinit {
         print("deinit PhotosPickerViewController")
@@ -350,13 +349,10 @@ open class PhotosPickerViewController: UIViewController {
             if ((UIApplication.shared.keyWindow?.safeAreaInsets.top)! > CGFloat(0.0)) {
                 totalHegight = totalHegight + (UIApplication.shared.keyWindow?.safeAreaInsets.top)! + (UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!
                 dropdownController.view.g_pin(on: .height, constant: -totalHegight)
-            }
-            else
-            {
+            } else {
                 dropdownController.view.g_pin(on: .height, constant: -totalHegight)
             }
-        }
-        else {
+        } else {
             dropdownController.view.g_pin(on: .height, constant: -totalHegight)
         }
         
@@ -455,12 +451,10 @@ extension PhotosPickerViewController {
                 type = .image
                 self.configure.singleSelectedMode = false
                 self.configure.maxSelectedAssets = 20
-            }
-            else if currentCamaraMode == .quizImage {
+            } else if currentCamaraMode == .quizImage {
                 type = .image
                 self.configure.singleSelectedMode = false
-            }
-            else if currentCamaraMode == .quizVideo {
+            } else if currentCamaraMode == .quizVideo {
                 type = .video
                 self.configure.singleSelectedMode = false
             } else {
@@ -520,10 +514,10 @@ extension PhotosPickerViewController {
                 let dispatchSemaphore = DispatchSemaphore(value: 0)
                 
                 self.indicator.startAnimating()
-                let viewData = LoadingView.instanceFromNib()
-                viewData.shouldCancleShow = true
-                viewData.loadingViewShow = true
-                viewData.show(on: view)
+                let loadingView = LoadingView.instanceFromNib()
+                loadingView.shouldCancelShow = true
+                loadingView.loadingViewShow = true
+                loadingView.show(on: view)
                 for (index, assests) in self.selectedAssets.enumerated() {
                     exportGroup.enter()
                     if assests.assetType == .video {
@@ -547,8 +541,7 @@ extension PhotosPickerViewController {
                                 dispatchSemaphore.wait()
                             }
                         }
-                    }
-                    else {
+                    } else {
                         exportQueue.async {
                             if assests.fullResolutionImage != nil {
                                 dispatchSemaphore.signal()
@@ -579,7 +572,7 @@ extension PhotosPickerViewController {
                         if self.selectedAssets.count != 0 {
                             self.delegate?.dismissPhotoPicker(withTLPHAssets: self.selectedAssets)
                             self.completionWithTLPHAssets?([self.selectedAssets[0].asset])
-                            viewData.hide()
+                            loadingView.hide()
                             self.dismiss(animated: false) { [weak self] in
                                 guard let strongSelf = self else { return }
                                 strongSelf.indicator?.stopAnimating()
@@ -627,7 +620,6 @@ extension PhotosPickerViewController {
     
 }
 
-
 // MARK: - Video & LivePhotos Control PHLivePhotoViewDelegate
 extension PhotosPickerViewController: PHLivePhotoViewDelegate {
     
@@ -657,7 +649,7 @@ extension PhotosPickerViewController: UICollectionViewDelegate, UICollectionView
             if let selectedAsset = getSelectedAssets(asset) {
                 cell.selectedAsset = true
                 cell.orderLabel?.text = "\(selectedAsset.selectedOrder)"
-            }else {
+            } else {
                 cell.selectedAsset = false
             }
         }
@@ -681,7 +673,7 @@ extension PhotosPickerViewController: UICollectionViewDelegate, UICollectionView
                 return asset
             })
             #else
-            self.selectedAssets = self.selectedAssets.enumerated().flatMap({ (offset, asset) -> Image? in
+            self.selectedAssets = self.selectedAssets.enumerated().flatMap({ (_, asset) -> Image? in
                 let asset = asset
                 return asset
             })
@@ -716,8 +708,7 @@ extension PhotosPickerViewController: UICollectionViewDelegate, UICollectionView
     }
     
     //Datasource
-    open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
-    {
+    open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         func makeCell(nibName: String) -> AllPhotosCollectionViewCell {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: nibName, for: indexPath) as! AllPhotosCollectionViewCell
             cell.configure = self.configure
@@ -742,7 +733,7 @@ extension PhotosPickerViewController: UICollectionViewDelegate, UICollectionView
         
         if asset.state == .progress {
             cell.indicator?.startAnimating()
-        }else {
+        } else {
             cell.indicator?.stopAnimating()
         }
         
@@ -815,7 +806,7 @@ extension PhotosPickerViewController: UICollectionViewDelegate, UICollectionView
                         assets.append(asset)
                     }
                 }
-                let scale = max(UIScreen.main.scale,2)
+                let scale = max(UIScreen.main.scale, 2)
                 let targetSize = CGSize(width: self.thumbnailSize.width*scale, height: self.thumbnailSize.height*scale)
                 self.library.imageManager.startCachingImages(for: assets, targetSize: targetSize, contentMode: .aspectFill, options: nil)
             }
@@ -837,7 +828,7 @@ extension PhotosPickerViewController: UICollectionViewDelegate, UICollectionView
                         assets.append(asset)
                     }
                 }
-                let scale = max(UIScreen.main.scale,2)
+                let scale = max(UIScreen.main.scale, 2)
                 let targetSize = CGSize(width: self.thumbnailSize.width*scale, height: self.thumbnailSize.height*scale)
                 self.library.imageManager.stopCachingImages(for: assets, targetSize: targetSize, contentMode: .aspectFill, options: nil)
             }

@@ -15,7 +15,7 @@ class HalfModalInteractiveTransition: UIPercentDrivenInteractiveTransition {
     
     var shouldComplete: Bool = false
     
-    init(viewController: UIViewController, withView view:UIView, presentingViewController: UIViewController?) {
+    init(viewController: UIViewController, withView view: UIView, presentingViewController: UIViewController?) {
         self.viewController = viewController
         self.presentingViewController = presentingViewController
         self.panGestureRecognizer = UIPanGestureRecognizer()
@@ -35,7 +35,7 @@ class HalfModalInteractiveTransition: UIPercentDrivenInteractiveTransition {
         set {}
     }
     
-    @objc func onPan(pan: UIPanGestureRecognizer) -> Void {
+    @objc func onPan(pan: UIPanGestureRecognizer) {
         let translation = pan.translation(in: pan.view?.superview)
         
         switch pan.state {
@@ -64,8 +64,7 @@ class HalfModalInteractiveTransition: UIPercentDrivenInteractiveTransition {
                 cancel()
                 
                 print("cancel transition")
-            }
-            else {
+            } else {
                 finish()
                 
                 print("finished transition")

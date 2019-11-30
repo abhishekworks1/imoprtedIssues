@@ -21,7 +21,7 @@ class AWSManager {
     static var instance: AWSManager?
 
     var uploadProgressTrackerDelegate: AWSImageUploadProgressTrackerDelegate?
-    var uploadRequests = Array<AWSS3TransferManagerUploadRequest?>()
+    var uploadRequests = [AWSS3TransferManagerUploadRequest?]()
 
     class func shareInstance() -> AWSManager {
         if instance == nil {
@@ -40,7 +40,7 @@ class AWSManager {
         AWSServiceManager.default().defaultServiceConfiguration = configuration
     }
     
-    func uploadImageToAmazon(currentFileName: String, soundFileURL: URL, contentType: String = "image/jpeg", _ bucket: String?, progressBlock: @escaping (Float) -> () = { _ in }, otherProgressBlock: ((Float, Float, Float) -> ())? = { _,_,_ in }, callBack: @escaping (_ url: String) -> Void?, failedBlock: @escaping (Error?) -> () = { _ in }) {
+    func uploadImageToAmazon(currentFileName: String, soundFileURL: URL, contentType: String = "image/jpeg", _ bucket: String?, progressBlock: @escaping (Float) -> Void = { _ in }, otherProgressBlock: ((Float, Float, Float) -> Void)? = { _, _, _ in }, callBack: @escaping (_ url: String) -> Void?, failedBlock: @escaping (Error?) -> Void = { _ in }) {
 
         var S3BucketName = Constant.AWS.BUCKET_NAME
         if let bucketName = bucket {
@@ -96,12 +96,11 @@ class AWSManager {
                 }
                 
                 // Remove locally stored file
-                DispatchQueue.main.async() {
+                DispatchQueue.main.async {
                     callBack(stringURL)
                 }
-            }
-            else {
-                DispatchQueue.main.async() {
+            } else {
+                DispatchQueue.main.async {
                     failedBlock(task.error)
                 }
                 print("Unexpected empty result.")
@@ -110,7 +109,7 @@ class AWSManager {
         })
     }
 
-    func uploadAudioToAmazon(currentFileName: String, soundFileURL: URL, contentType: String = "audio/m4a", progressBlock: @escaping (Float) -> () = { _ in }, callBack: @escaping (_ url: String) -> Void?, failedBlock: @escaping (Error?) -> () = { _ in }) {
+    func uploadAudioToAmazon(currentFileName: String, soundFileURL: URL, contentType: String = "audio/m4a", progressBlock: @escaping (Float) -> Void = { _ in }, callBack: @escaping (_ url: String) -> Void?, failedBlock: @escaping (Error?) -> Void = { _ in }) {
 
         let S3BucketName = Constant.AWS.BUCKET_NAME
         let remoteName = currentFileName
@@ -149,13 +148,12 @@ class AWSManager {
                 print("Uploaded to:\n\(stringURL)")
 
                 // Remove locally stored file
-                DispatchQueue.main.async() {
+                DispatchQueue.main.async {
                     callBack(stringURL)
                 }
 
-            }
-            else {
-                DispatchQueue.main.async() {
+            } else {
+                DispatchQueue.main.async {
                     failedBlock(task.error)
                 }
                 print("Unexpected empty result.")
@@ -164,7 +162,7 @@ class AWSManager {
         })
     }
 
-    func indexOfUploadRequest(_ array: Array<AWSS3TransferManagerUploadRequest?>, uploadRequest: AWSS3TransferManagerUploadRequest?) -> Int? {
+    func indexOfUploadRequest(_ array: [AWSS3TransferManagerUploadRequest?], uploadRequest: AWSS3TransferManagerUploadRequest?) -> Int? {
         for (index, object) in array.enumerated() {
             if object == uploadRequest {
                 return index

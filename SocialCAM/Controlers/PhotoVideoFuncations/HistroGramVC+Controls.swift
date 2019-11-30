@@ -61,7 +61,7 @@ extension HistroGramVC {
             playerLayer?.frame = videoView.frame
             self.view.layoutIfNeeded()
         }
-        UIView.animate(withDuration:0.1, animations: { () -> Void in
+        UIView.animate(withDuration: 0.1, animations: { () -> Void in
             if self.btnShowHideHistoGram.transform == .identity {
                 self.btnShowHideHistoGram.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi * 0.999))
             } else {
@@ -88,7 +88,7 @@ extension HistroGramVC {
         player?.play()
         btnPlayPause.isSelected = true
         let seekTime = CMTime.zero
-        player?.seek(to: seekTime, completionHandler: { [weak self] isCompleted in
+        player?.seek(to: seekTime, completionHandler: { [weak self] _ in
             self?.startPlaybackTimeChecker()
         })
     }
@@ -124,7 +124,7 @@ extension HistroGramVC {
         }
         let loadingView = LoadingView.instanceFromNib()
         loadingView.loadingViewShow = true
-        loadingView.shouldCancleShow = false
+        loadingView.shouldCancelShow = false
         loadingView.show(on: self.view)
         
         VideoScaler.shared.exportVideo(scaleComposition: mutableAsset) { [weak self] url in
@@ -288,23 +288,23 @@ extension HistroGramVC {
             let adjustedSeconds = adjustTime(currentTime: playBackTime.seconds)
             progressTime = progressTime + adjustedSeconds
             
-            let (progressTimeM,progressTimeS) = secondsToHoursMinutesSeconds(Int(Float(progressTime).roundToPlaces(places: 0)))
-            let (totalTimeM,totalTimeS) = secondsToHoursMinutesSeconds(Int(Float(totalTime).roundToPlaces(places: 0)))
+            let (progressTimeM, progressTimeS) = secondsToHoursMinutesSeconds(Int(Float(progressTime).roundToPlaces(places: 0)))
+            let (totalTimeM, totalTimeS) = secondsToHoursMinutesSeconds(Int(Float(totalTime).roundToPlaces(places: 0)))
             
             let yourAttributes = [NSAttributedString.Key.foregroundColor: ApplicationSettings.appWhiteColor, NSAttributedString.Key.font: UIFont.sfuiTextRegular]
             
-            let finalString =  NSMutableAttributedString(string: "", attributes: yourAttributes as [NSAttributedString.Key : Any])
+            let finalString =  NSMutableAttributedString(string: "", attributes: yourAttributes as [NSAttributedString.Key: Any])
             
             let progressTimeString = String.init(format: "%02d:%02d", progressTimeM, progressTimeS)
             
-            let attributeStr =  NSMutableAttributedString(string: progressTimeString, attributes: yourAttributes as [NSAttributedString.Key : Any])
+            let attributeStr =  NSMutableAttributedString(string: progressTimeString, attributes: yourAttributes as [NSAttributedString.Key: Any])
             finalString.append(attributeStr)
             
             let yourOtherAttributes = [NSAttributedString.Key.foregroundColor: UIColor.blue, NSAttributedString.Key.font: UIFont.sfuiTextRegular]
             
             let totalTimeString = String.init(format: "%02d:%02d", totalTimeM, totalTimeS)
             
-            let partTwo = NSMutableAttributedString(string: ". \(totalTimeString)", attributes: yourOtherAttributes as [NSAttributedString.Key : Any])
+            let partTwo = NSMutableAttributedString(string: ". \(totalTimeString)", attributes: yourOtherAttributes as [NSAttributedString.Key: Any])
             finalString.append(partTwo)
             self.lblShowCurrentTime.text = ""
             self.lblShowCurrentTime.attributedText = finalString

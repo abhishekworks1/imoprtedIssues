@@ -384,15 +384,15 @@ class StoryCameraViewController: UIViewController {
     var pauseTimerValue = 0
     var photoTimerValue = 0
     
-    var cameraModeArray: [String] = [R.string.localizable.typE(),R.string.localizable.livE(),R.string.localizable.photovideO(), R.string.localizable.boomeranG(), R.string.localizable.slideshoW(), R.string.localizable.collagE(), R.string.localizable.handfreE(), R.string.localizable.custoM(), R.string.localizable.capturE()]
+    var cameraModeArray: [String] = [R.string.localizable.typE(), R.string.localizable.livE(), R.string.localizable.photovideO(), R.string.localizable.boomeranG(), R.string.localizable.slideshoW(), R.string.localizable.collagE(), R.string.localizable.handfreE(), R.string.localizable.custoM(), R.string.localizable.capturE()]
     
     var timerOptions = ["-",
-                        "1","2","3","4","5","6","7","8","9","10",
-                        "11","12","13","14","15","16","17","18","19","20",
-                        "21","22","23","24","25","26","27","28","29","30",
-                        "31","32","33","34","35","36","37","38","39","40",
-                        "41","42","43","44","45","46","47","48","49","50",
-                        "51","52","53","54","55","56","57","58","59","60"]
+                        "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
+                        "11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
+                        "21", "22", "23", "24", "25", "26", "27", "28", "29", "30",
+                        "31", "32", "33", "34", "35", "36", "37", "38", "39", "40",
+                        "41", "42", "43", "44", "45", "46", "47", "48", "49", "50",
+                        "51", "52", "53", "54", "55", "56", "57", "58", "59", "60"]
     
     var segmentLengthOptions = [
         "5",
@@ -408,21 +408,20 @@ class StoryCameraViewController: UIViewController {
         "240"]
     
     var pauseTimerOptions = ["-",
-                             "1","2","3","4","5","6","7","8","9","10",
-                             "11","12","13","14","15","16","17","18","19","20",
-                             "21","22","23","24","25","26","27","28","29","30",
-                             "31","32","33","34","35","36","37","38","39","40",
-                             "41","42","43","44","45","46","47","48","49","50",
-                             "51","52","53","54","55","56","57","58","59","60"]
+                             "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
+                             "11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
+                             "21", "22", "23", "24", "25", "26", "27", "28", "29", "30",
+                             "31", "32", "33", "34", "35", "36", "37", "38", "39", "40",
+                             "41", "42", "43", "44", "45", "46", "47", "48", "49", "50",
+                             "51", "52", "53", "54", "55", "56", "57", "58", "59", "60"]
     
     var photoTimerOptions = ["-",
-                             "1","2","3","4","5","6","7","8","9","10",
-                             "11","12","13","14","15","16","17","18","19","20",
-                             "21","22","23","24","25","26","27","28","29","30",
-                             "31","32","33","34","35","36","37","38","39","40",
-                             "41","42","43","44","45","46","47","48","49","50",
-                             "51","52","53","54","55","56","57","58","59","60"]
-    
+                             "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
+                             "11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
+                             "21", "22", "23", "24", "25", "26", "27", "28", "29", "30",
+                             "31", "32", "33", "34", "35", "36", "37", "38", "39", "40",
+                             "41", "42", "43", "44", "45", "46", "47", "48", "49", "50",
+                             "51", "52", "53", "54", "55", "56", "57", "58", "59", "60"]
     
     public var storiCamType: StoriCamType = .story
     
@@ -529,8 +528,7 @@ class StoryCameraViewController: UIViewController {
         
         if recordingType == .slideshow {
             recordingType = .slideshow
-        }
-        else if recordingType == .collage {
+        } else if recordingType == .collage {
             recordingType = .collage
         }
     }
@@ -853,7 +851,6 @@ class StoryCameraViewController: UIViewController {
         }
     }
     
-    
 }
 // MARK: Setup Camera
 extension StoryCameraViewController {
@@ -1010,8 +1007,7 @@ extension StoryCameraViewController: UICollectionViewDataSource {
         if recordingType == .slideshow || recordingType == .collage {
             if takenSlideShowImages.count >= 1 {
                 isShow = true
-            }
-            else {
+            } else {
                 isShow = true
             }
             self.deleteView.isHidden = true
@@ -1020,8 +1016,7 @@ extension StoryCameraViewController: UICollectionViewDataSource {
         }
         if takenVideoUrls.count >= 1 {
             isShow = false
-        }
-        else {
+        } else {
             isShow = true
         }
         
@@ -1077,8 +1072,7 @@ extension StoryCameraViewController: UICollectionViewDataSource {
         cell.imagesView.layer.borderColor = borderColor
         
         if let kdCollectionView = stopMotionCollectionView {
-            if let draggingPathOfCellBeingDragged = kdCollectionView.draggingPathOfCellBeingDragged
-            {
+            if let draggingPathOfCellBeingDragged = kdCollectionView.draggingPathOfCellBeingDragged {
                 if draggingPathOfCellBeingDragged.item == indexPath.item {
                     draggingCell = indexPath
                 }
@@ -1102,8 +1096,7 @@ extension StoryCameraViewController: PhotosPickerViewControllerDelegate {
         
     }
     
-    func dismissPhotoPicker(withTLPHAssets: [ImageAsset])
-    {
+    func dismissPhotoPicker(withTLPHAssets: [ImageAsset]) {
         if withTLPHAssets.count != 0 {
             if self.recordingType == .slideshow || self.recordingType == .collage {
                 for image in withTLPHAssets {
@@ -1135,15 +1128,13 @@ extension StoryCameraViewController: PhotosPickerViewControllerDelegate {
                                                                      images: [withTLPHAssets[0].thumbImage])
                                     }
                                 }
-                            }
-                            catch {
+                            } catch {
                                 
                             }
                             
-                        }
-                        else if let asset = withTLPHAssets[0].asset {
+                        } else if let asset = withTLPHAssets[0].asset {
                             let manager = PHImageManager.default()
-                            manager.requestAVAsset(forVideo: asset, options: nil) { (avasset, audio, info) in
+                            manager.requestAVAsset(forVideo: asset, options: nil) { (avasset, _, _) in
                                 if let avassetURL = avasset as? AVURLAsset {
                                     if self.recordingType == .custom {
                                         self.takenVideoUrls.append(SegmentVideos(urlStr: avassetURL.url, thumbimage: withTLPHAssets[0].thumbImage, latitued: nil, longitued: nil, placeAddress: nil, numberOfSegement: String(self.takenSlideShowImages.count + 1), videoduration: nil, combineOneVideo: false))
@@ -1159,8 +1150,7 @@ extension StoryCameraViewController: PhotosPickerViewControllerDelegate {
                                 }
                             }
                         }
-                    }
-                    else {
+                    } else {
                         self.recordingType = .normal
                         self.openPhotoEditorForImage(withTLPHAssets[0].fullResolutionImage!)
                     }
@@ -1183,14 +1173,12 @@ extension StoryCameraViewController: PhotosPickerViewControllerDelegate {
                                 
                                 dispatchSemaphore.signal()
                                 exportGroup.leave()
-                            }
-                            catch {
+                            } catch {
                                 
                             }
-                        }
-                        else if let asset = video.asset, video.assetType == .video {
+                        } else if let asset = video.asset, video.assetType == .video {
                             let manager = PHImageManager.default()
-                            manager.requestAVAsset(forVideo: asset, options: nil) { (avasset, audio, info) in
+                            manager.requestAVAsset(forVideo: asset, options: nil) { (avasset, _, _) in
                                 if let avassetURL = avasset as? AVURLAsset {
                                     DispatchQueue.main.async {
                                         self.takenVideoUrls.append(SegmentVideos(urlStr: avassetURL.url, thumbimage: video.thumbImage, latitued: nil, longitued: nil, placeAddress: nil, numberOfSegement: String(self.takenSlideShowImages.count + 1), videoduration: nil, combineOneVideo: false))
@@ -1204,8 +1192,7 @@ extension StoryCameraViewController: PhotosPickerViewControllerDelegate {
                                 }
                             }
                             dispatchSemaphore.wait()
-                        }
-                        else if video.assetType == .image {
+                        } else if video.assetType == .image {
                             self.takenSlideShowImages.append(SegmentVideos(urlStr: URL.init(string: Constant.Application.imageIdentifier)!, thumbimage: video.fullResolutionImage, latitued: nil, longitued: nil, placeAddress: nil, numberOfSegement: String(self.takenSlideShowImages.count + 1), videoduration: nil, combineOneVideo: false))
                             dispatchSemaphore.signal()
                             exportGroup.leave()
@@ -1400,7 +1387,7 @@ extension StoryCameraViewController {
             UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
                 self.circularProgress.trackThickness = 0.75
                 self.circularProgress.transform = CGAffineTransform(scaleX: 1, y: 1)
-            }) { (completed: Bool) in
+            }) { (_: Bool) in
                 self.nextLevel.pause {
                     if let session = self.nextLevel.session {
                         if let url = session.lastClipUrl {
@@ -1431,9 +1418,9 @@ extension StoryCameraViewController {
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
             self.circularProgress.trackThickness = 0.75
             self.circularProgress.transform = CGAffineTransform(scaleX: 1, y: 1)
-        }) { (completed: Bool) in
+        }) { (_: Bool) in
             self.nextLevel.pause {
-                self.circularProgress.animate(toAngle: 0, duration: 0) { completed in
+                self.circularProgress.animate(toAngle: 0, duration: 0) { _ in
                     if let session = self.nextLevel.session {
                         if let url = session.lastClipUrl {
                             print("Recording completed \(url.path)")
@@ -1492,8 +1479,7 @@ extension StoryCameraViewController {
                 self.openPhotoEditorForVideo()
             }
             
-        }
-        else if self.recordingType == .boomerang {
+        } else if self.recordingType == .boomerang {
             self.showControls()
             self.isRecording = false
             self.videoSpeedType = .normal
@@ -1504,8 +1490,7 @@ extension StoryCameraViewController {
                 self.recordingType = .normal
             }
             self.openPhotoEditorForVideo()
-        }
-        else if self.recordingType == .capture {
+        } else if self.recordingType == .capture {
             self.showControls()
             self.isRecording = false
             let album = SCAlbum.shared
@@ -1535,8 +1520,7 @@ extension StoryCameraViewController {
                 }
             }
             
-        }
-        else {
+        } else {
             
             let currentVideoSeconds = self.videoSegmentSeconds
             if !self.isStopConnVideo && currentVideoSeconds*CGFloat(self.takenVideoUrls.count) < 240 {
@@ -1646,8 +1630,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
         if point != nil {
             if self.speedSliderView.frame.contains(point!) {
                 isPageScrollEnable = false
-            }
-            else {
+            } else {
                 scrollChanges()
             }
         } else {
@@ -1655,18 +1638,14 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
         }
     }
     
-    func scrollChanges()
-    {
+    func scrollChanges() {
         if recordingType == .slideshow || recordingType == .collage {
             if takenSlideShowImages.count > 0 {
                 isPageScrollEnable = false
-            }
-            else
-            {
+            } else {
                 isPageScrollEnable = true
             }
-        }
-        else {
+        } else {
             isPageScrollEnable = !isRecording
         }
     }
@@ -2147,21 +2126,21 @@ extension StoryCameraViewController: StoryUploadDelegate {
 // MARK: KDDragAndDropCollectionViewDataSource
 extension StoryCameraViewController: KDDragAndDropCollectionViewDataSource {
     
-    // MARK : KDDragAndDropCollectionViewDataSource
+    // MARK: KDDragAndDropCollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, dataItemForIndexPath indexPath: IndexPath) -> AnyObject {
         return takenVideoUrls[indexPath.item]
     }
     
-    func collectionView(_ collectionView: UICollectionView, insertDataItem dataItem: AnyObject, atIndexPath indexPath: IndexPath) -> Void {
+    func collectionView(_ collectionView: UICollectionView, insertDataItem dataItem: AnyObject, atIndexPath indexPath: IndexPath) {
         if let di = dataItem as? SegmentVideos {
             takenVideoUrls.insert(di, at: indexPath.item)
         }
     }
-    func collectionView(_ collectionView: UICollectionView, deleteDataItemAtIndexPath indexPath: IndexPath) -> Void {
+    func collectionView(_ collectionView: UICollectionView, deleteDataItemAtIndexPath indexPath: IndexPath) {
         takenVideoUrls.remove(at: indexPath.item)
     }
     
-    func collectionView(_ collectionView: UICollectionView, moveDataItemFromIndexPath from: IndexPath, toIndexPath to: IndexPath) -> Void {
+    func collectionView(_ collectionView: UICollectionView, moveDataItemFromIndexPath from: IndexPath, toIndexPath to: IndexPath) {
         if isDisableResequence {
             return
         }
@@ -2201,8 +2180,7 @@ extension StoryCameraViewController: KDDragAndDropCollectionViewDataSource {
                     guard let strongSelf = self else { return }
                     strongSelf.setStickerObject(view: strongSelf.deleteView)
                 })
-            }
-            else {
+            } else {
                 self.setDeleteFrame(view: deleteView)
             }
         }

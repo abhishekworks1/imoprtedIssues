@@ -20,14 +20,14 @@
 // THE SOFTWARE.
 import Foundation
 
-open class RootControlBase : ControlBase {
+open class RootControlBase: ControlBase {
 
   public required init(context: PixelEditContext, colorCubeControl: ColorCubeControlBase) {
     super.init(context: context)
   }
 }
 
-final class RootControl : RootControlBase {
+final class RootControl: RootControlBase {
 
   public enum DisplayType {
     case filter
@@ -83,7 +83,7 @@ final class RootControl : RootControlBase {
         stackView.leftAnchor.constraint(equalTo: stackView.superview!.leftAnchor),
         stackView.rightAnchor.constraint(equalTo: stackView.superview!.rightAnchor),
         stackView.bottomAnchor.constraint(equalTo: stackView.superview!.bottomAnchor),
-        stackView.heightAnchor.constraint(equalToConstant: 50),
+        stackView.heightAnchor.constraint(equalToConstant: 50)
         ])
 
     }

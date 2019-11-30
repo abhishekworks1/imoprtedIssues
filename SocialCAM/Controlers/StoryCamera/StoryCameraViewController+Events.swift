@@ -112,7 +112,7 @@ extension StoryCameraViewController {
                           options: .transitionFlipFromBottom,
                           animations: {
                             self.nextLevel.flipCaptureDevicePosition()
-        }) { (finished) in
+        }) { (_) in
             blurView.removeFromSuperview()
             self.flipButton.isSelected = !self.flipButton.isSelected
             self.currentCameraPosition = (self.currentCameraPosition == .front) ? .back : .front
@@ -130,11 +130,12 @@ extension StoryCameraViewController {
         let supportedFrameRate = NextLevel.shared.getAllSupportedFrameRate(dimensions: CMVideoDimensions(width: 1920, height: 1080))
         BasePopConfiguration.shared.backgoundTintColor = R.color.appWhiteColor()!
         BasePopConfiguration.shared.menuWidth = 120
+        BasePopConfiguration.shared.showCheckMark = .checkmark
         BasePopOverMenu
             .showForSender(sender: fpsView,
                            with: supportedFrameRate,
-                           withSelectedName : "\(Int(selectedFPS))",
-                done: { (selectedIndex) -> () in
+                           withSelectedName: "\(Int(selectedFPS))",
+                done: { (selectedIndex) -> Void in
                     debugPrint("SelectedIndex :\(selectedIndex)")
                     let selectedFrameRate = supportedFrameRate[selectedIndex]
                     self.selectedFPS = Float(selectedFrameRate)!

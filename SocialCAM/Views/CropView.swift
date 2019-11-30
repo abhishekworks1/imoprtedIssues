@@ -219,7 +219,6 @@ open class CropView: UIView, UIScrollViewDelegate, UIGestureRecognizerDelegate, 
             }
         }
         
-        
         self.interfaceOrientation = interfaceOrientation
     }
     
@@ -383,7 +382,7 @@ open class CropView: UIView, UIScrollViewDelegate, UIGestureRecognizerDelegate, 
             self.scrollView.bounds = cropRect
             self.scrollView.zoom(to: zoomRect, animated: false)
             self.layoutCropRectViewWithCropRect(cropRect)
-        }) { finished in
+        }) { _ in
             completion?()
         }
     }

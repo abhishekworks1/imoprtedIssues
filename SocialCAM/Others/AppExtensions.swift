@@ -45,7 +45,7 @@ extension UIViewController {
         SVProgressHUD.showSuccess(withStatus: message)
     }
     
-    func changeChannelData(newChannel channel:User) {
+    func changeChannelData(newChannel channel: User) {
         Defaults.shared.currentUser = channel
         StoryDataManager.shared.deleteAllRecords()
         StoryDataManager.shared.stopAll()
@@ -63,9 +63,9 @@ extension Float {
 }
 
 class ClosureSleeve {
-    let closure: ()->()
+    let closure: () -> Void
     
-    init (_ closure: @escaping ()->()) {
+    init (_ closure: @escaping () -> Void) {
         self.closure = closure
     }
     
@@ -75,7 +75,7 @@ class ClosureSleeve {
 }
 
 extension UIControl {
-    func addAction(for controlEvents: UIControl.Event, _ closure: @escaping ()->()) {
+    func addAction(for controlEvents: UIControl.Event, _ closure: @escaping () -> Void) {
         let sleeve = ClosureSleeve(closure)
         addTarget(sleeve, action: #selector(ClosureSleeve.invoke), for: controlEvents)
         objc_setAssociatedObject(self, String(format: "[%d]", arc4random()), sleeve, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
@@ -117,17 +117,17 @@ extension UIFont {
 
 extension NSObject {
     
-    func  getController<T>(storybord:String,controller:String) -> T {
-        let obj:T = UIStoryboard(name:storybord, bundle: nil).instantiateViewController(withIdentifier: controller) as! T
+    func  getController<T>(storybord: String, controller: String) -> T {
+        let obj: T = UIStoryboard(name: storybord, bundle: nil).instantiateViewController(withIdentifier: controller) as! T
         return obj
     }
     
-    func checkVideoAccess(callBack:((_ granted:Bool,_ msg:String?)->Void)?) {
+    func checkVideoAccess(callBack:((_ granted: Bool, _ msg: String?) -> Void)?) {
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             if AVCaptureDevice.authorizationStatus(for: AVMediaType.video) ==  AVAuthorizationStatus.authorized {
                 DispatchQueue.main.async {
                     if let block = callBack {
-                        block(true,nil)
+                        block(true, nil)
                     }
                 }
             } else {
@@ -135,13 +135,13 @@ extension NSObject {
                     if granted == true {
                         DispatchQueue.main.async {
                             if let block = callBack {
-                                block(true,nil)
+                                block(true, nil)
                             }
                         }
                     } else {
                         DispatchQueue.main.async {
                             if let block = callBack {
-                                block(false,"Camera Permission decline. Camera access required for capturing Video")
+                                block(false, "Camera Permission decline. Camera access required for capturing Video")
                             }
                         }
                     }
@@ -150,24 +150,24 @@ extension NSObject {
         } else {
             DispatchQueue.main.async {
                 if let block = callBack {
-                    block(false,"Camera not available")
+                    block(false, "Camera not available")
                 }
             }
         }
         
     }
     
-    func checkMicrophonePermission(block:((_ isGranted:Bool, _ msg:String?)->Void)?) {
+    func checkMicrophonePermission(block:((_ isGranted: Bool, _ msg: String?) -> Void)?) {
         switch AVAudioSession.sharedInstance().recordPermission {
         case .granted:
             if let callBloack = block {
-                callBloack(true,"Permission granted")
+                callBloack(true, "Permission granted")
             }
             
         case .denied:
             print("Pemission denied")
             if let callBlock = block {
-                callBlock(false,"Microphone Pemission denied")
+                callBlock(false, "Microphone Pemission denied")
             }
             
         case .undetermined:
@@ -205,9 +205,9 @@ extension UIImageView {
     
     func setProfileUrl(url: URL, placeholdeImage: UIImage) {
         if Defaults.shared.playGIF {
-            self.sd_setImage(with:url, placeholderImage:placeholdeImage)
+            self.sd_setImage(with: url, placeholderImage: placeholdeImage)
         } else {
-            self.sd_setImage(with:url, placeholderImage:placeholdeImage)
+            self.sd_setImage(with: url, placeholderImage: placeholdeImage)
         }
     }
     
@@ -217,7 +217,6 @@ extension UIImageView {
         sd_setImage(with: url, placeholderImage: placeholderImage)
     }
 }
-
 
 extension Notification.Name {
     

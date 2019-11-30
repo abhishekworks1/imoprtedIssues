@@ -9,19 +9,19 @@
 import Foundation
 import UIKit
 
-protocol CollageViewDelegate : class {
-    func didSelectCell(cellId : Int)
-    func didSelectBlankCell(cellId : Int)
+protocol CollageViewDelegate: class {
+    func didSelectCell(cellId: Int)
+    func didSelectBlankCell(cellId: Int)
 }
 
-enum CollageViewDirection : Int {
+enum CollageViewDirection: Int {
     case none
     case left
     case right
     case top
     case bottom
     
-    var string : String {
+    var string: String {
         switch self {
         case .left : return "left"
         case .right : return "right"
@@ -32,8 +32,7 @@ enum CollageViewDirection : Int {
     }
 }
 
-
-enum CollageViewType : Int {
+enum CollageViewType: Int {
     case t101
     case t201
     case t202
@@ -75,7 +74,7 @@ enum CollageViewType : Int {
     case t311
     case t312
     case t313
-    var getInstance : CollageView {
+    var getInstance: CollageView {
         switch self {
         case .t101 : return CollageViewT101()
         case .t201 : return CollageViewT201()
@@ -122,7 +121,6 @@ enum CollageViewType : Int {
     }
 }
 
-
 open class CollageView: UIView {
     
     /*
@@ -133,17 +131,17 @@ open class CollageView: UIView {
      }
      */
     
-    var baseLineViews : [BaseLineView] = []
-    var collageCells : [CollageCell] = []
-    var marginLeftTopContraints : [NSLayoutConstraint] = []
-    var marginRightBottomContraints : [NSLayoutConstraint] = []
-    var paddingLeftTopContraints : [NSLayoutConstraint] = []
-    var paddingRightBottomContraints : [NSLayoutConstraint] = []
-    private var setPhoto : Bool = false
-    var margin : CGFloat = 0.0
-    var padding : CGFloat = 0.0
+    var baseLineViews: [BaseLineView] = []
+    var collageCells: [CollageCell] = []
+    var marginLeftTopContraints: [NSLayoutConstraint] = []
+    var marginRightBottomContraints: [NSLayoutConstraint] = []
+    var paddingLeftTopContraints: [NSLayoutConstraint] = []
+    var paddingRightBottomContraints: [NSLayoutConstraint] = []
+    private var setPhoto: Bool = false
+    var margin: CGFloat = 0.0
+    var padding: CGFloat = 0.0
     weak var delegate: CollageViewDelegate?
-    var collageType : CollageViewType = .t301
+    var collageType: CollageViewType = .t301
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -160,11 +158,9 @@ open class CollageView: UIView {
         self.backgroundColor = ApplicationSettings.appWhiteColor
     }
     
-    
     open func initBaseLines() {}
     
-    
-    func updatePadding(val : CGFloat) {
+    func updatePadding(val: CGFloat) {
         
         for lc in self.paddingLeftTopContraints {
             lc.constant = val
@@ -176,7 +172,7 @@ open class CollageView: UIView {
         self.layoutIfNeeded()
     }
     
-    func updateBorder(val : CGFloat) {
+    func updateBorder(val: CGFloat) {
         if collageType == .t304 || collageType == .t303 {
             for cell in self.collageCells {
                 if cell.id != 3 {
@@ -195,7 +191,7 @@ open class CollageView: UIView {
         cell.layer.borderWidth = val
     }
     
-    func updateMargin(val : CGFloat) {
+    func updateMargin(val: CGFloat) {
         
         for lc in self.marginLeftTopContraints {
             lc.constant = val
@@ -207,12 +203,12 @@ open class CollageView: UIView {
         self.layoutIfNeeded()
     }
     
-    func setPhotos(photos : [UIImage]) {
+    func setPhotos(photos: [UIImage]) {
         
         guard !setPhoto else { return }
         setPhoto = true
         
-        for (i,photo) in photos.enumerated() {
+        for (i, photo) in photos.enumerated() {
             guard i < self.collageCells.count else { break }
             let cell = self.collageCells[i]
             
@@ -222,11 +218,9 @@ open class CollageView: UIView {
     
     func cornerRedius(views: [UIView]) {
         for view in views {
-            if view.frame.height > view.frame.width
-            {
+            if view.frame.height > view.frame.width {
                 view.layer.cornerRadius = view.frame.width / 2
-            }
-            else {
+            } else {
                 view.layer.cornerRadius = view.frame.height / 2
             }
             view.layer.masksToBounds = true
@@ -250,9 +244,9 @@ open class CollageView: UIView {
                 cell.layer.shouldRasterize = true
                 cell.isOpaque = true
                 if shapeMask {
-                    cell.layer.mask = cell.drawRoundedHex(width: polyWidth, height: polyHeight, cornerRadius: 02, sides: 6,shapeMask : shapeMask, type: .hexa)
+                    cell.layer.mask = cell.drawRoundedHex(width: polyWidth, height: polyHeight, cornerRadius: 02, sides: 6, shapeMask: shapeMask, type: .hexa)
                 } else {
-                    cell.layer.addSublayer(cell.drawRoundedHex(width: polyWidth, height: polyHeight, cornerRadius: 02, sides: 6,shapeMask : shapeMask, type: .hexa))
+                    cell.layer.addSublayer(cell.drawRoundedHex(width: polyWidth, height: polyHeight, cornerRadius: 02, sides: 6, shapeMask: shapeMask, type: .hexa))
                 }
                 cell.layer.masksToBounds = false
                 cell.layer.shouldRasterize = true
@@ -266,9 +260,9 @@ open class CollageView: UIView {
         let polyWidth = cell.frame.width
         let polyHeight = cell.frame.height
         if shapeMask {
-            cell.layer.mask  = cell.drawRoundedHex(width: polyWidth, height: polyHeight, cornerRadius: 02, sides: 8,shapeMask : shapeMask,type: .hexa)
+            cell.layer.mask  = cell.drawRoundedHex(width: polyWidth, height: polyHeight, cornerRadius: 02, sides: 8, shapeMask: shapeMask, type: .hexa)
         } else {
-            cell.layer.addSublayer(cell.drawRoundedHex(width: polyWidth, height: polyHeight, cornerRadius: 02, sides: 8,shapeMask : shapeMask,type: .hexa))
+            cell.layer.addSublayer(cell.drawRoundedHex(width: polyWidth, height: polyHeight, cornerRadius: 02, sides: 8, shapeMask: shapeMask, type: .hexa))
         }
         cell.layer.masksToBounds = false
         cell.layer.shouldRasterize = true
@@ -281,11 +275,11 @@ open class CollageView: UIView {
             if cell.id == indexItem {
                 let polyWidth = cell.frame.width
                 let polyHeight = cell.frame.height
-                cell.layer.mask = cell.drawRoundedHex(width: polyWidth, height: polyHeight, cornerRadius: 02, sides:  6, type: .heart)
+                cell.layer.mask = cell.drawRoundedHex(width: polyWidth, height: polyHeight, cornerRadius: 02, sides: 6, type: .heart)
                 cell.layer.masksToBounds = false
                 cell.layer.shouldRasterize = true
                 cell.isOpaque = true
-                cell.layer.addSublayer(cell.drawRoundedBorder(width: polyWidth, height: polyHeight, cornerRadius: 02, lineWidth: 6, sides: 6,type: .heart))
+                cell.layer.addSublayer(cell.drawRoundedBorder(width: polyWidth, height: polyHeight, cornerRadius: 02, lineWidth: 6, sides: 6, type: .heart))
             }
         }
     }
@@ -295,12 +289,12 @@ open class CollageView: UIView {
             let polyWidth = cell.frame.width
             let polyHeight = cell.frame.height
             if cell.id == 3 {
-                cell.layer.addSublayer(cell.drawRoundedHex(width: polyWidth, height: polyHeight, shapeMask : false, type: .star))
+                cell.layer.addSublayer(cell.drawRoundedHex(width: polyWidth, height: polyHeight, shapeMask: false, type: .star))
                 cell.layer.masksToBounds = false
                 cell.layer.shouldRasterize = true
                 cell.isOpaque = true
             } else if cell.id == 4 {
-                cell.layer.addSublayer(cell.drawRoundedHex(width: polyWidth - 10, height: polyHeight - 10, shapeMask : false, type: .heart))
+                cell.layer.addSublayer(cell.drawRoundedHex(width: polyWidth - 10, height: polyHeight - 10, shapeMask: false, type: .heart))
                 cell.layer.masksToBounds = false
                 cell.layer.shouldRasterize = true
                 cell.isOpaque = true
@@ -310,7 +304,7 @@ open class CollageView: UIView {
     
 }
 
-extension CollageView : CollageCellDelegate {
+extension CollageView: CollageCellDelegate {
     
     func didSelectCell(cellId: Int) {
         var isDidSelectedFirst = false
@@ -337,7 +331,7 @@ extension CollageView : CollageCellDelegate {
     
 }
 
-extension CollageView : LineHandleViewDataSource {
+extension CollageView: LineHandleViewDataSource {
     
     func sizeView() -> CGSize {
         let size = self.frame.size

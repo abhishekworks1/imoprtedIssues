@@ -15,17 +15,17 @@ import GoogleSignIn
 
 class YouTubeViewController: MXSegmentedPagerController {
     @IBOutlet var headerView: UIView!
-    var keyWordVc : KeywordViewController!
-    var youTubeChannelVc : YouTubeChannelViewController!
-    var simpleKeyWordVc :  SimpleKeyWordViewController!
-    var statsVC :  StatsViewController!
-    var shareHandler : ((_ url:String , _ hash:[String]?, _ title: String?,_ channelId:String?)->Void)?
-    @IBOutlet var txtField : UISearchBar!
-    var textObservable : Observable<String>?
-    @IBOutlet var subscribeChannel : UICollectionView!
-    var channels : [YouTubeSubscription] = []
+    var keyWordVc: KeywordViewController!
+    var youTubeChannelVc: YouTubeChannelViewController!
+    var simpleKeyWordVc: SimpleKeyWordViewController!
+    var statsVC: StatsViewController!
+    var shareHandler : ((_ url: String, _ hash: [String]?, _ title: String?, _ channelId: String?) -> Void)?
+    @IBOutlet var txtField: UISearchBar!
+    var textObservable: Observable<String>?
+    @IBOutlet var subscribeChannel: UICollectionView!
+    var channels: [YouTubeSubscription] = []
     @IBOutlet var lblNoChannel: UILabel!
-    var isSignIn : Bool = true
+    var isSignIn: Bool = true
     var isReview = false
  
     override func viewDidLoad() {
@@ -40,8 +40,8 @@ class YouTubeViewController: MXSegmentedPagerController {
         segmentedPager.bounces = false
         segmentedPager.segmentedControl.selectionIndicatorLocation = .down
         segmentedPager.segmentedControl.backgroundColor = ApplicationSettings.appLightWhiteColor
-        segmentedPager.segmentedControl.titleTextAttributes = [NSAttributedString.Key.foregroundColor : ApplicationSettings.appBlackColor ,NSAttributedString.Key.font : R.font.sfuiTextMedium(size: 12)!]
-        segmentedPager.segmentedControl.selectedTitleTextAttributes = [NSAttributedString.Key.foregroundColor : ApplicationSettings.appPrimaryColor , NSAttributedString.Key.font : R.font.sfuiTextMedium(size: 12)!]
+        segmentedPager.segmentedControl.titleTextAttributes = [NSAttributedString.Key.foregroundColor: ApplicationSettings.appBlackColor, NSAttributedString.Key.font: R.font.sfuiTextMedium(size: 12)!]
+        segmentedPager.segmentedControl.selectedTitleTextAttributes = [NSAttributedString.Key.foregroundColor: ApplicationSettings.appPrimaryColor, NSAttributedString.Key.font: R.font.sfuiTextMedium(size: 12)!]
         segmentedPager.segmentedControl.selectionStyle = .fullWidthStripe
         segmentedPager.segmentedControl.selectionIndicatorColor = ApplicationSettings.appPrimaryColor
         segmentedPager.segmentedControl.borderType = .bottom
@@ -50,7 +50,7 @@ class YouTubeViewController: MXSegmentedPagerController {
         segmentedPager.segmentedControl.selectionIndicatorHeight = 1
         segmentedPager.pager.isScrollEnabled = false
         segmentedPager.pager.transitionStyle = .tab
-        textObservable = (self.txtField?.rx.text.orEmpty.throttle(0.5, scheduler:MainScheduler.instance).distinctUntilChanged())!
+        textObservable = (self.txtField?.rx.text.orEmpty.throttle(0.5, scheduler: MainScheduler.instance).distinctUntilChanged())!
         self.getSubscribeChannels()
     }
     
@@ -76,7 +76,7 @@ class YouTubeViewController: MXSegmentedPagerController {
             keyWordVc = segue.destination as? KeywordViewController
             keyWordVc.isReview = self.isReview
             keyWordVc.textObservable = self.textObservable
-            keyWordVc.popHandler = { (youTubeUrl , hash, title, channelId) in
+            keyWordVc.popHandler = { (youTubeUrl, hash, title, channelId) in
                 if let handler = self.shareHandler {
                     handler(youTubeUrl, hash, title, channelId)
                 }
@@ -99,7 +99,7 @@ class YouTubeViewController: MXSegmentedPagerController {
             statsVC = segue.destination as? StatsViewController
             statsVC.isReview = self.isReview
             statsVC.textObservable = self.textObservable
-            statsVC.popHandler = { (youTubeUrl , hash, title, channelId) in
+            statsVC.popHandler = { (youTubeUrl, hash, title, channelId) in
                 if let handler = self.shareHandler {
                     handler(youTubeUrl, hash, title, channelId)
                 }
@@ -117,7 +117,7 @@ class YouTubeViewController: MXSegmentedPagerController {
     }
     
     override func segmentedPager(_ segmentedPager: MXSegmentedPager, titleForSectionAt index: Int) -> String {
-        return ["Keyword","Stats","Channel", "Similar Keyword"][index]
+        return ["Keyword", "Stats", "Channel", "Similar Keyword"][index]
     }
     
     override func segmentedPager(_ segmentedPager: MXSegmentedPager, didScrollWith parallaxHeader: MXParallaxHeader) {
@@ -128,17 +128,17 @@ class YouTubeViewController: MXSegmentedPagerController {
         return false
     }
     
-    @IBAction func btnBackClicked(sender:UIButton) {
+    @IBAction func btnBackClicked(sender: UIButton) {
         ApplicationSettings.shared.shouldRotate = false
         self.navigationController?.popViewController(animated: true)
     }
     
-    @IBAction func filterBtnClicked(sender:UIButton) {
+    @IBAction func filterBtnClicked(sender: UIButton) {
         
     }
     
-    func scrollAtIndex(index:Int) {
-        self.segmentedPager.pager.showPage(at:index, animated: true)
+    func scrollAtIndex(index: Int) {
+        self.segmentedPager.pager.showPage(at: index, animated: true)
     }
     
     func getSubscribeChannels() {
@@ -160,7 +160,7 @@ class YouTubeViewController: MXSegmentedPagerController {
                         self.lblNoChannel.isHidden = false
                     }
                     self.subscribeChannel.reloadData()
-                }, onError: { (error) in
+                }, onError: { (_) in
                     
                 }, onCompleted: {
                     
@@ -186,7 +186,7 @@ class YouTubeViewController: MXSegmentedPagerController {
     }
 }
 
-extension YouTubeViewController : UICollectionViewDelegate , UICollectionViewDataSource {
+extension YouTubeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return (self.isSignIn == true) ? self.channels.count : 1
@@ -215,17 +215,17 @@ extension YouTubeViewController : UICollectionViewDelegate , UICollectionViewDat
             if let channelListVc =  R.storyboard.youTube.channelVideoListViewController() {
                 channelListVc.isReview = self.isReview
                 channelListVc.channelId = channelId
-                channelListVc.popHandler = { (youTubeUrl , hash, title, channelId) in
+                channelListVc.popHandler = { (youTubeUrl, hash, title, channelId) in
                     if let handler = self.shareHandler {
                         handler(youTubeUrl, hash, title, channelId)
                     }
                     if let createPost: [UIViewController] = self.navigationController?.viewControllers.filter({ (vc) -> Bool in
                         return vc.isKind(of: AddPostViewController.self)
-                    })  ,  createPost.count > 0 {
+                    }), createPost.count > 0 {
                           self.navigationController?.popToViewController(createPost[0], animated: true)
                     } else if let potoEdit: [UIViewController] = self.navigationController?.viewControllers.filter({ (vc) -> Bool in
                         return vc.isKind(of: PhotoEditorViewController.self)
-                    })  ,  potoEdit.count > 0 {
+                    }), potoEdit.count > 0 {
                          self.navigationController?.popToViewController(potoEdit[0], animated: true)
                     }
                 }
@@ -239,7 +239,7 @@ extension YouTubeViewController : UICollectionViewDelegate , UICollectionViewDat
 
 }
 
-extension YouTubeViewController : UICollectionViewDelegateFlowLayout {
+extension YouTubeViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if self.isSignIn == true {
@@ -251,7 +251,7 @@ extension YouTubeViewController : UICollectionViewDelegateFlowLayout {
     
 }
 
-extension YouTubeViewController :  GIDSignInDelegate , GIDSignInUIDelegate {
+extension YouTubeViewController: GIDSignInDelegate, GIDSignInUIDelegate {
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Swift.Error!) {
         if error == nil {

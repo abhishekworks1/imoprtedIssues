@@ -9,12 +9,10 @@
 import Foundation
 import UIKit
 
-
 public enum UPCarouselFlowLayoutSpacingMode {
     case fixed(spacing: CGFloat)
     case overlap(visibleOffset: CGFloat)
 }
-
 
 open class UPCarouselFlowLayout: UICollectionViewFlowLayout {
 
@@ -32,7 +30,6 @@ open class UPCarouselFlowLayout: UICollectionViewFlowLayout {
     open var spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: 40)
 
     fileprivate var state = LayoutState(size: CGSize.zero, direction: .horizontal)
-
 
     override open func prepare() {
         super.prepare()
@@ -129,8 +126,7 @@ open class UPCarouselFlowLayout: UICollectionViewFlowLayout {
         if isHorizontal {
             let closest = layoutAttributes.sorted { abs($0.center.x - proposedContentOffsetCenterOrigin) < abs($1.center.x - proposedContentOffsetCenterOrigin) }.first ?? UICollectionViewLayoutAttributes()
             targetContentOffset = CGPoint(x: floor(closest.center.x - midSide), y: proposedContentOffset.y)
-        }
-        else {
+        } else {
             let closest = layoutAttributes.sorted { abs($0.center.y - proposedContentOffsetCenterOrigin) < abs($1.center.y - proposedContentOffsetCenterOrigin) }.first ?? UICollectionViewLayoutAttributes()
             targetContentOffset = CGPoint(x: proposedContentOffset.x, y: floor(closest.center.y - midSide))
         }
@@ -138,4 +134,3 @@ open class UPCarouselFlowLayout: UICollectionViewFlowLayout {
         return targetContentOffset
     }
 }
-

@@ -20,7 +20,7 @@
 // THE SOFTWARE.
 import Foundation
 
-public final class StepSlider : UIControl {
+public final class StepSlider: UIControl {
   
   public enum Mode {
     case plus

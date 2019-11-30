@@ -88,14 +88,14 @@ extension Reaction {
     }
     
     /// The list of standard facebook reactions in this order: `.like`, `.love`, `.haha`, `.wow`, `.sad`, `.angry`.
-    public static let all: [Reaction] = [facebook.like, facebook.love, facebook.thanks, facebook.lol,facebook.wtf,facebook.peace, facebook.prayer,facebook.hallelujah,facebook.amen]
+    public static let all: [Reaction] = [facebook.like, facebook.love, facebook.thanks, facebook.lol, facebook.wtf, facebook.peace, facebook.prayer, facebook.hallelujah, facebook.amen]
 
    // facebook.wow, facebook.sad, facebook.angry
     // MARK: - Convenience Methods
 
     public static func reactionWithId(_ id: String) -> Reaction {
       var color: UIColor            = .black
-      var alternativeIcon: UIImage? = nil
+      var alternativeIcon: UIImage?
 
       switch id {
       case "like":

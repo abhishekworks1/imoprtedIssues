@@ -46,9 +46,9 @@ public enum ColorCube {
     let filter = CIFilter(
       name: "CIColorCubeWithColorSpace",
       parameters: [
-        "inputCubeDimension" : dimension,
-        "inputCubeData" : data,
-        "inputColorSpace" : colorSpace,
+        "inputCubeDimension": dimension,
+        "inputCubeData": data,
+        "inputColorSpace": colorSpace
         ]
       )
 
@@ -106,7 +106,7 @@ public enum ColorCube {
 
     let dataSize = dimension * dimension * dimension * MemoryLayout<Float>.size * 4
 
-    var array = Array<Float>(repeating: 0, count: dataSize)
+    var array = [Float](repeating: 0, count: dataSize)
 
     var bitmapOffest: Int = 0
     var z: Int = 0
@@ -154,4 +154,3 @@ public enum ColorCube {
     return data
   }
 }
-

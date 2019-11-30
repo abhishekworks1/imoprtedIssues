@@ -85,8 +85,8 @@ class CropOverlayView: UIView {
     }
     
     private func setGridShowStatus() {
-        horizontalGridLines.forEach{ $0.alpha = gridHidden ? 0 : 1}
-        verticalGridLines.forEach{ $0.alpha = gridHidden ? 0 : 1}
+        horizontalGridLines.forEach { $0.alpha = gridHidden ? 0 : 1}
+        verticalGridLines.forEach { $0.alpha = gridHidden ? 0 : 1}
     }
     
     private func layoutGridLines() {

@@ -1,4 +1,3 @@
-
 //
 //  TrimmerView.swift
 //  TrimmerVideo
@@ -122,8 +121,7 @@ open class TrimmerView: UIView {
             if isHideLeftRightView {
                 self.leftDraggableView.isHidden = true
                 self.rightDraggableView.isHidden = true
-            }
-            else {
+            } else {
                 self.leftDraggableView.isHidden = false
                 self.rightDraggableView.isHidden = false
             }
@@ -198,7 +196,6 @@ open class TrimmerView: UIView {
         return imageView
     }()
     
-    
     public var cutView: UIView = {
         let cutView = UIImageView.init(image: UIImage.init(named: "cut"))
         cutView.frame = .zero
@@ -224,7 +221,7 @@ open class TrimmerView: UIView {
         return thumbsView
     }()
     
-    //MARK: Properties
+    // MARK: Properties
     
     // Return the minimum distance between the left and right view expressed in seconds
     private var minimumDistanceBetweenDraggableViews: CGFloat? {
@@ -263,7 +260,6 @@ open class TrimmerView: UIView {
     var leftPanGesture: UIPanGestureRecognizer = UIPanGestureRecognizer.init()
 
     var rightPanGesture: UIPanGestureRecognizer = UIPanGestureRecognizer.init()
-    
     
     // MARK: Constraints
     private(set) lazy var currentLeadingConstraint: CGFloat = 0
@@ -320,7 +316,6 @@ open class TrimmerView: UIView {
     // MARK: View Life Cycle
     override open func awakeFromNib() {
         super.awakeFromNib()
-        
         
         dimmingViewTopAnchor = thumbnailsView.topAnchor
             .constraint(equalTo: topAnchor, constant: 0)
@@ -410,7 +405,6 @@ open class TrimmerView: UIView {
         trimViewTrailingConstraint.priority = UILayoutPriority(rawValue: 750)
         
         setup()
-       
         
         NSLayoutConstraint.activate([dimmingViewTopAnchor,
                                      dimmingViewBottomAnchor,
@@ -517,7 +511,7 @@ open class TrimmerView: UIView {
         }
     }
     
-    //MARK: Gestures
+    // MARK: Gestures
     private func setupPanGestures() {
         leftPanGesture = UIPanGestureRecognizer(
             target: self,
@@ -624,7 +618,7 @@ open class TrimmerView: UIView {
         }
     }
     
-    //MARK: Methods
+    // MARK: Methods
     
     /// Update the leading contraint of the left draggable view after the pan gesture
     func updateLeadingConstraint(with translation: CGPoint) {

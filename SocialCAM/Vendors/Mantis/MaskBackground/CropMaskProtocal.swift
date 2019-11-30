@@ -8,8 +8,8 @@
 
 import UIKit
 
-fileprivate let minOverLayerUnit: CGFloat = 30
-fileprivate let initialFrameLength: CGFloat = 1000
+private let minOverLayerUnit: CGFloat = 30
+private let initialFrameLength: CGFloat = 1000
 
 protocol CropMaskProtocol where Self: UIView {
     func initialize()

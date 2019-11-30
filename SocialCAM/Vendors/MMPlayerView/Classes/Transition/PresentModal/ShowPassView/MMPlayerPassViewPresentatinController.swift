@@ -16,7 +16,7 @@ enum VideoPositionType {
 }
 
 public class MMPlayerPassViewPresentatinController: MMPlayerBasePresentationController {
-    weak var originalPlayView:UIView?
+    weak var originalPlayView: UIView?
     var lastPoint: CGPoint = .zero
 
     lazy var  containerGesture: UIPanGestureRecognizer = {
@@ -28,7 +28,7 @@ public class MMPlayerPassViewPresentatinController: MMPlayerBasePresentationCont
     public override func dismissalTransitionWillBegin() {
         super.dismissalTransitionWillBegin()
         
-        self.presentingViewController.transitionCoordinator?.animate(alongsideTransition: { (context) in
+        self.presentingViewController.transitionCoordinator?.animate(alongsideTransition: { (_) in
             self.presentingViewController.view.transform = .identity
         }, completion: nil)
     }
@@ -70,7 +70,7 @@ public class MMPlayerPassViewPresentatinController: MMPlayerBasePresentationCont
         case .changed:
             self.config.playLayer?.playView?.center.x += point.x - lastPoint.x
             self.config.playLayer?.playView?.center.y += point.y - lastPoint.y
-        case .ended , .cancelled:
+        case .ended, .cancelled:
             let rect = self.config.playLayer?.playView?.frame ?? .zero
             let center = self.config.playLayer?.playView?.center ?? .zero
 
@@ -83,7 +83,7 @@ public class MMPlayerPassViewPresentatinController: MMPlayerBasePresentationCont
                 self.setFrameWith(quadrant: .rightTop, dismissVideo: velocity.x > 0 && rect.maxX > size.width)
             } else if center.x < halfSize.width && center.y > halfSize.height {
                 self.setFrameWith(quadrant: .leftBottom, dismissVideo: velocity.x < 0 && rect.origin.x < 0)
-            } else if center.x > halfSize.width && center.y > halfSize.height{
+            } else if center.x > halfSize.width && center.y > halfSize.height {
                 self.setFrameWith(quadrant: .rightBottom, dismissVideo: velocity.x > 0 && rect.maxX > size.width)
             }
             lastPoint = .zero
@@ -146,4 +146,3 @@ public class MMPlayerPassViewPresentatinController: MMPlayerBasePresentationCont
     }
     
 }
-

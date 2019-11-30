@@ -147,4 +147,3 @@ class CountdownView: UIView {
         return fontName
     }
 }
-

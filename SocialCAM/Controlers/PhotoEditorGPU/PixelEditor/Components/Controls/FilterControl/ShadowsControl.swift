@@ -21,16 +21,14 @@
 
 import Foundation
 
-
-
-open class ShadowsControlBase : FilterControlBase {
+open class ShadowsControlBase: FilterControlBase {
 
   public required init(context: PixelEditContext) {
     super.init(context: context)
   }
 }
 
-open class ShadowsControl : ShadowsControlBase {
+open class ShadowsControl: ShadowsControlBase {
   
   open override var title: String {
     return L10n.editShadows

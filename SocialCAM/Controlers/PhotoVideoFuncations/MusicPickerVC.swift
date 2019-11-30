@@ -60,7 +60,7 @@ class MusicPickerVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        for (_,slideShowMusic) in self.musicOptions.enumerated() {
+        for (_, slideShowMusic) in self.musicOptions.enumerated() {
             if let selectedurl = self.selectedURL,
                 selectedurl.deletingPathExtension().lastPathComponent == slideShowMusic.name {
                 slideShowMusic.isSelected = true
@@ -103,7 +103,7 @@ extension MusicPickerVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        for (index,slideShowMusic) in self.musicOptions.enumerated() {
+        for (index, slideShowMusic) in self.musicOptions.enumerated() {
             if index == indexPath.row {
                 slideShowMusic.isSelected = !slideShowMusic.isSelected
                 if slideShowMusic.isSelected {

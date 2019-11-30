@@ -83,8 +83,7 @@ class CropView: UIView {
         }
         
         cropFrameKVO = viewModel.observe(\.cropBoxFrame,
-                                         options: [.new, .old])
-        { [unowned self] _, changed in
+                                         options: [.new, .old]) { [unowned self] _, changed in
             guard let cropFrame = changed.newValue else { return }
             self.gridOverlayView.frame = cropFrame
             self.cropMaskViewManager.adaptMaskTo(match: cropFrame)
@@ -282,7 +281,6 @@ class CropView: UIView {
     }    
 }
 
-
 // MARK: - Adjust UI
 extension CropView {
     private func rotateScrollView() {
@@ -359,7 +357,7 @@ extension CropView {
         viewModel.cropRightBottomOnImage = getImageRightBottomAnchorPoint()
     }
     
-    func adjustUIForNewCrop(contentRect:CGRect, animation: Bool = true, completion: @escaping ()->Void) {
+    func adjustUIForNewCrop(contentRect: CGRect, animation: Bool = true, completion: @escaping () -> Void) {
         
         let scaleX: CGFloat
         let scaleY: CGFloat
@@ -389,7 +387,6 @@ extension CropView {
         let contentOffset = scrollView.contentOffset
         let contentOffsetCenter = CGPoint(x: (contentOffset.x + scrollView.bounds.width / 2),
                                           y: (contentOffset.y + scrollView.bounds.height / 2))
-        
         
         scrollView.bounds = CGRect(x: 0, y: 0, width: width, height: height)
         
@@ -469,7 +466,6 @@ extension CropView {
     }
 }
 
-
 // MARK: - internal API
 extension CropView {
     func crop(completion: @escaping (Any?) -> Void) {
@@ -500,20 +496,21 @@ extension CropView {
 
             let exportSession = CropAssetExportSession(config: config)
             
-            let viewData = LoadingView.instanceFromNib()
-            viewData.showOnKeyWindow(completion: {
-                viewData.cancleClick = {
+            let loadingView = LoadingView.instanceFromNib()
+            loadingView.showOnKeyWindow(completion: {
+                loadingView.cancelClick = { [weak self] _ in
+                    guard let `self` = self else { return }
                     exportSession.cancelExporting()
-                    viewData.hide()
+                    loadingView.hide()
                 }
             })
 
             exportSession.export(for: avAsset, progress: { progress in
                 print(progress)
-                viewData.progressView.setProgress(to: Double(progress), withAnimation: true)
+                loadingView.progressView.setProgress(to: Double(progress), withAnimation: true)
             }) { url in
                 DispatchQueue.main.async {
-                    viewData.hide()
+                    loadingView.hide()
                     if let url = url {
                         completion(url)
                     }

@@ -20,7 +20,7 @@
 // THE SOFTWARE.
 import Foundation
 
-public struct OvalBrush : Equatable {
+public struct OvalBrush: Equatable {
 
   public static func == (lhs: OvalBrush, rhs: OvalBrush) -> Bool {
     guard lhs.color == rhs.color else { return false }

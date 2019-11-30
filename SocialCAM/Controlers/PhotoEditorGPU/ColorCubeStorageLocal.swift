@@ -25,8 +25,6 @@ extension Collection where Index == Int {
     }
 }
 
-
-
 extension ColorCubeStorage {
     static func loadToDefault() {
         

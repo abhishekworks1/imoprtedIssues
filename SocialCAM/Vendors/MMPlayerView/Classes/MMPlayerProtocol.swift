@@ -10,7 +10,7 @@ import Foundation
 import AVKit
 
 @objc public protocol MMPlayerBasePlayerProtocol: class {
-    weak var playLayer: MMPlayerLayer? { set get }
+    weak var playLayer: MMPlayerLayer? { get set }
     @objc optional func player(isMuted: Bool)
     
     @objc optional func timerObserver(time: CMTime)

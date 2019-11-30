@@ -12,19 +12,19 @@ import RxSwift
 import RxCocoa
 
 class StatTableViewCell: UITableViewCell {
-    @IBOutlet var lblTitle : UILabel!
-    @IBOutlet var lblTag : UILabel!
-    @IBOutlet var lblNumber : UILabel!
-    @IBOutlet var lblViews : UILabel!
-    @IBOutlet var lblDate : UILabel!
-    @IBOutlet var lblCategory : UILabel!
-    @IBOutlet var lblChannel : UILabel!
-    @IBOutlet var tagBtn  : UIButton!
-    var tagHandler : ((_ item:Item)->Void)?
-    var playHandler : ((_ item:Item)->Void)?
-    var shareHandler : ((_ item:Item)->Void)?
-    var channelHandler : ((_ item:Item)->Void)?
-    var observable : Item? {
+    @IBOutlet var lblTitle: UILabel!
+    @IBOutlet var lblTag: UILabel!
+    @IBOutlet var lblNumber: UILabel!
+    @IBOutlet var lblViews: UILabel!
+    @IBOutlet var lblDate: UILabel!
+    @IBOutlet var lblCategory: UILabel!
+    @IBOutlet var lblChannel: UILabel!
+    @IBOutlet var tagBtn: UIButton!
+    var tagHandler : ((_ item: Item) -> Void)?
+    var playHandler : ((_ item: Item) -> Void)?
+    var shareHandler : ((_ item: Item) -> Void)?
+    var channelHandler : ((_ item: Item) -> Void)?
+    var observable: Item? {
         didSet {
             if let items = observable {
               self.configCell(items: items)
@@ -32,7 +32,7 @@ class StatTableViewCell: UITableViewCell {
         }
     }
     
-    func configCell(items:Item) {
+    func configCell(items: Item) {
         let video = items
         self.lblChannel.text = video.snippet?.channelTitle
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.lblChannelTaped(sender:)))
@@ -51,7 +51,7 @@ class StatTableViewCell: UITableViewCell {
         self.lblTitle.text = video.snippet?.title ?? ""
         self.lblViews.text = video.statistics?.viewCount
         self.lblViews.adjustsFontSizeToFitWidth = true
-        if let tags = video.snippet?.tags , tags.count > 0 {
+        if let tags = video.snippet?.tags, tags.count > 0 {
             let tempString = tags.joined(separator: ", ")
             let hash = ""
             let tagText = hash.appending(tempString)
@@ -64,13 +64,13 @@ class StatTableViewCell: UITableViewCell {
         self.setNeedsUpdateConstraints()
     }
     
-    @objc func lblChannelTaped(sender:Any) {
+    @objc func lblChannelTaped(sender: Any) {
         if let handler = self.channelHandler {
             handler(self.observable!)
         }
     }
     
-    @IBAction func btnPlayClicked(_ sender : Any) {
+    @IBAction func btnPlayClicked(_ sender: Any) {
         if let handler = self.playHandler {
             handler(self.observable!)
         }

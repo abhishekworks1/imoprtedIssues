@@ -55,7 +55,7 @@ class StyleTransferVC: UIViewController {
     
     @IBOutlet weak var videoView: MLVideoView!
     
-    @IBOutlet weak var filterImageView: UIImageView!{
+    @IBOutlet weak var filterImageView: UIImageView! {
         didSet {
             filterImageView.isUserInteractionEnabled = true
             filterImageView.clipsToBounds = true
@@ -182,7 +182,7 @@ class StyleTransferVC: UIViewController {
         }
     }
     
-    var doneHandler: ((Any, Int) -> ())? = nil
+    var doneHandler: ((Any, Int) -> Void)?
     
     var type: StyleTransferType = .image(image: UIImage())
     
@@ -253,13 +253,13 @@ class StyleTransferVC: UIViewController {
     
     @IBAction func btnShowHide(_ sender: UIButton) {
         switch type {
-        case .image(_ ):
+        case .image:
             if let filterImage = filteredImage {
                 self.doneHandler?(filterImage, sender.tag)
                 self.navigationController?.popViewController(animated: false)
             }
             break
-        case .video(_ , _):
+        case .video:
             saveImage(sender)
             break
         }
@@ -284,23 +284,24 @@ class StyleTransferVC: UIViewController {
                 mergeSession.addSegment(segment)
             }
             videoView.player.pause()
-            let viewData = LoadingView.instanceFromNib()
-            viewData.show(on: view, completion: {
-                viewData.cancleClick = {
+            let loadingView = LoadingView.instanceFromNib()
+            loadingView.show(on: view, completion: {
+                loadingView.cancelClick = { [weak self] _ in
+                    guard let `self` = self else { return }
                     self.cancelExporting(UIButton())
-                    viewData.hide()
+                    loadingView.hide()
                 }
             })
             
             coreMLExporter.exportVideo(for: mergeSession.assetRepresentingSegments(), and: selectedIndex, progress: { progress in
                 DispatchQueue.main.async {
-                    viewData.progressView.setProgress(to: Double(progress), withAnimation: true)
+                    loadingView.progressView.setProgress(to: Double(progress), withAnimation: true)
                 }
             }, completion: { exportedURL in
                 if let url = exportedURL {
                     DispatchQueue.main.async {
                         self.videoView.stop()
-                        viewData.hide()
+                        loadingView.hide()
                     }
                     var updatedSegments = videoSegments
                     let updatedSegment = SegmentVideos(urlStr: url,
@@ -353,23 +354,24 @@ class StyleTransferVC: UIViewController {
                 mergeSession.addSegment(segment)
             }
             videoView.player.pause()
-            let viewData = LoadingView.instanceFromNib()
-            viewData.show(on: view, completion: {
-                viewData.cancleClick = {
+            let loadingView = LoadingView.instanceFromNib()
+            loadingView.show(on: view, completion: {
+                loadingView.cancelClick = { [weak self] _ in
+                    guard let `self` = self else { return }
                     self.cancelExporting(UIButton())
-                    viewData.hide()
+                    loadingView.hide()
                 }
             })
             
             coreMLExporter.exportVideo(for: mergeSession.assetRepresentingSegments(), and: selectedIndex, progress: { progress in
                 DispatchQueue.main.async {
-                    viewData.progressView.setProgress(to: Double(progress), withAnimation: true)
+                    loadingView.progressView.setProgress(to: Double(progress), withAnimation: true)
                 }
             }, completion: { exportedURL in
                 if let url = exportedURL {
                     DispatchQueue.main.async {
                         self.videoView.player.play()
-                        viewData.hide()
+                        loadingView.hide()
                     }
                     SCAlbum.shared.saveMovieToLibrary(movieURL: url)
                     self.view.makeToast("saved", duration: 2.0, position: .bottom)
@@ -459,12 +461,11 @@ class StyleTransferVC: UIViewController {
             if size.width > 1280 {
                 scale = 1280/size.width
             }
-        } else  {
+        } else {
             if size.height > 1280 {
                 scale = 1280/size.height
             }
         }
-        
         
         let targetSize = CGSize(width: floor(size.width * scale), height: floor(size.height * scale))
         
@@ -490,7 +491,7 @@ class StyleTransferVC: UIViewController {
         UIGraphicsEndImageContext()
         
         let attrs = [kCVPixelBufferCGImageCompatibilityKey: kCFBooleanTrue, kCVPixelBufferCGBitmapContextCompatibilityKey: kCFBooleanTrue] as CFDictionary
-        var pixelBuffer : CVPixelBuffer?
+        var pixelBuffer: CVPixelBuffer?
         let status = CVPixelBufferCreate(kCFAllocatorDefault, Int(maxWidth), Int(maxHeight), kCVPixelFormatType_32ARGB, attrs, &pixelBuffer)
         guard (status == kCVReturnSuccess) else {
             return nil
@@ -639,10 +640,7 @@ extension StyleTransferVC: KDDragAndDropCollectionViewDataSource {
     
 }
 
-
-
 extension StyleTransferVC: UICollectionViewDelegate {
-    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView.tag == 0 {
@@ -697,7 +695,7 @@ extension StyleTransferVC: UICollectionViewDelegate {
             let borderWidth: CGFloat = styleData[indexPath.row].isSelected ? 2.0 : 0.0
             cell.layer.borderWidth = borderWidth
             switch type {
-            case .image(_ ):
+            case .image:
                 let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressOnFilterImageView(_:)))
                 longPressGesture.minimumPressDuration = 0.2
                 cell.addGestureRecognizer(longPressGesture)
@@ -714,10 +712,10 @@ extension StyleTransferVC: UICollectionViewDelegate {
             return
         }
         switch type {
-        case .image(_ ):
+        case .image:
             type = .image(image: orignalImage!)
             break
-        case .video(_ , _):
+        case .video:
             break
         }
         

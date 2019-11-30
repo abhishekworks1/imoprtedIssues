@@ -9,18 +9,18 @@
 import Foundation
 import ObjectMapper
 
-class HashTag : Mappable {
-    var  id  : String?
-    var count : Int?
-    var tag : String?
-    var isFollow : Bool?
-    var mediaUrl : String?
+class HashTag: Mappable {
+    var  id: String?
+    var count: Int?
+    var tag: String?
+    var isFollow: Bool?
+    var mediaUrl: String?
 
     required init?(map: Map) {
         
     }
     
-    // MARK:-- Mappable Protocol
+    // MARK: - - Mappable Protocol
     
     func mapping(map: Map) {
         id <- map["_id"]
@@ -34,13 +34,13 @@ class HashTag : Mappable {
 
 class HashTagSetList: Mappable {
     
-    var _id : String?
-    var categoryName : String?
-    var userHashTagData : userHashTagData?
-    var __v : Int?
-    var created : String?
-    var usedCount : Int?
-    var hashTags : [String]?
+    var _id: String?
+    var categoryName: String?
+    var userHashTagData: userHashTagData?
+    var __v: Int?
+    var created: String?
+    var usedCount: Int?
+    var hashTags: [String]?
     
     required init?(map: Map) {
         
@@ -57,14 +57,14 @@ class HashTagSetList: Mappable {
     }
 }
 
-class userHashTagData : Mappable {
+class userHashTagData: Mappable {
     
-    var _id : String?
-    var channelId : String?
-    var channelName : String?
-    var profileType : Int?
-    var profileThumbnail : String?
-    var profileImageURL : String?
+    var _id: String?
+    var channelId: String?
+    var channelName: String?
+    var profileType: Int?
+    var profileThumbnail: String?
+    var profileImageURL: String?
     
     required init?(map: Map) {
         

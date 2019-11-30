@@ -43,7 +43,7 @@ open class TiktokShare: NSObject, TikTokOpenPlatformLogDelegate {
         shareRequest.send { (tikTokOpenPlatformShareResponse) in
             if tikTokOpenPlatformShareResponse.isSucceed {
                 Utils.appDelegate?.window?.makeToast(R.string.localizable.postSuccess())
-            } else  {
+            } else {
                 
             }
         }

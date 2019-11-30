@@ -21,17 +21,14 @@
 
 import Foundation
 
-
-
-
-open class GaussianBlurControlBase : FilterControlBase {
+open class GaussianBlurControlBase: FilterControlBase {
 
   public required init(context: PixelEditContext) {
     super.init(context: context)
   }
 }
 
-open class GaussianBlurControl : GaussianBlurControlBase {
+open class GaussianBlurControl: GaussianBlurControlBase {
   
   open override var title: String {
     return L10n.editBlur
@@ -86,4 +83,3 @@ open class GaussianBlurControl : GaussianBlurControlBase {
   }
 
 }
-

@@ -41,14 +41,14 @@ public class MMPlayerBasePresentationController: UIPresentationController {
     
     public override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
 
-        coordinator.animate(alongsideTransition: { (context) in
+        coordinator.animate(alongsideTransition: { (_) in
             // Prevent Scale error
             if let c = self.containerView {
                 self.presentingViewController.view.transform = .identity
                 self.presentingViewController.view.frame = c.bounds
             }
             self.presentedViewController.view.frame = self.frameOfPresentedViewInContainerView
-        }) { (context) in
+        }) { (_) in
         }
     }
 }

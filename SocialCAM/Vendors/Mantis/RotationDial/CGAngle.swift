@@ -63,5 +63,3 @@ public class CGAngle: NSObject, Comparable {
     }
 
 }
-
-

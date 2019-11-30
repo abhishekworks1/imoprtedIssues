@@ -50,7 +50,7 @@ enum TempCode {
       navigationView.topAnchor.constraint(equalTo: containerGuide.bottomAnchor),
       navigationView.rightAnchor.constraint(equalTo: navigationView.superview!.rightAnchor),
       navigationView.leftAnchor.constraint(equalTo: navigationView.superview!.leftAnchor),
-      navigationView.bottomAnchor.constraint(equalTo: navigationView.superview!.bottomAnchor),
+      navigationView.bottomAnchor.constraint(equalTo: navigationView.superview!.bottomAnchor)
       ])
 
   }

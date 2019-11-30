@@ -17,10 +17,10 @@ class LayoutConstraint: NSLayoutConstraint {
             if UIDevice.current.userInterfaceIdiom != .pad {
                 if self.isResize {
                     switch firstAttribute {
-                    case .top,.bottom,.height:
+                    case .top, .bottom, .height:
                         self.constant = self.constant*UIScreen.main.bounds.size.height/667
                         break
-                    case .leading,.trailing,.width:
+                    case .leading, .trailing, .width:
                         self.constant = self.constant*UIScreen.main.bounds.size.width/375
                         break
                     default:

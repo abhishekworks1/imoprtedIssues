@@ -21,10 +21,7 @@
 
 import Foundation
 
-
-
-
-final class BlurredMosaicView : DryDrawingView {
+final class BlurredMosaicView: DryDrawingView {
 
   private var displayingImageExtent: CGRect?
 
@@ -114,7 +111,7 @@ final class BlurredMosaicView : DryDrawingView {
 }
 
 extension BlurredMosaicView {
-  private class MaskLayer : CALayer {
+  private class MaskLayer: CALayer {
 
     var drawnPaths: [GraphicsDrawing] = [] {
       didSet {

@@ -18,7 +18,6 @@ public enum LocationKind {
     case folder
 }
 
-
 extension FileManager {
     
     class func documentsDir() -> String {
@@ -38,8 +37,7 @@ extension FileManager {
         
         do {
             try removeItem(at: url)
-        }
-        catch let error {
+        } catch let error {
             throw TrimError("Couldn't remove existing destination file: \(error)")
         }
     }
@@ -119,8 +117,6 @@ extension FileManager {
         
         return formatter.string(from: duration) ?? ""
     }
-    
-    
     
     static func calculateFileSizeInUnit(_ contentLength: Int64) -> Float {
         let dataLength: Float64 = Float64(contentLength)

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-public typealias CurrentCellCallBack = ((_ index: Int) -> ())
+public typealias CurrentCellCallBack = ((_ index: Int) -> Void)
 
 open class InstaSlider: UIView {
     
@@ -25,7 +25,7 @@ open class InstaSlider: UIView {
     open var cellTextColor: UIColor = UIColor.black
     open var selectedCellTextColor: UIColor = UIColor.white
     
-    open var stringArray: [String] = []  {
+    open var stringArray: [String] = [] {
         didSet {
             self.configureCollectionView()
         }
@@ -33,7 +33,7 @@ open class InstaSlider: UIView {
     
     private var collectionViewLayout: HorizontalFlowLayout!
     
-    open var selectCell : Int = 0 {
+    open var selectCell: Int = 0 {
         didSet {
             selectedCell = selectCell
             DispatchQueue.runOnMainThread {
@@ -96,14 +96,13 @@ open class InstaSlider: UIView {
     
     override open func layoutSubviews() {
         super.layoutSubviews()
-        self.backgroundImage?.frame = CGRect.init(x: self.bounds.minX, y: self.bounds.maxY - 37 , width: self.bounds.width, height: 37)
+        self.backgroundImage?.frame = CGRect.init(x: self.bounds.minX, y: self.bounds.maxY - 37, width: self.bounds.width, height: 37)
         self.collectionView?.frame = bounds
     }
     
-    // MARK:- ConfigureCollectionView
+    // MARK: - ConfigureCollectionView
     
-    func configureCollectionView() -> Void
-    {
+    func configureCollectionView() {
         DispatchQueue.main.async {
             self.collectionView.reloadData()
         }
@@ -139,8 +138,7 @@ open class InstaSlider: UIView {
                     self.currentCell!((index?.row)!)
                 }
             }
-        }
-        else if(cells != nil) {
+        } else if(cells != nil) {
             let actualPosition = scrollView.panGestureRecognizer.translation(in: scrollView.superview)
             for cellView in self.collectionView.visibleCells {
                 let currentCell = cellView as? CollectionViewCustomCell
@@ -178,8 +176,7 @@ extension InstaSlider: UICollectionViewDataSource, UICollectionViewDelegate, UIC
         if(self.selectedCell != nil) {
             if(indexPath.item == self.selectedCell) {
                 kCell.label.textColor = selectedCellTextColor
-            }
-            else {
+            } else {
                 kCell.label.textColor = cellTextColor
             }
         }

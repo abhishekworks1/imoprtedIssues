@@ -9,13 +9,13 @@
 import Foundation
 import UIKit
 
-class StoryTwoColumnsLayout : UICollectionViewLayout {
+class StoryTwoColumnsLayout: UICollectionViewLayout {
     fileprivate var cache = [IndexPath: UICollectionViewLayoutAttributes]()
     fileprivate var cellPadding: CGFloat = 4
     fileprivate var contentHeight: CGFloat = 0
     var oldBound: CGRect!
-    let numberOfColumns:Int = 2
-    var cellHeight:CGFloat = 255
+    let numberOfColumns: Int = 2
+    var cellHeight: CGFloat = 255
     
     fileprivate var contentWidth: CGFloat {
         guard let collectionView = collectionView else {
@@ -87,4 +87,3 @@ class StoryTwoColumnsLayout : UICollectionViewLayout {
     }
     
 }
-

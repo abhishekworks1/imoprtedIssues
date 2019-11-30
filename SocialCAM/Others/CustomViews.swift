@@ -89,8 +89,7 @@ class BorderView: UIView {
         didSet {
             if isChangeBackgroundColor {
                 self.backgroundColor = ApplicationSettings.appPrimaryColor
-            }
-            else {
+            } else {
                 self.backgroundColor = ApplicationSettings.appClearColor
             }
         }
@@ -235,7 +234,6 @@ class RoundedView: UIView {
     
 }
 
-
 class PLabel: UILabel {
     var fontSize: CGFloat = -1
     
@@ -320,7 +318,7 @@ class PButton: UIButton {
     @IBInspectable var underLinedText: String? {
         didSet {
             let titleString: NSMutableAttributedString = NSMutableAttributedString(string: underLinedText!)
-            titleString.addAttribute(NSAttributedString.Key.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: NSMakeRange(0, underLinedText!.count))
+            titleString.addAttribute(NSAttributedString.Key.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: NSRange(location: 0, length: underLinedText!.count))
             self.setAttributedTitle(titleString, for: UIControl.State())
         }
     }
@@ -479,7 +477,7 @@ class RoundedImageView: FLAnimatedImageView {
     
 }
 
-@IBDesignable class FourSideShadowButton : UIButton {
+@IBDesignable class FourSideShadowButton: UIButton {
     
     @IBInspectable var shadowColor: UIColor? {
         didSet {
@@ -541,8 +539,7 @@ class ColorButton: UIButton {
             if isChangeBackgroundColor {
                 self.backgroundColor = ApplicationSettings.appPrimaryColor
                 self.setTitleColor(ApplicationSettings.appWhiteColor, for: UIControl.State())
-            }
-            else {
+            } else {
                 self.backgroundColor = ApplicationSettings.appClearColor
                 self.setTitleColor(ApplicationSettings.appPrimaryColor, for: UIControl.State())
             }
@@ -595,7 +592,6 @@ class ColorButton: UIButton {
     }
     
 }
-
 
 @IBDesignable
 class ColorRoundedView: UIView {
@@ -703,7 +699,6 @@ class ColorRoundedView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
         
     }
     

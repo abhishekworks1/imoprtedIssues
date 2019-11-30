@@ -42,7 +42,7 @@ public class ImageCropperView: UIImageView {
         isUserInteractionEnabled = isCropEnabled
     }
     
-    // MARK:- Public methods
+    // MARK: - Public methods
 
     /**
      Crop selection layer
@@ -81,7 +81,7 @@ public class ImageCropperView: UIImageView {
         croppedImage = nil
     }
     
-    // MARK:- Private methods
+    // MARK: - Private methods
     /**
      This methods is adding CAShapeLayer line to tempImageView
      */

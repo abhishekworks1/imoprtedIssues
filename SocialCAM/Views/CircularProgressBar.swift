@@ -11,10 +11,10 @@ import Foundation
 
 class CircularProgressBar: UIView {
     
-    var currentTime:Double = 0
-    var previousProgress:Double = 0
+    var currentTime: Double = 0
+    var previousProgress: Double = 0
     
-    //MARK: awakeFromNib
+    // MARK: awakeFromNib
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,11 +24,10 @@ class CircularProgressBar: UIView {
         labelComplete.text = "Complete"
     }
     
+    // MARK: Public
     
-    //MARK: Public
-    
-    public var lineWidth:CGFloat = 5 {
-        didSet{
+    public var lineWidth: CGFloat = 5 {
+        didSet {
             foregroundLayer.lineWidth = lineWidth
             backgroundLayer.lineWidth = lineWidth - (0.20 * lineWidth)
         }
@@ -58,7 +57,7 @@ class CircularProgressBar: UIView {
     }
     
     public var safePercent: Int = 100 {
-        didSet{
+        didSet {
             setForegroundLayerColorForSafePercent()
         }
     }
@@ -67,9 +66,7 @@ class CircularProgressBar: UIView {
         
         var progress: Double {
             get {
-                if progressConstant > 1 { return 1 }
-                else if progressConstant < 0 { return 0 }
-                else { return progressConstant }
+                if progressConstant > 1 { return 1 } else if progressConstant < 0 { return 0 } else { return progressConstant }
             }
         }
         
@@ -95,7 +92,7 @@ class CircularProgressBar: UIView {
         }
     }
     
-    //MARK: Private
+    // MARK: Private
     private var label = UILabel()
     private var labelPercent = UILabel()
     private var labelComplete = UILabel()
@@ -103,14 +100,13 @@ class CircularProgressBar: UIView {
     private let backgroundLayer = CAShapeLayer()
     private let pulsatingLayer = CAShapeLayer()
     private var radius: CGFloat {
-        get{
-            if self.frame.width < self.frame.height { return (self.frame.width - lineWidth)/2 }
-            else { return (self.frame.height - lineWidth)/2 }
+        get {
+            if self.frame.width < self.frame.height { return (self.frame.width - lineWidth)/2 } else { return (self.frame.height - lineWidth)/2 }
         }
     }
     
-    private var pathCenter: CGPoint{ get{ return self.convert(self.center, from:self.superview) } }
-    private func makeBar(){
+    private var pathCenter: CGPoint { get { return self.convert(self.center, from: self.superview) } }
+    private func makeBar() {
         self.layer.sublayers = nil
         drawPulsatingLayer()
         self.animatePulsatingLayer()
@@ -118,7 +114,7 @@ class CircularProgressBar: UIView {
         drawForegroundLayer()
     }
     
-    private func drawBackgroundLayer(){
+    private func drawBackgroundLayer() {
         let path = UIBezierPath(arcCenter: pathCenter, radius: self.radius, startAngle: 0, endAngle: 2*CGFloat.pi, clockwise: true)
         self.backgroundLayer.path = path.cgPath
         self.backgroundLayer.strokeColor = ApplicationSettings.appPrimaryColor.cgColor
@@ -128,7 +124,7 @@ class CircularProgressBar: UIView {
         
     }
     
-    private func drawForegroundLayer(){
+    private func drawForegroundLayer() {
         
         let startAngle = (-CGFloat.pi/2)
         let endAngle = 2 * CGFloat.pi + startAngle
@@ -197,26 +193,26 @@ class CircularProgressBar: UIView {
         return label
     }
     
-    private func configLabel(){
+    private func configLabel() {
         label.textColor = UIColor(red: 36.0/255.0, green: 22.0/255.0, blue: 84.0/255.0, alpha: 1.0)
         label.sizeToFit()
         label.center = CGPoint(x: pathCenter.x, y: pathCenter.y)
     }
     
-    private func configLabelPercent(){
+    private func configLabelPercent() {
         labelPercent.textColor = UIColor(red: 36.0/255.0, green: 22.0/255.0, blue: 84.0/255.0, alpha: 0.4)
         labelPercent.sizeToFit()
         labelPercent.center = CGPoint(x: pathCenter.x + (label.frame.size.width/2) + 10, y: pathCenter.y)
     }
     
-    private func configLabelComplete(){
+    private func configLabelComplete() {
         labelComplete.textColor = UIColor(red: 36.0/255.0, green: 22.0/255.0, blue: 84.0/255.0, alpha: 1.0)
         labelComplete.sizeToFit()
         labelComplete.center = CGPoint(x: pathCenter.x, y: pathCenter.y + (label.frame.size.height/2))
         labelComplete.isHidden = true
     }
     
-    private func setForegroundLayerColorForSafePercent(){
+    private func setForegroundLayerColorForSafePercent() {
         
         self.foregroundLayer.strokeColor = UIColor(red: 36.0/255.0, green: 22.0/255.0, blue: 84.0/255.0, alpha: 1.0).cgColor
     }

@@ -21,16 +21,14 @@
 
 import Foundation
 
-
-
-open class ClarityControlBase : FilterControlBase {
+open class ClarityControlBase: FilterControlBase {
   
   public required init(context: PixelEditContext) {
     super.init(context: context)
   }
 }
 
-open class ClarityControl : ClarityControlBase {
+open class ClarityControl: ClarityControlBase {
   
   open override var title: String {
     return L10n.editClarity

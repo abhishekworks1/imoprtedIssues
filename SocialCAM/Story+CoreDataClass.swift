@@ -14,7 +14,7 @@ import NSObject_Rx
 import SCRecorder
 
 extension CustomStringConvertible {
-    var description : String {
+    var description: String {
         var description: String = "\(type(of: self)){ "
         let selfMirror = Mirror(reflecting: self)
         for child in selfMirror.children {
@@ -280,7 +280,6 @@ class StoryDataManager {
     func getAllStoryDatas() -> [StoryData] {
         return getStoryData(withPredicate: NSPredicate(value: true))
     }
-
     
     func getStoryDataNotCompleted() -> [StoryData] {
         guard let storyData = currentStoryUploadData else {
@@ -326,7 +325,6 @@ class StoryDataManager {
             context.delete(dataToDelete)
         }
     }
-
     
     func getStoryUploadDataById(id: NSManagedObjectID) -> StoryUploadData? {
         return context.object(with: id) as? StoryUploadData
@@ -345,7 +343,6 @@ class StoryDataManager {
         let predicate = NSPredicate(format: "isCompleted == YES")
         return getStoryUploadData(withPredicate: predicate)
     }
-
     
     func getStoryUploadData(withPredicate queryPredicate: NSPredicate) -> [StoryUploadData] {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: StoryDataManager.storyUploadDataEntityName)
@@ -376,7 +373,7 @@ class StoryDataManager {
         }
     }
     
-    // MARK:- Saves all changes
+    // MARK: - Saves all changes
     func saveChanges() {
         do {
             try context.save()
@@ -392,8 +389,7 @@ extension StoryDataManager {
  
     func stopUploadFile(storyData: StoryData) {
 
-        for (_ ,item) in getAllStoryDatas().enumerated()
-        {
+        for (_, item) in getAllStoryDatas().enumerated() {
             if storyData.url == item.url {
                 storyData.storyUploadData?.isCompleted = true
                 self.saveChanges()
@@ -417,8 +413,7 @@ extension StoryDataManager {
     }
     
     func restartAll() {
-        for (_ ,item) in getAllStoryDatas().enumerated()
-        {
+        for (_, item) in getAllStoryDatas().enumerated() {
             self.isThumbCreated = false
             self.isStoryUploaded = false
             self.currentStoryData = nil
@@ -441,7 +436,6 @@ extension StoryDataManager {
             let url = Utils.getLocalPath(fileName)
             session.addSegment(SCRecordSessionSegment(url: url, info: nil))
         }
-        
         
         if let filterName = storyData.filterName,
             filterName != "CIFilter" {
@@ -546,7 +540,7 @@ extension StoryDataManager {
             debugPrint(remainString)
             self.delegate?.didChangeStoryCount(remainString)
             self.delegate?.didUpdateProgress(Double(progress))
-        }, otherProgressBlock: { bytesSent, totalBytesSent, totalBytesExpectedToSend in
+        }, otherProgressBlock: { bytesSent, totalBytesSent, _ in
             self.delegate?.didUpdateBytes(Double(bytesSent), Double(totalBytesSent), storyData)
         }, callBack: { url -> Void? in
             storyData.serverURL = url
@@ -572,7 +566,7 @@ extension StoryDataManager {
     }
     
     func getThumbImage(storyData: StoryData) -> UIImage? {
-        var image : UIImage? = UIImage()
+        var image: UIImage? = UIImage()
         if storyData.url != "" {
             
             let img = UIImage.getThumbnailFrom(videoUrl: URL(string: storyData.url!)!, CMTime(value: CMTimeValue(storyData.thumbTime*10000000), timescale: 10000000))
@@ -618,9 +612,9 @@ extension StoryDataManager {
 
         self.delegate?.didChangeThumbImage(image!)
     
-        Utils.uploadFile(fileName: fileName, fileURL: url, contentType: contentType, progressBlock: { progress in
+        Utils.uploadFile(fileName: fileName, fileURL: url, contentType: contentType, progressBlock: { _ in
             
-        }, otherProgressBlock: { bytesSent, totalBytesSent, totalBytesExpectedToSend in
+        }, otherProgressBlock: { _, _, _ in
             
         }, callBack: { url -> Void? in
             storyData.thumbURL = url
@@ -644,29 +638,29 @@ extension StoryDataManager {
         guard let storyData = currentStoryData,
             storyData.isThumbUploaded,
             storyData.isStoryUploaded else { return }
-        var storyTagDict: [[String : Any]]?
+        var storyTagDict: [[String: Any]]?
         var storyHashTags: [String]?
         if let storyTagsSet = storyData.tags,
             let storyTags = Array(storyTagsSet) as? [StoryTag] {
             for tag in storyTags {
                 var tagDict = [
-                    "tagType" : tag.tagType,
-                    "tagFontSize" : tag.tagFontSize,
-                    "tagHeight" : tag.tagHeight,
-                    "tagWidth" : tag.tagWidth,
-                    "centerX" : tag.centerX,
-                    "centerY" : tag.centerY,
-                    "scaleX" : tag.scaleX,
-                    "scaleY" : tag.scaleY,
-                    "rotation" : tag.rotation,
-                    "tagText" : tag.tagText ?? "",
-                    "Latitude" : tag.lattitude ,
-                    "Longitude" : tag.longitude ,
-                    "themeType" : tag.themeType,
-                    "videoId" : tag.videoID ?? "",
-                    "userProfileURL" : tag.userProfileURL ?? "",
-                    "hasRatio" : UIScreen.haveRatio
-                    ] as [String : Any]
+                    "tagType": tag.tagType,
+                    "tagFontSize": tag.tagFontSize,
+                    "tagHeight": tag.tagHeight,
+                    "tagWidth": tag.tagWidth,
+                    "centerX": tag.centerX,
+                    "centerY": tag.centerY,
+                    "scaleX": tag.scaleX,
+                    "scaleY": tag.scaleY,
+                    "rotation": tag.rotation,
+                    "tagText": tag.tagText ?? "",
+                    "Latitude": tag.lattitude ,
+                    "Longitude": tag.longitude ,
+                    "themeType": tag.themeType,
+                    "videoId": tag.videoID ?? "",
+                    "userProfileURL": tag.userProfileURL ?? "",
+                    "hasRatio": UIScreen.haveRatio
+                    ] as [String: Any]
                 if let postID = tag.postId {
                     tagDict["postId"] = postID
                 }
@@ -734,7 +728,7 @@ extension StoryDataManager {
                          hashtags: storyHashTags,
                          publish: Int(storyData.publish))
             .request(Result<Story>.self)
-            .subscribe(onNext: { (response) in
+            .subscribe(onNext: { (_) in
                 debugPrint("Create Story Post")
                 storyData.isCompleted = true
                 self.saveChanges()
@@ -746,7 +740,7 @@ extension StoryDataManager {
                 Utils.deleteFileFromLocal(URL(string: storyData.url!)!.lastPathComponent)
                 AppEventBus.post("ReloadStoryAfterPost", sender: self)
                 
-        }, onError: { error in
+        }, onError: { _ in
             storyData.isCompleted = false
             self.saveChanges()
             self.isThumbCreated = false
@@ -804,7 +798,7 @@ extension StoryDataManager {
             try context.execute(deleteRequest)
             try context.save()
         } catch {
-            debugPrint ("There was an error")
+            debugPrint("There was an error")
         }
         
         let deleteFetchPostData = NSFetchRequest<NSFetchRequestResult>(entityName: StoryDataManager.storyExportEntityName)

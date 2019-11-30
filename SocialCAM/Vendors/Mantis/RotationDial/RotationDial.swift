@@ -155,7 +155,7 @@ extension RotationDial {
         container.addSubview(dialPlate!)
     }
     
-    private func setupPointer(in container: UIView){
+    private func setupPointer(in container: UIView) {
         guard let dialPlate = dialPlate else { return }
         
         let path = CGMutablePath()
@@ -180,7 +180,7 @@ extension RotationDial {
         if case .custom(let center) = config.rotationCenterType {
             return center
         } else {
-            let p = CGPoint(x: dialPlate.bounds.midX , y: dialPlate.bounds.midY)
+            let p = CGPoint(x: dialPlate.bounds.midX, y: dialPlate.bounds.midY)
             return dialPlate.convert(p, to: self)
         }
     }

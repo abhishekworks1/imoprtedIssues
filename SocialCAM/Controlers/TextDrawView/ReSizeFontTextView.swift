@@ -92,8 +92,8 @@ class ReSizeFontTextView: UITextView {
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.alignment = textAlignment
             
-            var attributes: [NSAttributedString.Key : Any] = [
-                NSAttributedString.Key.foregroundColor : placeholderColor,
+            var attributes: [NSAttributedString.Key: Any] = [
+                NSAttributedString.Key.foregroundColor: placeholderColor,
                 NSAttributedString.Key.paragraphStyle: paragraphStyle
             ]
             

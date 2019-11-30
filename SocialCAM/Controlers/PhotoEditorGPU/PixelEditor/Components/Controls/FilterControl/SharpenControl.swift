@@ -21,16 +21,14 @@
 
 import Foundation
 
-
-
-open class SharpenControlBase : FilterControlBase {
+open class SharpenControlBase: FilterControlBase {
   
   public required init(context: PixelEditContext) {
     super.init(context: context)
   }
 }
 
-open class SharpenControl : SharpenControlBase {
+open class SharpenControl: SharpenControlBase {
   
   open override var title: String {
     return L10n.editSharpen

@@ -25,18 +25,18 @@ open class KeyframePickerCollectionViewCell: UICollectionViewCell {
 
 open class KeyframePickerCursorVC: UIViewController {
     
-    //MARK: - IBOutlets
+    // MARK: - IBOutlets
     @IBOutlet weak var timeContainerView: UIView!
     @IBOutlet weak var timeLabel: UILabel!
     
-    //MARK: - Public Properties
+    // MARK: - Public Properties
     public var seconds: Double = 0 {
         didSet {
             updateUI()
         }
     }
     
-    //MARK: - Private Properties
+    // MARK: - Private Properties
     private var _seconds: Int {
         if Int(seconds * 10) % 10 >= 5 {
             return Int(seconds) + 1
@@ -71,7 +71,7 @@ open class KeyframePickerCursorVC: UIViewController {
         return hourString + minuteString + secondsString
     }
     
-    //MARK: - Life Cycle
+    // MARK: - Life Cycle
     override open func viewDidLoad() {
         super.viewDidLoad()
         
@@ -84,7 +84,7 @@ open class KeyframePickerCursorVC: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    //MARK: - UI Related
+    // MARK: - UI Related
     public func showTimeView() {
         self.timeContainerView.isHidden = false
         UIView.animate(withDuration: animationDuration) {

@@ -15,33 +15,33 @@ import RxSwift
 import NSObject_Rx
 import TagListView
 
-class StatsViewController: UIViewController,TagListViewDelegate {
+class StatsViewController: UIViewController, TagListViewDelegate {
     
-    @IBOutlet var tblYouTube : UITableView!
-    @IBOutlet var indicatorView : NVActivityIndicatorView! {
+    @IBOutlet var tblYouTube: UITableView!
+    @IBOutlet var indicatorView: NVActivityIndicatorView! {
         didSet {
             indicatorView.color = ApplicationSettings.appPrimaryColor
         }
     }
-    @IBOutlet var emptyView : UIView?
+    @IBOutlet var emptyView: UIView?
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var tagView: UIView!
     @IBOutlet var tagList: TagListView!
     @IBOutlet var scrollHeight: NSLayoutConstraint!
-    @IBOutlet var sectionHeader : UIView!
-    @IBOutlet var imgArrowView : UIImageView!
-    @IBOutlet var imgArrowDate : UIImageView!
+    @IBOutlet var sectionHeader: UIView!
+    @IBOutlet var imgArrowView: UIImageView!
+    @IBOutlet var imgArrowDate: UIImageView!
     
-    var textObservable : Observable<String>?
+    var textObservable: Observable<String>?
     var isReview = false
-    var searchText : String = ""
-    var nextPageToken : String?
-    var totalResult : Int?
+    var searchText: String = ""
+    var nextPageToken: String?
+    var totalResult: Int?
     var resultPerPage: Int?
-    var popHandler : ((_ youTubeUrl:String, _ hash : [String]?, _ title: String? , _ channelId:String?) -> Void)?
-    var channelScreenHandler : ((_ chId:String)-> Void)?
-    var keyboardCloseHandler:(()->Void)?
-    var isOrderByView : Bool?{
+    var popHandler : ((_ youTubeUrl: String, _ hash: [String]?, _ title: String?, _ channelId: String?) -> Void)?
+    var channelScreenHandler : ((_ chId: String) -> Void)?
+    var keyboardCloseHandler:(() -> Void)?
+    var isOrderByView: Bool? {
         didSet {
             if let isV = isOrderByView {
                 if isV == true {
@@ -67,7 +67,7 @@ class StatsViewController: UIViewController,TagListViewDelegate {
             }
         }
     }
-    var isOrderByDate : Bool? {
+    var isOrderByDate: Bool? {
         didSet {
             if let isD = isOrderByDate {
                 if isD == true {
@@ -126,7 +126,7 @@ class StatsViewController: UIViewController,TagListViewDelegate {
 
     }
     
-    func setTagView(tagArr : [String]) {
+    func setTagView(tagArr: [String]) {
         tagList.removeAllTags()
         tagList.textFont = UIFont.systemFont(ofSize: 16)
         tagList.alignment = .center // possible values are .Left, .Center, and .Right
@@ -139,7 +139,7 @@ class StatsViewController: UIViewController,TagListViewDelegate {
         scrollHeight.constant = tagList.intrinsicContentSize.height
     }
     
-    func getVideo(q:String) {
+    func getVideo(q: String) {
         self.indicatorView.startAnimating()
         ProManagerApi.youTubeKeyWordSerch(q: q, order: nil, nextPageToken: self.nextPageToken).request(YTSerchResponse<Item>.self).subscribe(onNext: { response in
             self.nextPageToken = response.nextPageToken
@@ -156,14 +156,14 @@ class StatsViewController: UIViewController,TagListViewDelegate {
                     self.indicatorView.stopAnimating()
                      ApplicationSettings.shared.videos.append((response.result?[0])!)
                     self.tblYouTube.reloadData()
-                }, onError: { error in
+                }, onError: { _ in
                     self.indicatorView.stopAnimating()
                 }, onCompleted: {
                     self.indicatorView.stopAnimating()
                 }).disposed(by: (self.rx.disposeBag))
                 return ""
             })
-        } , onCompleted: {
+        }, onCompleted: {
             self.tblYouTube.reloadData()
         }).disposed(by: (rx.disposeBag))
     }
@@ -180,10 +180,10 @@ class StatsViewController: UIViewController,TagListViewDelegate {
         
     }
     
-    @IBAction func orderByViews(sender:Any) {
+    @IBAction func orderByViews(sender: Any) {
         self.isOrderByDate = nil
         if let ov = self.isOrderByView {
-            if ov == true{
+            if ov == true {
                 self.isOrderByView = false
             } else {
                 self.isOrderByView = true
@@ -193,7 +193,7 @@ class StatsViewController: UIViewController,TagListViewDelegate {
         }
     }
     
-    @IBAction func orderByDate(sender:Any) {
+    @IBAction func orderByDate(sender: Any) {
         self.isOrderByView = nil
         if let ob = self.isOrderByDate {
             if ob == true {
@@ -208,7 +208,7 @@ class StatsViewController: UIViewController,TagListViewDelegate {
     
 }
 
-extension StatsViewController: UITableViewDataSource , UITableViewDelegate {
+extension StatsViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -236,7 +236,7 @@ extension StatsViewController: UITableViewDataSource , UITableViewDelegate {
             }
         }
         cell.tagHandler = { item in
-            if let tags = item.snippet?.tags , tags.count > 0 {
+            if let tags = item.snippet?.tags, tags.count > 0 {
                 if let clsHandler = self.keyboardCloseHandler {
                     clsHandler()
                 }

@@ -16,7 +16,7 @@ class PickerViewCell: UICollectionViewCell {
     @IBOutlet weak var selectView: UIView!
     @IBOutlet weak var numLbl: UILabel!
     
-    var isCellSelected : Bool = false {
+    var isCellSelected: Bool = false {
         didSet {
             self.selectView.isHidden = !self.isCellSelected
         }

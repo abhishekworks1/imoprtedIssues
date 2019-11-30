@@ -21,9 +21,7 @@
 
 import Foundation
 
-
-
-open class ControlBase : UIView, ControlChildViewType {
+open class ControlBase: UIView, ControlChildViewType {
   
   open func didReceiveCurrentEdit(_ edit: EditingStack.Edit) {
     

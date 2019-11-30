@@ -24,7 +24,7 @@ enum ReactionType: String {
     case hallelujah = "hallelujah"
     case amen = "amen"
     
-    var fbReaction : Reaction {
+    var fbReaction: Reaction {
         get {
             switch self {
             case .like:

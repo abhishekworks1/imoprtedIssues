@@ -17,8 +17,7 @@ extension CropView {
         }
         
         if (gridOverlayView.frame.insetBy(dx: -hotAreaUnit, dy: -hotAreaUnit).contains(p) &&
-            !gridOverlayView.frame.insetBy(dx: hotAreaUnit, dy: hotAreaUnit).contains(p))
-        {
+            !gridOverlayView.frame.insetBy(dx: hotAreaUnit, dy: hotAreaUnit).contains(p)) {
             return self
         }
 
@@ -73,4 +72,3 @@ extension CropView {
         }
     }
 }
-

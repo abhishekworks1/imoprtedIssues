@@ -15,7 +15,7 @@ class AWSManager {
     
     static let shared: AWSManager = AWSManager()
    
-    func uploadImageToAmazon(currentFileName: String, soundFileURL: URL, contentType: String?, _ bucket: String?, progressBlock: @escaping (Float) -> () = { _ in }, otherProgressBlock: ((Float, Float, Float) -> ())? = { _,_,_ in }, callBack: @escaping (_ url: String) -> Void?, failedBlock: @escaping (Error?) -> () = { _ in }) {
+    func uploadImageToAmazon(currentFileName: String, soundFileURL: URL, contentType: String?, _ bucket: String?, progressBlock: @escaping (Float) -> Void = { _ in }, otherProgressBlock: ((Float, Float, Float) -> Void)? = { _, _, _ in }, callBack: @escaping (_ url: String) -> Void?, failedBlock: @escaping (Error?) -> Void = { _ in }) {
 
         // once the image is saved we can use the path to create a local fileurl
         let url: URL = soundFileURL
@@ -29,13 +29,13 @@ class AWSManager {
        
         let completionHandler: AWSS3TransferUtilityUploadCompletionHandlerBlock? = { (task, error) in
             if error != nil {
-                DispatchQueue.main.async() {
+                DispatchQueue.main.async {
                     failedBlock(error)
                 }
             } else {
                 let stringURL = Constant.AWS.URL + Constant.AWS.NAME + "/" + soundFileURL.lastPathComponent
                 print("Uploaded to:\n\(stringURL)")
-                DispatchQueue.main.async() {
+                DispatchQueue.main.async {
                     callBack(stringURL)
                 }
             }
@@ -47,13 +47,13 @@ class AWSManager {
     }
     
     func cancelAllUploads() {
-        AWSS3TransferUtility.default().enumerateToAssignBlocks(forUploadTask: { (uploadTask, progress, error) in
+        AWSS3TransferUtility.default().enumerateToAssignBlocks(forUploadTask: { (uploadTask, _, _) in
             uploadTask.cancel()
         }, downloadTask: nil)
     }
 
     func cancelAllUploads(withTaskId taskId: UInt) {
-        AWSS3TransferUtility.default().enumerateToAssignBlocks(forUploadTask: { (uploadTask, progress, error) in
+        AWSS3TransferUtility.default().enumerateToAssignBlocks(forUploadTask: { (uploadTask, _, _) in
             if uploadTask.taskIdentifier == taskId {
                 uploadTask.cancel()
             }
@@ -61,7 +61,7 @@ class AWSManager {
     }
     
     func cancelOneFileUpload(_ itemUrl: String) {
-        AWSS3TransferUtility.default().enumerateToAssignBlocks(forUploadTask: { (uploadTask, progress, error) in
+        AWSS3TransferUtility.default().enumerateToAssignBlocks(forUploadTask: { (uploadTask, _, _) in
             if uploadTask.key.dropFirst(13) == URL.init(string: itemUrl)!.lastPathComponent {
                 uploadTask.cancel()
                 return

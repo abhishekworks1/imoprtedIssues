@@ -19,9 +19,9 @@ class CollageCell: UIView {
      }
      */
     
-    var id : Int = 0
-    weak var delegate : CollageCellDelegate?
-    var isSelected : Bool = false {
+    var id: Int = 0
+    weak var delegate: CollageCellDelegate?
+    var isSelected: Bool = false {
         didSet {
             for lh in self.lineHandles {
                 lh.isHidden = !self.isSelected
@@ -30,14 +30,14 @@ class CollageCell: UIView {
         }
     }
     
-    var lineHandles : [LineHandleView] = []
+    var lineHandles: [LineHandleView] = []
     
-    private lazy var tapGesture : UITapGestureRecognizer = {
+    private lazy var tapGesture: UITapGestureRecognizer = {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(detectTap(_:)))
         return tapGesture
-    } ()
+    }()
     
-    private lazy var borderLayer : UIView = {
+    private lazy var borderLayer: UIView = {
         let view = UIView(frame: self.bounds)
         view.isUserInteractionEnabled = false
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -51,12 +51,12 @@ class CollageCell: UIView {
         let hConst = NSLayoutConstraint(item: view, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 0)
         view.layer.borderColor = ApplicationSettings.appLightGrayColor.cgColor
         view.layer.borderWidth = 3.0
-        NSLayoutConstraint.activate([xConst,yConst,wConst,hConst])
+        NSLayoutConstraint.activate([xConst, yConst, wConst, hConst])
         
         return view
-    } ()
+    }()
     
-    lazy var photoView : PhotoScrollView = {
+    lazy var photoView: PhotoScrollView = {
         
         let view = PhotoScrollView(frame: self.bounds)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -66,10 +66,10 @@ class CollageCell: UIView {
         let yConst = NSLayoutConstraint(item: view, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant: 0)
         let wConst = NSLayoutConstraint(item: view, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 0)
         let hConst = NSLayoutConstraint(item: view, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 0)
-        NSLayoutConstraint.activate([xConst,yConst,wConst,hConst])
+        NSLayoutConstraint.activate([xConst, yConst, wConst, hConst])
         
         return view
-    } ()
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -89,7 +89,7 @@ class CollageCell: UIView {
         super.layoutSubviews()
     }
     
-    convenience init(id : Int) {
+    convenience init(id: Int) {
         self.init(frame: .zero)
         self.id = id
         _ = self.photoView
@@ -100,16 +100,16 @@ class CollageCell: UIView {
         photoView.photoImage.clipsToBounds = true
     }
     
-    func setHandles(handles : [LineHandleView]) {
+    func setHandles(handles: [LineHandleView]) {
         self.lineHandles.removeAll()
         self.lineHandles += handles
     }
     
-    @objc func detectTap(_ gesture : UITapGestureRecognizer) {
+    @objc func detectTap(_ gesture: UITapGestureRecognizer) {
         self.delegate?.didSelectCell(cellId: id)
     }
    
-    func drawRoundedBorder(width:CGFloat,height:CGFloat, cornerRadius:Float = 0, lineWidth:CGFloat, sides:Int = 6, type: ShapeType)->CAShapeLayer{
+    func drawRoundedBorder(width: CGFloat, height: CGFloat, cornerRadius: Float = 0, lineWidth: CGFloat, sides: Int = 6, type: ShapeType) -> CAShapeLayer {
         let borderLayer = CAShapeLayer()
         let crect = CGRect(x: 0, y: 0, width: width, height: height)
         
@@ -133,7 +133,7 @@ class CollageCell: UIView {
         return borderLayer
     }
 
-    func drawRoundedHex(width:CGFloat,height:CGFloat, cornerRadius:Float = 0, sides:Int = 6, shapeMask: Bool = true, type: ShapeType)->CAShapeLayer{
+    func drawRoundedHex(width: CGFloat, height: CGFloat, cornerRadius: Float = 0, sides: Int = 6, shapeMask: Bool = true, type: ShapeType) -> CAShapeLayer {
         let shapeLayer = CAShapeLayer()
         let crect = CGRect(x: 0, y: 0, width: width, height: height)
        
@@ -153,7 +153,7 @@ class CollageCell: UIView {
         shapeLayer.path = path.cgPath
         if shapeMask {
             shapeLayer.fillRule = CAShapeLayerFillRule.nonZero
-        } else  {
+        } else {
             shapeLayer.lineWidth = 4
             shapeLayer.strokeColor = ApplicationSettings.appWhiteColor.cgColor
             shapeLayer.fillColor = ApplicationSettings.appClearColor.cgColor
@@ -175,7 +175,7 @@ class CollageCell: UIView {
             let radius = min(scaledRect.size.width/2, scaledRect.size.height/2)
           
             path.move(to: CGPoint(x: radius * cos(angle) + center.x, y: radius * sin(angle) + center.y))
-            for _ in 1...sides  {
+            for _ in 1...sides {
                 angle += angleCounter
                 path.addLine(to: CGPoint(x: radius * cos(angle) + center.x, y: radius * sin(angle) + center.y))
             }
@@ -192,16 +192,16 @@ class CollageCell: UIView {
             path.move(to: CGPoint(x: square.size.width/2, y: scaledRect.origin.y + scaledRect.size.height))
             
             path.addCurve(to: CGPoint(x: scaledRect.origin.x, y: scaledRect.origin.y + (scaledRect.size.height/4)),
-                          controlPoint1:CGPoint(x: scaledRect.origin.x + (scaledRect.size.width/2), y: scaledRect.origin.y + (scaledRect.size.height*3/4)) ,
+                          controlPoint1: CGPoint(x: scaledRect.origin.x + (scaledRect.size.width/2), y: scaledRect.origin.y + (scaledRect.size.height*3/4)) ,
                           controlPoint2: CGPoint(x: scaledRect.origin.x, y: scaledRect.origin.y + (scaledRect.size.height/2)) )
             
-            path.addArc(withCenter: CGPoint( x: scaledRect.origin.x + (scaledRect.size.width/4),y: scaledRect.origin.y + (scaledRect.size.height/4)),
+            path.addArc(withCenter: CGPoint( x: scaledRect.origin.x + (scaledRect.size.width/4), y: scaledRect.origin.y + (scaledRect.size.height/4)),
                         radius: (scaledRect.size.width/4),
                         startAngle: CGFloat(Double.pi),
                         endAngle: 0,
                         clockwise: true)
             
-            path.addArc(withCenter: CGPoint( x: scaledRect.origin.x + (scaledRect.size.width * 3/4),y: scaledRect.origin.y + (scaledRect.size.height/4)),
+            path.addArc(withCenter: CGPoint( x: scaledRect.origin.x + (scaledRect.size.width * 3/4), y: scaledRect.origin.y + (scaledRect.size.height/4)),
                         radius: (scaledRect.size.width/4),
                         startAngle: CGFloat(Double.pi),
                         endAngle: 0,
@@ -237,7 +237,7 @@ public extension UIBezierPath {
         let angleCounter = CGFloat( Double.pi * 2.0 / Double(sides) )
         let radius = min(scaledRect.size.width/2, scaledRect.size.height/2)
         self.move(to: CGPoint(x: radius * cos(angle) + center.x, y: radius * sin(angle) + center.y))
-        for _ in 1...sides  {
+        for _ in 1...sides {
             angle += angleCounter
             self.addLine(to: CGPoint(x: radius * cos(angle) + center.x, y: radius * sin(angle) + center.y))
         }
@@ -271,7 +271,7 @@ extension UIBezierPath {
     
 }
 
-public extension UIBezierPath  {
+public extension UIBezierPath {
     
     func getStars(_ originalRect: CGRect, scale: Double, corners: Int, extrusion: Int) -> UIBezierPath {
         let scaledWidth = (originalRect.size.width * CGFloat(scale))
@@ -283,7 +283,6 @@ public extension UIBezierPath  {
         return self
     }
     
-    
     func drawStars(_ originalRect: CGRect, scaledRect: CGRect, corners: Int, extrusion: Int) {
        
         let center = CGPoint(x: originalRect.width/2, y: originalRect.height/2)
@@ -292,7 +291,7 @@ public extension UIBezierPath  {
         let radius = min(scaledRect.size.width/2, scaledRect.size.height/2)
         let extrusion = radius * CGFloat(extrusion) / 100
         self.move(to: CGPoint(x: radius * cos(angle) + center.x, y: radius * sin(angle) + center.y))
-        for i in 1...(corners * 2)  {
+        for i in 1...(corners * 2) {
             if i % 2 != 0 {
                 self.addLine(to: CGPoint(x: radius * cos(angle) + center.x, y: radius * sin(angle) + center.y))
             } else {

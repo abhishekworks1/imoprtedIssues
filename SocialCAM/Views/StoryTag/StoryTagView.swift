@@ -64,9 +64,9 @@ class StoryTagView: BaseStoryTagView {
     
     public var selectedMension: Channel?
     
-    public var doneHandler: (() -> Swift.Void)? = nil
+    public var doneHandler: (() -> Swift.Void)?
     
-    public var searchHandler: ((_ text: String) -> Swift.Void)? = nil
+    public var searchHandler: ((_ text: String) -> Swift.Void)?
     
     convenience init(tagType: StoryTagType, isImage: Bool = true) {
         self.init(frame: CGRect.zero)

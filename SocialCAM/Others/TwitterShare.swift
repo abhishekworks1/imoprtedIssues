@@ -68,7 +68,7 @@ open class TwitterShare: NSObject {
             return
         }
         client.sendTweet(withText: text, videoData: videoData) {
-            (tweet, error) in
+            (_, error) in
             if (error != nil) {
                 // Handle error
                 print(error?.localizedDescription as Any)

@@ -38,7 +38,7 @@ public struct FilterBrightness: Filtering, Equatable, Codable {
         .applyingFilter(
           "CIColorControls",
           parameters: [
-            "inputBrightness": value,
+            "inputBrightness": value
             ]
     )
   }

@@ -10,18 +10,18 @@ import Foundation
 import CoreLocation
 
 protocol LocationUpdateProtocol: class {
-    func locationDidUpdateToLocation(location : CLLocation)
+    func locationDidUpdateToLocation(location: CLLocation)
 }
 
-class LocationManager : NSObject, CLLocationManagerDelegate {
-    static let sharedInstance : LocationManager = {
+class LocationManager: NSObject, CLLocationManagerDelegate {
+    static let sharedInstance: LocationManager = {
         let instance = LocationManager()
         return instance
     }()
     
     private var locationManager = CLLocationManager()
-    var currentLocation : CLLocation?
-    weak var delegate : LocationUpdateProtocol?
+    var currentLocation: CLLocation?
+    weak var delegate: LocationUpdateProtocol?
     
     private override init () {
         super.init()

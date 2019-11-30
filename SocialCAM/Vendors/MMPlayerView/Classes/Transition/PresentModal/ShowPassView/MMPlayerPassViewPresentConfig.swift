@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class MMPlayerPassViewPresentConfig: NSObject ,MMPlayerPresentConfig {
+public class MMPlayerPassViewPresentConfig: NSObject, MMPlayerPresentConfig {
     public var shrinkSize = CGSize(width: 150, height: 100)
 
     weak public var source: UIViewController?
@@ -16,7 +16,7 @@ public class MMPlayerPassViewPresentConfig: NSObject ,MMPlayerPresentConfig {
     weak public var passOriginalSuper: UIView?
     weak public var playLayer: MMPlayerLayer?
     public var margin: CGFloat = 10.0
-    public var duration:TimeInterval = 0.3
+    public var duration: TimeInterval = 0.3
     var _dismissGesture = false
     public var dismissGesture: Bool {
         get {

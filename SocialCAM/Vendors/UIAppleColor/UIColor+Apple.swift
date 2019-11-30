@@ -30,7 +30,6 @@ public final class UIAppleColor {
         self.mode = mode
     }
     
-    
     /// Versions below iOS 13 Mode
     /// iOS13 and above, color values based on system theme
     /// - Parameter mode: Light/Dark Mode (below iOS 13)
@@ -129,7 +128,6 @@ public extension UIAppleColor {
     var link: UIColor {
         mode(UIAppleColor.mode).link
     }
-
     
     var placeholderText: UIColor {
         mode(UIAppleColor.mode).placeholderText

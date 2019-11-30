@@ -10,21 +10,20 @@ import UIKit
 import ObjectMapper
 
 protocol Likeable {
-    var myLike : ReactionType? {get set}
-    var likeCounts : Int? {get set}
-    var likes : [PostLikes]? {get set}
-    var commentCounts:Int? {get set}
-    var isLiked : Bool? {get set}
+    var myLike: ReactionType? {get set}
+    var likeCounts: Int? {get set}
+    var likes: [PostLikes]? {get set}
+    var commentCounts: Int? {get set}
+    var isLiked: Bool? {get set}
 }
 
-
 class PostUser: Mappable {
-    var id : String?
-    var channelName : String?
-    var profileImageURL : String?
-    var channelId : String?
-    var profileType : Int = 1
-    var profileThumbnail:String?
+    var id: String?
+    var channelName: String?
+    var profileImageURL: String?
+    var channelId: String?
+    var profileType: Int = 1
+    var profileThumbnail: String?
     
     required init?(map: Map) {
         
@@ -41,10 +40,10 @@ class PostUser: Mappable {
 }
 
 class PostLikes: Mappable {
-    var id : String?
-    var created : String?
-    var user : PostUser?
-    var type : ReactionType?
+    var id: String?
+    var created: String?
+    var user: PostUser?
+    var type: ReactionType?
     required init?(map: Map) {
         
     }
@@ -57,9 +56,9 @@ class PostLikes: Mappable {
     }
 }
 
-class GetPlaylist: Mappable , Likeable {
+class GetPlaylist: Mappable, Likeable {
     var likeCounts: Int?
-    var likes : [PostLikes]?
+    var likes: [PostLikes]?
     var commentCounts: Int?
     var _id: String?
     var name: String?
@@ -68,16 +67,15 @@ class GetPlaylist: Mappable , Likeable {
     var imageUrl: String?
     var storyCount: Int?
     var postCount: Int?
-    var type : Int?
-    var followers : Int?
-    var viewCount : Int?
-    var isLiked : Bool?
-    var myLike : ReactionType?
-    var hashTags : [String]?
-    var followUser : [String]?
-    var followUserEmail : [String]?
-    var follow:Bool?
-    
+    var type: Int?
+    var followers: Int?
+    var viewCount: Int?
+    var isLiked: Bool?
+    var myLike: ReactionType?
+    var hashTags: [String]?
+    var followUser: [String]?
+    var followUserEmail: [String]?
+    var follow: Bool?
     
     required init?(map: Map) {
         

@@ -13,7 +13,7 @@ class YouTubePlayerVC: UIViewController {
     
     var youTubeView: YoutubePlayerView = YoutubePlayerView()
     
-    var completion: (() -> Swift.Void)? = nil
+    var completion: (() -> Swift.Void)?
     
     public var previewUrl: URL?
     public var videoId: String?
@@ -38,7 +38,7 @@ class YouTubePlayerVC: UIViewController {
         guard let videoId = videoId else {
             return
         }
-        let playvarsDic = ["controls": 1, "playsinline": 1, "autohide": 1, "showinfo": 0, "autoplay": 1, "color": "white", "origin": "https://www.youtube.com"] as [String : Any]
+        let playvarsDic = ["controls": 1, "playsinline": 1, "autohide": 1, "showinfo": 0, "autoplay": 1, "color": "white", "origin": "https://www.youtube.com"] as [String: Any]
         self.youTubeView.setPlaybackQuality(YoutubePlaybackQuality.auto)
         self.youTubeView.loadWithVideoId(videoId, with: playvarsDic)
         
@@ -116,7 +116,7 @@ extension YouTubePlayerVC: YoutubePlayerViewDelegate {
 extension UIViewController {
     func openYoutubeView(_ videoID: String, previewUrl: String?, completion: (() -> Swift.Void)? = nil) {
         let youTubeVC = YouTubePlayerVC(videoID)
-        if let urlString = previewUrl,let url = URL.init(string: urlString) {
+        if let urlString = previewUrl, let url = URL.init(string: urlString) {
             youTubeVC.previewUrl = url
         }
         youTubeVC.completion = completion

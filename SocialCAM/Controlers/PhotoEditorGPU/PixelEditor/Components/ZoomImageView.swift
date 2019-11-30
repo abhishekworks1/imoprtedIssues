@@ -22,7 +22,7 @@
 
 import UIKit
 
-open class ZoomImageView : UIScrollView, UIScrollViewDelegate {
+open class ZoomImageView: UIScrollView, UIScrollViewDelegate {
 
   public enum ZoomMode {
     case fit
@@ -155,8 +155,7 @@ open class ZoomImageView : UIScrollView, UIScrollViewDelegate {
 
       if widthRatio < heightRatio {
         boundingSize.height = boundingSize.width / aspectRatio.width * aspectRatio.height
-      }
-      else if (heightRatio < widthRatio) {
+      } else if (heightRatio < widthRatio) {
         boundingSize.width = boundingSize.height / aspectRatio.height * aspectRatio.width
       }
       return CGSize(width: ceil(boundingSize.width), height: ceil(boundingSize.height))
@@ -170,8 +169,7 @@ open class ZoomImageView : UIScrollView, UIScrollViewDelegate {
 
       if widthRatio > heightRatio {
         minimumSize.height = minimumSize.width / aspectRatio.width * aspectRatio.height
-      }
-      else if (heightRatio > widthRatio) {
+      } else if (heightRatio > widthRatio) {
         minimumSize.width = minimumSize.height / aspectRatio.height * aspectRatio.width
       }
       return CGSize(width: ceil(minimumSize.width), height: ceil(minimumSize.height))
@@ -254,7 +252,6 @@ open class ZoomImageView : UIScrollView, UIScrollViewDelegate {
     let horizontalOffest = (boundingSize.width > contentSize.width) ? ((boundingSize.width - contentSize.width) * 0.5): 0.0
     let verticalOffset = (boundingSize.height > contentSize.height) ? ((boundingSize.height - contentSize.height) * 0.5): 0.0
 
-    return CGPoint(x: contentSize.width * 0.5 + horizontalOffest,  y: contentSize.height * 0.5 + verticalOffset)
+    return CGPoint(x: contentSize.width * 0.5 + horizontalOffest, y: contentSize.height * 0.5 + verticalOffset)
   }
 }
-

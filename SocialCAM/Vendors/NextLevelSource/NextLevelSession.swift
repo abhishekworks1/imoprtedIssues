@@ -144,7 +144,7 @@ public class NextLevelSession {
     /// `AVAsset` of the session.
     public var asset: AVAsset? {
         get {
-            var asset: AVAsset? = nil
+            var asset: AVAsset?
             self.executeClosureSyncOnSessionQueueIfNecessary {
                 if self._clips.count == 1 {
                     asset = self._clips.first?.asset
@@ -256,7 +256,7 @@ extension NextLevelSession {
     ///   - configuration: Video configuration for video output
     ///   - formatDescription: sample buffer format description
     /// - Returns: True when setup completes successfully
-    public func setupVideo(withSettings settings: [String : Any]?, configuration: NextLevelVideoConfiguration, formatDescription: CMFormatDescription? = nil) -> Bool {
+    public func setupVideo(withSettings settings: [String: Any]?, configuration: NextLevelVideoConfiguration, formatDescription: CMFormatDescription? = nil) -> Bool {
         if let formatDescription = formatDescription {
             self._videoInput = AVAssetWriterInput(mediaType: AVMediaType.video, outputSettings: settings, sourceFormatHint: formatDescription)
         } else {
@@ -276,7 +276,7 @@ extension NextLevelSession {
             videoInput.transform = configuration.transform
             self._videoConfiguration = configuration
             
-            var pixelBufferAttri: [String : Any] = [String(kCVPixelBufferPixelFormatTypeKey): Int(kCVPixelFormatType_420YpCbCr8BiPlanarFullRange)]
+            var pixelBufferAttri: [String: Any] = [String(kCVPixelBufferPixelFormatTypeKey): Int(kCVPixelFormatType_420YpCbCr8BiPlanarFullRange)]
             
             if let formatDescription = formatDescription {
                 let videoDimensions = CMVideoFormatDescriptionGetDimensions(formatDescription)
@@ -300,7 +300,7 @@ extension NextLevelSession {
     ///   - configuration: Audio configuration for audio output
     ///   - formatDescription: sample buffer format description
     /// - Returns: True when setup completes successfully
-    public func setupAudio(withSettings settings: [String : Any]?, configuration: NextLevelAudioConfiguration, formatDescription: CMFormatDescription) -> Bool {
+    public func setupAudio(withSettings settings: [String: Any]?, configuration: NextLevelAudioConfiguration, formatDescription: CMFormatDescription) -> Bool {
         self._audioInput = AVAssetWriterInput(mediaType: AVMediaType.audio, outputSettings: settings, sourceFormatHint: formatDescription)
         if let audioInput = self._audioInput {
             audioInput.expectsMediaDataInRealTime = true
@@ -395,7 +395,7 @@ extension NextLevelSession {
             let pixelBufferAdapter = self._pixelBufferAdapter,
             videoInput.isReadyForMoreMediaData {
                 
-            var bufferToProcess: CVPixelBuffer? = nil
+            var bufferToProcess: CVPixelBuffer?
             if let customImageBuffer = customImageBuffer {
                 bufferToProcess = customImageBuffer
             } else {
@@ -443,7 +443,7 @@ extension NextLevelSession {
             let pixelBufferAdapter = self._pixelBufferAdapter,
             videoInput.isReadyForMoreMediaData {
             
-            var bufferToProcess: CVPixelBuffer? = nil
+            var bufferToProcess: CVPixelBuffer?
             if let customImageBuffer = customImageBuffer {
                 bufferToProcess = customImageBuffer
             } else {
@@ -600,7 +600,7 @@ extension NextLevelSession {
                             writer.endSession(atSourceTime: CMTimeAdd(self._currentClipDuration, self._startTimestamp))
                             writer.finishWriting(completionHandler: {
                                 self.executeClosureSyncOnSessionQueueIfNecessary {
-                                    var clip: NextLevelClip? = nil
+                                    var clip: NextLevelClip?
                                     let url = writer.outputURL
                                     let error = writer.error
                                     
@@ -645,7 +645,7 @@ extension NextLevelSession {
     /// - Returns: URL path to the last recorded clip.
     public var lastClipUrl: URL? {
         get {
-            var lastClipUrl: URL? = nil
+            var lastClipUrl: URL?
             if !self._clips.isEmpty,
                 let lastClip = self.clips.last,
                 let clipURL = lastClip.url {
@@ -749,7 +749,7 @@ extension NextLevelSession {
             let filename = "\(self.identifier.uuidString)-NL-merged.\(self.fileExtension)"
 
             let outputURL = NextLevelClip.clipURL(withFilename: filename, directoryPath: self.outputDirectory)
-            var asset: AVAsset? = nil
+            var asset: AVAsset?
             
             if !self._clips.isEmpty {
                 
@@ -789,8 +789,8 @@ extension NextLevelSession {
     
     internal func appendClips(toComposition composition: AVMutableComposition, audioMix: AVMutableAudioMix? = nil) {
         self.executeClosureSyncOnSessionQueueIfNecessary {
-            var videoTrack: AVMutableCompositionTrack? = nil
-            var audioTrack: AVMutableCompositionTrack? = nil
+            var videoTrack: AVMutableCompositionTrack?
+            var audioTrack: AVMutableCompositionTrack?
             
             var currentTime = composition.duration
             

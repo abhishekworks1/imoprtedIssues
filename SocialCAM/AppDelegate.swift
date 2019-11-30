@@ -21,6 +21,7 @@ import AppCenterAnalytics
 import AppCenterCrashes
 import GoogleSignIn
 import TwitterKit
+import TikTokOpenPlatformSDK
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -74,7 +75,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         _ = TwitterShare.shared
         
-        MSAppCenter.start(Constant.AppCenter.apiKey, withServices:[])
+        TiktokShare.shared.setupTiktok(application, didFinishLaunchingWithOptions: launchOptions)
+        
+        MSAppCenter.start(Constant.AppCenter.apiKey, withServices: [])
         
         UIApplication.shared.delegate!.window!!.rootViewController = rootViewController
         
@@ -123,7 +126,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          error conditions that could cause the creation of the store to fail.
          */
         let container = NSPersistentContainer(name: "SocialCAM")
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+        container.loadPersistentStores(completionHandler: { (_, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
@@ -155,9 +158,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-    open func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        return TWTRTwitter.sharedInstance().application(app, open: url, options: options)
+    
+    open func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+        if TWTRTwitter.sharedInstance().application(app, open: url, options: options) {
+            return true
+        } else if TiktokOpenPlatformApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: nil, annotation: [:]) {
+            return true
+        }
+        return false
     }
+    
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         let options: [String: AnyObject] = [UIApplication.OpenURLOptionsKey.sourceApplication.rawValue: sourceApplication as AnyObject, UIApplication.OpenURLOptionsKey.annotation.rawValue: annotation as AnyObject]
         
@@ -165,8 +175,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return true
         } else if TWTRTwitter.sharedInstance().application(application, open: url, options: options) {
             return true
+        } else if TiktokOpenPlatformApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: sourceApplication, annotation: annotation) {
+            return true
         }
-        return true
+        return false
+    }
+    
+    func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
+        if TiktokOpenPlatformApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: nil, annotation: [:]) {
+            return true
+        }
+        return false
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {

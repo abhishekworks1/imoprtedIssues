@@ -124,9 +124,9 @@ class StoryAskQuestionView: BaseQuestionTagView {
     
     var isAnswerView: Bool = false
     
-    var onReplyTap: ((StoryTags?, Story?) -> Swift.Void)? = nil
+    var onReplyTap: ((StoryTags?, Story?) -> Swift.Void)?
     
-    var onReplySend: ((String) -> Swift.Void)? = nil
+    var onReplySend: ((String) -> Swift.Void)?
     
     var sendButtonHeightConstraint: NSLayoutConstraint?
     
@@ -181,11 +181,10 @@ class StoryAskQuestionView: BaseQuestionTagView {
         baseReplyView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             baseReplyView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            baseReplyView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+            baseReplyView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20)
             ])
         
         baseReplyView.topAnchor.constraint(equalTo: textView.bottomAnchor, constant: 13).isActive = true
-        
         
         replyTextView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -204,7 +203,7 @@ class StoryAskQuestionView: BaseQuestionTagView {
             ])
         sendButtonHeightConstraint = sendButton.heightAnchor.constraint(equalToConstant: 0)
         NSLayoutConstraint.activate([sendButtonHeightConstraint!])
-        NotificationCenter.default.addObserver(self, selector: #selector(textDidChangeNotification(_:)), name: UITextView.textDidChangeNotification , object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(textDidChangeNotification(_:)), name: UITextView.textDidChangeNotification, object: nil)
         
     }
     
@@ -331,7 +330,6 @@ class AskQuestionReplyView: UIView {
             replyTextView.setTextViewWith(newValue)
         }
     }
-    
     
     override init(frame: CGRect) {
         super.init(frame: frame)

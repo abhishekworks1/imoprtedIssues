@@ -41,7 +41,6 @@ class ArrowButton: UIButton {
         arrow.center = CGPoint(x: label.frame.maxX + padding, y: bounds.size.height / 2)
     }
 
-
     override var intrinsicContentSize: CGSize {
         let size = super.intrinsicContentSize
         label.sizeToFit()
@@ -95,4 +94,3 @@ class ArrowButton: UIButton {
         }
     }
 }
-

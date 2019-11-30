@@ -34,7 +34,7 @@ public enum StoryContextType: Int {
 
 class StoryContext: NSObject {
     
-    static var StoryContextCIContextOptions: [CIContextOption : Any] {
+    static var StoryContextCIContextOptions: [CIContextOption: Any] {
         return [CIContextOption.workingColorSpace: NSNull(), CIContextOption.outputColorSpace: NSNull()]
     }
     static let StoryContextOptionsCGContextKey = "CGContext"
@@ -118,7 +118,7 @@ class StoryContext: NSObject {
      Create and returns a new context with the given type. You must check
      whether the contextType is supported by calling +[StoryContext supportsType:] before.
      */
-    class func contextWithType(_ contextType: StoryContextType, options: [AnyHashable : Any]?) -> StoryContext? {
+    class func contextWithType(_ contextType: StoryContextType, options: [AnyHashable: Any]?) -> StoryContext? {
         switch contextType {
         case .auto:
             return StoryContext.contextWithType(StoryContext.suggestedContextType(), options: options)

@@ -13,8 +13,7 @@ import UIKit
     @objc optional func textViewDidDelete(_textView: GrowingTextView)
 }
 
-@IBDesignable @objc
-open class GrowingTextView: UITextView {
+@IBDesignable open class GrowingTextView: UITextView {
 
     @IBInspectable open var leftMargin: CGFloat = 0 {
         didSet {
@@ -133,7 +132,7 @@ open class GrowingTextView: UITextView {
 
         if height != heightConstraint?.constant {
             self.heightConstraint!.constant = height
-            scrollRangeToVisible(NSMakeRange(0, 0))
+            scrollRangeToVisible(NSRange(location: 0, length: 0))
             if let delegate = delegate as? GrowingTextViewDelegate {
                 delegate.textViewDidChangeHeight?(self, height: height)
             }

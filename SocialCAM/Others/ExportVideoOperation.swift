@@ -12,9 +12,9 @@ import SCRecorder
 
 class ExportVideoOpration: AsynchronousOperation {
     
-    var itemProvider : SegmentVideos?
-    var url : URL?
-    var completionURLBlock: ((_ image:URL) -> Void)?
+    var itemProvider: SegmentVideos?
+    var url: URL?
+    var completionURLBlock: ((_ image: URL) -> Void)?
     
     override func execute() {
         self.completionBlock = {
@@ -40,7 +40,7 @@ class ExportVideoOpration: AsynchronousOperation {
         }
     }
     
-    func exportViewWithURL(_ asset: AVAsset, completionHandler: @escaping (_ url: URL?) -> ()) {
+    func exportViewWithURL(_ asset: AVAsset, completionHandler: @escaping (_ url: URL?) -> Void) {
         let exportSession = StoryAssetExportSession()
         exportSession.export(for: asset, progress: { progress in
             print("New progress \(progress)")

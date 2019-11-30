@@ -21,7 +21,7 @@
 
 import Foundation
 
-public struct DrawnPathInRect : GraphicsDrawing, Equatable {
+public struct DrawnPathInRect: GraphicsDrawing, Equatable {
 
   public let inRect: CGRect
   public let path: DrawnPath

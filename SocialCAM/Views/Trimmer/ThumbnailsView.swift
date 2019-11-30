@@ -111,13 +111,10 @@ open class ThumbnailsView: UIView {
         setup()
     }
     
-   
-    
     override open func didMoveToSuperview() {
         super.didMoveToSuperview()
         self.setNeedsLayout()
     }
-    
     
     override open func layoutSubviews() {
         super.layoutSubviews()
@@ -167,7 +164,7 @@ open class ThumbnailsView: UIView {
             var index = 0
             
             assetImageGenerator?.generateCGImagesAsynchronously(
-            forTimes: frameForTimes) { (time, image, _, _, error) in
+            forTimes: frameForTimes) { (_, image, _, _, error) in
                 
                 guard error == nil else {
                     print("\nError = \(error!)\n")
