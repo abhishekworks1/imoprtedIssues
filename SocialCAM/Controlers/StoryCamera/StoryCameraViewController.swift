@@ -2065,22 +2065,18 @@ extension StoryCameraViewController: PickerViewDelegate {
     }
     
     public func pickerView(_ pickerView: PickerView, styleForLabel label: UILabel, highlighted: Bool) {
+        
         if timerType == .segmentLength {
-            if pickerView.currentSelectedRow == 0 || pickerView.currentSelectedRow == 1 || pickerView.currentSelectedRow == 2 {
-                pickerView.selectionTitle.text = ""
-                label.font = UIFont(name: "Avenir-Heavy", size: 35 * UIScreen.main.bounds.width/414)
-            } else {
-                label.font = UIFont(name: "Avenir-Heavy", size: 35 * UIScreen.main.bounds.width/414)
-                pickerView.selectionTitle.text = R.string.localizable.seconds()
-            }
+            pickerView.selectionTitle.text = R.string.localizable.seconds()
         } else {
-            label.font = UIFont(name: "Avenir-Heavy", size: 35 * UIScreen.main.bounds.width/414)
             if pickerView.currentSelectedRow == 0 {
                 pickerView.selectionTitle.text = ""
             } else {
                 pickerView.selectionTitle.text = R.string.localizable.seconds()
             }
         }
+        
+        label.font = R.font.sfuiTextHeavy(size: 35 * UIScreen.main.bounds.width/414)
         
         if highlighted {
             label.textColor = ApplicationSettings.appWhiteColor

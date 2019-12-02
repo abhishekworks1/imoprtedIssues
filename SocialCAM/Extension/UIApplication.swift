@@ -45,7 +45,6 @@ extension UIApplication {
     @discardableResult
     class func checkInternetConnection()->Bool {
         if !self.connectedToNetwork() {
-            self.showAlert(title: Constant.Application.displayName, message: "Please check your internet connection.")
             return false
         }
         return true

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -856,10 +856,10 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HDg-lL-kIV">
-                                        <rect key="frame" x="218" y="44" width="41" height="41"/>
-                                        <state key="normal" image="icoRedirectHtag"/>
+                                        <rect key="frame" x="237" y="48" width="22" height="22"/>
+                                        <state key="normal" image="download"/>
                                         <connections>
-                                            <action selector="addHashtagButtonTapped:" destination="osR-bb-bJY" eventType="touchUpInside" id="PNC-oq-VIx"/>
+                                            <action selector="saveImageVideoButtonTapped:" destination="osR-bb-bJY" eventType="touchUpInside" id="B7v-xx-I6q"/>
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4JC-hs-gjo">
@@ -2655,7 +2655,6 @@
                                     <constraint firstAttribute="trailing" secondItem="97f-xV-YeI" secondAttribute="trailing" constant="10" id="1Ph-ko-g1H"/>
                                     <constraint firstAttribute="trailing" secondItem="7PL-Bo-YkF" secondAttribute="trailing" constant="12" id="4Qx-l8-tSC"/>
                                     <constraint firstItem="nMs-MC-wdZ" firstAttribute="bottom" secondItem="uH0-no-NP6" secondAttribute="bottom" id="5SA-wx-97E"/>
-                                    <constraint firstItem="HDg-lL-kIV" firstAttribute="top" secondItem="7PL-Bo-YkF" secondAttribute="top" id="6fJ-Sb-8B2"/>
                                     <constraint firstItem="e8f-1i-XAc" firstAttribute="centerY" secondItem="uH0-no-NP6" secondAttribute="centerY" id="7ag-Qh-tXu"/>
                                     <constraint firstItem="J9y-t0-ua1" firstAttribute="leading" secondItem="RSW-eV-JeC" secondAttribute="leading" id="96s-3j-ryD"/>
                                     <constraint firstItem="mcv-Uf-3wq" firstAttribute="top" secondItem="O8a-o1-GNY" secondAttribute="bottom" constant="10" id="BJw-3a-1Tq"/>
@@ -2703,6 +2702,7 @@
                                     <constraint firstItem="HoA-Dy-J90" firstAttribute="centerX" secondItem="RSW-eV-JeC" secondAttribute="centerX" id="fvO-v2-rHo"/>
                                     <constraint firstItem="gaY-UN-sXs" firstAttribute="top" secondItem="4JC-hs-gjo" secondAttribute="bottom" constant="25" id="h4b-Qn-Ddb"/>
                                     <constraint firstItem="Lxa-dq-sRN" firstAttribute="trailing" secondItem="IHP-hP-E1e" secondAttribute="trailing" id="hQ6-8g-nC9"/>
+                                    <constraint firstItem="HDg-lL-kIV" firstAttribute="centerY" secondItem="97f-xV-YeI" secondAttribute="centerY" id="hoB-gi-v0y"/>
                                     <constraint firstItem="cmr-nZ-LFH" firstAttribute="leading" secondItem="aUG-qW-H2F" secondAttribute="leading" id="iJk-Yw-MIJ"/>
                                     <constraint firstItem="uH0-no-NP6" firstAttribute="top" secondItem="HoA-Dy-J90" secondAttribute="top" id="l5X-u2-yqY"/>
                                     <constraint firstItem="J9y-t0-ua1" firstAttribute="centerY" secondItem="2II-Py-fJ3" secondAttribute="centerY" id="l5q-fs-NbS"/>
@@ -2761,9 +2761,9 @@
                         <viewLayoutGuide key="safeArea" id="O0V-DG-Jz2"/>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="BhR-mE-dNB"/>
                                 <exclude reference="f57-Ps-T8Q"/>
                                 <exclude reference="i1N-Ih-VXR"/>
-                                <exclude reference="BhR-mE-dNB"/>
                                 <exclude reference="dq7-3d-yW8"/>
                             </mask>
                         </variation>
@@ -2804,7 +2804,6 @@
                         <outlet property="feedExportLabel" destination="UXl-Dq-4i1" id="XaP-ob-xRk"/>
                         <outlet property="feedView" destination="OZ7-sK-bMY" id="K5i-Xd-2Wc"/>
                         <outlet property="filterNameLabel" destination="DxR-Tc-SED" id="7wK-NG-6vp"/>
-                        <outlet property="hashtagButton" destination="HDg-lL-kIV" id="bI8-9q-sjT"/>
                         <outlet property="horizontalFlipButton" destination="ThR-di-iIN" id="5a5-Ze-4Zf"/>
                         <outlet property="horizontalFlipView" destination="0Ec-0R-gbe" id="az4-RE-tyO"/>
                         <outlet property="lblCurrentSlidingTime" destination="O8a-o1-GNY" id="MLo-hU-Shu"/>
@@ -4401,13 +4400,13 @@
         <image name="editOptionStory" width="24" height="20"/>
         <image name="hideButton" width="70" height="34"/>
         <image name="icoCollage" width="40" height="41"/>
-        <image name="icoFacebook" width="25" height="34"/>
-        <image name="icoInstagram" width="30" height="30"/>
+        <image name="icoFacebook" width="36" height="36"/>
+        <image name="icoInstagram" width="36" height="36"/>
         <image name="icoRedirectHtag" width="41" height="41"/>
         <image name="icoSlideshow" width="34" height="34"/>
-        <image name="icoSnapchat" width="256" height="256"/>
-        <image name="icoTweeter" width="28" height="27"/>
-        <image name="icoYoutube" width="30" height="25"/>
+        <image name="icoSnapchat" width="36" height="36"/>
+        <image name="icoTweeter" width="36" height="36"/>
+        <image name="icoYoutube" width="36" height="36"/>
         <image name="iconTrim" width="22" height="22"/>
         <image name="maskStory" width="22" height="21"/>
         <image name="multiFilter" width="22" height="22"/>

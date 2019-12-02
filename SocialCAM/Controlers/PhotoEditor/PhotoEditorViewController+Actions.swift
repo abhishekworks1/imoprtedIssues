@@ -1056,6 +1056,27 @@ extension PhotoEditorViewController {
         
     }
     
+    @IBAction func saveImageVideoButtonTapped(_ sender: Any) {
+        if image != nil && currentCamaraMode != .slideshow {
+            let album = SCAlbum.shared
+            album.albumName = "\(Constant.Application.displayName) - \(R.string.localizable.outtakes())"
+            album.save(image: canvasView.toImage())
+            self.view.makeToast(R.string.localizable.photoSaved(), duration: 2.0, position: .bottom)
+        } else if currentCamaraMode == .slideshow {
+            saveSlideShow(exportType: SlideShowExportType.outtakes,
+                          success: { [weak self] url in
+                            guard let `self` = self else { return }
+                            self.saveVideo(exportType: SlideShowExportType.outtakes, url: url)
+                },
+                          failure: { error in
+                            
+            })
+            
+        } else {
+            saveToCameraRoll(true, false)
+        }
+    }
+    
     @IBAction func doneTagEditButtonTapped(_ sender: Any) {
         hideToolbar(hide: false)
         doneTagEditButton.isHidden = true
@@ -1276,7 +1297,6 @@ extension PhotoEditorViewController {
         if let url = self.selectedVideoUrlSave {
             exportQueue.async {
                 exportGroup.enter()
-
                 self.exportVideo(segmentVideos: url, isOuttakes, isNotes) { (compltd) in
                     dispatchSemaphore.signal()
                     exportGroup.leave()
@@ -1312,17 +1332,9 @@ extension PhotoEditorViewController {
         exportGroup.notify(queue: exportQueue) {
             DispatchQueue.runOnMainThread {
                 if self.selectedVideoUrlSave == nil && self.storyId == nil {
-                    self.videos.removeAll()
-                    self.videoUrls.removeAll()
-                    self.videoResetUrls.removeAll()
-                    self._displayKeyframeImages.removeAll()
-                    self.selectedSlideShowImages.removeAll()
                     if isOuttakes {
-                        self.outtakesDelegate?.didTakeOuttakes("Outtakes saved.")
-                    } else {
-                        self.outtakesDelegate?.didTakeOuttakes("Notes saved.")
+                        self.view.makeToast(R.string.localizable.videoSaved(), duration: 2.0, position: .bottom)
                     }
-                    self.dismiss()
                 }
                 else
                 {
@@ -1350,12 +1362,12 @@ extension PhotoEditorViewController {
                 
                 let album = SCAlbum.shared
                 if isOuttakes {
-                    album.albumName = "\(Constant.Application.displayName) - Outtakes"
+                    album.albumName = "\(Constant.Application.displayName) - \(R.string.localizable.outtakes())"
                     DispatchQueue.main.async {
                         strongSelf.outtakesExportLabel.text = "\(index+1)/\(strongSelf.videoUrls.count)"
                     }
                 } else if isNotes {
-                    album.albumName = "\(Constant.Application.displayName) - Notes"
+                    album.albumName = "\(Constant.Application.displayName) - \(R.string.localizable.notes())"
                     DispatchQueue.main.async {
                         strongSelf.notesExportLabel.text = "\(index+1)/\(strongSelf.videoUrls.count)"
                     }
@@ -1596,7 +1608,7 @@ extension PhotoEditorViewController {
             
             for segmentVideo in savedSlideShowImages {
                 let album = SCAlbum.shared
-                album.albumName = "\(Constant.Application.displayName) - Outtakes"
+                album.albumName = "\(Constant.Application.displayName) - \(R.string.localizable.outtakes())"
                 if let img = segmentVideo.image {
                     album.save(image: img)
                 }
@@ -1649,15 +1661,13 @@ extension PhotoEditorViewController {
         let album = SCAlbum.shared
         switch exportType {
         case .outtakes:
-            album.albumName = "\(Constant.Application.displayName) - Outtakes"
+            album.albumName = "\(Constant.Application.displayName) - \(R.string.localizable.outtakes())"
             album.saveMovieToLibrary(movieURL: url)
-            self.outtakesDelegate?.didTakeOuttakes("Outtakes saved.")
-            self.dismiss()
+            self.view.makeToast(R.string.localizable.videoSaved(), duration: 2.0, position: .bottom)
         case .notes:
-            album.albumName = "\(Constant.Application.displayName) - Notes"
+            album.albumName = "\(Constant.Application.displayName) - \(R.string.localizable.notes())"
             album.saveMovieToLibrary(movieURL: url)
-            self.outtakesDelegate?.didTakeOuttakes("Notes saved.")
-            self.dismiss()
+            self.view.makeToast(R.string.localizable.videoSaved(), duration: 2.0, position: .bottom)
         case .chat:
             DispatchQueue.main.async {
                 self.chatExportLabel.text = "1/1"
