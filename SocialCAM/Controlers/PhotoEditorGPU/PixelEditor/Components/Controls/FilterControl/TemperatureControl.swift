@@ -20,17 +20,14 @@
 // THE SOFTWARE.
 import Foundation
 
-
-
-
-open class TemperatureControlBase : FilterControlBase {
+open class TemperatureControlBase: FilterControlBase {
   
   public required init(context: PixelEditContext) {
     super.init(context: context)
   }
 }
 
-open class TemperatureControl : TemperatureControlBase {
+open class TemperatureControl: TemperatureControlBase {
   
   open override var title: String {
     return L10n.editTemperature

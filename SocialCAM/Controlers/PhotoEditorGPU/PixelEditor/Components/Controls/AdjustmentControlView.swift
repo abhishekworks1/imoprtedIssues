@@ -21,11 +21,11 @@
 
 import Foundation
 
-open class AdjustmentControlBase : ControlBase {
+open class AdjustmentControlBase: ControlBase {
 
 }
 
-public final class AdjustmentControl : AdjustmentControlBase {
+public final class AdjustmentControl: AdjustmentControlBase {
 
   private let navigationView = NavigationView()
 
@@ -42,7 +42,7 @@ public final class AdjustmentControl : AdjustmentControlBase {
       navigationView.rightAnchor.constraint(equalTo: navigationView.superview!.rightAnchor),
       navigationView.leftAnchor.constraint(equalTo: navigationView.superview!.leftAnchor),
       navigationView.bottomAnchor.constraint(equalTo: navigationView.superview!.bottomAnchor),
-      navigationView.topAnchor.constraint(greaterThanOrEqualTo: navigationView.superview!.topAnchor),
+      navigationView.topAnchor.constraint(greaterThanOrEqualTo: navigationView.superview!.topAnchor)
       ])
 
     navigationView.didTapCancelButton = { [weak self] in
@@ -71,4 +71,3 @@ public final class AdjustmentControl : AdjustmentControlBase {
   }
 
 }
-

@@ -26,9 +26,9 @@ import AVKit
 public enum ImageTool {
     
     private static let ciContext = CIContext(options: [
-        CIContextOption.useSoftwareRenderer : false,
+        CIContextOption.useSoftwareRenderer: false,
         CIContextOption.highQualityDownsample: true,
-        CIContextOption.workingColorSpace : CGColorSpaceCreateDeviceRGB()
+        CIContextOption.workingColorSpace: CGColorSpaceCreateDeviceRGB()
         ]
     )
     
@@ -40,7 +40,6 @@ public enum ImageTool {
         
         let scaleX = targetSize.width / image.extent.width
         let scaleY = targetSize.height / image.extent.height
-        
         
         return
             autoreleasepool { () -> CIImage? in
@@ -85,7 +84,7 @@ public enum ImageTool {
                 } else {
                     resizedImage = uiImage.pngData()
                         .flatMap {
-                            CIImage(data: $0, options: [CIImageOption.colorSpace : image.colorSpace ?? CGColorSpaceCreateDeviceRGB()])
+                            CIImage(data: $0, options: [CIImageOption.colorSpace: image.colorSpace ?? CGColorSpaceCreateDeviceRGB()])
                         }!
                 }
                 

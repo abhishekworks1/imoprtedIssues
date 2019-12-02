@@ -19,7 +19,7 @@ extension PhotoEditorViewController: UITextViewDelegate {
         let rotation = atan2(textView.transform.b, textView.transform.a)
         if rotation == 0 {
             let oldFrame = textView.frame
-            let sizeToFit = textView.sizeThatFits(CGSize(width: oldFrame.width, height:CGFloat.greatestFiniteMagnitude))
+            let sizeToFit = textView.sizeThatFits(CGSize(width: oldFrame.width, height: CGFloat.greatestFiniteMagnitude))
             textView.frame.size = CGSize(width: oldFrame.width, height: sizeToFit.height)
         }
     }
@@ -248,7 +248,7 @@ extension PhotoEditorViewController: StickersViewControllerDelegate {
                 .subscribe(onNext: { (channels) in
                     self.mensionCollectionViewDelegate.mensions = channels.result ?? []
                     self.mensionCollectionView.reloadData()
-                }, onError: { (error) in
+                }, onError: { (_) in
                 }).disposed(by: self.rx.disposeBag)
         }
         addTransparentView()
@@ -546,7 +546,7 @@ extension PhotoEditorViewController: SelectHashtagDelegate {
     
 }
 
-extension PhotoEditorViewController : PixelEditViewControllerDelegate {
+extension PhotoEditorViewController: PixelEditViewControllerDelegate {
     
     func pixelEditViewController(_ controller: PixelEditViewController, didEndEditing editingStack: EditingStack) {
         self.editingStack = editingStack
@@ -584,13 +584,13 @@ extension PhotoEditorViewController: LocationUpdateProtocol {
                     Defaults.shared.currentTemperature = "\(temp)"
                     self.temperature = "\(temp)"
                 }
-            }, onError: { (error) in
+            }, onError: { (_) in
             }).disposed(by: rx.disposeBag)
     }
     
     func saveAddressFor(_ location: CLLocation) {
         let geocoder = CLGeocoder()
-        geocoder.reverseGeocodeLocation(location) { [weak self] (placemarks, error) in
+        geocoder.reverseGeocodeLocation(location) { [weak self] (placemarks, _) in
             guard let strongSelf = self else { return }
             if let placeMarks = placemarks {
                 let placemark = placeMarks.first
@@ -622,7 +622,7 @@ extension PhotoEditorViewController: StorySwipeableFilterViewDelegate {
             if isCompleted {
                 UIView.animate(withDuration: 0.3, delay: 1, options: UIView.AnimationOptions.transitionCrossDissolve, animations: {
                     self.filterNameLabel.alpha = 0
-                }, completion: { (isFinished) in
+                }, completion: { (_) in
                     
                 })
             }
@@ -668,7 +668,7 @@ extension PhotoEditorViewController: StoryPlayerDelegate {
                             
                             self.coverImageView.image = self.videoUrls[self.currentPlayVideo].image
                         }
-                        if let cell : ImageCollectionViewCell = self.stopMotionCollectionView.cellForItem(at: IndexPath.init(row: self.currentPage, section: 0)) as? ImageCollectionViewCell {
+                        if let cell: ImageCollectionViewCell = self.stopMotionCollectionView.cellForItem(at: IndexPath.init(row: self.currentPage, section: 0)) as? ImageCollectionViewCell {
                             
                             guard let startTime = cell.trimmerView.startTime else {
                                 return

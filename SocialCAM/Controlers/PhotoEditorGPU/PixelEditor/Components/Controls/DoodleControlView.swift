@@ -20,11 +20,11 @@
 // THE SOFTWARE.
 import Foundation
 
-open class DoodleControlBase : ControlBase {
+open class DoodleControlBase: ControlBase {
 
 }
 
-public final class DoodleControl : DoodleControlBase {
+public final class DoodleControl: DoodleControlBase {
 
   private let navigationView = NavigationView()
 
@@ -42,7 +42,7 @@ public final class DoodleControl : DoodleControlBase {
       navigationView.rightAnchor.constraint(equalTo: navigationView.superview!.rightAnchor),
       navigationView.leftAnchor.constraint(equalTo: navigationView.superview!.leftAnchor),
       navigationView.bottomAnchor.constraint(equalTo: navigationView.superview!.bottomAnchor),
-      navigationView.topAnchor.constraint(greaterThanOrEqualTo: navigationView.superview!.topAnchor),
+      navigationView.topAnchor.constraint(greaterThanOrEqualTo: navigationView.superview!.topAnchor)
       ])
 
     navigationView.didTapCancelButton = { [weak self] in

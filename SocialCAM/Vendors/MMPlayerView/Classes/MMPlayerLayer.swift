@@ -35,11 +35,11 @@ public class MMPlayerLayer: AVPlayerLayer {
     fileprivate var timeObserver: Any?
     fileprivate var isBackgroundPause = false
     fileprivate var cahce = MMPlayerCache()
-    fileprivate var playStatusBlock: ((_ status: MMPlayerPlayStatus) ->Void)?
+    fileprivate var playStatusBlock: ((_ status: MMPlayerPlayStatus) -> Void)?
     fileprivate let assetKeysRequiredToPlay = [
         "duration",
         "playable",
-        "hasProtectedContent",
+        "hasProtectedContent"
     ]
     fileprivate var indicator = MMProgress()
     
@@ -74,7 +74,7 @@ public class MMPlayerLayer: AVPlayerLayer {
             new.layer.insertSublayer(self, at: 0)
         }
     }
-    func clearView(){
+    func clearView() {
         bgView.removeFromSuperview()
         self.removeFromSuperlayer()
         _playView?.removeGestureRecognizer(tapGesture)
@@ -184,7 +184,7 @@ public class MMPlayerLayer: AVPlayerLayer {
                         if let a = self?.asset, let keys = self?.assetKeysRequiredToPlay {
                             for key in keys {
                                 var error: NSError?
-                                let _ =  a.statusOfValue(forKey: key, error: &error)
+                                _ =  a.statusOfValue(forKey: key, error: &error)
                                 if let e = error {
                                     self?.currentPlayStatus = .failed(err: e.localizedDescription)
                                     return
@@ -205,7 +205,7 @@ public class MMPlayerLayer: AVPlayerLayer {
                     }
                 }
             } else {
-                if let cacheItem = self.cahce.getItem(key: url) , cacheItem.status == .readyToPlay{
+                if let cacheItem = self.cahce.getItem(key: url), cacheItem.status == .readyToPlay {
                     self.asset = (cacheItem.asset as? AVURLAsset)
                     self.player?.replaceCurrentItem(with: cacheItem)
                 } else {
@@ -215,7 +215,7 @@ public class MMPlayerLayer: AVPlayerLayer {
                             if let a = self?.asset, let keys = self?.assetKeysRequiredToPlay {
                                 for key in keys {
                                     var error: NSError?
-                                    let _ =  a.statusOfValue(forKey: key, error: &error)
+                                    _ =  a.statusOfValue(forKey: key, error: &error)
                                     if let e = error {
                                         self?.currentPlayStatus = .failed(err: e.localizedDescription)
                                         return
@@ -291,8 +291,8 @@ public class MMPlayerLayer: AVPlayerLayer {
         }
     }
     
-    public func replace<T: UIView>(cover:T) where T: MMPlayerCoverViewProtocol{
-        if let c = self.coverView ,c.isMember(of: cover.classForCoder) {
+    public func replace<T: UIView>(cover: T) where T: MMPlayerCoverViewProtocol {
+        if let c = self.coverView, c.isMember(of: cover.classForCoder) {
             c.alpha = 1.0
             return
         }
@@ -320,7 +320,7 @@ public class MMPlayerLayer: AVPlayerLayer {
         }
     }
     fileprivate var isFromZero = false
-    public func set(url: URL?, isFromZero: Bool = false ,state: ((_ status: MMPlayerPlayStatus) -> Void)?) {
+    public func set(url: URL?, isFromZero: Bool = false, state: ((_ status: MMPlayerPlayStatus) -> Void)?) {
         self.playStatusBlock = state
         self.willPlayUrl = url
         self.isFromZero = isFromZero
@@ -330,7 +330,7 @@ public class MMPlayerLayer: AVPlayerLayer {
     public func startLoading() {
 
         switch self.currentPlayStatus {
-        case .playing , .pause:
+        case .playing, .pause:
             if self.playUrl == willPlayUrl {
                 return
             }
@@ -354,7 +354,7 @@ public class MMPlayerLayer: AVPlayerLayer {
             })
         }
         
-        NotificationCenter.default.addObserver(forName: UIApplication.willResignActiveNotification, object: nil, queue: nil, using: { [weak self] (nitification) in
+        NotificationCenter.default.addObserver(forName: UIApplication.willResignActiveNotification, object: nil, queue: nil, using: { [weak self] (_) in
             switch self?.currentPlayStatus ?? .unknown {
             case .pause:
                 self?.isBackgroundPause = true
@@ -364,13 +364,13 @@ public class MMPlayerLayer: AVPlayerLayer {
             self?.player?.pause()
         })
         
-        NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil, using: { [weak self] (nitification) in
+        NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil, using: { [weak self] (_) in
             if self?.isBackgroundPause == false {
                 self?.player?.play()
             }
             self?.isBackgroundPause = false
         })
-        NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: nil, queue: nil, using: { [weak self] (notification) in
+        NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: nil, queue: nil, using: { [weak self] (_) in
             if let s = self?.currentPlayStatus {
                 switch s {
                 case .playing, .pause:
@@ -382,16 +382,13 @@ public class MMPlayerLayer: AVPlayerLayer {
                 }
             }
         })
-        bgView.safeAdd(observer: self, forKeyPath: "frame", options: [.new,.old], context: nil)
-        bgView.safeAdd(observer: self, forKeyPath: "bounds", options: [.new,.old], context: nil)
-        self.safeAdd(observer: self, forKeyPath: "videoRect", options: [.new , .old], context: nil)
+        bgView.safeAdd(observer: self, forKeyPath: "frame", options: [.new, .old], context: nil)
+        bgView.safeAdd(observer: self, forKeyPath: "bounds", options: [.new, .old], context: nil)
+        self.safeAdd(observer: self, forKeyPath: "videoRect", options: [.new, .old], context: nil)
         self.player?.safeAdd(observer: self, forKeyPath: "Muted", options: [.new, .old], context: nil)
         self.player?.safeAdd(observer: self, forKeyPath: "rate", options: [.new, .old], context: nil)
-        self.player?.safeAdd(observer: self, forKeyPath: "currentItem", options: [.new , .old], context: nil)
+        self.player?.safeAdd(observer: self, forKeyPath: "currentItem", options: [.new, .old], context: nil)
     }
-    
-    
-
     
     func removeAllObserver() {
         bgView.safeRemove(observer: self, forKeyPath: "frame")
@@ -410,29 +407,29 @@ public class MMPlayerLayer: AVPlayerLayer {
         }
     }
     
-    override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
         
         if let k = keyPath {
             switch k {
             case "frame":
                 let old = (change?[.oldKey] as? CGRect) ?? .zero
-                if let new = change?[.newKey] as? CGRect , old != new && new != .zero {
+                if let new = change?[.newKey] as? CGRect, old != new && new != .zero {
                     self.updateCoverConstraint()
                 }
             case "bounds":
                 let old = (change?[.oldKey] as? CGRect) ?? .zero
-                if let new = change?[.newKey] as? CGRect ,old != new && new != .zero{
+                if let new = change?[.newKey] as? CGRect, old != new && new != .zero {
                     self.updateCoverConstraint()
                 }
             case "videoRect":
                 let old = (change?[.oldKey] as? CGRect) ?? .zero
                 
-                if let new = change?[.newKey] as? CGRect ,old != new {
+                if let new = change?[.newKey] as? CGRect, old != new {
                     self.updateCoverConstraint()
                 }
             case "Muted":
                 if let old = change?[.oldKey] as? Bool,
-                    let new = change?[.newKey] as? Bool , old != new{
+                    let new = change?[.newKey] as? Bool, old != new {
                     coverView?.player?(isMuted: new)
                 }
                 
@@ -445,7 +442,7 @@ public class MMPlayerLayer: AVPlayerLayer {
                 case .end:
                     let total = self.player?.currentItem?.duration.seconds ?? 0.0
                     let current = self.player?.currentItem?.currentTime().seconds ?? 0.0
-                    if let new = change?[.newKey] as? CGFloat , current < total {
+                    if let new = change?[.newKey] as? CGFloat, current < total {
                         self.currentPlayStatus = (new == 0.0) ? .pause : .playing
                     }
                 default:
@@ -477,7 +474,7 @@ public class MMPlayerLayer: AVPlayerLayer {
                 let s = self.convertItemStatus()
                 
                 switch s {
-                case .failed(_) , .unknown:
+                case .failed, .unknown:
                     self.currentPlayStatus = s
                 case .ready:
                     switch self.currentPlayStatus {
@@ -486,7 +483,7 @@ public class MMPlayerLayer: AVPlayerLayer {
                             return
                         }
                         self.currentPlayStatus = s
-                    case .failed(_) ,.unknown:
+                    case .failed, .unknown:
                         self.currentPlayStatus = s
                     default:
                         break
@@ -543,7 +540,6 @@ public class MMPlayerLayer: AVPlayerLayer {
             default: break
             }
         }
-        
         
         if let cover = self.coverView ,
             cover.responds(to: #selector(cover.coverView(isShow:))) {

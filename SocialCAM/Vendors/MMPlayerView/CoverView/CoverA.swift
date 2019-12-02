@@ -23,7 +23,7 @@ class CoverA: UIView, MMPlayerCoverViewProtocol {
         btnPlay.imageView?.tintColor = ApplicationSettings.appWhiteColor
     }
     @IBAction func btnAction() {
-        if playLayer?.player?.rate == 0{
+        if playLayer?.player?.rate == 0 {
             self.playLayer?.loopPlay = true
             self.playLayer?.player?.play()
         } else {
@@ -62,7 +62,7 @@ class CoverA: UIView, MMPlayerCoverViewProtocol {
             let sec = component.second {
             
             let fix =  hour > 0 ? NSString(format: "%02d:", hour) : ""
-            return NSString(format: "%@%02d:%02d", fix,min,sec) as String
+            return NSString(format: "%@%02d:%02d", fix, min, sec) as String
         } else {
             return "-:-"
         }
@@ -77,13 +77,13 @@ class CoverA: UIView, MMPlayerCoverViewProtocol {
     
     @objc func delaySeekTime() {
         let time =  CMTimeMake(value: Int64(self.playSlider.value), timescale: 1)
-        self.playLayer?.player?.seek(to: time, completionHandler: { [unowned self] (finish) in
+        self.playLayer?.player?.seek(to: time, completionHandler: { [unowned self] (_) in
             self.isUpdateTime = false
         })
     }
 }
 
-extension CoverA: MMPlayerBasePlayerProtocol{
+extension CoverA: MMPlayerBasePlayerProtocol {
     
     func removeObserver() {
         
@@ -96,7 +96,7 @@ extension CoverA: MMPlayerBasePlayerProtocol{
     func coverView(isShow: Bool) {
         if isShow {
             self.btnPlay.isHidden = false
-        }else{
+        } else {
             self.btnPlay.isHidden = true
         }
     }

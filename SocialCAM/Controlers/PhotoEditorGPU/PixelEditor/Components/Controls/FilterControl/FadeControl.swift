@@ -21,16 +21,14 @@
 
 import Foundation
 
-
-
-open class FadeControlBase : FilterControlBase {
+open class FadeControlBase: FilterControlBase {
   
   public required init(context: PixelEditContext) {
     super.init(context: context)
   }
 }
 
-open class FadeControl : FadeControlBase {
+open class FadeControl: FadeControlBase {
   
   open override var title: String {
     return L10n.editFade

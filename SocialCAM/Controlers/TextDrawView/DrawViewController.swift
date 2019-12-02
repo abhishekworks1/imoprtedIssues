@@ -66,32 +66,32 @@ public class DrawViewController: UIViewController {
     @IBOutlet weak var buttonBottomConstraint: NSLayoutConstraint!
     
     let gradientLayer = CAGradientLayer()
-    @IBInspectable var startColor:UIColor = UIColor.yellow {
-        didSet{
+    @IBInspectable var startColor: UIColor = UIColor.yellow {
+        didSet {
             configure()
         }
     }
     
-    @IBInspectable var midColor:UIColor = UIColor.orange {
-        didSet{
+    @IBInspectable var midColor: UIColor = UIColor.orange {
+        didSet {
             configure()
         }
     }
     
-    @IBInspectable var endColor:UIColor = UIColor.red {
-        didSet{
+    @IBInspectable var endColor: UIColor = UIColor.red {
+        didSet {
             configure()
         }
     }
     
     @IBInspectable var direction: UInt = 1 {
-        didSet{
+        didSet {
             configure()
         }
     }
     
     @IBInspectable var cornerRadius: CGFloat = 0 {
-        didSet{
+        didSet {
             configure()
         }
     }
@@ -106,30 +106,30 @@ public class DrawViewController: UIViewController {
         //        configure()
     }
     
-    func configure(){
+    func configure() {
         gradientLayer.cornerRadius = cornerRadius
         gradientLayer.frame = view.bounds
-        gradientLayer.colors = [startColor.cgColor,endColor.cgColor]
-        gradientLayer.startPoint = CGPoint(x: 0, y:1 )
+        gradientLayer.colors = [startColor.cgColor, endColor.cgColor]
+        gradientLayer.startPoint = CGPoint(x: 0, y: 1 )
         gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.0)
-        gradientLayer.locations = [0.25,0.75]
+        gradientLayer.locations = [0.25, 0.75]
         
         switch direction % 5 {
         case 0:
-            gradientLayer.startPoint = CGPoint(x: 0, y:0 )
+            gradientLayer.startPoint = CGPoint(x: 0, y: 0 )
             gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.0)
         case 1:
-            gradientLayer.startPoint = CGPoint(x: 0, y:1 )
+            gradientLayer.startPoint = CGPoint(x: 0, y: 1 )
             gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.0)
         case 2:
-            gradientLayer.startPoint = CGPoint(x: 0, y:0 )
+            gradientLayer.startPoint = CGPoint(x: 0, y: 0 )
             gradientLayer.endPoint = CGPoint(x: 0.0, y: 1.0)
         case 3:
-            gradientLayer.startPoint = CGPoint(x: 1, y:0 )
+            gradientLayer.startPoint = CGPoint(x: 1, y: 0 )
             gradientLayer.endPoint = CGPoint(x: 0.0, y: 1.0)
             
         default:
-            gradientLayer.startPoint = CGPoint(x: 1, y:0 )
+            gradientLayer.startPoint = CGPoint(x: 1, y: 0 )
             gradientLayer.endPoint = CGPoint(x: 0.0, y: 0.0)
         }
     }
@@ -257,7 +257,6 @@ public class DrawViewController: UIViewController {
         }
     }
     
-    
     // MARK: - Init
     
     public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -301,14 +300,12 @@ public class DrawViewController: UIViewController {
             self.textView.textColor = defaultFontColors[defaultBGColorsIndex][0]
             self.textEditView.textView.textColor = defaultFontColors[defaultBGColorsIndex][0]
             btnChangeColor.backgroundColor = UIColor.gradientColorFrom(colors: modernBGColors[defaultBGColorsIndex], and: btnChangeColor.bounds.size) ?? ApplicationSettings.appBlackColor
-        }
-        else if fontViewState == .neon {
+        } else if fontViewState == .neon {
             drawingContainer.backgroundColor = UIColor.gradientColorFrom(colors: defaultBGColors[defaultBGColorsIndex], and: self.view.bounds.size) ?? ApplicationSettings.appBlackColor
             self.textView.textColor = modernFontColors[defaultBGColorsIndex][0]
             self.textEditView.textView.textColor = modernFontColors[defaultBGColorsIndex][0]
             btnChangeColor.backgroundColor = UIColor.gradientColorFrom(colors: defaultBGColors[defaultBGColorsIndex], and: btnChangeColor.bounds.size) ?? ApplicationSettings.appBlackColor
-        }
-        else if fontViewState == .typeWriter {
+        } else if fontViewState == .typeWriter {
             drawingContainer.backgroundColor = UIColor.gradientColorFrom(colors: typeWritingBGColors[defaultBGColorsIndex], and: self.view.bounds.size) ?? ApplicationSettings.appBlackColor
             self.textView.textColor = typeWritingFontColors[defaultBGColorsIndex][0]
             self.textEditView.textView.textColor = typeWritingFontColors[defaultBGColorsIndex][0]
@@ -388,7 +385,7 @@ public class DrawViewController: UIViewController {
         let duration: Double = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0
         var animationCurve = UIView.AnimationCurve.linear
         if let index = (notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber)?.intValue,
-            let value = UIView.AnimationCurve(rawValue:index) {
+            let value = UIView.AnimationCurve(rawValue: index) {
             animationCurve = value
         }
         
@@ -441,7 +438,6 @@ public class DrawViewController: UIViewController {
         setBackground(state)
     }
     
-    
     var defaultBGColors = [[UIColor.init(hexString: "#70117f"), UIColor.init(hexString: "#8f2f9e")],
                            [UIColor.init(hexString: "#d63774"), UIColor.init(hexString: "#e85a90")],
                            [UIColor.init(hexString: "#282628"), UIColor.init(hexString: "#282628")],
@@ -493,8 +489,7 @@ public class DrawViewController: UIViewController {
             btnChangeColor.backgroundColor = UIColor.gradientColorFrom(colors: modernBGColors[defaultBGColorsIndex], and: btnChangeColor.bounds.size) ?? ApplicationSettings.appBlackColor
             self.textView.textColor = defaultFontColors[defaultBGColorsIndex][0]
             self.textEditView.textView.textColor = defaultFontColors[defaultBGColorsIndex][0]
-        }
-        else if state == .neon {
+        } else if state == .neon {
             self.textView.font = UIFont.linoleoScript ?? UIFont.systemFont(ofSize: 70)
             self.textEditView.textView.font = UIFont.linoleoScript ?? UIFont.systemFont(ofSize: 70)
             self.textEditView.textView.setTextViewWith(self.textEditView.textView.text)
@@ -506,8 +501,7 @@ public class DrawViewController: UIViewController {
             self.textView.textColor = modernFontColors[defaultBGColorsIndex][0]
             self.textEditView.textView.textColor = modernFontColors[defaultBGColorsIndex][0]
             
-        }
-        else if state == .typeWriter {
+        } else if state == .typeWriter {
             self.textView.font = UIFont.durationBookRegularSize75 ?? UIFont.systemFont(ofSize: 75)
             self.textEditView.textView.font = UIFont.durationBookRegularSize75 ?? UIFont.systemFont(ofSize: 75)
             self.textEditView.textView.setTextViewWith(self.textEditView.textView.text)
@@ -606,7 +600,6 @@ public class DrawViewController: UIViewController {
     }
 }
 
-
 // MARK: - Undo
 
 extension DrawViewController {
@@ -687,7 +680,6 @@ extension DrawViewController {
     
 }
 
-
 // MARK: - DrawDrawingContainerViewDelegate
 extension DrawViewController: DrawingContainerViewDelegate {
     func drawingContainerViewTouchBegan(at point: CGPoint) {
@@ -709,7 +701,6 @@ extension DrawViewController: DrawingContainerViewDelegate {
     }
 }
 
-
 // MARK: - UIGestureRecognizerDelegate
 
 extension DrawViewController: UIGestureRecognizerDelegate {
@@ -726,7 +717,6 @@ extension DrawViewController: UIGestureRecognizerDelegate {
     }
 }
 
-
 // MARK: - DrawTextEditViewDelegate
 
 extension DrawViewController: DrawTextEditViewDelegate {
@@ -742,7 +732,6 @@ extension DrawViewController: DrawTextEditViewDelegate {
         delegate?.DrawViewController(self, isEditingText: false)
     }
 }
-
 
 // MARK: - DrawViewState
 

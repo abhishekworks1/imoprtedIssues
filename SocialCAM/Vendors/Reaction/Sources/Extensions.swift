@@ -36,8 +36,6 @@ extension Sequence where Iterator.Element: Hashable {
     }
 }
 
-
-
 extension String {
     
     func replacing(_ pattern: String, withTemplate: String) throws -> String {
@@ -49,7 +47,7 @@ extension String {
 
 extension UILabel {
     
-    func setAtribText(str:String){
+    func setAtribText(str: String) {
         
         let regex = try! NSRegularExpression(pattern: "::@([^\\s]+?)::", options: [])
         
@@ -60,7 +58,7 @@ extension UILabel {
         let matches = regex.matches(in: str, options: [], range: NSRange(location: 0, length: str.count))
         print(matches)
         
-        let atributedtext = NSMutableAttributedString(string:result1!)
+        let atributedtext = NSMutableAttributedString(string: result1!)
         var count = 1
         
         for m in matches {
@@ -68,8 +66,8 @@ extension UILabel {
             print(m.range.location - count + 1)
             print("end:")
             print(m.range.length - 4)
-            let rang = NSMakeRange(m.range.location - count + 1, m.range.length - 4)
-            atributedtext.setAttributes([NSAttributedString.Key.foregroundColor:ApplicationSettings.appPrimaryColor],range:rang)
+            let rang = NSRange(location: m.range.location - count + 1, length: m.range.length - 4)
+            atributedtext.setAttributes([NSAttributedString.Key.foregroundColor: ApplicationSettings.appPrimaryColor], range: rang)
             count = count + 4
             
         }
@@ -79,10 +77,10 @@ extension UILabel {
 }
 
 extension NSObject {
-    func checkStorageFull()->Bool{
+    func checkStorageFull() -> Bool {
         if DiskStatus.freeDiskSpaceInBytes <= 205 * 1024 * 1024 {
             return true
-        }else{
+        } else {
             return false
         }
     }
@@ -96,7 +94,7 @@ extension UIViewController {
             return true
         } else if let presentedVC = self.navigationController?.presentingViewController?.presentedViewController,
             let navVC = self.navigationController,
-            presentedVC == navVC  {
+            presentedVC == navVC {
             return true
         } else if self.tabBarController?.presentingViewController is UITabBarController {
             return true
@@ -107,7 +105,7 @@ extension UIViewController {
 }
 
 extension Timer {
-    class func schedule(delay: TimeInterval, handler:  ((Timer?) -> Void)!) -> Timer {
+    class func schedule(delay: TimeInterval, handler: ((Timer?) -> Void)!) -> Timer {
         let fireDate = delay + CFAbsoluteTimeGetCurrent()
         
         let timer = CFRunLoopTimerCreateWithHandler(kCFAllocatorDefault, fireDate, 0, 0, 0, handler)
@@ -115,7 +113,7 @@ extension Timer {
         return timer!
     }
     
-    class func schedule(repeatInterval interval: TimeInterval, handler:  ((Timer?) -> Void)!) -> Timer {
+    class func schedule(repeatInterval interval: TimeInterval, handler: ((Timer?) -> Void)!) -> Timer {
         let fireDate = interval + CFAbsoluteTimeGetCurrent()
         let timer = CFRunLoopTimerCreateWithHandler(kCFAllocatorDefault, fireDate, interval, 0, 0, handler)
         CFRunLoopAddTimer(CFRunLoopGetCurrent(), timer, CFRunLoopMode.commonModes)
@@ -204,4 +202,3 @@ extension Date {
         return todayEnd
     }
 }
-

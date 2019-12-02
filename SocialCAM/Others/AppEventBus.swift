@@ -23,11 +23,9 @@ open class AppEventBus {
 
     var cache = [UInt: [NamedObserver]]()
 
-
     ////////////////////////////////////
     // Publish
     ////////////////////////////////////
-
 
     open class func post(_ name: String, sender: AnyObject? = nil, userInfo: [AnyHashable: Any]? = nil) {
         NotificationCenter.default.post(name: Notification.Name(rawValue: name), object: sender, userInfo: userInfo)
@@ -105,4 +103,3 @@ open class AppEventBus {
         }
     }
 }
-

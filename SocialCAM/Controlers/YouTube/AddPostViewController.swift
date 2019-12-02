@@ -18,29 +18,29 @@ import AVKit
 
 class AddPostViewController: UIViewController {
     
-    @IBOutlet var webView : WKWebView!
-    @IBOutlet var imgView : UIImageView!
-    @IBOutlet var lblTitle : UILabel!
-    @IBOutlet var lblTag : UILabel!
-    @IBOutlet var lblDiscribtion : UILabel!
-    @IBOutlet var lblLike : UILabel!
-    @IBOutlet var lblDisLike : UILabel!
-    @IBOutlet var lblViews : UILabel!
+    @IBOutlet var webView: WKWebView!
+    @IBOutlet var imgView: UIImageView!
+    @IBOutlet var lblTitle: UILabel!
+    @IBOutlet var lblTag: UILabel!
+    @IBOutlet var lblDiscribtion: UILabel!
+    @IBOutlet var lblLike: UILabel!
+    @IBOutlet var lblDisLike: UILabel!
+    @IBOutlet var lblViews: UILabel!
     @IBOutlet var scrolViewHeight: NSLayoutConstraint!
     @IBOutlet var viewVideo: BorderView!
     @IBOutlet var txtComment: UITextView!
     @IBOutlet var txtTag: UITextView!
     @IBOutlet var viewPlayer: UIView!
     
-    var Videos : [Observable<YTSerchResponse<Item>>] = []
-    var playHandler : ((_ item:Item)->Void)?
+    var Videos: [Observable<YTSerchResponse<Item>>] = []
+    var playHandler : ((_ item: Item) -> Void)?
     var video = Item(JSON: [:])
-    var popHandler : ((_ youTubeUrl:String) -> Void)?
-    var shareHandler : ((_ url:String, _ hashtag:[String]?, _ title: String? ,_ channelId:String?)->Void)? = nil
-    var videoPlayer : AVPlayer!
+    var popHandler : ((_ youTubeUrl: String) -> Void)?
+    var shareHandler : ((_ url: String, _ hashtag: [String]?, _ title: String?, _ channelId: String?) -> Void)?
+    var videoPlayer: AVPlayer!
     var player: YoutubePlayerView?
     var isReview = false
-    var observable : Item? {
+    var observable: Item? {
         didSet {
             if let items = observable {
                 let video = items
@@ -49,7 +49,7 @@ class AddPostViewController: UIViewController {
                 self.lblLike.text = "\(video.statistics?.likeCount ?? "")"
                 self.lblDisLike.text = "\(video.statistics?.dislikeCount ?? "")"
                 self.lblViews.text = "\(video.statistics?.viewCount ?? "")"
-                if let tags = video.snippet?.tags , tags.count > 0 {
+                if let tags = video.snippet?.tags, tags.count > 0 {
                     let tempString = tags.joined(separator: ",#")
                     let hash = "#"
                     let tagText = hash.appending(tempString)
@@ -104,7 +104,7 @@ class AddPostViewController: UIViewController {
         self.txtComment.layer.borderColor = ApplicationSettings.appLightGrayColor.cgColor
     }
     
-    @objc func moviePlayerLoadStateDidChange(notification:Notification) -> Void {
+    @objc func moviePlayerLoadStateDidChange(notification: Notification) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
 
@@ -117,7 +117,7 @@ class AddPostViewController: UIViewController {
         _ = self.navigationController?.popViewController(animated: true)
     }
     
-    @IBAction func btnPlayClicked(_ sender : Any) {
+    @IBAction func btnPlayClicked(_ sender: Any) {
       
     }
     
@@ -132,7 +132,7 @@ class AddPostViewController: UIViewController {
         player?.trailingAnchor.constraint(equalTo: viewPlayer.trailingAnchor).isActive = true
         player?.delegate = self
         
-        let playvarsDic = ["controls": 1, "playsinline": 1, "autohide": 1, "showinfo": 0, "autoplay": 1, "color": "white", "origin": "https://www.youtube.com"] as [String : Any]
+        let playvarsDic = ["controls": 1, "playsinline": 1, "autohide": 1, "showinfo": 0, "autoplay": 1, "color": "white", "origin": "https://www.youtube.com"] as [String: Any]
         self.player?.setPlaybackQuality(YoutubePlaybackQuality.auto)
         self.player?.loadWithVideoId(video?.ids ?? "", with: playvarsDic)
         
@@ -152,14 +152,14 @@ class AddPostViewController: UIViewController {
                 print("Review screen")
                 return
             }
-            var hash1:[String] = []
-            if let tags = strongSelf.video?.snippet?.tags , tags.count > 0 {
+            var hash1: [String] = []
+            if let tags = strongSelf.video?.snippet?.tags, tags.count > 0 {
                 hash1 = tags.map {
                     return $0.replace(" ", with: "")
                 }
             }
             if let handler = strongSelf.shareHandler {
-                handler(youTubeUrl, hash1, strongSelf.video?.snippet?.title,strongSelf.video?.snippet?.channelId)
+                handler(youTubeUrl, hash1, strongSelf.video?.snippet?.title, strongSelf.video?.snippet?.channelId)
             }
             strongSelf.navigationController?.popViewController(animated: false)
         }

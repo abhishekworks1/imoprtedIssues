@@ -25,7 +25,7 @@ public class CameraView: UIView, AVCapturePhotoCaptureDelegate {
     @IBOutlet weak var btnCamera: UIButton!
     @IBOutlet weak var cameraView: UIView!
     
-    public var shouldCancleShow = false
+    public var shouldCancelShow = false
     public var loadingViewShow = false
     var isResized = true
     var containerView: LoadingContainerView?
@@ -34,7 +34,6 @@ public class CameraView: UIView, AVCapturePhotoCaptureDelegate {
     public var isBlocking = true
     public var shouldTapToDismiss = false
     public var sizeInContainer: CGSize = CGSize(width: 180, height: 180)
-   
     
     private lazy var previewLayer: AVCaptureVideoPreviewLayer = {
         let avCapture = AVCaptureVideoPreviewLayer(session: session)
@@ -54,7 +53,7 @@ public class CameraView: UIView, AVCapturePhotoCaptureDelegate {
         return output
     }()
     
-    var cameraClick : ((UIImage) -> Void)?
+    var cameraClick: ((UIImage) -> Void)?
     var isSnapshoot = false
     var tapCount = 0
     var isRoundView = false
@@ -143,7 +142,7 @@ public class CameraView: UIView, AVCapturePhotoCaptureDelegate {
     }
     
     func onFirstTap() {
-        let opacity:CGFloat = 0.6
+        let opacity: CGFloat = 0.6
         let borderColor = ApplicationSettings.appWhiteColor
         cameraView.layer.borderColor = borderColor.withAlphaComponent(opacity).cgColor
         cameraView.borderWidthV = 15
@@ -190,16 +189,15 @@ public class CameraView: UIView, AVCapturePhotoCaptureDelegate {
         }
     }
     
-    func convert(cmage:CIImage) -> UIImage
-    {
-        let context:CIContext = CIContext.init(options: nil)
-        let cgImage:CGImage = context.createCGImage(cmage, from: cmage.extent)!
-        let image:UIImage = UIImage.init(cgImage: cgImage)
+    func convert(cmage: CIImage) -> UIImage {
+        let context: CIContext = CIContext.init(options: nil)
+        let cgImage: CGImage = context.createCGImage(cmage, from: cmage.extent)!
+        let image: UIImage = UIImage.init(cgImage: cgImage)
         return image
     }
     
     // clean up AVCapture
-    func stopCamera(){
+    func stopCamera() {
         session.stopRunning()
     }
     

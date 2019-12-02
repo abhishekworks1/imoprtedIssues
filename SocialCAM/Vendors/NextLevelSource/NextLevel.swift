@@ -756,7 +756,7 @@ extension NextLevel {
         }
         
         if shouldConfigureVideo == true {
-            var captureDevice: AVCaptureDevice? = nil
+            var captureDevice: AVCaptureDevice?
             
             if let requestedDevice = self._requestedDevice {
                 captureDevice = requestedDevice
@@ -834,12 +834,12 @@ extension NextLevel {
             }
             
             if self.captureMode == .video {
-                let _ = self.addAudioOuput()
+                _ = self.addAudioOuput()
             }
-            let _ = self.addVideoOutput()
+            _ = self.addVideoOutput()
             #if USE_TRUE_DEPTH
             if self.depthDataCaptureEnabled {
-                let _ = self.addDepthDataOutput()
+                _ = self.addDepthDataOutput()
             }
             #endif
             break
@@ -852,20 +852,20 @@ extension NextLevel {
                 }
             }
             
-            let _ = self.addPhotoOutput()
+            _ = self.addPhotoOutput()
             #if USE_TRUE_DEPTH
             if self.depthDataCaptureEnabled {
-                let _ = self.addDepthDataOutput()
+                _ = self.addDepthDataOutput()
                 
                 // portrait effects matte needs depth to work
                 if self.portraitEffectsMatteCaptureEnabled {
-                    let _ = self.addPortraitEffectsMatteOutput()
+                    _ = self.addPortraitEffectsMatteOutput()
                 }
             }
             #endif
             break
         case .audio:
-            let _ = self.addAudioOuput()
+            _ = self.addAudioOuput()
             break
         case .movie:
             // TODO
@@ -946,8 +946,7 @@ extension NextLevel {
                     captureDevice.automaticallyEnablesLowLightBoostWhenAvailable = true
                 }
                 captureDevice.unlockForConfiguration()
-            }
-            catch {
+            } catch {
                 print("NextLevel, low light failed to lock device for configuration")
             }
         }
@@ -960,7 +959,7 @@ extension NextLevel {
                 }
             }
             
-            let _ = self.addInput(session: session, device: captureDevice)
+            _ = self.addInput(session: session, device: captureDevice)
         }
     }
     
@@ -980,7 +979,7 @@ extension NextLevel {
                 
                 return true
             }
-        } catch  {
+        } catch {
             print("NextLevel, failure adding input device")
         }
         return false
@@ -1007,7 +1006,7 @@ extension NextLevel {
             self._videoOutput = AVCaptureVideoDataOutput()
             self._videoOutput?.alwaysDiscardsLateVideoFrames = false
             
-            var videoSettings = [String(kCVPixelBufferPixelFormatTypeKey):Int(kCVPixelFormatType_32BGRA)]
+            var videoSettings = [String(kCVPixelBufferPixelFormatTypeKey): Int(kCVPixelFormatType_32BGRA)]
             if let formatTypes = self._videoOutput?.availableVideoPixelFormatTypes {
                 var supportsFullRange = false
                 var supportsVideoRange = false
@@ -1575,8 +1574,7 @@ extension NextLevel {
                 device.setFocusModeLocked(lensPosition: newLensPosition, completionHandler: nil)
                 
                 device.unlockForConfiguration()
-            }
-            catch {
+            } catch {
                 print("NextLevel, lens position failed to lock device for configuration")
             }
         }
@@ -1617,8 +1615,7 @@ extension NextLevel {
             device.isSubjectAreaChangeMonitoringEnabled = false
             
             device.unlockForConfiguration()
-        }
-        catch {
+        } catch {
             print("NextLevel, focusExposeAndAdjustWhiteBalance failed to lock device for configuration")
         }
     }
@@ -1644,8 +1641,7 @@ extension NextLevel {
             }
             
             device.unlockForConfiguration()
-        }
-        catch {
+        } catch {
             print("NextLevel, focusAtAdjustedPointOfInterest failed to lock device for configuration")
         }
     }
@@ -1695,8 +1691,7 @@ extension NextLevel {
                 self.adjustWhiteBalanceForExposureMode(exposureMode: newValue)
                 
                 device.unlockForConfiguration()
-            }
-            catch {
+            } catch {
                 print("NextLevel, exposureMode failed to lock device for configuration")
             }
         }
@@ -1722,8 +1717,7 @@ extension NextLevel {
             }
             
             device.unlockForConfiguration()
-        }
-        catch {
+        } catch {
             print("NextLevel, exposeAtAdjustedPointOfInterest failed to lock device for configuration")
         }
     }
@@ -2009,8 +2003,7 @@ extension NextLevel {
                 device.isSubjectAreaChangeMonitoringEnabled = true
                 
                 device.unlockForConfiguration()
-            }
-            catch {
+            } catch {
                 print("NextLevel, focus ending failed to lock device for configuration")
             }
         }
@@ -2042,8 +2035,7 @@ extension NextLevel {
                 device.isSubjectAreaChangeMonitoringEnabled = true
                 
                 device.unlockForConfiguration()
-            }
-            catch {
+            } catch {
                 print("NextLevel, focus ending failed to lock device for configuration")
             }
         }
@@ -2089,8 +2081,7 @@ extension NextLevel {
         for value in array {
             if encountered.contains(value) {
                 // Do not add a duplicate element.
-            }
-            else {
+            } else {
                 // Add value to the set.
                 encountered.insert(value)
                 // ... Append the value.
@@ -2154,7 +2145,7 @@ extension NextLevel {
                 return
             }
             
-            var updatedFormat: AVCaptureDevice.Format? = nil
+            var updatedFormat: AVCaptureDevice.Format?
             for currentFormat in device.formats {
                 if currentFormat.isSupported(withFrameRate: frameRate, dimensions: dimensions) {
                     if updatedFormat == nil {
@@ -2278,7 +2269,7 @@ extension NextLevel {
                     return
             }
             
-            var buffer: CVPixelBuffer? = nil
+            var buffer: CVPixelBuffer?
             if let videoFrame = self._lastVideoFrame,
                 let imageBuffer = CMSampleBufferGetImageBuffer(videoFrame) {
                 buffer = imageBuffer
@@ -2296,7 +2287,7 @@ extension NextLevel {
                 }
             }
             
-            var photoDict: [String: Any]? = nil
+            var photoDict: [String: Any]?
             let ratio = self.videoConfiguration.aspectRatio.ratio
             if let customFrame = self._sessionVideoCustomContextImageBuffer {
             
@@ -2567,7 +2558,6 @@ extension NextLevel {
                 }
             })
             
-            
             if session.currentClipHasVideo == false && (session.currentClipHasAudio == false || self.captureMode == .videoWithoutAudio) {
                 if let audioBuffer = self._lastAudioFrame {
                     let lastAudioEndTime = CMTimeAdd(CMSampleBufferGetPresentationTimeStamp(audioBuffer), CMSampleBufferGetDuration(audioBuffer))
@@ -2771,7 +2761,6 @@ extension NextLevel: AVCapturePhotoCaptureDelegate {
             self.photoDelegate?.nextLevel(self, didCapturePhotoWithConfiguration: self.photoConfiguration)
         }
     }
-    
     
     public func photoOutput(_ captureOutput: AVCapturePhotoOutput, didFinishProcessingPhoto photoSampleBuffer: CMSampleBuffer?, previewPhoto previewPhotoSampleBuffer: CMSampleBuffer?, resolvedSettings: AVCaptureResolvedPhotoSettings, bracketSettings: AVCaptureBracketedStillImageSettings?, error: Error?) {
         if let sampleBuffer = photoSampleBuffer {
@@ -3078,7 +3067,7 @@ extension NextLevel {
     
     internal func addCaptureDeviceObservers(_ currentDevice: AVCaptureDevice) {
         
-        self._observers.append(currentDevice.observe(\.isAdjustingFocus, options: [.new]) { [weak self] (object, change) in
+        self._observers.append(currentDevice.observe(\.isAdjustingFocus, options: [.new]) { [weak self] (object, _) in
             if object.isAdjustingFocus {
                 self?.focusStarted()
             } else {
@@ -3086,7 +3075,7 @@ extension NextLevel {
             }
         })
         
-        self._observers.append(currentDevice.observe(\.isAdjustingExposure, options: [.new]) { [weak self] (object, change) in
+        self._observers.append(currentDevice.observe(\.isAdjustingExposure, options: [.new]) { [weak self] (object, _) in
             if object.isAdjustingExposure {
                 self?.exposureStarted()
             } else {
@@ -3094,7 +3083,7 @@ extension NextLevel {
             }
         })
         
-        self._observers.append(currentDevice.observe(\.isAdjustingWhiteBalance, options: [.new]) { [weak self] (object, change) in
+        self._observers.append(currentDevice.observe(\.isAdjustingWhiteBalance, options: [.new]) { [weak self] (object, _) in
             if object.isAdjustingWhiteBalance {
                 self?.whiteBalanceStarted()
             } else {
@@ -3102,7 +3091,7 @@ extension NextLevel {
             }
         })
         
-        self._observers.append(currentDevice.observe(\.isFlashAvailable, options: [.new]) { [weak self] (object, change) in
+        self._observers.append(currentDevice.observe(\.isFlashAvailable, options: [.new]) { [weak self] (_, _) in
             guard let strongSelf = self else {
                 return
             }
@@ -3112,7 +3101,7 @@ extension NextLevel {
             }
         })
         
-        self._observers.append(currentDevice.observe(\.isTorchAvailable, options: [.new]) { [weak self] (object, change) in
+        self._observers.append(currentDevice.observe(\.isTorchAvailable, options: [.new]) { [weak self] (_, _) in
             guard let strongSelf = self else {
                 return
             }
@@ -3122,7 +3111,7 @@ extension NextLevel {
             }
         })
         
-        self._observers.append(currentDevice.observe(\.isTorchActive, options: [.new]) { [weak self] (object, change) in
+        self._observers.append(currentDevice.observe(\.isTorchActive, options: [.new]) { [weak self] (_, _) in
             guard let strongSelf = self else {
                 return
             }
@@ -3132,7 +3121,7 @@ extension NextLevel {
             }
         })
         
-        self._observers.append(currentDevice.observe(\.lensPosition, options: [.new]) { [weak self] (object, change) in
+        self._observers.append(currentDevice.observe(\.lensPosition, options: [.new]) { [weak self] (object, _) in
             guard let strongSelf = self else {
                 return
             }
@@ -3144,7 +3133,7 @@ extension NextLevel {
             }
         })
         
-        self._observers.append(currentDevice.observe(\.exposureDuration, options: [.new]) { [weak self] (object, change) in
+        self._observers.append(currentDevice.observe(\.exposureDuration, options: [.new]) { [weak self] (_, _) in
             guard let _ = self else {
                 return
             }
@@ -3152,8 +3141,7 @@ extension NextLevel {
             // TODO: add delegate callback
         })
         
-        
-        self._observers.append(currentDevice.observe(\.iso, options: [.new]) { [weak self] (object, change) in
+        self._observers.append(currentDevice.observe(\.iso, options: [.new]) { [weak self] (_, _) in
             guard let _ = self else {
                 return
             }
@@ -3161,7 +3149,7 @@ extension NextLevel {
             // TODO: add delegate callback
         })
         
-        self._observers.append(currentDevice.observe(\.exposureTargetBias, options: [.new]) { [weak self] (object, change) in
+        self._observers.append(currentDevice.observe(\.exposureTargetBias, options: [.new]) { [weak self] (_, _) in
             guard let _ = self else {
                 return
             }
@@ -3169,7 +3157,7 @@ extension NextLevel {
             // TODO: add delegate callback
         })
         
-        self._observers.append(currentDevice.observe(\.exposureTargetOffset, options: [.new]) { [weak self] (object, change) in
+        self._observers.append(currentDevice.observe(\.exposureTargetOffset, options: [.new]) { [weak self] (_, _) in
             guard let _ = self else {
                 return
             }
@@ -3177,7 +3165,7 @@ extension NextLevel {
             // TODO: add delegate callback
         })
         
-        self._observers.append(currentDevice.observe(\.deviceWhiteBalanceGains, options: [.new]) { [weak self] (object, change) in
+        self._observers.append(currentDevice.observe(\.deviceWhiteBalanceGains, options: [.new]) { [weak self] (object, _) in
             guard let _ = self else {
                 return
             }
@@ -3187,7 +3175,7 @@ extension NextLevel {
             }
         })
         
-        self._observers.append(currentDevice.observe(\.videoZoomFactor, options: [.new]) { [weak self] (object, change) in
+        self._observers.append(currentDevice.observe(\.videoZoomFactor, options: [.new]) { [weak self] (_, _) in
             guard let strongSelf = self else {
                 return
             }
@@ -3210,7 +3198,7 @@ extension NextLevel {
             return
         }
         
-        self._captureOutputObservers.append(photoOutput.observe(\.isFlashScene, options: [.new]) { [weak self] (object, change) in
+        self._captureOutputObservers.append(photoOutput.observe(\.isFlashScene, options: [.new]) { [weak self] (_, _) in
             guard let strongSelf = self else {
                 return
             }
@@ -3230,8 +3218,7 @@ extension NextLevel {
                     strongSelf.adjustWhiteBalanceForExposureMode(exposureMode: captureDevice.exposureMode)
                     
                     captureDevice.unlockForConfiguration()
-                }
-                catch {
+                } catch {
                     print("NextLevel, failed to lock device for white balance exposure configuration")
                 }
             }

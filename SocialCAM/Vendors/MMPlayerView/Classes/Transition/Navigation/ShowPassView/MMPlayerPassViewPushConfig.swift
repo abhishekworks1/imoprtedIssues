@@ -8,8 +8,8 @@
 
 import UIKit
 
-public class MMPlayerPassViewPushConfig: NSObject ,MMPlayerNavConfig {
+public class MMPlayerPassViewPushConfig: NSObject, MMPlayerNavConfig {
     weak public var passOriginalSuper: UIView?
     weak public var playLayer: MMPlayerLayer?
-    public var duration:TimeInterval = 0.3
+    public var duration: TimeInterval = 0.3
 }

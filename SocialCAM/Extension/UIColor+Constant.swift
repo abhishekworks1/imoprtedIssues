@@ -78,9 +78,9 @@ extension UIColor {
         
         UIGraphicsPushContext(context)
         
-        let glossGradient:CGGradient?
-        let rgbColorspace:CGColorSpace?
-        var locations:[CGFloat] = [0.0, 1.0]
+        let glossGradient: CGGradient?
+        let rgbColorspace: CGColorSpace?
+        var locations: [CGFloat] = [0.0, 1.0]
         
         if numOfLocations > 2 {
             let numParts: CGFloat = CGFloat(numOfLocations - 1)
@@ -118,21 +118,21 @@ extension UIColor {
     }
     
     func rgbtoGrayScale() -> UIColor {
-        var r:CGFloat = 0 , g:CGFloat = 0,b:CGFloat=0, a:CGFloat=0
-        _ = self.getRed(&r, green: &g, blue: &b, alpha:&a)
+        var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat=0, a: CGFloat=0
+        _ = self.getRed(&r, green: &g, blue: &b, alpha: &a)
         let x = (0.3 * r + 0.59 * g + 0.11 * b)
-        let newcolor = UIColor(red: x, green: x, blue:x , alpha: a)
+        let newcolor = UIColor(red: x, green: x, blue: x, alpha: a)
         return newcolor
     }
     
-    static func randomColorForIndex(index:Int) -> UIColor {
+    static func randomColorForIndex(index: Int) -> UIColor {
         let colors = [UIColor(red: 255.0/255.0, green: 159.0/255.0, blue: 0.0/255.0, alpha: 1),
                       UIColor(red: 83.0/255.0, green: 184.0/255.0, blue: 255.0/255.0, alpha: 1),
                       UIColor(red: 82.0/255.0, green: 152.0/255.0, blue: 63.0/255.0, alpha: 1),
                       UIColor(red: 255.0/255.0, green: 255.0/255.0, blue: 67.0/255.0, alpha: 1),
                       UIColor(red: 255.0/255.0, green: 201.0/255.0, blue: 0.0/255.0, alpha: 1),
                       UIColor(red: 208.0/255.0, green: 2.0/255.0, blue: 27.0/255.0, alpha: 1),
-                      UIColor(red: 2.0/255.0, green: 252.0/255.0, blue: 196.0/255.0, alpha: 1),
+                      UIColor(red: 2.0/255.0, green: 252.0/255.0, blue: 196.0/255.0, alpha: 1)
                       ]
         return colors[index % colors.count]
     }
@@ -169,7 +169,7 @@ extension UIColor {
         
         let rgb: Int = (Int)(r*255)<<16 | (Int)(g*255)<<8 | (Int)(b*255)<<0
         
-        return String(format:"#%06x", rgb)
+        return String(format: "#%06x", rgb)
     }
     
 }

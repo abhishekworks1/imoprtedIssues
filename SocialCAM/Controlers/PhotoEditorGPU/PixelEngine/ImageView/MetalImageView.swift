@@ -24,7 +24,7 @@ import Foundation
 #if canImport(MetalKit) && !targetEnvironment(simulator)
 import MetalKit
 
-open class MetalImageView : MTKView, HardwareImageViewType {
+open class MetalImageView: MTKView, HardwareImageViewType {
 
   public var image: CIImage? {
     didSet {

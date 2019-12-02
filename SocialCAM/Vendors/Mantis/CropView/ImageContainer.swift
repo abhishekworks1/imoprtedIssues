@@ -19,7 +19,7 @@ class ImageContainer: UIView {
         addSubview(imageView)
         
         return imageView
-    } ()
+    }()
 
     var image: UIImage? {
         didSet {

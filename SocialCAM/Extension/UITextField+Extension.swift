@@ -23,7 +23,7 @@ extension UITextView {
             }
             
             if word.hasPrefix("#") {
-                let matchRange:NSRange = nsText.range(of: word as String)
+                let matchRange: NSRange = nsText.range(of: word as String)
                 let stringifiedWord = word.dropFirst()
                 if let firstChar = stringifiedWord.unicodeScalars.first, NSCharacterSet.decimalDigits.contains(firstChar) {
                 } else {
@@ -58,12 +58,12 @@ extension UITextView {
     
     func makeOutLine(oulineColor: UIColor, foregroundColor: UIColor) {
         let strokeTextAttributes = [
-            NSAttributedString.Key.strokeColor as NSString : oulineColor,
-            NSAttributedString.Key.foregroundColor : foregroundColor,
-            NSAttributedString.Key.strokeWidth : -4.0,
-            NSAttributedString.Key.font : self.font as Any
-            ] as! [NSAttributedString.Key : Any]
-        self.attributedText = NSMutableAttributedString(string: self.text ?? "", attributes: strokeTextAttributes as [NSAttributedString.Key : Any])
+            NSAttributedString.Key.strokeColor as NSString: oulineColor,
+            NSAttributedString.Key.foregroundColor: foregroundColor,
+            NSAttributedString.Key.strokeWidth: -4.0,
+            NSAttributedString.Key.font: self.font as Any
+            ] as! [NSAttributedString.Key: Any]
+        self.attributedText = NSMutableAttributedString(string: self.text ?? "", attributes: strokeTextAttributes as [NSAttributedString.Key: Any])
     }
     
     func attributedStringSet(underline: Bool = false) {

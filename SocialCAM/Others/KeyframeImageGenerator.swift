@@ -30,7 +30,6 @@ open class KeyframeImage: NSObject {
     }
 }
 
-
 /// closure type of generate single image
 public typealias SingleImageClosure = (KeyframeImage?) -> Void
 /// closure type of generate sequence of image
@@ -112,7 +111,7 @@ open class KeyframeImageGenerator: NSObject {
         //completed count(success and failed)
         var completedCount = 0
         imageGenerator.generateCGImagesAsynchronously(forTimes: timeValues) {
-            (requestedTime, cgImage, actualTime, result, error) in
+            (requestedTime, cgImage, actualTime, result, _) in
             //increase completed count
             completedCount += 1
             

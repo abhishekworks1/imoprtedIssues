@@ -172,14 +172,14 @@ extension NextLevelBufferRenderer {
             break
         }
         
-        let poolAttributes: [String : AnyObject] = [String(kCVPixelBufferPoolMinimumBufferCountKey): NSNumber(integerLiteral: 1)]
-        let pixelBufferAttributes: [String : AnyObject] = [String(kCVPixelBufferPixelFormatTypeKey) : NSNumber(integerLiteral: Int(formatType)),
-                                                           String(kCVPixelBufferWidthKey) : NSNumber(value: renderWidth),
-                                                           String(kCVPixelBufferHeightKey) : NSNumber(value: renderHeight),
-                                                           String(kCVPixelBufferMetalCompatibilityKey) : NSNumber(booleanLiteral: true),
-                                                           String(kCVPixelBufferIOSurfacePropertiesKey) : [:] as AnyObject ]
+        let poolAttributes: [String: AnyObject] = [String(kCVPixelBufferPoolMinimumBufferCountKey): NSNumber(integerLiteral: 1)]
+        let pixelBufferAttributes: [String: AnyObject] = [String(kCVPixelBufferPixelFormatTypeKey): NSNumber(integerLiteral: Int(formatType)),
+                                                           String(kCVPixelBufferWidthKey): NSNumber(value: renderWidth),
+                                                           String(kCVPixelBufferHeightKey): NSNumber(value: renderHeight),
+                                                           String(kCVPixelBufferMetalCompatibilityKey): NSNumber(booleanLiteral: true),
+                                                           String(kCVPixelBufferIOSurfacePropertiesKey): [:] as AnyObject ]
         
-        var pixelBufferPool: CVPixelBufferPool? = nil
+        var pixelBufferPool: CVPixelBufferPool?
         if CVPixelBufferPoolCreate(kCFAllocatorDefault, poolAttributes as CFDictionary, pixelBufferAttributes as CFDictionary, &pixelBufferPool) == kCVReturnSuccess {
             self._bufferWidth = renderWidth
             self._bufferHeight = renderHeight
@@ -232,7 +232,7 @@ extension NextLevelBufferRenderer {
             let texture = self._texture {
             self._renderPassDescriptor.colorAttachments[0].texture = texture
             self._renderPassDescriptor.colorAttachments[0].loadAction = .clear
-            self._renderPassDescriptor.colorAttachments[0].clearColor = MTLClearColorMake(0, 0, 0, 1.0);
+            self._renderPassDescriptor.colorAttachments[0].clearColor = MTLClearColorMake(0, 0, 0, 1.0)
             self._renderPassDescriptor.colorAttachments[0].storeAction = .store
             
             let presentationAspectRatio = self._presentationFrame.size.width > self._presentationFrame.size.height ?

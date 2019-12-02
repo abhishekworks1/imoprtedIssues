@@ -24,7 +24,7 @@ class UpdatedStories: Mappable {
     func getStories(ownstories: [OwnStory]) -> [Story] {
         var stories: [Story] = []
         for story in ownstories {
-            stories.append(Story(id: story.id ?? "",url: story.url ?? "", duration: story.duration ?? "", type: story.type ?? "", created: story.created ?? ""))
+            stories.append(Story(id: story.id ?? "", url: story.url ?? "", duration: story.duration ?? "", type: story.type ?? "", created: story.created ?? ""))
         }
         return stories
     }
@@ -55,11 +55,11 @@ class Stories: Mappable {
     var user: StoryUser?
     var stories: [Story]?
     var isSeen: Bool?
-    var dateString : String?
-    var location : String?
+    var dateString: String?
+    var location: String?
     var paylist: Playlist?
     var addPlayListId: String?
-    var indexArrange : Int?
+    var indexArrange: Int?
     
     required init?(map: Map) {
         
@@ -68,14 +68,14 @@ class Stories: Mappable {
     init(user: StoryOwnUser?, stories: [OwnStory]) {
         self.id = user?.id
         _ = user?.profileType == ProfilePicType.videoType.rawValue ? user?.profileThumbnail : user?.profileImageURL
-        self.user = StoryUser(id: user?.id ?? "",channelId: user?.displayName ?? "", profileImageURL: (user?.profileImageURL ?? ""), profileType: user?.profileType ?? 0, profileThumbnail: user?.profileThumbnail ?? "")
+        self.user = StoryUser(id: user?.id ?? "", channelId: user?.displayName ?? "", profileImageURL: (user?.profileImageURL ?? ""), profileType: user?.profileType ?? 0, profileThumbnail: user?.profileThumbnail ?? "")
         self.stories = getStories(ownstories: stories)
     }
     
     func getStories(ownstories: [OwnStory]) -> [Story] {
         var stories: [Story] = []
         for story in ownstories {
-            stories.append(Story(id: story.id ?? "",url: story.url ?? "", duration: story.duration ?? "", type: story.type ?? "", created: story.created ?? ""))
+            stories.append(Story(id: story.id ?? "", url: story.url ?? "", duration: story.duration ?? "", type: story.type ?? "", created: story.created ?? ""))
         }
         return stories
     }
@@ -86,7 +86,7 @@ class Stories: Mappable {
         stories <- map["stories"]
         paylist <- map["paylist"]
         addPlayListId <- map["addPlayListId"]
-        var  date : Date?
+        var  date: Date?
         date <- (map["date"], CustomDateFormatTransform(formatString: "yyyy-MM-dd'T'HH:mm:ss.SSSz"))
         if let date = date {
             let df = DateFormatter()
@@ -101,13 +101,13 @@ class StoryUser: Mappable {
     var channelId: String?
     var profileImageURL: String?
     var profileType: Int?
-    var profileThumbnail : String?
+    var profileThumbnail: String?
     
     required init?(map: Map) {
         mapping(map: map)
     }
     
-    init(id: String,channelId: String, profileImageURL: String, profileType:Int, profileThumbnail:String) {
+    init(id: String, channelId: String, profileImageURL: String, profileType: Int, profileThumbnail: String) {
         self.id = id
         self.channelId = channelId
         self.profileImageURL = profileImageURL
@@ -154,7 +154,7 @@ class BaseStoryAnswerList: Mappable {
         option2Text <- map["option2Text"]
         option1Text <- map["option1Text"]
         question <- map["question"]
-        tagType <- (map["tagType"],EnumTransform<StoryTagType>())
+        tagType <- (map["tagType"], EnumTransform<StoryTagType>())
         answerList <- map["answerList"]
     }
 }
@@ -181,7 +181,7 @@ class StoryAnswerList: Mappable {
         tagId <- map["tagId"]
         story <- map["story"]
         created <- map["created"]
-        tagType <- (map["tagType"],EnumTransform<StoryTagType>())
+        tagType <- (map["tagType"], EnumTransform<StoryTagType>())
         user <- map["user"]
     }
     
@@ -219,7 +219,7 @@ class StoryAnswer: Mappable {
         story <- map["story"]
         id <- map["_id"]
         created <- map["created"]
-        tagType <- (map["tagType"],EnumTransform<StoryTagType>())
+        tagType <- (map["tagType"], EnumTransform<StoryTagType>())
         user <- map["user"]
         answer <- map["answer"]
         isAnswer <- map["isAnswer"]
@@ -240,7 +240,7 @@ class LikeStory: Mappable {
         
     }
     
-    init(id: String?,type: String,created: String,user: User?) {
+    init(id: String?, type: String, created: String, user: User?) {
         self.id = id
         self.type = type
         self.created = created
@@ -257,19 +257,19 @@ class LikeStory: Mappable {
 
 class Story: Mappable {
     var id: String?
-    var url : String?
-    var duration : String?
-    var type : String?
-    var created : String?
-    var user : StoryUser?
-    var thumb : String?
+    var url: String?
+    var duration: String?
+    var type: String?
+    var created: String?
+    var user: StoryUser?
+    var thumb: String?
     var isViewed: Bool?
     var isFavorite: Bool?
     var viewByUser: [StoryUser]?
     var storyTags: [StoryTags]?
     var publish: Int?
-    var updated : String?
-    var isShared : Bool?
+    var updated: String?
+    var isShared: Bool?
     var likes: [LikeStory]?
     var commentCount: Int?
     
@@ -277,7 +277,7 @@ class Story: Mappable {
         
     }
     
-    init(id: String?,url: String,duration: String,type: String,created: String) {
+    init(id: String?, url: String, duration: String, type: String, created: String) {
         self.id = id
         self.url = url
         self.duration = duration
@@ -486,7 +486,7 @@ class StoryTags: Mappable, CustomStringConvertible {
             longitude = Double(longitudeValue)
         }
         tagText <- map["tagText"]
-        tagType <- (map["tagType"],EnumTransform<StoryTagType>())
+        tagType <- (map["tagType"], EnumTransform<StoryTagType>())
         centerY <- map["centerY"]
         if centerY == nil,
             let centerYValue = map["centerY"].currentValue as? NSNumber {
@@ -547,10 +547,10 @@ class OwnStory: Mappable {
     var id: String?
     var user: StoryOwnUser?
     var stories: [Story]?
-    var url : String?
-    var duration : String?
-    var type : String?
-    var created : String?
+    var url: String?
+    var duration: String?
+    var type: String?
+    var created: String?
     
     required init?(map: Map) {
         
@@ -572,8 +572,8 @@ class StoryOwnUser: Mappable {
     var id: String?
     var displayName: String?
     var profileImageURL: String?
-    var profileType : Int = 1
-    var profileThumbnail:String?
+    var profileType: Int = 1
+    var profileThumbnail: String?
     
     required init?(map: Map) {
         

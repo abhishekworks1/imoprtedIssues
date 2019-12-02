@@ -122,7 +122,7 @@ extension UIView {
         }
     }
     
-    class func fromNib<T : UIView>() -> T {
+    class func fromNib<T: UIView>() -> T {
         return Bundle.main.loadNibNamed(String(describing: T.self), owner: nil, options: nil)![0] as! T
     }
     
@@ -143,7 +143,7 @@ extension UIView {
         mask.path = path.cgPath
         // layer.shadowPath = path.cgPath
         layer.shadowColor = ApplicationSettings.appBlackColor.cgColor
-        layer.shadowOffset = CGSize(width:0,height:1)
+        layer.shadowOffset = CGSize(width: 0, height: 1)
         layer.mask = mask
     }
     
@@ -171,7 +171,7 @@ extension UIView {
     }
     
     func removeBlurEffect() {
-        let blurredEffectViews = self.subviews.filter{ $0 is UIVisualEffectView }
+        let blurredEffectViews = self.subviews.filter { $0 is UIVisualEffectView }
         blurredEffectViews.forEach { blurView in
             blurView.removeFromSuperview()
         }
@@ -188,7 +188,7 @@ extension UIView {
     }
     
     func removeStoryGradientLayer() {
-        let gradientLayers = self.layer.sublayers?.filter{ $0 is StoryTagGradientLayer }
+        let gradientLayers = self.layer.sublayers?.filter { $0 is StoryTagGradientLayer }
         gradientLayers?.forEach { gradientLayer in
             gradientLayer.removeFromSuperlayer()
         }
@@ -273,27 +273,26 @@ extension UIView {
     
     /** This is the function to get subViews of a view of a particular type
      */
-    func subViews<T : UIView>(type : T.Type) -> [T]{
+    func subViews<T: UIView>(type: T.Type) -> [T] {
         var all = [T]()
         for view in self.subviews {
-            if let aView = view as? T{
+            if let aView = view as? T {
                 all.append(aView)
             }
         }
         return all
     }
     
-    
     /** This is a function to get subViews of a particular type from view recursively. It would look recursively in all subviews and return back the subviews of the type T */
-    func allSubViewsOf<T : UIView>(type : T.Type) -> [T]{
+    func allSubViewsOf<T: UIView>(type: T.Type) -> [T] {
         var all = [T]()
         func getSubview(view: UIView) {
-            if let aView = view as? T{
+            if let aView = view as? T {
                 all.append(aView)
             }
             DispatchQueue.main.async {
                 guard view.subviews.count>0 else { return }
-                view.subviews.forEach{ getSubview(view: $0) }
+                view.subviews.forEach { getSubview(view: $0) }
             }
         }
         getSubview(view: self)
@@ -341,9 +340,7 @@ extension UIView {
         format.scale = 0.0
         let renderer = UIGraphicsImageRenderer(bounds: self.bounds, format: format)
         return renderer.image { rendererContext in
-            DispatchQueue.main.async {
-                self.layer.render(in: rendererContext.cgContext)
-            }
+            self.layer.render(in: rendererContext.cgContext)
         }
     }
     
@@ -507,7 +504,6 @@ extension UIView {
         return aspectFillSize
     }
 }
-
 
 // NSLayoutConstraint UIView
 

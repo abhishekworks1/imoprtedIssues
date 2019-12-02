@@ -14,8 +14,8 @@ public class SegmentVideo: NSObject, NSCopying {
     
     var id: String?
     var url: URL?
-    var fileName: String? = nil
-    var image: UIImage? = nil
+    var fileName: String?
+    var image: UIImage?
     var lat: String?
     var long: String?
     var address: String?
@@ -70,8 +70,8 @@ public class SegmentVideos: NSObject, NSCopying {
     var state = ExportRecordState.new
     var id: String?
     var url: URL?
-    var fileName: String? = nil
-    var image: UIImage? = nil
+    var fileName: String?
+    var image: UIImage?
     var lat: String?
     var long: String?
     var address: String?
@@ -90,7 +90,7 @@ public class SegmentVideos: NSObject, NSCopying {
         super.init()
     }
     
-    init(urlStr: URL, thumbimage: UIImage? = nil, latitued: String? = "", longitued: String? = "", placeAddress: String?  = "", numberOfSegement: String?  = "", videoduration: String?  = "0.0", combineOneVideo: Bool? = false){
+    init(urlStr: URL, thumbimage: UIImage? = nil, latitued: String? = "", longitued: String? = "", placeAddress: String?  = "", numberOfSegement: String?  = "", videoduration: String?  = "0.0", combineOneVideo: Bool? = false) {
         super.init()
         url = urlStr
         id = UUID().uuidString
@@ -106,7 +106,7 @@ public class SegmentVideos: NSObject, NSCopying {
         currentAsset = SegmentVideos.getRecordSession(videoModel: videos)
     }
     
-    init(urlStr: URL, thumbimage: UIImage? = nil, latitued: String? = "", longitued: String? = "", placeAddress: String?  = "", numberOfSegement: String?  = "", videoduration: String?  = "0.0", allVideos : [SegmentVideo]) {
+    init(urlStr: URL, thumbimage: UIImage? = nil, latitued: String? = "", longitued: String? = "", placeAddress: String?  = "", numberOfSegement: String?  = "", videoduration: String?  = "0.0", allVideos: [SegmentVideo]) {
         super.init()
         url = urlStr
         id = UUID().uuidString
@@ -128,10 +128,9 @@ public class SegmentVideos: NSObject, NSCopying {
         }
         return recodeSession.assetRepresentingSegments()
     }
-   
     
     public func copy(with zone: NSZone? = nil) -> Any {
-        let copy = SegmentVideos.init(urlStr: url!, thumbimage: image, latitued: lat, longitued: long, placeAddress: address, numberOfSegement: numberOfSegementtext, videoduration: videoDuration, allVideos : videos)
+        let copy = SegmentVideos.init(urlStr: url!, thumbimage: image, latitued: lat, longitued: long, placeAddress: address, numberOfSegement: numberOfSegementtext, videoduration: videoDuration, allVideos: videos)
         return copy
     }
 }

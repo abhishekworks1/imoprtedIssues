@@ -31,13 +31,13 @@ class CollageMakerVC: UIViewController, UIGestureRecognizerDelegate {
     var selectedPhotoCount: Int = 0
     var borderWidth: Int = 0
     var movingImageView: UIImageView?
-    var collageView : CollageView!
+    var collageView: CollageView!
     var movingCell: CollageCell?
     var identity = CGAffineTransform.identity
     var selectedIndex = IndexPath.init(row: 0, section: 0)
     
-    fileprivate var collageItems : [CollageViewType] = [.t101,.t201,.t202,.t203,.t204,.t205,.t206,.t207,.t208,.t209,.t301,.t302,.t303,.t304,.t305,.t306,.t307,.t308,.t309,.t310,.t311,.t312,.t313,.t401,.t402,.t403,.t404,.t405,.t406,.t407,.t408,.t501,.t502,.t503,.t504,.t505,.t506,.t601,.t602,.t801,.t802]
-    fileprivate var collageImagesItems : [UIImage] = [R.image.t101() ?? UIImage(),
+    fileprivate var collageItems: [CollageViewType] = [.t101, .t201, .t202, .t203, .t204, .t205, .t206, .t207, .t208, .t209, .t301, .t302, .t303, .t304, .t305, .t306, .t307, .t308, .t309, .t310, .t311, .t312, .t313, .t401, .t402, .t403, .t404, .t405, .t406, .t407, .t408, .t501, .t502, .t503, .t504, .t505, .t506, .t601, .t602, .t801, .t802]
+    fileprivate var collageImagesItems: [UIImage] = [R.image.t101() ?? UIImage(),
                                                       R.image.t201() ?? UIImage(),
                                                       R.image.t202() ?? UIImage(),
                                                       R.image.t203() ?? UIImage(),
@@ -84,9 +84,9 @@ class CollageMakerVC: UIViewController, UIGestureRecognizerDelegate {
     fileprivate var selectedItemSet = Set<SegmentVideos>()
     fileprivate var selectedImageArray = [UIImage]()
     
-    var collageType : CollageViewType = .t301
-    var currentModeType : CurrentMode = .frames
-    var collageRatio : CGFloat = 1.0
+    var collageType: CollageViewType = .t301
+    var currentModeType: CurrentMode = .frames
+    var collageRatio: CGFloat = 1.0
     
     deinit {
         print("CollageMakerVC deinit")
@@ -291,8 +291,7 @@ class CollageMakerVC: UIViewController, UIGestureRecognizerDelegate {
                     
                     collageView.addSubview(cell01)
                     movingImageView?.removeFromSuperview()
-                }
-                else {
+                } else {
                     for i in collageView.subviews.reversed() {
                         if let cell = i as? CollageCell {
                             print(cell.id)
@@ -339,7 +338,6 @@ extension CollageMakerVC: UICollectionViewDataSource {
             } else {
                 cell.frameImageView.image = collageImagesItems[indexPath.row]
             }
-            
             
             return cell
         } else if currentModeType == .photos && collectionView == self.imageCollectionView {
@@ -455,7 +453,6 @@ extension CollageMakerVC: UICollectionViewDelegate {
         print("final Rect: \(view.frame)")
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if currentModeType == .frames {
             selectedIndex = indexPath
@@ -492,8 +489,7 @@ extension CollageMakerVC: CollageViewDelegate {
         
     }
     
-    
-    @objc func detectTap(_ gesture : UITapGestureRecognizer) {
+    @objc func detectTap(_ gesture: UITapGestureRecognizer) {
         let locationPointInView: CGPoint? = gesture.location(in: collageView)
         if let view = gesture.view as? CollageCell {
             for allView in collageView.subviews {
@@ -511,7 +507,7 @@ extension CollageMakerVC: CollageViewDelegate {
         }
     }
     
-    @objc func detectDoubleTap(_ gesture : UITapGestureRecognizer) {
+    @objc func detectDoubleTap(_ gesture: UITapGestureRecognizer) {
         if let view = gesture.view as? CollageCell {
             view.removeFromSuperview()
         }
@@ -522,7 +518,7 @@ extension CollageMakerVC: CollageViewDelegate {
             switch gesture.state {
             case .began:
                 identity = view.transform
-            case .changed,.ended:
+            case .changed, .ended:
                 view.transform = identity.scaledBy(x: gesture.scale, y: gesture.scale)
                 view.layoutSubviews()
                 view.photoView.layoutSubviews()

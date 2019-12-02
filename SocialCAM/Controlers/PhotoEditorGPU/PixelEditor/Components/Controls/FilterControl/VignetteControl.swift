@@ -21,16 +21,14 @@
 
 import Foundation
 
-
-
-open class VignetteControlBase : FilterControlBase {
+open class VignetteControlBase: FilterControlBase {
   
   public required init(context: PixelEditContext) {
     super.init(context: context)
   }
 }
 
-open class VignetteControl : VignetteControlBase {
+open class VignetteControl: VignetteControlBase {
   
   open override var title: String {
     return L10n.editVignette

@@ -20,17 +20,14 @@
 // THE SOFTWARE.
 import Foundation
 
-
-
-
-open class HighlightsControlBase : FilterControlBase {
+open class HighlightsControlBase: FilterControlBase {
   
   public required init(context: PixelEditContext) {
     super.init(context: context)
   }
 }
 
-open class HighlightsControl : HighlightsControlBase {
+open class HighlightsControl: HighlightsControlBase {
   
   open override var title: String {
     return L10n.editHighlights

@@ -10,21 +10,21 @@ import Foundation
 import UIKit
 
 class MyUndoManager<U> {
-    var pointer = -1;
+    var pointer = -1
     var stack: [[String: () -> U]] = []
     init() {
     }
     
     func add(undo: @escaping () -> U, redo: @escaping () -> U) {
-        let dropNum:Int = stack.count - pointer - 1
+        let dropNum: Int = stack.count - pointer - 1
         stack = Array(stack.dropLast(dropNum))
         stack.append(["undo": undo, "redo": redo])
-        pointer = self.stack.count - 1;
+        pointer = self.stack.count - 1
     }
     
     func removeAll() {
         stack.removeAll()
-        pointer = -1;
+        pointer = -1
     }
     
     func redo() -> U? {

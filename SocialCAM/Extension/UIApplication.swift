@@ -43,7 +43,7 @@ extension UIApplication {
     }
     
     @discardableResult
-    class func checkInternetConnection()->Bool {
+    class func checkInternetConnection() -> Bool {
         if !self.connectedToNetwork() {
             return false
         }

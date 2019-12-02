@@ -27,11 +27,10 @@ class SCAlbum: NSObject {
     
     private func checkAuthorizationWithHandler(completion: @escaping ((_ success: Bool) -> Void)) {
         if PHPhotoLibrary.authorizationStatus() == .notDetermined {
-            PHPhotoLibrary.requestAuthorization({ (status) in
+            PHPhotoLibrary.requestAuthorization({ (_) in
                 self.checkAuthorizationWithHandler(completion: completion)
             })
-        }
-        else if PHPhotoLibrary.authorizationStatus() == .authorized {
+        } else if PHPhotoLibrary.authorizationStatus() == .authorized {
             self.createAlbumIfNeeded { (success) in
                 if success {
                     completion(true)
@@ -41,8 +40,7 @@ class SCAlbum: NSObject {
                 
             }
             
-        }
-        else {
+        } else {
             completion(false)
         }
     }
@@ -55,7 +53,7 @@ class SCAlbum: NSObject {
         } else {
             PHPhotoLibrary.shared().performChanges({
                 PHAssetCollectionChangeRequest.creationRequestForAssetCollection(withTitle: self.albumName)   // create an asset collection with the album name
-            }) { success, error in
+            }) { success, _ in
                 if success {
                     self.assetCollection = self.fetchAssetCollectionForAlbum()
                     completion(true)
@@ -115,7 +113,7 @@ class SCAlbum: NSObject {
     
     func saveMovieToLibrary(movieURL: URL) {
         
-        self.checkAuthorizationWithHandler(completion: { (success) in
+        self.checkAuthorizationWithHandler(completion: { (_) in
             do {
                 let placeholder = try self.saveVideo(at: movieURL)
                 
@@ -123,11 +121,9 @@ class SCAlbum: NSObject {
                     let request = PHAssetCollectionChangeRequest(for: self.assetCollection)
                     request?.addAssets([placeholder] as NSArray)
                 }
-            }
-            catch {
+            } catch {
                 
             }
         })
     }
 }
-

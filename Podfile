@@ -52,4 +52,5 @@ target 'SocialCAM' do
   pod 'TagListView', '1.3.2'
   pod 'TwitterKit'
   pod 'TikTokOpenSDK', '~> 2.0.0'
+  pod 'SwiftLint'
 end

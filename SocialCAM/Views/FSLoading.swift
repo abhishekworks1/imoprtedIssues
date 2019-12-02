@@ -8,9 +8,9 @@ import UIKit
 
 class FSLoading: UIView {
     
-    public var color:UIColor = UIColor.red
-    public var lineWidth:CGFloat = 3
-    public var duration:Double = 1
+    public var color: UIColor = UIColor.red
+    public var lineWidth: CGFloat = 3
+    public var duration: Double = 1
     
     lazy var bView: UIView = {
         let bView = UIView(frame: CGRect(x: 0, y: 0, width: frame.width, height: frame.height))
@@ -20,7 +20,6 @@ class FSLoading: UIView {
         return bView
     }()
     
-    
     lazy var sView: UIView = {
         let sView = UIView(frame: CGRect(x: 10, y: 10, width: frame.width - 20, height: frame.height - 20))
         sView.backgroundColor = ApplicationSettings.appClearColor
@@ -28,7 +27,6 @@ class FSLoading: UIView {
         setLayer(view: sView)
         return sView
     }()
-    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -41,17 +39,17 @@ class FSLoading: UIView {
         setup(color: ApplicationSettings.appWhiteColor)
     }
     
-    func setup(color:UIColor) {
+    func setup(color: UIColor) {
         self.color = color
         addSubview(bView)
         addSubview(sView)
     }
     
-    func setAnimation(view:UIView,isReturn:Bool) {
+    func setAnimation(view: UIView, isReturn: Bool) {
         let rotation: CABasicAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
         if isReturn {
             rotation.toValue = -Double.pi * 2
-        }else{
+        } else {
             rotation.toValue = Double.pi * 2
         }
         rotation.duration = duration
@@ -60,7 +58,7 @@ class FSLoading: UIView {
         view.layer.add(rotation, forKey: "rotationAnimation")
     }
     
-    func setLayer(view:UIView) {
+    func setLayer(view: UIView) {
         
         let layerView = CAShapeLayer()
         
@@ -79,7 +77,7 @@ class FSLoading: UIView {
             let x = Double(center.x) + radius * cos(radians)
             let y = Double(center.y) + radius * sin(radians)
             
-            path.addLine(to: CGPoint(x: x , y: y))
+            path.addLine(to: CGPoint(x: x, y: y))
         }
         
         layerView.path = path.cgPath

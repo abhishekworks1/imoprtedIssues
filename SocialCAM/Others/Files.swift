@@ -59,7 +59,7 @@ public class FileSystem {
                     switch rhs {
                     case .empty:
                         return true
-                    case .invalid(_):
+                    case .invalid:
                         return false
                     }
                 case .invalid(let pathA):
@@ -101,42 +101,42 @@ public class FileSystem {
                     switch rhs {
                     case .renameFailed(let itemB):
                         return itemA == itemB
-                    case .moveFailed(_):
+                    case .moveFailed:
                         return false
-                    case .copyFailed(_):
+                    case .copyFailed:
                         return false
-                    case .deleteFailed(_):
+                    case .deleteFailed:
                         return false
                     }
                 case .moveFailed(let itemA):
                     switch rhs {
-                    case .renameFailed(_):
+                    case .renameFailed:
                         return false
                     case .moveFailed(let itemB):
                         return itemA == itemB
-                    case .copyFailed(_):
+                    case .copyFailed:
                         return false
-                    case .deleteFailed(_):
+                    case .deleteFailed:
                         return false
                     }
                 case .copyFailed(let itemA):
                     switch rhs {
-                    case .renameFailed(_):
+                    case .renameFailed:
                         return false
-                    case .moveFailed(_):
+                    case .moveFailed:
                         return false
                     case .copyFailed(let itemB):
                         return itemA == itemB
-                    case .deleteFailed(_):
+                    case .deleteFailed:
                         return false
                     }
                 case .deleteFailed(let itemA):
                     switch rhs {
-                    case .renameFailed(_):
+                    case .renameFailed:
                         return false
-                    case .moveFailed(_):
+                    case .moveFailed:
                         return false
-                    case .copyFailed(_):
+                    case .copyFailed:
                         return false
                     case .deleteFailed(let itemB):
                         return itemA == itemB
@@ -981,7 +981,7 @@ public class FileSystemIterator<T: FileSystem.Item>: IteratorProtocol where T: F
         let nextItemPath = folder.path + nextItemName
         let nextItem = try? T(path: nextItemPath, using: fileManager)
 
-        if recursive, let folder = (nextItem as? Folder) ?? (try? Folder(path: nextItemPath))  {
+        if recursive, let folder = (nextItem as? Folder) ?? (try? Folder(path: nextItemPath)) {
             let child = FileSystemIterator(folder: folder, recursive: true, includeHidden: includeHidden, using: fileManager)
             childIteratorQueue.append(child)
         }

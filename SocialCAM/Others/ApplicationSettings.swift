@@ -51,7 +51,7 @@ class ApplicationSettings {
     
     static func openAppSettingsUrl() {
         let settingsUrl = URL(string: UIApplication.openSettingsURLString)
-        if let url = settingsUrl , UIApplication.shared.canOpenURL(url) {
+        if let url = settingsUrl, UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }

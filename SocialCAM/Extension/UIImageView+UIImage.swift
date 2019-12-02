@@ -28,8 +28,7 @@ extension UIImage {
     }
 }
 
-extension UIImage
-{
+extension UIImage {
     func withImageTintColor(_ color: UIColor) -> UIImage? {
         let maskImage = cgImage!
         
@@ -215,13 +214,11 @@ public extension UIImage {
                     imgRatio = maxHeight / actualHeight
                     actualWidth = imgRatio * actualWidth
                     actualHeight = maxHeight
-                }
-                else if imgRatio > maxRatio {
+                } else if imgRatio > maxRatio {
                     imgRatio = maxWidth / actualWidth
                     actualHeight = imgRatio * actualHeight
                     actualWidth = maxWidth
-                }
-                else {
+                } else {
                     actualHeight = maxHeight
                     actualWidth = maxWidth
                     compressionQuality = 1
@@ -284,7 +281,7 @@ public extension UIImage {
     
     func buffer() -> CVPixelBuffer? {
         let attrs = [kCVPixelBufferCGImageCompatibilityKey: kCFBooleanTrue, kCVPixelBufferCGBitmapContextCompatibilityKey: kCFBooleanTrue] as CFDictionary
-        var pixelBuffer : CVPixelBuffer?
+        var pixelBuffer: CVPixelBuffer?
         let status = CVPixelBufferCreate(kCFAllocatorDefault, Int(size.width), Int(size.height), kCVPixelFormatType_32ARGB, attrs, &pixelBuffer)
         guard (status == kCVReturnSuccess) else {
             return nil
@@ -308,12 +305,11 @@ public extension UIImage {
     func resizeImage(newWidth: CGFloat) -> UIImage {
         let scale = newWidth / self.size.width
         let newHeight = self.size.height * scale
-        UIGraphicsBeginImageContext(CGSize(width:newWidth, height:newHeight))
-        self.draw(in: CGRect(x:0, y:0, width:newWidth,height: newHeight))
+        UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
+        self.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        if newImage == nil
-        {
+        if newImage == nil {
             return UIImage()
         }
         return newImage!

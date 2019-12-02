@@ -38,7 +38,7 @@ public struct FilterSaturation: Filtering, Equatable, Codable {
         .applyingFilter(
           "CIColorControls",
           parameters: [
-            kCIInputSaturationKey: 1 + value,
+            kCIInputSaturationKey: 1 + value
             ]
     )
   }

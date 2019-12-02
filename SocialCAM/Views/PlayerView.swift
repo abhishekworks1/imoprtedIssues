@@ -9,7 +9,7 @@
 import UIKit
 import AVKit
 
-protocol PlayerBufferDelegate : class {
+protocol PlayerBufferDelegate: class {
     func playbackBufferEmpty()
     func playbackLikelyToKeepUp()
 }
@@ -37,15 +37,15 @@ open class PlayerView: UIView {
     fileprivate var cahce = MMPlayerCache()
     public var cacheType: MMPlayerCacheType = .none
     fileprivate var timeObserver: Any?
-    var muteHandler: ((_ isMute : Bool) -> Void)?
+    var muteHandler: ((_ isMute: Bool) -> Void)?
     var statusHandler : ((_ status: MMPlayerPlayStatus) -> Void)?
-    var isAutoPlay : Bool = true
-    var indicatorHandler : ((_ start : Bool) -> Void)?
-    weak var bufferDelegate : PlayerBufferDelegate?
+    var isAutoPlay: Bool = true
+    var indicatorHandler : ((_ start: Bool) -> Void)?
+    weak var bufferDelegate: PlayerBufferDelegate?
     fileprivate let assetKeysRequiredToPlay = [
         "duration",
         "playable",
-        "hasProtectedContent",
+        "hasProtectedContent"
         ]
     
     public var playUrl: URL? {
@@ -70,7 +70,7 @@ open class PlayerView: UIView {
                 let item = AVPlayerItem(asset: self.asset!)
                 self.player?.replaceCurrentItem(with: item)
                 self.addObserverForEnd()
-            } else if let cacheItem = self.cahce.getItem(key: url) , cacheItem.status == .readyToPlay {
+            } else if let cacheItem = self.cahce.getItem(key: url), cacheItem.status == .readyToPlay {
                 self.asset = (cacheItem.asset as? AVURLAsset)
                 self.asset?.resourceLoader.setDelegate(self, queue: DispatchQueue.main)
                 self.player?.replaceCurrentItem(with: cacheItem)
@@ -83,7 +83,7 @@ open class PlayerView: UIView {
                         if let a = self?.asset, let keys = self?.assetKeysRequiredToPlay {
                             for key in keys {
                                 var error: NSError?
-                                let _ =  a.statusOfValue(forKey: key, error: &error)
+                                _ =  a.statusOfValue(forKey: key, error: &error)
                                 if error != nil {
                                     return
                                 }
@@ -127,7 +127,6 @@ open class PlayerView: UIView {
             }
         })
     }
-    
     
     func saveTempVideoForCatch() {
         
@@ -204,7 +203,7 @@ open class PlayerView: UIView {
         }
     }
 
-    var updateProgressHandler : ((_ time:CMTime) -> Void)?
+    var updateProgressHandler : ((_ time: CMTime) -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -256,7 +255,7 @@ open class PlayerView: UIView {
             })
         }
         
-        NotificationCenter.default.addObserver(forName: UIApplication.willResignActiveNotification, object: nil, queue: nil, using: { [weak self] (nitification) in
+        NotificationCenter.default.addObserver(forName: UIApplication.willResignActiveNotification, object: nil, queue: nil, using: { [weak self] (_) in
             switch self?.currentPlayStatus ?? .unknown {
             case .pause:
                 break
@@ -266,22 +265,22 @@ open class PlayerView: UIView {
             self?.player?.pause()
         })
         
-        NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil, using: { (notification) in
+        NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil, using: { (_) in
           
         })
         
         self.player?.safeAdd(observer: self, forKeyPath: "Muted", options: [.new, .old], context: nil)
         self.player?.safeAdd(observer: self, forKeyPath: "rate", options: [.new, .old], context: nil)
-        self.player?.safeAdd(observer: self, forKeyPath: "currentItem", options: [.new , .old], context: nil)
+        self.player?.safeAdd(observer: self, forKeyPath: "currentItem", options: [.new, .old], context: nil)
     }
     
-    override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
         
         if let k = keyPath {
             switch k {
             case "Muted":
             if let old = change?[.oldKey] as? Bool,
-                let new = change?[.newKey] as? Bool , old != new {
+                let new = change?[.newKey] as? Bool, old != new {
                 if let muteHandler = self.muteHandler {
                     muteHandler(new)
                 }
@@ -295,7 +294,7 @@ open class PlayerView: UIView {
                 case .end:
                     let total = self.player?.currentItem?.duration.seconds ?? 0.0
                     let current = self.player?.currentItem?.currentTime().seconds ?? 0.0
-                    if let new = change?[.newKey] as? CGFloat , current < total {
+                    if let new = change?[.newKey] as? CGFloat, current < total {
                         self.currentPlayStatus = (new == 0.0) ? .pause : .playing
                     }
                 default:
@@ -334,13 +333,13 @@ open class PlayerView: UIView {
             case "status":
                 let s = self.convertItemStatus()
                 switch s {
-                case .failed(_) , .unknown:
+                case .failed, .unknown:
                     self.currentPlayStatus = s
                 case .ready:
                     switch self.currentPlayStatus {
                     case .ready:
                         self.currentPlayStatus = s
-                    case .failed(_) ,.unknown:
+                    case .failed, .unknown:
                         self.currentPlayStatus = s
                     default:
                         break

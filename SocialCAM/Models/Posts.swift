@@ -9,37 +9,37 @@ import Foundation
 import ObjectMapper
 
 class Posts: Mappable, Likeable {
-    var v : Int?
-    var id : String?
+    var v: Int?
+    var id: String?
     var myLike: ReactionType?
     var likes: [PostLikes]?
-    var IschekedIn : Bool?
-    var checkedIn : CheckedIn?
-    var commentCounts : Int?
-    var created : String?
-    var hasTags : [String]?
-    var isDeleted : Bool?
-    var isLiked : Bool?
-    var isShared : Bool?
-    var likeCounts : Int?
+    var IschekedIn: Bool?
+    var checkedIn: CheckedIn?
+    var commentCounts: Int?
+    var created: String?
+    var hasTags: [String]?
+    var isDeleted: Bool?
+    var isLiked: Bool?
+    var isShared: Bool?
+    var likeCounts: Int?
     var sharedCount: Int?
-    var media : [Media]?
-    var privacy : String?
-    var privacyUsersExcept : [String] = []
-    var privacyUsersOnly : [String] = []
-    var text : String?
-    var type : PostTypes?
-    var updated : String?
+    var media: [Media]?
+    var privacy: String?
+    var privacyUsersExcept: [String] = []
+    var privacyUsersOnly: [String] = []
+    var text: String?
+    var type: PostTypes?
+    var updated: String?
     var linkPreviewData: LinkPreviewData?
-    var wallTheme : WallTheme?
-    var sharedPost : Posts?
-    var youTubeData :  YouTubeData?
-    var albumId : String?
-    var isPostFavorite :Bool?
-    var bookmark : Bookmark?
+    var wallTheme: WallTheme?
+    var sharedPost: Posts?
+    var youTubeData: YouTubeData?
+    var albumId: String?
+    var isPostFavorite: Bool?
+    var bookmark: Bookmark?
     var paylist: Playlist?
     var addPlayListId: String?
-    var feelingType : String?
+    var feelingType: String?
     
     required init?(map: Map) {
         
@@ -78,7 +78,7 @@ class Posts: Mappable, Likeable {
         isPostFavorite <- map["isPostFavorite"]
         paylist <- map["paylist"]
         addPlayListId <- map["addPlayListId"]
-        if let youtubeData = self.youTubeData  , let videoUrl = youtubeData.videoUrl , videoUrl.count > 0 && type == .text {
+        if let youtubeData = self.youTubeData, let videoUrl = youtubeData.videoUrl, videoUrl.count > 0 && type == .text {
             type  = .youtube
         } else if type == .text &&  IschekedIn == true {
             type = .location
@@ -87,11 +87,11 @@ class Posts: Mappable, Likeable {
 }
 
 class YouTubeData: Mappable {
-    var previewThumb:String?
+    var previewThumb: String?
     var title: String?
-    var videoId :String?
-    var videoUrl : String?
-    var channelId : String?
+    var videoId: String?
+    var videoUrl: String?
+    var channelId: String?
     
     required init?(map: Map) {
         
@@ -129,9 +129,9 @@ class Bookmark: Mappable {
 }
 
 class LinkPreviewData: Mappable {
-    var previewThumb:String?
+    var previewThumb: String?
     var title: String?
-    var previewUri :String?
+    var previewUri: String?
     var previewDescription: String?
     
     required init?(map: Map) {
@@ -147,9 +147,9 @@ class LinkPreviewData: Mappable {
     
 }
 
-class  WallTheme:Mappable {
-    var text:String?
-    var stringType : String?
+class  WallTheme: Mappable {
+    var text: String?
+    var stringType: String?
     var type: Int?
     
     required init?(map: Map) {
@@ -159,19 +159,19 @@ class  WallTheme:Mappable {
     func mapping(map: Map) {
         text <- map["text"]
         // stringType <- map["type"]
-        type <- (map["type"] , TransformOf<Int, String>(fromJSON: { Int($0!) }, toJSON: { $0.map { String($0) } }))
+        type <- (map["type"], TransformOf<Int, String>(fromJSON: { Int($0!) }, toJSON: { $0.map { String($0) } }))
     }
     
 }
 
-class Media : Mappable {
-    var id:String?
+class Media: Mappable {
+    var id: String?
     var mediaType: String?
-    var thumbNail :String?
-    var url : String?
+    var thumbNail: String?
+    var url: String?
     var duration: String?
-    var thumb : [ThumbType:Thumb]?
-    required init?(map: Map){}
+    var thumb: [ThumbType: Thumb]?
+    required init?(map: Map) {}
     
     func mapping(map: Map) {
         id <- map["_id"]
@@ -179,15 +179,15 @@ class Media : Mappable {
         thumbNail <- map["thumbNail"]
         url <- map["url"]
         duration <- map["duration"]
-        thumb <- (map["thumbs"] , DictionaryTransform<ThumbType,Thumb>())
+        thumb <- (map["thumbs"], DictionaryTransform<ThumbType, Thumb>())
     }
     
 }
 
-class Thumb : Mappable {
-    var width : Double?
-    var height : Double?
-    var url : String?
+class Thumb: Mappable {
+    var width: Double?
+    var height: Double?
+    var url: String?
     
     required init?(map: Map) {
         
@@ -242,21 +242,21 @@ class StoryComment: Mappable {
 }
 
 class PostComment: Mappable {
-    var v : Int?
-    var id : String?
-    var created : String?
-    var isDeleted : Bool?
-    var isLiked : Bool?
-    var likeCounts : Int?
-    var likes : [PostLikes]?
-    var myLike : ReactionType?
-    var picture : String?
-    var post : String?
-    var replyCounts : Int?
-    var text : String?
-    var type : String?
-    var updated : String?
-    var user : PostUser?
+    var v: Int?
+    var id: String?
+    var created: String?
+    var isDeleted: Bool?
+    var isLiked: Bool?
+    var likeCounts: Int?
+    var likes: [PostLikes]?
+    var myLike: ReactionType?
+    var picture: String?
+    var post: String?
+    var replyCounts: Int?
+    var text: String?
+    var type: String?
+    var updated: String?
+    var user: PostUser?
     var replies: [CommentReply] = []
     
     required init?(map: Map) {
@@ -285,22 +285,22 @@ class PostComment: Mappable {
 }
 
 class CommentReply: Mappable {
-    var v : Int?
-    var id : String?
-    var comment : String?
-    var created : String?
-    var isDeleted : Bool?
-    var isLiked : Bool?
-    var likeCounts : Int?
-    var likes : [PostLikes]?
-    var myLike : ReactionType?
-    var picture : String?
-    var post : String?
-    var text : String?
-    var type : String?
-    var updated : String?
-    var user : PostUser?
-    var video : String?
+    var v: Int?
+    var id: String?
+    var comment: String?
+    var created: String?
+    var isDeleted: Bool?
+    var isLiked: Bool?
+    var likeCounts: Int?
+    var likes: [PostLikes]?
+    var myLike: ReactionType?
+    var picture: String?
+    var post: String?
+    var text: String?
+    var type: String?
+    var updated: String?
+    var user: PostUser?
+    var video: String?
     
     required init?(map: Map) {
         
@@ -327,10 +327,10 @@ class CommentReply: Mappable {
 }
 
 class CheckedIn: Mappable {
-    var latitude : String?
-    var locationUrl : String?
-    var longitude : String?
-    var placeString : String?
+    var latitude: String?
+    var locationUrl: String?
+    var longitude: String?
+    var placeString: String?
    
     required init?(map: Map) {
         

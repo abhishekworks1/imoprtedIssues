@@ -13,7 +13,7 @@ class CurrentUser {
     
     static let shared = CurrentUser()
     
-    var referrerChannelURL: String? = nil
+    var referrerChannelURL: String?
     
     func setReferrerChannelURL(_ referrerURL: String?) {
         referrerChannelURL = referrerURL
@@ -30,7 +30,7 @@ class CurrentUser {
         }
     }
     
-    func createNewReferrerChannelURL(_ isNewCreate: Bool = false,_ newChannelId: String? = nil, complation: @escaping (Bool, String)-> (Void)) {
+    func createNewReferrerChannelURL(_ isNewCreate: Bool = false, _ newChannelId: String? = nil, complation: @escaping (Bool, String) -> Void) {
         if let url = referrerChannelURL, !isNewCreate {
             complation(false, url)
             return

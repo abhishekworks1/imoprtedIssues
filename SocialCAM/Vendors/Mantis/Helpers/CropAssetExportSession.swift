@@ -31,7 +31,7 @@ class CropAssetExportSession {
         self.config = config
     }
     
-    public func export(for asset: AVAsset, progress: ((Float) -> ())? = nil, completion: @escaping (URL?) -> Void) {
+    public func export(for asset: AVAsset, progress: ((Float) -> Void)? = nil, completion: @escaping (URL?) -> Void) {
         cancelled = false
         var audioFinished = false
         var videoFinished = false
@@ -42,7 +42,7 @@ class CropAssetExportSession {
             print("AVAssetReader initialization failed with error : \(error)")
         }
         
-        guard let reader = reader else{
+        guard let reader = reader else {
             return
         }
         
@@ -52,7 +52,7 @@ class CropAssetExportSession {
         }
         preferredTransform = videoTrack.preferredTransform
         
-        let videoReaderSettings: [String : Any] = [kCVPixelBufferPixelFormatTypeKey as String : kCVPixelFormatType_32ARGB ]
+        let videoReaderSettings: [String: Any] = [kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32ARGB ]
         let assetReaderVideoOutput = AVAssetReaderTrackOutput(track: videoTrack, outputSettings: videoReaderSettings)
         if reader.canAdd(assetReaderVideoOutput) {
             reader.add(assetReaderVideoOutput)
@@ -78,12 +78,12 @@ class CropAssetExportSession {
             return
         }
         
-        let videoSettings: [String:Any] = [
-            AVVideoCompressionPropertiesKey : [AVVideoAverageBitRateKey : NSNumber.init(value: videoTrack.estimatedDataRate)],
-            AVVideoCodecKey : AVVideoCodecType.h264,
-            AVVideoHeightKey : floor(config.expectedSize.height),
-            AVVideoWidthKey : floor(config.expectedSize.width / 16) * 16,
-            AVVideoScalingModeKey : AVVideoScalingModeResizeAspect
+        let videoSettings: [String: Any] = [
+            AVVideoCompressionPropertiesKey: [AVVideoAverageBitRateKey: NSNumber.init(value: videoTrack.estimatedDataRate)],
+            AVVideoCodecKey: AVVideoCodecType.h264,
+            AVVideoHeightKey: floor(config.expectedSize.height),
+            AVVideoWidthKey: floor(config.expectedSize.width / 16) * 16,
+            AVVideoScalingModeKey: AVVideoScalingModeResizeAspect
         ]
         let videoInput = AVAssetWriterInput(mediaType: .video, outputSettings: videoSettings)
         if writer.canAdd(videoInput) {
@@ -106,8 +106,7 @@ class CropAssetExportSession {
         let videoInputQueue = DispatchQueue(label: "videoQueue")
         let audioInputQueue = DispatchQueue(label: "audioQueue")
         
-        
-        let closeWriter: (() -> ()) = {
+        let closeWriter: (() -> Void) = {
             if audioFinished && videoFinished && !self.cancelled {
                 writer.finishWriting {
                     completion(self.writer?.outputURL)

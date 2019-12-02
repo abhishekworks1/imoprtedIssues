@@ -32,7 +32,7 @@ class MMPlayerPassViewPresentTransition: MMPlayerBasePresentTransition, UIViewCo
                 c.playLayer = passLayer
             }
             (self.source as? MMPlayerFromProtocol)?.transitionWillStart()
-            let convertRect:CGRect = passLayer.superlayer?.convert(passLayer.superlayer!.frame, to: nil) ?? .zero
+            let convertRect: CGRect = passLayer.superlayer?.convert(passLayer.superlayer!.frame, to: nil) ?? .zero
             let finalFrame = transitionContext.finalFrame(for: toVC)
             let originalColor = toVC.view.backgroundColor
             passLayer.clearURLWhenChangeView = false
@@ -45,7 +45,7 @@ class MMPlayerPassViewPresentTransition: MMPlayerBasePresentTransition, UIViewCo
             pass.frame = convertRect
             UIView.animate(withDuration: self.config.duration, animations: {
                 pass.frame = passContainer.frame
-            }, completion: { (finish) in
+            }, completion: { (_) in
                 pass.frame = passContainer.frame
                 toVC.view.backgroundColor = originalColor
                 pass.translatesAutoresizingMaskIntoConstraints = false
@@ -73,9 +73,9 @@ class MMPlayerPassViewPresentTransition: MMPlayerBasePresentTransition, UIViewCo
             config.playLayer?.clearURLWhenChangeView = false
             pass.translatesAutoresizingMaskIntoConstraints = true
             let superV = source.backReplaceSuperView?(original: config.passOriginalSuper) ?? config.passOriginalSuper
-            let original:CGRect = pass.convert(pass.frame, to: nil)
+            let original: CGRect = pass.convert(pass.frame, to: nil)
             
-            let convertRect:CGRect = (superV != nil ) ? superV!.convert(superV!.frame, to: nil) : .zero
+            let convertRect: CGRect = (superV != nil ) ? superV!.convert(superV!.frame, to: nil) : .zero
             
             if superV != nil {
                 pass.removeFromSuperview()
@@ -97,7 +97,7 @@ class MMPlayerPassViewPresentTransition: MMPlayerBasePresentTransition, UIViewCo
             UIView.animate(withDuration: self.config.duration, animations: {
                 from?.view.alpha = 0.0
                 pass.frame = convertRect
-            }, completion: { (finish) in
+            }, completion: { (_) in
                 config.playLayer?.playView = superV
                 pass.translatesAutoresizingMaskIntoConstraints = false
                 superV?.isHidden = false

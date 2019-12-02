@@ -9,9 +9,9 @@
 import Foundation
 import UIKit
 
-protocol LineHandleViewDataSource : class {
+protocol LineHandleViewDataSource: class {
     func sizeView() -> CGSize
-    func canMove(to : CGPoint, minLen : CGFloat, baseLine : BaseLineView) -> Bool
+    func canMove(to: CGPoint, minLen: CGFloat, baseLine: BaseLineView) -> Bool
 }
 
 class LineHandleView: UIView {
@@ -23,20 +23,20 @@ class LineHandleView: UIView {
      // Drawing code
      }
      */
-    var attachedTo : CollageViewDirection = .left
-    var baseLineView : BaseLineView?
-    weak var datasource : LineHandleViewDataSource?
+    var attachedTo: CollageViewDirection = .left
+    var baseLineView: BaseLineView?
+    weak var datasource: LineHandleViewDataSource?
     
-    fileprivate let minLen : CGFloat = 80.0
-    fileprivate var prevLoc : CGPoint = .zero
+    fileprivate let minLen: CGFloat = 80.0
+    fileprivate var prevLoc: CGPoint = .zero
     
-    private lazy var panGesture : UIPanGestureRecognizer = {
+    private lazy var panGesture: UIPanGestureRecognizer = {
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(detectPan(_:)))
         panGesture.delegate = self
         return panGesture
-    } ()
+    }()
     
-    func initialize(attach : CollageViewDirection, blview : BaseLineView, cell : CollageCell) {
+    func initialize(attach: CollageViewDirection, blview: BaseLineView, cell: CollageCell) {
         
         self.attachedTo = attach
         self.baseLineView = blview
@@ -45,9 +45,9 @@ class LineHandleView: UIView {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundColor = ApplicationSettings.appClearColor
         
-        var xConst, yConst, wConst, hConst : NSLayoutConstraint!
-        let thick : CGFloat = 40.0
-        let adjust : CGFloat = (thick / 2.0) - (3.0 / 2.0)
+        var xConst, yConst, wConst, hConst: NSLayoutConstraint!
+        let thick: CGFloat = 40.0
+        let adjust: CGFloat = (thick / 2.0) - (3.0 / 2.0)
         
         if attach == .left || attach == .right {
             
@@ -70,7 +70,7 @@ class LineHandleView: UIView {
             wConst = NSLayoutConstraint(item: self, attribute: .width, relatedBy: .equal, toItem: cell, attribute: .width, multiplier: 1.0, constant: 0)
             hConst = NSLayoutConstraint(item: self, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: thick)
         }
-        NSLayoutConstraint.activate([xConst,yConst,wConst,hConst])
+        NSLayoutConstraint.activate([xConst, yConst, wConst, hConst])
         
         let notch = UIView()
         notch.backgroundColor = UIColor.gray
@@ -90,12 +90,12 @@ class LineHandleView: UIView {
             wConst = NSLayoutConstraint(item: notch, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 8.0)
             hConst = NSLayoutConstraint(item: notch, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 0.5, constant: 0)
         }
-        NSLayoutConstraint.activate([xConst,yConst,wConst,hConst])
+        NSLayoutConstraint.activate([xConst, yConst, wConst, hConst])
         
         self.addGestureRecognizer(self.panGesture)
     }
     
-    @objc func detectPan(_ gesture : UIPanGestureRecognizer) {
+    @objc func detectPan(_ gesture: UIPanGestureRecognizer) {
         
         let loc1 = gesture.location(in: self)
         var loc = self.convert(loc1, to: self.superview)
@@ -117,7 +117,7 @@ class LineHandleView: UIView {
                     // IMPORTANT
                     // new_width = multiplier * width + (constant)
                     let multiplier = bcst.multiplier
-                    var newLC : CGFloat = 0.0
+                    var newLC: CGFloat = 0.0
                     if bline.moveType == .leftRight {
                         newLC = loc.x - (multiplier * maxSize.width)
                     } else {
@@ -132,12 +132,11 @@ class LineHandleView: UIView {
     }
 }
 
-extension LineHandleView : UIGestureRecognizerDelegate {
+extension LineHandleView: UIGestureRecognizerDelegate {
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
-    
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         return true

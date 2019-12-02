@@ -130,9 +130,9 @@ public class CircularProgress: UIView, CAAnimationDelegate {
     
     //These are used only from the Interface-Builder. Changing these from code will have no effect.
     //Also IB colors are limited to 3, whereas programatically we can have an arbitrary number of them.
-    @objc @IBInspectable private var IBColor1: UIColor?
-    @objc @IBInspectable private var IBColor2: UIColor?
-    @objc @IBInspectable private var IBColor3: UIColor?
+    @IBInspectable private var IBColor1: UIColor?
+    @IBInspectable private var IBColor2: UIColor?
+    @IBInspectable private var IBColor3: UIColor?
     
     private var animationCompletionBlock: ((Bool) -> Void)?
     
@@ -143,7 +143,7 @@ public class CircularProgress: UIView, CAAnimationDelegate {
         centerImageViewSetup()
     }
     
-    convenience public init(frame:CGRect, colors: UIColor...) {
+    convenience public init(frame: CGRect, colors: UIColor...) {
         self.init(frame: frame)
         set(colors: colors)
     }
@@ -199,7 +199,7 @@ public class CircularProgress: UIView, CAAnimationDelegate {
         let yConst = NSLayoutConstraint(item: self.centerImageView!, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0)
         let wConst = NSLayoutConstraint(item: self.centerImageView!, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 15)
         let hConst = NSLayoutConstraint(item: self.centerImageView!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 15)
-        NSLayoutConstraint.activate([xConst,yConst,wConst,hConst])
+        NSLayoutConstraint.activate([xConst, yConst, wConst, hConst])
     }
     
     private func checkAndSetIBColors() {
@@ -567,7 +567,6 @@ private extension BinaryFloatingPoint {
     func colorLerp(minColor: UIColor, maxColor: UIColor) -> UIColor {
         let clampedValue = CGFloat(self.clamp(lowerBound: 0.0, upperBound: 1.0))
         let zero = CGFloat(0.0)
-        
         
         var (r0, g0, b0, a0) = (zero, zero, zero, zero)
         minColor.getRed(&r0, green: &g0, blue: &b0, alpha: &a0)

@@ -20,11 +20,11 @@
 // THE SOFTWARE.
 import Foundation
 
-open class MaskControlBase : ControlBase {
+open class MaskControlBase: ControlBase {
 
 }
 
-open class MaskControl : MaskControlBase {
+open class MaskControl: MaskControlBase {
 
   private let contentView = UIView()
   private let navigationView = NavigationView()
@@ -53,7 +53,7 @@ open class MaskControl : MaskControlBase {
         navigationView.topAnchor.constraint(equalTo: contentView.bottomAnchor),
         navigationView.rightAnchor.constraint(equalTo: navigationView.superview!.rightAnchor),
         navigationView.leftAnchor.constraint(equalTo: navigationView.superview!.leftAnchor),
-        navigationView.bottomAnchor.constraint(equalTo: navigationView.superview!.bottomAnchor),
+        navigationView.bottomAnchor.constraint(equalTo: navigationView.superview!.bottomAnchor)
         ])
       
     }
@@ -65,7 +65,7 @@ open class MaskControl : MaskControlBase {
       
       NSLayoutConstraint.activate([
         clearButton.centerXAnchor.constraint(equalTo: clearButton.superview!.centerXAnchor),
-        clearButton.topAnchor.constraint(equalTo: clearButton.superview!.topAnchor, constant: 16),        
+        clearButton.topAnchor.constraint(equalTo: clearButton.superview!.topAnchor, constant: 16)        
         ])
       
       clearButton.addTarget(self, action: #selector(didTapRemoveAllButton), for: .touchUpInside)

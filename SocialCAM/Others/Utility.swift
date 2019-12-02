@@ -17,8 +17,7 @@ import Alamofire
 public struct Utils {
    
     static var appDelegate: AppDelegate? {
-        if let delegate = UIApplication.shared.delegate
-        {
+        if let delegate = UIApplication.shared.delegate {
             return delegate as? AppDelegate
         } else {
             return nil
@@ -36,7 +35,7 @@ public struct Utils {
         var filePath = ""
         
         // Fine documents directory on device
-        let dirs : [String] = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true)
+        let dirs: [String] = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true)
         
         if dirs.count > 0 {
             let dir = dirs[0] //documents directory
@@ -57,18 +56,16 @@ public struct Utils {
             } else {
                 print("File does not exist")
             }
-        }
-        catch let error as NSError {
+        } catch let error as NSError {
             print("An error took place: \(error)")
         }
     }
    
-    static func uploadFile(fileName: String, fileURL: URL, contentType: String, progressBlock: @escaping (Float) -> () = { _ in }, otherProgressBlock: ((Float, Float, Float) -> ())? = { _,_,_  in }, callBack: @escaping (_ url: String) -> Void?, failedBlock: @escaping (Swift.Error?) -> () = { _ in })
-    {
+    static func uploadFile(fileName: String, fileURL: URL, contentType: String, progressBlock: @escaping (Float) -> Void = { _ in }, otherProgressBlock: ((Float, Float, Float) -> Void)? = { _, _, _  in }, callBack: @escaping (_ url: String) -> Void?, failedBlock: @escaping (Swift.Error?) -> Void = { _ in }) {
         AWSManager.shared.uploadImageToAmazon(currentFileName: fileName, soundFileURL: fileURL, contentType: contentType, nil, progressBlock: progressBlock, otherProgressBlock: otherProgressBlock, callBack: callBack)
     }
     
-    static func uploadSingleUrlStop(_ itemUrl : String?) {
+    static func uploadSingleUrlStop(_ itemUrl: String?) {
         guard let itemUrlString = itemUrl else {
             return
         }
@@ -79,19 +76,19 @@ public struct Utils {
         AWSManager.shared.cancelAllUploads()
     }
 
-    static func uploadImage(imgName: String, img: UIImage, progressBlock: @escaping (Float) -> () = { _ in }, callBack: @escaping (_ url: String) -> Void?) {
+    static func uploadImage(imgName: String, img: UIImage, progressBlock: @escaping (Float) -> Void = { _ in }, callBack: @escaping (_ url: String) -> Void?) {
         let width = 400.0
         let image = img.resizeImage(newWidth: CGFloat(width))
         let data = image.jpegData(compressionQuality: 0.6)
         let url = Utils.getLocalPath(imgName)
         try? data?.write(to: url)
 
-        AWSManager.shared.uploadImageToAmazon(currentFileName: imgName, soundFileURL: url, contentType: nil, nil, progressBlock: progressBlock, otherProgressBlock: nil, callBack: callBack) { (error) in
+        AWSManager.shared.uploadImageToAmazon(currentFileName: imgName, soundFileURL: url, contentType: nil, nil, progressBlock: progressBlock, otherProgressBlock: nil, callBack: callBack) { (_) in
             
         }
     }
 
-    static func uploadVideo(videoName: String, videoData: Data, progressBlock: @escaping (Float) -> () = { _ in }, callBack: @escaping (String) -> ()) {
+    static func uploadVideo(videoName: String, videoData: Data, progressBlock: @escaping (Float) -> Void = { _ in }, callBack: @escaping (String) -> Void) {
         let data = videoData
         let url = Utils.getLocalPath(videoName)
         try?data.write(to: url)
@@ -128,7 +125,7 @@ public struct Utils {
     static func getfileCreatedDate(theFile: String) -> Date {
         var theCreationDate = Date()
         do {
-            let aFileAttributes = try FileManager.default.attributesOfItem(atPath: theFile) as [FileAttributeKey:Any]
+            let aFileAttributes = try FileManager.default.attributesOfItem(atPath: theFile) as [FileAttributeKey: Any]
             theCreationDate = aFileAttributes[FileAttributeKey.creationDate] as! Date
             
         } catch let theError {
@@ -137,7 +134,7 @@ public struct Utils {
         return theCreationDate
     }
     
-    static func time(_ operation: () throws -> ()) rethrows {
+    static func time(_ operation: () throws -> Void) rethrows {
         let start = Date()
         try operation()
         let end = Date().timeIntervalSince(start)

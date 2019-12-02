@@ -10,14 +10,14 @@ import UIKit
 import GoogleSignIn
 
 protocol YouCategoryDelegate {
-    func didFinishWith(category:YouCategory)
+    func didFinishWith(category: YouCategory)
 }
 
 class YouTubeCategoriesViewController: UIViewController {
 
     @IBOutlet weak var tblCategories: UITableView!
-    var categories : [YouCategory] = []
-    var delegate : YouCategoryDelegate?
+    var categories: [YouCategory] = []
+    var delegate: YouCategoryDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +31,7 @@ class YouTubeCategoriesViewController: UIViewController {
             self.categories = response.item
             self.tblCategories.reloadData()
             
-        }, onError: { (error) in
+        }, onError: { (_) in
             
         }, onCompleted: {
             
@@ -39,12 +39,12 @@ class YouTubeCategoriesViewController: UIViewController {
         
     }
     
-    @IBAction func btnBackClicked(_ sender:Any?) {
+    @IBAction func btnBackClicked(_ sender: Any?) {
         self.navigationController?.popViewController(animated: true)
     }
 }
 
-extension YouTubeCategoriesViewController : UITableViewDelegate, UITableViewDataSource {
+extension YouTubeCategoriesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return categories.count

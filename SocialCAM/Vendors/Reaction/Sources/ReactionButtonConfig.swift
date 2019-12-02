@@ -46,7 +46,7 @@ public final class ReactionButtonConfig: Configurable {
     public var font: UIFont! = UIFont.sfuifont
 
   /// The color of the text (and image) when no reaction is selected.
-  public var neutralTintColor: UIColor = UIColor(red: 39.0/255.0, green: 37.0/255.0 , blue: 37.0/255.0, alpha: 1)
+  public var neutralTintColor: UIColor = UIColor(red: 39.0/255.0, green: 37.0/255.0, blue: 37.0/255.0, alpha: 1)
 
   /**
    The technique to use for aligning the icon and the text.
@@ -58,7 +58,6 @@ public final class ReactionButtonConfig: Configurable {
     /** A Boolean value that indicate summary text should be Lower Case */
     
    public var isLowerCase = false
-
 
   // MARK: - Initializing a Reaction Button
 

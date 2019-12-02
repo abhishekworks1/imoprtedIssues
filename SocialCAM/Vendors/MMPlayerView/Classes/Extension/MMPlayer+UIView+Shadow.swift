@@ -8,7 +8,7 @@
 
 import Foundation
 extension UIView {
-    func setShadow(offset:CGSize,opacity:Float) {
+    func setShadow(offset: CGSize, opacity: Float) {
         
         self.layer.masksToBounds = false
         //        self.layer.cornerRadius = radius

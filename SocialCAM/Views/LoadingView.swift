@@ -76,11 +76,11 @@ public class LoadingView: UIView {
     var isResized = true
     
     @IBOutlet weak var lblCompleted: UILabel!
-    @IBOutlet weak var btnCancle: UIButton!
+    @IBOutlet weak var btnCancel: UIButton!
    
-    public var shouldCancleShow = false {
+    public var shouldCancelShow = false {
         didSet {
-            btnCancle.isHidden = shouldCancleShow
+            btnCancel.isHidden = shouldCancelShow
         }
     }
     
@@ -99,10 +99,12 @@ public class LoadingView: UIView {
     public var shouldTapToDismiss = false
     public var sizeInContainer: CGSize = CGSize(width: 180, height: 180)
    
-    var cancleClick : (() -> Void)?
+    var cancelClick: ((Bool) -> Void)?
     
-    @IBAction func btnCancleClick(_ sender: UIButton) {
-        cancleClick?()
+    @IBAction func btnCancelClick(_ sender: UIButton) {
+        if let handler = cancelClick {
+            handler(true)
+        }
     }
     
     @IBOutlet weak var progressView: CircularProgressBar! {
@@ -113,8 +115,8 @@ public class LoadingView: UIView {
     }
     
     weak var advertiseTimer: Timer?
-    var currentSelectedImg : Int = 0 // for advertise selected imag
-    var imgAdvertisementArray: [String] = ["ad1","ad2","ad3","ad4","ad5","ad6"]
+    var currentSelectedImg: Int = 0 // for advertise selected imag
+    var imgAdvertisementArray: [String] = ["ad1", "ad2", "ad3", "ad4", "ad5", "ad6"]
     
     @IBOutlet weak var imgAdvertise: UIImageView!
     @IBOutlet weak var loadingView: FSLoading!
@@ -122,7 +124,6 @@ public class LoadingView: UIView {
     deinit {
         print("deinit LoadingView")
     }
-    
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -133,7 +134,7 @@ public class LoadingView: UIView {
         if currentSelectedImg < imgAdvertisementArray.count {
             imgAdvertise.image = UIImage(named: imgAdvertisementArray[currentSelectedImg])
         }
-        advertiseTimer =  Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { [weak self] (timer) in
+        advertiseTimer =  Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { [weak self] (_) in
             guard let `self` = self else {
                 return
             }

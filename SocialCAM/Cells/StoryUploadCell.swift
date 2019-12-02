@@ -18,15 +18,15 @@ class StoryUploadCell: UITableViewCell {
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var uploadProgressView: UIProgressView!
     
-    var deleteHandler: ((_ isDelete : Int,_ currentTask: AnyObject?) -> Void)?
+    var deleteHandler: ((_ isDelete: Int, _ currentTask: AnyObject?) -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
     }
     
-    @IBAction func cancleButtonTapped(_ sender: AnyObject) {
+    @IBAction func cancelButtonTapped(_ sender: AnyObject) {
         if let deleteHandler = self.deleteHandler {
-            deleteHandler(self.tag,nil)
+            deleteHandler(self.tag, nil)
         }
     }
     

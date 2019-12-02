@@ -8,25 +8,25 @@
 
 import UIKit
 
-protocol ProgressViewDelegate : class {
-    func finishProgress(_ progressView : ProgressView)
-    func seekPlayerToTime(currentTime:TimeInterval)
+protocol ProgressViewDelegate: class {
+    func finishProgress(_ progressView: ProgressView)
+    func seekPlayerToTime(currentTime: TimeInterval)
     func pausePlayer()
     func resumePlayer()
 }
 
 extension ProgressViewDelegate {
-    func finishProgress(_ progressView : ProgressView) { }
-    func seekPlayerToTime(currentTime:TimeInterval) { }
+    func finishProgress(_ progressView: ProgressView) { }
+    func seekPlayerToTime(currentTime: TimeInterval) { }
     func pausePlayer() { }
     func resumePlayer() { }
 }
 
-class ProgressView : UIProgressView {
-    var timer : Timer?
-    var roundView : UIView?
-    var currentTime : TimeInterval = 0 {
-        didSet{
+class ProgressView: UIProgressView {
+    var timer: Timer?
+    var roundView: UIView?
+    var currentTime: TimeInterval = 0 {
+        didSet {
             if !Float(self.currentTime/self.duration).isNaN {
                 self.setProgress(Float(self.currentTime/self.duration), animated: false)
                 if self.currentTime >= self.duration {
@@ -38,10 +38,10 @@ class ProgressView : UIProgressView {
         }
     }
     
-    var duration : TimeInterval = 0.0
+    var duration: TimeInterval = 0.0
     
-    weak var delegate : ProgressViewDelegate?
-    var useTimer : Bool = false
+    weak var delegate: ProgressViewDelegate?
+    var useTimer: Bool = false
     
     func startProgress() {
         if useTimer == false {
@@ -53,7 +53,7 @@ class ProgressView : UIProgressView {
                 timer.invalidate()
             }
         }
-        timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (t:Timer) in
+        timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (_: Timer) in
             if self.currentTime >= self.duration {
                 self.timer?.invalidate()
                 self.currentTime = 0.0
@@ -90,7 +90,7 @@ class ProgressView : UIProgressView {
         }
     }
     
-    func resumeProgress(){
+    func resumeProgress() {
         if useTimer == false {
             return
         }
@@ -99,7 +99,7 @@ class ProgressView : UIProgressView {
                 timer.invalidate()
             }
         }
-        timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (t:Timer) in
+        timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: { (_: Timer) in
             if self.currentTime >= self.duration {
                 if self.currentTime >= self.duration {
                     self.timer?.invalidate()
@@ -111,10 +111,9 @@ class ProgressView : UIProgressView {
         })
     }
     
-    
     // MRAK : ----- Move Slider --------
     
-    @objc func moveSlider(sender:UIPanGestureRecognizer) {
+    @objc func moveSlider(sender: UIPanGestureRecognizer) {
         if self.isUserInteractionEnabled == false {
             return
         }
@@ -152,7 +151,7 @@ class ProgressView : UIProgressView {
         
     }
 
-    @objc func progressTap(sender : UITapGestureRecognizer) {
+    @objc func progressTap(sender: UITapGestureRecognizer) {
         let x = sender.location(in: self).x
         if self.isUserInteractionEnabled == false {
             return
@@ -182,7 +181,7 @@ class ProgressView : UIProgressView {
     
 }
 
-class ProgressContainerView : UIView {
+class ProgressContainerView: UIView {
     
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         if CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height).contains(point) {

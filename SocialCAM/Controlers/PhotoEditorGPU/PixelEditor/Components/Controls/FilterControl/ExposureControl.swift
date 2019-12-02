@@ -21,16 +21,14 @@
 
 import Foundation
 
-
-
-open class ExposureControlBase : FilterControlBase {
+open class ExposureControlBase: FilterControlBase {
 
   public required init(context: PixelEditContext) {
     super.init(context: context)
   }
 }
 
-open class ExposureControl : ExposureControlBase {
+open class ExposureControl: ExposureControlBase {
   
   open override var title: String {
     return L10n.editBrightness

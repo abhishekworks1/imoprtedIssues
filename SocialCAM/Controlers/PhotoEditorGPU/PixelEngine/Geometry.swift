@@ -32,8 +32,7 @@ public enum Geometry {
 
     if widthRatio < heightRatio {
       size.height = boundingSize.width / aspectRatio.width * aspectRatio.height
-    }
-    else if (heightRatio < widthRatio) {
+    } else if (heightRatio < widthRatio) {
       size.width = boundingSize.height / aspectRatio.height * aspectRatio.width
     }
 
@@ -51,10 +50,9 @@ public enum Geometry {
     var size = minimumSize
 
     if widthRatio > heightRatio {
-      size.height = minimumSize.width / aspectRatio.width * aspectRatio.height;
-    }
-    else if heightRatio > widthRatio {
-      size.width = minimumSize.height / aspectRatio.height * aspectRatio.width;
+      size.height = minimumSize.width / aspectRatio.width * aspectRatio.height
+    } else if heightRatio > widthRatio {
+      size.width = minimumSize.height / aspectRatio.height * aspectRatio.width
     }
 
     return CGSize(

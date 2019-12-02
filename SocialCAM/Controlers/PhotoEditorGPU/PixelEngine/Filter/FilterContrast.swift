@@ -37,7 +37,7 @@ public struct FilterContrast: Filtering, Equatable, Codable {
         .applyingFilter(
           "CIColorControls",
           parameters: [
-            kCIInputContrastKey: 1 + value,
+            kCIInputContrastKey: 1 + value
             ]
     )
   }

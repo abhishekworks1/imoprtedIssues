@@ -11,9 +11,9 @@ import UIKit
 
 extension UIViewController {
     
-    func showAlert(alertMessage : String) ->  Void {
+    func showAlert(alertMessage: String) {
         let alert = UIAlertController(title: Constant.Application.displayName, message: alertMessage, preferredStyle: .alert)
-        let ok = UIAlertAction(title: Messages.kOK, style:.default, handler: nil)
+        let ok = UIAlertAction(title: Messages.kOK, style: .default, handler: nil)
         alert.addAction(ok)
         self.present(alert, animated: true, completion: nil)
     }
@@ -25,7 +25,7 @@ extension UIViewController {
         })
     }
     
-    func findViewController<T>(viewcontrollers: [UIViewController],type: T) -> T? {
+    func findViewController<T>(viewcontrollers: [UIViewController], type: T) -> T? {
         for vc in viewcontrollers {
             if vc is T {
                 return vc as? T
@@ -62,13 +62,11 @@ extension UIViewController {
         }
     }
     
-    
     func stopActivityIndicator() {
         //Again, we need to ensure the UI is updated from the main thread!
         DispatchQueue.main.async {
             //Here we find the `UIActivityIndicatorView` and remove it from the vie
-            if let activityIndicator = self.view.subviews.filter(
-                { $0.tag == self.activityIndicatorTag}).first as? UIActivityIndicatorView{
+            if let activityIndicator = self.view.subviews.filter({ $0.tag == self.activityIndicatorTag}).first as? UIActivityIndicatorView {
                 activityIndicator.stopAnimating()
                 activityIndicator.removeFromSuperview()
             }

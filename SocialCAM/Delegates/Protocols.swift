@@ -30,7 +30,6 @@ public protocol PhotoEditorDelegate: class {
     func canceledEditing()
 }
 
-
 /**
  - didSelectView
  - didSelectImage
@@ -71,7 +70,6 @@ protocol HashTagViewControllerDelegate: class {
     func hashTagViewDidDisappear()
 }
 
-
 /**
  - didSelectColor
  */
@@ -91,7 +89,6 @@ protocol EmojiDelegate: class {
     func didSelectEmoji(emoji: String)
 }
 
-
-protocol CollageCellDelegate : class {
-    func didSelectCell(cellId : Int)
+protocol CollageCellDelegate: class {
+    func didSelectCell(cellId: Int)
 }

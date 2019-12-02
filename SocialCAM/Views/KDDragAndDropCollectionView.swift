@@ -29,12 +29,12 @@ public protocol KDDragAndDropCollectionViewDataSource: UICollectionViewDataSourc
     func collectionView(_ collectionView: UICollectionView, indexPathForDataItem dataItem: AnyObject) -> IndexPath?
     func collectionView(_ collectionView: UICollectionView, dataItemForIndexPath indexPath: IndexPath) -> AnyObject
     
-    func collectionView(_ collectionView: UICollectionView, moveDataItemFromIndexPath from: IndexPath, toIndexPath to: IndexPath) -> Void
-    func collectionView(_ collectionView: UICollectionView, insertDataItem dataItem: AnyObject, atIndexPath indexPath: IndexPath) -> Void
-    func collectionView(_ collectionView: UICollectionView, deleteDataItemAtIndexPath indexPath: IndexPath) -> Void
+    func collectionView(_ collectionView: UICollectionView, moveDataItemFromIndexPath from: IndexPath, toIndexPath to: IndexPath)
+    func collectionView(_ collectionView: UICollectionView, insertDataItem dataItem: AnyObject, atIndexPath indexPath: IndexPath)
+    func collectionView(_ collectionView: UICollectionView, deleteDataItemAtIndexPath indexPath: IndexPath)
     func collectionView(_ collectionView: UICollectionView, cellIsDraggableAtIndexPath indexPath: IndexPath) -> Bool
     func collectionViewEdgesAndScroll(_ collectionView: UICollectionView, rect: CGRect)
-    func collectionViewLastEdgesAndScroll(_ collectionView: UICollectionView, rect : CGRect)
+    func collectionViewLastEdgesAndScroll(_ collectionView: UICollectionView, rect: CGRect)
 }
 
 public class KDDragAndDropCollectionView: UICollectionView, KDDraggable, KDDroppable {
@@ -59,8 +59,7 @@ public class KDDragAndDropCollectionView: UICollectionView, KDDraggable, KDDropp
         super.init(frame: frame, collectionViewLayout: layout)
     }
     
-    
-    // MARK : KDDraggable
+    // MARK: KDDraggable
     public func canDragAtPoint(_ point: CGPoint) -> Bool {
         if let dataSource = self.dataSource as? KDDragAndDropCollectionViewDataSource,
             let indexPathOfPoint = self.indexPathForItem(at: point) {
@@ -104,9 +103,7 @@ public class KDDragAndDropCollectionView: UICollectionView, KDDraggable, KDDropp
         return dragDropDS.collectionView(self, dataItemForIndexPath: indexPath)
     }
     
-    
-    
-    public func startDraggingAtPoint(_ point: CGPoint) -> Void {
+    public func startDraggingAtPoint(_ point: CGPoint) {
         
         self.draggingPathOfCellBeingDragged = self.indexPathForItem(at: point)
         
@@ -114,7 +111,7 @@ public class KDDragAndDropCollectionView: UICollectionView, KDDraggable, KDDropp
         
     }
     
-    public func stopDragging() -> Void {
+    public func stopDragging() {
         
         if let idx = self.draggingPathOfCellBeingDragged {
             if let cell = self.cellForItem(at: idx) {
@@ -132,7 +129,7 @@ public class KDDragAndDropCollectionView: UICollectionView, KDDraggable, KDDropp
         
     }
     
-    public func dragDataItem(_ item: AnyObject) -> Void {
+    public func dragDataItem(_ item: AnyObject) {
         
         guard let dragDropDataSource = self.dataSource as? KDDragAndDropCollectionViewDataSource else {
             return
@@ -147,13 +144,12 @@ public class KDDragAndDropCollectionView: UICollectionView, KDDraggable, KDDropp
         
         if self.animating {
             self.deleteItems(at: [existngIndexPath])
-        }
-        else {
+        } else {
             
             self.animating = true
             self.performBatchUpdates({ () -> Void in
                 self.deleteItems(at: [existngIndexPath])
-            }, completion: { complete -> Void in
+            }, completion: { _ -> Void in
                 self.animating = false
                 self.reloadData()
             })
@@ -161,7 +157,7 @@ public class KDDragAndDropCollectionView: UICollectionView, KDDraggable, KDDropp
         
     }
     
-    // MARK : KDDroppable
+    // MARK: KDDroppable
     
     public func canDropAtRect(_ rect: CGRect) -> Bool {
         
@@ -173,7 +169,6 @@ public class KDDragAndDropCollectionView: UICollectionView, KDDraggable, KDDropp
         var overlappingArea: CGFloat = 0.0
         var cellCandidate: UICollectionViewCell?
         
-        
         let visibleCells = self.visibleCells
         if visibleCells.count == 0 {
             return IndexPath(row: 0, section: 0)
@@ -184,7 +179,6 @@ public class KDDragAndDropCollectionView: UICollectionView, KDDraggable, KDDropp
             
             return IndexPath(row: visibleCells.count - 1, section: 0)
         }
-        
         
         for visible in visibleCells {
             
@@ -207,9 +201,8 @@ public class KDDragAndDropCollectionView: UICollectionView, KDDraggable, KDDropp
         return nil
     }
     
-    
     fileprivate var currentInRect: CGRect?
-    public func willMoveItem(_ item: AnyObject, inRect rect: CGRect) -> Void {
+    public func willMoveItem(_ item: AnyObject, inRect rect: CGRect) {
         
         let dragDropDataSource = self.dataSource as! KDDragAndDropCollectionViewDataSource // its guaranteed to have a data source
         
@@ -229,7 +222,7 @@ public class KDDragAndDropCollectionView: UICollectionView, KDDraggable, KDDropp
                 
                 self.insertItems(at: [indexPath])
                 
-            }, completion: { complete -> Void in
+            }, completion: { _ -> Void in
                 
                 self.animating = false
                 
@@ -238,7 +231,6 @@ public class KDDragAndDropCollectionView: UICollectionView, KDDraggable, KDDropp
                     
                     self.reloadData()
                 }
-                
                 
             })
             
@@ -255,7 +247,7 @@ public class KDDragAndDropCollectionView: UICollectionView, KDDraggable, KDDropp
     public var animating: Bool = false
     
     public var paging: Bool = false
-    func checkForEdgesAndScroll(_ rect: CGRect) -> Void {
+    func checkForEdgesAndScroll(_ rect: CGRect) {
         
         let dragDropDS = self.dataSource as! KDDragAndDropCollectionViewDataSource //
         dragDropDS.collectionViewEdgesAndScroll(self, rect: rect)
@@ -277,8 +269,7 @@ public class KDDragAndDropCollectionView: UICollectionView, KDDraggable, KDDropp
                 if rectForNextScroll.origin.x < 0 {
                     rectForNextScroll.origin.x = 0
                 }
-            }
-            else if rect.intersects(rightBoundary) == true {
+            } else if rect.intersects(rightBoundary) == true {
                 rectForNextScroll.origin.x += self.bounds.size.width * 0.5
                 if rectForNextScroll.origin.x > self.contentSize.width - self.bounds.size.width {
                     rectForNextScroll.origin.x = self.contentSize.width - self.bounds.size.width
@@ -292,8 +283,7 @@ public class KDDragAndDropCollectionView: UICollectionView, KDDraggable, KDDropp
             
             if rect.intersects(topBoundary) == true {
                 
-            }
-            else if rect.intersects(bottomBoundary) == true {
+            } else if rect.intersects(bottomBoundary) == true {
                 
             }
         }
@@ -312,7 +302,7 @@ public class KDDragAndDropCollectionView: UICollectionView, KDDraggable, KDDropp
         
     }
     
-    public func didMoveItem(_ item: AnyObject, inRect rect: CGRect) -> Void {
+    public func didMoveItem(_ item: AnyObject, inRect rect: CGRect) {
         
         let dragDropDS = self.dataSource as! KDDragAndDropCollectionViewDataSource // guaranteed to have a ds
         
@@ -326,15 +316,14 @@ public class KDDragAndDropCollectionView: UICollectionView, KDDraggable, KDDropp
                     
                     self.performBatchUpdates({ () -> Void in
                         self.moveItem(at: existingIndexPath, to: indexPath)
-                    }, completion: { (finished) -> Void in
+                    }, completion: { (_) -> Void in
                         self.animating = false
                         self.reloadData()
                         
                     })
                 }
                 self.draggingPathOfCellBeingDragged = indexPath
-            }
-            else if indexPath.item == existingIndexPath.item && !isMovable {
+            } else if indexPath.item == existingIndexPath.item && !isMovable {
                 dragDropDS.collectionView(self, moveDataItemFromIndexPath: existingIndexPath, toIndexPath: indexPath)
             }
         }
@@ -349,10 +338,9 @@ public class KDDragAndDropCollectionView: UICollectionView, KDDraggable, KDDropp
         
         self.checkForEdgesAndScroll(normalizedRect)
         
-        
     }
     
-    public func didMoveOutItem(_ item: AnyObject) -> Void {
+    public func didMoveOutItem(_ item: AnyObject) {
         
         guard let dragDropDataSource = self.dataSource as? KDDragAndDropCollectionViewDataSource,
             let existngIndexPath = dragDropDataSource.collectionView(self, indexPathForDataItem: item) else {
@@ -364,12 +352,11 @@ public class KDDragAndDropCollectionView: UICollectionView, KDDraggable, KDDropp
         
         if self.animating {
             self.deleteItems(at: [existngIndexPath])
-        }
-        else {
+        } else {
             self.animating = true
             self.performBatchUpdates({ () -> Void in
                 self.deleteItems(at: [existngIndexPath])
-            }, completion: { (finished) -> Void in
+            }, completion: { (_) -> Void in
                 self.animating = false
                 self.reloadData()
             })
@@ -387,7 +374,7 @@ public class KDDragAndDropCollectionView: UICollectionView, KDDraggable, KDDropp
         currentInRect = nil
     }
     
-    public func dropDataItem(_ item: AnyObject, atRect: CGRect) -> Void {
+    public func dropDataItem(_ item: AnyObject, atRect: CGRect) {
         
         // show hidden cell
         if let index = draggingPathOfCellBeingDragged,

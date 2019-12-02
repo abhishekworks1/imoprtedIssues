@@ -24,10 +24,8 @@ private var kUIViewPropertyBackgroundColor = "kUIViewPropertyBackgroundColor"
 //public let kUIViewPropertyUserInformationValue as? AnyObject;
 //private var kUIViewPropertyUserInformation = "kUIViewPropertyUserInformation"
 
-
-
-public extension UIView{
-    @IBInspectable var cornerRadiusChat : CGFloat{
+public extension UIView {
+    @IBInspectable var cornerRadiusChat: CGFloat {
         get {
             if let aValue = objc_getAssociatedObject(self, &kUIViewPropertyCornerRadius) as? CGFloat {
                 return aValue
@@ -41,7 +39,7 @@ public extension UIView{
         }
     }
     
-    @IBInspectable var borderColorChat : UIColor{
+    @IBInspectable var borderColorChat: UIColor {
         get {
             if let aValue = objc_getAssociatedObject(self, &kUIViewPropertyBorderColor) as? UIColor {
                 return aValue
@@ -55,7 +53,7 @@ public extension UIView{
         }
     }
     
-    @IBInspectable var borderWidthChat : CGFloat{
+    @IBInspectable var borderWidthChat: CGFloat {
         get {
             if let aValue = objc_getAssociatedObject(self, &kUIViewPropertyBorderWidth) as? CGFloat {
                 return aValue

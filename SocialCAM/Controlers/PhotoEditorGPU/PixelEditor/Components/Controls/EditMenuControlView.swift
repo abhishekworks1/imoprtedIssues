@@ -21,16 +21,14 @@
 
 import Foundation
 
-
-
-open class EditMenuControlBase : ControlBase {
+open class EditMenuControlBase: ControlBase {
   
   public required override init(context: PixelEditContext) {
     super.init(context: context)
   }
 }
 
-open class EditMenuControl : EditMenuControlBase {
+open class EditMenuControl: EditMenuControlBase {
 
   public let contentView = UIView()
   public let itemsView = UIStackView()
@@ -137,7 +135,7 @@ open class EditMenuControl : EditMenuControlBase {
         scrollView.topAnchor.constraint(equalTo: scrollView.superview!.topAnchor),
         scrollView.rightAnchor.constraint(equalTo: scrollView.superview!.rightAnchor),
         scrollView.leftAnchor.constraint(equalTo: scrollView.superview!.leftAnchor),
-        scrollView.bottomAnchor.constraint(equalTo: scrollView.superview!.bottomAnchor),
+        scrollView.bottomAnchor.constraint(equalTo: scrollView.superview!.bottomAnchor)
         ])
 
       scrollView.addSubview(contentView)
@@ -150,7 +148,7 @@ open class EditMenuControl : EditMenuControlBase {
         contentView.topAnchor.constraint(equalTo: contentView.superview!.topAnchor),
         contentView.rightAnchor.constraint(equalTo: contentView.superview!.rightAnchor),
         contentView.leftAnchor.constraint(equalTo: contentView.superview!.leftAnchor),
-        contentView.bottomAnchor.constraint(equalTo: contentView.superview!.bottomAnchor),
+        contentView.bottomAnchor.constraint(equalTo: contentView.superview!.bottomAnchor)
         ])
 
       contentView.addSubview(itemsView)
@@ -168,7 +166,7 @@ open class EditMenuControl : EditMenuControlBase {
         itemsView.rightAnchor.constraint(lessThanOrEqualTo: itemsView.superview!.rightAnchor),
         itemsView.leftAnchor.constraint(greaterThanOrEqualTo: itemsView.superview!.leftAnchor),
         itemsView.bottomAnchor.constraint(equalTo: itemsView.superview!.bottomAnchor),
-        itemsView.centerXAnchor.constraint(equalTo: itemsView.superview!.centerXAnchor),
+        itemsView.centerXAnchor.constraint(equalTo: itemsView.superview!.centerXAnchor)
         ])
 
     }
@@ -188,7 +186,7 @@ open class EditMenuControl : EditMenuControlBase {
         shadowsButton,
         vignetteButton,
         sharpenButton,
-        gaussianBlurButton,
+        gaussianBlurButton
       ]
       
       for button in buttons {
@@ -308,7 +306,7 @@ open class EditMenuControl : EditMenuControlBase {
     push(context.options.classes.control.sharpenControl.init(context: context), animated: true)
   }
 
-  open class ButtonView : UIControl {
+  open class ButtonView: UIControl {
 
     public let nameLabel = UILabel()
 
@@ -355,7 +353,7 @@ open class EditMenuControl : EditMenuControlBase {
           nameLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 12),
           nameLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
           nameLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
-          nameLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
+          nameLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
           
           ])
       }
@@ -387,7 +385,7 @@ open class EditMenuControl : EditMenuControlBase {
       fatalError("init(coder:) has not been implemented")
     }
 
-    open override var isHighlighted: Bool  {
+    open override var isHighlighted: Bool {
       didSet {
         UIView.animate(
           withDuration: 0.16,

@@ -10,10 +10,10 @@ import Foundation
 import ObjectMapper
 
 class YouTubeSubscription: Mappable {
-    var id : String?
-    var kind : Bool?
-    var etag : String?
-    var snippet : Snippet?
+    var id: String?
+    var kind: Bool?
+    var etag: String?
+    var snippet: Snippet?
     
     required init?(map: Map) {
         
@@ -28,10 +28,10 @@ class YouTubeSubscription: Mappable {
     
 }
 
-class YouTubeItmeListResponse<T:Mappable>: Mappable {
-    var kind : Bool?
-    var etag :String?
-    var item:[T] = []
+class YouTubeItmeListResponse<T: Mappable>: Mappable {
+    var kind: Bool?
+    var etag: String?
+    var item: [T] = []
     
     required init?(map: Map) {
         
@@ -45,10 +45,10 @@ class YouTubeItmeListResponse<T:Mappable>: Mappable {
 }
 
 class YouCategory: Mappable {
-    var id : String?
+    var id: String?
     var kind: String?
     var etag: String?
-    var snippet : Snippet?
+    var snippet: Snippet?
     
     required init?(map: Map) {
         

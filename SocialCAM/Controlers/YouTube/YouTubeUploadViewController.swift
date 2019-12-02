@@ -18,13 +18,13 @@ class YouTubeUploadViewController: UIViewController {
     @IBOutlet weak var txtPermision: SkyFloatingLabelTextField!
     @IBOutlet weak var txtCategoty: SkyFloatingLabelTextField!
     @IBOutlet weak var btnPublish: UIButton!
-    @IBOutlet weak var privacyPicker : UIPickerView!
-    @IBOutlet weak var pickerContainer : UIView?
-    @IBOutlet var playerView : PlayerView!
-    @IBOutlet var btnPlayPause : UIButton!
+    @IBOutlet weak var privacyPicker: UIPickerView!
+    @IBOutlet weak var pickerContainer: UIView?
+    @IBOutlet var playerView: PlayerView!
+    @IBOutlet var btnPlayPause: UIButton!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
-    var privacy : [String] =  ["Public","Private","Unlisted"]
+    var privacy: [String] =  ["Public", "Private", "Unlisted"]
     
     var videoUrl: URL?
     var selectedCategory: YouCategory? {
@@ -36,7 +36,7 @@ class YouTubeUploadViewController: UIViewController {
             }
         }
     }
-    var selectedPrivacy : String? {
+    var selectedPrivacy: String? {
         didSet {
             if let privacy = selectedPrivacy {
                 self.txtPermision.text = privacy
@@ -63,7 +63,7 @@ class YouTubeUploadViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tagView.isMerge = true
-        self.tagView.textField.placeholder = "#Hashtags";
+        self.tagView.textField.placeholder = "#Hashtags"
         self.tagView.textField.returnKeyType = .done
         self.tagView.textField.delegate = self
         self.tagView.tintColor = UIColor.gray79
@@ -107,7 +107,7 @@ class YouTubeUploadViewController: UIViewController {
         }
     }
     
-    func uploadVideo(token:String) {
+    func uploadVideo(token: String) {
         guard !self.isUploading else {
             return
         }
@@ -130,14 +130,14 @@ class YouTubeUploadViewController: UIViewController {
         if tagView.tags.count > 0 {
             snippet["tags"] = tagView.tags
         }
-        var status : String = ""
+        var status: String = ""
         
         if let privacy = selectedPrivacy {
             status = privacy
         }
         self.showHUD()
         self.isUploading = true
-        ProManagerApi.uploadYoutubeVideo(token: token, videoURL: videoUrl!, snippet: snippet, status: status).request().subscribe(onNext: { (response) in
+        ProManagerApi.uploadYoutubeVideo(token: token, videoURL: videoUrl!, snippet: snippet, status: status).request().subscribe(onNext: { (_) in
             self.isUploading = false
             self.dismissHUD()
             self.navigationController?.popViewController(animated: true)
@@ -161,11 +161,11 @@ class YouTubeUploadViewController: UIViewController {
         
     }
     
-    @IBAction func btnCancelClicked(_ sender:Any) {
+    @IBAction func btnCancelClicked(_ sender: Any) {
         self.pickerContainer?.isHidden = true
     }
     
-    @IBAction func btnDoneClicked(_ sender:Any) {
+    @IBAction func btnDoneClicked(_ sender: Any) {
         let index = self.privacyPicker.selectedRow(inComponent: 0)
         selectedPrivacy =  privacy[index]
         self.pickerContainer?.isHidden = true
@@ -191,7 +191,7 @@ class YouTubeUploadViewController: UIViewController {
     
     func privacyClicked() {
         if let selectedPrivacy = self.selectedPrivacy {
-            let index = self.privacy.firstIndex(of:selectedPrivacy)
+            let index = self.privacy.firstIndex(of: selectedPrivacy)
             self.privacyPicker.selectRow(index ?? 0, inComponent: 0, animated: false)
             self.privacyPicker.reloadAllComponents()
         }
@@ -199,7 +199,7 @@ class YouTubeUploadViewController: UIViewController {
     }
 }
 
-extension YouTubeUploadViewController : UITextFieldDelegate {
+extension YouTubeUploadViewController: UITextFieldDelegate {
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         if txtCategoty == textField {
@@ -215,7 +215,7 @@ extension YouTubeUploadViewController : UITextFieldDelegate {
     
 }
 
-extension YouTubeUploadViewController : YouCategoryDelegate {
+extension YouTubeUploadViewController: YouCategoryDelegate {
     
     func didFinishWith(category: YouCategory) {
         self.selectedCategory = category
@@ -223,7 +223,7 @@ extension YouTubeUploadViewController : YouCategoryDelegate {
     
 }
 
-extension YouTubeUploadViewController : UIPickerViewDelegate , UIPickerViewDataSource {
+extension YouTubeUploadViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -239,7 +239,7 @@ extension YouTubeUploadViewController : UIPickerViewDelegate , UIPickerViewDataS
     
 }
 
-extension YouTubeUploadViewController : SelectHashSetDelegate {
+extension YouTubeUploadViewController: SelectHashSetDelegate {
     
     func setSelectedSet(hashSet: HashTagSetList, isHashSetSelected: Bool) {
         if let youhash = hashSet.hashTags {
@@ -259,7 +259,7 @@ extension YouTubeUploadViewController : SelectHashSetDelegate {
     
 }
 
-extension YouTubeUploadViewController :  GIDSignInDelegate , GIDSignInUIDelegate {
+extension YouTubeUploadViewController: GIDSignInDelegate, GIDSignInUIDelegate {
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Swift.Error!) {
         if error == nil && user.authentication.accessToken != nil {

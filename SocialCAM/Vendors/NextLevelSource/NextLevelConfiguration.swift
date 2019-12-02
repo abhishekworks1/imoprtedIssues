@@ -142,7 +142,7 @@ public class NextLevelConfiguration {
     public var preset: AVCaptureSession.Preset
     
     /// Setting an options dictionary overrides all other properties set on a configuration object but allows full customization
-    public var options: [String : Any]?
+    public var options: [String: Any]?
     
     // MARK: - object lifecycle
     
@@ -221,14 +221,14 @@ public class NextLevelVideoConfiguration: NextLevelConfiguration {
     ///
     /// - Parameter sampleBuffer: Sample buffer for extracting configuration information
     /// - Returns: Video configuration dictionary for AVFoundation
-    public override func avcaptureSettingsDictionary(sampleBuffer: CMSampleBuffer? = nil, pixelBuffer: CVPixelBuffer? = nil) -> [String : Any]? {
+    public override func avcaptureSettingsDictionary(sampleBuffer: CMSampleBuffer? = nil, pixelBuffer: CVPixelBuffer? = nil) -> [String: Any]? {
         
         // if the client specified custom options, use those instead
         if let options = self.options {
             return options
         }
         
-        var config: [String : Any] = [:]
+        var config: [String: Any] = [:]
         
         if let dimensions = self.dimensions {
             config[AVVideoWidthKey] = NSNumber(integerLiteral: Int(dimensions.width))
@@ -276,7 +276,7 @@ public class NextLevelVideoConfiguration: NextLevelConfiguration {
         config[AVVideoCodecKey] = self.codec
         config[AVVideoScalingModeKey] = self.scalingMode
         
-        var compressionDict: [String : Any] = [:]
+        var compressionDict: [String: Any] = [:]
         compressionDict[AVVideoAverageBitRateKey] = NSNumber(integerLiteral: self.bitRate)
         compressionDict[AVVideoAllowFrameReorderingKey] = NSNumber(booleanLiteral: true)
         compressionDict[AVVideoExpectedSourceFrameRateKey] = NSNumber(integerLiteral: 30)
@@ -300,7 +300,7 @@ public class NextLevelVideoConfiguration: NextLevelConfiguration {
     ///   - config: Input configuration dictionary
     ///   - divisibleBy: Divisor
     /// - Returns: Configuration with appropriately divided sizes
-    private func update(config: [String : Any], withSizeValuesDivisibleBy divisibleBy: Int = 16) -> [String : Any] {
+    private func update(config: [String: Any], withSizeValuesDivisibleBy divisibleBy: Int = 16) -> [String: Any] {
         var config = config
         
         if let width = config[AVVideoWidthKey] as? Int {
@@ -363,7 +363,7 @@ public class NextLevelAudioConfiguration: NextLevelConfiguration {
             return options
         }
         
-        var config: [String : Any] = [AVEncoderBitRateKey : NSNumber(integerLiteral: self.bitRate)]
+        var config: [String: Any] = [AVEncoderBitRateKey: NSNumber(integerLiteral: self.bitRate)]
         
         if let sampleBuffer = sampleBuffer, let formatDescription: CMFormatDescription = CMSampleBufferGetFormatDescription(sampleBuffer) {
             if let _ = self.sampleRate, let _ = self.channelsCount {
@@ -375,7 +375,7 @@ public class NextLevelAudioConfiguration: NextLevelConfiguration {
             
             var layoutSize: Int = 0
             if let currentChannelLayout = CMAudioFormatDescriptionGetChannelLayout(formatDescription, sizeOut: &layoutSize) {
-                let currentChannelLayoutData = layoutSize > 0 ? Data(bytes: currentChannelLayout, count:layoutSize) : Data()
+                let currentChannelLayoutData = layoutSize > 0 ? Data(bytes: currentChannelLayout, count: layoutSize) : Data()
                 config[AVChannelLayoutKey] = currentChannelLayoutData
             }
         }
@@ -401,7 +401,7 @@ public class NextLevelAudioConfiguration: NextLevelConfiguration {
 // MARK: - PhotoConfiguration
 
 /// NextLevelPhotoConfiguration, photo capture configuration object
-public class NextLevelPhotoConfiguration : NextLevelConfiguration {
+public class NextLevelPhotoConfiguration: NextLevelConfiguration {
 
     /// Codec used to encode photo, AV dictionary key AVVideoCodecKey
     public var codec: AVVideoCodecType
@@ -465,7 +465,7 @@ public class NextLevelPhotoConfiguration : NextLevelConfiguration {
 
 @available(iOS 11.0, *)
 /// NextLevelARConfiguration, augmented reality configuration object
-public class NextLevelARConfiguration : NextLevelConfiguration {
+public class NextLevelARConfiguration: NextLevelConfiguration {
 
     #if USE_ARKIT
     /// ARKit configuration
@@ -479,4 +479,3 @@ public class NextLevelARConfiguration : NextLevelConfiguration {
     #endif
 
 }
-

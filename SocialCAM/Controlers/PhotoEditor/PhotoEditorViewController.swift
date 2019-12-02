@@ -39,12 +39,11 @@ class StoryExportProgress: RPCircularProgress {
     
 }
 
-
 class PhotoEditorViewController: UIViewController {
     
     // MARK: Outlets
     
-    var loadingView = LoadingView.instanceFromNib()
+    var loadingView: LoadingView? = LoadingView.instanceFromNib()
     
     @IBOutlet weak var topGradient: UIView!
     
@@ -100,7 +99,7 @@ class PhotoEditorViewController: UIViewController {
     }
     
     @IBOutlet weak var hashtagButton: UIButton!
-    
+    @IBOutlet weak var saveOuttakesButton: UIButton!
     @IBOutlet weak var photoSegmentDeleteView: UIView! {
         didSet {
             photoSegmentDeleteView.isHidden = true
@@ -254,6 +253,7 @@ class PhotoEditorViewController: UIViewController {
     @IBOutlet weak var socialShareBottomToolBar: UIStackView!
     
     @IBOutlet weak var youtubeShareView: UIView!
+    @IBOutlet weak var tiktokShareView: UIView!
     
     // MARK: Variables
     
@@ -266,7 +266,7 @@ class PhotoEditorViewController: UIViewController {
     /// current playback time of video
     public private(set) var currentTime = CMTime.zero
     
-    var youTubeData: [String : Any]?
+    var youTubeData: [String: Any]?
     var youTubeHashtags: [String]?
     var isZooming = false {
         didSet {
@@ -299,7 +299,7 @@ class PhotoEditorViewController: UIViewController {
             segmentEditOptionButton.isHidden = isViewEditMode ? true : isSegmentEditOptionViewShoworNot
             deleteView.isHidden = isViewEditMode ? true : isDeleteShoworNot
             photoSegmentDeleteView.isHidden = isViewEditMode ? true : isPhotosStackViewShoworNot
-            hashtagButton.isHidden = isViewEditMode
+            saveOuttakesButton.isHidden = isViewEditMode
             self.dragAndDropManager = isViewEditMode ? nil : KDDragAndDropManager(
                 canvas: self.view,
                 collectionViews: [stopMotionCollectionView]
@@ -330,7 +330,7 @@ class PhotoEditorViewController: UIViewController {
             return asset
         }
         
-        if let videoPath = videoPath , videoPath.count > 0 {
+        if let videoPath = videoPath, videoPath.count > 0 {
             var videoURL = URL(string: videoPath)
             if videoURL == nil || videoURL?.scheme == nil {
                 videoURL = URL(fileURLWithPath: videoPath)
@@ -372,12 +372,10 @@ class PhotoEditorViewController: UIViewController {
     
     public var isMute: Bool = false
     
-    
     var stickersVCIsVisible = false
     
     var textColor: UIColor = ApplicationSettings.appWhiteColor
     var isDrawing: Bool = false
-    
     
     var lastPanPoint: CGPoint?
     var lastTextViewTransform: CGAffineTransform?
@@ -390,20 +388,18 @@ class PhotoEditorViewController: UIViewController {
     var isTagTyping = false
     var isQuetionTyping = false
     
-    
     var draggingCell: IndexPath?
     var lastMargeCell: IndexPath?
     
     var currentCamaraMode: CameraMode = .normal
     
-    
-    var isMovable : Bool = true {
+    var isMovable: Bool = true {
         didSet {
             self.stopMotionCollectionView.isMovable = isMovable
         }
     }
     
-    var isDisableResequence : Bool = false {
+    var isDisableResequence: Bool = false {
         didSet {
             self.stopMotionCollectionView.isMovable = !isDisableResequence
         }
@@ -418,12 +414,13 @@ class PhotoEditorViewController: UIViewController {
             coverView.isHidden = !isVideo
             youTubeView.isHidden = !isVideo
             youtubeShareView.isHidden = !isVideo
+            tiktokShareView.isHidden = !isVideo
         }
     }
     
     // Preview Adjust
     
-    public var selectedSlideShowImages: [SegmentVideos?] = [nil,nil,nil,nil,nil,nil,nil,nil,nil,nil,nil]
+    public var selectedSlideShowImages: [SegmentVideos?] = [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil]
     
     public var videoUrls: [SegmentVideos] = []
     public var videoResetUrls: [SegmentVideos] = []
@@ -492,6 +489,8 @@ class PhotoEditorViewController: UIViewController {
     var isPlayerInitialize = false
     
     deinit {
+        self.loadingView?.hide()
+        self.loadingView = nil
         self.undoMgr.removeAll()
         self.scPlayer?.unsetupDisplayLink()
         print("PhotoEditiorViewController Deinit")
@@ -521,7 +520,7 @@ class PhotoEditorViewController: UIViewController {
                 colorSlider.centerXAnchor.constraint(equalTo: editOptionsToolBar.centerXAnchor),
                 colorSlider.topAnchor.constraint(equalTo: editOptionsToolBar.topAnchor, constant: 80),
                 colorSlider.widthAnchor.constraint(equalToConstant: 15),
-                colorSlider.heightAnchor.constraint(equalToConstant: colorSliderHeight),
+                colorSlider.heightAnchor.constraint(equalToConstant: colorSliderHeight)
             ])
             colorSlider.isHidden = true
         }
@@ -700,7 +699,11 @@ class PhotoEditorViewController: UIViewController {
         coverView.isHidden = (isImage || isSlideShow)
         segmentedProgressBar.isHidden = (isImage || isSlideShow)
         lblCurrentSlidingTime.isHidden = (isImage || isSlideShow)
-        timeSpeedView.isHidden = (isImage || isSlideShow)
+        if Defaults.shared.isPro {
+            timeSpeedView.isHidden = (isImage || isSlideShow)
+        } else {
+            timeSpeedView.isHidden = true
+        }
         segmentEditOptionView.isHidden = (isImage || isBoom || isSlideShow)
         segmentEditOptionButton.isHidden = (isImage || isBoom || isSlideShow)
         soundView.isHidden = (isImage || isBoom || isSlideShow)
@@ -743,26 +746,26 @@ class PhotoEditorViewController: UIViewController {
             
             if videoUrls.count > 0 {
                 if self.currentCamaraMode == .boomerang {
-                    let viewData = LoadingView.instanceFromNib()
-                    viewData.shouldCancleShow = true
-                    viewData.show(on: view)
+                    let loadingView = LoadingView.instanceFromNib()
+                    loadingView.shouldCancelShow = true
+                    loadingView.show(on: view)
                     
                     DispatchQueue.global().async {
                         let factory = VideoFactory(type: .boom, video: VideoOrigin(mediaType: nil, mediaUrl: URL.init(fileURLWithPath: self.videoUrls[0].url!.path), referenceURL: nil))
                         factory.assetTOcvimgbuffer({ [weak self] (urls) in
                             guard let strongSelf = self else { return }
                             DispatchQueue.main.async {
-                                viewData.hide()
+                                loadingView.hide()
                             }
                             
                             strongSelf.newVideoCreate(url: strongSelf.videoUrls[0].url!, newUrl: urls)
                             }, { (progress) in
                                 DispatchQueue.main.async {
-                                    viewData.progressView.setProgress(to: Double(Float(Float(progress.completedUnitCount) / Float(progress.totalUnitCount))), withAnimation: true)
+                                    loadingView.progressView.setProgress(to: Double(Float(Float(progress.completedUnitCount) / Float(progress.totalUnitCount))), withAnimation: true)
                                 }
-                        }, failure: { (error) in
+                        }, failure: { (_) in
                             DispatchQueue.main.async {
-                                viewData.hide()
+                                loadingView.hide()
                                 UIApplication.shared.endIgnoringInteractionEvents()
                             }
                         })
@@ -826,7 +829,6 @@ class PhotoEditorViewController: UIViewController {
     func isProVersionApp(_ isPro: Bool) {
         socialShareBottomToolBar.isHidden = false
         storiCamBottomToolBar.isHidden = true
-        timeSpeedView.isHidden = !isPro
     }
     
     func newVideoCreate(url: URL, newUrl urls: URL) {
@@ -885,7 +887,7 @@ class PhotoEditorViewController: UIViewController {
                         player.isPlaying ? player.play() : nil
                     }
                     self.startPlaybackTimeChecker()
-                    if let cell : ImageCollectionViewCell = self.stopMotionCollectionView.cellForItem(at: IndexPath.init(row: self.currentPage, section: 0)) as? ImageCollectionViewCell {
+                    if let cell: ImageCollectionViewCell = self.stopMotionCollectionView.cellForItem(at: IndexPath.init(row: self.currentPage, section: 0)) as? ImageCollectionViewCell {
                         
                         guard let startTime = cell.trimmerView.startTime else {
                             return
@@ -984,13 +986,13 @@ class PhotoEditorViewController: UIViewController {
             
             progressTime = progressTime + playBackTime.seconds
             
-            let (progressTimeM,progressTimeS) = secondsToHoursMinutesSeconds(Int(Float(progressTime).roundToPlaces(places: 0)))
-            let (totalTimeM,totalTimeS) = secondsToHoursMinutesSeconds(Int(Float(totalTime).roundToPlaces(places: 0)))
+            let (progressTimeM, progressTimeS) = secondsToHoursMinutesSeconds(Int(Float(progressTime).roundToPlaces(places: 0)))
+            let (totalTimeM, totalTimeS) = secondsToHoursMinutesSeconds(Int(Float(totalTime).roundToPlaces(places: 0)))
             
             self.lblCurrentSlidingTime.text = "\(progressTimeM):\(progressTimeS) / \(totalTimeM):\(totalTimeS)"
         }
         
-        if let cell : ImageCollectionViewCell = self.stopMotionCollectionView.cellForItem(at: IndexPath.init(row: self.currentPage, section: 0)) as? ImageCollectionViewCell {
+        if let cell: ImageCollectionViewCell = self.stopMotionCollectionView.cellForItem(at: IndexPath.init(row: self.currentPage, section: 0)) as? ImageCollectionViewCell {
             guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
                 return
             }
@@ -1007,8 +1009,6 @@ class PhotoEditorViewController: UIViewController {
     
 }
 
-
-
 extension PhotoEditorViewController {
     
     func addGesturesTo(view: UIView) {
@@ -1019,7 +1019,6 @@ extension PhotoEditorViewController {
         panGesture.delegate = self
         panGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(panGesture)
-        
         
         let pinchGesture = UIPinchGestureRecognizer(target: self,
                                                     action: #selector(handlePinchGestureInFilterSwitcherView(_:)))
@@ -1175,7 +1174,6 @@ extension PhotoEditorViewController: UIGestureRecognizerDelegate {
         return false
     }
     
-    
     func screenHastTagEdgeSwiped(_ recognizer: UIScreenEdgePanGestureRecognizer) {
         if recognizer.state == .recognized {
             self.openTags(UIButton())
@@ -1194,37 +1192,37 @@ extension PhotoEditorViewController: UIGestureRecognizerDelegate {
             setTagPositionFor(tag.tag, view: tag.view)
             if tag.tag.tagType == StoryTagType.slider.rawValue,
                 let sliderQueView = tag.view as? StorySliderQueView {
-                let sliderTagDict = ["question" : sliderQueView.questionText,
-                                     "emoji" : sliderQueView.slider.emojiText,
-                                     "colorStart" : sliderQueView.startColor.toHexString(),
-                                     "colorEnd" : sliderQueView.endColor.toHexString(),
-                                     "averageAns" : 0,
-                                     "myAns" : 0] as [String : Any]
+                let sliderTagDict = ["question": sliderQueView.questionText,
+                                     "emoji": sliderQueView.slider.emojiText,
+                                     "colorStart": sliderQueView.startColor.toHexString(),
+                                     "colorEnd": sliderQueView.endColor.toHexString(),
+                                     "averageAns": 0,
+                                     "myAns": 0] as [String: Any]
                 let sliderTagString = sliderTagDict.dict2json()
                 tag.tag.sliderTag = sliderTagString
             } else if tag.tag.tagType == StoryTagType.poll.rawValue,
                 let pollQueView = tag.view as? StoryPollQueView {
-                let pollTagDict = ["question" : pollQueView.questionText,
-                                   "options" : [["optionNumber" : 1,
-                                                 "text" : pollQueView.firstOptionText,
-                                                 "averageAns" : 0,
-                                                 "colorStart" : "",
-                                                 "colorEnd" : "",
-                                                 "fontSize" : Float(pollQueView.firstOptionTextView.font?.pointSize ?? 0)],
-                                                ["optionNumber" : 2,
-                                                 "text" : pollQueView.secondOptionText,
-                                                 "averageAns" : 0,
-                                                 "colorStart" : "",
-                                                 "colorEnd" : "",
-                                                 "fontSize" : Float(pollQueView.secondOptionTextView.font?.pointSize ?? 0)]]] as [String : Any]
+                let pollTagDict = ["question": pollQueView.questionText,
+                                   "options": [["optionNumber": 1,
+                                                 "text": pollQueView.firstOptionText,
+                                                 "averageAns": 0,
+                                                 "colorStart": "",
+                                                 "colorEnd": "",
+                                                 "fontSize": Float(pollQueView.firstOptionTextView.font?.pointSize ?? 0)],
+                                                ["optionNumber": 2,
+                                                 "text": pollQueView.secondOptionText,
+                                                 "averageAns": 0,
+                                                 "colorStart": "",
+                                                 "colorEnd": "",
+                                                 "fontSize": Float(pollQueView.secondOptionTextView.font?.pointSize ?? 0)]]] as [String: Any]
                 
                 let pollTagString = pollTagDict.dict2json()
                 tag.tag.pollTag = pollTagString
             } else if tag.tag.tagType == StoryTagType.askQuestion.rawValue,
                 let askQueView = tag.view as? StoryAskQuestionView {
-                let askQueTagDict = ["question" : askQueView.questionText,
-                                     "colorStart" : askQueView.textStartColor.toHexString(),
-                                     "colorEnd" : askQueView.textEndColor.toHexString()] as [String : Any]
+                let askQueTagDict = ["question": askQueView.questionText,
+                                     "colorStart": askQueView.textStartColor.toHexString(),
+                                     "colorEnd": askQueView.textEndColor.toHexString()] as [String: Any]
                 
                 let askQueTagString = askQueTagDict.dict2json()
                 tag.tag.askQuestionTag = askQueTagString

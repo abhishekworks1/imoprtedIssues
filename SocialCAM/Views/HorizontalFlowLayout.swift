@@ -35,7 +35,7 @@ class HorizontalFlowLayout: UICollectionViewFlowLayout {
     var scaleItems: Bool = true
     var needsZoom = true
     var needsDial = true
-    var currentIndex : Int?
+    var currentIndex: Int?
     var angleAtExtreme: CGFloat {
       return collectionView!.numberOfItems(inSection: 0) > 0 ? -CGFloat(collectionView!.numberOfItems(inSection: 0)-1)*anglePerItem : 0
     }
@@ -114,7 +114,7 @@ class HorizontalFlowLayout: UICollectionViewFlowLayout {
         }
     }
     
-    private func configureInset() -> Void {
+    private func configureInset() {
         if self.collectionView == nil {
             return
         }
@@ -182,7 +182,6 @@ class HorizontalFlowLayout: UICollectionViewFlowLayout {
     }
   
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        
       
       if !self.scaleItems || self.collectionView == nil {
             return super.layoutAttributesForElements(in: rect)
@@ -200,7 +199,7 @@ class HorizontalFlowLayout: UICollectionViewFlowLayout {
         let visibleRect = CGRect.init(x: contentOffset.x, y: contentOffset.y, width: size.width, height: size.height)
         let visibleCenterX = visibleRect.midX
         
-        var newAttributesArray = Array<CircularCollectionViewLayoutAttributes>()
+        var newAttributesArray = [CircularCollectionViewLayoutAttributes]()
       
         for (_, attributes) in superAttributes!.enumerated() {
             let newAttributes = attributes.copy() as! CircularCollectionViewLayoutAttributes
@@ -215,13 +214,13 @@ class HorizontalFlowLayout: UICollectionViewFlowLayout {
                     newAttributes.frame = mFrame
                     newAttributes.transform3D = CATransform3DScale(CATransform3DIdentity, scale, scale, 1)
                     
-                } else{
+                } else {
                     var mFrame = newAttributes.frame
                     mFrame.origin.y = scale * abs(distanceFromCenter)
                     newAttributes.frame = mFrame
                     newAttributes.transform3D = CATransform3DScale(CATransform3DIdentity, scale, scale, 1)
                 }
-            } else{
+            } else {
                 newAttributes.transform3D = CATransform3DScale(CATransform3DIdentity, scale, scale, 1)
             }
         }
@@ -229,4 +228,3 @@ class HorizontalFlowLayout: UICollectionViewFlowLayout {
         return newAttributesArray
     }
 }
-

@@ -10,10 +10,10 @@ import Foundation
 import ObjectMapper
 
 class Result<T: Mappable>: Mappable {
-    var sessionToken : String?
+    var sessionToken: String?
     var result: T?
-    var status : String?
-    var message : String?
+    var status: String?
+    var message: String?
     
     required init?(map: Map) {
         
@@ -28,10 +28,10 @@ class Result<T: Mappable>: Mappable {
 }
 
 class ResultArray<T: Mappable>: Mappable {
-    var sessionToken : String?
+    var sessionToken: String?
     var result: [T]?
-    var status : String?
-    var message : String?
+    var status: String?
+    var message: String?
     var page_flag: String?
     var result_count: Int?
     

@@ -237,7 +237,6 @@ public extension UIAppleColorWrapper where Base: UIAppleColor {
                           dark: UIColor(hex6: 0x0984FF))
     }
     
-    
     var placeholderText: UIColor {
         if #available(iOS 13.0, *), isEqualUserInteraceStyle {
             return .placeholderText
@@ -351,7 +350,6 @@ public extension UIAppleColorWrapper where Base: UIAppleColor {
                           dark: UIColor(hex6: 0x5E5CE6))
     }
     
-    
     var systemGray: UIColor {
         if #available(iOS 12.0, *), isEqualUserInteraceStyle {
             return .systemTeal
@@ -360,7 +358,6 @@ public extension UIAppleColorWrapper where Base: UIAppleColor {
         return mode.value(light: UIColor(hex6: 0x8E8E93),
                           dark: UIColor(hex6: 0x8E8E93))
     }
-    
     
     var systemGray2: UIColor {
         if #available(iOS 13.0, *), isEqualUserInteraceStyle {

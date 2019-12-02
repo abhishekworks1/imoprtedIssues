@@ -127,7 +127,7 @@ extension StoryCameraViewController: NextLevelVideoDelegate {
     }
     
     // video frame photo
-    func nextLevel(_ nextLevel: NextLevel, didCompletePhotoCaptureFromVideoFrame photoDict: [String : Any]?) {
+    func nextLevel(_ nextLevel: NextLevel, didCompletePhotoCaptureFromVideoFrame photoDict: [String: Any]?) {
         self.photoTapGestureRecognizer?.isEnabled = true
         self.removeFlashView()
         nextLevel.torchMode = .off
@@ -193,4 +193,3 @@ extension StoryCameraViewController: NextLevelMetadataOutputObjectsDelegate {
         }
     }
 }
-

@@ -34,7 +34,7 @@ public class MMPlayerPassViewPushTransition: MMPlayerBaseNavTransition, UIViewCo
                 c.playLayer = passLayer
             }
             (self.source as? MMPlayerFromProtocol)?.transitionWillStart()
-            let convertRect:CGRect = passLayer.superlayer?.convert(passLayer.superlayer!.frame, to: nil) ?? .zero
+            let convertRect: CGRect = passLayer.superlayer?.convert(passLayer.superlayer!.frame, to: nil) ?? .zero
             let finalFrame = transitionContext.finalFrame(for: toVC)
             let originalColor = toVC.view.backgroundColor
             passLayer.clearURLWhenChangeView = false
@@ -48,7 +48,7 @@ public class MMPlayerPassViewPushTransition: MMPlayerBaseNavTransition, UIViewCo
             let finalFrameContenerView = toVC.view.convert(passContainer.frame, from: passContainer)
             UIView.animate(withDuration: self.config.duration, animations: {
                 pass.frame = finalFrameContenerView
-            }, completion: { (finish) in
+            }, completion: { (_) in
                 pass.frame = finalFrameContenerView
                 toVC.view.backgroundColor = originalColor
                 pass.translatesAutoresizingMaskIntoConstraints = false
@@ -74,9 +74,9 @@ public class MMPlayerPassViewPushTransition: MMPlayerBaseNavTransition, UIViewCo
             config.playLayer?.clearURLWhenChangeView = false
             pass.translatesAutoresizingMaskIntoConstraints = true
             let superV = source.backReplaceSuperView?(original: config.passOriginalSuper) ?? config.passOriginalSuper
-            let original:CGRect = pass.convert(pass.frame, to: nil)
+            let original: CGRect = pass.convert(pass.frame, to: nil)
 
-            let convertRect:CGRect = (superV != nil ) ? superV!.convert(superV!.frame, to: nil) : .zero
+            let convertRect: CGRect = (superV != nil ) ? superV!.convert(superV!.frame, to: nil) : .zero
             
             if superV != nil {
                 pass.removeFromSuperview()
@@ -86,7 +86,7 @@ public class MMPlayerPassViewPushTransition: MMPlayerBaseNavTransition, UIViewCo
             UIView.animate(withDuration: self.config.duration, animations: {
                 from?.view.alpha = 0.0
                 pass.frame = convertRect
-            }, completion: { (finish) in
+            }, completion: { (_) in
                 config.playLayer?.playView = superV
                 pass.translatesAutoresizingMaskIntoConstraints = false
                 superV?.isHidden = false

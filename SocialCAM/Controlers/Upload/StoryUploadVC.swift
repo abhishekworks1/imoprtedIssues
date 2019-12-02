@@ -21,8 +21,7 @@ extension StoryUploadVC: URLSessionDataDelegate, URLSessionDelegate {
         // treat timeout as no error (as we're testing speed, not worried about whether we got entire resource or not
         if error == nil || ((((error as NSError?)?.domain) == NSURLErrorDomain) && (error as NSError?)?.code == NSURLErrorTimedOut) {
             speedTestCompletionHandler?(speed, nil)
-        }
-        else {
+        } else {
             speedTestCompletionHandler?(speed, error)
         }
     }
@@ -40,7 +39,7 @@ class StoryUploadCollectionViewCell: UICollectionViewCell {
 
     var deleteHandler: ((_ index: Int) -> Void)?
     
-    @IBAction func cancleButtonTapped(_ sender: AnyObject) {
+    @IBAction func cancelButtonTapped(_ sender: AnyObject) {
         deleteHandler?(self.tag)
     }
 
@@ -57,12 +56,11 @@ class StoryUploadVC: UIViewController {
     var storyUploads = [StoryData]()
     var firstModalPersiontage: Double! = 0.0
     var firstModalUploadCompletedSize: Double! = 0.0
-    
    
     var startTime = CFAbsoluteTime()
     var stopTime = CFAbsoluteTime()
     var bytesReceived: CGFloat = 0
-    var speedTestCompletionHandler: ((_ megabytesPerSecond: CGFloat, _ error: Error?) -> Void)? = nil
+    var speedTestCompletionHandler: ((_ megabytesPerSecond: CGFloat, _ error: Error?) -> Void)?
     
     @IBOutlet weak var lblSignal: UILabel!
     @IBOutlet weak var imgSignal: UIImageView!
@@ -119,20 +117,16 @@ class StoryUploadVC: UIViewController {
                 if megabytesPerSecond <= 0.002 {
                     strongSelf.imgSignal.image = #imageLiteral(resourceName: "emoji3")
                     strongSelf.lblSignal.text = "Very Slow"
-                }
-                else if megabytesPerSecond >= 0.002 && megabytesPerSecond <= 0.008 {
+                } else if megabytesPerSecond >= 0.002 && megabytesPerSecond <= 0.008 {
                     strongSelf.imgSignal.image = #imageLiteral(resourceName: "like")
                     strongSelf.lblSignal.text = "Slow"
-                }
-                else if megabytesPerSecond >= 0.008 && megabytesPerSecond <= 0.02 {
+                } else if megabytesPerSecond >= 0.008 && megabytesPerSecond <= 0.02 {
                     strongSelf.imgSignal.image = #imageLiteral(resourceName: "feedGridIcon")
                     strongSelf.lblSignal.text = "Medium"
-                }
-                else if megabytesPerSecond >= 0.02 && megabytesPerSecond <= 0.010 {
+                } else if megabytesPerSecond >= 0.02 && megabytesPerSecond <= 0.010 {
                     strongSelf.imgSignal.image = #imageLiteral(resourceName: "storyNext")
                     strongSelf.lblSignal.text = "High"
-                }
-                else {
+                } else {
                     strongSelf.imgSignal.image = #imageLiteral(resourceName: "like-template")
                     strongSelf.lblSignal.text = "Very High"
                 }
@@ -178,11 +172,9 @@ extension StoryUploadVC: UICollectionViewDataSource {
         
         if storyUpload.url! != "" {
             fileName = URL(string: storyUpload.url!)!.lastPathComponent
-        }
-        else {
+        } else {
             if let storyExports = Array(storyUpload.storyExport!) as? [StoryExport],
-                storyExports.count > 0
-            {
+                storyExports.count > 0 {
                 fileName = URL(string: storyExports[0].url!)!.lastPathComponent
             }
         }
@@ -200,7 +192,7 @@ extension StoryUploadVC: UICollectionViewDataSource {
         }
         
         cell.fileNameLabel.text = storyUpload.createdDate?.asString(style: .medium)
-        if indexPath.row != 0  {
+        if indexPath.row != 0 {
             firstModalUploadCompletedSize = 0
         }
         let downloadedSizeUnit = self.getOneDecimalPlaceValue(Float(Double(self.getOneDecimalPlaceValue(Float(firstModalUploadCompletedSize)))! / 1000000.0))
@@ -224,7 +216,6 @@ extension StoryUploadVC: UICollectionViewDataSource {
         }
         return cell
     }
-    
     
 }
 class CustomHeader: UITableViewHeaderFooterView {
@@ -259,7 +250,7 @@ class CustomFooter: UITableViewHeaderFooterView {
     static let reuseIdentifer = "CustomFooterReuseIdentifier"
     let customLabel = UILabel.init()
  
-    let customImage:UIImageView = {
+    let customImage: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false

@@ -22,10 +22,10 @@
 import Foundation
 import CoreImage
 
-public struct PreviewFilterColorCube : Equatable {
+public struct PreviewFilterColorCube: Equatable {
 
   private enum Static {
-    static let ciContext = CIContext(options: [CIContextOption.useSoftwareRenderer : false])
+    static let ciContext = CIContext(options: [CIContextOption.useSoftwareRenderer: false])
     static let heatingQueue = DispatchQueue.init(label: "me.muukii.PixelEngine.Preheat", attributes: [.concurrent])
   }
 
@@ -46,7 +46,7 @@ public struct PreviewFilterColorCube : Equatable {
 
 /// A Filter using LUT Image (backed by CIColorCubeWithColorSpace)
 /// About LUT Image -> https://en.wikipedia.org/wiki/Lookup_table
-public struct FilterColorCube : Filtering, Equatable {
+public struct FilterColorCube: Filtering, Equatable {
 
   public static let range: ParameterRange<Double, FilterColorCube> = .init(min: 0, max: 1)
 
@@ -85,14 +85,14 @@ public struct FilterColorCube : Filtering, Equatable {
         "inputGVector": CIVector(x: 0, y: 1, z: 0, w: 0),
         "inputBVector": CIVector(x: 0, y: 0, z: 1, w: 0),
         "inputAVector": CIVector(x: 0, y: 0, z: 0, w: CGFloat(amount)),
-        "inputBiasVector": CIVector(x: 0, y: 0, z: 0, w: 0),
+        "inputBiasVector": CIVector(x: 0, y: 0, z: 0, w: 0)
     ])
 
     let composition = CIFilter(
       name: "CISourceOverCompositing",
       parameters: [
-        kCIInputImageKey : foreground,
-        kCIInputBackgroundImageKey : background
+        kCIInputImageKey: foreground,
+        kCIInputBackgroundImageKey: background
       ])!
 
     return composition.outputImage!

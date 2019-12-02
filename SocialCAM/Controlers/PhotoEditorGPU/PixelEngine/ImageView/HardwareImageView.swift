@@ -23,6 +23,6 @@ import Foundation
 import UIKit
 import CoreImage
 
-public protocol HardwareImageViewType : class {
+public protocol HardwareImageViewType: class {
   var image: CIImage? { get set }
 }

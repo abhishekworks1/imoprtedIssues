@@ -9,46 +9,46 @@
 import Foundation
 import ObjectMapper
 
-class Channel:  Mappable {
-    var id :String?
-    var salt : String?
-    var username : String?
-    var displayName : String?
-    var channelId : String?
-    var country : String?
-    var email : String?
-    var isBusiness :Bool?
-    var channelName : String?
-    var roles : [String]?
-    var provider : String?
-    var hashTags : [String]?
-    var tweetText : String?
-    var categories:[String]?
-    var isWaiting : Bool?
-    var referrerChannel :String?
-    var shortUrl : String?
-    var age : String?
-    var gender : String?
-    var twitterProfileLink : String?
-    var about : String?
-    var bannerImageURL : String?
-    var profileImageURL : String?
-    var emailVerification : Bool?
-    var lastName : String?
-    var OauthId : String?
-    var firstName : String?
-    var isFollowing : Bool?
-    var following : Int?
-    var follower : Int?
-    var articleCounts : Int?
-    var profileThumbnail : String?
-    var profileType:Int = 1
+class Channel: Mappable {
+    var id: String?
+    var salt: String?
+    var username: String?
+    var displayName: String?
+    var channelId: String?
+    var country: String?
+    var email: String?
+    var isBusiness: Bool?
+    var channelName: String?
+    var roles: [String]?
+    var provider: String?
+    var hashTags: [String]?
+    var tweetText: String?
+    var categories: [String]?
+    var isWaiting: Bool?
+    var referrerChannel: String?
+    var shortUrl: String?
+    var age: String?
+    var gender: String?
+    var twitterProfileLink: String?
+    var about: String?
+    var bannerImageURL: String?
+    var profileImageURL: String?
+    var emailVerification: Bool?
+    var lastName: String?
+    var OauthId: String?
+    var firstName: String?
+    var isFollowing: Bool?
+    var following: Int?
+    var follower: Int?
+    var articleCounts: Int?
+    var profileThumbnail: String?
+    var profileType: Int = 1
 
     required init?(map: Map) {
         
     }
     
-    // MARK:-- Mappable Protocol
+    // MARK: - - Mappable Protocol
     
     func mapping(map: Map) {
         id <- map["_id"]
@@ -89,20 +89,20 @@ class Channel:  Mappable {
 }
 
 class CartResult: NSObject, Mappable {
-    var is_admin : Bool?
-    var unreadcount : Int?
-    var _id : String?
-    var created : String?
-    var phone : String?
-    var __v : Int?
-    var is_typing : Bool?
-    var isVerified : Int?
-    var profileType : Int?
-    var packageChannels : [String]?
-    var individualChannels : [String]?
-    var packageName : Int?
-    var userId : String?
-    var existsChannel : [String]?
+    var is_admin: Bool?
+    var unreadcount: Int?
+    var _id: String?
+    var created: String?
+    var phone: String?
+    var __v: Int?
+    var is_typing: Bool?
+    var isVerified: Int?
+    var profileType: Int?
+    var packageChannels: [String]?
+    var individualChannels: [String]?
+    var packageName: Int?
+    var userId: String?
+    var existsChannel: [String]?
     
     override init() {}
     required convenience init?(map: Map) { self.init() }

@@ -21,10 +21,7 @@
 
 import UIKit
 
-
-
-
-public protocol PixelEditViewControllerDelegate : class {
+public protocol PixelEditViewControllerDelegate: class {
 
   func pixelEditViewController(_ controller: PixelEditViewController, didEndEditing editingStack: EditingStack)
   func pixelEditViewControllerDidCancelEditing(in controller: PixelEditViewController)
@@ -60,7 +57,7 @@ public final class PixelEditContext {
   }
 }
 
-public final class PixelEditViewController : UIViewController {
+public final class PixelEditViewController: UIViewController {
   
   public final class Callbacks {
     public var didEndEditing: (PixelEditViewController, EditingStack) -> Void = { _, _ in }
@@ -204,23 +201,19 @@ public final class PixelEditViewController : UIViewController {
           guide.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
           guide.rightAnchor.constraint(equalTo: view.rightAnchor),
           guide.leftAnchor.constraint(equalTo: view.leftAnchor),
-          guide.widthAnchor.constraint(equalTo: guide.heightAnchor, multiplier: 1),
-          {
+          guide.widthAnchor.constraint(equalTo: guide.heightAnchor, multiplier: 1), {
             let c = editContainerView.topAnchor.constraint(equalTo: guide.topAnchor)
             c.priority = .defaultHigh
             return c
-          }(),
-          {
+          }(), {
             let c = editContainerView.rightAnchor.constraint(equalTo: guide.rightAnchor)
             c.priority = .defaultHigh
             return c
-          }(),
-          {
+          }(), {
             let c = editContainerView.leftAnchor.constraint(equalTo: guide.leftAnchor)
             c.priority = .defaultHigh
             return c
-          }(),
-          {
+          }(), {
             let c = editContainerView.bottomAnchor.constraint(equalTo: guide.bottomAnchor)
             c.priority = .defaultHigh
             return c
@@ -231,8 +224,7 @@ public final class PixelEditViewController : UIViewController {
           
           controlContainerView.topAnchor.constraint(equalTo: guide.bottomAnchor),
           controlContainerView.rightAnchor.constraint(equalTo: view.rightAnchor),
-          controlContainerView.leftAnchor.constraint(equalTo: view.leftAnchor),
-          {
+          controlContainerView.leftAnchor.constraint(equalTo: view.leftAnchor), {
             if #available(iOS 11.0, *) {
               return controlContainerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
             } else {
@@ -254,7 +246,7 @@ public final class PixelEditViewController : UIViewController {
         [
           adjustmentView,
           previewView,
-          maskingView,
+          maskingView
           ].forEach { view in
             view.translatesAutoresizingMaskIntoConstraints = false
             editContainerView.addSubview(view)
@@ -262,7 +254,7 @@ public final class PixelEditViewController : UIViewController {
               view.topAnchor.constraint(equalTo: view.superview!.topAnchor),
               view.rightAnchor.constraint(equalTo: view.superview!.rightAnchor),
               view.bottomAnchor.constraint(equalTo: view.superview!.bottomAnchor),
-              view.leftAnchor.constraint(equalTo: view.superview!.leftAnchor),
+              view.leftAnchor.constraint(equalTo: view.superview!.leftAnchor)
               ])
         }
         
@@ -478,7 +470,7 @@ public final class PixelEditViewController : UIViewController {
 
 }
 
-extension PixelEditViewController : EditingStackDelegate {
+extension PixelEditViewController: EditingStackDelegate {
 
   public func editingStack(_ stack: EditingStack, didChangeCurrentEdit edit: EditingStack.Edit) {
     

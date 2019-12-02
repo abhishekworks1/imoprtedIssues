@@ -106,7 +106,6 @@ class TimeTagView: UIView {
         let slabel = labelFor(text: "\(dateStringFor(type: .ampm, for: self.date ?? Date()))", textAlignment: .right, fontSize: 15)
         addSubview(slabel)
         
-        
         label.translatesAutoresizingMaskIntoConstraints = false
         
         label.topAnchor.constraint(equalTo: topAnchor).isActive = true
@@ -206,7 +205,6 @@ class DigitTimeTagView: TransparentHalfHoleOverlayView {
         slabel.leadingAnchor.constraint(equalTo: firstDigitView.leadingAnchor, constant: 5).isActive = true
         slabel.bottomAnchor.constraint(equalTo: firstDigitView.bottomAnchor, constant: -5).isActive = true
         
-        
         let firstView2 = getDigitView()
         
         let label2 = labelFor(text: dateStringFor(type: .hour, for: self.date ?? Date())[1], textAlignment: .center, fontSize: 50)
@@ -254,7 +252,6 @@ class DigitTimeTagView: TransparentHalfHoleOverlayView {
         stackView1.addArrangedSubview(firstDigitView)
         stackView1.addArrangedSubview(firstView2)
         
-        
         let stackView2 = stackViewWith(spacing: 4)
         stackView2.addArrangedSubview(firstView3)
         stackView2.addArrangedSubview(firstView4)
@@ -296,7 +293,6 @@ class AnalogClockHand: UIView {
     
     var borderWidth: CGFloat = 0.0
     var graduationOffset: CGFloat = 0.0
-    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -392,7 +388,6 @@ class AnalogClockView: UIView {
     var hourHandWidth: CGFloat = 4
     var hourHandLength: CGFloat = 30
     var hourHandOffsideLength: CGFloat = 10
-    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -525,8 +520,8 @@ class AnalogClockView: UIView {
                                        width: digitFont.lineHeight,
                                        height: digitFont.lineHeight),
                             
-                            withAttributes: [NSAttributedString.Key.foregroundColor : digitColor,
-                                             NSAttributedString.Key.font : digitFont])
+                            withAttributes: [NSAttributedString.Key.foregroundColor: digitColor,
+                                             NSAttributedString.Key.font: digitFont])
             
         }
     }

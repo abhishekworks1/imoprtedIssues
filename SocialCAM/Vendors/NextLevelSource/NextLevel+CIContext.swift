@@ -40,9 +40,9 @@ extension CIContext {
     /// - Parameter mtlDevice: Processor for computing
     /// - Returns: Default configuration rendering context, otherwise nil.
     public class func createDefaultCIContext(_ mtlDevice: MTLDevice? = nil) -> CIContext? {
-        let options : [CIContextOption : Any] = [.outputColorSpace : CGColorSpaceCreateDeviceRGB(),
+        let options: [CIContextOption: Any] = [.outputColorSpace: CGColorSpaceCreateDeviceRGB(),
                                                  .outputPremultiplied: true,
-                                                 .useSoftwareRenderer : NSNumber(booleanLiteral: false)]
+                                                 .useSoftwareRenderer: NSNumber(booleanLiteral: false)]
         if let device = mtlDevice {
             return CIContext(mtlDevice: device, options: options)
         } else if let device = MTLCreateSystemDefaultDevice() {
@@ -59,7 +59,7 @@ extension CIContext {
     /// - Parameter sampleBuffer: sample buffer input
     /// - Returns: UIImage from the sample buffer, otherwise nil
     public func uiimage(withSampleBuffer sampleBuffer: CMSampleBuffer) -> UIImage? {
-        var sampleBufferImage: UIImage? = nil
+        var sampleBufferImage: UIImage?
         if let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) {
             let ciimage = CIImage(cvPixelBuffer: pixelBuffer)
             if let cgimage = self.createCGImage(ciimage, from: CGRect(x: 0, y: 0, width: CVPixelBufferGetWidth(pixelBuffer), height: CVPixelBufferGetHeight(pixelBuffer))) {
@@ -74,7 +74,7 @@ extension CIContext {
     /// - Parameter pixelBuffer: Pixel buffer input
     /// - Returns: UIImage from the pixel buffer, otherwise nil
     public func uiimage(withPixelBuffer pixelBuffer: CVPixelBuffer) -> UIImage? {
-        var pixelBufferImage: UIImage? = nil
+        var pixelBufferImage: UIImage?
         if CVPixelBufferLockBaseAddress(pixelBuffer, CVPixelBufferLockFlags.readOnly) == kCVReturnSuccess {
             let ciimage = CIImage(cvPixelBuffer: pixelBuffer)
             if let cgimage = self.createCGImage(ciimage, from: CGRect(x: 0, y: 0, width: CVPixelBufferGetWidth(pixelBuffer), height: CVPixelBufferGetHeight(pixelBuffer))) {
@@ -94,7 +94,7 @@ extension CIContext {
     /// - Returns: Oriented pixel buffer, otherwise nil
     @available(iOS 11.0, *)
     public func createPixelBuffer(fromPixelBuffer pixelBuffer: CVPixelBuffer, withOrientation orientation: CGImagePropertyOrientation, pixelBufferPool: CVPixelBufferPool) -> CVPixelBuffer? {
-        var updatedPixelBuffer: CVPixelBuffer? = nil
+        var updatedPixelBuffer: CVPixelBuffer?
         if CVPixelBufferPoolCreatePixelBuffer(kCFAllocatorDefault, pixelBufferPool, &updatedPixelBuffer) == kCVReturnSuccess {
             if let updatedPixelBuffer = updatedPixelBuffer {
                 CVPixelBufferLockBaseAddress(pixelBuffer, CVPixelBufferLockFlags.readOnly)
@@ -117,7 +117,7 @@ extension CIContext {
     /// - Returns: Oriented pixel buffer, otherwise nil
     @available(iOS 11.0, *)
     public func createPixelBuffer(fromMTLTexture mtlTexture: MTLTexture, withOrientation orientation: CGImagePropertyOrientation, pixelBufferPool: CVPixelBufferPool) -> CVPixelBuffer? {
-        var updatedPixelBuffer: CVPixelBuffer? = nil
+        var updatedPixelBuffer: CVPixelBuffer?
         if CVPixelBufferPoolCreatePixelBuffer(kCFAllocatorDefault, pixelBufferPool, &updatedPixelBuffer) == kCVReturnSuccess {
             if let updatedPixelBuffer = updatedPixelBuffer {
                 // update orientation to match Metal's origin

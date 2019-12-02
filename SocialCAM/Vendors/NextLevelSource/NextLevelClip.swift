@@ -151,14 +151,14 @@ public class NextLevelClip {
     }
     
     /// Dictionary containing data for re-initialization of the clip.
-    public var representationDict: [String:Any]? {
+    public var representationDict: [String: Any]? {
         get {
             if let infoDict = self.infoDict,
                let url = self.url {
-                return [NextLevelClipFilenameKey:url.lastPathComponent,
-                        NextLevelClipInfoDictKey:infoDict]
+                return [NextLevelClipFilenameKey: url.lastPathComponent,
+                        NextLevelClipInfoDictKey: infoDict]
             } else if let url = self.url {
-                return [NextLevelClipFilenameKey:url.lastPathComponent]
+                return [NextLevelClipFilenameKey: url.lastPathComponent]
             } else {
                 return nil
             }
@@ -193,7 +193,7 @@ public class NextLevelClip {
     
     internal var _uuid: UUID = UUID()
     internal var _asset: AVAsset?
-    internal var _infoDict: [String : Any]?
+    internal var _infoDict: [String: Any]?
     internal var _thumbnailImage: UIImage?
     internal var _lastFrameImage: UIImage?
     
@@ -204,7 +204,7 @@ public class NextLevelClip {
     /// - Parameters:
     ///   - url: URL and filename of the specified media asset
     ///   - infoDict: Dictionary with NextLevelClip metadata information
-    public convenience init(url: URL?, infoDict: [String : Any]?) {
+    public convenience init(url: URL?, infoDict: [String: Any]?) {
         self.init()
         self.url = url
         self._infoDict = infoDict
@@ -215,11 +215,11 @@ public class NextLevelClip {
     /// - Parameters:
     ///   - directoryPath: Directory where the media asset is located
     ///   - representationDict: Dictionary containing defining metadata about the clip
-    public convenience init(directoryPath: String, representationDict: [String : Any]?) {
+    public convenience init(directoryPath: String, representationDict: [String: Any]?) {
         if let clipDict = representationDict,
            let filename = clipDict[NextLevelClipFilenameKey] as? String,
            let url: URL = NextLevelClip.clipURL(withFilename: filename, directoryPath: directoryPath) {
-            let infoDict = clipDict[NextLevelClipInfoDictKey] as? [String : Any]
+            let infoDict = clipDict[NextLevelClipInfoDictKey] as? [String: Any]
             self.init(url: url, infoDict: infoDict)
         } else {
             self.init()
@@ -236,7 +236,7 @@ public class NextLevelClip {
     // MARK: - functions
     
     /// Removes the associated file representation on disk.
-    public func removeFile()  {
+    public func removeFile() {
         do {
             if let url = self.url {
                 try FileManager.default.removeItem(at: url)

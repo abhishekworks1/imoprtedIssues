@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-typealias UIButtonTargetClosure = (UIButton) -> ()
+typealias UIButtonTargetClosure = (UIButton) -> Void
 
 class ClosureWrapper: NSObject {
     let closure: UIButtonTargetClosure

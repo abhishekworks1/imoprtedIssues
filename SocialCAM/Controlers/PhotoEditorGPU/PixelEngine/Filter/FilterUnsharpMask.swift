@@ -44,8 +44,8 @@ public struct FilterUnsharpMask: Filtering, Equatable, Codable {
         .applyingFilter(
           "CIUnsharpMask",
           parameters: [
-            "inputIntensity" : intensity,
-            "inputRadius" : _radius,
+            "inputIntensity": intensity,
+            "inputRadius": _radius
           ])
   }
 }

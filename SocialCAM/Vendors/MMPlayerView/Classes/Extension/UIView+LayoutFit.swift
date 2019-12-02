@@ -64,6 +64,6 @@ extension UIView: MMPlayerLayoutFitCompatible {
     var mPlayFit: MMPlayerLayoutFit {
         get {
             return MMPlayerLayoutFit(self)
-        } set{}
+        } set {}
     }
 }

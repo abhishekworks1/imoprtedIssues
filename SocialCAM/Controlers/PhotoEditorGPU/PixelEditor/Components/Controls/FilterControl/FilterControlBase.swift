@@ -21,7 +21,7 @@
 
 import Foundation
 
-open class FilterControlBase : ControlBase {
+open class FilterControlBase: ControlBase {
   
   open var title: String {
     fatalError("Must be overrided")

@@ -18,7 +18,7 @@ class TagVC: UIViewController, UIGestureRecognizerDelegate {
     
     var collectioView: UICollectionView!
     
-    var stickers: [UIImage] = [#imageLiteral(resourceName: "storySticker_3"),#imageLiteral(resourceName: "storySticker_0"),#imageLiteral(resourceName: "storySticker_5")]
+    var stickers: [UIImage] = [#imageLiteral(resourceName: "storySticker_3"), #imageLiteral(resourceName: "storySticker_0"), #imageLiteral(resourceName: "storySticker_5")]
     weak var hashTagViewControllerDelegate: HashTagViewControllerDelegate?
     
     let screenSize = UIScreen.main.bounds.size
@@ -27,7 +27,6 @@ class TagVC: UIViewController, UIGestureRecognizerDelegate {
     var partialView: CGFloat {
         return 0
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -145,7 +144,7 @@ class TagVC: UIViewController, UIGestureRecognizerDelegate {
                         frame.origin.y = UIScreen.main.bounds.maxY
                         self.view.frame = frame
                         
-        }, completion: { (finished) -> Void in
+        }, completion: { (_) -> Void in
             self.view.removeFromSuperview()
             self.removeFromParent()
             self.dismiss(animated: true, completion: {

@@ -17,7 +17,7 @@ extension Date {
         let date2 = Date(timeInterval: interval, since: date1)
         let c = NSCalendar.current
         
-        var components = c.dateComponents([.year,.month,.day,.hour,.minute,.second,.weekday], from: date1, to: date2)
+        var components = c.dateComponents([.year, .month, .day, .hour, .minute, .second, .weekday], from: date1, to: date2)
         components.calendar = c
         return components
     }
@@ -33,12 +33,12 @@ extension Date {
         return dateFormatter.string(from: self)
     }
     
-    func timeAgoSinceDate(numericDates:Bool) -> String {
+    func timeAgoSinceDate(numericDates: Bool) -> String {
         let calendar = Calendar.current
         let now = Date()
         let earliest = (now as NSDate).earlierDate(self)
         let latest = (earliest == now) ? self : now
-        let components:DateComponents = (calendar as NSCalendar).components([NSCalendar.Unit.minute , NSCalendar.Unit.hour , NSCalendar.Unit.day , NSCalendar.Unit.weekOfYear , NSCalendar.Unit.month , NSCalendar.Unit.year , NSCalendar.Unit.second], from: earliest, to: latest, options: NSCalendar.Options())
+        let components: DateComponents = (calendar as NSCalendar).components([NSCalendar.Unit.minute, NSCalendar.Unit.hour, NSCalendar.Unit.day, NSCalendar.Unit.weekOfYear, NSCalendar.Unit.month, NSCalendar.Unit.year, NSCalendar.Unit.second], from: earliest, to: latest, options: NSCalendar.Options())
         
         if components.year! >= 2 {
             if numericDates {
@@ -102,7 +102,7 @@ extension Date {
                 return "1 hour ago"
             }
         } else if components.minute! >= 2 {
-            if (numericDates){
+            if (numericDates) {
                 return "\(components.minute!)m"
             } else {
                 return "\(components.minute!) minutes ago"

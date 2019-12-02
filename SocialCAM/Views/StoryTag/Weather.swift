@@ -121,20 +121,19 @@ class Sys: Mappable {
     
 }
 
-
 class BaseWeather: Mappable {
-    var coord : Coord?
-    var weather : [Weather]?
-    var base : String?
-    var main : Main?
-    var visibility : Int?
-    var wind : Wind?
-    var clouds : Clouds?
-    var dt : Int?
-    var sys : Sys?
-    var id : Int?
-    var name : String?
-    var cod : Int?
+    var coord: Coord?
+    var weather: [Weather]?
+    var base: String?
+    var main: Main?
+    var visibility: Int?
+    var wind: Wind?
+    var clouds: Clouds?
+    var dt: Int?
+    var sys: Sys?
+    var id: Int?
+    var name: String?
+    var cod: Int?
     
     required init?(map: Map) {
         mapping(map: map)

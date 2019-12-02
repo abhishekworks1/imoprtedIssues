@@ -21,7 +21,7 @@
 
 import Foundation
 
-public protocol EditingStackDelegate : class {
+public protocol EditingStackDelegate: class {
 
   func editingStack(_ stack: EditingStack, didChangeCurrentEdit edit: EditingStack.Edit)
 }
@@ -288,7 +288,7 @@ open class EditingStack {
 
 }
 
-open class SquareEditingStack : EditingStack {
+open class SquareEditingStack: EditingStack {
 
   open override func initialCrop() {
     let cropRect = Geometry.rectThatAspectFit(
@@ -310,9 +310,9 @@ private func _ratio(to: CGSize, from: CGSize) -> CGFloat {
 
 extension EditingStack {
 
-  public struct Edit : Equatable {
+  public struct Edit: Equatable {
 
-    public struct Filters : Equatable {
+    public struct Filters: Equatable {
       
       public var colorCube: FilterColorCube?
       
@@ -351,8 +351,8 @@ extension EditingStack {
           unsharpMask,
           gaussianBlur,
           fade,
-          vignette,
-          ] as [Optional<Filtering>])
+          vignette
+          ] as [Filtering?])
           .compactMap { $0 }
       }
     }
@@ -396,4 +396,3 @@ extension Collection where Index == Int {
     return buffer.compactMap { $0 }
   }
 }
-

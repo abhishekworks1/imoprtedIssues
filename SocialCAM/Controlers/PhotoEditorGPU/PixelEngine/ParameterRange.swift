@@ -21,7 +21,7 @@
 
 import Foundation
 
-public struct ParameterRange<T : Comparable, Target> {
+public struct ParameterRange<T: Comparable, Target> {
 
   public let min: T
   public let max: T

@@ -51,7 +51,7 @@ extension PhotoEditorViewController {
             if let player = scPlayer {
                 player.play()
                 startPlaybackTimeChecker()
-                if let cell : ImageCollectionViewCell = self.stopMotionCollectionView.cellForItem(at: IndexPath.init(row: self.currentPage, section: 0)) as? ImageCollectionViewCell {
+                if let cell: ImageCollectionViewCell = self.stopMotionCollectionView.cellForItem(at: IndexPath.init(row: self.currentPage, section: 0)) as? ImageCollectionViewCell {
                     guard let startTime = cell.trimmerView.startTime else {
                         return
                     }
@@ -65,7 +65,6 @@ extension PhotoEditorViewController {
         addKeyboardStateObserver()
         IQKeyboardManager.shared.enableAutoToolbar = false
     }
-    
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -115,6 +114,5 @@ extension PhotoEditorViewController {
             self.cursorContainerViewController = segue.destination as? KeyframePickerCursorVC
         }
     }
-    
     
 }

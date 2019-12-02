@@ -21,7 +21,7 @@
 
 import UIKit
 
-public class DryDrawingView : UIView {
+public class DryDrawingView: UIView {
 
   private var bezierPath: UIBezierPath = UIBezierPath()
   private var controlPoint: Int = 0

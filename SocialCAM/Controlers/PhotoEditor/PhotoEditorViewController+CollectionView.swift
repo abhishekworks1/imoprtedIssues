@@ -19,8 +19,7 @@ extension PhotoEditorViewController: UICollectionViewDelegate, UICollectionViewD
                 isImageCellSelect = true
                 self.currentPlayVideo = (indexPath as NSIndexPath).row - 1
                 self.connVideoPlay()
-            }
-            else {
+            } else {
                 if let img = self.videoUrls[indexPath.row].image {
                     filterSwitcherView?.setImageBy(img)
                 }
@@ -34,43 +33,35 @@ extension PhotoEditorViewController: UICollectionViewDelegate, UICollectionViewD
             if videoUrls[indexPath.row].isCombineOneVideo {
                 if currentPage == indexPath.row {
                     if isEditMode {
-                        return CGSize(width: 250 , height: Double(98 * 1.17))
+                        return CGSize(width: 250, height: Double(98 * 1.17))
+                    } else {
+                        return CGSize(width: 41 * 1.2, height: Double(98 * 1.17))
                     }
-                    else {
-                        return CGSize(width: 41 * 1.2 , height: Double(98 * 1.17))
-                    }
-                }
-                else {
+                } else {
                     return CGSize(width: 41, height: 98)
                 }
-            }
-            else {
+            } else {
                 if currentPage == indexPath.row && currentCamaraMode != .slideshow {
                     if isEditMode {
-                        return CGSize(width: 250 , height: Double(98 * 1.17))
+                        return CGSize(width: 250, height: Double(98 * 1.17))
+                    } else {
+                        return CGSize(width: (Double(images.count * 41) * 1.2), height: Double(98 * 1.17))
                     }
-                    else {
-                        return CGSize(width: (Double(images.count * 41) * 1.2) , height: Double(98 * 1.17))
-                    }
-                }
-                else {
+                } else {
                     if self.videoUrls[indexPath.row].isSelected {
                         if isEditMode {
-                            return CGSize(width: 250 , height: Double(98 * 1.17))
-                        }
-                        else {
-                            return CGSize(width: (Double(images.count * 41) * 1.2) , height: Double(98 * 1.17))
+                            return CGSize(width: 250, height: Double(98 * 1.17))
+                        } else {
+                            return CGSize(width: (Double(images.count * 41) * 1.2), height: Double(98 * 1.17))
                         }
                     } else {
                         return CGSize(width: (images.count * 41), height: 98)
                     }
                 }
             }
-        }
-        else if collectionView == self.collectionView {
+        } else if collectionView == self.collectionView {
             return CGSize(width: 67, height: collectionView.frame.size.height)
-        }
-        else {
+        } else {
             return CGSize(width: 0, height: 0)
         }
     }
@@ -122,7 +113,7 @@ extension PhotoEditorViewController: UICollectionViewDelegate, UICollectionViewD
         if let player = scPlayer {
             player.isPlaying ? player.play() : nil
             startPlaybackTimeChecker()
-            if let cell : ImageCollectionViewCell = self.stopMotionCollectionView.cellForItem(at: IndexPath.init(row: self.currentPage, section: 0)) as? ImageCollectionViewCell {
+            if let cell: ImageCollectionViewCell = self.stopMotionCollectionView.cellForItem(at: IndexPath.init(row: self.currentPage, section: 0)) as? ImageCollectionViewCell {
                 
                 guard let startTime = cell.trimmerView.startTime else {
                     return
@@ -179,7 +170,6 @@ extension PhotoEditorViewController: UICollectionViewDataSource, KDDragAndDropCo
                 self.setDeleteFrame(view: cell)
             }
             
-            
             cell.isHidden = false
             
             cell.imagesStackView.tag = indexPath.row
@@ -216,12 +206,10 @@ extension PhotoEditorViewController: UICollectionViewDataSource, KDDragAndDropCo
                         self.scPlayer?.setItemBy(item)
                         
                         cell.trimmerView.isHidden = false
-                    }
-                    else {
+                    } else {
                         cell.trimmerView.isHidden = true
                     }
-                }
-                else {
+                } else {
                     for imageName in images {
                         let mainView = UIView.init(frame: CGRect(x: 0, y: 3, width: Double(41 * 1.2), height: Double(cell.imagesView.frame.height * 1.18)))
                         
@@ -237,13 +225,11 @@ extension PhotoEditorViewController: UICollectionViewDataSource, KDDragAndDropCo
                     if isEditMode, let item = item {
                         self.scPlayer?.setItemBy(item)
                         cell.trimmerView.isHidden = false
-                    }
-                    else {
+                    } else {
                         cell.trimmerView.isHidden = true
                     }
                 }
-            }
-            else {
+            } else {
                 if videoUrls[(indexPath as NSIndexPath).row].isCombineOneVideo {
                     let mainView = UIView.init(frame: CGRect(x: 0, y: 3, width: 41, height: 52))
                     
@@ -286,8 +272,7 @@ extension PhotoEditorViewController: UICollectionViewDataSource, KDDragAndDropCo
             cell.imagesView.layer.borderColor = borderColor
             
             if let kdCollectionView = stopMotionCollectionView {
-                if let draggingPathOfCellBeingDragged = kdCollectionView.draggingPathOfCellBeingDragged
-                {
+                if let draggingPathOfCellBeingDragged = kdCollectionView.draggingPathOfCellBeingDragged {
                     if draggingPathOfCellBeingDragged.item == indexPath.item {
                         cell.isHidden = true
                         draggingCell = indexPath
@@ -308,30 +293,30 @@ extension PhotoEditorViewController: UICollectionViewDataSource, KDDragAndDropCo
         }
     }
     
-    // MARK : KDDragAndDropCollectionViewDataSource
+    // MARK: KDDragAndDropCollectionViewDataSource
     public func collectionView(_ collectionView: UICollectionView, dataItemForIndexPath indexPath: IndexPath) -> AnyObject {
         return videoUrls[indexPath.item]
     }
     
-    public func collectionView(_ collectionView: UICollectionView, insertDataItem dataItem: AnyObject, atIndexPath indexPath: IndexPath) -> Void {
+    public func collectionView(_ collectionView: UICollectionView, insertDataItem dataItem: AnyObject, atIndexPath indexPath: IndexPath) {
         
         if let di = dataItem as? SegmentVideos {
             videoUrls.insert(di, at: indexPath.item)
         }
         
     }
-    public func collectionView(_ collectionView: UICollectionView, deleteDataItemAtIndexPath indexPath: IndexPath) -> Void {
+    public func collectionView(_ collectionView: UICollectionView, deleteDataItemAtIndexPath indexPath: IndexPath) {
         
         videoUrls.remove(at: indexPath.item)
         
     }
     
-    func getUndo(index: Int) -> (()->Void) {
+    func getUndo(index: Int) -> (() -> Void) {
         return { () -> Void in
             self.videoUrls.remove(at: index)
         }
     }
-    func getRedo(model: SegmentVideos, index: Int) -> (()->Void) {
+    func getRedo(model: SegmentVideos, index: Int) -> (() -> Void) {
         return { () -> Void in
             self.videoUrls.insert(model, at: index)
         }
@@ -341,13 +326,13 @@ extension PhotoEditorViewController: UICollectionViewDataSource, KDDragAndDropCo
         undoMgr.add(undo: getUndo(index: index), redo: getRedo(model: data, index: index))
     }
     
-    func getDeleteUndo(model: SegmentVideos, data: Int) -> (()->Void) {
+    func getDeleteUndo(model: SegmentVideos, data: Int) -> (() -> Void) {
         return { () -> Void in
             self.videoUrls.insert(model, at: data)
         }
     }
     
-    func getDeleteRedo(data: Int) -> (()->Void) {
+    func getDeleteRedo(data: Int) -> (() -> Void) {
         return { () -> Void in
             self.videoUrls.remove(at: data)
         }
@@ -358,7 +343,7 @@ extension PhotoEditorViewController: UICollectionViewDataSource, KDDragAndDropCo
         
     }
     
-    func getNullDeleteUndo(model: SegmentVideos, data: Int) -> (()->Void) {
+    func getNullDeleteUndo(model: SegmentVideos, data: Int) -> (() -> Void) {
         return { () -> Void in
             
         }
@@ -368,7 +353,7 @@ extension PhotoEditorViewController: UICollectionViewDataSource, KDDragAndDropCo
         undoMgr.add(undo: getNullDeleteUndo(model: model, data: data), redo: getNullDeleteUndo(model: model, data: data))
     }
     
-    public func collectionView(_ collectionView: UICollectionView, moveDataItemFromIndexPath from: IndexPath, toIndexPath to: IndexPath) -> Void {
+    public func collectionView(_ collectionView: UICollectionView, moveDataItemFromIndexPath from: IndexPath, toIndexPath to: IndexPath) {
         
         if isDisableResequence {
             return
@@ -384,11 +369,9 @@ extension PhotoEditorViewController: UICollectionViewDataSource, KDDragAndDropCo
             videoUrls.insert(videourl, at: to.item)
         }
         
-        if fromCell == nil
-        {
+        if fromCell == nil {
             if let kdCollectionView = collectionView as? KDDragAndDropCollectionView {
-                if let draggingPathOfCellBeingDragged = kdCollectionView.draggingPathOfCellBeingDragged
-                {
+                if let draggingPathOfCellBeingDragged = kdCollectionView.draggingPathOfCellBeingDragged {
                     fromCell = draggingPathOfCellBeingDragged
                 }
             }
@@ -454,8 +437,7 @@ extension PhotoEditorViewController: UICollectionViewDataSource, KDDragAndDropCo
                     guard let strongSelf = self else { return }
                     strongSelf.setStickerObject(view: strongSelf.photoSegmentDeleteView)
                 })
-            }
-            else {
+            } else {
                 self.setDeleteFrame(view: photoSegmentDeleteView)
             }
             return
@@ -482,8 +464,7 @@ extension PhotoEditorViewController: UICollectionViewDataSource, KDDragAndDropCo
                 guard let strongSelf = self else { return }
                 strongSelf.setStickerObject(view: strongSelf.deleteView)
             })
-        }
-        else if outtakesFrame!.intersects(newrectData) == true {
+        } else if outtakesFrame!.intersects(newrectData) == true {
             self.setDeleteFrame(view: deleteView)
             self.setDeleteFrame(view: notesView)
             self.setDeleteFrame(view: chatView)
@@ -494,8 +475,7 @@ extension PhotoEditorViewController: UICollectionViewDataSource, KDDragAndDropCo
                 guard let strongSelf = self else { return }
                 strongSelf.setStickerObject(view: strongSelf.outtakesView)
             })
-        }
-        else if notesFrame!.intersects(newrectData) == true {
+        } else if notesFrame!.intersects(newrectData) == true {
             self.setDeleteFrame(view: deleteView)
             self.setDeleteFrame(view: outtakesView)
             self.setDeleteFrame(view: chatView)
@@ -506,8 +486,7 @@ extension PhotoEditorViewController: UICollectionViewDataSource, KDDragAndDropCo
                 guard let strongSelf = self else { return }
                 strongSelf.setStickerObject(view: strongSelf.notesView)
             })
-        }
-        else if chatFrame!.intersects(newrectData) == true {
+        } else if chatFrame!.intersects(newrectData) == true {
             self.setDeleteFrame(view: deleteView)
             self.setDeleteFrame(view: outtakesView)
             self.setDeleteFrame(view: notesView)
@@ -518,8 +497,7 @@ extension PhotoEditorViewController: UICollectionViewDataSource, KDDragAndDropCo
                 guard let strongSelf = self else { return }
                 strongSelf.setStickerObject(view: strongSelf.chatView)
             })
-        }
-        else if feedFrame!.intersects(newrectData) == true {
+        } else if feedFrame!.intersects(newrectData) == true {
             self.setDeleteFrame(view: deleteView)
             self.setDeleteFrame(view: outtakesView)
             self.setDeleteFrame(view: notesView)
@@ -530,8 +508,7 @@ extension PhotoEditorViewController: UICollectionViewDataSource, KDDragAndDropCo
                 guard let strongSelf = self else { return }
                 strongSelf.setStickerObject(view: strongSelf.feedView)
             })
-        }
-        else if storyFrame!.intersects(newrectData) == true {
+        } else if storyFrame!.intersects(newrectData) == true {
             self.setDeleteFrame(view: deleteView)
             self.setDeleteFrame(view: outtakesView)
             self.setDeleteFrame(view: notesView)
@@ -542,8 +519,7 @@ extension PhotoEditorViewController: UICollectionViewDataSource, KDDragAndDropCo
                 guard let strongSelf = self else { return }
                 strongSelf.setStickerObject(view: strongSelf.storyView)
             })
-        }
-        else if youtubeFrame!.intersects(newrectData) == true {
+        } else if youtubeFrame!.intersects(newrectData) == true {
             self.setDeleteFrame(view: deleteView)
             self.setDeleteFrame(view: outtakesView)
             self.setDeleteFrame(view: notesView)
@@ -554,8 +530,7 @@ extension PhotoEditorViewController: UICollectionViewDataSource, KDDragAndDropCo
                 guard let strongSelf = self else { return }
                 strongSelf.setStickerObject(view: strongSelf.youTubeView)
             })
-        }
-        else {
+        } else {
             self.setDeleteFrame(view: deleteView)
             self.setDeleteFrame(view: outtakesView)
             self.setDeleteFrame(view: notesView)
@@ -581,9 +556,7 @@ extension PhotoEditorViewController: UICollectionViewDataSource, KDDragAndDropCo
                 segmentEditOptionView.isHidden = true
                 segmentEditOptionButton.isHidden = true
                 segmentTypeMergeView.isHidden = false
-            }
-            else
-            {
+            } else {
                 DispatchQueue.main.async {
                     guard let player = self.scPlayer else { return }
                     player.isPlaying ? player.play() : nil
@@ -623,8 +596,7 @@ extension PhotoEditorViewController: UICollectionViewDataSource, KDDragAndDropCo
                     }
                 }
             }
-        }
-        else if outtakesFrame!.intersects(newrectData) {
+        } else if outtakesFrame!.intersects(newrectData) {
             if currentCamaraMode == .slideshow {
                 return
             }
@@ -646,8 +618,7 @@ extension PhotoEditorViewController: UICollectionViewDataSource, KDDragAndDropCo
                     }
                 }
             }
-        }
-        else if notesFrame!.intersects(newrectData) {
+        } else if notesFrame!.intersects(newrectData) {
             if currentCamaraMode == .slideshow {
                 return
             }
@@ -665,8 +636,7 @@ extension PhotoEditorViewController: UICollectionViewDataSource, KDDragAndDropCo
                     }
                 }
             }
-        }
-        else if chatFrame!.intersects(newrectData) {
+        } else if chatFrame!.intersects(newrectData) {
             if currentCamaraMode == .slideshow {
                 return
             }
@@ -684,8 +654,7 @@ extension PhotoEditorViewController: UICollectionViewDataSource, KDDragAndDropCo
                     }
                 }
             }
-        }
-        else if feedFrame!.intersects(newrectData) {
+        } else if feedFrame!.intersects(newrectData) {
             if currentCamaraMode == .slideshow {
                 return
             }
@@ -703,8 +672,7 @@ extension PhotoEditorViewController: UICollectionViewDataSource, KDDragAndDropCo
                     }
                 }
             }
-        }
-        else if storyFrame!.intersects(newrectData) {
+        } else if storyFrame!.intersects(newrectData) {
             if currentCamaraMode == .slideshow {
                 return
             }
@@ -722,8 +690,7 @@ extension PhotoEditorViewController: UICollectionViewDataSource, KDDragAndDropCo
                     }
                 }
             }
-        }
-        else if youtubeFrame!.intersects(newrectData) {
+        } else if youtubeFrame!.intersects(newrectData) {
             if currentCamaraMode == .slideshow {
                 return
             }
@@ -737,8 +704,7 @@ extension PhotoEditorViewController: UICollectionViewDataSource, KDDragAndDropCo
                     }
                 }
             }
-        }
-        else {
+        } else {
             let checkframeDelete = CGRect.init(x: photoSegmentDeleteView.frame.origin.x, y: photoSegmentDeleteView.frame.origin.y, width: photoSegmentDeleteView.frame.width, height: photoSegmentDeleteView.frame.height)
             if checkframeDelete.intersects(newrectData) == true {
                 if draggingCell != nil {
@@ -776,12 +742,12 @@ extension PhotoEditorViewController: UICollectionViewDataSource, KDDragAndDropCo
                                     if nilCount.count == 3 {
                                         
                                         let alert = UIAlertController(title: Constant.Application.displayName, message: "Upgrade to Pro version to upload more than 3 image in slideshow.", preferredStyle: UIAlertController.Style.alert)
-                                        let upgradeToPrime = UIAlertAction(title: "Upgrade to Prime", style: .default, handler: { (a) in
+                                        let upgradeToPrime = UIAlertAction(title: "Upgrade to Prime", style: .default, handler: { (_) in
                                         })
-                                        let upgradeToContent = UIAlertAction(title: "Upgrade to content creator", style: .default, handler: { (a) in
+                                        let upgradeToContent = UIAlertAction(title: "Upgrade to content creator", style: .default, handler: { (_) in
                                             
                                         })
-                                        let remindMeLater = UIAlertAction(title: "Remind me later", style: .default, handler: { (a) in
+                                        let remindMeLater = UIAlertAction(title: "Remind me later", style: .default, handler: { (_) in
                                             
                                         })
                                         alert.addAction(upgradeToPrime)
@@ -815,8 +781,7 @@ extension PhotoEditorViewController: UICollectionViewDataSource, KDDragAndDropCo
                                     })
                                     if allSegment.count < 2 {
                                         enableSaveButtons(false, alpha: 0.5)
-                                    }
-                                    else {
+                                    } else {
                                         enableSaveButtons(true, alpha: 1.0)
                                     }
                                     

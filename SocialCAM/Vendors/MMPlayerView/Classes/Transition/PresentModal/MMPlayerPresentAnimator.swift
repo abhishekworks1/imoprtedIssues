@@ -8,11 +8,11 @@
 
 import UIKit
 
-public class MMPlayerPresentAnimator: NSObject , UIViewControllerTransitioningDelegate{
+public class MMPlayerPresentAnimator: NSObject, UIViewControllerTransitioningDelegate {
     public typealias T = MMPlayerPresentConfig
-    public var config:T?
+    public var config: T?
     
-    unowned let base:UIViewController
+    unowned let base: UIViewController
     var transition: UIViewControllerAnimatedTransitioning?
     public init(_ base: UIViewController) {
         self.base = base
@@ -21,7 +21,7 @@ public class MMPlayerPresentAnimator: NSObject , UIViewControllerTransitioningDe
         base.transitioningDelegate = self
     }
     
-    public func pass<T: MMPlayerPassViewPresentConfig>(setting: (_ config: T)->Void) {
+    public func pass<T: MMPlayerPassViewPresentConfig>(setting: (_ config: T) -> Void) {
         self.config = MMPlayerPassViewPresentConfig()
         setting(self.config! as! T)
     }
@@ -32,7 +32,7 @@ public class MMPlayerPresentAnimator: NSObject , UIViewControllerTransitioningDe
     }
     
     public func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        self.transition = self.transition(config: config, isPresent: true ,source: source)
+        self.transition = self.transition(config: config, isPresent: true, source: source)
         return self.transition
     }
     
@@ -40,7 +40,7 @@ public class MMPlayerPresentAnimator: NSObject , UIViewControllerTransitioningDe
         return self.presentationController(config: config, forPresented: presented, presenting: presenting)
     }
     
-    fileprivate func transition(config:T? ,isPresent:Bool ,source: UIViewController?) -> UIViewControllerAnimatedTransitioning? {
+    fileprivate func transition(config: T?, isPresent: Bool, source: UIViewController?) -> UIViewControllerAnimatedTransitioning? {
         
         if let c = config {
             switch c {
@@ -55,7 +55,7 @@ public class MMPlayerPresentAnimator: NSObject , UIViewControllerTransitioningDe
         return nil
     }
     
-    fileprivate func presentationController(config:T? , forPresented presented: UIViewController, presenting: UIViewController?) -> UIPresentationController? {
+    fileprivate func presentationController(config: T?, forPresented presented: UIViewController, presenting: UIViewController?) -> UIPresentationController? {
         
         if let c = config {
             switch c {

@@ -19,8 +19,8 @@ class PhotoScrollView: UIView {
      }
      */
     
-    var photoImage : UIImageView!
-    lazy var scrollView : UIScrollView = {
+    var photoImage: UIImageView!
+    lazy var scrollView: UIScrollView = {
         
         let view = UIScrollView(frame: self.bounds)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -35,7 +35,7 @@ class PhotoScrollView: UIView {
         var yConst = NSLayoutConstraint(item: view, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant: 0)
         var wConst = NSLayoutConstraint(item: view, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 0)
         var hConst = NSLayoutConstraint(item: view, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 0)
-        NSLayoutConstraint.activate([xConst,yConst,wConst,hConst])
+        NSLayoutConstraint.activate([xConst, yConst, wConst, hConst])
         
         self.photoImage = UIImageView(frame: view.bounds)
         self.photoImage.contentMode = .scaleAspectFill
@@ -45,13 +45,13 @@ class PhotoScrollView: UIView {
         yConst = NSLayoutConstraint(item: self.photoImage!, attribute: .right, relatedBy: .equal, toItem: view, attribute: .right, multiplier: 1, constant: 0)
         wConst = NSLayoutConstraint(item: self.photoImage!, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: 0)
         hConst = NSLayoutConstraint(item: self.photoImage!, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0)
-        NSLayoutConstraint.activate([xConst,yConst,wConst,hConst])
+        NSLayoutConstraint.activate([xConst, yConst, wConst, hConst])
         
         return view
-    } ()
+    }()
     
-    private var imgSize : CGSize = .zero
-    private var prevSize : CGSize = .zero
+    private var imgSize: CGSize = .zero
+    private var prevSize: CGSize = .zero
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -89,7 +89,7 @@ class PhotoScrollView: UIView {
         _ = self.scrollView
     }
     
-    func setPhoto(img : UIImage) {
+    func setPhoto(img: UIImage) {
         self.photoImage.image = img
         self.imgSize = img.size
         self.calculateZoomScale()
@@ -97,7 +97,7 @@ class PhotoScrollView: UIView {
     }
 }
 
-extension PhotoScrollView : UIScrollViewDelegate {
+extension PhotoScrollView: UIScrollViewDelegate {
     
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
         

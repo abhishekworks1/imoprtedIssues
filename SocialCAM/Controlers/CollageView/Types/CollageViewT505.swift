@@ -78,7 +78,7 @@ class CollageViewT505: CollageView {
         NSLayoutConstraint.activate([ lc21, lc22, lc23, lc24])
         baseLine06.baseLC = lc23
         
-        self.baseLineViews += [baseLine01,baseLine03,baseLine04,baseLine05,baseLine06]
+        self.baseLineViews += [baseLine01, baseLine03, baseLine04, baseLine05, baseLine06]
         self.initCells()
     }
     
@@ -89,7 +89,7 @@ class CollageViewT505: CollageView {
         self.addSubview(cell01)
         let lc01 = NSLayoutConstraint(item: cell01, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: 0)
         let lc02 = NSLayoutConstraint(item: cell01, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 0)
-        let lc03 = NSLayoutConstraint(item: cell01, attribute: .right, relatedBy: .equal, toItem: self.baseLineViews[4], attribute: .right, multiplier: 1, constant:0)
+        let lc03 = NSLayoutConstraint(item: cell01, attribute: .right, relatedBy: .equal, toItem: self.baseLineViews[4], attribute: .right, multiplier: 1, constant: 0)
         let lc04 = NSLayoutConstraint(item: cell01, attribute: .bottom, relatedBy: .equal, toItem: self.baseLineViews[0], attribute: .bottom, multiplier: 1, constant: 0)
         NSLayoutConstraint.activate([ lc01, lc02, lc03, lc04])
         
@@ -98,7 +98,7 @@ class CollageViewT505: CollageView {
         self.addSubview(cell04)
         let lc011 = NSLayoutConstraint(item: cell04, attribute: .left, relatedBy: .equal, toItem: self.baseLineViews[4], attribute: .right, multiplier: 1, constant: 0)
         let lc021 = NSLayoutConstraint(item: cell04, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 0)
-        let lc031 = NSLayoutConstraint(item: cell04, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant:0)
+        let lc031 = NSLayoutConstraint(item: cell04, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant: 0)
         let lc041 = NSLayoutConstraint(item: cell04, attribute: .bottom, relatedBy: .equal, toItem: self.baseLineViews[0], attribute: .bottom, multiplier: 1, constant: 0)
         NSLayoutConstraint.activate([ lc011, lc021, lc031, lc041])
         
@@ -107,17 +107,16 @@ class CollageViewT505: CollageView {
         self.addSubview(cell02)
         let lc05 = NSLayoutConstraint(item: cell02, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: 0)
         let lc06 = NSLayoutConstraint(item: cell02, attribute: .top, relatedBy: .equal, toItem: self.baseLineViews[0], attribute: .bottom, multiplier: 1, constant: 0)
-        let lc07 = NSLayoutConstraint(item: cell02, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant:0)
+        let lc07 = NSLayoutConstraint(item: cell02, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant: 0)
         let lc08 = NSLayoutConstraint(item: cell02, attribute: .bottom, relatedBy: .equal, toItem: self.baseLineViews[2], attribute: .top, multiplier: 1, constant: 0)
         NSLayoutConstraint.activate([ lc05, lc06, lc07, lc08])
-        
         
         let cell03 = CollageCell(id: 3)
         cell03.delegate = self
         self.addSubview(cell03)
         let lc09 = NSLayoutConstraint(item: cell03, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: 0)
         let lc10 = NSLayoutConstraint(item: cell03, attribute: .top, relatedBy: .equal, toItem: self.baseLineViews[2], attribute: .top, multiplier: 1, constant: 0)
-        let lc11 = NSLayoutConstraint(item: cell03, attribute: .right, relatedBy: .equal, toItem: self.baseLineViews[3], attribute: .left, multiplier: 1, constant:0)
+        let lc11 = NSLayoutConstraint(item: cell03, attribute: .right, relatedBy: .equal, toItem: self.baseLineViews[3], attribute: .left, multiplier: 1, constant: 0)
         let lc12 = NSLayoutConstraint(item: cell03, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 0)
         NSLayoutConstraint.activate([ lc09, lc10, lc11, lc12])
         
@@ -126,15 +125,15 @@ class CollageViewT505: CollageView {
         self.addSubview(cell05)
         let lc012 = NSLayoutConstraint(item: cell05, attribute: .left, relatedBy: .equal, toItem: self.baseLineViews[3], attribute: .left, multiplier: 1, constant: 0)
         let lc022 = NSLayoutConstraint(item: cell05, attribute: .top, relatedBy: .equal, toItem: self.baseLineViews[2], attribute: .top, multiplier: 1, constant: 0)
-        let lc032 = NSLayoutConstraint(item: cell05, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant:0)
+        let lc032 = NSLayoutConstraint(item: cell05, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant: 0)
         let lc042 = NSLayoutConstraint(item: cell05, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 0)
         NSLayoutConstraint.activate([ lc012, lc022, lc032, lc042])
         
-        self.marginLeftTopContraints += [lc01,lc02,lc05,lc09,lc021]
-        self.marginRightBottomContraints += [lc03,lc07,lc12,lc031,lc042]
-        self.paddingLeftTopContraints += [lc06,lc10,lc011,lc012,lc022]
-        self.paddingRightBottomContraints += [lc04,lc08,lc041,lc032]
-        self.collageCells += [cell01,cell04,cell02,cell03,cell05]
+        self.marginLeftTopContraints += [lc01, lc02, lc05, lc09, lc021]
+        self.marginRightBottomContraints += [lc03, lc07, lc12, lc031, lc042]
+        self.paddingLeftTopContraints += [lc06, lc10, lc011, lc012, lc022]
+        self.paddingRightBottomContraints += [lc04, lc08, lc041, lc032]
+        self.collageCells += [cell01, cell04, cell02, cell03, cell05]
         
         initHandles()
     }
@@ -142,7 +141,7 @@ class CollageViewT505: CollageView {
     private func initHandles() {
         
         let cell01 = self.collageCells[0]
-        var handle01, handle02, handle03 : LineHandleView!
+        var handle01, handle02, handle03: LineHandleView!
         
         handle01 = LineHandleView()
         self.addSubview(handle01)
@@ -152,7 +151,7 @@ class CollageViewT505: CollageView {
         self.addSubview(handle02)
         handle02.initialize(attach: .bottom, blview: self.baseLineViews[0], cell: cell01)
         handle02.datasource = self
-        cell01.setHandles(handles: [handle01,handle02])
+        cell01.setHandles(handles: [handle01, handle02])
         
         let cell02 = self.collageCells[1]
         handle01 = LineHandleView()
@@ -163,7 +162,7 @@ class CollageViewT505: CollageView {
         self.addSubview(handle02)
         handle02.initialize(attach: .bottom, blview: self.baseLineViews[0], cell: cell02)
         handle02.datasource = self
-        cell02.setHandles(handles: [handle01,handle02])
+        cell02.setHandles(handles: [handle01, handle02])
         
         let cell03 = self.collageCells[2]
         handle01 = LineHandleView()
@@ -174,8 +173,7 @@ class CollageViewT505: CollageView {
         self.addSubview(handle03)
         handle03.initialize(attach: .bottom, blview: self.baseLineViews[2], cell: cell03)
         handle03.datasource = self
-        cell03.setHandles(handles: [handle01,handle03])
-        
+        cell03.setHandles(handles: [handle01, handle03])
         
         let cell04 = self.collageCells[3]
         handle01 = LineHandleView()
@@ -186,7 +184,7 @@ class CollageViewT505: CollageView {
         self.addSubview(handle02)
         handle02.initialize(attach: .top, blview: self.baseLineViews[2], cell: cell04)
         handle02.datasource = self
-        cell04.setHandles(handles: [handle01,handle02])
+        cell04.setHandles(handles: [handle01, handle02])
         
         let cell05 = self.collageCells[4]
         handle01 = LineHandleView()
@@ -197,7 +195,7 @@ class CollageViewT505: CollageView {
         self.addSubview(handle02)
         handle02.initialize(attach: .left, blview: self.baseLineViews[3], cell: cell05)
         handle02.datasource = self
-        cell05.setHandles(handles: [handle01,handle02])
+        cell05.setHandles(handles: [handle01, handle02])
         
     }
 }

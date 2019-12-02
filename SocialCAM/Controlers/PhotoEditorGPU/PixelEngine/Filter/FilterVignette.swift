@@ -40,7 +40,7 @@ public struct FilterVignette: Filtering, Equatable, Codable {
         "CIVignette",
         parameters: [
           kCIInputRadiusKey: radius as AnyObject,
-          kCIInputIntensityKey: value as AnyObject,
+          kCIInputIntensityKey: value as AnyObject
         ])
   }
 }

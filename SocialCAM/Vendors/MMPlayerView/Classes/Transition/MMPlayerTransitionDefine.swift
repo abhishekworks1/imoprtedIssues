@@ -9,16 +9,16 @@
 import Foundation
 
 public protocol MMPlayerConfig {
-    var duration : TimeInterval { get set }
-    var passOriginalSuper: UIView? {set get}
-    var playLayer: MMPlayerLayer? { set get}
+    var duration: TimeInterval { get set }
+    var passOriginalSuper: UIView? {get set}
+    var playLayer: MMPlayerLayer? { get set}
 }
 
 public protocol MMPlayerPresentConfig: MMPlayerConfig {
-    var margin: CGFloat { set get }
-    var shrinkSize: CGSize { set get }
+    var margin: CGFloat { get set }
+    var shrinkSize: CGSize { get set }
     var dismissGesture: Bool { get }
-    var source: UIViewController? { set get }
+    var source: UIViewController? { get set }
 }
 
 public protocol MMPlayerNavConfig: MMPlayerConfig {
@@ -46,7 +46,7 @@ extension MMPlayerTransitionCompatible {
 }
 
 public struct MMPlayerTransition<T> {
-    public let base:T
+    public let base: T
     init(_ base: T) {
         self.base = base
     }

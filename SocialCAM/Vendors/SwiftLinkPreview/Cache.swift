@@ -24,7 +24,6 @@ public class DisabledCache: Cache {
     public func slp_setCachedResponse(url: String, response: SwiftLinkPreview.Response?) { }
 }
 
-
 open class InMemoryCache: Cache {
     private var cache = Dictionary<String, (response: SwiftLinkPreview.Response, date: Date)>()
     private let invalidationTimeout: TimeInterval

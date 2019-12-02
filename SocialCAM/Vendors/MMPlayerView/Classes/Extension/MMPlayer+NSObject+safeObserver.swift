@@ -10,13 +10,13 @@ import Foundation
 
 var bindObjKey = "ObserverBindKey"
 public extension NSObject {
-    var bindObj: [Int:[String]] {
+    var bindObj: [Int: [String]] {
         get {
             
-            if let o = objc_getAssociatedObject(self, &bindObjKey) as? [Int:[String]] {
+            if let o = objc_getAssociatedObject(self, &bindObjKey) as? [Int: [String]] {
                 return o
             } else {
-                self.bindObj = [Int:[String]]()
+                self.bindObj = [Int: [String]]()
                 return self.bindObj
             }
             
@@ -25,8 +25,7 @@ public extension NSObject {
         }
     }
     
-    func safeAdd(observer: NSObject, forKeyPath: String, options:
-        NSKeyValueObservingOptions, context: UnsafeMutableRawPointer?) {
+    func safeAdd(observer: NSObject, forKeyPath: String, options: NSKeyValueObservingOptions, context: UnsafeMutableRawPointer?) {
         
         if bindObj[observer.hashValue] == nil {
             bindObj[observer.hashValue] = [String]()

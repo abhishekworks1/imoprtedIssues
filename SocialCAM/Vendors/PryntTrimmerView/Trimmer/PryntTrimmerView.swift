@@ -268,7 +268,6 @@ public protocol TrimViewDelegate: class {
         // Todo
     }
     
-    
     @objc func handlePanGesture(_ gestureRecognizer: UIPanGestureRecognizer) {
         guard let view = gestureRecognizer.view, let superView = gestureRecognizer.view?.superview else { return }
         //return

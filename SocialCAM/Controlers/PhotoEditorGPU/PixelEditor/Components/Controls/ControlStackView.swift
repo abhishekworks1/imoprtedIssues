@@ -21,15 +21,12 @@
 
 import UIKit
 
-
-
-
 protocol ControlChildViewType {
 
   func didReceiveCurrentEdit(_ edit: EditingStack.Edit)
 }
 
-extension ControlChildViewType where Self : UIView {
+extension ControlChildViewType where Self: UIView {
 
   private func find() -> ControlStackView {
 
@@ -60,8 +57,7 @@ extension ControlChildViewType where Self : UIView {
   }
 }
 
-
-final class ControlStackView : UIView {
+final class ControlStackView: UIView {
 
   private var subscribers: [UIView & ControlChildViewType] = []
 
@@ -152,12 +148,10 @@ final class ControlStackView : UIView {
         }, completion: { _ in
         })
       }
-    }
-    else {
+    } else {
       remove()
     }
   }
-  
 
   func subscribeChangedEdit(to view: UIView & ControlChildViewType) {
     guard !subscribers.contains(where: { $0 == view }) else { return }
@@ -177,4 +171,3 @@ final class ControlStackView : UIView {
     }
   }
 }
-

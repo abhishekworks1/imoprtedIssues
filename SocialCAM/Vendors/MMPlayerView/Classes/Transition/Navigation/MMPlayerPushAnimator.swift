@@ -9,23 +9,22 @@
 import UIKit
 
 public typealias T = MMPlayerNavConfig
-public class MMPlayerPushAnimator: NSObject , UINavigationControllerDelegate {
-    public var config:T?
-    unowned let base:UIViewController
+public class MMPlayerPushAnimator: NSObject, UINavigationControllerDelegate {
+    public var config: T?
+    unowned let base: UIViewController
     var transition: UIViewControllerAnimatedTransitioning?
     public init(_ base: UIViewController) {
         self.base = base
         super.init()
     }
     
-    public func pass<T: MMPlayerPassViewPushConfig>(setting: (_ config: T)->Void) {
+    public func pass<T: MMPlayerPassViewPushConfig>(setting: (_ config: T) -> Void) {
         self.config = MMPlayerPassViewPushConfig()
         self.base.navigationController?.mmPlayerlastDelegate = self
         base.navigationController?.delegate = self
         self.transition = nil
         setting(self.config! as! T)
     }
-    
     
     public func removeAnimate() {
         self.config = nil

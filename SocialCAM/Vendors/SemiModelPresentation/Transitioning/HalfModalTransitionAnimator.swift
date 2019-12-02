@@ -12,12 +12,12 @@ class HalfModalTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioni
     
     var type: HalfModalTransitionAnimatorType
     
-    init(type:HalfModalTransitionAnimatorType) {
+    init(type: HalfModalTransitionAnimatorType) {
         self.type = type
     }
     
     @objc func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        let _ = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)
+        _ = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)
         let from = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)
         
         UIView.animate(withDuration: transitionDuration(using: transitionContext), animations: { () -> Void in
@@ -26,7 +26,7 @@ class HalfModalTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioni
             
             print("animating...")
             
-        }) { (completed) -> Void in
+        }) { (_) -> Void in
             print("animate completed")
             
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)

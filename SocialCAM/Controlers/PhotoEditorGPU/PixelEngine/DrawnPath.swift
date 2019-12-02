@@ -21,7 +21,7 @@
 
 import Foundation
 
-public struct DrawnPath : GraphicsDrawing, Equatable {
+public struct DrawnPath: GraphicsDrawing, Equatable {
 
   // MARK: - Properties
 

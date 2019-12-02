@@ -10,7 +10,7 @@ import Foundation
 
 class SnapGesture: NSObject, UIGestureRecognizerDelegate {
     
-    public var gestureCompletion: ((Bool) -> ())?
+    public var gestureCompletion: ((Bool) -> Void)?
     
     // MARK: - init and deinit
     convenience init(view: UIView) {
@@ -73,19 +73,16 @@ class SnapGesture: NSObject, UIGestureRecognizerDelegate {
         self.weakTransformView = nil
     }
     
-    
-    
-    
     // MARK: - API
     
-    private func setView(view:UIView?) {
+    private func setView(view: UIView?) {
         self.setTransformView(view, gestgureView: view)
     }
     
-    private func setTransformView(_ transformView: UIView?, gestgureView:UIView?) {
+    private func setTransformView(_ transformView: UIView?, gestgureView: UIView?) {
         self.cleanGesture()
         
-        if let v = gestgureView  {
+        if let v = gestgureView {
             self.addGestures(v: v)
         }
         self.weakTransformView = transformView
@@ -102,10 +99,10 @@ class SnapGesture: NSObject, UIGestureRecognizerDelegate {
     // MARK: - gesture handle
     
     // location will jump when finger number change
-    private var initPanFingerNumber:Int = 1
+    private var initPanFingerNumber: Int = 1
     private var isPanFingerNumberChangedInThisSession = false
-    private var lastPanPoint:CGPoint = CGPoint(x: 0, y: 0)
-    @objc func panProcess(_ recognizer:UIPanGestureRecognizer) {
+    private var lastPanPoint: CGPoint = CGPoint(x: 0, y: 0)
+    @objc func panProcess(_ recognizer: UIPanGestureRecognizer) {
         backToIdentity(recognizer: recognizer)
         
         if isGestureEnabled {
@@ -135,11 +132,9 @@ class SnapGesture: NSObject, UIGestureRecognizerDelegate {
         }
     }
     
-    
-    
-    private var lastScale:CGFloat = 1.0
-    private var lastPinchPoint:CGPoint = CGPoint(x: 0, y: 0)
-    @objc func pinchProcess(_ recognizer:UIPinchGestureRecognizer) {
+    private var lastScale: CGFloat = 1.0
+    private var lastPinchPoint: CGPoint = CGPoint(x: 0, y: 0)
+    @objc func pinchProcess(_ recognizer: UIPinchGestureRecognizer) {
         backToIdentity(recognizer: recognizer)
         if isGestureEnabled {
             
@@ -147,7 +142,7 @@ class SnapGesture: NSObject, UIGestureRecognizerDelegate {
             
             // init
             if recognizer.state == .began {
-                lastScale = 1.0;
+                lastScale = 1.0
                 lastPinchPoint = recognizer.location(in: view)
             }
             
@@ -158,9 +153,9 @@ class SnapGesture: NSObject, UIGestureRecognizerDelegate {
             }
             
             // Scale
-            let scale = 1.0 - (lastScale - recognizer.scale);
+            let scale = 1.0 - (lastScale - recognizer.scale)
             view.transform = view.transform.scaledBy(x: scale, y: scale)
-            lastScale = recognizer.scale;
+            lastScale = recognizer.scale
             
             // Translate
             let point = recognizer.location(in: view)
@@ -196,10 +191,9 @@ class SnapGesture: NSObject, UIGestureRecognizerDelegate {
         }
     }
     
-    
-    //MARK:- UIGestureRecognizerDelegate Methods
+    // MARK: - UIGestureRecognizerDelegate Methods
     func gestureRecognizer(_: UIGestureRecognizer,
-                           shouldRecognizeSimultaneouslyWith shouldRecognizeSimultaneouslyWithGestureRecognizer:UIGestureRecognizer) -> Bool {
+                           shouldRecognizeSimultaneouslyWith shouldRecognizeSimultaneouslyWithGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
     
@@ -277,14 +271,14 @@ class SnapGesture2: NSObject, UIGestureRecognizerDelegate {
     
     // MARK: - API
     
-    private func setView(view:UIView?) {
+    private func setView(view: UIView?) {
         self.setTransformView(view, gestgureView: view)
     }
     
-    private func setTransformView(_ transformView: UIView?, gestgureView:UIView?) {
+    private func setTransformView(_ transformView: UIView?, gestgureView: UIView?) {
         self.cleanGesture()
         
-        if let v = gestgureView  {
+        if let v = gestgureView {
             self.addGestures(v: v)
         }
         self.weakTransformView = transformView
@@ -301,11 +295,11 @@ class SnapGesture2: NSObject, UIGestureRecognizerDelegate {
     // MARK: - gesture handle
     
     // location will jump when finger number change
-    private var initPanFingerNumber:Int = 1
+    private var initPanFingerNumber: Int = 1
     private var isPanFingerNumberChangedInThisSession = false
-    private var lastPanPoint:CGPoint = CGPoint(x: 0, y: 0)
+    private var lastPanPoint: CGPoint = CGPoint(x: 0, y: 0)
     
-    @objc func panProcess(_ recognizer:UIPanGestureRecognizer) {
+    @objc func panProcess(_ recognizer: UIPanGestureRecognizer) {
         guard isGestureEnabled, let view = self.weakTransformView else { return }
         
         // init
@@ -331,15 +325,15 @@ class SnapGesture2: NSObject, UIGestureRecognizerDelegate {
         
     }
     
-    private var lastScale:CGFloat = 1.0
-    private var lastPinchPoint:CGPoint = CGPoint(x: 0, y: 0)
+    private var lastScale: CGFloat = 1.0
+    private var lastPinchPoint: CGPoint = CGPoint(x: 0, y: 0)
     
-    @objc func pinchProcess(_ recognizer:UIPinchGestureRecognizer) {
+    @objc func pinchProcess(_ recognizer: UIPinchGestureRecognizer) {
         guard isGestureEnabled, let view = self.weakTransformView else { return }
         
         // init
         if recognizer.state == .began {
-            lastScale = 1.0;
+            lastScale = 1.0
             lastPinchPoint = recognizer.location(in: view)
         }
         
@@ -350,16 +344,15 @@ class SnapGesture2: NSObject, UIGestureRecognizerDelegate {
         }
         
         // Scale
-        let scale = 1.0 - (lastScale - recognizer.scale);
+        let scale = 1.0 - (lastScale - recognizer.scale)
         view.transform = view.transform.scaledBy(x: scale, y: scale)
-        lastScale = recognizer.scale;
+        lastScale = recognizer.scale
         
         // Translate
         let point = recognizer.location(in: view)
         view.transform = view.transform.translatedBy(x: point.x - lastPinchPoint.x, y: point.y - lastPinchPoint.y)
         lastPinchPoint = recognizer.location(in: view)
     }
-    
     
     @objc func rotationProcess(_ recognizer: UIRotationGestureRecognizer) {
         guard isGestureEnabled, let view = self.weakTransformView else { return }
@@ -368,9 +361,9 @@ class SnapGesture2: NSObject, UIGestureRecognizerDelegate {
         recognizer.rotation = 0
     }
     
-    // MARK:- UIGestureRecognizerDelegate Methods
+    // MARK: - UIGestureRecognizerDelegate Methods
     func gestureRecognizer(_: UIGestureRecognizer,
-                           shouldRecognizeSimultaneouslyWith shouldRecognizeSimultaneouslyWithGestureRecognizer:UIGestureRecognizer) -> Bool {
+                           shouldRecognizeSimultaneouslyWith shouldRecognizeSimultaneouslyWithGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
     

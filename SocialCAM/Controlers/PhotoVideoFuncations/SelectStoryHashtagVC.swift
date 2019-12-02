@@ -58,7 +58,7 @@ class LeftAlignedCollectionViewFlowLayout: UICollectionViewFlowLayout {
             layoutAttribute.frame.origin.x = leftMargin
             
             leftMargin += layoutAttribute.frame.width + minimumInteritemSpacing
-            maxY = max(layoutAttribute.frame.maxY , maxY)
+            maxY = max(layoutAttribute.frame.maxY, maxY)
         }
         
         return attributes
@@ -78,7 +78,7 @@ class SelectStoryHashtagVC: UIViewController {
     
     var selectedHiddenHashtags: [String] = []
     
-    var data: [[DataItem]] = [[],[]]
+    var data: [[DataItem]] = [[], []]
     
     var draggedCard: UIImageView?
     var selectedItem: DataItem?
@@ -93,10 +93,10 @@ class SelectStoryHashtagVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         if let flowLayout = hiddenHashtagsCollectionView.collectionViewLayout as? LeftAlignedCollectionViewFlowLayout {
-            flowLayout.estimatedItemSize = CGSize(width: 1,height: 1)
+            flowLayout.estimatedItemSize = CGSize(width: 1, height: 1)
         }
         if let flowLayout = visibleHashtagsCollectionView.collectionViewLayout as? LeftAlignedCollectionViewFlowLayout {
-            flowLayout.estimatedItemSize = CGSize(width: 1,height: 1)
+            flowLayout.estimatedItemSize = CGSize(width: 1, height: 1)
         }
         var visibleItems = [DataItem]()
         for hash in self.selectedVisibleHashtags {

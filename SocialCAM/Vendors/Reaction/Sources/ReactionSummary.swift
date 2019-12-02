@@ -91,8 +91,7 @@ public final class ReactionSummary: UIReactionControl {
     if includingYou && peopleNumber > 0 {
       localizedFormat = "summary.you".localized(from: "ReactionSummaryLocalizable")
       total           = Int(peopleNumber - 1)
-    }
-    else {
+    } else {
       localizedFormat = "summary.other".localized(from: "ReactionSummaryLocalizable")
       total           = Int(peopleNumber)
     }

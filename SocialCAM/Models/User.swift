@@ -10,79 +10,79 @@ import Foundation
 import ObjectMapper
 
 class User: Codable, Mappable {
-    var id :String?
-    var salt : String?
-    var username : String?
-    var displayName : String?
-    var channelId : String?
-    var country : String?
-    var email : String?
-    var isBusiness :Bool?
-    var channelName : String?
-    var roles : [String]?
-    var provider : String?
-    var hashTags : [String]?
-    var tweetText : String?
-    var categories:[String]?
-    var isWaiting : Bool?
-    var referrerChannel :String?
-    var shortUrl : String?
-    var age : String?
-    var gender : String?
-    var twitterProfileLink : String?
-    var about : String?
-    var bannerImageURL : String?
-    var profileImageURL : String?
-    var emailVerification : Bool?
-    var lastName : String?
-    var OauthId : String?
-    var firstName : String?
-    var isFollowing : Bool?
-    var following : Int?
-    var follower : Int?
-    var storyCounts : Int?
-    var favoriteStoryCount : Int?
-    var business : String?
-    var phone : String?
-    var title : String?
-    var other : String?
-    var socialId : String?
-    var articleCounts : Int?
-    var is_typing : Bool = false
-    var is_admin : Bool = false
-    var unreadCount : Int = 0
-    var profileType : Int = 1
-    var isVerified : Int = 0
-    var isFirstLogin : Int = 0
-    var profileThumbnail:String?
-    var isAllowForward : Bool = true
-    var parentId : String?
+    var id: String?
+    var salt: String?
+    var username: String?
+    var displayName: String?
+    var channelId: String?
+    var country: String?
+    var email: String?
+    var isBusiness: Bool?
+    var channelName: String?
+    var roles: [String]?
+    var provider: String?
+    var hashTags: [String]?
+    var tweetText: String?
+    var categories: [String]?
+    var isWaiting: Bool?
+    var referrerChannel: String?
+    var shortUrl: String?
+    var age: String?
+    var gender: String?
+    var twitterProfileLink: String?
+    var about: String?
+    var bannerImageURL: String?
+    var profileImageURL: String?
+    var emailVerification: Bool?
+    var lastName: String?
+    var OauthId: String?
+    var firstName: String?
+    var isFollowing: Bool?
+    var following: Int?
+    var follower: Int?
+    var storyCounts: Int?
+    var favoriteStoryCount: Int?
+    var business: String?
+    var phone: String?
+    var title: String?
+    var other: String?
+    var socialId: String?
+    var articleCounts: Int?
+    var is_typing: Bool = false
+    var is_admin: Bool = false
+    var unreadCount: Int = 0
+    var profileType: Int = 1
+    var isVerified: Int = 0
+    var isFirstLogin: Int = 0
+    var profileThumbnail: String?
+    var isAllowForward: Bool = true
+    var parentId: String?
     // OtherProfile
-    var v : Int?
-    var businessName : String?
-    var created : String?
-    var deviceToken : String?
-    var isBlocked : Bool?
-    var isDefault : Bool?
-    var password : String?
-    var refferingChannel : String?
-    var updated : String?
+    var v: Int?
+    var businessName: String?
+    var created: String?
+    var deviceToken: String?
+    var isBlocked: Bool?
+    var isDefault: Bool?
+    var password: String?
+    var refferingChannel: String?
+    var updated: String?
     var dateObj = Date()
-    var timestamp : TimeInterval?
+    var timestamp: TimeInterval?
     var fcmToken = [String]()
     var voipToken = [String]()
     var isBenefactor: Bool?
     var remainingOtherUserPackageCount: Int?
     var remainingPackageCount: Int?
-    var isVipUser : Bool?
-    var vipUserCount : Int?
+    var isVipUser: Bool?
+    var vipUserCount: Int?
     var deepLinkUrl: String?
     
     required init?(map: Map) {
         
     }
     
-    // MARK: -- Mappable Protocol
+    // MARK: - - Mappable Protocol
     
     func mapping(map: Map) {
         phone = ""

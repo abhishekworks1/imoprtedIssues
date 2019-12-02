@@ -26,7 +26,6 @@ protocol DrawingContainerViewDelegate: class {
     func drawingContainerViewTouchEnded(at point: CGPoint)
 }
 
-
 internal class DrawingContainerView: UIView {
     weak var delegate: DrawingContainerViewDelegate?
     

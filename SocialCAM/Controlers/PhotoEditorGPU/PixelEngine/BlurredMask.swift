@@ -21,7 +21,7 @@
 
 import Foundation
 
-public struct BlurredMask : GraphicsDrawing {
+public struct BlurredMask: GraphicsDrawing {
 
   public var paths: [DrawnPathInRect]
 
@@ -99,7 +99,7 @@ public struct BlurredMask : GraphicsDrawing {
       .applyingFilter(
         "CIGaussianBlur",
         parameters: [
-          "inputRadius" : _radius
+          "inputRadius": _radius
         ])
       .cropped(to: image.extent)
 

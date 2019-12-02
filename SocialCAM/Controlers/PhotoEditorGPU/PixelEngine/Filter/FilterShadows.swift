@@ -36,6 +36,6 @@ public struct FilterShadows: Filtering, Equatable, Codable {
 
     return
       image
-        .applyingFilter("CIHighlightShadowAdjust", parameters: ["inputShadowAmount" : value])
+        .applyingFilter("CIHighlightShadowAdjust", parameters: ["inputShadowAmount": value])
   }
 }

@@ -10,9 +10,9 @@ import UIKit
 
 class YouCategoryTableViewCell: UITableViewCell {
     
-    @IBOutlet var lblTitle : UILabel?
+    @IBOutlet var lblTitle: UILabel?
     
-    var category : YouCategory? {
+    var category: YouCategory? {
         didSet {
             if let title = category?.snippet?.title {
                 lblTitle?.text = title

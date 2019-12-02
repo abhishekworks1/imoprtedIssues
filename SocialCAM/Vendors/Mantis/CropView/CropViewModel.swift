@@ -24,7 +24,7 @@ enum ImageRotationType: CGFloat {
 }
 
 class CropViewModel: NSObject {
-    var statusChanged: (_ status: CropViewStatus)->Void = { _ in }
+    var statusChanged: (_ status: CropViewStatus) -> Void = { _ in }
     
     var viewStatus: CropViewStatus = .initial {
         didSet {

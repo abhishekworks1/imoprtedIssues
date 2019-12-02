@@ -74,7 +74,6 @@ public class MultilineTextField: UITextView {
     
     private var leftExclusionPath: UIBezierPath?
     
-    
     /// Convenience property to set an image directly instead of a left view
     @IBInspectable
     public var leftImage: UIImage? {
@@ -84,8 +83,7 @@ public class MultilineTextField: UITextView {
         set {
             if let image = newValue {
                 self.leftView = UIImageView(image: image)
-            }
-            else {
+            } else {
                 self.leftView = nil
             }
         }
@@ -145,7 +143,6 @@ public class MultilineTextField: UITextView {
         placeholderView.textColor = UIColor(white: 0.7, alpha: 1)
         placeholderView.backgroundColor = ApplicationSettings.appClearColor
         
-        
         // observe `UITextView` property changes to react accordinly
         
         NotificationCenter.default.addObserver(
@@ -156,13 +153,13 @@ public class MultilineTextField: UITextView {
         )
         
         fieldObservations.append(
-            self.observe(\.font, options: [.initial, .new]) { [weak self] (textField, change) in
+            self.observe(\.font, options: [.initial, .new]) { [weak self] (textField, _) in
                 self?.placeholderView.font = textField.font
             }
         )
         
         fieldObservations.append(
-            self.observe(\.textContainerInset, options: [.initial, .new]) { [weak self] (textField, change) in
+            self.observe(\.textContainerInset, options: [.initial, .new]) { [weak self] (textField, _) in
                 
                 guard let strongSelf = self else { return }
                 
@@ -172,7 +169,7 @@ public class MultilineTextField: UITextView {
         )
         
         fieldObservations.append(
-            self.textContainer.observe(\.lineFragmentPadding, options: [.initial, .new]) { [weak self] (textContainer, changes) in
+            self.textContainer.observe(\.lineFragmentPadding, options: [.initial, .new]) { [weak self] (textContainer, _) in
                 self?.placeholderView.textContainer.lineFragmentPadding = textContainer.lineFragmentPadding
             }
         )
@@ -202,8 +199,7 @@ public class MultilineTextField: UITextView {
         if let left = leftView {
             if placeholderView.isHidden {
                 self.addSubview(left)
-            }
-            else {
+            } else {
                 placeholderView.addSubview(left)
             }
         }

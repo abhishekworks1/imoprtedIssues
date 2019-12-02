@@ -137,7 +137,7 @@ open class RPCircularProgress: UIView {
         }
     }
 
-    open override class var layerClass : AnyClass {
+    open override class var layerClass: AnyClass {
         return ProgressLayer.self
     }
 
@@ -454,4 +454,3 @@ extension RPCircularProgress: CAAnimationDelegate {
     }
 
 }
-

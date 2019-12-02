@@ -233,7 +233,6 @@ extension StoryCameraViewController {
             print("Swiping up")
         }
         
-        
     }
 }
 
@@ -241,7 +240,6 @@ extension StoryCameraViewController {
 
 /// A pan gesture that enters into the `began` state on touch down instead of waiting for a touches moved event.
 class InstantPanGestureRecognizer: UIPanGestureRecognizer {
-    
     
 }
 

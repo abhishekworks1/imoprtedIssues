@@ -42,7 +42,7 @@ extension Notification.Name {
     public static let reachabilityChanged = Notification.Name("reachabilityChanged")
 }
 
-func callback(reachability:SCNetworkReachability, flags: SCNetworkReachabilityFlags, info: UnsafeMutableRawPointer?) {
+func callback(reachability: SCNetworkReachability, flags: SCNetworkReachabilityFlags, info: UnsafeMutableRawPointer?) {
 
     guard let info = info else { return }
     
@@ -52,8 +52,8 @@ func callback(reachability:SCNetworkReachability, flags: SCNetworkReachabilityFl
 
 public class Reachability {
 
-    public typealias NetworkReachable = (Reachability) -> ()
-    public typealias NetworkUnreachable = (Reachability) -> ()
+    public typealias NetworkReachable = (Reachability) -> Void
+    public typealias NetworkUnreachable = (Reachability) -> Void
 
     @available(*, unavailable, renamed: "Conection")
     public enum NetworkStatus: CustomStringConvertible {
@@ -230,7 +230,7 @@ fileprivate extension Reachability {
         
         DispatchQueue.main.async {
             block?(self)
-            self.notificationCenter.post(name: .reachabilityChanged, object:self)
+            self.notificationCenter.post(name: .reachabilityChanged, object: self)
         }
         
         previousFlags = flags

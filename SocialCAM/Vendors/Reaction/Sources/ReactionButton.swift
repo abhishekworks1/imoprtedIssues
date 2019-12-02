@@ -124,15 +124,13 @@ public final class ReactionButton: UIReactionControl {
     if config.alignment == .right {
       iconFrame.origin.x  = bounds.width - iconSize
       titleFrame.origin.x = bounds.width - iconSize - config.spacing - titleSize.width
-    }
-    else if config.alignment == .centerLeft || config.alignment == .centerRight {
+    } else if config.alignment == .centerLeft || config.alignment == .centerRight {
       let emptyWidth = bounds.width - iconFrame.width - titleLabel.bounds.width - config.spacing
 
       if config.alignment == .centerLeft {
         iconFrame.origin.x  = emptyWidth / 2
         titleFrame.origin.x = emptyWidth / 2 + iconSize + config.spacing
-      }
-      else {
+      } else {
         iconFrame.origin.x  = emptyWidth / 2 + titleSize.width + config.spacing
         titleFrame.origin.x = emptyWidth / 2
       }
@@ -184,14 +182,12 @@ public final class ReactionButton: UIReactionControl {
       isLongPressMoved = true
 
       selector.longPressAction(gestureRecognizer)
-    }
-    else if gestureRecognizer.state == .ended {
+    } else if gestureRecognizer.state == .ended {
       if isLongPressMoved {
         selector.longPressAction(gestureRecognizer)
 
         dismissReactionSelector()
-      }
-      else {
+      } else {
         selector.feedback = .tapToSelectAReaction
       }
     }
@@ -247,7 +243,7 @@ public final class ReactionButton: UIReactionControl {
       UIApplication.shared.keyWindow?.addSubview(overlay)
     }
 
-    overlay.frame = CGRect(x:0 , y: 0, width: window.bounds.width, height: window.bounds.height * 2)
+    overlay.frame = CGRect(x: 0, y: 0, width: window.bounds.width, height: window.bounds.height * 2)
 
     let centerPoint = convert(CGPoint(x: bounds.midX, y: 0), to: nil)
     selector.frame  = selector.boundsToFit()
@@ -263,8 +259,7 @@ public final class ReactionButton: UIReactionControl {
 
     if selector.frame.origin.x - config.spacing < 0 {
       selector.center = CGPoint(x: selector.center.x - selector.frame.origin.x + config.spacing, y: centerPoint.y)
-    }
-    else if selector.frame.origin.x + selector.frame.width + config.spacing > overlay.bounds.width {
+    } else if selector.frame.origin.x + selector.frame.width + config.spacing > overlay.bounds.width {
       selector.center = CGPoint(x: selector.center.x - (selector.frame.origin.x + selector.frame.width + config.spacing - overlay.bounds.width), y: centerPoint.y)
     }
 

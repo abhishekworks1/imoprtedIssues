@@ -20,16 +20,13 @@
 // THE SOFTWARE.
 import Foundation
 
-
-
-
-open class ContrastControlBase : FilterControlBase {
+open class ContrastControlBase: FilterControlBase {
   public required init(context: PixelEditContext) {
     super.init(context: context)
   }
 }
 
-open class ContrastControl : ContrastControlBase {
+open class ContrastControl: ContrastControlBase {
   
   open override var title: String {
     return L10n.editContrast

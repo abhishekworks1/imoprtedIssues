@@ -21,17 +21,14 @@
 
 import Foundation
 
-
-
-
-open class SaturationControlBase : FilterControlBase {
+open class SaturationControlBase: FilterControlBase {
 
   public required init(context: PixelEditContext) {
     super.init(context: context)
   }
 }
 
-open class SaturationControl : SaturationControlBase {
+open class SaturationControl: SaturationControlBase {
   
   open override var title: String {
     return L10n.editSaturation

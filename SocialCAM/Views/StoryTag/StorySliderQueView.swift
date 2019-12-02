@@ -9,8 +9,6 @@
 import Foundation
 import UIKit
 
-
-
 class StoryQueTextView: UITextView {
     
     var placeHolder: String? = "Ask A Question..." {
@@ -94,8 +92,8 @@ class StoryQueTextView: UITextView {
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.alignment = textAlignment
             
-            var attributes: [NSAttributedString.Key : Any] = [
-                NSAttributedString.Key.foregroundColor : placeholderColor,
+            var attributes: [NSAttributedString.Key: Any] = [
+                NSAttributedString.Key.foregroundColor: placeholderColor,
                 NSAttributedString.Key.paragraphStyle: paragraphStyle
             ]
             
@@ -191,7 +189,7 @@ class IBStoryQueSlider: UISlider {
         // We create an innerRect in which we draw the lines
         let innerRect = rect.insetBy(dx: 1.0, dy: 10.0)
         
-        UIGraphicsBeginImageContextWithOptions(innerRect.size, false, 0);
+        UIGraphicsBeginImageContextWithOptions(innerRect.size, false, 0)
         
         let path = UIBezierPath(roundedRect: CGRect(x: sliderStartPosition, y: (innerRect.height/2) - 3, width: innerRect.width - 40, height: sliderHeight), byRoundingCorners: .allCorners, cornerRadii: CGSize(width: 40, height: 40))
         
@@ -254,9 +252,9 @@ class StoryQueSlider: UISlider {
         return view
     }()
     
-    var beginTracking: (() -> Swift.Void)? = nil
+    var beginTracking: (() -> Swift.Void)?
     
-    var endTracking: ((Float) -> Swift.Void)? = nil
+    var endTracking: ((Float) -> Swift.Void)?
     
     private func imageFor(_ text: String) -> UIImage {
         let label = UILabel()
@@ -343,7 +341,7 @@ class StoryQueSlider: UISlider {
         // We create an innerRect in which we draw the lines
         let innerRect = rect.insetBy(dx: 1.0, dy: 10.0)
         
-        UIGraphicsBeginImageContextWithOptions(innerRect.size, false, 0);
+        UIGraphicsBeginImageContextWithOptions(innerRect.size, false, 0)
         
         let path = UIBezierPath(roundedRect: CGRect(x: Ratios.startPosition, y: (innerRect.height/2) - 3, width: innerRect.width - 40, height: Ratios.bezierHeight), byRoundingCorners: .allCorners, cornerRadii: CGSize(width: 40, height: 40))
         
@@ -414,9 +412,9 @@ class StorySliderQueView: BaseQuestionTagView {
         }
     }
     
-    var startUpdateAnswer: (() -> Swift.Void)? = nil
+    var startUpdateAnswer: (() -> Swift.Void)?
     
-    var didUpdateAnswer: ((Float, StoryTags?) -> Swift.Void)? = nil
+    var didUpdateAnswer: ((Float, StoryTags?) -> Swift.Void)?
     
     var storyTag: StoryTags?
 
@@ -482,7 +480,7 @@ extension NSLayoutManager {
     var numberOfLines: Int {
         guard textStorage != nil else { return 0 }
         var count = 0
-        enumerateLineFragments(forGlyphRange: NSMakeRange(0, numberOfGlyphs)) { _, _, _, _, _ in
+        enumerateLineFragments(forGlyphRange: NSRange(location: 0, length: numberOfGlyphs)) { _, _, _, _, _ in
             count += 1
         }
         return count

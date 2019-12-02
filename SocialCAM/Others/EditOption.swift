@@ -30,7 +30,6 @@ class EditSettings: NSCopying {
     }
 }
 
-
 class EditOption: NSCopying {
     var name: String
     var image: UIImage
@@ -47,7 +46,7 @@ class EditOption: NSCopying {
     }
 
     func copy(with zone: NSZone? = nil) -> Any {
-        let copy = EditOption(name: name, image: image.copy() as? UIImage ?? UIImage(), configString: configString, editSettings: (editSettings.copy() as? EditSettings)! , range: range)
+        let copy = EditOption(name: name, image: image.copy() as? UIImage ?? UIImage(), configString: configString, editSettings: (editSettings.copy() as? EditSettings)!, range: range)
         return copy
     }
 
@@ -86,7 +85,7 @@ let defaultEditOptions = [EditOption(name: "Adjust",
                           EditOption(name: "Highlights",
                                      image: #imageLiteral(resourceName: "ico_hightlights"),
                                      configString: "@adjust shadowhighlight 0 ",
-                                     editSettings: EditSettings(minimumValue: -100, value: 0.0, maximumValue: 100, pivotValue:  0.0)),
+                                     editSettings: EditSettings(minimumValue: -100, value: 0.0, maximumValue: 100, pivotValue: 0.0)),
                           EditOption(name: "Vignette",
                                      image: #imageLiteral(resourceName: "ico_vignette"),
                                      configString: "@vignette ",
@@ -98,7 +97,6 @@ let defaultEditOptions = [EditOption(name: "Adjust",
                                      editSettings: EditSettings(minimumValue: 0, value: 0.0, maximumValue: 1, pivotValue: 0.0))
     
                           ]
-
 
 //  EditOption(name: "Tilt Shift",
 //           image: #imageLiteral(resourceName: "ico_tiltShift"),

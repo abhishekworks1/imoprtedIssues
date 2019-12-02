@@ -9,38 +9,38 @@
 import Foundation
 import UIKit
 
-enum ImageEditModes:Int {
+enum ImageEditModes: Int {
     case editModeDrawing
     case editModeText
 }
 
-class TextImageCreaterVC: UIViewController ,UITextViewDelegate {
+class TextImageCreaterVC: UIViewController, UITextViewDelegate {
     
     @IBOutlet weak var containerView: UIView!
     
     @IBOutlet private weak var imgCorrection: UIImageView!
     
-    //MARK: Variables
+    // MARK: Variables
     private var viewInputText: UIView!
     private var txtCorrection: UITextView!
     private var lastPoint = CGPoint.zero
     private var pointerWidth: CGFloat = 5.0
     private var swiped = false
-    private var editMode:ImageEditModes?
+    private var editMode: ImageEditModes?
     private var tempOldImage: UIImage!
     
-    internal var delegate:AnyObject?
+    internal var delegate: AnyObject?
     internal var imageToBeEdited: UIImage!
     
-    //MARK: ViewLifeCycle
+    // MARK: ViewLifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //Create the view for input and add on the self view
-        viewInputText = UIView(frame:CGRect.init(x: 0, y: 0, width: 33, height: 40))
+        viewInputText = UIView(frame: CGRect.init(x: 0, y: 0, width: 33, height: 40))
         
         viewInputText.backgroundColor = ApplicationSettings.appBlackColor
-        txtCorrection = UITextView(frame:CGRect.init(x: 5, y: 5, width: 23, height: 30))
+        txtCorrection = UITextView(frame: CGRect.init(x: 5, y: 5, width: 23, height: 30))
         txtCorrection.delegate = self
         txtCorrection.font = UIFont.systemFont(ofSize: 18.0)
         txtCorrection.textColor = ApplicationSettings.appWhiteColor
@@ -60,7 +60,7 @@ class TextImageCreaterVC: UIViewController ,UITextViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    //MARK: IBActions
+    // MARK: IBActions
     
     /**
      This method is called when user will click on the pencil icon on the UI
@@ -83,14 +83,14 @@ class TextImageCreaterVC: UIViewController ,UITextViewDelegate {
         editMode = ImageEditModes.editModeText
     }
     
-    //MARK: TextView Delegates
+    // MARK: TextView Delegates
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {
             textView.resignFirstResponder()
             return false
         }
         let strCorrection = "\(String(describing: textView.text)) \(text)"
-        let size = (strCorrection as NSString).size(withAttributes: [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 11.0)])
+        let size = (strCorrection as NSString).size(withAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 11.0)])
         let remainingWidth = UIScreen.main.bounds.width - viewInputText.frame.origin.x - 20
         
         viewInputText.frame = CGRect.init(x: viewInputText.frame.origin.x, y: viewInputText.frame.origin.y, width: txtCorrection.contentSize.width < remainingWidth ? size.width + 20 : remainingWidth + 10, height: (txtCorrection.contentSize.height < 30 ? 30 : txtCorrection.contentSize.height) + 10)
@@ -100,13 +100,13 @@ class TextImageCreaterVC: UIViewController ,UITextViewDelegate {
         return true
     }
     
-    //MARK: Private functions
+    // MARK: Private functions
     /**
      This method will be called when user will click on the back button
      
      - parameter sender: buttonObject
      */
-    @IBAction func saveButtonClicked(sender:UIButton) {
+    @IBAction func saveButtonClicked(sender: UIButton) {
         if viewInputText.isHidden == false {
             //Draw the text view on the image if it is not hidden
             UIGraphicsBeginImageContextWithOptions(viewInputText.bounds.size, true, 0)
@@ -124,8 +124,7 @@ class TextImageCreaterVC: UIViewController ,UITextViewDelegate {
             UIGraphicsEndImageContext()
             
             UIImageWriteToSavedPhotosAlbum(image ?? UIImage(), nil, nil, nil)
-        }else
-        {
+        } else {
             UIGraphicsBeginImageContext(imgCorrection.bounds.size)
             imgCorrection.image?.draw(in: CGRect(x: 0, y: 0,
                                                  width: imgCorrection.frame.size.width, height: imgCorrection.frame.size.height))
@@ -140,7 +139,7 @@ class TextImageCreaterVC: UIViewController ,UITextViewDelegate {
      
      - parameter sender: button objects
      */
-    func cancelClicked(sender:UIButton) {
+    func cancelClicked(sender: UIButton) {
         if editMode == ImageEditModes.editModeText {
             self.viewInputText.isHidden = true
         }
@@ -153,7 +152,7 @@ class TextImageCreaterVC: UIViewController ,UITextViewDelegate {
      
      - parameter sender: button object
      */
-    func doneClicked(sender:UIButton) {
+    func doneClicked(sender: UIButton) {
         if editMode == ImageEditModes.editModeText {
             txtCorrection.isEditable = false
             txtCorrection.resignFirstResponder()
@@ -169,13 +168,13 @@ class TextImageCreaterVC: UIViewController ,UITextViewDelegate {
         editMode = nil
     }
     
-    //MARK: Pan Gesture
+    // MARK: Pan Gesture
     /**
      This method will be called when user will move the edited text.
      
      - parameter panGestureRecognizer: pangesture object
      */
-    @objc func handlePanGesture(panGestureRecognizer : UIPanGestureRecognizer) {
+    @objc func handlePanGesture(panGestureRecognizer: UIPanGestureRecognizer) {
         let translation =  panGestureRecognizer.translation(in: self.imgCorrection)
         viewInputText.center = CGPoint.init(x: (panGestureRecognizer.view?.center.x)! + translation.x, y: (panGestureRecognizer.view?.center.y)! + translation.y)
         
@@ -183,19 +182,18 @@ class TextImageCreaterVC: UIViewController ,UITextViewDelegate {
     }
 }
 
-
 // MARK: - Class extension to implement the touch methods
 extension TextImageCreaterVC {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if editMode == ImageEditModes.editModeDrawing {
             swiped = false
             //store the fisrt point where clicked
-            if let touch = touches.first  {
+            if let touch = touches.first {
                 lastPoint = touch.location(in: self.view)
             }
         } else if editMode == ImageEditModes.editModeText {
             //store the fisrt point where clicked and unhide the textview if hidden to capture the text
-            if let touch = touches.first  {
+            if let touch = touches.first {
                 lastPoint = touch.location(in: self.imgCorrection)
             }
             if viewInputText.isHidden == true {
@@ -255,6 +253,4 @@ extension TextImageCreaterVC {
         UIGraphicsEndImageContext()
     }
     
-    
 }
-

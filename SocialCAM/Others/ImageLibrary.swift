@@ -45,7 +45,7 @@ public class ImageAsset: Equatable {
     public let asset: PHAsset!
     public var selectedOrder: Int = 0
     public var assetType: AssetType = .image
-    public var videoUrl: URL? = nil
+    public var videoUrl: URL?
     public var thumbImage: UIImage = UIImage()
 
     // MARK: - Initialization
@@ -61,7 +61,7 @@ public class ImageAsset: Equatable {
         }
     }
     
-    public var fullResolutionDownloadedImage: UIImage? = nil
+    public var fullResolutionDownloadedImage: UIImage?
     
     public var fullResolutionImage: UIImage? {
         get {
@@ -99,7 +99,7 @@ public class ImageAsset: Equatable {
             completion(-1)
             return
         }
-        var resource: PHAssetResource? = nil
+        var resource: PHAssetResource?
         if phAsset.mediaSubtypes.contains(.photoLive) == true, livePhotoVideoSize {
             resource = PHAssetResource.assetResources(for: phAsset).filter { $0.type == .pairedVideo }.first
         } else {
@@ -108,7 +108,7 @@ public class ImageAsset: Equatable {
         if let fileSize = resource?.value(forKey: "fileSize") as? Int {
             completion(fileSize)
         } else {
-            PHImageManager.default().requestImageData(for: phAsset, options: nil) { (data, uti, orientation, info) in
+            PHImageManager.default().requestImageData(for: phAsset, options: nil) { (data, _, _, _) in
                 var fileSize = -1
                 if let data = data {
                     let bcf = ByteCountFormatter()
@@ -131,14 +131,14 @@ public class ImageAsset: Equatable {
         if let fileSize = resource?.value(forKey: "fileSize") as? Int {
             completion(fileSize)
         } else {
-            PHImageManager.default().requestAVAsset(forVideo: phAsset, options: options) { (avasset, audioMix, info) in
+            PHImageManager.default().requestAVAsset(forVideo: phAsset, options: options) { (avasset, _, info) in
                 func fileSize(_ url: URL?) -> Int? {
                     do {
                         guard let fileSize = try url?.resourceValues(forKeys: [.fileSizeKey]).fileSize else { return nil }
                         return fileSize
                     } catch { return nil }
                 }
-                var url: URL? = nil
+                var url: URL?
                 if let urlAsset = avasset as? AVURLAsset {
                     url = urlAsset.url
                 } else if let sandboxKeys = info?["PHImageFileSandboxExtensionTokenKey"] as? String, let path = sandboxKeys.components(separatedBy: ";").last {
@@ -156,23 +156,23 @@ public class ImageAsset: Equatable {
     //convertLivePhotosToJPG
     // false : If you want mov file at live photos
     // true  : If you want png file at live photos ( HEIC )
-    public func tempCopyMediaFile(asset: PHAsset?, videoRequestOptions: PHVideoRequestOptions? = nil, imageRequestOptions: PHImageRequestOptions? = nil, exportPreset: String = AVAssetExportPresetHighestQuality, convertLivePhotosToJPG: Bool = false, progressBlock:((Double) -> Void)? = nil, completionBlock:@escaping ((URL,String) -> Void), failBlock:@escaping ((Bool) -> Void)) -> PHImageRequestID? {
+    public func tempCopyMediaFile(asset: PHAsset?, videoRequestOptions: PHVideoRequestOptions? = nil, imageRequestOptions: PHImageRequestOptions? = nil, exportPreset: String = AVAssetExportPresetHighestQuality, convertLivePhotosToJPG: Bool = false, progressBlock: ((Double) -> Void)? = nil, completionBlock:@escaping ((URL, String) -> Void), failBlock:@escaping ((Bool) -> Void)) -> PHImageRequestID? {
         guard let phAsset = asset else {
             failBlock(false)
             return nil
         }
-        var type: PHAssetResourceType? = nil
+        var type: PHAssetResourceType?
         if phAsset.mediaSubtypes.contains(.photoLive) == true, convertLivePhotosToJPG == false {
             type = .pairedVideo
-        }else {
+        } else {
             type = phAsset.mediaType == .video ? .video : .photo
         }
-        guard let resource = (PHAssetResource.assetResources(for: phAsset).filter{ $0.type == type }).first else {
+        guard let resource = (PHAssetResource.assetResources(for: phAsset).filter { $0.type == type }).first else {
             failBlock(false)
             return nil
         }
         let fileName = resource.originalFilename
-        var writeURL: URL? = nil
+        var writeURL: URL?
         if #available(iOS 10.0, *) {
             writeURL = FileManager.default.temporaryDirectory.appendingPathComponent("\(fileName)")
         } else {
@@ -184,7 +184,7 @@ public class ImageAsset: Equatable {
                 writeURL?.appendPathComponent("\(fileName2).jpg")
             }
         }
-        guard let localURL = writeURL,let mimetype = MIMEType(writeURL) else {
+        guard let localURL = writeURL, let mimetype = MIMEType(writeURL) else {
             failBlock(false)
             return nil
         }
@@ -193,7 +193,7 @@ public class ImageAsset: Equatable {
             var requestOptions = PHVideoRequestOptions()
             if let options = videoRequestOptions {
                 requestOptions = options
-            }else {
+            } else {
                 requestOptions.isNetworkAccessAllowed = true
             }
             //iCloud download progress
@@ -202,7 +202,7 @@ public class ImageAsset: Equatable {
                     progressBlock?(progress)
                 }
             }
-            return PHImageManager.default().requestExportSession(forVideo: phAsset, options: requestOptions, exportPreset: exportPreset) { (session, infoDict) in
+            return PHImageManager.default().requestExportSession(forVideo: phAsset, options: requestOptions, exportPreset: exportPreset) { (session, _) in
                 session?.outputURL = localURL
                 session?.outputFileType = AVFileType.mov
                 session?.exportAsynchronously(completionHandler: {
@@ -216,7 +216,7 @@ public class ImageAsset: Equatable {
             var requestOptions = PHImageRequestOptions()
             if let options = imageRequestOptions {
                 requestOptions = options
-            }else {
+            } else {
                 requestOptions.isNetworkAccessAllowed = true
             }
             //iCloud download progress
@@ -225,7 +225,7 @@ public class ImageAsset: Equatable {
                     progressBlock?(progress)
                 }
             }
-            return PHImageManager.default().requestImageData(for: phAsset, options: requestOptions, resultHandler: { (data, uti, orientation, info) in
+            return PHImageManager.default().requestImageData(for: phAsset, options: requestOptions, resultHandler: { (data, _, _, _) in
                 do {
                     var data = data
                     let needConvertLivePhotoToJPG = phAsset.mediaSubtypes.contains(.photoLive) == true && convertLivePhotosToJPG == true
@@ -236,7 +236,7 @@ public class ImageAsset: Equatable {
                     DispatchQueue.main.async {
                         completionBlock(localURL, mimetype)
                     }
-                }catch { }
+                } catch { }
             })
         default:
             return nil
@@ -254,7 +254,7 @@ public class ImageAsset: Equatable {
         options.progressHandler = { (progress, error, stop, info) in
             progressBlock(progress)
         }
-        let requestId = PHCachingImageManager().requestImageData(for: asset, options: options) { (imageData, dataUTI, orientation, info) in
+        let requestId = PHCachingImageManager().requestImageData(for: asset, options: options) { (imageData, _, _, info) in
             if let data = imageData, let _ = info {
                 completionBlock(UIImage(data: data))
             } else {
@@ -271,8 +271,8 @@ public class ImageAsset: Equatable {
         options.resizeMode = .none
         options.isNetworkAccessAllowed = true
         options.version = .current
-        var image: UIImage? = nil
-        _ = PHCachingImageManager().requestImageData(for: asset, options: options) { (imageData, dataUTI, orientation, info) in
+        var image: UIImage?
+        _ = PHCachingImageManager().requestImageData(for: asset, options: options) { (imageData, _, _, _) in
             if let data = imageData {
                 image = UIImage(data: data)
             }
@@ -305,7 +305,7 @@ public class ImageAsset: Equatable {
         guard let resource = (PHAssetResource.assetResources(for: phAsset).filter { $0.type == type }).first
             else { return }
         let fileName = resource.originalFilename
-        var writeURL: URL? = nil
+        var writeURL: URL?
         if #available(iOS 10.0, *) {
             writeURL = FileManager.default.temporaryDirectory.appendingPathComponent("\(fileName)")
         } else {
@@ -323,9 +323,9 @@ public class ImageAsset: Equatable {
 
         }
        
-        PHImageManager.default().requestAVAsset(forVideo: phAsset, options: options) { (avasset, avaudioMix, infoDict) in
+        PHImageManager.default().requestAVAsset(forVideo: phAsset, options: options) { (avasset, _, _) in
             guard let avasset = avasset else { return }
-            if let asset = avasset as? AVURLAsset{
+            if let asset = avasset as? AVURLAsset {
                 completionBlock(asset.url, mimetype)
                 return
                 /* Create the layer now */
@@ -381,7 +381,7 @@ class ImageAlbum {
         items = []
 
         let itemsFetchResult = PHAsset.fetchAssets(in: collection, options: Utils.fetchOptions())
-        itemsFetchResult.enumerateObjects({ (asset, count, stop) in
+        itemsFetchResult.enumerateObjects({ (asset, _, _) in
             if asset.mediaType == .image && (type == .image || type == .both) {
                 self.items.append(ImageAsset(asset: asset))
             }
@@ -418,9 +418,9 @@ class ImagesLibrary {
         }
     }
     
-    func getLatestPhotos(completion completionBlock : ((ImageAsset?) -> ()))   {
+    func getLatestPhotos(completion completionBlock: ((ImageAsset?) -> Void)) {
         let fetchOptions = PHFetchOptions()
-        fetchOptions.sortDescriptors = [NSSortDescriptor(key:"creationDate", ascending: false)]
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
         fetchOptions.fetchLimit = 1
 
         // Fetch the image assets
@@ -510,8 +510,8 @@ class ImagesLibrary {
         options.resizeMode = .none
         options.isNetworkAccessAllowed = false
         options.version = .current
-        var image: UIImage? = nil
-        _ = PHCachingImageManager().requestImageData(for: asset, options: options) { (imageData, dataUTI, orientation, info) in
+        var image: UIImage?
+        _ = PHCachingImageManager().requestImageData(for: asset, options: options) { (imageData, _, _, _) in
             if let data = imageData {
                 image = UIImage(data: data)
             }
@@ -532,4 +532,3 @@ struct Constraint {
         on(constraints: constraints)
     }
 }
-

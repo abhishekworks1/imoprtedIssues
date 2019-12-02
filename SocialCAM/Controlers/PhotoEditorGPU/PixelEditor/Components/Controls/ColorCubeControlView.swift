@@ -20,9 +20,7 @@
 // THE SOFTWARE.
 import Foundation
 
-
-
-open class ColorCubeControlBase : ControlBase {
+open class ColorCubeControlBase: ControlBase {
   
   public required init(
     context: PixelEditContext,
@@ -35,9 +33,9 @@ open class ColorCubeControlBase : ControlBase {
   
 }
 
-open class ColorCubeControl : ColorCubeControlBase, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+open class ColorCubeControl: ColorCubeControlBase, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
   
-  private enum Section : Int, CaseIterable {
+  private enum Section: Int, CaseIterable {
     
     case original
     case selections
@@ -84,7 +82,7 @@ open class ColorCubeControl : ColorCubeControlBase, UICollectionViewDelegateFlow
       collectionView.leftAnchor.constraint(equalTo: collectionView.superview!.leftAnchor),
       collectionView.bottomAnchor.constraint(lessThanOrEqualTo: collectionView.superview!.bottomAnchor),
       collectionView.centerYAnchor.constraint(equalTo: collectionView.superview!.centerYAnchor),
-      collectionView.heightAnchor.constraint(equalToConstant: itemSize?.height ?? 100),
+      collectionView.heightAnchor.constraint(equalToConstant: itemSize?.height ?? 100)
       ])
 
     collectionView.dataSource = self
@@ -190,11 +188,11 @@ open class ColorCubeControl : ColorCubeControlBase, UICollectionViewDelegateFlow
     
     switch Section.allCases[indexPath.section] {
     case .original:
-      context.action(.setFilter( { $0.colorCube = nil }))
+      context.action(.setFilter({ $0.colorCube = nil }))
       context.action(.commit)
     case .selections:
       let filter = previews[indexPath.item]
-      context.action(.setFilter( { $0.colorCube = filter.filter }))
+      context.action(.setFilter({ $0.colorCube = filter.filter }))
       context.action(.commit)
     }
     
@@ -231,7 +229,7 @@ open class ColorCubeControl : ColorCubeControlBase, UICollectionViewDelegateFlow
 
   // MARK: - Nested Types
   
-  open class CellBase : UICollectionViewCell {
+  open class CellBase: UICollectionViewCell {
     
     public let nameLabel: UILabel = .init()
     public let imageView: UIImageView = .init()
@@ -258,7 +256,7 @@ open class ColorCubeControl : ColorCubeControlBase, UICollectionViewDelegateFlow
           nameLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 12),
           nameLabel.rightAnchor.constraint(lessThanOrEqualTo: contentView.rightAnchor, constant: -2),
           nameLabel.leftAnchor.constraint(greaterThanOrEqualTo: contentView.leftAnchor, constant: 2),
-          nameLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+          nameLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
           
           ])
       }
@@ -330,7 +328,7 @@ open class ColorCubeControl : ColorCubeControlBase, UICollectionViewDelegateFlow
     }
   }
   
-  open class NormalCell : CellBase {
+  open class NormalCell: CellBase {
     
     static let identifier = "me.muukii.PixelEditor.FilterCellNormal"
 
@@ -342,7 +340,7 @@ open class ColorCubeControl : ColorCubeControlBase, UICollectionViewDelegateFlow
     
   }
 
-  open class SelectionCell : CellBase {
+  open class SelectionCell: CellBase {
 
     static let identifier = "me.muukii.PixelEditor.FilterCell"
     

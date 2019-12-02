@@ -44,8 +44,8 @@ public struct FilterSharpen: Filtering, Equatable, Codable {
       image
         .applyingFilter(
           "CISharpenLuminance", parameters: [
-            "inputRadius" : _radius,
-            "inputSharpness": sharpness,
+            "inputRadius": _radius,
+            "inputSharpness": sharpness
             ])
   }
 }

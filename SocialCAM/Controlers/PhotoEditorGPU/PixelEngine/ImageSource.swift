@@ -51,8 +51,8 @@ public struct ImageSource {
 
 }
 
-fileprivate func imageOrientationToTiffOrientation(_ value: UIImage.Orientation) -> Int32 {
-  switch value{
+private func imageOrientationToTiffOrientation(_ value: UIImage.Orientation) -> Int32 {
+  switch value {
   case .up:
     return 1
   case .down:
