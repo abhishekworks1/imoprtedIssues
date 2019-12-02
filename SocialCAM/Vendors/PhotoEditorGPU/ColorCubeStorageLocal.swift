@@ -40,8 +40,8 @@ extension ColorCubeStorage {
                     .sorted()
                     .concurrentMap { path -> FilterColorCube in
                         let url = URL(fileURLWithPath: rootPath.appendingPathComponent(path))
-                        let data = try! Data(contentsOf: url)
-                        let image = UIImage(data: data)!
+                        let data = try? Data(contentsOf: url)
+                        let image = UIImage(data: data ?? Data()) ?? UIImage()
                         let name = path
                             .replacingOccurrences(of: "LUT_", with: "")
                             .replacingOccurrences(of: ".png", with: "")

@@ -205,7 +205,7 @@ public class CropViewController: UIViewController {
         let fixedRatioManager = getFixedRatioManager()
         
         var ratioItem: RatioItemType
-        if fixedRatioManager.ratios.count == 0 {
+        if fixedRatioManager.ratios.isEmpty {
             ratioItem = fixedRatioManager.getOriginalRatioItem()
         } else {
             ratioItem = fixedRatioManager.ratios[0]
@@ -355,7 +355,7 @@ public class CropViewController: UIViewController {
         
         let fixedRatioManager = getFixedRatioManager()
         
-        guard fixedRatioManager.ratios.count > 0 else { return }
+        guard !fixedRatioManager.ratios.isEmpty else { return }
         
         if fixedRatioManager.ratios.count == 1 {
             let ratioItem = fixedRatioManager.ratios[0]

@@ -62,7 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let user = Defaults.shared.currentUser,
             let _ = Defaults.shared.sessionToken,
             let channelId = user.channelId,
-            channelId.count > 0 {
+            !channelId.isEmpty {
             rootViewController = R.storyboard.storyCameraViewController.storyCameraNavigation()
             InternetConnectionAlert.shared.internetConnectionHandler = { reachability in
                 if reachability.connection != .none {

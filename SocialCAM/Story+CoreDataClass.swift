@@ -142,7 +142,7 @@ class StoryDataManager {
     weak var delegate: StoryUploadDelegate?
     let exportSession = StoryAssetExportSession()
     
-    static let shared = StoryDataManager(context: (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)
+    static let shared = StoryDataManager(context: Utils.appDelegate?.persistentContainer.viewContext ?? NSManagedObjectContext.init())
     
     init(context: NSManagedObjectContext) {
         debugPrint("init StoryDataManager")
@@ -305,8 +305,7 @@ class StoryDataManager {
         
         do {
             let response = try context.fetch(fetchRequest)
-            return response as! [StoryData]
-            
+            return response as? [StoryData] ?? []
         } catch let error as NSError {
             // failure
             debugPrint(error)
@@ -352,8 +351,7 @@ class StoryDataManager {
         
         do {
             let response = try context.fetch(fetchRequest)
-            return response as! [StoryUploadData]
-            
+            return response as? [StoryUploadData] ?? []
         } catch let error as NSError {
             // failure
             debugPrint(error)
@@ -466,7 +464,7 @@ extension StoryDataManager {
         
         exportSession.export(for: session.assetRepresentingSegments(), progress: { progress in
             debugPrint(progress)
-        }) { exportedURL in
+        }, completion: { exportedURL in
             if let url = exportedURL {
                 storyData.url = url.absoluteString
                 let album = SCAlbum.shared
@@ -483,7 +481,7 @@ extension StoryDataManager {
                     Utils.deleteFileFromLocal(URL(string: storyExport.url!)!.lastPathComponent)
                 }
             }
-        }
+        })
     }
     
     func uploadStory(_ storyData: StoryData) {
@@ -526,9 +524,9 @@ extension StoryDataManager {
         if currentStoryData?.type != "image" {
             uploadThumb()
             contentType = "video/mp4"
-            fileName = fileName + ".mp4"
+            fileName += FileExtension.mp4.rawValue
         } else {
-            fileName = fileName + FileExtension.jpg.rawValue
+            fileName += FileExtension.jpg.rawValue
             if let imageData = try? Data(contentsOf: URL(string: storyData.url!)!) {
                 let image = UIImage(data: imageData)
                 self.delegate?.didChangeThumbImage(image!)
@@ -760,9 +758,9 @@ extension StoryDataManager {
         let completedStoryData = self.getStoryUploadDataCompleted()
         let storyData = self.getStoryUploadDataNotCompleted()
         
-        if storyData.count > 0 {
-            self.currentStoryUploadData = storyData[0]
-            debugPrint("uploadData -> \(storyData[0].priority)")
+        if !storyData.isEmpty {
+            self.currentStoryUploadData = storyData.first
+            debugPrint("uploadData -> \(String(describing: storyData.first?.priority))")
             debugPrint("\(completedStoryData.count)/\(self.getAllStoryUploadData().count)")
             if self.getStoryDataCompleted().count == self.getAllStoryData().count {
                 storyData[0].isCompleted = true
@@ -773,7 +771,7 @@ extension StoryDataManager {
                 self.currentStoryUploadData = nil
                 StoryDataManager.shared.startUpload()
             } else {
-                if self.getStoryDataNotCompleted().count > 0 {
+                if !self.getStoryDataNotCompleted().isEmpty {
                     debugPrint("storyData -> \(self.getStoryDataNotCompleted()[0].priority)")
                     let remainString = "\(self.getStoryDataCompleted().count + 1)/\(self.getAllStoryData().count)"
                     debugPrint(remainString)
@@ -788,15 +786,15 @@ extension StoryDataManager {
     }
     
     func deleteAllRecords() {
-        let delegate = UIApplication.shared.delegate as! AppDelegate
-        let context = delegate.persistentContainer.viewContext
+        let delegate = Utils.appDelegate
+        let context = delegate?.persistentContainer.viewContext
         
         let deleteFetchPost = NSFetchRequest<NSFetchRequestResult>(entityName: StoryDataManager.storyDataEntityName)
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetchPost)
         
         do {
-            try context.execute(deleteRequest)
-            try context.save()
+            try context?.execute(deleteRequest)
+            try context?.save()
         } catch {
             debugPrint("There was an error")
         }
@@ -805,8 +803,8 @@ extension StoryDataManager {
         let deletePostRequest = NSBatchDeleteRequest(fetchRequest: deleteFetchPostData)
         
         do {
-            try context.execute(deletePostRequest)
-            try context.save()
+            try context?.execute(deletePostRequest)
+            try context?.save()
         } catch {
             debugPrint("There was an error")
         }
@@ -815,8 +813,8 @@ extension StoryDataManager {
         let deleteStoryRequest = NSBatchDeleteRequest(fetchRequest: deleteFetchStoryData)
         
         do {
-            try context.execute(deleteStoryRequest)
-            try context.save()
+            try context?.execute(deleteStoryRequest)
+            try context?.save()
         } catch {
             debugPrint("There was an error")
         }

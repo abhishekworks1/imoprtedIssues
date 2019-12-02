@@ -66,7 +66,7 @@ class StoryTwoColumnsLayout: UICollectionViewLayout {
             if column >= (numberOfColumns - 1) {
                 column = 0
             } else {
-                column = column + 1
+                column += 1
             }
 
         }

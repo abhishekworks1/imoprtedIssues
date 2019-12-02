@@ -37,23 +37,23 @@ public class CGAngle: NSObject, Comparable {
         return String(format: "%0.2f°", degrees)
     }
     
-    static public func +(lhs: CGAngle, rhs: CGAngle) -> CGAngle {
+    static public func + (lhs: CGAngle, rhs: CGAngle) -> CGAngle {
         return CGAngle(radians: lhs.radians + rhs.radians)
     }
     
-    static public func *(lhs: CGAngle, rhs: CGAngle) -> CGAngle {
+    static public func * (lhs: CGAngle, rhs: CGAngle) -> CGAngle {
         return CGAngle(radians: lhs.radians * rhs.radians)
     }
     
-    static public func -(lhs: CGAngle, rhs: CGAngle) -> CGAngle {
+    static public func - (lhs: CGAngle, rhs: CGAngle) -> CGAngle {
         return CGAngle(radians: lhs.radians - rhs.radians)
     }
     
-    static public prefix func -(rhs: CGAngle) -> CGAngle {
+    static public prefix func - (rhs: CGAngle) -> CGAngle {
         return CGAngle(radians: -rhs.radians)
     }
 
-    static public func /(lhs: CGAngle, rhs: CGAngle) -> CGAngle {
+    static public func / (lhs: CGAngle, rhs: CGAngle) -> CGAngle {
         guard rhs.radians != 0 else {
             if lhs.radians == 0 { return CGAngle(radians: 0)}
             if lhs.radians > 0 { return CGAngle(radians: CGFloat.infinity)}

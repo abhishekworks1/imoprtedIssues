@@ -234,8 +234,8 @@ public extension UIImage {
                     if compressionQuality > minimalCompressRate {
                         compressionQuality -= 0.1
                     } else {
-                        maxHeight = maxHeight * 0.9
-                        maxWidth = maxWidth * 0.9
+                        maxHeight *= 0.9
+                        maxWidth *= 0.9
                     }
                 }
                 imageData = imgData

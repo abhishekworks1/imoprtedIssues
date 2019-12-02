@@ -212,8 +212,8 @@ class StyleTransferVC: UIViewController {
             collectionViews: [imageCollectionView]
         )
         
-        let imageCollectionViewLayout = self.imageCollectionView.collectionViewLayout as! UPCarouselFlowLayout
-        imageCollectionViewLayout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: 0.1)
+        let imageCollectionViewLayout = self.imageCollectionView.collectionViewLayout as? UPCarouselFlowLayout
+        imageCollectionViewLayout?.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: 0.1)
         imageCollectionView.register(R.nib.imageCollectionViewCell)
     }
     
@@ -654,7 +654,9 @@ extension StyleTransferVC: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == self.imageCollectionView {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.nib.imageCollectionViewCell.identifier, for: indexPath) as! ImageCollectionViewCell
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.nib.imageCollectionViewCell.identifier, for: indexPath) as? ImageCollectionViewCell else {
+                return UICollectionViewCell()
+            }
             
             let borderColor: CGColor! = ApplicationSettings.appBlackColor.cgColor
             let borderWidth: CGFloat = 3
@@ -689,7 +691,9 @@ extension StyleTransferVC: UICollectionViewDelegate {
             
             return cell
         } else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "StyleCollectionViewCell", for: indexPath) as! StyleCollectionViewCell
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.styleCollectionViewCell, for: indexPath) else {
+                return UICollectionViewCell()
+            }
             cell.styleImageView.image = styleData[indexPath.row].image
             cell.tag = indexPath.row
             let borderWidth: CGFloat = styleData[indexPath.row].isSelected ? 2.0 : 0.0

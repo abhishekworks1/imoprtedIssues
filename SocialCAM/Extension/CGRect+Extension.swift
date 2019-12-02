@@ -54,7 +54,7 @@ extension CGFloat {
         var x = UIScreen.width*self / 100
         if !UIScreen.haveRatio {
             x = UIScreen.ratioWidth*self / 100
-            x = x - ((UIScreen.ratioWidth - UIScreen.width) / 2)
+            x -= ((UIScreen.ratioWidth - UIScreen.width) / 2)
         }
         return x
     }

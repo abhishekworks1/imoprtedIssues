@@ -79,13 +79,14 @@ open class AllPhotosCollectionViewCell: UICollectionViewCell {
     }
 
     @objc open func popScaleAnim() {
+       
         UIView.animate(withDuration: 0.1, animations: {
             self.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
-        }) { _ in
+        }, completion: { _ in
             UIView.animate(withDuration: 0.1, animations: {
                 self.transform = CGAffineTransform(scaleX: 1, y: 1)
             })
-        }
+        })
     }
     
     @objc func stopPlay() {

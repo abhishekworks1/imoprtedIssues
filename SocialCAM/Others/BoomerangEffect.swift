@@ -50,9 +50,23 @@ class VideoFactory: NSObject {
 
     func assetTOcvimgbuffer(_ sucess: @escaping ((URL) -> Void), _ progress: @escaping ((Progress) -> Void), failure: ((NSError) -> Void)) {
         if videoAsset == nil {
-            videoAsset = AVAsset(url: videoorigin?.mediaUrl! as! URL)
+            guard let videoUrl = videoorigin?.mediaUrl! as? URL else {
+                return
+            }
+            videoAsset = AVAsset(url: videoUrl)
         }
-        let trackreader = try! AVAssetReader(asset: videoAsset!)
+        var trackreader: AVAssetReader?
+        
+        do {
+            trackreader = try AVAssetReader(asset: videoAsset!)
+        } catch {
+            trackreader = nil
+        }
+        guard let reader = trackreader else {
+            print("Could not initalize asset reader probably failed its try catch")
+            return
+        }
+        
         let videoTracks = videoAsset?.tracks(withMediaType: AVMediaType.video)
 
         for track in videoTracks! {
@@ -60,10 +74,10 @@ class VideoFactory: NSObject {
                 String(kCVPixelBufferPixelFormatTypeKey): Int(kCVPixelFormatType_420YpCbCr8BiPlanarFullRange)
             ])
             fps = Int(track.nominalFrameRate)
-            if trackreader.canAdd(trackoutput) {
-                trackreader.add(trackoutput)
+            if reader.canAdd(trackoutput) {
+                reader.add(trackoutput)
                 var buffer: CMSampleBuffer?
-                if trackreader.startReading() {
+                if reader.startReading() {
                     buffer = trackoutput.copyNextSampleBuffer()
                     while buffer != nil {
                         guard let cvimgabuffer = CMSampleBufferGetImageBuffer(buffer!) else {
@@ -80,9 +94,9 @@ class VideoFactory: NSObject {
             sucess(url)
         }, { (currentProgress) in
             progress(currentProgress)
-        }) { (error) in
+        }, failure: { (error) in
             failure(error)
-        }
+        })
     }
 
     func bufferToVideo(videoorigin: VideoOrigin?, _ sucess: @escaping ((URL) -> Void), _ progress: @escaping ((Progress) -> Void), failure: ((NSError) -> Void)) {
@@ -108,21 +122,18 @@ class VideoFactory: NSObject {
         }
 
         let buffer = BufferToVideo(buffer: cvimgbuffer, fps: Int32(fps))
-        if self.type == .boom {
+        if self.type == .boom || self.type == .speed {
             buffer.filename = "BoomVideo.mov"
-            buffer.fps = buffer.fps * 2
-        }
-        if self.type == .speed {
-            buffer.fps = buffer.fps * 2
+            buffer.fps *= 2
         }
 
         buffer.build(videoorigin: videoorigin, { (url) in
             sucess(url)
         }, { (currentprogress) in
             progress(currentprogress)
-        }) { (error) in
+        }, failure: { (error) in
             failure(error)
-        }
+        })
     }
 
 }
@@ -147,11 +158,10 @@ class BufferToVideo: NSObject {
 
         let firstPixelBuffer = buffer.first!
         let width = CVPixelBufferGetWidth(firstPixelBuffer)
-        print(width)
-
         let height = CVPixelBufferGetHeight(firstPixelBuffer)
-        print(height)
-        let attr = CVBufferGetAttachments(firstPixelBuffer, .shouldPropagate) as! [String: Any]
+        guard let attr: [String: Any] = CVBufferGetAttachments(firstPixelBuffer, .shouldPropagate) as? [String : Any] else {
+            return
+        }
 
         let videoSettings: [String: Any] = [
             AVVideoCodecKey: AVVideoCodecType.h264,
@@ -173,7 +183,11 @@ class BufferToVideo: NSObject {
             error = writerError
             videoWriter = nil
         }
-        let asset: AVAsset = AVAsset.init(url: videoorigin?.mediaUrl as! URL)
+        
+        guard let videoUrl = videoorigin?.mediaUrl! as? URL else {
+            return
+        }
+        let asset: AVAsset = AVAsset.init(url: videoUrl)
 
         let videoTrack: AVAssetTrack = asset.tracks(withMediaType: AVMediaType.video).last!
 

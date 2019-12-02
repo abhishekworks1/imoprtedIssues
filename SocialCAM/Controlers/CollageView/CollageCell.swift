@@ -141,13 +141,10 @@ class CollageCell: UIView {
         switch type {
         case .heart:
             shapeLayer.name = "heart"
-            break
         case .hexa:
             shapeLayer.name = "hexa"
-            break
         case .star:
             shapeLayer.name = "star"
-            break
         }
        
         shapeLayer.path = path.cgPath

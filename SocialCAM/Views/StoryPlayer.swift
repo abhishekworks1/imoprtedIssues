@@ -381,7 +381,7 @@ extension StoryPlayer {
             
             let videoTracks = item.asset.tracks(withMediaType: .video)
             
-            if videoTracks.count > 0 {
+            if !videoTracks.isEmpty {
                 let track = videoTracks.first
                 
                 if let aTransform = track?.preferredTransform {

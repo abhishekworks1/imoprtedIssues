@@ -347,7 +347,7 @@ open class PhotosPickerViewController: UIViewController {
         var totalHegight: CGFloat = topNavigationBarView.frame.height + 20
         if #available(iOS 11.0, *) {
             if ((UIApplication.shared.keyWindow?.safeAreaInsets.top)! > CGFloat(0.0)) {
-                totalHegight = totalHegight + (UIApplication.shared.keyWindow?.safeAreaInsets.top)! + (UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!
+                totalHegight += (UIApplication.shared.keyWindow?.safeAreaInsets.top)! + (UIApplication.shared.keyWindow?.safeAreaInsets.bottom)!
                 dropdownController.view.g_pin(on: .height, constant: -totalHegight)
             } else {
                 dropdownController.view.g_pin(on: .height, constant: -totalHegight)
@@ -498,7 +498,7 @@ extension PhotosPickerViewController {
     }
     
     @IBAction open func doneButtonTap() {
-        guard self.selectedAssets.count > 0 else {
+        guard !self.selectedAssets.isEmpty else {
             return
         }
         self.dismiss(done: true)
@@ -506,7 +506,7 @@ extension PhotosPickerViewController {
     
     fileprivate func dismiss(done: Bool) {
         if done {
-            if self.selectedAssets.count > 0 {
+            if !self.selectedAssets.isEmpty {
                 doneButton.isEnabled = false
                 cancelButton.isEnabled = false
                 let exportGroup = DispatchGroup()
@@ -569,7 +569,7 @@ extension PhotosPickerViewController {
                 exportGroup.notify(queue: exportQueue) {
                     print("finished Video Select all..")
                     DispatchQueue.main.async {
-                        if self.selectedAssets.count != 0 {
+                        if !self.selectedAssets.isEmpty {
                             self.delegate?.dismissPhotoPicker(withTLPHAssets: self.selectedAssets)
                             self.completionWithTLPHAssets?([self.selectedAssets[0].asset])
                             loadingView.hide()
@@ -685,7 +685,7 @@ extension PhotosPickerViewController: UICollectionViewDelegate, UICollectionView
             oldIndexSelected = indexPath
         } else {
             self.logDelegate?.selectedPhoto(picker: self, at: indexPath.row)
-            if selectedAssets.count == 0 {
+            if selectedAssets.isEmpty {
                 selectionType = asset.assetType
             }
             if selectionType != asset.assetType {
@@ -710,11 +710,11 @@ extension PhotosPickerViewController: UICollectionViewDelegate, UICollectionView
     //Datasource
     open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         func makeCell(nibName: String) -> AllPhotosCollectionViewCell {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: nibName, for: indexPath) as! AllPhotosCollectionViewCell
-            cell.configure = self.configure
-            cell.imageView?.image = self.placeholderThumbnail
-            cell.liveBadgeImageView = nil
-            return cell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: nibName, for: indexPath) as? AllPhotosCollectionViewCell
+            cell?.configure = self.configure
+            cell?.imageView?.image = self.placeholderThumbnail
+            cell?.liveBadgeImageView = nil
+            return cell!
         }
         let nibName = self.configure.nibSet?.nibName ?? "AllPhotosCollectionViewCell"
         let cell = makeCell(nibName: nibName)

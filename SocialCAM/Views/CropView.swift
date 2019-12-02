@@ -382,9 +382,9 @@ open class CropView: UIView, UIScrollViewDelegate, UIGestureRecognizerDelegate, 
             self.scrollView.bounds = cropRect
             self.scrollView.zoom(to: zoomRect, animated: false)
             self.layoutCropRectViewWithCropRect(cropRect)
-        }) { _ in
-            completion?()
-        }
+            }, completion: { _ in
+                completion?()
+        })
     }
     
     fileprivate func cappedCropRectInImageRectWithCropRectView(_ cropRectView: CropRectView) -> CGRect {

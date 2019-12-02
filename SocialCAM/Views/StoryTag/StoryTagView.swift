@@ -310,7 +310,7 @@ extension StoryTagView: UITextFieldDelegate {
             return false
         }
         textField.insertText(string.uppercased())
-        if textField.text?.count == 0 {
+        if textField.text?.isEmpty ?? false {
             textField.placeholder = placeholder
         } else {
             textField.placeholder = nil

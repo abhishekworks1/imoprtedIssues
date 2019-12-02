@@ -199,7 +199,7 @@ class StoryPollQueView: BaseQuestionTagView {
     
     var firstOptionText: String {
         get {
-            if firstOptionTextView.text.count == 0 {
+            if firstOptionTextView.text.isEmpty {
                 return firstOptionTextView.placeHolder ?? ""
             }
             return firstOptionTextView.text
@@ -211,7 +211,7 @@ class StoryPollQueView: BaseQuestionTagView {
     
     var secondOptionText: String {
         get {
-            if secondOptionTextView.text.count == 0 {
+            if secondOptionTextView.text.isEmpty {
                 return secondOptionTextView.placeHolder ?? ""
             }
             return secondOptionTextView.text

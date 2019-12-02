@@ -65,7 +65,6 @@ class HalfModalPresentationController: UIPresentationController {
     
     @objc func onPan(pan: UIPanGestureRecognizer) {
         let endPoint = pan.translation(in: pan.view?.superview)
-        
         switch pan.state {
         case .began:
             presentedView!.frame.size.height = containerView!.frame.height
@@ -79,8 +78,6 @@ class HalfModalPresentationController: UIPresentationController {
                 presentedView!.frame.origin.y = endPoint.y
             }
             direction = velocity.y
-            
-            break
         case .ended:
             if direction < 0 {
                 changeScale(to: .adjustedOnce)
@@ -91,10 +88,6 @@ class HalfModalPresentationController: UIPresentationController {
                     presentedViewController.dismiss(animated: true, completion: nil)
                 }
             }
-            
-            print("finished transition")
-            
-            break
         default:
             break
         }

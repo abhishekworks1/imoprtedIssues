@@ -289,7 +289,7 @@ public class DrawViewController: UIViewController {
     }
     
     @IBAction func btnChangeBGClick(_ sender: Any) {
-        defaultBGColorsIndex = defaultBGColorsIndex + 1
+        defaultBGColorsIndex += 1
         
         if defaultBGColorsIndex >= defaultBGColors.count {
             defaultBGColorsIndex = 0

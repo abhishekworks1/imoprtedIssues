@@ -61,7 +61,7 @@ class VideoScaler {
     
     func scaleVideo(asset: AVAsset, scalerValues: [VideoScalerValue]) -> (AVMutableComposition?, [VideoScalerPart]) {
         let videoTracks = asset.tracks(withMediaType: AVMediaType.video)
-        guard videoTracks.count > 0 else {
+        guard !videoTracks.isEmpty else {
             return (nil, [])
         }
         let totalTimeRange = CMTimeRange(start: CMTime.zero,
@@ -83,7 +83,7 @@ class VideoScaler {
         videoCompositionTrack?.preferredTransform = videoTrack.preferredTransform
         
         let audioTracks = asset.tracks(withMediaType: AVMediaType.audio)
-        if audioTracks.count > 0 {
+        if !audioTracks.isEmpty {
             let audioTrack = audioTracks.first!
             let audioCompositionTrack = scaleComposition.addMutableTrack(withMediaType: AVMediaType.audio,
                                                                          preferredTrackID: kCMPersistentTrackID_Invalid)

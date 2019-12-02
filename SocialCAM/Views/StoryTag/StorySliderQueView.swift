@@ -300,9 +300,9 @@ class StoryQueSlider: UISlider {
         let trackRect = self.trackRect(forBounds: bounds)
         var thumbRect = self.thumbRect(forBounds: bounds, trackRect: trackRect, value: value)
         var scaleValue = CGFloat(value)*2
-        scaleValue = scaleValue + 1.0
-        thumbRect.origin.x = thumbRect.origin.x + 20
-        thumbRect.origin.y = thumbRect.origin.y - 20*scaleValue
+        scaleValue += 1.0
+        thumbRect.origin.x += 20
+        thumbRect.origin.y -= 20*scaleValue
         emojiView.center = thumbRect.origin
         emojiView.transform = CGAffineTransform(scaleX: scaleValue,
                                                 y: scaleValue)
@@ -314,7 +314,7 @@ class StoryQueSlider: UISlider {
 //        addSubview(answerThumb)
         var trackRect = self.trackRect(forBounds: bounds)
         trackRect.size.width = trackRect.width - 20
-        trackRect.origin.x = trackRect.origin.x + 20
+        trackRect.origin.x += 20
         let thumbRect = self.thumbRect(forBounds: bounds, trackRect: trackRect, value: value)
         answerThumb.frame.origin = CGPoint(x: thumbRect.origin.x,
                                            y: 11)

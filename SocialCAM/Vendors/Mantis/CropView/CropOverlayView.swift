@@ -28,7 +28,7 @@ class CropOverlayView: UIView {
     
     override var frame: CGRect {
         didSet {
-            if corner.count > 0 {
+            if !corner.isEmpty {
                 layoutLines()
             }            
         }
@@ -68,7 +68,7 @@ class CropOverlayView: UIView {
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
         
-        if corner.count > 0 {
+        if !corner.isEmpty {
             layoutLines()
         }
     }

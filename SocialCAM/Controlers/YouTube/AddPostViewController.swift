@@ -49,7 +49,7 @@ class AddPostViewController: UIViewController {
                 self.lblLike.text = "\(video.statistics?.likeCount ?? "")"
                 self.lblDisLike.text = "\(video.statistics?.dislikeCount ?? "")"
                 self.lblViews.text = "\(video.statistics?.viewCount ?? "")"
-                if let tags = video.snippet?.tags, tags.count > 0 {
+                if let tags = video.snippet?.tags, !tags.isEmpty {
                     let tempString = tags.joined(separator: ",#")
                     let hash = "#"
                     let tagText = hash.appending(tempString)
@@ -153,7 +153,7 @@ class AddPostViewController: UIViewController {
                 return
             }
             var hash1: [String] = []
-            if let tags = strongSelf.video?.snippet?.tags, tags.count > 0 {
+            if let tags = strongSelf.video?.snippet?.tags, !tags.isEmpty {
                 hash1 = tags.map {
                     return $0.replace(" ", with: "")
                 }

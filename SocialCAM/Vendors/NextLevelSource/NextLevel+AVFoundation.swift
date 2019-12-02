@@ -221,7 +221,7 @@ extension AVCaptureDevice.Format {
         var frameRateReturn: [String] = []
         if (formatDimensions.width >= dimensions.width && formatDimensions.height >= dimensions.height) {
             for frameRateRange in self.videoSupportedFrameRateRanges {
-                if frameRateReturn.count != 0 {
+                if !frameRateReturn.isEmpty {
                     for item in frameRateReturn {
                         if "\(frameRateRange.minFrameDuration.timescale)" != item {
                             frameRateReturn.append("\(frameRateRange.minFrameDuration.timescale)")

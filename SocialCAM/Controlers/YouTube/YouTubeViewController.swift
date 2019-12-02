@@ -153,7 +153,7 @@ class YouTubeViewController: MXSegmentedPagerController {
                 self.isSignIn = true
                 let token = GIDSignIn.sharedInstance().currentUser.authentication.accessToken
                 ProManagerApi.getyoutubeSubscribedChannel(token: token!, forChannelId: nil).request(YouTubeItmeListResponse<YouTubeSubscription>.self).subscribe(onNext: { (response) in
-                    if response.item.count > 0 {
+                    if !response.item.isEmpty {
                         self.channels = response.item
                         self.lblNoChannel.isHidden = true
                     } else {
@@ -208,7 +208,7 @@ extension YouTubeViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if self.isSignIn == true {
-            guard self.channels.count > 0,
+            guard !self.channels.isEmpty,
                 let channelId = self.channels[indexPath.row].snippet?.resourcechannelId else {
                 return
             }
@@ -221,11 +221,11 @@ extension YouTubeViewController: UICollectionViewDelegate, UICollectionViewDataS
                     }
                     if let createPost: [UIViewController] = self.navigationController?.viewControllers.filter({ (vc) -> Bool in
                         return vc.isKind(of: AddPostViewController.self)
-                    }), createPost.count > 0 {
+                    }), !createPost.isEmpty {
                           self.navigationController?.popToViewController(createPost[0], animated: true)
                     } else if let potoEdit: [UIViewController] = self.navigationController?.viewControllers.filter({ (vc) -> Bool in
                         return vc.isKind(of: PhotoEditorViewController.self)
-                    }), potoEdit.count > 0 {
+                    }), !potoEdit.isEmpty {
                          self.navigationController?.popToViewController(potoEdit[0], animated: true)
                     }
                 }

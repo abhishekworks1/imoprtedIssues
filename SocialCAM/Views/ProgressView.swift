@@ -59,7 +59,7 @@ class ProgressView: UIProgressView {
                 self.currentTime = 0.0
                 return
             }
-            self.currentTime  =  self.currentTime + 0.1
+            self.currentTime += 0.1
         })
     }
     
@@ -107,7 +107,7 @@ class ProgressView: UIProgressView {
                     return
                 }
             }
-            self.currentTime  =  self.currentTime + 0.1
+            self.currentTime += 0.1
         })
     }
     

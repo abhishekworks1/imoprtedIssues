@@ -79,7 +79,7 @@ class TrimEditorViewController: UIViewController {
             return asset
         }
         
-        if let videoPath = videoPath, videoPath.count > 0 {
+        if let videoPath = videoPath, !videoPath.isEmpty {
             var videoURL = URL(string: videoPath)
             if videoURL == nil || videoURL?.scheme == nil {
                 videoURL = URL(fileURLWithPath: videoPath)
@@ -145,15 +145,15 @@ class TrimEditorViewController: UIViewController {
         
         print("Recording completed After Video Count \(videoUrls.count)")
         
-        if videoUrls.count != 0 {
-            self.videoUrl = self.videoUrls[0]
+        if !videoUrls.isEmpty {
+            self.videoUrl = self.videoUrls.first
         }
         
     }
     
     func connVideoPlay() {
         DispatchQueue.main.async {
-            self.currentPlayVideo = self.currentPlayVideo + 1
+            self.currentPlayVideo += 1
             if self.currentPlayVideo == self.videoUrls.count {
                 self.currentPlayVideo = 0
             }
@@ -164,7 +164,7 @@ class TrimEditorViewController: UIViewController {
             self.selectedItem = self.currentPage
             self.stopMotionCollectionView.reloadData()
             
-            if let player = self.scPlayer, self.videoUrls.count != 0 {
+            if let player = self.scPlayer, !self.videoUrls.isEmpty {
                 if player.isPlaying {
                     player.play()
                     self.startPlaybackTimeChecker()
@@ -774,7 +774,7 @@ extension TrimEditorViewController: StoryPlayerDelegate {
     func playerDidEnd() {
         DispatchQueue.main.async {
             if !self.isEditMode {
-                self.currentPlayVideo = self.currentPlayVideo + 1
+                self.currentPlayVideo += 1
                 
                 if self.currentPlayVideo == self.videoUrls.count {
                     self.currentPlayVideo = 0
@@ -784,7 +784,7 @@ extension TrimEditorViewController: StoryPlayerDelegate {
                 self.stopMotionCollectionView.layoutIfNeeded()
                 self.stopMotionCollectionView.setNeedsLayout()
                 
-                if self.videoUrls.count != 0 {
+                if !self.videoUrls.isEmpty {
                     let item = self.videoUrls[self.currentPlayVideo].currentAsset
                     self.scPlayer?.setItemBy(item!)
                 }

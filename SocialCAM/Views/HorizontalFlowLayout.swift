@@ -20,7 +20,9 @@ class CircularCollectionViewLayoutAttributes: UICollectionViewLayoutAttributes {
   }
   
   override func copy(with zone: NSZone? = nil) -> Any {
-    let copiedAttributes: CircularCollectionViewLayoutAttributes = super.copy(with: zone) as! CircularCollectionViewLayoutAttributes
+    guard let copiedAttributes: CircularCollectionViewLayoutAttributes = super.copy(with: zone) as? CircularCollectionViewLayoutAttributes else {
+        return super.copy(with: zone)
+    }
     copiedAttributes.anchorPoint = self.anchorPoint
     copiedAttributes.angle = self.angle
     return copiedAttributes
@@ -202,7 +204,9 @@ class HorizontalFlowLayout: UICollectionViewFlowLayout {
         var newAttributesArray = [CircularCollectionViewLayoutAttributes]()
       
         for (_, attributes) in superAttributes!.enumerated() {
-            let newAttributes = attributes.copy() as! CircularCollectionViewLayoutAttributes
+            guard let newAttributes = attributes.copy() as? CircularCollectionViewLayoutAttributes else {
+                return nil
+            }
             newAttributesArray.append(newAttributes)
             let distanceFromCenter = visibleCenterX - newAttributes.center.x
             let absDistanceFromCenter = min(abs(distanceFromCenter), self.scalingOffset)

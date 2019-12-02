@@ -55,7 +55,7 @@ class KeywordViewController: UIViewController {
             self.nextPageToken = response.nextPageToken
             self.totalResult = response.pageInfo?.totalResults
             self.resultPerPage = response.pageInfo?.resultsPerPage
-            if ApplicationSettings.shared.videos.count == 0 && response.result?.count == 0 {
+            if ApplicationSettings.shared.videos.isEmpty && response.result?.isEmpty ?? false {
                 self.emptyView?.isHidden = false
                 self.indicatorView.stopAnimating()
             } else {

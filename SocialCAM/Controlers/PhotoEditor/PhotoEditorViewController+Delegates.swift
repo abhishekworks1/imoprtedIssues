@@ -94,7 +94,7 @@ extension PhotoEditorViewController: StickersViewControllerDelegate {
                 guard let `self` = self else { return }
                 self.youTubeHashtags = hash
                 if let hashtags = self.youTubeHashtags,
-                    hashtags.count > 0 {
+                    !hashtags.isEmpty {
                     var tags = [String]()
                     for hashtag in hashtags {
                         tags.append("#\(hashtag)")
@@ -126,7 +126,7 @@ extension PhotoEditorViewController: StickersViewControllerDelegate {
                                                 tagType: StoryTagType.youtube,
                                                 tagText: title ?? url)
                 tag.videoId = url.youTubeId ?? ""
-                if let youtubeTagIndex = self.storyTags.index(where: { $0.tag.tagType == StoryTagType.youtube.rawValue }) {
+                if let youtubeTagIndex = self.storyTags.firstIndex(where: { $0.tag.tagType == StoryTagType.youtube.rawValue }) {
                     self.storyTags[youtubeTagIndex].view.removeFromSuperview()
                     self.storyTags[youtubeTagIndex] = BaseStoryTag(view: tagView, tag: tag)
                 } else {
@@ -134,11 +134,9 @@ extension PhotoEditorViewController: StickersViewControllerDelegate {
                 }
             }
             self.navigationController?.pushViewController(objSerach!, animated: true)
-            break
         case .location:
             self.removeStickersView()
             openPlacePickerView()
-            break
         case .mension:
             self.removeStickersView()
             addMensionTypeView()
@@ -156,7 +154,6 @@ extension PhotoEditorViewController: StickersViewControllerDelegate {
             } else {
                 self.addHashtagTypeView()
             }
-            break
         case .camera:
             self.removeStickersView()
             self.addCameraView()
@@ -169,22 +166,18 @@ extension PhotoEditorViewController: StickersViewControllerDelegate {
         case .weather(let temperature):
             self.removeStickersView()
             addWeatherTag(for: temperature)
-            break
         case .askQuestion(let type):
             self.removeStickersView()
             switch type {
             case AskQuestionType.slider.rawValue:
                 addSliderQuestionView()
-                break
             case AskQuestionType.poll.rawValue:
                 addPollQuestionView()
-                break
             case AskQuestionType.normal.rawValue:
                 addAskQuestionView()
+            default:
                 break
-            default: break
             }
-            break
         }
         
     }
@@ -236,7 +229,7 @@ extension PhotoEditorViewController: StickersViewControllerDelegate {
         let tagView = StoryTagView.init(tagType: StoryTagType.mension)
         
         tagView.searchHandler = { text in
-            guard text.count > 0 else {
+            guard !text.isEmpty else {
                 self.mensionCollectionViewDelegate.mensions = []
                 self.mensionCollectionView.reloadData()
                 return
@@ -269,7 +262,7 @@ extension PhotoEditorViewController: StickersViewControllerDelegate {
             self.hideToolbar(hide: true)
             self.doneTagEditButton.isHidden = false
             let queViews = self.canvasImageView.allSubViewsOf(type: StorySliderQueView.self)
-            if queViews.count > 0 {
+            if !queViews.isEmpty {
                 let queView = queViews[0]
                 queView.translatesAutoresizingMaskIntoConstraints = false
                 queView.transform = .identity
@@ -318,7 +311,7 @@ extension PhotoEditorViewController: StickersViewControllerDelegate {
             self.hideToolbar(hide: true)
             self.doneTagEditButton.isHidden = false
             let queViews = self.canvasImageView.allSubViewsOf(type: StoryAskQuestionView.self)
-            if queViews.count > 0 {
+            if !queViews.isEmpty {
                 let queView = queViews[0]
                 queView.translatesAutoresizingMaskIntoConstraints = false
                 queView.transform = .identity
@@ -355,7 +348,7 @@ extension PhotoEditorViewController: StickersViewControllerDelegate {
             self.hideToolbar(hide: true)
             self.doneTagEditButton.isHidden = false
             let queViews = self.canvasImageView.allSubViewsOf(type: StoryPollQueView.self)
-            if queViews.count > 0 {
+            if !queViews.isEmpty {
                 let queView = queViews[0]
                 queView.translatesAutoresizingMaskIntoConstraints = false
                 queView.transform = .identity
@@ -532,7 +525,7 @@ extension PhotoEditorViewController: SelectHashtagDelegate {
         }
         self.storyTags = self.storyTags.filter { $0.tag.tagType != StoryTagType.hashtag.rawValue }
         for var visibleHashtag in visibleHashtags {
-            if visibleHashtag.count > 0 {
+            if !visibleHashtag.isEmpty {
                 visibleHashtag.remove(at: visibleHashtag.startIndex)
             }
             let tagView = self.addTagViewFor(visibleHashtag, type: StoryTagType.hashtag)
@@ -638,10 +631,10 @@ extension PhotoEditorViewController: StoryPlayerDelegate {
     
     func playerDidEnd() {
         DispatchQueue.main.async {
-            if self.videoUrls.count != 0 {
+            if !self.videoUrls.isEmpty {
                 if self.videoUrls.count <= self.currentPage {
                     if !self.videoUrls[self.currentPage].isSelected {
-                        self.currentPlayVideo = self.currentPlayVideo + 1
+                        self.currentPlayVideo += 1
                         
                         if self.currentPlayVideo == self.videoUrls.count {
                             self.currentPlayVideo = 0
@@ -651,7 +644,7 @@ extension PhotoEditorViewController: StoryPlayerDelegate {
                         self.stopMotionCollectionView.layoutIfNeeded()
                         self.stopMotionCollectionView.setNeedsLayout()
                         
-                        if self.videoUrls.count != 0 {
+                        if !self.videoUrls.isEmpty {
                             let item = self.videoUrls[self.currentPlayVideo].currentAsset
                             if let item = item {
                                 self.scPlayer?.setItemBy(item)

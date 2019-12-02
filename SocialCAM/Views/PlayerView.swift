@@ -17,7 +17,8 @@ protocol PlayerBufferDelegate: class {
 open class PlayerView: UIView {
     
     var playerLayer: AVPlayerLayer {
-        return layer as! AVPlayerLayer
+        guard let avPlayerLayer = layer as? AVPlayerLayer else { return AVPlayerLayer() }
+        return avPlayerLayer
     }
     
     var player: AVPlayer? {

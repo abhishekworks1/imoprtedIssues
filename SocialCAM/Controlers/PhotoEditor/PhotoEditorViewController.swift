@@ -330,7 +330,7 @@ class PhotoEditorViewController: UIViewController {
             return asset
         }
         
-        if let videoPath = videoPath, videoPath.count > 0 {
+        if let videoPath = videoPath, !videoPath.isEmpty {
             var videoURL = URL(string: videoPath)
             if videoURL == nil || videoURL?.scheme == nil {
                 videoURL = URL(fileURLWithPath: videoPath)
@@ -538,7 +538,7 @@ class PhotoEditorViewController: UIViewController {
     var storyRect: CGRect {
         var mediaSize = CGSize.zero
         if self.currentCamaraMode == .slideshow {
-            guard videoUrls.count > 0, let image = videoUrls.first?.image else {
+            guard !videoUrls.isEmpty, let image = videoUrls.first?.image else {
                 return canvasImageView.frame
             }
             mediaSize = image.size
@@ -546,7 +546,7 @@ class PhotoEditorViewController: UIViewController {
             mediaSize = image.size
         } else {
             var assetTrack: AVAssetTrack?
-            if videoUrls.count > 0, let asset = videoUrls.first?.currentAsset {
+            if !videoUrls.isEmpty, let asset = videoUrls.first?.currentAsset {
                 assetTrack = asset.tracks(withMediaType: .video).first
             }
             guard let track = assetTrack else {
@@ -744,7 +744,7 @@ class PhotoEditorViewController: UIViewController {
                 segmentCombineView.isHidden = true
             }
             
-            if videoUrls.count > 0 {
+            if !videoUrls.isEmpty {
                 if self.currentCamaraMode == .boomerang {
                     let loadingView = LoadingView.instanceFromNib()
                     loadingView.shouldCancelShow = true
@@ -854,7 +854,7 @@ class PhotoEditorViewController: UIViewController {
     
     func connVideoPlay(isFirstTime: Bool = false) {
         DispatchQueue.main.async {
-            self.currentPlayVideo = self.currentPlayVideo + 1
+            self.currentPlayVideo += 1
             
             if self.currentPlayVideo == self.videoUrls.count {
                 self.currentPlayVideo = 0
@@ -862,19 +862,15 @@ class PhotoEditorViewController: UIViewController {
             self.currentPage = self.currentPlayVideo
             self.stopMotionCollectionView.reloadData()
             
-            if self.videoUrls.count != 0 {
-                
+            if !self.videoUrls.isEmpty {
                 let item = self.videoUrls[self.currentPlayVideo].currentAsset
-                
                 self.segmentedProgressBar.currentTime = 0.0
-                
                 if let itemSegment = item {
                     self.scPlayer?.setItemBy(itemSegment)
                     self.asset = itemSegment
                     
                     self.loadData()
                     self.configUI()
-                    
                     self.segmentedProgressBar.duration = itemSegment.duration.seconds
                 }
             }
@@ -978,13 +974,13 @@ class PhotoEditorViewController: UIViewController {
             var totalTime = 0.0
             var progressTime = 0.0
             for (index, videoAsset) in videoUrls.enumerated() {
-                totalTime = totalTime + (videoAsset.currentAsset?.duration.seconds)!
+                totalTime += (videoAsset.currentAsset?.duration.seconds)!
                 if index < self.currentPage {
-                    progressTime = progressTime + (videoAsset.currentAsset?.duration.seconds)!
+                    progressTime += (videoAsset.currentAsset?.duration.seconds)!
                 }
             }
             
-            progressTime = progressTime + playBackTime.seconds
+            progressTime += playBackTime.seconds
             
             let (progressTimeM, progressTimeS) = secondsToHoursMinutesSeconds(Int(Float(progressTime).roundToPlaces(places: 0)))
             let (totalTimeM, totalTimeS) = secondsToHoursMinutesSeconds(Int(Float(totalTime).roundToPlaces(places: 0)))

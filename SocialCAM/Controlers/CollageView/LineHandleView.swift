@@ -144,9 +144,9 @@ extension LineHandleView: UIGestureRecognizerDelegate {
     
     override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         if gestureRecognizer is UIPanGestureRecognizer {
-            let gest = gestureRecognizer as! UIPanGestureRecognizer
-            let velocity = gest.velocity(in: self)
-            let isVertical = abs(velocity.y) > abs(velocity.x)
+            let gest = gestureRecognizer as? UIPanGestureRecognizer
+            let velocity = gest?.velocity(in: self)
+            let isVertical = abs(velocity?.y ?? 0) > abs(velocity?.x ?? 0)
           
             guard let bline = self.baseLineView else { return false }
             if bline.moveType == .leftRight {

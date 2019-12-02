@@ -71,15 +71,17 @@ public struct FilterColorCube: Filtering, Equatable {
 
   public func apply(to image: CIImage, sourceImage: CIImage) -> CIImage {
 
-    let f = filter.copy() as! CIFilter
+    guard let newFilter = filter.copy() as? CIFilter else {
+        return sourceImage
+    }
 
-    f.setValue(image, forKeyPath: kCIInputImageKey)
+    newFilter.setValue(image, forKeyPath: kCIInputImageKey)
     if let colorSpace = image.colorSpace {
-      f.setValue(colorSpace, forKeyPath: "inputColorSpace")
+      newFilter.setValue(colorSpace, forKeyPath: "inputColorSpace")
     }
 
     let background = image
-    let foreground = f.outputImage!.applyingFilter(
+    let foreground = newFilter.outputImage!.applyingFilter(
       "CIColorMatrix", parameters: [
         "inputRVector": CIVector(x: 1, y: 0, z: 0, w: 0),
         "inputGVector": CIVector(x: 0, y: 1, z: 0, w: 0),

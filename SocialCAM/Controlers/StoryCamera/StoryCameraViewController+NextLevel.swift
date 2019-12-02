@@ -139,8 +139,8 @@ extension StoryCameraViewController: NextLevelVideoDelegate {
                 
                 DispatchQueue.main.async {
                     self.stopMotionCollectionView.reloadData()
-                    let layout = self.stopMotionCollectionView.collectionViewLayout as! UPCarouselFlowLayout
-                    let pageSide = (layout.scrollDirection == .horizontal) ? self.pageSize.width : self.pageSize.height
+                    let layout = self.stopMotionCollectionView.collectionViewLayout as? UPCarouselFlowLayout
+                    let pageSide = (layout?.scrollDirection == .horizontal) ? self.pageSize.width : self.pageSize.height
                     self.stopMotionCollectionView?.contentOffset.x = (self.stopMotionCollectionView?.contentSize.width)! + pageSide
                     
                     if self.takenSlideShowImages.count == 20 {

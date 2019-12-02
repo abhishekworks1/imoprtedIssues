@@ -170,7 +170,7 @@ extension String {
     var hexToData: Data? {
         var hex = self
         var data = Data()
-        while(hex.count > 0) {
+        while(!hex.isEmpty) {
             if let subIndex = hex.index(hex.startIndex, offsetBy: 2, limitedBy: hex.endIndex) {
                 let c = String(hex[..<subIndex])
                 hex = String(hex[subIndex...])
@@ -288,10 +288,10 @@ extension String {
     var youTubeId: String? {
         get {
             let pattern =  "((?<=(v|V)/)|(?<=be/)|(?<=(\\?|\\&)v=)|(?<=embed/))([\\w-]++)"
-            let regex: NSRegularExpression = try! NSRegularExpression.init(pattern: pattern, options: .caseInsensitive)
-            let match: NSTextCheckingResult? = regex.firstMatch(in: self, options: [], range: NSRange(location: 0, length: self.count))
-            if let m  = match {
-                let vRange = m.range
+            let regex: NSRegularExpression? = try? NSRegularExpression.init(pattern: pattern, options: .caseInsensitive)
+            let matchs: NSTextCheckingResult? = regex?.firstMatch(in: self, options: [], range: NSRange(location: 0, length: self.count))
+            if let match = matchs {
+                let vRange = match.range
                 let substringForFirstMatch = (self as NSString).substring(with: vRange)
                 return substringForFirstMatch
             } else {

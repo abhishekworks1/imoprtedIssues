@@ -92,15 +92,15 @@ open class KeyframePickerCursorVC: UIViewController {
         }
     }
     
-    public func  hiddenTimeView() {
+    public func hiddenTimeView() {
         UIView.animate(withDuration: animationDuration,
                        animations: {
                         self.timeContainerView.alpha = 0
-        }) {
+        }, completion: {
             if $0 {
                 self.timeContainerView.isHidden = true
             }
-        }
+        })
     }
     
     private func configUI() {

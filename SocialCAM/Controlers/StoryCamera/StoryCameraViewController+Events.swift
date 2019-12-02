@@ -112,13 +112,13 @@ extension StoryCameraViewController {
                           options: .transitionFlipFromBottom,
                           animations: {
                             self.nextLevel.flipCaptureDevicePosition()
-        }) { (_) in
+        }, completion: { (_) in
             blurView.removeFromSuperview()
             self.flipButton.isSelected = !self.flipButton.isSelected
             self.currentCameraPosition = (self.currentCameraPosition == .front) ? .back : .front
             self.setCameraPositionUI()
             Defaults.shared.cameraPosition = self.currentCameraPosition.rawValue
-        }
+        })
     }
     
     @IBAction func btnShowHideEditOptionsClick(_ sender: AnyObject) {
@@ -141,10 +141,8 @@ extension StoryCameraViewController {
                     self.selectedFPS = Float(selectedFrameRate)!
                     self.nextLevel.updateDeviceFormat(withFrameRate: CMTimeScale(self.selectedFPS),
                                                       dimensions: CMVideoDimensions(width: 1920, height: 1080))
-                    
-            }) {
-                
-        }
+            },cancel: {
+            })
     }
     
     @IBAction func btnDoneClick(sender: UIButton) {
@@ -159,13 +157,13 @@ extension StoryCameraViewController {
                 }
                 openPhotoEditorForSlideShow()
             } else if recordingType == .collage {
-                if takenSlideShowImages.count <= 0 {
+                if takenSlideShowImages.isEmpty {
                     self.showAlert(alertMessage: R.string.localizable.minimumOneImagesRequiredForCollageMaker())
                     return
                 }
                 self.openCollageMakerForCollage()
             } else if recordingType == .custom {
-                if takenVideoUrls.count <= 0 {
+                if takenVideoUrls.isEmpty {
                     self.showAlert(alertMessage: R.string.localizable.minimumOneVideoRequired())
                     return
                 }

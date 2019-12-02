@@ -107,7 +107,7 @@ final class CAReactionSummaryLayer: CALayer {
     var iconFrame        = rect
     iconFrame.size.width = iconFrame.height
 
-    let textSize         = sizeForText(textLayer.string as! String)
+    let textSize         = sizeForText((textLayer.string as? String) ?? "")
     var textFrame        = rect
     textFrame.origin.y   += (rect.height - textSize.height) / 2
     textFrame.size.width = textFrame.width - iconFrame.height

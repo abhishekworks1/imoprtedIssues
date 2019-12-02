@@ -112,7 +112,7 @@ class StoryAskQuestionView: BaseQuestionTagView {
     
     var questionText: String {
         get {
-            if textView.text.count == 0 {
+            if textView.text.isEmpty {
                 return textView.placeHolder ?? ""
             }
             return textView.text
@@ -216,7 +216,7 @@ class StoryAskQuestionView: BaseQuestionTagView {
             replyTextView == txtView else {
                 return
         }
-        let hasText = replyTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).count > 0
+        let hasText = !replyTextView.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
         sendButton.alpha = hasText ? 1.0 : 0.5
         sendButton.isEnabled = hasText
     }
@@ -309,7 +309,7 @@ class AskQuestionReplyView: UIView {
     
     var questionText: String {
         get {
-            if textView.text.count == 0 {
+            if textView.text.isEmpty {
                 return textView.placeHolder ?? ""
             }
             return textView.text
@@ -321,7 +321,7 @@ class AskQuestionReplyView: UIView {
     
     var answerText: String {
         get {
-            if replyTextView.text.count == 0 {
+            if replyTextView.text.isEmpty {
                 return replyTextView.placeHolder ?? ""
             }
             return replyTextView.text

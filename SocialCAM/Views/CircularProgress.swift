@@ -25,15 +25,15 @@ public class CircularProgress: UIView, CAAnimationDelegate {
         }
     }
     
-    private var progressLayer: CircularProgressViewLayer {
+    private var progressLayer: CircularProgressViewLayer? {
         get {
-            return layer as! CircularProgressViewLayer
+            return layer as? CircularProgressViewLayer
         }
     }
     
     private var radius: CGFloat = 0.0 {
         didSet {
-            progressLayer.radius = radius
+            progressLayer?.radius = radius
         }
     }
     
@@ -45,86 +45,86 @@ public class CircularProgress: UIView, CAAnimationDelegate {
     @IBInspectable public var angle: Double = 0.0 {
         didSet {
             pauseIfAnimating()
-            progressLayer.angle = angle
+            progressLayer?.angle = angle
         }
     }
     
     @IBInspectable public var startAngle: Double = 0.0 {
         didSet {
             startAngle = startAngle.mod(between: 0.0, and: 360.0, byIncrementing: 360.0)
-            progressLayer.startAngle = startAngle
-            progressLayer.setNeedsDisplay()
+            progressLayer?.startAngle = startAngle
+            progressLayer?.setNeedsDisplay()
         }
     }
     
     @IBInspectable public var clockwise: Bool = true {
         didSet {
-            progressLayer.clockwise = clockwise
-            progressLayer.setNeedsDisplay()
+            progressLayer?.clockwise = clockwise
+            progressLayer?.setNeedsDisplay()
         }
     }
     
     @IBInspectable public var roundedCorners: Bool = true {
         didSet {
-            progressLayer.roundedCorners = roundedCorners
+            progressLayer?.roundedCorners = roundedCorners
         }
     }
     
     @IBInspectable public var lerpColorMode: Bool = false {
         didSet {
-            progressLayer.lerpColorMode = lerpColorMode
+            progressLayer?.lerpColorMode = lerpColorMode
         }
     }
     
     @IBInspectable public var gradientRotateSpeed: CGFloat = 0.0 {
         didSet {
-            progressLayer.gradientRotateSpeed = gradientRotateSpeed
+            progressLayer?.gradientRotateSpeed = gradientRotateSpeed
         }
     }
     
     @IBInspectable public var glowAmount: CGFloat = 1.0 {
         didSet {
             glowAmount = glowAmount.clamp(lowerBound: 0.0, upperBound: 1.0)
-            progressLayer.glowAmount = glowAmount
+            progressLayer?.glowAmount = glowAmount
         }
     }
     
     public var glowMode: CircularProgressGlowMode = .forward {
         didSet {
-            progressLayer.glowMode = glowMode
+            progressLayer?.glowMode = glowMode
         }
     }
     
     @IBInspectable public var progressThickness: CGFloat = 0.4 {
         didSet {
             progressThickness = progressThickness.clamp(lowerBound: 0.0, upperBound: 1.0)
-            progressLayer.progressThickness = progressThickness / 2.0
+            progressLayer?.progressThickness = progressThickness / 2.0
         }
     }
     
     @IBInspectable public var trackThickness: CGFloat = 0.5 {//Between 0 and 1
         didSet {
             trackThickness = trackThickness.clamp(lowerBound: 0.0, upperBound: 1.0)
-            progressLayer.trackThickness = trackThickness / 2.0
-            progressLayer.setNeedsDisplay()
+            progressLayer?.trackThickness = trackThickness / 2.0
+            progressLayer?.setNeedsDisplay()
         }
     }
     
     @IBInspectable public var trackColor: UIColor = .black {
         didSet {
-            progressLayer.trackColor = trackColor
-            progressLayer.setNeedsDisplay()
+            progressLayer?.trackColor = trackColor
+            progressLayer?.setNeedsDisplay()
         }
     }
     
     @IBInspectable public var progressInsideFillColor: UIColor? = nil {
         didSet {
-            progressLayer.progressInsideFillColor = progressInsideFillColor ?? .clear
+            progressLayer?.progressInsideFillColor = progressInsideFillColor ?? .clear
         }
     }
     
     public var progressColors: [UIColor] {
-        get { return progressLayer.colorsArray }
+        get { return progressLayer?.colorsArray ?? [] }
         set { set(colors: newValue) }
     }
     
@@ -176,17 +176,17 @@ public class CircularProgress: UIView, CAAnimationDelegate {
     }
     
     private func refreshValues() {
-        progressLayer.angle = angle
-        progressLayer.startAngle = startAngle
-        progressLayer.clockwise = clockwise
-        progressLayer.roundedCorners = roundedCorners
-        progressLayer.lerpColorMode = lerpColorMode
-        progressLayer.gradientRotateSpeed = gradientRotateSpeed
-        progressLayer.glowAmount = glowAmount
-        progressLayer.glowMode = glowMode
-        progressLayer.progressThickness = progressThickness / 2.0
-        progressLayer.trackColor = trackColor
-        progressLayer.trackThickness = trackThickness / 2.0
+        progressLayer?.angle = angle
+        progressLayer?.startAngle = startAngle
+        progressLayer?.clockwise = clockwise
+        progressLayer?.roundedCorners = roundedCorners
+        progressLayer?.lerpColorMode = lerpColorMode
+        progressLayer?.gradientRotateSpeed = gradientRotateSpeed
+        progressLayer?.glowAmount = glowAmount
+        progressLayer?.glowMode = glowMode
+        progressLayer?.progressThickness = progressThickness / 2.0
+        progressLayer?.trackColor = trackColor
+        progressLayer?.trackThickness = trackThickness / 2.0
     }
     
     func centerImageViewSetup() {
@@ -214,8 +214,8 @@ public class CircularProgress: UIView, CAAnimationDelegate {
     }
     
     private func set(colors: [UIColor]) {
-        progressLayer.colorsArray = colors
-        progressLayer.setNeedsDisplay()
+        progressLayer?.colorsArray = colors
+        progressLayer?.setNeedsDisplay()
     }
     
     public func animate(fromAngle: Double, toAngle: Double, duration: TimeInterval, relativeDuration: Bool = true, completion: ((Bool) -> Void)?) {
@@ -238,7 +238,7 @@ public class CircularProgress: UIView, CAAnimationDelegate {
         angle = toAngle
         animationCompletionBlock = completion
         
-        progressLayer.add(animation, forKey: "angle")
+        progressLayer?.add(animation, forKey: "angle")
     }
     
     public func animate(toAngle: Double, duration: TimeInterval, relativeDuration: Bool = true, completion: ((Bool) -> Void)?) {
@@ -247,10 +247,10 @@ public class CircularProgress: UIView, CAAnimationDelegate {
     }
     
     public func pauseAnimation() {
-        guard let presentationLayer = progressLayer.presentation() else { return }
+        guard let presentationLayer = progressLayer?.presentation() else { return }
         
         let currentValue = presentationLayer.angle
-        progressLayer.removeAllAnimations()
+        progressLayer?.removeAllAnimations()
         angle = currentValue
     }
     
@@ -261,12 +261,12 @@ public class CircularProgress: UIView, CAAnimationDelegate {
     }
     
     public func stopAnimation() {
-        progressLayer.removeAllAnimations()
+        progressLayer?.removeAllAnimations()
         angle = 0
     }
     
     public func isAnimating() -> Bool {
-        return progressLayer.animation(forKey: "angle") != nil
+        return progressLayer?.animation(forKey: "angle") != nil
     }
     
     public func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
@@ -275,7 +275,7 @@ public class CircularProgress: UIView, CAAnimationDelegate {
     }
     
     public override func didMoveToWindow() {
-        window.map { progressLayer.contentsScale = $0.screen.scale }
+        window.map { progressLayer?.contentsScale = $0.screen.scale }
     }
     
     public override func willMove(toSuperview newSuperview: UIView?) {
@@ -288,7 +288,7 @@ public class CircularProgress: UIView, CAAnimationDelegate {
         setInitialValues()
         refreshValues()
         checkAndSetIBColors()
-        progressLayer.setNeedsDisplay()
+        progressLayer?.setNeedsDisplay()
     }
     
     private class CircularProgressViewLayer: CALayer {
@@ -346,7 +346,9 @@ public class CircularProgress: UIView, CAAnimationDelegate {
         
         override init(layer: Any) {
             super.init(layer: layer)
-            let progressLayer = layer as! CircularProgressViewLayer
+          
+            guard let progressLayer = layer as? CircularProgressViewLayer else { return }
+            
             radius = progressLayer.radius
             angle = progressLayer.angle
             startAngle = progressLayer.startAngle

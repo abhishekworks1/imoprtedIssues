@@ -53,7 +53,7 @@ class SCAlbum: NSObject {
         } else {
             PHPhotoLibrary.shared().performChanges({
                 PHAssetCollectionChangeRequest.creationRequestForAssetCollection(withTitle: self.albumName)   // create an asset collection with the album name
-            }) { success, _ in
+            }, completionHandler: { success, _ in
                 if success {
                     self.assetCollection = self.fetchAssetCollectionForAlbum()
                     completion(true)
@@ -61,7 +61,7 @@ class SCAlbum: NSObject {
                     // Unable to create album
                     completion(false)
                 }
-            }
+            })
         }
     }
     

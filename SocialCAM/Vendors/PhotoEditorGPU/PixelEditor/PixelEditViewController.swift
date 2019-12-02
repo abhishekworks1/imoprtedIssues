@@ -198,7 +198,7 @@ public final class PixelEditViewController: UIViewController {
         controlContainerView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-          guide.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
+          guide.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
           guide.rightAnchor.constraint(equalTo: view.rightAnchor),
           guide.leftAnchor.constraint(equalTo: view.leftAnchor),
           guide.widthAnchor.constraint(equalTo: guide.heightAnchor, multiplier: 1), {

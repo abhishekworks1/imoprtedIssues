@@ -805,7 +805,7 @@ extension NextLevelSession {
                     for videoAssetTrack in videoAssetTracks {
                         if videoTrack == nil {
                             let videoTracks = composition.tracks(withMediaType: AVMediaType.video)
-                            if videoTracks.count > 0 {
+                            if !videoTracks.isEmpty {
                                 videoTrack = videoTracks.first
                             } else {
                                 videoTrack = composition.addMutableTrack(withMediaType: AVMediaType.video, preferredTrackID: kCMPersistentTrackID_Invalid)
@@ -825,7 +825,7 @@ extension NextLevelSession {
                         if audioTrack == nil {
                             let audioTracks = composition.tracks(withMediaType: AVMediaType.audio)
                           
-                            if audioTracks.count > 0 {
+                            if !audioTracks.isEmpty {
                                 audioTrack = audioTracks.first
                             } else {
                                 audioTrack = composition.addMutableTrack(withMediaType: AVMediaType.audio, preferredTrackID: kCMPersistentTrackID_Invalid)

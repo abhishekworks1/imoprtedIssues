@@ -137,7 +137,7 @@ class YouTubeChannelViewController: UIViewController, TagListViewDelegate {
             self.nextPageToken = response.nextPageToken
             self.totalResult = response.pageInfo?.totalResults
             self.resultPerPage = response.pageInfo?.resultsPerPage
-            if  self.videos.count == 0 && response.result?.count == 0 {
+            if  self.videos.isEmpty && response.result?.isEmpty ?? false {
                 self.emptyView?.isHidden = false
                 self.indicatorView.stopAnimating()
             } else {
@@ -230,7 +230,7 @@ extension YouTubeChannelViewController: UITableViewDataSource, UITableViewDelega
             }
         }
         cell.tagHandler = { item in
-            if let tags = item.snippet?.tags, tags.count > 0 {
+            if let tags = item.snippet?.tags, !tags.isEmpty {
                 if let clsHandler = self.keyboardCloseHandler {
                     clsHandler()
                 }
