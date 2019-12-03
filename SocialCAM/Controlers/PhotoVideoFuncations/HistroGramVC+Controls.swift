@@ -284,9 +284,9 @@ extension HistroGramVC {
             
             let actualDuration = asset.duration.seconds
             
-            totalTime = totalTime + actualDuration
+            totalTime += actualDuration
             let adjustedSeconds = adjustTime(currentTime: playBackTime.seconds)
-            progressTime = progressTime + adjustedSeconds
+            progressTime += adjustedSeconds
             
             let (progressTimeM, progressTimeS) = secondsToHoursMinutesSeconds(Int(Float(progressTime).roundToPlaces(places: 0)))
             let (totalTimeM, totalTimeS) = secondsToHoursMinutesSeconds(Int(Float(totalTime).roundToPlaces(places: 0)))
@@ -353,11 +353,11 @@ extension HistroGramVC {
             } else {
                 var oStartTime = (rate.startTime - self.videoScalerParts[index-1].startTime)
                 if self.videoScalerParts[index-1].rate > 0 {
-                    oStartTime = oStartTime*Double(abs(self.videoScalerParts[index-1].rate))
+                    oStartTime *= Double(abs(self.videoScalerParts[index-1].rate))
                 } else {
-                    oStartTime = oStartTime/Double(abs(self.videoScalerParts[index-1].rate))
+                    oStartTime /= Double(abs(self.videoScalerParts[index-1].rate))
                 }
-                oStartTime = oStartTime + lastStartTime
+                oStartTime += lastStartTime
                 lastStartTime = oStartTime
                 originalScaleParts.append(VideoScalerPart.init(startTime: oStartTime, rate: rate.rate))
             }

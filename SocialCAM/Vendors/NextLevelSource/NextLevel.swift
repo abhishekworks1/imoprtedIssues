@@ -884,7 +884,7 @@ extension NextLevel {
         }
 
         guard let metadataObjectTypes = metadataObjectTypes,
-            metadataObjectTypes.count > 0 else {
+            !metadataObjectTypes.isEmpty else {
                 return
         }
 
@@ -2220,7 +2220,7 @@ extension NextLevel {
             }
             
             let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: deviceTypes, mediaType: AVMediaType.video, position: .unspecified)
-            return discoverySession.devices.count > 0
+            return !discoverySession.devices.isEmpty
         }
     }
     

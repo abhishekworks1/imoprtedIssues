@@ -111,29 +111,21 @@ extension PhotoEditorViewController {
         var imageOrientation: UIImage.Orientation = UIImage.Orientation.downMirrored
         switch orientation {
         case UIImageOrientation.down:
-            imageOrientation = UIImage.Orientation.upMirrored
-            break
-        case UIImageOrientation.downMirrored:
             imageOrientation = UIImage.Orientation.up
-            break
+        case UIImageOrientation.downMirrored:
+            imageOrientation = UIImage.Orientation.upMirrored
         case UIImageOrientation.left:
-            imageOrientation = UIImage.Orientation.rightMirrored
-            break
-        case UIImageOrientation.leftMirrored:
             imageOrientation = UIImage.Orientation.right
-            break
+        case UIImageOrientation.leftMirrored:
+            imageOrientation = UIImage.Orientation.rightMirrored
         case UIImageOrientation.right:
-            imageOrientation = UIImage.Orientation.leftMirrored
-            break
-        case UIImageOrientation.rightMirrored:
             imageOrientation = UIImage.Orientation.left
-            break
+        case UIImageOrientation.rightMirrored:
+            imageOrientation = UIImage.Orientation.leftMirrored
         case UIImageOrientation.up:
-            imageOrientation = UIImage.Orientation.downMirrored
-            break
-        case UIImageOrientation.upMirrored:
             imageOrientation = UIImage.Orientation.down
-            break
+        case UIImageOrientation.upMirrored:
+            imageOrientation = UIImage.Orientation.downMirrored
         default:
             break
         }
@@ -445,11 +437,11 @@ extension PhotoEditorViewController {
             if self.lastMargeCell != self.draggingCell {
                 let _: SegmentVideos = self.videoUrls[self.draggingCell!.item]
                 
-                let model = self.videoUrls[self.lastMargeCell!.row] as? SegmentVideos
-                let modelDrag = self.videoUrls[self.draggingCell!.row] as? SegmentVideos
+                let model = self.videoUrls[self.lastMargeCell!.row]
+                let modelDrag = self.videoUrls[self.draggingCell!.row]
                 
-                self.registerReplaceNewData(data: model!, index: self.lastMargeCell!.row)
-                self.registerReplaceDeleteData(data: modelDrag!, index: self.draggingCell!.row)
+                self.registerReplaceNewData(data: model, index: self.lastMargeCell!.row)
+                self.registerReplaceDeleteData(data: modelDrag, index: self.draggingCell!.row)
                 
                 if isBefore {
                     self.videoUrls[self.lastMargeCell!.row].numberOfSegementtext = "\(self.videoUrls[self.draggingCell!.row].numberOfSegementtext!) - \(self.videoUrls[self.lastMargeCell!.row].numberOfSegementtext!)"
@@ -457,11 +449,11 @@ extension PhotoEditorViewController {
                     self.videoUrls[self.lastMargeCell!.row].numberOfSegementtext = "\(self.videoUrls[self.lastMargeCell!.row].numberOfSegementtext!) - \(self.videoUrls[self.draggingCell!.row].numberOfSegementtext!)"
                 }
                 
-                for (_, item) in self.videoUrls[self.draggingCell!.row].videos.enumerated() {
+                for videosItem in self.videoUrls[self.draggingCell!.row].videos {
                     if isBefore {
-                        self.videoUrls[self.lastMargeCell!.row].videos.insert(item, at: 0)
+                        self.videoUrls[self.lastMargeCell!.row].videos.insert(videosItem, at: 0)
                     } else {
-                        self.videoUrls[self.lastMargeCell!.row].videos.append(item)
+                        self.videoUrls[self.lastMargeCell!.row].videos.append(videosItem)
                     }
                 }
                 
@@ -537,7 +529,7 @@ extension PhotoEditorViewController {
             if selectedVideoUrlSave?.videos[0].id == video.videos[0].id {
                 for videos in selectedSlideShowImages {
                     if selectedVideoUrlSave?.videos[0].id == videos?.videos[0].id {
-                        count = count + 1
+                        count += 1
                     }
                 }
                 if count == 0 {
@@ -558,34 +550,25 @@ extension PhotoEditorViewController {
             enableSaveButtons(true, alpha: 1.0)
         }
         
-        let nilCount = self.selectedSlideShowImages.filter({ (segmentVideo) -> Bool in
+        let slideShowCount = self.selectedSlideShowImages.filter({ (segmentVideo) -> Bool in
             return (segmentVideo != nil)
         })
-        if nilCount.count != 0 {
-            coverImageView.image = nilCount[0]?.image
-        } else {
-            coverImageView.image = UIImage()
-        }
+       
+        coverImageView.image = !slideShowCount.isEmpty ? slideShowCount.first??.image : UIImage()
         
         switch sender.tag {
         case 1:
             custImage1.image = nil
-            break
         case 2:
             custImage2.image = nil
-            break
         case 3:
             custImage3.image = nil
-            break
         case 4:
             custImage4.image = nil
-            break
         case 5:
             custImage5.image = nil
-            break
         case 6:
             custImage6.image = nil
-            break
         default:
             break
         }
@@ -697,8 +680,7 @@ extension PhotoEditorViewController {
             self.present(alert, animated: true, completion: nil)
         } else {
             switch self.storiCamType {
-            case .shareYoutube, .shareFeed, .shareStory: UIApplication.shared.delegate?.window??.makeToast("Retake")
-                break
+            case .shareYoutube, .shareFeed, .shareStory: UIApplication.shared.delegate?.window??.makeToast(R.string.localizable.retake())
             case .replyStory:
                 break
             default:
@@ -718,7 +700,7 @@ extension PhotoEditorViewController {
     
     @IBAction func continueButtonPressed(_ sender: Any) {
         let youtubeTags = self.storyTags.filter { $0.tag.tagType == StoryTagType.youtube.rawValue }
-        if youtubeTags.count > 0 {
+        if !youtubeTags.isEmpty {
             createPostAPICall()
         } else {
             storyButtonAction()
@@ -852,7 +834,7 @@ extension PhotoEditorViewController {
             let url = Utils.getLocalPath(fileName)
             try? data?.write(to: url)
             let internalStoryTags = getTags()
-            if internalStoryTags.count > 0 {
+            if !internalStoryTags.isEmpty {
                 storyTime = "6.0"
             }
             if let storyId = self.storyId, !storyRePost {
@@ -884,7 +866,7 @@ extension PhotoEditorViewController {
         }
     }
     
-    @IBAction func btnSocialShareClick(_ sender: Any) {
+    @IBAction func btnSocialShareClick(_ sender: UIButton) {
         var menuOptions: [UIImage] = [R.image.icoFacebook()!, R.image.icoInstagram()!, R.image.icoSnapchat()!, R.image.icoTweeter()!]
         var menuOptionsString: [String] = ["", "", "", ""]
         if image == nil {
@@ -898,11 +880,11 @@ extension PhotoEditorViewController {
         BasePopConfiguration.shared.menuWidth = 35
         BasePopConfiguration.shared.showCheckMark = .none
         BasePopOverMenu
-            .showForSender(sender: sender as! UIButton, with: menuOptionsString, menuImageArray: menuOptions, done: { [weak self] (selectedIndex) in
+            .showForSender(sender: sender, with: menuOptionsString, menuImageArray: menuOptions, done: { [weak self] (selectedIndex) in
                 guard let `self` = self else { return }
                 self.shareSocialMedia(type: SocialShare(rawValue: selectedIndex) ?? SocialShare.facebook)
-            }) {
-        }
+                }, cancel:{
+            })
     }
     
     @IBAction func btnSocialMediaShareClick(_ sender: UIButton) {
@@ -914,7 +896,7 @@ extension PhotoEditorViewController {
             let slideShowImages = self.selectedSlideShowImages.filter({ (segmentVideo) -> Bool in
                 return (segmentVideo != nil)
             })
-            if slideShowImages.count != 0 {
+            if !slideShowImages.isEmpty {
                 self.saveSlideShow(exportType: SlideShowExportType.feed,
                                    success: { exportURL in
                                     SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type)
@@ -937,15 +919,14 @@ extension PhotoEditorViewController {
                     recordSession.addSegment(segment)
                 }
             } else {
-                for (_, url) in self.videoUrls.enumerated() {
+                for url in self.videoUrls {
                     for segementModel in url.videos {
                         let segment = SCRecordSessionSegment(url: segementModel.url!, info: nil)
                         recordSession.addSegment(segment)
                     }
                 }
             }
-            self.exportViewWithURL(recordSession.assetRepresentingSegments()) { [weak self] url in
-                guard let `self` = self else { return }
+            self.exportViewWithURL(recordSession.assetRepresentingSegments()) { url in
                 if let exportURL = url {
                     DispatchQueue.runOnMainThread {
                         SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type)
@@ -1466,7 +1447,7 @@ extension PhotoEditorViewController {
                     loadingView.progressView.setProgress(to: Double(progress), withAnimation: true)
                 }
             }
-        }) { [weak self] exportedURL in
+        }, completion: { [weak self] exportedURL in
             guard let `self` = self else { return }
             DispatchQueue.runOnMainThread {
                 if let loadingView = self.loadingView {
@@ -1483,7 +1464,7 @@ extension PhotoEditorViewController {
                                 actions: [UIAlertAction(title: "OK", style: .default, handler: nil)])
                 self.present(alert, animated: true, completion: nil)
             }
-        }
+        })
     }
     
     func editStory(_ storyId: String, storyURL: String, thumbURL: String?) {
@@ -1755,7 +1736,7 @@ extension PhotoEditorViewController {
             let url = Utils.getLocalPath(fileName)
             try? data?.write(to: url)
             let internalStoryTags = getTags()
-            if internalStoryTags.count > 0 {
+            if !internalStoryTags.isEmpty {
                 storyTime = "6.0"
             }
             let storyData = InternalStoryData(address: self.address, duration: storyTime, lat: self.lat, long: self.long, thumbTime: 0.0, type: "image", url: url.absoluteString, userId: Defaults.shared.currentUser?.id ?? "", watermarkURL: "", isMute: false, filterName: nil, exportedUrls: [""], hiddenHashtags: self.hiddenHashtags.joined(separator: " "), tags: internalStoryTags)
@@ -2012,7 +1993,7 @@ extension PhotoEditorViewController {
         hideToolbar(hide: false)
         isTagTyping = false
         isQuetionTyping = false
-        videoCoverView.isHidden = !(videoUrl != nil || self.videoUrls.count > 0)
+        videoCoverView.isHidden = !(videoUrl != nil || !self.videoUrls.isEmpty)
     }
     
     @objc func keyboardWillChangeFrame(_ notification: NSNotification) {

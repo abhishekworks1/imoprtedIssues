@@ -1008,8 +1008,8 @@ private extension FileSystem.Item {
     }
 
     func loadModificationDate() -> Date {
-        let attributes = try! fileManager.attributesOfItem(atPath: path)
-        return attributes[FileAttributeKey.modificationDate] as! Date
+        let attributes = try? fileManager.attributesOfItem(atPath: path)
+        return attributes?[FileAttributeKey.modificationDate] as? Date ?? Date()
     }
 }
 

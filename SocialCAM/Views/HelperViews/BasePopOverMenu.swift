@@ -140,7 +140,7 @@ public class BasePopOverMenu: NSObject {
             return
         }
         
-        if menuNameArray.count == 0 {
+        if menuNameArray.isEmpty {
             return
         }
         
@@ -292,7 +292,7 @@ public class BasePopOverMenu: NSObject {
                        animations: {
                         self.popOverMenu.alpha = 0
                         self.popOverMenu.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
-        }) { (isFinished) in
+        }, completion: { isFinished in
             if isFinished {
                 self.backgroundView.removeFromSuperview()
                 if selectedIndex < 0 {
@@ -306,7 +306,7 @@ public class BasePopOverMenu: NSObject {
                 }
                 
             }
-        }
+        })
     }
     
 }

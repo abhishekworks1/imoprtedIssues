@@ -242,7 +242,6 @@
 		8205FD3C236C3B06002B2603 /* Geometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FCDD236C3B05002B2603 /* Geometry.swift */; };
 		8205FD3D236C3B06002B2603 /* MetalImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FCDF236C3B05002B2603 /* MetalImageView.swift */; };
 		8205FD3E236C3B06002B2603 /* HardwareImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FCE0236C3B05002B2603 /* HardwareImageView.swift */; };
-		8205FD3F236C3B06002B2603 /* GLImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FCE1236C3B05002B2603 /* GLImageView.swift */; };
 		8205FD40236C3B06002B2603 /* GraphicDrawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FCE2236C3B05002B2603 /* GraphicDrawing.swift */; };
 		8205FD41236C3B06002B2603 /* EngineLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FCE3236C3B05002B2603 /* EngineLog.swift */; };
 		8205FD42236C3B06002B2603 /* ColorCubeStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FCE4236C3B05002B2603 /* ColorCubeStorage.swift */; };
@@ -444,7 +443,6 @@
 		82D1EBCD236FEFA700A680E7 /* StoryImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EBCC236FEFA600A680E7 /* StoryImageView.swift */; };
 		82D1EBCF236FF13900A680E7 /* StorySettingsHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EBCE236FF13900A680E7 /* StorySettingsHeaderCell.swift */; };
 		82D1EBD1236FF16200A680E7 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EBD0236FF16100A680E7 /* Protocols.swift */; };
-		82D1EBD5236FF21700A680E7 /* StoryContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EBD4236FF21700A680E7 /* StoryContext.swift */; };
 		82D1EBD8236FF23D00A680E7 /* SketchTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EBD6236FF23C00A680E7 /* SketchTool.swift */; };
 		82D1EBD9236FF23D00A680E7 /* SketchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EBD7236FF23D00A680E7 /* SketchView.swift */; };
 		82D1EBDB236FF29600A680E7 /* MensionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EBDA236FF29600A680E7 /* MensionCollectionViewCell.swift */; };
@@ -905,7 +903,6 @@
 		824EB39523619E1D00205993 /* PickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerView.swift; sourceTree = "<group>"; };
 		824EB39723619E2700205993 /* ApplicationSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationSettings.swift; sourceTree = "<group>"; };
 		824EB39923619E3600205993 /* StoryCamShared.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryCamShared.swift; sourceTree = "<group>"; };
-		824EB39A23619E3600205993 /* AWSManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AWSManager.swift; sourceTree = "<group>"; };
 		824EB39B23619E3600205993 /* SharedClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedClass.swift; sourceTree = "<group>"; };
 		824EB39F23619E3D00205993 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		824EB3A223619E5A00205993 /* CIFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CIFilter.swift; sourceTree = "<group>"; };
@@ -1141,7 +1138,6 @@
 			isa = PBXGroup;
 			children = (
 				820DA4ED2385392F0027A207 /* AWSManager+S3.swift */,
-				824EB39A23619E3600205993 /* AWSManager.swift */,
 				82C4B2B02383F3CB00551B51 /* TwitterShare.swift */,
 				824AD525237BEAD700BF226F /* TiktokClass.swift */,
 				820C3AF823797896007FCF15 /* SocialShareVideo.swift */,
@@ -1167,7 +1163,6 @@
 				8205FB06236C1203002B2603 /* DiskStatus.swift */,
 				8205FB02236C11F9002B2603 /* MyUndoManager.swift */,
 				8205FB04236C11FE002B2603 /* AppEventBus.swift */,
-				8205FAFA236C1187002B2603 /* Files.swift */,
 				8205FB00236C11F5002B2603 /* RPCircularProgress.swift */,
 				824EB3D423619EEA00205993 /* BoomerangEffect.swift */,
 				8205FA79236C0F5A002B2603 /* ImageLibrary.swift */,
@@ -1221,6 +1216,8 @@
 		8205FAC6236C10A6002B2603 /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
+				8205FCCE236C3B05002B2603 /* PhotoEditorGPU */,
+				8205FAFA236C1187002B2603 /* Files.swift */,
 				9546600D2387B5CB00A37AE0 /* Mantis */,
 				8206AEE92374108C000CDD2A /* Queuer */,
 				824EB3D623619FB000205993 /* NextLevelSource */,
@@ -1996,7 +1993,6 @@
 				824AD521237BDAA500BF226F /* PhotoEditor */,
 				824AD520237BDA9100BF226F /* Upload */,
 				82CCB16C2372CAC300EC76E8 /* LoginController */,
-				8205FCCE236C3B05002B2603 /* PhotoEditorGPU */,
 				8205FC6A236C3AFA002B2603 /* CollageView */,
 				8205FC5F236C3AE7002B2603 /* TextDrawView */,
 			);
@@ -2347,6 +2343,7 @@
 				824E5174237E7F8D00339809 /* ShellScript */,
 				8F55EF2E66D9FEBCAB33F172 /* [CP] Embed Pods Frameworks */,
 				7BA9086DBCFF29959054AB55 /* [CP] Copy Pods Resources */,
+				822ED79C23953B3C00D6401A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -2539,6 +2536,23 @@
 			shellPath = /bin/sh;
 			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"--import\" \"MXPagerView\" \"$SRCROOT/R.generated.swift\" \n";
 		};
+		822ED79C23953B3C00D6401A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
 		824E5174237E7F8D00339809 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2654,7 +2668,6 @@
 				8205FB36236C1CB5002B2603 /* ReactionTypeEnum.swift in Sources */,
 				8205FC57236C3A64002B2603 /* StyleTransferVC.swift in Sources */,
 				8205FCB9236C3AFA002B2603 /* CollageViewT204.swift in Sources */,
-				8205FD3F236C3B06002B2603 /* GLImageView.swift in Sources */,
 				8205FCAF236C3AFA002B2603 /* CollageViewT401.swift in Sources */,
 				8205FA87236C0F9C002B2603 /* LoadingView.swift in Sources */,
 				8205FBD1236C2A88002B2603 /* CoverA.swift in Sources */,
@@ -2764,7 +2777,6 @@
 				8205FB78236C1D0F002B2603 /* ReactionButton.swift in Sources */,
 				8287D2182382966A0074FC39 /* YouTubeViewController.swift in Sources */,
 				8205FAA4236C0FD6002B2603 /* AssetVideoScrollView.swift in Sources */,
-				82D1EBD5236FF21700A680E7 /* StoryContext.swift in Sources */,
 				8205FD78236C3B06002B2603 /* MaskControlView.swift in Sources */,
 				9546604C2387B5CC00A37AE0 /* FixedRatioManager.swift in Sources */,
 				8205FB35236C1C09002B2603 /* GetPlayList.swift in Sources */,

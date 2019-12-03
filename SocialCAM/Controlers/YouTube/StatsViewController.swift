@@ -145,7 +145,7 @@ class StatsViewController: UIViewController, TagListViewDelegate {
             self.nextPageToken = response.nextPageToken
             self.totalResult = response.pageInfo?.totalResults
             self.resultPerPage = response.pageInfo?.resultsPerPage
-            if  ApplicationSettings.shared.videos.count == 0 && response.result?.count == 0 {
+            if  ApplicationSettings.shared.videos.isEmpty && response.result?.isEmpty ?? false {
                 self.emptyView?.isHidden = false
                 self.indicatorView.stopAnimating()
             } else {
@@ -236,7 +236,7 @@ extension StatsViewController: UITableViewDataSource, UITableViewDelegate {
             }
         }
         cell.tagHandler = { item in
-            if let tags = item.snippet?.tags, tags.count > 0 {
+            if let tags = item.snippet?.tags, !tags.isEmpty {
                 if let clsHandler = self.keyboardCloseHandler {
                     clsHandler()
                 }

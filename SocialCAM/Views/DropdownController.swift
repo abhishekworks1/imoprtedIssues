@@ -109,13 +109,15 @@ extension DropdownController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AlbumCell.self), for: indexPath)
-        as! AlbumCell
-
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AlbumCell.self), for: indexPath)
+            as? AlbumCell else {
+                return UITableViewCell()
+        }
+        
         let album = albums[(indexPath as NSIndexPath).row]
         cell.configure(album)
         cell.backgroundColor = ApplicationSettings.appClearColor
-
+        
         return cell
     }
 

@@ -132,7 +132,7 @@ extension PhotoEditorViewController: UICollectionViewDataSource, KDDragAndDropCo
         if collectionView == self.stopMotionCollectionView {
             if currentCamaraMode == .slideshow {
                 let filteredImages = self.selectedSlideShowImages.filter { return ($0 != nil) }
-                if filteredImages.count > 0 {
+                if !filteredImages.isEmpty {
                     coverImageView.image = filteredImages[0]?.image
                 }
             }
@@ -282,8 +282,10 @@ extension PhotoEditorViewController: UICollectionViewDataSource, KDDragAndDropCo
             
             return cell
         } else if collectionView == self.collectionView {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "KeyframePickerCollectionViewCell", for: indexPath) as! KeyframePickerCollectionViewCell
-            if _displayKeyframeImages.count != 0 {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.keyframePickerCollectionViewCell, for: indexPath) else {
+                return UICollectionViewCell()
+            }
+            if !_displayKeyframeImages.isEmpty {
                 cell.keyframeImage = _displayKeyframeImages[indexPath.row]
             }
             
@@ -586,7 +588,7 @@ extension PhotoEditorViewController: UICollectionViewDataSource, KDDragAndDropCo
                             registerNullDeleteData(model: model, data: draggingPathOfCellBeingDragged.row)
                             registerDeleteData(model: model, data: draggingPathOfCellBeingDragged.row)
                             videoUrls.remove(at: draggingPathOfCellBeingDragged.row)
-                            if videoUrls.count == 0 {
+                            if videoUrls.isEmpty {
                                 self.navigationController?.popViewController(animated: true)
                             } else {
                                 self.currentPlayVideo = -1

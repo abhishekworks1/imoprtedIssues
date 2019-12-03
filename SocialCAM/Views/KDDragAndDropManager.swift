@@ -82,13 +82,13 @@ public class KDDragAndDropManager: NSObject, UIGestureRecognizerDelegate {
 
         for view in self.views where view is KDDraggable {
 
-            let draggable = view as! KDDraggable
+            let draggable = view as? KDDraggable
 
             let touchPointInView = touch.location(in: view)
 
-            guard draggable.canDragAtPoint(touchPointInView) == true else { continue }
+            guard draggable?.canDragAtPoint(touchPointInView) == true else { continue }
 
-            guard let representation = draggable.representationImageAtPoint(touchPointInView) else { continue }
+            guard let representation = draggable?.representationImageAtPoint(touchPointInView) else { continue }
 
             representation.frame = self.canvas.convert(representation.frame, from: view)
 
@@ -98,7 +98,7 @@ public class KDDragAndDropManager: NSObject, UIGestureRecognizerDelegate {
 
             let offset = CGPoint(x: pointOnCanvas.x - representation.frame.origin.x, y: pointOnCanvas.y - representation.frame.origin.y)
 
-            if let dataItem: AnyObject = draggable.dataItemAtPoint(touchPointInView) {
+            if let dataItem: AnyObject = draggable?.dataItemAtPoint(touchPointInView) {
 
                 self.bundle = Bundle(
                     offset: offset,
@@ -123,14 +123,14 @@ public class KDDragAndDropManager: NSObject, UIGestureRecognizerDelegate {
         guard let bundle = self.bundle else { return }
 
         let pointOnCanvas = recogniser.location(in: recogniser.view)
-        let sourceDraggable: KDDraggable = bundle.sourceDraggableView as! KDDraggable
+        let sourceDraggable: KDDraggable? = bundle.sourceDraggableView as? KDDraggable
         let pointOnSourceDraggable = recogniser.location(in: bundle.sourceDraggableView)
 
         switch recogniser.state {
 
         case .began:
             self.canvas.addSubview(bundle.representationImageView)
-            sourceDraggable.startDraggingAtPoint(pointOnSourceDraggable)
+            sourceDraggable?.startDraggingAtPoint(pointOnSourceDraggable)
 
         case .changed:
 
@@ -169,21 +169,12 @@ public class KDDragAndDropManager: NSObject, UIGestureRecognizerDelegate {
             if let droppable = mainOverView as? KDDroppable {
 
                 let rect = self.canvas.convert(bundle.representationImageView.frame, to: mainOverView)
-
-//                if droppable.canDropAtRect(rect) {
-
                 if mainOverView != bundle.overDroppableView { // if it is the first time we are entering
-
-                    (bundle.overDroppableView as! KDDroppable).didMoveOutItem(bundle.dataItem)
+                    (bundle.overDroppableView as? KDDroppable)?.didMoveOutItem(bundle.dataItem)
                     droppable.willMoveItem(bundle.dataItem, inRect: rect)
                 }
-
-                // set the view the dragged element is over
                 self.bundle!.overDroppableView = mainOverView
-
                 droppable.didMoveItem(bundle.dataItem, inRect: rect)
-
-//                }
             }
 
         case .ended:
@@ -192,7 +183,7 @@ public class KDDragAndDropManager: NSObject, UIGestureRecognizerDelegate {
 
                 if let droppable = bundle.overDroppableView as? KDDroppable {
 
-                    sourceDraggable.dragDataItem(bundle.dataItem)
+                    sourceDraggable?.dragDataItem(bundle.dataItem)
 
                     let rect = self.canvas.convert(bundle.representationImageView.frame, to: bundle.overDroppableView)
 
@@ -200,10 +191,8 @@ public class KDDragAndDropManager: NSObject, UIGestureRecognizerDelegate {
 
                 }
             }
-
             bundle.representationImageView.removeFromSuperview()
-            sourceDraggable.stopDragging()
-
+            sourceDraggable?.stopDragging()
         default:
             break
 

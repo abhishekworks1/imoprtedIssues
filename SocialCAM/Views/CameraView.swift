@@ -13,7 +13,7 @@ import AVKit
 public class CameraView: UIView, AVCapturePhotoCaptureDelegate {
     
     class func instanceFromNib() -> CameraView {
-        return UINib(nibName: "CameraView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! CameraView
+        return R.nib.cameraView.firstView(owner: nil) ?? CameraView.init(frame: CGRect.init(x: 0, y: 0, width: 100, height: 100))
     }
     
     @IBOutlet weak var imageView: UIImageView! {

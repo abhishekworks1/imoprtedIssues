@@ -37,7 +37,7 @@ public struct Utils {
         // Fine documents directory on device
         let dirs: [String] = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.allDomainsMask, true)
         
-        if dirs.count > 0 {
+        if !dirs.isEmpty {
             let dir = dirs[0] //documents directory
             filePath = dir.appendingFormat("/" + fileNameToDelete)
             print("Local path = \(filePath)")
@@ -126,8 +126,7 @@ public struct Utils {
         var theCreationDate = Date()
         do {
             let aFileAttributes = try FileManager.default.attributesOfItem(atPath: theFile) as [FileAttributeKey: Any]
-            theCreationDate = aFileAttributes[FileAttributeKey.creationDate] as! Date
-            
+            theCreationDate = aFileAttributes[FileAttributeKey.creationDate] as? Date ?? Date()
         } catch let theError {
             debugPrint("file not found \(theError)")
         }

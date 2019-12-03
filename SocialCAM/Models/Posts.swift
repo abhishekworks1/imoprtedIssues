@@ -78,7 +78,7 @@ class Posts: Mappable, Likeable {
         isPostFavorite <- map["isPostFavorite"]
         paylist <- map["paylist"]
         addPlayListId <- map["addPlayListId"]
-        if let youtubeData = self.youTubeData, let videoUrl = youtubeData.videoUrl, videoUrl.count > 0 && type == .text {
+        if let youtubeData = self.youTubeData, let videoUrl = youtubeData.videoUrl, !videoUrl.isEmpty && type == .text {
             type  = .youtube
         } else if type == .text &&  IschekedIn == true {
             type = .location

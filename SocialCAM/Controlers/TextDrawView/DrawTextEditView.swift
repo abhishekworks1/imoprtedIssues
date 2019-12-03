@@ -160,9 +160,7 @@ internal class DrawTextEditView: UIView {
         textContainerBottomConstraint?.constant = -keyboardRectEnd.height - 76
         UIView.animate(withDuration: 0, animations: {
             self.updateUI()
-        }) { (_) in
-            
-        }
+        })
     }
     
     // Property updates

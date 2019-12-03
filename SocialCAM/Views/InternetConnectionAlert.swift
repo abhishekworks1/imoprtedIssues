@@ -79,7 +79,9 @@ public class InternetConnectionAlert: NSObject {
     }
 
     @objc func reachabilityChanged(note: Notification) {
-        let reachability = note.object as! Reachability
+        guard let reachability = note.object as? Reachability else {
+            return
+        }
         if self.internetConnectionHandler != nil {
             self.internetConnectionHandler!(reachability)
         }
@@ -101,11 +103,7 @@ public class InternetConnectionAlert: NSObject {
         let destinatioRect = CGRect(x: 0, y: config.kYPOSITION, width: Int(UIScreen.main.bounds.width), height: config.kALERT_HEIGHT)
         UIView.animate(withDuration: config.kANIMATION_DURATION, animations: {
             self.lblAlert.frame = destinatioRect
-        }) { (success) in
-            if success {
-
-            }
-        }
+        })
     }
 
     private func hideAlert() {

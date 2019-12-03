@@ -323,7 +323,7 @@ class FlowChartView: UIView {
     }
     
     private func getCurvePath(for points: [CGPoint]) -> UIBezierPath? {
-        guard points.count > 0 else {
+        guard !points.isEmpty else {
             return nil
         }
         let path = UIBezierPath()

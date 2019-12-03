@@ -51,7 +51,7 @@ class StatTableViewCell: UITableViewCell {
         self.lblTitle.text = video.snippet?.title ?? ""
         self.lblViews.text = video.statistics?.viewCount
         self.lblViews.adjustsFontSizeToFitWidth = true
-        if let tags = video.snippet?.tags, tags.count > 0 {
+        if let tags = video.snippet?.tags, !tags.isEmpty {
             let tempString = tags.joined(separator: ", ")
             let hash = ""
             let tagText = hash.appending(tempString)

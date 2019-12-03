@@ -300,7 +300,9 @@ extension SelectStoryHashtagVC: UICollectionViewDataSource {
         if collectionView == hiddenHashtagsCollectionView {
             reuserIdentifier = R.reuseIdentifier.selectHiddenHashtagCell.identifier
         }
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuserIdentifier, for: indexPath) as! SelectHashtagCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuserIdentifier, for: indexPath) as? SelectHashtagCell else {
+            return UICollectionViewCell()
+        }
         cell.hashtagLabel.text = data[collectionView.tag][indexPath.item].hashString
         return cell
     }

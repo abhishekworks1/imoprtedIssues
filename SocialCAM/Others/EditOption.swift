@@ -36,27 +36,7 @@ class EditOption: NSCopying {
     var configString: String
     var editSettings: EditSettings
     var range: String
-
-    init(name: String, image: UIImage, configString: String, editSettings: EditSettings, range: String = "") {
-        self.name = name
-        self.image = image
-        self.configString = configString
-        self.editSettings = editSettings
-        self.range = range
-    }
-
-    func copy(with zone: NSZone? = nil) -> Any {
-        let copy = EditOption(name: name, image: image.copy() as? UIImage ?? UIImage(), configString: configString, editSettings: (editSettings.copy() as? EditSettings)!, range: range)
-        return copy
-    }
-
-    static var editOptions = defaultEditOptions.map {
-        $0.copy() as! EditOption
-    }
-
-}
-
-let defaultEditOptions = [EditOption(name: "Adjust",
+    var editOptions: [EditOption] = [EditOption(name: "Adjust",
                                      image: #imageLiteral(resourceName: "ico_adjust"),
                                      configString: "@adjust",
                                      editSettings: EditSettings(minimumValue: 0.0, value: 0.5, maximumValue: 1, pivotValue: 0.0)),
@@ -97,6 +77,23 @@ let defaultEditOptions = [EditOption(name: "Adjust",
                                      editSettings: EditSettings(minimumValue: 0, value: 0.0, maximumValue: 1, pivotValue: 0.0))
     
                           ]
+    
+    init(name: String, image: UIImage, configString: String, editSettings: EditSettings, range: String = "") {
+        self.name = name
+        self.image = image
+        self.configString = configString
+        self.editSettings = editSettings
+        self.range = range
+    }
+
+    func copy(with zone: NSZone? = nil) -> Any {
+        let copy = EditOption(name: name, image: image.copy() as? UIImage ?? UIImage(), configString: configString, editSettings: (editSettings.copy() as? EditSettings)!, range: range)
+        return copy
+    }
+    
+}
+
+
 
 //  EditOption(name: "Tilt Shift",
 //           image: #imageLiteral(resourceName: "ico_tiltShift"),

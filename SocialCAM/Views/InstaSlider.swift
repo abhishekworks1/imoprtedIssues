@@ -126,7 +126,9 @@ open class InstaSlider: UIView {
         
         if(index != nil) {
             for cell in self.collectionView.visibleCells {
-                let currentCell = cell as! CollectionViewCustomCell
+                guard let currentCell = cell as? CollectionViewCustomCell else {
+                    return
+                }
                 currentCell.label.textColor = cellTextColor
             }
             

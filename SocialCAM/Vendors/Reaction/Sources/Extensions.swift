@@ -49,26 +49,26 @@ extension UILabel {
     
     func setAtribText(str: String) {
         
-        let regex = try! NSRegularExpression(pattern: "::@([^\\s]+?)::", options: [])
+        let regex = try? NSRegularExpression(pattern: "::@([^\\s]+?)::", options: [])
         
         let result1 = try? str.replacing("::@([^\\s]+?)::", withTemplate: "@$1")
         
         print(result1!)
         
-        let matches = regex.matches(in: str, options: [], range: NSRange(location: 0, length: str.count))
-        print(matches)
+        let matches = regex?.matches(in: str, options: [], range: NSRange(location: 0, length: str.count))
+        print(matches as Any)
         
         let atributedtext = NSMutableAttributedString(string: result1!)
         var count = 1
         
-        for m in matches {
+        for match in matches ?? [] {
             print("start:")
-            print(m.range.location - count + 1)
+            print(match.range.location - count + 1)
             print("end:")
-            print(m.range.length - 4)
-            let rang = NSRange(location: m.range.location - count + 1, length: m.range.length - 4)
+            print(match.range.length - 4)
+            let rang = NSRange(location: match.range.location - count + 1, length: match.range.length - 4)
             atributedtext.setAttributes([NSAttributedString.Key.foregroundColor: ApplicationSettings.appPrimaryColor], range: rang)
-            count = count + 4
+            count += 4
             
         }
         self.attributedText = atributedtext

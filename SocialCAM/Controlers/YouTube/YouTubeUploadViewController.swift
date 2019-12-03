@@ -127,7 +127,7 @@ class YouTubeUploadViewController: UIViewController {
             snippet["description"] = describtion
         }
         
-        if tagView.tags.count > 0 {
+        if !tagView.tags.isEmpty {
             snippet["tags"] = tagView.tags
         }
         var status: String = ""

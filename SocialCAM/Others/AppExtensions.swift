@@ -117,11 +117,6 @@ extension UIFont {
 
 extension NSObject {
     
-    func  getController<T>(storybord: String, controller: String) -> T {
-        let obj: T = UIStoryboard(name: storybord, bundle: nil).instantiateViewController(withIdentifier: controller) as! T
-        return obj
-    }
-    
     func checkVideoAccess(callBack:((_ granted: Bool, _ msg: String?) -> Void)?) {
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             if AVCaptureDevice.authorizationStatus(for: AVMediaType.video) ==  AVAuthorizationStatus.authorized {

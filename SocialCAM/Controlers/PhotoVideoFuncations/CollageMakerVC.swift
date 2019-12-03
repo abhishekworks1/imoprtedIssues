@@ -136,28 +136,20 @@ class CollageMakerVC: UIViewController, UIGestureRecognizerDelegate {
         switch selectedItemArray.count {
         case 1:
             index = 0
-            break
         case 2:
             index = 1
-            break
         case 3:
             index = 10
-            break
         case 4:
             index = 23
-            break
         case 5:
             index = 31
-            break
         case 6:
             index = 37
-            break
         case 7, 8:
             index = 39
-            break
         default:
             index = 39
-            break
         }
         collectViewSet(index: index)
         
@@ -169,12 +161,12 @@ class CollageMakerVC: UIViewController, UIGestureRecognizerDelegate {
     }
     
     fileprivate func setupLayout() {
-        let layout = self.collectionView.collectionViewLayout as! UPCarouselFlowLayout
-        layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: 0.1)
+        let layout = self.collectionView.collectionViewLayout as? UPCarouselFlowLayout
+        layout?.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: 0.1)
         collectionView.register(R.nib.frameCollectionViewCell)
         
-        let imageCollectionViewLayout = self.imageCollectionView.collectionViewLayout as! UPCarouselFlowLayout
-        imageCollectionViewLayout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: 0.1)
+        let imageCollectionViewLayout = self.imageCollectionView.collectionViewLayout as? UPCarouselFlowLayout
+        imageCollectionViewLayout?.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: 0.1)
         imageCollectionView.register(R.nib.imageCollectionViewCell)
     }
     
@@ -331,7 +323,9 @@ extension CollageMakerVC: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if currentModeType == .frames && collectionView == self.collectionView {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.nib.frameCollectionViewCell.identifier, for: indexPath) as! FrameCollectionViewCell
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.nib.frameCollectionViewCell.identifier, for: indexPath) as? FrameCollectionViewCell else {
+                return UICollectionViewCell()
+            }
             
             if selectedIndex == indexPath {
                 cell.frameImageView.image = collageImagesItems[indexPath.row].withImageTintColor(ApplicationSettings.appPrimaryColor)
@@ -341,7 +335,9 @@ extension CollageMakerVC: UICollectionViewDataSource {
             
             return cell
         } else if currentModeType == .photos && collectionView == self.imageCollectionView {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.nib.imageCollectionViewCell.identifier, for: indexPath) as! ImageCollectionViewCell
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.nib.imageCollectionViewCell.identifier, for: indexPath) as? ImageCollectionViewCell else {
+                return UICollectionViewCell()
+            }
             
             let borderColor: CGColor! = ApplicationSettings.appBlackColor.cgColor
             let borderWidth: CGFloat = 3

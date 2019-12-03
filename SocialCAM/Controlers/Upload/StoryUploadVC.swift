@@ -80,7 +80,7 @@ class StoryUploadVC: UIViewController {
                 }
             }
         }
-        self.noDataView.isHidden = (storyUploads.count > 0)
+        self.noDataView.isHidden = !storyUploads.isEmpty
         self.collectionView.reloadData()
     }
     
@@ -174,7 +174,7 @@ extension StoryUploadVC: UICollectionViewDataSource {
             fileName = URL(string: storyUpload.url!)!.lastPathComponent
         } else {
             if let storyExports = Array(storyUpload.storyExport!) as? [StoryExport],
-                storyExports.count > 0 {
+                !storyExports.isEmpty {
                 fileName = URL(string: storyExports[0].url!)!.lastPathComponent
             }
         }
@@ -298,7 +298,7 @@ extension StoryUploadVC: StoryUploadDelegate {
     }
     
     func didUpdateBytes(_ progress: Double, _ totalFile: Double, _ storyData: StoryData) {
-        guard storyUploads.count > 0 else {
+        guard !storyUploads.isEmpty else {
             return
         }
         DispatchQueue.main.async {

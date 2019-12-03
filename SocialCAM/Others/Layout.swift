@@ -18,11 +18,9 @@ class LayoutConstraint: NSLayoutConstraint {
                 if self.isResize {
                     switch firstAttribute {
                     case .top, .bottom, .height:
-                        self.constant = self.constant*UIScreen.main.bounds.size.height/667
-                        break
+                        self.constant *= UIScreen.main.bounds.size.height/667
                     case .leading, .trailing, .width:
-                        self.constant = self.constant*UIScreen.main.bounds.size.width/375
-                        break
+                        self.constant *= UIScreen.main.bounds.size.width/375
                     default:
                         break
                     }

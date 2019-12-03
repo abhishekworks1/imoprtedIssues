@@ -36,7 +36,7 @@ class HashTagSetList: Mappable {
     
     var _id: String?
     var categoryName: String?
-    var userHashTagData: userHashTagData?
+    var userHashTagData: UserHashTagData?
     var __v: Int?
     var created: String?
     var usedCount: Int?
@@ -57,7 +57,7 @@ class HashTagSetList: Mappable {
     }
 }
 
-class userHashTagData: Mappable {
+class UserHashTagData: Mappable {
     
     var _id: String?
     var channelId: String?

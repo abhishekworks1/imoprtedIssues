@@ -45,11 +45,11 @@ class ExportVideoOpration: AsynchronousOperation {
         exportSession.export(for: asset, progress: { progress in
             print("New progress \(progress)")
             
-        }) { exportedURL in
+        }, completion: { exportedURL in
             if let url = exportedURL {
                 completionHandler(url)
             }
-        }
+        })
     }
     
     private func filePath() -> URL {

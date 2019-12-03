@@ -105,14 +105,14 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
             return
         }
         let email = e.trimmingCharacters(in: .whitespacesAndNewlines)
-        if email.count == 0 {
+        if email.isEmpty {
            self.showAlert(alertMessage: R.string.localizable.pleaseEnterEmail())
             return
         }
         guard let password = txtPassword.text else {
             return
         }
-        if password.count == 0 {
+        if password.isEmpty {
             self.showAlert(alertMessage: R.string.localizable.pleaseEnterPassword())
             return
         }

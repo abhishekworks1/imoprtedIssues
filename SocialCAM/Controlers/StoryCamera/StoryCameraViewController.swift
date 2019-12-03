@@ -182,7 +182,7 @@ class StoryCameraViewController: UIViewController {
             deleteView.isHidden = isRecording
             DispatchQueue.main.async {
                 if self.isRecording {
-                    self.collectionViewStackVIew.isHidden = self.takenVideoUrls.count <= 0
+                    self.collectionViewStackVIew.isHidden = !self.takenVideoUrls.isEmpty
                 } else {
                     self.collectionViewStackVIew.isHidden = false
                 }
@@ -357,14 +357,14 @@ class StoryCameraViewController: UIViewController {
     var firstUploadCompletedSize: Double = 0.0
     
     var pageSize: CGSize {
-        let layout = self.stopMotionCollectionView.collectionViewLayout as! UPCarouselFlowLayout
-        var pageSize = layout.itemSize
-        if layout.scrollDirection == .horizontal {
-            pageSize.width += layout.minimumLineSpacing
+        let layout = self.stopMotionCollectionView.collectionViewLayout as? UPCarouselFlowLayout
+        var pageSize = layout?.itemSize
+        if layout?.scrollDirection == .horizontal {
+            pageSize?.width += layout?.minimumLineSpacing ?? 0
         } else {
-            pageSize.height += layout.minimumLineSpacing
+            pageSize?.height += layout?.minimumLineSpacing ?? 0
         }
-        return pageSize
+        return pageSize ?? CGSize.init(width: 0, height: 0)
     }
     
     lazy  var sfCountdownView: CountdownView = {
@@ -652,17 +652,14 @@ class StoryCameraViewController: UIViewController {
                     self.photoTimerValue = 0
                     self.resetPhotoCountDown()
                 }
-                break
             case 4:
                 self.circularProgress.centerImage = R.image.icoSildeshowMode()
                 self.recordingType = .slideshow
                 self.timerValueView.isHidden = true
-                break
             case 5:
                 self.circularProgress.centerImage = R.image.icoCollageMode()
                 self.recordingType = .collage
                 self.timerValueView.isHidden = true
-                break
             case 6:
                 self.circularProgress.centerImage = R.image.icoHandsFree()
                 if self.recordingType == .custom || self.recordingType == .boomerang || self.recordingType == .capture {
@@ -674,16 +671,13 @@ class StoryCameraViewController: UIViewController {
                 if self.isRecording {
                     self.isRecording = true
                 }
-                break
             case 7:
                 self.circularProgress.centerImage = R.image.icoCustomMode()
                 self.recordingType = .custom
                 self.timerValueView.isHidden = true
-                break
             case 8:
                 self.recordingType = .capture
                 self.timerValueView.isHidden = false
-                break
             default:
                 self.recordingType = .normal
             }
@@ -691,8 +685,8 @@ class StoryCameraViewController: UIViewController {
     }
     
     func setupLayout() {
-        let layout = self.stopMotionCollectionView.collectionViewLayout as! UPCarouselFlowLayout
-        layout.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: 0.01)
+        let layout = self.stopMotionCollectionView.collectionViewLayout as? UPCarouselFlowLayout
+        layout?.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: 0.01)
         stopMotionCollectionView.register(R.nib.imageCollectionViewCell)
     }
     
@@ -1032,7 +1026,9 @@ extension StoryCameraViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.nib.imageCollectionViewCell.identifier, for: indexPath) as! ImageCollectionViewCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.nib.imageCollectionViewCell.identifier, for: indexPath) as? ImageCollectionViewCell else {
+            return UICollectionViewCell()
+        }
         
         let borderColor: CGColor! = ApplicationSettings.appWhiteColor.cgColor
         let borderWidth: CGFloat = 3
@@ -1097,7 +1093,7 @@ extension StoryCameraViewController: PhotosPickerViewControllerDelegate {
     }
     
     func dismissPhotoPicker(withTLPHAssets: [ImageAsset]) {
-        if withTLPHAssets.count != 0 {
+        if !withTLPHAssets.isEmpty {
             if self.recordingType == .slideshow || self.recordingType == .collage {
                 for image in withTLPHAssets {
                     self.takenSlideShowImages.append(SegmentVideos(urlStr: URL.init(string: Constant.Application.imageIdentifier)!, thumbimage: image.fullResolutionImage!, latitued: nil, longitued: nil, placeAddress: nil, numberOfSegement: String(self.takenSlideShowImages.count + 1), videoduration: nil, combineOneVideo: false))
@@ -1238,11 +1234,11 @@ extension StoryCameraViewController: PhotosPickerViewControllerDelegate {
                                 StoryDataManager.shared.startUpload()
                                 self.takenSlideShowImages.removeAll()
                             } else {
-                                if self.takenSlideShowImages.count > 0 {
+                                if !self.takenSlideShowImages.isEmpty {
                                     self.takenVideoUrls.removeAll()
                                     var tempTakenImagesURLs: [SegmentVideos] = []
                                     for item in self.takenSlideShowImages {
-                                        tempTakenImagesURLs.append(item.copy() as! SegmentVideos)
+                                        tempTakenImagesURLs.append(item)
                                     }
                                     self.recordingType = .slideshow
                                     self.cameraSliderView.selectCell = self.recordingType.rawValue
@@ -1253,7 +1249,7 @@ extension StoryCameraViewController: PhotosPickerViewControllerDelegate {
                                     if self.recordingType != .custom {
                                         var tempTakenVideoURLs: [SegmentVideos] = []
                                         for item in self.takenVideoUrls {
-                                            tempTakenVideoURLs.append(item.copy() as! SegmentVideos)
+                                            tempTakenVideoURLs.append(item)
                                         }
                                         self.recordingType = .custom
                                         self.cameraSliderView.selectCell = self.recordingType.rawValue
@@ -1359,7 +1355,7 @@ extension StoryCameraViewController {
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
             self.circularProgress.trackThickness = 0.75*1.5
             self.circularProgress.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
-        }) { (completed: Bool) in
+        }, completion: { completed in
             NextLevel.shared.record()
             var totalSeconds = self.videoSegmentSeconds
             if self.recordingType == .custom {
@@ -1376,7 +1372,7 @@ extension StoryCameraViewController {
                     print("animation stopped, was interrupted")
                 }
             }
-        }
+        })
         speedSlider.isUserInteractionEnabled = (recordingType == .handsfree || recordingType == .timer)
         hideRecordingControls()
     }
@@ -1387,7 +1383,7 @@ extension StoryCameraViewController {
             UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
                 self.circularProgress.trackThickness = 0.75
                 self.circularProgress.transform = CGAffineTransform(scaleX: 1, y: 1)
-            }) { (_: Bool) in
+            }, completion: { (_: Bool) in
                 self.nextLevel.pause {
                     if let session = self.nextLevel.session {
                         if let url = session.lastClipUrl {
@@ -1411,14 +1407,14 @@ extension StoryCameraViewController {
                         }
                     }
                 }
-            }
+            })
             return
         }
         showControls()
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
             self.circularProgress.trackThickness = 0.75
             self.circularProgress.transform = CGAffineTransform(scaleX: 1, y: 1)
-        }) { (_: Bool) in
+        }, completion: { (_: Bool) in
             self.nextLevel.pause {
                 self.circularProgress.animate(toAngle: 0, duration: 0) { _ in
                     if let session = self.nextLevel.session {
@@ -1445,8 +1441,7 @@ extension StoryCameraViewController {
                     self.nextLevel.audioConfiguration.isMute = self.isMute
                 }
             }
-        }
-        
+        })
     }
     
     func getDurationOf(videoPath: URL) -> Double {
@@ -1466,13 +1461,13 @@ extension StoryCameraViewController {
     
     func setupForPreviewScreen() {
         self.stopMotionCollectionView.reloadData()
-        let layout = self.stopMotionCollectionView.collectionViewLayout as! UPCarouselFlowLayout
-        let pageSide = (layout.scrollDirection == .horizontal) ? self.pageSize.width : self.pageSize.height
+        let layout = self.stopMotionCollectionView.collectionViewLayout as? UPCarouselFlowLayout
+        let pageSide = (layout?.scrollDirection == .horizontal) ? self.pageSize.width : self.pageSize.height
         self.stopMotionCollectionView?.contentOffset.x = (self.stopMotionCollectionView?.contentSize.width)! + pageSide
         
         if self.recordingType == .custom {
             self.showControls()
-            totalDurationOfOneSegment = totalDurationOfOneSegment + self.getDurationOf(videoPath: (self.takenVideoUrls.last?.url)!)
+            totalDurationOfOneSegment += self.getDurationOf(videoPath: (self.takenVideoUrls.last?.url)!)
             self.isRecording = false
             if totalDurationOfOneSegment > 240.0 {
                 totalDurationOfOneSegment = 0.0
@@ -1640,7 +1635,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
     
     func scrollChanges() {
         if recordingType == .slideshow || recordingType == .collage {
-            if takenSlideShowImages.count > 0 {
+            if !takenSlideShowImages.isEmpty {
                 isPageScrollEnable = false
             } else {
                 isPageScrollEnable = true
@@ -1711,7 +1706,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             let zoomEndPoint: CGFloat = self.view.center.y - 50.0
             let maxZoom = 10.0
             var newZoom = CGFloat(maxZoom) - ((zoomEndPoint - newPoint.y) / (zoomEndPoint - self._panStartPoint.y) * CGFloat(maxZoom))
-            newZoom = newZoom + lastZoomFactor
+            newZoom += lastZoomFactor
             let minZoom = max(1.0, newZoom)
             nextLevel.videoZoomFactor = Float(minZoom)
             self.zoomSlider.value = Float(minZoom)
@@ -2120,7 +2115,7 @@ extension StoryCameraViewController: StoryUploadDelegate {
                 }
             }
         }
-        self.storyUploadView.isHidden = !(storyUploads.count > 0)
+        self.storyUploadView.isHidden = (storyUploads.isEmpty)
     }
 }
 // MARK: KDDragAndDropCollectionViewDataSource

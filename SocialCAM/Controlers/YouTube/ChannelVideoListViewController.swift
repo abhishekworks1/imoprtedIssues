@@ -38,7 +38,7 @@ class ChannelVideoListViewController: UIViewController {
             self.nextPageToken = response.nextPageToken
             self.totalResult = response.pageInfo?.totalResults
             self.resultPerPage = response.pageInfo?.resultsPerPage
-            if  self.videos.count == 0 && response.result?.count == 0 {
+            if  self.videos.isEmpty && response.result?.isEmpty ?? false {
                 self.emptyView?.isHidden = false
             } else {
                 self.emptyView?.isHidden = true

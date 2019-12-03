@@ -498,8 +498,7 @@ extension CropView {
             
             let loadingView = LoadingView.instanceFromNib()
             loadingView.showOnKeyWindow(completion: {
-                loadingView.cancelClick = { [weak self] _ in
-                    guard let `self` = self else { return }
+                loadingView.cancelClick = { _ in
                     exportSession.cancelExporting()
                     loadingView.hide()
                 }

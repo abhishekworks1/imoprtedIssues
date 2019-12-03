@@ -62,7 +62,7 @@ internal class LoadingContainerView: UIView {
 public class LoadingView: UIView {
     
     class func instanceFromNib() -> LoadingView {
-        return UINib(nibName: "LoadingView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! LoadingView
+        return UINib(nibName: "LoadingView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? LoadingView ?? LoadingView.init(frame: CGRect.init(x: 0, y: 0, width: 100, height: 100))
     }
     
     @IBInspectable public var speedFactor: CGFloat = 1.0
@@ -145,7 +145,7 @@ public class LoadingView: UIView {
     func manageAdvertisement() {
         let nIndex = currentSelectedImg + 1
         if nIndex < imgAdvertisementArray.count {
-            currentSelectedImg = currentSelectedImg + 1
+            currentSelectedImg += 1
         } else {
             currentSelectedImg = 0
         }

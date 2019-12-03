@@ -194,7 +194,7 @@ extension SwiftLinkPreview {
     // Extract first URL from text
     internal func extractURL(text: String) -> URL? {
         let pieces: [String] = text.components(separatedBy: .whitespacesAndNewlines).filter { $0.trim.isValidURL() }
-        if pieces.count > 0, let url = URL(string: pieces[0]) {
+        if !pieces.isEmpty, let url = URL(string: pieces[0]) {
             return url
         }
         return nil
@@ -558,20 +558,14 @@ extension SwiftLinkPreview {
         let rawMatches = Regex.pregMatchAll(content, regex: pattern, index: index)
         
         let matches = rawMatches.filter({ $0.extendedTrim.tagsStripped.count >= minimum })
-        var result = matches.count > 0 ? matches[0] : ""
+        var result = !matches.isEmpty ? matches.first : ""
         
-        if result.isEmpty {
-            
+        if (result?.isEmpty ?? false) {
             if let match = Regex.pregMatchFirst(content, regex: pattern, index: 2) {
-                
                 result = match.extendedTrim.tagsStripped
-                
             }
-            
         }
-        
-        return result
-        
+        return result ?? ""
     }
     
 }

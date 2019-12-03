@@ -450,7 +450,7 @@ public class NextLevelPhotoConfiguration: NextLevelConfiguration {
                 let settings = AVCapturePhotoSettings()
                 // iOS 11 GM fix
                 // https://forums.developer.apple.com/thread/86810
-                if settings.__availablePreviewPhotoPixelFormatTypes.count > 0 {
+                if !settings.__availablePreviewPhotoPixelFormatTypes.isEmpty {
                     if let formatType = settings.__availablePreviewPhotoPixelFormatTypes.first {
                         config[kCVPixelBufferPixelFormatTypeKey as String] = formatType
                     }

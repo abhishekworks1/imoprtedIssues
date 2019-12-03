@@ -162,12 +162,11 @@ open class SocialShareVideo: NSObject, SharingDelegate {
     }
     
     func saveVideoToCameraRoll(url: URL, completion:@escaping (Bool, PHAsset?) -> Void) {
-        PHPhotoLibrary.requestAuthorization({
-            (newStatus) in
+        PHPhotoLibrary.requestAuthorization({ newStatus in
             if newStatus ==  PHAuthorizationStatus.authorized {
                 PHPhotoLibrary.shared().performChanges({
                     PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: url)
-                }) { saved, _ in
+                }, completionHandler: { (saved, _) in
                     if saved {
                         let fetchOptions = PHFetchOptions()
                         fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
@@ -177,7 +176,7 @@ open class SocialShareVideo: NSObject, SharingDelegate {
                     } else {
                         completion(false, nil)
                     }
-                }
+                })
             } else {
                 completion(false, nil)
             }
@@ -187,7 +186,7 @@ open class SocialShareVideo: NSObject, SharingDelegate {
     func saveImageToCameraRoll(image: UIImage, completion:@escaping (Bool, PHAsset?) -> Void) {
         PHPhotoLibrary.shared().performChanges({
             PHAssetChangeRequest.creationRequestForAsset(from: image)
-        }) { saved, _ in
+        }, completionHandler: { saved, _ in
             if saved {
                 let fetchOptions = PHFetchOptions()
                 fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
@@ -197,7 +196,7 @@ open class SocialShareVideo: NSObject, SharingDelegate {
             } else {
                 completion(false, nil)
             }
-        }
+        })
     }
     
     func fbShareImage(_ image: UIImage) {

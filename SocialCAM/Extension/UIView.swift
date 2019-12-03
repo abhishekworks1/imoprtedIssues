@@ -122,8 +122,11 @@ extension UIView {
         }
     }
     
-    class func fromNib<T: UIView>() -> T {
-        return Bundle.main.loadNibNamed(String(describing: T.self), owner: nil, options: nil)![0] as! T
+    class func fromNib<T: UIView>() -> T? {
+        guard let view = Bundle.main.loadNibNamed(String(describing: T.self), owner: nil, options: nil)![0] as? T else {
+            return nil
+        }
+        return view
     }
     
     var parentViewController: UIViewController? {
@@ -291,7 +294,7 @@ extension UIView {
                 all.append(aView)
             }
             DispatchQueue.main.async {
-                guard view.subviews.count>0 else { return }
+                guard !view.subviews.isEmpty else { return }
                 view.subviews.forEach { getSubview(view: $0) }
             }
         }

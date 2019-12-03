@@ -57,12 +57,12 @@ extension UITextView {
 extension UITextView {
     
     func makeOutLine(oulineColor: UIColor, foregroundColor: UIColor) {
-        let strokeTextAttributes = [
-            NSAttributedString.Key.strokeColor as NSString: oulineColor,
+        let strokeTextAttributes: [NSAttributedString.Key: Any] = [
+            NSAttributedString.Key.strokeColor: oulineColor,
             NSAttributedString.Key.foregroundColor: foregroundColor,
             NSAttributedString.Key.strokeWidth: -4.0,
             NSAttributedString.Key.font: self.font as Any
-            ] as! [NSAttributedString.Key: Any]
+            ]
         self.attributedText = NSMutableAttributedString(string: self.text ?? "", attributes: strokeTextAttributes as [NSAttributedString.Key: Any])
     }
     

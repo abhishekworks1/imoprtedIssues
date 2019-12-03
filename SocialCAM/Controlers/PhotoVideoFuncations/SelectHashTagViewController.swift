@@ -56,7 +56,7 @@ class SelectHashTagViewController: UIViewController {
             if response.status == ResponseType.success {
                 self.hashSet = response.result ?? []
                 self.tableView.reloadData()
-                if !(self.hashSet.count > 0) {
+                if self.hashSet.isEmpty {
                     self.activityIndicator.stopAnimating()
                 }
             }
@@ -106,11 +106,7 @@ class SelectHashTagViewController: UIViewController {
 extension SelectHashTagViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.hashSet.count > 0 {
-            return self.hashSet.count
-        } else {
-            return 0
-        }
+        return self.hashSet.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

@@ -84,11 +84,11 @@ extension FocusIndicatorView {
         }
         UIView.animate(withDuration: 0.2, animations: { 
             self._focusRingView?.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
-        }) { (completed) in
+        }, completion: { completed in
             if completed {
                 self.removeFromSuperview()
             }
-        }
+        })
     }
     
 }

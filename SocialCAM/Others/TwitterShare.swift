@@ -54,7 +54,6 @@ open class TwitterShare: NSObject {
                 
             } else {
                 Utils.appDelegate?.window?.makeToast(R.string.localizable.postSuccess())
-                print(tweet)
             }
         }
     }

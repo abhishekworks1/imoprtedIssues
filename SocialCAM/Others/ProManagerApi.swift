@@ -596,10 +596,10 @@ extension ProManagerApi: TargetType {
             param = ["value": q, "field": type]
         case .signUp(let email, let password, let channel, let refChannel, let isBusiness, let socialId, let provider, let channelName, let about, let categories, let hashTags, let bannerImageURL, let profileImageURL, let refferId, let deviceToken, let deepLinkUrl):
             param = ["email": email, "password": password, "channelId": channel, "refferingChannel": refChannel, "isBusiness": isBusiness, "channelName": channelName, "about": about ?? "", "deviceType": 1]
-            if  categories.count > 0 {
+            if  !categories.isEmpty {
                 param["categories"] = categories
             }
-            if  hashTags.count > 0 {
+            if  !hashTags.isEmpty {
                 param["hashTags"] = hashTags
             }
             if let provider = provider {
@@ -1195,7 +1195,7 @@ extension ProManagerApi: TargetType {
         case .createQuiz(let userId, let introduction, let title, let startDateTime, let endDateTime, let theme):
             param = ["userId": userId, "introduction": introduction, "title": title, "startDateTime": startDateTime, "endDateTime": endDateTime, "theme": theme]
         case .updateQuiz(let outroPage, _, let introduction, let isPublish):
-            if introduction.count > 0 {
+            if !introduction.isEmpty {
                 param = ["introduction": introduction]
             } else {
                 param = ["OutroPage": outroPage, "isPublish": isPublish]
