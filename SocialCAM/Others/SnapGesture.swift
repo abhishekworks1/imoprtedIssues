@@ -19,7 +19,7 @@ class SnapGesture: NSObject, UIGestureRecognizerDelegate {
     init(transformView: UIView, gestureView: UIView) {
         super.init()
         
-        self.addGestures(v: gestureView)
+        self.addGestures(view: gestureView)
         self.weakTransformView = transformView
     }
     deinit {
@@ -34,24 +34,24 @@ class SnapGesture: NSObject, UIGestureRecognizerDelegate {
     private var pinchGesture: UIPinchGestureRecognizer?
     private var rotationGesture: UIRotationGestureRecognizer?
     
-    private func addGestures(v: UIView) {
+    private func addGestures(view: UIView) {
         
         panGesture = UIPanGestureRecognizer(target: self, action: #selector(panProcess(_:)))
-        v.isUserInteractionEnabled = true
+        view.isUserInteractionEnabled = true
         panGesture?.delegate = self     // for simultaneous recog
         panGesture?.minimumNumberOfTouches = 2
-        v.addGestureRecognizer(panGesture!)
+        view.addGestureRecognizer(panGesture!)
         
         pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(pinchProcess(_:)))
         //view.isUserInteractionEnabled = true
         pinchGesture?.delegate = self   // for simultaneous recog
-        v.addGestureRecognizer(pinchGesture!)
+        view.addGestureRecognizer(pinchGesture!)
         
         rotationGesture = UIRotationGestureRecognizer(target: self, action: #selector(rotationProcess(_:)))
         rotationGesture?.delegate = self
-        v.addGestureRecognizer(rotationGesture!)
+        view.addGestureRecognizer(rotationGesture!)
         
-        self.weakGestureView = v
+        self.weakGestureView = view
     }
     
     private func cleanGesture() {
@@ -82,8 +82,8 @@ class SnapGesture: NSObject, UIGestureRecognizerDelegate {
     private func setTransformView(_ transformView: UIView?, gestgureView: UIView?) {
         self.cleanGesture()
         
-        if let v = gestgureView {
-            self.addGestures(v: v)
+        if let view = gestgureView {
+            self.addGestures(view: view)
         }
         self.weakTransformView = transformView
     }
@@ -209,7 +209,7 @@ class SnapGesture2: NSObject, UIGestureRecognizerDelegate {
     init(transformView: UIView, gestureView: UIView) {
         super.init()
         
-        self.addGestures(v: gestureView)
+        self.addGestures(view: gestureView)
         self.weakTransformView = transformView
         
         guard let transformView = self.weakTransformView, let superview = transformView.superview else {
@@ -232,22 +232,22 @@ class SnapGesture2: NSObject, UIGestureRecognizerDelegate {
     private var pinchGesture: UIPinchGestureRecognizer?
     private var rotationGesture: UIRotationGestureRecognizer?
     
-    private func addGestures(v: UIView) {
-        v.isUserInteractionEnabled = true
+    private func addGestures(view: UIView) {
+        view.isUserInteractionEnabled = true
         
         panGesture = UIPanGestureRecognizer(target: self, action: #selector(panProcess(_:)))
         panGesture?.delegate = self
-        v.addGestureRecognizer(panGesture!)
+        view.addGestureRecognizer(panGesture!)
         
         pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(pinchProcess(_:)))
         pinchGesture?.delegate = self
-        v.addGestureRecognizer(pinchGesture!)
+        view.addGestureRecognizer(pinchGesture!)
         
         rotationGesture = UIRotationGestureRecognizer(target: self, action: #selector(rotationProcess(_:)))
         rotationGesture?.delegate = self
-        v.addGestureRecognizer(rotationGesture!)
+        view.addGestureRecognizer(rotationGesture!)
         
-        self.weakGestureView = v
+        self.weakGestureView = view
     }
     
     private func cleanGesture() {
@@ -278,8 +278,8 @@ class SnapGesture2: NSObject, UIGestureRecognizerDelegate {
     private func setTransformView(_ transformView: UIView?, gestgureView: UIView?) {
         self.cleanGesture()
         
-        if let v = gestgureView {
-            self.addGestures(v: v)
+        if let view = gestgureView {
+            self.addGestures(view: view)
         }
         self.weakTransformView = transformView
     }

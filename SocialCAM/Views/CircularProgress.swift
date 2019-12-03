@@ -448,11 +448,11 @@ public class CircularProgress: UIView, CAAnimationDelegate {
             let steps = colorsArray.count - 1
             let step = 1.0 / Double(steps)
             
-            for i in 1...steps {
-                let di = Double(i)
-                if percentage <= di * step || i == steps {
+            for index in 1...steps {
+                let di = Double(index)
+                if percentage <= di * step || index == steps {
                     let colorT = percentage.inverseLerp(min: (di - 1) * step, max: di * step)
-                    let color = colorT.colorLerp(minColor: colorsArray[i - 1], maxColor: colorsArray[i])
+                    let color = colorT.colorLerp(minColor: colorsArray[index - 1], maxColor: colorsArray[index])
                     fillRect(withContext: context, color: color)
                     break
                 }

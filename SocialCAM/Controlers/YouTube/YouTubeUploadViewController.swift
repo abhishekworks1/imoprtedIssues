@@ -243,12 +243,11 @@ extension YouTubeUploadViewController: SelectHashSetDelegate {
     
     func setSelectedSet(hashSet: HashTagSetList, isHashSetSelected: Bool) {
         if let youhash = hashSet.hashTags {
-            for t in youhash {
-                let newTag = t.replace("#", with: "")
+            for youhashValue in youhash {
+                let newTag = youhashValue.replace("#", with: "")
                 self.tagView.addTag(newTag)
                 let bottomOffset = CGPoint(x: 0, y: self.tagView.scrollView.contentSize.height - self.tagView.scrollView.bounds.size.height)
                 self.tagView.scrollView.setContentOffset(bottomOffset, animated: true)
-                
             }
         }
     }

@@ -196,10 +196,8 @@ class StoryTagView: BaseStoryTagView {
         switch type {
         case .hashtag:
             text = "#"
-            break
         case .mension:
             text = "@"
-            break
         case .location:
             return R.image.ico_location_gradient()?.withImageTintColor(gradientColorFrom(color: startColor, toColor: endColor, withSize: R.image.ico_location_gradient()?.size ?? CGSize.zero))
         case .youtube:

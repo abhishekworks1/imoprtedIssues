@@ -162,10 +162,10 @@ class LineTool: SketchTool {
     }
 
     func pointWithAngle(angle: CGFloat, distance: CGFloat) -> CGPoint {
-        let x = Float(distance) * cosf(Float(angle))
-        let y = Float(distance) * sinf(Float(angle))
+        let xValue = Float(distance) * cosf(Float(angle))
+        let yValue = Float(distance) * sinf(Float(angle))
 
-        return CGPoint(x: CGFloat(x), y: CGFloat(y))
+        return CGPoint(x: CGFloat(xValue), y: CGFloat(yValue))
     }
     
 }
@@ -228,10 +228,10 @@ class ArrowTool: SketchTool {
     }
 
     func pointWithAngle(angle: CGFloat, distance: CGFloat) -> CGPoint {
-        let x = Float(distance) * cosf(Float(angle))
-        let y = Float(distance) * sinf(Float(angle))
+        let xValue = Float(distance) * cosf(Float(angle))
+        let yValue = Float(distance) * sinf(Float(angle))
 
-        return CGPoint(x: CGFloat(x), y: CGFloat(y))
+        return CGPoint(x: CGFloat(xValue), y: CGFloat(yValue))
     }
     
 }

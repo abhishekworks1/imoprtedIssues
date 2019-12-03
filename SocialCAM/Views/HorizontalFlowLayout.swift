@@ -66,11 +66,11 @@ class HorizontalFlowLayout: UICollectionViewFlowLayout {
         endIndex = 0
         startIndex = 0
     }
-    attributesList = (startIndex...endIndex).map { (i) -> CircularCollectionViewLayoutAttributes in
-      let attributes = CircularCollectionViewLayoutAttributes(forCellWith: NSIndexPath(item: i, section: 0) as IndexPath)
+    attributesList = (startIndex...endIndex).map { (index) -> CircularCollectionViewLayoutAttributes in
+      let attributes = CircularCollectionViewLayoutAttributes(forCellWith: NSIndexPath(item: index, section: 0) as IndexPath)
         attributes.size = self.itemSize
         attributes.center = CGPoint(x: centerX, y: self.collectionView!.frame.midY)
-        attributes.angle = self.angle + (self.anglePerItem*CGFloat(i))
+        attributes.angle = self.angle + (self.anglePerItem*CGFloat(index))
         attributes.anchorPoint = CGPoint(x: 0.5, y: anchorPointY)
         return attributes
     }

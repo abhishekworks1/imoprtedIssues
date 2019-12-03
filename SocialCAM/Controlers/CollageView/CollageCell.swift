@@ -288,8 +288,8 @@ public extension UIBezierPath {
         let radius = min(scaledRect.size.width/2, scaledRect.size.height/2)
         let extrusion = radius * CGFloat(extrusion) / 100
         self.move(to: CGPoint(x: radius * cos(angle) + center.x, y: radius * sin(angle) + center.y))
-        for i in 1...(corners * 2) {
-            if i % 2 != 0 {
+        for index in 1...(corners * 2) {
+            if index % 2 != 0 {
                 self.addLine(to: CGPoint(x: radius * cos(angle) + center.x, y: radius * sin(angle) + center.y))
             } else {
                 self.addLine(to: CGPoint(x: extrusion * cos(angle) + center.x, y: extrusion * sin(angle) + center.y))

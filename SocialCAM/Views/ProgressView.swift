@@ -122,19 +122,18 @@ class ProgressView: UIProgressView {
             if let delegate = self.delegate {
                 delegate.pausePlayer()
             }
-            let x = self.progress * Float(self.frame.size.width)
-            roundView?.center = CGPoint(x: CGFloat(x), y: self.frame.size.height/2.0)
+            let xValue = self.progress * Float(self.frame.size.width)
+            roundView?.center = CGPoint(x: CGFloat(xValue), y: self.frame.size.height/2.0)
             roundView?.isHidden = false
             
         } else if sender.state == .changed {
-            let x = sender.location(in: self).x
-            let progress = x / self.width
-            roundView?.center = CGPoint(x: CGFloat(x), y: self.frame.size.height/2.0)
+            let xValue = sender.location(in: self).x
+            let progress = xValue / self.width
+            roundView?.center = CGPoint(x: CGFloat(xValue), y: self.frame.size.height/2.0)
             self.currentTime = Double(progress) * self.duration
             if let delegate = self.delegate {
                 delegate.seekPlayerToTime(currentTime: self.currentTime)
             }
-            // self.setProgress(Float(progress), animated: false)
         } else if sender.state == .ended {
             self.resumeProgress()
             if let delegate = self.delegate {
@@ -152,7 +151,7 @@ class ProgressView: UIProgressView {
     }
 
     @objc func progressTap(sender: UITapGestureRecognizer) {
-        let x = sender.location(in: self).x
+        let xValue = sender.location(in: self).x
         if self.isUserInteractionEnabled == false {
             return
         }
@@ -161,8 +160,8 @@ class ProgressView: UIProgressView {
             delegate.pausePlayer()
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            let progress = x / self.width
-            self.roundView?.center = CGPoint(x: CGFloat(x), y: self.frame.size.height/2.0)
+            let progress = xValue / self.width
+            self.roundView?.center = CGPoint(x: CGFloat(xValue), y: self.frame.size.height/2.0)
             self.currentTime = Double(progress) * self.duration
             self.roundView?.isHidden = false
             if let delegate = self.delegate {

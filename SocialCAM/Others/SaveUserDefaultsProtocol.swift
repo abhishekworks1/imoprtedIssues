@@ -22,11 +22,11 @@ extension SaveUserDefaultsProtocol where Self: Codable {
         }
     }
 
-    static func loadWithKey<T: Codable>(key: String, in suiteName: String = "SaveInUserDefaults", T: T.Type) -> T? {
+    static func loadWithKey<T: Codable>(key: String, in suiteName: String = "SaveInUserDefaults", model: T.Type) -> T? {
         let decoder = JSONDecoder()
         if let userDefaults = UserDefaults(suiteName: suiteName),
             let obj = userDefaults.object(forKey: key) as? Data,
-            let saveInUserDefaults = try? decoder.decode(T.self, from: obj) {
+            let saveInUserDefaults = try? decoder.decode(model.self, from: obj) {
             return saveInUserDefaults
         }
         return nil

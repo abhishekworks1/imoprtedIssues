@@ -407,3 +407,201 @@ extension StoryCameraViewController {
     }
     
 }
+
+
+// MARK: StoryUploadDelegate
+extension StoryCameraViewController: StoryUploadDelegate {
+    
+    func didUpdateBytes(_ progress: Double, _ totalFile: Double, _ storyData: StoryData) {
+        firstUploadCompletedSize = progress
+    }
+    
+    func didCompletedStory() {
+        reloadUploadViewData()
+    }
+    
+    func didChangeThumbImage(_ image: UIImage) {
+        DispatchQueue.main.async {
+            self.storyUploadImageView?.image = image
+        }
+    }
+    
+    func didUpdateProgress(_ progress: Double) {
+        DispatchQueue.main.async {
+            var percentage = progress
+            if percentage > 100.0 {
+                percentage = 100.0
+            }
+            self.firstPercentage = percentage
+            self.lblStoryPercentage.text = "\(Int(percentage * 100))%"
+        }
+    }
+    
+    func didChangeStoryCount(_ storyCount: String) {
+        DispatchQueue.main.async {
+            if storyCount == "" {
+                self.storyUploadView.isHidden = true
+                self.storyUploadView.alpha = 0
+            } else {
+                self.lblStoryCount.text = storyCount
+                self.storyUploadView.isHidden = false
+                self.storyUploadView.alpha = 1
+            }
+        }
+    }
+    
+    func reloadUploadViewData() {
+        var storyUploads: [StoryData] = []
+        for storyUploadData in storyUploadManager.getStoryUploadDataNotCompleted() {
+            for storyData in storyUploadData.storyData?.allObjects as? [StoryData] ?? [] {
+                if !storyData.isCompleted {
+                    storyUploads.append(storyData)
+                }
+            }
+        }
+        self.storyUploadView.isHidden = (storyUploads.isEmpty)
+    }
+}
+
+// MARK: PickerViewDelegate
+extension StoryCameraViewController: PickerViewDelegate {
+    
+    public func pickerViewHeightForRows(_ pickerView: PickerView) -> CGFloat {
+        return 134.0
+    }
+    
+    public func pickerView(_ pickerView: PickerView, didSelectRow row: Int, index: Int) {
+        print(index)
+    }
+    
+    public func pickerView(_ pickerView: PickerView, styleForLabel label: UILabel, highlighted: Bool) {
+        
+        if timerType == .segmentLength {
+            pickerView.selectionTitle.text = R.string.localizable.seconds()
+        } else {
+            if pickerView.currentSelectedRow == 0 {
+                pickerView.selectionTitle.text = ""
+            } else {
+                pickerView.selectionTitle.text = R.string.localizable.seconds()
+            }
+        }
+        
+        label.font = R.font.sfuiTextHeavy(size: 35 * UIScreen.main.bounds.width/414)
+        
+        if highlighted {
+            label.textColor = ApplicationSettings.appWhiteColor
+        } else {
+            label.textColor = ApplicationSettings.appWhiteColor.withAlphaComponent(0.75)
+        }
+        
+    }
+    
+    public func pickerView(_ pickerView: PickerView, viewForRow row: Int, index: Int, highlighted: Bool, reusingView view: UIView?) -> UIView? {
+        return nil
+    }
+    
+}
+
+// MARK: PickerViewDataSource
+extension StoryCameraViewController: PickerViewDataSource {
+    
+    public func pickerViewNumberOfRows(_ pickerView: PickerView) -> Int {
+        
+        switch timerType {
+        case .timer:
+            return timerOptions.count
+        case .pauseTimer:
+            return pauseTimerOptions.count
+        case .segmentLength:
+            return segmentLengthOptions.count
+        case .photoTimer:
+            return photoTimerOptions.count
+        }
+        
+    }
+    
+    public func pickerView(_ pickerView: PickerView, titleForRow row: Int, index: Int) -> String {
+        
+        switch timerType {
+        case .timer:
+            return timerOptions[index]
+        case .pauseTimer:
+            return pauseTimerOptions[index]
+        case .segmentLength:
+            return segmentLengthOptions[index]
+        case .photoTimer:
+            return photoTimerOptions[index]
+        }
+        
+    }
+}
+
+extension StoryCameraViewController: OuttakesTakenDelegate {
+    func didTakeOuttakes(_ message: String) {
+        self.view.makeToast(message, duration: 2.0, position: .bottom)
+    }
+}
+
+extension StoryCameraViewController: CollageMakerVCDelegate {
+    
+    func didSelectImage(image: UIImage) {
+        let photoEditor = getPhotoEditor(storiType: .collage)
+        photoEditor.image = image
+        self.navigationController?.pushViewController(photoEditor, animated: false)
+        self.removeData()
+    }
+}
+
+extension StoryCameraViewController: CountdownViewDelegate {
+    
+    func capturePhoto() {
+        self.photoTapGestureRecognizer?.isEnabled = false
+        self.addFlashView()
+        NextLevel.shared.torchMode = flashMode
+        let when = DispatchTime.now() + 0.8
+        DispatchQueue.main.asyncAfter(deadline: when, execute: {
+            AudioServicesPlaySystemSound(1108)
+            NextLevel.shared.capturePhotoFromVideo()
+        })
+    }
+    
+    func addFlashView() {
+        guard self.flashMode == .on, self.currentCameraPosition == .front else { return }
+        self.flashView = UIView(frame: self.previewView?.bounds ?? self.view.bounds)
+        self.flashView?.backgroundColor = .white
+        previewView?.addSubview(self.flashView ?? UIView())
+        self.currentBrightness = UIScreen.main.brightness
+        UIScreen.main.brightness = 1.0
+    }
+    
+    func removeFlashView() {
+        guard self.flashMode == .on, self.currentCameraPosition == .front else { return }
+        for view in (previewView?.subviews ?? []) {
+            if view == self.flashView {
+                view.removeFromSuperview()
+                UIScreen.main.brightness = self.currentBrightness
+            }
+        }
+    }
+    
+    func countdownFinished(_ view: CountdownView?) {
+        isCountDownStarted = false
+        sfCountdownView.stop()
+        sfCountdownView.isHidden = true
+        self.view.sendSubviewToBack(self.sfCountdownView)
+        if photoTimerValue > 0 {
+            if self.recordingType != .capture {
+                recordingType = .photoTimer
+            }
+            capturePhoto()
+        } else {
+            isRecording = true
+            if self.recordingType != .capture {
+                recordingType = .timer
+                self.startRecording()
+            } else {
+                capturePhoto()
+            }
+        }
+    }
+}

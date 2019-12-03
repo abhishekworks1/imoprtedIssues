@@ -13,9 +13,9 @@ internal protocol DrawTextEditViewDelegate: class {
     /// Called whenever the DrawTextEditView ends text editing (keyboard entry) mode.
     ///
     /// - Parameter text: The new text string after editing
-    func DrawTextEditViewFinishedEditing(withText text: String?)
+    func drawTextEditViewFinishedEditing(withText text: String?)
     
-    func DrawTextEditViewWillEditing(withText text: String?)
+    func drawTextEditViewWillEditing(withText text: String?)
 }
 
 internal class DrawTextEditView: UIView {
@@ -70,7 +70,7 @@ internal class DrawTextEditView: UIView {
     lazy var textView: ReSizeFontTextView = {
         let txtView = ReSizeFontTextView(frame: CGRect.zero)
         txtView.font = self.font
-        txtView.placeHolder = "Type Something..."
+        txtView.placeHolder = R.string.localizable.typeSomething()
         txtView.isScrollEnabled = true
         txtView.textAlignment = .center
         txtView.backgroundColor = ApplicationSettings.appClearColor
@@ -146,11 +146,11 @@ internal class DrawTextEditView: UIView {
         }
         
         self.textView.attributedStringSet(underline: fontState == .default ? false : false)
-        delegate?.DrawTextEditViewWillEditing(withText: self.textView.text)
+        delegate?.drawTextEditViewWillEditing(withText: self.textView.text)
         if !self.textView.text.isEmpty {
             self.textView.placeHolder = nil
         } else {
-            self.textView.placeHolder = "Type Something..."
+            self.textView.placeHolder = R.string.localizable.typeSomething()
         }
     }
     
@@ -168,7 +168,7 @@ internal class DrawTextEditView: UIView {
     func clearText() {
         textString = ""
         textView.text = ""
-        textView.placeHolder = "Type Something..."
+        textView.placeHolder = R.string.localizable.typeSomething()
     }
     
     func updateText(_ text: String?) {
@@ -203,7 +203,7 @@ internal class DrawTextEditView: UIView {
         } else {
             self.backgroundColor = ApplicationSettings.appClearColor
             textView.resignFirstResponder()
-            delegate?.DrawTextEditViewFinishedEditing(withText: textString)
+            delegate?.drawTextEditViewFinishedEditing(withText: textString)
         }
     }
 }
@@ -223,11 +223,11 @@ extension DrawTextEditView: UITextViewDelegate {
         }
         
         self.textView.attributedStringSet(underline: fontState == .default ? false : false)
-        delegate?.DrawTextEditViewWillEditing(withText: self.textView.text)
+        delegate?.drawTextEditViewWillEditing(withText: self.textView.text)
         if !self.textView.text.isEmpty {
             self.textView.placeHolder = nil
         } else {
-            self.textView.placeHolder = "Type Something..."
+            self.textView.placeHolder = R.string.localizable.typeSomething()
         }
     }
     

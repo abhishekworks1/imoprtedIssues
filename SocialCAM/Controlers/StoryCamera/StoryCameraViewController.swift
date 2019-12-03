@@ -20,14 +20,9 @@ class StoryCameraViewController: UIViewController {
    
     let popupOffset: CGFloat = 110
     var bottomConstraint = NSLayoutConstraint()
-    // MARK: - Animation
-    
-    /// The current state of the animation. This variable is changed only when an animation completes.
     var currentState: State = .closed
-    
     /// All of the currently running animators.
     var runningAnimators = [UIViewPropertyAnimator]()
-    
     /// The progress of each animator. This array is parallel to the `runningAnimators` array.
     var animationProgress = [CGFloat]()
     private lazy var panRecognizer: InstantPanGestureRecognizer = {
@@ -99,13 +94,11 @@ class StoryCameraViewController: UIViewController {
     }
     @IBOutlet weak var selectedTimerLabel: UILabel!
     @IBOutlet weak var deleteView: UIView!
-    
     @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var speedLabel: UILabel!
     @IBOutlet weak var baseView: UIView!
     @IBOutlet weak var topStackView: UIStackView!
     @IBOutlet weak var outtakesButton: UIButton!
-    
     @IBOutlet weak var settingsButton: UIButton!
     @IBOutlet weak var settingsLabel: UILabel!
     @IBOutlet weak var zoomSliderView: UIView!
@@ -114,7 +107,6 @@ class StoryCameraViewController: UIViewController {
     @IBOutlet weak var timerButton: UIButton!
     @IBOutlet weak var controlView: UIView!
     @IBOutlet weak var flipButton: UIButton!
-    
     @IBOutlet weak var btnShowHide: ColorImageButton!
     @IBOutlet weak var flashButton: UIButton! {
         didSet {
@@ -212,7 +204,6 @@ class StoryCameraViewController: UIViewController {
                                              self.flashStackView,
                                              self.nextButtonView],
                                             alpha: alpha)
-                    
                     // Make the animation happen
                     self.view.setNeedsLayout()
                     self.view.layoutIfNeeded()
@@ -330,29 +321,21 @@ class StoryCameraViewController: UIViewController {
     var effectData = [EffectData]()
     var styleData = [StyleData]()
     var collectionMode: CollectionMode = .effect
-    
     let minimumZoom: CGFloat = 1.0
     var maximumZoom: CGFloat = 3.0
     var lastZoomFactor: CGFloat = 1.0
-    
     var photoTapGestureRecognizer: UITapGestureRecognizer?
     var longPressGestureRecognizer: UILongPressGestureRecognizer?
-    
-    var _panStartPoint: CGPoint = .zero
-    var _panStartZoom: CGFloat = 0.0
-    
+    var panStartPoint: CGPoint = .zero
+    var panStartZoom: CGFloat = 0.0
     var currentCameraPosition = AVCaptureDevice.Position.front
     var flashMode: AVCaptureDevice.TorchMode = .off
-    
     var takenImages: [UIImage] = []
     var takenVideoUrls: [SegmentVideos] = []
     var takenSlideShowImages: [SegmentVideos] = []
-    
     var videoSpeedType = VideoSpeedType.normal
     var isSpeedChanged = false
-    
     var isStopConnVideo = false
-    
     var firstPercentage: Double = 0.0
     var firstUploadCompletedSize: Double = 0.0
     
@@ -383,7 +366,6 @@ class StoryCameraViewController: UIViewController {
     var timerValue = 0
     var pauseTimerValue = 0
     var photoTimerValue = 0
-    
     var cameraModeArray: [String] = [R.string.localizable.typE(), R.string.localizable.livE(), R.string.localizable.photovideO(), R.string.localizable.boomeranG(), R.string.localizable.slideshoW(), R.string.localizable.collagE(), R.string.localizable.handfreE(), R.string.localizable.custoM(), R.string.localizable.capturE()]
     
     var timerOptions = ["-",
@@ -424,27 +406,20 @@ class StoryCameraViewController: UIViewController {
                              "51", "52", "53", "54", "55", "56", "57", "58", "59", "60"]
     
     public var storiCamType: StoriCamType = .story
-    
     public weak var storySelectionDelegate: StorySelectionDelegate?
-    
     var isPageScrollEnable: Bool = true
-    
     var imageViewToPan: UIImageView?
     var replyQuePanGesture: UIPanGestureRecognizer?
     var replyQuePinchGesture: UIPinchGestureRecognizer?
     var replyQueRotationGestureRecognizer: UIRotationGestureRecognizer?
     var replyQueTapGesture: UITapGestureRecognizer?
-    
     var previewView: UIView?
     var gestureView: UIView?
     var focusView: FocusIndicatorView?
     var flashView: UIView?
     var currentBrightness: CGFloat = 0.0
-    
     var metadataObjectViews: [UIView]?
-    
     let nextLevel = NextLevel.shared
-    
     var selectedFPS: Float = 30
     
     // MARK: ViewController lifecycle
@@ -452,23 +427,18 @@ class StoryCameraViewController: UIViewController {
         super.viewDidLoad()
         
         UIApplication.shared.isIdleTimerDisabled = true
-        
         checkPermissions()
         setupLayout()
         setupLayoutCameraSliderView()
         setCameraSettings()
         setupCountDownView()
-        
         addAskQuestionReplyView()
-       
         self.storyUploadManager.delegate = self
         self.storyUploadManager.startUpload()
-        
         view.bringSubviewToFront(baseView)
         view.bringSubviewToFront(blurView)
         view.bringSubviewToFront(enableAccessView)
         view.bringSubviewToFront(selectTimersView)
-        
         layout()
         self.view.addGestureRecognizer(panRecognizer)
     }
@@ -479,25 +449,8 @@ class StoryCameraViewController: UIViewController {
         isViewAppear = false
     }
     
-    func startCapture() {
-        do {
-            try nextLevel.start()
-            if selectedFPS != 30 {
-                nextLevel.updateDeviceFormat(withFrameRate: CMTimeScale(selectedFPS),
-                                             dimensions: CMVideoDimensions(width: 1920, height: 1080))
-            }
-        } catch {
-            debugPrint("failed to start camera session")
-        }
-    }
-    
-    func stopCapture() {
-        nextLevel.stop()
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.tabBarController?.tabBar.isHidden = true
         UIApplication.shared.isIdleTimerDisabled = true
         isViewAppear = true
         startCapture()
@@ -512,20 +465,17 @@ class StoryCameraViewController: UIViewController {
         self.speedLabel.textColor = UIColor.red
         self.speedLabel.text = ""
         self.speedLabel.stopBlink()
-        
         if hideControls {
             hideControls = true
         }
         self.reloadUploadViewData()
         self.stopMotionCollectionView.reloadData()
-       
         speedSlider.isHidden = !Defaults.shared.isPro
         speedSliderView.isHidden = !Defaults.shared.isPro
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
         if recordingType == .slideshow {
             recordingType = .slideshow
         } else if recordingType == .collage {
@@ -541,6 +491,42 @@ class StoryCameraViewController: UIViewController {
     
     override var prefersStatusBarHidden: Bool {
         return true
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+}
+
+// MARK: Setup Camera
+extension StoryCameraViewController {
+    
+    func deSelectButtonWith(_ buttons: [UIButton]) {
+        for button in buttons {
+            button.isSelected = false
+        }
+    }
+    
+    func hideLabels(_ buttons: [UILabel]) {
+        for button in buttons {
+            button.isHidden = true
+        }
+    }
+
+    func startCapture() {
+        do {
+            try nextLevel.start()
+            if selectedFPS != 30 {
+                nextLevel.updateDeviceFormat(withFrameRate: CMTimeScale(selectedFPS),
+                                             dimensions: CMVideoDimensions(width: 1920, height: 1080))
+            }
+        } catch {
+            debugPrint("failed to start camera session")
+        }
+    }
+    
+    func stopCapture() {
+        nextLevel.stop()
     }
     
     func setCameraSettings() {
@@ -566,7 +552,7 @@ class StoryCameraViewController: UIViewController {
         }
         setupMuteUI()
         
-        if let selectedTimerValue = SelectedTimer.loadWithKey(key: "selectedTimerValue", T: SelectedTimer.self) {
+        if let selectedTimerValue = SelectedTimer.loadWithKey(key: "selectedTimerValue", model: SelectedTimer.self) {
             self.selectedTimerValue = selectedTimerValue
         } else {
             self.selectedTimerValue = SelectedTimer(value: "-", selectedRow: 0)
@@ -578,7 +564,7 @@ class StoryCameraViewController: UIViewController {
             timerValue = Int(selectedTimerValue.value) ?? 0
         }
         
-        if let selectedPauseTimerValue = SelectedTimer.loadWithKey(key: "selectedPauseTimerValue", T: SelectedTimer.self) {
+        if let selectedPauseTimerValue = SelectedTimer.loadWithKey(key: "selectedPauseTimerValue", model: SelectedTimer.self) {
             self.selectedPauseTimerValue = selectedPauseTimerValue
         } else {
             self.selectedPauseTimerValue = SelectedTimer(value: "-", selectedRow: 0)
@@ -590,7 +576,7 @@ class StoryCameraViewController: UIViewController {
             pauseTimerValue = Int(selectedPauseTimerValue.value) ?? 0
         }
         
-        if let selectedPhotoTimerValue = SelectedTimer.loadWithKey(key: "selectedPhotoTimerValue", T: SelectedTimer.self) {
+        if let selectedPhotoTimerValue = SelectedTimer.loadWithKey(key: "selectedPhotoTimerValue", model: SelectedTimer.self) {
             self.selectedPhotoTimerValue = selectedPhotoTimerValue
         } else {
             self.selectedPhotoTimerValue = SelectedTimer(value: "-", selectedRow: 0)
@@ -602,7 +588,7 @@ class StoryCameraViewController: UIViewController {
             photoTimerValue = Int(selectedPhotoTimerValue.value) ?? 0
         }
         
-        if let selectedSegmentLengthValue = SelectedTimer.loadWithKey(key: "selectedSegmentLengthValue", T: SelectedTimer.self) {
+        if let selectedSegmentLengthValue = SelectedTimer.loadWithKey(key: "selectedSegmentLengthValue", model: SelectedTimer.self) {
             self.selectedSegmentLengthValue = selectedSegmentLengthValue
         } else {
             self.selectedSegmentLengthValue = SelectedTimer(value: "240", selectedRow: (segmentLengthOptions.count - 1))
@@ -724,23 +710,8 @@ class StoryCameraViewController: UIViewController {
         #endif
     }
     
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
     
-    func deSelectButtonWith(_ buttons: [UIButton]) {
-        for button in buttons {
-            button.isSelected = false
-        }
-    }
-    
-    func hideLabels(_ buttons: [UILabel]) {
-        for button in buttons {
-            button.isHidden = true
-        }
-    }
-    
-    func removeData() {
+    public func removeData() {
         self.totalDurationOfOneSegment = 0.0
         self.circularProgress.animate(toAngle: 0, duration: 0, completion: nil)
         self.takenSlideShowImages.removeAll()
@@ -844,11 +815,7 @@ class StoryCameraViewController: UIViewController {
             flashLabel.text = R.string.localizable.noFlash()
         }
     }
-    
-}
-// MARK: Setup Camera
-extension StoryCameraViewController {
-    
+   
     func initCamera() {
         self.baseView.layoutIfNeeded()
         self.focusView = FocusIndicatorView(frame: .zero)
@@ -955,7 +922,6 @@ extension StoryCameraViewController {
             replyAskQueView.layoutIfNeeded()
             replyAskQueView.updateColors()
             self.addGesturesTo(view: replyAskQueView)
-            break
         default:
             break
         }
@@ -992,90 +958,6 @@ extension StoryCameraViewController {
         
     }
     
-}
-// MARK: UICollectionViewDataSource
-extension StoryCameraViewController: UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        var isShow = false
-        if recordingType == .slideshow || recordingType == .collage {
-            if takenSlideShowImages.count >= 1 {
-                isShow = true
-            } else {
-                isShow = true
-            }
-            self.deleteView.isHidden = true
-            self.stopMotionCollectionView.isUserInteractionEnabled = true
-            return takenSlideShowImages.count
-        }
-        if takenVideoUrls.count >= 1 {
-            isShow = false
-        } else {
-            isShow = true
-        }
-        
-        self.deleteView.isHidden = isShow
-        self.stopMotionCollectionView.isUserInteractionEnabled = isShow
-        return takenVideoUrls.count
-        
-    }
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.nib.imageCollectionViewCell.identifier, for: indexPath) as? ImageCollectionViewCell else {
-            return UICollectionViewCell()
-        }
-        
-        let borderColor: CGColor! = ApplicationSettings.appWhiteColor.cgColor
-        let borderWidth: CGFloat = 3
-        
-        cell.imagesStackView.tag = indexPath.row
-        
-        var images = [SegmentVideo]()
-        
-        if recordingType == .slideshow || recordingType == .collage {
-            images = [SegmentVideo(segmentVideos: takenSlideShowImages[indexPath.row])]
-        } else {
-            for video in takenVideoUrls[(indexPath as NSIndexPath).row].videos {
-                images.append(video)
-            }
-        }
-        
-        let views = cell.imagesStackView.subviews
-        for view in views {
-            cell.imagesStackView.removeArrangedSubview(view)
-        }
-        
-        cell.lblSegmentCount.text = String(indexPath.row + 1)
-        
-        for imageName in images {
-            let mainView = UIView.init(frame: CGRect(x: 0, y: 3, width: 41, height: 52))
-            
-            let imageView = UIImageView.init(frame: CGRect(x: 0, y: 0, width: 41, height: 52))
-            imageView.image = imageName.image
-            imageView.contentMode = .scaleToFill
-            imageView.clipsToBounds = true
-            mainView.addSubview(imageView)
-            cell.imagesStackView.addArrangedSubview(mainView)
-        }
-        
-        cell.imagesView.layer.cornerRadius = 5
-        cell.imagesView.layer.borderWidth = borderWidth
-        cell.imagesView.layer.borderColor = borderColor
-        
-        if let kdCollectionView = stopMotionCollectionView {
-            if let draggingPathOfCellBeingDragged = kdCollectionView.draggingPathOfCellBeingDragged {
-                if draggingPathOfCellBeingDragged.item == indexPath.item {
-                    draggingCell = indexPath
-                }
-            }
-        }
-        return cell
-    }
 }
 
 extension StoryCameraViewController: PhotosPickerViewControllerDelegate {
@@ -1267,32 +1149,7 @@ extension StoryCameraViewController: PhotosPickerViewControllerDelegate {
     }
 }
 
-// MARK: UICollectionViewDelegate
-extension StoryCameraViewController: UICollectionViewDelegate {
-    
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        if (touch.view?.isDescendant(of: collectionViewStackVIew))! {
-            return false
-        }
-        return true
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if collectionView == self.stopMotionCollectionView {
-            if self.recordingType == .custom {
-                if self.takenVideoUrls.count >= 1 {
-                    let character = self.takenVideoUrls[indexPath.row]
-                    let player = AVPlayer(url: character.url!)
-                    let vc = AVPlayerViewController()
-                    vc.player = player
-                    self.present(vc, animated: true) {
-                        vc.player?.play()
-                    }
-                }
-            }
-        }
-    }
-}
+
 // MARK: Setup Focus View
 extension StoryCameraViewController {
     
@@ -1514,19 +1371,15 @@ extension StoryCameraViewController {
                     self.stopMotionCollectionView.reloadData()
                 }
             }
-            
         } else {
-            
             let currentVideoSeconds = self.videoSegmentSeconds
             if !self.isStopConnVideo && currentVideoSeconds*CGFloat(self.takenVideoUrls.count) < 240 {
-                
                 if (self.recordingType == .handsfree || self.recordingType == .timer) && self.pauseTimerValue > 0 && !nextLevel.isRecording {
                     self.displayCountDown(self.pauseTimerValue)
                 } else {
                     self.isRecording = true
                     self.startRecording()
                 }
-                
             } else {
                 self.showControls()
                 self.isRecording = false
@@ -1537,7 +1390,6 @@ extension StoryCameraViewController {
                 if (self.recordingType == .timer) || (self.recordingType == .photoTimer) {
                     self.recordingType = .normal
                 }
-                
                 self.openPhotoEditorForVideo()
             }
         }
@@ -1555,366 +1407,6 @@ extension StoryCameraViewController {
             break
         }
     }
-    
-}
-
-extension StoryCameraViewController: CountdownViewDelegate {
-    
-    func capturePhoto() {
-        self.photoTapGestureRecognizer?.isEnabled = false
-        self.addFlashView()
-        NextLevel.shared.torchMode = flashMode
-        let when = DispatchTime.now() + 0.8
-        DispatchQueue.main.asyncAfter(deadline: when, execute: {
-            AudioServicesPlaySystemSound(1108)
-            NextLevel.shared.capturePhotoFromVideo()
-        })
-    }
-    
-    func addFlashView() {
-        guard self.flashMode == .on, self.currentCameraPosition == .front else { return }
-        self.flashView = UIView(frame: self.previewView?.bounds ?? self.view.bounds)
-        self.flashView?.backgroundColor = .white
-        previewView?.addSubview(self.flashView ?? UIView())
-        self.currentBrightness = UIScreen.main.brightness
-        UIScreen.main.brightness = 1.0
-    }
-    
-    func removeFlashView() {
-        guard self.flashMode == .on, self.currentCameraPosition == .front else { return }
-        for v in (previewView?.subviews ?? []) {
-            if v == self.flashView {
-                v.removeFromSuperview()
-                UIScreen.main.brightness = self.currentBrightness
-            }
-        }
-    }
-    
-    func countdownFinished(_ view: CountdownView?) {
-        isCountDownStarted = false
-        sfCountdownView.stop()
-        sfCountdownView.isHidden = true
-        self.view.sendSubviewToBack(self.sfCountdownView)
-        if photoTimerValue > 0 {
-            if self.recordingType != .capture {
-                recordingType = .photoTimer
-            }
-            capturePhoto()
-        } else {
-            isRecording = true
-            if self.recordingType != .capture {
-                recordingType = .timer
-                self.startRecording()
-            } else {
-                capturePhoto()
-            }
-        }
-    }
-    
-}
-
-// MARK: Record Button Gestures
-extension StoryCameraViewController: UIGestureRecognizerDelegate {
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let point = touches.first?.location(in: self.baseView)
-        setScrollViewEvent(point: point)
-    }
-    
-    func setScrollViewEvent(point: CGPoint?) {
-        if point != nil {
-            if self.speedSliderView.frame.contains(point!) {
-                isPageScrollEnable = false
-            } else {
-                scrollChanges()
-            }
-        } else {
-            scrollChanges()
-        }
-    }
-    
-    func scrollChanges() {
-        if recordingType == .slideshow || recordingType == .collage {
-            if !takenSlideShowImages.isEmpty {
-                isPageScrollEnable = false
-            } else {
-                isPageScrollEnable = true
-            }
-        } else {
-            isPageScrollEnable = !isRecording
-        }
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        scrollChanges()
-    }
-    
-    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        let point = gestureRecognizer.location(in: self.baseView)
-        setScrollViewEvent(point: point)
-        return true
-    }
-    
-    @objc internal func handleLongPressGestureRecognizer(_ gestureRecognizer: UIGestureRecognizer) {
-        if self.recordingType == .slideshow || self.recordingType == .collage {
-            return
-        }
-        
-        if recordingType != .boomerang && recordingType != .custom {
-            
-            if isCountDownStarted {
-                isCountDownStarted = false
-                sfCountdownView.stop()
-                sfCountdownView.isHidden = true
-                recordingType = .normal
-                timerValue = 0
-                resetCountDown()
-                selectedTimerLabel.text = ""
-                timerButton.setImage(R.image.storyTimerWithTick(), for: UIControl.State.normal)
-            }
-            
-            if timerValue > 0 || (recordingType == .handsfree || recordingType == .timer) || !sfCountdownView.isHidden {
-                return
-            }
-            
-            if timerValue > 0 && !nextLevel.isRecording {
-                self.displayCountDown(timerValue)
-                return
-            }
-            
-        }
-        
-        switch gestureRecognizer.state {
-        case .began:
-            recoredButtonCenterPoint = circularProgress.center
-            startRecording()
-            isRecording = true
-            self.view.bringSubviewToFront(slowVerticalBar.superview ?? UIView())
-            slowVerticalBar.isHidden = false
-            fastVerticalBar.isHidden = false
-            self._panStartPoint = gestureRecognizer.location(in: self.view)
-            self._panStartZoom = CGFloat(nextLevel.videoZoomFactor)
-            break
-        case .changed:
-            
-            let translation = gestureRecognizer.location(in: circularProgress)
-            circularProgress.center = CGPoint(x: circularProgress.center.x + translation.x - 35,
-                                              y: circularProgress.center.y + translation.y - 35)
-            
-            let newPoint = gestureRecognizer.location(in: self.view)
-            
-            let zoomEndPoint: CGFloat = self.view.center.y - 50.0
-            let maxZoom = 10.0
-            var newZoom = CGFloat(maxZoom) - ((zoomEndPoint - newPoint.y) / (zoomEndPoint - self._panStartPoint.y) * CGFloat(maxZoom))
-            newZoom += lastZoomFactor
-            let minZoom = max(1.0, newZoom)
-            nextLevel.videoZoomFactor = Float(minZoom)
-            self.zoomSlider.value = Float(minZoom)
-            
-            let normalPart = (UIScreen.main.bounds.width * CGFloat(142.5)) / 375
-            let screenPart = Int((UIScreen.main.bounds.width - normalPart) / 4)
-            
-            if recordingType != .boomerang {
-                if abs((Int(self._panStartPoint.x) - Int(newPoint.x))) > 50 {
-                    let difference = abs((Int(self._panStartPoint.x) - Int(newPoint.x))) - 50
-                    if (Int(self._panStartPoint.x) - Int(newPoint.x)) > 0 {
-                        if difference > screenPart {
-                            if videoSpeedType != VideoSpeedType.slow(scaleFactor: 3.0) {
-                                DispatchQueue.main.async {
-                                    if Defaults.shared.isPro {
-                                        self.nextLevel.videoConfiguration.timescale = 3
-                                        self.setSpeed(type: .slow(scaleFactor: 3.0),
-                                                      value: 0,
-                                                      text: "Slow 3x")
-                                    } else {
-                                        self.setNormalSpeed()
-                                    }
-                                }
-                            }
-                        } else {
-                            if videoSpeedType != VideoSpeedType.slow(scaleFactor: 2.0) {
-                                DispatchQueue.main.async {
-                                    if Defaults.shared.isPro {
-                                        self.nextLevel.videoConfiguration.timescale = 2
-                                        self.setSpeed(type: .slow(scaleFactor: 2.0),
-                                                      value: 1,
-                                                      text: "Slow 2x")
-                                    } else {
-                                        self.setNormalSpeed()
-                                    }
-                                }
-                            }
-                        }
-                        
-                    } else {
-                        if difference > screenPart {
-                            if videoSpeedType != VideoSpeedType.fast(scaleFactor: 3.0) {
-                                DispatchQueue.main.async {
-                                    if Defaults.shared.isPro {
-                                        self.nextLevel.videoConfiguration.timescale = 1/3
-                                        self.setSpeed(type: .fast(scaleFactor: 3.0),
-                                                      value: 4,
-                                                      text: "Fast 3x")
-                                    } else {
-                                        self.setNormalSpeed()
-                                    }
-                                }
-                            }
-                        } else {
-                            if videoSpeedType != VideoSpeedType.fast(scaleFactor: 2.0) {
-                                DispatchQueue.main.async {
-                                    if Defaults.shared.isPro {
-                                        self.nextLevel.videoConfiguration.timescale = 1/2
-                                        self.setSpeed(type: .fast(scaleFactor: 2.0),
-                                                      value: 3,
-                                                      text: "Fast 2x")
-                                    } else {
-                                        self.setNormalSpeed()
-                                    }
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    if !isSpeedChanged {
-                        if speedSlider.speedType == .normal {
-                            if videoSpeedType != VideoSpeedType.normal {
-                                DispatchQueue.main.async {
-                                    self.setNormalSpeed()
-                                }
-                            }
-                        }
-                    } else {
-                        if videoSpeedType != VideoSpeedType.normal {
-                            DispatchQueue.main.async {
-                                self.setNormalSpeed()
-                            }
-                        }
-                    }
-                }
-            }
-            break
-        case .ended:
-            DispatchQueue.main.async {
-                self.circularProgress.center = self.recoredButtonCenterPoint
-                self.speedLabel.text = ""
-                self.speedLabel.stopBlink()
-                if self.recordingType == .boomerang || self.recordingType != .handsfree || self.recordingType == .timer {
-                    self.isStopConnVideo = true
-                    self.stopRecording()
-                }
-            }
-            fallthrough
-        case .cancelled:
-            fallthrough
-        case .failed:
-            fallthrough
-        default:
-            break
-        }
-    }
-    
-    func setSpeed(type: VideoSpeedType, value: Int, text: String) {
-        self.videoSpeedType = type
-        self.speedSliderLabels.value = UInt(value)
-        self.speedSlider.value = CGFloat(value)
-        self.isSpeedChanged = true
-        self.speedLabel.text = text
-        self.speedLabel.startBlink()
-        self.view.bringSubviewToFront(self.speedLabel)
-    }
-    
-    func setNormalSpeed() {
-        self.videoSpeedType = .normal
-        self.speedSliderLabels.value = 2
-        self.speedSlider.value = 2
-        self.speedLabel.text = ""
-        self.speedLabel.stopBlink()
-        nextLevel.videoConfiguration.timescale = 1
-    }
-    
-    @objc internal func handlePhotoTapGestureRecognizer(_ gestureRecognizer: UIGestureRecognizer) {
-        
-        if self.recordingType == .custom {
-            return
-        }
-        
-        if self.recordingType == .slideshow || self.recordingType == .collage {
-            capturePhoto()
-            return
-        }
-        
-        if recordingType == .boomerang {
-            if !isRecording {
-                isRecording = true
-                startRecording()
-            } else {
-                self.isStopConnVideo = true
-                stopRecording()
-            }
-            return
-        }
-        
-        if isCountDownStarted {
-            isCountDownStarted = false
-            sfCountdownView.stop()
-            sfCountdownView.isHidden = true
-            if pauseTimerValue > 0 && isRecording && (recordingType == .handsfree || recordingType == .timer) {
-                DispatchQueue.main.async {
-                    self.isStopConnVideo = true
-                    self.setupForPreviewScreen()
-                }
-                return
-            } else if timerValue > 0 {
-                recordingType = .normal
-                timerValue = 0
-                resetCountDown()
-                selectedTimerLabel.text = ""
-                timerButton.setImage(R.image.storyTimerWithTick(), for: UIControl.State.normal)
-            } else if photoTimerValue > 0 {
-                recordingType = .normal
-                photoTimerValue = 0
-                resetPhotoCountDown()
-                selectedTimerLabel.text = ""
-                timerButton.setImage(R.image.storyTimerWithTick(), for: UIControl.State.normal)
-            }
-        }
-        
-        if timerValue > 0 && !nextLevel.isRecording {
-            self.displayCountDown(timerValue)
-            return
-        }
-        
-        if photoTimerValue > 0 && !nextLevel.isRecording {
-            self.displayCountDown(photoTimerValue)
-            return
-        }
-        
-        if recordingType != .boomerang && recordingType != .handsfree && recordingType != .timer {
-            if recordingType == .capture && closeButton.isSelected {
-                if !isRecording {
-                    isRecording = true
-                    startRecording()
-                } else {
-                    self.isStopConnVideo = true
-                    stopRecording()
-                }
-            } else {
-                if !isRecording {
-                    capturePhoto()
-                }
-            }
-        } else if recordingType == .handsfree || recordingType == .timer {
-            if !isRecording {
-                isRecording = true
-                startRecording()
-            } else {
-                self.isStopConnVideo = true
-                stopRecording()
-            }
-        }
-    }
-    
 }
 
 extension StoryCameraViewController {
@@ -1973,320 +1465,6 @@ extension StoryCameraViewController {
         photoEditor.storiType = storiType
         photoEditor.storySelectionDelegate = storySelectionDelegate
         return photoEditor
-    }
-    
-}
-
-extension StoryCameraViewController: OuttakesTakenDelegate {
-    func didTakeOuttakes(_ message: String) {
-        self.view.makeToast(message, duration: 2.0, position: .bottom)
-    }
-}
-
-extension StoryCameraViewController: CollageMakerVCDelegate {
-    
-    func didSelectImage(image: UIImage) {
-        let photoEditor = getPhotoEditor(storiType: .collage)
-        photoEditor.image = image
-        self.navigationController?.pushViewController(photoEditor, animated: false)
-        self.removeData()
-    }
-}
-
-// MARK: PickerViewDataSource
-extension StoryCameraViewController: PickerViewDataSource {
-    
-    public func pickerViewNumberOfRows(_ pickerView: PickerView) -> Int {
-        
-        switch timerType {
-        case .timer:
-            return timerOptions.count
-        case .pauseTimer:
-            return pauseTimerOptions.count
-        case .segmentLength:
-            return segmentLengthOptions.count
-        case .photoTimer:
-            return photoTimerOptions.count
-        }
-        
-    }
-    
-    public func pickerView(_ pickerView: PickerView, titleForRow row: Int, index: Int) -> String {
-        
-        switch timerType {
-        case .timer:
-            return timerOptions[index]
-        case .pauseTimer:
-            return pauseTimerOptions[index]
-        case .segmentLength:
-            return segmentLengthOptions[index]
-        case .photoTimer:
-            return photoTimerOptions[index]
-        }
-        
-    }
-    
-}
-// MARK: PickerViewDelegate
-extension StoryCameraViewController: PickerViewDelegate {
-    
-    public func pickerViewHeightForRows(_ pickerView: PickerView) -> CGFloat {
-        return 134.0
-    }
-    
-    public func pickerView(_ pickerView: PickerView, didSelectRow row: Int, index: Int) {
-        print(index)
-    }
-    
-    public func pickerView(_ pickerView: PickerView, styleForLabel label: UILabel, highlighted: Bool) {
-        
-        if timerType == .segmentLength {
-            pickerView.selectionTitle.text = R.string.localizable.seconds()
-        } else {
-            if pickerView.currentSelectedRow == 0 {
-                pickerView.selectionTitle.text = ""
-            } else {
-                pickerView.selectionTitle.text = R.string.localizable.seconds()
-            }
-        }
-        
-        label.font = R.font.sfuiTextHeavy(size: 35 * UIScreen.main.bounds.width/414)
-        
-        if highlighted {
-            label.textColor = ApplicationSettings.appWhiteColor
-        } else {
-            label.textColor = ApplicationSettings.appWhiteColor.withAlphaComponent(0.75)
-        }
-        
-    }
-    
-    public func pickerView(_ pickerView: PickerView, viewForRow row: Int, index: Int, highlighted: Bool, reusingView view: UIView?) -> UIView? {
-        return nil
-    }
-    
-}
-// MARK: StoryUploadDelegate
-extension StoryCameraViewController: StoryUploadDelegate {
-    
-    func didUpdateBytes(_ progress: Double, _ totalFile: Double, _ storyData: StoryData) {
-        firstUploadCompletedSize = progress
-    }
-    
-    func didCompletedStory() {
-        reloadUploadViewData()
-    }
-    
-    func didChangeThumbImage(_ image: UIImage) {
-        DispatchQueue.main.async {
-            self.storyUploadImageView?.image = image
-        }
-    }
-    
-    func didUpdateProgress(_ progress: Double) {
-        DispatchQueue.main.async {
-            var percentage = progress
-            if percentage > 100.0 {
-                percentage = 100.0
-            }
-            self.firstPercentage = percentage
-            self.lblStoryPercentage.text = "\(Int(percentage * 100))%"
-        }
-    }
-    
-    func didChangeStoryCount(_ storyCount: String) {
-        DispatchQueue.main.async {
-            if storyCount == "" {
-                self.storyUploadView.isHidden = true
-                self.storyUploadView.alpha = 0
-            } else {
-                self.lblStoryCount.text = storyCount
-                self.storyUploadView.isHidden = false
-                self.storyUploadView.alpha = 1
-            }
-        }
-    }
-    
-    func reloadUploadViewData() {
-        var storyUploads: [StoryData] = []
-        for storyUploadData in storyUploadManager.getStoryUploadDataNotCompleted() {
-            for storyData in storyUploadData.storyData?.allObjects as? [StoryData] ?? [] {
-                if !storyData.isCompleted {
-                    storyUploads.append(storyData)
-                }
-            }
-        }
-        self.storyUploadView.isHidden = (storyUploads.isEmpty)
-    }
-}
-// MARK: KDDragAndDropCollectionViewDataSource
-extension StoryCameraViewController: KDDragAndDropCollectionViewDataSource {
-    
-    // MARK: KDDragAndDropCollectionViewDataSource
-    func collectionView(_ collectionView: UICollectionView, dataItemForIndexPath indexPath: IndexPath) -> AnyObject {
-        return takenVideoUrls[indexPath.item]
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, insertDataItem dataItem: AnyObject, atIndexPath indexPath: IndexPath) {
-        if let di = dataItem as? SegmentVideos {
-            takenVideoUrls.insert(di, at: indexPath.item)
-        }
-    }
-    func collectionView(_ collectionView: UICollectionView, deleteDataItemAtIndexPath indexPath: IndexPath) {
-        takenVideoUrls.remove(at: indexPath.item)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, moveDataItemFromIndexPath from: IndexPath, toIndexPath to: IndexPath) {
-        if isDisableResequence {
-            return
-        }
-    }
-    
-    public func collectionView(_ collectionView: UICollectionView, indexPathForDataItem dataItem: AnyObject) -> IndexPath? {
-        
-        guard let candidate = dataItem as? SegmentVideos else { return nil }
-        
-        for (i, item) in takenVideoUrls.enumerated() {
-            if candidate.id != item.id {
-                continue
-            }
-            return IndexPath(item: i, section: 0)
-        }
-        
-        return nil
-    }
-    
-    public func collectionView(_ collectionView: UICollectionView, cellIsDraggableAtIndexPath indexPath: IndexPath) -> Bool {
-        if recordingType == .custom {
-            return true
-        }
-        return false
-    }
-    
-    public func collectionViewEdgesAndScroll(_ collectionView: UICollectionView, rect: CGRect) {
-        
-        if isDisableResequence {
-            let newrect = rect.origin.y + collectionViewStackVIew.frame.origin.y
-            let newrectData = CGRect.init(x: rect.origin.x + 20, y: newrect, width: rect.width, height: rect.height)
-            
-            let checkframeDelete = deleteView.frame
-            
-            if checkframeDelete.intersects(newrectData) == true {
-                UIView.animate(withDuration: 0.1, animations: { [weak self] () -> Void in
-                    guard let strongSelf = self else { return }
-                    strongSelf.setStickerObject(view: strongSelf.deleteView)
-                })
-            } else {
-                self.setDeleteFrame(view: deleteView)
-            }
-        }
-    }
-    
-    public func collectionViewLastEdgesAndScroll(_ collectionView: UICollectionView, rect: CGRect) {
-        if isDisableResequence {
-            let newrect = rect.origin.y + collectionViewStackVIew.frame.origin.y
-            let newrectData = CGRect.init(x: rect.origin.x + 20, y: newrect, width: rect.width, height: rect.height)
-            if deleteView.frame.intersects(newrectData) {
-                if draggingCell != nil {
-                    self.totalDurationOfOneSegment = totalDurationOfOneSegment - self.getDurationOf(videoPath: takenVideoUrls[draggingCell!.item].url!)
-                    let album = SCAlbum.shared
-                    album.albumName = "\(Constant.Application.displayName) – Recycle"
-                    album.saveMovieToLibrary(movieURL: takenVideoUrls[draggingCell!.item].url!)
-                    DispatchQueue.main.async {
-                        self.takenVideoUrls.remove(at: self.draggingCell!.item)
-                        self.stopMotionCollectionView.reloadData()
-                    }
-                }
-            }
-        }
-    }
-    
-    // Delegate for highlighting Delete Button
-    func setStickerObject(view: UIView) {
-        UIView.animate(withDuration: 0.2) { () -> Void in
-            view.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
-        }
-        
-    }
-    
-    // Delegate for delete button Normal Position
-    func setDeleteFrame(view: UIView) {
-        UIView.animate(withDuration: 0.2) { () -> Void in
-            view.transform = CGAffineTransform(scaleX: 1, y: 1)
-        }
-    }
-    
-}
-extension StoryCameraViewController {
-    
-    func removeGesturesOf(view: UIView) {
-        guard let gestures = view.gestureRecognizers else {
-            return
-        }
-        for gesture in gestures {
-            view.removeGestureRecognizer(gesture)
-        }
-    }
-    
-    func addGesturesTo(view: UIView) {
-        view.isUserInteractionEnabled = true
-        
-        replyQuePanGesture = UIPanGestureRecognizer(target: self,
-                                                    action: #selector(replyQuePanGesture(_:)))
-        replyQuePanGesture?.minimumNumberOfTouches = 1
-        replyQuePanGesture?.maximumNumberOfTouches = 1
-        replyQuePanGesture?.delegate = self
-        view.addGestureRecognizer(replyQuePanGesture!)
-        
-        replyQuePinchGesture = UIPinchGestureRecognizer(target: self,
-                                                        action: #selector(replyQuePinchGesture(_:)))
-        replyQuePinchGesture?.delegate = self
-        view.addGestureRecognizer(replyQuePinchGesture!)
-        
-        replyQueRotationGestureRecognizer = UIRotationGestureRecognizer(target: self,
-                                                                        action: #selector(replyQueRotationGestureRecognizer(_:)))
-        replyQueRotationGestureRecognizer?.delegate = self
-        view.addGestureRecognizer(replyQueRotationGestureRecognizer!)
-        
-    }
-    
-    @objc func replyQuePanGesture(_ recognizer: UIPanGestureRecognizer) {
-        if recognizer.state == .began {
-            isPageScrollEnable = false
-        }
-        if recognizer.state == .ended {
-            isPageScrollEnable = true
-        }
-        if let view = recognizer.view {
-            view.center = CGPoint(x: view.center.x + recognizer.translation(in: self.baseView).x,
-                                  y: view.center.y + recognizer.translation(in: self.baseView).y)
-            recognizer.setTranslation(CGPoint.zero, in: self.baseView)
-        }
-    }
-    
-    @objc func replyQuePinchGesture(_ recognizer: UIPinchGestureRecognizer) {
-        if recognizer.state == .began {
-            isPageScrollEnable = false
-        }
-        if recognizer.state == .ended {
-            isPageScrollEnable = true
-        }
-        if let view = recognizer.view {
-            view.transform = view.transform.scaledBy(x: recognizer.scale, y: recognizer.scale)
-            recognizer.scale = 1
-        }
-    }
-    
-    @objc func replyQueRotationGestureRecognizer(_ recognizer: UIRotationGestureRecognizer) {
-        if recognizer.state == .began {
-            isPageScrollEnable = false
-        }
-        if recognizer.state == .ended {
-            isPageScrollEnable = true
-        }
-        if let view = recognizer.view {
-            view.transform = view.transform.rotated(by: recognizer.rotation)
-            recognizer.rotation = 0
-        }
     }
     
 }

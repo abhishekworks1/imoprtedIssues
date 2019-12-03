@@ -150,8 +150,8 @@ class AssetVideoScrollView: UIScrollView {
     }
 
     private func displayFirstImage(_ cgImage: CGImage, visibleThumbnails: Int) {
-        for i in 0...visibleThumbnails {
-            displayImage(cgImage, at: i)
+        for index in 0...visibleThumbnails {
+            displayImage(cgImage, at: index)
         }
     }
 

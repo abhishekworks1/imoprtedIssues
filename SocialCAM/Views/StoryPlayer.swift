@@ -35,7 +35,7 @@ protocol StoryPlayerDelegate: class {
      Called when the player has setup the renderer so it can receive the image in the
      proper orientation.
      */
-    func player(_ player: StoryPlayer, didSetupSCImageView StoryImageView: StoryImageView)
+    func player(_ player: StoryPlayer, didSetupSCImageView storyImageView: StoryImageView)
     
     /**
      Called when the item has updated the time ranges that have been loaded
@@ -58,7 +58,7 @@ extension StoryPlayerDelegate {
     
     func player(_ player: StoryPlayer, itemReadyToPlay item: AVPlayerItem) { }
     
-    func player(_ player: StoryPlayer, didSetupSCImageView StoryImageView: StoryImageView) { }
+    func player(_ player: StoryPlayer, didSetupSCImageView storyImageView: StoryImageView) { }
     
     func player(_ player: StoryPlayer, didUpdateLoadedTimeRanges timeRange: CMTimeRange) { }
 

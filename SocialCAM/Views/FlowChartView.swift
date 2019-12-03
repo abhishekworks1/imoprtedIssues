@@ -95,18 +95,18 @@ class FlowDotView: UIView {
 
 class VideoSpeedPoint: CustomStringConvertible {
     
-    var x: CGFloat
-    var y: CGFloat
+    var xValue: CGFloat
+    var yValue: CGFloat
     var value: Int
     
-    init(x: CGFloat, y: CGFloat, value: Int) {
-        self.x = x
-        self.y = y
+    init(xValue: CGFloat, yValue: CGFloat, value: Int) {
+        self.xValue = xValue
+        self.yValue = yValue
         self.value = value
     }
     
     var description: String {
-        return "\n======\n========\nx: \(x)\ny: \(y)\nvalue: \(value)"
+        return "\n======\n========\nx: \(xValue)\ny: \(yValue)\nvalue: \(value)"
     }
     
 }
@@ -334,19 +334,19 @@ class FlowChartView: UIView {
 
         path.move(to: currentPoint)
         
-        for i in stride(from: firstIndex, to: lastIndex, by: 1) {
+        for index in stride(from: firstIndex, to: lastIndex, by: 1) {
             var controlPointPre: CGPoint = .zero
             var controlPointSub: CGPoint = .zero
             
-            newPoint = points[i]
+            newPoint = points[index]
             
             let midPoint = CGPoint(x: (currentPoint.x + newPoint.x)/2.0,
                                    y: (currentPoint.y + newPoint.y)/2.0)
             
             if currentPoint.y > newPoint.y {
-                let y =  currentPoint.y > midPoint.y ? currentPoint.y : midPoint.y
-                let x = (currentPoint.x + midPoint.x)/2.0
-                controlPointPre = CGPoint(x: x, y: y)
+                let yValue =  currentPoint.y > midPoint.y ? currentPoint.y : midPoint.y
+                let xValue = (currentPoint.x + midPoint.x)/2.0
+                controlPointPre = CGPoint(x: xValue, y: yValue)
                 
                 let y1 = midPoint.y > newPoint.y ? newPoint.y : midPoint.y
                 let x1 = (midPoint.x + newPoint.x)/2.0
@@ -356,9 +356,9 @@ class FlowChartView: UIView {
                 let x1 = (currentPoint.x + midPoint.x)/2.0
                 controlPointPre = CGPoint(x: x1, y: y1)
                 
-                let y =  midPoint.y > newPoint.y ? midPoint.y : newPoint.y
-                let x = (midPoint.x + newPoint.x)/2.0
-                controlPointSub = CGPoint(x: x, y: y)
+                let yValue =  midPoint.y > newPoint.y ? midPoint.y : newPoint.y
+                let xValue = (midPoint.x + newPoint.x)/2.0
+                controlPointSub = CGPoint(x: xValue, y: yValue)
             }
             
             path.addCurve(to: newPoint,
@@ -373,8 +373,8 @@ class FlowChartView: UIView {
     public func getSpeedValues() -> [VideoSpeedPoint] {
         var speedValues = [VideoSpeedPoint]()
         for dotView in dotViews {
-            speedValues.append(VideoSpeedPoint(x: dotView.center.x,
-                                               y: dotView.center.y,
+            speedValues.append(VideoSpeedPoint(xValue: dotView.center.x,
+                                               yValue: dotView.center.y,
                                                value: dotView.speedValue))
         }
         return speedValues

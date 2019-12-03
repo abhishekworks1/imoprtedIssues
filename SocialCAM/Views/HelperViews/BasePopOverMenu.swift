@@ -39,19 +39,19 @@ extension BasePopOverMenu {
 
 public class BasePopConfiguration: NSObject {
     
-    public var menuRowHeight: CGFloat = DefaultMenuRowHeight
-    public var menuWidth: CGFloat = DefaultMenuWidth
+    public var menuRowHeight: CGFloat = defaultMenuRowHeight
+    public var menuWidth: CGFloat = defaultMenuWidth
     public var showCheckMark: UITableViewCell.AccessoryType = .none
     public var textColor: UIColor = ApplicationSettings.appBlackColor
     public var textFont: UIFont = UIFont.systemFont(ofSize: 14)
-    public var borderColor: UIColor = DefaultTintColor
-    public var borderWidth: CGFloat = DefaultBorderWidth
-    public var backgoundTintColor: UIColor = DefaultTintColor
-    public var cornerRadius: CGFloat = DefaultCornerRadius
+    public var borderColor: UIColor = defaultTintColor
+    public var borderWidth: CGFloat = defaultBorderWidth
+    public var backgoundTintColor: UIColor = defaultTintColor
+    public var cornerRadius: CGFloat = defaultCornerRadius
     public var textAlignment: NSTextAlignment = NSTextAlignment.left
     public var ignoreImageOriginalColor: Bool = false
     public var menuSeparatorColor: UIColor = ApplicationSettings.appLightGrayColor
-    public var menuSeparatorInset: UIEdgeInsets = UIEdgeInsets(top: 0, left: DefaultCellMargin, bottom: 0, right: DefaultCellMargin)
+    public var menuSeparatorInset: UIEdgeInsets = UIEdgeInsets(top: 0, left: defaultCellMargin, bottom: 0, right: defaultCellMargin)
     public var cellSelectionStyle: UITableViewCell.SelectionStyle = .none
     
     public static var shared: BasePopConfiguration {
@@ -63,24 +63,24 @@ public class BasePopConfiguration: NSObject {
     
 }
 
-private let DefaultMargin: CGFloat = 4
-private let DefaultCellMargin: CGFloat = 6
-private let DefaultMenuIconSize: CGFloat = 24
-private let DefaultMenuCornerRadius: CGFloat = 4
-private let DefaultMenuArrowWidth: CGFloat = 8
-private let DefaultMenuArrowHeight: CGFloat = 10
-private let DefaultAnimationDuration: TimeInterval = 0.2
-private let DefaultBorderWidth: CGFloat = 0.5
-private let DefaultCornerRadius: CGFloat = 6
-private let DefaultMenuRowHeight: CGFloat = 40
-private let DefaultMenuWidth: CGFloat = 120
-private let DefaultTintColor: UIColor = ApplicationSettings.appWhiteColor
+private let defaultMargin: CGFloat = 4
+private let defaultCellMargin: CGFloat = 6
+private let defaultMenuIconSize: CGFloat = 24
+private let defaultMenuCornerRadius: CGFloat = 4
+private let defaultMenuArrowWidth: CGFloat = 8
+private let defaultMenuArrowHeight: CGFloat = 10
+private let defaultAnimationDuration: TimeInterval = 0.2
+private let defaultBorderWidth: CGFloat = 0.5
+private let defaultCornerRadius: CGFloat = 6
+private let defaultMenuRowHeight: CGFloat = 40
+private let defaultMenuWidth: CGFloat = 120
+private let defaultTintColor: UIColor = ApplicationSettings.appWhiteColor
 
-private let BasePopOverMenuTableViewCellIndentifier: String = "BasePopOverMenuTableViewCellIndentifier"
+private let basePopOverMenuTableViewCellIndentifier: String = "BasePopOverMenuTableViewCellIndentifier"
 
 private enum BasePopOverMenuArrowDirection {
-    case Up
-    case Down
+    case up
+    case down
 }
 
 public class BasePopOverMenu: NSObject {
@@ -180,7 +180,7 @@ public class BasePopOverMenu: NSObject {
     
     fileprivate func getAnchorPointForPopMenu() -> CGPoint {
         var anchorPoint = CGPoint(x: menuArrowPoint.x / popMenuFrame.size.width, y: 0)
-        if arrowDirection == .Down {
+        if arrowDirection == .down {
             anchorPoint = CGPoint(x: menuArrowPoint.x / popMenuFrame.size.width, y: 1)
         }
         return anchorPoint
@@ -190,9 +190,9 @@ public class BasePopOverMenu: NSObject {
     fileprivate var popMenuOriginX: CGFloat = 0
     fileprivate var popMenuFrame: CGRect = CGRect.zero
     fileprivate var menuArrowPoint: CGPoint = CGPoint.zero
-    fileprivate var arrowDirection: BasePopOverMenuArrowDirection = .Up
+    fileprivate var arrowDirection: BasePopOverMenuArrowDirection = .up
     fileprivate var popMenuHeight: CGFloat {
-        return configuration.menuRowHeight * CGFloat(self.menuNameArray.count) + DefaultMenuArrowHeight
+        return configuration.menuRowHeight * CGFloat(self.menuNameArray.count) + defaultMenuArrowHeight
     }
     
     fileprivate func configureSenderRect() {
@@ -208,22 +208,22 @@ public class BasePopOverMenu: NSObject {
         senderRect.origin.y = min(UIScreen.height, senderRect.origin.y)
         
         if senderRect.origin.y + senderRect.size.height / 2 < UIScreen.height / 2 {
-            arrowDirection = .Up
+            arrowDirection = .up
         } else {
-            arrowDirection = .Down
+            arrowDirection = .down
         }
     }
     
     fileprivate func configurePopMenuOriginX() {
         var senderXCenter: CGPoint = CGPoint(x: senderRect.origin.x + (senderRect.size.width) / 2, y: 0)
-        let menuCenterX: CGFloat = configuration.menuWidth / 2 + DefaultMargin
+        let menuCenterX: CGFloat = configuration.menuWidth / 2 + defaultMargin
         var menuX: CGFloat = 0
         if (senderXCenter.x + menuCenterX > UIScreen.width) {
-            senderXCenter.x = min(senderXCenter.x - (UIScreen.width - configuration.menuWidth - DefaultMargin), configuration.menuWidth - DefaultMenuArrowWidth - DefaultMargin)
-            menuX = UIScreen.width - configuration.menuWidth - DefaultMargin
+            senderXCenter.x = min(senderXCenter.x - (UIScreen.width - configuration.menuWidth - defaultMargin), configuration.menuWidth - defaultMenuArrowWidth - defaultMargin)
+            menuX = UIScreen.width - configuration.menuWidth - defaultMargin
         } else if (senderXCenter.x - menuCenterX < 0) {
-            senderXCenter.x = max(DefaultMenuCornerRadius + DefaultMenuArrowWidth, senderXCenter.x - DefaultMargin)
-            menuX = DefaultMargin
+            senderXCenter.x = max(defaultMenuCornerRadius + defaultMenuArrowWidth, senderXCenter.x - defaultMargin)
+            menuX = defaultMargin
         } else {
             senderXCenter.x = configuration.menuWidth / 2
             menuX = senderRect.origin.x + (senderRect.size.width) / 2 - configuration.menuWidth / 2
@@ -236,31 +236,31 @@ public class BasePopOverMenu: NSObject {
         self.configureMenuArrowPoint()
         self.configurePopMenuOriginX()
         
-        if (arrowDirection == .Up) {
+        if (arrowDirection == .up) {
             popMenuFrame = CGRect(x: popMenuOriginX, y: (senderRect.origin.y + senderRect.size.height), width: configuration.menuWidth, height: popMenuHeight)
             if (popMenuFrame.origin.y + popMenuFrame.size.height > UIScreen.height) {
-                popMenuFrame = CGRect(x: popMenuOriginX, y: (senderRect.origin.y + senderRect.size.height), width: configuration.menuWidth, height: UIScreen.height - popMenuFrame.origin.y - DefaultMargin)
+                popMenuFrame = CGRect(x: popMenuOriginX, y: (senderRect.origin.y + senderRect.size.height), width: configuration.menuWidth, height: UIScreen.height - popMenuFrame.origin.y - defaultMargin)
             }
         } else {
             popMenuFrame = CGRect(x: popMenuOriginX, y: (senderRect.origin.y - popMenuHeight), width: configuration.menuWidth, height: popMenuHeight)
             if (popMenuFrame.origin.y < 0) {
-                popMenuFrame = CGRect(x: popMenuOriginX, y: DefaultMargin, width: configuration.menuWidth, height: senderRect.origin.y - DefaultMargin)
+                popMenuFrame = CGRect(x: popMenuOriginX, y: defaultMargin, width: configuration.menuWidth, height: senderRect.origin.y - defaultMargin)
             }
         }
     }
     
     fileprivate func configureMenuArrowPoint() {
         var point: CGPoint = CGPoint(x: senderRect.origin.x + (senderRect.size.width) / 2, y: 0)
-        let menuCenterX: CGFloat = configuration.menuWidth / 2 + DefaultMargin
+        let menuCenterX: CGFloat = configuration.menuWidth / 2 + defaultMargin
         if senderRect.origin.y + senderRect.size.height / 2 < UIScreen.height / 2 {
             point.y = 0
         } else {
             point.y = popMenuHeight
         }
         if (point.x + menuCenterX > UIScreen.width) {
-            point.x = min(point.x - (UIScreen.width - configuration.menuWidth - DefaultMargin), configuration.menuWidth - DefaultMenuArrowWidth - DefaultMargin)
+            point.x = min(point.x - (UIScreen.width - configuration.menuWidth - defaultMargin), configuration.menuWidth - defaultMenuArrowWidth - defaultMargin)
         } else if (point.x - menuCenterX < 0) {
-            point.x = max(DefaultMenuCornerRadius + DefaultMenuArrowWidth, point.x - DefaultMargin)
+            point.x = max(defaultMenuCornerRadius + defaultMenuArrowWidth, point.x - defaultMargin)
         } else {
             point.x = configuration.menuWidth / 2
         }
@@ -275,7 +275,7 @@ public class BasePopOverMenu: NSObject {
         if self.isOnScreen == false {
             self.isOnScreen = true
             popOverMenu.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
-            UIView.animate(withDuration: DefaultAnimationDuration, animations: {
+            UIView.animate(withDuration: defaultAnimationDuration, animations: {
                 self.popOverMenu.alpha = 1
                 self.popOverMenu.transform = CGAffineTransform(scaleX: 1, y: 1)
             })
@@ -288,7 +288,7 @@ public class BasePopOverMenu: NSObject {
     }
     
     fileprivate func doneActionWithSelectedIndex(selectedIndex: NSInteger) {
-        UIView.animate(withDuration: DefaultAnimationDuration,
+        UIView.animate(withDuration: defaultAnimationDuration,
                        animations: {
                         self.popOverMenu.alpha = 0
                         self.popOverMenu.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
@@ -377,7 +377,7 @@ private class BasePopOverMenuView: UIControl {
     fileprivate var menuNameArray: [String]!
     fileprivate var selectedName: String?
     fileprivate var menuImageArray: [UIImage]?
-    fileprivate var arrowDirection: BasePopOverMenuArrowDirection = .Up
+    fileprivate var arrowDirection: BasePopOverMenuArrowDirection = .up
     fileprivate var done: ((NSInteger) -> Void)!
     
     fileprivate lazy var configuration: BasePopConfiguration = {
@@ -414,9 +414,9 @@ private class BasePopOverMenuView: UIControl {
     }
     
     fileprivate func repositionMenuTableView() {
-        var menuRect: CGRect = CGRect(x: 0, y: DefaultMenuArrowHeight, width: self.frame.size.width, height: self.frame.size.height - DefaultMenuArrowHeight)
-        if (arrowDirection == .Down) {
-            menuRect = CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height - DefaultMenuArrowHeight)
+        var menuRect: CGRect = CGRect(x: 0, y: defaultMenuArrowHeight, width: self.frame.size.width, height: self.frame.size.height - defaultMenuArrowHeight)
+        if (arrowDirection == .down) {
+            menuRect = CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height - defaultMenuArrowHeight)
         }
         self.menuTableView.frame = menuRect
         self.menuTableView.reloadData()
@@ -451,12 +451,12 @@ private class BasePopOverMenuView: UIControl {
         let path: UIBezierPath = UIBezierPath()
         path.lineJoinStyle = .round
         path.lineCapStyle = .round
-        if (arrowDirection == .Up) {
-            path.move(to: CGPoint(x: arrowPoint.x - DefaultMenuArrowWidth, y: DefaultMenuArrowHeight))
+        if (arrowDirection == .up) {
+            path.move(to: CGPoint(x: arrowPoint.x - defaultMenuArrowWidth, y: defaultMenuArrowHeight))
             path.addLine(to: CGPoint(x: arrowPoint.x, y: 0))
-            path.addLine(to: CGPoint(x: arrowPoint.x + DefaultMenuArrowWidth, y: DefaultMenuArrowHeight))
-            path.addLine(to: CGPoint(x: self.bounds.size.width - radius, y: DefaultMenuArrowHeight))
-            path.addArc(withCenter: CGPoint(x: self.bounds.size.width - radius, y: DefaultMenuArrowHeight + radius),
+            path.addLine(to: CGPoint(x: arrowPoint.x + defaultMenuArrowWidth, y: defaultMenuArrowHeight))
+            path.addLine(to: CGPoint(x: self.bounds.size.width - radius, y: defaultMenuArrowHeight))
+            path.addArc(withCenter: CGPoint(x: self.bounds.size.width - radius, y: defaultMenuArrowHeight + radius),
                         radius: radius,
                         startAngle: .pi / 2 * 3,
                         endAngle: 0,
@@ -473,19 +473,19 @@ private class BasePopOverMenuView: UIControl {
                         startAngle: .pi / 2,
                         endAngle: .pi,
                         clockwise: true)
-            path.addLine(to: CGPoint(x: 0, y: DefaultMenuArrowHeight + radius))
-            path.addArc(withCenter: CGPoint(x: radius, y: DefaultMenuArrowHeight + radius),
+            path.addLine(to: CGPoint(x: 0, y: defaultMenuArrowHeight + radius))
+            path.addArc(withCenter: CGPoint(x: radius, y: defaultMenuArrowHeight + radius),
                         radius: radius,
                         startAngle: .pi,
                         endAngle: .pi / 2 * 3,
                         clockwise: true)
             path.close()
         } else {
-            path.move(to: CGPoint(x: arrowPoint.x - DefaultMenuArrowWidth, y: self.bounds.size.height - DefaultMenuArrowHeight))
+            path.move(to: CGPoint(x: arrowPoint.x - defaultMenuArrowWidth, y: self.bounds.size.height - defaultMenuArrowHeight))
             path.addLine(to: CGPoint(x: arrowPoint.x, y: self.bounds.size.height))
-            path.addLine(to: CGPoint(x: arrowPoint.x + DefaultMenuArrowWidth, y: self.bounds.size.height - DefaultMenuArrowHeight))
-            path.addLine(to: CGPoint(x: self.bounds.size.width - radius, y: self.bounds.size.height - DefaultMenuArrowHeight))
-            path.addArc(withCenter: CGPoint(x: self.bounds.size.width - radius, y: self.bounds.size.height - DefaultMenuArrowHeight - radius),
+            path.addLine(to: CGPoint(x: arrowPoint.x + defaultMenuArrowWidth, y: self.bounds.size.height - defaultMenuArrowHeight))
+            path.addLine(to: CGPoint(x: self.bounds.size.width - radius, y: self.bounds.size.height - defaultMenuArrowHeight))
+            path.addArc(withCenter: CGPoint(x: self.bounds.size.width - radius, y: self.bounds.size.height - defaultMenuArrowHeight - radius),
                         radius: radius,
                         startAngle: .pi / 2,
                         endAngle: 0,
@@ -502,8 +502,8 @@ private class BasePopOverMenuView: UIControl {
                         startAngle: .pi / 2 * 3,
                         endAngle: .pi,
                         clockwise: false)
-            path.addLine(to: CGPoint(x: 0, y: self.bounds.size.height - DefaultMenuArrowHeight - radius))
-            path.addArc(withCenter: CGPoint(x: radius, y: self.bounds.size.height - DefaultMenuArrowHeight - radius),
+            path.addLine(to: CGPoint(x: 0, y: self.bounds.size.height - defaultMenuArrowHeight - radius))
+            path.addArc(withCenter: CGPoint(x: radius, y: self.bounds.size.height - defaultMenuArrowHeight - radius),
                         radius: radius,
                         startAngle: .pi,
                         endAngle: .pi / 2,
@@ -537,7 +537,7 @@ extension BasePopOverMenuView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: BasePopOverMenuCell = BasePopOverMenuCell(style: .default, reuseIdentifier: BasePopOverMenuTableViewCellIndentifier)
+        let cell: BasePopOverMenuCell = BasePopOverMenuCell(style: .default, reuseIdentifier: basePopOverMenuTableViewCellIndentifier)
         var imageName: UIImage?
         if menuImageArray != nil {
             if (menuImageArray?.count)! >= indexPath.row + 1 {
@@ -552,10 +552,13 @@ extension BasePopOverMenuView: UITableViewDataSource {
             cell.separatorInset = configuration.menuSeparatorInset
         }
         cell.selectionStyle = configuration.cellSelectionStyle
-        cell.accessoryType = configuration.showCheckMark
+        
         
         if let selectedItem = selectedName, menuNameArray[indexPath.row] == selectedItem {
             cell.backgroundColor = ApplicationSettings.appLightGrayColor
+            cell.accessoryType = configuration.showCheckMark
+        } else {
+            cell.accessoryType = .none
         }
         
         return cell
@@ -590,14 +593,14 @@ class BasePopOverMenuCell: UITableViewCell {
                     iconImage = iconImage.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
                 }
                 iconImageView.tintColor = configuration.textColor
-                iconImageView.frame = CGRect(x: DefaultCellMargin, y: (configuration.menuRowHeight - DefaultMenuIconSize) / 2, width: DefaultMenuIconSize, height: DefaultMenuIconSize)
+                iconImageView.frame = CGRect(x: defaultCellMargin, y: (configuration.menuRowHeight - defaultMenuIconSize) / 2, width: defaultMenuIconSize, height: defaultMenuIconSize)
                 iconImageView.image = iconImage
-                nameLabel.frame = CGRect(x: DefaultCellMargin * 2 + DefaultMenuIconSize, y: (configuration.menuRowHeight - DefaultMenuIconSize) / 2, width: (configuration.menuWidth - DefaultMenuIconSize - DefaultCellMargin * 3), height: DefaultMenuIconSize)
+                nameLabel.frame = CGRect(x: defaultCellMargin * 2 + defaultMenuIconSize, y: (configuration.menuRowHeight - defaultMenuIconSize) / 2, width: (configuration.menuWidth - defaultMenuIconSize - defaultCellMargin * 3), height: defaultMenuIconSize)
             } else {
-                nameLabel.frame = CGRect(x: DefaultCellMargin, y: 0, width: configuration.menuWidth - DefaultCellMargin * 2, height: configuration.menuRowHeight)
+                nameLabel.frame = CGRect(x: defaultCellMargin, y: 0, width: configuration.menuWidth - defaultCellMargin * 2, height: configuration.menuRowHeight)
             }
         } else {
-            nameLabel.frame = CGRect(x: DefaultCellMargin, y: 0, width: configuration.menuWidth - DefaultCellMargin * 2, height: configuration.menuRowHeight)
+            nameLabel.frame = CGRect(x: defaultCellMargin, y: 0, width: configuration.menuWidth - defaultCellMargin * 2, height: configuration.menuRowHeight)
         }
         nameLabel.font = configuration.textFont
         nameLabel.textColor = configuration.textColor

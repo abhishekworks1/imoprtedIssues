@@ -125,7 +125,7 @@ extension SelectHashTagViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if let delegate = self.delegate {
-            let arrayOfData: [String: Any] = ["id": self.hashSet[indexPath.row]._id!, "hashTags": self.hashSet[indexPath.row].hashTags!, "usedCount": self.hashSet[indexPath.row].usedCount ?? 0]
+            let arrayOfData: [String: Any] = ["id": self.hashSet[indexPath.row].id!, "hashTags": self.hashSet[indexPath.row].hashTags!, "usedCount": self.hashSet[indexPath.row].usedCount ?? 0]
             dictOfSets.append(arrayOfData)
             
             print(dictOfSets)
@@ -143,7 +143,7 @@ extension SelectHashTagViewController: UITableViewDelegate, UITableViewDataSourc
             
             refreshAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (_: UIAlertAction!) in
                 self.activityIndicator.startAnimating()
-                self.deleteHashSet(hashID: self.hashSet[indexPath.row]._id ?? "")
+                self.deleteHashSet(hashID: self.hashSet[indexPath.row].id ?? "")
             }))
             
             refreshAlert.addAction(UIAlertAction(title: "No", style: .default, handler: { (_: UIAlertAction!) in

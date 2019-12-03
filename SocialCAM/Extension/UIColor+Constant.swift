@@ -33,10 +33,10 @@ extension UIColor {
         let scanner = Scanner(string: realHexStr as String)
         var color: UInt32 = 0
         if scanner.scanHexInt32(&color) {
-            let r = CGFloat((color & 0xFF0000) >> 16) / 255.0
-            let g = CGFloat((color & 0x00FF00) >> 8) / 255.0
-            let b = CGFloat(color & 0x0000FF) / 255.0
-            return UIColor(red: r, green: g, blue: b, alpha: alpha)
+            let rValue = CGFloat((color & 0xFF0000) >> 16) / 255.0
+            let gValue = CGFloat((color & 0x00FF00) >> 8) / 255.0
+            let bValue = CGFloat(color & 0x0000FF) / 255.0
+            return UIColor(red: rValue, green: gValue, blue: bValue, alpha: alpha)
         } else {
             print("invalid hex string", terminator: "")
             return ApplicationSettings.appWhiteColor
@@ -118,10 +118,10 @@ extension UIColor {
     }
     
     func rgbtoGrayScale() -> UIColor {
-        var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat=0, a: CGFloat=0
-        _ = self.getRed(&r, green: &g, blue: &b, alpha: &a)
-        let x = (0.3 * r + 0.59 * g + 0.11 * b)
-        let newcolor = UIColor(red: x, green: x, blue: x, alpha: a)
+        var rValue: CGFloat = 0, gValue: CGFloat = 0, bValue: CGFloat=0, aValue: CGFloat=0
+        _ = self.getRed(&rValue, green: &gValue, blue: &bValue, alpha: &aValue)
+        let xValue = (0.3 * rValue + 0.59 * gValue + 0.11 * bValue)
+        let newcolor = UIColor(red: xValue, green: xValue, blue: xValue, alpha: aValue)
         return newcolor
     }
     
@@ -145,29 +145,29 @@ extension UIColor {
         let hex = hexString.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
         var int = UInt32()
         Scanner(string: hex).scanHexInt32(&int)
-        let a, r, g, b: UInt32
+        let aValue, rValue, gValue, bValue: UInt32
         switch hex.count {
         case 3: // RGB (12-bit)
-            (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
+            (aValue, rValue, gValue, bValue) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
         case 6: // RGB (24-bit)
-            (a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
+            (aValue, rValue, gValue, bValue) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
         case 8: // ARGB (32-bit)
-            (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
+            (aValue, rValue, gValue, bValue) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
         default:
-            (a, r, g, b) = (255, 0, 0, 0)
+            (aValue, rValue, gValue, bValue) = (255, 0, 0, 0)
         }
-        self.init(red: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: CGFloat(a) / 255)
+        self.init(red: CGFloat(rValue) / 255, green: CGFloat(gValue) / 255, blue: CGFloat(bValue) / 255, alpha: CGFloat(aValue) / 255)
     }
     
     func toHexString() -> String {
-        var r: CGFloat = 0
-        var g: CGFloat = 0
-        var b: CGFloat = 0
-        var a: CGFloat = 0
+        var rValue: CGFloat = 0
+        var gValue: CGFloat = 0
+        var bValue: CGFloat = 0
+        var aValue: CGFloat = 0
         
-        getRed(&r, green: &g, blue: &b, alpha: &a)
+        getRed(&rValue, green: &gValue, blue: &bValue, alpha: &aValue)
         
-        let rgb: Int = (Int)(r*255)<<16 | (Int)(g*255)<<8 | (Int)(b*255)<<0
+        let rgb: Int = (Int)(rValue*255)<<16 | (Int)(gValue*255)<<8 | (Int)(bValue*255)<<0
         
         return String(format: "#%06x", rgb)
     }

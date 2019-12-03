@@ -460,7 +460,7 @@ class StorySliderQueView: BaseQuestionTagView {
         self.tapEnable = false
         textView.becomeFirstResponder()
         if textView.text.isEmpty {
-            textView.placeHolder = "Ask a question..."
+            textView.placeHolder = R.string.localizable.askMeAQuestion()
         }
     }
     

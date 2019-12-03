@@ -344,10 +344,8 @@ class StoryPollQueView: BaseQuestionTagView {
             switch optionNumber {
             case 1:
                 self.firstOptionView.setCoeff(coeff: 1.0, animated: true)
-                break
             case 2:
                 self.secondOptionView.setCoeff(coeff: 1.0, animated: true)
-                break
             default:
                 break
             }
@@ -365,7 +363,7 @@ class StoryPollQueView: BaseQuestionTagView {
                                and: secondOptionTextView.bounds.size)
         firstOptionTextView.placeholderColor = firstOptionTextView.textColor?.withAlphaComponent(0.5) ?? ApplicationSettings.appLightGrayColor
         secondOptionTextView.placeholderColor = secondOptionTextView.textColor?.withAlphaComponent(0.5) ?? ApplicationSettings.appLightGrayColor
-        textView.placeHolder = "Ask a question..."
+        textView.placeHolder = R.string.localizable.askMeAQuestion()
     }
     
     func updateValues() {

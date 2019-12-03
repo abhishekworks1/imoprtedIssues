@@ -140,8 +140,8 @@ class CoreMLExporter {
                             do {
                                 let styles = try MLMultiArray(shape: [43],
                                                               dataType: .double)
-                                for i in 0..<styles.count {
-                                    styles[i] = 0.0
+                                for indexStyle in 0..<styles.count {
+                                    styles[indexStyle] = 0.0
                                 }
                                 styles[index] = 1.0
                                 do {

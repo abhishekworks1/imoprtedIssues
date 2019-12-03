@@ -208,9 +208,9 @@ open class CollageView: UIView {
         guard !setPhoto else { return }
         setPhoto = true
         
-        for (i, photo) in photos.enumerated() {
-            guard i < self.collageCells.count else { break }
-            let cell = self.collageCells[i]
+        for (index, photo) in photos.enumerated() {
+            guard index < self.collageCells.count else { break }
+            let cell = self.collageCells[index]
             
             cell.photoView.setPhoto(img: photo)
         }

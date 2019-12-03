@@ -11,31 +11,31 @@ import UIKit
 
 class AsynchronousOperation: Operation {
     
-    var _isFinished: Bool = false
+    var isFinish: Bool = false
     
     override var isFinished: Bool {
         set {
             willChangeValue(forKey: "isFinished")
-            _isFinished = newValue
+            isFinish = newValue
             didChangeValue(forKey: "isFinished")
         }
         
         get {
-            return _isFinished
+            return isFinish
         }
     }
     
-    var _isExecuting: Bool = false
+    var isExecut: Bool = false
     
     override var isExecuting: Bool {
         set {
             willChangeValue(forKey: "isExecuting")
-            _isExecuting = newValue
+            isExecut = newValue
             didChangeValue(forKey: "isExecuting")
         }
         
         get {
-            return _isExecuting
+            return isExecut
         }
     }
     
@@ -47,18 +47,18 @@ class AsynchronousOperation: Operation {
     
     override func start() {
         if self.isCancelled {
-            isFinished = true
+            isFinish = true
         } else {
-            isExecuting = false
+            isExecut = false
             main()
         }
     }
     
     override func main() {
         if self.isCancelled {
-            isFinished = true
+            isFinish = true
         } else {
-            isExecuting = false
+            isExecut = false
             self.execute()
             //Asynchronous logic (eg: n/w calls) with callback {
         }

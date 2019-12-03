@@ -15,10 +15,10 @@ extension Date {
         let interval = TimeInterval(second)
         let date1 = Date()
         let date2 = Date(timeInterval: interval, since: date1)
-        let c = NSCalendar.current
+        let calendar = Calendar.current
         
-        var components = c.dateComponents([.year, .month, .day, .hour, .minute, .second, .weekday], from: date1, to: date2)
-        components.calendar = c
+        var components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second, .weekday], from: date1, to: date2)
+        components.calendar = calendar
         return components
     }
     

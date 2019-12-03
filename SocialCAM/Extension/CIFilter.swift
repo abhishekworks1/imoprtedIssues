@@ -43,21 +43,21 @@ extension CIFilter {
         let floatSize = MemoryLayout<Float>.size
         
         let cubeData = UnsafeMutablePointer<Float>.allocate(capacity: dimension * dimension * dimension * 4 * floatSize)
-        var z = 0
+        var zIndex = 0
         var bitmapOffset = 0
         
         for _ in 0 ..< rowCount {
-            for y in 0 ..< dimension {
-                let tmp = z
+            for yIndex in 0 ..< dimension {
+                let tmp = zIndex
                 for _ in 0 ..< columnCount {
-                    for x in 0 ..< dimension {
+                    for xIndex in 0 ..< dimension {
                         
                         let alpha   = Float(bitmap[bitmapOffset]) / 255.0
                         let red     = Float(bitmap[bitmapOffset+1]) / 255.0
                         let green   = Float(bitmap[bitmapOffset+2]) / 255.0
                         let blue    = Float(bitmap[bitmapOffset+3]) / 255.0
                         
-                        let dataOffset = (z*dimension*dimension + y*dimension + x) * 4
+                        let dataOffset = (zIndex*dimension*dimension + yIndex*dimension + xIndex) * 4
                         
                         cubeData[dataOffset + 3] = alpha
                         cubeData[dataOffset + 2] = red
@@ -65,11 +65,11 @@ extension CIFilter {
                         cubeData[dataOffset + 0] = blue
                         bitmapOffset += 4
                     }
-                    z += 1
+                    zIndex += 1
                 }
-                z = tmp
+                zIndex = tmp
             }
-            z += columnCount
+            zIndex += columnCount
         }
         
         let colorCubeData = NSData(bytesNoCopy: cubeData, length: dimension * dimension * dimension * 4 * floatSize, freeWhenDone: true)

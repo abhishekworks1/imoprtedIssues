@@ -55,7 +55,7 @@ class StoryAskQuestionView: BaseQuestionTagView {
         txtView.textAlignment = .center
         txtView.backgroundColor = ApplicationSettings.appClearColor
         txtView.textContainer.maximumNumberOfLines = 10
-        txtView.placeHolder = "Ask me a question"
+        txtView.placeHolder = R.string.localizable.askMeAQuestion()
         txtView.autocorrectionType = .no
         return txtView
     }()
@@ -68,7 +68,7 @@ class StoryAskQuestionView: BaseQuestionTagView {
         txtView.textAlignment = .center
         txtView.backgroundColor = ApplicationSettings.appClearColor
         txtView.textContainer.maximumNumberOfLines = 2
-        txtView.placeHolder = "Viewers respond here"
+        txtView.placeHolder = R.string.localizable.viewersRespondHere()
         txtView.placeholderColor = R.color.quetag_GreyishBrown() ?? ApplicationSettings.appBlackColor.withAlphaComponent(0.5)
             
         txtView.isUserInteractionEnabled = false
@@ -283,7 +283,7 @@ class AskQuestionReplyView: UIView {
         txtView.textAlignment = .center
         txtView.backgroundColor = ApplicationSettings.appClearColor
         txtView.textContainer.maximumNumberOfLines = 10
-        txtView.placeHolder = "Ask me a question"
+        txtView.placeHolder = R.string.localizable.askMeAQuestion()
         txtView.autocorrectionType = .no
         txtView.isEditable = false
         return txtView
@@ -296,7 +296,7 @@ class AskQuestionReplyView: UIView {
         txtView.textAlignment = .center
         txtView.backgroundColor = ApplicationSettings.appWhiteColor
         txtView.textContainer.maximumNumberOfLines = 10
-        txtView.placeHolder = "Ask me a question"
+        txtView.placeHolder = R.string.localizable.askMeAQuestion()
         txtView.autocorrectionType = .no
         txtView.isEditable = false
         return txtView

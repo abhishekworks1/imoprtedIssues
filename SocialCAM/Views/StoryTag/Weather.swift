@@ -50,8 +50,8 @@ class Main: Mappable {
     var temp: Double?
     var pressure: Int?
     var humidity: Int?
-    var temp_min: Double?
-    var temp_max: Double?
+    var tempMin: Double?
+    var tempMax: Double?
     
     required init?(map: Map) {
         mapping(map: map)
@@ -61,8 +61,8 @@ class Main: Mappable {
         temp <- map["temp"]
         pressure <- map["pressure"]
         humidity <- map["humidity"]
-        temp_min <- map["temp_min"]
-        temp_min <- map["temp_max"]
+        tempMin <- map["temp_min"]
+        tempMax <- map["temp_max"]
     }
     
 }

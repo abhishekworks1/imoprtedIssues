@@ -9,11 +9,10 @@ import Foundation
 import ObjectMapper
 
 class Posts: Mappable, Likeable {
-    var v: Int?
     var id: String?
     var myLike: ReactionType?
     var likes: [PostLikes]?
-    var IschekedIn: Bool?
+    var isChekedIn: Bool?
     var checkedIn: CheckedIn?
     var commentCounts: Int?
     var created: String?
@@ -46,7 +45,6 @@ class Posts: Mappable, Likeable {
     }
     
     func mapping(map: Map) {
-        v <- map["__v"]
         id <- map["_id"]
         likes <- map["likes"]
         myLike <- map["myLike"]
@@ -66,7 +64,7 @@ class Posts: Mappable, Likeable {
         text = text?.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
         type <- map["type"]
         updated <- map["updated"]
-        IschekedIn <- map["IschekedIn"]
+        isChekedIn <- map["IschekedIn"]
         checkedIn <- map["checkedIn"]
         wallTheme <- map["wallTheme"]
         sharedPost <- map["sharedFrom"]
@@ -80,7 +78,7 @@ class Posts: Mappable, Likeable {
         addPlayListId <- map["addPlayListId"]
         if let youtubeData = self.youTubeData, let videoUrl = youtubeData.videoUrl, !videoUrl.isEmpty && type == .text {
             type  = .youtube
-        } else if type == .text &&  IschekedIn == true {
+        } else if type == .text &&  isChekedIn == true {
             type = .location
         }
     }
@@ -242,7 +240,6 @@ class StoryComment: Mappable {
 }
 
 class PostComment: Mappable {
-    var v: Int?
     var id: String?
     var created: String?
     var isDeleted: Bool?
@@ -264,7 +261,6 @@ class PostComment: Mappable {
     }
     
     func mapping(map: Map) {
-        v <- map["__v"]
         id <- map["_id"]
         created <- map["created"]
         isDeleted <- map["isDeleted"]
@@ -285,7 +281,6 @@ class PostComment: Mappable {
 }
 
 class CommentReply: Mappable {
-    var v: Int?
     var id: String?
     var comment: String?
     var created: String?
@@ -307,7 +302,6 @@ class CommentReply: Mappable {
     }
     
     func mapping(map: Map) {
-        v <- map["__v"]
         id <- map["_id"]
         comment <- map["comment"]
         created <- map["created"]

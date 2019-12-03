@@ -17,8 +17,8 @@ class YTSerchResponse <T: Mappable> : Mappable {
     var result: [T]?
     var nextPageToken: String?
     var message: String?
-    var page_flag: String?
-    var result_count: Int?
+    var pageFlag: String?
+    var resultCount: Int?
     
     required init?(map: Map) {
         
@@ -29,8 +29,8 @@ class YTSerchResponse <T: Mappable> : Mappable {
         pageInfo <- map["pageInfo"]
         nextPageToken <- map["nextPageToken"]
         message <- map["message"]
-        page_flag <- map["page_flag"]
-        result_count <- map["result_count"]
+        pageFlag <- map["page_flag"]
+        resultCount <- map["result_count"]
     }
     
 }
@@ -53,7 +53,7 @@ class PageInfo: Mappable {
 class Item: Mappable {
     var kind: String?
     var etag: String?
-    var id: ID?
+    var id: ItemId?
     var ids: String?
     var snippet: Snippet?
     var statistics: Statistics?
@@ -73,7 +73,7 @@ class Item: Mappable {
 
 }
 
-class ID: Mappable {
+class ItemId: Mappable {
     var kind: String?
     var videoId: String?
     

@@ -15,8 +15,6 @@ protocol CountdownViewDelegate: NSObjectProtocol {
     func countdownFinished(_ view: CountdownView?)
 }
 
-let COUNTDOWN_LABEL_FONT_SCALE_FACTOR: CGFloat = 0.3
-
 class CountdownView: UIView {
     var timer: Timer?
     var countdownLabel: UILabel?
@@ -44,9 +42,9 @@ class CountdownView: UIView {
 
         backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: CGFloat(backgroundAlphas()))
         // countdown label
-        let fontSize = Float(bounds.size.width * COUNTDOWN_LABEL_FONT_SCALE_FACTOR)
+        let fontSize = Float(bounds.size.width * 0.3)
         countdownLabel = UILabel()
-        if let aSize = UIFont(name: fontNames() ?? "", size: CGFloat(fontSize)) {
+        if let aSize = R.font.sfuiTextMedium(size: CGFloat(fontSize)) {
             countdownLabel?.font = aSize
         }
         if let aColor = countdownColors() {

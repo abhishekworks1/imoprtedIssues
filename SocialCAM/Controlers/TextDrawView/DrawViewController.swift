@@ -18,35 +18,35 @@ public protocol DrawViewControllerDelegate: class {
     /// - Parameters:
     ///   - DrawViewController: The draw text view controller.
     ///   - isEditingText: `true` if entering edit (keyboard text entry) mode, `false` if exiting edit mode.
-    func DrawViewController(_ DrawViewController: DrawViewController, isEditingText: Bool)
+    func drawViewController(_ drawViewController: DrawViewController, isEditingText: Bool)
     
     /// Tells the delegate to handle a touchesBegan event on the drawing container.
     ///
     /// - Parameter touchPoint: The point in this view's coordinate system where the touch began.
-    func DrawDrawingContainerTouchBegan(at touchPoint: CGPoint)
+    func drawDrawingContainerTouchBegan(at touchPoint: CGPoint)
     
     /// Tells the delegate to handle a touchesMoved event on the drawing container.
     ///
     /// - Parameter touchPoint: The point in this view's coordinate system to which the touch moved.
-    func DrawDrawingContainerTouchMoved(to touchPoint: CGPoint)
+    func drawDrawingContainerTouchMoved(to touchPoint: CGPoint)
     
     /// Tells the delegate to handle a touchesEnded event on the drawing container.
-    func DrawDrawingContainerTouchEnded()
+    func drawDrawingContainerTouchEnded()
     
     /// Tells the delegate to handle a touchesBegan event on the text container.
     ///
     /// - Parameter touchPoint: The point in this view's coordinate system where the touch began.
-    func DrawTextContainerTouchBegan(at touchPoint: CGPoint)
+    func drawTextContainerTouchBegan(at touchPoint: CGPoint)
     
     /// Tells the delegate to handle a touchesMoved event on the text container.
     ///
     /// - Parameter touchPoint: The point in this view's coordinate system to which the touch moved.
-    func DrawTextContainerTouchMoved(to touchPoint: CGPoint)
+    func drawTextContainerTouchMoved(to touchPoint: CGPoint)
     
     /// Tells the delegate to handle a touchesEnded event on the text container.
     ///
     /// - Parameter touchPoint: The point in this view's coordinate system to which the touch ended.
-    func DrawTextContainerTouchEnded(at touchPoint: CGPoint)
+    func drawTextContainerTouchEnded(at touchPoint: CGPoint)
 }
 
 public enum FontViewState {
@@ -414,7 +414,7 @@ public class DrawViewController: UIViewController {
         }
         
         if state == .editingText {
-            delegate?.DrawViewController(self, isEditingText: true)
+            delegate?.drawViewController(self, isEditingText: true)
         }
         
         if state == .text {
@@ -518,7 +518,7 @@ public class DrawViewController: UIViewController {
         textView.textString = textString
         textEditView.textString = textString
         if let text = textView.textString, text.isEmpty {
-            textView.textString = "Type Something..."
+            textView.textString = R.string.localizable.typeSomething()
             btnClose.isHidden = true
             btnSave.isSelected = false
         } else {
@@ -660,11 +660,11 @@ extension DrawViewController {
             let location = gesture.location(in: self.textView)
             switch gesture.state {
             case .began:
-                delegate?.DrawTextContainerTouchBegan(at: location)
+                delegate?.drawTextContainerTouchBegan(at: location)
             case .changed:
-                delegate?.DrawTextContainerTouchMoved(to: location)
+                delegate?.drawTextContainerTouchMoved(to: location)
             case .ended, .cancelled:
-                delegate?.DrawTextContainerTouchEnded(at: location)
+                delegate?.drawTextContainerTouchEnded(at: location)
             default: break
             }
         }
@@ -684,19 +684,19 @@ extension DrawViewController {
 extension DrawViewController: DrawingContainerViewDelegate {
     func drawingContainerViewTouchBegan(at point: CGPoint) {
         if state == .drawing {
-            delegate?.DrawDrawingContainerTouchBegan(at: point)
+            delegate?.drawDrawingContainerTouchBegan(at: point)
         }
     }
     
     func drawingContainerViewTouchMoved(to point: CGPoint) {
         if state == .drawing {
-            delegate?.DrawDrawingContainerTouchMoved(to: point)
+            delegate?.drawDrawingContainerTouchMoved(to: point)
         }
     }
     
     func drawingContainerViewTouchEnded(at point: CGPoint) {
         if state == .drawing {
-            delegate?.DrawDrawingContainerTouchEnded()
+            delegate?.drawDrawingContainerTouchEnded()
         }
     }
 }
@@ -720,16 +720,16 @@ extension DrawViewController: UIGestureRecognizerDelegate {
 // MARK: - DrawTextEditViewDelegate
 
 extension DrawViewController: DrawTextEditViewDelegate {
-    func DrawTextEditViewWillEditing(withText text: String?) {
+    func drawTextEditViewWillEditing(withText text: String?) {
         updateText(text ?? "")
     }
     
-    func DrawTextEditViewFinishedEditing(withText text: String?) {
+    func drawTextEditViewFinishedEditing(withText text: String?) {
         if state == .editingText {
             state = .text
         }
         updateTextString(text ?? "")
-        delegate?.DrawViewController(self, isEditingText: false)
+        delegate?.drawViewController(self, isEditingText: false)
     }
 }
 

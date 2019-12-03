@@ -40,7 +40,6 @@ open class SocialShareVideo: NSObject, SharingDelegate {
             })
         case .twitter:
             twitterVideoShare(image: image)
-            break
         case .snapchat:
             self.snapChatShareImage(image: image)
         case .tiktok:
@@ -84,13 +83,10 @@ open class SocialShareVideo: NSObject, SharingDelegate {
             })
         case .snapchat:
             snapChatShareVideo(url)
-            break
         case .twitter:
             twitterVideoShare(url, image: nil)
-            break
         case .youtube:
             youTubeUpload(url)
-            break
         case .tiktok:
             if !TiktokShare.shared.isTiktokInstalled {
                 Utils.appDelegate?.window?.makeToast(R.string.localizable.youNeedToInstallTikTokToShareThisPhotoVideo())
@@ -107,7 +103,6 @@ open class SocialShareVideo: NSObject, SharingDelegate {
                     }
                 }
             }
-            break
         }
     }
     

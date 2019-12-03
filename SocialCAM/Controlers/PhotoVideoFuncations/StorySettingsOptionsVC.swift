@@ -66,21 +66,16 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
             if let storySettingsVC = R.storyboard.storyCameraViewController.storySettingsVC() {
                 navigationController?.pushViewController(storySettingsVC, animated: true)
             }
-            break
         case 1:
             if let baseUploadVC = R.storyboard.storyCameraViewController.baseUploadVC() {
                 baseUploadVC.firstModalPersiontage = firstPercentage
                 baseUploadVC.firstModalUploadCompletedSize = firstUploadCompletedSize
                 navigationController?.pushViewController(baseUploadVC, animated: true)
             }
-            
-            break
         case 2:
             self.isProEnable()
-            break
         case 3:
             self.logoutUser()
-            break
         default:
             break
         }

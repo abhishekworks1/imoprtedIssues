@@ -101,10 +101,10 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
     // MARK: IBActions
     
     @IBAction func btnLoginClicked(_ sender: Any?) {
-        guard let e = txtEmail.text else {
+        guard let emailText = txtEmail.text else {
             return
         }
-        let email = e.trimmingCharacters(in: .whitespacesAndNewlines)
+        let email = emailText.trimmingCharacters(in: .whitespacesAndNewlines)
         if email.isEmpty {
            self.showAlert(alertMessage: R.string.localizable.pleaseEnterEmail())
             return

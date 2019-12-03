@@ -44,24 +44,13 @@ class StatsViewController: UIViewController, TagListViewDelegate {
     var isOrderByView: Bool? {
         didSet {
             if let isV = isOrderByView {
-                if isV == true {
-                    self.imgArrowView.image = #imageLiteral(resourceName: "DownArrow")
-                    ApplicationSettings.shared.videos.sort(by: { (a, b) -> Bool in
-                        let viewsA = a.statistics?.viewInt ?? 0
-                        let viewsB = b.statistics?.viewInt ?? 0
-                        return  (viewsA >= viewsB)
-                    })
-                    self.tblYouTube.reloadData()
-                } else {
-                    self.imgArrowView.image = #imageLiteral(resourceName: "UPArrow")
-                    ApplicationSettings.shared.videos.sort(by: { (a, b) -> Bool in
-                        
-                        let viewsA = a.statistics?.viewInt ?? 0
-                        let viewsB = b.statistics?.viewInt ?? 0
-                        return  (viewsA <= viewsB)
-                    })
-                    self.tblYouTube.reloadData()
-                }
+                self.imgArrowDate.image = isV ? R.image.downArrow() : R.image.upArrow()
+                ApplicationSettings.shared.videos.sort(by: { (first, second) -> Bool in
+                    let viewsA = first.statistics?.viewInt ?? 0
+                    let viewsB = second.statistics?.viewInt ?? 0
+                    return isV ? (viewsA >= viewsB) : (viewsA <= viewsB)
+                })
+                self.tblYouTube.reloadData()
             } else {
                 self.imgArrowView.image = nil
             }
@@ -70,27 +59,15 @@ class StatsViewController: UIViewController, TagListViewDelegate {
     var isOrderByDate: Bool? {
         didSet {
             if let isD = isOrderByDate {
-                if isD == true {
-                    self.imgArrowDate.image = #imageLiteral(resourceName: "DownArrow")
-                    ApplicationSettings.shared.videos.sort(by: { (a, b) -> Bool in
-                        let formatter = DateFormatter()
-                        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-                        let dateObj = formatter.date(from: (a.snippet?.publishedAt)!)
-                        let dateObj2 = formatter.date(from: (b.snippet?.publishedAt)!)
-                        return  (dateObj?.compare(dateObj2!) == ComparisonResult.orderedAscending)
-                    })
-                    self.tblYouTube.reloadData()
-                } else {
-                    self.imgArrowDate.image = #imageLiteral(resourceName: "UPArrow")
-                    ApplicationSettings.shared.videos.sort(by: { (a, b) -> Bool in
-                        let formatter = DateFormatter()
-                        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-                        let dateObj = formatter.date(from: (a.snippet?.publishedAt)!)
-                        let dateObj2 = formatter.date(from: (b.snippet?.publishedAt)!)
-                        return  (dateObj?.compare(dateObj2!) == ComparisonResult.orderedDescending)
-                    })
-                    self.tblYouTube.reloadData()
-                }
+                self.imgArrowDate.image = isD ? R.image.downArrow() : R.image.upArrow()
+                ApplicationSettings.shared.videos.sort(by: { (first, second) -> Bool in
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+                    let dateObj = formatter.date(from: (first.snippet?.publishedAt)!)
+                    let dateObj2 = formatter.date(from: (second.snippet?.publishedAt)!)
+                    return isD ? (dateObj?.compare(dateObj2!) == ComparisonResult.orderedAscending) : (dateObj?.compare(dateObj2!) == ComparisonResult.orderedDescending)
+                })
+                self.tblYouTube.reloadData()
             } else {
                 self.imgArrowDate.image = nil
             }
@@ -100,11 +77,11 @@ class StatsViewController: UIViewController, TagListViewDelegate {
     override func viewDidLoad() {
         tagView.isHidden = true
         tblYouTube.separatorStyle = .none
-        self.textObservable?.subscribe(onNext: { Q in
+        self.textObservable?.subscribe(onNext: { key in
             ApplicationSettings.shared.videos = []
-            self.searchText = Q
+            self.searchText = key
             print(self.searchText)
-            self.getVideo(q: Q)
+            self.getVideo(key: key)
         }).disposed(by: (rx.disposeBag))
     }
     
@@ -139,9 +116,9 @@ class StatsViewController: UIViewController, TagListViewDelegate {
         scrollHeight.constant = tagList.intrinsicContentSize.height
     }
     
-    func getVideo(q: String) {
+    func getVideo(key: String) {
         self.indicatorView.startAnimating()
-        ProManagerApi.youTubeKeyWordSerch(q: q, order: nil, nextPageToken: self.nextPageToken).request(YTSerchResponse<Item>.self).subscribe(onNext: { response in
+        ProManagerApi.youTubeKeyWordSerch(key: key, order: nil, nextPageToken: self.nextPageToken).request(YTSerchResponse<Item>.self).subscribe(onNext: { response in
             self.nextPageToken = response.nextPageToken
             self.totalResult = response.pageInfo?.totalResults
             self.resultPerPage = response.pageInfo?.resultsPerPage
@@ -219,7 +196,7 @@ extension StatsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row ==  (ApplicationSettings.shared.videos.count) - 2 && self.nextPageToken != nil {
-            self.getVideo(q: self.searchText)
+            self.getVideo(key: self.searchText)
         }
         guard let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.statTableViewCell.identifier) as? StatTableViewCell else {
             fatalError("StatTableViewCell Not Found")
