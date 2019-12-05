@@ -19,13 +19,15 @@ class CropToolbar: UIView {
     var selectedRotate = {}
     var selectedReset = {}
     var selectedSetRatio = {}
-    
+    var selectedMirror = {}
+
     var cancelButton: UIButton?
     var setRatioButton: UIButton?
     var resetButton: UIButton?
     var anticlockRotateButton: UIButton?
     var cropButton: UIButton?
-    
+    var mirrorButton: UIButton?
+
     private var optionButtonStackView: UIStackView?
     
     private func createOptionButton(withTitle title: String?, andAction action: Selector) -> UIButton {
@@ -80,6 +82,11 @@ class CropToolbar: UIView {
         cropButton = createOptionButton(withTitle: doneText, andAction: #selector(crop))
     }
     
+    private func createMirrorButton() {
+        mirrorButton = createOptionButton(withTitle: nil, andAction: #selector(mirror))
+        mirrorButton?.setImage(R.image.storyHorizontalFlip(), for: .normal)
+    }
+    
     private func createButtonContainer() {
         optionButtonStackView = UIStackView()
         addSubview(optionButtonStackView!)
@@ -117,10 +124,11 @@ class CropToolbar: UIView {
             createResetButton(with: ToolBarButtonImageBuilder.resetImage())
             createCancelButton()
             createCropButton()
-            addButtonsToContainer(buttons: [cancelButton, anticlockRotateButton, resetButton, setRatioButton, cropButton])
+            createMirrorButton()
+            addButtonsToContainer(buttons: [cancelButton, mirrorButton, anticlockRotateButton, resetButton, setRatioButton, cropButton])
         } else {
             createResetButton()
-            addButtonsToContainer(buttons: [anticlockRotateButton, resetButton, setRatioButton])
+            addButtonsToContainer(buttons: [mirrorButton, anticlockRotateButton, resetButton, setRatioButton])
         }
     }
     
@@ -152,5 +160,9 @@ class CropToolbar: UIView {
     
     @objc private func crop(_ sender: Any) {
         selectedCrop()
+    }
+    
+    @objc private func mirror(_ sender: Any) {
+        selectedMirror()
     }
 }

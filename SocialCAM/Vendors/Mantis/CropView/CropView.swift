@@ -472,7 +472,7 @@ extension CropView {
 
 // MARK: - internal API
 extension CropView {
-    func crop(completion: @escaping (Any?) -> Void) {
+    func crop(isFlipped: Bool, completion: @escaping (Any?) -> Void) {
         let rect = imageContainer.convert(imageContainer.bounds,
                                           to: self)
         let point = rect.center
@@ -483,6 +483,7 @@ extension CropView {
         let info = CropInfo(translation: translation,
                             rotation: viewModel.getTotalRadians(),
                             scale: scrollView.zoomScale,
+                            isFlipped: isFlipped,
                             cropSize: gridOverlayView.frame.size,
                             imageViewSize: imageContainer.bounds.size)
         if let avAsset = self.avAsset {
@@ -494,6 +495,7 @@ extension CropView {
 
             let config = CropAssetExportConfig(transform: transform,
                                                zoomScale: info.scale,
+                                               isFlipped: info.isFlipped,
                                                sourceSize: image.size,
                                                cropSize: info.cropSize,
                                                imageViewSize: info.imageViewSize)

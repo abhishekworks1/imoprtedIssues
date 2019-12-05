@@ -126,7 +126,7 @@ extension PhotoEditorViewController: StickersViewControllerDelegate {
                                                 tagType: StoryTagType.youtube,
                                                 tagText: title ?? url)
                 tag.videoId = url.youTubeId ?? ""
-                if let youtubeTagIndex = self.storyTags.index(where: { $0.tag.tagType == StoryTagType.youtube.rawValue }) {
+                if let youtubeTagIndex = self.storyTags.firstIndex(where: { $0.tag.tagType == StoryTagType.youtube.rawValue }) {
                     self.storyTags[youtubeTagIndex].view.removeFromSuperview()
                     self.storyTags[youtubeTagIndex] = BaseStoryTag(view: tagView, tag: tag)
                 } else {

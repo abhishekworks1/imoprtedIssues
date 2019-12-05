@@ -152,7 +152,9 @@ class StoryImageView: UIView {
             let mtkRect = mtkView?.bounds.multiply(with: scaleFactor) ?? ciImage.extent
             image = image?.transformed(by: CGAffineTransform(scaleX: mtkRect.size.width/image!.extent.width, y: mtkRect.size.height/image!.extent.height))
         }
-        
+        #if targetEnvironment(simulator)
+        image = image?.transformed(by: CGAffineTransform(scaleX: 1, y: -1))
+        #endif
         if let anImage = image {
             var context: CIContext?
             if !loadContextIfNeeded() {

@@ -11,10 +11,11 @@
 
 import UIKit
 import VideoToolbox
+import Accelerate
 
 extension CGImage {
     
-    func transformedImage(_ transform: CGAffineTransform, zoomScale: CGFloat, sourceSize: CGSize, cropSize: CGSize, imageViewSize: CGSize) -> CGImage? {
+    func transformedImage(_ transform: CGAffineTransform, zoomScale: CGFloat, isFlipped: Bool, sourceSize: CGSize, cropSize: CGSize, imageViewSize: CGSize) -> CGImage? {
         let expectedWidth = floor(((sourceSize.width / imageViewSize.width * cropSize.width) / zoomScale) / 16) * 16
         let expectedHeight = floor((sourceSize.height / imageViewSize.height * cropSize.height) / zoomScale)
 
@@ -48,8 +49,10 @@ extension CGImage {
                                        width: imageViewSize.width,
                                        height: imageViewSize.height))
         
-        let result = context?.makeImage()
-        
+        var result = context?.makeImage()
+        if isFlipped {
+            result = result?.flippedImage(isHorizontal: true)
+        }
         return result
     }
  
@@ -102,6 +105,30 @@ extension CGImage {
       var cgImage: CGImage?
       VTCreateCGImageFromCVPixelBuffer(pixelBuffer, options: nil, imageOut: &cgImage)
       return cgImage
+    }
+    
+    func flippedImage(isHorizontal: Bool) -> CGImage? {
+        let width = size_t(self.width)
+        let height = size_t(self.height)
+        let bytesPerRow = size_t(width * 4)
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        guard let context = CGContext(data: nil, width: width, height: height, bitsPerComponent: 8, bytesPerRow: bytesPerRow, space: colorSpace, bitmapInfo: 0 | CGImageAlphaInfo.premultipliedFirst.rawValue) else {
+            return nil
+        }
+
+        context.draw(self, in: CGRect(x: 0, y: 0, width: CGFloat(width), height: CGFloat(height)))
+        
+        guard let data = context.data else {
+            return nil
+        }
+        var src = vImage_Buffer(data: data, height: vImagePixelCount(height), width: vImagePixelCount(width), rowBytes: bytesPerRow)
+        var dest = vImage_Buffer(data: data, height: vImagePixelCount(height), width: vImagePixelCount(width), rowBytes: bytesPerRow)
+        if isHorizontal {
+            vImageHorizontalReflect_ARGB8888(&src, &dest, vImage_Flags(kvImageBackgroundColorFill))
+        } else {
+            vImageVerticalReflect_ARGB8888(&src, &dest, vImage_Flags(kvImageBackgroundColorFill))
+        }
+        return context.makeImage()
     }
 
 }

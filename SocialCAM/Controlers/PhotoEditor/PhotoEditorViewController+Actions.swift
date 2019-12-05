@@ -98,13 +98,10 @@ extension PhotoEditorViewController {
     
     @IBAction func horizontalFlipTapped(_ sender: AnyObject) {
         horizontalFlipButton.isSelected = !horizontalFlipButton.isSelected
-        if let img = image {
-            lastImageOrientation = flipOrientation(lastImageOrientation ?? img.imageOrientation)
-            
-            let mirrorImage = UIImage(cgImage: img.cgImage!, scale: 1.0, orientation: lastImageOrientation!)
-            filterSwitcherView?.setImageBy(mirrorImage)
+        if let image = self.image {
+            self.image = image.flippedImage(isHorizontal: true)
+            filterSwitcherView?.setImageBy(self.image!)
         }
-        
     }
     
     func flipOrientation(_ orientation: UIImage.Orientation) -> UIImage.Orientation {
