@@ -169,7 +169,8 @@ public class CropViewController: UIViewController {
     private var ratioPresenter: RatioPresenter?
     private var stackView: UIStackView?
     private var initialLayout = false
-    
+    private var isFlipped = false
+
     deinit {
         print("CropViewController deinit.")
     }
@@ -219,6 +220,7 @@ public class CropViewController: UIViewController {
         cropToolbar.backgroundColor = .clear
         
         cropToolbar.selectedCancel = {[weak self] in self?.handleCancel() }
+        cropToolbar.selectedMirror = {[weak self] in self?.handleMirror() }
         cropToolbar.selectedRotate = {[weak self] in self?.handleRotate() }
         cropToolbar.selectedReset = {[weak self] in self?.handleReset() }
         cropToolbar.selectedSetRatio = {[weak self] in self?.handleSetRatio() }
@@ -380,8 +382,16 @@ public class CropViewController: UIViewController {
         cropView.counterclockwiseRotate90()
     }
     
+    private func handleMirror() {
+        if let flippedImage = image.flippedImage(isHorizontal: true) {
+            isFlipped = !isFlipped
+            image = flippedImage
+        }
+    }
+    
     private func handleCrop() {
-        cropView.crop { [weak self] croppedObject in
+        let isFlipped = (avAsset == nil) ? false : self.isFlipped
+        cropView.crop(isFlipped: isFlipped) { [weak self] croppedObject in
             guard let `self` = self else {
                 return
             }

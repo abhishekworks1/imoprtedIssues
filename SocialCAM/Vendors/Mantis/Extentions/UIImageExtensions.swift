@@ -139,6 +139,7 @@ extension UIImage {
         
         guard let imageRef = fixedImage.transformedImage(transform,
                                                          zoomScale: info.scale,
+                                                         isFlipped: info.isFlipped,
                                                          sourceSize: self.size,
                                                          cropSize: info.cropSize,
                                                          imageViewSize: info.imageViewSize) else {

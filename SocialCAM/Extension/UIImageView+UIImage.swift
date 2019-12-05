@@ -11,6 +11,13 @@ import Photos
 
 extension UIImage {
     
+    func flippedImage(isHorizontal: Bool) -> UIImage? {
+        guard let cgImage = self.cgImage?.flippedImage(isHorizontal: isHorizontal) else {
+            return nil
+        }
+        return UIImage(cgImage: cgImage, scale: scale, orientation: imageOrientation)
+    }
+    
     func resizeImageWith(newSize: CGSize) -> UIImage {
         
         // This is the rect that we've calculated out and this is what is actually used below

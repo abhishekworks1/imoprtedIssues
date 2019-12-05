@@ -169,6 +169,7 @@ class CropAssetExportSession {
         let cgImage = ciContext.createCGImage(ciImage, from: ciImage.extent)
         guard let trasformedCGImage = cgImage?.transformedImage(config.transform,
                                                                 zoomScale: config.zoomScale,
+                                                                isFlipped: config.isFlipped,
                                                                 sourceSize: config.sourceSize,
                                                                 cropSize: config.cropSize,
                                                                 imageViewSize: config.imageViewSize),
@@ -183,6 +184,7 @@ class CropAssetExportSession {
 class CropAssetExportConfig {
     var transform: CGAffineTransform
     var zoomScale: CGFloat
+    var isFlipped: Bool
     var sourceSize: CGSize
     var cropSize: CGSize
     var imageViewSize: CGSize
@@ -192,9 +194,10 @@ class CropAssetExportConfig {
         return CGSize(width: expectedWidth, height: expectedHeight)
     }
     
-    init(transform: CGAffineTransform, zoomScale: CGFloat, sourceSize: CGSize, cropSize: CGSize, imageViewSize: CGSize) {
+    init(transform: CGAffineTransform, zoomScale: CGFloat, isFlipped: Bool, sourceSize: CGSize, cropSize: CGSize, imageViewSize: CGSize) {
         self.transform = transform
         self.zoomScale = zoomScale
+        self.isFlipped = isFlipped
         self.sourceSize = sourceSize
         self.cropSize = cropSize
         self.imageViewSize = imageViewSize
