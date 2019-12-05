@@ -135,12 +135,12 @@ public struct FetchDataBefore {
 }
 
 public struct Reactions {
-    static let REACTION_LIKE = "like"
-    static let REACTION_LOVE = "love"
-    static let REACTION_LAUGH = "laugh"
-    static let REACTION_WOW = "wow"
-    static let REACTION_SAD = "sad"
-    static let REACTION_ANGRY = "angry"
+    static let reactionLIKE = "like"
+    static let reactionLOVE = "love"
+    static let reactionLAUGH = "laugh"
+    static let reactionWOW = "wow"
+    static let reactionSAD = "sad"
+    static let reactionANGRY = "angry"
 }
 
 struct TrimError: Error {
@@ -309,12 +309,7 @@ public struct Constant {
     
     struct AWS {
         // Client Bucket
-        static let COGNITO_POOL_ID = "us-west-2:4918c1f8-d173-4668-8891-d6892a147259"
-        static let COGNITO_POOL_REGION = "us-west-2"
-        static let BUCKET_NAME = "spinach-cafe/main-image"
-        static let endPoint = "s3-us-west-2.amazonaws.com"
         static let baseUrl = "https://s3-us-west-2.amazonaws.com/"
-        static let PROFILE_VIDEO_BUCKET_NAME = "profile-video/original"
         static let NAME = "spinach-cafe"
         static let FOLDER = "main-image"
         static let URL = "http://\(Constant.AWS.NAME).s3.amazonaws.com/"
@@ -428,8 +423,8 @@ enum StoriCamType: Equatable {
         case (let .shareStory(lhsStoryID), let .shareStory(rhsStoryID)):
             return (lhsStoryID == rhsStoryID)
         case (let .sharePlaylist(lhsPlaylist), let .sharePlaylist(rhsPlaylist)):
-            if let lhsPlayListId = lhsPlaylist._id,
-                let rhsPlayListId = rhsPlaylist._id {
+            if let lhsPlayListId = lhsPlaylist.id,
+                let rhsPlayListId = rhsPlaylist.id {
                 return lhsPlayListId == rhsPlayListId
             } else {
                 return false
@@ -526,9 +521,9 @@ enum CollectionMode {
 }
 
 enum ProMediaType {
-    case Image
-    case Video
-    case Images
+    case image
+    case video
+    case images
 }
 
 enum CurrentMode: Int {

@@ -73,8 +73,8 @@ class MLVideoView: UIView {
                 do {
                     let styles = try MLMultiArray(shape: [43],
                                                   dataType: .double)
-                    for i in 0..<styles.count {
-                        styles[i] = 0.0
+                    for index in 0..<styles.count {
+                        styles[index] = 0.0
                     }
                     styles[selectedIndex] = 1.0
                     do {

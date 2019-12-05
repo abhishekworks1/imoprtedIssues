@@ -107,8 +107,8 @@ class CollageMakerVC: UIViewController, UIGestureRecognizerDelegate {
         allCollectionView.isHidden = true
         
         self.selectedImageArray.removeAll()
-        self.selectedItemArray = Array(self.assets).sorted { (a, b) -> Bool in
-            return a.uploadTime < b.uploadTime
+        self.selectedItemArray = Array(self.assets).sorted { (first, second) -> Bool in
+            return first.uploadTime < second.uploadTime
         }
         
         for sitem in self.selectedItemArray {
@@ -284,9 +284,8 @@ class CollageMakerVC: UIViewController, UIGestureRecognizerDelegate {
                     collageView.addSubview(cell01)
                     movingImageView?.removeFromSuperview()
                 } else {
-                    for i in collageView.subviews.reversed() {
-                        if let cell = i as? CollageCell {
-                            print(cell.id)
+                    for indexView in collageView.subviews.reversed() {
+                        if let cell = indexView as? CollageCell {
                             let tmpScroll = cell
                             let frameRelativeToParent = tmpScroll.convert(tmpScroll.bounds, to: view)
                             if frameRelativeToParent.contains(movingImageView?.center ?? CGPoint.zero) {

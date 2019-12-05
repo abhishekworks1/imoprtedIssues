@@ -482,13 +482,13 @@ class AnalogClockView: UIView {
         ctx?.fillPath()
         
         // CLOCK'S GRADUATION
-        for i in 0..<60 {
+        for index in 0..<60 {
             
-            let P1 = CGPoint(x: (frame.size.width/2 + ((frame.size.width - borderWidth*2 - graduationOffset) / 2) * cos((6 * CGFloat(i))*(CGFloat.pi/180) - ((CGFloat.pi/2)))),
-                             y: frame.size.width/2 + ((frame.size.width - borderWidth*2 - graduationOffset) / 2) * sin((6*CGFloat(i))*(CGFloat.pi/180) - (CGFloat.pi/2)))
+            let P1 = CGPoint(x: (frame.size.width/2 + ((frame.size.width - borderWidth*2 - graduationOffset) / 2) * cos((6 * CGFloat(index))*(CGFloat.pi/180) - ((CGFloat.pi/2)))),
+                             y: frame.size.width/2 + ((frame.size.width - borderWidth*2 - graduationOffset) / 2) * sin((6*CGFloat(index))*(CGFloat.pi/180) - (CGFloat.pi/2)))
             
-            let P2 = CGPoint(x: frame.size.width/2 + ((frame.size.width - borderWidth*2 - graduationOffset - graduationLength) / 2) * cos((6*CGFloat(i))*(CGFloat.pi/180) - (CGFloat.pi/2)),
-                             y: frame.size.width/2 + ((frame.size.width - borderWidth*2 - graduationOffset - graduationLength) / 2) * sin((6 * CGFloat(i))*(CGFloat.pi/180) - (CGFloat.pi/2)))
+            let P2 = CGPoint(x: frame.size.width/2 + ((frame.size.width - borderWidth*2 - graduationOffset - graduationLength) / 2) * cos((6*CGFloat(index))*(CGFloat.pi/180) - (CGFloat.pi/2)),
+                             y: frame.size.width/2 + ((frame.size.width - borderWidth*2 - graduationOffset - graduationLength) / 2) * sin((6 * CGFloat(index))*(CGFloat.pi/180) - (CGFloat.pi/2)))
             
             let shapeLayer = CAShapeLayer()
             let path1 = UIBezierPath()
@@ -507,13 +507,13 @@ class AnalogClockView: UIView {
         
         let offset: CGFloat = 4
         
-        for i in 0..<12 {
+        for index in 0..<12 {
             
-            let hourNumber = "\("\(i + 1 < 10 ? " " : "")")\(i + 1)"
+            let hourNumber = "\("\(index + 1 < 10 ? " " : "")")\(index + 1)"
             
-            let labelX = center.x + (markingDistanceFromCenter - digitFont.lineHeight/2) * cos((CGFloat.pi/180) * CGFloat((CGFloat(i) + offset)) * 30 + CGFloat.pi)
+            let labelX = center.x + (markingDistanceFromCenter - digitFont.lineHeight/2) * cos((CGFloat.pi/180) * CGFloat((CGFloat(index) + offset)) * 30 + CGFloat.pi)
             
-            let labelY = center.y + -1 * (markingDistanceFromCenter - digitFont.lineHeight/2) * sin((CGFloat.pi/180) * (CGFloat(i)+offset) * 30)
+            let labelY = center.y + -1 * (markingDistanceFromCenter - digitFont.lineHeight/2) * sin((CGFloat.pi/180) * (CGFloat(index)+offset) * 30)
             
             hourNumber.draw(in: CGRect(x: labelX - digitFont.lineHeight / 2.0,
                                        y: labelY - digitFont.lineHeight / 2.0,

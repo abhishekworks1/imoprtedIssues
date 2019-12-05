@@ -16,23 +16,22 @@ public class InternetConnectionAlert: NSObject {
 
     // Configuration
     public struct Configuration {
-        var kALERT_TEXT = "NO INTERNET CONNECTION"
-        var kBG_COLOR: UIColor = UIColor.red
-        var kFONT: UIFont = UIFont.boldSystemFont(ofSize: 12)
-        var kALERT_HEIGHT = 15
-        var kTEXT_COLOR = ApplicationSettings.appWhiteColor
-        var kANIMATION_DURATION = 0.5
-        var kYPOSITION = topSpace
+        var kAlertText = R.string.localizable.nointernetconnectioN()
+        var kBgColor: UIColor = ApplicationSettings.appPrimaryColor
+        var kFont: UIFont = UIFont.sfuifont
+        var kAlertHeight = 15
+        var kTextColor = ApplicationSettings.appWhiteColor
+        var kAnimationDuration = 0.5
+        var kYPostion = topSpace
         public init() { }
-
     }
 
     public var config: Configuration = Configuration() {
         didSet {
-            lblAlert.text = config.kALERT_TEXT
-            lblAlert.backgroundColor = config.kBG_COLOR
-            lblAlert.font = config.kFONT
-            lblAlert.textColor = config.kTEXT_COLOR
+            lblAlert.text = config.kAlertText
+            lblAlert.backgroundColor = config.kBgColor
+            lblAlert.font = config.kFont
+            lblAlert.textColor = config.kTextColor
             setupAlert()
         }
     }
@@ -100,25 +99,25 @@ public class InternetConnectionAlert: NSObject {
     }
 
     private func showAlert() {
-        let destinatioRect = CGRect(x: 0, y: config.kYPOSITION, width: Int(UIScreen.main.bounds.width), height: config.kALERT_HEIGHT)
-        UIView.animate(withDuration: config.kANIMATION_DURATION, animations: {
+        let destinatioRect = CGRect(x: 0, y: config.kYPostion, width: Int(UIScreen.main.bounds.width), height: config.kAlertHeight)
+        UIView.animate(withDuration: config.kAnimationDuration, animations: {
             self.lblAlert.frame = destinatioRect
         })
     }
 
     private func hideAlert() {
-        let destinatioRect = CGRect(x: 0, y: config.kYPOSITION, width: Int(UIScreen.main.bounds.width), height: 0)
-        UIView.animate(withDuration: config.kANIMATION_DURATION) {
+        let destinatioRect = CGRect(x: 0, y: config.kYPostion, width: Int(UIScreen.main.bounds.width), height: 0)
+        UIView.animate(withDuration: config.kAnimationDuration) {
             self.lblAlert.frame = destinatioRect
         }
     }
 
     private func setupAlert() {
-        lblAlert.frame = CGRect(x: 0, y: config.kYPOSITION, width: Int(UIScreen.main.bounds.width), height: 0)
-        lblAlert.text = config.kALERT_TEXT
-        lblAlert.backgroundColor = config.kBG_COLOR
-        lblAlert.textColor = config.kTEXT_COLOR
-        lblAlert.font = config.kFONT
+        lblAlert.frame = CGRect(x: 0, y: config.kYPostion, width: Int(UIScreen.main.bounds.width), height: 0)
+        lblAlert.text = config.kAlertText
+        lblAlert.backgroundColor = config.kBgColor
+        lblAlert.textColor = config.kTextColor
+        lblAlert.font = config.kFont
         lblAlert.textAlignment = .center
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             if let currentWindow = UIApplication.shared.keyWindow {

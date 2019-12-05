@@ -22,8 +22,7 @@ class KeywordViewController: UIViewController {
             indicatorView.color = ApplicationSettings.appPrimaryColor
         }
     }
-    
-    var Videos: [Observable<YTSerchResponse<Item>>] = []
+   
     var textObservable: Observable<String>?
     var isReview = false
     var searchText: String = ""
@@ -36,11 +35,11 @@ class KeywordViewController: UIViewController {
         super.viewDidLoad()
         self.tblYouTube.estimatedRowHeight = 200
         self.tblYouTube.rowHeight = UITableView.automaticDimension
-        self.textObservable?.subscribe(onNext: { Q in
+        self.textObservable?.subscribe(onNext: { key in
             ApplicationSettings.shared.videos = []
-            self.searchText = Q
+            self.searchText = key
             print(self.searchText)
-            self.getVideo(q: Q)
+            self.getVideo(key: key)
         }).disposed(by: self.rx.disposeBag)
     }
     
@@ -49,9 +48,9 @@ class KeywordViewController: UIViewController {
           self.tblYouTube.reloadData()
     }
     
-    func getVideo(q: String) {
+    func getVideo(key: String) {
         self.indicatorView.startAnimating()
-        ProManagerApi.youTubeKeyWordSerch(q: q, order: nil, nextPageToken: self.nextPageToken).request(YTSerchResponse<Item>.self).subscribe(onNext: { response in
+        ProManagerApi.youTubeKeyWordSerch(key: key, order: nil, nextPageToken: self.nextPageToken).request(YTSerchResponse<Item>.self).subscribe(onNext: { response in
             self.nextPageToken = response.nextPageToken
             self.totalResult = response.pageInfo?.totalResults
             self.resultPerPage = response.pageInfo?.resultsPerPage
@@ -89,7 +88,7 @@ extension KeywordViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row ==  (ApplicationSettings.shared.videos.count) - 2 && self.nextPageToken != nil {
-            self.getVideo(q: self.searchText)
+            self.getVideo(key: self.searchText)
         }
         guard let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.youTubeTableViewCell.identifier) as? YouTubeTableViewCell else {
             fatalError("YouTubeTableViewCell Not Found")

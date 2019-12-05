@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		82057FF923991511007AE1B7 /* StoryCameraViewController+ViewGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82057FF823991511007AE1B7 /* StoryCameraViewController+ViewGesture.swift */; };
+		82057FFB239915AC007AE1B7 /* StroyCameraViewController+CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82057FFA239915AC007AE1B7 /* StroyCameraViewController+CollectionView.swift */; };
 		8205FA77236C0EE4002B2603 /* ColorImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FA76236C0EE4002B2603 /* ColorImageButton.swift */; };
 		8205FA7A236C0F5B002B2603 /* ImageLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FA79236C0F5A002B2603 /* ImageLibrary.swift */; };
 		8205FA7C236C0F8C002B2603 /* HorizontalFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FA7B236C0F8C002B2603 /* HorizontalFlowLayout.swift */; };
@@ -360,7 +362,6 @@
 		824EB3BF23619E5C00205993 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB3A723619E5B00205993 /* URL.swift */; };
 		824EB3C023619E5C00205993 /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB3A823619E5B00205993 /* Date.swift */; };
 		824EB3C123619E5C00205993 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB3A923619E5B00205993 /* String+Extension.swift */; };
-		824EB3C323619E5C00205993 /* ControllersEnumShared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB3AB23619E5B00205993 /* ControllersEnumShared.swift */; };
 		824EB3C423619E5C00205993 /* UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB3AC23619E5B00205993 /* UIAlertController.swift */; };
 		824EB3C523619E5C00205993 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB3AD23619E5B00205993 /* FileManager.swift */; };
 		824EB3C623619E5C00205993 /* UIImageView+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB3AE23619E5B00205993 /* UIImageView+UIImage.swift */; };
@@ -454,10 +455,8 @@
 		82D1EBE7236FF35600A680E7 /* SlideshowImagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EBE6236FF35500A680E7 /* SlideshowImagesCell.swift */; };
 		82D1EBE9236FF35900A680E7 /* SlideshowImagesCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 82D1EBE8236FF35900A680E7 /* SlideshowImagesCell.xib */; };
 		82D1EBEB236FF3DB00A680E7 /* SelectHashTagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EBEA236FF3DB00A680E7 /* SelectHashTagViewController.swift */; };
-		82D1EBEF236FF4B200A680E7 /* CropRectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EBEE236FF4B100A680E7 /* CropRectView.swift */; };
 		82D1EBF1236FF4CC00A680E7 /* UpgradePageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EBF0236FF4CB00A680E7 /* UpgradePageCollectionViewCell.swift */; };
 		82D1EBF3236FF4D000A680E7 /* UpgradePageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 82D1EBF2236FF4D000A680E7 /* UpgradePageCollectionViewCell.xib */; };
-		82D1EBF5236FF52200A680E7 /* ResizeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EBF4236FF52200A680E7 /* ResizeControl.swift */; };
 		82D1EBF7236FF64500A680E7 /* EmojisCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EBF6236FF64500A680E7 /* EmojisCollectionViewDelegate.swift */; };
 		82D1EBF9236FF68700A680E7 /* StoryEmojiCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EBF8236FF68600A680E7 /* StoryEmojiCollectionViewCell.swift */; };
 		82D1EBFB236FF68A00A680E7 /* StoryEmojiCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 82D1EBFA236FF68A00A680E7 /* StoryEmojiCollectionViewCell.xib */; };
@@ -538,6 +537,8 @@
 /* Begin PBXFileReference section */
 		2FFDFF034EAEBD1B2183306F /* Pods_SocialCAM.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SocialCAM.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3347444B0199C606404F4661 /* Pods-SocialCAM.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialCAM.release.xcconfig"; path = "Target Support Files/Pods-SocialCAM/Pods-SocialCAM.release.xcconfig"; sourceTree = "<group>"; };
+		82057FF823991511007AE1B7 /* StoryCameraViewController+ViewGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StoryCameraViewController+ViewGesture.swift"; sourceTree = "<group>"; };
+		82057FFA239915AC007AE1B7 /* StroyCameraViewController+CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StroyCameraViewController+CollectionView.swift"; sourceTree = "<group>"; };
 		8205FA76236C0EE4002B2603 /* ColorImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorImageButton.swift; sourceTree = "<group>"; };
 		8205FA79236C0F5A002B2603 /* ImageLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageLibrary.swift; sourceTree = "<group>"; };
 		8205FA7B236C0F8C002B2603 /* HorizontalFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalFlowLayout.swift; sourceTree = "<group>"; };
@@ -913,7 +914,6 @@
 		824EB3A723619E5B00205993 /* URL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
 		824EB3A823619E5B00205993 /* Date.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		824EB3A923619E5B00205993 /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
-		824EB3AB23619E5B00205993 /* ControllersEnumShared.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControllersEnumShared.swift; sourceTree = "<group>"; };
 		824EB3AC23619E5B00205993 /* UIAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAlertController.swift; sourceTree = "<group>"; };
 		824EB3AD23619E5B00205993 /* FileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 		824EB3AE23619E5B00205993 /* UIImageView+UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+UIImage.swift"; sourceTree = "<group>"; };
@@ -1893,6 +1893,8 @@
 			isa = PBXGroup;
 			children = (
 				824EB390236197DE00205993 /* StoryCameraViewController.swift */,
+				82057FF823991511007AE1B7 /* StoryCameraViewController+ViewGesture.swift */,
+				82057FFA239915AC007AE1B7 /* StroyCameraViewController+CollectionView.swift */,
 				820B236E2371849300906BF0 /* StoryCameraViewController+Events.swift */,
 				8299F56923713A8B00963318 /* StoryCameraViewController+NextLevel.swift */,
 				82BAC1DD2387DDD000E586AB /* StoryCameraViewController+Gesture.swift */,
@@ -2054,7 +2056,6 @@
 				82AD6B6F23704B330090498A /* UIViewUtilsExtension.swift */,
 				82D1EBFE236FF87700A680E7 /* UIViewController.swift */,
 				82D1EBDE236FF2DF00A680E7 /* UILabel+Extension.swift */,
-				824EB3AB23619E5B00205993 /* ControllersEnumShared.swift */,
 				824EB3AE23619E5B00205993 /* UIImageView+UIImage.swift */,
 				824EB3B323619E5B00205993 /* UIView.swift */,
 				824EB3A923619E5B00205993 /* String+Extension.swift */,
@@ -2625,7 +2626,6 @@
 				8205FBC0236C2A88002B2603 /* MMPlayerPassViewPushConfig.swift in Sources */,
 				82D1EBDB236FF29600A680E7 /* MensionCollectionViewCell.swift in Sources */,
 				8206AEF42374108C000CDD2A /* Semaphore.swift in Sources */,
-				82D1EBEF236FF4B200A680E7 /* CropRectView.swift in Sources */,
 				954660552387B5CC00A37AE0 /* CropView+Touches.swift in Sources */,
 				8205FBD6236C2B54002B2603 /* StoryAssetExportSession.swift in Sources */,
 				8205FAAD236C0FF0002B2603 /* ZeroPaddingTextView.swift in Sources */,
@@ -2695,7 +2695,6 @@
 				824EB3BE23619E5C00205993 /* UIColor+Constant.swift in Sources */,
 				8205FAF3236C110C002B2603 /* VideoScrollView.swift in Sources */,
 				8205FBCD236C2A88002B2603 /* MMPlayerProtocol.swift in Sources */,
-				824EB3C323619E5C00205993 /* ControllersEnumShared.swift in Sources */,
 				824EB3F123619FB000205993 /* NextLevel+AVFoundation.swift in Sources */,
 				954660492387B5CC00A37AE0 /* Mantis.swift in Sources */,
 				82D1EBC5236FEE7C00A680E7 /* StickerCollectionViewCell.swift in Sources */,
@@ -2737,6 +2736,7 @@
 				8205FCBC236C3AFA002B2603 /* CollageViewT801.swift in Sources */,
 				8205FD8A236C3B22002B2603 /* StickersViewController.swift in Sources */,
 				8205FB24236C160E002B2603 /* StoryAskQuestionView.swift in Sources */,
+				82057FF923991511007AE1B7 /* StoryCameraViewController+ViewGesture.swift in Sources */,
 				8205FAAC236C0FF0002B2603 /* MultiTextField.swift in Sources */,
 				8205FD73236C3B06002B2603 /* DoodleControlView.swift in Sources */,
 				8205FB2A236C1723002B2603 /* User.swift in Sources */,
@@ -2804,7 +2804,6 @@
 				8205FBCC236C2A88002B2603 /* MMPlayerCache.swift in Sources */,
 				82D1EBD8236FF23D00A680E7 /* SketchTool.swift in Sources */,
 				8205FB07236C1203002B2603 /* DiskStatus.swift in Sources */,
-				82D1EBF5236FF52200A680E7 /* ResizeControl.swift in Sources */,
 				8205FD67236C3B06002B2603 /* SharpenControl.swift in Sources */,
 				822F413C238FE39100084007 /* Async.swift in Sources */,
 				824EB3F323619FB000205993 /* NextLevel+UIImage.swift in Sources */,
@@ -2926,6 +2925,7 @@
 				8205FB0D236C121F002B2603 /* LocationManager.swift in Sources */,
 				82D1EBA4236FED1700A680E7 /* EmojiCollectionViewDelegate.swift in Sources */,
 				824EB3E623619FB000205993 /* NextLevel+Foundation.swift in Sources */,
+				82057FFB239915AC007AE1B7 /* StroyCameraViewController+CollectionView.swift in Sources */,
 				824EB3EB23619FB000205993 /* NextLevelBufferRenderer.swift in Sources */,
 				9546606A2387B5CC00A37AE0 /* CGAngle.swift in Sources */,
 				8205FBBA236C2A88002B2603 /* MMPlayerPassViewPresentConfig.swift in Sources */,

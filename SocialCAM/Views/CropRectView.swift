@@ -102,22 +102,22 @@ class CropRectView: UIView, ResizeControlDelegate {
         let width = bounds.width
         let height = bounds.height
         
-        for i in 0 ..< 3 {
+        for iValue in 0 ..< 3 {
             let borderPadding: CGFloat = 0.5
             
             if showsGridMinor {
-                for j in 1 ..< 3 {
+                for jValue in 1 ..< 3 {
                     UIColor(red: 1.0, green: 1.0, blue: 0.0, alpha: 0.3).set()
-                    UIRectFill(CGRect(x: round((width / 9.0) * CGFloat(j) + (width / 3.0) * CGFloat(i)), y: borderPadding, width: 1.0, height: round(height) - borderPadding * 2.0))
-                    UIRectFill(CGRect(x: borderPadding, y: round((height / 9.0) * CGFloat(j) + (height / 3.0) * CGFloat(i)), width: round(width) - borderPadding * 2.0, height: 1.0))
+                    UIRectFill(CGRect(x: round((width / 9.0) * CGFloat(jValue) + (width / 3.0) * CGFloat(iValue)), y: borderPadding, width: 1.0, height: round(height) - borderPadding * 2.0))
+                    UIRectFill(CGRect(x: borderPadding, y: round((height / 9.0) * CGFloat(jValue) + (height / 3.0) * CGFloat(iValue)), width: round(width) - borderPadding * 2.0, height: 1.0))
                 }
             }
             
             if showsGridMajor {
-                if i > 0 {
+                if iValue > 0 {
                     ApplicationSettings.appWhiteColor.set()
-                    UIRectFill(CGRect(x: round(CGFloat(i) * width / 3.0), y: borderPadding, width: 1.0, height: round(height) - borderPadding * 2.0))
-                    UIRectFill(CGRect(x: borderPadding, y: round(CGFloat(i) * height / 3.0), width: round(width) - borderPadding * 2.0, height: 1.0))
+                    UIRectFill(CGRect(x: round(CGFloat(iValue) * width / 3.0), y: borderPadding, width: 1.0, height: round(height) - borderPadding * 2.0))
+                    UIRectFill(CGRect(x: borderPadding, y: round(CGFloat(iValue) * height / 3.0), width: round(width) - borderPadding * 2.0, height: 1.0))
                 }
             }
         }

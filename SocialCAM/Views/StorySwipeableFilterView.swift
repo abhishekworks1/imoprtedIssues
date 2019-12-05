@@ -66,15 +66,15 @@ class StorySwipeableFilterView: StoryImageView {
             
     override init(frame: CGRect) {
         super.init(frame: frame)
-        _swipeableCommonInit()
+        swipeableCommonInit()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        _swipeableCommonInit()
+        swipeableCommonInit()
     }
     
-    func _swipeableCommonInit() {
+    func swipeableCommonInit() {
         refreshAutomaticallyWhenScrolling = true
         selectFilterScrollView = UIScrollView(frame: bounds)
         selectFilterScrollView.delegate = self

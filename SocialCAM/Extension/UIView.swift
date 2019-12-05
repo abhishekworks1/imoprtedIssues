@@ -303,13 +303,13 @@ extension UIView {
     }
     
     func sizeToFitCustom() {
-        var w: CGFloat = 0,
-        h: CGFloat = 0
+        var width: CGFloat = 0,
+        height: CGFloat = 0
         for view in subviews {
-            if view.frame.origin.x + view.frame.width > w { w = view.frame.origin.x + view.frame.width }
-            if view.frame.origin.y + view.frame.height > h { h = view.frame.origin.y + view.frame.height }
+            if view.frame.origin.x + view.frame.width > width { width = view.frame.origin.x + view.frame.width }
+            if view.frame.origin.y + view.frame.height > height { height = view.frame.origin.y + view.frame.height }
         }
-        frame.size = CGSize(width: w, height: h)
+        frame.size = CGSize(width: width, height: height)
     }
     
     func hideTagViews(hide: Bool) {
@@ -370,11 +370,11 @@ extension UIView {
     }
     
     var xGlobalCenterPoint: CGFloat {
-        let x = self.center.x
+        let centerX = self.center.x
         if !UIScreen.haveRatio {
-            return x.ratio / UIScreen.ratioWidth
+            return centerX.ratio / UIScreen.ratioWidth
         }
-        return x.ratio / UIScreen.width
+        return centerX.ratio / UIScreen.width
     }
     
     var yGlobalCenterPoint: CGFloat {
@@ -382,8 +382,8 @@ extension UIView {
     }
     
     var xGlobalPoint: CGFloat {
-        let x = self.frame.origin.x
-        return x.ratio / UIScreen.ratioWidth
+        let centerX = self.frame.origin.x
+        return centerX.ratio / UIScreen.ratioWidth
     }
     
     var yGlobalPoint: CGFloat {
@@ -551,7 +551,7 @@ internal extension UIView {
     
     @discardableResult
     func addHorizontallyCenteredConstraint(toView view: UIView, offset: CGFloat = 0) -> NSLayoutConstraint {
-        let c = NSLayoutConstraint(
+        let layoutConstraint = NSLayoutConstraint(
             item: self,
             attribute: .centerX,
             relatedBy: .equal,
@@ -559,14 +559,14 @@ internal extension UIView {
             attribute: NSLayoutConstraint.Attribute.centerX,
             multiplier: 1,
             constant: offset)
-        self.superview?.addConstraint(c)
+        self.superview?.addConstraint(layoutConstraint)
         
-        return c
+        return layoutConstraint
     }
     
     @discardableResult
     func addVerticallyCenteredConstraint(toView view: UIView, offset: CGFloat = 0) -> NSLayoutConstraint {
-        let c = NSLayoutConstraint(
+        let layoutConstraint = NSLayoutConstraint(
             item: self,
             attribute: .centerY,
             relatedBy: .equal,
@@ -574,14 +574,14 @@ internal extension UIView {
             attribute: .centerY,
             multiplier: 1,
             constant: offset)
-        self.superview?.addConstraint(c)
+        self.superview?.addConstraint(layoutConstraint)
         
-        return c
+        return layoutConstraint
     }
     
     @discardableResult
     func addHorizontallyCenteredConstraint(_ offset: CGFloat = 0) -> NSLayoutConstraint {
-        let c = NSLayoutConstraint(
+        let layoutConstraint = NSLayoutConstraint(
             item: self,
             attribute: .centerX,
             relatedBy: .equal,
@@ -589,14 +589,14 @@ internal extension UIView {
             attribute: NSLayoutConstraint.Attribute.centerX,
             multiplier: 1,
             constant: offset)
-        self.superview?.addConstraint(c)
+        self.superview?.addConstraint(layoutConstraint)
         
-        return c
+        return layoutConstraint
     }
     
     @discardableResult
     func addVerticallyCenteredConstraint(_ offset: CGFloat = 0) -> NSLayoutConstraint {
-        let c = NSLayoutConstraint(
+        let layoutConstraint = NSLayoutConstraint(
             item: self,
             attribute: .centerY,
             relatedBy: .equal,
@@ -604,21 +604,21 @@ internal extension UIView {
             attribute: .centerY,
             multiplier: 1,
             constant: offset)
-        self.superview?.addConstraint(c)
+        self.superview?.addConstraint(layoutConstraint)
         
-        return c
+        return layoutConstraint
     }
     
     @discardableResult
     func addHorizontallyAndVerticallyCenteredConstraints(_ offset: CGSize = CGSize.zero) -> [NSLayoutConstraint] {
-        let c1 = self.addHorizontallyCenteredConstraint(offset.width)
-        let c2 = self.addVerticallyCenteredConstraint(offset.height)
-        return [c1, c2]
+        let layoutConstraintWidth = self.addHorizontallyCenteredConstraint(offset.width)
+        let layoutConstraintHeight = self.addVerticallyCenteredConstraint(offset.height)
+        return [layoutConstraintWidth, layoutConstraintHeight]
     }
     
     @discardableResult
     func addFixedWidthConstraint(_ width: CGFloat, priority: UILayoutPriority = UILayoutPriority.required) -> NSLayoutConstraint {
-        let c = NSLayoutConstraint(
+        let layoutConstraint = NSLayoutConstraint(
             item: self,
             attribute: .width,
             relatedBy: .equal,
@@ -626,15 +626,15 @@ internal extension UIView {
             attribute: .notAnAttribute,
             multiplier: 1,
             constant: width)
-        c.priority = priority
-        self.addConstraint(c)
+        layoutConstraint.priority = priority
+        self.addConstraint(layoutConstraint)
         
-        return c
+        return layoutConstraint
     }
     
     @discardableResult
     func addFixedHeightConstraint(_ height: CGFloat) -> NSLayoutConstraint {
-        let c = NSLayoutConstraint(
+        let layoutConstraint = NSLayoutConstraint(
             item: self,
             attribute: .height,
             relatedBy: .equal,
@@ -642,16 +642,16 @@ internal extension UIView {
             attribute: .notAnAttribute,
             multiplier: 1,
             constant: height)
-        self.addConstraint(c)
+        self.addConstraint(layoutConstraint)
         
-        return c
+        return layoutConstraint
     }
     
     @discardableResult
     func addFixedSizeConstraint(_ size: CGSize) -> [NSLayoutConstraint] {
-        let w = addFixedWidthConstraint(size.width)
-        let h = addFixedHeightConstraint(size.height)
-        return [w, h]
+        let layoutConstraintWidth = addFixedWidthConstraint(size.width)
+        let layoutConstraintHeight = addFixedHeightConstraint(size.height)
+        return [layoutConstraintWidth, layoutConstraintHeight]
     }
     
     @discardableResult

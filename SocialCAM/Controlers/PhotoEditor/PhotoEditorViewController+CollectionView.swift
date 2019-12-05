@@ -76,11 +76,11 @@ extension PhotoEditorViewController: UICollectionViewDelegate, UICollectionViewD
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         if scrollView == collectionView {
-            guard  let _asset = _asset else {
+            guard  let asset = videoAsset else {
                 return
             }
             
-            let videoTrackLength = 67 * _displayKeyframeImages.count
+            let videoTrackLength = 67 * displayKeyframeImages.count
             var position = scrollView.contentOffset.x + UIScreen.main.bounds.size.width / 2
             if position < 0 {
                 cursorContainerViewCenterConstraint.constant = -position
@@ -91,16 +91,16 @@ extension PhotoEditorViewController: UICollectionViewDelegate, UICollectionViewD
             position = min(position, CGFloat(videoTrackLength))
             
             let percent = position / CGFloat(videoTrackLength)
-            var currentSecond = _asset.duration.seconds * Double(percent)
+            var currentSecond = asset.duration.seconds * Double(percent)
             currentSecond = max(currentSecond, 0)
-            currentSecond = min(currentSecond, _asset.duration.seconds)
+            currentSecond = min(currentSecond, asset.duration.seconds)
      
             if !currentSecond.isNaN {
                 cursorContainerViewController.seconds = currentSecond
-                let currentTime = CMTimeMakeWithSeconds(currentSecond, preferredTimescale: _asset.duration.timescale)
+                let currentTime = CMTimeMakeWithSeconds(currentSecond, preferredTimescale: asset.duration.timescale)
                 if currentTime.seconds >= 0 && !currentSecond.isNaN {
                     if !(scPlayer?.isPlaying)! {
-                        scPlayer?.seek(to: currentTime, toleranceBefore: CMTimeMake(value: 0, timescale: _asset.duration.timescale), toleranceAfter: CMTimeMake(value: 0, timescale: _asset.duration.timescale)) {_ in
+                        scPlayer?.seek(to: currentTime, toleranceBefore: CMTimeMake(value: 0, timescale: asset.duration.timescale), toleranceAfter: CMTimeMake(value: 0, timescale: asset.duration.timescale)) {_ in
                             
                         }
                     }
@@ -138,7 +138,7 @@ extension PhotoEditorViewController: UICollectionViewDataSource, KDDragAndDropCo
             }
             return videoUrls.count
         } else if collectionView == self.collectionView {
-            return _displayKeyframeImages.count
+            return displayKeyframeImages.count
         } else if collectionView == self.slideShowCollectionView {
             return selectedSlideShowImages.count
         }
@@ -285,8 +285,8 @@ extension PhotoEditorViewController: UICollectionViewDataSource, KDDragAndDropCo
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.keyframePickerCollectionViewCell, for: indexPath) else {
                 return UICollectionViewCell()
             }
-            if !_displayKeyframeImages.isEmpty {
-                cell.keyframeImage = _displayKeyframeImages[indexPath.row]
+            if !displayKeyframeImages.isEmpty {
+                cell.keyframeImage = displayKeyframeImages[indexPath.row]
             }
             
             return cell
@@ -408,11 +408,11 @@ extension PhotoEditorViewController: UICollectionViewDataSource, KDDragAndDropCo
         
         guard let candidate = dataItem as? SegmentVideos else { return nil }
         
-        for (i, item) in videoUrls.enumerated() {
+        for (index, item) in videoUrls.enumerated() {
             if candidate.id != item.id {
                 continue
             }
-            return IndexPath(item: i, section: 0)
+            return IndexPath(item: index, section: 0)
         }
         
         return nil
@@ -790,22 +790,16 @@ extension PhotoEditorViewController: UICollectionViewDataSource, KDDragAndDropCo
                                     switch view.tag {
                                     case 1:
                                         custImage1.image = selectedVideoUrlSave.image
-                                        break
                                     case 2:
                                         custImage2.image = selectedVideoUrlSave.image
-                                        break
                                     case 3:
                                         custImage3.image = selectedVideoUrlSave.image
-                                        break
                                     case 4:
                                         custImage4.image = selectedVideoUrlSave.image
-                                        break
                                     case 5:
                                         custImage5.image = selectedVideoUrlSave.image
-                                        break
                                     case 6:
                                         custImage6.image = selectedVideoUrlSave.image
-                                        break
                                     default:
                                         break
                                     }

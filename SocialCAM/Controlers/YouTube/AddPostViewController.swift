@@ -32,7 +32,6 @@ class AddPostViewController: UIViewController {
     @IBOutlet var txtTag: UITextView!
     @IBOutlet var viewPlayer: UIView!
     
-    var Videos: [Observable<YTSerchResponse<Item>>] = []
     var playHandler : ((_ item: Item) -> Void)?
     var video = Item(JSON: [:])
     var popHandler : ((_ youTubeUrl: String) -> Void)?

@@ -107,8 +107,8 @@ extension PhotoEditorViewController: StickersViewControllerDelegate {
                         return
                     }
                     let youtubeUrl = ogData.sourceUrl?.absoluteString
-                    if let YouId = youtubeUrl?.youTubeId {
-                        self.youTubeData = ["videoUrl": youtubeUrl ?? "", "videoId": YouId]
+                    if let youId = youtubeUrl?.youTubeId {
+                        self.youTubeData = ["videoUrl": youtubeUrl ?? "", "videoId": youId]
                         if let chId = channelId {
                             self.youTubeData?["channelId"] = chId
                         }
@@ -140,7 +140,6 @@ extension PhotoEditorViewController: StickersViewControllerDelegate {
         case .mension:
             self.removeStickersView()
             addMensionTypeView()
-            break
         case .hashtag:
             let hashTags = self.storyTags.filter { $0.tag.tagType == StoryTagType.hashtag.rawValue }
             self.removeStickersView()

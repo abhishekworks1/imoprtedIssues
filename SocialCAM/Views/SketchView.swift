@@ -68,10 +68,8 @@ public class SketchView: UIView {
         switch drawMode {
         case .original:
             image?.draw(at: CGPoint.zero)
-            break
         case .scale:
             image?.draw(in: self.bounds)
-            break
         }
 
         currentTool?.draw()
@@ -89,12 +87,10 @@ public class SketchView: UIView {
                         image.draw(at: CGPoint.zero)
                     }
                 }
-                break
             case .scale:
                 if let image = backgroundImage?.copy() as? UIImage {
                     image.draw(in: self.bounds)
                 }
-                break
             }
 
             for obj in pathArray {

@@ -33,11 +33,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UIApplication.shared.applicationIconBadgeNumber = 0
         configureIQKeyboardManager()
+       
         InternetConnectionAlert.shared.enable = true
-        var config = InternetConnectionAlert.Configuration()
-        config.kBG_COLOR = ApplicationSettings.appPrimaryColor
-        InternetConnectionAlert.shared.config = config
-        
         InternetConnectionAlert.shared.internetConnectionHandler = { reachability in
             if reachability.connection != .none {
                 StoryDataManager.shared.startUpload()

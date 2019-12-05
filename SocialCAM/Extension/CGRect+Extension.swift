@@ -50,14 +50,16 @@ extension CGFloat {
     var ratio: CGFloat {
         return 100*self
     }
+    
     var actualHorizontal: CGFloat {
-        var x = UIScreen.width*self / 100
+        var xValue = UIScreen.width*self / 100
         if !UIScreen.haveRatio {
-            x = UIScreen.ratioWidth*self / 100
-            x -= ((UIScreen.ratioWidth - UIScreen.width) / 2)
+            xValue = UIScreen.ratioWidth*self / 100
+            xValue -= ((UIScreen.ratioWidth - UIScreen.width) / 2)
         }
-        return x
+        return xValue
     }
+    
     var actualVertical: CGFloat {
         return UIScreen.height*self / 100
     }

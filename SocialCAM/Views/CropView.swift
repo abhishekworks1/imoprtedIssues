@@ -77,12 +77,12 @@ open class CropView: UIView, UIScrollViewDelegate, UIGestureRecognizerDelegate, 
             resetCropRect()
             
             let scale = min(scrollView.frame.width / imageSize.width, scrollView.frame.height / imageSize.height)
-            let x = imageCropRect.minX * scale + scrollView.frame.minX
-            let y = imageCropRect.minY * scale + scrollView.frame.minY
+            let xValue = imageCropRect.minX * scale + scrollView.frame.minX
+            let yValue = imageCropRect.minY * scale + scrollView.frame.minY
             let width = imageCropRect.width * scale
             let height = imageCropRect.height * scale
             
-            let rect = CGRect(x: x, y: y, width: width, height: height)
+            let rect = CGRect(x: xValue, y: yValue, width: width, height: height)
             let intersection = rect.intersection(scrollView.frame)
             
             if !intersection.isNull {
@@ -116,8 +116,8 @@ open class CropView: UIView, UIScrollViewDelegate, UIGestureRecognizerDelegate, 
     fileprivate var interfaceOrientation = UIApplication.shared.statusBarOrientation
     fileprivate var resizing = false
     fileprivate var usingCustomImageView = false
-    fileprivate let MarginTop: CGFloat = 37.0
-    fileprivate let MarginLeft: CGFloat = 20.0
+    fileprivate let marginTop: CGFloat = 37.0
+    fileprivate let marginLeft: CGFloat = 20.0
 
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -188,9 +188,9 @@ open class CropView: UIView, UIScrollViewDelegate, UIGestureRecognizerDelegate, 
 
         if imageView == nil {
             if interfaceOrientation.isPortrait {
-                insetRect = bounds.insetBy(dx: MarginLeft, dy: MarginTop)
+                insetRect = bounds.insetBy(dx: MarginLeft, dy: marginTop)
             } else {
-                insetRect = bounds.insetBy(dx: MarginLeft, dy: MarginLeft)
+                insetRect = bounds.insetBy(dx: MarginLeft, dy: marginLeft)
             }
             if !showCroppedArea {
                 insetRect = editingRect
@@ -199,9 +199,9 @@ open class CropView: UIView, UIScrollViewDelegate, UIGestureRecognizerDelegate, 
             setupImageView()
         } else if usingCustomImageView {
             if interfaceOrientation.isPortrait {
-                insetRect = bounds.insetBy(dx: MarginLeft, dy: MarginTop)
+                insetRect = bounds.insetBy(dx: MarginLeft, dy: marginTop)
             } else {
-                insetRect = bounds.insetBy(dx: MarginLeft, dy: MarginLeft)
+                insetRect = bounds.insetBy(dx: MarginLeft, dy: marginLeft)
             }
             if !showCroppedArea {
                 insetRect = editingRect
@@ -304,9 +304,9 @@ open class CropView: UIView, UIScrollViewDelegate, UIGestureRecognizerDelegate, 
     fileprivate func setupEditingRect() {
         let interfaceOrientation = UIApplication.shared.statusBarOrientation
         if interfaceOrientation.isPortrait {
-            editingRect = bounds.insetBy(dx: MarginLeft, dy: MarginTop)
+            editingRect = bounds.insetBy(dx: MarginLeft, dy: marginTop)
         } else {
-            editingRect = bounds.insetBy(dx: MarginLeft, dy: MarginLeft)
+            editingRect = bounds.insetBy(dx: MarginLeft, dy: marginLeft)
         }
         if !showCroppedArea {
             editingRect = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height)

@@ -8,6 +8,83 @@
 
 import Foundation
 import AVKit
+
+extension StoryCameraViewController {
+    
+    func removeGesturesOf(view: UIView) {
+        guard let gestures = view.gestureRecognizers else {
+            return
+        }
+        for gesture in gestures {
+            view.removeGestureRecognizer(gesture)
+        }
+    }
+    
+    func addGesturesTo(view: UIView) {
+        view.isUserInteractionEnabled = true
+        
+        replyQuePanGesture = UIPanGestureRecognizer(target: self,
+                                                    action: #selector(replyQuePanGesture(_:)))
+        replyQuePanGesture?.minimumNumberOfTouches = 1
+        replyQuePanGesture?.maximumNumberOfTouches = 1
+        replyQuePanGesture?.delegate = self
+        view.addGestureRecognizer(replyQuePanGesture!)
+        
+        replyQuePinchGesture = UIPinchGestureRecognizer(target: self,
+                                                        action: #selector(replyQuePinchGesture(_:)))
+        replyQuePinchGesture?.delegate = self
+        view.addGestureRecognizer(replyQuePinchGesture!)
+        
+        replyQueRotationGestureRecognizer = UIRotationGestureRecognizer(target: self,
+                                                                        action: #selector(replyQueRotationGestureRecognizer(_:)))
+        replyQueRotationGestureRecognizer?.delegate = self
+        view.addGestureRecognizer(replyQueRotationGestureRecognizer!)
+        
+    }
+    
+    @objc func replyQuePanGesture(_ recognizer: UIPanGestureRecognizer) {
+        if recognizer.state == .began {
+            isPageScrollEnable = false
+        }
+        if recognizer.state == .ended {
+            isPageScrollEnable = true
+        }
+        if let view = recognizer.view {
+            view.center = CGPoint(x: view.center.x + recognizer.translation(in: self.baseView).x,
+                                  y: view.center.y + recognizer.translation(in: self.baseView).y)
+            recognizer.setTranslation(CGPoint.zero, in: self.baseView)
+        }
+    }
+    
+    @objc func replyQuePinchGesture(_ recognizer: UIPinchGestureRecognizer) {
+        if recognizer.state == .began {
+            isPageScrollEnable = false
+        }
+        if recognizer.state == .ended {
+            isPageScrollEnable = true
+        }
+        if let view = recognizer.view {
+            view.transform = view.transform.scaledBy(x: recognizer.scale, y: recognizer.scale)
+            recognizer.scale = 1
+        }
+    }
+    
+    @objc func replyQueRotationGestureRecognizer(_ recognizer: UIRotationGestureRecognizer) {
+        if recognizer.state == .began {
+            isPageScrollEnable = false
+        }
+        if recognizer.state == .ended {
+            isPageScrollEnable = true
+        }
+        if let view = recognizer.view {
+            view.transform = view.transform.rotated(by: recognizer.rotation)
+            recognizer.rotation = 0
+        }
+    }
+    
+}
+
+
 // MARK: - State
 
 enum State {
@@ -117,7 +194,7 @@ extension StoryCameraViewController {
     }
     
     @objc func popupViewPanned(recognizer: UIPanGestureRecognizer) {
-        if case .Down = recognizer.verticalDirection(target: self.view) {
+        if case .down = recognizer.verticalDirection(target: self.view) {
             switch recognizer.state {
             case .began:
                 
@@ -246,10 +323,10 @@ class InstantPanGestureRecognizer: UIPanGestureRecognizer {
 extension UIPanGestureRecognizer {
     
     enum GestureDirection {
-        case Up
-        case Down
-        case Left
-        case Right
+        case up
+        case down
+        case left
+        case right
     }
     
     /// Get current vertical direction
@@ -257,7 +334,7 @@ extension UIPanGestureRecognizer {
     /// - Parameter target: view target
     /// - Returns: current direction
     func verticalDirection(target: UIView) -> GestureDirection {
-        return self.velocity(in: target).y > 0 ? .Down : .Up
+        return self.velocity(in: target).y > 0 ? .down : .up
     }
     
     /// Get current horizontal direction
@@ -265,7 +342,7 @@ extension UIPanGestureRecognizer {
     /// - Parameter target: view target
     /// - Returns: current direction
     func horizontalDirection(target: UIView) -> GestureDirection {
-        return self.velocity(in: target).x > 0 ? .Right : .Left
+        return self.velocity(in: target).x > 0 ? .right : .left
     }
     
     /// Get a tuple for current horizontal/vertical direction

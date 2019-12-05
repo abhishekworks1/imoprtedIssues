@@ -202,21 +202,16 @@ public class KDDragAndDropManager: NSObject, UIGestureRecognizerDelegate {
 
     // MARK: Helper Methods
     func convertRectToCanvas(_ rect: CGRect, fromView view: UIView) -> CGRect {
+        var rect = rect
+        var view = view
+        while view != self.canvas {
+            guard let superView = view.superview else { break }
+            rect.origin.x += superView.frame.origin.x
+            rect.origin.y += superView.frame.origin.y
 
-        var r = rect
-        var v = view
-
-        while v != self.canvas {
-
-            guard let sv = v.superview else { break; }
-
-            r.origin.x += sv.frame.origin.x
-            r.origin.y += sv.frame.origin.y
-
-            v = sv
+            view = superView
         }
-
-        return r
+        return rect
     }
 
 }

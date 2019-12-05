@@ -29,7 +29,7 @@ public class FocusIndicatorView: UIView {
     
     // MARK: - ivars
     
-    internal var _focusRingView: UIImageView?
+    internal var focusRingView: UIImageView?
     
     // MARK: - object lifecycle
     
@@ -37,12 +37,12 @@ public class FocusIndicatorView: UIView {
         super.init(frame: frame)
         self.backgroundColor = ApplicationSettings.appClearColor
         self.contentMode = .scaleToFill
-        self._focusRingView = UIImageView(image: R.image.focus_indicator())
-        if let focusRingView = self._focusRingView {
+        self.focusRingView = UIImageView(image: R.image.focus_indicator())
+        if let focusRingView = self.focusRingView {
             focusRingView.alpha = 0
             self.addSubview(focusRingView)
         }
-        self.frame = self._focusRingView?.frame ?? frame
+        self.frame = self.focusRingView?.frame ?? frame
         
         self.prepareAnimation()
     }
@@ -52,7 +52,7 @@ public class FocusIndicatorView: UIView {
     }
     
     deinit {
-        self._focusRingView?.layer.removeAllAnimations()
+        self.focusRingView?.layer.removeAllAnimations()
     }
 }
 
@@ -61,29 +61,29 @@ extension FocusIndicatorView {
 
     internal func prepareAnimation() {
         // prepare animation
-        self._focusRingView?.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
-        self._focusRingView?.alpha = 0
+        self.focusRingView?.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+        self.focusRingView?.alpha = 0
     }
     
     public func startAnimation() {
-        self._focusRingView?.layer.removeAllAnimations()
+        self.focusRingView?.layer.removeAllAnimations()
         // animate
         UIView.animate(withDuration: 0.2) {
-            self._focusRingView?.alpha = 1
+            self.focusRingView?.alpha = 1
         }
         UIView.animate(withDuration: 0.5) {
-            self._focusRingView?.transform = CGAffineTransform(scaleX: 0.3, y: 0.3)
+            self.focusRingView?.transform = CGAffineTransform(scaleX: 0.3, y: 0.3)
         }
     }
     
     public func stopAnimation() {
-        self._focusRingView?.layer.removeAllAnimations()
+        self.focusRingView?.layer.removeAllAnimations()
  
         UIView.animate(withDuration: 0.2) {
-            self._focusRingView?.alpha = 0
+            self.focusRingView?.alpha = 0
         }
         UIView.animate(withDuration: 0.2, animations: { 
-            self._focusRingView?.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+            self.focusRingView?.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
         }, completion: { completed in
             if completed {
                 self.removeFromSuperview()

@@ -101,28 +101,28 @@ class TagVC: UIViewController, UIGestureRecognizerDelegate {
         let translation = recognizer.translation(in: self.view)
         let velocity = recognizer.velocity(in: self.view)
         
-        let y = self.view.frame.minY
-        if y + translation.y >= fullView {
-            let newMinY = y + translation.y
+        let minY = self.view.frame.minY
+        if minY + translation.y >= fullView {
+            let newMinY = minY + translation.y
             self.view.frame = CGRect(x: 0, y: newMinY, width: view.frame.width, height: UIScreen.main.bounds.height - newMinY)
             self.view.layoutIfNeeded()
             recognizer.setTranslation(CGPoint.zero, in: self.view)
         }
         
         if recognizer.state == .ended {
-            var duration =  velocity.y < 0 ? Double((y - fullView) / -velocity.y) : Double((partialView - y) / velocity.y)
+            var duration =  velocity.y < 0 ? Double((minY - fullView) / -velocity.y) : Double((partialView - minY) / velocity.y)
             duration = duration > 1.3 ? 1 : duration
             // velocity is direction of gesture
             UIView.animate(withDuration: duration, delay: 0.0, options: [.allowUserInteraction], animations: {
                 if  velocity.y >= 0 {
-                    if y + translation.y >= self.partialView {
+                    if minY + translation.y >= self.partialView {
                         self.removeBottomSheetView()
                     } else {
                         self.view.frame = CGRect(x: 0, y: self.partialView, width: self.view.frame.width, height: UIScreen.main.bounds.height - self.partialView)
                         self.view.layoutIfNeeded()
                     }
                 } else {
-                    if y + translation.y >= self.partialView {
+                    if minY + translation.y >= self.partialView {
                         self.view.frame = CGRect(x: 0, y: self.partialView, width: self.view.frame.width, height: UIScreen.main.bounds.height - self.partialView)
                         self.view.layoutIfNeeded()
                     } else {

@@ -13,7 +13,7 @@ import FLAnimatedImage
 class BorderView: UIView {
     var ratio: CGFloat = 1
     var gradientLayer: CAGradientLayer?
-    var Colorset: [CGColor] = [UIColor.startColor.cgColor, UIColor.endColor.cgColor]
+    var colorset: [CGColor] = [UIColor.startColor.cgColor, UIColor.endColor.cgColor]
     @IBInspectable var cornerRadius: CGFloat = 0 {
         didSet {
             layer.cornerRadius = cornerRadius
@@ -56,17 +56,17 @@ class BorderView: UIView {
     }
     @IBInspectable var startColor: UIColor? {
         didSet {
-            Colorset[0] = (startColor?.cgColor)!
+            colorset[0] = (startColor?.cgColor)!
             if let gl = self.gradientLayer {
-                gl.colors = Colorset
+                gl.colors = colorset
             }
         }
     }
     @IBInspectable var endColor: UIColor? {
         didSet {
-            Colorset[1] = (endColor?.cgColor)!
+            colorset[1] = (endColor?.cgColor)!
             if let gl = self.gradientLayer {
-                gl.colors = Colorset
+                gl.colors = colorset
             }
         }
     }
@@ -102,7 +102,7 @@ class BorderView: UIView {
                     self.gradientLayer = CAGradientLayer()
                 }
                 self.gradientLayer?.frame = self.bounds
-                self.gradientLayer?.colors = Colorset
+                self.gradientLayer?.colors = colorset
                 self.gradientLayer?.locations = [0.0, 0.60]
                 self.gradientLayer?.startPoint = startPoint!
                 self.gradientLayer?.endPoint = endPoint!
@@ -141,7 +141,7 @@ class BorderView: UIView {
 @IBDesignable
 class RoundedView: UIView {
     var gradientLayer: CAGradientLayer?
-    var Colorset: [CGColor] = [UIColor.startColor.cgColor, UIColor.endColor.cgColor]
+    var colorset: [CGColor] = [UIColor.startColor.cgColor, UIColor.endColor.cgColor]
     @IBInspectable var borderWidth: CGFloat = 0 {
         didSet {
             layer.borderWidth = borderWidth
@@ -175,23 +175,22 @@ class RoundedView: UIView {
     }
     @IBInspectable var startColor: UIColor? {
         didSet {
-            Colorset[0] = (startColor?.cgColor)!
+            colorset[0] = (startColor?.cgColor)!
             if let gl = self.gradientLayer {
-                gl.colors = Colorset
+                gl.colors = colorset
             }
         }
     }
     @IBInspectable var endColor: UIColor? {
         didSet {
-            Colorset[1] = (endColor?.cgColor)!
+            colorset[1] = (endColor?.cgColor)!
             if let gl = self.gradientLayer {
-                gl.colors = Colorset
+                gl.colors = colorset
             }
         }
     }
     var startPoint: CGPoint? = CGPoint(x: 0.0, y: 0.5) {
         didSet {
-
             if let gl = self.gradientLayer {
                 gl.startPoint = startPoint!
             }
@@ -211,7 +210,7 @@ class RoundedView: UIView {
                     self.gradientLayer = CAGradientLayer()
                 }
                 self.gradientLayer?.frame = self.bounds
-                self.gradientLayer?.colors = Colorset
+                self.gradientLayer?.colors = colorset
                 self.gradientLayer?.locations = [0.0, 0.65]
                 self.gradientLayer?.startPoint = startPoint!
                 self.gradientLayer?.endPoint = endPoint!
@@ -596,7 +595,7 @@ class ColorButton: UIButton {
 @IBDesignable
 class ColorRoundedView: UIView {
     var gradientLayer: CAGradientLayer?
-    var Colorset: [CGColor] = [ApplicationSettings.appPrimaryColor.cgColor, ApplicationSettings.appPrimaryColor.cgColor]
+    var colorset: [CGColor] = [ApplicationSettings.appPrimaryColor.cgColor, ApplicationSettings.appPrimaryColor.cgColor]
     @IBInspectable var borderWidth: CGFloat = 0 {
         didSet {
             layer.borderWidth = borderWidth
@@ -637,17 +636,17 @@ class ColorRoundedView: UIView {
     }
     @IBInspectable var startColor: UIColor? {
         didSet {
-            Colorset[0] = (startColor?.cgColor)!
+            colorset[0] = (startColor?.cgColor)!
             if let gl = self.gradientLayer {
-                gl.colors = Colorset
+                gl.colors = colorset
             }
         }
     }
     @IBInspectable var endColor: UIColor? {
         didSet {
-            Colorset[1] = (endColor?.cgColor)!
+            colorset[1] = (endColor?.cgColor)!
             if let gl = self.gradientLayer {
-                gl.colors = Colorset
+                gl.colors = colorset
             }
         }
     }
@@ -673,7 +672,7 @@ class ColorRoundedView: UIView {
                     self.gradientLayer = CAGradientLayer()
                 }
                 self.gradientLayer?.frame = self.bounds
-                self.gradientLayer?.colors = Colorset
+                self.gradientLayer?.colors = colorset
                 self.gradientLayer?.locations = [0.0, 0.65]
                 self.gradientLayer?.startPoint = startPoint!
                 self.gradientLayer?.endPoint = endPoint!

@@ -32,8 +32,8 @@ class ResultArray<T: Mappable>: Mappable {
     var result: [T]?
     var status: String?
     var message: String?
-    var page_flag: String?
-    var result_count: Int?
+    var pageFlag: String?
+    var resultCount: Int?
     
     required init?(map: Map) {
         
@@ -44,10 +44,10 @@ class ResultArray<T: Mappable>: Mappable {
         sessionToken <- map["token"]
         status <- map["status"]
         message <- map["message"]
-        page_flag <- map["page_flag"]
-        result_count <- map["result_count"]
-        if result_count == nil {
-             result_count <- map["resultCounts"]
+        pageFlag <- map["page_flag"]
+        resultCount <- map["result_count"]
+        if resultCount == nil {
+             resultCount <- map["resultCounts"]
         }
     }
 }

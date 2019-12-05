@@ -35,7 +35,7 @@ class Channel: Mappable {
     var profileImageURL: String?
     var emailVerification: Bool?
     var lastName: String?
-    var OauthId: String?
+    var oauthId: String?
     var firstName: String?
     var isFollowing: Bool?
     var following: Int?
@@ -76,7 +76,7 @@ class Channel: Mappable {
         profileImageURL <- map["profileImageURL"]
         emailVerification <- map["emailVerification"]
         lastName <- map["lastName"]
-        OauthId <- map["OauthId"]
+        oauthId <- map["OauthId"]
         firstName <- map["firstName"]
         isFollowing <- map["isFollowing"]
         following <- map["following"]
@@ -89,13 +89,12 @@ class Channel: Mappable {
 }
 
 class CartResult: NSObject, Mappable {
-    var is_admin: Bool?
+    var isAdmin: Bool?
     var unreadcount: Int?
-    var _id: String?
+    var id: String?
     var created: String?
     var phone: String?
-    var __v: Int?
-    var is_typing: Bool?
+    var isTyping: Bool?
     var isVerified: Int?
     var profileType: Int?
     var packageChannels: [String]?
@@ -108,13 +107,12 @@ class CartResult: NSObject, Mappable {
     required convenience init?(map: Map) { self.init() }
     
     func mapping(map: Map) {
-        is_admin <- map["is_admin"]
+        isAdmin <- map["is_admin"]
         unreadcount <- map["unreadcount"]
-        _id <- map["_id"]
+        id <- map["_id"]
         created <- map["created"]
         phone <- map["phone"]
-        __v <- map["__v"]
-        is_typing <- map["is_typing"]
+        isTyping <- map["is_typing"]
         isVerified <- map["isVerified"]
         profileType <- map["profileType"]
         packageChannels <- map["packageChannels"]
@@ -126,7 +124,7 @@ class CartResult: NSObject, Mappable {
 }
 
 class GetPackage: Mappable {
-    var _id: String?
+    var id: String?
     var remainingPackageCount: Int?
     var remainingOtherUserPackageCount: Int?
     
@@ -135,7 +133,7 @@ class GetPackage: Mappable {
     }
     
     func mapping(map: Map) {
-        _id <- map["_id"]
+        id <- map["_id"]
         remainingPackageCount <- map["remainingPackageCount"]
         remainingOtherUserPackageCount <- map["remainingOtherUserPackageCount"]
     }

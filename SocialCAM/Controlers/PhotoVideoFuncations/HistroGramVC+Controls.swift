@@ -163,7 +163,7 @@ extension HistroGramVC {
         var finalRangeValues: [[VideoSpeedValue]] = []
         for (index, point) in points.enumerated() {
             if index != points.count-1 {
-                let dx = abs(point.x - points[index+1].x)
+                let dx = abs(point.xValue - points[index+1].xValue)
                 let baseSeconds = Double(dx)*actualDuration/Double(UIScreen.main.bounds.width-30)
                 if ((point.value < 0) && (points[index+1].value < 0)) || ((point.value > 0) && (points[index+1].value > 0)) {
                     print("same sign")

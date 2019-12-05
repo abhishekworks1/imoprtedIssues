@@ -45,29 +45,19 @@ class YouTubeChannelViewController: UIViewController, TagListViewDelegate {
        didSet {
           self.videos = []
           self.tblYouTube.reloadData()
-           self.getVideo(q: self.channelId!)
+           self.getVideo(key: self.channelId!)
         }
     }
     var isOrderByView: Bool? {
         didSet {
             if let isV = isOrderByView {
-                if isV == true {
-                    self.imgArrowView.image = #imageLiteral(resourceName: "DownArrow")
-                    self.videos.sort(by: { (a, b) -> Bool in
-                        let viewsA = Int((a.statistics?.viewCount)!)
-                        let viewsB = Int((b.statistics?.viewCount)!)
-                        return  (viewsA! >= viewsB!)
-                    })
-                    self.tblYouTube.reloadData()
-                } else {
-                    self.imgArrowView.image = #imageLiteral(resourceName: "UPArrow")
-                    self.videos.sort(by: { (a, b) -> Bool in
-                        let viewsA = Int((a.statistics?.viewCount)!)
-                        let viewsB = Int((b.statistics?.viewCount)!)
-                        return  (viewsA! <= viewsB!)
-                    })
-                    self.tblYouTube.reloadData()
-                }
+                self.imgArrowView.image = isV ? R.image.downArrow() : R.image.upArrow()
+                self.videos.sort(by: { (first, second) -> Bool in
+                    let viewsA = Int((first.statistics?.viewCount)!)
+                    let viewsB = Int((second.statistics?.viewCount)!)
+                    return isV ? (viewsA! >= viewsB!) : (viewsA! <= viewsB!)
+                })
+                self.tblYouTube.reloadData()
             } else {
                 self.imgArrowView.image = nil
             }
@@ -76,27 +66,15 @@ class YouTubeChannelViewController: UIViewController, TagListViewDelegate {
     var isOrderByDate: Bool? {
         didSet {
             if let isD = isOrderByDate {
-                if isD == true {
-                    self.imgArrowDate.image = #imageLiteral(resourceName: "DownArrow")
-                    self.videos.sort(by: { (a, b) -> Bool in
-                        let formatter = DateFormatter()
-                        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-                        let dateObj = formatter.date(from: (a.snippet?.publishedAt)!)
-                        let dateObj2 = formatter.date(from: (b.snippet?.publishedAt)!)
-                        return  (dateObj?.compare(dateObj2!) == ComparisonResult.orderedAscending)
-                    })
-                    self.tblYouTube.reloadData()
-                } else {
-                    self.imgArrowDate.image = #imageLiteral(resourceName: "UPArrow")
-                    self.videos.sort(by: { (a, b) -> Bool in
-                        let formatter = DateFormatter()
-                        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
-                        let dateObj = formatter.date(from: (a.snippet?.publishedAt)!)
-                        let dateObj2 = formatter.date(from: (b.snippet?.publishedAt)!)
-                        return  (dateObj?.compare(dateObj2!) == ComparisonResult.orderedDescending)
-                    })
-                    self.tblYouTube.reloadData()
-                }
+                self.imgArrowView.image = isD ? R.image.downArrow() : R.image.upArrow()
+                self.videos.sort(by: { (first, second) -> Bool in
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+                    let dateObj = formatter.date(from: (first.snippet?.publishedAt)!)
+                    let dateObj2 = formatter.date(from: (second.snippet?.publishedAt)!)
+                    return isD ? (dateObj?.compare(dateObj2!) == ComparisonResult.orderedAscending) : (dateObj?.compare(dateObj2!) == ComparisonResult.orderedDescending)
+                })
+                self.tblYouTube.reloadData()
             } else {
                 self.imgArrowDate.image = nil
             }
@@ -131,9 +109,9 @@ class YouTubeChannelViewController: UIViewController, TagListViewDelegate {
         scrollHeight.constant = tagList.intrinsicContentSize.height
     }
     
-    func getVideo(q: String) {
+    func getVideo(key: String) {
         self.indicatorView.startAnimating()
-        ProManagerApi.youTubeChannelSearch(channelId: q, order: nil, nextPageToken: self.nextPageToken).request(YTSerchResponse<Item>.self).subscribe(onNext: { response in
+        ProManagerApi.youTubeChannelSearch(channelId: key, order: nil, nextPageToken: self.nextPageToken).request(YTSerchResponse<Item>.self).subscribe(onNext: { response in
             self.nextPageToken = response.nextPageToken
             self.totalResult = response.pageInfo?.totalResults
             self.resultPerPage = response.pageInfo?.resultsPerPage
@@ -213,7 +191,7 @@ extension YouTubeChannelViewController: UITableViewDataSource, UITableViewDelega
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row ==  (self.videos.count) - 2 && self.nextPageToken != nil {
-            self.getVideo(q: self.searchText)
+            self.getVideo(key: self.searchText)
         }
         guard let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.statTableViewCell.identifier) as? StatTableViewCell else {
             fatalError("StatTableViewCell")

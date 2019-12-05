@@ -159,7 +159,7 @@ class BufferToVideo: NSObject {
         let firstPixelBuffer = buffer.first!
         let width = CVPixelBufferGetWidth(firstPixelBuffer)
         let height = CVPixelBufferGetHeight(firstPixelBuffer)
-        guard let attr: [String: Any] = CVBufferGetAttachments(firstPixelBuffer, .shouldPropagate) as? [String : Any] else {
+        guard let attr: [String: Any] = CVBufferGetAttachments(firstPixelBuffer, .shouldPropagate) as? [String: Any] else {
             return
         }
 
@@ -210,9 +210,8 @@ class BufferToVideo: NSObject {
                     fatalError("pixelBufferPool is nil")
                 }
 
-                let media_queue = DispatchQueue(label: "mediaInputQueue")
-                //
-                videoWriterInput.requestMediaDataWhenReady(on: media_queue) {
+                let mediaQueue = DispatchQueue(label: Constant.Application.simformIdentifier)
+                videoWriterInput.requestMediaDataWhenReady(on: mediaQueue) {
                     let welf = self
                     let currentProgress = Progress(totalUnitCount: Int64(welf.buffer.count))
                     var frameCount: Int64 = 0
@@ -261,52 +260,5 @@ class BufferToVideo: NSObject {
             failure(error)
         }
         
-    }
-}
-
-extension CVPixelBuffer {
-    
-    func deepcopy() -> CVPixelBuffer {
-        /// 1
-        precondition(CFGetTypeID(self) == CVPixelBufferGetTypeID(), "copy() cannot be called on a non-CVPixelBuffer")
-
-        /// 2
-        let attr = CVBufferGetAttachments(self, .shouldPropagate)
-        var _copy: CVPixelBuffer?
-
-        /// 3
-        CVPixelBufferCreate(
-            CFAllocatorGetDefault().takeRetainedValue(),
-            CVPixelBufferGetWidth(self),
-            CVPixelBufferGetHeight(self),
-            CVPixelBufferGetPixelFormatType(self),
-            attr,
-                &_copy)
-
-        guard let copy = _copy else { fatalError() }
-
-        /// 4
-        CVPixelBufferLockBaseAddress(self, .readOnly)
-        CVPixelBufferLockBaseAddress(copy, CVPixelBufferLockFlags(rawValue: CVOptionFlags(0)))
-
-        /// 5
-        let planeCount = CVPixelBufferGetPlaneCount(self)
-
-        for plane in 0..<planeCount {
-            autoreleasepool {
-                let dest = CVPixelBufferGetBaseAddressOfPlane(copy, plane)
-                let source = CVPixelBufferGetBaseAddressOfPlane(self, plane)
-                let height = CVPixelBufferGetHeightOfPlane(self, plane)
-                let bytesPerRow = CVPixelBufferGetBytesPerRowOfPlane(self, plane)
-
-                memcpy(dest, source, height * bytesPerRow)
-            }
-        }
-
-        /// 6
-        CVPixelBufferUnlockBaseAddress(copy, CVPixelBufferLockFlags(rawValue: CVOptionFlags(0)))
-        CVPixelBufferUnlockBaseAddress(self, .readOnly)
-
-        return copy
     }
 }

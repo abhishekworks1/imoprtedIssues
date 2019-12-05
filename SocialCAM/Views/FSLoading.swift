@@ -70,14 +70,14 @@ class FSLoading: UIView {
         
         path.move(to: CGPoint(x: center.x + CGFloat(radius), y: center.y))
         
-        for i in stride(from: 0, to: 220.0, by: 1) {
+        for index in stride(from: 0, to: 220.0, by: 1) {
             // radians = degrees * PI / 180
-            let radians = i * Double.pi / 180
+            let radians = index * Double.pi / 180
             
-            let x = Double(center.x) + radius * cos(radians)
-            let y = Double(center.y) + radius * sin(radians)
+            let xValue = Double(center.x) + radius * cos(radians)
+            let yValue = Double(center.y) + radius * sin(radians)
             
-            path.addLine(to: CGPoint(x: x, y: y))
+            path.addLine(to: CGPoint(x: xValue, y: yValue))
         }
         
         layerView.path = path.cgPath

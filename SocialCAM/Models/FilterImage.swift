@@ -33,13 +33,13 @@ class FilterImage: Equatable {
     init(image: UIImage, index: Int) {
         self.image = image
         self.index = index
-        self.type = .Image
+        self.type = .image
     }
 
     init(url: URL, index: Int) {
         self.url = url
         self.index = index
-        self.type = .Video
+        self.type = .video
     }
     
 }

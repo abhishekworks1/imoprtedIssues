@@ -172,10 +172,10 @@ extension String {
         var data = Data()
         while(!hex.isEmpty) {
             if let subIndex = hex.index(hex.startIndex, offsetBy: 2, limitedBy: hex.endIndex) {
-                let c = String(hex[..<subIndex])
+                let newChar = String(hex[..<subIndex])
                 hex = String(hex[subIndex...])
                 var ch: UInt32 = 0
-                Scanner(string: c).scanHexInt32(&ch)
+                Scanner(string: newChar).scanHexInt32(&ch)
                 var char = UInt8(ch)
                 data.append(&char, count: 1)
             }
@@ -277,12 +277,12 @@ extension String {
         return dateFormat.date(from: self) ?? Date()
     }
     
-    subscript (i: Int) -> Character {
-        return self[index(startIndex, offsetBy: i)]
+    subscript (indexChar: Int) -> Character {
+        return self[index(startIndex, offsetBy: indexChar)]
     }
     
-    subscript (i: Int) -> String {
-        return String(self[i] as Character)
+    subscript (indexChar: Int) -> String {
+        return String(self[indexChar] as Character)
     }
     
     var youTubeId: String? {
@@ -379,16 +379,16 @@ extension String {
         
         UIGraphicsPushContext(context)
         
-        var num_locations: size_t = 2
+        var numLocations: size_t = 2
         var locations: [CGFloat] = [0.0, 1.0]
         var components: [CGFloat] = [startColorRed, startColorGreen, startColorBlue, startAlpha, endColorRed, endColorGreen, endColorBlue, endAlpha]
         if middleColor != nil {
-            num_locations = 3
+            numLocations = 3
             locations = [0.0, 0.5, 1.0]
             components = [startColorRed, startColorGreen, startColorBlue, startAlpha, endColorRed, endColorGreen, endColorBlue, endAlpha, middeleColorRed, middeleColorGreen, middeleColorBlue, middeleColorAlpha]
         }
         let rgbColorspace = CGColorSpaceCreateDeviceRGB()
-        let glossGradient = CGGradient(colorSpace: rgbColorspace, colorComponents: components, locations: locations, count: num_locations)
+        let glossGradient = CGGradient(colorSpace: rgbColorspace, colorComponents: components, locations: locations, count: numLocations)
         let topCenter = CGPoint.zero
         let bottomCenter = CGPoint(x: textSize.width, y: 0)
         context.drawLinearGradient(glossGradient!, start: topCenter, end: bottomCenter, options: CGGradientDrawingOptions.drawsBeforeStartLocation)

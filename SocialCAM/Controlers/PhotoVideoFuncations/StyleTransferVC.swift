@@ -131,12 +131,10 @@ class StyleTransferVC: UIViewController {
         switch gesture.state {
         case .began:
             self.isZooming = true
-            break
         case .changed:
             break
         case .ended, .failed, .cancelled:
             self.isZooming = false
-            break
         case .possible:
             break
         @unknown default:
@@ -190,8 +188,8 @@ class StyleTransferVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        for i in 1...43 {
-            styleData.append(StyleData(name: "", image: UIImage(named: "styletransfer_\(i)")!, styleImage: nil))
+        for index in 1...43 {
+            styleData.append(StyleData(name: "", image: UIImage(named: "styletransfer_\(index)")!, styleImage: nil))
         }
         setData()
         setupLayout()
@@ -258,10 +256,8 @@ class StyleTransferVC: UIViewController {
                 self.doneHandler?(filterImage, sender.tag)
                 self.navigationController?.popViewController(animated: false)
             }
-            break
         case .video:
             saveImage(sender)
-            break
         }
     }
     
@@ -276,7 +272,6 @@ class StyleTransferVC: UIViewController {
                 }
             }
             self.navigationController?.popViewController(animated: false)
-            break
         case .video(let videoSegments, let index):
             let mergeSession = SCRecordSession()
             for segementModel in videoSegments[index].videos {
@@ -320,7 +315,6 @@ class StyleTransferVC: UIViewController {
                     }
                 }
             })
-            break
         }
     }
     
@@ -346,7 +340,6 @@ class StyleTransferVC: UIViewController {
                 album.save(image: image)
                 self.view.makeToast("saved", duration: 2.0, position: .bottom)
             }
-            break
         case .video(let videoSegments, let index):
             let mergeSession = SCRecordSession()
             for segementModel in videoSegments[index].videos {
@@ -377,7 +370,6 @@ class StyleTransferVC: UIViewController {
                     self.view.makeToast("saved", duration: 2.0, position: .bottom)
                 }
             })
-            break
         }
         
     }
@@ -530,8 +522,8 @@ class StyleTransferVC: UIViewController {
                     do {
                         let styles = try MLMultiArray(shape: [self.numberOfStyles],
                                                       dataType: .double)
-                        for i in 0..<styles.count {
-                            styles[i] = 0.0
+                        for index in 0..<styles.count {
+                            styles[index] = 0.0
                         }
                         styles[self.selectedIndex] = 1.0
                         if let image = self.pixelBuffer(from: image) {
@@ -551,11 +543,8 @@ class StyleTransferVC: UIViewController {
                     }
                     self.isProcessing = false
                 }
-                
-                break
             case .video:
                 videoView.selectedIndex = selectedIndex
-                break
             }
         }
     }
@@ -588,11 +577,11 @@ extension StyleTransferVC: KDDragAndDropCollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, indexPathForDataItem dataItem: AnyObject) -> IndexPath? {
         guard let candidate = dataItem as? SegmentVideos else { return nil }
         
-        for (i, item) in selectedItemArray.enumerated() {
+        for (index, item) in selectedItemArray.enumerated() {
             if candidate.id != item.id {
                 continue
             }
-            return IndexPath(item: i, section: 0)
+            return IndexPath(item: index, section: 0)
         }
         
         return nil
@@ -718,7 +707,6 @@ extension StyleTransferVC: UICollectionViewDelegate {
         switch type {
         case .image:
             type = .image(image: orignalImage!)
-            break
         case .video:
             break
         }

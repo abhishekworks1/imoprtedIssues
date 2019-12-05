@@ -81,15 +81,15 @@ open class PlayerView: UIView {
                 self.asset?.resourceLoader.setDelegate(self, queue: DispatchQueue.main)
                 self.asset?.loadValuesAsynchronously(forKeys: assetKeysRequiredToPlay) { [weak self] in
                     DispatchQueue.main.async {
-                        if let a = self?.asset, let keys = self?.assetKeysRequiredToPlay {
+                        if let asset = self?.asset, let keys = self?.assetKeysRequiredToPlay {
                             for key in keys {
                                 var error: NSError?
-                                _ =  a.statusOfValue(forKey: key, error: &error)
+                                _ =  asset.statusOfValue(forKey: key, error: &error)
                                 if error != nil {
                                     return
                                 }
                             }
-                            let item = AVPlayerItem(asset: a)
+                            let item = AVPlayerItem(asset: asset)
                             switch self?.cacheType {
                             case .some(.memory(let count)):
                                 self?.cahce.cacheCount = count
@@ -120,8 +120,8 @@ open class PlayerView: UIView {
             if obj != strongSelf.player?.currentItem {
                 return
             }
-            let s = strongSelf.currentPlayStatus
-            switch s {
+            let status = strongSelf.currentPlayStatus
+            switch status {
             case .playing, .pause:
                 strongSelf.currentPlayStatus = .end
             default: break
@@ -177,7 +177,6 @@ open class PlayerView: UIView {
                 if let indicator = self.indicatorHandler {
                     indicator(false)
                 }
-                break
             case .playing:
                 break
             case .pause:
@@ -190,13 +189,10 @@ open class PlayerView: UIView {
                         }
                     })
                 }
-                break
             case .unknown:
                 if let indicator = self.indicatorHandler {
                     indicator(false)
                 }
-                break
-
             }
             if let handler = self.statusHandler {
                 handler(currentPlayStatus)
@@ -277,8 +273,8 @@ open class PlayerView: UIView {
     
     override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
         
-        if let k = keyPath {
-            switch k {
+        if let keyPath = keyPath {
+            switch keyPath {
             case "Muted":
             if let old = change?[.oldKey] as? Bool,
                 let new = change?[.newKey] as? Bool, old != new {
@@ -314,7 +310,7 @@ open class PlayerView: UIView {
                     new.safeAdd(observer: self, forKeyPath: "playbackBufferEmpty", options: [.new], context: nil)
                 }
             case "playbackBufferEmpty":
-                if let c = change?[.newKey] as? Bool, c == true {
+                if let change = change?[.newKey] as? Bool, change == true {
                     if let indicator = self.indicatorHandler {
                         indicator(true)
                     }
@@ -323,7 +319,7 @@ open class PlayerView: UIView {
                     }
                 }
             case "playbackLikelyToKeepUp":
-                if let c = change?[.newKey] as? Bool, c == true {
+                if let change = change?[.newKey] as? Bool, change == true {
                     if let indicator = self.indicatorHandler {
                         indicator(false)
                     }
@@ -332,16 +328,16 @@ open class PlayerView: UIView {
                     }
                 }
             case "status":
-                let s = self.convertItemStatus()
-                switch s {
+                let convertItemStatus = self.convertItemStatus()
+                switch convertItemStatus {
                 case .failed, .unknown:
-                    self.currentPlayStatus = s
+                    self.currentPlayStatus = convertItemStatus
                 case .ready:
                     switch self.currentPlayStatus {
                     case .ready:
-                        self.currentPlayStatus = s
+                        self.currentPlayStatus = convertItemStatus
                     case .failed, .unknown:
-                        self.currentPlayStatus = s
+                        self.currentPlayStatus = convertItemStatus
                     default:
                         break
                     }

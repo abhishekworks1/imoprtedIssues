@@ -10,7 +10,7 @@ import Foundation
 import ObjectMapper
 
 class HashTag: Mappable {
-    var  id: String?
+    var id: String?
     var count: Int?
     var tag: String?
     var isFollow: Bool?
@@ -34,10 +34,9 @@ class HashTag: Mappable {
 
 class HashTagSetList: Mappable {
     
-    var _id: String?
+    var id: String?
     var categoryName: String?
     var userHashTagData: UserHashTagData?
-    var __v: Int?
     var created: String?
     var usedCount: Int?
     var hashTags: [String]?
@@ -47,10 +46,9 @@ class HashTagSetList: Mappable {
     }
     
     func mapping(map: Map) {
-        _id <- map["_id"]
+        id <- map["_id"]
         categoryName <- map["categoryName"]
         userHashTagData <- map["user"]
-        __v <- map["__v"]
         created <- map["created"]
         usedCount <- map["usedCount"]
         hashTags <- map["hashTags"]
@@ -59,7 +57,7 @@ class HashTagSetList: Mappable {
 
 class UserHashTagData: Mappable {
     
-    var _id: String?
+    var id: String?
     var channelId: String?
     var channelName: String?
     var profileType: Int?
@@ -71,7 +69,7 @@ class UserHashTagData: Mappable {
     }
     
     func mapping(map: Map) {
-        _id <- map["_id"]
+        id <- map["_id"]
         channelId <- map["channelId"]
         channelName <- map["channelName"]
         profileType <- map["profileType"]

@@ -42,8 +42,8 @@ class YouTubePlayerVC: UIViewController {
         self.youTubeView.setPlaybackQuality(YoutubePlaybackQuality.auto)
         self.youTubeView.loadWithVideoId(videoId, with: playvarsDic)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(VideoExitFullScreen), name: UIWindow.didBecomeVisibleNotification, object: self.youTubeView.window)
-        NotificationCenter.default.addObserver(self, selector: #selector(VideoEnterFullScreen), name: UIWindow.didBecomeHiddenNotification, object: self.youTubeView.window)
+        NotificationCenter.default.addObserver(self, selector: #selector(videoExitFullScreen), name: UIWindow.didBecomeVisibleNotification, object: self.youTubeView.window)
+        NotificationCenter.default.addObserver(self, selector: #selector(videoEnterFullScreen), name: UIWindow.didBecomeHiddenNotification, object: self.youTubeView.window)
     }
     
     func setupYouTubeView() {
@@ -81,12 +81,12 @@ class YouTubePlayerVC: UIViewController {
         
     }
     
-    @objc func VideoEnterFullScreen() {
+    @objc func videoEnterFullScreen() {
         print("exit")
         youTubeView.play()
     }
     
-    @objc func VideoExitFullScreen() {
+    @objc func videoExitFullScreen() {
         print("enter")
     }
     

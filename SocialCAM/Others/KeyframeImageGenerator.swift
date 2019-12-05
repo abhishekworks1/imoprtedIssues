@@ -152,8 +152,8 @@ open class KeyframeImageGenerator: NSObject {
         
         let spacing = asset.duration.seconds / Float64(requestedCount)
         var seconds: [Float64] = []
-        for i in 0..<requestedCount {
-            seconds.append(Float64(i) * spacing)
+        for index in 0..<requestedCount {
+            seconds.append(Float64(index) * spacing)
         }
         
         generateSequenceOfImages(from: asset, seconds: seconds, closure: closure)

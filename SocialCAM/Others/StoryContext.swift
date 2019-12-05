@@ -133,7 +133,8 @@ class StoryContext: NSObject {
             if context == nil {
                 fatalError("MissingCGContext : StoryContextTypeCoreGraphics needs to have a CGContext attached to the StoryContextOptionsCGContextKey in the options")
             }
-            return StoryContext(cgContextRef: context as! CGContext)
+            // TODO - return StoryContext(cgContextRef: context as! CGContext)
+            return StoryContext(softwareRenderer: true)
         case .cpu:
             return StoryContext(softwareRenderer: true)
         case .default:

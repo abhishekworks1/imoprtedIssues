@@ -60,7 +60,7 @@ class GetPlaylist: Mappable, Likeable {
     var likeCounts: Int?
     var likes: [PostLikes]?
     var commentCounts: Int?
-    var _id: String?
+    var id: String?
     var name: String?
     var user: User?
     var created: String?
@@ -82,7 +82,7 @@ class GetPlaylist: Mappable, Likeable {
     }
     
     func mapping(map: Map) {
-        _id <- map["_id"]
+        id <- map["_id"]
         name <- map["name"]
         user <- map["user"]
         created <- map["created"]

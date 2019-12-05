@@ -71,12 +71,12 @@ class PhotoScrollView: UIView {
     private func calculateZoomScale() {
         guard imgSize != .zero else { return }
         let size = self.bounds.size
-        let W = size.width
-        let H = size.height
-        let w = imgSize.width
-        let h = imgSize.height
+        let width = size.width
+        let height = size.height
+        let imgwidth = imgSize.width
+        let imgheight = imgSize.height
         
-        let ratio = max(W/w, H/h)
+        let ratio = max(width/imgwidth, height/imgheight)
         let isInMininum = (self.scrollView.minimumZoomScale == self.scrollView.zoomScale)
         
         self.scrollView.minimumZoomScale = ratio

@@ -1,13 +1,6 @@
 disabled_rules: # rule identifiers to exclude from running
 - trailing_whitespace
-- identifier_name
-
-- type_name
 - empty_count
-
-opt_in_rules:
-- empty_count
-- empty_string
 
 excluded: # paths to ignore during linting. Takes precedence over `included`.
 - Carthage
@@ -16,27 +9,27 @@ excluded: # paths to ignore during linting. Takes precedence over `included`.
 - R.generated.swift
 
 line_length:
-    warning: 1150
-    error: 1500
+    warning: 150
+    error: 500
     ignores_function_declarations: true
     ignores_comments: true
     ignores_urls: true
 
 function_body_length:
-    warning: 1300
-    error: 1500
+    warning: 300
+    error: 500
 
 function_parameter_count:
     warning: 6
     error: 8
 
 type_body_length:
-    warning: 2300
-    error: 2500
+    warning: 300
+    error: 1000
 
 file_length:
-    warning: 21000
-    error: 29500
+    warning: 1000
+    error: 1500
     ignore_comment_only_lines: true
 
 cyclomatic_complexity:

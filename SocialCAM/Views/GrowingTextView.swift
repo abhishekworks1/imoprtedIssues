@@ -10,7 +10,7 @@ import UIKit
 
 @objc public protocol GrowingTextViewDelegate: UITextViewDelegate {
     @objc optional func textViewDidChangeHeight(_ textView: GrowingTextView, height: CGFloat)
-    @objc optional func textViewDidDelete(_textView: GrowingTextView)
+    @objc optional func textViewDidDelete(_ textView: GrowingTextView)
 }
 
 @IBDesignable open class GrowingTextView: UITextView {

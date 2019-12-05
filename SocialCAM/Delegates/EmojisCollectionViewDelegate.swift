@@ -25,9 +25,9 @@ class EmojisCollectionViewDelegate: NSObject, UICollectionViewDataSource, UIColl
         super.init()
         
         for range in emojiRanges {
-            for i in range {
-                let c = String(describing: UnicodeScalar(i)!)
-                emojis.append(c)
+            for index in range {
+                let char = String(describing: UnicodeScalar(index)!)
+                emojis.append(char)
             }
         }
     }

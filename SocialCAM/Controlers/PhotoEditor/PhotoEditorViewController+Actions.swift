@@ -738,7 +738,7 @@ extension PhotoEditorViewController {
         self.storyExportLabel.text = "0/1"
         ProManagerApi.writePost(type: postData.type,
                                 text: postData.text,
-                                IschekedIn: postData.isChekedIn,
+                                isChekedIn: postData.isChekedIn,
                                 user: postData.userID,
                                 media: postData.mediaData,
                                 youTubeData: postData.youTubeData,
@@ -883,7 +883,7 @@ extension PhotoEditorViewController {
             .showForSender(sender: sender, with: menuOptionsString, menuImageArray: menuOptions, done: { [weak self] (selectedIndex) in
                 guard let `self` = self else { return }
                 self.shareSocialMedia(type: SocialShare(rawValue: selectedIndex) ?? SocialShare.facebook)
-                }, cancel:{
+                }, cancel: {
             })
     }
     
@@ -1807,7 +1807,6 @@ extension PhotoEditorViewController {
                 youTubeTag.videoId = youtubeData["videoId"] as? String ?? ""
                 self.storyTags.append(BaseStoryTag(view: tagView, tag: youTubeTag))
             }
-            break
         case .shareFeed(let postID):
             let tagView = self.addTagViewFor("View Post", type: StoryTagType.feed)
             let feedTag = setUpStoryTagFor(tagView: tagView,
@@ -1822,13 +1821,6 @@ extension PhotoEditorViewController {
                                             tagText: "View Story")
             storytag.storyID = storyID
             self.storyTags.append(BaseStoryTag(view: tagView, tag: storytag))
-            //        case .sharePlaylist(let playlist):
-            //            let tagView = self.addTagViewFor(playlist.name ?? "", type: StoryTagType.playlist)
-            //            let storytag = setUpStoryTagFor(tagView: tagView,
-            //                                            tagType: StoryTagType.playlist,
-            //                                            tagText: playlist.name ?? "")
-            //            storytag.playlistId = playlist._id
-        //            self.storyTags.append(BaseStoryTag(view: tagView, tag: storytag))
         case .replyStory(let question, let answer):
             let replyAskQueView = AskQuestionReplyView()
             replyAskQueView.questionText = question

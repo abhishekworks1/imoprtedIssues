@@ -35,7 +35,7 @@ class User: Codable, Mappable {
     var profileImageURL: String?
     var emailVerification: Bool?
     var lastName: String?
-    var OauthId: String?
+    var oauthId: String?
     var firstName: String?
     var isFollowing: Bool?
     var following: Int?
@@ -48,8 +48,8 @@ class User: Codable, Mappable {
     var other: String?
     var socialId: String?
     var articleCounts: Int?
-    var is_typing: Bool = false
-    var is_admin: Bool = false
+    var isTyping: Bool = false
+    var isAdmin: Bool = false
     var unreadCount: Int = 0
     var profileType: Int = 1
     var isVerified: Int = 0
@@ -58,7 +58,6 @@ class User: Codable, Mappable {
     var isAllowForward: Bool = true
     var parentId: String?
     // OtherProfile
-    var v: Int?
     var businessName: String?
     var created: String?
     var deviceToken: String?
@@ -111,7 +110,7 @@ class User: Codable, Mappable {
         profileImageURL <- map["profileImageURL"]
         emailVerification <- map["emailVerification"]
         lastName <- map["lastName"]
-        OauthId <- map["OauthId"]
+        oauthId <- map["OauthId"]
         firstName <- map["firstName"]
         isFollowing <- map["isFollowing"]
         following <- map["following"]
@@ -133,7 +132,6 @@ class User: Codable, Mappable {
         remainingPackageCount <- map["remainingPackageCount"]
         
         // OtherProfile
-        v <- map["__v"]
         businessName <- map["businessName"]
         created <- map["created"]
         deviceToken <- map["deviceToken"]
@@ -144,8 +142,8 @@ class User: Codable, Mappable {
         updated <- map["updated"]
         articleCounts <- map["articleCounts"]
         // Chat
-        is_typing <- map["is_typing"]
-        is_admin <- map["is_admin"]
+        isTyping <- map["is_typing"]
+        isAdmin <- map["is_admin"]
         if id == nil {
             id <- map["id"]
         }

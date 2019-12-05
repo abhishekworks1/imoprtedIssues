@@ -11,7 +11,7 @@ import UIKit
 
 class ReSizeFontTextView: UITextView {
     
-    var placeHolder: String? = "Type Something..." {
+    var placeHolder: String? = R.string.localizable.typeSomething() {
         didSet {
             setNeedsDisplay()
         }

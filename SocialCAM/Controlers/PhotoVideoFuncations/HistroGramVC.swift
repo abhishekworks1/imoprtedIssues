@@ -298,12 +298,12 @@ extension HistroGramVC {
         }
     }
     
-    func setupPlayer(for _playerItem: AVPlayerItem) {
+    func setupPlayer(for playerItem: AVPlayerItem) {
         if player != nil {
             player?.pause()
             player = nil
         }
-        player = AVPlayer(playerItem: _playerItem)
+        player = AVPlayer(playerItem: playerItem)
         playerLayer?.player = player
     }
     

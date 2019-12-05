@@ -24,7 +24,7 @@ class ChannelVideoListViewController: UIViewController {
         self.tblYouTube.estimatedRowHeight = 200
         self.tblYouTube.rowHeight = UITableView.automaticDimension
         self.videos = []
-        self.getVideo(q: self.channelId!)
+        self.getVideo(key: self.channelId!)
         self.tblYouTube.reloadData()
     }
 
@@ -33,8 +33,8 @@ class ChannelVideoListViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func getVideo(q: String) {
-        ProManagerApi.youTubeChannelSearch(channelId: q, order: nil, nextPageToken: self.nextPageToken).request(YTSerchResponse<Item>.self).subscribe(onNext: { response in
+    func getVideo(key: String) {
+        ProManagerApi.youTubeChannelSearch(channelId: key, order: nil, nextPageToken: self.nextPageToken).request(YTSerchResponse<Item>.self).subscribe(onNext: { response in
             self.nextPageToken = response.nextPageToken
             self.totalResult = response.pageInfo?.totalResults
             self.resultPerPage = response.pageInfo?.resultsPerPage
@@ -82,7 +82,7 @@ extension ChannelVideoListViewController: UITableViewDataSource, UITableViewDele
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row ==  (ApplicationSettings.shared.videos.count) - 2 && self.nextPageToken != nil {
-            self.getVideo(q: self.channelId!)
+            self.getVideo(key: self.channelId!)
         }
         guard let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.youTubeTableViewCell.identifier) as? YouTubeTableViewCell else {
             fatalError("YouTubeTableViewCell Not Found")

@@ -26,8 +26,6 @@ class BaseStoryTag {
     }
 }
 
-private let KeyframePickerViewCellWidth = 67
-
 class StoryExportProgress: RPCircularProgress {
     
     override func awakeFromNib() {
@@ -46,7 +44,6 @@ class PhotoEditorViewController: UIViewController {
     var loadingView: LoadingView? = LoadingView.instanceFromNib()
     
     @IBOutlet weak var topGradient: UIView!
-    
     @IBOutlet weak var canvasView: UIView!
     @IBOutlet weak var canvasViewWidth: NSLayoutConstraint!
     @IBOutlet weak var canvasImageView: UIImageView! {
@@ -56,18 +53,13 @@ class PhotoEditorViewController: UIViewController {
     }
     
     @IBOutlet weak var topToolbar: UIView!
-    
     @IBOutlet weak var editOptionsToolBar: UIView!
-    
     @IBOutlet weak var multiFilterView: UIView!
     @IBOutlet weak var soundView: UIView!
     @IBOutlet weak var soundButton: UIButton!
-    
     @IBOutlet weak var coverView: UIView!
-    
     @IBOutlet weak var horizontalFlipView: UIView!
     @IBOutlet weak var horizontalFlipButton: UIButton!
-    
     @IBOutlet weak var verticalFlipView: UIView!
     @IBOutlet weak var verticalFlipButton: UIButton!
     
@@ -122,11 +114,9 @@ class PhotoEditorViewController: UIViewController {
     }
     @IBOutlet weak var resequenceButton: UIButton!
     @IBOutlet weak var resequenceLabel: UILabel!
-    
     @IBOutlet weak var segmentCombineView: UIView!
     @IBOutlet weak var combineButton: UIButton!
     @IBOutlet weak var pic2ArtView: UIView!
-    
     @IBOutlet weak var mergeButton: UIButton!
     @IBOutlet weak var pausePlayButton: UIButton!
     
@@ -150,7 +140,6 @@ class PhotoEditorViewController: UIViewController {
     }
     @IBOutlet weak var thumbHeight: NSLayoutConstraint!
     @IBOutlet weak var thumbSelectorView: ThumbSelectorView!
-    
     @IBOutlet weak var segmentedProgressBar: ProgressView!
     @IBOutlet weak var segementSafeAreaBottomConstraints: NSLayoutConstraint!
     @IBOutlet weak var segementCollectionViewBottomConstraints: NSLayoutConstraint!
@@ -162,9 +151,7 @@ class PhotoEditorViewController: UIViewController {
     }
     
     @IBOutlet weak var bottomGradient: UIView!
-    
     @IBOutlet weak var bottomToolbar: UIView!
-    
     @IBOutlet weak var selectCropView: UIView!
     
     @IBOutlet weak var outtakesView: UIView!
@@ -257,7 +244,7 @@ class PhotoEditorViewController: UIViewController {
     
     // MARK: Variables
     
-    var _displayKeyframeImages: [KeyframeImage] = []
+    var displayKeyframeImages: [KeyframeImage] = []
     fileprivate var slideShowImages: [SegmentVideos] = []
     
     public var asset: AVAsset?
@@ -325,7 +312,7 @@ class PhotoEditorViewController: UIViewController {
         }
     }
     
-    var _asset: AVAsset? {
+    var videoAsset: AVAsset? {
         if let asset = asset {
             return asset
         }
@@ -902,14 +889,14 @@ class PhotoEditorViewController: UIViewController {
     }
     
     public func loadData() {
-        if let _asset = _asset {
+        if let asset = videoAsset {
             let imageGenerator = KeyframeImageGenerator()
-            imageGenerator.generateDefaultSequenceOfImages(from: _asset) { [weak self] in
+            imageGenerator.generateDefaultSequenceOfImages(from: asset) { [weak self] in
                 guard let `self` = self else {
                     return
                 }
-                self._displayKeyframeImages.removeAll()
-                self._displayKeyframeImages.append(contentsOf: $0)
+                self.displayKeyframeImages.removeAll()
+                self.displayKeyframeImages.append(contentsOf: $0)
                 self.collectionView.reloadData()
             }
         }
@@ -947,14 +934,14 @@ class PhotoEditorViewController: UIViewController {
         // save current play time
         currentTime = time
         
-        guard let _asset = _asset,
+        guard let asset = videoAsset,
             !time.seconds.isNaN,
-            !_asset.duration.seconds.isNaN,
-            _asset.duration.seconds != 0 else {
+            !asset.duration.seconds.isNaN,
+            asset.duration.seconds != 0 else {
                 return
         }
-        let percent = time.seconds / _asset.duration.seconds
-        let videoTrackLength = 67 * _displayKeyframeImages.count
+        let percent = time.seconds / asset.duration.seconds
+        let videoTrackLength = 67 * displayKeyframeImages.count
         let position = CGFloat(videoTrackLength) * CGFloat(percent) - UIScreen.main.bounds.size.width / 2
         collectionView.contentOffset = CGPoint(x: position, y: collectionView.contentOffset.y)
         cursorContainerViewController.seconds = time.seconds
@@ -1048,7 +1035,6 @@ extension PhotoEditorViewController {
         switch recognizer.state {
         case .began:
             self.isZooming = true
-            break
         case .changed:
             let pinchCenter = CGPoint(x: recognizer.location(in: self.dummyView).x - self.dummyView.bounds.midX,
                                       y: recognizer.location(in: self.dummyView).y - self.dummyView.bounds.midY)
@@ -1057,10 +1043,8 @@ extension PhotoEditorViewController {
                 .translatedBy(x: -pinchCenter.x, y: -pinchCenter.y)
             self.dummyView.transform = transform
             recognizer.scale = 1
-            break
         case .ended, .failed, .cancelled:
             self.isZooming = false
-            break
         case .possible:
             break
         @unknown default:

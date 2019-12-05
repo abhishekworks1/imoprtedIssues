@@ -13,8 +13,8 @@ class PromanagerData: Mappable {
     var id: String?
     var created: String?
     var name: String?
-    var userData: userData?
-    var channelData: [channelData]?
+    var userData: UserData?
+    var channelData: [ChannelData]?
     
     required init?(map: Map) {
         
@@ -31,7 +31,7 @@ class PromanagerData: Mappable {
     
 }
 
-class userData: Mappable {
+class UserData: Mappable {
     var userId: String?
     var recommendedCount: String?
     
@@ -48,7 +48,7 @@ class userData: Mappable {
     
 }
 
-class channelData: Mappable {
+class ChannelData: Mappable {
     var channelId: String?
     var points: Int?
     var tokens: Int?
