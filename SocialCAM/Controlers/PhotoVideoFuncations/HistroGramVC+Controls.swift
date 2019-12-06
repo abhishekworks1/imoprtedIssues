@@ -45,6 +45,27 @@ class TriangleView: UIView {
 
 extension HistroGramVC {
     
+    @IBAction func timeSliderClicked(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        progressBar.isHidden = !progressBar.isHidden
+        flowControlView.isHidden = !flowControlView.isHidden
+        timeControlView.isHidden = !timeControlView.isHidden
+        if isTimeGraph {
+            let (mutableAsset, scalerParts) = VideoScaler.shared.scaleVideo(asset: currentAsset!, scalerValues: calculateScaleValues())
+            if let asset = mutableAsset {
+                playerItem = AVPlayerItem.init(asset: asset)
+                player?.replaceCurrentItem(with: playerItem)
+                videoScalerParts = scalerParts
+            }
+        } else {
+            if let asset = timeSliderAsset() {
+                playerItem = AVPlayerItem(asset: asset)
+                player?.replaceCurrentItem(with: playerItem)
+            }
+        }
+        player?.seek(to: .zero)
+    }
+    
     @IBAction func showHideHistoGramClicked(_ sender: Any) {
         if btnShowHideHistoGram.isSelected {
             baseChartView.isHidden = false
@@ -116,7 +137,14 @@ extension HistroGramVC {
     }
     
     @IBAction func doneBtnClicked(_ sender: Any) {
-        guard !isExporting, let asset = currentAsset, let mutableAsset = VideoScaler.shared.scaleVideo(asset: asset, scalerValues: calculateScaleValues()).0 else {
+        guard !isExporting, let asset = currentAsset else {
+            return
+        }
+        var scaledAsset = VideoScaler.shared.scaleVideo(asset: asset, scalerValues: calculateScaleValues()).0
+        if !isTimeGraph {
+            scaledAsset = timeSliderAsset()
+        }
+        guard let mutableAsset = scaledAsset else {
             return
         }
         DispatchQueue.main.async {
@@ -295,16 +323,22 @@ extension HistroGramVC {
             
             let finalString =  NSMutableAttributedString(string: "", attributes: yourAttributes as [NSAttributedString.Key: Any])
             
-            let progressTimeString = String.init(format: "%02d:%02d", progressTimeM, progressTimeS)
+            var progressTimeString = String.init(format: "%02d:%02d", progressTimeM, progressTimeS)
+            if !isTimeGraph {
+                progressTimeString = hmsString(from: Float(playBackTime.seconds))
+            }
             
             let attributeStr =  NSMutableAttributedString(string: progressTimeString, attributes: yourAttributes as [NSAttributedString.Key: Any])
             finalString.append(attributeStr)
             
             let yourOtherAttributes = [NSAttributedString.Key.foregroundColor: UIColor.blue, NSAttributedString.Key.font: UIFont.sfuiTextRegular]
             
-            let totalTimeString = String.init(format: "%02d:%02d", totalTimeM, totalTimeS)
-            
-            let partTwo = NSMutableAttributedString(string: ". \(totalTimeString)", attributes: yourOtherAttributes as [NSAttributedString.Key: Any])
+            var totalTimeString = String.init(format: "%02d:%02d", totalTimeM, totalTimeS)
+            if !isTimeGraph {
+                totalTimeString = selectedSecondsLabel.text ?? hmsString(from: currentTimeSliderSeconds())
+            }
+
+            let partTwo = NSMutableAttributedString(string: ". \(totalTimeString)", attributes: yourOtherAttributes as [NSAttributedString.Key : Any])
             finalString.append(partTwo)
             self.lblShowCurrentTime.text = ""
             self.lblShowCurrentTime.attributedText = finalString

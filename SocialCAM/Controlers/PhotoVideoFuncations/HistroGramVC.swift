@@ -27,7 +27,17 @@ class HistroGramVC: UIViewController {
     @IBOutlet weak var trimmerView: TrimmerView!
     @IBOutlet weak var deleteFlowPointButton: UIButton!
     @IBOutlet weak var doneButton: UIButton!
-    
+    @IBOutlet weak var timeControlView: UIView! {
+        didSet {
+            timeControlView.isHidden = true
+        }
+    }
+    @IBOutlet weak var flowTypeButton: UIButton!
+    @IBOutlet weak var flowControlView: UIView!
+    @IBOutlet weak var minimumSecondsLabel: UILabel!
+    @IBOutlet weak var maximumSecondsLabel: UILabel!
+    @IBOutlet weak var selectedSecondsLabel: UILabel!
+
     var flowChartView: FlowChartView!
     
     var playbackTimeCheckerTimer: Timer?
@@ -65,6 +75,12 @@ class HistroGramVC: UIViewController {
     
     var shouldPlayAfterDrag = true
     
+    var timeSlider: PivotSlider?
+    
+    var isTimeGraph: Bool {
+        return !flowTypeButton.isSelected
+    }
+     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         stopPlaybackTimeChecker()
@@ -95,8 +111,87 @@ class HistroGramVC: UIViewController {
             setupFlowChart()
             addGestureToProgressBar()
         }
+        if timeSlider == nil {
+            setUpSlider()
+        }
         observeState()
         playerLayer?.frame = videoView.frame
+    }
+    
+    func setUpSlider() {
+        timeControlView.layoutIfNeeded()
+        timeSlider = PivotSlider(frame: CGRect(origin: CGPoint(x: 0, y: 25),
+                                               size: CGSize(width: timeControlView.frame.width, height: 50)))
+        timeControlView.addSubview(timeSlider!)
+        timeSlider?.addTarget(self,
+                              action: #selector(timeSliderValueChanged(_:)),
+                              for: .valueChanged)
+        timeSlider?.addTarget(self,
+                              action: #selector(timeSliderEndTracking(_:)),
+                              for: .touchDragExit)
+        let totalSeconds = Float(currentAsset?.duration.seconds ?? 0)
+        let minimumSeconds = totalSeconds/3
+        let maximumSeconds = totalSeconds*3
+        
+        minimumSecondsLabel.text = hmsString(from: minimumSeconds)
+        maximumSecondsLabel.text = hmsString(from: maximumSeconds)
+        selectedSecondsLabel.text = hmsString(from: totalSeconds)
+    }
+
+    func hmsString(from seconds: Float) -> String {
+        let roundedSeconds = Int(seconds.rounded())
+        let hours = (roundedSeconds / 3600)
+        let minutes = (roundedSeconds % 3600) / 60
+        let seconds = (roundedSeconds % 3600) % 60
+        func timeString(_ time: Int) -> String {
+            return time < 10 ? "0\(time)" : "\(time)"
+        }
+        if hours > 0 {
+            return "\(timeString(hours)):\(timeString(minutes)):\(timeString(seconds))"
+        }
+        return "\(timeString(minutes)):\(timeString(seconds))"
+    }
+    
+    func currentTimeSliderSeconds() -> Float {
+        let totalSeconds = Float(currentAsset?.duration.seconds ?? 0)
+        let minimumSeconds = totalSeconds/3
+        let maximumSeconds = totalSeconds*3
+
+        var seconds = totalSeconds
+        let value = timeSlider?.value ?? 0
+        if value < 0 {
+            seconds = totalSeconds - (totalSeconds - minimumSeconds)*abs(value)
+        } else if value > 0 {
+            seconds = totalSeconds + (maximumSeconds - totalSeconds)*value
+        }
+        return seconds
+    }
+        
+    @objc func timeSliderValueChanged(_ sender: Any) {
+        selectedSecondsLabel.text = hmsString(from: currentTimeSliderSeconds())
+    }
+    
+    @objc func timeSliderEndTracking(_ sender: Any) {
+        if let asset = timeSliderAsset() {
+            playerItem = AVPlayerItem.init(asset: asset)
+            player?.replaceCurrentItem(with: playerItem)
+        }
+        player?.seek(to: .zero)
+    }
+    
+    func timeSliderAsset() -> AVMutableComposition? {
+        guard let asset = currentAsset else {
+            return nil
+        }
+
+        let seconds = currentTimeSliderSeconds()
+        
+        let timeScale: CMTimeScale = 1000000000
+        let scaleValues = [VideoScalerValue(range: CMTimeRange(start: .zero,
+                                                               duration: CMTimeMakeWithSeconds(asset.duration.seconds, preferredTimescale: timeScale)),
+                                            duration: CMTimeMakeWithSeconds(Double(seconds), preferredTimescale: timeScale),
+                                            rate: 1)]
+        return VideoScaler.shared.scaleVideo(asset: asset, scalerValues: scaleValues).0
     }
     
     func observeState() {
