@@ -792,15 +792,14 @@ extension PhotoEditorViewController {
             }
             self.dismiss()
         } else if currentCamaraMode == .slideshow {
-            saveSlideShow(exportType: isOuttake ? SlideShowExportType.outtakes : SlideShowExportType.notes,
-                          success: { [weak self] url in
-                            guard let `self` = self else { return }
-                            self.saveVideo(exportType: isOuttake ? SlideShowExportType.outtakes : SlideShowExportType.notes, url: url)
+            self.saveSlideShow(exportType: isOuttake ? SlideShowExportType.outtakes : SlideShowExportType.notes,
+                               success: { [weak self] url in
+                                guard let `self` = self else { return }
+                                self.saveVideo(exportType: isOuttake ? SlideShowExportType.outtakes : SlideShowExportType.notes, url: url)
                 },
-                          failure: { _ in
-                            
+                               failure: { _ in
+                                
             })
-            
         } else {
             isOuttake ? saveToCameraRoll(true, false) : saveToCameraRoll(false, true)
         }
@@ -890,19 +889,13 @@ extension PhotoEditorViewController {
     
     func shareSocialMedia(type: SocialShare) {
         if currentCamaraMode == .slideshow {
-            let slideShowImages = self.selectedSlideShowImages.filter({ (segmentVideo) -> Bool in
-                return (segmentVideo != nil)
+            self.saveSlideShow(exportType: SlideShowExportType.feed,
+                               success: { exportURL in
+                                SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type)
+            },
+                               failure: { error in
+                                print(error)
             })
-            if !slideShowImages.isEmpty {
-                self.saveSlideShow(exportType: SlideShowExportType.feed,
-                                   success: { exportURL in
-                                    SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type)
-                },
-                                   failure: { error in
-                                    print(error)
-                })
-            }
-            return
         }
         
         if image != nil {
@@ -1556,6 +1549,13 @@ extension PhotoEditorViewController {
     }
     
     func saveSlideShow(exportType: SlideShowExportType, success: @escaping ((URL) -> Void), failure: @escaping ((Error) -> Void)) {
+        let slideShowImages = self.selectedSlideShowImages.filter({ (segmentVideo) -> Bool in
+            return (segmentVideo != nil)
+        })
+        guard !slideShowImages.isEmpty else {
+            return
+        }
+        
         var imageData: [UIImage] = []
         for segmentVideo in self.selectedSlideShowImages {
             if segmentVideo != nil {
