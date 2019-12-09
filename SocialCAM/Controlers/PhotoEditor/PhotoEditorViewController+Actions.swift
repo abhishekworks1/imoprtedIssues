@@ -550,7 +550,7 @@ extension PhotoEditorViewController {
         let slideShowCount = self.selectedSlideShowImages.filter({ (segmentVideo) -> Bool in
             return (segmentVideo != nil)
         })
-       
+        
         coverImageView.image = !slideShowCount.isEmpty ? slideShowCount.first??.image : UIImage()
         
         switch sender.tag {
@@ -795,6 +795,7 @@ extension PhotoEditorViewController {
             self.saveSlideShow(exportType: isOuttake ? SlideShowExportType.outtakes : SlideShowExportType.notes,
                                success: { [weak self] url in
                                 guard let `self` = self else { return }
+                                self.exportedURL = url
                                 self.saveVideo(exportType: isOuttake ? SlideShowExportType.outtakes : SlideShowExportType.notes, url: url)
                 },
                                failure: { _ in
@@ -889,19 +890,34 @@ extension PhotoEditorViewController {
     
     func shareSocialMedia(type: SocialShare) {
         if currentCamaraMode == .slideshow {
-            self.saveSlideShow(exportType: SlideShowExportType.feed,
-                               success: { exportURL in
-                                SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type)
-            },
-                               failure: { error in
-                                print(error)
-            })
+            if let exportURL = exportedURL {
+                DispatchQueue.runOnMainThread {
+                    SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type)
+                }
+            }
+            else {
+                self.saveSlideShow(exportType: SlideShowExportType.feed,
+                                   success: { [weak self] exportURL in
+                                    guard let `self` = self else { return }
+                                    self.exportedURL = exportURL
+                                    SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type)
+                    },
+                                   failure: { error in
+                                    print(error)
+                })
+            }
+            return
         }
         
         if image != nil {
             SocialShareVideo.shared.sharePhoto(image: canvasView.toImage(), socialType: type)
+        } else if exportedURL != nil {
+            if let exportURL = exportedURL {
+                DispatchQueue.runOnMainThread {
+                    SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type)
+                }
+            }
         } else {
-          
             let recordSession = SCRecordSession()
             if let url = selectedVideoUrlSave {
                 for segementModel in url.videos {
@@ -916,8 +932,10 @@ extension PhotoEditorViewController {
                     }
                 }
             }
-            self.exportViewWithURL(recordSession.assetRepresentingSegments()) { url in
+            self.exportViewWithURL(recordSession.assetRepresentingSegments()) { [weak self] url in
+                guard let `self` = self else { return }
                 if let exportURL = url {
+                    self.exportedURL = exportURL
                     DispatchQueue.runOnMainThread {
                         SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type)
                     }
@@ -1034,15 +1052,22 @@ extension PhotoEditorViewController {
             album.save(image: canvasView.toImage())
             self.view.makeToast(R.string.localizable.photoSaved(), duration: 2.0, position: .bottom)
         } else if currentCamaraMode == .slideshow {
-            saveSlideShow(exportType: SlideShowExportType.outtakes,
-                          success: { [weak self] url in
-                            guard let `self` = self else { return }
-                            self.saveVideo(exportType: SlideShowExportType.outtakes, url: url)
-                },
-                          failure: { _ in
-                            
-            })
-            
+            if let exportURL = exportedURL {
+                DispatchQueue.runOnMainThread {
+                    self.saveVideo(exportType: SlideShowExportType.outtakes, url: exportURL)
+                }
+            }
+            else {
+                self.saveSlideShow(exportType: SlideShowExportType.feed,
+                                   success: { [weak self] exportURL in
+                                    guard let `self` = self else { return }
+                                    self.exportedURL = exportURL
+                                    self.saveVideo(exportType: SlideShowExportType.outtakes, url: exportURL)
+                    },
+                                   failure: { error in
+                                    print(error)
+                })
+            }
         } else {
             saveToCameraRoll(true, false)
         }
@@ -1199,7 +1224,7 @@ extension PhotoEditorViewController {
                         let scaleY = sqrt(pow(dummyView.transform.b, 2) + pow(dummyView.transform.d, 2))
                         
                         let rotation = atan2(self.dummyView.transform.b, self.dummyView.transform.a)
-
+                        
                         storyData.videotx = Double(tx)
                         storyData.videoty = Double(ty)
                         storyData.videoScaleX = Double(scaleX)
@@ -1263,7 +1288,7 @@ extension PhotoEditorViewController {
         let exportGroup = DispatchGroup()
         let exportQueue = DispatchQueue(label: "exportFilterQueue")
         let dispatchSemaphore = DispatchSemaphore(value: 0)
-
+        
         if let url = self.selectedVideoUrlSave {
             exportQueue.async {
                 exportGroup.enter()
@@ -1271,7 +1296,7 @@ extension PhotoEditorViewController {
                     dispatchSemaphore.signal()
                     exportGroup.leave()
                 }
-
+                
                 dispatchSemaphore.wait()
             }
         } else {
@@ -1282,7 +1307,7 @@ extension PhotoEditorViewController {
             } else {
                 self.storyExportLabel.text = "0/\(self.videoUrls.count)"
             }
-
+            
             exportQueue.async {
                 for (index, url) in self.videoUrls.enumerated() {
                     exportGroup.enter()
@@ -1296,7 +1321,7 @@ extension PhotoEditorViewController {
                 }
             }
         }
-
+        
         exportGroup.notify(queue: exportQueue) {
             DispatchQueue.runOnMainThread {
                 if self.selectedVideoUrlSave == nil && self.storyId == nil {
@@ -1311,7 +1336,7 @@ extension PhotoEditorViewController {
                     self.postStoryProgress.updateProgress(0)
                 }
             }
-
+            
         }
     }
     
@@ -1411,7 +1436,6 @@ extension PhotoEditorViewController {
                     }
                 })
             }
-            
         }
         
         if let filter = self.filterSwitcherView?.selectedFilter,
@@ -1437,23 +1461,23 @@ extension PhotoEditorViewController {
                     loadingView.progressView.setProgress(to: Double(progress), withAnimation: true)
                 }
             }
-        }, completion: { [weak self] exportedURL in
-            guard let `self` = self else { return }
-            DispatchQueue.runOnMainThread {
-                if let loadingView = self.loadingView {
-                    loadingView.hide()
+            }, completion: { [weak self] exportedURL in
+                guard let `self` = self else { return }
+                DispatchQueue.runOnMainThread {
+                    if let loadingView = self.loadingView {
+                        loadingView.hide()
+                    }
                 }
-            }
-            if let url = exportedURL {
-                completionHandler(url)
-            } else {
-                let alert = UIAlertController.Style
-                    .alert
-                    .controller(title: "",
-                                message: "Exporting Fail",
-                                actions: [UIAlertAction(title: "OK", style: .default, handler: nil)])
-                self.present(alert, animated: true, completion: nil)
-            }
+                if let url = exportedURL {
+                    completionHandler(url)
+                } else {
+                    let alert = UIAlertController.Style
+                        .alert
+                        .controller(title: "",
+                                    message: R.string.localizable.exportingFail(),
+                                    actions: [UIAlertAction(title: R.string.localizable.oK(), style: .default, handler: nil)])
+                    self.present(alert, animated: true, completion: nil)
+                }
         })
     }
     
@@ -1549,6 +1573,17 @@ extension PhotoEditorViewController {
     }
     
     func saveSlideShow(exportType: SlideShowExportType, success: @escaping ((URL) -> Void), failure: @escaping ((Error) -> Void)) {
+        
+        DispatchQueue.runOnMainThread {
+            if let loadingView = self.loadingView {
+                loadingView.progressView.setProgress(to: Double(0), withAnimation: true)
+                loadingView.shouldCancelShow = true
+                loadingView.show(on: self.view, completion: {
+                    
+                })
+            }
+        }
+        
         let slideShowImages = self.selectedSlideShowImages.filter({ (segmentVideo) -> Bool in
             return (segmentVideo != nil)
         })
@@ -1565,35 +1600,32 @@ extension PhotoEditorViewController {
             }
         }
         
-        DispatchQueue.main.async {
-            
-            let allSegment = self.selectedSlideShowImages.filter({ (segmentVideo) -> Bool in
-                return (segmentVideo != nil)
-            })
-            
-            var savedSlideShowImages: [SegmentVideos] = []
-            
-            for segmentVideo in self.videoUrls {
-                var isExist = false
-                for allUrl in allSegment {
-                    if segmentVideo.id == allUrl?.id {
-                        isExist = true
-                        break
-                    }
+        let allSegment = self.selectedSlideShowImages.filter({ (segmentVideo) -> Bool in
+            return (segmentVideo != nil)
+        })
+        
+        var savedSlideShowImages: [SegmentVideos] = []
+        
+        for segmentVideo in self.videoUrls {
+            var isExist = false
+            for allUrl in allSegment {
+                if segmentVideo.id == allUrl?.id {
+                    isExist = true
+                    break
                 }
-                
-                if !isExist {
-                    savedSlideShowImages.append(segmentVideo)
-                }
-                
             }
             
-            for segmentVideo in savedSlideShowImages {
-                let album = SCAlbum.shared
-                album.albumName = "\(Constant.Application.displayName) - \(R.string.localizable.outtakes())"
-                if let img = segmentVideo.image {
-                    album.save(image: img)
-                }
+            if !isExist {
+                savedSlideShowImages.append(segmentVideo)
+            }
+            
+        }
+        
+        for segmentVideo in savedSlideShowImages {
+            let album = SCAlbum.shared
+            album.albumName = "\(Constant.Application.displayName) - \(R.string.localizable.outtakes())"
+            if let img = segmentVideo.image {
+                album.save(image: img)
             }
         }
         
@@ -1620,9 +1652,27 @@ extension PhotoEditorViewController {
         VideoGenerator.current.scaleWidth = 720
         VideoGenerator.current.scaleHeight = 1280
         
-        VideoGenerator.current.generate(withImages: imageData, andAudios: self.selectedUrl != nil ? [self.selectedUrl!] : [], andType: .singleAudioMultipleImage, { (_) in
-            
-        }, success: success, failure: failure)
+        VideoGenerator.current.generate(withImages: imageData, andAudios: self.selectedUrl != nil ? [self.selectedUrl!] : [], andType: .singleAudioMultipleImage, { [weak self] progress in
+            guard let `self` = self else { return }
+            DispatchQueue.runOnMainThread {
+                if let loadingView = self.loadingView {
+                    let progressCompleted = Float(progress.completedUnitCount) / Float(progress.totalUnitCount)
+                    loadingView.progressView.setProgress(to: Double(progressCompleted), withAnimation: true)
+                }
+            }
+            }, success: { [weak self] url in
+                guard let `self` = self else { return }
+                if let loadingView = self.loadingView {
+                    loadingView.hide()
+                }
+                success(url)
+            }, failure: { [weak self] error in
+                guard let `self` = self else { return }
+                if let loadingView = self.loadingView {
+                    loadingView.hide()
+                }
+                failure(error)
+        })
     }
     
     func saveVideo(exportType: SlideShowExportType, url: URL) {
@@ -1645,11 +1695,15 @@ extension PhotoEditorViewController {
         case .outtakes:
             album.albumName = "\(Constant.Application.displayName) - \(R.string.localizable.outtakes())"
             album.saveMovieToLibrary(movieURL: url)
-            self.view.makeToast(R.string.localizable.videoSaved(), duration: 2.0, position: .bottom)
+            DispatchQueue.runOnMainThread {
+                self.view.makeToast(R.string.localizable.videoSaved(), duration: 2.0, position: .bottom)
+            }
         case .notes:
             album.albumName = "\(Constant.Application.displayName) - \(R.string.localizable.notes())"
             album.saveMovieToLibrary(movieURL: url)
-            self.view.makeToast(R.string.localizable.videoSaved(), duration: 2.0, position: .bottom)
+            DispatchQueue.runOnMainThread {
+                self.view.makeToast(R.string.localizable.videoSaved(), duration: 2.0, position: .bottom)
+            }
         case .chat:
             DispatchQueue.main.async {
                 self.chatExportLabel.text = "1/1"
@@ -2047,16 +2101,4 @@ extension PhotoEditorViewController {
             self.hideToolbar(hide: false)
         })
     }
-    
-}
-
-class PendingOperations {
-  lazy var exportInProgress: [Int: Operation] = [:]
-  lazy var exportQueue: OperationQueue = {
-    var queue = OperationQueue()
-    queue.name = "Download queue"
-    queue.maxConcurrentOperationCount = 1
-    return queue
-  }()
-  
 }

@@ -177,7 +177,7 @@ public final class PixelEditViewController: UIViewController {
         if editingStack == nil {
           editingStack = SquareEditingStack.init(
             source: imageSource,
-            previewSize: CGSize(width: view.bounds.width, height: view.bounds.width),
+            previewSize: CGSize(width: view.bounds.width, height: view.bounds.height),
             colorCubeStorage: colorCubeStorage
           )
         }
@@ -201,7 +201,7 @@ public final class PixelEditViewController: UIViewController {
           guide.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
           guide.rightAnchor.constraint(equalTo: view.rightAnchor),
           guide.leftAnchor.constraint(equalTo: view.leftAnchor),
-          guide.widthAnchor.constraint(equalTo: guide.heightAnchor, multiplier: 1), {
+          guide.widthAnchor.constraint(equalTo: guide.heightAnchor, multiplier: 0.777777), {
             let c = editContainerView.topAnchor.constraint(equalTo: guide.topAnchor)
             c.priority = .defaultHigh
             return c
