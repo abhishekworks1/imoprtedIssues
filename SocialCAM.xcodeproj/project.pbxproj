@@ -340,6 +340,9 @@
 		820B23772371A0A500906BF0 /* StoryTwoColumnsLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820B23762371A0A400906BF0 /* StoryTwoColumnsLayout.swift */; };
 		820C3AF923797896007FCF15 /* SocialShareVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820C3AF823797896007FCF15 /* SocialShareVideo.swift */; };
 		820DA4EE2385392F0027A207 /* AWSManager+S3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820DA4ED2385392F0027A207 /* AWSManager+S3.swift */; };
+		82262113239E164400B963CF /* SpeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82262112239E164400B963CF /* SpeedViewController.swift */; };
+		82262115239E165A00B963CF /* SpeedViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82262114239E165A00B963CF /* SpeedViewController.storyboard */; };
+		82262117239E172A00B963CF /* SpeedViewController+Controls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82262116239E172A00B963CF /* SpeedViewController+Controls.swift */; };
 		822F413C238FE39100084007 /* Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822F413B238FE39100084007 /* Async.swift */; };
 		822F413F238FE3E900084007 /* ExportVideoOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822F413E238FE3E900084007 /* ExportVideoOperation.swift */; };
 		824E5171237E77F100339809 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 824E5170237E77F100339809 /* WebKit.framework */; };
@@ -889,6 +892,9 @@
 		820B23762371A0A400906BF0 /* StoryTwoColumnsLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryTwoColumnsLayout.swift; sourceTree = "<group>"; };
 		820C3AF823797896007FCF15 /* SocialShareVideo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialShareVideo.swift; sourceTree = "<group>"; };
 		820DA4ED2385392F0027A207 /* AWSManager+S3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AWSManager+S3.swift"; sourceTree = "<group>"; };
+		82262112239E164400B963CF /* SpeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedViewController.swift; sourceTree = "<group>"; };
+		82262114239E165A00B963CF /* SpeedViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SpeedViewController.storyboard; sourceTree = "<group>"; };
+		82262116239E172A00B963CF /* SpeedViewController+Controls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpeedViewController+Controls.swift"; sourceTree = "<group>"; };
 		822F413B238FE39100084007 /* Async.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Async.swift; sourceTree = "<group>"; };
 		822F413E238FE3E900084007 /* ExportVideoOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportVideoOperation.swift; sourceTree = "<group>"; };
 		824AD525237BEAD700BF226F /* TiktokClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TiktokClass.swift; sourceTree = "<group>"; };
@@ -1061,7 +1067,6 @@
 		82F4C9FC237D2FB1001EF701 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		82F4C9FE237D2FB6001EF701 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		82F4CA00237D2FB7001EF701 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
-		86BA1F168DE2A3CF91C622CB /* Pods-SocialCAM.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialCAM.release.xcconfig"; path = "Target Support Files/Pods-SocialCAM/Pods-SocialCAM.release.xcconfig"; sourceTree = "<group>"; };
 		9544778B2398FC79001E0CD9 /* PivotSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PivotSlider.swift; sourceTree = "<group>"; };
 		954660102387B5CB00A37AE0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/MantisLocalizable.strings; sourceTree = "<group>"; };
 		954660112387B5CB00A37AE0 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/MantisLocalizable.strings; sourceTree = "<group>"; };
@@ -1870,6 +1875,16 @@
 			path = Queuer;
 			sourceTree = "<group>";
 		};
+		82262111239E136600B963CF /* SpeedController */ = {
+			isa = PBXGroup;
+			children = (
+				82262112239E164400B963CF /* SpeedViewController.swift */,
+				82262116239E172A00B963CF /* SpeedViewController+Controls.swift */,
+				82262114239E165A00B963CF /* SpeedViewController.storyboard */,
+			);
+			path = SpeedController;
+			sourceTree = "<group>";
+		};
 		824AD520237BDA9100BF226F /* Upload */ = {
 			isa = PBXGroup;
 			children = (
@@ -1992,6 +2007,7 @@
 		824EB393236197F600205993 /* Controlers */ = {
 			isa = PBXGroup;
 			children = (
+				82262111239E136600B963CF /* SpeedController */,
 				8287D20823826CF50074FC39 /* YouTube */,
 				824AD524237BDAF100BF226F /* PhotoVideoFuncations */,
 				824AD523237BDAD000BF226F /* PhotoPicker */,
@@ -2473,6 +2489,7 @@
 				8205FD33236C3B06002B2603 /* LUT_M07.png in Resources */,
 				8205FD35236C3B06002B2603 /* LUT_M12.png in Resources */,
 				82D1EC3E23702B4300A680E7 /* RedLips.JPG in Resources */,
+				82262115239E165A00B963CF /* SpeedViewController.storyboard in Resources */,
 				8205FC3A236C2C2F002B2603 /* SF-UI-Text-Bold.otf in Resources */,
 				8205FC30236C2C2F002B2603 /* Courier Prime Italic.ttf in Resources */,
 				8205FA89236C0F9C002B2603 /* LoadingView.xib in Resources */,
@@ -2867,6 +2884,7 @@
 				8205FB90236C2A0F002B2603 /* AllPhotosCollectionViewCell.swift in Sources */,
 				82D1EC8423703DE300A680E7 /* PhotoEditorViewController+Picker.swift in Sources */,
 				8205FCBD236C3AFA002B2603 /* CollageViewT306.swift in Sources */,
+				82262113239E164400B963CF /* SpeedViewController.swift in Sources */,
 				8206AEF52374108C000CDD2A /* Scheduler.swift in Sources */,
 				8205FB26236C160E002B2603 /* StoryTagView.swift in Sources */,
 				820B23772371A0A500906BF0 /* StoryTwoColumnsLayout.swift in Sources */,
@@ -2941,6 +2959,7 @@
 				8205FAB5236C1037002B2603 /* DropdownController.swift in Sources */,
 				8205FD84236C3B06002B2603 /* Source.swift in Sources */,
 				8205FD5E236C3B06002B2603 /* PixelEngine.swift in Sources */,
+				82262117239E172A00B963CF /* SpeedViewController+Controls.swift in Sources */,
 				824EB3D023619E5C00205993 /* UITableViewExtension.swift in Sources */,
 				8205FD83236C3B06002B2603 /* CropAndStraightenView.swift in Sources */,
 				82D1EBE3236FF32C00A680E7 /* QueSliderCollectionViewCell.swift in Sources */,
@@ -3270,7 +3289,7 @@
 				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/SocialCAM/Info.plist";
@@ -3298,7 +3317,7 @@
 				BITCODE_GENERATION_MODE = bitcode;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/SocialCAM/Info.plist";

@@ -12,11 +12,12 @@ import AVKit
 extension StoryCameraViewController {
     
     // MARK: IBActions
-    
     @IBAction func muteButtonClicked(_ sender: Any) {
-        isMute = !isMute
-        setupMuteUI()
-        Defaults.shared.isMicOn = !isMute
+        if muteButton.alpha == 1 {
+            isMute = !isMute
+            setupMuteUI()
+            Defaults.shared.isMicOn = !isMute
+        }
     }
     
     @IBAction func enableCameraButtonClicked(_ sender: Any) {
@@ -408,7 +409,6 @@ extension StoryCameraViewController {
     
 }
 
-
 // MARK: StoryUploadDelegate
 extension StoryCameraViewController: StoryUploadDelegate {
     
@@ -486,7 +486,7 @@ extension StoryCameraViewController: PickerViewDelegate {
             }
         }
         
-        label.font = R.font.sfuiTextHeavy(size: 35 * UIScreen.main.bounds.width/414)
+        label.font = R.font.sfuiTextBold(size: 35 * UIScreen.main.bounds.width/414)
         
         if highlighted {
             label.textColor = ApplicationSettings.appWhiteColor

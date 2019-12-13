@@ -63,23 +63,7 @@ class StickersViewController: UIViewController, UIGestureRecognizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if storiCamType != .chat && storiCamType != .chat {
-            stickers.insert(StorySticker(image: R.image.ico_que_tag(), type: .askQuestion(type: AskQuestionType.normal.rawValue)), at: 0)
-            stickers.insert(StorySticker(image: R.image.ico_poll_tag(), type: .askQuestion(type: AskQuestionType.poll.rawValue)), at: 0)
-            stickers.insert(StorySticker(image: R.image.ico_sliderQue_tag(), type: .askQuestion(type: AskQuestionType.slider.rawValue)), at: 0)
-        }
-        if let temp = self.temperature {
-            stickers.insert(StorySticker(image: weatherTagImage(temp: "\(Int(Double(temp) ?? 0))° C"), type: .weather(temperature: temp)), at: 0)
-        }
-        stickers.insert(StorySticker(image: timeTagImage(date: Date()), type: .time(date: Date())), at: 0)
-        stickers.insert(StorySticker(image: dayTagImage(), type: .day), at: 0)
         stickers.insert(StorySticker(image: R.image.ico_cameraButton_tag(), type: .camera), at: 0)
-        if storiCamType != .chat && storiCamType != .chat {
-            stickers.insert(StorySticker(image: R.image.ico_Youtube_tag(), type: .youtube), at: 0)
-            stickers.insert(StorySticker(image: R.image.ico_hashtag_tag(), type: .hashtag), at: 0)
-            stickers.insert(StorySticker(image: R.image.ico_mention_tag(), type: .mension), at: 0)
-            stickers.insert(StorySticker(image: R.image.ico_location_tag(), type: .location), at: 0)
-        }
         for index in 0...31 {
             if let image = UIImage(named: "storySticker_\(index)") {
                 stickers.append(StorySticker(image: image, type: StoryStickerType.image))

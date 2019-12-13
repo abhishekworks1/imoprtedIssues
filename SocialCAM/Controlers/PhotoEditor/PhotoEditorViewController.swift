@@ -351,6 +351,8 @@ class PhotoEditorViewController: UIViewController {
     
     public var image: UIImage?
     
+    public var exportedURL: URL?
+    
     public var storyId: String?
     
     public var storyRePost: Bool = false

@@ -47,7 +47,7 @@ open class PickerView: UIView {
         lazy var titleLabel: UILabel = {
             let titleLabel = UILabel(frame: CGRect(x: 0.0, y: 0.0, width: self.contentView.frame.width/2, height: self.contentView.frame.height))
             titleLabel.textAlignment = .right
-            
+            titleLabel.font = UIFont.sfuiBoldfont25
             return titleLabel
         }()
         
@@ -159,7 +159,7 @@ open class PickerView: UIView {
                                                height: 134))
         titleLabel.textAlignment = .left
         titleLabel.textColor = ApplicationSettings.appWhiteColor
-        titleLabel.font = UIFont.sfuifontSize17
+        titleLabel.font = UIFont.sfuiBoldfont25
         titleLabel.backgroundColor = ApplicationSettings.appClearColor
         return titleLabel
     }()
@@ -248,9 +248,9 @@ open class PickerView: UIView {
         addSubview(selectionTitle)
         self.layoutIfNeeded()
         selectionTitle.frame = CGRect(x: self.bounds.width/2 + 20,
-                                      y: (self.bounds.height/2)-(134/2),
+                                      y: (self.bounds.height/2)-(70),
                                       width: self.bounds.width/2-20,
-                                      height: 134)
+                                      height: 94)
     }
     
     fileprivate func setupTableView() {
