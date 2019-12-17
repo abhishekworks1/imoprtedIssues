@@ -33,6 +33,11 @@ class CountdownView: UIView {
 
     }
 
+    deinit {
+        timer = nil
+        print("deinit CountdownView")
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         updateAppearance()
@@ -78,6 +83,7 @@ class CountdownView: UIView {
         if timer != nil && (timer?.isValid)! {
             timer?.invalidate()
         }
+        timer = nil
     }
 // MARK: - animation stuff
     @objc func animate() {

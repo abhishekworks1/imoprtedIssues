@@ -375,7 +375,7 @@ class PhotoEditorViewController: UIViewController {
     
     var isTyping: Bool = false
     var isTagTyping = false
-    var isQuetionTyping = false
+    var isQuestionTyping = false
     
     var draggingCell: IndexPath?
     var lastMargeCell: IndexPath?

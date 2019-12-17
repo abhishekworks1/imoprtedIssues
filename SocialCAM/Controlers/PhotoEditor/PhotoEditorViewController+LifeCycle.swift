@@ -114,5 +114,73 @@ extension PhotoEditorViewController {
             self.cursorContainerViewController = segue.destination as? KeyframePickerCursorVC
         }
     }
+}
+
+extension PhotoEditorViewController {
     
+    func addStickersViewController() {
+        stickersVCIsVisible = true
+        hideToolbar(hide: true)
+        self.canvasImageView.isUserInteractionEnabled = false
+        stickersViewController.stickersViewControllerDelegate = self
+        stickersViewController.temperature = self.temperature
+        stickersViewController.storiCamType = self.storiCamType
+        if stickersViewController.collectionView != nil {
+            stickersViewController.collectionView.reloadData()
+            stickersViewController.updateTimeTag()
+        }
+        self.addChild(stickersViewController)
+        self.view.addSubview(stickersViewController.view)
+        stickersViewController.didMove(toParent: self)
+        let height = view.frame.height
+        let width  = view.frame.width
+        stickersViewController.view.frame = CGRect(x: 0, y: self.view.frame.maxY, width: width, height: height)
+    }
+    
+    func removeStickersView() {
+        stickersVCIsVisible = false
+        self.canvasImageView.isUserInteractionEnabled = true
+        UIView.animate(withDuration: 0.3,
+                       delay: 0,
+                       options: UIView.AnimationOptions.curveEaseIn,
+                       animations: { () -> Void in
+                        var frame = self.stickersViewController.view.frame
+                        frame.origin.y = UIScreen.main.bounds.maxY
+                        self.stickersViewController.view.frame = frame
+                        
+        }, completion: { (_) -> Void in
+            self.stickersViewController.view.removeFromSuperview()
+            self.stickersViewController.removeFromParent()
+            self.hideToolbar(hide: false)
+        })
+    }
+}
+
+extension PhotoEditorViewController {
+    
+    func addApplicationStateObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(self.enterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.enterForeground), name: UIApplication.didBecomeActiveNotification, object: nil)
+    }
+    
+    func removeApplicationStateObserver() {
+        NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.didBecomeActiveNotification, object: nil)
+    }
+    
+    @objc func enterBackground(_ notifi: Notification) {
+        if isViewAppear {
+            guard let currentPlayer = self.scPlayer else { return }
+            currentPlayer.pause()
+            stopPlaybackTimeChecker()
+        }
+    }
+    
+    @objc func enterForeground(_ notifi: Notification) {
+        if isViewAppear {
+            guard let player = self.scPlayer else { return }
+            !pausePlayButton.isSelected ? player.play() : nil
+            startPlaybackTimeChecker()
+        }
+    }
 }
