@@ -158,7 +158,11 @@ open class PhotosPickerViewController: UIViewController {
     @IBOutlet open var indicator: UIActivityIndicatorView!
     
     @IBOutlet open var customNavItem: UINavigationItem!
-    @IBOutlet open var doneButton: UIBarButtonItem!
+    @IBOutlet open var doneButton: UIBarButtonItem! {
+        didSet {
+            doneButton.isEnabled = !selectedAssets.isEmpty
+        }
+    }
     @IBOutlet open var cancelButton: UIBarButtonItem!
     @IBOutlet open var navigationBarTopConstraint: NSLayoutConstraint!
     @IBOutlet open var emptyView: UIView!
@@ -184,7 +188,11 @@ open class PhotosPickerViewController: UIViewController {
     fileprivate var previousPreheatRect: CGRect = .zero
     fileprivate let cellSize = CGSize(width: 100, height: 100)
     
-    public var selectedAssets: [ImageAsset] = []
+    public var selectedAssets: [ImageAsset] = [] {
+        didSet {
+            doneButton.isEnabled = !selectedAssets.isEmpty
+        }
+    }
     lazy var arrowButton: ArrowButton = self.makeArrowButton()
     lazy var dropdownController: DropdownController = self.makeDropdownController()
     

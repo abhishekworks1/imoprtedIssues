@@ -104,6 +104,119 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ywo-Xw-gFW">
                                         <rect key="frame" x="0.0" y="723" width="414" height="95"/>
                                         <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UhU-e6-pUK">
+                                                <rect key="frame" x="0.0" y="-46.5" width="414" height="59"/>
+                                                <subviews>
+                                                    <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y9p-cz-VyS">
+                                                        <rect key="frame" x="0.0" y="20" width="55" height="2"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="2" id="iVs-wv-WaC"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j4d-5z-a7i">
+                                                        <rect key="frame" x="359" y="20" width="55" height="2"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="2" id="eB3-uJ-fMT"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z6s-Nl-dIr" customClass="TGPDiscreteSlider" customModule="TGPControls">
+                                                        <rect key="frame" x="35" y="0.0" width="344" height="42"/>
+                                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="42" id="IMv-ic-ijr"/>
+                                                        </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="tickStyle">
+                                                                <integer key="value" value="2"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="trackStyle">
+                                                                <integer key="value" value="0"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="minimumValue">
+                                                                <real key="value" value="0.0"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="tickCount">
+                                                                <integer key="value" value="5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="value">
+                                                                <real key="value" value="2"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="incrementValue">
+                                                                <integer key="value" value="0"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="trackThickness">
+                                                                <real key="value" value="8"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="size" keyPath="tickSize">
+                                                                <size key="value" width="0.0" height="0.0"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="minimumTrackTintColor">
+                                                                <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="maximumTrackTintColor">
+                                                                <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="thumbTintColor">
+                                                                <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="image" keyPath="thumbImage" value="dimond"/>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="thumbStyle">
+                                                                <integer key="value" value="4"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vV7-om-enz" customClass="TGPCamelLabels" customModule="TGPControls">
+                                                        <rect key="frame" x="35" y="44" width="344" height="15"/>
+                                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="15" id="MWG-Af-ofb"/>
+                                                        </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="tickCount">
+                                                                <integer key="value" value="5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="ticksDistance">
+                                                                <real key="value" value="50"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="value">
+                                                                <integer key="value" value="2"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="upFontName" value="SFUIText-Semibold"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="downFontName" value="SFUIText-Semibold"/>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="upFontSize">
+                                                                <real key="value" value="14"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="downFontSize">
+                                                                <real key="value" value="14"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="upFontColor">
+                                                                <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="downFontColor">
+                                                                <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="Y9p-cz-VyS" firstAttribute="centerY" secondItem="z6s-Nl-dIr" secondAttribute="centerY" id="5rG-jy-ABt"/>
+                                                    <constraint firstAttribute="height" constant="59" id="BJR-gZ-Oz1"/>
+                                                    <constraint firstItem="vV7-om-enz" firstAttribute="top" secondItem="z6s-Nl-dIr" secondAttribute="bottom" constant="2" id="EBf-g3-fxV"/>
+                                                    <constraint firstItem="j4d-5z-a7i" firstAttribute="centerY" secondItem="z6s-Nl-dIr" secondAttribute="centerY" id="Gkd-Eu-THt"/>
+                                                    <constraint firstItem="j4d-5z-a7i" firstAttribute="leading" secondItem="z6s-Nl-dIr" secondAttribute="trailing" constant="-20" id="INf-Qx-BGg"/>
+                                                    <constraint firstItem="Y9p-cz-VyS" firstAttribute="leading" secondItem="UhU-e6-pUK" secondAttribute="leading" id="J2V-V0-mye"/>
+                                                    <constraint firstAttribute="trailing" secondItem="j4d-5z-a7i" secondAttribute="trailing" id="KE2-8x-12a"/>
+                                                    <constraint firstItem="z6s-Nl-dIr" firstAttribute="leading" secondItem="Y9p-cz-VyS" secondAttribute="trailing" constant="-20" id="Qn9-x4-kgh"/>
+                                                    <constraint firstItem="z6s-Nl-dIr" firstAttribute="centerX" secondItem="UhU-e6-pUK" secondAttribute="centerX" id="UFg-MM-8fd"/>
+                                                    <constraint firstItem="vV7-om-enz" firstAttribute="width" secondItem="z6s-Nl-dIr" secondAttribute="width" id="bS9-cg-WGY"/>
+                                                    <constraint firstItem="vV7-om-enz" firstAttribute="centerX" secondItem="z6s-Nl-dIr" secondAttribute="centerX" id="pfx-VT-fKb"/>
+                                                    <constraint firstAttribute="bottom" secondItem="vV7-om-enz" secondAttribute="bottom" id="wgS-8G-ck3"/>
+                                                </constraints>
+                                            </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aYe-ez-dkE" customClass="CircularProgress" customModule="SocialCAM" customModuleProvider="target">
                                                 <rect key="frame" x="172" y="12.5" width="70" height="70"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -116,7 +229,11 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="95" id="ChZ-X2-MCd"/>
+                                            <constraint firstItem="z6s-Nl-dIr" firstAttribute="width" secondItem="Ywo-Xw-gFW" secondAttribute="width" multiplier="0.83" id="KCd-97-Mwo"/>
+                                            <constraint firstAttribute="trailing" secondItem="UhU-e6-pUK" secondAttribute="trailing" id="cE2-87-zEW"/>
                                             <constraint firstItem="aYe-ez-dkE" firstAttribute="centerX" secondItem="Ywo-Xw-gFW" secondAttribute="centerX" id="fL4-us-vGL"/>
+                                            <constraint firstItem="UhU-e6-pUK" firstAttribute="leading" secondItem="Ywo-Xw-gFW" secondAttribute="leading" id="fhm-NN-Xh5"/>
+                                            <constraint firstItem="UhU-e6-pUK" firstAttribute="bottom" secondItem="aYe-ez-dkE" secondAttribute="top" id="hU2-Dh-Job"/>
                                             <constraint firstItem="aYe-ez-dkE" firstAttribute="centerY" secondItem="Ywo-Xw-gFW" secondAttribute="centerY" id="sNx-sT-rQj"/>
                                         </constraints>
                                     </view>
@@ -437,6 +554,9 @@
                         <outlet property="maximumSecondsLabel" destination="7ZA-bv-lKu" id="TzH-5N-DUU"/>
                         <outlet property="minimumSecondsLabel" destination="8UR-eO-xdZ" id="E9o-3B-vhL"/>
                         <outlet property="selectedSecondsLabel" destination="K8k-Lf-49j" id="CAg-9v-uVk"/>
+                        <outlet property="speedSlider" destination="z6s-Nl-dIr" id="cGa-eb-xqc"/>
+                        <outlet property="speedSliderLabels" destination="vV7-om-enz" id="wrW-0F-xs5"/>
+                        <outlet property="speedSliderView" destination="UhU-e6-pUK" id="ddY-Gh-Ojr"/>
                         <outlet property="timeControlView" destination="QoT-bD-Gb1" id="9Kh-YO-MHM"/>
                         <outlet property="trimmerView" destination="eFG-Ro-220" id="KyC-hp-S0e"/>
                         <outlet property="videoView" destination="QXv-Qx-KDz" id="XVq-ML-Hkc"/>
@@ -449,6 +569,7 @@
     </scenes>
     <resources>
         <image name="deletewhitesmall" width="30" height="30"/>
+        <image name="dimond" width="36" height="20"/>
         <image name="done" width="21" height="15"/>
         <image name="downHistoGram" width="38" height="31"/>
         <image name="mute" width="16" height="16"/>

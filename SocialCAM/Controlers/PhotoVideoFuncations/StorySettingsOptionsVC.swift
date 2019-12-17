@@ -110,7 +110,10 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
     
     func logoutApi(token: String) {
         self.showHUD()
-        ProManagerApi.logOut(deviceToken: token, userId: "").request(Result<User>.self).subscribe(onNext: { (_) in
+        ProManagerApi.logOut(deviceToken: token, userId: "").request(Result<User>.self).subscribe(onNext: { [weak self] _ in
+            guard let `self` = self else {
+                return
+            }
             self.dismissHUD()
             Defaults.shared.currentUser = nil
             CurrentUser.shared.setActiveUser(nil)
@@ -120,7 +123,6 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
             }
         }, onError: { (_) in
             self.dismissHUD()
-            
             if let loginNav = R.storyboard.loginViewController.loginNavigation() {
                 Utils.appDelegate?.window?.switchRootViewController(loginNav)
             }

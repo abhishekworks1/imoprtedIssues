@@ -276,7 +276,7 @@ extension PhotoEditorViewController: StickersViewControllerDelegate {
                 self.storyTags.append(BaseStoryTag(view: tagView, tag: tag))
                 self.currentTagView = tagView
             }
-            self.isQuetionTyping = true
+            self.isQuestionTyping = true
             
         }
         
@@ -875,3 +875,70 @@ extension PhotoEditorViewController: CropViewControllerDelegate {
         self.setTransformationInFilterSwitcherView()
     }
 }
+
+extension PhotoEditorViewController {
+    
+    func addKeyboardStateObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow),
+                                               name: UIResponder.keyboardDidShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide),
+                                               name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChangeFrame(_:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+    }
+    
+    func removeKeyboardStateObserver() {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardDidShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+    }
+    
+    @objc func keyboardDidShow(notification: NSNotification) {
+        if isTyping {
+            doneButton.setImage(#imageLiteral(resourceName: "storyType"), for: UIControl.State.normal)
+            doneButtonView.isHidden = false
+            colorSlider?.isHidden = false
+            colorSlider?.color = activeTextView?.textColor ?? ApplicationSettings.appWhiteColor
+            hideToolbar(hide: true)
+        }
+        if isTagTyping {
+            mensionPickerView.isHidden = false
+        }
+        if isQuestionTyping {
+            emojiPickerView.isHidden = false
+        }
+        videoCoverView.isHidden = true
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        isTyping = false
+        doneButtonView.isHidden = true
+        hideToolbar(hide: false)
+        isTagTyping = false
+        isQuestionTyping = false
+        videoCoverView.isHidden = !(videoUrl != nil || !self.videoUrls.isEmpty)
+    }
+    
+    @objc func keyboardWillChangeFrame(_ notification: NSNotification) {
+        if let userInfo = notification.userInfo {
+            let endFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+            let duration: TimeInterval = (userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0
+            let animationCurveRawNSN = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber
+            let animationCurveRaw = animationCurveRawNSN?.uintValue ?? UIView.AnimationOptions.curveEaseInOut.rawValue
+            let animationCurve: UIView.AnimationOptions = UIView.AnimationOptions(rawValue: animationCurveRaw)
+            if (endFrame?.origin.y)! >= UIScreen.main.bounds.size.height {
+                self.mensionPickerViewBottomConstraint?.constant = 0.0
+                self.emojiPickerViewBottomConstraint?.constant = 0.0
+            } else {
+                self.mensionPickerViewBottomConstraint?.constant = endFrame?.size.height ?? 0.0
+                self.emojiPickerViewBottomConstraint?.constant = endFrame?.size.height ?? 0.0
+            }
+            UIView.animate(withDuration: duration,
+                           delay: TimeInterval(0),
+                           options: animationCurve,
+                           animations: { self.view.layoutIfNeeded() },
+                           completion: nil)
+        }
+    }
+    
+}
+

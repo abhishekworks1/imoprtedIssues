@@ -19,7 +19,6 @@ extension SpeedViewController {
             stopPlaybackTimeChecker()
             btnPlayPause.isSelected = false
         } else {
-            player?.play()
             startPlaybackTimeChecker()
             btnPlayPause.isSelected = true
         }

@@ -9,9 +9,24 @@
 import Foundation
 import UIKit
 import SCRecorder
+import TGPControls
 
 class SpeedViewController: UIViewController {
-   
+    
+    @IBOutlet weak var speedSliderView: UIView!
+    @IBOutlet weak var speedSliderLabels: TGPCamelLabels! {
+        didSet {
+            speedSliderLabels.names = ["-3x", "-2x", "1x", "2x", "3x"]
+            speedSlider.ticksListener = speedSliderLabels
+        }
+    }
+    
+    @IBOutlet weak var speedSlider: TGPDiscreteSlider! {
+        didSet {
+            speedSlider.addTarget(self, action: #selector(speedSliderValueChanged(_:)), for: UIControl.Event.valueChanged)
+        }
+    }
+    
     @IBOutlet weak var circularProgress: CircularProgress! {
         didSet {
             circularProgress.startAngle = -90
@@ -210,7 +225,6 @@ class SpeedViewController: UIViewController {
     
     @objc func enterForeground(_ notifi: Notification) {
         if shouldPlayAfterDrag {
-            player?.play()
             btnPlayPause.isSelected = true
             startPlaybackTimeChecker()
         }
@@ -239,9 +253,8 @@ class SpeedViewController: UIViewController {
         case .began:
             recoredButtonCenterPoint = circularProgress.center
             self.panStartPoint = gestureRecognizer.location(in: self.view)
-            self.setSpeed(type: .normal,
-                          value: 0,
-                          text: "")
+            self.setSpeed(type: .normal, value: 0)
+            self.player?.play()
         case .changed:
             let translation = gestureRecognizer.location(in: circularProgress)
             circularProgress.center = CGPoint(x: circularProgress.center.x + translation.x - 35,
@@ -260,7 +273,7 @@ class SpeedViewController: UIViewController {
                             DispatchQueue.main.async {
                                 self.setSpeed(type: .slow(scaleFactor: 3.0),
                                                   value: -3,
-                                                  text: "Slow 3x")
+                                                  sliderValue: 0)
                             }
                         }
                     } else {
@@ -268,7 +281,7 @@ class SpeedViewController: UIViewController {
                             DispatchQueue.main.async {
                                 self.setSpeed(type: .slow(scaleFactor: 2.0),
                                                   value: -2,
-                                                  text: "Slow 2x")
+                                                  sliderValue: 1)
                             }
                         }
                     }
@@ -279,7 +292,7 @@ class SpeedViewController: UIViewController {
                             DispatchQueue.main.async {
                                 self.setSpeed(type: .fast(scaleFactor: 3.0),
                                                   value: 4,
-                                                  text: "Fast 3x")
+                                                  sliderValue: 4)
                             }
                         }
                     } else {
@@ -287,7 +300,7 @@ class SpeedViewController: UIViewController {
                             DispatchQueue.main.async {
                                 self.setSpeed(type: .fast(scaleFactor: 2.0),
                                                   value: 3,
-                                                  text: "Fast 2x")
+                                                  sliderValue: 3)
                             }
                         }
                     }
@@ -296,13 +309,13 @@ class SpeedViewController: UIViewController {
                 if videoSpeedType != VideoSpeedType.normal {
                     DispatchQueue.main.async {
                         self.setSpeed(type: .normal,
-                                      value: 0,
-                                      text: "")
+                                      value: 0)
                     }
                 }
             }
         case .ended: 
             DispatchQueue.main.async {
+                self.setSpeed(type: .normal, value: 0)
                 self.circularProgress.center = self.recoredButtonCenterPoint
             }
         case .cancelled:
@@ -314,9 +327,11 @@ class SpeedViewController: UIViewController {
         }
     }
     
-    func setSpeed(type: VideoSpeedType, value: Float, text: String) {
+    func setSpeed(type: VideoSpeedType, value: Float, text: String = "", sliderValue: Int = 2) {
         self.videoSpeedType = type
         self.isSpeedChanged = true
+        self.speedSliderLabels.value = UInt(sliderValue)
+        self.speedSlider.value = CGFloat(sliderValue)
         rate = value
         guard let asset = currentAsset else {
             return
@@ -470,8 +485,6 @@ extension SpeedViewController {
             addPlayerLayer()
         }
         setupPlayer(for: playerItem!)
-        player?.play()
-        
         if player != nil {
             addPlayerEndTimeObserver()
         }
@@ -529,5 +542,12 @@ extension SpeedViewController {
             
             self.doneBtnClicked(UIButton())
         }
+    }
+}
+
+extension SpeedViewController {
+    @objc func speedSliderValueChanged(_ sender: Any) {
+        videoSpeedType = speedSlider.speedType
+        
     }
 }
