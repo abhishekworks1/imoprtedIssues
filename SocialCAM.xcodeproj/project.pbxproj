@@ -501,6 +501,13 @@
 		82EEF72C2375288C00DE4845 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 82EEF72B2375288C00DE4845 /* GoogleService-Info.plist */; };
 		82EEF72E23752B0D00DE4845 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82EEF72D23752B0D00DE4845 /* AdSupport.framework */; };
 		9544778C2398FC79001E0CD9 /* PivotSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9544778B2398FC79001E0CD9 /* PivotSlider.swift */; };
+		95011A3423A0BF8300E7423D /* FilterResources in Resources */ = {isa = PBXBuildFile; fileRef = 95011A3323A0BF8300E7423D /* FilterResources */; };
+		950514BF239FA3F800F07D8F /* StoryEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950514BE239FA3F800F07D8F /* StoryEditorViewController.swift */; };
+		950514C1239FA42100F07D8F /* StoryEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950514C0239FA42100F07D8F /* StoryEditorView.swift */; };
+		950514C3239FA9AB00F07D8F /* StoryEditor.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 950514C2239FA9AB00F07D8F /* StoryEditor.storyboard */; };
+		950514C5239FCEE600F07D8F /* StickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950514C4239FCEE600F07D8F /* StickerViewController.swift */; };
+		9544DE2F23A38F8700EF57DE /* DragAndDropCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9544DE2D23A38F8600EF57DE /* DragAndDropCollectionView.swift */; };
+		9544DE3023A38F8700EF57DE /* DragAndDropManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9544DE2E23A38F8700EF57DE /* DragAndDropManager.swift */; };
 		954660472387B5CC00A37AE0 /* MantisLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9546600F2387B5CB00A37AE0 /* MantisLocalizable.strings */; };
 		954660482387B5CC00A37AE0 /* RatioOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9546601D2387B5CB00A37AE0 /* RatioOptions.swift */; };
 		954660492387B5CC00A37AE0 /* Mantis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9546601E2387B5CB00A37AE0 /* Mantis.swift */; };
@@ -1070,6 +1077,14 @@
 		82F4C9FE237D2FB6001EF701 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		82F4CA00237D2FB7001EF701 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		9544778B2398FC79001E0CD9 /* PivotSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PivotSlider.swift; sourceTree = "<group>"; };
+		86BA1F168DE2A3CF91C622CB /* Pods-SocialCAM.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialCAM.release.xcconfig"; path = "Target Support Files/Pods-SocialCAM/Pods-SocialCAM.release.xcconfig"; sourceTree = "<group>"; };
+		95011A3323A0BF8300E7423D /* FilterResources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = FilterResources; sourceTree = "<group>"; };
+		950514BE239FA3F800F07D8F /* StoryEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryEditorViewController.swift; sourceTree = "<group>"; };
+		950514C0239FA42100F07D8F /* StoryEditorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryEditorView.swift; sourceTree = "<group>"; };
+		950514C2239FA9AB00F07D8F /* StoryEditor.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = StoryEditor.storyboard; sourceTree = "<group>"; };
+		950514C4239FCEE600F07D8F /* StickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StickerViewController.swift; sourceTree = "<group>"; };
+		9544DE2D23A38F8600EF57DE /* DragAndDropCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DragAndDropCollectionView.swift; sourceTree = "<group>"; };
+		9544DE2E23A38F8700EF57DE /* DragAndDropManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DragAndDropManager.swift; sourceTree = "<group>"; };
 		954660102387B5CB00A37AE0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/MantisLocalizable.strings; sourceTree = "<group>"; };
 		954660112387B5CB00A37AE0 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/MantisLocalizable.strings; sourceTree = "<group>"; };
 		954660122387B5CB00A37AE0 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/MantisLocalizable.strings"; sourceTree = "<group>"; };
@@ -1550,6 +1565,7 @@
 			isa = PBXGroup;
 			children = (
 				82D1EC0323702B4200A680E7 /* FilterResources */,
+				95011A3323A0BF8300E7423D /* FilterResources */,
 				8205FC5C236C3AD9002B2603 /* StyleFilterModel */,
 				8205FBE6236C2C2E002B2603 /* AudioFiles */,
 				8205FC09236C2C2F002B2603 /* SF-UI-Text */,
@@ -1906,6 +1922,10 @@
 				82D1EC7E23703DE100A680E7 /* PhotoEditorViewController+Picker.swift */,
 				82D1EC8123703DE300A680E7 /* PhotoEditorViewController+LifeCycle.swift */,
 				82AD6B6D237049AB0090498A /* PhotoEditor.storyboard */,
+				950514C4239FCEE600F07D8F /* StickerViewController.swift */,
+				950514C0239FA42100F07D8F /* StoryEditorView.swift */,
+				950514BE239FA3F800F07D8F /* StoryEditorViewController.swift */,
+				950514C2239FA9AB00F07D8F /* StoryEditor.storyboard */,
 			);
 			path = PhotoEditor;
 			sourceTree = "<group>";
@@ -2055,6 +2075,8 @@
 				8205FAB0236C1001002B2603 /* ImageCropperView.swift */,
 				824EB39523619E1D00205993 /* PickerView.swift */,
 				8205FAB8236C104A002B2603 /* FocusIndicatorView.swift */,
+				9544DE2D23A38F8600EF57DE /* DragAndDropCollectionView.swift */,
+				9544DE2E23A38F8700EF57DE /* DragAndDropManager.swift */,
 				8205FABA236C104B002B2603 /* KDDragAndDropCollectionView.swift */,
 				8205FABB236C104B002B2603 /* KDDragAndDropManager.swift */,
 				8205FAB9236C104A002B2603 /* ProgressView.swift */,
@@ -2468,6 +2490,7 @@
 				82D1EC4723702B4300A680E7 /* Light.JPG in Resources */,
 				82D1EC4123702B4300A680E7 /* Clear.JPG in Resources */,
 				8205FB62236C1D0F002B2603 /* love.json in Resources */,
+				950514C3239FA9AB00F07D8F /* StoryEditor.storyboard in Resources */,
 				8205FB13236C14C7002B2603 /* Localizable.strings in Resources */,
 				8205FC3E236C2C2F002B2603 /* SF-UI-Text-Light.otf in Resources */,
 				8205FD37236C3B06002B2603 /* LUT_M05.png in Resources */,
@@ -2480,6 +2503,7 @@
 				8205FDA2236C3B79002B2603 /* CollageMaker.storyboard in Resources */,
 				82D1EC3B23702B4300A680E7 /* Detached.JPG in Resources */,
 				8205FB68236C1D0F002B2603 /* like.json in Resources */,
+				95011A3423A0BF8300E7423D /* FilterResources in Resources */,
 				82D1EC4D23702B4300A680E7 /* Warm.JPG in Resources */,
 				8205FD38236C3B06002B2603 /* LUT_M08.png in Resources */,
 				82D1EC5123702B4300A680E7 /* Wonderful.JPG in Resources */,
@@ -2644,6 +2668,7 @@
 				8205FBC2236C2A88002B2603 /* MMPlayerTransitionDefine.swift in Sources */,
 				8205FB72236C1D0F002B2603 /* FacebookReactions.swift in Sources */,
 				820C3AF923797896007FCF15 /* SocialShareVideo.swift in Sources */,
+				950514C1239FA42100F07D8F /* StoryEditorView.swift in Sources */,
 				8205FB0B236C1218002B2603 /* CustomViews.swift in Sources */,
 				8205FC5B236C3AA6002B2603 /* CoreMLExporter.swift in Sources */,
 				8205FB2E236C1B2D002B2603 /* Channel.swift in Sources */,
@@ -2673,6 +2698,7 @@
 				8205FCA8236C3AFA002B2603 /* CollageViewT209.swift in Sources */,
 				8205FD41236C3B06002B2603 /* EngineLog.swift in Sources */,
 				82D1EC8223703DE300A680E7 /* PhotoEditorViewController+Delegates.swift in Sources */,
+				950514BF239FA3F800F07D8F /* StoryEditorViewController.swift in Sources */,
 				8205FAAE236C0FF0002B2603 /* VerticalCenteredTextView.swift in Sources */,
 				82D1EBF1236FF4CC00A680E7 /* UpgradePageCollectionViewCell.swift in Sources */,
 				9546606B2387B5CC00A37AE0 /* DialConfig.swift in Sources */,
@@ -2786,6 +2812,7 @@
 				8205FD6E236C3B06002B2603 /* GaussianBlurControl.swift in Sources */,
 				8205FD57236C3B06002B2603 /* FilterFade.swift in Sources */,
 				8205FABE236C104B002B2603 /* KDDragAndDropCollectionView.swift in Sources */,
+				9544DE3023A38F8700EF57DE /* DragAndDropManager.swift in Sources */,
 				820B236F2371849300906BF0 /* StoryCameraViewController+Events.swift in Sources */,
 				82D1EBCF236FF13900A680E7 /* StorySettingsHeaderCell.swift in Sources */,
 				824EB3C023619E5C00205993 /* Date.swift in Sources */,
@@ -2981,6 +3008,7 @@
 				820B23752371975000906BF0 /* Result.swift in Sources */,
 				8205FCB4236C3AFA002B2603 /* CollageViewT602.swift in Sources */,
 				8205FD56236C3B06002B2603 /* FilterGaussianBlur.swift in Sources */,
+				9544DE2F23A38F8700EF57DE /* DragAndDropCollectionView.swift in Sources */,
 				954660482387B5CC00A37AE0 /* RatioOptions.swift in Sources */,
 				824EB39823619E2800205993 /* ApplicationSettings.swift in Sources */,
 				8287D20A23826D070074FC39 /* YouTubeUploadViewController.swift in Sources */,
@@ -3002,6 +3030,7 @@
 				82D1EBE7236FF35600A680E7 /* SlideshowImagesCell.swift in Sources */,
 				8206AEF32374108C000CDD2A /* OperationState.swift in Sources */,
 				8205FCB1236C3AFA002B2603 /* CollageViewT405.swift in Sources */,
+				950514C5239FCEE600F07D8F /* StickerViewController.swift in Sources */,
 				8205FD76236C3B06002B2603 /* ControlStackView.swift in Sources */,
 				8205FC68236C3AE7002B2603 /* DrawTextEditView.swift in Sources */,
 				8205FA86236C0F9C002B2603 /* CircularProgressBar.swift in Sources */,

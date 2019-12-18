@@ -163,16 +163,20 @@ extension HistroGramVC {
                 self.isExporting = false
             }
             loadingView.hide()
-            let updatedSegment = SegmentVideos(urlStr: url,
-                                               thumbimage: self.videoSegments[self.currentIndex].image,
-                                               latitued: nil,
-                                               longitued: nil,
-                                               placeAddress: nil,
-                                               numberOfSegement: self.videoSegments[self.currentIndex].numberOfSegementtext,
-                                               videoduration: nil,
-                                               combineOneVideo: true)
-            self.videoSegments.remove(at: self.currentIndex)
-            self.videoSegments.insert(updatedSegment, at: self.currentIndex)
+            if self.videoSegments.count > 0 {
+                let updatedSegment = SegmentVideos(urlStr: url,
+                                                   thumbimage: self.videoSegments[self.currentIndex].image,
+                                                   latitued: nil,
+                                                   longitued: nil,
+                                                   placeAddress: nil,
+                                                   numberOfSegement: self.videoSegments[self.currentIndex].numberOfSegementtext,
+                                                   videoduration: nil,
+                                                   combineOneVideo: true)
+                self.videoSegments.remove(at: self.currentIndex)
+                self.videoSegments.insert(updatedSegment, at: self.currentIndex)
+            } else {
+                self.completionHandler?(url)
+            }
             DispatchQueue.main.async {
                 self.doneHandler?(self.videoSegments)
                 self.navigationController?.popViewController(animated: true)

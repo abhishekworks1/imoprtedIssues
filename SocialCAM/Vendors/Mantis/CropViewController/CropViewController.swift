@@ -27,6 +27,7 @@ import AVFoundation
 
 public protocol CropViewControllerDelegate: class {
     func cropViewControllerDidCrop(_ cropViewController: CropViewController, cropped: UIImage)
+    func cropViewControllerDidCrop(_ cropViewController: CropViewController, croppedURL: URL)
     func cropViewControllerDidCrop(_ cropViewController: CropViewController, updatedVideoSegments: [SegmentVideos])
     func cropViewControllerDidFailToCrop(_ cropViewController: CropViewController, original: UIImage)
     func cropViewControllerDidCancel(_ cropViewController: CropViewController, original: UIImage)
@@ -37,6 +38,8 @@ public extension CropViewControllerDelegate {
     func cropViewControllerWillDismiss(_ cropViewController: CropViewController) {}
     func cropViewControllerDidFailToCrop(_ cropViewController: CropViewController, original: UIImage) {}
     func cropViewControllerDidCancel(_ cropViewController: CropViewController, original: UIImage) {}
+    func cropViewControllerDidCrop(_ cropViewController: CropViewController, croppedURL: URL) {}
+    func cropViewControllerDidCrop(_ cropViewController: CropViewController, updatedVideoSegments: [SegmentVideos]) {}
 }
 
 public enum CropViewControllerMode {
@@ -414,6 +417,7 @@ public class CropViewController: UIViewController {
                 self.videoSegments.remove(at: self.currentIndex)
                 self.videoSegments.insert(updatedSegment, at: self.currentIndex)
                 self.delegate?.cropViewControllerDidCrop(self, updatedVideoSegments: self.videoSegments)
+                self.delegate?.cropViewControllerDidCrop(self, croppedURL: url)
             }
             self.dismiss(animated: true, completion: nil)
         }

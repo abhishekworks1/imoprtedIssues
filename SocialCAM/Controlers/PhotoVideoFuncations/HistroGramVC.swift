@@ -53,6 +53,8 @@ class HistroGramVC: UIViewController {
     
     var doneHandler: (([SegmentVideos]) -> Void)?
     
+    var completionHandler: ((URL) -> ())? = nil
+
     var isExporting: Bool = false {
         didSet {
             doneButton.isHidden = isExporting

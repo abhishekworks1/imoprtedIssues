@@ -194,7 +194,7 @@ extension TagVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollect
         guard let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.stickerCollectionViewCell.identifier, for: indexPath) as? StickerCollectionViewCell else {
             fatalError("Unable to find cell with '\(R.reuseIdentifier.stickerCollectionViewCell.identifier)' reuseIdentifier")
         }
-        cell.stickerImage.image = stickers[indexPath.item]
+        cell.stickerImageView.image = stickers[indexPath.item]
         return cell
     }
     
