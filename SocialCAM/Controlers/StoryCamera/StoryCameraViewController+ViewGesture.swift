@@ -106,21 +106,35 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             nextLevel.videoZoomFactor = Float(minZoom)
             self.zoomSlider.value = Float(minZoom)
             
-            let normalPart = (UIScreen.main.bounds.width * CGFloat(142.5)) / 375
-            let screenPart = Int((UIScreen.main.bounds.width - normalPart) / 4)
+            let normalPart = (UIScreen.main.bounds.width * CGFloat(90)) / 375
+            let screenPart = Int((UIScreen.main.bounds.width - normalPart) / 6)
             
             if recordingType != .boomerang {
-                if abs((Int(self.panStartPoint.x) - Int(newPoint.x))) > 50 {
-                    let difference = abs((Int(self.panStartPoint.x) - Int(newPoint.x))) - 50
+                if abs((Int(self.panStartPoint.x) - Int(newPoint.x))) > 28 {
+                    var difference = abs((Int(self.panStartPoint.x) - Int(newPoint.x)))
                     if (Int(self.panStartPoint.x) - Int(newPoint.x)) > 0 {
-                        if difference > screenPart {
+                        difference -= 28
+                        if difference > (screenPart*2) {
+                            if videoSpeedType != VideoSpeedType.slow(scaleFactor: 4.0) {
+                                DispatchQueue.main.async {
+                                    if Defaults.shared.isPro {
+                                        self.nextLevel.videoConfiguration.timescale = 4
+                                        self.setSpeed(type: .slow(scaleFactor: 4.0),
+                                                      value: 0,
+                                                      text: R.string.localizable.slow4x())
+                                    } else {
+                                        self.setNormalSpeed()
+                                    }
+                                }
+                            }
+                        } else if difference > screenPart {
                             if videoSpeedType != VideoSpeedType.slow(scaleFactor: 3.0) {
                                 DispatchQueue.main.async {
                                     if Defaults.shared.isPro {
                                         self.nextLevel.videoConfiguration.timescale = 3
                                         self.setSpeed(type: .slow(scaleFactor: 3.0),
-                                                      value: 0,
-                                                      text: "Slow 3x")
+                                                      value: 1,
+                                                      text: R.string.localizable.slow3x())
                                     } else {
                                         self.setNormalSpeed()
                                     }
@@ -132,24 +146,36 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
                                     if Defaults.shared.isPro {
                                         self.nextLevel.videoConfiguration.timescale = 2
                                         self.setSpeed(type: .slow(scaleFactor: 2.0),
-                                                      value: 1,
-                                                      text: "Slow 2x")
+                                                      value: 2,
+                                                      text: R.string.localizable.slow2x())
                                     } else {
                                         self.setNormalSpeed()
                                     }
                                 }
                             }
                         }
-                        
                     } else {
-                        if difference > screenPart {
+                        if difference > (screenPart*2) {
+                            if videoSpeedType != VideoSpeedType.fast(scaleFactor: 4.0) {
+                                DispatchQueue.main.async {
+                                    if Defaults.shared.isPro {
+                                        self.nextLevel.videoConfiguration.timescale = 1/4
+                                        self.setSpeed(type: .fast(scaleFactor: 4.0),
+                                                      value: 6,
+                                                      text: R.string.localizable.fast4x())
+                                    } else {
+                                        self.setNormalSpeed()
+                                    }
+                                }
+                            }
+                        } else if difference > screenPart {
                             if videoSpeedType != VideoSpeedType.fast(scaleFactor: 3.0) {
                                 DispatchQueue.main.async {
                                     if Defaults.shared.isPro {
                                         self.nextLevel.videoConfiguration.timescale = 1/3
                                         self.setSpeed(type: .fast(scaleFactor: 3.0),
-                                                      value: 4,
-                                                      text: "Fast 3x")
+                                                      value: 5,
+                                                      text: R.string.localizable.fast3x())
                                     } else {
                                         self.setNormalSpeed()
                                     }
@@ -161,8 +187,8 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
                                     if Defaults.shared.isPro {
                                         self.nextLevel.videoConfiguration.timescale = 1/2
                                         self.setSpeed(type: .fast(scaleFactor: 2.0),
-                                                      value: 3,
-                                                      text: "Fast 2x")
+                                                      value: 4,
+                                                      text: R.string.localizable.fast2x())
                                     } else {
                                         self.setNormalSpeed()
                                     }
@@ -219,8 +245,8 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
     
     func setNormalSpeed() {
         self.videoSpeedType = .normal
-        self.speedSliderLabels.value = 2
-        self.speedSlider.value = 2
+        self.speedSliderLabels.value = 3
+        self.speedSlider.value = 3
         self.speedLabel.text = ""
         self.speedLabel.stopBlink()
         nextLevel.videoConfiguration.timescale = 1

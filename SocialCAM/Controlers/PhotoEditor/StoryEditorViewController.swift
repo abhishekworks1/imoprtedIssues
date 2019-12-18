@@ -13,6 +13,23 @@ import AVKit
 import IQKeyboardManagerSwift
 import ColorSlider
 
+class ShareStoryCollectionViewCell: UICollectionViewCell {
+    @IBOutlet weak var storyImageView: UIImageView!
+    @IBOutlet weak var checkMarkView: UIImageView!
+}
+
+class ShareOptionTableViewCell: UITableViewCell {
+    @IBOutlet weak var optionImageView: UIImageView!
+    @IBOutlet weak var optionLabel: UILabel!
+    @IBOutlet weak var shareButton: UIButton!
+        
+    func configureCell(_ shareOption: StoryEditorViewController.ShareOption) {
+        optionImageView.image = shareOption.image
+        optionLabel.text = shareOption.name
+    }
+
+}
+
 class StoryEditorMedia: CustomStringConvertible {
     
     var id: String
@@ -26,14 +43,57 @@ class StoryEditorMedia: CustomStringConvertible {
 }
 
 class StoryEditorCell: UICollectionViewCell {
+    
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var deleteButton: UIButton!
+    var deleteSlideshowImageHandler: ((Int) -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
     }
+    
+    @IBAction func deleteButtonClicked(_ sender: UIButton) {
+        if let handler = self.deleteSlideshowImageHandler {
+            handler(sender.tag)
+        }
+    }
+    
 }
 
 class StoryEditorViewController: UIViewController {
+    
+    struct ShareOption {
+        var name: String
+        var image: UIImage?
+        
+        static let options: [ShareOption] = [
+            ShareOption(name: R.string.localizable.facebook(),
+                        image: R.image.icoFacebook()),
+            ShareOption(name: R.string.localizable.twitter(),
+                        image: R.image.icoTwitter()),
+            ShareOption(name: R.string.localizable.instagram(),
+                        image: R.image.icoInstagram()),
+            ShareOption(name: R.string.localizable.snapchat(),
+                        image: R.image.icoSnapchat()),
+            ShareOption(name: R.string.localizable.youtube(),
+                        image: R.image.icoYoutube()),
+            ShareOption(name: R.string.localizable.tikTok(),
+                        image: R.image.icoTikToK())
+        ]
+    }
+    
+    @IBOutlet weak var blurView: UIView!
+
+    @IBOutlet weak var shareCollectionViewHeight: NSLayoutConstraint!
+
+    @IBOutlet weak var shareViewHeight: NSLayoutConstraint!
+    
+    @IBOutlet weak var tableView: UITableView! {
+        didSet {
+            self.tableView.tableFooterView = UIView()
+        }
+    }
+    @IBOutlet weak var shareCollectionView: UICollectionView!
     
     @IBOutlet weak var editToolBarView: UIView!
     @IBOutlet weak var downloadView: UIView!
@@ -91,6 +151,10 @@ class StoryEditorViewController: UIViewController {
     public var isSlideShow: Bool = false
 
     private var colorSlider: ColorSlider!
+    
+    private var loadingView: LoadingView? = LoadingView.instanceFromNib()
+    
+    private var slideShowExportedURL: URL?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -193,25 +257,7 @@ extension StoryEditorViewController: StickerDelegate {
 }
 
 extension StoryEditorViewController {
-    
-    func openStoryEditor(segementedVideos: [SegmentVideos], isSlideShow: Bool = false) {
-        guard let storyEditorViewController = R.storyboard.storyEditor.storyEditorViewController() else {
-            fatalError("PhotoEditorViewController Not Found")
-        }
-        var medias: [StoryEditorMedia] = []
-        for segmentedVideo in segementedVideos {
-            if segmentedVideo.url == URL(string: Constant.Application.imageIdentifier) {
-                medias.append(StoryEditorMedia(type: .image(segmentedVideo.image!)))
-            } else {
-                medias.append(StoryEditorMedia(type: .video(segmentedVideo.image!, AVAsset(url: segmentedVideo.url!))))
-            }
-        }
-        storyEditorViewController.medias = medias
-        self.navigationController?.pushViewController(storyEditorViewController, animated: false)
-//        self.removeData()
-    }
 
-    
     @IBAction func decorClicked(_ sender: UIButton) {
         guard let stickerViewController = R.storyboard.storyEditor.stickerViewController() else {
             return
@@ -268,12 +314,8 @@ extension StoryEditorViewController {
             break
         }
         guard let currentAsset = avAsset, currentAsset.duration.seconds > 2.0 else {
-            let alert = UIAlertController.Style
-                .alert
-                .controller(title: "",
-                            message: "Minimum two seconds video required to change speed",
-                            actions: [UIAlertAction(title: "OK", style: .default, handler: nil)])
-            self.present(alert, animated: true, completion: nil)
+            self.showAlert(alertMessage: R.string.localizable.minimumTwoSecondsVideoRequiredToChangeSpeed())
+           
             return
         }
         guard let histroGramVC = R.storyboard.photoEditor.histroGramVC() else {
@@ -389,41 +431,84 @@ extension StoryEditorViewController {
     }
 
     @IBAction func downloadClicked(_ sender: UIButton) {
-        var imageData: [UIImage] = []
-        
-        for media in selectedSlideShowMedias {
-            switch media.type {
-            case let .image(image):
-                if image != UIImage() {
-                    imageData.append(image)
+        if isSlideShow {
+            saveSlideShow(success: { [weak self] (exportURL) in
+                guard let `self` = self else {
+                    return
                 }
-            default: break
+                DispatchQueue.runOnMainThread {
+                    self.slideShowExportedURL = exportURL
+                    let album = SCAlbum.shared
+                    album.albumName = "\(Constant.Application.displayName) - \(R.string.localizable.outtakes())"
+                    album.saveMovieToLibrary(movieURL: exportURL)
+                    self.view.makeToast(R.string.localizable.videoSaved(), duration: 2.0, position: .bottom)
+                }
+            }) { (error) in
+                print(error)
             }
-        }
-        
-        VideoGenerator.current.fileName = String.fileName
-        VideoGenerator.current.shouldOptimiseImageForVideo = true
-        VideoGenerator.current.videoDurationInSeconds = Double(imageData.count)*1.5
-        VideoGenerator.current.maxVideoLengthInSeconds = Double(imageData.count)*1.5
-        VideoGenerator.current.videoBackgroundColor = ApplicationSettings.appBlackColor
-        VideoGenerator.current.scaleWidth = 720
-        VideoGenerator.current.scaleHeight = 1280
-        
-        VideoGenerator.current.generate(withImages: imageData, andAudios: slideShowAudioURL != nil ? [slideShowAudioURL!] : [] , andType: .singleAudioMultipleImage, { [weak self] progress in
-            print(progress)
-        }, success: { [weak self] url in
-            DispatchQueue.main.async {
-                let player = AVPlayer(url: url)
-                let vc = AVPlayerViewController()
-                vc.player = player
-                self?.present(vc, animated: true) {
-                    vc.player?.play()
+        } else {
+            switch storyEditors[currentStoryIndex].type {
+            case .image:
+                if let image = storyEditors[currentStoryIndex].updatedThumbnailImage() {
+                    let album = SCAlbum.shared
+                    album.albumName = "\(Constant.Application.displayName) - \(R.string.localizable.outtakes())"
+                    album.save(image: image)
+                    self.view.makeToast(R.string.localizable.photoSaved(), duration: 2.0, position: .bottom)
+                }
+            case let .video(_, asset):
+                self.exportViewWithURL(asset) { url in
+                    if let exportURL = url {
+                        DispatchQueue.runOnMainThread {
+                            let album = SCAlbum.shared
+                            album.albumName = "\(Constant.Application.displayName) - \(R.string.localizable.outtakes())"
+                            album.saveMovieToLibrary(movieURL: exportURL)
+                            self.view.makeToast(R.string.localizable.videoSaved(), duration: 2.0, position: .bottom)
+                        }
+                    }
                 }
             }
-        }, failure: { [weak self] error in
-        
-        })
 
+        }
+    }
+    
+    @IBAction func closeShareClicked(_ sender: UIButton) {
+        shareViewHeight.constant = 0
+        UIView.animate(withDuration: 0.5, animations: {
+            self.view.layoutIfNeeded()
+            self.blurView.isHidden = true
+        })
+    }
+    
+    @IBAction func continueClicked(_ sender: UIButton) {
+        if isSlideShow {
+            saveSlideShow(success: { [weak self] (exportURL) in
+                guard let `self` = self else {
+                    return
+                }
+                DispatchQueue.runOnMainThread {
+                    self.slideShowExportedURL = exportURL
+                    self.tableView.reloadData()
+                    self.shareCollectionViewHeight.constant = 0
+                    self.shareViewHeight.constant = 570 - 145
+                    UIView.animate(withDuration: 0.5, animations: {
+                        self.view.layoutIfNeeded()
+                        self.blurView.isHidden = false
+                    })
+                }
+            }) { (error) in
+                print(error)
+            }
+        } else {
+            _ = storyEditors[currentStoryIndex].updatedThumbnailImage()
+            self.shareCollectionView.reloadData()
+            self.tableView.reloadData()
+            self.shareCollectionViewHeight.constant = 145
+            shareViewHeight.constant = 570
+            UIView.animate(withDuration: 0.5, animations: {
+                self.view.layoutIfNeeded()
+                self.blurView.isHidden = false
+            })
+        }
     }
     
 }
@@ -439,28 +524,47 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
      
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == slideShowCollectionView {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SlideShowStoryCell", for: indexPath) as! StoryEditorCell
-
+            guard let storyEditorCell = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.slideShowStoryCell.identifier, for: indexPath) as? StoryEditorCell else {
+                fatalError("Cell with identifier \(R.reuseIdentifier.slideShowStoryCell.identifier) not Found")
+            }
+            
             switch selectedSlideShowMedias[indexPath.item].type {
             case let .image(image):
-                cell.imageView.image = image
+                storyEditorCell.imageView.image = image
+                storyEditorCell.deleteButton.isHidden = image == UIImage()
+                storyEditorCell.deleteButton.tag = indexPath.item
             default:
                 break
             }
+            storyEditorCell.deleteSlideshowImageHandler = { [weak self] index in
+                guard let `self` = self else { return }
+                self.selectedSlideShowMedias[index] = StoryEditorMedia(type: .image(UIImage()))
+                self.slideShowCollectionView.reloadData()
+            }
+            return storyEditorCell
+        } else if collectionView == shareCollectionView {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.shareStoryCollectionViewCell.identifier, for: indexPath) as? ShareStoryCollectionViewCell else {
+                fatalError("cell with identifier '\(R.reuseIdentifier.shareStoryCollectionViewCell.identifier)' not found")
+            }
+            let storyEditor = storyEditors[indexPath.item]
+            cell.storyImageView.image = storyEditor.thumbnailImage
+            cell.storyImageView.layer.borderWidth = storyEditor.isHidden ? 0 : 3
+            cell.checkMarkView.isHidden = storyEditor.isHidden
             return cell
         } else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "StoryEditorCell", for: indexPath) as! StoryEditorCell
-
+            guard let storyEditorCell = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.storyEditorCell.identifier, for: indexPath) as? StoryEditorCell else {
+                fatalError("Cell with identifier \(R.reuseIdentifier.storyEditorCell.identifier) not Found")
+            }
             let storyEditor = storyEditors[indexPath.item]
-            cell.imageView.image = storyEditor.thumbnailImage
-            cell.imageView.layer.borderWidth = storyEditor.isHidden ? 0 : 3
-            cell.isHidden = false
+            storyEditorCell.imageView.image = storyEditor.thumbnailImage
+            storyEditorCell.imageView.layer.borderWidth = storyEditor.isHidden ? 0 : 3
+            storyEditorCell.isHidden = false
             if let draggingPathOfCellBeingDragged = self.collectionView.draggingPathOfCellBeingDragged {
                 if draggingPathOfCellBeingDragged.item == indexPath.item {
-                    cell.isHidden = true
+                    storyEditorCell.isHidden = true
                 }
             }
-            return cell
+            return storyEditorCell
         }
     }
     
@@ -475,10 +579,16 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
         currentStoryIndex = indexPath.item
         hideOptionIfNeeded()
         _ = storyEditors[currentStoryIndex].updatedThumbnailImage()
-        collectionView.reloadData()
+        self.collectionView.reloadData()
+        self.shareCollectionView.reloadData()
+        self.tableView.reloadData()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if collectionView == shareCollectionView {
+            return CGSize(width: 85.0,
+                          height: 116.0)
+        }
         return CGSize(width: collectionView.frame.height/2.3,
                       height: collectionView.frame.height)
     }
@@ -545,6 +655,36 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
     
 }
 
+extension StoryEditorViewController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard storyEditors.count > 0, !isSlideShow else {
+            return ShareOption.options.count
+        }
+        switch storyEditors[currentStoryIndex].type {
+        case .image:
+            return ShareOption.options.count - 2
+        default:
+            return ShareOption.options.count
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.shareOptionTableViewCell.identifier, for: indexPath) as? ShareOptionTableViewCell else {
+            fatalError("cell with identifier '\(R.reuseIdentifier.shareOptionTableViewCell.identifier)' not found")
+        }
+        cell.configureCell(ShareOption.options[indexPath.row])
+        return cell
+    }
+}
+
+extension StoryEditorViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.shareSocialMedia(type: SocialShare(rawValue: indexPath.row) ?? SocialShare.facebook)
+    }
+}
+
 extension StoryEditorViewController: CropViewControllerDelegate {
     
     func cropViewControllerDidCrop(_ cropViewController: CropViewController, croppedURL: URL) {
@@ -583,4 +723,154 @@ extension StoryEditorViewController: ImageCropperDelegate {
         storyEditors[currentStoryIndex].addSticker(StorySticker(image: image, type: .image))
     }
     
+}
+
+
+// Video Social Share
+extension StoryEditorViewController {
+    
+    func shareSocialMedia(type: SocialShare) {
+        if isSlideShow {
+            if let url = slideShowExportedURL {
+                SocialShareVideo.shared.shareVideo(url: url, socialType: type)
+            }
+        } else {
+            switch storyEditors[currentStoryIndex].type {
+            case .image:
+                SocialShareVideo.shared.sharePhoto(image: storyEditors[currentStoryIndex].thumbnailImage ?? UIImage(), socialType: type)
+            case let .video(_, asset):
+                self.exportViewWithURL(asset) { url in
+                    if let exportURL = url {
+                        DispatchQueue.runOnMainThread {
+                            SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func exportViewWithURL(_ asset: AVAsset, completionHandler: @escaping (_ url: URL?) -> Void) {
+        let storyEditor = storyEditors[currentStoryIndex]
+        let exportSession = StoryAssetExportSession()
+        
+        DispatchQueue.runOnMainThread {
+            if let loadingView = self.loadingView {
+                loadingView.progressView.setProgress(to: Double(0), withAnimation: true)
+                loadingView.show(on: self.view, completion: {
+                    loadingView.cancelClick = { _ in
+                        exportSession.cancelExporting()
+                        loadingView.hide()
+                    }
+                })
+            }
+        }
+        
+        if let filter = storyEditor.selectedFilter,
+            filter.name != "" {
+            exportSession.filter = filter.ciFilter
+        }
+        exportSession.isMute = storyEditor.isMuted
+        exportSession.overlayImage = storyEditor.toVideoImage()
+        exportSession.inputTransformation = storyEditor.imageTransformation
+        exportSession.export(for: asset, progress: { [weak self] progress in
+            guard let `self` = self else { return }
+            print("New progress \(progress)")
+            DispatchQueue.runOnMainThread {
+                if let loadingView = self.loadingView {
+                    loadingView.progressView.setProgress(to: Double(progress), withAnimation: true)
+                }
+            }
+            }, completion: { [weak self] exportedURL in
+                guard let `self` = self else { return }
+                DispatchQueue.runOnMainThread {
+                    if let loadingView = self.loadingView {
+                        loadingView.hide()
+                    }
+                }
+                if let url = exportedURL {
+                    completionHandler(url)
+                } else {
+                    let alert = UIAlertController.Style
+                        .alert
+                        .controller(title: "",
+                                    message: R.string.localizable.exportingFail(),
+                                    actions: [UIAlertAction(title: R.string.localizable.oK(), style: .default, handler: nil)])
+                    self.present(alert, animated: true, completion: nil)
+                }
+        })
+    }
+    
+    func saveSlideShow(success: @escaping ((URL) -> Void), failure: @escaping ((Error) -> Void)) {
+        var imageData: [UIImage] = []
+        for media in selectedSlideShowMedias {
+            if case let .image(image) = media.type,
+                image != UIImage() {
+                imageData.append(image)
+            }
+        }
+        guard imageData.count > 2 else {
+            self.showAlert(alertMessage: R.string.localizable.minimumThreeImagesRequiredForSlideshowVideo())
+            failure(SecurityError.minimumThreeImagesRequiredForSlideshowVideo)
+            return
+        }
+        self.showLoadingView()
+        VideoGenerator.current.fileName = String.fileName
+        VideoGenerator.current.shouldOptimiseImageForVideo = true
+        VideoGenerator.current.videoDurationInSeconds = Double(imageData.count)*1.5
+        VideoGenerator.current.maxVideoLengthInSeconds = Double(imageData.count)*1.5
+        VideoGenerator.current.videoBackgroundColor = ApplicationSettings.appBlackColor
+        VideoGenerator.current.scaleWidth = 720
+        VideoGenerator.current.scaleHeight = 1280
+        
+        var audioUrls: [URL] = []
+        if let url = slideShowAudioURL {
+            audioUrls = [url]
+        }
+        
+        VideoGenerator.current.generate(withImages: imageData,
+                                        andAudios: audioUrls,
+                                        andType: .singleAudioMultipleImage, { [weak self] progress in
+                                            guard let `self` = self else { return }
+                                            DispatchQueue.runOnMainThread {
+                                                if let loadingView = self.loadingView {
+                                                    let progressCompleted = Float(progress.completedUnitCount) / Float(progress.totalUnitCount)
+                                                    loadingView.progressView.setProgress(to: Double(progressCompleted), withAnimation: true)
+                                                }
+                                            }
+            }, success: { [weak self] url in
+                guard let `self` = self else { return }
+                self.hideLoadingView()
+                success(url)
+            }, failure: { [weak self] error in
+                guard let `self` = self else { return }
+                self.hideLoadingView()
+                failure(error)
+        })
+    }
+    
+    func showLoadingView() {
+        DispatchQueue.runOnMainThread {
+            if let loadingView = self.loadingView {
+                loadingView.progressView.setProgress(to: Double(0), withAnimation: true)
+                loadingView.shouldCancelShow = true
+                loadingView.show(on: self.view, completion: {
+                    
+                })
+            }
+        }
+    }
+    
+    func hideLoadingView() {
+        DispatchQueue.runOnMainThread {
+            if let loadingView = self.loadingView {
+                loadingView.hide()
+            }
+        }
+    }
+    
+}
+
+enum SecurityError: Error {
+    case minimumThreeImagesRequiredForSlideshowVideo
 }

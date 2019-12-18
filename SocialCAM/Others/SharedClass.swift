@@ -17,9 +17,9 @@ enum ShapeType: Int {
 
 enum SocialShare: Int {
     case facebook = 0
+    case twitter
     case instagram
     case snapchat
-    case twitter
     case youtube
     case tiktok
 }

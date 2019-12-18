@@ -31,6 +31,8 @@ class StoryCameraViewController: UIViewController {
         return recognizer
     }()
     
+    var timer: Timer?
+    
     // MARK: IBOutlets
     @IBOutlet weak var bottomCameraViews: UIView!
     @IBOutlet weak var collectionViewStackVIew: UIStackView!
@@ -122,7 +124,7 @@ class StoryCameraViewController: UIViewController {
     @IBOutlet weak var zoomSlider: VSSlider!
     @IBOutlet weak var speedSliderLabels: TGPCamelLabels! {
         didSet {
-            speedSliderLabels.names = ["-3x", "-2x", "1x", "2x", "3x"]
+            speedSliderLabels.names = ["-4x", "-3x", "-2x", "1x", "2x", "3x", "4x"]
             speedSlider.ticksListener = speedSliderLabels
         }
     }
@@ -608,6 +610,13 @@ extension StoryCameraViewController {
         cameraSliderView.selectCell = Defaults.shared.cameraMode.rawValue
     }
     
+    func stop() {
+        if timer != nil && (timer?.isValid)! {
+            timer?.invalidate()
+        }
+        timer = nil
+    }
+    
     func setupLayoutCameraSliderView() {
         cameraSliderView.stringArray = cameraModeArray
         cameraSliderView.bottomImage = R.image.cameraModeSelect()
@@ -621,8 +630,10 @@ extension StoryCameraViewController {
             self.circularProgress.animate(toAngle: 0, duration: 0, completion: nil)
         
             self.showControls()
-            self.currentState = .open
-            self.animateTransitionIfNeeded(to: self.currentState.opposite, duration: 1)
+            self.stop()
+            
+            self.timer = Timer.scheduledTimer(timeInterval: 0.7, target: self, selector: #selector(self.animate), userInfo: nil, repeats: false)
+            
             self.timerValueView.isHidden = false
             self.segmentLengthSelectedLabel.text = self.selectedSegmentLengthValue.value
             self.circularProgress.centerImage = UIImage()
@@ -671,6 +682,16 @@ extension StoryCameraViewController {
         }
     }
     
+    @objc func animate() {
+        UIView.animate(withDuration: 0.1, animations: { () -> Void in
+            self.animateTransitionIfNeeded(to: self.currentState.opposite, duration: 1)
+        }, completion: { (_ finished: Bool) -> Void in
+            if finished {
+                self.currentState = .open
+            }
+        })
+    }
+    
     func setupLayout() {
         let layout = self.stopMotionCollectionView.collectionViewLayout as? UPCarouselFlowLayout
         layout?.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: 0.01)
@@ -711,7 +732,6 @@ extension StoryCameraViewController {
         #endif
     }
     
-    
     public func removeData() {
         self.totalDurationOfOneSegment = 0.0
         self.circularProgress.animate(toAngle: 0, duration: 0, completion: nil)
@@ -728,30 +748,33 @@ extension StoryCameraViewController {
         }
         switch speedSlider.value {
         case 0:
-            nextLevel.videoConfiguration.timescale = 3
-            self.speedLabel.text = "Slow 3x"
+            nextLevel.videoConfiguration.timescale = 4
+            self.speedLabel.text = R.string.localizable.slow4x()
             self.speedLabel.startBlink()
-            break
         case 1:
+            nextLevel.videoConfiguration.timescale = 3
+            self.speedLabel.text = R.string.localizable.slow3x()
+            self.speedLabel.startBlink()
+        case 2:
             nextLevel.videoConfiguration.timescale = 2
-            self.speedLabel.text = "Slow 2x"
+            self.speedLabel.text = R.string.localizable.slow2x()
             self.speedLabel.startBlink()
-            break
-        case 3:
-            nextLevel.videoConfiguration.timescale = 1/2
-            self.speedLabel.text = "Fast 2x"
-            self.speedLabel.startBlink()
-            break
         case 4:
-            nextLevel.videoConfiguration.timescale = 1/3
-            self.speedLabel.text = "Fast 3x"
+            nextLevel.videoConfiguration.timescale = 1/2
+            self.speedLabel.text = R.string.localizable.fast2x()
             self.speedLabel.startBlink()
-            break
+        case 5:
+            nextLevel.videoConfiguration.timescale = 1/3
+            self.speedLabel.text = R.string.localizable.fast3x()
+            self.speedLabel.startBlink()
+        case 6:
+            nextLevel.videoConfiguration.timescale = 1/4
+            self.speedLabel.text = R.string.localizable.fast4x()
+            self.speedLabel.startBlink()
         default:
             nextLevel.videoConfiguration.timescale = 1
             self.speedLabel.text = ""
             self.speedLabel.stopBlink()
-            break
         }
         self.view.bringSubviewToFront(self.speedLabel)
     }
@@ -1140,20 +1163,20 @@ extension StoryCameraViewController {
             self.isRecording = false
             if totalDurationOfOneSegment > 240.0 {
                 totalDurationOfOneSegment = 0.0
-                self.openPhotoEditorForVideo()
+                self.openStoryEditor(segementedVideos: takenVideoUrls)
             }
             
         } else if self.recordingType == .boomerang {
             self.showControls()
             self.isRecording = false
             self.videoSpeedType = .normal
-            self.speedSliderLabels.value = 2
-            self.speedSlider.value = 2
+            self.speedSliderLabels.value = 3
+            self.speedSlider.value = 3
             self.isSpeedChanged = false
             if (self.recordingType == .timer) || (self.recordingType == .photoTimer) {
                 self.recordingType = .normal
             }
-            self.openPhotoEditorForVideo()
+            self.openStoryEditor(segementedVideos: takenVideoUrls)
         } else if self.recordingType == .capture {
             self.showControls()
             self.isRecording = false
@@ -1196,13 +1219,13 @@ extension StoryCameraViewController {
                 self.showControls()
                 self.isRecording = false
                 self.videoSpeedType = .normal
-                self.speedSliderLabels.value = 2
-                self.speedSlider.value = 2
+                self.speedSliderLabels.value = 3
+                self.speedSlider.value = 3
                 self.isSpeedChanged = false
                 if (self.recordingType == .timer) || (self.recordingType == .photoTimer) {
                     self.recordingType = .normal
                 }
-                self.openPhotoEditorForVideo()
+                self.openStoryEditor(segementedVideos: takenVideoUrls)
             }
         }
     }
@@ -1223,17 +1246,6 @@ extension StoryCameraViewController {
 
 extension StoryCameraViewController {
     
-    func openPhotoEditorForVideo() {
-        let photoEditor = getPhotoEditor()
-        photoEditor.videoUrls = self.takenVideoUrls
-        photoEditor.currentCamaraMode = recordingType
-        if recordingType == .custom {
-            photoEditor.isOriginalSequence = true
-        }
-        self.navigationController?.pushViewController(photoEditor, animated: true)
-        self.removeData()
-    }
-    
     func openCollageMakerForCollage() {
         DispatchQueue.main.async {
             if let collageMakerVC = R.storyboard.collageMaker.collageMakerVC() {
@@ -1245,81 +1257,35 @@ extension StoryCameraViewController {
         }
     }
     
-    func openPhotoEditorForSlideShow() {
-        let photoEditor = getPhotoEditor(storiType: .slideShow)
-        photoEditor.videoUrls = self.takenSlideShowImages
-        photoEditor.currentCamaraMode = recordingType
-        self.navigationController?.pushViewController(photoEditor, animated: true)
-        removeData()
-    }
-    
-    func openPhotoEditorForImage(_ image: UIImage) {
-        let photoEditor = getPhotoEditor()
-        photoEditor.image = image
-        self.navigationController?.pushViewController(photoEditor, animated: true)
-        self.removeData()
-    }
-    
-    func openPhotoEditorForVideo(videoURLs: [SegmentVideos], images: [UIImage]) {
-        let photoEditor = getPhotoEditor()
-        photoEditor.videoUrls = videoURLs
-        self.navigationController?.pushViewController(photoEditor, animated: true)
-        self.removeData()
-    }
-    
-    func openSpeedViewControllerForVideo(videoURLs: [SegmentVideos]) {
-        let mergeSession = SCRecordSession.init()
-        for segementModel in videoURLs[0].videos {
-            let segment = SCRecordSessionSegment(url: segementModel.url!, info: nil)
-            mergeSession.addSegment(segment)
-        }
-        let currentAsset = mergeSession.assetRepresentingSegments()
-        
-        guard let photoEditor = R.storyboard.photoEditor.photoEditorViewController() else {
+    func openStoryEditor(segementedVideos: [SegmentVideos], isSlideShow: Bool = false) {
+        guard let storyEditorViewController = R.storyboard.storyEditor.storyEditorViewController() else {
             fatalError("PhotoEditorViewController Not Found")
         }
-        photoEditor.outtakesDelegate = self
-        photoEditor.storiCamType = storiCamType
-        photoEditor.storiType = .default
-        photoEditor.storySelectionDelegate = storySelectionDelegate
-        photoEditor.videoUrls = videoURLs
-        
-        guard currentAsset.duration.seconds > 2.0 else {
-            self.navigationController?.pushViewController(photoEditor, animated: true)
-            return
-        }
-        
-        guard let speedViewController = R.storyboard.speedViewController.speedViewController() else {
-            fatalError("speedViewController Not Found")
-        }
-        speedViewController.videoSegments = videoURLs
-        speedViewController.currentAsset = currentAsset
-        speedViewController.currentIndex = 0
-        speedViewController.doneHandler = { [weak self] updatedSegments in
-            guard let strongSelf = self else {
-                return
+        var medias: [StoryEditorMedia] = []
+        for segmentedVideo in segementedVideos {
+            if segmentedVideo.url == URL(string: Constant.Application.imageIdentifier) {
+                medias.append(StoryEditorMedia(type: .image(segmentedVideo.image!)))
+            } else {
+                medias.append(StoryEditorMedia(type: .video(segmentedVideo.image!, AVAsset(url: segmentedVideo.url!))))
             }
-            photoEditor.videoUrls = updatedSegments
-            photoEditor.currentPlayVideo = photoEditor.currentPage - 1
-            photoEditor.connVideoPlay()
         }
-        
-        self.navigationController?.pushViewController(photoEditor, animated: false, completion: {
-            self.navigationController?.pushViewController(speedViewController, animated: true)
-            self.removeData()
-        })
+        storyEditorViewController.medias = medias
+        storyEditorViewController.isSlideShow = isSlideShow
+        self.navigationController?.pushViewController(storyEditorViewController, animated: false)
+        self.removeData()
     }
     
-    func getPhotoEditor(storiType: StoriType = .default) -> PhotoEditorViewController {
-        
-        guard let photoEditor = R.storyboard.photoEditor.photoEditorViewController() else {
+    func openStoryEditor(images: [UIImage], isSlideShow: Bool = false) {
+        guard let storyEditorViewController = R.storyboard.storyEditor.storyEditorViewController() else {
             fatalError("PhotoEditorViewController Not Found")
         }
-        photoEditor.outtakesDelegate = self
-        photoEditor.storiCamType = storiCamType
-        photoEditor.storiType = storiType
-        photoEditor.storySelectionDelegate = storySelectionDelegate
-        return photoEditor
+        var medias: [StoryEditorMedia] = []
+        for image in images {
+            medias.append(StoryEditorMedia(type: .image(image)))
+        }
+        storyEditorViewController.medias = medias
+        self.navigationController?.pushViewController(storyEditorViewController, animated: false)
+        self.removeData()
     }
     
 }

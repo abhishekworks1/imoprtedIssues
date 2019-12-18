@@ -36,9 +36,9 @@ class StickerViewController: UIViewController {
             0x1F681...0x1F6C5 // Additional transport and map symbols
         ]
         for range in emojiRanges {
-            for i in range {
-                let c = String(describing: UnicodeScalar(i)!)
-                emojis.append(c)
+            for index in range {
+                let char = String(describing: UnicodeScalar(index)!)
+                emojis.append(char)
             }
         }
         return emojis
@@ -46,8 +46,8 @@ class StickerViewController: UIViewController {
 
     private var stickers: [StorySticker] {
         var stickers: [StorySticker] = []
-        for i in 0...31 {
-            if let image = UIImage(named: "storySticker_\(i)") {
+        for index in 0...31 {
+            if let image = UIImage(named: "storySticker_\(index)") {
                 let sticker = StorySticker(image: image,
                                            type: .image)
                 stickers.append(sticker)
@@ -80,12 +80,17 @@ extension StickerViewController: UICollectionViewDataSource, UICollectionViewDel
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == stickerCollectionView {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "StickerCollectionViewCell", for: indexPath) as! StickerCollectionViewCell
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.stickerCollectionViewCell.identifier, for: indexPath) as? StickerCollectionViewCell else {
+                fatalError("Cell with identifier \(R.reuseIdentifier.stickerCollectionViewCell.identifier) not Found")
+            }
             cell.stickerImageView.image = stickers[indexPath.item].image
             return cell
         }
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "StickerEmojiCollectionViewCell", for: indexPath) as! StickerEmojiCollectionViewCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.stickerEmojiCollectionViewCell.identifier, for: indexPath) as?  StickerEmojiCollectionViewCell else {
+                fatalError("Cell with identifier \(R.reuseIdentifier.stickerEmojiCollectionViewCell.identifier) not Found")
+        }
         cell.emojiLabel.text = emojis[indexPath.item]
+
         return cell
     }
     

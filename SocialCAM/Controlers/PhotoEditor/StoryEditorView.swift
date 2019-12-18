@@ -80,7 +80,24 @@ class StoryEditorView: UIView {
         }
     }
     
+    public var selectedFilter: StoryFilter? {
+        return storySwipeableFilterView.selectedFilter
+    }
+    
+    public var imageTransformation: StoryImageView.ImageTransformation {
+        let tx = self.mediaGestureView.frame.origin.x*100 / storySwipeableFilterView.frame.size.width
+        let ty = self.mediaGestureView.frame.origin.y*100 / storySwipeableFilterView.frame.size.height
+        
+        let scaleX = sqrt(pow(mediaGestureView.transform.a, 2) + pow(mediaGestureView.transform.c, 2))
+        let scaleY = sqrt(pow(mediaGestureView.transform.b, 2) + pow(mediaGestureView.transform.d, 2))
+        
+        let rotation = atan2(mediaGestureView.transform.b, mediaGestureView.transform.a)
+        return StoryImageView.ImageTransformation(tx: tx, ty: ty, scaleX: scaleX, scaleY: scaleY, rotation: rotation)
+    }
+    
     public var thumbnailImage: UIImage?
+    
+    public var isSelected: Bool = false
     
     public var isMuted: Bool = false {
         didSet {
@@ -101,6 +118,11 @@ class StoryEditorView: UIView {
         self.deleteView = deleteView
         self.undoView = undoView
         setup()
+        backgroundColor = ApplicationSettings.appClearColor
+        storySwipeableFilterView.backgroundColor = ApplicationSettings.appClearColor
+        for subview in storySwipeableFilterView.subviews {
+            subview.backgroundColor = ApplicationSettings.appClearColor
+        }
     }
 
     required init?(coder: NSCoder) {
@@ -166,7 +188,6 @@ extension StoryEditorView {
         case let .image(image):
             self.storySwipeableFilterView.setImageBy(image)
             self.thumbnailImage = self.storySwipeableFilterView.renderedUIImage()
-            break
         case let .video(_, asset):
             storyPlayer = StoryPlayer()
             storyPlayer?.scImageView = storySwipeableFilterView
@@ -174,17 +195,18 @@ extension StoryEditorView {
             storyPlayer?.delegate = self
             storyPlayer?.setItemBy(asset)
             storyPlayer?.play()
-            break
         }
-        mediaGestureView.transform = .identity
-        mediaGestureView.frame = mediaRect()
-        adjustMediaTransformIfNeeded()
+        DispatchQueue.runOnMainThread {
+            self.mediaGestureView.transform = .identity
+            self.mediaGestureView.frame = self.mediaRect()
+            self.adjustMediaTransformIfNeeded()
+        }
     }
     
 }
-// MARK: Setup
+// MARK: StoryPlayerDelegate
 extension StoryEditorView: StoryPlayerDelegate {
-    func player(_ player: StoryPlayer, didRenderFirstFrame StoryImageView: StoryImageView) {
+    func player(_ player: StoryPlayer, didRenderFirstFrame storyImageView: StoryImageView) {
         guard case .video = type else {
             return
         }
@@ -213,7 +235,6 @@ extension StoryEditorView: StorySwipeableFilterViewDelegate {
         case let .image(image):
             self.storySwipeableFilterView.setImageBy(image)
             self.thumbnailImage = self.storySwipeableFilterView.renderedUIImage()
-            break
         case let .video(_, asset):
             storyPlayer = StoryPlayer()
             storyPlayer?.scImageView = storySwipeableFilterView
@@ -221,7 +242,7 @@ extension StoryEditorView: StorySwipeableFilterViewDelegate {
             storyPlayer?.delegate = self
             storyPlayer?.setItemBy(asset)
             storyPlayer?.play()
-            break
+            self.thumbnailImage = asset.thumbnailImage()
         }
         setupDrawView()
         

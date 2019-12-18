@@ -82,12 +82,49 @@ extension SpeedViewController {
         currentDotView = nil
         stopPlaybackTimeChecker()
         btnPlayPause.isSelected = true
+        playbackTimeCheckerTimer = Timer.scheduledTimer(timeInterval: 0.001, target: self,
+                                                    selector:
+        #selector(self.onPlaybackTimeChecker), userInfo: nil, repeats: true)
     }
     
     func stopPlaybackTimeChecker() {
         btnPlayPause.isSelected = false
         playbackTimeCheckerTimer?.invalidate()
         playbackTimeCheckerTimer = nil
+    }
+    
+    @objc func onPlaybackTimeChecker() {
+        if let player = self.player {
+            setProgressViewProgress(player: player)
+        }
+    }
+    
+    func setProgressViewProgress(player: AVPlayer, changeProgressBar: Bool = false) {
+        guard let asset = currentAsset else {
+            return
+        }
+        let playBackTime = player.currentTime()
+        
+        if playBackTime.seconds >= 0 && playBackTime.isNumeric {
+            var totalTime = 0.0
+            var progressTime = 0.0
+            
+            let currentSecond = (playerItem?.duration.seconds)!
+            
+            guard currentSecond >= 0 && !currentSecond.isNaN else {
+                return
+            }
+            
+            let actualDuration = asset.duration.seconds
+            
+            self.circularProgress.animate(toAngle: 360, duration: Double(currentSecond) - asset.duration.seconds) { completed in
+                if completed {
+                    print("animation stopped, completed")
+                } else {
+                    print("animation stopped, was interrupted")
+                }
+            }
+        }
     }
     
     func secondsToHoursMinutesSeconds(_ seconds: Int) -> (Int, Int) {

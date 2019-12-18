@@ -149,7 +149,7 @@ extension StoryCameraViewController: NextLevelVideoDelegate {
                 }
             } else if self.recordingType != .capture {
                 DispatchQueue.main.async {
-                    self.openPhotoEditorForImage(image)
+                    self.openStoryEditor(images: [image])
                 }
             } else if self.recordingType == .capture {
                 DispatchQueue.main.async {

@@ -156,7 +156,7 @@ extension StoryCameraViewController {
                     self.showAlert(alertMessage: R.string.localizable.minimumThreeImagesRequiredForSlideshowVideo())
                     return
                 }
-                self.openStoryEditor(segementedVideos: takenSlideShowImages)
+                self.openStoryEditor(segementedVideos: takenSlideShowImages, isSlideShow: true)
             } else if recordingType == .collage {
                 if takenSlideShowImages.isEmpty {
                     self.showAlert(alertMessage: R.string.localizable.minimumOneImagesRequiredForCollageMaker())
@@ -545,10 +545,7 @@ extension StoryCameraViewController: OuttakesTakenDelegate {
 extension StoryCameraViewController: CollageMakerVCDelegate {
     
     func didSelectImage(image: UIImage) {
-        let photoEditor = getPhotoEditor(storiType: .collage)
-        photoEditor.image = image
-        self.navigationController?.pushViewController(photoEditor, animated: false)
-        self.removeData()
+        self.openStoryEditor(images: [image])
     }
 }
 

@@ -291,7 +291,7 @@ class SpeedViewController: UIViewController {
                         if videoSpeedType != VideoSpeedType.fast(scaleFactor: 3.0) {
                             DispatchQueue.main.async {
                                 self.setSpeed(type: .fast(scaleFactor: 3.0),
-                                                  value: 4,
+                                                  value: 3,
                                                   sliderValue: 4)
                             }
                         }
@@ -299,7 +299,7 @@ class SpeedViewController: UIViewController {
                         if videoSpeedType != VideoSpeedType.fast(scaleFactor: 2.0) {
                             DispatchQueue.main.async {
                                 self.setSpeed(type: .fast(scaleFactor: 2.0),
-                                                  value: 3,
+                                                  value: 2,
                                                   sliderValue: 3)
                             }
                         }

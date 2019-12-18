@@ -252,7 +252,9 @@ open class DragAndDropCollectionView: UICollectionView, Draggable, Droppable {
     fileprivate var currentInRect : CGRect?
     public func willMoveItem(_ item : AnyObject, inRect rect : CGRect) -> Void {
         
-        let dragDropDataSource = self.dataSource as! DragAndDropCollectionViewDataSource // its guaranteed to have a data source
+        guard let dragDropDataSource = self.dataSource as? DragAndDropCollectionViewDataSource else {
+            return
+        } // its guaranteed to have a data source
         
         if let _ = dragDropDataSource.collectionView(self, indexPathForDataItem: item) { // if data item exists
             return
@@ -357,9 +359,9 @@ open class DragAndDropCollectionView: UICollectionView, Draggable, Droppable {
     }
     
     public func didMoveItem(_ item : AnyObject, inRect rect : CGRect) -> Void {
-        
-        let dragDropDS = self.dataSource as! DragAndDropCollectionViewDataSource // guaranteed to have a ds
-        
+        guard let dragDropDS = self.dataSource as? DragAndDropCollectionViewDataSource else {
+            return
+        }
         if  let existingIndexPath = dragDropDS.collectionView(self, indexPathForDataItem: item),
             let indexPath = self.indexPathForCellOverlappingRect(rect) {
             

@@ -83,9 +83,11 @@ public class DragAndDropManager: NSObject, UIGestureRecognizerDelegate {
         
         guard gestureRecognizer.state == .possible else { return false }
         
-        for view in self.views where view is Draggable  {
+        for view in self.views where view is Draggable {
             
-            let draggable = view as! Draggable
+            guard let draggable = view as? Draggable else {
+                return false
+            }
             
             let touchPointInView = touch.location(in: view)
             
@@ -128,7 +130,9 @@ public class DragAndDropManager: NSObject, UIGestureRecognizerDelegate {
         guard let bundle = self.bundle else { return }
         
         let pointOnCanvas = recogniser.location(in: recogniser.view)
-        let sourceDraggable : Draggable = bundle.sourceDraggableView as! Draggable
+        guard let sourceDraggable: Draggable = bundle.sourceDraggableView as? Draggable else {
+            return
+        }
         let pointOnSourceDraggable = recogniser.location(in: bundle.sourceDraggableView)
         
         switch recogniser.state {
@@ -185,7 +189,7 @@ public class DragAndDropManager: NSObject, UIGestureRecognizerDelegate {
                     
                     if mainOverView != bundle.overDroppableView { // if it is the first time we are entering
                         
-                        (bundle.overDroppableView as! Droppable).didMoveOutItem(bundle.dataItem)
+                        (bundle.overDroppableView as? Droppable)?.didMoveOutItem(bundle.dataItem)
                         droppable.willMoveItem(bundle.dataItem, inRect: rect)
                     }
                     
@@ -226,20 +230,17 @@ public class DragAndDropManager: NSObject, UIGestureRecognizerDelegate {
     // MARK: Helper Methods
     func convertRectToCanvas(_ rect : CGRect, fromView view : UIView) -> CGRect {
         
-        var r = rect
-        var v = view
+        var rectValue = rect
+        var fromView = view
         
-        while v != self.canvas {
-            
-            guard let sv = v.superview else { break; }
-            
-            r.origin.x += sv.frame.origin.x
-            r.origin.y += sv.frame.origin.y
-            
-            v = sv
+        while fromView != self.canvas {
+            guard let superView = fromView.superview else { break }
+            rectValue.origin.x += superView.frame.origin.x
+            rectValue.origin.y += superView.frame.origin.y
+            fromView = superView
         }
         
-        return r
+        return rectValue
     }
     
 }
