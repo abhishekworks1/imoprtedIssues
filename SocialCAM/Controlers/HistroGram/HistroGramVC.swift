@@ -9,8 +9,109 @@
 import Foundation
 import UIKit
 import SCRecorder
+import TGPControls
+
+enum SpeedType: Int {
+    case flow = 0
+    case timeFlow = 1
+    case cameraSpeed = 2
+}
 
 class HistroGramVC: UIViewController {
+   
+    @IBOutlet open var cameraSpeedControlView: UIView!
+    @IBOutlet weak var speedChangeModesView: UIView!
+    @IBOutlet weak var controlView: UIView!
+    @IBOutlet weak var circularProgress: CircularProgress! {
+        didSet {
+            circularProgress.startAngle = -90
+            circularProgress.progressThickness = 0.2
+            circularProgress.trackThickness = 0.75
+            circularProgress.trackColor = ApplicationSettings.appLightGrayColor
+            circularProgress.progressInsideFillColor = ApplicationSettings.appWhiteColor
+            circularProgress.clockwise = true
+            circularProgress.roundedCorners = true
+            circularProgress.set(colors: UIColor.red)
+        }
+    }
+    
+    @IBOutlet weak var speedSliderLabels: TGPCamelLabels! {
+           didSet {
+               speedSliderLabels.names = ["-3x", "-2x", "1x", "2x", "3x"]
+               speedSlider.ticksListener = speedSliderLabels
+           }
+       }
+    @IBOutlet weak var speedSlider: TGPDiscreteSlider! {
+        didSet {
+            
+        }
+    }
+    
+    @IBOutlet open var flowButton: UIButton!
+    @IBOutlet open var chartButton: UIButton!
+    @IBOutlet open var cameraSpeedButton: UIButton!
+    
+    var longPressGestureRecognizer: UILongPressGestureRecognizer?
+    var recoredButtonCenterPoint: CGPoint = CGPoint.init()
+    var panStartPoint: CGPoint = .zero
+    var videoSpeedType = VideoSpeedType.normal
+    var lastStartSeconds: Double = 0
+    var scalerValues: [VideoScalerValue] = []
+    var videoSpeedValue: Float = 1
+    var currentSpeedMode: SpeedType = .flow {
+        didSet {
+            switch currentSpeedMode {
+            case .flow:
+                flowButton.alpha = 1
+                chartButton.alpha = 0.5
+                cameraSpeedButton.alpha = 0.5
+                progressBar.isHidden = false
+                flowControlView.isHidden = false
+                timeControlView.isHidden = true
+                cameraSpeedControlView.isHidden = true
+                btnPlayPause.isHidden = false
+                btnMute.isHidden = false
+                let (mutableAsset, scalerParts) = VideoScaler.shared.scaleVideo(asset: currentAsset!, scalerValues: calculateScaleValues())
+                if let asset = mutableAsset {
+                    playerItem = AVPlayerItem.init(asset: asset)
+                    player?.replaceCurrentItem(with: playerItem)
+                    videoScalerParts = scalerParts
+                }
+                player?.seek(to: .zero)
+                player?.play()
+            case .timeFlow:
+                flowButton.alpha = 0.5
+                chartButton.alpha = 1
+                cameraSpeedButton.alpha = 0.5
+                progressBar.isHidden = true
+                flowControlView.isHidden = true
+                timeControlView.isHidden = false
+                cameraSpeedControlView.isHidden = true
+                btnPlayPause.isHidden = false
+                btnMute.isHidden = false
+                if let asset = timeSliderAsset() {
+                    playerItem = AVPlayerItem(asset: asset)
+                    player?.replaceCurrentItem(with: playerItem)
+                }
+                player?.seek(to: .zero)
+                player?.play()
+            case .cameraSpeed:
+                flowButton.alpha = 0.5
+                chartButton.alpha = 0.5
+                cameraSpeedButton.alpha = 1
+                progressBar.isHidden = true
+                flowControlView.isHidden = true
+                timeControlView.isHidden = true
+                cameraSpeedControlView.isHidden = false
+                btnPlayPause.isHidden = true
+                btnMute.isHidden = true
+                player?.seek(to: .zero)
+                player?.pause()
+            default:
+                break
+            }
+        }
+    }
     
     @IBOutlet open var baseFlowView: UIView!
     @IBOutlet open var baseChartView: UIView!
@@ -27,11 +128,7 @@ class HistroGramVC: UIViewController {
     @IBOutlet weak var trimmerView: TrimmerView!
     @IBOutlet weak var deleteFlowPointButton: UIButton!
     @IBOutlet weak var doneButton: UIButton!
-    @IBOutlet weak var timeControlView: UIView! {
-        didSet {
-            timeControlView.isHidden = true
-        }
-    }
+    @IBOutlet weak var timeControlView: UIView!
     @IBOutlet weak var flowTypeButton: UIButton!
     @IBOutlet weak var flowControlView: UIView!
     @IBOutlet weak var minimumSecondsLabel: UILabel!
@@ -53,6 +150,8 @@ class HistroGramVC: UIViewController {
     
     var doneHandler: (([SegmentVideos]) -> Void)?
     
+    var completionHandler: ((URL) -> ())? = nil
+
     var isExporting: Bool = false {
         didSet {
             doneButton.isHidden = isExporting
@@ -77,10 +176,6 @@ class HistroGramVC: UIViewController {
     
     var timeSlider: PivotSlider?
     
-    var isTimeGraph: Bool {
-        return !flowTypeButton.isSelected
-    }
-     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         stopPlaybackTimeChecker()
@@ -110,6 +205,7 @@ class HistroGramVC: UIViewController {
         if flowChartView == nil {
             setupFlowChart()
             addGestureToProgressBar()
+            currentSpeedMode = .flow
         }
         if timeSlider == nil {
             setUpSlider()
@@ -232,6 +328,7 @@ class HistroGramVC: UIViewController {
         
         addPlayerLayer()
         loadViewWith(asset: currentAsset)
+        videoProgressViewGesture()
     }
     
     func addGestureToProgressBar() {
@@ -302,6 +399,126 @@ extension HistroGramVC {
     }
     
 }
+
+// CameraSpeed Controll Funcations
+extension HistroGramVC {
+    
+    func videoProgressViewGesture() {
+        self.longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGestureRecognizer(_:)))
+        if let longPressGestureRecognizer = self.longPressGestureRecognizer {
+            circularProgress.isUserInteractionEnabled = true
+            longPressGestureRecognizer.minimumPressDuration = 0.5
+            longPressGestureRecognizer.allowableMovement = 10.0
+            circularProgress.addGestureRecognizer(longPressGestureRecognizer)
+        }
+    }
+    
+    @objc internal func handleLongPressGestureRecognizer(_ gestureRecognizer: UIGestureRecognizer) {
+        switch gestureRecognizer.state {
+        case .began:
+            recoredButtonCenterPoint = circularProgress.center
+            self.panStartPoint = gestureRecognizer.location(in: self.view)
+            self.setSpeed(type: .normal, value: 1)
+            self.player?.play()
+        case .changed:
+            let translation = gestureRecognizer.location(in: circularProgress)
+            circularProgress.center = CGPoint(x: circularProgress.center.x + translation.x - 35,
+                                              y: circularProgress.center.y + translation.y - 35)
+            
+            let newPoint = gestureRecognizer.location(in: self.view)
+            
+            let normalPart = (UIScreen.main.bounds.width * CGFloat(142.5)) / 375
+            let screenPart = Int((UIScreen.main.bounds.width - normalPart) / 4)
+
+            if abs((Int(self.panStartPoint.x) - Int(newPoint.x))) > 50 {
+                let difference = abs((Int(self.panStartPoint.x) - Int(newPoint.x))) - 50
+                if (Int(self.panStartPoint.x) - Int(newPoint.x)) > 0 {
+                    if difference > screenPart {
+                        if videoSpeedType != VideoSpeedType.slow(scaleFactor: 3.0) {
+                            DispatchQueue.main.async {
+                                self.setSpeed(type: .slow(scaleFactor: 3.0),
+                                                  value: -3,
+                                                  sliderValue: 0)
+                            }
+                        }
+                    } else {
+                        if videoSpeedType != VideoSpeedType.slow(scaleFactor: 2.0) {
+                            DispatchQueue.main.async {
+                                self.setSpeed(type: .slow(scaleFactor: 2.0),
+                                                  value: -2,
+                                                  sliderValue: 1)
+                            }
+                        }
+                    }
+                    
+                } else {
+                    if difference > screenPart {
+                        if videoSpeedType != VideoSpeedType.fast(scaleFactor: 3.0) {
+                            DispatchQueue.main.async {
+                                self.setSpeed(type: .fast(scaleFactor: 3.0),
+                                                  value: 3,
+                                                  sliderValue: 4)
+                            }
+                        }
+                    } else {
+                        if videoSpeedType != VideoSpeedType.fast(scaleFactor: 2.0) {
+                            DispatchQueue.main.async {
+                                self.setSpeed(type: .fast(scaleFactor: 2.0),
+                                                  value: 2,
+                                                  sliderValue: 3)
+                            }
+                        }
+                    }
+                }
+            } else {
+                if videoSpeedType != VideoSpeedType.normal {
+                    DispatchQueue.main.async {
+                        self.setSpeed(type: .normal,
+                                      value: 1)
+                    }
+                }
+            }
+        case .ended:
+            self.setSpeed(type: .normal, value: 1)
+            DispatchQueue.main.async {
+                self.circularProgress.center = self.recoredButtonCenterPoint
+            }
+        case .cancelled:
+            break
+        case .failed:
+            break
+        default:
+            break
+        }
+    }
+    
+    func setSpeed(type: VideoSpeedType, value: Float, text: String = "", sliderValue: Int = 2) {
+        self.videoSpeedType = type
+        self.speedSliderLabels.value = UInt(sliderValue)
+        self.speedSlider.value = CGFloat(sliderValue)
+
+        self.videoSpeedValue = value
+        guard let asset = currentAsset else {
+            return
+        }
+        let duration = (playerItem?.currentTime().seconds ?? asset.duration.seconds) - lastStartSeconds
+        lastStartSeconds = (playerItem?.currentTime().seconds ?? asset.duration.seconds)
+        print("duration :\(duration)")
+        print("lastStartSeconds :\(lastStartSeconds)")
+        let timeScale: CMTimeScale = asset.duration.timescale
+        var scaleDuration = CMTimeMakeWithSeconds(abs(duration*Double(value)), preferredTimescale: timeScale)
+        if value > 0 {
+            scaleDuration = CMTimeMakeWithSeconds(abs(duration/Double(value)), preferredTimescale: timeScale)
+        }
+        print("scaleDuration :\(scaleDuration)")
+        let startTime = CMTime(seconds: lastStartSeconds, preferredTimescale: timeScale)
+        print("startTime :\(startTime)")
+        scalerValues.append(VideoScalerValue(range:
+            CMTimeRange(start: startTime, duration: CMTime(seconds: duration, preferredTimescale: timeScale)), duration: scaleDuration, rate: Int(value)))
+        
+    }
+}
+
 extension HistroGramVC: FlowChartViewDelegate {
     
     func longPressOnPoint(view: FlowDotView) {
@@ -449,10 +666,16 @@ extension HistroGramVC {
                 else {
                     return
             }
-            
-            currentPlayerItem.seek(to: CMTime.zero, completionHandler: { (_) in
-                self.player?.play()
-            })
+            if self.currentSpeedMode != .cameraSpeed {
+                currentPlayerItem.seek(to: CMTime.zero, completionHandler: { (_) in
+                    self.player?.play()
+                })
+            } else {
+                self.setSpeed(type: .normal, value: self.videoSpeedValue)
+                DispatchQueue.main.async {
+                    self.circularProgress.center = self.recoredButtonCenterPoint
+                }
+            }
         }
     }
 }

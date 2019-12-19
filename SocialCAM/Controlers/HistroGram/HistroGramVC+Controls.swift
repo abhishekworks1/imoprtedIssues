@@ -45,32 +45,20 @@ class TriangleView: UIView {
 
 extension HistroGramVC {
     
+    @IBAction func changeModeButtonClicked(_ sender: UIButton) {
+        currentSpeedMode = SpeedType(rawValue: sender.tag)!
+    }
+    
     @IBAction func timeSliderClicked(_ sender: UIButton) {
-        sender.isSelected = !sender.isSelected
-        progressBar.isHidden = !progressBar.isHidden
-        flowControlView.isHidden = !flowControlView.isHidden
-        timeControlView.isHidden = !timeControlView.isHidden
-        if isTimeGraph {
-            let (mutableAsset, scalerParts) = VideoScaler.shared.scaleVideo(asset: currentAsset!, scalerValues: calculateScaleValues())
-            if let asset = mutableAsset {
-                playerItem = AVPlayerItem.init(asset: asset)
-                player?.replaceCurrentItem(with: playerItem)
-                videoScalerParts = scalerParts
-            }
-        } else {
-            if let asset = timeSliderAsset() {
-                playerItem = AVPlayerItem(asset: asset)
-                player?.replaceCurrentItem(with: playerItem)
-            }
-        }
-        player?.seek(to: .zero)
+        
     }
     
     @IBAction func showHideHistoGramClicked(_ sender: Any) {
         if btnShowHideHistoGram.isSelected {
             baseChartView.isHidden = false
-            progressBar.isHidden = false
+            progressBar.isHidden = (currentSpeedMode == .flow) ? false : true
             self.view.layoutIfNeeded()
+            speedChangeModesView.isHidden = false
             btnShowHideHistoGram.isSelected = false
             playerLayer?.frame = videoView.frame
             self.view.layoutIfNeeded()
@@ -78,16 +66,18 @@ extension HistroGramVC {
             baseChartView.isHidden = true
             progressBar.isHidden = true
             self.view.layoutIfNeeded()
+            speedChangeModesView.isHidden = true
             btnShowHideHistoGram.isSelected = true
             playerLayer?.frame = videoView.frame
             self.view.layoutIfNeeded()
         }
         UIView.animate(withDuration: 0.1, animations: { () -> Void in
             if self.btnShowHideHistoGram.transform == .identity {
-                self.btnShowHideHistoGram.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi * 0.999))
+                self.btnShowHideHistoGram.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi * 1))
             } else {
                 self.btnShowHideHistoGram.transform = .identity
             }
+            self.view.layoutIfNeeded()
         })
         
     }
@@ -140,10 +130,18 @@ extension HistroGramVC {
         guard !isExporting, let asset = currentAsset else {
             return
         }
-        var scaledAsset = VideoScaler.shared.scaleVideo(asset: asset, scalerValues: calculateScaleValues()).0
-        if !isTimeGraph {
+        var scaledAsset: AVMutableComposition? = nil
+        switch currentSpeedMode {
+        case .flow:
+            scaledAsset = VideoScaler.shared.scaleVideo(asset: asset, scalerValues: calculateScaleValues()).0
+        case .timeFlow:
             scaledAsset = timeSliderAsset()
+        case .cameraSpeed:
+            scaledAsset = VideoScaler.shared.scaleVideo(asset: asset, scalerValues: self.scalerValues).0
+        default:
+            break
         }
+        
         guard let mutableAsset = scaledAsset else {
             return
         }
@@ -163,16 +161,16 @@ extension HistroGramVC {
                 self.isExporting = false
             }
             loadingView.hide()
-            let updatedSegment = SegmentVideos(urlStr: url,
-                                               thumbimage: self.videoSegments[self.currentIndex].image,
-                                               latitued: nil,
-                                               longitued: nil,
-                                               placeAddress: nil,
-                                               numberOfSegement: self.videoSegments[self.currentIndex].numberOfSegementtext,
-                                               videoduration: nil,
-                                               combineOneVideo: true)
-            self.videoSegments.remove(at: self.currentIndex)
-            self.videoSegments.insert(updatedSegment, at: self.currentIndex)
+            if self.videoSegments.count > 0 {
+                let updatedSegment = SegmentVideos(urlStr: url,
+                                                   thumbimage: self.videoSegments[self.currentIndex].image,
+                                                   numberOfSegement: self.videoSegments[self.currentIndex].numberOfSegementtext,
+                                                   combineOneVideo: true)
+                self.videoSegments.remove(at: self.currentIndex)
+                self.videoSegments.insert(updatedSegment, at: self.currentIndex)
+            } else {
+                self.completionHandler?(url)
+            }
             DispatchQueue.main.async {
                 self.doneHandler?(self.videoSegments)
                 self.navigationController?.popViewController(animated: true)
@@ -185,7 +183,10 @@ extension HistroGramVC {
             return [[]]
         }
         let actualDuration = asset.duration.seconds
-        let points = flowChartView.getSpeedValues()
+        guard let view = flowChartView else {
+            return [[]]
+        }
+        let points = view.getSpeedValues()
         print(points)
         var parts = 0
         var finalRangeValues: [[VideoSpeedValue]] = []
@@ -324,7 +325,7 @@ extension HistroGramVC {
             let finalString =  NSMutableAttributedString(string: "", attributes: yourAttributes as [NSAttributedString.Key: Any])
             
             var progressTimeString = String.init(format: "%02d:%02d", progressTimeM, progressTimeS)
-            if !isTimeGraph {
+            if currentSpeedMode != .flow {
                 progressTimeString = hmsString(from: Float(playBackTime.seconds))
             }
             
@@ -334,7 +335,7 @@ extension HistroGramVC {
             let yourOtherAttributes = [NSAttributedString.Key.foregroundColor: UIColor.blue, NSAttributedString.Key.font: UIFont.sfuiTextRegular]
             
             var totalTimeString = String.init(format: "%02d:%02d", totalTimeM, totalTimeS)
-            if !isTimeGraph {
+            if currentSpeedMode != .flow {
                 totalTimeString = selectedSecondsLabel.text ?? hmsString(from: currentTimeSliderSeconds())
             }
 

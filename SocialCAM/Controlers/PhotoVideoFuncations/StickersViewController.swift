@@ -16,6 +16,7 @@ enum AskQuestionType: Int {
 
 public enum StoryStickerType {
     case image
+    case emoji
     case youtube
     case hashtag
     case mension
@@ -30,9 +31,15 @@ public enum StoryStickerType {
 public class StorySticker {
     var type: StoryStickerType
     var image: UIImage?
+    var emojiText: String?
     
     init(image: UIImage?, type: StoryStickerType) {
         self.image = image
+        self.type = type
+    }
+    
+    init(emojiText: String, type: StoryStickerType) {
+        self.emojiText = emojiText
         self.type = type
     }
 }
@@ -326,7 +333,7 @@ extension StickersViewController: UICollectionViewDataSource, UICollectionViewDe
         guard let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.stickerCollectionViewCell.identifier, for: indexPath) as? StickerCollectionViewCell else {
             fatalError("Unable to find cell with '\(R.reuseIdentifier.stickerCollectionViewCell.identifier)' reuseIdentifier")
         }
-        cell.stickerImage.image = stickers[indexPath.item].image
+        cell.stickerImageView.image = stickers[indexPath.item].image
         return cell
     }
     

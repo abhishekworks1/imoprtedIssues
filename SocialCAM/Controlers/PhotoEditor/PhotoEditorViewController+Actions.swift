@@ -864,13 +864,13 @@ extension PhotoEditorViewController {
     }
     
     @IBAction func btnSocialShareClick(_ sender: UIButton) {
-        var menuOptions: [UIImage] = [R.image.icoFacebook()!, R.image.icoInstagram()!, R.image.icoSnapchat()!, R.image.icoTweeter()!]
+        var menuOptions: [UIImage] = [R.image.icoFacebook()!, R.image.icoInstagram()!, R.image.icoSnapchat()!, R.image.icoTwitter()!]
         var menuOptionsString: [String] = ["", "", "", ""]
         if image == nil {
             menuOptions.append(R.image.icoYoutube()!)
             menuOptionsString.append("")
         }
-        menuOptions.append(R.image.icoTikTok()!)
+        menuOptions.append(R.image.icoTikToK()!)
         menuOptionsString.append("")
         
         BasePopConfiguration.shared.backgoundTintColor = R.color.lightBlackColor()!

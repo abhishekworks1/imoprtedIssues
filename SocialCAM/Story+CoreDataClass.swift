@@ -84,7 +84,7 @@ class InternalStoryData {
     var url: String?
     var userId: String?
     var watermarkURL: String?
-    var isMute: Bool?
+    var isMute: Bool = false
     var filterName: String?
     var exportedURLs: [String]?
     var hiddenHashtags: String?
@@ -97,7 +97,7 @@ class InternalStoryData {
     var hasTransformation: Bool = false
     var publish: Int = 1
     
-    init(address: String?, duration: String?, lat: String?, long: String?, thumbTime: Double, type: String?, url: String?, userId: String?, watermarkURL: String?, isMute: Bool, filterName: String?, exportedUrls: [String], hiddenHashtags: String?, tags: [InternalStoryTag]?) {
+    init(address: String? = "", duration: String? = "", lat: String? = "", long: String? = "", thumbTime: Double, type: String?, url: String? = "", userId: String? = "", watermarkURL: String? = "", isMute: Bool = false, filterName: String? = "", exportedUrls: [String], hiddenHashtags: String? = "", tags: [InternalStoryTag]?) {
         self.address = address
         self.duration = duration
         self.lat = lat

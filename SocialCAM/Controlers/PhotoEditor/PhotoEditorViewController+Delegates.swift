@@ -177,6 +177,8 @@ extension PhotoEditorViewController: StickersViewControllerDelegate {
             default:
                 break
             }
+        case .emoji:
+            break
         }
         
     }

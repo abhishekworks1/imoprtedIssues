@@ -156,7 +156,7 @@ extension StoryCameraViewController {
                     self.showAlert(alertMessage: R.string.localizable.minimumThreeImagesRequiredForSlideshowVideo())
                     return
                 }
-                openPhotoEditorForSlideShow()
+                self.openStoryEditor(segementedVideos: takenSlideShowImages, isSlideShow: true)
             } else if recordingType == .collage {
                 if takenSlideShowImages.isEmpty {
                     self.showAlert(alertMessage: R.string.localizable.minimumOneImagesRequiredForCollageMaker())
@@ -170,7 +170,7 @@ extension StoryCameraViewController {
                 }
                 self.totalDurationOfOneSegment = 0.0
                 self.circularProgress.animate(toAngle: 0, duration: 0, completion: nil)
-                self.openPhotoEditorForVideo()
+                self.openStoryEditor(segementedVideos: takenVideoUrls)
             } else {
                 
                 let upgradeViewController = R.storyboard.storyCameraViewController.upgradeViewController()!
@@ -545,10 +545,7 @@ extension StoryCameraViewController: OuttakesTakenDelegate {
 extension StoryCameraViewController: CollageMakerVCDelegate {
     
     func didSelectImage(image: UIImage) {
-        let photoEditor = getPhotoEditor(storiType: .collage)
-        photoEditor.image = image
-        self.navigationController?.pushViewController(photoEditor, animated: false)
-        self.removeData()
+        self.openStoryEditor(images: [image])
     }
 }
 

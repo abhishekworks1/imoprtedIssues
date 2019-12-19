@@ -13,10 +13,32 @@ struct StoryFilter: Equatable {
     var ciFilter: CIFilter
     var path: String?
     
-    init(name: String, ciFilter: CIFilter) {
+    init(name: String, ciFilter: CIFilter?) {
         self.name = name
-        self.ciFilter = ciFilter
+        self.ciFilter = ciFilter ?? CIFilter()
     }
+
+    static let filters = [StoryFilter(name: "",
+                                      ciFilter: CIFilter()),
+                          StoryFilter(name: "Fade",
+                                      ciFilter: CIFilter(name: "CIPhotoEffectFade")),
+                          StoryFilter(name: "Chrome",
+                                      ciFilter: CIFilter(name: "CIPhotoEffectChrome")),
+                          StoryFilter(name: "Transfer",
+                                      ciFilter: CIFilter(name: "CIPhotoEffectTransfer")),
+                          StoryFilter(name: "Instant",
+                                      ciFilter: CIFilter(name: "CIPhotoEffectInstant")),
+                          StoryFilter(name: "Mono",
+                                      ciFilter: CIFilter(name: "CIPhotoEffectMono")),
+                          StoryFilter(name: "Noir",
+                                      ciFilter: CIFilter(name: "CIPhotoEffectNoir")),
+                          StoryFilter(name: "Process",
+                                      ciFilter: CIFilter(name: "CIPhotoEffectProcess")),
+                          StoryFilter(name: "Tonal",
+                                      ciFilter: CIFilter(name: "CIPhotoEffectTonal")),
+                          StoryFilter(name: "Structure",
+                                      ciFilter: CIFilter(name: "CISharpenLuminance",
+                                                         parameters: ["inputSharpness": 5.0]))]
 }
 
 protocol StorySwipeableFilterViewDelegate: class {

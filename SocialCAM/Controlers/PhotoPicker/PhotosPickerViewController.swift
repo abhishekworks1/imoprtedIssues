@@ -119,7 +119,7 @@ public struct PhotosPickerConfigure {
     public var muteAudio = true
     public var mediaType: PHAssetMediaType?
     public var numberOfColumn = 3
-    public var singleSelectedMode = true
+    public var singleSelectedMode = false
     public var maxSelectedAssets: Int?
     public var fetchOption: PHFetchOptions?
     public var selectedRedColor = UIColor.red
@@ -457,17 +457,11 @@ extension PhotosPickerViewController {
             var type: AssetType = .both
             if currentCamaraMode == .slideshow || currentCamaraMode == .collage {
                 type = .image
-                self.configure.singleSelectedMode = false
                 self.configure.maxSelectedAssets = 20
-            } else if currentCamaraMode == .quizImage {
-                type = .image
-                self.configure.singleSelectedMode = false
-            } else if currentCamaraMode == .quizVideo {
+            } else if currentCamaraMode == .custom {
                 type = .video
-                self.configure.singleSelectedMode = false
             } else {
                 type = .both
-                self.configure.singleSelectedMode = false
             }
             self.once.run {
                 self.library.reload(type, {
@@ -695,9 +689,6 @@ extension PhotosPickerViewController: UICollectionViewDelegate, UICollectionView
             self.logDelegate?.selectedPhoto(picker: self, at: indexPath.row)
             if selectedAssets.isEmpty {
                 selectionType = asset.assetType
-            }
-            if selectionType != asset.assetType {
-                return
             }
             guard !maxCheck() else { return }
             

@@ -23,7 +23,7 @@ class VideoScalerPart: CustomStringConvertible {
 
 class VideoScalerValue: CustomStringConvertible {
     var description: String {
-        return "range: \(range)\n\nduration: \(duration)"
+        return "range: \(range)\n\nduration: \(duration) \nrate: \(rate)"
     }
     
     var range: CMTimeRange
