@@ -34,10 +34,12 @@ class StoryEditorMedia: CustomStringConvertible {
     
     var id: String
     var type: StoryEditorType
-
-    init(type: StoryEditorType) {
+    var isSelected: Bool
+    
+    init(type: StoryEditorType, isSelected: Bool = false) {
         self.id = UUID().uuidString
         self.type = type
+        self.isSelected = isSelected
     }
     
 }
@@ -311,7 +313,6 @@ extension StoryEditorViewController {
             break
         case let .video(_, asset):
             avAsset = asset
-            break
         }
         guard let currentAsset = avAsset, currentAsset.duration.seconds > 2.0 else {
             self.showAlert(alertMessage: R.string.localizable.minimumTwoSecondsVideoRequiredToChangeSpeed())

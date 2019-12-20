@@ -137,6 +137,7 @@ public struct Utils {
         let start = Date()
         try operation()
         let end = Date().timeIntervalSince(start)
+        debugPrint("start Time: \(start) End Time: \(end)")
     }
     
     static func hmsString(from seconds: Double) -> String {
