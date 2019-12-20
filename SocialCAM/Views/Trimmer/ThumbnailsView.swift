@@ -40,10 +40,15 @@ open class ThumbnailsView: UIView {
             assert(targetSize.width > 0)
             assert(targetSize.height > 0)
             
-            let scaleFactor = targetSize.height / assetSize.height
-            let newWidth = assetSize.width * scaleFactor
+            var scaleFactor = targetSize.height / assetSize.height
+            var newWidth = assetSize.width * scaleFactor
+            if assetSize.height < assetSize.width {
+                scaleFactor = targetSize.width / assetSize.width
+                newWidth = assetSize.height * (scaleFactor / 3)
+            }
             return CGSize(width: newWidth,
                           height: assetSize.height)
+            
         }
     }
     
@@ -67,6 +72,9 @@ open class ThumbnailsView: UIView {
         if thumbnailSize.width != 0 {
             var number = bounds.width / thumbnailSize.width
             number.round(.toNearestOrAwayFromZero)
+            guard number >= 0 && !number.isNaN else {
+                return 1
+            }
             return abs(Int(number))
         }
         return 0

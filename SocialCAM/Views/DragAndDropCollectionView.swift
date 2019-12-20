@@ -211,6 +211,7 @@ open class DragAndDropCollectionView: UICollectionView, Draggable, Droppable {
         var cellCandidate : UICollectionViewCell?
         let dataSource = self.dataSource as? DragAndDropCollectionViewDataSource
         
+        self.layoutIfNeeded()
         
         let visibleCells = self.visibleCells
         if visibleCells.count == 0 {

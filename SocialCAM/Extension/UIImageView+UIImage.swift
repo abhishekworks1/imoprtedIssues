@@ -166,6 +166,19 @@ extension UIImageView {
 
 public extension UIImage {
     
+    class func getThumbnailFrom(asset: AVAsset) -> UIImage? {
+        do {
+            let imgGenerator = AVAssetImageGenerator(asset: asset)
+            imgGenerator.appliesPreferredTrackTransform = true
+            let cgImage = try imgGenerator.copyCGImage(at: CMTimeMake(value: 0, timescale: 1), actualTime: nil)
+            let thumbnail = UIImage(cgImage: cgImage)
+            return thumbnail
+        } catch let error {
+            print("*** Error generating thumbnail: \(error.localizedDescription)")
+            return nil
+        }
+    }
+    
     static func getThumbImage(fileUrl: URL) -> UIImage? {
         let img = getThumbnailFrom(videoUrl: fileUrl, CMTime(value: CMTimeValue(0.0), timescale: 10000000))
         let width = 400.0
