@@ -870,7 +870,7 @@ extension PhotoEditorViewController {
             menuOptions.append(R.image.icoYoutube()!)
             menuOptionsString.append("")
         }
-        menuOptions.append(R.image.icoTikToK()!)
+        menuOptions.append(R.image.icoTikTok()!)
         menuOptionsString.append("")
         
         BasePopConfiguration.shared.backgoundTintColor = R.color.lightBlackColor()!
