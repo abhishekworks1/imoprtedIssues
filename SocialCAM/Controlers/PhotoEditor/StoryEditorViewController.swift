@@ -80,7 +80,7 @@ class StoryEditorViewController: UIViewController {
             ShareOption(name: R.string.localizable.youtube(),
                         image: R.image.icoYoutube()),
             ShareOption(name: R.string.localizable.tikTok(),
-                        image: R.image.icoTikToK())
+                        image: R.image.icoTikTok())
         ]
     }
     
@@ -235,6 +235,7 @@ class StoryEditorViewController: UIViewController {
         
         self.slideShowCollectionView.isHidden = !isSlideShow
         self.addMusicOptionView.isHidden = !isSlideShow
+        self.collectionView.isHidden = !(storyEditors.count > 1)
     }
     
     func hideToolBar(hide: Bool) {
@@ -490,7 +491,7 @@ extension StoryEditorViewController {
                     self.slideShowExportedURL = exportURL
                     self.tableView.reloadData()
                     self.shareCollectionViewHeight.constant = 0
-                    self.shareViewHeight.constant = 570 - 145
+                    self.shareViewHeight.constant = 570 - (145 - self.shareCollectionViewHeight.constant)
                     UIView.animate(withDuration: 0.5, animations: {
                         self.view.layoutIfNeeded()
                         self.blurView.isHidden = false
@@ -503,8 +504,8 @@ extension StoryEditorViewController {
             _ = storyEditors[currentStoryIndex].updatedThumbnailImage()
             self.shareCollectionView.reloadData()
             self.tableView.reloadData()
-            self.shareCollectionViewHeight.constant = 145
-            shareViewHeight.constant = 570
+            self.shareCollectionViewHeight.constant = self.collectionView.isHidden ? 0 : 145
+            shareViewHeight.constant = 570 - (145 - shareCollectionViewHeight.constant)
             UIView.animate(withDuration: 0.5, animations: {
                 self.view.layoutIfNeeded()
                 self.blurView.isHidden = false
