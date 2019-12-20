@@ -228,23 +228,7 @@ extension PhotoEditorViewController {
     }
     
     @IBAction func btnTrimClick(_ sender: AnyObject) {
-        let trimVC: TrimEditorViewController = R.storyboard.photoEditor.trimEditorViewController()!
-        var urls: [SegmentVideos] = []
-        for video in self.videoUrls {
-            urls.append(video)
-        }
-        trimVC.videoUrls = urls
-        trimVC.doneHandler = { [weak self] urls in
-            guard let strongSelf = self else {
-                return
-            }
-            let videourls: [SegmentVideos] = urls!
-            strongSelf.videoUrls.removeAll()
-            strongSelf.videoUrls = videourls
-            strongSelf.currentPlayVideo = -1
-            strongSelf.connVideoPlay()
-        }
-        self.navigationController?.pushViewController(trimVC, animated: true)
+        
     }
     
     @IBAction func undoSButtonTapped(_ sender: AnyObject) {

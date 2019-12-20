@@ -11,7 +11,6 @@ import AVKit
 import SCRecorder
 import IQKeyboardManagerSwift
 import CoreLocation
-import Foundation
 
 class TrimEditorViewController: UIViewController {
     @IBOutlet weak var postStoryButton: UIButton!
@@ -29,15 +28,11 @@ class TrimEditorViewController: UIViewController {
     @IBOutlet open var btnPlayPause: UIButton!
     
     // MARK: - Public Properties
-    public var asset: AVAsset?
-    ///videoPath（local or remote）
-    public var videoPath: String?
-    /// current playback time of video
     public private(set) var currentTime = CMTime.zero
-    public var videoUrl: SegmentVideos?
+    public var videoUrl: StoryEditorMedia?
     public var image: UIImage?
-    public var isMute: Bool = false
-    public var videoUrls: [SegmentVideos] = []
+    public var videoUrls: [StoryEditorMedia] = []
+    
     public var currentPlayVideo: Int = -1
     public var selectedItem: Int = 0
     fileprivate var isViewAppear = false
@@ -64,7 +59,7 @@ class TrimEditorViewController: UIViewController {
     let positionBar = UIView()
     let handleWidth: CGFloat = 15
     var playbackTimeCheckerTimer: Timer?
-    var doneHandler: ((_ urls: [SegmentVideos]?) -> Void)?
+    var doneHandler: ((_ urls: [StoryEditorMedia]) -> Void)?
     @IBInspectable open var isTimePrecisionInfinity: Bool = false
     var tolerance: CMTime {
         return isTimePrecisionInfinity ? CMTime.indefinite : CMTime.zero
@@ -74,23 +69,34 @@ class TrimEditorViewController: UIViewController {
         return IndexPath.init(row: self.currentPage, section: 0)
     }
     
-    fileprivate var _asset: AVAsset? {
-        if let asset = asset {
-            return asset
+    func currentAsset(index: Int) -> AVAsset? {
+        var avAsset: AVAsset?
+        switch self.videoUrls[index].type {
+        case .image:
+            break
+        case let .video(_, asset):
+            avAsset = asset
         }
-        
-        if let videoPath = videoPath, !videoPath.isEmpty {
-            var videoURL = URL(string: videoPath)
-            if videoURL == nil || videoURL?.scheme == nil {
-                videoURL = URL(fileURLWithPath: videoPath)
-            }
-            if let videoURL = videoURL {
-                let urlAsset = AVURLAsset(url: videoURL, options: nil)
-                return urlAsset
-            }
+        guard let currentAsset = avAsset else {
+            return nil
         }
-        return nil
+        return currentAsset
     }
+    
+    func thumbImage(index: Int) -> UIImage? {
+        var image: UIImage?
+        switch self.videoUrls[index].type {
+        case .image:
+            break
+        case let .video(thumbImage, _):
+            image = thumbImage
+        }
+        guard let thumbImage = image else {
+            return nil
+        }
+        return thumbImage
+    }
+    
     
     // Register Custom font before we load XIB
     public override func loadView() {
@@ -99,7 +105,6 @@ class TrimEditorViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
         setupFilter()
         setupLayout()
         setupVideoPlayer()
@@ -126,12 +131,6 @@ class TrimEditorViewController: UIViewController {
         positionBar.removeFromSuperview()
     }
     
-    func setupUI() {
-        if videoUrl != nil {
-            stopMotionCollectionView.isHidden = false
-        }
-    }
-    
     fileprivate func setupLayout() {
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         self.stopMotionCollectionView.register(R.nib.imageCollectionViewCell)
@@ -144,11 +143,6 @@ class TrimEditorViewController: UIViewController {
         scPlayer?.loopEnabled = true
         
         print("Recording completed After Video Count \(videoUrls.count)")
-        
-        if !videoUrls.isEmpty {
-            self.videoUrl = self.videoUrls.first
-        }
-        
     }
     
     func connVideoPlay() {
@@ -165,14 +159,14 @@ class TrimEditorViewController: UIViewController {
             self.stopMotionCollectionView.reloadData()
             
             if let player = self.scPlayer, !self.videoUrls.isEmpty {
+                guard let currentAsset = self.currentAsset(index: self.currentPlayVideo) else {
+                    return
+                }
+                
+                player.setItemBy(currentAsset)
                 if player.isPlaying {
                     player.play()
                     self.startPlaybackTimeChecker()
-                }
-                let item = self.videoUrls[self.currentPlayVideo].currentAsset
-                if let itemSegment = item {
-                    player.setItemBy(itemSegment)
-                    self.asset = itemSegment
                 }
                 if let cell: ImageCollectionViewCell = self.stopMotionCollectionView.cellForItem(at: self.getCurrentIndexPath) as? ImageCollectionViewCell {
                     guard let startTime = cell.trimmerView.startTime else {
@@ -191,11 +185,6 @@ class TrimEditorViewController: UIViewController {
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if let player = scPlayer {
-            player.play()
-            startPlaybackTimeChecker()
-        }
-        
         isViewAppear = true
         observeState()
         IQKeyboardManager.shared.enableAutoToolbar = false
@@ -206,6 +195,10 @@ class TrimEditorViewController: UIViewController {
         if !isPlayerInitialize {
             isPlayerInitialize = true
             connVideoPlay()
+            if let player = scPlayer {
+                player.play()
+                startPlaybackTimeChecker()
+            }
         }
     }
     
@@ -248,46 +241,11 @@ class TrimEditorViewController: UIViewController {
     
     @IBAction func saveButtonTapped(_ sender: AnyObject) {
         if let doneHandler = self.doneHandler {
-            if self.videoUrls.count == 1 {
-                
-                let fileName = String.fileName + ".mp4"
-                if let cell: ImageCollectionViewCell = self.stopMotionCollectionView.cellForItem(at: getCurrentIndexPath) as? ImageCollectionViewCell {
-                    guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
-                        return
-                    }
-                    do {
-                        try Utils.time {
-                            let destinationURL1 = Utils.getLocalPath(fileName)
-                            let trimmedAsset = try asset?.assetByTrimming(startTime: startTime, endTime: endTime)
-                            try trimmedAsset?.export(to: destinationURL1)
-                            
-                            let image = getThumbnailFrom(asset: trimmedAsset!) ?? UIImage()
-                            self.videoUrls[self.currentPage].url = destinationURL1
-                            self.videoUrls[self.currentPage].image = image
-                            self.videoUrls[self.currentPage].currentAsset = trimmedAsset
-                            self.videoUrls[self.currentPage].videos = [SegmentVideo(segmentVideos: self.videoUrls[self.currentPage])]
-                        }
-                    } catch let error {
-                        print("💩 \(error)")
-                    }
-                }
-                
-                var urls: [SegmentVideos] = []
-                for video in self.videoUrls {
-                    let segmentModel: SegmentVideos = (video.copy() as? SegmentVideos)!
-                    segmentModel.videos = video.videos
-                    urls.append(segmentModel)
-                }
-                doneHandler(urls)
-            } else {
-                var urls: [SegmentVideos] = []
-                for video in self.videoUrls {
-                    let segmentModel: SegmentVideos = (video.copy() as? SegmentVideos)!
-                    segmentModel.videos = video.videos
-                    urls.append(segmentModel)
-                }
-                doneHandler(urls)
+            var urls: [StoryEditorMedia] = []
+            for video in self.videoUrls {
+                urls.append(video)
             }
+            doneHandler(urls)
         }
         self.navigationController?.popViewController(animated: true)
     }
@@ -323,9 +281,12 @@ class TrimEditorViewController: UIViewController {
     
     func getPosition(from time: CMTime, cell: ImageCollectionViewCell, index: IndexPath) -> CGFloat? {
         if let cell: ImageCollectionViewCell = self.stopMotionCollectionView.cellForItem(at: getCurrentIndexPath) as? ImageCollectionViewCell {
-            let asset = self.videoUrls[self.currentPage].currentAsset
-            let timeRatio = CGFloat(time.value) * CGFloat(asset!.duration.timescale) /
-                (CGFloat(time.timescale) * CGFloat(asset!.duration.value))
+            guard let currentAsset = currentAsset(index: self.currentPlayVideo) else {
+                return 0
+            }
+            
+            let timeRatio = CGFloat(time.value) * CGFloat(currentAsset.duration.timescale) /
+                (CGFloat(time.timescale) * CGFloat(currentAsset.duration.value))
             return timeRatio * cell.bounds.width
         }
         return 0
@@ -357,9 +318,7 @@ class TrimEditorViewController: UIViewController {
     
     @objc func onPlaybackTimeChecker() {
         if let player = self.scPlayer {
-            
             let playBackTime = player.currentTime()
-            
             if let cell: ImageCollectionViewCell = self.stopMotionCollectionView.cellForItem(at: getCurrentIndexPath) as? ImageCollectionViewCell {
                 guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
                     return
@@ -405,10 +364,7 @@ class TrimEditorViewController: UIViewController {
 extension TrimEditorViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == self.stopMotionCollectionView {
-            return videoUrls.count
-        }
-        return 0
+        return videoUrls.count
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -416,124 +372,86 @@ extension TrimEditorViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == self.stopMotionCollectionView {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.nib.imageCollectionViewCell.identifier, for: indexPath) as? ImageCollectionViewCell else {
-                fatalError("Unable to find cell with '\(R.nib.imageCollectionViewCell.identifier)' reuseIdentifier")
-            }
-            
-            var borderColor: CGColor! = ApplicationSettings.appClearColor.cgColor
-            var borderWidth: CGFloat = 0
-            
-            if self.currentPage == indexPath.row || videoUrls[indexPath.row].isSelected {
-                borderColor = ApplicationSettings.appPrimaryColor.cgColor
-                borderWidth = 3
-                cell.lblVideoersiontag.isHidden = false
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.nib.imageCollectionViewCell.identifier, for: indexPath) as? ImageCollectionViewCell else {
+            fatalError("Unable to find cell with '\(R.nib.imageCollectionViewCell.identifier)' reuseIdentifier")
+        }
+        
+        var borderColor: CGColor! = ApplicationSettings.appClearColor.cgColor
+        var borderWidth: CGFloat = 0
+        if self.currentPage == indexPath.row || videoUrls[indexPath.row].isSelected {
+            borderColor = ApplicationSettings.appPrimaryColor.cgColor
+            borderWidth = 3
+            cell.lblVideoersiontag.isHidden = false
+        } else {
+            borderColor = ApplicationSettings.appWhiteColor.cgColor
+            borderWidth = 3
+            cell.lblVideoersiontag.isHidden = true
+        }
+        
+        cell.isHidden = false
+        cell.imagesStackView.tag = indexPath.row
+        
+        let views = cell.imagesStackView.subviews
+        for view in views {
+            cell.imagesStackView.removeArrangedSubview(view)
+        }
+        
+        cell.lblSegmentCount.text = "\(indexPath.row + 1)"
+        
+        guard let currentAsset = currentAsset(index: indexPath.row) else {
+            return cell
+        }
+        
+        var mainView: UIView = UIView()
+        var imageView = UIImageView()
+        
+        if self.currentPage == indexPath.row {
+            mainView = UIView.init(frame: CGRect(x: 0, y: 3, width: Double(41 * 1.2), height: Double(cell.imagesView.frame.height * 1.18)))
+            imageView = UIImageView.init(frame: CGRect(x: 0, y: 0, width: Double(41 * 1.2), height: Double(cell.imagesView.frame.height * 1.18)))
+            imageView.image = thumbImage(index: indexPath.row)
+            imageView.contentMode = .scaleToFill
+            imageView.clipsToBounds = true
+            mainView.addSubview(imageView)
+            cell.imagesStackView.addArrangedSubview(mainView)
+            cell.loadAsset(currentAsset)
+            cell.trimmerView.delegate = self
+            if isEditMode {
+                self.scPlayer?.setItemBy(currentAsset)
+                self.removePositionBar(cell: cell)
+                cell.trimmerView.isHidden = false
+                cell.imagesView.isHidden = true
+                cell.imagesStackView.isHidden = true
             } else {
-                borderColor = ApplicationSettings.appWhiteColor.cgColor
-                borderWidth = 3
-                cell.lblVideoersiontag.isHidden = true
-            }
-            
-            cell.isHidden = false
-            cell.imagesStackView.tag = indexPath.row
-            
-            let images = videoUrls[(indexPath as NSIndexPath).row].videos
-            
-            let views = cell.imagesStackView.subviews
-            for view in views {
-                cell.imagesStackView.removeArrangedSubview(view)
-            }
-            
-            cell.lblSegmentCount.text = "\(indexPath.row + 1)"
-            
-            if self.currentPage == indexPath.row {
-                if videoUrls[(indexPath as NSIndexPath).row].isCombineOneVideo {
-                    let mainView = UIView.init(frame: CGRect(x: 0, y: 3, width: Double(41 * 1.2), height: Double(cell.imagesView.frame.height * 1.18)))
-                    let imageView = UIImageView.init(frame: CGRect(x: 0, y: 0, width: Double(41 * 1.2), height: Double(cell.imagesView.frame.height * 1.18)))
-                    imageView.image = images.first?.image
-                    imageView.contentMode = .scaleToFill
-                    imageView.clipsToBounds = true
-                    mainView.addSubview(imageView)
-                    cell.imagesStackView.addArrangedSubview(mainView)
-                    let item = self.videoUrls[self.currentPage].currentAsset
-                    cell.loadAsset(item!)
-                    cell.trimmerView.delegate = self
-                    if isEditMode {
-                        self.scPlayer?.setItemBy(item!)
-                        cell.trimmerView.isHidden = false
-                        cell.imagesView.isHidden = true
-                        cell.imagesStackView.isHidden = true
-                    } else {
-                        cell.trimmerView.isHidden = true
-                        cell.imagesView.isHidden = false
-                        cell.imagesStackView.isHidden = false
-                    }
-                } else {
-                    let mainView = UIView.init(frame: CGRect(x: 0, y: 3, width: Double(41 * 1.2), height: Double(cell.imagesView.frame.height * 1.18)))
-                    let imageView = UIImageView.init(frame: CGRect(x: 0, y: 0, width: Double(41 * 1.2), height: Double(cell.imagesView.frame.height * 1.18)))
-                    imageView.image = images[0].image
-                    imageView.contentMode = .scaleToFill
-                    imageView.clipsToBounds = true
-                    mainView.addSubview(imageView)
-                    cell.imagesStackView.addArrangedSubview(mainView)
-                    
-                    let item = self.videoUrls[self.currentPage].currentAsset
-                    cell.loadAsset(item!)
-                    cell.trimmerView.delegate = self
-                    if isEditMode {
-                        self.scPlayer?.setItemBy(item!)
-                        self.removePositionBar(cell: cell)
-                        cell.trimmerView.isHidden = false
-                        cell.imagesView.isHidden = true
-                        cell.imagesStackView.isHidden = true
-                    } else {
-                        self.setupPositionBar(cell: cell)
-                        cell.trimmerView.isHidden = true
-                        cell.imagesView.isHidden = false
-                        cell.imagesStackView.isHidden = false
-                    }
-                }
-            } else {
-                if videoUrls[(indexPath as NSIndexPath).row].isCombineOneVideo {
-                    let mainView = UIView.init(frame: CGRect(x: 0, y: 3, width: 41, height: 52))
-                    let imageView = UIImageView.init(frame: CGRect(x: 0, y: 0, width: 41, height: 52))
-                    imageView.image = images[0].image
-                    imageView.contentMode = .scaleToFill
-                    imageView.clipsToBounds = true
-                    mainView.addSubview(imageView)
-                    cell.imagesStackView.addArrangedSubview(mainView)
-                } else {
-                    if videoUrls[indexPath.row].isSelected {
-                        let mainView = UIView.init(frame: CGRect(x: 0, y: 3, width: Double(41 * 1.2), height: Double(cell.imagesView.frame.height * 1.18)))
-                        let imageView = UIImageView.init(frame: CGRect(x: 0, y: 0, width: Double(41 * 1.2), height: Double(cell.imagesView.frame.height * 1.18)))
-                        imageView.image = images[0].image
-                        imageView.contentMode = .scaleToFill
-                        imageView.clipsToBounds = true
-                        mainView.addSubview(imageView)
-                        cell.imagesStackView.addArrangedSubview(mainView)
-                    } else {
-                        let mainView = UIView.init(frame: CGRect(x: 0, y: 3, width: 41, height: 52))
-                        let imageView = UIImageView.init(frame: CGRect(x: 0, y: 0, width: 41, height: 52))
-                        imageView.image = images[0].image
-                        imageView.contentMode = .scaleToFill
-                        imageView.clipsToBounds = true
-                        mainView.addSubview(imageView)
-                        cell.imagesStackView.addArrangedSubview(mainView)
-                    }
-                }
+                self.setupPositionBar(cell: cell)
                 cell.trimmerView.isHidden = true
                 cell.imagesView.isHidden = false
                 cell.imagesStackView.isHidden = false
+                
             }
-            
-            cell.imagesView.layer.cornerRadius = 5
-            cell.imagesView.layer.borderWidth = borderWidth
-            cell.imagesView.layer.borderColor = borderColor
-            
-            return cell
         } else {
-            return UICollectionViewCell()
+            if videoUrls[indexPath.row].isSelected {
+                mainView = UIView.init(frame: CGRect(x: 0, y: 3, width: Double(41 * 1.2), height: Double(cell.imagesView.frame.height * 1.18)))
+                imageView = UIImageView.init(frame: CGRect(x: 0, y: 0, width: Double(41 * 1.2), height: Double(cell.imagesView.frame.height * 1.18)))
+                
+            } else {
+                mainView = UIView.init(frame: CGRect(x: 0, y: 3, width: 41, height: 52))
+                imageView = UIImageView.init(frame: CGRect(x: 0, y: 0, width: 41, height: 52))
+            }
+            imageView.image = thumbImage(index: indexPath.row)
+            imageView.contentMode = .scaleToFill
+            imageView.clipsToBounds = true
+            mainView.addSubview(imageView)
+            
+            cell.imagesStackView.addArrangedSubview(mainView)
+            cell.trimmerView.isHidden = true
+            cell.imagesView.isHidden = false
+            cell.imagesStackView.isHidden = false
         }
+        cell.imagesView.layer.cornerRadius = 5
+        cell.imagesView.layer.borderWidth = borderWidth
+        cell.imagesView.layer.borderColor = borderColor
+        
+        return cell
     }
     
     func collectionViewEdgesAndScroll(_ collectionView: UICollectionView, rect: CGRect) {
@@ -568,45 +486,18 @@ extension TrimEditorViewController: UICollectionViewDelegate, UICollectionViewDe
             self.currentPlayVideo = 0
         }
         self.currentPage = self.currentPlayVideo
-        // self.currentPlayVideo = (indexPath as NSIndexPath).row - 1
         self.stopMotionCollectionView.reloadData()
-        // self.connVideoPlay()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if collectionView == self.stopMotionCollectionView {
-            if videoUrls[indexPath.row].isCombineOneVideo {
-                if currentPage == indexPath.row {
-                    if isEditMode {
-                        return CGSize(width: 225, height: Double(98 * 1.17))
-                    } else {
-                        return CGSize(width: 41 * 1.2, height: Double(98 * 1.17))
-                    }
-                } else {
-                    return CGSize(width: 41, height: 98)
-                }
+        if currentPage == indexPath.row {
+            if isEditMode {
+                return CGSize(width: 225, height: Double(98 * 1.17))
             } else {
-                if currentPage == indexPath.row {
-                    if isEditMode {
-                        return CGSize(width: 225, height: Double(98 * 1.17))
-                    } else {
-                        return CGSize(width: (Double(1 * 41) * 1.2), height: Double(98 * 1.17))
-                    }
-                } else {
-                    if self.videoUrls[indexPath.row].isSelected {
-                        if isEditMode {
-                            return CGSize(width: 225, height: Double(98 * 1.17))
-                        } else {
-                            return CGSize(width: (Double(1 * 41) * 1.2), height: Double(98 * 1.17))
-                        }
-                    } else {
-                        return CGSize(width: (1 * 41), height: 98)
-                    }
-                }
+                return CGSize(width: 41 * 1.2, height: Double(98 * 1.17))
             }
-        } else {
-            return CGSize(width: 0, height: 0)
         }
+        return CGSize(width: 41, height: 98)
     }
     
 }
@@ -666,57 +557,48 @@ extension TrimEditorViewController: TrimmerViewDelegate {
     }
     
     func trimVideo(_ trimmer: TrimmerView, with currentTimeScrub: CMTime) {
-        if (currentTimeScrub.seconds - trimmer.startTime!.seconds) >= 3 {
-            let fileName = String.fileName + ".mp4"
-            let destinationURL = Utils.getLocalPath(fileName)
-            
-            do {
-                try Utils.time {
-                    let asset = self.videoUrls[self.currentPage].currentAsset
-                    let trimmed = try asset?.assetByTrimming(startTime: CMTime.init(seconds: currentTimeScrub.seconds, preferredTimescale: 10000), endTime: trimmer.endTime!)
-                    let thumbimage = getThumbnailFrom(asset: trimmed!) ?? UIImage()
-                    try trimmed?.export(to: destinationURL)
-                    self.videoUrls[self.currentPage].url = destinationURL
-                    self.videoUrls[self.currentPage].image = thumbimage
-                    self.videoUrls[self.currentPage].currentAsset = trimmed
-                    if let number = Int(self.videoUrls[self.currentPage].numberOfSegementtext!) {
-                        self.videoUrls[self.currentPage].numberOfSegementtext = "\(number + 1)"
-                    }
-                    self.videoUrls[self.currentPage].videos = [SegmentVideo(segmentVideos: self.videoUrls[self.currentPage])]
-                    
-                    do {
-                        try Utils.time {
-                            let fileName = String.fileName + ".mp4"
-                            let destinationURL1 = Utils.getLocalPath(fileName)
-                            let trimmedAsset = try asset?.assetByTrimming(startTime: trimmer.startTime!, endTime: CMTime.init(seconds: currentTimeScrub.seconds, preferredTimescale: 10000))
-                            try trimmedAsset?.export(to: destinationURL1)
-                            let image = getThumbnailFrom(asset: trimmedAsset!) ?? UIImage()
-                            
-                            self.videoUrls.insert(SegmentVideos(urlStr: destinationURL1, thumbimage: image, latitued: nil, longitued: nil, placeAddress: nil, numberOfSegement: "\(self.currentPage + 1)", videoduration: nil), at: self.currentPage)
-                            
-                            self.connVideoPlay()
-                            if let player = scPlayer {
-                                if player.isPlaying {
-                                    player.play()
-                                    self.startPlaybackTimeChecker()
-                                }
+        guard (currentTimeScrub.seconds - trimmer.startTime!.seconds) >= 3 else {
+            self.view.makeToast(R.string.localizable.minimum3SecondRequireToSplitOrTrim())
+            AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+            if let player = scPlayer {
+                player.seek(to: currentTimeScrub, toleranceBefore: tolerance, toleranceAfter: tolerance)
+                if player.isPlaying {
+                    player.play()
+                    self.startPlaybackTimeChecker()
+                }
+            }
+            return
+        }
+        
+        do {
+            try Utils.time {
+                guard let asset = currentAsset(index: self.currentPage) else {
+                    return
+                }
+                let trimmed = try asset.assetByTrimming(startTime: CMTime.init(seconds: currentTimeScrub.seconds, preferredTimescale: 10000), endTime: trimmer.endTime!)
+                let thumbimage = getThumbnailFrom(asset: trimmed) ?? UIImage()
+                
+                self.videoUrls[self.currentPage] = StoryEditorMedia(type: .video(thumbimage, trimmed))
+                do {
+                    try Utils.time {
+                        let trimmedAsset = try asset.assetByTrimming(startTime: trimmer.startTime!, endTime: CMTime.init(seconds: currentTimeScrub.seconds, preferredTimescale: 10000))
+                        let image = getThumbnailFrom(asset: trimmedAsset) ?? UIImage()
+                        self.videoUrls.insert(StoryEditorMedia(type: .video(image, trimmedAsset)), at: self.currentPage)
+                        
+                        self.connVideoPlay()
+                        if let player = scPlayer {
+                            if player.isPlaying {
+                                player.play()
+                                self.startPlaybackTimeChecker()
                             }
                         }
-                    } catch let error {
-                        print("💩 \(error)")
                     }
+                } catch let error {
+                    print("\(error)")
                 }
-            } catch let error {
-                print("💩 \(error)")
             }
-        } else if let player = scPlayer {
-            self.view.makeToast("Minimum 3 second require to split or trim.")
-            player.seek(to: currentTimeScrub, toleranceBefore: tolerance, toleranceAfter: tolerance)
-            if player.isPlaying {
-                player.play()
-                self.startPlaybackTimeChecker()
-            }
-            AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+        } catch let error {
+            print("\(error)")
         }
     }
     
@@ -785,8 +667,10 @@ extension TrimEditorViewController: StoryPlayerDelegate {
                 self.stopMotionCollectionView.setNeedsLayout()
                 
                 if !self.videoUrls.isEmpty {
-                    let item = self.videoUrls[self.currentPlayVideo].currentAsset
-                    self.scPlayer?.setItemBy(item!)
+                    guard let currentAsset = self.currentAsset(index: self.currentPlayVideo) else {
+                        return
+                    }
+                    self.scPlayer?.setItemBy(currentAsset)
                 }
                 if let cell: ImageCollectionViewCell = self.stopMotionCollectionView.cellForItem(at: self.getCurrentIndexPath) as? ImageCollectionViewCell {
                     guard let startTime = cell.trimmerView.startTime else {
