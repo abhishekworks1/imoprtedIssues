@@ -104,6 +104,17 @@ class StoryEditorView: UIView {
             self.storyPlayer?.isMuted = isMuted
         }
     }
+    
+    override var frame: CGRect {
+        didSet {
+            self.mediaGestureView.frame = self.mediaRect()
+            self.storySwipeableFilterView.frame = bounds
+            self.drawView.frame = bounds
+            self.filterNameLabel.frame = CGRect(origin: .zero,
+                                                size: CGSize(width: width, height: 50))
+            self.adjustMediaTransformIfNeeded()
+        }
+    }
 
     init(frame: CGRect, type: StoryEditorType, contentMode: StoryImageView.ImageContentMode, deleteView: UIView? = nil, undoView: UIView? = nil) {
         mediaGestureView = UIView()
@@ -189,10 +200,6 @@ extension StoryEditorView {
             self.storySwipeableFilterView.setImageBy(image)
             self.thumbnailImage = self.storySwipeableFilterView.renderedUIImage()
         case let .video(_, asset):
-            storyPlayer = StoryPlayer()
-            storyPlayer?.scImageView = storySwipeableFilterView
-            storyPlayer?.loopEnabled = true
-            storyPlayer?.delegate = self
             storyPlayer?.setItemBy(asset)
             storyPlayer?.play()
         }

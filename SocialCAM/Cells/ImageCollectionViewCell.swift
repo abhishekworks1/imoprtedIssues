@@ -18,6 +18,20 @@ class ImageCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var lblVideoersiontag: UILabel!
     @IBOutlet weak var trimmerView: TrimmerView!
     
+    var isEditMode: Bool = false {
+        didSet {
+            if isEditMode {
+                self.trimmerView.isHidden = false
+                self.imagesView.isHidden = true
+                self.imagesStackView.isHidden = true
+            } else {
+                self.trimmerView.isHidden = true
+                self.imagesView.isHidden = false
+                self.imagesStackView.isHidden = false
+            }
+        }
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         trimmerView?.isHidden = true

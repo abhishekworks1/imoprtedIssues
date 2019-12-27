@@ -204,18 +204,18 @@ public class DragAndDropManager: NSObject, UIGestureRecognizerDelegate {
             
         case .ended :
             
-            if bundle.sourceDraggableView != bundle.overDroppableView { // if we are actually dropping over a new view.
+            // TODO: Check if it is new view
+//            if bundle.sourceDraggableView != bundle.overDroppableView { // if we are actually dropping over a new view.
+            if let droppable = bundle.overDroppableView as? Droppable {
                 
-                if let droppable = bundle.overDroppableView as? Droppable {
-                    
-                    sourceDraggable.dragDataItem(bundle.dataItem)
-                    
-                    let rect = self.canvas.convert(bundle.representationImageView.frame, to: bundle.overDroppableView)
-                    
-                    droppable.dropDataItem(bundle.dataItem, atRect: rect)
-                    
-                }
+                sourceDraggable.dragDataItem(bundle.dataItem)
+                
+                let rect = self.canvas.convert(bundle.representationImageView.frame, to: bundle.overDroppableView)
+                
+                droppable.dropDataItem(bundle.dataItem, atRect: rect)
+                
             }
+//            }
             
             bundle.representationImageView.removeFromSuperview()
             sourceDraggable.stopDragging()

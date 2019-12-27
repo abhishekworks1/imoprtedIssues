@@ -406,17 +406,6 @@ public class CropViewController: UIViewController {
             if let image = croppedObject as? UIImage {
                 self.delegate?.cropViewControllerDidCrop(self, cropped: image)
             } else if let url = croppedObject as? URL {
-                let updatedSegment = SegmentVideos(urlStr: url,
-                                                   thumbimage: self.videoSegments[self.currentIndex].image,
-                                                   latitued: nil,
-                                                   longitued: nil,
-                                                   placeAddress: nil,
-                                                   numberOfSegement: self.videoSegments[self.currentIndex].numberOfSegementtext,
-                                                   videoduration: nil,
-                                                   combineOneVideo: true)
-                self.videoSegments.remove(at: self.currentIndex)
-                self.videoSegments.insert(updatedSegment, at: self.currentIndex)
-                self.delegate?.cropViewControllerDidCrop(self, updatedVideoSegments: self.videoSegments)
                 self.delegate?.cropViewControllerDidCrop(self, croppedURL: url)
             }
             self.dismiss(animated: true, completion: nil)

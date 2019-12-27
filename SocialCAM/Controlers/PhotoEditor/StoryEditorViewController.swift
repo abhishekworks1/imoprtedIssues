@@ -30,8 +30,8 @@ class ShareOptionTableViewCell: UITableViewCell {
 
 }
 
-class StoryEditorMedia: CustomStringConvertible {
-    
+class StoryEditorMedia: CustomStringConvertible, NSCopying, Equatable {
+   
     var id: String
     var type: StoryEditorType
     var isSelected: Bool
@@ -42,6 +42,14 @@ class StoryEditorMedia: CustomStringConvertible {
         self.isSelected = isSelected
     }
     
+    func copy(with zone: NSZone? = nil) -> Any {
+        let copy = StoryEditorMedia(type: type, isSelected: isSelected)
+        return copy
+    }
+    
+    static func == (lhs: StoryEditorMedia, rhs: StoryEditorMedia) -> Bool {
+        return lhs.id == rhs.id
+    }
 }
 
 class StoryEditorCell: UICollectionViewCell {
@@ -175,7 +183,18 @@ class StoryEditorViewController: UIViewController {
         IQKeyboardManager.shared.enableAutoToolbar = false
         storyEditors[currentStoryIndex].play()
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        for editor in storyEditors {
+            editor.frame = mediaImageView.frame
+        }
+    }
 
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+    
     func setupFilterViews() {
         setupColorSlider()
         for (index, type) in medias.enumerated() {
@@ -304,7 +323,35 @@ extension StoryEditorViewController {
     }
     
     @IBAction func trimClicked(_ sender: UIButton) {
+        let trimVC: TrimEditorViewController = R.storyboard.photoEditor.trimEditorViewController()!
+        let filteredVideoUrls = self.medias.filter({ media -> Bool in
+            if case StoryEditorType.video(_, _) = media.type {
+                return true
+            }
+            return false
+        })
         
+        trimVC.videoUrls = filteredVideoUrls
+        trimVC.doneHandler = { [weak self] urls in
+            guard let `self` = self else {
+                return
+            }
+            self.currentStoryIndex = 0
+            self.medias.removeAll()
+            
+            for item in urls {
+                guard let storyEditorMedia = item.copy() as? StoryEditorMedia else {
+                    return
+                }
+                self.medias.append(storyEditorMedia)
+            }
+            for storyEditor in self.storyEditors {
+                storyEditor.removeFromSuperview()
+            }
+            self.storyEditors.removeAll()
+            self.setupFilterViews()
+        }
+        self.navigationController?.pushViewController(trimVC, animated: true)
     }
 
     @IBAction func timeSpeedClicked(_ sender: UIButton) {
@@ -518,7 +565,9 @@ extension StoryEditorViewController {
 extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == slideShowCollectionView {
+        if !isSlideShow, collectionView == slideShowCollectionView {
+            return 0
+        } else if collectionView == slideShowCollectionView {
             return selectedSlideShowMedias.count
         }
         return storyEditors.count
