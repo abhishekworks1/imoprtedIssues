@@ -17,13 +17,10 @@ class StorySettingsOptionsVC: UIViewController {
     
     var settingsOptions = [R.string.localizable.privacySettings(),
                            R.string.localizable.controlCenter(),
-                           R.string.localizable.prO(),
-                           R.string.localizable.logout()]
+                           R.string.localizable.prO()]
     
     var settingsOptionsImages = [#imageLiteral(resourceName: "ico-privacy-s"),
                                  #imageLiteral(resourceName: "ico-control center"),
-                                 #imageLiteral(resourceName: "ico-story recover"),
-                                 #imageLiteral(resourceName: "ico-story recover"),
                                  #imageLiteral(resourceName: "ico-story recover")]
     
     override func viewDidLoad() {
@@ -83,12 +80,26 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
     
     func isProEnable() {
         let objAlert = UIAlertController(title: Constant.Application.displayName, message: !Defaults.shared.isPro ? R.string.localizable.areYouSureYouWantToEnablePro() : R.string.localizable.areYouSureYouWantToDisablePro(), preferredStyle: .alert)
-        let actionlogOut = UIAlertAction(title: R.string.localizable.oK(), style: .default) { (_: UIAlertAction) in
-            Defaults.shared.isPro = !Defaults.shared.isPro
-            self.navigationController?.popViewController(animated: true)
+        if !Defaults.shared.isPro {
+            objAlert.addTextField { (textField: UITextField) -> Void in
+                textField.placeholder = R.string.localizable.enterCode()
+            }
+        }
+        let actionSave = UIAlertAction(title: R.string.localizable.oK(), style: .default) { ( _: UIAlertAction) in
+            if Defaults.shared.isPro {
+                Defaults.shared.isPro = !Defaults.shared.isPro
+                self.navigationController?.popViewController(animated: true)
+                return
+            }
+            if let textField = objAlert.textFields?[0], textField.text!.count > 0, textField.text == Constant.Application.proModeCode {
+                Defaults.shared.isPro = !Defaults.shared.isPro
+                self.navigationController?.popViewController(animated: true)
+                return
+            }
+            self.view.makeToast(R.string.localizable.pleaseEnterValidCode())
         }
         let cancelAction = UIAlertAction(title: R.string.localizable.cancel(), style: .default) { (_: UIAlertAction) in }
-        objAlert.addAction(actionlogOut)
+        objAlert.addAction(actionSave)
         objAlert.addAction(cancelAction)
         self.present(objAlert, animated: true, completion: nil)
     }

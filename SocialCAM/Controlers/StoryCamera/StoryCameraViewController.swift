@@ -1112,20 +1112,15 @@ extension StoryCameraViewController {
                     if let session = self.nextLevel.session {
                         if let url = session.lastClipUrl {
                             print("Recording completed \(url.path)")
-                            self.takenVideoUrls.append(SegmentVideos(urlStr: url, thumbimage: session.clips.last?.thumbnailImage, latitued: nil, longitued: nil, placeAddress: nil, numberOfSegement: "\(self.takenVideoUrls.count + 1)", videoduration: nil))
+                            self.videoDidCompletedSession(url: url, thumbimage: session.clips.last?.thumbnailImage)
                             session.removeAllClips(removeFiles: false)
-                            DispatchQueue.main.async {
-                                self.setupForPreviewScreen()
-                            }
                         } else if session.currentClipHasStarted {
-                            session.endClip(completionHandler: { (clip, error) in
+                            session.endClip(completionHandler: { [weak self] (clip, error) in
+                                guard let `self` = self else { return }
                                 if error == nil, let url = clip?.url {
                                     print("Recording completed \(url.path)")
-                                    self.takenVideoUrls.append(SegmentVideos(urlStr: url, thumbimage: clip?.thumbnailImage, latitued: nil, longitued: nil, placeAddress: nil, numberOfSegement: "\(self.takenVideoUrls.count + 1)", videoduration: nil))
+                                    self.videoDidCompletedSession(url: url, thumbimage: clip?.thumbnailImage)
                                     session.removeAllClips(removeFiles: false)
-                                    DispatchQueue.main.async {
-                                        self.setupForPreviewScreen()
-                                    }
                                 }
                             })
                         }
@@ -1134,6 +1129,61 @@ extension StoryCameraViewController {
                 }
             }
         })
+    }
+    
+    func videoDidCompletedSession(url: URL, thumbimage: UIImage?) {
+        if self.recordingType == .boomerang {
+            let loadingView = LoadingView.instanceFromNib()
+            loadingView.shouldCancelShow = true
+            loadingView.show(on: self.view)
+            
+            DispatchQueue.global().async {
+                let factory = VideoFactory(type: .boom, video: VideoOrigin(mediaType: nil, mediaUrl: url, referenceURL: nil))
+                factory.assetTOcvimgbuffer({ [weak self] (urls) in
+                    guard let `self` = self else { return }
+                    DispatchQueue.main.async {
+                        loadingView.hide()
+                    }
+                    self.newVideoCreate(url: url, newUrl: urls)
+                    DispatchQueue.main.async {
+                        self.takenVideoUrls.append(SegmentVideos(urlStr: url, thumbimage: thumbimage, numberOfSegement: "\(self.takenVideoUrls.count + 1)"))
+                        self.setupForPreviewScreen()
+                        
+                    }
+                    }, { (progress) in
+                        DispatchQueue.main.async {
+                            loadingView.progressView.setProgress(to: Double(Float(Float(progress.completedUnitCount) / Float(progress.totalUnitCount))), withAnimation: true)
+                        }
+                }, failure: { (_) in
+                    DispatchQueue.main.async {
+                        loadingView.hide()
+                        UIApplication.shared.endIgnoringInteractionEvents()
+                    }
+                })
+            }
+            
+        } else {
+            DispatchQueue.main.async {
+                self.takenVideoUrls.append(SegmentVideos(urlStr: url, thumbimage: thumbimage, numberOfSegement: "\(self.takenVideoUrls.count + 1)"))
+                self.setupForPreviewScreen()
+            }
+        }
+    }
+    
+    func newVideoCreate(url: URL, newUrl urls: URL) {
+        DispatchQueue.main.async {
+            UIApplication.shared.endIgnoringInteractionEvents()
+        }
+        do {
+            let fileManager = FileManager.default
+            
+            if fileManager.fileExists(atPath: url.path) {
+                try fileManager.removeItem(atPath: url.path)
+                try fileManager.moveItem(at: urls, to: url)
+            }
+        } catch let error as NSError {
+            print("An error took place: \(error)")
+        }
     }
     
     func getDurationOf(videoPath: URL) -> Double {

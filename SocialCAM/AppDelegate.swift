@@ -54,17 +54,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Fabric.with([Crashlytics.self])
         
         configureGoogleService()
-        
-        var rootViewController: UIViewController? = R.storyboard.loginViewController.loginNavigation()
-        if let user = Defaults.shared.currentUser,
-            let _ = Defaults.shared.sessionToken,
-            let channelId = user.channelId,
-            !channelId.isEmpty {
-            rootViewController = R.storyboard.storyCameraViewController.storyCameraNavigation()
-            InternetConnectionAlert.shared.internetConnectionHandler = { reachability in
-                if reachability.connection != .none {
-                    StoryDataManager.shared.startUpload()
-                }
+       
+        InternetConnectionAlert.shared.internetConnectionHandler = { reachability in
+            if reachability.connection != .none {
+                StoryDataManager.shared.startUpload()
             }
         }
         
@@ -76,7 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         MSAppCenter.start(Constant.AppCenter.apiKey, withServices: [])
         
-        UIApplication.shared.delegate!.window!!.rootViewController = rootViewController
+        UIApplication.shared.delegate!.window!!.rootViewController = R.storyboard.storyCameraViewController.storyCameraNavigation()
         
         return true
     }
