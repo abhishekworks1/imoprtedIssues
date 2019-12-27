@@ -148,6 +148,8 @@ class StoryEditorViewController: UIViewController {
     public var medias = [StoryEditorMedia]()
     public var selectedSlideShowMedias = [StoryEditorMedia]()
 
+    private var filteredImagesStory: [StoryEditorMedia] = []
+    
     private var storyEditors: [StoryEditorView] = []
 
     private var currentStoryIndex = 0
@@ -324,14 +326,17 @@ extension StoryEditorViewController {
     
     @IBAction func trimClicked(_ sender: UIButton) {
         let trimVC: TrimEditorViewController = R.storyboard.photoEditor.trimEditorViewController()!
-        let filteredVideoUrls = self.medias.filter({ media -> Bool in
-            if case StoryEditorType.video(_, _) = media.type {
-                return true
-            }
-            return false
-        })
         
-        trimVC.videoUrls = filteredVideoUrls
+        var filteredMedias: [StoryEditorMedia] = []
+        for editor in storyEditors {
+            if case StoryEditorType.video(_, _) = editor.type {
+                filteredMedias.append(StoryEditorMedia(type: editor.type))
+            } else {
+                filteredImagesStory.append(StoryEditorMedia(type: editor.type))
+            }
+        }
+        
+        trimVC.videoUrls = filteredMedias
         trimVC.doneHandler = { [weak self] urls in
             guard let `self` = self else {
                 return
@@ -345,9 +350,13 @@ extension StoryEditorViewController {
                 }
                 self.medias.append(storyEditorMedia)
             }
+            
+            self.medias.append(contentsOf: self.filteredImagesStory)
+            
             for storyEditor in self.storyEditors {
                 storyEditor.removeFromSuperview()
             }
+            self.filteredImagesStory.removeAll()
             self.storyEditors.removeAll()
             self.setupFilterViews()
         }

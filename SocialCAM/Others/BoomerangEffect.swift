@@ -123,7 +123,7 @@ class VideoFactory: NSObject {
 
         let buffer = BufferToVideo(buffer: cvimgbuffer, fps: Int32(fps))
         if self.type == .boom || self.type == .speed {
-            buffer.filename = "BoomVideo.mov"
+            buffer.filename = "BoomVideo.mp4"
             buffer.fps *= 2
         }
 
@@ -144,7 +144,7 @@ class BufferToVideo: NSObject {
     let kErrorDomain = "TimeLapseBuilder"
     let kFailedToStartAssetWriterError = 0
     let kFailedToAppendPixelBufferError = 1
-    var filename: String = "MergedVideo.mov"
+    var filename: String = "MergedVideo.mp4"
 
     // Capture Real time
     init(buffer: [CVPixelBuffer], fps: Int32) {
