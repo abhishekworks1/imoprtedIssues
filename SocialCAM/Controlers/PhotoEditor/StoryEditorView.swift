@@ -167,6 +167,10 @@ extension StoryEditorView {
         return self.thumbnailImage
     }
     
+    var isPlaying: Bool {
+        return self.storyPlayer?.isPlaying ?? false
+    }
+    
     func pause() {
         self.storyPlayer?.pause()
     }

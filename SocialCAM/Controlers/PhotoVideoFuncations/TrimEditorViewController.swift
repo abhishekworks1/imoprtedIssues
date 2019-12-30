@@ -290,7 +290,7 @@ class TrimEditorViewController: UIViewController {
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         if let player = player {
-            if player.timeControlStatus == .playing {
+            if player.timeControlStatus == .playing && !btnPlayPause.isSelected {
                 player.play()
             }
             if let cell: ImageCollectionViewCell = self.storyCollectionView.cellForItem(at: getCurrentIndexPath) as? ImageCollectionViewCell {
@@ -413,7 +413,7 @@ extension TrimEditorViewController: UICollectionViewDataSource {
     func collectionViewLastEdgesAndScroll(_ collectionView: UICollectionView, rect: CGRect) {
         DispatchQueue.main.async {
             guard let currentPlayer = self.player else { return }
-            if currentPlayer.timeControlStatus == .playing {
+            if currentPlayer.timeControlStatus == .playing && !self.btnPlayPause.isSelected {
                 currentPlayer.play()
             }
         }
@@ -478,6 +478,7 @@ extension TrimEditorViewController {
         player = AVPlayer(playerItem: playerItem)
         playerLayer?.player = player
         player?.play()
+        btnPlayPause.isSelected = true
         self.startPlaybackTimeChecker()
     }
     
@@ -581,7 +582,7 @@ extension TrimEditorViewController: TrimmerViewDelegate {
         if position.y >= -100 {
             if let player = player {
                 player.seek(to: currentTimeScrub, toleranceBefore: tolerance, toleranceAfter: tolerance)
-                if player.timeControlStatus == .playing {
+                if player.timeControlStatus == .playing && !btnPlayPause.isSelected {
                     player.play()
                 }
             }
@@ -594,7 +595,7 @@ extension TrimEditorViewController: TrimmerViewDelegate {
             AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
             if let player = player {
                 player.seek(to: currentTimeScrub, toleranceBefore: tolerance, toleranceAfter: tolerance)
-                if player.timeControlStatus == .playing {
+                if player.timeControlStatus == .playing && !btnPlayPause.isSelected {
                     player.play()
                 }
             }
@@ -654,7 +655,7 @@ extension TrimEditorViewController {
     @objc func enterForeground(_ notifi: Notification) {
         if isViewAppear {
             guard let currentPlayer = self.player else { return }
-            if currentPlayer.timeControlStatus == .playing {
+            if currentPlayer.timeControlStatus == .playing && !btnPlayPause.isSelected {
                 currentPlayer.play()
                 startPlaybackTimeChecker()
             }
@@ -685,7 +686,9 @@ extension TrimEditorViewController {
         } else {
             self.player?.seek(to: CMTime.zero)
             self.player?.play()
+            btnPlayPause.isSelected = true
         }
+        
         if let player = self.player, !self.storyEditorMedias.isEmpty {
             if let cell: ImageCollectionViewCell = self.storyCollectionView.cellForItem(at: self.getCurrentIndexPath) as? ImageCollectionViewCell {
                 guard let startTime = cell.trimmerView.startTime else {
@@ -726,6 +729,7 @@ extension TrimEditorViewController {
     @IBAction func mergeButtonTapped(_ sender: AnyObject) {
         mergeButton.isSelected = !mergeButton.isSelected
         isMovable = !isMovable
+        combineButton.isSelected = false
     }
     
     @IBAction func undoSButtonTapped(_ sender: AnyObject) {
@@ -755,6 +759,8 @@ extension TrimEditorViewController {
         guard !combineButton.isSelected else {
             return
         }
+        mergeButton.isSelected = false
+        isMovable = mergeButton.isSelected
         combineButton.isSelected = !combineButton.isSelected
         DispatchQueue.main.async {
             if self.storyEditorMedias.count > 1 {
@@ -899,6 +905,8 @@ extension TrimEditorViewController {
     @IBAction func mergeButtonClicked(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         isMergeModeEnable = sender.isSelected
+        mergeButton.isSelected = sender.isSelected
+        isMovable = mergeButton.isSelected
     }
     
     @IBAction func btnTrimClick(_ sender: UIButton) {
@@ -907,6 +915,7 @@ extension TrimEditorViewController {
                 guard let trimmerView = cell.trimmerView else {
                     return
                 }
+                combineButton.isSelected = false
                 self.trimVideo(trimmerView, with: player.currentTime())
             }
         }
@@ -962,8 +971,11 @@ extension TrimEditorViewController: DragAndDropCollectionViewDataSource {
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, stopDrag dataItem: AnyObject, atIndexPath indexPath: IndexPath) {
-        print("stopDrag : \(indexPath)")
+    func collectionView(_ collectionView: UICollectionView, stopDrag dataItem: AnyObject, atIndexPath indexPath: IndexPath?, sourceRect rect: CGRect) {
+        guard let indexPath = indexPath else {
+            return
+        }
+        print("stopDrag : \(String(describing: indexPath))")
         self.lastMergeCell = indexPath
         
         if self.lastMergeCell != self.draggingCell {
@@ -972,6 +984,12 @@ extension TrimEditorViewController: DragAndDropCollectionViewDataSource {
             segmentEditOptionButton.isHidden = true
             segmentTypeMergeView.isHidden = false
             bottomToolbar.isHidden = true
+        } else {
+            if let player = self.player {
+                if player.timeControlStatus == .paused && btnPlayPause.isSelected {
+                    player.play()
+                }
+            }
         }
     }
     
