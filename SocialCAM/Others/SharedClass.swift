@@ -332,7 +332,7 @@ public struct Constant {
         static let groupIdentifier: String = "group.com.simform.spinachecafe"
         static let simformIdentifier: String = "com.simform.spinachecafe"
         static let imageIdentifier: String = "www.google.com"
-        static let proModeCode: String = "RCNMPJVM"
+        static let proModeCode: String = "socialcam2020"
     }
     
     struct PayPalMobile {
