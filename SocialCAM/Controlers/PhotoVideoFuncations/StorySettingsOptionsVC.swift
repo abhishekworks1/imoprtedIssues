@@ -91,7 +91,7 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
                 self.navigationController?.popViewController(animated: true)
                 return
             }
-            if let textField = objAlert.textFields?[0], textField.text!.count > 0, textField.text == Constant.Application.proModeCode {
+            if let textField = objAlert.textFields?[0], textField.text!.count > 0, textField.text?.lowercased() == Constant.Application.proModeCode {
                 Defaults.shared.isPro = !Defaults.shared.isPro
                 self.navigationController?.popViewController(animated: true)
                 return
