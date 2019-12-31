@@ -46,7 +46,7 @@ public protocol Droppable {
     func willMoveItem(_ item : AnyObject, inRect rect : CGRect) -> Void
     func didMoveItem(_ item : AnyObject, inRect rect : CGRect) -> Void
     func didMoveOutItem(_ item : AnyObject) -> Void
-    func dropDataItem(_ item : AnyObject, atRect : CGRect) -> Void
+    func dropDataItem(_ item : AnyObject, atRect : CGRect, sourceRect: CGRect) -> Void
 }
 
 public class DragAndDropManager: NSObject, UIGestureRecognizerDelegate {
@@ -212,7 +212,7 @@ public class DragAndDropManager: NSObject, UIGestureRecognizerDelegate {
                 
                 let rect = self.canvas.convert(bundle.representationImageView.frame, to: bundle.overDroppableView)
                 
-                droppable.dropDataItem(bundle.dataItem, atRect: rect)
+                droppable.dropDataItem(bundle.dataItem, atRect: rect, sourceRect: bundle.representationImageView.frame)
                 
             }
 //            }

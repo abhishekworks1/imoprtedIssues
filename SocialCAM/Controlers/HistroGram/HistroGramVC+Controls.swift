@@ -150,7 +150,7 @@ extension HistroGramVC {
         }
         let loadingView = LoadingView.instanceFromNib()
         loadingView.loadingViewShow = true
-        loadingView.shouldCancelShow = false
+        loadingView.shouldCancelShow = true
         loadingView.show(on: self.view)
         
         VideoScaler.shared.exportVideo(scaleComposition: mutableAsset) { [weak self] url in

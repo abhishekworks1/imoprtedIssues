@@ -42,7 +42,7 @@ public protocol DragAndDropCollectionViewDataSource : UICollectionViewDataSource
     
     /* optional */ func collectionView(_ collectionView: UICollectionView, startDrag dataItem: AnyObject, atIndexPath indexPath: IndexPath)
     
-    /* optional */ func collectionView(_ collectionView: UICollectionView, stopDrag dataItem: AnyObject, atIndexPath indexPath: IndexPath)
+    /* optional */ func collectionView(_ collectionView: UICollectionView, stopDrag dataItem: AnyObject, atIndexPath indexPath: IndexPath?, sourceRect rect: CGRect)
 }
 
 extension DragAndDropCollectionViewDataSource {
@@ -64,7 +64,7 @@ extension DragAndDropCollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, startDrag dataItem: AnyObject, atIndexPath indexPath: IndexPath) { }
     
-    func collectionView(_ collectionView: UICollectionView, stopDrag dataItem: AnyObject, atIndexPath indexPath: IndexPath) { }
+    func collectionView(_ collectionView: UICollectionView, stopDrag dataItem: AnyObject, atIndexPath indexPath: IndexPath?, sourceRect rect: CGRect) { }
 }
 
 open class DragAndDropCollectionView: UICollectionView, Draggable, Droppable {
@@ -437,7 +437,7 @@ open class DragAndDropCollectionView: UICollectionView, Draggable, Droppable {
     }
     
     
-    public func dropDataItem(_ item : AnyObject, atRect : CGRect) -> Void {
+    public func dropDataItem(_ item : AnyObject, atRect : CGRect, sourceRect: CGRect) -> Void {
         
         // show hidden cell
         if  let index = draggingPathOfCellBeingDragged,
@@ -447,11 +447,10 @@ open class DragAndDropCollectionView: UICollectionView, Draggable, Droppable {
             cell.isHidden = false
             
         }
-        print(atRect)
 
-        if let dragDropDataSource = self.dataSource as? DragAndDropCollectionViewDataSource,
-            let indexPath = self.indexPathForCellOverlappingRect(atRect) {
-            dragDropDataSource.collectionView(self, stopDrag: item, atIndexPath: indexPath)
+        if let dragDropDataSource = self.dataSource as? DragAndDropCollectionViewDataSource {
+            let indexPath = self.indexPathForCellOverlappingRect(atRect)
+            dragDropDataSource.collectionView(self, stopDrag: item, atIndexPath: indexPath, sourceRect: sourceRect)
         }
         
         currentInRect = nil
