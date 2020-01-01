@@ -905,7 +905,7 @@ extension TrimEditorViewController {
     @IBAction func mergeButtonClicked(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         isMergeModeEnable = sender.isSelected
-        mergeButton.isSelected = sender.isSelected
+        mergeButton.isSelected = false
         isMovable = mergeButton.isSelected
     }
     

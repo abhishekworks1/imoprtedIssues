@@ -152,12 +152,15 @@ extension StoryCameraViewController: NextLevelVideoDelegate {
                     self.openStoryEditor(images: [image])
                 }
             } else if self.recordingType == .capture {
-                DispatchQueue.main.async {
-                    self.view.makeToast(R.string.localizable.photoSaved())
+                SCAlbum.shared.save(image: image) { (isSuccess) in
+                    if isSuccess {
+                        DispatchQueue.main.async {
+                            self.view.makeToast(R.string.localizable.photoSaved(), duration: 2.0, position: .bottom)
+                        }
+                    } else {
+                        self.view.makeToast(R.string.localizable.pleaseGivePhotosAccessFromSettingsToSaveShareImageOrVideo())
+                    }
                 }
-                let album = SCAlbum.shared
-                album.albumName = "\(Constant.Application.displayName) - StoryCam"
-                album.save(image: image)
             }
         }
     }

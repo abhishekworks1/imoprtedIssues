@@ -193,7 +193,7 @@ class StoryEditorViewController: UIViewController {
             switch storyEditors[currentStoryIndex].type {
             case .image:
                 break
-            case .video(_, _):
+            case .video:
                 playPauseButton.isHidden = isViewEditMode
             }
         }
@@ -217,6 +217,10 @@ class StoryEditorViewController: UIViewController {
         if !playPauseButton.isSelected {
             storyEditors[currentStoryIndex].play()
         }
+    }
+    
+    deinit {
+        print("deinit \(self.description)")
     }
     
     override func viewDidLayoutSubviews() {
@@ -263,7 +267,7 @@ class StoryEditorViewController: UIViewController {
             colorSlider.centerXAnchor.constraint(equalTo: undoButton.centerXAnchor),
             colorSlider.topAnchor.constraint(equalTo: undoButton.bottomAnchor, constant: 10),
             colorSlider.widthAnchor.constraint(equalToConstant: 15),
-            colorSlider.heightAnchor.constraint(equalToConstant: colorSliderHeight),
+            colorSlider.heightAnchor.constraint(equalToConstant: colorSliderHeight)
         ])
         colorSlider.isHidden = true
     }
@@ -285,7 +289,8 @@ class StoryEditorViewController: UIViewController {
 
         self.soundOptionView.isHidden = isImage
         self.trimOptionView.isHidden = isImage
-        self.timeSpeedOptionView.isHidden = isImage
+       
+        self.timeSpeedOptionView.isHidden = Defaults.shared.isPro ? isImage : true
         
         self.slideShowCollectionView.isHidden = !isSlideShow
         self.addMusicOptionView.isHidden = !isSlideShow
@@ -441,6 +446,7 @@ extension StoryEditorViewController {
         case .video:
             break
         }
+        styleTransferVC.isSingleImage = isSlideShow
         styleTransferVC.doneHandler = { [weak self] data, currentMode in
             guard let `self` = self else {
                 return
@@ -537,32 +543,25 @@ extension StoryEditorViewController {
                 guard let `self` = self else {
                     return
                 }
+                self.slideShowExportedURL = exportURL
                 if isDownload {
                     DispatchQueue.runOnMainThread {
-                        self.slideShowExportedURL = exportURL
-                        let album = SCAlbum.shared
-                        album.albumName = "\(Constant.Application.displayName) - \(R.string.localizable.outtakes())"
-                        album.saveMovieToLibrary(movieURL: exportURL)
-                        self.view.makeToast(R.string.localizable.videoSaved(), duration: 2.0, position: .bottom)
+                        self.saveImageOrVideoInGallery(exportURL: exportURL)
                     }
                 } else {
                     DispatchQueue.runOnMainThread {
-                        self.slideShowExportedURL = exportURL
                         SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type)
                     }
                 }
-            }) { (error) in
+            }, failure: { (error) in
                 print(error)
-            }
+            })
         } else {
             switch storyEditors[currentStoryIndex].type {
             case .image:
                 if let image = storyEditors[currentStoryIndex].updatedThumbnailImage() {
                     if isDownload {
-                        let album = SCAlbum.shared
-                        album.albumName = "\(Constant.Application.displayName) - \(R.string.localizable.outtakes())"
-                        album.save(image: image)
-                        self.view.makeToast(R.string.localizable.photoSaved(), duration: 2.0, position: .bottom)
+                        self.saveImageOrVideoInGallery(image: image)
                     } else {
                         SocialShareVideo.shared.sharePhoto(image: image, socialType: type)
                     }
@@ -579,10 +578,7 @@ extension StoryEditorViewController {
                             self.videoExportedURL =  exportURL
                             if isDownload {
                                 DispatchQueue.runOnMainThread {
-                                    let album = SCAlbum.shared
-                                    album.albumName = "\(Constant.Application.displayName) - \(R.string.localizable.outtakes())"
-                                    album.saveMovieToLibrary(movieURL: exportURL)
-                                    self.view.makeToast(R.string.localizable.videoSaved(), duration: 2.0, position: .bottom)
+                                    self.saveImageOrVideoInGallery(exportURL: exportURL)
                                 }
                             } else {
                                 DispatchQueue.runOnMainThread {
@@ -593,6 +589,29 @@ extension StoryEditorViewController {
                     }
                 }
             }
+        }
+    }
+    
+    func saveImageOrVideoInGallery(image: UIImage? = nil, exportURL: URL? = nil) {
+        let album = SCAlbum.shared
+        album.albumName = "\(Constant.Application.displayName) - \(R.string.localizable.outtakes())"
+        
+        if let saveImage = image {
+            album.save(image: saveImage) { (isSuccess) in
+                if isSuccess {
+                    self.view.makeToast(R.string.localizable.photoSaved())
+                } else {
+                    self.view.makeToast(R.string.localizable.pleaseGivePhotosAccessFromSettingsToSaveShareImageOrVideo())
+                }
+            }
+        } else if let exportURL = exportURL {
+            album.saveMovieToLibrary(movieURL: exportURL, completion: { (isSuccess) in
+                if isSuccess {
+                    self.view.makeToast(R.string.localizable.videoSaved())
+                } else {
+                    self.view.makeToast(R.string.localizable.pleaseGivePhotosAccessFromSettingsToSaveShareImageOrVideo())
+                }
+            })
         }
     }
     
@@ -634,9 +653,9 @@ extension StoryEditorViewController {
                         self.blurView.isHidden = false
                     })
                 }
-            }) { (error) in
+            }, failure: { (error) in
                 print(error)
-            }
+            })
         } else {
             _ = storyEditors[currentStoryIndex].updatedThumbnailImage()
             self.shareCollectionView.reloadData()
