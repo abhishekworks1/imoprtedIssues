@@ -1556,7 +1556,7 @@ extension PhotoEditorViewController {
             }).disposed(by: self.rx.disposeBag)
     }
     
-    func saveSlideShow(exportType: SlideShowExportType, success: @escaping ((URL) -> Void), failure: @escaping ((Error) -> Void)) {
+    func saveSlideShow(exportType: SlideShowExportType, success: @escaping ((URL) -> Void), failure failure: @escaping ((Error) -> Void)) {
         
         DispatchQueue.runOnMainThread {
             if let loadingView = self.loadingView {

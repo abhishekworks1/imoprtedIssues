@@ -17,7 +17,7 @@ import SCRecorder
 import AVKit
 
 class StoryCameraViewController: UIViewController {
-   
+    
     let popupOffset: CGFloat = 110
     var bottomConstraint = NSLayoutConstraint()
     var currentState: State = .closed
@@ -368,7 +368,7 @@ class StoryCameraViewController: UIViewController {
     var timerValue = 0
     var pauseTimerValue = 0
     var photoTimerValue = 0
-    var cameraModeArray: [String] = [R.string.localizable.typE(), R.string.localizable.livE(), R.string.localizable.photovideO(), R.string.localizable.boomeranG(), R.string.localizable.slideshoW(), R.string.localizable.collagE(), R.string.localizable.handfreE(), R.string.localizable.custoM(), R.string.localizable.capturE()]
+    var cameraModeArray: [String] = [R.string.localizable.photovideO(), R.string.localizable.boomeranG(), R.string.localizable.slideshoW(), R.string.localizable.collagE(), R.string.localizable.handfreE(), R.string.localizable.custoM(), R.string.localizable.capturE()]
     
     var timerOptions = ["-",
                         "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
@@ -515,7 +515,7 @@ extension StoryCameraViewController {
             button.isHidden = true
         }
     }
-
+    
     func startCapture() {
         do {
             try nextLevel.start()
@@ -628,7 +628,7 @@ extension StoryCameraViewController {
             
             self.totalDurationOfOneSegment = 0.0
             self.circularProgress.animate(toAngle: 0, duration: 0, completion: nil)
-        
+            
             self.showControls()
             self.stop()
             
@@ -637,8 +637,8 @@ extension StoryCameraViewController {
             self.timerValueView.isHidden = false
             self.segmentLengthSelectedLabel.text = self.selectedSegmentLengthValue.value
             self.circularProgress.centerImage = UIImage()
-            switch index {
-            case 3:
+            switch Defaults.shared.cameraMode {
+            case .boomerang:
                 self.circularProgress.centerImage = R.image.icoBoomrang()
                 self.recordingType = .boomerang
                 self.timerValueView.isHidden = true
@@ -650,15 +650,15 @@ extension StoryCameraViewController {
                     self.photoTimerValue = 0
                     self.resetPhotoCountDown()
                 }
-            case 4:
+            case .slideshow:
                 self.circularProgress.centerImage = R.image.icoSildeshowMode()
                 self.recordingType = .slideshow
                 self.timerValueView.isHidden = true
-            case 5:
+            case .collage:
                 self.circularProgress.centerImage = R.image.icoCollageMode()
                 self.recordingType = .collage
                 self.timerValueView.isHidden = true
-            case 6:
+            case .handsfree:
                 self.circularProgress.centerImage = R.image.icoHandsFree()
                 if self.recordingType == .custom || self.recordingType == .boomerang || self.recordingType == .capture {
                     self.selectedSegmentLengthValue = SelectedTimer(value: "240", selectedRow: (self.segmentLengthOptions.count - 1))
@@ -669,11 +669,11 @@ extension StoryCameraViewController {
                 if self.isRecording {
                     self.isRecording = true
                 }
-            case 7:
+            case .custom:
                 self.circularProgress.centerImage = R.image.icoCustomMode()
                 self.recordingType = .custom
                 self.timerValueView.isHidden = true
-            case 8:
+            case .capture:
                 self.recordingType = .capture
                 self.timerValueView.isHidden = false
             default:
@@ -839,7 +839,7 @@ extension StoryCameraViewController {
             flashLabel.text = R.string.localizable.noFlash()
         }
     }
-   
+    
     func initCamera() {
         self.baseView.layoutIfNeeded()
         self.focusView = FocusIndicatorView(frame: .zero)
@@ -1230,11 +1230,16 @@ extension StoryCameraViewController {
         } else if self.recordingType == .capture {
             self.showControls()
             self.isRecording = false
-            let album = SCAlbum.shared
-            album.albumName = "\(Constant.Application.displayName) - StoryCam"
             if let url = self.takenVideoUrls.last?.url {
-                album.saveMovieToLibrary(movieURL: url)
-                self.view.makeToast(R.string.localizable.videoSaved())
+                SCAlbum.shared.saveMovieToLibrary(movieURL: url) { (isSuccess) in
+                    if isSuccess {
+                        DispatchQueue.main.async {
+                            self.view.makeToast(R.string.localizable.videoSaved())
+                        }
+                    } else {
+                        self.view.makeToast(R.string.localizable.pleaseGivePhotosAccessFromSettingsToSaveShareImageOrVideo())
+                    }
+                }
             }
             
             DispatchQueue.main.async {

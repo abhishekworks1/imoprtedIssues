@@ -25,9 +25,7 @@ enum SocialShare: Int {
 }
 
 public enum CameraMode: Int {
-    case type = 0
-    case live
-    case normal
+    case normal = 0
     case boomerang
     case slideshow
     case collage

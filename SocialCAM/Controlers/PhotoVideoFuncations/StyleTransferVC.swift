@@ -180,6 +180,8 @@ class StyleTransferVC: UIViewController {
         }
     }
     
+    public var isSingleImage: Bool = false
+    
     var doneHandler: ((Any, Int) -> Void)?
     
     var type: StyleTransferType = .image(image: UIImage())
@@ -194,7 +196,9 @@ class StyleTransferVC: UIViewController {
         setData()
         setupLayout()
         addGestureRecognizers()
-        
+        if isSingleImage {
+            btnAddImage.isHidden = true
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -335,10 +339,15 @@ class StyleTransferVC: UIViewController {
         switch type {
         case .image:
             if let image = filteredImage {
-                let album = SCAlbum.shared
-                album.albumName = "\(Constant.Application.displayName) - Outtakes"
-                album.save(image: image)
-                self.view.makeToast("saved", duration: 2.0, position: .bottom)
+                SCAlbum.shared.save(image: image) { (isSuccess) in
+                    if isSuccess {
+                        DispatchQueue.main.async {
+                            self.view.makeToast(R.string.localizable.photoSaved(), duration: 2.0, position: .bottom)
+                        }
+                    } else {
+                        self.view.makeToast(R.string.localizable.pleaseGivePhotosAccessFromSettingsToSaveShareImageOrVideo())
+                    }
+                }
             }
         case .video(let videoSegments, let index):
             let mergeSession = SCRecordSession()
@@ -366,8 +375,15 @@ class StyleTransferVC: UIViewController {
                         self.videoView.player.play()
                         loadingView.hide()
                     }
-                    SCAlbum.shared.saveMovieToLibrary(movieURL: url)
-                    self.view.makeToast("saved", duration: 2.0, position: .bottom)
+                    SCAlbum.shared.saveMovieToLibrary(movieURL: url) { (isSuccess) in
+                        if isSuccess {
+                            DispatchQueue.main.async {
+                                self.view.makeToast(R.string.localizable.videoSaved())
+                            }
+                        } else {
+                            self.view.makeToast(R.string.localizable.pleaseGivePhotosAccessFromSettingsToSaveShareImageOrVideo())
+                        }
+                    }
                 }
             })
         }

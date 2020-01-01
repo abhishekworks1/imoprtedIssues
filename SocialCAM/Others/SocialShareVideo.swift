@@ -66,18 +66,20 @@ open class SocialShareVideo: NSObject, SharingDelegate {
         guard let url = url else { return }
         switch socialType {
         case .facebook, .instagram:
-            self.saveVideoToCameraRoll(url: url, completion: { [weak self] (_, phAsset) in
+            self.saveVideoToCameraRoll(url: url, completion: { [weak self] (isSuccess, phAsset) in
                 guard let `self` = self else {
                     return
                 }
-                DispatchQueue.runOnMainThread {
-                    switch socialType {
-                    case .facebook:
-                        self.fbShareVideo(phAsset)
-                    case .instagram:
-                        self.instaImageVideoShare(phAsset)
-                    default:
-                        break
+                if isSuccess {
+                    DispatchQueue.runOnMainThread {
+                        switch socialType {
+                        case .facebook:
+                            self.fbShareVideo(phAsset)
+                        case .instagram:
+                            self.instaImageVideoShare(phAsset)
+                        default:
+                            break
+                        }
                     }
                 }
             })
@@ -92,14 +94,15 @@ open class SocialShareVideo: NSObject, SharingDelegate {
                 Utils.appDelegate?.window?.makeToast(R.string.localizable.youNeedToInstallTikTokToShareThisPhotoVideo())
                 return
             }
-            self.saveVideoToCameraRoll(url: url) { [weak self] (_, phAsset) in
-
+            self.saveVideoToCameraRoll(url: url) { [weak self] (isSuccess, phAsset) in
                 guard let `self` = self else {
                     return
                 }
-                DispatchQueue.runOnMainThread {
-                    if let asset = phAsset {
-                        self.tikTokImageVideoShare(asset)
+                if isSuccess {
+                    DispatchQueue.runOnMainThread {
+                        if let asset = phAsset {
+                            self.tikTokImageVideoShare(asset)
+                        }
                     }
                 }
             }

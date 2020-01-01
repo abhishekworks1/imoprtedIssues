@@ -116,7 +116,7 @@ public class LoadingView: UIView {
     
     weak var advertiseTimer: Timer?
     var currentSelectedImg: Int = 0 // for advertise selected imag
-    var imgAdvertisementArray: [String] = ["ad1", "ad2", "ad3", "ad4", "ad5", "ad6"]
+    var imgAdvertisementArray: [UIImage?] = [R.image.ad1(), R.image.ad2(), R.image.ad3() ,R.image.ad4(), R.image.ad5()]
     
     @IBOutlet weak var imgAdvertise: UIImageView!
     @IBOutlet weak var loadingView: FSLoading!
@@ -132,7 +132,7 @@ public class LoadingView: UIView {
     
     func advertisementTimer() {
         if currentSelectedImg < imgAdvertisementArray.count {
-            imgAdvertise.image = UIImage(named: imgAdvertisementArray[currentSelectedImg])
+            imgAdvertise.image = imgAdvertisementArray[currentSelectedImg]
         }
         advertiseTimer =  Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { [weak self] (_) in
             guard let `self` = self else {
@@ -150,7 +150,7 @@ public class LoadingView: UIView {
             currentSelectedImg = 0
         }
         if currentSelectedImg < imgAdvertisementArray.count {
-            imgAdvertise.image = UIImage(named: imgAdvertisementArray[currentSelectedImg])
+            imgAdvertise.image = imgAdvertisementArray[currentSelectedImg]
         }
     }
     
