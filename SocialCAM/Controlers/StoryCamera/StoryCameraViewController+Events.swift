@@ -16,7 +16,7 @@ extension StoryCameraViewController {
         if muteButton.alpha == 1 {
             isMute = !isMute
             setupMuteUI()
-            Defaults.shared.isMicOn = !isMute
+            Defaults.shared.isMicOn = isMute
         }
     }
     

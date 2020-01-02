@@ -47,7 +47,7 @@ public class ImageAsset: Equatable {
     public var assetType: AssetType = .image
     public var videoUrl: URL?
     public var thumbImage: UIImage = UIImage()
-
+    
     // MARK: - Initialization
 
     init(asset: PHAsset) {
@@ -393,20 +393,35 @@ class ImageAlbum {
     }
 }
 
-class ImagesLibrary {
-
+class ImagesLibrary: NSObject, PHPhotoLibraryChangeObserver {
+    
     var albums: [ImageAlbum] = []
     var albumsFetchResults = [PHFetchResult<PHAssetCollection>]()
     lazy var imageManager: PHCachingImageManager = {
         return PHCachingImageManager()
     }()
-
+    private var fetchResult: PHFetchResult<PHAsset>?
+    var lastImageDidUpdateInGalleryBlock: ((_ asset: PHAsset?) -> Void)?
+    
     // MARK: - Initialization
 
-    init() {
+    static let shared: ImagesLibrary = ImagesLibrary()
+    
+    override init() {
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        fetchOptions.fetchLimit = 1
 
+        // Fetch the image assets
+        fetchResult = PHAsset.fetchAssets(with: fetchOptions)
+        super.init()
+        PHPhotoLibrary.shared().register(self)
     }
-
+    
+    deinit {
+        PHPhotoLibrary.shared().unregisterChangeObserver(self)
+    }
+    
     // MARK: - Logic
 
     func reload(_ type: AssetType? = .image, _ completion: @escaping () -> Void) {
@@ -418,18 +433,12 @@ class ImagesLibrary {
         }
     }
     
-    func getLatestPhotos(completion completionBlock: ((ImageAsset?) -> Void)) {
-        let fetchOptions = PHFetchOptions()
-        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-        fetchOptions.fetchLimit = 1
-
-        // Fetch the image assets
-        let fetchResult: PHFetchResult = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: fetchOptions)
-
-        // If the fetch result isn't empty,
-        // proceed with the image request
+    func getLatestPhotos(completion completionBlock: ((PHAsset?) -> Void)) {
+        guard let fetchResult = self.fetchResult else {
+            return
+        }
         if fetchResult.count > 0 {
-            completionBlock(ImageAsset(asset: fetchResult.object(at: 0) as PHAsset))
+            completionBlock(fetchResult.object(at: 0))
         } else {
             completionBlock(nil)
         }
@@ -518,6 +527,20 @@ class ImagesLibrary {
         }
         return image
     }
+    
+    func photoLibraryDidChange(_ changeInstance: PHChange) {
+        guard let fetchResult = self.fetchResult else {
+            return
+        }
+        guard let changes = changeInstance.changeDetails(for: fetchResult) else {
+            return
+        }
+        self.fetchResult = changes.fetchResultAfterChanges
+        getLatestPhotos { (asset) in
+            lastImageDidUpdateInGalleryBlock?(asset)
+        }
+    }
+
 }
 
 struct Constraint {

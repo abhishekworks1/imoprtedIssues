@@ -194,6 +194,9 @@ extension StoryCameraViewController {
     }
     
     @objc func popupViewPanned(recognizer: UIPanGestureRecognizer) {
+        if isRecording {
+            return
+        }
         if case .down = recognizer.verticalDirection(target: self.view) {
             switch recognizer.state {
             case .began:

@@ -232,8 +232,6 @@ class BufferToVideo: NSObject {
                                 frameCount += 1
                                 currentProgress.completedUnitCount = frameCount
                                 progress(currentProgress)
-                            } else {
-                                fatalError("pixelBufferAdaptor can't append")
                             }
                         }
                     }
@@ -245,7 +243,6 @@ class BufferToVideo: NSObject {
                             return
                         }
                     }
-
                 }
             } else {
                 error = NSError(

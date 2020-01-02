@@ -47,6 +47,7 @@ class StoryCameraViewController: UIViewController {
     @IBOutlet weak var nextButtonView: UIStackView!
     @IBOutlet weak var timerStackView: UIStackView!
     @IBOutlet weak var flashStackView: UIStackView!
+    @IBOutlet weak var lastCaptureImageView: UIImageView!
     
     @IBOutlet weak var photoTimerSelectedLabel: UILabel!
     @IBOutlet weak var pauseTimerSelectedLabel: UILabel!
@@ -74,8 +75,7 @@ class StoryCameraViewController: UIViewController {
     
     @IBOutlet weak var speedSliderView: UIView!
     @IBOutlet weak var closeButton: UIButton!
-    @IBOutlet weak var slowVerticalBar: UIView!
-    @IBOutlet weak var fastVerticalBar: UIView!
+    @IBOutlet weak var slowFastVerticalBar: UIView!
     @IBOutlet weak var enableMicrophoneButton: UIButton!
     @IBOutlet weak var enableCameraButton: UIButton!
     @IBOutlet weak var enableAccessView: UIView!
@@ -233,8 +233,7 @@ class StoryCameraViewController: UIViewController {
             if recordingType != .custom {
                 DispatchQueue.main.async {
                     self.speedSlider.isUserInteractionEnabled = true
-                    self.slowVerticalBar.isHidden = true
-                    self.fastVerticalBar.isHidden = true
+                    self.slowFastVerticalBar.isHidden = true
                     self.speedLabel.textColor = UIColor.red
                     self.speedLabel.text = ""
                     self.speedLabel.stopBlink()
@@ -249,12 +248,6 @@ class StoryCameraViewController: UIViewController {
                         self.stopMotionCollectionView.reloadData()
                     }
                 }
-                DispatchQueue.main.async {
-                    self.timerButton.isUserInteractionEnabled = true
-                    UIView.animate(withDuration: 0.1, animations: {
-                        self.timerButton.alpha = 1
-                    })
-                }
             } else if recordingType == .custom {
                 self.dragAndDropManager = KDDragAndDropManager(
                     canvas: self.view,
@@ -265,40 +258,8 @@ class StoryCameraViewController: UIViewController {
                 self.deleteRect = self.deleteView.frame
                 self.stopMotionCollectionView.reloadData()
                 self.collectionViewStackVIew.isUserInteractionEnabled = true
-                DispatchQueue.main.async {
-                    self.timerButton.isUserInteractionEnabled = false
-                    UIView.animate(withDuration: 0.1, animations: {
-                        self.timerButton.alpha = 0.5
-                    })
-                }
-            } else if recordingType == .capture || recordingType == .boomerang {
-                DispatchQueue.main.async {
-                    self.timerButton.isUserInteractionEnabled = false
-                    UIView.animate(withDuration: 0.1, animations: {
-                        self.timerButton.alpha = 0.5
-                    })
-                }
             }
             
-            if recordingType == .slideshow || recordingType == .collage || recordingType == .boomerang {
-                DispatchQueue.main.async {
-                    self.timerButton.isUserInteractionEnabled = false
-                    self.muteButton.isUserInteractionEnabled = false
-                    UIView.animate(withDuration: 0.1, animations: {
-                        self.timerButton.alpha = 0.5
-                        self.muteButton.alpha = 0.5
-                    })
-                }
-            } else if recordingType != .custom && recordingType != .capture {
-                DispatchQueue.main.async {
-                    self.timerButton.isUserInteractionEnabled = true
-                    self.muteButton.isUserInteractionEnabled = true
-                    UIView.animate(withDuration: 0.1, animations: {
-                        self.timerButton.alpha = 1
-                        self.muteButton.alpha = 1
-                    })
-                }
-            }
             if recordingType == .capture {
                 DispatchQueue.main.async {
                     self.closeButton.tag = 2
@@ -315,6 +276,32 @@ class StoryCameraViewController: UIViewController {
             
             let showNextButton = (recordingType == .custom || recordingType == .slideshow || recordingType == .collage || recordingType == .capture)
             self.nextButtonView.isHidden = !showNextButton
+            
+            isShowTimerButton = !(recordingType == .boomerang || recordingType == .slideshow || recordingType == .collage || recordingType == .capture || recordingType == .custom)
+            
+            isShowMuteButton = !(recordingType == .boomerang || recordingType == .slideshow || recordingType == .collage)
+        }
+    }
+    
+    var isShowTimerButton: Bool = false {
+        didSet {
+            DispatchQueue.main.async {
+                self.timerButton.isUserInteractionEnabled = self.isShowTimerButton
+                UIView.animate(withDuration: 0.1, animations: {
+                    self.timerButton.alpha = self.isShowTimerButton ? 1.0 : 0.5
+                })
+            }
+        }
+    }
+    
+    var isShowMuteButton: Bool = false {
+        didSet {
+            DispatchQueue.main.async {
+                self.muteButton.isUserInteractionEnabled = self.isShowMuteButton
+                UIView.animate(withDuration: 0.1, animations: {
+                    self.muteButton.alpha = self.isShowMuteButton ? 1.0 : 0.5
+                })
+            }
         }
     }
     
@@ -368,7 +355,7 @@ class StoryCameraViewController: UIViewController {
     var timerValue = 0
     var pauseTimerValue = 0
     var photoTimerValue = 0
-    var cameraModeArray: [String] = [R.string.localizable.photovideO(), R.string.localizable.boomeranG(), R.string.localizable.slideshoW(), R.string.localizable.collagE(), R.string.localizable.handfreE(), R.string.localizable.custoM(), R.string.localizable.capturE()]
+    var cameraModeArray: [String] = [R.string.localizable.photovideO(), R.string.localizable.boomeranG(), R.string.localizable.slideshoW(), R.string.localizable.collagE(), R.string.localizable.handsfreE(), R.string.localizable.custoM(), R.string.localizable.capturE()]
     
     var timerOptions = ["-",
                         "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
@@ -461,9 +448,11 @@ class StoryCameraViewController: UIViewController {
         if recordingType != .custom {
             self.circularProgress.animate(toAngle: 0, duration: 0, completion: nil)
         }
+        DispatchQueue.main.async {
+            self.recoredButtonCenterPoint = self.circularProgress.center
+        }
         self.speedSlider.isUserInteractionEnabled = true
-        slowVerticalBar.isHidden = true
-        fastVerticalBar.isHidden = true
+        slowFastVerticalBar.isHidden = true
         self.speedLabel.textColor = UIColor.red
         self.speedLabel.text = ""
         self.speedLabel.stopBlink()
@@ -482,6 +471,9 @@ class StoryCameraViewController: UIViewController {
             recordingType = .slideshow
         } else if recordingType == .collage {
             recordingType = .collage
+        }
+        DispatchQueue.main.async {
+            self.circularProgress.center = self.recoredButtonCenterPoint
         }
     }
     
@@ -548,7 +540,7 @@ extension StoryCameraViewController {
         }
         self.setCameraPositionUI()
         if let isMicOn = Defaults.shared.isMicOn {
-            isMute = !isMicOn
+            isMute = isMicOn
         } else {
             isMute = false
             Defaults.shared.isMicOn = !isMute
@@ -675,7 +667,7 @@ extension StoryCameraViewController {
                 self.timerValueView.isHidden = true
             case .capture:
                 self.recordingType = .capture
-                self.timerValueView.isHidden = false
+                self.timerValueView.isHidden = true
             default:
                 self.recordingType = .normal
             }
@@ -700,6 +692,33 @@ extension StoryCameraViewController {
     
     func setupCountDownView() {
         self.view.addSubview(sfCountdownView)
+    }
+    
+    func setupImageLoadFromGallary() {
+        ImagesLibrary.shared.getLatestPhotos(completion: { [weak self] (phAsset) in
+            guard let `self` = self else { return }
+            if let asset = phAsset {
+                self.setLastImageFromGallery(asset: asset)
+            }
+        })
+        
+        ImagesLibrary.shared.lastImageDidUpdateInGalleryBlock = { [weak self] (phAsset) in
+            guard let `self` = self else { return }
+            if let asset = phAsset {
+                self.setLastImageFromGallery(asset: asset)
+            }
+        }
+    }
+    
+    func setLastImageFromGallery(asset: PHAsset) {
+        ImagesLibrary.shared.imageAsset(asset: asset, completionBlock: { [weak self] (image, _) in
+            guard let `self` = self else { return }
+            DispatchQueue.main.async {
+                self.lastCaptureImageView.image = image
+                self.lastCaptureImageView.borderColorV = .white
+                self.lastCaptureImageView.borderWidthV = 1.5
+            }
+        })
     }
     
     func changePermissionButtonColor() {
@@ -895,6 +914,7 @@ extension StoryCameraViewController {
         nextLevel.metadataObjectsDelegate = self
         nextLevel.metadataObjectTypes = [AVMetadataObject.ObjectType.face, AVMetadataObject.ObjectType.qr]
         
+        setupImageLoadFromGallary()
     }
     
     @objc  func handleFocusTapGestureRecognizer(_ gestureRecognizer: UIGestureRecognizer) {
@@ -914,13 +934,13 @@ extension StoryCameraViewController {
         NextLevel.shared.focusExposeAndAdjustWhiteBalance(atAdjustedPoint: adjustedPoint)
     }
     
-    @objc  func handlePinchGestureRecognizer(_ pinchGestureRecognizer: UIPinchGestureRecognizer) {
+    @objc func handlePinchGestureRecognizer(_ pinchGestureRecognizer: UIPinchGestureRecognizer) {
         func minMaxZoom(_ factor: Float) -> Float {
             return min(max(factor, 1.0), 10.0)
         }
         let newScaleFactor = minMaxZoom(Float(pinchGestureRecognizer.scale) * Float(lastZoomFactor))
         switch pinchGestureRecognizer.state {
-        case .began: fallthrough
+        case .began: break
         case .changed: NextLevel.shared.videoZoomFactor = newScaleFactor
         case .ended:
             lastZoomFactor = CGFloat(minMaxZoom(newScaleFactor))
@@ -975,15 +995,11 @@ extension StoryCameraViewController {
     }
     
     @objc func enterForeground(_ notifi: Notification) {
-        
         if isViewAppear {
             startCapture()
         }
-        
     }
-    
 }
-
 
 // MARK: Setup Focus View
 extension StoryCameraViewController {
@@ -1041,9 +1057,8 @@ extension StoryCameraViewController {
             return
         }
         self.isMute ? muteButton.startBlink(0.5) : muteButton.stopBlink()
-        self.view.bringSubviewToFront(slowVerticalBar.superview ?? UIView())
-        slowVerticalBar.isHidden = false
-        fastVerticalBar.isHidden = false
+        self.view.bringSubviewToFront(slowFastVerticalBar.superview ?? UIView())
+        slowFastVerticalBar.isHidden = false
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
             self.circularProgress.trackThickness = 0.75*1.5
             self.circularProgress.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
@@ -1054,11 +1069,13 @@ extension StoryCameraViewController {
                 totalSeconds = 240
             } else if self.recordingType == .boomerang {
                 totalSeconds = 2
+            } else if self.recordingType == .capture {
+                totalSeconds = 3600
             }
             self.circularProgress.animate(toAngle: 360, duration: Double(totalSeconds) - (NextLevel.shared.session?.totalDuration.seconds ?? 0)) { completed in
                 if completed {
                     print("animation stopped, completed")
-                    self.isStopConnVideo = false
+                    self.isStopConnVideo = self.recordingType != .handsfree ? true : false
                     self.stopRecording()
                 } else {
                     print("animation stopped, was interrupted")
@@ -1161,7 +1178,6 @@ extension StoryCameraViewController {
                     }
                 })
             }
-            
         } else {
             DispatchQueue.main.async {
                 self.takenVideoUrls.append(SegmentVideos(urlStr: url, thumbimage: thumbimage, numberOfSegement: "\(self.takenVideoUrls.count + 1)"))
@@ -1244,8 +1260,7 @@ extension StoryCameraViewController {
             
             DispatchQueue.main.async {
                 self.speedSlider.isUserInteractionEnabled = true
-                self.slowVerticalBar.isHidden = true
-                self.fastVerticalBar.isHidden = true
+                self.slowFastVerticalBar.isHidden = true
                 self.speedLabel.textColor = UIColor.red
                 self.speedLabel.text = ""
                 self.speedLabel.stopBlink()

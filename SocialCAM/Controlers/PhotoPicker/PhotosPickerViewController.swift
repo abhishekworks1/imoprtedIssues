@@ -174,7 +174,7 @@ open class PhotosPickerViewController: UIViewController {
     public var configure = PhotosPickerConfigure()
     
     var items: [ImageAsset] = []
-    let library = ImagesLibrary()
+    let library = ImagesLibrary.shared
     var selectedAlbum: ImageAlbum?
     let once = Once()
     var allAlbums: [ImageAlbum] = []

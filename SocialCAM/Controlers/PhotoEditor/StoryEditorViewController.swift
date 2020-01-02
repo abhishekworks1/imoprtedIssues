@@ -214,9 +214,13 @@ class StoryEditorViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         IQKeyboardManager.shared.enableAutoToolbar = false
-        if !playPauseButton.isSelected {
-            storyEditors[currentStoryIndex].play()
-        }
+        playVideo()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        IQKeyboardManager.shared.enableAutoToolbar = true
+        pauseVideo()
     }
     
     deinit {
@@ -422,7 +426,6 @@ extension StoryEditorViewController {
         guard let histroGramVC = R.storyboard.photoEditor.histroGramVC() else {
             return
         }
-        storyEditors[currentStoryIndex].pause()
         histroGramVC.currentAsset = currentAsset
         histroGramVC.completionHandler = { [weak self] url in
             guard let `self` = self else {
@@ -439,7 +442,6 @@ extension StoryEditorViewController {
         guard let styleTransferVC = R.storyboard.photoEditor.styleTransferVC() else {
             return
         }
-        storyEditors[currentStoryIndex].pause()
         switch storyEditors[currentStoryIndex].type {
         case let .image(image):
             styleTransferVC.type = .image(image: image)
@@ -462,7 +464,6 @@ extension StoryEditorViewController {
         guard let imageCropperVC = R.storyboard.photoEditor.imageCropperVC() else {
             return
         }
-        storyEditors[currentStoryIndex].pause()
         switch storyEditors[currentStoryIndex].type {
         case let .image(image):
             imageCropperVC.image = image
@@ -551,6 +552,7 @@ extension StoryEditorViewController {
                 } else {
                     DispatchQueue.runOnMainThread {
                         SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type)
+                        self.pauseVideo()
                     }
                 }
             }, failure: { (error) in
@@ -570,6 +572,7 @@ extension StoryEditorViewController {
                 if let exportURL = videoExportedURL, !isDownload {
                     DispatchQueue.runOnMainThread {
                         SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type)
+                        self.pauseVideo()
                     }
                 } else {
                     self.exportViewWithURL(asset) { [weak self] url in
@@ -583,6 +586,7 @@ extension StoryEditorViewController {
                             } else {
                                 DispatchQueue.runOnMainThread {
                                     SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type)
+                                    self.pauseVideo()
                                 }
                             }
                         }
@@ -632,9 +636,17 @@ extension StoryEditorViewController {
     }
     
     @IBAction func playPauseButtonClick(_ sender: AnyObject) {
-        let storyEditor = storyEditors[currentStoryIndex]
-        storyEditor.isPlaying ? storyEditor.pause() : storyEditor.play()
-        playPauseButton.isSelected = !playPauseButton.isSelected
+        storyEditors[currentStoryIndex].isPlaying ? pauseVideo() : playVideo()
+    }
+    
+    func playVideo() {
+        storyEditors[currentStoryIndex].play()
+        playPauseButton.isSelected = false
+    }
+    
+    func pauseVideo() {
+        storyEditors[currentStoryIndex].pause()
+        playPauseButton.isSelected = true
     }
     
     @IBAction func continueClicked(_ sender: UIButton) {
