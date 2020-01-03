@@ -56,7 +56,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             return
         }
         
-        if recordingType != .boomerang && recordingType != .custom {
+        if recordingType != .boomerang && recordingType != .custom && recordingType != .capture {
             
             if isCountDownStarted {
                 isCountDownStarted = false
@@ -85,9 +85,8 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             recoredButtonCenterPoint = circularProgress.center
             startRecording()
             isRecording = true
-            self.view.bringSubviewToFront(slowVerticalBar.superview ?? UIView())
-            slowVerticalBar.isHidden = false
-            fastVerticalBar.isHidden = false
+            self.view.bringSubviewToFront(slowFastVerticalBar.superview ?? UIView())
+            slowFastVerticalBar.isHidden = false
             self.panStartPoint = gestureRecognizer.location(in: self.view)
             self.panStartZoom = CGFloat(nextLevel.videoZoomFactor)
         case .changed:
