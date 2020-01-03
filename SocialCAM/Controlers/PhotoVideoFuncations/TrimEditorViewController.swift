@@ -881,6 +881,28 @@ extension TrimEditorViewController {
     
     @IBAction func saveButtonTapped(_ sender: AnyObject) {
         if let doneHandler = self.doneHandler {
+            if self.videoUrls.count == 1 {
+                if let cell: ImageCollectionViewCell = self.storyCollectionView.cellForItem(at: getCurrentIndexPath) as? ImageCollectionViewCell {
+                    guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
+                        return
+                    }
+                    do {
+                        try Utils.time {
+                            guard let asset = currentAsset(index: self.currentPage) else {
+                                return
+                            }
+                            let trimmedAsset = try asset.assetByTrimming(startTime: startTime, endTime: endTime)
+                            
+                            let thumbimage = UIImage.getThumbnailFrom(asset: trimmedAsset) ?? UIImage()
+                            
+                            self.storyEditorMedias[self.currentPage][0] = StoryEditorMedia(type: .video(thumbimage, trimmedAsset))
+                        }
+                    } catch let error {
+                        print("💩 \(error)")
+                    }
+                }
+            }
+            
             var urls: [StoryEditorMedia] = []
             for video in self.storyEditorMedias {
                 urls.append(video.first!)

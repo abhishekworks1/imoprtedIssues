@@ -15,7 +15,33 @@ import AWSS3
 import Alamofire
 
 public struct Utils {
-   
+    static func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
+    }
+    
+    static func downloadImage(from url: URL, completion: @escaping (String?) -> ()) {
+        getData(from: url) { data, response, error in
+            guard let data = data, error == nil else { return }
+            print(response?.suggestedFilename ?? url.lastPathComponent)
+            do {
+                try Folder.home.createSubfolderIfNeeded(withName: Constant.Application.splashImagesFolderName)
+                try Folder.home.subfolder(named: Constant.Application.splashImagesFolderName).createFile(named: url.lastPathComponent).write(data: data)
+            } catch {
+                
+            }
+        }
+    }
+    
+    func removeDownloaded() {
+        do {
+            try Folder.home.subfolder(named: Constant.Application.splashImagesFolderName).files.enumerated().forEach { (index, file) in
+                try file.delete()
+            }
+        } catch {
+            
+        }
+    }
+    
     static var appDelegate: AppDelegate? {
         if let delegate = UIApplication.shared.delegate {
             return delegate as? AppDelegate

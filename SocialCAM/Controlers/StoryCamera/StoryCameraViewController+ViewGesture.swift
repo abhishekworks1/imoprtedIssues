@@ -84,6 +84,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
         case .began:
             recoredButtonCenterPoint = circularProgress.center
             startRecording()
+            onStartRecordSetSpeed()
             isRecording = true
             self.view.bringSubviewToFront(slowFastVerticalBar.superview ?? UIView())
             slowFastVerticalBar.isHidden = false
@@ -232,6 +233,40 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
         }
     }
     
+    func onStartRecordSetSpeed() {
+        switch speedSlider.value {
+        case 0:
+            nextLevel.videoConfiguration.timescale = 4
+            self.speedLabel.text = R.string.localizable.slow4x()
+            self.speedLabel.startBlink()
+        case 1:
+            nextLevel.videoConfiguration.timescale = 3
+            self.speedLabel.text = R.string.localizable.slow3x()
+            self.speedLabel.startBlink()
+        case 2:
+            nextLevel.videoConfiguration.timescale = 2
+            self.speedLabel.text = R.string.localizable.slow2x()
+            self.speedLabel.startBlink()
+        case 4:
+            nextLevel.videoConfiguration.timescale = 1/2
+            self.speedLabel.text = R.string.localizable.fast2x()
+            self.speedLabel.startBlink()
+        case 5:
+            nextLevel.videoConfiguration.timescale = 1/3
+            self.speedLabel.text = R.string.localizable.fast3x()
+            self.speedLabel.startBlink()
+        case 6:
+            nextLevel.videoConfiguration.timescale = 1/4
+            self.speedLabel.text = R.string.localizable.fast4x()
+            self.speedLabel.startBlink()
+        default:
+            nextLevel.videoConfiguration.timescale = 1
+            self.speedLabel.text = ""
+            self.speedLabel.stopBlink()
+        }
+        self.view.bringSubviewToFront(self.speedLabel)
+    }
+    
     func setSpeed(type: VideoSpeedType, value: Int, text: String) {
         self.videoSpeedType = type
         self.speedSliderLabels.value = UInt(value)
@@ -325,6 +360,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
         } else if recordingType == .handsfree || recordingType == .timer {
             if !isRecording {
                 isRecording = true
+                onStartRecordSetSpeed()
                 startRecording()
             } else {
                 self.isStopConnVideo = true

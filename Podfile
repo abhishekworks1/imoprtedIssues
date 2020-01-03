@@ -53,4 +53,5 @@ target 'SocialCAM' do
   pod 'TwitterKit'
   pod 'TikTokOpenSDK', '~> 2.0.0'
   pod 'SwiftLint'
+  pod 'SwiftySound', '1.2'
 end

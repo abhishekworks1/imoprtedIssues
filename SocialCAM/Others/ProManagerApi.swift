@@ -14,6 +14,7 @@ import RxSwift
 import ObjectMapper
 
 public enum ProManagerApi {
+    case getSplashImages
     case logIn(email: String, password: String, deviceToken: String?)
     case uploadYoutubeVideo(token: String, videoURL: URL, snippet: [String:Any], status: String)
     case getYoutubeCategory(token: String)
@@ -37,7 +38,7 @@ public enum ProManagerApi {
         var endpointClosure = MoyaProvider<ProManagerApi>.defaultEndpointMapping(for: self)
         
         switch self {
-        case .logIn,.youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getYoutubeCategory:
+        case .getSplashImages, .logIn,.youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getYoutubeCategory:
             endpointClosure = endpointClosure.adding(newHTTPHeaderFields: APIHeaders().headerWithoutAccessToken)
         case .getWeather:
             break
@@ -60,7 +61,7 @@ public enum ProManagerApi {
 extension ProManagerApi: TargetType {
     public var headers: [String: String]? {
         switch self {
-        case .logIn, .doLogin, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getYoutubeCategory:
+        case .getSplashImages, .logIn, .doLogin, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getYoutubeCategory:
             return APIHeaders().headerWithoutAccessToken
         case .getWeather:
             break
@@ -90,6 +91,8 @@ extension ProManagerApi: TargetType {
     /// The path to be appended to `baseURL` to form the full `URL`.
     public var path: String {
         switch self {
+        case .getSplashImages:
+            return Paths.getSplashImages
         case .logIn:
             return Paths.login
         case .doLogin:
@@ -137,7 +140,7 @@ extension ProManagerApi: TargetType {
         switch self {
         case .logIn:
             return .post
-        case .youTubeKeyWordSerch, .youTubeDetail,.youTubeChannelSearch, .getHashTagSets, .getWeather, .getyoutubeSubscribedChannel, .getYoutubeCategory:
+        case .getSplashImages, .youTubeKeyWordSerch, .youTubeDetail,.youTubeChannelSearch, .getHashTagSets, .getWeather, .getyoutubeSubscribedChannel, .getYoutubeCategory:
             return .get
         case .updateProfile, .editStory:
             return .put
@@ -154,6 +157,8 @@ extension ProManagerApi: TargetType {
     public var parameters: [String: Any]? {
         var param = [String: Any]()
         switch self {
+        case .getSplashImages:
+            break
         case .logIn(let email, let password, let deviceToken):
             param = ["username": email, "password": password, "deviceType": 1]
             if let deviceToken = deviceToken {
@@ -295,8 +300,7 @@ extension ProManagerApi: TargetType {
         switch self {
         case .logIn:
             return JSONEncoding.default
-        case
-        .youTubeDetail, .youTubeKeyWordSerch, .youTubeChannelSearch, .getHashTagSets, .getWeather, .getYoutubeCategory:
+        case .getSplashImages, .youTubeDetail, .youTubeKeyWordSerch, .youTubeChannelSearch, .getHashTagSets, .getWeather, .getYoutubeCategory:
             return URLEncoding.methodDependent
         case .getyoutubeSubscribedChannel:
             return TokenURLEncoding.default

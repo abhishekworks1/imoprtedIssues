@@ -43,22 +43,21 @@ open class TwitterShare: NSObject {
         })
     }
     
-    func uploadImageOnTwitter(withText text: String = Constant.Application.displayName, image: UIImage) {
+    func uploadImageOnTwitter(withText text: String = Constant.Application.displayName, image: UIImage, completion: @escaping (Bool, String?) -> Void) {
         guard let userId = store.session()?.userID else { return }
         let client = TWTRAPIClient.init(userID: userId)
         client.sendTweet(withText: text, image: image) {
             (tweet, error) in
-            if (error != nil) {
-                // Handle error
-                print(error?.localizedDescription as Any)
-                
+            if let error = error {
+                print(error.localizedDescription as Any)
+                completion(false, error.localizedDescription)
             } else {
-                Utils.appDelegate?.window?.makeToast(R.string.localizable.postSuccess())
+                completion(true, tweet?.author.name)
             }
         }
     }
     
-    func uploadVideoOnTwitter(withText text: String = Constant.Application.displayName, videoUrl: URL) {
+    func uploadVideoOnTwitter(withText text: String = Constant.Application.displayName, videoUrl: URL, completion: @escaping (Bool, String?) -> Void) {
         guard let userId = store.session()?.userID else { return }
         let client = TWTRAPIClient.init(userID: userId)
         // Get data from Url
@@ -67,13 +66,12 @@ open class TwitterShare: NSObject {
             return
         }
         client.sendTweet(withText: text, videoData: videoData) {
-            (_, error) in
-            if (error != nil) {
-                // Handle error
-                print(error?.localizedDescription as Any)
-                
+            (tweet, error) in
+            if let error = error {
+                print(error.localizedDescription as Any)
+                completion(false, error.localizedDescription)
             } else {
-                Utils.appDelegate?.window?.makeToast(R.string.localizable.postSuccess())
+                completion(true, tweet?.author.name)
             }
         }
     }

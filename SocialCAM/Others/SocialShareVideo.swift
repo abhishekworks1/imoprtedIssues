@@ -39,7 +39,7 @@ open class SocialShareVideo: NSObject, SharingDelegate {
                 }
             })
         case .twitter:
-            twitterVideoShare(image: image)
+            twitterShareCompose(image: image)
         case .snapchat:
             self.snapChatShareImage(image: image)
         case .tiktok:
@@ -86,7 +86,7 @@ open class SocialShareVideo: NSObject, SharingDelegate {
         case .snapchat:
             snapChatShareVideo(url)
         case .twitter:
-            twitterVideoShare(url, image: nil)
+            twitterShareCompose(url: url)
         case .youtube:
             youTubeUpload(url)
         case .tiktok:
@@ -109,25 +109,17 @@ open class SocialShareVideo: NSObject, SharingDelegate {
         }
     }
     
-    func twitterVideoShare(_ url: URL? = nil, image: UIImage?) {
-        if TwitterShare.shared.isTwitterLogin {
+    func twitterShareCompose(image: UIImage? = nil, url: URL? = nil, text: String = Constant.Application.displayName) {
+    
+        if let twitterComposeViewController = R.storyboard.twitterCompose.twitterComposeViewController() {
+            twitterComposeViewController.presetText = text
             if let image = image {
-                TwitterShare.shared.uploadImageOnTwitter(image: image)
-            } else if let videoUrl = url {
-                TwitterShare.shared.uploadVideoOnTwitter(videoUrl: videoUrl)
+                twitterComposeViewController.preselectedImage = image
+            } else if let url = url {
+                twitterComposeViewController.preselectedVideoUrl = url
             }
-        } else {
-            TwitterShare.shared.login { (isLogin, _) in
-                if isLogin {
-                    if let image = image {
-                        TwitterShare.shared.uploadImageOnTwitter(image: image)
-                    } else if let videoUrl = url {
-                        TwitterShare.shared.uploadVideoOnTwitter(videoUrl: videoUrl)
-                    }
-                } else {
-                    Utils.appDelegate?.window?.makeToast(R.string.localizable.pleaseFirstLoginOnTwitter())
-                }
-            }
+           let navController = UINavigationController(rootViewController: twitterComposeViewController)
+            Utils.appDelegate?.window?.visibleViewController()!.present(navController, animated: true, completion: nil)
         }
     }
     
