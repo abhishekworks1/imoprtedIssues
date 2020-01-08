@@ -70,6 +70,89 @@ extension CMSampleBuffer {
         }
     }
     
+    /// Create silent audio buffer
+    ///
+    /// - Parameter presentationTimeStamp: time at buffer present
+    /// - Parameter nFrames: number of frames of buffer
+    /// - Parameter sampleRate: sample rate of buffer
+    /// - Parameter numChannels: number of channels of buffer
+    /// - Returns: silent CMSampleBuffer
+    class func silentAudioBuffer(at presentationTimeStamp: CMTime, nFrames: Int, sampleRate: Float64, numChannels: UInt32) -> CMSampleBuffer? {
+        let bytesPerFrame = UInt32(2 * numChannels)
+        let blockSize = nFrames*Int(bytesPerFrame)
+        
+        var block: CMBlockBuffer?
+        var status = CMBlockBufferCreateWithMemoryBlock(
+            allocator: kCFAllocatorDefault,
+            memoryBlock: nil,
+            blockLength: blockSize,  // blockLength
+            blockAllocator: nil,        // blockAllocator
+            customBlockSource: nil,        // customBlockSource
+            offsetToData: 0,          // offsetToData
+            dataLength: blockSize,  // dataLength
+            flags: 0,          // flags
+            blockBufferOut: &block
+        )
+        assert(status == kCMBlockBufferNoErr)
+        
+        // we seem to get zeros from the above, but I can't find it documented. so... memset:
+        status = CMBlockBufferFillDataBytes(with: 0, blockBuffer: block!, offsetIntoDestination: 0, dataLength: blockSize)
+        assert(status == kCMBlockBufferNoErr)
+        
+        var asbd = AudioStreamBasicDescription(
+            mSampleRate: sampleRate,
+            mFormatID: kAudioFormatLinearPCM,
+            mFormatFlags: kLinearPCMFormatFlagIsSignedInteger,
+            mBytesPerPacket: bytesPerFrame,
+            mFramesPerPacket: 1,
+            mBytesPerFrame: bytesPerFrame,
+            mChannelsPerFrame: numChannels,
+            mBitsPerChannel: 16,
+            mReserved: 0
+        )
+        
+        var formatDesc: CMAudioFormatDescription?
+        status = CMAudioFormatDescriptionCreate(allocator: kCFAllocatorDefault, asbd: &asbd, layoutSize: 0, layout: nil, magicCookieSize: 0, magicCookie: nil, extensions: nil, formatDescriptionOut: &formatDesc)
+        assert(status == noErr)
+        
+        var sampleBuffer: CMSampleBuffer?
+        
+        // born ready
+        status = CMAudioSampleBufferCreateReadyWithPacketDescriptions(
+            allocator: kCFAllocatorDefault,
+            dataBuffer: block!,      // dataBuffer
+            formatDescription: formatDesc!,
+            sampleCount: nFrames,    // numSamples
+            presentationTimeStamp: presentationTimeStamp,    // sbufPTS
+            packetDescriptions: nil,        // packetDescriptions
+            sampleBufferOut: &sampleBuffer
+        )
+        assert(status == noErr)
+        
+        return sampleBuffer
+    }
+    
+    /// set new presentationTimeStamp
+    ///
+    /// - Parameter newTime: new time of buffer
+    /// - Returns: new CMSampleBuffer
+    func setPresentationTimeStamp(_ newTime: CMTime) -> CMSampleBuffer? {
+        var count: CMItemCount = 0
+        CMSampleBufferGetSampleTimingInfoArray(self, entryCount: 0, arrayToFill: nil, entriesNeededOut: &count);
+        var info = [CMSampleTimingInfo](repeating: CMSampleTimingInfo(duration: CMTimeMake(value: 0, timescale: 0), presentationTimeStamp: CMTimeMake(value: 0, timescale: 0), decodeTimeStamp: CMTimeMake(value: 0, timescale: 0)), count: count)
+        CMSampleBufferGetSampleTimingInfoArray(self, entryCount: count, arrayToFill: &info, entriesNeededOut: &count);
+        
+        for i in 0..<count {
+            info[i].decodeTimeStamp = newTime
+            info[i].presentationTimeStamp = newTime
+        }
+        
+        var out: CMSampleBuffer?
+        CMSampleBufferCreateCopyWithNewTiming(allocator: nil, sampleBuffer: self, sampleTimingEntryCount: count, sampleTimingArray: &info, sampleBufferOut: &out);
+        return out
+    }
+    
+    
 }
 
 private let NextLevelMetadataTitle = "NextLevel"

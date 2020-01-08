@@ -110,6 +110,11 @@ class StoryEditorViewController: UIViewController {
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var undoButton: UIButton!
 
+    @IBOutlet weak var specificBoomerangView: UIView! {
+        didSet {
+            self.specificBoomerangView.isHidden = true
+        }
+    }
     @IBOutlet weak var soundOptionView: UIView! {
         didSet {
             self.soundOptionView.isHidden = true
@@ -295,6 +300,7 @@ class StoryEditorViewController: UIViewController {
         self.trimOptionView.isHidden = isImage
        
         self.timeSpeedOptionView.isHidden = Defaults.shared.isPro ? isImage : true
+        self.specificBoomerangView.isHidden = isImage
         
         self.slideShowCollectionView.isHidden = !isSlideShow
         self.addMusicOptionView.isHidden = !isSlideShow
@@ -517,6 +523,17 @@ extension StoryEditorViewController {
             
         })
         storyEditors[currentStoryIndex].applyFilter()
+    }
+    
+    @IBAction func specificBoomerangClicked(_ sender: UIButton) {
+        guard case let StoryEditorType.video(_, avAsset) = self.storyEditors[self.currentStoryIndex].type,
+        let specificBoomerangViewController = R.storyboard.storyEditor.specificBoomerangViewController() else {
+            return
+        }
+        storyEditors[currentStoryIndex].pause()
+        specificBoomerangViewController.currentAsset = avAsset
+        specificBoomerangViewController.delegate = self
+        self.navigationController?.pushViewController(specificBoomerangViewController, animated: true)
     }
     
     @IBAction func undoDrawClicked(_ sender: Any) {
@@ -917,6 +934,15 @@ extension StoryEditorViewController: ImageCropperDelegate {
     
 }
 
+extension StoryEditorViewController: SpecificBoomerangDelegate {
+    
+    func didBoomerang(_ url: URL) {
+        if case let StoryEditorType.video(image, _) = storyEditors[self.currentStoryIndex].type {
+            storyEditors[currentStoryIndex].replaceMedia(.video(image, AVAsset(url: url)))
+        }
+    }
+    
+}
 // Video Social Share
 extension StoryEditorViewController {
     
