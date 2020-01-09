@@ -441,7 +441,6 @@ extension StoryEditorView {
         panGesture.cancelsTouchesInView = false
         storySwipeableFilterView.addGestureRecognizer(panGesture)
         
-        
         let pinchGesture = UIPinchGestureRecognizer(target: self,
                                                     action: #selector(handleMediaPinchGesture(_:)))
         pinchGesture.delegate = self
@@ -528,7 +527,8 @@ extension StoryEditorView {
             imageView.center = center
             self.addSubview(imageView)
             addStickerGestures(imageView)
-            break
+        case .camera:
+            addCameraView()
         case .emoji:
             let emojiLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 90, height: 90))
             emojiLabel.textAlignment = .center
@@ -537,10 +537,28 @@ extension StoryEditorView {
             emojiLabel.center = center
             self.addSubview(emojiLabel)
             addStickerGestures(emojiLabel)
-            break
         default:
             break
         }
+    }
+    
+    func addCameraView() {
+        let cameraView = CameraView.instanceFromNib()
+        self.addSubview(cameraView)
+        cameraView.translatesAutoresizingMaskIntoConstraints = false
+        // apply constraint
+        cameraView.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: 0).isActive = true
+        cameraView.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 0).isActive = true
+        cameraView.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        cameraView.widthAnchor.constraint(equalToConstant: 150).isActive = true
+        // set text
+        cameraView.setup()
+        cameraView.translatesAutoresizingMaskIntoConstraints = true
+        cameraView.cameraClick = { image in
+            
+        }
+        self.addStickerGestures(cameraView)
+        cameraView.center = self.center
     }
     
     func addStickerGestures(_ view: UIView) {

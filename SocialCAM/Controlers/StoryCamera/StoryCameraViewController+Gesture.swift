@@ -80,10 +80,8 @@ extension StoryCameraViewController {
             view.transform = view.transform.rotated(by: recognizer.rotation)
             recognizer.rotation = 0
         }
-    }
-    
+    }    
 }
-
 
 // MARK: - State
 

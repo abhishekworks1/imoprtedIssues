@@ -695,17 +695,21 @@ extension StoryCameraViewController {
     }
     
     func setupImageLoadFromGallary() {
-        ImagesLibrary.shared.getLatestPhotos(completion: { [weak self] (phAsset) in
-            guard let `self` = self else { return }
-            if let asset = phAsset {
-                self.setLastImageFromGallery(asset: asset)
-            }
-        })
-        
-        ImagesLibrary.shared.lastImageDidUpdateInGalleryBlock = { [weak self] (phAsset) in
-            guard let `self` = self else { return }
-            if let asset = phAsset {
-                self.setLastImageFromGallery(asset: asset)
+        PhotoLibraryPermission().request { (isAuthorized) in
+            if isAuthorized {
+                ImagesLibrary.shared.getLatestPhotos(completion: { [weak self] (phAsset) in
+                    guard let `self` = self else { return }
+                    if let asset = phAsset {
+                        self.setLastImageFromGallery(asset: asset)
+                    }
+                })
+                
+                ImagesLibrary.shared.lastImageDidUpdateInGalleryBlock = { [weak self] (phAsset) in
+                    guard let `self` = self else { return }
+                    if let asset = phAsset {
+                        self.setLastImageFromGallery(asset: asset)
+                    }
+                }
             }
         }
     }
@@ -765,37 +769,7 @@ extension StoryCameraViewController {
         guard nextLevel.isRecording else {
             return
         }
-        switch speedSlider.value {
-        case 0:
-            nextLevel.videoConfiguration.timescale = 4
-            self.speedLabel.text = R.string.localizable.slow4x()
-            self.speedLabel.startBlink()
-        case 1:
-            nextLevel.videoConfiguration.timescale = 3
-            self.speedLabel.text = R.string.localizable.slow3x()
-            self.speedLabel.startBlink()
-        case 2:
-            nextLevel.videoConfiguration.timescale = 2
-            self.speedLabel.text = R.string.localizable.slow2x()
-            self.speedLabel.startBlink()
-        case 4:
-            nextLevel.videoConfiguration.timescale = 1/2
-            self.speedLabel.text = R.string.localizable.fast2x()
-            self.speedLabel.startBlink()
-        case 5:
-            nextLevel.videoConfiguration.timescale = 1/3
-            self.speedLabel.text = R.string.localizable.fast3x()
-            self.speedLabel.startBlink()
-        case 6:
-            nextLevel.videoConfiguration.timescale = 1/4
-            self.speedLabel.text = R.string.localizable.fast4x()
-            self.speedLabel.startBlink()
-        default:
-            nextLevel.videoConfiguration.timescale = 1
-            self.speedLabel.text = ""
-            self.speedLabel.stopBlink()
-        }
-        self.view.bringSubviewToFront(self.speedLabel)
+        onStartRecordSetSpeed()
     }
     
     func showCollectionView(_ mode: CollectionMode = .effect) {

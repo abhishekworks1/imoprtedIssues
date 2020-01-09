@@ -152,6 +152,7 @@ struct TrimError: Error {
 }
 
 public struct Paths {
+    static let getSplashImages = "getSplashImages"
     static let login = "auth/signin"
     static let verifyChannel = "auth/verifyField"
     static let signUp = "auth/signupEmail"
@@ -331,6 +332,7 @@ public struct Constant {
         static let simformIdentifier: String = "com.simform.spinachecafe"
         static let imageIdentifier: String = "www.google.com"
         static let proModeCode: String = "socialcam2020"
+        static let splashImagesFolderName: String = "SplashImages"
     }
     
     struct PayPalMobile {

@@ -33,6 +33,25 @@ public func == (lhs: ImageAsset, rhs: ImageAsset) -> Bool {
     return lhs.asset == rhs.asset
 }
 
+struct PhotoLibraryPermission {
+    var isAuthorized: Bool {
+        return PHPhotoLibrary.authorizationStatus() == PHAuthorizationStatus.authorized
+    }
+    
+    var isDenied: Bool {
+        return PHPhotoLibrary.authorizationStatus() == PHAuthorizationStatus.denied
+    }
+    
+    func request(_ completion: @escaping (Bool) -> Void) {
+        PHPhotoLibrary.requestAuthorization({
+            _ in
+            DispatchQueue.main.async {
+                completion(self.isAuthorized)
+            }
+        })
+    }
+}
+
 /// Wrap a PHAsset
 public class ImageAsset: Equatable {
    

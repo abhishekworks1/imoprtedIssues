@@ -135,15 +135,19 @@ class YouTubeUploadViewController: UIViewController {
         if let privacy = selectedPrivacy {
             status = privacy
         }
-        self.showHUD()
+        let loadingView = LoadingView.instanceFromNib()
+        loadingView.loadingViewShow = true
+        loadingView.shouldCancelShow = true
+        loadingView.show(on: self.view)
+        
         self.isUploading = true
         ProManagerApi.uploadYoutubeVideo(token: token, videoURL: videoUrl!, snippet: snippet, status: status).request().subscribe(onNext: { (_) in
             self.isUploading = false
-            self.dismissHUD()
+            loadingView.hide()
             self.navigationController?.popViewController(animated: true)
         }, onError: { (error) in
             self.isUploading = false
-            self.dismissHUD()
+            loadingView.hide()
             self.showAlert(alertMessage: error.localizedDescription)
         }).disposed(by: disposeBag ?? rx.disposeBag)
     }

@@ -46,6 +46,7 @@ class StickerViewController: UIViewController {
 
     private var stickers: [StorySticker] {
         var stickers: [StorySticker] = []
+        stickers.insert(StorySticker(image: R.image.ico_cameraButton_tag(), type: .camera), at: 0)
         for index in 0...31 {
             if let image = UIImage(named: "storySticker_\(index)") {
                 let sticker = StorySticker(image: image,

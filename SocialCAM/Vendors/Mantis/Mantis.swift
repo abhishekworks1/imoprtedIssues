@@ -25,7 +25,7 @@
 import UIKit
     
 private(set) var mantisBundle: Bundle? = {
-    return MantisConfig.bundle
+    return Bundle.main
 }()
 
 public func cropViewController(image: UIImage, config: MantisConfig = MantisConfig()) -> CropViewController {
