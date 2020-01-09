@@ -530,6 +530,11 @@ extension StoryEditorViewController {
         let specificBoomerangViewController = R.storyboard.storyEditor.specificBoomerangViewController() else {
             return
         }
+        
+        guard avAsset.duration.seconds > 3.0 else {
+            self.showAlert(alertMessage: R.string.localizable.minimumThreeSecondsVideoRequiredToSpecificBoomerang())
+            return
+        }
         storyEditors[currentStoryIndex].pause()
         specificBoomerangViewController.currentAsset = avAsset
         specificBoomerangViewController.delegate = self
