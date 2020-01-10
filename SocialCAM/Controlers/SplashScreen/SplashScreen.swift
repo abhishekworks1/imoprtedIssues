@@ -46,7 +46,7 @@ class SplashScreen: UIViewController {
             arrImage.append(R.image.launchScreen())
         }
         backgroundImageView.image = arrImage.randomElement() as? UIImage
-        DispatchQueue.runAfterDelay(delayMSec: 5) {
+        DispatchQueue.runAfterDelay(delaySec: 5) {
             if let storyCameraViewController = R.storyboard.storyCameraViewController.storyCameraNavigation() {
                 Utils.appDelegate?.window?.rootViewController = storyCameraViewController
             }

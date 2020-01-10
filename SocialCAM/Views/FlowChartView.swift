@@ -133,6 +133,11 @@ protocol FlowChartViewDelegate: class {
     func shouldAddPoint() -> Bool
     func didAddPoint()
     func longPressOnPoint(view: FlowDotView)
+    func didExceedMaximumNumberOfSpeedPoint()
+}
+
+extension FlowChartViewDelegate {
+    func didExceedMaximumNumberOfSpeedPoint() { }
 }
 
 class FlowChartView: UIView {
@@ -413,6 +418,7 @@ extension FlowChartView {
     @objc fileprivate func handleLongPressGesture(_ gesture: UILongPressGestureRecognizer) {
         guard let shouldAddPoint = delegate?.shouldAddPoint(),
             shouldAddPoint else {
+                delegate?.didExceedMaximumNumberOfSpeedPoint()
                 return
         }
         if gesture.state == .began {
