@@ -21,7 +21,7 @@ internal class LoadingContainerView: UIView {
     internal var loadingView: LoadingView!
     
     deinit {
-        print("deinit LoadingContainerView")
+        print("Deinit \(self.description)")
     }
     
     internal init(loadingView: LoadingView) {
@@ -62,7 +62,7 @@ internal class LoadingContainerView: UIView {
 public class LoadingView: UIView {
     
     class func instanceFromNib() -> LoadingView {
-        return UINib(nibName: "LoadingView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as? LoadingView ?? LoadingView.init(frame: CGRect.init(x: 0, y: 0, width: 100, height: 100))
+        return R.nib.loadingView.firstView(owner: nil) ?? LoadingView(frame: CGRect.init(x: 0, y: 0, width: 100, height: 100))
     }
     
     @IBInspectable public var speedFactor: CGFloat = 1.0
@@ -122,7 +122,7 @@ public class LoadingView: UIView {
     @IBOutlet weak var loadingView: FSLoading!
     
     deinit {
-        print("deinit LoadingView")
+        print("Deinit \(self.description)")
     }
     
     public override init(frame: CGRect) {

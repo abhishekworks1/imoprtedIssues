@@ -175,7 +175,7 @@ public class CropViewController: UIViewController {
     private var isFlipped = false
 
     deinit {
-        print("CropViewController deinit.")
+        print("Deinit \(self.description)")
     }
     
     init(image: UIImage, config: MantisConfig = MantisConfig(), mode: CropViewControllerMode = .normal) {

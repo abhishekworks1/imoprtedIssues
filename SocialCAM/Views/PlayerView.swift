@@ -216,6 +216,7 @@ open class PlayerView: UIView {
     }
     
     deinit {
+        print("Deinit \(self.description)")
         self.removeAllObserver()
     }
     

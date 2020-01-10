@@ -438,6 +438,7 @@ class ImagesLibrary: NSObject, PHPhotoLibraryChangeObserver {
     }
     
     deinit {
+        print("Deinit \(self.description)")
         PHPhotoLibrary.shared().unregisterChangeObserver(self)
     }
     

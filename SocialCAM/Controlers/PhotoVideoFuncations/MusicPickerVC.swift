@@ -57,6 +57,10 @@ class MusicPickerVC: UIViewController {
     var musicOptionsImages = [#imageLiteral(resourceName: "storySound"),
                               #imageLiteral(resourceName: "storySound"),
                               #imageLiteral(resourceName: "storySound")]
+   
+    deinit {
+        print("Deinit \(self.description)")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

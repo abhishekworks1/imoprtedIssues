@@ -188,6 +188,10 @@ class StyleTransferVC: UIViewController {
     
     var coreMLExporter = CoreMLExporter()
     
+    deinit {
+        print("Deinit \(self.description)")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         for index in 1...43 {
@@ -200,7 +204,7 @@ class StyleTransferVC: UIViewController {
             btnAddImage.isHidden = true
         }
     }
-    
+        
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         if !self.videoView.isHidden {

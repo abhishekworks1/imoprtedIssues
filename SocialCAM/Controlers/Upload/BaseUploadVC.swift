@@ -17,7 +17,7 @@ class BaseUploadVC: MXSegmentedPagerController {
     var firstModalUploadCompletedSize: Double = 0.0
    
     deinit {
-        print("deinit BaseUploadVC")
+        print("Deinit \(self.description)")
     }
     
     override func viewDidLoad() {

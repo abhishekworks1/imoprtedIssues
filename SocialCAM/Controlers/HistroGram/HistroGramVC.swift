@@ -183,7 +183,7 @@ class HistroGramVC: UIViewController {
     }
     
     deinit {
-        print("HistroGramVC Deinit")
+        print("Deinit \(self.description)")
         stopPlaybackTimeChecker()
         player?.pause()
         playerLayer?.removeFromSuperlayer()

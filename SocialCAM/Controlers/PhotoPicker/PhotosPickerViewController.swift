@@ -260,8 +260,7 @@ open class PhotosPickerViewController: UIViewController {
     fileprivate var cameraImage: UIImage?
     
     deinit {
-        print("deinit PhotosPickerViewController")
-        
+        print("Deinit \(self.description)")
     }
     
     required public init?(coder aDecoder: NSCoder) {

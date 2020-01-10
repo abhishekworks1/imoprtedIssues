@@ -109,7 +109,7 @@ class SpecificBoomerangViewController: UIViewController {
     }
     
     deinit {
-        print("HistroGramVC Deinit")
+        print("Deinit \(self.description)")
         stopObservePlayerTime()
         player?.pause()
         playerLayer?.removeFromSuperlayer()

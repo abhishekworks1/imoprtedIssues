@@ -22,6 +22,7 @@ import AppCenterCrashes
 import GoogleSignIn
 import TwitterKit
 import TikTokOpenPlatformSDK
+import SCSDKLoginKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -153,6 +154,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if TWTRTwitter.sharedInstance().application(app, open: url, options: options) {
             return true
         } else if TiktokOpenPlatformApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: nil, annotation: [:]) {
+            return true
+        } else if SCSDKLoginClient.application(app, open: url, options: options) {
             return true
         }
         return false

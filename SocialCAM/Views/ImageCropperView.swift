@@ -158,7 +158,7 @@ class ImageCropperVC: UIViewController {
     }
     
     deinit {
-        print("deinit ImageCropperVC")
+        print("Deinit \(self.description)")
     }
     
     @IBAction func backButtonClicked(_ sender: Any) {

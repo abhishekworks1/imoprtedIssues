@@ -69,6 +69,10 @@ open class CropViewController: UIViewController {
         rotationEnabled = true
     }
     
+    deinit {
+        print("Deinit \(self.description)")
+    }
+    
     open override func loadView() {
         let contentView = UIView()
         contentView.autoresizingMask = .flexibleWidth

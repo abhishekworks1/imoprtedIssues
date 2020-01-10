@@ -154,7 +154,7 @@ open class PickerView: UIView {
     open lazy var selectionTitle: UILabel = {
         let screenRect = self.bounds
         let titleLabel = UILabel(frame: CGRect(x: screenRect.width/2 + 20,
-                                               y: (screenRect.height/2)-(134/2),
+                                               y: (screenRect.height/2)-(50),
                                                width: screenRect.width/2-20,
                                                height: 134))
         titleLabel.textAlignment = .left
@@ -248,7 +248,7 @@ open class PickerView: UIView {
         addSubview(selectionTitle)
         self.layoutIfNeeded()
         selectionTitle.frame = CGRect(x: self.bounds.width/2 + 20,
-                                      y: (self.bounds.height/2)-(70),
+                                      y: (self.bounds.height/2)-(50),
                                       width: self.bounds.width/2-20,
                                       height: 94)
     }

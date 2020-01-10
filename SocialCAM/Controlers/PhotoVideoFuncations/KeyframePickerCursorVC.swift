@@ -72,6 +72,10 @@ open class KeyframePickerCursorVC: UIViewController {
     }
     
     // MARK: - Life Cycle
+    deinit {
+        print("Deinit \(self.description)")
+    }
+    
     override open func viewDidLoad() {
         super.viewDidLoad()
         

@@ -16,7 +16,7 @@ class SplashScreen: UIViewController {
     var arrImage: [UIImage?] = []
    
     deinit {
-        print("SplashScreen Deinit")
+        print("Deinit \(self.description)")
     }
     
     override func viewDidLoad() {

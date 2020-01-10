@@ -68,6 +68,10 @@ class StickersViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     var storiCamType: StoriCamType = .story
     
+    deinit {
+        print("Deinit \(self.description)")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         stickers.insert(StorySticker(image: R.image.ico_cameraButton_tag(), type: .camera), at: 0)
