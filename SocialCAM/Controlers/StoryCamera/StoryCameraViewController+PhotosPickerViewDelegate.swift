@@ -76,7 +76,7 @@ extension StoryCameraViewController: PhotosPickerViewControllerDelegate {
                             self.takenVideoUrls.append(contentsOf: imageVideoSegments)
                             self.stopMotionCollectionView.reloadData()
                         } else {
-                            self.openStoryEditor(segementedVideos: imageVideoSegments)
+                            self.openStoryEditor(segementedVideos: imageVideoSegments, photosSelection: true)
                         }
                     }
                 }

@@ -195,6 +195,8 @@ class StoryEditorViewController: UIViewController {
     private var slideShowAudioURL: URL?
     
     public var isSlideShow: Bool = false
+    
+    public var isBoomerang: Bool = false
 
     private var colorSlider: ColorSlider!
     
@@ -326,7 +328,7 @@ class StoryEditorViewController: UIViewController {
         self.trimOptionView.isHidden = isImage
        
         self.timeSpeedOptionView.isHidden = Defaults.shared.isPro ? isImage : true
-        self.specificBoomerangView.isHidden = isImage
+        self.specificBoomerangView.isHidden = isBoomerang ? true : isImage
         
         self.slideShowCollectionView.isHidden = !isSlideShow
         self.addMusicOptionView.isHidden = !isSlideShow
