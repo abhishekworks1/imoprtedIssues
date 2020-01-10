@@ -934,6 +934,23 @@
                                                             <constraint firstAttribute="height" constant="70" id="P5J-4D-szF"/>
                                                         </constraints>
                                                     </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ORR-5K-f3q">
+                                                        <rect key="frame" x="152.66666666666666" y="82.666666666666629" width="70" height="20"/>
+                                                        <subviews>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icoUpWhite" translatesAutoresizingMaskIntoConstraints="NO" id="Qf7-aH-P2F">
+                                                                <rect key="frame" x="0.0" y="0.0" width="70" height="20"/>
+                                                            </imageView>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstItem="Qf7-aH-P2F" firstAttribute="leading" secondItem="ORR-5K-f3q" secondAttribute="leading" id="2uk-5v-wmY"/>
+                                                            <constraint firstAttribute="width" constant="70" id="7Q5-Td-u47"/>
+                                                            <constraint firstAttribute="trailing" secondItem="Qf7-aH-P2F" secondAttribute="trailing" id="7tV-CV-VNB"/>
+                                                            <constraint firstAttribute="height" constant="20" id="Nub-eM-RgU"/>
+                                                            <constraint firstItem="Qf7-aH-P2F" firstAttribute="top" secondItem="ORR-5K-f3q" secondAttribute="top" id="RTZ-cK-wyn"/>
+                                                            <constraint firstAttribute="bottom" secondItem="Qf7-aH-P2F" secondAttribute="bottom" id="u0n-iK-wuy"/>
+                                                        </constraints>
+                                                    </view>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="RgQ-nL-Vqq">
                                                         <rect key="frame" x="242.66666666666663" y="19.666666666666629" width="132.33333333333337" height="56"/>
                                                         <subviews>
@@ -1016,11 +1033,14 @@
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
+                                                    <constraint firstItem="ORR-5K-f3q" firstAttribute="leading" secondItem="sXN-Gy-lVv" secondAttribute="leading" id="I2r-sC-d0u"/>
                                                     <constraint firstItem="sXN-Gy-lVv" firstAttribute="leading" secondItem="Jw3-EJ-0d8" secondAttribute="trailing" constant="20" id="Qzh-Xy-FPH"/>
                                                     <constraint firstItem="sXN-Gy-lVv" firstAttribute="centerY" secondItem="DHl-MY-q5r" secondAttribute="centerY" id="Wkk-HI-Hzx"/>
                                                     <constraint firstItem="sXN-Gy-lVv" firstAttribute="centerX" secondItem="DHl-MY-q5r" secondAttribute="centerX" id="bi0-YY-PKW"/>
                                                     <constraint firstItem="Jw3-EJ-0d8" firstAttribute="centerY" secondItem="sXN-Gy-lVv" secondAttribute="centerY" id="e7m-21-Yaw"/>
                                                     <constraint firstItem="RgQ-nL-Vqq" firstAttribute="leading" secondItem="sXN-Gy-lVv" secondAttribute="trailing" constant="20" id="eoa-SY-mWU"/>
+                                                    <constraint firstItem="ORR-5K-f3q" firstAttribute="top" secondItem="sXN-Gy-lVv" secondAttribute="bottom" id="gWo-gf-iKL"/>
+                                                    <constraint firstItem="ORR-5K-f3q" firstAttribute="trailing" secondItem="sXN-Gy-lVv" secondAttribute="trailing" id="kVu-lA-Ywh"/>
                                                     <constraint firstItem="Jw3-EJ-0d8" firstAttribute="leading" secondItem="DHl-MY-q5r" secondAttribute="leading" constant="8" id="mhn-VW-uIx"/>
                                                     <constraint firstItem="RgQ-nL-Vqq" firstAttribute="centerY" secondItem="sXN-Gy-lVv" secondAttribute="centerY" id="mij-yD-ZK4"/>
                                                     <constraint firstAttribute="trailing" secondItem="RgQ-nL-Vqq" secondAttribute="trailing" id="phg-dt-d1W"/>
@@ -1581,6 +1601,8 @@ Countdown</string>
                         <outlet property="blurView" destination="kKV-Df-MAW" id="Kov-cN-JBS"/>
                         <outlet property="bottomCameraViews" destination="xSc-Ve-S1r" id="0yV-aa-IDV"/>
                         <outlet property="btnShowHide" destination="0m8-ct-tbU" id="ZVU-ru-q8J"/>
+                        <outlet property="cameraModeIndicatorImageView" destination="Qf7-aH-P2F" id="9rM-HQ-VT1"/>
+                        <outlet property="cameraModeIndicatorView" destination="ORR-5K-f3q" id="0Le-rK-bGt"/>
                         <outlet property="cameraSliderView" destination="jpr-Aq-u3h" id="dn5-3o-Kdm"/>
                         <outlet property="circularProgress" destination="sXN-Gy-lVv" id="9RT-0b-oYP"/>
                         <outlet property="closeButton" destination="odQ-Fo-NjO" id="DqW-4L-uAb"/>
@@ -1647,7 +1669,7 @@ Countdown</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QXJ-Jf-rgZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-412" y="154"/>
+            <point key="canvasLocation" x="-412" y="153.69458128078819"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="eSv-Uz-8Kq">
@@ -2558,6 +2580,7 @@ Countdown</string>
         <image name="icoDone" width="13" height="20"/>
         <image name="icoPauseCountdown" width="24" height="24"/>
         <image name="icoSegmentLength" width="35" height="21"/>
+        <image name="icoUpWhite" width="128" height="128"/>
         <image name="icon_fps" width="33" height="33"/>
         <image name="openFilter" width="32" height="32"/>
         <image name="outtakes" width="27" height="32"/>

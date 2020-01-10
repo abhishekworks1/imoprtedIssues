@@ -958,7 +958,7 @@
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="KeyframePickerCollectionViewCell" id="G9K-8n-WUC" customClass="KeyframePickerCollectionViewCell" customModule="SocialCAM" customModuleProvider="target">
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="KeyframePickerCollectionViewCell" id="G9K-8n-WUC" customClass="KeyframePickerCollectionViewCell" customModule="SocialCam" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="-1.6666666666666667" width="95" height="42"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -1262,7 +1262,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yt0-6A-GFU">
-                                <rect key="frame" x="187" y="428" width="40" height="40"/>
+                                <rect key="frame" x="10" y="655" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="DrZ-Sf-Gtp"/>
                                     <constraint firstAttribute="width" constant="40" id="uJd-tg-tud"/>
@@ -1506,6 +1506,7 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="yt0-6A-GFU" firstAttribute="leading" secondItem="Lgu-rn-Fgm" secondAttribute="leading" constant="10" id="0fw-td-lLL"/>
                             <constraint firstItem="6AU-2O-HNh" firstAttribute="top" secondItem="gph-8j-lAt" secondAttribute="bottom" constant="10" id="1qM-vG-FRN"/>
                             <constraint firstItem="LJg-Fc-gtB" firstAttribute="top" secondItem="bbz-cN-sqx" secondAttribute="bottom" id="3Ru-Hj-rcU"/>
                             <constraint firstItem="IC4-qA-25p" firstAttribute="trailing" secondItem="DnE-hD-fmN" secondAttribute="trailing" id="6sj-F8-cq4"/>
@@ -1516,8 +1517,6 @@
                             <constraint firstItem="U8O-6K-azW" firstAttribute="top" secondItem="Zv7-Iw-Ljf" secondAttribute="bottom" priority="250" id="Cze-9j-yPz"/>
                             <constraint firstItem="gph-8j-lAt" firstAttribute="top" secondItem="DnE-hD-fmN" secondAttribute="top" id="E5h-ZZ-TOm"/>
                             <constraint firstItem="6AU-2O-HNh" firstAttribute="trailing" secondItem="DnE-hD-fmN" secondAttribute="trailing" id="GfH-38-RvN"/>
-                            <constraint firstItem="yt0-6A-GFU" firstAttribute="centerX" secondItem="huD-At-JGe" secondAttribute="centerX" id="Gyd-Tc-RQI"/>
-                            <constraint firstItem="yt0-6A-GFU" firstAttribute="centerY" secondItem="huD-At-JGe" secondAttribute="centerY" id="Ktj-8q-Ddp"/>
                             <constraint firstAttribute="bottom" secondItem="LJg-Fc-gtB" secondAttribute="bottom" id="MGp-V5-Ddk"/>
                             <constraint firstItem="kDB-nP-EV7" firstAttribute="top" secondItem="gph-8j-lAt" secondAttribute="top" id="Men-DR-JXF"/>
                             <constraint firstItem="Ki8-gW-roJ" firstAttribute="centerX" secondItem="huD-At-JGe" secondAttribute="centerX" id="Mkb-dM-D21"/>
@@ -1539,6 +1538,7 @@
                             <constraint firstItem="gph-8j-lAt" firstAttribute="leading" secondItem="kDB-nP-EV7" secondAttribute="trailing" id="dG9-nU-OAg"/>
                             <constraint firstAttribute="trailing" secondItem="bbz-cN-sqx" secondAttribute="trailing" id="dRg-RU-M63"/>
                             <constraint firstItem="Lgu-rn-Fgm" firstAttribute="trailing" secondItem="6YW-e7-QvR" secondAttribute="trailing" id="esw-Wc-GOE"/>
+                            <constraint firstItem="6YW-e7-QvR" firstAttribute="top" secondItem="yt0-6A-GFU" secondAttribute="bottom" constant="77" id="fED-DW-VdU"/>
                             <constraint firstItem="Zv7-Iw-Ljf" firstAttribute="leading" secondItem="huD-At-JGe" secondAttribute="leading" id="gEx-Qo-eWN"/>
                             <constraint firstItem="iLz-yd-XL6" firstAttribute="centerX" secondItem="gph-8j-lAt" secondAttribute="centerX" id="gta-ex-gXd"/>
                             <constraint firstItem="DnE-hD-fmN" firstAttribute="bottom" secondItem="6YW-e7-QvR" secondAttribute="bottom" id="hTl-X7-pFZ"/>
@@ -1589,6 +1589,7 @@
                         <outlet property="nativePlayerPlayPauseButton" destination="2cr-jQ-HmA" id="a4h-aJ-1fi"/>
                         <outlet property="nativePlayercollectionView" destination="I16-L3-RIn" id="mb1-Ev-OYo"/>
                         <outlet property="pic2ArtOptionView" destination="ZKi-QO-rN0" id="NgT-KP-6zY"/>
+                        <outlet property="playButtonBottomLayoutConstraint" destination="fED-DW-VdU" id="lbe-o3-oaQ"/>
                         <outlet property="playPauseButton" destination="yt0-6A-GFU" id="IwB-9c-Wj2"/>
                         <outlet property="shareCollectionView" destination="vzy-zQ-m6y" id="RfP-kd-90O"/>
                         <outlet property="shareCollectionViewHeight" destination="A5v-hf-nQF" id="D9Z-cB-h1Q"/>
@@ -1968,7 +1969,7 @@
         <!--Bitmoji Sticker Picker View Controller-->
         <scene sceneID="5vs-0D-Wzk">
             <objects>
-                <viewController storyboardIdentifier="BitmojiStickerPickerViewController" id="ghq-Mq-6FG" customClass="BitmojiStickerPickerViewController" customModule="SocialCAM" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BitmojiStickerPickerViewController" id="ghq-Mq-6FG" customClass="BitmojiStickerPickerViewController" customModule="SocialCam" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ary-FI-csa">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2035,7 +2036,7 @@
         <!--Keyframe Picker CursorVC-->
         <scene sceneID="CDE-Tq-tsH">
             <objects>
-                <viewController storyboardIdentifier="KeyframePickerCursorVC" id="nIE-hd-eAS" customClass="KeyframePickerCursorVC" customModule="SocialCAM" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="KeyframePickerCursorVC" id="nIE-hd-eAS" customClass="KeyframePickerCursorVC" customModule="SocialCam" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Vb9-Bz-FVT"/>
                         <viewControllerLayoutGuide type="bottom" id="lVA-f8-t4N"/>
@@ -2064,7 +2065,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5cT-Qn-Znm" userLabel="Time Container View">
-                                <rect key="frame" x="40.666666666666657" y="0.0" width="38.999999999999993" height="15"/>
+                                <rect key="frame" x="40.666666666666664" y="0.0" width="38.999999999999993" height="15"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JeW-uf-xF7" userLabel="Time Label">
                                         <rect key="frame" x="7" y="0.0" width="25" height="15"/>

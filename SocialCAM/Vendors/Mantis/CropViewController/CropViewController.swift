@@ -182,8 +182,8 @@ public class CropViewController: UIViewController {
         self.image = image
         self.config = config
         self.mode = mode
-        
         super.init(nibName: nil, bundle: nil)
+        self.sliderContainer.isHidden = true
     }
     
     init(avAsset: AVAsset, config: MantisConfig = MantisConfig(), mode: CropViewControllerMode = .normal) {

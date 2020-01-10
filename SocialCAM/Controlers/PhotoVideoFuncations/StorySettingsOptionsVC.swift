@@ -15,18 +15,13 @@ class StorySettingsOptionsVC: UIViewController {
     
     var firstPercentage: Double = 0.0
     var firstUploadCompletedSize: Double = 0.0
+
+    var settingsOptions = [R.string.localizable.prO(), R.string.localizable.logout()]
     
-    var settingsOptions = [R.string.localizable.prO()]
-    
-    var settingsOptionsImages = [#imageLiteral(resourceName: "ico-story recover")]
+    var settingsOptionsImages = [R.image.icoStoryRecover(), R.image.icoStoryRecover()]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if TwitterShare.shared.isTwitterLogin {
-            settingsOptions.append(R.string.localizable.logout())
-            settingsOptionsImages.append(#imageLiteral(resourceName: "ico-story recover"))
-        }
         
     }
     
@@ -62,18 +57,8 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
-            if let storySettingsVC = R.storyboard.storyCameraViewController.storySettingsVC() {
-                navigationController?.pushViewController(storySettingsVC, animated: true)
-            }
-        case 1:
-            if let baseUploadVC = R.storyboard.storyCameraViewController.baseUploadVC() {
-                baseUploadVC.firstModalPersiontage = firstPercentage
-                baseUploadVC.firstModalUploadCompletedSize = firstUploadCompletedSize
-                navigationController?.pushViewController(baseUploadVC, animated: true)
-            }
-        case 2:
             self.isProEnable()
-        case 3:
+        case 1:
             self.logoutUser()
         default:
             break
@@ -90,11 +75,26 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
         let actionSave = UIAlertAction(title: R.string.localizable.oK(), style: .default) { ( _: UIAlertAction) in
             if Defaults.shared.isPro {
                 Defaults.shared.isPro = !Defaults.shared.isPro
+                UIApplication.shared.setAlternateIconName("Icon-1") { error in
+                    if let error = error {
+                        print(error.localizedDescription)
+                    } else {
+                        print("Success!")
+                    }
+                }
                 self.navigationController?.popViewController(animated: true)
                 return
             }
-            if let textField = objAlert.textFields?[0], textField.text!.count > 0, textField.text?.lowercased() == Constant.Application.proModeCode {
+            if let textField = objAlert.textFields?[0],
+                textField.text!.count > 0, textField.text?.lowercased() == Constant.Application.proModeCode {
                 Defaults.shared.isPro = !Defaults.shared.isPro
+                UIApplication.shared.setAlternateIconName("Icon-2") { error in
+                    if let error = error {
+                        print(error.localizedDescription)
+                    } else {
+                        print("Success!")
+                    }
+                }
                 self.navigationController?.popViewController(animated: true)
                 return
             }

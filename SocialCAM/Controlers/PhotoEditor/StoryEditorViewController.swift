@@ -103,6 +103,8 @@ class StoryEditorViewController: UIViewController {
             self.tableView.tableFooterView = UIView()
         }
     }
+    @IBOutlet weak var playButtonBottomLayoutConstraint: NSLayoutConstraint!
+    
     @IBOutlet weak var shareCollectionView: UICollectionView!
     
     @IBOutlet weak var editToolBarView: UIView!
@@ -329,6 +331,7 @@ class StoryEditorViewController: UIViewController {
         self.slideShowCollectionView.isHidden = !isSlideShow
         self.addMusicOptionView.isHidden = !isSlideShow
         self.collectionView.isHidden = !(storyEditors.count > 1)
+        self.playButtonBottomLayoutConstraint.constant = (storyEditors.count > 1) ? 77 : 10
         self.backgroundCollectionView.isHidden = self.collectionView.isHidden
         
         self.youtubeShareView.isHidden = isImage
