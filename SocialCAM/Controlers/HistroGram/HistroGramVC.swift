@@ -521,6 +521,10 @@ extension HistroGramVC {
 
 extension HistroGramVC: FlowChartViewDelegate {
     
+    func didExceedMaximumNumberOfSpeedPoint() {
+        self.showAlert(alertMessage: R.string.localizable.speedPointsLimitExceeded())
+    }
+    
     func longPressOnPoint(view: FlowDotView) {
         player?.pause()
         stopPlaybackTimeChecker()

@@ -19,8 +19,8 @@ extension NSObject {
         return type(of: self).className
     }
     
-    public static func runAfterDelay(delayMSec: Int, closure:@escaping () -> Void) {
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(delayMSec), execute: closure)
+    public static func runAfterDelay(delaySec: Int, closure:@escaping () -> Void) {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(delaySec), execute: closure)
     }
     
     public static func runOnMainThread(closure: @escaping () -> Void) {

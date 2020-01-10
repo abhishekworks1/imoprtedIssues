@@ -2794,9 +2794,9 @@
                         <viewLayoutGuide key="safeArea" id="O0V-DG-Jz2"/>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="dq7-3d-yW8"/>
                                 <exclude reference="f57-Ps-T8Q"/>
                                 <exclude reference="BhR-mE-dNB"/>
-                                <exclude reference="dq7-3d-yW8"/>
                             </mask>
                         </variation>
                     </view>
@@ -3831,7 +3831,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select a Hashtag" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EKL-q4-VQW">
-                                        <rect key="frame" x="113.66666666666667" y="11.666666666666664" width="147.66666666666663" height="21"/>
+                                        <rect key="frame" x="118.66666666666667" y="11.666666666666664" width="137.66666666666663" height="21"/>
                                         <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -3864,7 +3864,7 @@
                                 <rect key="frame" x="8" y="96" width="359" height="672"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Visible Hashtags " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wLB-LG-USH">
-                                        <rect key="frame" x="20" y="20" width="148.33333333333334" height="20"/>
+                                        <rect key="frame" x="20" y="20" width="130.66666666666666" height="20"/>
                                         <fontDescription key="fontDescription" name="SFUIText-Bold" family="SF UI Text" pointSize="17"/>
                                         <color key="textColor" red="0.17254901960784313" green="0.19607843137254902" blue="0.24705882352941178" alpha="0.90000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -3945,7 +3945,7 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hidden Hashtags " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eer-CM-VHL">
-                                        <rect key="frame" x="20" y="200.66666666666669" width="151.66666666666666" height="20"/>
+                                        <rect key="frame" x="20" y="200.66666666666669" width="136.66666666666666" height="20"/>
                                         <fontDescription key="fontDescription" name="SFUIText-Bold" family="SF UI Text" pointSize="17"/>
                                         <color key="textColor" red="0.17254901959999999" green="0.1960784314" blue="0.2470588235" alpha="0.90000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -4530,10 +4530,10 @@
                                                 <rect key="frame" x="0.0" y="300" width="375" height="40"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xv7-01-fnR">
-                                                        <rect key="frame" x="108" y="2.6666666666666288" width="159" height="35"/>
+                                                        <rect key="frame" x="132" y="2.6666666666666288" width="111" height="35"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="0Er-xr-yi4">
-                                                                <rect key="frame" x="15" y="0.0" width="129" height="35"/>
+                                                                <rect key="frame" x="15" y="0.0" width="81" height="35"/>
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DE5-dc-Dno">
                                                                         <rect key="frame" x="0.0" y="6.3333333333333712" width="33" height="22"/>
@@ -4558,7 +4558,7 @@
                                                                         </connections>
                                                                     </button>
                                                                     <button opaque="NO" alpha="0.5" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yM9-6K-Dc7">
-                                                                        <rect key="frame" x="96" y="1" width="33" height="33"/>
+                                                                        <rect key="frame" x="100" y="0.0" width="35" height="35"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="yM9-6K-Dc7" secondAttribute="height" id="VPG-iq-Ydy"/>
                                                                         </constraints>
@@ -4572,6 +4572,11 @@
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="35" id="KX7-gn-b7z"/>
                                                                 </constraints>
+                                                                <variation key="default">
+                                                                    <mask key="subviews">
+                                                                        <exclude reference="yM9-6K-Dc7"/>
+                                                                    </mask>
+                                                                </variation>
                                                             </stackView>
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

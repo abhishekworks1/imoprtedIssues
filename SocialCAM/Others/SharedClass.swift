@@ -125,7 +125,7 @@ public struct Messages {
     static let kEmptyAlbumName = "Please enter gallery name."
     static let kundefineError = "Something went wrong! Please try again later"
     static let kSelectFrnd = "Please select atleast one friend."
-    static let kNotLoginMsg = "User is not login. Please login to SocialCAM and try again later."
+    static let kNotLoginMsg = "User is not login. Please login to SocialCam and try again later."
 }
 
 public struct FetchDataBefore {
@@ -327,7 +327,7 @@ public struct Constant {
     }
     
     struct Application {
-        static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "SocialCAM"
+        static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "SocialCam"
         static let groupIdentifier: String = "group.com.simform.spinachecafe"
         static let simformIdentifier: String = "com.simform.spinachecafe"
         static let imageIdentifier: String = "www.google.com"
