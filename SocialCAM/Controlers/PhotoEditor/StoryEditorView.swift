@@ -105,6 +105,16 @@ class StoryEditorView: UIView {
         }
     }
     
+    public var seekTime: CMTime = .zero {
+        didSet {
+            self.storyPlayer?.seek(to: seekTime)
+        }
+    }
+    
+    public var currentTime: CMTime {
+        return self.storyPlayer?.currentTime() ?? .zero
+    }
+    
     override var frame: CGRect {
         didSet {
             self.mediaGestureView.frame = self.mediaRect()
@@ -141,7 +151,7 @@ class StoryEditorView: UIView {
     }
     
     deinit {
-        print("deinit StoryEditorView")
+        print("Deinit \(self.description)")
         self.storyPlayer?.unsetupDisplayLink()
     }
     

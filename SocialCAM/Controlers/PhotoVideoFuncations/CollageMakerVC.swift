@@ -89,7 +89,7 @@ class CollageMakerVC: UIViewController, UIGestureRecognizerDelegate {
     var collageRatio: CGFloat = 1.0
     
     deinit {
-        print("CollageMakerVC deinit")
+        print("Deinit \(self.description)")
     }
     
     override func viewDidLoad() {

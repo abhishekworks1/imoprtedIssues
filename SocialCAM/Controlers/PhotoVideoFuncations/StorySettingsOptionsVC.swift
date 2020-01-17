@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GoogleSignIn
 
 class StorySettingsOptionsVC: UIViewController {
     
@@ -15,21 +16,22 @@ class StorySettingsOptionsVC: UIViewController {
     var firstPercentage: Double = 0.0
     var firstUploadCompletedSize: Double = 0.0
     
-    var settingsOptions = [R.string.localizable.privacySettings(),
-                           R.string.localizable.controlCenter(),
-                           R.string.localizable.prO()]
+    var settingsOptions = [R.string.localizable.prO()]
     
-    var settingsOptionsImages = [#imageLiteral(resourceName: "ico-privacy-s"),
-                                 #imageLiteral(resourceName: "ico-control center"),
-                                 #imageLiteral(resourceName: "ico-story recover")]
+    var settingsOptionsImages = [#imageLiteral(resourceName: "ico-story recover")]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if TwitterShare.shared.isTwitterLogin {
+            settingsOptions.append(R.string.localizable.logout())
+            settingsOptionsImages.append(#imageLiteral(resourceName: "ico-story recover"))
+        }
+        
     }
     
     deinit {
-        print("deinit StorySettingsOptionsVC")
+        print("Deinit \(self.description)")
     }
 
     @IBAction func onBack(_ sender: Any) {
@@ -107,11 +109,8 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
     func logoutUser() {
         let objAlert = UIAlertController(title: Constant.Application.displayName, message: R.string.localizable.areYouSureYouWantToLogout(), preferredStyle: .alert)
         let actionlogOut = UIAlertAction(title: R.string.localizable.logout(), style: .default) { (_: UIAlertAction) in
-            StoryDataManager.shared.deleteAllRecords()
-            
-            SelectedTimer.removeAll()
-            self.logoutApi(token: "")
-            Defaults.shared.clearData()
+            TwitterShare.shared.logout()
+            GIDSignIn.sharedInstance()?.disconnect()
         }
         let cancelAction = UIAlertAction(title: R.string.localizable.cancel(), style: .default) { (_: UIAlertAction) in }
         objAlert.addAction(actionlogOut)

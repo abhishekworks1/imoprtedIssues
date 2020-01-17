@@ -70,6 +70,10 @@ class CollageCell: UIView {
         
         return view
     }()
+  
+    deinit {
+        print("Deinit \(self.description)")
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

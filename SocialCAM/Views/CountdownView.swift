@@ -35,7 +35,7 @@ class CountdownView: UIView {
 
     deinit {
         timer = nil
-        print("deinit CountdownView")
+        print("Deinit \(self.description)")
     }
     
     required init?(coder aDecoder: NSCoder) {

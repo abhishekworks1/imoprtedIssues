@@ -46,6 +46,7 @@ class MLVideoView: UIView {
     }
     
     deinit {
+        print("Deinit \(self.description)")
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
     }
     

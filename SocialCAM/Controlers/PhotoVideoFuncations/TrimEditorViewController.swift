@@ -153,7 +153,7 @@ class TrimEditorViewController: UIViewController {
         playerLayer = nil
         NotificationCenter.default.removeObserver(self)
         undoMgr.removeAll()
-        print("TrimEditiorVC Deinit")
+        print("Deinit \(self.description)")
     }
     
     public override func viewWillAppear(_ animated: Bool) {

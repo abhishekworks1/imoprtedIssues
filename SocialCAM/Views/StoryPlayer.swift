@@ -218,6 +218,7 @@ class StoryPlayer: AVPlayer {
     }
     
     deinit {
+        print("Deinit \(self.description)")
         endSendingPlayMessages()
         unsetupDisplayLink()
         unsetupVideoOutput(to: currentItem)

@@ -97,7 +97,7 @@ open class AllPhotosCollectionViewCell: UICollectionViewCell {
     }
 
     deinit {
-        print("deinit AllPhotosCollectionViewCell")
+        print("Deinit \(self.description)")
     }
 
     override open func awakeFromNib() {

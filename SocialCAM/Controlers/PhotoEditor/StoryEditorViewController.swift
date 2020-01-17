@@ -146,6 +146,7 @@ class StoryEditorViewController: UIViewController {
     
     @IBOutlet weak var backgroundCollectionView: UIView!
     @IBOutlet weak var collectionView: DragAndDropCollectionView!
+    @IBOutlet weak var nativePlayercollectionView: UICollectionView!
     @IBOutlet weak var slideShowCollectionView: DragAndDropCollectionView!
     @IBOutlet weak var mediaImageView: UIImageView!
     @IBOutlet weak var doneButton: UIButton!
@@ -155,6 +156,26 @@ class StoryEditorViewController: UIViewController {
     @IBOutlet weak var tiktokShareView: UIView!
     @IBOutlet weak var btnShowHideEditImage: UIButton!
     @IBOutlet weak var playPauseButton: UIButton!
+    @IBOutlet weak var nativePlayerPlayPauseButton: UIButton!
+    @IBOutlet weak var bottomContainerView: UIView! {
+        didSet {
+            bottomContainerView.isHidden = true
+        }
+    }
+    @IBOutlet weak var cursorContainerViewCenterConstraint: NSLayoutConstraint!
+    weak var cursorContainerViewController: KeyframePickerCursorVC!
+    var playbackTimeCheckerTimer: Timer?
+    var displayKeyframeImages: [KeyframeImage] = []
+    public var currentVideoAsset: AVAsset? {
+        var avAsset: AVAsset?
+        switch storyEditors[currentStoryIndex].type {
+        case .image:
+            break
+        case let .video(_, asset):
+            avAsset = asset
+        }
+        return avAsset
+    }
     
     public var medias = [StoryEditorMedia]()
     public var selectedSlideShowMedias = [StoryEditorMedia]()
@@ -194,12 +215,9 @@ class StoryEditorViewController: UIViewController {
             }
             
             btnShowHideEditImage.isSelected = isViewEditMode
-            
-            switch storyEditors[currentStoryIndex].type {
-            case .image:
-                break
-            case .video:
+            if currentVideoAsset != nil {
                 playPauseButton.isHidden = isViewEditMode
+                bottomContainerView.isHidden = !bottomContainerView.isHidden
             }
         }
     }
@@ -229,7 +247,7 @@ class StoryEditorViewController: UIViewController {
     }
     
     deinit {
-        print("deinit \(self.description)")
+        print("Deinit \(self.description)")
     }
     
     override func viewDidLayoutSubviews() {
@@ -263,6 +281,12 @@ class StoryEditorViewController: UIViewController {
             storyEditors.append(storyEditorView)
         }
         collectionView.reloadData()
+        
+        if currentVideoAsset != nil {
+            self.loadData()
+            self.configUI()
+        }
+        
         hideOptionIfNeeded()
     }
     
@@ -322,7 +346,6 @@ class StoryEditorViewController: UIViewController {
         doneButton.isHidden = !hide
         colorSlider.isHidden = !hide
     }
-    
 }
 
 extension StoryEditorViewController: StickerDelegate {
@@ -417,14 +440,7 @@ extension StoryEditorViewController {
     }
 
     @IBAction func timeSpeedClicked(_ sender: UIButton) {
-        var avAsset: AVAsset?
-        switch storyEditors[currentStoryIndex].type {
-        case .image:
-            break
-        case let .video(_, asset):
-            avAsset = asset
-        }
-        guard let currentAsset = avAsset, currentAsset.duration.seconds > 2.0 else {
+        guard let currentAsset = currentVideoAsset, currentAsset.duration.seconds > 2.0 else {
             self.showAlert(alertMessage: R.string.localizable.minimumTwoSecondsVideoRequiredToChangeSpeed())
            
             return
@@ -439,6 +455,7 @@ extension StoryEditorViewController {
             }
             if case let StoryEditorType.video(image, _) = self.storyEditors[self.currentStoryIndex].type {
                 self.storyEditors[self.currentStoryIndex].replaceMedia(.video(image, AVAsset(url: url)))
+                self.nativeVideoPlayerRefresh()
             }
         }
         self.navigationController?.pushViewController(histroGramVC, animated: true)
@@ -664,11 +681,15 @@ extension StoryEditorViewController {
     func playVideo() {
         storyEditors[currentStoryIndex].play()
         playPauseButton.isSelected = false
+        nativePlayerPlayPauseButton.isSelected = playPauseButton.isSelected
+        startPlaybackTimeChecker()
     }
     
     func pauseVideo() {
         storyEditors[currentStoryIndex].pause()
         playPauseButton.isSelected = true
+        nativePlayerPlayPauseButton.isSelected = playPauseButton.isSelected
+        stopPlaybackTimeChecker()
     }
     
     @IBAction func continueClicked(_ sender: UIButton) {
@@ -712,6 +733,8 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
             return 0
         } else if collectionView == slideShowCollectionView {
             return selectedSlideShowMedias.count
+        } else if collectionView == self.nativePlayercollectionView {
+            return displayKeyframeImages.count
         }
         return storyEditors.count
     }
@@ -745,6 +768,14 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
             cell.storyImageView.layer.borderWidth = storyEditor.isHidden ? 0 : 3
             cell.checkMarkView.isHidden = storyEditor.isHidden
             return cell
+        } else if collectionView == self.nativePlayercollectionView {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.keyframePickerCollectionViewCell, for: indexPath) else {
+                return UICollectionViewCell()
+            }
+            if !displayKeyframeImages.isEmpty {
+                cell.keyframeImage = displayKeyframeImages[indexPath.row]
+            }
+            return cell
         } else {
             guard let storyEditorCell = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.storyEditorCell.identifier, for: indexPath) as? StoryEditorCell else {
                 fatalError("Cell with identifier \(R.reuseIdentifier.storyEditorCell.identifier) not Found")
@@ -763,7 +794,7 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard collectionView != slideShowCollectionView else {
+        guard collectionView != slideShowCollectionView && collectionView != nativePlayercollectionView else {
             return
         }
         for editor in storyEditors {
@@ -773,6 +804,8 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
         currentStoryIndex = indexPath.item
         hideOptionIfNeeded()
         _ = storyEditors[currentStoryIndex].updatedThumbnailImage()
+        nativeVideoPlayerRefresh()
+        playVideo()
         self.collectionView.reloadData()
         self.shareCollectionView.reloadData()
         self.tableView.reloadData()
@@ -782,6 +815,8 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
         if collectionView == shareCollectionView {
             return CGSize(width: 85.0,
                           height: 116.0)
+        } else if collectionView == nativePlayercollectionView {
+            return CGSize(width: 67, height: collectionView.frame.size.height)
         }
         return CGSize(width: collectionView.frame.height/2.3,
                       height: collectionView.frame.height)
@@ -899,11 +934,110 @@ extension StoryEditorViewController: UITableViewDelegate {
     }
 }
 
+extension StoryEditorViewController {
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView == nativePlayercollectionView {
+            guard let asset = currentVideoAsset else {
+                return
+            }
+            let videoTrackLength = 67 * displayKeyframeImages.count
+            var position = scrollView.contentOffset.x + UIScreen.main.bounds.size.width / 2
+            if position < 0 {
+                cursorContainerViewCenterConstraint.constant = -position
+            } else if position > CGFloat(videoTrackLength) {
+                cursorContainerViewCenterConstraint.constant = CGFloat(videoTrackLength) - position
+            }
+            position = max(position, 0)
+            position = min(position, CGFloat(videoTrackLength))
+            
+            let percent = position / CGFloat(videoTrackLength)
+            var currentSecond = asset.duration.seconds * Double(percent)
+            currentSecond = max(currentSecond, 0)
+            currentSecond = min(currentSecond, asset.duration.seconds)
+     
+            if !currentSecond.isNaN {
+                cursorContainerViewController.seconds = currentSecond
+                let currentTime = CMTimeMakeWithSeconds(currentSecond, preferredTimescale: asset.duration.timescale)
+                if currentTime.seconds >= 0 && !currentSecond.isNaN {
+                    if !storyEditors[currentStoryIndex].isPlaying {
+                        storyEditors[currentStoryIndex].seekTime = currentTime
+                    }
+                }
+            }
+        }
+    }
+    
+    @objc func onPlaybackTimeChecker() {
+        guard let asset = currentVideoAsset,
+            !storyEditors[currentStoryIndex].currentTime.seconds.isNaN,
+            !asset.duration.seconds.isNaN,
+            asset.duration.seconds != 0 else {
+                return
+        }
+        self.videoPlayerPlayback(to: storyEditors[currentStoryIndex].currentTime, asset: asset)
+    }
+    
+    func videoPlayerPlayback(to time: CMTime, asset: AVAsset) {
+        let percent = time.seconds / asset.duration.seconds
+        let videoTrackLength = 67 * displayKeyframeImages.count
+        let position = CGFloat(videoTrackLength) * CGFloat(percent) - UIScreen.main.bounds.size.width / 2
+        nativePlayercollectionView.contentOffset = CGPoint(x: position, y: nativePlayercollectionView.contentOffset.y)
+        cursorContainerViewController.seconds = time.seconds
+    }
+    
+    func startPlaybackTimeChecker() {
+        stopPlaybackTimeChecker()
+        playbackTimeCheckerTimer = Timer.scheduledTimer(timeInterval: 0.001, target: self,
+                                                        selector:
+            #selector(self.onPlaybackTimeChecker), userInfo: nil, repeats: true)
+    }
+    
+    func stopPlaybackTimeChecker() {
+        playbackTimeCheckerTimer?.invalidate()
+        playbackTimeCheckerTimer = nil
+    }
+    
+    func loadData() {
+        if let asset = currentVideoAsset {
+            let imageGenerator = KeyframeImageGenerator()
+            imageGenerator.generateDefaultSequenceOfImages(from: asset) { [weak self] in
+                guard let `self` = self else {
+                    return
+                }
+                self.displayKeyframeImages.removeAll()
+                self.displayKeyframeImages.append(contentsOf: $0)
+                self.nativePlayercollectionView.reloadData()
+            }
+        }
+    }
+    
+    func configUI() {
+        nativePlayercollectionView.alwaysBounceHorizontal = true
+        nativePlayercollectionView.contentInset = UIEdgeInsets(top: 0, left: UIScreen.main.bounds.size.width / 2, bottom: 0, right: UIScreen.main.bounds.size.width / 2)
+        cursorContainerViewController.seconds = 0
+    }
+    
+    func nativeVideoPlayerRefresh() {
+        if self.currentVideoAsset != nil {
+            self.loadData()
+            self.configUI()
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == String(describing: KeyframePickerCursorVC.self) {
+            self.cursorContainerViewController = segue.destination as? KeyframePickerCursorVC
+        }
+    }
+       
+}
+
 extension StoryEditorViewController: CropViewControllerDelegate {
     
     func cropViewControllerDidCrop(_ cropViewController: CropViewController, croppedURL: URL) {
         if case let StoryEditorType.video(image, _) = storyEditors[self.currentStoryIndex].type {
             storyEditors[currentStoryIndex].replaceMedia(.video(image, AVAsset(url: croppedURL)))
+            nativeVideoPlayerRefresh()
         }
     }
     
@@ -944,6 +1078,7 @@ extension StoryEditorViewController: SpecificBoomerangDelegate {
     func didBoomerang(_ url: URL) {
         if case let StoryEditorType.video(image, _) = storyEditors[self.currentStoryIndex].type {
             storyEditors[currentStoryIndex].replaceMedia(.video(image, AVAsset(url: url)))
+            nativeVideoPlayerRefresh()
         }
     }
     

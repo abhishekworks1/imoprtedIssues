@@ -59,7 +59,7 @@ public class CameraView: UIView, AVCapturePhotoCaptureDelegate {
     var isRoundView = false
    
     deinit {
-        print("deinit CameraView")
+        print("Deinit \(self.description)")
     }
     
     public override init(frame: CGRect) {

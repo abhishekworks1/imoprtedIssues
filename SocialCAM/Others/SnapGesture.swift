@@ -23,6 +23,7 @@ class SnapGesture: NSObject, UIGestureRecognizerDelegate {
         self.weakTransformView = transformView
     }
     deinit {
+        print("Deinit \(self.description)")
         self.cleanGesture()
     }
     

@@ -85,7 +85,7 @@ class StoryUploadVC: UIViewController {
     }
     
     deinit {
-        print("StroyUploadVC deinit")
+        print("Deinit \(self.description)")
     }
     
     // MARK: IBActions

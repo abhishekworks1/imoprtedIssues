@@ -66,7 +66,7 @@ class CropView: UIView {
     private var cropFrameKVO: NSKeyValueObservation?
     
     deinit {
-        print("CropView deinit.")
+        print("Deinit \(self.description)")
     }
     
     init(image: UIImage, viewModel: CropViewModel = CropViewModel()) {

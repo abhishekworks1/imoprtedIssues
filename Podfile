@@ -46,7 +46,7 @@ target 'SocialCAM' do
   pod 'GooglePlaces'
   pod 'GooglePlacePicker'
   pod 'FBSDKShareKit/Swift'
-  pod 'SnapSDK', :subspecs => ['SCSDKCreativeKit']
+  pod 'SnapSDK', :subspecs => ['SCSDKCreativeKit', 'SCSDKLoginKit', 'SCSDKBitmojiKit']
   pod 'AppCenter'
   pod 'GoogleSignIn', '4.4.0'
   pod 'TagListView', '1.3.2'

@@ -482,7 +482,7 @@ class PhotoEditorViewController: UIViewController {
         self.loadingView = nil
         self.undoMgr.removeAll()
         self.scPlayer?.unsetupDisplayLink()
-        print("PhotoEditiorViewController Deinit")
+        print("Deinit \(self.description)")
     }
     
     func initLocation() {

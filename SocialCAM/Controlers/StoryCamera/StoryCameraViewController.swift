@@ -489,7 +489,7 @@ class StoryCameraViewController: UIViewController {
     
     deinit {
         NotificationCenter.default.removeObserver(self)
-        print("deinit StoryCameraViewController")
+        print("Deinit \(self.description)")
     }
 }
 
@@ -1128,30 +1128,27 @@ extension StoryCameraViewController {
             loadingView.shouldCancelShow = true
             loadingView.show(on: self.view)
             
-            DispatchQueue.global().async {
-                let factory = VideoFactory(type: .boom, video: VideoOrigin(mediaType: nil, mediaUrl: url, referenceURL: nil))
-                factory.assetTOcvimgbuffer({ [weak self] (urls) in
-                    guard let `self` = self else { return }
-                    DispatchQueue.main.async {
-                        loadingView.hide()
-                    }
-                    self.newVideoCreate(url: url, newUrl: urls)
-                    DispatchQueue.main.async {
-                        self.takenVideoUrls.append(SegmentVideos(urlStr: url, thumbimage: thumbimage, numberOfSegement: "\(self.takenVideoUrls.count + 1)"))
-                        self.setupForPreviewScreen()
-                        
-                    }
-                    }, { (progress) in
-                        DispatchQueue.main.async {
-                            loadingView.progressView.setProgress(to: Double(Float(Float(progress.completedUnitCount) / Float(progress.totalUnitCount))), withAnimation: true)
-                        }
-                }, failure: { (_) in
-                    DispatchQueue.main.async {
-                        loadingView.hide()
-                        UIApplication.shared.endIgnoringInteractionEvents()
-                    }
-                })
-            }
+            let factory = VideoFactory(type: .boom, video: VideoOrigin(mediaType: nil, mediaUrl: url, referenceURL: nil))
+            factory.assetTOcvimgbuffer({ [weak self] (urls) in
+                guard let `self` = self else { return }
+                DispatchQueue.main.async {
+                    loadingView.hide()
+                }
+                self.newVideoCreate(url: url, newUrl: urls)
+                DispatchQueue.main.async {
+                    self.takenVideoUrls.append(SegmentVideos(urlStr: url, thumbimage: thumbimage, numberOfSegement: "\(self.takenVideoUrls.count + 1)"))
+                    self.setupForPreviewScreen()
+                }
+            }, { (progress) in
+                DispatchQueue.main.async {
+                    loadingView.progressView.setProgress(to: Double(Float(Float(progress.completedUnitCount) / Float(progress.totalUnitCount))), withAnimation: true)
+                }
+            }, failure: { (_) in
+                DispatchQueue.main.async {
+                    loadingView.hide()
+                    UIApplication.shared.endIgnoringInteractionEvents()
+                }
+            })
         } else {
             DispatchQueue.main.async {
                 self.takenVideoUrls.append(SegmentVideos(urlStr: url, thumbimage: thumbimage, numberOfSegement: "\(self.takenVideoUrls.count + 1)"))

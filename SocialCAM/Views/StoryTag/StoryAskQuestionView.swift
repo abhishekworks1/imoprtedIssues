@@ -208,6 +208,7 @@ class StoryAskQuestionView: BaseQuestionTagView {
     }
     
     deinit {
+        print("Deinit \(self.description)")
         NotificationCenter.default.removeObserver(self)
     }
     

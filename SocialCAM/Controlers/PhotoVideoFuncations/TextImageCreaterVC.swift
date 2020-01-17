@@ -60,6 +60,10 @@ class TextImageCreaterVC: UIViewController, UITextViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    deinit {
+        print("Deinit \(self.description)")
+    }
+    
     // MARK: IBActions
     
     /**
