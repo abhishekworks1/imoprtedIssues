@@ -77,8 +77,7 @@ open class TwitterShare: NSObject {
     }
     
     func logout() {
-        for case let session as TWTRSession in store.existingUserSessions() {
-            store.logOutUserID(session.userID)
-        }
+        guard let userId = store.session()?.userID else { return }
+        store.logOutUserID(userId)
     }
 }
