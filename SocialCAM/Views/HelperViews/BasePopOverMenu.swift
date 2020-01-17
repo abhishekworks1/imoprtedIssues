@@ -53,6 +53,7 @@ public class BasePopConfiguration: NSObject {
     public var menuSeparatorColor: UIColor = ApplicationSettings.appLightGrayColor
     public var menuSeparatorInset: UIEdgeInsets = UIEdgeInsets(top: 0, left: defaultCellMargin, bottom: 0, right: defaultCellMargin)
     public var cellSelectionStyle: UITableViewCell.SelectionStyle = .none
+    public var joinText: String = "FPS"
     
     public static var shared: BasePopConfiguration {
         struct StaticConfig {
@@ -605,6 +606,6 @@ class BasePopOverMenuCell: UITableViewCell {
         nameLabel.font = configuration.textFont
         nameLabel.textColor = configuration.textColor
         nameLabel.textAlignment = configuration.textAlignment
-        nameLabel.text = configuration.showCheckMark == .none ? menuName : "\(menuName) FPS"
+        nameLabel.text = configuration.showCheckMark == .none ? menuName : "\(menuName) \(BasePopConfiguration.shared.joinText)"
     }
 }

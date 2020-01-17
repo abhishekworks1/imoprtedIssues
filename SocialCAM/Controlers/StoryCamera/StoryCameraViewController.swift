@@ -1324,7 +1324,7 @@ extension StoryCameraViewController {
         }
     }
     
-    func openStoryEditor(segementedVideos: [SegmentVideos], isSlideShow: Bool = false) {
+    func openStoryEditor(segementedVideos: [SegmentVideos], isSlideShow: Bool = false, photosSelection: Bool = false) {
         guard let storyEditorViewController = R.storyboard.storyEditor.storyEditorViewController() else {
             fatalError("PhotoEditorViewController Not Found")
         }
@@ -1336,6 +1336,7 @@ extension StoryCameraViewController {
                 medias.append(StoryEditorMedia(type: .video(segmentedVideo.image!, AVAsset(url: segmentedVideo.url!))))
             }
         }
+        storyEditorViewController.isBoomerang = photosSelection ? false : (self.recordingType == .boomerang)
         storyEditorViewController.medias = medias
         storyEditorViewController.isSlideShow = isSlideShow
         self.navigationController?.pushViewController(storyEditorViewController, animated: false)
@@ -1350,6 +1351,7 @@ extension StoryCameraViewController {
         for image in images {
             medias.append(StoryEditorMedia(type: .image(image)))
         }
+        storyEditorViewController.isBoomerang = (self.recordingType == .boomerang)
         storyEditorViewController.medias = medias
         self.navigationController?.pushViewController(storyEditorViewController, animated: false)
         self.removeData()

@@ -1917,6 +1917,32 @@
                                     <action selector="onChangeMode:" destination="mcN-sd-jUR" eventType="touchUpInside" id="C1F-CE-2hm"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wfw-TO-bE2">
+                                <rect key="frame" x="237" y="44" width="50" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="GsR-hs-13O"/>
+                                    <constraint firstAttribute="height" constant="44" id="dbS-Hu-3on"/>
+                                </constraints>
+                                <state key="normal" image="boomrangSecondSelection">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="onChangeBoomerangSeconds:" destination="mcN-sd-jUR" eventType="touchUpInside" id="7GO-Ua-lyD"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QaX-xq-9Sh">
+                                <rect key="frame" x="127" y="44" width="50" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="KVg-l8-YaR"/>
+                                    <constraint firstAttribute="width" constant="50" id="cob-5r-uTA"/>
+                                </constraints>
+                                <state key="normal" image="boomrangTimeSelection">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="onChangeBoomerangLoop:" destination="mcN-sd-jUR" eventType="touchUpInside" id="Rqn-bh-Vgn"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="alA-Go-fhV">
                                 <rect key="frame" x="0.0" y="44" width="44" height="44"/>
                                 <constraints>
@@ -1935,18 +1961,22 @@
                             <constraint firstItem="qOi-0a-JHl" firstAttribute="top" secondItem="Yi8-cQ-0S0" secondAttribute="bottom" id="0GC-rq-B9b"/>
                             <constraint firstItem="alA-Go-fhV" firstAttribute="leading" secondItem="0J1-RW-jwi" secondAttribute="leading" id="5IV-HS-2aB"/>
                             <constraint firstItem="9fC-hj-83k" firstAttribute="leading" secondItem="0J1-RW-jwi" secondAttribute="leading" id="7g5-VT-CNC"/>
+                            <constraint firstItem="QaX-xq-9Sh" firstAttribute="top" secondItem="Xfw-SJ-pOV" secondAttribute="top" id="AZe-ng-NbR"/>
                             <constraint firstItem="0J1-RW-jwi" firstAttribute="trailing" secondItem="Yi8-cQ-0S0" secondAttribute="trailing" constant="10" id="EwL-fu-1Yi"/>
                             <constraint firstItem="9fC-hj-83k" firstAttribute="top" secondItem="qOi-0a-JHl" secondAttribute="bottom" id="LUx-yt-LHa"/>
+                            <constraint firstItem="wfw-TO-bE2" firstAttribute="leading" secondItem="Xfw-SJ-pOV" secondAttribute="trailing" constant="8" id="O4K-UE-n1X"/>
                             <constraint firstItem="qOi-0a-JHl" firstAttribute="top" secondItem="alA-Go-fhV" secondAttribute="bottom" id="Pto-wC-PHe"/>
                             <constraint firstItem="qOi-0a-JHl" firstAttribute="leading" secondItem="0J1-RW-jwi" secondAttribute="leading" id="VUI-6G-QcC"/>
                             <constraint firstItem="qOi-0a-JHl" firstAttribute="top" secondItem="0J1-RW-jwi" secondAttribute="top" constant="44" id="WGl-d2-OX1"/>
                             <constraint firstItem="alA-Go-fhV" firstAttribute="top" secondItem="0J1-RW-jwi" secondAttribute="top" id="YZp-PD-NJj"/>
                             <constraint firstItem="Yi8-cQ-0S0" firstAttribute="top" secondItem="0J1-RW-jwi" secondAttribute="top" id="eNs-EE-jKZ"/>
                             <constraint firstItem="9fC-hj-83k" firstAttribute="bottom" secondItem="0J1-RW-jwi" secondAttribute="bottom" id="hwe-2o-taL"/>
+                            <constraint firstItem="Xfw-SJ-pOV" firstAttribute="leading" secondItem="QaX-xq-9Sh" secondAttribute="trailing" constant="8" id="iFv-wI-I2W"/>
                             <constraint firstItem="0J1-RW-jwi" firstAttribute="trailing" secondItem="qOi-0a-JHl" secondAttribute="trailing" id="kYB-og-y2k"/>
                             <constraint firstItem="Xfw-SJ-pOV" firstAttribute="centerX" secondItem="0J1-RW-jwi" secondAttribute="centerX" id="lty-J8-q37"/>
                             <constraint firstItem="Xfw-SJ-pOV" firstAttribute="centerY" secondItem="Yi8-cQ-0S0" secondAttribute="centerY" id="nIk-OZ-Kzb"/>
                             <constraint firstItem="9fC-hj-83k" firstAttribute="trailing" secondItem="0J1-RW-jwi" secondAttribute="trailing" id="q52-ct-Zhh"/>
+                            <constraint firstItem="wfw-TO-bE2" firstAttribute="top" secondItem="QaX-xq-9Sh" secondAttribute="top" id="rep-SU-BzN"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="0J1-RW-jwi"/>
                         <variation key="default">
@@ -2107,6 +2137,8 @@
     </scenes>
     <resources>
         <image name="addNewMusic" width="22" height="22"/>
+        <image name="boomrangSecondSelection" width="30" height="20"/>
+        <image name="boomrangTimeSelection" width="24" height="24"/>
         <image name="crop" width="25" height="25"/>
         <image name="download" width="22" height="22"/>
         <image name="editOptionStory" width="24" height="20"/>

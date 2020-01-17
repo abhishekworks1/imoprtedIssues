@@ -40,9 +40,9 @@ class SpecificBoomerangViewController: UIViewController {
 
     private var shouldPlay = true
         
-    private let boomerangMaxTime = 5.0
+    private var boomerangMaxTime = 3.0
     private let boomerangSpeedScale: Int = 2
-    private let boomerangMaxLoopCount = 5
+    private var boomerangMaxLoopCount = 7
     
     private var boomerangLoopCount = 5
     private var boomerangTimeRange: CMTimeRange?
@@ -145,9 +145,9 @@ class SpecificBoomerangViewController: UIViewController {
             let totalSeconds = currentAsset.duration.seconds
             let seekSeconds = Double(timePointerView.center.x)*totalSeconds/Double(trimmerView.bounds.width)
             resetBoomerangTimeRange()
-            player?.currentItem?.seek(to: CMTime(seconds: seekSeconds, preferredTimescale: 1000000), completionHandler: { (_) in
+            player?.seekToSeconds(seekSeconds) { finished in
                 self.player?.play()
-            })
+            }
         } else {
             let newCenterX = gesture.location(in: self.view).x
             let newFrameX = newCenterX + boomerangCropView.bounds.width/2
@@ -181,6 +181,45 @@ class SpecificBoomerangViewController: UIViewController {
         
     }
     
+    @IBAction func onChangeBoomerangLoop(_ sender: UIButton) {
+        let supportedLoop = ["1", "2", "3"]
+        BasePopConfiguration.shared.backgoundTintColor = R.color.appWhiteColor()!
+        BasePopConfiguration.shared.menuWidth = 120
+        BasePopConfiguration.shared.showCheckMark = .checkmark
+        BasePopConfiguration.shared.joinText = "loop"
+        BasePopOverMenu
+            .showForSender(sender: sender,
+                           with: supportedLoop,
+                           withSelectedName: "\((boomerangMaxLoopCount - 1)/2)",
+                done: { (selectedIndex) -> Void in
+                    let selectedValue = supportedLoop[selectedIndex]
+                    self.boomerangMaxLoopCount = Int(selectedValue)!*2 + 1
+                    self.changeBoomerangTime()
+            },cancel: {
+                
+            })
+
+    }
+    
+    @IBAction func onChangeBoomerangSeconds(_ sender: UIButton) {
+        let supportedSeconds = ["1", "2", "3"]
+        BasePopConfiguration.shared.backgoundTintColor = R.color.appWhiteColor()!
+        BasePopConfiguration.shared.menuWidth = 120
+        BasePopConfiguration.shared.showCheckMark = .checkmark
+        BasePopConfiguration.shared.joinText = "sec"
+        BasePopOverMenu
+            .showForSender(sender: sender,
+                           with: supportedSeconds,
+                           withSelectedName: "\(Int(boomerangMaxTime))",
+                done: { (selectedIndex) -> Void in
+                    let selectedValue = supportedSeconds[selectedIndex]
+                    self.boomerangMaxTime = Double(selectedValue)!
+                    self.changeBoomerangTime()
+            },cancel: {
+                
+            })
+    }
+    
     @IBAction func onChangeMode(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         needToReverse = sender.isSelected
@@ -194,7 +233,7 @@ class SpecificBoomerangViewController: UIViewController {
         }
         resetBoomerangTimeRange()
         self.pausePlayer()
-        let config = SpecificBoomerangExportConfig(boomerangTimeRange: boomerangTimeRange,
+        let config = SpecificBoomerangExportConfig(firstBoomerangRange: boomerangTimeRange,
                                                    boomerangSpeedScale: boomerangSpeedScale,
                                                    boomerangLoopCount: boomerangMaxLoopCount,
                                                    needToReverse: needToReverse)
@@ -207,7 +246,10 @@ class SpecificBoomerangViewController: UIViewController {
         let exportSession = SpecificBoomerangExportSession(config: config)
         loadingView.cancelClick = { cancelled in
             if cancelled {
-                exportSession.cancelExporting()
+                DispatchQueue.main.async {
+                    exportSession.cancelExporting()
+                    loadingView.hide()
+                }
             }
         }
         exportSession.export(for: asset, progress: { progress in
@@ -318,6 +360,12 @@ extension SpecificBoomerangViewController {
         calculateBoomerangTimeRange()
     }
     
+    func changeBoomerangTime() {
+        trimmerView.minVideoDurationAfterTrimming = boomerangMaxTime
+        boomerangCropView.frame.size.width = minimumDistanceBetweenDraggableViews!
+        calculateBoomerangTimeRange()
+        resetBoomerangTimeRange()
+    }
 }
 
 // MARK: Observer
@@ -344,10 +392,7 @@ extension SpecificBoomerangViewController {
                         }
                     } else {
                         self.boomerangLoopCount -= 2
-                        self.player?.currentItem?.seek(to: self.boomerangTimeRange?.start ?? .zero, completionHandler: { (_) in
-                            self.player?.play()
-                            self.player?.rate = Float(self.boomerangSpeedScale)
-                        })
+                        self.player?.seekToSeconds((self.boomerangTimeRange?.start ?? .zero).seconds)
                     }
                 } else {
                     if self.player?.rate != Float(self.boomerangSpeedScale) {
@@ -357,9 +402,9 @@ extension SpecificBoomerangViewController {
                 }
             } else {
                 self.resetBoomerangTimeRange()
-                currentPlayerItem.seek(to: .zero, completionHandler: { (_) in
+                self.player?.seekToSeconds(CMTime.zero.seconds) { (_) in
                     self.player?.play()
-                })
+                }
             }
         }
     }
@@ -371,6 +416,8 @@ extension SpecificBoomerangViewController {
             }
             
             if let boomerangTimeRange = self.boomerangTimeRange {
+                print("boomerangTime: \(boomerangTimeRange.start.seconds)")
+                print("currentTime: \(time.seconds)")
                 if time.seconds >= boomerangTimeRange.start.seconds,
                     time.seconds <= boomerangTimeRange.end.seconds {
                     self.needToChangeScale = true
@@ -391,8 +438,8 @@ extension SpecificBoomerangViewController {
                             }
                         } else {
                             self.boomerangLoopCount -= 2
-                            self.player?.currentItem?.seek(to: boomerangTimeRange.start, completionHandler: { (_) in
-                            })
+                            print("seek to \(boomerangTimeRange.start.seconds)")
+                            self.player?.seekToSeconds(boomerangTimeRange.start.seconds)
                         }
                     } else {
                         if self.player?.rate != Float(self.boomerangSpeedScale) {
@@ -401,11 +448,12 @@ extension SpecificBoomerangViewController {
                         }
                     }
                 }
+                let totalSeconds = currentAsset.duration.seconds
+                let centerX = time.seconds*Double(self.trimmerView.bounds.width)/totalSeconds
+                self.timePointerView.center.x = CGFloat(centerX)
             }
             
-            let totalSeconds = currentAsset.duration.seconds
-            let centerX = time.seconds*Double(self.trimmerView.bounds.width)/totalSeconds
-            self.timePointerView.center.x = CGFloat(centerX)
+            
         })
     }
     
@@ -413,6 +461,19 @@ extension SpecificBoomerangViewController {
         if let observer = timeObserver {
             player?.removeTimeObserver(observer)
             timeObserver = nil
+        }
+    }
+    
+}
+
+extension AVPlayer {
+    
+    func seekToSeconds(_ seconds: Double, completionHandler: ((Bool) -> Void)? = nil) {
+        let playerTimescale = currentItem?.asset.duration.timescale ?? 1
+        let time = CMTime(seconds: seconds, preferredTimescale: playerTimescale)
+        seek(to: time, toleranceBefore: .zero, toleranceAfter: .zero) {
+            (finished) in
+            completionHandler?(finished)
         }
     }
     
