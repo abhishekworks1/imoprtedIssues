@@ -440,7 +440,8 @@ class StoryCameraViewController: UIViewController {
         layout()
         self.view.addGestureRecognizer(panRecognizer)
         
-        volumeButtonHandler()
+        // Todo: For Capture photo with Volume Click
+        // volumeButtonHandler()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
