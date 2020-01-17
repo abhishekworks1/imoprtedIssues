@@ -28,7 +28,7 @@ class FixedRatioManager {
         }
         
         if ratioOptions.contains(.square) {
-            let squareText = LocalizedHelper.getString("Square")
+            let squareText = R.string.localizable.square()
             let square = (squareText, 1.0, squareText, 1.0)
             appendToTail(ratioItem: square)
         }
@@ -45,7 +45,7 @@ class FixedRatioManager {
     }
     
     func getOriginalRatioItem() -> RatioItemType {
-        let originalText = LocalizedHelper.getString("Original")
+        let originalText = R.string.localizable.original()
         return (originalText, originalRatioH, originalText, originalRatioH)
     }
 }

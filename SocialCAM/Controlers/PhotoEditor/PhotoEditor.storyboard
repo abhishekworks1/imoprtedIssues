@@ -26,7 +26,7 @@
         <!--PhotoEditorViewController-->
         <scene sceneID="xrt-pV-MEc">
             <objects>
-                <viewController storyboardIdentifier="PhotoEditorViewController" id="osR-bb-bJY" userLabel="PhotoEditorViewController" customClass="PhotoEditorViewController" customModule="SocialCAM" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PhotoEditorViewController" id="osR-bb-bJY" userLabel="PhotoEditorViewController" customClass="PhotoEditorViewController" customModule="SocialCam" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jnw-zz-GAH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -76,7 +76,7 @@
                                             </mask>
                                         </variation>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nMs-MC-wdZ" customClass="GradientView" customModule="SocialCAM" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nMs-MC-wdZ" customClass="GradientView" customModule="SocialCam" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="88"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
@@ -1221,7 +1221,7 @@
                                             <constraint firstAttribute="height" constant="60" id="ISH-an-EWa"/>
                                         </constraints>
                                     </stackView>
-                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="IHP-hP-E1e" customClass="KDDragAndDropCollectionView" customModule="SocialCAM" customModuleProvider="target">
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="IHP-hP-E1e" customClass="KDDragAndDropCollectionView" customModule="SocialCam" customModuleProvider="target">
                                         <rect key="frame" x="20" y="551" width="335" height="125"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -1267,7 +1267,7 @@
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
                                                             </imageView>
-                                                            <button hidden="YES" opaque="NO" clipsSubviews="YES" alpha="0.0" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aqr-8U-pVg" customClass="CloseTouchAreaButton" customModule="SocialCAM" customModuleProvider="target">
+                                                            <button hidden="YES" opaque="NO" clipsSubviews="YES" alpha="0.0" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aqr-8U-pVg" customClass="CloseTouchAreaButton" customModule="SocialCam" customModuleProvider="target">
                                                                 <rect key="frame" x="36" y="0.0" width="14" height="14"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
@@ -1323,7 +1323,7 @@
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
                                                             </imageView>
-                                                            <button hidden="YES" opaque="NO" alpha="0.0" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xz6-mD-Gky" customClass="CloseTouchAreaButton" customModule="SocialCAM" customModuleProvider="target">
+                                                            <button hidden="YES" opaque="NO" alpha="0.0" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xz6-mD-Gky" customClass="CloseTouchAreaButton" customModule="SocialCam" customModuleProvider="target">
                                                                 <rect key="frame" x="36" y="0.0" width="14" height="14"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <state key="normal" image="segmentclose"/>
@@ -1371,7 +1371,7 @@
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
                                                             </imageView>
-                                                            <button hidden="YES" opaque="NO" alpha="0.0" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iuw-zz-Brg" customClass="CloseTouchAreaButton" customModule="SocialCAM" customModuleProvider="target">
+                                                            <button hidden="YES" opaque="NO" alpha="0.0" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iuw-zz-Brg" customClass="CloseTouchAreaButton" customModule="SocialCam" customModuleProvider="target">
                                                                 <rect key="frame" x="36" y="0.0" width="14" height="14"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <state key="normal" image="segmentclose"/>
@@ -1419,7 +1419,7 @@
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
                                                             </imageView>
-                                                            <button hidden="YES" opaque="NO" alpha="0.0" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p4o-iE-o5N" customClass="CloseTouchAreaButton" customModule="SocialCAM" customModuleProvider="target">
+                                                            <button hidden="YES" opaque="NO" alpha="0.0" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p4o-iE-o5N" customClass="CloseTouchAreaButton" customModule="SocialCam" customModuleProvider="target">
                                                                 <rect key="frame" x="36" y="0.0" width="14" height="14"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <state key="normal" image="segmentclose"/>
@@ -1467,7 +1467,7 @@
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
                                                             </imageView>
-                                                            <button hidden="YES" opaque="NO" alpha="0.0" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D55-0U-ilm" customClass="CloseTouchAreaButton" customModule="SocialCAM" customModuleProvider="target">
+                                                            <button hidden="YES" opaque="NO" alpha="0.0" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D55-0U-ilm" customClass="CloseTouchAreaButton" customModule="SocialCam" customModuleProvider="target">
                                                                 <rect key="frame" x="36" y="0.0" width="14" height="14"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <state key="normal" image="segmentclose"/>
@@ -1515,7 +1515,7 @@
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
                                                             </imageView>
-                                                            <button hidden="YES" opaque="NO" alpha="0.0" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="US3-9O-Dri" customClass="CloseTouchAreaButton" customModule="SocialCAM" customModuleProvider="target">
+                                                            <button hidden="YES" opaque="NO" alpha="0.0" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="US3-9O-Dri" customClass="CloseTouchAreaButton" customModule="SocialCam" customModuleProvider="target">
                                                                 <rect key="frame" x="36" y="0.0" width="14" height="14"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <state key="normal" image="segmentclose"/>
@@ -1603,7 +1603,7 @@
                                     <view clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lxa-dq-sRN">
                                         <rect key="frame" x="20" y="394" width="335" height="80"/>
                                         <subviews>
-                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="KxF-fq-B8C" customClass="KDDragAndDropCollectionView" customModule="SocialCAM" customModuleProvider="target">
+                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="KxF-fq-B8C" customClass="KDDragAndDropCollectionView" customModule="SocialCam" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="80"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="k0V-Ab-NzK">
@@ -1682,7 +1682,7 @@
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yEP-DD-lRi">
                                         <rect key="frame" x="0.0" y="686" width="375" height="0.0"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wk6-jS-aZ1" customClass="ThumbSelectorView" customModule="SocialCAM" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wk6-jS-aZ1" customClass="ThumbSelectorView" customModule="SocialCam" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="55"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
@@ -1698,7 +1698,7 @@
                                             <constraint firstItem="Wk6-jS-aZ1" firstAttribute="top" secondItem="yEP-DD-lRi" secondAttribute="top" id="Sj0-ax-ouo"/>
                                         </constraints>
                                     </view>
-                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mcv-Uf-3wq" customClass="ProgressView" customModule="SocialCAM" customModuleProvider="target">
+                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="mcv-Uf-3wq" customClass="ProgressView" customModule="SocialCam" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="688" width="375" height="5"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="5" id="28p-1J-O84"/>
@@ -1715,7 +1715,7 @@
                                         <color key="shadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <size key="shadowOffset" width="0.0" height="1"/>
                                     </label>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dZ7-1K-CkN" customClass="GradientView" customModule="SocialCAM" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dZ7-1K-CkN" customClass="GradientView" customModule="SocialCam" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="688" width="375" height="124"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <userDefinedRuntimeAttributes>
@@ -1731,7 +1731,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CSa-1Y-VkY">
                                                         <rect key="frame" x="0.0" y="0.0" width="81.666666666666671" height="69.666666666666671"/>
                                                         <subviews>
-                                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yh5-r6-QIy" customClass="StoryExportProgress" customModule="SocialCAM" customModuleProvider="target">
+                                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yh5-r6-QIy" customClass="StoryExportProgress" customModule="SocialCam" customModuleProvider="target">
                                                                 <rect key="frame" x="15.666666666666671" y="8" width="50" height="50"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                 <constraints>
@@ -1788,7 +1788,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CMx-eS-cMS">
                                                         <rect key="frame" x="96.666666666666686" y="0.0" width="81.333333333333314" height="69.666666666666671"/>
                                                         <subviews>
-                                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KRT-lJ-WNR" customClass="StoryExportProgress" customModule="SocialCAM" customModuleProvider="target">
+                                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KRT-lJ-WNR" customClass="StoryExportProgress" customModule="SocialCam" customModuleProvider="target">
                                                                 <rect key="frame" x="15.666666666666657" y="8" width="50" height="50"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                 <constraints>
@@ -1845,7 +1845,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XV7-RJ-vqc">
                                                         <rect key="frame" x="193" y="0.0" width="81.666666666666686" height="69.666666666666671"/>
                                                         <subviews>
-                                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ohc-WU-blF" customClass="StoryExportProgress" customModule="SocialCAM" customModuleProvider="target">
+                                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ohc-WU-blF" customClass="StoryExportProgress" customModule="SocialCam" customModuleProvider="target">
                                                                 <rect key="frame" x="15.666666666666657" y="8" width="50" height="50"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                 <constraints>
@@ -1902,7 +1902,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lFn-uf-lcp">
                                                         <rect key="frame" x="128.66666666666666" y="0.0" width="49.333333333333343" height="69.666666666666671"/>
                                                         <subviews>
-                                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t1F-aQ-4Us" customClass="StoryExportProgress" customModule="SocialCAM" customModuleProvider="target">
+                                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t1F-aQ-4Us" customClass="StoryExportProgress" customModule="SocialCam" customModuleProvider="target">
                                                                 <rect key="frame" x="-0.33333333333331439" y="8" width="50" height="50"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                 <constraints>
@@ -1959,7 +1959,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OZ7-sK-bMY">
                                                         <rect key="frame" x="193" y="0.0" width="49.333333333333343" height="69.666666666666671"/>
                                                         <subviews>
-                                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4gL-lH-ZQR" customClass="StoryExportProgress" customModule="SocialCAM" customModuleProvider="target">
+                                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4gL-lH-ZQR" customClass="StoryExportProgress" customModule="SocialCam" customModuleProvider="target">
                                                                 <rect key="frame" x="-0.33333333333334281" y="8" width="50" height="50"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                 <constraints>
@@ -2016,7 +2016,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hj9-mp-OGe">
                                                         <rect key="frame" x="257.33333333333331" y="0.0" width="49.333333333333314" height="69.666666666666671"/>
                                                         <subviews>
-                                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g2N-1h-zeb" customClass="StoryExportProgress" customModule="SocialCAM" customModuleProvider="target">
+                                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g2N-1h-zeb" customClass="StoryExportProgress" customModule="SocialCam" customModuleProvider="target">
                                                                 <rect key="frame" x="-0.33333333333331439" y="8" width="50" height="50"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                 <constraints>
@@ -2073,7 +2073,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7yT-Hx-Y6C">
                                                         <rect key="frame" x="289.66666666666669" y="0.0" width="81.333333333333314" height="69.666666666666671"/>
                                                         <subviews>
-                                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6qK-CG-Cwo" customClass="StoryExportProgress" customModule="SocialCAM" customModuleProvider="target">
+                                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6qK-CG-Cwo" customClass="StoryExportProgress" customModule="SocialCam" customModuleProvider="target">
                                                                 <rect key="frame" x="15.666666666666629" y="8" width="50" height="50"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                 <constraints>
@@ -2412,7 +2412,7 @@
                                                 </view>
                                                 <blurEffect style="dark"/>
                                             </visualEffectView>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L2o-TW-qTr" customClass="PickerView" customModule="SocialCAM" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L2o-TW-qTr" customClass="PickerView" customModule="SocialCam" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             </view>
@@ -2552,7 +2552,7 @@
                                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 </collectionViewFlowLayout>
                                                 <cells>
-                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="KeyframePickerCollectionViewCell" id="WRq-Qe-yMw" customClass="KeyframePickerCollectionViewCell" customModule="SocialCAM" customModuleProvider="target">
+                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="KeyframePickerCollectionViewCell" id="WRq-Qe-yMw" customClass="KeyframePickerCollectionViewCell" customModule="SocialCam" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="-1.6666666666666667" width="95" height="42"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -2794,9 +2794,9 @@
                         <viewLayoutGuide key="safeArea" id="O0V-DG-Jz2"/>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="dq7-3d-yW8"/>
                                 <exclude reference="f57-Ps-T8Q"/>
                                 <exclude reference="BhR-mE-dNB"/>
+                                <exclude reference="dq7-3d-yW8"/>
                             </mask>
                         </variation>
                     </view>
@@ -2924,7 +2924,7 @@
         <!--Music PickerVC-->
         <scene sceneID="goA-3o-PZU">
             <objects>
-                <viewController storyboardIdentifier="MusicPickerVC" id="Esl-sw-Xa6" customClass="MusicPickerVC" customModule="SocialCAM" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MusicPickerVC" id="Esl-sw-Xa6" customClass="MusicPickerVC" customModule="SocialCam" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9BV-eu-AQw">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2963,7 +2963,7 @@
                                 <rect key="frame" x="8" y="95" width="359" height="707"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="MusicCell" rowHeight="43" id="xAX-oq-Wh4" customClass="MusicCell" customModule="SocialCAM" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="MusicCell" rowHeight="43" id="xAX-oq-Wh4" customClass="MusicCell" customModule="SocialCam" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="55.333332061767578" width="359" height="43"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xAX-oq-Wh4" id="45O-EY-Pfx">
@@ -2973,7 +2973,7 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="dUA-22-WYr">
                                                     <rect key="frame" x="15" y="0.0" width="93.333333333333329" height="35"/>
                                                     <subviews>
-                                                        <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i6b-xv-tx2" customClass="ColorImageButton" customModule="SocialCAM" customModuleProvider="target">
+                                                        <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i6b-xv-tx2" customClass="ColorImageButton" customModule="SocialCam" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="35" id="1u0-kS-MWg"/>
@@ -3066,7 +3066,7 @@
         <!--Keyframe Picker CursorVC-->
         <scene sceneID="MLR-nS-5pu">
             <objects>
-                <viewController storyboardIdentifier="KeyframePickerCursorVC" id="RQd-Fc-OQK" customClass="KeyframePickerCursorVC" customModule="SocialCAM" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="KeyframePickerCursorVC" id="RQd-Fc-OQK" customClass="KeyframePickerCursorVC" customModule="SocialCam" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="qtO-8x-z9f"/>
                         <viewControllerLayoutGuide type="bottom" id="g6a-my-hsF"/>
@@ -3137,7 +3137,7 @@
         <!--Trim Editor View Controller-->
         <scene sceneID="Txt-Z6-28H">
             <objects>
-                <viewController storyboardIdentifier="TrimEditorViewController" id="KAH-NH-yg4" customClass="TrimEditorViewController" customModule="SocialCAM" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TrimEditorViewController" id="KAH-NH-yg4" customClass="TrimEditorViewController" customModule="SocialCam" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DnW-hR-IrV">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3149,7 +3149,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="698"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g8A-0L-eQY" customClass="GradientView" customModule="SocialCAM" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g8A-0L-eQY" customClass="GradientView" customModule="SocialCam" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="-30" width="375" height="90"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -3516,7 +3516,7 @@
                                             <action selector="btnShowHideSegmentEditOption:" destination="KAH-NH-yg4" eventType="touchUpInside" id="NSS-rI-29i"/>
                                         </connections>
                                     </button>
-                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Gxy-7A-9qg" customClass="DragAndDropCollectionView" customModule="SocialCAM" customModuleProvider="target">
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Gxy-7A-9qg" customClass="DragAndDropCollectionView" customModule="SocialCam" customModuleProvider="target">
                                         <rect key="frame" x="20" y="576" width="335" height="120"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -3534,7 +3534,7 @@
                                             <outlet property="delegate" destination="KAH-NH-yg4" id="N5M-Oa-pBO"/>
                                         </connections>
                                     </collectionView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="epl-FI-tbp" customClass="GradientView" customModule="SocialCAM" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="epl-FI-tbp" customClass="GradientView" customModule="SocialCam" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="708" width="375" height="80"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <userDefinedRuntimeAttributes>
@@ -3550,7 +3550,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D2e-Aw-6YX">
                                                         <rect key="frame" x="0.0" y="0.0" width="108.33333333333333" height="59.666666666666664"/>
                                                         <subviews>
-                                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yXM-za-6mK" customClass="RPCircularProgress" customModule="SocialCAM" customModuleProvider="target">
+                                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yXM-za-6mK" customClass="RPCircularProgress" customModule="SocialCam" customModuleProvider="target">
                                                                 <rect key="frame" x="29.333333333333336" y="3" width="50.000000000000007" height="50"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                 <constraints>
@@ -3607,7 +3607,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y7M-31-iX7">
                                                         <rect key="frame" x="123.33333333333334" y="0.0" width="108.33333333333334" height="59.666666666666664"/>
                                                         <subviews>
-                                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Va3-qk-WFK" customClass="RPCircularProgress" customModule="SocialCAM" customModuleProvider="target">
+                                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Va3-qk-WFK" customClass="RPCircularProgress" customModule="SocialCam" customModuleProvider="target">
                                                                 <rect key="frame" x="29.333333333333314" y="3" width="50" height="50"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                 <constraints>
@@ -3664,7 +3664,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="La7-W7-T45">
                                                         <rect key="frame" x="246.66666666666671" y="0.0" width="108.33333333333334" height="59.666666666666664"/>
                                                         <subviews>
-                                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="thc-Um-6zp" customClass="RPCircularProgress" customModule="SocialCAM" customModuleProvider="target">
+                                                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="thc-Um-6zp" customClass="RPCircularProgress" customModule="SocialCam" customModuleProvider="target">
                                                                 <rect key="frame" x="29.333333333333314" y="3" width="50" height="50"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                 <constraints>
@@ -3810,7 +3810,7 @@
         <!--Select Story HashtagVC-->
         <scene sceneID="WNx-Ex-DJ7">
             <objects>
-                <viewController storyboardIdentifier="SelectStoryHashtagVC" id="Szz-gd-veb" customClass="SelectStoryHashtagVC" customModule="SocialCAM" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SelectStoryHashtagVC" id="Szz-gd-veb" customClass="SelectStoryHashtagVC" customModule="SocialCam" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7mV-m4-YoC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3831,7 +3831,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select a Hashtag" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EKL-q4-VQW">
-                                        <rect key="frame" x="118.66666666666667" y="11.666666666666664" width="137.66666666666663" height="21"/>
+                                        <rect key="frame" x="113.66666666666667" y="11.666666666666664" width="147.66666666666663" height="21"/>
                                         <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -3864,7 +3864,7 @@
                                 <rect key="frame" x="8" y="96" width="359" height="672"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Visible Hashtags " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wLB-LG-USH">
-                                        <rect key="frame" x="20" y="20" width="130.66666666666666" height="20"/>
+                                        <rect key="frame" x="20" y="20" width="148.33333333333334" height="20"/>
                                         <fontDescription key="fontDescription" name="SFUIText-Bold" family="SF UI Text" pointSize="17"/>
                                         <color key="textColor" red="0.17254901960784313" green="0.19607843137254902" blue="0.24705882352941178" alpha="0.90000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -3875,14 +3875,14 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="100" id="Goe-Cr-VoY"/>
                                         </constraints>
-                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="8" minimumInteritemSpacing="8" id="ZdQ-DT-Azx" customClass="LeftAlignedCollectionViewFlowLayout" customModule="SocialCAM" customModuleProvider="target">
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="8" minimumInteritemSpacing="8" id="ZdQ-DT-Azx" customClass="LeftAlignedCollectionViewFlowLayout" customModule="SocialCam" customModuleProvider="target">
                                             <size key="itemSize" width="50" height="30"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SelectVisibleHashtagCell" id="jRI-W8-CMS" customClass="SelectHashtagCell" customModule="SocialCAM" customModuleProvider="target">
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SelectVisibleHashtagCell" id="jRI-W8-CMS" customClass="SelectHashtagCell" customModule="SocialCam" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="50" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -3945,7 +3945,7 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hidden Hashtags " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eer-CM-VHL">
-                                        <rect key="frame" x="20" y="200.66666666666669" width="136.66666666666666" height="20"/>
+                                        <rect key="frame" x="20" y="200.66666666666669" width="151.66666666666666" height="20"/>
                                         <fontDescription key="fontDescription" name="SFUIText-Bold" family="SF UI Text" pointSize="17"/>
                                         <color key="textColor" red="0.17254901959999999" green="0.1960784314" blue="0.2470588235" alpha="0.90000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -3965,14 +3965,14 @@
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" tag="1" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="rCE-Na-8KK">
                                         <rect key="frame" x="20" y="240.66666666666671" width="319" height="416.33333333333326"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="8" minimumInteritemSpacing="8" id="rr2-tx-YeR" customClass="LeftAlignedCollectionViewFlowLayout" customModule="SocialCAM" customModuleProvider="target">
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="8" minimumInteritemSpacing="8" id="rr2-tx-YeR" customClass="LeftAlignedCollectionViewFlowLayout" customModule="SocialCam" customModuleProvider="target">
                                             <size key="itemSize" width="50" height="30"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SelectHiddenHashtagCell" id="uBa-KF-xQf" customClass="SelectHashtagCell" customModule="SocialCAM" customModuleProvider="target">
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SelectHiddenHashtagCell" id="uBa-KF-xQf" customClass="SelectHashtagCell" customModule="SocialCam" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="50" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -4091,7 +4091,7 @@
         <!--Histro GramVC-->
         <scene sceneID="t9T-V2-8qs">
             <objects>
-                <viewController storyboardIdentifier="HistroGramVC" id="gox-7Z-X3E" customClass="HistroGramVC" customModule="SocialCAM" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HistroGramVC" id="gox-7Z-X3E" customClass="HistroGramVC" customModule="SocialCam" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eh1-FJ-RFy">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -4185,7 +4185,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="23Z-uh-8yl">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SQl-Ox-QNV" customClass="TrimmerView" customModule="SocialCAM" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SQl-Ox-QNV" customClass="TrimmerView" customModule="SocialCam" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     </view>
@@ -4208,7 +4208,7 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fRp-dV-t7F">
                                                                 <rect key="frame" x="0.0" y="20" width="375" height="15"/>
                                                                 <subviews>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ebH-fo-gBK" customClass="TriangleView" customModule="SocialCAM" customModuleProvider="target">
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ebH-fo-gBK" customClass="TriangleView" customModule="SocialCam" customModuleProvider="target">
                                                                         <rect key="frame" x="0.0" y="0.0" width="15" height="15"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <constraints>
@@ -4257,7 +4257,7 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3fT-1O-zsW">
                                                                 <rect key="frame" x="0.0" y="205" width="375" height="15"/>
                                                                 <subviews>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sSm-Pe-wXa" customClass="TriangleView" customModule="SocialCAM" customModuleProvider="target">
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sSm-Pe-wXa" customClass="TriangleView" customModule="SocialCam" customModuleProvider="target">
                                                                         <rect key="frame" x="0.0" y="0.0" width="15" height="15"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <constraints>
@@ -4482,7 +4482,7 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gn2-6F-aY2">
                                                                 <rect key="frame" x="0.0" y="69" width="375" height="95"/>
                                                                 <subviews>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hXt-ln-sGt" customClass="CircularProgress" customModule="SocialCAM" customModuleProvider="target">
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hXt-ln-sGt" customClass="CircularProgress" customModule="SocialCam" customModuleProvider="target">
                                                                         <rect key="frame" x="152.66666666666666" y="12.666666666666629" width="70" height="70"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <constraints>
@@ -4745,7 +4745,7 @@
         <!--Style TransferVC-->
         <scene sceneID="49c-gd-z83">
             <objects>
-                <viewController storyboardIdentifier="StyleTransferVC" id="6Qy-WB-R2R" customClass="StyleTransferVC" customModule="SocialCAM" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StyleTransferVC" id="6Qy-WB-R2R" customClass="StyleTransferVC" customModule="SocialCam" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mym-nI-hsz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -4753,7 +4753,7 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zZw-8j-z2A">
                                 <rect key="frame" x="0.0" y="88" width="375" height="619"/>
                             </imageView>
-                            <view clipsSubviews="YES" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="UTF-Hb-ecP" customClass="MLVideoView" customModule="SocialCAM" customModuleProvider="target">
+                            <view clipsSubviews="YES" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="UTF-Hb-ecP" customClass="MLVideoView" customModule="SocialCam" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="88" width="375" height="619"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
@@ -4781,7 +4781,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="StyleCollectionViewCell" id="Jo5-Fo-PEt" customClass="StyleCollectionViewCell" customModule="SocialCAM" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="StyleCollectionViewCell" id="Jo5-Fo-PEt" customClass="StyleCollectionViewCell" customModule="SocialCam" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="63" height="63"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -4818,13 +4818,13 @@
                                     <outlet property="delegate" destination="6Qy-WB-R2R" id="NVu-wW-eFM"/>
                                 </connections>
                             </collectionView>
-                            <collectionView multipleTouchEnabled="YES" tag="2" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="X6y-Qt-TrV" customClass="KDDragAndDropCollectionView" customModule="SocialCAM" customModuleProvider="target">
+                            <collectionView multipleTouchEnabled="YES" tag="2" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="X6y-Qt-TrV" customClass="KDDragAndDropCollectionView" customModule="SocialCam" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="610" width="375" height="100"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="gTI-vb-KIu"/>
                                 </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="roH-jc-20U" customClass="UPCarouselFlowLayout" customModule="SocialCAM" customModuleProvider="target">
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="roH-jc-20U" customClass="UPCarouselFlowLayout" customModule="SocialCam" customModuleProvider="target">
                                     <size key="itemSize" width="41" height="96"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -5002,12 +5002,12 @@
         <!--Image CropperVC-->
         <scene sceneID="qqx-Lb-PO9">
             <objects>
-                <viewController storyboardIdentifier="ImageCropperVC" id="aMl-je-8tm" customClass="ImageCropperVC" customModule="SocialCAM" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ImageCropperVC" id="aMl-je-8tm" customClass="ImageCropperVC" customModule="SocialCam" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UQH-mS-9Va">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EcK-9E-IbY" customClass="ImageCropperView" customModule="SocialCAM" customModuleProvider="target">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EcK-9E-IbY" customClass="ImageCropperView" customModule="SocialCam" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="88" width="375" height="690"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>

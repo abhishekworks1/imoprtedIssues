@@ -70,7 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         MSAppCenter.start(Constant.AppCenter.apiKey, withServices: [])
         
-        //UIApplication.shared.delegate!.window!!.rootViewController = R.storyboard.splashScreen.splashScreen()
+        UIApplication.shared.delegate!.window!!.rootViewController = R.storyboard.storyCameraViewController.storyCameraNavigation()
         
         return true
     }

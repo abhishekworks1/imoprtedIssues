@@ -134,7 +134,12 @@ extension StoryCameraViewController: NextLevelVideoDelegate {
         if let dictionary = photoDict,
             let data = dictionary[NextLevelPhotoJPEGKey] as? Data,
             let image = UIImage(data: data) {
-            if self.recordingType == .slideshow || self.recordingType == .collage {
+            if isForceCaptureImageWithVolumeKey {
+                DispatchQueue.main.async {
+                    self.isForceCaptureImageWithVolumeKey = false
+                    self.openStoryEditor(images: [image])
+                }
+            } else if self.recordingType == .slideshow || self.recordingType == .collage {
                 self.takenSlideShowImages.append(SegmentVideos(urlStr: URL(string: Constant.Application.imageIdentifier)!, thumbimage: image, latitued: nil, longitued: nil, placeAddress: nil, numberOfSegement: String(self.takenSlideShowImages.count + 1), videoduration: nil, combineOneVideo: false))
                 
                 DispatchQueue.main.async {

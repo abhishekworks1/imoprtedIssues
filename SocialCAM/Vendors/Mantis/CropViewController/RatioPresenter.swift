@@ -36,6 +36,12 @@ class RatioPresenter {
                 let ratioValue = (self.type == .horizontal) ? ratio.ratioH : ratio.ratioV
                 self.didGetRatio(ratioValue)
             }
+            
+            if title == R.string.localizable.square() {
+                let image = R.image.icoInstagram()
+                action.setValue(image?.withRenderingMode(.alwaysOriginal), forKey: "image")
+            }
+            
             actionSheet.addAction(action)
         }
         
@@ -46,7 +52,7 @@ class RatioPresenter {
             actionSheet.popoverPresentationController?.sourceRect = sourceView.bounds
         }
         
-        let cancelText = LocalizedHelper.getString("Cancel")
+        let cancelText = R.string.localizable.cancel()
         let cancelAction = UIAlertAction(title: cancelText, style: .cancel)
         actionSheet.addAction(cancelAction)
         

@@ -51,8 +51,7 @@ class CropToolbar: UIView {
     }
     
     private func createCancelButton() {
-        let cancelText = LocalizedHelper.getString("Cancel")
-        
+        let cancelText = R.string.localizable.cancel()
         cancelButton = createOptionButton(withTitle: cancelText, andAction: #selector(cancel))
     }
     
@@ -66,7 +65,7 @@ class CropToolbar: UIView {
             resetButton = createOptionButton(withTitle: nil, andAction: #selector(reset))
             resetButton?.setImage(image, for: .normal)
         } else {
-            let resetText = LocalizedHelper.getString("Reset")
+            let resetText = R.string.localizable.reset()
 
             resetButton = createOptionButton(withTitle: resetText, andAction: #selector(reset))
         }
@@ -78,7 +77,7 @@ class CropToolbar: UIView {
     }
     
     private func createCropButton() {
-        let doneText = LocalizedHelper.getString("Done")
+        let doneText = R.string.localizable.done()
         cropButton = createOptionButton(withTitle: doneText, andAction: #selector(crop))
     }
     

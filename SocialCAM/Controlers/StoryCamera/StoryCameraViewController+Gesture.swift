@@ -107,7 +107,6 @@ extension StoryCameraViewController {
         bottomConstraint = bottomCameraViews.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: popupOffset)
         bottomConstraint.isActive = true
         bottomCameraViews.heightAnchor.constraint(equalToConstant: 400).isActive = true
-        
     }
     
     /// Animates the transition, if the animation is not already running.
@@ -131,7 +130,7 @@ extension StoryCameraViewController {
         
         // the transition completion block
         transitionAnimator.addCompletion { position in
-            
+            self.cameraModeIndicatorView.isHidden = false
             // update the state
             switch position {
             case .start:
@@ -161,9 +160,11 @@ extension StoryCameraViewController {
         let inTitleAnimator = UIViewPropertyAnimator(duration: duration, curve: .easeIn, animations: {
             switch state {
             case .open:
-                return
+                self.cameraModeIndicatorView.alpha = 1
+                self.cameraSliderView.alpha = 0
             case .closed:
-                return
+                self.cameraModeIndicatorView.alpha = 0
+                self.cameraSliderView.alpha = 1
             }
         })
         inTitleAnimator.scrubsLinearly = false
@@ -172,9 +173,11 @@ extension StoryCameraViewController {
         let outTitleAnimator = UIViewPropertyAnimator(duration: duration, curve: .easeOut, animations: {
             switch state {
             case .open:
-                return
+                self.cameraModeIndicatorView.alpha = 0
+                self.cameraSliderView.alpha = 1
             case .closed:
-                return
+                self.cameraModeIndicatorView.alpha = 1
+                self.cameraSliderView.alpha = 0
             }
         })
         outTitleAnimator.scrubsLinearly = false

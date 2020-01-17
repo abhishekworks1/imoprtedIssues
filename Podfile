@@ -54,4 +54,5 @@ target 'SocialCAM' do
   pod 'TikTokOpenSDK', '~> 2.0.0'
   pod 'SwiftLint'
   pod 'SwiftySound', '1.2'
+  pod 'JPSVolumeButtonHandler'
 end

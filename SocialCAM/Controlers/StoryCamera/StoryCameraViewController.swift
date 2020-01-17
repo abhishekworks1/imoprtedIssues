@@ -15,10 +15,12 @@ import PhotosUI
 import MobileCoreServices
 import SCRecorder
 import AVKit
+import JPSVolumeButtonHandler
 
 class StoryCameraViewController: UIViewController {
+   
+    let popupOffset: CGFloat = (UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0) != 0 ? 110 : 86
     
-    let popupOffset: CGFloat = 110
     var bottomConstraint = NSLayoutConstraint()
     var currentState: State = .closed
     /// All of the currently running animators.
@@ -149,6 +151,10 @@ class StoryCameraViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var cameraModeIndicatorView: UIView!
+    
+    @IBOutlet weak var cameraModeIndicatorImageView: UIImageView!
+    
     // MARK: Variables
     var recoredButtonCenterPoint: CGPoint = CGPoint.init()
     
@@ -162,6 +168,7 @@ class StoryCameraViewController: UIViewController {
     
     var draggingCell: IndexPath?
     var dragAndDropManager: KDDragAndDropManager?
+    var volumeHandler: JPSVolumeButtonHandler?
     var deleteRect: CGRect?
     
     var isDisableResequence: Bool = true {
@@ -227,6 +234,8 @@ class StoryCameraViewController: UIViewController {
             }
         }
     }
+    
+    var isForceCaptureImageWithVolumeKey: Bool = false
     
     var recordingType: CameraMode = .normal {
         didSet {
@@ -430,6 +439,8 @@ class StoryCameraViewController: UIViewController {
         view.bringSubviewToFront(selectTimersView)
         layout()
         self.view.addGestureRecognizer(panRecognizer)
+        
+        volumeButtonHandler()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -666,12 +677,27 @@ extension StoryCameraViewController {
                 self.recordingType = .custom
                 self.timerValueView.isHidden = true
             case .capture:
+                self.circularProgress.centerImage = R.image.icoCaptureMode()
                 self.recordingType = .capture
                 self.timerValueView.isHidden = true
             default:
                 self.recordingType = .normal
             }
         }
+    }
+    
+    func volumeButtonHandler() {
+        self.volumeHandler = JPSVolumeButtonHandler(up: {
+                                self.volumeButtonPhotoCapture()
+                            }, downBlock: {
+                                self.volumeButtonPhotoCapture()
+                            })
+        self.volumeHandler?.start(true)
+    }
+    
+    func volumeButtonPhotoCapture() {
+        self.isForceCaptureImageWithVolumeKey = true
+        self.capturePhoto()
     }
     
     @objc func animate() {
