@@ -499,6 +499,7 @@ extension CropView {
             let exportSession = CropAssetExportSession(config: config)
             
             let loadingView = LoadingView.instanceFromNib()
+            loadingView.shouldDescriptionTextShow = true
             loadingView.showOnKeyWindow(completion: {
                 loadingView.cancelClick = { _ in
                     exportSession.cancelExporting()

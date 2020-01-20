@@ -288,6 +288,7 @@ class StyleTransferVC: UIViewController {
             }
             videoView.player.pause()
             let loadingView = LoadingView.instanceFromNib()
+            loadingView.shouldDescriptionTextShow = true
             loadingView.show(on: view, completion: {
                 loadingView.cancelClick = { [weak self] _ in
                     guard let `self` = self else { return }
@@ -361,6 +362,7 @@ class StyleTransferVC: UIViewController {
             }
             videoView.player.pause()
             let loadingView = LoadingView.instanceFromNib()
+            loadingView.shouldDescriptionTextShow = true
             loadingView.show(on: view, completion: {
                 loadingView.cancelClick = { [weak self] _ in
                     guard let `self` = self else { return }

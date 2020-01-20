@@ -34,6 +34,8 @@ class StoryCameraViewController: UIViewController {
     }()
     
     var timer: Timer?
+    var volButtonTimer: Timer?
+    var secondsElapsed: Int = 0
     
     // MARK: IBOutlets
     @IBOutlet weak var bottomCameraViews: UIView!
@@ -441,7 +443,11 @@ class StoryCameraViewController: UIViewController {
         self.view.addGestureRecognizer(panRecognizer)
         
         // Todo: For Capture photo with Volume Click
-        // volumeButtonHandler()
+        volumeButtonHandler()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(volumeChanged(notification:)),
+                                               name: NSNotification.Name(rawValue: "AVSystemController_SystemVolumeDidChangeNotification"),
+                                               object: nil)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -689,16 +695,28 @@ extension StoryCameraViewController {
     
     func volumeButtonHandler() {
         self.volumeHandler = JPSVolumeButtonHandler(up: {
-                                self.volumeButtonPhotoCapture()
                             }, downBlock: {
-                                self.volumeButtonPhotoCapture()
                             })
         self.volumeHandler?.start(true)
     }
     
+    @objc func volumeChanged(notification: NSNotification) {
+        if let userInfo = notification.userInfo {
+            if let volumeChangeType = userInfo["AVSystemController_AudioVolumeChangeReasonNotificationParameter"] as? String {
+                if volumeChangeType == "ExplicitVolumeChange" {
+                    if let newVolume = userInfo["AVSystemController_AudioVolumeNotificationParameter"] as? Double { print(newVolume)
+                    }
+                    self.volumeButtonPhotoCapture()
+                }
+            }
+        }
+    }
+    
     func volumeButtonPhotoCapture() {
-        self.isForceCaptureImageWithVolumeKey = true
-        self.capturePhoto()
+        if !self.isForceCaptureImageWithVolumeKey {
+            self.isForceCaptureImageWithVolumeKey = true
+            self.capturePhoto()
+        }
     }
     
     @objc func animate() {
@@ -1153,6 +1171,7 @@ extension StoryCameraViewController {
         if self.recordingType == .boomerang {
             let loadingView = LoadingView.instanceFromNib()
             loadingView.shouldCancelShow = true
+            loadingView.shouldDescriptionTextShow = true
             loadingView.show(on: self.view)
             
             let factory = VideoFactory(type: .boom, video: VideoOrigin(mediaType: nil, mediaUrl: url, referenceURL: nil))

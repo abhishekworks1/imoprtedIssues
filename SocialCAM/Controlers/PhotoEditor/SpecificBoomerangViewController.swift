@@ -241,6 +241,7 @@ class SpecificBoomerangViewController: UIViewController {
         let loadingView = LoadingView.instanceFromNib()
         loadingView.loadingViewShow = false
         loadingView.shouldCancelShow = false
+        loadingView.shouldDescriptionTextShow = true
         loadingView.show(on: self.view)
         
         let exportSession = SpecificBoomerangExportSession(config: config)

@@ -75,6 +75,7 @@ public class LoadingView: UIView {
    
     var isResized = true
     
+    @IBOutlet weak var lblDescriptionText: UILabel!
     @IBOutlet weak var lblCompleted: UILabel!
     @IBOutlet weak var btnCancel: UIButton!
    
@@ -89,6 +90,12 @@ public class LoadingView: UIView {
             lblCompleted.isHidden = loadingViewShow
             progressView.isHidden = loadingViewShow
             loadingView.isHidden = !loadingViewShow
+        }
+    }
+    
+    public var shouldDescriptionTextShow = false {
+        didSet {
+            lblDescriptionText.isHidden = !shouldDescriptionTextShow
         }
     }
     

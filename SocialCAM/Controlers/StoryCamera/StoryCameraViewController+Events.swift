@@ -555,7 +555,7 @@ extension StoryCameraViewController: CountdownViewDelegate {
         self.photoTapGestureRecognizer?.isEnabled = false
         self.addFlashView()
         NextLevel.shared.torchMode = flashMode
-        let when = DispatchTime.now() + 0.8
+        let when = DispatchTime.now() + 0.5
         DispatchQueue.main.asyncAfter(deadline: when, execute: {
             AudioServicesPlaySystemSound(1108)
             NextLevel.shared.capturePhotoFromVideo()
