@@ -233,7 +233,7 @@ class SpecificBoomerangViewController: UIViewController {
         }
         resetBoomerangTimeRange()
         self.pausePlayer()
-        let config = SpecificBoomerangExportConfig(firstBoomerangRange: boomerangTimeRange,
+        let config = SpecificBoomerangExportConfig(boomerangTimeRange: boomerangTimeRange,
                                                    boomerangSpeedScale: boomerangSpeedScale,
                                                    boomerangLoopCount: boomerangMaxLoopCount,
                                                    needToReverse: needToReverse)
