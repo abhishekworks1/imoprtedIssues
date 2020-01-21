@@ -38,7 +38,8 @@ public class DottedLineView: UIView {
     }
     
     override public func draw(_ rect: CGRect) {
-
+        self.layer.removeAllAnimations()
+        self.setNeedsDisplay()
         let path = UIBezierPath()
         path.lineWidth = lineWidth
 

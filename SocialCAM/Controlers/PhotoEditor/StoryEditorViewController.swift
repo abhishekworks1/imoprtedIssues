@@ -164,6 +164,11 @@ class StoryEditorViewController: UIViewController {
             bottomContainerView.isHidden = true
         }
     }
+    
+    @IBOutlet weak var progressBarView: UIView!
+    @IBOutlet weak var storyProgressBar: ProgressView!
+    @IBOutlet weak var lblStoryTime: UILabel!
+    
     @IBOutlet weak var cursorContainerViewCenterConstraint: NSLayoutConstraint!
     weak var cursorContainerViewController: KeyframePickerCursorVC!
     var playbackTimeCheckerTimer: Timer?
@@ -222,6 +227,7 @@ class StoryEditorViewController: UIViewController {
             if currentVideoAsset != nil {
                 playPauseButton.isHidden = isViewEditMode
                 bottomContainerView.isHidden = !bottomContainerView.isHidden
+                progressBarView.isHidden = !progressBarView.isHidden
             }
         }
     }
@@ -339,6 +345,7 @@ class StoryEditorViewController: UIViewController {
         self.youtubeShareView.isHidden = isImage
         self.tiktokShareView.isHidden = isImage
         self.playPauseButton.isHidden = isImage
+        self.progressBarView.isHidden = isImage
     }
     
     func hideToolBar(hide: Bool) {
@@ -579,7 +586,6 @@ extension StoryEditorViewController {
 
     @IBAction func downloadClicked(_ sender: UIButton) {
         imageVideoExport(isDownload: true)
-        
     }
     
     func imageVideoExport(isDownload: Bool = false, type: SocialShare = .facebook) {
@@ -988,6 +994,11 @@ extension StoryEditorViewController {
         let position = CGFloat(videoTrackLength) * CGFloat(percent) - UIScreen.main.bounds.size.width / 2
         nativePlayercollectionView.contentOffset = CGPoint(x: position, y: nativePlayercollectionView.contentOffset.y)
         cursorContainerViewController.seconds = time.seconds
+        
+        let (progressTimeM, progressTimeS) = Utils.secondsToHoursMinutesSeconds(Int(Float(time.seconds).roundToPlaces(places: 0)))
+        let (totalTimeM, totalTimeS) = Utils.secondsToHoursMinutesSeconds(Int(Float(asset.duration.seconds).roundToPlaces(places: 0)))
+        self.storyProgressBar.currentTime = time.seconds
+        self.lblStoryTime.text = "\(progressTimeM):\(progressTimeS) / \(totalTimeM):\(totalTimeS)"
     }
     
     func startPlaybackTimeChecker() {
@@ -1013,6 +1024,7 @@ extension StoryEditorViewController {
                 self.displayKeyframeImages.append(contentsOf: $0)
                 self.nativePlayercollectionView.reloadData()
             }
+            self.storyProgressBar.duration = asset.duration.seconds
         }
     }
     

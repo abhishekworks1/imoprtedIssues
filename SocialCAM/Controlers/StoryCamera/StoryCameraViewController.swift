@@ -155,6 +155,8 @@ class StoryCameraViewController: UIViewController {
     
     @IBOutlet weak var cameraModeIndicatorView: UIView!
     
+    @IBOutlet var speedIndicatorView: [DottedLineView]!
+    
     @IBOutlet weak var cameraModeIndicatorImageView: UIImageView!
     
     // MARK: Variables
@@ -427,10 +429,10 @@ class StoryCameraViewController: UIViewController {
         super.viewDidLoad()
         
         UIApplication.shared.isIdleTimerDisabled = true
+        setCameraSettings()
         checkPermissions()
         setupLayout()
         setupLayoutCameraSliderView()
-        setCameraSettings()
         setupCountDownView()
         addAskQuestionReplyView()
         self.storyUploadManager.delegate = self
@@ -463,9 +465,6 @@ class StoryCameraViewController: UIViewController {
         startCapture()
         observeState()
         self.flashView?.removeFromSuperview()
-        if recordingType != .custom {
-            self.circularProgress.animate(toAngle: 0, duration: 0, completion: nil)
-        }
         DispatchQueue.main.async {
             self.recoredButtonCenterPoint = self.circularProgress.center
         }
@@ -492,6 +491,7 @@ class StoryCameraViewController: UIViewController {
         }
         DispatchQueue.main.async {
             self.circularProgress.center = self.recoredButtonCenterPoint
+            self.cameraSliderView.selectCell = Defaults.shared.cameraMode.rawValue
         }
     }
     
@@ -617,7 +617,6 @@ extension StoryCameraViewController {
         photoTimerSelectedLabel.text = selectedPhotoTimerValue.value
         
         recordingType = Defaults.shared.cameraMode
-        cameraSliderView.selectCell = Defaults.shared.cameraMode.rawValue
     }
     
     func stop() {
@@ -807,10 +806,14 @@ extension StoryCameraViewController {
         self.takenImages.removeAll()
         self.takenVideoUrls.removeAll()
         self.stopMotionCollectionView.reloadData()
+        DispatchQueue.main.async {
+            self.circularProgress.center = self.recoredButtonCenterPoint
+        }
     }
     
     @objc func speedSliderValueChanged(_ sender: Any) {
         videoSpeedType = speedSlider.speedType
+        speedIndicatorViewColorChange()
         guard nextLevel.isRecording else {
             return
         }
@@ -1139,9 +1142,11 @@ extension StoryCameraViewController {
             return
         }
         showControls()
+        
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
             self.circularProgress.trackThickness = 0.75
             self.circularProgress.transform = CGAffineTransform(scaleX: 1, y: 1)
+            
         }, completion: { (_: Bool) in
             self.nextLevel.pause {
                 self.circularProgress.animate(toAngle: 0, duration: 0) { _ in
