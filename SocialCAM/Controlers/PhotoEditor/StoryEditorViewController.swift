@@ -1102,6 +1102,7 @@ extension StoryEditorViewController {
         DispatchQueue.runOnMainThread {
             if let loadingView = self.loadingView {
                 loadingView.progressView.setProgress(to: Double(0), withAnimation: true)
+                loadingView.shouldDescriptionTextShow = true
                 loadingView.show(on: self.view, completion: {
                     loadingView.cancelClick = { _ in
                         exportSession.cancelExporting()
@@ -1198,6 +1199,7 @@ extension StoryEditorViewController {
         DispatchQueue.runOnMainThread {
             if let loadingView = self.loadingView {
                 loadingView.progressView.setProgress(to: Double(0), withAnimation: true)
+                loadingView.shouldDescriptionTextShow = true
                 loadingView.shouldCancelShow = true
                 loadingView.show(on: self.view, completion: {
                     
