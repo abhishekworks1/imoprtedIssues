@@ -48,7 +48,7 @@ open class InstaSlider: UIView {
     var selectedCell: Int! = 0
     
     open var currentCell: CurrentCellCallBack?
-     
+    
     convenience init() {
         self.init(frame: CGRect(x: 0, y: 0, width: UIScreen.ratioWidth, height: 64))
     }

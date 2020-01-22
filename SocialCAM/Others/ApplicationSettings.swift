@@ -21,6 +21,12 @@ class ApplicationSettings {
     static let appWhiteColor: UIColor = R.color.appWhiteColor() ?? UIColor.white
     
     static let appBlackColor: UIColor = R.color.appBlackColor() ?? UIColor.black
+   
+    static let appTabBarColor: UIColor = R.color.appTabBarColor() ?? UIColor.blue
+    
+    static let appSkyBlueColor: UIColor = R.color.appSkyBlueColor() ?? UIColor.blue
+    
+    static let appBackgroundColor: UIColor = R.color.appBackgroundColor() ?? UIColor.blue
     
     static let appOrangeColor: UIColor = R.color.appOrangeColor() ?? UIColor.orange
     
