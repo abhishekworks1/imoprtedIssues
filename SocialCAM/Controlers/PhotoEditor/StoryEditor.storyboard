@@ -1854,10 +1854,28 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5xp-PQ-KOg">
-                                        <rect key="frame" x="100.66666666666669" y="5" width="213" height="60"/>
+                                        <rect key="frame" x="0.0" y="5" width="50" height="60"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="213" id="Cbh-LI-KNX"/>
+                                            <constraint firstAttribute="width" constant="50" id="Cbh-LI-KNX"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                <real key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidthChat">
+                                                <real key="value" value="2"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColorChat">
+                                                <color key="value" name="quetag_darkPastelGreen"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V3t-Z0-ycT">
+                                        <rect key="frame" x="364" y="5" width="50" height="60"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="h7p-fD-fcO"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
@@ -1876,14 +1894,17 @@
                                 <constraints>
                                     <constraint firstItem="eDv-1s-dfW" firstAttribute="bottom" secondItem="5YC-iG-fL9" secondAttribute="bottom" id="0lb-Gs-f2J"/>
                                     <constraint firstItem="eDv-1s-dfW" firstAttribute="leading" secondItem="9fC-hj-83k" secondAttribute="leading" constant="-15" id="4AU-sM-fPu"/>
-                                    <constraint firstItem="5xp-PQ-KOg" firstAttribute="centerX" secondItem="9fC-hj-83k" secondAttribute="centerX" id="Ig9-zs-keI"/>
+                                    <constraint firstAttribute="trailing" secondItem="V3t-Z0-ycT" secondAttribute="trailing" id="ED5-el-Os3"/>
                                     <constraint firstItem="5xp-PQ-KOg" firstAttribute="top" secondItem="9fC-hj-83k" secondAttribute="top" constant="5" id="N6A-FX-fEj"/>
+                                    <constraint firstAttribute="bottom" secondItem="V3t-Z0-ycT" secondAttribute="bottom" constant="5" id="Ptz-X1-iqg"/>
                                     <constraint firstItem="5YC-iG-fL9" firstAttribute="centerY" secondItem="9fC-hj-83k" secondAttribute="centerY" id="WIT-LW-JuG"/>
                                     <constraint firstAttribute="height" constant="70" id="Yg6-1B-HpS"/>
                                     <constraint firstItem="eDv-1s-dfW" firstAttribute="top" secondItem="5YC-iG-fL9" secondAttribute="top" id="Ylr-4j-PHY"/>
                                     <constraint firstAttribute="bottom" secondItem="5xp-PQ-KOg" secondAttribute="bottom" constant="5" id="YmP-2W-aGB"/>
                                     <constraint firstAttribute="trailing" secondItem="5YC-iG-fL9" secondAttribute="trailing" id="bCq-ly-1zc"/>
                                     <constraint firstItem="5YC-iG-fL9" firstAttribute="leading" secondItem="9fC-hj-83k" secondAttribute="leading" id="nCW-6T-Oxs"/>
+                                    <constraint firstItem="V3t-Z0-ycT" firstAttribute="top" secondItem="9fC-hj-83k" secondAttribute="top" constant="5" id="qBV-FZ-bkd"/>
+                                    <constraint firstItem="5xp-PQ-KOg" firstAttribute="leading" secondItem="9fC-hj-83k" secondAttribute="leading" id="uoi-ac-Z0B"/>
                                 </constraints>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qOi-0a-JHl">
@@ -1943,6 +1964,19 @@
                                     <action selector="onChangeBoomerangLoop:" destination="mcN-sd-jUR" eventType="touchUpInside" id="Rqn-bh-Vgn"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3NG-mH-TBJ">
+                                <rect key="frame" x="296" y="44" width="50" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="FuH-zR-a2N"/>
+                                    <constraint firstAttribute="height" constant="44" id="cTC-35-zK2"/>
+                                </constraints>
+                                <state key="normal" image="plusSegment">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="onAddBoomerangView:" destination="mcN-sd-jUR" eventType="touchUpInside" id="jO3-Ru-0sx"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="alA-Go-fhV">
                                 <rect key="frame" x="0.0" y="44" width="44" height="44"/>
                                 <constraints>
@@ -1963,11 +1997,13 @@
                             <constraint firstItem="9fC-hj-83k" firstAttribute="leading" secondItem="0J1-RW-jwi" secondAttribute="leading" id="7g5-VT-CNC"/>
                             <constraint firstItem="QaX-xq-9Sh" firstAttribute="top" secondItem="Xfw-SJ-pOV" secondAttribute="top" id="AZe-ng-NbR"/>
                             <constraint firstItem="0J1-RW-jwi" firstAttribute="trailing" secondItem="Yi8-cQ-0S0" secondAttribute="trailing" constant="10" id="EwL-fu-1Yi"/>
+                            <constraint firstItem="Yi8-cQ-0S0" firstAttribute="leading" secondItem="3NG-mH-TBJ" secondAttribute="trailing" constant="8" id="Ksc-4f-aoq"/>
                             <constraint firstItem="9fC-hj-83k" firstAttribute="top" secondItem="qOi-0a-JHl" secondAttribute="bottom" id="LUx-yt-LHa"/>
                             <constraint firstItem="wfw-TO-bE2" firstAttribute="leading" secondItem="Xfw-SJ-pOV" secondAttribute="trailing" constant="8" id="O4K-UE-n1X"/>
                             <constraint firstItem="qOi-0a-JHl" firstAttribute="top" secondItem="alA-Go-fhV" secondAttribute="bottom" id="Pto-wC-PHe"/>
                             <constraint firstItem="qOi-0a-JHl" firstAttribute="leading" secondItem="0J1-RW-jwi" secondAttribute="leading" id="VUI-6G-QcC"/>
                             <constraint firstItem="qOi-0a-JHl" firstAttribute="top" secondItem="0J1-RW-jwi" secondAttribute="top" constant="44" id="WGl-d2-OX1"/>
+                            <constraint firstItem="3NG-mH-TBJ" firstAttribute="top" secondItem="Yi8-cQ-0S0" secondAttribute="top" id="X3D-5H-b7X"/>
                             <constraint firstItem="alA-Go-fhV" firstAttribute="top" secondItem="0J1-RW-jwi" secondAttribute="top" id="YZp-PD-NJj"/>
                             <constraint firstItem="Yi8-cQ-0S0" firstAttribute="top" secondItem="0J1-RW-jwi" secondAttribute="top" id="eNs-EE-jKZ"/>
                             <constraint firstItem="9fC-hj-83k" firstAttribute="bottom" secondItem="0J1-RW-jwi" secondAttribute="bottom" id="hwe-2o-taL"/>
@@ -1986,7 +2022,9 @@
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="boomerangCropView" destination="5xp-PQ-KOg" id="FA5-Ga-iH6"/>
+                        <outlet property="addBoomerangButton" destination="3NG-mH-TBJ" id="HZX-d7-aXJ"/>
+                        <outlet property="firstBoomerangView" destination="5xp-PQ-KOg" id="flN-9u-Na8"/>
+                        <outlet property="secondBoomerangView" destination="V3t-Z0-ycT" id="6fI-w8-ht7"/>
                         <outlet property="timePointerView" destination="eDv-1s-dfW" id="KeT-Lo-dtM"/>
                         <outlet property="trimmerView" destination="5YC-iG-fL9" id="YuL-Ck-UgO"/>
                         <outlet property="videoView" destination="qOi-0a-JHl" id="fW8-mr-zXX"/>
@@ -1994,7 +2032,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zBj-tD-cUX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-687" y="128"/>
+            <point key="canvasLocation" x="-688.40579710144937" y="127.90178571428571"/>
         </scene>
         <!--Bitmoji Sticker Picker View Controller-->
         <scene sceneID="5vs-0D-Wzk">
@@ -2137,8 +2175,8 @@
     </scenes>
     <resources>
         <image name="addNewMusic" width="22" height="22"/>
-        <image name="boomrangSecondSelection" width="30" height="20"/>
-        <image name="boomrangTimeSelection" width="24" height="24"/>
+        <image name="boomrangSecondSelection" width="31" height="20"/>
+        <image name="boomrangTimeSelection" width="30" height="20"/>
         <image name="crop" width="25" height="25"/>
         <image name="download" width="22" height="22"/>
         <image name="editOptionStory" width="24" height="20"/>
@@ -2154,6 +2192,7 @@
         <image name="maskStory" width="22" height="21"/>
         <image name="multiFilter" width="22" height="22"/>
         <image name="openSkinFilter" width="22" height="22"/>
+        <image name="plusSegment" width="18" height="18"/>
         <image name="reverseBoom" width="30" height="20"/>
         <image name="reverseBoomSelected" width="30" height="20"/>
         <image name="selectedCheckmark" width="16" height="16"/>
