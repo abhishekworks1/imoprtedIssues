@@ -242,6 +242,8 @@ class StoryEditorViewController: UIViewController {
         }
         self.dragAndDropManager = DragAndDropManager(canvas: self.view,
                                                      collectionViews: collectionViews)
+        
+        downloadViewGesture()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -644,6 +646,63 @@ extension StoryEditorViewController {
                 }
             }
         }
+    }
+    
+    func downloadViewGesture() {
+        let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGestureRecognizer(_:)))
+        downloadView.isUserInteractionEnabled = true
+        longPressGestureRecognizer.minimumPressDuration = 0.5
+        downloadView.addGestureRecognizer(longPressGestureRecognizer)
+    }
+    
+    @objc internal func handleLongPressGestureRecognizer(_ gestureRecognizer: UIGestureRecognizer) {
+        switch gestureRecognizer.state {
+        case .began:
+            downloadAllImageVideo()
+        default:
+            break
+        }
+    }
+    
+    func downloadAllImageVideo() {
+        let dispatchGroup = DispatchGroup()
+        let dispatchSemaphore = DispatchSemaphore(value: 0)
+        let exportQueue = DispatchQueue(label: "com.queue.videoQueue")
+        
+        for (index, storyEditor) in storyEditors.enumerated() {
+            dispatchGroup.enter()
+            exportQueue.async {
+                switch storyEditor.type {
+                case .image:
+                    DispatchQueue.runOnMainThread {
+                        if let image = self.storyEditors[self.currentStoryIndex].updatedThumbnailImage() {
+                            self.saveImageOrVideoInGallery(image: image)
+                            dispatchGroup.leave()
+                        }
+                    }
+                case let .video(_, asset):
+                    DispatchQueue.runOnMainThread {
+                        self.exportViewWithURL(asset, index: index) { [weak self] url in
+                            guard let `self` = self else { return }
+                            if let exportURL = url {
+                                self.videoExportedURL =  exportURL
+                                DispatchQueue.runOnMainThread {
+                                    self.saveImageOrVideoInGallery(exportURL: exportURL)
+                                    dispatchSemaphore.signal()
+                                    dispatchGroup.leave()
+                                }
+                            }
+                        }
+                    }
+                    dispatchSemaphore.wait()
+                }
+            }
+            
+        }
+        
+        dispatchGroup.notify(queue: exportQueue, execute: {
+            print("Download All Story")
+        })
     }
     
     func saveImageOrVideoInGallery(image: UIImage? = nil, exportURL: URL? = nil) {
@@ -1107,8 +1166,9 @@ extension StoryEditorViewController {
         imageVideoExport(isDownload: false, type: type)
     }
     
-    func exportViewWithURL(_ asset: AVAsset, completionHandler: @escaping (_ url: URL?) -> Void) {
-        let storyEditor = storyEditors[currentStoryIndex]
+    func exportViewWithURL(_ asset: AVAsset, index: Int? = nil, completionHandler: @escaping (_ url: URL?) -> Void) {
+        let storyIndex: Int = index ?? self.currentStoryIndex
+        let storyEditor = storyEditors[storyIndex]
         let exportSession = StoryAssetExportSession()
         
         DispatchQueue.runOnMainThread {
