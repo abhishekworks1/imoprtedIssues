@@ -67,6 +67,11 @@ class SpecificBoomerangViewController: UIViewController {
         super.viewDidLoad()
         addPlayerLayer()
         loadViewWith(asset: currentAsset)
+        if let asset = currentAsset,
+            asset.duration.seconds < 6 {
+            addBoomerangButton.isEnabled = false
+            addBoomerangButton.alpha = 0.5
+        }
     }
     
     func calculateBoomerangTimeRange() {
@@ -269,9 +274,22 @@ class SpecificBoomerangViewController: UIViewController {
     }
     
     @IBAction func onChangeMode(_ sender: UIButton) {
-        sender.isSelected = !sender.isSelected
-        needToReverse = sender.isSelected
-        resetBoomerangTimeRange()
+        let supportedModes = ["Forward", "Reverse"]
+        BasePopConfiguration.shared.backgoundTintColor = R.color.appWhiteColor()!
+        BasePopConfiguration.shared.menuWidth = 120
+        BasePopConfiguration.shared.showCheckMark = .checkmark
+        BasePopConfiguration.shared.joinText = ""
+        let selectedName = needToReverse ? supportedModes[1] : supportedModes[0]
+        BasePopOverMenu
+            .showForSender(sender: sender,
+                           with: supportedModes,
+                           withSelectedName: selectedName,
+                done: { (selectedIndex) -> Void in
+                    self.needToReverse = selectedIndex > 0
+                    self.resetBoomerangTimeRange()
+            },cancel: {
+                
+            })
     }
     
     @IBAction func onAddBoomerangView(_ sender: UIButton) {
