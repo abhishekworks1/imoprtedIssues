@@ -70,20 +70,19 @@ class CircularProgressBar: UIView {
             }
         }
         
-        foregroundLayer.strokeEnd = CGFloat(progress)
-        
-        if withAnimation {
-            let animation = CABasicAnimation(keyPath: "strokeEnd")
-            animation.fromValue = previousProgress
-            animation.toValue = progress
-            animation.duration = 2
-            foregroundLayer.add(animation, forKey: "foregroundAnimation")
-        }
-        
-        previousProgress = progress
-        currentTime = 0
-        
         DispatchQueue.main.async {
+            self.foregroundLayer.strokeEnd = CGFloat(progress)
+            
+            if withAnimation {
+                let animation = CABasicAnimation(keyPath: "strokeEnd")
+                animation.fromValue = self.previousProgress
+                animation.toValue = progress
+                animation.duration = 2
+                self.foregroundLayer.add(animation, forKey: "foregroundAnimation")
+            }
+            
+            self.previousProgress = progress
+            self.currentTime = 0
             self.label.text = "\(Int(progress * 100))"
             self.setForegroundLayerColorForSafePercent()
             self.configLabel()
