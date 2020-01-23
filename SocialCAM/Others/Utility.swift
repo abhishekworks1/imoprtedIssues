@@ -19,6 +19,10 @@ public struct Utils {
         URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
     }
     
+    static func secondsToHoursMinutesSeconds(_ seconds: Int) -> (Int, Int) {
+        return ((seconds % 3600) / 60, (seconds % 3600) % 60)
+    }
+    
     static func downloadImage(from url: URL, completion: @escaping (String?) -> ()) {
         getData(from: url) { data, response, error in
             guard let data = data, error == nil else { return }

@@ -37,10 +37,10 @@ open class InstaSlider: UIView {
         didSet {
             selectedCell = selectCell
             DispatchQueue.runOnMainThread {
-                self.collectionView.selectItem(at: IndexPath(item: self.selectCell, section: 0), animated: true, scrollPosition: UICollectionView.ScrollPosition.centeredHorizontally)
-            }
-            if (self.currentCell != nil) {
-                self.currentCell!(self.selectCell)
+                self.collectionView.selectItem(at: IndexPath(item: self.selectCell, section: 0), animated: false, scrollPosition: UICollectionView.ScrollPosition.centeredHorizontally)
+                if (self.currentCell != nil) {
+                    self.currentCell!(self.selectCell)
+                }
             }
         }
     }

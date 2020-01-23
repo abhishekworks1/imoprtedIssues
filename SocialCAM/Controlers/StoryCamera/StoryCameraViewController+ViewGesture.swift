@@ -265,6 +265,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             self.speedLabel.stopBlink()
         }
         self.view.bringSubviewToFront(self.speedLabel)
+        speedIndicatorViewColorChange()
     }
     
     func setSpeed(type: VideoSpeedType, value: Int, text: String) {
@@ -275,6 +276,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
         self.speedLabel.text = text
         self.speedLabel.startBlink()
         self.view.bringSubviewToFront(self.speedLabel)
+        speedIndicatorViewColorChange()
     }
     
     func setNormalSpeed() {
@@ -284,6 +286,17 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
         self.speedLabel.text = ""
         self.speedLabel.stopBlink()
         nextLevel.videoConfiguration.timescale = 1
+        speedIndicatorViewColorChange()
+    }
+    
+    func speedIndicatorViewColorChange() {
+        for view in speedIndicatorView {
+            view.lineColor = ApplicationSettings.appOrangeColor
+            if view.tag == Int(speedSlider.value) {
+                view.lineColor = .red
+            }
+            view.draw(view.frame)
+        }
     }
     
     @objc internal func handlePhotoTapGestureRecognizer(_ gestureRecognizer: UIGestureRecognizer) {

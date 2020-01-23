@@ -169,7 +169,6 @@ extension StoryCameraViewController: NextLevelVideoDelegate {
             }
         }
     }
-    
 }
 
 extension StoryCameraViewController: NextLevelMetadataOutputObjectsDelegate {
