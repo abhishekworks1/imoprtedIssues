@@ -443,19 +443,14 @@ class StoryCameraViewController: UIViewController {
         view.bringSubviewToFront(selectTimersView)
         layout()
         self.view.addGestureRecognizer(panRecognizer)
-        
-        // Todo: For Capture photo with Volume Click
         volumeButtonHandler()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(volumeChanged(notification:)),
-                                               name: NSNotification.Name(rawValue: "AVSystemController_SystemVolumeDidChangeNotification"),
-                                               object: nil)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         stopCapture()
         isViewAppear = false
+        removeVolumeButtonHandler()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -493,6 +488,7 @@ class StoryCameraViewController: UIViewController {
             self.circularProgress.center = self.recoredButtonCenterPoint
             self.cameraSliderView.selectCell = Defaults.shared.cameraMode.rawValue
         }
+        addVolumeButtonHandler()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -696,7 +692,20 @@ extension StoryCameraViewController {
         self.volumeHandler = JPSVolumeButtonHandler(up: {
                             }, downBlock: {
                             })
+    }
+    
+    func addVolumeButtonHandler() {
+        NotificationCenter.default.addObserver(self, selector: #selector(volumeChanged(notification:)),
+                                               name: .AVSystemVolumeDidChange,
+                                               object: nil)
         self.volumeHandler?.start(true)
+    }
+    
+    func removeVolumeButtonHandler() {
+        NotificationCenter.default.removeObserver(self,
+                                                  name: .AVSystemVolumeDidChange,
+                                                  object: nil)
+        self.volumeHandler?.stop()
     }
     
     @objc func volumeChanged(notification: NSNotification) {

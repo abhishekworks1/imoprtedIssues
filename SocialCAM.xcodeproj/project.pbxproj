@@ -553,6 +553,7 @@
 		954660692387B5CC00A37AE0 /* RotationDial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954660442387B5CB00A37AE0 /* RotationDial.swift */; };
 		9546606A2387B5CC00A37AE0 /* CGAngle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954660452387B5CB00A37AE0 /* CGAngle.swift */; };
 		9546606B2387B5CC00A37AE0 /* DialConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954660462387B5CB00A37AE0 /* DialConfig.swift */; };
+		954DB1E823D9C30100B0A9C4 /* NSNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954DB1E723D9C30000B0A9C4 /* NSNotification.swift */; };
 		95A405AE23BF78D000AD38C4 /* SpecificBoomerangViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A405AC23BF78CF00AD38C4 /* SpecificBoomerangViewController.swift */; };
 		95A405AF23BF78D000AD38C4 /* SpecificBoomerangWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A405AD23BF78D000AD38C4 /* SpecificBoomerangWriter.swift */; };
 		AB8ACBA225496B14EAAC36D8 /* Pods_SocialCAM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FFDFF034EAEBD1B2183306F /* Pods_SocialCAM.framework */; };
@@ -1142,6 +1143,7 @@
 		954660442387B5CB00A37AE0 /* RotationDial.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotationDial.swift; sourceTree = "<group>"; };
 		954660452387B5CB00A37AE0 /* CGAngle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGAngle.swift; sourceTree = "<group>"; };
 		954660462387B5CB00A37AE0 /* DialConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DialConfig.swift; sourceTree = "<group>"; };
+		954DB1E723D9C30000B0A9C4 /* NSNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSNotification.swift; sourceTree = "<group>"; };
 		95A405AC23BF78CF00AD38C4 /* SpecificBoomerangViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpecificBoomerangViewController.swift; sourceTree = "<group>"; };
 		95A405AD23BF78D000AD38C4 /* SpecificBoomerangWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpecificBoomerangWriter.swift; sourceTree = "<group>"; };
 		B327FA3B2FE684E9DDB692D6 /* Pods-SocialCAM.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialCAM.debug.xcconfig"; path = "Target Support Files/Pods-SocialCAM/Pods-SocialCAM.debug.xcconfig"; sourceTree = "<group>"; };
@@ -2151,6 +2153,7 @@
 				824EB3B223619E5B00205993 /* AVMutableComposition+AVAsset.swift */,
 				824EB3AF23619E5B00205993 /* UIApplication.swift */,
 				824EB3B923619E5C00205993 /* NSObject.swift */,
+				954DB1E723D9C30000B0A9C4 /* NSNotification.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -3095,6 +3098,7 @@
 				8205FC68236C3AE7002B2603 /* DrawTextEditView.swift in Sources */,
 				8205FA86236C0F9C002B2603 /* CircularProgressBar.swift in Sources */,
 				8205FACC236C10C7002B2603 /* Reachability.swift in Sources */,
+				954DB1E823D9C30100B0A9C4 /* NSNotification.swift in Sources */,
 				82D1EBDF236FF2DF00A680E7 /* UILabel+Extension.swift in Sources */,
 				8205FCC3236C3AFA002B2603 /* CollageViewT303.swift in Sources */,
 				8299F56A23713A8B00963318 /* StoryCameraViewController+NextLevel.swift in Sources */,
@@ -3361,8 +3365,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BITCODE_GENERATION_MODE = marker;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				ENABLE_BITCODE = NO;
@@ -3376,7 +3380,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D SOCIAL";
 				PRODUCT_BUNDLE_IDENTIFIER = com.simform.storiCamPro;
 				PRODUCT_NAME = SocialCam;
-				PROVISIONING_PROFILE_SPECIFIER = StoriCamPro_Dev;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "SocialCAM/SocialCAM-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -3389,8 +3393,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BITCODE_GENERATION_MODE = bitcode;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 17;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				ENABLE_BITCODE = NO;
@@ -3404,7 +3408,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D SOCIAL";
 				PRODUCT_BUNDLE_IDENTIFIER = com.simform.storiCamPro;
 				PRODUCT_NAME = SocialCam;
-				PROVISIONING_PROFILE_SPECIFIER = StoriCamPro_Dev;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "SocialCAM/SocialCAM-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
