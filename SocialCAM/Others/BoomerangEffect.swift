@@ -117,8 +117,6 @@ class VideoFactory: NSObject {
             cvimgbuffer.append(contentsOf: origin)
             cvimgbuffer.append(contentsOf: reverse)
             cvimgbuffer.append(contentsOf: origin)
-            cvimgbuffer.append(contentsOf: reverse)
-            cvimgbuffer.append(contentsOf: origin)
         }
 
         let buffer = BufferToVideo(buffer: cvimgbuffer, fps: Int32(fps))

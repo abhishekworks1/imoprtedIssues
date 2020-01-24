@@ -27,6 +27,7 @@ class StoryCameraViewController: UIViewController {
     var runningAnimators = [UIViewPropertyAnimator]()
     /// The progress of each animator. This array is parallel to the `runningAnimators` array.
     var animationProgress = [CGFloat]()
+    
     private lazy var panRecognizer: InstantPanGestureRecognizer = {
         let recognizer = InstantPanGestureRecognizer()
         recognizer.addTarget(self, action: #selector(popupViewPanned(recognizer:)))
@@ -486,7 +487,6 @@ class StoryCameraViewController: UIViewController {
         }
         DispatchQueue.main.async {
             self.circularProgress.center = self.recoredButtonCenterPoint
-            self.cameraSliderView.selectCell = Defaults.shared.cameraMode.rawValue
         }
         addVolumeButtonHandler()
     }
@@ -686,6 +686,7 @@ extension StoryCameraViewController {
                 self.recordingType = .normal
             }
         }
+        cameraSliderView.selectCell = Defaults.shared.cameraMode.rawValue
     }
     
     func volumeButtonHandler() {
@@ -721,7 +722,7 @@ extension StoryCameraViewController {
     }
     
     func volumeButtonPhotoCapture() {
-        if !self.isForceCaptureImageWithVolumeKey {
+        if !isRecording && !self.isForceCaptureImageWithVolumeKey {
             self.isForceCaptureImageWithVolumeKey = true
             self.capturePhoto()
         }
@@ -1089,7 +1090,7 @@ extension StoryCameraViewController {
         }
         self.isMute ? muteButton.startBlink(0.5) : muteButton.stopBlink()
         self.view.bringSubviewToFront(slowFastVerticalBar.superview ?? UIView())
-        slowFastVerticalBar.isHidden = false
+        slowFastVerticalBar.isHidden = Defaults.shared.isPro ? false : true
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
             self.circularProgress.trackThickness = 0.75*1.5
             self.circularProgress.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)

@@ -19,33 +19,24 @@ class HomeTableViewCellWithCollectionView: UITableViewCell, UICollectionViewData
         collectionView.register(R.nib.gameGridCell(), forCellWithReuseIdentifier: R.reuseIdentifier.gameGridCell.identifier)
     }
     
-    
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
     }
     
     // MARK: UICollectionViewDataSource
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+        return StoryGames.storyGames.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return StoryGames.storyGames[section].games.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell: UICollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.gameGridCell.identifier, for: indexPath) as? GameGridCell else {
+        guard let cell: GameGridCell = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.gameGridCell.identifier, for: indexPath) as? GameGridCell else {
             fatalError("GameGridCell Not Found")
         }
-        
-        if indexPath.row%2 == 0 {
-            cell.backgroundColor = UIColor.red
-        } else {
-            cell.backgroundColor = UIColor.yellow
-        }
+        cell.game = StoryGames.storyGames[indexPath.section].games[indexPath.item]
         return cell
     }
-    
-    
-    
 }

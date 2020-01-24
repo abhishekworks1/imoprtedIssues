@@ -15,9 +15,9 @@ class HomeNavigationController: UINavigationController, UINavigationControllerDe
     
     func enableScroll() {
         if viewControllers.count > 1 {
-           //self.parentPageViewController?.isScrollEnabled = false
+            self.parentPageViewController?.isScrollEnabled = false
         } else {
-            //self.parentPageViewController?.isScrollEnabled = true
+            self.parentPageViewController?.isScrollEnabled = true
         }
     }
     

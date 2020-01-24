@@ -103,7 +103,6 @@ enum FileExtension: String {
 enum OpeningScreen: Int {
     case camera = 0
     case dashboard
-    case chat
 }
 
 public enum ImageFormat {

@@ -35,6 +35,9 @@ open class InstaSlider: UIView {
     
     open var selectCell: Int = 0 {
         didSet {
+            if selectedCell == selectCell {
+                return
+            }
             selectedCell = selectCell
             DispatchQueue.runOnMainThread {
                 self.collectionView.selectItem(at: IndexPath(item: self.selectCell, section: 0), animated: false, scrollPosition: UICollectionView.ScrollPosition.centeredHorizontally)

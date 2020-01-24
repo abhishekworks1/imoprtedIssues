@@ -87,7 +87,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             onStartRecordSetSpeed()
             isRecording = true
             self.view.bringSubviewToFront(slowFastVerticalBar.superview ?? UIView())
-            slowFastVerticalBar.isHidden = false
+            slowFastVerticalBar.isHidden = Defaults.shared.isPro ? false : true
             self.panStartPoint = gestureRecognizer.location(in: self.view)
             self.panStartZoom = CGFloat(nextLevel.videoZoomFactor)
         case .changed:

@@ -10,21 +10,19 @@ import Foundation
 
 class Games {
     var name: String
-    var image: UIImage
-    var notificationCount: Int? = 0
+    var image: UIImage?
+    var notificationCount: Int = 0
     var selected: Bool? = false
     
-    init(name: String, image: UIImage = UIImage(), notificationCount: Int = 0, selected: Bool = false) {
+    init(name: String, image: UIImage? = UIImage(), notificationCount: Int = 0, selected: Bool = false) {
         self.name = name
         self.image = image
         self.notificationCount = notificationCount
         self.selected = selected
     }
-    
 }
 
 class StoryGames {
-    
     var name: String
     var games: [Games]
     
@@ -33,23 +31,23 @@ class StoryGames {
         self.games = games
     }
     
-    static var storyGames = [StoryGames(name: "Select your interests",
+    static var storyGames = [StoryGames(name: "",
                                               games: [
-                                                Games(name: "Sport", selected: false),
-                                                Games(name: "Dance", selected: true),
-                                                Games(name: "GYM", selected: false),
-                                                Games(name: "Boxing", selected: false)])]
+                                                Games(name: R.string.localizable.sport(), image: R.image.sportBitmoji(), selected: false),
+                                                Games(name: R.string.localizable.dance(), image: R.image.danceBitmoji(), selected: true),
+                                                Games(name: R.string.localizable.gyM(), image: R.image.gymBitmoji(), selected: false),
+                                                Games(name: R.string.localizable.boxing(), image: R.image.boxingBitmoji(), selected: false)])]
 }
 
 class GameGridCell: UICollectionViewCell {
-   
-    @IBOutlet var imgView : UIImageView?
-    @IBOutlet var lblGameName : UILabel?
-    @IBOutlet var lblNotificationCount : UILabel?
+    @IBOutlet var gameNameView: UIView?
+    @IBOutlet var imgView: UIImageView?
+    @IBOutlet var lblGameName: UILabel?
+    @IBOutlet var lblNotificationCount: UILabel?
     
     var game: Games? {
         didSet {
-            if let game = self.game{
+            if let game = self.game {
                 self.configCell(game: game)
             }
         }
@@ -57,13 +55,13 @@ class GameGridCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        Utils.generateDiagonal(view: gameNameView)
     }
     
     func configCell(game: Games) {
         imgView?.image = game.image
         lblGameName?.text = game.name
-        lblNotificationCount?.text = "\(String(describing: game.notificationCount))"
+        lblNotificationCount?.text = "\(game.notificationCount)"
     }
 
 }

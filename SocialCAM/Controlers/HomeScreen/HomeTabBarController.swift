@@ -11,14 +11,14 @@ import Foundation
 class HomeTabBarController: UITabBarController {
     
     open var imageView: UIImageView = {
-        let imageView = UIImageView.init(frame: CGRect.init(x: 0,
+        let imageView = UIImageView(frame: CGRect.init(x: 0,
                                                             y: -35,
                                                             width: 80,
                                                             height: 80))
-        imageView.backgroundColor = .clear
         imageView.backgroundColor = ApplicationSettings.appBackgroundColor
-        imageView.layer.cornerRadius = 35
-        imageView.image = UIImage(named: "tab3")
+        imageView.contentMode = .scaleAspectFit
+        imageView.layer.cornerRadius = 40
+        imageView.image = R.image.tab3()
         return imageView
     }()
     

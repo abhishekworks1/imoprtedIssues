@@ -440,6 +440,9 @@
 		82CA3E4D23D98F2200DD48B8 /* GameGridCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 82CA3E4C23D98F2200DD48B8 /* GameGridCell.xib */; };
 		82CA3E4F23D996E800DD48B8 /* HomeTableViewCellWithCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CA3E4E23D996E800DD48B8 /* HomeTableViewCellWithCollectionView.swift */; };
 		82CA3E5123D9970700DD48B8 /* HomeTableViewCellWithCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 82CA3E5023D9970700DD48B8 /* HomeTableViewCellWithCollectionView.xib */; };
+		82CA3E5423D9D02A00DD48B8 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CA3E5323D9D02A00DD48B8 /* PageViewController.swift */; };
+		82CA3E5623D9D03000DD48B8 /* PageViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82CA3E5523D9D03000DD48B8 /* PageViewController.storyboard */; };
+		82CA3E5823D9D08A00DD48B8 /* StoryCameraViewNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CA3E5723D9D08A00DD48B8 /* StoryCameraViewNavigationController.swift */; };
 		82CCB16E2372CC2600EC76E8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CCB16D2372CC2600EC76E8 /* LoginViewController.swift */; };
 		82CCB1702372D0F800EC76E8 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CCB16F2372D0F800EC76E8 /* CurrentUser.swift */; };
 		82CCB1722372D21E00EC76E8 /* PromanagerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CCB1712372D21E00EC76E8 /* PromanagerData.swift */; };
@@ -1029,6 +1032,9 @@
 		82CA3E4C23D98F2200DD48B8 /* GameGridCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameGridCell.xib; sourceTree = "<group>"; };
 		82CA3E4E23D996E800DD48B8 /* HomeTableViewCellWithCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCellWithCollectionView.swift; sourceTree = "<group>"; };
 		82CA3E5023D9970700DD48B8 /* HomeTableViewCellWithCollectionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeTableViewCellWithCollectionView.xib; sourceTree = "<group>"; };
+		82CA3E5323D9D02A00DD48B8 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
+		82CA3E5523D9D03000DD48B8 /* PageViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PageViewController.storyboard; sourceTree = "<group>"; };
+		82CA3E5723D9D08A00DD48B8 /* StoryCameraViewNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryCameraViewNavigationController.swift; sourceTree = "<group>"; };
 		82CCB16D2372CC2600EC76E8 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		82CCB16F2372D0F800EC76E8 /* CurrentUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
 		82CCB1712372D21E00EC76E8 /* PromanagerData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromanagerData.swift; sourceTree = "<group>"; };
@@ -2005,6 +2011,7 @@
 				8299F56923713A8B00963318 /* StoryCameraViewController+NextLevel.swift */,
 				82BAC1DD2387DDD000E586AB /* StoryCameraViewController+Gesture.swift */,
 				8248565123A8AE300078D117 /* StoryCameraViewController+PhotosPickerViewDelegate.swift */,
+				82CA3E5723D9D08A00DD48B8 /* StoryCameraViewNavigationController.swift */,
 				824EB38F236197DE00205993 /* StoryCameraViewController.storyboard */,
 			);
 			path = StoryCamera;
@@ -2093,6 +2100,7 @@
 		824EB393236197F600205993 /* Controlers */ = {
 			isa = PBXGroup;
 			children = (
+				82CA3E5223D9D01300DD48B8 /* PageViewController */,
 				82BB558A23D84117009B820D /* HomeScreen */,
 				82DCF7A623C5AD6A009E12D2 /* SplashScreen */,
 				8250D1BD23BF68D700593738 /* TwitterShare */,
@@ -2268,6 +2276,15 @@
 				82BB559123D88354009B820D /* HomeViewController.swift */,
 			);
 			path = HomeScreen;
+			sourceTree = "<group>";
+		};
+		82CA3E5223D9D01300DD48B8 /* PageViewController */ = {
+			isa = PBXGroup;
+			children = (
+				82CA3E5523D9D03000DD48B8 /* PageViewController.storyboard */,
+				82CA3E5323D9D02A00DD48B8 /* PageViewController.swift */,
+			);
+			path = PageViewController;
 			sourceTree = "<group>";
 		};
 		82CCB16C2372CAC300EC76E8 /* LoginController */ = {
@@ -2601,6 +2618,7 @@
 				82D1EC3F23702B4300A680E7 /* Naive.JPG in Resources */,
 				8205FD5A236C3B06002B2603 /* YUCIColorLookup.cikernel in Resources */,
 				8205FC42236C2C2F002B2603 /* SF-UI-Text-Medium.otf in Resources */,
+				82CA3E5623D9D03000DD48B8 /* PageViewController.storyboard in Resources */,
 				8205FD36236C3B06002B2603 /* LUT_M11.png in Resources */,
 				82D1EC4023702B4300A680E7 /* FairyTales.JPG in Resources */,
 				8205FB69236C1D0F002B2603 /* sad.json in Resources */,
@@ -2781,6 +2799,7 @@
 				8205FC5B236C3AA6002B2603 /* CoreMLExporter.swift in Sources */,
 				8205FB2E236C1B2D002B2603 /* Channel.swift in Sources */,
 				8205FBC0236C2A88002B2603 /* MMPlayerPassViewPushConfig.swift in Sources */,
+				82CA3E5823D9D08A00DD48B8 /* StoryCameraViewNavigationController.swift in Sources */,
 				82D1EBDB236FF29600A680E7 /* MensionCollectionViewCell.swift in Sources */,
 				8206AEF42374108C000CDD2A /* Semaphore.swift in Sources */,
 				82270CBD23B08C780003569E /* StorySegmmentAsset.swift in Sources */,
@@ -2809,6 +2828,7 @@
 				8205FCA8236C3AFA002B2603 /* CollageViewT209.swift in Sources */,
 				8205FD41236C3B06002B2603 /* EngineLog.swift in Sources */,
 				82D1EC8223703DE300A680E7 /* PhotoEditorViewController+Delegates.swift in Sources */,
+				82CA3E5423D9D02A00DD48B8 /* PageViewController.swift in Sources */,
 				950514BF239FA3F800F07D8F /* StoryEditorViewController.swift in Sources */,
 				8205FAAE236C0FF0002B2603 /* VerticalCenteredTextView.swift in Sources */,
 				82D1EBF1236FF4CC00A680E7 /* UpgradePageCollectionViewCell.swift in Sources */,

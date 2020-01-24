@@ -55,4 +55,5 @@ target 'SocialCAM' do
   pod 'SwiftLint'
   pod 'SwiftySound', '1.2'
   pod 'JPSVolumeButtonHandler'
+  pod 'Pageboy', '~> 3.2'
 end

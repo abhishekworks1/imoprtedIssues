@@ -63,6 +63,9 @@ class SpecificBoomerangViewController: UIViewController {
     
     private var canStartSecondPart = false
 
+    private var exportSession: SpecificBoomerangExportSession?
+    private var loadingView: LoadingView?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         addPlayerLayer()
@@ -119,6 +122,10 @@ class SpecificBoomerangViewController: UIViewController {
     @objc func enterBackground(_ notifi: Notification) {
         player?.pause()
         stopObservePlayerTime()
+        exportSession?.cancelExporting()
+        self.exportSession = nil
+        loadingView?.hide()
+        self.loadingView = nil
     }
     
     @objc func enterForeground(_ notifi: Notification) {
@@ -317,25 +324,28 @@ class SpecificBoomerangViewController: UIViewController {
                                                    boomerangLoopCount: boomerangMaxLoopCount,
                                                    needToReverse: needToReverse)
         
-        let loadingView = LoadingView.instanceFromNib()
-        loadingView.loadingViewShow = false
-        loadingView.shouldCancelShow = false
-        loadingView.shouldDescriptionTextShow = true
-        loadingView.show(on: self.view)
+        loadingView = LoadingView.instanceFromNib()
+        loadingView?.loadingViewShow = false
+        loadingView?.shouldCancelShow = false
+        loadingView?.shouldDescriptionTextShow = true
+        loadingView?.show(on: self.view)
         
-        let exportSession = SpecificBoomerangExportSession(config: config)
-        loadingView.cancelClick = { cancelled in
+        exportSession = SpecificBoomerangExportSession(config: config)
+        loadingView?.cancelClick = { cancelled in
             if cancelled {
                 DispatchQueue.main.async {
-                    exportSession.cancelExporting()
-                    loadingView.hide()
+                    self.exportSession?.cancelExporting()
+                    self.exportSession = nil
+                    self.loadingView?.hide()
+                    self.loadingView = nil
                 }
             }
         }
-        exportSession.export(for: asset, progress: { progress in
-            loadingView.progressView.setProgress(to: Double(progress), withAnimation: true)
+        exportSession?.export(for: asset, progress: { progress in
+            self.loadingView?.progressView.setProgress(to: Double(progress), withAnimation: true)
         }) { [weak self] url in
-            loadingView.hide()
+            self?.loadingView?.hide()
+            self?.loadingView = nil
             guard let `self` = self, let url = url else {
                 return
             }

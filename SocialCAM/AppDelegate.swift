@@ -70,7 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         MSAppCenter.start(Constant.AppCenter.apiKey, withServices: [])
         
-        UIApplication.shared.delegate!.window!!.rootViewController = R.storyboard.homeScreen.homeTabBarController()
+        UIApplication.shared.delegate!.window!!.rootViewController = R.storyboard.pageViewController.pageViewController()
         
         return true
     }

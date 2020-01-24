@@ -191,7 +191,6 @@ extension StoryCameraViewController {
         runningAnimators.append(transitionAnimator)
         runningAnimators.append(inTitleAnimator)
         runningAnimators.append(outTitleAnimator)
-        
     }
     
     @objc func popupViewPanned(recognizer: UIPanGestureRecognizer) {
@@ -314,6 +313,20 @@ extension StoryCameraViewController {
             print("Swiping up")
         }
         
+    }
+}
+
+extension StoryCameraViewController {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return false
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return false
     }
 }
 
