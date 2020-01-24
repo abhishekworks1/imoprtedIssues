@@ -15,6 +15,30 @@ import AWSS3
 import Alamofire
 
 public struct Utils {
+    
+    static func generateDiagonal(view: UIView?) {
+        let maskLayer: CAShapeLayer = CAShapeLayer()
+        maskLayer.fillRule = CAShapeLayerFillRule.evenOdd
+        maskLayer.frame = (view?.bounds)!
+        
+        UIGraphicsBeginImageContext((view?.bounds.size)!)
+        let path = UIBezierPath()
+        
+        path.move(to: CGPoint.init(x: 0, y: 0))
+        path.addLine(to: CGPoint.init(x: 10, y: (view?.bounds.size.height ?? 0)))
+             
+        path.addLine(to: CGPoint.init(x: (view?.bounds.size.width)!, y: (view?.bounds.size.height ?? 0)))
+        
+        path.addLine(to: CGPoint.init(x: (view?.bounds.size.width)! - 10, y: 0))
+        
+        path.close()
+        path.fill()
+        
+        maskLayer.path = path.cgPath
+        UIGraphicsEndImageContext()
+        view!.layer.mask = maskLayer
+    }
+    
     static func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
         URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
     }

@@ -35,6 +35,9 @@ open class InstaSlider: UIView {
     
     open var selectCell: Int = 0 {
         didSet {
+            if selectedCell == selectCell {
+                return
+            }
             selectedCell = selectCell
             DispatchQueue.runOnMainThread {
                 self.collectionView.selectItem(at: IndexPath(item: self.selectCell, section: 0), animated: false, scrollPosition: UICollectionView.ScrollPosition.centeredHorizontally)
@@ -48,7 +51,7 @@ open class InstaSlider: UIView {
     var selectedCell: Int! = 0
     
     open var currentCell: CurrentCellCallBack?
-     
+    
     convenience init() {
         self.init(frame: CGRect(x: 0, y: 0, width: UIScreen.ratioWidth, height: 64))
     }

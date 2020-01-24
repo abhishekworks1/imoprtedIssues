@@ -70,7 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         MSAppCenter.start(Constant.AppCenter.apiKey, withServices: [])
         
-        UIApplication.shared.delegate!.window!!.rootViewController = R.storyboard.storyCameraViewController.storyCameraNavigation()
+        UIApplication.shared.delegate!.window!!.rootViewController = R.storyboard.pageViewController.pageViewController()
         
         return true
     }
@@ -81,6 +81,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UITabBar.appearance().tintColor = ApplicationSettings.appPrimaryColor
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: ApplicationSettings.appPrimaryColor], for: .selected)
         UISegmentedControl.appearance().tintColor = ApplicationSettings.appPrimaryColor
+        UINavigationBar.appearance().tintColor = ApplicationSettings.appSkyBlueColor
     }
     
     func configureGoogleService() {
