@@ -20,9 +20,6 @@ import AppCenter
 import AppCenterAnalytics
 import AppCenterCrashes
 import GoogleSignIn
-import TwitterKit
-import TikTokOpenPlatformSDK
-import SCSDKLoginKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -152,11 +149,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     open func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-        if TWTRTwitter.sharedInstance().application(app, open: url, options: options) {
+        if TwitterShare.shared.application(app, open: url, options: options) {
             return true
-        } else if TiktokOpenPlatformApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: nil, annotation: [:]) {
+        } else if TiktokShare.shared.application(app, open: url, sourceApplication: nil, annotation: [:]) {
             return true
-        } else if SCSDKLoginClient.application(app, open: url, options: options) {
+        } else if SnapKitManager.shared.application(app, open: url, options: options) {
             return true
         }
         return false
@@ -164,22 +161,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         let options: [String: AnyObject] = [UIApplication.OpenURLOptionsKey.sourceApplication.rawValue: sourceApplication as AnyObject, UIApplication.OpenURLOptionsKey.annotation.rawValue: annotation as AnyObject]
-        
         if ApplicationDelegate.shared.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation) {
             return true
-        } else if TWTRTwitter.sharedInstance().application(application, open: url, options: options) {
+        } else if TwitterShare.shared.application(application, open: url, options: options) {
             return true
-        } else if TiktokOpenPlatformApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: sourceApplication, annotation: annotation) {
+        } else if TiktokShare.shared.application(application, open: url, sourceApplication: nil, annotation: [:]) {
             return true
         }
         return false
     }
     
     func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
-        if TiktokOpenPlatformApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: nil, annotation: [:]) {
-            return true
-        }
-        return false
+        return TiktokShare.shared.application(application, open: url, sourceApplication: nil, annotation: [:])
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {

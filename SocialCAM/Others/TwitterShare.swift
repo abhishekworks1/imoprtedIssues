@@ -14,7 +14,7 @@ open class TwitterShare: NSObject {
     
     static let shared: TwitterShare = TwitterShare()
     
-    var delegate: ShareStoriesDelegate?
+    weak var delegate: ShareStoriesDelegate?
    
     private var store: TWTRSessionStore {
         return TWTRTwitter.sharedInstance().sessionStore
@@ -28,6 +28,10 @@ open class TwitterShare: NSObject {
         super.init()
         TWTRTwitter.sharedInstance().start(withConsumerKey: Constant.TWTRTwitter.consumerKey, consumerSecret: Constant.TWTRTwitter.consumerSecret)
        
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [AnyHashable : Any] = [:]) -> Bool {
+        return TWTRTwitter.sharedInstance().application(app, open: url, options: options)
     }
     
     func login(completion: @escaping (Bool, String?) -> Void) {

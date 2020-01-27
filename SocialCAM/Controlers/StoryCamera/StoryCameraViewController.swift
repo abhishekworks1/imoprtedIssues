@@ -474,8 +474,8 @@ class StoryCameraViewController: UIViewController {
         }
         self.reloadUploadViewData()
         self.stopMotionCollectionView.reloadData()
-        speedSlider.isHidden = !Defaults.shared.isPro
-        speedSliderView.isHidden = !Defaults.shared.isPro
+        speedSlider.isHidden = Defaults.shared.appMode == .free
+        speedSliderView.isHidden = Defaults.shared.appMode == .free
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -1090,7 +1090,7 @@ extension StoryCameraViewController {
         }
         self.isMute ? muteButton.startBlink(0.5) : muteButton.stopBlink()
         self.view.bringSubviewToFront(slowFastVerticalBar.superview ?? UIView())
-        slowFastVerticalBar.isHidden = Defaults.shared.isPro ? false : true
+        slowFastVerticalBar.isHidden = Defaults.shared.appMode == .free
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
             self.circularProgress.trackThickness = 0.75*1.5
             self.circularProgress.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
@@ -1114,7 +1114,7 @@ extension StoryCameraViewController {
                 }
             }
         })
-        speedSlider.isUserInteractionEnabled = (recordingType == .handsfree || recordingType == .timer)
+        speedSlider.isUserInteractionEnabled = (recordingType == .handsfree || recordingType == .timer || recordingType == .capture)
         hideRecordingControls()
     }
     

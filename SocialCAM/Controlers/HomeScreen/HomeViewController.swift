@@ -12,7 +12,7 @@ class HomeViewController: UIViewController {
    
     @IBOutlet weak var tableView: UITableView!
     
-    var settingsOptions = [R.string.localizable.prO(), R.string.localizable.logout(), R.string.localizable.prO(), R.string.localizable.logout()]
+    var settingsOptions = [R.string.localizable.professional(), R.string.localizable.logout(), R.string.localizable.professional(), R.string.localizable.logout()]
     
     override func viewDidLoad() {
         super.viewDidLoad()

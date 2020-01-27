@@ -53,7 +53,7 @@ class TrimEditorViewController: UIViewController {
     var playerLayer: AVPlayerLayer?
     var draggingCell: IndexPath?
     var lastMergeCell: IndexPath?
-    
+    var isStartMovable: Bool = false
     var isMovable: Bool = false
     private var dragAndDropManager: DragAndDropManager?
     
@@ -222,7 +222,6 @@ class TrimEditorViewController: UIViewController {
                                                      collectionViews: [self.storyCollectionView])
     }
     
-    
     func getPosition(from time: CMTime, cell: ImageCollectionViewCell, index: IndexPath) -> CGFloat? {
         if let cell: ImageCollectionViewCell = self.storyCollectionView.cellForItem(at: getCurrentIndexPath) as? ImageCollectionViewCell {
             guard let currentAsset = currentAsset(index: self.currentPage) else {
@@ -265,23 +264,23 @@ class TrimEditorViewController: UIViewController {
         if let player = self.player {
             let playBackTime = player.currentTime()
             if let cell: ImageCollectionViewCell = self.storyCollectionView.cellForItem(at: getCurrentIndexPath) as? ImageCollectionViewCell {
-                guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
-                    return
-                }
-                
-                cell.trimmerView.seek(to: playBackTime)
-                seek(to: CMTime.init(seconds: playBackTime.seconds, preferredTimescale: 10000), cell: cell)
-                
-                if playBackTime >= endTime {
-                    player.seek(to: startTime, toleranceBefore: tolerance, toleranceAfter: tolerance)
-                    cell.trimmerView.seek(to: startTime)
-                    cell.trimmerView.resetTimePointer()
+                if !isStartMovable {
+                    guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
+                        return
+                    }
+                    
+                    cell.trimmerView.seek(to: playBackTime)
+                    seek(to: CMTime.init(seconds: playBackTime.seconds, preferredTimescale: 10000), cell: cell)
+                    if playBackTime >= endTime {
+                        player.seek(to: startTime, toleranceBefore: tolerance, toleranceAfter: tolerance)
+                        cell.trimmerView.seek(to: startTime)
+                        cell.trimmerView.resetTimePointer()
+                    }
                 }
             }
-            
         }
     }
-    
+
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         if let player = player {
             player.pause()
@@ -531,6 +530,9 @@ extension TrimEditorViewController {
                 else {
                     return
             }
+            if self.storyEditorMedias.count == 1 {
+                self.isEditMode = true
+            }
             self.connVideoPlay()
         }
     }
@@ -540,7 +542,10 @@ extension TrimEditorViewController {
 extension TrimEditorViewController: TrimmerViewDelegate {
     
     func trimmerDidBeginDragging(_ trimmer: TrimmerView, with currentTimeTrim: CMTime) {
-        
+        if let player = player {
+            isStartMovable = true
+            player.pause()
+        }
     }
     
     func trimmerDidChangeDraggingPosition(_ trimmer: TrimmerView, with currentTimeTrim: CMTime) {
@@ -551,7 +556,12 @@ extension TrimEditorViewController: TrimmerViewDelegate {
     
     func trimmerDidEndDragging(_ trimmer: TrimmerView, with startTime: CMTime, endTime: CMTime) {
         if let player = player {
-            player.seek(to: startTime, toleranceBefore: tolerance, toleranceAfter: tolerance)
+            isStartMovable = false
+            DispatchQueue.main.async {
+                if self.btnPlayPause.isSelected {
+                    player.play()
+                }
+            }
         }
     }
     
@@ -665,7 +675,6 @@ extension TrimEditorViewController {
 extension TrimEditorViewController {
     
     func connVideoPlay(isReload: Bool = false) {
-        
         if !self.isEditMode || isReload {
             self.currentPlayVideo += 1
             if self.currentPlayVideo == self.storyEditorMedias.count {

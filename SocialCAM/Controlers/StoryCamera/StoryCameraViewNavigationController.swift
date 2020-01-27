@@ -31,6 +31,7 @@ class StoryCameraViewNavigationController: UINavigationController, UINavigationC
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
     }
+    
     func enableScroll() {
         if viewControllers.count > 1 {
             self.parentPageViewController?.isScrollEnabled = false
@@ -46,5 +47,4 @@ class StoryCameraViewNavigationController: UINavigationController, UINavigationC
     func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
         enableScroll()
     }
-    
 }

@@ -12,7 +12,7 @@ class StickerEmojiCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var emojiLabel: UILabel!
 }
 
-protocol StickerDelegate {
+protocol StickerDelegate: class {
     func didSelectSticker(_ sticker: StorySticker)
 }
 
@@ -57,13 +57,17 @@ class StickerViewController: UIViewController {
         return stickers
     }
     
-    public var delegate: StickerDelegate?
+    public weak var delegate: StickerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
     }
 
+    deinit {
+        print("Deinit \(self.description)")
+    }
+    
     @IBAction func backClicked(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
