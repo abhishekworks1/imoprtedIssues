@@ -13,7 +13,7 @@ extension StoryCameraViewController {
     
     // MARK: IBActions
     @IBAction func muteButtonClicked(_ sender: Any) {
-        if muteButton.alpha == 1 {
+        if isShowMuteButton {
             isMute = !isMute
             setupMuteUI()
             Defaults.shared.isMicOn = isMute
@@ -363,9 +363,7 @@ extension StoryCameraViewController {
     }
     
     @IBAction func onStorySettings(_ sender: Any) {
-        let storySettingsVC = R.storyboard.storyCameraViewController.storySettingsOptionsVC()!
-        storySettingsVC.firstPercentage = firstPercentage
-        storySettingsVC.firstUploadCompletedSize = firstUploadCompletedSize
+        let storySettingsVC = R.storyboard.storyCameraViewController.storySettingsVC()!
         navigationController?.pushViewController(storySettingsVC, animated: true)
     }
     

@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 import AVKit
 
-protocol SpecificBoomerangDelegate {
+protocol SpecificBoomerangDelegate: class {
     func didBoomerang(_ url: URL)
 }
 
@@ -43,7 +43,7 @@ class SpecificBoomerangViewController: UIViewController {
     private var playerLayer: AVPlayerLayer?
     
     public var currentAsset: AVAsset?
-    public var delegate: SpecificBoomerangDelegate?
+    public weak var delegate: SpecificBoomerangDelegate?
 
     private var shouldPlay = true
         

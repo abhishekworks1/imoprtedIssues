@@ -25,7 +25,7 @@ class CollageMakerVC: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var bottomClickView: UIView!
     
     var selectedImageCell: Int = 0
-    var delegate: CollageMakerVCDelegate?
+    weak var delegate: CollageMakerVCDelegate?
     var isFreeFrame = false
     var photoIndex: Int = 0
     var selectedPhotoCount: Int = 0

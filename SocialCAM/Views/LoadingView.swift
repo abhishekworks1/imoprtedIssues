@@ -75,10 +75,20 @@ public class LoadingView: UIView {
    
     var isResized = true
     
+    @IBOutlet weak var lblTotalCount: UILabel!
     @IBOutlet weak var lblDescriptionText: UILabel!
     @IBOutlet weak var lblCompleted: UILabel!
     @IBOutlet weak var btnCancel: UIButton!
    
+    public var completedExportTotal: String = "0 / 0"
+    
+    public var showTotalCount = false {
+        didSet {
+            lblTotalCount.isHidden = !showTotalCount
+            lblTotalCount.text = completedExportTotal
+        }
+    }
+    
     public var shouldCancelShow = false {
         didSet {
             btnCancel.isHidden = shouldCancelShow

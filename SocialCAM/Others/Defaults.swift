@@ -204,6 +204,15 @@ class Defaults {
         }
     }
     
+    var appMode: AppMode {
+        get {
+            return AppMode(rawValue: (appDefaults?.integer(forKey: "appMode") ?? 0)) ?? .free
+        }
+        set {
+            appDefaults?.set(newValue.rawValue, forKey: "appMode")
+        }
+    }
+    
     var isCombineSegments: Bool {
         get {
             return appDefaults?.bool(forKey: "isCombineSegments") ?? false

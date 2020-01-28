@@ -16,7 +16,7 @@ class StorySettingsOptionsVC: UIViewController {
     var firstPercentage: Double = 0.0
     var firstUploadCompletedSize: Double = 0.0
 
-    var settingsOptions = [R.string.localizable.prO(), R.string.localizable.logout()]
+    var settingsOptions = [R.string.localizable.professional(), R.string.localizable.logout()]
     
     var settingsOptionsImages = [R.image.icoStoryRecover(), R.image.icoStoryRecover()]
     
@@ -111,33 +111,11 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
         let actionlogOut = UIAlertAction(title: R.string.localizable.logout(), style: .default) { (_: UIAlertAction) in
             TwitterShare.shared.logout()
             GIDSignIn.sharedInstance()?.disconnect()
+            SnapKitManager.shared.unlink()
         }
         let cancelAction = UIAlertAction(title: R.string.localizable.cancel(), style: .default) { (_: UIAlertAction) in }
         objAlert.addAction(actionlogOut)
         objAlert.addAction(cancelAction)
         self.present(objAlert, animated: true, completion: nil)
-    }
-    
-    func logoutApi(token: String) {
-        self.showHUD()
-        ProManagerApi.logOut(deviceToken: token, userId: "").request(Result<User>.self).subscribe(onNext: { [weak self] _ in
-            guard let `self` = self else {
-                return
-            }
-            self.dismissHUD()
-            Defaults.shared.currentUser = nil
-            CurrentUser.shared.setActiveUser(nil)
-            
-            if let loginNav = R.storyboard.loginViewController.loginNavigation() {
-                Utils.appDelegate?.window?.switchRootViewController(loginNav)
-            }
-        }, onError: { (_) in
-            self.dismissHUD()
-            if let loginNav = R.storyboard.loginViewController.loginNavigation() {
-                Utils.appDelegate?.window?.switchRootViewController(loginNav)
-            }
-        }, onCompleted: {
-            self.dismissHUD()
-        }).disposed(by: self.rx.disposeBag)
     }
 }

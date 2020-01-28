@@ -87,7 +87,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             onStartRecordSetSpeed()
             isRecording = true
             self.view.bringSubviewToFront(slowFastVerticalBar.superview ?? UIView())
-            slowFastVerticalBar.isHidden = Defaults.shared.isPro ? false : true
+            slowFastVerticalBar.isHidden = Defaults.shared.appMode == .free
             self.panStartPoint = gestureRecognizer.location(in: self.view)
             self.panStartZoom = CGFloat(nextLevel.videoZoomFactor)
         case .changed:
@@ -117,7 +117,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
                         if difference > (screenPart*2) {
                             if videoSpeedType != VideoSpeedType.slow(scaleFactor: 4.0) {
                                 DispatchQueue.main.async {
-                                    if Defaults.shared.isPro {
+                                    if Defaults.shared.appMode != .free {
                                         self.nextLevel.videoConfiguration.timescale = 4
                                         self.setSpeed(type: .slow(scaleFactor: 4.0),
                                                       value: 0,
@@ -130,7 +130,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
                         } else if difference > screenPart {
                             if videoSpeedType != VideoSpeedType.slow(scaleFactor: 3.0) {
                                 DispatchQueue.main.async {
-                                    if Defaults.shared.isPro {
+                                    if Defaults.shared.appMode != .free {
                                         self.nextLevel.videoConfiguration.timescale = 3
                                         self.setSpeed(type: .slow(scaleFactor: 3.0),
                                                       value: 1,
@@ -143,7 +143,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
                         } else {
                             if videoSpeedType != VideoSpeedType.slow(scaleFactor: 2.0) {
                                 DispatchQueue.main.async {
-                                    if Defaults.shared.isPro {
+                                    if Defaults.shared.appMode != .free {
                                         self.nextLevel.videoConfiguration.timescale = 2
                                         self.setSpeed(type: .slow(scaleFactor: 2.0),
                                                       value: 2,
@@ -158,7 +158,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
                         if difference > (screenPart*2) {
                             if videoSpeedType != VideoSpeedType.fast(scaleFactor: 4.0) {
                                 DispatchQueue.main.async {
-                                    if Defaults.shared.isPro {
+                                    if Defaults.shared.appMode != .free {
                                         self.nextLevel.videoConfiguration.timescale = 1/4
                                         self.setSpeed(type: .fast(scaleFactor: 4.0),
                                                       value: 6,
@@ -171,7 +171,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
                         } else if difference > screenPart {
                             if videoSpeedType != VideoSpeedType.fast(scaleFactor: 3.0) {
                                 DispatchQueue.main.async {
-                                    if Defaults.shared.isPro {
+                                    if Defaults.shared.appMode != .free {
                                         self.nextLevel.videoConfiguration.timescale = 1/3
                                         self.setSpeed(type: .fast(scaleFactor: 3.0),
                                                       value: 5,
@@ -184,7 +184,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
                         } else {
                             if videoSpeedType != VideoSpeedType.fast(scaleFactor: 2.0) {
                                 DispatchQueue.main.async {
-                                    if Defaults.shared.isPro {
+                                    if Defaults.shared.appMode != .free {
                                         self.nextLevel.videoConfiguration.timescale = 1/2
                                         self.setSpeed(type: .fast(scaleFactor: 2.0),
                                                       value: 4,

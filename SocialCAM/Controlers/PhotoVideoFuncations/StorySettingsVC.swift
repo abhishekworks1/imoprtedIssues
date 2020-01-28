@@ -7,9 +7,9 @@
 //
 
 import UIKit
+import GoogleSignIn
 
 class StorySetting {
-    
     var name: String
     var selected: Bool
     
@@ -17,7 +17,6 @@ class StorySetting {
         self.name = name
         self.selected = selected
     }
-    
 }
 
 class StorySettings {
@@ -30,46 +29,17 @@ class StorySettings {
         self.settings = settings
     }
     
-    static var storySettings = [StorySettings(name: "Set Privacy",
-                                              settings: [StorySetting(name: "Public",
-                                                                      selected: false),
-                                                         StorySetting(name: "Friends",
+    static var storySettings = [StorySettings(name: R.string.localizable.mode(),
+                                              settings: [StorySetting(name: R.string.localizable.free(),
                                                                       selected: true),
-                                                         StorySetting(name: "Friends except",
+                                                         StorySetting(name: R.string.localizable.basic(),
                                                                       selected: false),
-                                                         StorySetting(name: "Specific friends",
-                                                                      selected: false),
-                                                         StorySetting(name: "Only me",
-                                                                      selected: false)]),
-                                StorySettings(name: "Allow message  Replies",
-                                              settings: [StorySetting(name: "Off",
-                                                                      selected: false),
-                                                         StorySetting(name: "From People I Follow",
+                                                         StorySetting(name: R.string.localizable.advanced(),
                                                                       selected: true),
-                                                         StorySetting(name: "From Everyone",
-                                                                      selected: false)]),
-                                StorySettings(name: "Saving",
-                                              settings: [StorySetting(name: "Saving to archive",
-                                                                      selected: false),
-                                                         StorySetting(name: "Save to gallery",
-                                                                      selected: true)]),
-                                StorySettings(name: "Sharing",
-                                              settings: [StorySetting(name: "Allow Sharing",
-                                                                      selected: false),
-                                                         StorySetting(name: "From People I Follow",
-                                                                      selected: true),
-                                                         StorySetting(name: "From Everyone",
-                                                                      selected: false)]),
-                                StorySettings(name: "Share with Channel",
-                                              settings: [StorySetting(name: "Select",
-                                                                      selected: false)]),
-                                StorySettings(name: "",
-                                              settings: [StorySetting(name: "Mirror image",
+                                                         StorySetting(name: R.string.localizable.professional(),
                                                                       selected: true)]),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: "Combine Segment", selected: false)]),
-                                StorySettings(name: "",
-                                              settings: [StorySetting(name: "Publish", selected: false)])]
+                                              settings: [StorySetting(name: R.string.localizable.logout(), selected: false)])]
     
 }
 
@@ -108,32 +78,16 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         }
         let settings = StorySettings.storySettings[indexPath.section].settings[indexPath.row]
         cell.settingsName.text = settings.name
-        if indexPath.section == 0 || indexPath.section == 4 {
-            
-            if indexPath.section == 0 {
-                if indexPath.row == 2 || indexPath.row == 3 {
-                    cell.detailButton.isHidden = false
-                } else {
-                    cell.detailButton.isHidden = true
-                }
-            } else {
-                cell.detailButton.isHidden = false
-            }
-            
-        } else {
-            cell.detailButton.isHidden = true
-        }
-        if indexPath.section == 4 {
+        cell.detailButton.isHidden = true
+        if indexPath.section == 1 {
             cell.onOffButton.isHidden = true
         } else {
             cell.onOffButton.isHidden = false
-            cell.onOffButton.isSelected = settings.selected
-        }
-        if indexPath.section == 6 {
-            cell.onOffButton.isSelected = Defaults.shared.isCombineSegments
-        }
-        if indexPath.section == 7 {
-            cell.onOffButton.isSelected = Defaults.shared.isPublish
+            if indexPath.row == Defaults.shared.appMode.rawValue {
+                cell.onOffButton.isSelected = true
+            } else {
+                cell.onOffButton.isSelected = false
+            }
         }
         return cell
     }
@@ -142,23 +96,17 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         guard let headerView = tableView.dequeueReusableCell(withIdentifier: "StorySettingsHeader") as? StorySettingsHeader else {
             fatalError("StorySettingsHeader Not Found")
         }
-        if section == 5 {
+        if section == 1 {
             headerView.title.isHidden = true
         } else {
             headerView.title.isHidden = false
         }
-        if section == 0 || section == StorySettings.storySettings.count - 1 {
-            headerView.separator.isHidden = true
-        } else {
-            headerView.separator.isHidden = false
-        }
-        
         headerView.title.text = StorySettings.storySettings[section].name
         return headerView
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 5 || section == 6 || section == 7 {
+        if section == 1 {
             return 24
         }
         return 60
@@ -169,26 +117,70 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        for (index, setting) in StorySettings.storySettings[indexPath.section].settings.enumerated() {
-            if indexPath.section == 6 && index == indexPath.row {
-                
-                setting.selected = !setting.selected
-                Defaults.shared.isCombineSegments = setting.selected
-                tableView.reloadData()
-                return
-            }
-            if indexPath.section == 7 && index == indexPath.row {
-                setting.selected = !setting.selected
-                Defaults.shared.isPublish = setting.selected
-                tableView.reloadData()
-                return
-            }
-            if index == indexPath.row {
-                setting.selected = true
-            } else {
-                setting.selected = false
-            }
+        if indexPath.section == 1 {
+            logoutUser()
         }
-        tableView.reloadData()
+        guard indexPath.section == 0 && Defaults.shared.appMode.rawValue != indexPath.row else {
+            return
+        }
+        if indexPath.row == 0 {
+            Defaults.shared.appMode = .free
+            self.settingsTableView.reloadData()
+            UIApplication.shared.setAlternateIconName("Icon-2") { error in
+                if let error = error {
+                    print(error.localizedDescription)
+                } else {
+                    print("Success!")
+                }
+            }
+        } else if indexPath.row == 3 {
+            isProEnable()
+        }
+    }
+    
+    func isProEnable() {
+        let objAlert = UIAlertController(title: Constant.Application.displayName, message: R.string.localizable.areYouSureYouWantToEnablePro(), preferredStyle: .alert)
+        objAlert.addTextField { (textField: UITextField) -> Void in
+            #if DEBUG
+            textField.text = Constant.Application.proModeCode
+            #endif
+            textField.placeholder = R.string.localizable.enterCode()
+        }
+        let actionSave = UIAlertAction(title: R.string.localizable.oK(), style: .default) { ( _: UIAlertAction) in
+            if let textField = objAlert.textFields?[0],
+                textField.text!.count > 0, textField.text?.lowercased() == Constant.Application.proModeCode {
+                Defaults.shared.appMode = .professional
+                StorySettings.storySettings[0].settings[3].selected = true
+                self.settingsTableView.reloadData()
+                UIApplication.shared.setAlternateIconName("Icon-1") { error in
+                    if let error = error {
+                        print(error.localizedDescription)
+                    } else {
+                        print("Success!")
+                    }
+                }
+                self.navigationController?.popViewController(animated: true)
+                return
+            }
+            self.view.makeToast(R.string.localizable.pleaseEnterValidCode())
+        }
+        let cancelAction = UIAlertAction(title: R.string.localizable.cancel(), style: .default) { (_: UIAlertAction) in }
+        objAlert.addAction(actionSave)
+        objAlert.addAction(cancelAction)
+        self.present(objAlert, animated: true, completion: nil)
+    }
+    
+    func logoutUser() {
+        let objAlert = UIAlertController(title: Constant.Application.displayName, message: R.string.localizable.areYouSureYouWantToLogout(), preferredStyle: .alert)
+        let actionlogOut = UIAlertAction(title: R.string.localizable.logout(), style: .default) { (_: UIAlertAction) in
+            TwitterShare.shared.logout()
+            GIDSignIn.sharedInstance()?.disconnect()
+            SnapKitManager.shared.unlink()
+            self.settingsTableView.reloadData()
+        }
+        let cancelAction = UIAlertAction(title: R.string.localizable.cancel(), style: .default) { (_: UIAlertAction) in }
+        objAlert.addAction(actionlogOut)
+        objAlert.addAction(cancelAction)
+        self.present(objAlert, animated: true, completion: nil)
     }
 }

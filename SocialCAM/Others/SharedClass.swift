@@ -9,6 +9,13 @@
 import Foundation
 import UIKit
 
+enum AppMode: Int {
+    case free = 0
+    case basic
+    case advanced
+    case professional
+}
+
 enum ShapeType: Int {
     case heart
     case hexa

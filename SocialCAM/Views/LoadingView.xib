@@ -31,14 +31,14 @@
                     <rect key="frame" x="157" y="398" width="100" height="100"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Completed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ffb-vb-TLv">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Completed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ffb-vb-TLv">
                     <rect key="frame" x="164.5" y="508" width="85" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.9986641839" green="0.9986641839" blue="0.9986641839" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vpg-dw-Xh5">
-                    <rect key="frame" x="177" y="548.5" width="60" height="34"/>
+                    <rect key="frame" x="177" y="558.5" width="60" height="34"/>
                     <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="18"/>
                     <state key="normal" title="Cancel">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -59,6 +59,12 @@
                     <color key="textColor" red="0.9986641839" green="0.9986641839" blue="0.9986641839" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 / 0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4eW-yR-MIS">
+                    <rect key="frame" x="164.5" y="531" width="85" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.9986641839" green="0.9986641839" blue="0.9986641839" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="0.25771130180000001" green="0.25771130180000001" blue="0.25771130180000001" alpha="0.82881272009999996" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -70,10 +76,13 @@
                 <constraint firstItem="z6i-ay-gi9" firstAttribute="trailing" secondItem="eQ7-oW-qve" secondAttribute="trailing" constant="10" id="HhU-PF-SEE"/>
                 <constraint firstItem="u64-IR-Na2" firstAttribute="width" secondItem="7iU-JH-nNW" secondAttribute="width" id="KaW-XS-IGe"/>
                 <constraint firstItem="U9d-aU-XfD" firstAttribute="leading" secondItem="0Lx-Qt-fc6" secondAttribute="leading" id="MUw-xO-FiQ"/>
+                <constraint firstItem="4eW-yR-MIS" firstAttribute="leading" secondItem="ffb-vb-TLv" secondAttribute="leading" id="XH6-Ae-u5E"/>
                 <constraint firstItem="7iU-JH-nNW" firstAttribute="centerX" secondItem="0Lx-Qt-fc6" secondAttribute="centerX" id="eVD-he-xKh"/>
+                <constraint firstItem="4eW-yR-MIS" firstAttribute="trailing" secondItem="ffb-vb-TLv" secondAttribute="trailing" id="eWz-0n-G8L"/>
                 <constraint firstItem="7iU-JH-nNW" firstAttribute="centerY" secondItem="0Lx-Qt-fc6" secondAttribute="centerY" id="fWP-K1-A3u"/>
-                <constraint firstItem="ffb-vb-TLv" firstAttribute="bottom" secondItem="Vpg-dw-Xh5" secondAttribute="top" constant="-20" id="fo5-Oe-PZU"/>
+                <constraint firstItem="ffb-vb-TLv" firstAttribute="bottom" secondItem="Vpg-dw-Xh5" secondAttribute="top" constant="-30" id="fo5-Oe-PZU"/>
                 <constraint firstAttribute="bottom" secondItem="U9d-aU-XfD" secondAttribute="bottom" id="kDU-JS-Ztf"/>
+                <constraint firstItem="4eW-yR-MIS" firstAttribute="top" secondItem="ffb-vb-TLv" secondAttribute="bottom" constant="2.5" id="ooC-uy-res"/>
                 <constraint firstAttribute="trailing" secondItem="U9d-aU-XfD" secondAttribute="trailing" id="qcu-I3-xUR"/>
                 <constraint firstItem="Vpg-dw-Xh5" firstAttribute="centerX" secondItem="ffb-vb-TLv" secondAttribute="centerX" id="rTG-IK-lqf"/>
                 <constraint firstItem="ffb-vb-TLv" firstAttribute="top" secondItem="7iU-JH-nNW" secondAttribute="bottom" constant="10" id="uBZ-iN-gDQ"/>
@@ -85,6 +94,7 @@
                 <outlet property="imgAdvertise" destination="U9d-aU-XfD" id="Oz0-h2-djd"/>
                 <outlet property="lblCompleted" destination="ffb-vb-TLv" id="W0G-CR-rwa"/>
                 <outlet property="lblDescriptionText" destination="eQ7-oW-qve" id="Cla-0Z-Fxr"/>
+                <outlet property="lblTotalCount" destination="4eW-yR-MIS" id="ZQf-1t-GzQ"/>
                 <outlet property="loadingView" destination="u64-IR-Na2" id="Yrs-2t-dWn"/>
                 <outlet property="progressView" destination="7iU-JH-nNW" id="DA9-0Y-g3Q"/>
             </connections>

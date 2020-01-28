@@ -27,7 +27,7 @@ public class ImageCropperView: UIImageView {
     // Update this for path line width
     public var lineWidth: CGFloat = 20.0
     
-    public var delegate: ImageCropperDelegate?
+    public weak var delegate: ImageCropperDelegate?
     
     private var path = UIBezierPath()
     private var shapeLayer = CAShapeLayer()

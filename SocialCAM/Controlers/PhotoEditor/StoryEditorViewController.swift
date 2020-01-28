@@ -335,7 +335,7 @@ class StoryEditorViewController: UIViewController {
         self.soundOptionView.isHidden = isImage
         self.trimOptionView.isHidden = isImage
        
-        self.timeSpeedOptionView.isHidden = Defaults.shared.isPro ? isImage : true
+        self.timeSpeedOptionView.isHidden = Defaults.shared.appMode != .free ? isImage : true
         self.specificBoomerangView.isHidden = isBoomerang ? true : isImage
         
         self.slideShowCollectionView.isHidden = !isSlideShow
@@ -378,6 +378,20 @@ extension StoryEditorViewController {
         }
         stickerViewController.delegate = self
         present(stickerViewController, animated: true, completion: nil)
+    }
+    
+    @IBAction func snapDecorClicked(_ sender: UIButton) {
+        guard let bitmojiStickerPickerViewController = R.storyboard.storyEditor.bitmojiStickerPickerViewController() else {
+            return
+        }
+        bitmojiStickerPickerViewController.completionBlock = { [weak self] (string, image) in
+            guard let `self` = self else { return }
+            guard let stickerImage = image else {
+                return
+            }
+            self.didSelectSticker(StorySticker(image: stickerImage, type: .image))
+        }
+        present(bitmojiStickerPickerViewController, animated: true, completion: nil)
     }
     
     @IBAction func textClicked(_ sender: UIButton) {
@@ -697,7 +711,6 @@ extension StoryEditorViewController {
                     dispatchSemaphore.wait()
                 }
             }
-            
         }
         
         dispatchGroup.notify(queue: exportQueue, execute: {
@@ -1175,6 +1188,10 @@ extension StoryEditorViewController {
             if let loadingView = self.loadingView {
                 loadingView.progressView.setProgress(to: Double(0), withAnimation: true)
                 loadingView.shouldDescriptionTextShow = true
+                if let multipleIndex = index {
+                    loadingView.completedExportTotal = "\(multipleIndex) / \(self.storyEditors.count)"
+                    loadingView.showTotalCount = true
+                }
                 loadingView.show(on: self.view, completion: {
                     loadingView.cancelClick = { _ in
                         exportSession.cancelExporting()

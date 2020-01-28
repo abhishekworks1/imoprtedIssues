@@ -12,7 +12,7 @@ import AVKit
 import FBSDKShareKit
 import SCSDKCreativeKit
 
-public protocol ShareStoriesDelegate {
+public protocol ShareStoriesDelegate: class {
     func error(message: String)
     func success()
 }
@@ -21,7 +21,7 @@ open class SocialShareVideo: NSObject, SharingDelegate {
        
     static let shared: SocialShareVideo = SocialShareVideo()
   
-    var delegate: ShareStoriesDelegate?
+    weak var delegate: ShareStoriesDelegate?
     
     func sharePhoto(image: UIImage, socialType: SocialShare) {
         switch socialType {

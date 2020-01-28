@@ -14,7 +14,7 @@ open class TiktokShare: NSObject, TikTokOpenPlatformLogDelegate {
     
     static let shared: TiktokShare = TiktokShare()
     
-    var delegate: ShareStoriesDelegate?
+    weak var delegate: ShareStoriesDelegate?
     
     var isTiktokInstalled: Bool {
         return TiktokOpenPlatformApplicationDelegate.sharedInstance().isAppInstalled(with: TikTokOpenPlatformAppType.I18N)
@@ -24,7 +24,11 @@ open class TiktokShare: NSObject, TikTokOpenPlatformLogDelegate {
         super.init()
         
     }
-
+    
+    func application(_ app: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        return TiktokOpenPlatformApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: sourceApplication, annotation: annotation)
+    }
+    
     func setupTiktok(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
     
         TiktokOpenPlatformApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
