@@ -10,19 +10,40 @@ import Foundation
 import AVFoundation
 import UIKit
 
-class SpecificBoomerangExportConfig {
-    var firstBoomerangRange: CMTimeRange
-    var secondBoomerangRange: CMTimeRange?
-    var boomerangSpeedScale: Int
-    var boomerangLoopCount: Int
+class SpecificBoomerangValue {
+    var timeRange: CMTimeRange?
+    var maxTime: Double
+    var speedScale: Int
+    var currentLoopCount: Int
+    var maxLoopCount: Int
     var needToReverse: Bool
     
-    init(firstBoomerangRange: CMTimeRange, secondBoomerangRange: CMTimeRange?, boomerangSpeedScale: Int, boomerangLoopCount: Int, needToReverse: Bool) {
-        self.firstBoomerangRange = firstBoomerangRange
-        self.secondBoomerangRange = secondBoomerangRange
-        self.boomerangSpeedScale = boomerangSpeedScale
-        self.boomerangLoopCount = boomerangLoopCount
+    init(timeRange: CMTimeRange? = nil, maxTime: Double, speedScale: Int, currentLoopCount: Int, maxLoopCount: Int, needToReverse: Bool) {
+        self.timeRange = timeRange
+        self.maxTime = maxTime
+        self.speedScale = speedScale
+        self.currentLoopCount = currentLoopCount
+        self.maxLoopCount = maxLoopCount
         self.needToReverse = needToReverse
+    }
+    
+    func resetLoopCount() {
+        currentLoopCount = maxLoopCount
+    }
+    
+}
+
+class SpecificBoomerangExportConfig {
+    
+    var firstBoomerangValue: SpecificBoomerangValue?
+    var secondBoomerangValue: SpecificBoomerangValue?
+    
+    init?(firstBoomerangValue: SpecificBoomerangValue?, secondBoomerangValue: SpecificBoomerangValue?) {
+        if firstBoomerangValue == nil, secondBoomerangValue == nil {
+            return nil
+        }
+        self.firstBoomerangValue = firstBoomerangValue
+        self.secondBoomerangValue = secondBoomerangValue
     }
 
 }
@@ -75,16 +96,27 @@ class SpecificBoomerangExportSession {
         var secondBoomerangAsset: AVAsset?
         var thirdPartAsset: AVAsset?
 
-        firstPartAsset = try? asset.assetByTrimming(startTime: .zero, endTime: config.firstBoomerangRange.start)
-        boomerangAsset = try? asset.assetByTrimming(startTime: config.firstBoomerangRange.start, endTime: config.firstBoomerangRange.end)
-        if let secondBoomerangRange = config.secondBoomerangRange {
-            secondPartAsset = try? asset.assetByTrimming(startTime: config.firstBoomerangRange.end, endTime: secondBoomerangRange.start)
+        if let firstBoomerangRange = config.firstBoomerangValue?.timeRange {
+            firstPartAsset = try? asset.assetByTrimming(startTime: .zero, endTime: firstBoomerangRange.start)
+            boomerangAsset = try? asset.assetByTrimming(startTime: firstBoomerangRange.start, endTime: firstBoomerangRange.end)
+            if let secondBoomerangRange = config.secondBoomerangValue?.timeRange {
+                secondPartAsset = try? asset.assetByTrimming(startTime: firstBoomerangRange.end, endTime: secondBoomerangRange.start)
+                secondBoomerangAsset = try? asset.assetByTrimming(startTime: secondBoomerangRange.start, endTime: secondBoomerangRange.end)
+                thirdPartAsset = try? asset.assetByTrimming(startTime: secondBoomerangRange.end, endTime: asset.duration)
+            } else {
+                secondPartAsset = try? asset.assetByTrimming(startTime: firstBoomerangRange.end, endTime: asset.duration)
+            }
+        } else if let secondBoomerangRange = config.secondBoomerangValue?.timeRange {
+            var secondPartStartTime = CMTime.zero
+            if let firstBoomerangRange = config.firstBoomerangValue?.timeRange {
+                firstPartAsset = try? asset.assetByTrimming(startTime: .zero, endTime: firstBoomerangRange.start)
+                boomerangAsset = try? asset.assetByTrimming(startTime: firstBoomerangRange.start, endTime: firstBoomerangRange.end)
+                secondPartStartTime = firstBoomerangRange.end
+            }
+            secondPartAsset = try? asset.assetByTrimming(startTime: secondPartStartTime, endTime: secondBoomerangRange.start)
             secondBoomerangAsset = try? asset.assetByTrimming(startTime: secondBoomerangRange.start, endTime: secondBoomerangRange.end)
             thirdPartAsset = try? asset.assetByTrimming(startTime: secondBoomerangRange.end, endTime: asset.duration)
-        } else {
-            secondPartAsset = try? asset.assetByTrimming(startTime: config.firstBoomerangRange.end, endTime: asset.duration)
         }
-
         firstPartReader = reader(for: firstPartAsset)
         
         boomerangReader = reader(for: boomerangAsset)
@@ -131,7 +163,9 @@ class SpecificBoomerangExportSession {
                                                                       reader: secondPartReader)
         
         let secondBoomerangReaderVideoOutput = videoAssetReaderTrackOutput(for: secondBoomerangAsset,
-                                                                           reader: secondBoomerangReader)
+                                                                           reader: secondBoomerangReader,
+                                                                           videoSetup: true)
+        
         let thirdPartReaderVideoOutput = videoAssetReaderTrackOutput(for: thirdPartAsset,
                                                                      reader: thirdPartReader)
         
@@ -224,16 +258,27 @@ class SpecificBoomerangExportSession {
             }
         }
         
+        func boomerangSecondsFor(asset: AVAsset?, boomerangValue: SpecificBoomerangValue) -> Double {
+            var boomerangSeconds = ((asset?.duration.seconds ?? 0)/Double(boomerangValue.speedScale))*Double(boomerangValue.maxLoopCount)
+            if !boomerangValue.needToReverse {
+                boomerangSeconds = ((asset?.duration.seconds ?? 0)/Double(boomerangValue.speedScale))*Double((boomerangValue.maxLoopCount+1)/2)
+            }
+            return boomerangSeconds
+        }
+        
         let firstPartSeconds = firstPartAsset?.duration.seconds ?? 0
-        var boomerangSeconds = ((boomerangAsset?.duration.seconds ?? 0)/Double(config.boomerangSpeedScale))*Double(config.boomerangLoopCount)
-        if !config.needToReverse {
-            boomerangSeconds = ((boomerangAsset?.duration.seconds ?? 0)/Double(config.boomerangSpeedScale))*Double((config.boomerangLoopCount+1)/2)
+        var boomerangSeconds: Double = 0
+        if let firstBoomerangValue = config.firstBoomerangValue {
+            boomerangSeconds = boomerangSecondsFor(asset: boomerangAsset,
+                                                   boomerangValue: firstBoomerangValue)
         }
         let secondPartSeconds = secondPartAsset?.duration.seconds ?? 0
-        var secondBoomerangSeconds = ((secondBoomerangAsset?.duration.seconds ?? 0)/Double(config.boomerangSpeedScale))*Double(config.boomerangLoopCount)
-        if !config.needToReverse {
-            secondBoomerangSeconds = ((secondBoomerangAsset?.duration.seconds ?? 0)/Double(config.boomerangSpeedScale))*Double((config.boomerangLoopCount+1)/2)
+        var secondBoomerangSeconds: Double = 0
+        if let secondBoomerangValue = config.secondBoomerangValue {
+            boomerangSeconds = boomerangSecondsFor(asset: secondBoomerangAsset,
+                                                   boomerangValue: secondBoomerangValue)
         }
+
         let thirdPartSeconds = thirdPartAsset?.duration.seconds ?? 0
 
         let totalSeconds = firstPartSeconds + boomerangSeconds + secondPartSeconds + secondBoomerangSeconds + thirdPartSeconds
@@ -339,15 +384,16 @@ class SpecificBoomerangExportSession {
             }
             return autoreleasepool { () -> Bool in
                 let buffer = CMSampleBufferGetImageBuffer(sample)!
+                let boomerangSpeedScale = isSecondBoomerang ? (self.config.secondBoomerangValue?.speedScale ?? 2) : (self.config.firstBoomerangValue?.speedScale ?? 2)
                 if isSecondBoomerang {
                     let buffer = CMSampleBufferGetImageBuffer(sample)!
                     secondBoomerangBufferCount += 1
-                    if secondBoomerangBufferCount % self.config.boomerangSpeedScale == 0 {
+                    if secondBoomerangBufferCount % boomerangSpeedScale == 0 {
                         secondBoomerangBuffers.append(buffer)
                     }
                 } else {
                     boomerangBufferCount += 1
-                    if boomerangBufferCount % self.config.boomerangSpeedScale == 0 {
+                    if boomerangBufferCount % boomerangSpeedScale == 0 {
                         boomerangBuffers.append(buffer)
                     }
                 }
@@ -355,11 +401,13 @@ class SpecificBoomerangExportSession {
             }
         }
         
-        func addReverseBuffers(_ buffers: [CVPixelBuffer]) -> [CVPixelBuffer] {
+        func addReverseBuffers(_ buffers: [CVPixelBuffer], isSecondBoomerang: Bool) -> [CVPixelBuffer] {
             var reversedBuffers = buffers
             let originBuffers = reversedBuffers
-            for _ in 0..<((self.config.boomerangLoopCount - 1)/2) {
-                if self.config.needToReverse {
+            let boomerangLoopCount = isSecondBoomerang ? (self.config.secondBoomerangValue?.maxLoopCount ?? 7) : (self.config.firstBoomerangValue?.maxLoopCount ?? 7)
+            let needToReverse = isSecondBoomerang ? (self.config.secondBoomerangValue?.needToReverse ?? true) : (self.config.firstBoomerangValue?.needToReverse ?? true)
+            for _ in 0..<((boomerangLoopCount - 1)/2) {
+                if needToReverse {
                     reversedBuffers.append(contentsOf: originBuffers.reversed())
                 }
                 reversedBuffers.append(contentsOf: originBuffers)
@@ -381,7 +429,8 @@ class SpecificBoomerangExportSession {
                         print("boomerang buffers append..")
                     } else {
                         if !isReverseBuffersAdded {
-                            boomerangBuffers = addReverseBuffers(boomerangBuffers)
+                            boomerangBuffers = addReverseBuffers(boomerangBuffers,
+                                                                 isSecondBoomerang: false)
                             isReverseBuffersAdded = true
                             print("reverse boomerang buffers append..")
                         }
@@ -406,7 +455,8 @@ class SpecificBoomerangExportSession {
                                             print("second boomerang buffers append..")
                                         } else {
                                             if !isSecondReverseBuffersAdded {
-                                                secondBoomerangBuffers = addReverseBuffers(secondBoomerangBuffers)
+                                                secondBoomerangBuffers = addReverseBuffers(secondBoomerangBuffers,
+                                                                                           isSecondBoomerang: true)
                                                 isSecondReverseBuffersAdded = true
                                                 print("reverse second boomerang buffers append..")
                                             }
