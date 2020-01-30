@@ -356,6 +356,18 @@ public struct Constant {
         static let consumerSecret: String = "wZO81VCWknVry5PsUeA9TPYaB79yBt3RyRGAaZZZm68uOuCRRT"
     }
     
+    struct Instagram {
+        static let link = "instagram://library?LocalIdentifier="
+        static let authorizeUrl = "https://api.instagram.com/oauth/authorize/"
+        static let redirectUrl = "https://storicam-pro.firebaseapp.com/__/auth/handler"
+        static let clientId = "2576474045942603"
+        static let clientSecret = "65d21fa18fd9e28142f2384e654ee5d3"
+        static let scope = "user_profile,user_media"
+        static let basicUrl = "https://api.instagram.com/"
+        static let graphUrl = "https://graph.instagram.com/"
+        static let baseUrl = "https://www.instagram.com/"
+    }
+    
     struct AppCenter {
         static let apiKey: String = "b8e186c4-5b4e-45a2-96e5-7904b346ab00"
     }
@@ -376,10 +388,6 @@ public struct Constant {
     
     struct Sentry {
         static let dsn = "https://e7751d4eaf0746dab650503adbb943fa@sentry.io/1548827"
-    }
-    
-    struct Instagram {
-        static let link = "instagram://library?LocalIdentifier="
     }
     
 }

@@ -66,6 +66,7 @@ class YouTubeUploadViewController: UIViewController {
         self.tagView.isMerge = true
         self.tagView.textField.placeholder = "#Hashtags"
         self.tagView.textField.returnKeyType = .done
+        self.tagView.textField.tag = 1
         self.tagView.textField.delegate = self
         self.tagView.tintColor = UIColor.gray79
         self.tagView.interitemSpacing =  4.0
@@ -78,8 +79,6 @@ class YouTubeUploadViewController: UIViewController {
             self.playerView.playUrl = videourl
             self.playerView.pause()
         }
-        
-        // Do any additional setup after loading the view.
     }
     
     @IBAction func btnBackClicked(_ sender: Any) {
@@ -92,20 +91,22 @@ class YouTubeUploadViewController: UIViewController {
         if GoogleManager.shared.isUserLogin {
             self.getUserToken()
         } else {
-            GoogleManager.shared.login(controller: self, complitionBlock: { (userData, error) in
+            GoogleManager.shared.login(controller: self, complitionBlock: { [weak self] (userData, error) in
+                guard let `self` = self else { return }
                 self.getUserToken()
-            }) { (userData, error) in
+            }) { (_, _) in
                 self.btnPublish.isUserInteractionEnabled = true
             }
         }
     }
     
     func getUserToken() {
-        GoogleManager.shared.getUserToken { (token) in
-            self.btnPublish.isUserInteractionEnabled = true
+        GoogleManager.shared.getUserToken { [weak self] (token) in
+            guard let `self` = self else { return }
             guard let token = token else {
                 return
             }
+            self.btnPublish.isUserInteractionEnabled = true
             self.uploadVideo(token: token)
         }
     }
@@ -147,6 +148,7 @@ class YouTubeUploadViewController: UIViewController {
         ProManagerApi.uploadYoutubeVideo(token: token, videoURL: videoUrl!, snippet: snippet, status: status).request().subscribe(onNext: { (_) in
             self.isUploading = false
             loadingView.hide()
+            Utils.appDelegate?.window?.makeToast(R.string.localizable.postSuccess())
             self.dismiss(animated: true)
         }, onError: { (error) in
             self.isUploading = false
@@ -198,7 +200,16 @@ class YouTubeUploadViewController: UIViewController {
 }
 
 extension YouTubeUploadViewController: UITextFieldDelegate {
-    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField.tag == 0 {
+            txtDescribtion.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+            return true
+        }
+        return false
+    }
+
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         if txtCategoty == textField {
             self.channelClicked()
@@ -255,4 +266,3 @@ extension YouTubeUploadViewController: SelectHashSetDelegate {
     }
     
 }
-

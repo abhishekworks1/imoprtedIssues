@@ -95,18 +95,15 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         } else if indexPath.section == 1 {
             cell.onOffButton.isHidden = false
             cell.onOffButton.isSelected = false
-            if indexPath.row == 2 {
-                cell.settingsName.isEnabled = false
-            } else {
-                let socialLogin: SocialShare = SocialShare(rawValue: indexPath.row) ?? .facebook
-                self.socialLoadProfile(socialShare: socialLogin) { [weak cell] (userName) in
-                    guard let cell = cell else {
-                        return
-                    }
-                    DispatchQueue.runOnMainThread {
-                        cell.settingsName.text = userName
-                        cell.onOffButton.isSelected = true
-                    }
+
+            let socialLogin: SocialShare = SocialShare(rawValue: indexPath.row) ?? .facebook
+            self.socialLoadProfile(socialShare: socialLogin) { [weak cell] (userName) in
+                guard let cell = cell else {
+                    return
+                }
+                DispatchQueue.runOnMainThread {
+                    cell.settingsName.text = userName
+                    cell.onOffButton.isSelected = true
                 }
             }
         } else {
@@ -196,7 +193,11 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 }
             }
         case .instagram:
-            break
+            if InstagramManager.shared.isUserLogin {
+                if let profile = InstagramManager.shared.profileDetails {
+                    completion(profile.username)
+                }
+            }
         case .snapchat:
             if SnapKitManager.shared.isUserLogin {
                 SnapKitManager.shared.loadUserData { (userModel) in
@@ -237,7 +238,16 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 completion(false)
             }
         case .instagram:
-            break
+            if !InstagramManager.shared.isUserLogin {
+                let loginViewController: WebViewController = WebViewController()
+                loginViewController.delegate = self
+                self.present(loginViewController, animated: true) {
+                    completion(true)
+                }
+            } else {
+                InstagramManager.shared.logout()
+                completion(false)
+            }
         case .snapchat:
             if !SnapKitManager.shared.isUserLogin {
                 SnapKitManager.shared.login(viewController: self) { (isLogin, error) in
@@ -273,7 +283,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             #if DEBUG
             textField.text = Constant.Application.proModeCode
             #endif
-            textField.placeholder = R.string.localizable.enterCode()
+            textField.placeholder = R.string.localizable.enterYourUniqueCodeToActivateTheLevel()
         }
         let actionSave = UIAlertAction(title: R.string.localizable.oK(), style: .default) { ( _: UIAlertAction) in
             if let textField = objAlert.textFields?[0],
@@ -314,4 +324,23 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         objAlert.addAction(cancelAction)
         self.present(objAlert, animated: true, completion: nil)
     }
+}
+
+extension StorySettingsVC: InstagramLoginViewControllerDelegate, ProfileDelegate {
+   
+    func profileDidLoad(profile: ProfileDetailsResponse) {
+        self.settingsTableView.reloadData()
+    }
+    
+    func profileLoadFailed(error: Error) {
+        
+    }
+   
+    func instagramLoginDidFinish(accessToken: String?, error: Error?) {
+        if accessToken != nil {
+            InstagramManager.shared.delegate = self
+            InstagramManager.shared.loadProfile()
+        }
+    }
+    
 }
