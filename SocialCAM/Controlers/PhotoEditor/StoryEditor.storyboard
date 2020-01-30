@@ -1965,7 +1965,7 @@
                                                 <real key="value" value="2"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColorChat">
-                                                <color key="value" name="quetag_darkPastelGreen"/>
+                                                <color key="value" name="storytag_fadedRed"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
@@ -2069,6 +2069,19 @@
                                     <action selector="onBack:" destination="mcN-sd-jUR" eventType="touchUpInside" id="SZC-pP-VgY"/>
                                 </connections>
                             </button>
+                            <button autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CVt-fP-vyG">
+                                <rect key="frame" x="362" y="740" width="44" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="9Up-pa-uLy"/>
+                                    <constraint firstAttribute="width" constant="44" id="cVd-Vz-TWO"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" image="storyDelete"/>
+                                <state key="selected" image="reverseBoomSelected"/>
+                                <connections>
+                                    <action selector="onDeleteBoomerangPart:" destination="mcN-sd-jUR" eventType="touchUpInside" id="g2R-T8-rWq"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -2085,7 +2098,9 @@
                             <constraint firstItem="qOi-0a-JHl" firstAttribute="top" secondItem="0J1-RW-jwi" secondAttribute="top" constant="44" id="WGl-d2-OX1"/>
                             <constraint firstItem="3NG-mH-TBJ" firstAttribute="top" secondItem="Yi8-cQ-0S0" secondAttribute="top" id="X3D-5H-b7X"/>
                             <constraint firstItem="alA-Go-fhV" firstAttribute="top" secondItem="0J1-RW-jwi" secondAttribute="top" id="YZp-PD-NJj"/>
+                            <constraint firstItem="0J1-RW-jwi" firstAttribute="trailing" secondItem="CVt-fP-vyG" secondAttribute="trailing" constant="8" id="cIT-HG-5iK"/>
                             <constraint firstItem="Yi8-cQ-0S0" firstAttribute="top" secondItem="0J1-RW-jwi" secondAttribute="top" id="eNs-EE-jKZ"/>
+                            <constraint firstItem="9fC-hj-83k" firstAttribute="top" secondItem="CVt-fP-vyG" secondAttribute="bottom" constant="8" id="h3w-af-jza"/>
                             <constraint firstItem="9fC-hj-83k" firstAttribute="bottom" secondItem="0J1-RW-jwi" secondAttribute="bottom" id="hwe-2o-taL"/>
                             <constraint firstItem="Xfw-SJ-pOV" firstAttribute="leading" secondItem="QaX-xq-9Sh" secondAttribute="trailing" constant="8" id="iFv-wI-I2W"/>
                             <constraint firstItem="0J1-RW-jwi" firstAttribute="trailing" secondItem="qOi-0a-JHl" secondAttribute="trailing" id="kYB-og-y2k"/>
@@ -2106,6 +2121,7 @@
                         <outlet property="firstBoomerangView" destination="5xp-PQ-KOg" id="flN-9u-Na8"/>
                         <outlet property="secondBoomerangView" destination="V3t-Z0-ycT" id="6fI-w8-ht7"/>
                         <outlet property="timePointerView" destination="eDv-1s-dfW" id="KeT-Lo-dtM"/>
+                        <outlet property="trimmerSuperView" destination="9fC-hj-83k" id="9Zc-ey-hrp"/>
                         <outlet property="trimmerView" destination="5YC-iG-fL9" id="YuL-Ck-UgO"/>
                         <outlet property="videoView" destination="qOi-0a-JHl" id="fW8-mr-zXX"/>
                     </connections>
@@ -2299,6 +2315,9 @@
         </namedColor>
         <namedColor name="quetag_darkPastelGreen">
             <color red="0.23921568627450981" green="0.77254901960784317" blue="0.32549019607843138" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="storytag_fadedRed">
+            <color red="0.88627450980392153" green="0.30196078431372547" blue="0.32156862745098042" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
