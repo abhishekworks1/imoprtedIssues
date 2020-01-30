@@ -127,7 +127,9 @@ open class SocialShareVideo: NSObject, SharingDelegate {
         DispatchQueue.main.async {
             if let youTubeUploadVC = R.storyboard.youTubeUpload.youTubeUploadViewController() {
                 youTubeUploadVC.videoUrl = url
-                Utils.appDelegate?.window?.visibleViewController()!.navigationController?.pushViewController(youTubeUploadVC, animated: true)
+                let navYouTubeUpload = UINavigationController(rootViewController: youTubeUploadVC)
+                navYouTubeUpload.navigationBar.isHidden = true
+                Utils.appDelegate?.window?.visibleViewController()!.present(navYouTubeUpload, animated: true)
             }
         }
     }

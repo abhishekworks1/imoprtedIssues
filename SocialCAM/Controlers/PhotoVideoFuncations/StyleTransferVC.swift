@@ -33,7 +33,7 @@ extension StyleTransferVC: UIGestureRecognizerDelegate {
     }
 }
 
-class StyleTransferVC: UIViewController {
+class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
     
     @IBOutlet weak var collectionView: KDDragAndDropCollectionView!
     
@@ -269,11 +269,64 @@ class StyleTransferVC: UIViewController {
         }
     }
     
+    func didSelectSlideShow(images: [SegmentVideos]) {
+        var slideShowImages: [UIImage] = []
+        for segment in images {
+            slideShowImages.append(segment.image ?? UIImage())
+        }
+        self.openPhotoEditorForImage(slideShowImages, isSlideShow: true)
+    }
+    
+    func didSelectCollage(images: [SegmentVideos]) {
+        DispatchQueue.main.async {
+            if let collageMakerVC = R.storyboard.collageMaker.collageMakerVC() {
+                collageMakerVC.assets = images
+                collageMakerVC.delegate = self
+                self.navigationController?.pushViewController(collageMakerVC, animated: true)
+            }
+        }
+    }
+    
+    func didSelectImage(image: UIImage) {
+        self.openPhotoEditorForImage([image])
+    }
+    
+    func openPhotoEditorForImage(_ image: [UIImage], isSlideShow: Bool = false) {
+        let photoEditor = openStoryEditor(images: image, isSlideShow: isSlideShow)
+        if let navController = self.navigationController {
+            let newVC = photoEditor
+            var stack = navController.viewControllers
+            stack.remove(at: stack.count - 1)
+            stack.remove(at: stack.count - 1)
+            stack.insert(newVC, at: stack.count)
+            navController.setViewControllers(stack, animated: false)
+        }
+    }
+    
+    func openStoryEditor(images: [UIImage], isSlideShow: Bool = false) -> StoryEditorViewController {
+        guard let storyEditorViewController = R.storyboard.storyEditor.storyEditorViewController() else {
+            fatalError("PhotoEditorViewController Not Found")
+        }
+        var medias: [StoryEditorMedia] = []
+        for image in images {
+            medias.append(StoryEditorMedia(type: .image(image)))
+        }
+        storyEditorViewController.isBoomerang = false
+        storyEditorViewController.medias = medias
+        storyEditorViewController.isSlideShow = isSlideShow
+        return storyEditorViewController
+    }
+    
     @IBAction func saveImage(_ sender: UIButton) {
         switch type {
         case .image:
             if selectedItemArray.count >= 1 {
-                self.doneHandler?(selectedItemArray, sender.tag)
+                if sender.tag == 1 {
+                    self.didSelectSlideShow(images: selectedItemArray)
+                } else {
+                    self.didSelectCollage(images: selectedItemArray)
+                    return
+                }
             } else {
                 if let filterImage = filteredImage {
                     self.doneHandler?(filterImage, sender.tag)

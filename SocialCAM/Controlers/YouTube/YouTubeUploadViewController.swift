@@ -8,8 +8,8 @@
 
 import UIKit
 import SkyFloatingLabelTextField
-import GoogleSignIn
 import RxSwift
+import IQKeyboardManagerSwift
 
 class YouTubeUploadViewController: UIViewController {
     @IBOutlet weak var txtTitle: SkyFloatingLabelTextField!
@@ -62,6 +62,7 @@ class YouTubeUploadViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        IQKeyboardManager.shared.enableAutoToolbar = true
         self.tagView.isMerge = true
         self.tagView.textField.placeholder = "#Hashtags"
         self.tagView.textField.returnKeyType = .done
@@ -83,27 +84,29 @@ class YouTubeUploadViewController: UIViewController {
     
     @IBAction func btnBackClicked(_ sender: Any) {
         disposeBag = nil
-        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true)
     }
     
     @IBAction func btnPublishClicked(_ sender: Any?) {
         btnPublish.isUserInteractionEnabled = false
-        if GIDSignIn.sharedInstance().hasAuthInKeychain() {
-            let hashYoutubeScope = GIDSignIn.sharedInstance().scopes.contains {
-                guard let scope = $0 as? String  else {
-                    return false
-                }
-                return scope == Constant.GoogleService.youtubeScope
-            }
-            if hashYoutubeScope,
-                let token =  GIDSignIn.sharedInstance()?.currentUser.authentication.accessToken {
-                btnPublish.isUserInteractionEnabled = true
-                self.uploadVideo(token: token)
-            } else {
-                self.googleSignIn()
-            }
+        if GoogleManager.shared.isUserLogin {
+            self.getUserToken()
         } else {
-            self.googleSignIn()
+            GoogleManager.shared.login(controller: self, complitionBlock: { (userData, error) in
+                self.getUserToken()
+            }) { (userData, error) in
+                self.btnPublish.isUserInteractionEnabled = true
+            }
+        }
+    }
+    
+    func getUserToken() {
+        GoogleManager.shared.getUserToken { (token) in
+            self.btnPublish.isUserInteractionEnabled = true
+            guard let token = token else {
+                return
+            }
+            self.uploadVideo(token: token)
         }
     }
     
@@ -144,21 +147,12 @@ class YouTubeUploadViewController: UIViewController {
         ProManagerApi.uploadYoutubeVideo(token: token, videoURL: videoUrl!, snippet: snippet, status: status).request().subscribe(onNext: { (_) in
             self.isUploading = false
             loadingView.hide()
-            self.navigationController?.popViewController(animated: true)
+            self.dismiss(animated: true)
         }, onError: { (error) in
             self.isUploading = false
             loadingView.hide()
             self.showAlert(alertMessage: error.localizedDescription)
         }).disposed(by: disposeBag ?? rx.disposeBag)
-    }
-    
-    func googleSignIn() {
-        var scopes =  GIDSignIn.sharedInstance().scopes
-        scopes?.append(Constant.GoogleService.youtubeScope)
-        GIDSignIn.sharedInstance().scopes = scopes
-        GIDSignIn.sharedInstance().delegate = self
-        GIDSignIn.sharedInstance().uiDelegate = self
-        GIDSignIn.sharedInstance().signIn()
     }
     
     @IBAction func btnHashSetClicked(_ sender: Any) {
@@ -262,21 +256,3 @@ extension YouTubeUploadViewController: SelectHashSetDelegate {
     
 }
 
-extension YouTubeUploadViewController: GIDSignInDelegate, GIDSignInUIDelegate {
-    
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Swift.Error!) {
-        if error == nil && user.authentication.accessToken != nil {
-            print(user.authentication.accessToken as Any)
-            self.btnPublishClicked(nil)
-        } else {
-            btnPublish.isUserInteractionEnabled = true
-            print("\(error.localizedDescription)")
-        }
-    }
-    
-    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Swift.Error!) {
-        // Perform any operations when the user disconnects from app here.
-        // ...
-    }
-    
-}

@@ -360,7 +360,7 @@ class SpecificBoomerangViewController: UIViewController {
         loadingView.shouldDescriptionTextShow = true
         loadingView.show(on: self.view)
 
-        let exportSession = SpecificBoomerangExportSession(config: config)
+        exportSession = SpecificBoomerangExportSession(config: config)
         loadingView.cancelClick = { cancelled in
             if cancelled {
                 DispatchQueue.main.async {

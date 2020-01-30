@@ -11,7 +11,6 @@ import MXSegmentedPager
 import RxCocoa
 import RxSwift
 import NSObject_Rx
-import GoogleSignIn
 
 class YouTubeViewController: MXSegmentedPagerController {
     @IBOutlet var headerView: UIView!
@@ -142,48 +141,18 @@ class YouTubeViewController: MXSegmentedPagerController {
     }
     
     func getSubscribeChannels() {
-        if GIDSignIn.sharedInstance().hasAuthInKeychain() {
-            let hashYoutubeScope = GIDSignIn.sharedInstance().scopes.contains {
-                guard let scope = $0 as? String  else {
-                    return false
-                }
-                return scope == Constant.GoogleService.youtubeScope
-            }
-            if hashYoutubeScope {
-                self.isSignIn = true
-                let token = GIDSignIn.sharedInstance().currentUser.authentication.accessToken
-                ProManagerApi.getyoutubeSubscribedChannel(token: token!, forChannelId: nil).request(YouTubeItmeListResponse<YouTubeSubscription>.self).subscribe(onNext: { (response) in
-                    if !response.item.isEmpty {
-                        self.channels = response.item
-                        self.lblNoChannel.isHidden = true
-                    } else {
-                        self.lblNoChannel.isHidden = false
-                    }
-                    self.subscribeChannel.reloadData()
-                }, onError: { (_) in
-                    
-                }, onCompleted: {
-                    
-                }).disposed(by: self.rx.disposeBag)
-                self.subscribeChannel.reloadData()
-            } else {
-                isSignIn = false
-                self.subscribeChannel.reloadData()
-            }
+        if GoogleManager.shared.isUserLogin {
+            self.getUserToken()
         } else {
-            isSignIn = false
-            self.subscribeChannel.reloadData()
+            GoogleManager.shared.login(controller: self, complitionBlock: { (userData, error) in
+                self.getUserToken()
+            }) { (userData, error) in
+                self.isSignIn = false
+                self.subscribeChannel.reloadData()
+            }
         }
     }
     
-    func googleSignIn() {
-        var scopes =  GIDSignIn.sharedInstance().scopes
-        scopes?.append(Constant.GoogleService.youtubeScope)
-        GIDSignIn.sharedInstance().scopes = scopes
-        GIDSignIn.sharedInstance().delegate = self
-        GIDSignIn.sharedInstance().uiDelegate = self
-        GIDSignIn.sharedInstance().signIn()
-    }
 }
 
 extension YouTubeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -233,7 +202,35 @@ extension YouTubeViewController: UICollectionViewDelegate, UICollectionViewDataS
             }
 
         } else {
-            self.googleSignIn()
+            GoogleManager.shared.login(controller: self, complitionBlock: { (userData, error) in
+                self.getUserToken()
+            }) { (userData, error) in
+                self.isSignIn = false
+                self.subscribeChannel.reloadData()
+            }
+        }
+    }
+    
+    func getUserToken() {
+        GoogleManager.shared.getUserToken { (token) in
+            guard let token = token else {
+                return
+            }
+            self.isSignIn = true
+            ProManagerApi.getyoutubeSubscribedChannel(token: token, forChannelId: nil).request(YouTubeItmeListResponse<YouTubeSubscription>.self).subscribe(onNext: { (response) in
+                if !response.item.isEmpty {
+                    self.channels = response.item
+                    self.lblNoChannel.isHidden = true
+                } else {
+                    self.lblNoChannel.isHidden = false
+                }
+                self.subscribeChannel.reloadData()
+            }, onError: { (_) in
+                
+            }, onCompleted: {
+                
+            }).disposed(by: self.rx.disposeBag)
+            self.subscribeChannel.reloadData()
         }
     }
 
@@ -247,24 +244,6 @@ extension YouTubeViewController: UICollectionViewDelegateFlowLayout {
         } else {
            return CGSize(width: UIScreen.main.bounds.size.width - 10, height: 97)
         }
-    }
-    
-}
-
-extension YouTubeViewController: GIDSignInDelegate, GIDSignInUIDelegate {
-    
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Swift.Error!) {
-        if error == nil {
-            print(user.authentication.accessToken as Any)
-            self.getSubscribeChannels()
-        } else {
-            print("\(error.localizedDescription)")
-        }
-    }
-    
-    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Swift.Error!) {
-        // Perform any operations when the user disconnects from app here.
-        // ...
     }
     
 }

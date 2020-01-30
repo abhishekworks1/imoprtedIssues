@@ -109,9 +109,11 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
     func logoutUser() {
         let objAlert = UIAlertController(title: Constant.Application.displayName, message: R.string.localizable.areYouSureYouWantToLogout(), preferredStyle: .alert)
         let actionlogOut = UIAlertAction(title: R.string.localizable.logout(), style: .default) { (_: UIAlertAction) in
-            TwitterShare.shared.logout()
+            TwitterManger.shared.logout()
             GIDSignIn.sharedInstance()?.disconnect()
-            SnapKitManager.shared.unlink()
+            SnapKitManager.shared.logout { _ in
+                
+            }
         }
         let cancelAction = UIAlertAction(title: R.string.localizable.cancel(), style: .default) { (_: UIAlertAction) in }
         objAlert.addAction(actionlogOut)

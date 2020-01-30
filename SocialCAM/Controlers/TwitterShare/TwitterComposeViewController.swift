@@ -137,10 +137,10 @@ class TwitterComposeViewController: UIViewController, UINavigationControllerDele
     }
     
     func twitterVideoShare(_ url: URL? = nil, image: UIImage? = nil, text: String = Constant.Application.displayName) {
-        if TwitterShare.shared.isTwitterLogin {
+        if TwitterManger.shared.isUserLogin {
             shareTwitteWithHandler(url, image: image, text: text)
         } else {
-            TwitterShare.shared.login { [weak self] (isLogin, _) in
+            TwitterManger.shared.login { [weak self] (isLogin, _) in
                 guard let `self` = self else {
                     return
                 }
@@ -159,7 +159,7 @@ class TwitterComposeViewController: UIViewController, UINavigationControllerDele
         loadingView.shouldCancelShow = true
         loadingView.show(on: self.view)
         if let image = image {
-            TwitterShare.shared.uploadImageOnTwitter(withText: text, image: image) { [weak self] (isSuccess, _) in
+            TwitterManger.shared.uploadImageOnTwitter(withText: text, image: image) { [weak self] (isSuccess, _) in
                 guard let `self` = self else {
                     return
                 }
@@ -171,7 +171,7 @@ class TwitterComposeViewController: UIViewController, UINavigationControllerDele
                 }
             }
         } else if let videoUrl = url {
-            TwitterShare.shared.uploadVideoOnTwitter(withText: text, videoUrl: videoUrl) { [weak self] (isSuccess, _) in
+            TwitterManger.shared.uploadVideoOnTwitter(withText: text, videoUrl: videoUrl) { [weak self] (isSuccess, _) in
                 guard let `self` = self else {
                     return
                 }
