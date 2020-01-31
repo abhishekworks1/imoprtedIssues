@@ -348,20 +348,22 @@ class SpecificBoomerangViewController: UIViewController {
     }
     
     @IBAction func onDone(_ sender: UIButton) {
+        let firstBoomeRangValue = firstBoomerangView.isHidden ? nil : self.firstBoomerangValue
+        let secondBoomerangValue = secondBoomerangView.isHidden ? nil : self.secondBoomerangValue
         guard let asset = self.currentAsset,
-            let config = SpecificBoomerangExportConfig(firstBoomerangValue: firstBoomerangValue, secondBoomerangValue: secondBoomerangValue) else {
+            let config = SpecificBoomerangExportConfig(firstBoomerangValue: firstBoomeRangValue, secondBoomerangValue: secondBoomerangValue) else {
                 return
         }
         resetBoomerangTimeRange()
         self.pausePlayer()
-        let loadingView = LoadingView.instanceFromNib()
-        loadingView.loadingViewShow = false
-        loadingView.shouldCancelShow = false
-        loadingView.shouldDescriptionTextShow = true
-        loadingView.show(on: self.view)
+        loadingView = LoadingView.instanceFromNib()
+        loadingView?.loadingViewShow = false
+        loadingView?.shouldCancelShow = false
+        loadingView?.shouldDescriptionTextShow = true
+        loadingView?.show(on: self.view)
 
         exportSession = SpecificBoomerangExportSession(config: config)
-        loadingView.cancelClick = { cancelled in
+        loadingView?.cancelClick = { cancelled in
             if cancelled {
                 DispatchQueue.main.async {
                     self.exportSession?.cancelExporting()
