@@ -12,10 +12,9 @@ import SCSDKBitmojiKit
 
 private let externalIdQuery = "{me{displayName, bitmoji{avatar}, externalId}}"
 
-@objc public protocol SnapKitManagerDelegate: class {
+public protocol SnapKitManagerDelegate: class {
     func bitmojiStickerPicker(didSelectBitmojiWithURL bitmojiURL: String, image: UIImage?)
     func searchFieldFocusDidChange(hasFocus: Bool)
-    @objc optional func loginUserDetails(externalId: String)
 }
 
 open class SnapKitManager: NSObject, SCSDKLoginStatusObserver, SCSDKBitmojiStickerPickerViewControllerDelegate {
@@ -30,59 +29,84 @@ open class SnapKitManager: NSObject, SCSDKLoginStatusObserver, SCSDKBitmojiStick
             .build())
     
     weak var delegate: SnapKitManagerDelegate?
+  
+    var userData: LoginUserData? = nil
     
-    var externalId: String? = nil {
-        didSet {
-            if let loginUserDetailsDelegate = delegate?.loginUserDetails {
-                loginUserDetailsDelegate(externalId ?? "")
+    func login(viewController: UIViewController, completion: @escaping (Bool, String?) -> Void) {
+        SCSDKLoginClient.login(from: viewController) { (success: Bool, error: Error?) in
+            if success {
+                completion(true, "")
+            } else {
+                let message = error?.localizedDescription
+                completion(false, message)
+                print("error: " + (message ?? ""))
             }
-            
         }
+        
     }
     
-    func unlink() {
-        SCSDKLoginClient.unlinkAllSessions { _ in
-            
-        }
+    func logout(completion: @escaping (Bool) -> Void) {
+        SCSDKLoginClient.unlinkAllSessions { [weak self] isLogout in
+            guard let `self` = self else {
+                return
+            }
+            self.userData = nil
+            completion(isLogout)
+        } 
     }
     
     public override init() {
         super.init()
         SCSDKLoginClient.addLoginStatusObserver(self)
-        if isLogin {
-            loadExternalId()
+        if isUserLogin {
+            loadUserData { _ in
+                
+            }
         }
         stickerVC.delegate = self
     }
     
-    var isLogin: Bool {
+    var isUserLogin: Bool {
         return SCSDKLoginClient.isUserLoggedIn
     }
     
-    private func loadExternalId() {
-        SCSDKLoginClient.fetchUserData(
-            withQuery: externalIdQuery,
-            variables: ["page": "bitmoji"],
-            success: { resp in
-                guard let resources = resp as? [String : Any],
-                    let data = resources["data"] as? [String: Any],
-                    let me = data["me"] as?  [String: Any] else { return }
-                if let displayName = me["displayName"] as? String {
-                    print((String(describing: displayName)))
-                }
-                if let bitmoji = me["bitmoji"] as? [String: Any] {
-                    let bitmojiAvatarUrl = bitmoji["avatar"] as? String
-                    print((String(describing: bitmojiAvatarUrl)))
-                }
-                if let externalId = me["externalId"] as? String {
-                    print((String(describing: externalId)))
-                    DispatchQueue.main.async {
-                        self.externalId = externalId
+    func loadUserData(completion: @escaping (_ userData: LoginUserData?) -> ()) {
+        if isUserLogin {
+            if let existUserData = userData {
+                completion(existUserData)
+                return
+            }
+            SCSDKLoginClient.fetchUserData(
+                withQuery: externalIdQuery,
+                variables: ["page": "bitmoji"],
+                success: { resp in
+                    guard let resources = resp as? [String : Any],
+                        let data = resources["data"] as? [String: Any],
+                        let me = data["me"] as?  [String: Any] else { return }
+                    var userName: String? = ""
+                    var bitmojiAvatarUrl: String? = ""
+                    var userId: String? = ""
+                    if let displayName = me["displayName"] as? String {
+                        print((String(describing: displayName)))
+                        userName = displayName
                     }
-                }
-        }, failure: { _, _ in
-            
-        })
+                    if let bitmoji = me["bitmoji"] as? [String: Any] {
+                        bitmojiAvatarUrl = bitmoji["avatar"] as? String
+                        print((String(describing: bitmojiAvatarUrl)))
+                    }
+                    if let externalId = me["externalId"] as? String {
+                        print((String(describing: externalId)))
+                        userId = externalId
+                    }
+                    let responseData = LoginUserData(userId: userId, userName: userName, email: "", gender: 0, photoUrl: bitmojiAvatarUrl)
+                    self.userData = responseData
+                    completion(responseData)
+            }, failure: { _, _ in
+                
+            })
+        } else {
+            completion(nil)
+        }
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
@@ -90,7 +114,9 @@ open class SnapKitManager: NSObject, SCSDKLoginStatusObserver, SCSDKBitmojiStick
     }
     
     public func scsdkLoginLinkDidSucceed() {
-        loadExternalId()
+        loadUserData { _ in
+            
+        }
     }
     
     public func bitmojiStickerPickerViewController(_ stickerPickerViewController: SCSDKBitmojiStickerPickerViewController,

@@ -15,11 +15,9 @@ import Fabric
 import Crashlytics
 import GooglePlaces
 import GoogleMaps
-import FBSDKCoreKit
 import AppCenter
 import AppCenterAnalytics
 import AppCenterCrashes
-import GoogleSignIn
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -45,8 +43,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
         
-        GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
-        
         Fabric.sharedSDK().debug = true
         
         Fabric.with([Crashlytics.self])
@@ -59,9 +55,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
-        ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
+        FaceBookManager.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         
-        _ = TwitterShare.shared
+        _ = TwitterManger.shared
         
         TiktokShare.shared.setupTiktok(application, didFinishLaunchingWithOptions: launchOptions)
         
@@ -149,11 +145,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     open func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-        if TwitterShare.shared.application(app, open: url, options: options) {
-            return true
-        } else if TiktokShare.shared.application(app, open: url, sourceApplication: nil, annotation: [:]) {
+        if GoogleManager.shared.handelOpenUrl(app: app, url: url, options: options) {
             return true
         } else if SnapKitManager.shared.application(app, open: url, options: options) {
+            return true
+        } else if TwitterManger.shared.application(app, open: url, options: options) {
+            return true
+        } else if TiktokShare.shared.application(app, open: url, sourceApplication: nil, annotation: [:]) {
             return true
         }
         return false
@@ -161,9 +159,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         let options: [String: AnyObject] = [UIApplication.OpenURLOptionsKey.sourceApplication.rawValue: sourceApplication as AnyObject, UIApplication.OpenURLOptionsKey.annotation.rawValue: annotation as AnyObject]
-        if ApplicationDelegate.shared.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation) {
+        if FaceBookManager.shared.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation) {
             return true
-        } else if TwitterShare.shared.application(application, open: url, options: options) {
+        } else if TwitterManger.shared.application(application, open: url, options: options) {
             return true
         } else if TiktokShare.shared.application(application, open: url, sourceApplication: nil, annotation: [:]) {
             return true
@@ -174,9 +172,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
         return TiktokShare.shared.application(application, open: url, sourceApplication: nil, annotation: [:])
     }
-    
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        AppEvents.activateApp()
-    }
-    
 }

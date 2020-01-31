@@ -40,7 +40,7 @@ open class TiktokShare: NSObject, TikTokOpenPlatformLogDelegate {
     }
     
     func uploadImageOrVideoOnTiktok(withText text: String = Constant.Application.displayName, phAsset: PHAsset, isImage: Bool) {
-        let shareRequest = TikTokOpenPlatformShareRequest.init(appType: .I18N)
+        let shareRequest = TikTokOpenPlatformShareRequest(appType: .I18N)
         shareRequest.mediaType = isImage ? .image : .video
         shareRequest.localIdentifiers = [phAsset.localIdentifier]
         shareRequest.state = text
