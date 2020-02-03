@@ -59,6 +59,32 @@ class Defaults {
         }
     }
     
+    var instagramToken: String? {
+        get {
+            return appDefaults?.string(forKey: "instagramToken")
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "instagramToken")
+        }
+    }
+    
+    var instagramProfile: ProfileDetailsResponse? {
+        get {
+            if let loggedUser = appDefaults?.object(forKey: "profileDetailsResponse") as? Data {
+                let decoder = JSONDecoder()
+                return try? decoder.decode(ProfileDetailsResponse.self, from: loggedUser)
+            }
+            return nil
+        }
+        set {
+            let encoder = JSONEncoder()
+            if let encoded = try? encoder.encode(newValue) {
+                appDefaults?.set(encoded, forKey: "profileDetailsResponse")
+                appDefaults?.synchronize()
+            }
+        }
+    }
+    
     var parentID: String? {
         get {
             return appDefaults?.string(forKey: "parentId")

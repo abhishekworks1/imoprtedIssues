@@ -325,7 +325,6 @@
 		8205FD98236C3B49002B2603 /* StoryUploadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FD97236C3B49002B2603 /* StoryUploadVC.swift */; };
 		8205FD9A236C3B50002B2603 /* StorySettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FD99236C3B50002B2603 /* StorySettingsVC.swift */; };
 		8205FD9C236C3B5F002B2603 /* YouTubePlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FD9B236C3B5E002B2603 /* YouTubePlayerVC.swift */; };
-		8205FD9E236C3B65002B2603 /* StorySettingsOptionsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FD9D236C3B65002B2603 /* StorySettingsOptionsVC.swift */; };
 		8205FDA0236C3B73002B2603 /* CollageMakerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FD9F236C3B73002B2603 /* CollageMakerVC.swift */; };
 		8205FDA2236C3B79002B2603 /* CollageMaker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8205FDA1236C3B78002B2603 /* CollageMaker.storyboard */; };
 		8205FDA4236C3B81002B2603 /* TextImageCreaterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FDA3236C3B7F002B2603 /* TextImageCreaterVC.swift */; };
@@ -344,6 +343,14 @@
 		820B23712371961F00906BF0 /* ProManagerApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820B23702371961F00906BF0 /* ProManagerApi.swift */; };
 		820B23752371975000906BF0 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820B23742371975000906BF0 /* Result.swift */; };
 		820B23772371A0A500906BF0 /* StoryTwoColumnsLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820B23762371A0A400906BF0 /* StoryTwoColumnsLayout.swift */; };
+		820BFB6723E7EB100087B38E /* ProfileDetailsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820BFB6123E7EB100087B38E /* ProfileDetailsResponse.swift */; };
+		820BFB6923E7EB100087B38E /* MeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820BFB6323E7EB100087B38E /* MeResponse.swift */; };
+		820BFB6A23E7EB100087B38E /* AccessTokenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820BFB6423E7EB100087B38E /* AccessTokenResponse.swift */; };
+		820BFB6D23E7EB600087B38E /* RxAlamofire+ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820BFB6C23E7EB600087B38E /* RxAlamofire+ObjectMapper.swift */; };
+		820BFB6F23E7F1300087B38E /* InstagramManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820BFB5923E7EADE0087B38E /* InstagramManager.swift */; };
+		820BFB7123E7F5170087B38E /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820BFB7023E7F5170087B38E /* WebViewController.swift */; };
+		820BFB7323E810F30087B38E /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820BFB7223E810F30087B38E /* ProfilePresenter.swift */; };
+		820BFB7423E845EF0087B38E /* StorySettingsOptionsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FD9D236C3B65002B2603 /* StorySettingsOptionsVC.swift */; };
 		820C3AF923797896007FCF15 /* SocialShareVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820C3AF823797896007FCF15 /* SocialShareVideo.swift */; };
 		820DA4EE2385392F0027A207 /* AWSManager+S3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820DA4ED2385392F0027A207 /* AWSManager+S3.swift */; };
 		82262113239E164400B963CF /* SpeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82262112239E164400B963CF /* SpeedViewController.swift */; };
@@ -935,6 +942,13 @@
 		820B23702371961F00906BF0 /* ProManagerApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProManagerApi.swift; sourceTree = "<group>"; };
 		820B23742371975000906BF0 /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		820B23762371A0A400906BF0 /* StoryTwoColumnsLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryTwoColumnsLayout.swift; sourceTree = "<group>"; };
+		820BFB5923E7EADE0087B38E /* InstagramManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstagramManager.swift; sourceTree = "<group>"; };
+		820BFB6123E7EB100087B38E /* ProfileDetailsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileDetailsResponse.swift; sourceTree = "<group>"; };
+		820BFB6323E7EB100087B38E /* MeResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeResponse.swift; sourceTree = "<group>"; };
+		820BFB6423E7EB100087B38E /* AccessTokenResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessTokenResponse.swift; sourceTree = "<group>"; };
+		820BFB6C23E7EB600087B38E /* RxAlamofire+ObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RxAlamofire+ObjectMapper.swift"; sourceTree = "<group>"; };
+		820BFB7023E7F5170087B38E /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		820BFB7223E810F30087B38E /* ProfilePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
 		820C3AF823797896007FCF15 /* SocialShareVideo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialShareVideo.swift; sourceTree = "<group>"; };
 		820DA4ED2385392F0027A207 /* AWSManager+S3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AWSManager+S3.swift"; sourceTree = "<group>"; };
 		82262112239E164400B963CF /* SpeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedViewController.swift; sourceTree = "<group>"; };
@@ -1225,6 +1239,7 @@
 		8205FA78236C0F52002B2603 /* Others */ = {
 			isa = PBXGroup;
 			children = (
+				820BFB6E23E7EDAC0087B38E /* InstaGramManager */,
 				820DA4ED2385392F0027A207 /* AWSManager+S3.swift */,
 				825A2BFF23E19188003BE8D5 /* GoogleManager.swift */,
 				825A2C0323E1AD94003BE8D5 /* FaceBookConstant.swift */,
@@ -1974,6 +1989,28 @@
 				820B1F3923CC85A500CB6DDE /* Icon-1@3x.png */,
 			);
 			path = AppIcons;
+			sourceTree = "<group>";
+		};
+		820BFB5F23E7EB100087B38E /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				820BFB6123E7EB100087B38E /* ProfileDetailsResponse.swift */,
+				820BFB6323E7EB100087B38E /* MeResponse.swift */,
+				820BFB6423E7EB100087B38E /* AccessTokenResponse.swift */,
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
+		820BFB6E23E7EDAC0087B38E /* InstaGramManager */ = {
+			isa = PBXGroup;
+			children = (
+				820BFB7023E7F5170087B38E /* WebViewController.swift */,
+				820BFB5923E7EADE0087B38E /* InstagramManager.swift */,
+				820BFB7223E810F30087B38E /* ProfilePresenter.swift */,
+				820BFB6C23E7EB600087B38E /* RxAlamofire+ObjectMapper.swift */,
+				820BFB5F23E7EB100087B38E /* Response */,
+			);
+			path = InstaGramManager;
 			sourceTree = "<group>";
 		};
 		82262111239E136600B963CF /* SpeedController */ = {
@@ -2849,11 +2886,13 @@
 				950514BF239FA3F800F07D8F /* StoryEditorViewController.swift in Sources */,
 				8205FAAE236C0FF0002B2603 /* VerticalCenteredTextView.swift in Sources */,
 				82D1EBF1236FF4CC00A680E7 /* UpgradePageCollectionViewCell.swift in Sources */,
+				820BFB7423E845EF0087B38E /* StorySettingsOptionsVC.swift in Sources */,
 				9546606B2387B5CC00A37AE0 /* DialConfig.swift in Sources */,
 				8205FAF5236C110C002B2603 /* HandlerView.swift in Sources */,
 				82D1EBBB236FEDD800A680E7 /* VideoSpeeder.swift in Sources */,
 				8205FB22236C160E002B2603 /* StorySliderQueView.swift in Sources */,
 				82BAC1DE2387DDD000E586AB /* StoryCameraViewController+Gesture.swift in Sources */,
+				820BFB6923E7EB100087B38E /* MeResponse.swift in Sources */,
 				8205FD4A236C3B06002B2603 /* ParameterRange.swift in Sources */,
 				8205FCAE236C3AFA002B2603 /* CollageViewT311.swift in Sources */,
 				8205FCBA236C3AFA002B2603 /* CollageViewT101.swift in Sources */,
@@ -2868,6 +2907,7 @@
 				8205FCAF236C3AFA002B2603 /* CollageViewT401.swift in Sources */,
 				8205FA87236C0F9C002B2603 /* LoadingView.swift in Sources */,
 				8205FBD1236C2A88002B2603 /* CoverA.swift in Sources */,
+				820BFB7323E810F30087B38E /* ProfilePresenter.swift in Sources */,
 				954660592387B5CC00A37AE0 /* ImageContainer.swift in Sources */,
 				9546604B2387B5CC00A37AE0 /* RatioPresenter.swift in Sources */,
 				8205FA7C236C0F8C002B2603 /* HorizontalFlowLayout.swift in Sources */,
@@ -2974,6 +3014,7 @@
 				8205FD3C236C3B06002B2603 /* Geometry.swift in Sources */,
 				8205FB7B236C1D0F002B2603 /* Components.swift in Sources */,
 				824EB3C623619E5C00205993 /* UIImageView+UIImage.swift in Sources */,
+				820BFB6F23E7F1300087B38E /* InstagramManager.swift in Sources */,
 				8205FD45236C3B06002B2603 /* DrawnPathInRect.swift in Sources */,
 				8205FB78236C1D0F002B2603 /* ReactionButton.swift in Sources */,
 				8287D2182382966A0074FC39 /* YouTubeViewController.swift in Sources */,
@@ -3009,7 +3050,6 @@
 				822F413C238FE39100084007 /* Async.swift in Sources */,
 				824EB3F323619FB000205993 /* NextLevel+UIImage.swift in Sources */,
 				82D1EBB9236FEDAC00A680E7 /* FlowChartView.swift in Sources */,
-				8205FD9E236C3B65002B2603 /* StorySettingsOptionsVC.swift in Sources */,
 				8205FB21236C160E002B2603 /* BaseTimeTagView.swift in Sources */,
 				8205FB83236C205E002B2603 /* ImageCollectionViewCell.swift in Sources */,
 				8205FD5B236C3B06002B2603 /* ImageTool.swift in Sources */,
@@ -3097,6 +3137,7 @@
 				8205FB6B236C1D0F002B2603 /* ComponentBuilder.swift in Sources */,
 				954660632387B5CC00A37AE0 /* CropAssetExportSession.swift in Sources */,
 				8205FCA0236C3AFA002B2603 /* CollageViewT309.swift in Sources */,
+				820BFB6A23E7EB100087B38E /* AccessTokenResponse.swift in Sources */,
 				8205FCBB236C3AFA002B2603 /* CollageViewT304.swift in Sources */,
 				8287D22A23829E620074FC39 /* StatTableViewCell.swift in Sources */,
 				82D1EBB4236FED4F00A680E7 /* HalfModalPresentationController.swift in Sources */,
@@ -3114,6 +3155,7 @@
 				8205FD4E236C3B06002B2603 /* FilterShadows.swift in Sources */,
 				8205FD48236C3B06002B2603 /* OvalBrush.swift in Sources */,
 				82D1EBB1236FED4F00A680E7 /* HalfModalInteractiveTransition.swift in Sources */,
+				820BFB6D23E7EB600087B38E /* RxAlamofire+ObjectMapper.swift in Sources */,
 				8205FAB1236C1001002B2603 /* ImageCropperView.swift in Sources */,
 				9546604A2387B5CC00A37AE0 /* CropToolbar.swift in Sources */,
 				824EB3EA23619FB000205993 /* NextLevelGIFCreator.swift in Sources */,
@@ -3128,6 +3170,7 @@
 				8205FA97236C0FAE002B2603 /* VSSlider.swift in Sources */,
 				8205FAF4236C110C002B2603 /* CropMaskView.swift in Sources */,
 				8205FBC4236C2A88002B2603 /* MMPlayerLayer.swift in Sources */,
+				820BFB6723E7EB100087B38E /* ProfileDetailsResponse.swift in Sources */,
 				9546605C2387B5CC00A37AE0 /* CropBoxLockedAspectFrameUpdater.swift in Sources */,
 				8205FB0D236C121F002B2603 /* LocationManager.swift in Sources */,
 				82D1EBA4236FED1700A680E7 /* EmojiCollectionViewDelegate.swift in Sources */,
@@ -3204,6 +3247,7 @@
 				8205FB79236C1D0F002B2603 /* ReactionFeedbackDelegate.swift in Sources */,
 				8205FD65236C3B06002B2603 /* ColorCubeControlView.swift in Sources */,
 				8205FCCB236C3AFA002B2603 /* SwipeView.m in Sources */,
+				820BFB7123E7F5170087B38E /* WebViewController.swift in Sources */,
 				8205FC4B236C2E4E002B2603 /* StoryCameraViewController.swift in Sources */,
 				8205FB28236C160E002B2603 /* BaseWeatherTagView.swift in Sources */,
 				8205FCB8236C3AFA002B2603 /* CollageView.swift in Sources */,

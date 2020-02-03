@@ -69,6 +69,12 @@ public class GoogleManager: NSObject {
                         completion(token?.accessToken)
                     })
                 }
+            } else {
+                signIn.currentUser.authentication.getTokensWithHandler({ (accessToken, error) in
+                    guard error == nil else { return }
+                    let token = accessToken
+                    completion(token?.accessToken)
+                })
             }
         }
     }

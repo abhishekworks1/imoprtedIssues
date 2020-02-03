@@ -363,6 +363,7 @@ class SpecificBoomerangViewController: UIViewController {
         loadingView?.show(on: self.view)
 
         exportSession = SpecificBoomerangExportSession(config: config)
+
         loadingView?.cancelClick = { cancelled in
             if cancelled {
                 DispatchQueue.main.async {

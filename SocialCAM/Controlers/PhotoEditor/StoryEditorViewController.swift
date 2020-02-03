@@ -330,7 +330,7 @@ class StoryEditorViewController: UIViewController {
         }
         self.editOptionView.isHidden = !isImage
         self.applyFilterOptionView.isHidden = !isImage
-        self.pic2ArtOptionView.isHidden = !isImage
+        self.pic2ArtOptionView.isHidden = Defaults.shared.appMode != .free ? !isImage : true
 
         self.soundOptionView.isHidden = isImage
         self.trimOptionView.isHidden = isImage

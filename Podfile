@@ -43,6 +43,7 @@ target 'SocialCAM' do
   pod 'Spring', :git => 'https://github.com/MengTo/Spring.git'
   pod 'Firebase/Core'
   pod 'Firebase/Analytics'
+  pod 'Firebase/Auth'
   pod 'GooglePlaces'
   pod 'GooglePlacePicker'
   pod 'FBSDKShareKit/Swift'
