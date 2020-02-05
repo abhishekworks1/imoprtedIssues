@@ -26,14 +26,30 @@ class WebViewController: UIViewController {
     let clientSecret = Constant.Instagram.clientSecret
     let disposeBag = DisposeBag()
     
+    let btnClose: UIButton = {
+        let closeButton = UIButton()
+        closeButton.translatesAutoresizingMaskIntoConstraints = false
+        closeButton.setImage(R.image.icoClose(), for: .normal)
+        return closeButton
+    }()
+    
     override func loadView() {
         let webConfiguration = WKWebViewConfiguration()
+        #if RELEASE
         webConfiguration.websiteDataStore = .nonPersistent()
+        #endif
+        
         webView = WKWebView(frame: .zero, configuration: webConfiguration)
         webView.uiDelegate = self
         view = webView
+        webView.addSubview(btnClose)
+        btnClose.topAnchor.constraint(equalTo: webView.topAnchor).isActive = true
+        btnClose.leadingAnchor.constraint(equalTo: webView.leadingAnchor, constant: 5).isActive = true
+        btnClose.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        btnClose.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        btnClose.addTarget(self, action: #selector(self.btnCloseClicked), for: .touchUpInside)
     }
-    
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -91,6 +107,11 @@ class WebViewController: UIViewController {
             self.delegate?.instagramLoginDidFinish(accessToken: nil, error: error)
         }).disposed(by: disposeBag)
     }
+    
+    @objc func btnCloseClicked() {
+        self.dismiss(animated: true)
+    }
+       
 }
 
 extension WebViewController: WKNavigationDelegate, WKUIDelegate {

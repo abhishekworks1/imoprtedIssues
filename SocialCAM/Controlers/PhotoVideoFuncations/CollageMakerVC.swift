@@ -289,8 +289,9 @@ class CollageMakerVC: UIViewController, UIGestureRecognizerDelegate {
                             let tmpScroll = cell
                             let frameRelativeToParent = tmpScroll.convert(tmpScroll.bounds, to: view)
                             if frameRelativeToParent.contains(movingImageView?.center ?? CGPoint.zero) {
-                                let image = self.selectedItemArray[photoIndex].image
-                                tmpScroll.photoView.setPhoto(img: image ?? UIImage())
+                                let image = self.selectedItemArray[photoIndex].image ?? UIImage()
+                                tmpScroll.photoView.setPhoto(img: image)
+                                self.selectedImageArray[cell.id - 1] = image
                                 movingImageView?.removeFromSuperview()
                                 break
                             }

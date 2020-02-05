@@ -205,6 +205,8 @@ class StoryDataManager {
             if internalStoryData.type == "slideshow" {
                 newItem.type = "video"
                 newItem.isExported = false
+            } else if internalStoryData.type == "video" {
+                newItem.isExported = true
             } else {
                 newItem.isExported = false
             }

@@ -57,6 +57,8 @@ open class SocialShareVideo: NSObject, SharingDelegate {
                     }
                 }
             })
+        case .storiCam:
+            storiCamShareImage(image)
         default:
             break
         }
@@ -106,6 +108,9 @@ open class SocialShareVideo: NSObject, SharingDelegate {
                     }
                 }
             }
+        case .storiCam:
+            storiCamShareVideo(url)
+            break
         }
     }
     
@@ -248,6 +253,14 @@ open class SocialShareVideo: NSObject, SharingDelegate {
         api.startSnapping { _ in
            
         }
+    }
+    
+    func storiCamShareImage(_ image: UIImage) {
+        StoriCamManager.shared.uploadImage(image: image)
+    }
+    
+    func storiCamShareVideo(_ videoUrl: URL) {
+        StoriCamManager.shared.uploadVideo(videoUrl: videoUrl)
     }
     
 }

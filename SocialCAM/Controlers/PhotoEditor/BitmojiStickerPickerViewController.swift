@@ -77,6 +77,11 @@ class BitmojiStickerPickerViewController: UIViewController {
         ])
         
         SnapKitManager.shared.delegate = self
+        if SnapKitManager.shared.isUserLogin {
+            SnapKitManager.shared.loadUserData { (_) in
+                
+            }
+        }
     }
     
     @objc func toggleStickerViewVisible() {

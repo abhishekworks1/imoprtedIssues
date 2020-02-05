@@ -35,6 +35,10 @@ class DownAnimation: SpringImageView {
     
 }
 
+protocol LoginViewControllerDelegate: class {
+    func loginDidFinish(user: User?, error: Error?)
+}
+
 class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
     // MARK: Properites
     var parentId: String = ""
@@ -44,6 +48,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet var btnHidePassWord: PButton!
     @IBOutlet weak var logoView: UIView!
     @IBOutlet weak var logoLable: UILabel!
+    weak var delegate: LoginViewControllerDelegate?
     
     // MARK: View life cycle
     
@@ -53,32 +58,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         txtEmail.iconText = String.fontAwesomeIcon(name: .check)
         txtPassword.iconFont = UIFont.fontAwesome(ofSize: 12, style: .solid)
         txtPassword.iconText = String.fontAwesomeIcon(name: .lock)
-//        touchIdPopUp()
         setColorTextField(views: [txtEmail, txtPassword])
-    }
-    
-    func touchIdPopUp() {
-//        guard let email = TouchIdAuth.auth.email, let password = TouchIdAuth.auth.password else {
-//            return
-//        }
-//        txtEmail.text = email
-//        if TouchIdAuth.auth.touchIdAvailable() {
-//            TouchIdAuth.auth.authenticate(completion: { (success, error) in
-//                if success {
-//                    self.txtPassword.text = password
-//                    self.emailLogin(email, password: password)
-//                } else {
-//                    if let laError = error as? LAError {
-//                        if laError.code.hashValue == 1 {
-//                            return
-//                        } else {
-//                            self.touchIdPopUp()
-//                            return
-//                        }
-//                    }
-//                }
-//            })
-//        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -99,6 +79,9 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     // MARK: IBActions
+    @IBAction func btnCloseClicked(_ sender: UIButton) {
+        self.dismiss(animated: true)
+    }
     
     @IBAction func btnLoginClicked(_ sender: Any?) {
         guard let emailText = txtEmail.text else {
@@ -126,7 +109,6 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
             self.dismissHUD()
             print(responce)
             if responce.status == ResponseType.success {
-               
                 Defaults.shared.sessionToken = responce.sessionToken
                 Defaults.shared.currentUser = responce.result
                 CurrentUser.shared.setActiveUser(responce.result)
@@ -139,7 +121,8 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
                 Defaults.shared.parentID = parentId
                 
                 self.doLogin()
-                self.goToHomeScreen()
+                self.delegate?.loginDidFinish(user: Defaults.shared.currentUser, error: nil)
+                self.dismiss(animated: true)
             } else {
                 self.showAlert(alertMessage: responce.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
             }
@@ -166,31 +149,10 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         }).disposed(by: (rx.disposeBag))
     }
     
-    func goToHomeScreen() {
-        if let homeVC = R.storyboard.storyCameraViewController.storyCameraViewNavigationController() {
-            Utils.appDelegate?.window?.switchRootViewController(homeVC)
-        }
-    }
-    
-    func step2Redirection() {
-         let tupele: [String: Any?] = ["email": Defaults.shared.currentUser?.email, "channel": Defaults.shared.currentUser?.channelId, "socialId": Defaults.shared.currentUser?.socialId, "provider": Defaults.shared.currentUser?.provider]
-         self.performSegue(withIdentifier: "Step2Segue", sender: tupele)
-    }
-    
     func doLogin() {
         ProManagerApi.doLogin(userId: (Defaults.shared.currentUser?.id)!).request(Result<PromanagerData>.self).subscribe { _ in
             
             }.disposed(by: rx.disposeBag)
-    }
-    
-    @IBAction func btnLinkedinClicked(sender: Any) {
-        UIApplication.showAlert(title: Constant.Application.displayName, message: R.string.localizable.comingSoon())
-        return
-    }
-
-    @IBAction func btnInstaClicked() {
-        UIApplication.showAlert(title: Constant.Application.displayName, message: R.string.localizable.comingSoon())
-        return
     }
     
     @IBAction func btnShowHidePassWordClicked(sender: Any) {
@@ -200,26 +162,6 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         } else {
             self.btnHidePassWord.setImage(R.image.showPassword(), for: .normal)
         }
-    }
-    
-    @IBAction func btnGoogleClicked(sender: Any) {
-        
-    }
-    
-    @IBAction func btnTwClicked(sender: Any) {
-        UIApplication.showAlert(title: Constant.Application.displayName, message: R.string.localizable.comingSoon())
-        return
-    }
-    
-    @IBAction func btnFbClicked(sender: Any) {
-        UIApplication.showAlert(title: Constant.Application.displayName, message: R.string.localizable.comingSoon())
-        return
-    }
-    
-    @IBAction func btnForgotClicked(_ sender: Any?) {
-//        if let obj = R.storyboard.login.forgotPasswordViewController() {
-//          self.navigationController?.pushViewController(obj, animated: true)
-//        }
     }
     
 }

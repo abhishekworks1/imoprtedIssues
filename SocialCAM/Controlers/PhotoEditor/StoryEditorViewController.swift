@@ -696,7 +696,7 @@ extension StoryEditorViewController {
                     }
                 case let .video(_, asset):
                     DispatchQueue.runOnMainThread {
-                        self.exportViewWithURL(asset, index: index) { [weak self] url in
+                        self.exportViewWithURL(asset, index: self.storyEditors.count > 1 ? index : nil) { [weak self] url in
                             guard let `self` = self else { return }
                             if let exportURL = url {
                                 self.videoExportedURL =  exportURL
@@ -1191,6 +1191,8 @@ extension StoryEditorViewController {
                 if let multipleIndex = index {
                     loadingView.completedExportTotal = "\(multipleIndex) / \(self.storyEditors.count)"
                     loadingView.showTotalCount = true
+                } else {
+                    loadingView.showTotalCount = false
                 }
                 loadingView.show(on: self.view, completion: {
                     loadingView.cancelClick = { _ in

@@ -14,6 +14,8 @@ public class FaceBookManager: NSObject {
     public static let shared = FaceBookManager()
     
     let facebookManger = FBSDKLoginKit.LoginManager()
+   
+    var userData: LoginUserData? = nil
     
     var isUserLogin: Bool {
         return AccessToken.isCurrentAccessTokenActive
@@ -21,15 +23,21 @@ public class FaceBookManager: NSObject {
     
     func loadUserData(completion: @escaping (_ userName: LoginUserData?) -> ()) {
         if isUserLogin {
-            guard let tokenString = AccessToken.current?.tokenString else {
+            guard let _ = AccessToken.current?.tokenString else {
                 completion(nil)
                 return
             }
-            GraphRequest.init(graphPath: "me", parameters:["fields": self.getNeededFields(requiredPermission: nil)]).start(completionHandler: { (connection, response, meError) in
-                if let unwrappedMeError = meError {
+            if let existUserData = userData {
+                completion(existUserData)
+                return
+            }
+            GraphRequest.init(graphPath: "me", parameters: ["fields": self.getNeededFields(requiredPermission: nil)]).start(completionHandler: { [weak self] (connection, response, meError) in
+                guard let `self` = self else { return }
+                if let _ = meError {
                     completion(nil)
                 } else {
-                    completion(self.parseUserData(dataResponse: response as AnyObject))
+                    self.userData = self.parseUserData(dataResponse: response as AnyObject)
+                    completion(self.userData)
                 }
             })
         } else {
@@ -50,6 +58,7 @@ public class FaceBookManager: NSObject {
     }
     
     public func logout() {
+        userData = nil
         facebookManger.logOut()
     }
     

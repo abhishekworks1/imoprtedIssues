@@ -30,6 +30,7 @@ class StoryCameraViewController: UIViewController {
     
     private lazy var panRecognizer: InstantPanGestureRecognizer = {
         let recognizer = InstantPanGestureRecognizer()
+        recognizer.delegate = self
         recognizer.addTarget(self, action: #selector(popupViewPanned(recognizer:)))
         return recognizer
     }()
@@ -161,7 +162,7 @@ class StoryCameraViewController: UIViewController {
     @IBOutlet weak var cameraModeIndicatorImageView: UIImageView!
     
     // MARK: Variables
-    var recoredButtonCenterPoint: CGPoint = CGPoint.init()
+    var recordButtonCenterPoint: CGPoint = CGPoint.init()
     
     var totalDurationOfOneSegment: Double = 0
     
@@ -443,6 +444,7 @@ class StoryCameraViewController: UIViewController {
         view.bringSubviewToFront(enableAccessView)
         view.bringSubviewToFront(selectTimersView)
         layout()
+        self.view.isMultipleTouchEnabled = true
         self.view.addGestureRecognizer(panRecognizer)
         volumeButtonHandler()
     }
@@ -462,7 +464,7 @@ class StoryCameraViewController: UIViewController {
         observeState()
         self.flashView?.removeFromSuperview()
         DispatchQueue.main.async {
-            self.recoredButtonCenterPoint = self.circularProgress.center
+            self.recordButtonCenterPoint = self.circularProgress.center
         }
         self.speedSlider.isUserInteractionEnabled = true
         slowFastVerticalBar.isHidden = true
@@ -485,9 +487,7 @@ class StoryCameraViewController: UIViewController {
         } else if recordingType == .collage {
             recordingType = .collage
         }
-        DispatchQueue.main.async {
-            self.circularProgress.center = self.recoredButtonCenterPoint
-        }
+        self.resetPositionRecordButton()
         addVolumeButtonHandler()
     }
     
@@ -728,6 +728,12 @@ extension StoryCameraViewController {
         }
     }
     
+    func resetPositionRecordButton() {
+        DispatchQueue.main.async {
+            self.circularProgress.center = self.recordButtonCenterPoint
+        }
+    }
+    
     @objc func animate() {
         UIView.animate(withDuration: 0.1, animations: { () -> Void in
             self.animateTransitionIfNeeded(to: self.currentState.opposite, duration: 1)
@@ -816,9 +822,7 @@ extension StoryCameraViewController {
         self.takenImages.removeAll()
         self.takenVideoUrls.removeAll()
         self.stopMotionCollectionView.reloadData()
-        DispatchQueue.main.async {
-            self.circularProgress.center = self.recoredButtonCenterPoint
-        }
+        self.resetPositionRecordButton()
     }
     
     @objc func speedSliderValueChanged(_ sender: Any) {
@@ -1019,9 +1023,13 @@ extension StoryCameraViewController {
     @objc func enterBackground(_ notifi: Notification) {
         if isViewAppear {
             stopCapture()
-            if nextLevel.isRecording {
+            if isRecording {
                 self.isStopConnVideo = true
                 self.stopRecording()
+                DispatchQueue.main.async {
+                    self.isRecording = false
+                }
+                self.resetPositionRecordButton()
             }
         }
     }

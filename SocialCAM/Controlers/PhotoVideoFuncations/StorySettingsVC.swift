@@ -48,10 +48,13 @@ class StorySettings {
                                                          StorySetting(name: R.string.localizable.snapchat(),
                                                                       selected: false),
                                                          StorySetting(name: R.string.localizable.google(),
+                                                                      selected: false),
+                                                         StorySetting(name: R.string.localizable.storiCam(),
                                                                       selected: false)]),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.logout(), selected: false)])]
-    
+                                              settings: [StorySetting(name: R.string.localizable.logout(), selected: false)]),
+                                StorySettings(name: "",
+                                              settings: [StorySetting(name: R.string.localizable.controlCenter(), selected: false)])]
 }
 
 class StorySettingsVC: UIViewController {
@@ -90,14 +93,14 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         let settings = StorySettings.storySettings[indexPath.section].settings[indexPath.row]
         cell.settingsName.text = settings.name
         cell.detailButton.isHidden = true
-        if indexPath.section == 2 {
+        if indexPath.section == 2 || indexPath.section == 3 {
             cell.onOffButton.isHidden = true
         } else if indexPath.section == 1 {
             cell.onOffButton.isHidden = false
             cell.onOffButton.isSelected = false
 
-            let socialLogin: SocialShare = SocialShare(rawValue: indexPath.row) ?? .facebook
-            self.socialLoadProfile(socialShare: socialLogin) { [weak cell] (userName) in
+            let socialLogin: SocialLogin = SocialLogin(rawValue: indexPath.row) ?? .facebook
+            self.socialLoadProfile(socialLogin: socialLogin) { [weak cell] (userName) in
                 guard let cell = cell else {
                     return
                 }
@@ -134,7 +137,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 2 {
+        if section == 2 || section == 3 {
             return 24
         }
         return 60
@@ -145,11 +148,15 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 2 {
+        if indexPath.section == 3 {
+            if let baseUploadVC = R.storyboard.storyCameraViewController.baseUploadVC() {
+                navigationController?.pushViewController(baseUploadVC, animated: true)
+            }
+        } else if indexPath.section == 2 {
             logoutUser()
         } else if indexPath.section == 1 {
-            let socialLogin: SocialShare = SocialShare(rawValue: indexPath.row) ?? .facebook
-            socialLoginLogout(socialShare: socialLogin) { [weak self] (isLogin) in
+            let socialLogin: SocialLogin = SocialLogin(rawValue: indexPath.row) ?? .facebook
+            socialLoginLogout(socialLogin: socialLogin) { [weak self] (isLogin) in
                 guard let `self` = self else {
                     return
                 }
@@ -178,8 +185,8 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
-    func socialLoadProfile(socialShare: SocialShare, completion: @escaping (String?) -> ()) {
-        switch socialShare {
+    func socialLoadProfile(socialLogin: SocialLogin, completion: @escaping (String?) -> ()) {
+        switch socialLogin {
         case .facebook:
             if FaceBookManager.shared.isUserLogin {
                 FaceBookManager.shared.loadUserData { (userModel) in
@@ -210,13 +217,17 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                     completion(userName)
                 }
             }
-        default:
-            break
+        case .storiCam:
+            if StoriCamManager.shared.isUserLogin {
+                StoriCamManager.shared.loadUserData { (userName) in
+                    completion(userName?.userName)
+                }
+            }
         }
     }
     
-    func socialLoginLogout(socialShare: SocialShare, completion: @escaping (Bool) -> ()) {
-        switch socialShare {
+    func socialLoginLogout(socialLogin: SocialLogin, completion: @escaping (Bool) -> ()) {
+        switch socialLogin {
         case .facebook:
             if !FaceBookManager.shared.isUserLogin {
                 FaceBookManager.shared.login(controller: self, loginCompletion: { (_, _) in
@@ -272,8 +283,15 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 GoogleManager.shared.logout()
                 completion(false)
             }
-        default:
-            break
+        case .storiCam:
+            if !StoriCamManager.shared.isUserLogin {
+                StoriCamManager.shared.login(controller: self) { (_, _) in
+                    StoriCamManager.shared.delegate = self
+                }
+            } else {
+                StoriCamManager.shared.logout()
+                completion(false)
+            }
         }
     }
     
@@ -313,10 +331,13 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         let objAlert = UIAlertController(title: Constant.Application.displayName, message: R.string.localizable.areYouSureYouWantToLogout(), preferredStyle: .alert)
         let actionlogOut = UIAlertAction(title: R.string.localizable.logout(), style: .default) { (_: UIAlertAction) in
             TwitterManger.shared.logout()
-            GIDSignIn.sharedInstance()?.disconnect()
+            GoogleManager.shared.logout()
+            FaceBookManager.shared.logout()
+            InstagramManager.shared.logout()
             SnapKitManager.shared.logout { _ in
                 
             }
+            StoriCamManager.shared.logout()
             self.settingsTableView.reloadData()
         }
         let cancelAction = UIAlertAction(title: R.string.localizable.cancel(), style: .default) { (_: UIAlertAction) in }
@@ -342,5 +363,10 @@ extension StorySettingsVC: InstagramLoginViewControllerDelegate, ProfileDelegate
             InstagramManager.shared.loadProfile()
         }
     }
-    
+}
+
+extension StorySettingsVC: StoriCamManagerDelegate {
+    func loginDidFinish(user: User?, error: Error?) {
+        self.settingsTableView.reloadData()
+    }
 }

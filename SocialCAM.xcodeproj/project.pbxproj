@@ -353,6 +353,8 @@
 		820BFB7423E845EF0087B38E /* StorySettingsOptionsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FD9D236C3B65002B2603 /* StorySettingsOptionsVC.swift */; };
 		820C3AF923797896007FCF15 /* SocialShareVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820C3AF823797896007FCF15 /* SocialShareVideo.swift */; };
 		820DA4EE2385392F0027A207 /* AWSManager+S3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820DA4ED2385392F0027A207 /* AWSManager+S3.swift */; };
+		8219322623EAA8FD00FFEC03 /* StoriCamManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8219322523EAA8FD00FFEC03 /* StoriCamManager.swift */; };
+		8219322823EABE3F00FFEC03 /* FontAwesome.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8219322723EABE3F00FFEC03 /* FontAwesome.otf */; };
 		82262113239E164400B963CF /* SpeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82262112239E164400B963CF /* SpeedViewController.swift */; };
 		82262115239E165A00B963CF /* SpeedViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82262114239E165A00B963CF /* SpeedViewController.storyboard */; };
 		82262117239E172A00B963CF /* SpeedViewController+Controls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82262116239E172A00B963CF /* SpeedViewController+Controls.swift */; };
@@ -951,6 +953,8 @@
 		820BFB7223E810F30087B38E /* ProfilePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
 		820C3AF823797896007FCF15 /* SocialShareVideo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialShareVideo.swift; sourceTree = "<group>"; };
 		820DA4ED2385392F0027A207 /* AWSManager+S3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AWSManager+S3.swift"; sourceTree = "<group>"; };
+		8219322523EAA8FD00FFEC03 /* StoriCamManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriCamManager.swift; sourceTree = "<group>"; };
+		8219322723EABE3F00FFEC03 /* FontAwesome.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.otf; sourceTree = "<group>"; };
 		82262112239E164400B963CF /* SpeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedViewController.swift; sourceTree = "<group>"; };
 		82262114239E165A00B963CF /* SpeedViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SpeedViewController.storyboard; sourceTree = "<group>"; };
 		82262116239E172A00B963CF /* SpeedViewController+Controls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpeedViewController+Controls.swift"; sourceTree = "<group>"; };
@@ -1045,6 +1049,7 @@
 		82AD6B6D237049AB0090498A /* PhotoEditor.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PhotoEditor.storyboard; sourceTree = "<group>"; };
 		82AD6B6F23704B330090498A /* UIViewUtilsExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewUtilsExtension.swift; sourceTree = "<group>"; };
 		82AD6B7123704BA60090498A /* PhotoEditorViewController+CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotoEditorViewController+CollectionView.swift"; sourceTree = "<group>"; };
+		82B5C23823EBD92A00841B5B /* SocialCam.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SocialCam.entitlements; sourceTree = "<group>"; };
 		82BAC1DD2387DDD000E586AB /* StoryCameraViewController+Gesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StoryCameraViewController+Gesture.swift"; sourceTree = "<group>"; };
 		82BB558B23D84230009B820D /* HomeScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HomeScreen.storyboard; sourceTree = "<group>"; };
 		82BB558D23D8424B009B820D /* HomeTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabBarController.swift; sourceTree = "<group>"; };
@@ -1242,6 +1247,7 @@
 				820BFB6E23E7EDAC0087B38E /* InstaGramManager */,
 				820DA4ED2385392F0027A207 /* AWSManager+S3.swift */,
 				825A2BFF23E19188003BE8D5 /* GoogleManager.swift */,
+				8219322523EAA8FD00FFEC03 /* StoriCamManager.swift */,
 				825A2C0323E1AD94003BE8D5 /* FaceBookConstant.swift */,
 				825A2C0123E1ACA5003BE8D5 /* FaceBookManger.swift */,
 				82C4B2B02383F3CB00551B51 /* TwitterManger.swift */,
@@ -1660,6 +1666,7 @@
 				8205FBDF236C2C2E002B2603 /* Courier Prime.ttf */,
 				8205FC02236C2C2F002B2603 /* Courier Prime Italic.ttf */,
 				8205FC03236C2C2F002B2603 /* Linoleo Script.ttf */,
+				8219322723EABE3F00FFEC03 /* FontAwesome.otf */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -2125,6 +2132,7 @@
 		824EB37A2361959800205993 /* SocialCAM */ = {
 			isa = PBXGroup;
 			children = (
+				82B5C23823EBD92A00841B5B /* SocialCam.entitlements */,
 				824EB37B2361959800205993 /* AppDelegate.swift */,
 				82D1EBA0236FECFA00A680E7 /* Delegates */,
 				8205FB7F236C2057002B2603 /* Cells */,
@@ -2656,6 +2664,7 @@
 				8205FB61236C1D0F002B2603 /* angry.json in Resources */,
 				82D1EC5323702B4300A680E7 /* Rouge.JPG in Resources */,
 				8205FB8C236C29E7002B2603 /* PhotosPickerViewController.xib in Resources */,
+				8219322823EABE3F00FFEC03 /* FontAwesome.otf in Resources */,
 				8205FD62236C3B06002B2603 /* Media.xcassets in Resources */,
 				8205FD39236C3B06002B2603 /* LUT_M09.png in Resources */,
 				82D1EC3C23702B4300A680E7 /* peach.JPG in Resources */,
@@ -2985,6 +2994,7 @@
 				8205FD40236C3B06002B2603 /* GraphicDrawing.swift in Sources */,
 				8205FCC5236C3AFA002B2603 /* CollageViewT203.swift in Sources */,
 				8205FC9E236C3AFA002B2603 /* PickerViewCell.swift in Sources */,
+				8219322623EAA8FD00FFEC03 /* StoriCamManager.swift in Sources */,
 				8205FCB3236C3AFA002B2603 /* CollageViewT503.swift in Sources */,
 				8205FD43236C3B06002B2603 /* ImageSource.swift in Sources */,
 				824EB3F023619FB000205993 /* NextLevelConfiguration.swift in Sources */,
@@ -3506,9 +3516,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BITCODE_GENERATION_MODE = marker;
+				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/SocialCAM/Info.plist";
@@ -3534,9 +3545,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BITCODE_GENERATION_MODE = bitcode;
+				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 19;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/SocialCAM/Info.plist";
