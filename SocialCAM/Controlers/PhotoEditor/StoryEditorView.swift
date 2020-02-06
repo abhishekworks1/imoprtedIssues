@@ -115,16 +115,17 @@ class StoryEditorView: UIView {
         return self.storyPlayer?.currentTime() ?? .zero
     }
     
-    override var frame: CGRect {
-        didSet {
-            self.mediaGestureView.frame = self.mediaRect()
-            self.storySwipeableFilterView.frame = bounds
-            self.drawView.frame = bounds
-            self.filterNameLabel.frame = CGRect(origin: .zero,
-                                                size: CGSize(width: width, height: 50))
-            self.adjustMediaTransformIfNeeded()
-        }
-    }
+    // TODO : Disable for Some Issue.
+//    override var frame: CGRect {
+//        didSet {
+//            self.mediaGestureView.frame = self.mediaRect()
+//            self.storySwipeableFilterView.frame = bounds
+//            self.drawView.frame = bounds
+//            self.filterNameLabel.frame = CGRect(origin: .zero,
+//                                                size: CGSize(width: width, height: 50))
+//            self.adjustMediaTransformIfNeeded()
+//        }
+//    }
 
     init(frame: CGRect, type: StoryEditorType, contentMode: StoryImageView.ImageContentMode, deleteView: UIView? = nil, undoView: UIView? = nil) {
         mediaGestureView = UIView()

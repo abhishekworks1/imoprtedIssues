@@ -37,6 +37,8 @@ open class TwitterManger: NSObject {
         return TWTRTwitter.sharedInstance().sessionStore
     }
     
+    var userData: LoginUserData? = nil
+    
     var isUserLogin: Bool {
         return store.hasLoggedInUsers()
     }
@@ -47,12 +49,17 @@ open class TwitterManger: NSObject {
                 completion(nil)
                 return
             }
+            if let existUserData = userData {
+                completion(existUserData)
+                return
+            }
             let twitterClient = TWTRAPIClient(userID: userId)
-            twitterClient.loadUser(withID: userId) { (user, error) in
+            twitterClient.loadUser(withID: userId) { [weak self] (user, error) in
+                guard let `self` = self else { return }
                 print(user?.profileImageURL ?? "")
                 print(user?.name ?? "")
-                let responseData = LoginUserData(userId: userId, userName: user?.name, email: user?.screenName, gender: 0, photoUrl: user?.profileImageURL)
-                completion(responseData)
+                self.userData = LoginUserData(userId: userId, userName: user?.name, email: user?.screenName, gender: 0, photoUrl: user?.profileImageURL)
+                completion(self.userData)
             }
         } else {
             completion(nil)
@@ -139,6 +146,7 @@ open class TwitterManger: NSObject {
     }
     
     func logout() {
+        self.userData = nil
         guard let userId = store.session()?.userID else { return }
         store.logOutUserID(userId)
         guard let url = URL(string: TwitterURL.Logout) else {

@@ -82,7 +82,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
         
         switch gestureRecognizer.state {
         case .began:
-            recoredButtonCenterPoint = circularProgress.center
+            recordButtonCenterPoint = circularProgress.center
             startRecording()
             onStartRecordSetSpeed()
             isRecording = true
@@ -216,7 +216,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             }
         case .ended:
             DispatchQueue.main.async {
-                self.circularProgress.center = self.recoredButtonCenterPoint
+                self.resetPositionRecordButton()
                 self.speedLabel.text = ""
                 self.speedLabel.stopBlink()
                 if self.recordingType == .boomerang || self.recordingType != .handsfree || self.recordingType == .timer {

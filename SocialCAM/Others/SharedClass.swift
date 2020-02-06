@@ -29,6 +29,16 @@ enum SocialShare: Int {
     case snapchat
     case youtube
     case tiktok
+    case storiCam
+}
+
+enum SocialLogin: Int {
+    case facebook = 0
+    case twitter
+    case instagram
+    case snapchat
+    case youtube
+    case storiCam
 }
 
 public enum CameraMode: Int {

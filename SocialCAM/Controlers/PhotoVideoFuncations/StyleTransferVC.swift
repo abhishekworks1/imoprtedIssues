@@ -67,7 +67,7 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
     
     @IBOutlet weak var scrollView: UIScrollView! {
         didSet {
-            scrollView.contentSize = CGSize.init(width: UIScreen.width*11, height: scrollView.frame.height)
+            scrollView.contentSize = CGSize.init(width: UIScreen.width*43, height: scrollView.frame.height)
             let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressOnImageView(_:)))
             longPressGesture.minimumPressDuration = 0.1
             scrollView.addGestureRecognizer(longPressGesture)

@@ -80,9 +80,9 @@ open class SnapKitManager: NSObject, SCSDKLoginStatusObserver, SCSDKBitmojiStick
                 withQuery: externalIdQuery,
                 variables: ["page": "bitmoji"],
                 success: { resp in
-                    guard let resources = resp as? [String : Any],
+                    guard let resources = resp as? [String: Any],
                         let data = resources["data"] as? [String: Any],
-                        let me = data["me"] as?  [String: Any] else { return }
+                        let me = data["me"] as? [String: Any] else { return }
                     var userName: String? = ""
                     var bitmojiAvatarUrl: String? = ""
                     var userId: String? = ""
