@@ -30,6 +30,7 @@ enum SocialShare: Int {
     case youtube
     case tiktok
     case storiCam
+    case storiCamPost
 }
 
 enum SocialLogin: Int {

@@ -27,6 +27,7 @@ public enum ProManagerApi {
     case logOut(deviceToken: String, userId: String)
     case createStory(url: String, duration: String, type: String, storiType: Int, user: String, thumb: String?, lat: String, long: String, address: String, tags: [[String: Any]]?, hashtags: [String]?, publish: Int)
     case writePost(type: String, text: String?, isChekedIn: Bool?, user: String, media: [[String:Any]]?, youTubeData: [String:Any]?, wallTheme: [String:Any]?, albumId: String?, checkedIn: [String:Any]?, hashTags:[String]?, privacy: String?, friendExcept:[String]?, friendsOnly:[String]?, feelingType: String?, feelings:[[String:Any]]?, previewUrlData: [String: Any]?, tagChannelAry:[String]?)
+    case updatePost(postID:String, type: String, text: String?, isChekedIn: Bool?, user: String, media: [[String:Any]]?, youTubeData: [String:Any]?, wallTheme: [String:Any]?, albumId: String?, checkedIn: [String:Any]?,hashTags:[String]?,privacy:String?,friendExcept:[String]?,friendsOnly:[String]?,feelingType:String?,feelings:[[String:Any]]?,previewUrlData: [String: Any]?,removedMedia:[String]?,tagArray:[String]?)
     case editStory(storyId: String, storyURL: String, duration: String?, type: String?, storiType: Int?, user: String, thumb: String?, lat: String?, long: String?, address: String?, tags: [[String: Any]]?, hashtags: [String]?, publish: Int?)
     case tagUserSearch(user: String, channelName: String)
     case getWeather(lattitude: String, longitude: String)
@@ -99,6 +100,8 @@ extension ProManagerApi: TargetType {
             return Paths.doLogin
         case .writePost:
             return Paths.writePost
+        case .updatePost(let postID ,_, _, _, _, _, _, _, _, _, _, _, _, _, _,_,_,_,_):
+            return Paths.updatePost + postID
         case .tagUserSearch:
             return Paths.tagUserSearch
         case .youTubeKeyWordSerch:
@@ -142,7 +145,7 @@ extension ProManagerApi: TargetType {
             return .post
         case .getSplashImages, .youTubeKeyWordSerch, .youTubeDetail,.youTubeChannelSearch, .getHashTagSets, .getWeather, .getyoutubeSubscribedChannel, .getYoutubeCategory:
             return .get
-        case .updateProfile, .editStory:
+        case .updateProfile, .editStory, .updatePost:
             return .put
         case .deleteHashTagSet:
             return .delete
@@ -220,6 +223,65 @@ extension ProManagerApi: TargetType {
             }
             if let tagChannelAry = tagChannelAry {
                 param["tagChannelAry"] = tagChannelAry
+            }
+        case .updatePost( _, let type , let text , let ischekedIn , let user , let media , let youTubeData , let wallTheme, let albumId, let checkedIn , let hashTags , let privacy, let friendExcept, let friendsOnly,  _ ,let feelings, let previewUrlData, let removedMedia,let tagArray):
+            param = ["type": type, "text": text ?? "" ,"IschekedIn": ischekedIn ?? false ,"user": user]
+            if let tags = tagArray {
+                param["tagChannelAry"] = tags
+            }
+            if let media = media {
+                param["media"] = media
+            } else {
+                param["media"] = NSNull()
+            }
+            if let youTubeData = youTubeData {
+                param["youTubeData"] = youTubeData
+            } else {
+                param["youTubeData"] = NSNull()
+            }
+            if let previewData = previewUrlData {
+                param["linkPreviewData"] = previewData
+            } else {
+                param["linkPreviewData"] = NSNull()
+            }
+            if let wallTheme = wallTheme {
+                param["wallTheme"] = wallTheme
+            }
+            if let albumId = albumId {
+                param["albumId"] = albumId
+            }
+            if let checkedIn = checkedIn {
+                param["checkedIn"] = checkedIn
+            } else {
+                param["checkedIn"] = NSNull()
+            }
+            if let hashTags = hashTags {
+                param["hashTags"] = hashTags
+            }
+            if let privacy = privacy {
+                param["privacy"] = privacy
+                if privacy == "FRIENDS_EXCEPT" {
+                    if let frndE = friendExcept {
+                        param["privacyUsersExcept"] = frndE
+                    }
+                } else {
+                    param["privacyUsersExcept"] = []
+                }
+                if privacy == "FRIENDS_ONLY" {
+                    if let frndO = friendsOnly {
+                        param["privacyUsersOnly"] = frndO
+                    }
+                } else {
+                    param["privacyUsersOnly"] = []
+                }
+            }
+            if let feelings = feelings {
+                param["feelings"] = feelings
+            } else {
+                param["feelings"] = NSNull()
+            }
+            if let removedMedia = removedMedia {
+                param["removedMedia"] = removedMedia
             }
         case .tagUserSearch(let user, let chanaleName):
             param = ["userId": user, "channelName": chanaleName]

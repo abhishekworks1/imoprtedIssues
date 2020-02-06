@@ -754,7 +754,26 @@ extension StoryEditorViewController {
     }
     
     @IBAction func btnSocialMediaShareClick(_ sender: UIButton) {
-        self.shareSocialMedia(type: SocialShare(rawValue: sender.tag) ?? SocialShare.facebook)
+        if SocialShare(rawValue: sender.tag) ?? SocialShare.facebook == .storiCam {
+            let menuOptions: [UIImage] = [R.image.icoStoriCamStory()!, R.image.icoStoriCamPost()!]
+            let menuOptionsString: [String] = ["", ""]
+            
+            BasePopConfiguration.shared.backgoundTintColor = R.color.lightBlackColor()!
+            BasePopConfiguration.shared.menuWidth = 35
+            BasePopConfiguration.shared.showCheckMark = .none
+            BasePopOverMenu
+                .showForSender(sender: sender, with: menuOptionsString, menuImageArray: menuOptions, done: { [weak self] (selectedIndex) in
+                    guard let `self` = self else { return }
+                    if selectedIndex == 0 {
+                        self.shareSocialMedia(type: .storiCam)
+                    } else {
+                        self.shareSocialMedia(type: .storiCamPost)
+                    }
+                    }, cancel: {
+                })
+        } else {
+            self.shareSocialMedia(type: SocialShare(rawValue: sender.tag) ?? SocialShare.facebook)
+        }
     }
     
     @IBAction func playPauseButtonClick(_ sender: AnyObject) {

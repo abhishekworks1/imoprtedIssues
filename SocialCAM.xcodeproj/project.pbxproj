@@ -443,6 +443,8 @@
 		829BE73B23D1B9E500606E8F /* StoryCameraViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 824EB38F236197DE00205993 /* StoryCameraViewController.storyboard */; };
 		82AD6B7023704B330090498A /* UIViewUtilsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AD6B6F23704B330090498A /* UIViewUtilsExtension.swift */; };
 		82AD6B7223704BA60090498A /* PhotoEditorViewController+CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AD6B7123704BA60090498A /* PhotoEditorViewController+CollectionView.swift */; };
+		82B5C23E23EC0D0400841B5B /* Post+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B5C23D23EC0D0400841B5B /* Post+CoreDataClass.swift */; };
+		82B5C24023EC152900841B5B /* FeedUploadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B5C23F23EC152800841B5B /* FeedUploadVC.swift */; };
 		82BAC1DE2387DDD000E586AB /* StoryCameraViewController+Gesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82BAC1DD2387DDD000E586AB /* StoryCameraViewController+Gesture.swift */; };
 		82BB558C23D84230009B820D /* HomeScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82BB558B23D84230009B820D /* HomeScreen.storyboard */; };
 		82BB558E23D8424B009B820D /* HomeTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82BB558D23D8424B009B820D /* HomeTabBarController.swift */; };
@@ -1050,6 +1052,8 @@
 		82AD6B6F23704B330090498A /* UIViewUtilsExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewUtilsExtension.swift; sourceTree = "<group>"; };
 		82AD6B7123704BA60090498A /* PhotoEditorViewController+CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotoEditorViewController+CollectionView.swift"; sourceTree = "<group>"; };
 		82B5C23823EBD92A00841B5B /* SocialCam.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SocialCam.entitlements; sourceTree = "<group>"; };
+		82B5C23D23EC0D0400841B5B /* Post+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Post+CoreDataClass.swift"; sourceTree = "<group>"; };
+		82B5C23F23EC152800841B5B /* FeedUploadVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedUploadVC.swift; sourceTree = "<group>"; };
 		82BAC1DD2387DDD000E586AB /* StoryCameraViewController+Gesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StoryCameraViewController+Gesture.swift"; sourceTree = "<group>"; };
 		82BB558B23D84230009B820D /* HomeScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HomeScreen.storyboard; sourceTree = "<group>"; };
 		82BB558D23D8424B009B820D /* HomeTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabBarController.swift; sourceTree = "<group>"; };
@@ -2035,6 +2039,7 @@
 			children = (
 				8205FD95236C3B39002B2603 /* BaseUploadVC.swift */,
 				8205FD97236C3B49002B2603 /* StoryUploadVC.swift */,
+				82B5C23F23EC152800841B5B /* FeedUploadVC.swift */,
 			);
 			path = Upload;
 			sourceTree = "<group>";
@@ -2148,6 +2153,7 @@
 				824EB3842361959900205993 /* Assets.xcassets */,
 				824EB3862361959900205993 /* LaunchScreen.storyboard */,
 				8205FB7C236C1FC6002B2603 /* SocialCAM.xcdatamodeld */,
+				82B5C23D23EC0D0400841B5B /* Post+CoreDataClass.swift */,
 				8205FBD3236C2B25002B2603 /* Story+CoreDataClass.swift */,
 				824EB3892361959900205993 /* Info.plist */,
 				82EEF72B2375288C00DE4845 /* GoogleService-Info.plist */,
@@ -3030,6 +3036,7 @@
 				8287D2182382966A0074FC39 /* YouTubeViewController.swift in Sources */,
 				8205FAA4236C0FD6002B2603 /* AssetVideoScrollView.swift in Sources */,
 				8205FD78236C3B06002B2603 /* MaskControlView.swift in Sources */,
+				82B5C23E23EC0D0400841B5B /* Post+CoreDataClass.swift in Sources */,
 				9546604C2387B5CC00A37AE0 /* FixedRatioManager.swift in Sources */,
 				8205FB35236C1C09002B2603 /* GetPlayList.swift in Sources */,
 				824EB3CA23619E5C00205993 /* AVMutableComposition+AVAsset.swift in Sources */,
@@ -3277,6 +3284,7 @@
 				954660612387B5CC00A37AE0 /* CropMaskProtocal.swift in Sources */,
 				8205FAF6236C110C002B2603 /* PryntTrimmerView.swift in Sources */,
 				8205FD72236C3B06002B2603 /* FadeControl.swift in Sources */,
+				82B5C24023EC152900841B5B /* FeedUploadVC.swift in Sources */,
 				824EB3C923619E5C00205993 /* UITextField+Extension.swift in Sources */,
 				8206AEF22374108C000CDD2A /* SynchronousOperation.swift in Sources */,
 				8205FB93236C2A6C002B2603 /* PlayerView.swift in Sources */,

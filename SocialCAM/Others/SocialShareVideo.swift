@@ -57,8 +57,8 @@ open class SocialShareVideo: NSObject, SharingDelegate {
                     }
                 }
             })
-        case .storiCam:
-            storiCamShareImage(image)
+        case .storiCam, .storiCamPost:
+            storiCamShareImage(image, socialType: socialType)
         default:
             break
         }
@@ -108,9 +108,8 @@ open class SocialShareVideo: NSObject, SharingDelegate {
                     }
                 }
             }
-        case .storiCam:
-            storiCamShareVideo(url)
-            break
+        case .storiCam, .storiCamPost:
+            storiCamShareVideo(url, socialType: socialType)
         }
     }
     
@@ -255,12 +254,12 @@ open class SocialShareVideo: NSObject, SharingDelegate {
         }
     }
     
-    func storiCamShareImage(_ image: UIImage) {
-        StoriCamManager.shared.uploadImage(image: image)
+    func storiCamShareImage(_ image: UIImage, socialType: SocialShare) {
+        StoriCamManager.shared.uploadImage(image: image, socialType: socialType)
     }
     
-    func storiCamShareVideo(_ videoUrl: URL) {
-        StoriCamManager.shared.uploadVideo(videoUrl: videoUrl)
+    func storiCamShareVideo(_ videoUrl: URL, socialType: SocialShare) {
+        StoriCamManager.shared.uploadVideo(videoUrl: videoUrl, socialType: socialType)
     }
     
 }
