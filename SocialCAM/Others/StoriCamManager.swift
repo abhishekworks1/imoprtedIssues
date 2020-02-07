@@ -64,6 +64,7 @@ open class StoriCamManager: NSObject {
         isShareImageVideo = !isUserLogin
         self.socialType = socialType
         self.image = image
+        self.videoURL = nil
         if isUserLogin {
             self.uploadStoryCam()
         } else {
@@ -74,6 +75,7 @@ open class StoriCamManager: NSObject {
     func uploadVideo(withText text: String = Constant.Application.displayName, videoUrl: URL, socialType: SocialShare) {
         isShareImageVideo = !isUserLogin
         self.socialType = socialType
+        self.image = nil
         self.videoURL = videoUrl
         if isUserLogin {
             self.uploadStoryCam()
