@@ -187,6 +187,20 @@ class SpecificBoomerangExportConfig {
         }
         self.boomerangValues = boomerangValues
     }
+    
+    func adjustBoomerangValues() {
+        for (index, boomerangValue) in boomerangValues.enumerated() {
+            if let previousBoomerangValue = boomerangValues[safe: index - 1] {
+                let previousEndTime = previousBoomerangValue.timeRange.end
+                let currentStartTime = boomerangValue.timeRange.start
+                if (currentStartTime.seconds - previousEndTime.seconds) < 0 {
+                    let newEndTime = CMTimeAdd(previousEndTime, CMTime(seconds: boomerangValue.maxTime, preferredTimescale: 100000))
+                    boomerangValue.timeRange = CMTimeRange(start: previousEndTime,
+                                                           end: newEndTime)
+                }
+            }
+        }
+    }
 
 }
 
@@ -406,8 +420,9 @@ class SpecificBoomerangExportSession {
                 presentationTime = CMTimeAdd(presentationTime, nextBufferTime)
                 let currentProgress = presentationTime.seconds / totalSeconds
                 progress?(Float(currentProgress))
-                return pixelBufferAdaptor.append(buffer,
+                pixelBufferAdaptor.append(buffer,
                                           withPresentationTime: presentationTime)
+                return true
             }
         }
         
@@ -445,6 +460,7 @@ class SpecificBoomerangExportSession {
                 for specificBoomerangAsset in self.specificBoomerangAssets {
                     if specificBoomerangAsset.isBoomerang {
                         if !specificBoomerangAsset.isReading {
+                            print("boomerang reading..")
                             specificBoomerangAsset.reader.startReading()
                             specificBoomerangAsset.isReading = true
                             break
@@ -459,7 +475,7 @@ class SpecificBoomerangExportSession {
                                     print("reverse boomerang buffers append..")
                                 }
                                 if writeBoomerang(specificBoomerangAsset: specificBoomerangAsset) {
-                                    print("boomerang writing..")
+                                    print("boomerang writing.. \(specificBoomerangAsset.boomerangBuffers.count)")
                                     break
                                 } else {
                                     specificBoomerangAsset.canAddVideoBuffers = false
@@ -471,6 +487,7 @@ class SpecificBoomerangExportSession {
                         if !specificBoomerangAsset.isReading {
                             specificBoomerangAsset.reader.startReading()
                             specificBoomerangAsset.isReading = true
+                            print("video reading..")
                             break
                         } else if writeVideo(for: specificBoomerangAsset.videoAssetReaderTrackOutput) {
                             print("video writing..")

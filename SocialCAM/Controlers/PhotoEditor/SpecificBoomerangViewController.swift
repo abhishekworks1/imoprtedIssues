@@ -136,6 +136,7 @@ class SpecificBoomerangViewController: UIViewController {
         for boomerangValue in boomerangValues {
             boomerangValue.isSelected = boomerangValue.boomerangView == gesture.view
         }
+        changeBoomerangOptions()
     }
     
     @objc func onPan(_ gesture: UIPanGestureRecognizer) {
@@ -163,6 +164,19 @@ class SpecificBoomerangViewController: UIViewController {
         }
     }
     
+    func changeBoomerangOptions() {
+        guard let boomerangValue = boomerangValues.filter({ return $0.isSelected })[safe: 0] else {
+            return
+        }
+        self.changeSpeedButton.setTitle("\(boomerangValue.speedScale)x",
+                                        for: .normal)
+        
+        self.changeLoopButton.setTitle("\((boomerangValue.maxLoopCount - 1)/2)", for: .normal)
+        self.changeSecondsButton.setTitle("\(Int(boomerangValue.maxTime))", for: .normal)
+        let image = boomerangValue.needToReverse ? R.image.reverseBoom() : R.image.reverseBoomSelected()
+        self.changeModeButton.setImage(image, for: .normal)
+    }
+    
     func manageBoomerangViewGesture(_ gestureView: UIView, locationX: CGFloat) {
         boomerangValues.sort {
             return $0.boomerangView.frame.origin.x < $1.boomerangView.frame.origin.x
@@ -182,6 +196,7 @@ class SpecificBoomerangViewController: UIViewController {
                 boomerangValue.isSelected = false
             }
         }
+        changeBoomerangOptions()
         let newFrame = getBoomerangPartFrame(centerX: locationX,
                                              frame: currentView?.frame ?? .zero)
         if nextView == nil, previousView == nil, let view = currentView {
@@ -345,13 +360,14 @@ class SpecificBoomerangViewController: UIViewController {
     }
         
     @IBAction func onAddBoomerangView(_ sender: UIButton) {
-        guard let asset = currentAsset else {
+        guard let asset = currentAsset, boomerangValues.count < 5 else {
             return
         }
         addBoomerangView()
         resetBoomerangOptions()
         let maxCount = Int(asset.duration.seconds/15) + 1
-        hideAddBoomerangButton(hide: boomerangValues.count == maxCount)
+        let shouldHide = boomerangValues.count == 5 ? true : boomerangValues.count == maxCount
+        hideAddBoomerangButton(hide: shouldHide)
     }
     
     @IBAction func onDone(_ sender: UIButton) {
@@ -359,6 +375,7 @@ class SpecificBoomerangViewController: UIViewController {
             let config = SpecificBoomerangExportConfig(boomerangValues: boomerangValues) else {
                 return
         }
+        config.adjustBoomerangValues()
         resetBoomerangValues()
         self.pausePlayer()
         loadingView = LoadingView.instanceFromNib()
@@ -404,6 +421,7 @@ class SpecificBoomerangViewController: UIViewController {
         boomerangValues[safe: 0]?.isSelected = true
         let maxCount = Int(asset.duration.seconds/15) + 1
         hideAddBoomerangButton(hide: boomerangValues.count == maxCount)
+        changeBoomerangOptions()
         self.player?.rate = 1.0
     }
     
@@ -518,7 +536,7 @@ extension SpecificBoomerangViewController {
         }
         trimmerSuperView.addSubview(boomerangValue.boomerangView)
         boomerangValues.append(boomerangValue)
-        
+        changeBoomerangOptions()
     }
     
     func loadAsset(_ asset: AVAsset) {
@@ -614,11 +632,6 @@ extension SpecificBoomerangViewController {
     }
     
     func checkTimeRange(for time: CMTime, boomerangValue: SpecificBoomerangValue) -> Bool {
-        print("boomerangValue.currentLoopCount \(boomerangValue.currentLoopCount)")
-        print("boomerangValue.isRunning \(boomerangValue.isRunning)")
-        print("boomerangValue.needToChangeScale \(boomerangValue.needToChangeScale)")
-        print("boomerangValue.speedScale \(boomerangValue.speedScale)")
-        print("player.rate \(player?.rate ?? 0)")
         if boomerangValue.timeRange != .zero {
             if boomerangValue.timeRange.containsTime(time) {
                 boomerangValue.needToChangeScale = true
@@ -680,5 +693,11 @@ extension AVPlayer {
             completionHandler?(finished)
         }
     }
+    
+}
+
+extension CGRect {
+    
+    
     
 }
