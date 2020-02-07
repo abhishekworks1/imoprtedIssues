@@ -33,6 +33,13 @@ public class GoogleManager: NSObject {
         }
     }
     
+    func restorePreviousSignIn() {
+        guard let signIn = GIDSignIn.sharedInstance() else { return }
+        if signIn.hasPreviousSignIn() {
+            signIn.restorePreviousSignIn()
+        }
+    }
+    
     func getUserName(completion: @escaping (_ userName: String?) -> ()) {
         guard let signIn = GIDSignIn.sharedInstance() else {
             completion(nil)

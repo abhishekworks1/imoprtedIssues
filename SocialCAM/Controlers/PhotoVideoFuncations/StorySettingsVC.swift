@@ -263,7 +263,9 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             if !SnapKitManager.shared.isUserLogin {
                 SnapKitManager.shared.login(viewController: self) { (isLogin, error) in
                     if !isLogin {
-                        self.showAlert(alertMessage: error ?? "")
+                        DispatchQueue.main.async {
+                            self.showAlert(alertMessage: error ?? "")
+                        }
                     }
                     completion(isLogin)
                 }
@@ -335,7 +337,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             FaceBookManager.shared.logout()
             InstagramManager.shared.logout()
             SnapKitManager.shared.logout { _ in
-                
+                self.settingsTableView.reloadData()
             }
             StoriCamManager.shared.logout()
             self.settingsTableView.reloadData()

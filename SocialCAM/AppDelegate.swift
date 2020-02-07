@@ -29,13 +29,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UIApplication.shared.applicationIconBadgeNumber = 0
         configureIQKeyboardManager()
-       
-        InternetConnectionAlert.shared.enable = true
-        InternetConnectionAlert.shared.internetConnectionHandler = { reachability in
-            if reachability.connection != .none {
-                StoryDataManager.shared.startUpload()
-            }
-        }
         
         configureAppTheme()
         
@@ -48,12 +41,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Fabric.with([Crashlytics.self])
         
         configureGoogleService()
-       
-        InternetConnectionAlert.shared.internetConnectionHandler = { reachability in
-            if reachability.connection != .none {
-                StoryDataManager.shared.startUpload()
-            }
-        }
         
         FaceBookManager.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         
@@ -61,9 +48,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         TiktokShare.shared.setupTiktok(application, didFinishLaunchingWithOptions: launchOptions)
         
+        GoogleManager.shared.restorePreviousSignIn()
+        
         MSAppCenter.start(Constant.AppCenter.apiKey, withServices: [])
         
         UIApplication.shared.delegate!.window!!.rootViewController = R.storyboard.pageViewController.pageViewController()
+        
+        InternetConnectionAlert.shared.enable = true
+        
+        if let user = Defaults.shared.currentUser,
+            let _ = Defaults.shared.sessionToken,
+            let channelId = user.channelId,
+            channelId.count > 0 {
+            InternetConnectionAlert.shared.internetConnectionHandler = { reachability in
+                if reachability.connection != .none {
+                    StoryDataManager.shared.startUpload()
+                    PostDataManager.shared.startUpload()
+                }
+            }
+        }
         
         return true
     }

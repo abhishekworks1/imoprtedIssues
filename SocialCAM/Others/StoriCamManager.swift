@@ -21,6 +21,7 @@ open class StoriCamManager: NSObject {
     
     var image: UIImage?
     var videoURL: URL?
+    var socialType: SocialShare = .storiCam
     
     weak var delegate: StoriCamManagerDelegate?
     
@@ -59,8 +60,9 @@ open class StoriCamManager: NSObject {
         }
     }
     
-    func uploadImage(withText text: String = Constant.Application.displayName, image: UIImage) {
+    func uploadImage(withText text: String = Constant.Application.displayName, image: UIImage, socialType: SocialShare) {
         isShareImageVideo = !isUserLogin
+        self.socialType = socialType
         self.image = image
         if isUserLogin {
             self.uploadStoryCam()
@@ -69,8 +71,9 @@ open class StoriCamManager: NSObject {
         }
     }
     
-    func uploadVideo(withText text: String = Constant.Application.displayName, videoUrl: URL) {
+    func uploadVideo(withText text: String = Constant.Application.displayName, videoUrl: URL, socialType: SocialShare) {
         isShareImageVideo = !isUserLogin
+        self.socialType = socialType
         self.videoURL = videoUrl
         if isUserLogin {
             self.uploadStoryCam()
@@ -91,11 +94,17 @@ open class StoriCamManager: NSObject {
             let data = image.jpegData(compressionQuality: 1.0)
             let url = Utils.getLocalPath(fileName)
             try? data?.write(to: url)
-            let storyData = InternalStoryData(thumbTime: 0.0, type: "image", url: url.absoluteString, userId: Defaults.shared.currentUser?.id ?? "", watermarkURL: "", exportedUrls: [], tags: nil)
-            _ = StoryDataManager.shared.createStoryUploadData([storyData])
             
+            if socialType == .storiCam {
+                let storyData = InternalStoryData(thumbTime: 0.0, type: "image", url: url.absoluteString, userId: Defaults.shared.currentUser?.id ?? "", watermarkURL: "", exportedUrls: [], tags: nil)
+                _ = StoryDataManager.shared.createStoryUploadData([storyData])
+            } else {
+                let mediaUrls: [String] = [url.absoluteString]
+                let postData = InternalPostData(postType: "image", mediaUrls: mediaUrls, privacy: "Public", userID: Defaults.shared.currentUser?.id ?? "", thumbTime: 0, actionType: "create")
+                _ = PostDataManager.shared.createPostUploadData(postData)
+            }
         } else if let videoUrl = videoURL {
-            let urls: [String] = [videoUrl.absoluteString]
+            let mediaUrls: [String] = [videoUrl.absoluteString]
             let fileName = String.fileName + FileExtension.png.rawValue
             guard let thumb = UIImage.getThumbnailFrom(videoUrl: videoUrl) else {
                 return
@@ -104,10 +113,17 @@ open class StoriCamManager: NSObject {
             let watermarkURL = Utils.getLocalPath(fileName)
             try? data?.write(to: watermarkURL)
             
-            let storyData = InternalStoryData(thumbTime: 0.0, type: "video", url: videoUrl.absoluteString, userId: Defaults.shared.currentUser?.id ?? "", watermarkURL: watermarkURL.absoluteString, exportedUrls: urls, tags: nil)
-            _ = StoryDataManager.shared.createStoryUploadData([storyData])
+            if socialType == .storiCam {
+                let storyData = InternalStoryData(thumbTime: 0.0, type: "video", url: videoUrl.absoluteString, userId: Defaults.shared.currentUser?.id ?? "", watermarkURL: watermarkURL.absoluteString, exportedUrls: mediaUrls, tags: nil)
+                _ = StoryDataManager.shared.createStoryUploadData([storyData])
+            } else {
+                let postData = InternalPostData(postType: "video", mediaUrls: mediaUrls, privacy: "Public", userID: Defaults.shared.currentUser?.id ?? "", thumbTime: 0, actionType: "create")
+                _ = PostDataManager.shared.createPostUploadData(postData)
+            }
         }
         StoryDataManager.shared.startUpload()
+        PostDataManager.shared.startUpload()
+        Utils.appDelegate?.window?.makeToast(R.string.localizable.postSuccess())
     }
     
     func logout() {
