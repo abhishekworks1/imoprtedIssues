@@ -508,7 +508,7 @@ extension SpecificBoomerangViewController {
                     break
                 }
             } else {
-                if boomValue.boomerangView.frame.maxX >= trimmerView.frame.width {
+                if abs(boomValue.boomerangView.frame.maxX - trimmerView.frame.width) < boomerangValue.boomerangView.frame.width {
                     boomerangValue.boomerangView.frame.origin.x = 0
                 } else {
                     boomerangValue.boomerangView.frame.origin.x = boomValue.boomerangView.frame.maxX
