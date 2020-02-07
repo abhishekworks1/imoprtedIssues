@@ -11,51 +11,188 @@ import AVFoundation
 import UIKit
 
 class SpecificBoomerangValue {
-    var timeRange: CMTimeRange?
+    var timeRange: CMTimeRange
     var maxTime: Double
     var speedScale: Int
     var currentLoopCount: Int
     var maxLoopCount: Int
     var needToReverse: Bool
+    var needToChangeScale = false
+    var isSelected = false {
+        didSet {
+            let borderColor = isSelected ? R.color.quetag_darkPastelGreen() : R.color.storytag_fadedRed()
+            boomerangView.layer.borderColor = borderColor?.cgColor
+        }
+    }
+    var boomerangView: UIView
+    var isRunning = false
     
-    init(timeRange: CMTimeRange? = nil, maxTime: Double, speedScale: Int, currentLoopCount: Int, maxLoopCount: Int, needToReverse: Bool) {
+    init(timeRange: CMTimeRange, maxTime: Double, speedScale: Int, currentLoopCount: Int, maxLoopCount: Int, needToReverse: Bool, boomerangView: UIView) {
         self.timeRange = timeRange
         self.maxTime = maxTime
         self.speedScale = speedScale
         self.currentLoopCount = currentLoopCount
         self.maxLoopCount = maxLoopCount
         self.needToReverse = needToReverse
+        self.boomerangView = boomerangView
     }
     
-    func resetLoopCount() {
+    func reset() {
         currentLoopCount = maxLoopCount
+        needToChangeScale = false
+        isRunning = false
+    }
+    
+    func updateTimeRange(for avAsset: AVAsset, boundsWidth: CGFloat) {
+        let frame = boomerangView.frame
+        guard frame.width > 0 else {
+            timeRange = .zero
+            return
+        }
+        let totalSeconds = avAsset.duration.seconds
+        
+        let startSeconds = Double(frame.origin.x)*totalSeconds/Double(boundsWidth)
+        let startTime = CMTime(value: CMTimeValue(startSeconds*100000), timescale: 100000)
+
+        let endSeconds = startSeconds + maxTime
+        let endTime = CMTime(value: CMTimeValue(endSeconds*100000), timescale: 100000)
+        
+        timeRange = CMTimeRange(start: startTime, end: endTime)
+    }
+    
+    func updateBoomerangViewSize(duration: Double, durationSize: CGFloat) {
+        boomerangView.frame.size.width = CGFloat(maxTime)*durationSize / CGFloat(duration)
+    }
+    
+    class func defaultInit() -> SpecificBoomerangValue {
+        return SpecificBoomerangValue(timeRange: .zero,
+                                      maxTime: 3.0,
+                                      speedScale: 2,
+                                      currentLoopCount: 7,
+                                      maxLoopCount: 7,
+                                      needToReverse: true,
+                                      boomerangView: boomerangView())
+    }
+    
+    class func boomerangView() -> UIView {
+        let view = UIView()
+        view.layer.cornerRadius = 5
+        view.layer.borderWidth = 3
+        view.layer.borderColor = R.color.quetag_darkPastelGreen()?.cgColor
+        return view
     }
     
 }
 
-class SpecificBoomerangExportConfig {
+class MediaTrackData {
+    var nextBufferTime: CMTime = CMTime(value: 1, timescale: 24)
+    var bitRate: NSNumber = 20000
+    var width: CGFloat = 720
+    var height: CGFloat = 1080
+    var preferredTransform: CGAffineTransform = .identity
+    var audioNumberOfFrame: Int = 43
+}
+
+class SpecificBoomerangData {
     
-    var firstBoomerangValue: SpecificBoomerangValue?
-    var secondBoomerangValue: SpecificBoomerangValue?
+    var maxTime: Double
+    var speedScale: Int
+    var maxLoopCount: Int
+    var needToReverse: Bool
     
-    init?(firstBoomerangValue: SpecificBoomerangValue?, secondBoomerangValue: SpecificBoomerangValue?) {
-        if firstBoomerangValue == nil, secondBoomerangValue == nil {
+    init(maxTime: Double, speedScale: Int, maxLoopCount: Int, needToReverse: Bool) {
+        self.maxTime = maxTime
+        self.speedScale = speedScale
+        self.maxLoopCount = maxLoopCount
+        self.needToReverse = needToReverse
+    }
+}
+
+class SpecificBoomerangAsset {
+    
+    var asset: AVAsset
+    var reader: AVAssetReader
+    var isBoomerang: Bool = false
+    var boomerangData: SpecificBoomerangData?
+    var boomerangBuffers = [CVPixelBuffer]()
+    var isReverseBuffersAdded = false
+    var boomerangBufferCount = 0
+    var endTime: CMTime = .zero
+    var videoAssetReaderTrackOutput: AVAssetReaderTrackOutput?
+    var audioAssetReaderTrackOutput: AVAssetReaderTrackOutput?
+    var mediaTrackData: MediaTrackData?
+    var isReading: Bool = false
+    var canAddAudioBuffers: Bool = true
+    var canAddVideoBuffers: Bool = true
+    var seconds: Double {
+        if let boomerangData = self.boomerangData, isBoomerang {
+            var boomerangSeconds = (asset.duration.seconds/Double(boomerangData.speedScale))*Double(boomerangData.maxLoopCount)
+            if !boomerangData.needToReverse {
+                boomerangSeconds = (asset.duration.seconds/Double(boomerangData.speedScale))*Double((boomerangData.maxLoopCount+1)/2)
+            }
+            return boomerangSeconds
+        }
+        return asset.duration.seconds
+    }
+    
+    init(asset: AVAsset, reader: AVAssetReader) {
+        self.asset = asset
+        self.reader = reader
+        setupAssetReaderTrackOutput()
+    }
+    
+    func setupAssetReaderTrackOutput() {
+        if let videoTrack = asset.tracks(withMediaType: .video).first {
+            if mediaTrackData == nil {
+                mediaTrackData = MediaTrackData()
+                mediaTrackData?.nextBufferTime = CMTime(value: 100000, timescale: CMTimeScale(videoTrack.nominalFrameRate)*100000)
+                mediaTrackData?.bitRate = NSNumber(value: videoTrack.estimatedDataRate)
+                mediaTrackData?.width = videoTrack.naturalSize.width
+                mediaTrackData?.height = videoTrack.naturalSize.height
+                mediaTrackData?.preferredTransform = videoTrack.preferredTransform
+            }
+            let videoReaderSettings: [String: Any] = [kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32ARGB]
+            videoAssetReaderTrackOutput = AVAssetReaderTrackOutput(track: videoTrack, outputSettings: videoReaderSettings)
+            if reader.canAdd(videoAssetReaderTrackOutput!) {
+                reader.add(videoAssetReaderTrackOutput!)
+            }
+        }
+        if let audioTrack = asset.tracks(withMediaType: .audio).first {
+            mediaTrackData?.audioNumberOfFrame = Int(audioTrack.nominalFrameRate)
+            audioAssetReaderTrackOutput = AVAssetReaderTrackOutput(track: audioTrack, outputSettings: nil)
+            if reader.canAdd(audioAssetReaderTrackOutput!) {
+                reader.add(audioAssetReaderTrackOutput!)
+            }
+        }
+    }
+    
+    class func createSpecificBoomerangAsset(asset: AVAsset, timeRange: CMTimeRange, isBoomerang: Bool) -> SpecificBoomerangAsset? {
+        guard let asset = try? asset.assetByTrimming(startTime: timeRange.start, endTime: timeRange.end), let reader = try? AVAssetReader(asset: asset) else {
             return nil
         }
-        self.firstBoomerangValue = firstBoomerangValue
-        self.secondBoomerangValue = secondBoomerangValue
+        let specificBoomerangAsset = SpecificBoomerangAsset(asset: asset, reader: reader)
+        specificBoomerangAsset.isBoomerang = isBoomerang
+        specificBoomerangAsset.endTime = timeRange.end
+        return specificBoomerangAsset
+    }
+}
+
+class SpecificBoomerangExportConfig {
+    
+    var boomerangValues: [SpecificBoomerangValue]
+    
+    init?(boomerangValues: [SpecificBoomerangValue]) {
+        guard boomerangValues.count > 0 else {
+            return nil
+        }
+        self.boomerangValues = boomerangValues
     }
 
 }
 
 class SpecificBoomerangExportSession {
     
-    private var firstPartReader: AVAssetReader?
-    private var boomerangReader: AVAssetReader?
-    private var secondPartReader: AVAssetReader?
-    private var secondBoomerangReader: AVAssetReader?
-    private var thirdPartReader: AVAssetReader?
-
+    private var specificBoomerangAssets: [SpecificBoomerangAsset] = []
     private var writer: AVAssetWriter?
     private var cancelled = false
 
@@ -73,124 +210,57 @@ class SpecificBoomerangExportSession {
         return URL(fileURLWithPath: documentDirectoryPath)
     }
     
-    private func reader(for asset: AVAsset?) -> AVAssetReader? {
-        guard let asset = asset else {
-            return nil
+    private func specificBoomerangAssetFor(asset: AVAsset, boomerangValues: [SpecificBoomerangValue]) -> [SpecificBoomerangAsset] {
+        let sortedBoomerangValues = boomerangValues.sorted { (boomerangValue, nextBoomerangValue) -> Bool in
+            return boomerangValue.timeRange.start.seconds < nextBoomerangValue.timeRange.start.seconds
         }
-        do {
-            return try AVAssetReader(asset: asset)
-        } catch {
-            print("Reader initialization failed with error : \(error.localizedDescription)")
+        var specificBoomerangAssets: [SpecificBoomerangAsset] = []
+        for (index, boomerangValue) in sortedBoomerangValues.enumerated() {
+            let startTime = specificBoomerangAssets[safe: specificBoomerangAssets.count - 1]?.endTime ?? .zero
+            if let specificBoomerangAsset = SpecificBoomerangAsset.createSpecificBoomerangAsset(asset: asset, timeRange: CMTimeRange(start: startTime, end: boomerangValue.timeRange.start), isBoomerang: false) {
+                specificBoomerangAssets.append(specificBoomerangAsset)
+            }
+            if let specificBoomerangAsset = SpecificBoomerangAsset.createSpecificBoomerangAsset(asset: asset, timeRange: CMTimeRange(start: boomerangValue.timeRange.start, end: boomerangValue.timeRange.end), isBoomerang: true) {
+                specificBoomerangAsset.boomerangData = SpecificBoomerangData(maxTime: boomerangValue.maxTime, speedScale: boomerangValue.speedScale, maxLoopCount: boomerangValue.maxLoopCount, needToReverse: boomerangValue.needToReverse)
+                specificBoomerangAssets.append(specificBoomerangAsset)
+            }
+            if index == sortedBoomerangValues.count - 1 {
+                if let specificBoomerangAsset = SpecificBoomerangAsset.createSpecificBoomerangAsset(asset: asset, timeRange: CMTimeRange(start: boomerangValue.timeRange.end, end: asset.duration), isBoomerang: false) {
+                    specificBoomerangAssets.append(specificBoomerangAsset)
+                }
+            }
         }
-        return nil
+        return specificBoomerangAssets
     }
     
     public func export(for asset: AVAsset, progress: ((Float) -> Void)? = nil, completion: @escaping (URL?) -> Void) {
         cancelled = false
         var audioFinished = false
         var videoFinished = false
-        
-        var firstPartAsset: AVAsset?
-        var boomerangAsset: AVAsset?
-        var secondPartAsset: AVAsset?
-        var secondBoomerangAsset: AVAsset?
-        var thirdPartAsset: AVAsset?
 
-        if let firstBoomerangRange = config.firstBoomerangValue?.timeRange {
-            firstPartAsset = try? asset.assetByTrimming(startTime: .zero, endTime: firstBoomerangRange.start)
-            boomerangAsset = try? asset.assetByTrimming(startTime: firstBoomerangRange.start, endTime: firstBoomerangRange.end)
-            if let secondBoomerangRange = config.secondBoomerangValue?.timeRange {
-                secondPartAsset = try? asset.assetByTrimming(startTime: firstBoomerangRange.end, endTime: secondBoomerangRange.start)
-                secondBoomerangAsset = try? asset.assetByTrimming(startTime: secondBoomerangRange.start, endTime: secondBoomerangRange.end)
-                thirdPartAsset = try? asset.assetByTrimming(startTime: secondBoomerangRange.end, endTime: asset.duration)
-            } else {
-                secondPartAsset = try? asset.assetByTrimming(startTime: firstBoomerangRange.end, endTime: asset.duration)
-            }
-        } else if let secondBoomerangRange = config.secondBoomerangValue?.timeRange {
-            var secondPartStartTime = CMTime.zero
-            if let firstBoomerangRange = config.firstBoomerangValue?.timeRange {
-                firstPartAsset = try? asset.assetByTrimming(startTime: .zero, endTime: firstBoomerangRange.start)
-                boomerangAsset = try? asset.assetByTrimming(startTime: firstBoomerangRange.start, endTime: firstBoomerangRange.end)
-                secondPartStartTime = firstBoomerangRange.end
-            }
-            secondPartAsset = try? asset.assetByTrimming(startTime: secondPartStartTime, endTime: secondBoomerangRange.start)
-            secondBoomerangAsset = try? asset.assetByTrimming(startTime: secondBoomerangRange.start, endTime: secondBoomerangRange.end)
-            thirdPartAsset = try? asset.assetByTrimming(startTime: secondBoomerangRange.end, endTime: asset.duration)
-        }
-        firstPartReader = reader(for: firstPartAsset)
-        
-        boomerangReader = reader(for: boomerangAsset)
-        
-        secondPartReader = reader(for: secondPartAsset)
-        
-        secondBoomerangReader = reader(for: secondBoomerangAsset)
-        
-        thirdPartReader = reader(for: thirdPartAsset)
+        specificBoomerangAssets = specificBoomerangAssetFor(asset: asset, boomerangValues: config.boomerangValues)
 
         var nextBufferTime = CMTime(value: 1, timescale: 24)
         var videoBitRate: NSNumber = 2000000
         var trackWidth: CGFloat = 720
         var trackHeight: CGFloat = 1280
         var trackTransform: CGAffineTransform = .identity
-        
-        func videoAssetReaderTrackOutput(for asset: AVAsset?, reader: AVAssetReader?, videoSetup: Bool = false) -> AVAssetReaderTrackOutput? {
-            guard let videoTrack = asset?.tracks(withMediaType: .video).first else {
-                return nil
-            }
-            if videoSetup {
-                nextBufferTime = CMTime(value: 100000, timescale: CMTimeScale(videoTrack.nominalFrameRate)*100000)
-                videoBitRate = NSNumber(value: videoTrack.estimatedDataRate)
-                trackWidth = videoTrack.naturalSize.width
-                trackHeight = videoTrack.naturalSize.height
-                trackTransform = videoTrack.preferredTransform
-            }
-            let videoReaderSettings: [String: Any] = [kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32ARGB]
-            let assetReaderTrackOutput = AVAssetReaderTrackOutput(track: videoTrack, outputSettings: videoReaderSettings)
-            if reader?.canAdd(assetReaderTrackOutput) ?? false {
-                reader?.add(assetReaderTrackOutput)
-            }
-            return assetReaderTrackOutput
-        }
-        
-        let firstPartReaderVideoOutput = videoAssetReaderTrackOutput(for: firstPartAsset,
-                                                                     reader: firstPartReader)
-        
-        let boomerangReaderVideoOutput = videoAssetReaderTrackOutput(for: boomerangAsset,
-                                                                     reader: boomerangReader,
-                                                                     videoSetup: true)
-        
-        let secondPartReaderVideoOutput = videoAssetReaderTrackOutput(for: secondPartAsset,
-                                                                      reader: secondPartReader)
-        
-        let secondBoomerangReaderVideoOutput = videoAssetReaderTrackOutput(for: secondBoomerangAsset,
-                                                                           reader: secondBoomerangReader,
-                                                                           videoSetup: true)
-        
-        let thirdPartReaderVideoOutput = videoAssetReaderTrackOutput(for: thirdPartAsset,
-                                                                     reader: thirdPartReader)
-        
+                
         var audioSampleRate: Float64 = 44100
         var audioNumberOfChannels: UInt32 = 2
         var audioNumberOfFrame: Int = 43
         
-        func audioAssetReaderTrackOutput(for asset: AVAsset?, reader: AVAssetReader?, audioSetup: Bool = false) -> AVAssetReaderTrackOutput? {
-            guard let audioTrack = asset?.tracks(withMediaType: .audio).first else {
-                return nil
+        for specificBoomerangAsset in specificBoomerangAssets {
+            if let mediaTrackData = specificBoomerangAsset.mediaTrackData {
+                nextBufferTime = mediaTrackData.nextBufferTime
+                videoBitRate = mediaTrackData.bitRate
+                trackWidth = mediaTrackData.width
+                trackHeight = mediaTrackData.height
+                trackTransform = mediaTrackData.preferredTransform
+                audioNumberOfFrame = mediaTrackData.audioNumberOfFrame
+                break
             }
-            audioNumberOfFrame = Int(audioTrack.nominalFrameRate)
-            let assetReaderTrackOutput = AVAssetReaderTrackOutput(track: audioTrack, outputSettings: nil)
-            if reader?.canAdd(assetReaderTrackOutput) ?? false {
-                reader?.add(assetReaderTrackOutput)
-            }
-            return assetReaderTrackOutput
         }
-        
-        let firstPartReaderAudioOutput = audioAssetReaderTrackOutput(for: firstPartAsset,
-                                                                     reader: firstPartReader)
-        let secondPartReaderAudioOutput = audioAssetReaderTrackOutput(for: secondPartAsset,
-                                                                      reader: secondPartReader)
-        let thirdPartReaderAudioOutput = audioAssetReaderTrackOutput(for: thirdPartAsset,
-                                                                     reader: thirdPartReader)
 
         // Setup Writer
         do {
@@ -229,24 +299,13 @@ class SpecificBoomerangExportSession {
         writer.startWriting()
         writer.startSession(atSourceTime: .zero)
         
-        firstPartReader?.startReading()
+        specificBoomerangAssets[safe: 0]?.reader.startReading()
+        specificBoomerangAssets[safe: 0]?.isReading = true
         
         let videoInputQueue = DispatchQueue(label: "videoQueue")
         let audioInputQueue = DispatchQueue(label: "audioQueue")
         
         var isAudioSetup = false
-        var isBoomerangReading = false
-        var isSecondPartReading = false
-        var isSecondBoomerangReading = false
-        var isThirdPartReading = false
-
-        var boomerangBuffers = [CVPixelBuffer]()
-        var isReverseBuffersAdded = false
-        var boomerangBufferCount = 0
-
-        var secondBoomerangBuffers = [CVPixelBuffer]()
-        var isSecondReverseBuffersAdded = false
-        var secondBoomerangBufferCount = 0
 
         func closeWriter() {
             if audioFinished && videoFinished && !self.cancelled {
@@ -258,30 +317,11 @@ class SpecificBoomerangExportSession {
             }
         }
         
-        func boomerangSecondsFor(asset: AVAsset?, boomerangValue: SpecificBoomerangValue) -> Double {
-            var boomerangSeconds = ((asset?.duration.seconds ?? 0)/Double(boomerangValue.speedScale))*Double(boomerangValue.maxLoopCount)
-            if !boomerangValue.needToReverse {
-                boomerangSeconds = ((asset?.duration.seconds ?? 0)/Double(boomerangValue.speedScale))*Double((boomerangValue.maxLoopCount+1)/2)
-            }
-            return boomerangSeconds
+        var totalSeconds: Double = 0
+        for specificBoomerangAsset in specificBoomerangAssets {
+            totalSeconds += specificBoomerangAsset.seconds
         }
         
-        let firstPartSeconds = firstPartAsset?.duration.seconds ?? 0
-        var boomerangSeconds: Double = 0
-        if let firstBoomerangValue = config.firstBoomerangValue {
-            boomerangSeconds = boomerangSecondsFor(asset: boomerangAsset,
-                                                   boomerangValue: firstBoomerangValue)
-        }
-        let secondPartSeconds = secondPartAsset?.duration.seconds ?? 0
-        var secondBoomerangSeconds: Double = 0
-        if let secondBoomerangValue = config.secondBoomerangValue {
-            boomerangSeconds = boomerangSecondsFor(asset: secondBoomerangAsset,
-                                                   boomerangValue: secondBoomerangValue)
-        }
-
-        let thirdPartSeconds = thirdPartAsset?.duration.seconds ?? 0
-
-        let totalSeconds = firstPartSeconds + boomerangSeconds + secondPartSeconds + secondBoomerangSeconds + thirdPartSeconds
         var presentationTime = CMTime.zero
 
         func writeAudio(for assetReaderTrackOutput: AVAssetReaderTrackOutput?) -> Bool {
@@ -297,9 +337,7 @@ class SpecificBoomerangExportSession {
                     print("audio setup..")
                 }
             }
-            if isThirdPartReading || isSecondPartReading {
-                sample = sample.setPresentationTimeStamp(presentationTime)!
-            }
+            sample = sample.setPresentationTimeStamp(presentationTime)!
             return audioInput.append(sample)
         }
         
@@ -312,34 +350,34 @@ class SpecificBoomerangExportSession {
         
         audioInput.requestMediaDataWhenReady(on: audioInputQueue) {
             while audioInput.isReadyForMoreMediaData {
-                if writeAudio(for: firstPartReaderAudioOutput) {
-                    print("audio first part writing..")
-                } else {
-                    if isThirdPartReading {
-                        if writeAudio(for: thirdPartReaderAudioOutput) {
-                            print("third part audio writing..")
-                        } else {
-                            print("finish audio writing..")
-                            audioInput.markAsFinished()
-                            DispatchQueue.main.async {
-                                audioFinished = true
-                                closeWriter()
+                for specificBoomerangAsset in self.specificBoomerangAssets {
+                    if specificBoomerangAsset.isBoomerang {
+                        if specificBoomerangAsset.isReading,
+                            specificBoomerangAsset.canAddAudioBuffers {
+                            if writeSilentAudio() {
+                                print("audio boomerang writing..")
+                                break
                             }
+                        }
+                    } else if specificBoomerangAsset.canAddAudioBuffers,
+                    specificBoomerangAsset.isReading {
+                        if writeAudio(for: specificBoomerangAsset.audioAssetReaderTrackOutput) {
+                            print("audio first part writing..")
                             break
-                        }
-                    } else if isSecondBoomerangReading {
-                        if writeSilentAudio() {
-                            print("audio boomerang writing..")
-                        }
-                    } else if isSecondPartReading {
-                        if writeAudio(for: secondPartReaderAudioOutput) {
-                            print("second part writing..")
-                        }
-                    } else if isBoomerangReading {
-                        if writeSilentAudio() {
-                            print("audio boomerang writing..")
+                        } else {
+                            specificBoomerangAsset.canAddAudioBuffers = false
                         }
                     }
+                }
+                print(self.specificBoomerangAssets.filter({ return !$0.canAddAudioBuffers}))
+                if self.specificBoomerangAssets.filter({ return !$0.canAddAudioBuffers}).count == self.specificBoomerangAssets.count {
+                    print("finish audio writing..")
+                    audioInput.markAsFinished()
+                    DispatchQueue.main.async {
+                        audioFinished = true
+                        closeWriter()
+                    }
+                    break
                 }
             }
         }
@@ -350,11 +388,7 @@ class SpecificBoomerangExportSession {
             }
             return autoreleasepool { () -> Bool in
                 let buffer = CMSampleBufferGetImageBuffer(sample)!
-                if isBoomerangReading {
-                    presentationTime = CMTimeAdd(presentationTime, nextBufferTime)
-                } else {
-                    presentationTime = CMSampleBufferGetPresentationTimeStamp(sample)
-                }
+                presentationTime = CMTimeAdd(presentationTime, nextBufferTime)
                 let currentProgress = presentationTime.seconds / totalSeconds
                 progress?(Float(currentProgress))
                 return pixelBufferAdaptor.append(buffer,
@@ -363,13 +397,12 @@ class SpecificBoomerangExportSession {
 
         }
         
-        func writeBoomerang(isSecondBoomerang: Bool) -> Bool {
-            let isEmpty = isSecondBoomerang ? secondBoomerangBuffers.isEmpty : boomerangBuffers.isEmpty
-            guard !isEmpty else {
+        func writeBoomerang(specificBoomerangAsset: SpecificBoomerangAsset) -> Bool {
+            guard !specificBoomerangAsset.boomerangBuffers.isEmpty else {
                 return false
             }
             return autoreleasepool { () -> Bool in
-                let buffer = isSecondBoomerang ? secondBoomerangBuffers.remove(at: 0) : boomerangBuffers.remove(at: 0)
+                let buffer = specificBoomerangAsset.boomerangBuffers.remove(at: 0)
                 presentationTime = CMTimeAdd(presentationTime, nextBufferTime)
                 let currentProgress = presentationTime.seconds / totalSeconds
                 progress?(Float(currentProgress))
@@ -378,34 +411,26 @@ class SpecificBoomerangExportSession {
             }
         }
         
-        func addBoomerangBuffer(for assetReaderTrackOutput: AVAssetReaderTrackOutput?, isSecondBoomerang: Bool) -> Bool {
+        func addBoomerangBuffer(for assetReaderTrackOutput: AVAssetReaderTrackOutput?, specificBoomerangAsset: SpecificBoomerangAsset) -> Bool {
             guard let sample = assetReaderTrackOutput?.copyNextSampleBuffer() else {
                 return false
             }
             return autoreleasepool { () -> Bool in
                 let buffer = CMSampleBufferGetImageBuffer(sample)!
-                let boomerangSpeedScale = isSecondBoomerang ? (self.config.secondBoomerangValue?.speedScale ?? 2) : (self.config.firstBoomerangValue?.speedScale ?? 2)
-                if isSecondBoomerang {
-                    let buffer = CMSampleBufferGetImageBuffer(sample)!
-                    secondBoomerangBufferCount += 1
-                    if secondBoomerangBufferCount % boomerangSpeedScale == 0 {
-                        secondBoomerangBuffers.append(buffer)
-                    }
-                } else {
-                    boomerangBufferCount += 1
-                    if boomerangBufferCount % boomerangSpeedScale == 0 {
-                        boomerangBuffers.append(buffer)
-                    }
+                let boomerangSpeedScale = specificBoomerangAsset.boomerangData?.speedScale ?? 2
+                specificBoomerangAsset.boomerangBufferCount += 1
+                if specificBoomerangAsset.boomerangBufferCount % boomerangSpeedScale == 0 {
+                    specificBoomerangAsset.boomerangBuffers.append(buffer)
                 }
                 return true
             }
         }
         
-        func addReverseBuffers(_ buffers: [CVPixelBuffer], isSecondBoomerang: Bool) -> [CVPixelBuffer] {
+        func addReverseBuffers(_ buffers: [CVPixelBuffer], specificBoomerangAsset: SpecificBoomerangAsset) -> [CVPixelBuffer] {
             var reversedBuffers = buffers
             let originBuffers = reversedBuffers
-            let boomerangLoopCount = isSecondBoomerang ? (self.config.secondBoomerangValue?.maxLoopCount ?? 7) : (self.config.firstBoomerangValue?.maxLoopCount ?? 7)
-            let needToReverse = isSecondBoomerang ? (self.config.secondBoomerangValue?.needToReverse ?? true) : (self.config.firstBoomerangValue?.needToReverse ?? true)
+            let boomerangLoopCount = specificBoomerangAsset.boomerangData?.maxLoopCount ?? 7
+            let needToReverse = specificBoomerangAsset.boomerangData?.needToReverse ?? true
             for _ in 0..<((boomerangLoopCount - 1)/2) {
                 if needToReverse {
                     reversedBuffers.append(contentsOf: originBuffers.reversed())
@@ -417,76 +442,52 @@ class SpecificBoomerangExportSession {
         
         videoInput.requestMediaDataWhenReady(on: videoInputQueue) {
             while videoInput.isReadyForMoreMediaData {
-                if writeVideo(for: firstPartReaderVideoOutput) {
-                    print("first part writing..")
-                } else if !isBoomerangReading {
-                    print("start boomerang reading.")
-                    self.boomerangReader?.startReading()
-                    isBoomerangReading = true
-                } else {
-                    if addBoomerangBuffer(for: boomerangReaderVideoOutput,
-                                          isSecondBoomerang: false) {
-                        print("boomerang buffers append..")
-                    } else {
-                        if !isReverseBuffersAdded {
-                            boomerangBuffers = addReverseBuffers(boomerangBuffers,
-                                                                 isSecondBoomerang: false)
-                            isReverseBuffersAdded = true
-                            print("reverse boomerang buffers append..")
-                        }
-                        if writeBoomerang(isSecondBoomerang: false) {
-                            print("boomerang writing..")
+                for specificBoomerangAsset in self.specificBoomerangAssets {
+                    if specificBoomerangAsset.isBoomerang {
+                        if !specificBoomerangAsset.isReading {
+                            specificBoomerangAsset.reader.startReading()
+                            specificBoomerangAsset.isReading = true
+                            break
                         } else {
-                            if !isSecondPartReading {
-                                print("start second part reading.")
-                                self.secondPartReader?.startReading()
-                                isSecondPartReading = true
+                            if addBoomerangBuffer(for: specificBoomerangAsset.videoAssetReaderTrackOutput, specificBoomerangAsset: specificBoomerangAsset) {
+                                print("boomerang buffers append..")
+                                break
                             } else {
-                                if writeVideo(for: secondPartReaderVideoOutput) {
-                                    print("second part writing..")
+                                if !specificBoomerangAsset.isReverseBuffersAdded {
+                                    specificBoomerangAsset.boomerangBuffers = addReverseBuffers(specificBoomerangAsset.boomerangBuffers, specificBoomerangAsset: specificBoomerangAsset)
+                                    specificBoomerangAsset.isReverseBuffersAdded = true
+                                    print("reverse boomerang buffers append..")
+                                }
+                                if writeBoomerang(specificBoomerangAsset: specificBoomerangAsset) {
+                                    print("boomerang writing..")
+                                    break
                                 } else {
-                                    if !isSecondBoomerangReading {
-                                        print("start second boomerang reading.")
-                                        self.secondBoomerangReader?.startReading()
-                                        isSecondBoomerangReading = true
-                                    } else {
-                                        if addBoomerangBuffer(for: secondBoomerangReaderVideoOutput,
-                                                              isSecondBoomerang: true) {
-                                            print("second boomerang buffers append..")
-                                        } else {
-                                            if !isSecondReverseBuffersAdded {
-                                                secondBoomerangBuffers = addReverseBuffers(secondBoomerangBuffers,
-                                                                                           isSecondBoomerang: true)
-                                                isSecondReverseBuffersAdded = true
-                                                print("reverse second boomerang buffers append..")
-                                            }
-                                            if writeBoomerang(isSecondBoomerang: true) {
-                                                print("second boomerang writing..")
-                                            } else {
-                                                if !isThirdPartReading {
-                                                    print("start third part reading.")
-                                                    self.thirdPartReader?.startReading()
-                                                    isThirdPartReading = true
-                                                } else {
-                                                    if writeVideo(for: thirdPartReaderVideoOutput) {
-                                                        print("third part writing..")
-                                                    } else {
-                                                        print("finish video writing..")
-                                                        videoInput.markAsFinished()
-                                                        DispatchQueue.main.async {
-                                                            videoFinished = true
-                                                            closeWriter()
-                                                        }
-                                                        break
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
+                                    specificBoomerangAsset.canAddVideoBuffers = false
+                                    specificBoomerangAsset.canAddAudioBuffers = false
                                 }
                             }
                         }
+                    } else if specificBoomerangAsset.canAddVideoBuffers {
+                        if !specificBoomerangAsset.isReading {
+                            specificBoomerangAsset.reader.startReading()
+                            specificBoomerangAsset.isReading = true
+                            break
+                        } else if writeVideo(for: specificBoomerangAsset.videoAssetReaderTrackOutput) {
+                            print("video writing..")
+                            break
+                        } else {
+                            specificBoomerangAsset.canAddVideoBuffers = false
+                        }
                     }
+                }
+                if self.specificBoomerangAssets.filter({ return !$0.canAddVideoBuffers }).count == self.specificBoomerangAssets.count {
+                    print("finish video writing..")
+                    videoInput.markAsFinished()
+                    DispatchQueue.main.async {
+                        videoFinished = true
+                        closeWriter()
+                    }
+                    break
                 }
             }
         }
@@ -494,10 +495,17 @@ class SpecificBoomerangExportSession {
     
     public func cancelExporting() {
         cancelled = true
-        firstPartReader?.cancelReading()
-        boomerangReader?.cancelReading()
-        secondPartReader?.cancelReading()
+        for specificBoomerangAsset in specificBoomerangAssets {
+            specificBoomerangAsset.reader.cancelReading()
+        }
         writer?.cancelWriting()
     }
     
+}
+
+extension Collection {
+    /// Returns the element at the specified index if it is within bounds, otherwise nil.
+    subscript (safe index: Index) -> Element? {
+        return indices.contains(index) ? self[index] : nil
+    }
 }

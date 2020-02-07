@@ -18,16 +18,6 @@ class SpecificBoomerangViewController: UIViewController {
 
     @IBOutlet weak var trimmerSuperView: UIView!
     @IBOutlet weak var trimmerView: TrimmerView!
-    @IBOutlet weak var firstBoomerangView: UIView! {
-        didSet {
-            firstBoomerangView.translatesAutoresizingMaskIntoConstraints = true
-        }
-    }
-    @IBOutlet weak var secondBoomerangView: UIView! {
-        didSet {
-            secondBoomerangView.translatesAutoresizingMaskIntoConstraints = true
-        }
-    }
     @IBOutlet weak var videoView: UIView!
     @IBOutlet weak var timePointerView: UIView! {
         didSet {
@@ -35,15 +25,11 @@ class SpecificBoomerangViewController: UIViewController {
         }
     }
     @IBOutlet weak var addBoomerangButton: UIButton!
-    
-    private var isFirstBoomerangSelected = true {
-        didSet {
-            let firstViewColor = isFirstBoomerangSelected ? R.color.quetag_darkPastelGreen() : R.color.storytag_fadedRed()
-            let secondViewColor = isFirstBoomerangSelected ? R.color.storytag_fadedRed() : R.color.quetag_darkPastelGreen()
-            firstBoomerangView.layer.borderColor = firstViewColor?.cgColor
-            secondBoomerangView.layer.borderColor = secondViewColor?.cgColor
-        }
-    }
+    @IBOutlet weak var playPauseButton: UIButton!
+    @IBOutlet weak var changeSpeedButton: UIButton!
+    @IBOutlet weak var changeLoopButton: UIButton!
+    @IBOutlet weak var changeModeButton: UIButton!
+    @IBOutlet weak var changeSecondsButton: UIButton!
 
     private var timeObserver: Any?
     
@@ -53,28 +39,12 @@ class SpecificBoomerangViewController: UIViewController {
     
     public var currentAsset: AVAsset?
     public weak var delegate: SpecificBoomerangDelegate?
-
-    private var firstBoomerangValue = SpecificBoomerangValue(maxTime: 3.0,
-                                                             speedScale: 2,
-                                                             currentLoopCount: 7,
-                                                             maxLoopCount: 7,
-                                                             needToReverse: true)
     
-    private var secondBoomerangValue = SpecificBoomerangValue(maxTime: 3.0,
-                                                              speedScale: 2,
-                                                              currentLoopCount: 7,
-                                                              maxLoopCount: 7,
-                                                              needToReverse: true)
-
-
-    private var needToReverse = true
-    
-    private var needToChangeScale = false
-    
-    private var canStartSecondPart = false
-
+    private var boomerangValues: [SpecificBoomerangValue] = []
+        
     private var exportSession: SpecificBoomerangExportSession?
     private var loadingView: LoadingView?
+    private var manuallyPaused = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,13 +55,17 @@ class SpecificBoomerangViewController: UIViewController {
             addBoomerangButton.isEnabled = false
             addBoomerangButton.alpha = 0.5
         }
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(onLongPressToVideoView(_:)))
+        longPressGesture.minimumPressDuration = 0.2
+        self.videoView.addGestureRecognizer(longPressGesture)
     }
     
-    func calculateBoomerangTimeRange() {
-        firstBoomerangValue.timeRange = getTimeRange(from: firstBoomerangView.frame,
-                                                     maxTime: firstBoomerangValue.maxTime)
-        secondBoomerangValue.timeRange = getTimeRange(from: secondBoomerangView.frame,
-                                                      maxTime: secondBoomerangValue.maxTime)
+    @objc func onLongPressToVideoView(_ gesture: UILongPressGestureRecognizer) {
+        if gesture.state == .began || gesture.state == .changed {
+            pausePlayer()
+        } else {
+            playPlayer()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -121,8 +95,7 @@ class SpecificBoomerangViewController: UIViewController {
     }
     
     @objc func enterBackground(_ notifi: Notification) {
-        player?.pause()
-        stopObservePlayerTime()
+        pausePlayer()
         exportSession?.cancelExporting()
         self.exportSession = nil
         loadingView?.hide()
@@ -130,8 +103,7 @@ class SpecificBoomerangViewController: UIViewController {
     }
     
     @objc func enterForeground(_ notifi: Notification) {
-        player?.play()
-        startObservePlayerTime()
+        playPlayer()
     }
     
     deinit {
@@ -145,24 +117,25 @@ class SpecificBoomerangViewController: UIViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
-    func widthOfBoomerangView(maxTime: Double) -> CGFloat {
-        return CGFloat(maxTime)
-            * trimmerView.thumbnailsView.durationSize
-            / CGFloat(trimmerView.thumbnailsView.videoDuration.seconds)
-    }
-    
     func pausePlayer() {
         player?.pause()
         self.stopObservePlayerTime()
+        playPauseButton.isSelected = true
     }
     
     func playPlayer() {
+        guard !manuallyPaused else {
+            return
+        }
         player?.play()
         self.startObservePlayerTime()
+        playPauseButton.isSelected = false
     }
     
     @objc func onTap(_ gesture: UITapGestureRecognizer) {
-        isFirstBoomerangSelected = gesture.view == firstBoomerangView
+        for boomerangValue in boomerangValues {
+            boomerangValue.isSelected = boomerangValue.boomerangView == gesture.view
+        }
     }
     
     @objc func onPan(_ gesture: UIPanGestureRecognizer) {
@@ -174,51 +147,76 @@ class SpecificBoomerangViewController: UIViewController {
             timePointerView.center.x = newCenterX
             let totalSeconds = currentAsset.duration.seconds
             let seekSeconds = Double(timePointerView.center.x)*totalSeconds/Double(trimmerView.bounds.width)
-            resetBoomerangTimeRange()
+            resetBoomerangValues()
             player?.seekToSeconds(seekSeconds) { finished in
-                self.player?.play()
+                self.playPlayer()
             }
-        } else if gesture.view == firstBoomerangView {
-            isFirstBoomerangSelected = true
-            let locationX = gesture.location(in: self.view).x
-            let newFrame = getBoomerangPartFrame(centerX: locationX,
-                                                 frame: firstBoomerangView.frame)
-            
-            let firstBoxEndX = newFrame.origin.x + firstBoomerangView.bounds.width
-            let secondBoxStartX = secondBoomerangView.frame.origin.x
-            
-            if secondBoxStartX > firstBoxEndX {
-                firstBoomerangView.frame = newFrame
-            } else {
-                firstBoomerangView.frame.origin.x = secondBoxStartX - firstBoomerangView.bounds.width
-            }
-            firstBoomerangValue.timeRange = getTimeRange(from: firstBoomerangView.frame,
-                                                         maxTime: firstBoomerangValue.maxTime)
-            
-        } else if gesture.view == secondBoomerangView {
-            isFirstBoomerangSelected = false
-            let locationX = gesture.location(in: self.view).x
-            let newFrame = getBoomerangPartFrame(centerX: locationX,
-                                                 frame: secondBoomerangView.frame)
-            
-            let firstBoxEndX = firstBoomerangView.frame.origin.x + firstBoomerangView.bounds.width
-            let secondBoxStartX = newFrame.origin.x
-            
-            if secondBoxStartX > firstBoxEndX {
-                secondBoomerangView.frame = newFrame
-            } else {
-                secondBoomerangView.frame.origin.x = firstBoxEndX
-            }
-            secondBoomerangValue.timeRange = getTimeRange(from: secondBoomerangView.frame,
-                                                          maxTime: secondBoomerangValue.maxTime)
+        } else {
+            manageBoomerangViewGesture(gesture.view!,
+                                       locationX: gesture.location(in: self.view).x)
         }
         if gesture.state == .began {
-            resetBoomerangTimeRange()
+            resetBoomerangValues()
             pausePlayer()
         } else if gesture.state == .ended {
             playPlayer()
         }
-        
+    }
+    
+    func manageBoomerangViewGesture(_ gestureView: UIView, locationX: CGFloat) {
+        boomerangValues.sort {
+            return $0.boomerangView.frame.origin.x < $1.boomerangView.frame.origin.x
+        }
+        var nextView: UIView?
+        var previousView: UIView?
+        var currentView: UIView?
+        var selectedIndex: Int = 0
+        for (index, boomerangValue) in boomerangValues.enumerated() {
+            if boomerangValue.boomerangView == gestureView {
+                selectedIndex = index
+                currentView = boomerangValue.boomerangView
+                nextView = boomerangValues[safe: index + 1]?.boomerangView
+                previousView = boomerangValues[safe: index - 1]?.boomerangView
+                boomerangValue.isSelected = true
+            } else {
+                boomerangValue.isSelected = false
+            }
+        }
+        let newFrame = getBoomerangPartFrame(centerX: locationX,
+                                             frame: currentView?.frame ?? .zero)
+        if nextView == nil, previousView == nil, let view = currentView {
+            view.frame = newFrame
+        } else if nextView == nil, let view = currentView, let previousView = previousView {
+            let previousViewFrameX = previousView.frame.maxX
+            if newFrame.origin.x > previousViewFrameX {
+                view.frame = newFrame
+            } else {
+                view.frame.origin.x = previousViewFrameX
+            }
+        } else if previousView == nil, let view = currentView, let nextView = nextView {
+            let nextViewFrameX = nextView.frame.minX
+            if newFrame.maxX < nextViewFrameX {
+                view.frame = newFrame
+            } else {
+                view.frame.origin.x = nextViewFrameX - view.frame.width
+            }
+        } else if let view = currentView, let nextView = nextView, let previousView = previousView {
+            let nextViewFrameX = nextView.frame.minX
+            let previousViewFrameX = previousView.frame.maxX
+            
+            if (newFrame.origin.x > previousViewFrameX) && (newFrame.maxX < nextViewFrameX) {
+                view.frame = newFrame
+            } else {
+                if newFrame.origin.x < previousViewFrameX {
+                    view.frame.origin.x = previousViewFrameX
+                } else if newFrame.maxX > nextViewFrameX {
+                    view.frame.origin.x = nextViewFrameX - view.frame.width
+                }
+            }
+        }
+        if let asset = currentAsset {
+            boomerangValues[selectedIndex].updateTimeRange(for: asset, boundsWidth: trimmerView.width)
+        }
     }
     
     func getBoomerangPartFrame(centerX: CGFloat, frame: CGRect) -> CGRect {
@@ -239,7 +237,7 @@ class SpecificBoomerangViewController: UIViewController {
         }
         return newFrame
     }
-    
+         
     func getTimeRange(from frame: CGRect, maxTime: Double) -> CMTimeRange {
         guard frame.width > 0 else {
             return .zero
@@ -251,50 +249,68 @@ class SpecificBoomerangViewController: UIViewController {
                            end: CMTime(value: CMTimeValue(endSeconds*100000), timescale: 100000))
     }
     
+    @IBAction func onChangeBoomerangSpeedScale(_ sender: UIButton) {
+        let supportedLoop = ["1x", "2x", "3x", "4x"]
+        BasePopConfiguration.shared.backgoundTintColor = R.color.appWhiteColor()!
+        BasePopConfiguration.shared.menuWidth = 120
+        BasePopConfiguration.shared.showCheckMark = .checkmark
+        BasePopConfiguration.shared.joinText = ""
+        let selectedBoomerangValue = boomerangValues.filter({ return $0.isSelected })[safe: 0]
+        let boomerangSpeedScale = selectedBoomerangValue?.speedScale ?? 1
+        BasePopOverMenu
+            .showForSender(sender: sender,
+                           with: supportedLoop,
+                           withSelectedName: "\(boomerangSpeedScale)x",
+                done: { (selectedIndex) -> Void in
+                    self.changeSpeedButton.setTitle(supportedLoop[selectedIndex],
+                                                    for: .normal)
+                    let selectedValue = supportedLoop[selectedIndex].dropLast()
+                    self.boomerangValues.filter({ return $0.isSelected })[safe: 0]?.speedScale = Int(selectedValue)!
+                    self.resetBoomerangOptions()
+            },cancel: {
+                
+            })
+    }
+    
     @IBAction func onChangeBoomerangLoop(_ sender: UIButton) {
         let supportedLoop = ["1", "2", "3"]
         BasePopConfiguration.shared.backgoundTintColor = R.color.appWhiteColor()!
         BasePopConfiguration.shared.menuWidth = 120
         BasePopConfiguration.shared.showCheckMark = .checkmark
         BasePopConfiguration.shared.joinText = "loop"
-        let boomerangMaxLoopCount = isFirstBoomerangSelected ? firstBoomerangValue.maxLoopCount : secondBoomerangValue.maxLoopCount
+        let boomerangMaxLoopCount = boomerangValues.filter({ return $0.isSelected })[safe: 0]?.maxLoopCount ?? 7
         BasePopOverMenu
             .showForSender(sender: sender,
                            with: supportedLoop,
                            withSelectedName: "\((boomerangMaxLoopCount - 1)/2)",
                 done: { (selectedIndex) -> Void in
                     let selectedValue = supportedLoop[selectedIndex]
-                    if self.isFirstBoomerangSelected {
-                        self.firstBoomerangValue.maxLoopCount = Int(selectedValue)!*2 + 1
-                    } else {
-                        self.secondBoomerangValue.maxLoopCount = Int(selectedValue)!*2 + 1
-                    }
-                    self.changeBoomerangTime()
+                    self.changeLoopButton.setTitle(selectedValue, for: .normal)
+                    self.boomerangValues.filter({ return $0.isSelected })[safe: 0]?.maxLoopCount = Int(selectedValue)!*2 + 1
+                    self.resetBoomerangOptions()
             },cancel: {
                 
             })
-
     }
     
     @IBAction func onChangeBoomerangSeconds(_ sender: UIButton) {
-        let supportedSeconds = ["1", "2", "3"]
+        let supportedSeconds = ["1 second", "2 seconds", "3 seconds"]
         BasePopConfiguration.shared.backgoundTintColor = R.color.appWhiteColor()!
         BasePopConfiguration.shared.menuWidth = 120
         BasePopConfiguration.shared.showCheckMark = .checkmark
-        BasePopConfiguration.shared.joinText = "sec"
-        let boomerangMaxTime = isFirstBoomerangSelected ? firstBoomerangValue.maxTime : secondBoomerangValue.maxTime
+        BasePopConfiguration.shared.joinText = ""
+        let boomerangMaxTime = self.boomerangValues.filter({ return $0.isSelected })[safe: 0]?.maxTime ?? 3
+        let appendText = boomerangMaxTime == 1 ? " second" : " seconds"
         BasePopOverMenu
             .showForSender(sender: sender,
                            with: supportedSeconds,
-                           withSelectedName: "\(Int(boomerangMaxTime))",
+                           withSelectedName: "\(Int(boomerangMaxTime))\(appendText)",
                 done: { (selectedIndex) -> Void in
-                    let selectedValue = supportedSeconds[selectedIndex]
-                    if self.isFirstBoomerangSelected {
-                        self.firstBoomerangValue.maxTime = Double(selectedValue)!
-                    } else {
-                        self.secondBoomerangValue.maxTime = Double(selectedValue)!
-                    }
-                    self.changeBoomerangTime()
+                    let selectedValue = supportedSeconds[selectedIndex].split(separator: " ")
+                    let maxTime = selectedValue[safe: 0] ?? "3"
+                    self.changeSecondsButton.setTitle(String(maxTime), for: .normal)
+                    self.boomerangValues.filter({ return $0.isSelected })[safe: 0]?.maxTime = Double(maxTime)!
+                    self.resetBoomerangOptions()
             },cancel: {
                 
             })
@@ -306,14 +322,18 @@ class SpecificBoomerangViewController: UIViewController {
         BasePopConfiguration.shared.menuWidth = 120
         BasePopConfiguration.shared.showCheckMark = .checkmark
         BasePopConfiguration.shared.joinText = ""
+        let needToReverse = self.boomerangValues.filter({ return $0.isSelected })[safe: 0]?.needToReverse ?? true
         let selectedName = needToReverse ? supportedModes[1] : supportedModes[0]
         BasePopOverMenu
             .showForSender(sender: sender,
                            with: supportedModes,
                            withSelectedName: selectedName,
                 done: { (selectedIndex) -> Void in
-                    self.needToReverse = selectedIndex > 0
-                    self.resetBoomerangTimeRange()
+                    let needToReverse = selectedIndex > 0
+                    let image = needToReverse ? R.image.reverseBoom() : R.image.reverseBoomSelected()
+                    self.changeModeButton.setImage(image, for: .normal)
+                    self.boomerangValues.filter({ return $0.isSelected })[safe: 0]?.needToReverse = needToReverse
+                    self.resetBoomerangOptions()
             },cancel: {
                 
             })
@@ -323,38 +343,23 @@ class SpecificBoomerangViewController: UIViewController {
         addBoomerangButton.isEnabled = !hide
         addBoomerangButton.alpha = hide ? 0.5 : 1.0
     }
-    
-    func hideBoomerangView(_ view: UIView) {
-        view.frame.size.width = 0
-        view.frame.origin.x = view == secondBoomerangView ? trimmerView.frame.width : 0
-        view.isHidden = true
-    }
-    
-    @IBAction func onAddBoomerangView(_ sender: UIButton) {
-        hideAddBoomerangButton(hide: true)
         
-        firstBoomerangView.isHidden = false
-        firstBoomerangView.frame.origin.x = 0
-        firstBoomerangView.frame.size.width = widthOfBoomerangView(maxTime: firstBoomerangValue.maxTime)
-        firstBoomerangValue.timeRange = getTimeRange(from: firstBoomerangView.frame,
-                                                     maxTime: firstBoomerangValue.maxTime)
-
-        secondBoomerangView.isHidden = false
-        secondBoomerangView.frame.size.width = widthOfBoomerangView(maxTime: secondBoomerangValue.maxTime)
-        secondBoomerangView.frame.origin.x = trimmerView.bounds.width - secondBoomerangView.bounds.width
-        secondBoomerangValue.timeRange = getTimeRange(from: secondBoomerangView.frame,
-                                                      maxTime: secondBoomerangValue.maxTime)
-        resetBoomerangTimeRange()
+    @IBAction func onAddBoomerangView(_ sender: UIButton) {
+        guard let asset = currentAsset else {
+            return
+        }
+        addBoomerangView()
+        resetBoomerangOptions()
+        let maxCount = Int(asset.duration.seconds/15) + 1
+        hideAddBoomerangButton(hide: boomerangValues.count == maxCount)
     }
     
     @IBAction func onDone(_ sender: UIButton) {
-        let firstBoomeRangValue = firstBoomerangView.isHidden ? nil : self.firstBoomerangValue
-        let secondBoomerangValue = secondBoomerangView.isHidden ? nil : self.secondBoomerangValue
         guard let asset = self.currentAsset,
-            let config = SpecificBoomerangExportConfig(firstBoomerangValue: firstBoomeRangValue, secondBoomerangValue: secondBoomerangValue) else {
+            let config = SpecificBoomerangExportConfig(boomerangValues: boomerangValues) else {
                 return
         }
-        resetBoomerangTimeRange()
+        resetBoomerangValues()
         self.pausePlayer()
         loadingView = LoadingView.instanceFromNib()
         loadingView?.loadingViewShow = false
@@ -371,6 +376,7 @@ class SpecificBoomerangViewController: UIViewController {
                     self.exportSession = nil
                     self.loadingView?.hide()
                     self.loadingView = nil
+                    self.playPlayer()
                 }
             }
         }
@@ -390,30 +396,26 @@ class SpecificBoomerangViewController: UIViewController {
     }
     
     @IBAction func onDeleteBoomerangPart(_ sender: UIButton) {
-        guard !firstBoomerangView.isHidden, !secondBoomerangView.isHidden else {
+        guard let asset = currentAsset, boomerangValues.count > 1 else {
             return
         }
-        let boomerangView = isFirstBoomerangSelected ? firstBoomerangView : secondBoomerangView
-        hideBoomerangView(boomerangView!)
-        isFirstBoomerangSelected = isFirstBoomerangSelected ? false : isFirstBoomerangSelected
-        calculateBoomerangTimeRange()
-        resetBoomerangTimeRange()
-        hideAddBoomerangButton(hide: false)
+        boomerangValues.filter({ return $0.isSelected })[safe: 0]?.boomerangView.removeFromSuperview()
+        boomerangValues.removeAll { return $0.isSelected }
+        boomerangValues[safe: 0]?.isSelected = true
+        let maxCount = Int(asset.duration.seconds/15) + 1
+        hideAddBoomerangButton(hide: boomerangValues.count == maxCount)
         self.player?.rate = 1.0
+    }
+    
+    @IBAction func onPlayPause(_ sender: UIButton) {
+        manuallyPaused = !manuallyPaused
+        sender.isSelected ? playPlayer() : pausePlayer()
     }
     
     @IBAction func onBack(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
     }
-    
-    func resetBoomerangTimeRange() {
-        needToChangeScale = false
-        let currentTime = self.player?.currentTime() ?? .zero
-        canStartSecondPart = (firstBoomerangValue.timeRange?.end.seconds ?? 0) < currentTime.seconds
-        firstBoomerangValue.resetLoopCount()
-        secondBoomerangValue.resetLoopCount()
-    }
-    
+        
 }
 
 // MARK: Setup View
@@ -450,7 +452,6 @@ extension SpecificBoomerangViewController {
     
     func addPlayerIfNeeded(for asset: AVAsset) {
         playerItem = AVPlayerItem.init(asset: asset)
-        loadAsset(asset)
         if playerLayer == nil {
             addPlayerLayer()
         }
@@ -482,23 +483,42 @@ extension SpecificBoomerangViewController {
 extension SpecificBoomerangViewController {
     
     func setupFirstBoomerangPart() {
-        firstBoomerangView.frame.size.width = widthOfBoomerangView(maxTime: firstBoomerangValue.maxTime)
-        
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(onPan(_:)))
-        firstBoomerangView.addGestureRecognizer(panGesture)
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onTap(_:)))
-        firstBoomerangView.addGestureRecognizer(tapGesture)
+        if boomerangValues.isEmpty {
+            addBoomerangView(isSelected: true)
+        }
     }
     
-    func setupSecondBoomerangPart() {
-        secondBoomerangView.frame.size.width = widthOfBoomerangView(maxTime: secondBoomerangValue.maxTime)
-        
+    func addBoomerangView(isSelected: Bool = false) {
+        let boomerangValue = SpecificBoomerangValue.defaultInit()
+        boomerangValue.isSelected = isSelected
+        boomerangValue.boomerangView.frame = CGRect(x: 0,
+                                                    y: 5,
+                                                    width: 50,
+                                                    height: trimmerSuperView.frame.height - 10)
+        boomerangValue.updateBoomerangViewSize(duration: trimmerView.thumbnailsView.videoDuration.seconds, durationSize: trimmerView.thumbnailsView.durationSize)
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(onPan(_:)))
-        secondBoomerangView.addGestureRecognizer(panGesture)
-
+        boomerangValue.boomerangView.addGestureRecognizer(panGesture)
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onTap(_:)))
-        secondBoomerangView.addGestureRecognizer(tapGesture)
+        boomerangValue.boomerangView.addGestureRecognizer(tapGesture)
+        for (index, boomValue) in boomerangValues.enumerated() {
+            if let nextBoomValue = boomerangValues[safe: index + 1] {
+                if abs(boomValue.boomerangView.frame.maxX - nextBoomValue.boomerangView.frame.minX) > boomerangValue.boomerangView.frame.width {
+                    boomerangValue.boomerangView.frame.origin.x = boomValue.boomerangView.frame.maxX
+                    break
+                }
+            } else {
+                if boomValue.boomerangView.frame.maxX >= trimmerView.frame.width {
+                    boomerangValue.boomerangView.frame.origin.x = 0
+                } else {
+                    boomerangValue.boomerangView.frame.origin.x = boomValue.boomerangView.frame.maxX
+                }
+                break
+            }
+        }
+        trimmerSuperView.addSubview(boomerangValue.boomerangView)
+        boomerangValues.append(boomerangValue)
+        
     }
     
     func loadAsset(_ asset: AVAsset) {
@@ -511,66 +531,35 @@ extension SpecificBoomerangViewController {
         trimmerView.cutView.isHidden = true
         trimmerView.timePointerView.isHidden = true
         setupFirstBoomerangPart()
-        setupSecondBoomerangPart()
         let timePointerGesture = UIPanGestureRecognizer(target: self, action: #selector(onPan(_:)))
         timePointerView.addGestureRecognizer(timePointerGesture)
-        hideBoomerangView(secondBoomerangView)
-        calculateBoomerangTimeRange()
-        resetBoomerangTimeRange()
+        resetBoomerangOptions()
+        let maxCount = Int(asset.duration.seconds/15) + 1
+        hideAddBoomerangButton(hide: boomerangValues.count == maxCount)
     }
     
-    func changeBoomerangTime() {
-        firstBoomerangView.frame.size.width = widthOfBoomerangView(maxTime: firstBoomerangValue.maxTime)
-        secondBoomerangView.frame.size.width = widthOfBoomerangView(maxTime: secondBoomerangValue.maxTime)
-        calculateBoomerangTimeRange()
-        resetBoomerangTimeRange()
+    func resetBoomerangOptions() {
+        guard let asset = currentAsset else {
+            return
+        }
+        for boomerangValue in boomerangValues {
+            boomerangValue.updateBoomerangViewSize(duration: trimmerView.thumbnailsView.videoDuration.seconds, durationSize: trimmerView.thumbnailsView.durationSize)
+            boomerangValue.updateTimeRange(for: asset, boundsWidth: trimmerView.width)
+            boomerangValue.reset()
+        }
     }
+        
+    func resetBoomerangValues() {
+        for boomerangValue in boomerangValues {
+            boomerangValue.reset()
+        }
+    }
+
 }
 
 // MARK: Observer
 extension SpecificBoomerangViewController {
-    
-    func changeScale() {
-        let boomerangLoopCount = isFirstBoomerangSelected ? firstBoomerangValue.currentLoopCount : secondBoomerangValue.currentLoopCount
-        let boomerangSpeedScale = isFirstBoomerangSelected ? firstBoomerangValue.speedScale : secondBoomerangValue.speedScale
-        let boomerangTimeRange = isFirstBoomerangSelected ? firstBoomerangValue.timeRange : secondBoomerangValue.timeRange
-        guard boomerangTimeRange != .zero else {
-            return
-        }
-        if boomerangLoopCount == 0 {
-            self.resetBoomerangTimeRange()
-            self.canStartSecondPart = false
-            self.player?.rate = 1.0
-        } else if boomerangLoopCount % 2 == 0 {
-            if self.needToReverse {
-                if self.player?.rate != -(Float(boomerangSpeedScale)) {
-                    if isFirstBoomerangSelected {
-                        firstBoomerangValue.currentLoopCount -= 1
-                    } else {
-                        secondBoomerangValue.currentLoopCount -= 1
-                    }
-                    self.player?.rate = -(Float(boomerangSpeedScale))
-                }
-            } else {
-                if isFirstBoomerangSelected {
-                    firstBoomerangValue.currentLoopCount -= 2
-                } else {
-                    secondBoomerangValue.currentLoopCount -= 2
-                }
-                self.player?.seekToSeconds((boomerangTimeRange?.start ?? .zero).seconds)
-            }
-        } else {
-            if self.player?.rate != Float(boomerangSpeedScale) {
-                if isFirstBoomerangSelected {
-                    firstBoomerangValue.currentLoopCount -= 1
-                } else {
-                    secondBoomerangValue.currentLoopCount -= 1
-                }
-                self.player?.rate = Float(boomerangSpeedScale)
-            }
-        }
-    }
-    
+        
     func addPlayerEndTimeObserver() {
         NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: nil, queue: OperationQueue.main) { [weak self] (notification) in
             guard let `self` = self,
@@ -579,14 +568,21 @@ extension SpecificBoomerangViewController {
                 else {
                     return
             }
-            if self.needToChangeScale {
-                self.needToChangeScale = false
-                self.changeScale()
-            } else {
-                self.resetBoomerangTimeRange()
-                self.canStartSecondPart = false
+            let filteredBoomerangValues = self.boomerangValues.filter({ return $0.needToChangeScale })
+            if filteredBoomerangValues.count == 0 {
+                self.pausePlayer()
+                self.resetBoomerangValues()
                 self.player?.seekToSeconds(CMTime.zero.seconds) { (_) in
-                    self.player?.play()
+                    self.playPlayer()
+                }
+            } else {
+                for boomerangValue in self.boomerangValues {
+                    if boomerangValue.timeRange != .zero {
+                        if boomerangValue.needToChangeScale {
+                            self.changeScaleIfNeeded(for: boomerangValue)
+                            break
+                        }
+                    }
                 }
             }
         }
@@ -597,82 +593,70 @@ extension SpecificBoomerangViewController {
             guard let `self` = self, let currentAsset = self.currentAsset else {
                 return
             }
-            
-            if let boomerangTimeRange = self.firstBoomerangValue.timeRange,
-                boomerangTimeRange != .zero,
-                !self.canStartSecondPart {
-                self.changePlayerSpeed(time: time,
-                                       boomerangTimeRange: boomerangTimeRange,
-                                       isSecondPart: false)
-            } else if let boomerangTimeRange = self.secondBoomerangValue.timeRange,
-                boomerangTimeRange != .zero,
-                !self.secondBoomerangView.isHidden {
-                self.changePlayerSpeed(time: time,
-                                       boomerangTimeRange: boomerangTimeRange,
-                                       isSecondPart: true)
-            } else {
-                
-            }
-            
+            self.changePlayerSpeedIfNeeded(time: time)
             let totalSeconds = currentAsset.duration.seconds
             let centerX = time.seconds*Double(self.trimmerView.bounds.width)/totalSeconds
             self.timePointerView.center.x = CGFloat(centerX)
-
         })
     }
     
-    func changePlayerSpeed(time: CMTime, boomerangTimeRange: CMTimeRange, isSecondPart: Bool) {
-        let boomerangMaxLoopCount = isFirstBoomerangSelected ? firstBoomerangValue.maxLoopCount : secondBoomerangValue.maxLoopCount
-        let boomerangLoopCount = isFirstBoomerangSelected ? firstBoomerangValue.currentLoopCount : secondBoomerangValue.currentLoopCount
-        let boomerangSpeedScale = isFirstBoomerangSelected ? firstBoomerangValue.speedScale : secondBoomerangValue.speedScale
-        print("playerspeed \(self.player?.rate)")
-        print("boomerangLoopCount \(boomerangLoopCount)")
-        print("boomerangMaxLoopCount \(boomerangMaxLoopCount)")
-        if time.seconds >= boomerangTimeRange.start.seconds,
-            time.seconds <= boomerangTimeRange.end.seconds {
-            self.needToChangeScale = true
-            if boomerangLoopCount == boomerangMaxLoopCount {
-                if isFirstBoomerangSelected {
-                    firstBoomerangValue.currentLoopCount -= 1
-                } else {
-                    secondBoomerangValue.currentLoopCount -= 1
+    func changePlayerSpeedIfNeeded(time: CMTime) {
+        let currentBoomerangValue = boomerangValues.filter({ return $0.isRunning })[safe: 0]
+        if let boomerangValue = currentBoomerangValue {
+            _ = checkTimeRange(for: time, boomerangValue: boomerangValue)
+        } else {
+            for boomerangValue in boomerangValues {
+                if checkTimeRange(for: time, boomerangValue: boomerangValue) {
+                    break
                 }
-                self.player?.rate = Float(boomerangSpeedScale)
             }
-        } else if self.needToChangeScale {
-            self.needToChangeScale = false
-            if boomerangLoopCount == 0 {
-                self.resetBoomerangTimeRange()
-                self.canStartSecondPart = !isSecondPart
-                self.player?.rate = 1.0
-            } else if boomerangLoopCount % 2 == 0 {
-                if self.needToReverse {
-                    if self.player?.rate != -(Float(boomerangSpeedScale)) {
-                        if isFirstBoomerangSelected {
-                            firstBoomerangValue.currentLoopCount -= 1
-                        } else {
-                            secondBoomerangValue.currentLoopCount -= 1
-                        }
-                        self.player?.rate = -(Float(boomerangSpeedScale))
-                    }
-                } else {
-                    if isFirstBoomerangSelected {
-                        firstBoomerangValue.currentLoopCount -= 2
-                    } else {
-                        secondBoomerangValue.currentLoopCount -= 2
-                    }
-                    print("seek to \(boomerangTimeRange.start.seconds)")
-                    self.player?.seekToSeconds(boomerangTimeRange.start.seconds)
+        }
+    }
+    
+    func checkTimeRange(for time: CMTime, boomerangValue: SpecificBoomerangValue) -> Bool {
+        print("boomerangValue.currentLoopCount \(boomerangValue.currentLoopCount)")
+        print("boomerangValue.isRunning \(boomerangValue.isRunning)")
+        print("boomerangValue.needToChangeScale \(boomerangValue.needToChangeScale)")
+        print("boomerangValue.speedScale \(boomerangValue.speedScale)")
+        print("player.rate \(player?.rate ?? 0)")
+        if boomerangValue.timeRange != .zero {
+            if boomerangValue.timeRange.containsTime(time) {
+                boomerangValue.needToChangeScale = true
+                boomerangValue.isRunning = true
+                if boomerangValue.currentLoopCount == boomerangValue.maxLoopCount {
+                    boomerangValue.currentLoopCount -= 1
+                    self.player?.rate = Float(boomerangValue.speedScale)
+                }
+                return true
+            } else if boomerangValue.needToChangeScale {
+                changeScaleIfNeeded(for: boomerangValue)
+                return true
+            } else if boomerangValue.isRunning {
+                return true
+            }
+        }
+        return false
+    }
+    
+    func changeScaleIfNeeded(for boomerangValue: SpecificBoomerangValue) {
+        boomerangValue.needToChangeScale = false
+        if boomerangValue.currentLoopCount == 0 {
+            boomerangValue.reset()
+            self.player?.rate = 1.0
+        } else if boomerangValue.currentLoopCount % 2 == 0 {
+            if boomerangValue.needToReverse {
+                if self.player?.rate != -(Float(boomerangValue.speedScale)) {
+                    boomerangValue.currentLoopCount -= 1
+                    self.player?.rate = -(Float(boomerangValue.speedScale))
                 }
             } else {
-                if self.player?.rate != Float(boomerangSpeedScale) {
-                    if isFirstBoomerangSelected {
-                        firstBoomerangValue.currentLoopCount -= 1
-                    } else {
-                        secondBoomerangValue.currentLoopCount -= 1
-                    }
-                    self.player?.rate = Float(boomerangSpeedScale)
-                }
+                boomerangValue.currentLoopCount -= 2
+                self.player?.seekToSeconds(boomerangValue.timeRange.start.seconds)
+            }
+        } else {
+            if self.player?.rate != Float(boomerangValue.speedScale) {
+                boomerangValue.currentLoopCount -= 1
+                self.player?.rate = Float(boomerangValue.speedScale)
             }
         }
     }
