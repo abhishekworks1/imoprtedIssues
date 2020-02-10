@@ -40,6 +40,34 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nDc-vZ-jj3">
                                                 <rect key="frame" x="0.0" y="0.0" width="142.66666666666666" height="506"/>
                                                 <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lxh-sU-06K">
+                                                        <rect key="frame" x="47.666666666666657" y="0.0" width="47.333333333333343" height="506"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G2E-wq-EEO" customClass="DottedLineView" customModule="SocialCam" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="0.0" width="2" height="506"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="2" id="7kB-S8-Zda"/>
+                                                                </constraints>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                                                                        <color key="value" red="0.98823529409999999" green="0.72549019609999998" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="lineWidth">
+                                                                        <real key="value" value="2"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="round" value="NO"/>
+                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="horizontal" value="NO"/>
+                                                                </userDefinedRuntimeAttributes>
+                                                            </view>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstItem="G2E-wq-EEO" firstAttribute="leading" secondItem="Lxh-sU-06K" secondAttribute="leading" id="INt-vX-odm"/>
+                                                            <constraint firstAttribute="bottom" secondItem="G2E-wq-EEO" secondAttribute="bottom" id="WL6-JU-EFE"/>
+                                                            <constraint firstItem="G2E-wq-EEO" firstAttribute="top" secondItem="Lxh-sU-06K" secondAttribute="top" id="ssd-DX-Ef0"/>
+                                                        </constraints>
+                                                    </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nmy-h0-0Ik">
                                                         <rect key="frame" x="95" y="0.0" width="47.666666666666657" height="506"/>
                                                         <subviews>
@@ -73,8 +101,12 @@
                                                 <constraints>
                                                     <constraint firstItem="Nmy-h0-0Ik" firstAttribute="width" secondItem="nDc-vZ-jj3" secondAttribute="width" multiplier="0.333333" id="0H1-da-iTI"/>
                                                     <constraint firstItem="Nmy-h0-0Ik" firstAttribute="top" secondItem="nDc-vZ-jj3" secondAttribute="top" id="67i-tj-JGv"/>
+                                                    <constraint firstItem="Lxh-sU-06K" firstAttribute="bottom" secondItem="Nmy-h0-0Ik" secondAttribute="bottom" id="6LT-YO-RqK"/>
+                                                    <constraint firstItem="Lxh-sU-06K" firstAttribute="top" secondItem="Nmy-h0-0Ik" secondAttribute="top" id="9cN-Bk-Idh"/>
+                                                    <constraint firstItem="Lxh-sU-06K" firstAttribute="width" secondItem="Nmy-h0-0Ik" secondAttribute="width" id="KWk-LD-y4X"/>
                                                     <constraint firstAttribute="bottom" secondItem="Nmy-h0-0Ik" secondAttribute="bottom" id="TIO-QC-wP6"/>
                                                     <constraint firstAttribute="trailing" secondItem="Nmy-h0-0Ik" secondAttribute="trailing" id="dMt-k6-Fus"/>
+                                                    <constraint firstItem="Nmy-h0-0Ik" firstAttribute="leading" secondItem="Lxh-sU-06K" secondAttribute="trailing" id="h3E-6D-c98"/>
                                                 </constraints>
                                             </view>
                                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WaO-yy-csU">
@@ -156,12 +188,44 @@
                                                             <constraint firstAttribute="bottom" secondItem="rGJ-Lr-jC0" secondAttribute="bottom" id="Zg6-cH-pSL"/>
                                                         </constraints>
                                                     </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6T1-Z3-aYf">
+                                                        <rect key="frame" x="47.333333333333343" y="0.0" width="47.666666666666657" height="506"/>
+                                                        <subviews>
+                                                            <view tag="6" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0ke-6L-q9J" customClass="DottedLineView" customModule="SocialCam" customModuleProvider="target">
+                                                                <rect key="frame" x="45.666666666666686" y="0.0" width="2" height="506"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="2" id="6v7-Cv-yMg"/>
+                                                                </constraints>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                                                                        <color key="value" red="0.98823529409999999" green="0.72549019609999998" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="lineWidth">
+                                                                        <real key="value" value="2"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="round" value="NO"/>
+                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="horizontal" value="NO"/>
+                                                                </userDefinedRuntimeAttributes>
+                                                            </view>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="trailing" secondItem="0ke-6L-q9J" secondAttribute="trailing" id="Nhb-5y-kwY"/>
+                                                            <constraint firstItem="0ke-6L-q9J" firstAttribute="top" secondItem="6T1-Z3-aYf" secondAttribute="top" id="W8C-zu-iS6"/>
+                                                            <constraint firstAttribute="bottom" secondItem="0ke-6L-q9J" secondAttribute="bottom" id="gmd-iu-Wfn"/>
+                                                        </constraints>
+                                                    </view>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
+                                                    <constraint firstItem="6T1-Z3-aYf" firstAttribute="leading" secondItem="sbA-5Z-gdY" secondAttribute="trailing" id="1SN-TR-uTh"/>
                                                     <constraint firstAttribute="bottom" secondItem="sbA-5Z-gdY" secondAttribute="bottom" id="OKQ-B7-fba"/>
                                                     <constraint firstItem="sbA-5Z-gdY" firstAttribute="width" secondItem="18w-2S-CeU" secondAttribute="width" multiplier="0.333333" id="YO1-Pn-Gf3"/>
+                                                    <constraint firstItem="6T1-Z3-aYf" firstAttribute="width" secondItem="sbA-5Z-gdY" secondAttribute="width" id="kBL-KM-Qu8"/>
                                                     <constraint firstItem="sbA-5Z-gdY" firstAttribute="leading" secondItem="18w-2S-CeU" secondAttribute="leading" id="ut9-jF-u0i"/>
+                                                    <constraint firstItem="6T1-Z3-aYf" firstAttribute="top" secondItem="sbA-5Z-gdY" secondAttribute="top" id="wqD-fr-2sg"/>
+                                                    <constraint firstItem="6T1-Z3-aYf" firstAttribute="bottom" secondItem="sbA-5Z-gdY" secondAttribute="bottom" id="xV6-bC-5ux"/>
                                                     <constraint firstItem="sbA-5Z-gdY" firstAttribute="top" secondItem="18w-2S-CeU" secondAttribute="top" id="z7K-lu-FVY"/>
                                                 </constraints>
                                             </view>
@@ -1669,6 +1733,8 @@ Countdown</string>
                         <outletCollection property="speedIndicatorView" destination="Xbu-ZM-nce" collectionClass="NSMutableArray" id="BsZ-Jf-Fgk"/>
                         <outletCollection property="speedIndicatorView" destination="ZVe-OT-q0n" collectionClass="NSMutableArray" id="a0h-Bc-z34"/>
                         <outletCollection property="speedIndicatorView" destination="rGJ-Lr-jC0" collectionClass="NSMutableArray" id="eaN-5P-8ra"/>
+                        <outletCollection property="speedIndicatorView" destination="G2E-wq-EEO" collectionClass="NSMutableArray" id="SZd-Ye-GaD"/>
+                        <outletCollection property="speedIndicatorView" destination="0ke-6L-q9J" collectionClass="NSMutableArray" id="dqH-C6-4l6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QXJ-Jf-rgZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2682,7 +2748,7 @@ Countdown</string>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="YAm-JD-iQg">
                                 <rect key="frame" x="0.0" y="44" width="375" height="734"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <collectionViewLayout key="collectionViewLayout" id="rsv-2E-6iY" customClass="StoryTwoColumnsLayout" customModule="ProManager" customModuleProvider="target"/>
+                                <collectionViewLayout key="collectionViewLayout" id="rsv-2E-6iY" customClass="StoryTwoColumnsLayout" customModule="SocialCam" customModuleProvider="target"/>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="StoryUploadCollectionViewCell" id="LVo-wW-5gB" customClass="StoryUploadCollectionViewCell" customModule="SocialCam" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="173" height="179"/>
@@ -2691,14 +2757,14 @@ Countdown</string>
                                             <rect key="frame" x="0.0" y="0.0" width="173" height="179"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5he-kA-9L7" customClass="BorderView" customModule="ProManager" customModuleProvider="target">
+                                                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5he-kA-9L7" customClass="BorderView" customModule="SocialCam" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="173" height="179"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tR7-lS-AFS">
                                                             <rect key="frame" x="0.0" y="0.0" width="173" height="179"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         </imageView>
-                                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rdm-z7-7BQ" customClass="BottomTransparentGradientView" customModule="ProManager" customModuleProvider="target">
+                                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rdm-z7-7BQ" customClass="BottomTransparentGradientView" customModule="SocialCam" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="121" width="173" height="58"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </view>
