@@ -55,6 +55,9 @@ class Defaults {
             if let encoded = try? encoder.encode(newValue) {
                 appDefaults?.set(encoded, forKey: "loggedUser")
                 appDefaults?.synchronize()
+            } else {
+                appDefaults?.set(nil, forKey: "loggedUser")
+                appDefaults?.synchronize()
             }
         }
     }

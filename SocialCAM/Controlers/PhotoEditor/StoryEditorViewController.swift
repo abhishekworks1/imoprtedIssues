@@ -156,6 +156,8 @@ class StoryEditorViewController: UIViewController {
 
     @IBOutlet weak var youtubeShareView: UIView!
     @IBOutlet weak var tiktokShareView: UIView!
+    @IBOutlet weak var storiCamShareView: UIView!
+    
     @IBOutlet weak var btnShowHideEditImage: UIButton!
     @IBOutlet weak var playPauseButton: UIButton!
     @IBOutlet weak var nativePlayerPlayPauseButton: UIButton!
@@ -327,7 +329,7 @@ class StoryEditorViewController: UIViewController {
         case .image:
             isImage = true
         default: break
-        }
+        }   
         self.editOptionView.isHidden = !isImage
         self.applyFilterOptionView.isHidden = !isImage
         self.pic2ArtOptionView.isHidden = Defaults.shared.appMode != .free ? !isImage : true
@@ -346,6 +348,9 @@ class StoryEditorViewController: UIViewController {
         
         self.youtubeShareView.isHidden = isImage
         self.tiktokShareView.isHidden = isImage
+        if let currentUser = Defaults.shared.currentUser, let isAdvanceMode = currentUser.advanceGameMode {
+            self.storiCamShareView.isHidden = !isAdvanceMode
+        }
         self.playPauseButton.isHidden = isImage
         self.progressBarView.isHidden = isImage
     }

@@ -1164,7 +1164,6 @@ extension StoryCameraViewController {
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
             self.circularProgress.trackThickness = 0.75
             self.circularProgress.transform = CGAffineTransform(scaleX: 1, y: 1)
-            
         }, completion: { (_: Bool) in
             self.nextLevel.pause {
                 self.circularProgress.animate(toAngle: 0, duration: 0) { _ in

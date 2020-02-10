@@ -50,7 +50,7 @@ class SpecificBoomerangViewController: UIViewController {
     
     private let maximumSize: CGFloat = 1280
     
-    private let maximumFrame: CGFloat = 30
+    private let maximumFrame: Float = 30
     
     override func viewDidLoad() {
         super.viewDidLoad()

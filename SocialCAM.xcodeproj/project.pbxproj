@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D02F3407778A1294BDE176C /* Pods_SocialCamShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BF54D0948D071D83768AB88 /* Pods_SocialCamShare.framework */; };
 		8200093823AB8D0900AB4C73 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8200093723AB8D0900AB4C73 /* R.generated.swift */; };
 		820479C523D96846006B7A84 /* HomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 820479C423D96846006B7A84 /* HomeTableViewCell.xib */; };
 		820479C723D9685D006B7A84 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820479C623D9685D006B7A84 /* HomeTableViewCell.swift */; };
@@ -361,6 +362,18 @@
 		82270CBD23B08C780003569E /* StorySegmmentAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82270CBC23B08C780003569E /* StorySegmmentAsset.swift */; };
 		822F413C238FE39100084007 /* Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822F413B238FE39100084007 /* Async.swift */; };
 		822F413F238FE3E900084007 /* ExportVideoOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822F413E238FE3E900084007 /* ExportVideoOperation.swift */; };
+		823A82CD23F1705100BDB7BC /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823A82CC23F1705100BDB7BC /* ShareViewController.swift */; };
+		823A82D023F1705100BDB7BC /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 823A82CE23F1705100BDB7BC /* MainInterface.storyboard */; };
+		823A82D423F1705100BDB7BC /* SocialCamShare.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 823A82CA23F1705100BDB7BC /* SocialCamShare.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		823A82D923F1750F00BDB7BC /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB10236C1286002B2603 /* Defaults.swift */; };
+		823A82DA23F1751E00BDB7BC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB29236C1723002B2603 /* User.swift */; };
+		823A82DC23F1754300BDB7BC /* SharedClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB39B23619E3600205993 /* SharedClass.swift */; };
+		823A82DD23F1754D00BDB7BC /* SaveUserDefaultsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB08236C1211002B2603 /* SaveUserDefaultsProtocol.swift */; };
+		823A82DE23F1756300BDB7BC /* FilterImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB32236C1BAF002B2603 /* FilterImage.swift */; };
+		823A82DF23F1757300BDB7BC /* EditOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB86236C28F3002B2603 /* EditOption.swift */; };
+		823A82E023F1782E00BDB7BC /* ProfileDetailsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820BFB6123E7EB100087B38E /* ProfileDetailsResponse.swift */; };
+		823A82E123F1798A00BDB7BC /* CreatePostData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB88236C2982002B2603 /* CreatePostData.swift */; };
+		823A82E423F17A3300BDB7BC /* Reaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB59236C1D0F002B2603 /* Reaction.swift */; };
 		8242681123C73A5A0079E54A /* BitmojiStickerPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8242681023C73A5A0079E54A /* BitmojiStickerPickerViewController.swift */; };
 		82437BFA23DF01FA00F5A2FD /* SnapKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82437BF523DEBDE600F5A2FD /* SnapKitManager.swift */; };
 		8248565223A8AE300078D117 /* StoryCameraViewController+PhotosPickerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8248565123A8AE300078D117 /* StoryCameraViewController+PhotosPickerViewDelegate.swift */; };
@@ -434,6 +447,10 @@
 		8287D22C23829EAE0074FC39 /* AddPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8287D22B23829EAE0074FC39 /* AddPostViewController.swift */; };
 		8287D22E2382A4A20074FC39 /* Posts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8287D22D2382A4A20074FC39 /* Posts.swift */; };
 		828D14FD238E56790011A6CC /* TiktokClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824AD525237BEAD700BF226F /* TiktokClass.swift */; };
+		828F3E5A23F292BB007AE35F /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828F3E5923F292BB007AE35F /* APIManager.swift */; };
+		828F3E5C23F292F4007AE35F /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828F3E5B23F292F3007AE35F /* UserModel.swift */; };
+		828F3E6423F2B30B007AE35F /* R.shared.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828F3E6323F2B30B007AE35F /* R.shared.generated.swift */; };
+		828F3E6723F2B4E4007AE35F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 828F3E6923F2B4E4007AE35F /* Localizable.strings */; };
 		8299F563237135BF00963318 /* UIAppleColorWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8299F55E237135BF00963318 /* UIAppleColorWrapper.swift */; };
 		8299F564237135BF00963318 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8299F55F237135BF00963318 /* UIColor+Extension.swift */; };
 		8299F565237135BF00963318 /* UIColor+Apple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8299F560237135BF00963318 /* UIColor+Apple.swift */; };
@@ -588,9 +605,34 @@
 		AB8ACBA225496B14EAAC36D8 /* Pods_SocialCAM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FFDFF034EAEBD1B2183306F /* Pods_SocialCAM.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		823A82D223F1705100BDB7BC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 824EB3702361959800205993 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 823A82C923F1705100BDB7BC;
+			remoteInfo = SocialCamShare;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		823A82D523F1705100BDB7BC /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				823A82D423F1705100BDB7BC /* SocialCamShare.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		2FFDFF034EAEBD1B2183306F /* Pods_SocialCAM.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SocialCAM.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3347444B0199C606404F4661 /* Pods-SocialCAM.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialCAM.release.xcconfig"; path = "Target Support Files/Pods-SocialCAM/Pods-SocialCAM.release.xcconfig"; sourceTree = "<group>"; };
+		5BF54D0948D071D83768AB88 /* Pods_SocialCamShare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SocialCamShare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8200093723AB8D0900AB4C73 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
 		820479C423D96846006B7A84 /* HomeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeTableViewCell.xib; sourceTree = "<group>"; };
 		820479C623D9685D006B7A84 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
@@ -963,6 +1005,11 @@
 		82270CBC23B08C780003569E /* StorySegmmentAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorySegmmentAsset.swift; sourceTree = "<group>"; };
 		822F413B238FE39100084007 /* Async.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Async.swift; sourceTree = "<group>"; };
 		822F413E238FE3E900084007 /* ExportVideoOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportVideoOperation.swift; sourceTree = "<group>"; };
+		823A82CA23F1705100BDB7BC /* SocialCamShare.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SocialCamShare.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		823A82CC23F1705100BDB7BC /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		823A82CF23F1705100BDB7BC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		823A82D123F1705100BDB7BC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		823A82E623F182F100BDB7BC /* SocialCamShare.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SocialCamShare.entitlements; sourceTree = "<group>"; };
 		8242681023C73A5A0079E54A /* BitmojiStickerPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitmojiStickerPickerViewController.swift; sourceTree = "<group>"; };
 		82437BF523DEBDE600F5A2FD /* SnapKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapKitManager.swift; sourceTree = "<group>"; wrapsLines = 1; };
 		8248565123A8AE300078D117 /* StoryCameraViewController+PhotosPickerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StoryCameraViewController+PhotosPickerViewDelegate.swift"; sourceTree = "<group>"; };
@@ -1042,6 +1089,10 @@
 		8287D22923829E620074FC39 /* StatTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatTableViewCell.swift; sourceTree = "<group>"; };
 		8287D22B23829EAE0074FC39 /* AddPostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPostViewController.swift; sourceTree = "<group>"; };
 		8287D22D2382A4A20074FC39 /* Posts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Posts.swift; sourceTree = "<group>"; };
+		828F3E5923F292BB007AE35F /* APIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
+		828F3E5B23F292F3007AE35F /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		828F3E6323F2B30B007AE35F /* R.shared.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = R.shared.generated.swift; path = SocialCamShare/R.shared.generated.swift; sourceTree = "<group>"; };
+		828F3E6823F2B4E4007AE35F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8299F55E237135BF00963318 /* UIAppleColorWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAppleColorWrapper.swift; sourceTree = "<group>"; };
 		8299F55F237135BF00963318 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		8299F560237135BF00963318 /* UIColor+Apple.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Apple.swift"; sourceTree = "<group>"; };
@@ -1205,10 +1256,20 @@
 		954DB1E723D9C30000B0A9C4 /* NSNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSNotification.swift; sourceTree = "<group>"; };
 		95A405AC23BF78CF00AD38C4 /* SpecificBoomerangViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpecificBoomerangViewController.swift; sourceTree = "<group>"; };
 		95A405AD23BF78D000AD38C4 /* SpecificBoomerangWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpecificBoomerangWriter.swift; sourceTree = "<group>"; };
+		AE9BFF67272EC1BDDCE4E0E4 /* Pods-SocialCamShare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialCamShare.debug.xcconfig"; path = "Target Support Files/Pods-SocialCamShare/Pods-SocialCamShare.debug.xcconfig"; sourceTree = "<group>"; };
 		B327FA3B2FE684E9DDB692D6 /* Pods-SocialCAM.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialCAM.debug.xcconfig"; path = "Target Support Files/Pods-SocialCAM/Pods-SocialCAM.debug.xcconfig"; sourceTree = "<group>"; };
+		F1337973486C796BCC18FFCD /* Pods-SocialCamShare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialCamShare.release.xcconfig"; path = "Target Support Files/Pods-SocialCamShare/Pods-SocialCamShare.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		823A82C723F1705100BDB7BC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2D02F3407778A1294BDE176C /* Pods_SocialCamShare.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		824EB3752361959800205993 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1228,6 +1289,8 @@
 			children = (
 				B327FA3B2FE684E9DDB692D6 /* Pods-SocialCAM.debug.xcconfig */,
 				3347444B0199C606404F4661 /* Pods-SocialCAM.release.xcconfig */,
+				AE9BFF67272EC1BDDCE4E0E4 /* Pods-SocialCamShare.debug.xcconfig */,
+				F1337973486C796BCC18FFCD /* Pods-SocialCamShare.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -2034,6 +2097,20 @@
 			path = SpeedController;
 			sourceTree = "<group>";
 		};
+		823A82CB23F1705100BDB7BC /* SocialCamShare */ = {
+			isa = PBXGroup;
+			children = (
+				823A82E623F182F100BDB7BC /* SocialCamShare.entitlements */,
+				823A82CC23F1705100BDB7BC /* ShareViewController.swift */,
+				828F3E5923F292BB007AE35F /* APIManager.swift */,
+				828F3E5B23F292F3007AE35F /* UserModel.swift */,
+				823A82CE23F1705100BDB7BC /* MainInterface.storyboard */,
+				823A82D123F1705100BDB7BC /* Info.plist */,
+				828F3E6923F2B4E4007AE35F /* Localizable.strings */,
+			);
+			path = SocialCamShare;
+			sourceTree = "<group>";
+		};
 		824AD520237BDA9100BF226F /* Upload */ = {
 			isa = PBXGroup;
 			children = (
@@ -2119,7 +2196,9 @@
 			isa = PBXGroup;
 			children = (
 				8200093723AB8D0900AB4C73 /* R.generated.swift */,
+				828F3E6323F2B30B007AE35F /* R.shared.generated.swift */,
 				824EB37A2361959800205993 /* SocialCAM */,
+				823A82CB23F1705100BDB7BC /* SocialCamShare */,
 				824EB3792361959800205993 /* Products */,
 				42EECCA896FCF095AA83BB36 /* Pods */,
 				F6303928DF96F75577001E96 /* Frameworks */,
@@ -2130,6 +2209,7 @@
 			isa = PBXGroup;
 			children = (
 				824EB3782361959800205993 /* SocialCam.app */,
+				823A82CA23F1705100BDB7BC /* SocialCamShare.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2551,6 +2631,7 @@
 				82E7EFC623792E8B00501345 /* FBSDKShareKit.framework */,
 				82EEF72D23752B0D00DE4845 /* AdSupport.framework */,
 				2FFDFF034EAEBD1B2183306F /* Pods_SocialCAM.framework */,
+				5BF54D0948D071D83768AB88 /* Pods_SocialCamShare.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2558,12 +2639,31 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		823A82C923F1705100BDB7BC /* SocialCamShare */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 823A82D823F1705100BDB7BC /* Build configuration list for PBXNativeTarget "SocialCamShare" */;
+			buildPhases = (
+				86AA7E17ED26916E6A88F1DF /* [CP] Check Pods Manifest.lock */,
+				828F3E5D23F2AB33007AE35F /* ShellScript */,
+				823A82C623F1705100BDB7BC /* Sources */,
+				823A82C723F1705100BDB7BC /* Frameworks */,
+				823A82C823F1705100BDB7BC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SocialCamShare;
+			productName = SocialCamShare;
+			productReference = 823A82CA23F1705100BDB7BC /* SocialCamShare.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		824EB3772361959800205993 /* SocialCAM */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 824EB38C2361959900205993 /* Build configuration list for PBXNativeTarget "SocialCAM" */;
 			buildPhases = (
 				F2244E43A2F45C1A4860C3D7 /* [CP] Check Pods Manifest.lock */,
-				8205FA75236C0D87002B2603 /* ShellScript */,
+				8205FA75236C0D87002B2603 /* Run Script */,
 				824EB3742361959800205993 /* Sources */,
 				824EB3752361959800205993 /* Frameworks */,
 				824EB3762361959800205993 /* Resources */,
@@ -2571,10 +2671,12 @@
 				7BA9086DBCFF29959054AB55 /* [CP] Copy Pods Resources */,
 				824E5174237E7F8D00339809 /* Run Script */,
 				822ED79C23953B3C00D6401A /* ShellScript */,
+				823A82D523F1705100BDB7BC /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				823A82D323F1705100BDB7BC /* PBXTargetDependency */,
 			);
 			name = SocialCAM;
 			productName = StoriCam;
@@ -2587,10 +2689,13 @@
 		824EB3702361959800205993 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1100;
+				LastSwiftUpdateCheck = 1120;
 				LastUpgradeCheck = 1120;
 				ORGANIZATIONNAME = "Viraj Patel";
 				TargetAttributes = {
+					823A82C923F1705100BDB7BC = {
+						CreatedOnToolsVersion = 11.2.1;
+					};
 					824EB3772361959800205993 = {
 						CreatedOnToolsVersion = 11.0;
 					};
@@ -2609,13 +2714,9 @@
 				ar,
 				"zh-Hans",
 				ja,
-				es,
 				it,
-				"ko-KR",
 				ko,
 				"zh-Hant",
-				ru,
-				"pt-PT",
 			);
 			mainGroup = 824EB36F2361959800205993;
 			productRefGroup = 824EB3792361959800205993 /* Products */;
@@ -2623,11 +2724,21 @@
 			projectRoot = "";
 			targets = (
 				824EB3772361959800205993 /* SocialCAM */,
+				823A82C923F1705100BDB7BC /* SocialCamShare */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		823A82C823F1705100BDB7BC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				823A82D023F1705100BDB7BC /* MainInterface.storyboard in Resources */,
+				828F3E6723F2B4E4007AE35F /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		824EB3762361959800205993 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2759,7 +2870,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SocialCAM/Pods-SocialCAM-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8205FA75236C0D87002B2603 /* ShellScript */ = {
+		8205FA75236C0D87002B2603 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2769,6 +2880,7 @@
 			inputPaths = (
 				"$TEMP_DIR/rswift-lastrun",
 			);
+			name = "Run Script";
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -2813,6 +2925,47 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" 96c68e9c0138cb4916e862697ecd5746657596e6 26c18e9bb11b79d4fbf2b036d87c05bdbfef408cb7e58a4f496f2fa1451a1d1f\n";
 		};
+		828F3E5D23F2AB33007AE35F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$TEMP_DIR/rswift-lastrun",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				$SRCROOT/SocialCamShare/R.shared.generated.swift,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/SocialCamShare/R.shared.generated.swift\" \n";
+		};
+		86AA7E17ED26916E6A88F1DF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SocialCamShare-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		8F55EF2E66D9FEBCAB33F172 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2855,6 +3008,26 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		823A82C623F1705100BDB7BC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				823A82CD23F1705100BDB7BC /* ShareViewController.swift in Sources */,
+				823A82DD23F1754D00BDB7BC /* SaveUserDefaultsProtocol.swift in Sources */,
+				823A82DF23F1757300BDB7BC /* EditOption.swift in Sources */,
+				823A82DC23F1754300BDB7BC /* SharedClass.swift in Sources */,
+				828F3E5A23F292BB007AE35F /* APIManager.swift in Sources */,
+				823A82DE23F1756300BDB7BC /* FilterImage.swift in Sources */,
+				823A82E123F1798A00BDB7BC /* CreatePostData.swift in Sources */,
+				823A82E023F1782E00BDB7BC /* ProfileDetailsResponse.swift in Sources */,
+				823A82D923F1750F00BDB7BC /* Defaults.swift in Sources */,
+				828F3E6423F2B30B007AE35F /* R.shared.generated.swift in Sources */,
+				823A82DA23F1751E00BDB7BC /* User.swift in Sources */,
+				828F3E5C23F292F4007AE35F /* UserModel.swift in Sources */,
+				823A82E423F17A3300BDB7BC /* Reaction.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		824EB3742361959800205993 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3335,6 +3508,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		823A82D323F1705100BDB7BC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 823A82C923F1705100BDB7BC /* SocialCamShare */;
+			targetProxy = 823A82D223F1705100BDB7BC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		8205FB3B236C1D0F002B2603 /* ReactionSummaryLocalizable.stringsdict */ = {
 			isa = PBXVariantGroup;
@@ -3376,6 +3557,14 @@
 			name = FacebookReactionLocalizable.strings;
 			sourceTree = "<group>";
 		};
+		823A82CE23F1705100BDB7BC /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				823A82CF23F1705100BDB7BC /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
 		824EB3812361959800205993 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -3395,9 +3584,65 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
+		828F3E6923F2B4E4007AE35F /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				828F3E6823F2B4E4007AE35F /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		823A82D623F1705100BDB7BC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AE9BFF67272EC1BDDCE4E0E4 /* Pods-SocialCamShare.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SocialCamShare/SocialCamShare.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				INFOPLIST_FILE = SocialCamShare/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D IS_SHAREPOST";
+				PRODUCT_BUNDLE_IDENTIFIER = com.simform.storiCamPro.SocialCamShare;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		823A82D723F1705100BDB7BC /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F1337973486C796BCC18FFCD /* Pods-SocialCamShare.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SocialCamShare/SocialCamShare.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				INFOPLIST_FILE = SocialCamShare/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D IS_SHAREPOST";
+				PRODUCT_BUNDLE_IDENTIFIER = com.simform.storiCamPro.SocialCamShare;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		824EB38A2361959900205993 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -3522,6 +3767,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B327FA3B2FE684E9DDB692D6 /* Pods-SocialCAM.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
@@ -3551,6 +3797,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3347444B0199C606404F4661 /* Pods-SocialCAM.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BITCODE_GENERATION_MODE = bitcode;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
@@ -3579,6 +3826,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		823A82D823F1705100BDB7BC /* Build configuration list for PBXNativeTarget "SocialCamShare" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				823A82D623F1705100BDB7BC /* Debug */,
+				823A82D723F1705100BDB7BC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		824EB3732361959800205993 /* Build configuration list for PBXProject "SocialCAM" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

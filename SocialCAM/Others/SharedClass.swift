@@ -345,8 +345,8 @@ public struct Constant {
     
     struct Application {
         static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "SocialCam"
-        static let groupIdentifier: String = "group.com.simform.spinachecafe"
-        static let simformIdentifier: String = "com.simform.spinachecafe"
+        static let groupIdentifier: String = "group.com.simform.storiCamPro"
+        static let simformIdentifier: String = "com.simform.storiCamPro"
         static let imageIdentifier: String = "www.google.com"
         static let proModeCode: String = "socialcam2020"
         static let splashImagesFolderName: String = "SplashImages"
@@ -404,8 +404,9 @@ public struct Constant {
 }
 
 class StoryTagGradientLayer: CAGradientLayer { }
-
+#if !IS_SHAREPOST
 class BaseQuestionTagView: BaseStoryTagView { }
+#endif
 
 // MARK: - Control
 public enum Control {
@@ -427,6 +428,7 @@ enum SlideShowExportType {
     case sendChat
 }
 
+#if !IS_SHAREPOST
 enum StoriCamType: Equatable {
     case story
     case chat
@@ -462,6 +464,7 @@ enum StoriCamType: Equatable {
         }
     }
 }
+#endif
 
 enum StorySelectionType {
     case image(image: UIImage)
