@@ -46,6 +46,12 @@ class SpecificBoomerangViewController: UIViewController {
     private var loadingView: LoadingView?
     private var manuallyPaused = false
 
+    private var exportedURL: URL?
+    
+    private let maximumSize: CGFloat = 1280
+    
+    private let maximumFrame: CGFloat = 30
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addPlayerLayer()
@@ -82,6 +88,9 @@ class SpecificBoomerangViewController: UIViewController {
         super.viewDidDisappear(animated)
         stopObservePlayerTime()
         removeObserveState()
+        if let url = self.exportedURL {
+            try? FileManager.default.removeItem(at: url)
+        }
     }
                               
     func observeState() {
@@ -170,7 +179,6 @@ class SpecificBoomerangViewController: UIViewController {
         }
         self.changeSpeedButton.setTitle("\(boomerangValue.speedScale)x",
                                         for: .normal)
-        
         self.changeLoopButton.setTitle("\((boomerangValue.maxLoopCount - 1)/2)", for: .normal)
         self.changeSecondsButton.setTitle("\(Int(boomerangValue.maxTime))", for: .normal)
         let image = boomerangValue.needToReverse ? R.image.reverseBoom() : R.image.reverseBoomSelected()
@@ -269,7 +277,7 @@ class SpecificBoomerangViewController: UIViewController {
         BasePopConfiguration.shared.backgoundTintColor = R.color.appWhiteColor()!
         BasePopConfiguration.shared.menuWidth = 120
         BasePopConfiguration.shared.showCheckMark = .checkmark
-        BasePopConfiguration.shared.joinText = ""
+        BasePopConfiguration.shared.joinText = R.string.localizable.speed()
         let selectedBoomerangValue = boomerangValues.filter({ return $0.isSelected })[safe: 0]
         let boomerangSpeedScale = selectedBoomerangValue?.speedScale ?? 1
         BasePopOverMenu
@@ -370,10 +378,33 @@ class SpecificBoomerangViewController: UIViewController {
         hideAddBoomerangButton(hide: shouldHide)
     }
     
+    func needToExport() -> Bool {
+        guard let asset = currentAsset,
+            let videoTrack = asset.tracks(withMediaType: .video).first else {
+                return false
+        }
+        let width = videoTrack.naturalSize.width
+        let height = videoTrack.naturalSize.height
+        
+        if width > height {
+            if width <= maximumSize {
+                if videoTrack.nominalFrameRate <= maximumFrame {
+                    return false
+                }
+            }
+        } else {
+            if height <= maximumSize {
+                if videoTrack.nominalFrameRate <= maximumFrame {
+                    return false
+                }
+            }
+        }
+        return true
+    }
+         
     @IBAction func onDone(_ sender: UIButton) {
-        guard let asset = self.currentAsset,
-            let config = SpecificBoomerangExportConfig(boomerangValues: boomerangValues) else {
-                return
+        guard let config = SpecificBoomerangExportConfig(boomerangValues: boomerangValues) else {
+            return
         }
         config.adjustBoomerangValues()
         resetBoomerangValues()
@@ -385,10 +416,35 @@ class SpecificBoomerangViewController: UIViewController {
         loadingView?.show(on: self.view)
 
         exportSession = SpecificBoomerangExportSession(config: config)
-
+        var avAssetExportSession: AVAssetExportSession?
+        if let asset = self.currentAsset,
+            needToExport() {
+            let videoComposition = AVMutableVideoComposition(propertiesOf: asset)
+            videoComposition.sourceTrackIDForFrameTiming = kCMPersistentTrackID_Invalid
+            videoComposition.frameDuration = CMTime(value: 1,
+                                                    timescale: CMTimeScale(maximumFrame))
+            avAssetExportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPreset1280x720)
+            avAssetExportSession?.videoComposition = videoComposition
+            avAssetExportSession?.outputURL = FileManager.uniqueURL(for: "\(UUID().uuidString).mov")
+            avAssetExportSession?.outputFileType = .mov
+            avAssetExportSession?.exportAsynchronously { [weak self] in
+                guard let `self` = self else {
+                    return
+                }
+                if avAssetExportSession?.status == .completed,
+                    let url = avAssetExportSession?.outputURL {
+                    self.exportedURL = url
+                    self.currentAsset = AVAsset(url: url)
+                    self.exportBoomerangVideo()
+                }
+            }
+        } else {
+            exportBoomerangVideo()
+        }
         loadingView?.cancelClick = { cancelled in
             if cancelled {
                 DispatchQueue.main.async {
+                    avAssetExportSession?.cancelExport()
                     self.exportSession?.cancelExporting()
                     self.exportSession = nil
                     self.loadingView?.hide()
@@ -397,7 +453,13 @@ class SpecificBoomerangViewController: UIViewController {
                 }
             }
         }
-        exportSession?.export(for: asset, progress: { progress in
+    }
+    
+    func exportBoomerangVideo() {
+        guard let asset = self.currentAsset else {
+            return
+        }
+        self.exportSession?.export(for: asset, progress: { progress in
             self.loadingView?.progressView.setProgress(to: Double(progress), withAnimation: true)
         }) { [weak self] url in
             self?.loadingView?.hide()
@@ -693,11 +755,5 @@ extension AVPlayer {
             completionHandler?(finished)
         }
     }
-    
-}
-
-extension CGRect {
-    
-    
     
 }

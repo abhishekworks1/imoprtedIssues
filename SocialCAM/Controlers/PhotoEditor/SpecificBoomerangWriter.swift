@@ -188,7 +188,14 @@ class SpecificBoomerangExportConfig {
         self.boomerangValues = boomerangValues
     }
     
+    deinit {
+        print("deinit SpecificBoomerangExportConfig")
+    }
+    
     func adjustBoomerangValues() {
+        boomerangValues = boomerangValues.sorted { (boomerangValue, nextBoomerangValue) -> Bool in
+            return boomerangValue.timeRange.start.seconds < nextBoomerangValue.timeRange.start.seconds
+        }
         for (index, boomerangValue) in boomerangValues.enumerated() {
             if let previousBoomerangValue = boomerangValues[safe: index - 1] {
                 let previousEndTime = previousBoomerangValue.timeRange.end
@@ -214,6 +221,10 @@ class SpecificBoomerangExportSession {
     
     init(config: SpecificBoomerangExportConfig) {
         self.config = config
+    }
+    
+    deinit {
+        print("deinit SpecificBoomerangExportSession")
     }
     
     private func fileURL() -> URL {
@@ -364,26 +375,25 @@ class SpecificBoomerangExportSession {
         
         audioInput.requestMediaDataWhenReady(on: audioInputQueue) {
             while audioInput.isReadyForMoreMediaData {
-                for specificBoomerangAsset in self.specificBoomerangAssets {
+                for (index, specificBoomerangAsset) in self.specificBoomerangAssets.enumerated() {
                     if specificBoomerangAsset.isBoomerang {
                         if specificBoomerangAsset.isReading,
                             specificBoomerangAsset.canAddAudioBuffers {
                             if writeSilentAudio() {
-                                print("audio boomerang writing..")
+                                print("\(index) audio boomerang writing..")
                                 break
                             }
                         }
                     } else if specificBoomerangAsset.canAddAudioBuffers,
                     specificBoomerangAsset.isReading {
                         if writeAudio(for: specificBoomerangAsset.audioAssetReaderTrackOutput) {
-                            print("audio first part writing..")
+                            print("\(index) audio writing..")
                             break
                         } else {
                             specificBoomerangAsset.canAddAudioBuffers = false
                         }
                     }
                 }
-                print(self.specificBoomerangAssets.filter({ return !$0.canAddAudioBuffers}))
                 if self.specificBoomerangAssets.filter({ return !$0.canAddAudioBuffers}).count == self.specificBoomerangAssets.count {
                     print("finish audio writing..")
                     audioInput.markAsFinished()
@@ -457,25 +467,25 @@ class SpecificBoomerangExportSession {
         
         videoInput.requestMediaDataWhenReady(on: videoInputQueue) {
             while videoInput.isReadyForMoreMediaData {
-                for specificBoomerangAsset in self.specificBoomerangAssets {
+                for (index, specificBoomerangAsset) in self.specificBoomerangAssets.enumerated() {
                     if specificBoomerangAsset.isBoomerang {
                         if !specificBoomerangAsset.isReading {
-                            print("boomerang reading..")
+                            print("\(index) boomerang reading..")
                             specificBoomerangAsset.reader.startReading()
                             specificBoomerangAsset.isReading = true
                             break
                         } else {
                             if addBoomerangBuffer(for: specificBoomerangAsset.videoAssetReaderTrackOutput, specificBoomerangAsset: specificBoomerangAsset) {
-                                print("boomerang buffers append..")
+                                print("\(index) boomerang buffers append..")
                                 break
                             } else {
                                 if !specificBoomerangAsset.isReverseBuffersAdded {
                                     specificBoomerangAsset.boomerangBuffers = addReverseBuffers(specificBoomerangAsset.boomerangBuffers, specificBoomerangAsset: specificBoomerangAsset)
                                     specificBoomerangAsset.isReverseBuffersAdded = true
-                                    print("reverse boomerang buffers append..")
+                                    print("\(index) reverse boomerang buffers append..")
                                 }
                                 if writeBoomerang(specificBoomerangAsset: specificBoomerangAsset) {
-                                    print("boomerang writing.. \(specificBoomerangAsset.boomerangBuffers.count)")
+                                    print("\(index) boomerang writing.. \(specificBoomerangAsset.boomerangBuffers.count)")
                                     break
                                 } else {
                                     specificBoomerangAsset.canAddVideoBuffers = false
@@ -487,10 +497,10 @@ class SpecificBoomerangExportSession {
                         if !specificBoomerangAsset.isReading {
                             specificBoomerangAsset.reader.startReading()
                             specificBoomerangAsset.isReading = true
-                            print("video reading..")
+                            print("\(index) video reading..")
                             break
                         } else if writeVideo(for: specificBoomerangAsset.videoAssetReaderTrackOutput) {
-                            print("video writing..")
+                            print("\(index) video writing..")
                             break
                         } else {
                             specificBoomerangAsset.canAddVideoBuffers = false
