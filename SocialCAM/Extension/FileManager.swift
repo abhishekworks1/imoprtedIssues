@@ -20,6 +20,10 @@ public enum LocationKind {
 
 extension FileManager {
     
+    class func uniqueURL(for fileName: String) -> URL {
+        return URL(fileURLWithPath: documentsDir().appending("/\(fileName)"))
+    }
+    
     class func documentsDir() -> String {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as [String]
         return paths[0]
