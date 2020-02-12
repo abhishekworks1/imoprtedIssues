@@ -76,6 +76,7 @@ class User: Codable, Mappable {
     var isVipUser: Bool?
     var vipUserCount: Int?
     var deepLinkUrl: String?
+    var advanceGameMode: Bool?
     
     required init?(map: Map) {
         
@@ -163,6 +164,7 @@ class User: Codable, Mappable {
         isVipUser <- map["isVipUser"]
         vipUserCount <- map["vipUserCount"]
         deepLinkUrl <- map["deepLinkUrl"]
+        advanceGameMode <- map["advanceGameMode"]
     }
     
 }

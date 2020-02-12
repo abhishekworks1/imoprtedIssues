@@ -2,6 +2,8 @@
 # platform :ios, '9.0'
 
 platform :ios, '12.0'
+use_frameworks!
+inhibit_all_warnings!
 
 target 'SocialCAM' do
   # Comment the next line if you don't want to use dynamic frameworks
@@ -58,4 +60,16 @@ target 'SocialCAM' do
   pod 'SwiftySound', '1.2'
   pod 'JPSVolumeButtonHandler'
   pod 'Pageboy', '~> 3.2'
+end
+
+target 'SocialCamShare' do
+  pod 'R.swift', '5.0.3'
+  pod 'SwiftLint'
+  pod 'ObjectMapper', '3.5.1'
+  pod 'RxAlamofire', '4.3.0'
+  pod 'Moya-ObjectMapper/RxSwift', '2.8.0'
+  pod 'Moya/RxSwift', '12.0.1'
+  pod 'RxSwift', '4.4.1'
+  pod 'NSObject+Rx', '4.4.1'
+  pod 'URLEmbeddedView', '0.17.1'
 end
