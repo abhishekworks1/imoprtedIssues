@@ -46,18 +46,15 @@ open class SnapKitManager: NSObject, SCSDKLoginStatusObserver, SCSDKBitmojiStick
     }
     
     func logout(completion: @escaping (Bool) -> Void) {
-        SCSDKLoginClient.unlinkAllSessions { [weak self] isLogout in
-            guard let `self` = self else {
-                return
-            }
-            self.userData = nil
-            completion(isLogout)
-        } 
+        SCSDKLoginClient.clearToken()
+        completion(true)
+        userData = nil
     }
     
     public override init() {
         super.init()
         SCSDKLoginClient.addLoginStatusObserver(self)
+        SCSDKLoginClient.removeLoginStatusObserver(self)
         if isUserLogin {
             loadUserData { _ in
                 
@@ -117,6 +114,10 @@ open class SnapKitManager: NSObject, SCSDKLoginStatusObserver, SCSDKBitmojiStick
         loadUserData { _ in
             
         }
+    }
+    
+    public func scsdkLoginDidUnlink() {
+        userData = nil
     }
     
     public func bitmojiStickerPickerViewController(_ stickerPickerViewController: SCSDKBitmojiStickerPickerViewController,
