@@ -1821,16 +1821,23 @@ Countdown</string>
                                             <outlet property="title" destination="zK1-TT-d86" id="2V9-SU-U1K"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="StorySettingsCell" rowHeight="43" id="WST-z2-GwX" customClass="StorySettingsCell" customModule="SocialCam" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="116.33333206176758" width="359" height="43"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="StorySettingsCell" id="WST-z2-GwX" customClass="StorySettingsCell" customModule="SocialCam" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="116.33333206176758" width="359" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WST-z2-GwX" id="u5h-Xu-o4t">
-                                            <rect key="frame" x="0.0" y="0.0" width="359" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="359" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="q1K-Id-wpK">
+                                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="q1K-Id-wpK">
                                                     <rect key="frame" x="15" y="0.0" width="93.333333333333329" height="35"/>
                                                     <subviews>
+                                                        <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3pg-bi-IU9">
+                                                            <rect key="frame" x="-35" y="2.6666666666666679" width="35" height="30.000000000000004"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="30" id="73t-LO-nOB"/>
+                                                                <constraint firstAttribute="width" constant="35" id="B8k-j4-dNt"/>
+                                                            </constraints>
+                                                        </imageView>
                                                         <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eiX-DR-pOS" customClass="ColorImageButton" customModule="SocialCam" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
                                                             <constraints>
@@ -1845,6 +1852,9 @@ Countdown</string>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Public" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="usu-Hs-5ix">
                                                             <rect key="frame" x="50" y="0.0" width="43.333333333333343" height="35"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="35" id="ceB-GZ-mrO"/>
+                                                            </constraints>
                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -1867,6 +1877,7 @@ Countdown</string>
                                             <outlet property="detailButton" destination="4NA-le-UqP" id="vpl-oT-6qu"/>
                                             <outlet property="onOffButton" destination="eiX-DR-pOS" id="WS9-Ef-7ma"/>
                                             <outlet property="settingsName" destination="usu-Hs-5ix" id="MqX-1E-OaG"/>
+                                            <outlet property="socialImageView" destination="3pg-bi-IU9" id="94l-Yf-6Yb"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -2180,7 +2191,7 @@ Countdown</string>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Network Strength" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o20-g2-7rQ">
                                                 <rect key="frame" x="25" y="5" width="120" height="36"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="120" id="JvC-Yp-wTq"/>
+                                                    <constraint firstAttribute="width" priority="251" constant="120" id="JvC-Yp-wTq"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <nil key="textColor"/>
@@ -2531,6 +2542,7 @@ Countdown</string>
                             <constraint firstItem="Dgc-mc-Qbf" firstAttribute="top" secondItem="wUb-Cm-wSQ" secondAttribute="top" id="3iS-PE-VP4"/>
                             <constraint firstItem="wUb-Cm-wSQ" firstAttribute="bottom" secondItem="kHF-ut-kgy" secondAttribute="bottom" id="4Iq-ld-j4l"/>
                             <constraint firstItem="2aL-rB-3d2" firstAttribute="leading" secondItem="wUb-Cm-wSQ" secondAttribute="leading" id="9gY-Xv-HOP"/>
+                            <constraint firstItem="2aL-rB-3d2" firstAttribute="top" secondItem="wUb-Cm-wSQ" secondAttribute="top" id="CBB-WV-3B7"/>
                             <constraint firstItem="wUb-Cm-wSQ" firstAttribute="trailing" secondItem="2aL-rB-3d2" secondAttribute="trailing" id="Cz2-zk-owC"/>
                             <constraint firstItem="hGc-DR-Puy" firstAttribute="bottom" secondItem="2aL-rB-3d2" secondAttribute="bottom" id="Jk6-ov-bBW"/>
                             <constraint firstItem="kHF-ut-kgy" firstAttribute="top" secondItem="Dgc-mc-Qbf" secondAttribute="bottom" id="RDL-H9-v5z"/>
@@ -2547,6 +2559,7 @@ Countdown</string>
                         <viewLayoutGuide key="safeArea" id="wUb-Cm-wSQ"/>
                         <variation key="default">
                             <mask key="subviews">
+                                <exclude reference="Dgc-mc-Qbf"/>
                                 <exclude reference="kHF-ut-kgy"/>
                             </mask>
                         </variation>

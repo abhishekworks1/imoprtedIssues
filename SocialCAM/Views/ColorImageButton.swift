@@ -50,7 +50,6 @@ class ColorImageButton: UIButton {
                 self.setImage(tintedImage, for: .selected)
                 self.tintColor = imageTintColor
                 if isSelected && self.frame.size.width == self.frame.size.height {
-                    
                     self.backgroundColor = ApplicationSettings.appWhiteColor
                 } else {
                     self.backgroundColor = ApplicationSettings.appClearColor

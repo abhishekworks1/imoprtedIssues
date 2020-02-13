@@ -12,10 +12,14 @@ import GoogleSignIn
 class StorySetting {
     var name: String
     var selected: Bool
+    var image: UIImage?
+    var selectedImage: UIImage?
     
-    init(name: String, selected: Bool) {
+    init(name: String, selected: Bool, image: UIImage? = UIImage(), selectedImage: UIImage? = UIImage()) {
         self.name = name
         self.selected = selected
+        self.image = image
+        self.selectedImage = selectedImage
     }
 }
 
@@ -40,17 +44,29 @@ class StorySettings {
                                                                       selected: true)]),
                                 StorySettings(name: R.string.localizable.socialLogin(),
                                               settings: [StorySetting(name: R.string.localizable.facebook(),
-                                                                      selected: false),
+                                                                      selected: false,
+                                                                      image: R.image.icoFacebookInActive(),
+                                                                      selectedImage: R.image.icoFacebook()),
                                                          StorySetting(name: R.string.localizable.twitter(),
-                                                                      selected: false),
+                                                                      selected: false,
+                                                                      image: R.image.icoTwitterInActive(),
+                                                                      selectedImage: R.image.icoTwitter()),
                                                          StorySetting(name: R.string.localizable.instagram(),
-                                                                      selected: false),
+                                                                      selected: false,
+                                                                      image: R.image.icoInstagramInActive(),
+                                                                      selectedImage: R.image.icoInstagram()),
                                                          StorySetting(name: R.string.localizable.snapchat(),
-                                                                      selected: false),
+                                                                      selected: false,
+                                                                      image: R.image.icoSnapchatInActive(),
+                                                                      selectedImage: R.image.icoSnapchat()),
                                                          StorySetting(name: R.string.localizable.google(),
-                                                                      selected: false),
+                                                                      selected: false,
+                                                                      image: R.image.icoYoutubeInActive(),
+                                                                      selectedImage: R.image.icoYoutube()),
                                                          StorySetting(name: R.string.localizable.storiCam(),
-                                                                      selected: false)]),
+                                                                      selected: false,
+                                                                      image: R.image.icoStoriCamInActive(),
+                                                                      selectedImage: R.image.icoStoriCam())]),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.logout(), selected: false)]),
                                 StorySettings(name: "",
@@ -96,9 +112,11 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         if indexPath.section == 2 || indexPath.section == 3 {
             cell.onOffButton.isHidden = true
         } else if indexPath.section == 1 {
-            cell.onOffButton.isHidden = false
+            cell.onOffButton.isHidden = true
             cell.onOffButton.isSelected = false
-
+            cell.socialImageView?.isHidden = false
+            cell.socialImageView?.image = cell.onOffButton.isSelected ? settings.selectedImage : settings.image
+            
             let socialLogin: SocialLogin = SocialLogin(rawValue: indexPath.row) ?? .facebook
             self.socialLoadProfile(socialLogin: socialLogin) { [weak cell] (userName) in
                 guard let cell = cell else {
@@ -107,6 +125,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 DispatchQueue.runOnMainThread {
                     cell.settingsName.text = userName
                     cell.onOffButton.isSelected = true
+                    cell.socialImageView?.image = cell.onOffButton.isSelected ? settings.selectedImage : settings.image
                 }
             }
         } else {

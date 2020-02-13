@@ -46,6 +46,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         _ = TwitterManger.shared
         
+        _ = BackgroundManager.shared
+        
         TiktokShare.shared.setupTiktok(application, didFinishLaunchingWithOptions: launchOptions)
         
         GoogleManager.shared.restorePreviousSignIn()

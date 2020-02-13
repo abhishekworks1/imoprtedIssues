@@ -460,6 +460,7 @@
 		829BE73B23D1B9E500606E8F /* StoryCameraViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 824EB38F236197DE00205993 /* StoryCameraViewController.storyboard */; };
 		82AD6B7023704B330090498A /* UIViewUtilsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AD6B6F23704B330090498A /* UIViewUtilsExtension.swift */; };
 		82AD6B7223704BA60090498A /* PhotoEditorViewController+CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AD6B7123704BA60090498A /* PhotoEditorViewController+CollectionView.swift */; };
+		82B3761323F4374E0013B24F /* BackgroundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B3761223F4374E0013B24F /* BackgroundManager.swift */; };
 		82B5C23E23EC0D0400841B5B /* Post+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B5C23D23EC0D0400841B5B /* Post+CoreDataClass.swift */; };
 		82B5C24023EC152900841B5B /* FeedUploadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B5C23F23EC152800841B5B /* FeedUploadVC.swift */; };
 		82BAC1DE2387DDD000E586AB /* StoryCameraViewController+Gesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82BAC1DD2387DDD000E586AB /* StoryCameraViewController+Gesture.swift */; };
@@ -1102,6 +1103,7 @@
 		82AD6B6D237049AB0090498A /* PhotoEditor.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PhotoEditor.storyboard; sourceTree = "<group>"; };
 		82AD6B6F23704B330090498A /* UIViewUtilsExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewUtilsExtension.swift; sourceTree = "<group>"; };
 		82AD6B7123704BA60090498A /* PhotoEditorViewController+CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotoEditorViewController+CollectionView.swift"; sourceTree = "<group>"; };
+		82B3761223F4374E0013B24F /* BackgroundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundManager.swift; sourceTree = "<group>"; };
 		82B5C23823EBD92A00841B5B /* SocialCam.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SocialCam.entitlements; sourceTree = "<group>"; };
 		82B5C23D23EC0D0400841B5B /* Post+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Post+CoreDataClass.swift"; sourceTree = "<group>"; };
 		82B5C23F23EC152800841B5B /* FeedUploadVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedUploadVC.swift; sourceTree = "<group>"; };
@@ -2428,6 +2430,7 @@
 			isa = PBXGroup;
 			children = (
 				82CA3E5523D9D03000DD48B8 /* PageViewController.storyboard */,
+				82B3761223F4374E0013B24F /* BackgroundManager.swift */,
 				82CA3E5323D9D02A00DD48B8 /* PageViewController.swift */,
 			);
 			path = PageViewController;
@@ -3157,6 +3160,7 @@
 				8205FAC4236C1055002B2603 /* TransparentGradientView.swift in Sources */,
 				9546604F2387B5CC00A37AE0 /* CropViewController.swift in Sources */,
 				8205FD3B236C3B06002B2603 /* ColorCube.swift in Sources */,
+				82B3761323F4374E0013B24F /* BackgroundManager.swift in Sources */,
 				8205FD42236C3B06002B2603 /* ColorCubeStorage.swift in Sources */,
 				8205FC69236C3AE7002B2603 /* DrawViewController.swift in Sources */,
 				8205FAD7236C10DD002B2603 /* Cache.swift in Sources */,
@@ -3602,6 +3606,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCamShare/SocialCamShare.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = SocialCamShare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -3626,6 +3631,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCamShare/SocialCamShare.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = SocialCamShare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -3773,7 +3779,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/SocialCAM/Info.plist";
@@ -3803,7 +3809,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/SocialCAM/Info.plist";

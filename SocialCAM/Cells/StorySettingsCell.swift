@@ -13,6 +13,7 @@ class StorySettingsCell: UITableViewCell {
     @IBOutlet weak var detailButton: UIButton!
     @IBOutlet weak var onOffButton: UIButton!
     @IBOutlet weak var settingsName: UILabel!
+    @IBOutlet weak var socialImageView: UIImageView?
     
     override func awakeFromNib() {
         super.awakeFromNib()
