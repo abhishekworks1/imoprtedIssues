@@ -254,13 +254,13 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forgot Password ?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Fs-53-MgN" customClass="PLabel" customModule="SocialCam" customModuleProvider="target">
-                                                <rect key="frame" x="266" y="99.5" width="122" height="34"/>
+                                                <rect key="frame" x="269.5" y="99.5" width="118.5" height="34"/>
                                                 <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="14"/>
                                                 <color key="textColor" red="0.098039215690000001" green="0.12549019610000001" blue="0.18039215689999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="753" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VWA-wN-3zt">
-                                                <rect key="frame" x="266" y="99.5" width="122" height="34"/>
+                                                <rect key="frame" x="269.5" y="99.5" width="118.5" height="34"/>
                                                 <connections>
                                                     <action selector="btnForgotClicked:" destination="PnO-q2-2SX" eventType="touchUpInside" id="V2O-LU-r9b"/>
                                                 </connections>
@@ -286,7 +286,7 @@
                                         <rect key="frame" x="0.0" y="456" width="414" height="353"/>
                                         <subviews>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bGX-Gp-O7p" customClass="ColorRoundedView" customModule="SocialCam" customModuleProvider="target">
-                                                <rect key="frame" x="44.5" y="-4" width="325" height="57"/>
+                                                <rect key="frame" x="44.5" y="0.0" width="325" height="57"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y9w-jV-Xgc">
                                                         <rect key="frame" x="0.0" y="0.0" width="325" height="57"/>
@@ -295,7 +295,7 @@
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOGIN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ya-pv-L4p" customClass="PLabel" customModule="SocialCam" customModuleProvider="target">
-                                                        <rect key="frame" x="137" y="19" width="51.5" height="19"/>
+                                                        <rect key="frame" x="138" y="19" width="49" height="19"/>
                                                         <fontDescription key="fontDescription" name="SFUIText-Bold" family="SF UI Text" pointSize="16"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
@@ -326,7 +326,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="bGX-Gp-O7p" firstAttribute="centerX" secondItem="lUm-GV-bvf" secondAttribute="centerX" id="5bU-rY-1dY"/>
-                                            <constraint firstItem="bGX-Gp-O7p" firstAttribute="top" secondItem="lUm-GV-bvf" secondAttribute="top" constant="-4" id="lMo-ch-GHa"/>
+                                            <constraint firstItem="bGX-Gp-O7p" firstAttribute="top" secondItem="lUm-GV-bvf" secondAttribute="top" id="lMo-ch-GHa"/>
                                             <constraint firstItem="bGX-Gp-O7p" firstAttribute="width" secondItem="lUm-GV-bvf" secondAttribute="width" multiplier="0.784" id="urv-e9-ChA"/>
                                         </constraints>
                                     </view>
@@ -335,7 +335,7 @@
                                     <constraint firstItem="TgV-AH-RhB" firstAttribute="top" secondItem="DHo-VU-XsV" secondAttribute="bottom" id="067-Kl-xHD"/>
                                     <constraint firstItem="lUm-GV-bvf" firstAttribute="centerX" secondItem="E8t-3s-yCg" secondAttribute="centerX" id="9Nh-PV-Whx"/>
                                     <constraint firstItem="S95-Dd-sxe" firstAttribute="leading" secondItem="E8t-3s-yCg" secondAttribute="leading" id="CZb-wr-SDE"/>
-                                    <constraint firstAttribute="bottom" secondItem="lUm-GV-bvf" secondAttribute="bottom" priority="250" constant="1" id="DGf-5s-Vm5"/>
+                                    <constraint firstAttribute="bottom" secondItem="lUm-GV-bvf" secondAttribute="bottom" constant="1" id="DGf-5s-Vm5"/>
                                     <constraint firstItem="TgV-AH-RhB" firstAttribute="centerX" secondItem="E8t-3s-yCg" secondAttribute="centerX" id="Kcp-sj-mhn"/>
                                     <constraint firstItem="DHo-VU-XsV" firstAttribute="top" secondItem="S95-Dd-sxe" secondAttribute="bottom" id="Krh-Rp-AVr"/>
                                     <constraint firstAttribute="trailing" secondItem="DHo-VU-XsV" secondAttribute="trailing" id="MPJ-sg-PQ3"/>
@@ -369,13 +369,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="55w-pa-DWA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1531.8840579710145" y="-269.86607142857139"/>
+            <point key="canvasLocation" x="1799" y="-271"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="I8J-Ax-Ghu">
             <objects>
                 <navigationController storyboardIdentifier="LoginNavigation" useStoryboardIdentifierAsRestorationIdentifier="YES" navigationBarHidden="YES" id="GKc-0J-97B" sceneMemberID="viewController">
-                    <nil key="simulatedTopBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="20E-I4-v9F">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

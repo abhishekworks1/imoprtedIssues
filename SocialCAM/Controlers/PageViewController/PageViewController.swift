@@ -10,15 +10,20 @@ import Foundation
 import Pageboy
 
 class PageViewController: PageboyViewController {
-    let pageControllers: [UIViewController] = {
+    
+    var pageControllers: [UIViewController] = {
         var viewControllers = [UIViewController]()
         if let cameraNavVC = R.storyboard.storyCameraViewController.storyCameraViewNavigationController() {
             cameraNavVC.navigationBar.isHidden = true
             viewControllers.append(cameraNavVC)
         }
+        
+        #if DEBUG
         if let homeVC = R.storyboard.homeScreen.homeTabBarController() {
             viewControllers.append(homeVC)
         }
+        #endif
+        
         return viewControllers
     }()
     
@@ -29,6 +34,7 @@ class PageViewController: PageboyViewController {
         delegate = self
         self.isInfiniteScrollEnabled = true
         reloadData()
+        changeBackgroundImage()
     }
     
     @objc func nextPage(_ sender: UIBarButtonItem) {
@@ -38,7 +44,19 @@ class PageViewController: PageboyViewController {
     @objc func previousPage(_ sender: UIBarButtonItem) {
         scrollToPage(.previous, animated: true)
     }
-
+    
+    func changeBackgroundImage() {
+        for image in BackgroundManager.shared.changeBackgroundImage() {
+            let viewController = UIViewController()
+            let imageView = UIImageView.init(image: image)
+            imageView.frame = viewController.view.frame
+            imageView.contentMode = .scaleToFill
+            viewController.view.addSubview(imageView)
+            pageControllers.append(viewController)
+        }
+        reloadData()
+    }
+    
 }
 
 // MARK: PageboyViewControllerDataSource

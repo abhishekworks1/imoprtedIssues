@@ -36,7 +36,7 @@ class StoryCameraViewNavigationController: UINavigationController, UINavigationC
         if viewControllers.count > 1 {
             self.parentPageViewController?.isScrollEnabled = false
         } else {
-            self.parentPageViewController?.isScrollEnabled = false
+            self.parentPageViewController?.isScrollEnabled = true
         }
     }
     
