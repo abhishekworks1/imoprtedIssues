@@ -3603,6 +3603,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AE9BFF67272EC1BDDCE4E0E4 /* Pods-SocialCamShare.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(EMBEDDED_CONTENT_CONTAINS_SWIFT) $(inherited)";
 				CODE_SIGN_ENTITLEMENTS = SocialCamShare/SocialCamShare.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -3628,6 +3629,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F1337973486C796BCC18FFCD /* Pods-SocialCamShare.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(EMBEDDED_CONTENT_CONTAINS_SWIFT) $(inherited)";
 				CODE_SIGN_ENTITLEMENTS = SocialCamShare/SocialCamShare.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -3773,13 +3775,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B327FA3B2FE684E9DDB692D6 /* Pods-SocialCAM.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 22;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/SocialCAM/Info.plist";
@@ -3788,7 +3790,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				OTHER_CFLAGS = "-fembed-bitcode-marker";
+				OTHER_CFLAGS = (
+					"-fembed-bitcode-marker",
+					"$(inherited)",
+				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D SOCIAL";
 				PRODUCT_BUNDLE_IDENTIFIER = com.simform.storiCamPro;
 				PRODUCT_NAME = SocialCam;
@@ -3803,13 +3808,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3347444B0199C606404F4661 /* Pods-SocialCAM.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BITCODE_GENERATION_MODE = bitcode;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 22;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/SocialCAM/Info.plist";
@@ -3818,7 +3823,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				OTHER_CFLAGS = "-fembed-bitcode";
+				OTHER_CFLAGS = (
+					"-fembed-bitcode",
+					"$(inherited)",
+				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D SOCIAL";
 				PRODUCT_BUNDLE_IDENTIFIER = com.simform.storiCamPro;
 				PRODUCT_NAME = SocialCam;

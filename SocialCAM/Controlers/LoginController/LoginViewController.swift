@@ -108,6 +108,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         ProManagerApi.logIn(email: email, password: password, deviceToken: "").request(Result<User>.self).subscribe(onNext: { (responce) in
             self.dismissHUD()
             print(responce)
+            print("advanceGameMode \(String(describing: responce.result?.advanceGameMode))")
             if responce.status == ResponseType.success {
                 Defaults.shared.sessionToken = responce.sessionToken
                 Defaults.shared.currentUser = responce.result

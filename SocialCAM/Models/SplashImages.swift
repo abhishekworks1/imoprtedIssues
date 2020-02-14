@@ -11,6 +11,7 @@ import ObjectMapper
 
 enum SplashImagesType: String {
     case background = "background"
+    case post = "post"
 }
 
 class SplashImages: Mappable {

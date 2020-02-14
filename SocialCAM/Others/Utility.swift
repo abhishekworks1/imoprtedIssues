@@ -60,7 +60,7 @@ public struct Utils {
         }
     }
     
-    func removeDownloaded() {
+    static func removeDownloaded() {
         do {
             try Folder.home.subfolder(named: Constant.Application.splashImagesFolderName).files.enumerated().forEach { (index, file) in
                 try file.delete()
