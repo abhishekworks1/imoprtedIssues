@@ -35,6 +35,12 @@ class PageViewController: PageboyViewController {
         self.isInfiniteScrollEnabled = true
         reloadData()
         changeBackgroundImage()
+        AppEventBus.onMainThread(self, name: "ReloadBanner") { [weak self] _ in
+            guard let `self` = self else {
+                return
+            }
+            self.changeBackgroundImage()
+        }
     }
     
     @objc func nextPage(_ sender: UIBarButtonItem) {

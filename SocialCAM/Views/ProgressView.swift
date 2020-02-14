@@ -29,6 +29,8 @@ class ProgressView: UIProgressView {
         didSet {
             if !Float(self.currentTime/self.duration).isNaN {
                 self.setProgress(Float(self.currentTime/self.duration), animated: false)
+                let xValue = self.progress * Float(self.frame.size.width)
+                roundView?.center = CGPoint(x: CGFloat(xValue), y: self.frame.size.height/2.0)
                 if self.currentTime >= self.duration {
                     if let delegate = self.delegate {
                         delegate.finishProgress(self)
@@ -75,7 +77,8 @@ class ProgressView: UIProgressView {
         roundView?.layer.cornerRadius = 5
         roundView?.clipsToBounds = true
         roundView?.backgroundColor = ApplicationSettings.appPrimaryColor
-        roundView?.isHidden = true
+        roundView?.isHidden = false
+        roundView?.isUserInteractionEnabled = true
         self.addSubview(roundView!)
     }
     
@@ -139,13 +142,13 @@ class ProgressView: UIProgressView {
             if let delegate = self.delegate {
                 delegate.resumePlayer()
             }
-            roundView?.isHidden = true
+            roundView?.isHidden = false
         } else {
             self.resumeProgress()
             if let delegate = self.delegate {
                 delegate.resumePlayer()
             }
-            roundView?.isHidden = true
+            roundView?.isHidden = false
         }
         
     }

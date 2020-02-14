@@ -246,7 +246,7 @@ class StoryAssetExportSession {
         
         var combinedCIImage = overlayCIImage.composited(over: backgroundCIImage)
         combinedCIImage = combinedCIImage.cropped(to: backgroundCIImage.extent)
-                     
+           
         if let filteredCIImage = self.filteredCIImage(combinedCIImage) {
             combinedCIImage = filteredCIImage
         }

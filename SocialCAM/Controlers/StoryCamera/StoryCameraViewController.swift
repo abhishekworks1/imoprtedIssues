@@ -425,6 +425,7 @@ class StoryCameraViewController: UIViewController {
     var metadataObjectViews: [UIView]?
     let nextLevel = NextLevel.shared
     var selectedFPS: Float = 30
+    var isUserTimerValueChange = false
     
     // MARK: ViewController lifecycle
     override func viewDidLoad() {
@@ -445,7 +446,7 @@ class StoryCameraViewController: UIViewController {
         view.bringSubviewToFront(selectTimersView)
         layout()
         self.view.isMultipleTouchEnabled = true
-        self.view.addGestureRecognizer(panRecognizer)
+        bottomCameraViews.addGestureRecognizer(panRecognizer)
         volumeButtonHandler()
     }
     
@@ -623,6 +624,7 @@ extension StoryCameraViewController {
     }
     
     func setupLayoutCameraSliderView() {
+        self.timerValueView.isHidden = !self.isUserTimerValueChange
         cameraSliderView.stringArray = cameraModeArray
         cameraSliderView.bottomImage = R.image.cameraModeSelect()
         cameraSliderView.cellTextColor = .white
@@ -639,7 +641,7 @@ extension StoryCameraViewController {
             
             self.timer = Timer.scheduledTimer(timeInterval: 0.7, target: self, selector: #selector(self.animate), userInfo: nil, repeats: false)
             
-            self.timerValueView.isHidden = false
+            self.timerValueView.isHidden = !self.isUserTimerValueChange
             self.segmentLengthSelectedLabel.text = self.selectedSegmentLengthValue.value
             self.circularProgress.centerImage = UIImage()
             switch Defaults.shared.cameraMode {

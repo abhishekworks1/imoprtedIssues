@@ -192,7 +192,13 @@ extension StoryCameraViewController {
     }
     
     @IBAction func onCloseTimerView(_ sender: UIButton) {
-        selectTimersView.isHidden = true
+        DispatchQueue.main.async {
+            self.isUserTimerValueChange = true
+            self.selectTimersView.isHidden = true
+            if self.timerValueView.isHidden {
+                self.timerValueView.isHidden = !self.isUserTimerValueChange
+            }
+        }
         switch timerType {
         case .timer:
             selectedTimerValue = SelectedTimer(value: timerOptions[timerPicker.currentSelectedIndex], selectedRow: timerPicker.currentSelectedIndex)

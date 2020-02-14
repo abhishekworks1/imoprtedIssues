@@ -167,6 +167,7 @@ class StoryEditorViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var socialShareBottomView: UIView!
     @IBOutlet weak var progressBarView: UIView!
     @IBOutlet weak var storyProgressBar: ProgressView!
     @IBOutlet weak var lblStoryTime: UILabel!
@@ -228,9 +229,9 @@ class StoryEditorViewController: UIViewController {
             btnShowHideEditImage.isSelected = isViewEditMode
             if currentVideoAsset != nil {
                 playPauseButton.isHidden = isViewEditMode
-                bottomContainerView.isHidden = !bottomContainerView.isHidden
                 progressBarView.isHidden = !progressBarView.isHidden
             }
+            socialShareBottomView.isHidden = isViewEditMode
         }
     }
     
@@ -1123,6 +1124,7 @@ extension StoryEditorViewController {
                 self.nativePlayercollectionView.reloadData()
             }
             self.storyProgressBar.duration = asset.duration.seconds
+            self.storyProgressBar.delegate = self
         }
     }
     
@@ -1144,7 +1146,26 @@ extension StoryEditorViewController {
             self.cursorContainerViewController = segue.destination as? KeyframePickerCursorVC
         }
     }
-       
+    
+}
+
+extension StoryEditorViewController: ProgressViewDelegate {
+    func finishProgress(_ progressView: ProgressView) {
+        
+    }
+    
+    func seekPlayerToTime(currentTime: TimeInterval) {
+        storyEditors[currentStoryIndex].seekTime = CMTime(value: CMTimeValue.init(currentTime*1000000000), timescale: 1000000000)
+        self.onPlaybackTimeChecker()
+    }
+    
+    func pausePlayer() {
+        storyEditors[currentStoryIndex].pause()
+    }
+    
+    func resumePlayer() {
+        storyEditors[currentStoryIndex].isPlaying ? pauseVideo() : playVideo()
+    }
 }
 
 extension StoryEditorViewController: CropViewControllerDelegate {

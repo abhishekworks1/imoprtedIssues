@@ -129,7 +129,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 }
             }
         } else {
-            if indexPath.row == 1 || indexPath.row == 2 {
+            if indexPath.row == 2 || indexPath.row == 3 {
                 cell.settingsName.isEnabled = false
             }
             cell.onOffButton.isHidden = false
@@ -191,14 +191,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             if indexPath.row == 0 {
                 Defaults.shared.appMode = .free
                 self.settingsTableView.reloadData()
-                UIApplication.shared.setAlternateIconName(R.image.icon2.name) { error in
-                    if let error = error {
-                        print(error.localizedDescription)
-                    } else {
-                        print("Success!")
-                    }
-                }
-            } else if indexPath.row == 3 {
+            } else if indexPath.row == 1 {
                 isProEnable()
             }
         }
@@ -317,7 +310,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func isProEnable() {
-        let objAlert = UIAlertController(title: Constant.Application.displayName, message: R.string.localizable.areYouSureYouWantToEnablePro(), preferredStyle: .alert)
+        let objAlert = UIAlertController(title: Constant.Application.displayName, message: R.string.localizable.areYouSureYouWantToEnableBasic(), preferredStyle: .alert)
         objAlert.addTextField { (textField: UITextField) -> Void in
             #if DEBUG
             textField.text = Constant.Application.proModeCode
@@ -327,16 +320,9 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         let actionSave = UIAlertAction(title: R.string.localizable.oK(), style: .default) { ( _: UIAlertAction) in
             if let textField = objAlert.textFields?[0],
                 textField.text!.count > 0, textField.text?.lowercased() == Constant.Application.proModeCode {
-                Defaults.shared.appMode = .professional
-                StorySettings.storySettings[0].settings[3].selected = true
+                Defaults.shared.appMode = .basic
+                StorySettings.storySettings[0].settings[1].selected = true
                 self.settingsTableView.reloadData()
-                UIApplication.shared.setAlternateIconName(R.image.icon1.name) { error in
-                    if let error = error {
-                        print(error.localizedDescription)
-                    } else {
-                        print("Success!")
-                    }
-                }
                 self.navigationController?.popViewController(animated: true)
                 return
             }

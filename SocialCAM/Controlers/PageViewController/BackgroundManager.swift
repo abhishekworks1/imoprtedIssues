@@ -49,6 +49,7 @@ open class BackgroundManager: NSObject {
     }
     
     func saveImages(_ splashImages: [SplashImages]) {
+        Utils.removeDownloaded()
         for splashImage in splashImages {
             if let splashImageType = splashImage.type, splashImageType == .post, let imageURLs = splashImage.imageArray {
                 var imageLocalURLs: [String?] = []
@@ -64,6 +65,6 @@ open class BackgroundManager: NSObject {
                 print("imageLocalURLs \(imageLocalURLs)")
             }
         }
-        Utils.removeDownloaded()
+        AppEventBus.post("ReloadBanner")
     }
 }
