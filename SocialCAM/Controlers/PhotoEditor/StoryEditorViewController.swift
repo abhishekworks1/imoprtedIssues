@@ -350,6 +350,8 @@ class StoryEditorViewController: UIViewController {
         self.tiktokShareView.isHidden = isImage
         if let currentUser = Defaults.shared.currentUser, let isAdvanceMode = currentUser.advanceGameMode {
             self.storiCamShareView.isHidden = !isAdvanceMode
+        } else {
+            self.storiCamShareView.isHidden = true
         }
         self.playPauseButton.isHidden = isImage
         self.progressBarView.isHidden = isImage

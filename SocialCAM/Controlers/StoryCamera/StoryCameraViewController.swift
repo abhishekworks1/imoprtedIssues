@@ -370,7 +370,7 @@ class StoryCameraViewController: UIViewController {
     var timerValue = 0
     var pauseTimerValue = 0
     var photoTimerValue = 0
-    var cameraModeArray: [String] = [R.string.localizable.photovideO(), R.string.localizable.boomeranG(), R.string.localizable.slideshoW(), R.string.localizable.collagE(), R.string.localizable.handsfreE(), R.string.localizable.custoM(), R.string.localizable.capturE()]
+    var cameraModeArray: [String] = [R.string.localizable.photovideO(), R.string.localizable.boomI(), R.string.localizable.slideshoW(), R.string.localizable.collagE(), R.string.localizable.handsfreE(), R.string.localizable.custoM(), R.string.localizable.capturE()]
     
     var timerOptions = ["-",
                         "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",

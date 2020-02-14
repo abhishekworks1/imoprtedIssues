@@ -26,10 +26,12 @@
 		<dict>
 			<key>NSExtensionActivationRule</key>
 			<dict>
+				<key>NSExtensionActivationRule</key>
+				<string>TRUEPREDICATE</string>
 				<key>NSExtensionActivationSupportsText</key>
 				<true/>
 				<key>NSExtensionActivationSupportsWebURLWithMaxCount</key>
-				<string>5</string>
+				<integer>5</integer>
 			</dict>
 		</dict>
 		<key>NSExtensionMainStoryboard</key>

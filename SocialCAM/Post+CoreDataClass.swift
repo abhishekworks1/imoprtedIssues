@@ -612,7 +612,6 @@ extension PostDataManager {
             return
         }
         
-        
         ProManagerApi.writePost(type: postType!, text: text, isChekedIn: (selectedPlace == nil ? false : true), user: (Defaults.shared.currentUser?.id)!, media: postMedia, youTubeData: nil, wallTheme: colorThemeView, albumId: selectedAlbum, checkedIn: selectedPlace, hashTags: postTags, privacy: selectedPrivacy, friendExcept: friendExcept, friendsOnly: friendOnly, feelingType: "", feelings: arrayfeelings, previewUrlData: previewUrlData, tagChannelAry: tagArray).request(Result<Posts>.self).subscribe(onNext: { (response) in
             
             debugPrint("Create Post API Done")

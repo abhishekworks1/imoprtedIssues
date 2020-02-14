@@ -32,10 +32,6 @@ open class BackgroundManager: NSObject {
         } catch {
             
         }
-        
-        if arrImage.isEmpty {
-            arrImage.append(R.image.launchScreen() ?? UIImage())
-        }
         return arrImage
     }
     
@@ -46,7 +42,6 @@ open class BackgroundManager: NSObject {
                 return
             }
             self.saveImages(splashImages)
-            print(responce)
         }, onError: { error in
             print(error)
         }, onCompleted: {
@@ -55,19 +50,20 @@ open class BackgroundManager: NSObject {
     
     func saveImages(_ splashImages: [SplashImages]) {
         for splashImage in splashImages {
-            guard let splashImageType = splashImage.type, splashImageType == .background, let imageURLs = splashImage.imageArray else {
-                return
-            }
-            var imageLocalURLs: [String?] = []
-            for imageURL in imageURLs {
-                guard let serverImageURL = URL(string: imageURL) else {
-                    return
+            if let splashImageType = splashImage.type, splashImageType == .post, let imageURLs = splashImage.imageArray {
+                var imageLocalURLs: [String?] = []
+                for imageURL in imageURLs {
+                    guard let serverImageURL = URL(string: imageURL) else {
+                        return
+                    }
+                    Utils.downloadImage(from: serverImageURL) { (localURL) in
+                        imageLocalURLs.append(localURL)
+                    }
                 }
-                Utils.downloadImage(from: serverImageURL) { (localURL) in
-                    imageLocalURLs.append(localURL)
-                }
+                
+                print("imageLocalURLs \(imageLocalURLs)")
             }
-            print("imageLocalURLs \(imageLocalURLs)")
         }
+        Utils.removeDownloaded()
     }
 }
