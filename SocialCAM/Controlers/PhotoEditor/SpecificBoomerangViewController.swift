@@ -52,6 +52,14 @@ class SpecificBoomerangViewController: UIViewController {
     
     private let maximumFrame: Float = 30
     
+    private var loopOptions = BoomerangOptions<Int>(type: .loop, selectedIndex: 2)
+    
+    private var secondOptions = BoomerangOptions<Double>(type: .second, selectedIndex: 2)
+
+    private var speedOptions = BoomerangOptions<Int>(type: .speed, selectedIndex: 1)
+    
+    private var modeOptions = BoomerangOptions<Bool>(type: .mode, selectedIndex: 1)
+
     override func viewDidLoad() {
         super.viewDidLoad()
         addPlayerLayer()
@@ -273,90 +281,56 @@ class SpecificBoomerangViewController: UIViewController {
     }
     
     @IBAction func onChangeBoomerangSpeedScale(_ sender: UIButton) {
-        let supportedLoop = ["1x", "2x", "3x", "4x"]
-        BasePopConfiguration.shared.backgoundTintColor = R.color.appWhiteColor()!
-        BasePopConfiguration.shared.menuWidth = 120
-        BasePopConfiguration.shared.showCheckMark = .checkmark
-        BasePopConfiguration.shared.joinText = R.string.localizable.speed()
-        let selectedBoomerangValue = boomerangValues.filter({ return $0.isSelected })[safe: 0]
-        let boomerangSpeedScale = selectedBoomerangValue?.speedScale ?? 1
-        BasePopOverMenu
-            .showForSender(sender: sender,
-                           with: supportedLoop,
-                           withSelectedName: "\(boomerangSpeedScale)x",
-                done: { (selectedIndex) -> Void in
-                    self.changeSpeedButton.setTitle(supportedLoop[selectedIndex],
-                                                    for: .normal)
-                    let selectedValue = supportedLoop[selectedIndex].dropLast()
-                    self.boomerangValues.filter({ return $0.isSelected })[safe: 0]?.speedScale = Int(selectedValue)!
-                    self.resetBoomerangOptions()
-            },cancel: {
-                
-            })
+        showPopOverMenu(sender: sender, options: speedOptions.displayOptions, selectedOption: speedOptions.selectedOption.displayText) { selectedIndex in
+            self.speedOptions.selectedIndex = selectedIndex
+            self.changeSpeedButton.setTitle(self.speedOptions.selectedOption.displayText, for: .normal)
+            self.boomerangValues.filter({ return $0.isSelected })[safe: 0]?.speedScale = self.speedOptions.selectedOption.value
+            self.resetBoomerangOptions()
+        }
     }
     
     @IBAction func onChangeBoomerangLoop(_ sender: UIButton) {
-        let supportedLoop = ["1", "2", "3"]
-        BasePopConfiguration.shared.backgoundTintColor = R.color.appWhiteColor()!
-        BasePopConfiguration.shared.menuWidth = 120
-        BasePopConfiguration.shared.showCheckMark = .checkmark
-        BasePopConfiguration.shared.joinText = "loop"
-        let boomerangMaxLoopCount = boomerangValues.filter({ return $0.isSelected })[safe: 0]?.maxLoopCount ?? 7
-        BasePopOverMenu
-            .showForSender(sender: sender,
-                           with: supportedLoop,
-                           withSelectedName: "\((boomerangMaxLoopCount - 1)/2)",
-                done: { (selectedIndex) -> Void in
-                    let selectedValue = supportedLoop[selectedIndex]
-                    self.changeLoopButton.setTitle(selectedValue, for: .normal)
-                    self.boomerangValues.filter({ return $0.isSelected })[safe: 0]?.maxLoopCount = Int(selectedValue)!*2 + 1
-                    self.resetBoomerangOptions()
-            },cancel: {
-                
-            })
+        showPopOverMenu(sender: sender, options: loopOptions.displayOptions, selectedOption: loopOptions.selectedOption.displayText) { selectedIndex in
+            self.loopOptions.selectedIndex = selectedIndex
+            let selectedValue = self.loopOptions.selectedOption.displayText.split(separator: " ")[safe: 0] ?? ""
+            self.changeLoopButton.setTitle(String(selectedValue), for: .normal)
+            self.boomerangValues.filter({ return $0.isSelected })[safe: 0]?.maxLoopCount = self.loopOptions.selectedOption.value
+            self.resetBoomerangOptions()
+        }
     }
     
     @IBAction func onChangeBoomerangSeconds(_ sender: UIButton) {
-        let supportedSeconds = ["1 second", "2 seconds", "3 seconds"]
-        BasePopConfiguration.shared.backgoundTintColor = R.color.appWhiteColor()!
-        BasePopConfiguration.shared.menuWidth = 120
-        BasePopConfiguration.shared.showCheckMark = .checkmark
-        BasePopConfiguration.shared.joinText = ""
-        let boomerangMaxTime = self.boomerangValues.filter({ return $0.isSelected })[safe: 0]?.maxTime ?? 3
-        let appendText = boomerangMaxTime == 1 ? " second" : " seconds"
-        BasePopOverMenu
-            .showForSender(sender: sender,
-                           with: supportedSeconds,
-                           withSelectedName: "\(Int(boomerangMaxTime))\(appendText)",
-                done: { (selectedIndex) -> Void in
-                    let selectedValue = supportedSeconds[selectedIndex].split(separator: " ")
-                    let maxTime = selectedValue[safe: 0] ?? "3"
-                    self.changeSecondsButton.setTitle(String(maxTime), for: .normal)
-                    self.boomerangValues.filter({ return $0.isSelected })[safe: 0]?.maxTime = Double(maxTime)!
-                    self.resetBoomerangOptions()
-            },cancel: {
-                
-            })
+        showPopOverMenu(sender: sender, options: secondOptions.displayOptions, selectedOption: secondOptions.selectedOption.displayText) { selectedIndex in
+            self.secondOptions.selectedIndex = selectedIndex
+            let selectedValue = self.secondOptions.selectedOption.displayText.split(separator: " ")[safe: 0] ?? ""
+            self.changeSecondsButton.setTitle(String(selectedValue), for: .normal)
+            self.boomerangValues.filter({ return $0.isSelected })[safe: 0]?.maxTime = self.secondOptions.selectedOption.value
+            self.resetBoomerangOptions()
+        }
     }
     
     @IBAction func onChangeMode(_ sender: UIButton) {
-        let supportedModes = ["Forward", "Reverse"]
+        showPopOverMenu(sender: sender, options: modeOptions.displayOptions, selectedOption: modeOptions.selectedOption.displayText) { selectedIndex in
+            self.modeOptions.selectedIndex = selectedIndex
+            let needToReverse = self.modeOptions.selectedOption.value
+            let image = needToReverse ? R.image.reverseBoom() : R.image.reverseBoomSelected()
+            self.changeModeButton.setImage(image, for: .normal)
+            self.boomerangValues.filter({ return $0.isSelected })[safe: 0]?.needToReverse = needToReverse
+            self.resetBoomerangOptions()
+        }
+    }
+    
+    func showPopOverMenu(sender: UIView, options: [String], selectedOption: String, done: @escaping (Int) -> Void) {
         BasePopConfiguration.shared.backgoundTintColor = R.color.appWhiteColor()!
         BasePopConfiguration.shared.menuWidth = 120
         BasePopConfiguration.shared.showCheckMark = .checkmark
         BasePopConfiguration.shared.joinText = ""
-        let needToReverse = self.boomerangValues.filter({ return $0.isSelected })[safe: 0]?.needToReverse ?? true
-        let selectedName = needToReverse ? supportedModes[1] : supportedModes[0]
         BasePopOverMenu
             .showForSender(sender: sender,
-                           with: supportedModes,
-                           withSelectedName: selectedName,
+                           with: options,
+                           withSelectedName: selectedOption,
                 done: { (selectedIndex) -> Void in
-                    let needToReverse = selectedIndex > 0
-                    let image = needToReverse ? R.image.reverseBoom() : R.image.reverseBoomSelected()
-                    self.changeModeButton.setImage(image, for: .normal)
-                    self.boomerangValues.filter({ return $0.isSelected })[safe: 0]?.needToReverse = needToReverse
-                    self.resetBoomerangOptions()
+                    done(selectedIndex)
             },cancel: {
                 
             })

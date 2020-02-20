@@ -8,6 +8,8 @@
 
 import Foundation
 import AVKit
+import MobileCoreServices
+
 class InputImageTransformation {
     
     var tx: CGFloat = 0
@@ -19,18 +21,35 @@ class InputImageTransformation {
 }
 class StoryAssetExportSession {
     
+    enum WatermarkPosition {
+        case topLeft
+        case bottomRight
+    }
+    
+    enum WatermarkType {
+        case image
+        case gif
+    }
+    
     private var reader: AVAssetReader?
     private var writer: AVAssetWriter?
     private var preferredTransform: CGAffineTransform?
     private var cancelled = false
     private var ciContext = CIContext()
+    private var watermarkAdded: Bool = false
+    private var overlayWatermarkImage: UIImage?
+    private var watermarkPosition: WatermarkPosition = .topLeft
+    private var gifWaterMarkURL = Bundle.main.url(forResource: "SocialCamWaterMark", withExtension: "gif")
+    private var gifFrames = [CGImage]()
+    private var gifCount = 0
 
     public var overlayImage: UIImage?
     public var filter: CIFilter?
     public var isMute = false
     public var inputTransformation: StoryImageView.ImageTransformation?
     public var imageContentMode: StoryImageView.ImageContentMode = .scaleAspectFit
-
+    public var watermarkType: WatermarkType = .image
+    
     private func fileURL() -> URL {
         let fileName = String.fileName + FileExtension.mov.rawValue
         return Utils.getLocalPath(fileName)
@@ -144,8 +163,12 @@ class StoryAssetExportSession {
                         let buffer = self.renderWithTransformation(sampleBuffer: sample)
                         pixelBufferAdaptor.append(buffer,
                                                   withPresentationTime: CMSampleBufferGetPresentationTimeStamp(sample))
-                        
-                        let currentProgress = CMTimeGetSeconds(CMSampleBufferGetPresentationTimeStamp(sample)) / CMTimeGetSeconds(asset.duration)
+                        let currentTime = CMSampleBufferGetPresentationTimeStamp(sample)
+                        if currentTime.seconds > 5.0 {
+                            self.watermarkAdded = false
+                            self.watermarkPosition = .bottomRight
+                        }
+                        let currentProgress = currentTime.seconds / asset.duration.seconds
                         progress?(Float(currentProgress))
                     }
                 } else {
@@ -223,17 +246,13 @@ class StoryAssetExportSession {
         
         var combinedCIImage = overlayCIImage.composited(over: backgroundCIImage)
         combinedCIImage = combinedCIImage.cropped(to: backgroundCIImage.extent)
-        
-        #if targetEnvironment(simulator)
-        combinedCIImage = combinedCIImage.transformed(by: CGAffineTransform(scaleX: 1, y: -1))
-        #endif
-                
-        if let overlaidCIImage = overlaidCIImage(combinedCIImage) {
-            combinedCIImage = overlaidCIImage
-        }
-        
+                     
         if let filteredCIImage = self.filteredCIImage(combinedCIImage) {
             combinedCIImage = filteredCIImage
+        }
+        
+        if let overlaidCIImage = overlaidCIImage(combinedCIImage) {
+            combinedCIImage = overlaidCIImage
         }
         
         self.ciContext.render(combinedCIImage, to: backgroundImageBuffer, bounds: combinedCIImage.extent, colorSpace: CGColorSpaceCreateDeviceRGB())
@@ -252,13 +271,64 @@ class StoryAssetExportSession {
     }
     
     func overlaidCIImage(_ image: CIImage) -> CIImage? {
-        if let overlayImage = self.overlayImage,
+        if overlayWatermarkImage == nil {
+            overlayWatermarkImage = overlayImage
+        }
+        if watermarkType == .gif {
+            if gifCount % 3 == 0 {
+                if gifFrames.count == 0,
+                    let watermarkURL = self.gifWaterMarkURL,
+                    let imageData = try? Data(contentsOf: watermarkURL) {
+                    gifFrames = imageData.gifFrames()
+                    if gifFrames.count > 0 {
+                        addWaterMarkImageIfNeeded(isGIF: true)
+                    }
+                } else {
+                    if gifFrames.count > 0 {
+                        addWaterMarkImageIfNeeded(isGIF: true)
+                    }
+                }
+            }
+        } else {
+            addWaterMarkImageIfNeeded()
+        }
+        gifCount += 1
+        if let overlayImage = self.overlayWatermarkImage,
             let overlayCGImage = overlayImage.cgImage {
             var ciOverlay = CIImage(cgImage: overlayCGImage)
             ciOverlay = ciOverlay.transformed(by: CGAffineTransform(scaleX: image.extent.width/overlayImage.size.width, y: image.extent.height/overlayImage.size.height))
             return ciOverlay.composited(over: image)
         }
         return nil
+    }
+    
+    func addWaterMarkImageIfNeeded(isGIF: Bool = false) {
+        guard !watermarkAdded,
+            let backgroundImage = self.overlayImage,
+            let watermarkImage = isGIF ? UIImage(cgImage: gifFrames.remove(at: 0)) : R.image.socialCamWaterMark() else {
+                return
+        }
+        
+        let backgroundImageSize = backgroundImage.size
+        UIGraphicsBeginImageContext(backgroundImageSize)
+
+        let backgroundImageRect = CGRect(origin: .zero, size: backgroundImageSize)
+        backgroundImage.draw(in: backgroundImageRect)
+
+        let watermarkImageSize = watermarkImage.size
+        var watermarkOrigin = CGPoint(x: backgroundImageSize.width - watermarkImageSize.width - 8, y: backgroundImageSize.height - watermarkImageSize.height - 8)
+        if watermarkPosition == .topLeft {
+            watermarkOrigin = CGPoint(x: 8, y: 8)
+        }
+        let watermarkImageRect = CGRect(origin: watermarkOrigin,
+                                        size: watermarkImageSize)
+        watermarkImage.draw(in: watermarkImageRect, blendMode: .normal, alpha: 1.0)
+
+        if let newImage = UIGraphicsGetImageFromCurrentImageContext() {
+            self.overlayWatermarkImage = newImage
+            self.watermarkAdded = true
+        }
+        UIGraphicsEndImageContext()
     }
     
 }
