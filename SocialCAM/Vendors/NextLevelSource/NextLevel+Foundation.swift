@@ -25,6 +25,7 @@
 
 import Foundation
 import AVKit
+import MobileCoreServices
 
 // MARK: - Comparable
 
@@ -60,6 +61,22 @@ extension Data {
             }
         }
         return imageDataWithMetadata
+    }
+    
+    func gifFrames() -> [CGImage] {
+        guard let imageSource = CGImageSourceCreateWithData(self as CFData, nil),
+            let imageType = CGImageSourceGetType(imageSource) ,
+            UTTypeConformsTo(imageType, kUTTypeGIF) else {
+                return []
+        }
+        let imageCount = CGImageSourceGetCount(imageSource)
+        var frames = [CGImage]()
+        for i in 0..<imageCount {
+            if let cgImage = CGImageSourceCreateImageAtIndex(imageSource, i, nil) {
+                frames.append(cgImage)
+            }
+        }
+        return frames
     }
     
 }

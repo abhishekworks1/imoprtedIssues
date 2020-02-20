@@ -603,6 +603,8 @@
 		954DB1E823D9C30100B0A9C4 /* NSNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954DB1E723D9C30000B0A9C4 /* NSNotification.swift */; };
 		95A405AE23BF78D000AD38C4 /* SpecificBoomerangViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A405AC23BF78CF00AD38C4 /* SpecificBoomerangViewController.swift */; };
 		95A405AF23BF78D000AD38C4 /* SpecificBoomerangWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A405AD23BF78D000AD38C4 /* SpecificBoomerangWriter.swift */; };
+		95BFD43223FE93D70066BA3C /* SocialCamWaterMark.gif in Resources */ = {isa = PBXBuildFile; fileRef = 95BFD43123FE93D60066BA3C /* SocialCamWaterMark.gif */; };
+		95F117E423FD04B400EB99B4 /* SpecificBoomerangOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F117E323FD04B400EB99B4 /* SpecificBoomerangOptions.swift */; };
 		AB8ACBA225496B14EAAC36D8 /* Pods_SocialCAM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FFDFF034EAEBD1B2183306F /* Pods_SocialCAM.framework */; };
 /* End PBXBuildFile section */
 
@@ -1258,6 +1260,8 @@
 		954DB1E723D9C30000B0A9C4 /* NSNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSNotification.swift; sourceTree = "<group>"; };
 		95A405AC23BF78CF00AD38C4 /* SpecificBoomerangViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpecificBoomerangViewController.swift; sourceTree = "<group>"; };
 		95A405AD23BF78D000AD38C4 /* SpecificBoomerangWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpecificBoomerangWriter.swift; sourceTree = "<group>"; };
+		95BFD43123FE93D60066BA3C /* SocialCamWaterMark.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = SocialCamWaterMark.gif; sourceTree = "<group>"; };
+		95F117E323FD04B400EB99B4 /* SpecificBoomerangOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecificBoomerangOptions.swift; sourceTree = "<group>"; };
 		AE9BFF67272EC1BDDCE4E0E4 /* Pods-SocialCamShare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialCamShare.debug.xcconfig"; path = "Target Support Files/Pods-SocialCamShare/Pods-SocialCamShare.debug.xcconfig"; sourceTree = "<group>"; };
 		B327FA3B2FE684E9DDB692D6 /* Pods-SocialCAM.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialCAM.debug.xcconfig"; path = "Target Support Files/Pods-SocialCAM/Pods-SocialCAM.debug.xcconfig"; sourceTree = "<group>"; };
 		F1337973486C796BCC18FFCD /* Pods-SocialCamShare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialCamShare.release.xcconfig"; path = "Target Support Files/Pods-SocialCamShare/Pods-SocialCamShare.release.xcconfig"; sourceTree = "<group>"; };
@@ -2128,6 +2132,7 @@
 			children = (
 				95A405AC23BF78CF00AD38C4 /* SpecificBoomerangViewController.swift */,
 				95A405AD23BF78D000AD38C4 /* SpecificBoomerangWriter.swift */,
+				95F117E323FD04B400EB99B4 /* SpecificBoomerangOptions.swift */,
 				82D1EC7F23703DE100A680E7 /* PhotoEditorViewController.swift */,
 				82D1EC7D23703DE100A680E7 /* PhotoEditorViewController+Actions.swift */,
 				82D1EC7C23703DE000A680E7 /* PhotoEditorViewController+Delegates.swift */,
@@ -2220,6 +2225,7 @@
 			isa = PBXGroup;
 			children = (
 				82B5C23823EBD92A00841B5B /* SocialCam.entitlements */,
+				95BFD43123FE93D60066BA3C /* SocialCamWaterMark.gif */,
 				824EB37B2361959800205993 /* AppDelegate.swift */,
 				82D1EBA0236FECFA00A680E7 /* Delegates */,
 				8205FB7F236C2057002B2603 /* Cells */,
@@ -2844,6 +2850,7 @@
 				82CA3E4D23D98F2200DD48B8 /* GameGridCell.xib in Resources */,
 				8205FB82236C205E002B2603 /* ImageCollectionViewCell.xib in Resources */,
 				8205FD8E236C3B2C002B2603 /* TagVC.xib in Resources */,
+				95BFD43223FE93D70066BA3C /* SocialCamWaterMark.gif in Resources */,
 				8205FB63236C1D0F002B2603 /* ReactionSummaryLocalizable.stringsdict in Resources */,
 				820B1F4023CC85B300CB6DDE /* Icon-2@2x.png in Resources */,
 				82D1EBDD236FF29B00A680E7 /* MensionCollectionViewCell.xib in Resources */,
@@ -3233,6 +3240,7 @@
 				82D1EBD9236FF23D00A680E7 /* SketchView.swift in Sources */,
 				8205FBC5236C2A88002B2603 /* MMPlayer+UIView+Load.swift in Sources */,
 				828D14FD238E56790011A6CC /* TiktokClass.swift in Sources */,
+				95F117E423FD04B400EB99B4 /* SpecificBoomerangOptions.swift in Sources */,
 				8205FD64236C3B06002B2603 /* EditMenuControlView.swift in Sources */,
 				8205FD46236C3B06002B2603 /* BlurredMask.swift in Sources */,
 				8205FCC1236C3AFA002B2603 /* CollageViewT408.swift in Sources */,
