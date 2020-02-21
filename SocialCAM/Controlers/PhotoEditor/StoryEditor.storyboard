@@ -337,7 +337,7 @@
                                                 <rect key="frame" x="0.0" y="150" width="110.66666666666667" height="40"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dRi-Ja-cb7">
-                                                        <rect key="frame" x="0.0" y="0.0" width="110.66666666666667" height="48"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="110.66666666666667" height="44"/>
                                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <state key="normal" image="iconTrim"/>
                                                         <state key="selected" image="addNewMusic"/>
@@ -2021,7 +2021,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="3">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleColor" name="quetag_darkSkyBlue"/>
                                 </state>
                                 <connections>
                                     <action selector="onChangeBoomerangSeconds:" destination="mcN-sd-jUR" eventType="touchUpInside" id="7GO-Ua-lyD"/>
@@ -2035,7 +2035,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="3">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleColor" name="hashtag_lightGold"/>
                                 </state>
                                 <connections>
                                     <action selector="onChangeBoomerangLoop:" destination="mcN-sd-jUR" eventType="touchUpInside" id="Rqn-bh-Vgn"/>
@@ -2049,7 +2049,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="2x">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleColor" name="storytag_watermelon"/>
                                 </state>
                                 <connections>
                                     <action selector="onChangeBoomerangSpeedScale:" destination="mcN-sd-jUR" eventType="touchUpInside" id="WCd-Qk-Sjv"/>
@@ -2151,6 +2151,7 @@
                         <outlet property="changeModeButton" destination="Xfw-SJ-pOV" id="gak-4M-zXY"/>
                         <outlet property="changeSecondsButton" destination="wfw-TO-bE2" id="0SY-K7-HZw"/>
                         <outlet property="changeSpeedButton" destination="RPp-ge-5F3" id="jcB-H5-dhS"/>
+                        <outlet property="deleteButton" destination="CVt-fP-vyG" id="gCO-iI-HgP"/>
                         <outlet property="playPauseButton" destination="NUb-0m-jXv" id="T5E-sp-mc4"/>
                         <outlet property="timePointerView" destination="eDv-1s-dfW" id="KeT-Lo-dtM"/>
                         <outlet property="trimmerSuperView" destination="9fC-hj-83k" id="9Zc-ey-hrp"/>
@@ -2346,6 +2347,15 @@
         </namedColor>
         <namedColor name="AppWhiteColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="hashtag_lightGold">
+            <color red="0.98039215686274506" green="0.85098039215686272" blue="0.38039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="quetag_darkSkyBlue">
+            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="storytag_watermelon">
+            <color red="0.96470588235294119" green="0.30980392156862746" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

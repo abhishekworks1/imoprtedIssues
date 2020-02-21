@@ -30,6 +30,11 @@ class SpecificBoomerangViewController: UIViewController {
     @IBOutlet weak var changeLoopButton: UIButton!
     @IBOutlet weak var changeModeButton: UIButton!
     @IBOutlet weak var changeSecondsButton: UIButton!
+    @IBOutlet weak var deleteButton: UIButton! {
+        didSet {
+            deleteButton.isHidden = true
+        }
+    }
 
     private var timeObserver: Any?
     
@@ -347,6 +352,7 @@ class SpecificBoomerangViewController: UIViewController {
         }
         addBoomerangView()
         resetBoomerangOptions()
+        deleteButton.isHidden = boomerangValues.count == 1
         let maxCount = Int(asset.duration.seconds/15) + 1
         let shouldHide = boomerangValues.count == 5 ? true : boomerangValues.count == maxCount
         hideAddBoomerangButton(hide: shouldHide)
@@ -457,6 +463,7 @@ class SpecificBoomerangViewController: UIViewController {
         boomerangValues[safe: 0]?.isSelected = true
         let maxCount = Int(asset.duration.seconds/15) + 1
         hideAddBoomerangButton(hide: boomerangValues.count == maxCount)
+        deleteButton.isHidden = boomerangValues.count == 1
         changeBoomerangOptions()
         self.player?.rate = 1.0
     }
