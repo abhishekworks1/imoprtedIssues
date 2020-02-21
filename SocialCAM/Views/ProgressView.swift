@@ -128,7 +128,6 @@ class ProgressView: UIProgressView {
             let xValue = self.progress * Float(self.frame.size.width)
             roundView?.center = CGPoint(x: CGFloat(xValue), y: self.frame.size.height/2.0)
             roundView?.isHidden = false
-            
         } else if sender.state == .changed {
             let xValue = sender.location(in: self).x
             let progress = xValue / self.width
@@ -173,7 +172,7 @@ class ProgressView: UIProgressView {
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.resumeProgress()
-            self.roundView?.isHidden = true
+            self.roundView?.isHidden = false
             if let delegate = self.delegate {
                 delegate.resumePlayer()
             }

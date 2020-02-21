@@ -1155,7 +1155,11 @@ extension StoryEditorViewController: ProgressViewDelegate {
     }
     
     func seekPlayerToTime(currentTime: TimeInterval) {
-        storyEditors[currentStoryIndex].seekTime = CMTime(value: CMTimeValue.init(currentTime*1000000000), timescale: 1000000000)
+        guard let asset = currentVideoAsset else {
+            return
+        }
+        let currentTime = CMTimeMakeWithSeconds(currentTime, preferredTimescale: asset.duration.timescale)
+        storyEditors[currentStoryIndex].seekTime = currentTime
         self.onPlaybackTimeChecker()
     }
     

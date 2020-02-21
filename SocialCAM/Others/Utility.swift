@@ -54,6 +54,7 @@ public struct Utils {
             do {
                 try Folder.home.createSubfolderIfNeeded(withName: Constant.Application.splashImagesFolderName)
                 try Folder.home.subfolder(named: Constant.Application.splashImagesFolderName).createFile(named: url.lastPathComponent).write(data: data)
+                completion(url.lastPathComponent)
             } catch {
                 
             }

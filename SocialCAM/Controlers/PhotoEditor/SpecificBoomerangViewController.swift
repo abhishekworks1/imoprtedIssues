@@ -286,38 +286,38 @@ class SpecificBoomerangViewController: UIViewController {
     }
     
     @IBAction func onChangeBoomerangSpeedScale(_ sender: UIButton) {
-        showPopOverMenu(sender: sender, options: speedOptions.displayOptions, selectedOption: speedOptions.selectedOption.displayText) { selectedIndex in
+        showPopOverMenu(sender: sender, options: speedOptions.displayOptions, selectedOption: speedOptions.selectedOption?.displayText ?? "") { selectedIndex in
             self.speedOptions.selectedIndex = selectedIndex
-            self.changeSpeedButton.setTitle(self.speedOptions.selectedOption.displayText, for: .normal)
-            self.boomerangValues.filter({ return $0.isSelected })[safe: 0]?.speedScale = self.speedOptions.selectedOption.value
+            self.changeSpeedButton.setTitle(self.speedOptions.selectedOption?.displayText, for: .normal)
+            self.boomerangValues.filter({ return $0.isSelected })[safe: 0]?.speedScale = self.speedOptions.selectedOption!.value
             self.resetBoomerangOptions()
         }
     }
     
     @IBAction func onChangeBoomerangLoop(_ sender: UIButton) {
-        showPopOverMenu(sender: sender, options: loopOptions.displayOptions, selectedOption: loopOptions.selectedOption.displayText) { selectedIndex in
+        showPopOverMenu(sender: sender, options: loopOptions.displayOptions, selectedOption: loopOptions.selectedOption?.displayText ?? "") { selectedIndex in
             self.loopOptions.selectedIndex = selectedIndex
-            let selectedValue = self.loopOptions.selectedOption.displayText.split(separator: " ")[safe: 0] ?? ""
+            let selectedValue = self.loopOptions.selectedOption?.displayText.split(separator: " ")[safe: 0] ?? ""
             self.changeLoopButton.setTitle(String(selectedValue), for: .normal)
-            self.boomerangValues.filter({ return $0.isSelected })[safe: 0]?.maxLoopCount = self.loopOptions.selectedOption.value
+            self.boomerangValues.filter({ return $0.isSelected })[safe: 0]?.maxLoopCount = self.loopOptions.selectedOption!.value
             self.resetBoomerangOptions()
         }
     }
     
     @IBAction func onChangeBoomerangSeconds(_ sender: UIButton) {
-        showPopOverMenu(sender: sender, options: secondOptions.displayOptions, selectedOption: secondOptions.selectedOption.displayText) { selectedIndex in
+        showPopOverMenu(sender: sender, options: secondOptions.displayOptions, selectedOption: secondOptions.selectedOption?.displayText ?? "") { selectedIndex in
             self.secondOptions.selectedIndex = selectedIndex
-            let selectedValue = self.secondOptions.selectedOption.displayText.split(separator: " ")[safe: 0] ?? ""
+            let selectedValue = self.secondOptions.selectedOption!.displayText.split(separator: " ")[safe: 0] ?? ""
             self.changeSecondsButton.setTitle(String(selectedValue), for: .normal)
-            self.boomerangValues.filter({ return $0.isSelected })[safe: 0]?.maxTime = self.secondOptions.selectedOption.value
+            self.boomerangValues.filter({ return $0.isSelected })[safe: 0]?.maxTime = self.secondOptions.selectedOption!.value
             self.resetBoomerangOptions()
         }
     }
     
     @IBAction func onChangeMode(_ sender: UIButton) {
-        showPopOverMenu(sender: sender, options: modeOptions.displayOptions, selectedOption: modeOptions.selectedOption.displayText) { selectedIndex in
+        showPopOverMenu(sender: sender, options: modeOptions.displayOptions, selectedOption: modeOptions.selectedOption?.displayText ?? "") { selectedIndex in
             self.modeOptions.selectedIndex = selectedIndex
-            let needToReverse = self.modeOptions.selectedOption.value
+            let needToReverse = self.modeOptions.selectedOption?.value ?? false
             let image = needToReverse ? R.image.reverseBoom() : R.image.reverseBoomSelected()
             self.changeModeButton.setImage(image, for: .normal)
             self.boomerangValues.filter({ return $0.isSelected })[safe: 0]?.needToReverse = needToReverse
