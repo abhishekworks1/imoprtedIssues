@@ -42,6 +42,15 @@ class Defaults {
         }
     }
     
+    var bannerImageURLs: [String]? {
+        get {
+            return appDefaults?.value(forKey: "bannerImageURLs") as? [String]
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "bannerImageURLs")
+        }
+    }
+    
     var currentUser: User? {
         get {
             if let loggedUser = appDefaults?.object(forKey: "loggedUser") as? Data {

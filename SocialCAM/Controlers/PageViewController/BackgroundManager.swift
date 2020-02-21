@@ -13,6 +13,8 @@ open class BackgroundManager: NSObject {
     
     static let shared: BackgroundManager = BackgroundManager()
    
+    var imageURLs: [String] = Defaults.shared.bannerImageURLs ?? []
+    
     public override init() {
         super.init()
         getSplashImages()
@@ -41,7 +43,17 @@ open class BackgroundManager: NSObject {
             guard let splashImages = responce.result else {
                 return
             }
-            self.saveImages(splashImages)
+            self.imageURLs.removeAll()
+            for splashImage in splashImages {
+                if let splashImageType = splashImage.type, splashImageType == .post, let imageURLs = splashImage.imageArray {
+                    for imageURL in imageURLs {
+                        self.imageURLs.append(imageURL)
+                    }
+                }
+            }
+            
+            Defaults.shared.bannerImageURLs = self.imageURLs
+            AppEventBus.post("ReloadBanner")
         }, onError: { error in
             print(error)
         }, onCompleted: {

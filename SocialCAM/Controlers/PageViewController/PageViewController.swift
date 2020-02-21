@@ -52,15 +52,16 @@ class PageViewController: PageboyViewController {
     }
     
     func changeBackgroundImage() {
-        for image in BackgroundManager.shared.changeBackgroundImage() {
+        for imageString in BackgroundManager.shared.imageURLs {
             let viewController = UIViewController()
-            let imageView = UIImageView.init(image: image)
-            imageView.frame = viewController.view.frame
+            let imageView = UIImageView.init(frame: viewController.view.frame)
+            imageView.setImageFromURL(imageString, placeholderImage: nil)
             imageView.contentMode = .scaleToFill
             viewController.view.addSubview(imageView)
             pageControllers.append(viewController)
         }
         reloadData()
+        self.isScrollEnabled = BackgroundManager.shared.imageURLs.count == 0 ? false : true
     }
     
 }

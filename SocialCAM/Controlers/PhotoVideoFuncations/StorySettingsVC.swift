@@ -324,6 +324,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 StorySettings.storySettings[0].settings[1].selected = true
                 self.settingsTableView.reloadData()
                 self.navigationController?.popViewController(animated: true)
+                Utils.appDelegate?.window?.makeToast(R.string.localizable.basicModeIsEnabled())
                 return
             }
             self.view.makeToast(R.string.localizable.pleaseEnterValidCode())

@@ -36,7 +36,7 @@ class StoryCameraViewNavigationController: UINavigationController, UINavigationC
         if viewControllers.count > 1 {
             self.parentPageViewController?.isScrollEnabled = false
         } else {
-            self.parentPageViewController?.isScrollEnabled = BackgroundManager.shared.changeBackgroundImage().count == 0 ? false : true
+            self.parentPageViewController?.isScrollEnabled = BackgroundManager.shared.imageURLs.count == 0 ? false : true
         }
     }
     
