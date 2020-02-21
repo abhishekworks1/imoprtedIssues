@@ -81,7 +81,10 @@ class StoryCameraViewController: UIViewController {
     
     @IBOutlet weak var speedSliderView: UIView!
     @IBOutlet weak var closeButton: UIButton!
+    
     @IBOutlet weak var slowFastVerticalBar: UIView!
+    @IBOutlet weak var verticalLines: VerticalBar!
+    
     @IBOutlet weak var enableMicrophoneButton: UIButton!
     @IBOutlet weak var enableCameraButton: UIButton!
     @IBOutlet weak var enableAccessView: UIView!
@@ -448,6 +451,8 @@ class StoryCameraViewController: UIViewController {
         self.view.isMultipleTouchEnabled = true
         bottomCameraViews.addGestureRecognizer(panRecognizer)
         volumeButtonHandler()
+        changeModeHandler()
+        dynamicSetSlowFastVerticalBar()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -477,8 +482,9 @@ class StoryCameraViewController: UIViewController {
         }
         self.reloadUploadViewData()
         self.stopMotionCollectionView.reloadData()
-        speedSlider.isHidden = Defaults.shared.appMode == .free
-        speedSliderView.isHidden = Defaults.shared.appMode == .free
+        // Todo : Next Release need to remove speedSlider for free user
+//        speedSlider.isHidden = Defaults.shared.appMode == .free
+//        speedSliderView.isHidden = Defaults.shared.appMode == .free
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -505,6 +511,58 @@ class StoryCameraViewController: UIViewController {
     deinit {
         NotificationCenter.default.removeObserver(self)
         print("Deinit \(self.description)")
+    }
+    
+    func dynamicSetSlowFastVerticalBar() {
+        var speedOptions = ["-3x", "-2x", "1x", "2x", "3x"]
+        switch Defaults.shared.appMode {
+        case .free:
+            verticalLines.numberOfViews = .speed3x
+            speedSliderLabels.names = speedOptions
+            speedSliderLabels.value = 2
+            speedSlider.ticksListener = speedSliderLabels
+            speedSlider.tickCount = speedOptions.count
+            speedSlider.value = 2
+        case .basic:
+            speedOptions.append("4x")
+            speedOptions.insert("-4x", at: 0)
+            verticalLines.numberOfViews = .speed4x
+            speedSliderLabels.names = speedOptions
+            speedSliderLabels.value = 3
+            speedSlider.ticksListener = speedSliderLabels
+            speedSlider.tickCount = speedOptions.count
+            speedSlider.value = 3
+        default:
+            speedOptions.append(contentsOf: ["4x", "5x"])
+            speedOptions.insert(contentsOf: ["-4x", "-5x"], at: 0)
+            
+            verticalLines.numberOfViews = .speed5x
+            speedSliderLabels.names = speedOptions
+            speedSliderLabels.value = 4
+            speedSlider.ticksListener = speedSliderLabels
+            speedSlider.tickCount = speedOptions.count
+            speedSlider.value = 4
+        }
+    }
+    
+    func changeModeHandler() {
+        AppEventBus.onMainThread(self, name: "changeMode") { [weak self] _ in
+            guard let `self` = self else {
+                return
+            }
+            var basicCameraModeArray = self.cameraModeArray
+            if Defaults.shared.appMode == .free {
+                Defaults.shared.cameraMode = .normal
+                self.recordingType = Defaults.shared.cameraMode
+                basicCameraModeArray.removeLast()
+                self.selectedSegmentLengthValue = SelectedTimer(value: "30", selectedRow: (self.segmentLengthOptions.count - 8))
+                self.selectedSegmentLengthValue.saveWithKey(key: "selectedSegmentLengthValue")
+                self.setCameraSettings()
+            }
+            self.cameraSliderView.stringArray = basicCameraModeArray
+            self.cameraSliderView.selectCell = Defaults.shared.cameraMode.rawValue
+            self.dynamicSetSlowFastVerticalBar()
+        }
     }
 }
 
@@ -625,7 +683,11 @@ extension StoryCameraViewController {
     
     func setupLayoutCameraSliderView() {
         self.timerValueView.isHidden = !self.isUserTimerValueChange
-        cameraSliderView.stringArray = cameraModeArray
+        var basicCameraModeArray = self.cameraModeArray
+        if Defaults.shared.appMode == .free {
+            basicCameraModeArray.removeLast()
+        }
+        cameraSliderView.stringArray = basicCameraModeArray
         cameraSliderView.bottomImage = R.image.cameraModeSelect()
         cameraSliderView.cellTextColor = .white
         cameraSliderView.currentCell = { [weak self] (index) in
@@ -1100,7 +1162,8 @@ extension StoryCameraViewController {
         }
         self.isMute ? muteButton.startBlink(0.5) : muteButton.stopBlink()
         self.view.bringSubviewToFront(slowFastVerticalBar.superview ?? UIView())
-        slowFastVerticalBar.isHidden = Defaults.shared.appMode == .free
+        // Todo : Next Release need to remove VerticalBar for free user
+//        slowFastVerticalBar.isHidden = Defaults.shared.appMode == .free
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
             self.circularProgress.trackThickness = 0.75*1.5
             self.circularProgress.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
@@ -1319,7 +1382,28 @@ extension StoryCameraViewController {
             }
         } else {
             let currentVideoSeconds = self.videoSegmentSeconds
-            if !self.isStopConnVideo && currentVideoSeconds*CGFloat(self.takenVideoUrls.count) < 240 {
+            
+            var isVideoStop: Bool = false
+            switch Defaults.shared.appMode {
+            case .free:
+                if currentVideoSeconds*CGFloat(self.takenVideoUrls.count) >= 30 || (takenVideoUrls.count >= 1) {
+                    isVideoStop = true
+                }
+            case .basic:
+                if currentVideoSeconds*CGFloat(self.takenVideoUrls.count) >= 60 || (takenVideoUrls.count >= 4) {
+                    isVideoStop = true
+                }
+            case .advanced:
+                if currentVideoSeconds*CGFloat(self.takenVideoUrls.count) >= 180 || (takenVideoUrls.count >= 10) {
+                    isVideoStop = true
+                }
+            default:
+                if currentVideoSeconds*CGFloat(self.takenVideoUrls.count) >= 240 || (takenVideoUrls.count >= 15) {
+                    isVideoStop = true
+                }
+            }
+            
+            if !self.isStopConnVideo && !isVideoStop {
                 if (self.recordingType == .handsfree || self.recordingType == .timer) && self.pauseTimerValue > 0 && !nextLevel.isRecording {
                     self.displayCountDown(self.pauseTimerValue)
                 } else {

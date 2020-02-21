@@ -191,6 +191,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             if indexPath.row == 0 {
                 Defaults.shared.appMode = .free
                 self.settingsTableView.reloadData()
+                AppEventBus.post("changeMode")
             } else if indexPath.row == 1 {
                 isProEnable()
             }
@@ -315,7 +316,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             #if DEBUG
             textField.text = Constant.Application.proModeCode
             #endif
-            textField.placeholder = R.string.localizable.enterYourUniqueCodeToActivateTheLevel()
+            textField.placeholder = R.string.localizable.enterYourUniqueCodeToEnableBasicMode()
         }
         let actionSave = UIAlertAction(title: R.string.localizable.oK(), style: .default) { ( _: UIAlertAction) in
             if let textField = objAlert.textFields?[0],
@@ -323,6 +324,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 Defaults.shared.appMode = .basic
                 StorySettings.storySettings[0].settings[1].selected = true
                 self.settingsTableView.reloadData()
+                AppEventBus.post("changeMode")
                 self.navigationController?.popViewController(animated: true)
                 Utils.appDelegate?.window?.makeToast(R.string.localizable.basicModeIsEnabled())
                 return

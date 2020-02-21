@@ -69,7 +69,7 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
         let objAlert = UIAlertController(title: Constant.Application.displayName, message: !Defaults.shared.isPro ? R.string.localizable.areYouSureYouWantToEnablePro() : R.string.localizable.areYouSureYouWantToDisablePro(), preferredStyle: .alert)
         if !Defaults.shared.isPro {
             objAlert.addTextField { (textField: UITextField) -> Void in
-                textField.placeholder = R.string.localizable.enterYourUniqueCodeToActivateTheLevel()
+                textField.placeholder = R.string.localizable.enterYourUniqueCodeToEnableBasicMode()
             }
         }
         let actionSave = UIAlertAction(title: R.string.localizable.oK(), style: .default) { ( _: UIAlertAction) in

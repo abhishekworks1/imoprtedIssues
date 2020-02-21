@@ -145,12 +145,17 @@ class CollageMakerVC: UIViewController, UIGestureRecognizerDelegate {
         case 5:
             index = 31
         case 6:
-            index = 37
+            index = Defaults.shared.appMode == .free ? 31 : 37
         case 7, 8:
-            index = 39
+            index = Defaults.shared.appMode == .free ? 31 : 39
         default:
-            index = 39
+            index = Defaults.shared.appMode == .free ? 31 : 39
         }
+        
+        if Defaults.shared.appMode == .free {
+            collageImagesItems.removeLast(4)
+        }
+        
         collectViewSet(index: index)
         
         let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress(_:)))

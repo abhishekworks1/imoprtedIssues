@@ -13,11 +13,11 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="HomeTableViewCellWithCollectionView" id="rgo-Oh-2hW" customClass="HomeTableViewCellWithCollectionView" customModule="SocialCam" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="352" height="352"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="rgo-Oh-2hW" id="Yxf-0N-MiQ">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rgo-Oh-2hW" id="Yxf-0N-MiQ">
                 <rect key="frame" x="0.0" y="0.0" width="352" height="352"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v3V-ZB-oQd">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v3V-ZB-oQd">
                         <rect key="frame" x="15" y="20" width="322" height="310"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="iti-VE-GP9">
@@ -47,7 +47,7 @@
                 <constraints>
                     <constraint firstItem="v3V-ZB-oQd" firstAttribute="leading" secondItem="Yxf-0N-MiQ" secondAttribute="leading" constant="15" id="DQQ-is-6WO"/>
                     <constraint firstItem="v3V-ZB-oQd" firstAttribute="top" secondItem="Yxf-0N-MiQ" secondAttribute="top" constant="20" id="ZxH-In-H6S"/>
-                    <constraint firstAttribute="bottom" secondItem="v3V-ZB-oQd" secondAttribute="bottom" id="sTG-mc-xHs"/>
+                    <constraint firstAttribute="bottom" secondItem="v3V-ZB-oQd" secondAttribute="bottom" priority="749" id="sTG-mc-xHs"/>
                     <constraint firstAttribute="trailing" secondItem="v3V-ZB-oQd" secondAttribute="trailing" constant="15" id="w9U-IW-dBU"/>
                 </constraints>
             </tableViewCellContentView>

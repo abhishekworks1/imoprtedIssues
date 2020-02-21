@@ -64,7 +64,6 @@ public class ImageAsset: Equatable {
     public let asset: PHAsset!
     public var selectedOrder: Int = 0
     public var assetType: AssetType = .image
-    public var videoUrl: URL?
     public var thumbImage: UIImage = UIImage()
     
     // MARK: - Initialization
@@ -77,6 +76,25 @@ public class ImageAsset: Equatable {
             assetType = .video
         } else {
             assetType = .image
+        }
+    }
+    
+    /// Fetch thumbnail image for this video asynchronoulys
+    ///
+    /// - Parameter size: The preferred size
+    /// - Parameter completion: Called when finish
+    public func fetchThumbnail(size: CGSize = CGSize(width: 100, height: 100), completion: @escaping (UIImage?) -> Void) {
+        let options = PHImageRequestOptions()
+        options.isNetworkAccessAllowed = true
+        
+        PHImageManager.default().requestImage(
+            for: asset,
+            targetSize: size,
+            contentMode: .aspectFill,
+            options: options) { image, _ in
+                DispatchQueue.main.async {
+                    completion(image)
+                }
         }
     }
     
@@ -112,7 +130,7 @@ public class ImageAsset: Equatable {
         guard let phAsset = self.asset else { return nil }
         return cloudImageDownload(asset: phAsset, progressBlock: progressBlock, completionBlock: completionBlock)
     }
-
+    
     public func photoSize(options: PHImageRequestOptions? = nil, completion: @escaping ((Int) -> Void), livePhotoVideoSize: Bool = false) {
         guard let phAsset = self.asset, self.assetType == .image else {
             completion(-1)
@@ -170,7 +188,7 @@ public class ImageAsset: Equatable {
             }
         }
     }
-
+    
     @discardableResult
     //convertLivePhotosToJPG
     // false : If you want mov file at live photos
@@ -382,7 +400,6 @@ public class ImageAsset: Equatable {
             checkExportSession()
         }
     }
-
 }
 
 class ImageAlbum {

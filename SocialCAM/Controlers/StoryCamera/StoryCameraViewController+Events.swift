@@ -510,18 +510,25 @@ extension StoryCameraViewController: PickerViewDelegate {
 extension StoryCameraViewController: PickerViewDataSource {
     
     public func pickerViewNumberOfRows(_ pickerView: PickerView) -> Int {
-        
         switch timerType {
         case .timer:
             return timerOptions.count
         case .pauseTimer:
             return pauseTimerOptions.count
         case .segmentLength:
-            return segmentLengthOptions.count
+            switch Defaults.shared.appMode {
+            case .free:
+                return segmentLengthOptions.count - 7
+            case .basic:
+                return segmentLengthOptions.count - 6
+            case .advanced:
+                return segmentLengthOptions.count - 2
+            default:
+                return segmentLengthOptions.count
+            }
         case .photoTimer:
             return photoTimerOptions.count
         }
-        
     }
     
     public func pickerView(_ pickerView: PickerView, titleForRow row: Int, index: Int) -> String {

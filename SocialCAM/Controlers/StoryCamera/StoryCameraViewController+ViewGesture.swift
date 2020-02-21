@@ -91,11 +91,6 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             self.panStartPoint = gestureRecognizer.location(in: self.view)
             self.panStartZoom = CGFloat(nextLevel.videoZoomFactor)
         case .changed:
-            
-            let translation = gestureRecognizer.location(in: circularProgress)
-            circularProgress.center = CGPoint(x: circularProgress.center.x + translation.x - 35,
-                                              y: circularProgress.center.y + translation.y - 35)
-            
             let newPoint = gestureRecognizer.location(in: self.view)
             
             let zoomEndPoint: CGFloat = self.view.center.y - 50.0
@@ -103,113 +98,154 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             var newZoom = CGFloat(maxZoom) - ((zoomEndPoint - newPoint.y) / (zoomEndPoint - self.panStartPoint.y) * CGFloat(maxZoom))
             newZoom += lastZoomFactor
             let minZoom = max(1.0, newZoom)
-            nextLevel.videoZoomFactor = Float(minZoom)
+            
+            switch Defaults.shared.appMode {
+            case .free:
+                return
+                break
+            default:
+                let translation = gestureRecognizer.location(in: circularProgress)
+                circularProgress.center = CGPoint(x: circularProgress.center.x + translation.x - 35,
+                                                  y: circularProgress.center.y + translation.y - 35)
+                nextLevel.videoZoomFactor = Float(minZoom)
+            }
             self.zoomSlider.value = Float(minZoom)
             
-            let normalPart = (UIScreen.main.bounds.width * CGFloat(90)) / 375
-            let screenPart = Int((UIScreen.main.bounds.width - normalPart) / 6)
+            var speedOptions: [StoryCameraSpeedValue] = [.slow3x, .slow2x, .normal, .normal, .fast2x, .fast3x]
+            switch Defaults.shared.appMode {
+            case .free:
+                break
+            case .basic:
+                speedOptions.append(.fast4x)
+                speedOptions.insert(.slow4x, at: 0)
+            default:
+                speedOptions.append(contentsOf: [.fast4x, .fast5x])
+                speedOptions.insert(contentsOf: [.slow4x, .slow5x], at: 0)
+            }
+            
+            let currentValue = checkValue(values: speedOptions, newPoint.x)
             
             if recordingType != .boomerang {
-                if abs((Int(self.panStartPoint.x) - Int(newPoint.x))) > 28 {
-                    var difference = abs((Int(self.panStartPoint.x) - Int(newPoint.x)))
-                    if (Int(self.panStartPoint.x) - Int(newPoint.x)) > 0 {
-                        difference -= 28
-                        if difference > (screenPart*2) {
-                            if videoSpeedType != VideoSpeedType.slow(scaleFactor: 4.0) {
-                                DispatchQueue.main.async {
-                                    if Defaults.shared.appMode != .free {
-                                        self.nextLevel.videoConfiguration.timescale = 4
-                                        self.setSpeed(type: .slow(scaleFactor: 4.0),
-                                                      value: 0,
-                                                      text: R.string.localizable.slow4x())
-                                    } else {
-                                        self.setNormalSpeed()
-                                    }
-                                }
-                            }
-                        } else if difference > screenPart {
-                            if videoSpeedType != VideoSpeedType.slow(scaleFactor: 3.0) {
-                                DispatchQueue.main.async {
-                                    if Defaults.shared.appMode != .free {
-                                        self.nextLevel.videoConfiguration.timescale = 3
-                                        self.setSpeed(type: .slow(scaleFactor: 3.0),
-                                                      value: 1,
-                                                      text: R.string.localizable.slow3x())
-                                    } else {
-                                        self.setNormalSpeed()
-                                    }
-                                }
-                            }
-                        } else {
-                            if videoSpeedType != VideoSpeedType.slow(scaleFactor: 2.0) {
-                                DispatchQueue.main.async {
-                                    if Defaults.shared.appMode != .free {
-                                        self.nextLevel.videoConfiguration.timescale = 2
-                                        self.setSpeed(type: .slow(scaleFactor: 2.0),
-                                                      value: 2,
-                                                      text: R.string.localizable.slow2x())
-                                    } else {
-                                        self.setNormalSpeed()
-                                    }
-                                }
-                            }
-                        }
-                    } else {
-                        if difference > (screenPart*2) {
-                            if videoSpeedType != VideoSpeedType.fast(scaleFactor: 4.0) {
-                                DispatchQueue.main.async {
-                                    if Defaults.shared.appMode != .free {
-                                        self.nextLevel.videoConfiguration.timescale = 1/4
-                                        self.setSpeed(type: .fast(scaleFactor: 4.0),
-                                                      value: 6,
-                                                      text: R.string.localizable.fast4x())
-                                    } else {
-                                        self.setNormalSpeed()
-                                    }
-                                }
-                            }
-                        } else if difference > screenPart {
-                            if videoSpeedType != VideoSpeedType.fast(scaleFactor: 3.0) {
-                                DispatchQueue.main.async {
-                                    if Defaults.shared.appMode != .free {
-                                        self.nextLevel.videoConfiguration.timescale = 1/3
-                                        self.setSpeed(type: .fast(scaleFactor: 3.0),
-                                                      value: 5,
-                                                      text: R.string.localizable.fast3x())
-                                    } else {
-                                        self.setNormalSpeed()
-                                    }
-                                }
-                            }
-                        } else {
-                            if videoSpeedType != VideoSpeedType.fast(scaleFactor: 2.0) {
-                                DispatchQueue.main.async {
-                                    if Defaults.shared.appMode != .free {
-                                        self.nextLevel.videoConfiguration.timescale = 1/2
-                                        self.setSpeed(type: .fast(scaleFactor: 2.0),
-                                                      value: 4,
-                                                      text: R.string.localizable.fast2x())
-                                    } else {
-                                        self.setNormalSpeed()
-                                    }
-                                }
-                            }
+                switch currentValue {
+                case .slow5x:
+                    if videoSpeedType != VideoSpeedType.slow(scaleFactor: 5.0) {
+                        DispatchQueue.main.async {
+                            self.nextLevel.videoConfiguration.timescale = 5
+                            self.setSpeed(type: .slow(scaleFactor: 5.0),
+                                          value: 0,
+                                          text: R.string.localizable.slow5x())
                         }
                     }
-                } else {
-                    if !isSpeedChanged {
-                        if speedSlider.speedType == .normal {
-                            if videoSpeedType != VideoSpeedType.normal {
-                                DispatchQueue.main.async {
-                                    self.setNormalSpeed()
-                                }
-                            }
+                case .slow4x:
+                    if videoSpeedType != VideoSpeedType.slow(scaleFactor: 4.0) {
+                        DispatchQueue.main.async {
+                            self.nextLevel.videoConfiguration.timescale = 4
+                            let value = speedOptions.count % 5 == 0 ? 1 : 0
+                            self.setSpeed(type: .slow(scaleFactor: 4.0),
+                                          value: value,
+                                          text: R.string.localizable.slow4x())
                         }
-                    } else {
-                        if videoSpeedType != VideoSpeedType.normal {
-                            DispatchQueue.main.async {
-                                self.setNormalSpeed()
+                    }
+                case .slow3x:
+                    if videoSpeedType != VideoSpeedType.slow(scaleFactor: 3.0) {
+                        DispatchQueue.main.async {
+                            self.nextLevel.videoConfiguration.timescale = 3
+                            var value = 0
+                            if speedOptions.count % 5 == 0 {
+                                value = 2
+                            } else if speedOptions.count % 4 == 0 {
+                                value = 1
                             }
+                            self.setSpeed(type: .slow(scaleFactor: 3.0),
+                                          value: value,
+                                          text: R.string.localizable.slow3x())
+                        }
+                    }
+                case .slow2x:
+                    if videoSpeedType != VideoSpeedType.slow(scaleFactor: 2.0) {
+                        DispatchQueue.main.async {
+                            self.nextLevel.videoConfiguration.timescale = 2
+                            var value = 1
+                            if speedOptions.count % 5 == 0 {
+                                value = 3
+                            } else if speedOptions.count % 4 == 0 {
+                                value = 2
+                            }
+                            self.setSpeed(type: .slow(scaleFactor: 2.0),
+                                          value: value,
+                                          text: R.string.localizable.slow2x())
+                        }
+                    }
+                case .normal:
+                    if videoSpeedType != VideoSpeedType.normal {
+                        DispatchQueue.main.async {
+                            var value = 2
+                            if speedOptions.count % 5 == 0 {
+                                value = 4
+                            } else if speedOptions.count % 4 == 0 {
+                                value = 3
+                            }
+                            self.setNormalSpeed(selectedValue: value)
+                        }
+                    }
+                case .fast2x:
+                    if videoSpeedType != VideoSpeedType.fast(scaleFactor: 2.0) {
+                        DispatchQueue.main.async {
+                            self.nextLevel.videoConfiguration.timescale = 1/2
+                            var value = 3
+                            if speedOptions.count % 5 == 0 {
+                                value = 5
+                            } else if speedOptions.count % 4 == 0 {
+                                value = 4
+                            }
+                            self.setSpeed(type: .fast(scaleFactor: 2.0),
+                                          value: value,
+                                          text: R.string.localizable.fast2x())
+                        }
+                    }
+                case .fast3x:
+                    if videoSpeedType != VideoSpeedType.fast(scaleFactor: 3.0) {
+                        DispatchQueue.main.async {
+                            self.nextLevel.videoConfiguration.timescale = 1/3
+                            var value = 4
+                            if speedOptions.count % 5 == 0 {
+                                value = 6
+                            } else if speedOptions.count % 4 == 0 {
+                                value = 5
+                            }
+                            self.setSpeed(type: .fast(scaleFactor: 3.0),
+                                          value: value,
+                                          text: R.string.localizable.fast3x())
+                        }
+                    }
+                case .fast4x:
+                    if videoSpeedType != VideoSpeedType.fast(scaleFactor: 4.0) {
+                        DispatchQueue.main.async {
+                            self.nextLevel.videoConfiguration.timescale = 1/4
+                            var value = 5
+                            if speedOptions.count % 5 == 0 {
+                                value = 7
+                            } else if speedOptions.count % 4 == 0 {
+                                value = 6
+                            }
+                            self.setSpeed(type: .fast(scaleFactor: 4.0),
+                                          value: value,
+                                          text: R.string.localizable.fast4x())
+                        }
+                    }
+                case .fast5x:
+                    if videoSpeedType != VideoSpeedType.fast(scaleFactor: 5.0) {
+                        DispatchQueue.main.async {
+                            self.nextLevel.videoConfiguration.timescale = 1/5
+                            var value = 6
+                            if speedOptions.count % 5 == 0 {
+                                value = 8
+                            } else if speedOptions.count % 4 == 0 {
+                                value = 7
+                            }
+                            self.setSpeed(type: .fast(scaleFactor: 5.0),
+                                          value: value,
+                                          text: R.string.localizable.fast5x())
                         }
                     }
                 }
@@ -279,10 +315,10 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
         speedIndicatorViewColorChange()
     }
     
-    func setNormalSpeed() {
+    func setNormalSpeed(selectedValue: Int) {
         self.videoSpeedType = .normal
-        self.speedSliderLabels.value = 3
-        self.speedSlider.value = 3
+        self.speedSliderLabels.value = UInt(selectedValue)
+        self.speedSlider.value = CGFloat(selectedValue)
         self.speedLabel.text = ""
         self.speedLabel.stopBlink()
         nextLevel.videoConfiguration.timescale = 1
@@ -290,13 +326,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
     }
     
     func speedIndicatorViewColorChange() {
-        for view in speedIndicatorView {
-            view.lineColor = ApplicationSettings.appOrangeColor
-            if view.tag == Int(speedSlider.value) {
-                view.lineColor = .red
-            }
-            view.draw(view.frame)
-        }
+        verticalLines.speedIndicatorViewColorChange(index: Int(speedSlider.value))
     }
     
     @objc internal func handlePhotoTapGestureRecognizer(_ gestureRecognizer: UIGestureRecognizer) {
@@ -382,4 +412,29 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
         }
     }
     
+}
+
+enum StoryCameraSpeedValue: String {
+    case slow5x = "-5x"
+    case slow4x = "-4x"
+    case slow3x = "-3x"
+    case slow2x = "-2x"
+    case normal = "1x"
+    case fast2x = "2x"
+    case fast3x = "3x"
+    case fast4x = "4x"
+    case fast5x = "5x"
+}
+
+// values = ["-3x", "2x", "1x", "1x", "2x", "3x"]
+func checkValue(values: [StoryCameraSpeedValue],_ pointX: CGFloat) -> StoryCameraSpeedValue {
+    let screenPart = UIScreen.main.bounds.width / CGFloat(values.count)
+    for (index, value) in values.enumerated() {
+        let multiplyValue = index + 1
+        if pointX < screenPart*CGFloat(multiplyValue) {
+            print(value)
+            return value
+        }
+    }
+    return .normal
 }
