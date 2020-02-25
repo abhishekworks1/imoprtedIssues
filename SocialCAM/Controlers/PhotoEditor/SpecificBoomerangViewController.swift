@@ -50,8 +50,6 @@ class SpecificBoomerangViewController: UIViewController {
     private var exportSession: SpecificBoomerangExportSession?
     private var loadingView: LoadingView?
     private var manuallyPaused = false
-
-    private var exportedURL: URL?
     
     private let maximumSize: CGFloat = 1280
     
@@ -101,9 +99,6 @@ class SpecificBoomerangViewController: UIViewController {
         super.viewDidDisappear(animated)
         stopObservePlayerTime()
         removeObserveState()
-        if let url = self.exportedURL {
-            try? FileManager.default.removeItem(at: url)
-        }
     }
                               
     func observeState() {
@@ -171,9 +166,7 @@ class SpecificBoomerangViewController: UIViewController {
             let totalSeconds = currentAsset.duration.seconds
             let seekSeconds = Double(timePointerView.center.x)*totalSeconds/Double(trimmerView.bounds.width)
             resetBoomerangValues()
-            player?.seekToSeconds(seekSeconds) { finished in
-                self.playPlayer()
-            }
+            player?.seekToSeconds(seekSeconds)
         } else {
             manageBoomerangViewGesture(gesture.view!,
                                        locationX: gesture.location(in: self.view).x)
@@ -286,7 +279,12 @@ class SpecificBoomerangViewController: UIViewController {
     }
     
     @IBAction func onChangeBoomerangSpeedScale(_ sender: UIButton) {
-        showPopOverMenu(sender: sender, options: speedOptions.displayOptions, selectedOption: speedOptions.selectedOption?.displayText ?? "") { selectedIndex in
+        if let selectedBoomerangValue = boomerangValues.filter({ return $0.isSelected })[safe: 0],
+            let index = self.speedOptions.options?.firstIndex(where: { return $0.value == selectedBoomerangValue.speedScale }) {
+            self.speedOptions.selectedIndex = index
+        }
+        
+        showPopOverMenu(sender: sender, options: speedOptions.displayOptions, selectedOption: speedOptions.selectedOption?.displayText ?? "", joinText: R.string.localizable.speed()) { selectedIndex in
             self.speedOptions.selectedIndex = selectedIndex
             self.changeSpeedButton.setTitle(self.speedOptions.selectedOption?.displayText, for: .normal)
             self.boomerangValues.filter({ return $0.isSelected })[safe: 0]?.speedScale = self.speedOptions.selectedOption!.value
@@ -295,6 +293,10 @@ class SpecificBoomerangViewController: UIViewController {
     }
     
     @IBAction func onChangeBoomerangLoop(_ sender: UIButton) {
+        if let selectedBoomerangValue = boomerangValues.filter({ return $0.isSelected })[safe: 0],
+            let index = self.loopOptions.options?.firstIndex(where: { return $0.value == selectedBoomerangValue.maxLoopCount }) {
+            self.loopOptions.selectedIndex = index
+        }
         showPopOverMenu(sender: sender, options: loopOptions.displayOptions, selectedOption: loopOptions.selectedOption?.displayText ?? "") { selectedIndex in
             self.loopOptions.selectedIndex = selectedIndex
             let selectedValue = self.loopOptions.selectedOption?.displayText.split(separator: " ")[safe: 0] ?? ""
@@ -305,6 +307,10 @@ class SpecificBoomerangViewController: UIViewController {
     }
     
     @IBAction func onChangeBoomerangSeconds(_ sender: UIButton) {
+        if let selectedBoomerangValue = boomerangValues.filter({ return $0.isSelected })[safe: 0],
+            let index = self.secondOptions.options?.firstIndex(where: { return $0.value == selectedBoomerangValue.maxTime }) {
+            self.secondOptions.selectedIndex = index
+        }
         showPopOverMenu(sender: sender, options: secondOptions.displayOptions, selectedOption: secondOptions.selectedOption?.displayText ?? "") { selectedIndex in
             self.secondOptions.selectedIndex = selectedIndex
             let selectedValue = self.secondOptions.selectedOption!.displayText.split(separator: " ")[safe: 0] ?? ""
@@ -315,6 +321,10 @@ class SpecificBoomerangViewController: UIViewController {
     }
     
     @IBAction func onChangeMode(_ sender: UIButton) {
+        if let selectedBoomerangValue = boomerangValues.filter({ return $0.isSelected })[safe: 0],
+            let index = self.modeOptions.options?.firstIndex(where: { return $0.value == selectedBoomerangValue.needToReverse }) {
+            self.modeOptions.selectedIndex = index
+        }
         showPopOverMenu(sender: sender, options: modeOptions.displayOptions, selectedOption: modeOptions.selectedOption?.displayText ?? "") { selectedIndex in
             self.modeOptions.selectedIndex = selectedIndex
             let needToReverse = self.modeOptions.selectedOption?.value ?? false
@@ -325,11 +335,11 @@ class SpecificBoomerangViewController: UIViewController {
         }
     }
     
-    func showPopOverMenu(sender: UIView, options: [String], selectedOption: String, done: @escaping (Int) -> Void) {
+    func showPopOverMenu(sender: UIView, options: [String], selectedOption: String, joinText: String = "", done: @escaping (Int) -> Void) {
         BasePopConfiguration.shared.backgoundTintColor = R.color.appWhiteColor()!
         BasePopConfiguration.shared.menuWidth = 120
         BasePopConfiguration.shared.showCheckMark = .checkmark
-        BasePopConfiguration.shared.joinText = ""
+        BasePopConfiguration.shared.joinText = joinText
         BasePopOverMenu
             .showForSender(sender: sender,
                            with: options,
@@ -405,15 +415,16 @@ class SpecificBoomerangViewController: UIViewController {
                                                     timescale: CMTimeScale(maximumFrame))
             avAssetExportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPreset1280x720)
             avAssetExportSession?.videoComposition = videoComposition
-            avAssetExportSession?.outputURL = FileManager.uniqueURL(for: "\(UUID().uuidString).mov")
-            avAssetExportSession?.outputFileType = .mov
+            let outputURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("ScaledVideo.mp4")
+            try? FileManager.default.removeItem(at: outputURL)
+            avAssetExportSession?.outputURL = outputURL
+            avAssetExportSession?.outputFileType = .mp4
             avAssetExportSession?.exportAsynchronously { [weak self] in
                 guard let `self` = self else {
                     return
                 }
                 if avAssetExportSession?.status == .completed,
                     let url = avAssetExportSession?.outputURL {
-                    self.exportedURL = url
                     self.currentAsset = AVAsset(url: url)
                     self.exportBoomerangVideo()
                 }
