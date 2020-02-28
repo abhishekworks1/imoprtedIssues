@@ -29,6 +29,8 @@ class StoryEditorView: UIView {
     
     private var deleteView: UIView?
     
+    public var socialShareView: UIView?
+    
     private var undoView: UIView?
 
     private var storyPlayer: StoryPlayer?
@@ -630,7 +632,7 @@ extension StoryEditorView {
             return
         }
         deleteView?.isHidden = false
-        
+        socialShareView?.isHidden = true
         view.superview?.bringSubviewToFront(view)
         let pointToSuperView = recognizer.location(in: superView)
         
@@ -669,6 +671,8 @@ extension StoryEditorView {
         if recognizer.state == .ended {
             imageViewToPan = nil
             lastPanPoint = nil
+            deleteView?.isHidden = true
+            socialShareView?.isHidden = false
             let point = recognizer.location(in: superview)
             
             if deleteView?.frame.contains(point) ?? false { // Delete the view

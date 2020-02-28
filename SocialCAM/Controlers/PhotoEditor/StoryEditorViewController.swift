@@ -284,7 +284,7 @@ class StoryEditorViewController: UIViewController {
                                                   contentMode: .scaleAspectFit,
                                                   deleteView: deleteView,
                                                   undoView: undoButton)
-            
+            storyEditorView.socialShareView = self.socialShareBottomView
             view.insertSubview(storyEditorView, aboveSubview: mediaImageView)
 
             storyEditorView.center = mediaImageView.center
