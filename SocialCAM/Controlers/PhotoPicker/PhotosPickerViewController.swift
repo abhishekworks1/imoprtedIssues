@@ -58,6 +58,7 @@ struct AssetsCollection {
 
 public protocol PhotosPickerViewControllerDelegate: class {
     func dismissPhotoPicker(withPHAssets: [ImageAsset])
+    func dismissPhotoPicker(withPHAssets: [PHAsset])
     func dismissPhotoPicker(withTLPHAssets: [ImageAsset])
     func dismissComplete()
     func photoPickerDidCancel()
@@ -73,6 +74,7 @@ public protocol PhotosPickerViewControllerDelegate: class {
 extension PhotosPickerViewControllerDelegate {
     public func deninedAuthoization() { }
     public func dismissPhotoPicker(withPHAssets: [ImageAsset]) { }
+    public func dismissPhotoPicker(withPHAssets: [PHAsset]) { }
     public func dismissPhotoPicker(withTLPHAssets: [ImageAsset]) { }
     public func dismissComplete() { }
     public func photoPickerDidCancel() { }
@@ -510,36 +512,59 @@ extension PhotosPickerViewController {
             if !self.selectedAssets.isEmpty {
                 doneButton.isEnabled = false
                 cancelButton.isEnabled = false
-                let exportGroup = DispatchGroup()
-                let exportQueue = DispatchQueue(label: "com.queue.videoQueue")
-                let dispatchSemaphore = DispatchSemaphore(value: 0)
-                
-                self.indicator.startAnimating()
                 let loadingView = LoadingView.instanceFromNib()
                 loadingView.shouldCancelShow = true
                 loadingView.loadingViewShow = true
                 loadingView.show(on: view)
+                
+                self.delegate?.dismissPhotoPicker(withTLPHAssets: self.selectedAssets)
+                self.completionWithTLPHAssets?([self.selectedAssets[0].asset])
+                self.dismiss(animated: false) { [weak self] in
+                    guard let strongSelf = self else { return }
+                    loadingView.hide()
+                    strongSelf.indicator?.stopAnimating()
+                    strongSelf.delegate?.dismissComplete()
+                    strongSelf.dismissCompletion?()
+                }
+                return
+                
+                // ToDo :- Working Code
+                let exportGroup = DispatchGroup()
+                let exportQueue = DispatchQueue(label: "com.queue.videoQueue")
+                let dispatchSemaphore = DispatchSemaphore(value: 0)
+
+                self.indicator.startAnimating()
+                
                 for (index, assests) in self.selectedAssets.enumerated() {
                     exportGroup.enter()
                     if assests.assetType == .video {
                         exportQueue.async {
                             if let asset = assests.asset {
-                                assests.tempCopyMediaFile(asset: asset, convertLivePhotosToJPG: false, progressBlock: { (progress) in
-                                    print(progress)
-                                }, completionBlock: { [weak self] (url, mimeType) in
-                                    print("completion\(url)")
-                                    print(mimeType )
-                                    guard let strongSelf = self else { return }
-                                    strongSelf.selectedAssets[index].videoUrl = url
-                                    strongSelf.selectedAssets[index].thumbImage = UIImage.getThumbnailFrom(videoUrl: url) ?? UIImage()
-                                    
+                                self.selectedAssets[index].fetchThumbnail(completion: { [weak self] (image) in
+                                    self?.selectedAssets[index].thumbImage = image ?? UIImage()
                                     dispatchSemaphore.signal()
-                                    exportGroup.leave()
-                                    }, failBlock: { _ in
-                                        dispatchSemaphore.signal()
+                                    let count = exportGroup.debugDescription.components(separatedBy: ",").filter({$0.contains("count")}).first?.components(separatedBy: CharacterSet.decimalDigits.inverted).compactMap{Int($0)}.first
+                                    if count ?? 0 > 0 {
                                         exportGroup.leave()
+                                    }
                                 })
+                                
                                 dispatchSemaphore.wait()
+                                // ToDo :- Working Code for iCloud Video Load
+//                                assests.tempCopyMediaFile(asset: asset, convertLivePhotosToJPG: false, progressBlock: { (progress) in
+//                                    print(progress)
+//                                }, completionBlock: { [weak self] (url, mimeType) in
+//                                    print("completion\(url)")
+//                                    print(mimeType )
+//                                    guard let strongSelf = self else { return }
+//                                    strongSelf.selectedAssets[index].videoUrl = url
+//
+//                                    dispatchSemaphore.signal()
+//                                    exportGroup.leave()
+//                                    }, failBlock: { _ in
+//                                        dispatchSemaphore.signal()
+//                                        exportGroup.leave()
+//                                })
                             }
                         }
                     } else {

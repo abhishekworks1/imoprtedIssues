@@ -22,6 +22,85 @@ extension ProgressViewDelegate {
     func resumePlayer() { }
 }
 
+protocol PlayerControlViewDelegate: class {
+    func sliderTouchBegin(_ sender: UISlider)
+    func sliderTouchEnd(_ sender: UISlider)
+    func sliderValueChange(_ sender: UISlider)
+}
+
+class VideoSliderView: UIView {
+    
+    weak var delegate: PlayerControlViewDelegate?
+    
+    lazy var timeSlider: UISlider = {
+        let slider = UISlider()
+        slider.value = 0
+        slider.minimumValue = 0
+        slider.maximumValue = 1.0
+        slider.backgroundColor = UIColor.clear
+        slider.contentMode = ContentMode.scaleAspectFit
+        slider.minimumTrackTintColor = ApplicationSettings.appPrimaryColor
+        slider.maximumTrackTintColor = UIColor.clear
+        slider.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .touchDown)
+        slider.translatesAutoresizingMaskIntoConstraints = false
+        slider.setThumbImage(R.image.icoRoundView()?.withImageTintColor(ApplicationSettings.appPrimaryColor), for: .normal)
+        slider.setThumbImage(R.image.icoRoundView()?.withImageTintColor(ApplicationSettings.appPrimaryColor), for: .highlighted)
+        slider.addTarget(self, action: #selector(sliderValueChange(_:)), for: .valueChanged)
+        slider.addTarget(self, action: #selector(sliderAllTouchBegin(_:)), for: .touchDown)
+        slider.addTarget(self, action: #selector(sliderAllTouchEnd(_:)), for: .touchCancel)
+        slider.addTarget(self, action: #selector(sliderAllTouchEnd(_:)), for: .touchUpInside)
+        slider.addTarget(self, action: #selector(sliderAllTouchEnd(_:)), for: .touchUpOutside)
+        return slider
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        addSliderView()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        addSliderView()
+    }
+    
+    func addSliderView() {
+        self.addSubview(timeSlider)
+        timeSlider.heightAnchor.constraint(equalToConstant: 5).isActive = true
+        timeSlider.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
+        timeSlider.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        timeSlider.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+    }
+    
+    var currentTime: Float = 0 {
+        didSet {
+            timeSlider.value = currentTime
+        }
+    }
+    
+    var maximumValue: Float = 0.0 {
+        didSet {
+            timeSlider.maximumValue = maximumValue
+        }
+    }
+    
+    @objc func sliderValueChange(_ sender: UISlider) {
+        delegate?.sliderValueChange(sender)
+    }
+    
+    @objc func sliderAllTouchBegin(_ sender: UISlider) {
+        delegate?.sliderTouchBegin(sender)
+    }
+    
+    @objc func sliderAllTouchEnd(_ sender: UISlider) {
+        delegate?.sliderTouchEnd(sender)
+    }
+    
+    @objc func sliderValueChanged(_ sender: UISlider) {
+        delegate?.sliderValueChange(sender)
+    }
+    
+}
+
 class ProgressView: UIProgressView {
     var timer: Timer?
     var roundView: UIView?

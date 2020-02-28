@@ -169,6 +169,7 @@ class StoryEditorViewController: UIViewController {
     
     @IBOutlet weak var socialShareBottomView: UIView!
     @IBOutlet weak var progressBarView: UIView!
+    @IBOutlet weak var videoProgressBar: VideoSliderView!
     @IBOutlet weak var storyProgressBar: ProgressView!
     @IBOutlet weak var lblStoryTime: UILabel!
     
@@ -194,6 +195,8 @@ class StoryEditorViewController: UIViewController {
     
     private var storyEditors: [StoryEditorView] = []
 
+    private var isVideoPlay: Bool = false
+    
     private var currentStoryIndex = 0
     
     private var editingStack: EditingStack?
@@ -238,7 +241,7 @@ class StoryEditorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupFilterViews()
-        selectedSlideShowMedias = (0...7).map({ _ in StoryEditorMedia(type: .image(UIImage())) })
+        selectedSlideShowMedias = (0...18).map({ _ in StoryEditorMedia(type: .image(UIImage())) })
         var collectionViews: [UIView] = [collectionView]
         if isSlideShow {
             collectionViews.append(slideShowCollectionView)
@@ -252,6 +255,7 @@ class StoryEditorViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         IQKeyboardManager.shared.enableAutoToolbar = false
+        videoProgressBar.layoutSubviews()
         playVideo()
     }
     
@@ -784,15 +788,21 @@ extension StoryEditorViewController {
         }
     }
     
-    @IBAction func playPauseButtonClick(_ sender: AnyObject) {
-        storyEditors[currentStoryIndex].isPlaying ? pauseVideo() : playVideo()
+    @IBAction func playPauseButtonClick(_ sender: UIButton) {
+        isVideoPlay = !isVideoPlay
+        sender.isSelected ? playVideo() : pauseVideo()
     }
     
     func playVideo() {
+        guard !isVideoPlay else {
+            return
+        }
+       
         storyEditors[currentStoryIndex].play()
         playPauseButton.isSelected = false
         nativePlayerPlayPauseButton.isSelected = playPauseButton.isSelected
         startPlaybackTimeChecker()
+        
     }
     
     func pauseVideo() {
@@ -833,7 +843,6 @@ extension StoryEditorViewController {
             })
         }
     }
-    
 }
 
 extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -1001,6 +1010,27 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
             if isSlideShow,
                 let storyEditorView = dataItem as? StoryEditorView,
                 let indexPath = indexPath {
+                var imageData: [UIImage] = []
+                for media in selectedSlideShowMedias {
+                    if case let .image(image) = media.type,
+                        image != UIImage() {
+                        imageData.append(image)
+                    }
+                }
+                var minimumValue: Int = 3
+                switch Defaults.shared.appMode {
+                case .basic:
+                    minimumValue = 8
+                case .advanced:
+                    minimumValue = 12
+                default:
+                    minimumValue = 3
+                }
+                
+                guard imageData.count < minimumValue else {
+                    self.showAlert(alertMessage: R.string.localizable.upgradeToVersionToUploadMoreImageInSlideshow())
+                    return
+                }
                 selectedSlideShowMedias[indexPath.item] = StoryEditorMedia(type: .image(storyEditorView.updatedThumbnailImage() ?? UIImage()))
             }
             for (index, editor) in storyEditors.enumerated() {
@@ -1097,6 +1127,7 @@ extension StoryEditorViewController {
         let (progressTimeM, progressTimeS) = Utils.secondsToHoursMinutesSeconds(Int(Float(time.seconds).roundToPlaces(places: 0)))
         let (totalTimeM, totalTimeS) = Utils.secondsToHoursMinutesSeconds(Int(Float(asset.duration.seconds).roundToPlaces(places: 0)))
         self.storyProgressBar.currentTime = time.seconds
+        self.videoProgressBar.currentTime = Float(time.seconds)
         self.lblStoryTime.text = "\(progressTimeM):\(progressTimeS) / \(totalTimeM):\(totalTimeS)"
     }
     
@@ -1124,7 +1155,9 @@ extension StoryEditorViewController {
                 self.nativePlayercollectionView.reloadData()
             }
             self.storyProgressBar.duration = asset.duration.seconds
+            self.videoProgressBar.maximumValue = Float(asset.duration.seconds)
             self.storyProgressBar.delegate = self
+            self.videoProgressBar.delegate = self
         }
     }
     
@@ -1171,6 +1204,28 @@ extension StoryEditorViewController: ProgressViewDelegate {
         storyEditors[currentStoryIndex].isPlaying ? pauseVideo() : playVideo()
     }
 }
+
+extension StoryEditorViewController: PlayerControlViewDelegate {
+   
+    func sliderTouchBegin(_ sender: UISlider) {
+        pauseVideo()
+    }
+    
+    func sliderTouchEnd(_ sender: UISlider) {
+        playVideo()
+    }
+    
+    func sliderValueChange(_ sender: UISlider) {
+        guard let asset = currentVideoAsset else {
+            return
+        }
+        let currentTime = CMTimeMakeWithSeconds(Float64(sender.value), preferredTimescale: asset.duration.timescale)
+        storyEditors[currentStoryIndex].seekTime = currentTime
+        self.onPlaybackTimeChecker()
+    }
+    
+}
+
 
 extension StoryEditorViewController: CropViewControllerDelegate {
     

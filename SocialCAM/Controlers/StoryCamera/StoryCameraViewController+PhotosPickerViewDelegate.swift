@@ -33,22 +33,16 @@ extension StoryCameraViewController: PhotosPickerViewControllerDelegate {
                 
                 for video in withTLPHAssets {
                     exportGroup.enter()
-                    if let videoUrl = video.videoUrl {
-                        do {
-                            let videodata = try Data(contentsOf: videoUrl)
-                            let videoName = String.fileName + FileExtension.mov.rawValue
-                            let data = videodata
-                            let url = Utils.getLocalPath(videoName)
-                            try? data.write(to: url)
-                            imageVideoSegments.append(SegmentVideos(urlStr: url, thumbimage: video.thumbImage, numberOfSegement: String(self.takenSlideShowImages.count + 1)))
-                            dispatchSemaphore.signal()
-                            exportGroup.leave()
-                        } catch {
-                            
+                    if let asset = video.asset, video.assetType == .video {
+                        let options = PHVideoRequestOptions()
+                        options.isNetworkAccessAllowed = true  //iCloud video can play
+                        options.deliveryMode = .automatic
+                        // iCloud download progress
+                        options.progressHandler = { (progress, error, stop, info) in
+
                         }
-                    } else if let asset = video.asset, video.assetType == .video {
                         let manager = PHImageManager.default()
-                        manager.requestAVAsset(forVideo: asset, options: nil) { (avasset, _, _) in
+                        manager.requestAVAsset(forVideo: asset, options: options) { (avasset, _, _) in
                             if let avassetURL = avasset as? AVURLAsset {
                                 imageVideoSegments.append(SegmentVideos(urlStr: avassetURL.url, thumbimage: video.thumbImage, numberOfSegement: String(self.takenSlideShowImages.count + 1)))
                                 dispatchSemaphore.signal()
