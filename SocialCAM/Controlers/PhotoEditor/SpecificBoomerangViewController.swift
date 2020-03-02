@@ -406,36 +406,42 @@ class SpecificBoomerangViewController: UIViewController {
         loadingView?.show(on: self.view)
 
         exportSession = SpecificBoomerangExportSession(config: config)
-        var avAssetExportSession: AVAssetExportSession?
+        var viExportSession: VIExportSession?
         if let asset = self.currentAsset,
             needToExport() {
-            let videoComposition = AVMutableVideoComposition(propertiesOf: asset)
-            videoComposition.sourceTrackIDForFrameTiming = kCMPersistentTrackID_Invalid
-            videoComposition.frameDuration = CMTime(value: 1,
-                                                    timescale: CMTimeScale(maximumFrame))
-            avAssetExportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPreset1280x720)
-            avAssetExportSession?.videoComposition = videoComposition
-            let outputURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent("ScaledVideo.mp4")
-            try? FileManager.default.removeItem(at: outputURL)
-            avAssetExportSession?.outputURL = outputURL
-            avAssetExportSession?.outputFileType = .mp4
-            avAssetExportSession?.exportAsynchronously { [weak self] in
-                guard let `self` = self else {
-                    return
-                }
-                if avAssetExportSession?.status == .completed,
-                    let url = avAssetExportSession?.outputURL {
-                    self.currentAsset = AVAsset(url: url)
-                    self.exportBoomerangVideo()
+            viExportSession = VIExportSession(asset: asset)
+            viExportSession?.progressHandler = { [weak self] (progress) in
+                guard let `self` = self else { return }
+                DispatchQueue.main.async {
+                    self.loadingView?.progressView.setProgress(to: Double(progress*0.25), withAnimation: true)
                 }
             }
+            viExportSession?.completionHandler = { [weak self] (error) in
+                guard let `self` = self else { return }
+                DispatchQueue.main.async {
+                    if let error = error {
+                        print(error.localizedDescription)
+                    } else if let url = viExportSession?.exportConfiguration.outputURL {
+                        if let videoTrack = self.currentAsset?.tracks(withMediaType: .video).first {
+                            print(videoTrack.naturalSize)
+                        }
+
+                        self.currentAsset = AVAsset(url: url)
+                        if let videoTrack = self.currentAsset?.tracks(withMediaType: .video).first {
+                            print(videoTrack.naturalSize)
+                        }
+                        self.exportBoomerangVideo(isResized: true)
+                    }
+                }
+            }
+            viExportSession?.export()
         } else {
             exportBoomerangVideo()
         }
         loadingView?.cancelClick = { cancelled in
             if cancelled {
                 DispatchQueue.main.async {
-                    avAssetExportSession?.cancelExport()
+                    viExportSession?.cancelExport()
                     self.exportSession?.cancelExporting()
                     self.exportSession = nil
                     self.loadingView?.hide()
@@ -446,11 +452,13 @@ class SpecificBoomerangViewController: UIViewController {
         }
     }
     
-    func exportBoomerangVideo() {
+    func exportBoomerangVideo(isResized: Bool = false) {
         guard let asset = self.currentAsset else {
             return
         }
         self.exportSession?.export(for: asset, progress: { progress in
+            var progress = isResized ? (0.25 + progress*0.75) : progress
+            progress = progress == 0 ? 0.25 : progress
             self.loadingView?.progressView.setProgress(to: Double(progress), withAnimation: true)
         }) { [weak self] url in
             self?.loadingView?.hide()

@@ -97,7 +97,7 @@ class StoryCameraViewController: UIViewController {
             circularProgress.progressThickness = 0.2
             circularProgress.trackThickness = 0.75
             circularProgress.trackColor = ApplicationSettings.appLightGrayColor
-            circularProgress.progressInsideFillColor = ApplicationSettings.appWhiteColor
+            circularProgress.progressInsideFillColor = .red
             circularProgress.clockwise = true
             circularProgress.roundedCorners = true
             circularProgress.set(colors: UIColor.red)
@@ -164,6 +164,8 @@ class StoryCameraViewController: UIViewController {
     
     @IBOutlet weak var cameraModeIndicatorImageView: UIImageView!
     
+    @IBOutlet weak var ssuTagView: UIView!
+
     // MARK: Variables
     var recordButtonCenterPoint: CGPoint = CGPoint.init()
     
@@ -220,7 +222,8 @@ class StoryCameraViewController: UIViewController {
                                              self.zoomSliderView,
                                              self.timerStackView,
                                              self.flashStackView,
-                                             self.nextButtonView],
+                                             self.nextButtonView,
+                                             self.ssuTagView],
                                             alpha: alpha)
                     // Make the animation happen
                     self.view.setNeedsLayout()
@@ -586,7 +589,7 @@ extension StoryCameraViewController {
             try nextLevel.start()
             if selectedFPS != 30 {
                 nextLevel.updateDeviceFormat(withFrameRate: CMTimeScale(selectedFPS),
-                                             dimensions: CMVideoDimensions(width: 1920, height: 1080))
+                                             dimensions: CMVideoDimensions(width: 1280, height: 720))
             }
         } catch {
             debugPrint("failed to start camera session")
@@ -1005,7 +1008,7 @@ extension StoryCameraViewController {
             circularProgress.addGestureRecognizer(photoTapGestureRecognizer)
         }
         nextLevel.devicePosition = currentCameraPosition
-        nextLevel.videoConfiguration.preset = AVCaptureSession.Preset.hd1920x1080
+        nextLevel.videoConfiguration.preset = AVCaptureSession.Preset.hd1280x720
         nextLevel.videoConfiguration.bitRate = 5500000
         nextLevel.videoConfiguration.profileLevel = AVVideoProfileLevelH264HighAutoLevel
         nextLevel.audioConfiguration.bitRate = 96000
@@ -1132,6 +1135,7 @@ extension StoryCameraViewController {
                     self.timerValueView.alpha = 0
                     self.faceFiltersView.alpha = 0
                     self.cameraSliderView.alpha = 0
+                    self.ssuTagView.alpha = 0
                 }
             })
         }
@@ -1151,6 +1155,7 @@ extension StoryCameraViewController {
                     self.timerValueView.alpha = 1
                     self.faceFiltersView.alpha = 1
                     self.collectionViewStackVIew.alpha = 1
+                    self.ssuTagView.alpha = 1
                 })
             }
         }
@@ -1465,6 +1470,7 @@ extension StoryCameraViewController {
             }
         }
         storyEditorViewController.isBoomerang = photosSelection ? false : (self.recordingType == .boomerang)
+        storyEditorViewController.needToReferLink = self.baseView.subviews.filter({ return $0 is FollowMeStoryView }).count > 0
         storyEditorViewController.medias = medias
         storyEditorViewController.isSlideShow = isSlideShow
         self.navigationController?.pushViewController(storyEditorViewController, animated: false)
@@ -1480,6 +1486,7 @@ extension StoryCameraViewController {
             medias.append(StoryEditorMedia(type: .image(image)))
         }
         storyEditorViewController.isBoomerang = (self.recordingType == .boomerang)
+        storyEditorViewController.needToReferLink = self.baseView.subviews.filter({ return $0 is FollowMeStoryView }).count > 0
         storyEditorViewController.medias = medias
         self.navigationController?.pushViewController(storyEditorViewController, animated: false)
         self.removeData()

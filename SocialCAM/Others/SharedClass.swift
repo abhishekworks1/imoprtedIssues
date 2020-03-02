@@ -341,6 +341,7 @@ public struct Constant {
         static let faq = "https://www.google.com"
         static let twitter = "https://api.twitter.com/1.1/"
         static let youtube = "https://www.googleapis.com/youtube/v3/"
+        static let websiteURL = "http://promanager-web.s3-website-us-west-2.amazonaws.com"
     }
     
     struct Application {

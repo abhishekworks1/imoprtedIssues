@@ -20,21 +20,19 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launchScreen" translatesAutoresizingMaskIntoConstraints="NO" id="kHN-f1-R4y">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="socialCam" translatesAutoresizingMaskIntoConstraints="NO" id="c1b-OD-UT2">
-                                <rect key="frame" x="40" y="0.0" width="334" height="896"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="socialcamrgb" translatesAutoresizingMaskIntoConstraints="NO" id="c1b-OD-UT2">
+                                <rect key="frame" x="-48" y="186.5" width="510" height="533"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" name="AppLunchScreen"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="kHN-f1-R4y" secondAttribute="bottom" id="0qQ-Nq-h8t"/>
-                            <constraint firstItem="c1b-OD-UT2" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="B1W-BT-RzD"/>
-                            <constraint firstAttribute="trailing" secondItem="c1b-OD-UT2" secondAttribute="trailing" constant="40" id="CnS-ZU-890"/>
+                            <constraint firstItem="c1b-OD-UT2" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="CiT-VT-QWM"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="kHN-f1-R4y" secondAttribute="trailing" id="ZUR-pS-Mz4"/>
                             <constraint firstItem="kHN-f1-R4y" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="byt-4m-CV3"/>
-                            <constraint firstItem="c1b-OD-UT2" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="40" id="k6y-09-kH7"/>
-                            <constraint firstAttribute="bottom" secondItem="c1b-OD-UT2" secondAttribute="bottom" id="kc9-rC-4DW"/>
                             <constraint firstItem="kHN-f1-R4y" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="l27-A2-fcL"/>
+                            <constraint firstItem="c1b-OD-UT2" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="vTa-Zy-bGr"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <variation key="default">
@@ -51,7 +49,7 @@
     </scenes>
     <resources>
         <image name="launchScreen" width="375" height="667"/>
-        <image name="socialCam" width="277" height="48"/>
+        <image name="socialcamrgb" width="255" height="266.5"/>
         <namedColor name="AppLunchScreen">
             <color red="0.96078431372549022" green="0.98039215686274506" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
