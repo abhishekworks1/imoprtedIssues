@@ -158,6 +158,8 @@ class StoryCameraViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var speedSliderWidthConstraint: NSLayoutConstraint!
+    
     @IBOutlet weak var cameraModeIndicatorView: UIView!
     
     @IBOutlet var speedIndicatorView: [DottedLineView]!
@@ -485,9 +487,8 @@ class StoryCameraViewController: UIViewController {
         }
         self.reloadUploadViewData()
         self.stopMotionCollectionView.reloadData()
-        // Todo : Next Release need to remove speedSlider for free user
-//        speedSlider.isHidden = Defaults.shared.appMode == .free
-//        speedSliderView.isHidden = Defaults.shared.appMode == .free
+        speedSlider.isHidden = Defaults.shared.appMode == .free
+        speedSliderView.isHidden = Defaults.shared.appMode == .free
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -519,14 +520,14 @@ class StoryCameraViewController: UIViewController {
     func dynamicSetSlowFastVerticalBar() {
         var speedOptions = ["-3x", "-2x", "1x", "2x", "3x"]
         switch Defaults.shared.appMode {
-        case .free:
+        case .free, .basic:
             verticalLines.numberOfViews = .speed3x
             speedSliderLabels.names = speedOptions
             speedSliderLabels.value = 2
             speedSlider.ticksListener = speedSliderLabels
             speedSlider.tickCount = speedOptions.count
             speedSlider.value = 2
-        case .basic:
+        case .advanced:
             speedOptions.append("4x")
             speedOptions.insert("-4x", at: 0)
             verticalLines.numberOfViews = .speed4x
@@ -537,8 +538,7 @@ class StoryCameraViewController: UIViewController {
             speedSlider.value = 3
         default:
             speedOptions.append(contentsOf: ["4x", "5x"])
-            speedOptions.insert(contentsOf: ["-4x", "-5x"], at: 0)
-            
+            speedOptions.insert(contentsOf: ["-5x", "-4x"], at: 0)
             verticalLines.numberOfViews = .speed5x
             speedSliderLabels.names = speedOptions
             speedSliderLabels.value = 4
@@ -546,6 +546,9 @@ class StoryCameraViewController: UIViewController {
             speedSlider.tickCount = speedOptions.count
             speedSlider.value = 4
         }
+        speedSliderWidthConstraint.constant = UIScreen.main.bounds.width - (UIScreen.main.bounds.width / CGFloat(speedOptions.count - 1)) 
+        self.speedSlider.layoutIfNeeded()
+        self.speedSliderLabels.layoutIfNeeded()
     }
     
     func changeModeHandler() {
@@ -1167,8 +1170,7 @@ extension StoryCameraViewController {
         }
         self.isMute ? muteButton.startBlink(0.5) : muteButton.stopBlink()
         self.view.bringSubviewToFront(slowFastVerticalBar.superview ?? UIView())
-        // Todo : Next Release need to remove VerticalBar for free user
-//        slowFastVerticalBar.isHidden = Defaults.shared.appMode == .free
+        slowFastVerticalBar.isHidden = Defaults.shared.appMode == .free
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
             self.circularProgress.trackThickness = 0.75*1.5
             self.circularProgress.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)

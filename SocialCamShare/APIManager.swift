@@ -15,6 +15,7 @@ import ObjectMapper
 
 public enum ProManagerApi {
     case writePost(type: String, user: String, bookmark: [String:Any]?, privacy:String?)
+    case createStory(url: String, duration: String, type: String, user: String, thumb: String?)
     
     var endpoint: Endpoint {
         var endpointClosure = MoyaProvider<ProManagerApi>.defaultEndpointMapping(for: self)
@@ -24,7 +25,8 @@ public enum ProManagerApi {
 }
 
 public struct NewPaths {
-    static let writePost = "articles/write"    
+    static let writePost = "articles/write"
+    static let createStory = "stories/createStory"
 }
 
 extension ProManagerApi: TargetType {
@@ -42,6 +44,8 @@ extension ProManagerApi: TargetType {
         switch self {
         case .writePost:
             return NewPaths.writePost
+        case .createStory:
+            return NewPaths.createStory
         }
     }
     
@@ -61,6 +65,17 @@ extension ProManagerApi: TargetType {
             }
             if let privacy = privacy {
                 param["privacy"] = privacy
+            }
+        case .createStory(let url, let duration, let type, let user, let thumb):
+            param = ["url": url,
+                     "duration": duration,
+                     "type": type,
+                     "user": user,
+                     "address": "",
+                     "latitude": "0.0",
+                     "longitude": "0.0"]
+            if let thumb = thumb {
+                param["thumb"] = thumb
             }
         }
         return param

@@ -15,6 +15,8 @@ def shared_pods
     pod 'RxSwift', '4.4.1'
     pod 'NSObject+Rx', '4.4.1'
     pod 'URLEmbeddedView', '0.17.1'
+    pod 'SDWebImage', '5.2.5'
+    pod 'AWSS3', '2.12.0'
 end
 
 target 'SocialCAM' do
@@ -24,8 +26,6 @@ target 'SocialCAM' do
   # Pods for SocialCAM
   pod 'Fabric', '~> 1.10.2'
   pod 'Crashlytics', '~> 3.14.0'
-  pod 'SDWebImage', '5.2.5'
-  pod 'AWSS3', '2.12.0'
   pod 'RxCocoa', '4.4.1'
   pod 'RxDataSources', '3.1.0'
   pod 'Alamofire', '4.9.1'
@@ -67,6 +67,10 @@ target 'SocialCAM' do
 end
 
 target 'SocialCamShare' do
+  shared_pods
+end
+
+target 'SocialCamMediaShare' do
   shared_pods
 end
 

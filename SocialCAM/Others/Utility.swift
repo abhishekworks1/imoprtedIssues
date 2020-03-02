@@ -71,6 +71,7 @@ public struct Utils {
         }
     }
     
+    #if SOCIAL
     static var appDelegate: AppDelegate? {
         if let delegate = UIApplication.shared.delegate {
             return delegate as? AppDelegate
@@ -78,6 +79,7 @@ public struct Utils {
             return nil
         }
     }
+    #endif
     
     static func getLocalPath(_ fileName: String) -> URL {
         var path = FileManager.documentsDir()
@@ -138,7 +140,7 @@ public struct Utils {
         let url = Utils.getLocalPath(imgName)
         try? data?.write(to: url)
 
-        AWSManager.shared.uploadImageToAmazon(currentFileName: imgName, soundFileURL: url, contentType: nil, nil, progressBlock: progressBlock, otherProgressBlock: nil, callBack: callBack) { (_) in
+        AWSManager.shared.uploadImageToAmazon(currentFileName: imgName, soundFileURL: url, contentType: "image/jpeg", nil, progressBlock: progressBlock, otherProgressBlock: nil, callBack: callBack) { (_) in
             
         }
     }

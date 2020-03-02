@@ -129,9 +129,6 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 }
             }
         } else {
-            if indexPath.row == 2 || indexPath.row == 3 {
-                cell.settingsName.isEnabled = false
-            }
             cell.onOffButton.isHidden = false
             if indexPath.row == Defaults.shared.appMode.rawValue {
                 cell.onOffButton.isSelected = true
@@ -188,13 +185,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             guard Defaults.shared.appMode.rawValue != indexPath.row else {
                 return
             }
-            if indexPath.row == 0 {
-                Defaults.shared.appMode = .free
-                self.settingsTableView.reloadData()
-                AppEventBus.post("changeMode")
-            } else if indexPath.row == 1 {
-                isProEnable()
-            }
+            self.enableMode(appMode: AppMode(rawValue: indexPath.row) ?? .free)
         }
     }
     
@@ -310,26 +301,51 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
-    func isProEnable() {
-        let objAlert = UIAlertController(title: Constant.Application.displayName, message: R.string.localizable.areYouSureYouWantToEnableBasic(), preferredStyle: .alert)
-        objAlert.addTextField { (textField: UITextField) -> Void in
-            #if DEBUG
-            textField.text = Constant.Application.proModeCode
-            #endif
-            textField.placeholder = R.string.localizable.enterYourUniqueCodeToEnableBasicMode()
+    func enableMode(appMode: AppMode) {
+        var message: String? = ""
+        let placeholder: String? = R.string.localizable.enterYourUniqueCodeToEnableBasicMode()
+        let proModeCode: String? = Constant.Application.proModeCode
+        var successMessage: String? = ""
+        switch appMode {
+        case .free:
+            message = R.string.localizable.areYouSureYouWantToEnableFree()
+            successMessage = R.string.localizable.freeModeIsEnabled()
+        case .basic:
+            message = R.string.localizable.areYouSureYouWantToEnableBasic()
+            successMessage = R.string.localizable.basicModeIsEnabled()
+        case .advanced:
+            message = R.string.localizable.areYouSureYouWantToEnableAdvanced()
+            successMessage = R.string.localizable.advancedModeIsEnabled()
+        default:
+            message = R.string.localizable.areYouSureYouWantToEnableProfessional()
+            successMessage = R.string.localizable.professionalModeIsEnabled()
         }
-        let actionSave = UIAlertAction(title: R.string.localizable.oK(), style: .default) { ( _: UIAlertAction) in
-            if let textField = objAlert.textFields?[0],
-                textField.text!.count > 0, textField.text?.lowercased() == Constant.Application.proModeCode {
-                Defaults.shared.appMode = .basic
-                StorySettings.storySettings[0].settings[1].selected = true
-                self.settingsTableView.reloadData()
-                AppEventBus.post("changeMode")
-                self.navigationController?.popViewController(animated: true)
-                Utils.appDelegate?.window?.makeToast(R.string.localizable.basicModeIsEnabled())
-                return
+        
+        let objAlert = UIAlertController(title: Constant.Application.displayName, message: message, preferredStyle: .alert)
+        if appMode != .free {
+            objAlert.addTextField { (textField: UITextField) -> Void in
+                #if DEBUG
+                textField.text = proModeCode
+                #endif
+                textField.placeholder = placeholder
             }
-            self.view.makeToast(R.string.localizable.pleaseEnterValidCode())
+        }
+        
+        let actionSave = UIAlertAction(title: R.string.localizable.oK(), style: .default) { ( _: UIAlertAction) in
+            if appMode != .free {
+                if let textField = objAlert.textFields?[0],
+                    textField.text!.count > 0, textField.text?.lowercased() != proModeCode {
+                    self.view.makeToast(R.string.localizable.pleaseEnterValidCode())
+                    return
+                }
+            }
+            Defaults.shared.appMode = appMode
+            StorySettings.storySettings[0].settings[appMode.rawValue].selected = true
+            self.settingsTableView.reloadData()
+            AppEventBus.post("changeMode")
+            self.navigationController?.popViewController(animated: true)
+            Utils.appDelegate?.window?.makeToast(successMessage)
+            
         }
         let cancelAction = UIAlertAction(title: R.string.localizable.cancel(), style: .default) { (_: UIAlertAction) in }
         objAlert.addAction(actionSave)
