@@ -127,6 +127,14 @@ extension StoryCameraViewController {
         hideControls = !hideControls
     }
     
+    @IBAction func ssuButtonCliked(sender: UIButton) {
+        if let ssuTagSelectionViewController = R.storyboard.storyCameraViewController.ssuTagSelectionViewController() {
+            ssuTagSelectionViewController.delegate = self
+            navigationController?
+                .pushViewController(ssuTagSelectionViewController, animated: true)
+        }
+    }
+    
     @IBAction func changeFPSButtonCliked(sender: UIButton) {
         let supportedFrameRate = NextLevel.shared.getAllSupportedFrameRate(dimensions: CMVideoDimensions(width: 1920, height: 1080))
         BasePopConfiguration.shared.backgoundTintColor = R.color.appWhiteColor()!
@@ -610,6 +618,31 @@ extension StoryCameraViewController: CountdownViewDelegate {
             } else {
                 capturePhoto()
             }
+        }
+    }
+}
+
+extension StoryCameraViewController: SSUTagSelectionDelegate {
+    func didSelect(type: SSUTagType) {
+        switch type {
+        case .referralLink:
+            guard self.baseView.subviews.filter({ return $0 is FollowMeStoryView }).count == 0 else {
+                return
+            }
+            let followMeStoryView = FollowMeStoryView.instanceFromNib() as! FollowMeStoryView
+            followMeStoryView.pannable = true
+            self.baseView.insertSubview(followMeStoryView, aboveSubview: gestureView!)
+
+            followMeStoryView.translatesAutoresizingMaskIntoConstraints = false
+            
+            followMeStoryView.topAnchor.constraint(equalTo: timerValueView.bottomAnchor, constant: 10).isActive = true
+            followMeStoryView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+
+            self.view.layoutIfNeeded()
+            
+            followMeStoryView.translatesAutoresizingMaskIntoConstraints = true
+        case .social:
+            self.showAlert(alertMessage: R.string.localizable.comingSoon())
         }
     }
 }

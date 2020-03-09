@@ -23,7 +23,7 @@ open class SocialShareVideo: NSObject, SharingDelegate {
   
     weak var delegate: ShareStoriesDelegate?
     
-    func sharePhoto(image: UIImage, socialType: SocialShare) {
+    func sharePhoto(image: UIImage, socialType: SocialShare, needToReferLink: Bool = false) {
         switch socialType {
         case .facebook:
             self.fbShareImage(image)
@@ -41,7 +41,7 @@ open class SocialShareVideo: NSObject, SharingDelegate {
         case .twitter:
             twitterShareCompose(image: image)
         case .snapchat:
-            self.snapChatShareImage(image: image)
+            self.snapChatShareImage(image: image, needToReferLink: needToReferLink)
         case .tiktok:
             if !TiktokShare.shared.isTiktokInstalled {
                 Utils.appDelegate?.window?.makeToast(R.string.localizable.youNeedToInstallTikTokToShareThisPhotoVideo())
@@ -64,7 +64,7 @@ open class SocialShareVideo: NSObject, SharingDelegate {
         }
     }
     
-    func shareVideo(url: URL?, socialType: SocialShare) {
+    func shareVideo(url: URL?, socialType: SocialShare, needToReferLink: Bool = false) {
         guard let url = url else { return }
         switch socialType {
         case .facebook, .instagram:
@@ -86,7 +86,7 @@ open class SocialShareVideo: NSObject, SharingDelegate {
                 }
             })
         case .snapchat:
-            snapChatShareVideo(url)
+            snapChatShareVideo(url, needToReferLink: needToReferLink)
         case .twitter:
             twitterShareCompose(url: url)
         case .youtube:
@@ -234,15 +234,21 @@ open class SocialShareVideo: NSObject, SharingDelegate {
         TiktokShare.shared.uploadImageOrVideoOnTiktok(phAsset: phAsset, isImage: isImage)
     }
     
-    func snapChatShareImage(image: UIImage) {
+    func snapChatShareImage(image: UIImage, needToReferLink: Bool) {
         let photo = SCSDKSnapPhoto(image: image)
         let snapPhoto = SCSDKPhotoSnapContent(snapPhoto: photo)
+        if needToReferLink {
+            snapPhoto.attachmentUrl = Constant.URLs.websiteURL
+        }
         snapChatShare(snapContent: snapPhoto)
     }
     
-    func snapChatShareVideo(_ videoUrl: URL) {
+    func snapChatShareVideo(_ videoUrl: URL, needToReferLink: Bool) {
         let video = SCSDKSnapVideo(videoUrl: videoUrl)
         let snapVideo = SCSDKVideoSnapContent(snapVideo: video)
+        if needToReferLink {
+            snapVideo.attachmentUrl = Constant.URLs.websiteURL
+        }
         snapChatShare(snapContent: snapVideo)
     }
     

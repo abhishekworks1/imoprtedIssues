@@ -216,6 +216,8 @@ class StoryEditorViewController: UIViewController {
     private var slideShowExportedURL: URL?
     private var videoExportedURL: URL?
     
+    public var needToReferLink: Bool = true
+    
     var isViewEditMode: Bool = false {
         didSet {
             editToolBarView.isHidden = isViewEditMode
@@ -294,6 +296,10 @@ class StoryEditorViewController: UIViewController {
             storyEditorView.center = mediaImageView.center
             storyEditorView.filters = StoryFilter.filters
 
+            if needToReferLink {
+                storyEditorView.addReferLinkView()
+            }
+            
             if index > 0 {
                 storyEditorView.isHidden = true
             }
@@ -629,7 +635,7 @@ extension StoryEditorViewController {
                     }
                 } else {
                     DispatchQueue.runOnMainThread {
-                        SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type)
+                        SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type, needToReferLink: self.needToReferLink)
                         self.pauseVideo()
                     }
                 }
@@ -643,13 +649,13 @@ extension StoryEditorViewController {
                     if isDownload {
                         self.saveImageOrVideoInGallery(image: image)
                     } else {
-                        SocialShareVideo.shared.sharePhoto(image: image, socialType: type)
+                        SocialShareVideo.shared.sharePhoto(image: image, socialType: type, needToReferLink: needToReferLink)
                     }
                 }
             case let .video(_, asset):
                 if let exportURL = videoExportedURL, !isDownload {
                     DispatchQueue.runOnMainThread {
-                        SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type)
+                        SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type, needToReferLink: self.needToReferLink)
                         self.pauseVideo()
                     }
                 } else {
@@ -663,7 +669,7 @@ extension StoryEditorViewController {
                                 }
                             } else {
                                 DispatchQueue.runOnMainThread {
-                                    SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type)
+                                    SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type, needToReferLink: self.needToReferLink)
                                     self.pauseVideo()
                                 }
                             }

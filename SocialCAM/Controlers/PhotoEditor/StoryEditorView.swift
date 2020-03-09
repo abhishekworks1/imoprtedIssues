@@ -555,6 +555,15 @@ extension StoryEditorView {
         }
     }
     
+    func addReferLinkView() {
+        let followMeStoryView = FollowMeStoryView.instanceFromNib() as! FollowMeStoryView
+        followMeStoryView.hideDeleteButton = true
+        followMeStoryView.frame.size = CGSize(width: 311, height: 213)
+        followMeStoryView.center = center
+        addSubview(followMeStoryView)
+        addStickerGestures(followMeStoryView)
+    }
+    
     func addCameraView() {
         let cameraView = CameraView.instanceFromNib()
         self.addSubview(cameraView)
