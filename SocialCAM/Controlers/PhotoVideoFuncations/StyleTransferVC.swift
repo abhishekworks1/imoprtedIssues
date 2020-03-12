@@ -690,7 +690,7 @@ extension StyleTransferVC: KDDragAndDropCollectionViewDataSource {
         let newrect = rect.origin.y + collectionView.frame.origin.y
         let newrectData = CGRect.init(x: rect.origin.x, y: newrect, width: rect.width, height: rect.height)
         
-        let checkframeDelete = CGRect.init(x: collectionView.frame.origin.x, y: collectionView.frame.origin.y, width: collectionView.frame.width, height: collectionView.frame.height)
+        let checkframeDelete = CGRect(x: collectionView.frame.origin.x, y: collectionView.frame.origin.y, width: collectionView.frame.width, height: collectionView.frame.height)
         
         if !checkframeDelete.intersects(newrectData) {
             if let kdCollectionView = collectionView as? KDDragAndDropCollectionView {

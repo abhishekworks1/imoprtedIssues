@@ -14,7 +14,7 @@ class FollowMeStoryView: UIView {
     @IBOutlet weak var deleteButton: UIButton!
     
     class func instanceFromNib() -> UIView {
-        return UINib(nibName: "FollowMeStoryView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! UIView
+        return R.nib.followMeStoryView(owner: nil) ?? UIView()
     }
     
     public var pannable: Bool = false {

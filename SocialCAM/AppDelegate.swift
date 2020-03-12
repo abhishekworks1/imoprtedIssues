@@ -11,8 +11,7 @@ import CoreData
 import Tiercel
 import IQKeyboardManagerSwift
 import Firebase
-import Fabric
-import Crashlytics
+import FirebaseCrashlytics
 import GooglePlaces
 import GoogleMaps
 import AppCenter
@@ -35,10 +34,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ColorCubeStorage.loadToDefault()
         
         FirebaseApp.configure()
-        
-        Fabric.sharedSDK().debug = true
-        
-        Fabric.with([Crashlytics.self])
         
         configureGoogleService()
         

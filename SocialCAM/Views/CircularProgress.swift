@@ -120,6 +120,7 @@ public class CircularProgress: UIView, CAAnimationDelegate {
     @IBInspectable public var progressInsideFillColor: UIColor? = nil {
         didSet {
             progressLayer?.progressInsideFillColor = progressInsideFillColor ?? .clear
+            layoutIfNeeded()
         }
     }
     
