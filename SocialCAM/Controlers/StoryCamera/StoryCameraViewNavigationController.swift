@@ -41,7 +41,7 @@ class StoryCameraViewNavigationController: UINavigationController, UINavigationC
     }
     
     override var prefersStatusBarHidden: Bool {
-        return false
+        return true
     }
     
     func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {

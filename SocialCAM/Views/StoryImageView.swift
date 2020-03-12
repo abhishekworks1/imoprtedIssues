@@ -120,8 +120,8 @@ class StoryImageView: UIView {
             return nil
         }
         image = image.transformed(by: preferredCIImageTransform)
-        image = image.transformed(by: scaleAndResizeTransform(image, for: rect))
         image = applyTransformationIfNeeded(image)
+        image = image.transformed(by: scaleAndResizeTransform(image, for: rect))
         return image
     }
     
@@ -267,31 +267,18 @@ extension StoryImageView: MTKViewDelegate {
     
     func draw(in view: MTKView) {
         autoreleasepool {
-            let rect = view.bounds.multiply(with: contentScaleFactor)
-            
-            var image = renderedCIImage(in: rect)
-            
-            if image != nil {
-                if let scaleFactor = self.mtkView?.contentScaleFactor {
-                    let mtkRect = view.bounds.multiply(with: scaleFactor)
-                    var horizontalScale: CGFloat = mtkRect.size.width / image!.extent.width
-                    var verticalScale: CGFloat = mtkRect.size.height / image!.extent.height
-
-                    if contentMode == .scaleAspectFill {
-                        horizontalScale = max(horizontalScale, verticalScale)
-                        verticalScale = horizontalScale
-                    } else if contentMode == .scaleAspectFit {
-                        horizontalScale = min(horizontalScale, verticalScale)
-                        verticalScale = horizontalScale
-                    }
-                    image = image?.transformed(by: CGAffineTransform(scaleX: horizontalScale, y: verticalScale))
-                }
-                let commandBuffer = mtlCommandQueue?.makeCommandBuffer()
-                let texture = view.currentDrawable?.texture
-                let deviceRGB = CGColorSpaceCreateDeviceRGB()
-                ciContext?.render(image!, to: texture!, commandBuffer: commandBuffer, bounds: image!.extent, colorSpace: deviceRGB)
-                commandBuffer?.present(view.currentDrawable!)
-                commandBuffer?.commit()
+            let rect = view.bounds.multiply(with: view.contentScaleFactor)
+            if let image = renderedCIImage(in: rect),
+                let commandBuffer = mtlCommandQueue?.makeCommandBuffer(),
+                let currentDrawable = view.currentDrawable {
+                let texture = currentDrawable.texture
+                ciContext?.render(image,
+                                  to: texture,
+                                  commandBuffer: commandBuffer,
+                                  bounds: image.extent,
+                                  colorSpace: CGColorSpaceCreateDeviceRGB())
+                commandBuffer.present(currentDrawable)
+                commandBuffer.commit()
             }
         }
     }
