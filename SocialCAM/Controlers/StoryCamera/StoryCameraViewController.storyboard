@@ -652,42 +652,6 @@
                                             </mask>
                                         </variation>
                                     </stackView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4YY-rR-RGC">
-                                        <rect key="frame" x="300" y="107.99999999999999" width="75" height="54.333333333333329"/>
-                                        <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ssu" translatesAutoresizingMaskIntoConstraints="NO" id="HZU-eb-Iz5">
-                                                <rect key="frame" x="0.0" y="0.0" width="75" height="29"/>
-                                            </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SSU" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3tL-nZ-JqX">
-                                                <rect key="frame" x="0.0" y="34" width="75" height="20.333333333333329"/>
-                                                <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="16"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <nil key="highlightedColor"/>
-                                                <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                <size key="shadowOffset" width="0.0" height="1"/>
-                                            </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uzm-7L-4Va">
-                                                <rect key="frame" x="0.0" y="0.0" width="75" height="54.333333333333336"/>
-                                                <connections>
-                                                    <action selector="ssuButtonClikedWithSender:" destination="aJT-JN-hbU" eventType="touchUpInside" id="T3H-gL-qv3"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="uzm-7L-4Va" secondAttribute="trailing" id="1Mb-Cr-gp0"/>
-                                            <constraint firstItem="3tL-nZ-JqX" firstAttribute="top" secondItem="HZU-eb-Iz5" secondAttribute="bottom" constant="5" id="4C3-U0-CKW"/>
-                                            <constraint firstAttribute="trailing" secondItem="3tL-nZ-JqX" secondAttribute="trailing" id="7eO-ls-f4g"/>
-                                            <constraint firstAttribute="trailing" secondItem="HZU-eb-Iz5" secondAttribute="trailing" id="G1Y-cM-bZV"/>
-                                            <constraint firstItem="HZU-eb-Iz5" firstAttribute="leading" secondItem="4YY-rR-RGC" secondAttribute="leading" id="HTX-2n-iBl"/>
-                                            <constraint firstItem="uzm-7L-4Va" firstAttribute="top" secondItem="4YY-rR-RGC" secondAttribute="top" id="Il7-gG-Bf1"/>
-                                            <constraint firstItem="uzm-7L-4Va" firstAttribute="leading" secondItem="4YY-rR-RGC" secondAttribute="leading" id="JvK-hQ-DL1"/>
-                                            <constraint firstAttribute="bottom" secondItem="3tL-nZ-JqX" secondAttribute="bottom" id="K4l-nd-HAg"/>
-                                            <constraint firstItem="3tL-nZ-JqX" firstAttribute="leading" secondItem="4YY-rR-RGC" secondAttribute="leading" id="KiF-9X-uxd"/>
-                                            <constraint firstAttribute="bottom" secondItem="uzm-7L-4Va" secondAttribute="bottom" id="a8Q-PX-dVv"/>
-                                            <constraint firstItem="HZU-eb-Iz5" firstAttribute="top" secondItem="4YY-rR-RGC" secondAttribute="top" id="se9-Yx-VWA"/>
-                                        </constraints>
-                                    </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xSc-Ve-S1r">
                                         <rect key="frame" x="0.0" y="414" width="375" height="398"/>
                                         <subviews>
@@ -1226,13 +1190,10 @@
                                     <constraint firstItem="pZY-Ca-BLp" firstAttribute="centerX" secondItem="nsF-Ky-hVs" secondAttribute="centerX" id="IoJ-If-V2R"/>
                                     <constraint firstItem="ZUZ-cn-K4S" firstAttribute="trailing" secondItem="NuV-EC-Pom" secondAttribute="trailing" id="N1F-oz-4tA"/>
                                     <constraint firstItem="FUI-bV-ANm" firstAttribute="centerX" secondItem="6VI-Pb-DwZ" secondAttribute="centerX" id="Nz3-pU-sxC"/>
-                                    <constraint firstItem="4YY-rR-RGC" firstAttribute="width" secondItem="vT8-A9-Yk0" secondAttribute="width" id="V6O-U1-Wse"/>
                                     <constraint firstAttribute="bottom" secondItem="xSc-Ve-S1r" secondAttribute="bottom" id="Wvh-yl-p3r"/>
-                                    <constraint firstItem="4YY-rR-RGC" firstAttribute="top" secondItem="pZY-Ca-BLp" secondAttribute="top" id="Y64-Ls-0U5"/>
                                     <constraint firstAttribute="trailing" secondItem="xSc-Ve-S1r" secondAttribute="trailing" id="Zqt-EH-HPo"/>
                                     <constraint firstItem="foF-ue-Spx" firstAttribute="leading" secondItem="6VI-Pb-DwZ" secondAttribute="leading" constant="20" id="caa-kT-ifl"/>
                                     <constraint firstItem="MfO-0D-GLq" firstAttribute="centerX" secondItem="6VI-Pb-DwZ" secondAttribute="centerX" id="coi-wI-NbC"/>
-                                    <constraint firstAttribute="trailing" secondItem="4YY-rR-RGC" secondAttribute="trailing" id="fU2-aA-qKy"/>
                                     <constraint firstAttribute="trailing" secondItem="NuV-EC-Pom" secondAttribute="trailing" id="jWm-ks-fbE"/>
                                     <constraint firstItem="PQI-6b-47R" firstAttribute="leading" secondItem="6VI-Pb-DwZ" secondAttribute="leading" id="lqY-49-Upe"/>
                                     <constraint firstItem="NuV-EC-Pom" firstAttribute="top" secondItem="6VI-Pb-DwZ" secondAttribute="top" constant="10" id="mYa-LY-Lg2"/>
@@ -1773,7 +1734,6 @@ Countdown</string>
                         <outlet property="speedSlider" destination="eal-x4-10Z" id="QnP-fD-Cfv"/>
                         <outlet property="speedSliderLabels" destination="5wL-B7-jWP" id="pJy-85-uoJ"/>
                         <outlet property="speedSliderView" destination="avd-CC-AmT" id="VzM-y1-u2h"/>
-                        <outlet property="ssuTagView" destination="4YY-rR-RGC" id="qas-av-GDW"/>
                         <outlet property="speedSliderWidthConstraint" destination="iSW-FQ-gC5" id="1h4-3Z-wAO"/>
                         <outlet property="stopMotionCollectionView" destination="aT4-ca-ew8" id="bi5-Cz-Lc6"/>
                         <outlet property="storyUploadImageView" destination="7MJ-mS-33V" id="ITK-Ts-GJ7"/>
@@ -3136,7 +3096,6 @@ Countdown</string>
         <image name="playIconDownload" width="16" height="16"/>
         <image name="reload" width="16" height="16"/>
         <image name="showStoryCamIcons" width="27" height="15"/>
-        <image name="ssu" width="30" height="29"/>
         <image name="storyBack" width="19" height="19"/>
         <image name="storyClose" width="16" height="16"/>
         <image name="storyDelete" width="23" height="23"/>

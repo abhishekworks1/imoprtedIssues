@@ -253,7 +253,6 @@ extension StoryEditorView: StorySwipeableFilterViewDelegate {
         storySwipeableFilterView.delegate = self
         addSubview(storySwipeableFilterView)
         addMediaGestures()
-        adjustMediaTransformIfNeeded()
         
         switch type {
         case let .image(image):
@@ -268,6 +267,8 @@ extension StoryEditorView: StorySwipeableFilterViewDelegate {
             storyPlayer?.play()
             self.thumbnailImage = asset.thumbnailImage()
         }
+        adjustMediaTransformIfNeeded()
+
         setupDrawView()
         
         filterNameLabel.frame = CGRect(origin: .zero,

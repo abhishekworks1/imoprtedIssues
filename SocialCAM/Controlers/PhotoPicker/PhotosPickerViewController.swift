@@ -517,10 +517,10 @@ extension PhotosPickerViewController {
                 loadingView.loadingViewShow = true
                 loadingView.show(on: view)
                 
-                self.delegate?.dismissPhotoPicker(withTLPHAssets: self.selectedAssets)
-                self.completionWithTLPHAssets?([self.selectedAssets[0].asset])
                 self.dismiss(animated: false) { [weak self] in
                     guard let strongSelf = self else { return }
+                    strongSelf.delegate?.dismissPhotoPicker(withTLPHAssets: strongSelf.selectedAssets)
+                    strongSelf.completionWithTLPHAssets?([strongSelf.selectedAssets[0].asset])
                     loadingView.hide()
                     strongSelf.indicator?.stopAnimating()
                     strongSelf.delegate?.dismissComplete()
@@ -596,11 +596,11 @@ extension PhotosPickerViewController {
                     print("finished Video Select all..")
                     DispatchQueue.main.async {
                         if !self.selectedAssets.isEmpty {
-                            self.delegate?.dismissPhotoPicker(withTLPHAssets: self.selectedAssets)
-                            self.completionWithTLPHAssets?([self.selectedAssets[0].asset])
-                            loadingView.hide()
                             self.dismiss(animated: false) { [weak self] in
                                 guard let strongSelf = self else { return }
+                                strongSelf.delegate?.dismissPhotoPicker(withTLPHAssets: strongSelf.selectedAssets)
+                                strongSelf.completionWithTLPHAssets?([strongSelf.selectedAssets[0].asset])
+                                loadingView.hide()
                                 strongSelf.indicator?.stopAnimating()
                                 strongSelf.delegate?.dismissComplete()
                                 strongSelf.dismissCompletion?()

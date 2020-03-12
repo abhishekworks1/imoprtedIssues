@@ -165,8 +165,6 @@ class StoryCameraViewController: UIViewController {
     @IBOutlet var speedIndicatorView: [DottedLineView]!
     
     @IBOutlet weak var cameraModeIndicatorImageView: UIImageView!
-    
-    @IBOutlet weak var ssuTagView: UIView!
 
     // MARK: Variables
     var recordButtonCenterPoint: CGPoint = CGPoint.init()
@@ -224,8 +222,7 @@ class StoryCameraViewController: UIViewController {
                                              self.zoomSliderView,
                                              self.timerStackView,
                                              self.flashStackView,
-                                             self.nextButtonView,
-                                             self.ssuTagView],
+                                             self.nextButtonView],
                                             alpha: alpha)
                     // Make the animation happen
                     self.view.setNeedsLayout()
@@ -1138,7 +1135,6 @@ extension StoryCameraViewController {
                     self.timerValueView.alpha = 0
                     self.faceFiltersView.alpha = 0
                     self.cameraSliderView.alpha = 0
-                    self.ssuTagView.alpha = 0
                 }
             })
         }
@@ -1158,7 +1154,6 @@ extension StoryCameraViewController {
                     self.timerValueView.alpha = 1
                     self.faceFiltersView.alpha = 1
                     self.collectionViewStackVIew.alpha = 1
-                    self.ssuTagView.alpha = 1
                 })
             }
         }

@@ -174,6 +174,8 @@ class StoryEditorViewController: UIViewController {
     @IBOutlet weak var lblStoryTime: UILabel!
     
     @IBOutlet weak var cursorContainerViewCenterConstraint: NSLayoutConstraint!
+    @IBOutlet weak var ssuTagView: UIView!
+
     weak var cursorContainerViewController: KeyframePickerCursorVC!
     var playbackTimeCheckerTimer: Timer?
     var displayKeyframeImages: [KeyframeImage] = []
@@ -271,19 +273,22 @@ class StoryEditorViewController: UIViewController {
         print("Deinit \(self.description)")
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        for editor in storyEditors {
-            editor.frame = mediaImageView.frame
-        }
-    }
-
     override var prefersStatusBarHidden: Bool {
         return true
     }
     
+    override func viewSafeAreaInsetsDidChange() {
+        super.viewSafeAreaInsetsDidChange()
+        self.view.layoutIfNeeded()
+        for storyEditor in storyEditors {
+            storyEditor.frame = mediaImageView.frame
+        }
+    }
+    
     func setupFilterViews() {
         setupColorSlider()
+        self.view.layoutIfNeeded()
+        mediaImageView.layoutIfNeeded()
         for (index, type) in medias.enumerated() {
             let storyEditorView = StoryEditorView(frame: mediaImageView.frame,
                                                   type: type.type,
@@ -295,10 +300,6 @@ class StoryEditorViewController: UIViewController {
 
             storyEditorView.center = mediaImageView.center
             storyEditorView.filters = StoryFilter.filters
-
-            if needToReferLink {
-                storyEditorView.addReferLinkView()
-            }
             
             if index > 0 {
                 storyEditorView.isHidden = true
@@ -849,6 +850,15 @@ extension StoryEditorViewController {
             })
         }
     }
+    
+    @IBAction func ssuButtonClicked(sender: UIButton) {
+        if let ssuTagSelectionViewController = R.storyboard.storyCameraViewController.ssuTagSelectionViewController() {
+            ssuTagSelectionViewController.delegate = self
+            navigationController?
+                .pushViewController(ssuTagSelectionViewController, animated: true)
+        }
+    }
+    
 }
 
 extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -1263,6 +1273,21 @@ extension StoryEditorViewController: PixelEditViewControllerDelegate {
         controller.dismiss(animated: true, completion: nil)
     }
     
+}
+
+extension StoryEditorViewController: SSUTagSelectionDelegate {
+    func didSelect(type: SSUTagType) {
+        switch type {
+        case .referralLink:
+            guard !needToReferLink else {
+                return
+            }
+            needToReferLink = true
+            storyEditors[currentStoryIndex].addReferLinkView()
+        case .social:
+            self.showAlert(alertMessage: R.string.localizable.comingSoon())
+        }
+    }
 }
 
 extension StoryEditorViewController: ImageCropperDelegate {
