@@ -97,7 +97,7 @@ class StoryCameraViewController: UIViewController {
             circularProgress.progressThickness = 0.2
             circularProgress.trackThickness = 0.75
             circularProgress.trackColor = ApplicationSettings.appLightGrayColor
-            circularProgress.progressInsideFillColor = .red
+            circularProgress.progressInsideFillColor = .white
             circularProgress.clockwise = true
             circularProgress.roundedCorners = true
             circularProgress.set(colors: UIColor.red)
@@ -700,7 +700,7 @@ extension StoryCameraViewController {
             
             self.totalDurationOfOneSegment = 0.0
             self.circularProgress.animate(toAngle: 0, duration: 0, completion: nil)
-            
+            self.circularProgress.progressInsideFillColor = .white
             self.showControls()
             self.stop()
             
@@ -885,6 +885,7 @@ extension StoryCameraViewController {
     public func removeData() {
         self.totalDurationOfOneSegment = 0.0
         self.circularProgress.animate(toAngle: 0, duration: 0, completion: nil)
+        self.circularProgress.progressInsideFillColor = .white
         self.takenSlideShowImages.removeAll()
         self.takenImages.removeAll()
         self.takenVideoUrls.removeAll()
@@ -1179,6 +1180,7 @@ extension StoryCameraViewController {
             } else if self.recordingType == .capture {
                 totalSeconds = 3600
             }
+            self.circularProgress.progressInsideFillColor = .red
             self.circularProgress.animate(toAngle: 360, duration: Double(totalSeconds) - (NextLevel.shared.session?.totalDuration.seconds ?? 0)) { completed in
                 if completed {
                     print("animation stopped, completed")
@@ -1201,6 +1203,7 @@ extension StoryCameraViewController {
                 self.circularProgress.transform = CGAffineTransform(scaleX: 1, y: 1)
             }, completion: { (_: Bool) in
                 self.nextLevel.pause {
+                    self.circularProgress.progressInsideFillColor = .white
                     if let session = self.nextLevel.session {
                         if let url = session.lastClipUrl {
                             self.takenVideoUrls.append(SegmentVideos(urlStr: url, thumbimage: session.clips.last?.thumbnailImage, latitued: nil, longitued: nil, placeAddress: nil, numberOfSegement: "\(self.takenVideoUrls.count + 1)", videoduration: nil, combineOneVideo: true))
@@ -1234,6 +1237,7 @@ extension StoryCameraViewController {
         }, completion: { (_: Bool) in
             self.nextLevel.pause {
                 self.circularProgress.animate(toAngle: 0, duration: 0) { _ in
+                    self.circularProgress.progressInsideFillColor = .white
                     if let session = self.nextLevel.session {
                         if let url = session.lastClipUrl {
                             print("Recording completed \(url.path)")

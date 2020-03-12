@@ -55,7 +55,9 @@ extension SSUTagSelectionViewController: UICollectionViewDataSource, UICollectio
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SSUTagSelectionCell", for: indexPath) as! SSUTagSelectionCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.ssuTagSelectionCell.identifier, for: indexPath) as? SSUTagSelectionCell else {
+            return UICollectionViewCell()
+        }
         cell.tagImageView.image = SSUTagOption.contents[indexPath.row].image
         cell.tagLabel.text = SSUTagOption.contents[indexPath.row].name
         return cell

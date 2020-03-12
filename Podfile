@@ -24,7 +24,6 @@ target 'SocialCAM' do
   use_frameworks!
   
   # Pods for SocialCAM
-  pod 'Fabric', '~> 1.10.2'
   pod 'Crashlytics', '~> 3.14.0'
   pod 'RxCocoa', '4.4.1'
   pod 'RxDataSources', '3.1.0'
@@ -48,6 +47,7 @@ target 'SocialCAM' do
   pod 'FontAwesome.swift', '1.5.0'
   pod 'Spring', :git => 'https://github.com/MengTo/Spring.git'
   pod 'Firebase/Core'
+  pod 'Firebase/Crashlytics'
   pod 'Firebase/Analytics'
   pod 'Firebase/Auth'
   pod 'GooglePlaces'

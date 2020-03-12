@@ -2782,7 +2782,7 @@
 				824EB3762361959800205993 /* Resources */,
 				8F55EF2E66D9FEBCAB33F172 /* [CP] Embed Pods Frameworks */,
 				7BA9086DBCFF29959054AB55 /* [CP] Copy Pods Resources */,
-				824E5174237E7F8D00339809 /* Run Script */,
+				82CCFD7524190646000EB100 /* ShellScript */,
 				822ED79C23953B3C00D6401A /* ShellScript */,
 				823A82D523F1705100BDB7BC /* Embed App Extensions */,
 			);
@@ -3055,24 +3055,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/R.mediaShared.generated.swift\" \n";
 		};
-		824E5174237E7F8D00339809 /* Run Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Run Script";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/run\" 96c68e9c0138cb4916e862697ecd5746657596e6 26c18e9bb11b79d4fbf2b036d87c05bdbfef408cb7e58a4f496f2fa1451a1d1f\n";
-		};
 		828F3E5D23F2AB33007AE35F /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3091,6 +3073,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/R.shared.generated.swift\" \n";
+		};
+		82CCFD7524190646000EB100 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 		};
 		86AA7E17ED26916E6A88F1DF /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -3818,7 +3817,9 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCamMediaShare/SocialCamMediaShare.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = SocialCamMediaShare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3843,6 +3844,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = SocialCamMediaShare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -3868,6 +3870,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 27;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = SocialCamShare/Info.plist;
@@ -4046,6 +4049,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 27;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/SocialCAM/Info.plist";
