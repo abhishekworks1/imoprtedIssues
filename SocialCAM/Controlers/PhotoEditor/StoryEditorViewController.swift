@@ -1026,9 +1026,11 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
                 var minimumValue: Int = 3
                 switch Defaults.shared.appMode {
                 case .basic:
-                    minimumValue = 8
+                    minimumValue = 5
                 case .advanced:
-                    minimumValue = 12
+                    minimumValue = 10
+                case .professional:
+                    minimumValue = 18
                 default:
                     minimumValue = 3
                 }

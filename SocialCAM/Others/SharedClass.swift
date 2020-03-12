@@ -325,6 +325,7 @@ public struct Constant {
     
     struct AWS {
         // Client Bucket
+        static let poolID = "us-west-2:4918c1f8-d173-4668-8891-d6892a147259"
         static let baseUrl = "https://s3-us-west-2.amazonaws.com/"
         static let NAME = "spinach-cafe"
         static let FOLDER = "main-image"
@@ -405,7 +406,7 @@ public struct Constant {
 }
 
 class StoryTagGradientLayer: CAGradientLayer { }
-#if !IS_SHAREPOST
+#if SOCIAL
 class BaseQuestionTagView: BaseStoryTagView { }
 #endif
 
@@ -429,7 +430,7 @@ enum SlideShowExportType {
     case sendChat
 }
 
-#if !IS_SHAREPOST
+#if SOCIAL
 enum StoriCamType: Equatable {
     case story
     case chat

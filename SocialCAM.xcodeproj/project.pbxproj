@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2D02F3407778A1294BDE176C /* Pods_SocialCamShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BF54D0948D071D83768AB88 /* Pods_SocialCamShare.framework */; };
+		36BDA7A521AEE45A77DE5D6D /* Pods_SocialCamMediaShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 658C98BB64610421B95A9471 /* Pods_SocialCamMediaShare.framework */; };
 		8200093823AB8D0900AB4C73 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8200093723AB8D0900AB4C73 /* R.generated.swift */; };
 		820479C523D96846006B7A84 /* HomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 820479C423D96846006B7A84 /* HomeTableViewCell.xib */; };
 		820479C723D9685D006B7A84 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820479C623D9685D006B7A84 /* HomeTableViewCell.swift */; };
@@ -362,6 +363,30 @@
 		82270CBD23B08C780003569E /* StorySegmmentAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82270CBC23B08C780003569E /* StorySegmmentAsset.swift */; };
 		822F413C238FE39100084007 /* Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822F413B238FE39100084007 /* Async.swift */; };
 		822F413F238FE3E900084007 /* ExportVideoOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822F413E238FE3E900084007 /* ExportVideoOperation.swift */; };
+		8232CEAE240E2A2300AD8E63 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8232CEAC240E2A2300AD8E63 /* MainInterface.storyboard */; };
+		8232CEB2240E2A2300AD8E63 /* SocialCamMediaShare.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8232CEA8240E2A2300AD8E63 /* SocialCamMediaShare.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		8232CEB6240E2A9100AD8E63 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 824EB3842361959900205993 /* Assets.xcassets */; };
+		8232CEB8240E2AD700AD8E63 /* SendStoryShareVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8232CEB7240E2AD700AD8E63 /* SendStoryShareVC.swift */; };
+		8232CEB9240E2B9800AD8E63 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828F3E5923F292BB007AE35F /* APIManager.swift */; };
+		8232CEBA240E328100AD8E63 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB10236C1286002B2603 /* Defaults.swift */; };
+		8232CEBB240E328C00AD8E63 /* SharedClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB39B23619E3600205993 /* SharedClass.swift */; };
+		8232CEBC240E329800AD8E63 /* UIImageView+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB3AE23619E5B00205993 /* UIImageView+UIImage.swift */; };
+		8232CEBD240E331700AD8E63 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB3A923619E5B00205993 /* String+Extension.swift */; };
+		8232CEBF240E339C00AD8E63 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB29236C1723002B2603 /* User.swift */; };
+		8232CEC0240E33A500AD8E63 /* ProfileDetailsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820BFB6123E7EB100087B38E /* ProfileDetailsResponse.swift */; };
+		8232CEC1240E33F800AD8E63 /* SaveUserDefaultsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB08236C1211002B2603 /* SaveUserDefaultsProtocol.swift */; };
+		8232CEC2240E343000AD8E63 /* FilterImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB32236C1BAF002B2603 /* FilterImage.swift */; };
+		8232CEC4240E35D500AD8E63 /* EditOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB86236C28F3002B2603 /* EditOption.swift */; };
+		8232CEC5240E35E300AD8E63 /* CGImageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954660282387B5CB00A37AE0 /* CGImageExtensions.swift */; };
+		8232CEC7240E36EC00AD8E63 /* ExtensionStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8232CEC6240E36EC00AD8E63 /* ExtensionStory.swift */; };
+		8232CEC8240E37A900AD8E63 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB39F23619E3D00205993 /* Utility.swift */; };
+		8232CEC9240E390A00AD8E63 /* Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FAFA236C1187002B2603 /* Files.swift */; };
+		8232CECA240E392000AD8E63 /* UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB3AC23619E5B00205993 /* UIAlertController.swift */; };
+		8232CECB240E396A00AD8E63 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB3AD23619E5B00205993 /* FileManager.swift */; };
+		8232CECC240E3A5000AD8E63 /* ExtensionStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8232CEC6240E36EC00AD8E63 /* ExtensionStory.swift */; };
+		8232CECE240E3B9E00AD8E63 /* R.shared.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8232CECD240E3B9E00AD8E63 /* R.shared.generated.swift */; };
+		8232CED0240E3BC900AD8E63 /* R.mediaShared.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8232CECF240E3BC900AD8E63 /* R.mediaShared.generated.swift */; };
+		8232CED3240E7AB000AD8E63 /* AWSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8232CED2240E7AB000AD8E63 /* AWSManager.swift */; };
 		823A82CD23F1705100BDB7BC /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823A82CC23F1705100BDB7BC /* ShareViewController.swift */; };
 		823A82D023F1705100BDB7BC /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 823A82CE23F1705100BDB7BC /* MainInterface.storyboard */; };
 		823A82D423F1705100BDB7BC /* SocialCamShare.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 823A82CA23F1705100BDB7BC /* SocialCamShare.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -449,7 +474,6 @@
 		828D14FD238E56790011A6CC /* TiktokClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824AD525237BEAD700BF226F /* TiktokClass.swift */; };
 		828F3E5A23F292BB007AE35F /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828F3E5923F292BB007AE35F /* APIManager.swift */; };
 		828F3E5C23F292F4007AE35F /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828F3E5B23F292F3007AE35F /* UserModel.swift */; };
-		828F3E6423F2B30B007AE35F /* R.shared.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828F3E6323F2B30B007AE35F /* R.shared.generated.swift */; };
 		828F3E6723F2B4E4007AE35F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 828F3E6923F2B4E4007AE35F /* Localizable.strings */; };
 		8299F563237135BF00963318 /* UIAppleColorWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8299F55E237135BF00963318 /* UIAppleColorWrapper.swift */; };
 		8299F564237135BF00963318 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8299F55F237135BF00963318 /* UIColor+Extension.swift */; };
@@ -614,6 +638,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		8232CEB0240E2A2300AD8E63 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 824EB3702361959800205993 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8232CEA7240E2A2300AD8E63;
+			remoteInfo = SocialCamMediaShare;
+		};
 		823A82D223F1705100BDB7BC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 824EB3702361959800205993 /* Project object */;
@@ -630,6 +661,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				8232CEB2240E2A2300AD8E63 /* SocialCamMediaShare.appex in Embed App Extensions */,
 				823A82D423F1705100BDB7BC /* SocialCamShare.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
@@ -640,7 +672,9 @@
 /* Begin PBXFileReference section */
 		2FFDFF034EAEBD1B2183306F /* Pods_SocialCAM.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SocialCAM.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3347444B0199C606404F4661 /* Pods-SocialCAM.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialCAM.release.xcconfig"; path = "Target Support Files/Pods-SocialCAM/Pods-SocialCAM.release.xcconfig"; sourceTree = "<group>"; };
+		3FE3614590594E39E9DAB9CD /* Pods-SocialCamMediaShare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialCamMediaShare.debug.xcconfig"; path = "Target Support Files/Pods-SocialCamMediaShare/Pods-SocialCamMediaShare.debug.xcconfig"; sourceTree = "<group>"; };
 		5BF54D0948D071D83768AB88 /* Pods_SocialCamShare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SocialCamShare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		658C98BB64610421B95A9471 /* Pods_SocialCamMediaShare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SocialCamMediaShare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8200093723AB8D0900AB4C73 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
 		820479C423D96846006B7A84 /* HomeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeTableViewCell.xib; sourceTree = "<group>"; };
 		820479C623D9685D006B7A84 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
@@ -1013,6 +1047,15 @@
 		82270CBC23B08C780003569E /* StorySegmmentAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorySegmmentAsset.swift; sourceTree = "<group>"; };
 		822F413B238FE39100084007 /* Async.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Async.swift; sourceTree = "<group>"; };
 		822F413E238FE3E900084007 /* ExportVideoOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportVideoOperation.swift; sourceTree = "<group>"; };
+		8232CEA8240E2A2300AD8E63 /* SocialCamMediaShare.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SocialCamMediaShare.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		8232CEAD240E2A2300AD8E63 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		8232CEAF240E2A2300AD8E63 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8232CEB7240E2AD700AD8E63 /* SendStoryShareVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendStoryShareVC.swift; sourceTree = "<group>"; };
+		8232CEC6240E36EC00AD8E63 /* ExtensionStory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionStory.swift; sourceTree = "<group>"; };
+		8232CECD240E3B9E00AD8E63 /* R.shared.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.shared.generated.swift; sourceTree = "<group>"; };
+		8232CECF240E3BC900AD8E63 /* R.mediaShared.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.mediaShared.generated.swift; sourceTree = "<group>"; };
+		8232CED1240E486900AD8E63 /* SocialCamMediaShare.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SocialCamMediaShare.entitlements; sourceTree = "<group>"; };
+		8232CED2240E7AB000AD8E63 /* AWSManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AWSManager.swift; sourceTree = "<group>"; };
 		823A82CA23F1705100BDB7BC /* SocialCamShare.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SocialCamShare.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		823A82CC23F1705100BDB7BC /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		823A82CF23F1705100BDB7BC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
@@ -1099,7 +1142,6 @@
 		8287D22D2382A4A20074FC39 /* Posts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Posts.swift; sourceTree = "<group>"; };
 		828F3E5923F292BB007AE35F /* APIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		828F3E5B23F292F3007AE35F /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
-		828F3E6323F2B30B007AE35F /* R.shared.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = R.shared.generated.swift; path = SocialCamShare/R.shared.generated.swift; sourceTree = "<group>"; };
 		828F3E6823F2B4E4007AE35F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8299F55E237135BF00963318 /* UIAppleColorWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAppleColorWrapper.swift; sourceTree = "<group>"; };
 		8299F55F237135BF00963318 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
@@ -1274,10 +1316,19 @@
 		95F117E323FD04B400EB99B4 /* SpecificBoomerangOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecificBoomerangOptions.swift; sourceTree = "<group>"; };
 		AE9BFF67272EC1BDDCE4E0E4 /* Pods-SocialCamShare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialCamShare.debug.xcconfig"; path = "Target Support Files/Pods-SocialCamShare/Pods-SocialCamShare.debug.xcconfig"; sourceTree = "<group>"; };
 		B327FA3B2FE684E9DDB692D6 /* Pods-SocialCAM.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialCAM.debug.xcconfig"; path = "Target Support Files/Pods-SocialCAM/Pods-SocialCAM.debug.xcconfig"; sourceTree = "<group>"; };
+		DC7E57A345384B15D3E72956 /* Pods-SocialCamMediaShare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialCamMediaShare.release.xcconfig"; path = "Target Support Files/Pods-SocialCamMediaShare/Pods-SocialCamMediaShare.release.xcconfig"; sourceTree = "<group>"; };
 		F1337973486C796BCC18FFCD /* Pods-SocialCamShare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialCamShare.release.xcconfig"; path = "Target Support Files/Pods-SocialCamShare/Pods-SocialCamShare.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8232CEA5240E2A2300AD8E63 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				36BDA7A521AEE45A77DE5D6D /* Pods_SocialCamMediaShare.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		823A82C723F1705100BDB7BC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1307,6 +1358,8 @@
 				3347444B0199C606404F4661 /* Pods-SocialCAM.release.xcconfig */,
 				AE9BFF67272EC1BDDCE4E0E4 /* Pods-SocialCamShare.debug.xcconfig */,
 				F1337973486C796BCC18FFCD /* Pods-SocialCamShare.release.xcconfig */,
+				3FE3614590594E39E9DAB9CD /* Pods-SocialCamMediaShare.debug.xcconfig */,
+				DC7E57A345384B15D3E72956 /* Pods-SocialCamMediaShare.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -2113,6 +2166,19 @@
 			path = SpeedController;
 			sourceTree = "<group>";
 		};
+		8232CEA9240E2A2300AD8E63 /* SocialCamMediaShare */ = {
+			isa = PBXGroup;
+			children = (
+				8232CED1240E486900AD8E63 /* SocialCamMediaShare.entitlements */,
+				8232CEAC240E2A2300AD8E63 /* MainInterface.storyboard */,
+				8232CEAF240E2A2300AD8E63 /* Info.plist */,
+				8232CED2240E7AB000AD8E63 /* AWSManager.swift */,
+				8232CEB7240E2AD700AD8E63 /* SendStoryShareVC.swift */,
+				8232CEC6240E36EC00AD8E63 /* ExtensionStory.swift */,
+			);
+			path = SocialCamMediaShare;
+			sourceTree = "<group>";
+		};
 		823A82CB23F1705100BDB7BC /* SocialCamShare */ = {
 			isa = PBXGroup;
 			children = (
@@ -2217,9 +2283,11 @@
 			isa = PBXGroup;
 			children = (
 				8200093723AB8D0900AB4C73 /* R.generated.swift */,
-				828F3E6323F2B30B007AE35F /* R.shared.generated.swift */,
+				8232CECD240E3B9E00AD8E63 /* R.shared.generated.swift */,
+				8232CECF240E3BC900AD8E63 /* R.mediaShared.generated.swift */,
 				824EB37A2361959800205993 /* SocialCAM */,
 				823A82CB23F1705100BDB7BC /* SocialCamShare */,
+				8232CEA9240E2A2300AD8E63 /* SocialCamMediaShare */,
 				824EB3792361959800205993 /* Products */,
 				42EECCA896FCF095AA83BB36 /* Pods */,
 				F6303928DF96F75577001E96 /* Frameworks */,
@@ -2231,6 +2299,7 @@
 			children = (
 				824EB3782361959800205993 /* SocialCam.app */,
 				823A82CA23F1705100BDB7BC /* SocialCamShare.appex */,
+				8232CEA8240E2A2300AD8E63 /* SocialCamMediaShare.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2656,6 +2725,7 @@
 				82EEF72D23752B0D00DE4845 /* AdSupport.framework */,
 				2FFDFF034EAEBD1B2183306F /* Pods_SocialCAM.framework */,
 				5BF54D0948D071D83768AB88 /* Pods_SocialCamShare.framework */,
+				658C98BB64610421B95A9471 /* Pods_SocialCamMediaShare.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2663,6 +2733,25 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		8232CEA7240E2A2300AD8E63 /* SocialCamMediaShare */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8232CEB5240E2A2300AD8E63 /* Build configuration list for PBXNativeTarget "SocialCamMediaShare" */;
+			buildPhases = (
+				8C76D059F44CC38A565FEDC4 /* [CP] Check Pods Manifest.lock */,
+				8232CEBE240E335900AD8E63 /* ShellScript */,
+				8232CEA4240E2A2300AD8E63 /* Sources */,
+				8232CEA5240E2A2300AD8E63 /* Frameworks */,
+				8232CEA6240E2A2300AD8E63 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SocialCamMediaShare;
+			productName = SocialCamMediaShare;
+			productReference = 8232CEA8240E2A2300AD8E63 /* SocialCamMediaShare.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		823A82C923F1705100BDB7BC /* SocialCamShare */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 823A82D823F1705100BDB7BC /* Build configuration list for PBXNativeTarget "SocialCamShare" */;
@@ -2701,6 +2790,7 @@
 			);
 			dependencies = (
 				823A82D323F1705100BDB7BC /* PBXTargetDependency */,
+				8232CEB1240E2A2300AD8E63 /* PBXTargetDependency */,
 			);
 			name = SocialCAM;
 			productName = StoriCam;
@@ -2717,6 +2807,9 @@
 				LastUpgradeCheck = 1120;
 				ORGANIZATIONNAME = "Viraj Patel";
 				TargetAttributes = {
+					8232CEA7240E2A2300AD8E63 = {
+						CreatedOnToolsVersion = 11.2.1;
+					};
 					823A82C923F1705100BDB7BC = {
 						CreatedOnToolsVersion = 11.2.1;
 					};
@@ -2749,11 +2842,21 @@
 			targets = (
 				824EB3772361959800205993 /* SocialCAM */,
 				823A82C923F1705100BDB7BC /* SocialCamShare */,
+				8232CEA7240E2A2300AD8E63 /* SocialCamMediaShare */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		8232CEA6240E2A2300AD8E63 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8232CEB6240E2A9100AD8E63 /* Assets.xcassets in Resources */,
+				8232CEAE240E2A2300AD8E63 /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		823A82C823F1705100BDB7BC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2933,6 +3036,25 @@
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
+		8232CEBE240E335900AD8E63 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$TEMP_DIR/rswift-lastrun",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				$SRCROOT/R.mediaShared.generated.swift,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/R.mediaShared.generated.swift\" \n";
+		};
 		824E5174237E7F8D00339809 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2964,11 +3086,11 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				$SRCROOT/SocialCamShare/R.shared.generated.swift,
+				$SRCROOT/R.shared.generated.swift,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/SocialCamShare/R.shared.generated.swift\" \n";
+			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/R.shared.generated.swift\" \n";
 		};
 		86AA7E17ED26916E6A88F1DF /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2986,6 +3108,28 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-SocialCamShare-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8C76D059F44CC38A565FEDC4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SocialCamMediaShare-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -3034,6 +3178,32 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8232CEA4240E2A2300AD8E63 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8232CEC7240E36EC00AD8E63 /* ExtensionStory.swift in Sources */,
+				8232CEBC240E329800AD8E63 /* UIImageView+UIImage.swift in Sources */,
+				8232CEC0240E33A500AD8E63 /* ProfileDetailsResponse.swift in Sources */,
+				8232CEC2240E343000AD8E63 /* FilterImage.swift in Sources */,
+				8232CEBD240E331700AD8E63 /* String+Extension.swift in Sources */,
+				8232CEB9240E2B9800AD8E63 /* APIManager.swift in Sources */,
+				8232CEBA240E328100AD8E63 /* Defaults.swift in Sources */,
+				8232CEC1240E33F800AD8E63 /* SaveUserDefaultsProtocol.swift in Sources */,
+				8232CEC4240E35D500AD8E63 /* EditOption.swift in Sources */,
+				8232CECB240E396A00AD8E63 /* FileManager.swift in Sources */,
+				8232CEBF240E339C00AD8E63 /* User.swift in Sources */,
+				8232CECA240E392000AD8E63 /* UIAlertController.swift in Sources */,
+				8232CED3240E7AB000AD8E63 /* AWSManager.swift in Sources */,
+				8232CEC9240E390A00AD8E63 /* Files.swift in Sources */,
+				8232CEBB240E328C00AD8E63 /* SharedClass.swift in Sources */,
+				8232CEC8240E37A900AD8E63 /* Utility.swift in Sources */,
+				8232CED0240E3BC900AD8E63 /* R.mediaShared.generated.swift in Sources */,
+				8232CEC5240E35E300AD8E63 /* CGImageExtensions.swift in Sources */,
+				8232CEB8240E2AD700AD8E63 /* SendStoryShareVC.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		823A82C623F1705100BDB7BC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3041,14 +3211,15 @@
 				823A82CD23F1705100BDB7BC /* ShareViewController.swift in Sources */,
 				823A82DD23F1754D00BDB7BC /* SaveUserDefaultsProtocol.swift in Sources */,
 				823A82DF23F1757300BDB7BC /* EditOption.swift in Sources */,
+				8232CECC240E3A5000AD8E63 /* ExtensionStory.swift in Sources */,
 				823A82DC23F1754300BDB7BC /* SharedClass.swift in Sources */,
 				828F3E5A23F292BB007AE35F /* APIManager.swift in Sources */,
 				823A82DE23F1756300BDB7BC /* FilterImage.swift in Sources */,
 				823A82E123F1798A00BDB7BC /* CreatePostData.swift in Sources */,
 				823A82E023F1782E00BDB7BC /* ProfileDetailsResponse.swift in Sources */,
 				823A82D923F1750F00BDB7BC /* Defaults.swift in Sources */,
-				828F3E6423F2B30B007AE35F /* R.shared.generated.swift in Sources */,
 				823A82DA23F1751E00BDB7BC /* User.swift in Sources */,
+				8232CECE240E3B9E00AD8E63 /* R.shared.generated.swift in Sources */,
 				828F3E5C23F292F4007AE35F /* UserModel.swift in Sources */,
 				823A82E423F17A3300BDB7BC /* Reaction.swift in Sources */,
 			);
@@ -3541,6 +3712,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		8232CEB1240E2A2300AD8E63 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8232CEA7240E2A2300AD8E63 /* SocialCamMediaShare */;
+			targetProxy = 8232CEB0240E2A2300AD8E63 /* PBXContainerItemProxy */;
+		};
 		823A82D323F1705100BDB7BC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 823A82C923F1705100BDB7BC /* SocialCamShare */;
@@ -3589,6 +3765,14 @@
 			name = FacebookReactionLocalizable.strings;
 			sourceTree = "<group>";
 		};
+		8232CEAC240E2A2300AD8E63 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8232CEAD240E2A2300AD8E63 /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
 		823A82CE23F1705100BDB7BC /* MainInterface.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -3627,6 +3811,54 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		8232CEB3240E2A2300AD8E63 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3FE3614590594E39E9DAB9CD /* Pods-SocialCamMediaShare.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SocialCamMediaShare/SocialCamMediaShare.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				INFOPLIST_FILE = SocialCamMediaShare/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D IS_MEDIASHARE";
+				PRODUCT_BUNDLE_IDENTIFIER = com.simform.storiCamPro.SocialCamMediaShare;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8232CEB4240E2A2300AD8E63 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC7E57A345384B15D3E72956 /* Pods-SocialCamMediaShare.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = SocialCamMediaShare/SocialCamMediaShare.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				INFOPLIST_FILE = SocialCamMediaShare/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D IS_MEDIASHARE";
+				PRODUCT_BUNDLE_IDENTIFIER = com.simform.storiCamPro.SocialCamMediaShare;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		823A82D623F1705100BDB7BC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AE9BFF67272EC1BDDCE4E0E4 /* Pods-SocialCamShare.debug.xcconfig */;
@@ -3872,6 +4104,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8232CEB5240E2A2300AD8E63 /* Build configuration list for PBXNativeTarget "SocialCamMediaShare" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8232CEB3240E2A2300AD8E63 /* Debug */,
+				8232CEB4240E2A2300AD8E63 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		823A82D823F1705100BDB7BC /* Build configuration list for PBXNativeTarget "SocialCamShare" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

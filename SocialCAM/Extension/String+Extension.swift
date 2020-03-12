@@ -190,7 +190,7 @@ extension String {
     func image(newSize: CGSize = CGSize(width: 18, height: 18)) -> UIImage? {
         let size = newSize
         UIGraphicsBeginImageContextWithOptions(size, false, 0)
-        ApplicationSettings.appClearColor.set()
+        UIColor.clear.set()
         let rect = CGRect(origin: .zero, size: size)
         UIRectFill(CGRect(origin: .zero, size: size))
         (self as AnyObject).draw(in: rect, withAttributes: [.font: UIFont.systemFont(ofSize: 14)])
@@ -219,7 +219,7 @@ extension String {
     func image() -> UIImage? {
         let size = CGSize(width: 20, height: 20)
         UIGraphicsBeginImageContextWithOptions(size, false, 0)
-        ApplicationSettings.appClearColor.set()
+        UIColor.clear.set()
         let rect = CGRect(origin: .zero, size: size)
         UIRectFill(CGRect(origin: .zero, size: size))
         (self as AnyObject).draw(in: rect, withAttributes: [.font: UIFont.systemFont(ofSize: 14)])

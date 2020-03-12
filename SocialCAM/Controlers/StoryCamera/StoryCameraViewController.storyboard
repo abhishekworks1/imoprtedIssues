@@ -851,6 +851,7 @@
                                                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="42" id="d5Z-b0-z5I"/>
+                                                                    <constraint firstAttribute="width" constant="311" id="iSW-FQ-gC5"/>
                                                                 </constraints>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="tickStyle">
@@ -1196,6 +1197,11 @@
                                             <constraint firstItem="DHl-MY-q5r" firstAttribute="leading" secondItem="xSc-Ve-S1r" secondAttribute="leading" id="uZI-nY-WWD"/>
                                             <constraint firstItem="eal-x4-10Z" firstAttribute="width" secondItem="xSc-Ve-S1r" secondAttribute="width" multiplier="0.83" id="vSb-yz-85t"/>
                                         </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="vSb-yz-85t"/>
+                                            </mask>
+                                        </variation>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Slow and fast motion" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BY3-hm-EVp">
                                         <rect key="frame" x="128" y="628" width="118.5" height="14"/>
@@ -1768,6 +1774,7 @@ Countdown</string>
                         <outlet property="speedSliderLabels" destination="5wL-B7-jWP" id="pJy-85-uoJ"/>
                         <outlet property="speedSliderView" destination="avd-CC-AmT" id="VzM-y1-u2h"/>
                         <outlet property="ssuTagView" destination="4YY-rR-RGC" id="qas-av-GDW"/>
+                        <outlet property="speedSliderWidthConstraint" destination="iSW-FQ-gC5" id="1h4-3Z-wAO"/>
                         <outlet property="stopMotionCollectionView" destination="aT4-ca-ew8" id="bi5-Cz-Lc6"/>
                         <outlet property="storyUploadImageView" destination="7MJ-mS-33V" id="ITK-Ts-GJ7"/>
                         <outlet property="storyUploadRoundView" destination="MSD-vT-lIi" id="EWM-UU-ct3"/>

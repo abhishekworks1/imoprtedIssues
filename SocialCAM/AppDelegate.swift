@@ -52,7 +52,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         GoogleManager.shared.restorePreviousSignIn()
         
-        MSAppCenter.start(Constant.AppCenter.apiKey, withServices: [])
+        MSAppCenter.start(Constant.AppCenter.apiKey, withServices: [MSAnalytics.self, MSCrashes.self])
+        MSCrashes.hasReceivedMemoryWarningInLastSession()
         
         UIApplication.shared.delegate!.window!!.rootViewController = R.storyboard.pageViewController.pageViewController()
         

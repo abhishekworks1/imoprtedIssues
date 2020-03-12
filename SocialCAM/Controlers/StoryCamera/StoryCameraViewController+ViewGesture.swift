@@ -101,8 +101,10 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             
             switch Defaults.shared.appMode {
             case .free:
+                if videoSpeedType != VideoSpeedType.normal {
+                    self.setNormalSpeed(selectedValue: 2)
+                }
                 return
-                break
             default:
                 let translation = gestureRecognizer.location(in: circularProgress)
                 circularProgress.center = CGPoint(x: circularProgress.center.x + translation.x - 35,
@@ -113,14 +115,14 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             
             var speedOptions: [StoryCameraSpeedValue] = [.slow3x, .slow2x, .normal, .normal, .fast2x, .fast3x]
             switch Defaults.shared.appMode {
-            case .free:
+            case .free, .basic:
                 break
-            case .basic:
+            case .advanced:
                 speedOptions.append(.fast4x)
                 speedOptions.insert(.slow4x, at: 0)
             default:
                 speedOptions.append(contentsOf: [.fast4x, .fast5x])
-                speedOptions.insert(contentsOf: [.slow4x, .slow5x], at: 0)
+                speedOptions.insert(contentsOf: [.slow5x, .slow4x], at: 0)
             }
             
             let currentValue = checkValue(values: speedOptions, newPoint.x)
@@ -269,37 +271,137 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
         }
     }
     
+    // values = ["-3x", "2x", "1x", "1x", "2x", "3x"]
+    func checkValue(values: [StoryCameraSpeedValue], _ pointX: CGFloat) -> StoryCameraSpeedValue {
+        let screenPart = UIScreen.main.bounds.width / CGFloat(values.count)
+        for (index, value) in values.enumerated() {
+            let multiplyValue = index + 1
+            if pointX < screenPart*CGFloat(multiplyValue) {
+                print(value)
+                return value
+            }
+        }
+        return .normal
+    }
+
     func onStartRecordSetSpeed() {
+        var speedOptions: [StoryCameraSpeedValue] = [.slow3x, .slow2x, .normal, .normal, .fast2x, .fast3x]
+        switch Defaults.shared.appMode {
+        case .free:
+            break
+        case .basic:
+            speedOptions.append(.fast4x)
+            speedOptions.insert(.slow4x, at: 0)
+        default:
+            speedOptions.append(contentsOf: [.fast4x, .fast5x])
+            speedOptions.insert(contentsOf: [.slow4x, .slow5x], at: 0)
+        }
+        var value = 1
+        var speedText = ""
+        
         switch speedSlider.value {
         case 0:
-            nextLevel.videoConfiguration.timescale = 4
-            self.speedLabel.text = R.string.localizable.slow4x()
-            self.speedLabel.startBlink()
+            if speedOptions.count % 5 == 0 {
+                value = 5
+                speedText = R.string.localizable.slow5x()
+            } else if speedOptions.count % 4 == 0 {
+                value = 4
+                speedText = R.string.localizable.slow4x()
+            } else if speedOptions.count % 3 == 0 {
+                value = 3
+                speedText = R.string.localizable.slow3x()
+            }
         case 1:
-            nextLevel.videoConfiguration.timescale = 3
-            self.speedLabel.text = R.string.localizable.slow3x()
-            self.speedLabel.startBlink()
+            if speedOptions.count % 5 == 0 {
+                value = 4
+                speedText = R.string.localizable.slow4x()
+            } else if speedOptions.count % 4 == 0 {
+                value = 3
+                speedText = R.string.localizable.slow3x()
+            } else if speedOptions.count % 3 == 0 {
+                value = 3
+                speedText = R.string.localizable.slow3x()
+            }
         case 2:
-            nextLevel.videoConfiguration.timescale = 2
-            self.speedLabel.text = R.string.localizable.slow2x()
-            self.speedLabel.startBlink()
+            if speedOptions.count % 5 == 0 {
+                value = 3
+                speedText = R.string.localizable.slow3x()
+            } else if speedOptions.count % 4 == 0 {
+                value = 2
+                speedText = R.string.localizable.slow2x()
+            } else if speedOptions.count % 3 == 0 {
+                value = 1
+                speedText = ""
+            }
+        case 3:
+            if speedOptions.count % 5 == 0 {
+                value = 2
+                speedText = R.string.localizable.slow2x()
+            } else if speedOptions.count % 4 == 0 {
+                value = 1
+                speedText = ""
+            } else if speedOptions.count % 3 == 0 {
+                value = 1/2
+                speedText = R.string.localizable.fast2x()
+            }
         case 4:
-            nextLevel.videoConfiguration.timescale = 1/2
-            self.speedLabel.text = R.string.localizable.fast2x()
-            self.speedLabel.startBlink()
+            if speedOptions.count % 5 == 0 {
+                value = 1
+                speedText = ""
+            } else if speedOptions.count % 4 == 0 {
+                value = 1/2
+                speedText = R.string.localizable.fast2x()
+            } else if speedOptions.count % 3 == 0 {
+                value = 1/3
+                speedText = R.string.localizable.fast3x()
+            }
         case 5:
-            nextLevel.videoConfiguration.timescale = 1/3
-            self.speedLabel.text = R.string.localizable.fast3x()
-            self.speedLabel.startBlink()
+            if speedOptions.count % 5 == 0 {
+                value = 1/2
+                speedText = R.string.localizable.fast2x()
+            } else if speedOptions.count % 4 == 0 {
+                value = 1/3
+                speedText = R.string.localizable.fast3x()
+            } else if speedOptions.count % 3 == 0 {
+                value = 1/4
+                speedText = R.string.localizable.fast4x()
+            }
         case 6:
-            nextLevel.videoConfiguration.timescale = 1/4
-            self.speedLabel.text = R.string.localizable.fast4x()
-            self.speedLabel.startBlink()
+            if speedOptions.count % 5 == 0 {
+                value = 1/3
+                speedText = R.string.localizable.fast3x()
+            } else if speedOptions.count % 4 == 0 {
+                value = 1/4
+                speedText = R.string.localizable.fast4x()
+            } else if speedOptions.count % 3 == 0 {
+                value = 1/5
+                speedText = R.string.localizable.fast5x()
+            }
+        case 7:
+            if speedOptions.count % 5 == 0 {
+                value = 1/4
+                speedText = R.string.localizable.fast4x()
+            } else if speedOptions.count % 4 == 0 {
+                value = 1/5
+                speedText = R.string.localizable.fast5x()
+            }
+        case 8:
+            if speedOptions.count % 5 == 0 {
+                value = 1/5
+                speedText = R.string.localizable.fast5x()
+            }
         default:
-            nextLevel.videoConfiguration.timescale = 1
-            self.speedLabel.text = ""
+            break
+        }
+        
+        nextLevel.videoConfiguration.timescale = Float64(value)
+        self.speedLabel.text = speedText
+        if speedText != "" {
+            self.speedLabel.startBlink()
+        } else {
             self.speedLabel.stopBlink()
         }
+        
         self.view.bringSubviewToFront(self.speedLabel)
         speedIndicatorViewColorChange()
     }
@@ -424,17 +526,4 @@ enum StoryCameraSpeedValue: String {
     case fast3x = "3x"
     case fast4x = "4x"
     case fast5x = "5x"
-}
-
-// values = ["-3x", "2x", "1x", "1x", "2x", "3x"]
-func checkValue(values: [StoryCameraSpeedValue],_ pointX: CGFloat) -> StoryCameraSpeedValue {
-    let screenPart = UIScreen.main.bounds.width / CGFloat(values.count)
-    for (index, value) in values.enumerated() {
-        let multiplyValue = index + 1
-        if pointX < screenPart*CGFloat(multiplyValue) {
-            print(value)
-            return value
-        }
-    }
-    return .normal
 }
