@@ -18,7 +18,7 @@ struct SSUTagOption {
     var image: UIImage
     var type: SSUTagType
     
-    static let contents: [SSUTagOption] = [SSUTagOption(name: R.string.localizable.referralLink(), image: #imageLiteral(resourceName: "ssuReferLink"), type: .referralLink),
+    static let contents: [SSUTagOption] = [SSUTagOption(name: R.string.localizable.waitingList(), image: #imageLiteral(resourceName: "ssuReferLink"), type: .referralLink),
                                            SSUTagOption(name: R.string.localizable.social(), image: #imageLiteral(resourceName: "ssuSocial"), type: .social)]
 }
 

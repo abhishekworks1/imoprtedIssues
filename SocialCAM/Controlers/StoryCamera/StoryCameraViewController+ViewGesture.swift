@@ -287,9 +287,9 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
     func onStartRecordSetSpeed() {
         var speedOptions: [StoryCameraSpeedValue] = [.slow3x, .slow2x, .normal, .normal, .fast2x, .fast3x]
         switch Defaults.shared.appMode {
-        case .free:
+        case .free, .basic:
             break
-        case .basic:
+        case .advanced:
             speedOptions.append(.fast4x)
             speedOptions.insert(.slow4x, at: 0)
         default:

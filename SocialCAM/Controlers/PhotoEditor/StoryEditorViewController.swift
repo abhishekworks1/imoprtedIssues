@@ -223,7 +223,6 @@ class StoryEditorViewController: UIViewController {
     var isViewEditMode: Bool = false {
         didSet {
             editToolBarView.isHidden = isViewEditMode
-            deleteView.isHidden = isViewEditMode
             downloadView.isHidden = isViewEditMode
             if (storyEditors.count > 1) {
                 collectionView.isHidden = isViewEditMode
@@ -246,6 +245,7 @@ class StoryEditorViewController: UIViewController {
         super.viewDidLoad()
         setupFilterViews()
         selectedSlideShowMedias = (0...18).map({ _ in StoryEditorMedia(type: .image(UIImage())) })
+        slideShowCollectionView.reloadData()
         var collectionViews: [UIView] = [collectionView]
         if isSlideShow {
             collectionViews.append(slideShowCollectionView)
