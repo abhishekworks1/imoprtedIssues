@@ -1420,8 +1420,17 @@ extension StoryCameraViewController {
                 self.showControls()
                 self.isRecording = false
                 self.videoSpeedType = .normal
-                self.speedSliderLabels.value = 3
-                self.speedSlider.value = 3
+                switch Defaults.shared.appMode {
+                case .free, .basic:
+                    speedSliderLabels.value = 2
+                    speedSlider.value = 2
+                case .advanced:
+                    speedSliderLabels.value = 3
+                    speedSlider.value = 3
+                default:
+                    speedSliderLabels.value = 4
+                    speedSlider.value = 4
+                }
                 self.isSpeedChanged = false
                 if (self.recordingType == .timer) || (self.recordingType == .photoTimer) {
                     self.recordingType = .normal
