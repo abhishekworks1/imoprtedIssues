@@ -121,14 +121,7 @@ class TrimEditorViewController: UIViewController {
     }
     
     func thumbImage(index: Int, secondIndex: Int = 0) -> UIImage? {
-        var image: UIImage?
-        switch self.storyEditorMedias[index][secondIndex].type {
-        case .image:
-            break
-        case let .video(thumbImage, _):
-            image = thumbImage
-        }
-        guard let thumbImage = image else {
+        guard let asset = currentAsset(index: index), let thumbImage = asset.thumbnailImage() else {
             return nil
         }
         return thumbImage
@@ -889,34 +882,29 @@ extension TrimEditorViewController {
     }
     
     @IBAction func saveButtonTapped(_ sender: AnyObject) {
-        if let doneHandler = self.doneHandler {
-            if self.videoUrls.count == 1 {
-                if let cell: ImageCollectionViewCell = self.storyCollectionView.cellForItem(at: getCurrentIndexPath) as? ImageCollectionViewCell {
-                    guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
+        if let doneHandler = self.doneHandler, isEditMode, let cell: ImageCollectionViewCell = self.storyCollectionView.cellForItem(at: getCurrentIndexPath) as? ImageCollectionViewCell {
+            guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
+                return
+            }
+            do {
+                try Utils.time {
+                    guard let asset = currentAsset(index: self.currentPage) else {
                         return
                     }
-                    do {
-                        try Utils.time {
-                            guard let asset = currentAsset(index: self.currentPage) else {
-                                return
-                            }
-                            let trimmedAsset = try asset.assetByTrimming(startTime: startTime, endTime: endTime)
-                            
-                            let thumbimage = UIImage.getThumbnailFrom(asset: trimmedAsset) ?? UIImage()
-                            
-                            self.storyEditorMedias[self.currentPage][0] = StoryEditorMedia(type: .video(thumbimage, trimmedAsset))
-                        }
-                    } catch let error {
-                        print("💩 \(error)")
+                    let trimmedAsset = try asset.assetByTrimming(startTime: startTime, endTime: endTime)
+                    
+                    let thumbimage = UIImage.getThumbnailFrom(asset: trimmedAsset) ?? UIImage()
+                    
+                    self.storyEditorMedias[self.currentPage][0] = StoryEditorMedia(type: .video(thumbimage, trimmedAsset))
+                    var urls: [StoryEditorMedia] = []
+                    for video in self.storyEditorMedias {
+                        urls.append(video.first!)
                     }
+                    doneHandler(urls)
                 }
+            } catch let error {
+                print("💩 \(error)")
             }
-            
-            var urls: [StoryEditorMedia] = []
-            for video in self.storyEditorMedias {
-                urls.append(video.first!)
-            }
-            doneHandler(urls)
         }
         self.navigationController?.popViewController(animated: true)
     }
