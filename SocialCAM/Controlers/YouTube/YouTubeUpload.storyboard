@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -49,7 +49,7 @@
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WvS-B6-VGH">
-                                                <rect key="frame" x="165" y="46.5" width="84" height="84"/>
+                                                <rect key="frame" x="186" y="67.5" width="42" height="42"/>
                                                 <state key="normal" image="storyPlay"/>
                                                 <connections>
                                                     <action selector="btnPlayPauseClicked:" destination="nPM-ws-Clc" eventType="touchUpInside" id="nGh-YU-UsZ"/>
@@ -234,7 +234,7 @@
                                                 </connections>
                                             </textField>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icoArrowRight" translatesAutoresizingMaskIntoConstraints="NO" id="Hzl-dL-UR5">
-                                                <rect key="frame" x="383" y="508.5" width="16" height="26"/>
+                                                <rect key="frame" x="391" y="515" width="8" height="13"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Click &quot;Publish&quot; to make your video live." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KW0-a6-tKf">
                                                 <rect key="frame" x="15" y="561.5" width="384" height="16.5"/>
@@ -539,15 +539,15 @@
                                 <rect key="frame" x="0.0" y="99" width="414" height="759"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="YouCategoryTableViewCell" rowHeight="86" id="qft-wa-dcF" customClass="YouCategoryTableViewCell" customModule="SocialCam" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="86"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="YouCategoryTableViewCell" id="qft-wa-dcF" customClass="YouCategoryTableViewCell" customModule="SocialCam" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="20.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qft-wa-dcF" id="3ko-UV-5CZ">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="86"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="20.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l1Z-yd-Wgx">
-                                                    <rect key="frame" x="25" y="10" width="339" height="66"/>
+                                                    <rect key="frame" x="25" y="10" width="339" height="0.5"/>
                                                     <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>

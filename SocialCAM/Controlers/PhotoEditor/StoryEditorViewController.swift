@@ -218,7 +218,7 @@ class StoryEditorViewController: UIViewController {
     private var slideShowExportedURL: URL?
     private var videoExportedURL: URL?
     
-    public var needToReferLink: Bool = true
+    public var referType: ReferType = .none
     
     var isViewEditMode: Bool = false {
         didSet {
@@ -258,6 +258,7 @@ class StoryEditorViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        IQKeyboardManager.shared.enable = false
         IQKeyboardManager.shared.enableAutoToolbar = false
         videoProgressBar.layoutSubviews()
         playVideo()
@@ -265,6 +266,7 @@ class StoryEditorViewController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        IQKeyboardManager.shared.enable = false
         IQKeyboardManager.shared.enableAutoToolbar = true
         pauseVideo()
     }
@@ -295,6 +297,7 @@ class StoryEditorViewController: UIViewController {
                                                   contentMode: .scaleAspectFit,
                                                   deleteView: deleteView,
                                                   undoView: undoButton)
+            storyEditorView.delegate = self
             storyEditorView.socialShareView = self.socialShareBottomView
             view.insertSubview(storyEditorView, aboveSubview: mediaImageView)
 
@@ -341,19 +344,25 @@ class StoryEditorViewController: UIViewController {
         case .image:
             isImage = true
         default: break
-        }   
+        }
+        
+        #if VIRALCAMAPP
+        self.storiCamShareView.isHidden = true
+        #else
+        if let currentUser = Defaults.shared.currentUser, let isAdvanceMode = currentUser.advanceGameMode {
+            self.storiCamShareView.isHidden = !isAdvanceMode
+        } else {
+            self.storiCamShareView.isHidden = true
+        }
+        #endif
         self.editOptionView.isHidden = !isImage
         self.applyFilterOptionView.isHidden = !isImage
-        self.pic2ArtOptionView.isHidden = Defaults.shared.appMode != .free ? !isImage : true
-       
+        self.specificBoomerangView.isHidden = isBoomerang ? true : isImage
         self.ssuTagView.isHidden = Defaults.shared.appMode != .professional
-        
+        self.pic2ArtOptionView.isHidden = Defaults.shared.appMode != .free ? !isImage : true
         self.soundOptionView.isHidden = isImage
         self.trimOptionView.isHidden = isImage
-       
         self.timeSpeedOptionView.isHidden = Defaults.shared.appMode != .free ? isImage : true
-        self.specificBoomerangView.isHidden = isBoomerang ? true : isImage
-        
         self.slideShowCollectionView.isHidden = !isSlideShow
         self.addMusicOptionView.isHidden = !isSlideShow
         self.collectionView.isHidden = !(storyEditors.count > 1)
@@ -362,24 +371,19 @@ class StoryEditorViewController: UIViewController {
         
         self.youtubeShareView.isHidden = isImage
         self.tiktokShareView.isHidden = isImage
-        if let currentUser = Defaults.shared.currentUser, let isAdvanceMode = currentUser.advanceGameMode {
-            self.storiCamShareView.isHidden = !isAdvanceMode
-        } else {
-            self.storiCamShareView.isHidden = true
-        }
         self.playPauseButton.isHidden = isImage
         self.progressBarView.isHidden = isImage
     }
     
-    func hideToolBar(hide: Bool) {
+    func hideToolBar(hide: Bool, hideColorSlider: Bool = false) {
         editToolBarView.isHidden = hide
         downloadView.isHidden = hide
         backButton.isHidden = hide
-        deleteView.isHidden = hide
-        collectionView.isHidden = hide
+        deleteView.isHidden = hideColorSlider ? true : hide
+        collectionView.isHidden = (storyEditors.count > 1) ? hide : true
         slideShowCollectionView.isHidden = !isSlideShow ? true : hide
         doneButton.isHidden = !hide
-        colorSlider.isHidden = !hide
+        colorSlider.isHidden = hideColorSlider ? true : !hide
     }
 }
 
@@ -622,6 +626,7 @@ extension StoryEditorViewController {
     }
 
     @IBAction func downloadClicked(_ sender: UIButton) {
+        referType = storyEditors[currentStoryIndex].referType
         imageVideoExport(isDownload: true)
     }
     
@@ -638,7 +643,7 @@ extension StoryEditorViewController {
                     }
                 } else {
                     DispatchQueue.runOnMainThread {
-                        SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type, needToReferLink: self.needToReferLink)
+                        SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type, referType: self.referType)
                         self.pauseVideo()
                     }
                 }
@@ -652,13 +657,13 @@ extension StoryEditorViewController {
                     if isDownload {
                         self.saveImageOrVideoInGallery(image: image)
                     } else {
-                        SocialShareVideo.shared.sharePhoto(image: image, socialType: type, needToReferLink: needToReferLink)
+                        SocialShareVideo.shared.sharePhoto(image: image, socialType: type, referType: self.referType)
                     }
                 }
             case let .video(_, asset):
                 if let exportURL = videoExportedURL, !isDownload {
                     DispatchQueue.runOnMainThread {
-                        SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type, needToReferLink: self.needToReferLink)
+                        SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type, referType: self.referType)
                         self.pauseVideo()
                     }
                 } else {
@@ -672,7 +677,7 @@ extension StoryEditorViewController {
                                 }
                             } else {
                                 DispatchQueue.runOnMainThread {
-                                    SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type, needToReferLink: self.needToReferLink)
+                                    SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type, referType: self.referType)
                                     self.pauseVideo()
                                 }
                             }
@@ -856,8 +861,10 @@ extension StoryEditorViewController {
     @IBAction func ssuButtonClicked(sender: UIButton) {
         if let ssuTagSelectionViewController = R.storyboard.storyCameraViewController.ssuTagSelectionViewController() {
             ssuTagSelectionViewController.delegate = self
-            navigationController?
-                .pushViewController(ssuTagSelectionViewController, animated: true)
+            
+            let navigation: UINavigationController = UINavigationController(rootViewController: ssuTagSelectionViewController)
+            navigation.isNavigationBarHidden = true
+            self.present(navigation, animated: true)
         }
     }
     
@@ -1278,16 +1285,14 @@ extension StoryEditorViewController: PixelEditViewControllerDelegate {
 }
 
 extension StoryEditorViewController: SSUTagSelectionDelegate {
-    func didSelect(type: SSUTagType) {
-        switch type {
-        case .referralLink:
-            guard !needToReferLink else {
-                return
-            }
-            needToReferLink = true
-            storyEditors[currentStoryIndex].addReferLinkView()
-        case .social:
-            self.showAlert(alertMessage: R.string.localizable.comingSoon())
+    
+    func didSelect(type: SSUTagType?, waitingListOptionType: SSUWaitingListOptionType?, socialShareType: SocialShare?, screenType: SSUTagScreen) {
+        switch screenType {
+        case .ssutTypes:
+            storyEditors[currentStoryIndex].addReferLinkView(type: .viralCam)
+        case .ssutWaitingList:
+            storyEditors[currentStoryIndex].addReferLinkView(type: .socialCam)
+        default: break
         }
     }
 }
@@ -1301,6 +1306,12 @@ extension StoryEditorViewController: ImageCropperDelegate {
         storyEditors[currentStoryIndex].addSticker(StorySticker(image: image, type: .image))
     }
     
+}
+
+extension StoryEditorViewController: StoryEditorViewDelegate {
+    func didChangeEditing(isTyping: Bool) {
+        isTyping ? hideToolBar(hide: true, hideColorSlider: true) : hideToolBar(hide: false)
+    }
 }
 
 extension StoryEditorViewController: SpecificBoomerangDelegate {
@@ -1317,6 +1328,7 @@ extension StoryEditorViewController: SpecificBoomerangDelegate {
 extension StoryEditorViewController {
     
     func shareSocialMedia(type: SocialShare) {
+        referType = storyEditors[currentStoryIndex].referType
         imageVideoExport(isDownload: false, type: type)
     }
     

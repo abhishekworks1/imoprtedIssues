@@ -166,7 +166,7 @@ class Defaults {
     
     var isMicOn: Bool? {
         get {
-            return appDefaults?.bool(forKey: "isMicOn")
+            return appDefaults?.bool(forKey: "isMicOn") as? Bool
         }
         set {
             appDefaults?.set(newValue, forKey: "isMicOn")
@@ -275,6 +275,15 @@ class Defaults {
         }
         set {
             appDefaults?.set(newValue, forKey: "isPublish")
+        }
+    }
+    
+    var snapchatProfileURL: String? {
+        get {
+            return appDefaults?.value(forKey: "snapchatProfileURL") as? String
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "snapchatProfileURL")
         }
     }
     

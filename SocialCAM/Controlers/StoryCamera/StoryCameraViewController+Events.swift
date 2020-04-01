@@ -613,30 +613,3 @@ extension StoryCameraViewController: CountdownViewDelegate {
         }
     }
 }
-
-extension StoryCameraViewController: SSUTagSelectionDelegate {
-    func didSelect(type: SSUTagType) {
-        switch type {
-        case .referralLink:
-            guard self.baseView.subviews.filter({ return $0 is FollowMeStoryView }).count == 0 else {
-                return
-            }
-            guard let followMeStoryView = FollowMeStoryView.instanceFromNib() as? FollowMeStoryView else {
-                return
-            }
-            followMeStoryView.pannable = true
-            self.baseView.insertSubview(followMeStoryView, aboveSubview: gestureView!)
-
-            followMeStoryView.translatesAutoresizingMaskIntoConstraints = false
-            
-            followMeStoryView.topAnchor.constraint(equalTo: timerValueView.bottomAnchor, constant: 10).isActive = true
-            followMeStoryView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-
-            self.view.layoutIfNeeded()
-            
-            followMeStoryView.translatesAutoresizingMaskIntoConstraints = true
-        case .social:
-            self.showAlert(alertMessage: R.string.localizable.comingSoon())
-        }
-    }
-}

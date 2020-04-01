@@ -9,7 +9,6 @@
 import Foundation
 import RxSwift
 import Alamofire
-import RxAlamofire
 import ObjectMapper
 
 protocol ProfileDelegate: class {
@@ -29,52 +28,41 @@ class ProfilePresenter {
     
     func fetchProfile() {
         loadProfile()
-            .flatMap({ meResponse -> Observable<ProfileDetailsResponse> in
-                return self.loadProfileDetails(username: meResponse.username ?? "")
-            })
-            .subscribe( onNext: { [weak self] response in
-                guard let `self` = self else {
+    }
+    
+    func loadProfile() {
+        guard let token = Defaults.shared.instagramToken else { return }
+        AF.request(Constant.Instagram.graphUrl + "me?access_token=\(token)&fields=id,username,account_type").responseJSON(completionHandler: { (response) in
+            switch(response.result) {
+            case.success(let jsonData):
+                print("success", jsonData)
+                guard let json = jsonData as? [String: Any], let username = json["username"] as? String else {
                     return
                 }
-                print("Profile loaded successfully")
-                self.delegate?.profileDidLoad(profile: response)
-            }, onError: { [weak self] error in
-                guard let `self` = self else {
+                self.loadProfileDetails(username: username)
+            case.failure(let error):
+                print("Not Success",error.localizedDescription)
+            }
+        })
+    }
+    
+    func loadProfileDetails(username: String) {
+        AF.request(Constant.Instagram.baseUrl + "\(username)/?__a=1").responseJSON(completionHandler: { (response) in
+            switch(response.result) {
+            case.success(let jsonData):
+                print("success", jsonData)
+                guard let json = jsonData as? [String: Any] else {
                     return
                 }
-                print("Error loading profile", error)
+                guard let userProfile = Mapper<ProfileDetailsResponse>().map(JSONString: json.dict2json() ?? "") else {
+                    return
+                }
+                self.delegate?.profileDidLoad(profile: userProfile)
+                
+            case.failure(let error):
+                print("Not Success",error.localizedDescription)
                 self.delegate?.profileLoadFailed(error: error)
-            }).disposed(by: disposeBag)
-    }
-    
-    func loadProfile() -> Observable<MeResponse> {
-        guard let token = Defaults.shared.instagramToken else { return Observable.empty() }
-        return getMe(accessToken: token)
-            .do(onNext: { response in
-                print("On next")
-            })
-    }
-    
-    func getMe(accessToken: String) -> Observable<MeResponse> {
-        let url = Constant.Instagram.graphUrl + "me"
-        let params = [
-            "access_token": accessToken,
-            "fields": "account_type, username, media_count, username"
-        ]
-        return RxAlamofire.requestJSON(.get, url, parameters: params)
-            .debug()
-            .mapObject(type: MeResponse.self)
-    }
-    
-    func getProfileDetails(username: String) -> Observable<ProfileDetailsResponse> {
-        let url = Constant.Instagram.baseUrl + "\(username)/?__a=1"
-        
-        return RxAlamofire.requestJSON(.get, url)
-            .debug()
-            .mapObject(type: ProfileDetailsResponse.self)
-    }
-    
-    func loadProfileDetails(username: String) -> Observable<ProfileDetailsResponse> {
-        return getProfileDetails(username: username)
+            }
+        })
     }
 }

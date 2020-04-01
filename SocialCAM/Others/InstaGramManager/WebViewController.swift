@@ -86,26 +86,20 @@ class WebViewController: UIViewController {
      * Fetches a short lived access token using the access code, then exchanges it with a long lived token
      */
     func getLongLivedAccessToken(with accessCode: String) {
-        let authManager = InstagramManager.shared
-        authManager.getAccessToken(code: accessCode, clientId: clientId, clientSecret: clientSecret, redirectUrl: redirectUrl)
-            .flatMap { (response) -> Observable<AccessTokenResponse> in
-                return authManager.getLongLivedToken(accessToken: response.accessToken!, clientSecret: self.clientSecret)
-        }.subscribe(onNext: { [weak self] (response) in
-            guard let `self` = self else {
-                return
+        InstagramManager.shared.getAccessToken(code: accessCode, clientId: clientId, clientSecret: clientSecret, redirectUrl: redirectUrl) { (response) in
+            InstagramManager.shared.getLongLivedToken(accessToken: response!, clientSecret: self.clientSecret) { (accessTokenResponse) in
+                print("Access token got: \(String(describing: accessTokenResponse))")
+                if let accessToken = accessTokenResponse {
+                    Defaults.shared.instagramToken = accessToken
+                    self.delegate?.instagramLoginDidFinish(accessToken: accessToken, error: nil)
+                    self.dismiss(animated: true)
+                } else {
+                    self.delegate?.instagramLoginDidFinish(accessToken: nil, error: nil)
+                    self.dismiss(animated: true)
+                }
             }
-            print("Access token got: \(String(describing: response.accessToken))")
-            if let accessToken = response.accessToken {
-                Defaults.shared.instagramToken = accessToken
-                self.delegate?.instagramLoginDidFinish(accessToken: accessToken, error: nil)
-                self.dismiss(animated: true)
-            }
-        }, onError: { [weak self] error in
-            guard let `self` = self else {
-                return
-            }
-            self.delegate?.instagramLoginDidFinish(accessToken: nil, error: error)
-        }).disposed(by: disposeBag)
+        }
+        
     }
     
     @objc func btnCloseClicked() {

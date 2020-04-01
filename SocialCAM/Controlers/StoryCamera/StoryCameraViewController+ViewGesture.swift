@@ -125,6 +125,10 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
                 speedOptions.insert(contentsOf: [.slow5x, .slow4x], at: 0)
             }
             
+            if recordingType == .fastMotion {
+                speedOptions = [.normal, .fast2x, .fast3x, .fast3x, .fast4x, .fast5x]
+            }
+            
             let currentValue = checkValue(values: speedOptions, newPoint.x)
             
             if recordingType != .boomerang {
@@ -187,6 +191,9 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
                             } else if speedOptions.count % 4 == 0 {
                                 value = 3
                             }
+                            if self.recordingType == .fastMotion {
+                                value = 0
+                            }
                             self.setNormalSpeed(selectedValue: value)
                         }
                     }
@@ -199,6 +206,9 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
                                 value = 5
                             } else if speedOptions.count % 4 == 0 {
                                 value = 4
+                            }
+                            if self.recordingType == .fastMotion {
+                                value = 1
                             }
                             self.setSpeed(type: .fast(scaleFactor: 2.0),
                                           value: value,
@@ -215,6 +225,9 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
                             } else if speedOptions.count % 4 == 0 {
                                 value = 5
                             }
+                            if self.recordingType == .fastMotion {
+                                value = 2
+                            }
                             self.setSpeed(type: .fast(scaleFactor: 3.0),
                                           value: value,
                                           text: R.string.localizable.fast3x())
@@ -230,6 +243,9 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
                             } else if speedOptions.count % 4 == 0 {
                                 value = 6
                             }
+                            if self.recordingType == .fastMotion {
+                                value = 3
+                            }
                             self.setSpeed(type: .fast(scaleFactor: 4.0),
                                           value: value,
                                           text: R.string.localizable.fast4x())
@@ -244,6 +260,9 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
                                 value = 8
                             } else if speedOptions.count % 4 == 0 {
                                 value = 7
+                            }
+                            if self.recordingType == .fastMotion {
+                                value = 4
                             }
                             self.setSpeed(type: .fast(scaleFactor: 5.0),
                                           value: value,
@@ -296,6 +315,11 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             speedOptions.append(contentsOf: [.fast4x, .fast5x])
             speedOptions.insert(contentsOf: [.slow4x, .slow5x], at: 0)
         }
+        
+        if recordingType == .fastMotion {
+            speedOptions = [.normal, .fast2x, .fast3x, .fast3x, .fast4x, .fast5x]
+        }
+        
         var value = 1
         var speedText = ""
         
@@ -311,6 +335,10 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
                 value = 3
                 speedText = R.string.localizable.slow3x()
             }
+            if self.recordingType == .fastMotion {
+                value = 1
+                speedText = ""
+            }
         case 1:
             if speedOptions.count % 5 == 0 {
                 value = 4
@@ -321,6 +349,10 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             } else if speedOptions.count % 3 == 0 {
                 value = 3
                 speedText = R.string.localizable.slow3x()
+            }
+            if self.recordingType == .fastMotion {
+                value = 1/2
+                speedText = R.string.localizable.fast2x()
             }
         case 2:
             if speedOptions.count % 5 == 0 {
@@ -333,6 +365,10 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
                 value = 1
                 speedText = ""
             }
+            if self.recordingType == .fastMotion {
+                value = 1/3
+                speedText = R.string.localizable.fast3x()
+            }
         case 3:
             if speedOptions.count % 5 == 0 {
                 value = 2
@@ -344,6 +380,10 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
                 value = 1/2
                 speedText = R.string.localizable.fast2x()
             }
+            if self.recordingType == .fastMotion {
+                value = 1/4
+                speedText = R.string.localizable.fast4x()
+            }
         case 4:
             if speedOptions.count % 5 == 0 {
                 value = 1
@@ -354,6 +394,10 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             } else if speedOptions.count % 3 == 0 {
                 value = 1/3
                 speedText = R.string.localizable.fast3x()
+            }
+            if self.recordingType == .fastMotion {
+                value = 1/5
+                speedText = R.string.localizable.fast5x()
             }
         case 5:
             if speedOptions.count % 5 == 0 {

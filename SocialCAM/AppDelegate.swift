@@ -32,8 +32,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         configureAppTheme()
         
         ColorCubeStorage.loadToDefault()
-        
-        FirebaseApp.configure()
+       
+        #if SOCIALCAMAPP
+            print("[FIREBASE] SOCIALCAMAPP mode.")
+            if let filePath = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist"),
+                let options = FirebaseOptions(contentsOfFile: filePath) {
+                    FirebaseApp.configure(options: options)
+            } else {
+                fatalError("GoogleService-Info.plist is missing!")
+            }
+            StorySettings.storySettings.remove(at: 3)
+        #elseif VIRALCAMAPP
+            print("[FIREBASE] VIRALCAMAPP mode.")
+            if let filePath = Bundle.main.path(forResource: "GoogleService-Info-ViralCam", ofType: "plist"),
+                let options = FirebaseOptions(contentsOfFile: filePath) {
+                    FirebaseApp.configure(options: options)
+            } else {
+                fatalError("GoogleService-Info-ViralCam.plist is missing!")
+            }
+            StorySettings.storySettings[1].settings.removeLast()
+            StorySettings.storySettings.remove(at: StorySettings.storySettings.count - 2)
+        #endif
         
         configureGoogleService()
         
@@ -49,10 +68,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         MSAppCenter.start(Constant.AppCenter.apiKey, withServices: [MSAnalytics.self, MSCrashes.self])
         MSCrashes.hasReceivedMemoryWarningInLastSession()
-        
-        UIApplication.shared.delegate!.window!!.rootViewController = R.storyboard.pageViewController.pageViewController()
-        
+      
         InternetConnectionAlert.shared.enable = true
+        
+        var rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
         
         if let user = Defaults.shared.currentUser,
             let _ = Defaults.shared.sessionToken,
@@ -64,7 +83,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     PostDataManager.shared.startUpload()
                 }
             }
+        } else {
+            #if VIRALCAMAPP
+            rootViewController = R.storyboard.loginViewController.loginNavigation()
+            #endif
         }
+        
+        UIApplication.shared.delegate!.window!!.rootViewController = rootViewController
         
         return true
     }
@@ -153,6 +178,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else if TwitterManger.shared.application(app, open: url, options: options) {
             return true
         } else if TiktokShare.shared.application(app, open: url, sourceApplication: nil, annotation: [:]) {
+            return true
+        } else if FaceBookManager.shared.application(app, open: url, sourceApplication: nil, annotation: [:]) {
             return true
         }
         return false

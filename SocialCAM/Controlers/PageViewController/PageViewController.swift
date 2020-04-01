@@ -61,7 +61,11 @@ class PageViewController: PageboyViewController {
             pageControllers.append(viewController)
         }
         reloadData()
+        #if VIRALCAMAPP
+        self.isScrollEnabled = false
+        #else
         self.isScrollEnabled = BackgroundManager.shared.imageURLs.count == 0 ? false : true
+        #endif
     }
     
 }

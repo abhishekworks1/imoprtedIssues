@@ -9,6 +9,15 @@
 import UIKit
 import GoogleSignIn
 
+enum SettingsMode: Int {
+    case subscriptions = 0
+    case socialLogins
+    case socialLogout
+    case logout
+    case controlcenter
+    case appInfo
+}
+
 class StorySetting {
     var name: String
     var selected: Bool
@@ -27,10 +36,12 @@ class StorySettings {
     
     var name: String
     var settings: [StorySetting]
+    var settingsType: SettingsMode
     
-    init(name: String, settings: [StorySetting]) {
+    init(name: String, settings: [StorySetting], settingsType: SettingsMode) {
         self.name = name
         self.settings = settings
+        self.settingsType = settingsType
     }
     
     static var storySettings = [StorySettings(name: R.string.localizable.subscriptions(),
@@ -41,7 +52,7 @@ class StorySettings {
                                                          StorySetting(name: R.string.localizable.advanced(),
                                                                       selected: true),
                                                          StorySetting(name: R.string.localizable.professional(),
-                                                                      selected: true)]),
+                                                                      selected: true)], settingsType: .subscriptions),
                                 StorySettings(name: R.string.localizable.socialLogin(),
                                               settings: [StorySetting(name: R.string.localizable.facebook(),
                                                                       selected: false,
@@ -66,11 +77,15 @@ class StorySettings {
                                                          StorySetting(name: R.string.localizable.storiCam(),
                                                                       selected: false,
                                                                       image: R.image.icoStoriCamInActive(),
-                                                                      selectedImage: R.image.icoStoriCam())]),
+                                                                      selectedImage: R.image.icoStoriCam())], settingsType: .socialLogins),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.logout(), selected: false)]),
+                                              settings: [StorySetting(name: R.string.localizable.socialLogout(), selected: false)], settingsType: .socialLogout),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.controlCenter(), selected: false)])]
+                                              settings: [StorySetting(name: R.string.localizable.logout(), selected: false)], settingsType: .logout),
+                                StorySettings(name: "",
+                                              settings: [StorySetting(name: R.string.localizable.controlCenter(), selected: false)], settingsType: .controlcenter),
+                                StorySettings(name: "",
+                                              settings: [StorySetting(name: "\(Constant.Application.displayName) v \(Constant.Application.appVersion) (Build \(Constant.Application.appBuildNumber))", selected: false)], settingsType: .appInfo)]
 }
 
 class StorySettingsVC: UIViewController {
@@ -106,12 +121,19 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.storySettingsCell.identifier, for: indexPath) as? StorySettingsCell else {
             fatalError("\(R.reuseIdentifier.storySettingsCell.identifier) Not Found")
         }
-        let settings = StorySettings.storySettings[indexPath.section].settings[indexPath.row]
+        let settingTitle = StorySettings.storySettings[indexPath.section]
+        let settings = settingTitle.settings[indexPath.row]
         cell.settingsName.text = settings.name
         cell.detailButton.isHidden = true
-        if indexPath.section == 2 || indexPath.section == 3 {
+        cell.settingsName.textColor = R.color.appBlackColor()
+        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .appInfo {
+            if settingTitle.settingsType == .appInfo {
+                #if DEBUG
+                cell.settingsName.textColor = R.color.appPrimaryColor()
+                #endif
+            }
             cell.onOffButton.isHidden = true
-        } else if indexPath.section == 1 {
+        } else if settingTitle.settingsType == .socialLogins {
             cell.onOffButton.isHidden = true
             cell.onOffButton.isSelected = false
             cell.socialImageView?.isHidden = false
@@ -128,7 +150,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                     cell.socialImageView?.image = cell.onOffButton.isSelected ? settings.selectedImage : settings.image
                 }
             }
-        } else {
+        } else if settingTitle.settingsType == .subscriptions {
             cell.onOffButton.isHidden = false
             if indexPath.row == Defaults.shared.appMode.rawValue {
                 cell.onOffButton.isSelected = true
@@ -143,20 +165,23 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         guard let headerView = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.storySettingsHeader.identifier) as? StorySettingsHeader else {
             fatalError("StorySettingsHeader Not Found")
         }
-        if section == 2 {
+        let settingTitle = StorySettings.storySettings[section]
+        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .appInfo {
             headerView.title.isHidden = true
         } else {
             headerView.title.isHidden = false
         }
-        headerView.title.text = StorySettings.storySettings[section].name
+        headerView.title.text = settingTitle.name
         return headerView
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 2 || section == 3 {
+        let settingTitle = StorySettings.storySettings[section]
+        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .appInfo {
             return 24
+        } else {
+            return 60
         }
-        return 60
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -164,29 +189,52 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 3 {
+        let settingTitle = StorySettings.storySettings[indexPath.section]
+        if settingTitle.settingsType == .controlcenter {
             if let baseUploadVC = R.storyboard.storyCameraViewController.baseUploadVC() {
                 navigationController?.pushViewController(baseUploadVC, animated: true)
             }
-        } else if indexPath.section == 2 {
+        } else if settingTitle.settingsType == .logout {
+            viralCamLogout()
+        } else if settingTitle.settingsType == .socialLogout {
             logoutUser()
-        } else if indexPath.section == 1 {
+        } else if settingTitle.settingsType == .socialLogins {
             let socialLogin: SocialLogin = SocialLogin(rawValue: indexPath.row) ?? .facebook
             socialLoginLogout(socialLogin: socialLogin) { [weak self] (isLogin) in
                 guard let `self` = self else {
                     return
+                }
+                if socialLogin == .storiCam, !isLogin {
+                    if let loginNav = R.storyboard.loginViewController.loginNavigation() {
+                        Utils.appDelegate?.window?.rootViewController = loginNav
+                        return
+                    }
                 }
                 DispatchQueue.runOnMainThread {
                     StorySettings.storySettings[indexPath.section].settings[socialLogin.rawValue].selected = isLogin
                     self.settingsTableView.reloadData()
                 }
             }
-        } else if indexPath.section == 0 {
+        } else if settingTitle.settingsType == .subscriptions {
             guard Defaults.shared.appMode.rawValue != indexPath.row else {
                 return
             }
             self.enableMode(appMode: AppMode(rawValue: indexPath.row) ?? .free)
         }
+    }
+    
+    func viralCamLogout() {
+        let objAlert = UIAlertController(title: Constant.Application.displayName, message: R.string.localizable.areYouSureYouWantToLogout(), preferredStyle: .alert)
+        let actionlogOut = UIAlertAction(title: R.string.localizable.logout(), style: .default) { (_: UIAlertAction) in
+            StoriCamManager.shared.logout()
+            if let loginNav = R.storyboard.loginViewController.loginNavigation() {
+                Utils.appDelegate?.window?.rootViewController = loginNav
+            }
+        }
+        let cancelAction = UIAlertAction(title: R.string.localizable.cancel(), style: .default) { (_: UIAlertAction) in }
+        objAlert.addAction(actionlogOut)
+        objAlert.addAction(cancelAction)
+        self.present(objAlert, animated: true, completion: nil)
     }
     
     func socialLoadProfile(socialLogin: SocialLogin, completion: @escaping (String?) -> ()) {
@@ -363,7 +411,6 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             SnapKitManager.shared.logout { _ in
                 self.settingsTableView.reloadData()
             }
-            StoriCamManager.shared.logout()
             self.settingsTableView.reloadData()
         }
         let cancelAction = UIAlertAction(title: R.string.localizable.cancel(), style: .default) { (_: UIAlertAction) in }

@@ -10,9 +10,19 @@ import Foundation
 import UIKit
 import AVFoundation
 
+enum ReferType {
+    case none
+    case viralCam
+    case socialCam
+}
+
 enum StoryEditorType: Equatable {
     case image(UIImage)
     case video(UIImage, AVAsset)
+}
+
+protocol StoryEditorViewDelegate: class {
+    func didChangeEditing(isTyping: Bool)
 }
 
 class StoryEditorView: UIView {
@@ -59,6 +69,9 @@ class StoryEditorView: UIView {
     private var lastTextViewTransCenter: CGPoint?
     private var lastTextViewFont: UIFont?
     private var activeTextView: UITextView?
+    
+    public var referType: ReferType = .none
+    
     public var textColor: UIColor = .white {
         didSet {
             self.activeTextView?.textColor = textColor
@@ -96,6 +109,8 @@ class StoryEditorView: UIView {
         let rotation = atan2(mediaGestureView.transform.b, mediaGestureView.transform.a)
         return StoryImageView.ImageTransformation(tx: tx, ty: ty, scaleX: scaleX, scaleY: scaleY, rotation: rotation)
     }
+    
+    public weak var delegate: StoryEditorViewDelegate?
     
     public var thumbnailImage: UIImage?
     
@@ -364,6 +379,13 @@ extension StoryEditorView: UITextViewDelegate {
     }
     
     func endTextEditing() {
+        if let index = self.subviews.firstIndex(where: { return $0 is FollowMeStoryView }),
+            let followMeStoryView = self.subviews[index] as? FollowMeStoryView {
+            if followMeStoryView.textView.isFirstResponder,
+                !(followMeStoryView.textView.text.trimString().count > 0) {
+                followMeStoryView.textView.text = R.string.localizable.checkOutThisAwesomeCoolNewApp🙂()
+            }
+        }
         endEditing(true)
     }
     
@@ -556,15 +578,35 @@ extension StoryEditorView {
         }
     }
     
-    func addReferLinkView() {
-        guard let followMeStoryView = FollowMeStoryView.instanceFromNib() as? FollowMeStoryView else {
+    func addReferLinkView(type: ReferType) {
+        guard referType == .none, let followMeStoryView = FollowMeStoryView.instanceFromNib() as? FollowMeStoryView else {
+            referType = type
             return
         }
+        followMeStoryView.didChangeEditing = { [weak self] isEditing in
+            guard let `self` = self else {
+                return
+            }
+            self.isTyping = isEditing
+            if isEditing {
+                followMeStoryView.transform = .identity
+                followMeStoryView.center.x = self.center.x
+                followMeStoryView.frame.origin.y = 30
+            } else {
+                followMeStoryView.center = self.center
+            }
+            self.delegate?.didChangeEditing(isTyping: self.isTyping)
+        }
+        followMeStoryView.userBitEmoji.setImageFromURL(Defaults.shared.snapchatProfileURL,
+                                                       placeholderImage:
+            R.image.userBitmoji())
         followMeStoryView.hideDeleteButton = true
         followMeStoryView.frame.size = CGSize(width: 311, height: 213)
         followMeStoryView.center = center
+        followMeStoryView.tag = -1
         addSubview(followMeStoryView)
         addStickerGestures(followMeStoryView)
+        referType = type
     }
     
     func addCameraView() {
@@ -689,6 +731,9 @@ extension StoryEditorView {
             
             if deleteView?.frame.contains(point) ?? false { // Delete the view
                 view.removeFromSuperview()
+                if view is FollowMeStoryView {
+                    referType = .none
+                }
                 let generator = UINotificationFeedbackGenerator()
                 generator.notificationOccurred(.success)
                 self.deleteView?.transform = CGAffineTransform(scaleX: 1, y: 1)
@@ -696,7 +741,7 @@ extension StoryEditorView {
                 UIView.animate(withDuration: 0.3, animations: {
                     view.center = self.center
                 })
-            }   
+            }
         }
     }
     
@@ -729,7 +774,8 @@ extension StoryEditorView {
         guard !isTyping else {
             return
         }
-        if let view = recognizer.view {
+        if let view = recognizer.view,
+            !(view is FollowMeStoryView) {
             if view is UIImageView {
                 // Tap only on visible parts on the image
                 for imageView in subImageViews(view: self) {

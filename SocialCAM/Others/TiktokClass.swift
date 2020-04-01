@@ -7,17 +7,17 @@
 //
 
 import Foundation
-import TikTokOpenPlatformSDK
+import TikTokOpenSDK
 import Photos
 
-open class TiktokShare: NSObject, TikTokOpenPlatformLogDelegate {
-    
+open class TiktokShare: TikTokOpenSDKApplicationDelegate, BDOpenPlatformLogDelegate {
+   
     static let shared: TiktokShare = TiktokShare()
     
     weak var delegate: ShareStoriesDelegate?
     
     var isTiktokInstalled: Bool {
-        return TiktokOpenPlatformApplicationDelegate.sharedInstance().isAppInstalled(with: TikTokOpenPlatformAppType.I18N)
+        return TikTokOpenSDKApplicationDelegate.sharedInstance().isAppInstalled()
     }
     
     public override init() {
@@ -26,21 +26,21 @@ open class TiktokShare: NSObject, TikTokOpenPlatformLogDelegate {
     }
     
     func application(_ app: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-        return TiktokOpenPlatformApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: sourceApplication, annotation: annotation)
+        return TikTokOpenSDKApplicationDelegate.sharedInstance().application(app, open: url, sourceApplication: sourceApplication, annotation: annotation)
     }
     
     func setupTiktok(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
     
-        TiktokOpenPlatformApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-        TiktokOpenPlatformApplicationDelegate.sharedInstance().logDelegate = self
+        TikTokOpenSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        TikTokOpenSDKApplicationDelegate.sharedInstance().logDelegate = self
     }
     
-    public func tiktok(onLog logInfo: String) {
+    public func onLog(_ logInfo: String) {
         debugPrint(logInfo)
     }
     
     func uploadImageOrVideoOnTiktok(withText text: String = Constant.Application.displayName, phAsset: PHAsset, isImage: Bool) {
-        let shareRequest = TikTokOpenPlatformShareRequest(appType: .I18N)
+        let shareRequest = TikTokOpenSDKShareRequest()
         shareRequest.mediaType = isImage ? .image : .video
         shareRequest.localIdentifiers = [phAsset.localIdentifier]
         shareRequest.state = text

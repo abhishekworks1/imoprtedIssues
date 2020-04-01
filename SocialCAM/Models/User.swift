@@ -77,6 +77,7 @@ class User: Codable, Mappable {
     var vipUserCount: Int?
     var deepLinkUrl: String?
     var advanceGameMode: Bool?
+    var viralcamReferralLink: String?
     
     required init?(map: Map) {
         
@@ -165,6 +166,7 @@ class User: Codable, Mappable {
         vipUserCount <- map["vipUserCount"]
         deepLinkUrl <- map["deepLinkUrl"]
         advanceGameMode <- map["advanceGameMode"]
+        viralcamReferralLink <- map["viralcamReferralLink"]
     }
     
 }

@@ -16,7 +16,11 @@ import ObjectMapper
 public enum ProManagerApi {
     case getSplashImages
     case logIn(email: String, password: String, deviceToken: String?)
+    case confirmEmail(userId: String, email: String)
+    case signUp(email: String, password: String, channel: String, refChannel: String, isBusiness: Bool, channelName: String, refferId: String?, deviceToken: String?, birthDate: String?)
     case uploadYoutubeVideo(token: String, videoURL: URL, snippet: [String:Any], status: String)
+    case search(channel: String)
+    case verifyChannel(channel: String,type: String)
     case getYoutubeCategory(token: String)
     case getyoutubeSubscribedChannel(token: String, forChannelId: String?)
     case youTubeChannelSearch(channelId: String, order: String?, nextPageToken: String?)
@@ -33,13 +37,16 @@ public enum ProManagerApi {
     case getWeather(lattitude: String, longitude: String)
     case updateProfile(param:[String:Any])
     case doLogin(userId: String)
-    
+    case instgramProfile(accessToken: String)
+    case instgramProfileDetails(username: String)
+    case getAccessToken(param:[String:Any])
+    case getLongLivedToken(param:[String:Any])
     
     var endpoint: Endpoint {
         var endpointClosure = MoyaProvider<ProManagerApi>.defaultEndpointMapping(for: self)
         
         switch self {
-        case .getSplashImages, .logIn,.youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getYoutubeCategory:
+        case .confirmEmail, .signUp, .verifyChannel, .getSplashImages, .logIn,.youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getYoutubeCategory, .getAccessToken:
             endpointClosure = endpointClosure.adding(newHTTPHeaderFields: APIHeaders().headerWithoutAccessToken)
         case .getWeather:
             break
@@ -62,9 +69,9 @@ public enum ProManagerApi {
 extension ProManagerApi: TargetType {
     public var headers: [String: String]? {
         switch self {
-        case .getSplashImages, .logIn, .doLogin, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getYoutubeCategory:
+        case .confirmEmail, .signUp, .verifyChannel, .getSplashImages, .logIn, .doLogin, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getYoutubeCategory:
             return APIHeaders().headerWithoutAccessToken
-        case .getWeather:
+        case .getWeather, .getAccessToken:
             break
         case .uploadYoutubeVideo(let token, _, _, _):
             return ["Authorization": "Bearer \(token)"]
@@ -76,7 +83,7 @@ extension ProManagerApi: TargetType {
     
     public var baseURL: URL {
         switch self {
-        case .doLogin:
+        case .confirmEmail, .doLogin:
             return URL.init(string: Constant.URLs.cabbage)!
         case .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getyoutubeSubscribedChannel, .getYoutubeCategory:
             return URL.init(string: Constant.URLs.youtube)!
@@ -84,6 +91,12 @@ extension ProManagerApi: TargetType {
             return URL.init(string: "https://www.googleapis.com/upload/youtube/v3/videos?part=snippet&status")!
         case .getWeather:
             return URL.init(string: "https://api.openweathermap.org/data/2.5/weather")!
+        case .instgramProfile, .getLongLivedToken:
+            return URL.init(string: Constant.Instagram.graphUrl)!
+        case .instgramProfileDetails:
+            return URL.init(string: Constant.Instagram.baseUrl)!
+        case .getAccessToken:
+            return URL.init(string: Constant.Instagram.basicUrl)!
         default:
             return URL.init(string: Constant.URLs.base)!
         }
@@ -92,6 +105,14 @@ extension ProManagerApi: TargetType {
     /// The path to be appended to `baseURL` to form the full `URL`.
     public var path: String {
         switch self {
+        case .search:
+            return Paths.search
+        case .confirmEmail:
+            return Paths.confirmEmail
+        case .signUp:
+            return Paths.signUp
+        case .verifyChannel:
+            return Paths.verifyChannel
         case .getSplashImages:
             return Paths.getSplashImages
         case .logIn:
@@ -134,6 +155,14 @@ extension ProManagerApi: TargetType {
             return Paths.addHashTag
         case .updateProfile:
             return Paths.updateProfile
+        case .instgramProfile:
+            return "me"
+        case .instgramProfileDetails(let username):
+            return "\(username)/?__a=1"
+        case .getAccessToken:
+            return "oauth/access_token"
+        case .getLongLivedToken:
+            return "access_token"
         }
        
     }
@@ -141,9 +170,9 @@ extension ProManagerApi: TargetType {
     /// The HTTP method used in the request.
     public var method: Moya.Method {
         switch self {
-        case .logIn:
+        case .signUp, .logIn, .verifyChannel, .search, .getAccessToken:
             return .post
-        case .getSplashImages, .youTubeKeyWordSerch, .youTubeDetail,.youTubeChannelSearch, .getHashTagSets, .getWeather, .getyoutubeSubscribedChannel, .getYoutubeCategory:
+        case .getSplashImages, .youTubeKeyWordSerch, .youTubeDetail,.youTubeChannelSearch, .getHashTagSets, .getWeather, .getyoutubeSubscribedChannel, .getYoutubeCategory, .instgramProfile, .instgramProfileDetails, .getLongLivedToken:
             return .get
         case .updateProfile, .editStory, .updatePost:
             return .put
@@ -160,8 +189,25 @@ extension ProManagerApi: TargetType {
     public var parameters: [String: Any]? {
         var param = [String: Any]()
         switch self {
+        case .search(let channel):
+            param = ["channelName": channel]
+        case .confirmEmail(let userId, let email):
+            param = ["userId":userId,"email":email]
+        case .signUp(let email, let password,let channel, let refChannel, let isBusiness, let channelName, let refferId, let deviceToken, let birthDate):
+            param = ["email": email, "password": password, "channelId": channel, "refferingChannel": refChannel, "isBusiness": isBusiness, "channelName": channelName, "deviceType": 1]
+            if let rId = refferId {
+                param["refferingId"] = rId
+            }
+            if let deviceToken = deviceToken {
+                param["deviceToken"] = deviceToken
+            }
+            if let birthDate = birthDate {
+                param["birthDate"] = birthDate
+            }
         case .getSplashImages:
             break
+        case .verifyChannel(let channel, let type):
+            param = ["value": channel,"field": type]
         case .logIn(let email, let password, let deviceToken):
             param = ["username": email, "password": password, "deviceType": 1]
             if let deviceToken = deviceToken {
@@ -353,7 +399,19 @@ extension ProManagerApi: TargetType {
             param = ["part": "snippet", "regionCode": "US", "key": Constant.GoogleService.serviceKey]
         case .uploadYoutubeVideo:
             break
+        case .instgramProfile(let accessToken):
+            param = [
+                "access_token": accessToken,
+                "fields": "account_type, username, media_count, username"
+            ]
+        case .getAccessToken(let parameters):
+            param = parameters
+        case .getLongLivedToken(let parameters):
+            param = parameters
+        case .instgramProfileDetails(let username):
+            break
         }
+        
         return param
     }
     
@@ -363,7 +421,7 @@ extension ProManagerApi: TargetType {
         case .logIn:
             return JSONEncoding.default
         case .getSplashImages, .youTubeDetail, .youTubeKeyWordSerch, .youTubeChannelSearch, .getHashTagSets, .getWeather, .getYoutubeCategory:
-            return URLEncoding.methodDependent
+            return JSONEncoding.default
         case .getyoutubeSubscribedChannel:
             return TokenURLEncoding.default
         default:

@@ -47,6 +47,12 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet var txtPassword: SkyFloatingLabelTextFieldWithIcon!
     @IBOutlet var btnHidePassWord: PButton!
     @IBOutlet weak var logoView: UIView!
+    @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var imgLogo: UIImageView!
+    @IBOutlet weak var signUpView: UIView!
+    @IBOutlet weak var socialSingUpTitleView: UIView!
+    @IBOutlet weak var socialSingUpView: UIView!
+    
     @IBOutlet weak var logoLable: UILabel!
     weak var delegate: LoginViewControllerDelegate?
     
@@ -54,6 +60,16 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        #if SOCIALCAMAPP
+        headerView.isHidden = true
+        signUpView.isHidden = true
+        socialSingUpTitleView.isHidden = true
+        socialSingUpView.isHidden = true
+        #elseif VIRALCAMAPP
+        imgLogo.image = R.image.viralcamrgb()
+        #endif
+        
         txtEmail.iconFont = UIFont.fontAwesome(ofSize: 12, style: .solid)
         txtEmail.iconText = String.fontAwesomeIcon(name: .check)
         txtPassword.iconFont = UIFont.fontAwesome(ofSize: 12, style: .solid)
@@ -120,7 +136,9 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
                 
                 let parentId = Defaults.shared.currentUser?.parentId ?? Defaults.shared.currentUser?.id
                 Defaults.shared.parentID = parentId
-                
+                #if VIRALCAMAPP
+                self.goToHomeScreen()
+                #endif
                 self.doLogin()
                 self.delegate?.loginDidFinish(user: Defaults.shared.currentUser, error: nil)
                 self.dismiss(animated: true)
@@ -156,6 +174,11 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
             }.disposed(by: rx.disposeBag)
     }
     
+    func goToHomeScreen() {
+        Utils.appDelegate?.window?.rootViewController = R.storyboard.pageViewController.pageViewController()
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 1.0))
+    }
+    
     @IBAction func btnShowHidePassWordClicked(sender: Any) {
         self.txtPassword.isSecureTextEntry = !self.txtPassword.isSecureTextEntry
         if self.txtPassword.isSecureTextEntry == true {
@@ -165,6 +188,24 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
+    @IBAction func btnSignUpClicked(sender: Any) {
+        guard let signupController = R.storyboard.loginViewController.signUpStepOneViewController() else {
+            return
+        }
+        signupController.delegate = self
+        let navigation: UINavigationController = UINavigationController(rootViewController: signupController)
+        navigation.isNavigationBarHidden = true
+        self.present(navigation, animated: true)
+    }
+}
+
+extension LoginViewController: LoginViewControllerDelegate {
+    func loginDidFinish(user: User?, error: Error?) {
+        self.dismiss(animated: true) {
+            self.goToHomeScreen()
+            self.delegate?.loginDidFinish(user: user, error: error)
+        }
+    }
 }
 
 extension LoginViewController: UITextFieldDelegate {

@@ -47,6 +47,7 @@ open class SnapKitManager: NSObject, SCSDKLoginStatusObserver, SCSDKBitmojiStick
     
     func logout(completion: @escaping (Bool) -> Void) {
         SCSDKLoginClient.clearToken()
+        Defaults.shared.snapchatProfileURL = nil
         completion(true)
         userData = nil
     }
@@ -97,6 +98,7 @@ open class SnapKitManager: NSObject, SCSDKLoginStatusObserver, SCSDKBitmojiStick
                     }
                     let responseData = LoginUserData(userId: userId, userName: userName, email: "", gender: 0, photoUrl: bitmojiAvatarUrl)
                     self.userData = responseData
+                    Defaults.shared.snapchatProfileURL = self.userData?.photoUrl
                     completion(responseData)
             }, failure: { _, _ in
                 

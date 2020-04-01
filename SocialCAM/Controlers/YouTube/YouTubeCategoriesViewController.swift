@@ -8,6 +8,8 @@
 
 import UIKit
 import GoogleSignIn
+import Alamofire
+import ObjectMapper
 
 protocol YouCategoryDelegate {
     func didFinishWith(category: YouCategory)
@@ -27,16 +29,22 @@ class YouTubeCategoriesViewController: UIViewController {
     }
     
     func getCategories() {
-        ProManagerApi.getYoutubeCategory(token: "").request(YouTubeItmeListResponse<YouCategory>.self).subscribe(onNext: { (response) in
-            self.categories = response.item
-            self.tblCategories.reloadData()
-            
-        }, onError: { (_) in
-            
-        }, onCompleted: {
-            
-        }).disposed(by: self.rx.disposeBag)
-        
+        AF.request(Constant.URLs.youtube + Paths.getYoutubeCategoty + "?part=snippet&regionCode=US&key=\(Constant.GoogleService.serviceKey)").responseJSON(completionHandler: { (response) in
+            switch(response.result) {
+            case.success(let jsonData):
+                print("success", jsonData)
+                guard let json = jsonData as? [String: Any] else {
+                    return
+                }
+                guard let userProfile = Mapper<YouTubeItmeListResponse<YouCategory>>().map(JSONString: json.dict2json() ?? "") else {
+                    return
+                }                     
+                self.categories = userProfile.item
+                self.tblCategories.reloadData()
+            case.failure(let error):
+                print("Not Success",error.localizedDescription)
+            }
+        })
     }
     
     @IBAction func btnBackClicked(_ sender: Any?) {

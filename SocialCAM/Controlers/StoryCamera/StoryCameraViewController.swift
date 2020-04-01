@@ -375,7 +375,8 @@ class StoryCameraViewController: UIViewController {
     var timerValue = 0
     var pauseTimerValue = 0
     var photoTimerValue = 0
-    var cameraModeArray: [String] = [R.string.localizable.photovideO(), R.string.localizable.boomI(), R.string.localizable.slideshoW(), R.string.localizable.collagE(), R.string.localizable.handsfreE(), R.string.localizable.custoM(), R.string.localizable.capturE()]
+    
+    var cameraModeArray: [String] = [R.string.localizable.photovideO(), R.string.localizable.boomI(), R.string.localizable.slideshoW(), R.string.localizable.collagE(), R.string.localizable.handsfreE(), R.string.localizable.custoM(), R.string.localizable.capturE(), R.string.localizable.fastmotioN(), R.string.localizable.slowfasT()]
     
     var timerOptions = ["-",
                         "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
@@ -455,6 +456,7 @@ class StoryCameraViewController: UIViewController {
         volumeButtonHandler()
         changeModeHandler()
         dynamicSetSlowFastVerticalBar()
+        setViewsForApp()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -499,6 +501,12 @@ class StoryCameraViewController: UIViewController {
         addVolumeButtonHandler()
     }
     
+    func setViewsForApp() {
+        #if VIRALCAMAPP
+            self.fpsView.isHidden = true
+        #endif
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         UIApplication.shared.isIdleTimerDisabled = false
@@ -516,6 +524,21 @@ class StoryCameraViewController: UIViewController {
     
     func dynamicSetSlowFastVerticalBar() {
         var speedOptions = ["-3x", "-2x", "1x", "2x", "3x"]
+        
+        if recordingType == .fastMotion {
+            speedOptions = ["1x", "2x", "3x", "4x", "5x"]
+            verticalLines.numberOfViews = .speed3x
+            speedSliderLabels.names = speedOptions
+            speedSliderLabels.value = 2
+            speedSlider.ticksListener = speedSliderLabels
+            speedSlider.tickCount = speedOptions.count
+            speedSlider.value = 2
+            speedSliderWidthConstraint.constant = UIScreen.main.bounds.width - (UIScreen.main.bounds.width / CGFloat(speedOptions.count - 1))
+            self.speedSlider.layoutIfNeeded()
+            self.speedSliderLabels.layoutIfNeeded()
+            return
+        }
+        
         switch Defaults.shared.appMode {
         case .free, .basic:
             verticalLines.numberOfViews = .speed3x
@@ -684,11 +707,28 @@ extension StoryCameraViewController {
         timer = nil
     }
     
+    func changeSpeedSliderValues() {
+        if recordingType == .fastSlowMotion,
+            !self.isMute {
+            self.muteButtonClicked(Any.self)
+            self.isShowMuteButton = false
+        } else if recordingType == .fastSlowMotion,
+            self.isMute {
+            self.isShowMuteButton = false
+        } else {
+            self.isShowMuteButton = true
+        }
+    }
+
     func setupLayoutCameraSliderView() {
         self.timerValueView.isHidden = !self.isUserTimerValueChange
         var basicCameraModeArray = self.cameraModeArray
         if Defaults.shared.appMode == .free {
-            basicCameraModeArray.removeLast()
+            basicCameraModeArray.removeLast(3)
+        } else {
+            #if SOCIALCAMAPP
+            basicCameraModeArray.removeLast(2)
+            #endif
         }
         cameraSliderView.stringArray = basicCameraModeArray
         cameraSliderView.bottomImage = R.image.cameraModeSelect()
@@ -708,11 +748,13 @@ extension StoryCameraViewController {
             
             self.timerValueView.isHidden = !self.isUserTimerValueChange
             self.segmentLengthSelectedLabel.text = self.selectedSegmentLengthValue.value
+            self.recordingType = Defaults.shared.cameraMode
             self.circularProgress.centerImage = UIImage()
+            self.dynamicSetSlowFastVerticalBar()
+            self.changeSpeedSliderValues()
             switch Defaults.shared.cameraMode {
             case .boomerang:
                 self.circularProgress.centerImage = R.image.icoBoomrang()
-                self.recordingType = .boomerang
                 self.timerValueView.isHidden = true
                 if self.timerValue > 0 {
                     self.timerValue = 0
@@ -724,11 +766,9 @@ extension StoryCameraViewController {
                 }
             case .slideshow:
                 self.circularProgress.centerImage = R.image.icoSildeshowMode()
-                self.recordingType = .slideshow
                 self.timerValueView.isHidden = true
             case .collage:
                 self.circularProgress.centerImage = R.image.icoCollageMode()
-                self.recordingType = .collage
                 self.timerValueView.isHidden = true
             case .handsfree:
                 self.circularProgress.centerImage = R.image.icoHandsFree()
@@ -737,20 +777,17 @@ extension StoryCameraViewController {
                     self.selectedSegmentLengthValue.saveWithKey(key: "selectedSegmentLengthValue")
                     self.videoSegmentSeconds = CGFloat((Int(self.selectedSegmentLengthValue.value) ?? 240))
                 }
-                self.recordingType = .handsfree
                 if self.isRecording {
                     self.isRecording = true
                 }
             case .custom:
                 self.circularProgress.centerImage = R.image.icoCustomMode()
-                self.recordingType = .custom
                 self.timerValueView.isHidden = true
             case .capture:
                 self.circularProgress.centerImage = R.image.icoCaptureMode()
-                self.recordingType = .capture
                 self.timerValueView.isHidden = true
             default:
-                self.recordingType = .normal
+                break
             }
         }
         cameraSliderView.selectCell = Defaults.shared.cameraMode.rawValue
@@ -1480,7 +1517,6 @@ extension StoryCameraViewController {
             }
         }
         storyEditorViewController.isBoomerang = photosSelection ? false : (self.recordingType == .boomerang)
-        storyEditorViewController.needToReferLink = self.baseView.subviews.filter({ return $0 is FollowMeStoryView }).count > 0
         storyEditorViewController.medias = medias
         storyEditorViewController.isSlideShow = isSlideShow
         self.navigationController?.pushViewController(storyEditorViewController, animated: false)
@@ -1496,7 +1532,6 @@ extension StoryCameraViewController {
             medias.append(StoryEditorMedia(type: .image(image)))
         }
         storyEditorViewController.isBoomerang = (self.recordingType == .boomerang)
-        storyEditorViewController.needToReferLink = self.baseView.subviews.filter({ return $0 is FollowMeStoryView }).count > 0
         storyEditorViewController.medias = medias
         self.navigationController?.pushViewController(storyEditorViewController, animated: false)
         self.removeData()

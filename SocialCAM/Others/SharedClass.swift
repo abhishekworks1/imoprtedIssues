@@ -50,6 +50,8 @@ public enum CameraMode: Int {
     case handsfree
     case custom
     case capture
+    case fastMotion
+    case fastSlowMotion
     case timer
     case photoTimer
     case quizImage
@@ -342,15 +344,30 @@ public struct Constant {
         static let faq = "https://www.google.com"
         static let twitter = "https://api.twitter.com/1.1/"
         static let youtube = "https://www.googleapis.com/youtube/v3/"
-        static let websiteURL = "https://socialcam.iicc.online"
+        #if SOCIALCAMAPP
+            static let websiteURL = "https://socialcam.iicc.online"
+        #elseif VIRALCAMAPP
+            static let websiteURL = Defaults.shared.currentUser?.viralcamReferralLink ?? "https://viralcam.iicc.online"
+        #endif
+        static let socialCamWebsiteURL = "https://socialcam.iicc.online"
     }
     
     struct Application {
-        static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "SocialCam"
-        static let groupIdentifier: String = "group.com.simform.storiCamPro"
-        static let simformIdentifier: String = "com.simform.storiCamPro"
+        #if SOCIALCAMAPP
+            static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "SocialCam"
+            static let groupIdentifier: String = "group.com.simform.storiCamPro"
+            static let simformIdentifier: String = "com.simform.storiCamPro"
+            static let proModeCode: String = "socialcam2020"
+        #else
+            static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "ViralCam"
+            static let groupIdentifier: String = "group.com.simform.viralcam"
+            static let simformIdentifier: String = "com.simform.viralcam"
+            static let proModeCode: String = "viralcam2020"
+        #endif
+        static let appVersion: String = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
+        static let appBuildNumber: String = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1"
+        
         static let imageIdentifier: String = "www.google.com"
-        static let proModeCode: String = "socialcam2020"
         static let splashImagesFolderName: String = "SplashImages"
     }
     
@@ -365,16 +382,29 @@ public struct Constant {
     }
     
     struct TWTRTwitter {
-        static let consumerKey: String = "WfJWdYHUDmPil9oIOf9yT2WLQ"
-        static let consumerSecret: String = "wZO81VCWknVry5PsUeA9TPYaB79yBt3RyRGAaZZZm68uOuCRRT"
+        #if SOCIALCAMAPP
+            static let consumerKey: String = "WfJWdYHUDmPil9oIOf9yT2WLQ"
+            static let consumerSecret: String = "wZO81VCWknVry5PsUeA9TPYaB79yBt3RyRGAaZZZm68uOuCRRT"
+        #else
+            static let consumerKey: String = "sm399wQnBi6M0zreAEHIph7YO"
+            static let consumerSecret: String = "pA8zBUJodTQOXFQPqqBM4FSrCPScc3apo9mSTVGsDRwpkkwbNH"
+        #endif
     }
     
     struct Instagram {
+        #if SOCIALCAMAPP
+            static let redirectUrl = "https://storicam-pro.firebaseapp.com/__/auth/handler"
+            static let clientId = "2576474045942603"
+            static let clientSecret = "65d21fa18fd9e28142f2384e654ee5d3"
+        #elseif VIRALCAMAPP
+            static let redirectUrl = "https://viralcam-c3c84.firebaseapp.com/__/auth/handler"
+            static let clientId = "228138878240656"
+            static let clientSecret = "b82cdaa4c3b7755248721767b0318480"
+        #endif
+        
         static let link = "instagram://library?LocalIdentifier="
         static let authorizeUrl = "https://api.instagram.com/oauth/authorize/"
-        static let redirectUrl = "https://storicam-pro.firebaseapp.com/__/auth/handler"
-        static let clientId = "2576474045942603"
-        static let clientSecret = "65d21fa18fd9e28142f2384e654ee5d3"
+        
         static let scope = "user_profile,user_media"
         static let basicUrl = "https://api.instagram.com/"
         static let graphUrl = "https://graph.instagram.com/"
@@ -382,17 +412,22 @@ public struct Constant {
     }
     
     struct AppCenter {
-        static let apiKey: String = "b8e186c4-5b4e-45a2-96e5-7904b346ab00"
+        #if SOCIALCAMAPP
+            static let apiKey: String = "b8e186c4-5b4e-45a2-96e5-7904b346ab00"
+        #elseif VIRALCAMAPP
+            static let apiKey: String = "83e20bd1-613c-481f-86bd-5906c12b95d9"
+        #endif
     }
     
     struct GoogleService {
-        static let serviceKey: String = "AIzaSyByYKvdBZiTuBogp55PWogJ_NDokbD_8hg"
-        static let placeClientKey: String = "AIzaSyBOPskgf7r5ylpQBZv6GMWXcyl1BU5ZTbo"
+        #if SOCIALCAMAPP
+            static let serviceKey: String = "AIzaSyByYKvdBZiTuBogp55PWogJ_NDokbD_8hg"
+            static let placeClientKey: String = "AIzaSyBOPskgf7r5ylpQBZv6GMWXcyl1BU5ZTbo"
+        #elseif VIRALCAMAPP
+            static let serviceKey: String = "AIzaSyBbkguZz4hljlOd-Cs0u5b2GyVUNt7Y1m4"
+            static let placeClientKey: String = "AIzaSyBbkguZz4hljlOd-Cs0u5b2GyVUNt7Y1m4"
+        #endif
         static let youtubeScope: String = "https://www.googleapis.com/auth/youtube.force-ssl"
-        
-        static func staticMapURL(format: String = "png32", size: CGSize = CGSize(width: 500, height: 500), type: String = "roadmap", latitude: Double, longitude: Double) -> String {
-            return "https://maps.googleapis.com/maps/api/staticmap?format=\(format)&center=\(latitude),\(longitude)&size=\(size.height)x\(size.width)&zoom=20&maptype=\(type)&markers=color:red%7C\(latitude),\(longitude)&key=\(serviceKey)"
-        }
     }
     
     struct OpenWeather {
@@ -406,7 +441,7 @@ public struct Constant {
 }
 
 class StoryTagGradientLayer: CAGradientLayer { }
-#if SOCIAL
+#if SOCIALCAMAPP || VIRALCAMAPP
 class BaseQuestionTagView: BaseStoryTagView { }
 #endif
 
@@ -430,7 +465,7 @@ enum SlideShowExportType {
     case sendChat
 }
 
-#if SOCIAL
+#if SOCIALCAMAPP || VIRALCAMAPP
 enum StoriCamType: Equatable {
     case story
     case chat

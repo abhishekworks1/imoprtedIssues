@@ -71,7 +71,7 @@ public struct Utils {
         }
     }
     
-    #if SOCIAL
+    #if SOCIALCAMAPP || VIRALCAMAPP
     static var appDelegate: AppDelegate? {
         if let delegate = UIApplication.shared.delegate {
             return delegate as? AppDelegate

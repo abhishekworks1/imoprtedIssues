@@ -9,7 +9,6 @@
 import Foundation
 import RxSwift
 import Alamofire
-import RxAlamofire
 import ObjectMapper
 
 class InstagramManager: NSObject {
@@ -46,8 +45,7 @@ class InstagramManager: NSObject {
         Defaults.shared.instagramToken = nil
     }
     
-    func getAccessToken(code: String, clientId: String, clientSecret: String, redirectUrl: String) -> Observable<AccessTokenResponse> {
-        let url = Constant.Instagram.basicUrl + "oauth/access_token"
+    func getAccessToken(code: String, clientId: String, clientSecret: String, redirectUrl: String, completion: @escaping (_ accessTokenResponse: String?) -> ()) {
         let params = [
             "client_id": clientId,
             "client_secret": clientSecret,
@@ -55,21 +53,41 @@ class InstagramManager: NSObject {
             "redirect_uri": redirectUrl,
             "grant_type": "authorization_code"
         ]
-        return RxAlamofire.requestJSON(.post, url, parameters: params)
-            .debug()
-            .mapObject(type: AccessTokenResponse.self)
+        
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Accept": "application/json"
+        ]
+        
+        AF.request(Constant.Instagram.basicUrl + "oauth/access_token", method: .post, parameters: params, encoding:  URLEncoding.httpBody, headers: headers).responseJSON(completionHandler: { (response) in
+            switch(response.result) {
+            case.success(let jsonData):
+                print("success", jsonData)
+                guard let json = jsonData as? [String: Any], let accessToken = json["access_token"] as? String else {
+                    return
+                }
+                completion(accessToken)
+            case.failure(let error):
+                print("Not Success",error.localizedDescription)
+                completion(nil)
+            }
+        })
     }
     
-    func getLongLivedToken(accessToken: String, clientSecret: String) -> Observable<AccessTokenResponse> {
-        let url = Constant.Instagram.graphUrl + "access_token"
-        let params = [
-            "client_secret": clientSecret,
-            "access_token": accessToken,
-            "grant_type": "ig_exchange_token"
-        ]
-        return RxAlamofire.requestJSON(.get, url, parameters: params)
-            .debug()
-            .mapObject(type: AccessTokenResponse.self)
+    func getLongLivedToken(accessToken: String, clientSecret: String, completion: @escaping (_ accessTokenResponse: String?) -> ()) {
+        AF.request(Constant.Instagram.graphUrl + "access_token?client_secret=\(clientSecret)&grant_type=ig_exchange_token&access_token=\(accessToken)").responseJSON(completionHandler: { (response) in
+            switch(response.result) {
+            case.success(let jsonData):
+                print("success", jsonData)
+                guard let json = jsonData as? [String: Any], let accessToken = json["access_token"] as? String else {
+                    return
+                }
+                completion(accessToken)
+            case.failure(let error):
+                print("Not Success",error.localizedDescription)
+                completion(nil)
+            }
+        })
     }
 }
 
