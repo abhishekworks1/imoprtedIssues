@@ -469,8 +469,10 @@ class StoryCameraViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         UIApplication.shared.isIdleTimerDisabled = true
-        isViewAppear = true
-        startCapture()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.isViewAppear = true
+            self.startCapture()
+        }
         observeState()
         self.flashView?.removeFromSuperview()
         DispatchQueue.main.async {
@@ -524,21 +526,6 @@ class StoryCameraViewController: UIViewController {
     
     func dynamicSetSlowFastVerticalBar() {
         var speedOptions = ["-3x", "-2x", "1x", "2x", "3x"]
-        
-        if recordingType == .fastMotion {
-            speedOptions = ["1x", "2x", "3x", "4x", "5x"]
-            verticalLines.numberOfViews = .speed3x
-            speedSliderLabels.names = speedOptions
-            speedSliderLabels.value = 2
-            speedSlider.ticksListener = speedSliderLabels
-            speedSlider.tickCount = speedOptions.count
-            speedSlider.value = 2
-            speedSliderWidthConstraint.constant = UIScreen.main.bounds.width - (UIScreen.main.bounds.width / CGFloat(speedOptions.count - 1))
-            self.speedSlider.layoutIfNeeded()
-            self.speedSliderLabels.layoutIfNeeded()
-            return
-        }
-        
         switch Defaults.shared.appMode {
         case .free, .basic:
             verticalLines.numberOfViews = .speed3x
@@ -566,6 +553,15 @@ class StoryCameraViewController: UIViewController {
             speedSlider.tickCount = speedOptions.count
             speedSlider.value = 4
         }
+        
+        if recordingType == .fastMotion {
+            verticalLines.visibleLeftSideViews = false
+            speedSliderLabels.value = UInt(speedOptions.count/2)
+            speedSlider.ticksListener = speedSliderLabels
+            speedSlider.tickCount = speedOptions.count
+            speedSlider.value = CGFloat(Int(speedOptions.count/2))
+        }
+        
         speedSliderWidthConstraint.constant = UIScreen.main.bounds.width - (UIScreen.main.bounds.width / CGFloat(speedOptions.count - 1)) 
         self.speedSlider.layoutIfNeeded()
         self.speedSliderLabels.layoutIfNeeded()

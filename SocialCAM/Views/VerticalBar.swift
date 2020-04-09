@@ -27,7 +27,8 @@ class VerticalBar: UIStackView {
             addArranged()
         }
     }
-    
+    var visibleLeftSideViews = true
+
     var lineView: [DottedLineView] = []
     
     override public init(frame: CGRect) {
@@ -53,7 +54,11 @@ class VerticalBar: UIStackView {
                 view.lineColor = .orange
                 view.lineWidth = 2
             }
-            
+            if !visibleLeftSideViews {
+                if index < numberOfViews.rawValue/2 {
+                    view.lineColor = .clear
+                }
+            }
             view.widthAnchor.constraint(equalToConstant: 2).isActive = true
             view.tag = index
             addSubview(view)
@@ -72,6 +77,11 @@ class VerticalBar: UIStackView {
             }
             if view.tag != (numberOfViews.rawValue / 2) && view.tag != 0 && view.tag != numberOfViews.rawValue && view.tag == (index + 1) {
                 view.lineColor = .red
+            }
+            if !visibleLeftSideViews {
+                if view.tag < numberOfViews.rawValue/2 {
+                    view.lineColor = .clear
+                }
             }
             view.draw(view.frame)
         }

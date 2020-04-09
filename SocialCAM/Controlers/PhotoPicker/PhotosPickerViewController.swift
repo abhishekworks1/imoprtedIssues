@@ -454,11 +454,7 @@ extension PhotosPickerViewController {
         // Check the status of authorization for PHPhotoLibrary
         if PHPhotoLibrary.authorizationStatus() == .authorized {
             self.imageManager = PHCachingImageManager()
-            
-            #if VIRALCAMAPP
-                self.configure.maxSelectedAssets = 1
-            #endif
-            
+
             var type: AssetType = .both
             if currentCamaraMode == .slideshow || currentCamaraMode == .collage {
                 type = .image
