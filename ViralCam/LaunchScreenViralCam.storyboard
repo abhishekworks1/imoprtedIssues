@@ -4,7 +4,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,11 +20,11 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="viralcamrgb" translatesAutoresizingMaskIntoConstraints="NO" id="WJN-ll-4yP">
-                                <rect key="frame" x="47" y="293" width="320" height="320"/>
+                                <rect key="frame" x="127" y="373" width="160" height="160"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" name="AppLunchScreen"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="8HY-na-2IN" firstAttribute="trailing" secondItem="Soq-wY-uoh" secondAttribute="trailing" id="AJn-vQ-ffh"/>
                             <constraint firstItem="Soq-wY-uoh" firstAttribute="top" secondItem="wN1-iQ-SqC" secondAttribute="top" id="LVB-PS-kPI"/>
@@ -50,8 +49,5 @@
     <resources>
         <image name="launchScreen" width="375" height="667"/>
         <image name="viralcamrgb" width="160" height="160"/>
-        <namedColor name="AppLunchScreen">
-            <color red="0.96078431372549022" green="0.98039215686274506" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
     </resources>
 </document>

@@ -558,7 +558,7 @@ class StoryCameraViewController: UIViewController {
             speedSlider.tickCount = speedOptions.count
             speedSlider.value = 4
         }
-        
+        verticalLines.visibleLeftSideViews = true
         if recordingType == .fastMotion {
             verticalLines.visibleLeftSideViews = false
             speedSliderLabels.value = UInt(speedOptions.count/2)
