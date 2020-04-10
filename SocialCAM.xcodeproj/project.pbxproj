@@ -605,6 +605,7 @@
 		2D02F3407778A1294BDE176C /* Pods_SocialCamShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BF54D0948D071D83768AB88 /* Pods_SocialCamShare.framework */; };
 		36BDA7A521AEE45A77DE5D6D /* Pods_SocialCamMediaShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 658C98BB64610421B95A9471 /* Pods_SocialCamMediaShare.framework */; };
 		4001C4EED0C6EDB9B14E0407 /* Pods_ViralCam.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C04DCC67007E26BE27ADDE30 /* Pods_ViralCam.framework */; };
+		5F43F672802522A7AFA88D12 /* Pods_SocialCAM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A4C647758E376F0CAF544C3 /* Pods_SocialCAM.framework */; };
 		8200093823AB8D0900AB4C73 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8200093723AB8D0900AB4C73 /* R.generated.swift */; };
 		820479C523D96846006B7A84 /* HomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 820479C423D96846006B7A84 /* HomeTableViewCell.xib */; };
 		820479C723D9685D006B7A84 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820479C623D9685D006B7A84 /* HomeTableViewCell.swift */; };
@@ -1228,7 +1229,7 @@
 		95AA66B1240FDAB000434C9A /* FollowMeStoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95AA66B0240FDAB000434C9A /* FollowMeStoryView.xib */; };
 		95BFD43223FE93D70066BA3C /* SocialCamWaterMark.gif in Resources */ = {isa = PBXBuildFile; fileRef = 95BFD43123FE93D60066BA3C /* SocialCamWaterMark.gif */; };
 		95F117E423FD04B400EB99B4 /* SpecificBoomerangOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F117E323FD04B400EB99B4 /* SpecificBoomerangOptions.swift */; };
-		AB8ACBA225496B14EAAC36D8 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		AB8ACBA225496B14EAAC36D8 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1291,6 +1292,7 @@
 		23CE8C032434C4A00096233C /* ChanelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChanelCell.swift; sourceTree = "<group>"; };
 		31C0DA319A413C3D43E18423 /* Pods-ViralCam.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ViralCam.debug.xcconfig"; path = "Target Support Files/Pods-ViralCam/Pods-ViralCam.debug.xcconfig"; sourceTree = "<group>"; };
 		3347444B0199C606404F4661 /* Pods-SocialCAM.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialCAM.release.xcconfig"; path = "Target Support Files/Pods-SocialCAM/Pods-SocialCAM.release.xcconfig"; sourceTree = "<group>"; };
+		3A4C647758E376F0CAF544C3 /* Pods_SocialCAM.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SocialCAM.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FE3614590594E39E9DAB9CD /* Pods-SocialCamMediaShare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialCamMediaShare.debug.xcconfig"; path = "Target Support Files/Pods-SocialCamMediaShare/Pods-SocialCamMediaShare.debug.xcconfig"; sourceTree = "<group>"; };
 		5BF54D0948D071D83768AB88 /* Pods_SocialCamShare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SocialCamShare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		658C98BB64610421B95A9471 /* Pods_SocialCamMediaShare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SocialCamMediaShare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1963,7 +1965,8 @@
 				824E5173237E77F700339809 /* Security.framework in Frameworks */,
 				824E5171237E77F100339809 /* WebKit.framework in Frameworks */,
 				82EEF72E23752B0D00DE4845 /* AdSupport.framework in Frameworks */,
-				AB8ACBA225496B14EAAC36D8 /* (null) in Frameworks */,
+				AB8ACBA225496B14EAAC36D8 /* BuildFile in Frameworks */,
+				5F43F672802522A7AFA88D12 /* Pods_SocialCAM.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3363,6 +3366,7 @@
 				5BF54D0948D071D83768AB88 /* Pods_SocialCamShare.framework */,
 				658C98BB64610421B95A9471 /* Pods_SocialCamMediaShare.framework */,
 				C04DCC67007E26BE27ADDE30 /* Pods_ViralCam.framework */,
+				3A4C647758E376F0CAF544C3 /* Pods_SocialCAM.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -3911,7 +3915,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				$SRCROOT/R.mediaShared.generated.swift,
+				"$SRCROOT/R.mediaShared.generated.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -3930,7 +3934,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				$SRCROOT/R.shared.generated.swift,
+				"$SRCROOT/R.shared.generated.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

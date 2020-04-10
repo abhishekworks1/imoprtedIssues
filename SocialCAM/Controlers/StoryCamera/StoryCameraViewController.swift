@@ -468,6 +468,7 @@ class StoryCameraViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        enableFaceDetectionIfNeeded()
         UIApplication.shared.isIdleTimerDisabled = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.isViewAppear = true
@@ -526,6 +527,10 @@ class StoryCameraViewController: UIViewController {
     
     func dynamicSetSlowFastVerticalBar() {
         var speedOptions = ["-3x", "-2x", "1x", "2x", "3x"]
+        if recordingType == .fastMotion {
+            speedOptions[0] = ""
+            speedOptions[1] = ""
+        }
         switch Defaults.shared.appMode {
         case .free, .basic:
             verticalLines.numberOfViews = .speed3x
@@ -536,7 +541,7 @@ class StoryCameraViewController: UIViewController {
             speedSlider.value = 2
         case .advanced:
             speedOptions.append("4x")
-            speedOptions.insert("-4x", at: 0)
+            speedOptions.insert(recordingType == .fastMotion ? "" : "-4x", at: 0)
             verticalLines.numberOfViews = .speed4x
             speedSliderLabels.names = speedOptions
             speedSliderLabels.value = 3
@@ -545,7 +550,7 @@ class StoryCameraViewController: UIViewController {
             speedSlider.value = 3
         default:
             speedOptions.append(contentsOf: ["4x", "5x"])
-            speedOptions.insert(contentsOf: ["-5x", "-4x"], at: 0)
+            speedOptions.insert(contentsOf: [recordingType == .fastMotion ? "" : "-5x", recordingType == .fastMotion ? "" : "-4x"], at: 0)
             verticalLines.numberOfViews = .speed5x
             speedSliderLabels.names = speedOptions
             speedSliderLabels.value = 4
@@ -562,7 +567,7 @@ class StoryCameraViewController: UIViewController {
             speedSlider.value = CGFloat(Int(speedOptions.count/2))
         }
         
-        speedSliderWidthConstraint.constant = UIScreen.main.bounds.width - (UIScreen.main.bounds.width / CGFloat(speedOptions.count - 1)) 
+        speedSliderWidthConstraint.constant = UIScreen.main.bounds.width - (UIScreen.main.bounds.width / CGFloat(speedOptions.count - 1))
         self.speedSlider.layoutIfNeeded()
         self.speedSliderLabels.layoutIfNeeded()
     }
@@ -605,6 +610,12 @@ extension StoryCameraViewController {
     
     func startCapture() {
         do {
+            if let metadataObjectViews = metadataObjectViews {
+                for view in metadataObjectViews {
+                    view.removeFromSuperview()
+                }
+                self.metadataObjectViews = nil
+            }
             try nextLevel.start()
             if selectedFPS != 30 {
                 nextLevel.updateDeviceFormat(withFrameRate: CMTimeScale(selectedFPS),
@@ -1049,9 +1060,16 @@ extension StoryCameraViewController {
         nextLevel.deviceDelegate = self
         nextLevel.videoDelegate = self
         nextLevel.metadataObjectsDelegate = self
-        nextLevel.metadataObjectTypes = [AVMetadataObject.ObjectType.face, AVMetadataObject.ObjectType.qr]
-        
+        enableFaceDetectionIfNeeded()
         setupImageLoadFromGallary()
+    }
+    
+    func enableFaceDetectionIfNeeded() {
+        var metadataObjectTypes = [AVMetadataObject.ObjectType.qr]
+        if Defaults.shared.enableFaceDetection {
+            metadataObjectTypes.append(AVMetadataObject.ObjectType.face)
+        }
+        nextLevel.metadataObjectTypes = metadataObjectTypes
     }
     
     @objc  func handleFocusTapGestureRecognizer(_ gestureRecognizer: UIGestureRecognizer) {

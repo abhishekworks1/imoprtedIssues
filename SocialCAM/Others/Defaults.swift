@@ -251,6 +251,15 @@ class Defaults {
         }
     }
     
+    var enableFaceDetection: Bool {
+        get {
+            return (appDefaults?.value(forKey: "enableFaceDetection") as? Bool) ?? false
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "enableFaceDetection")
+        }
+    }
+    
     var isCombineSegments: Bool {
         get {
             return appDefaults?.bool(forKey: "isCombineSegments") ?? false

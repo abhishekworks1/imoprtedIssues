@@ -12,6 +12,7 @@ import GoogleSignIn
 enum SettingsMode: Int {
     case subscriptions = 0
     case socialLogins
+    case faceDetection
     case socialLogout
     case logout
     case controlcenter
@@ -78,6 +79,8 @@ class StorySettings {
                                                                       selected: false,
                                                                       image: R.image.icoStoriCamInActive(),
                                                                       selectedImage: R.image.icoStoriCam())], settingsType: .socialLogins),
+                                StorySettings(name: R.string.localizable.socialLogin(),
+                                    settings: [StorySetting(name: "Face Detection", selected: false)], settingsType: .faceDetection),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.socialLogout(), selected: false)], settingsType: .socialLogout),
                                 StorySettings(name: "",
@@ -157,6 +160,9 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             } else {
                 cell.onOffButton.isSelected = false
             }
+        } else if settingTitle.settingsType == .faceDetection {
+            cell.onOffButton.isHidden = false
+            cell.onOffButton.isSelected = Defaults.shared.enableFaceDetection
         }
         return cell
     }
@@ -220,6 +226,9 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 return
             }
             self.enableMode(appMode: AppMode(rawValue: indexPath.row) ?? .free)
+        } else if settingTitle.settingsType == .faceDetection {
+            Defaults.shared.enableFaceDetection = !Defaults.shared.enableFaceDetection
+            self.settingsTableView.reloadData()
         }
     }
     
