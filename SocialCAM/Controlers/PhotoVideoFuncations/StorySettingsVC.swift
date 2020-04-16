@@ -210,12 +210,15 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 guard let `self` = self else {
                     return
                 }
+                #if VIRALCAMAPP
                 if socialLogin == .storiCam, !isLogin {
                     if let loginNav = R.storyboard.loginViewController.loginNavigation() {
+                        Defaults.shared.clearData()
                         Utils.appDelegate?.window?.rootViewController = loginNav
                         return
                     }
                 }
+                #endif
                 DispatchQueue.runOnMainThread {
                     StorySettings.storySettings[indexPath.section].settings[socialLogin.rawValue].selected = isLogin
                     self.settingsTableView.reloadData()
@@ -236,7 +239,16 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         let objAlert = UIAlertController(title: Constant.Application.displayName, message: R.string.localizable.areYouSureYouWantToLogout(), preferredStyle: .alert)
         let actionlogOut = UIAlertAction(title: R.string.localizable.logout(), style: .default) { (_: UIAlertAction) in
             StoriCamManager.shared.logout()
+            TwitterManger.shared.logout()
+            GoogleManager.shared.logout()
+            FaceBookManager.shared.logout()
+            InstagramManager.shared.logout()
+            SnapKitManager.shared.logout { _ in
+                
+            }
+            self.settingsTableView.reloadData()
             if let loginNav = R.storyboard.loginViewController.loginNavigation() {
+                Defaults.shared.clearData()
                 Utils.appDelegate?.window?.rootViewController = loginNav
             }
         }
@@ -274,14 +286,14 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             }
         case .youtube:
             if GoogleManager.shared.isUserLogin {
-                GoogleManager.shared.getUserName { (userName) in
-                    completion(userName)
+                GoogleManager.shared.loadUserData { (userModel) in
+                    completion(userModel?.userName)
                 }
             }
         case .storiCam:
             if StoriCamManager.shared.isUserLogin {
-                StoriCamManager.shared.loadUserData { (userName) in
-                    completion(userName?.userName)
+                StoriCamManager.shared.loadUserData { (userModel) in
+                    completion(userModel?.userName)
                 }
             }
         }

@@ -40,7 +40,7 @@ public class GoogleManager: NSObject {
         }
     }
     
-    func getUserName(completion: @escaping (_ userName: String?) -> ()) {
+    func loadUserData(completion: @escaping (_ userName: LoginUserData?) -> ()) {
         guard let signIn = GIDSignIn.sharedInstance() else {
             completion(nil)
             return
@@ -51,12 +51,13 @@ public class GoogleManager: NSObject {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                     signIn.currentUser.authentication.getTokensWithHandler({ (accessToken, error) in
                         guard error == nil else { return }
-                        let token = accessToken
-                        completion(signIn.currentUser.profile.name)
+                        let loginUserData = LoginUserData(userId: signIn.currentUser.userID, userName: signIn.currentUser.profile.name, email: signIn.currentUser.profile.email, gender: 0, photoUrl: signIn.currentUser.profile.imageURL(withDimension: 200)?.absoluteString, idToken: signIn.currentUser.authentication.idToken, accessToken: signIn.currentUser.authentication.accessToken)
+                        completion(loginUserData)
                     })
                 }
             } else {
-                completion(signIn.currentUser.profile.name)
+                let loginUserData = LoginUserData(userId: signIn.currentUser.userID, userName: signIn.currentUser.profile.name, email: signIn.currentUser.profile.email, gender: 0, photoUrl: signIn.currentUser.profile.imageURL(withDimension: 200)?.absoluteString, idToken: signIn.currentUser.authentication.idToken, accessToken: signIn.currentUser.authentication.accessToken)
+                completion(loginUserData)
             }
         }
     }

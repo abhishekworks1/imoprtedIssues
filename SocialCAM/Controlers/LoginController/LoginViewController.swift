@@ -46,7 +46,6 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet var txtEmail: SkyFloatingLabelTextFieldWithIcon!
     @IBOutlet var txtPassword: SkyFloatingLabelTextFieldWithIcon!
     @IBOutlet var btnHidePassWord: PButton!
-    @IBOutlet weak var logoView: UIView!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var imgLogo: UIImageView!
     @IBOutlet weak var signUpView: UIView!
@@ -126,22 +125,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
             print(responce)
             print("advanceGameMode \(String(describing: responce.result?.advanceGameMode))")
             if responce.status == ResponseType.success {
-                Defaults.shared.sessionToken = responce.sessionToken
-                Defaults.shared.currentUser = responce.result
-                CurrentUser.shared.setActiveUser(responce.result)
-                Crashlytics.crashlytics().setUserID(CurrentUser.shared.activeUser?.username ?? "")
-                CurrentUser.shared.createNewReferrerChannelURL { (_, _) -> Void in
-
-                }
-                
-                let parentId = Defaults.shared.currentUser?.parentId ?? Defaults.shared.currentUser?.id
-                Defaults.shared.parentID = parentId
-                #if VIRALCAMAPP
-                self.goToHomeScreen()
-                #endif
-                self.doLogin()
-                self.delegate?.loginDidFinish(user: Defaults.shared.currentUser, error: nil)
-                self.dismiss(animated: true)
+                self.goHomeScreen(responce)
             } else {
                 self.showAlert(alertMessage: responce.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
             }
@@ -150,6 +134,147 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         }, onCompleted: {
             print("Compl")
         }).disposed(by: rx.disposeBag)
+    }
+    
+    func socialLoadProfile(socialLogin: SocialLogin, completion: @escaping (String?, String?, String?) -> ()) {
+        switch socialLogin {
+        case .facebook:
+            if FaceBookManager.shared.isUserLogin {
+                FaceBookManager.shared.loadUserData { (userModel) in
+                    completion(userModel?.userName, userModel?.userId, userModel?.email)
+                }
+            }
+        case .twitter:
+            if TwitterManger.shared.isUserLogin {
+                TwitterManger.shared.loadUserData { (userModel) in
+                    completion(userModel?.userName, userModel?.userId, userModel?.email)
+                }
+            }
+        case .snapchat:
+            if SnapKitManager.shared.isUserLogin {
+                SnapKitManager.shared.loadUserData { (userModel) in
+                    completion(userModel?.userName, userModel?.userId, userModel?.email)
+                }
+            }
+        case .youtube:
+            if GoogleManager.shared.isUserLogin {
+                GoogleManager.shared.loadUserData { (userModel) in
+                    completion(userModel?.userName, userModel?.userId, userModel?.email)
+                }
+            }
+        default: break
+        }
+    }
+    
+    @IBAction func btnSocialLoginClicked(_ sender: UIButton) {
+        self.socialLogin(SocialLogin(rawValue: sender.tag) ?? .facebook) { isCompleted in
+            if isCompleted {
+                var provider: String = "FB"
+                switch SocialLogin(rawValue: sender.tag) ?? .facebook {
+                case .twitter:
+                    provider = "TW"
+                case .instagram:
+                    return
+                case .snapchat:
+                    provider = "SN"
+                case .youtube:
+                    provider = "GG"
+                default:
+                    break
+                }
+                if SocialLogin(rawValue: sender.tag) ?? .facebook == .instagram {
+                    return
+                }
+                self.socialLoadProfile(socialLogin: SocialLogin(rawValue: sender.tag) ?? .facebook) { [weak self] (userName, socialId, email) in
+                    guard let `self` = self else {
+                        return
+                    }
+                    self.loginSocial(fname: userName ?? "", email: email, socialId: socialId ?? "", provider: provider, profileImageURL: nil, bannerImageURL: nil)
+                }
+            }
+        }
+    }
+    
+    func loginSocial(fname: String, email: String? = nil, socialId: String, provider: String, profileImageURL: String?, bannerImageURL: String?) {
+        UIApplication.checkInternetConnection()
+        ApplicationSettings.shared.postURl = profileImageURL
+        ApplicationSettings.shared.coverUrl = bannerImageURL
+        ProManagerApi.socialLogin(socialId: socialId, email: email).request(Result    <User>.self).subscribe(onNext: { (responce) in
+            if responce.status == ResponseType.success {
+                if responce.message == "Signed Up" {
+                    let dict = ["socialId": socialId, "provider": provider]
+                    self.performSegue(withIdentifier: "SignUpStep1", sender: dict)
+                } else if responce.message == "Logged In" {
+                    self.goHomeScreen(responce)
+                }
+            }
+        }, onError:{ error  in
+            print(error)
+        }, onCompleted: {
+            
+        }).disposed(by: self.rx.disposeBag)
+    }
+    
+    func socialLogin(_ socialLogin: SocialLogin, completion: @escaping (Bool) -> ()) {
+        switch socialLogin {
+        case .facebook:
+            FaceBookManager.shared.login(controller: self, loginCompletion: { (_, _) in
+                completion(true)
+            }) { (_, _) in
+                completion(false)
+            }
+        case .twitter:
+            TwitterManger.shared.logout()
+            TwitterManger.shared.login { (_, _) in
+                completion(true)
+            }
+        case .instagram:
+            InstagramManager.shared.logout()
+            let loginViewController: WebViewController = WebViewController()
+            loginViewController.delegate = self
+            self.present(loginViewController, animated: true) {
+                completion(true)
+            }
+        case .snapchat:
+            SnapKitManager.shared.logout { (isCompleted) in
+                SnapKitManager.shared.login(viewController: self) { (isLogin, error) in
+                    if !isLogin {
+                        DispatchQueue.main.async {
+                            self.showAlert(alertMessage: error ?? "")
+                        }
+                    }
+                    completion(isLogin)
+                }
+            }
+        case .youtube:
+            GoogleManager.shared.logout()
+            GoogleManager.shared.login(controller: self, complitionBlock: { (_, _) in
+                completion(true)
+            }) { (_, _) in
+                completion(false)
+            }
+        default:
+            break
+        }
+    }
+    
+    
+    func goHomeScreen(_ responce: Result<User>) {
+        Defaults.shared.sessionToken = responce.sessionToken
+        Defaults.shared.currentUser = responce.result
+        CurrentUser.shared.setActiveUser(responce.result)
+        Crashlytics.crashlytics().setUserID(CurrentUser.shared.activeUser?.username ?? "")
+        CurrentUser.shared.createNewReferrerChannelURL { (_, _) -> Void in
+
+        }
+        let parentId = Defaults.shared.currentUser?.parentId ?? Defaults.shared.currentUser?.id
+        Defaults.shared.parentID = parentId
+        #if VIRALCAMAPP
+        self.goToHomeScreen()
+        #endif
+        self.doLogin()
+        self.delegate?.loginDidFinish(user: Defaults.shared.currentUser, error: nil)
+        self.dismiss(animated: true)
     }
     
     func newShareURL() {
@@ -197,6 +322,17 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         navigation.isNavigationBarHidden = true
         self.present(navigation, animated: true)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "SignUpStep1" {
+            if let dest = segue.destination as? SignUpStepOneViewController {
+                if let dict = sender as? [String:Any] {
+                    dest.isSocial = true
+                    dest.socialDict = dict
+                }
+            }
+        }
+    }
 }
 
 extension LoginViewController: LoginViewControllerDelegate {
@@ -221,4 +357,22 @@ extension LoginViewController: UITextFieldDelegate {
         return true
     }
     
+}
+
+extension LoginViewController: InstagramLoginViewControllerDelegate, ProfileDelegate {
+    
+    func profileDidLoad(profile: ProfileDetailsResponse) {
+        self.loginSocial(fname: profile.username ?? "", email: "", socialId: profile.id ?? "", provider: "IG", profileImageURL: nil, bannerImageURL: nil)
+    }
+    
+    func profileLoadFailed(error: Error) {
+        
+    }
+   
+    func instagramLoginDidFinish(accessToken: String?, error: Error?) {
+        if accessToken != nil {
+            InstagramManager.shared.delegate = self
+            InstagramManager.shared.loadProfile()
+        }
+    }
 }
