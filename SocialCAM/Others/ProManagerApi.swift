@@ -41,7 +41,16 @@ public enum ProManagerApi {
     case instgramProfileDetails(username: String)
     case getAccessToken(param:[String:Any])
     case getLongLivedToken(param:[String:Any])
-    
+    case getChannelList
+    case getPackage(parentId: String)
+    case deleteFromCart(userId: String, individualChannels: String?, packageName: Int, packageChannels: [String]?)
+    case getCart(parentId: String)
+    case addPackage(user: String, parentId: String, packageName: String, packageCount: Int, isOwner: Bool, paymentAmount: Int?, paymentResponse: [String : [String : Any]]?)
+    case addPayment(userId: String, channelNames: [String]?)
+    case checkChannelExists(channelNames: [String])
+    case addToCart(userId:String, packageName:Int,individualChannels:[String]?)
+    case getChannelSuggestion(channelName:String)
+
     var endpoint: Endpoint {
         var endpointClosure = MoyaProvider<ProManagerApi>.defaultEndpointMapping(for: self)
         
@@ -163,6 +172,24 @@ extension ProManagerApi: TargetType {
             return "oauth/access_token"
         case .getLongLivedToken:
             return "access_token"
+        case .getChannelList:
+            return Paths.getChannelList
+        case .getPackage( _):
+            return Paths.getPackage
+        case .deleteFromCart:
+            return Paths.deleteFromCart
+        case .getCart:
+            return Paths.getCart
+        case .addPackage:
+            return Paths.addPackage
+        case .addPayment:
+            return Paths.addPayment
+        case .checkChannelExists:
+            return Paths.checkChannelExists
+        case .addToCart:
+            return Paths.addToCart
+        case .getChannelSuggestion:
+            return Paths.getChannelSuggestion
         }
        
     }
@@ -172,7 +199,7 @@ extension ProManagerApi: TargetType {
         switch self {
         case .signUp, .logIn, .verifyChannel, .search, .getAccessToken:
             return .post
-        case .getSplashImages, .youTubeKeyWordSerch, .youTubeDetail,.youTubeChannelSearch, .getHashTagSets, .getWeather, .getyoutubeSubscribedChannel, .getYoutubeCategory, .instgramProfile, .instgramProfileDetails, .getLongLivedToken:
+        case .getSplashImages, .youTubeKeyWordSerch, .youTubeDetail,.youTubeChannelSearch, .getHashTagSets, .getWeather, .getyoutubeSubscribedChannel, .getYoutubeCategory, .instgramProfile, .instgramProfileDetails, .getLongLivedToken, .getChannelList, .getPackage, .getCart:
             return .get
         case .updateProfile, .editStory, .updatePost:
             return .put
@@ -410,6 +437,44 @@ extension ProManagerApi: TargetType {
             param = parameters
         case .instgramProfileDetails(let username):
             break
+        case .getChannelList:
+            break
+        case .getPackage(let parentId):
+            param = ["parentId":parentId]
+            break
+        case .deleteFromCart(let userId, let individualChannels, let packageName, let packageChannels):
+            param = ["userId" : userId, "packageName" :  packageName]
+            if let individualChannels = individualChannels {
+                param["individualChannels"] = individualChannels
+            } else {
+                param["individualChannels"] = NSNull()
+            }
+            if let packageChannels = packageChannels {
+                param["packageChannels"] = packageChannels
+            } else {
+                param["packageChannels"] = NSNull()
+            }
+        case .getCart(let parentId):
+            param = ["parentId":parentId]
+            break
+        case .addPackage(let user, let parentId, let packageName, let packageCount,let isOwner, let paymentAmount, let paymentResponse):
+            param = ["user": user, "parentId": parentId, "packageName": packageName, "packageCount": packageCount, "isOwner": isOwner, "paymentAmount": paymentAmount ?? 0, "paymentResponse": paymentResponse ?? [:]]
+        case .addPayment(let userId, let channelNames):
+            param = ["userId" : userId]
+            if let channelNames = channelNames {
+                param["channelNames"] = channelNames
+            } else {
+                param["channelNames"] = NSNull()
+            }
+        case .checkChannelExists(let channelNames):
+            param["channelNames"] = channelNames
+        case .addToCart(let userId, let packageName,let individualChannels):
+            param = ["userId" : userId,
+                     "packageName" : packageName,
+                     "individualChannels": individualChannels ?? ""]
+        case .getChannelSuggestion(let channelName):
+            param["channelName"] = channelName
+            break
         }
         
         return param
@@ -424,6 +489,8 @@ extension ProManagerApi: TargetType {
             return JSONEncoding.default
         case .getyoutubeSubscribedChannel:
             return TokenURLEncoding.default
+        case .getChannelList, .getPackage, .getCart:
+            return URLEncoding.default
         default:
             return JSONEncoding.default
         }

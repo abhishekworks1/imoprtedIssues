@@ -90,8 +90,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         UIApplication.shared.delegate!.window!!.rootViewController = rootViewController
-        
+        configurePayPalMobile()
+        IAPManager.shared.startObserving()
+
         return true
+    }
+    
+    func configurePayPalMobile() {
+        PayPalMobile.initializeWithClientIds(forEnvironments: [PayPalEnvironmentProduction: Constant.PayPalMobile.productionKey,
+                                                               PayPalEnvironmentSandbox: Constant.PayPalMobile.sandboxKey])
     }
     
     func configureAppTheme() {
@@ -199,5 +206,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
         return TiktokShare.shared.application(application, open: url, sourceApplication: nil, annotation: [:])
+    }
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+        IAPManager.shared.stopObserving()
     }
 }

@@ -54,6 +54,7 @@ def projectShared_pods
     pod 'SwiftySound', '1.2'
     pod 'JPSVolumeButtonHandler'
     pod 'Pageboy', '~> 3.5'
+    pod 'PayPal-iOS-SDK', '2.18.1'
     shared_pods
 end
 

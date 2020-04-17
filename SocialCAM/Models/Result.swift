@@ -51,3 +51,21 @@ class ResultArray<T: Mappable>: Mappable {
         }
     }
 }
+
+class ChannelSuggestionResult: Mappable {
+    var status : String?
+    var message : String?
+    var suggestionList : [String]?
+    var existsChannel : [String]?
+    
+    required init?(map: Map) {
+        
+    }
+    
+    func mapping(map: Map) {
+        message <- map["message"]
+        status <- map["status"]
+        suggestionList <- map["suggestionList"]
+        existsChannel <- map["existsChannel"]
+    }
+}

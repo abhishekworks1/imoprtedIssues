@@ -352,7 +352,6 @@
 		23CE8AEF24349B110096233C /* NextLevelBufferRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB3DC23619FB000205993 /* NextLevelBufferRenderer.swift */; };
 		23CE8AF024349B110096233C /* CGAngle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954660452387B5CB00A37AE0 /* CGAngle.swift */; };
 		23CE8AF124349B110096233C /* MMPlayerPassViewPresentConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB9A236C2A88002B2603 /* MMPlayerPassViewPresentConfig.swift */; };
-		23CE8AF224349B110096233C /* UpgradeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FDA5236C3B85002B2603 /* UpgradeViewController.swift */; };
 		23CE8AF324349B110096233C /* RootControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FD20236C3B06002B2603 /* RootControlView.swift */; };
 		23CE8AF424349B110096233C /* SaturationControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FD11236C3B06002B2603 /* SaturationControl.swift */; };
 		23CE8AF524349B110096233C /* DNDDragHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8205FAE2236C10F3002B2603 /* DNDDragHandler.m */; };
@@ -927,7 +926,6 @@
 		8205FDA0236C3B73002B2603 /* CollageMakerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FD9F236C3B73002B2603 /* CollageMakerVC.swift */; };
 		8205FDA2236C3B79002B2603 /* CollageMaker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8205FDA1236C3B78002B2603 /* CollageMaker.storyboard */; };
 		8205FDA4236C3B81002B2603 /* TextImageCreaterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FDA3236C3B7F002B2603 /* TextImageCreaterVC.swift */; };
-		8205FDA6236C3B85002B2603 /* UpgradeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FDA5236C3B85002B2603 /* UpgradeViewController.swift */; };
 		8206AEF02374108C000CDD2A /* Queuer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8206AEEA2374108C000CDD2A /* Queuer.swift */; };
 		8206AEF12374108C000CDD2A /* ConcurrentOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8206AEEB2374108C000CDD2A /* ConcurrentOperation.swift */; };
 		8206AEF22374108C000CDD2A /* SynchronousOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8206AEEC2374108C000CDD2A /* SynchronousOperation.swift */; };
@@ -1184,7 +1182,41 @@
 		950514C1239FA42100F07D8F /* StoryEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950514C0239FA42100F07D8F /* StoryEditorView.swift */; };
 		950514C3239FA9AB00F07D8F /* StoryEditor.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 950514C2239FA9AB00F07D8F /* StoryEditor.storyboard */; };
 		950514C5239FCEE600F07D8F /* StickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950514C4239FCEE600F07D8F /* StickerViewController.swift */; };
+		951D5C9E24472AC600DBD742 /* UpgradeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951D5C9D24472AC600DBD742 /* UpgradeViewController.swift */; };
+		951D5C9F24472AC600DBD742 /* UpgradeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951D5C9D24472AC600DBD742 /* UpgradeViewController.swift */; };
 		951F0167240E99FC008C2B2A /* VIExportSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951F0166240E99FC008C2B2A /* VIExportSession.swift */; };
+		952EC299244865D00020992A /* PaymentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC298244865D00020992A /* PaymentTableViewCell.swift */; };
+		952EC29A244865D00020992A /* PaymentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC298244865D00020992A /* PaymentTableViewCell.swift */; };
+		952EC29C244865F00020992A /* ChannelManagment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC29B244865EF0020992A /* ChannelManagment.swift */; };
+		952EC29D244865F00020992A /* ChannelManagment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC29B244865EF0020992A /* ChannelManagment.swift */; };
+		952EC2A524486C690020992A /* FriendPackageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2A424486C690020992A /* FriendPackageTableViewCell.swift */; };
+		952EC2A624486C690020992A /* FriendPackageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2A424486C690020992A /* FriendPackageTableViewCell.swift */; };
+		952EC2A824486CF40020992A /* PreRegistration.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 952EC2A724486CF40020992A /* PreRegistration.storyboard */; };
+		952EC2A924486CF40020992A /* PreRegistration.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 952EC2A724486CF40020992A /* PreRegistration.storyboard */; };
+		952EC2B3244870180020992A /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2AB244870180020992A /* CartViewController.swift */; };
+		952EC2B4244870180020992A /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2AB244870180020992A /* CartViewController.swift */; };
+		952EC2B5244870180020992A /* DashedBorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2AC244870180020992A /* DashedBorderView.swift */; };
+		952EC2B6244870180020992A /* DashedBorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2AC244870180020992A /* DashedBorderView.swift */; };
+		952EC2B7244870180020992A /* PurchaseFriendPackageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2AD244870180020992A /* PurchaseFriendPackageViewController.swift */; };
+		952EC2B8244870180020992A /* PurchaseFriendPackageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2AD244870180020992A /* PurchaseFriendPackageViewController.swift */; };
+		952EC2B9244870180020992A /* RoundLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2AE244870180020992A /* RoundLabel.swift */; };
+		952EC2BA244870180020992A /* RoundLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2AE244870180020992A /* RoundLabel.swift */; };
+		952EC2BB244870180020992A /* ButtonWithImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2AF244870180020992A /* ButtonWithImage.swift */; };
+		952EC2BC244870180020992A /* ButtonWithImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2AF244870180020992A /* ButtonWithImage.swift */; };
+		952EC2BD244870180020992A /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2B0244870180020992A /* PaymentViewController.swift */; };
+		952EC2BE244870180020992A /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2B0244870180020992A /* PaymentViewController.swift */; };
+		952EC2BF244870180020992A /* PreRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2B1244870180020992A /* PreRegistrationViewController.swift */; };
+		952EC2C0244870180020992A /* PreRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2B1244870180020992A /* PreRegistrationViewController.swift */; };
+		952EC2C1244870180020992A /* HeaderViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2B2244870180020992A /* HeaderViewTableViewCell.swift */; };
+		952EC2C2244870180020992A /* HeaderViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2B2244870180020992A /* HeaderViewTableViewCell.swift */; };
+		952EC2C4244871DB0020992A /* CartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2C3244871DA0020992A /* CartTableViewCell.swift */; };
+		952EC2C5244871DB0020992A /* CartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2C3244871DA0020992A /* CartTableViewCell.swift */; };
+		952EC2C7244872A90020992A /* PackageSuggesstionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2C6244872A90020992A /* PackageSuggesstionTableViewCell.swift */; };
+		952EC2C8244872A90020992A /* PackageSuggesstionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2C6244872A90020992A /* PackageSuggesstionTableViewCell.swift */; };
+		952EC2CA24487A810020992A /* ChannelListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2C924487A810020992A /* ChannelListViewController.swift */; };
+		952EC2CB24487A810020992A /* ChannelListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2C924487A810020992A /* ChannelListViewController.swift */; };
+		952EC2CD24487B7B0020992A /* ChannelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2CC24487B7B0020992A /* ChannelTableViewCell.swift */; };
+		952EC2CE24487B7B0020992A /* ChannelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2CC24487B7B0020992A /* ChannelTableViewCell.swift */; };
 		9544778C2398FC79001E0CD9 /* PivotSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9544778B2398FC79001E0CD9 /* PivotSlider.swift */; };
 		9544DE2F23A38F8700EF57DE /* DragAndDropCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9544DE2D23A38F8600EF57DE /* DragAndDropCollectionView.swift */; };
 		9544DE3023A38F8700EF57DE /* DragAndDropManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9544DE2E23A38F8700EF57DE /* DragAndDropManager.swift */; };
@@ -1223,6 +1255,12 @@
 		9546606B2387B5CC00A37AE0 /* DialConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954660462387B5CB00A37AE0 /* DialConfig.swift */; };
 		954D13CF241257F7007C1BA3 /* SSUTagSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954D13CE241257F7007C1BA3 /* SSUTagSelectionViewController.swift */; };
 		954DB1E823D9C30100B0A9C4 /* NSNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954DB1E723D9C30000B0A9C4 /* NSNotification.swift */; };
+		959A91D62449CFDD0062AA67 /* IAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959A91D42449CFDD0062AA67 /* IAPManager.swift */; };
+		959A91D72449CFDD0062AA67 /* IAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959A91D42449CFDD0062AA67 /* IAPManager.swift */; };
+		959A91D82449CFDD0062AA67 /* IAP_ProductIDs.plist in Resources */ = {isa = PBXBuildFile; fileRef = 959A91D52449CFDD0062AA67 /* IAP_ProductIDs.plist */; };
+		959A91D92449CFDD0062AA67 /* IAP_ProductIDs.plist in Resources */ = {isa = PBXBuildFile; fileRef = 959A91D52449CFDD0062AA67 /* IAP_ProductIDs.plist */; };
+		959A91DB2449E8000062AA67 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 959A91DA2449E8000062AA67 /* StoreKit.framework */; };
+		959A91DC2449E9F00062AA67 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 959A91DA2449E8000062AA67 /* StoreKit.framework */; };
 		95A405AE23BF78D000AD38C4 /* SpecificBoomerangViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A405AC23BF78CF00AD38C4 /* SpecificBoomerangViewController.swift */; };
 		95A405AF23BF78D000AD38C4 /* SpecificBoomerangWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A405AD23BF78D000AD38C4 /* SpecificBoomerangWriter.swift */; };
 		95AA66AF240FDA4900434C9A /* FollowMeStoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AA66AE240FDA4900434C9A /* FollowMeStoryView.swift */; };
@@ -1877,7 +1915,24 @@
 		950514C0239FA42100F07D8F /* StoryEditorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryEditorView.swift; sourceTree = "<group>"; };
 		950514C2239FA9AB00F07D8F /* StoryEditor.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = StoryEditor.storyboard; sourceTree = "<group>"; };
 		950514C4239FCEE600F07D8F /* StickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StickerViewController.swift; sourceTree = "<group>"; };
+		951D5C9D24472AC600DBD742 /* UpgradeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradeViewController.swift; sourceTree = "<group>"; };
 		951F0166240E99FC008C2B2A /* VIExportSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VIExportSession.swift; sourceTree = "<group>"; };
+		952EC298244865D00020992A /* PaymentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentTableViewCell.swift; sourceTree = "<group>"; };
+		952EC29B244865EF0020992A /* ChannelManagment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelManagment.swift; sourceTree = "<group>"; };
+		952EC2A424486C690020992A /* FriendPackageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendPackageTableViewCell.swift; sourceTree = "<group>"; };
+		952EC2A724486CF40020992A /* PreRegistration.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PreRegistration.storyboard; sourceTree = "<group>"; };
+		952EC2AB244870180020992A /* CartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
+		952EC2AC244870180020992A /* DashedBorderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashedBorderView.swift; sourceTree = "<group>"; };
+		952EC2AD244870180020992A /* PurchaseFriendPackageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseFriendPackageViewController.swift; sourceTree = "<group>"; };
+		952EC2AE244870180020992A /* RoundLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundLabel.swift; sourceTree = "<group>"; };
+		952EC2AF244870180020992A /* ButtonWithImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonWithImage.swift; sourceTree = "<group>"; };
+		952EC2B0244870180020992A /* PaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
+		952EC2B1244870180020992A /* PreRegistrationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreRegistrationViewController.swift; sourceTree = "<group>"; };
+		952EC2B2244870180020992A /* HeaderViewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderViewTableViewCell.swift; sourceTree = "<group>"; };
+		952EC2C3244871DA0020992A /* CartTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartTableViewCell.swift; sourceTree = "<group>"; };
+		952EC2C6244872A90020992A /* PackageSuggesstionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackageSuggesstionTableViewCell.swift; sourceTree = "<group>"; };
+		952EC2C924487A810020992A /* ChannelListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelListViewController.swift; sourceTree = "<group>"; };
+		952EC2CC24487B7B0020992A /* ChannelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelTableViewCell.swift; sourceTree = "<group>"; };
 		9544778B2398FC79001E0CD9 /* PivotSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PivotSlider.swift; sourceTree = "<group>"; };
 		9544DE2D23A38F8600EF57DE /* DragAndDropCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DragAndDropCollectionView.swift; sourceTree = "<group>"; };
 		9544DE2E23A38F8700EF57DE /* DragAndDropManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DragAndDropManager.swift; sourceTree = "<group>"; };
@@ -1917,6 +1972,9 @@
 		954660462387B5CB00A37AE0 /* DialConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DialConfig.swift; sourceTree = "<group>"; };
 		954D13CE241257F7007C1BA3 /* SSUTagSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSUTagSelectionViewController.swift; sourceTree = "<group>"; };
 		954DB1E723D9C30000B0A9C4 /* NSNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSNotification.swift; sourceTree = "<group>"; };
+		959A91D42449CFDD0062AA67 /* IAPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPManager.swift; sourceTree = "<group>"; };
+		959A91D52449CFDD0062AA67 /* IAP_ProductIDs.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = IAP_ProductIDs.plist; sourceTree = "<group>"; };
+		959A91DA2449E8000062AA67 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		95A405AC23BF78CF00AD38C4 /* SpecificBoomerangViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpecificBoomerangViewController.swift; sourceTree = "<group>"; };
 		95A405AD23BF78D000AD38C4 /* SpecificBoomerangWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpecificBoomerangWriter.swift; sourceTree = "<group>"; };
 		95AA66AE240FDA4900434C9A /* FollowMeStoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowMeStoryView.swift; sourceTree = "<group>"; };
@@ -1937,6 +1995,7 @@
 			files = (
 				23CE8B7B24349B110096233C /* Security.framework in Frameworks */,
 				23CE8B7C24349B110096233C /* WebKit.framework in Frameworks */,
+				959A91DB2449E8000062AA67 /* StoreKit.framework in Frameworks */,
 				23CE8B7D24349B110096233C /* AdSupport.framework in Frameworks */,
 				4001C4EED0C6EDB9B14E0407 /* Pods_ViralCam.framework in Frameworks */,
 			);
@@ -1965,6 +2024,7 @@
 				824E5173237E77F700339809 /* Security.framework in Frameworks */,
 				824E5171237E77F100339809 /* WebKit.framework in Frameworks */,
 				82EEF72E23752B0D00DE4845 /* AdSupport.framework in Frameworks */,
+				959A91DC2449E9F00062AA67 /* StoreKit.framework in Frameworks */,
 				AB8ACBA225496B14EAAC36D8 /* (null) in Frameworks */,
 				5F43F672802522A7AFA88D12 /* Pods_SocialCAM.framework in Frameworks */,
 			);
@@ -2974,6 +3034,7 @@
 		824EB393236197F600205993 /* Controlers */ = {
 			isa = PBXGroup;
 			children = (
+				951D5C9C24472AC600DBD742 /* ChannelPurchase */,
 				82CA3E5223D9D01300DD48B8 /* PageViewController */,
 				82BB558A23D84117009B820D /* HomeScreen */,
 				82DCF7A623C5AD6A009E12D2 /* SplashScreen */,
@@ -3264,6 +3325,39 @@
 			path = SplashScreen;
 			sourceTree = "<group>";
 		};
+		951D5C9C24472AC600DBD742 /* ChannelPurchase */ = {
+			isa = PBXGroup;
+			children = (
+				959A91D32449CFDD0062AA67 /* In-App Purchases */,
+				952EC2A724486CF40020992A /* PreRegistration.storyboard */,
+				952EC2AA244870180020992A /* PreRegistration */,
+				952EC2A424486C690020992A /* FriendPackageTableViewCell.swift */,
+				951D5C9D24472AC600DBD742 /* UpgradeViewController.swift */,
+				952EC298244865D00020992A /* PaymentTableViewCell.swift */,
+				952EC29B244865EF0020992A /* ChannelManagment.swift */,
+			);
+			path = ChannelPurchase;
+			sourceTree = "<group>";
+		};
+		952EC2AA244870180020992A /* PreRegistration */ = {
+			isa = PBXGroup;
+			children = (
+				952EC2C3244871DA0020992A /* CartTableViewCell.swift */,
+				952EC2AB244870180020992A /* CartViewController.swift */,
+				952EC2AC244870180020992A /* DashedBorderView.swift */,
+				952EC2AD244870180020992A /* PurchaseFriendPackageViewController.swift */,
+				952EC2AE244870180020992A /* RoundLabel.swift */,
+				952EC2AF244870180020992A /* ButtonWithImage.swift */,
+				952EC2B0244870180020992A /* PaymentViewController.swift */,
+				952EC2C6244872A90020992A /* PackageSuggesstionTableViewCell.swift */,
+				952EC2B1244870180020992A /* PreRegistrationViewController.swift */,
+				952EC2B2244870180020992A /* HeaderViewTableViewCell.swift */,
+				952EC2CC24487B7B0020992A /* ChannelTableViewCell.swift */,
+				952EC2C924487A810020992A /* ChannelListViewController.swift */,
+			);
+			path = PreRegistration;
+			sourceTree = "<group>";
+		};
 		9546600D2387B5CB00A37AE0 /* Mantis */ = {
 			isa = PBXGroup;
 			children = (
@@ -3353,9 +3447,19 @@
 			path = RotationDial;
 			sourceTree = "<group>";
 		};
+		959A91D32449CFDD0062AA67 /* In-App Purchases */ = {
+			isa = PBXGroup;
+			children = (
+				959A91D42449CFDD0062AA67 /* IAPManager.swift */,
+				959A91D52449CFDD0062AA67 /* IAP_ProductIDs.plist */,
+			);
+			path = "In-App Purchases";
+			sourceTree = "<group>";
+		};
 		F6303928DF96F75577001E96 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				959A91DA2449E8000062AA67 /* StoreKit.framework */,
 				824E5172237E77F700339809 /* Security.framework */,
 				824E5170237E77F100339809 /* WebKit.framework */,
 				82E7EFD0237937B900501345 /* FBSDKCoreKit.framework */,
@@ -3524,6 +3628,7 @@
 				23CE8B8C24349B110096233C /* Rejoicing.JPG in Resources */,
 				23CE8BFA2434B6370096233C /* LaunchScreenViralCam.storyboard in Resources */,
 				23CE8B8D24349B110096233C /* LaunchScreen.storyboard in Resources */,
+				959A91D92449CFDD0062AA67 /* IAP_ProductIDs.plist in Resources */,
 				23CE8B8E24349B110096233C /* laugh.json in Resources */,
 				23CE8B8F24349B110096233C /* StoryEmojiCollectionViewCell.xib in Resources */,
 				23CE8B9024349B110096233C /* LoginViewController.storyboard in Resources */,
@@ -3604,6 +3709,7 @@
 				23CE8BD924349B110096233C /* LUT_M02.png in Resources */,
 				23CE8BDA24349B110096233C /* Duration.ttf in Resources */,
 				23CE8BDB24349B110096233C /* YouTubeUpload.storyboard in Resources */,
+				952EC2A924486CF40020992A /* PreRegistration.storyboard in Resources */,
 				23CE8BDC24349B110096233C /* Main.storyboard in Resources */,
 				23CE8BDD24349B110096233C /* PhotoEditor.storyboard in Resources */,
 				23CE8BDE24349B110096233C /* AllPhotosCollectionViewCell.xib in Resources */,
@@ -3686,10 +3792,12 @@
 				8205FD39236C3B06002B2603 /* LUT_M09.png in Resources */,
 				82D1EC3C23702B4300A680E7 /* peach.JPG in Resources */,
 				82D1EC4723702B4300A680E7 /* Light.JPG in Resources */,
+				952EC2A824486CF40020992A /* PreRegistration.storyboard in Resources */,
 				82D1EC4123702B4300A680E7 /* Clear.JPG in Resources */,
 				82CA3E5123D9970700DD48B8 /* HomeTableViewCellWithCollectionView.xib in Resources */,
 				8205FB62236C1D0F002B2603 /* love.json in Resources */,
 				950514C3239FA9AB00F07D8F /* StoryEditor.storyboard in Resources */,
+				959A91D82449CFDD0062AA67 /* IAP_ProductIDs.plist in Resources */,
 				8205FB13236C14C7002B2603 /* Localizable.strings in Resources */,
 				8205FC3E236C2C2F002B2603 /* SF-UI-Text-Light.otf in Resources */,
 				8205FD37236C3B06002B2603 /* LUT_M05.png in Resources */,
@@ -4048,6 +4156,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				23CE899D24349B110096233C /* MMPlayerTransitionDefine.swift in Sources */,
+				952EC2CE24487B7B0020992A /* ChannelTableViewCell.swift in Sources */,
 				23CE899E24349B110096233C /* FacebookReactions.swift in Sources */,
 				23CE899F24349B110096233C /* SocialShareVideo.swift in Sources */,
 				23CE89A024349B110096233C /* StoryEditorView.swift in Sources */,
@@ -4066,6 +4175,7 @@
 				23CE89AD24349B110096233C /* MMPlayerPushAnimator.swift in Sources */,
 				23CE89AE24349B110096233C /* StoryUploadCell.swift in Sources */,
 				23CE89AF24349B110096233C /* AppEventBus.swift in Sources */,
+				952EC29A244865D00020992A /* PaymentTableViewCell.swift in Sources */,
 				23CE89B024349B110096233C /* SwiftLinkPreview.swift in Sources */,
 				23CE89B124349B110096233C /* SaveUserDefaultsProtocol.swift in Sources */,
 				23CE89B224349B110096233C /* Utility.swift in Sources */,
@@ -4136,6 +4246,7 @@
 				23CE89F124349B110096233C /* Protocols.swift in Sources */,
 				23CE89F224349B110096233C /* MMPlayerView.swift in Sources */,
 				23CE89F324349B110096233C /* UIColor+Constant.swift in Sources */,
+				952EC2BA244870180020992A /* RoundLabel.swift in Sources */,
 				23CE89F424349B110096233C /* VideoScrollView.swift in Sources */,
 				23CE89F524349B110096233C /* SpecificBoomerangWriter.swift in Sources */,
 				23CE89F624349B110096233C /* MMPlayerProtocol.swift in Sources */,
@@ -4149,6 +4260,7 @@
 				23CE89FE24349B110096233C /* ThumbSelectorView.swift in Sources */,
 				23CE89FF24349B110096233C /* CurrentUser.swift in Sources */,
 				23CE8A0024349B110096233C /* AWSManager+S3.swift in Sources */,
+				952EC2A624486C690020992A /* FriendPackageTableViewCell.swift in Sources */,
 				23CE8A0124349B110096233C /* DNDLongPressDragRecognizer.m in Sources */,
 				23CE8A0224349B110096233C /* GameGridCell.swift in Sources */,
 				23CE8A0324349B110096233C /* MMPlayer+UINavigationController+LastDelegate.swift in Sources */,
@@ -4190,10 +4302,12 @@
 				23CE8A2624349B110096233C /* TextImageCreaterVC.swift in Sources */,
 				23CE8A2724349B110096233C /* CollageViewT301.swift in Sources */,
 				23CE8A2824349B110096233C /* ColorCubeStorageLocal.swift in Sources */,
+				952EC2C8244872A90020992A /* PackageSuggesstionTableViewCell.swift in Sources */,
 				23CE8A2924349B110096233C /* GraphicDrawing.swift in Sources */,
 				23CE8A2A24349B110096233C /* CollageViewT203.swift in Sources */,
 				23CE8A2B24349B110096233C /* PickerViewCell.swift in Sources */,
 				23CE8A2C24349B110096233C /* StoriCamManager.swift in Sources */,
+				952EC2C0244870180020992A /* PreRegistrationViewController.swift in Sources */,
 				23CE8A2D24349B110096233C /* CollageViewT503.swift in Sources */,
 				23CE8A2E24349B110096233C /* ImageSource.swift in Sources */,
 				23CE8A2F24349B110096233C /* NextLevelConfiguration.swift in Sources */,
@@ -4221,6 +4335,7 @@
 				23CE8A4524349B110096233C /* AdjustmentControlView.swift in Sources */,
 				23CE8A4624349B110096233C /* FilterContrast.swift in Sources */,
 				23CE8A4724349B110096233C /* FilterTemperature.swift in Sources */,
+				952EC29D244865F00020992A /* ChannelManagment.swift in Sources */,
 				23CE8A4824349B110096233C /* Geometry.swift in Sources */,
 				23CE8A4924349B110096233C /* Components.swift in Sources */,
 				23CE8A4A24349B110096233C /* UIImageView+UIImage.swift in Sources */,
@@ -4249,6 +4364,7 @@
 				23CE8A6124349B110096233C /* HighlightsControl.swift in Sources */,
 				23CE8A6224349B110096233C /* SketchView.swift in Sources */,
 				23CE8A6324349B110096233C /* MMPlayer+UIView+Load.swift in Sources */,
+				952EC2B6244870180020992A /* DashedBorderView.swift in Sources */,
 				23CE8A6424349B110096233C /* TiktokClass.swift in Sources */,
 				23CE8A6524349B110096233C /* SpecificBoomerangOptions.swift in Sources */,
 				23CE8A6624349B110096233C /* EditMenuControlView.swift in Sources */,
@@ -4259,6 +4375,7 @@
 				23CE8A6B24349B110096233C /* SketchTool.swift in Sources */,
 				23CE8A6C24349B110096233C /* DiskStatus.swift in Sources */,
 				23CE8A6D24349B110096233C /* SharpenControl.swift in Sources */,
+				952EC2B8244870180020992A /* PurchaseFriendPackageViewController.swift in Sources */,
 				23CE8A6E24349B110096233C /* Async.swift in Sources */,
 				23CE8A6F24349B110096233C /* NextLevel+UIImage.swift in Sources */,
 				23CE8A7024349B110096233C /* FlowChartView.swift in Sources */,
@@ -4303,6 +4420,7 @@
 				23CE8A9724349B110096233C /* CollageCell.swift in Sources */,
 				23CE8A9824349B110096233C /* MensionCollectionViewDelegate.swift in Sources */,
 				23CE8A9924349B110096233C /* MMPlayerPassViewPushTransition.swift in Sources */,
+				952EC2C5244871DB0020992A /* CartTableViewCell.swift in Sources */,
 				23CE8A9A24349B110096233C /* CollageViewT302.swift in Sources */,
 				23CE8A9B24349B110096233C /* CoreGraphicsExtensions.swift in Sources */,
 				23CE8A9C24349B110096233C /* ImageLibrary.swift in Sources */,
@@ -4315,6 +4433,7 @@
 				23CE8AA324349B110096233C /* StoryUploadVC.swift in Sources */,
 				23CE8AA424349B110096233C /* CircularProgress.swift in Sources */,
 				23CE8AA524349B110096233C /* AllPhotosCollectionViewCell.swift in Sources */,
+				952EC2CB24487A810020992A /* ChannelListViewController.swift in Sources */,
 				23CE8AA624349B110096233C /* PhotoEditorViewController+Picker.swift in Sources */,
 				23CE8AA724349B110096233C /* CollageViewT306.swift in Sources */,
 				23CE8AA824349B110096233C /* SpeedViewController.swift in Sources */,
@@ -4361,7 +4480,9 @@
 				23CE8AD224349B110096233C /* HistroGramVC.swift in Sources */,
 				23CE8AD324349B110096233C /* ColorImageButton.swift in Sources */,
 				23CE8AD424349B110096233C /* PixelEditor.swift in Sources */,
+				952EC2C2244870180020992A /* HeaderViewTableViewCell.swift in Sources */,
 				23CE8AD524349B110096233C /* CGImageExtensions.swift in Sources */,
+				952EC2BE244870180020992A /* PaymentViewController.swift in Sources */,
 				23CE8AD624349B110096233C /* StoryCamShared.swift in Sources */,
 				23CE8AD724349B110096233C /* FilterShadows.swift in Sources */,
 				23CE8AD824349B110096233C /* OvalBrush.swift in Sources */,
@@ -4389,7 +4510,6 @@
 				23CE8AEF24349B110096233C /* NextLevelBufferRenderer.swift in Sources */,
 				23CE8AF024349B110096233C /* CGAngle.swift in Sources */,
 				23CE8AF124349B110096233C /* MMPlayerPassViewPresentConfig.swift in Sources */,
-				23CE8AF224349B110096233C /* UpgradeViewController.swift in Sources */,
 				23CE8AF324349B110096233C /* RootControlView.swift in Sources */,
 				23CE8AF424349B110096233C /* SaturationControl.swift in Sources */,
 				23CE8AF524349B110096233C /* DNDDragHandler.m in Sources */,
@@ -4418,6 +4538,7 @@
 				23CE8B0C24349B110096233C /* CollageViewT602.swift in Sources */,
 				23CE8B0D24349B110096233C /* FilterGaussianBlur.swift in Sources */,
 				23CE8B0E24349B110096233C /* DragAndDropCollectionView.swift in Sources */,
+				952EC2B4244870180020992A /* CartViewController.swift in Sources */,
 				23CE8B0F24349B110096233C /* RatioOptions.swift in Sources */,
 				23CE8B1024349B110096233C /* ApplicationSettings.swift in Sources */,
 				23CE8B1124349B110096233C /* YouTubeUploadViewController.swift in Sources */,
@@ -4431,6 +4552,7 @@
 				23CE8B1924349B110096233C /* CollageViewT310.swift in Sources */,
 				23CE8B1A24349B110096233C /* NextLevel.swift in Sources */,
 				23CE8B1B24349B110096233C /* BubbleTransition.swift in Sources */,
+				952EC2BC244870180020992A /* ButtonWithImage.swift in Sources */,
 				23CE8B1C24349B110096233C /* StoryEmojiCollectionViewCell.swift in Sources */,
 				23CE8B1D24349B110096233C /* StoryPlayer.swift in Sources */,
 				23CE8B1E24349B110096233C /* Options.swift in Sources */,
@@ -4492,6 +4614,7 @@
 				23CE8B5524349B110096233C /* ReactionSelector.swift in Sources */,
 				23CE8B5624349B110096233C /* StoryCameraViewController+PhotosPickerViewDelegate.swift in Sources */,
 				23CE8B5724349B110096233C /* CollageViewT208.swift in Sources */,
+				951D5C9F24472AC600DBD742 /* UpgradeViewController.swift in Sources */,
 				23CE8B5824349B110096233C /* VideoPreviewView.swift in Sources */,
 				23CE8B5924349B110096233C /* PreviewError.swift in Sources */,
 				23CE8B5A24349B110096233C /* StepSlider.swift in Sources */,
@@ -4518,6 +4641,7 @@
 				23CE8B6F24349B110096233C /* CollageViewT802.swift in Sources */,
 				23CE8B7024349B110096233C /* Files.swift in Sources */,
 				23CE8B7124349B110096233C /* NSURLSessionExtension.swift in Sources */,
+				959A91D72449CFDD0062AA67 /* IAPManager.swift in Sources */,
 				23CE8B7224349B110096233C /* HashTagCell.swift in Sources */,
 				23CE8B7324349B110096233C /* CollageViewT404.swift in Sources */,
 				23CE8B7424349B110096233C /* Layer.swift in Sources */,
@@ -4581,6 +4705,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8205FBC2236C2A88002B2603 /* MMPlayerTransitionDefine.swift in Sources */,
+				952EC2CD24487B7B0020992A /* ChannelTableViewCell.swift in Sources */,
 				8205FB72236C1D0F002B2603 /* FacebookReactions.swift in Sources */,
 				820C3AF923797896007FCF15 /* SocialShareVideo.swift in Sources */,
 				950514C1239FA42100F07D8F /* StoryEditorView.swift in Sources */,
@@ -4599,6 +4724,7 @@
 				8205FBBE236C2A88002B2603 /* MMPlayerPushAnimator.swift in Sources */,
 				82D1EBC1236FEE4100A680E7 /* StoryUploadCell.swift in Sources */,
 				8205FB05236C11FE002B2603 /* AppEventBus.swift in Sources */,
+				952EC299244865D00020992A /* PaymentTableViewCell.swift in Sources */,
 				8205FAD4236C10DD002B2603 /* SwiftLinkPreview.swift in Sources */,
 				8205FB09236C1211002B2603 /* SaveUserDefaultsProtocol.swift in Sources */,
 				824EB3A023619E3D00205993 /* Utility.swift in Sources */,
@@ -4669,6 +4795,7 @@
 				82D1EBD1236FF16200A680E7 /* Protocols.swift in Sources */,
 				8205FBCA236C2A88002B2603 /* MMPlayerView.swift in Sources */,
 				824EB3BE23619E5C00205993 /* UIColor+Constant.swift in Sources */,
+				952EC2B9244870180020992A /* RoundLabel.swift in Sources */,
 				8205FAF3236C110C002B2603 /* VideoScrollView.swift in Sources */,
 				95A405AF23BF78D000AD38C4 /* SpecificBoomerangWriter.swift in Sources */,
 				8205FBCD236C2A88002B2603 /* MMPlayerProtocol.swift in Sources */,
@@ -4682,6 +4809,7 @@
 				8205FAA5236C0FD7002B2603 /* ThumbSelectorView.swift in Sources */,
 				82CCB1702372D0F800EC76E8 /* CurrentUser.swift in Sources */,
 				820DA4EE2385392F0027A207 /* AWSManager+S3.swift in Sources */,
+				952EC2A524486C690020992A /* FriendPackageTableViewCell.swift in Sources */,
 				8205FAE6236C10F3002B2603 /* DNDLongPressDragRecognizer.m in Sources */,
 				82CA3E4B23D98F1B00DD48B8 /* GameGridCell.swift in Sources */,
 				8205FBC8236C2A88002B2603 /* MMPlayer+UINavigationController+LastDelegate.swift in Sources */,
@@ -4723,10 +4851,12 @@
 				8205FDA4236C3B81002B2603 /* TextImageCreaterVC.swift in Sources */,
 				8205FCBF236C3AFA002B2603 /* CollageViewT301.swift in Sources */,
 				8205FD3A236C3B06002B2603 /* ColorCubeStorageLocal.swift in Sources */,
+				952EC2C7244872A90020992A /* PackageSuggesstionTableViewCell.swift in Sources */,
 				8205FD40236C3B06002B2603 /* GraphicDrawing.swift in Sources */,
 				8205FCC5236C3AFA002B2603 /* CollageViewT203.swift in Sources */,
 				8205FC9E236C3AFA002B2603 /* PickerViewCell.swift in Sources */,
 				8219322623EAA8FD00FFEC03 /* StoriCamManager.swift in Sources */,
+				952EC2BF244870180020992A /* PreRegistrationViewController.swift in Sources */,
 				8205FCB3236C3AFA002B2603 /* CollageViewT503.swift in Sources */,
 				8205FD43236C3B06002B2603 /* ImageSource.swift in Sources */,
 				824EB3F023619FB000205993 /* NextLevelConfiguration.swift in Sources */,
@@ -4754,6 +4884,7 @@
 				8205FD75236C3B06002B2603 /* AdjustmentControlView.swift in Sources */,
 				8205FD55236C3B06002B2603 /* FilterContrast.swift in Sources */,
 				8205FD50236C3B06002B2603 /* FilterTemperature.swift in Sources */,
+				952EC29C244865F00020992A /* ChannelManagment.swift in Sources */,
 				8205FD3C236C3B06002B2603 /* Geometry.swift in Sources */,
 				8205FB7B236C1D0F002B2603 /* Components.swift in Sources */,
 				824EB3C623619E5C00205993 /* UIImageView+UIImage.swift in Sources */,
@@ -4782,6 +4913,7 @@
 				8205FD6B236C3B06002B2603 /* HighlightsControl.swift in Sources */,
 				82D1EBD9236FF23D00A680E7 /* SketchView.swift in Sources */,
 				8205FBC5236C2A88002B2603 /* MMPlayer+UIView+Load.swift in Sources */,
+				952EC2B5244870180020992A /* DashedBorderView.swift in Sources */,
 				828D14FD238E56790011A6CC /* TiktokClass.swift in Sources */,
 				95F117E423FD04B400EB99B4 /* SpecificBoomerangOptions.swift in Sources */,
 				8205FD64236C3B06002B2603 /* EditMenuControlView.swift in Sources */,
@@ -4792,6 +4924,7 @@
 				82D1EBD8236FF23D00A680E7 /* SketchTool.swift in Sources */,
 				8205FB07236C1203002B2603 /* DiskStatus.swift in Sources */,
 				8205FD67236C3B06002B2603 /* SharpenControl.swift in Sources */,
+				952EC2B7244870180020992A /* PurchaseFriendPackageViewController.swift in Sources */,
 				822F413C238FE39100084007 /* Async.swift in Sources */,
 				824EB3F323619FB000205993 /* NextLevel+UIImage.swift in Sources */,
 				82D1EBB9236FEDAC00A680E7 /* FlowChartView.swift in Sources */,
@@ -4836,6 +4969,7 @@
 				8205FCCD236C3AFA002B2603 /* CollageCell.swift in Sources */,
 				82D1EBA2236FED0500A680E7 /* MensionCollectionViewDelegate.swift in Sources */,
 				8205FBBF236C2A88002B2603 /* MMPlayerPassViewPushTransition.swift in Sources */,
+				952EC2C4244871DB0020992A /* CartTableViewCell.swift in Sources */,
 				8205FCB7236C3AFA002B2603 /* CollageViewT302.swift in Sources */,
 				954660532387B5CC00A37AE0 /* CoreGraphicsExtensions.swift in Sources */,
 				8205FA7A236C0F5B002B2603 /* ImageLibrary.swift in Sources */,
@@ -4848,6 +4982,7 @@
 				8205FD98236C3B49002B2603 /* StoryUploadVC.swift in Sources */,
 				824EB3EE23619FB000205993 /* CircularProgress.swift in Sources */,
 				8205FB90236C2A0F002B2603 /* AllPhotosCollectionViewCell.swift in Sources */,
+				952EC2CA24487A810020992A /* ChannelListViewController.swift in Sources */,
 				82D1EC8423703DE300A680E7 /* PhotoEditorViewController+Picker.swift in Sources */,
 				8205FCBD236C3AFA002B2603 /* CollageViewT306.swift in Sources */,
 				82262113239E164400B963CF /* SpeedViewController.swift in Sources */,
@@ -4894,7 +5029,9 @@
 				8205FD7B236C3B06002B2603 /* ImageScrollView.swift in Sources */,
 				8205FD92236C3B32002B2603 /* HistroGramVC.swift in Sources */,
 				8205FA77236C0EE4002B2603 /* ColorImageButton.swift in Sources */,
+				952EC2C1244870180020992A /* HeaderViewTableViewCell.swift in Sources */,
 				8205FD5F236C3B06002B2603 /* PixelEditor.swift in Sources */,
+				952EC2BD244870180020992A /* PaymentViewController.swift in Sources */,
 				954660512387B5CC00A37AE0 /* CGImageExtensions.swift in Sources */,
 				824EB39C23619E3600205993 /* StoryCamShared.swift in Sources */,
 				8205FD4E236C3B06002B2603 /* FilterShadows.swift in Sources */,
@@ -4923,7 +5060,6 @@
 				824EB3EB23619FB000205993 /* NextLevelBufferRenderer.swift in Sources */,
 				9546606A2387B5CC00A37AE0 /* CGAngle.swift in Sources */,
 				8205FBBA236C2A88002B2603 /* MMPlayerPassViewPresentConfig.swift in Sources */,
-				8205FDA6236C3B85002B2603 /* UpgradeViewController.swift in Sources */,
 				8205FD77236C3B06002B2603 /* RootControlView.swift in Sources */,
 				8205FD68236C3B06002B2603 /* SaturationControl.swift in Sources */,
 				8205FAE8236C10F3002B2603 /* DNDDragHandler.m in Sources */,
@@ -4951,6 +5087,7 @@
 				820B23752371975000906BF0 /* Result.swift in Sources */,
 				8205FCB4236C3AFA002B2603 /* CollageViewT602.swift in Sources */,
 				8205FD56236C3B06002B2603 /* FilterGaussianBlur.swift in Sources */,
+				952EC2B3244870180020992A /* CartViewController.swift in Sources */,
 				9544DE2F23A38F8700EF57DE /* DragAndDropCollectionView.swift in Sources */,
 				954660482387B5CC00A37AE0 /* RatioOptions.swift in Sources */,
 				824EB39823619E2800205993 /* ApplicationSettings.swift in Sources */,
@@ -4964,6 +5101,7 @@
 				82D1EC8523703DE300A680E7 /* PhotoEditorViewController.swift in Sources */,
 				8205FCA1236C3AFA002B2603 /* CollageViewT310.swift in Sources */,
 				824EB3EC23619FB000205993 /* NextLevel.swift in Sources */,
+				952EC2BB244870180020992A /* ButtonWithImage.swift in Sources */,
 				82D1EBB5236FED4F00A680E7 /* BubbleTransition.swift in Sources */,
 				82D1EBF9236FF68700A680E7 /* StoryEmojiCollectionViewCell.swift in Sources */,
 				82D1EBA6236FED2100A680E7 /* StoryPlayer.swift in Sources */,
@@ -5025,6 +5163,7 @@
 				8205FB75236C1D0F002B2603 /* ReactionSelector.swift in Sources */,
 				8248565223A8AE300078D117 /* StoryCameraViewController+PhotosPickerViewDelegate.swift in Sources */,
 				8205FCB0236C3AFA002B2603 /* CollageViewT208.swift in Sources */,
+				951D5C9E24472AC600DBD742 /* UpgradeViewController.swift in Sources */,
 				8205FA90236C0FA5002B2603 /* VideoPreviewView.swift in Sources */,
 				8205FAD9236C10DD002B2603 /* PreviewError.swift in Sources */,
 				8205FD7C236C3B06002B2603 /* StepSlider.swift in Sources */,
@@ -5051,6 +5190,7 @@
 				8205FCC8236C3AFA002B2603 /* CollageViewT802.swift in Sources */,
 				8205FAFB236C1187002B2603 /* Files.swift in Sources */,
 				8205FAD5236C10DD002B2603 /* NSURLSessionExtension.swift in Sources */,
+				959A91D62449CFDD0062AA67 /* IAPManager.swift in Sources */,
 				82D1EBFD236FF74200A680E7 /* HashTagCell.swift in Sources */,
 				8205FCA7236C3AFA002B2603 /* CollageViewT404.swift in Sources */,
 				8205FD5D236C3B06002B2603 /* Layer.swift in Sources */,

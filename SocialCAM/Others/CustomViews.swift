@@ -579,7 +579,7 @@ class ColorButton: UIButton {
         self.titleLabel?.font = UIFont(name: (self.titleLabel?.font.fontName)!, size: (self.fontSize * ratio))
     }
     
-    override func layoutSubviews() {
+    override func layoutSubviews()           {
         super.layoutSubviews()
         if isRounded {
             layer.cornerRadius = self.frame.size.height / 2.0

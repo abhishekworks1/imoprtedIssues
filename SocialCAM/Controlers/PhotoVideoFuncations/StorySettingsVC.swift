@@ -13,6 +13,7 @@ enum SettingsMode: Int {
     case subscriptions = 0
     case socialLogins
     case faceDetection
+    case channelManagement
     case socialLogout
     case logout
     case controlcenter
@@ -79,8 +80,10 @@ class StorySettings {
                                                                       selected: false,
                                                                       image: R.image.icoStoriCamInActive(),
                                                                       selectedImage: R.image.icoStoriCam())], settingsType: .socialLogins),
-                                StorySettings(name: R.string.localizable.socialLogin(),
+                                StorySettings(name: "",
                                     settings: [StorySetting(name: "Face Detection", selected: false)], settingsType: .faceDetection),
+                                StorySettings(name: "",
+                                              settings: [StorySetting(name: R.string.localizable.channelManagement(), selected: false)], settingsType: .channelManagement),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.socialLogout(), selected: false)], settingsType: .socialLogout),
                                 StorySettings(name: "",
@@ -129,7 +132,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         cell.settingsName.text = settings.name
         cell.detailButton.isHidden = true
         cell.settingsName.textColor = R.color.appBlackColor()
-        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .appInfo {
+        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo {
             if settingTitle.settingsType == .appInfo {
                 #if DEBUG
                 cell.settingsName.textColor = R.color.appPrimaryColor()
@@ -172,7 +175,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             fatalError("StorySettingsHeader Not Found")
         }
         let settingTitle = StorySettings.storySettings[section]
-        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .appInfo {
+        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .faceDetection || settingTitle.settingsType == .appInfo {
             headerView.title.isHidden = true
         } else {
             headerView.title.isHidden = false
@@ -183,7 +186,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         let settingTitle = StorySettings.storySettings[section]
-        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .appInfo {
+        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .faceDetection || settingTitle.settingsType == .appInfo {
             return 24
         } else {
             return 60
@@ -229,6 +232,10 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         } else if settingTitle.settingsType == .faceDetection {
             Defaults.shared.enableFaceDetection = !Defaults.shared.enableFaceDetection
             self.settingsTableView.reloadData()
+        } else if settingTitle.settingsType == .channelManagement {
+            let chVc = R.storyboard.preRegistration.channelListViewController()
+            chVc?.remainingPackageCountForOthers = Defaults.shared.currentUser?.remainingOtherUserPackageCount ?? 0
+            self.navigationController?.pushViewController(chVc!, animated: true)
         }
     }
     
