@@ -54,12 +54,17 @@ open class TwitterManger: NSObject {
                 return
             }
             let twitterClient = TWTRAPIClient(userID: userId)
+
+            //To get User name and email
+            
             twitterClient.loadUser(withID: userId) { [weak self] (user, error) in
                 guard let `self` = self else { return }
                 print(user?.profileImageURL ?? "")
                 print(user?.name ?? "")
-                self.userData = LoginUserData(userId: userId, userName: user?.name, email: user?.screenName, gender: 0, photoUrl: user?.profileImageURL)
-                completion(self.userData)
+                twitterClient.requestEmail { email, error in
+                    self.userData = LoginUserData(userId: userId, userName: user?.name, email: email, gender: 0, photoUrl: user?.profileImageURL)
+                    completion(self.userData)
+                }
             }
         } else {
             completion(nil)

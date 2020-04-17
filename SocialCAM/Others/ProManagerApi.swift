@@ -17,7 +17,8 @@ public enum ProManagerApi {
     case getSplashImages
     case logIn(email: String, password: String, deviceToken: String?)
     case confirmEmail(userId: String, email: String)
-    case signUp(email: String, password: String, channel: String, refChannel: String, isBusiness: Bool, channelName: String, refferId: String?, deviceToken: String?, birthDate: String?)
+    case signUp(email: String, password: String, channel: String, refChannel: String, isBusiness: Bool, socialId:String?, provider:String?, channelName: String, refferId: String?, deviceToken: String?, birthDate: String?)
+    case socialLogin(socialId: String, email: String?)
     case uploadYoutubeVideo(token: String, videoURL: URL, snippet: [String:Any], status: String)
     case search(channel: String)
     case verifyChannel(channel: String,type: String)
@@ -55,7 +56,7 @@ public enum ProManagerApi {
         var endpointClosure = MoyaProvider<ProManagerApi>.defaultEndpointMapping(for: self)
         
         switch self {
-        case .confirmEmail, .signUp, .verifyChannel, .getSplashImages, .logIn,.youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getYoutubeCategory, .getAccessToken:
+        case .confirmEmail, .signUp, .verifyChannel, .getSplashImages, .logIn,.youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getYoutubeCategory, .getAccessToken, .socialLogin:
             endpointClosure = endpointClosure.adding(newHTTPHeaderFields: APIHeaders().headerWithoutAccessToken)
         case .getWeather:
             break
@@ -78,7 +79,7 @@ public enum ProManagerApi {
 extension ProManagerApi: TargetType {
     public var headers: [String: String]? {
         switch self {
-        case .confirmEmail, .signUp, .verifyChannel, .getSplashImages, .logIn, .doLogin, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getYoutubeCategory:
+        case .confirmEmail, .signUp, .verifyChannel, .getSplashImages, .logIn, .doLogin, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getYoutubeCategory, .socialLogin:
             return APIHeaders().headerWithoutAccessToken
         case .getWeather, .getAccessToken:
             break
@@ -126,6 +127,8 @@ extension ProManagerApi: TargetType {
             return Paths.getSplashImages
         case .logIn:
             return Paths.login
+        case .socialLogin:
+            return Paths.socailLogin
         case .doLogin:
             return Paths.doLogin
         case .writePost:
@@ -220,7 +223,7 @@ extension ProManagerApi: TargetType {
             param = ["channelName": channel]
         case .confirmEmail(let userId, let email):
             param = ["userId":userId,"email":email]
-        case .signUp(let email, let password,let channel, let refChannel, let isBusiness, let channelName, let refferId, let deviceToken, let birthDate):
+        case .signUp(let email, let password,let channel, let refChannel, let isBusiness, let socialId, let provider, let channelName, let refferId, let deviceToken, let birthDate):
             param = ["email": email, "password": password, "channelId": channel, "refferingChannel": refChannel, "isBusiness": isBusiness, "channelName": channelName, "deviceType": 1]
             if let rId = refferId {
                 param["refferingId"] = rId
@@ -230,6 +233,17 @@ extension ProManagerApi: TargetType {
             }
             if let birthDate = birthDate {
                 param["birthDate"] = birthDate
+            }
+            if let provider = provider {
+                param["provider"] = provider
+            }
+            if let id = socialId {
+                param["socialId"] = id
+            }
+        case .socialLogin(let socialId, let email):
+            param = ["socialId": socialId, "deviceType": 1]
+            if let email = email {
+                param["email"] = email
             }
         case .getSplashImages:
             break

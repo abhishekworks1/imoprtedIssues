@@ -41,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             } else {
                 fatalError("GoogleService-Info.plist is missing!")
             }
-            StorySettings.storySettings.remove(at: 3)
+            StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .logout})
         #elseif VIRALCAMAPP
             print("[FIREBASE] VIRALCAMAPP mode.")
             if let filePath = Bundle.main.path(forResource: "GoogleService-Info-ViralCam", ofType: "plist"),
@@ -51,7 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 fatalError("GoogleService-Info-ViralCam.plist is missing!")
             }
             StorySettings.storySettings[1].settings.removeLast()
-            StorySettings.storySettings.remove(at: StorySettings.storySettings.count - 2)
+            StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
         #endif
         
         configureGoogleService()

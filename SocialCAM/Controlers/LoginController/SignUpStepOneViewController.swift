@@ -36,14 +36,19 @@ class SignUpStepOneViewController: UIViewController {
     @IBOutlet var viewPassWord : UIView!
     @IBOutlet var btnHidePassWord : PButton!
     
+    @IBOutlet weak var imgLogo: UIImageView!
     // MARK :-- iVars ---
     
     weak var delegate: LoginViewControllerDelegate?
-    var refereUserId : String!
-    var isRefChannel : Bool = false
-    var isChannel : Bool = false
-    var isEmail : Bool = false
-    var isBusiness : Bool = false
+    var refereUserId: String!
+    var isRefChannel: Bool = false
+    var isRefChannelRefresh: Bool = true
+    var isChannel: Bool = false
+    var isEmail: Bool = false
+    var isBusiness: Bool = false
+    var isSocial: Bool = false
+    var socialDict: [String:Any]?
+    var dropDownMenu: DropDownMenu?
     
     // MARK : ---  View Life Cycle Methods ----
     
@@ -64,7 +69,11 @@ class SignUpStepOneViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.isBusiness =  false
-      
+        
+        #if VIRALCAMAPP
+        imgLogo.image = R.image.viralcamrgb()
+        #endif
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapGesture(_:)))
         viewBirthdate.addGestureRecognizer(tapGesture)
         self.txtBirthdate.isUserInteractionEnabled = false
@@ -88,14 +97,42 @@ class SignUpStepOneViewController: UIViewController {
                                        txtPassWord,
                                        txtRefChannel])
         
-        let isRefExist = self.txtRefChannel?.rx.text.orEmpty.filter{ $0.count > 5}.throttle(0.5, scheduler:MainScheduler.instance).distinctUntilChanged().flatMapLatest( { (channel: String) -> Observable<Result<User>> in
-            return  ProManagerApi
-                .verifyChannel(channel: channel, type: "channelId")
-                .request(Result<User>.self)
+        dropDownMenu = DropDownMenu(view: self.txtRefChannel, menuItems: nil)
+        dropDownMenu?.hidesOnSelection = true
+        
+        let isRefExist = self.txtRefChannel?.rx.text.orEmpty.filter{ $0.count > 3}.throttle(0.5, scheduler:MainScheduler.instance).distinctUntilChanged().flatMapLatest( { (channel: String) -> Observable<ResultArray<Channel>> in
+            if self.isRefChannelRefresh {
+                self.showHUD()
+            }
+            return ProManagerApi
+                .search(channel: channel)
+                .request(ResultArray<Channel>.self)
         })
-           
-        isRefExist?.subscribe(onNext: { user in
-            if user.status == ResponseType.success {
+        
+        isRefExist?.subscribe(onNext: { response in
+            self.dismissHUD()
+            if response.status == ResponseType.success {
+                let channels: [Channel] = response.result!
+                var menuItems: [DropDownMenuItem] = []
+                for item in channels {
+                    let menuItem: DropDownMenuItem? = DropDownMenuItem(title: item.channelId)
+                    guard let item = menuItem else {
+                        return
+                    }
+                    menuItems.append(item)
+                }
+                if menuItems.count == 0 {
+                    self.isRefChannel = false
+                    self.isRefChannelRefresh = true
+                }
+                self.dropDownMenu?.setMenuItems(menuItems)
+                self.dropDownMenu?.hide()
+                self.dropDownMenu?.show { dropDownMenu, menuItem, index in
+                    self.txtRefChannel.text = channels[index].channelId
+                    self.refereUserId = channels[index].id
+                    self.isRefChannel = true
+                    self.isRefChannelRefresh = true
+                }
                 print("true")
                 self.isRefChannel = false
             } else {
@@ -103,6 +140,7 @@ class SignUpStepOneViewController: UIViewController {
                 self.isRefChannel = true
             }
         }, onError: { (error:Error) in
+            self.dismissHUD()
             print("false")
             self.viewChannelBox.isHidden = true
         }, onCompleted: {
@@ -111,7 +149,7 @@ class SignUpStepOneViewController: UIViewController {
         
         let isEmailExist = self.txtEmail?.rx.text.orEmpty.filter {
             return $0.isValidEmail()
-        }.throttle(0.5, scheduler:MainScheduler.instance).distinctUntilChanged().flatMapLatest( { (channel:String) -> Observable<Result<User>> in
+        }.throttle(0.5, scheduler:MainScheduler.instance).distinctUntilChanged().flatMapLatest({ (channel:String) -> Observable<Result<User>> in
             return  ProManagerApi
                 .verifyChannel(channel: channel, type: "email")
                 .request(Result<User>.self)
@@ -174,7 +212,13 @@ class SignUpStepOneViewController: UIViewController {
             self.showAlert(alertMessage: R.string.localizable.referringChannelDoesNotExist())
         } else {
             self.showHUD()
-            ProManagerApi.signUp(email: email, password: password, channel: email, refChannel: refChannel, isBusiness: isBusiness, channelName: email, refferId: self.refereUserId,deviceToken: "", birthDate: birthdate).request(Result<User>.self).subscribe(onNext: { result in
+            var socialId: String? = nil
+            var provider: String? = nil
+            if self.isSocial {
+                socialId = self.socialDict?["socialId"] as? String
+                provider = self.socialDict?["provider"] as? String
+            }
+            ProManagerApi.signUp(email: email, password: password, channel: email, refChannel: refChannel, isBusiness: isBusiness, socialId: socialId, provider: provider, channelName: email, refferId: self.refereUserId,deviceToken: "", birthDate: birthdate).request(Result<User>.self).subscribe(onNext: { result in
                 self.dismissHUD()
                 if result.status == ResponseType.success {
                     Defaults.shared.sessionToken = result.sessionToken
@@ -199,11 +243,13 @@ class SignUpStepOneViewController: UIViewController {
     }
     
     @IBAction func btnSearchClicked(_ sender:Any?) {
+        self.dropDownMenu?.hide()
         let searchChannelViewController = R.storyboard.loginViewController.searchChannelViewController()
         searchChannelViewController?.ChanelHandler = { chanel in
             self.txtRefChannel.text = chanel.channelId
             self.isRefChannel = true
             self.refereUserId = chanel.id
+            self.isRefChannelRefresh = false
         }
         self.navigationController?.pushViewController(searchChannelViewController!, animated: true)
     }
@@ -218,12 +264,6 @@ class SignUpStepOneViewController: UIViewController {
             textField.selectedTitleColor = ApplicationSettings.appPrimaryColor
         }
     }
-    
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    
-    // MARK: ---- Pro Api
     
     func emailConfirm(email: String) {
         ProManagerApi.confirmEmail(userId: (Defaults.shared.currentUser?.id)!, email: email).request(Result<PromanagerData>.self).subscribe(onNext: { result in
@@ -245,6 +285,9 @@ extension SignUpStepOneViewController : UITextFieldDelegate {
             txtPassWord.becomeFirstResponder()
         } else if txtPassWord == textField {
             txtPassWord.resignFirstResponder()
+            txtRefChannel.becomeFirstResponder()
+        } else if txtRefChannel == textField {
+            txtRefChannel.resignFirstResponder()
         } else if txtChannel == textField {
             txtChannel.resignFirstResponder()
             txtChannelTitle.becomeFirstResponder()
@@ -290,20 +333,13 @@ extension SignUpStepOneViewController : UITextFieldDelegate {
             let txt = (textField.text! as NSString).replacingCharacters(in: range, with: string)
             if txt.count < 4 {
                 self.isRefChannel = false
-            } else {
-                
             }
         }
         return true
     }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        if txtRefChannel == textField {
-            self.btnSearchClicked(nil)
-            return false
-        } else {
-            return true
-        }
+        return true
     }
     
 }
