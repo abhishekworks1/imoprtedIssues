@@ -79,3 +79,7 @@ end
 target 'SocialCamMediaShare' do
   shared_pods
 end
+
+target 'Viralvids' do
+  shared_pods
+end

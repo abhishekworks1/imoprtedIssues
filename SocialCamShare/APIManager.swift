@@ -16,6 +16,8 @@ import ObjectMapper
 public enum ProManagerApi {
     case writePost(type: String, user: String, bookmark: [String:Any]?, privacy:String?)
     case createStory(url: String, duration: String, type: String, user: String, thumb: String?)
+    case createViralvids(title: String, image: String?, description: String?, referenceLink: String?, hashtags: [String]?)
+    case getViralvids
     
     var endpoint: Endpoint {
         var endpointClosure = MoyaProvider<ProManagerApi>.defaultEndpointMapping(for: self)
@@ -27,6 +29,8 @@ public enum ProManagerApi {
 public struct NewPaths {
     static let writePost = "articles/write"
     static let createStory = "stories/createStory"
+    static let createViralvids = "viralvids/create"
+    static let getViralvids = "viralvids"
 }
 
 extension ProManagerApi: TargetType {
@@ -42,6 +46,10 @@ extension ProManagerApi: TargetType {
     /// The path to be appended to `baseURL` to form the full `URL`.
     public var path: String {
         switch self {
+        case .getViralvids:
+             return NewPaths.getViralvids
+        case .createViralvids:
+            return NewPaths.createViralvids
         case .writePost:
             return NewPaths.writePost
         case .createStory:
@@ -51,7 +59,13 @@ extension ProManagerApi: TargetType {
     
     /// The HTTP method used in the request.
     public var method: Moya.Method {
-        return .post
+        switch self {
+        case .getViralvids:
+            return .get
+        default:
+            return .post
+        }
+        
     }
     
     /// The parameters to be incoded in the request.
@@ -77,6 +91,22 @@ extension ProManagerApi: TargetType {
             if let thumb = thumb {
                 param["thumb"] = thumb
             }
+        case .createViralvids(title: let title, image: let image, description: let description, referenceLink: let referenceLink, hashtags: let hashtags):
+            param = ["title": title]
+            if let image = image {
+                param["image"] = image
+            }
+            if let description = description {
+                param["description"] = description
+            }
+            if let referenceLink = referenceLink {
+                param["referenceLink"] = referenceLink
+            }
+            if let hashtags = hashtags {
+                param["hashtags"] = hashtags
+            }
+        case .getViralvids:
+            break
         }
         return param
     }

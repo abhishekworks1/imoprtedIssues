@@ -171,6 +171,7 @@ struct TrimError: Error {
 }
 
 public struct Paths {
+    static let getViralvids = "viralvids"
     static let getSplashImages = "getSplashImages"
     static let login = "auth/signin"
     static let verifyChannel = "auth/verifyField"
@@ -353,16 +354,16 @@ public struct Constant {
     }
     
     struct Application {
-        #if SOCIALCAMAPP
-            static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "SocialCam"
-            static let groupIdentifier: String = "group.com.simform.storiCamPro"
-            static let simformIdentifier: String = "com.simform.storiCamPro"
-            static let proModeCode: String = "socialcam2020"
+        #if VIRALCAMAPP
+        static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "ViralCam"
+        static let groupIdentifier: String = "group.com.simform.storiCamPro"
+        static let simformIdentifier: String = "com.simform.viralcam"
+        static let proModeCode: String = "viralcam2020"
         #else
-            static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "ViralCam"
-            static let groupIdentifier: String = "group.com.simform.viralcam"
-            static let simformIdentifier: String = "com.simform.viralcam"
-            static let proModeCode: String = "viralcam2020"
+        static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "SocialCam"
+        static let groupIdentifier: String = "group.com.simform.storiCamPro"
+        static let simformIdentifier: String = "com.simform.storiCamPro"
+        static let proModeCode: String = "socialcam2020"
         #endif
         static let appVersion: String = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
         static let appBuildNumber: String = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1"

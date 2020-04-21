@@ -50,7 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             } else {
                 fatalError("GoogleService-Info-ViralCam.plist is missing!")
             }
-            StorySettings.storySettings[1].settings.removeLast()
+            StorySettings.storySettings.filter({$0.settingsType == .socialLogins}).first?.settings.removeLast()
             StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
         #endif
         
@@ -209,6 +209,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
+        Defaults.shared.postViralCamModel = nil
         IAPManager.shared.stopObserving()
     }
 }
