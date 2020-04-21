@@ -21,6 +21,13 @@
 		230722C3244EC18F009454B0 /* FilterImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB32236C1BAF002B2603 /* FilterImage.swift */; };
 		230722C4244EC1D6009454B0 /* EditOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB86236C28F3002B2603 /* EditOption.swift */; };
 		230722C8244EC33E009454B0 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 230722C7244EC33E009454B0 /* Media.xcassets */; };
+		230722CC244EE552009454B0 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EBBC236FEE0700A680E7 /* RoundedButton.swift */; };
+		230722CF244EE932009454B0 /* ColorRoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230722CE244EE932009454B0 /* ColorRoundedView.swift */; };
+		230722D0244EE932009454B0 /* ColorRoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230722CE244EE932009454B0 /* ColorRoundedView.swift */; };
+		230722D1244EE932009454B0 /* ColorRoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230722CE244EE932009454B0 /* ColorRoundedView.swift */; };
+		230722D3244EE9C9009454B0 /* ApplicationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB39723619E2700205993 /* ApplicationSettings.swift */; };
+		230722DF244EF356009454B0 /* RKTagsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8205FAC9236C10B7002B2603 /* RKTagsView.m */; };
+		230722E3244F05AA009454B0 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828F3E5923F292BB007AE35F /* APIManager.swift */; };
 		2397B8D224359E3400F97957 /* R.viralcam.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2397B8D124359E3300F97957 /* R.viralcam.generated.swift */; };
 		2397B8D42435A00000F97957 /* ViralCam-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2397B8D32435A00000F97957 /* ViralCam-Info.plist */; };
 		2397B8D72435B30100F97957 /* SignUpStepOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CE8BFD2434C27C0096233C /* SignUpStepOneViewController.swift */; };
@@ -1360,6 +1367,8 @@
 		230722B8244EBCD0009454B0 /* Viralvids.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Viralvids.entitlements; sourceTree = "<group>"; };
 		230722BC244EC0CD009454B0 /* R.viralvids.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.viralvids.generated.swift; sourceTree = "<group>"; };
 		230722C7244EC33E009454B0 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		230722CE244EE932009454B0 /* ColorRoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorRoundedView.swift; sourceTree = "<group>"; };
+		230722E0244EF379009454B0 /* Viralvids-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Viralvids-Bridging-Header.h"; sourceTree = "<group>"; };
 		2397B8D124359E3300F97957 /* R.viralcam.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.viralcam.generated.swift; sourceTree = "<group>"; };
 		2397B8D32435A00000F97957 /* ViralCam-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ViralCam-Info.plist"; sourceTree = "<group>"; };
 		2397B8DB2435D1D000F97957 /* GoogleService-Info-ViralCam.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-ViralCam.plist"; sourceTree = "<group>"; };
@@ -2096,6 +2105,7 @@
 				230722A4244EB5D3009454B0 /* Localizable.strings */,
 				230722B0244EBCB2009454B0 /* Info.plist */,
 				230722C7244EC33E009454B0 /* Media.xcassets */,
+				230722E0244EF379009454B0 /* Viralvids-Bridging-Header.h */,
 			);
 			path = Viralvids;
 			sourceTree = "<group>";
@@ -2181,6 +2191,7 @@
 				822F413B238FE39100084007 /* Async.swift */,
 				822F413E238FE3E900084007 /* ExportVideoOperation.swift */,
 				82270CBC23B08C780003569E /* StorySegmmentAsset.swift */,
+				230722CE244EE932009454B0 /* ColorRoundedView.swift */,
 			);
 			path = Others;
 			sourceTree = "<group>";
@@ -4307,14 +4318,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				230722C4244EC1D6009454B0 /* EditOption.swift in Sources */,
+				230722D1244EE932009454B0 /* ColorRoundedView.swift in Sources */,
+				230722CC244EE552009454B0 /* RoundedButton.swift in Sources */,
 				230722BE244EC127009454B0 /* Defaults.swift in Sources */,
 				230722C2244EC185009454B0 /* SaveUserDefaultsProtocol.swift in Sources */,
+				230722D3244EE9C9009454B0 /* ApplicationSettings.swift in Sources */,
+				230722E3244F05AA009454B0 /* APIManager.swift in Sources */,
 				230722C1244EC160009454B0 /* ProfileDetailsResponse.swift in Sources */,
 				230722BF244EC13C009454B0 /* SharedClass.swift in Sources */,
 				230722B9244EBDC1009454B0 /* SharePostVC.swift in Sources */,
 				230722C3244EC18F009454B0 /* FilterImage.swift in Sources */,
 				230722C0244EC14C009454B0 /* User.swift in Sources */,
 				230722BD244EC0CD009454B0 /* R.viralvids.generated.swift in Sources */,
+				230722DF244EF356009454B0 /* RKTagsView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4722,6 +4738,7 @@
 				23CE8B1B24349B110096233C /* BubbleTransition.swift in Sources */,
 				952EC2BC244870180020992A /* ButtonWithImage.swift in Sources */,
 				23CE8B1C24349B110096233C /* StoryEmojiCollectionViewCell.swift in Sources */,
+				230722D0244EE932009454B0 /* ColorRoundedView.swift in Sources */,
 				23CE8B1D24349B110096233C /* StoryPlayer.swift in Sources */,
 				23CE8B1E24349B110096233C /* Options.swift in Sources */,
 				23CE8B1F24349B110096233C /* CollageViewT407.swift in Sources */,
@@ -5272,6 +5289,7 @@
 				824EB3EC23619FB000205993 /* NextLevel.swift in Sources */,
 				952EC2BB244870180020992A /* ButtonWithImage.swift in Sources */,
 				82D1EBB5236FED4F00A680E7 /* BubbleTransition.swift in Sources */,
+				230722CF244EE932009454B0 /* ColorRoundedView.swift in Sources */,
 				82D1EBF9236FF68700A680E7 /* StoryEmojiCollectionViewCell.swift in Sources */,
 				82D1EBA6236FED2100A680E7 /* StoryPlayer.swift in Sources */,
 				8205FD60236C3B06002B2603 /* Options.swift in Sources */,
@@ -5512,6 +5530,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.simform.viralcam.Viralvids;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Viralvids/Viralvids-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -5535,6 +5554,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.simform.viralcam.Viralvids;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Viralvids/Viralvids-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

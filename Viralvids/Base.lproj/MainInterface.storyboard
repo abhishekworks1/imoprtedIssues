@@ -42,7 +42,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bLl-5R-Rmh">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bLl-5R-Rmh">
                                                 <rect key="frame" x="8" y="0.0" width="44" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="44" id="mGm-6l-Ada"/>
@@ -71,10 +71,10 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="400" height="200"/>
                                             </imageView>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icoFacebook" translatesAutoresizingMaskIntoConstraints="NO" id="M1h-4f-otp" customClass="DownAnimation" customModule="SocialCamMediaShare" customModuleProvider="target">
-                                                <rect key="frame" x="330" y="130" width="90" height="90"/>
+                                                <rect key="frame" x="360" y="160" width="60" height="60"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="90" id="fde-Cp-Eof"/>
-                                                    <constraint firstAttribute="height" constant="90" id="zD6-JT-YCr"/>
+                                                    <constraint firstAttribute="width" constant="60" id="fde-Cp-Eof"/>
+                                                    <constraint firstAttribute="height" constant="60" id="zD6-JT-YCr"/>
                                                 </constraints>
                                             </imageView>
                                         </subviews>
@@ -92,14 +92,14 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8pN-V5-uSP">
                                         <rect key="frame" x="7" y="254" width="400" height="370"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="sfbsbfhgfshjfgjhgsjfgjfgsjhgf dbhfs dhsfh kshfk sdfkhsdkh dsk f sh hkhrkg k hkh dkf dkhgjg" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LDK-Cb-gag">
-                                                <rect key="frame" x="25" y="10" width="350" height="41"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LDK-Cb-gag">
+                                                <rect key="frame" x="25" y="10" width="350" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fcN-yP-MVm" customClass="BorderView" customModule="SocialCamMediaShare" customModuleProvider="target">
-                                                <rect key="frame" x="25" y="71" width="350" height="77"/>
+                                                <rect key="frame" x="25" y="30" width="350" height="77"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hashtags:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9f5-yp-2S1">
                                                         <rect key="frame" x="0.0" y="5" width="350" height="21"/>
@@ -110,7 +110,11 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cgI-wv-lrx">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qkz-QG-emf" customClass="RKTagsView">
+                                                        <rect key="frame" x="0.0" y="31" width="350" height="41"/>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                    </view>
+                                                    <textField hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cgI-wv-lrx">
                                                         <rect key="frame" x="0.0" y="31" width="350" height="41"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="41" id="5Nb-aU-h5Q"/>
@@ -126,7 +130,11 @@
                                                     <constraint firstItem="9f5-yp-2S1" firstAttribute="leading" secondItem="fcN-yP-MVm" secondAttribute="leading" id="Spq-2Y-9mx"/>
                                                     <constraint firstItem="cgI-wv-lrx" firstAttribute="trailing" secondItem="9f5-yp-2S1" secondAttribute="trailing" id="TZE-EG-klg"/>
                                                     <constraint firstItem="cgI-wv-lrx" firstAttribute="leading" secondItem="9f5-yp-2S1" secondAttribute="leading" id="UE4-D9-pEK"/>
+                                                    <constraint firstItem="Qkz-QG-emf" firstAttribute="bottom" secondItem="cgI-wv-lrx" secondAttribute="bottom" id="h8K-do-df9"/>
                                                     <constraint firstAttribute="bottom" secondItem="cgI-wv-lrx" secondAttribute="bottom" constant="5" id="hue-Kh-bfn"/>
+                                                    <constraint firstItem="Qkz-QG-emf" firstAttribute="top" secondItem="cgI-wv-lrx" secondAttribute="top" id="jSh-Pb-tNm"/>
+                                                    <constraint firstItem="Qkz-QG-emf" firstAttribute="trailing" secondItem="cgI-wv-lrx" secondAttribute="trailing" id="nDq-iK-lKK"/>
+                                                    <constraint firstItem="Qkz-QG-emf" firstAttribute="leading" secondItem="cgI-wv-lrx" secondAttribute="leading" id="uIH-wh-xRP"/>
                                                     <constraint firstAttribute="trailing" secondItem="9f5-yp-2S1" secondAttribute="trailing" id="xRR-XB-rAE"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
@@ -139,21 +147,18 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FU5-Ju-PG6" customClass="BorderView" customModule="SocialCamMediaShare" customModuleProvider="target">
-                                                <rect key="frame" x="25" y="163" width="350" height="181"/>
+                                                <rect key="frame" x="25" y="122" width="350" height="201"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="upU-UU-ycs" userLabel="Add your opinions, descriptions, link &amp; content here:">
-                                                        <rect key="frame" x="0.0" y="5" width="350" height="21"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="21" id="P3F-JQ-zI4"/>
-                                                        </constraints>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="upU-UU-ycs" userLabel="Add your opinions, descriptions, link &amp; content here:">
+                                                        <rect key="frame" x="0.0" y="5" width="350" height="41"/>
                                                         <string key="text">Add your opinions, descriptions, link &amp; content
 here:</string>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut l" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="aeI-eM-t41">
-                                                        <rect key="frame" x="0.0" y="31" width="350" height="130"/>
+                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="aeI-eM-t41">
+                                                        <rect key="frame" x="0.0" y="51" width="350" height="130"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="130" id="mgk-br-eBg"/>
@@ -201,13 +206,13 @@ here:</string>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tpe-xa-QDo">
-                                        <rect key="frame" x="7" y="624" width="400" height="75.5"/>
+                                        <rect key="frame" x="7" y="624" width="400" height="60"/>
                                         <subviews>
-                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gOR-Af-D9c" customClass="ColorRoundedView" customModule="SocialCamMediaShare" customModuleProvider="target">
-                                                <rect key="frame" x="43" y="0.0" width="314" height="55.5"/>
+                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gOR-Af-D9c" customClass="ColorRoundedView" customModule="Viralvids" customModuleProvider="target">
+                                                <rect key="frame" x="100" y="0.0" width="200" height="40"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pN7-Y2-RZ6">
-                                                        <rect key="frame" x="0.0" y="0.0" width="314" height="55.5"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pN7-Y2-RZ6" customClass="RoundedButt">
+                                                        <rect key="frame" x="0.0" y="0.0" width="200" height="40"/>
                                                         <state key="normal" title="Post"/>
                                                         <connections>
                                                             <action selector="sendStoryTapped:" destination="j2u-IO-Pmt" eventType="touchUpInside" id="eVA-53-STe"/>
@@ -217,9 +222,9 @@ here:</string>
                                                 <color key="backgroundColor" red="0.32156862749999998" green="0.59607843140000005" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstItem="pN7-Y2-RZ6" firstAttribute="width" secondItem="gOR-Af-D9c" secondAttribute="width" id="FQE-pX-7zc"/>
+                                                    <constraint firstAttribute="height" constant="40" id="fML-HD-VKW"/>
                                                     <constraint firstItem="pN7-Y2-RZ6" firstAttribute="height" secondItem="gOR-Af-D9c" secondAttribute="height" id="nGO-hk-0BC"/>
                                                     <constraint firstItem="pN7-Y2-RZ6" firstAttribute="centerY" secondItem="gOR-Af-D9c" secondAttribute="centerY" id="tyW-b8-Abm"/>
-                                                    <constraint firstAttribute="width" secondItem="gOR-Af-D9c" secondAttribute="height" multiplier="147:26" id="wWn-D4-mTG"/>
                                                     <constraint firstItem="pN7-Y2-RZ6" firstAttribute="centerX" secondItem="gOR-Af-D9c" secondAttribute="centerX" id="yRS-tg-HGT"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
@@ -239,7 +244,7 @@ here:</string>
                                             <constraint firstItem="gOR-Af-D9c" firstAttribute="centerX" secondItem="tpe-xa-QDo" secondAttribute="centerX" id="N4H-N1-2ZJ"/>
                                             <constraint firstAttribute="bottom" secondItem="gOR-Af-D9c" secondAttribute="bottom" constant="20" id="Rl7-IX-LNu"/>
                                             <constraint firstItem="gOR-Af-D9c" firstAttribute="top" secondItem="tpe-xa-QDo" secondAttribute="top" id="T3Q-U1-MTi"/>
-                                            <constraint firstItem="gOR-Af-D9c" firstAttribute="width" secondItem="tpe-xa-QDo" secondAttribute="width" multiplier="0.784" id="xxs-ek-Kvd"/>
+                                            <constraint firstItem="gOR-Af-D9c" firstAttribute="width" secondItem="tpe-xa-QDo" secondAttribute="width" multiplier="0.5" id="xxs-ek-Kvd"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -263,7 +268,7 @@ here:</string>
                                 <viewLayoutGuide key="frameLayoutGuide" id="QG1-Ro-1sq"/>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="anN-Q2-ebU" firstAttribute="centerX" secondItem="a8L-So-CZn" secondAttribute="centerX" id="4qV-be-sqI"/>
                             <constraint firstItem="anN-Q2-ebU" firstAttribute="centerY" secondItem="a8L-So-CZn" secondAttribute="centerY" id="9My-cl-2T6"/>
@@ -276,6 +281,7 @@ here:</string>
                     <connections>
                         <outlet property="btnClose" destination="bLl-5R-Rmh" id="P66-IE-Jrv"/>
                         <outlet property="btnSendPost" destination="pN7-Y2-RZ6" id="air-Nc-0ky"/>
+                        <outlet property="hashTagView" destination="Qkz-QG-emf" id="kR2-OL-Jyf"/>
                         <outlet property="imgPost" destination="0wh-1V-jOP" id="ruM-Gs-69g"/>
                         <outlet property="imgSocialIcon" destination="M1h-4f-otp" id="Fwv-CR-gvj"/>
                         <outlet property="lblTitle" destination="LDK-Cb-gag" id="eEY-6b-Acd"/>

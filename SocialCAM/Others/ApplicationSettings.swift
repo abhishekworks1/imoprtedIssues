@@ -57,12 +57,18 @@ class ApplicationSettings {
         viewController.present(browser, animated: true, completion: nil)
     }
     
+    #if SOCIALCAMAPP || VIRALCAMAPP
     static func openAppSettingsUrl() {
         let settingsUrl = URL(string: UIApplication.openSettingsURLString)
         if let url = settingsUrl, UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }
+    
+    var videos: [Item] = []
+    
+    static let userPlaceHolder: UIImage = R.image.userProfilePlaceholder()?.sd_tintedImage(with: ApplicationSettings.appPrimaryColor) ?? UIImage()
+    #endif
     
     var socialId: String?
     
@@ -72,9 +78,7 @@ class ApplicationSettings {
     
     var isAllowForward: Bool = false
 
-    var videos: [Item] = []
     
-    static let userPlaceHolder: UIImage = R.image.userProfilePlaceholder()?.sd_tintedImage(with: ApplicationSettings.appPrimaryColor) ?? UIImage()
    
     var needtoRefresh: Bool = false
     

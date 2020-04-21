@@ -25,6 +25,8 @@ class SharePostVC: UIViewController {
  
     @IBOutlet weak var imgSocialIcon: UIImageView!
     
+    @IBOutlet weak var hashTagView: RKTagsView!
+    
     @IBOutlet weak var txtHashtags: UITextField!
    
     @IBOutlet weak var txtDesc: UITextView!
@@ -40,11 +42,25 @@ class SharePostVC: UIViewController {
     private var textString: String?
     var host: String?
     fileprivate var disposeBag = DisposeBag()
-
+    var linkData: OpenGraph.Data?
+    
     // MARK: - View Life cycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchData()
+        txtDesc.layer.borderColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.0).cgColor
+        txtDesc.layer.borderWidth = 1.0
+        txtDesc.layer.cornerRadius = 5
+        
+        self.hashTagView.isMerge = true
+        self.hashTagView.textField.placeholder = "#Hashtags"
+        self.hashTagView.textField.returnKeyType = .done
+        self.hashTagView.interitemSpacing =  4.0
+        self.hashTagView.lineSpacing = 4.0
+        self.hashTagView.isHasTag = true
+        self.hashTagView.font = UIFont.systemFont(ofSize: 13)
+        self.hashTagView.layoutIfNeeded()
+        
     }
     
     func fetchData() {
@@ -56,7 +72,10 @@ class SharePostVC: UIViewController {
                     if let shareURL = url as? URL {
                         self.host = shareURL.host
                         self.urlString = String(describing: shareURL)
-                        print(shareURL)
+                        DispatchQueue.main.async {
+                            self.setData()
+                            print(shareURL)
+                        }
                         
                     }
                 }
@@ -71,41 +90,35 @@ class SharePostVC: UIViewController {
             if let error = error {
                 print(error.localizedDescription)
             } else {
-                var json: [String: Any] = ["bookmarkUrl": self.urlString ?? ""]
-                if let title = data.pageTitle {
-                    json["title"] = title
-                } else {
-                    if let host = self.host {
-                        json["title"] = host
+                self.linkData = data
+                DispatchQueue.main.async {
+                    var json: [String: Any] = ["bookmarkUrl": self.urlString ?? ""]
+                    if let title = data.pageTitle {
+                        json["title"] = title
+                        self.lblTitle.text = title
+                    } else {
+                        if let host = self.host {
+                            json["title"] = host
+                        }
+                    }
+                    if let imgUrl = data.imageUrl?.absoluteString {
+                        json["thumb"] = imgUrl
+                        self.imgPost.sd_setImage(with: URL.init(string: imgUrl), placeholderImage: nil)
+                    }
+                    
+                    if let desc = data.pageDescription {
+                        json["description"] = desc
+                        self.txtDesc.text = desc
+                    }
+                    
+                    if let siteName = data.siteName {
+                        json["shortLink"] = siteName
+                    } else {
+                        if let host = self.host {
+                            json["shortLink"] = host
+                        }
                     }
                 }
-                if let imgUrl = data.imageUrl?.absoluteString {
-                    json["thumb"] = imgUrl
-                }
-                
-                if let desc = data.pageDescription {
-                    json["description"] = desc
-                }
-                
-                if let siteName = data.siteName {
-                    json["shortLink"] = siteName
-                } else {
-                    if let host = self.host {
-                        json["shortLink"] = host
-                    }
-                }
-                
-//                ProManagerApi.writePost(type: "bookmark", user: Defaults.shared.currentUser?.id ?? "", bookmark: json, privacy: "Only me").request(Result<SharedPost>.self).subscribe(onNext: { (response) in
-//                    print(response)
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-//                        self.extensionContext?.completeRequest(returningItems: [], completionHandler: nil)
-//                    })
-//                }, onError: { _ in
-//                    self.displayUIAlertController(title: "", message: "Error", viewController: self)
-//                }, onCompleted: {
-//
-//                }).disposed(by: self.rx.disposeBag)
-                
             }
         }
     }
@@ -116,7 +129,18 @@ class SharePostVC: UIViewController {
     }
     
     @IBAction func sendStoryTapped(_ sender: Any) {
-        self.setData()
+        
+        ProManagerApi.createViralvids(title: self.linkData?.pageTitle ?? "", image: self.linkData?.imageUrl?.absoluteString, description: self.txtDesc.text, referenceLink: self.linkData?.url?.absoluteString, hashtags: hashTagView.tags).request(Result<SharedPost>.self).subscribe(onNext: { (response) in
+            print(response)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                self.extensionContext?.completeRequest(returningItems: [], completionHandler: nil)
+            })
+        }, onError: { _ in
+            self.displayUIAlertController(title: "", message: "Error", viewController: self)
+        }, onCompleted: {
+            
+        }).disposed(by: self.rx.disposeBag)
+                        
     }
     
     @objc func openURL(_ url: URL) -> Bool {
@@ -141,4 +165,33 @@ class SharePostVC: UIViewController {
         
         viewController.present(alert, animated: true, completion: nil)
     }
+}
+
+extension UITextView {
+    
+    func makeOutLine(oulineColor: UIColor, foregroundColor: UIColor) {
+        let strokeTextAttributes: [NSAttributedString.Key: Any] = [
+            NSAttributedString.Key.strokeColor: oulineColor,
+            NSAttributedString.Key.foregroundColor: foregroundColor,
+            NSAttributedString.Key.strokeWidth: -4.0,
+            NSAttributedString.Key.font: self.font as Any
+            ]
+        self.attributedText = NSMutableAttributedString(string: self.text ?? "", attributes: strokeTextAttributes as [NSAttributedString.Key: Any])
+    }
+    
+    func attributedStringSet(underline: Bool = false) {
+        if let textString = self.text {
+            let style = NSMutableParagraphStyle()
+            style.alignment = NSTextAlignment.center
+            let attributedString = NSMutableAttributedString(string: textString)
+            attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: self.textColor!, range: NSRange(location: 0, length: attributedString.length))
+            attributedString.addAttribute(NSAttributedString.Key.font, value: self.font!, range: NSRange(location: 0, length: attributedString.length))
+            attributedString.addAttribute(NSAttributedString.Key.paragraphStyle, value: style, range: NSRange(location: 0, length: attributedString.length))
+            if underline {
+                attributedString.addAttribute(NSAttributedString.Key.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: NSRange(location: 0, length: attributedString.length))
+            }
+            attributedText = attributedString
+        }
+    }
+    
 }
