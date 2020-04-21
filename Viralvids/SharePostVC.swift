@@ -129,17 +129,19 @@ class SharePostVC: UIViewController {
     }
     
     @IBAction func sendStoryTapped(_ sender: Any) {
-        
-        ProManagerApi.createViralvids(title: self.linkData?.pageTitle ?? "", image: self.linkData?.imageUrl?.absoluteString, description: self.txtDesc.text, referenceLink: self.linkData?.url?.absoluteString, hashtags: hashTagView.tags).request(Result<SharedPost>.self).subscribe(onNext: { (response) in
-            print(response)
+        ProManagerApi.createViralvids(title: self.linkData?.pageTitle ?? "", image: self.linkData?.imageUrl?.absoluteString, description: self.txtDesc.text, referenceLink: self.linkData?.url?.absoluteString, hashtags: hashTagView.tags).request(Result<CreatePostViralCam>.self).subscribe(onNext: { (response) in
+            
+            Defaults.shared.postViralCamModel = response.result
+            
             DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                _ = self.openURL(URL(string: "viralCam://com.simform.viralcam")!)
                 self.extensionContext?.completeRequest(returningItems: [], completionHandler: nil)
             })
         }, onError: { _ in
             self.displayUIAlertController(title: "", message: "Error", viewController: self)
         }, onCompleted: {
             
-        }).disposed(by: self.rx.disposeBag)
+        }).disposed(by: disposeBag)
                         
     }
     

@@ -209,6 +209,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
+        Defaults.shared.postViralCamModel = nil
         IAPManager.shared.stopObserving()
     }
 }

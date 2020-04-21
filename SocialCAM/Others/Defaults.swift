@@ -15,6 +15,26 @@ class Defaults {
     
     let appDefaults = UserDefaults(suiteName: Constant.Application.groupIdentifier)
     
+    var postViralCamModel: CreatePostViralCam? {
+        get {
+            if let loggedUser = appDefaults?.object(forKey: "createPostViralCam") as? Data {
+                let decoder = JSONDecoder()
+                return try? decoder.decode(CreatePostViralCam.self, from: loggedUser)
+            }
+            return nil
+        }
+        set {
+            let encoder = JSONEncoder()
+            if let encoded = try? encoder.encode(newValue) {
+                appDefaults?.set(encoded, forKey: "createPostViralCam")
+                appDefaults?.synchronize()
+            } else {
+                appDefaults?.set(nil, forKey: "createPostViralCam")
+                appDefaults?.synchronize()
+            }
+        }
+    }
+    
     var isMultiPhotoLayout: Bool? {
         get {
             return appDefaults?.bool(forKey: "isMultiPhotoLayout")

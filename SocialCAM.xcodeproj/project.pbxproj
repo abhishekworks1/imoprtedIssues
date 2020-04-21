@@ -624,6 +624,12 @@
 		23CE8C002434C28A0096233C /* SearchChannelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CE8BFF2434C2890096233C /* SearchChannelViewController.swift */; };
 		23CE8C022434C40E0096233C /* DateTimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CE8C012434C40D0096233C /* DateTimePicker.swift */; };
 		23CE8C042434C4A20096233C /* ChanelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CE8C032434C4A00096233C /* ChanelCell.swift */; };
+		23EB18EF244F11AE00B6564A /* APIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EB18EE244F11AE00B6564A /* APIModels.swift */; };
+		23EB18F0244F210C00B6564A /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820B23742371975000906BF0 /* Result.swift */; };
+		23EB18F1244F213800B6564A /* APIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EB18EE244F11AE00B6564A /* APIModels.swift */; };
+		23EB18F2244F213900B6564A /* APIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EB18EE244F11AE00B6564A /* APIModels.swift */; };
+		23EB18F3244F21D600B6564A /* APIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EB18EE244F11AE00B6564A /* APIModels.swift */; };
+		23EB18F4244F21D700B6564A /* APIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EB18EE244F11AE00B6564A /* APIModels.swift */; };
 		2D02F3407778A1294BDE176C /* Pods_SocialCamShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BF54D0948D071D83768AB88 /* Pods_SocialCamShare.framework */; };
 		36BDA7A521AEE45A77DE5D6D /* Pods_SocialCamMediaShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 658C98BB64610421B95A9471 /* Pods_SocialCamMediaShare.framework */; };
 		4001C4EED0C6EDB9B14E0407 /* Pods_ViralCam.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C04DCC67007E26BE27ADDE30 /* Pods_ViralCam.framework */; };
@@ -1380,6 +1386,7 @@
 		23CE8BFF2434C2890096233C /* SearchChannelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchChannelViewController.swift; sourceTree = "<group>"; };
 		23CE8C012434C40D0096233C /* DateTimePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTimePicker.swift; sourceTree = "<group>"; };
 		23CE8C032434C4A00096233C /* ChanelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChanelCell.swift; sourceTree = "<group>"; };
+		23EB18EE244F11AE00B6564A /* APIModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIModels.swift; sourceTree = "<group>"; };
 		31C0DA319A413C3D43E18423 /* Pods-ViralCam.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ViralCam.debug.xcconfig"; path = "Target Support Files/Pods-ViralCam/Pods-ViralCam.debug.xcconfig"; sourceTree = "<group>"; };
 		3347444B0199C606404F4661 /* Pods-SocialCAM.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialCAM.release.xcconfig"; path = "Target Support Files/Pods-SocialCAM/Pods-SocialCAM.release.xcconfig"; sourceTree = "<group>"; };
 		3A4C647758E376F0CAF544C3 /* Pods_SocialCAM.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SocialCAM.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2106,6 +2113,7 @@
 				230722B0244EBCB2009454B0 /* Info.plist */,
 				230722C7244EC33E009454B0 /* Media.xcassets */,
 				230722E0244EF379009454B0 /* Viralvids-Bridging-Header.h */,
+				23EB18EE244F11AE00B6564A /* APIModels.swift */,
 			);
 			path = Viralvids;
 			sourceTree = "<group>";
@@ -4323,6 +4331,8 @@
 				230722BE244EC127009454B0 /* Defaults.swift in Sources */,
 				230722C2244EC185009454B0 /* SaveUserDefaultsProtocol.swift in Sources */,
 				230722D3244EE9C9009454B0 /* ApplicationSettings.swift in Sources */,
+				23EB18F0244F210C00B6564A /* Result.swift in Sources */,
+				23EB18EF244F11AE00B6564A /* APIModels.swift in Sources */,
 				230722E3244F05AA009454B0 /* APIManager.swift in Sources */,
 				230722C1244EC160009454B0 /* ProfileDetailsResponse.swift in Sources */,
 				230722BF244EC13C009454B0 /* SharedClass.swift in Sources */,
@@ -4806,6 +4816,7 @@
 				23CE8B5B24349B110096233C /* TagVC.swift in Sources */,
 				23CE8B5C24349B110096233C /* FilterSaturation.swift in Sources */,
 				23CE8B5D24349B110096233C /* ReactionFeedback.swift in Sources */,
+				23EB18F1244F213800B6564A /* APIModels.swift in Sources */,
 				23CE8B5E24349B110096233C /* PhotosPickerViewController.swift in Sources */,
 				23CE8B5F24349B110096233C /* PhotoEditorViewController+CollectionView.swift in Sources */,
 				23CE8B6024349B110096233C /* FollowMeStoryView.swift in Sources */,
@@ -4858,6 +4869,7 @@
 				8232CEC9240E390A00AD8E63 /* Files.swift in Sources */,
 				8232CEBB240E328C00AD8E63 /* SharedClass.swift in Sources */,
 				8232CEC8240E37A900AD8E63 /* Utility.swift in Sources */,
+				23EB18F4244F21D700B6564A /* APIModels.swift in Sources */,
 				8232CED0240E3BC900AD8E63 /* R.mediaShared.generated.swift in Sources */,
 				8232CEC5240E35E300AD8E63 /* CGImageExtensions.swift in Sources */,
 				8232CEB8240E2AD700AD8E63 /* SendStoryShareVC.swift in Sources */,
@@ -4874,6 +4886,7 @@
 				8232CECC240E3A5000AD8E63 /* ExtensionStory.swift in Sources */,
 				823A82DC23F1754300BDB7BC /* SharedClass.swift in Sources */,
 				828F3E5A23F292BB007AE35F /* APIManager.swift in Sources */,
+				23EB18F3244F21D600B6564A /* APIModels.swift in Sources */,
 				823A82DE23F1756300BDB7BC /* FilterImage.swift in Sources */,
 				823A82E123F1798A00BDB7BC /* CreatePostData.swift in Sources */,
 				823A82E023F1782E00BDB7BC /* ProfileDetailsResponse.swift in Sources */,
@@ -5357,6 +5370,7 @@
 				8205FD90236C3B2E002B2603 /* TagVC.swift in Sources */,
 				8205FD4F236C3B06002B2603 /* FilterSaturation.swift in Sources */,
 				8205FB6D236C1D0F002B2603 /* ReactionFeedback.swift in Sources */,
+				23EB18F2244F213900B6564A /* APIModels.swift in Sources */,
 				8205FB8D236C29E7002B2603 /* PhotosPickerViewController.swift in Sources */,
 				82AD6B7223704BA60090498A /* PhotoEditorViewController+CollectionView.swift in Sources */,
 				95AA66AF240FDA4900434C9A /* FollowMeStoryView.swift in Sources */,
