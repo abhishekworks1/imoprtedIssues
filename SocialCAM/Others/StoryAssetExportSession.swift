@@ -303,9 +303,15 @@ class StoryAssetExportSession {
     }
     
     func addWaterMarkImageIfNeeded(isGIF: Bool = false) {
+        #if VIRALCAMAPP
+        let image = R.image.viralcamWaterMark()
+        #else
+        let image = R.image.socialCamWaterMark()
+        #endif
+
         guard !watermarkAdded,
             let backgroundImage = self.overlayImage,
-            let watermarkImage = isGIF ? UIImage(cgImage: gifFrames.remove(at: 0)) : R.image.socialCamWaterMark() else {
+            let watermarkImage = isGIF ? UIImage(cgImage: gifFrames.remove(at: 0)) : image else {
                 return
         }
         
