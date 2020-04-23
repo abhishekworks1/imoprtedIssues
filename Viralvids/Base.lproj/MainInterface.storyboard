@@ -3,9 +3,15 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="SF-UI-Text-Medium.otf">
+            <string>SFUIText-Medium</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Navigation Controller-->
         <scene sceneID="IRI-xb-njm">
@@ -25,7 +31,7 @@
         <!--Share PostVC-->
         <scene sceneID="o5l-B2-REd">
             <objects>
-                <viewController id="j2u-IO-Pmt" customClass="SharePostVC" customModule="SocialCamMediaShare" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="j2u-IO-Pmt" customClass="SharePostVC" customModule="Viralvids" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Nks-OY-fzw">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -53,7 +59,7 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" name="AppClearColor"/>
                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="1U4-eg-yMe" firstAttribute="centerY" secondItem="UmU-sh-J5p" secondAttribute="centerY" id="70Z-Dg-sgM"/>
@@ -67,26 +73,26 @@
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1vS-sG-eET">
                                         <rect key="frame" x="7" y="54" width="400" height="200"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="socialcamrgb" translatesAutoresizingMaskIntoConstraints="NO" id="0wh-1V-jOP" customClass="DownAnimation" customModule="SocialCamMediaShare" customModuleProvider="target">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="socialcamrgb" translatesAutoresizingMaskIntoConstraints="NO" id="0wh-1V-jOP" customClass="DownAnimation" customModule="Viralvids" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="400" height="200"/>
                                             </imageView>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icoFacebook" translatesAutoresizingMaskIntoConstraints="NO" id="M1h-4f-otp" customClass="DownAnimation" customModule="SocialCamMediaShare" customModuleProvider="target">
-                                                <rect key="frame" x="360" y="160" width="60" height="60"/>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shareTikTok" translatesAutoresizingMaskIntoConstraints="NO" id="M1h-4f-otp" customClass="DownAnimation" customModule="Viralvids" customModuleProvider="target">
+                                                <rect key="frame" x="340" y="134" width="60" height="60"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="60" id="fde-Cp-Eof"/>
                                                     <constraint firstAttribute="height" constant="60" id="zD6-JT-YCr"/>
                                                 </constraints>
                                             </imageView>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" name="AppWhiteColor"/>
                                         <constraints>
                                             <constraint firstItem="0wh-1V-jOP" firstAttribute="top" secondItem="1vS-sG-eET" secondAttribute="top" id="2Fl-hb-SBA"/>
                                             <constraint firstAttribute="height" constant="200" id="YBO-iB-Gk3"/>
                                             <constraint firstItem="0wh-1V-jOP" firstAttribute="leading" secondItem="1vS-sG-eET" secondAttribute="leading" id="Ysu-Hv-NMF"/>
-                                            <constraint firstAttribute="bottom" secondItem="M1h-4f-otp" secondAttribute="bottom" constant="-20" id="c6b-8N-HOo"/>
+                                            <constraint firstAttribute="bottom" secondItem="M1h-4f-otp" secondAttribute="bottom" constant="6" id="c6b-8N-HOo"/>
                                             <constraint firstAttribute="trailing" secondItem="0wh-1V-jOP" secondAttribute="trailing" id="gTk-Pe-LYV"/>
                                             <constraint firstAttribute="bottom" secondItem="0wh-1V-jOP" secondAttribute="bottom" id="m9W-hX-MEF"/>
-                                            <constraint firstAttribute="trailing" secondItem="M1h-4f-otp" secondAttribute="trailing" constant="-20" id="ui7-DA-O45"/>
+                                            <constraint firstAttribute="trailing" secondItem="M1h-4f-otp" secondAttribute="trailing" id="ui7-DA-O45"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8pN-V5-uSP">
@@ -94,36 +100,47 @@
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LDK-Cb-gag">
                                                 <rect key="frame" x="25" y="10" width="350" height="0.0"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="16"/>
+                                                <color key="textColor" name="AppBlackColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fcN-yP-MVm" customClass="BorderView" customModule="SocialCamMediaShare" customModuleProvider="target">
-                                                <rect key="frame" x="25" y="30" width="350" height="77"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fcN-yP-MVm" customClass="BorderView" customModule="Viralvids" customModuleProvider="target">
+                                                <rect key="frame" x="25" y="30" width="350" height="81"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hashtags:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9f5-yp-2S1">
                                                         <rect key="frame" x="0.0" y="5" width="350" height="21"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="21" id="2JP-gR-b8y"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <nil key="textColor"/>
+                                                        <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="16"/>
+                                                        <color key="textColor" name="AppBlackColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qkz-QG-emf" customClass="RKTagsView">
-                                                        <rect key="frame" x="0.0" y="31" width="350" height="41"/>
+                                                        <rect key="frame" x="0.0" y="31" width="350" height="45"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidthV">
+                                                                <real key="value" value="1"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColorV">
+                                                                <color key="value" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
+                                                                <real key="value" value="5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <textField hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cgI-wv-lrx">
-                                                        <rect key="frame" x="0.0" y="31" width="350" height="41"/>
+                                                        <rect key="frame" x="0.0" y="31" width="350" height="45"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="41" id="5Nb-aU-h5Q"/>
+                                                            <constraint firstAttribute="height" constant="45" id="5Nb-aU-h5Q"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" name="AppWhiteColor"/>
                                                 <constraints>
                                                     <constraint firstItem="9f5-yp-2S1" firstAttribute="top" secondItem="fcN-yP-MVm" secondAttribute="top" constant="5" id="1fx-M1-jNz"/>
                                                     <constraint firstItem="cgI-wv-lrx" firstAttribute="top" secondItem="9f5-yp-2S1" secondAttribute="bottom" constant="5" id="JuK-aK-dVA"/>
@@ -146,19 +163,19 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FU5-Ju-PG6" customClass="BorderView" customModule="SocialCamMediaShare" customModuleProvider="target">
-                                                <rect key="frame" x="25" y="122" width="350" height="201"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FU5-Ju-PG6" customClass="BorderView" customModule="Viralvids" customModuleProvider="target">
+                                                <rect key="frame" x="25" y="126" width="350" height="197.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="upU-UU-ycs" userLabel="Add your opinions, descriptions, link &amp; content here:">
-                                                        <rect key="frame" x="0.0" y="5" width="350" height="41"/>
+                                                        <rect key="frame" x="0.0" y="5" width="350" height="37.5"/>
                                                         <string key="text">Add your opinions, descriptions, link &amp; content
 here:</string>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <nil key="textColor"/>
+                                                        <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="16"/>
+                                                        <color key="textColor" name="AppBlackColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="aeI-eM-t41">
-                                                        <rect key="frame" x="0.0" y="51" width="350" height="130"/>
+                                                        <rect key="frame" x="0.0" y="47.5" width="350" height="130"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="130" id="mgk-br-eBg"/>
@@ -168,7 +185,7 @@ here:</string>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                     </textView>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" name="AppWhiteColor"/>
                                                 <constraints>
                                                     <constraint firstItem="aeI-eM-t41" firstAttribute="top" secondItem="upU-UU-ycs" secondAttribute="bottom" constant="5" id="0n9-NB-iPr"/>
                                                     <constraint firstItem="aeI-eM-t41" firstAttribute="trailing" secondItem="upU-UU-ycs" secondAttribute="trailing" id="4O6-Xp-Rgx"/>
@@ -191,7 +208,7 @@ here:</string>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" name="AppWhiteColor"/>
                                         <constraints>
                                             <constraint firstItem="fcN-yP-MVm" firstAttribute="width" secondItem="8pN-V5-uSP" secondAttribute="width" multiplier="0.8746" id="0Hy-a8-7jU"/>
                                             <constraint firstItem="FU5-Ju-PG6" firstAttribute="centerX" secondItem="8pN-V5-uSP" secondAttribute="centerX" id="28S-Ci-Uxe"/>
@@ -239,7 +256,7 @@ here:</string>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" name="AppWhiteColor"/>
                                         <constraints>
                                             <constraint firstItem="gOR-Af-D9c" firstAttribute="centerX" secondItem="tpe-xa-QDo" secondAttribute="centerX" id="N4H-N1-2ZJ"/>
                                             <constraint firstAttribute="bottom" secondItem="gOR-Af-D9c" secondAttribute="bottom" constant="20" id="Rl7-IX-LNu"/>
@@ -296,7 +313,16 @@ here:</string>
     </scenes>
     <resources>
         <image name="icoClose" width="17" height="16"/>
-        <image name="icoFacebook" width="36" height="36"/>
+        <image name="shareTikTok" width="42" height="42"/>
         <image name="socialcamrgb" width="255" height="266.5"/>
+        <namedColor name="AppBlackColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="AppClearColor">
+            <color red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="AppWhiteColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

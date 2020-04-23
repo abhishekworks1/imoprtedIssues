@@ -171,6 +171,7 @@ struct TrimError: Error {
 }
 
 public struct Paths {
+    static let getViralvids = "viralvids"
     static let getSplashImages = "getSplashImages"
     static let login = "auth/signin"
     static let verifyChannel = "auth/verifyField"

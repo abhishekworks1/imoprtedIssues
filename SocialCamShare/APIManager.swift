@@ -17,7 +17,7 @@ public enum ProManagerApi {
     case writePost(type: String, user: String, bookmark: [String:Any]?, privacy:String?)
     case createStory(url: String, duration: String, type: String, user: String, thumb: String?)
     case createViralvids(title: String, image: String?, description: String?, referenceLink: String?, hashtags: [String]?)
-    case getViralvids(Void)
+    case getViralvids
     
     var endpoint: Endpoint {
         var endpointClosure = MoyaProvider<ProManagerApi>.defaultEndpointMapping(for: self)
@@ -105,7 +105,7 @@ extension ProManagerApi: TargetType {
             if let hashtags = hashtags {
                 param["hashtags"] = hashtags
             }
-        case .getViralvids():
+        case .getViralvids:
             break
         }
         return param

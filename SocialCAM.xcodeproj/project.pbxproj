@@ -624,6 +624,10 @@
 		23CE8C002434C28A0096233C /* SearchChannelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CE8BFF2434C2890096233C /* SearchChannelViewController.swift */; };
 		23CE8C022434C40E0096233C /* DateTimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CE8C012434C40D0096233C /* DateTimePicker.swift */; };
 		23CE8C042434C4A20096233C /* ChanelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CE8C032434C4A00096233C /* ChanelCell.swift */; };
+		23E503CD24500B570026BDF6 /* ViralCamVideos.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23E503CC24500B570026BDF6 /* ViralCamVideos.storyboard */; };
+		23E503CF24500B6C0026BDF6 /* ViralCamVideos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E503CE24500B6C0026BDF6 /* ViralCamVideos.swift */; };
+		23E503D524500E270026BDF6 /* VideoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23E503D424500E270026BDF6 /* VideoTableViewCell.xib */; };
+		23E503D724500E3D0026BDF6 /* VideoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E503D624500E3D0026BDF6 /* VideoTableViewCell.swift */; };
 		23EB18EF244F11AE00B6564A /* APIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EB18EE244F11AE00B6564A /* APIModels.swift */; };
 		23EB18F0244F210C00B6564A /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820B23742371975000906BF0 /* Result.swift */; };
 		23EB18F1244F213800B6564A /* APIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EB18EE244F11AE00B6564A /* APIModels.swift */; };
@@ -1390,6 +1394,10 @@
 		23CE8BFF2434C2890096233C /* SearchChannelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchChannelViewController.swift; sourceTree = "<group>"; };
 		23CE8C012434C40D0096233C /* DateTimePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTimePicker.swift; sourceTree = "<group>"; };
 		23CE8C032434C4A00096233C /* ChanelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChanelCell.swift; sourceTree = "<group>"; };
+		23E503CC24500B570026BDF6 /* ViralCamVideos.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ViralCamVideos.storyboard; sourceTree = "<group>"; };
+		23E503CE24500B6C0026BDF6 /* ViralCamVideos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViralCamVideos.swift; sourceTree = "<group>"; };
+		23E503D424500E270026BDF6 /* VideoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoTableViewCell.xib; sourceTree = "<group>"; };
+		23E503D624500E3D0026BDF6 /* VideoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoTableViewCell.swift; sourceTree = "<group>"; };
 		23EB18EE244F11AE00B6564A /* APIModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIModels.swift; sourceTree = "<group>"; };
 		31C0DA319A413C3D43E18423 /* Pods-ViralCam.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ViralCam.debug.xcconfig"; path = "Target Support Files/Pods-ViralCam/Pods-ViralCam.debug.xcconfig"; sourceTree = "<group>"; };
 		3347444B0199C606404F4661 /* Pods-SocialCAM.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialCAM.release.xcconfig"; path = "Target Support Files/Pods-SocialCAM/Pods-SocialCAM.release.xcconfig"; sourceTree = "<group>"; };
@@ -2132,6 +2140,17 @@
 				23CE8BFB2434B69B0096233C /* Assets-ViralCam.xcassets */,
 			);
 			path = ViralCam;
+			sourceTree = "<group>";
+		};
+		23E503CB24500B360026BDF6 /* Posts */ = {
+			isa = PBXGroup;
+			children = (
+				23E503CC24500B570026BDF6 /* ViralCamVideos.storyboard */,
+				23E503CE24500B6C0026BDF6 /* ViralCamVideos.swift */,
+				23E503D424500E270026BDF6 /* VideoTableViewCell.xib */,
+				23E503D624500E3D0026BDF6 /* VideoTableViewCell.swift */,
+			);
+			path = Posts;
 			sourceTree = "<group>";
 		};
 		42EECCA896FCF095AA83BB36 /* Pods */ = {
@@ -3133,6 +3152,7 @@
 		824EB393236197F600205993 /* Controlers */ = {
 			isa = PBXGroup;
 			children = (
+				23E503CB24500B360026BDF6 /* Posts */,
 				951D5C9C24472AC600DBD742 /* ChannelPurchase */,
 				82CA3E5223D9D01300DD48B8 /* PageViewController */,
 				82BB558A23D84117009B820D /* HomeScreen */,
@@ -3801,6 +3821,7 @@
 				23CE8BAE24349B110096233C /* StoryEditor.storyboard in Resources */,
 				23CE8BAF24349B110096233C /* Localizable.strings in Resources */,
 				23CE8BB024349B110096233C /* SF-UI-Text-Light.otf in Resources */,
+				23E503D524500E270026BDF6 /* VideoTableViewCell.xib in Resources */,
 				23CE8BB124349B110096233C /* LUT_M05.png in Resources */,
 				23CE8BB224349B110096233C /* Naive.JPG in Resources */,
 				23CE8BB324349B110096233C /* YUCIColorLookup.cikernel in Resources */,
@@ -3855,6 +3876,7 @@
 				23CE8BE124349B110096233C /* ImageCollectionViewCell.xib in Resources */,
 				23CE8BE224349B110096233C /* TagVC.xib in Resources */,
 				23CE8BE324349B110096233C /* SocialCamWaterMark.gif in Resources */,
+				23E503CD24500B570026BDF6 /* ViralCamVideos.storyboard in Resources */,
 				23CE8BE424349B110096233C /* ReactionSummaryLocalizable.stringsdict in Resources */,
 				23CE8BE524349B110096233C /* Icon-2@2x.png in Resources */,
 				23CE8BE624349B110096233C /* MensionCollectionViewCell.xib in Resources */,
@@ -4688,6 +4710,7 @@
 				23CE8AD524349B110096233C /* CGImageExtensions.swift in Sources */,
 				952EC2BE244870180020992A /* PaymentViewController.swift in Sources */,
 				23CE8AD624349B110096233C /* StoryCamShared.swift in Sources */,
+				23E503D724500E3D0026BDF6 /* VideoTableViewCell.swift in Sources */,
 				23CE8AD724349B110096233C /* FilterShadows.swift in Sources */,
 				23CE8AD824349B110096233C /* OvalBrush.swift in Sources */,
 				23CE8AD924349B110096233C /* HalfModalInteractiveTransition.swift in Sources */,
@@ -4851,6 +4874,7 @@
 				959A91D72449CFDD0062AA67 /* IAPManager.swift in Sources */,
 				23CE8B7224349B110096233C /* HashTagCell.swift in Sources */,
 				23CE8B7324349B110096233C /* CollageViewT404.swift in Sources */,
+				23E503CF24500B6C0026BDF6 /* ViralCamVideos.swift in Sources */,
 				23CE8B7424349B110096233C /* Layer.swift in Sources */,
 				23CE8B7524349B110096233C /* UIButton.swift in Sources */,
 				23CE8B7624349B110096233C /* UIAppleColorWrapper.swift in Sources */,

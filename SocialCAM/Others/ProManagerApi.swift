@@ -15,6 +15,7 @@ import ObjectMapper
 
 public enum ProManagerApi {
     case getSplashImages
+    case getViralvids
     case logIn(email: String, password: String, deviceToken: String?)
     case confirmEmail(userId: String, email: String)
     case signUp(email: String, password: String, channel: String, refChannel: String, isBusiness: Bool, socialId:String?, provider:String?, channelName: String, refferId: String?, deviceToken: String?, birthDate: String?)
@@ -115,6 +116,8 @@ extension ProManagerApi: TargetType {
     /// The path to be appended to `baseURL` to form the full `URL`.
     public var path: String {
         switch self {
+        case .getViralvids:
+            return Paths.getViralvids
         case .search:
             return Paths.search
         case .confirmEmail:
@@ -202,7 +205,7 @@ extension ProManagerApi: TargetType {
         switch self {
         case .signUp, .logIn, .verifyChannel, .search, .getAccessToken:
             return .post
-        case .getSplashImages, .youTubeKeyWordSerch, .youTubeDetail,.youTubeChannelSearch, .getHashTagSets, .getWeather, .getyoutubeSubscribedChannel, .getYoutubeCategory, .instgramProfile, .instgramProfileDetails, .getLongLivedToken, .getChannelList, .getPackage, .getCart:
+        case .getSplashImages, .youTubeKeyWordSerch, .youTubeDetail,.youTubeChannelSearch, .getHashTagSets, .getWeather, .getyoutubeSubscribedChannel, .getYoutubeCategory, .instgramProfile, .instgramProfileDetails, .getLongLivedToken, .getChannelList, .getPackage, .getCart, .getViralvids:
             return .get
         case .updateProfile, .editStory, .updatePost:
             return .put
@@ -219,6 +222,8 @@ extension ProManagerApi: TargetType {
     public var parameters: [String: Any]? {
         var param = [String: Any]()
         switch self {
+        case .getViralvids:
+            break
         case .search(let channel):
             param = ["channelName": channel]
         case .confirmEmail(let userId, let email):
@@ -503,7 +508,7 @@ extension ProManagerApi: TargetType {
             return JSONEncoding.default
         case .getyoutubeSubscribedChannel:
             return TokenURLEncoding.default
-        case .getChannelList, .getPackage, .getCart:
+        case .getChannelList, .getPackage, .getCart, .getViralvids:
             return URLEncoding.default
         default:
             return JSONEncoding.default

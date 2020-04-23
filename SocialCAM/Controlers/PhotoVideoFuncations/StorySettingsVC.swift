@@ -17,6 +17,7 @@ enum SettingsMode: Int {
     case socialLogout
     case logout
     case controlcenter
+    case video
     case appInfo
 }
 
@@ -91,6 +92,8 @@ class StorySettings {
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.controlCenter(), selected: false)], settingsType: .controlcenter),
                                 StorySettings(name: "",
+                                              settings: [StorySetting(name: R.string.localizable.video(), selected: false)], settingsType: .video),
+                                StorySettings(name: "",
                                               settings: [StorySetting(name: "\(Constant.Application.displayName) v \(Constant.Application.appVersion) (Build \(Constant.Application.appBuildNumber))", selected: false)], settingsType: .appInfo)]
 }
 
@@ -132,7 +135,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         cell.settingsName.text = settings.name
         cell.detailButton.isHidden = true
         cell.settingsName.textColor = R.color.appBlackColor()
-        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo {
+        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video {
             if settingTitle.settingsType == .appInfo {
                 #if DEBUG
                 cell.settingsName.textColor = R.color.appPrimaryColor()
@@ -175,7 +178,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             fatalError("StorySettingsHeader Not Found")
         }
         let settingTitle = StorySettings.storySettings[section]
-        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .faceDetection || settingTitle.settingsType == .appInfo {
+        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .faceDetection || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video {
             headerView.title.isHidden = true
         } else {
             headerView.title.isHidden = false
@@ -186,7 +189,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         let settingTitle = StorySettings.storySettings[section]
-        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .faceDetection || settingTitle.settingsType == .appInfo {
+        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .faceDetection || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video {
             return 24
         } else {
             return 60
@@ -202,6 +205,10 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         if settingTitle.settingsType == .controlcenter {
             if let baseUploadVC = R.storyboard.storyCameraViewController.baseUploadVC() {
                 navigationController?.pushViewController(baseUploadVC, animated: true)
+            }
+        } else if settingTitle.settingsType == .video {
+            if let viralCamVideos = R.storyboard.viralCamVideos.viralCamVideos() {
+                navigationController?.pushViewController(viralCamVideos, animated: true)
             }
         } else if settingTitle.settingsType == .logout {
             viralCamLogout()
