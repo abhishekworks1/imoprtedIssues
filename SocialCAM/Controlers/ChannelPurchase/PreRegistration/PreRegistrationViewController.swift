@@ -60,7 +60,8 @@ class PreRegistrationViewController: UIViewController {
     var isPackagePurchasedForFriend: Bool = true
     var remainingPackageCountForOthers: Int = 0
     var getPackage: GetPackage?
-    
+    var fromSignup = false
+
     // MARK: -- Actions
     
     @IBAction func benefactorBtnClicked(_ sender: Any) {
@@ -85,6 +86,7 @@ class PreRegistrationViewController: UIViewController {
                 self.addToCart(channel: channels,{(cartSuccess) in
                     ChannelManagment.instance.getCart { (cartResult) in
                         let vc = R.storyboard.preRegistration.cartViewController()!
+                        vc.fromSignup = self.fromSignup
                         vc.myCart = cartResult
                         self.navigationController?.pushViewController(vc, animated: true)
                     }
@@ -94,7 +96,9 @@ class PreRegistrationViewController: UIViewController {
     }
     
     @IBAction func backBtnClicked(_ sender: Any) {
-        if self.unSelectedChannels.count > 0 && self.selectedChannels.count == 0 {
+        if self.fromSignup {
+            self.navigationController?.popViewController(animated: true)
+        } else if self.unSelectedChannels.count > 0 && self.selectedChannels.count == 0 {
             self.indicatorView.startAnimating()
             self.navigationController?.popViewController(animated: true)
             for j in 0..<self.unSelectedChannels.count {
@@ -138,7 +142,6 @@ class PreRegistrationViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-//        (self.navigationController as? PageNavigationController)?.enableScroll()
         isCartClicked = true
        
         ChannelManagment.instance.getCart { (cartResult) in

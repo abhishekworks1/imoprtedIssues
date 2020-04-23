@@ -29,7 +29,8 @@ class CartViewController: UIViewController {
     var listOfExistChannels: [String] = []
     var isClickedOnce: Bool = false
     var channels: [String] = []
-    
+    var fromSignup = false
+
     // MARK: -- View Did Load
     
     override func viewDidLoad() {
@@ -43,7 +44,6 @@ class CartViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-//        (self.navigationController as? PageNavigationController)?.enableScroll()
         self.tabBarController?.tabBar.isHidden = true
     }
     
@@ -86,11 +86,15 @@ class CartViewController: UIViewController {
                     self.view.makeToast(R.string.localizable.congratulationsYourChannelNamesHaveBeenReserved())
 //                    UIApplication.showAlert(title: Constant.Application.displayName, message: R.string.localizable.congratulationsYourChannelNamesHaveBeenReserved())
                 }
-                DispatchQueue.main.async {
-                    if let vc = self.navigationController?.viewControllers.first(where: { return $0 is ChannelListViewController }) {
-                        self.navigationController?.popToViewController(vc, animated: true)
-                    } else {
-                        self.navigationController?.popToRootViewController(animated: true)
+                if self.fromSignup {
+                    Utils.appDelegate?.window?.rootViewController = R.storyboard.pageViewController.pageViewController()
+                } else {
+                    DispatchQueue.main.async {
+                        if let vc = self.navigationController?.viewControllers.first(where: { return $0 is ChannelListViewController }) {
+                            self.navigationController?.popToViewController(vc, animated: true)
+                        } else {
+                            self.navigationController?.popToRootViewController(animated: true)
+                        }
                     }
                 }
             }

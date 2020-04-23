@@ -10,26 +10,29 @@ import UIKit
 import FSPagerView
 typealias PrimumTuple = (color:UIColor, price : String ,channel:String)
 class UpgradeViewController: UIViewController {
+    
+    @IBOutlet weak var skipView: UIView!
+    @IBOutlet weak var backButton: UIButton!
+
+    var fromSignup = false
+    
     var isFromUpgrade : Bool = false
     var pages : [PrimumTuple] = [(UIColor.squashTwo,"$5.00/mo","( 5 Channels )")]
-    // ,(ApplicationSettings.appPrimaryColor,"$10.00/mo","( 10 Channels )"),(UIColor.blueColor074144226,"$25.00/mo","( 25 Channels )")
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        skipView.isHidden = !fromSignup
+        backButton.isHidden = fromSignup
     }
     
     @IBAction func btnBackClicked(_ sender:Any) {
         self.navigationController?.popViewController(animated: true)
     }
     
+    @IBAction func skipClicked(_ sender:Any) {
+        Utils.appDelegate?.window?.rootViewController = R.storyboard.pageViewController.pageViewController()
+    }
     
     @IBOutlet weak var pagerView: FSPagerView! {
         didSet {
@@ -55,6 +58,7 @@ class UpgradeViewController: UIViewController {
     @IBAction func upgradeBtnClicked(_ sender: Any) {
         print(self.pageControl.currentPage)
         if let vc = R.storyboard.preRegistration.paymentViewController() {
+            vc.fromSignup = fromSignup
             if self.pageControl.currentPage > 0 {
                 vc.price = Int(pages[self.pageControl.currentPage].price.substring(1, end: 3)) ?? 0
                 vc.numberOfChannels = Int(pages[self.pageControl.currentPage].channel.substring(2, end: 4)) ?? 0

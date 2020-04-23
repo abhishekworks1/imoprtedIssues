@@ -44,7 +44,7 @@ class PaymentViewController: UIViewController {
     var getPackage: GetPackage?
     let parentId = Defaults.shared.parentID ?? (Defaults.shared.currentUser?.id ?? "")
     var products = [SKProduct]()
-
+    var fromSignup = false
     // MARK: -- Outlets
     
     @IBOutlet var activityIndicator: NVActivityIndicatorView! {
@@ -142,7 +142,6 @@ class PaymentViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         PayPalMobile.preconnect(withEnvironment: environment)
-//        (self.navigationController as? PageNavigationController)?.enableScroll()
         payNowBtn.isEnabled = true
         
     }
@@ -152,6 +151,7 @@ class PaymentViewController: UIViewController {
     func go() {
         if isPaymentDone {
             let vc = R.storyboard.preRegistration.preRegistrationViewController()
+            vc?.fromSignup = fromSignup
             vc?.isFromUpgrade = true
             vc?.noOfChannels = self.noOfChannels
             self.navigationController?.pushViewController(vc!, animated: true)

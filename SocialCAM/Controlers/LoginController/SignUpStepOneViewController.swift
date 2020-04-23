@@ -228,7 +228,7 @@ class SignUpStepOneViewController: UIViewController {
                     ApplicationSettings.shared.coverUrl = ""
                     self.emailConfirm(email: email)
                     self.dismiss(animated: false) {
-                        self.delegate?.loginDidFinish(user: Defaults.shared.currentUser, error: nil)
+                        self.delegate?.loginDidFinish(user: Defaults.shared.currentUser, error: nil, fromSignup: true)
                     }
                 } else {
                     self.dismissHUD()

@@ -36,7 +36,7 @@ class DownAnimation: SpringImageView {
 }
 
 protocol LoginViewControllerDelegate: class {
-    func loginDidFinish(user: User?, error: Error?)
+    func loginDidFinish(user: User?, error: Error?, fromSignup: Bool)
 }
 
 class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
@@ -273,7 +273,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         self.goToHomeScreen()
         #endif
         self.doLogin()
-        self.delegate?.loginDidFinish(user: Defaults.shared.currentUser, error: nil)
+        self.delegate?.loginDidFinish(user: Defaults.shared.currentUser, error: nil, fromSignup: false)
         self.dismiss(animated: true)
     }
     
@@ -336,10 +336,19 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
 }
 
 extension LoginViewController: LoginViewControllerDelegate {
-    func loginDidFinish(user: User?, error: Error?) {
+    func loginDidFinish(user: User?, error: Error?, fromSignup: Bool) {
         self.dismiss(animated: true) {
-            self.goToHomeScreen()
-            self.delegate?.loginDidFinish(user: user, error: error)
+            if fromSignup {
+                let vc = R.storyboard.preRegistration.upgradeViewController()
+                vc?.fromSignup = true
+                let navVC = UINavigationController(rootViewController: vc!)
+                navVC.isNavigationBarHidden = true
+                Utils.appDelegate?.window?.rootViewController = navVC
+                 RunLoop.current.run(until: Date(timeIntervalSinceNow: 1.0))
+            } else {
+                self.goToHomeScreen()
+                self.delegate?.loginDidFinish(user: user, error: error, fromSignup: fromSignup)
+            }
         }
     }
 }

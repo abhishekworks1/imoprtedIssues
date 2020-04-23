@@ -137,7 +137,7 @@ open class StoriCamManager: NSObject {
 
 extension StoriCamManager: LoginViewControllerDelegate {
     
-    func loginDidFinish(user: User?, error: Error?) {
+    func loginDidFinish(user: User?, error: Error?, fromSignup: Bool) {
         if !isShareImageVideo {
             delegate?.loginDidFinish(user: user, error: error)
         } else {
