@@ -609,7 +609,7 @@ extension StoryEditorView {
     }
     
     func addReferLinkView(type: ReferType) {
-        guard referType == .none, let followMeStoryView = FollowMeStoryView.instanceFromNib() as? FollowMeStoryView else {
+        guard (referType == .none || referType == .tiktokShare), let followMeStoryView = FollowMeStoryView.instanceFromNib() as? FollowMeStoryView else {
             referType = type
             return
         }
