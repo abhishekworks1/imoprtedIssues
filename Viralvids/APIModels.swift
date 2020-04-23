@@ -17,6 +17,13 @@ class CreatePostViralCam: Codable, Mappable {
     var hashtags: [String]?
     var image: String?
     
+    var referLink: String? {
+        guard let id = self.id else {
+            return nil
+        }
+        return "https://viralcam.iicc.online/viralvids/\(id)"
+    }
+    
     var hashtagString: String {
         guard let hashtags = self.hashtags else {
             return ""
