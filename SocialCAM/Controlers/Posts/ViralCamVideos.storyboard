@@ -53,7 +53,7 @@
                                 <rect key="frame" x="4" y="88" width="405" height="774"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="3tD-Tf-kYx">
-                                        <rect key="frame" x="15" y="15" width="375" height="759"/>
+                                        <rect key="frame" x="0.0" y="15" width="405" height="759"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="dataSource" destination="8i0-rN-rFI" id="aV5-hD-G2t"/>
@@ -65,8 +65,8 @@
                                 <constraints>
                                     <constraint firstItem="3tD-Tf-kYx" firstAttribute="top" secondItem="fSk-hX-uaq" secondAttribute="top" constant="15" id="Ckv-yf-cle"/>
                                     <constraint firstAttribute="bottom" secondItem="3tD-Tf-kYx" secondAttribute="bottom" id="Fox-HZ-QeW"/>
-                                    <constraint firstItem="3tD-Tf-kYx" firstAttribute="leading" secondItem="fSk-hX-uaq" secondAttribute="leading" constant="15" id="PyB-wT-uBm"/>
-                                    <constraint firstAttribute="trailing" secondItem="3tD-Tf-kYx" secondAttribute="trailing" constant="15" id="QfD-wV-Nrr"/>
+                                    <constraint firstItem="3tD-Tf-kYx" firstAttribute="leading" secondItem="fSk-hX-uaq" secondAttribute="leading" id="PyB-wT-uBm"/>
+                                    <constraint firstAttribute="trailing" secondItem="3tD-Tf-kYx" secondAttribute="trailing" id="QfD-wV-Nrr"/>
                                 </constraints>
                             </view>
                         </subviews>

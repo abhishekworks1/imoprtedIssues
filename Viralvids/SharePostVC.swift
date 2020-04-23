@@ -51,10 +51,12 @@ class SharePostVC: UIViewController {
         txtDesc.layer.borderColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.0).cgColor
         txtDesc.layer.borderWidth = 1.0
         txtDesc.layer.cornerRadius = 5
+        txtDesc.delegate = self
         
         self.hashTagView.isMerge = true
         self.hashTagView.textField.placeholder = "#Hashtags"
         self.hashTagView.textField.returnKeyType = .done
+        self.hashTagView.textField.delegate = self
         self.hashTagView.interitemSpacing =  4.0
         self.hashTagView.lineSpacing = 4.0
         self.hashTagView.isHasTag = true
@@ -197,3 +199,21 @@ extension UITextView {
     }
     
 }
+
+extension SharePostVC: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+}
+
+extension SharePostVC: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if(text == "\n") {
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
+    }
+}
+
