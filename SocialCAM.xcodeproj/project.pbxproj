@@ -1282,6 +1282,10 @@
 		954660692387B5CC00A37AE0 /* RotationDial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954660442387B5CB00A37AE0 /* RotationDial.swift */; };
 		9546606A2387B5CC00A37AE0 /* CGAngle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954660452387B5CB00A37AE0 /* CGAngle.swift */; };
 		9546606B2387B5CC00A37AE0 /* DialConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954660462387B5CB00A37AE0 /* DialConfig.swift */; };
+		954B083C245171AB00BACFB4 /* TikTokShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954B083B245171AB00BACFB4 /* TikTokShareView.swift */; };
+		954B083E245171C700BACFB4 /* TikTokShareView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 954B083D245171C700BACFB4 /* TikTokShareView.xib */; };
+		954B083F24517F8000BACFB4 /* TikTokShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954B083B245171AB00BACFB4 /* TikTokShareView.swift */; };
+		954B084024517F9500BACFB4 /* TikTokShareView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 954B083D245171C700BACFB4 /* TikTokShareView.xib */; };
 		954D13CF241257F7007C1BA3 /* SSUTagSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954D13CE241257F7007C1BA3 /* SSUTagSelectionViewController.swift */; };
 		954DB1E823D9C30100B0A9C4 /* NSNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954DB1E723D9C30000B0A9C4 /* NSNotification.swift */; };
 		959A91D62449CFDD0062AA67 /* IAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959A91D42449CFDD0062AA67 /* IAPManager.swift */; };
@@ -2030,6 +2034,8 @@
 		954660442387B5CB00A37AE0 /* RotationDial.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotationDial.swift; sourceTree = "<group>"; };
 		954660452387B5CB00A37AE0 /* CGAngle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGAngle.swift; sourceTree = "<group>"; };
 		954660462387B5CB00A37AE0 /* DialConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DialConfig.swift; sourceTree = "<group>"; };
+		954B083B245171AB00BACFB4 /* TikTokShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TikTokShareView.swift; sourceTree = "<group>"; };
+		954B083D245171C700BACFB4 /* TikTokShareView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TikTokShareView.xib; sourceTree = "<group>"; };
 		954D13CE241257F7007C1BA3 /* SSUTagSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSUTagSelectionViewController.swift; sourceTree = "<group>"; };
 		954DB1E723D9C30000B0A9C4 /* NSNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSNotification.swift; sourceTree = "<group>"; };
 		959A91D42449CFDD0062AA67 /* IAPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPManager.swift; sourceTree = "<group>"; };
@@ -3012,6 +3018,8 @@
 			children = (
 				95AA66AE240FDA4900434C9A /* FollowMeStoryView.swift */,
 				95AA66B0240FDAB000434C9A /* FollowMeStoryView.xib */,
+				954B083B245171AB00BACFB4 /* TikTokShareView.swift */,
+				954B083D245171C700BACFB4 /* TikTokShareView.xib */,
 				954D13CE241257F7007C1BA3 /* SSUTagSelectionViewController.swift */,
 				824EB390236197DE00205993 /* StoryCameraViewController.swift */,
 				82057FF823991511007AE1B7 /* StoryCameraViewController+ViewGesture.swift */,
@@ -3797,6 +3805,7 @@
 				23CE8BB224349B110096233C /* Naive.JPG in Resources */,
 				23CE8BB324349B110096233C /* YUCIColorLookup.cikernel in Resources */,
 				23CE8BB424349B110096233C /* SF-UI-Text-Medium.otf in Resources */,
+				954B084024517F9500BACFB4 /* TikTokShareView.xib in Resources */,
 				23CE8BB524349B110096233C /* PageViewController.storyboard in Resources */,
 				2397B8DC2435D1D200F97957 /* GoogleService-Info-ViralCam.plist in Resources */,
 				23CE8BB624349B110096233C /* LUT_M11.png in Resources */,
@@ -3890,6 +3899,7 @@
 				82D1EC4223702B4300A680E7 /* Pink.JPG in Resources */,
 				82D1EC5223702B4300A680E7 /* Philharmonic.JPG in Resources */,
 				82D1EC4C23702B4300A680E7 /* Rejoicing.JPG in Resources */,
+				954B083E245171C700BACFB4 /* TikTokShareView.xib in Resources */,
 				824EB3882361959900205993 /* LaunchScreen.storyboard in Resources */,
 				8205FB6A236C1D0F002B2603 /* laugh.json in Resources */,
 				82D1EBFB236FF68A00A680E7 /* StoryEmojiCollectionViewCell.xib in Resources */,
@@ -4387,6 +4397,7 @@
 				23CE89BE24349B110096233C /* YouCategoryTableViewCell.swift in Sources */,
 				23CE89BF24349B110096233C /* StoryImageView.swift in Sources */,
 				23CE89C024349B110096233C /* CollageViewT209.swift in Sources */,
+				954B083F24517F8000BACFB4 /* TikTokShareView.swift in Sources */,
 				23CE89C124349B110096233C /* EngineLog.swift in Sources */,
 				23CE89C224349B110096233C /* PhotoEditorViewController+Delegates.swift in Sources */,
 				23CE89C324349B110096233C /* PageViewController.swift in Sources */,
@@ -4941,6 +4952,7 @@
 				8287D21223826F130074FC39 /* YouCategoryTableViewCell.swift in Sources */,
 				82D1EBCD236FEFA700A680E7 /* StoryImageView.swift in Sources */,
 				8205FCA8236C3AFA002B2603 /* CollageViewT209.swift in Sources */,
+				954B083C245171AB00BACFB4 /* TikTokShareView.swift in Sources */,
 				8205FD41236C3B06002B2603 /* EngineLog.swift in Sources */,
 				82D1EC8223703DE300A680E7 /* PhotoEditorViewController+Delegates.swift in Sources */,
 				82CA3E5423D9D02A00DD48B8 /* PageViewController.swift in Sources */,

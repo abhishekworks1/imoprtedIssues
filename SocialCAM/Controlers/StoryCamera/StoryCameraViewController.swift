@@ -502,6 +502,35 @@ class StoryCameraViewController: UIViewController {
         }
         self.resetPositionRecordButton()
         addVolumeButtonHandler()
+        addTikTokShareViewIfNeeded()
+    }
+    
+    func addTikTokShareViewIfNeeded() {
+        guard Defaults.shared.postViralCamModel != nil,
+            let tiktokShareView = TikTokShareView.instanceFromNib() else {
+                let tiktokShareViews = self.baseView.subviews.filter({ return $0 is TikTokShareView })
+                if tiktokShareViews.count > 0 {
+                    (tiktokShareViews[0] as? TikTokShareView)?.onDelete(UIButton())
+                }
+                return
+        }
+        let tiktokShareViews = self.baseView.subviews.filter({ return $0 is TikTokShareView })
+        if tiktokShareViews.count > 0 {
+            (tiktokShareViews[0] as? TikTokShareView)?.configureView()
+            return
+        }
+        tiktokShareView.pannable = true
+
+        if let previewView =  self.gestureView {
+            self.baseView.insertSubview(tiktokShareView, aboveSubview: previewView)
+        } else {
+            self.baseView.insertSubview(tiktokShareView, at: 0)
+        }
+        tiktokShareView.translatesAutoresizingMaskIntoConstraints = false
+        
+        tiktokShareView.centerXAnchor.constraint(equalTo: self.baseView.centerXAnchor, constant: 0).isActive = true
+        tiktokShareView.centerYAnchor.constraint(equalTo: self.baseView.centerYAnchor, constant: 0).isActive = true
+        tiktokShareView.widthAnchor.constraint(equalToConstant: 318).isActive = true
     }
     
     func setViewsForApp() {
@@ -1156,6 +1185,7 @@ extension StoryCameraViewController {
     @objc func enterForeground(_ notifi: Notification) {
         if isViewAppear {
             startCapture()
+            addTikTokShareViewIfNeeded()
         }
     }
 }
@@ -1530,6 +1560,10 @@ extension StoryCameraViewController {
                 medias.append(StoryEditorMedia(type: .video(segmentedVideo.image!, AVAsset(url: segmentedVideo.url!))))
             }
         }
+        let tiktokShareViews = self.baseView.subviews.filter({ return $0 is TikTokShareView })
+        if tiktokShareViews.count > 0 {
+            storyEditorViewController.referType = .tiktokShare
+        }
         storyEditorViewController.isBoomerang = photosSelection ? false : (self.recordingType == .boomerang)
         storyEditorViewController.medias = medias
         storyEditorViewController.isSlideShow = isSlideShow
@@ -1544,6 +1578,10 @@ extension StoryCameraViewController {
         var medias: [StoryEditorMedia] = []
         for image in images {
             medias.append(StoryEditorMedia(type: .image(image)))
+        }
+        let tiktokShareViews = self.baseView.subviews.filter({ return $0 is TikTokShareView })
+        if tiktokShareViews.count > 0 {
+            storyEditorViewController.referType = .tiktokShare
         }
         storyEditorViewController.isBoomerang = (self.recordingType == .boomerang)
         storyEditorViewController.medias = medias

@@ -303,7 +303,7 @@ class StoryEditorViewController: UIViewController {
 
             storyEditorView.center = mediaImageView.center
             storyEditorView.filters = StoryFilter.filters
-            
+            storyEditorView.addTikTokShareViewIfNeeded()
             if index > 0 {
                 storyEditorView.isHidden = true
             }
@@ -616,6 +616,7 @@ extension StoryEditorViewController {
     }
     
     @IBAction func backClicked(_ sender: UIButton) {
+        Defaults.shared.postViralCamModel = nil
         navigationController?.popViewController(animated: true)
     }
     

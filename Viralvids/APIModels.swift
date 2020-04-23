@@ -17,6 +17,13 @@ class CreatePostViralCam: Codable, Mappable {
     var hashtags: [String]?
     var image: String?
     
+    var hashtagString: String {
+        guard let hashtags = self.hashtags else {
+            return ""
+        }
+        return hashtags.joined(separator: ",")
+    }
+    
     required init?(map: Map) {
         
     }
