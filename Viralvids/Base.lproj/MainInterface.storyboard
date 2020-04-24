@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Okl-fS-X8t">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Okl-fS-X8t">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -77,10 +78,10 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="400" height="200"/>
                                             </imageView>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shareTikTok" translatesAutoresizingMaskIntoConstraints="NO" id="M1h-4f-otp" customClass="DownAnimation" customModule="Viralvids" customModuleProvider="target">
-                                                <rect key="frame" x="340" y="134" width="60" height="60"/>
+                                                <rect key="frame" x="355" y="149" width="45" height="45"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="60" id="fde-Cp-Eof"/>
-                                                    <constraint firstAttribute="height" constant="60" id="zD6-JT-YCr"/>
+                                                    <constraint firstAttribute="width" constant="45" id="fde-Cp-Eof"/>
+                                                    <constraint firstAttribute="height" constant="45" id="zD6-JT-YCr"/>
                                                 </constraints>
                                             </imageView>
                                         </subviews>
@@ -116,8 +117,16 @@
                                                         <color key="textColor" name="AppBlackColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qkz-QG-emf" customClass="RKTagsView">
+                                                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cgI-wv-lrx">
                                                         <rect key="frame" x="0.0" y="31" width="350" height="45"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="45" id="5Nb-aU-h5Q"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                    </textField>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qkz-QG-emf" customClass="RKTagsView">
+                                                        <rect key="frame" x="5" y="36" width="340" height="35"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidthV">
@@ -129,16 +138,17 @@
                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
                                                                 <real key="value" value="5"/>
                                                             </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColorChat">
+                                                                <color key="value" name="AppBlackColor"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidthChat">
+                                                                <real key="value" value="1"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                                <real key="value" value="5"/>
+                                                            </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <textField hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cgI-wv-lrx">
-                                                        <rect key="frame" x="0.0" y="31" width="350" height="45"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="45" id="5Nb-aU-h5Q"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits"/>
-                                                    </textField>
                                                 </subviews>
                                                 <color key="backgroundColor" name="AppWhiteColor"/>
                                                 <constraints>
@@ -147,11 +157,11 @@
                                                     <constraint firstItem="9f5-yp-2S1" firstAttribute="leading" secondItem="fcN-yP-MVm" secondAttribute="leading" id="Spq-2Y-9mx"/>
                                                     <constraint firstItem="cgI-wv-lrx" firstAttribute="trailing" secondItem="9f5-yp-2S1" secondAttribute="trailing" id="TZE-EG-klg"/>
                                                     <constraint firstItem="cgI-wv-lrx" firstAttribute="leading" secondItem="9f5-yp-2S1" secondAttribute="leading" id="UE4-D9-pEK"/>
-                                                    <constraint firstItem="Qkz-QG-emf" firstAttribute="bottom" secondItem="cgI-wv-lrx" secondAttribute="bottom" id="h8K-do-df9"/>
+                                                    <constraint firstItem="Qkz-QG-emf" firstAttribute="bottom" secondItem="cgI-wv-lrx" secondAttribute="bottom" constant="-5" id="h8K-do-df9"/>
                                                     <constraint firstAttribute="bottom" secondItem="cgI-wv-lrx" secondAttribute="bottom" constant="5" id="hue-Kh-bfn"/>
-                                                    <constraint firstItem="Qkz-QG-emf" firstAttribute="top" secondItem="cgI-wv-lrx" secondAttribute="top" id="jSh-Pb-tNm"/>
-                                                    <constraint firstItem="Qkz-QG-emf" firstAttribute="trailing" secondItem="cgI-wv-lrx" secondAttribute="trailing" id="nDq-iK-lKK"/>
-                                                    <constraint firstItem="Qkz-QG-emf" firstAttribute="leading" secondItem="cgI-wv-lrx" secondAttribute="leading" id="uIH-wh-xRP"/>
+                                                    <constraint firstItem="Qkz-QG-emf" firstAttribute="top" secondItem="cgI-wv-lrx" secondAttribute="top" constant="5" id="jSh-Pb-tNm"/>
+                                                    <constraint firstItem="Qkz-QG-emf" firstAttribute="trailing" secondItem="cgI-wv-lrx" secondAttribute="trailing" constant="-5" id="nDq-iK-lKK"/>
+                                                    <constraint firstItem="Qkz-QG-emf" firstAttribute="leading" secondItem="cgI-wv-lrx" secondAttribute="leading" constant="5" id="uIH-wh-xRP"/>
                                                     <constraint firstAttribute="trailing" secondItem="9f5-yp-2S1" secondAttribute="trailing" id="xRR-XB-rAE"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
@@ -228,9 +238,17 @@ here:</string>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gOR-Af-D9c" customClass="ColorRoundedView" customModule="Viralvids" customModuleProvider="target">
                                                 <rect key="frame" x="100" y="0.0" width="200" height="40"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pN7-Y2-RZ6" customClass="RoundedButt">
-                                                        <rect key="frame" x="0.0" y="0.0" width="200" height="40"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pN7-Y2-RZ6" customClass="SSSpinnerButton" customModule="SSSpinnerButton">
+                                                        <rect key="frame" x="0.0" y="3" width="200" height="34"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="34" id="B2a-EM-kRX"/>
+                                                        </constraints>
                                                         <state key="normal" title="Post"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornrRadius">
+                                                                <real key="value" value="17"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="sendStoryTapped:" destination="j2u-IO-Pmt" eventType="touchUpInside" id="eVA-53-STe"/>
                                                         </connections>
@@ -240,7 +258,6 @@ here:</string>
                                                 <constraints>
                                                     <constraint firstItem="pN7-Y2-RZ6" firstAttribute="width" secondItem="gOR-Af-D9c" secondAttribute="width" id="FQE-pX-7zc"/>
                                                     <constraint firstAttribute="height" constant="40" id="fML-HD-VKW"/>
-                                                    <constraint firstItem="pN7-Y2-RZ6" firstAttribute="height" secondItem="gOR-Af-D9c" secondAttribute="height" id="nGO-hk-0BC"/>
                                                     <constraint firstItem="pN7-Y2-RZ6" firstAttribute="centerY" secondItem="gOR-Af-D9c" secondAttribute="centerY" id="tyW-b8-Abm"/>
                                                     <constraint firstItem="pN7-Y2-RZ6" firstAttribute="centerX" secondItem="gOR-Af-D9c" secondAttribute="centerX" id="yRS-tg-HGT"/>
                                                 </constraints>

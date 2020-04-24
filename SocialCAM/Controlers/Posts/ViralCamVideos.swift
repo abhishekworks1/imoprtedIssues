@@ -22,13 +22,16 @@ class ViralCamVideos: UIViewController {
     }
     
     func getAllVideos() {
+        self.showHUD()
         ProManagerApi.getViralvids.request(ResultArray<CreatePostViralCam>.self).subscribe(onNext: { (response) in
             guard let array = response.result else {
                 return
             }
+            self.dismissHUD()
             self.videos = array
             self.tableView.reloadData()
         }, onError: { error in
+            self.dismissHUD()
             print(error)
         }, onCompleted: {
             
@@ -67,4 +70,3 @@ extension ViralCamVideos: UITableViewDataSource, UITableViewDelegate {
         
     }
 }
-

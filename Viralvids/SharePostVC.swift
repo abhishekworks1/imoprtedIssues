@@ -12,11 +12,11 @@ import MobileCoreServices
 import SDWebImage
 import AVKit
 import UIKit
-import Foundation
 import AVFoundation
 import RxSwift
 import Moya
 import URLEmbeddedView
+import SSSpinnerButton
 
 class SharePostVC: UIViewController {
     
@@ -33,7 +33,7 @@ class SharePostVC: UIViewController {
     
     @IBOutlet weak var lblTitle: UILabel!
     
-    @IBOutlet weak var btnSendPost: UIButton!
+    @IBOutlet weak var btnSendPost: SSSpinnerButton!
     
     @IBOutlet weak var btnClose: UIButton!
     
@@ -95,6 +95,14 @@ class SharePostVC: UIViewController {
                 self.linkData = data
                 DispatchQueue.main.async {
                     var json: [String: Any] = ["bookmarkUrl": self.urlString ?? ""]
+                    if data.siteName?.lowercased() == "Tiktok".lowercased() {
+                        self.imgSocialIcon.image = R.image.shareTikTok()
+                    } else if data.siteName?.lowercased() == "Youtube".lowercased() {
+                        self.imgSocialIcon.image = R.image.shareYoutube()
+                    } else {
+                        self.imgSocialIcon.isHidden = true
+                    }
+                    
                     if let title = data.pageTitle {
                         json["title"] = title
                         self.lblTitle.text = title
@@ -131,6 +139,9 @@ class SharePostVC: UIViewController {
     }
     
     @IBAction func sendStoryTapped(_ sender: Any) {
+        btnSendPost.startAnimate(spinnerType: SpinnerType.ballClipRotate, spinnercolor: UIColor.white, spinnerSize: 20, complete: {
+            
+        })
         ProManagerApi.createViralvids(title: self.linkData?.pageTitle ?? "", image: self.linkData?.imageUrl?.absoluteString, description: self.txtDesc.text, referenceLink: self.linkData?.url?.absoluteString, hashtags: hashTagView.tags).request(Result<CreatePostViralCam>.self).subscribe(onNext: { (response) in
             
             Defaults.shared.postViralCamModel = response.result

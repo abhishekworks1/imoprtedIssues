@@ -82,4 +82,5 @@ end
 
 target 'Viralvids' do
   shared_pods
+  pod "SSSpinnerButton"
 end

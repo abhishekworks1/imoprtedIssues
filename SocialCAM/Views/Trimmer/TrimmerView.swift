@@ -94,7 +94,7 @@ open class TrimmerView: UIView {
             leftImageViewCenterY = leftImageView.centerYAnchor
                 .constraint(equalTo: leftDraggableView.centerYAnchor)
             let heightAnc = leftImageView.heightAnchor.constraint(equalToConstant: 40)
-            let widthAnc = leftImageView.widthAnchor.constraint(equalToConstant: 10)
+            let widthAnc = leftImageView.widthAnchor.constraint(equalToConstant: 15)
             NSLayoutConstraint.activate([heightAnc, widthAnc])
         }
     }
@@ -107,7 +107,7 @@ open class TrimmerView: UIView {
             rightImageViewCenterY = rightImageView.centerYAnchor
                 .constraint(equalTo: rightDraggableView.centerYAnchor)
             let heightAnc = rightImageView.heightAnchor.constraint(equalToConstant: 40)
-            let widthAnc = rightImageView.widthAnchor.constraint(equalToConstant: 10)
+            let widthAnc = rightImageView.widthAnchor.constraint(equalToConstant: 15)
             NSLayoutConstraint.activate([heightAnc, widthAnc])
         }
     }
