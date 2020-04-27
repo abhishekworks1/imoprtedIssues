@@ -227,6 +227,8 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                         Utils.appDelegate?.window?.rootViewController = loginNav
                         return
                     }
+                } else if isLogin {
+                    
                 }
                 #endif
                 DispatchQueue.runOnMainThread {
@@ -270,6 +272,20 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         objAlert.addAction(actionlogOut)
         objAlert.addAction(cancelAction)
         self.present(objAlert, animated: true, completion: nil)
+    }
+    
+    func connectSocial(socialPlatform: String, socialId: String) {
+        self.showHUD()
+        ProManagerApi.connectSocial(socialPlatform: socialPlatform, socialId: socialId).request(Result<User>.self).subscribe(onNext: { (response) in
+            self.dismissHUD()
+            UIApplication.showAlert(title: Constant.Application.displayName, message: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+        }, onError: { error in
+            self.dismissHUD()
+            
+            print(error)
+        }, onCompleted: {
+            
+        }).disposed(by: rx.disposeBag)
     }
     
     func socialLoadProfile(socialLogin: SocialLogin, completion: @escaping (String?) -> ()) {

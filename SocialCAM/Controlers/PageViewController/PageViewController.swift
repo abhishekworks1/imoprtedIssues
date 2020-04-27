@@ -24,6 +24,11 @@ class PageViewController: PageboyViewController {
         }
         #endif
         
+        #if VIRALCAMAPP
+        if let homeVC = R.storyboard.viralCamVideos.viralCamVideos() {
+            viewControllers.append(homeVC)
+        }
+        #endif
         return viewControllers
     }()
     

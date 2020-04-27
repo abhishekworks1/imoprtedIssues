@@ -16,6 +16,7 @@ import ObjectMapper
 public enum ProManagerApi {
     case getSplashImages
     case getViralvids
+    case connectSocial(socialPlatform: String, socialId: String)
     case logIn(email: String, password: String, deviceToken: String?)
     case confirmEmail(userId: String, email: String)
     case signUp(email: String, password: String, channel: String, refChannel: String, isBusiness: Bool, socialId:String?, provider:String?, channelName: String, refferId: String?, deviceToken: String?, birthDate: String?)
@@ -196,6 +197,8 @@ extension ProManagerApi: TargetType {
             return Paths.addToCart
         case .getChannelSuggestion:
             return Paths.getChannelSuggestion
+        case .connectSocial(_, _):
+            return Paths.connectSocial
         }
        
     }
@@ -494,6 +497,10 @@ extension ProManagerApi: TargetType {
         case .getChannelSuggestion(let channelName):
             param["channelName"] = channelName
             break
+        case .connectSocial(let socialPlatform, let socialId):
+            param = ["socialPlatform" : socialPlatform,
+                     "socialId" : socialId]
+            
         }
         
         return param

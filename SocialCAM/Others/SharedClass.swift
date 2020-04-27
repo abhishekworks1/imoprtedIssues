@@ -179,6 +179,7 @@ public struct Paths {
     static let search = "auth/searchChannels"
     static let getCategories = "auth/getCategories"
     static let updateProfile = "users/updateProfile"
+    static let connectSocial = "users/addSocialConnection"
     static let searchUser = "users/searchChannel"
     static let topSearch = "users/topSearch"
     static let socailLogin = "auth/signup"
