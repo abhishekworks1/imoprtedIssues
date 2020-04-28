@@ -25,7 +25,6 @@ class PageViewController: PageboyViewController {
         if let viralToolsVC = R.storyboard.storyCameraViewController.viralToolsVC() {
             viewControllers.append(viralToolsVC)
         }
-        
         #endif
         
         return viewControllers
