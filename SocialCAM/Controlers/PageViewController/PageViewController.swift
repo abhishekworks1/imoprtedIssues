@@ -18,17 +18,16 @@ class PageViewController: PageboyViewController {
             viewControllers.append(cameraNavVC)
         }
         
-        #if DEBUG
+        #if VIRALCAMAPP
         if let homeVC = R.storyboard.homeScreen.homeTabBarController() {
             viewControllers.append(homeVC)
         }
+        if let viralToolsVC = R.storyboard.storyCameraViewController.viralToolsVC() {
+            viewControllers.append(viralToolsVC)
+        }
+        
         #endif
         
-        #if VIRALCAMAPP
-        if let homeVC = R.storyboard.viralCamVideos.viralCamVideos() {
-            viewControllers.append(homeVC)
-        }
-        #endif
         return viewControllers
     }()
     

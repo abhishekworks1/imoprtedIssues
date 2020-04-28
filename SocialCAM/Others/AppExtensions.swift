@@ -17,6 +17,7 @@ extension UIFont {
     @nonobjc public static let helveticaNeuethin = UIFont(name: "HelveticaNeue-Thin", size: 17)
     @nonobjc public static let avenirHeavy = UIFont(name: "Avenir-Heavy", size: 72)
     @nonobjc public static let sfuiTextRegular = R.font.sfuiTextRegular(size: 18)
+    @nonobjc public static let sfuiTextRegular14 = R.font.sfuiTextRegular(size: 14)
     @nonobjc public static let sfuifont = R.font.sfuiTextMedium(size: 13) ?? UIFont.systemFont(ofSize: 13)
     @nonobjc public static let sfuiBoldfont25 = R.font.sfuiTextBold(size: 25)
     @nonobjc public static let sfuifontSize17 = R.font.sfuiTextMedium(size: 17)

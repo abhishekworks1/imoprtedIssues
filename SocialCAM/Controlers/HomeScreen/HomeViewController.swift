@@ -11,44 +11,49 @@ import Foundation
 class HomeViewController: UIViewController {
    
     @IBOutlet weak var tableView: UITableView!
-    
-    var settingsOptions = [R.string.localizable.professional(), R.string.localizable.logout(), R.string.localizable.professional(), R.string.localizable.logout()]
+    var videos: [CreatePostViralCam] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        tableView.register(R.nib.homeTableViewCell(), forCellReuseIdentifier: R.reuseIdentifier.homeTableViewCell.identifier)
-        tableView.register(R.nib.homeTableViewCellWithCollectionView(), forCellReuseIdentifier: R.reuseIdentifier.homeTableViewCellWithCollectionView.identifier)
+        tableView.register(R.nib.videoTableViewCell(), forCellReuseIdentifier: R.reuseIdentifier.videoTableViewCell.identifier)
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func getAllVideos() {
+        let loadingView = LoadingView.instanceFromNib()
+        loadingView.loadingViewShow = true
+        loadingView.shouldCancelShow = true
+        loadingView.show(on: self.view)
+        ProManagerApi.getViralvids.request(ResultArray<CreatePostViralCam>.self).subscribe(onNext: { (response) in
+            guard let array = response.result else {
+                return
+            }
+            loadingView.hide()
+            self.videos = array
+            self.tableView.reloadData()
+        }, onError: { error in
+            self.dismissHUD()
+            print(error)
+        }, onCompleted: {
+            
+        }).disposed(by: rx.disposeBag)
     }
     
     deinit {
         print("deinit-- \(self.description)")
     }
-
 }
 
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return settingsOptions.count
+        return videos.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == 2 {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.homeTableViewCellWithCollectionView.identifier, for: indexPath) as? HomeTableViewCellWithCollectionView else {
-                fatalError("HomeTableViewCellWithCollectionView Not Found")
-            }
-            return cell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.videoTableViewCell.identifier, for: indexPath) as? VideoTableViewCell else {
+            fatalError("VideoTableViewCell Not Found")
         }
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.homeTableViewCell.identifier, for: indexPath) as? HomeTableViewCell else {
-            fatalError("StorySettingsCell Not Found")
-        }
-        cell.lblTitle?.text = settingsOptions[indexPath.row]
+        cell.postModel = videos[indexPath.row]
         return cell
     }
     

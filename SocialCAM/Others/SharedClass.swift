@@ -385,11 +385,11 @@ public struct Constant {
     
     struct TWTRTwitter {
         #if SOCIALCAMAPP
-            static let consumerKey: String = "WfJWdYHUDmPil9oIOf9yT2WLQ"
-            static let consumerSecret: String = "wZO81VCWknVry5PsUeA9TPYaB79yBt3RyRGAaZZZm68uOuCRRT"
+            static let consumerKey: String = "y39BclEMDbGXVzAaiXv55PGrn"
+            static let consumerSecret: String = "o4NcSHnBPaS1jeNW4xjMGg2WTVHm3HUV7WPsCt3b4nRWHa2Kcf"
         #else
-            static let consumerKey: String = "sm399wQnBi6M0zreAEHIph7YO"
-            static let consumerSecret: String = "pA8zBUJodTQOXFQPqqBM4FSrCPScc3apo9mSTVGsDRwpkkwbNH"
+            static let consumerKey: String = "DJCr4ckk2RhVWckLrw524qcou"
+            static let consumerSecret: String = "w20x8fh0Cqgh4iJDYscTMmlzMEalcgouPqHnuRoXb6rdzA7Uzk"
         #endif
     }
     

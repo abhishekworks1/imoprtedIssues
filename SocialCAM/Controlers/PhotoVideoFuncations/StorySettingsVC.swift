@@ -149,7 +149,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             cell.socialImageView?.image = cell.onOffButton.isSelected ? settings.selectedImage : settings.image
             
             let socialLogin: SocialLogin = SocialLogin(rawValue: indexPath.row) ?? .facebook
-            self.socialLoadProfile(socialLogin: socialLogin) { [weak cell] (userName) in
+            self.socialLoadProfile(socialLogin: socialLogin) { [weak cell] (userName, socialId) in
                 guard let cell = cell else {
                     return
                 }
@@ -228,7 +228,25 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                         return
                     }
                 } else if isLogin {
-                    
+                    var socialPlatform: String = "facebook"
+                    switch socialLogin {
+                    case .twitter:
+                        socialPlatform = "twitter"
+                    case .instagram:
+                        socialPlatform = "instagram"
+                    case .snapchat:
+                        socialPlatform = "snapchat"
+                    case .youtube:
+                        socialPlatform = "google"
+                    default:
+                        break
+                    }
+                    self.socialLoadProfile(socialLogin: socialLogin) { [weak self] (socialName, socialId) in
+                        guard let `self` = self else {
+                            return
+                        }
+                        self.connectSocial(socialPlatform: socialPlatform, socialId: socialId ?? "", socialName: socialName ?? "")
+                    }
                 }
                 #endif
                 DispatchQueue.runOnMainThread {
@@ -274,11 +292,13 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         self.present(objAlert, animated: true, completion: nil)
     }
     
-    func connectSocial(socialPlatform: String, socialId: String) {
+    func connectSocial(socialPlatform: String, socialId: String, socialName: String) {
         self.showHUD()
-        ProManagerApi.connectSocial(socialPlatform: socialPlatform, socialId: socialId).request(Result<User>.self).subscribe(onNext: { (response) in
+        ProManagerApi.connectSocial(socialPlatform: socialPlatform, socialId: socialId, socialName: socialName).request(Result<SocialUserConnect>.self).subscribe(onNext: { (response) in
             self.dismissHUD()
-            UIApplication.showAlert(title: Constant.Application.displayName, message: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+            if response.status != ResponseType.success {
+                UIApplication.showAlert(title: Constant.Application.displayName, message: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+            }
         }, onError: { error in
             self.dismissHUD()
             
@@ -288,42 +308,42 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         }).disposed(by: rx.disposeBag)
     }
     
-    func socialLoadProfile(socialLogin: SocialLogin, completion: @escaping (String?) -> ()) {
+    func socialLoadProfile(socialLogin: SocialLogin, completion: @escaping (String?, String?) -> ()) {
         switch socialLogin {
         case .facebook:
             if FaceBookManager.shared.isUserLogin {
                 FaceBookManager.shared.loadUserData { (userModel) in
-                    completion(userModel?.userName)
+                    completion(userModel?.userName, userModel?.userId)
                 }
             }
         case .twitter:
             if TwitterManger.shared.isUserLogin {
                 TwitterManger.shared.loadUserData { (userModel) in
-                    completion(userModel?.userName)
+                    completion(userModel?.userName, userModel?.userId)
                 }
             }
         case .instagram:
             if InstagramManager.shared.isUserLogin {
-                if let profile = InstagramManager.shared.profileDetails {
-                    completion(profile.username)
+                if let userModel = InstagramManager.shared.profileDetails {
+                    completion(userModel.username, userModel.id)
                 }
             }
         case .snapchat:
             if SnapKitManager.shared.isUserLogin {
                 SnapKitManager.shared.loadUserData { (userModel) in
-                    completion(userModel?.userName)
+                    completion(userModel?.userName, userModel?.userId)
                 }
             }
         case .youtube:
             if GoogleManager.shared.isUserLogin {
                 GoogleManager.shared.loadUserData { (userModel) in
-                    completion(userModel?.userName)
+                    completion(userModel?.userName, userModel?.userId)
                 }
             }
         case .storiCam:
             if StoriCamManager.shared.isUserLogin {
                 StoriCamManager.shared.loadUserData { (userModel) in
-                    completion(userModel?.userName)
+                    completion(userModel?.userName, userModel?.userId)
                 }
             }
         }

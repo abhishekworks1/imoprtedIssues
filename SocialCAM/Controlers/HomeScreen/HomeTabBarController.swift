@@ -12,7 +12,7 @@ class HomeTabBarController: UITabBarController {
     
     open var imageView: UIImageView = {
         let imageView = UIImageView(frame: CGRect.init(x: 0,
-                                                            y: -35,
+                                                            y: -28,
                                                             width: 80,
                                                             height: 80))
         imageView.backgroundColor = ApplicationSettings.appBackgroundColor

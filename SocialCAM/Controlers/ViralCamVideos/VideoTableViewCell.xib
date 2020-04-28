@@ -29,13 +29,13 @@
                         <rect key="frame" x="10" y="10" width="367" height="317"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mVC-8X-pmH">
-                                <rect key="frame" x="0.0" y="0.0" width="367" height="180"/>
+                                <rect key="frame" x="0.0" y="0.0" width="367" height="165"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="180" id="0ji-La-PTj"/>
+                                    <constraint firstAttribute="height" constant="165" id="0ji-La-PTj"/>
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="amt-ep-JZp">
-                                <rect key="frame" x="0.0" y="200" width="367" height="17.5"/>
+                                <rect key="frame" x="0.0" y="185" width="367" height="17.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="WKR-Zj-iw2">
                                         <rect key="frame" x="10" y="0.0" width="347" height="17.5"/>
@@ -43,7 +43,7 @@
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select your interestsnajdsnbfmbsdf bdsmhgvhcb " lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lyz-cE-NJ5" userLabel="Title Label">
                                                 <rect key="frame" x="0.0" y="0.0" width="347" height="6"/>
                                                 <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="17"/>
-                                                <color key="textColor" name="AppBlackColor"/>
+                                                <color key="textColor" name="AppWhiteColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#music, #love, #nature, #lovesong" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yed-0C-peM" userLabel="Title Label">
@@ -71,7 +71,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qbd-AN-sBA">
-                                <rect key="frame" x="0.0" y="237.5" width="367" height="45"/>
+                                <rect key="frame" x="0.0" y="222.5" width="367" height="45"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wo0-4y-nA2">
                                         <rect key="frame" x="0.0" y="0.0" width="367" height="1"/>
@@ -88,7 +88,7 @@
                                                 <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="16"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
                                                 <state key="normal" title="Upvote" image="icoUpvoteLine">
-                                                    <color key="titleColor" name="AppBlackColor"/>
+                                                    <color key="titleColor" name="AppWhiteColor"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="btnUpVoteClickedWithSender:" destination="7hh-0L-39t" eventType="touchUpInside" id="vP0-WS-aGJ"/>
@@ -106,7 +106,7 @@
                                                 <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="16"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
                                                 <state key="normal" title="Tip" image="icoUpvoteTip">
-                                                    <color key="titleColor" name="AppBlackColor"/>
+                                                    <color key="titleColor" name="AppWhiteColor"/>
                                                 </state>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sP9-1Q-23G">
@@ -121,7 +121,7 @@
                                                 <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="16"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
                                                 <state key="normal" title="Favourite" image="icoFav">
-                                                    <color key="titleColor" name="AppBlackColor"/>
+                                                    <color key="titleColor" name="AppWhiteColor"/>
                                                 </state>
                                             </button>
                                         </subviews>
@@ -140,7 +140,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" name="AppWhiteColor"/>
+                        <color key="backgroundColor" name="AppTabBarColor"/>
                         <constraints>
                             <constraint firstItem="amt-ep-JZp" firstAttribute="top" secondItem="mVC-8X-pmH" secondAttribute="bottom" constant="20" id="5Qa-FZ-elj"/>
                             <constraint firstItem="mVC-8X-pmH" firstAttribute="top" secondItem="Ogg-2G-vj5" secondAttribute="top" id="CWd-e0-8ru"/>
@@ -178,8 +178,8 @@
         <image name="icoFav" width="20" height="20"/>
         <image name="icoUpvoteLine" width="20" height="20"/>
         <image name="icoUpvoteTip" width="22" height="22"/>
-        <namedColor name="AppBlackColor">
-            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="AppTabBarColor">
+            <color red="0.070588235294117646" green="0.10196078431372549" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppWhiteColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

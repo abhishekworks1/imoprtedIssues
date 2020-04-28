@@ -16,14 +16,14 @@ import ObjectMapper
 public enum ProManagerApi {
     case getSplashImages
     case getViralvids
-    case connectSocial(socialPlatform: String, socialId: String)
+    case connectSocial(socialPlatform: String, socialId: String, socialName: String)
     case logIn(email: String, password: String, deviceToken: String?)
     case confirmEmail(userId: String, email: String)
     case signUp(email: String, password: String, channel: String, refChannel: String, isBusiness: Bool, socialId:String?, provider:String?, channelName: String, refferId: String?, deviceToken: String?, birthDate: String?)
     case socialLogin(socialId: String, email: String?)
     case uploadYoutubeVideo(token: String, videoURL: URL, snippet: [String:Any], status: String)
     case search(channel: String)
-    case verifyChannel(channel: String,type: String)
+    case verifyChannel(channel: String, type: String)
     case getYoutubeCategory(token: String)
     case getyoutubeSubscribedChannel(token: String, forChannelId: String?)
     case youTubeChannelSearch(channelId: String, order: String?, nextPageToken: String?)
@@ -48,11 +48,11 @@ public enum ProManagerApi {
     case getPackage(parentId: String)
     case deleteFromCart(userId: String, individualChannels: String?, packageName: Int, packageChannels: [String]?)
     case getCart(parentId: String)
-    case addPackage(user: String, parentId: String, packageName: String, packageCount: Int, isOwner: Bool, paymentAmount: Int?, paymentResponse: [String : [String : Any]]?)
+    case addPackage(user: String, parentId: String, packageName: String, packageCount: Int, isOwner: Bool, paymentAmount: Int?, paymentResponse: [String: [String: Any]]?)
     case addPayment(userId: String, channelNames: [String]?)
     case checkChannelExists(channelNames: [String])
-    case addToCart(userId:String, packageName:Int,individualChannels:[String]?)
-    case getChannelSuggestion(channelName:String)
+    case addToCart(userId: String, packageName:Int, individualChannels:[String]?)
+    case getChannelSuggestion(channelName: String)
 
     var endpoint: Endpoint {
         var endpointClosure = MoyaProvider<ProManagerApi>.defaultEndpointMapping(for: self)
@@ -137,7 +137,7 @@ extension ProManagerApi: TargetType {
             return Paths.doLogin
         case .writePost:
             return Paths.writePost
-        case .updatePost(let postID ,_, _, _, _, _, _, _, _, _, _, _, _, _, _,_,_,_,_):
+        case .updatePost(let postID,_, _, _, _, _, _, _, _, _, _, _, _, _, _,_,_,_,_):
             return Paths.updatePost + postID
         case .tagUserSearch:
             return Paths.tagUserSearch
@@ -197,7 +197,7 @@ extension ProManagerApi: TargetType {
             return Paths.addToCart
         case .getChannelSuggestion:
             return Paths.getChannelSuggestion
-        case .connectSocial(_, _):
+        case .connectSocial(_, _, _):
             return Paths.connectSocial
         }
        
@@ -208,7 +208,7 @@ extension ProManagerApi: TargetType {
         switch self {
         case .signUp, .logIn, .verifyChannel, .search, .getAccessToken:
             return .post
-        case .getSplashImages, .youTubeKeyWordSerch, .youTubeDetail,.youTubeChannelSearch, .getHashTagSets, .getWeather, .getyoutubeSubscribedChannel, .getYoutubeCategory, .instgramProfile, .instgramProfileDetails, .getLongLivedToken, .getChannelList, .getPackage, .getCart, .getViralvids:
+        case .getSplashImages, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getHashTagSets, .getWeather, .getyoutubeSubscribedChannel, .getYoutubeCategory, .instgramProfile, .instgramProfileDetails, .getLongLivedToken, .getChannelList, .getPackage, .getCart, .getViralvids:
             return .get
         case .updateProfile, .editStory, .updatePost:
             return .put
@@ -230,8 +230,8 @@ extension ProManagerApi: TargetType {
         case .search(let channel):
             param = ["channelName": channel]
         case .confirmEmail(let userId, let email):
-            param = ["userId":userId,"email":email]
-        case .signUp(let email, let password,let channel, let refChannel, let isBusiness, let socialId, let provider, let channelName, let refferId, let deviceToken, let birthDate):
+            param = ["userId": userId, "email":email]
+        case .signUp(let email, let password, let channel, let refChannel, let isBusiness, let socialId, let provider, let channelName, let refferId, let deviceToken, let birthDate):
             param = ["email": email, "password": password, "channelId": channel, "refferingChannel": refChannel, "isBusiness": isBusiness, "channelName": channelName, "deviceType": 1]
             if let rId = refferId {
                 param["refferingId"] = rId
@@ -256,7 +256,7 @@ extension ProManagerApi: TargetType {
         case .getSplashImages:
             break
         case .verifyChannel(let channel, let type):
-            param = ["value": channel,"field": type]
+            param = ["value": channel, "field": type]
         case .logIn(let email, let password, let deviceToken):
             param = ["username": email, "password": password, "deviceType": 1]
             if let deviceToken = deviceToken {
@@ -320,7 +320,7 @@ extension ProManagerApi: TargetType {
                 param["tagChannelAry"] = tagChannelAry
             }
         case .updatePost( _, let type , let text , let ischekedIn , let user , let media , let youTubeData , let wallTheme, let albumId, let checkedIn , let hashTags , let privacy, let friendExcept, let friendsOnly,  _ ,let feelings, let previewUrlData, let removedMedia,let tagArray):
-            param = ["type": type, "text": text ?? "" ,"IschekedIn": ischekedIn ?? false ,"user": user]
+            param = ["type": type, "text": text ?? "", "IschekedIn": ischekedIn ?? false ,"user": user]
             if let tags = tagArray {
                 param["tagChannelAry"] = tags
             }
@@ -462,8 +462,7 @@ extension ProManagerApi: TargetType {
         case .getChannelList:
             break
         case .getPackage(let parentId):
-            param = ["parentId":parentId]
-            break
+            param = ["parentId": parentId]
         case .deleteFromCart(let userId, let individualChannels, let packageName, let packageChannels):
             param = ["userId" : userId, "packageName" :  packageName]
             if let individualChannels = individualChannels {
@@ -477,12 +476,11 @@ extension ProManagerApi: TargetType {
                 param["packageChannels"] = NSNull()
             }
         case .getCart(let parentId):
-            param = ["parentId":parentId]
-            break
+            param = ["parentId": parentId]
         case .addPackage(let user, let parentId, let packageName, let packageCount,let isOwner, let paymentAmount, let paymentResponse):
             param = ["user": user, "parentId": parentId, "packageName": packageName, "packageCount": packageCount, "isOwner": isOwner, "paymentAmount": paymentAmount ?? 0, "paymentResponse": paymentResponse ?? [:]]
         case .addPayment(let userId, let channelNames):
-            param = ["userId" : userId]
+            param = ["userId": userId]
             if let channelNames = channelNames {
                 param["channelNames"] = channelNames
             } else {
@@ -491,16 +489,15 @@ extension ProManagerApi: TargetType {
         case .checkChannelExists(let channelNames):
             param["channelNames"] = channelNames
         case .addToCart(let userId, let packageName,let individualChannels):
-            param = ["userId" : userId,
-                     "packageName" : packageName,
+            param = ["userId": userId,
+                     "packageName": packageName,
                      "individualChannels": individualChannels ?? ""]
         case .getChannelSuggestion(let channelName):
             param["channelName"] = channelName
-            break
-        case .connectSocial(let socialPlatform, let socialId):
-            param = ["socialPlatform" : socialPlatform,
-                     "socialId" : socialId]
-            
+        case .connectSocial(let socialPlatform, let socialId, let socialName):
+            param = ["socialPlatform": socialPlatform,
+                     "socialId": socialId,
+                     "socialUsername": socialName]
         }
         
         return param
@@ -565,6 +562,7 @@ extension ProManagerApi: TargetType {
                 .request(self)
                 .mapObject(T.self)
                 .subscribe(onSuccess: { (object) in
+                    print("Json Response \(String(describing: object.toJSONString()))")
                     observer.onNext(object)
                 }, onError: { (error) in
                     observer.onError(error)
@@ -588,6 +586,7 @@ extension ProManagerApi: TargetType {
                 .request(self)
                 .mapArray(T.self)
                 .subscribe(onSuccess: { (object) in
+                    print("Json Response \(String(describing: object.toJSONString()))")
                     observer.onNext(object)
                 }, onError: { (error) in
                     observer.onError(error)
@@ -636,6 +635,7 @@ extension ProManagerApi: TargetType {
                 .rx
                 .request(self)
                 .subscribe(onSuccess: { (object) in
+                    print("Json Response \(String(describing: try? object.mapJSON()))")
                     observer.onNext(object)
                 }, onError: { (error) in
                     observer.onError(error)
