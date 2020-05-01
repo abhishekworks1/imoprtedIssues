@@ -15,7 +15,7 @@ import ObjectMapper
 
 public enum ProManagerApi {
     case getSplashImages
-    case getViralvids
+    case getViralvids(page: Int, limit: Int)
     case connectSocial(socialPlatform: String, socialId: String, socialName: String)
     case logIn(email: String, password: String, deviceToken: String?)
     case confirmEmail(userId: String, email: String)
@@ -225,12 +225,12 @@ extension ProManagerApi: TargetType {
     public var parameters: [String: Any]? {
         var param = [String: Any]()
         switch self {
-        case .getViralvids:
-            break
+        case .getViralvids(let page, let limit):
+            param = ["page": page, "limit": limit]
         case .search(let channel):
             param = ["channelName": channel]
         case .confirmEmail(let userId, let email):
-            param = ["userId": userId, "email":email]
+            param = ["userId": userId, "email": email]
         case .signUp(let email, let password, let channel, let refChannel, let isBusiness, let socialId, let provider, let channelName, let refferId, let deviceToken, let birthDate):
             param = ["email": email, "password": password, "channelId": channel, "refferingChannel": refChannel, "isBusiness": isBusiness, "channelName": channelName, "deviceType": 1]
             if let rId = refferId {

@@ -57,6 +57,7 @@ def projectShared_pods
     pod 'PayPal-iOS-SDK', '2.18.1'
     pod 'MXPagerView', :git => 'https://github.com/simformsolutions/MXPagerView'
     pod 'MXSegmentedPager', :git => 'https://github.com/simformsolutions/MXSegmentedPager'
+    pod "ESPullToRefresh"
     shared_pods
 end
 

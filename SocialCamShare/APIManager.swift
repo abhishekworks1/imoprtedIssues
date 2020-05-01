@@ -16,7 +16,7 @@ import ObjectMapper
 public enum ProManagerApi {
     case writePost(type: String, user: String, bookmark: [String:Any]?, privacy:String?)
     case createStory(url: String, duration: String, type: String, user: String, thumb: String?)
-    case createViralvids(title: String, image: String?, description: String?, referenceLink: String?, hashtags: [String]?)
+    case createViralvids(title: String, image: String?, description: String?, referenceLink: String?, hashtags: [String]?, socialPlatform: String)
     case getViralvids
     
     var endpoint: Endpoint {
@@ -91,8 +91,8 @@ extension ProManagerApi: TargetType {
             if let thumb = thumb {
                 param["thumb"] = thumb
             }
-        case .createViralvids(title: let title, image: let image, description: let description, referenceLink: let referenceLink, hashtags: let hashtags):
-            param = ["title": title]
+        case .createViralvids(title: let title, image: let image, description: let description, referenceLink: let referenceLink, hashtags: let hashtags, let socialPlatform):
+            param = ["title": title, "socialPlatform": socialPlatform]
             if let image = image {
                 param["image"] = image
             }

@@ -131,14 +131,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="egm-VB-ZFD">
                                 <rect key="frame" x="0.0" y="44" width="414" height="769"/>
                                 <subviews>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6yH-Re-tJj">
-                                        <rect key="frame" x="5" y="0.0" width="400" height="769"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <connections>
-                                            <outlet property="dataSource" destination="Svl-0r-P8L" id="gfR-mc-krd"/>
-                                            <outlet property="delegate" destination="Svl-0r-P8L" id="pco-X0-urX"/>
-                                        </connections>
-                                    </tableView>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="05b-Rc-hNA">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="769"/>
                                         <connections>
@@ -150,18 +142,9 @@
                                 <constraints>
                                     <constraint firstItem="05b-Rc-hNA" firstAttribute="top" secondItem="egm-VB-ZFD" secondAttribute="top" id="MYf-iF-z4b"/>
                                     <constraint firstAttribute="trailing" secondItem="05b-Rc-hNA" secondAttribute="trailing" id="NKR-HX-u95"/>
-                                    <constraint firstItem="6yH-Re-tJj" firstAttribute="leading" secondItem="egm-VB-ZFD" secondAttribute="leading" constant="5" id="OKg-IV-E3V"/>
                                     <constraint firstAttribute="bottom" secondItem="05b-Rc-hNA" secondAttribute="bottom" id="TpC-j2-sVi"/>
-                                    <constraint firstAttribute="bottom" secondItem="6yH-Re-tJj" secondAttribute="bottom" id="md4-Is-rvU"/>
-                                    <constraint firstItem="6yH-Re-tJj" firstAttribute="top" secondItem="egm-VB-ZFD" secondAttribute="top" id="qXL-LQ-hyo"/>
                                     <constraint firstItem="05b-Rc-hNA" firstAttribute="leading" secondItem="egm-VB-ZFD" secondAttribute="leading" id="sT1-Ep-D2W"/>
-                                    <constraint firstAttribute="trailing" secondItem="6yH-Re-tJj" secondAttribute="trailing" id="z4J-oG-C7J"/>
                                 </constraints>
-                                <variation key="default">
-                                    <mask key="subviews">
-                                        <exclude reference="6yH-Re-tJj"/>
-                                    </mask>
-                                </variation>
                             </view>
                         </subviews>
                         <color key="backgroundColor" name="AppPrimaryColor"/>
@@ -174,9 +157,6 @@
                         <viewLayoutGuide key="safeArea" id="Vwd-9N-foQ"/>
                     </view>
                     <navigationItem key="navigationItem" title="Home" id="KnZ-se-gAB"/>
-                    <connections>
-                        <outlet property="tableView" destination="6yH-Re-tJj" id="wFc-nB-EYr"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C7G-EF-6Rb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -188,7 +168,7 @@
                 <viewControllerPlaceholder storyboardName="ViralCamVideos" referencedIdentifier="BaseViralVideoVC" id="PXg-7z-Dpx" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2YE-Eh-2VP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2658" y="-1489"/>
+            <point key="canvasLocation" x="-3226" y="-1529"/>
         </scene>
     </scenes>
     <resources>

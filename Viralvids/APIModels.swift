@@ -16,6 +16,7 @@ class CreatePostViralCam: Codable, Mappable {
     var description: String?
     var hashtags: [String]?
     var image: String?
+    var socialPlatform: String = "other"
     
     var referLink: String? {
         guard let id = self.id else {
@@ -42,6 +43,7 @@ class CreatePostViralCam: Codable, Mappable {
         description <- map["description"]
         hashtags <- map["hashtags"]
         image <- map["image"]
+        socialPlatform <- map["socialPlatform"]
     }
     
 }

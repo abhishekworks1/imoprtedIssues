@@ -43,6 +43,7 @@ class SharePostVC: UIViewController {
     var host: String?
     fileprivate var disposeBag = DisposeBag()
     var linkData: OpenGraph.Data?
+    var socialPlatform: String = R.string.localizable.facebook().lowercased()
     
     // MARK: - View Life cycle methods
     override func viewDidLoad() {
@@ -95,11 +96,23 @@ class SharePostVC: UIViewController {
                 self.linkData = data
                 DispatchQueue.main.async {
                     var json: [String: Any] = ["bookmarkUrl": self.urlString ?? ""]
-                    if data.siteName?.lowercased() == "Tiktok".lowercased() {
+                    if data.siteName?.lowercased() == R.string.localizable.tikTok().lowercased() {
                         self.imgSocialIcon.image = R.image.shareTikTok()
-                    } else if data.siteName?.lowercased() == "Youtube".lowercased() {
+                        self.socialPlatform = R.string.localizable.tikTok().lowercased()
+                    } else if data.siteName?.lowercased() == R.string.localizable.youtube().lowercased() {
                         self.imgSocialIcon.image = R.image.shareYoutube()
+                        self.socialPlatform = R.string.localizable.youtube().lowercased()
+                    } else if data.siteName?.lowercased() == R.string.localizable.twitter().lowercased() {
+                        self.socialPlatform = R.string.localizable.twitter().lowercased()
+                        self.imgSocialIcon.isHidden = true
+                    } else if data.siteName?.lowercased() == R.string.localizable.instagram().lowercased() {
+                        self.socialPlatform = R.string.localizable.instagram().lowercased()
+                        self.imgSocialIcon.isHidden = true
+                    } else if data.siteName?.lowercased() == R.string.localizable.snapchat().lowercased() {
+                        self.socialPlatform = R.string.localizable.snapchat().lowercased()
+                        self.imgSocialIcon.isHidden = true
                     } else {
+                        self.socialPlatform = R.string.localizable.other().lowercased()
                         self.imgSocialIcon.isHidden = true
                     }
                     
@@ -142,7 +155,7 @@ class SharePostVC: UIViewController {
         btnSendPost.startAnimate(spinnerType: SpinnerType.ballClipRotate, spinnercolor: UIColor.white, spinnerSize: 20, complete: {
             
         })
-        ProManagerApi.createViralvids(title: self.linkData?.pageTitle ?? "", image: self.linkData?.imageUrl?.absoluteString, description: self.txtDesc.text, referenceLink: self.linkData?.url?.absoluteString, hashtags: hashTagView.tags).request(Result<CreatePostViralCam>.self).subscribe(onNext: { (response) in
+        ProManagerApi.createViralvids(title: self.linkData?.pageTitle ?? "", image: self.linkData?.imageUrl?.absoluteString, description: self.txtDesc.text, referenceLink: self.linkData?.url?.absoluteString, hashtags: hashTagView.tags, socialPlatform: socialPlatform).request(Result<CreatePostViralCam>.self).subscribe(onNext: { (response) in
             
             Defaults.shared.postViralCamModel = response.result
             

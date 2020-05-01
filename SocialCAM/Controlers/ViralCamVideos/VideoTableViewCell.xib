@@ -35,25 +35,28 @@
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="amt-ep-JZp">
-                                <rect key="frame" x="0.0" y="185" width="367" height="17.5"/>
+                                <rect key="frame" x="0.0" y="185" width="367" height="95.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="WKR-Zj-iw2">
-                                        <rect key="frame" x="10" y="0.0" width="347" height="17.5"/>
+                                        <rect key="frame" x="10" y="0.0" width="347" height="95.5"/>
                                         <subviews>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select your interestsnajdsnbfmbsdf bdsmhgvhcb " lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lyz-cE-NJ5" userLabel="Title Label">
-                                                <rect key="frame" x="0.0" y="0.0" width="347" height="6"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="347" height="24"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="24" id="4dQ-kJ-tpz"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="17"/>
                                                 <color key="textColor" name="AppWhiteColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#music, #love, #nature, #lovesong" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yed-0C-peM" userLabel="Title Label">
-                                                <rect key="frame" x="0.0" y="9" width="347" height="3"/>
+                                                <rect key="frame" x="0.0" y="27" width="347" height="16.5"/>
                                                 <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="14"/>
                                                 <color key="textColor" systemColor="systemGray2Color" red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LY1-Wg-Wyt" userLabel="Title Label">
-                                                <rect key="frame" x="0.0" y="15" width="347" height="2.5"/>
+                                                <rect key="frame" x="0.0" y="46.5" width="347" height="49"/>
                                                 <string key="text">Select your interests hdachjghj cdsnhkcbsfdhjkb fkjsbvk fkv sk k Select your interests hdachjghj cdsnhkcbsfdhjkb fkjsbvk fkv sk k</string>
                                                 <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="14"/>
                                                 <color key="textColor" systemColor="systemGray2Color" red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -71,7 +74,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qbd-AN-sBA">
-                                <rect key="frame" x="0.0" y="222.5" width="367" height="45"/>
+                                <rect key="frame" x="0.0" y="300.5" width="367" height="45"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wo0-4y-nA2">
                                         <rect key="frame" x="0.0" y="0.0" width="367" height="1"/>
@@ -147,7 +150,7 @@
                             <constraint firstAttribute="trailing" secondItem="mVC-8X-pmH" secondAttribute="trailing" id="J78-Jq-Scr"/>
                             <constraint firstItem="mVC-8X-pmH" firstAttribute="leading" secondItem="Ogg-2G-vj5" secondAttribute="leading" id="RrT-Rs-aOR"/>
                             <constraint firstItem="qbd-AN-sBA" firstAttribute="trailing" secondItem="amt-ep-JZp" secondAttribute="trailing" id="T0v-yr-wmK"/>
-                            <constraint firstAttribute="bottom" secondItem="qbd-AN-sBA" secondAttribute="bottom" priority="251" id="V7G-8G-04h"/>
+                            <constraint firstAttribute="bottom" secondItem="qbd-AN-sBA" secondAttribute="bottom" priority="761" id="V7G-8G-04h"/>
                             <constraint firstItem="amt-ep-JZp" firstAttribute="trailing" secondItem="mVC-8X-pmH" secondAttribute="trailing" id="cBy-FA-zVn"/>
                             <constraint firstItem="amt-ep-JZp" firstAttribute="leading" secondItem="mVC-8X-pmH" secondAttribute="leading" id="mTv-6p-NuF"/>
                             <constraint firstItem="qbd-AN-sBA" firstAttribute="top" secondItem="amt-ep-JZp" secondAttribute="bottom" constant="20" id="ujM-Ie-hEa"/>

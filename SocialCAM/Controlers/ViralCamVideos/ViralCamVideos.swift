@@ -8,34 +8,68 @@
 
 import Foundation
 import UIKit
+import ESPullToRefresh
 
 class ViralCamVideos: UIViewController, SegmentTypeController {
     
     var segmentType: TopSegments?
     
     @IBOutlet weak var tableView: UITableView!
-    
+    var videosPageIndex: Int = 0
+    var videosCount: Int = 0
     var videos: [CreatePostViralCam] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(segmentType)
-        getAllVideos()
+        refresh(index: self.videosPageIndex)
         tableView.register(R.nib.videoTableViewCell(), forCellReuseIdentifier: R.reuseIdentifier.videoTableViewCell.identifier)
+        self.tableView.alwaysBounceVertical = true
+        self.tableView.es.addPullToRefresh { [weak self] in
+            guard let `self` = self else {
+                return
+            }
+            self.refresh(index: 0)
+            self.tableView.es.resetNoMoreData()
+            self.tableView.es.stopPullToRefresh(ignoreDate: true, ignoreFooter: false)
+        }
+        self.tableView.es.addInfiniteScrolling { [weak self] in
+            guard let `self` = self else {
+                return
+            }
+            if self.videosCount > self.videos.count {
+                self.videosPageIndex += 1
+                self.refresh(index: self.videosPageIndex)
+            } else {
+                self.tableView?.es.noticeNoMoreData()
+            }
+        }
     }
     
-    func getAllVideos() {
+    func refresh(index: Int) {
+        self.videosPageIndex = index
+        self.getAllVideos(index: self.videosPageIndex)
+    }
+    
+    func getAllVideos(index: Int) {
         let loadingView = LoadingView.instanceFromNib()
         loadingView.loadingViewShow = true
         loadingView.shouldCancelShow = true
         loadingView.show(on: self.view)
-        ProManagerApi.getViralvids.request(ResultArray<CreatePostViralCam>.self).subscribe(onNext: { (response) in
+        ProManagerApi.getViralvids(page: index, limit: 10).request(ResultArray<CreatePostViralCam>.self).subscribe(onNext: { (response) in
             guard let array = response.result else {
                 return
             }
             loadingView.hide()
-            self.videos = array
+            if let videosCount = response.resultCount {
+                self.videosCount = videosCount
+            }
+            if self.videosPageIndex == 0 {
+                self.videos = array
+            } else {
+                self.videos.append(contentsOf: array)
+            }
             self.tableView.reloadData()
+            self.tableView.es.stopLoadingMore()
         }, onError: { error in
             self.dismissHUD()
             print(error)
