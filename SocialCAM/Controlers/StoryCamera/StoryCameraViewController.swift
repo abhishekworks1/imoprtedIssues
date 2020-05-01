@@ -47,6 +47,9 @@ class StoryCameraViewController: UIViewController {
     @IBOutlet weak var timerValueView: UIView!
     @IBOutlet weak var faceFiltersView: UIStackView!
     @IBOutlet weak var sceneFilterView: UIStackView!
+    @IBOutlet weak var muteStackView: UIStackView!
+    @IBOutlet weak var swipeCameraStackView: UIStackView!
+    @IBOutlet weak var galleryStackView: UIStackView!
     @IBOutlet weak var fpsView: UIStackView!
     @IBOutlet weak var showhideView: UIStackView!
     @IBOutlet weak var outtakesView: UIStackView!
@@ -469,6 +472,7 @@ class StoryCameraViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         enableFaceDetectionIfNeeded()
+        swapeControlsIfNeeded()
         UIApplication.shared.isIdleTimerDisabled = true
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.isViewAppear = true
@@ -1099,6 +1103,20 @@ extension StoryCameraViewController {
             metadataObjectTypes.append(AVMetadataObject.ObjectType.face)
         }
         nextLevel.metadataObjectTypes = metadataObjectTypes
+    }
+    
+    func swapeControlsIfNeeded() {
+        if Defaults.shared.swapeContols {
+            galleryStackView.addArrangedSubview(swipeCameraStackView)
+            galleryStackView.addArrangedSubview(muteStackView)
+            sceneFilterView.addArrangedSubview(faceFiltersView)
+            sceneFilterView.addArrangedSubview(outtakesView)
+        } else {
+            sceneFilterView.addArrangedSubview(muteStackView)
+            sceneFilterView.addArrangedSubview(swipeCameraStackView)
+            galleryStackView.addArrangedSubview(outtakesView)
+            galleryStackView.addArrangedSubview(faceFiltersView)
+        }
     }
     
     @objc  func handleFocusTapGestureRecognizer(_ gestureRecognizer: UIGestureRecognizer) {

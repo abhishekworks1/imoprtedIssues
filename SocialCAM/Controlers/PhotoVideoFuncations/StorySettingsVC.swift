@@ -13,6 +13,7 @@ enum SettingsMode: Int {
     case subscriptions = 0
     case socialLogins
     case faceDetection
+    case swapeContols
     case channelManagement
     case socialLogout
     case logout
@@ -83,6 +84,8 @@ class StorySettings {
                                                                       selectedImage: R.image.icoStoriCam())], settingsType: .socialLogins),
                                 StorySettings(name: "",
                                     settings: [StorySetting(name: "Face Detection", selected: false)], settingsType: .faceDetection),
+                                StorySettings(name: "",
+                                              settings: [StorySetting(name: "Change positions of\nMute,switching camera", selected: false)], settingsType: .swapeContols),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.channelManagement(), selected: false)], settingsType: .channelManagement),
                                 StorySettings(name: "",
@@ -169,6 +172,9 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         } else if settingTitle.settingsType == .faceDetection {
             cell.onOffButton.isHidden = false
             cell.onOffButton.isSelected = Defaults.shared.enableFaceDetection
+        } else if settingTitle.settingsType == .swapeContols {
+            cell.onOffButton.isHidden = false
+            cell.onOffButton.isSelected = Defaults.shared.swapeContols
         }
         return cell
     }
@@ -178,7 +184,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             fatalError("StorySettingsHeader Not Found")
         }
         let settingTitle = StorySettings.storySettings[section]
-        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .faceDetection || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video {
+        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .faceDetection || settingTitle.settingsType == .swapeContols || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video {
             headerView.title.isHidden = true
         } else {
             headerView.title.isHidden = false
@@ -189,7 +195,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         let settingTitle = StorySettings.storySettings[section]
-        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .faceDetection || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video {
+        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .faceDetection || settingTitle.settingsType == .swapeContols || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video {
             return 24
         } else {
             return 60
@@ -241,6 +247,9 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             self.enableMode(appMode: AppMode(rawValue: indexPath.row) ?? .free)
         } else if settingTitle.settingsType == .faceDetection {
             Defaults.shared.enableFaceDetection = !Defaults.shared.enableFaceDetection
+            self.settingsTableView.reloadData()
+        } else if settingTitle.settingsType == .swapeContols {
+            Defaults.shared.swapeContols = !Defaults.shared.swapeContols
             self.settingsTableView.reloadData()
         } else if settingTitle.settingsType == .channelManagement {
             let chVc = R.storyboard.preRegistration.channelListViewController()

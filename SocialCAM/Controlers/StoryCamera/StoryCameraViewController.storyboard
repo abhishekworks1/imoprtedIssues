@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="AtK-B9-Jht">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="AtK-B9-Jht">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -1703,11 +1703,13 @@ Countdown</string>
                         <outlet property="flipButton" destination="Pa1-CV-4dq" id="D8T-Ti-v4R"/>
                         <outlet property="flipLabel" destination="9GS-1C-LMf" id="sce-UL-VPv"/>
                         <outlet property="fpsView" destination="pZY-Ca-BLp" id="p5q-FQ-cbH"/>
+                        <outlet property="galleryStackView" destination="Jw3-EJ-0d8" id="ETd-BN-0X8"/>
                         <outlet property="lastCaptureImageView" destination="sJW-lD-5oT" id="ax5-04-9b2"/>
                         <outlet property="lblStoryCount" destination="gtB-xV-Xsk" id="gO2-Td-fGO"/>
                         <outlet property="lblStoryPercentage" destination="ezq-l3-Xmx" id="cjG-iJ-olb"/>
                         <outlet property="muteButton" destination="fTo-5U-EmR" id="hA5-rR-7JN"/>
                         <outlet property="muteLabel" destination="6Za-bh-GFx" id="eks-5Q-E6d"/>
+                        <outlet property="muteStackView" destination="Ufs-oL-mFR" id="XlH-me-asV"/>
                         <outlet property="nextButtonView" destination="Qbg-AX-n5f" id="7Gw-WG-83s"/>
                         <outlet property="outtakesButton" destination="FUv-If-7vP" id="RA5-b7-IkC"/>
                         <outlet property="outtakesView" destination="6aZ-KD-6Tz" id="13v-iw-zwg"/>
@@ -1737,6 +1739,7 @@ Countdown</string>
                         <outlet property="storyUploadImageView" destination="7MJ-mS-33V" id="ITK-Ts-GJ7"/>
                         <outlet property="storyUploadRoundView" destination="MSD-vT-lIi" id="EWM-UU-ct3"/>
                         <outlet property="storyUploadView" destination="nYg-n0-LSZ" id="sR9-uo-3Dg"/>
+                        <outlet property="swipeCameraStackView" destination="pZZ-bn-Erv" id="0TU-3T-tpp"/>
                         <outlet property="timerButton" destination="eWQ-4g-KOj" id="egD-Nt-ihR"/>
                         <outlet property="timerLabel" destination="cBR-b9-DOE" id="Hd2-R7-3y6"/>
                         <outlet property="timerPicker" destination="Byt-R1-vfR" id="q0I-Lf-XbN"/>
@@ -1850,7 +1853,7 @@ Countdown</string>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="q1K-Id-wpK">
-                                                    <rect key="frame" x="15" y="0.0" width="93.333333333333329" height="35"/>
+                                                    <rect key="frame" x="15" y="0.0" width="309" height="35"/>
                                                     <subviews>
                                                         <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3pg-bi-IU9">
                                                             <rect key="frame" x="-35" y="2.6666666666666679" width="35" height="30.000000000000004"/>
@@ -1871,10 +1874,10 @@ Countdown</string>
                                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="isSelectedChange" value="YES"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </button>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Public" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="usu-Hs-5ix">
-                                                            <rect key="frame" x="50" y="0.0" width="43.333333333333343" height="35"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Public" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="usu-Hs-5ix">
+                                                            <rect key="frame" x="50" y="0.0" width="259" height="35"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="height" constant="35" id="ceB-GZ-mrO"/>
+                                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="35" id="ceB-GZ-mrO"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                                             <nil key="textColor"/>
@@ -1883,14 +1886,19 @@ Countdown</string>
                                                     </subviews>
                                                 </stackView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4NA-le-UqP">
-                                                    <rect key="frame" x="339" y="0.0" width="10" height="22"/>
+                                                    <rect key="frame" x="339" y="0.0" width="10" height="32"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="10" id="u93-4D-ERP"/>
+                                                    </constraints>
                                                     <state key="normal" image="storyShowMore"/>
                                                 </button>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="q1K-Id-wpK" secondAttribute="bottom" constant="9" id="LRx-rU-Mvz"/>
                                                 <constraint firstItem="4NA-le-UqP" firstAttribute="top" secondItem="u5h-Xu-o4t" secondAttribute="top" id="P3W-Rj-QIk"/>
                                                 <constraint firstAttribute="trailing" secondItem="4NA-le-UqP" secondAttribute="trailing" constant="10" id="QdX-gk-YD3"/>
                                                 <constraint firstItem="q1K-Id-wpK" firstAttribute="leading" secondItem="u5h-Xu-o4t" secondAttribute="leading" constant="15" id="Vgw-aD-12d"/>
+                                                <constraint firstItem="4NA-le-UqP" firstAttribute="leading" secondItem="q1K-Id-wpK" secondAttribute="trailing" constant="15" id="hEK-HP-kK9"/>
                                                 <constraint firstItem="q1K-Id-wpK" firstAttribute="top" secondItem="u5h-Xu-o4t" secondAttribute="top" id="oen-sK-LsF"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -2536,13 +2544,13 @@ Countdown</string>
                                 <rect key="frame" x="0.0" y="44" width="375" height="734"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="uBF-ue-vDP">
-                                        <rect key="frame" x="104.33333333333333" y="299" width="166.66666666666669" height="136"/>
+                                        <rect key="frame" x="80.666666666666686" y="246" width="214" height="242"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="uploadStory" translatesAutoresizingMaskIntoConstraints="NO" id="SMh-eb-DFO">
-                                                <rect key="frame" x="29.666666666666671" y="0.0" width="107.00000000000001" height="106"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="214" height="212"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" verticalCompressionResistancePriority="753" text="No uploads remaining" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bwk-GS-iZP">
-                                                <rect key="frame" x="0.0" y="116" width="166.66666666666666" height="20"/>
+                                                <rect key="frame" x="23.666666666666657" y="222" width="166.66666666666666" height="20"/>
                                                 <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="17"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -2799,7 +2807,7 @@ Countdown</string>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         </imageView>
                                                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rdm-z7-7BQ" customClass="BottomTransparentGradientView" customModule="SocialCam" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="122.33333333333333" width="173" height="56.666666666666671"/>
+                                                            <rect key="frame" x="0.0" y="121" width="173" height="58"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </view>
                                                         <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ZiJ-SN-qcI">
@@ -2847,21 +2855,21 @@ Countdown</string>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" verticalCompressionResistancePriority="753" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hdt-E7-Mnh">
-                                                    <rect key="frame" x="8" y="122.33333333333333" width="157" height="18.666666666666671"/>
+                                                    <rect key="frame" x="8" y="120.99999999999999" width="157" height="19.333333333333329"/>
                                                     <fontDescription key="fontDescription" name="SFUIText-Bold" family="SF UI Text" pointSize="16"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                     <size key="shadowOffset" width="0.0" height="1"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" verticalCompressionResistancePriority="753" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GJS-gj-DhV">
-                                                    <rect key="frame" x="8" y="143" width="27" height="13"/>
+                                                    <rect key="frame" x="7.9999999999999982" y="142.33333333333334" width="28.333333333333329" height="13.333333333333343"/>
                                                     <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="11"/>
                                                     <color key="textColor" red="0.92941176469999998" green="0.92941176469999998" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <size key="shadowOffset" width="0.0" height="1"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="253" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="753" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9os-Uw-4mg">
-                                                    <rect key="frame" x="8" y="158" width="27" height="13"/>
+                                                    <rect key="frame" x="7.9999999999999982" y="157.66666666666666" width="28.333333333333329" height="13.333333333333343"/>
                                                     <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="11"/>
                                                     <color key="textColor" red="0.92941176469999998" green="0.92941176469999998" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -2921,13 +2929,13 @@ Countdown</string>
                                 <rect key="frame" x="0.0" y="44" width="375" height="734"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="WKl-ia-KGd">
-                                        <rect key="frame" x="104.33333333333333" y="299" width="166.66666666666669" height="136"/>
+                                        <rect key="frame" x="98.333333333333329" y="299" width="178.33333333333337" height="136.33333333333337"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="uploadFeed" translatesAutoresizingMaskIntoConstraints="NO" id="nBl-41-IFE">
-                                                <rect key="frame" x="30.333333333333329" y="0.0" width="105.99999999999999" height="106"/>
+                                                <rect key="frame" x="36.333333333333329" y="0.0" width="105.99999999999999" height="106"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" verticalCompressionResistancePriority="753" text="No uploads remaining" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uja-h9-QRb">
-                                                <rect key="frame" x="0.0" y="116" width="166.66666666666666" height="20"/>
+                                                <rect key="frame" x="0.0" y="116" width="178.33333333333334" height="20.333333333333343"/>
                                                 <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="17"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>

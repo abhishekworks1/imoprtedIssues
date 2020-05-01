@@ -271,6 +271,15 @@ class Defaults {
         }
     }
     
+    var swapeContols: Bool {
+        get {
+            return (appDefaults?.value(forKey: "swapeContols") as? Bool) ?? false
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "swapeContols")
+        }
+    }
+    
     var enableFaceDetection: Bool {
         get {
             return (appDefaults?.value(forKey: "enableFaceDetection") as? Bool) ?? false
