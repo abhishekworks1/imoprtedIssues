@@ -242,6 +242,8 @@ open class SocialShareVideo: NSObject, SharingDelegate {
             snapPhoto.attachmentUrl = Constant.URLs.websiteURL
         case .socialCam:
             snapPhoto.attachmentUrl = Constant.URLs.socialCamWebsiteURL
+        case .tiktokShare:
+            snapPhoto.attachmentUrl = Defaults.shared.postViralCamModel?.referLink
         default:
             break
         }
@@ -256,6 +258,8 @@ open class SocialShareVideo: NSObject, SharingDelegate {
             snapVideo.attachmentUrl = Defaults.shared.currentUser?.viralcamReferralLink ?? Constant.URLs.websiteURL
         case .socialCam:
             snapVideo.attachmentUrl = Constant.URLs.socialCamWebsiteURL
+        case .tiktokShare:
+            snapVideo.attachmentUrl = Defaults.shared.postViralCamModel?.referLink
         default:
             break
         }

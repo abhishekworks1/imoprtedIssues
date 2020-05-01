@@ -170,3 +170,20 @@ class User: Codable, Mappable {
     }
     
 }
+
+class SocialUserConnect: Codable, Mappable {
+    var id: String?
+    var message: String?
+    
+    required init?(map: Map) {
+        
+    }
+    
+    // MARK: - - Mappable Protocol
+    
+    func mapping(map: Map) {
+        id <- map["_id"]
+        message <- map["message"]
+    }
+    
+}

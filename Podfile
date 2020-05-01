@@ -55,6 +55,9 @@ def projectShared_pods
     pod 'JPSVolumeButtonHandler'
     pod 'Pageboy', '~> 3.5'
     pod 'PayPal-iOS-SDK', '2.18.1'
+    pod 'MXPagerView', :git => 'https://github.com/simformsolutions/MXPagerView'
+    pod 'MXSegmentedPager', :git => 'https://github.com/simformsolutions/MXSegmentedPager'
+    pod "ESPullToRefresh"
     shared_pods
 end
 
@@ -78,4 +81,9 @@ end
 
 target 'SocialCamMediaShare' do
   shared_pods
+end
+
+target 'Viralvids' do
+  shared_pods
+  pod "SSSpinnerButton"
 end

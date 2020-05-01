@@ -14,6 +14,7 @@ enum ReferType {
     case none
     case viralCam
     case socialCam
+    case tiktokShare
 }
 
 enum StoryEditorType: Equatable {
@@ -578,11 +579,42 @@ extension StoryEditorView {
         }
     }
     
+    func addTikTokShareViewIfNeeded() {
+        guard Defaults.shared.postViralCamModel != nil,
+            let tiktokShareView = TikTokShareView.instanceFromNib() else {
+                let tiktokShareViews = self.subviews.filter({ return $0 is TikTokShareView })
+                if tiktokShareViews.count > 0 {
+                    (tiktokShareViews[0] as? TikTokShareView)?.onDelete(UIButton())
+                }
+                return
+        }
+        let tiktokShareViews = self.subviews.filter({ return $0 is TikTokShareView })
+        if tiktokShareViews.count > 0 {
+            (tiktokShareViews[0] as? TikTokShareView)?.configureView()
+            return
+        }
+        tiktokShareView.hideDeleteButton = true
+        tiktokShareView.hideSwipeUpView(hide: false)
+        
+        self.addSubview(tiktokShareView)
+        
+        tiktokShareView.translatesAutoresizingMaskIntoConstraints = false
+        
+        tiktokShareView.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: 0).isActive = true
+        tiktokShareView.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 0).isActive = true
+        tiktokShareView.widthAnchor.constraint(equalToConstant: 318).isActive = true
+        
+        addStickerGestures(tiktokShareView)
+        referType = .tiktokShare
+    }
+    
     func addReferLinkView(type: ReferType) {
-        guard referType == .none, let followMeStoryView = FollowMeStoryView.instanceFromNib() as? FollowMeStoryView else {
+        guard (referType == .none || referType == .tiktokShare), let followMeStoryView = FollowMeStoryView.instanceFromNib() as? FollowMeStoryView else {
             referType = type
             return
         }
+        Defaults.shared.postViralCamModel = nil
+        addTikTokShareViewIfNeeded()
         followMeStoryView.didChangeEditing = { [weak self] isEditing in
             guard let `self` = self else {
                 return
@@ -732,6 +764,10 @@ extension StoryEditorView {
             if deleteView?.frame.contains(point) ?? false { // Delete the view
                 view.removeFromSuperview()
                 if view is FollowMeStoryView {
+                    referType = .none
+                }
+                if view is TikTokShareView {
+                    Defaults.shared.postViralCamModel = nil
                     referType = .none
                 }
                 let generator = UINotificationFeedbackGenerator()

@@ -13,10 +13,12 @@ enum SettingsMode: Int {
     case subscriptions = 0
     case socialLogins
     case faceDetection
+    case swapeContols
     case channelManagement
     case socialLogout
     case logout
     case controlcenter
+    case video
     case appInfo
 }
 
@@ -83,6 +85,8 @@ class StorySettings {
                                 StorySettings(name: "",
                                     settings: [StorySetting(name: "Face Detection", selected: false)], settingsType: .faceDetection),
                                 StorySettings(name: "",
+                                              settings: [StorySetting(name: "Change positions of\nMute,switching camera", selected: false)], settingsType: .swapeContols),
+                                StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.channelManagement(), selected: false)], settingsType: .channelManagement),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.socialLogout(), selected: false)], settingsType: .socialLogout),
@@ -90,6 +94,8 @@ class StorySettings {
                                               settings: [StorySetting(name: R.string.localizable.logout(), selected: false)], settingsType: .logout),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.controlCenter(), selected: false)], settingsType: .controlcenter),
+                                StorySettings(name: "",
+                                              settings: [StorySetting(name: R.string.localizable.video(), selected: false)], settingsType: .video),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: "\(Constant.Application.displayName) v \(Constant.Application.appVersion) (Build \(Constant.Application.appBuildNumber))", selected: false)], settingsType: .appInfo)]
 }
@@ -132,7 +138,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         cell.settingsName.text = settings.name
         cell.detailButton.isHidden = true
         cell.settingsName.textColor = R.color.appBlackColor()
-        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo {
+        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video {
             if settingTitle.settingsType == .appInfo {
                 #if DEBUG
                 cell.settingsName.textColor = R.color.appPrimaryColor()
@@ -146,7 +152,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             cell.socialImageView?.image = cell.onOffButton.isSelected ? settings.selectedImage : settings.image
             
             let socialLogin: SocialLogin = SocialLogin(rawValue: indexPath.row) ?? .facebook
-            self.socialLoadProfile(socialLogin: socialLogin) { [weak cell] (userName) in
+            self.socialLoadProfile(socialLogin: socialLogin) { [weak cell] (userName, socialId) in
                 guard let cell = cell else {
                     return
                 }
@@ -166,6 +172,9 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         } else if settingTitle.settingsType == .faceDetection {
             cell.onOffButton.isHidden = false
             cell.onOffButton.isSelected = Defaults.shared.enableFaceDetection
+        } else if settingTitle.settingsType == .swapeContols {
+            cell.onOffButton.isHidden = false
+            cell.onOffButton.isSelected = Defaults.shared.swapeContols
         }
         return cell
     }
@@ -175,7 +184,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             fatalError("StorySettingsHeader Not Found")
         }
         let settingTitle = StorySettings.storySettings[section]
-        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .faceDetection || settingTitle.settingsType == .appInfo {
+        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .faceDetection || settingTitle.settingsType == .swapeContols || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video {
             headerView.title.isHidden = true
         } else {
             headerView.title.isHidden = false
@@ -186,7 +195,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         let settingTitle = StorySettings.storySettings[section]
-        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .faceDetection || settingTitle.settingsType == .appInfo {
+        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .faceDetection || settingTitle.settingsType == .swapeContols || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video {
             return 24
         } else {
             return 60
@@ -202,6 +211,10 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         if settingTitle.settingsType == .controlcenter {
             if let baseUploadVC = R.storyboard.storyCameraViewController.baseUploadVC() {
                 navigationController?.pushViewController(baseUploadVC, animated: true)
+            }
+        } else if settingTitle.settingsType == .video {
+            if let viralCamVideos = R.storyboard.viralCamVideos.viralCamVideos() {
+                navigationController?.pushViewController(viralCamVideos, animated: true)
             }
         } else if settingTitle.settingsType == .logout {
             viralCamLogout()
@@ -220,6 +233,26 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                         Utils.appDelegate?.window?.rootViewController = loginNav
                         return
                     }
+                } else if isLogin {
+                    var socialPlatform: String = "facebook"
+                    switch socialLogin {
+                    case .twitter:
+                        socialPlatform = "twitter"
+                    case .instagram:
+                        socialPlatform = "instagram"
+                    case .snapchat:
+                        socialPlatform = "snapchat"
+                    case .youtube:
+                        socialPlatform = "google"
+                    default:
+                        break
+                    }
+                    self.socialLoadProfile(socialLogin: socialLogin) { [weak self] (socialName, socialId) in
+                        guard let `self` = self else {
+                            return
+                        }
+                        self.connectSocial(socialPlatform: socialPlatform, socialId: socialId ?? "", socialName: socialName ?? "")
+                    }
                 }
                 #endif
                 DispatchQueue.runOnMainThread {
@@ -234,6 +267,9 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             self.enableMode(appMode: AppMode(rawValue: indexPath.row) ?? .free)
         } else if settingTitle.settingsType == .faceDetection {
             Defaults.shared.enableFaceDetection = !Defaults.shared.enableFaceDetection
+            self.settingsTableView.reloadData()
+        } else if settingTitle.settingsType == .swapeContols {
+            Defaults.shared.swapeContols = !Defaults.shared.swapeContols
             self.settingsTableView.reloadData()
         } else if settingTitle.settingsType == .channelManagement {
             let chVc = R.storyboard.preRegistration.channelListViewController()
@@ -265,42 +301,58 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         self.present(objAlert, animated: true, completion: nil)
     }
     
-    func socialLoadProfile(socialLogin: SocialLogin, completion: @escaping (String?) -> ()) {
+    func connectSocial(socialPlatform: String, socialId: String, socialName: String) {
+        self.showHUD()
+        ProManagerApi.connectSocial(socialPlatform: socialPlatform, socialId: socialId, socialName: socialName).request(Result<SocialUserConnect>.self).subscribe(onNext: { (response) in
+            self.dismissHUD()
+            if response.status != ResponseType.success {
+                UIApplication.showAlert(title: Constant.Application.displayName, message: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+            }
+        }, onError: { error in
+            self.dismissHUD()
+            
+            print(error)
+        }, onCompleted: {
+            
+        }).disposed(by: rx.disposeBag)
+    }
+    
+    func socialLoadProfile(socialLogin: SocialLogin, completion: @escaping (String?, String?) -> ()) {
         switch socialLogin {
         case .facebook:
             if FaceBookManager.shared.isUserLogin {
                 FaceBookManager.shared.loadUserData { (userModel) in
-                    completion(userModel?.userName)
+                    completion(userModel?.userName, userModel?.userId)
                 }
             }
         case .twitter:
             if TwitterManger.shared.isUserLogin {
                 TwitterManger.shared.loadUserData { (userModel) in
-                    completion(userModel?.userName)
+                    completion(userModel?.userName, userModel?.userId)
                 }
             }
         case .instagram:
             if InstagramManager.shared.isUserLogin {
-                if let profile = InstagramManager.shared.profileDetails {
-                    completion(profile.username)
+                if let userModel = InstagramManager.shared.profileDetails {
+                    completion(userModel.username, userModel.id)
                 }
             }
         case .snapchat:
             if SnapKitManager.shared.isUserLogin {
                 SnapKitManager.shared.loadUserData { (userModel) in
-                    completion(userModel?.userName)
+                    completion(userModel?.userName, userModel?.userId)
                 }
             }
         case .youtube:
             if GoogleManager.shared.isUserLogin {
                 GoogleManager.shared.loadUserData { (userModel) in
-                    completion(userModel?.userName)
+                    completion(userModel?.userName, userModel?.userId)
                 }
             }
         case .storiCam:
             if StoriCamManager.shared.isUserLogin {
                 StoriCamManager.shared.loadUserData { (userModel) in
-                    completion(userModel?.userName)
+                    completion(userModel?.userName, userModel?.userId)
                 }
             }
         }

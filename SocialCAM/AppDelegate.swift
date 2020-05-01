@@ -50,7 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             } else {
                 fatalError("GoogleService-Info-ViralCam.plist is missing!")
             }
-            StorySettings.storySettings[1].settings.removeLast()
+            StorySettings.storySettings.filter({$0.settingsType == .socialLogins}).first?.settings.removeLast()
             StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
         #endif
         
@@ -188,6 +188,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return true
         } else if FaceBookManager.shared.application(app, open: url, sourceApplication: nil, annotation: [:]) {
             return true
+        } else if let viralcamURL = URL(string: "viralCam://com.simform.viralcam"),
+            viralcamURL == url {
+            var rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
+            if let user = Defaults.shared.currentUser,
+                let _ = Defaults.shared.sessionToken,
+                let channelId = user.channelId,
+                channelId.count > 0 {
+                InternetConnectionAlert.shared.internetConnectionHandler = { reachability in
+                    if reachability.connection != .none {
+                        StoryDataManager.shared.startUpload()
+                        PostDataManager.shared.startUpload()
+                    }
+                }
+            } else {
+                #if VIRALCAMAPP
+                rootViewController = R.storyboard.loginViewController.loginNavigation()
+                #endif
+            }
+            UIApplication.shared.delegate!.window!!.rootViewController = rootViewController
+            return true
         }
         return false
     }
@@ -209,6 +229,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
+        Defaults.shared.postViralCamModel = nil
         IAPManager.shared.stopObserving()
     }
 }

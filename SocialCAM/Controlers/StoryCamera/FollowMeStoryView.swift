@@ -20,6 +20,8 @@ class FollowMeStoryView: UIView {
         }
     }
     
+    var imagePicker = UIImagePickerController()
+
     var didChangeEditing: ((Bool) -> ())?
 
     class func instanceFromNib() -> UIView {
@@ -44,9 +46,46 @@ class FollowMeStoryView: UIView {
     }
     
     @IBAction func onBitEmojiChange(_ sender: UIButton) {
-        bitEmojiChange()
+        openActionSheet()
     }
     
+    func openGallery() {
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            imagePicker.delegate = self
+            imagePicker.sourceType = .photoLibrary
+            imagePicker.allowsEditing = true
+            
+            guard let superView = self.superview else {
+                return
+            }
+            superView.parentViewController?.present(imagePicker, animated: true, completion: nil)
+        }
+    }
+    
+    func openActionSheet() {
+        let actionSheet = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
+        let bitmojiAction = UIAlertAction(title: "Bitmoji", style: .default) { [unowned self] _ in
+            self.bitEmojiChange()
+        }
+        actionSheet.addAction(bitmojiAction)
+        let galleryAction = UIAlertAction(title: "Gallery", style: .default) { [unowned self] _ in
+            self.openGallery()
+        }
+        actionSheet.addAction(galleryAction)
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { [unowned self] _ in
+            guard let superView = self.superview else {
+                return
+            }
+            superView.parentViewController?.dismiss(animated: true, completion: nil)
+        }
+        actionSheet.addAction(cancel)
+        guard let superView = self.superview else {
+            return
+        }
+        
+        superView.parentViewController?.present(actionSheet, animated: true, completion: nil)
+    }
+
     func bitEmojiChange() {
         guard let bitmojiStickerPickerViewController = R.storyboard.storyEditor.bitmojiStickerPickerViewController() else {
             return
@@ -101,4 +140,26 @@ extension FollowMeStoryView: UITextViewDelegate {
         return true
     }
     
+}
+
+extension FollowMeStoryView: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let image = info[.editedImage] as? UIImage else {
+            fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
+        }
+        self.userBitEmoji.image = image
+        guard let superView = self.superview else {
+            return
+        }
+        superView.parentViewController?.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        guard let superView = self.superview else {
+            return
+        }
+        superView.parentViewController?.dismiss(animated: true, completion: nil)
+    }
+
 }

@@ -49,6 +49,9 @@ class ResultArray<T: Mappable>: Mappable {
         if resultCount == nil {
              resultCount <- map["resultCounts"]
         }
+        if resultCount == nil {
+             resultCount <- map["count"]
+        }
     }
 }
 
