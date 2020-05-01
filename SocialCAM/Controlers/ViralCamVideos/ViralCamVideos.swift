@@ -9,25 +9,31 @@
 import Foundation
 import UIKit
 
-class ViralCamVideos: UIViewController {
-   
+class ViralCamVideos: UIViewController, SegmentTypeController {
+    
+    var segmentType: TopSegments?
+    
     @IBOutlet weak var tableView: UITableView!
     
     var videos: [CreatePostViralCam] = []
-      
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(segmentType)
         getAllVideos()
         tableView.register(R.nib.videoTableViewCell(), forCellReuseIdentifier: R.reuseIdentifier.videoTableViewCell.identifier)
     }
     
     func getAllVideos() {
-        self.showHUD()
+        let loadingView = LoadingView.instanceFromNib()
+        loadingView.loadingViewShow = true
+        loadingView.shouldCancelShow = true
+        loadingView.show(on: self.view)
         ProManagerApi.getViralvids.request(ResultArray<CreatePostViralCam>.self).subscribe(onNext: { (response) in
             guard let array = response.result else {
                 return
             }
-            self.dismissHUD()
+            loadingView.hide()
             self.videos = array
             self.tableView.reloadData()
         }, onError: { error in

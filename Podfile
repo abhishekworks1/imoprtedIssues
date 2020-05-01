@@ -55,6 +55,8 @@ def projectShared_pods
     pod 'JPSVolumeButtonHandler'
     pod 'Pageboy', '~> 3.5'
     pod 'PayPal-iOS-SDK', '2.18.1'
+    pod 'MXPagerView', :git => 'https://github.com/simformsolutions/MXPagerView'
+    pod 'MXSegmentedPager', :git => 'https://github.com/simformsolutions/MXSegmentedPager'
     shared_pods
 end
 

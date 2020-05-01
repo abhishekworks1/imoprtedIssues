@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="btp-jk-KCy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="btp-jk-KCy">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -100,10 +100,9 @@
         <!--NavControllerdashBoard-->
         <scene sceneID="5qQ-p2-Ahw">
             <objects>
-                <navigationController storyboardIdentifier="HomeNavigationController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rKa-bF-NkQ" userLabel="NavControllerdashBoard" customClass="HomeNavigationController" customModule="SocialCam" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="HomeNavigationController" useStoryboardIdentifierAsRestorationIdentifier="YES" navigationBarHidden="YES" id="rKa-bF-NkQ" userLabel="NavControllerdashBoard" customClass="HomeNavigationController" customModule="SocialCam" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Home" image="tab1" selectedImage="selectedTab1" id="8KG-Nn-RW3"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="Lcx-za-Chp">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" name="AppSkyBlueColor"/>
                         <textAttributes key="titleTextAttributes">
@@ -126,35 +125,50 @@
             <objects>
                 <viewController storyboardIdentifier="HomeViewController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Svl-0r-P8L" customClass="HomeViewController" customModule="SocialCam" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NWf-p2-kTp">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="egm-VB-ZFD">
-                                <rect key="frame" x="4" y="0.0" width="405" height="725"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6yH-Re-tJj">
-                                        <rect key="frame" x="15" y="15" width="375" height="710"/>
+                                        <rect key="frame" x="5" y="0.0" width="400" height="769"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="dataSource" destination="Svl-0r-P8L" id="gfR-mc-krd"/>
                                             <outlet property="delegate" destination="Svl-0r-P8L" id="pco-X0-urX"/>
                                         </connections>
                                     </tableView>
+                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="05b-Rc-hNA">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="769"/>
+                                        <connections>
+                                            <segue destination="PXg-7z-Dpx" kind="embed" id="CF4-bU-Abd"/>
+                                        </connections>
+                                    </containerView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="6yH-Re-tJj" firstAttribute="leading" secondItem="egm-VB-ZFD" secondAttribute="leading" constant="15" id="OKg-IV-E3V"/>
-                                    <constraint firstItem="6yH-Re-tJj" firstAttribute="top" secondItem="egm-VB-ZFD" secondAttribute="top" constant="15" id="cIM-lB-olt"/>
+                                    <constraint firstItem="05b-Rc-hNA" firstAttribute="top" secondItem="egm-VB-ZFD" secondAttribute="top" id="MYf-iF-z4b"/>
+                                    <constraint firstAttribute="trailing" secondItem="05b-Rc-hNA" secondAttribute="trailing" id="NKR-HX-u95"/>
+                                    <constraint firstItem="6yH-Re-tJj" firstAttribute="leading" secondItem="egm-VB-ZFD" secondAttribute="leading" constant="5" id="OKg-IV-E3V"/>
+                                    <constraint firstAttribute="bottom" secondItem="05b-Rc-hNA" secondAttribute="bottom" id="TpC-j2-sVi"/>
                                     <constraint firstAttribute="bottom" secondItem="6yH-Re-tJj" secondAttribute="bottom" id="md4-Is-rvU"/>
-                                    <constraint firstAttribute="trailing" secondItem="6yH-Re-tJj" secondAttribute="trailing" constant="15" id="z4J-oG-C7J"/>
+                                    <constraint firstItem="6yH-Re-tJj" firstAttribute="top" secondItem="egm-VB-ZFD" secondAttribute="top" id="qXL-LQ-hyo"/>
+                                    <constraint firstItem="05b-Rc-hNA" firstAttribute="leading" secondItem="egm-VB-ZFD" secondAttribute="leading" id="sT1-Ep-D2W"/>
+                                    <constraint firstAttribute="trailing" secondItem="6yH-Re-tJj" secondAttribute="trailing" id="z4J-oG-C7J"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="subviews">
+                                        <exclude reference="6yH-Re-tJj"/>
+                                    </mask>
+                                </variation>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" name="AppBackgroundColor"/>
+                        <color key="backgroundColor" name="AppPrimaryColor"/>
                         <constraints>
-                            <constraint firstItem="Vwd-9N-foQ" firstAttribute="trailing" secondItem="egm-VB-ZFD" secondAttribute="trailing" constant="5" id="3vF-6y-XuK"/>
+                            <constraint firstItem="Vwd-9N-foQ" firstAttribute="trailing" secondItem="egm-VB-ZFD" secondAttribute="trailing" id="3vF-6y-XuK"/>
                             <constraint firstItem="Vwd-9N-foQ" firstAttribute="bottom" secondItem="egm-VB-ZFD" secondAttribute="bottom" id="5U1-lK-mhG"/>
-                            <constraint firstItem="egm-VB-ZFD" firstAttribute="leading" secondItem="Vwd-9N-foQ" secondAttribute="leading" constant="4" id="GdB-4B-UeP"/>
+                            <constraint firstItem="egm-VB-ZFD" firstAttribute="leading" secondItem="Vwd-9N-foQ" secondAttribute="leading" id="GdB-4B-UeP"/>
                             <constraint firstItem="egm-VB-ZFD" firstAttribute="top" secondItem="Vwd-9N-foQ" secondAttribute="top" id="HJU-k6-xAY"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Vwd-9N-foQ"/>
@@ -168,6 +182,14 @@
             </objects>
             <point key="canvasLocation" x="-3226" y="-1951"/>
         </scene>
+        <!--BaseViralVideoVC-->
+        <scene sceneID="nDg-jo-2hE">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ViralCamVideos" referencedIdentifier="BaseViralVideoVC" id="PXg-7z-Dpx" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2YE-Eh-2VP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2658" y="-1489"/>
+        </scene>
     </scenes>
     <resources>
         <image name="selectedTab1" width="21" height="24"/>
@@ -178,14 +200,14 @@
         <image name="tab2" width="19" height="22"/>
         <image name="tab4" width="26" height="24"/>
         <image name="tab5" width="25" height="25"/>
-        <namedColor name="AppBackgroundColor">
-            <color red="0.10999999940395355" green="0.15299999713897705" blue="0.23899999260902405" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="AppSkyBlueColor">
+        <namedColor name="AppPrimaryColor">
             <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <namedColor name="AppSkyBlueColor">
+            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="AppTabBarColor">
-            <color red="0.071000002324581146" green="0.10199999809265137" blue="0.18799999356269836" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.070588235294117646" green="0.10196078431372549" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppWhiteColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

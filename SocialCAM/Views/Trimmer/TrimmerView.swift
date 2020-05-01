@@ -197,7 +197,7 @@ open class TrimmerView: UIView {
     }()
     
     public var cutView: UIView = {
-        let cutView = UIImageView.init(image: UIImage.init(named: "cut"))
+        let cutView = UIImageView.init(image: R.image.icoTrimCutter())
         cutView.frame = .zero
         cutView.translatesAutoresizingMaskIntoConstraints = false
         cutView.isUserInteractionEnabled = true
@@ -387,7 +387,7 @@ open class TrimmerView: UIView {
         cutViewHeightAnchor = cutView.heightAnchor
             .constraint(equalToConstant: 23)
         cutViewTopAnchor = cutView.topAnchor
-            .constraint(equalTo: topAnchor, constant: -15)
+            .constraint(equalTo: topAnchor, constant: -18)
         cutViewLeadingAnchor = cutView.leadingAnchor
             .constraint(equalTo: leftDraggableView.trailingAnchor, constant: 0)
         
@@ -488,8 +488,6 @@ open class TrimmerView: UIView {
                 cutViewTopAnchor,
                 cutViewLeadingAnchor
                 ])
-            
-            cutView.isHidden = true
         } else {
             timePointerView.removeFromSuperview()
             
