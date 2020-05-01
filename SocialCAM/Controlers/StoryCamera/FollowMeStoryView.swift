@@ -149,7 +149,18 @@ extension FollowMeStoryView: UIImagePickerControllerDelegate, UINavigationContro
             fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
         }
         self.userBitEmoji.image = image
+        guard let superView = self.superview else {
+            return
+        }
+        superView.parentViewController?.dismiss(animated: true, completion: nil)
     }
     
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        guard let superView = self.superview else {
+            return
+        }
+        superView.parentViewController?.dismiss(animated: true, completion: nil)
+    }
+
 }
 
