@@ -30,25 +30,27 @@ class YouTubeViewController: MXSegmentedPagerController {
     override func viewDidLoad() {
         super.viewDidLoad()
         segmentedPager.backgroundColor = ApplicationSettings.appLightWhiteColor
-        // Parallax Header
         segmentedPager.segmentedControlEdgeInsets =  UIEdgeInsets(top: 0, left: 7, bottom: 0, right: 7)
         segmentedPager.parallaxHeader.view = headerView
         segmentedPager.parallaxHeader.mode = .fill
         segmentedPager.parallaxHeader.height = 155
         segmentedPager.parallaxHeader.minimumHeight = 44
         segmentedPager.bounces = false
-        segmentedPager.segmentedControl.selectionIndicatorLocation = .down
+        segmentedPager.pager.isScrollEnabled = false
+        segmentedPager.pager.transitionStyle = .tab
         segmentedPager.segmentedControl.backgroundColor = ApplicationSettings.appLightWhiteColor
+        segmentedPager.segmentedControl.borderColor = ApplicationSettings.appLightWhiteColor
+        segmentedPager.segmentedControl.borderWidth = 1
+        
+        // Segmented Control customization
         segmentedPager.segmentedControl.titleTextAttributes = [NSAttributedString.Key.foregroundColor: ApplicationSettings.appBlackColor, NSAttributedString.Key.font: R.font.sfuiTextMedium(size: 12)!]
         segmentedPager.segmentedControl.selectedTitleTextAttributes = [NSAttributedString.Key.foregroundColor: ApplicationSettings.appPrimaryColor, NSAttributedString.Key.font: R.font.sfuiTextMedium(size: 12)!]
         segmentedPager.segmentedControl.selectionStyle = .fullWidthStripe
         segmentedPager.segmentedControl.selectionIndicatorColor = ApplicationSettings.appPrimaryColor
         segmentedPager.segmentedControl.borderType = .bottom
-        segmentedPager.segmentedControl.borderColor = ApplicationSettings.appLightWhiteColor
-        segmentedPager.segmentedControl.borderWidth = 1
+        segmentedPager.segmentedControl.selectionIndicatorLocation = .down
         segmentedPager.segmentedControl.selectionIndicatorHeight = 1
-        segmentedPager.pager.isScrollEnabled = false
-        segmentedPager.pager.transitionStyle = .tab
+        
         textObservable = (self.txtField?.rx.text.orEmpty.throttle(0.5, scheduler: MainScheduler.instance).distinctUntilChanged())!
         self.getSubscribeChannels()
     }

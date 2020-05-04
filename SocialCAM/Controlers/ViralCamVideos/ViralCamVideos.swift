@@ -55,7 +55,7 @@ class ViralCamVideos: UIViewController, SegmentTypeController {
         loadingView.loadingViewShow = true
         loadingView.shouldCancelShow = true
         loadingView.show(on: self.view)
-        ProManagerApi.getViralvids(page: index, limit: 10, socialPlatform: self.segmentType?.rawValue).request(ResultArray<CreatePostViralCam>.self).subscribe(onNext: { (response) in
+        ProManagerApi.getViralvids(page: index, limit: 10, socialPlatform: self.segmentType?.rawValue.lowercased()).request(ResultArray<CreatePostViralCam>.self).subscribe(onNext: { (response) in
             guard let array = response.result else {
                 return
             }

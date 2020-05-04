@@ -32,7 +32,6 @@ def projectShared_pods
     pod 'IQKeyboardManagerSwift', '6.5.5'
     pod 'FSPagerView', '0.8.2'
     pod 'NVActivityIndicatorView', '4.6.1'
-    pod 'MXSegmentedPager', :git => 'https://github.com/simformsolutions/MXSegmentedPager'
     pod 'Tiercel', '3.2.0'
     pod 'SkyFloatingLabelTextField', '3.7.0'
     pod 'FontAwesome.swift', '1.5.0'

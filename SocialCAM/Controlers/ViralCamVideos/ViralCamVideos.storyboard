@@ -131,10 +131,10 @@
                     <connections>
                         <outlet property="headerView" destination="eHU-sk-elE" id="czh-4H-Who"/>
                         <segue destination="8i0-rN-rFI" kind="custom" identifier="mx_page_0" customClass="MXPageSegue" id="gwf-a3-bh4"/>
-                        <segue destination="w6Z-n8-Oxs" kind="custom" identifier="mx_page_1" customClass="MXPageSegue" id="iFl-jL-D3N"/>
-                        <segue destination="gfU-fk-8Hk" kind="custom" identifier="mx_page_2" customClass="MXPageSegue" id="TJb-Hi-NQu"/>
-                        <segue destination="184-xu-Tb4" kind="custom" identifier="mx_page_3" customClass="MXPageSegue" id="fl1-pc-DjI"/>
-                        <segue destination="fMz-5e-V4Y" kind="custom" identifier="mx_page_4" customClass="MXPageSegue" id="ndC-uI-Pbw"/>
+                        <segue destination="8i0-rN-rFI" kind="custom" identifier="mx_page_1" customClass="MXPageSegue" id="kEk-vE-pxl"/>
+                        <segue destination="8i0-rN-rFI" kind="custom" identifier="mx_page_2" customClass="MXPageSegue" id="ucU-FB-mPt"/>
+                        <segue destination="8i0-rN-rFI" kind="custom" identifier="mx_page_3" customClass="MXPageSegue" id="71j-IK-eHo"/>
+                        <segue destination="8i0-rN-rFI" kind="custom" identifier="mx_page_4" customClass="MXPageSegue" id="u8f-fC-fmh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6n2-Ya-drm" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -173,66 +173,6 @@
             </objects>
             <point key="canvasLocation" x="-3945" y="-1951"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="7Wq-iu-OZR">
-            <objects>
-                <viewController id="w6Z-n8-Oxs" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="P53-Du-rVT">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="6bb-Eg-J5a"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="P3U-EH-vCA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-4065" y="-1202"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="AqU-5N-bAY">
-            <objects>
-                <viewController id="gfU-fk-8Hk" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="gVG-yl-Al3">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="Dg5-QY-u7u"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6DM-kD-rdk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-3271" y="-1213"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="Ftd-as-HYg">
-            <objects>
-                <viewController id="184-xu-Tb4" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="30B-OB-D9m">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="l0D-QN-qkU"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Aii-Cy-dq2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2546" y="-1213"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="dfD-YW-IqH">
-            <objects>
-                <viewController id="fMz-5e-V4Y" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="sGs-zc-2NJ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="IlX-Zp-yJs"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Zps-cU-Rmt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1830" y="-1202"/>
-        </scene>
     </scenes>
     <resources>
         <image name="icoClose" width="17" height="16"/>
@@ -245,4 +185,7 @@
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="71j-IK-eHo"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -375,7 +375,7 @@ extension LoginViewController: UITextFieldDelegate {
 extension LoginViewController: InstagramLoginViewControllerDelegate, ProfileDelegate {
     
     func profileDidLoad(profile: ProfileDetailsResponse) {
-        self.loginSocial(fname: profile.username ?? "", email: "", socialId: profile.id ?? "", provider: "IG", profileImageURL: nil, bannerImageURL: nil)
+        self.loginSocial(fname: profile.username ?? "", email: "", socialId: profile.id ?? "", provider: "instagram", profileImageURL: nil, bannerImageURL: nil)
     }
     
     func profileLoadFailed(error: Error) {

@@ -23,28 +23,27 @@ class BaseUploadVC: MXSegmentedPagerController {
     override func viewDidLoad() {
         super.viewDidLoad()
         segmentedPager.backgroundColor = ApplicationSettings.appLightWhiteColor
-        // Parallax Header
-        
-        segmentedPager.segmentedControl.type = .text
         segmentedPager.segmentedControlEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        
+        segmentedPager.segmentedControl.borderColor = ApplicationSettings.appLightWhiteColor
+        segmentedPager.segmentedControl.borderWidth = 1
         segmentedPager.parallaxHeader.view = headerView
         segmentedPager.parallaxHeader.mode = .fill
         segmentedPager.parallaxHeader.height = 44
         segmentedPager.parallaxHeader.minimumHeight = 44
+        segmentedPager.pager.bounces = false
+        segmentedPager.bounces = false
+        segmentedPager.segmentedControl.backgroundColor = ApplicationSettings.appWhiteColor
+        
         // Segmented Control customization
         segmentedPager.segmentedControl.selectionIndicatorLocation = .down
-        segmentedPager.segmentedControl.backgroundColor = ApplicationSettings.appWhiteColor
         segmentedPager.segmentedControl.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.gray85, NSAttributedString.Key.font: UIFont.sfuiTextRegular as Any]
         segmentedPager.segmentedControl.selectedTitleTextAttributes = [NSAttributedString.Key.foregroundColor: ApplicationSettings.appPrimaryColor, NSAttributedString.Key.font: UIFont.sfuiTextRegular as Any]
         segmentedPager.segmentedControl.selectionStyle = .fullWidthStripe
         segmentedPager.segmentedControl.selectionIndicatorColor = ApplicationSettings.appPrimaryColor
         segmentedPager.segmentedControl.borderType = .bottom
-        segmentedPager.segmentedControl.borderColor = ApplicationSettings.appLightWhiteColor
-        segmentedPager.segmentedControl.borderWidth = 1
+        segmentedPager.segmentedControl.type = .text
         segmentedPager.segmentedControl.selectionIndicatorHeight = 2
-        segmentedPager.pager.bounces = false
-        segmentedPager.bounces = false
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

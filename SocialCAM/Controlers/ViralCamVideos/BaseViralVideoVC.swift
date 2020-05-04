@@ -48,7 +48,12 @@ protocol ViralCamVideosDelegate: class {
 class BaseViralVideoVC: MXSegmentedPagerController {
     
     @IBOutlet weak var headerView: UIView!
-    var pageDelegate: ViralCamVideosDelegate?
+    weak var pageDelegate: ViralCamVideosDelegate?
+    var viralCamVideosVC: ViralCamVideos!
+    var viralCamVideosVC1: ViralCamVideos!
+    var viralCamVideosVC2: ViralCamVideos!
+    var viralCamVideosVC3: ViralCamVideos!
+    var viralCamVideosVC4: ViralCamVideos!
     
     var segmentStrings: [TopSegments] = TopSegments.allValues
     var firstModalPersiontage: Double = 0.0
@@ -61,16 +66,18 @@ class BaseViralVideoVC: MXSegmentedPagerController {
     override func viewDidLoad() {
         super.viewDidLoad()
         segmentedPager.backgroundColor = ApplicationSettings.appPrimaryColor
-        // Parallax Header
-        
-        segmentedPager.segmentedControl.type = .text
         segmentedPager.segmentedControlEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
-        
+        segmentedPager.segmentedControl.borderColor = ApplicationSettings.appClearColor
+        segmentedPager.segmentedControl.borderWidth = 2
         segmentedPager.parallaxHeader.view = headerView
         segmentedPager.parallaxHeader.mode = .fill
         segmentedPager.parallaxHeader.height = 0
         segmentedPager.parallaxHeader.minimumHeight = 0
+        segmentedPager.pager.bounces = false
+        segmentedPager.bounces = false
+        
         // Segmented Control customization
+        segmentedPager.segmentedControl.type = .text
         segmentedPager.segmentedControl.selectionIndicatorLocation = .down
         segmentedPager.segmentedControl.backgroundColor = ApplicationSettings.appPrimaryColor
         segmentedPager.segmentedControl.titleTextAttributes = [NSAttributedString.Key.foregroundColor: ApplicationSettings.appLightWhiteColor.withAlphaComponent(0.5), NSAttributedString.Key.font: UIFont.sfuiTextRegular14 as Any]
@@ -78,23 +85,32 @@ class BaseViralVideoVC: MXSegmentedPagerController {
         segmentedPager.segmentedControl.selectionStyle = .textWidthStripe
         segmentedPager.segmentedControl.selectionIndicatorColor = ApplicationSettings.appWhiteColor
         segmentedPager.segmentedControl.borderType = .bottom
-        segmentedPager.segmentedControl.borderColor = ApplicationSettings.appClearColor
-        segmentedPager.segmentedControl.borderWidth = 2
         segmentedPager.segmentedControl.selectionIndicatorHeight = 2.5
-        segmentedPager.pager.bounces = false
-        segmentedPager.bounces = false
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        segmentedPager.reloadData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "mx_page_0" {
-//            if let viralCamVideosVC = R.storyboard.viralCamVideos.viralCamVideos() {
-//                viralCamVideosVC.segmentType = .facebook
-//            }
-//        } else if segue.identifier == "mx_page_2" {
-//            if let viralCamVideosVC = R.storyboard.viralCamVideos.viralCamVideos() {
-//                viralCamVideosVC.segmentType = .tiktok
-//            }
-//        }
+        if segue.identifier == "mx_page_0" {
+            viralCamVideosVC = segue.destination as? ViralCamVideos
+            viralCamVideosVC.segmentType = .facebook
+        } else if segue.identifier == "mx_page_1" {
+            viralCamVideosVC1 = segue.destination as? ViralCamVideos
+            viralCamVideosVC1.segmentType = .google
+        } else if segue.identifier == "mx_page_2" {
+            viralCamVideosVC2 = segue.destination as? ViralCamVideos
+            viralCamVideosVC2.segmentType = .tiktok
+        } else if segue.identifier == "mx_page_3" {
+            viralCamVideosVC3 = segue.destination as? ViralCamVideos
+            viralCamVideosVC3.segmentType = .instagram
+        } else if segue.identifier == "mx_page_4" {
+            viralCamVideosVC4 = segue.destination as? ViralCamVideos
+            viralCamVideosVC4.segmentType = .snapchat
+        }
     }
     
     @IBAction func onBack(_ sender: Any) {
@@ -103,18 +119,6 @@ class BaseViralVideoVC: MXSegmentedPagerController {
     
     @IBAction func onRestartUploadClick(_ sender: Any) {
        
-    }
-    
-    override func segmentedPager(_ segmentedPager: MXSegmentedPager, viewControllerForPageAt index: Int) -> UIViewController {
-        if let viralCamVideosVC = R.storyboard.viralCamVideos.viralCamVideos(), index == 0 {
-            //viralCamVideosVC.segmentType = .facebook
-            return viralCamVideosVC
-        }
-        if let viralCamVideosVC = R.storyboard.viralCamVideos.viralCamVideos(), index == 3 {
-            //viralCamVideosVC.segmentType = .tiktok
-            return viralCamVideosVC
-        }
-        return UIViewController()
     }
     
     override func segmentedPager(_ segmentedPager: MXSegmentedPager, titleForSectionAt index: Int) -> String {
