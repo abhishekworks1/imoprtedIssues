@@ -97,8 +97,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func configurePayPalMobile() {
-        PayPalMobile.initializeWithClientIds(forEnvironments: [PayPalEnvironmentProduction: Constant.PayPalMobile.productionKey,
-                                                               PayPalEnvironmentSandbox: Constant.PayPalMobile.sandboxKey])
+//        PayPalMobile.initializeWithClientIds(forEnvironments: [PayPalEnvironmentProduction: Constant.PayPalMobile.productionKey,
+//                                                               PayPalEnvironmentSandbox: Constant.PayPalMobile.sandboxKey])
     }
     
     func configureAppTheme() {

@@ -78,7 +78,7 @@ class TikTokShareView: UIView {
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
             imagePicker.delegate = self
             imagePicker.sourceType = .photoLibrary
-            imagePicker.allowsEditing = false
+            imagePicker.allowsEditing = true
 
             guard let superView = self.superview else {
                 return
@@ -97,7 +97,7 @@ class TikTokShareView: UIView {
             self.openGallery()
         }
         actionSheet.addAction(galleryAction)
-        let cancel = UIAlertAction(title: "Cancel", style: .default) { [unowned self] _ in
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { [unowned self] _ in
             guard let superView = self.superview else {
                 return
             }

@@ -12,7 +12,5 @@
 #import "RKTagsView.h"
 #import "DNDDragAndDrop.h"
 #import "UIView+YGPulseView.h"
-#import "PayPalMobile.h"
-#import "CardIO.h"
 
 #endif /* SocialCAM_Bridging_Header_h */

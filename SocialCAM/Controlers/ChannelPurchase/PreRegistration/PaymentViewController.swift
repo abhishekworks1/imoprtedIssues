@@ -15,28 +15,14 @@ class PaymentViewController: UIViewController {
     // MARK:-- Variables
     var numberOfChannels : Int = 0
     var price : Int = 0
-    var payPalConfig = PayPalConfiguration()
     var sizeOfPackage : Int = 0
     var packageName: String = ""
     var total : NSDecimalNumber = 0.0
-    var items : [PayPalItem] = []
     var isPaymentDone : Bool = false
     var noOfChannels : Int = 0
     var isPackageForSelf: Bool = true
     var userId: String = ""
-    var environment:String = PayPalEnvironmentSandbox {
-        willSet(newEnvironment) {
-            if (newEnvironment != environment) {
-                PayPalMobile.preconnect(withEnvironment: newEnvironment)
-            }
-        }
-    }
     var paymentResponse : [String : [String : Any]] = [:]
-    var acceptCreditCards: Bool = true {
-        didSet {
-            payPalConfig.acceptCreditCards = acceptCreditCards
-        }
-    }
     var paymentMethodArray : [String] = ["In-App Purchase"] // ["Secure Card Payment","Paypal","Bitcoin"]
     var imgArray : [UIImage] = [#imageLiteral(resourceName: "visa"),#imageLiteral(resourceName: "paypal_copy"),#imageLiteral(resourceName: "bitcoin")]
     var packagesForOthers: Int = 0
@@ -82,26 +68,6 @@ class PaymentViewController: UIViewController {
                 }
             }
         }
-        return
-            
-        payNowBtn.isEnabled = false
-        let item1 = PayPalItem(name: "Chnanels Combo", withQuantity: 1, withPrice: NSDecimalNumber(string: String(price)), withCurrency: "USD", withSku: "Hip-00066")
-        items = [item1]
-        
-        let subtotal = PayPalItem.totalPrice(forItems: items)
-        let shipping = NSDecimalNumber(string: "0")
-        let tax = NSDecimalNumber(string: "0")
-        let paymentDetails = PayPalPaymentDetails(subtotal: subtotal, withShipping: shipping, withTax: tax)
-        total = subtotal.adding(shipping).adding(tax)
-        let payment = PayPalPayment(amount: total, currencyCode: "USD", shortDescription: "StoriCam", intent: .sale)
-        payment.items = items
-        payment.paymentDetails = paymentDetails
-        if (payment.processable) {
-            let paymentViewController = PayPalPaymentViewController(payment: payment, configuration: payPalConfig, delegate: self)
-            present(paymentViewController!, animated: true, completion: nil)
-        } else {
-            print("Payment not processalbe: \(payment)")
-        }
     }
     
     // MARK: -- View Did Load
@@ -109,14 +75,6 @@ class PaymentViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.tabBar.isHidden = true
-        payPalConfig.acceptCreditCards = acceptCreditCards;
-        payPalConfig.merchantName = "Simform Solutions"
-        payPalConfig.merchantPrivacyPolicyURL = NSURL(string: "https://www.paypal.com/webapps/mpp/ua/privacy-full") as URL?
-        payPalConfig.merchantUserAgreementURL = NSURL(string: "https://www.paypal.com/webapps/mpp/ua/privacy-full") as URL?
-        payPalConfig.languageOrLocale = NSLocale.preferredLanguages[0]
-        payPalConfig.payPalShippingAddressOption = .payPal;
-        PayPalMobile.preconnect(withEnvironment: environment)
-        CardIOUtilities.preload()
         if isFromPreRegistration {
             self.userId = self.parentId
         }
@@ -136,14 +94,8 @@ class PaymentViewController: UIViewController {
         }
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
-        PayPalMobile.preconnect(withEnvironment: environment)
         payNowBtn.isEnabled = true
-        
     }
     
     // MARK: -- Functions
@@ -181,40 +133,7 @@ extension PaymentViewController : UITableViewDataSource , UITableViewDelegate {
 }
 
 // MARK: -- PayPal Delegate Methods
-extension PaymentViewController : PayPalPaymentDelegate {
-    
-    func payPalPaymentDidCancel(_ paymentViewController: PayPalPaymentViewController) {
-        paymentViewController.dismiss(animated: true, completion: nil)
-    }
-    
-    func payPalPaymentViewController(_ paymentViewController: PayPalPaymentViewController, didComplete completedPayment: PayPalPayment) {
-        self.activityIndicator.startAnimating()
-        paymentViewController.dismiss(animated: true, completion: { () -> Void in
-            let paymentResultDic = completedPayment.confirmation as NSDictionary
-            let dicResponse: AnyObject? = paymentResultDic.object(forKey: "response") as AnyObject?
-            let clientResponse : AnyObject? = paymentResultDic.object(forKey: "client") as AnyObject?
-           
-            self.paymentResponse["nameValuePairs"] = [
-                    "response_type" : "payment",
-                    "response" : [
-                        "nameValuePairs" : [
-                            "state" : "approved",
-                            "intent" : "sale",
-                            "id" : (dicResponse!["id"] as? String)!,
-                            "create_time" : (dicResponse!["create_time"] as? String)!
-                        ]
-                    ],
-                    "client" : [
-                        "nameValuePairs" : [
-                            "product_name" : (clientResponse!["product_name"] as? String)!,
-                            "platform" : "iOS",
-                            "paypal_sdk_version" : (clientResponse!["paypal_sdk_version"] as? String)!,
-                            "environment" : "sandbox"
-                        ]]]
-          
-            self.addPackage()
-        })
-    }
+extension PaymentViewController {
     
     func addPackage() {
         ChannelManagment.instance.addPackage(user: self.userId, parentId: self.parentId, packageName: self.packageName, packageCount: self.numberOfChannels, isOwner: self.isPackageForSelf, paymentAmount: self.price, paymentResponse: self.paymentResponse, { (success) in
