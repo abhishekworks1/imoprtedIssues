@@ -95,8 +95,6 @@ class StorySettings {
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.controlCenter(), selected: false)], settingsType: .controlcenter),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.video(), selected: false)], settingsType: .video),
-                                StorySettings(name: "",
                                               settings: [StorySetting(name: "\(Constant.Application.displayName) v \(Constant.Application.appVersion) (Build \(Constant.Application.appBuildNumber))", selected: false)], settingsType: .appInfo)]
 }
 

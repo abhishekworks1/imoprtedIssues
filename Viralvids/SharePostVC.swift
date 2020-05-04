@@ -101,7 +101,7 @@ class SharePostVC: UIViewController {
                         self.socialPlatform = R.string.localizable.tikTok().lowercased()
                     } else if data.siteName?.lowercased() == R.string.localizable.youtube().lowercased() {
                         self.imgSocialIcon.image = R.image.shareYoutube()
-                        self.socialPlatform = R.string.localizable.youtube().lowercased()
+                        self.socialPlatform = R.string.localizable.google().lowercased()
                     } else if data.siteName?.lowercased() == R.string.localizable.twitter().lowercased() {
                         self.socialPlatform = R.string.localizable.twitter().lowercased()
                         self.imgSocialIcon.isHidden = true

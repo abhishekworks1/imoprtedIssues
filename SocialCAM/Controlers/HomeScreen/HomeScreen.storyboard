@@ -133,9 +133,6 @@
                                 <subviews>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="05b-Rc-hNA">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="769"/>
-                                        <connections>
-                                            <segue destination="PXg-7z-Dpx" kind="embed" id="CF4-bU-Abd"/>
-                                        </connections>
                                     </containerView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -145,6 +142,11 @@
                                     <constraint firstAttribute="bottom" secondItem="05b-Rc-hNA" secondAttribute="bottom" id="TpC-j2-sVi"/>
                                     <constraint firstItem="05b-Rc-hNA" firstAttribute="leading" secondItem="egm-VB-ZFD" secondAttribute="leading" id="sT1-Ep-D2W"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="subviews">
+                                        <exclude reference="05b-Rc-hNA"/>
+                                    </mask>
+                                </variation>
                             </view>
                         </subviews>
                         <color key="backgroundColor" name="AppPrimaryColor"/>
@@ -157,6 +159,10 @@
                         <viewLayoutGuide key="safeArea" id="Vwd-9N-foQ"/>
                     </view>
                     <navigationItem key="navigationItem" title="Home" id="KnZ-se-gAB"/>
+                    <connections>
+                        <segue destination="PXg-7z-Dpx" kind="custom" identifier="mx_page_0" customClass="MXPageSegue" id="Rri-oP-iI9"/>
+                        <segue destination="fQG-a8-PVj" kind="custom" identifier="mx_page_1" customClass="MXPageSegue" id="yci-oz-zgU"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C7G-EF-6Rb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -168,7 +174,22 @@
                 <viewControllerPlaceholder storyboardName="ViralCamVideos" referencedIdentifier="BaseViralVideoVC" id="PXg-7z-Dpx" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2YE-Eh-2VP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3226" y="-1529"/>
+            <point key="canvasLocation" x="-3575" y="-1481"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="qY9-ht-aeg">
+            <objects>
+                <viewController id="fQG-a8-PVj" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="6Px-WY-RRy">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="WrV-j4-guO"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aJI-pF-ZCj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2971" y="-1163"/>
         </scene>
     </scenes>
     <resources>
@@ -184,10 +205,10 @@
             <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppSkyBlueColor">
-            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppTabBarColor">
-            <color red="0.070588235294117646" green="0.10196078431372549" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.071000002324581146" green="0.10199999809265137" blue="0.18799999356269836" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppWhiteColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

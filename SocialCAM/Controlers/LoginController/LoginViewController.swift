@@ -169,16 +169,16 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBAction func btnSocialLoginClicked(_ sender: UIButton) {
         self.socialLogin(SocialLogin(rawValue: sender.tag) ?? .facebook) { isCompleted in
             if isCompleted {
-                var provider: String = "FB"
+                var provider: String = "facebook"
                 switch SocialLogin(rawValue: sender.tag) ?? .facebook {
                 case .twitter:
-                    provider = "TW"
+                    provider = "twitter"
                 case .instagram:
-                    return
+                    provider = "instagram"
                 case .snapchat:
-                    provider = "SN"
+                    provider = "snapchat"
                 case .youtube:
-                    provider = "GG"
+                    provider = "google"
                 default:
                     break
                 }
@@ -325,12 +325,16 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "SignUpStep1" {
-            if let dest = segue.destination as? SignUpStepOneViewController {
-                if let dict = sender as? [String:Any] {
-                    dest.isSocial = true
-                    dest.socialDict = dict
+            if let dest = segue.destination as? UINavigationController {
+                if let dest = dest.viewControllers.first as? SignUpStepOneViewController {
+                    dest.delegate = self
+                    if let dict = sender as? [String:Any] {
+                        dest.isSocial = true
+                        dest.socialDict = dict
+                    }
                 }
             }
+            
         }
     }
 }

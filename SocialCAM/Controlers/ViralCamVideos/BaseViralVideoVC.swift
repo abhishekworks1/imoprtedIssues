@@ -86,15 +86,15 @@ class BaseViralVideoVC: MXSegmentedPagerController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "mx_page_0" {
-            if let viralCamVideosVC = R.storyboard.viralCamVideos.viralCamVideos() {
-                viralCamVideosVC.segmentType = .facebook
-            }
-        } else if segue.identifier == "mx_page_2" {
-            if let viralCamVideosVC = R.storyboard.viralCamVideos.viralCamVideos() {
-                viralCamVideosVC.segmentType = .google
-            }
-        }
+//        if segue.identifier == "mx_page_0" {
+//            if let viralCamVideosVC = R.storyboard.viralCamVideos.viralCamVideos() {
+//                viralCamVideosVC.segmentType = .facebook
+//            }
+//        } else if segue.identifier == "mx_page_2" {
+//            if let viralCamVideosVC = R.storyboard.viralCamVideos.viralCamVideos() {
+//                viralCamVideosVC.segmentType = .tiktok
+//            }
+//        }
     }
     
     @IBAction func onBack(_ sender: Any) {
@@ -107,11 +107,11 @@ class BaseViralVideoVC: MXSegmentedPagerController {
     
     override func segmentedPager(_ segmentedPager: MXSegmentedPager, viewControllerForPageAt index: Int) -> UIViewController {
         if let viralCamVideosVC = R.storyboard.viralCamVideos.viralCamVideos(), index == 0 {
-            viralCamVideosVC.segmentType = .facebook
+            //viralCamVideosVC.segmentType = .facebook
             return viralCamVideosVC
         }
-        if let viralCamVideosVC = R.storyboard.viralCamVideos.viralCamVideos(), index == 2 {
-            viralCamVideosVC.segmentType = .google
+        if let viralCamVideosVC = R.storyboard.viralCamVideos.viralCamVideos(), index == 3 {
+            //viralCamVideosVC.segmentType = .tiktok
             return viralCamVideosVC
         }
         return UIViewController()

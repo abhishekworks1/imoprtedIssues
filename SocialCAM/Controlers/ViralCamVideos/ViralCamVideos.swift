@@ -55,7 +55,7 @@ class ViralCamVideos: UIViewController, SegmentTypeController {
         loadingView.loadingViewShow = true
         loadingView.shouldCancelShow = true
         loadingView.show(on: self.view)
-        ProManagerApi.getViralvids(page: index, limit: 10).request(ResultArray<CreatePostViralCam>.self).subscribe(onNext: { (response) in
+        ProManagerApi.getViralvids(page: index, limit: 10, socialPlatform: self.segmentType?.rawValue).request(ResultArray<CreatePostViralCam>.self).subscribe(onNext: { (response) in
             guard let array = response.result else {
                 return
             }
@@ -105,8 +105,13 @@ extension ViralCamVideos: UITableViewDataSource, UITableViewDelegate {
         cell.postModel = videos[indexPath.row]
         return cell
     }
-    
+   
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let videosWebViewVC: VideosWebViewVC = VideosWebViewVC()
+        videosWebViewVC.websiteUrl = videos[indexPath.row].referenceLink ?? "www.google.com"
+        //videosWebViewVC.delegate = self
+        self.present(videosWebViewVC, animated: true) {
+            
+        }
     }
 }
