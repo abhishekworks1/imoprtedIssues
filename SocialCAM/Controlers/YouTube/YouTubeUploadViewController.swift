@@ -16,6 +16,7 @@ class YouTubeUploadViewController: UIViewController {
     @IBOutlet weak var txtDescribtion: GrowingTextView!
     @IBOutlet weak var tagView: RKTagsView!
     @IBOutlet weak var txtPermision: SkyFloatingLabelTextField!
+    @IBOutlet weak var txtChannels: SkyFloatingLabelTextField!
     @IBOutlet weak var txtCategoty: SkyFloatingLabelTextField!
     @IBOutlet weak var btnPublish: UIButton!
     @IBOutlet weak var privacyPicker: UIPickerView!
@@ -23,8 +24,9 @@ class YouTubeUploadViewController: UIViewController {
     @IBOutlet var playerView: PlayerView!
     @IBOutlet var btnPlayPause: UIButton!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
-    
+    let dropDownMenu = DropDown()
     var privacy: [String] =  ["Public", "Private", "Unlisted"]
+    var channels: [Item] = []
     
     var videoUrl: URL?
     var selectedCategory: YouCategory? {
@@ -46,6 +48,16 @@ class YouTubeUploadViewController: UIViewController {
         }
     }
     
+    var selectedChannel: Item? {
+        didSet {
+            if let channel = selectedChannel {
+                self.txtChannels.text = channel.snippet?.title
+            } else {
+                self.txtChannels.text = ""
+            }
+        }
+    }
+    
     var disposeBag: DisposeBag? = DisposeBag()
     
     var isUploading = false {
@@ -62,6 +74,7 @@ class YouTubeUploadViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupDefaultDropDown()
         IQKeyboardManager.shared.enableAutoToolbar = true
         self.tagView.isMerge = true
         self.tagView.textField.placeholder = "#Hashtags"
@@ -78,6 +91,26 @@ class YouTubeUploadViewController: UIViewController {
             self.playerView.isAutoPlay = false
             self.playerView.playUrl = videourl
             self.playerView.pause()
+        }
+    }
+    
+    func setupDefaultDropDown() {
+        DropDown.setupDefaultAppearance()
+        dropDownMenu.cellNib = UINib(nibName: "MyCell", bundle: nil)
+        dropDownMenu.anchorView = txtChannels
+        dropDownMenu.topOffset = CGPoint(x: 0, y: -50)
+        dropDownMenu.direction = .top
+        
+        self.dropDownMenu.customCellConfiguration = { (index: Index, item: String, cell: DropDownCell) -> Void in
+            guard let cell = cell as? MyCell else { return }
+            cell.logoImageView.isHidden = true
+        }
+        
+        self.dropDownMenu.selectionAction = { [weak self] (index, item) in
+            guard let `self` = self else {
+                return
+            }
+            self.selectedChannel = self.channels[index]
         }
     }
     
@@ -134,6 +167,11 @@ class YouTubeUploadViewController: UIViewController {
         if !tagView.tags.isEmpty {
             snippet["tags"] = tagView.tags
         }
+        
+        if let channelId = selectedChannel?.id {
+            snippet["channelId"] = channelId
+        }
+        
         var status: String = ""
         
         if let privacy = selectedPrivacy {
@@ -217,6 +255,9 @@ extension YouTubeUploadViewController: UITextFieldDelegate {
         }
         if txtPermision == textField {
             self.privacyClicked()
+            return false
+        }
+        if txtChannels == textField {
             return false
         }
         return true

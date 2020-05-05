@@ -48,14 +48,14 @@ class SignUpStepOneViewController: UIViewController {
     var isBusiness: Bool = false
     var isSocial: Bool = false
     var socialDict: [String:Any]?
-    var dropDownMenu: DropDownMenu?
+    let dropDownMenu = DropDown()
     
     // MARK : ---  View Life Cycle Methods ----
     
     deinit {
         print("Deinit \(self.description)")
     }
-
+    
     @objc func tapGesture(_ recognizer: UITapGestureRecognizer) {
         DateTimePicker.selectDate(maxDate: Date()) { [weak self] (selectedDate) in
             // TODO: Your implementation for date
@@ -93,13 +93,24 @@ class SignUpStepOneViewController: UIViewController {
             self.txtRefChannel.text = refereId
             self.isRefChannel = true
         }
-        self.setColorTextField(views: [txtEmail,
-                                       txtPassWord,
-                                       txtRefChannel])
         
-        dropDownMenu = DropDownMenu(view: self.txtRefChannel, menuItems: nil)
-        dropDownMenu?.hidesOnSelection = true
+        setupDefaultDropDown()
+        setColorTextField(views: [txtEmail, txtPassWord, txtRefChannel])
+        setupRefChannel()
+        setupEmailField()
         
+        self.lblCount.text = "\(String(describing: self.txtChannel.text?.count ?? 0))/25"
+    }
+    
+    func setupDefaultDropDown() {
+        DropDown.setupDefaultAppearance()
+        dropDownMenu.cellNib = UINib(nibName: "MyCell", bundle: nil)
+        dropDownMenu.anchorView = txtRefChannel
+        dropDownMenu.topOffset = CGPoint(x: 0, y: -50)
+        dropDownMenu.direction = .top
+    }
+    
+    func setupRefChannel() {
         let isRefExist = self.txtRefChannel?.rx.text.orEmpty.filter{ $0.count > 3}.throttle(0.5, scheduler:MainScheduler.instance).distinctUntilChanged().flatMapLatest( { (channel: String) -> Observable<ResultArray<Channel>> in
             if self.isRefChannelRefresh {
                 self.showHUD()
@@ -114,25 +125,37 @@ class SignUpStepOneViewController: UIViewController {
             if response.status == ResponseType.success {
                 let channels: [Channel] = response.result!
                 var menuItems: [DropDownMenuItem] = []
+                var dataSource: [String] = []
                 for item in channels {
                     let menuItem: DropDownMenuItem? = DropDownMenuItem(title: item.channelId)
-                    guard let item = menuItem else {
+                    guard let menuItemData = menuItem else {
                         return
                     }
-                    menuItems.append(item)
+                    menuItems.append(menuItemData)
+                    guard let channelId = item.channelId else {
+                        return
+                    }
+                    dataSource.append(channelId)
                 }
                 if menuItems.count == 0 {
                     self.isRefChannel = false
                     self.isRefChannelRefresh = true
                 }
-                self.dropDownMenu?.setMenuItems(menuItems)
-                self.dropDownMenu?.hide()
-                self.dropDownMenu?.show { dropDownMenu, menuItem, index in
-                    self.txtRefChannel.text = channels[index].channelId
-                    self.refereUserId = channels[index].id
-                    self.isRefChannel = true
-                    self.isRefChannelRefresh = true
+                
+                self.dropDownMenu.dataSource = dataSource
+                
+                // Action triggered on selection
+                self.dropDownMenu.selectionAction = { [weak self] (index, item) in
+                    self!.txtRefChannel.text = channels[index].channelId
+                    self!.refereUserId = channels[index].id
+                    self!.isRefChannel = true
+                    self!.isRefChannelRefresh = true
                 }
+                self.dropDownMenu.customCellConfiguration = { (index: Index, item: String, cell: DropDownCell) -> Void in
+                    guard let cell = cell as? MyCell else { return }
+                    cell.logoImageView.setImageFromURL(channels[index].profileThumbnail, placeholderImage: R.image.userBitmoji())
+                }
+                self.dropDownMenu.show()
                 print("true")
                 self.isRefChannel = false
             } else {
@@ -146,7 +169,9 @@ class SignUpStepOneViewController: UIViewController {
         }, onCompleted: {
             
         }).disposed(by: rx.disposeBag)
-        
+    }
+    
+    func setupEmailField() {
         let isEmailExist = self.txtEmail?.rx.text.orEmpty.filter {
             return $0.isValidEmail()
         }.throttle(0.5, scheduler:MainScheduler.instance).distinctUntilChanged().flatMapLatest({ (channel:String) -> Observable<Result<User>> in
@@ -169,8 +194,6 @@ class SignUpStepOneViewController: UIViewController {
         }, onCompleted: {
             
         }).disposed(by: rx.disposeBag)
-        
-        self.lblCount.text = "\(String(describing: self.txtChannel.text?.count ?? 0))/25"
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -218,14 +241,15 @@ class SignUpStepOneViewController: UIViewController {
                 socialId = self.socialDict?["socialId"] as? String
                 provider = self.socialDict?["provider"] as? String
             }
-            ProManagerApi.signUp(email: email, password: password, channel: email, refChannel: refChannel, isBusiness: isBusiness, socialId: socialId, provider: provider, channelName: email, refferId: self.refereUserId,deviceToken: "", birthDate: birthdate).request(Result<User>.self).subscribe(onNext: { result in
+            
+            ProManagerApi.signUp(email: email, password: password, channel: email, refChannel: refChannel, isBusiness: isBusiness, socialId: socialId, provider: provider, channelName: email, refferId: self.refereUserId,deviceToken: "", birthDate: birthdate, profileImageURL: ApplicationSettings.shared.postURL).request(Result<User>.self).subscribe(onNext: { result in
                 self.dismissHUD()
                 if result.status == ResponseType.success {
                     Defaults.shared.sessionToken = result.sessionToken
                     Defaults.shared.currentUser = result.result
                     CurrentUser.shared.setActiveUser(result.result)
-                    ApplicationSettings.shared.postURl = ""
-                    ApplicationSettings.shared.coverUrl = ""
+                    ApplicationSettings.shared.postURL = nil
+                    ApplicationSettings.shared.coverUrl = nil
                     self.emailConfirm(email: email)
                     self.dismiss(animated: false) {
                         self.delegate?.loginDidFinish(user: Defaults.shared.currentUser, error: nil, fromSignup: false)
@@ -243,7 +267,6 @@ class SignUpStepOneViewController: UIViewController {
     }
     
     @IBAction func btnSearchClicked(_ sender:Any?) {
-        self.dropDownMenu?.hide()
         let searchChannelViewController = R.storyboard.loginViewController.searchChannelViewController()
         searchChannelViewController?.ChanelHandler = { chanel in
             self.txtRefChannel.text = chanel.channelId

@@ -72,14 +72,12 @@ class ApplicationSettings {
     
     var socialId: String?
     
-    var postURl: String?
+    var postURL: String?
     
     var coverUrl: String?
     
     var isAllowForward: Bool = false
-
     
-   
     var needtoRefresh: Bool = false
     
     var shouldRotate: Bool = false

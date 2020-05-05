@@ -185,11 +185,7 @@ class StoryCameraViewController: UIViewController {
     var volumeHandler: JPSVolumeButtonHandler?
     var deleteRect: CGRect?
     
-    var isDisableResequence: Bool = true {
-        didSet {
-            self.stopMotionCollectionView.isMovable = !isDisableResequence
-        }
-    }
+    var isDisableResequence: Bool = true
     
     var isRecording: Bool = false {
         didSet {

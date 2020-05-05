@@ -358,7 +358,7 @@ class StoryEditorViewController: UIViewController {
         self.editOptionView.isHidden = !isImage
         self.applyFilterOptionView.isHidden = !isImage
         self.specificBoomerangView.isHidden = isBoomerang ? true : isImage
-        self.ssuTagView.isHidden = Defaults.shared.appMode != .professional
+        self.ssuTagView.isHidden = false
         self.pic2ArtOptionView.isHidden = Defaults.shared.appMode != .free ? !isImage : true
         self.soundOptionView.isHidden = isImage
         self.trimOptionView.isHidden = isImage

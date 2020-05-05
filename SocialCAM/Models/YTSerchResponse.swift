@@ -156,3 +156,21 @@ class Statistics: Mappable {
     }
     
 }
+
+class ChannelList: Mappable {
+    var etag: String?
+    var items: [Item]?
+    var kind: String?
+    var pageInfo: PageInfo?
+    
+    required init?(map: Map) {
+        
+    }
+    
+    func mapping(map: Map) {
+        etag <- map["etag"]
+        items <- map["items"]
+        kind <- map["kind"]
+        pageInfo <- map["pageInfo"]
+    }
+}

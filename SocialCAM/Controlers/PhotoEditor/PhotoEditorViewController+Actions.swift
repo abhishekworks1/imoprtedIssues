@@ -1898,7 +1898,7 @@ extension PhotoEditorViewController {
         return InternalStoryTag(tagType: tagType.rawValue,
                                 tagFontSize: 20.0,
                                 tagHeight: Float(tagView.height),
-                                tagWidth: Float(tagView.width),
+                                tagWidth: Float(tagView.viewWidth),
                                 centerX: Float(tagView.xGlobalCenterPoint),
                                 centerY: Float(tagView.yGlobalCenterPoint),
                                 scaleX: Float(tagView.scaleXValue),
