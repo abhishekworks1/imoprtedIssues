@@ -927,7 +927,7 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
             }
             let storyEditor = storyEditors[indexPath.item]
             storyEditorCell.imageView.image = storyEditor.thumbnailImage
-            storyEditorCell.imageView.layer.borderWidth = storyEditor.isHidden ? 0 : 3
+            storyEditorCell.imageView.layer.borderColor = storyEditor.isHidden ? UIColor.white.cgColor : R.color.appPrimaryColor()?.cgColor
             storyEditorCell.isHidden = false
             if let draggingPathOfCellBeingDragged = self.collectionView.draggingPathOfCellBeingDragged {
                 if draggingPathOfCellBeingDragged.item == indexPath.item {

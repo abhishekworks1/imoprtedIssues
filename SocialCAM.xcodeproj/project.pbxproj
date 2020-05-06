@@ -1314,6 +1314,10 @@
 		954B084024517F9500BACFB4 /* TikTokShareView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 954B083D245171C700BACFB4 /* TikTokShareView.xib */; };
 		954D13CF241257F7007C1BA3 /* SSUTagSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954D13CE241257F7007C1BA3 /* SSUTagSelectionViewController.swift */; };
 		954DB1E823D9C30100B0A9C4 /* NSNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954DB1E723D9C30000B0A9C4 /* NSNotification.swift */; };
+		95584DCF246430E3006E9894 /* SwipeUpStoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95584DCE246430E3006E9894 /* SwipeUpStoryView.swift */; };
+		95584DD0246430E3006E9894 /* SwipeUpStoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95584DCE246430E3006E9894 /* SwipeUpStoryView.swift */; };
+		95584DD22464323B006E9894 /* SwipeUpStoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95584DD12464323B006E9894 /* SwipeUpStoryView.xib */; };
+		95584DD32464323B006E9894 /* SwipeUpStoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95584DD12464323B006E9894 /* SwipeUpStoryView.xib */; };
 		959A91D62449CFDD0062AA67 /* IAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959A91D42449CFDD0062AA67 /* IAPManager.swift */; };
 		959A91D72449CFDD0062AA67 /* IAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959A91D42449CFDD0062AA67 /* IAPManager.swift */; };
 		959A91D82449CFDD0062AA67 /* IAP_ProductIDs.plist in Resources */ = {isa = PBXBuildFile; fileRef = 959A91D52449CFDD0062AA67 /* IAP_ProductIDs.plist */; };
@@ -2082,6 +2086,8 @@
 		954B083D245171C700BACFB4 /* TikTokShareView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TikTokShareView.xib; sourceTree = "<group>"; };
 		954D13CE241257F7007C1BA3 /* SSUTagSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSUTagSelectionViewController.swift; sourceTree = "<group>"; };
 		954DB1E723D9C30000B0A9C4 /* NSNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSNotification.swift; sourceTree = "<group>"; };
+		95584DCE246430E3006E9894 /* SwipeUpStoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeUpStoryView.swift; sourceTree = "<group>"; };
+		95584DD12464323B006E9894 /* SwipeUpStoryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SwipeUpStoryView.xib; sourceTree = "<group>"; };
 		959A91D42449CFDD0062AA67 /* IAPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPManager.swift; sourceTree = "<group>"; };
 		959A91D52449CFDD0062AA67 /* IAP_ProductIDs.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = IAP_ProductIDs.plist; sourceTree = "<group>"; };
 		959A91DA2449E8000062AA67 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -3119,6 +3125,8 @@
 				95AA66B0240FDAB000434C9A /* FollowMeStoryView.xib */,
 				954B083B245171AB00BACFB4 /* TikTokShareView.swift */,
 				954B083D245171C700BACFB4 /* TikTokShareView.xib */,
+				95584DCE246430E3006E9894 /* SwipeUpStoryView.swift */,
+				95584DD12464323B006E9894 /* SwipeUpStoryView.xib */,
 				954D13CE241257F7007C1BA3 /* SSUTagSelectionViewController.swift */,
 				824EB390236197DE00205993 /* StoryCameraViewController.swift */,
 				82057FF823991511007AE1B7 /* StoryCameraViewController+ViewGesture.swift */,
@@ -3891,6 +3899,7 @@
 				23CE8BA424349B110096233C /* Rouge.JPG in Resources */,
 				23CE8BA524349B110096233C /* PhotosPickerViewController.xib in Resources */,
 				23CE8BA624349B110096233C /* FontAwesome.otf in Resources */,
+				95584DD32464323B006E9894 /* SwipeUpStoryView.xib in Resources */,
 				23CE8BA724349B110096233C /* Media.xcassets in Resources */,
 				823B810E24618A1A0024BDD9 /* MyCell.xib in Resources */,
 				23CE8BA824349B110096233C /* LUT_M09.png in Resources */,
@@ -4053,6 +4062,7 @@
 				82D1EC4023702B4300A680E7 /* FairyTales.JPG in Resources */,
 				8205FB69236C1D0F002B2603 /* sad.json in Resources */,
 				8205FDA2236C3B79002B2603 /* CollageMaker.storyboard in Resources */,
+				95584DD22464323B006E9894 /* SwipeUpStoryView.xib in Resources */,
 				82D1EC3B23702B4300A680E7 /* Detached.JPG in Resources */,
 				8205FB68236C1D0F002B2603 /* like.json in Resources */,
 				95011A3423A0BF8300E7423D /* FilterResources in Resources */,
@@ -4743,6 +4753,7 @@
 				23CE8A9C24349B110096233C /* ImageLibrary.swift in Sources */,
 				23CE8A9D24349B110096233C /* CountdownView.swift in Sources */,
 				23CE8A9E24349B110096233C /* CropBoxFreeAspectFrameUpdater.swift in Sources */,
+				95584DD0246430E3006E9894 /* SwipeUpStoryView.swift in Sources */,
 				23CE8A9F24349B110096233C /* UIView+LayoutFit.swift in Sources */,
 				23CE8AA024349B110096233C /* PromanagerData.swift in Sources */,
 				23CE8AA124349B110096233C /* YouTubeTableViewCell.swift in Sources */,
@@ -5296,6 +5307,7 @@
 				824EB3F223619FB000205993 /* NextLevel+CMSampleBuffer.swift in Sources */,
 				8205FB11236C1286002B2603 /* Defaults.swift in Sources */,
 				8205FB71236C1D0F002B2603 /* UIReactionControl.swift in Sources */,
+				95584DCF246430E3006E9894 /* SwipeUpStoryView.swift in Sources */,
 				8205FB6C236C1D0F002B2603 /* ReactionSummary.swift in Sources */,
 				8287D22823829D3B0074FC39 /* SubscribeChannelCell.swift in Sources */,
 				8205FB0F236C123B002B2603 /* AppExtensions.swift in Sources */,
