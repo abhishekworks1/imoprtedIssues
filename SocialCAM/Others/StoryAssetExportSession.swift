@@ -304,7 +304,10 @@ class StoryAssetExportSession {
     
     func addWaterMarkImageIfNeeded(isGIF: Bool = false) {
         #if VIRALCAMAPP
-        let image = R.image.viralcamWaterMark()
+        var image = R.image.viralcamWatermarkLogo()
+        if watermarkPosition == .topLeft {
+            image = R.image.viralcamWaterMark()
+        }
         #else
         let image = R.image.socialCamWaterMark()
         #endif
