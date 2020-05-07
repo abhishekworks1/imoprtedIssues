@@ -104,7 +104,7 @@ extension UIView {
         return (view as? T) ?? view.parentView(of: T.self)
     }
     
-    var width: CGFloat {
+    var viewWidth: CGFloat {
         get {
             return self.frame.size.width
         }
@@ -391,7 +391,7 @@ extension UIView {
     }
     
     func aspectFitCenterForView(_ center: CGPoint) -> CGPoint {
-        return CGPoint(x: (UIScreen.ratioWidth*center.x / 100) + ((UIScreen.width - self.width)/2),
+        return CGPoint(x: (UIScreen.ratioWidth*center.x / 100) + ((UIScreen.width - self.viewWidth)/2),
                        y: (self.height*CGFloat(center.y) / 100) + ((UIScreen.height - self.height)/2))
     }
     

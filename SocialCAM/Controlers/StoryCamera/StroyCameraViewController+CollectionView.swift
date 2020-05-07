@@ -165,15 +165,16 @@ extension StoryCameraViewController: KDDragAndDropCollectionViewDataSource {
         return false
     }
     
+    
+    func deleteSegment(rect: CGRect) -> Bool {
+        let newrect = rect.origin.y + collectionViewStackVIew.bounds.origin.y
+        let newrectData = CGRect.init(x: rect.origin.x + 20, y: newrect + 130, width: rect.width, height: 30)
+        return deleteView.frame.intersects(newrectData)
+    }
+    
     public func collectionViewEdgesAndScroll(_ collectionView: UICollectionView, rect: CGRect) {
-        
         if isDisableResequence {
-            let newrect = rect.origin.y + collectionViewStackVIew.frame.origin.y
-            let newrectData = CGRect.init(x: rect.origin.x + 20, y: newrect, width: rect.width, height: rect.height)
-            
-            let checkframeDelete = deleteView.frame
-            
-            if checkframeDelete.intersects(newrectData) == true {
+            if deleteSegment(rect: rect) {
                 UIView.animate(withDuration: 0.1, animations: { [weak self] () -> Void in
                     guard let strongSelf = self else { return }
                     strongSelf.setStickerObject(view: strongSelf.deleteView)
@@ -186,9 +187,7 @@ extension StoryCameraViewController: KDDragAndDropCollectionViewDataSource {
     
     public func collectionViewLastEdgesAndScroll(_ collectionView: UICollectionView, rect: CGRect) {
         if isDisableResequence {
-            let newrect = rect.origin.y + collectionViewStackVIew.frame.origin.y
-            let newrectData = CGRect.init(x: rect.origin.x + 20, y: newrect, width: rect.width, height: rect.height)
-            if deleteView.frame.intersects(newrectData) {
+            if deleteSegment(rect: rect) {
                 if draggingCell != nil {
                     self.totalDurationOfOneSegment = totalDurationOfOneSegment - self.getDurationOf(videoPath: takenVideoUrls[draggingCell!.item].url!)
                     let album = SCAlbum.shared

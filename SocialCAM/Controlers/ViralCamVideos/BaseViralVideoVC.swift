@@ -10,14 +10,15 @@ import Foundation
 import MXSegmentedPager
 
 enum TopSegments: String {
+    case twitter = "Twitter"
     case facebook = "Facebook"
-    case google = "Google"
-    case tiktok = "Tiktok"
     case instagram = "Instagram"
     case snapchat = "Snapchat"
+    case google = "Google"
+    case tiktok = "Tiktok"
     
     static var allValues : [TopSegments] {
-        return [.facebook, .google, .tiktok, .instagram, .snapchat]
+        return [.twitter, .facebook, .instagram, .snapchat, .google, .tiktok]
     }
     
     var next: TopSegments? {
@@ -28,7 +29,7 @@ enum TopSegments: String {
         }
     }
     
-    var previous : TopSegments? {
+    var previous: TopSegments? {
         if let index = TopSegments.allValues.firstIndex(of: self), (index - 1) >= 0 {
             return  TopSegments.allValues[index - 1]
         } else {
@@ -97,19 +98,22 @@ class BaseViralVideoVC: MXSegmentedPagerController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "mx_page_0" {
             viralCamVideosVC = segue.destination as? ViralCamVideos
-            viralCamVideosVC.segmentType = .facebook
+            viralCamVideosVC.segmentType = TopSegments.allValues[0]
         } else if segue.identifier == "mx_page_1" {
             viralCamVideosVC1 = segue.destination as? ViralCamVideos
-            viralCamVideosVC1.segmentType = .google
+            viralCamVideosVC1.segmentType = TopSegments.allValues[1]
         } else if segue.identifier == "mx_page_2" {
             viralCamVideosVC2 = segue.destination as? ViralCamVideos
-            viralCamVideosVC2.segmentType = .tiktok
+            viralCamVideosVC2.segmentType = TopSegments.allValues[2]
         } else if segue.identifier == "mx_page_3" {
             viralCamVideosVC3 = segue.destination as? ViralCamVideos
-            viralCamVideosVC3.segmentType = .instagram
+            viralCamVideosVC3.segmentType = TopSegments.allValues[3]
         } else if segue.identifier == "mx_page_4" {
             viralCamVideosVC4 = segue.destination as? ViralCamVideos
-            viralCamVideosVC4.segmentType = .snapchat
+            viralCamVideosVC4.segmentType = TopSegments.allValues[4]
+        } else if segue.identifier == "mx_page_5" {
+            viralCamVideosVC4 = segue.destination as? ViralCamVideos
+            viralCamVideosVC4.segmentType = TopSegments.allValues[5]
         }
     }
     

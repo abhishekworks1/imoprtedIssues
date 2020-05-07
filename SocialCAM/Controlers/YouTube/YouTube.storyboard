@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -26,7 +26,7 @@
         <!--You Tube View Controller-->
         <scene sceneID="bBX-kL-gDV">
             <objects>
-                <viewController storyboardIdentifier="YouTubeViewController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Ig6-Mf-2Sc" customClass="YouTubeViewController" customModule="SocialCAM" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="YouTubeViewController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Ig6-Mf-2Sc" customClass="YouTubeViewController" customModule="SocialCam" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fwA-4o-ZCy">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -45,7 +45,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MWP-D0-4EF" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <view clipsSubviews="YES" contentMode="scaleToFill" id="NRI-pe-fLj" customClass="BorderView" customModule="SocialCAM" customModuleProvider="target">
+                <view clipsSubviews="YES" contentMode="scaleToFill" id="NRI-pe-fLj" customClass="BorderView" customModule="SocialCam" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="155"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
@@ -62,7 +62,7 @@
                                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </collectionViewFlowLayout>
                                     <cells>
-                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SubscribeChannelCell" id="guu-aD-SRD" customClass="SubscribeChannelCell" customModule="SocialCAM" customModuleProvider="target">
+                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SubscribeChannelCell" id="guu-aD-SRD" customClass="SubscribeChannelCell" customModule="SocialCam" customModuleProvider="target">
                                             <rect key="frame" x="10" y="0.0" width="80" height="97.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -161,7 +161,7 @@
                                 <constraint firstAttribute="height" constant="44" id="03Z-UX-wVd"/>
                             </constraints>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bA7-xM-P4g" customClass="PButton" customModule="SocialCAM" customModuleProvider="target">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bA7-xM-P4g" customClass="PButton" customModule="SocialCam" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="2" width="40" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="bA7-xM-P4g" secondAttribute="height" multiplier="1:1" id="HUH-1E-oQg"/>
@@ -217,12 +217,12 @@
         <!--KeyWordViewController-->
         <scene sceneID="Prm-aB-OS0">
             <objects>
-                <viewController storyboardIdentifier="KeywordViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="dge-zu-Mv7" userLabel="KeyWordViewController" customClass="KeywordViewController" customModule="SocialCAM" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="KeywordViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="dge-zu-Mv7" userLabel="KeyWordViewController" customClass="KeywordViewController" customModule="SocialCam" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Nvp-Po-8CZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hIl-gN-1kj" customClass="BorderView" customModule="SocialCAM" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hIl-gN-1kj" customClass="BorderView" customModule="SocialCam" customModuleProvider="target">
                                 <rect key="frame" x="7" y="10" width="361" height="618"/>
                                 <subviews>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nxb-fV-sOP">
@@ -295,17 +295,17 @@
                                             </constraints>
                                         </view>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="YouTubeTableViewCell" rowHeight="393" id="dJC-h4-7Hs" customClass="YouTubeTableViewCell" customModule="SocialCAM" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="YouTubeTableViewCell" rowHeight="393" id="dJC-h4-7Hs" customClass="YouTubeTableViewCell" customModule="SocialCam" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="38" width="361" height="393"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dJC-h4-7Hs" id="k6m-iA-zQP">
                                                     <rect key="frame" x="0.0" y="0.0" width="361" height="393"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oAm-cM-Lns" customClass="BorderView" customModule="SocialCAM" customModuleProvider="target">
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oAm-cM-Lns" customClass="BorderView" customModule="SocialCam" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="0.0" width="361" height="266.5"/>
                                                             <subviews>
-                                                                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sgd-ra-Nqm" customClass="BorderView" customModule="SocialCAM" customModuleProvider="target">
+                                                                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sgd-ra-Nqm" customClass="BorderView" customModule="SocialCam" customModuleProvider="target">
                                                                     <rect key="frame" x="0.0" y="0.0" width="361" height="266.5"/>
                                                                     <subviews>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rjf-M5-jkH">
@@ -322,7 +322,7 @@
                                                                                         <action selector="btnPlayClicked:" destination="dJC-h4-7Hs" eventType="touchUpInside" id="sFu-BD-XbW"/>
                                                                                     </connections>
                                                                                 </button>
-                                                                                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RAT-0T-b2Q" customClass="PButton" customModule="SocialCAM" customModuleProvider="target">
+                                                                                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RAT-0T-b2Q" customClass="PButton" customModule="SocialCam" customModuleProvider="target">
                                                                                     <rect key="frame" x="152.5" y="70" width="56" height="56"/>
                                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                                     <constraints>
@@ -344,7 +344,7 @@
                                                                                         <wkPreferences key="preferences"/>
                                                                                     </wkWebViewConfiguration>
                                                                                 </wkWebView>
-                                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kco-WI-wXY" customClass="ColorImageButton" customModule="SocialCAM" customModuleProvider="target">
+                                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kco-WI-wXY" customClass="ColorImageButton" customModule="SocialCam" customModuleProvider="target">
                                                                                     <rect key="frame" x="310" y="10" width="41" height="41"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="width" secondItem="Kco-WI-wXY" secondAttribute="height" multiplier="1:1" id="9Zy-mJ-0Qz"/>
@@ -384,7 +384,7 @@
                                                                                 <constraint firstItem="zSI-Xe-N5G" firstAttribute="centerY" secondItem="Rjf-M5-jkH" secondAttribute="centerY" id="xaN-eM-5kS"/>
                                                                             </constraints>
                                                                         </view>
-                                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AdZ-jd-Dxz" customClass="ColorButton" customModule="SocialCAM" customModuleProvider="target">
+                                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AdZ-jd-Dxz" customClass="ColorButton" customModule="SocialCam" customModuleProvider="target">
                                                                             <rect key="frame" x="252" y="206" width="99" height="28"/>
                                                                             <color key="backgroundColor" red="0.32156862749999998" green="0.59607843140000005" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <constraints>
@@ -669,12 +669,12 @@
         <!--SimilarKeyWordViewController-->
         <scene sceneID="upG-lp-920">
             <objects>
-                <viewController storyboardIdentifier="SimpleKeyWordViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="pfd-Hl-FAo" userLabel="SimilarKeyWordViewController" customClass="SimpleKeyWordViewController" customModule="SocialCAM" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SimpleKeyWordViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="pfd-Hl-FAo" userLabel="SimilarKeyWordViewController" customClass="SimpleKeyWordViewController" customModule="SocialCam" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ggy-NZ-PTD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ccF-wB-Rb7" customClass="BorderView" customModule="SocialCAM" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ccF-wB-Rb7" customClass="BorderView" customModule="SocialCam" customModuleProvider="target">
                                 <rect key="frame" x="7" y="10" width="361" height="618"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GWP-Uz-JAP">
@@ -689,7 +689,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="361" height="10"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eS3-kw-qiM" customClass="BorderView" customModule="SocialCAM" customModuleProvider="target">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eS3-kw-qiM" customClass="BorderView" customModule="SocialCam" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="361" height="20"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <userDefinedRuntimeAttributes>
@@ -791,15 +791,15 @@
         <!--Add Post View Controller-->
         <scene sceneID="Sat-1F-14P">
             <objects>
-                <viewController storyboardIdentifier="AddPostViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xug-zp-bqr" customClass="AddPostViewController" customModule="SocialCAM" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddPostViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xug-zp-bqr" customClass="AddPostViewController" customModule="SocialCam" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rDM-0w-LoA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="utD-CG-HbT" customClass="BorderView" customModule="SocialCAM" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="utD-CG-HbT" customClass="BorderView" customModule="SocialCam" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Publish" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uzf-HB-SW4" customClass="PLabel" customModule="SocialCAM" customModuleProvider="target">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Publish" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uzf-HB-SW4" customClass="PLabel" customModule="SocialCam" customModuleProvider="target">
                                         <rect key="frame" x="158" y="11.5" width="59.5" height="21"/>
                                         <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="18"/>
                                         <color key="textColor" red="0.25882352939999997" green="0.25882352939999997" blue="0.25490196079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -837,10 +837,10 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Zu-KD-d5L">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="607"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UXd-Dn-IC0" customClass="BorderView" customModule="SocialCAM" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UXd-Dn-IC0" customClass="BorderView" customModule="SocialCam" customModuleProvider="target">
                                                 <rect key="frame" x="7" y="0.0" width="361" height="266"/>
                                                 <subviews>
-                                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8fj-bz-CHh" customClass="BorderView" customModule="SocialCAM" customModuleProvider="target">
+                                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8fj-bz-CHh" customClass="BorderView" customModule="SocialCam" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="361" height="266"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v4F-xI-okG">
@@ -857,7 +857,7 @@
                                                                             <action selector="btnPlayClicked:" destination="xug-zp-bqr" eventType="touchUpInside" id="uVA-Tv-eFs"/>
                                                                         </connections>
                                                                     </button>
-                                                                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MdD-OW-ZIL" customClass="PButton" customModule="SocialCAM" customModuleProvider="target">
+                                                                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MdD-OW-ZIL" customClass="PButton" customModule="SocialCam" customModuleProvider="target">
                                                                         <rect key="frame" x="160" y="77.5" width="41" height="41"/>
                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                         <constraints>
@@ -1095,7 +1095,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QUA-iG-j4L" customClass="BorderView" customModule="SocialCAM" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QUA-iG-j4L" customClass="BorderView" customModule="SocialCam" customModuleProvider="target">
                                                 <rect key="frame" x="7" y="285.5" width="361" height="150"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add your Opinions, descriptions, link &amp; content" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IBe-Z3-PUn">
@@ -1163,7 +1163,7 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="9H8-px-Led">
                                                         <rect key="frame" x="0.0" y="5" width="240" height="40"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yLO-Oq-yJZ" customClass="ColorButton" customModule="SocialCAM" customModuleProvider="target">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yLO-Oq-yJZ" customClass="ColorButton" customModule="SocialCam" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="110" height="40"/>
                                                                 <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="14"/>
                                                                 <state key="normal" title="Previous">
@@ -1185,7 +1185,7 @@
                                                                     <action selector="onBack:" destination="xug-zp-bqr" eventType="touchUpInside" id="bVT-8V-NRU"/>
                                                                 </connections>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BLd-VR-hLI" customClass="ColorButton" customModule="SocialCAM" customModuleProvider="target">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BLd-VR-hLI" customClass="ColorButton" customModule="SocialCam" customModuleProvider="target">
                                                                 <rect key="frame" x="130" y="0.0" width="110" height="40"/>
                                                                 <color key="backgroundColor" red="0.32156862749999998" green="0.59607843140000005" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="14"/>
@@ -1278,7 +1278,7 @@
         <!--Stats View Controller-->
         <scene sceneID="o3l-kc-2fK">
             <objects>
-                <viewController storyboardIdentifier="StatsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HeC-jF-1X9" customClass="StatsViewController" customModule="SocialCAM" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StatsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HeC-jF-1X9" customClass="StatsViewController" customModule="SocialCam" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eWf-3i-A24">
                         <rect key="frame" x="0.0" y="0.0" width="900" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1353,7 +1353,7 @@
                                                     </constraints>
                                                 </view>
                                                 <prototypes>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="StatTableViewCell" id="bb7-9J-RwJ" customClass="StatTableViewCell" customModule="SocialCAM" customModuleProvider="target">
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="StatTableViewCell" id="bb7-9J-RwJ" customClass="StatTableViewCell" customModule="SocialCam" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="28" width="900" height="60"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bb7-9J-RwJ" id="j1D-6P-2zx">
@@ -1413,7 +1413,7 @@
                                                                             <color key="textColor" red="0.082352941176470587" green="0.082352941176470587" blue="0.082352941176470587" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gq4-OB-Ivm" customClass="ColorImageButton" customModule="SocialCAM" customModuleProvider="target">
+                                                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gq4-OB-Ivm" customClass="ColorImageButton" customModule="SocialCam" customModuleProvider="target">
                                                                             <rect key="frame" x="779" y="20" width="20" height="20"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                             <state key="normal" title="Button" image="stat_play"/>
@@ -1466,7 +1466,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dGY-Q1-egn">
                                 <rect key="frame" x="0.0" y="0.0" width="900" height="667"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PFo-7K-x87" customClass="BorderView" customModule="SocialCAM" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PFo-7K-x87" customClass="BorderView" customModule="SocialCam" customModuleProvider="target">
                                         <rect key="frame" x="20" y="20" width="860" height="627"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tags" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8EO-Pc-jDi">
@@ -1479,13 +1479,13 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1mJ-ry-3eC">
+                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1mJ-ry-3eC">
                                                 <rect key="frame" x="5" y="70" width="850" height="487"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r9b-tr-nRk">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r9b-tr-nRk">
                                                         <rect key="frame" x="0.0" y="0.0" width="325" height="327"/>
                                                         <subviews>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tdM-5t-aXL" customClass="TagListView" customModule="TagListView">
+                                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tdM-5t-aXL" customClass="TagListView" customModule="TagListView">
                                                                 <rect key="frame" x="0.0" y="0.0" width="325" height="327"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <userDefinedRuntimeAttributes>
@@ -1530,7 +1530,7 @@
                                                     <constraint firstItem="r9b-tr-nRk" firstAttribute="leading" secondItem="1mJ-ry-3eC" secondAttribute="leading" id="w2I-KE-Fzr"/>
                                                 </constraints>
                                             </scrollView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l4W-Tk-W3c" customClass="PButton" customModule="SocialCAM" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l4W-Tk-W3c" customClass="PButton" customModule="SocialCam" customModuleProvider="target">
                                                 <rect key="frame" x="370" y="577" width="120" height="40"/>
                                                 <color key="backgroundColor" red="0.32156862749999998" green="0.59607843140000005" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
@@ -1701,7 +1701,7 @@
         <!--You Tube Channel View Controller-->
         <scene sceneID="LuC-5U-5sB">
             <objects>
-                <viewController storyboardIdentifier="YouTubeChannelViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="MZU-iV-nym" customClass="YouTubeChannelViewController" customModule="SocialCAM" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="YouTubeChannelViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="MZU-iV-nym" customClass="YouTubeChannelViewController" customModule="SocialCam" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="K5A-vT-YEc">
                         <rect key="frame" x="0.0" y="0.0" width="900" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1776,7 +1776,7 @@
                                                     </constraints>
                                                 </view>
                                                 <prototypes>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="StatTableViewCell" id="Jxx-Wc-9fN" customClass="StatTableViewCell" customModule="SocialCAM" customModuleProvider="target">
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="StatTableViewCell" id="Jxx-Wc-9fN" customClass="StatTableViewCell" customModule="SocialCam" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="28" width="900" height="60"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Jxx-Wc-9fN" id="EXm-Us-GG9">
@@ -1836,7 +1836,7 @@
                                                                             <color key="textColor" red="0.08235294118" green="0.08235294118" blue="0.08235294118" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zhE-ri-Xkg" customClass="ColorImageButton" customModule="SocialCAM" customModuleProvider="target">
+                                                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zhE-ri-Xkg" customClass="ColorImageButton" customModule="SocialCam" customModuleProvider="target">
                                                                             <rect key="frame" x="779" y="20" width="20" height="20"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                             <state key="normal" title="Button" image="stat_play"/>
@@ -1888,7 +1888,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c9i-4O-UkI">
                                 <rect key="frame" x="0.0" y="0.0" width="900" height="667"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Squ-gR-Xlb" customClass="BorderView" customModule="SocialCAM" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Squ-gR-Xlb" customClass="BorderView" customModule="SocialCam" customModuleProvider="target">
                                         <rect key="frame" x="20" y="20" width="860" height="627"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tags" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dvU-4Q-cRv">
@@ -1901,13 +1901,13 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lqE-St-MMa">
+                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lqE-St-MMa">
                                                 <rect key="frame" x="5" y="70" width="850" height="487"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LIn-BD-UvE">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LIn-BD-UvE">
                                                         <rect key="frame" x="0.0" y="0.0" width="325" height="327"/>
                                                         <subviews>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WsX-V2-nmt" customClass="TagListView" customModule="TagListView">
+                                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WsX-V2-nmt" customClass="TagListView" customModule="TagListView">
                                                                 <rect key="frame" x="0.0" y="0.0" width="325" height="327"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <userDefinedRuntimeAttributes>
@@ -1952,7 +1952,7 @@
                                                     <constraint firstAttribute="bottom" secondItem="LIn-BD-UvE" secondAttribute="bottom" id="qWM-3t-ACF"/>
                                                 </constraints>
                                             </scrollView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="av9-ds-oiS" customClass="PButton" customModule="SocialCAM" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="av9-ds-oiS" customClass="PButton" customModule="SocialCam" customModuleProvider="target">
                                                 <rect key="frame" x="370" y="577" width="120" height="40"/>
                                                 <color key="backgroundColor" red="0.32156862749999998" green="0.59607843140000005" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
@@ -2123,15 +2123,15 @@
         <!--ChannelVideoListViewController-->
         <scene sceneID="VGY-j3-y1T">
             <objects>
-                <viewController storyboardIdentifier="ChannelVideoListViewController" id="wCr-q6-KrC" userLabel="ChannelVideoListViewController" customClass="ChannelVideoListViewController" customModule="SocialCAM" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChannelVideoListViewController" id="wCr-q6-KrC" userLabel="ChannelVideoListViewController" customClass="ChannelVideoListViewController" customModule="SocialCam" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hJD-Z7-tR0">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="40l-bT-kCA" customClass="BorderView" customModule="SocialCAM" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="40l-bT-kCA" customClass="BorderView" customModule="SocialCam" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="StoriCam" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IBn-5n-mxO" customClass="PLabel" customModule="SocialCAM" customModuleProvider="target">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="StoriCam" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IBn-5n-mxO" customClass="PLabel" customModule="SocialCam" customModuleProvider="target">
                                         <rect key="frame" x="149.5" y="11.5" width="76" height="21"/>
                                         <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="18"/>
                                         <color key="textColor" red="0.25882352939999997" green="0.25882352939999997" blue="0.25490196079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2164,7 +2164,7 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="hasGridiantLayer" value="NO"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cKl-hB-vcd" customClass="BorderView" customModule="SocialCAM" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cKl-hB-vcd" customClass="BorderView" customModule="SocialCam" customModuleProvider="target">
                                 <rect key="frame" x="7" y="44" width="361" height="588"/>
                                 <subviews>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Lc-XR-kjX">
@@ -2237,17 +2237,17 @@
                                             </constraints>
                                         </view>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="YouTubeTableViewCell" rowHeight="393" id="mHB-Vr-eJh" customClass="YouTubeTableViewCell" customModule="SocialCAM" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="YouTubeTableViewCell" rowHeight="393" id="mHB-Vr-eJh" customClass="YouTubeTableViewCell" customModule="SocialCam" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="38" width="361" height="393"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mHB-Vr-eJh" id="EJ0-QC-rOx">
                                                     <rect key="frame" x="0.0" y="0.0" width="361" height="393"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XUN-8g-lXy" customClass="BorderView" customModule="SocialCAM" customModuleProvider="target">
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XUN-8g-lXy" customClass="BorderView" customModule="SocialCam" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="0.0" width="361" height="266"/>
                                                             <subviews>
-                                                                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sWm-PR-nf1" customClass="BorderView" customModule="SocialCAM" customModuleProvider="target">
+                                                                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sWm-PR-nf1" customClass="BorderView" customModule="SocialCam" customModuleProvider="target">
                                                                     <rect key="frame" x="0.0" y="0.0" width="361" height="266"/>
                                                                     <subviews>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kla-V5-f1A">
@@ -2264,7 +2264,7 @@
                                                                                         <action selector="btnPlayClicked:" destination="mHB-Vr-eJh" eventType="touchUpInside" id="CfU-Mk-qHh"/>
                                                                                     </connections>
                                                                                 </button>
-                                                                                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R4I-BD-xR9" customClass="PButton" customModule="SocialCAM" customModuleProvider="target">
+                                                                                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R4I-BD-xR9" customClass="PButton" customModule="SocialCam" customModuleProvider="target">
                                                                                     <rect key="frame" x="152.5" y="70" width="56" height="56"/>
                                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                                     <constraints>
@@ -2286,7 +2286,7 @@
                                                                                         <wkPreferences key="preferences"/>
                                                                                     </wkWebViewConfiguration>
                                                                                 </wkWebView>
-                                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jfn-qa-Rvp" customClass="ColorImageButton" customModule="SocialCAM" customModuleProvider="target">
+                                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jfn-qa-Rvp" customClass="ColorImageButton" customModule="SocialCam" customModuleProvider="target">
                                                                                     <rect key="frame" x="310" y="10" width="41" height="41"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="width" secondItem="Jfn-qa-Rvp" secondAttribute="height" multiplier="1:1" id="Vwv-DR-D1I"/>
@@ -2326,7 +2326,7 @@
                                                                                 <constraint firstItem="qzp-rV-NUf" firstAttribute="height" secondItem="kla-V5-f1A" secondAttribute="height" id="vXV-5W-Bmo"/>
                                                                             </constraints>
                                                                         </view>
-                                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MXB-Us-z2Z" customClass="ColorButton" customModule="SocialCAM" customModuleProvider="target">
+                                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MXB-Us-z2Z" customClass="ColorButton" customModule="SocialCam" customModuleProvider="target">
                                                                             <rect key="frame" x="252" y="206" width="99" height="28"/>
                                                                             <color key="backgroundColor" red="0.32156862749999998" green="0.59607843140000005" blue="0.2470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <constraints>

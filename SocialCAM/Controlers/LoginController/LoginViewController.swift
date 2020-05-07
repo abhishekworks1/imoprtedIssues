@@ -136,30 +136,30 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         }).disposed(by: rx.disposeBag)
     }
     
-    func socialLoadProfile(socialLogin: SocialLogin, completion: @escaping (String?, String?, String?) -> ()) {
+    func socialLoadProfile(socialLogin: SocialLogin, completion: @escaping (LoginUserData?) -> ()) {
         switch socialLogin {
         case .facebook:
             if FaceBookManager.shared.isUserLogin {
                 FaceBookManager.shared.loadUserData { (userModel) in
-                    completion(userModel?.userName, userModel?.userId, userModel?.email)
+                    completion(userModel)
                 }
             }
         case .twitter:
             if TwitterManger.shared.isUserLogin {
                 TwitterManger.shared.loadUserData { (userModel) in
-                    completion(userModel?.userName, userModel?.userId, userModel?.email)
+                    completion(userModel)
                 }
             }
         case .snapchat:
             if SnapKitManager.shared.isUserLogin {
                 SnapKitManager.shared.loadUserData { (userModel) in
-                    completion(userModel?.userName, userModel?.userId, userModel?.email)
+                    completion(userModel)
                 }
             }
         case .youtube:
             if GoogleManager.shared.isUserLogin {
                 GoogleManager.shared.loadUserData { (userModel) in
-                    completion(userModel?.userName, userModel?.userId, userModel?.email)
+                    completion(userModel)
                 }
             }
         default: break
@@ -185,11 +185,11 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
                 if SocialLogin(rawValue: sender.tag) ?? .facebook == .instagram {
                     return
                 }
-                self.socialLoadProfile(socialLogin: SocialLogin(rawValue: sender.tag) ?? .facebook) { [weak self] (userName, socialId, email) in
-                    guard let `self` = self else {
+                self.socialLoadProfile(socialLogin: SocialLogin(rawValue: sender.tag) ?? .facebook) { [weak self] (userModel) in
+                    guard let `self` = self, let userData = userModel else {
                         return
                     }
-                    self.loginSocial(fname: userName ?? "", email: email, socialId: socialId ?? "", provider: provider, profileImageURL: nil, bannerImageURL: nil)
+                    self.loginSocial(fname: userData.userName ?? "", email: userData.email, socialId: userData.userId ?? "", provider: provider, profileImageURL: userData.photoUrl, bannerImageURL: nil)
                 }
             }
         }
@@ -197,7 +197,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
     
     func loginSocial(fname: String, email: String? = nil, socialId: String, provider: String, profileImageURL: String?, bannerImageURL: String?) {
         UIApplication.checkInternetConnection()
-        ApplicationSettings.shared.postURl = profileImageURL
+        ApplicationSettings.shared.postURL = profileImageURL
         ApplicationSettings.shared.coverUrl = bannerImageURL
         ProManagerApi.socialLogin(socialId: socialId, email: email).request(Result    <User>.self).subscribe(onNext: { (responce) in
             if responce.status == ResponseType.success {
@@ -257,7 +257,6 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
             break
         }
     }
-    
     
     func goHomeScreen(_ responce: Result<User>) {
         Defaults.shared.sessionToken = responce.sessionToken
@@ -375,7 +374,7 @@ extension LoginViewController: UITextFieldDelegate {
 extension LoginViewController: InstagramLoginViewControllerDelegate, ProfileDelegate {
     
     func profileDidLoad(profile: ProfileDetailsResponse) {
-        self.loginSocial(fname: profile.username ?? "", email: "", socialId: profile.id ?? "", provider: "instagram", profileImageURL: nil, bannerImageURL: nil)
+        self.loginSocial(fname: profile.username ?? "", email: "", socialId: profile.id ?? "", provider: "instagram", profileImageURL: profile.profilePicUrl, bannerImageURL: nil)
     }
     
     func profileLoadFailed(error: Error) {

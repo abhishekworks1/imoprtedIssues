@@ -244,7 +244,7 @@ class SpecificBoomerangViewController: UIViewController {
             }
         }
         if let asset = currentAsset {
-            boomerangValues[selectedIndex].updateTimeRange(for: asset, boundsWidth: trimmerView.width)
+            boomerangValues[selectedIndex].updateTimeRange(for: asset, boundsWidth: trimmerView.viewWidth)
         }
     }
     
@@ -624,7 +624,7 @@ extension SpecificBoomerangViewController {
         }
         for boomerangValue in boomerangValues {
             boomerangValue.updateBoomerangViewSize(duration: trimmerView.thumbnailsView.videoDuration.seconds, durationSize: trimmerView.thumbnailsView.durationSize)
-            boomerangValue.updateTimeRange(for: asset, boundsWidth: trimmerView.width)
+            boomerangValue.updateTimeRange(for: asset, boundsWidth: trimmerView.viewWidth)
             boomerangValue.reset()
         }
     }

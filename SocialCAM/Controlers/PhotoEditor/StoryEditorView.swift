@@ -288,7 +288,7 @@ extension StoryEditorView: StorySwipeableFilterViewDelegate {
         setupDrawView()
         
         filterNameLabel.frame = CGRect(origin: .zero,
-                                       size: CGSize(width: width, height: 50))
+                                       size: CGSize(width: viewWidth, height: 50))
         filterNameLabel.center = self.center
         filterNameLabel.font = R.font.sfuiTextBold(size: 35)
         filterNameLabel.textColor = .white

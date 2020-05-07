@@ -113,7 +113,7 @@ public class GoogleManager: NSObject {
         googleManager?.signIn()
     }
     
-    public func handelOpenUrl(app: UIApplication, url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+    public func handelOpenUrl(app: UIApplication, url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
         return GIDSignIn.sharedInstance().handle(url)
     }
 }

@@ -230,6 +230,7 @@ public struct Paths {
     static let shreInAppPost = "articles/share/"
     static let youTubeKeyWordSerch = "search"
     static let youTubeDetail = "videos"
+    static let youTubechannels = "channels"
     static let youTubeChannelSearch = "search"
     static let youTubeRatting = "videos/rate"
     static let getStories = "stories/getStories"

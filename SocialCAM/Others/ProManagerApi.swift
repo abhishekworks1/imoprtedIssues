@@ -19,7 +19,7 @@ public enum ProManagerApi {
     case connectSocial(socialPlatform: String, socialId: String, socialName: String)
     case logIn(email: String, password: String, deviceToken: String?)
     case confirmEmail(userId: String, email: String)
-    case signUp(email: String, password: String, channel: String, refChannel: String, isBusiness: Bool, socialId:String?, provider:String?, channelName: String, refferId: String?, deviceToken: String?, birthDate: String?)
+    case signUp(email: String, password: String, channel: String, refChannel: String, isBusiness: Bool, socialId:String?, provider:String?, channelName: String, refferId: String?, deviceToken: String?, birthDate: String?, profileImageURL: String?)
     case socialLogin(socialId: String, email: String?)
     case uploadYoutubeVideo(token: String, videoURL: URL, snippet: [String:Any], status: String)
     case search(channel: String)
@@ -28,6 +28,7 @@ public enum ProManagerApi {
     case getyoutubeSubscribedChannel(token: String, forChannelId: String?)
     case youTubeChannelSearch(channelId: String, order: String?, nextPageToken: String?)
     case youTubeDetail(id: String)
+    case youTubeChannels(token: String)
     case youTubeKeyWordSerch(key: String, order: String?, nextPageToken: String?)
     case deleteHashTagSet(hashId: String)
     case getHashTagSets(Void)
@@ -58,7 +59,7 @@ public enum ProManagerApi {
         var endpointClosure = MoyaProvider<ProManagerApi>.defaultEndpointMapping(for: self)
         
         switch self {
-        case .confirmEmail, .signUp, .verifyChannel, .getSplashImages, .logIn,.youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getYoutubeCategory, .getAccessToken, .socialLogin:
+        case .confirmEmail, .signUp, .verifyChannel, .getSplashImages, .logIn, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getYoutubeCategory, .getAccessToken, .socialLogin, .youTubeChannels(_):
             endpointClosure = endpointClosure.adding(newHTTPHeaderFields: APIHeaders().headerWithoutAccessToken)
         case .getWeather:
             break
@@ -81,7 +82,7 @@ public enum ProManagerApi {
 extension ProManagerApi: TargetType {
     public var headers: [String: String]? {
         switch self {
-        case .confirmEmail, .signUp, .verifyChannel, .getSplashImages, .logIn, .doLogin, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getYoutubeCategory, .socialLogin:
+        case .confirmEmail, .signUp, .verifyChannel, .getSplashImages, .logIn, .doLogin, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getYoutubeCategory, .socialLogin, .youTubeChannels:
             return APIHeaders().headerWithoutAccessToken
         case .getWeather, .getAccessToken:
             break
@@ -97,7 +98,7 @@ extension ProManagerApi: TargetType {
         switch self {
         case .confirmEmail, .doLogin:
             return URL.init(string: Constant.URLs.cabbage)!
-        case .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getyoutubeSubscribedChannel, .getYoutubeCategory:
+        case .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getyoutubeSubscribedChannel, .getYoutubeCategory, .youTubeChannels:
             return URL.init(string: Constant.URLs.youtube)!
         case .uploadYoutubeVideo:
             return URL.init(string: "https://www.googleapis.com/upload/youtube/v3/videos?part=snippet&status")!
@@ -199,6 +200,8 @@ extension ProManagerApi: TargetType {
             return Paths.getChannelSuggestion
         case .connectSocial(_, _, _):
             return Paths.connectSocial
+        case .youTubeChannels:
+            return Paths.youTubechannels
         }
        
     }
@@ -208,7 +211,7 @@ extension ProManagerApi: TargetType {
         switch self {
         case .signUp, .logIn, .verifyChannel, .search, .getAccessToken:
             return .post
-        case .getSplashImages, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getHashTagSets, .getWeather, .getyoutubeSubscribedChannel, .getYoutubeCategory, .instgramProfile, .instgramProfileDetails, .getLongLivedToken, .getChannelList, .getPackage, .getCart, .getViralvids:
+        case .getSplashImages, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getHashTagSets, .getWeather, .getyoutubeSubscribedChannel, .getYoutubeCategory, .instgramProfile, .instgramProfileDetails, .getLongLivedToken, .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels:
             return .get
         case .updateProfile, .editStory, .updatePost:
             return .put
@@ -234,7 +237,7 @@ extension ProManagerApi: TargetType {
             param = ["channelName": channel]
         case .confirmEmail(let userId, let email):
             param = ["userId": userId, "email": email]
-        case .signUp(let email, let password, let channel, let refChannel, let isBusiness, let socialId, let provider, let channelName, let refferId, let deviceToken, let birthDate):
+        case .signUp(let email, let password, let channel, let refChannel, let isBusiness, let socialId, let provider, let channelName, let refferId, let deviceToken, let birthDate, let profileImageURL):
             param = ["email": email, "password": password, "channelId": channel, "refferingChannel": refChannel, "isBusiness": isBusiness, "channelName": channelName, "deviceType": 1]
             if let rId = refferId {
                 param["refferingId"] = rId
@@ -253,6 +256,9 @@ extension ProManagerApi: TargetType {
             }
             if let id = socialId {
                 param["socialId"] = id
+            }
+            if let profileImageURL = profileImageURL {
+                param["profileImageURL"] = profileImageURL
             }
         case .socialLogin(let socialId, let email):
             param = ["socialId": socialId, "deviceType": 1]
@@ -504,8 +510,9 @@ extension ProManagerApi: TargetType {
             param = ["socialPlatform": socialPlatform,
                      "socialId": socialId,
                      "socialUsername": socialName]
+        case .youTubeChannels(let token):
+            param = ["part": "snippet,contentDetails,statistics", "key": Constant.GoogleService.serviceKey, "mine": "true", "access_token": token]
         }
-        
         return param
     }
     
@@ -518,7 +525,7 @@ extension ProManagerApi: TargetType {
             return JSONEncoding.default
         case .getyoutubeSubscribedChannel:
             return TokenURLEncoding.default
-        case .getChannelList, .getPackage, .getCart, .getViralvids:
+        case .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels:
             return URLEncoding.default
         default:
             return JSONEncoding.default
@@ -535,11 +542,20 @@ extension ProManagerApi: TargetType {
         switch self {
         case .uploadYoutubeVideo(_, let videoURL, let snippet, let status) :
             var multipartFormData: [Moya.MultipartFormData] = []
+           
+            var snippetString = ""
+            
             if let title = snippet["title"] as? String,
-                let categoryId = snippet["categoryId"]  as? String {
-                let snippetString = "{'snippet':{'title' : '\(title)','description': '\(((snippet["description"]  as? String) ?? ""))','categoryId' : '\(categoryId)'}}"
-                multipartFormData.append(MultipartFormData.init(provider: MultipartFormData.FormDataProvider.data((snippetString.data(using: String.Encoding.utf8, allowLossyConversion: false))!), name: "snippet", mimeType: "application/json"))
+                let categoryId = snippet["categoryId"] as? String,
+                let channelId = snippet["channelId"] as? String {
+                snippetString = "{'snippet':{'title' : '\(title)','description': '\(((snippet["description"]  as? String) ?? ""))','categoryId' : '\(categoryId)','channelId' : '\(channelId)'}}"
+            } else if let title = snippet["title"] as? String,
+                let categoryId = snippet["categoryId"] as? String {
+                snippetString = "{'snippet':{'title' : '\(title)','description': '\(((snippet["description"]  as? String) ?? ""))','categoryId' : '\(categoryId)'}}"
             }
+            
+            multipartFormData.append(MultipartFormData.init(provider: MultipartFormData.FormDataProvider.data((snippetString.data(using: String.Encoding.utf8, allowLossyConversion: false))!), name: "snippet", mimeType: "application/json"))
+            
             let statusString = "{'status' : {'privacyStatus':'\(status)'}}"
             multipartFormData.append(MultipartFormData.init(provider: MultipartFormData.FormDataProvider.data((statusString.data(using: String.Encoding.utf8, allowLossyConversion: false))!), name: "status", mimeType: "application/json"))
             if let videoData = try? Data.init(contentsOf: videoURL) {
