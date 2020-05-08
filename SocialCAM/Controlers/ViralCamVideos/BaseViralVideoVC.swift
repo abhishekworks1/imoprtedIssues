@@ -18,7 +18,7 @@ enum TopSegments: String {
     case tiktok = "Tiktok"
     
     static var allValues : [TopSegments] {
-        return [.twitter, .facebook, .instagram, .snapchat, .google, .tiktok]
+        return [.snapchat, .instagram, .tiktok, .google, .twitter, .facebook]
     }
     
     var next: TopSegments? {

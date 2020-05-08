@@ -516,16 +516,25 @@ extension StoryCameraViewController: PickerViewDataSource {
         case .pauseTimer:
             return pauseTimerOptions.count
         case .segmentLength:
+            var segmentLength: [String] = []
+            var maximumItem = "240"
             switch Defaults.shared.appMode {
             case .free:
-                return segmentLengthOptions.count - 7
+                maximumItem = "30"
             case .basic:
-                return segmentLengthOptions.count - 6
+                maximumItem = "60"
             case .advanced:
-                return segmentLengthOptions.count - 2
+                maximumItem = "180"
             default:
-                return segmentLengthOptions.count
+                break
             }
+            for segmentItem in segmentLengthOptions {
+                segmentLength.append(segmentItem)
+                if segmentItem == maximumItem {
+                    break
+                }
+            }
+            return segmentLength.count
         case .photoTimer:
             return photoTimerOptions.count
         }

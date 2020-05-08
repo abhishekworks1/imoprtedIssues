@@ -69,17 +69,31 @@ class SharePostVC: UIViewController {
     func fetchData() {
         if Defaults.shared.currentUser != nil {
             if let item = extensionContext?.inputItems.first as? NSExtensionItem,
-                let itemProvider = item.attachments?.first,
-                itemProvider.hasItemConformingToTypeIdentifier("public.url") {
-                itemProvider.loadItem(forTypeIdentifier: "public.url", options: nil) { (url, _) in
-                    if let shareURL = url as? URL {
-                        self.host = shareURL.host
-                        self.urlString = String(describing: shareURL)
-                        DispatchQueue.main.async {
-                            self.setData()
-                            print(shareURL)
+                let itemProvider = item.attachments?.first {
+                if itemProvider.hasItemConformingToTypeIdentifier("public.url") {
+                    itemProvider.loadItem(forTypeIdentifier: "public.url", options: nil) { (url, _) in
+                        if let shareURL = url as? URL {
+                            self.host = shareURL.host
+                            self.urlString = String(describing: shareURL)
+                            DispatchQueue.main.async {
+                                self.setData()
+                                print(shareURL)
+                            }
+                            
                         }
-                        
+                    }
+                } else if itemProvider.hasItemConformingToTypeIdentifier("public.plain-text") {
+                    itemProvider.loadItem(forTypeIdentifier: "public.plain-text", options: nil) { (urlString, error) in
+                        if let shareURLString = urlString as? String,
+                            let shareURL = URL(string: shareURLString) {
+                            self.host = shareURL.host
+                            self.urlString = String(describing: shareURL)
+                            DispatchQueue.main.async {
+                                self.setData()
+                                print(shareURL)
+                            }
+                            
+                        }
                     }
                 }
             }
@@ -129,11 +143,12 @@ class SharePostVC: UIViewController {
                         self.imgPost.sd_setImage(with: URL.init(string: imgUrl), placeholderImage: nil)
                     }
                     
-                    if let desc = data.pageDescription {
-                        json["description"] = desc
-                        self.txtDesc.text = desc
-                    }
-                    
+                    // ToDo - Temp Disable
+//                    if let desc = data.pageDescription {
+//                        json["description"] = desc
+//                        self.txtDesc.text = desc
+//                    }
+        
                     if let siteName = data.siteName {
                         json["shortLink"] = siteName
                     } else {
