@@ -717,6 +717,7 @@ extension PhotosPickerViewController: UICollectionViewDelegate, UICollectionView
             guard !maxCheck() else { return }
             
             asset.selectedOrder = self.selectedAssets.count + 1
+            asset.thumbImage = asset.fullResolutionImage ?? UIImage()
             self.selectedAssets.append(asset)
             
             cell.selectedAsset = true
