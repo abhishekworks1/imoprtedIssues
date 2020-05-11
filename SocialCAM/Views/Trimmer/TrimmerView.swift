@@ -82,7 +82,7 @@ open class TrimmerView: UIView {
             timePointerViewWidthgAnchor = timePointerView.widthAnchor
                 .constraint(equalToConstant: timePointerViewWidth)
             timePointerViewHeightAnchor = timePointerView.heightAnchor
-                .constraint(equalToConstant: bounds.height - timePointerViewWidth * 2 - 50)
+                .constraint(equalToConstant: bounds.height - timePointerViewWidth * 2)
         }
     }
     
@@ -376,7 +376,7 @@ open class TrimmerView: UIView {
         timePointerViewWidthgAnchor = timePointerView.widthAnchor
             .constraint(equalToConstant: timePointerViewWidth)
         timePointerViewHeightAnchor = timePointerView.heightAnchor
-            .constraint(equalToConstant: frame.height - borderWidth * 2 - 15)
+            .constraint(equalToConstant: frame.height - borderWidth * 2)
         timePointerViewTopAnchor = timePointerView.topAnchor
             .constraint(equalTo: topAnchor, constant: borderWidth)
         timePointerViewLeadingAnchor = timePointerView.leadingAnchor
@@ -564,9 +564,11 @@ open class TrimmerView: UIView {
             if isLeftGesture, let startTime = startTime {
                 delegate?.trimmerDidChangeDraggingPosition?(self, with: startTime)
                 timePointerView.isHidden = true
+                cutView.isHidden = true
             } else if let endTime = endTime {
                 delegate?.trimmerDidChangeDraggingPosition?(self, with: endTime)
                 timePointerView.isHidden = true
+                cutView.isHidden = true
             }
             
         case .cancelled, .failed, .ended:
@@ -577,6 +579,7 @@ open class TrimmerView: UIView {
                     endTime: endTime)
                 
                 timePointerView.isHidden = false
+                cutView.isHidden = false
                 timePointerViewLeadingAnchor.constant = 0
             }
             
@@ -665,6 +668,7 @@ open class TrimmerView: UIView {
         
         let clampedPosition = clamp(offsetPosition, 0, maxPosition)
         DispatchQueue.main.async {
+            self.timePointerViewWidth = 2
             self.timePointerViewLeadingAnchor.constant = CGFloat(clampedPosition)
             self.cutViewLeadingAnchor.constant = CGFloat(clampedPosition) - 9
             self.layoutIfNeeded()

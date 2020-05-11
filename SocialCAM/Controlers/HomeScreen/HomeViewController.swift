@@ -10,12 +10,19 @@ import Foundation
 import MXSegmentedPager
 
 enum HomeTopSegments: String {
-    case following = "Following"
-    case discover = "Discover"
-    case myUpvotes = "My Upvotes"
+    case follow = "Following"
+    case trending = "Trending"
+    case hashTag = "#'s"
+    case tagged = "Tagged"
+    case family = "Family"
+    case vip = "VIP"
+    case featured = "Featured"
+    case media = "Media"
+    case favourite = "Favorite"
+    case custom = "Custom"
     
-    static var allValues : [HomeTopSegments] {
-        return [.following, .discover, .myUpvotes]
+    static var allValues: [HomeTopSegments] {
+        return [.follow, .trending, .hashTag, .tagged, .family, .vip, .featured, .media, .favourite, .custom]
     }
     
     var next: HomeTopSegments? {
@@ -26,7 +33,7 @@ enum HomeTopSegments: String {
         }
     }
     
-    var previous : HomeTopSegments? {
+    var previous: HomeTopSegments? {
         if let index = HomeTopSegments.allValues.firstIndex(of: self), (index - 1) >= 0 {
             return  HomeTopSegments.allValues[index - 1]
         } else {

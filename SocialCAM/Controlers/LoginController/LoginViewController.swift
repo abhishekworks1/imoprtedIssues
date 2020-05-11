@@ -42,6 +42,7 @@ protocol LoginViewControllerDelegate: class {
 class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
     // MARK: Properites
     var parentId: String = ""
+    
     // MARK: IBOutlets
     @IBOutlet var txtEmail: SkyFloatingLabelTextFieldWithIcon!
     @IBOutlet var txtPassword: SkyFloatingLabelTextFieldWithIcon!
@@ -51,7 +52,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var signUpView: UIView!
     @IBOutlet weak var socialSingUpTitleView: UIView!
     @IBOutlet weak var socialSingUpView: UIView!
-    
+    @IBOutlet var btnSignUP: UIButton!
     @IBOutlet weak var logoLable: UILabel!
     weak var delegate: LoginViewControllerDelegate?
     
@@ -74,6 +75,17 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         txtPassword.iconFont = UIFont.fontAwesome(ofSize: 12, style: .solid)
         txtPassword.iconText = String.fontAwesomeIcon(name: .lock)
         setColorTextField(views: [txtEmail, txtPassword])
+        
+        let attributedString = NSMutableAttributedString(string: R.string.localizable.donTHaveAnAccountSignUp(), attributes: [
+          .font: UIFont.systemFont(ofSize: 14.0, weight: .medium),
+          .foregroundColor: UIColor(white: 116.0 / 255.0, alpha: 1.0),
+          .kern: -0.2
+        ])
+        attributedString.addAttributes([
+          .font: UIFont.systemFont(ofSize: 16.0, weight: .semibold),
+          .foregroundColor: ApplicationSettings.appPrimaryColor
+        ], range: NSRange(location: 23, length: 7))
+        btnSignUP.setAttributedTitle(attributedString, for: .normal)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -202,7 +214,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         ProManagerApi.socialLogin(socialId: socialId, email: email).request(Result    <User>.self).subscribe(onNext: { (responce) in
             if responce.status == ResponseType.success {
                 if responce.message == "Signed Up" {
-                    let dict = ["socialId": socialId, "provider": provider]
+                    let dict = ["socialEmail": email, "socialId": socialId, "provider": provider]
                     self.performSegue(withIdentifier: "SignUpStep1", sender: dict)
                 } else if responce.message == "Logged In" {
                     self.goHomeScreen(responce)
@@ -327,7 +339,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
             if let dest = segue.destination as? UINavigationController {
                 if let dest = dest.viewControllers.first as? SignUpStepOneViewController {
                     dest.delegate = self
-                    if let dict = sender as? [String:Any] {
+                    if let dict = sender as? [String: Any] {
                         dest.isSocial = true
                         dest.socialDict = dict
                     }

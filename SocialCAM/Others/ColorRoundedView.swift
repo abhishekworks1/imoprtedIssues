@@ -113,6 +113,8 @@ class ColorRoundedView: UIView {
         }
     }
     
+    @IBInspectable var isCustomeRoundView: Bool = false
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
@@ -121,6 +123,8 @@ class ColorRoundedView: UIView {
     override func layoutSubviews() {
         if isRoundView {
             layer.cornerRadius = self.frame.size.height / 2.0
+        } else if isCustomeRoundView {
+            layer.cornerRadius = 8
         }
         
         self.gradientLayer?.frame = self.bounds
