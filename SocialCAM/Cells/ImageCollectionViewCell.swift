@@ -15,6 +15,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imagesView: UIView!
     @IBOutlet weak var imagesStackView: UIStackView!
     @IBOutlet weak var lblSegmentCount: UILabel!
+    @IBOutlet weak var lblVideoDuration: UILabel!
     @IBOutlet weak var lblVideoersiontag: UILabel!
     @IBOutlet weak var trimmerView: TrimmerView!
     
@@ -24,10 +25,12 @@ class ImageCollectionViewCell: UICollectionViewCell {
                 self.trimmerView.isHidden = false
                 self.imagesView.isHidden = true
                 self.imagesStackView.isHidden = true
+                self.lblVideoDuration.isHidden = false
             } else {
                 self.trimmerView.isHidden = true
                 self.imagesView.isHidden = false
                 self.imagesStackView.isHidden = false
+                self.lblVideoDuration.isHidden = true
             }
         }
     }
@@ -45,6 +48,12 @@ class ImageCollectionViewCell: UICollectionViewCell {
         trimmerView.leftImage = R.image.cut_handle_icon()
         trimmerView.thumbnailsView.isReloadImages = true
         trimmerView.layoutIfNeeded()
+    }
+    
+    func videoPlayerPlayback(to time: CMTime, asset: AVAsset) {
+        let (progressTimeM, progressTimeS) = Utils.secondsToHoursMinutesSeconds(Int(Float(time.seconds).roundToPlaces(places: 0)))
+        let (totalTimeM, totalTimeS) = Utils.secondsToHoursMinutesSeconds(Int(Float(asset.duration.seconds).roundToPlaces(places: 0)))
+        self.lblVideoDuration.text = "\(progressTimeM):\(progressTimeS) / \(totalTimeM):\(totalTimeS)"
     }
     
     func hideLeftRightHandle() {

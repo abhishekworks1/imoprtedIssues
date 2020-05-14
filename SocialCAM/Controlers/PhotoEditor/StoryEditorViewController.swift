@@ -144,6 +144,10 @@ class StoryEditorViewController: UIViewController {
     @IBOutlet weak var editOptionView: UIView!
     @IBOutlet weak var applyFilterOptionView: UIView!
 
+    @IBOutlet weak var slideShowPreviewView: UIView!
+    
+    @IBOutlet weak var slideShowFillAuto: UIView!
+    
     @IBOutlet weak var soundButton: UIButton!
     
     @IBOutlet weak var backgroundCollectionView: UIView!
@@ -364,6 +368,8 @@ class StoryEditorViewController: UIViewController {
         self.trimOptionView.isHidden = isImage
         self.timeSpeedOptionView.isHidden = Defaults.shared.appMode != .free ? isImage : true
         self.slideShowCollectionView.isHidden = !isSlideShow
+        self.slideShowPreviewView.isHidden = !isSlideShow
+        self.slideShowFillAuto.isHidden = !isSlideShow
         self.addMusicOptionView.isHidden = !isSlideShow
         self.collectionView.isHidden = !(storyEditors.count > 1)
         self.playButtonBottomLayoutConstraint.constant = (storyEditors.count > 1) ? 77 : 10
@@ -382,6 +388,8 @@ class StoryEditorViewController: UIViewController {
         deleteView.isHidden = hideColorSlider ? true : hide
         collectionView.isHidden = (storyEditors.count > 1) ? hide : true
         slideShowCollectionView.isHidden = !isSlideShow ? true : hide
+        slideShowPreviewView.isHidden = !isSlideShow ? true : hide
+        self.slideShowFillAuto.isHidden = !isSlideShow ? true : hide
         doneButton.isHidden = !hide
         colorSlider.isHidden = hideColorSlider ? true : !hide
     }
@@ -631,6 +639,67 @@ extension StoryEditorViewController {
         imageVideoExport(isDownload: true)
     }
     
+    @IBAction func slideShowAutoFillClicked(_ sender: UIButton) {
+        var imageData: [UIImage] = []
+        for media in selectedSlideShowMedias {
+            if case let .image(image) = media.type,
+                image != UIImage() {
+                imageData.append(image)
+            }
+        }
+        var minimumValue: Int = 3
+        switch Defaults.shared.appMode {
+        case .basic:
+            minimumValue = 5
+        case .advanced:
+            minimumValue = 10
+        case .professional:
+            minimumValue = 18
+        default:
+            minimumValue = 3
+        }
+        
+        for (_, storyEditor) in storyEditors.enumerated() {
+            switch storyEditor.type {
+            case .image:
+                DispatchQueue.runOnMainThread {
+                    if let image = storyEditor.updatedThumbnailImage() {
+                        imageData.append(image)
+                    }
+                }
+            case .video(_, _):
+                break
+            }
+        }
+        
+        DispatchQueue.runOnMainThread {
+            for (index, media) in self.selectedSlideShowMedias.enumerated() {
+                if index < minimumValue, index < imageData.count {
+                    media.type = .image(imageData[index])
+                }
+            }
+            self.slideShowCollectionView.reloadData()
+        }
+    }
+    
+    @IBAction func previewSlideShowClicked(_ sender: UIButton) {
+        self.saveSlideShow(success: { [weak self] (exportURL) in
+            guard let `self` = self else {
+                return
+            }
+            DispatchQueue.runOnMainThread {
+                let player = AVPlayer(url: exportURL)
+                let playerController = AVPlayerViewController()
+                playerController.player = player
+                self.present(playerController, animated: true) {
+                    player.play()
+                }
+            }
+        }, failure: { (error) in
+            print(error)
+        })
+    }
+    
     func imageVideoExport(isDownload: Bool = false, type: SocialShare = .facebook) {
         if isSlideShow {
             saveSlideShow(success: { [weak self] (exportURL) in
@@ -716,7 +785,7 @@ extension StoryEditorViewController {
                 switch storyEditor.type {
                 case .image:
                     DispatchQueue.runOnMainThread {
-                        if let image = self.storyEditors[self.currentStoryIndex].updatedThumbnailImage() {
+                        if let image = self.storyEditors[index].updatedThumbnailImage() {
                             self.saveImageOrVideoInGallery(image: image)
                             dispatchGroup.leave()
                         }
@@ -1253,7 +1322,6 @@ extension StoryEditorViewController: PlayerControlViewDelegate {
     }
     
 }
-
 
 extension StoryEditorViewController: CropViewControllerDelegate {
     

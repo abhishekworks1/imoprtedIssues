@@ -107,11 +107,29 @@ extension ViralCamVideos: UITableViewDataSource, UITableViewDelegate {
     }
    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let videosWebViewVC: VideosWebViewVC = VideosWebViewVC()
-        videosWebViewVC.websiteUrl = videos[indexPath.row].referenceLink ?? "www.google.com"
-        //videosWebViewVC.delegate = self
-        self.present(videosWebViewVC, animated: true) {
-            
+        if self.segmentType == .google {
+            self.openYoutubeView(videos[indexPath.row].referenceLink?.youtubeID ?? R.string.localizable.wwwYoutubeCom(), previewUrl: videos[indexPath.row].referenceLink)
+        } else {
+            let videosWebViewVC: VideosWebViewVC = VideosWebViewVC()
+            videosWebViewVC.websiteUrl = videos[indexPath.row].referenceLink ?? R.string.localizable.wwwYoutubeCom()
+            self.present(videosWebViewVC, animated: true) {
+                
+            }
         }
+    }
+}
+
+private extension String {
+    var youtubeID: String? {
+        let pattern = "((?<=(v|V)/)|(?<=be/)|(?<=(\\?|\\&)v=)|(?<=embed/))([\\w-]++)"
+
+        let regex = try? NSRegularExpression(pattern: pattern, options: .caseInsensitive)
+        let range = NSRange(location: 0, length: count)
+
+        guard let result = regex?.firstMatch(in: self, range: range) else {
+            return nil
+        }
+
+        return (self as NSString).substring(with: result.range)
     }
 }

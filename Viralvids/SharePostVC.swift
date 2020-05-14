@@ -23,6 +23,8 @@ class SharePostVC: UIViewController {
     // MARK: - IBOutlets
     @IBOutlet weak var imgPost: UIImageView!
  
+    @IBOutlet weak var scrollView: UIScrollView!
+    
     @IBOutlet weak var imgSocialIcon: UIImageView!
     
     @IBOutlet weak var hashTagView: RKTagsView!
@@ -45,6 +47,8 @@ class SharePostVC: UIViewController {
     var linkData: OpenGraph.Data?
     var socialPlatform: String = R.string.localizable.facebook().lowercased()
     
+    var mainScrollView: UIScrollView?
+    
     // MARK: - View Life cycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,7 +67,14 @@ class SharePostVC: UIViewController {
         self.hashTagView.isHasTag = true
         self.hashTagView.font = UIFont.systemFont(ofSize: 13)
         self.hashTagView.layoutIfNeeded()
-        
+       
+        self.mainScrollView = self.scrollView
+        self.mainScrollView?.isScrollEnabled = true
+        self.registerKeyboardNotifications()
+    }
+    
+    deinit {
+       self.unregisterKeyboardNotifications()
     }
     
     func fetchData() {
@@ -246,7 +257,12 @@ extension SharePostVC: UITextFieldDelegate {
     }
 }
 
+extension SharePostVC: ScrollViewKeyboardDelegate {
+    
+}
+
 extension SharePostVC: UITextViewDelegate {
+    
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if(text == "\n") {
             textView.resignFirstResponder()
@@ -254,4 +270,76 @@ extension SharePostVC: UITextViewDelegate {
         }
         return true
     }   
+}
+
+protocol ScrollViewKeyboardDelegate: class {
+    var mainScrollView: UIScrollView? { get set }
+
+    func registerKeyboardNotifications()
+    func unregisterKeyboardNotifications()
+}
+
+extension ScrollViewKeyboardDelegate where Self: UIViewController {
+    func registerKeyboardNotifications() {
+        NotificationCenter.default.addObserver(
+            forName: UIResponder.keyboardWillChangeFrameNotification,
+            object: nil,
+            queue: nil) { [weak self] notification in
+                self?.keyboardWillBeShown(notification)
+        }
+
+        NotificationCenter.default.addObserver(
+            forName: UIResponder.keyboardWillHideNotification,
+            object: nil,
+            queue: nil) { [weak self] notification in
+                self?.keyboardWillBeHidden(notification)
+        }
+    }
+
+    func unregisterKeyboardNotifications() {
+        NotificationCenter.default.removeObserver(
+            self,
+            name: UIResponder.keyboardWillChangeFrameNotification,
+            object: nil
+        )
+        NotificationCenter.default.removeObserver(
+            self,
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil
+        )
+    }
+
+    func keyboardWillBeShown(_ notification: Notification) {
+        let info = notification.userInfo
+        let key = (info?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)
+        let aKeyboardSize = key?.cgRectValue
+
+        guard let keyboardSize = aKeyboardSize,
+            let scrollView = self.mainScrollView else {
+                return
+        }
+
+        let bottomInset = keyboardSize.height
+        scrollView.contentInset.bottom = bottomInset
+        scrollView.scrollIndicatorInsets.bottom = bottomInset
+        if let activeField = self.view.firstResponder {
+            let yPosition = activeField.frame.origin.y + 100
+            if yPosition > 0 {
+                let scrollPoint = CGPoint(x: 0, y: yPosition)
+                scrollView.setContentOffset(scrollPoint, animated: true)
+            }
+        }
+    }
+
+    func keyboardWillBeHidden(_ notification: Notification) {
+        self.mainScrollView?.contentInset = .zero
+        self.mainScrollView?.scrollIndicatorInsets = .zero
+    }
+}
+
+extension UIView {
+    var firstResponder: UIView? {
+        guard !isFirstResponder else { return self }
+        return subviews.first(where: {$0.firstResponder != nil })
+    }
 }

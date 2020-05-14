@@ -764,6 +764,26 @@ extension StoryCameraViewController {
         cameraSliderView.stringArray = basicCameraModeArray
         cameraSliderView.bottomImage = R.image.cameraModeSelect()
         cameraSliderView.cellTextColor = .white
+        cameraSliderView.isScrollEnable = { [weak self] (index) in
+            guard let `self` = self else { return }
+            let currentMode = CameraMode(rawValue: index) ?? .normal
+            if currentMode == .custom && self.takenVideoUrls.count > 0 {
+                let alert = UIAlertController(title: Constant.Application.displayName, message: R.string.localizable.doYouWantToDeleteVideos(), preferredStyle: .actionSheet)
+                let yesAction = UIAlertAction(title: R.string.localizable.oK(), style: .default, handler: handleRemoveVides)
+                let cancelAction = UIAlertAction(title: R.string.localizable.cancel(), style: .cancel, handler: nil)
+                alert.addAction(yesAction)
+                alert.addAction(cancelAction)
+                alert.popoverPresentationController?.sourceView = self.view
+                alert.popoverPresentationController?.sourceRect = CGRect.init(x: self.view.bounds.size.width / 2.0, y: self.view.bounds.size.height / 2.0, width: 1.0, height: 1.0)
+                
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
+        
+        func handleRemoveVides(alertAction: UIAlertAction!) {
+            self.removeData()
+        }
+        
         cameraSliderView.currentCell = { [weak self] (index) in
             guard let `self` = self else { return }
             Defaults.shared.cameraMode = CameraMode(rawValue: index) ?? .normal

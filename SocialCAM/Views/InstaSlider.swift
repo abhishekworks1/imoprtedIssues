@@ -52,6 +52,8 @@ open class InstaSlider: UIView {
     
     open var currentCell: CurrentCellCallBack?
     
+    open var isScrollEnable: CurrentCellCallBack?
+    
     convenience init() {
         self.init(frame: CGRect(x: 0, y: 0, width: UIScreen.ratioWidth, height: 64))
     }
@@ -156,6 +158,28 @@ open class InstaSlider: UIView {
             }
         }
     }
+
+    func isScrollViewScroll(scrollView: UIScrollView) {
+        let collectionOrigin = collectionView!.bounds.origin
+        let collectionWidth = collectionView!.bounds.width
+        var centerPoint: CGPoint!
+        var newX: CGFloat!
+        if collectionOrigin.x > 0 {
+            newX = collectionOrigin.x + collectionWidth / 2
+            centerPoint = CGPoint(x: newX, y: collectionOrigin.y)
+        } else {
+            newX = collectionOrigin.x + collectionWidth / 2
+            centerPoint = CGPoint(x: newX, y: collectionOrigin.y)
+        }
+        
+        let index = collectionView!.indexPathForItem(at: centerPoint)
+        
+        if(index != nil) {
+            if (self.isScrollEnable != nil) {
+                self.isScrollEnable!((index?.row)!)
+            }
+        }
+    }
 }
 
 extension InstaSlider: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -191,6 +215,10 @@ extension InstaSlider: UICollectionViewDataSource, UICollectionViewDelegate, UIC
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize.init(width: 110, height: self.collectionView.frame.height/2)
+    }
+    
+    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        self.isScrollViewScroll(scrollView: scrollView)
     }
     
     public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {

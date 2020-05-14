@@ -188,18 +188,18 @@ class TrimEditorViewController: UIViewController {
     func setupPositionBar(cell: ImageCollectionViewCell) {
         positionBar.frame = CGRect(x: 0, y: 0, width: 3, height: cell.imagesView.frame.height)
         positionBar.backgroundColor = ApplicationSettings.appWhiteColor
-        positionBar.center = CGPoint(x: cell.imagesView.frame.maxX, y: cell.imagesView.center.y)
+        positionBar.center = CGPoint(x: cell.imagesView.frame.maxX + 0, y: cell.imagesView.center.y)
         positionBar.layer.cornerRadius = 1
         positionBar.translatesAutoresizingMaskIntoConstraints = false
         positionBar.isUserInteractionEnabled = false
         cell.contentView.addSubview(positionBar)
         
-        positionBar.centerYAnchor.constraint(equalTo: cell.centerYAnchor).isActive = true
+        positionBar.centerYAnchor.constraint(equalTo: cell.centerYAnchor, constant: 0).isActive = true
         positionBar.widthAnchor.constraint(equalToConstant: 2).isActive = true
         cell.imagesView.layoutIfNeeded()
         heightConstraint = positionBar.heightAnchor.constraint(equalToConstant: CGFloat(cell.imagesView.frame.height))
         heightConstraint?.isActive = true
-        positionConstraint = positionBar.leftAnchor.constraint(equalTo: cell.imagesView.leftAnchor, constant: 0)
+        positionConstraint = positionBar.leftAnchor.constraint(equalTo: cell.leftAnchor)
         positionConstraint?.isActive = true
     }
     
@@ -237,6 +237,7 @@ class TrimEditorViewController: UIViewController {
             positionConstraint?.constant = normalizedPosition
             cell.imagesView.layoutIfNeeded()
             heightConstraint?.constant = cell.imagesView.frame.height
+            cell.videoPlayerPlayback(to: time, asset: cell.trimmerView.thumbnailsView.asset)
             cell.layoutIfNeeded()
         }
     }
@@ -264,6 +265,7 @@ class TrimEditorViewController: UIViewController {
                     
                     cell.trimmerView.seek(to: playBackTime)
                     seek(to: CMTime.init(seconds: playBackTime.seconds, preferredTimescale: 10000), cell: cell)
+                    
                     if playBackTime >= endTime {
                         player.seek(to: startTime, toleranceBefore: tolerance, toleranceAfter: tolerance)
                         cell.trimmerView.seek(to: startTime)
@@ -366,9 +368,9 @@ extension TrimEditorViewController: UICollectionViewDataSource {
         } else {
             if !storyEditorMedias[indexPath.row][0].isSelected {
                 for (index, _) in storySegment.enumerated() {
-                    mainView = UIView(frame: CGRect(x: 0, y: 3, width: Double(41), height: 52))
+                    mainView = UIView(frame: CGRect(x: 0, y: 3, width: Double(41), height: Double(cell.imagesView.frame.height)))
                     
-                    imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: Double(41), height: 52))
+                    imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: Double(41), height: Double(cell.imagesView.frame.height)))
                     imageView.image = thumbImage(index: indexPath.row, secondIndex: index)
                     imageView.contentMode = .scaleToFill
                     imageView.clipsToBounds = true
@@ -387,6 +389,7 @@ extension TrimEditorViewController: UICollectionViewDataSource {
             
             cell.isEditMode = false
         }
+        cell.layoutIfNeeded()
         cell.isHidden = false
         if let draggingPathOfCellBeingDragged = self.storyCollectionView.draggingPathOfCellBeingDragged {
             if draggingPathOfCellBeingDragged.item == indexPath.item {
@@ -438,7 +441,7 @@ extension TrimEditorViewController: UICollectionViewDelegate, UICollectionViewDe
         let storySegment = storyEditorMedias[indexPath.row]
         if currentPage == indexPath.row {
             if isEditMode {
-                return CGSize(width: 225, height: Double(98 * 1.17))
+                return CGSize(width: 225, height: Double(118 * 1.17))
             } else {
                 return CGSize(width: (Double(storySegment.count * 41) * 1.2), height: Double(98 * 1.17))
             }
@@ -561,6 +564,9 @@ extension TrimEditorViewController: TrimmerViewDelegate {
     func trimmerScrubbingDidChange(_ trimmer: TrimmerView, with currentTimeScrub: CMTime) {
         if let player = player {
             player.seek(to: currentTimeScrub, toleranceBefore: tolerance, toleranceAfter: tolerance)
+            if player.timeControlStatus == .playing {
+                player.pause()
+            }
             
             if let cell: ImageCollectionViewCell = self.storyCollectionView.cellForItem(at: getCurrentIndexPath) as? ImageCollectionViewCell {
                 guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
@@ -582,12 +588,13 @@ extension TrimEditorViewController: TrimmerViewDelegate {
         sender.setTranslation(.zero, in: view)
         let position = sender.location(in: view)
         print(position)
-        if position.y >= -100 {
-            if let player = player {
-                player.seek(to: currentTimeScrub, toleranceBefore: tolerance, toleranceAfter: tolerance)
-                if player.timeControlStatus == .playing && !btnPlayPause.isSelected {
-                    player.play()
-                }
+        // Todo: Swap to trim feature disable temp
+        //if position.y >= -100 {
+        // {
+        if let player = player {
+            player.seek(to: currentTimeScrub, toleranceBefore: tolerance, toleranceAfter: tolerance)
+            if btnPlayPause.isSelected {
+                player.play()
             }
         }
     }
@@ -651,6 +658,7 @@ extension TrimEditorViewController {
         if isViewAppear {
             guard let currentPlayer = self.player else { return }
             currentPlayer.pause()
+            self.btnPlayPause.isSelected = false
             stopPlaybackTimeChecker()
         }
     }

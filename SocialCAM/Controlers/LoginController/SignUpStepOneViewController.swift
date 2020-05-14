@@ -22,21 +22,24 @@ enum SignUpStep :Int {
 class SignUpStepOneViewController: UIViewController {
     
     // MARK :-- IBOutlets ---
-    @IBOutlet var txtEmail : SkyFloatingLabelTextField!
-    @IBOutlet var txtPassWord : SkyFloatingLabelTextField!
-    @IBOutlet var txtChannel : SkyFloatingLabelTextField!
-    @IBOutlet var txtBirthdate : SkyFloatingLabelTextField!
-    @IBOutlet var txtChannelTitle : SkyFloatingLabelTextField!
-    @IBOutlet var txtRefChannel : SkyFloatingLabelTextField!
-    @IBOutlet var imgViewCheck : UIImageView!
-    @IBOutlet var lblCount : PLabel!
-    @IBOutlet var viewChannelBox : UIView!
-    @IBOutlet var viewBirthdate : UIView!
-    @IBOutlet var lblChannel : PLabel!
-    @IBOutlet var viewPassWord : UIView!
-    @IBOutlet var btnHidePassWord : PButton!
+    @IBOutlet var txtEmail: SkyFloatingLabelTextField!
+    @IBOutlet var txtPassWord: SkyFloatingLabelTextField!
+    @IBOutlet var txtChannel: SkyFloatingLabelTextField!
+    @IBOutlet var txtBirthdate: SkyFloatingLabelTextField!
+    @IBOutlet var txtChannelTitle: SkyFloatingLabelTextField!
+    @IBOutlet var txtRefChannel: SkyFloatingLabelTextField!
+    @IBOutlet var imgViewCheck: UIImageView!
+    @IBOutlet var lblCount: PLabel!
+    @IBOutlet var viewChannelBox: UIView!
+    @IBOutlet var viewBirthdate: UIView!
+    @IBOutlet var lblChannel: PLabel!
+    @IBOutlet var viewPassWord: UIView!
+    @IBOutlet var btnHidePassWord: PButton!
+    var profileImg: String?
+    var imagePicker: UIImagePickerController!
     
     @IBOutlet weak var imgLogo: UIImageView!
+    
     // MARK :-- iVars ---
     
     weak var delegate: LoginViewControllerDelegate?
@@ -47,7 +50,7 @@ class SignUpStepOneViewController: UIViewController {
     var isEmail: Bool = false
     var isBusiness: Bool = false
     var isSocial: Bool = false
-    var socialDict: [String:Any]?
+    var socialDict: [String: Any]?
     let dropDownMenu = DropDown()
     
     // MARK : ---  View Life Cycle Methods ----
@@ -58,7 +61,6 @@ class SignUpStepOneViewController: UIViewController {
     
     @objc func tapGesture(_ recognizer: UITapGestureRecognizer) {
         DateTimePicker.selectDate(maxDate: Date()) { [weak self] (selectedDate) in
-            // TODO: Your implementation for date
             guard let `self` = self else {
                 return
             }
@@ -71,13 +73,23 @@ class SignUpStepOneViewController: UIViewController {
         self.isBusiness =  false
         
         #if VIRALCAMAPP
-        imgLogo.image = R.image.viralcamrgb()
+        imgLogo.image = R.image.uploadProfileImage()
         #endif
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapGesture(_:)))
         viewBirthdate.addGestureRecognizer(tapGesture)
         self.txtBirthdate.isUserInteractionEnabled = false
-          
+        
+        if socialDict != nil {
+            if let provider: String = self.socialDict?["provider"] as? String {
+                self.showAlert(alertMessage: "\(provider) login successfully.")
+            }
+            
+            if let providerEmail = self.socialDict?["socialEmail"] as? String {
+                txtEmail.text = providerEmail
+            }
+        }
+        
         AppEventBus.onMainThread(self, name: "channelName") { [weak self] (result) in
             guard let `self` = self else {
                 return
@@ -87,7 +99,7 @@ class SignUpStepOneViewController: UIViewController {
                 self.txtRefChannel.text = refereUserId
                 self.isRefChannel = true
             }
-        }    
+        }
         
         if let refereId = self.refereUserId {
             self.txtRefChannel.text = refereId
@@ -111,7 +123,7 @@ class SignUpStepOneViewController: UIViewController {
     }
     
     func setupRefChannel() {
-        let isRefExist = self.txtRefChannel?.rx.text.orEmpty.filter{ $0.count > 3}.throttle(0.5, scheduler:MainScheduler.instance).distinctUntilChanged().flatMapLatest( { (channel: String) -> Observable<ResultArray<Channel>> in
+        let isRefExist = self.txtRefChannel?.rx.text.orEmpty.filter { $0.count > 3}.throttle(0.5, scheduler: MainScheduler.instance).distinctUntilChanged().flatMapLatest( { (channel: String) -> Observable<ResultArray<Channel>> in
             if self.isRefChannelRefresh {
                 self.showHUD()
             }
@@ -162,7 +174,7 @@ class SignUpStepOneViewController: UIViewController {
                 print("false")
                 self.isRefChannel = true
             }
-        }, onError: { (error:Error) in
+        }, onError: { (error: Error) in
             self.dismissHUD()
             print("false")
             self.viewChannelBox.isHidden = true
@@ -241,8 +253,13 @@ class SignUpStepOneViewController: UIViewController {
                 socialId = self.socialDict?["socialId"] as? String
                 provider = self.socialDict?["provider"] as? String
             }
-            
-            ProManagerApi.signUp(email: email, password: password, channel: email, refChannel: refChannel, isBusiness: isBusiness, socialId: socialId, provider: provider, channelName: email, refferId: self.refereUserId,deviceToken: "", birthDate: birthdate, profileImageURL: ApplicationSettings.shared.postURL).request(Result<User>.self).subscribe(onNext: { result in
+            var profileImageURL: String?
+            if let profileImg = profileImg {
+                profileImageURL = profileImg
+            } else if profileImg == ApplicationSettings.shared.postURL {
+                profileImageURL = profileImg
+            }
+            ProManagerApi.signUp(email: email, password: password, channel: email, refChannel: refChannel, isBusiness: isBusiness, socialId: socialId, provider: provider, channelName: email, refferId: self.refereUserId,deviceToken: "", birthDate: birthdate, profileImageURL: profileImageURL).request(Result<User>.self).subscribe(onNext: { result in
                 self.dismissHUD()
                 if result.status == ResponseType.success {
                     Defaults.shared.sessionToken = result.sessionToken
@@ -275,6 +292,24 @@ class SignUpStepOneViewController: UIViewController {
             self.isRefChannelRefresh = false
         }
         self.navigationController?.pushViewController(searchChannelViewController!, animated: true)
+    }
+    
+    @IBAction func btnProfileImageClicked(_ sender: UIButton) {
+        let menuOptionsString: [String] = [R.string.localizable.camera(), R.string.localizable.photoLibrary()]
+        
+        BasePopConfiguration.shared.backgoundTintColor = R.color.appWhiteColor()!
+        BasePopConfiguration.shared.menuWidth = 125
+        BasePopConfiguration.shared.showCheckMark = .none
+        BasePopOverMenu
+            .showForSender(sender: sender, with: menuOptionsString, done: { [weak self] (selectedIndex) in
+                guard let `self` = self else { return }
+                if selectedIndex == 0 {
+                    self.openCamera()
+                } else {
+                    self.openPhotoLibrary()
+                }
+                }, cancel: {
+            })
     }
     
     @IBAction func btnBusinessClicked(_ sender : Any) {
@@ -366,3 +401,48 @@ extension SignUpStepOneViewController : UITextFieldDelegate {
     }
     
 }
+
+extension SignUpStepOneViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func openCamera() {
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            self.imagePicker = UIImagePickerController()
+            self.imagePicker.sourceType = .camera
+            self.imagePicker.allowsEditing =  true
+            self.imagePicker.delegate = self
+            self.present(self.imagePicker, animated: true, completion: nil)
+        }
+    }
+    
+    func openPhotoLibrary() {
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            self.imagePicker = UIImagePickerController()
+            self.imagePicker.sourceType = .photoLibrary
+            self.imagePicker.allowsEditing =  true
+            self.imagePicker.delegate = self
+            self.present(self.imagePicker, animated: true, completion: nil)
+        }
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        var img: UIImage = UIImage()
+        if let imgData = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            img = imgData
+        } else if let imgData = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            img = imgData
+        }
+        self.imgLogo.image = img
+        
+        Utils.uploadImage(imgName: String.fileName, img: img, callBack: { (url) -> Void? in
+            self.profileImg = url
+            return nil
+        })
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+}
+
