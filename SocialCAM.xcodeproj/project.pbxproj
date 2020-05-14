@@ -1241,6 +1241,8 @@
 		951D5C9E24472AC600DBD742 /* UpgradeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951D5C9D24472AC600DBD742 /* UpgradeViewController.swift */; };
 		951D5C9F24472AC600DBD742 /* UpgradeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951D5C9D24472AC600DBD742 /* UpgradeViewController.swift */; };
 		951F0167240E99FC008C2B2A /* VIExportSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951F0166240E99FC008C2B2A /* VIExportSession.swift */; };
+		95224B3D246C258E001AD3C4 /* SocialConnection.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95224B3C246C258E001AD3C4 /* SocialConnection.storyboard */; };
+		95224B3F246C2A86001AD3C4 /* AddSocialConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95224B3E246C2A86001AD3C4 /* AddSocialConnectionViewController.swift */; };
 		952EC299244865D00020992A /* PaymentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC298244865D00020992A /* PaymentTableViewCell.swift */; };
 		952EC29A244865D00020992A /* PaymentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC298244865D00020992A /* PaymentTableViewCell.swift */; };
 		952EC29C244865F00020992A /* ChannelManagment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC29B244865EF0020992A /* ChannelManagment.swift */; };
@@ -1327,6 +1329,9 @@
 		959A91DC2449E9F00062AA67 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 959A91DA2449E8000062AA67 /* StoreKit.framework */; };
 		95A405AE23BF78D000AD38C4 /* SpecificBoomerangViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A405AC23BF78CF00AD38C4 /* SpecificBoomerangViewController.swift */; };
 		95A405AF23BF78D000AD38C4 /* SpecificBoomerangWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A405AD23BF78D000AD38C4 /* SpecificBoomerangWriter.swift */; };
+		95A69E60246C2E00004CB217 /* AddSocialConnectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95224B3E246C2A86001AD3C4 /* AddSocialConnectionViewController.swift */; };
+		95A69E61246C2E0E004CB217 /* SocialConnection.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95224B3C246C258E001AD3C4 /* SocialConnection.storyboard */; };
+		95A69E62246C35E5004CB217 /* VideoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E503D624500E3D0026BDF6 /* VideoTableViewCell.swift */; };
 		95AA66AF240FDA4900434C9A /* FollowMeStoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AA66AE240FDA4900434C9A /* FollowMeStoryView.swift */; };
 		95AA66B1240FDAB000434C9A /* FollowMeStoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95AA66B0240FDAB000434C9A /* FollowMeStoryView.xib */; };
 		95BFD43223FE93D70066BA3C /* SocialCamWaterMark.gif in Resources */ = {isa = PBXBuildFile; fileRef = 95BFD43123FE93D60066BA3C /* SocialCamWaterMark.gif */; };
@@ -2030,6 +2035,8 @@
 		950514C4239FCEE600F07D8F /* StickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StickerViewController.swift; sourceTree = "<group>"; };
 		951D5C9D24472AC600DBD742 /* UpgradeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradeViewController.swift; sourceTree = "<group>"; };
 		951F0166240E99FC008C2B2A /* VIExportSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VIExportSession.swift; sourceTree = "<group>"; };
+		95224B3C246C258E001AD3C4 /* SocialConnection.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SocialConnection.storyboard; sourceTree = "<group>"; };
+		95224B3E246C2A86001AD3C4 /* AddSocialConnectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSocialConnectionViewController.swift; sourceTree = "<group>"; };
 		952EC298244865D00020992A /* PaymentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentTableViewCell.swift; sourceTree = "<group>"; };
 		952EC29B244865EF0020992A /* ChannelManagment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelManagment.swift; sourceTree = "<group>"; };
 		952EC2A424486C690020992A /* FriendPackageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendPackageTableViewCell.swift; sourceTree = "<group>"; };
@@ -3242,6 +3249,7 @@
 		824EB393236197F600205993 /* Controlers */ = {
 			isa = PBXGroup;
 			children = (
+				95224B3B246C2572001AD3C4 /* SocialConnection */,
 				23E503CB24500B360026BDF6 /* ViralCamVideos */,
 				951D5C9C24472AC600DBD742 /* ChannelPurchase */,
 				82CA3E5223D9D01300DD48B8 /* PageViewController */,
@@ -3547,6 +3555,15 @@
 				952EC29B244865EF0020992A /* ChannelManagment.swift */,
 			);
 			path = ChannelPurchase;
+			sourceTree = "<group>";
+		};
+		95224B3B246C2572001AD3C4 /* SocialConnection */ = {
+			isa = PBXGroup;
+			children = (
+				95224B3C246C258E001AD3C4 /* SocialConnection.storyboard */,
+				95224B3E246C2A86001AD3C4 /* AddSocialConnectionViewController.swift */,
+			);
+			path = SocialConnection;
 			sourceTree = "<group>";
 		};
 		952EC2AA244870180020992A /* PreRegistration */ = {
@@ -3909,6 +3926,7 @@
 				23CE8BAA24349B110096233C /* Light.JPG in Resources */,
 				23CE8BAB24349B110096233C /* Clear.JPG in Resources */,
 				23CE8BAC24349B110096233C /* HomeTableViewCellWithCollectionView.xib in Resources */,
+				95A69E61246C2E0E004CB217 /* SocialConnection.storyboard in Resources */,
 				23CE8BAD24349B110096233C /* love.json in Resources */,
 				23CE8BAE24349B110096233C /* StoryEditor.storyboard in Resources */,
 				23CE8BAF24349B110096233C /* Localizable.strings in Resources */,
@@ -4055,6 +4073,7 @@
 				8205FB13236C14C7002B2603 /* Localizable.strings in Resources */,
 				8205FC3E236C2C2F002B2603 /* SF-UI-Text-Light.otf in Resources */,
 				8205FD37236C3B06002B2603 /* LUT_M05.png in Resources */,
+				95224B3D246C258E001AD3C4 /* SocialConnection.storyboard in Resources */,
 				82D1EC3F23702B4300A680E7 /* Naive.JPG in Resources */,
 				8205FD5A236C3B06002B2603 /* YUCIColorLookup.cikernel in Resources */,
 				8205FC42236C2C2F002B2603 /* SF-UI-Text-Medium.otf in Resources */,
@@ -4627,6 +4646,7 @@
 				823B81062461876B0024BDD9 /* DropDown.swift in Sources */,
 				23CE8A2524349B110096233C /* User.swift in Sources */,
 				23CE8A2624349B110096233C /* TextImageCreaterVC.swift in Sources */,
+				95A69E60246C2E00004CB217 /* AddSocialConnectionViewController.swift in Sources */,
 				23CE8A2724349B110096233C /* CollageViewT301.swift in Sources */,
 				23CE8A2824349B110096233C /* ColorCubeStorageLocal.swift in Sources */,
 				952EC2C8244872A90020992A /* PackageSuggesstionTableViewCell.swift in Sources */,
@@ -5154,6 +5174,7 @@
 				952EC2A524486C690020992A /* FriendPackageTableViewCell.swift in Sources */,
 				8205FAE6236C10F3002B2603 /* DNDLongPressDragRecognizer.m in Sources */,
 				82CA3E4B23D98F1B00DD48B8 /* GameGridCell.swift in Sources */,
+				95A69E62246C35E5004CB217 /* VideoTableViewCell.swift in Sources */,
 				8205FBC8236C2A88002B2603 /* MMPlayer+UINavigationController+LastDelegate.swift in Sources */,
 				8205FAD8236C10DD002B2603 /* StringExtension.swift in Sources */,
 				8205FCA6236C3AFA002B2603 /* CollageViewT406.swift in Sources */,
@@ -5420,6 +5441,7 @@
 				82262117239E172A00B963CF /* SpeedViewController+Controls.swift in Sources */,
 				824EB3D023619E5C00205993 /* UITableViewExtension.swift in Sources */,
 				8205FD83236C3B06002B2603 /* CropAndStraightenView.swift in Sources */,
+				95224B3F246C2A86001AD3C4 /* AddSocialConnectionViewController.swift in Sources */,
 				82D1EBE3236FF32C00A680E7 /* QueSliderCollectionViewCell.swift in Sources */,
 				82BB559023D85004009B820D /* HomeNavigaionController.swift in Sources */,
 				8205FC46236C2D30002B2603 /* ReactionSummaryConfig.swift in Sources */,
@@ -5689,7 +5711,7 @@
 				CODE_SIGN_ENTITLEMENTS = Viralvids/Viralvids.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = Viralvids/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -5714,7 +5736,7 @@
 				CODE_SIGN_ENTITLEMENTS = Viralvids/Viralvids.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = Viralvids/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -5742,7 +5764,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 18;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = "ViralCam-Info.plist";
@@ -5777,7 +5799,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 16;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = "ViralCam-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;

@@ -14,6 +14,7 @@ enum SettingsMode: Int {
     case socialLogins
     case faceDetection
     case swapeContols
+    case socialConnections
     case channelManagement
     case socialLogout
     case logout
@@ -57,35 +58,12 @@ class StorySettings {
                                                                       selected: true),
                                                          StorySetting(name: R.string.localizable.professional(),
                                                                       selected: true)], settingsType: .subscriptions),
-                                StorySettings(name: R.string.localizable.socialLogin(),
-                                              settings: [StorySetting(name: R.string.localizable.facebook(),
-                                                                      selected: false,
-                                                                      image: R.image.icoFacebookInActive(),
-                                                                      selectedImage: R.image.icoFacebook()),
-                                                         StorySetting(name: R.string.localizable.twitter(),
-                                                                      selected: false,
-                                                                      image: R.image.icoTwitterInActive(),
-                                                                      selectedImage: R.image.icoTwitter()),
-                                                         StorySetting(name: R.string.localizable.instagram(),
-                                                                      selected: false,
-                                                                      image: R.image.icoInstagramInActive(),
-                                                                      selectedImage: R.image.icoInstagram()),
-                                                         StorySetting(name: R.string.localizable.snapchat(),
-                                                                      selected: false,
-                                                                      image: R.image.icoSnapchatInActive(),
-                                                                      selectedImage: R.image.icoSnapchat()),
-                                                         StorySetting(name: R.string.localizable.google(),
-                                                                      selected: false,
-                                                                      image: R.image.icoYoutubeInActive(),
-                                                                      selectedImage: R.image.icoYoutube()),
-                                                         StorySetting(name: R.string.localizable.storiCam(),
-                                                                      selected: false,
-                                                                      image: R.image.icoStoriCamInActive(),
-                                                                      selectedImage: R.image.icoStoriCam())], settingsType: .socialLogins),
                                 StorySettings(name: "",
                                     settings: [StorySetting(name: "Face Detection", selected: false)], settingsType: .faceDetection),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: "Change positions of\nMute,switching camera", selected: false)], settingsType: .swapeContols),
+                                StorySettings(name: "",
+                                              settings: [StorySetting(name: R.string.localizable.socialConnections(), selected: false)], settingsType: .socialConnections),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.channelManagement(), selected: false)], settingsType: .channelManagement),
                                 StorySettings(name: "",
@@ -136,7 +114,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         cell.settingsName.text = settings.name
         cell.detailButton.isHidden = true
         cell.settingsName.textColor = R.color.appBlackColor()
-        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video {
+        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video {
             if settingTitle.settingsType == .appInfo {
                 #if DEBUG
                 cell.settingsName.textColor = R.color.appPrimaryColor()
@@ -182,7 +160,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             fatalError("StorySettingsHeader Not Found")
         }
         let settingTitle = StorySettings.storySettings[section]
-        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .faceDetection || settingTitle.settingsType == .swapeContols || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video {
+        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .faceDetection || settingTitle.settingsType == .swapeContols || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video {
             headerView.title.isHidden = true
         } else {
             headerView.title.isHidden = false
@@ -193,7 +171,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         let settingTitle = StorySettings.storySettings[section]
-        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .faceDetection || settingTitle.settingsType == .swapeContols || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video {
+        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .faceDetection || settingTitle.settingsType == .swapeContols || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video {
             return 24
         } else {
             return 60
@@ -273,6 +251,10 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             let chVc = R.storyboard.preRegistration.channelListViewController()
             chVc?.remainingPackageCountForOthers = Defaults.shared.currentUser?.remainingOtherUserPackageCount ?? 0
             self.navigationController?.pushViewController(chVc!, animated: true)
+        } else if settingTitle.settingsType == .socialConnections {
+            if let addSocialConnectionViewController = R.storyboard.socialConnection.addSocialConnectionViewController() {
+                navigationController?.pushViewController(addSocialConnectionViewController, animated: true)
+            }
         }
     }
     

@@ -42,7 +42,14 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
     @IBOutlet weak var btnCollage: UIButton!
     @IBOutlet weak var btnDropDown: UIButton!
     @IBOutlet weak var btnAddImage: UIButton!
-    
+    @IBOutlet weak var btnDownload: UIButton! {
+        didSet {
+            let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(onLongPress(_:)))
+            longPressGesture.minimumPressDuration = 0.5
+            btnDownload.addGestureRecognizer(longPressGesture)
+        }
+    }
+
     var isShowHideMode: Bool = false {
         didSet {
             btnDropDown.isHidden = isShowHideMode
@@ -246,6 +253,42 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
     
     @objc func enterForeground(_ notifi: Notification) {
         videoView.player.play()
+    }
+    
+    @objc func onLongPress(_ gesture: UILongPressGestureRecognizer) {
+        guard gesture.state == .began else {
+            return
+        }
+        switch type {
+        case .image:
+            if selectedItemArray.count >= 1 {
+                for item in selectedItemArray {
+                    if let url = item.url,
+                        let imageData = try? Data(contentsOf: url),
+                        let image = UIImage(data: imageData) {
+                        SCAlbum.shared.save(image: image) { (isSuccess) in
+                            if isSuccess {
+                                DispatchQueue.main.async {
+                                    self.view.makeToast(R.string.localizable.photoSaved(), duration: 2.0, position: .bottom)
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+                if let image = filteredImage {
+                    SCAlbum.shared.save(image: image) { (isSuccess) in
+                        if isSuccess {
+                            DispatchQueue.main.async {
+                                self.view.makeToast(R.string.localizable.photoSaved(), duration: 2.0, position: .bottom)
+                            }
+                        }
+                    }
+                }
+            }
+        case .video:
+            break
+        }
     }
     
     @IBAction func backButtonClicked(_ sender: Any) {

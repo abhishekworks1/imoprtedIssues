@@ -311,7 +311,9 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func goToHomeScreen() {
-        Utils.appDelegate?.window?.rootViewController = R.storyboard.pageViewController.pageViewController()
+        let addSocialConnectionViewController = R.storyboard.socialConnection.addSocialConnectionViewController()
+        addSocialConnectionViewController?.fromLogin = true
+        Utils.appDelegate?.window?.rootViewController = addSocialConnectionViewController
         RunLoop.current.run(until: Date(timeIntervalSinceNow: 1.0))
     }
     
@@ -354,8 +356,8 @@ extension LoginViewController: LoginViewControllerDelegate {
     func loginDidFinish(user: User?, error: Error?, fromSignup: Bool) {
         self.dismiss(animated: true) {
             if fromSignup {
-                let vc = R.storyboard.preRegistration.upgradeViewController()
-                vc?.fromSignup = true
+                let vc = R.storyboard.socialConnection.addSocialConnectionViewController()
+                vc?.fromLogin = true
                 let navVC = UINavigationController(rootViewController: vc!)
                 navVC.isNavigationBarHidden = true
                 Utils.appDelegate?.window?.rootViewController = navVC
