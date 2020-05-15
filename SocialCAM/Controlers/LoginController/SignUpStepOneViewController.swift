@@ -88,6 +88,10 @@ class SignUpStepOneViewController: UIViewController {
             if let providerEmail = self.socialDict?["socialEmail"] as? String {
                 txtEmail.text = providerEmail
             }
+            
+            if let profileImg = ApplicationSettings.shared.postURL {
+                imgLogo.setImageFromURL(profileImg)
+            }
         }
         
         AppEventBus.onMainThread(self, name: "channelName") { [weak self] (result) in

@@ -34,15 +34,15 @@ enum SocialConnectionType: CaseIterable {
     var color: UIColor? {
         switch self {
         case .facebook:
-            return R.image.icoFacebook()?.getPixelColor()
+            return R.color.icoFacebookColor()
         case .instagram:
-            return R.image.icoInstagram()?.getPixelColor()
+            return R.color.icoInstagramColor()
         case .snapchat:
-            return R.image.icoSnapchat()?.getPixelColor()
+            return R.color.icoSnapchatColor()
         case .twitter:
-            return R.image.icoTwitter()?.getPixelColor()
+            return R.color.icoTwitterColor()
         case .youtube:
-            return R.image.icoYoutube()?.getPixelColor()
+            return R.color.icoYoutubeColor()
         }
     }
 }
@@ -93,7 +93,7 @@ class SocialConnectionTableViewCell: UITableViewCell {
     @IBOutlet weak var userImageView: UIImageView!
 
     func configure(socialOption: SocialConnectionOption) {
-        baseView.backgroundColor = socialOption.type.color?.withAlphaComponent(0.3)
+        baseView.backgroundColor = socialOption.type.color?.withAlphaComponent(0.5)
         typeImageView.image = socialOption.type.image
         userImageView.setImageFromURL(socialOption.socialUserData?.profileURL)
         userNameLabel.text = socialOption.socialUserData?.name

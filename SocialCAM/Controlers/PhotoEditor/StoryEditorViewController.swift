@@ -929,6 +929,11 @@ extension StoryEditorViewController {
     }
     
     @IBAction func ssuButtonClicked(sender: UIButton) {
+        let isLoggedConnections = [FaceBookManager.shared.isUserLogin, InstagramManager.shared.isUserLogin, TwitterManger.shared.isUserLogin, SnapKitManager.shared.isUserLogin, GoogleManager.shared.isUserLogin]
+        guard isLoggedConnections.filter({ return $0 }).count > 0 else {
+            self.showAlert(alertMessage: R.string.localizable.youNeedToConnectAtLeastOneSocialMediaAccountToDoSwipeUp())
+            return
+        }
         if let ssuTagSelectionViewController = R.storyboard.storyCameraViewController.ssuTagSelectionViewController() {
             ssuTagSelectionViewController.delegate = self
             
