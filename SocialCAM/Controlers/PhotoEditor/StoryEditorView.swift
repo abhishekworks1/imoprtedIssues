@@ -631,7 +631,7 @@ extension StoryEditorView {
         }
         followMeStoryView.userBitEmoji.setImageFromURL(Defaults.shared.snapchatProfileURL,
                                                        placeholderImage:
-            R.image.userBitmoji())
+            R.image.viralcamWatermarkLogo())
         followMeStoryView.hideDeleteButton = true
         followMeStoryView.frame.size = CGSize(width: 311, height: 213)
         followMeStoryView.center = center

@@ -221,6 +221,14 @@ class CollageMakerVC: UIViewController, UIGestureRecognizerDelegate {
         delegate?.didSelectImage(image: image)
     }
     
+    @IBAction func btnRotateClick(_ sender: Any) {
+        for cell in collageView.collageCells {
+            if let image = cell.photoView.photoImage.image?.imageRotated(on: 90) {
+                cell.photoView.setPhoto(img: image)
+            }
+        }
+    }
+    
     @IBAction func btnBackClick(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
