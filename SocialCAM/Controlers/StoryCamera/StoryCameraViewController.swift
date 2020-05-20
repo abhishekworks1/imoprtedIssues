@@ -606,7 +606,7 @@ class StoryCameraViewController: UIViewController {
                 Defaults.shared.cameraMode = .normal
                 self.recordingType = Defaults.shared.cameraMode
                 basicCameraModeArray.removeLast()
-                self.selectedSegmentLengthValue = SelectedTimer(value: "30", selectedRow: (self.segmentLengthOptions.count - 8))
+                self.selectedSegmentLengthValue = SelectedTimer(value: "15", selectedRow: (self.segmentLengthOptions.count - 8))
                 self.selectedSegmentLengthValue.saveWithKey(key: "selectedSegmentLengthValue")
                 self.setCameraSettings()
             }
@@ -768,7 +768,7 @@ extension StoryCameraViewController {
             guard let `self` = self else { return }
             let currentMode = CameraMode(rawValue: index) ?? .normal
             if currentMode == .custom && self.takenVideoUrls.count > 0 {
-                let alert = UIAlertController(title: Constant.Application.displayName, message: R.string.localizable.doYouWantToDeleteVideos(), preferredStyle: .actionSheet)
+                let alert = UIAlertController(title: Constant.Application.displayName, message: R.string.localizable.switchingCameraModeWillDeleteTheRecordedVideosAreYouSure(), preferredStyle: .actionSheet)
                 let yesAction = UIAlertAction(title: R.string.localizable.oK(), style: .default, handler: handleRemoveVides)
                 let cancelAction = UIAlertAction(title: R.string.localizable.cancel(), style: .cancel, handler: nil)
                 alert.addAction(yesAction)

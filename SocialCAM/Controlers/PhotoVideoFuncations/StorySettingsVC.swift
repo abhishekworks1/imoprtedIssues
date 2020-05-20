@@ -14,6 +14,7 @@ enum SettingsMode: Int {
     case socialLogins
     case faceDetection
     case swapeContols
+    case cameraSettings
     case socialConnections
     case channelManagement
     case socialLogout
@@ -58,16 +59,16 @@ class StorySettings {
                                                                       selected: true),
                                                          StorySetting(name: R.string.localizable.professional(),
                                                                       selected: true)], settingsType: .subscriptions),
+//                                StorySettings(name: "",
+//                                    settings: [StorySetting(name: "Face Detection", selected: false)], settingsType: .faceDetection),
+//                                StorySettings(name: "",
+//                                              settings: [StorySetting(name: "Change positions of\nMute,switching camera", selected: false)], settingsType: .swapeContols),
                                 StorySettings(name: "",
-                                    settings: [StorySetting(name: "Face Detection", selected: false)], settingsType: .faceDetection),
-                                StorySettings(name: "",
-                                              settings: [StorySetting(name: "Change positions of\nMute,switching camera", selected: false)], settingsType: .swapeContols),
+                                              settings: [StorySetting(name: "Camera Settings", selected: false)], settingsType: .cameraSettings),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.socialConnections(), selected: false)], settingsType: .socialConnections),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.channelManagement(), selected: false)], settingsType: .channelManagement),
-                                StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.socialLogout(), selected: false)], settingsType: .socialLogout),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.logout(), selected: false)], settingsType: .logout),
                                 StorySettings(name: "",
@@ -114,7 +115,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         cell.settingsName.text = settings.name
         cell.detailButton.isHidden = true
         cell.settingsName.textColor = R.color.appBlackColor()
-        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video {
+        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video || settingTitle.settingsType == .cameraSettings{
             if settingTitle.settingsType == .appInfo {
                 #if DEBUG
                 cell.settingsName.textColor = R.color.appPrimaryColor()
@@ -171,7 +172,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         let settingTitle = StorySettings.storySettings[section]
-        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .faceDetection || settingTitle.settingsType == .swapeContols || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video {
+        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .faceDetection || settingTitle.settingsType == .swapeContols || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video || settingTitle.settingsType == .cameraSettings {
             return 24
         } else {
             return 60
@@ -191,6 +192,10 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         } else if settingTitle.settingsType == .video {
             if let viralCamVideos = R.storyboard.viralCamVideos.viralCamVideos() {
                 navigationController?.pushViewController(viralCamVideos, animated: true)
+            }
+        } else if settingTitle.settingsType == .cameraSettings {
+            if let storySettingsVC = R.storyboard.storyCameraViewController.storySettingsOptionsVC() {
+                navigationController?.pushViewController(storySettingsVC, animated: true)
             }
         } else if settingTitle.settingsType == .logout {
             viralCamLogout()

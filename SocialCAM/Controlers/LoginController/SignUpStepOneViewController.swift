@@ -190,7 +190,7 @@ class SignUpStepOneViewController: UIViewController {
     func setupEmailField() {
         let isEmailExist = self.txtEmail?.rx.text.orEmpty.filter {
             return $0.isValidEmail()
-        }.throttle(0.5, scheduler:MainScheduler.instance).distinctUntilChanged().flatMapLatest({ (channel:String) -> Observable<Result<User>> in
+        }.throttle(0.5, scheduler: MainScheduler.instance).distinctUntilChanged().flatMapLatest({ (channel:String) -> Observable<Result<User>> in
             return  ProManagerApi
                 .verifyChannel(channel: channel, type: "email")
                 .request(Result<User>.self)

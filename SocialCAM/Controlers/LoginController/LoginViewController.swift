@@ -179,6 +179,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @IBAction func btnSocialLoginClicked(_ sender: UIButton) {
+        
         self.socialLogin(SocialLogin(rawValue: sender.tag) ?? .facebook) { isCompleted in
             if isCompleted {
                 var provider: String = "facebook"
@@ -197,6 +198,15 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
                 if SocialLogin(rawValue: sender.tag) ?? .facebook == .instagram {
                     return
                 }
+                
+                for item in SocialLogin.allValues {
+                    if SocialLogin(rawValue: sender.tag) ?? .facebook != item {
+                        self.socialLogout(socialLogin: item) { _ in
+                            
+                        }
+                    }
+                }
+                
                 self.socialLoadProfile(socialLogin: SocialLogin(rawValue: sender.tag) ?? .facebook) { [weak self] (userModel) in
                     guard let `self` = self, let userData = userModel else {
                         return
@@ -204,6 +214,39 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
                     self.loginSocial(fname: userData.userName ?? "", email: userData.email, socialId: userData.userId ?? "", provider: provider, profileImageURL: userData.photoUrl, bannerImageURL: nil)
                 }
             }
+        }
+    }
+    
+    func socialLogout(socialLogin: SocialLogin, completion: @escaping (Bool) -> ()) {
+        switch socialLogin {
+        case .facebook:
+            if FaceBookManager.shared.isUserLogin {
+                FaceBookManager.shared.logout()
+                completion(false)
+            }
+        case .twitter:
+            if TwitterManger.shared.isUserLogin {
+                TwitterManger.shared.logout()
+                completion(false)
+            }
+        case .instagram:
+            if InstagramManager.shared.isUserLogin {
+                InstagramManager.shared.logout()
+                completion(false)
+            }
+        case .snapchat:
+            if SnapKitManager.shared.isUserLogin {
+                SnapKitManager.shared.logout { _ in
+                    completion(false)
+                }
+            }
+        case .youtube:
+            if GoogleManager.shared.isUserLogin {
+                GoogleManager.shared.logout()
+                completion(false)
+            }
+        case .storiCam:
+            break
         }
     }
     

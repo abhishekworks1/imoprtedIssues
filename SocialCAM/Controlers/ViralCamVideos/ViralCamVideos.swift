@@ -55,7 +55,13 @@ class ViralCamVideos: UIViewController, SegmentTypeController {
         loadingView.loadingViewShow = true
         loadingView.shouldCancelShow = true
         loadingView.show(on: self.view)
-        ProManagerApi.getViralvids(page: index, limit: 10, socialPlatform: self.segmentType?.rawValue.lowercased()).request(ResultArray<CreatePostViralCam>.self).subscribe(onNext: { (response) in
+        
+        var socialPlatform = self.segmentType?.rawValue.lowercased()
+        if self.segmentType == .google {
+            socialPlatform = "google"
+        }
+        
+        ProManagerApi.getViralvids(page: index, limit: 10, socialPlatform: socialPlatform).request(ResultArray<CreatePostViralCam>.self).subscribe(onNext: { (response) in
             guard let array = response.result else {
                 return
             }
@@ -101,6 +107,13 @@ extension ViralCamVideos: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.videoTableViewCell.identifier, for: indexPath) as? VideoTableViewCell else {
             fatalError("VideoTableViewCell Not Found")
+        }
+        if self.segmentType == .google {
+            cell.videoThumbImageViewHeightConstraint.constant = 180.0
+            cell.layoutIfNeeded()
+        } else {
+            cell.videoThumbImageViewHeightConstraint.constant = 450.0
+            cell.layoutIfNeeded()
         }
         cell.postModel = videos[indexPath.row]
         return cell

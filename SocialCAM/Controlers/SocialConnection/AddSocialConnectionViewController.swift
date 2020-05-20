@@ -48,11 +48,13 @@ enum SocialConnectionType: CaseIterable {
 }
 
 class SocialUserData {
+    var socialId: String
     var name: String?
     var profileURL: String?
     var type: SocialConnectionType
 
-    init(name: String?, profileURL: String?, type: SocialConnectionType) {
+    init(socialId: String, name: String?, profileURL: String?, type: SocialConnectionType) {
+        self.socialId = socialId
         self.name = name
         self.profileURL = profileURL
         self.type = type
@@ -176,7 +178,7 @@ class AddSocialConnectionViewController: UIViewController {
                         completion(nil)
                         return
                     }
-                    completion(SocialUserData(name: userData.userName, profileURL: userData.photoUrl, type: .facebook))
+                    completion(SocialUserData(socialId: userModel?.userId ?? "", name: userData.userName, profileURL: userData.photoUrl, type: .facebook))
                 }
             } else {
                 completion(nil)
@@ -188,7 +190,7 @@ class AddSocialConnectionViewController: UIViewController {
                         completion(nil)
                         return
                     }
-                    completion(SocialUserData(name: userData.userName, profileURL: userData.photoUrl, type: .twitter))
+                    completion(SocialUserData(socialId: userModel?.userId ?? "", name: userData.userName, profileURL: userData.photoUrl, type: .twitter))
                 }
             } else {
                 completion(nil)
@@ -196,7 +198,7 @@ class AddSocialConnectionViewController: UIViewController {
         case .instagram:
             if InstagramManager.shared.isUserLogin {
                 if let userModel = InstagramManager.shared.profileDetails {
-                    completion(SocialUserData(name: userModel.username, profileURL: userModel.profilePicUrl, type: .instagram))
+                    completion(SocialUserData(socialId: userModel.id ?? "", name: userModel.username, profileURL: userModel.profilePicUrl, type: .instagram))
                 } else {
                     completion(nil)
                 }
@@ -210,7 +212,7 @@ class AddSocialConnectionViewController: UIViewController {
                         completion(nil)
                         return
                     }
-                    completion(SocialUserData(name: userData.userName, profileURL: userData.photoUrl, type: .snapchat))
+                    completion(SocialUserData(socialId: userModel?.userId ?? "", name: userData.userName, profileURL: userData.photoUrl, type: .snapchat))
                 }
             } else {
                 completion(nil)
@@ -222,7 +224,7 @@ class AddSocialConnectionViewController: UIViewController {
                         completion(nil)
                         return
                     }
-                    completion(SocialUserData(name: userData.userName, profileURL: userData.photoUrl, type: .youtube))
+                    completion(SocialUserData(socialId: userModel?.userId ?? "", name: userData.userName, profileURL: userData.photoUrl, type: .youtube))
                 }
             } else {
                 completion(nil)
@@ -248,8 +250,13 @@ class AddSocialConnectionViewController: UIViewController {
                     completion(false)
                 }
             } else {
-                FaceBookManager.shared.logout()
-                completion(false)
+                self.socialLoadProfile(socialLogin: socialLogin) { socialUserData in
+                    if let userData = socialUserData {
+                        self.removeSocialConnection(socialId: userData.socialId)
+                        FaceBookManager.shared.logout()
+                        completion(false)
+                    }
+                }
             }
         case .twitter:
             if !TwitterManger.shared.isUserLogin {
@@ -257,8 +264,13 @@ class AddSocialConnectionViewController: UIViewController {
                     completion(true)
                 }
             } else {
-                TwitterManger.shared.logout()
-                completion(false)
+                self.socialLoadProfile(socialLogin: socialLogin) { socialUserData in
+                    if let userData = socialUserData {
+                        self.removeSocialConnection(socialId: userData.socialId)
+                        TwitterManger.shared.logout()
+                        completion(false)
+                    }
+                }
             }
         case .instagram:
             if !InstagramManager.shared.isUserLogin {
@@ -268,8 +280,13 @@ class AddSocialConnectionViewController: UIViewController {
                     completion(true)
                 }
             } else {
-                InstagramManager.shared.logout()
-                completion(false)
+                self.socialLoadProfile(socialLogin: socialLogin) { socialUserData in
+                    if let userData = socialUserData {
+                        self.removeSocialConnection(socialId: userData.socialId)
+                        InstagramManager.shared.logout()
+                        completion(false)
+                    }
+                }
             }
         case .snapchat:
             if !SnapKitManager.shared.isUserLogin {
@@ -282,8 +299,13 @@ class AddSocialConnectionViewController: UIViewController {
                     completion(isLogin)
                 }
             } else {
-                SnapKitManager.shared.logout { _ in
-                    completion(false)
+                self.socialLoadProfile(socialLogin: socialLogin) { socialUserData in
+                    if let userData = socialUserData {
+                        self.removeSocialConnection(socialId: userData.socialId)
+                        SnapKitManager.shared.logout { _ in
+                            completion(false)
+                        }
+                    }
                 }
             }
         case .youtube:
@@ -294,8 +316,13 @@ class AddSocialConnectionViewController: UIViewController {
                     completion(false)
                 }
             } else {
-                GoogleManager.shared.logout()
-                completion(false)
+                self.socialLoadProfile(socialLogin: socialLogin) { socialUserData in
+                    if let userData = socialUserData {
+                        self.removeSocialConnection(socialId: userData.socialId)
+                        GoogleManager.shared.logout()
+                        completion(false)
+                    }
+                }
             }
         }
     }
@@ -359,8 +386,25 @@ extension AddSocialConnectionViewController: UICollectionViewDataSource, UIColle
             guard let `self` = self else {
                 return
             }
+            
+            var socialPlatform: String = "facebook"
+            switch optionType {
+            case .twitter:
+                socialPlatform = "twitter"
+            case .instagram:
+                socialPlatform = "instagram"
+            case .snapchat:
+                socialPlatform = "snapchat"
+            case .youtube:
+                socialPlatform = "google"
+            default:
+                break
+            }
             self.socialLoadProfile(socialLogin: optionType) { socialUserData in
                 if let userData = socialUserData {
+                    if isLogin {
+                        self.connectSocial(socialPlatform: socialPlatform, socialId: userData.socialId ?? "", socialName: userData.name ?? "")
+                    }
                     self.updateSocialOptions(userData: userData)
                 }
             }
@@ -371,6 +415,41 @@ extension AddSocialConnectionViewController: UICollectionViewDataSource, UIColle
         return CGSize(width: collectionViewCellWidth, height: collectionViewCellWidth)
     }
     
+}
+
+extension AddSocialConnectionViewController {
+    
+    func connectSocial(socialPlatform: String, socialId: String, socialName: String) {
+        self.showHUD()
+        ProManagerApi.connectSocial(socialPlatform: socialPlatform, socialId: socialId, socialName: socialName).request(Result<SocialUserConnect>.self).subscribe(onNext: { (response) in
+            self.dismissHUD()
+            if response.status != ResponseType.success {
+                UIApplication.showAlert(title: Constant.Application.displayName, message: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+            }
+        }, onError: { error in
+            self.dismissHUD()
+            
+            print(error)
+        }, onCompleted: {
+            
+        }).disposed(by: rx.disposeBag)
+    }
+    
+    func removeSocialConnection(socialId: String) {
+        self.showHUD()
+        ProManagerApi.removeSocialConnection(socialAccountId: socialId).request(Result<SocialUserConnect>.self).subscribe(onNext: { (response) in
+            self.dismissHUD()
+            if response.status != ResponseType.success {
+                UIApplication.showAlert(title: Constant.Application.displayName, message: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+            }
+        }, onError: { error in
+            self.dismissHUD()
+            
+            print(error)
+        }, onCompleted: {
+            
+        }).disposed(by: rx.disposeBag)
+    }
 }
 
 extension AddSocialConnectionViewController: InstagramLoginViewControllerDelegate, ProfileDelegate {

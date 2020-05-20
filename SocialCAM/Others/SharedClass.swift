@@ -33,13 +33,15 @@ enum SocialShare: Int {
     case storiCamPost
 }
 
-enum SocialLogin: Int {
+enum SocialLogin: Int, CaseIterable {
     case facebook = 0
     case twitter
     case instagram
     case snapchat
     case youtube
     case storiCam
+    
+    static let allValues = [facebook, twitter, instagram, snapchat, youtube, storiCam]
 }
 
 public enum CameraMode: Int {
@@ -180,6 +182,7 @@ public struct Paths {
     static let getCategories = "auth/getCategories"
     static let updateProfile = "users/updateProfile"
     static let connectSocial = "users/addSocialConnection"
+    static let removeSocialConnection = "users/removeSocialConnection"
     static let searchUser = "users/searchChannel"
     static let topSearch = "users/topSearch"
     static let socailLogin = "auth/signup"

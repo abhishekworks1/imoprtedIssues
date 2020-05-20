@@ -36,6 +36,8 @@ class VideoTableViewCell: UITableViewCell {
     @IBOutlet weak var imgVideo: UIImageView?
     @IBOutlet weak var upvote: UIButton?
 
+    @IBOutlet weak var videoThumbImageViewHeightConstraint: NSLayoutConstraint!
+    
     var postModel: CreatePostViralCam? {
         didSet {
             if let post = postModel {
