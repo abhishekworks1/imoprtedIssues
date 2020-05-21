@@ -24,6 +24,7 @@ enum StoryEditorType: Equatable {
 
 protocol StoryEditorViewDelegate: class {
     func didChangeEditing(isTyping: Bool)
+    func needToExportVideo()
 }
 
 class StoryEditorView: UIView {
@@ -347,6 +348,7 @@ extension StoryEditorView: StorySwipeableFilterViewDelegate {
                 })
             }
         })
+        delegate?.needToExportVideo()
     }
     
 }
@@ -514,6 +516,7 @@ extension StoryEditorView {
                                           y: mediaGestureView.center.y + translation.y)
         recognizer.setTranslation(.zero, in: self)
         adjustMediaTransformIfNeeded()
+        delegate?.needToExportVideo()
     }
     
     @objc func handleMediaPinchGesture(_ recognizer: UIPinchGestureRecognizer) {
@@ -543,12 +546,14 @@ extension StoryEditorView {
             break
         }
         adjustMediaTransformIfNeeded()
+        delegate?.needToExportVideo()
     }
     
     @objc func handleMediaRotationGesture(_ recognizer: UIRotationGestureRecognizer) {
         mediaGestureView.transform = mediaGestureView.transform.rotated(by: recognizer.rotation)
         recognizer.rotation = 0
         adjustMediaTransformIfNeeded()
+        delegate?.needToExportVideo()
     }
     
 }
@@ -610,6 +615,12 @@ extension StoryEditorView {
     
     func addReferLinkView(type: ReferType) {
         guard (referType == .none || referType == .tiktokShare), let followMeStoryView = FollowMeStoryView.instanceFromNib() as? FollowMeStoryView else {
+            let followMeStoryShareViews = self.subviews.filter({ return $0 is FollowMeStoryView })
+            if followMeStoryShareViews.count > 0,
+                let followMeStoryView = followMeStoryShareViews[0] as? FollowMeStoryView {
+                followMeStoryView.userBitEmoji.image = (type == .viralCam) ? R.image.viralcamWatermarkLogo() : R.image.socialcamWatermarkLogo()
+                followMeStoryView.textView.text = (type == .viralCam) ? R.string.localizable.checkOutThisCoolNewAppViralCam() : R.string.localizable.checkOutThisCoolNewAppSocialCam()
+            }
             referType = type
             return
         }
@@ -629,9 +640,8 @@ extension StoryEditorView {
             }
             self.delegate?.didChangeEditing(isTyping: self.isTyping)
         }
-        followMeStoryView.userBitEmoji.setImageFromURL(Defaults.shared.snapchatProfileURL,
-                                                       placeholderImage:
-            R.image.viralcamWatermarkLogo())
+        followMeStoryView.userBitEmoji.image = (type == .viralCam) ? R.image.viralcamWatermarkLogo() : R.image.socialcamWatermarkLogo()
+        followMeStoryView.textView.text = (type == .viralCam) ? R.string.localizable.checkOutThisCoolNewAppViralCam() : R.string.localizable.checkOutThisCoolNewAppSocialCam()
         followMeStoryView.hideDeleteButton = true
         followMeStoryView.frame.size = CGSize(width: 311, height: 213)
         followMeStoryView.center = center
@@ -710,6 +720,7 @@ extension StoryEditorView {
             } else {
                 moveView(view: view, recognizer: recognizer)
             }
+            delegate?.needToExportVideo()
         }
     }
     
@@ -793,6 +804,7 @@ extension StoryEditorView {
                 view.transform = view.transform.scaledBy(x: recognizer.scale, y: recognizer.scale)
             }
             recognizer.scale = 1
+            delegate?.needToExportVideo()
         }
     }
     
@@ -803,6 +815,7 @@ extension StoryEditorView {
         if let view = recognizer.view {
             view.transform = view.transform.rotated(by: recognizer.rotation)
             recognizer.rotation = 0
+            delegate?.needToExportVideo()
         }
     }
     

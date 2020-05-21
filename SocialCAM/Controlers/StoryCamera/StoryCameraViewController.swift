@@ -1239,6 +1239,9 @@ extension StoryCameraViewController {
                     self.fpsView.alpha = 0
                     self.timerValueView.alpha = 0
                 } else {
+                    self.muteStackView.alpha = 0
+                    self.showhideView.alpha = 0
+                    self.timerStackView.alpha = 0
                     self.nextButtonView.alpha = 0
                     self.settingsView.alpha = 0
                     self.outtakesView.alpha = 0
@@ -1258,6 +1261,9 @@ extension StoryCameraViewController {
                     if self.recordingType == .slideshow || self.recordingType == .collage || self.recordingType == .capture || self.recordingType == .custom {
                         self.nextButtonView.alpha = 1
                     }
+                    self.muteStackView.alpha = 1
+                    self.showhideView.alpha = 1
+                    self.timerStackView.alpha = 1
                     self.cameraSliderView.alpha = 1
                     self.outtakesView.alpha = 1
                     self.settingsView.alpha = 1

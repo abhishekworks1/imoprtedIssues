@@ -256,35 +256,27 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
     }
     
     @objc func onLongPress(_ gesture: UILongPressGestureRecognizer) {
-        guard gesture.state == .began else {
-            return
+        guard gesture.state == .began,
+            selectedItemArray.count > 0 else {
+                return
         }
         switch type {
         case .image:
-            if selectedItemArray.count >= 1 {
-                for item in selectedItemArray {
-                    if let url = item.url,
-                        let imageData = try? Data(contentsOf: url),
-                        let image = UIImage(data: imageData) {
-                        SCAlbum.shared.save(image: image) { (isSuccess) in
-                            if isSuccess {
-                                DispatchQueue.main.async {
-                                    self.view.makeToast(R.string.localizable.photoSaved(), duration: 2.0, position: .bottom)
-                                }
-                            }
-                        }
-                    }
-                }
-            } else {
-                if let image = filteredImage {
+            let group = DispatchGroup()
+            for item in selectedItemArray {
+                group.enter()
+                if let url = item.url,
+                    let imageData = try? Data(contentsOf: url),
+                    let image = UIImage(data: imageData) {
                     SCAlbum.shared.save(image: image) { (isSuccess) in
-                        if isSuccess {
-                            DispatchQueue.main.async {
-                                self.view.makeToast(R.string.localizable.photoSaved(), duration: 2.0, position: .bottom)
-                            }
-                        }
+                        group.leave()
                     }
                 }
+            }
+            group.notify(queue: .main) {
+                let photoText = (self.selectedItemArray.count == 1) ? "photo" : "photos"
+                let message = "\(self.selectedItemArray.count) \(photoText) saved"
+                self.view.makeToast(message, duration: 2.0, position: .bottom)
             }
         case .video:
             break
