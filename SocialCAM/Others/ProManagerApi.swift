@@ -17,6 +17,7 @@ public enum ProManagerApi {
     case getSplashImages
     case getViralvids(page: Int, limit: Int, socialPlatform: String?)
     case connectSocial(socialPlatform: String, socialId: String, socialName: String)
+    case removeSocialConnection(socialAccountId: String)
     case logIn(email: String, password: String, deviceToken: String?)
     case confirmEmail(userId: String, email: String)
     case signUp(email: String, password: String, channel: String, refChannel: String, isBusiness: Bool, socialId:String?, provider:String?, channelName: String, refferId: String?, deviceToken: String?, birthDate: String?, profileImageURL: String?)
@@ -200,6 +201,8 @@ extension ProManagerApi: TargetType {
             return Paths.getChannelSuggestion
         case .connectSocial(_, _, _):
             return Paths.connectSocial
+        case .removeSocialConnection:
+            return Paths.removeSocialConnection
         case .youTubeChannels:
             return Paths.youTubechannels
         }
@@ -510,6 +513,8 @@ extension ProManagerApi: TargetType {
             param = ["socialPlatform": socialPlatform,
                      "socialId": socialId,
                      "socialUsername": socialName]
+        case .removeSocialConnection(let socialAccountId):
+            param = ["socialAccountId": socialAccountId]
         case .youTubeChannels(let token):
             param = ["part": "snippet,contentDetails,statistics", "key": Constant.GoogleService.serviceKey, "mine": "true", "access_token": token]
         }

@@ -89,6 +89,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             #endif
         }
         
+        Defaults.shared.cameraMode = .normal
+        
         UIApplication.shared.delegate!.window!!.rootViewController = rootViewController
         configurePayPalMobile()
         IAPManager.shared.startObserving()

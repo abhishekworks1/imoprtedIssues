@@ -9,17 +9,31 @@
 import UIKit
 import GoogleSignIn
 
+class CameraSettings {
+    
+    var name: String
+    var settings: [StorySetting]
+    var settingsType: SettingsMode
+    
+    init(name: String, settings: [StorySetting], settingsType: SettingsMode) {
+        self.name = name
+        self.settings = settings
+        self.settingsType = settingsType
+    }
+    
+    static var storySettings = [StorySettings(name: "",
+                                              settings: [StorySetting(name: "Face Detection", selected: false)], settingsType: .faceDetection),
+                                StorySettings(name: "",
+                                              settings: [StorySetting(name: "Change positions of\nMute,switching camera", selected: false)], settingsType: .swapeContols)]
+}
+
 class StorySettingsOptionsVC: UIViewController {
     
     @IBOutlet weak var settingsTableView: UITableView!
     
     var firstPercentage: Double = 0.0
     var firstUploadCompletedSize: Double = 0.0
-
-    var settingsOptions = [R.string.localizable.professional(), R.string.localizable.logout()]
-    
-    var settingsOptionsImages = [R.image.icoStoryRecover(), R.image.icoStoryRecover()]
-    
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,17 +51,31 @@ class StorySettingsOptionsVC: UIViewController {
 
 extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return settingsOptions.count
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return CameraSettings.storySettings.count
     }
-    
+       
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return CameraSettings.storySettings[section].settings.count
+    }
+   
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.storySettingsCell.identifier, for: indexPath) as? StorySettingsCell else {
             fatalError("StorySettingsCell Not Found")
         }
-        cell.settingsName.text = settingsOptions[indexPath.row]
-        cell.onOffButton.setImage(settingsOptionsImages[indexPath.row], for: UIControl.State.normal)
+        let settingTitle = CameraSettings.storySettings[indexPath.section]
+        let settings = settingTitle.settings[indexPath.row]
+        cell.settingsName.text = settings.name
+        if settingTitle.settingsType == .faceDetection {
+            cell.onOffButton.isSelected = Defaults.shared.enableFaceDetection
+        } else if settingTitle.settingsType == .swapeContols {
+            cell.onOffButton.isSelected = Defaults.shared.swapeContols
+        }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 1.0
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -55,69 +83,14 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.row {
-        case 0:
-            self.isProEnable()
-        case 1:
-            self.logoutUser()
-        default:
-            break
+        let settingTitle = CameraSettings.storySettings[indexPath.section]
+        if settingTitle.settingsType == .faceDetection {
+            Defaults.shared.enableFaceDetection = !Defaults.shared.enableFaceDetection
+            self.settingsTableView.reloadData()
+        } else if settingTitle.settingsType == .swapeContols {
+            Defaults.shared.swapeContols = !Defaults.shared.swapeContols
+            self.settingsTableView.reloadData()
         }
     }
     
-    func isProEnable() {
-        let objAlert = UIAlertController(title: Constant.Application.displayName, message: !Defaults.shared.isPro ? R.string.localizable.areYouSureYouWantToEnablePro() : R.string.localizable.areYouSureYouWantToDisablePro(), preferredStyle: .alert)
-        if !Defaults.shared.isPro {
-            objAlert.addTextField { (textField: UITextField) -> Void in
-                textField.placeholder = R.string.localizable.enterYourUniqueCodeToEnableBasicMode()
-            }
-        }
-        let actionSave = UIAlertAction(title: R.string.localizable.oK(), style: .default) { ( _: UIAlertAction) in
-            if Defaults.shared.isPro {
-                Defaults.shared.isPro = !Defaults.shared.isPro
-                UIApplication.shared.setAlternateIconName("Icon-1") { error in
-                    if let error = error {
-                        print(error.localizedDescription)
-                    } else {
-                        print("Success!")
-                    }
-                }
-                self.navigationController?.popViewController(animated: true)
-                return
-            }
-            if let textField = objAlert.textFields?[0],
-                textField.text!.count > 0, textField.text?.lowercased() == Constant.Application.proModeCode {
-                Defaults.shared.isPro = !Defaults.shared.isPro
-                UIApplication.shared.setAlternateIconName("Icon-2") { error in
-                    if let error = error {
-                        print(error.localizedDescription)
-                    } else {
-                        print("Success!")
-                    }
-                }
-                self.navigationController?.popViewController(animated: true)
-                return
-            }
-            self.view.makeToast(R.string.localizable.pleaseEnterValidCode())
-        }
-        let cancelAction = UIAlertAction(title: R.string.localizable.cancel(), style: .default) { (_: UIAlertAction) in }
-        objAlert.addAction(actionSave)
-        objAlert.addAction(cancelAction)
-        self.present(objAlert, animated: true, completion: nil)
-    }
-    
-    func logoutUser() {
-        let objAlert = UIAlertController(title: Constant.Application.displayName, message: R.string.localizable.areYouSureYouWantToLogout(), preferredStyle: .alert)
-        let actionlogOut = UIAlertAction(title: R.string.localizable.logout(), style: .default) { (_: UIAlertAction) in
-            TwitterManger.shared.logout()
-            GIDSignIn.sharedInstance()?.disconnect()
-            SnapKitManager.shared.logout { _ in
-                
-            }
-        }
-        let cancelAction = UIAlertAction(title: R.string.localizable.cancel(), style: .default) { (_: UIAlertAction) in }
-        objAlert.addAction(actionlogOut)
-        objAlert.addAction(cancelAction)
-        self.present(objAlert, animated: true, completion: nil)
-    }
 }

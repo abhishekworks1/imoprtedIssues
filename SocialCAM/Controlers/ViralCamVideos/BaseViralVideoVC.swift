@@ -14,7 +14,7 @@ enum TopSegments: String {
     case facebook = "Facebook"
     case instagram = "Instagram"
     case snapchat = "Snapchat"
-    case google = "Google"
+    case google = "Youtube"
     case tiktok = "Tiktok"
     
     static var allValues : [TopSegments] {

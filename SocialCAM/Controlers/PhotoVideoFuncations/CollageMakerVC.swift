@@ -25,6 +25,7 @@ class CollageMakerVC: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var bottomClickView: UIView!
     
     var selectedImageCell: Int = 0
+    var selectedCollageCell: Int?
     weak var delegate: CollageMakerVCDelegate?
     var isFreeFrame = false
     var photoIndex: Int = 0
@@ -222,10 +223,12 @@ class CollageMakerVC: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @IBAction func btnRotateClick(_ sender: Any) {
-        for cell in collageView.collageCells {
-            if let image = cell.photoView.photoImage.image?.imageRotated(on: 90) {
-                cell.photoView.setPhoto(img: image)
-            }
+        let selectedCells = collageView.collageCells.filter({ (cell) -> Bool in
+            return cell.id == selectedCollageCell
+        })
+        
+        if selectedCells.count > 0, let selectedCell = selectedCells.first, let image = selectedCell.photoView.photoImage.image?.imageRotated(on: 90) {
+            selectedCell.photoView.setPhoto(img: image)
         }
     }
     
@@ -495,7 +498,7 @@ extension CollageMakerVC: CollageViewDelegate {
     }
     
     func didSelectCell(cellId: Int) {
-        
+        selectedCollageCell = cellId
     }
     
     @objc func detectTap(_ gesture: UITapGestureRecognizer) {

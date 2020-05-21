@@ -185,10 +185,21 @@ class SharePostVC: UIViewController {
             
             Defaults.shared.postViralCamModel = response.result
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-                _ = self.openURL(URL(string: "viralCam://com.simform.viralcam")!)
-                self.extensionContext?.completeRequest(returningItems: [], completionHandler: nil)
-            })
+            let alert = UIAlertController.Style
+                .alert
+                .controller(title: "",
+                            message: "Open ViralCam",
+                            actions: [UIAlertAction(title: "OK", style: .default, handler: { _ in
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                                    _ = self.openURL(URL(string: "viralCam://com.simform.viralcam")!)
+                                    self.extensionContext?.completeRequest(returningItems: [], completionHandler: nil)
+                                })
+                            }), UIAlertAction(title: "Cancel", style: .default, handler: { (action) in
+                                let errMsg = NSError(domain: "domain", code: 1001, userInfo: [NSLocalizedDescriptionKey: "Localised details here"])
+                                self.extensionContext!.cancelRequest(withError: errMsg)
+                            })])
+            self.present(alert, animated: true, completion: nil)
+            
         }, onError: { _ in
             self.displayUIAlertController(title: "", message: "Error", viewController: self)
         }, onCompleted: {
@@ -269,7 +280,7 @@ extension SharePostVC: UITextViewDelegate {
             return false
         }
         return true
-    }   
+    }
 }
 
 protocol ScrollViewKeyboardDelegate: class {
