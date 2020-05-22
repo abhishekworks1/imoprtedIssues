@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-public typealias CurrentCellCallBack = ((_ index: Int) -> Void)
+public typealias CurrentCellCallBack = ((_ index: Int, _ currentModes: CameraModes) -> Void)
 
 open class InstaSlider: UIView {
     
@@ -25,7 +25,7 @@ open class InstaSlider: UIView {
     open var cellTextColor: UIColor = UIColor.black
     open var selectedCellTextColor: UIColor = UIColor.white
     
-    open var stringArray: [String] = [] {
+    open var stringArray: [CameraModes] = [] {
         didSet {
             self.configureCollectionView()
         }
@@ -42,7 +42,7 @@ open class InstaSlider: UIView {
             DispatchQueue.runOnMainThread {
                 self.collectionView.selectItem(at: IndexPath(item: self.selectCell, section: 0), animated: false, scrollPosition: UICollectionView.ScrollPosition.centeredHorizontally)
                 if (self.currentCell != nil) {
-                    self.currentCell!(self.selectCell)
+                    self.currentCell!(self.selectCell, self.stringArray[self.selectCell])
                 }
             }
         }
@@ -142,7 +142,7 @@ open class InstaSlider: UIView {
                 selectedCell = collectionView.indexPath(for: cell!)?.item
                 cell!.label.textColor = selectedCellTextColor
                 if (self.currentCell != nil) {
-                    self.currentCell!((index?.row)!)
+                    self.currentCell!((index?.row)!, self.stringArray[(index!.row)])
                 }
             }
         } else if(cells != nil) {
@@ -176,7 +176,7 @@ open class InstaSlider: UIView {
         
         if(index != nil) {
             if (self.isScrollEnable != nil) {
-                self.isScrollEnable!((index?.row)!)
+                self.isScrollEnable!((index?.row)!, self.stringArray[(index!.row)])
             }
         }
     }
@@ -197,7 +197,7 @@ extension InstaSlider: UICollectionViewDataSource, UICollectionViewDelegate, UIC
             fatalError("Unable to find cell with '\(cellId)' reuseIdentifier")
         }
         
-        kCell.label.text = self.stringArray[indexPath.item]
+        kCell.label.text = self.stringArray[indexPath.item].name
         kCell.tag = indexPath.row
         kCell.layer.shouldRasterize = true
         kCell.layer.rasterizationScale = UIScreen.main.scale

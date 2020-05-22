@@ -23,7 +23,23 @@ open class SocialShareVideo: NSObject, SharingDelegate {
   
     weak var delegate: ShareStoriesDelegate?
     
+    func copyLink(referType: ReferType = .none) {
+        var attachmentUrl: String?
+        switch referType {
+        case .viralCam:
+            attachmentUrl = Defaults.shared.currentUser?.viralcamReferralLink ?? Constant.URLs.websiteURL
+        case .socialCam:
+            attachmentUrl = Constant.URLs.socialCamWebsiteURL
+        case .tiktokShare:
+            attachmentUrl = Defaults.shared.postViralCamModel?.referLink
+        default:
+            break
+        }
+        UIPasteboard.general.string = attachmentUrl
+    }
+    
     func sharePhoto(image: UIImage, socialType: SocialShare, referType: ReferType = .none) {
+        self.copyLink(referType: referType)
         switch socialType {
         case .facebook:
             self.fbShareImage(image)
@@ -66,6 +82,7 @@ open class SocialShareVideo: NSObject, SharingDelegate {
     
     func shareVideo(url: URL?, socialType: SocialShare, referType: ReferType = .none) {
         guard let url = url else { return }
+        self.copyLink(referType: referType)
         switch socialType {
         case .facebook, .instagram:
             self.saveVideoToCameraRoll(url: url, completion: { [weak self] (isSuccess, phAsset) in

@@ -146,7 +146,7 @@ class CollageMakerVC: UIViewController, UIGestureRecognizerDelegate {
         case 5:
             index = 31
         case 6:
-            index = Defaults.shared.appMode == .free || Defaults.shared.appMode == .basic ? 31 : 37
+            index = 37
         case 7, 8:
             index = Defaults.shared.appMode == .free || Defaults.shared.appMode == .basic ? 31 : 39
         default:
@@ -154,7 +154,7 @@ class CollageMakerVC: UIViewController, UIGestureRecognizerDelegate {
         }
         
         if Defaults.shared.appMode == .free || Defaults.shared.appMode == .basic {
-            collageImagesItems.removeLast(4)
+            collageImagesItems.removeLast(2)
         }
         
         collectViewSet(index: index)

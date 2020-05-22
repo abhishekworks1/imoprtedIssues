@@ -14,7 +14,7 @@ import RxSwift
 import ObjectMapper
 
 public enum ProManagerApi {
-    case writePost(type: String, user: String, bookmark: [String:Any]?, privacy:String?)
+    case writePost(type: String, user: String, bookmark: [String:Any]?, privacy: String?)
     case createStory(url: String, duration: String, type: String, user: String, thumb: String?)
     case createViralvids(title: String, image: String?, description: String?, referenceLink: String?, hashtags: [String]?, socialPlatform: String)
     case getViralvids
@@ -35,7 +35,7 @@ public struct NewPaths {
 
 extension ProManagerApi: TargetType {
     
-    public var headers: [String : String]? {
+    public var headers: [String: String]? {
         return ["Content-Type": "application/json", "x-access-token": Defaults.shared.sessionToken ?? "", "userid": Defaults.shared.currentUser?.id ?? ""]
     }
     
@@ -69,11 +69,11 @@ extension ProManagerApi: TargetType {
     }
     
     /// The parameters to be incoded in the request.
-    public var parameters: [String : Any]? {
+    public var parameters: [String: Any]? {
         var param = [String:Any]()
         switch self {
         case .writePost(let type, let user, let media, let privacy):
-            param = ["type": type ,"user": user]
+            param = ["type": type, "user": user]
             if let media = media {
                 param["bookmark"] = media
             }

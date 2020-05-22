@@ -17,6 +17,16 @@ import SCRecorder
 import AVKit
 import JPSVolumeButtonHandler
 
+public class CameraModes {
+    var name: String
+    var recordingType: CameraMode
+    
+    init(name: String, recordingType: CameraMode) {
+        self.name = name
+        self.recordingType = recordingType
+    }
+}
+
 class StoryCameraViewController: UIViewController {
    
     let popupOffset: CGFloat = (UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0) != 0 ? 110 : 86
@@ -237,7 +247,7 @@ class StoryCameraViewController: UIViewController {
     
     var timerType = TimerType.segmentLength
     var selectedTimerValue = SelectedTimer(value: "-", selectedRow: 0)
-    var selectedSegmentLengthValue = SelectedTimer(value: "240", selectedRow: 10)
+    var selectedSegmentLengthValue = SelectedTimer(value: "15", selectedRow: 2)
     var selectedPauseTimerValue = SelectedTimer(value: "-", selectedRow: 0)
     var selectedPhotoTimerValue = SelectedTimer(value: "-", selectedRow: 0)
     var isMute: Bool = false {
@@ -379,7 +389,17 @@ class StoryCameraViewController: UIViewController {
     var pauseTimerValue = 0
     var photoTimerValue = 0
     
-    var cameraModeArray: [String] = [R.string.localizable.photovideO(), R.string.localizable.boomI(), R.string.localizable.slideshoW(), R.string.localizable.collagE(), R.string.localizable.handsfreE(), R.string.localizable.custoM(), R.string.localizable.capturE(), R.string.localizable.fastmotioN(), R.string.localizable.slowfasT()]
+    var cameraModeArray: [CameraModes] = [CameraModes(name: R.string.localizable.photovideO(), recordingType: .normal),
+                                          CameraModes(name: R.string.localizable.boomI(), recordingType: .boomerang),
+                                          CameraModes(name: R.string.localizable.slideshoW(), recordingType: .slideshow),
+                                          CameraModes(name: R.string.localizable.collagE(), recordingType: .collage),
+                                          CameraModes(name: R.string.localizable.handsfreE(), recordingType: .handsfree),
+                                          CameraModes(name: R.string.localizable.custoM(), recordingType: .custom),
+                                          CameraModes(name: R.string.localizable.capturE(), recordingType: .capture),
+                                          CameraModes(name: R.string.localizable.fastmotioN(), recordingType: .fastMotion),
+                                          CameraModes(name: R.string.localizable.slowfasT(), recordingType: .fastSlowMotion)]
+    
+  //  var cameraModeArray: [String] = [R.string.localizable.photovideO(), R.string.localizable.boomI(), R.string.localizable.slideshoW(), R.string.localizable.collagE(), R.string.localizable.handsfreE(), R.string.localizable.custoM(), R.string.localizable.capturE(), R.string.localizable.fastmotioN(), R.string.localizable.slowfasT()]
     
     var timerOptions = ["-",
                         "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
@@ -601,16 +621,16 @@ class StoryCameraViewController: UIViewController {
             guard let `self` = self else {
                 return
             }
-            var basicCameraModeArray = self.cameraModeArray
             if Defaults.shared.appMode == .free {
                 Defaults.shared.cameraMode = .normal
                 self.recordingType = Defaults.shared.cameraMode
-                basicCameraModeArray.removeLast()
-                self.selectedSegmentLengthValue = SelectedTimer(value: "15", selectedRow: (self.segmentLengthOptions.count - 8))
-                self.selectedSegmentLengthValue.saveWithKey(key: "selectedSegmentLengthValue")
-                self.setCameraSettings()
+                self.cameraModeArray = self.cameraModeArray.filter({$0.recordingType != .custom})
+                self.cameraModeArray = self.cameraModeArray.filter({$0.recordingType != .fastSlowMotion})
             }
-            self.cameraSliderView.stringArray = basicCameraModeArray
+            self.selectedSegmentLengthValue = SelectedTimer(value: "15", selectedRow: 2)
+            self.selectedSegmentLengthValue.saveWithKey(key: "selectedSegmentLengthValue")
+            self.setCameraSettings()
+            self.cameraSliderView.stringArray = self.cameraModeArray
             self.cameraSliderView.selectCell = Defaults.shared.cameraMode.rawValue
             self.dynamicSetSlowFastVerticalBar()
         }
@@ -716,7 +736,7 @@ extension StoryCameraViewController {
         if let selectedSegmentLengthValue = SelectedTimer.loadWithKey(key: "selectedSegmentLengthValue", model: SelectedTimer.self) {
             self.selectedSegmentLengthValue = selectedSegmentLengthValue
         } else {
-            self.selectedSegmentLengthValue = SelectedTimer(value: "240", selectedRow: (segmentLengthOptions.count - 1))
+            self.selectedSegmentLengthValue = SelectedTimer(value: "15", selectedRow: 2)
             self.selectedSegmentLengthValue.saveWithKey(key: "selectedSegmentLengthValue")
         }
         if let segmentLenghValue = Int(selectedSegmentLengthValue.value) {
@@ -753,18 +773,18 @@ extension StoryCameraViewController {
 
     func setupLayoutCameraSliderView() {
         self.timerValueView.isHidden = !self.isUserTimerValueChange
-        var basicCameraModeArray = self.cameraModeArray
         if Defaults.shared.appMode == .free {
-            basicCameraModeArray.removeLast(3)
+            self.cameraModeArray = self.cameraModeArray.filter({$0.recordingType != .custom})
+            self.cameraModeArray = self.cameraModeArray.filter({$0.recordingType != .fastSlowMotion})
         } else {
             #if SOCIALCAMAPP
             basicCameraModeArray.removeLast(2)
             #endif
         }
-        cameraSliderView.stringArray = basicCameraModeArray
+        cameraSliderView.stringArray = self.cameraModeArray
         cameraSliderView.bottomImage = R.image.cameraModeSelect()
         cameraSliderView.cellTextColor = .white
-        cameraSliderView.isScrollEnable = { [weak self] (index) in
+        cameraSliderView.isScrollEnable = { [weak self] (index, _) in
             guard let `self` = self else { return }
             let currentMode = CameraMode(rawValue: index) ?? .normal
             if currentMode == .custom && self.takenVideoUrls.count > 0 {
@@ -779,14 +799,14 @@ extension StoryCameraViewController {
                 self.present(alert, animated: true, completion: nil)
             }
         }
-        
+            
         func handleRemoveVides(alertAction: UIAlertAction!) {
             self.removeData()
         }
         
-        cameraSliderView.currentCell = { [weak self] (index) in
+        cameraSliderView.currentCell = { [weak self] (index, currentMode) in
             guard let `self` = self else { return }
-            Defaults.shared.cameraMode = CameraMode(rawValue: index) ?? .normal
+            Defaults.shared.cameraMode = currentMode.recordingType
             self.isRecording = false
             
             self.totalDurationOfOneSegment = 0.0
@@ -824,9 +844,9 @@ extension StoryCameraViewController {
             case .handsfree:
                 self.circularProgress.centerImage = R.image.icoHandsFree()
                 if self.recordingType == .custom || self.recordingType == .boomerang || self.recordingType == .capture {
-                    self.selectedSegmentLengthValue = SelectedTimer(value: "240", selectedRow: (self.segmentLengthOptions.count - 1))
+                    self.selectedSegmentLengthValue = SelectedTimer(value: "15", selectedRow: 2)
                     self.selectedSegmentLengthValue.saveWithKey(key: "selectedSegmentLengthValue")
-                    self.videoSegmentSeconds = CGFloat((Int(self.selectedSegmentLengthValue.value) ?? 240))
+                    self.videoSegmentSeconds = CGFloat((Int(self.selectedSegmentLengthValue.value) ?? 15))
                 }
                 if self.isRecording {
                     self.isRecording = true
@@ -1504,15 +1524,15 @@ extension StoryCameraViewController {
             }
         } else {
             let currentVideoSeconds = self.videoSegmentSeconds
-            
+               
             var isVideoStop: Bool = false
             switch Defaults.shared.appMode {
             case .free:
-                if currentVideoSeconds*CGFloat(self.takenVideoUrls.count) >= 30 || (takenVideoUrls.count >= 1) {
+                if currentVideoSeconds*CGFloat(self.takenVideoUrls.count) >= 30 || (takenVideoUrls.count >= 5) {
                     isVideoStop = true
                 }
             case .basic:
-                if currentVideoSeconds*CGFloat(self.takenVideoUrls.count) >= 60 || (takenVideoUrls.count >= 4) {
+                if currentVideoSeconds*CGFloat(self.takenVideoUrls.count) >= 60 || (takenVideoUrls.count >= 5) {
                     isVideoStop = true
                 }
             case .advanced:
@@ -1520,7 +1540,7 @@ extension StoryCameraViewController {
                     isVideoStop = true
                 }
             default:
-                if currentVideoSeconds*CGFloat(self.takenVideoUrls.count) >= 240 || (takenVideoUrls.count >= 15) {
+                if currentVideoSeconds*CGFloat(self.takenVideoUrls.count) >= 240 || (takenVideoUrls.count >= 10) {
                     isVideoStop = true
                 }
             }
