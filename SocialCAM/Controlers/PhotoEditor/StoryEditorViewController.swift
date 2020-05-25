@@ -399,6 +399,7 @@ extension StoryEditorViewController: StickerDelegate {
     
     func didSelectSticker(_ sticker: StorySticker) {
         storyEditors[currentStoryIndex].addSticker(sticker)
+        self.needToExportVideo()
     }
     
 }
@@ -423,6 +424,7 @@ extension StoryEditorViewController {
                 return
             }
             self.didSelectSticker(StorySticker(image: stickerImage, type: .image))
+            self.needToExportVideo()
         }
         present(bitmojiStickerPickerViewController, animated: true, completion: nil)
     }
@@ -457,6 +459,7 @@ extension StoryEditorViewController {
 
     @IBAction func soundClicked(_ sender: UIButton) {
         storyEditors[currentStoryIndex].isMuted = !storyEditors[currentStoryIndex].isMuted
+        self.needToExportVideo()
         let soundIcon = storyEditors[currentStoryIndex].isMuted ? R.image.storySoundOff() : R.image.storySoundOn()
         soundButton.setImage(soundIcon, for: .normal)
     }
@@ -496,6 +499,7 @@ extension StoryEditorViewController {
             self.filteredImagesStory.removeAll()
             self.storyEditors.removeAll()
             self.setupFilterViews()
+            self.needToExportVideo()
         }
         self.navigationController?.pushViewController(trimVC, animated: true)
     }
@@ -517,6 +521,7 @@ extension StoryEditorViewController {
             if case let StoryEditorType.video(image, _) = self.storyEditors[self.currentStoryIndex].type {
                 self.storyEditors[self.currentStoryIndex].replaceMedia(.video(image, AVAsset(url: url)))
                 self.nativeVideoPlayerRefresh()
+                self.needToExportVideo()
             }
         }
         self.navigationController?.pushViewController(histroGramVC, animated: true)
@@ -1334,6 +1339,7 @@ extension StoryEditorViewController: CropViewControllerDelegate {
         if case let StoryEditorType.video(image, _) = storyEditors[self.currentStoryIndex].type {
             storyEditors[currentStoryIndex].replaceMedia(.video(image, AVAsset(url: croppedURL)))
             nativeVideoPlayerRefresh()
+            self.needToExportVideo()
         }
     }
     
@@ -1368,6 +1374,7 @@ extension StoryEditorViewController: SSUTagSelectionDelegate {
             storyEditors[currentStoryIndex].addReferLinkView(type: .socialCam)
         default: break
         }
+        self.needToExportVideo()
     }
 }
 
@@ -1386,6 +1393,10 @@ extension StoryEditorViewController: StoryEditorViewDelegate {
     func didChangeEditing(isTyping: Bool) {
         isTyping ? hideToolBar(hide: true, hideColorSlider: true) : hideToolBar(hide: false)
     }
+    
+    func needToExportVideo() {
+        videoExportedURL = nil
+    }
 }
 
 extension StoryEditorViewController: SpecificBoomerangDelegate {
@@ -1394,6 +1405,7 @@ extension StoryEditorViewController: SpecificBoomerangDelegate {
         if case let StoryEditorType.video(image, _) = storyEditors[self.currentStoryIndex].type {
             storyEditors[currentStoryIndex].replaceMedia(.video(image, AVAsset(url: url)))
             nativeVideoPlayerRefresh()
+            self.needToExportVideo()
         }
     }
     

@@ -225,9 +225,11 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
                 completion(false)
             }
         case .twitter:
-            if TwitterManger.shared.isUserLogin {
-                TwitterManger.shared.logout()
-                completion(false)
+            DispatchQueue.main.async {
+                if TwitterManger.shared.isUserLogin {
+                    TwitterManger.shared.logout()
+                    completion(false)
+                }
             }
         case .instagram:
             if InstagramManager.shared.isUserLogin {

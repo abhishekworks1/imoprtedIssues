@@ -48,8 +48,6 @@ class TikTokShareView: UIView {
         }
         self.titleLabel.text = data.title
         self.hashtagsLabel.text = data.hashtagString
-        userBitEmoji.setImageFromURL(Defaults.shared.snapchatProfileURL,
-                                     placeholderImage: R.image.viralcamWatermarkLogo())
         self.thumbImageView.setImageFromURL(data.image, placeholderImage: nil)
     }
     
