@@ -116,6 +116,8 @@ class AddSocialConnectionViewController: UIViewController {
     
     @IBOutlet weak var backButton: UIButton!
 
+    @IBOutlet weak var skipButton: UIButton!
+
     lazy var socialOptions: [SocialConnectionOption] = {
         var options: [SocialConnectionOption] = []
         for type in SocialConnectionType.allCases {
@@ -133,6 +135,7 @@ class AddSocialConnectionViewController: UIViewController {
         super.viewDidLoad()
         backButton.isHidden = fromLogin
         connectButton.isHidden = !fromLogin
+        skipButton.isHidden = !fromLogin
         reloadData()
         updateUI()
     }
@@ -234,6 +237,10 @@ class AddSocialConnectionViewController: UIViewController {
     
     @IBAction func backClicked(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func skipClicked(_ sender: UIButton) {
+        nextClicked(sender)
     }
     
     @IBAction func nextClicked(_ sender: UIButton) {
