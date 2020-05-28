@@ -53,14 +53,14 @@ class SignUpStepOneViewController: UIViewController {
     var socialDict: [String: Any]?
     let dropDownMenu = DropDown()
     
-    // MARK : ---  View Life Cycle Methods ----
+    // MARK: - ---  View Life Cycle Methods ----
     
     deinit {
         print("Deinit \(self.description)")
     }
     
     @objc func tapGesture(_ recognizer: UITapGestureRecognizer) {
-        DateTimePicker.selectDate(maxDate: Date()) { [weak self] (selectedDate) in
+        DateTimePicker.selectDate(maxDate: Date() - 13) { [weak self] (selectedDate) in
             guard let `self` = self else {
                 return
             }
@@ -281,13 +281,13 @@ class SignUpStepOneViewController: UIViewController {
                 }
             }, onError: { error in
                 self.dismissHUD()
-            }, onCompleted:{
+            }, onCompleted: {
                 
             }).disposed(by: rx.disposeBag)
         }
     }
     
-    @IBAction func btnSearchClicked(_ sender:Any?) {
+    @IBAction func btnSearchClicked(_ sender: Any?) {
         let searchChannelViewController = R.storyboard.loginViewController.searchChannelViewController()
         searchChannelViewController?.ChanelHandler = { chanel in
             self.txtRefChannel.text = chanel.channelId
@@ -450,3 +450,8 @@ extension SignUpStepOneViewController: UIImagePickerControllerDelegate, UINaviga
     
 }
 
+extension Date {
+    static func -(lhs: Date, rhs: Int) -> Date {
+        return Calendar.current.date(byAdding: .year, value: -rhs, to: lhs)!
+    }
+}

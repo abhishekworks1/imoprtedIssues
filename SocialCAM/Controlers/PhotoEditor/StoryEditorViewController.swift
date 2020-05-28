@@ -248,7 +248,7 @@ class StoryEditorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupFilterViews()
-        selectedSlideShowMedias = (0...18).map({ _ in StoryEditorMedia(type: .image(UIImage())) })
+        selectedSlideShowMedias = (0...20).map({ _ in StoryEditorMedia(type: .image(UIImage())) })
         slideShowCollectionView.reloadData()
         var collectionViews: [UIView] = [collectionView]
         if isSlideShow {
@@ -361,9 +361,9 @@ class StoryEditorViewController: UIViewController {
         #endif
         self.editOptionView.isHidden = !isImage
         self.applyFilterOptionView.isHidden = !isImage
-        self.specificBoomerangView.isHidden = isBoomerang ? true : isImage
+        self.specificBoomerangView.isHidden = (Defaults.shared.appMode != .free && isBoomerang) ? true : isImage
         self.ssuTagView.isHidden = false
-        self.pic2ArtOptionView.isHidden = Defaults.shared.appMode != .free ? !isImage : true
+        self.pic2ArtOptionView.isHidden = (Defaults.shared.appMode != .free && Defaults.shared.appMode != .basic)  ? !isImage : true
         self.soundOptionView.isHidden = isImage
         self.trimOptionView.isHidden = isImage
         self.timeSpeedOptionView.isHidden = Defaults.shared.appMode != .free ? isImage : true
@@ -652,16 +652,16 @@ extension StoryEditorViewController {
                 imageData.append(image)
             }
         }
-        var minimumValue: Int = 3
+        var minimumValue: Int = 10
         switch Defaults.shared.appMode {
         case .basic:
-            minimumValue = 5
-        case .advanced:
             minimumValue = 10
+        case .advanced:
+            minimumValue = 20
         case .professional:
-            minimumValue = 18
+            minimumValue = 20
         default:
-            minimumValue = 3
+            minimumValue = 10
         }
         
         for (_, storyEditor) in storyEditors.enumerated() {
@@ -1122,16 +1122,16 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
                         imageData.append(image)
                     }
                 }
-                var minimumValue: Int = 3
+                var minimumValue: Int = 10
                 switch Defaults.shared.appMode {
                 case .basic:
-                    minimumValue = 5
-                case .advanced:
                     minimumValue = 10
+                case .advanced:
+                    minimumValue = 20
                 case .professional:
-                    minimumValue = 18
+                    minimumValue = 20
                 default:
-                    minimumValue = 3
+                    minimumValue = 10
                 }
                 
                 guard imageData.count < minimumValue else {

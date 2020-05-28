@@ -188,7 +188,7 @@ class SharePostVC: UIViewController {
             let alert = UIAlertController.Style
                 .alert
                 .controller(title: "",
-                            message: "Open ViralCam",
+                            message: R.string.localizable.createIntroVideo(),
                             actions: [UIAlertAction(title: "OK", style: .default, handler: { _ in
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
                                     _ = self.openURL(URL(string: "viralCam://com.simform.viralcam")!)

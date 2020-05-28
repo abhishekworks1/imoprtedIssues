@@ -11,7 +11,7 @@ import TwitterKit
 import AVKit
 
 public struct SocialLoginError {
-    static let userUnauthorized:NSError = NSError(domain: "ShiploopHttpResponseErrorDomain", code:401, userInfo: [NSLocalizedDescriptionKey:"Unauthorized",                                                                                                              NSLocalizedFailureReasonErrorKey:"User not logged in"])
+    static let userUnauthorized:NSError = NSError(domain: "ShiploopHttpResponseErrorDomain", code:401, userInfo: [NSLocalizedDescriptionKey:"Unauthorized", NSLocalizedFailureReasonErrorKey:"User not logged in"])
     static let parsingError:NSError = NSError(domain: "ShiploopHttpResponseErrorDomain", code: 422, userInfo: [NSLocalizedDescriptionKey:"Parsing Error", NSLocalizedFailureReasonErrorKey:"User data parsing error"])
 }
 
@@ -37,13 +37,13 @@ open class TwitterManger: NSObject {
         return TWTRTwitter.sharedInstance().sessionStore
     }
     
-    var userData: LoginUserData? = nil
+    var userData: LoginUserData?
     
     var isUserLogin: Bool {
         return store.hasLoggedInUsers()
     }
     
-    func loadUserData(completion: @escaping (_ userModel: LoginUserData?) -> ()) {
+    func loadUserData(completion: @escaping (_ userModel: LoginUserData?) -> Void) {
         if isUserLogin {
             guard let userId = store.session()?.userID else {
                 completion(nil)
@@ -57,11 +57,11 @@ open class TwitterManger: NSObject {
 
             //To get User name and email
             
-            twitterClient.loadUser(withID: userId) { [weak self] (user, error) in
+            twitterClient.loadUser(withID: userId) { [weak self] (user, _) in
                 guard let `self` = self else { return }
                 print(user?.profileImageURL ?? "")
                 print(user?.name ?? "")
-                twitterClient.requestEmail { email, error in
+                twitterClient.requestEmail { email, _ in
                     self.userData = LoginUserData(userId: userId, userName: user?.name, email: email, gender: 0, photoUrl: user?.profileImageURL)
                     completion(self.userData)
                 }
@@ -93,7 +93,7 @@ open class TwitterManger: NSObject {
         })
     }
     
-    public func getLoggedInUserDetailswith(permission: [String: Any] = TwitterDefaultPermission.userPermission, completion:@escaping (_ userData: LoginUserData?, _ error: Error?) -> ()) {
+    public func getLoggedInUserDetailswith(permission: [String: Any] = TwitterDefaultPermission.userPermission, completion:@escaping (_ userData: LoginUserData?, _ error: Error?) -> Void) {
         let store = TWTRTwitter.sharedInstance().sessionStore
         guard let userId = store.session()?.userID else { return }
         if store.session(forUserID: userId) != nil {
