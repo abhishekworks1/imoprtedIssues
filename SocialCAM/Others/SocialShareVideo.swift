@@ -24,14 +24,14 @@ open class SocialShareVideo: NSObject, SharingDelegate {
     weak var delegate: ShareStoriesDelegate?
     
     func copyLink(referType: ReferType = .none) {
-        var attachmentUrl: String?
+        var attachmentUrl: String = ""
         switch referType {
         case .viralCam:
             attachmentUrl = Defaults.shared.currentUser?.viralcamReferralLink ?? Constant.URLs.websiteURL
         case .socialCam:
             attachmentUrl = Constant.URLs.socialCamWebsiteURL
         case .tiktokShare:
-            attachmentUrl = Defaults.shared.postViralCamModel?.referLink
+            attachmentUrl = Defaults.shared.postViralCamModel?.referLink ?? ""
         default:
             break
         }

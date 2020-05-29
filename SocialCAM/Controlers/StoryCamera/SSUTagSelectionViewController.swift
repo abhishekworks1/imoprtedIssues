@@ -37,7 +37,13 @@ struct SSUTagOption {
     var image: UIImage?
     var type: SSUTagType
     
-    static let contents: [SSUTagOption] = [SSUTagOption(name: R.string.localizable.viralCam(), image: R.image.ssuViralCam(), type: .viralCam), SSUTagOption(name: R.string.localizable.waitingList(), image: R.image.ssuWaiting(), type: .referralLink), SSUTagOption(name: R.string.localizable.social(), image: R.image.ssuSocialMedia(), type: .social), SSUTagOption(name: R.string.localizable.service(), image: R.image.service(), type: .service), SSUTagOption(name: R.string.localizable.challenges(), image: R.image.challenge(), type: .challenges), SSUTagOption(name: R.string.localizable.poll(), image: R.image.poll(), type: .poll)]
+    static let contents: [SSUTagOption] = [
+        SSUTagOption(name: R.string.localizable.viralCam(), image: R.image.ssuViralCam(), type: .viralCam),
+        SSUTagOption(name: R.string.localizable.waitingList(), image: R.image.ssuWaiting(), type: .referralLink),
+        SSUTagOption(name: R.string.localizable.social(), image: R.image.ssuSocialMedia(), type: .social),
+        SSUTagOption(name: R.string.localizable.service(), image: R.image.service(), type: .service),
+        SSUTagOption(name: R.string.localizable.challenges(), image: R.image.challenge(), type: .challenges),
+        SSUTagOption(name: R.string.localizable.poll(), image: R.image.poll(), type: .poll)]
 }
 
 struct SSUTagWaitingListOption {
