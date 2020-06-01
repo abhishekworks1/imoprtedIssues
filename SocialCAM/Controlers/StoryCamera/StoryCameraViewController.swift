@@ -389,18 +389,16 @@ class StoryCameraViewController: UIViewController {
     var pauseTimerValue = 0
     var photoTimerValue = 0
     
-    var cameraModeArray: [CameraModes] = [CameraModes(name: R.string.localizable.photovideO(), recordingType: .normal),
-                                          CameraModes(name: R.string.localizable.boomI(), recordingType: .boomerang),
-                                          CameraModes(name: R.string.localizable.slideshoW(), recordingType: .slideshow),
-                                          CameraModes(name: R.string.localizable.collagE(), recordingType: .collage),
-                                          CameraModes(name: R.string.localizable.handsfreE(), recordingType: .handsfree),
-                                          CameraModes(name: R.string.localizable.custoM(), recordingType: .custom),
-                                          CameraModes(name: R.string.localizable.capturE(), recordingType: .capture),
-                                          CameraModes(name: R.string.localizable.fastmotioN(), recordingType: .fastMotion),
-                                          CameraModes(name: R.string.localizable.slowfasT(), recordingType: .fastSlowMotion)]
-    
-  //  var cameraModeArray: [String] = [R.string.localizable.photovideO(), R.string.localizable.boomI(), R.string.localizable.slideshoW(), R.string.localizable.collagE(), R.string.localizable.handsfreE(), R.string.localizable.custoM(), R.string.localizable.capturE(), R.string.localizable.fastmotioN(), R.string.localizable.slowfasT()]
-    
+    var cameraModeArray: [CameraModes] = [
+        CameraModes(name: R.string.localizable.fastsloW(), recordingType: .normal),
+        CameraModes(name: R.string.localizable.fastmotioN(), recordingType: .fastMotion),
+        CameraModes(name: R.string.localizable.boomI(), recordingType: .boomerang),
+        CameraModes(name: R.string.localizable.slideshoW(), recordingType: .slideshow),
+        CameraModes(name: R.string.localizable.collagE(), recordingType: .collage),
+        CameraModes(name: R.string.localizable.handsfreE(), recordingType: .handsfree),
+        CameraModes(name: R.string.localizable.custoM(), recordingType: .custom),
+        CameraModes(name: R.string.localizable.capturE(), recordingType: .capture)]
+        
     var timerOptions = ["-",
                         "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
                         "11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
@@ -621,16 +619,17 @@ class StoryCameraViewController: UIViewController {
             guard let `self` = self else {
                 return
             }
+            var cameraModeArray = self.cameraModeArray
             if Defaults.shared.appMode == .free {
                 Defaults.shared.cameraMode = .normal
                 self.recordingType = Defaults.shared.cameraMode
-                self.cameraModeArray = self.cameraModeArray.filter({$0.recordingType != .custom})
-                self.cameraModeArray = self.cameraModeArray.filter({$0.recordingType != .fastSlowMotion})
+                cameraModeArray = cameraModeArray.filter({$0.recordingType != .custom})
+                cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastSlowMotion})
             }
             self.selectedSegmentLengthValue = SelectedTimer(value: "15", selectedRow: 2)
             self.selectedSegmentLengthValue.saveWithKey(key: "selectedSegmentLengthValue")
             self.setCameraSettings()
-            self.cameraSliderView.stringArray = self.cameraModeArray
+            self.cameraSliderView.stringArray = cameraModeArray
             self.cameraSliderView.selectCell = Defaults.shared.cameraMode.rawValue
             self.dynamicSetSlowFastVerticalBar()
         }
@@ -773,20 +772,21 @@ extension StoryCameraViewController {
 
     func setupLayoutCameraSliderView() {
         self.timerValueView.isHidden = !self.isUserTimerValueChange
+        var cameraModeArray = self.cameraModeArray
         if Defaults.shared.appMode == .free {
-            self.cameraModeArray = self.cameraModeArray.filter({$0.recordingType != .custom})
-            self.cameraModeArray = self.cameraModeArray.filter({$0.recordingType != .fastSlowMotion})
+            cameraModeArray = cameraModeArray.filter({$0.recordingType != .custom})
+            cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastSlowMotion})
         } else {
             #if SOCIALCAMAPP
-            basicCameraModeArray.removeLast(2)
+            cameraModeArray.removeLast(2)
             #endif
         }
-        cameraSliderView.stringArray = self.cameraModeArray
+        cameraSliderView.stringArray = cameraModeArray
         cameraSliderView.bottomImage = R.image.cameraModeSelect()
         cameraSliderView.cellTextColor = .white
-        cameraSliderView.isScrollEnable = { [weak self] (index, _) in
+        cameraSliderView.isScrollEnable = { [weak self] (index, currentMode) in
             guard let `self` = self else { return }
-            let currentMode = CameraMode(rawValue: index) ?? .normal
+            let currentMode = currentMode.recordingType
             if currentMode == .custom && self.takenVideoUrls.count > 0 {
                 let alert = UIAlertController(title: Constant.Application.displayName, message: R.string.localizable.switchingCameraModeWillDeleteTheRecordedVideosAreYouSure(), preferredStyle: .actionSheet)
                 let yesAction = UIAlertAction(title: R.string.localizable.oK(), style: .default, handler: handleRemoveVides)
@@ -1473,11 +1473,10 @@ extension StoryCameraViewController {
             self.showControls()
             totalDurationOfOneSegment += self.getDurationOf(videoPath: (self.takenVideoUrls.last?.url)!)
             self.isRecording = false
-            if totalDurationOfOneSegment > 240.0 {
+            if totalDurationOfOneSegment >= 240 || (takenVideoUrls.count >= 10) {
                 totalDurationOfOneSegment = 0.0
                 self.openStoryEditor(segementedVideos: takenVideoUrls)
             }
-            
         } else if self.recordingType == .boomerang {
             self.showControls()
             self.isRecording = false
