@@ -31,6 +31,10 @@ class ChannelListViewController: UIViewController {
             }
         }
     }
+     
+    var purchasedChannels: [User] {
+        return self.channelList.filter({ return $0.id != Defaults.shared.currentUser?.id })
+    }
     
     var remainingPackageCountForOthers: Int = 0
     var getPackage: GetPackage?
@@ -99,43 +103,19 @@ class ChannelListViewController: UIViewController {
 extension ChannelListViewController : UITableViewDelegate , UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return channelList.count
+        return purchasedChannels.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//         if channelList[indexPath.row].id == Defaults.shared.currentUser?.id {
-//            guard let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.channelSelectedCell.identifier) as? ChannelSelectedCell else {
-//                fatalError("ChannelSelectedCell Not Found")
-//            }
-//            cell.user = channelList[indexPath.row]
-//            return cell
-//        } else {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.channelTableViewCell.identifier) as? ChannelTableViewCell else {
-                fatalError("ChannelTableViewCell Not Found")
-            }
-            cell.user = channelList[indexPath.row]
-            return cell
-//        }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.channelTableViewCell.identifier) as? ChannelTableViewCell else {
+            fatalError("ChannelTableViewCell Not Found")
+        }
+        cell.user = purchasedChannels[indexPath.row]
+        return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        if channelList[indexPath.row].id == Defaults.shared.currentUser?.id {
-//            return 160
-//        } else {
-            return 80
-//        }
+        return 80
     }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let ch = channelList[indexPath.row]
-//        let cell = tableView.cellForRow(at: indexPath) as? ChannelTableViewCell
-//        cell?.imgSelectedChannel.image = #imageLiteral(resourceName: "checkOn")
-//        cell?.imgSelectedChannel.setImageWithTintColor(color: ApplicationSettings.appPrimaryColor)
-//        if let delegate = self.delegate {
-//            delegate.finishedWithSwitchChannel(newChannel: ch,self)
-//            self.manageAddChannelBtn()
-//        }
-//        tableView.reloadData()
-    }
-    
+        
 }

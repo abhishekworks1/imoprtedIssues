@@ -667,7 +667,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Channel Package" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ias-ce-S9O">
-                                        <rect key="frame" x="100" y="12.333333333333334" width="175" height="19.333333333333329"/>
+                                        <rect key="frame" x="94.666666666666686" y="12.333333333333334" width="186" height="19.333333333333329"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="19.329999999999998" id="buh-Lm-mZl"/>
                                         </constraints>
@@ -952,7 +952,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment Method" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hMS-47-E9P">
-                                        <rect key="frame" x="126" y="12.666666666666664" width="123" height="19"/>
+                                        <rect key="frame" x="122.33333333333333" y="12.666666666666664" width="130.66666666666669" height="19"/>
                                         <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="16"/>
                                         <color key="textColor" red="0.25882352939999997" green="0.25882352939999997" blue="0.25490196079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -983,7 +983,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Secure Card Payment" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6nK-Ij-tlP">
-                                                    <rect key="frame" x="48" y="11.666666666666664" width="137.33333333333334" height="21"/>
+                                                    <rect key="frame" x="48" y="11.666666666666664" width="146" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="n0t-W5-hcZ"/>
                                                     </constraints>
@@ -992,7 +992,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0by-N9-z6S">
-                                                    <rect key="frame" x="200.33333333333334" y="11.666666666666664" width="32" height="21"/>
+                                                    <rect key="frame" x="209" y="11.666666666666664" width="32" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="GPu-R9-xZC"/>
                                                         <constraint firstAttribute="width" constant="32" id="rHV-SQ-OSA"/>
@@ -1410,8 +1410,8 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Channel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9IM-9G-xuP">
-                                        <rect key="frame" x="138.33333333333334" y="12" width="98.666666666666657" height="20"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your channel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9IM-9G-xuP">
+                                        <rect key="frame" x="133.33333333333334" y="12" width="108.33333333333334" height="20"/>
                                         <fontDescription key="fontDescription" name="SFUIText-Semibold" family="SF UI Text" pointSize="17"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -1467,6 +1467,12 @@
                                     <constraint firstItem="Kqo-QX-6Fr" firstAttribute="top" secondItem="ddm-rb-mrW" secondAttribute="bottom" id="rfc-DO-rt7"/>
                                     <constraint firstItem="ddm-rb-mrW" firstAttribute="top" secondItem="Esl-AO-vqm" secondAttribute="top" id="u2v-o7-QRe"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="subviews">
+                                        <exclude reference="Jlr-pe-jCl"/>
+                                        <exclude reference="zEC-Sa-pWW"/>
+                                    </mask>
+                                </variation>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hbV-Yl-1SU">
                                 <rect key="frame" x="0.0" y="88" width="375" height="690"/>
@@ -1475,6 +1481,53 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </view>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="X2G-dP-4eR">
+                                    <rect key="frame" x="0.0" y="256" width="375" height="80"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QBQ-rj-StJ">
+                                            <rect key="frame" x="5" y="5" width="365" height="70"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create new channel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KBQ-du-ULA">
+                                                    <rect key="frame" x="105.00000000000001" y="25" width="155.33333333333337" height="20.333333333333329"/>
+                                                    <fontDescription key="fontDescription" name="SFUIText-Semibold" family="SF UI Text" pointSize="16"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" red="0.13333333333333333" green="0.13725490196078433" blue="0.15686274509803921" alpha="0.20999999999999999" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstItem="KBQ-du-ULA" firstAttribute="centerX" secondItem="QBQ-rj-StJ" secondAttribute="centerX" id="5br-ba-w3L"/>
+                                                <constraint firstItem="KBQ-du-ULA" firstAttribute="centerY" secondItem="QBQ-rj-StJ" secondAttribute="centerY" id="p3R-mV-KeA"/>
+                                            </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColorChat">
+                                                    <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidthChat">
+                                                    <real key="value" value="1"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </view>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WVC-NK-ziQ">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
+                                            <connections>
+                                                <action selector="addChannelBtnClicked:" destination="ucy-St-waN" eventType="touchUpInside" id="4u2-Op-rZj"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    <constraints>
+                                        <constraint firstItem="WVC-NK-ziQ" firstAttribute="centerX" secondItem="X2G-dP-4eR" secondAttribute="centerX" id="0aR-Vg-g2u"/>
+                                        <constraint firstItem="WVC-NK-ziQ" firstAttribute="height" secondItem="X2G-dP-4eR" secondAttribute="height" id="3av-RB-bfS"/>
+                                        <constraint firstAttribute="trailing" secondItem="QBQ-rj-StJ" secondAttribute="trailing" constant="5" id="7dB-ux-O2t"/>
+                                        <constraint firstItem="QBQ-rj-StJ" firstAttribute="leading" secondItem="X2G-dP-4eR" secondAttribute="leading" constant="5" id="S8f-Vv-jRL"/>
+                                        <constraint firstItem="WVC-NK-ziQ" firstAttribute="centerY" secondItem="X2G-dP-4eR" secondAttribute="centerY" id="bcT-0N-2ew"/>
+                                        <constraint firstItem="QBQ-rj-StJ" firstAttribute="top" secondItem="X2G-dP-4eR" secondAttribute="top" constant="5" id="d3d-ff-Uq7"/>
+                                        <constraint firstAttribute="bottom" secondItem="QBQ-rj-StJ" secondAttribute="bottom" constant="5" id="ojP-L2-nCd"/>
+                                        <constraint firstItem="WVC-NK-ziQ" firstAttribute="width" secondItem="X2G-dP-4eR" secondAttribute="width" id="r10-69-Oql"/>
+                                    </constraints>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ChannelSelectedCell" rowHeight="100" id="lmd-Rw-nXq" customClass="ChannelSelectedCell" customModule="SocialCam" customModuleProvider="target">
@@ -1496,7 +1549,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Football Fanclub" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rbd-LZ-Nc6">
-                                                    <rect key="frame" x="91" y="47" width="119.66666666666669" height="19.333333333333329"/>
+                                                    <rect key="frame" x="90.999999999999986" y="47" width="129.66666666666663" height="19.333333333333329"/>
                                                     <fontDescription key="fontDescription" name="SFUIText-Semibold" family="SF UI Text" pointSize="16"/>
                                                     <color key="textColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -1787,7 +1840,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Football Fanclub" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E9w-C5-NHU">
-                                                    <rect key="frame" x="91" y="40.333333333333336" width="119.66666666666669" height="19.333333333333336"/>
+                                                    <rect key="frame" x="90.999999999999986" y="40.333333333333336" width="129.66666666666663" height="19.333333333333336"/>
                                                     <fontDescription key="fontDescription" name="SFUIText-Semibold" family="SF UI Text" pointSize="16"/>
                                                     <color key="textColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>

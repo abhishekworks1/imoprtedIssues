@@ -1339,6 +1339,7 @@ extension StoryCameraViewController {
                 self.circularProgress.transform = CGAffineTransform(scaleX: 1, y: 1)
             }, completion: { (_: Bool) in
                 self.nextLevel.pause {
+                    self.circularProgress.pauseAnimation()
                     self.circularProgress.progressInsideFillColor = .white
                     if let session = self.nextLevel.session {
                         if let url = session.lastClipUrl {
