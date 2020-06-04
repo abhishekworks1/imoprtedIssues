@@ -740,14 +740,17 @@ extension PhotosPickerViewController: UICollectionViewDelegate, UICollectionView
             cell?.liveBadgeImageView = nil
             return cell!
         }
+        
         let nibName = self.configure.nibSet?.nibName ?? "AllPhotosCollectionViewCell"
         let cell = makeCell(nibName: nibName)
-        
+        if (cell.popupPreviewRecognizer == nil) {
+            cell.popupPreviewRecognizer = STPopupPreviewRecognizer(delegate: self)
+        }
         let currentTag = cell.tag + 1
         cell.tag = currentTag
         
         let asset = self.images[(indexPath as NSIndexPath).item]
-        
+        cell.imageAsset = asset
         if let selectedAsset = getSelectedAssets(asset) {
             cell.orderLabel?.text = "\(selectedAsset.selectedOrder)"
             cell.selectedAsset = true
@@ -869,4 +872,25 @@ extension PhotosPickerViewController: UICollectionViewDelegate, UICollectionView
             }
         }
     }
+}
+
+extension PhotosPickerViewController: STPopupPreviewRecognizerDelegate {
+   
+    public func previewViewController(for popupPreviewRecognizer: STPopupPreviewRecognizer) -> UIViewController? {
+        guard let cell = popupPreviewRecognizer.view as? AllPhotosCollectionViewCell, let previewViewController = R.storyboard.previewView.previewViewController() else {
+            return nil
+        }
+        
+        previewViewController.imageAsset = cell.imageAsset
+        return previewViewController
+    }
+    
+    public func presentingViewController(for popupPreviewRecognizer: STPopupPreviewRecognizer) -> UIViewController {
+        return self
+    }
+    
+    public func previewActions(for popupPreviewRecognizer: STPopupPreviewRecognizer) -> [STPopupPreviewAction] {
+        return []
+    }
+    
 }

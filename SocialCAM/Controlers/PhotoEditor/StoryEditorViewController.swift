@@ -147,7 +147,7 @@ class StoryEditorViewController: UIViewController {
     @IBOutlet weak var slideShowPreviewView: UIView!
     
     @IBOutlet weak var slideShowFillAuto: UIView!
-    
+ 
     @IBOutlet weak var soundButton: UIButton!
     
     @IBOutlet weak var backgroundCollectionView: UIView!
@@ -195,7 +195,24 @@ class StoryEditorViewController: UIViewController {
     }
     
     public var medias = [StoryEditorMedia]()
-    public var selectedSlideShowMedias = [StoryEditorMedia]()
+    public var selectedSlideShowMedias = [StoryEditorMedia]() {
+        didSet {
+            var imageData: [UIImage] = []
+            for media in selectedSlideShowMedias {
+                if case let .image(image) = media.type,
+                    image != UIImage() {
+                    imageData.append(image)
+                }
+            }
+            if imageData.count > 0 {
+                slideShowFillAuto.alpha = 0.7
+                slideShowFillAuto.isUserInteractionEnabled = false
+            } else {
+                slideShowFillAuto.alpha = 1
+                slideShowFillAuto.isUserInteractionEnabled = true
+            }
+        }
+    }
 
     private var filteredImagesStory: [StoryEditorMedia] = []
     
@@ -645,6 +662,9 @@ extension StoryEditorViewController {
     }
     
     @IBAction func slideShowAutoFillClicked(_ sender: UIButton) {
+        guard slideShowFillAuto.isUserInteractionEnabled else {
+            return
+        }
         var imageData: [UIImage] = []
         for media in selectedSlideShowMedias {
             if case let .image(image) = media.type,
@@ -684,6 +704,8 @@ extension StoryEditorViewController {
                 }
             }
             self.slideShowCollectionView.reloadData()
+            self.slideShowFillAuto.alpha = 0.7
+            self.slideShowFillAuto.isUserInteractionEnabled = false
         }
     }
     

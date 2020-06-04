@@ -46,6 +46,7 @@ enum SocialLogin: Int, CaseIterable {
 
 public enum CameraMode: Int {
     case normal = 0
+    case basicCamera
     case boomerang
     case slideshow
     case collage

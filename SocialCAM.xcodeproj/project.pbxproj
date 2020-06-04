@@ -983,6 +983,28 @@
 		820DA4EE2385392F0027A207 /* AWSManager+S3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820DA4ED2385392F0027A207 /* AWSManager+S3.swift */; };
 		8219322623EAA8FD00FFEC03 /* StoriCamManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8219322523EAA8FD00FFEC03 /* StoriCamManager.swift */; };
 		8219322823EABE3F00FFEC03 /* FontAwesome.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8219322723EABE3F00FFEC03 /* FontAwesome.otf */; };
+		821CF9E0248781B200EC1503 /* STPopupPreviewRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 821CF9DB248781B100EC1503 /* STPopupPreviewRecognizer.m */; };
+		821CF9E1248781B200EC1503 /* STPopupPreviewRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 821CF9DB248781B100EC1503 /* STPopupPreviewRecognizer.m */; };
+		821CF9E2248781B200EC1503 /* UIView+STPopupPreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 821CF9DE248781B100EC1503 /* UIView+STPopupPreview.m */; };
+		821CF9E3248781B200EC1503 /* UIView+STPopupPreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 821CF9DE248781B100EC1503 /* UIView+STPopupPreview.m */; };
+		821CF9F7248784E000EC1503 /* STPopupControllerTransitioningSlideVertical.m in Sources */ = {isa = PBXBuildFile; fileRef = 821CF9E7248784DF00EC1503 /* STPopupControllerTransitioningSlideVertical.m */; };
+		821CF9F8248784E000EC1503 /* STPopupControllerTransitioningSlideVertical.m in Sources */ = {isa = PBXBuildFile; fileRef = 821CF9E7248784DF00EC1503 /* STPopupControllerTransitioningSlideVertical.m */; };
+		821CF9F9248784E000EC1503 /* STPopupNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 821CF9E9248784DF00EC1503 /* STPopupNavigationBar.m */; };
+		821CF9FA248784E000EC1503 /* STPopupNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 821CF9E9248784DF00EC1503 /* STPopupNavigationBar.m */; };
+		821CF9FB248784E000EC1503 /* STPopupLeftBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 821CF9EB248784DF00EC1503 /* STPopupLeftBarItem.m */; };
+		821CF9FC248784E000EC1503 /* STPopupLeftBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 821CF9EB248784DF00EC1503 /* STPopupLeftBarItem.m */; };
+		821CF9FD248784E000EC1503 /* UIViewController+STPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 821CF9EC248784DF00EC1503 /* UIViewController+STPopup.m */; };
+		821CF9FE248784E000EC1503 /* UIViewController+STPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 821CF9EC248784DF00EC1503 /* UIViewController+STPopup.m */; };
+		821CF9FF248784E000EC1503 /* STPopupControllerTransitioningFade.m in Sources */ = {isa = PBXBuildFile; fileRef = 821CF9ED248784DF00EC1503 /* STPopupControllerTransitioningFade.m */; };
+		821CFA00248784E000EC1503 /* STPopupControllerTransitioningFade.m in Sources */ = {isa = PBXBuildFile; fileRef = 821CF9ED248784DF00EC1503 /* STPopupControllerTransitioningFade.m */; };
+		821CFA01248784E000EC1503 /* STPopupController.m in Sources */ = {isa = PBXBuildFile; fileRef = 821CF9EE248784DF00EC1503 /* STPopupController.m */; };
+		821CFA02248784E000EC1503 /* STPopupController.m in Sources */ = {isa = PBXBuildFile; fileRef = 821CF9EE248784DF00EC1503 /* STPopupController.m */; };
+		821CFA03248784E000EC1503 /* UIResponder+STPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 821CF9EF248784DF00EC1503 /* UIResponder+STPopup.m */; };
+		821CFA04248784E000EC1503 /* UIResponder+STPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 821CF9EF248784DF00EC1503 /* UIResponder+STPopup.m */; };
+		821CFA0B248788D400EC1503 /* PreviewView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 821CFA0A248788D400EC1503 /* PreviewView.storyboard */; };
+		821CFA0C248788D400EC1503 /* PreviewView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 821CFA0A248788D400EC1503 /* PreviewView.storyboard */; };
+		821CFA0E2487897800EC1503 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821CFA0D2487897800EC1503 /* PreviewViewController.swift */; };
+		821CFA0F2487897800EC1503 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821CFA0D2487897800EC1503 /* PreviewViewController.swift */; };
 		82262113239E164400B963CF /* SpeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82262112239E164400B963CF /* SpeedViewController.swift */; };
 		82262115239E165A00B963CF /* SpeedViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82262114239E165A00B963CF /* SpeedViewController.storyboard */; };
 		82262117239E172A00B963CF /* SpeedViewController+Controls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82262116239E172A00B963CF /* SpeedViewController+Controls.swift */; };
@@ -1798,6 +1820,26 @@
 		820DA4ED2385392F0027A207 /* AWSManager+S3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AWSManager+S3.swift"; sourceTree = "<group>"; };
 		8219322523EAA8FD00FFEC03 /* StoriCamManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriCamManager.swift; sourceTree = "<group>"; };
 		8219322723EABE3F00FFEC03 /* FontAwesome.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.otf; sourceTree = "<group>"; };
+		821CF9DB248781B100EC1503 /* STPopupPreviewRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STPopupPreviewRecognizer.m; sourceTree = "<group>"; };
+		821CF9DC248781B100EC1503 /* UIView+STPopupPreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+STPopupPreview.h"; sourceTree = "<group>"; };
+		821CF9DD248781B100EC1503 /* STPopupPreviewRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STPopupPreviewRecognizer.h; sourceTree = "<group>"; };
+		821CF9DE248781B100EC1503 /* UIView+STPopupPreview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+STPopupPreview.m"; sourceTree = "<group>"; };
+		821CF9E7248784DF00EC1503 /* STPopupControllerTransitioningSlideVertical.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STPopupControllerTransitioningSlideVertical.m; sourceTree = "<group>"; };
+		821CF9E9248784DF00EC1503 /* STPopupNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STPopupNavigationBar.m; sourceTree = "<group>"; };
+		821CF9EA248784DF00EC1503 /* UIResponder+STPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIResponder+STPopup.h"; sourceTree = "<group>"; };
+		821CF9EB248784DF00EC1503 /* STPopupLeftBarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STPopupLeftBarItem.m; sourceTree = "<group>"; };
+		821CF9EC248784DF00EC1503 /* UIViewController+STPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+STPopup.m"; sourceTree = "<group>"; };
+		821CF9ED248784DF00EC1503 /* STPopupControllerTransitioningFade.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STPopupControllerTransitioningFade.m; sourceTree = "<group>"; };
+		821CF9EE248784DF00EC1503 /* STPopupController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STPopupController.m; sourceTree = "<group>"; };
+		821CF9EF248784DF00EC1503 /* UIResponder+STPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIResponder+STPopup.m"; sourceTree = "<group>"; };
+		821CF9F0248784DF00EC1503 /* STPopupNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STPopupNavigationBar.h; sourceTree = "<group>"; };
+		821CF9F1248784DF00EC1503 /* STPopupControllerTransitioningSlideVertical.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STPopupControllerTransitioningSlideVertical.h; sourceTree = "<group>"; };
+		821CF9F2248784DF00EC1503 /* STPopupControllerTransitioningFade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STPopupControllerTransitioningFade.h; sourceTree = "<group>"; };
+		821CF9F3248784DF00EC1503 /* UIViewController+STPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+STPopup.h"; sourceTree = "<group>"; };
+		821CF9F4248784DF00EC1503 /* STPopupLeftBarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STPopupLeftBarItem.h; sourceTree = "<group>"; };
+		821CF9F5248784DF00EC1503 /* STPopupController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STPopupController.h; sourceTree = "<group>"; };
+		821CFA0A248788D400EC1503 /* PreviewView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PreviewView.storyboard; sourceTree = "<group>"; };
+		821CFA0D2487897800EC1503 /* PreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
 		82262112239E164400B963CF /* SpeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedViewController.swift; sourceTree = "<group>"; };
 		82262114239E165A00B963CF /* SpeedViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SpeedViewController.storyboard; sourceTree = "<group>"; };
 		82262116239E172A00B963CF /* SpeedViewController+Controls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpeedViewController+Controls.swift"; sourceTree = "<group>"; };
@@ -3017,6 +3059,39 @@
 			path = InstaGramManager;
 			sourceTree = "<group>";
 		};
+		821CF9D9248781B100EC1503 /* STPopupPreview */ = {
+			isa = PBXGroup;
+			children = (
+				821CF9E6248784DF00EC1503 /* STPopup */,
+				821CF9DB248781B100EC1503 /* STPopupPreviewRecognizer.m */,
+				821CF9DD248781B100EC1503 /* STPopupPreviewRecognizer.h */,
+				821CF9DC248781B100EC1503 /* UIView+STPopupPreview.h */,
+				821CF9DE248781B100EC1503 /* UIView+STPopupPreview.m */,
+			);
+			path = STPopupPreview;
+			sourceTree = "<group>";
+		};
+		821CF9E6248784DF00EC1503 /* STPopup */ = {
+			isa = PBXGroup;
+			children = (
+				821CF9E7248784DF00EC1503 /* STPopupControllerTransitioningSlideVertical.m */,
+				821CF9E9248784DF00EC1503 /* STPopupNavigationBar.m */,
+				821CF9EA248784DF00EC1503 /* UIResponder+STPopup.h */,
+				821CF9EB248784DF00EC1503 /* STPopupLeftBarItem.m */,
+				821CF9EC248784DF00EC1503 /* UIViewController+STPopup.m */,
+				821CF9ED248784DF00EC1503 /* STPopupControllerTransitioningFade.m */,
+				821CF9EE248784DF00EC1503 /* STPopupController.m */,
+				821CF9EF248784DF00EC1503 /* UIResponder+STPopup.m */,
+				821CF9F0248784DF00EC1503 /* STPopupNavigationBar.h */,
+				821CF9F1248784DF00EC1503 /* STPopupControllerTransitioningSlideVertical.h */,
+				821CF9F2248784DF00EC1503 /* STPopupControllerTransitioningFade.h */,
+				821CF9F3248784DF00EC1503 /* UIViewController+STPopup.h */,
+				821CF9F4248784DF00EC1503 /* STPopupLeftBarItem.h */,
+				821CF9F5248784DF00EC1503 /* STPopupController.h */,
+			);
+			path = STPopup;
+			sourceTree = "<group>";
+		};
 		82262111239E136600B963CF /* SpeedController */ = {
 			isa = PBXGroup;
 			children = (
@@ -3113,13 +3188,13 @@
 				95A405AD23BF78D000AD38C4 /* SpecificBoomerangWriter.swift */,
 				95F117E323FD04B400EB99B4 /* SpecificBoomerangOptions.swift */,
 				82D1EC7F23703DE100A680E7 /* PhotoEditorViewController.swift */,
+				950514C4239FCEE600F07D8F /* StickerViewController.swift */,
 				82D1EC7D23703DE100A680E7 /* PhotoEditorViewController+Actions.swift */,
 				82D1EC7C23703DE000A680E7 /* PhotoEditorViewController+Delegates.swift */,
 				82AD6B7123704BA60090498A /* PhotoEditorViewController+CollectionView.swift */,
 				82D1EC7E23703DE100A680E7 /* PhotoEditorViewController+Picker.swift */,
 				82D1EC8123703DE300A680E7 /* PhotoEditorViewController+LifeCycle.swift */,
 				82AD6B6D237049AB0090498A /* PhotoEditor.storyboard */,
-				950514C4239FCEE600F07D8F /* StickerViewController.swift */,
 				950514C0239FA42100F07D8F /* StoryEditorView.swift */,
 				950514BE239FA3F800F07D8F /* StoryEditorViewController.swift */,
 				950514C2239FA9AB00F07D8F /* StoryEditor.storyboard */,
@@ -3157,6 +3232,8 @@
 			children = (
 				8205FB8B236C29E7002B2603 /* PhotosPickerViewController.swift */,
 				8205FB8A236C29E7002B2603 /* PhotosPickerViewController.xib */,
+				821CFA0D2487897800EC1503 /* PreviewViewController.swift */,
+				821CFA0A248788D400EC1503 /* PreviewView.storyboard */,
 			);
 			path = PhotoPicker;
 			sourceTree = "<group>";
@@ -3275,6 +3352,7 @@
 		824EB39423619DFF00205993 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				821CF9D9248781B100EC1503 /* STPopupPreview */,
 				239D60E72446F78A00650816 /* SearchDropDown.swift */,
 				23CE8C012434C40D0096233C /* DateTimePicker.swift */,
 				82C432602407CE5D0067C91A /* VerticalBar.swift */,
@@ -3969,6 +4047,7 @@
 				23CE8BCE24349B110096233C /* Innocence.JPG in Resources */,
 				23CE8BCF24349B110096233C /* Playful.JPG in Resources */,
 				23CE8BD024349B110096233C /* FacebookReactionLocalizable.strings in Resources */,
+				821CFA0C248788D400EC1503 /* PreviewView.storyboard in Resources */,
 				23CE8BD124349B110096233C /* FollowMeStoryView.xib in Resources */,
 				23CE8BD224349B110096233C /* LUT_M03.png in Resources */,
 				23CE8BD324349B110096233C /* SlideshowImagesCell.xib in Resources */,
@@ -4114,6 +4193,7 @@
 				82D1EBE9236FF35900A680E7 /* SlideshowImagesCell.xib in Resources */,
 				82FB78CB23C2EF37006A97EA /* TwitterCompose.storyboard in Resources */,
 				826C1D2223C60858005B4FB1 /* StartUp.mp3 in Resources */,
+				821CFA0B248788D400EC1503 /* PreviewView.storyboard in Resources */,
 				8205FC28236C2C2F002B2603 /* 02 Instrumental Theme (Orchestral Sunset).mp3 in Resources */,
 				8205FC3C236C2C2F002B2603 /* SF-UI-Text-Regular.otf in Resources */,
 				8205FD30236C3B06002B2603 /* LUT_M01.png in Resources */,
@@ -4556,6 +4636,7 @@
 				23CE89CD24349B110096233C /* MeResponse.swift in Sources */,
 				23CE89CE24349B110096233C /* ParameterRange.swift in Sources */,
 				23CE89CF24349B110096233C /* CollageViewT311.swift in Sources */,
+				821CF9E1248781B200EC1503 /* STPopupPreviewRecognizer.m in Sources */,
 				23CE89D024349B110096233C /* CollageViewT101.swift in Sources */,
 				23CE89D124349B110096233C /* Posts.swift in Sources */,
 				23CE89D224349B110096233C /* FSLoading.swift in Sources */,
@@ -4599,6 +4680,7 @@
 				23CE89F724349B110096233C /* NextLevel+AVFoundation.swift in Sources */,
 				23CE89F824349B110096233C /* Mantis.swift in Sources */,
 				23CE89F924349B110096233C /* StickerCollectionViewCell.swift in Sources */,
+				821CFA0F2487897800EC1503 /* PreviewViewController.swift in Sources */,
 				23CE89FA24349B110096233C /* PhotoEditorViewController+Actions.swift in Sources */,
 				23CE89FB24349B110096233C /* BaseStoryTagView.swift in Sources */,
 				23CE89FC24349B110096233C /* UIWindow.swift in Sources */,
@@ -4619,6 +4701,7 @@
 				23CE8A0A24349B110096233C /* EmojisCollectionViewDelegate.swift in Sources */,
 				23CE8A0B24349B110096233C /* PhotoEditorViewController+LifeCycle.swift in Sources */,
 				23CE8A0C24349B110096233C /* ReactionAlignment.swift in Sources */,
+				821CFA02248784E000EC1503 /* STPopupController.m in Sources */,
 				23CE8A0D24349B110096233C /* StatsViewController.swift in Sources */,
 				23CE8A0E24349B110096233C /* EditFilterCell.swift in Sources */,
 				23CE8A0F24349B110096233C /* DrawnPath.swift in Sources */,
@@ -4644,6 +4727,7 @@
 				23CE8A2124349B110096233C /* StoryAskQuestionView.swift in Sources */,
 				23CE8A2224349B110096233C /* StoryCameraViewController+ViewGesture.swift in Sources */,
 				23CE8A2324349B110096233C /* MultiTextField.swift in Sources */,
+				821CF9F8248784E000EC1503 /* STPopupControllerTransitioningSlideVertical.m in Sources */,
 				23CE8A2424349B110096233C /* DoodleControlView.swift in Sources */,
 				823B81062461876B0024BDD9 /* DropDown.swift in Sources */,
 				23CE8A2524349B110096233C /* User.swift in Sources */,
@@ -4652,6 +4736,7 @@
 				23CE8A2724349B110096233C /* CollageViewT301.swift in Sources */,
 				23CE8A2824349B110096233C /* ColorCubeStorageLocal.swift in Sources */,
 				952EC2C8244872A90020992A /* PackageSuggesstionTableViewCell.swift in Sources */,
+				821CF9FA248784E000EC1503 /* STPopupNavigationBar.m in Sources */,
 				23CE8A2924349B110096233C /* GraphicDrawing.swift in Sources */,
 				23CE8A2A24349B110096233C /* CollageViewT203.swift in Sources */,
 				23CE8A2B24349B110096233C /* PickerViewCell.swift in Sources */,
@@ -4700,6 +4785,7 @@
 				23CE8A5324349B110096233C /* GetPlayList.swift in Sources */,
 				23CE8A5424349B110096233C /* AVMutableComposition+AVAsset.swift in Sources */,
 				23CE8A5524349B110096233C /* CropView.swift in Sources */,
+				821CFA04248784E000EC1503 /* UIResponder+STPopup.m in Sources */,
 				23CE8A5624349B110096233C /* RotationDial.swift in Sources */,
 				23CE8A5724349B110096233C /* YouTubeCategoriesViewController.swift in Sources */,
 				23CE8A5824349B110096233C /* CropViewModel.swift in Sources */,
@@ -4752,6 +4838,7 @@
 				23CE8A8524349B110096233C /* UIApplication.swift in Sources */,
 				23CE8A8624349B110096233C /* RKTagsView.m in Sources */,
 				23CE8A8724349B110096233C /* ExposureControl.swift in Sources */,
+				821CF9FE248784E000EC1503 /* UIViewController+STPopup.m in Sources */,
 				23CE8A8824349B110096233C /* ControlViewBase.swift in Sources */,
 				23CE8A8924349B110096233C /* Filtering.swift in Sources */,
 				23CE8A8A24349B110096233C /* String+Extension.swift in Sources */,
@@ -4805,6 +4892,8 @@
 				23CE8AB624349B110096233C /* MMLandscapeWindow.swift in Sources */,
 				23CE8AB724349B110096233C /* CollageViewT505.swift in Sources */,
 				23CE8AB824349B110096233C /* UPCarouselFlowLayout.swift in Sources */,
+				821CFA00248784E000EC1503 /* STPopupControllerTransitioningFade.m in Sources */,
+				821CF9E3248781B200EC1503 /* UIView+STPopupPreview.m in Sources */,
 				23CE8AB924349B110096233C /* GeometryHelper.swift in Sources */,
 				23CE8ABA24349B110096233C /* ShadowsControl.swift in Sources */,
 				23CE8ABB24349B110096233C /* DNDDragOperation.m in Sources */,
@@ -4875,6 +4964,7 @@
 				23CE8AFA24349B110096233C /* SpeedViewController+Controls.swift in Sources */,
 				23CE8AFB24349B110096233C /* UITableViewExtension.swift in Sources */,
 				23CE8AFC24349B110096233C /* CropAndStraightenView.swift in Sources */,
+				821CF9FC248784E000EC1503 /* STPopupLeftBarItem.m in Sources */,
 				23CE8AFD24349B110096233C /* QueSliderCollectionViewCell.swift in Sources */,
 				23CE8AFE24349B110096233C /* HomeNavigaionController.swift in Sources */,
 				23CE8AFF24349B110096233C /* ReactionSummaryConfig.swift in Sources */,
@@ -5125,6 +5215,7 @@
 				8205FCAE236C3AFA002B2603 /* CollageViewT311.swift in Sources */,
 				8205FCBA236C3AFA002B2603 /* CollageViewT101.swift in Sources */,
 				8287D22E2382A4A20074FC39 /* Posts.swift in Sources */,
+				821CF9E0248781B200EC1503 /* STPopupPreviewRecognizer.m in Sources */,
 				8205FA8A236C0F9C002B2603 /* FSLoading.swift in Sources */,
 				8205FB89236C2982002B2603 /* CreatePostData.swift in Sources */,
 				8205FCCC236C3AFA002B2603 /* BaseLineView.swift in Sources */,
@@ -5168,6 +5259,7 @@
 				82D1EBC5236FEE7C00A680E7 /* StickerCollectionViewCell.swift in Sources */,
 				82D1EC8323703DE300A680E7 /* PhotoEditorViewController+Actions.swift in Sources */,
 				8205FB25236C160E002B2603 /* BaseStoryTagView.swift in Sources */,
+				821CFA0E2487897800EC1503 /* PreviewViewController.swift in Sources */,
 				824EB3BC23619E5C00205993 /* UIWindow.swift in Sources */,
 				8205FD6F236C3B06002B2603 /* TemperatureControl.swift in Sources */,
 				8205FAA5236C0FD7002B2603 /* ThumbSelectorView.swift in Sources */,
@@ -5188,6 +5280,7 @@
 				82D1EC882370426200A680E7 /* PhotoEditorViewController+LifeCycle.swift in Sources */,
 				8205FB76236C1D0F002B2603 /* ReactionAlignment.swift in Sources */,
 				8287D22623829BDB0074FC39 /* StatsViewController.swift in Sources */,
+				821CFA01248784E000EC1503 /* STPopupController.m in Sources */,
 				82D1EBBF236FEE2A00A680E7 /* EditFilterCell.swift in Sources */,
 				8205FD59236C3B06002B2603 /* DrawnPath.swift in Sources */,
 				9546605F2387B5CC00A37AE0 /* CropVisualEffectView.swift in Sources */,
@@ -5213,6 +5306,7 @@
 				82057FF923991511007AE1B7 /* StoryCameraViewController+ViewGesture.swift in Sources */,
 				8205FAAC236C0FF0002B2603 /* MultiTextField.swift in Sources */,
 				8205FD73236C3B06002B2603 /* DoodleControlView.swift in Sources */,
+				821CF9F7248784E000EC1503 /* STPopupControllerTransitioningSlideVertical.m in Sources */,
 				8205FB2A236C1723002B2603 /* User.swift in Sources */,
 				8205FDA4236C3B81002B2603 /* TextImageCreaterVC.swift in Sources */,
 				8205FCBF236C3AFA002B2603 /* CollageViewT301.swift in Sources */,
@@ -5221,6 +5315,7 @@
 				8205FD40236C3B06002B2603 /* GraphicDrawing.swift in Sources */,
 				8205FCC5236C3AFA002B2603 /* CollageViewT203.swift in Sources */,
 				8205FC9E236C3AFA002B2603 /* PickerViewCell.swift in Sources */,
+				821CF9F9248784E000EC1503 /* STPopupNavigationBar.m in Sources */,
 				8219322623EAA8FD00FFEC03 /* StoriCamManager.swift in Sources */,
 				952EC2BF244870180020992A /* PreRegistrationViewController.swift in Sources */,
 				8205FCB3236C3AFA002B2603 /* CollageViewT503.swift in Sources */,
@@ -5269,6 +5364,7 @@
 				9546605D2387B5CC00A37AE0 /* CropView.swift in Sources */,
 				954660692387B5CC00A37AE0 /* RotationDial.swift in Sources */,
 				8287D20E23826ECD0074FC39 /* YouTubeCategoriesViewController.swift in Sources */,
+				821CFA03248784E000EC1503 /* UIResponder+STPopup.m in Sources */,
 				954660542387B5CC00A37AE0 /* CropViewModel.swift in Sources */,
 				9546604E2387B5CC00A37AE0 /* ToolBarButtonImageBuilder.swift in Sources */,
 				8205FABD236C104B002B2603 /* ProgressView.swift in Sources */,
@@ -5321,6 +5417,7 @@
 				8205FD66236C3B06002B2603 /* ExposureControl.swift in Sources */,
 				8205FD79236C3B06002B2603 /* ControlViewBase.swift in Sources */,
 				8205FD44236C3B06002B2603 /* Filtering.swift in Sources */,
+				821CF9FD248784E000EC1503 /* UIViewController+STPopup.m in Sources */,
 				824EB3C123619E5C00205993 /* String+Extension.swift in Sources */,
 				82D1EBE1236FF30800A680E7 /* Hash.swift in Sources */,
 				8205FB01236C11F5002B2603 /* RPCircularProgress.swift in Sources */,
@@ -5374,6 +5471,8 @@
 				8205FCAD236C3AFA002B2603 /* CollageViewT505.swift in Sources */,
 				8205FAF9236C1172002B2603 /* UPCarouselFlowLayout.swift in Sources */,
 				954660622387B5CC00A37AE0 /* GeometryHelper.swift in Sources */,
+				821CF9FF248784E000EC1503 /* STPopupControllerTransitioningFade.m in Sources */,
+				821CF9E2248781B200EC1503 /* UIView+STPopupPreview.m in Sources */,
 				8205FD71236C3B06002B2603 /* ShadowsControl.swift in Sources */,
 				8205FAE7236C10F3002B2603 /* DNDDragOperation.m in Sources */,
 				8205FC9F236C3AFA002B2603 /* CollageViewT504.swift in Sources */,
@@ -5444,6 +5543,7 @@
 				824EB3D023619E5C00205993 /* UITableViewExtension.swift in Sources */,
 				8205FD83236C3B06002B2603 /* CropAndStraightenView.swift in Sources */,
 				95224B3F246C2A86001AD3C4 /* AddSocialConnectionViewController.swift in Sources */,
+				821CF9FB248784E000EC1503 /* STPopupLeftBarItem.m in Sources */,
 				82D1EBE3236FF32C00A680E7 /* QueSliderCollectionViewCell.swift in Sources */,
 				82BB559023D85004009B820D /* HomeNavigaionController.swift in Sources */,
 				8205FC46236C2D30002B2603 /* ReactionSummaryConfig.swift in Sources */,

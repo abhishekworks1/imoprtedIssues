@@ -392,6 +392,7 @@ class StoryCameraViewController: UIViewController {
     var cameraModeArray: [CameraModes] = [
         CameraModes(name: R.string.localizable.fastsloW(), recordingType: .normal),
         CameraModes(name: R.string.localizable.fastmotioN(), recordingType: .fastMotion),
+        CameraModes(name: R.string.localizable.photovideO(), recordingType: .basicCamera),
         CameraModes(name: R.string.localizable.boomI(), recordingType: .boomerang),
         CameraModes(name: R.string.localizable.slideshoW(), recordingType: .slideshow),
         CameraModes(name: R.string.localizable.collagE(), recordingType: .collage),
@@ -502,8 +503,6 @@ class StoryCameraViewController: UIViewController {
         }
         self.reloadUploadViewData()
         self.stopMotionCollectionView.reloadData()
-        speedSlider.isHidden = Defaults.shared.appMode == .free
-        speedSliderView.isHidden = Defaults.shared.appMode == .free
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -607,6 +606,14 @@ class StoryCameraViewController: UIViewController {
             speedSlider.ticksListener = speedSliderLabels
             speedSlider.tickCount = speedOptions.count
             speedSlider.value = CGFloat(Int(speedOptions.count/2))
+        }
+        
+        if recordingType != .basicCamera {
+            speedSlider.isHidden = Defaults.shared.appMode == .free
+            speedSliderView.isHidden = Defaults.shared.appMode == .free
+        } else {
+            speedSlider.isHidden = true
+            speedSliderView.isHidden = true
         }
         
         speedSliderWidthConstraint.constant = UIScreen.main.bounds.width - (UIScreen.main.bounds.width / CGFloat(speedOptions.count - 1))
@@ -1302,7 +1309,11 @@ extension StoryCameraViewController {
         }
         self.isMute ? muteButton.startBlink(0.5) : muteButton.stopBlink()
         self.view.bringSubviewToFront(slowFastVerticalBar.superview ?? UIView())
-        slowFastVerticalBar.isHidden = Defaults.shared.appMode == .free
+        if recordingType != .basicCamera {
+            slowFastVerticalBar.isHidden = Defaults.shared.appMode == .free
+        } else {
+            slowFastVerticalBar.isHidden = true
+        }
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
             self.circularProgress.trackThickness = 0.75*1.5
             self.circularProgress.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
