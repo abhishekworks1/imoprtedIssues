@@ -25,6 +25,8 @@ open class AllPhotosCollectionViewCell: UICollectionViewCell {
     @IBOutlet open var orderLabel: UILabel?
     @IBOutlet open var orderBgView: UIView?
 
+    var imageAsset: ImageAsset?
+    
     var configure = PhotosPickerConfigure() {
         didSet {
             self.selectedView?.layer.borderColor = self.configure.selectedRedColor.cgColor

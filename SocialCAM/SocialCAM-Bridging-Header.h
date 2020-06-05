@@ -12,5 +12,10 @@
 #import "RKTagsView.h"
 #import "DNDDragAndDrop.h"
 #import "UIView+YGPulseView.h"
+#import "STPopupPreviewRecognizer.h"
+#import "UIView+STPopupPreview.h"
+#import "UIViewController+STPopup.h"
+#import "STPopupPreviewRecognizer.h"
+#import "STPopupController.h"
 
 #endif /* SocialCAM_Bridging_Header_h */

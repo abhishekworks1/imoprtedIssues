@@ -86,7 +86,11 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             onStartRecordSetSpeed()
             isRecording = true
             self.view.bringSubviewToFront(slowFastVerticalBar.superview ?? UIView())
-            slowFastVerticalBar.isHidden = Defaults.shared.appMode == .free
+            if recordingType != .basicCamera {
+                slowFastVerticalBar.isHidden = Defaults.shared.appMode == .free
+            } else {
+                slowFastVerticalBar.isHidden = true
+            }
             self.panStartPoint = gestureRecognizer.location(in: self.view)
             self.panStartZoom = CGFloat(nextLevel.videoZoomFactor)
         case .changed:
@@ -98,9 +102,11 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             newZoom += lastZoomFactor
             let minZoom = max(1.0, newZoom)
             let translation = gestureRecognizer.location(in: circularProgress)
-            circularProgress.center = CGPoint(x: circularProgress.center.x + translation.x - 35,
-                                              y: circularProgress.center.y + translation.y - 35)
-            nextLevel.videoZoomFactor = Float(minZoom)
+            if recordingType != .basicCamera {
+                circularProgress.center = CGPoint(x: circularProgress.center.x + translation.x - 35,
+                                                  y: circularProgress.center.y + translation.y - 35)
+                nextLevel.videoZoomFactor = Float(minZoom)
+            }
             switch Defaults.shared.appMode {
             case .free:
                 if videoSpeedType != VideoSpeedType.normal {
@@ -108,6 +114,10 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
                 }
                 return
             default:
+                if recordingType == .basicCamera, videoSpeedType != VideoSpeedType.normal {
+                    self.setNormalSpeed(selectedValue: 2)
+                    return
+                }
                 break
             }
             self.zoomSlider.value = Float(minZoom)
