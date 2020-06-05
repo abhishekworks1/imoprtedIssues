@@ -2068,7 +2068,7 @@ extension NextLevel {
         guard let device = self._currentDevice else {
             return []
         }
-        var supportedFrameRate: [String] = []
+        var supportedFrameRate: [String] = ["30"]
         for currentFormat in device.formats {
             supportedFrameRate.append(contentsOf: currentFormat.getSupportedFrameRate(dimensions: dimensions))
         }
@@ -2182,6 +2182,7 @@ extension NextLevel {
                     device.unlockForConfiguration()
                     
                     DispatchQueue.main.async {
+                        self.deviceDelegate?.nextLevel(self, frameRate: device.activeVideoMaxFrameDuration.timescale)
                         self.deviceDelegate?.nextLevel(self, didChangeDeviceFormat: format)
                     }
                 } catch {

@@ -368,7 +368,11 @@ class StoryEditorViewController: UIViewController {
         }
         
         #if VIRALCAMAPP
-        self.storiCamShareView.isHidden = true
+        if let currentUser = Defaults.shared.currentUser, let isAdvanceMode = currentUser.advanceGameMode {
+            self.storiCamShareView.isHidden = !isAdvanceMode
+        } else {
+            self.storiCamShareView.isHidden = true
+        }
         #else
         if let currentUser = Defaults.shared.currentUser, let isAdvanceMode = currentUser.advanceGameMode {
             self.storiCamShareView.isHidden = !isAdvanceMode
@@ -379,7 +383,11 @@ class StoryEditorViewController: UIViewController {
         self.editOptionView.isHidden = !isImage
         self.applyFilterOptionView.isHidden = !isImage
         self.specificBoomerangView.isHidden = (Defaults.shared.appMode != .free && isBoomerang) ? true : isImage
-        self.ssuTagView.isHidden = false
+        if let currentUser = Defaults.shared.currentUser, let isAdvanceMode = currentUser.advanceGameMode {
+            self.ssuTagView.isHidden = !isAdvanceMode
+        } else {
+            self.ssuTagView.isHidden = true
+        }
         self.pic2ArtOptionView.isHidden = (Defaults.shared.appMode != .free && Defaults.shared.appMode != .basic)  ? !isImage : true
         self.soundOptionView.isHidden = isImage
         self.trimOptionView.isHidden = isImage
@@ -397,7 +405,7 @@ class StoryEditorViewController: UIViewController {
         self.playPauseButton.isHidden = isImage
         self.progressBarView.isHidden = isImage
     }
-    
+         
     func hideToolBar(hide: Bool, hideColorSlider: Bool = false) {
         editToolBarView.isHidden = hide
         downloadView.isHidden = hide
