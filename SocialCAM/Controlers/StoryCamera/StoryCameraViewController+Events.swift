@@ -99,6 +99,7 @@ extension StoryCameraViewController {
     
     @IBAction func outTakeButtonClicked(_ sender: Any) {
         let photoPickerVC = PhotosPickerViewController()
+        photoPickerVC.isPic2ArtApp = isPic2ArtApp
         photoPickerVC.currentCamaraMode = recordingType
         photoPickerVC.delegate = self
         self.navigationController?.present(photoPickerVC, animated: true, completion: nil)
@@ -572,7 +573,12 @@ extension StoryCameraViewController: OuttakesTakenDelegate {
 extension StoryCameraViewController: CollageMakerVCDelegate {
     
     func didSelectImage(image: UIImage) {
-        self.openStoryEditor(images: [image])
+        if isPic2ArtApp {
+            let editor = self.storyEditor(images: [image])
+            self.navigationController?.pushViewController(editor, animated: true)
+        } else {
+            self.openStoryEditor(images: [image])
+        }
     }
 }
 

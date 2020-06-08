@@ -15,6 +15,7 @@ enum ReferType {
     case viralCam
     case socialCam
     case tiktokShare
+    case pic2art
 }
 
 enum StoryEditorType: Equatable {
@@ -618,8 +619,13 @@ extension StoryEditorView {
             let followMeStoryShareViews = self.subviews.filter({ return $0 is FollowMeStoryView })
             if followMeStoryShareViews.count > 0,
                 let followMeStoryView = followMeStoryShareViews[0] as? FollowMeStoryView {
-                followMeStoryView.userBitEmoji.image = (type == .viralCam) ? R.image.viralcamWatermarkLogo() : R.image.socialcamWatermarkLogo()
-                followMeStoryView.textView.text = (type == .viralCam) ? R.string.localizable.checkOutThisCoolNewAppViralCam() : R.string.localizable.checkOutThisCoolNewAppSocialCam()
+                if type == .pic2art {
+                    followMeStoryView.userBitEmoji.image = R.image.pic2artWatermarkLogo()
+                    followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppPic2Art()
+                } else {
+                    followMeStoryView.userBitEmoji.image = (type == .viralCam) ? R.image.viralcamWatermarkLogo() : R.image.socialcamWatermarkLogo()
+                    followMeStoryView.textView.text = (type == .viralCam) ? R.string.localizable.checkOutThisCoolNewAppViralCam() : R.string.localizable.checkOutThisCoolNewAppSocialCam()
+                }
             }
             referType = type
             return
@@ -640,8 +646,13 @@ extension StoryEditorView {
             }
             self.delegate?.didChangeEditing(isTyping: self.isTyping)
         }
-        followMeStoryView.userBitEmoji.image = (type == .viralCam) ? R.image.viralcamWatermarkLogo() : R.image.socialcamWatermarkLogo()
-        followMeStoryView.textView.text = (type == .viralCam) ? R.string.localizable.checkOutThisCoolNewAppViralCam() : R.string.localizable.checkOutThisCoolNewAppSocialCam()
+        if type == .pic2art {
+            followMeStoryView.userBitEmoji.image = R.image.pic2artWatermarkLogo()
+            followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppPic2Art()
+        } else {
+            followMeStoryView.userBitEmoji.image = (type == .viralCam) ? R.image.viralcamWatermarkLogo() : R.image.socialcamWatermarkLogo()
+            followMeStoryView.textView.text = (type == .viralCam) ? R.string.localizable.checkOutThisCoolNewAppViralCam() : R.string.localizable.checkOutThisCoolNewAppSocialCam()
+        }
         followMeStoryView.hideDeleteButton = true
         followMeStoryView.frame.size = CGSize(width: 311, height: 213)
         followMeStoryView.center = center

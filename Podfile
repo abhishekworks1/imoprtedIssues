@@ -75,6 +75,11 @@ target 'ViralCam' do
   projectShared_pods
 end
 
+target 'Pic2Art' do
+  use_frameworks!
+  projectShared_pods
+end
+
 target 'SocialCamShare' do
   shared_pods
 end

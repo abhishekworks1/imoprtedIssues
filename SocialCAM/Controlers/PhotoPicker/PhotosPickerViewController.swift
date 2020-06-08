@@ -181,6 +181,7 @@ open class PhotosPickerViewController: UIViewController {
     let once = Once()
     var allAlbums: [ImageAlbum] = []
     var currentCamaraMode: CameraMode = .normal
+    var isPic2ArtApp = false
     var isAllPhotos = false
     
     var selectionType: AssetType = .image
@@ -456,9 +457,9 @@ extension PhotosPickerViewController {
             self.imageManager = PHCachingImageManager()
 
             var type: AssetType = .both
-            if currentCamaraMode == .slideshow || currentCamaraMode == .collage {
+            if currentCamaraMode == .slideshow || currentCamaraMode == .collage || isPic2ArtApp {
                 type = .image
-                self.configure.maxSelectedAssets = 20
+                self.configure.maxSelectedAssets = isPic2ArtApp ? 1 : 20
             } else if currentCamaraMode == .custom {
                 type = .video
             } else {

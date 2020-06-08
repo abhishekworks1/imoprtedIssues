@@ -15,6 +15,7 @@ enum SSUTagType {
     case service
     case challenges
     case poll
+    case pic2art
 }
 
 enum SSUWaitingListOptionType {
@@ -36,7 +37,11 @@ struct SSUTagOption {
     var name: String
     var image: UIImage?
     var type: SSUTagType
-    
+
+    #if PIC2ARTAPP
+    static let contents: [SSUTagOption] = [
+        SSUTagOption(name: R.string.localizable.pic2Art(), image: R.image.ssuPic2Art(), type: .pic2art)]
+    #else
     static let contents: [SSUTagOption] = [
         SSUTagOption(name: R.string.localizable.viralCam(), image: R.image.ssuViralCam(), type: .viralCam),
         SSUTagOption(name: R.string.localizable.waitingList(), image: R.image.ssuWaiting(), type: .referralLink),
@@ -44,6 +49,7 @@ struct SSUTagOption {
         SSUTagOption(name: R.string.localizable.service(), image: R.image.service(), type: .service),
         SSUTagOption(name: R.string.localizable.challenges(), image: R.image.challenge(), type: .challenges),
         SSUTagOption(name: R.string.localizable.poll(), image: R.image.poll(), type: .poll)]
+    #endif
 }
 
 struct SSUTagWaitingListOption {
@@ -166,6 +172,10 @@ extension SSUTagSelectionViewController: UICollectionViewDataSource, UICollectio
                     let navigation: UINavigationController = UINavigationController(rootViewController: ssuTagSelectionViewController)
                     navigation.isNavigationBarHidden = true
                     self.present(navigation, animated: true)
+                }
+            case .pic2art:
+                self.dismiss(animated: true) {
+                    self.delegate?.didSelect(type: SSUTagOption.contents[indexPath.row].type, waitingListOptionType: nil, socialShareType: nil, screenType: self.type)
                 }
             default:
                 self.showAlert(alertMessage: R.string.localizable.comingSoon())

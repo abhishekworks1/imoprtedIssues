@@ -262,6 +262,14 @@ class StoryEditorViewController: UIViewController {
         }
     }
     
+    var isPic2ArtApp: Bool {
+        #if PIC2ARTAPP
+        return true
+        #else
+        return false
+        #endif
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupFilterViews()
@@ -366,20 +374,12 @@ class StoryEditorViewController: UIViewController {
             isImage = true
         default: break
         }
+        if let currentUser = Defaults.shared.currentUser, let isAdvanceMode = currentUser.advanceGameMode {
+            self.storiCamShareView.isHidden = !isAdvanceMode
+        } else {
+            self.storiCamShareView.isHidden = true
+        }
         
-        #if VIRALCAMAPP
-        if let currentUser = Defaults.shared.currentUser, let isAdvanceMode = currentUser.advanceGameMode {
-            self.storiCamShareView.isHidden = !isAdvanceMode
-        } else {
-            self.storiCamShareView.isHidden = true
-        }
-        #else
-        if let currentUser = Defaults.shared.currentUser, let isAdvanceMode = currentUser.advanceGameMode {
-            self.storiCamShareView.isHidden = !isAdvanceMode
-        } else {
-            self.storiCamShareView.isHidden = true
-        }
-        #endif
         self.editOptionView.isHidden = !isImage
         self.applyFilterOptionView.isHidden = !isImage
         self.specificBoomerangView.isHidden = (Defaults.shared.appMode != .free && isBoomerang) ? true : isImage
@@ -388,7 +388,7 @@ class StoryEditorViewController: UIViewController {
         } else {
             self.ssuTagView.isHidden = true
         }
-        self.pic2ArtOptionView.isHidden = (Defaults.shared.appMode != .free && Defaults.shared.appMode != .basic)  ? !isImage : true
+        self.pic2ArtOptionView.isHidden = (Defaults.shared.appMode != .free && Defaults.shared.appMode != .basic && !isPic2ArtApp)  ? !isImage : true
         self.soundOptionView.isHidden = isImage
         self.trimOptionView.isHidden = isImage
         self.timeSpeedOptionView.isHidden = Defaults.shared.appMode != .free ? isImage : true
@@ -964,10 +964,12 @@ extension StoryEditorViewController {
     }
     
     @IBAction func ssuButtonClicked(sender: UIButton) {
-        let isLoggedConnections = [FaceBookManager.shared.isUserLogin, InstagramManager.shared.isUserLogin, TwitterManger.shared.isUserLogin, SnapKitManager.shared.isUserLogin, GoogleManager.shared.isUserLogin]
-        guard isLoggedConnections.filter({ return $0 }).count > 0 else {
-            self.showAlert(alertMessage: R.string.localizable.youNeedToConnectAtLeastOneSocialMediaAccountToDoSwipeUp())
-            return
+        if !isPic2ArtApp {
+            let isLoggedConnections = [FaceBookManager.shared.isUserLogin, InstagramManager.shared.isUserLogin, TwitterManger.shared.isUserLogin, SnapKitManager.shared.isUserLogin, GoogleManager.shared.isUserLogin]
+            guard isLoggedConnections.filter({ return $0 }).count > 0 else {
+                self.showAlert(alertMessage: R.string.localizable.youNeedToConnectAtLeastOneSocialMediaAccountToDoSwipeUp())
+                return
+            }
         }
         if let ssuTagSelectionViewController = R.storyboard.storyCameraViewController.ssuTagSelectionViewController() {
             ssuTagSelectionViewController.delegate = self
@@ -1399,7 +1401,14 @@ extension StoryEditorViewController: SSUTagSelectionDelegate {
     func didSelect(type: SSUTagType?, waitingListOptionType: SSUWaitingListOptionType?, socialShareType: SocialShare?, screenType: SSUTagScreen) {
         switch screenType {
         case .ssutTypes:
-            storyEditors[currentStoryIndex].addReferLinkView(type: .viralCam)
+            switch type {
+            case .viralCam:
+                storyEditors[currentStoryIndex].addReferLinkView(type: .viralCam)
+            case .pic2art:
+                storyEditors[currentStoryIndex].addReferLinkView(type: .pic2art)
+            default:
+                break
+            }
         case .ssutWaitingList:
             storyEditors[currentStoryIndex].addReferLinkView(type: .socialCam)
         default: break
