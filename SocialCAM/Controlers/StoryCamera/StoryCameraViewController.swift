@@ -445,6 +445,13 @@ class StoryCameraViewController: UIViewController {
     let nextLevel = NextLevel.shared
     var selectedFPS: Float = 30
     var isUserTimerValueChange = false
+    var isPic2ArtApp: Bool {
+        #if PIC2ARTAPP
+        return true
+        #else
+        return false
+        #endif
+    }
     
     // MARK: ViewController lifecycle
     override func viewDidLoad() {
@@ -465,11 +472,21 @@ class StoryCameraViewController: UIViewController {
         view.bringSubviewToFront(selectTimersView)
         layout()
         self.view.isMultipleTouchEnabled = true
-        bottomCameraViews.addGestureRecognizer(panRecognizer)
+        if !isPic2ArtApp {
+            bottomCameraViews.addGestureRecognizer(panRecognizer)
+        }
         volumeButtonHandler()
         changeModeHandler()
         dynamicSetSlowFastVerticalBar()
         setViewsForApp()
+        setupPic2ArtAppControls()
+    }
+    
+    func setupPic2ArtAppControls() {
+        cameraSliderView.isHidden = isPic2ArtApp
+        cameraModeIndicatorView.isHidden = isPic2ArtApp
+        timerStackView.isHidden = isPic2ArtApp
+        muteStackView.isHidden = isPic2ArtApp
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -546,7 +563,7 @@ class StoryCameraViewController: UIViewController {
     }
     
     func setViewsForApp() {
-        #if VIRALCAMAPP
+        #if VIRALCAMAPP || PIC2ARTAPP
             self.fpsView.isHidden = true
         #endif
     }
@@ -1112,7 +1129,9 @@ extension StoryCameraViewController {
             longPressGestureRecognizer.delegate = self
             longPressGestureRecognizer.minimumPressDuration = 0.5
             longPressGestureRecognizer.allowableMovement = 10.0
-            circularProgress.addGestureRecognizer(longPressGestureRecognizer)
+            if !isPic2ArtApp {
+                circularProgress.addGestureRecognizer(longPressGestureRecognizer)
+            }
         }
         
         self.photoTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handlePhotoTapGestureRecognizer(_:)))
@@ -1614,29 +1633,88 @@ extension StoryCameraViewController {
     }
     
     func openStoryEditor(segementedVideos: [SegmentVideos], isSlideShow: Bool = false, photosSelection: Bool = false) {
-        guard let storyEditorViewController = R.storyboard.storyEditor.storyEditorViewController() else {
-            fatalError("PhotoEditorViewController Not Found")
-        }
-        var medias: [StoryEditorMedia] = []
-        for segmentedVideo in segementedVideos {
-            if segmentedVideo.url == URL(string: Constant.Application.imageIdentifier) {
-                medias.append(StoryEditorMedia(type: .image(segmentedVideo.image!)))
-            } else {
-                medias.append(StoryEditorMedia(type: .video(segmentedVideo.image!, AVAsset(url: segmentedVideo.url!))))
+        if isPic2ArtApp {
+            guard let styleTransferVC = R.storyboard.photoEditor.styleTransferVC() else {
+                return
             }
+            var medias: [StoryEditorMedia] = []
+            for segementedVideo in segementedVideos {
+                if let image = segementedVideo.image {
+                    medias.append(StoryEditorMedia(type: .image(image)))
+                }
+            }
+            switch medias[0].type {
+            case let .image(image):
+                styleTransferVC.type = .image(image: image)
+            case .video:
+                break
+            }
+            styleTransferVC.isSingleImage = isSlideShow
+            self.navigationController?.pushViewController(styleTransferVC, animated: true)
+        } else {
+            guard let storyEditorViewController = R.storyboard.storyEditor.storyEditorViewController() else {
+                fatalError("PhotoEditorViewController Not Found")
+            }
+            var medias: [StoryEditorMedia] = []
+            for segmentedVideo in segementedVideos {
+                if segmentedVideo.url == URL(string: Constant.Application.imageIdentifier) {
+                    medias.append(StoryEditorMedia(type: .image(segmentedVideo.image!)))
+                } else {
+                    medias.append(StoryEditorMedia(type: .video(segmentedVideo.image!, AVAsset(url: segmentedVideo.url!))))
+                }
+            }
+            let tiktokShareViews = self.baseView.subviews.filter({ return $0 is TikTokShareView })
+            if tiktokShareViews.count > 0 {
+                storyEditorViewController.referType = .tiktokShare
+            }
+            storyEditorViewController.isBoomerang = photosSelection ? false : (self.recordingType == .boomerang)
+            storyEditorViewController.medias = medias
+            storyEditorViewController.isSlideShow = isSlideShow
+            self.navigationController?.pushViewController(storyEditorViewController, animated: false)
+            self.removeData()
         }
-        let tiktokShareViews = self.baseView.subviews.filter({ return $0 is TikTokShareView })
-        if tiktokShareViews.count > 0 {
-            storyEditorViewController.referType = .tiktokShare
-        }
-        storyEditorViewController.isBoomerang = photosSelection ? false : (self.recordingType == .boomerang)
-        storyEditorViewController.medias = medias
-        storyEditorViewController.isSlideShow = isSlideShow
-        self.navigationController?.pushViewController(storyEditorViewController, animated: false)
-        self.removeData()
     }
     
     func openStoryEditor(images: [UIImage], isSlideShow: Bool = false) {
+        guard images.count > 0 else {
+            return
+        }
+        if isPic2ArtApp {
+            guard let styleTransferVC = R.storyboard.photoEditor.styleTransferVC() else {
+                return
+            }
+            var medias: [StoryEditorMedia] = []
+            for image in images {
+                medias.append(StoryEditorMedia(type: .image(image)))
+            }
+            switch medias[0].type {
+            case let .image(image):
+                styleTransferVC.type = .image(image: image)
+            case .video:
+                break
+            }
+            styleTransferVC.isSingleImage = isSlideShow
+            self.navigationController?.pushViewController(styleTransferVC, animated: true)
+        } else {
+            guard let storyEditorViewController = R.storyboard.storyEditor.storyEditorViewController() else {
+                       fatalError("PhotoEditorViewController Not Found")
+                   }
+                   var medias: [StoryEditorMedia] = []
+                   for image in images {
+                       medias.append(StoryEditorMedia(type: .image(image)))
+                   }
+                   let tiktokShareViews = self.baseView.subviews.filter({ return $0 is TikTokShareView })
+                   if tiktokShareViews.count > 0 {
+                       storyEditorViewController.referType = .tiktokShare
+                   }
+                   storyEditorViewController.isBoomerang = (self.recordingType == .boomerang)
+                   storyEditorViewController.medias = medias
+                   self.navigationController?.pushViewController(storyEditorViewController, animated: false)
+                   self.removeData()
+        }
+    }
+    
+    func storyEditor(images: [UIImage], isSlideShow: Bool = false) -> StoryEditorViewController {
         guard let storyEditorViewController = R.storyboard.storyEditor.storyEditorViewController() else {
             fatalError("PhotoEditorViewController Not Found")
         }
@@ -1644,14 +1722,10 @@ extension StoryCameraViewController {
         for image in images {
             medias.append(StoryEditorMedia(type: .image(image)))
         }
-        let tiktokShareViews = self.baseView.subviews.filter({ return $0 is TikTokShareView })
-        if tiktokShareViews.count > 0 {
-            storyEditorViewController.referType = .tiktokShare
-        }
-        storyEditorViewController.isBoomerang = (self.recordingType == .boomerang)
+        storyEditorViewController.isBoomerang = false
         storyEditorViewController.medias = medias
-        self.navigationController?.pushViewController(storyEditorViewController, animated: false)
-        self.removeData()
+        storyEditorViewController.isSlideShow = isSlideShow
+        return storyEditorViewController
     }
     
 }

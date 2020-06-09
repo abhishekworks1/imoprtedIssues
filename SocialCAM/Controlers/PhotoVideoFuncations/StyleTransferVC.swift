@@ -195,6 +195,14 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
     
     var coreMLExporter = CoreMLExporter()
     
+    var isPic2ArtApp: Bool {
+        #if PIC2ARTAPP
+        return true
+        #else
+        return false
+        #endif
+    }
+    
     deinit {
         print("Deinit \(self.description)")
     }
@@ -296,8 +304,12 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
         switch type {
         case .image:
             if let filterImage = filteredImage {
-                self.doneHandler?(filterImage, sender.tag)
-                self.navigationController?.popViewController(animated: false)
+                if isPic2ArtApp {
+                    self.didSelectImage(image: filterImage)
+                } else {
+                    self.doneHandler?(filterImage, sender.tag)
+                    self.navigationController?.popViewController(animated: false)
+                }
             }
         case .video:
             saveImage(sender)
@@ -308,6 +320,10 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
         var slideShowImages: [UIImage] = []
         for segment in images {
             slideShowImages.append(segment.image ?? UIImage())
+        }
+        guard slideShowImages.count > 2 else {
+            self.showAlert(alertMessage: R.string.localizable.minimumThreeImagesRequiredForSlideshowVideo())
+            return
         }
         self.openPhotoEditorForImage(slideShowImages, isSlideShow: true)
     }
@@ -328,13 +344,17 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
     
     func openPhotoEditorForImage(_ image: [UIImage], isSlideShow: Bool = false) {
         let photoEditor = openStoryEditor(images: image, isSlideShow: isSlideShow)
-        if let navController = self.navigationController {
-            let newVC = photoEditor
-            var stack = navController.viewControllers
-            stack.remove(at: stack.count - 1)
-            stack.remove(at: stack.count - 1)
-            stack.insert(newVC, at: stack.count)
-            navController.setViewControllers(stack, animated: false)
+        if isPic2ArtApp {
+            self.navigationController?.pushViewController(photoEditor, animated: true)
+        } else {
+            if let navController = self.navigationController {
+                let newVC = photoEditor
+                var stack = navController.viewControllers
+                stack.remove(at: stack.count - 1)
+                stack.remove(at: stack.count - 1)
+                stack.insert(newVC, at: stack.count)
+                navController.setViewControllers(stack, animated: false)
+            }
         }
     }
     
@@ -364,10 +384,16 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
                 }
             } else {
                 if let filterImage = filteredImage {
-                    self.doneHandler?(filterImage, sender.tag)
+                    if isPic2ArtApp {
+                        self.didSelectImage(image: filterImage)
+                    } else {
+                        self.doneHandler?(filterImage, sender.tag)
+                    }
                 }
             }
-            self.navigationController?.popViewController(animated: false)
+            if !isPic2ArtApp {
+                self.navigationController?.popViewController(animated: false)
+            }
         case .video(let videoSegments, let index):
             let mergeSession = SCRecordSession()
             for segementModel in videoSegments[index].videos {

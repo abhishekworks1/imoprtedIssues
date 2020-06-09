@@ -308,6 +308,11 @@ class StoryAssetExportSession {
         if watermarkPosition == .topLeft {
             image = R.image.viralcamWaterMark()
         }
+        #elseif PIC2ARTAPP
+        var image = R.image.pic2artWatermarkLogo()
+        if watermarkPosition == .topLeft {
+            image = R.image.viralcamWaterMark()
+        }
         #else
         let image = R.image.socialCamWaterMark()
         #endif

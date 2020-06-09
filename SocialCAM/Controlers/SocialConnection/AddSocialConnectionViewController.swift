@@ -147,7 +147,7 @@ class AddSocialConnectionViewController: UIViewController {
         warningViewHeight.constant = isOneSocialConnected ? 0 : warningHeight
         connectButton.alpha = isOneSocialConnected ? 1.0 : 0.7
         connectButton.isEnabled = isOneSocialConnected
-        unconnectedView.frame.size.height = isOneSocialConnected ? (isOneSocialDisconnected ? collectionViewCellWidth + 40 : 0) : (collectionViewCellWidth*2 + 40)
+        unconnectedView.frame.size.height = isOneSocialConnected ? (isOneSocialDisconnected ? collectionViewCellWidth + 40 : 0) : (collectionViewCellWidth*2 + 45)
     }
     
     func reloadData() {

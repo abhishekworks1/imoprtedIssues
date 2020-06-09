@@ -68,6 +68,8 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         socialSingUpView.isHidden = true
         #elseif VIRALCAMAPP
         imgLogo.image = R.image.viralcamrgb()
+        #else
+        imgLogo.image = R.image.pic2artLogin()
         #endif
         
         txtEmail.iconFont = UIFont.fontAwesome(ofSize: 12, style: .solid)
@@ -325,7 +327,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         }
         let parentId = Defaults.shared.currentUser?.parentId ?? Defaults.shared.currentUser?.id
         Defaults.shared.parentID = parentId
-        #if VIRALCAMAPP
+        #if VIRALCAMAPP || PIC2ARTAPP
         self.goToHomeScreen()
         #endif
         self.doLogin()
@@ -356,10 +358,14 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func goToHomeScreen() {
+        #if PIC2ARTAPP
+        Utils.appDelegate?.window?.rootViewController = R.storyboard.pageViewController.pageViewController()
+        #else
         let addSocialConnectionViewController = R.storyboard.socialConnection.addSocialConnectionViewController()
         addSocialConnectionViewController?.fromLogin = true
         Utils.appDelegate?.window?.rootViewController = addSocialConnectionViewController
         RunLoop.current.run(until: Date(timeIntervalSinceNow: 1.0))
+        #endif
     }
     
     @IBAction func btnShowHidePassWordClicked(sender: Any) {

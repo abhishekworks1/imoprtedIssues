@@ -52,6 +52,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             StorySettings.storySettings.filter({$0.settingsType == .socialLogins}).first?.settings.removeLast()
             StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
+        #elseif PIC2ARTAPP
+            print("[FIREBASE] Pic2Art mode.")
+            if let filePath = Bundle.main.path(forResource: "GoogleService-Info-Pic2Art", ofType: "plist"),
+                let options = FirebaseOptions(contentsOfFile: filePath) {
+                    FirebaseApp.configure(options: options)
+            } else {
+                fatalError("GoogleService-Info-Pic2Art.plist is missing!")
+            }
+            StorySettings.storySettings.filter({$0.settingsType == .socialLogins}).first?.settings.removeLast()
+            StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
         #endif
         
         configureGoogleService()
@@ -84,7 +94,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
         } else {
-            #if VIRALCAMAPP
+            #if VIRALCAMAPP || PIC2ARTAPP
             rootViewController = R.storyboard.loginViewController.loginNavigation()
             #endif
         }
@@ -204,7 +214,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     }
                 }
             } else {
-                #if VIRALCAMAPP
+                #if VIRALCAMAPP || PIC2ARTAPP
                 rootViewController = R.storyboard.loginViewController.loginNavigation()
                 #endif
             }
