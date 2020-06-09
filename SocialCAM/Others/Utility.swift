@@ -71,7 +71,7 @@ public struct Utils {
         }
     }
     
-    #if SOCIALCAMAPP || VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP
+    #if SOCIALCAMAPP || VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP || BOOMICAMAPP
     static var appDelegate: AppDelegate? {
         if let delegate = UIApplication.shared.delegate {
             return delegate as? AppDelegate

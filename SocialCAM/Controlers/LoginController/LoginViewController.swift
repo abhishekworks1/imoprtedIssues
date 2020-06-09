@@ -327,7 +327,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         }
         let parentId = Defaults.shared.currentUser?.parentId ?? Defaults.shared.currentUser?.id
         Defaults.shared.parentID = parentId
-        #if VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP
+        #if VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP || BOOMICAMAPP
         self.goToHomeScreen()
         #endif
         self.doLogin()
@@ -358,7 +358,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func goToHomeScreen() {
-        #if PIC2ARTAPP || TIMESPEEDAPP
+        #if PIC2ARTAPP || TIMESPEEDAPP || BOOMICAMAPP
         Utils.appDelegate?.window?.rootViewController = R.storyboard.pageViewController.pageViewController()
         #else
         let addSocialConnectionViewController = R.storyboard.socialConnection.addSocialConnectionViewController()

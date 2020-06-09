@@ -62,6 +62,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             StorySettings.storySettings.filter({$0.settingsType == .socialLogins}).first?.settings.removeLast()
             StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
+        #elseif BOOMICAMAPP
+        if let filePath = Bundle.main.path(forResource: "GoogleService-Info-BoomiCam", ofType: "plist"),
+            let options = FirebaseOptions(contentsOfFile: filePath) {
+                FirebaseApp.configure(options: options)
+        } else {
+            fatalError("GoogleService-Info-BoomiCam.plist is missing!")
+        }
+        StorySettings.storySettings.filter({$0.settingsType == .socialLogins}).first?.settings.removeLast()
+        StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
         #elseif TIMESPEEDAPP
             print("[FIREBASE] TIMESPEEDAPP mode.")
             if let filePath = Bundle.main.path(forResource: "GoogleService-Info-TimeSpeed", ofType: "plist"),
@@ -104,7 +113,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
         } else {
-            #if VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP
+            #if VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP || BOOMICAMAPP
             rootViewController = R.storyboard.loginViewController.loginNavigation()
             #endif
         }
@@ -226,7 +235,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     }
                 }
             } else {
-                #if VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP
+                #if VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP || BOOMICAMAPP
                 rootViewController = R.storyboard.loginViewController.loginNavigation()
                 #endif
             }

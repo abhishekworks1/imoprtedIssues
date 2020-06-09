@@ -278,6 +278,14 @@ class StoryEditorViewController: UIViewController {
         #endif
     }
     
+    var isBoomiCamApp: Bool {
+        #if BOOMICAMAPP
+        return true
+        #else
+        return false
+        #endif
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupFilterViews()
@@ -391,7 +399,7 @@ class StoryEditorViewController: UIViewController {
         self.editOptionView.isHidden = !isImage
         self.applyFilterOptionView.isHidden = !isImage
         if !isTimeSpeedApp {
-            self.specificBoomerangView.isHidden = (Defaults.shared.appMode != .free && isBoomerang) ? true : isImage        
+            self.specificBoomerangView.isHidden = (Defaults.shared.appMode != .free && isBoomerang) ? true : isImage
         }
         
         if let currentUser = Defaults.shared.currentUser, let isAdvanceMode = currentUser.advanceGameMode {
@@ -402,7 +410,9 @@ class StoryEditorViewController: UIViewController {
         self.pic2ArtOptionView.isHidden = (Defaults.shared.appMode != .free && Defaults.shared.appMode != .basic && !isPic2ArtApp) ? !isImage : true
         self.soundOptionView.isHidden = isImage
         self.trimOptionView.isHidden = isImage
-        self.timeSpeedOptionView.isHidden = Defaults.shared.appMode != .free ? isImage : true
+        if !isBoomiCamApp {
+            self.timeSpeedOptionView.isHidden = (Defaults.shared.appMode != .free && !isTimeSpeedApp) ? isImage : true
+        }
         self.slideShowCollectionView.isHidden = !isSlideShow
         self.slideShowPreviewView.isHidden = !isSlideShow
         self.slideShowFillAuto.isHidden = !isSlideShow
@@ -975,7 +985,7 @@ extension StoryEditorViewController {
     }
     
     @IBAction func ssuButtonClicked(sender: UIButton) {
-        if !isPic2ArtApp && !isTimeSpeedApp {
+        if !isPic2ArtApp && !isTimeSpeedApp && !isBoomiCamApp {
             let isLoggedConnections = [FaceBookManager.shared.isUserLogin, InstagramManager.shared.isUserLogin, TwitterManger.shared.isUserLogin, SnapKitManager.shared.isUserLogin, GoogleManager.shared.isUserLogin]
             guard isLoggedConnections.filter({ return $0 }).count > 0 else {
                 self.showAlert(alertMessage: R.string.localizable.youNeedToConnectAtLeastOneSocialMediaAccountToDoSwipeUp())
@@ -1417,6 +1427,10 @@ extension StoryEditorViewController: SSUTagSelectionDelegate {
                 storyEditors[currentStoryIndex].addReferLinkView(type: .viralCam)
             case .pic2art:
                 storyEditors[currentStoryIndex].addReferLinkView(type: .pic2art)
+            case .timeSpeed:
+                storyEditors[currentStoryIndex].addReferLinkView(type: .timespeed)
+            case .boomiCam:
+                storyEditors[currentStoryIndex].addReferLinkView(type: .boomicam)
             default:
                 break
             }

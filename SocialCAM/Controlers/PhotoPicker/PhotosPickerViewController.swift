@@ -182,6 +182,7 @@ open class PhotosPickerViewController: UIViewController {
     var allAlbums: [ImageAlbum] = []
     var currentCamaraMode: CameraMode = .normal
     var isPic2ArtApp = false
+    var isBoomiCamApp = false
     var isTimeSpeedApp = false
     var isAllPhotos = false
     
@@ -463,7 +464,7 @@ extension PhotosPickerViewController {
                 self.configure.maxSelectedAssets = isPic2ArtApp ? 1 : 20
             } else if currentCamaraMode == .custom {
                 type = .video
-            } else if isTimeSpeedApp {
+            } else if isTimeSpeedApp || isBoomiCamApp {
                 type = .video
                 self.configure.maxSelectedAssets = 1
             } else {

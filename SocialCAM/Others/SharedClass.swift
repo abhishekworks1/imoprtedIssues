@@ -360,11 +360,21 @@ public struct Constant {
     }
     
     struct Application {
-        #if VIRALCAMAPP || Pic2ArtApp
+        #if VIRALCAMAPP
         static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "ViralCam"
         static let groupIdentifier: String = "group.com.simform.storiCamPro"
         static let simformIdentifier: String = "com.simform.viralcam"
         static let proModeCode: String = "viralcam2020"
+        #elseif PIC2ARTAPP
+        static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "ViralCam"
+        static let groupIdentifier: String = "group.com.simform.storiCamPro"
+        static let simformIdentifier: String = "com.simform.Pic2Art"
+        static let proModeCode: String = "pic2art2020"
+        #elseif BOOMICAMAPP
+        static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "ViralCam"
+        static let groupIdentifier: String = "group.com.simform.storiCamPro"
+        static let simformIdentifier: String = "com.simform.BoomiCam"
+        static let proModeCode: String = "boomicam2020"
         #elseif TIMESPEEDAPP
         static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "ViralCam"
         static let groupIdentifier: String = "group.com.simform.storiCamPro"
@@ -412,6 +422,14 @@ public struct Constant {
             static let redirectUrl = "https://timespeed-ae42c.firebaseapp.com/__/auth/handler"
             static let clientId = "735709803849520"
             static let clientSecret = "31178bad36620198c990029030b39aa8"
+        #elseif PIC2ARTAPP
+        static let redirectUrl = "https://pic2art-46a45.firebaseapp.com/__/auth/handler"
+        static let clientId = "548440479177267"
+        static let clientSecret = "8ce8dcb63d5115475c3167788a4086c7"
+        #elseif BOOMICAMAPP
+        static let redirectUrl = "https://boomicam-c281f.firebaseapp.com/__/auth/handler"
+        static let clientId = "731166734353630"
+        static let clientSecret = "18873cdad99dd8dc5f077c52499197cf"
         #else
             static let redirectUrl = "https://viralcam-c3c84.firebaseapp.com/__/auth/handler"
             static let clientId = "228138878240656"
@@ -448,6 +466,9 @@ public struct Constant {
         #elseif TIMESPEED
             static let serviceKey: String = "AIzaSyA0GnKcXJS6uFQUm_SASEsCaGgoeJhq2QA"
             static let placeClientKey: String = "AIzaSyBOBVwEf8bMfwCreZS-IBAEqm57A0szOfg"
+        #elseif BOOMICAMAPP
+        static let serviceKey: String = "AIzaSyBLzWJnjwjKkMwBvoQ0FvXDAXTWd_AmrD4"
+        static let placeClientKey: String = "AIzaSyBLzWJnjwjKkMwBvoQ0FvXDAXTWd_AmrD4"
         #else
             static let serviceKey: String = "AIzaSyBOBVwEf8bMfwCreZS-IBAEqm57A0szOfg"
             static let placeClientKey: String = "AIzaSyBOBVwEf8bMfwCreZS-IBAEqm57A0szOfg"
@@ -466,7 +487,7 @@ public struct Constant {
 }
 
 class StoryTagGradientLayer: CAGradientLayer { }
-#if SOCIALCAMAPP || VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP
+#if SOCIALCAMAPP || VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP || BOOMICAMAPP
 class BaseQuestionTagView: BaseStoryTagView { }
 #endif
 
@@ -490,7 +511,7 @@ enum SlideShowExportType {
     case sendChat
 }
 
-#if SOCIALCAMAPP || VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP
+#if SOCIALCAMAPP || VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP || BOOMICAMAPP
 enum StoriCamType: Equatable {
     case story
     case chat

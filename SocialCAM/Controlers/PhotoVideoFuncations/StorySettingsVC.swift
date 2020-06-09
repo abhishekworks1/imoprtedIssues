@@ -51,14 +51,6 @@ class StorySettings {
         self.settingsType = settingsType
     }
     
-    #if PIC2ARTAPP
-    static var storySettings = [StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.socialConnections(), selected: false)], settingsType: .socialConnections),
-                                StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.logout(), selected: false)], settingsType: .logout),
-                                StorySettings(name: "",
-                                              settings: [StorySetting(name: "\(Constant.Application.displayName) v \(Constant.Application.appVersion) (Build \(Constant.Application.appBuildNumber))", selected: false)], settingsType: .appInfo)]
-    #else
     static var storySettings = [StorySettings(name: R.string.localizable.subscriptions(),
                                               settings: [StorySetting(name: R.string.localizable.free(),
                                                                       selected: true),
@@ -80,7 +72,6 @@ class StorySettings {
                                               settings: [StorySetting(name: R.string.localizable.controlCenter(), selected: false)], settingsType: .controlcenter),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: "\(Constant.Application.displayName) v \(Constant.Application.appVersion) (Build \(Constant.Application.appBuildNumber))", selected: false)], settingsType: .appInfo)]
-    #endif
 }
 
 class StorySettingsVC: UIViewController {
@@ -213,7 +204,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 guard let `self` = self else {
                     return
                 }
-                #if VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP
+                #if VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP || BOOMICAMAPP
                 if socialLogin == .storiCam, !isLogin {
                     if let loginNav = R.storyboard.loginViewController.loginNavigation() {
                         Defaults.shared.clearData()

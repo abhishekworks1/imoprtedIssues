@@ -72,7 +72,7 @@ class SignUpStepOneViewController: UIViewController {
         super.viewDidLoad()
         self.isBusiness = false
         
-        #if VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP
+        #if VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP || BOOMICAMAPP
         imgLogo.image = R.image.uploadProfileImage()
         #endif
         
