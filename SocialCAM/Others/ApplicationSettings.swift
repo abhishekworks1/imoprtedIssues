@@ -57,7 +57,7 @@ class ApplicationSettings {
         viewController.present(browser, animated: true, completion: nil)
     }
     
-    #if SOCIALCAMAPP || VIRALCAMAPP || PIC2ARTAPP
+    #if SOCIALCAMAPP || VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP
     static func openAppSettingsUrl() {
         let settingsUrl = URL(string: UIApplication.openSettingsURLString)
         if let url = settingsUrl, UIApplication.shared.canOpenURL(url) {

@@ -62,6 +62,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             StorySettings.storySettings.filter({$0.settingsType == .socialLogins}).first?.settings.removeLast()
             StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
+        #elseif TIMESPEEDAPP
+            print("[FIREBASE] TIMESPEEDAPP mode.")
+            if let filePath = Bundle.main.path(forResource: "GoogleService-Info-TimeSpeed", ofType: "plist"),
+                let options = FirebaseOptions(contentsOfFile: filePath) {
+                FirebaseApp.configure(options: options)
+            } else {
+                fatalError("GoogleService-Info-TimeSpeed.plist is missing!")
+            }
+            StorySettings.storySettings.filter({$0.settingsType == .socialLogins}).first?.settings.removeLast()
+            StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
         #endif
         
         configureGoogleService()
@@ -94,13 +104,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
         } else {
-            #if VIRALCAMAPP || PIC2ARTAPP
+            #if VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP
             rootViewController = R.storyboard.loginViewController.loginNavigation()
             #endif
         }
-        
+        #if TIMESPEEDAPP
+        Defaults.shared.cameraMode = .basicCamera
+        #else
         Defaults.shared.cameraMode = .normal
-        
+        #endif
         UIApplication.shared.delegate!.window!!.rootViewController = rootViewController
         configurePayPalMobile()
         IAPManager.shared.startObserving()
@@ -214,7 +226,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     }
                 }
             } else {
-                #if VIRALCAMAPP || PIC2ARTAPP
+                #if VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP
                 rootViewController = R.storyboard.loginViewController.loginNavigation()
                 #endif
             }

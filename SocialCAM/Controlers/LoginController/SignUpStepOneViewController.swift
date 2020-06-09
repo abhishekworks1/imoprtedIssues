@@ -70,9 +70,9 @@ class SignUpStepOneViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.isBusiness =  false
+        self.isBusiness = false
         
-        #if VIRALCAMAPP || PIC2ARTAPP
+        #if VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP
         imgLogo.image = R.image.uploadProfileImage()
         #endif
         

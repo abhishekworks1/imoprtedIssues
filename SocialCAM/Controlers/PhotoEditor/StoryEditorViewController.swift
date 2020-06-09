@@ -270,6 +270,14 @@ class StoryEditorViewController: UIViewController {
         #endif
     }
     
+    var isTimeSpeedApp: Bool {
+        #if TIMESPEEDAPP
+        return true
+        #else
+        return false
+        #endif
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupFilterViews()
@@ -382,13 +390,16 @@ class StoryEditorViewController: UIViewController {
         
         self.editOptionView.isHidden = !isImage
         self.applyFilterOptionView.isHidden = !isImage
-        self.specificBoomerangView.isHidden = (Defaults.shared.appMode != .free && isBoomerang) ? true : isImage
+        if !isTimeSpeedApp {
+            self.specificBoomerangView.isHidden = (Defaults.shared.appMode != .free && isBoomerang) ? true : isImage        
+        }
+        
         if let currentUser = Defaults.shared.currentUser, let isAdvanceMode = currentUser.advanceGameMode {
             self.ssuTagView.isHidden = !isAdvanceMode
         } else {
             self.ssuTagView.isHidden = true
         }
-        self.pic2ArtOptionView.isHidden = (Defaults.shared.appMode != .free && Defaults.shared.appMode != .basic && !isPic2ArtApp)  ? !isImage : true
+        self.pic2ArtOptionView.isHidden = (Defaults.shared.appMode != .free && Defaults.shared.appMode != .basic && !isPic2ArtApp) ? !isImage : true
         self.soundOptionView.isHidden = isImage
         self.trimOptionView.isHidden = isImage
         self.timeSpeedOptionView.isHidden = Defaults.shared.appMode != .free ? isImage : true
@@ -549,7 +560,7 @@ extension StoryEditorViewController {
                 self.needToExportVideo()
             }
         }
-        self.navigationController?.pushViewController(histroGramVC, animated: true)
+        self.navigationController?.pushViewController(histroGramVC, animated: false)
     }
     
     @IBAction func pic2ArtClicked(_ sender: UIButton) {
@@ -964,7 +975,7 @@ extension StoryEditorViewController {
     }
     
     @IBAction func ssuButtonClicked(sender: UIButton) {
-        if !isPic2ArtApp {
+        if !isPic2ArtApp && !isTimeSpeedApp {
             let isLoggedConnections = [FaceBookManager.shared.isUserLogin, InstagramManager.shared.isUserLogin, TwitterManger.shared.isUserLogin, SnapKitManager.shared.isUserLogin, GoogleManager.shared.isUserLogin]
             guard isLoggedConnections.filter({ return $0 }).count > 0 else {
                 self.showAlert(alertMessage: R.string.localizable.youNeedToConnectAtLeastOneSocialMediaAccountToDoSwipeUp())

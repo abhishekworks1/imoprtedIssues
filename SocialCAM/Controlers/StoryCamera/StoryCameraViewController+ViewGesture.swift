@@ -102,11 +102,10 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             newZoom += lastZoomFactor
             let minZoom = max(1.0, newZoom)
             let translation = gestureRecognizer.location(in: circularProgress)
-            if recordingType != .basicCamera {
-                circularProgress.center = CGPoint(x: circularProgress.center.x + translation.x - 35,
-                                                  y: circularProgress.center.y + translation.y - 35)
-                nextLevel.videoZoomFactor = Float(minZoom)
-            }
+            
+            circularProgress.center = CGPoint(x: circularProgress.center.x + translation.x - 35,
+                                              y: circularProgress.center.y + translation.y - 35)
+            nextLevel.videoZoomFactor = Float(minZoom)
             switch Defaults.shared.appMode {
             case .free:
                 if videoSpeedType != VideoSpeedType.normal {
@@ -114,12 +113,13 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
                 }
                 return
             default:
-                if recordingType == .basicCamera, videoSpeedType != VideoSpeedType.normal {
-                    self.setNormalSpeed(selectedValue: 2)
-                    return
-                }
                 break
             }
+            
+            if recordingType == .basicCamera {
+                return
+            }
+            
             self.zoomSlider.value = Float(minZoom)
             
             var speedOptions: [StoryCameraSpeedValue] = [.slow3x, .slow2x, .normal, .normal, .fast2x, .fast3x]

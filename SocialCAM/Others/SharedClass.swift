@@ -365,6 +365,11 @@ public struct Constant {
         static let groupIdentifier: String = "group.com.simform.storiCamPro"
         static let simformIdentifier: String = "com.simform.viralcam"
         static let proModeCode: String = "viralcam2020"
+        #elseif TIMESPEEDAPP
+        static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "ViralCam"
+        static let groupIdentifier: String = "group.com.simform.storiCamPro"
+        static let simformIdentifier: String = "com.simform.timespeed"
+        static let proModeCode: String = "timespeed2020"
         #else
         static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "SocialCam"
         static let groupIdentifier: String = "group.com.simform.storiCamPro"
@@ -403,6 +408,10 @@ public struct Constant {
             static let redirectUrl = "https://storicam-pro.firebaseapp.com/__/auth/handler"
             static let clientId = "2576474045942603"
             static let clientSecret = "65d21fa18fd9e28142f2384e654ee5d3"
+        #elseif TIMESPEED
+            static let redirectUrl = "https://timespeed-ae42c.firebaseapp.com/__/auth/handler"
+            static let clientId = "735709803849520"
+            static let clientSecret = "31178bad36620198c990029030b39aa8"
         #else
             static let redirectUrl = "https://viralcam-c3c84.firebaseapp.com/__/auth/handler"
             static let clientId = "228138878240656"
@@ -436,6 +445,12 @@ public struct Constant {
         #elseif PIC2ARTAPP
             static let serviceKey: String = "AIzaSyBOBVwEf8bMfwCreZS-IBAEqm57A0szOfg"
             static let placeClientKey: String = "AIzaSyBOBVwEf8bMfwCreZS-IBAEqm57A0szOfg"
+        #elseif TIMESPEED
+            static let serviceKey: String = "AIzaSyA0GnKcXJS6uFQUm_SASEsCaGgoeJhq2QA"
+            static let placeClientKey: String = "AIzaSyBOBVwEf8bMfwCreZS-IBAEqm57A0szOfg"
+        #else
+            static let serviceKey: String = "AIzaSyBOBVwEf8bMfwCreZS-IBAEqm57A0szOfg"
+            static let placeClientKey: String = "AIzaSyBOBVwEf8bMfwCreZS-IBAEqm57A0szOfg"
         #endif
         static let youtubeScope: String = "https://www.googleapis.com/auth/youtube.force-ssl"
     }
@@ -451,7 +466,7 @@ public struct Constant {
 }
 
 class StoryTagGradientLayer: CAGradientLayer { }
-#if SOCIALCAMAPP || VIRALCAMAPP || PIC2ARTAPP
+#if SOCIALCAMAPP || VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP
 class BaseQuestionTagView: BaseStoryTagView { }
 #endif
 
@@ -475,7 +490,7 @@ enum SlideShowExportType {
     case sendChat
 }
 
-#if SOCIALCAMAPP || VIRALCAMAPP || PIC2ARTAPP
+#if SOCIALCAMAPP || VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP
 enum StoriCamType: Equatable {
     case story
     case chat

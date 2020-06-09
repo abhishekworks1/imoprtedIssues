@@ -453,6 +453,14 @@ class StoryCameraViewController: UIViewController {
         #endif
     }
     
+    var isTimeSpeedApp: Bool {
+        #if TIMESPEEDAPP
+        return true
+        #else
+        return false
+        #endif
+    }
+    
     // MARK: ViewController lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -563,7 +571,7 @@ class StoryCameraViewController: UIViewController {
     }
     
     func setViewsForApp() {
-        #if VIRALCAMAPP || PIC2ARTAPP
+        #if VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP
             self.fpsView.isHidden = true
         #endif
     }
@@ -644,12 +652,29 @@ class StoryCameraViewController: UIViewController {
                 return
             }
             var cameraModeArray = self.cameraModeArray
-            if Defaults.shared.appMode == .free {
-                Defaults.shared.cameraMode = .normal
-                self.recordingType = Defaults.shared.cameraMode
-                cameraModeArray = cameraModeArray.filter({$0.recordingType != .custom})
+            
+            if self.isTimeSpeedApp {
+                cameraModeArray = cameraModeArray.filter({$0.recordingType != .slideshow})
+                cameraModeArray = cameraModeArray.filter({$0.recordingType != .collage})
                 cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastSlowMotion})
+                cameraModeArray = cameraModeArray.filter({$0.recordingType != .boomerang})
+                cameraModeArray = cameraModeArray.filter({$0.recordingType != .custom})
+                cameraModeArray = cameraModeArray.filter({$0.recordingType != .normal})
+                if Defaults.shared.appMode == .free {
+                    cameraModeArray = cameraModeArray.filter({$0.recordingType != .handsfree})
+                    cameraModeArray = cameraModeArray.filter({$0.recordingType != .capture})
+                }
+                Defaults.shared.cameraMode = .basicCamera
+                self.recordingType = Defaults.shared.cameraMode
+            } else {
+                if Defaults.shared.appMode == .free {
+                    Defaults.shared.cameraMode = .normal
+                    self.recordingType = Defaults.shared.cameraMode
+                    cameraModeArray = cameraModeArray.filter({$0.recordingType != .custom})
+                    cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastSlowMotion})
+                }
             }
+            
             self.selectedSegmentLengthValue = SelectedTimer(value: "15", selectedRow: 2)
             self.selectedSegmentLengthValue.saveWithKey(key: "selectedSegmentLengthValue")
             self.setCameraSettings()
@@ -798,14 +823,29 @@ extension StoryCameraViewController {
     func setupLayoutCameraSliderView() {
         self.timerValueView.isHidden = !self.isUserTimerValueChange
         var cameraModeArray = self.cameraModeArray
-        if Defaults.shared.appMode == .free {
-            cameraModeArray = cameraModeArray.filter({$0.recordingType != .custom})
+        
+        if isTimeSpeedApp {
+            cameraModeArray = cameraModeArray.filter({$0.recordingType != .slideshow})
+            cameraModeArray = cameraModeArray.filter({$0.recordingType != .collage})
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastSlowMotion})
+            cameraModeArray = cameraModeArray.filter({$0.recordingType != .boomerang})
+            cameraModeArray = cameraModeArray.filter({$0.recordingType != .custom})
+            cameraModeArray = cameraModeArray.filter({$0.recordingType != .normal})
+            if Defaults.shared.appMode == .free {
+                cameraModeArray = cameraModeArray.filter({$0.recordingType != .handsfree})
+                cameraModeArray = cameraModeArray.filter({$0.recordingType != .capture})
+            }
         } else {
-            #if SOCIALCAMAPP
-            cameraModeArray.removeLast(2)
-            #endif
+            if Defaults.shared.appMode == .free {
+                cameraModeArray = cameraModeArray.filter({$0.recordingType != .custom})
+                cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastSlowMotion})
+            } else {
+                #if SOCIALCAMAPP
+                cameraModeArray.removeLast(2)
+                #endif
+            }
         }
+        
         cameraSliderView.stringArray = cameraModeArray
         cameraSliderView.bottomImage = R.image.cameraModeSelect()
         cameraSliderView.cellTextColor = .white
@@ -1139,6 +1179,7 @@ extension StoryCameraViewController {
             circularProgress.isUserInteractionEnabled = true
             
             photoTapGestureRecognizer.delegate = self
+            
             circularProgress.addGestureRecognizer(photoTapGestureRecognizer)
         }
         nextLevel.devicePosition = currentCameraPosition
@@ -1316,6 +1357,12 @@ extension StoryCameraViewController {
                     self.timerValueView.alpha = 1
                     self.faceFiltersView.alpha = 1
                     self.collectionViewStackVIew.alpha = 1
+                })
+            }
+        } else {
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.1, animations: {
+                    self.showhideView.alpha = 1
                 })
             }
         }
@@ -1651,6 +1698,44 @@ extension StoryCameraViewController {
             }
             styleTransferVC.isSingleImage = isSlideShow
             self.navigationController?.pushViewController(styleTransferVC, animated: true)
+        } else if isTimeSpeedApp {
+            guard let segementedVideo = segementedVideos.first else {
+                return
+            }
+            guard let assetUrl = segementedVideo.url else {
+                return
+            }
+            let currentAsset = AVAsset(url: assetUrl)
+            
+            guard currentAsset.duration.seconds > 2.0 else {
+                self.showAlert(alertMessage: R.string.localizable.minimumTwoSecondsVideoRequiredToChangeSpeed())
+                self.removeData()
+                return
+            }
+            guard let histroGramVC = R.storyboard.photoEditor.histroGramVC() else {
+                return
+            }
+            histroGramVC.currentAsset = currentAsset
+            histroGramVC.completionHandler = { [weak self] url in
+                guard let `self` = self else {
+                    return
+                }
+                guard let storyEditorViewController = R.storyboard.storyEditor.storyEditorViewController() else {
+                    fatalError("PhotoEditorViewController Not Found")
+                }
+                let medias: [StoryEditorMedia] = [StoryEditorMedia(type: .video(AVAsset(url: url).thumbnailImage() ?? UIImage(), AVAsset(url: url)))]
+                
+                let tiktokShareViews = self.baseView.subviews.filter({ return $0 is TikTokShareView })
+                if tiktokShareViews.count > 0 {
+                    storyEditorViewController.referType = .tiktokShare
+                }
+                storyEditorViewController.isBoomerang = photosSelection ? false : (self.recordingType == .boomerang)
+                storyEditorViewController.medias = medias
+                storyEditorViewController.isSlideShow = isSlideShow
+                self.navigationController?.pushViewController(storyEditorViewController, animated: false)
+            }
+            self.navigationController?.pushViewController(histroGramVC, animated: true)
+            self.removeData()
         } else {
             guard let storyEditorViewController = R.storyboard.storyEditor.storyEditorViewController() else {
                 fatalError("PhotoEditorViewController Not Found")

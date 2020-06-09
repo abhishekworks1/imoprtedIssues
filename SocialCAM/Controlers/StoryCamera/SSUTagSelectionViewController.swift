@@ -16,6 +16,7 @@ enum SSUTagType {
     case challenges
     case poll
     case pic2art
+    case timeSpeed
 }
 
 enum SSUWaitingListOptionType {
@@ -41,6 +42,9 @@ struct SSUTagOption {
     #if PIC2ARTAPP
     static let contents: [SSUTagOption] = [
         SSUTagOption(name: R.string.localizable.pic2Art(), image: R.image.ssuPic2Art(), type: .pic2art)]
+    #elseif TIMESPEEDAPP
+    static let contents: [SSUTagOption] = [
+        SSUTagOption(name: R.string.localizable.timeSpeed(), image: R.image.ssuTimeSpeed(), type: .timeSpeed)]
     #else
     static let contents: [SSUTagOption] = [
         SSUTagOption(name: R.string.localizable.viralCam(), image: R.image.ssuViralCam(), type: .viralCam),
