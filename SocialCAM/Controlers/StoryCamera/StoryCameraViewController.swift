@@ -362,7 +362,7 @@ class StoryCameraViewController: UIViewController {
     var firstUploadCompletedSize: Double = 0.0
     
     var pageSize: CGSize {
-        let layout = self.stopMotionCollectionView.collectionViewLayout as? UPCarouselFlowLayout
+        let layout = self.stopMotionCollectionView.collectionViewLayout as? UICollectionViewFlowLayout
         var pageSize = layout?.itemSize
         if layout?.scrollDirection == .horizontal {
             pageSize?.width += layout?.minimumLineSpacing ?? 0
@@ -667,7 +667,8 @@ extension StoryCameraViewController {
                 self.metadataObjectViews = nil
             }
             try nextLevel.start()
-            if selectedFPS != 30 {
+            self.selectedFPS = Float(Defaults.shared.selectedFrameRates ?? "30") ?? 30
+            if self.selectedFPS != 30 {
                 nextLevel.updateDeviceFormat(withFrameRate: CMTimeScale(selectedFPS),
                                              dimensions: CMVideoDimensions(width: 1280, height: 720))
             }
@@ -927,8 +928,6 @@ extension StoryCameraViewController {
     }
     
     func setupLayout() {
-        let layout = self.stopMotionCollectionView.collectionViewLayout as? UPCarouselFlowLayout
-        layout?.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: 0.01)
         stopMotionCollectionView.register(R.nib.imageCollectionViewCell)
     }
     
@@ -1477,7 +1476,7 @@ extension StoryCameraViewController {
     
     func setupForPreviewScreen() {
         self.stopMotionCollectionView.reloadData()
-        let layout = self.stopMotionCollectionView.collectionViewLayout as? UPCarouselFlowLayout
+        let layout = self.stopMotionCollectionView.collectionViewLayout as? UICollectionViewFlowLayout
         let pageSide = (layout?.scrollDirection == .horizontal) ? self.pageSize.width : self.pageSize.height
         self.stopMotionCollectionView?.contentOffset.x = (self.stopMotionCollectionView?.contentSize.width)! + pageSide
         

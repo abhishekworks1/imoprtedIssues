@@ -71,6 +71,24 @@ class Defaults {
         }
     }
     
+    var supportedFrameRates: [String]? {
+        get {
+            return appDefaults?.value(forKey: "supportedFrameRates") as? [String]
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "supportedFrameRates")
+        }
+    }
+    
+    var selectedFrameRates: String? {
+        get {
+            return appDefaults?.value(forKey: "selectedFrameRates") as? String
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "selectedFrameRates")
+        }
+    }
+    
     var currentUser: User? {
         get {
             if let loggedUser = appDefaults?.object(forKey: "loggedUser") as? Data {

@@ -128,21 +128,28 @@ extension StoryCameraViewController {
     }
     
     @IBAction func changeFPSButtonCliked(sender: UIButton) {
-        let supportedFrameRate = NextLevel.shared.getAllSupportedFrameRate(dimensions: CMVideoDimensions(width: 1920, height: 1080))
+        sender.isEnabled = false
+        let supportedFrameRate = NextLevel.shared.getAllSupportedFrameRate(dimensions: CMVideoDimensions(width: 1280, height: 720))
+        guard supportedFrameRate.count > 0 else {
+            sender.isEnabled = true
+            return
+        }
         BasePopConfiguration.shared.backgoundTintColor = R.color.appWhiteColor()!
         BasePopConfiguration.shared.menuWidth = 120
         BasePopConfiguration.shared.showCheckMark = .checkmark
         BasePopOverMenu
             .showForSender(sender: fpsView,
                            with: supportedFrameRate,
-                           withSelectedName: "\(Int(selectedFPS))",
+                           withSelectedName: Defaults.shared.selectedFrameRates ?? "30",
                 done: { (selectedIndex) -> Void in
                     debugPrint("SelectedIndex :\(selectedIndex)")
                     let selectedFrameRate = supportedFrameRate[selectedIndex]
                     self.selectedFPS = Float(selectedFrameRate)!
                     self.nextLevel.updateDeviceFormat(withFrameRate: CMTimeScale(self.selectedFPS),
-                                                      dimensions: CMVideoDimensions(width: 1920, height: 1080))
-            },cancel: {
+                                                      dimensions: CMVideoDimensions(width: 1280, height: 720))
+                    sender.isEnabled = true
+            }, cancel: {
+                sender.isEnabled = true
             })
     }
     

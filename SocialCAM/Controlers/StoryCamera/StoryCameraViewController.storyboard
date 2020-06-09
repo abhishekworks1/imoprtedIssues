@@ -696,28 +696,20 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="mZE-AU-YEM">
                                                 <rect key="frame" x="0.0" y="44" width="375" height="169"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="oHF-iu-wga">
+                                                    <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="oHF-iu-wga">
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="110"/>
                                                         <subviews>
                                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="aT4-ca-ew8" customClass="KDDragAndDropCollectionView" customModule="SocialCam" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="0.0" width="285" height="110"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="375" height="110"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="110" id="nUc-iw-j4z"/>
                                                                 </constraints>
-                                                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="nGr-Hw-RWW" customClass="UPCarouselFlowLayout" customModule="SocialCam" customModuleProvider="target">
+                                                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="4" minimumInteritemSpacing="4" id="nGr-Hw-RWW">
                                                                     <size key="itemSize" width="41" height="98"/>
                                                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                                    <userDefinedRuntimeAttributes>
-                                                                        <userDefinedRuntimeAttribute type="number" keyPath="sideItemScale">
-                                                                            <real key="value" value="1"/>
-                                                                        </userDefinedRuntimeAttribute>
-                                                                        <userDefinedRuntimeAttribute type="number" keyPath="sideItemAlpha">
-                                                                            <real key="value" value="1"/>
-                                                                        </userDefinedRuntimeAttribute>
-                                                                    </userDefinedRuntimeAttributes>
                                                                 </collectionViewFlowLayout>
                                                                 <cells/>
                                                                 <connections>
@@ -791,6 +783,11 @@
                                                             <constraint firstAttribute="bottom" secondItem="nYg-n0-LSZ" secondAttribute="bottom" id="ife-qZ-axJ"/>
                                                             <constraint firstAttribute="trailing" secondItem="nYg-n0-LSZ" secondAttribute="trailing" id="oCh-PM-xHa"/>
                                                         </constraints>
+                                                        <variation key="default">
+                                                            <mask key="subviews">
+                                                                <exclude reference="nYg-n0-LSZ"/>
+                                                            </mask>
+                                                        </variation>
                                                     </stackView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="avd-CC-AmT">
                                                         <rect key="frame" x="0.0" y="110" width="375" height="59"/>
@@ -1975,8 +1972,43 @@ Countdown</string>
                                 <rect key="frame" x="8" y="95" width="359" height="707"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="StorySettingsHeader" rowHeight="61" id="8mI-EB-Fsy" customClass="StorySettingsHeader" customModule="SocialCam" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="55.333332061767578" width="359" height="61"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8mI-EB-Fsy" id="O2e-4W-gr0">
+                                            <rect key="frame" x="0.0" y="0.0" width="359" height="61"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Lj-9s-wkr">
+                                                    <rect key="frame" x="0.0" y="0.0" width="359" height="2"/>
+                                                    <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="2" id="bs9-L1-l2d"/>
+                                                    </constraints>
+                                                </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set Privacy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V7c-jh-3wP" customClass="ColorLabel" customModule="SocialCam" customModuleProvider="target">
+                                                    <rect key="frame" x="20" y="21" width="85.333333333333329" height="19.333333333333329"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                                    <color key="textColor" red="0.32156862749999998" green="0.59607843140000005" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="V7c-jh-3wP" firstAttribute="centerY" secondItem="O2e-4W-gr0" secondAttribute="centerY" id="3wX-GP-Mu6"/>
+                                                <constraint firstItem="V7c-jh-3wP" firstAttribute="leading" secondItem="O2e-4W-gr0" secondAttribute="leading" constant="20" id="RwC-HV-gBh"/>
+                                                <constraint firstItem="3Lj-9s-wkr" firstAttribute="leading" secondItem="O2e-4W-gr0" secondAttribute="leading" id="jqG-SR-aJD"/>
+                                                <constraint firstAttribute="trailing" secondItem="3Lj-9s-wkr" secondAttribute="trailing" id="onF-Qz-kTP"/>
+                                                <constraint firstItem="3Lj-9s-wkr" firstAttribute="top" secondItem="O2e-4W-gr0" secondAttribute="top" id="yoV-s1-JyM"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="separator" destination="3Lj-9s-wkr" id="CV8-og-fCd"/>
+                                            <outlet property="title" destination="V7c-jh-3wP" id="FsP-6h-5ah"/>
+                                        </connections>
+                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="StorySettingsCell" id="f9s-xS-CEQ" customClass="StorySettingsCell" customModule="SocialCam" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.333332061767578" width="359" height="45"/>
+                                        <rect key="frame" x="0.0" y="116.33333206176758" width="359" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="f9s-xS-CEQ" id="Hig-yr-ewn">
                                             <rect key="frame" x="0.0" y="0.0" width="359" height="45"/>
@@ -2084,7 +2116,7 @@ Countdown</string>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upgrade" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s0l-p1-i8P">
-                                        <rect key="frame" x="150" y="11.666666666666664" width="75.333333333333314" height="21"/>
+                                        <rect key="frame" x="152.33333333333334" y="11.666666666666664" width="70.333333333333343" height="21"/>
                                         <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="18"/>
                                         <color key="textColor" red="0.25882352939999997" green="0.25882352939999997" blue="0.25490196079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -2152,7 +2184,7 @@ Countdown</string>
                                                 <rect key="frame" x="36" y="58.333333333333258" width="289" height="52"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upgrade Now" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wn8-8a-54R">
-                                                        <rect key="frame" x="90" y="16.333333333333371" width="109" height="19"/>
+                                                        <rect key="frame" x="94.666666666666657" y="16.333333333333371" width="99.666666666666657" height="19"/>
                                                         <fontDescription key="fontDescription" name="SFUIText-Bold" family="SF UI Text" pointSize="16"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -3214,8 +3246,8 @@ Countdown</string>
         <image name="reload" width="16" height="16"/>
         <image name="showStoryCamIcons" width="27" height="15"/>
         <image name="storyBack" width="19" height="19"/>
-        <image name="storyClose" width="16" height="16"/>
-        <image name="storyDelete" width="23" height="23"/>
+        <image name="storyClose" width="24" height="24"/>
+        <image name="storyDelete" width="25" height="24"/>
         <image name="storySettings" width="24" height="25"/>
         <image name="storyShowMore" width="10" height="16"/>
         <image name="storyTimerWithTick" width="27" height="27"/>

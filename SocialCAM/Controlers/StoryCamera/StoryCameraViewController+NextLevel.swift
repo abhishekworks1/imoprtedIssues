@@ -11,8 +11,19 @@ import AVKit
 
 extension StoryCameraViewController: NextLevelDeviceDelegate {
     
+    func saveFrameRates() {
+        let supportedFrameRates = NextLevel.shared.getAllSupportedFrameRate(dimensions: CMVideoDimensions(width: 1280, height: 720))
+        Defaults.shared.supportedFrameRates = supportedFrameRates
+        print(Defaults.shared.supportedFrameRates ?? "")
+    }
+    
+    func cameraFrameRatesSave() {
+        Defaults.shared.selectedFrameRates = "\(Int(NextLevel.shared.frameRate))"
+    }
+    
     func nextLevel(_ nextLevel: NextLevel, frameRate: CMTimeScale) {
         self.selectedFPS = Float(frameRate)
+        cameraFrameRatesSave()
     }
     
     func nextLevelDevicePositionWillChange(_ nextLevel: NextLevel) {
@@ -20,10 +31,11 @@ extension StoryCameraViewController: NextLevelDeviceDelegate {
     }
     
     func nextLevelDevicePositionDidChange(_ nextLevel: NextLevel) {
+        cameraFrameRatesSave()
     }
     
     func nextLevel(_ nextLevel: NextLevel, didChangeDeviceOrientation deviceOrientation: NextLevelDeviceOrientation) {
-        
+        saveFrameRates()
     }
     
     func nextLevel(_ nextLevel: NextLevel, didChangeDeviceFormat deviceFormat: AVCaptureDevice.Format) {
@@ -92,6 +104,7 @@ extension StoryCameraViewController: NextLevelVideoDelegate {
     
     // video recording session
     func nextLevel(_ nextLevel: NextLevel, didSetupVideoInSession session: NextLevelSession) {
+        saveFrameRates()
     }
     
     func nextLevel(_ nextLevel: NextLevel, didSetupAudioInSession session: NextLevelSession) {
@@ -144,7 +157,7 @@ extension StoryCameraViewController: NextLevelVideoDelegate {
                 
                 DispatchQueue.main.async {
                     self.stopMotionCollectionView.reloadData()
-                    let layout = self.stopMotionCollectionView.collectionViewLayout as? UPCarouselFlowLayout
+                    let layout = self.stopMotionCollectionView.collectionViewLayout as? UICollectionViewFlowLayout
                     let pageSide = (layout?.scrollDirection == .horizontal) ? self.pageSize.width : self.pageSize.height
                     self.stopMotionCollectionView?.contentOffset.x = (self.stopMotionCollectionView?.contentSize.width)! + pageSide
                     

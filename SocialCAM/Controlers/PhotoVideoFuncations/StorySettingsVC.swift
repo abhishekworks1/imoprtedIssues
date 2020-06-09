@@ -13,6 +13,7 @@ enum SettingsMode: Int {
     case subscriptions = 0
     case socialLogins
     case faceDetection
+    case supportedFrameRates
     case swapeContols
     case cameraSettings
     case socialConnections
@@ -59,10 +60,6 @@ class StorySettings {
                                                                       selected: true),
                                                          StorySetting(name: R.string.localizable.professional(),
                                                                       selected: true)], settingsType: .subscriptions),
-//                                StorySettings(name: "",
-//                                    settings: [StorySetting(name: "Face Detection", selected: false)], settingsType: .faceDetection),
-//                                StorySettings(name: "",
-//                                              settings: [StorySetting(name: "Change positions of\nMute,switching camera", selected: false)], settingsType: .swapeContols),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: "Camera Settings", selected: false)], settingsType: .cameraSettings),
                                 StorySettings(name: "",
