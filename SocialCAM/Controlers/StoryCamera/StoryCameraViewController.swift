@@ -1426,7 +1426,11 @@ extension StoryCameraViewController {
             self.circularProgress.animate(toAngle: 360, duration: Double(totalSeconds) - (NextLevel.shared.session?.totalDuration.seconds ?? 0)) { completed in
                 if completed {
                     print("animation stopped, completed")
-                    self.isStopConnVideo = self.recordingType != .handsfree ? true : false
+                    if self.isTimeSpeedApp {
+                        self.isStopConnVideo = true
+                    } else {
+                        self.isStopConnVideo = self.recordingType != .handsfree ? true : false
+                    }
                     self.stopRecording()
                 } else {
                     print("animation stopped, was interrupted")
@@ -1766,7 +1770,8 @@ extension StoryCameraViewController {
                 self.navigationController?.pushViewController(storyEditorViewController, animated: false)
                 self.removeData()
             }
-            self.navigationController?.pushViewController(histroGramVC, animated: true)
+            self.navigationController?.pushViewController(histroGramVC, animated: false)
+            self.removeData()
         } else if isBoomiCamApp {
             guard let segementedVideo = segementedVideos.first else {
                 return

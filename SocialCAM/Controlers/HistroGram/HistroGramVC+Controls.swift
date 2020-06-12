@@ -163,7 +163,7 @@ extension HistroGramVC {
             
             DispatchQueue.main.async {
                 self.doneHandler?(self.videoSegments)
-                self.navigationController?.popViewController(animated: true)
+                self.navigationController?.popViewController(animated: false)
                 if self.videoSegments.count > 0 {
                     let updatedSegment = SegmentVideos(urlStr: url,
                                                        thumbimage: self.videoSegments[self.currentIndex].image,
