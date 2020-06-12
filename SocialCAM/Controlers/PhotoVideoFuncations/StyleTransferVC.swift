@@ -93,6 +93,8 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
         }
     }
     
+    var infiniteScrollingBehaviour: InfiniteScrollingBehaviour!
+
     func addGestureRecognizers() {
         pinchRecognizer = UIPinchGestureRecognizer(target: self,
                                                    action: #selector(handlePinchOrRotate(gesture:)))

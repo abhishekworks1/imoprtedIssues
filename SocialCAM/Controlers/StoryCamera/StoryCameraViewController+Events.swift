@@ -101,6 +101,7 @@ extension StoryCameraViewController {
         let photoPickerVC = PhotosPickerViewController()
         photoPickerVC.isPic2ArtApp = isPic2ArtApp
         photoPickerVC.isTimeSpeedApp = isTimeSpeedApp
+        photoPickerVC.isBoomiCamApp = isBoomiCamApp
         photoPickerVC.currentCamaraMode = recordingType
         photoPickerVC.delegate = self
         self.navigationController?.present(photoPickerVC, animated: true, completion: nil)
@@ -638,4 +639,27 @@ extension StoryCameraViewController: CountdownViewDelegate {
             }
         }
     }
+}
+
+extension StoryCameraViewController: SpecificBoomerangDelegate {
+    
+    func didBoomerang(_ url: URL) {
+        guard let storyEditorViewController = R.storyboard.storyEditor.storyEditorViewController() else {
+            fatalError("PhotoEditorViewController Not Found")
+        }
+        var medias: [StoryEditorMedia] = []
+        
+        medias.append(StoryEditorMedia(type: .video(AVAsset(url: url).thumbnailImage() ?? UIImage(), AVAsset(url: url))))
+        
+        let tiktokShareViews = self.baseView.subviews.filter({ return $0 is TikTokShareView })
+        if tiktokShareViews.count > 0 {
+            storyEditorViewController.referType = .tiktokShare
+        }
+        storyEditorViewController.isBoomerang = (self.recordingType == .boomerang)
+        storyEditorViewController.medias = medias
+        storyEditorViewController.isSlideShow = false
+        self.navigationController?.pushViewController(storyEditorViewController, animated: false)
+        self.removeData()
+    }
+    
 }

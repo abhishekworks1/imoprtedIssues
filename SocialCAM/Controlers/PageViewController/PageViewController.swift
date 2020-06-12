@@ -64,7 +64,7 @@ class PageViewController: PageboyViewController {
             pageControllers.append(viewController)
         }
         reloadData()
-        #if VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP
+        #if VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP || BOOMICAMAPP
         self.isScrollEnabled = false
         #else
         self.isScrollEnabled = BackgroundManager.shared.imageURLs.count == 0 ? false : true

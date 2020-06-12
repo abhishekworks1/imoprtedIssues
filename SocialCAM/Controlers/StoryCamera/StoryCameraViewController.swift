@@ -461,6 +461,15 @@ class StoryCameraViewController: UIViewController {
         #endif
     }
     
+    var isBoomiCamApp: Bool {
+        #if BOOMICAMAPP
+        return true
+        #else
+        return false
+        #endif
+    }
+
+    
     // MARK: ViewController lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -571,7 +580,7 @@ class StoryCameraViewController: UIViewController {
     }
     
     func setViewsForApp() {
-        #if VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP
+        #if VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP || BOOMICAMAPP
             self.fpsView.isHidden = true
         #endif
     }
@@ -651,6 +660,7 @@ class StoryCameraViewController: UIViewController {
             guard let `self` = self else {
                 return
             }
+            
             var cameraModeArray = self.cameraModeArray
             
             if self.isTimeSpeedApp {
@@ -664,6 +674,18 @@ class StoryCameraViewController: UIViewController {
                     cameraModeArray = cameraModeArray.filter({$0.recordingType != .handsfree})
                     cameraModeArray = cameraModeArray.filter({$0.recordingType != .capture})
                 }
+                Defaults.shared.cameraMode = .basicCamera
+                self.recordingType = Defaults.shared.cameraMode
+            } else if self.isBoomiCamApp {
+                cameraModeArray = cameraModeArray.filter({$0.recordingType != .slideshow})
+                cameraModeArray = cameraModeArray.filter({$0.recordingType != .collage})
+                cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastSlowMotion})
+                cameraModeArray = cameraModeArray.filter({$0.recordingType != .boomerang})
+                cameraModeArray = cameraModeArray.filter({$0.recordingType != .custom})
+                cameraModeArray = cameraModeArray.filter({$0.recordingType != .normal})
+                cameraModeArray = cameraModeArray.filter({$0.recordingType != .capture})
+                cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastMotion})
+
                 Defaults.shared.cameraMode = .basicCamera
                 self.recordingType = Defaults.shared.cameraMode
             } else {
@@ -835,6 +857,15 @@ extension StoryCameraViewController {
                 cameraModeArray = cameraModeArray.filter({$0.recordingType != .handsfree})
                 cameraModeArray = cameraModeArray.filter({$0.recordingType != .capture})
             }
+        } else if self.isBoomiCamApp {
+            cameraModeArray = cameraModeArray.filter({$0.recordingType != .slideshow})
+            cameraModeArray = cameraModeArray.filter({$0.recordingType != .collage})
+            cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastSlowMotion})
+            cameraModeArray = cameraModeArray.filter({$0.recordingType != .boomerang})
+            cameraModeArray = cameraModeArray.filter({$0.recordingType != .custom})
+            cameraModeArray = cameraModeArray.filter({$0.recordingType != .normal})
+            cameraModeArray = cameraModeArray.filter({$0.recordingType != .capture})
+            cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastMotion})
         } else {
             if Defaults.shared.appMode == .free {
                 cameraModeArray = cameraModeArray.filter({$0.recordingType != .custom})
@@ -1179,7 +1210,6 @@ extension StoryCameraViewController {
             circularProgress.isUserInteractionEnabled = true
             
             photoTapGestureRecognizer.delegate = self
-            
             circularProgress.addGestureRecognizer(photoTapGestureRecognizer)
         }
         nextLevel.devicePosition = currentCameraPosition
@@ -1698,6 +1728,7 @@ extension StoryCameraViewController {
             }
             styleTransferVC.isSingleImage = isSlideShow
             self.navigationController?.pushViewController(styleTransferVC, animated: true)
+            self.removeData()
         } else if isTimeSpeedApp {
             guard let segementedVideo = segementedVideos.first else {
                 return
@@ -1733,9 +1764,30 @@ extension StoryCameraViewController {
                 storyEditorViewController.medias = medias
                 storyEditorViewController.isSlideShow = isSlideShow
                 self.navigationController?.pushViewController(storyEditorViewController, animated: false)
+                self.removeData()
             }
             self.navigationController?.pushViewController(histroGramVC, animated: true)
-            self.removeData()
+        } else if isBoomiCamApp {
+            guard let segementedVideo = segementedVideos.first else {
+                return
+            }
+            guard let assetUrl = segementedVideo.url else {
+                return
+            }
+            let avAsset = AVAsset(url: assetUrl)
+
+            guard let specificBoomerangViewController = R.storyboard.storyEditor.specificBoomerangViewController() else {
+                return
+            }
+            
+            guard avAsset.duration.seconds > 3.0 else {
+                self.showAlert(alertMessage: R.string.localizable.minimumThreeSecondsVideoRequiredToSpecificBoomerang())
+                self.removeData()
+                return
+            }
+            specificBoomerangViewController.currentAsset = avAsset
+            specificBoomerangViewController.delegate = self
+            self.navigationController?.pushViewController(specificBoomerangViewController, animated: true)
         } else {
             guard let storyEditorViewController = R.storyboard.storyEditor.storyEditorViewController() else {
                 fatalError("PhotoEditorViewController Not Found")

@@ -467,8 +467,8 @@ class SpecificBoomerangViewController: UIViewController {
                 return
             }
             DispatchQueue.main.async {
+                self.navigationController?.popViewController(animated: false)
                 self.delegate?.didBoomerang(url)
-                self.navigationController?.popViewController(animated: true)
             }
         }
     }

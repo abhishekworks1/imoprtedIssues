@@ -16,6 +16,8 @@ enum ReferType {
     case socialCam
     case tiktokShare
     case pic2art
+    case timespeed
+    case boomicam
 }
 
 enum StoryEditorType: Equatable {
@@ -622,6 +624,12 @@ extension StoryEditorView {
                 if type == .pic2art {
                     followMeStoryView.userBitEmoji.image = R.image.pic2artWatermarkLogo()
                     followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppPic2Art()
+                } else if type == .boomicam {
+                    followMeStoryView.userBitEmoji.image = R.image.boomicamWatermarkLogo()
+                    followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppBoomiCam()
+                } else if type == .timespeed {
+                    followMeStoryView.userBitEmoji.image = R.image.pic2artWatermarkLogo()
+                    followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppTimeSpeed()
                 } else {
                     followMeStoryView.userBitEmoji.image = (type == .viralCam) ? R.image.viralcamWatermarkLogo() : R.image.socialcamWatermarkLogo()
                     followMeStoryView.textView.text = (type == .viralCam) ? R.string.localizable.checkOutThisCoolNewAppViralCam() : R.string.localizable.checkOutThisCoolNewAppSocialCam()
@@ -649,6 +657,12 @@ extension StoryEditorView {
         if type == .pic2art {
             followMeStoryView.userBitEmoji.image = R.image.pic2artWatermarkLogo()
             followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppPic2Art()
+        } else if type == .boomicam {
+            followMeStoryView.userBitEmoji.image = R.image.boomicamWatermarkLogo()
+            followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppBoomiCam()
+        } else if type == .timespeed {
+            followMeStoryView.userBitEmoji.image = R.image.pic2artWatermarkLogo()
+            followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppTimeSpeed()
         } else {
             followMeStoryView.userBitEmoji.image = (type == .viralCam) ? R.image.viralcamWatermarkLogo() : R.image.socialcamWatermarkLogo()
             followMeStoryView.textView.text = (type == .viralCam) ? R.string.localizable.checkOutThisCoolNewAppViralCam() : R.string.localizable.checkOutThisCoolNewAppSocialCam()

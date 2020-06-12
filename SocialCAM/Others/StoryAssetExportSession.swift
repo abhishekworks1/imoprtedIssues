@@ -311,7 +311,12 @@ class StoryAssetExportSession {
         #elseif PIC2ARTAPP
         var image = R.image.pic2artWatermarkLogo()
         if watermarkPosition == .topLeft {
-            image = R.image.viralcamWaterMark()
+            image = R.image.pic2artWatermarkLogo()
+        }
+        #elseif BOOMICAMAPP
+        var image = R.image.boomicamWatermarkLogo()
+        if watermarkPosition == .topLeft {
+            image = R.image.boomicamWatermarkLogo()
         }
         #elseif TIMESPEEDAPP
         var image = R.image.timeSpeedWatermarkLogo()
