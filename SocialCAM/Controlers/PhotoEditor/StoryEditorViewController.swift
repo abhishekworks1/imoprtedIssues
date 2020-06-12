@@ -411,7 +411,7 @@ class StoryEditorViewController: UIViewController {
         self.soundOptionView.isHidden = isImage
         self.trimOptionView.isHidden = isImage
         if !isBoomiCamApp {
-            self.timeSpeedOptionView.isHidden = (Defaults.shared.appMode != .free && !isTimeSpeedApp) ? isImage : true
+            self.timeSpeedOptionView.isHidden = Defaults.shared.appMode != .free ? isImage : true
         }
         self.slideShowCollectionView.isHidden = !isSlideShow
         self.slideShowPreviewView.isHidden = !isSlideShow
