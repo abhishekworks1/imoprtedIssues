@@ -314,9 +314,9 @@ class StoryAssetExportSession {
             image = R.image.viralcamWaterMark()
         }
         #elseif TIMESPEEDAPP
-        var image = R.image.pic2artWatermarkLogo()
+        var image = R.image.timeSpeedWatermarkLogo()
         if watermarkPosition == .topLeft {
-            image = R.image.viralcamWaterMark()
+            image = R.image.timeSpeedWatermarkLogo()
         }
         #else
         let image = R.image.socialCamWaterMark()
