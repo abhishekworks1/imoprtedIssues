@@ -69,7 +69,7 @@ class StorySettings {
                                                          StorySetting(name: R.string.localizable.professional(),
                                                                       selected: true)], settingsType: .subscriptions),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: "Camera Settings", selected: false)], settingsType: .cameraSettings),
+                                              settings: [StorySetting(name: R.string.localizable.cameraSettings(), selected: false)], settingsType: .cameraSettings),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.socialConnections(), selected: false)], settingsType: .socialConnections),
                                 StorySettings(name: "",
@@ -213,7 +213,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 guard let `self` = self else {
                     return
                 }
-                #if VIRALCAMAPP || PIC2ARTAPP
+                #if VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP
                 if socialLogin == .storiCam, !isLogin {
                     if let loginNav = R.storyboard.loginViewController.loginNavigation() {
                         Defaults.shared.clearData()

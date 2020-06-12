@@ -147,11 +147,10 @@ extension HistroGramVC {
         }
         DispatchQueue.main.async {
             self.isExporting = true
+            self.loadingView.loadingViewShow = true
+            self.loadingView.shouldCancelShow = true
+            self.loadingView.show(on: self.view)
         }
-        let loadingView = LoadingView.instanceFromNib()
-        loadingView.loadingViewShow = true
-        loadingView.shouldCancelShow = true
-        loadingView.show(on: self.view)
         
         VideoScaler.shared.exportVideo(scaleComposition: mutableAsset) { [weak self] url in
             guard let `self` = self else {
@@ -159,21 +158,22 @@ extension HistroGramVC {
             }
             DispatchQueue.main.async {
                 self.isExporting = false
+                self.loadingView.hide()
             }
-            loadingView.hide()
-            if self.videoSegments.count > 0 {
-                let updatedSegment = SegmentVideos(urlStr: url,
-                                                   thumbimage: self.videoSegments[self.currentIndex].image,
-                                                   numberOfSegement: self.videoSegments[self.currentIndex].numberOfSegementtext,
-                                                   combineOneVideo: true)
-                self.videoSegments.remove(at: self.currentIndex)
-                self.videoSegments.insert(updatedSegment, at: self.currentIndex)
-            } else {
-                self.completionHandler?(url)
-            }
+            
             DispatchQueue.main.async {
                 self.doneHandler?(self.videoSegments)
                 self.navigationController?.popViewController(animated: true)
+                if self.videoSegments.count > 0 {
+                    let updatedSegment = SegmentVideos(urlStr: url,
+                                                       thumbimage: self.videoSegments[self.currentIndex].image,
+                                                       numberOfSegement: self.videoSegments[self.currentIndex].numberOfSegementtext,
+                                                       combineOneVideo: true)
+                    self.videoSegments.remove(at: self.currentIndex)
+                    self.videoSegments.insert(updatedSegment, at: self.currentIndex)
+                } else {
+                    self.completionHandler?(url)
+                }
             }
         }
     }

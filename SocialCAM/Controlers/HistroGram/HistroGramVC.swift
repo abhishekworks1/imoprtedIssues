@@ -50,7 +50,7 @@ class HistroGramVC: UIViewController {
     @IBOutlet open var flowButton: UIButton!
     @IBOutlet open var chartButton: UIButton!
     @IBOutlet open var cameraSpeedButton: UIButton!
-    
+    var loadingView = LoadingView.instanceFromNib()
     var longPressGestureRecognizer: UILongPressGestureRecognizer?
     var recoredButtonCenterPoint: CGPoint = CGPoint.init()
     var panStartPoint: CGPoint = .zero

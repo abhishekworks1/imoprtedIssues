@@ -100,6 +100,7 @@ extension StoryCameraViewController {
     @IBAction func outTakeButtonClicked(_ sender: Any) {
         let photoPickerVC = PhotosPickerViewController()
         photoPickerVC.isPic2ArtApp = isPic2ArtApp
+        photoPickerVC.isTimeSpeedApp = isTimeSpeedApp
         photoPickerVC.currentCamaraMode = recordingType
         photoPickerVC.delegate = self
         self.navigationController?.present(photoPickerVC, animated: true, completion: nil)
@@ -585,6 +586,9 @@ extension StoryCameraViewController: CollageMakerVCDelegate {
 extension StoryCameraViewController: CountdownViewDelegate {
     
     func capturePhoto() {
+        if isTimeSpeedApp {
+            return
+        }
         self.photoTapGestureRecognizer?.isEnabled = false
         self.addFlashView()
         NextLevel.shared.torchMode = flashMode
