@@ -911,7 +911,8 @@ extension StoryEditorViewController {
             let menuOptionsString: [String] = ["", ""]
             
             BasePopConfiguration.shared.backgoundTintColor = R.color.lightBlackColor()!
-            BasePopConfiguration.shared.menuWidth = 35
+            BasePopConfiguration.shared.menuWidth = 45
+            BasePopConfiguration.shared.menuRowHeight = 45
             BasePopConfiguration.shared.showCheckMark = .none
             BasePopOverMenu
                 .showForSender(sender: sender, with: menuOptionsString, menuImageArray: menuOptions, done: { [weak self] (selectedIndex) in

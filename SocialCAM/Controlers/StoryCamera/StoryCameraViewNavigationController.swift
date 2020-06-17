@@ -39,7 +39,7 @@ class StoryCameraViewNavigationController: UINavigationController, UINavigationC
             #if VIRALCAMAPP
             self.parentPageViewController?.isScrollEnabled = true
             #else
-            self.parentPageViewController?.isScrollEnabled = BackgroundManager.shared.imageURLs.count == 0 ? false : true
+            self.parentPageViewController?.isScrollEnabled = true
             #endif
         }
     }

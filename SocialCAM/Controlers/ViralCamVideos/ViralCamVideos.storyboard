@@ -12,7 +12,7 @@
         <!--Home-->
         <scene sceneID="8Gq-ZQ-wHP">
             <objects>
-                <viewController storyboardIdentifier="ViralCamVideos" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="8i0-rN-rFI" customClass="ViralCamVideos" customModule="ViralCam" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViralCamVideos" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="8i0-rN-rFI" customClass="ViralCamVideos" customModule="BoomiCam" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EJU-WK-z8S">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -100,7 +100,7 @@
         <!--Base Viral VideoVC-->
         <scene sceneID="cSk-PW-vly">
             <objects>
-                <viewController storyboardIdentifier="BaseViralVideoVC" id="8LB-Cf-tg4" customClass="BaseViralVideoVC" customModule="ViralCam" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BaseViralVideoVC" id="8LB-Cf-tg4" customClass="BaseViralVideoVC" customModule="BoomiCam" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GkK-XF-9Pt">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -136,6 +136,7 @@
                         <segue destination="8i0-rN-rFI" kind="custom" identifier="mx_page_3" customClass="MXPageSegue" id="71j-IK-eHo"/>
                         <segue destination="8i0-rN-rFI" kind="custom" identifier="mx_page_4" customClass="MXPageSegue" id="u8f-fC-fmh"/>
                         <segue destination="8i0-rN-rFI" kind="custom" identifier="mx_page_5" customClass="MXPageSegue" id="Tys-rh-5OG"/>
+                        <segue destination="8i0-rN-rFI" kind="custom" identifier="mx_page_6" customClass="MXPageSegue" id="4ho-ik-f8I"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6n2-Ya-drm" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -187,6 +188,6 @@
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="u8f-fC-fmh"/>
+        <segue reference="4ho-ik-f8I"/>
     </inferredMetricsTieBreakers>
 </document>

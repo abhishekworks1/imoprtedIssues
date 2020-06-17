@@ -41,7 +41,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             } else {
                 fatalError("GoogleService-Info.plist is missing!")
             }
-            StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .logout})
         #elseif VIRALCAMAPP
             print("[FIREBASE] VIRALCAMAPP mode.")
             if let filePath = Bundle.main.path(forResource: "GoogleService-Info-ViralCam", ofType: "plist"),
@@ -113,9 +112,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
         } else {
-            #if VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP || BOOMICAMAPP
             rootViewController = R.storyboard.loginViewController.loginNavigation()
-            #endif
         }
         #if TIMESPEEDAPP
         Defaults.shared.cameraMode = .basicCamera
@@ -123,15 +120,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Defaults.shared.cameraMode = .normal
         #endif
         UIApplication.shared.delegate!.window!!.rootViewController = rootViewController
-        configurePayPalMobile()
         IAPManager.shared.startObserving()
-
         return true
-    }
-    
-    func configurePayPalMobile() {
-//        PayPalMobile.initializeWithClientIds(forEnvironments: [PayPalEnvironmentProduction: Constant.PayPalMobile.productionKey,
-//                                                               PayPalEnvironmentSandbox: Constant.PayPalMobile.sandboxKey])
     }
     
     func configureAppTheme() {
@@ -235,9 +225,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     }
                 }
             } else {
-                #if VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP || BOOMICAMAPP
                 rootViewController = R.storyboard.loginViewController.loginNavigation()
-                #endif
             }
             UIApplication.shared.delegate!.window!!.rootViewController = rootViewController
             return true

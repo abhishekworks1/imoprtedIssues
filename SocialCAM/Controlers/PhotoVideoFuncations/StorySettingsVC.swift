@@ -23,6 +23,7 @@ enum SettingsMode: Int {
     case controlcenter
     case video
     case appInfo
+    case appStartScreen
 }
 
 class StorySetting {
@@ -71,6 +72,8 @@ class StorySettings {
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.controlCenter(), selected: false)], settingsType: .controlcenter),
                                 StorySettings(name: "",
+                                              settings: [StorySetting(name: R.string.localizable.controlCenter(), selected: false)], settingsType: .appStartScreen),
+                                StorySettings(name: "",
                                               settings: [StorySetting(name: "\(Constant.Application.displayName) v \(Constant.Application.appVersion) (Build \(Constant.Application.appBuildNumber))", selected: false)], settingsType: .appInfo)]
 }
 
@@ -104,6 +107,10 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.appOpenSettingsCell.identifier, for: indexPath) as? AppOpenSettingsCell, StorySettings.storySettings[indexPath.section].settingsType == .appStartScreen {
+            return cell
+        }
+        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.storySettingsCell.identifier, for: indexPath) as? StorySettingsCell else {
             fatalError("\(R.reuseIdentifier.storySettingsCell.identifier) Not Found")
         }
@@ -169,10 +176,10 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         let settingTitle = StorySettings.storySettings[section]
-        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .faceDetection || settingTitle.settingsType == .swapeContols || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video || settingTitle.settingsType == .cameraSettings {
-            return 24
-        } else {
+        if settingTitle.settingsType == .subscriptions {
             return 60
+        } else {
+            return 24
         }
     }
     
@@ -504,4 +511,22 @@ extension StorySettingsVC: StoriCamManagerDelegate {
     func loginDidFinish(user: User?, error: Error?) {
         self.settingsTableView.reloadData()
     }
+}
+
+class ScreenSelectionView : UIView {
+    @IBOutlet var viewSelection : UIView?
+    var isSelected : Bool? {
+        didSet {
+            viewSelection?.isHidden = !(isSelected ?? false)
+        }
+    }
+    var selectionHandler : (()->Void)?
+    
+    @IBAction func btnClicked(_sender:Any) {
+        self.isSelected = true
+        if let handler = selectionHandler {
+            handler()
+        }
+    }
+    
 }
