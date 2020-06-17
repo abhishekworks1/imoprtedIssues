@@ -90,6 +90,11 @@ target 'BoomiCam' do
   projectShared_pods
 end
 
+target 'FastCam' do
+  use_frameworks!
+  projectShared_pods
+end
+
 target 'SocialCamShare' do
   shared_pods
 end

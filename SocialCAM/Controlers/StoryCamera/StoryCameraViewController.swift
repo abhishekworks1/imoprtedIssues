@@ -468,7 +468,14 @@ class StoryCameraViewController: UIViewController {
         return false
         #endif
     }
-
+    
+    var isFastCamApp: Bool {
+        #if FASTCAMAPP
+        return true
+        #else
+        return false
+        #endif
+    }
     
     // MARK: ViewController lifecycle
     override func viewDidLoad() {
@@ -580,7 +587,7 @@ class StoryCameraViewController: UIViewController {
     }
     
     func setViewsForApp() {
-        #if VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP || BOOMICAMAPP
+        #if VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP || BOOMICAMAPP || FASTCAMAPP
             self.fpsView.isHidden = true
         #endif
     }
@@ -688,6 +695,18 @@ class StoryCameraViewController: UIViewController {
 
                 Defaults.shared.cameraMode = .basicCamera
                 self.recordingType = Defaults.shared.cameraMode
+            } else if self.isFastCamApp {
+                cameraModeArray = cameraModeArray.filter({$0.recordingType != .slideshow})
+                cameraModeArray = cameraModeArray.filter({$0.recordingType != .collage})
+                cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastSlowMotion})
+                cameraModeArray = cameraModeArray.filter({$0.recordingType != .boomerang})
+                cameraModeArray = cameraModeArray.filter({$0.recordingType != .custom})
+                cameraModeArray = cameraModeArray.filter({$0.recordingType != .normal})
+                cameraModeArray = cameraModeArray.filter({$0.recordingType != .capture})
+                cameraModeArray = cameraModeArray.filter({$0.recordingType != .basicCamera})
+                cameraModeArray = cameraModeArray.filter({$0.recordingType != .handsfree})
+                Defaults.shared.cameraMode = .fastMotion
+                self.recordingType = Defaults.shared.cameraMode
             } else {
                 if Defaults.shared.appMode == .free {
                     Defaults.shared.cameraMode = .normal
@@ -701,7 +720,9 @@ class StoryCameraViewController: UIViewController {
             self.selectedSegmentLengthValue.saveWithKey(key: "selectedSegmentLengthValue")
             self.setCameraSettings()
             self.cameraSliderView.stringArray = cameraModeArray
-            self.cameraSliderView.selectCell = Defaults.shared.cameraMode.rawValue
+            if !self.isFastCamApp {
+                self.cameraSliderView.selectCell = Defaults.shared.cameraMode.rawValue
+            }
             self.dynamicSetSlowFastVerticalBar()
         }
     }
@@ -866,6 +887,16 @@ extension StoryCameraViewController {
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .normal})
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .capture})
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastMotion})
+        } else if self.isFastCamApp {
+            cameraModeArray = cameraModeArray.filter({$0.recordingType != .slideshow})
+            cameraModeArray = cameraModeArray.filter({$0.recordingType != .collage})
+            cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastSlowMotion})
+            cameraModeArray = cameraModeArray.filter({$0.recordingType != .boomerang})
+            cameraModeArray = cameraModeArray.filter({$0.recordingType != .custom})
+            cameraModeArray = cameraModeArray.filter({$0.recordingType != .normal})
+            cameraModeArray = cameraModeArray.filter({$0.recordingType != .capture})
+            cameraModeArray = cameraModeArray.filter({$0.recordingType != .basicCamera})
+            cameraModeArray = cameraModeArray.filter({$0.recordingType != .handsfree})
         } else {
             if Defaults.shared.appMode == .free {
                 cameraModeArray = cameraModeArray.filter({$0.recordingType != .custom})
@@ -957,7 +988,10 @@ extension StoryCameraViewController {
                 break
             }
         }
-        cameraSliderView.selectCell = Defaults.shared.cameraMode.rawValue
+        
+        if !isFastCamApp {
+            cameraSliderView.selectCell = Defaults.shared.cameraMode.rawValue
+        }
     }
     
     func volumeButtonHandler() {

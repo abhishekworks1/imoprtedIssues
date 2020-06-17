@@ -55,7 +55,7 @@ class AppOpenSettingsCell: UITableViewCell {
         }
     }
     
-    func setOpenScreen(x:Int) {
+    func setOpenScreen(x: Int) {
         switch x {
         case 0:
             self.cameraView.isSelected = true

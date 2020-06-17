@@ -72,9 +72,7 @@ class SignUpStepOneViewController: UIViewController {
         super.viewDidLoad()
         self.isBusiness = false
         
-        #if VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP || BOOMICAMAPP
         imgLogo.image = R.image.uploadProfileImage()
-        #endif
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.tapGesture(_:)))
         viewBirthdate.addGestureRecognizer(tapGesture)

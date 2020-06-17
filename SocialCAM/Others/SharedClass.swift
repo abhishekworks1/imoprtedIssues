@@ -9,11 +9,30 @@
 import Foundation
 import UIKit
 
-enum AppMode: Int {
+protocol AppMode_Enum  {
+    var description: String { get }
+}
+
+enum AppMode: Int, AppMode_Enum {
     case free = 0
     case basic
     case advanced
     case professional
+    
+    var description: String {
+       switch self {
+    case .free:
+       return "Free"
+    case .basic:
+       return "Basic"
+    case .advanced:
+       return "Advanced"
+    case .professional:
+          return "Professional"
+    default:
+          return "Free"
+       }
+    }
 }
 
 enum ShapeType: Int {
@@ -424,13 +443,17 @@ public struct Constant {
             static let clientId = "735709803849520"
             static let clientSecret = "31178bad36620198c990029030b39aa8"
         #elseif PIC2ARTAPP
-        static let redirectUrl = "https://pic2art-46a45.firebaseapp.com/__/auth/handler"
-        static let clientId = "548440479177267"
-        static let clientSecret = "8ce8dcb63d5115475c3167788a4086c7"
+            static let redirectUrl = "https://pic2art-46a45.firebaseapp.com/__/auth/handler"
+            static let clientId = "548440479177267"
+            static let clientSecret = "8ce8dcb63d5115475c3167788a4086c7"
         #elseif BOOMICAMAPP
-        static let redirectUrl = "https://boomicam-c281f.firebaseapp.com/__/auth/handler"
-        static let clientId = "731166734353630"
-        static let clientSecret = "18873cdad99dd8dc5f077c52499197cf"
+            static let redirectUrl = "https://boomicam-c281f.firebaseapp.com/__/auth/handler"
+            static let clientId = "731166734353630"
+            static let clientSecret = "18873cdad99dd8dc5f077c52499197cf"
+        #elseif FASTCAMAPP
+            static let redirectUrl = "https://fastcam-475e3.firebaseapp.com/__/auth/handler"
+            static let clientId = "269809577621901"
+            static let clientSecret = "249aca0886ce40cb8a816c108aa1a7cd"
         #else
             static let redirectUrl = "https://viralcam-c3c84.firebaseapp.com/__/auth/handler"
             static let clientId = "228138878240656"
@@ -468,8 +491,11 @@ public struct Constant {
             static let serviceKey: String = "AIzaSyA0GnKcXJS6uFQUm_SASEsCaGgoeJhq2QA"
             static let placeClientKey: String = "AIzaSyBOBVwEf8bMfwCreZS-IBAEqm57A0szOfg"
         #elseif BOOMICAMAPP
-        static let serviceKey: String = "AIzaSyBLzWJnjwjKkMwBvoQ0FvXDAXTWd_AmrD4"
-        static let placeClientKey: String = "AIzaSyBLzWJnjwjKkMwBvoQ0FvXDAXTWd_AmrD4"
+            static let serviceKey: String = "AIzaSyBLzWJnjwjKkMwBvoQ0FvXDAXTWd_AmrD4"
+            static let placeClientKey: String = "AIzaSyBLzWJnjwjKkMwBvoQ0FvXDAXTWd_AmrD4"
+        #elseif FASTCAMAPP
+            static let serviceKey: String = "AIzaSyARGjWmJYjfSyK8UAf_dJW4YLqq220hnCM"
+            static let placeClientKey: String = "AIzaSyARGjWmJYjfSyK8UAf_dJW4YLqq220hnCM"
         #else
             static let serviceKey: String = "AIzaSyBOBVwEf8bMfwCreZS-IBAEqm57A0szOfg"
             static let placeClientKey: String = "AIzaSyBOBVwEf8bMfwCreZS-IBAEqm57A0szOfg"
@@ -488,7 +514,7 @@ public struct Constant {
 }
 
 class StoryTagGradientLayer: CAGradientLayer { }
-#if SOCIALCAMAPP || VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP || BOOMICAMAPP
+#if !IS_SHAREPOST && !IS_MEDIASHARE && !IS_VIRALVIDS
 class BaseQuestionTagView: BaseStoryTagView { }
 #endif
 
@@ -512,7 +538,7 @@ enum SlideShowExportType {
     case sendChat
 }
 
-#if SOCIALCAMAPP || VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP || BOOMICAMAPP
+#if !IS_SHAREPOST && !IS_MEDIASHARE && !IS_VIRALVIDS
 enum StoriCamType: Equatable {
     case story
     case chat

@@ -45,6 +45,10 @@ class StorySettings {
     var name: String
     var settings: [StorySetting]
     var settingsType: SettingsMode
+    var isCollapsible: Bool {
+        return true
+    }
+    var isCollapsed = false
     
     init(name: String, settings: [StorySetting], settingsType: SettingsMode) {
         self.name = name
@@ -103,6 +107,19 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if StorySettings.storySettings[section].settingsType == .subscriptions {
+            let item = StorySettings.storySettings[section]
+            guard item.isCollapsible else {
+                return StorySettings.storySettings[section].settings.count
+            }
+            
+            if item.isCollapsed {
+                return 0
+            } else {
+                return item.settings.count
+            }
+        }
+        
         return StorySettings.storySettings[section].settings.count
     }
     
@@ -165,12 +182,22 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             fatalError("StorySettingsHeader Not Found")
         }
         let settingTitle = StorySettings.storySettings[section]
-        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .faceDetection || settingTitle.settingsType == .swapeContols || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video {
+        if settingTitle.settingsType != .subscriptions && settingTitle.settingsType != .appInfo {
             headerView.title.isHidden = true
         } else {
             headerView.title.isHidden = false
         }
-        headerView.title.text = settingTitle.name
+        headerView.section = section
+        headerView.delegate = self
+        if settingTitle.settingsType == .subscriptions {
+            headerView.collapsed = settingTitle.isCollapsed
+            headerView.arrowLabel?.isHidden = false
+            headerView.title.text = settingTitle.name + " - \(Defaults.shared.appMode.description)"
+        } else {
+            headerView.title.text = settingTitle.name
+            headerView.arrowLabel?.isHidden = true
+        }
+        
         return headerView
     }
     
@@ -211,7 +238,6 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 guard let `self` = self else {
                     return
                 }
-                #if VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP || BOOMICAMAPP
                 if socialLogin == .storiCam, !isLogin {
                     if let loginNav = R.storyboard.loginViewController.loginNavigation() {
                         Defaults.shared.clearData()
@@ -238,11 +264,6 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                         }
                         self.connectSocial(socialPlatform: socialPlatform, socialId: socialId ?? "", socialName: socialName ?? "")
                     }
-                }
-                #endif
-                DispatchQueue.runOnMainThread {
-                    StorySettings.storySettings[indexPath.section].settings[socialLogin.rawValue].selected = isLogin
-                    self.settingsTableView.reloadData()
                 }
             }
         } else if settingTitle.settingsType == .subscriptions {
@@ -513,20 +534,32 @@ extension StorySettingsVC: StoriCamManagerDelegate {
     }
 }
 
-class ScreenSelectionView : UIView {
-    @IBOutlet var viewSelection : UIView?
-    var isSelected : Bool? {
+class ScreenSelectionView: UIView {
+    @IBOutlet var viewSelection: UIView?
+    var isSelected: Bool? {
         didSet {
             viewSelection?.isHidden = !(isSelected ?? false)
         }
     }
-    var selectionHandler : (()->Void)?
+    var selectionHandler: (() -> Void)?
     
-    @IBAction func btnClicked(_sender:Any) {
+    @IBAction func btnClicked(_sender: Any) {
         self.isSelected = true
         if let handler = selectionHandler {
             handler()
         }
     }
     
+}
+extension StorySettingsVC: HeaderViewDelegate {
+    func toggleSection(header: StorySettingsHeader, section: Int) {
+        let settingTitle = StorySettings.storySettings[section]
+        if settingTitle.isCollapsible {
+
+            // Toggle collapse
+            let collapsed = !settingTitle.isCollapsed
+            settingTitle.isCollapsed = collapsed
+            self.settingsTableView?.reloadData()
+        }
+    }
 }
