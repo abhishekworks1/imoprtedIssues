@@ -16,9 +16,10 @@ enum TopSegments: String {
     case snapchat = "Snapchat"
     case google = "Youtube"
     case tiktok = "Tiktok"
+    case storiCam = "StoriCam"
     
     static var allValues : [TopSegments] {
-        return [.snapchat, .instagram, .tiktok, .google, .twitter, .facebook]
+        return [.storiCam, .instagram, .tiktok, .google, .twitter, .facebook, .snapchat]
     }
     
     var next: TopSegments? {
@@ -55,6 +56,7 @@ class BaseViralVideoVC: MXSegmentedPagerController {
     var viralCamVideosVC2: ViralCamVideos!
     var viralCamVideosVC3: ViralCamVideos!
     var viralCamVideosVC4: ViralCamVideos!
+    var viralCamVideosVC5: ViralCamVideos!
     
     var segmentStrings: [TopSegments] = TopSegments.allValues
     var firstModalPersiontage: Double = 0.0
@@ -114,6 +116,9 @@ class BaseViralVideoVC: MXSegmentedPagerController {
         } else if segue.identifier == "mx_page_5" {
             viralCamVideosVC4 = segue.destination as? ViralCamVideos
             viralCamVideosVC4.segmentType = TopSegments.allValues[5]
+        } else if segue.identifier == "mx_page_6" {
+            viralCamVideosVC5 = segue.destination as? ViralCamVideos
+            viralCamVideosVC5.segmentType = TopSegments.allValues[6]
         }
     }
     

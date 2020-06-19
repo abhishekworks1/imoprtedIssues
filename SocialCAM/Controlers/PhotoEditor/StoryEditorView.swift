@@ -628,7 +628,7 @@ extension StoryEditorView {
                     followMeStoryView.userBitEmoji.image = R.image.boomicamWatermarkLogo()
                     followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppBoomiCam()
                 } else if type == .timespeed {
-                    followMeStoryView.userBitEmoji.image = R.image.pic2artWatermarkLogo()
+                    followMeStoryView.userBitEmoji.image = R.image.timeSpeedWatermarkLogo()
                     followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppTimeSpeed()
                 } else {
                     followMeStoryView.userBitEmoji.image = (type == .viralCam) ? R.image.viralcamWatermarkLogo() : R.image.socialcamWatermarkLogo()
@@ -661,7 +661,7 @@ extension StoryEditorView {
             followMeStoryView.userBitEmoji.image = R.image.boomicamWatermarkLogo()
             followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppBoomiCam()
         } else if type == .timespeed {
-            followMeStoryView.userBitEmoji.image = R.image.pic2artWatermarkLogo()
+            followMeStoryView.userBitEmoji.image = R.image.timeSpeedWatermarkLogo()
             followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppTimeSpeed()
         } else {
             followMeStoryView.userBitEmoji.image = (type == .viralCam) ? R.image.viralcamWatermarkLogo() : R.image.socialcamWatermarkLogo()

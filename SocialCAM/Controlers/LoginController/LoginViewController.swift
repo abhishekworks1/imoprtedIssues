@@ -327,7 +327,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         }
         let parentId = Defaults.shared.currentUser?.parentId ?? Defaults.shared.currentUser?.id
         Defaults.shared.parentID = parentId
-        #if VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP || BOOMICAMAPP
+        #if SOCIALCAMAPP || VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP || BOOMICAMAPP
         self.goToHomeScreen()
         #endif
         self.doLogin()

@@ -66,7 +66,7 @@ public class BasePopConfiguration: NSObject {
 
 private let defaultMargin: CGFloat = 4
 private let defaultCellMargin: CGFloat = 6
-private let defaultMenuIconSize: CGFloat = 24
+private let defaultMenuIconSize: CGFloat = 35
 private let defaultMenuCornerRadius: CGFloat = 4
 private let defaultMenuArrowWidth: CGFloat = 8
 private let defaultMenuArrowHeight: CGFloat = 10

@@ -17,16 +17,14 @@ class PageViewController: PageboyViewController {
             cameraNavVC.navigationBar.isHidden = true
             viewControllers.append(cameraNavVC)
         }
-        
-        #if VIRALCAMAPP
+        #if !VIRALCAMAPP
         if let homeVC = R.storyboard.homeScreen.homeTabBarController() {
             viewControllers.append(homeVC)
         }
+        #endif
         if let viralToolsVC = R.storyboard.storyCameraViewController.viralToolsVC() {
             viewControllers.append(viralToolsVC)
         }
-        #endif
-        
         return viewControllers
     }()
     
@@ -65,9 +63,9 @@ class PageViewController: PageboyViewController {
         }
         reloadData()
         #if VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP || BOOMICAMAPP
-        self.isScrollEnabled = false
+        self.isScrollEnabled = true
         #else
-        self.isScrollEnabled = BackgroundManager.shared.imageURLs.count == 0 ? false : true
+        self.isScrollEnabled = true
         #endif
     }
     
@@ -91,6 +89,8 @@ extension PageViewController: PageboyViewControllerDataSource {
             return PageboyViewController.Page.at(index: 0)
         case .dashboard:
             return PageboyViewController.Page.at(index: 1)
+        case .chat:
+            return PageboyViewController.Page.at(index: 2)
         }
     }
     
