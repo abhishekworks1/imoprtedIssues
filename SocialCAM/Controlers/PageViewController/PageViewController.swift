@@ -62,11 +62,8 @@ class PageViewController: PageboyViewController {
             pageControllers.append(viewController)
         }
         reloadData()
-        #if VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP || BOOMICAMAPP
+        
         self.isScrollEnabled = true
-        #else
-        self.isScrollEnabled = true
-        #endif
     }
     
 }

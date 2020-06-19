@@ -286,6 +286,14 @@ class StoryEditorViewController: UIViewController {
         #endif
     }
     
+    var isFastCamApp: Bool {
+        #if FASTCAMAPP
+        return true
+        #else
+        return false
+        #endif
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupFilterViews()
@@ -398,8 +406,10 @@ class StoryEditorViewController: UIViewController {
         
         self.editOptionView.isHidden = !isImage
         self.applyFilterOptionView.isHidden = !isImage
-        if !isTimeSpeedApp {
+        if !isTimeSpeedApp && !isFastCamApp {
             self.specificBoomerangView.isHidden = (Defaults.shared.appMode != .free && isBoomerang) ? true : isImage
+        } else {
+            self.specificBoomerangView.isHidden = true
         }
         
         if let currentUser = Defaults.shared.currentUser, let isAdvanceMode = currentUser.advanceGameMode {
@@ -407,12 +417,20 @@ class StoryEditorViewController: UIViewController {
         } else {
             self.ssuTagView.isHidden = true
         }
-        self.pic2ArtOptionView.isHidden = (Defaults.shared.appMode != .free && Defaults.shared.appMode != .basic && !isPic2ArtApp) ? !isImage : true
+        if !isFastCamApp {
+            self.pic2ArtOptionView.isHidden = (Defaults.shared.appMode != .free && Defaults.shared.appMode != .basic && !isPic2ArtApp) ? !isImage : true
+        } else {
+            self.pic2ArtOptionView.isHidden = true
+        }
+        
         self.soundOptionView.isHidden = isImage
         self.trimOptionView.isHidden = isImage
-        if !isBoomiCamApp {
+        if !isBoomiCamApp && !isFastCamApp {
             self.timeSpeedOptionView.isHidden = Defaults.shared.appMode != .free ? isImage : true
+        } else {
+            self.timeSpeedOptionView.isHidden = true
         }
+        
         self.slideShowCollectionView.isHidden = !isSlideShow
         self.slideShowPreviewView.isHidden = !isSlideShow
         self.slideShowFillAuto.isHidden = !isSlideShow

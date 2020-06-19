@@ -68,6 +68,10 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         socialSingUpView.isHidden = true
         #elseif VIRALCAMAPP
         imgLogo.image = R.image.viralcamrgb()
+        #elseif TIMESPEEDAPP
+        imgLogo.image = R.image.timeSpeedWatermarkLogo()
+        #elseif FASTCAMAPP
+        imgLogo.image = R.image.fastcamWatermarkLogo()
         #else
         imgLogo.image = R.image.pic2artLogin()
         #endif
@@ -327,7 +331,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         }
         let parentId = Defaults.shared.currentUser?.parentId ?? Defaults.shared.currentUser?.id
         Defaults.shared.parentID = parentId
-        #if SOCIALCAMAPP || VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP || BOOMICAMAPP
+        #if !IS_SHAREPOST && !IS_MEDIASHARE && !IS_VIRALVIDS
         self.goToHomeScreen()
         #endif
         self.doLogin()

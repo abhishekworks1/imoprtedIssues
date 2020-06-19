@@ -80,6 +80,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             StorySettings.storySettings.filter({$0.settingsType == .socialLogins}).first?.settings.removeLast()
             StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
+        #elseif FASTCAMAPP
+            print("[FIREBASE] FASTCAMAPP mode.")
+            if let filePath = Bundle.main.path(forResource: "GoogleService-Info-FastCam", ofType: "plist"),
+                let options = FirebaseOptions(contentsOfFile: filePath) {
+                FirebaseApp.configure(options: options)
+            } else {
+                fatalError("GoogleService-Info-FastCam.plist is missing!")
+            }
+            StorySettings.storySettings.filter({$0.settingsType == .socialLogins}).first?.settings.removeLast()
+            StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
         #endif
         
         configureGoogleService()
@@ -116,6 +126,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         #if TIMESPEEDAPP
         Defaults.shared.cameraMode = .basicCamera
+        #elseif FASTCAMAPP
+        Defaults.shared.cameraMode = .fastMotion
         #else
         Defaults.shared.cameraMode = .normal
         #endif

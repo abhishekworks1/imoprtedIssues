@@ -323,6 +323,11 @@ class StoryAssetExportSession {
         if watermarkPosition == .topLeft {
             image = R.image.timeSpeedWatermarkLogo()
         }
+        #elseif FASTCAMAPP
+        var image = R.image.fastcamWatermarkLogo()
+        if watermarkPosition == .topLeft {
+            image = R.image.fastcamWatermarkLogo()
+        }
         #else
         let image = R.image.socialCamWaterMark()
         #endif

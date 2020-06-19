@@ -102,6 +102,7 @@ extension StoryCameraViewController {
         photoPickerVC.isPic2ArtApp = isPic2ArtApp
         photoPickerVC.isTimeSpeedApp = isTimeSpeedApp
         photoPickerVC.isBoomiCamApp = isBoomiCamApp
+        photoPickerVC.isFastCamApp = isFastCamApp
         photoPickerVC.currentCamaraMode = recordingType
         photoPickerVC.delegate = self
         self.navigationController?.present(photoPickerVC, animated: true, completion: nil)
@@ -587,7 +588,7 @@ extension StoryCameraViewController: CollageMakerVCDelegate {
 extension StoryCameraViewController: CountdownViewDelegate {
     
     func capturePhoto() {
-        if isTimeSpeedApp {
+        if isTimeSpeedApp || isFastCamApp {
             return
         }
         self.photoTapGestureRecognizer?.isEnabled = false
