@@ -400,6 +400,11 @@ public struct Constant {
         static let groupIdentifier: String = "group.com.simform.storiCamPro"
         static let simformIdentifier: String = "com.simform.timespeed"
         static let proModeCode: String = "timespeed2020"
+        #elseif FASTCAMAPP
+        static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "ViralCam"
+        static let groupIdentifier: String = "group.com.simform.storiCamPro"
+        static let simformIdentifier: String = "com.simform.fastCam"
+        static let proModeCode: String = "fastcam2020"
         #else
         static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "SocialCam"
         static let groupIdentifier: String = "group.com.simform.storiCamPro"

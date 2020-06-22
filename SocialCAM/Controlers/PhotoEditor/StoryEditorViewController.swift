@@ -1450,8 +1450,10 @@ extension StoryEditorViewController: SSUTagSelectionDelegate {
                 storyEditors[currentStoryIndex].addReferLinkView(type: .timespeed)
             case .boomiCam:
                 storyEditors[currentStoryIndex].addReferLinkView(type: .boomicam)
+            case .fastcam:
+                storyEditors[currentStoryIndex].addReferLinkView(type: .fastcam)
             default:
-                break
+                storyEditors[currentStoryIndex].addReferLinkView(type: .viralCam)
             }
         case .ssutWaitingList:
             storyEditors[currentStoryIndex].addReferLinkView(type: .socialCam)
