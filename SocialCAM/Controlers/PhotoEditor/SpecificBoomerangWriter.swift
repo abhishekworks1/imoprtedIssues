@@ -331,7 +331,8 @@ class SpecificBoomerangExportSession {
         let audioInputQueue = DispatchQueue(label: "audioQueue")
         
         var isAudioSetup = false
-
+        var isVideoWriteStarted = false
+        
         func closeWriter() {
             if audioFinished && videoFinished && !self.cancelled {
                 writer.finishWriting {
@@ -350,7 +351,7 @@ class SpecificBoomerangExportSession {
         var presentationTime = CMTime.zero
 
         func writeAudio(for assetReaderTrackOutput: AVAssetReaderTrackOutput?) -> Bool {
-            guard var sample = assetReaderTrackOutput?.copyNextSampleBuffer() else {
+            guard var sample = assetReaderTrackOutput?.copyNextSampleBuffer(), isVideoWriteStarted else {
                 return false
             }
             if !isAudioSetup {
@@ -367,7 +368,7 @@ class SpecificBoomerangExportSession {
         }
         
         func writeSilentAudio() -> Bool {
-            guard let sample = CMSampleBuffer.silentAudioBuffer(at: presentationTime, nFrames: audioNumberOfFrame, sampleRate: audioSampleRate, numChannels: audioNumberOfChannels) else {
+            guard let sample = CMSampleBuffer.silentAudioBuffer(at: presentationTime, nFrames: audioNumberOfFrame, sampleRate: audioSampleRate, numChannels: audioNumberOfChannels), isVideoWriteStarted else {
                 return false
             }
             return audioInput.append(sample)
@@ -485,6 +486,7 @@ class SpecificBoomerangExportSession {
                                     print("\(index) reverse boomerang buffers append..")
                                 }
                                 if writeBoomerang(specificBoomerangAsset: specificBoomerangAsset) {
+                                    isVideoWriteStarted = true
                                     print("\(index) boomerang writing.. \(specificBoomerangAsset.boomerangBuffers.count)")
                                     break
                                 } else {
@@ -500,6 +502,7 @@ class SpecificBoomerangExportSession {
                             print("\(index) video reading..")
                             break
                         } else if writeVideo(for: specificBoomerangAsset.videoAssetReaderTrackOutput) {
+                            isVideoWriteStarted = true
                             print("\(index) video writing..")
                             break
                         } else {

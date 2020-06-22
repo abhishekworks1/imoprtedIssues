@@ -24,7 +24,7 @@ class CoreMLExporter {
     
     func exportVideo(for asset: AVAsset, and index: Int, progress: ((Float) -> Void)? = nil, completion: @escaping (URL?) -> Void) {
         isCancel = false
-        let fileName = String.fileName
+        let fileName = "\(String.fileName).mov"
         let outputURL = Utils.getLocalPath(fileName)
         
         var audioFinished = false
@@ -52,8 +52,8 @@ class CoreMLExporter {
         let videoSettings: [String: Any] = [
             AVVideoCompressionPropertiesKey: [AVVideoAverageBitRateKey: NSNumber.init(value: videoTrack.estimatedDataRate)],
             AVVideoCodecKey: AVVideoCodecType.h264,
-            AVVideoHeightKey: videoTrack.naturalSize.height,
-            AVVideoWidthKey: videoTrack.naturalSize.width
+            AVVideoHeightKey: videoTrack.naturalSize.height*0.3,
+            AVVideoWidthKey: videoTrack.naturalSize.width*0.3
         ]
         
         let assetReaderVideoOutput = AVAssetReaderTrackOutput(track: videoTrack, outputSettings: videoReaderSettings)
@@ -145,13 +145,9 @@ class CoreMLExporter {
                                 }
                                 styles[index] = 1.0
                                 do {
-                                    
-                                    let mlPredicationOptions = MLPredictionOptions.init()
-                                    mlPredicationOptions.usesCPUOnly = false
-                                    let input = StyleTransferModel43Input.init(image: CMSampleBufferGetImageBuffer(sample!)!.mlPixelFormatBuffer(scale: 0.3)!, index: styles)
-                                    let predictionOutput = try model.prediction(input: input,
-                                                                                options: mlPredicationOptions)
+                                    let predictionOutput = try model.prediction(image: CMSampleBufferGetImageBuffer(sample!)!.mlPixelFormatBuffer(scale: 0.3)!, index: styles)
                                     mlBuffer = predictionOutput.stylizedImage
+
                                 } catch let error as NSError {
                                     print("CoreML Model Error: \(error)")
                                 }
