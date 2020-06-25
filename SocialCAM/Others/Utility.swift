@@ -71,7 +71,7 @@ public struct Utils {
         }
     }
     
-    #if !IS_SHAREPOST && !IS_MEDIASHARE && !IS_VIRALVIDS
+    #if !IS_SHAREPOST && !IS_MEDIASHARE && !IS_VIRALVIDS && !IS_SOCIALVIDS
     static var appDelegate: AppDelegate? {
         if let delegate = UIApplication.shared.delegate {
             return delegate as? AppDelegate

@@ -112,3 +112,8 @@ target 'Viralvids' do
   shared_pods
   pod "SSSpinnerButton"
 end
+
+target 'SocialVids' do
+  shared_pods
+  pod "SSSpinnerButton"
+end

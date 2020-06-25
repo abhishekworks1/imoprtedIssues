@@ -86,8 +86,53 @@ class CollageMakerVC: UIViewController, UIGestureRecognizerDelegate {
     fileprivate var selectedImageArray = [UIImage]()
     
     var collageType: CollageViewType = .t301
-    var currentModeType: CurrentMode = .frames
+    var currentModeType: CurrentMode = .frames {
+        didSet {
+            if currentModeType == .frames {
+                imageCollectionView.isHidden = true
+                collectionView.isHidden = false
+                borderView.isHidden = true
+                spaceView.isHidden = true
+                self.collectionView.reloadData()
+            } else if currentModeType == .photos {
+                imageCollectionView.isHidden = false
+                collectionView.isHidden = true
+                borderView.isHidden = true
+                spaceView.isHidden = true
+                self.imageCollectionView.reloadData()
+            } else if currentModeType == .border {
+                imageCollectionView.isHidden = true
+                collectionView.isHidden = true
+                borderView.isHidden = false
+                spaceView.isHidden = true
+            } else if currentModeType == .space {
+                imageCollectionView.isHidden = true
+                collectionView.isHidden = true
+                borderView.isHidden = true
+                spaceView.isHidden = false
+            }
+            menu01.isHidden = collectionView.isHidden
+            menu02.isHidden = imageCollectionView.isHidden
+            borderViewBottom.isHidden = borderView.isHidden
+            spaceViewBottom.isHidden = spaceView.isHidden
+        }
+    }
+    
     var collageRatio: CGFloat = 1.0
+    @IBOutlet weak var cornerSlider: UISlider!
+    @IBOutlet weak var borderSlider: UISlider!
+    @IBOutlet weak var borderView: UIView!
+    @IBOutlet weak var borderViewBottom: UIView!
+    
+    @IBOutlet weak var outerSlider: UISlider!
+    @IBOutlet weak var innerSlider: UISlider!
+    @IBOutlet weak var spaceView: UIView!
+    @IBOutlet weak var spaceViewBottom: UIView!
+    
+    var selectedCorner: CGFloat = 0.0
+    var selectedBorder: CGFloat = 0.0
+    var selectedOuter: CGFloat = 0.0
+    var selectedInner: CGFloat = 0.0
     
     deinit {
         print("Deinit \(self.description)")
@@ -98,11 +143,24 @@ class CollageMakerVC: UIViewController, UIGestureRecognizerDelegate {
         
         setupLayout()
         
-        imageCollectionView.isHidden = true
-        collectionView.isHidden = false
+        cornerSlider.maximumValue = 50
+        cornerSlider.minimumValue = 0
+
+        borderSlider.maximumValue = 25
+        borderSlider.minimumValue = 0
         
-        menu01.isHidden = collectionView.isHidden
-        menu02.isHidden = imageCollectionView.isHidden
+        outerSlider.maximumValue = 25
+        outerSlider.minimumValue = 0
+        
+        innerSlider.maximumValue = 25
+        innerSlider.minimumValue = 0
+        
+        cornerSlider.addTarget(self, action: #selector(self.valueChanged), for: .valueChanged)
+        borderSlider.addTarget(self, action: #selector(self.valueChanged), for: .valueChanged)
+        innerSlider.addTarget(self, action: #selector(self.valueChanged), for: .valueChanged)
+        outerSlider.addTarget(self, action: #selector(self.valueChanged), for: .valueChanged)
+        
+        currentModeType = .frames
         
         bottomClickView.isHidden = false
         allCollectionView.isHidden = true
@@ -131,6 +189,14 @@ class CollageMakerVC: UIViewController, UIGestureRecognizerDelegate {
         menu04.layer.borderColor = UIColor.darkGray.cgColor
         menu04.backgroundColor = ApplicationSettings.appClearColor
         menu04.layer.borderWidth = 1.0
+        
+        borderViewBottom.layer.borderColor = UIColor.darkGray.cgColor
+        borderViewBottom.backgroundColor = ApplicationSettings.appClearColor
+        borderViewBottom.layer.borderWidth = 1.0
+        
+        spaceViewBottom.layer.borderColor = UIColor.darkGray.cgColor
+        spaceViewBottom.backgroundColor = ApplicationSettings.appClearColor
+        spaceViewBottom.layer.borderWidth = 1.0
         
         var index: Int = 0
         
@@ -166,6 +232,26 @@ class CollageMakerVC: UIViewController, UIGestureRecognizerDelegate {
         collectionView.reloadData()
     }
     
+    @objc func valueChanged(sender: UISlider) {
+        // round the slider position to the nearest index of the numbers array
+        if sender == cornerSlider {
+            selectedCorner = CGFloat(sender.value)
+            collageView.updateCornerRedius(val: selectedCorner)
+            collageView.updateBorder(val: selectedBorder)
+        } else if sender == borderSlider {
+            selectedBorder = CGFloat(sender.value)
+            collageView.updateBorder(val: selectedBorder)
+        } else if sender == outerSlider {
+            selectedOuter = CGFloat(sender.value)
+            collageView.updateBorder(val: selectedBorder)
+            collageView.updateMargin(val: selectedOuter)
+        } else if sender == innerSlider {
+            selectedInner = CGFloat(sender.value)
+            collageView.updateBorder(val: selectedBorder)
+            collageView.updatePadding(val: selectedInner)
+        }
+    }
+    
     fileprivate func setupLayout() {
         let layout = self.collectionView.collectionViewLayout as? UPCarouselFlowLayout
         layout?.spacingMode = UPCarouselFlowLayoutSpacingMode.fixed(spacing: 0.1)
@@ -181,22 +267,38 @@ class CollageMakerVC: UIViewController, UIGestureRecognizerDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func colorPopoverButtonClicked(_ sender: Any) {
+        let colorPickerViewController = AMColorPickerViewController()
+        colorPickerViewController.isCloseButtonShown = false
+        colorPickerViewController.isSelectedColorShown = false
+        colorPickerViewController.selectedColor = Defaults.shared.borderColor
+        colorPickerViewController.delegate = self
+        colorPickerViewController.modalPresentationStyle = .popover
+        colorPickerViewController.preferredContentSize = CGSize(width: 300, height: 380)
+        
+        let presentationController = colorPickerViewController.popoverPresentationController
+        presentationController?.delegate = self
+        presentationController?.permittedArrowDirections = .any
+        let button = sender as! UIButton
+        presentationController?.sourceView = button
+        presentationController?.sourceRect = button.bounds
+        present(colorPickerViewController, animated: true, completion: nil)
+    }
+    
     @IBAction func btnLayoutChangeClick(_ sender: Any) {
         currentModeType = .frames
-        imageCollectionView.isHidden = true
-        collectionView.isHidden = false
-        menu01.isHidden = collectionView.isHidden
-        menu02.isHidden = imageCollectionView.isHidden
-        self.collectionView.reloadData()
     }
     
     @IBAction func btnImagesClick(_ sender: Any) {
         currentModeType = .photos
-        imageCollectionView.isHidden = false
-        collectionView.isHidden = true
-        menu01.isHidden = collectionView.isHidden
-        menu02.isHidden = imageCollectionView.isHidden
-        self.imageCollectionView.reloadData()
+    }
+    
+    @IBAction func btnBorderClicked(_ sender: UIButton) {
+        currentModeType = .border
+    }
+    
+    @IBAction func btnSpaceClicked(_ sender: UIButton) {
+        currentModeType = .space
     }
     
     @IBAction func btnBottomBarClicked(_ sender: Any) {
@@ -307,7 +409,9 @@ class CollageMakerVC: UIViewController, UIGestureRecognizerDelegate {
                             if frameRelativeToParent.contains(movingImageView?.center ?? CGPoint.zero) {
                                 let image = self.selectedItemArray[photoIndex].image ?? UIImage()
                                 tmpScroll.photoView.setPhoto(img: image)
-                                self.selectedImageArray[cell.id - 1] = image
+                                if selectedImageArray.count > cell.id - 1 {
+                                    self.selectedImageArray[cell.id - 1] = image
+                                }
                                 movingImageView?.removeFromSuperview()
                                 break
                             }
@@ -427,6 +531,8 @@ extension CollageMakerVC: UICollectionViewDelegate {
         collageView.layoutSubviews()
         collageView.setPhotos(photos: self.selectedImageArray)
         
+        collageView.collageType = collageType
+        
         if collageType == .t404 {
             collageView.setViewHaxa(isRoundedHex: true)
         } else if collageType == .t405 {
@@ -458,7 +564,13 @@ extension CollageMakerVC: UICollectionViewDelegate {
         if collageType != .t405 {
             collageView.updateMargin(val: 2.0)
             collageView.updatePadding(val: 2.0)
+            
+            collageView.updateMargin(val: selectedOuter)
+            collageView.updatePadding(val: selectedInner)
         }
+        
+        collageView.updateCornerRedius(val: selectedCorner)
+        collageView.updateBorder(val: selectedBorder)
         
         isFreeFrame = collageType == .t101 ? true : false
         
@@ -594,5 +706,19 @@ extension CollageMakerVC: CollageViewDelegate {
                 }
             }
         }
+    }
+}
+
+extension CollageMakerVC: AMColorPickerDelegate {
+    func colorPicker(_ colorPicker: AMColorPicker, didSelect color: UIColor) {
+        collageView.borderColor = color
+        collageView.updateBorder(val: selectedBorder)
+    }
+}
+
+extension CollageMakerVC: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController,
+                                   traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return .none
     }
 }

@@ -41,21 +41,21 @@ class CollageViewT205: CollageView {
         let lc02 = NSLayoutConstraint(item: cell01, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 0)
         let lc03 = NSLayoutConstraint(item: cell01, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant: 0)
         let lc04 = NSLayoutConstraint(item: cell01, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 0)
-        NSLayoutConstraint.activate([ lc01, lc02, lc03, lc04])
+        NSLayoutConstraint.activate([lc01, lc02, lc03, lc04])
         
         let cell02 = CollageCell(id: 2)
         cell02.delegate = self
         self.addSubview(cell02)
         let lc05 = NSLayoutConstraint(item: cell02, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0)
         let lc06 = NSLayoutConstraint(item: cell02, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0)
-        let lc07 = NSLayoutConstraint(item: cell02, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 0.39, constant: 0)
-        let lc08 = NSLayoutConstraint(item: cell02, attribute: .height, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 0.39, constant: 0)
-        NSLayoutConstraint.activate([ lc05, lc06, lc07, lc08])
+        let lc07 = NSLayoutConstraint(item: cell02, attribute: .width, relatedBy: .equal, toItem: cell01, attribute: .width, multiplier: 0.39, constant: 0)
+        let lc08 = NSLayoutConstraint(item: cell02, attribute: .height, relatedBy: .equal, toItem: cell01, attribute: .width, multiplier: 0.39, constant: 0)
+        NSLayoutConstraint.activate([lc05, lc06, lc07, lc08])
         
         self.marginLeftTopContraints += [lc01, lc02, lc06]
-        self.marginRightBottomContraints += [lc04, lc07, lc08]
-        self.paddingLeftTopContraints += [lc05]
-        self.paddingRightBottomContraints += [lc03]
+        self.marginRightBottomContraints += [lc03, lc04]
+        self.paddingLeftTopContraints += []
+        self.paddingRightBottomContraints += [lc07, lc08]
         self.collageCells += [cell01, cell02]
         
     }

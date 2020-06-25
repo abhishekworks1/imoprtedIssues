@@ -531,7 +531,7 @@ public struct Constant {
 }
 
 class StoryTagGradientLayer: CAGradientLayer { }
-#if !IS_SHAREPOST && !IS_MEDIASHARE && !IS_VIRALVIDS
+#if !IS_SHAREPOST && !IS_MEDIASHARE && !IS_VIRALVIDS && !IS_SOCIALVIDS
 class BaseQuestionTagView: BaseStoryTagView { }
 #endif
 
@@ -555,7 +555,7 @@ enum SlideShowExportType {
     case sendChat
 }
 
-#if !IS_SHAREPOST && !IS_MEDIASHARE && !IS_VIRALVIDS
+#if !IS_SHAREPOST && !IS_MEDIASHARE && !IS_VIRALVIDS  && !IS_SOCIALVIDS
 enum StoriCamType: Equatable {
     case story
     case chat
@@ -685,6 +685,8 @@ enum ProMediaType {
 enum CurrentMode: Int {
     case frames
     case photos
+    case border
+    case space
 }
 
 protocol CollageMakerVCDelegate: class {

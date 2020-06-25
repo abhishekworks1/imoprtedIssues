@@ -191,7 +191,7 @@ class SharePostVC: UIViewController {
                             message: R.string.localizable.createIntroVideo(),
                             actions: [UIAlertAction(title: "OK", style: .default, handler: { _ in
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-                                    _ = self.openURL(URL(string: "viralCam://com.simform.viralcam")!)
+                                    _ = self.openURL(URL(string: "storiCamPro://com.simform.viralcam")!)
                                     self.extensionContext?.completeRequest(returningItems: [], completionHandler: nil)
                                 })
                             }), UIAlertAction(title: "Cancel", style: .default, handler: { (action) in

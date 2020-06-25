@@ -24,6 +24,14 @@ private var kUIViewPropertyBackgroundColor = "kUIViewPropertyBackgroundColor"
 //public let kUIViewPropertyUserInformationValue as? AnyObject;
 //private var kUIViewPropertyUserInformation = "kUIViewPropertyUserInformation"
 
+extension UIView {
+    func removeLayer(layerName: String) {
+        for item in self.layer.sublayers ?? [] where item.name == layerName {
+            item.removeFromSuperlayer()
+        }
+    }
+}
+
 public extension UIView {
     @IBInspectable var cornerRadiusChat: CGFloat {
         get {

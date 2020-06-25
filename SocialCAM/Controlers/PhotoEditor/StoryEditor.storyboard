@@ -27,7 +27,7 @@
         <!--Story Editor View Controller-->
         <scene sceneID="D1R-FE-e3q">
             <objects>
-                <viewController storyboardIdentifier="StoryEditorViewController" id="f9j-8w-2WB" customClass="StoryEditorViewController" customModule="SocialCam" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StoryEditorViewController" id="f9j-8w-2WB" customClass="StoryEditorViewController" customModule="BoomiCam" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="huD-At-JGe">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -970,7 +970,7 @@
                                     <constraint firstAttribute="height" constant="67" id="AZ5-gp-GLy"/>
                                 </constraints>
                             </view>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="mAc-mp-A25" customClass="DragAndDropCollectionView" customModule="SocialCam" customModuleProvider="target">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="mAc-mp-A25" customClass="DragAndDropCollectionView" customModule="BoomiCam" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="705" width="414" height="67"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="KCb-hT-ft3">
@@ -980,7 +980,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="StoryEditorCell" id="T7i-Q0-9Zh" customClass="StoryEditorCell" customModule="SocialCam" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="StoryEditorCell" id="T7i-Q0-9Zh" customClass="StoryEditorCell" customModule="BoomiCam" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="-7" width="50" height="81"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="9kg-Fb-dfg">
@@ -1033,7 +1033,7 @@
                                     <outlet property="delegate" destination="f9j-8w-2WB" id="o9v-af-8Dj"/>
                                 </connections>
                             </collectionView>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="IC4-qA-25p" customClass="DragAndDropCollectionView" customModule="SocialCam" customModuleProvider="target">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="IC4-qA-25p" customClass="DragAndDropCollectionView" customModule="BoomiCam" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="618" width="414" height="67"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -1046,7 +1046,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SlideShowStoryCell" id="TVb-1L-E85" customClass="StoryEditorCell" customModule="SocialCam" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SlideShowStoryCell" id="TVb-1L-E85" customClass="StoryEditorCell" customModule="BoomiCam" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="-7" width="50" height="81"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="pbt-IS-duR">
@@ -1156,7 +1156,7 @@
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="KeyframePickerCollectionViewCell" id="G9K-8n-WUC" customClass="KeyframePickerCollectionViewCell" customModule="SocialCam" customModuleProvider="target">
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="KeyframePickerCollectionViewCell" id="G9K-8n-WUC" customClass="KeyframePickerCollectionViewCell" customModule="BoomiCam" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="-1.6666666666666667" width="95" height="42"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -1503,14 +1503,14 @@
                                         <color key="shadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <size key="shadowOffset" width="0.0" height="1"/>
                                     </label>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EHi-Fl-PHK" customClass="VideoSliderView" customModule="SocialCam" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EHi-Fl-PHK" customClass="VideoSliderView" customModule="BoomiCam" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="20" width="414" height="7"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="7" id="InK-78-Rz9"/>
                                         </constraints>
                                     </view>
-                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="T16-MP-uo2" customClass="ProgressView" customModule="SocialCam" customModuleProvider="target">
+                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="T16-MP-uo2" customClass="ProgressView" customModule="BoomiCam" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="20" width="414" height="3"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="3" id="9ry-S5-M0p"/>
@@ -1603,7 +1603,7 @@
                                             <inset key="sectionInset" minX="16" minY="18" maxX="0.0" maxY="18"/>
                                         </collectionViewFlowLayout>
                                         <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ShareStoryCollectionViewCell" id="eVq-Rc-8JP" customClass="ShareStoryCollectionViewCell" customModule="SocialCam" customModuleProvider="target">
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ShareStoryCollectionViewCell" id="eVq-Rc-8JP" customClass="ShareStoryCollectionViewCell" customModule="BoomiCam" customModuleProvider="target">
                                                 <rect key="frame" x="16" y="18.666666666666668" width="76" height="108"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="3uw-gq-D9d">
@@ -1652,7 +1652,7 @@
                                         <rect key="frame" x="0.0" y="178" width="414" height="0.0"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ShareOptionTableViewCell" rowHeight="62" id="gz4-li-cho" customClass="ShareOptionTableViewCell" customModule="SocialCam" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ShareOptionTableViewCell" rowHeight="62" id="gz4-li-cho" customClass="ShareOptionTableViewCell" customModule="BoomiCam" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="414" height="62"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gz4-li-cho" id="itE-5w-sBG">
@@ -1871,7 +1871,7 @@
         <!--Sticker View Controller-->
         <scene sceneID="HIn-UP-ud1">
             <objects>
-                <viewController storyboardIdentifier="StickerViewController" id="Zvr-GD-0PB" customClass="StickerViewController" customModule="SocialCam" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="StickerViewController" id="Zvr-GD-0PB" customClass="StickerViewController" customModule="BoomiCam" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3vx-eQ-pmX">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1930,7 +1930,7 @@
                                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                         </collectionViewFlowLayout>
                                                         <cells>
-                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="StickerCollectionViewCell" id="Ova-By-I0b" customClass="StickerCollectionViewCell" customModule="SocialCam" customModuleProvider="target">
+                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="StickerCollectionViewCell" id="Ova-By-I0b" customClass="StickerCollectionViewCell" customModule="BoomiCam" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="ilG-CR-gg2">
@@ -1981,7 +1981,7 @@
                                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                         </collectionViewFlowLayout>
                                                         <cells>
-                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="StickerEmojiCollectionViewCell" id="OdN-ED-36x" customClass="StickerEmojiCollectionViewCell" customModule="SocialCam" customModuleProvider="target">
+                                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="StickerEmojiCollectionViewCell" id="OdN-ED-36x" customClass="StickerEmojiCollectionViewCell" customModule="BoomiCam" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="qi4-bf-s09">
@@ -2077,7 +2077,7 @@
         <!--Specific Boomerang View Controller-->
         <scene sceneID="bBY-su-0yT">
             <objects>
-                <viewController storyboardIdentifier="SpecificBoomerangViewController" id="mcN-sd-jUR" customClass="SpecificBoomerangViewController" customModule="SocialCam" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SpecificBoomerangViewController" id="mcN-sd-jUR" customClass="SpecificBoomerangViewController" customModule="BoomiCam" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NL1-O7-8hK">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2085,7 +2085,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9fC-hj-83k">
                                 <rect key="frame" x="0.0" y="792" width="414" height="70"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5YC-iG-fL9" customClass="TrimmerView" customModule="SocialCam" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5YC-iG-fL9" customClass="TrimmerView" customModule="BoomiCam" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="10" width="414" height="50"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -2307,7 +2307,7 @@
         <!--Bitmoji Sticker Picker View Controller-->
         <scene sceneID="5vs-0D-Wzk">
             <objects>
-                <viewController storyboardIdentifier="BitmojiStickerPickerViewController" id="ghq-Mq-6FG" customClass="BitmojiStickerPickerViewController" customModule="SocialCam" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BitmojiStickerPickerViewController" id="ghq-Mq-6FG" customClass="BitmojiStickerPickerViewController" customModule="BoomiCam" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ary-FI-csa">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2374,7 +2374,7 @@
         <!--Keyframe Picker CursorVC-->
         <scene sceneID="CDE-Tq-tsH">
             <objects>
-                <viewController storyboardIdentifier="KeyframePickerCursorVC" id="nIE-hd-eAS" customClass="KeyframePickerCursorVC" customModule="SocialCam" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="KeyframePickerCursorVC" id="nIE-hd-eAS" customClass="KeyframePickerCursorVC" customModule="BoomiCam" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Vb9-Bz-FVT"/>
                         <viewControllerLayoutGuide type="bottom" id="lVA-f8-t4N"/>
@@ -2493,10 +2493,10 @@
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="hashtag_lightGold">
-            <color red="0.98000001907348633" green="0.85100001096725464" blue="0.37999999523162842" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.98039215686274506" green="0.85098039215686272" blue="0.38039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="quetag_darkSkyBlue">
-            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="storytag_watermelon">
             <color red="0.96470588235294119" green="0.30980392156862746" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

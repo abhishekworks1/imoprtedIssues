@@ -12,7 +12,7 @@
         <!--ProTabBarController-->
         <scene sceneID="PJD-oZ-J3w">
             <objects>
-                <tabBarController storyboardIdentifier="HomeTabBarController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="btp-jk-KCy" userLabel="ProTabBarController" customClass="HomeTabBarController" customModule="SocialCam" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="HomeTabBarController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="btp-jk-KCy" userLabel="ProTabBarController" customClass="HomeTabBarController" customModule="BoomiCam" customModuleProvider="target" sceneMemberID="viewController">
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="VPN-hE-qpk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
@@ -72,7 +72,7 @@
         <!--NavControllerSetting-->
         <scene sceneID="HBo-n1-dkP">
             <objects>
-                <navigationController navigationBarHidden="YES" id="N0l-Rx-SUM" userLabel="NavControllerSetting" customClass="HomeNavigationController" customModule="SocialCam" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController navigationBarHidden="YES" id="N0l-Rx-SUM" userLabel="NavControllerSetting" customClass="HomeNavigationController" customModule="BoomiCam" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Profile" image="tab5" selectedImage="selectedTab5" id="xsf-fB-DtV"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="6j9-yz-ruR">
@@ -100,7 +100,7 @@
         <!--NavControllerdashBoard-->
         <scene sceneID="5qQ-p2-Ahw">
             <objects>
-                <navigationController storyboardIdentifier="HomeNavigationController" useStoryboardIdentifierAsRestorationIdentifier="YES" navigationBarHidden="YES" id="rKa-bF-NkQ" userLabel="NavControllerdashBoard" customClass="HomeNavigationController" customModule="SocialCam" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="HomeNavigationController" useStoryboardIdentifierAsRestorationIdentifier="YES" navigationBarHidden="YES" id="rKa-bF-NkQ" userLabel="NavControllerdashBoard" customClass="HomeNavigationController" customModule="BoomiCam" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Home" image="tab1" selectedImage="selectedTab1" id="8KG-Nn-RW3"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="Lcx-za-Chp">
                         <autoresizingMask key="autoresizingMask"/>
@@ -123,7 +123,7 @@
         <!--Home-->
         <scene sceneID="wp7-gC-iYV">
             <objects>
-                <viewController storyboardIdentifier="HomeViewController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Svl-0r-P8L" customClass="HomeViewController" customModule="SocialCam" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeViewController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Svl-0r-P8L" customClass="HomeViewController" customModule="BoomiCam" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NWf-p2-kTp">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -170,11 +170,12 @@
                         <segue destination="fQG-a8-PVj" kind="custom" identifier="mx_page_7" customClass="MXPageSegue" id="msw-Rr-a8v"/>
                         <segue destination="fQG-a8-PVj" kind="custom" identifier="mx_page_8" customClass="MXPageSegue" id="fLa-Du-NyC"/>
                         <segue destination="fQG-a8-PVj" kind="custom" identifier="mx_page_9" customClass="MXPageSegue" id="i7v-IJ-6cc"/>
+                        <segue destination="fQG-a8-PVj" kind="custom" identifier="mx_page_10" customClass="MXPageSegue" id="Umy-ih-Iph"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C7G-EF-6Rb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3226" y="-1951"/>
+            <point key="canvasLocation" x="-3188" y="-1887"/>
         </scene>
         <!--BaseViralVideoVC-->
         <scene sceneID="nDg-jo-2hE">
@@ -197,16 +198,16 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aJI-pF-ZCj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2559" y="-1008"/>
+            <point key="canvasLocation" x="-2597" y="-953"/>
         </scene>
     </scenes>
     <resources>
         <image name="selectedTab1" width="21" height="24"/>
-        <image name="selectedTab2" width="19" height="22"/>
+        <image name="selectedTab2" width="28" height="28"/>
         <image name="selectedTab4" width="26" height="24"/>
         <image name="selectedTab5" width="25" height="25"/>
         <image name="tab1" width="21" height="24"/>
-        <image name="tab2" width="19" height="22"/>
+        <image name="tab2" width="28" height="28"/>
         <image name="tab4" width="26" height="24"/>
         <image name="tab5" width="25" height="25"/>
         <namedColor name="AppPrimaryColor">
@@ -223,6 +224,6 @@
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="i7v-IJ-6cc"/>
+        <segue reference="Umy-ih-Iph"/>
     </inferredMetricsTieBreakers>
 </document>

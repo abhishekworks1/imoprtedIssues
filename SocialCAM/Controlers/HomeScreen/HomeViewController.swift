@@ -11,6 +11,7 @@ import MXSegmentedPager
 
 enum HomeTopSegments: String {
     case follow = "Following"
+    case foryou = "For you"
     case trending = "Trending"
     case hashTag = "#'s"
     case tagged = "Tagged"
@@ -22,7 +23,7 @@ enum HomeTopSegments: String {
     case custom = "Custom"
     
     static var allValues: [HomeTopSegments] {
-        return [.follow, .trending, .hashTag, .tagged, .family, .vip, .featured, .media, .favourite, .custom]
+        return [.follow, .foryou, .trending, .hashTag, .tagged, .family, .vip, .featured, .media, .favourite, .custom]
     }
     
     var next: HomeTopSegments? {
