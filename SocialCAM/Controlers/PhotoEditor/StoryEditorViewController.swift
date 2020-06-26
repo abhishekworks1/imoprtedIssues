@@ -406,7 +406,7 @@ class StoryEditorViewController: UIViewController {
         
         self.editOptionView.isHidden = !isImage
         self.applyFilterOptionView.isHidden = !isImage
-        if !isTimeSpeedApp && !isFastCamApp {
+        if !isTimeSpeedApp && !isFastCamApp && !isPic2ArtApp {
             self.specificBoomerangView.isHidden = (Defaults.shared.appMode != .free && isBoomerang) ? true : isImage
         } else {
             self.specificBoomerangView.isHidden = true
@@ -1449,8 +1449,10 @@ extension StoryEditorViewController: SSUTagSelectionDelegate {
                 storyEditors[currentStoryIndex].addReferLinkView(type: .timespeed)
             case .boomiCam:
                 storyEditors[currentStoryIndex].addReferLinkView(type: .boomicam)
-            case .fastcam:
+            case .fastCam:
                 storyEditors[currentStoryIndex].addReferLinkView(type: .fastcam)
+            case .soccerCam:
+                storyEditors[currentStoryIndex].addReferLinkView(type: .soccercam)
             default:
                 storyEditors[currentStoryIndex].addReferLinkView(type: .viralCam)
             }

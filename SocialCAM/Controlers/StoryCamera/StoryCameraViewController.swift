@@ -610,7 +610,7 @@ class StoryCameraViewController: UIViewController {
     }
     
     func setViewsForApp() {
-        #if VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP || BOOMICAMAPP || FASTCAMAPP
+        #if VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP || BOOMICAMAPP || FASTCAMAPP || SOCCERCAMAPP
             self.fpsView.isHidden = true
         #endif
     }
@@ -676,7 +676,7 @@ class StoryCameraViewController: UIViewController {
         }
         if recordingType != .basicCamera {
             speedSlider.isHidden = Defaults.shared.appMode == .free
-            speedSliderView.isHidden = isPic2ArtApp ? true : Defaults.shared.appMode == .free
+            speedSliderView.isHidden = (isPic2ArtApp || isBoomiCamApp) ? true : Defaults.shared.appMode == .free
         } else {
             speedSlider.isHidden = true
             speedSliderView.isHidden = true
@@ -717,7 +717,7 @@ class StoryCameraViewController: UIViewController {
                 cameraModeArray = cameraModeArray.filter({$0.recordingType != .normal})
                 cameraModeArray = cameraModeArray.filter({$0.recordingType != .capture})
                 cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastMotion})
-
+                cameraModeArray = cameraModeArray.filter({$0.recordingType != .handsfree})
                 Defaults.shared.cameraMode = .basicCamera
                 self.recordingType = Defaults.shared.cameraMode
             } else if self.isFastCamApp {
@@ -739,7 +739,10 @@ class StoryCameraViewController: UIViewController {
                 cameraModeArray = cameraModeArray.filter({$0.recordingType != .normal})
                 cameraModeArray = cameraModeArray.filter({$0.recordingType != .capture})
                 cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastMotion})
-
+                if let index = cameraModeArray.firstIndex(where: { return $0.recordingType == .handsfree}) {
+                    cameraModeArray.remove(at: index)
+                    cameraModeArray.insert(CameraModes(name: R.string.localizable.video2Art(), recordingType: .handsfree), at: index)
+                }
                 Defaults.shared.cameraMode = .basicCamera
                 self.recordingType = Defaults.shared.cameraMode
             }else {
@@ -922,6 +925,7 @@ extension StoryCameraViewController {
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .normal})
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .capture})
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastMotion})
+            cameraModeArray = cameraModeArray.filter({$0.recordingType != .handsfree})
         } else if self.isFastCamApp {
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .slideshow})
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .collage})
@@ -939,6 +943,10 @@ extension StoryCameraViewController {
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .normal})
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .capture})
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastMotion})
+            if let index = cameraModeArray.firstIndex(where: { return $0.recordingType == .handsfree}) {
+                cameraModeArray.remove(at: index)
+                cameraModeArray.insert(CameraModes(name: R.string.localizable.video2Art().uppercased(), recordingType: .handsfree), at: index)
+            }
         } else {
             if Defaults.shared.appMode == .free {
                 cameraModeArray = cameraModeArray.filter({$0.recordingType != .custom})

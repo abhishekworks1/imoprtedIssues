@@ -47,7 +47,7 @@
         <!--Login View Controller-->
         <scene sceneID="Cl9-Tz-g5J">
             <objects>
-                <viewController storyboardIdentifier="LoginViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Q1G-jg-0gQ" userLabel="Login View Controller" customClass="LoginViewController" customModule="SocialCam" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Q1G-jg-0gQ" userLabel="Login View Controller" customClass="LoginViewController" customModule="BoomiCam" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="afH-pE-iuu"/>
                         <viewControllerLayoutGuide type="bottom" id="52c-C7-fPo"/>
@@ -92,7 +92,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="119-OD-di5">
                                         <rect key="frame" x="0.0" y="44" width="414" height="198.5"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="socialcamrgb" translatesAutoresizingMaskIntoConstraints="NO" id="xhd-Uz-8Ht" customClass="DownAnimation" customModule="SocialCam" customModuleProvider="target">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="socialcamrgb" translatesAutoresizingMaskIntoConstraints="NO" id="xhd-Uz-8Ht" customClass="DownAnimation" customModule="BoomiCam" customModuleProvider="target">
                                                 <rect key="frame" x="44" y="38.5" width="326" height="122"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="xhd-Uz-8Ht" secondAttribute="height" multiplier="401:150" id="0rJ-lA-G6u"/>
@@ -110,7 +110,7 @@
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o0W-8N-s07">
                                         <rect key="frame" x="0.0" y="242.5" width="414" height="224.5"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GrD-Kj-spv" customClass="BorderView" customModule="SocialCam" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GrD-Kj-spv" customClass="BorderView" customModule="BoomiCam" customModuleProvider="target">
                                                 <rect key="frame" x="26" y="15" width="362" height="66.5"/>
                                                 <subviews>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email or Channel Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OXa-jX-M9P" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
@@ -163,7 +163,7 @@
                                                             <outlet property="delegate" destination="Q1G-jg-0gQ" id="FS3-Yu-wr9"/>
                                                         </connections>
                                                     </textField>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tCE-FJ-ChS" customClass="PButton" customModule="SocialCam" customModuleProvider="target">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tCE-FJ-ChS" customClass="PButton" customModule="BoomiCam" customModuleProvider="target">
                                                         <rect key="frame" x="325" y="17.5" width="32" height="32"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="32" id="J7Q-q3-dgA"/>
@@ -194,7 +194,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C3u-Kp-o67" customClass="BorderView" customModule="SocialCam" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C3u-Kp-o67" customClass="BorderView" customModule="BoomiCam" customModuleProvider="target">
                                                 <rect key="frame" x="26" y="96.5" width="362" height="66"/>
                                                 <subviews>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zQo-94-51O" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
@@ -247,7 +247,7 @@
                                                             <outlet property="delegate" destination="Q1G-jg-0gQ" id="S5E-Vh-tZT"/>
                                                         </connections>
                                                     </textField>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dWv-Ar-1JC" customClass="PButton" customModule="SocialCam" customModuleProvider="target">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dWv-Ar-1JC" customClass="PButton" customModule="BoomiCam" customModuleProvider="target">
                                                         <rect key="frame" x="325" y="17" width="32" height="32"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="32" id="DaM-qT-jkh"/>
@@ -281,7 +281,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forgot Password ?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lHP-hL-VjA" customClass="PLabel" customModule="SocialCam" customModuleProvider="target">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forgot Password ?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lHP-hL-VjA" customClass="PLabel" customModule="BoomiCam" customModuleProvider="target">
                                                 <rect key="frame" x="269.5" y="172.5" width="118.5" height="34"/>
                                                 <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="14"/>
                                                 <color key="textColor" red="0.098039215690000001" green="0.12549019610000001" blue="0.18039215689999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -311,7 +311,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6nn-YT-Mbv">
                                         <rect key="frame" x="0.0" y="467" width="414" height="292"/>
                                         <subviews>
-                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qAB-KS-iXM" customClass="ColorRoundedView" customModule="SocialCam" customModuleProvider="target">
+                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qAB-KS-iXM" customClass="ColorRoundedView" customModule="BoomiCam" customModuleProvider="target">
                                                 <rect key="frame" x="26" y="0.0" width="362" height="55"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jPl-4q-PE6">
@@ -320,7 +320,7 @@
                                                             <action selector="btnLoginClicked:" destination="Q1G-jg-0gQ" eventType="touchUpInside" id="epg-hB-CuN"/>
                                                         </connections>
                                                     </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="STm-hj-kk2" customClass="PLabel" customModule="SocialCam" customModuleProvider="target">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="STm-hj-kk2" customClass="PLabel" customModule="BoomiCam" customModuleProvider="target">
                                                         <rect key="frame" x="163.5" y="19.5" width="35" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="SFUIText-Bold" family="SF UI Text" pointSize="14"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -350,16 +350,16 @@
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isRoundView" value="NO"/>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o0V-pY-q8D" customClass="RoundedView" customModule="SocialCam" customModuleProvider="target">
+                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o0V-pY-q8D" customClass="RoundedView" customModule="BoomiCam" customModuleProvider="target">
                                                 <rect key="frame" x="44.5" y="77" width="325" height="57.5"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="enJ-mr-NZE" customClass="PButton" customModule="SocialCam" customModuleProvider="target">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="enJ-mr-NZE" customClass="PButton" customModule="BoomiCam" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="325" height="57.5"/>
                                                         <connections>
                                                             <action selector="btnSignUpClickedWithSender:" destination="Q1G-jg-0gQ" eventType="touchUpInside" id="cLH-9O-9bG"/>
                                                         </connections>
                                                     </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SIGN UP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="16Z-nK-peE" customClass="PLabel" customModule="SocialCam" customModuleProvider="target">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SIGN UP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="16Z-nK-peE" customClass="PLabel" customModule="BoomiCam" customModuleProvider="target">
                                                         <rect key="frame" x="129" y="19" width="67.5" height="19.5"/>
                                                         <fontDescription key="fontDescription" name="SFUIText-Bold" family="SF UI Text" pointSize="16"/>
                                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -397,7 +397,7 @@
                                                             <constraint firstAttribute="width" constant="63" id="kad-gd-iQv"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0us-cO-hYe" customClass="RoundedView" customModule="SocialCam" customModuleProvider="target">
+                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0us-cO-hYe" customClass="RoundedView" customModule="BoomiCam" customModuleProvider="target">
                                                         <rect key="frame" x="175.5" y="15.5" width="63.5" height="39"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <userDefinedRuntimeAttributes>
@@ -409,7 +409,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xCS-wz-LON" customClass="PLabel" customModule="SocialCam" customModuleProvider="target">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xCS-wz-LON" customClass="PLabel" customModule="BoomiCam" customModuleProvider="target">
                                                         <rect key="frame" x="195.5" y="25.5" width="23.5" height="19"/>
                                                         <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="16"/>
                                                         <color key="textColor" red="0.098039215690000001" green="0.12549019610000001" blue="0.18039215689999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -439,10 +439,10 @@
                                                     <constraint firstItem="xCS-wz-LON" firstAttribute="top" secondItem="0us-cO-hYe" secondAttribute="top" constant="10" id="qF4-m4-HmY"/>
                                                 </constraints>
                                             </view>
-                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xf4-8X-bvb" customClass="BorderView" customModule="SocialCam" customModuleProvider="target">
+                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xf4-8X-bvb" customClass="BorderView" customModule="BoomiCam" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="145" width="414" height="72"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mGX-qf-yBD" customClass="UpAnimation" customModule="SocialCam" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mGX-qf-yBD" customClass="UpAnimation" customModule="BoomiCam" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="72"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="ofQ-lC-bxH">
@@ -676,7 +676,7 @@
         <!--Sign up Step 1-->
         <scene sceneID="wul-Zd-m8Z">
             <objects>
-                <viewController storyboardIdentifier="SignUpStepOneViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Dl4-Rf-8uf" userLabel="Sign up Step 1" customClass="SignUpStepOneViewController" customModule="SocialCam" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SignUpStepOneViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Dl4-Rf-8uf" userLabel="Sign up Step 1" customClass="SignUpStepOneViewController" customModule="BoomiCam" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="opR-MW-eAF"/>
                         <viewControllerLayoutGuide type="bottom" id="jGf-SE-LaG"/>
@@ -685,7 +685,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nk7-Bp-uH8" customClass="BorderView" customModule="SocialCam" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nk7-Bp-uH8" customClass="BorderView" customModule="BoomiCam" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="24" width="414" height="0.0"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -698,10 +698,10 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o2F-Q1-Zjn">
                                 <rect key="frame" x="41.5" y="795" width="331" height="52"/>
                                 <subviews>
-                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cOl-ac-1U9" customClass="ColorRoundedView" customModule="SocialCam" customModuleProvider="target">
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cOl-ac-1U9" customClass="ColorRoundedView" customModule="BoomiCam" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="331" height="52"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fH8-W4-NIg" customClass="PButton" customModule="SocialCam" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fH8-W4-NIg" customClass="PButton" customModule="BoomiCam" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="331" height="52"/>
                                                 <fontDescription key="fontDescription" name="SFUIText-Bold" family="SF UI Text" pointSize="16"/>
                                                 <state key="normal" title="Sign Up"/>
@@ -733,14 +733,14 @@
                                     <constraint firstItem="cOl-ac-1U9" firstAttribute="centerY" secondItem="o2F-Q1-Zjn" secondAttribute="centerY" id="k5O-Q4-Kee"/>
                                 </constraints>
                             </view>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SMf-rb-cJY">
-                                <rect key="frame" x="0.0" y="-35" width="414" height="751"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SMf-rb-cJY">
+                                <rect key="frame" x="0.0" y="34" width="414" height="751"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sHV-c1-C3h">
                                         <rect key="frame" x="0.0" y="25" width="414" height="33"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SIGN UP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PU7-Ya-kew">
-                                                <rect key="frame" x="170" y="6" width="74.5" height="21.5"/>
+                                                <rect key="frame" x="170.5" y="6" width="73" height="21"/>
                                                 <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="18"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -754,19 +754,19 @@
                                         </constraints>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="Ro9-wp-cI6">
-                                        <rect key="frame" x="31" y="58" width="352" height="493.5"/>
+                                        <rect key="frame" x="31" y="58" width="352" height="407.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tLF-fY-J5f">
                                                 <rect key="frame" x="0.0" y="0.0" width="352" height="150"/>
                                                 <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="viralcamrgb" translatesAutoresizingMaskIntoConstraints="NO" id="vsn-so-8Uy" customClass="RoundedImageView" customModule="SocialCam" customModuleProvider="target">
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="viralcamrgb" translatesAutoresizingMaskIntoConstraints="NO" id="vsn-so-8Uy" customClass="RoundedImageView" customModule="BoomiCam" customModuleProvider="target">
                                                         <rect key="frame" x="121" y="20" width="110" height="110"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="110" id="Sbf-05-QRX"/>
                                                             <constraint firstAttribute="width" secondItem="vsn-so-8Uy" secondAttribute="height" multiplier="1:1" id="TUb-zl-T5v"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xZP-Ga-5xe" customClass="RoundedButton" customModule="SocialCam" customModuleProvider="target">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xZP-Ga-5xe" customClass="RoundedButton" customModule="BoomiCam" customModuleProvider="target">
                                                         <rect key="frame" x="198" y="97" width="30" height="30"/>
                                                         <color key="backgroundColor" name="AppPrimaryColor"/>
                                                         <constraints>
@@ -800,7 +800,7 @@
                                                 <rect key="frame" x="0.0" y="157.5" width="352" height="71"/>
                                                 <subviews>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Tak-YE-LSB" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                                        <rect key="frame" x="0.0" y="41" width="352" height="20"/>
+                                                        <rect key="frame" x="0.0" y="42" width="352" height="19"/>
                                                         <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="16"/>
                                                         <textInputTraits key="textInputTraits" returnKeyType="next"/>
                                                         <userDefinedRuntimeAttributes>
@@ -833,7 +833,7 @@
                                                             <outlet property="delegate" destination="Dl4-Rf-8uf" id="Agp-QC-1iT"/>
                                                         </connections>
                                                     </textField>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0/25" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="srK-E0-g09" customClass="PLabel" customModule="SocialCam" customModuleProvider="target">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0/25" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="srK-E0-g09" customClass="PLabel" customModule="BoomiCam" customModuleProvider="target">
                                                         <rect key="frame" x="327.5" y="65" width="24.5" height="14"/>
                                                         <fontDescription key="fontDescription" name="SofiaPro-Light" family="Sofia Pro" pointSize="12"/>
                                                         <color key="textColor" red="1" green="0.0" blue="0.1333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -852,11 +852,11 @@
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c61-5c-ETd">
                                                 <rect key="frame" x="0.0" y="157.5" width="352" height="0.0"/>
                                                 <subviews>
-                                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xlb-oY-1mz" customClass="BorderView" customModule="SocialCam" customModuleProvider="target">
-                                                        <rect key="frame" x="15" y="-22" width="322" height="44"/>
+                                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xlb-oY-1mz" customClass="BorderView" customModule="BoomiCam" customModuleProvider="target">
+                                                        <rect key="frame" x="6" y="-21.5" width="340.5" height="43"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to STORiCAM, your referrer channel url is http://spinach.cafe/abc" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JxU-Ub-NDz" customClass="PLabel" customModule="SocialCam" customModuleProvider="target">
-                                                                <rect key="frame" x="15" y="7.5" width="292" height="29"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to STORiCAM, your referrer channel url is http://spinach.cafe/abc" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JxU-Ub-NDz" customClass="PLabel" customModule="BoomiCam" customModuleProvider="target">
+                                                                <rect key="frame" x="15" y="7.5" width="310.5" height="28"/>
                                                                 <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="12"/>
                                                                 <color key="textColor" red="0.1529411765" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -888,7 +888,7 @@
                                                 <rect key="frame" x="0.0" y="157.5" width="352" height="71"/>
                                                 <subviews>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Channel Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wvi-XG-bWS" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                                        <rect key="frame" x="0.0" y="46" width="352" height="20"/>
+                                                        <rect key="frame" x="0.0" y="47" width="352" height="19"/>
                                                         <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="16"/>
                                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next"/>
                                                         <userDefinedRuntimeAttributes>
@@ -934,7 +934,7 @@
                                                 <rect key="frame" x="0.0" y="165" width="352" height="71"/>
                                                 <subviews>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RlP-q6-oLk" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                                        <rect key="frame" x="15" y="25.5" width="310" height="20"/>
+                                                        <rect key="frame" x="15" y="26" width="310" height="19"/>
                                                         <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="16"/>
                                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next"/>
                                                         <userDefinedRuntimeAttributes>
@@ -973,7 +973,7 @@
                                                             <outlet property="delegate" destination="Dl4-Rf-8uf" id="8Pp-Wu-LpR"/>
                                                         </connections>
                                                     </textField>
-                                                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7L4-g6-VrN" customClass="PButton" customModule="SocialCam" customModuleProvider="target">
+                                                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7L4-g6-VrN" customClass="PButton" customModule="BoomiCam" customModuleProvider="target">
                                                         <rect key="frame" x="315" y="19.5" width="32" height="32"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="32" id="cI1-fB-DuL"/>
@@ -1004,7 +1004,7 @@
                                                 <rect key="frame" x="0.0" y="251" width="352" height="71"/>
                                                 <subviews>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Gvo-fd-CKq" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                                        <rect key="frame" x="15" y="25.5" width="295" height="20"/>
+                                                        <rect key="frame" x="15" y="26" width="295" height="19"/>
                                                         <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="16"/>
                                                         <textInputTraits key="textInputTraits" returnKeyType="next" secureTextEntry="YES"/>
                                                         <userDefinedRuntimeAttributes>
@@ -1043,7 +1043,7 @@
                                                             <outlet property="delegate" destination="Dl4-Rf-8uf" id="KkZ-8X-cMx"/>
                                                         </connections>
                                                     </textField>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LJm-QX-u4c" customClass="PButton" customModule="SocialCam" customModuleProvider="target">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LJm-QX-u4c" customClass="PButton" customModule="BoomiCam" customModuleProvider="target">
                                                         <rect key="frame" x="315" y="19.5" width="32" height="32"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="32" id="PMo-7r-RDI"/>
@@ -1072,8 +1072,8 @@
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="addShadow" value="YES"/>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VQq-dZ-L5f">
-                                                <rect key="frame" x="0.0" y="337" width="352" height="70.5"/>
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VQq-dZ-L5f">
+                                                <rect key="frame" x="0.0" y="329.5" width="352" height="70.5"/>
                                                 <subviews>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hjT-SL-gzR" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
                                                         <rect key="frame" x="0.0" y="25" width="318" height="41"/>
@@ -1115,7 +1115,7 @@
                                                             <outlet property="delegate" destination="Dl4-Rf-8uf" id="f1R-kM-t3r"/>
                                                         </connections>
                                                     </textField>
-                                                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c7Y-CH-wjf" customClass="PButton" customModule="SocialCam" customModuleProvider="target">
+                                                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c7Y-CH-wjf" customClass="PButton" customModule="BoomiCam" customModuleProvider="target">
                                                         <rect key="frame" x="315" y="19" width="32" height="32"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="32" id="Unk-8s-tyv"/>
@@ -1143,10 +1143,10 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FOB-h3-i8K">
-                                                <rect key="frame" x="0.0" y="422.5" width="352" height="71"/>
+                                                <rect key="frame" x="0.0" y="337" width="352" height="70.5"/>
                                                 <subviews>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wgt-S8-uFZ" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                                        <rect key="frame" x="15" y="25.5" width="297" height="20"/>
+                                                        <rect key="frame" x="15" y="25.5" width="297" height="19"/>
                                                         <color key="textColor" red="0.1529411765" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="16"/>
                                                         <textInputTraits key="textInputTraits" returnKeyType="done"/>
@@ -1187,7 +1187,7 @@
                                                         </connections>
                                                     </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TVg-TT-e6W">
-                                                        <rect key="frame" x="317" y="20.5" width="30" height="30"/>
+                                                        <rect key="frame" x="317" y="20" width="30" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="JEh-hX-Pxu"/>
                                                             <constraint firstAttribute="width" constant="30" id="fpk-Vl-wrZ"/>
@@ -1211,9 +1211,9 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Eb-kw-7d5">
-                                                <rect key="frame" x="0.0" y="493.5" width="352" height="70.5"/>
+                                                <rect key="frame" x="0.0" y="407.5" width="352" height="71"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0qV-Kq-YA5" customClass="BorderView" customModule="SocialCam" customModuleProvider="target">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0qV-Kq-YA5" customClass="BorderView" customModule="BoomiCam" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="25.5" width="20" height="20"/>
                                                         <subviews>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="e1q-4E-qmc">
@@ -1242,13 +1242,13 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Is this a business?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qea-CD-Jwy">
-                                                        <rect key="frame" x="28" y="25.5" width="137.5" height="19.5"/>
+                                                        <rect key="frame" x="28" y="26" width="132" height="19"/>
                                                         <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="16"/>
                                                         <color key="textColor" red="0.1529411765" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QwY-6e-niR">
-                                                        <rect key="frame" x="0.0" y="25.5" width="165.5" height="20"/>
+                                                        <rect key="frame" x="0.0" y="25.5" width="160" height="20"/>
                                                         <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="16"/>
                                                         <connections>
                                                             <action selector="btnBusinessClicked:" destination="Dl4-Rf-8uf" eventType="touchUpInside" id="1ZD-ln-sVA"/>
@@ -1336,7 +1336,7 @@
         <!--SearchChannel-->
         <scene sceneID="tad-Nm-iT5">
             <objects>
-                <viewController storyboardIdentifier="SearchChannelViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="iMk-Xs-uUi" userLabel="SearchChannel" customClass="SearchChannelViewController" customModule="SocialCam" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SearchChannelViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="iMk-Xs-uUi" userLabel="SearchChannel" customClass="SearchChannelViewController" customModule="BoomiCam" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vVm-oa-Lh7"/>
                         <viewControllerLayoutGuide type="bottom" id="eJo-mI-1K4"/>
@@ -1357,7 +1357,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="400" height="10"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XMW-oV-UWe" customClass="BorderView" customModule="SocialCam" customModuleProvider="target">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XMW-oV-UWe" customClass="BorderView" customModule="BoomiCam" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="400" height="20"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <userDefinedRuntimeAttributes>
@@ -1381,38 +1381,38 @@
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ChanelCell" rowHeight="114" id="Y6l-1F-gyn" customClass="ChanelCell" customModule="SocialCam" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ChanelCell" rowHeight="114" id="Y6l-1F-gyn" customClass="ChanelCell" customModule="BoomiCam" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="38" width="400" height="114"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Y6l-1F-gyn" id="AbF-S7-rhj">
                                             <rect key="frame" x="0.0" y="0.0" width="400" height="114"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0Vu-tw-yR6" customClass="RoundedImageView" customModule="SocialCam" customModuleProvider="target">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0Vu-tw-yR6" customClass="RoundedImageView" customModule="BoomiCam" customModuleProvider="target">
                                                     <rect key="frame" x="35" y="25" width="53.5" height="53.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="0Vu-tw-yR6" secondAttribute="height" multiplier="1:1" id="518-Ki-JgW"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Lisa Cuddy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JmX-8X-NmO" customClass="PLabel" customModule="SocialCam" customModuleProvider="target">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Lisa Cuddy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JmX-8X-NmO" customClass="PLabel" customModule="BoomiCam" customModuleProvider="target">
                                                     <rect key="frame" x="102.5" y="25" width="71" height="17"/>
                                                     <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="14"/>
                                                     <color key="textColor" red="0.22352941179999999" green="0.22352941179999999" blue="0.22352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1mh-Gu-usg" customClass="PLabel" customModule="SocialCam" customModuleProvider="target">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1mh-Gu-usg" customClass="PLabel" customModule="BoomiCam" customModuleProvider="target">
                                                     <rect key="frame" x="102.5" y="42" width="269.5" height="0.0"/>
                                                     <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="14"/>
                                                     <color key="textColor" red="0.36470588240000001" green="0.36470588240000001" blue="0.36470588240000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="225" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GX4-Rl-oma" customClass="PLabel" customModule="SocialCam" customModuleProvider="target">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="225" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GX4-Rl-oma" customClass="PLabel" customModule="BoomiCam" customModuleProvider="target">
                                                     <rect key="frame" x="102.5" y="42" width="269.5" height="16.5"/>
                                                     <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="14"/>
                                                     <color key="textColor" red="0.48627450979999998" green="0.48627450979999998" blue="0.48627450979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q7z-ML-iW6" customClass="PButton" customModule="SocialCam" customModuleProvider="target">
+                                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q7z-ML-iW6" customClass="PButton" customModule="BoomiCam" customModuleProvider="target">
                                                     <rect key="frame" x="382" y="42.5" width="0.0" height="29"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" id="XCJ-Cr-QM9"/>
@@ -1466,7 +1466,7 @@
                                     <outlet property="dataSource" destination="iMk-Xs-uUi" id="B6M-Wa-f1Q"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P8Z-J3-xk1" customClass="BorderView" customModule="SocialCam" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P8Z-J3-xk1" customClass="BorderView" customModule="BoomiCam" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="24" width="414" height="70"/>
                                 <subviews>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="blq-4R-7Be">
@@ -1493,7 +1493,7 @@
                                         <color key="textColor" red="0.25882352939999997" green="0.25882352939999997" blue="0.25490196079999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZtC-Fn-gMA" customClass="BorderView" customModule="SocialCam" customModuleProvider="target">
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZtC-Fn-gMA" customClass="BorderView" customModule="BoomiCam" customModuleProvider="target">
                                         <rect key="frame" x="56.5" y="21" width="340.5" height="48"/>
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search Channel" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mxB-Fd-QGl">

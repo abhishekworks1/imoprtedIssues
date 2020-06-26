@@ -312,6 +312,11 @@ class StoryAssetExportSession {
         if watermarkPosition == .topLeft {
             image = R.image.viralcamWaterMark()
         }
+        #elseif SOCCERCAMAPP
+        var image = R.image.soccercamWatermarkLogo()
+        if watermarkPosition == .topLeft {
+            image = R.image.soccercamWatermarkLogo()
+        }
         #elseif PIC2ARTAPP
         var image = R.image.pic2artWatermarkLogo()
         if watermarkPosition == .topLeft {
