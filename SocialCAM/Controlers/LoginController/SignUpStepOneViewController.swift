@@ -241,8 +241,8 @@ class SignUpStepOneViewController: UIViewController {
             self.showAlert(alertMessage: R.string.localizable.emailAlreadyExist())
         } else if password.isEmpty {
             self.showAlert(alertMessage: R.string.localizable.pleaseEnterPassword())
-        } else if birthdate.isEmpty {
-            self.showAlert(alertMessage: R.string.localizable.pleaseSelectBirthdate())
+//        } else if birthdate.isEmpty {
+//            self.showAlert(alertMessage: R.string.localizable.pleaseSelectBirthdate())
         } else if refChannel.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
             self.showAlert(alertMessage: R.string.localizable.pleaseEnterTheNameOfYourReferringChannelIfYouDoNotHaveOneUseTheSearchFeatureToFindAChannelToUse())
         } else if !self.isRefChannel {

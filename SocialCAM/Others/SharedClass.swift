@@ -385,6 +385,11 @@ public struct Constant {
         static let groupIdentifier: String = "group.com.simform.storiCamPro"
         static let simformIdentifier: String = "com.simform.viralcam"
         static let proModeCode: String = "viralcam2020"
+        #elseif SOCCERCAMAPP
+        static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "SoccerCam"
+        static let groupIdentifier: String = "group.com.simform.storiCamPro"
+        static let simformIdentifier: String = "com.simform.SoccerCam"
+        static let proModeCode: String = "soccercam2020"
         #elseif PIC2ARTAPP
         static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "ViralCam"
         static let groupIdentifier: String = "group.com.simform.storiCamPro"
@@ -459,6 +464,10 @@ public struct Constant {
             static let redirectUrl = "https://fastcam-475e3.firebaseapp.com/__/auth/handler"
             static let clientId = "269809577621901"
             static let clientSecret = "249aca0886ce40cb8a816c108aa1a7cd"
+        #elseif SOCCERCAMAPP
+            static let redirectUrl = "https://soccercam-d15a0.firebaseapp.com/__/auth/handler"
+            static let clientId = "361365258591189"
+            static let clientSecret = "dd1b754b16bb106217d18e8935b46c8c"
         #else
             static let redirectUrl = "https://viralcam-c3c84.firebaseapp.com/__/auth/handler"
             static let clientId = "228138878240656"
@@ -489,6 +498,9 @@ public struct Constant {
         #elseif VIRALCAMAPP
             static let serviceKey: String = "AIzaSyBbkguZz4hljlOd-Cs0u5b2GyVUNt7Y1m4"
             static let placeClientKey: String = "AIzaSyBbkguZz4hljlOd-Cs0u5b2GyVUNt7Y1m4"
+        #elseif SOCCERCAMAPP
+            static let serviceKey: String = "AIzaSyD8EqdyN152SfMvOhB4nUCRk_5aWoP-U1A"
+            static let placeClientKey: String = "AIzaSyD8EqdyN152SfMvOhB4nUCRk_5aWoP-U1A"
         #elseif PIC2ARTAPP
             static let serviceKey: String = "AIzaSyBOBVwEf8bMfwCreZS-IBAEqm57A0szOfg"
             static let placeClientKey: String = "AIzaSyBOBVwEf8bMfwCreZS-IBAEqm57A0szOfg"

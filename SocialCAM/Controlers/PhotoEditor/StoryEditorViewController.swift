@@ -406,7 +406,7 @@ class StoryEditorViewController: UIViewController {
         
         self.editOptionView.isHidden = !isImage
         self.applyFilterOptionView.isHidden = !isImage
-        if !isTimeSpeedApp && !isFastCamApp {
+        if !isTimeSpeedApp && !isFastCamApp && !isPic2ArtApp {
             self.specificBoomerangView.isHidden = (Defaults.shared.appMode != .free && isBoomerang) ? true : isImage
         } else {
             self.specificBoomerangView.isHidden = true
@@ -418,11 +418,10 @@ class StoryEditorViewController: UIViewController {
             self.ssuTagView.isHidden = true
         }
         if !isFastCamApp {
-            self.pic2ArtOptionView.isHidden = (Defaults.shared.appMode != .free && Defaults.shared.appMode != .basic && !isPic2ArtApp) ? !isImage : true
+            self.pic2ArtOptionView.isHidden = (Defaults.shared.appMode != .free && Defaults.shared.appMode != .basic) ? !isImage : true
         } else {
             self.pic2ArtOptionView.isHidden = true
         }
-        
         self.soundOptionView.isHidden = isImage
         self.trimOptionView.isHidden = isImage
         if !isBoomiCamApp && !isFastCamApp {
@@ -1450,8 +1449,10 @@ extension StoryEditorViewController: SSUTagSelectionDelegate {
                 storyEditors[currentStoryIndex].addReferLinkView(type: .timespeed)
             case .boomiCam:
                 storyEditors[currentStoryIndex].addReferLinkView(type: .boomicam)
-            case .fastcam:
+            case .fastCam:
                 storyEditors[currentStoryIndex].addReferLinkView(type: .fastcam)
+            case .soccerCam:
+                storyEditors[currentStoryIndex].addReferLinkView(type: .soccercam)
             default:
                 storyEditors[currentStoryIndex].addReferLinkView(type: .viralCam)
             }

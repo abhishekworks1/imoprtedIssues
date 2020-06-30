@@ -155,21 +155,25 @@ class StoryAssetExportSession {
                 }
             }
         }
-        
+        var isFirstFrame = true
         videoInput.requestMediaDataWhenReady(on: videoInputQueue) {
             while videoInput.isReadyForMoreMediaData {
                 if let sample = assetReaderVideoOutput.copyNextSampleBuffer() {
                     autoreleasepool {
-                        let buffer = self.renderWithTransformation(sampleBuffer: sample)
-                        pixelBufferAdaptor.append(buffer,
-                                                  withPresentationTime: CMSampleBufferGetPresentationTimeStamp(sample))
-                        let currentTime = CMSampleBufferGetPresentationTimeStamp(sample)
-                        if currentTime.seconds > 5.0 {
-                            self.watermarkAdded = false
-                            self.watermarkPosition = .bottomRight
+                        if isFirstFrame {
+                            isFirstFrame = false
+                        } else {
+                            let buffer = self.renderWithTransformation(sampleBuffer: sample)
+                            pixelBufferAdaptor.append(buffer,
+                                                      withPresentationTime: CMSampleBufferGetPresentationTimeStamp(sample))
+                            let currentTime = CMSampleBufferGetPresentationTimeStamp(sample)
+                            if currentTime.seconds > 5.0 {
+                                self.watermarkAdded = false
+                                self.watermarkPosition = .bottomRight
+                            }
+                            let currentProgress = currentTime.seconds / asset.duration.seconds
+                            progress?(Float(currentProgress))
                         }
-                        let currentProgress = currentTime.seconds / asset.duration.seconds
-                        progress?(Float(currentProgress))
                     }
                 } else {
                     videoInput.markAsFinished()
@@ -307,6 +311,11 @@ class StoryAssetExportSession {
         var image = R.image.viralcamWatermarkLogo()
         if watermarkPosition == .topLeft {
             image = R.image.viralcamWaterMark()
+        }
+        #elseif SOCCERCAMAPP
+        var image = R.image.soccercamWatermarkLogo()
+        if watermarkPosition == .topLeft {
+            image = R.image.soccercamWatermarkLogo()
         }
         #elseif PIC2ARTAPP
         var image = R.image.pic2artWatermarkLogo()

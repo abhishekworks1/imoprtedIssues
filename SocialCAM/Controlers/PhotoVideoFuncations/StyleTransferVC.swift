@@ -197,13 +197,7 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
     
     var coreMLExporter = CoreMLExporter()
     
-    var isPic2ArtApp: Bool {
-        #if PIC2ARTAPP
-        return true
-        #else
-        return false
-        #endif
-    }
+    var isPic2ArtApp: Bool = false
     
     deinit {
         print("Deinit \(self.description)")
@@ -244,6 +238,10 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
         super.viewDidAppear(animated)
         if !self.videoView.isHidden {
             observeState()
+            self.videoView.player.pause()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.videoView.player.play()
+            }
         }
     }
     
@@ -435,8 +433,8 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
                     updatedSegments.remove(at: index)
                     updatedSegments.insert(updatedSegment, at: index)
                     DispatchQueue.main.async {
-                        self.doneHandler?(updatedSegments, sender.tag)
                         self.navigationController?.popViewController(animated: true)
+                        self.doneHandler?(updatedSegments, sender.tag)
                     }
                 }
             })

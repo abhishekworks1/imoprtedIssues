@@ -83,6 +83,9 @@ class VerticalBar: UIStackView {
                     view.lineColor = .clear
                 }
             }
+            #if PIC2ARTAPP || BOOMICAMAPP
+            view.lineColor = .clear
+            #endif
             view.draw(view.frame)
         }
     }
