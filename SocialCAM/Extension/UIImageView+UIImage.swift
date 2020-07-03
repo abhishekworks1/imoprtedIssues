@@ -113,7 +113,7 @@ extension UIImageView {
         return floatAlpha
     }
     
-    #if SOCIALCAMAPP || VIRALCAMAPP || SOCCERCAMAPP
+    #if SOCIALCAMAPP || VIRALCAMAPP || SOCCERCAMAPP || FUTBOLCAMAPP
     func aspectFitCenterFor(_ center: CGPoint) -> CGPoint {
         return CGPoint(x: (aspectFitSize.width*center.x / 100) + ((UIScreen.width - aspectFitSize.width)/2),
                        y: (aspectFitSize.height*CGFloat(center.y) / 100) + ((UIScreen.height - aspectFitSize.height)/2))

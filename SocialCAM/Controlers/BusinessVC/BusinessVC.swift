@@ -61,12 +61,21 @@ struct BusinessVCOption {
 class BusinessVC: UIViewController {
 
     @IBOutlet weak var navigationTitle: UILabel!
-    
+    @IBOutlet weak var navigationImageView: UIImageView!
+
     @IBOutlet weak var collectionView: UICollectionView!
+    
+    var isFutbolCamApp: Bool {
+        #if FUTBOLCAMAPP
+        return true
+        #else
+        return false
+        #endif
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        navigationImageView.isHidden = !isFutbolCamApp
     }
     
     @IBAction func onBack(_ sender: UIButton) {
