@@ -421,6 +421,22 @@ public struct Constant {
         
         static let imageIdentifier: String = "www.google.com"
         static let splashImagesFolderName: String = "SplashImages"
+        
+        #if SOCIALCAMAPP
+            static let publicLink = URL(string: "https://testflight.apple.com/join/6zE0nt7P")
+        #elseif VIRALCAMAPP
+            static let publicLink = URL(string: "https://testflight.apple.com/join/sk1foNLO")
+        #elseif SOCCERCAMAPP
+            static let publicLink = URL(string: "https://testflight.apple.com/join/1dRtt5SV")
+        #elseif PIC2ARTAPP
+            static let publicLink = URL(string: "https://testflight.apple.com/join/hshtsh9O")
+        #elseif BOOMICAMAPP
+            static let publicLink = URL(string: "https://testflight.apple.com/join/kYCCo1AW")
+        #elseif TIMESPEEDAPP
+            static let publicLink = URL(string: "https://testflight.apple.com/join/MhCuGbHp")
+        #elseif FASTCAMAPP
+            static let publicLink = URL(string: "")
+        #endif
     }
     
     struct PayPalMobile {
@@ -531,7 +547,7 @@ public struct Constant {
 }
 
 class StoryTagGradientLayer: CAGradientLayer { }
-#if !IS_SHAREPOST && !IS_MEDIASHARE && !IS_VIRALVIDS
+#if !IS_SHAREPOST && !IS_MEDIASHARE && !IS_VIRALVIDS && !IS_SOCIALVIDS
 class BaseQuestionTagView: BaseStoryTagView { }
 #endif
 
@@ -555,7 +571,7 @@ enum SlideShowExportType {
     case sendChat
 }
 
-#if !IS_SHAREPOST && !IS_MEDIASHARE && !IS_VIRALVIDS
+#if !IS_SHAREPOST && !IS_MEDIASHARE && !IS_VIRALVIDS  && !IS_SOCIALVIDS
 enum StoriCamType: Equatable {
     case story
     case chat
@@ -685,6 +701,8 @@ enum ProMediaType {
 enum CurrentMode: Int {
     case frames
     case photos
+    case border
+    case space
 }
 
 protocol CollageMakerVCDelegate: class {

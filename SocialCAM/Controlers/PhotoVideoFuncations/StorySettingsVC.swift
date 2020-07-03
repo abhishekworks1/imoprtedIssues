@@ -68,10 +68,6 @@ class StorySettings {
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.cameraSettings(), selected: false)], settingsType: .cameraSettings),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.socialConnections(), selected: false)], settingsType: .socialConnections),
-                                StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.channelManagement(), selected: false)], settingsType: .channelManagement),
-                                StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.logout(), selected: false)], settingsType: .logout),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.controlCenter(), selected: false)], settingsType: .controlcenter),
@@ -87,7 +83,6 @@ class StorySettingsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     deinit {

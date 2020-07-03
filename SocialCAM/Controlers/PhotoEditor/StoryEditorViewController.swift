@@ -1453,6 +1453,8 @@ extension StoryEditorViewController: SSUTagSelectionDelegate {
                 storyEditors[currentStoryIndex].addReferLinkView(type: .fastcam)
             case .soccerCam:
                 storyEditors[currentStoryIndex].addReferLinkView(type: .soccercam)
+            case .socialCam:
+                storyEditors[currentStoryIndex].addReferLinkView(type: .socialCam)
             default:
                 storyEditors[currentStoryIndex].addReferLinkView(type: .viralCam)
             }

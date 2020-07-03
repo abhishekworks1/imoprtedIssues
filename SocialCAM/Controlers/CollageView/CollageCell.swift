@@ -113,7 +113,7 @@ class CollageCell: UIView {
         self.delegate?.didSelectCell(cellId: id)
     }
    
-    func drawRoundedBorder(width: CGFloat, height: CGFloat, cornerRadius: Float = 0, lineWidth: CGFloat, sides: Int = 6, type: ShapeType) -> CAShapeLayer {
+    func drawRoundedBorder(width: CGFloat, height: CGFloat, cornerRadius: Float = 0, lineWidth: CGFloat, sides: Int = 6, type: ShapeType, strokeColor: UIColor = ApplicationSettings.appWhiteColor) -> CAShapeLayer {
         let borderLayer = CAShapeLayer()
         let crect = CGRect(x: 0, y: 0, width: width, height: height)
         
@@ -121,23 +121,20 @@ class CollageCell: UIView {
         switch type {
         case .heart:
             borderLayer.name = "heartBorderLayer"
-            break
         case .hexa:
             borderLayer.name = "hexaBorderLayer"
-            break
         case .star:
             borderLayer.name = "starBorderLayer"
-            break
         }
         borderLayer.path = path.cgPath
         borderLayer.lineWidth = lineWidth
-        borderLayer.strokeColor = ApplicationSettings.appWhiteColor.cgColor
+        borderLayer.strokeColor = strokeColor.cgColor
         borderLayer.fillColor = ApplicationSettings.appClearColor.cgColor
         borderLayer.borderWidth = 0
         return borderLayer
     }
 
-    func drawRoundedHex(width: CGFloat, height: CGFloat, cornerRadius: Float = 0, sides: Int = 6, shapeMask: Bool = true, type: ShapeType) -> CAShapeLayer {
+    func drawRoundedHex(width: CGFloat, height: CGFloat, cornerRadius: Float = 0, sides: Int = 6, shapeMask: Bool = true, type: ShapeType, strokeColor: UIColor = ApplicationSettings.appWhiteColor, lineWidth: CGFloat = 4) -> CAShapeLayer {
         let shapeLayer = CAShapeLayer()
         let crect = CGRect(x: 0, y: 0, width: width, height: height)
        
@@ -155,8 +152,8 @@ class CollageCell: UIView {
         if shapeMask {
             shapeLayer.fillRule = CAShapeLayerFillRule.nonZero
         } else {
-            shapeLayer.lineWidth = 4
-            shapeLayer.strokeColor = ApplicationSettings.appWhiteColor.cgColor
+            shapeLayer.lineWidth = lineWidth
+            shapeLayer.strokeColor = strokeColor.cgColor
             shapeLayer.fillColor = ApplicationSettings.appClearColor.cgColor
         }
         return shapeLayer

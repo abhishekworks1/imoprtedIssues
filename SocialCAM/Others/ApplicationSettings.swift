@@ -57,7 +57,7 @@ class ApplicationSettings {
         viewController.present(browser, animated: true, completion: nil)
     }
     
-    #if !IS_SHAREPOST && !IS_MEDIASHARE && !IS_VIRALVIDS
+    #if !IS_SHAREPOST && !IS_MEDIASHARE && !IS_VIRALVIDS  && !IS_SOCIALVIDS
     static func openAppSettingsUrl() {
         let settingsUrl = URL(string: UIApplication.openSettingsURLString)
         if let url = settingsUrl, UIApplication.shared.canOpenURL(url) {

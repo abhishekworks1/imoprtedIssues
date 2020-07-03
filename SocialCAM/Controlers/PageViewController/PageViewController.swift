@@ -17,12 +17,13 @@ class PageViewController: PageboyViewController {
             cameraNavVC.navigationBar.isHidden = true
             viewControllers.append(cameraNavVC)
         }
-        #if !VIRALCAMAPP
+        #if PIC2ARTAPP || SOCIALCAMAPP || VIRALCAMAPP
         if let homeVC = R.storyboard.homeScreen.homeTabBarController() {
             viewControllers.append(homeVC)
         }
         #endif
-        if let viralToolsVC = R.storyboard.storyCameraViewController.viralToolsVC() {
+        if let viralToolsVC = R.storyboard.storyCameraViewController.businessNavigationController() {
+            viralToolsVC.navigationBar.isHidden = true
             viewControllers.append(viralToolsVC)
         }
         return viewControllers

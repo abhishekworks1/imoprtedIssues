@@ -35,6 +35,18 @@ class HomeTabBarController: UITabBarController {
         }
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        if #available(iOS 13.0, *) {
+            if traitCollection.userInterfaceStyle == .light {
+                return .lightContent
+            } else {
+                return .darkContent
+            }
+        } else {
+            return .lightContent
+        }
+    }
+    
     override var prefersStatusBarHidden: Bool {
         return false
     }

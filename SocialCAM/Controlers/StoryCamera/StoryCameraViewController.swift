@@ -505,6 +505,14 @@ class StoryCameraViewController: UIViewController {
         return CGFloat(speedvalue)
     }
     
+    var isSocialCamApp: Bool {
+        #if SOCIALCAMAPP
+        return true
+        #else
+        return false
+        #endif
+    }
+    
     // MARK: ViewController lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -904,7 +912,6 @@ extension StoryCameraViewController {
     func setupLayoutCameraSliderView() {
         self.timerValueView.isHidden = !self.isUserTimerValueChange
         var cameraModeArray = self.cameraModeArray
-        
         if isTimeSpeedApp {
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .slideshow})
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .collage})
@@ -948,13 +955,15 @@ extension StoryCameraViewController {
                 cameraModeArray.insert(CameraModes(name: R.string.localizable.video2Art().uppercased(), recordingType: .handsfree), at: index)
             }
         } else {
+            cameraModeArray = cameraModeArray.filter({$0.recordingType != .collage})
             if Defaults.shared.appMode == .free {
                 cameraModeArray = cameraModeArray.filter({$0.recordingType != .custom})
                 cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastSlowMotion})
             } else {
-                #if SOCIALCAMAPP
-                cameraModeArray.removeLast(2)
-                #endif
+                if isSocialCamApp {
+                    cameraModeArray = cameraModeArray.filter({$0.recordingType != .capture})
+                    cameraModeArray = cameraModeArray.filter({$0.recordingType != .custom})
+                }
             }
         }
         
@@ -1489,7 +1498,7 @@ extension StoryCameraViewController {
         let progressUP = CGFloat(0.0625/progressMaxSeconds) * currentSpeed
         print(progressMaxSeconds)
         print((progressUP / progressMaxSeconds))
-        progress = progress + progressUP// (progressUP / progressMaxSeconds)
+        progress += progressUP // (progressUP / progressMaxSeconds)
         circularProgress.progress = Double(progress)
         print("progress: \(progress)")
         if progress >= 1 {

@@ -130,9 +130,9 @@ class CollageViewT505: CollageView {
         NSLayoutConstraint.activate([ lc012, lc022, lc032, lc042])
         
         self.marginLeftTopContraints += [lc01, lc02, lc05, lc09, lc021]
-        self.marginRightBottomContraints += [lc03, lc07, lc12, lc031, lc042]
+        self.marginRightBottomContraints += [lc03, lc07, lc12, lc031, lc032, lc042]
         self.paddingLeftTopContraints += [lc06, lc10, lc011, lc012, lc022]
-        self.paddingRightBottomContraints += [lc04, lc08, lc041, lc032]
+        self.paddingRightBottomContraints += [lc04, lc08, lc041]
         self.collageCells += [cell01, cell04, cell02, cell03, cell05]
         
         initHandles()

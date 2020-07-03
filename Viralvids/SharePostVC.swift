@@ -189,12 +189,12 @@ class SharePostVC: UIViewController {
                 .alert
                 .controller(title: "",
                             message: R.string.localizable.createIntroVideo(),
-                            actions: [UIAlertAction(title: "OK", style: .default, handler: { _ in
+                            actions: [UIAlertAction(title: R.string.localizable.yes(), style: .default, handler: { _ in
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-                                    _ = self.openURL(URL(string: "viralCam://com.simform.viralcam")!)
+                                    _ = self.openURL(URL(string: "storiCamPro://com.simform.viralcam")!)
                                     self.extensionContext?.completeRequest(returningItems: [], completionHandler: nil)
                                 })
-                            }), UIAlertAction(title: "Cancel", style: .default, handler: { (action) in
+                            }), UIAlertAction(title: R.string.localizable.no(), style: .default, handler: { (action) in
                                 let errMsg = NSError(domain: "domain", code: 1001, userInfo: [NSLocalizedDescriptionKey: "Localised details here"])
                                 self.extensionContext!.cancelRequest(withError: errMsg)
                             })])
