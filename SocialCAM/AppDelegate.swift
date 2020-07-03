@@ -42,6 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             } else {
                 fatalError("GoogleService-Info.plist is missing!")
             }
+            StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .subscriptions})
         #elseif VIRALCAMAPP
             print("[FIREBASE] VIRALCAMAPP mode.")
             if let filePath = Bundle.main.path(forResource: "GoogleService-Info-ViralCam", ofType: "plist"),

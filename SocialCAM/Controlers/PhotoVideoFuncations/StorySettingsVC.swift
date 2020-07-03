@@ -83,7 +83,6 @@ class StorySettingsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     deinit {

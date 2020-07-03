@@ -9,6 +9,7 @@
 import UIKit
 
 enum SSUTagType {
+    case socialCam
     case viralCam
     case referralLink
     case social
@@ -61,7 +62,7 @@ struct SSUTagOption {
            SSUTagOption(name: R.string.localizable.soccerCam(), image: R.image.ssuSoccerCam(), type: .soccerCam)]
     #else
     static let contents: [SSUTagOption] = [
-        SSUTagOption(name: R.string.localizable.viralCam(), image: R.image.ssuViralCam(), type: .viralCam),
+        SSUTagOption(name: R.string.localizable.socialCam(), image: R.image.ssuSocialCam(), type: .socialCam),
         SSUTagOption(name: R.string.localizable.waitingList(), image: R.image.ssuWaiting(), type: .referralLink),
         SSUTagOption(name: R.string.localizable.social(), image: R.image.ssuSocialMedia(), type: .social),
         SSUTagOption(name: R.string.localizable.service(), image: R.image.service(), type: .service),
@@ -75,7 +76,7 @@ struct SSUTagWaitingListOption {
     var image: UIImage?
     var type: SSUWaitingListOptionType
 
-    static let contents: [SSUTagWaitingListOption] = [SSUTagWaitingListOption(name: R.string.localizable.socialCam(), image: R.image.ssuSocialCam(), type: .socialCam), SSUTagWaitingListOption(name: R.string.localizable.socialGames(), image: R.image.ssuSocialGames(), type: .socialGames), SSUTagWaitingListOption(name: R.string.localizable.secureSocialChat(), image: R.image.ssuSecureChat(), type: .secureSocialChat), SSUTagWaitingListOption(name: R.string.localizable.okBoomer(), image: R.image.okBoomer(), type: .okBoomer), SSUTagWaitingListOption(name: R.string.localizable.influencerTool(), image: R.image.influencerTool(), type: .influencerTool), SSUTagWaitingListOption(name: R.string.localizable.socialSwipeUp(), image: R.image.socialSwipeUp(), type: .socialSwipeUp)]
+    static let contents: [SSUTagWaitingListOption] = [SSUTagWaitingListOption(name: R.string.localizable.socialGames(), image: R.image.ssuSocialGames(), type: .socialGames), SSUTagWaitingListOption(name: R.string.localizable.secureSocialChat(), image: R.image.ssuSecureChat(), type: .secureSocialChat), SSUTagWaitingListOption(name: R.string.localizable.okBoomer(), image: R.image.okBoomer(), type: .okBoomer), SSUTagWaitingListOption(name: R.string.localizable.influencerTool(), image: R.image.influencerTool(), type: .influencerTool), SSUTagWaitingListOption(name: R.string.localizable.socialSwipeUp(), image: R.image.socialSwipeUp(), type: .socialSwipeUp)]
 }
 
 struct SSUTagSocialOption {
@@ -191,7 +192,7 @@ extension SSUTagSelectionViewController: UICollectionViewDataSource, UICollectio
                     navigation.isNavigationBarHidden = true
                     self.present(navigation, animated: true)
                 }
-            case .pic2art, .timeSpeed, .boomiCam, .soccerCam, .fastCam:
+            case .pic2art, .timeSpeed, .boomiCam, .soccerCam, .fastCam, .socialCam:
                 self.dismiss(animated: true) {
                     self.delegate?.didSelect(type: SSUTagOption.contents[indexPath.row].type, waitingListOptionType: nil, socialShareType: nil, screenType: self.type)
                 }

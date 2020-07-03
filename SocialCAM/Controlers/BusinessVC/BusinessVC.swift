@@ -85,6 +85,12 @@ extension BusinessVC: UICollectionViewDataSource, UICollectionViewDelegate, UICo
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.ssuTagSelectionCell.identifier, for: indexPath) as? SSUTagSelectionCell else {
             return UICollectionViewCell()
         }
+        let businessVCOption = BusinessVCOption.contents[indexPath.row]
+        if businessVCOption.type != .subscription && businessVCOption.type != .socialConnection && businessVCOption.type != .channelManagement && businessVCOption.type != .share {
+            cell.tagImageView.alpha = 0.5
+            cell.tagLabel.alpha = 0.5
+        }
+        
         cell.tagImageView.image = BusinessVCOption.contents[indexPath.row].image
         cell.tagLabel.text = BusinessVCOption.contents[indexPath.row].name
        
@@ -94,6 +100,10 @@ extension BusinessVC: UICollectionViewDataSource, UICollectionViewDelegate, UICo
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let businessVCOption = BusinessVCOption.contents[indexPath.row]
         switch businessVCOption.type {
+        case .subscription:
+            if let subscriptionVC = R.storyboard.storyCameraViewController.subscriptionVC() {
+                navigationController?.pushViewController(subscriptionVC, animated: true)
+            }
         case .socialConnection:
             if let addSocialConnectionViewController = R.storyboard.socialConnection.addSocialConnectionViewController() {
                 navigationController?.pushViewController(addSocialConnectionViewController, animated: true)
@@ -103,8 +113,14 @@ extension BusinessVC: UICollectionViewDataSource, UICollectionViewDelegate, UICo
                 chVc.remainingPackageCountForOthers = Defaults.shared.currentUser?.remainingOtherUserPackageCount ?? 0
                 self.navigationController?.pushViewController(chVc, animated: true)
             }
+        case .share:
+            let publicLink = Constant.Application.publicLink
+            let shareAll = [publicLink!] as [Any]
+            let activityViewController = UIActivityViewController(activityItems: shareAll, applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = self.view
+            self.present(activityViewController, animated: true, completion: nil)
         default:
-            self.showAlert(alertMessage: R.string.localizable.comingSoon())
+            break
         }
     }
     

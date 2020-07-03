@@ -43,6 +43,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="A7D-EJ-K12">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <connections>
+                        <segue destination="SWQ-H8-sEn" kind="relationship" relationship="rootViewController" id="XY6-qp-c4v"/>
+                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cqr-rh-45y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -78,6 +81,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="6j9-yz-ruR">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <connections>
+                        <segue destination="SWQ-H8-sEn" kind="relationship" relationship="rootViewController" id="jTF-IA-ZMd"/>
+                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YH7-SR-SXM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -92,6 +98,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="J4I-ql-eMw">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <connections>
+                        <segue destination="SWQ-H8-sEn" kind="relationship" relationship="rootViewController" id="oKD-dI-aVn"/>
+                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GGh-zU-VxP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -175,7 +184,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C7G-EF-6Rb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3188" y="-1887"/>
+            <point key="canvasLocation" x="-3226" y="-1941"/>
         </scene>
         <!--BaseViralVideoVC-->
         <scene sceneID="nDg-jo-2hE">
@@ -192,13 +201,53 @@
                     <view key="view" contentMode="scaleToFill" id="6Px-WY-RRy">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coming Soon" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HAy-v5-vS6">
+                                <rect key="frame" x="142.5" y="440" width="129" height="26.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <color key="textColor" name="AppWhiteColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" name="AppBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="HAy-v5-vS6" firstAttribute="centerY" secondItem="WrV-j4-guO" secondAttribute="centerY" id="Baq-8B-zkl"/>
+                            <constraint firstItem="HAy-v5-vS6" firstAttribute="centerX" secondItem="WrV-j4-guO" secondAttribute="centerX" id="aUw-tt-2N4"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="WrV-j4-guO"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aJI-pF-ZCj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2597" y="-953"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="WMQ-j5-kPO">
+            <objects>
+                <viewController id="SWQ-H8-sEn" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Qwb-cG-XfQ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coming Soon" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Q0-5F-o7v">
+                                <rect key="frame" x="142.5" y="415.5" width="129" height="26.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <color key="textColor" name="AppWhiteColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" name="AppBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="1Q0-5F-o7v" firstAttribute="centerY" secondItem="6ny-49-RPS" secondAttribute="centerY" id="CXm-WT-0Gg"/>
+                            <constraint firstItem="1Q0-5F-o7v" firstAttribute="centerX" secondItem="6ny-49-RPS" secondAttribute="centerX" id="Tbx-Gd-uDI"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6ny-49-RPS"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="ls5-Gt-AXn"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GbV-zL-57u" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2559" y="-1941"/>
         </scene>
     </scenes>
     <resources>
@@ -210,20 +259,27 @@
         <image name="tab2" width="28" height="28"/>
         <image name="tab4" width="26" height="24"/>
         <image name="tab5" width="25" height="25"/>
+        <namedColor name="AppBackgroundColor">
+            <color red="0.10980392156862745" green="0.15294117647058825" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="AppPrimaryColor">
             <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppSkyBlueColor">
-            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppTabBarColor">
-            <color red="0.071000002324581146" green="0.10199999809265137" blue="0.18799999356269836" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.070588235294117646" green="0.10196078431372549" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="AppWhiteColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppWhiteColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="jTF-IA-ZMd"/>
         <segue reference="Umy-ih-Iph"/>
     </inferredMetricsTieBreakers>
 </document>

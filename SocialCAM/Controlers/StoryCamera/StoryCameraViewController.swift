@@ -1498,7 +1498,7 @@ extension StoryCameraViewController {
         let progressUP = CGFloat(0.0625/progressMaxSeconds) * currentSpeed
         print(progressMaxSeconds)
         print((progressUP / progressMaxSeconds))
-        progress = progress + progressUP// (progressUP / progressMaxSeconds)
+        progress += progressUP // (progressUP / progressMaxSeconds)
         circularProgress.progress = Double(progress)
         print("progress: \(progress)")
         if progress >= 1 {

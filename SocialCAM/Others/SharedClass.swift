@@ -421,6 +421,22 @@ public struct Constant {
         
         static let imageIdentifier: String = "www.google.com"
         static let splashImagesFolderName: String = "SplashImages"
+        
+        #if SOCIALCAMAPP
+            static let publicLink = URL(string: "https://testflight.apple.com/join/6zE0nt7P")
+        #elseif VIRALCAMAPP
+            static let publicLink = URL(string: "https://testflight.apple.com/join/sk1foNLO")
+        #elseif SOCCERCAMAPP
+            static let publicLink = URL(string: "https://testflight.apple.com/join/1dRtt5SV")
+        #elseif PIC2ARTAPP
+            static let publicLink = URL(string: "https://testflight.apple.com/join/hshtsh9O")
+        #elseif BOOMICAMAPP
+            static let publicLink = URL(string: "https://testflight.apple.com/join/kYCCo1AW")
+        #elseif TIMESPEEDAPP
+            static let publicLink = URL(string: "https://testflight.apple.com/join/MhCuGbHp")
+        #elseif FASTCAMAPP
+            static let publicLink = URL(string: "")
+        #endif
     }
     
     struct PayPalMobile {
