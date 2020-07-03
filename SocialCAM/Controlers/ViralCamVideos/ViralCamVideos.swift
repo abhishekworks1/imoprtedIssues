@@ -10,9 +10,9 @@ import Foundation
 import UIKit
 import ESPullToRefresh
 
-class ViralCamVideos: UIViewController, SegmentTypeController {
+class ViralCamVideos: UIViewController {
     
-    var segmentType: TopSegments?
+    var segmentType: SecondTopSegments?
     
     @IBOutlet weak var tableView: UITableView!
     var videosPageIndex: Int = 0

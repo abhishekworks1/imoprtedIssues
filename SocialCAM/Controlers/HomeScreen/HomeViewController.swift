@@ -9,7 +9,7 @@
 import Foundation
 import MXSegmentedPager
 
-enum HomeTopSegments: String {
+enum TopSegments: String {
     case follow = "Following"
     case foryou = "For you"
     case trending = "Trending"
@@ -22,21 +22,21 @@ enum HomeTopSegments: String {
     case favourite = "Favorite"
     case custom = "Custom"
     
-    static var allValues: [HomeTopSegments] {
+    static var allValues: [TopSegments] {
         return [.follow, .foryou, .trending, .hashTag, .tagged, .family, .vip, .featured, .media, .favourite, .custom]
     }
     
-    var next: HomeTopSegments? {
-        if let index = HomeTopSegments.allValues.firstIndex(of: self), (index + 1) < HomeTopSegments.allValues.count {
-            return  HomeTopSegments.allValues[index + 1]
+    var next: TopSegments? {
+        if let index = TopSegments.allValues.firstIndex(of: self), (index + 1) < TopSegments.allValues.count {
+            return  TopSegments.allValues[index + 1]
         } else {
             return nil
         }
     }
     
-    var previous: HomeTopSegments? {
-        if let index = HomeTopSegments.allValues.firstIndex(of: self), (index - 1) >= 0 {
-            return  HomeTopSegments.allValues[index - 1]
+    var previous: TopSegments? {
+        if let index = TopSegments.allValues.firstIndex(of: self), (index - 1) >= 0 {
+            return  TopSegments.allValues[index - 1]
         } else {
             return nil
         }
@@ -45,7 +45,7 @@ enum HomeTopSegments: String {
 
 class HomeViewController: MXSegmentedPagerController {
    
-    var segmentStrings: [HomeTopSegments] = HomeTopSegments.allValues
+    var segmentStrings: [TopSegments] = TopSegments.allValues
     
     override func viewDidLoad() {
         super.viewDidLoad()

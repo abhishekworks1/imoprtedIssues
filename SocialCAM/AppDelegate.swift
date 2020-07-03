@@ -154,7 +154,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #else
         Defaults.shared.cameraMode = .normal
         #endif
+        let revealingSplashView = RevealingSplashView(iconImage: Constant.Application.appIcon, iconInitialSize: Constant.Application.appIcon.size, backgroundImage: Constant.Application.splashBG)
+        revealingSplashView.duration = 5.0
+        revealingSplashView.iconColor = UIColor.red
+        revealingSplashView.useCustomIconColor = false
+        revealingSplashView.animationType = SplashAnimationType.popAndZoomOut
+        rootViewController?.view.addSubview(revealingSplashView)
         UIApplication.shared.delegate!.window!!.rootViewController = rootViewController
+        revealingSplashView.startAnimation() {
+            print("Completed SplashView")
+        }
         IAPManager.shared.startObserving()
         return true
     }

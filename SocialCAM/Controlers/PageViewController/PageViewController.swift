@@ -118,6 +118,9 @@ extension PageViewController: PageboyViewControllerDelegate {
         DispatchQueue.main.async {
             if index == 1 {
                 UIApplication.shared.keyWindow?.windowLevel = UIWindow.Level.statusBar
+                if let homeTabBarController = pageboyViewController.findViewController(viewcontrollers: self.pageControllers, type: HomeTabBarController()) {
+                    homeTabBarController.splashAmination()
+                }
             } else {
                 UIApplication.shared.keyWindow?.windowLevel = UIWindow.Level.normal
             }

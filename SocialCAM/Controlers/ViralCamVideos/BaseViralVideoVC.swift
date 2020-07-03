@@ -9,47 +9,14 @@
 import Foundation
 import MXSegmentedPager
 
-enum TopSegments: String {
-    case twitter = "Twitter"
-    case facebook = "Facebook"
-    case instagram = "Instagram"
-    case snapchat = "Snapchat"
-    case google = "Youtube"
-    case tiktok = "Tiktok"
-    case storiCam = "StoriCam"
-    
-    static var allValues : [TopSegments] {
-        return [.storiCam, .instagram, .tiktok, .google, .twitter, .facebook, .snapchat]
-    }
-    
-    var next: TopSegments? {
-        if let index = TopSegments.allValues.firstIndex(of: self), (index + 1) < TopSegments.allValues.count {
-            return  TopSegments.allValues[index + 1]
-        } else {
-            return nil
-        }
-    }
-    
-    var previous: TopSegments? {
-        if let index = TopSegments.allValues.firstIndex(of: self), (index - 1) >= 0 {
-            return  TopSegments.allValues[index - 1]
-        } else {
-            return nil
-        }
-    }
-}
-
-protocol SegmentTypeController {
-    var segmentType: TopSegments? {get set}
-}
-
 protocol ViralCamVideosDelegate: class {
     func viewControllerFor(viralCamVideos: ViralCamVideos, for segment: TopSegments) -> SegmentTypeController?
 }
 
-class BaseViralVideoVC: MXSegmentedPagerController {
-    
+class BaseViralVideoVC: MXSegmentedPagerController, SegmentTypeController {
+    var segmentType: TopSegments? = .family
     @IBOutlet weak var headerView: UIView!
+    
     weak var pageDelegate: ViralCamVideosDelegate?
     var viralCamVideosVC: ViralCamVideos!
     var viralCamVideosVC1: ViralCamVideos!
@@ -58,7 +25,7 @@ class BaseViralVideoVC: MXSegmentedPagerController {
     var viralCamVideosVC4: ViralCamVideos!
     var viralCamVideosVC5: ViralCamVideos!
     
-    var segmentStrings: [TopSegments] = TopSegments.allValues
+    var segmentStrings: [SecondTopSegments] = SecondTopSegments.allValues
     var firstModalPersiontage: Double = 0.0
     var firstModalUploadCompletedSize: Double = 0.0
    
@@ -100,25 +67,25 @@ class BaseViralVideoVC: MXSegmentedPagerController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "mx_page_0" {
             viralCamVideosVC = segue.destination as? ViralCamVideos
-            viralCamVideosVC.segmentType = TopSegments.allValues[0]
+            viralCamVideosVC.segmentType = segmentStrings[0]
         } else if segue.identifier == "mx_page_1" {
             viralCamVideosVC1 = segue.destination as? ViralCamVideos
-            viralCamVideosVC1.segmentType = TopSegments.allValues[1]
+            viralCamVideosVC1.segmentType = segmentStrings[1]
         } else if segue.identifier == "mx_page_2" {
             viralCamVideosVC2 = segue.destination as? ViralCamVideos
-            viralCamVideosVC2.segmentType = TopSegments.allValues[2]
+            viralCamVideosVC2.segmentType = segmentStrings[2]
         } else if segue.identifier == "mx_page_3" {
             viralCamVideosVC3 = segue.destination as? ViralCamVideos
-            viralCamVideosVC3.segmentType = TopSegments.allValues[3]
+            viralCamVideosVC3.segmentType = segmentStrings[3]
         } else if segue.identifier == "mx_page_4" {
             viralCamVideosVC4 = segue.destination as? ViralCamVideos
-            viralCamVideosVC4.segmentType = TopSegments.allValues[4]
+            viralCamVideosVC4.segmentType = segmentStrings[4]
         } else if segue.identifier == "mx_page_5" {
             viralCamVideosVC4 = segue.destination as? ViralCamVideos
-            viralCamVideosVC4.segmentType = TopSegments.allValues[5]
+            viralCamVideosVC4.segmentType = segmentStrings[5]
         } else if segue.identifier == "mx_page_6" {
-            viralCamVideosVC5 = segue.destination as? ViralCamVideos
-            viralCamVideosVC5.segmentType = TopSegments.allValues[6]
+            viralCamVideosVC4 = segue.destination as? ViralCamVideos
+            viralCamVideosVC4.segmentType = segmentStrings[6]
         }
     }
     

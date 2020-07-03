@@ -123,8 +123,8 @@ extension BusinessVC: UICollectionViewDataSource, UICollectionViewDelegate, UICo
                 self.navigationController?.pushViewController(chVc, animated: true)
             }
         case .share:
-            let publicLink = Constant.Application.publicLink
-            let shareAll = [publicLink!] as [Any]
+            let publicLink = Constant.Application.referralLink
+            let shareAll = [publicLink] as [Any]
             let activityViewController = UIActivityViewController(activityItems: shareAll, applicationActivities: nil)
             activityViewController.popoverPresentationController?.sourceView = self.view
             self.present(activityViewController, animated: true, completion: nil)
