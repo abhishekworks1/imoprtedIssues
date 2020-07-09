@@ -21,6 +21,7 @@ enum ReferType {
     case fastcam
     case soccercam
     case futbolcam
+    case snapcam
 }
 
 enum StoryEditorType: Equatable {
@@ -642,6 +643,9 @@ extension StoryEditorView {
                 } else if type == .futbolcam {
                     followMeStoryView.userBitEmoji.image = R.image.soccercamWatermarkLogo()
                     followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppFutbolCam()
+                } else if type == .snapcam {
+                    followMeStoryView.userBitEmoji.image = R.image.soccercamWatermarkLogo()
+                    followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppSnapCam()
                 } else {
                     followMeStoryView.userBitEmoji.image = (type == .viralCam) ? R.image.viralcamWatermarkLogo() : R.image.socialcamWatermarkLogo()
                     followMeStoryView.textView.text = (type == .viralCam) ? R.string.localizable.checkOutThisCoolNewAppViralCam() : R.string.localizable.checkOutThisCoolNewAppSocialCam()
@@ -684,6 +688,9 @@ extension StoryEditorView {
         } else if type == .futbolcam {
             followMeStoryView.userBitEmoji.image = R.image.soccercamWatermarkLogo()
             followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppFutbolCam()
+        } else if type == .snapcam {
+            followMeStoryView.userBitEmoji.image = R.image.soccercamWatermarkLogo()
+            followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppSnapCam()
         } else {
             followMeStoryView.userBitEmoji.image = (type == .viralCam) ? R.image.viralcamWatermarkLogo() : R.image.socialcamWatermarkLogo()
             followMeStoryView.textView.text = (type == .viralCam) ? R.string.localizable.checkOutThisCoolNewAppViralCam() : R.string.localizable.checkOutThisCoolNewAppSocialCam()

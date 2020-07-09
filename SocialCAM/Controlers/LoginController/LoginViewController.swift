@@ -68,7 +68,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         socialSingUpView.isHidden = true
         #elseif VIRALCAMAPP
         imgLogo.image = R.image.viralcamrgb()
-        #elseif SOCCERCAMAPP || FUTBOLCAMAPP
+        #elseif SOCCERCAMAPP || FUTBOLCAMAPP || SNAPCAMAPP
         imgLogo.image = R.image.soccercamWatermarkLogo()
         #elseif TIMESPEEDAPP
         imgLogo.image = R.image.timeSpeedWatermarkLogo()

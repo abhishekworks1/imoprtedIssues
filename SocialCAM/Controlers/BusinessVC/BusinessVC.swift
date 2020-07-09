@@ -66,7 +66,7 @@ class BusinessVC: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     var isFutbolCamApp: Bool {
-        #if FUTBOLCAMAPP
+        #if FUTBOLCAMAPP || SNAPCAMAPP
         return true
         #else
         return false

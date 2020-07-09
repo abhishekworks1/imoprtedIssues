@@ -74,6 +74,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         StorySettings.storySettings.filter({$0.settingsType == .socialLogins}).first?.settings.removeLast()
         StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
+        #elseif SNAPCAMAPP
+        print("[FIREBASE] SnapCam mode.")
+        if let filePath = Bundle.main.path(forResource: "GoogleService-Info-SnapCam", ofType: "plist"),
+            let options = FirebaseOptions(contentsOfFile: filePath) {
+                FirebaseApp.configure(options: options)
+        } else {
+            fatalError("GoogleService-Info-FutbolCam.plist is missing!")
+        }
+        StorySettings.storySettings.filter({$0.settingsType == .socialLogins}).first?.settings.removeLast()
+        StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
         #elseif PIC2ARTAPP
             print("[FIREBASE] Pic2Art mode.")
             if let filePath = Bundle.main.path(forResource: "GoogleService-Info-Pic2Art", ofType: "plist"),

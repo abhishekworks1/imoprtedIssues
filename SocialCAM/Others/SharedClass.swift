@@ -402,6 +402,14 @@ public struct Constant {
         static let publicLink = URL(string: "https://testflight.apple.com/join/1dRtt5SV")
         static let splashBG = UIImage(named: "footballCamSplashBG")!
         static let appIcon = UIImage(named: "futbolCamSplashLogo")!
+        #elseif SNAPCAMAPP
+        static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "SnapCam"
+        static let groupIdentifier: String = "group.com.simform.storiCamPro"
+        static let simformIdentifier: String = "com.simform.SnapCam"
+        static let proModeCode: String = "snapcam2020"
+        static let publicLink = URL(string: "https://testflight.apple.com/join/1dRtt5SV")
+        static let splashBG = UIImage(named: "footballCamSplashBG")!
+        static let appIcon = UIImage(named: "futbolCamSplashLogo")!
         #elseif PIC2ARTAPP
         static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "PIC2ART"
         static let simformIdentifier: String = "com.simform.Pic2Art"
@@ -498,6 +506,10 @@ public struct Constant {
             static let redirectUrl = "https://futbolcam-ddf06.firebaseapp.com/__/auth/handler"
             static let clientId = "1431217550411859"
             static let clientSecret = "39554fc089d5154b5ee77499e549eb65"
+        #elseif SNAPCAMAPP
+        static let redirectUrl = "https://snapcam-1594222751745.firebaseapp.com/__/auth/handler"
+        static let clientId = "649595362296150"
+        static let clientSecret = "2d0401703d64b6fc1546249cfd1693d9"
         #else
             static let redirectUrl = "https://viralcam-c3c84.firebaseapp.com/__/auth/handler"
             static let clientId = "228138878240656"
@@ -534,6 +546,9 @@ public struct Constant {
         #elseif FUTBOLCAMAPP
         static let serviceKey: String = "AIzaSyCF0PBGqnCPVtKFYdYaHv1HYN5X-j4R7U0"
         static let placeClientKey: String = "AIzaSyCF0PBGqnCPVtKFYdYaHv1HYN5X-j4R7U0"
+        #elseif SNAPCAMAPP
+        static let serviceKey: String = "AIzaSyD9_sy-klWwfrLTrT4ub-E4fC-iwnzoCG0"
+        static let placeClientKey: String = "AIzaSyD9_sy-klWwfrLTrT4ub-E4fC-iwnzoCG0"
         #elseif PIC2ARTAPP
             static let serviceKey: String = "AIzaSyBOBVwEf8bMfwCreZS-IBAEqm57A0szOfg"
             static let placeClientKey: String = "AIzaSyBOBVwEf8bMfwCreZS-IBAEqm57A0szOfg"
