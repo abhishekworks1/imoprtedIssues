@@ -618,7 +618,7 @@ class StoryCameraViewController: UIViewController {
     }
     
     func setViewsForApp() {
-        #if VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP || BOOMICAMAPP || FASTCAMAPP || SOCCERCAMAPP
+        #if VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP || BOOMICAMAPP || FASTCAMAPP || SOCCERCAMAPP || FUTBOLCAMAPP
             self.fpsView.isHidden = true
         #endif
     }

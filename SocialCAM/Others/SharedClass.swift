@@ -390,6 +390,11 @@ public struct Constant {
         static let groupIdentifier: String = "group.com.simform.storiCamPro"
         static let simformIdentifier: String = "com.simform.SoccerCam"
         static let proModeCode: String = "soccercam2020"
+        #elseif FUTBOLCAMAPP
+        static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "FutbolCam"
+        static let groupIdentifier: String = "group.com.simform.storiCamPro"
+        static let simformIdentifier: String = "com.simform.SoccerCam"
+        static let proModeCode: String = "futbolcam2020"
         #elseif PIC2ARTAPP
         static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "ViralCam"
         static let groupIdentifier: String = "group.com.simform.storiCamPro"
@@ -428,6 +433,8 @@ public struct Constant {
             static let publicLink = URL(string: "https://testflight.apple.com/join/sk1foNLO")
         #elseif SOCCERCAMAPP
             static let publicLink = URL(string: "https://testflight.apple.com/join/1dRtt5SV")
+        #elseif FUTBOLCAMAPP
+            static let publicLink = URL(string: "https://testflight.apple.com/join/bhEdtRSl")
         #elseif PIC2ARTAPP
             static let publicLink = URL(string: "https://testflight.apple.com/join/hshtsh9O")
         #elseif BOOMICAMAPP
@@ -484,6 +491,10 @@ public struct Constant {
             static let redirectUrl = "https://soccercam-d15a0.firebaseapp.com/__/auth/handler"
             static let clientId = "361365258591189"
             static let clientSecret = "dd1b754b16bb106217d18e8935b46c8c"
+        #elseif FUTBOLCAMAPP
+            static let redirectUrl = "https://futbolcam-ddf06.firebaseapp.com/__/auth/handler"
+            static let clientId = "1431217550411859"
+            static let clientSecret = "39554fc089d5154b5ee77499e549eb65"
         #else
             static let redirectUrl = "https://viralcam-c3c84.firebaseapp.com/__/auth/handler"
             static let clientId = "228138878240656"
@@ -517,6 +528,9 @@ public struct Constant {
         #elseif SOCCERCAMAPP
             static let serviceKey: String = "AIzaSyD8EqdyN152SfMvOhB4nUCRk_5aWoP-U1A"
             static let placeClientKey: String = "AIzaSyD8EqdyN152SfMvOhB4nUCRk_5aWoP-U1A"
+        #elseif FUTBOLCAMAPP
+        static let serviceKey: String = "AIzaSyCF0PBGqnCPVtKFYdYaHv1HYN5X-j4R7U0"
+        static let placeClientKey: String = "AIzaSyCF0PBGqnCPVtKFYdYaHv1HYN5X-j4R7U0"
         #elseif PIC2ARTAPP
             static let serviceKey: String = "AIzaSyBOBVwEf8bMfwCreZS-IBAEqm57A0szOfg"
             static let placeClientKey: String = "AIzaSyBOBVwEf8bMfwCreZS-IBAEqm57A0szOfg"

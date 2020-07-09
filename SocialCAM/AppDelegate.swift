@@ -34,6 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         ColorCubeStorage.loadToDefault()
        
+        StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .subscriptions})
+
         #if SOCIALCAMAPP
             print("[FIREBASE] SOCIALCAMAPP mode.")
             if let filePath = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist"),
@@ -42,7 +44,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             } else {
                 fatalError("GoogleService-Info.plist is missing!")
             }
-            StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .subscriptions})
         #elseif VIRALCAMAPP
             print("[FIREBASE] VIRALCAMAPP mode.")
             if let filePath = Bundle.main.path(forResource: "GoogleService-Info-ViralCam", ofType: "plist"),
@@ -60,6 +61,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 FirebaseApp.configure(options: options)
         } else {
             fatalError("GoogleService-Info-SoccerCam.plist is missing!")
+        }
+        StorySettings.storySettings.filter({$0.settingsType == .socialLogins}).first?.settings.removeLast()
+        StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
+        #elseif FUTBOLCAMAPP
+        print("[FIREBASE] FutbolCam mode.")
+        if let filePath = Bundle.main.path(forResource: "GoogleService-Info-FutbolCam", ofType: "plist"),
+            let options = FirebaseOptions(contentsOfFile: filePath) {
+                FirebaseApp.configure(options: options)
+        } else {
+            fatalError("GoogleService-Info-FutbolCam.plist is missing!")
         }
         StorySettings.storySettings.filter({$0.settingsType == .socialLogins}).first?.settings.removeLast()
         StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
