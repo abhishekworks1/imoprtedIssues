@@ -120,6 +120,11 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.appOpenSettingsCell.identifier, for: indexPath) as? AppOpenSettingsCell, StorySettings.storySettings[indexPath.section].settingsType == .appStartScreen {
+            #if PIC2ARTAPP || SOCIALCAMAPP || VIRALCAMAPP || SOCCERCAMAPP || FUTBOLCAMAPP || QUICKCAMAPP
+            cell.dashBoardView.isHidden = false
+            #else
+            cell.dashBoardView.isHidden = true
+            #endif
             return cell
         }
         

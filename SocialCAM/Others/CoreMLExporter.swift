@@ -133,7 +133,7 @@ class CoreMLExporter {
                 if (sample != nil) {
                     var mlBuffer: CVPixelBuffer?
                     if #available(iOS 12.0, *) {
-                        if index == -1 {
+                        if index == 0 {
                             mlBuffer = CMSampleBufferGetImageBuffer(sample!)!
                         } else {
                             let model = StyleTransferModel43()
@@ -143,7 +143,7 @@ class CoreMLExporter {
                                 for indexStyle in 0..<styles.count {
                                     styles[indexStyle] = 0.0
                                 }
-                                styles[index] = 1.0
+                                styles[index - 1] = 1.0
                                 do {
                                     let predictionOutput = try model.prediction(image: CMSampleBufferGetImageBuffer(sample!)!.mlPixelFormatBuffer(scale: 0.3)!, index: styles)
                                     mlBuffer = predictionOutput.stylizedImage

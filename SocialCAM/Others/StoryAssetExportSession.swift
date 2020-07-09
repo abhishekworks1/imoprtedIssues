@@ -317,6 +317,16 @@ class StoryAssetExportSession {
         if watermarkPosition == .topLeft {
             image = R.image.soccercamWatermarkLogo()
         }
+        #elseif QUICKCAMAPP
+        var image = R.image.quickcamWatermarkLogo()
+        if watermarkPosition == .topLeft {
+            image = R.image.quickcamWatermarkLogo()
+        }
+        #elseif SNAPCAMAPP
+        var image = R.image.snapcamWatermarkLogo()
+        if watermarkPosition == .topLeft {
+            image = R.image.snapcamWatermarkLogo()
+        }
         #elseif PIC2ARTAPP
         var image = R.image.pic2artWatermarkLogo()
         if watermarkPosition == .topLeft {

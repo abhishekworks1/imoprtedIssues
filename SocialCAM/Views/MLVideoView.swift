@@ -67,7 +67,7 @@ class MLVideoView: UIView {
               let pixbuf = output.copyPixelBuffer(forItemTime: time, itemTimeForDisplay: nil) else { return }
         var mlBuffer: CVPixelBuffer?
         if #available(iOS 12.0, *) {
-            if selectedIndex == -1 {
+            if selectedIndex == 0 {
                 mlBuffer = pixbuf
             } else {
                 let model = StyleTransferModel43()
@@ -77,7 +77,7 @@ class MLVideoView: UIView {
                     for index in 0..<styles.count {
                         styles[index] = 0.0
                     }
-                    styles[selectedIndex] = 1.0
+                    styles[selectedIndex - 1] = 1.0
                     do {
                         let mlPredicationOptions = MLPredictionOptions.init()
                         mlPredicationOptions.usesCPUOnly = false

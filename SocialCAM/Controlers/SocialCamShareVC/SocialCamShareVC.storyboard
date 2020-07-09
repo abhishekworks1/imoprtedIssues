@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Social Cam ShareVC-->
+        <scene sceneID="rDs-qT-auL">
+            <objects>
+                <viewController storyboardIdentifier="SocialCamShareVC" id="v00-aA-OPY" customClass="SocialCamShareVC" customModule="BoomiCam" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="k8E-jE-pCW">
+                        <rect key="frame" x="0.0" y="0.0" width="250" height="180"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="socialCam" translatesAutoresizingMaskIntoConstraints="NO" id="hvt-Sm-U6q">
+                                <rect key="frame" x="40" y="0.0" width="170" height="64"/>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Ivi-is-pQI">
+                                <rect key="frame" x="0.0" y="100" width="250" height="60"/>
+                                <subviews>
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JD1-oG-a7g">
+                                        <rect key="frame" x="0.0" y="0.0" width="125" height="60"/>
+                                        <state key="normal" title="POST"/>
+                                        <connections>
+                                            <action selector="onClickShare:" destination="v00-aA-OPY" eventType="touchUpInside" id="b22-Oh-3ul"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yod-4b-Ve0">
+                                        <rect key="frame" x="125" y="0.0" width="125" height="60"/>
+                                        <state key="normal" title="STORY"/>
+                                        <connections>
+                                            <action selector="onClickShare:" destination="v00-aA-OPY" eventType="touchUpInside" id="p4h-8S-1HD"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="7YV-5p-L9D"/>
+                                </constraints>
+                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose an option to share" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="gXa-RH-OrF">
+                                <rect key="frame" x="25" y="69" width="200" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="cGD-iX-oEj"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Ivi-is-pQI" firstAttribute="top" secondItem="gXa-RH-OrF" secondAttribute="bottom" constant="10" id="5IR-5P-bkA"/>
+                            <constraint firstItem="hvt-Sm-U6q" firstAttribute="top" secondItem="k8E-jE-pCW" secondAttribute="top" id="9AE-Kf-lEq"/>
+                            <constraint firstItem="gXa-RH-OrF" firstAttribute="top" secondItem="hvt-Sm-U6q" secondAttribute="bottom" constant="5" id="SOD-eg-N9E"/>
+                            <constraint firstItem="Ivi-is-pQI" firstAttribute="trailing" secondItem="QL2-mE-J7G" secondAttribute="trailing" id="YPV-Pd-wmg"/>
+                            <constraint firstAttribute="bottom" secondItem="Ivi-is-pQI" secondAttribute="bottom" constant="20" id="Yr8-29-h5H"/>
+                            <constraint firstItem="gXa-RH-OrF" firstAttribute="leading" secondItem="QL2-mE-J7G" secondAttribute="leading" constant="25" id="a6P-8f-toe"/>
+                            <constraint firstItem="QL2-mE-J7G" firstAttribute="trailing" secondItem="hvt-Sm-U6q" secondAttribute="trailing" constant="40" id="gME-PQ-Sc5"/>
+                            <constraint firstItem="hvt-Sm-U6q" firstAttribute="leading" secondItem="QL2-mE-J7G" secondAttribute="leading" constant="40" id="iCJ-jx-Kf8"/>
+                            <constraint firstItem="Ivi-is-pQI" firstAttribute="leading" secondItem="QL2-mE-J7G" secondAttribute="leading" id="rtb-bS-nf7"/>
+                            <constraint firstItem="QL2-mE-J7G" firstAttribute="trailing" secondItem="gXa-RH-OrF" secondAttribute="trailing" constant="25" id="wLV-co-Cke"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="QL2-mE-J7G"/>
+                    </view>
+                    <size key="freeformSize" width="250" height="180"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="size" keyPath="contentSizeInPopup">
+                            <size key="value" width="250" height="160"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="size" keyPath="landscapeContentSizeInPopup">
+                            <size key="value" width="250" height="160"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="btnPost" destination="JD1-oG-a7g" id="wEb-kB-2Q4"/>
+                        <outlet property="btnStory" destination="yod-4b-Ve0" id="GfE-Lz-DmV"/>
+                        <outlet property="logoImageView" destination="hvt-Sm-U6q" id="7uF-kp-5Qe"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pEW-ge-KBC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="131.8840579710145" y="90.401785714285708"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="socialCam" width="277" height="48"/>
+    </resources>
+</document>

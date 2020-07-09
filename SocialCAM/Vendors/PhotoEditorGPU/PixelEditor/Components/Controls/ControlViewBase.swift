@@ -22,25 +22,25 @@
 import Foundation
 
 open class ControlBase: UIView, ControlChildViewType {
-  
-  open func didReceiveCurrentEdit(_ edit: EditingStack.Edit) {
     
-  }
-
-  public let context: PixelEditContext
-
-  public init(context: PixelEditContext) {
-    self.context = context
-    super.init(frame: .zero)
-    setup()
-  }
-
-  @available(*, unavailable)
-  public required init?(coder aDecoder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
-
-  open func setup() {
-
-  }
+    open func didReceiveCurrentEdit(_ edit: EditingStack.Edit) {
+        
+    }
+    
+    public let context: PixelEditContext
+    
+    public init(context: PixelEditContext) {
+        self.context = context
+        super.init(frame: .zero)
+        setup()
+    }
+    
+    @available(*, unavailable)
+    public required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    open func setup() {
+        
+    }
 }

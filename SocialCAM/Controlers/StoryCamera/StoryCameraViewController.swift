@@ -587,6 +587,12 @@ class StoryCameraViewController: UIViewController {
         self.resetPositionRecordButton()
         addVolumeButtonHandler()
         addTikTokShareViewIfNeeded()
+        if let pasteboard = UIPasteboard(name: UIPasteboard.Name(rawValue: "com.simform.Pic2Art.CopyFrom"), create: true),
+            let data = pasteboard.data(forPasteboardType: "com.simform.Pic2Art.shareImageData"),
+            let image = UIImage(data: data) {
+            UIPasteboard.remove(withName: UIPasteboard.Name(rawValue: "com.simform.Pic2Art.CopyFrom"))
+            openStoryEditor(images: [image])
+        }
     }
     
     func addTikTokShareViewIfNeeded() {
@@ -618,7 +624,7 @@ class StoryCameraViewController: UIViewController {
     }
     
     func setViewsForApp() {
-        #if VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP || BOOMICAMAPP || FASTCAMAPP || SOCCERCAMAPP || FUTBOLCAMAPP
+        #if VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP || BOOMICAMAPP || FASTCAMAPP || SOCCERCAMAPP || FUTBOLCAMAPP || SNAPCAMAPP || QUICKCAMAPP
             self.fpsView.isHidden = true
         #endif
     }
@@ -747,13 +753,14 @@ class StoryCameraViewController: UIViewController {
                 cameraModeArray = cameraModeArray.filter({$0.recordingType != .normal})
                 cameraModeArray = cameraModeArray.filter({$0.recordingType != .capture})
                 cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastMotion})
+                cameraModeArray = cameraModeArray.filter({$0.recordingType != .handsfree})
                 if let index = cameraModeArray.firstIndex(where: { return $0.recordingType == .handsfree}) {
                     cameraModeArray.remove(at: index)
                     cameraModeArray.insert(CameraModes(name: R.string.localizable.video2Art(), recordingType: .handsfree), at: index)
                 }
                 Defaults.shared.cameraMode = .basicCamera
                 self.recordingType = Defaults.shared.cameraMode
-            }else {
+            } else {
                 if Defaults.shared.appMode == .free {
                     Defaults.shared.cameraMode = .normal
                     self.recordingType = Defaults.shared.cameraMode
@@ -950,12 +957,12 @@ extension StoryCameraViewController {
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .normal})
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .capture})
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastMotion})
+            cameraModeArray = cameraModeArray.filter({$0.recordingType != .handsfree})
             if let index = cameraModeArray.firstIndex(where: { return $0.recordingType == .handsfree}) {
                 cameraModeArray.remove(at: index)
                 cameraModeArray.insert(CameraModes(name: R.string.localizable.video2Art().uppercased(), recordingType: .handsfree), at: index)
             }
         } else {
-            cameraModeArray = cameraModeArray.filter({$0.recordingType != .collage})
             if Defaults.shared.appMode == .free {
                 cameraModeArray = cameraModeArray.filter({$0.recordingType != .custom})
                 cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastSlowMotion})
@@ -1028,7 +1035,7 @@ extension StoryCameraViewController {
                 self.circularProgress.centerImage = R.image.icoCollageMode()
                 self.timerValueView.isHidden = true
             case .handsfree:
-                self.circularProgress.centerImage = R.image.icoHandsFree()
+                self.circularProgress.centerImage = self.isPic2ArtApp ? R.image.icoHandsFreeVideo() : R.image.icoHandsFree()
                 if self.recordingType == .custom || self.recordingType == .boomerang || self.recordingType == .capture {
                     self.selectedSegmentLengthValue = SelectedTimer(value: "15", selectedRow: 2)
                     self.selectedSegmentLengthValue.saveWithKey(key: "selectedSegmentLengthValue")
@@ -1422,6 +1429,12 @@ extension StoryCameraViewController {
         if isViewAppear {
             startCapture()
             addTikTokShareViewIfNeeded()
+            if let pasteboard = UIPasteboard(name: UIPasteboard.Name(rawValue: "com.simform.Pic2Art.CopyFrom"), create: true),
+                let data = pasteboard.data(forPasteboardType: "com.simform.Pic2Art.shareImageData"),
+                let image = UIImage(data: data) {
+                UIPasteboard.remove(withName: UIPasteboard.Name(rawValue: "com.simform.Pic2Art.CopyFrom"))
+                openStoryEditor(images: [image])
+            }
         }
     }
 }

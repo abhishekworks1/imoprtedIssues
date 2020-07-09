@@ -25,8 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        Thread.sleep(forTimeInterval: 2.0)
-        
         UIApplication.shared.applicationIconBadgeNumber = 0
         configureIQKeyboardManager()
         
@@ -67,6 +65,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #elseif FUTBOLCAMAPP
         print("[FIREBASE] FutbolCam mode.")
         if let filePath = Bundle.main.path(forResource: "GoogleService-Info-FutbolCam", ofType: "plist"),
+            let options = FirebaseOptions(contentsOfFile: filePath) {
+                FirebaseApp.configure(options: options)
+        } else {
+            fatalError("GoogleService-Info-FutbolCam.plist is missing!")
+        }
+        StorySettings.storySettings.filter({$0.settingsType == .socialLogins}).first?.settings.removeLast()
+        StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
+        #elseif QUICKCAMAPP
+        print("[FIREBASE] QuickCam mode.")
+        if let filePath = Bundle.main.path(forResource: "GoogleService-Info-QuickCam", ofType: "plist"),
+            let options = FirebaseOptions(contentsOfFile: filePath) {
+                FirebaseApp.configure(options: options)
+        } else {
+            fatalError("GoogleService-Info-QuickCam.plist is missing!")
+        }
+        StorySettings.storySettings.filter({$0.settingsType == .socialLogins}).first?.settings.removeLast()
+        StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
+        #elseif SNAPCAMAPP
+        print("[FIREBASE] SnapCam mode.")
+        if let filePath = Bundle.main.path(forResource: "GoogleService-Info-SnapCam", ofType: "plist"),
             let options = FirebaseOptions(contentsOfFile: filePath) {
                 FirebaseApp.configure(options: options)
         } else {
@@ -155,7 +173,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Defaults.shared.cameraMode = .normal
         #endif
         let revealingSplashView = RevealingSplashView(iconImage: Constant.Application.appIcon, iconInitialSize: Constant.Application.appIcon.size, backgroundImage: Constant.Application.splashBG)
-        revealingSplashView.duration = 5.0
+        revealingSplashView.duration = 2.0
         revealingSplashView.iconColor = UIColor.red
         revealingSplashView.useCustomIconColor = false
         revealingSplashView.animationType = SplashAnimationType.popAndZoomOut

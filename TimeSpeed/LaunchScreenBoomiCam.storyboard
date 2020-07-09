@@ -16,16 +16,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="boomiCamSplash" translatesAutoresizingMaskIntoConstraints="NO" id="nIC-0C-MAb">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="boomiCamSplashBG" translatesAutoresizingMaskIntoConstraints="NO" id="Lau-aV-lCP">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="boomiCamSplashLogo" translatesAutoresizingMaskIntoConstraints="NO" id="l5r-RL-CPY">
+                                <rect key="frame" x="107.5" y="372.5" width="199" height="151"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="nIC-0C-MAb" secondAttribute="trailing" id="0fY-R6-yzN"/>
-                            <constraint firstAttribute="bottom" secondItem="nIC-0C-MAb" secondAttribute="bottom" id="FCV-lV-5Li"/>
-                            <constraint firstItem="nIC-0C-MAb" firstAttribute="leading" secondItem="EGe-ot-GlS" secondAttribute="leading" id="h2f-tT-2jl"/>
-                            <constraint firstItem="nIC-0C-MAb" firstAttribute="top" secondItem="EGe-ot-GlS" secondAttribute="top" id="kIl-eT-oID"/>
+                            <constraint firstItem="Lau-aV-lCP" firstAttribute="top" secondItem="EGe-ot-GlS" secondAttribute="top" id="5xG-Al-ZGf"/>
+                            <constraint firstAttribute="bottom" secondItem="Lau-aV-lCP" secondAttribute="bottom" id="7e9-WH-8mI"/>
+                            <constraint firstItem="l5r-RL-CPY" firstAttribute="centerX" secondItem="Lau-aV-lCP" secondAttribute="centerX" id="L2r-2p-CwX"/>
+                            <constraint firstItem="l5r-RL-CPY" firstAttribute="centerY" secondItem="Lau-aV-lCP" secondAttribute="centerY" id="UTH-tp-CqL"/>
+                            <constraint firstItem="4d8-nK-oE9" firstAttribute="trailing" secondItem="Lau-aV-lCP" secondAttribute="trailing" id="Wtg-1d-VHo"/>
+                            <constraint firstItem="Lau-aV-lCP" firstAttribute="leading" secondItem="EGe-ot-GlS" secondAttribute="leading" id="zMr-84-ov8"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4d8-nK-oE9"/>
                     </view>
@@ -36,6 +41,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="boomiCamSplash" width="375" height="667"/>
+        <image name="boomiCamSplashBG" width="375" height="667"/>
+        <image name="boomiCamSplashLogo" width="199" height="151"/>
     </resources>
 </document>

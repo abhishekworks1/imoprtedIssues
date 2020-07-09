@@ -460,9 +460,9 @@ extension PhotosPickerViewController {
             self.imageManager = PHCachingImageManager()
 
             var type: AssetType = .both
-            if currentCamaraMode == .slideshow || currentCamaraMode == .collage || isPic2ArtApp {
+            if currentCamaraMode == .slideshow || currentCamaraMode == .collage {
                 type = .image
-                self.configure.maxSelectedAssets = isPic2ArtApp ? 1 : 20
+                self.configure.maxSelectedAssets = 20
             } else if currentCamaraMode == .custom {
                 type = .video
             } else if isTimeSpeedApp || isBoomiCamApp || isFastCamApp {
@@ -470,6 +470,9 @@ extension PhotosPickerViewController {
                 self.configure.maxSelectedAssets = 1
             } else {
                 type = .both
+                if isPic2ArtApp {
+                    self.configure.maxSelectedAssets = 1
+                }
             }
             self.once.run {
                 self.library.reload(type, {
@@ -509,6 +512,13 @@ extension PhotosPickerViewController {
     
     @IBAction open func doneButtonTap() {
         guard !self.selectedAssets.isEmpty else {
+            return
+        }
+        if isPic2ArtApp,
+            let asset = self.selectedAssets.first,
+            asset.assetType == .video,
+            asset.asset.duration > 5.0 {
+            self.showAlert(alertMessage: "Maximum 5 seconds video allowed.")
             return
         }
         self.dismiss(done: true)

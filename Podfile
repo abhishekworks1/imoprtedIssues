@@ -105,11 +105,20 @@ target 'FutbolCam' do
   projectShared_pods
 end
 
+target 'SnapCam' do
+  use_frameworks!
+  projectShared_pods
+end
+
 target 'SocialCamShare' do
   shared_pods
 end
 
 target 'SocialCamMediaShare' do
+  shared_pods
+end
+
+target 'Pic2ArtShare' do
   shared_pods
 end
 

@@ -30,39 +30,31 @@ struct BusinessVCOption {
     var image: UIImage?
     var type: BusinessVCOptionType
     
-    static let contents: [BusinessVCOption] = [BusinessVCOption(name: R.string.localizable.stats(),
-                                                        image: R.image.stat(), type: .stats),
-                                           BusinessVCOption(name: R.string.localizable.leaderboard(),
-                                                        image: R.image.leaderboard(), type: .leaderboard),
-                                           BusinessVCOption(name: R.string.localizable.announcement(),
-                                                        image: R.image.announcementCopy(), type: .announcement),
-                                           BusinessVCOption(name: R.string.localizable.share(),
-                                                        image: R.image.share(), type: .share),
-                                           BusinessVCOption(name: R.string.localizable.map(),
-                                                        image: R.image.world(), type: .map),
-                                           BusinessVCOption(name: R.string.localizable.followerNetwork(),
-                                                        image: R.image.genealogy(), type: .genealogy),
-                                           BusinessVCOption(name: R.string.localizable.calculator(),
-                                                        image: R.image.calculator(), type: .calculator),
-                                           BusinessVCOption(name: R.string.localizable.money(),
-                                                        image: R.image.money(), type: .money),
-                                           BusinessVCOption(name: R.string.localizable.subscribers(),
-                                                        image: R.image.subscribers(), type: .subscribers),
-                                           BusinessVCOption(name: R.string.localizable.subscription(),
-                                                        image: R.image.subscription(), type: .subscription),
-                                           BusinessVCOption(name: R.string.localizable.socialConnection(),
-                                                        image: R.image.socialConnection(), type: .socialConnection),
-                                           BusinessVCOption(name: "\(R.string.localizable.channel()) \n \(R.string.localizable.management())",
-                                                        image: R.image.channelManagement(), type: .channelManagement),
-                                           BusinessVCOption(name: R.string.localizable.iicC(),
-                                                        image: R.image.iiCc(), type: .iicC)]
+    static let contents: [BusinessVCOption] = [BusinessVCOption(name: R.string.localizable.share(), image: R.image.share(), type: .share),
+                                               BusinessVCOption(name: R.string.localizable.subscription(), image: R.image.subscription(), type: .subscription),
+                                               BusinessVCOption(name: R.string.localizable.socialConnection(), image: R.image.socialConnection(), type: .socialConnection),
+                                               BusinessVCOption(name: "\(R.string.localizable.channel()) \n \(R.string.localizable.management())", image: R.image.channelManagement(), type: .channelManagement),
+                                               BusinessVCOption(name: R.string.localizable.stats(), image: R.image.stat(), type: .stats),
+                                               BusinessVCOption(name: R.string.localizable.leaderboard(), image: R.image.leaderboard(), type: .leaderboard),
+                                               BusinessVCOption(name: R.string.localizable.announcement(), image: R.image.announcementCopy(), type: .announcement),
+                                               BusinessVCOption(name: R.string.localizable.map(), image: R.image.world(), type: .map),
+                                               BusinessVCOption(name: R.string.localizable.followerNetwork(), image: R.image.genealogy(), type: .genealogy),
+                                               BusinessVCOption(name: R.string.localizable.calculator(), image: R.image.calculator(), type: .calculator),
+                                               BusinessVCOption(name: R.string.localizable.money(), image: R.image.money(), type: .money),
+                                               BusinessVCOption(name: R.string.localizable.subscribers(), image: R.image.subscribers(), type: .subscribers),
+                                               BusinessVCOption(name: R.string.localizable.iicC(), image: R.image.iiCc(), type: .iicC)]
 }
 
 class BusinessVC: UIViewController {
 
     @IBOutlet weak var navigationTitle: UILabel!
-    @IBOutlet weak var navigationImageView: UIImageView!
 
+    @IBOutlet weak var navigationImageView: UIImageView! {
+        didSet {
+            navigationImageView.isHidden = true
+        }
+    }
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
     var isFutbolCamApp: Bool {
@@ -85,6 +77,8 @@ class BusinessVC: UIViewController {
         navTitle = R.string.localizable.soccerCam() + " " + R.string.localizable.businessCenter()
         #elseif FUTBOLCAMAPP
         navTitle = R.string.localizable.futbolCam() + " " + R.string.localizable.businessCenter()
+        #elseif QUICKCAMAPP
+        navTitle = R.string.localizable.quickCam() + " " + R.string.localizable.businessCenter()
         #elseif PIC2ARTAPP
         navTitle = R.string.localizable.pic2Art() + " " + R.string.localizable.businessCenter()
         #elseif BOOMICAMAPP
@@ -93,10 +87,11 @@ class BusinessVC: UIViewController {
         navTitle = R.string.localizable.timeSpeed() + " " + R.string.localizable.businessCenter()
         #elseif FASTCAMAPP
         navTitle = R.string.localizable.fastCam() + " " + R.string.localizable.businessCenter()
+        #elseif SNAPCAMAPP
+        navTitle = R.string.localizable.snapCam() + " " + R.string.localizable.businessCenter()
         #endif
         
         navigationTitle.text = navTitle
-        navigationImageView.isHidden = !isFutbolCamApp
     }
     
     @IBAction func onBack(_ sender: UIButton) {
@@ -144,7 +139,7 @@ extension BusinessVC: UICollectionViewDataSource, UICollectionViewDelegate, UICo
                 self.navigationController?.pushViewController(chVc, animated: true)
             }
         case .share:
-            let publicLink = Constant.Application.referralLink
+            let publicLink = "\(Constant.URLs.websiteURL)/referral/\(Defaults.shared.currentUser?.referralCode ?? "")"
             let shareAll = [publicLink] as [Any]
             let activityViewController = UIActivityViewController(activityItems: shareAll, applicationActivities: nil)
             activityViewController.popoverPresentationController?.sourceView = self.view

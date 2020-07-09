@@ -22,6 +22,8 @@ enum SSUTagType {
     case fastCam
     case soccerCam
     case futbolCam
+    case quickCam
+    case snapCam
 }
 
 enum SSUWaitingListOptionType {
@@ -51,7 +53,7 @@ struct SSUTagOption {
     static let contents: [SSUTagOption] = [
         SSUTagOption(name: R.string.localizable.timeSpeed(), image: R.image.ssuTimeSpeed(), type: .timeSpeed)]
     #elseif FASTCAMAPP
-    static let contents: [SSUTagOption] = [SSUTagOption(name: R.string.localizable.fastCam(), image: R.image.ssuFastCam(), type: .fastcam)]
+    static let contents: [SSUTagOption] = [SSUTagOption(name: R.string.localizable.fastCam(), image: R.image.ssuFastCam(), type: .fastCam)]
     #elseif BOOMICAMAPP
        static let contents: [SSUTagOption] = [
            SSUTagOption(name: R.string.localizable.boomiCam(), image: R.image.ssuBoomiCam(), type: .boomiCam)]
@@ -64,6 +66,12 @@ struct SSUTagOption {
     #elseif FUTBOLCAMAPP
        static let contents: [SSUTagOption] = [
               SSUTagOption(name: R.string.localizable.futbolCam(), image: R.image.ssuSoccerCam(), type: .futbolCam)]
+    #elseif QUICKCAMAPP
+    static let contents: [SSUTagOption] = [
+           SSUTagOption(name: R.string.localizable.quickCam(), image: R.image.ssuQuickCam(), type: .quickCam)]
+    #elseif SNAPCAMAPP
+    static let contents: [SSUTagOption] = [
+           SSUTagOption(name: R.string.localizable.snapCam(), image: R.image.ssuSnapCam(), type: .snapCam)]
     #else
     static let contents: [SSUTagOption] = [
         SSUTagOption(name: R.string.localizable.socialCam(), image: R.image.ssuSocialCam(), type: .socialCam),
@@ -196,7 +204,7 @@ extension SSUTagSelectionViewController: UICollectionViewDataSource, UICollectio
                     navigation.isNavigationBarHidden = true
                     self.present(navigation, animated: true)
                 }
-            case .pic2art, .timeSpeed, .boomiCam, .soccerCam, .fastCam, .futbolCam, .socialCam:
+            case .pic2art, .timeSpeed, .boomiCam, .soccerCam, .fastCam, .futbolCam, .socialCam, .snapCam, .quickCam:
                 self.dismiss(animated: true) {
                     self.delegate?.didSelect(type: SSUTagOption.contents[indexPath.row].type, waitingListOptionType: nil, socialShareType: nil, screenType: self.type)
                 }

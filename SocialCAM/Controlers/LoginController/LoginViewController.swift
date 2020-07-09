@@ -70,6 +70,10 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         imgLogo.image = R.image.viralcamrgb()
         #elseif SOCCERCAMAPP || FUTBOLCAMAPP
         imgLogo.image = R.image.soccercamWatermarkLogo()
+        #elseif QUICKCAMAPP
+        imgLogo.image = R.image.quickcamWatermarkLogo()
+        #elseif SNAPCAMAPP
+        imgLogo.image = R.image.snapcamWatermarkLogo()
         #elseif TIMESPEEDAPP
         imgLogo.image = R.image.timeSpeedWatermarkLogo()
         #elseif FASTCAMAPP
@@ -77,7 +81,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         #elseif BOOMICAMAPP
         imgLogo.image = R.image.boomicamWatermarkLogo()
         #else
-        imgLogo.image = R.image.pic2artLogin()
+        imgLogo.image = R.image.pic2artWatermarkLogo()
         #endif
         
         txtEmail.iconFont = UIFont.fontAwesome(ofSize: 12, style: .solid)
@@ -335,7 +339,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         }
         let parentId = Defaults.shared.currentUser?.parentId ?? Defaults.shared.currentUser?.id
         Defaults.shared.parentID = parentId
-        #if !IS_SHAREPOST && !IS_MEDIASHARE && !IS_VIRALVIDS  && !IS_SOCIALVIDS
+        #if !IS_SHAREPOST && !IS_MEDIASHARE && !IS_VIRALVIDS  && !IS_SOCIALVIDS && !IS_PIC2ARTSHARE
         self.goToHomeScreen()
         #endif
         self.doLogin()

@@ -32,6 +32,12 @@ open class SocialShareVideo: NSObject, SharingDelegate {
             attachmentUrl = Constant.URLs.socialCamWebsiteURL
         case .tiktokShare:
             attachmentUrl = Defaults.shared.postViralCamModel?.referLink ?? ""
+        case .pic2art:
+            attachmentUrl = "\(Constant.URLs.pic2ArtWebsiteURL)/referral/\(Defaults.shared.currentUser?.referralCode ?? "")"
+        case .soccercam:
+            attachmentUrl = "\(Constant.URLs.soccercamWebsiteURL)/referral/\(Defaults.shared.currentUser?.referralCode ?? "")"
+        case .futbolcam:
+            attachmentUrl = "\(Constant.URLs.futbolWebsiteURL)/referral/\(Defaults.shared.currentUser?.referralCode ?? "")"
         default:
             break
         }
@@ -132,8 +138,32 @@ open class SocialShareVideo: NSObject, SharingDelegate {
     
     func twitterShareCompose(image: UIImage? = nil, url: URL? = nil, text: String = Constant.Application.displayName) {
     
+        var displayMessage = text
+        #if SOCIALCAMAPP
+        displayMessage = R.string.localizable.checkOutThisCoolNewAppSocialCam()
+        #elseif VIRALCAMAPP
+        displayMessage = R.string.localizable.checkOutThisCoolNewAppViralCam()
+        #elseif SOCCERCAMAPP
+        displayMessage = R.string.localizable.checkOutThisCoolNewAppSoccerCam()
+        #elseif FUTBOLCAMAPP
+        displayMessage = R.string.localizable.checkOutThisCoolNewAppFutbolCam()
+        #elseif SNAPCAMAPP
+        displayMessage = R.string.localizable.checkOutThisCoolNewAppSnapCam()
+        #elseif TIMESPEEDAPP
+        displayMessage = R.string.localizable.checkOutThisCoolNewAppTimeSpeed()
+        #elseif FASTCAMAPP
+        displayMessage = R.string.localizable.checkOutThisCoolNewAppFastCam()
+        #elseif BOOMICAMAPP
+        displayMessage = R.string.localizable.checkOutThisCoolNewAppBoomiCam()
+        #elseif PIC2ARTAPP
+        displayMessage = R.string.localizable.checkOutThisCoolNewAppPic2Art()
+        #elseif QUICKCAMAPP
+        displayMessage = R.string.localizable.checkOutThisCoolNewAppQuickCam()
+        #endif
+        displayMessage.append(" ")
+        displayMessage.append("\(Constant.URLs.websiteURL)/referral/\(Defaults.shared.currentUser?.referralCode ?? "")")
         if let twitterComposeViewController = R.storyboard.twitterCompose.twitterComposeViewController() {
-            twitterComposeViewController.presetText = text
+            twitterComposeViewController.presetText = displayMessage
             if let image = image {
                 twitterComposeViewController.preselectedImage = image
             } else if let url = url {
@@ -261,6 +291,12 @@ open class SocialShareVideo: NSObject, SharingDelegate {
             snapPhoto.attachmentUrl = Constant.URLs.socialCamWebsiteURL
         case .tiktokShare:
             snapPhoto.attachmentUrl = Defaults.shared.postViralCamModel?.referLink
+        case .pic2art:
+            snapPhoto.attachmentUrl = "\(Constant.URLs.pic2ArtWebsiteURL)/referral/\(Defaults.shared.currentUser?.referralCode ?? "")"
+        case .soccercam:
+            snapPhoto.attachmentUrl = "\(Constant.URLs.soccercamWebsiteURL)/referral/\(Defaults.shared.currentUser?.referralCode ?? "")"
+        case .futbolcam:
+            snapPhoto.attachmentUrl = "\(Constant.URLs.futbolWebsiteURL)/referral/\(Defaults.shared.currentUser?.referralCode ?? "")"
         default:
             break
         }
@@ -277,6 +313,12 @@ open class SocialShareVideo: NSObject, SharingDelegate {
             snapVideo.attachmentUrl = Constant.URLs.socialCamWebsiteURL
         case .tiktokShare:
             snapVideo.attachmentUrl = Defaults.shared.postViralCamModel?.referLink
+        case .pic2art:
+            snapVideo.attachmentUrl = "\(Constant.URLs.pic2ArtWebsiteURL)/referral/\(Defaults.shared.currentUser?.referralCode ?? "")"
+        case .soccercam:
+            snapVideo.attachmentUrl = "\(Constant.URLs.soccercamWebsiteURL)/referral/\(Defaults.shared.currentUser?.referralCode ?? "")"
+        case .futbolcam:
+            snapVideo.attachmentUrl = "\(Constant.URLs.futbolWebsiteURL)/referral/\(Defaults.shared.currentUser?.referralCode ?? "")"
         default:
             break
         }

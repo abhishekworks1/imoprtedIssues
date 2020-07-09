@@ -226,13 +226,14 @@ class SignUpStepOneViewController: UIViewController {
         }
     }
     
-    @IBAction func btnNextClicked(_ sender:Any) {
+    @IBAction func btnNextClicked(_ sender: Any) {
         guard let email = txtEmail.text,
             let password = txtPassWord.text,
             let birthdate = txtBirthdate.text,
             let refChannel = txtRefChannel.text else {
                 return
         }
+        let passwordValidation = NSPredicate(format: "SELF MATCHES %@ ", "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&#])[A-Za-z\\d$@$!%*?&#]{8,35}")
         if email.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
             self.showAlert(alertMessage: R.string.localizable.pleaseEnterEmail())
         } else if !email.isValidEmail() {
@@ -243,6 +244,8 @@ class SignUpStepOneViewController: UIViewController {
             self.showAlert(alertMessage: R.string.localizable.pleaseEnterPassword())
 //        } else if birthdate.isEmpty {
 //            self.showAlert(alertMessage: R.string.localizable.pleaseSelectBirthdate())
+        } else if !passwordValidation.evaluate(with: password) {
+            self.showAlert(alertMessage: "Enter Valid Password")
         } else if refChannel.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
             self.showAlert(alertMessage: R.string.localizable.pleaseEnterTheNameOfYourReferringChannelIfYouDoNotHaveOneUseTheSearchFeatureToFindAChannelToUse())
         } else if !self.isRefChannel {

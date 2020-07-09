@@ -58,15 +58,15 @@ public extension RevealingSplashView {
             let shrinkDuration: TimeInterval = duration * 0.3
             
             //Plays the shrink animation
-          UIView.animate(withDuration: shrinkDuration, delay: delay, usingSpringWithDamping: 0.7, initialSpringVelocity: 10, options: UIView.AnimationOptions(), animations: {
+            UIView.animate(withDuration: shrinkDuration, delay: delay, usingSpringWithDamping: 0.7, initialSpringVelocity: 10, options: UIView.AnimationOptions(), animations: {
                 //Shrinks the image
                 let scaleTransform: CGAffineTransform = CGAffineTransform(scaleX: 0.75,y: 0.75)
                 imageView.transform = scaleTransform
                 
                 //When animation completes, grow the image
-                }, completion: { finished in
-                    
-                    self.playZoomOutAnimation(completion)
+            }, completion: { finished in
+                
+                self.playZoomOutAnimation(completion)
             })
         }
     }
@@ -84,15 +84,15 @@ public extension RevealingSplashView {
             let shrinkDuration: TimeInterval = duration * 0.5
             
             //Plays the shrink animation
-          UIView.animate(withDuration: shrinkDuration, delay: delay/3, usingSpringWithDamping: 10, initialSpringVelocity: 10, options: UIView.AnimationOptions(), animations: {
+            UIView.animate(withDuration: shrinkDuration, delay: delay/3, usingSpringWithDamping: 10, initialSpringVelocity: 10, options: UIView.AnimationOptions(), animations: {
                 //Shrinks the image
                 let scaleTransform: CGAffineTransform = CGAffineTransform(scaleX: 0.30,y: 0.30)
                 imageView.transform = scaleTransform
                 
                 //When animation completes, grow the image
-                }, completion: { finished in
-                    
-                    self.playZoomOutAnimation(completion)
+            }, completion: { finished in
+                
+                self.playZoomOutAnimation(completion)
             })
         }
     }
@@ -107,11 +107,11 @@ public extension RevealingSplashView {
         if let imageView = self.imageView{
             
             /**
-            Sets the animation with duration delay and completion
-            
-            - returns:
-            */
-          UIView.animate(withDuration: duration, delay: delay, usingSpringWithDamping: 0.5, initialSpringVelocity: 3, options: UIView.AnimationOptions(), animations: {
+             Sets the animation with duration delay and completion
+             
+             - returns:
+             */
+            UIView.animate(withDuration: duration, delay: delay, usingSpringWithDamping: 0.5, initialSpringVelocity: 3, options: UIView.AnimationOptions(), animations: {
                 
                 //Sets a simple rotate
                 let rotateTranform = CGAffineTransform(rotationAngle: CGFloat(Double.pi * 0.99))
@@ -120,11 +120,11 @@ public extension RevealingSplashView {
                 //Removes the animation
                 self.alpha = 0
                 
-                }, completion: { finished in
-                    
-                    self.removeFromSuperview()
-                    
-                    completion?()
+            }, completion: { finished in
+                
+                self.removeFromSuperview()
+                
+                completion?()
             })
             
         }
@@ -150,7 +150,7 @@ public extension RevealingSplashView {
                 let positionX = CAKeyframeAnimation(keyPath: "position.x")
                 positionX.values = [0, 30 * woobleForce, -30 * woobleForce, 30 * woobleForce, 0]
                 positionX.keyTimes = [0, 0.2, 0.4, 0.6, 0.8, 1]
-              positionX.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+                positionX.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
                 positionX.isAdditive = true
                 
                 let animationGroup = CAAnimationGroup()
@@ -159,9 +159,9 @@ public extension RevealingSplashView {
                 animationGroup.beginTime = CACurrentMediaTime() + CFTimeInterval(self.delay/2)
                 animationGroup.repeatCount = 2
                 imageView.layer.add(animationGroup, forKey: "wobble")
-                }, completion: {
-                    
-                     self.playZoomOutAnimation(completion)
+            }, completion: {
+                
+                self.playZoomOutAnimation(completion)
             })
             
         }
@@ -189,8 +189,8 @@ public extension RevealingSplashView {
                 animation.beginTime = CACurrentMediaTime() + CFTimeInterval(self.delay/3)
                 imageView.layer.add(animation, forKey: "swing")
                 
-                }, completion: {
-                    self.playZoomOutAnimation(completion)
+            }, completion: {
+                self.playZoomOutAnimation(completion)
             })
         }
     }
@@ -211,14 +211,14 @@ public extension RevealingSplashView {
                 let animation = CAKeyframeAnimation(keyPath: "transform.scale")
                 animation.values = [0, 0.2 * popForce, -0.2 * popForce, 0.2 * popForce, 0]
                 animation.keyTimes = [0, 0.2, 0.4, 0.6, 0.8, 1]
-              animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+                animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
                 animation.duration = CFTimeInterval(self.duration/2)
                 animation.isAdditive = true
                 animation.repeatCount = 2
                 animation.beginTime = CACurrentMediaTime() + CFTimeInterval(self.delay/2)
                 imageView.layer.add(animation, forKey: "pop")
-                }, completion: {
-                     self.playZoomOutAnimation(completion)
+            }, completion: {
+                self.playZoomOutAnimation(completion)
             })
         }
     }
@@ -240,11 +240,11 @@ public extension RevealingSplashView {
                 self.alpha = 0
                 
                 //When animation completes remote self from super view
-                }, completion: { finished in
-                    
-                    self.removeFromSuperview()
-                    
-                    completion?()
+            }, completion: { finished in
+                
+                self.removeFromSuperview()
+                
+                completion?()
             })
         }
     }
@@ -258,7 +258,7 @@ public extension RevealingSplashView {
      */
     fileprivate func getZoomOutTranform() -> CGAffineTransform
     {
-        let zoomOutTranform: CGAffineTransform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+        let zoomOutTranform: CGAffineTransform = CGAffineTransform(scaleX: 10, y: 10)
         return zoomOutTranform
     }
     
@@ -290,18 +290,18 @@ public extension RevealingSplashView {
                 let animation = CAKeyframeAnimation(keyPath: "transform.scale")
                 animation.values = [0, 0.1 * popForce, 0.015 * popForce, 0.2 * popForce, 0]
                 animation.keyTimes = [0, 0.25, 0.35, 0.55, 1]
-              animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+                animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
                 animation.duration = CFTimeInterval(self.duration/2)
                 animation.isAdditive = true
                 animation.repeatCount = Float(minimumBeats > 0 ? minimumBeats : 1)
                 animation.beginTime = CACurrentMediaTime() + CFTimeInterval(self.delay/2)
                 imageView.layer.add(animation, forKey: "pop")
-                }, completion: { [weak self] in 
-                    if self?.heartAttack ?? true {
-                        self?.playZoomOutAnimation(completion)
-                    } else {
-                        self?.playHeartBeatAnimation(completion)
-                    }
+            }, completion: { [weak self] in
+                if self?.heartAttack ?? true {
+                    self?.playZoomOutAnimation(completion)
+                } else {
+                    self?.playHeartBeatAnimation(completion)
+                }
             })
         }
     }
@@ -316,6 +316,6 @@ public extension RevealingSplashView {
     {
         self.heartAttack = true
     }
-
+    
     
 }

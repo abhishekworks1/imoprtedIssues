@@ -373,10 +373,27 @@ public struct Constant {
         static let youtube = "https://www.googleapis.com/youtube/v3/"
         #if SOCIALCAMAPP
             static let websiteURL = "https://socialcam.iicc.online"
+        #elseif VIRALCAMAPP
+            static let websiteURL = "https://viralcam.iicc.online"
+        #elseif SOCCERCAMAPP
+            static let websiteURL = "https://soccercam.iicc.online"
+        #elseif FUTBOLCAMAPP
+            static let websiteURL = "https://futbolcam.iicc.online"
+        #elseif PIC2ARTAPP
+            static let websiteURL = "https://pic2art.iicc.online"
+        #elseif BOOMICAMAPP
+            static let websiteURL = "https://boomicam.iicc.online"
+        #elseif TIMESPEEDAPP
+            static let websiteURL = "https://timespeed.iicc.online"
+        #elseif FASTCAMAPP
+            static let websiteURL = "https://fastcam.iicc.online"
         #else
             static let websiteURL = Defaults.shared.currentUser?.viralcamReferralLink ?? "https://viralcam.iicc.online"
         #endif
         static let socialCamWebsiteURL = "https://socialcam.iicc.online"
+        static let pic2ArtWebsiteURL = "https://pic2art.iicc.online"
+        static let soccercamWebsiteURL = "http://soccercam.iicc.online"
+        static let futbolWebsiteURL = "http://futbolcam.iicc.online"
     }
     
     struct Application {
@@ -385,8 +402,8 @@ public struct Constant {
         static let simformIdentifier: String = "com.simform.viralcam"
         static let proModeCode: String = "viralcam2020"
         static let publicLink = URL(string: "https://testflight.apple.com/join/sk1foNLO")
-        static let splashBG = UIImage(named: "TimeSpeedSplash")!
-        static let appIcon = UIImage(named: "ssuTimeSpeed")!
+        static let splashBG = UIImage(named: "viralCamSplashBG")!
+        static let appIcon = UIImage(named: "viralCamSplashLogo")!
         #elseif SOCCERCAMAPP
         static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "SoccerCam"
         static let simformIdentifier: String = "com.simform.SoccerCam"
@@ -396,26 +413,40 @@ public struct Constant {
         static let appIcon = UIImage(named: "soccerCamSplashBG")!
         #elseif FUTBOLCAMAPP
         static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "FutbolCam"
-        static let groupIdentifier: String = "group.com.simform.storiCamPro"
         static let simformIdentifier: String = "com.simform.SoccerCam"
         static let proModeCode: String = "futbolcam2020"
         static let publicLink = URL(string: "https://testflight.apple.com/join/1dRtt5SV")
         static let splashBG = UIImage(named: "footballCamSplashBG")!
         static let appIcon = UIImage(named: "futbolCamSplashLogo")!
+        #elseif QUICKCAMAPP
+        static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "QuickCam"
+        static let simformIdentifier: String = "com.simform.QuickCam"
+        static let proModeCode: String = "quickcam2020"
+        static let publicLink = URL(string: "https://testflight.apple.com/join/1dRtt5SV")
+        static let splashBG = UIImage(named: "quickCamSplashBG")!
+        static let appIcon = UIImage(named: "quickCamSplashLogo")!
+        #elseif SNAPCAMAPP
+        static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "SnapCam"
+        static let simformIdentifier: String = "com.simform.SnapCam"
+        static let proModeCode: String = "snapcam2020"
+        static let publicLink = URL(string: "https://testflight.apple.com/join/MTVSBnbC")
+        static let splashBG = UIImage(named: "snapCamSplash")!
+        static let appIcon = UIImage(named: "snapCamSplashIcon")!
         #elseif PIC2ARTAPP
         static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "PIC2ART"
         static let simformIdentifier: String = "com.simform.Pic2Art"
         static let proModeCode: String = "pic2art2020"
+        static let pic2artProModeCode: String = "pic2art2020pro!!"
         static let publicLink = URL(string: "https://testflight.apple.com/join/hshtsh9O")
-        static let splashBG = UIImage(named: "TimeSpeedSplash")!
-        static let appIcon = UIImage(named: "ssuTimeSpeed")!
+        static let splashBG = UIImage(named: "Pic2ArtSplash")!
+        static let appIcon = UIImage(named: "Pic2ArtSplashIcon")!
         #elseif BOOMICAMAPP
         static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "BOOMICAM"
         static let simformIdentifier: String = "com.simform.BoomiCam"
         static let proModeCode: String = "boomicam2020"
         static let publicLink = URL(string: "https://testflight.apple.com/join/kYCCo1AW")
-        static let splashBG = UIImage(named: "TimeSpeedSplash")!
-        static let appIcon = UIImage(named: "ssuTimeSpeed")!
+        static let splashBG = UIImage(named: "boomiCamSplashBG")!
+        static let appIcon = UIImage(named: "boomiCamSplashLogo")!
         #elseif TIMESPEEDAPP
         static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "TIMESPEED"
         static let simformIdentifier: String = "com.simform.timespeed"
@@ -428,15 +459,15 @@ public struct Constant {
         static let simformIdentifier: String = "com.simform.fastCam"
         static let proModeCode: String = "fastcam2020"
         static let publicLink = URL(string: "")
-        static let splashBG = UIImage(named: "TimeSpeedSplash")!
+        static let splashBG = UIImage(named: "footballCamSplashBG")!
         static let appIcon = UIImage(named: "ssuTimeSpeed")!
         #elseif SOCIALCAMAPP
         static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "SocialCam"
         static let simformIdentifier: String = "com.simform.storiCamPro"
         static let proModeCode: String = "socialcam2020"
         static let publicLink = URL(string: "https://testflight.apple.com/join/6zE0nt7P")
-        static let splashBG = UIImage(named: "TimeSpeedSplash")!
-        static let appIcon = UIImage(named: "ssuTimeSpeed")!
+        static let splashBG = UIImage(named: "socialCamSplashBG")!
+        static let appIcon = UIImage(named: "socialCamSplashLogo")!
         #endif
         
         static let groupIdentifier: String = "group.com.simform.storiCamPro"
@@ -498,6 +529,14 @@ public struct Constant {
             static let redirectUrl = "https://futbolcam-ddf06.firebaseapp.com/__/auth/handler"
             static let clientId = "1431217550411859"
             static let clientSecret = "39554fc089d5154b5ee77499e549eb65"
+        #elseif QUICKCAMAPP
+        static let redirectUrl = "https://quickcam-fde9d.firebaseapp.com/__/auth/handler"
+        static let clientId = "896406730769747"
+        static let clientSecret = "47bfa6fac6eef802ab5346f896013a9c"
+        #elseif SNAPCAMAPP
+        static let redirectUrl = "https://snapcam-1594222751745.firebaseapp.com/__/auth/handler"
+        static let clientId = "649595362296150"
+        static let clientSecret = "2d0401703d64b6fc1546249cfd1693d9"
         #else
             static let redirectUrl = "https://viralcam-c3c84.firebaseapp.com/__/auth/handler"
             static let clientId = "228138878240656"
@@ -534,6 +573,12 @@ public struct Constant {
         #elseif FUTBOLCAMAPP
         static let serviceKey: String = "AIzaSyCF0PBGqnCPVtKFYdYaHv1HYN5X-j4R7U0"
         static let placeClientKey: String = "AIzaSyCF0PBGqnCPVtKFYdYaHv1HYN5X-j4R7U0"
+        #elseif QUICKCAMAPP
+        static let serviceKey: String = "AIzaSyDb7qoLWUdqXgq2rdEvpxFg95iE8Vh20Pc"
+        static let placeClientKey: String = "AIzaSyDb7qoLWUdqXgq2rdEvpxFg95iE8Vh20Pc"
+        #elseif SNAPCAMAPP
+        static let serviceKey: String = "AIzaSyD9_sy-klWwfrLTrT4ub-E4fC-iwnzoCG0"
+        static let placeClientKey: String = "AIzaSyD9_sy-klWwfrLTrT4ub-E4fC-iwnzoCG0"
         #elseif PIC2ARTAPP
             static let serviceKey: String = "AIzaSyBOBVwEf8bMfwCreZS-IBAEqm57A0szOfg"
             static let placeClientKey: String = "AIzaSyBOBVwEf8bMfwCreZS-IBAEqm57A0szOfg"
@@ -564,7 +609,7 @@ public struct Constant {
 }
 
 class StoryTagGradientLayer: CAGradientLayer { }
-#if !IS_SHAREPOST && !IS_MEDIASHARE && !IS_VIRALVIDS && !IS_SOCIALVIDS
+#if !IS_SHAREPOST && !IS_MEDIASHARE && !IS_VIRALVIDS && !IS_SOCIALVIDS && !IS_PIC2ARTSHARE
 class BaseQuestionTagView: BaseStoryTagView { }
 #endif
 
@@ -588,7 +633,7 @@ enum SlideShowExportType {
     case sendChat
 }
 
-#if !IS_SHAREPOST && !IS_MEDIASHARE && !IS_VIRALVIDS  && !IS_SOCIALVIDS
+#if !IS_SHAREPOST && !IS_MEDIASHARE && !IS_VIRALVIDS  && !IS_SOCIALVIDS && !IS_PIC2ARTSHARE
 enum StoriCamType: Equatable {
     case story
     case chat
@@ -761,6 +806,15 @@ class StyleData {
         self.image = image
         self.styleImage = styleImage
     }
+    
+    static var data: [StyleData] {
+        var styleData: [StyleData] = []
+        for index in 0...43 {
+            styleData.append(StyleData(name: "", image: UIImage(named: "styletransfer_\(index)")!, styleImage: nil))
+        }
+        return styleData
+    }
+    
 }
 
 protocol OuttakesTakenDelegate: class {

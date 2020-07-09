@@ -240,6 +240,7 @@ class StoryEditorViewController: UIViewController {
     private var videoExportedURL: URL?
     
     public var referType: ReferType = .none
+    var popupVC: STPopupController = STPopupController()
     
     var isViewEditMode: Bool = false {
         didSet {
@@ -260,6 +261,14 @@ class StoryEditorViewController: UIViewController {
             }
             socialShareBottomView.isHidden = isViewEditMode
         }
+    }
+    
+    var isViralCamCloneApp: Bool {
+        #if VIRALCAMAPP || QUICKCAMAPP
+        return true
+        #else
+        return false
+        #endif
     }
     
     var isPic2ArtApp: Bool {
@@ -406,15 +415,16 @@ class StoryEditorViewController: UIViewController {
         
         self.editOptionView.isHidden = !isImage
         self.applyFilterOptionView.isHidden = !isImage
-        if !isTimeSpeedApp && !isFastCamApp && !isPic2ArtApp {
+        if !isTimeSpeedApp && !isFastCamApp && !isPic2ArtApp && !isViralCamCloneApp {
             self.specificBoomerangView.isHidden = (Defaults.shared.appMode != .free && isBoomerang) ? true : isImage
         } else {
             self.specificBoomerangView.isHidden = true
         }
-        if isTimeSpeedApp || isPic2ArtApp {
+        if (isTimeSpeedApp || isPic2ArtApp) && (Defaults.shared.appMode == .professional) {
+            self.ssuTagView.isHidden = false
+        } else if (isTimeSpeedApp || isPic2ArtApp) {
             self.ssuTagView.isHidden = true
-        }
-        else if let currentUser = Defaults.shared.currentUser, let isAdvanceMode = currentUser.advanceGameMode {
+        } else if let currentUser = Defaults.shared.currentUser, let isAdvanceMode = currentUser.advanceGameMode {
             self.ssuTagView.isHidden = !isAdvanceMode
         } else {
             self.ssuTagView.isHidden = true
@@ -697,6 +707,17 @@ extension StoryEditorViewController {
     
     @IBAction func backClicked(_ sender: UIButton) {
         Defaults.shared.postViralCamModel = nil
+        if isPic2ArtApp {
+            if let controllers = navigationController?.viewControllers,
+                controllers.count > 0 {
+                for controller in controllers {
+                    if let storyCameraVC = controller as? StoryCameraViewController {
+                        navigationController?.popToViewController(storyCameraVC, animated: true)
+                        return
+                    }
+                }
+            }
+        }
         navigationController?.popViewController(animated: true)
     }
     
@@ -926,8 +947,34 @@ extension StoryEditorViewController {
         isViewEditMode = !isViewEditMode
     }
     
+    @objc private func backgroundViewDidTap() {
+        popupVC.dismiss()
+    }
+    
     @IBAction func btnSocialMediaShareClick(_ sender: UIButton) {
         if SocialShare(rawValue: sender.tag) ?? SocialShare.facebook == .storiCam {
+            guard let socialshareVC = R.storyboard.socialCamShareVC.socialCamShareVC() else {
+                return
+            }
+            socialshareVC.btnStoryPostClicked = { [weak self] (selectedIndex) in
+                guard let `self` = self else { return }
+                self.popupVC.dismiss {
+                    if selectedIndex == 0 {
+                        self.shareSocialMedia(type: .storiCam)
+                    } else {
+                        self.shareSocialMedia(type: .storiCamPost)
+                    }
+                }
+            }
+            popupVC = STPopupController(rootViewController: socialshareVC)
+            popupVC.style = .formSheet
+            popupVC.navigationBarHidden = true
+            popupVC.transitionStyle = .fade
+            popupVC.containerView.roundCorners(corners: .allCorners, radius: 20)
+            popupVC.backgroundView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backgroundViewDidTap)))
+            popupVC.present(in: self)
+            return
+            
             let menuOptions: [UIImage] = [R.image.icoStoriCamStory()!, R.image.icoStoriCamPost()!]
             let menuOptionsString: [String] = ["", ""]
             
@@ -1461,6 +1508,10 @@ extension StoryEditorViewController: SSUTagSelectionDelegate {
                 storyEditors[currentStoryIndex].addReferLinkView(type: .socialCam)
             case .futbolCam:
                 storyEditors[currentStoryIndex].addReferLinkView(type: .futbolcam)
+            case .snapCam:
+                storyEditors[currentStoryIndex].addReferLinkView(type: .snapcam)
+            case .quickCam:
+                storyEditors[currentStoryIndex].addReferLinkView(type: .quickcam)
             default:
                 storyEditors[currentStoryIndex].addReferLinkView(type: .viralCam)
             }
