@@ -40,7 +40,7 @@ struct BusinessVCOption {
                                                         image: R.image.share(), type: .share),
                                            BusinessVCOption(name: R.string.localizable.map(),
                                                         image: R.image.world(), type: .map),
-                                           BusinessVCOption(name: R.string.localizable.genealogy(),
+                                           BusinessVCOption(name: R.string.localizable.followerNetwork(),
                                                         image: R.image.genealogy(), type: .genealogy),
                                            BusinessVCOption(name: R.string.localizable.calculator(),
                                                         image: R.image.calculator(), type: .calculator),
@@ -75,6 +75,27 @@ class BusinessVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        var navTitle = R.string.localizable.businessCenter()
+        #if SOCIALCAMAPP
+        navTitle = R.string.localizable.socialCam() + " " + R.string.localizable.businessCenter()
+        #elseif VIRALCAMAPP
+        navTitle = R.string.localizable.viralCam() + " " + R.string.localizable.businessCenter()
+        #elseif SOCCERCAMAPP
+        navTitle = R.string.localizable.soccerCam() + " " + R.string.localizable.businessCenter()
+        #elseif FUTBOLCAMAPP
+        navTitle = R.string.localizable.futbolCam() + " " + R.string.localizable.businessCenter()
+        #elseif PIC2ARTAPP
+        navTitle = R.string.localizable.pic2Art() + " " + R.string.localizable.businessCenter()
+        #elseif BOOMICAMAPP
+        navTitle = R.string.localizable.boomiCam() + " " + R.string.localizable.businessCenter()
+        #elseif TIMESPEEDAPP
+        navTitle = R.string.localizable.timeSpeed() + " " + R.string.localizable.businessCenter()
+        #elseif FASTCAMAPP
+        navTitle = R.string.localizable.fastCam() + " " + R.string.localizable.businessCenter()
+        #endif
+        
+        navigationTitle.text = navTitle
         navigationImageView.isHidden = !isFutbolCamApp
     }
     
@@ -123,8 +144,8 @@ extension BusinessVC: UICollectionViewDataSource, UICollectionViewDelegate, UICo
                 self.navigationController?.pushViewController(chVc, animated: true)
             }
         case .share:
-            let publicLink = Constant.Application.publicLink
-            let shareAll = [publicLink!] as [Any]
+            let publicLink = Constant.Application.referralLink
+            let shareAll = [publicLink] as [Any]
             let activityViewController = UIActivityViewController(activityItems: shareAll, applicationActivities: nil)
             activityViewController.popoverPresentationController?.sourceView = self.view
             self.present(activityViewController, animated: true, completion: nil)

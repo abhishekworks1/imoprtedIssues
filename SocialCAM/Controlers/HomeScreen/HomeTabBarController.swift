@@ -22,16 +22,34 @@ class HomeTabBarController: UITabBarController {
         return imageView
     }()
     
+    var revealingSplashView: RevealingSplashView!
+    private var revealingLoaded = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.delegate = self
-        
         guard let tabBarItems = tabBar.items else { return }
         for tabBarItem in tabBarItems {
             if tabBarItem.tag == 2 {
                 guard let contentView = tabBarItem.value(forKey: "view") as? UIView else { continue }
                 contentView.addSubview(imageView)
             }
+        }
+        
+        revealingSplashView = RevealingSplashView(iconImage: Constant.Application.appIcon, iconInitialSize: Constant.Application.appIcon.size, backgroundImage: Constant.Application.splashBG)
+        self.view.addSubview(revealingSplashView)
+        
+        revealingSplashView.duration = 3.0
+        revealingSplashView.iconColor = UIColor.red
+        revealingSplashView.useCustomIconColor = false
+        revealingSplashView.animationType = SplashAnimationType.popAndZoomOut
+    }
+    
+    func splashAmination() {
+        revealingSplashView.startAnimation() {
+            self.revealingLoaded = true
+            self.setNeedsStatusBarAppearanceUpdate()
+            print("Completed")
         }
     }
     

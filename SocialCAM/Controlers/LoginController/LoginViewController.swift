@@ -420,7 +420,7 @@ extension LoginViewController: LoginViewControllerDelegate {
                 let navVC = UINavigationController(rootViewController: vc!)
                 navVC.isNavigationBarHidden = true
                 Utils.appDelegate?.window?.rootViewController = navVC
-                 RunLoop.current.run(until: Date(timeIntervalSinceNow: 1.0))
+                RunLoop.current.run(until: Date(timeIntervalSinceNow: 1.0))
             } else {
                 self.goToHomeScreen()
                 self.delegate?.loginDidFinish(user: user, error: error, fromSignup: fromSignup)

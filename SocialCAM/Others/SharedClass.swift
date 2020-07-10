@@ -382,68 +382,71 @@ public struct Constant {
     struct Application {
         #if VIRALCAMAPP
         static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "ViralCam"
-        static let groupIdentifier: String = "group.com.simform.storiCamPro"
         static let simformIdentifier: String = "com.simform.viralcam"
         static let proModeCode: String = "viralcam2020"
+        static let publicLink = URL(string: "https://testflight.apple.com/join/sk1foNLO")
+        static let splashBG = UIImage(named: "TimeSpeedSplash")!
+        static let appIcon = UIImage(named: "ssuTimeSpeed")!
         #elseif SOCCERCAMAPP
         static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "SoccerCam"
-        static let groupIdentifier: String = "group.com.simform.storiCamPro"
         static let simformIdentifier: String = "com.simform.SoccerCam"
         static let proModeCode: String = "soccercam2020"
+        static let publicLink = URL(string: "https://testflight.apple.com/join/1dRtt5SV")
+        static let splashBG = UIImage(named: "footballCamSplashBG")!
+        static let appIcon = UIImage(named: "soccerCamSplashBG")!
         #elseif FUTBOLCAMAPP
         static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "FutbolCam"
         static let groupIdentifier: String = "group.com.simform.storiCamPro"
         static let simformIdentifier: String = "com.simform.SoccerCam"
         static let proModeCode: String = "futbolcam2020"
+        static let publicLink = URL(string: "https://testflight.apple.com/join/1dRtt5SV")
+        static let splashBG = UIImage(named: "footballCamSplashBG")!
+        static let appIcon = UIImage(named: "futbolCamSplashLogo")!
         #elseif PIC2ARTAPP
-        static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "ViralCam"
-        static let groupIdentifier: String = "group.com.simform.storiCamPro"
+        static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "PIC2ART"
         static let simformIdentifier: String = "com.simform.Pic2Art"
         static let proModeCode: String = "pic2art2020"
+        static let publicLink = URL(string: "https://testflight.apple.com/join/hshtsh9O")
+        static let splashBG = UIImage(named: "TimeSpeedSplash")!
+        static let appIcon = UIImage(named: "ssuTimeSpeed")!
         #elseif BOOMICAMAPP
-        static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "ViralCam"
-        static let groupIdentifier: String = "group.com.simform.storiCamPro"
+        static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "BOOMICAM"
         static let simformIdentifier: String = "com.simform.BoomiCam"
         static let proModeCode: String = "boomicam2020"
+        static let publicLink = URL(string: "https://testflight.apple.com/join/kYCCo1AW")
+        static let splashBG = UIImage(named: "TimeSpeedSplash")!
+        static let appIcon = UIImage(named: "ssuTimeSpeed")!
         #elseif TIMESPEEDAPP
-        static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "ViralCam"
-        static let groupIdentifier: String = "group.com.simform.storiCamPro"
+        static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "TIMESPEED"
         static let simformIdentifier: String = "com.simform.timespeed"
         static let proModeCode: String = "timespeed2020"
+        static let publicLink = URL(string: "https://testflight.apple.com/join/MhCuGbHp")
+        static let splashBG = UIImage(named: "timeSpeedSplashBG")!
+        static let appIcon = UIImage(named: "timeSpeedSplashLogo")!
         #elseif FASTCAMAPP
         static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "ViralCam"
-        static let groupIdentifier: String = "group.com.simform.storiCamPro"
         static let simformIdentifier: String = "com.simform.fastCam"
         static let proModeCode: String = "fastcam2020"
-        #else
+        static let publicLink = URL(string: "")
+        static let splashBG = UIImage(named: "TimeSpeedSplash")!
+        static let appIcon = UIImage(named: "ssuTimeSpeed")!
+        #elseif SOCIALCAMAPP
         static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "SocialCam"
-        static let groupIdentifier: String = "group.com.simform.storiCamPro"
         static let simformIdentifier: String = "com.simform.storiCamPro"
         static let proModeCode: String = "socialcam2020"
+        static let publicLink = URL(string: "https://testflight.apple.com/join/6zE0nt7P")
+        static let splashBG = UIImage(named: "TimeSpeedSplash")!
+        static let appIcon = UIImage(named: "ssuTimeSpeed")!
         #endif
+        
+        static let groupIdentifier: String = "group.com.simform.storiCamPro"
         static let appVersion: String = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
         static let appBuildNumber: String = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1"
-        
+          
         static let imageIdentifier: String = "www.google.com"
         static let splashImagesFolderName: String = "SplashImages"
-        
-        #if SOCIALCAMAPP
-            static let publicLink = URL(string: "https://testflight.apple.com/join/6zE0nt7P")
-        #elseif VIRALCAMAPP
-            static let publicLink = URL(string: "https://testflight.apple.com/join/sk1foNLO")
-        #elseif SOCCERCAMAPP
-            static let publicLink = URL(string: "https://testflight.apple.com/join/1dRtt5SV")
-        #elseif FUTBOLCAMAPP
-            static let publicLink = URL(string: "https://testflight.apple.com/join/bhEdtRSl")
-        #elseif PIC2ARTAPP
-            static let publicLink = URL(string: "https://testflight.apple.com/join/hshtsh9O")
-        #elseif BOOMICAMAPP
-            static let publicLink = URL(string: "https://testflight.apple.com/join/kYCCo1AW")
-        #elseif TIMESPEEDAPP
-            static let publicLink = URL(string: "https://testflight.apple.com/join/MhCuGbHp")
-        #elseif FASTCAMAPP
-            static let publicLink = URL(string: "")
-        #endif
+
+        static let referralLink = Defaults.shared.currentUser?.viralcamReferralLink ?? Constant.URLs.websiteURL
     }
     
     struct PayPalMobile {

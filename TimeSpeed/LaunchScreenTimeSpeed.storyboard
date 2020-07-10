@@ -16,15 +16,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TimeSpeedSplash" translatesAutoresizingMaskIntoConstraints="NO" id="HAD-Zj-qLX">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="timeSpeedSplashBG" translatesAutoresizingMaskIntoConstraints="NO" id="HAD-Zj-qLX">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="timeSpeedSplashLogo" translatesAutoresizingMaskIntoConstraints="NO" id="N5t-dF-17D">
+                                <rect key="frame" x="71" y="384.5" width="272" height="127"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="N5t-dF-17D" firstAttribute="centerX" secondItem="HAD-Zj-qLX" secondAttribute="centerX" id="BOL-UC-IST"/>
                             <constraint firstAttribute="bottom" secondItem="HAD-Zj-qLX" secondAttribute="bottom" id="L4d-RU-5pE"/>
                             <constraint firstItem="HAD-Zj-qLX" firstAttribute="top" secondItem="OeE-qC-Sht" secondAttribute="top" id="cQE-l4-r6P"/>
                             <constraint firstAttribute="trailing" secondItem="HAD-Zj-qLX" secondAttribute="trailing" id="hRE-tm-xeM"/>
+                            <constraint firstItem="N5t-dF-17D" firstAttribute="centerY" secondItem="HAD-Zj-qLX" secondAttribute="centerY" id="nI0-yZ-QLg"/>
                             <constraint firstItem="HAD-Zj-qLX" firstAttribute="leading" secondItem="OeE-qC-Sht" secondAttribute="leading" id="tis-yl-qxd"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="TbG-c0-QOV"/>
@@ -36,6 +41,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="TimeSpeedSplash" width="375" height="667"/>
+        <image name="timeSpeedSplashBG" width="375" height="667"/>
+        <image name="timeSpeedSplashLogo" width="272" height="127"/>
     </resources>
 </document>
