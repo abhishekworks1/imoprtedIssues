@@ -413,8 +413,9 @@ class StoryEditorViewController: UIViewController {
         }
         if (isTimeSpeedApp || isPic2ArtApp) && (Defaults.shared.appMode == .professional) {
             self.ssuTagView.isHidden = false
-        }
-        else if let currentUser = Defaults.shared.currentUser, let isAdvanceMode = currentUser.advanceGameMode {
+        } else if (isTimeSpeedApp || isPic2ArtApp) {
+            self.ssuTagView.isHidden = true
+        } else if let currentUser = Defaults.shared.currentUser, let isAdvanceMode = currentUser.advanceGameMode {
             self.ssuTagView.isHidden = !isAdvanceMode
         } else {
             self.ssuTagView.isHidden = true

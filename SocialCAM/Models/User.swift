@@ -79,7 +79,7 @@ class User: Codable, Mappable {
     var advanceGameMode: Bool?
     var viralcamReferralLink: String?
     var referralCode: String?
-
+    
     required init?(map: Map) {
         
     }
