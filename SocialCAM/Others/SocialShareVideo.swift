@@ -32,6 +32,8 @@ open class SocialShareVideo: NSObject, SharingDelegate {
             attachmentUrl = Constant.URLs.socialCamWebsiteURL
         case .tiktokShare:
             attachmentUrl = Defaults.shared.postViralCamModel?.referLink ?? ""
+        case .pic2art:
+            attachmentUrl = "\(Constant.URLs.pic2ArtWebsiteURL)/referral/\(Defaults.shared.currentUser?.referralCode ?? "")"
         default:
             break
         }
@@ -261,6 +263,8 @@ open class SocialShareVideo: NSObject, SharingDelegate {
             snapPhoto.attachmentUrl = Constant.URLs.socialCamWebsiteURL
         case .tiktokShare:
             snapPhoto.attachmentUrl = Defaults.shared.postViralCamModel?.referLink
+        case .pic2art:
+            snapPhoto.attachmentUrl = "\(Constant.URLs.pic2ArtWebsiteURL)/referral/\(Defaults.shared.currentUser?.referralCode ?? "")"
         default:
             break
         }
@@ -277,6 +281,8 @@ open class SocialShareVideo: NSObject, SharingDelegate {
             snapVideo.attachmentUrl = Constant.URLs.socialCamWebsiteURL
         case .tiktokShare:
             snapVideo.attachmentUrl = Defaults.shared.postViralCamModel?.referLink
+        case .pic2art:
+            snapVideo.attachmentUrl = "\(Constant.URLs.pic2ArtWebsiteURL)/referral/\(Defaults.shared.currentUser?.referralCode ?? "")"
         default:
             break
         }

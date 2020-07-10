@@ -174,7 +174,7 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
     }
     let numberOfStyles: NSNumber = NSNumber(value: 43)
     
-    var styleData: [StyleData] = []
+    var styleData: [StyleData] = StyleData.data
     var orignalImage: UIImage?
     var filteredImage: UIImage?
     var selectedFilterIndexPath: IndexPath = IndexPath.init(row: 0, section: 0)
@@ -205,9 +205,6 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        for index in 1...43 {
-            styleData.append(StyleData(name: "", image: UIImage(named: "styletransfer_\(index)")!, styleImage: nil))
-        }
         setData()
         setupLayout()
         addGestureRecognizers()
@@ -647,6 +644,11 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
             selectedIndex = index
             switch type {
             case .image(let image):
+                if selectedIndex == 0 {
+                    self.filteredImage = image
+                    self.applyFilter()
+                    return
+                }
                 guard !self.isProcessing else {
                     return
                 }
@@ -661,7 +663,7 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
                         for index in 0..<styles.count {
                             styles[index] = 0.0
                         }
-                        styles[self.selectedIndex] = 1.0
+                        styles[self.selectedIndex - 1] = 1.0
                         if let image = self.pixelBuffer(from: image) {
                             do {
                                 let predictionOutput = try model.prediction(image: image, index: styles)
@@ -709,50 +711,50 @@ extension StyleTransferVC: UIScrollViewDelegate {
 }
 
 extension StyleTransferVC: KDDragAndDropCollectionViewDataSource {
-    
+
     func collectionView(_ collectionView: UICollectionView, indexPathForDataItem dataItem: AnyObject) -> IndexPath? {
         guard let candidate = dataItem as? SegmentVideos else { return nil }
-        
+
         for (index, item) in selectedItemArray.enumerated() {
             if candidate.id != item.id {
                 continue
             }
             return IndexPath(item: index, section: 0)
         }
-        
+
         return nil
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, dataItemForIndexPath indexPath: IndexPath) -> AnyObject {
         return selectedItemArray[indexPath.item]
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, deleteDataItemAtIndexPath indexPath: IndexPath) {
-        
+
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, moveDataItemFromIndexPath from: IndexPath, toIndexPath to: IndexPath) {
-        
+
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, insertDataItem dataItem: AnyObject, atIndexPath indexPath: IndexPath) {
-        
+
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellIsDraggableAtIndexPath indexPath: IndexPath) -> Bool {
         return true
     }
-    
+
     func collectionViewEdgesAndScroll(_ collectionView: UICollectionView, rect: CGRect) {
-        
+
     }
-    
+
     func collectionViewLastEdgesAndScroll(_ collectionView: UICollectionView, rect: CGRect) {
         let newrect = rect.origin.y + collectionView.frame.origin.y
         let newrectData = CGRect.init(x: rect.origin.x, y: newrect, width: rect.width, height: rect.height)
-        
+
         let checkframeDelete = CGRect(x: collectionView.frame.origin.x, y: collectionView.frame.origin.y, width: collectionView.frame.width, height: collectionView.frame.height)
-        
+
         if !checkframeDelete.intersects(newrectData) {
             if let kdCollectionView = collectionView as? KDDragAndDropCollectionView {
                 if let draggingPathOfCellBeingDragged = kdCollectionView.draggingPathOfCellBeingDragged {
@@ -762,11 +764,11 @@ extension StyleTransferVC: KDDragAndDropCollectionViewDataSource {
             }
         }
     }
-    
+
 }
 
 extension StyleTransferVC: UICollectionViewDelegate {
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView.tag == 0 {
             return styleData.count
@@ -776,32 +778,32 @@ extension StyleTransferVC: UICollectionViewDelegate {
             return 0
         }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == self.imageCollectionView {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.nib.imageCollectionViewCell.identifier, for: indexPath) as? ImageCollectionViewCell else {
                 return UICollectionViewCell()
             }
-            
+
             let borderColor: CGColor! = ApplicationSettings.appBlackColor.cgColor
             let borderWidth: CGFloat = 3
-            
+
             cell.imagesStackView.tag = indexPath.row
-            
+
             var images = [SegmentVideos]()
-            
+
             images = [selectedItemArray[indexPath.row]]
-            
+
             let views = cell.imagesStackView.subviews
             for view in views {
                 cell.imagesStackView.removeArrangedSubview(view)
             }
-            
+
             cell.lblSegmentCount.text = String(indexPath.row + 1)
-            
+
             for imageName in images {
                 let mainView = UIView.init(frame: CGRect(x: 0, y: 3, width: 41, height: 52))
-                
+
                 let imageView = UIImageView.init(frame: CGRect(x: 0, y: 0, width: 41, height: 52))
                 imageView.image = imageName.image
                 imageView.contentMode = .scaleToFill
@@ -809,11 +811,11 @@ extension StyleTransferVC: UICollectionViewDelegate {
                 mainView.addSubview(imageView)
                 cell.imagesStackView.addArrangedSubview(mainView)
             }
-            
+
             cell.imagesView.layer.cornerRadius = 5
             cell.imagesView.layer.borderWidth = borderWidth
             cell.imagesView.layer.borderColor = borderColor
-            
+
             return cell
         } else {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.styleCollectionViewCell, for: indexPath) else {
@@ -834,9 +836,9 @@ extension StyleTransferVC: UICollectionViewDelegate {
             return cell
         }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+
         guard indexPath.row != selectedIndex, !self.isProcessing, collectionView != self.imageCollectionView else {
             return
         }
@@ -846,7 +848,7 @@ extension StyleTransferVC: UICollectionViewDelegate {
         case .video:
             break
         }
-        
+
         for (index, style) in self.styleData.enumerated() {
             style.isSelected = (index == indexPath.row)
         }
@@ -857,3 +859,4 @@ extension StyleTransferVC: UICollectionViewDelegate {
         self.applyStyle(index: indexPath.row)
     }
 }
+

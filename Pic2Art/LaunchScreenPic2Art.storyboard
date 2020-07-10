@@ -19,13 +19,18 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Pic2ArtSplash" translatesAutoresizingMaskIntoConstraints="NO" id="HAD-Zj-qLX">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Pic2ArtSplashIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Olq-ZM-ret">
+                                <rect key="frame" x="106" y="342.5" width="202" height="211"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="HAD-Zj-qLX" secondAttribute="bottom" id="L4d-RU-5pE"/>
+                            <constraint firstItem="Olq-ZM-ret" firstAttribute="centerY" secondItem="HAD-Zj-qLX" secondAttribute="centerY" id="Uw3-uE-vkQ"/>
                             <constraint firstItem="HAD-Zj-qLX" firstAttribute="top" secondItem="OeE-qC-Sht" secondAttribute="top" id="cQE-l4-r6P"/>
                             <constraint firstAttribute="trailing" secondItem="HAD-Zj-qLX" secondAttribute="trailing" id="hRE-tm-xeM"/>
                             <constraint firstItem="HAD-Zj-qLX" firstAttribute="leading" secondItem="OeE-qC-Sht" secondAttribute="leading" id="tis-yl-qxd"/>
+                            <constraint firstItem="Olq-ZM-ret" firstAttribute="centerX" secondItem="HAD-Zj-qLX" secondAttribute="centerX" id="xmj-cP-m7m"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="TbG-c0-QOV"/>
                     </view>
@@ -37,5 +42,6 @@
     </scenes>
     <resources>
         <image name="Pic2ArtSplash" width="375" height="667"/>
+        <image name="Pic2ArtSplashIcon" width="202" height="211"/>
     </resources>
 </document>

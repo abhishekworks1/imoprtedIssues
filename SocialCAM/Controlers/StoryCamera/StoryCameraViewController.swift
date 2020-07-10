@@ -587,6 +587,12 @@ class StoryCameraViewController: UIViewController {
         self.resetPositionRecordButton()
         addVolumeButtonHandler()
         addTikTokShareViewIfNeeded()
+        if let pasteboard = UIPasteboard(name: UIPasteboard.Name(rawValue: "com.simform.Pic2Art.CopyFrom"), create: true),
+            let data = pasteboard.data(forPasteboardType: "com.simform.Pic2Art.shareImageData"),
+            let image = UIImage(data: data) {
+            UIPasteboard.remove(withName: UIPasteboard.Name(rawValue: "com.simform.Pic2Art.CopyFrom"))
+            openStoryEditor(images: [image])
+        }
     }
     
     func addTikTokShareViewIfNeeded() {
@@ -1422,6 +1428,12 @@ extension StoryCameraViewController {
         if isViewAppear {
             startCapture()
             addTikTokShareViewIfNeeded()
+            if let pasteboard = UIPasteboard(name: UIPasteboard.Name(rawValue: "com.simform.Pic2Art.CopyFrom"), create: true),
+                let data = pasteboard.data(forPasteboardType: "com.simform.Pic2Art.shareImageData"),
+                let image = UIImage(data: data) {
+                UIPasteboard.remove(withName: UIPasteboard.Name(rawValue: "com.simform.Pic2Art.CopyFrom"))
+                openStoryEditor(images: [image])
+            }
         }
     }
 }

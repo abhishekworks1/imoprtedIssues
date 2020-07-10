@@ -697,6 +697,17 @@ extension StoryEditorViewController {
     
     @IBAction func backClicked(_ sender: UIButton) {
         Defaults.shared.postViralCamModel = nil
+        if isPic2ArtApp {
+            if let controllers = navigationController?.viewControllers,
+                controllers.count > 0 {
+                for controller in controllers {
+                    if let storyCameraVC = controller as? StoryCameraViewController {
+                        navigationController?.popToViewController(storyCameraVC, animated: true)
+                        return
+                    }
+                }
+            }
+        }
         navigationController?.popViewController(animated: true)
     }
     

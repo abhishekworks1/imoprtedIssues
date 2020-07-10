@@ -377,6 +377,7 @@ public struct Constant {
             static let websiteURL = Defaults.shared.currentUser?.viralcamReferralLink ?? "https://viralcam.iicc.online"
         #endif
         static let socialCamWebsiteURL = "https://socialcam.iicc.online"
+        static let pic2ArtWebsiteURL = "https://pic2art.iicc.online"
     }
     
     struct Application {
@@ -579,7 +580,7 @@ public struct Constant {
 }
 
 class StoryTagGradientLayer: CAGradientLayer { }
-#if !IS_SHAREPOST && !IS_MEDIASHARE && !IS_VIRALVIDS && !IS_SOCIALVIDS
+#if !IS_SHAREPOST && !IS_MEDIASHARE && !IS_VIRALVIDS && !IS_SOCIALVIDS && !IS_PIC2ARTSHARE
 class BaseQuestionTagView: BaseStoryTagView { }
 #endif
 
@@ -603,7 +604,7 @@ enum SlideShowExportType {
     case sendChat
 }
 
-#if !IS_SHAREPOST && !IS_MEDIASHARE && !IS_VIRALVIDS  && !IS_SOCIALVIDS
+#if !IS_SHAREPOST && !IS_MEDIASHARE && !IS_VIRALVIDS  && !IS_SOCIALVIDS && !IS_PIC2ARTSHARE
 enum StoriCamType: Equatable {
     case story
     case chat
@@ -776,6 +777,15 @@ class StyleData {
         self.image = image
         self.styleImage = styleImage
     }
+    
+    static var data: [StyleData] {
+        var styleData: [StyleData] = []
+        for index in 0...43 {
+            styleData.append(StyleData(name: "", image: UIImage(named: "styletransfer_\(index)")!, styleImage: nil))
+        }
+        return styleData
+    }
+    
 }
 
 protocol OuttakesTakenDelegate: class {
