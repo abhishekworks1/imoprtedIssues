@@ -1034,7 +1034,7 @@ extension StoryCameraViewController {
                 self.circularProgress.centerImage = R.image.icoCollageMode()
                 self.timerValueView.isHidden = true
             case .handsfree:
-                self.circularProgress.centerImage = R.image.icoHandsFree()
+                self.circularProgress.centerImage = self.isPic2ArtApp ? R.image.icoHandsFreeVideo() : R.image.icoHandsFree()
                 if self.recordingType == .custom || self.recordingType == .boomerang || self.recordingType == .capture {
                     self.selectedSegmentLengthValue = SelectedTimer(value: "15", selectedRow: 2)
                     self.selectedSegmentLengthValue.saveWithKey(key: "selectedSegmentLengthValue")

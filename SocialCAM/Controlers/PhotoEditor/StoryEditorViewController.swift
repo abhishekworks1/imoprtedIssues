@@ -411,8 +411,8 @@ class StoryEditorViewController: UIViewController {
         } else {
             self.specificBoomerangView.isHidden = true
         }
-        if isTimeSpeedApp || isPic2ArtApp {
-            self.ssuTagView.isHidden = true
+        if (isTimeSpeedApp || isPic2ArtApp) && (Defaults.shared.appMode == .professional) {
+            self.ssuTagView.isHidden = false
         }
         else if let currentUser = Defaults.shared.currentUser, let isAdvanceMode = currentUser.advanceGameMode {
             self.ssuTagView.isHidden = !isAdvanceMode

@@ -6183,6 +6183,24 @@
 		95CDE134245C3D1000DE09B8 /* Assets-ViralCam.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23CE8BFB2434B69B0096233C /* Assets-ViralCam.xcassets */; };
 		95EDD2C52460491F00DD3348 /* StoryCameraViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95EDD2C42460491E00DD3348 /* StoryCameraViewController.storyboard */; };
 		95EDD2C62460491F00DD3348 /* StoryCameraViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95EDD2C42460491E00DD3348 /* StoryCameraViewController.storyboard */; };
+		95EE424324B8B9BC002E5D84 /* RevealingSplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824C678124B5BA9C000396E9 /* RevealingSplashView.swift */; };
+		95EE424424B8B9BC002E5D84 /* SplashAnimatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824C678324B5BA9C000396E9 /* SplashAnimatable.swift */; };
+		95EE424524B8B9BC002E5D84 /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824C678424B5BA9C000396E9 /* Animations.swift */; };
+		95EE424624B8B9BC002E5D84 /* SplashAnimationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824C678524B5BA9C000396E9 /* SplashAnimationType.swift */; };
+		95EE424724B8B9BC002E5D84 /* RevealingSplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824C678124B5BA9C000396E9 /* RevealingSplashView.swift */; };
+		95EE424824B8B9BC002E5D84 /* SplashAnimatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824C678324B5BA9C000396E9 /* SplashAnimatable.swift */; };
+		95EE424924B8B9BC002E5D84 /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824C678424B5BA9C000396E9 /* Animations.swift */; };
+		95EE424A24B8B9BC002E5D84 /* SplashAnimationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824C678524B5BA9C000396E9 /* SplashAnimationType.swift */; };
+		95EE424B24B8BA63002E5D84 /* NewDashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8277C78924B5899800711987 /* NewDashboardViewController.swift */; };
+		95EE424C24B8BA64002E5D84 /* NewDashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8277C78924B5899800711987 /* NewDashboardViewController.swift */; };
+		95EE424D24B8BA6E002E5D84 /* HMSegmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8277C78124B587F900711987 /* HMSegmentViewController.swift */; };
+		95EE424E24B8BA6F002E5D84 /* HMSegmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8277C78124B587F900711987 /* HMSegmentViewController.swift */; };
+		95EE424F24B8BA73002E5D84 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8277C77124B584E400711987 /* DashboardViewController.swift */; };
+		95EE425024B8BA74002E5D84 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8277C77124B584E400711987 /* DashboardViewController.swift */; };
+		95EE425124B8BA7A002E5D84 /* DashboardPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8277C77924B5861C00711987 /* DashboardPageViewController.swift */; };
+		95EE425224B8BA7B002E5D84 /* DashboardPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8277C77924B5861C00711987 /* DashboardPageViewController.swift */; };
+		95EE425324B8BA81002E5D84 /* ComingSoonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824C677824B5B404000396E9 /* ComingSoonController.swift */; };
+		95EE425424B8BA81002E5D84 /* ComingSoonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824C677824B5B404000396E9 /* ComingSoonController.swift */; };
 		95F117E423FD04B400EB99B4 /* SpecificBoomerangOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F117E323FD04B400EB99B4 /* SpecificBoomerangOptions.swift */; };
 		9CF10BE946E4318302B0DD33 /* Pods_Pic2ArtShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 371A6C50962C295E21073656 /* Pods_Pic2ArtShare.framework */; };
 		9D49E071B4908DC4069FEBDF /* Pods_SoccerCam.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 647E6DF448AF4E36B127B952 /* Pods_SoccerCam.framework */; };
@@ -9606,13 +9624,13 @@
 				23CE899524349B110096233C /* ViralCam */,
 				230722A8244EBCB2009454B0 /* Viralvids */,
 				952F5E5D248A439F00917082 /* Pic2Art */,
+				951FE82424B870910059B9A7 /* Pic2ArtShare */,
 				82402B7D248F91D50057133F /* TimeSpeed */,
 				95A2E7852490FE8E00226181 /* BoomiCam */,
 				82AF1BC5249A05DE00D386E9 /* FastCam */,
 				9521444524A491FB00BA1A9F /* SoccerCam */,
 				952183E524ACD2FA0096DC45 /* FutbolCam */,
 				9545ADAA24B61A600076844A /* SnapCam */,
-				951FE82424B870910059B9A7 /* Pic2ArtShare */,
 			);
 		};
 /* End PBXProject section */
@@ -14906,6 +14924,7 @@
 				9521843B24ACD2FA0096DC45 /* UIViewUtilsExtension.swift in Sources */,
 				9521843C24ACD2FA0096DC45 /* CAReactionSummaryLayer.swift in Sources */,
 				9521843D24ACD2FA0096DC45 /* FilterBrightness.swift in Sources */,
+				95EE424424B8B9BC002E5D84 /* SplashAnimatable.swift in Sources */,
 				9521843E24ACD2FA0096DC45 /* HistroGramVC+Controls.swift in Sources */,
 				9521843F24ACD2FA0096DC45 /* Reaction.swift in Sources */,
 				9521844024ACD2FA0096DC45 /* BitmojiStickerPickerViewController.swift in Sources */,
@@ -14944,6 +14963,7 @@
 				9521846024ACD2FA0096DC45 /* GameGridCell.swift in Sources */,
 				9521846124ACD2FA0096DC45 /* MMPlayer+UINavigationController+LastDelegate.swift in Sources */,
 				9521846224ACD2FA0096DC45 /* StringExtension.swift in Sources */,
+				95EE424624B8B9BC002E5D84 /* SplashAnimationType.swift in Sources */,
 				9521846324ACD2FA0096DC45 /* CollageViewT406.swift in Sources */,
 				9521846424ACD2FA0096DC45 /* InternalSlider.swift in Sources */,
 				9521846524ACD2FA0096DC45 /* KDDragAndDropManager.swift in Sources */,
@@ -15065,6 +15085,7 @@
 				952184D624ACD2FA0096DC45 /* SketchTool.swift in Sources */,
 				952184D724ACD2FA0096DC45 /* DiskStatus.swift in Sources */,
 				952184D824ACD2FA0096DC45 /* SharpenControl.swift in Sources */,
+				95EE424F24B8BA73002E5D84 /* DashboardViewController.swift in Sources */,
 				952184D924ACD2FA0096DC45 /* PurchaseFriendPackageViewController.swift in Sources */,
 				952184DA24ACD2FA0096DC45 /* Async.swift in Sources */,
 				952184DB24ACD2FA0096DC45 /* NextLevel+UIImage.swift in Sources */,
@@ -15109,6 +15130,7 @@
 				9521850224ACD2FA0096DC45 /* SubscribeChannelCell.swift in Sources */,
 				9521850324ACD2FA0096DC45 /* AppExtensions.swift in Sources */,
 				9521850424ACD2FA0096DC45 /* CollageCell.swift in Sources */,
+				95EE424D24B8BA6E002E5D84 /* HMSegmentViewController.swift in Sources */,
 				9521850524ACD2FA0096DC45 /* MensionCollectionViewDelegate.swift in Sources */,
 				9521850624ACD2FA0096DC45 /* MMPlayerPassViewPushTransition.swift in Sources */,
 				9521850724ACD2FA0096DC45 /* CartTableViewCell.swift in Sources */,
@@ -15126,6 +15148,7 @@
 				9521851424ACD2FA0096DC45 /* CircularProgress.swift in Sources */,
 				9521851524ACD2FA0096DC45 /* AllPhotosCollectionViewCell.swift in Sources */,
 				9521851624ACD2FA0096DC45 /* ChannelListViewController.swift in Sources */,
+				95EE425124B8BA7A002E5D84 /* DashboardPageViewController.swift in Sources */,
 				9521851724ACD2FA0096DC45 /* PhotoEditorViewController+Picker.swift in Sources */,
 				9521851824ACD2FA0096DC45 /* CollageViewT306.swift in Sources */,
 				9521851924ACD2FA0096DC45 /* SpeedViewController.swift in Sources */,
@@ -15152,6 +15175,7 @@
 				9521852E24ACD2FA0096DC45 /* ShadowsControl.swift in Sources */,
 				9521852F24ACD2FA0096DC45 /* DNDDragOperation.m in Sources */,
 				9521853024ACD2FA0096DC45 /* CollageViewT504.swift in Sources */,
+				95EE424524B8B9BC002E5D84 /* Animations.swift in Sources */,
 				9521853124ACD2FA0096DC45 /* PickerView.swift in Sources */,
 				9521853224ACD2FA0096DC45 /* HomeViewController.swift in Sources */,
 				9521853324ACD2FA0096DC45 /* MMPlayer+UIView+Shadow.swift in Sources */,
@@ -15235,6 +15259,7 @@
 				9521857F24ACD2FA0096DC45 /* FilterSharpen.swift in Sources */,
 				9521858024ACD2FA0096DC45 /* DraggableView.swift in Sources */,
 				9521858124ACD2FA0096DC45 /* CollageViewT206.swift in Sources */,
+				95EE425324B8BA81002E5D84 /* ComingSoonController.swift in Sources */,
 				9521858224ACD2FA0096DC45 /* Result.swift in Sources */,
 				9521858324ACD2FA0096DC45 /* CollageViewT602.swift in Sources */,
 				9521858424ACD2FA0096DC45 /* FilterGaussianBlur.swift in Sources */,
@@ -15315,6 +15340,7 @@
 				952185CF24ACD2FA0096DC45 /* LineHandleView.swift in Sources */,
 				952185D024ACD2FA0096DC45 /* InternalUtils.swift in Sources */,
 				952185D124ACD2FA0096DC45 /* ReactionSelector.swift in Sources */,
+				95EE424B24B8BA63002E5D84 /* NewDashboardViewController.swift in Sources */,
 				952185D224ACD2FA0096DC45 /* StoryCameraViewController+PhotosPickerViewDelegate.swift in Sources */,
 				952185D324ACD2FA0096DC45 /* CollageViewT208.swift in Sources */,
 				952185D424ACD2FA0096DC45 /* UpgradeViewController.swift in Sources */,
@@ -15336,6 +15362,7 @@
 				952185E424ACD2FA0096DC45 /* CropOverlayView.swift in Sources */,
 				952185E524ACD2FA0096DC45 /* CollageViewT313.swift in Sources */,
 				952185E624ACD2FA0096DC45 /* StorySwipeableFilterView.swift in Sources */,
+				95EE424324B8B9BC002E5D84 /* RevealingSplashView.swift in Sources */,
 				95B5C2A024AF476A005FC909 /* AMColorPickerTableViewCell.swift in Sources */,
 				952185E724ACD2FA0096DC45 /* YTSerchResponse.swift in Sources */,
 				952185E824ACD2FA0096DC45 /* UIViewController.swift in Sources */,
@@ -15997,6 +16024,7 @@
 				9545AE0324B61A600076844A /* UIViewUtilsExtension.swift in Sources */,
 				9545AE0424B61A600076844A /* CAReactionSummaryLayer.swift in Sources */,
 				9545AE0524B61A600076844A /* FilterBrightness.swift in Sources */,
+				95EE424824B8B9BC002E5D84 /* SplashAnimatable.swift in Sources */,
 				9545AE0624B61A600076844A /* HistroGramVC+Controls.swift in Sources */,
 				9545AE0724B61A600076844A /* Reaction.swift in Sources */,
 				9545AE0824B61A600076844A /* BitmojiStickerPickerViewController.swift in Sources */,
@@ -16035,6 +16063,7 @@
 				9545AE2924B61A600076844A /* GameGridCell.swift in Sources */,
 				9545AE2A24B61A600076844A /* MMPlayer+UINavigationController+LastDelegate.swift in Sources */,
 				9545AE2B24B61A600076844A /* StringExtension.swift in Sources */,
+				95EE424A24B8B9BC002E5D84 /* SplashAnimationType.swift in Sources */,
 				9545AE2C24B61A600076844A /* CollageViewT406.swift in Sources */,
 				9545AE2D24B61A600076844A /* InternalSlider.swift in Sources */,
 				9545AE2E24B61A600076844A /* KDDragAndDropManager.swift in Sources */,
@@ -16156,6 +16185,7 @@
 				9545AEA324B61A600076844A /* DiskStatus.swift in Sources */,
 				9545AEA424B61A600076844A /* SharpenControl.swift in Sources */,
 				9545AEA524B61A600076844A /* PurchaseFriendPackageViewController.swift in Sources */,
+				95EE425024B8BA74002E5D84 /* DashboardViewController.swift in Sources */,
 				9545AEA624B61A600076844A /* Async.swift in Sources */,
 				9545AEA724B61A600076844A /* NextLevel+UIImage.swift in Sources */,
 				9545AEA824B61A600076844A /* FlowChartView.swift in Sources */,
@@ -16200,6 +16230,7 @@
 				9545AECF24B61A600076844A /* AppExtensions.swift in Sources */,
 				9545AED024B61A600076844A /* CollageCell.swift in Sources */,
 				9545AED124B61A600076844A /* MensionCollectionViewDelegate.swift in Sources */,
+				95EE424E24B8BA6F002E5D84 /* HMSegmentViewController.swift in Sources */,
 				9545AED224B61A600076844A /* MMPlayerPassViewPushTransition.swift in Sources */,
 				9545AED324B61A600076844A /* CartTableViewCell.swift in Sources */,
 				9545AED424B61A600076844A /* CollageViewT302.swift in Sources */,
@@ -16217,6 +16248,7 @@
 				9545AEE024B61A600076844A /* AllPhotosCollectionViewCell.swift in Sources */,
 				9545AEE124B61A600076844A /* ChannelListViewController.swift in Sources */,
 				9545AEE224B61A600076844A /* PhotoEditorViewController+Picker.swift in Sources */,
+				95EE425224B8BA7B002E5D84 /* DashboardPageViewController.swift in Sources */,
 				9545AEE324B61A600076844A /* CollageViewT306.swift in Sources */,
 				9545AEE424B61A600076844A /* SpeedViewController.swift in Sources */,
 				9545AEE524B61A600076844A /* Scheduler.swift in Sources */,
@@ -16243,6 +16275,7 @@
 				9545AEFA24B61A600076844A /* DNDDragOperation.m in Sources */,
 				9545AEFB24B61A600076844A /* CollageViewT504.swift in Sources */,
 				9545AEFC24B61A600076844A /* PickerView.swift in Sources */,
+				95EE424924B8B9BC002E5D84 /* Animations.swift in Sources */,
 				9545AEFD24B61A600076844A /* HomeViewController.swift in Sources */,
 				9545AEFE24B61A600076844A /* MMPlayer+UIView+Shadow.swift in Sources */,
 				9545AEFF24B61A600076844A /* ExportVideoOperation.swift in Sources */,
@@ -16326,6 +16359,7 @@
 				9545AF4D24B61A600076844A /* DraggableView.swift in Sources */,
 				9545AF4E24B61A600076844A /* CollageViewT206.swift in Sources */,
 				9545AF4F24B61A600076844A /* Result.swift in Sources */,
+				95EE425424B8BA81002E5D84 /* ComingSoonController.swift in Sources */,
 				9545AF5024B61A600076844A /* CollageViewT602.swift in Sources */,
 				9545AF5124B61A600076844A /* FilterGaussianBlur.swift in Sources */,
 				9545AF5224B61A600076844A /* DropDownCell.swift in Sources */,
@@ -16406,6 +16440,7 @@
 				9545AF9C24B61A600076844A /* LineHandleView.swift in Sources */,
 				9545AF9D24B61A600076844A /* InternalUtils.swift in Sources */,
 				9545AF9E24B61A600076844A /* ReactionSelector.swift in Sources */,
+				95EE424C24B8BA64002E5D84 /* NewDashboardViewController.swift in Sources */,
 				9545AF9F24B61A600076844A /* StoryCameraViewController+PhotosPickerViewDelegate.swift in Sources */,
 				9545AFA024B61A600076844A /* CollageViewT208.swift in Sources */,
 				9545AFA124B61A600076844A /* UpgradeViewController.swift in Sources */,
@@ -16427,6 +16462,7 @@
 				9545AFB124B61A600076844A /* CropOverlayView.swift in Sources */,
 				9545AFB224B61A600076844A /* CollageViewT313.swift in Sources */,
 				9545AFB324B61A600076844A /* StorySwipeableFilterView.swift in Sources */,
+				95EE424724B8B9BC002E5D84 /* RevealingSplashView.swift in Sources */,
 				9545AFB424B61A600076844A /* AMColorPickerTableViewCell.swift in Sources */,
 				9545AFB524B61A600076844A /* YTSerchResponse.swift in Sources */,
 				9545AFB624B61A600076844A /* UIViewController.swift in Sources */,
@@ -17864,9 +17900,10 @@
 				CODE_SIGN_ENTITLEMENTS = Pic2ArtShare/Pic2ArtShare.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = Pic2ArtShare/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -17877,7 +17914,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -17888,9 +17925,10 @@
 				CODE_SIGN_ENTITLEMENTS = Pic2ArtShare/Pic2ArtShare.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = Pic2ArtShare/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -17901,7 +17939,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -18051,7 +18089,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 11;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = "Pic2Art-Info.plist";
@@ -18086,7 +18124,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = "Pic2Art-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -18114,12 +18152,12 @@
 			baseConfigurationReference = C29987BA9454923459A7893B /* Pods-SnapCam.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-SoccerCam";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-SnapCam";
 				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = "SnapCam-Info.plist";
@@ -18149,12 +18187,12 @@
 			baseConfigurationReference = 009565D1B48A15EB66D22EDD /* Pods-SnapCam.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-SoccerCam";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-SnapCam";
 				BITCODE_GENERATION_MODE = bitcode;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = "SnapCam-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;

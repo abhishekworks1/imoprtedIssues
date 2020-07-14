@@ -397,7 +397,6 @@ public struct Constant {
         static let appIcon = UIImage(named: "soccerCamSplashBG")!
         #elseif FUTBOLCAMAPP
         static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "FutbolCam"
-        static let groupIdentifier: String = "group.com.simform.storiCamPro"
         static let simformIdentifier: String = "com.simform.SoccerCam"
         static let proModeCode: String = "futbolcam2020"
         static let publicLink = URL(string: "https://testflight.apple.com/join/1dRtt5SV")
@@ -405,19 +404,18 @@ public struct Constant {
         static let appIcon = UIImage(named: "futbolCamSplashLogo")!
         #elseif SNAPCAMAPP
         static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "SnapCam"
-        static let groupIdentifier: String = "group.com.simform.storiCamPro"
         static let simformIdentifier: String = "com.simform.SnapCam"
         static let proModeCode: String = "snapcam2020"
-        static let publicLink = URL(string: "https://testflight.apple.com/join/1dRtt5SV")
-        static let splashBG = UIImage(named: "footballCamSplashBG")!
-        static let appIcon = UIImage(named: "futbolCamSplashLogo")!
+        static let publicLink = URL(string: "https://testflight.apple.com/join/MTVSBnbC")
+        static let splashBG = UIImage(named: "snapCamSplash")!
+        static let appIcon = UIImage(named: "snapCamSplashIcon")!
         #elseif PIC2ARTAPP
         static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "PIC2ART"
         static let simformIdentifier: String = "com.simform.Pic2Art"
         static let proModeCode: String = "pic2art2020"
         static let publicLink = URL(string: "https://testflight.apple.com/join/hshtsh9O")
-        static let splashBG = UIImage(named: "TimeSpeedSplash")!
-        static let appIcon = UIImage(named: "ssuTimeSpeed")!
+        static let splashBG = UIImage(named: "Pic2ArtSplash")!
+        static let appIcon = UIImage(named: "Pic2ArtSplashIcon")!
         #elseif BOOMICAMAPP
         static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "BOOMICAM"
         static let simformIdentifier: String = "com.simform.BoomiCam"

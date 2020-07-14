@@ -66,7 +66,7 @@ class BusinessVC: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     var isFutbolCamApp: Bool {
-        #if FUTBOLCAMAPP || SNAPCAMAPP
+        #if FUTBOLCAMAPP
         return true
         #else
         return false
@@ -93,6 +93,8 @@ class BusinessVC: UIViewController {
         navTitle = R.string.localizable.timeSpeed() + " " + R.string.localizable.businessCenter()
         #elseif FASTCAMAPP
         navTitle = R.string.localizable.fastCam() + " " + R.string.localizable.businessCenter()
+        #elseif SNAPCAMAPP
+        navTitle = R.string.localizable.snapCam() + " " + R.string.localizable.businessCenter()
         #endif
         
         navigationTitle.text = navTitle

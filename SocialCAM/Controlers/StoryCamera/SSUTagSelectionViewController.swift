@@ -67,7 +67,7 @@ struct SSUTagOption {
               SSUTagOption(name: R.string.localizable.futbolCam(), image: R.image.ssuSoccerCam(), type: .futbolCam)]
     #elseif SNAPCAMAPP
     static let contents: [SSUTagOption] = [
-           SSUTagOption(name: R.string.localizable.snapCam(), image: R.image.ssuSoccerCam(), type: .snapCam)]
+           SSUTagOption(name: R.string.localizable.snapCam(), image: R.image.ssuSnapCam(), type: .snapCam)]
     #else
     static let contents: [SSUTagOption] = [
         SSUTagOption(name: R.string.localizable.socialCam(), image: R.image.ssuSocialCam(), type: .socialCam),

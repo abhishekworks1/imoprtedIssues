@@ -644,7 +644,7 @@ extension StoryEditorView {
                     followMeStoryView.userBitEmoji.image = R.image.soccercamWatermarkLogo()
                     followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppFutbolCam()
                 } else if type == .snapcam {
-                    followMeStoryView.userBitEmoji.image = R.image.soccercamWatermarkLogo()
+                    followMeStoryView.userBitEmoji.image = R.image.snapcamWatermarkLogo()
                     followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppSnapCam()
                 } else {
                     followMeStoryView.userBitEmoji.image = (type == .viralCam) ? R.image.viralcamWatermarkLogo() : R.image.socialcamWatermarkLogo()
@@ -689,7 +689,7 @@ extension StoryEditorView {
             followMeStoryView.userBitEmoji.image = R.image.soccercamWatermarkLogo()
             followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppFutbolCam()
         } else if type == .snapcam {
-            followMeStoryView.userBitEmoji.image = R.image.soccercamWatermarkLogo()
+            followMeStoryView.userBitEmoji.image = R.image.snapcamWatermarkLogo()
             followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppSnapCam()
         } else {
             followMeStoryView.userBitEmoji.image = (type == .viralCam) ? R.image.viralcamWatermarkLogo() : R.image.socialcamWatermarkLogo()
