@@ -39,7 +39,7 @@ class HomeTabBarController: UITabBarController {
         revealingSplashView = RevealingSplashView(iconImage: Constant.Application.appIcon, iconInitialSize: Constant.Application.appIcon.size, backgroundImage: Constant.Application.splashBG)
         self.view.addSubview(revealingSplashView)
         
-        revealingSplashView.duration = 3.0
+        revealingSplashView.duration = 2.0
         revealingSplashView.iconColor = UIColor.red
         revealingSplashView.useCustomIconColor = false
         revealingSplashView.animationType = SplashAnimationType.popAndZoomOut

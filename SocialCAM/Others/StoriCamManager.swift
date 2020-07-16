@@ -125,7 +125,9 @@ open class StoriCamManager: NSObject {
         }
         StoryDataManager.shared.startUpload()
         PostDataManager.shared.startUpload()
-        Utils.appDelegate?.window?.makeToast(R.string.localizable.successfullyPostedInAFewMinutes())
+        DispatchQueue.runOnMainThread {
+            Utils.appDelegate?.window?.makeToast(R.string.localizable.successfullyPostedInAFewMinutes())
+        }
     }
     
     func logout() {

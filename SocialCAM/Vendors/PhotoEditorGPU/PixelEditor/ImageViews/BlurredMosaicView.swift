@@ -44,7 +44,7 @@ final class BlurredMosaicView: DryDrawingView {
 
   private let imageView = UIImageView()
 
-  private let brush: OvalBrush = OvalBrush(color: ApplicationSettings.appBlackColor, width: 30)
+  public var brush: OvalBrush = OvalBrush(color: ApplicationSettings.appBlackColor, width: 30)
 
   private let maskLayer = MaskLayer()
 

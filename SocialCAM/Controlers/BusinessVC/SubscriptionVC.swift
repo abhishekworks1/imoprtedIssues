@@ -148,7 +148,15 @@ extension SubscriptionVC: UITableViewDataSource, UITableViewDelegate {
     func enableMode(appMode: AppMode) {
         var message: String? = ""
         let placeholder: String? = R.string.localizable.enterYourUniqueCodeToEnableBasicMode()
-        let proModeCode: String? = Constant.Application.proModeCode
+        var proModeCode: String? = Constant.Application.proModeCode
+        #if PIC2ARTAPP
+        switch appMode {
+        case .professional:
+            proModeCode = Constant.Application.pic2artProModeCode
+        default:
+            break
+        }
+        #endif
         var successMessage: String? = ""
         switch appMode {
         case .free:

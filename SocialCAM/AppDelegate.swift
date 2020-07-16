@@ -25,8 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        Thread.sleep(forTimeInterval: 2.0)
-        
         UIApplication.shared.applicationIconBadgeNumber = 0
         configureIQKeyboardManager()
         
@@ -165,7 +163,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Defaults.shared.cameraMode = .normal
         #endif
         let revealingSplashView = RevealingSplashView(iconImage: Constant.Application.appIcon, iconInitialSize: Constant.Application.appIcon.size, backgroundImage: Constant.Application.splashBG)
-        revealingSplashView.duration = 5.0
+        revealingSplashView.duration = 2.0
         revealingSplashView.iconColor = UIColor.red
         revealingSplashView.useCustomIconColor = false
         revealingSplashView.animationType = SplashAnimationType.popAndZoomOut

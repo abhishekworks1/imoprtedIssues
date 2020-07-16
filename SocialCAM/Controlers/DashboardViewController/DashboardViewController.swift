@@ -24,6 +24,7 @@ class DashboardViewController: UIViewController {
     @IBOutlet var roundBadgeView: RoundedView!
     @IBOutlet var lblBadgeText: UILabel!
     @IBOutlet var headerTitle: PLabel!
+
     @IBOutlet var headerImageView: UIImageView!
 
     override func viewDidLoad() {

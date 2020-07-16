@@ -240,6 +240,7 @@ class StoryEditorViewController: UIViewController {
     private var videoExportedURL: URL?
     
     public var referType: ReferType = .none
+    var popupVC: STPopupController = STPopupController()
     
     var isViewEditMode: Bool = false {
         didSet {
@@ -938,8 +939,34 @@ extension StoryEditorViewController {
         isViewEditMode = !isViewEditMode
     }
     
+    @objc private func backgroundViewDidTap() {
+        popupVC.dismiss()
+    }
+    
     @IBAction func btnSocialMediaShareClick(_ sender: UIButton) {
         if SocialShare(rawValue: sender.tag) ?? SocialShare.facebook == .storiCam {
+            guard let socialshareVC = R.storyboard.socialCamShareVC.socialCamShareVC() else {
+                return
+            }
+            socialshareVC.btnStoryPostClicked = { [weak self] (selectedIndex) in
+                guard let `self` = self else { return }
+                self.popupVC.dismiss {
+                    if selectedIndex == 0 {
+                        self.shareSocialMedia(type: .storiCam)
+                    } else {
+                        self.shareSocialMedia(type: .storiCamPost)
+                    }
+                }
+            }
+            popupVC = STPopupController(rootViewController: socialshareVC)
+            popupVC.style = .formSheet
+            popupVC.navigationBarHidden = true
+            popupVC.transitionStyle = .fade
+            popupVC.containerView.roundCorners(corners: .allCorners, radius: 20)
+            popupVC.backgroundView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backgroundViewDidTap)))
+            popupVC.present(in: self)
+            return
+            
             let menuOptions: [UIImage] = [R.image.icoStoriCamStory()!, R.image.icoStoriCamPost()!]
             let menuOptionsString: [String] = ["", ""]
             

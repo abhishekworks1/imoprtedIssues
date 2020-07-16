@@ -400,8 +400,8 @@ public struct Constant {
         static let simformIdentifier: String = "com.simform.viralcam"
         static let proModeCode: String = "viralcam2020"
         static let publicLink = URL(string: "https://testflight.apple.com/join/sk1foNLO")
-        static let splashBG = UIImage(named: "TimeSpeedSplash")!
-        static let appIcon = UIImage(named: "ssuTimeSpeed")!
+        static let splashBG = UIImage(named: "viralCamSplashBG")!
+        static let appIcon = UIImage(named: "viralCamSplashLogo")!
         #elseif SOCCERCAMAPP
         static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "SoccerCam"
         static let simformIdentifier: String = "com.simform.SoccerCam"
@@ -426,7 +426,8 @@ public struct Constant {
         #elseif PIC2ARTAPP
         static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "PIC2ART"
         static let simformIdentifier: String = "com.simform.Pic2Art"
-        static let proModeCode: String = "pic2art2020pro!!"
+        static let proModeCode: String = "pic2art2020"
+        static let pic2artProModeCode: String = "pic2art2020pro!!"
         static let publicLink = URL(string: "https://testflight.apple.com/join/hshtsh9O")
         static let splashBG = UIImage(named: "Pic2ArtSplash")!
         static let appIcon = UIImage(named: "Pic2ArtSplashIcon")!
@@ -435,8 +436,8 @@ public struct Constant {
         static let simformIdentifier: String = "com.simform.BoomiCam"
         static let proModeCode: String = "boomicam2020"
         static let publicLink = URL(string: "https://testflight.apple.com/join/kYCCo1AW")
-        static let splashBG = UIImage(named: "TimeSpeedSplash")!
-        static let appIcon = UIImage(named: "ssuTimeSpeed")!
+        static let splashBG = UIImage(named: "boomiCamSplashBG")!
+        static let appIcon = UIImage(named: "boomiCamSplashLogo")!
         #elseif TIMESPEEDAPP
         static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "TIMESPEED"
         static let simformIdentifier: String = "com.simform.timespeed"
@@ -449,15 +450,15 @@ public struct Constant {
         static let simformIdentifier: String = "com.simform.fastCam"
         static let proModeCode: String = "fastcam2020"
         static let publicLink = URL(string: "")
-        static let splashBG = UIImage(named: "TimeSpeedSplash")!
+        static let splashBG = UIImage(named: "footballCamSplashBG")!
         static let appIcon = UIImage(named: "ssuTimeSpeed")!
         #elseif SOCIALCAMAPP
         static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "SocialCam"
         static let simformIdentifier: String = "com.simform.storiCamPro"
         static let proModeCode: String = "socialcam2020"
         static let publicLink = URL(string: "https://testflight.apple.com/join/6zE0nt7P")
-        static let splashBG = UIImage(named: "TimeSpeedSplash")!
-        static let appIcon = UIImage(named: "ssuTimeSpeed")!
+        static let splashBG = UIImage(named: "socialCamSplashBG")!
+        static let appIcon = UIImage(named: "socialCamSplashLogo")!
         #endif
         
         static let groupIdentifier: String = "group.com.simform.storiCamPro"

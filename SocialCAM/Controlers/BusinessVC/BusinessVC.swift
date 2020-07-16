@@ -61,12 +61,13 @@ struct BusinessVCOption {
 class BusinessVC: UIViewController {
 
     @IBOutlet weak var navigationTitle: UILabel!
+
     @IBOutlet weak var navigationImageView: UIImageView! {
         didSet {
             navigationImageView.isHidden = true
         }
     }
-
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
     var isFutbolCamApp: Bool {

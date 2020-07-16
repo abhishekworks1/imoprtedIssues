@@ -37,6 +37,8 @@ extension ColorCubeStorage {
                 
                 let filters = fileList
                     .filter { $0.hasSuffix(".png") || $0.hasSuffix(".PNG") }
+                    .filter { !$0.contains("AppIcon60x60@2x.png") }
+                    .filter { !$0.contains("AppIcon76x76@2x~ipad.png") }
                     .sorted()
                     .concurrentMap { path -> FilterColorCube in
                         let url = URL(fileURLWithPath: rootPath.appendingPathComponent(path))

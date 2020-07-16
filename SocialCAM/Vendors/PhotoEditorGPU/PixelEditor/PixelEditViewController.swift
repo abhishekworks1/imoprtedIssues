@@ -36,7 +36,7 @@ public final class PixelEditContext {
     case endAdjustment(save: Bool)
     case endMasking(save: Bool)
     case removeAllMasking
-
+    case setMaskSize(CGFloat)
     case setFilter((inout EditingStack.Edit.Filters) -> Void)
 
     case commit
@@ -465,6 +465,8 @@ public final class PixelEditViewController: UIViewController {
       editingStack.undo()
     case .revert:
       editingStack.revert()
+    case .setMaskSize(let widthSize):
+        maskingView.brush = OvalBrush(color: ApplicationSettings.appBlackColor, width: widthSize)
     }
   }
 
