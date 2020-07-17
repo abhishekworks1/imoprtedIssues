@@ -134,8 +134,29 @@ open class SocialShareVideo: NSObject, SharingDelegate {
     
     func twitterShareCompose(image: UIImage? = nil, url: URL? = nil, text: String = Constant.Application.displayName) {
     
+        var displayMessage = text
+        #if SOCIALCAMAPP
+        displayMessage = R.string.localizable.checkOutThisCoolNewAppSocialCam()
+        #elseif VIRALCAMAPP
+        displayMessage = R.string.localizable.checkOutThisCoolNewAppViralCam()
+        #elseif SOCCERCAMAPP
+        displayMessage = R.string.localizable.checkOutThisCoolNewAppSoccerCam()
+        #elseif FUTBOLCAMAPP
+        displayMessage = R.string.localizable.checkOutThisCoolNewAppFutbolCam()
+        #elseif SNAPCAMAPP
+        displayMessage = R.string.localizable.checkOutThisCoolNewAppSnapCam()
+        #elseif TIMESPEEDAPP
+        displayMessage = R.string.localizable.checkOutThisCoolNewAppTimeSpeed()
+        #elseif FASTCAMAPP
+        displayMessage = R.string.localizable.checkOutThisCoolNewAppFastCam()
+        #elseif BOOMICAMAPP
+        displayMessage = R.string.localizable.checkOutThisCoolNewAppBoomiCam()
+        #elseif PIC2ARTAPP
+        displayMessage = R.string.localizable.checkOutThisCoolNewAppPic2Art()
+        #endif
+        
         if let twitterComposeViewController = R.storyboard.twitterCompose.twitterComposeViewController() {
-            twitterComposeViewController.presetText = text
+            twitterComposeViewController.presetText = displayMessage
             if let image = image {
                 twitterComposeViewController.preselectedImage = image
             } else if let url = url {
