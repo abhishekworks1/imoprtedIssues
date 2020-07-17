@@ -753,6 +753,7 @@ class StoryCameraViewController: UIViewController {
                 cameraModeArray = cameraModeArray.filter({$0.recordingType != .normal})
                 cameraModeArray = cameraModeArray.filter({$0.recordingType != .capture})
                 cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastMotion})
+                cameraModeArray = cameraModeArray.filter({$0.recordingType != .handsfree})
                 if let index = cameraModeArray.firstIndex(where: { return $0.recordingType == .handsfree}) {
                     cameraModeArray.remove(at: index)
                     cameraModeArray.insert(CameraModes(name: R.string.localizable.video2Art(), recordingType: .handsfree), at: index)
@@ -956,6 +957,7 @@ extension StoryCameraViewController {
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .normal})
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .capture})
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastMotion})
+            cameraModeArray = cameraModeArray.filter({$0.recordingType != .handsfree})
             if let index = cameraModeArray.firstIndex(where: { return $0.recordingType == .handsfree}) {
                 cameraModeArray.remove(at: index)
                 cameraModeArray.insert(CameraModes(name: R.string.localizable.video2Art().uppercased(), recordingType: .handsfree), at: index)

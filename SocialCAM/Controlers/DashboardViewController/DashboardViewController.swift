@@ -24,10 +24,28 @@ class DashboardViewController: UIViewController {
     @IBOutlet var roundBadgeView: RoundedView!
     @IBOutlet var lblBadgeText: UILabel!
     @IBOutlet var headerTitle: PLabel!
-    
+    @IBOutlet var headerImageView: UIImageView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         headerTitle.text = Defaults.shared.currentUser?.channelId
+        #if SOCIALCAMAPP
+        headerImageView.image = R.image.socialcamrgb()
+        #elseif VIRALCAMAPP
+        headerImageView.image = R.image.viralcamrgb()
+        #elseif SOCCERCAMAPP || FUTBOLCAMAPP
+        headerImageView.image = R.image.soccercamWatermarkLogo()
+        #elseif SNAPCAMAPP
+        headerImageView.image = R.image.snapcamWatermarkLogo()
+        #elseif TIMESPEEDAPP
+        headerImageView.image = R.image.timeSpeedWatermarkLogo()
+        #elseif FASTCAMAPP
+        headerImageView.image = R.image.fastcamWatermarkLogo()
+        #elseif BOOMICAMAPP
+        headerImageView.image = R.image.boomicamWatermarkLogo()
+        #else
+        headerImageView.image = R.image.pic2artLogin()
+        #endif
         self.lblBadgeText.text = ""
         self.roundBadgeView.isHidden = true
         

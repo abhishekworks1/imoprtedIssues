@@ -412,7 +412,7 @@ public struct Constant {
         #elseif PIC2ARTAPP
         static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "PIC2ART"
         static let simformIdentifier: String = "com.simform.Pic2Art"
-        static let proModeCode: String = "pic2art2020"
+        static let proModeCode: String = "pic2art2020pro!!"
         static let publicLink = URL(string: "https://testflight.apple.com/join/hshtsh9O")
         static let splashBG = UIImage(named: "Pic2ArtSplash")!
         static let appIcon = UIImage(named: "Pic2ArtSplashIcon")!

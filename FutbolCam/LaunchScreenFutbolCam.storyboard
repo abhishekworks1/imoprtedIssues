@@ -16,12 +16,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="futbolCamSplash" translatesAutoresizingMaskIntoConstraints="NO" id="ePs-ci-JU0">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="footballCamSplashBG" translatesAutoresizingMaskIntoConstraints="NO" id="ePs-ci-JU0">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="footballCamSplashLogo" translatesAutoresizingMaskIntoConstraints="NO" id="Sy8-W7-Ux8">
+                                <rect key="frame" x="97" y="314.5" width="220" height="267"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="Sy8-W7-Ux8" firstAttribute="centerX" secondItem="ePs-ci-JU0" secondAttribute="centerX" id="11I-eh-2Ep"/>
+                            <constraint firstItem="Sy8-W7-Ux8" firstAttribute="centerY" secondItem="ePs-ci-JU0" secondAttribute="centerY" id="Ge6-VZ-uXj"/>
                             <constraint firstAttribute="trailing" secondItem="ePs-ci-JU0" secondAttribute="trailing" id="U0j-Cw-bCH"/>
                             <constraint firstItem="ePs-ci-JU0" firstAttribute="leading" secondItem="3FP-0J-Gzn" secondAttribute="leading" id="lah-Cb-cCr"/>
                             <constraint firstAttribute="bottom" secondItem="ePs-ci-JU0" secondAttribute="bottom" id="vIo-6g-Grr"/>
@@ -36,6 +41,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="futbolCamSplash" width="375" height="667"/>
+        <image name="footballCamSplashBG" width="375" height="667"/>
+        <image name="footballCamSplashLogo" width="220" height="267"/>
     </resources>
 </document>

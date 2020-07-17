@@ -16,16 +16,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="soccerCamSplash" translatesAutoresizingMaskIntoConstraints="NO" id="0s9-9E-mgU">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="footballCamSplashBG" translatesAutoresizingMaskIntoConstraints="NO" id="0s9-9E-mgU">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="soccerCamSplashBG" translatesAutoresizingMaskIntoConstraints="NO" id="bjC-Kh-5hs">
+                                <rect key="frame" x="97" y="316.5" width="220" height="263"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="0s9-9E-mgU" secondAttribute="trailing" id="Oxk-38-TqN"/>
+                            <constraint firstItem="bjC-Kh-5hs" firstAttribute="centerX" secondItem="0s9-9E-mgU" secondAttribute="centerX" id="XYH-Ko-3Xr"/>
                             <constraint firstAttribute="bottom" secondItem="0s9-9E-mgU" secondAttribute="bottom" id="YCL-D5-3IO"/>
                             <constraint firstItem="0s9-9E-mgU" firstAttribute="leading" secondItem="x0Y-uf-IuE" secondAttribute="leading" id="b7K-Ep-AXV"/>
                             <constraint firstItem="0s9-9E-mgU" firstAttribute="top" secondItem="x0Y-uf-IuE" secondAttribute="top" id="bb9-pz-NMa"/>
+                            <constraint firstItem="bjC-Kh-5hs" firstAttribute="centerY" secondItem="0s9-9E-mgU" secondAttribute="centerY" id="egG-Ef-j4m"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="RFH-wh-LVU"/>
                     </view>
@@ -36,6 +41,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="soccerCamSplash" width="375" height="667"/>
+        <image name="footballCamSplashBG" width="375" height="667"/>
+        <image name="soccerCamSplashBG" width="220" height="263"/>
     </resources>
 </document>
