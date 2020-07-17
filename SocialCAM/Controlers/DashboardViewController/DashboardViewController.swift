@@ -31,9 +31,9 @@ class DashboardViewController: UIViewController {
         super.viewDidLoad()
         headerTitle.text = Defaults.shared.currentUser?.channelId
         #if SOCIALCAMAPP
-        headerImageView.image = R.image.socialcamrgb()
+        headerImageView.image = R.image.socialCamSplashLogo()
         #elseif VIRALCAMAPP
-        headerImageView.image = R.image.viralcamrgb()
+        headerImageView.image = R.image.viralCamSplashLogo()
         #elseif SOCCERCAMAPP || FUTBOLCAMAPP
         headerImageView.image = R.image.soccercamWatermarkLogo()
         #elseif SNAPCAMAPP
