@@ -760,7 +760,7 @@ class StoryCameraViewController: UIViewController {
                 }
                 Defaults.shared.cameraMode = .basicCamera
                 self.recordingType = Defaults.shared.cameraMode
-            }else {
+            } else {
                 if Defaults.shared.appMode == .free {
                     Defaults.shared.cameraMode = .normal
                     self.recordingType = Defaults.shared.cameraMode

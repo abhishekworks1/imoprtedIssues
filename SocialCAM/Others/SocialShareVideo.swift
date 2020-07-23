@@ -154,7 +154,8 @@ open class SocialShareVideo: NSObject, SharingDelegate {
         #elseif PIC2ARTAPP
         displayMessage = R.string.localizable.checkOutThisCoolNewAppPic2Art()
         #endif
-        
+        displayMessage.append(" ")
+        displayMessage.append("\(Constant.URLs.websiteURL)/referral/\(Defaults.shared.currentUser?.referralCode ?? "")")
         if let twitterComposeViewController = R.storyboard.twitterCompose.twitterComposeViewController() {
             twitterComposeViewController.presetText = displayMessage
             if let image = image {
