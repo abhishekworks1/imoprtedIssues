@@ -392,6 +392,8 @@ public struct Constant {
         #endif
         static let socialCamWebsiteURL = "https://socialcam.iicc.online"
         static let pic2ArtWebsiteURL = "https://pic2art.iicc.online"
+        static let soccercamWebsiteURL = "http://soccercam.iicc.online"
+        static let futbolWebsiteURL = "http://futbolcam.iicc.online"
     }
     
     struct Application {
@@ -416,6 +418,13 @@ public struct Constant {
         static let publicLink = URL(string: "https://testflight.apple.com/join/1dRtt5SV")
         static let splashBG = UIImage(named: "footballCamSplashBG")!
         static let appIcon = UIImage(named: "futbolCamSplashLogo")!
+        #elseif QUICKCAMAPP
+        static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "QuickCam"
+        static let simformIdentifier: String = "com.simform.QuickCam"
+        static let proModeCode: String = "quickcam2020"
+        static let publicLink = URL(string: "https://testflight.apple.com/join/1dRtt5SV")
+        static let splashBG = UIImage(named: "quickCamSplashBG")!
+        static let appIcon = UIImage(named: "quickCamSplashLogo")!
         #elseif SNAPCAMAPP
         static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "SnapCam"
         static let simformIdentifier: String = "com.simform.SnapCam"
@@ -520,6 +529,10 @@ public struct Constant {
             static let redirectUrl = "https://futbolcam-ddf06.firebaseapp.com/__/auth/handler"
             static let clientId = "1431217550411859"
             static let clientSecret = "39554fc089d5154b5ee77499e549eb65"
+        #elseif QUICKCAMAPP
+        static let redirectUrl = "https://quickcam-fde9d.firebaseapp.com/__/auth/handler"
+        static let clientId = "896406730769747"
+        static let clientSecret = "47bfa6fac6eef802ab5346f896013a9c"
         #elseif SNAPCAMAPP
         static let redirectUrl = "https://snapcam-1594222751745.firebaseapp.com/__/auth/handler"
         static let clientId = "649595362296150"
@@ -560,6 +573,9 @@ public struct Constant {
         #elseif FUTBOLCAMAPP
         static let serviceKey: String = "AIzaSyCF0PBGqnCPVtKFYdYaHv1HYN5X-j4R7U0"
         static let placeClientKey: String = "AIzaSyCF0PBGqnCPVtKFYdYaHv1HYN5X-j4R7U0"
+        #elseif QUICKCAMAPP
+        static let serviceKey: String = "AIzaSyDb7qoLWUdqXgq2rdEvpxFg95iE8Vh20Pc"
+        static let placeClientKey: String = "AIzaSyDb7qoLWUdqXgq2rdEvpxFg95iE8Vh20Pc"
         #elseif SNAPCAMAPP
         static let serviceKey: String = "AIzaSyD9_sy-klWwfrLTrT4ub-E4fC-iwnzoCG0"
         static let placeClientKey: String = "AIzaSyD9_sy-klWwfrLTrT4ub-E4fC-iwnzoCG0"

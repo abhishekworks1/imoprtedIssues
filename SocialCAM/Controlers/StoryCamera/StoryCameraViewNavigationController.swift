@@ -36,7 +36,7 @@ class StoryCameraViewNavigationController: UINavigationController, UINavigationC
         if viewControllers.count > 1 {
             self.parentPageViewController?.isScrollEnabled = false
         } else {
-            #if VIRALCAMAPP || SOCCERCAMAPP || FUTBOLCAMAPP || SNAPCAMAPP
+            #if VIRALCAMAPP || SOCCERCAMAPP || FUTBOLCAMAPP || SNAPCAMAPP || QUICKCAMAPP
             self.parentPageViewController?.isScrollEnabled = true
             #else
             self.parentPageViewController?.isScrollEnabled = true

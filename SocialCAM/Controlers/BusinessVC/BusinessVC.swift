@@ -77,6 +77,8 @@ class BusinessVC: UIViewController {
         navTitle = R.string.localizable.soccerCam() + " " + R.string.localizable.businessCenter()
         #elseif FUTBOLCAMAPP
         navTitle = R.string.localizable.futbolCam() + " " + R.string.localizable.businessCenter()
+        #elseif QUICKCAMAPP
+        navTitle = R.string.localizable.quickCam() + " " + R.string.localizable.businessCenter()
         #elseif PIC2ARTAPP
         navTitle = R.string.localizable.pic2Art() + " " + R.string.localizable.businessCenter()
         #elseif BOOMICAMAPP

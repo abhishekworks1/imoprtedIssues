@@ -116,33 +116,6 @@ extension SendStoryShareVC {
     }
     
     func createStory(url: String) {
-//        guard let filterImage = filterImage, let user = user, let id = user.id else { print("Empty filter image"); return }
-//        let type = filterImage.type
-//
-//        switch type {
-//        case .image:
-//            ProManagerApi.createStory(url: url, duration: "5.0", type: "image", user: id, thumb: "").request().subscribe(onNext: { (response) in
-//                if response.statusCode == 1 {
-//                    print("\n\n\n-->Sucess Created Story\n\n\n")
-//                }
-//                self.extensionContext!.completeRequest(returningItems: nil, completionHandler: nil)
-//            }, onError: { (error) in
-//                print("\n\n\nError: \(error.localizedDescription)\n\n\n")
-//            }).disposed(by: disposeBag)
-//        case .video:
-//            ProManagerApi.createStory(url: url, duration: String(videoDuration), type: "video", user: id, thumb: thumbUrl)
-//                .request()
-//                .subscribe(onNext: { (response) in
-//                    if response.statusCode == 1 {
-//                        print("\n\n\n-->Sucess Created Story\n\n\n")
-//                    }
-//                    self.extensionContext!.completeRequest(returningItems: nil, completionHandler: nil)
-//            }, onError: { (error) in
-//                print("\n\n\nError: \(error.localizedDescription)\n\n\n")
-//            }).disposed(by: disposeBag)
-//        case .images:
-//            break
-//        }
     }
     
     func uploadToAmazon() {
@@ -249,13 +222,11 @@ extension SendStoryShareVC {
                                     self.player = AVPlayer(url: url)
                                     let imageLarge : UIImage = UIImage.getThumbnailFrom(videoUrl: url) ?? UIImage()
                                     let image = imageLarge.resizeImage(newWidth: CGFloat(400.0))
-//                                    if let exportURL = url {
-                                        self.filterImage = FilterImage(url: url, index: 0)
+                                    self.filterImage = FilterImage(url: url, index: 0)
                                     self.filterImage?.image = image
                                     self.filterImage?.thumbImage = image
-                                        self.storyImgView.image = self.filterImage?.thumbImage
-                                        self.btnPlay.isHidden = false
-//                                    }
+                                    self.storyImgView.image = self.filterImage?.thumbImage
+                                    self.btnPlay.isHidden = false
                                 }
                             }
                         })

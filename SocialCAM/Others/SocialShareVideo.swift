@@ -34,6 +34,10 @@ open class SocialShareVideo: NSObject, SharingDelegate {
             attachmentUrl = Defaults.shared.postViralCamModel?.referLink ?? ""
         case .pic2art:
             attachmentUrl = "\(Constant.URLs.pic2ArtWebsiteURL)/referral/\(Defaults.shared.currentUser?.referralCode ?? "")"
+        case .soccercam:
+            attachmentUrl = "\(Constant.URLs.soccercamWebsiteURL)/referral/\(Defaults.shared.currentUser?.referralCode ?? "")"
+        case .futbolcam:
+            attachmentUrl = "\(Constant.URLs.futbolWebsiteURL)/referral/\(Defaults.shared.currentUser?.referralCode ?? "")"
         default:
             break
         }
@@ -153,6 +157,8 @@ open class SocialShareVideo: NSObject, SharingDelegate {
         displayMessage = R.string.localizable.checkOutThisCoolNewAppBoomiCam()
         #elseif PIC2ARTAPP
         displayMessage = R.string.localizable.checkOutThisCoolNewAppPic2Art()
+        #elseif QUICKCAMAPP
+        displayMessage = R.string.localizable.checkOutThisCoolNewAppQuickCam()
         #endif
         displayMessage.append(" ")
         displayMessage.append("\(Constant.URLs.websiteURL)/referral/\(Defaults.shared.currentUser?.referralCode ?? "")")
@@ -287,6 +293,10 @@ open class SocialShareVideo: NSObject, SharingDelegate {
             snapPhoto.attachmentUrl = Defaults.shared.postViralCamModel?.referLink
         case .pic2art:
             snapPhoto.attachmentUrl = "\(Constant.URLs.pic2ArtWebsiteURL)/referral/\(Defaults.shared.currentUser?.referralCode ?? "")"
+        case .soccercam:
+            snapPhoto.attachmentUrl = "\(Constant.URLs.soccercamWebsiteURL)/referral/\(Defaults.shared.currentUser?.referralCode ?? "")"
+        case .futbolcam:
+            snapPhoto.attachmentUrl = "\(Constant.URLs.futbolWebsiteURL)/referral/\(Defaults.shared.currentUser?.referralCode ?? "")"
         default:
             break
         }
@@ -305,6 +315,10 @@ open class SocialShareVideo: NSObject, SharingDelegate {
             snapVideo.attachmentUrl = Defaults.shared.postViralCamModel?.referLink
         case .pic2art:
             snapVideo.attachmentUrl = "\(Constant.URLs.pic2ArtWebsiteURL)/referral/\(Defaults.shared.currentUser?.referralCode ?? "")"
+        case .soccercam:
+            snapVideo.attachmentUrl = "\(Constant.URLs.soccercamWebsiteURL)/referral/\(Defaults.shared.currentUser?.referralCode ?? "")"
+        case .futbolcam:
+            snapVideo.attachmentUrl = "\(Constant.URLs.futbolWebsiteURL)/referral/\(Defaults.shared.currentUser?.referralCode ?? "")"
         default:
             break
         }

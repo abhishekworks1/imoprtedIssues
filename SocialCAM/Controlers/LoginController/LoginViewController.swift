@@ -70,6 +70,8 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         imgLogo.image = R.image.viralcamrgb()
         #elseif SOCCERCAMAPP || FUTBOLCAMAPP
         imgLogo.image = R.image.soccercamWatermarkLogo()
+        #elseif QUICKCAMAPP
+        imgLogo.image = R.image.quickcamWatermarkLogo()
         #elseif SNAPCAMAPP
         imgLogo.image = R.image.snapcamWatermarkLogo()
         #elseif TIMESPEEDAPP
@@ -79,7 +81,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         #elseif BOOMICAMAPP
         imgLogo.image = R.image.boomicamWatermarkLogo()
         #else
-        imgLogo.image = R.image.pic2artLogin()
+        imgLogo.image = R.image.pic2artWatermarkLogo()
         #endif
         
         txtEmail.iconFont = UIFont.fontAwesome(ofSize: 12, style: .solid)

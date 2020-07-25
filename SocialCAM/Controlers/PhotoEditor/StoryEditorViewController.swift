@@ -263,6 +263,14 @@ class StoryEditorViewController: UIViewController {
         }
     }
     
+    var isViralCamCloneApp: Bool {
+        #if VIRALCAMAPP || QUICKCAMAPP
+        return true
+        #else
+        return false
+        #endif
+    }
+    
     var isPic2ArtApp: Bool {
         #if PIC2ARTAPP
         return true
@@ -407,7 +415,7 @@ class StoryEditorViewController: UIViewController {
         
         self.editOptionView.isHidden = !isImage
         self.applyFilterOptionView.isHidden = !isImage
-        if !isTimeSpeedApp && !isFastCamApp && !isPic2ArtApp {
+        if !isTimeSpeedApp && !isFastCamApp && !isPic2ArtApp && !isViralCamCloneApp {
             self.specificBoomerangView.isHidden = (Defaults.shared.appMode != .free && isBoomerang) ? true : isImage
         } else {
             self.specificBoomerangView.isHidden = true
@@ -1502,6 +1510,8 @@ extension StoryEditorViewController: SSUTagSelectionDelegate {
                 storyEditors[currentStoryIndex].addReferLinkView(type: .futbolcam)
             case .snapCam:
                 storyEditors[currentStoryIndex].addReferLinkView(type: .snapcam)
+            case .quickCam:
+                storyEditors[currentStoryIndex].addReferLinkView(type: .quickcam)
             default:
                 storyEditors[currentStoryIndex].addReferLinkView(type: .viralCam)
             }

@@ -22,6 +22,7 @@ enum ReferType {
     case soccercam
     case futbolcam
     case snapcam
+    case quickcam
 }
 
 enum StoryEditorType: Equatable {
@@ -643,6 +644,9 @@ extension StoryEditorView {
                 } else if type == .futbolcam {
                     followMeStoryView.userBitEmoji.image = R.image.soccercamWatermarkLogo()
                     followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppFutbolCam()
+                } else if type == .quickcam {
+                    followMeStoryView.userBitEmoji.image = R.image.quickcamWatermarkLogo()
+                    followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppQuickCam()
                 } else if type == .snapcam {
                     followMeStoryView.userBitEmoji.image = R.image.snapcamWatermarkLogo()
                     followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppSnapCam()
@@ -688,6 +692,9 @@ extension StoryEditorView {
         } else if type == .futbolcam {
             followMeStoryView.userBitEmoji.image = R.image.soccercamWatermarkLogo()
             followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppFutbolCam()
+        } else if type == .quickcam {
+            followMeStoryView.userBitEmoji.image = R.image.quickcamWatermarkLogo()
+            followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppQuickCam()
         } else if type == .snapcam {
             followMeStoryView.userBitEmoji.image = R.image.snapcamWatermarkLogo()
             followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppSnapCam()

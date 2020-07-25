@@ -17,7 +17,7 @@ class PageViewController: PageboyViewController {
             cameraNavVC.navigationBar.isHidden = true
             viewControllers.append(cameraNavVC)
         }
-        #if PIC2ARTAPP || SOCIALCAMAPP || VIRALCAMAPP || SOCCERCAMAPP || FUTBOLCAMAPP || SNAPCAMAPP
+        #if PIC2ARTAPP || SOCIALCAMAPP || SOCCERCAMAPP || FUTBOLCAMAPP || SNAPCAMAPP
         if let homeVC = R.storyboard.homeScreen.homeTabBarController() {
             viewControllers.append(homeVC)
         }

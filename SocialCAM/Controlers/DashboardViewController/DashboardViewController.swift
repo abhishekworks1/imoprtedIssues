@@ -36,6 +36,8 @@ class DashboardViewController: UIViewController {
         headerImageView.image = R.image.viralCamSplashLogo()
         #elseif SOCCERCAMAPP || FUTBOLCAMAPP
         headerImageView.image = R.image.soccercamWatermarkLogo()
+        #elseif QUICKCAMAPP
+        headerImageView.image = R.image.quickcamWatermarkLogo()
         #elseif SNAPCAMAPP
         headerImageView.image = R.image.snapcamWatermarkLogo()
         #elseif TIMESPEEDAPP
@@ -45,7 +47,7 @@ class DashboardViewController: UIViewController {
         #elseif BOOMICAMAPP
         headerImageView.image = R.image.boomicamWatermarkLogo()
         #else
-        headerImageView.image = R.image.pic2artLogin()
+        headerImageView.image = R.image.pic2artWatermarkLogo()
         #endif
         self.lblBadgeText.text = ""
         self.roundBadgeView.isHidden = true
