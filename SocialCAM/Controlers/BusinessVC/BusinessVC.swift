@@ -18,7 +18,7 @@ enum BusinessVCOptionType {
     case genealogy
     case calculator
     case money
-    case subscribers
+    case influencerTools
     case subscription
     case socialConnection
     case channelManagement
@@ -41,7 +41,7 @@ struct BusinessVCOption {
                                                BusinessVCOption(name: R.string.localizable.followerNetwork(), image: R.image.genealogy(), type: .genealogy),
                                                BusinessVCOption(name: R.string.localizable.calculator(), image: R.image.calculator(), type: .calculator),
                                                BusinessVCOption(name: R.string.localizable.money(), image: R.image.money(), type: .money),
-                                               BusinessVCOption(name: R.string.localizable.subscribers(), image: R.image.subscribers(), type: .subscribers),
+                                               BusinessVCOption(name: R.string.localizable.influencerTools(), image: R.image.subscribers(), type: .influencerTools),
                                                BusinessVCOption(name: R.string.localizable.iicC(), image: R.image.iiCc(), type: .iicC)]
 }
 

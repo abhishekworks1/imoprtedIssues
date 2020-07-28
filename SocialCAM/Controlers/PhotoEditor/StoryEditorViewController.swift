@@ -363,6 +363,7 @@ class StoryEditorViewController: UIViewController {
             storyEditorView.socialShareView = self.socialShareBottomView
             view.insertSubview(storyEditorView, aboveSubview: mediaImageView)
 
+            
             storyEditorView.center = mediaImageView.center
             storyEditorView.filters = StoryFilter.filters
             storyEditorView.addTikTokShareViewIfNeeded()

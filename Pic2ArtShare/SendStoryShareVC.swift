@@ -115,8 +115,7 @@ extension SendStoryShareVC {
         uploadToAmazon()
     }
     
-    func createStory(url: String) {
-    }
+    func createStory(url: String) { }
     
     func uploadToAmazon() {
         guard let filterImage = filterImage, let image = filterImage.image else { return }
@@ -160,6 +159,27 @@ extension SendStoryShareVC {
         }
     }
     
+    private func checkLink(_ link: String) {
+        guard let activeLink = InstaService.checkLink(link) else {
+            displayAlertController(title: R.string.localizable.error(), message: R.string.localizable.invalidLink(), viewController: self)
+            return
+        }
+        
+        InstaService.getMediaPost(with: activeLink) { post in
+            guard let post = post else {
+                self.displayAlertController(title: R.string.localizable.error(), message: R.string.localizable.connectionError(), viewController: self)
+                return
+            }
+            if !post.isVideo {
+                let filterImage = FilterImage(image: post.image ?? UIImage(), index: 0)
+                self.filterImage = filterImage
+                self.storyImgView.image = post.image
+            } else {
+                self.displayAlertController(title: R.string.localizable.error(), message: R.string.localizable.connectionError(), viewController: self)
+            }
+        }
+    }
+    
     func fetchData() {
         guard let sessionToken = Defaults.shared.sessionToken,
             let currentUser = Defaults.shared.currentUser else {
@@ -177,17 +197,21 @@ extension SendStoryShareVC {
                     if itemProvider.hasItemConformingToTypeIdentifier(urlContentType) {
                         itemProvider.loadItem(forTypeIdentifier: urlContentType, options: nil, completionHandler: { (text, error) in
                             if let shareURL = text as? NSURL {
-                                SDWebImageManager.shared.loadImage(with: shareURL as URL, options: SDWebImageOptions.highPriority, progress: { (progress, tProgress, url) in
-                                    
-                                }, completed: { (img, data, error, type, result, url) in
-                                    if let image = img {
-                                        DispatchQueue.main.async {
-                                            let filterImage = FilterImage(image: image, index: 0)
-                                            self.filterImage = filterImage
-                                            self.storyImgView.image = filterImage.image
+                                if shareURL.absoluteString?.contains("instagram") ?? false {
+                                    self.checkLink(shareURL.absoluteString ?? "")
+                                } else {
+                                    SDWebImageManager.shared.loadImage(with: shareURL as URL, options: SDWebImageOptions.highPriority, progress: { (progress, tProgress, url) in
+                                        
+                                    }, completed: { (img, data, error, type, result, url) in
+                                        if let image = img {
+                                            DispatchQueue.main.async {
+                                                let filterImage = FilterImage(image: image, index: 0)
+                                                self.filterImage = filterImage
+                                                self.storyImgView.image = filterImage.image
+                                            }
                                         }
-                                    }
-                                })
+                                    })
+                                }
                             }
                             
                         })
