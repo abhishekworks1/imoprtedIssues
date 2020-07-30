@@ -765,6 +765,7 @@ enum CurrentMode: Int {
     case photos
     case border
     case space
+    case background
 }
 
 protocol CollageMakerVCDelegate: class {
