@@ -2794,9 +2794,9 @@
                         <viewLayoutGuide key="safeArea" id="O0V-DG-Jz2"/>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="dq7-3d-yW8"/>
                                 <exclude reference="f57-Ps-T8Q"/>
                                 <exclude reference="BhR-mE-dNB"/>
-                                <exclude reference="dq7-3d-yW8"/>
                             </mask>
                         </variation>
                     </view>
@@ -4530,13 +4530,13 @@
                                                 <rect key="frame" x="0.0" y="300" width="375" height="40"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xv7-01-fnR">
-                                                        <rect key="frame" x="132" y="2.6666666666666288" width="111" height="35"/>
+                                                        <rect key="frame" x="130" y="2.6666666666666288" width="115" height="35"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="0Er-xr-yi4">
-                                                                <rect key="frame" x="15" y="0.0" width="81" height="35"/>
+                                                                <rect key="frame" x="15" y="0.0" width="85" height="35"/>
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DE5-dc-Dno">
-                                                                        <rect key="frame" x="0.0" y="6.3333333333333712" width="33" height="22"/>
+                                                                        <rect key="frame" x="0.0" y="5.6666666666667407" width="35" height="23.333333333333329"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="DE5-dc-Dno" secondAttribute="height" multiplier="1.5:1" id="Y2w-pA-L5C"/>
                                                                         </constraints>
@@ -4547,7 +4547,7 @@
                                                                         </connections>
                                                                     </button>
                                                                     <button opaque="NO" alpha="0.5" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BUw-cG-3lm">
-                                                                        <rect key="frame" x="48" y="1" width="33" height="33"/>
+                                                                        <rect key="frame" x="50" y="0.0" width="35" height="35"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="BUw-cG-3lm" secondAttribute="height" id="iI7-b8-lCj"/>
                                                                         </constraints>
@@ -4768,7 +4768,7 @@
                                 <rect key="frame" x="0.0" y="88" width="375" height="619"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yeA-gp-yHY">
+                            <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="yeA-gp-yHY" customClass="InfiniteCollectionView" customModule="InfiniteLayout">
                                 <rect key="frame" x="0.0" y="715" width="375" height="63"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
