@@ -194,6 +194,27 @@ class StoryEditorViewController: UIViewController {
         return avAsset
     }
     
+    private var isViralCamLiteApp: Bool {
+        #if VIRALCAMLITEAPP
+        return true
+        #endif
+        return false
+    }
+    
+    private var isFastCamLiteApp: Bool {
+        #if FASTCAMLITEAPP
+        return true
+        #endif
+        return false
+    }
+    
+    private var isQuickCamLiteApp: Bool {
+        #if QUICKCAMLITEAPP
+        return true
+        #endif
+        return false
+    }
+    
     public var medias = [StoryEditorMedia]()
     public var selectedSlideShowMedias = [StoryEditorMedia]() {
         didSet {
@@ -416,7 +437,7 @@ class StoryEditorViewController: UIViewController {
         
         self.editOptionView.isHidden = !isImage
         self.applyFilterOptionView.isHidden = !isImage
-        if !isTimeSpeedApp && !isFastCamApp && !isPic2ArtApp && !isViralCamCloneApp {
+        if !isTimeSpeedApp && !isFastCamApp && !isPic2ArtApp && !isViralCamCloneApp && !isViralCamLiteApp && !isFastCamLiteApp && !isQuickCamLiteApp {
             self.specificBoomerangView.isHidden = (Defaults.shared.appMode != .free && isBoomerang) ? true : isImage
         } else {
             self.specificBoomerangView.isHidden = true
@@ -439,7 +460,7 @@ class StoryEditorViewController: UIViewController {
         }
         self.soundOptionView.isHidden = isImage
         self.trimOptionView.isHidden = isImage
-        if !isBoomiCamApp && !isFastCamApp {
+        if !isBoomiCamApp && !isFastCamApp && !isViralCamLiteApp && !isFastCamLiteApp && !isQuickCamLiteApp {
             self.timeSpeedOptionView.isHidden = Defaults.shared.appMode != .free ? isImage : true
         } else {
             self.timeSpeedOptionView.isHidden = true

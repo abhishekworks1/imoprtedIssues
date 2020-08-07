@@ -391,6 +391,7 @@ extension StoryCameraViewController {
         guard !isCountDownStarted else {
             return
         }
+        photoTimerView.isHidden = isViralcamLiteApp || isFastcamLiteApp || isQuickCamLiteApp
         view.bringSubviewToFront(selectTimersView)
         selectTimersView.isHidden = false
         timerPicker.reloadPickerView()
@@ -588,7 +589,7 @@ extension StoryCameraViewController: CollageMakerVCDelegate {
 extension StoryCameraViewController: CountdownViewDelegate {
     
     func capturePhoto() {
-        if isTimeSpeedApp || isFastCamApp {
+        if isTimeSpeedApp || isFastCamApp || isViralcamLiteApp || isFastcamLiteApp || isQuickCamLiteApp {
             return
         }
         self.photoTapGestureRecognizer?.isEnabled = false

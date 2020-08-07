@@ -140,6 +140,7 @@ class StoryCameraViewController: UIViewController {
     
     @IBOutlet weak var cameraSliderView: InstaSlider!
     
+    @IBOutlet weak var photoTimerView: UIView!
     @IBOutlet weak var flipLabel: UILabel!
     @IBOutlet weak var flashLabel: UILabel!
     @IBOutlet weak var transparentView: TransparentGradientView!
@@ -398,7 +399,8 @@ class StoryCameraViewController: UIViewController {
         CameraModes(name: R.string.localizable.collagE(), recordingType: .collage),
         CameraModes(name: R.string.localizable.handsfreE(), recordingType: .handsfree),
         CameraModes(name: R.string.localizable.custoM(), recordingType: .custom),
-        CameraModes(name: R.string.localizable.capturE(), recordingType: .capture)]
+        CameraModes(name: R.string.localizable.capturE(), recordingType: .capture),
+        CameraModes(name: R.string.localizable.promo(), recordingType: .promo)]
         
     var timerOptions = ["-",
                         "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
@@ -513,6 +515,30 @@ class StoryCameraViewController: UIViewController {
         #endif
     }
     
+    var isViralcamLiteApp: Bool {
+        #if VIRALCAMLITEAPP
+        return true
+        #else
+        return false
+        #endif
+    }
+    
+    var isQuickCamLiteApp: Bool {
+        #if QUICKCAMLITEAPP
+        return true
+        #else
+        return false
+        #endif
+    }
+    
+    var isFastcamLiteApp: Bool {
+        #if FASTCAMLITEAPP
+        return true
+        #else
+        return false
+        #endif
+    }
+    
     // MARK: ViewController lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -538,6 +564,10 @@ class StoryCameraViewController: UIViewController {
         dynamicSetSlowFastVerticalBar()
         setViewsForApp()
         setupPic2ArtAppControls()
+        if isViralcamLiteApp || isFastcamLiteApp || isQuickCamLiteApp {
+            self.recordingType = .promo
+            self.setupLiteAppMode(mode: .promo)
+        }
     }
     
     func setupPic2ArtAppControls() {
@@ -553,6 +583,10 @@ class StoryCameraViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if isViralcamLiteApp || isFastcamLiteApp || isQuickCamLiteApp {
+            setupLayoutCameraSliderView()
+            dynamicSetSlowFastVerticalBar()
+        }
         enableFaceDetectionIfNeeded()
         swapeControlsIfNeeded()
         UIApplication.shared.isIdleTimerDisabled = true
@@ -624,7 +658,7 @@ class StoryCameraViewController: UIViewController {
     }
     
     func setViewsForApp() {
-        #if VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP || BOOMICAMAPP || FASTCAMAPP || SOCCERCAMAPP || FUTBOLCAMAPP || SNAPCAMAPP || QUICKCAMAPP
+        #if VIRALCAMAPP || PIC2ARTAPP || TIMESPEEDAPP || BOOMICAMAPP || FASTCAMAPP || SOCCERCAMAPP || FUTBOLCAMAPP || SNAPCAMAPP || QUICKCAMAPP || VIRALCAMLITEAPP
             self.fpsView.isHidden = true
         #endif
     }
@@ -679,26 +713,63 @@ class StoryCameraViewController: UIViewController {
         }
         verticalLines.visibleLeftSideViews = true
         if recordingType == .fastMotion {
+            if isFastcamLiteApp || isViralcamLiteApp || isQuickCamLiteApp {
+                verticalLines.numberOfViews = .speed5x
+                Defaults.shared.cameraMode = .fastMotion
+                self.setupLiteAppMode(mode: .fastMotion)
+            }
             verticalLines.visibleLeftSideViews = false
             speedSliderLabels.value = UInt(speedOptions.count/2)
             speedSlider.ticksListener = speedSliderLabels
             speedSlider.tickCount = speedOptions.count
             speedSlider.value = CGFloat(Int(speedOptions.count/2))
         }
+        if recordingType == .promo {
+            timerValueView.isHidden = true
+            Defaults.shared.cameraMode = .promo
+            verticalLines.visibleLeftSideViews = false
+            verticalLines.numberOfViews = .speed3x
+            speedOptions = ["", "", "1x", "2x", "3x"]
+            speedSliderLabels.names = speedOptions
+            verticalLines.visibleLeftSideViews = false
+            speedSliderLabels.value = 2
+            speedSlider.ticksListener = speedSliderLabels
+            speedSlider.tickCount = speedOptions.count
+            speedSlider.value = 2
+            self.setupLiteAppMode(mode: .promo)
+        }
         if recordingType == .normal && isBoomiCamApp {
             recordingType = .basicCamera
         }
-        if recordingType != .basicCamera {
-            speedSlider.isHidden = Defaults.shared.appMode == .free
-            speedSliderView.isHidden = (isPic2ArtApp || isBoomiCamApp) ? true : Defaults.shared.appMode == .free
+        if !isViralcamLiteApp || !isFastcamLiteApp || !isQuickCamLiteApp {
+            speedSlider.isHidden = false
+            speedSliderView.isHidden = false
         } else {
-            speedSlider.isHidden = true
-            speedSliderView.isHidden = true
+            if recordingType != .basicCamera {
+                speedSlider.isHidden = Defaults.shared.appMode == .free
+                speedSliderView.isHidden = (isPic2ArtApp || isBoomiCamApp) ? true : Defaults.shared.appMode == .free
+            } else {
+                speedSlider.isHidden = true
+                speedSliderView.isHidden = true
+            }
         }
         
         speedSliderWidthConstraint.constant = UIScreen.main.bounds.width - (UIScreen.main.bounds.width / CGFloat(speedOptions.count - 1))
         self.speedSlider.layoutIfNeeded()
         self.speedSliderLabels.layoutIfNeeded()
+    }
+    
+    func setupLiteAppMode(mode: CameraMode) {
+        fpsView.isHidden = true
+        if mode == .promo {
+            flashStackView.isHidden = true
+            timerStackView.isHidden = true
+            swipeCameraStackView.isHidden = true
+        } else if mode == .fastMotion {
+            flashStackView.isHidden = false
+            timerStackView.isHidden = false
+            swipeCameraStackView.isHidden = false
+        }
     }
     
     func changeModeHandler() {
@@ -716,6 +787,7 @@ class StoryCameraViewController: UIViewController {
                 cameraModeArray = cameraModeArray.filter({$0.recordingType != .boomerang})
                 cameraModeArray = cameraModeArray.filter({$0.recordingType != .custom})
                 cameraModeArray = cameraModeArray.filter({$0.recordingType != .normal})
+                cameraModeArray = cameraModeArray.filter({$0.recordingType != .promo})
                 if Defaults.shared.appMode == .free {
                     cameraModeArray = cameraModeArray.filter({$0.recordingType != .handsfree})
                     cameraModeArray = cameraModeArray.filter({$0.recordingType != .capture})
@@ -732,6 +804,7 @@ class StoryCameraViewController: UIViewController {
                 cameraModeArray = cameraModeArray.filter({$0.recordingType != .capture})
                 cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastMotion})
                 cameraModeArray = cameraModeArray.filter({$0.recordingType != .handsfree})
+                cameraModeArray = cameraModeArray.filter({$0.recordingType != .promo})
                 Defaults.shared.cameraMode = .basicCamera
                 self.recordingType = Defaults.shared.cameraMode
             } else if self.isFastCamApp {
@@ -744,6 +817,7 @@ class StoryCameraViewController: UIViewController {
                 cameraModeArray = cameraModeArray.filter({$0.recordingType != .capture})
                 cameraModeArray = cameraModeArray.filter({$0.recordingType != .basicCamera})
                 cameraModeArray = cameraModeArray.filter({$0.recordingType != .handsfree})
+                cameraModeArray = cameraModeArray.filter({$0.recordingType != .promo})
                 Defaults.shared.cameraMode = .fastMotion
                 self.recordingType = Defaults.shared.cameraMode
             } else if self.isPic2ArtApp {
@@ -754,12 +828,18 @@ class StoryCameraViewController: UIViewController {
                 cameraModeArray = cameraModeArray.filter({$0.recordingType != .capture})
                 cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastMotion})
                 cameraModeArray = cameraModeArray.filter({$0.recordingType != .handsfree})
+                cameraModeArray = cameraModeArray.filter({$0.recordingType != .promo})
                 if let index = cameraModeArray.firstIndex(where: { return $0.recordingType == .handsfree}) {
                     cameraModeArray.remove(at: index)
                     cameraModeArray.insert(CameraModes(name: R.string.localizable.video2Art(), recordingType: .handsfree), at: index)
                 }
                 Defaults.shared.cameraMode = .basicCamera
                 self.recordingType = Defaults.shared.cameraMode
+            } else if self.isViralcamLiteApp || self.isFastcamLiteApp || self.isQuickCamLiteApp {
+                cameraModeArray = cameraModeArray.filter({$0.recordingType == .promo})
+                if Defaults.shared.appMode == .professional {
+                    cameraModeArray = cameraModeArray + self.cameraModeArray.filter({$0.recordingType == .fastMotion})
+                }
             } else {
                 if Defaults.shared.appMode == .free {
                     Defaults.shared.cameraMode = .normal
@@ -773,7 +853,7 @@ class StoryCameraViewController: UIViewController {
             self.selectedSegmentLengthValue.saveWithKey(key: "selectedSegmentLengthValue")
             self.setCameraSettings()
             self.cameraSliderView.stringArray = cameraModeArray
-            if !self.isFastCamApp {
+            if !self.isFastCamApp && !self.isViralcamLiteApp && !self.isFastcamLiteApp && !self.isQuickCamLiteApp {
                 self.cameraSliderView.selectCell = Defaults.shared.cameraMode.rawValue
             }
             self.dynamicSetSlowFastVerticalBar()
@@ -926,6 +1006,7 @@ extension StoryCameraViewController {
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .boomerang})
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .custom})
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .normal})
+            cameraModeArray = cameraModeArray.filter({$0.recordingType != .promo})
             if Defaults.shared.appMode == .free {
                 cameraModeArray = cameraModeArray.filter({$0.recordingType != .handsfree})
                 cameraModeArray = cameraModeArray.filter({$0.recordingType != .capture})
@@ -940,6 +1021,7 @@ extension StoryCameraViewController {
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .capture})
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastMotion})
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .handsfree})
+            cameraModeArray = cameraModeArray.filter({$0.recordingType != .promo})
         } else if self.isFastCamApp {
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .slideshow})
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .collage})
@@ -950,6 +1032,7 @@ extension StoryCameraViewController {
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .capture})
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .basicCamera})
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .handsfree})
+            cameraModeArray = cameraModeArray.filter({$0.recordingType != .promo})
         }  else if self.isPic2ArtApp {
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastSlowMotion})
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .boomerang})
@@ -958,11 +1041,18 @@ extension StoryCameraViewController {
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .capture})
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastMotion})
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .handsfree})
+            cameraModeArray = cameraModeArray.filter({$0.recordingType != .promo})
             if let index = cameraModeArray.firstIndex(where: { return $0.recordingType == .handsfree}) {
                 cameraModeArray.remove(at: index)
                 cameraModeArray.insert(CameraModes(name: R.string.localizable.video2Art().uppercased(), recordingType: .handsfree), at: index)
             }
+        } else if isViralcamLiteApp || isFastcamLiteApp || isQuickCamLiteApp {
+            cameraModeArray = cameraModeArray.filter({$0.recordingType == .promo})
+            if Defaults.shared.appMode == .professional {
+                cameraModeArray = cameraModeArray + self.cameraModeArray.filter({$0.recordingType == .fastMotion})
+            }
         } else {
+            cameraModeArray = cameraModeArray.filter({$0.recordingType != .promo})
             if Defaults.shared.appMode == .free {
                 cameraModeArray = cameraModeArray.filter({$0.recordingType != .custom})
                 cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastSlowMotion})
@@ -1050,12 +1140,14 @@ extension StoryCameraViewController {
             case .capture:
                 self.circularProgress.centerImage = R.image.icoCaptureMode()
                 self.timerValueView.isHidden = true
+            case .promo:
+                self.circularProgress.centerImage = UIImage()
             default:
                 break
             }
         }
         
-        if !isFastCamApp {
+        if !isFastCamApp && !isViralcamLiteApp && !isFastcamLiteApp && !isQuickCamLiteApp {
             cameraSliderView.selectCell = Defaults.shared.cameraMode.rawValue
         }
     }
@@ -1323,11 +1415,13 @@ extension StoryCameraViewController {
     }
     
     func enableFaceDetectionIfNeeded() {
-        var metadataObjectTypes = [AVMetadataObject.ObjectType.qr]
-        if Defaults.shared.enableFaceDetection {
-            metadataObjectTypes.append(AVMetadataObject.ObjectType.face)
+        if recordingType != .promo {
+            var metadataObjectTypes = [AVMetadataObject.ObjectType.qr]
+            if Defaults.shared.enableFaceDetection {
+                metadataObjectTypes.append(AVMetadataObject.ObjectType.face)
+            }
+            nextLevel.metadataObjectTypes = metadataObjectTypes
         }
-        nextLevel.metadataObjectTypes = metadataObjectTypes
     }
     
     func swapeControlsIfNeeded() {
@@ -1536,7 +1630,7 @@ extension StoryCameraViewController {
         self.isMute ? muteButton.startBlink(0.5) : muteButton.stopBlink()
         self.view.bringSubviewToFront(slowFastVerticalBar.superview ?? UIView())
         if recordingType != .basicCamera {
-            slowFastVerticalBar.isHidden = Defaults.shared.appMode == .free
+            slowFastVerticalBar.isHidden = (isViralcamLiteApp || isFastcamLiteApp || isQuickCamLiteApp) ? false : (Defaults.shared.appMode == .free)
         } else {
             slowFastVerticalBar.isHidden = true
         }
@@ -1554,6 +1648,8 @@ extension StoryCameraViewController {
                     totalSeconds = 3600
                 } else if self.isPic2ArtApp {
                     totalSeconds = 5
+                } else if self.isViralcamLiteApp || self.isFastcamLiteApp || self.isQuickCamLiteApp {
+                    totalSeconds = self.recordingType == .promo ? 15 : totalSeconds
                 }
                 self.progressMaxSeconds = totalSeconds
                 self.circularProgress.progressInsideFillColor = .red

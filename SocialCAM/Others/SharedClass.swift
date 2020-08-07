@@ -79,6 +79,7 @@ public enum CameraMode: Int {
     case quizImage
     case quizVideo
     case multiplePhotos
+    case promo
 }
 
 public enum RecordingType {
@@ -468,6 +469,27 @@ public struct Constant {
         static let publicLink = URL(string: "https://testflight.apple.com/join/6zE0nt7P")
         static let splashBG = UIImage(named: "socialCamSplashBG")!
         static let appIcon = UIImage(named: "socialCamSplashLogo")!
+        #elseif VIRALCAMLITEAPP
+        static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "ViralCam Lite"
+        static let simformIdentifier: String = "com.simform.viralcamLite"
+        static let proModeCode: String = "socialcam2020"
+        static let publicLink = URL(string: "https://testflight.apple.com/join/6zE0nt7P")
+        static let splashBG = UIImage(named: "viralcamSplashBG")!
+        static let appIcon = UIImage(named: "viralcamLiteSplash")!
+        #elseif FASTCAMLITEAPP
+        static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "FastCam Lite"
+        static let simformIdentifier: String = "com.simform.fastCamLite"
+        static let proModeCode: String = "socialcam2020"
+        static let publicLink = URL(string: "https://testflight.apple.com/join/6zE0nt7P")
+        static let splashBG = UIImage(named: "fastcamLiteSplashBG")!
+        static let appIcon = UIImage(named: "fastcamLiteWatermarkLogo")!
+        #elseif QUICKCAMLITEAPP
+        static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "QuickCam Lite"
+        static let simformIdentifier: String = "com.simform.fastCamLite"
+        static let proModeCode: String = "socialcam2020"
+        static let publicLink = URL(string: "https://testflight.apple.com/join/6zE0nt7P")
+        static let splashBG = UIImage(named: "quickcamLiteLaunchScreenBG")!
+        static let appIcon = UIImage(named: "quickcamliteSplashLogo")!
         #endif
         
         static let groupIdentifier: String = "group.com.simform.storiCamPro"

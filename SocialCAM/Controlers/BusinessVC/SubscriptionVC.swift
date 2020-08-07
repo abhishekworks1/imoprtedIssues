@@ -41,6 +41,28 @@ class SubscriptionVC: UIViewController {
     
     @IBOutlet weak var settingsTableView: UITableView!
     
+    private var isViralCamLiteApp: Bool {
+        #if VIRALCAMLITEAPP
+        return true
+        #endif
+        return false
+    }
+    
+    private var isFastCamLiteApp: Bool {
+        #if FASTCAMLITEAPP
+        return true
+        #endif
+        return false
+    }
+    
+    private var isQuickCamLiteApp: Bool {
+        #if QUICKCAMLITEAPP
+        return true
+        #else
+        return false
+        #endif
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -143,6 +165,13 @@ extension SubscriptionVC: UITableViewDataSource, UITableViewDelegate {
             }
             self.enableMode(appMode: AppMode(rawValue: indexPath.row) ?? .free)
         }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if (isViralCamLiteApp || isFastCamLiteApp || isQuickCamLiteApp) && (indexPath.row == 1 || indexPath.row == 2) {
+            return 0
+        }
+        return UITableView.automaticDimension
     }
     
     func enableMode(appMode: AppMode) {
