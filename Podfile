@@ -14,6 +14,7 @@ def shared_pods
     pod 'URLEmbeddedView', '0.18.0'
     pod 'SDWebImage', '5.6.1'
     pod 'AWSS3', '2.13.0'
+    pod 'InfiniteLayout'
 end
 
 def projectShared_pods

@@ -9,6 +9,7 @@
 import UIKit
 import CoreML
 import SCRecorder
+import InfiniteLayout
 
 enum StyleTransferType {
     case image(image: UIImage)
@@ -35,7 +36,7 @@ extension StyleTransferVC: UIGestureRecognizerDelegate {
 
 class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
     
-    @IBOutlet weak var collectionView: KDDragAndDropCollectionView!
+    @IBOutlet weak var collectionView: InfiniteCollectionView!
     
     var dragAndDropManager: KDDragAndDropManager?
     @IBOutlet weak var btnSlideShow: UIButton!
@@ -821,9 +822,9 @@ extension StyleTransferVC: UICollectionViewDelegate {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.styleCollectionViewCell, for: indexPath) else {
                 return UICollectionViewCell()
             }
-            cell.styleImageView.image = styleData[indexPath.row].image
-            cell.tag = indexPath.row
-            let borderWidth: CGFloat = styleData[indexPath.row].isSelected ? 2.0 : 0.0
+            cell.styleImageView.image = styleData[indexPath.row % styleData.count].image
+            cell.tag = indexPath.row % styleData.count
+            let borderWidth: CGFloat = styleData[indexPath.row % styleData.count].isSelected ? 2.0 : 0.0
             cell.layer.borderWidth = borderWidth
             switch type {
             case .image:
@@ -850,13 +851,13 @@ extension StyleTransferVC: UICollectionViewDelegate {
         }
 
         for (index, style) in self.styleData.enumerated() {
-            style.isSelected = (index == indexPath.row)
+            style.isSelected = (index == (indexPath.row % styleData.count))
         }
         collectionView.reloadData()
         let xScrollOffset = CGFloat(indexPath.row)*UIScreen.width
         self.scrollView.setContentOffset(CGPoint(x: xScrollOffset, y: 0),
                                          animated: false)
-        self.applyStyle(index: indexPath.row)
+        self.applyStyle(index: indexPath.row % styleData.count)
     }
 }
 
