@@ -19,7 +19,6 @@ class PageViewController: PageboyViewController {
         }
         #if PIC2ARTAPP || SOCIALCAMAPP || SOCCERCAMAPP || FUTBOLCAMAPP || SNAPCAMAPP
         if let homeVC = R.storyboard.homeScreen.homeTabBarController() {
-            viewControllers.append(homeVC)
         }
         #endif
         if let viralToolsVC = R.storyboard.storyCameraViewController.businessNavigationController() {
@@ -85,10 +84,8 @@ extension PageViewController: PageboyViewControllerDataSource {
         switch Defaults.shared.openingScreen {
         case .camera:
             return PageboyViewController.Page.at(index: 0)
-        case .dashboard:
+        case .dashboard, .chat:
             return PageboyViewController.Page.at(index: 1)
-        case .chat:
-            return PageboyViewController.Page.at(index: 2)
         }
     }
     

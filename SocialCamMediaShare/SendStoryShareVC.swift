@@ -197,7 +197,6 @@ extension SendStoryShareVC {
                                     }
                                 })
                             }
-                            
                         })
                     } else if itemProvider.hasItemConformingToTypeIdentifier(videoContentType) || itemProvider.hasItemConformingToTypeIdentifier(quickTimeContentType) {
                         itemProvider.loadItem(forTypeIdentifier: (itemProvider.hasItemConformingToTypeIdentifier(quickTimeContentType)) ? quickTimeContentType : videoContentType, options: nil, completionHandler: { (video, error) in

@@ -402,7 +402,7 @@ public struct Constant {
         static let simformIdentifier: String = "com.simform.viralcam"
         static let proModeCode: String = "viralcam2020"
         static let publicLink = URL(string: "https://testflight.apple.com/join/sk1foNLO")
-        static let splashBG = UIImage(named: "viralCamSplashBG")!
+        static let splashBG = UIImage(named: "viralcamSplashBG")!
         static let appIcon = UIImage(named: "viralCamSplashLogo")!
         #elseif SOCCERCAMAPP
         static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "SoccerCam"
