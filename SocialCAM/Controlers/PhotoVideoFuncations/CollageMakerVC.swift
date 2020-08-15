@@ -110,6 +110,11 @@ class CollageMakerVC: UIViewController, UIGestureRecognizerDelegate {
                 collectionView.isHidden = true
                 borderView.isHidden = true
                 spaceView.isHidden = false
+            } else if currentModeType == .background {
+                imageCollectionView.isHidden = true
+                collectionView.isHidden = true
+                borderView.isHidden = true
+                spaceView.isHidden = true
             }
             menu01.isHidden = collectionView.isHidden
             menu02.isHidden = imageCollectionView.isHidden
@@ -268,21 +273,8 @@ class CollageMakerVC: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @IBAction func colorPopoverButtonClicked(_ sender: Any) {
-        let colorPickerViewController = AMColorPickerViewController()
-        colorPickerViewController.isCloseButtonShown = false
-        colorPickerViewController.isSelectedColorShown = false
-        colorPickerViewController.selectedColor = Defaults.shared.borderColor
-        colorPickerViewController.delegate = self
-        colorPickerViewController.modalPresentationStyle = .popover
-        colorPickerViewController.preferredContentSize = CGSize(width: 300, height: 380)
+        self.openColorPicker(on: sender)
         
-        let presentationController = colorPickerViewController.popoverPresentationController
-        presentationController?.delegate = self
-        presentationController?.permittedArrowDirections = .any
-        let button = sender as! UIButton
-        presentationController?.sourceView = button
-        presentationController?.sourceRect = button.bounds
-        present(colorPickerViewController, animated: true, completion: nil)
     }
     
     @IBAction func btnLayoutChangeClick(_ sender: Any) {
@@ -291,6 +283,11 @@ class CollageMakerVC: UIViewController, UIGestureRecognizerDelegate {
     
     @IBAction func btnImagesClick(_ sender: Any) {
         currentModeType = .photos
+    }
+    
+    @IBAction func btnBackgroundClicked(_ sender: Any) {
+        currentModeType = .background
+        self.openColorPicker(on: sender)
     }
     
     @IBAction func btnBorderClicked(_ sender: UIButton) {
@@ -336,6 +333,24 @@ class CollageMakerVC: UIViewController, UIGestureRecognizerDelegate {
     
     @IBAction func btnBackClick(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    private func openColorPicker(on sender: Any) {
+        let colorPickerViewController = AMColorPickerViewController()
+        colorPickerViewController.isCloseButtonShown = false
+        colorPickerViewController.isSelectedColorShown = false
+        colorPickerViewController.selectedColor = containerView.backgroundColor ?? .white
+        colorPickerViewController.delegate = self
+        colorPickerViewController.modalPresentationStyle = .popover
+        colorPickerViewController.preferredContentSize = CGSize(width: 300, height: 380)
+        
+        let presentationController = colorPickerViewController.popoverPresentationController
+        presentationController?.delegate = self
+        presentationController?.permittedArrowDirections = .any
+        let button = sender as! UIButton
+        presentationController?.sourceView = button
+        presentationController?.sourceRect = button.bounds
+        present(colorPickerViewController, animated: true, completion: nil)
     }
     
     @objc func handleLongPress(_ longRecognizer: UILongPressGestureRecognizer?) {
@@ -511,6 +526,7 @@ extension CollageMakerVC: UICollectionViewDelegate {
         selectedIndex = IndexPath.init(row: index, section: 0)
         collageType = collageItem
         collageView = collageItem.getInstance
+        collageView.backgroundColor = .clear
         let len = self.containerView.frame.size.width * 0.9
         let size = CGSize(width: len, height: len * self.collageRatio)
         
@@ -711,8 +727,12 @@ extension CollageMakerVC: CollageViewDelegate {
 
 extension CollageMakerVC: AMColorPickerDelegate {
     func colorPicker(_ colorPicker: AMColorPicker, didSelect color: UIColor) {
-        collageView.borderColor = color
-        collageView.updateBorder(val: selectedBorder)
+        if self.currentModeType == .border {
+            collageView.borderColor = color
+            collageView.updateBorder(val: selectedBorder)
+        } else if self.currentModeType == .background {
+            self.containerView.backgroundColor = color
+        }
     }
 }
 

@@ -167,7 +167,7 @@ extension SendStoryShareVC {
         
         InstaService.getMediaPost(with: activeLink) { post in
             guard let post = post else {
-                self.displayAlertController(title: R.string.localizable.error(), message: R.string.localizable.connectionError(), viewController: self)
+                self.displayAlertController(title: R.string.localizable.error(), message: R.string.localizable.privatePost(), viewController: self)
                 return
             }
             if !post.isVideo {
@@ -175,7 +175,7 @@ extension SendStoryShareVC {
                 self.filterImage = filterImage
                 self.storyImgView.image = post.image
             } else {
-                self.displayAlertController(title: R.string.localizable.error(), message: R.string.localizable.connectionError(), viewController: self)
+                self.displayAlertController(title: R.string.localizable.error(), message: R.string.localizable.postIsVideo(), viewController: self)
             }
         }
     }
