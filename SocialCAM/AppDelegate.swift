@@ -23,6 +23,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
+    var isLiteApp: Bool {
+        #if VIRALCAMLITEAPP
+        return true
+        #elseif FASTCAMLITEAPP
+        return true
+        #elseif QUICKCAMLITEAPP
+        return true
+        #else
+        return false
+        #endif
+    }
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         UIApplication.shared.applicationIconBadgeNumber = 0
@@ -169,10 +181,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Defaults.shared.cameraMode = .basicCamera
         #elseif FASTCAMAPP
         Defaults.shared.cameraMode = .fastMotion
+        #elseif FASTCAMLITEAPP
+        Defaults.shared.cameraMode = .promo
+        #elseif VIRALCAMLITEAPP
+        Defaults.shared.cameraMode = .promo
+        #elseif QUICKCAMLITEAPP
+        Defaults.shared.cameraMode = .promo
         #else
         Defaults.shared.cameraMode = .normal
         #endif
-        let revealingSplashView = RevealingSplashView(iconImage: Constant.Application.appIcon, iconInitialSize: Constant.Application.appIcon.size, backgroundImage: Constant.Application.splashBG)
+        let revealingSplashView = RevealingSplashView(iconImage: Constant.Application.appIcon, iconInitialSize: isLiteApp ? CGSize(width: 300, height: 300) : Constant.Application.appIcon.size, backgroundImage: Constant.Application.splashBG)
         revealingSplashView.duration = 2.0
         revealingSplashView.iconColor = UIColor.red
         revealingSplashView.useCustomIconColor = false

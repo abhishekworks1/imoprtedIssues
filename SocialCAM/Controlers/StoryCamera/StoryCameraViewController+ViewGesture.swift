@@ -87,7 +87,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             isRecording = true
             self.view.bringSubviewToFront(slowFastVerticalBar.superview ?? UIView())
             if recordingType != .basicCamera {
-                slowFastVerticalBar.isHidden = Defaults.shared.appMode == .free
+                slowFastVerticalBar.isHidden = (isViralcamLiteApp || isFastcamLiteApp || isQuickCamLiteApp) ? false : (Defaults.shared.appMode == .free)
             } else {
                 slowFastVerticalBar.isHidden = true
             }
@@ -111,7 +111,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
                 if videoSpeedType != VideoSpeedType.normal {
                     self.setNormalSpeed(selectedValue: 2)
                 }
-                return
+                //return
             default:
                 break
             }
@@ -132,6 +132,10 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             default:
                 speedOptions.append(contentsOf: [.fast4x, .fast5x])
                 speedOptions.insert(contentsOf: [.slow5x, .slow4x], at: 0)
+            }
+            
+            if isViralcamLiteApp || isFastcamLiteApp || isQuickCamLiteApp {
+                speedOptions = recordingType == .promo ? [.normal, .fast2x, .fast3x] : [.normal, .fast2x, .fast3x, .fast4x, .fast5x]
             }
             
             var currentValue = checkValue(values: speedOptions, newPoint.x)
@@ -296,6 +300,10 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
     
     // values = ["-3x", "2x", "1x", "1x", "2x", "3x"]
     func checkValue(values: [StoryCameraSpeedValue], _ pointX: CGFloat) -> StoryCameraSpeedValue {
+        var values = values
+        if isViralcamLiteApp || isFastcamLiteApp || isQuickCamLiteApp {
+            values = (recordingType == .promo ? [.normal, .normal] : [.normal, .normal, .normal, .normal, .normal]) + values
+        }
         let screenPart = UIScreen.main.bounds.width / CGFloat(values.count)
         for (index, value) in values.enumerated() {
             let multiplyValue = index + 1
@@ -320,9 +328,13 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             speedOptions.insert(contentsOf: [.slow4x, .slow5x], at: 0)
         }
         
+        if isViralcamLiteApp || isFastcamLiteApp || isQuickCamLiteApp {
+            speedOptions = recordingType == .promo ? [.normal, .fast2x, .fast3x] : [.normal, .fast2x, .fast3x, .fast4x, .fast5x]
+        }
+        
         var value = 1
         var speedText = ""
-        
+        print("speed slider value", speedSlider.value)
         switch speedSlider.value {
         case 0:
             if speedOptions.count % 5 == 0 {

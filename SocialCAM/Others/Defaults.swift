@@ -11,6 +11,18 @@ import CoreLocation
 
 class Defaults {
     
+    private var isLiteApp: Bool {
+        #if VIRALCAMLITEAPP
+        return true
+        #elseif FASTCAMLITEAPP
+        return true
+        #elseif QUICKCAMLITEAPP
+        return true
+        #else
+        return false
+        #endif
+    }
+    
     static let shared = Defaults()
     
     let appDefaults = UserDefaults(suiteName: Constant.Application.groupIdentifier)
@@ -282,7 +294,16 @@ class Defaults {
     
     var appMode: AppMode {
         get {
-            return AppMode(rawValue: (appDefaults?.integer(forKey: "appMode") ?? 0)) ?? .free
+            if isLiteApp {
+                let appMode = AppMode(rawValue: (appDefaults?.integer(forKey: "appMode") ?? 0)) ?? .free
+                if appMode == .advanced || appMode == .basic {
+                    return .free
+                } else {
+                    return appMode
+                }
+            } else {
+                return AppMode(rawValue: (appDefaults?.integer(forKey: "appMode") ?? 0)) ?? .free
+            }
         }
         set {
             appDefaults?.set(newValue.rawValue, forKey: "appMode")

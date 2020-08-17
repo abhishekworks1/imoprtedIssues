@@ -6,7 +6,7 @@ use_frameworks!
 inhibit_all_warnings!
 
 def shared_pods
-    pod 'R.swift', '5.1.0'
+    pod 'R.swift'#, '5.1.0'
     pod 'SwiftLint'
     pod 'Moya/RxSwift', '~> 14.0'
     pod 'Moya-ObjectMapper/RxSwift'
@@ -69,6 +69,27 @@ target 'SocialCAM' do
   # Pods for SocialCAM
   projectShared_pods
   
+end
+
+target 'ViralvidsLite' do
+  shared_pods
+  pod "SSSpinnerButton"
+end
+
+target 'ViralCamLite' do
+  use_frameworks!
+  projectShared_pods
+end
+
+
+target 'FastCamLite' do
+  use_frameworks!
+  projectShared_pods
+end
+
+target 'QuickCamLite' do
+  use_frameworks!
+  projectShared_pods
 end
 
 target 'ViralCam' do
