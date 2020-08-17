@@ -12,6 +12,10 @@ import SCRecorder
 import IQKeyboardManagerSwift
 import CoreLocation
 
+enum ViewState {
+  case splitView, mergeView, handlerModeView
+}
+
 class TrimEditorViewController: UIViewController {
     @IBOutlet weak var postStoryButton: UIButton!
     @IBOutlet weak var storyExportLabel: UILabel!
@@ -25,8 +29,10 @@ class TrimEditorViewController: UIViewController {
     @IBOutlet open var btnPlayPause: UIButton!
     @IBOutlet weak var splitView: UIView!
     @IBOutlet weak var mergeView: UIView!
+    @IBOutlet weak var handlerModeView: UIView!
     @IBOutlet open var videoView: UIView!
     
+    @IBOutlet weak var doneView: UIView!
     @IBOutlet weak var segmentTypeMergeView: UIStackView! {
         didSet {
             segmentTypeMergeView.isHidden = true
@@ -45,6 +51,33 @@ class TrimEditorViewController: UIViewController {
     @IBOutlet weak var combineButton: UIButton!
     @IBOutlet weak var resequenceButton: UIButton!
     @IBOutlet weak var resequenceLabel: UILabel!
+    var lastSelectedViewState: ViewState = .splitView
+    
+    var currentViewState: ViewState = .splitView {
+        didSet {
+            if currentViewState == .splitView {
+                isMergeModeEnable = false
+                mergeButton.isSelected = false
+                isMovable = mergeButton.isSelected
+                splitView.alpha = 1
+                mergeView.alpha = 0.5
+                handlerModeView.alpha = 0.5
+                segmentEditOptionView.isHidden = true
+                segmentEditOptionButton.isHidden = true
+                segmentTypeMergeView.isHidden = true
+            } else if currentViewState == .mergeView {
+                isMergeModeEnable = true
+                mergeButton.isSelected = false
+                isMovable = mergeButton.isSelected
+                splitView.alpha = 0.5
+                mergeView.alpha = 1
+                handlerModeView.alpha = 0.5
+                segmentEditOptionView.isHidden = segmentEditOptionButton.isSelected
+                segmentEditOptionButton.isHidden = false
+                segmentTypeMergeView.isHidden = true
+            }
+        }
+    }
     
     var isOriginalSequence = false
     var undoMgr = MyUndoManager<Void>()
@@ -135,6 +168,8 @@ class TrimEditorViewController: UIViewController {
             resetStoryEditorMedias.append([videoSegment])
         }
         isMergeModeEnable = false
+        doneView.alpha = 0.5
+        doneView.isUserInteractionEnabled = false
     }
     
     deinit {
@@ -890,31 +925,59 @@ extension TrimEditorViewController {
     }
     
     @IBAction func saveButtonTapped(_ sender: AnyObject) {
-        if let doneHandler = self.doneHandler, isEditMode, let cell: ImageCollectionViewCell = self.storyCollectionView.cellForItem(at: getCurrentIndexPath) as? ImageCollectionViewCell {
-            guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
-                return
-            }
-            do {
-                try Utils.time {
-                    guard let asset = currentAsset(index: self.currentPage) else {
-                        return
-                    }
-                    let trimmedAsset = try asset.assetByTrimming(startTime: startTime, endTime: endTime)
-                    
-                    let thumbimage = UIImage.getThumbnailFrom(asset: trimmedAsset) ?? UIImage()
-                    
-                    self.storyEditorMedias[self.currentPage][0] = StoryEditorMedia(type: .video(thumbimage, trimmedAsset))
-                    var urls: [StoryEditorMedia] = []
-                    for video in self.storyEditorMedias {
-                        urls.append(video.first!)
-                    }
-                    doneHandler(urls)
-                }
-            } catch let error {
-                print("💩 \(error)")
-            }
+        guard let button = sender as? UIButton else {
+            return
         }
-        self.navigationController?.popViewController(animated: true)
+        if button.tag == 1 {
+            if isEditMode, let cell: ImageCollectionViewCell = self.storyCollectionView.cellForItem(at: getCurrentIndexPath) as? ImageCollectionViewCell {
+                guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
+                    return
+                }
+                do {
+                    try Utils.time {
+                        guard let asset = currentAsset(index: self.currentPage) else {
+                            return
+                        }
+                        let trimmedAsset = try asset.assetByTrimming(startTime: startTime, endTime: endTime)
+                        
+                        let thumbimage = UIImage.getThumbnailFrom(asset: trimmedAsset) ?? UIImage()
+                        
+                        self.storyEditorMedias[self.currentPage][0] = StoryEditorMedia(type: .video(thumbimage, trimmedAsset))
+                        self.connVideoPlay(isReload: true)
+                        cell.trimmerView.trimViewLeadingConstraint.constant = 0
+                        cell.trimmerView.trimViewTrailingConstraint.constant = cell.trimmerView.frame.width
+                    }
+                } catch let error {
+                    print("💩 \(error)")
+                }
+            }
+        } else {
+            if let doneHandler = self.doneHandler, isEditMode, let cell: ImageCollectionViewCell = self.storyCollectionView.cellForItem(at: getCurrentIndexPath) as? ImageCollectionViewCell {
+                guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
+                    return
+                }
+                do {
+                    try Utils.time {
+                        guard let asset = currentAsset(index: self.currentPage) else {
+                            return
+                        }
+                        let trimmedAsset = try asset.assetByTrimming(startTime: startTime, endTime: endTime)
+                        
+                        let thumbimage = UIImage.getThumbnailFrom(asset: trimmedAsset) ?? UIImage()
+                        
+                        self.storyEditorMedias[self.currentPage][0] = StoryEditorMedia(type: .video(thumbimage, trimmedAsset))
+                        var urls: [StoryEditorMedia] = []
+                        for video in self.storyEditorMedias {
+                            urls.append(video.first!)
+                        }
+                        doneHandler(urls)
+                    }
+                } catch let error {
+                    print("💩 \(error)")
+                }
+            }
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     @IBAction func playPauseClicked(_ sender: Any) {
@@ -922,18 +985,39 @@ extension TrimEditorViewController {
             if player.timeControlStatus == .playing {
                 player.pause()
                 btnPlayPause.isSelected = false
+                lastSelectedViewState = currentViewState
+                
+                doneView.alpha = 1
+                doneView.isUserInteractionEnabled = true
             } else {
+                currentViewState = lastSelectedViewState
                 player.play()
                 btnPlayPause.isSelected = true
+                
+                doneView.alpha = 0.5
+                doneView.isUserInteractionEnabled = false
             }
         }
     }
     
-    @IBAction func mergeButtonClicked(_ sender: UIButton) {
+    @IBAction func handleButtonClicked(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
-        isMergeModeEnable = sender.isSelected
-        mergeButton.isSelected = false
-        isMovable = mergeButton.isSelected
+        if let player = self.player {
+            if player.timeControlStatus == .playing {
+                player.pause()
+                btnPlayPause.isSelected = false
+            }
+        }
+        currentViewState = .handlerModeView
+    }
+    
+    @IBAction func mergeButtonClicked(_ sender: UIButton) {
+        if sender.isSelected {
+            currentViewState = .splitView
+        } else {
+            currentViewState = .mergeView
+        }
+        sender.isSelected = !sender.isSelected
     }
     
     @IBAction func btnTrimClick(_ sender: UIButton) {
