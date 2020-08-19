@@ -7488,7 +7488,6 @@
 		F61D23CA24DD3ECF000A816E /* SocialConnection.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95224B3C246C258E001AD3C4 /* SocialConnection.storyboard */; };
 		F61D23CB24DD3ECF000A816E /* love.json in Resources */ = {isa = PBXBuildFile; fileRef = 8205FB3A236C1D0F002B2603 /* love.json */; };
 		F61D23CC24DD3ECF000A816E /* StoryEditor.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 950514C2239FA9AB00F07D8F /* StoryEditor.storyboard */; };
-		F61D23CD24DD3ECF000A816E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8205FB12236C14C7002B2603 /* Localizable.strings */; };
 		F61D23CE24DD3ECF000A816E /* SF-UI-Text-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8205FC11236C2C2F002B2603 /* SF-UI-Text-Light.otf */; };
 		F61D23CF24DD3ECF000A816E /* VideoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23E503D424500E270026BDF6 /* VideoTableViewCell.xib */; };
 		F61D23D024DD3ECF000A816E /* LUT_M05.png in Resources */ = {isa = PBXBuildFile; fileRef = 8205FCD7236C3B05002B2603 /* LUT_M05.png */; };
@@ -8234,6 +8233,7 @@
 		F628C27F24D955F300BA5963 /* YouTube.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8287D21523828FE00074FC39 /* YouTube.storyboard */; };
 		F628C28024D955F300BA5963 /* Thursday.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 82D1EC1323702B4200A680E7 /* Thursday.JPG */; };
 		F64D67A124E190BD00F00633 /* R.viralvids.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230722BC244EC0CD009454B0 /* R.viralvids.generated.swift */; };
+		F6B1348724EBB6A60098B624 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8205FB12236C14C7002B2603 /* Localizable.strings */; };
 		F6B98FAA24E1A536004E7147 /* EditOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB86236C28F3002B2603 /* EditOption.swift */; };
 		F6B98FAB24E1A536004E7147 /* ColorRoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230722CE244EE932009454B0 /* ColorRoundedView.swift */; };
 		F6B98FAC24E1A536004E7147 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EBBC236FEE0700A680E7 /* RoundedButton.swift */; };
@@ -14116,6 +14116,7 @@
 				F61D23B324DD3ECF000A816E /* StickersViewController.xib in Resources */,
 				F61D23B424DD3ECF000A816E /* Assets-ViralCam.xcassets in Resources */,
 				F61D23B524DD3ECF000A816E /* Youth.JPG in Resources */,
+				F6B1348724EBB6A60098B624 /* Localizable.strings in Resources */,
 				F61D23B624DD3ECF000A816E /* Snowflakes.JPG in Resources */,
 				F61D23B724DD3ECF000A816E /* EarlySummer.JPG in Resources */,
 				F61D23B824DD3ECF000A816E /* Duration Book.ttf in Resources */,
@@ -14139,7 +14140,6 @@
 				F61D23CA24DD3ECF000A816E /* SocialConnection.storyboard in Resources */,
 				F61D23CB24DD3ECF000A816E /* love.json in Resources */,
 				F61D23CC24DD3ECF000A816E /* StoryEditor.storyboard in Resources */,
-				F61D23CD24DD3ECF000A816E /* Localizable.strings in Resources */,
 				F61D23CE24DD3ECF000A816E /* SF-UI-Text-Light.otf in Resources */,
 				F61D23CF24DD3ECF000A816E /* VideoTableViewCell.xib in Resources */,
 				F61D23D024DD3ECF000A816E /* LUT_M05.png in Resources */,
@@ -15794,11 +15794,11 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(SRCROOT)/R.fastcamlite.generated.swift",
+				"$(SRCROOT)/R.fastcam.generated.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"--import\" \"MXPagerView\" \"$SRCROOT/R.fastcamlite.generated.swift\" \n";
+			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"--import\" \"MXPagerView\" \"$SRCROOT/R.fastcam.generated.swift\" \n";
 		};
 		F61D241724DD3ECF000A816E /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -24636,7 +24636,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = "FastCamLite-Info.plist";
@@ -24671,7 +24671,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = "FastCamLite-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -24704,7 +24704,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = "ViralCamLite-Info.plist";
@@ -24739,7 +24739,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = "ViralCamLite-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -24769,7 +24769,7 @@
 				CODE_SIGN_ENTITLEMENTS = Viralvids/Viralvids.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = "ViralvidsLite-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -24795,7 +24795,7 @@
 				CODE_SIGN_ENTITLEMENTS = Viralvids/Viralvids.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = "ViralvidsLite-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;

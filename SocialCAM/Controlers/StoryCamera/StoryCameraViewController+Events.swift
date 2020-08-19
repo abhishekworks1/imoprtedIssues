@@ -105,6 +105,9 @@ extension StoryCameraViewController {
         photoPickerVC.isFastCamApp = isFastCamApp
         photoPickerVC.currentCamaraMode = recordingType
         photoPickerVC.delegate = self
+        if isViralcamLiteApp || isQuickCamLiteApp || isFastcamLiteApp {
+            photoPickerVC.selectionType = .video
+        }
         self.navigationController?.present(photoPickerVC, animated: true, completion: nil)
     }
     

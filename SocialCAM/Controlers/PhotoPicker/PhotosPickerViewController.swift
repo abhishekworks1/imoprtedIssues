@@ -474,6 +474,9 @@ extension PhotosPickerViewController {
                     self.configure.maxSelectedAssets = 1
                 }
             }
+            #if QUICKCAMLITEAPP || FASTCAMLITEAPP || VIRALCAMLITEAPP
+            type = .video
+            #endif
             self.once.run {
                 self.library.reload(type, {
                     self.allAlbums = self.library.albums
