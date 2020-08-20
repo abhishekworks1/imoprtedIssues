@@ -24,6 +24,9 @@ enum SSUTagType {
     case futbolCam
     case quickCam
     case snapCam
+    case viralCamLite
+    case quickCamLite
+    case fastCamLite
 }
 
 enum SSUWaitingListOptionType {
@@ -72,6 +75,15 @@ struct SSUTagOption {
     #elseif SNAPCAMAPP
     static let contents: [SSUTagOption] = [
            SSUTagOption(name: R.string.localizable.snapCam(), image: R.image.ssuSnapCam(), type: .snapCam)]
+    #elseif VIRALCAMLITEAPP
+    static let contents: [SSUTagOption] = [
+        SSUTagOption(name: R.string.localizable.viralCamLite(), image: R.image.viralcamLiteWatermark(), type: .viralCamLite)]
+    #elseif FASTCAMLITEAPP
+    static let contents: [SSUTagOption] = [
+        SSUTagOption(name: R.string.localizable.fastCamLite(), image: R.image.fastcamLiteWatermarkLogo(), type: .fastCamLite)]
+    #elseif QUICKCAMLITEAPP
+    static let contents: [SSUTagOption] = [
+        SSUTagOption(name: R.string.localizable.quickCamLite(), image: R.image.quickcamliteSplashLogo(), type: .quickCamLite)]
     #else
     static let contents: [SSUTagOption] = [
         SSUTagOption(name: R.string.localizable.socialCam(), image: R.image.ssuSocialCam(), type: .socialCam),
@@ -204,7 +216,7 @@ extension SSUTagSelectionViewController: UICollectionViewDataSource, UICollectio
                     navigation.isNavigationBarHidden = true
                     self.present(navigation, animated: true)
                 }
-            case .pic2art, .timeSpeed, .boomiCam, .soccerCam, .fastCam, .futbolCam, .socialCam, .snapCam, .quickCam:
+            case .pic2art, .timeSpeed, .boomiCam, .soccerCam, .fastCam, .futbolCam, .socialCam, .snapCam, .quickCam, .quickCamLite, .viralCamLite, .fastCamLite:
                 self.dismiss(animated: true) {
                     self.delegate?.didSelect(type: SSUTagOption.contents[indexPath.row].type, waitingListOptionType: nil, socialShareType: nil, screenType: self.type)
                 }
