@@ -86,6 +86,8 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
             cell.onOffButton.isSelected = Defaults.shared.enableFaceDetection
         } else if settingTitle.settingsType == .swapeContols {
             cell.onOffButton.isSelected = Defaults.shared.swapeContols
+            guard let iconPositionCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.iconPositionCell.identifier) else { return cell }
+            return iconPositionCell
         } else if settingTitle.settingsType == .supportedFrameRates {
             cell.onOffButton.isHidden = false
             if Defaults.shared.selectedFrameRates == cell.settingsName.text {
