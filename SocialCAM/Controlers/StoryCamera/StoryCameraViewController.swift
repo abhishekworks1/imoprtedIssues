@@ -95,6 +95,8 @@ class StoryCameraViewController: UIViewController {
     @IBOutlet weak var speedSliderView: UIView!
     @IBOutlet weak var closeButton: UIButton!
     
+    @IBOutlet weak var lblRightSeparator: UILabel!
+    @IBOutlet weak var lblLeftSeparator: UILabel!
     @IBOutlet weak var slowFastVerticalBar: UIView!
     @IBOutlet weak var verticalLines: VerticalBar!
     
@@ -567,6 +569,9 @@ class StoryCameraViewController: UIViewController {
         if isViralcamLiteApp || isFastcamLiteApp || isQuickCamLiteApp {
             self.recordingType = .promo
             self.setupLiteAppMode(mode: .promo)
+            for view in [self.lblLeftSeparator, self.lblRightSeparator, self.photoTimerSelectedLabel, self.pauseTimerSelectedLabel] {
+                view?.isHidden = true
+            }
         }
     }
     
@@ -761,15 +766,7 @@ class StoryCameraViewController: UIViewController {
     
     func setupLiteAppMode(mode: CameraMode) {
         fpsView.isHidden = true
-        if mode == .promo {
-            flashStackView.isHidden = true
-            timerStackView.isHidden = true
-            swipeCameraStackView.isHidden = true
-        } else if mode == .fastMotion {
-            flashStackView.isHidden = false
-            timerStackView.isHidden = false
-            swipeCameraStackView.isHidden = false
-        }
+        timerStackView.isHidden = mode == .promo
     }
     
     func changeModeHandler() {
@@ -1415,13 +1412,11 @@ extension StoryCameraViewController {
     }
     
     func enableFaceDetectionIfNeeded() {
-        if recordingType != .promo {
-            var metadataObjectTypes = [AVMetadataObject.ObjectType.qr]
-            if Defaults.shared.enableFaceDetection {
-                metadataObjectTypes.append(AVMetadataObject.ObjectType.face)
-            }
-            nextLevel.metadataObjectTypes = metadataObjectTypes
+        var metadataObjectTypes = [AVMetadataObject.ObjectType.qr]
+        if Defaults.shared.enableFaceDetection {
+            metadataObjectTypes.append(AVMetadataObject.ObjectType.face)
         }
+        nextLevel.metadataObjectTypes = metadataObjectTypes
     }
     
     func swapeControlsIfNeeded() {
