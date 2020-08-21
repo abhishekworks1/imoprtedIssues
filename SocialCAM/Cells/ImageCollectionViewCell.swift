@@ -22,6 +22,24 @@ class ImageCollectionViewCell: UICollectionViewCell {
     var isEditMode: Bool = false {
         didSet {
             if isEditMode {
+                self.trimmerView.isLeftRightViewTapable = true
+                self.trimmerView.isHidden = false
+                self.imagesView.isHidden = true
+                self.imagesStackView.isHidden = true
+                self.lblVideoDuration.isHidden = false
+            } else {
+                self.trimmerView.isLeftRightViewTapable = false
+                self.trimmerView.isHidden = true
+                self.imagesView.isHidden = false
+                self.imagesStackView.isHidden = false
+                self.lblVideoDuration.isHidden = true
+            }
+        }
+    }
+    
+    var isHandleMode: Bool = false {
+        didSet {
+            if isHandleMode {
                 self.trimmerView.isHidden = false
                 self.imagesView.isHidden = true
                 self.imagesStackView.isHidden = true

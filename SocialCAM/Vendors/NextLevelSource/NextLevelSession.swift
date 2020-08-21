@@ -489,6 +489,10 @@ extension NextLevelSession {
                         fastScaleFactor = 2
                     } else if timeScale*3 == 1 {
                         fastScaleFactor = 3
+                    } else if timeScale*4 == 1 {
+                        fastScaleFactor = 4
+                    } else if timeScale*5 == 1 {
+                        fastScaleFactor = 5
                     }
                     if fastScaleFactor > 1 {
                         _audioSkipCount += 1
@@ -906,7 +910,9 @@ extension NextLevelSession {
         if DispatchQueue.getSpecific(key: self._sessionQueueKey) != nil {
             closure()
         } else {
-            self._sessionQueue.sync(execute: closure)
+            if self._sessionQueue != nil {
+                self._sessionQueue.sync(execute: closure)
+            }
         }
     }
     

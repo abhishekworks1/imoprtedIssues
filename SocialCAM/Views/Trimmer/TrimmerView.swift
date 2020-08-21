@@ -128,6 +128,8 @@ open class TrimmerView: UIView {
         }
     }
     
+    @IBInspectable open var isLeftRightViewTapable: Bool = false
+    
     open weak var delegate: TrimmerViewDelegate?
     
     // MARK: Views
@@ -259,6 +261,9 @@ open class TrimmerView: UIView {
    
     var leftPanGesture: UIPanGestureRecognizer = UIPanGestureRecognizer.init()
 
+    var leftTapPanGesture: UITapGestureRecognizer = UITapGestureRecognizer.init()
+    var rightTapPanGesture: UITapGestureRecognizer = UITapGestureRecognizer.init()
+    
     var rightPanGesture: UIPanGestureRecognizer = UIPanGestureRecognizer.init()
     
     // MARK: Constraints
@@ -516,6 +521,16 @@ open class TrimmerView: UIView {
             action: #selector(handlePan))
         leftDraggableView.addGestureRecognizer(leftPanGesture)
         
+        leftTapPanGesture = UITapGestureRecognizer(
+            target: self,
+            action: #selector(handleLeftRightTap))
+        leftDraggableView.addGestureRecognizer(leftTapPanGesture)
+        
+        rightTapPanGesture = UITapGestureRecognizer(
+            target: self,
+            action: #selector(handleLeftRightTap))
+        rightDraggableView.addGestureRecognizer(rightTapPanGesture)
+        
         rightPanGesture = UIPanGestureRecognizer(
             target: self,
             action: #selector(handlePan))
@@ -525,6 +540,68 @@ open class TrimmerView: UIView {
             target: self,
             action: #selector(handleScrubbingPan))
         trimView.addGestureRecognizer(thumbsPanGesture)
+    }
+    
+    @objc func handleLeftRightTap(_ sender: UITapGestureRecognizer) {
+        guard let view = sender.view else { return }
+        
+        let isLeftGesture = (view == leftDraggableView)
+        if isHideLeftRightView { return }
+        // if isLeftRightViewTapable { return }
+        if isLeftGesture {
+            currentLeadingConstraint = trimViewLeadingConstraint.constant
+        } else {
+            currentTrailingConstraint = trimViewTrailingConstraint.constant
+        }
+        DispatchQueue.main.async {
+            self.layoutIfNeeded()
+            self.layoutSubviews()
+        }
+        if isLeftGesture {
+            updateLeadingHandleConstraint()
+            //trimViewLeadingConstraint.constant += self.timePointerViewLeadingAnchor.constant
+        } else {
+            guard let minDistance = minimumDistanceBetweenDraggableViews
+                else { return }
+            let maxConstraint = (self.bounds.width
+                - (draggableViewWidth * 2)
+                - minDistance) - trimViewLeadingConstraint.constant
+            let newPosition = max((trimViewWidthContraint.constant - ((self.frame.width - trimViewLeadingConstraint.constant) - self.timePointerViewLeadingAnchor.constant)), -maxConstraint)
+            trimViewTrailingConstraint.constant = newPosition
+        }
+        
+        DispatchQueue.main.async {
+            self.layoutIfNeeded()
+            self.layoutSubviews()
+        }
+    }
+    
+    /// Update the leading contraint of the left draggable view after the pan gesture
+    func updateLeadingHandleConstraint() {
+        guard let minDistance = minimumDistanceBetweenDraggableViews
+            else { return }
+        
+        let maxConstraint = (self.bounds.width
+            - (draggableViewWidth * 2)
+            - minDistance) + trimViewTrailingConstraint.constant
+        
+        let newPosition = min(currentLeadingConstraint + self.timePointerViewLeadingAnchor.constant, maxConstraint)
+        
+        trimViewLeadingConstraint.constant = newPosition
+    }
+    
+    /// Update the trailing contraint of the right draggable view after the pan gesture
+    func updateTrailingHandleConstraint() {
+        guard let minDistance = minimumDistanceBetweenDraggableViews
+            else { return }
+        
+        let maxConstraint = (self.bounds.width
+            - (draggableViewWidth * 2)
+            - minDistance) - trimViewLeadingConstraint.constant
+        
+        let newPosition = max((trimViewTrailingConstraint.constant - (self.frame.width - self.timePointerViewLeadingAnchor.constant - trimViewTrailingConstraint.constant - trimViewLeadingConstraint.constant)), -maxConstraint)
+        
+        trimViewTrailingConstraint.constant = newPosition
     }
     
     @objc func handlePan(_ sender: UIPanGestureRecognizer) {

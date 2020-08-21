@@ -138,9 +138,9 @@ extension SaveService {
 final class InstaService {
     
     static func checkLink(_ link: String) -> String? {
-        let regex = try! NSRegularExpression(pattern: "^https://(www.)?instagram.com/.*/", options: .caseInsensitive)
-        let matches = regex.matches(in: link, options: [], range: NSMakeRange(0, link.count))
-        guard !matches.isEmpty else {
+        let regex = try? NSRegularExpression(pattern: "^https://(www.)?instagram.com/.*/", options: .caseInsensitive)
+        let matches = regex?.matches(in: link, options: [], range: NSMakeRange(0, link.count))
+        guard !(matches?.isEmpty ?? true) else {
             return nil
         }
         if let activeLink = link.components(separatedBy: "?").first {

@@ -838,7 +838,7 @@ class StoryCameraViewController: UIViewController {
             } else if self.isViralcamLiteApp || self.isFastcamLiteApp || self.isQuickCamLiteApp {
                 cameraModeArray = cameraModeArray.filter({$0.recordingType == .promo})
                 if Defaults.shared.appMode == .professional {
-                    cameraModeArray = cameraModeArray + self.cameraModeArray.filter({$0.recordingType == .fastMotion})
+                    cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .fastMotion})
                 }
             } else {
                 if Defaults.shared.appMode == .free {
@@ -1049,7 +1049,7 @@ extension StoryCameraViewController {
         } else if isViralcamLiteApp || isFastcamLiteApp || isQuickCamLiteApp {
             cameraModeArray = cameraModeArray.filter({$0.recordingType == .promo})
             if Defaults.shared.appMode == .professional {
-                cameraModeArray = cameraModeArray + self.cameraModeArray.filter({$0.recordingType == .fastMotion})
+                cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .fastMotion})
             }
         } else {
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .promo})
