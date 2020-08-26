@@ -226,7 +226,7 @@ open class TrimmerView: UIView {
     // MARK: Properties
     
     // Return the minimum distance between the left and right view expressed in seconds
-    private var minimumDistanceBetweenDraggableViews: CGFloat? {
+    open var minimumDistanceBetweenDraggableViews: CGFloat? {
         return CGFloat(minVideoDurationAfterTrimming)
             * thumbnailsView.durationSize
             / CGFloat(thumbnailsView.videoDuration.seconds)
@@ -267,9 +267,9 @@ open class TrimmerView: UIView {
     var rightPanGesture: UIPanGestureRecognizer = UIPanGestureRecognizer.init()
     
     // MARK: Constraints
-    private(set) lazy var currentLeadingConstraint: CGFloat = 0
-    private(set) lazy var currentTrailingConstraint: CGFloat = 0
-    private(set) lazy var currentPointerLeadingConstraint: CGFloat = 0
+    lazy var currentLeadingConstraint: CGFloat = 0
+    lazy var currentTrailingConstraint: CGFloat = 0
+    lazy var currentPointerLeadingConstraint: CGFloat = 0
     
     private var dimmingViewTopAnchor: NSLayoutConstraint!
     private var dimmingViewBottomAnchor: NSLayoutConstraint!
@@ -280,7 +280,7 @@ open class TrimmerView: UIView {
     private  var trimViewBottomAnchorConstraint: NSLayoutConstraint!
     var trimViewLeadingConstraint: NSLayoutConstraint!
     var trimViewTrailingConstraint: NSLayoutConstraint!
-    private var trimViewWidthContraint: NSLayoutConstraint!
+    var trimViewWidthContraint: NSLayoutConstraint!
     
     private var leftDraggableViewLeadingAnchor: NSLayoutConstraint!
     private var leftDraggableViewWidthAnchor: NSLayoutConstraint!
@@ -305,7 +305,7 @@ open class TrimmerView: UIView {
     private var timePointerViewWidthgAnchor: NSLayoutConstraint!
     private var timePointerViewHeightAnchor: NSLayoutConstraint!
     private var timePointerViewTopAnchor: NSLayoutConstraint!
-    private var timePointerViewLeadingAnchor: NSLayoutConstraint!
+    var timePointerViewLeadingAnchor: NSLayoutConstraint!
    
     private var cutViewWidthgAnchor: NSLayoutConstraint!
     private var cutViewHeightAnchor: NSLayoutConstraint!
@@ -543,11 +543,11 @@ open class TrimmerView: UIView {
     }
     
     @objc func handleLeftRightTap(_ sender: UITapGestureRecognizer) {
+        return
         guard let view = sender.view else { return }
         
         let isLeftGesture = (view == leftDraggableView)
         if isHideLeftRightView { return }
-        // if isLeftRightViewTapable { return }
         if isLeftGesture {
             currentLeadingConstraint = trimViewLeadingConstraint.constant
         } else {
@@ -559,7 +559,6 @@ open class TrimmerView: UIView {
         }
         if isLeftGesture {
             updateLeadingHandleConstraint()
-            //trimViewLeadingConstraint.constant += self.timePointerViewLeadingAnchor.constant
         } else {
             guard let minDistance = minimumDistanceBetweenDraggableViews
                 else { return }
