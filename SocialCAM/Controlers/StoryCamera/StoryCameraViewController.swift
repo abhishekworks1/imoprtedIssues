@@ -720,7 +720,6 @@ class StoryCameraViewController: UIViewController {
         if recordingType == .fastMotion {
             if isFastcamLiteApp || isViralcamLiteApp || isQuickCamLiteApp {
                 verticalLines.numberOfViews = .speed5x
-                Defaults.shared.cameraMode = .fastMotion
                 self.setupLiteAppMode(mode: .fastMotion)
             }
             verticalLines.visibleLeftSideViews = false
@@ -731,7 +730,6 @@ class StoryCameraViewController: UIViewController {
         }
         if recordingType == .promo {
             timerValueView.isHidden = true
-            Defaults.shared.cameraMode = .promo
             verticalLines.visibleLeftSideViews = false
             verticalLines.numberOfViews = .speed3x
             speedOptions = ["", "", "1x", "2x", "3x"]
@@ -836,6 +834,8 @@ class StoryCameraViewController: UIViewController {
                 cameraModeArray = cameraModeArray.filter({$0.recordingType == .promo})
                 if Defaults.shared.appMode == .professional {
                     cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .fastMotion})
+                } else {
+                    self.setupLiteAppMode(mode: .promo)
                 }
             } else {
                 if Defaults.shared.appMode == .free {
