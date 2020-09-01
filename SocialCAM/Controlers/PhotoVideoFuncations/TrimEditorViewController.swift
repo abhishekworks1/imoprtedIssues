@@ -223,13 +223,13 @@ class TrimEditorViewController: UIViewController {
     func setupPositionBar(cell: ImageCollectionViewCell) {
         positionBar.frame = CGRect(x: 0, y: 0, width: 3, height: cell.imagesView.frame.height)
         positionBar.backgroundColor = ApplicationSettings.appWhiteColor
-        positionBar.center = CGPoint(x: cell.imagesView.frame.maxX + 0, y: cell.imagesView.center.y)
+        positionBar.center = CGPoint(x: cell.imagesView.frame.maxX + 10, y: cell.imagesView.center.y)
         positionBar.layer.cornerRadius = 1
         positionBar.translatesAutoresizingMaskIntoConstraints = false
         positionBar.isUserInteractionEnabled = false
         cell.contentView.addSubview(positionBar)
         
-        positionBar.centerYAnchor.constraint(equalTo: cell.centerYAnchor, constant: 0).isActive = true
+        positionBar.centerYAnchor.constraint(equalTo: cell.centerYAnchor, constant: 7).isActive = true
         positionBar.widthAnchor.constraint(equalToConstant: 2).isActive = true
         cell.imagesView.layoutIfNeeded()
         heightConstraint = positionBar.heightAnchor.constraint(equalToConstant: CGFloat(cell.imagesView.frame.height))
