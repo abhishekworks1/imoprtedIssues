@@ -374,7 +374,7 @@ public struct Constant {
         static let youtube = "https://www.googleapis.com/youtube/v3/"
         #if SOCIALCAMAPP
             static let websiteURL = "https://socialcam.iicc.online"
-        #elseif VIRALCAMAPP
+        #elseif VIRALCAMAPP || VIRALCAMLITEAPP
             static let websiteURL = "https://viralcam.iicc.online"
         #elseif SOCCERCAMAPP
             static let websiteURL = "https://soccercam.iicc.online"
@@ -386,8 +386,10 @@ public struct Constant {
             static let websiteURL = "https://boomicam.iicc.online"
         #elseif TIMESPEEDAPP
             static let websiteURL = "https://timespeed.iicc.online"
-        #elseif FASTCAMAPP
+        #elseif FASTCAMAPP || FASTCAMLITEAPP
             static let websiteURL = "https://fastcam.iicc.online"
+        #elseif QUICKCAMLITEAPP
+            static let websiteURL = "https://quickcam.iicc.online"
         #else
             static let websiteURL = Defaults.shared.currentUser?.viralcamReferralLink ?? "https://viralcam.iicc.online"
         #endif

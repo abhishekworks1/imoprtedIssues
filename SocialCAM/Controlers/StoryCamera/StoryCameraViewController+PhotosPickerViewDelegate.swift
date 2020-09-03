@@ -34,7 +34,7 @@ extension StoryCameraViewController: PhotosPickerViewControllerDelegate {
                 for video in withTLPHAssets {
                     exportGroup.enter()
                     if let asset = video.asset, video.assetType == .video {
-                        if self.recordingType == .promo && asset.duration > 15.0 {
+                        if self.recordingType == .promo && asset.duration > 10.0 {
                             self.showAlert(alertMessage: R.string.localizable.videoMoreThan15SecondsError())
                             return
                         } else if self.recordingType == .fastMotion && asset.duration > 240.0 && (isViralcamLiteApp || isQuickCamLiteApp || isFastCamApp) {

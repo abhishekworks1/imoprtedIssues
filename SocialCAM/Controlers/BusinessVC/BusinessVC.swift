@@ -89,6 +89,12 @@ class BusinessVC: UIViewController {
         navTitle = R.string.localizable.fastCam() + " " + R.string.localizable.businessCenter()
         #elseif SNAPCAMAPP
         navTitle = R.string.localizable.snapCam() + " " + R.string.localizable.businessCenter()
+        #elseif VIRALCAMLITEAPP
+        navTitle = R.string.localizable.viralCamLite() + " " + R.string.localizable.businessCenter()
+        #elseif QUICKCAMLITEAPP
+        navTitle = R.string.localizable.quickCamLite() + " " + R.string.localizable.businessCenter()
+        #elseif FASTCAMLITEAPP
+        navTitle = R.string.localizable.fastCamLite() + " " + R.string.localizable.businessCenter()
         #endif
         
         navigationTitle.text = navTitle

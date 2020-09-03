@@ -1644,7 +1644,7 @@ extension StoryCameraViewController {
                 } else if self.isPic2ArtApp {
                     totalSeconds = 5
                 } else if self.isViralcamLiteApp || self.isFastcamLiteApp || self.isQuickCamLiteApp {
-                    totalSeconds = self.recordingType == .promo ? 15 : totalSeconds
+                    totalSeconds = self.recordingType == .promo ? 10 : totalSeconds
                 }
                 self.progressMaxSeconds = totalSeconds
                 self.circularProgress.progressInsideFillColor = .red
