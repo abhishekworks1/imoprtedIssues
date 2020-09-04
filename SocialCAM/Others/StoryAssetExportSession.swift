@@ -307,7 +307,7 @@ class StoryAssetExportSession {
     }
     
     func addWaterMarkImageIfNeeded(isGIF: Bool = false) {
-        #if VIRALCAMAPP
+        #if VIRALCAMAPP || VIRALCAMLITEAPP
         var image = R.image.viralcamWatermarkLogo()
         if watermarkPosition == .topLeft {
             image = R.image.viralcamWaterMark()
@@ -317,7 +317,7 @@ class StoryAssetExportSession {
         if watermarkPosition == .topLeft {
             image = R.image.soccercamWatermarkLogo()
         }
-        #elseif QUICKCAMAPP
+        #elseif QUICKCAMAPP || QUICKCAMLITEAPP
         var image = R.image.quickcamWatermarkLogo()
         if watermarkPosition == .topLeft {
             image = R.image.quickcamWatermarkLogo()
@@ -342,7 +342,7 @@ class StoryAssetExportSession {
         if watermarkPosition == .topLeft {
             image = R.image.timeSpeedWatermarkLogo()
         }
-        #elseif FASTCAMAPP
+        #elseif FASTCAMAPP || FASTCAMLITEAPP
         var image = R.image.fastcamWatermarkLogo()
         if watermarkPosition == .topLeft {
             image = R.image.fastcamWatermarkLogo()
