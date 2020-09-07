@@ -30,6 +30,15 @@ struct BusinessVCOption {
     var image: UIImage?
     var type: BusinessVCOptionType
     
+    #if VIRALCAMLITEAPP || FASTCAMLITEAPP || QUICKCAMLITEAPP
+    
+    static let contents: [BusinessVCOption] = [BusinessVCOption(name: R.string.localizable.share(), image: R.image.share(), type: .share),
+                                               BusinessVCOption(name: R.string.localizable.subscription(), image: R.image.subscription(), type: .subscription),
+                                               BusinessVCOption(name: R.string.localizable.socialConnection(), image: R.image.socialConnection(), type: .socialConnection),
+                                               BusinessVCOption(name: "\(R.string.localizable.channel()) \n \(R.string.localizable.management())", image: R.image.channelManagement(), type: .channelManagement),
+                                               BusinessVCOption(name: R.string.localizable.announcement(), image: R.image.announcementCopy(), type: .announcement),
+                                               BusinessVCOption(name: R.string.localizable.calculator(), image: R.image.calculator(), type: .calculator)]
+    #else
     static let contents: [BusinessVCOption] = [BusinessVCOption(name: R.string.localizable.share(), image: R.image.share(), type: .share),
                                                BusinessVCOption(name: R.string.localizable.subscription(), image: R.image.subscription(), type: .subscription),
                                                BusinessVCOption(name: R.string.localizable.socialConnection(), image: R.image.socialConnection(), type: .socialConnection),
@@ -43,6 +52,7 @@ struct BusinessVCOption {
                                                BusinessVCOption(name: R.string.localizable.money(), image: R.image.money(), type: .money),
                                                BusinessVCOption(name: R.string.localizable.influencerTools(), image: R.image.subscribers(), type: .influencerTools),
                                                BusinessVCOption(name: R.string.localizable.iicC(), image: R.image.iiCc(), type: .iicC)]
+    #endif
 }
 
 class BusinessVC: UIViewController {
