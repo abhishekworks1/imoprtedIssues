@@ -21,12 +21,15 @@ class CameraSettings {
         self.settingsType = settingsType
     }
     
-    static var storySettings = [StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.faceDetection(), selected: false)], settingsType: .faceDetection),
-                                StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.changePositionsOfMuteSwitchingCamera(), selected: false)], settingsType: .swapeContols),
-                                StorySettings(name: R.string.localizable.supportedFrameRates(),
-                                              settings: [StorySetting(name: R.string.localizable.supportedFrameRates(), selected: false)], settingsType: .supportedFrameRates)]
+    static var storySettings = [
+        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.faceDetection(), selected: false)], settingsType: .faceDetection),
+        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.changePositionsOfMuteSwitchingCamera(), selected: false)], settingsType: .swapeContols),
+        StorySettings(name: R.string.localizable.supportedFrameRates(), settings: [StorySetting(name: R.string.localizable.supportedFrameRates(), selected: false)], settingsType: .supportedFrameRates),
+        StorySettings(name: R.string.localizable.guidelineTypes(), settings:
+            [StorySetting(name: R.string.localizable.free(), selected: true)], settingsType: .guidelineType),
+        StorySettings(name: R.string.localizable.guidelineThickness(), settings:
+            [StorySetting(name: R.string.localizable.free(), selected: true)], settingsType: .guidelineTickness),
+        StorySettings(name: R.string.localizable.guidelineColor(), settings: [StorySetting(name: R.string.localizable.free(), selected: true)], settingsType: .guidelineColor)]
 }
 
 class StorySettingsOptionsVC: UIViewController {
@@ -88,7 +91,22 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
             cell.onOffButton.isSelected = Defaults.shared.swapeContols
             guard let iconPositionCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.iconPositionCell.identifier) else { return cell }
             return iconPositionCell
-        } else if settingTitle.settingsType == .supportedFrameRates {
+        } else if settingTitle.settingsType == .guidelineType {
+            cell.onOffButton.isSelected = Defaults.shared.swapeContols
+            guard let iconPositionCell: GuildlineIconPositionTableViewCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.guildlineIconPositionTableViewCell.identifier) as? GuildlineIconPositionTableViewCell else { return cell }
+            iconPositionCell.guildline = .type
+            return iconPositionCell
+        } else if settingTitle.settingsType == .guidelineTickness {
+            cell.onOffButton.isSelected = Defaults.shared.swapeContols
+            guard let iconPositionCell: GuildlineIconPositionTableViewCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.guildlineIconPositionTableViewCell.identifier) as? GuildlineIconPositionTableViewCell else { return cell }
+            iconPositionCell.guildline = .thickness
+            return iconPositionCell
+        } else if settingTitle.settingsType == .guidelineColor {
+            cell.onOffButton.isSelected = Defaults.shared.swapeContols
+            guard let colorPickCell: ColorPickCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.colorPickCell.identifier) as? ColorPickCell else { return cell }
+            return colorPickCell
+        }
+        else if settingTitle.settingsType == .supportedFrameRates {
             cell.onOffButton.isHidden = false
             if Defaults.shared.selectedFrameRates == cell.settingsName.text {
                 cell.onOffButton.isSelected = true

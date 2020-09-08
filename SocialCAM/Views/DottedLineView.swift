@@ -20,6 +20,8 @@ public class DottedLineView: UIView {
     @IBInspectable
     public var round: Bool = false
     
+    var guidelineTypes: GuidelineTypes = Defaults.shared.cameraGuidelineTypes
+    
     @IBInspectable
     public var horizontal: Bool = true
     
@@ -78,7 +80,12 @@ public class DottedLineView: UIView {
             path.addLine(to: CGPoint(x: center, y: drawHeight))
         }
         
-        let dashes: [CGFloat] = [lineWidth, lineWidth]
+        var dashes: [CGFloat] = [lineWidth, lineWidth]
+        if guidelineTypes == .dashedLine {
+            dashes = [6, 3]
+        } else if guidelineTypes == .solidLine {
+            dashes.removeAll()
+        }
         path.setLineDash(dashes, count: dashes.count, phase: 0)
         path.lineCapStyle = CGLineCap.butt
     }

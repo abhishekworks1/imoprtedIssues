@@ -173,7 +173,7 @@ extension StoryCameraViewController: NextLevelVideoDelegate {
                 SCAlbum.shared.save(image: image) { (isSuccess) in
                     if isSuccess {
                         DispatchQueue.main.async {
-                            self.view.makeToast(R.string.localizable.photoSaved(), duration: 2.0, position: .bottom)
+                            self.view.makeToast(R.string.localizable.photoSaved(), duration: 2.0, position: .top)
                         }
                     } else {
                         self.view.makeToast(R.string.localizable.pleaseGivePhotosAccessFromSettingsToSaveShareImageOrVideo())

@@ -24,6 +24,9 @@ enum SettingsMode: Int {
     case video
     case appInfo
     case appStartScreen
+    case guidelineType
+    case guidelineTickness
+    case guidelineColor
 }
 
 class StorySetting {

@@ -50,16 +50,17 @@ class VerticalBar: UIStackView {
             view.lineColor = .clear
             view.lineWidth = 2
             view.horizontal = false
+            view.guidelineTypes = Defaults.shared.cameraGuidelineTypes
             if index != (numberOfViews.rawValue / 2) && index != 0 && index != numberOfViews.rawValue {
                 view.lineColor = .orange
-                view.lineWidth = 2
+                view.lineWidth = CGFloat(Defaults.shared.cameraGuidelineThickness.rawValue)
             }
             if !visibleLeftSideViews {
                 if index < numberOfViews.rawValue/2 {
                     view.lineColor = .clear
                 }
             }
-            view.widthAnchor.constraint(equalToConstant: 2).isActive = true
+            view.widthAnchor.constraint(equalToConstant: CGFloat(Defaults.shared.cameraGuidelineThickness.rawValue)).isActive = true
             view.tag = index
             addSubview(view)
             lineView.append(view)
@@ -73,10 +74,10 @@ class VerticalBar: UIStackView {
     func speedIndicatorViewColorChange(index: Int) {
         for view in lineView {
             if view.tag != (numberOfViews.rawValue / 2) && view.tag != 0 && view.tag != numberOfViews.rawValue {
-                view.lineColor = .orange
+                view.lineColor = Defaults.shared.cameraGuidelineInActiveColor
             }
             if view.tag != (numberOfViews.rawValue / 2) && view.tag != 0 && view.tag != numberOfViews.rawValue && view.tag == (index + 1) {
-                view.lineColor = .red
+                view.lineColor = Defaults.shared.cameraGuidelineActiveColor
             }
             if !visibleLeftSideViews {
                 if view.tag < numberOfViews.rawValue/2 {
