@@ -29,7 +29,7 @@ class IncomeCalculatorTwoViewController: UIViewController {
             self.lblAverageInAppPurchase.text = "$" + averageInAppPurchase.description
         }
     }
-    private var percentageFilled = 10 {
+    private var percentageFilled = 100 {
         didSet {
             self.lblPercentageFilled.text = percentageFilled.description + "%"
         }
@@ -40,6 +40,9 @@ class IncomeCalculatorTwoViewController: UIViewController {
     private var totalCount = 0
     private var referLimit = 0
     private var levelTwoReferLimit = 0
+    private var incomeData = [(String, String)]()
+    private var totalFollowerCount = 0
+    private var totalIncomeCount = 0
     
     // MARK: -
     // MARK: - Life Cycle Methods
@@ -70,24 +73,26 @@ class IncomeCalculatorTwoViewController: UIViewController {
     }
 
     @IBAction func percentageMinusTapped(_ sender: Any) {
-        if self.percentageFilled > 10 {
-            self.percentageFilled -= 10
+        if self.percentageFilled > 1 {
+            self.percentageFilled -= 1
         }
     }
     
     @IBAction func percentagePlusTapped(_ sender: Any) {
         if self.percentageFilled < 100 {
-            self.percentageFilled += 10
+            self.percentageFilled += 1
         }
     }
     
     @IBAction func inAppPurchaseMinusTapped(_ sender: Any) {
-        self.averageInAppPurchase += 1
+        if averageInAppPurchase > 1 {
+            self.averageInAppPurchase -= 1
+        }
     }
     
     @IBAction func inAppPurchasePlusTapped(_ sender: Any) {
-        if self.averageInAppPurchase >= 1 {
-            self.averageInAppPurchase -= 1
+        if self.averageInAppPurchase < 35 {
+            self.averageInAppPurchase += 1
         }
     }
 
@@ -96,9 +101,10 @@ class IncomeCalculatorTwoViewController: UIViewController {
     
     private func validateAndCalculate() {
         self.view.endEditing(true)
-        if let directReferCount = self.txtDirectReferCount.text, let levelTwoReferCount = self.txtLevel2ReferCount.text, let directReferCountInt = Int(directReferCount), let levelTwoReferCountInt = Int(levelTwoReferCount), directReferCountInt <= self.referLimit, levelTwoReferCountInt <= self.levelTwoReferLimit {
+        if let directReferCount = self.txtDirectReferCount.text, let levelTwoReferCount = self.txtLevel2ReferCount.text, let directReferCountInt = Int(directReferCount), let levelTwoReferCountInt = Int(levelTwoReferCount) {
             self.directRefferals = directReferCountInt
             self.levelTwoRefferals = levelTwoReferCountInt
+            self.calculateIncome()
             tableview.isHidden = false
             self.tableview.reloadData()
         } else {
@@ -106,23 +112,53 @@ class IncomeCalculatorTwoViewController: UIViewController {
         }
     }
     
-    private func getCalculatorConfig() {
-        UIApplication.checkInternetConnection()
-        self.showHUD()
-        ProManagerApi.getCalculatorConfig.request(RootClass.self).subscribe(onNext: { [weak self] (response) in
-            guard let `self` = self else { return }
-            self.dismissHUD()
-            if let calcConfig = response.result?.first(where: { $0.type == "potential_income_2" }) {
-                self.referLimit = calcConfig.level1 ?? self.referLimit
-                self.levelTwoReferLimit = calcConfig.level2 ?? self.levelTwoReferLimit
-                self.percentageFilled = calcConfig.percentage ?? 0
-                self.averageInAppPurchase = calcConfig.level1 ?? 0
+    private func calculateIncome() {
+        self.incomeData = []
+        self.totalFollowerCount = 0
+        self.totalIncomeCount = 0
+        for index in 0...2 {
+            let followers = Int(self.getNoOfPeople(indexPath: IndexPath(row: index, section: 0))) ?? 0
+            let income = Int(self.getIncome(followers: followers, indexPath: IndexPath(row: index, section: 0))) ?? 0
+            if index < 2 {
+                self.totalIncomeCount += income
+                self.totalFollowerCount += followers
+                incomeData.append((followers.description, income.description))
+            } else {
+                incomeData.append((totalFollowerCount.description, totalIncomeCount.description))
             }
-        }, onError: { error in
-            print(error)
-        }, onCompleted: {
-            print("Compl")
-        }).disposed(by: rx.disposeBag)
+        }
+    }
+    
+    private func getIncome(followers: Int, indexPath: IndexPath) -> String {
+        switch indexPath.row {
+        case 0:
+            let income = Int(followers * self.referLimit * percentageFilled * averageInAppPurchase / 10000)
+            return income.description
+        case 1:
+            let income = Int(followers * self.levelTwoReferLimit * percentageFilled * averageInAppPurchase / 10000)
+            return income.description
+        default:
+            return self.totalIncomeCount.description
+        }
+    }
+    
+    private func getCalculatorConfig() {
+        if UIApplication.checkInternetConnection() {
+            self.showHUD()
+            ProManagerApi.getCalculatorConfig.request(CalculatorConfigurationModel.self).subscribe(onNext: { [weak self] (response) in
+                guard let `self` = self else { return }
+                self.dismissHUD()
+                if let calcConfig = response.result?.first(where: { $0.type == (self.isCalculatorThree ? "potential_income_2" : "potential_income_3") }) {
+                    self.referLimit = calcConfig.level1 ?? self.referLimit
+                    self.levelTwoReferLimit = calcConfig.level2 ?? self.levelTwoReferLimit
+                }
+                }, onError: { error in
+                    self.showAlert(alertMessage: error.localizedDescription)
+            }, onCompleted: {
+            }).disposed(by: rx.disposeBag)
+        } else {
+            self.showAlert(alertMessage: R.string.localizable.nointernetconnectioN())
+        }
     }
     
 }
@@ -133,16 +169,14 @@ class IncomeCalculatorTwoViewController: UIViewController {
 extension IncomeCalculatorTwoViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return self.incomeData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.incomeCalculator2TableViewCell.identifier) as? IncomeCalculatorTableViewCell else { return UITableViewCell() }
-        if indexPath.row == 2 {
-            cell.setData(level: "Total", followers: self.totalCount.description)
+        cell.setData(level: (indexPath.row + 1).description, followers: self.incomeData[indexPath.row].0, income: self.incomeData[indexPath.row].1)
+        if indexPath.row == incomeData.count - 1 {
             cell.setBlueBorder()
-        } else {
-            cell.setData(level: (indexPath.row + 1).description, followers: self.getNoOfPeople(indexPath: indexPath))
         }
         return cell
     }
@@ -150,18 +184,12 @@ extension IncomeCalculatorTwoViewController: UITableViewDataSource, UITableViewD
     private func getNoOfPeople(indexPath: IndexPath) -> String {
         switch indexPath.row {
         case 0:
-            totalCount = 0
-            totalCount += self.directRefferals
             return self.directRefferals.description
         case 1:
-            totalCount += Int(self.directRefferals * self.levelTwoRefferals)
             return Int(self.directRefferals * self.levelTwoRefferals).description
-        case 2:
-            return self.totalCount.description
         default:
-            break
+            return totalFollowerCount.description
         }
-        return ""
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

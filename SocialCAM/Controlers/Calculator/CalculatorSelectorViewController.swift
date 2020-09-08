@@ -32,25 +32,29 @@ class CalculatorSelectorViewController: UIViewController {
         }
     }
     
-    @IBAction func btnCalcOneTapped(_ sender: Any) {
+    @IBAction func btnCalculatorOneTapped(_ sender: Any) {
         self.dismiss(animated: true) { [weak self] in
             guard let uSelf = self else { return }
             uSelf.buttonAction?(1)
         }
     }
     
-    @IBAction func btnCalcTwoTapped(_ sender: Any) {
+    @IBAction func btnCalculatorTwoTapped(_ sender: Any) {
         self.dismiss(animated: true) { [weak self] in
             guard let uSelf = self else { return }
             uSelf.buttonAction?(2)
         }
     }
     
-    @IBAction func btnCalcThreeTapped(_ sender: Any) {
+    @IBAction func btnCalculatorThreeTapped(_ sender: Any) {
         self.dismiss(animated: true) { [weak self] in
             guard let uSelf = self else { return }
             uSelf.buttonAction?(3)
         }
+    }
+    
+    @IBAction func btnDismissTapped(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
     }
     
 }

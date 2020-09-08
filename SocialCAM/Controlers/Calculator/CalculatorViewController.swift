@@ -20,7 +20,7 @@ class CalculatorTableViewCell: UITableViewCell {
     }
     
     internal func setGrayBorder() {
-        self.viewFollowers.layer.borderColor = R.color.cellViewBorderColor() as! CGColor
+        self.viewFollowers.layer.borderColor = R.color.cellViewBorderColor()?.cgColor ?? UIColor.gray.cgColor
         self.viewFollowers.backgroundColor = R.color.cellViewBackgroundColor()
     }
     
@@ -39,9 +39,9 @@ class CalculatorViewController: UIViewController {
     @IBOutlet weak var txtReferCount: UITextField!
     @IBOutlet weak var txtOtherReferCount: UITextField!
     @IBOutlet weak var tableview: UITableView!
-    @IBOutlet var tableViewSectionHeader: UIView!
+    @IBOutlet var tableSectionHeaderView: UIView!
     @IBOutlet weak var lblTotalFollowers: UILabel!
-    @IBOutlet var tableViewHeaderView: UIView!
+    @IBOutlet var tableHeaderView: UIView!
     @IBOutlet weak var lblPercentageFilled: UILabel!
     
     // MARK: -
@@ -57,13 +57,14 @@ class CalculatorViewController: UIViewController {
             self.lblPercentageFilled.text = percentage.description + "%"
         }
     }
+    private var followersCount = [String]()
     
     // MARK: -
     // MARK: - Life Cycle Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableview.tableHeaderView = tableViewHeaderView
+        self.tableview.tableHeaderView = tableHeaderView
         lblPercentageFilled.font = R.font.sfuiTextSemibold(size: 15.0) ?? UIFont.systemFont(ofSize: 15.0)
     }
     
@@ -90,13 +91,13 @@ class CalculatorViewController: UIViewController {
 
     @IBAction func btnPlusTapped(_ sender: Any) {
         if self.percentage < 100 {
-            percentage += 10
+            percentage += 1
         }
     }
     
     @IBAction func btnMinusTapped(_ sender: Any) {
-        if self.percentage > 10 {
-            percentage -= 10
+        if self.percentage > 1 {
+            percentage -= 1
         }
     }
     
@@ -108,6 +109,7 @@ class CalculatorViewController: UIViewController {
         if let referCount = self.txtReferCount.text, let otherReferCount = self.txtOtherReferCount.text, let referCountInt = Int(referCount), let otherReferCountInt = Int(otherReferCount), referCountInt <= self.referLimit, otherReferCountInt <= self.otherReferLimit {
             self.referCount = referCountInt
             self.otherReferCount = otherReferCountInt
+            self.calculateFollowers()
             tableview.isHidden = false
             self.tableview.reloadData()
         } else {
@@ -115,21 +117,32 @@ class CalculatorViewController: UIViewController {
         }
     }
     
+    private func calculateFollowers() {
+        self.followersCount = []
+        self.totalCount = 0
+        for row in 0...referCount - 1 {
+            self.followersCount.append(self.getFollowers(indexPath: IndexPath(row: row, section: 0)))
+        }
+        self.lblTotalFollowers.text = totalCount.description
+    }
+    
     private func getCalculatorConfig() {
-        UIApplication.checkInternetConnection()
-        self.showHUD()
-        ProManagerApi.getCalculatorConfig.request(RootClass.self).subscribe(onNext: { (response) in
-            self.dismissHUD()
-            if let calcConfig = response.result?.first(where: { $0.type == "potential_followers"}) {
-                self.referLimit = calcConfig.maxRefer ?? self.referLimit
-                self.otherReferLimit = calcConfig.maxAverageRefer ?? self.otherReferLimit
-                self.percentage = calcConfig.percentage ?? 0
-            }
-        }, onError: { error in
-            print(error)
-        }, onCompleted: {
-            print("Compl")
-        }).disposed(by: rx.disposeBag)
+        if UIApplication.checkInternetConnection() {
+            self.showHUD()
+            ProManagerApi.getCalculatorConfig.request(CalculatorConfigurationModel.self).subscribe(onNext: { (response) in
+                self.dismissHUD()
+                if let calcConfig = response.result?.first(where: { $0.type == "potential_followers"}) {
+                    self.referLimit = calcConfig.maxRefer ?? self.referLimit
+                    self.otherReferLimit = calcConfig.maxAverageRefer ?? self.otherReferLimit
+                    self.percentage = calcConfig.percentage ?? 0
+                }
+            }, onError: { error in
+                self.showAlert(alertMessage: error.localizedDescription)
+            }, onCompleted: {
+            }).disposed(by: rx.disposeBag)
+        } else {
+            self.showAlert(alertMessage: R.string.localizable.nointernetconnectioN())
+        }
     }
     
 }
@@ -147,26 +160,22 @@ extension CalculatorViewController: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.calculatorCell.identifier) as? CalculatorTableViewCell else { return UITableViewCell() }
         if indexPath.row == referCount {
             cell.setData(level: "Total", followers: self.totalCount.description)
-            self.lblTotalFollowers.text = self.totalCount.description
             cell.setBlueBorder()
         } else {
-            cell.setData(level: "\(indexPath.row + 1)", followers: getFollowers(indexPath: indexPath))
+            cell.setData(level: "\(indexPath.row + 1)", followers: self.followersCount[indexPath.row])
             cell.setGrayBorder()
         }
         return cell
     }
     
     private func getFollowers(indexPath: IndexPath) -> String {
-        let followers = (referCount * Int(pow(Double(otherReferCount), Double(indexPath.row + 1))) * percentage) / 100
-        if indexPath.row == 0 {
-            totalCount = 0
-        }
+        let followers = referCount * Int(pow(Double(otherReferCount), Double(indexPath.row + 1))) * percentage/100
         totalCount += followers
         return followers.description
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return tableViewSectionHeader
+        return tableSectionHeaderView
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

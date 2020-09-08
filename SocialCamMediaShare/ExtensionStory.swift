@@ -24,7 +24,7 @@ class ExtensionStory: Mappable {
         
     }
     
-    init(id: String?, url: String,duration: String,type: String,created: String) {
+    init(id: String?, url: String, duration: String, type: String, created: String) {
         self.id = id
         self.url = url
         self.duration = duration

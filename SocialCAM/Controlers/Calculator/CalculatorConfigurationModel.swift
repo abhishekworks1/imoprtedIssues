@@ -9,27 +9,25 @@
 import Foundation
 import ObjectMapper
 
-class RootClass : NSObject, NSCoding, Mappable{
+class CalculatorConfigurationModel: NSObject, NSCoding, Mappable {
 
-    var code : Int?
-    var message : String?
-    var result : [CalculatorConfigModel]?
-    var status : String?
-
-
-    class func newInstance(map: Map) -> Mappable?{
-        return RootClass()
+    var code: Int?
+    var message: String?
+    var result: [CalculatorConfigurationData]?
+    var status: String?
+    
+    class func newInstance(map: Map) -> Mappable? {
+        return CalculatorConfigurationModel()
     }
-    private override init(){}
-    required init?(map: Map){}
+    
+    private override init() { }
+    required init?(map: Map) { }
 
-    func mapping(map: Map)
-    {
+    func mapping(map: Map) {
         code <- map["code"]
         message <- map["message"]
         result <- map["result"]
         status <- map["status"]
-        
     }
 
     /**
@@ -40,7 +38,7 @@ class RootClass : NSObject, NSCoding, Mappable{
     {
         code = aDecoder.decodeObject(forKey: "code") as? Int
         message = aDecoder.decodeObject(forKey: "message") as? String
-        result = aDecoder.decodeObject(forKey: "result") as? [CalculatorConfigModel]
+        result = aDecoder.decodeObject(forKey: "result") as? [CalculatorConfigurationData]
         status = aDecoder.decodeObject(forKey: "status") as? String
         
     }
@@ -68,31 +66,30 @@ class RootClass : NSObject, NSCoding, Mappable{
 
 }
 
-class CalculatorConfigModel : NSObject, NSCoding, Mappable{
+class CalculatorConfigurationData: NSObject, NSCoding, Mappable{
 
-    var id : String?
-    var createdAt : String?
-    var level1 : Int?
-    var level2 : Int?
-    var level3 : Int?
-    var maxAverageRefer : Int?
-    var maxLevel : Int?
-    var maxRefer : Int?
-    var months : Int?
-    var name : String?
-    var percentage : Int?
-    var type : String?
-    var updatedAt : String?
-
+    var id: String?
+    var createdAt: String?
+    var level1: Int?
+    var level2: Int?
+    var level3: Int?
+    var maxAverageRefer: Int?
+    var maxLevel: Int?
+    var maxRefer: Int?
+    var months: Int?
+    var name: String?
+    var percentage: Int?
+    var type: String?
+    var updatedAt: String?
 
     class func newInstance(map: Map) -> Mappable?{
-        return CalculatorConfigModel()
+        return CalculatorConfigurationData()
     }
+    
     private override init(){}
     required init?(map: Map){}
 
-    func mapping(map: Map)
-    {
+    func mapping(map: Map) {
         id <- map["_id"]
         createdAt <- map["createdAt"]
         level1 <- map["level1"]
@@ -113,8 +110,7 @@ class CalculatorConfigModel : NSObject, NSCoding, Mappable{
     * NSCoding required initializer.
     * Fills the data from the passed decoder
     */
-    @objc required init(coder aDecoder: NSCoder)
-    {
+    @objc required init(coder aDecoder: NSCoder) {
          id = aDecoder.decodeObject(forKey: "_id") as? String
          createdAt = aDecoder.decodeObject(forKey: "createdAt") as? String
          level1 = aDecoder.decodeObject(forKey: "level1") as? Int
@@ -135,8 +131,7 @@ class CalculatorConfigModel : NSObject, NSCoding, Mappable{
     * NSCoding required method.
     * Encodes mode properties into the decoder
     */
-    @objc func encode(with aCoder: NSCoder)
-    {
+    @objc func encode(with aCoder: NSCoder) {
         if id != nil{
             aCoder.encodeConditionalObject(id, forKey: "_id")
         }
