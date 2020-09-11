@@ -12,7 +12,6 @@ import MobileCoreServices
 import SDWebImage
 import AVKit
 import UIKit
-import Foundation
 import AVFoundation
 import RxSwift
 import Moya
@@ -71,7 +70,6 @@ class SendStoryShareVC: UIViewController {
         case .video:
             print("Video type")
             displayAlertController(title: "", message: "Coming soon..", viewController: self)
-            break
         default:
             break
         }
@@ -279,7 +277,7 @@ extension SendStoryShareVC {
         }
     }
     
-    func displayAlertController(title: String, message: String, viewController : UIViewController) {
+    func displayAlertController(title: String, message: String, viewController: UIViewController) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { (action: UIAlertAction!) -> () in
             let errMsg = NSError(domain: "domain", code: 1001, userInfo: [NSLocalizedDescriptionKey: "Localised details here"])

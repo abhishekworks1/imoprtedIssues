@@ -78,36 +78,38 @@ class BusinessVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var navTitle = R.string.localizable.businessCenter()
-        #if SOCIALCAMAPP
-        navTitle = R.string.localizable.socialCam() + " " + R.string.localizable.businessCenter()
-        #elseif VIRALCAMAPP
-        navTitle = R.string.localizable.viralCam() + " " + R.string.localizable.businessCenter()
-        #elseif SOCCERCAMAPP
-        navTitle = R.string.localizable.soccerCam() + " " + R.string.localizable.businessCenter()
-        #elseif FUTBOLCAMAPP
-        navTitle = R.string.localizable.futbolCam() + " " + R.string.localizable.businessCenter()
-        #elseif QUICKCAMAPP
-        navTitle = R.string.localizable.quickCam() + " " + R.string.localizable.businessCenter()
-        #elseif PIC2ARTAPP
-        navTitle = R.string.localizable.pic2Art() + " " + R.string.localizable.businessCenter()
-        #elseif BOOMICAMAPP
-        navTitle = R.string.localizable.boomiCam() + " " + R.string.localizable.businessCenter()
-        #elseif TIMESPEEDAPP
-        navTitle = R.string.localizable.timeSpeed() + " " + R.string.localizable.businessCenter()
-        #elseif FASTCAMAPP
-        navTitle = R.string.localizable.fastCam() + " " + R.string.localizable.businessCenter()
-        #elseif SNAPCAMAPP
-        navTitle = R.string.localizable.snapCam() + " " + R.string.localizable.businessCenter()
-        #elseif VIRALCAMLITEAPP
-        navTitle = R.string.localizable.viralCamLite() + " " + R.string.localizable.businessCenter()
-        #elseif QUICKCAMLITEAPP
-        navTitle = R.string.localizable.quickCamLite() + " " + R.string.localizable.businessCenter()
-        #elseif FASTCAMLITEAPP
-        navTitle = R.string.localizable.fastCamLite() + " " + R.string.localizable.businessCenter()
-        #endif
+        var navTitle = R.string.localizable.socialCam()
+        if isSocialCamApp {
+            navTitle = R.string.localizable.socialCam()
+        } else if isViralCamApp {
+            navTitle = R.string.localizable.viralCam()
+        } else if isSoccerCamApp {
+            navTitle = R.string.localizable.soccerCam()
+        } else if isFutbolCamApp {
+            navTitle = R.string.localizable.futbolCam()
+        } else if isQuickCamApp {
+            navTitle = R.string.localizable.quickCam()
+        } else if isPic2ArtApp {
+            navTitle = R.string.localizable.pic2Art()
+        } else if isBoomiCamApp {
+            navTitle = R.string.localizable.boomiCam()
+        } else if isTimeSpeedApp {
+            navTitle = R.string.localizable.timeSpeed()
+        } else if isFastCamApp {
+            navTitle = R.string.localizable.fastCam()
+        } else if isSnapCamApp {
+            navTitle = R.string.localizable.snapCam()
+        } else if isViralCamLiteApp {
+            navTitle = R.string.localizable.viralCamLite()
+        } else if isQuickCamLiteApp {
+            navTitle = R.string.localizable.quickCamLite()
+        } else if isFastCamLiteApp {
+            navTitle = R.string.localizable.fastCamLite()
+        } else if isSpeedCamApp {
+            navTitle = R.string.localizable.speedCam()
+        }
         
-        navigationTitle.text = navTitle
+        navigationTitle.text = navTitle + " " + R.string.localizable.businessCenter()
     }
     
     @IBAction func onBack(_ sender: UIButton) {
@@ -127,7 +129,7 @@ extension BusinessVC: UICollectionViewDataSource, UICollectionViewDelegate, UICo
             return UICollectionViewCell()
         }
         let businessVCOption = BusinessVCOption.contents[indexPath.row]
-        if businessVCOption.type != .subscription && businessVCOption.type != .socialConnection && businessVCOption.type != .channelManagement && businessVCOption.type != .share {
+        if businessVCOption.type != .subscription && businessVCOption.type != .socialConnection && businessVCOption.type != .channelManagement && businessVCOption.type != .share && businessVCOption.type != .calculator {
             cell.tagImageView.alpha = 0.5
             cell.tagLabel.alpha = 0.5
         }
@@ -160,6 +162,30 @@ extension BusinessVC: UICollectionViewDataSource, UICollectionViewDelegate, UICo
             let activityViewController = UIActivityViewController(activityItems: shareAll, applicationActivities: nil)
             activityViewController.popoverPresentationController?.sourceView = self.view
             self.present(activityViewController, animated: true, completion: nil)
+        case .calculator:
+            guard let calculatorSelectorVc = R.storyboard.calculator.calculatorSelectorViewController() else { break }
+            calculatorSelectorVc.buttonAction = { index in
+                switch index {
+                case 0:
+                    guard let destinationVc = R.storyboard.calculator.calculatorViewController() else { return }
+                    self.navigationController?.pushViewController(destinationVc, animated: true)
+                case 1:
+                    guard let destinationVc = R.storyboard.calculator.incomeCalculatorOne() else { return }
+                    self.navigationController?.pushViewController(destinationVc, animated: true)
+                case 2:
+                    guard let destinationVc = R.storyboard.calculator.incomeCalculatorTwo() else { return }
+                    self.navigationController?.pushViewController(destinationVc, animated: true)
+                case 3:
+                    guard let destinationVc = R.storyboard.calculator.incomeCalculatorTwo() else { return }
+                    destinationVc.isCalculatorThree = true
+                    self.navigationController?.pushViewController(destinationVc, animated: true)
+                default:
+                    break
+                }
+            }
+            calculatorSelectorVc.modalPresentationStyle = .overFullScreen
+            self.navigationController?.present(calculatorSelectorVc, animated: true, completion: nil)
+            break
         default:
             break
         }

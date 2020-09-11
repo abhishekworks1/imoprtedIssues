@@ -10,19 +10,131 @@ import Foundation
 import CoreLocation
 import AVKit
 
+var isSocialCamApp: Bool {
+    #if SOCIALCAMAPP
+    return true
+    #else
+    return false
+    #endif
+}
+
+var isViralCamApp: Bool {
+    #if VIRALCAMAPP
+    return true
+    #else
+    return false
+    #endif
+}
+
+var isSoccerCamApp: Bool {
+    #if SOCCERCAMAPP
+    return true
+    #else
+    return false
+    #endif
+}
+
+var isFutbolCamApp: Bool {
+    #if FUTBOLCAMAPP
+    return true
+    #else
+    return false
+    #endif
+}
+   
+var isQuickCamApp: Bool {
+    #if QUICKCAMAPP
+    return true
+    #else
+    return false
+    #endif
+}
+
+var isPic2ArtApp: Bool {
+    #if PIC2ARTAPP
+    return true
+    #else
+    return false
+    #endif
+}
+
+var isTimeSpeedApp: Bool {
+    #if TIMESPEEDAPP
+    return true
+    #else
+    return false
+    #endif
+}
+
+var isSnapCamApp: Bool {
+    #if SNAPCAMAPP
+    return true
+    #else
+    return false
+    #endif
+}
+
+var isSpeedCamApp: Bool {
+    #if SPEEDCAMAPP
+    return true
+    #else
+    return false
+    #endif
+}
+
+var isBoomiCamApp: Bool {
+    #if BOOMICAMAPP
+    return true
+    #else
+    return false
+    #endif
+}
+
+var isFastCamApp: Bool {
+    #if FASTCAMAPP
+    return true
+    #else
+    return false
+    #endif
+}
+
+var isFastCamLiteApp: Bool {
+    #if FASTCAMLITEAPP
+    return true
+    #else
+    return false
+    #endif
+}
+
+var isQuickCamLiteApp: Bool {
+    #if QUICKCAMLITEAPP
+    return true
+    #else
+    return false
+    #endif
+}
+
+var isViralCamLiteApp: Bool {
+    #if VIRALCAMLITEAPP
+    return true
+    #else
+    return false
+    #endif
+}
+
+var isLiteApp: Bool {
+    #if VIRALCAMLITEAPP
+    return true
+    #elseif FASTCAMLITEAPP
+    return true
+    #elseif QUICKCAMLITEAPP
+    return true
+    #else
+    return false
+    #endif
+}
+
 class Defaults {
-    
-    private var isLiteApp: Bool {
-        #if VIRALCAMLITEAPP
-        return true
-        #elseif FASTCAMLITEAPP
-        return true
-        #elseif QUICKCAMLITEAPP
-        return true
-        #else
-        return false
-        #endif
-    }
     
     static let shared = Defaults()
     
@@ -217,7 +329,7 @@ class Defaults {
     
     var isMicOn: Bool? {
         get {
-            return appDefaults?.bool(forKey: "isMicOn") as? Bool
+            return appDefaults?.bool(forKey: "isMicOn")
         }
         set {
             appDefaults?.set(newValue, forKey: "isMicOn")
@@ -228,14 +340,22 @@ class Defaults {
         get {
             let decodedValue = appDefaults?.object(forKey: "currentLocation") as? Data
             if let value = decodedValue {
-                let decodedCurrentLocation = NSKeyedUnarchiver.unarchiveObject(with: value) as? CLLocation
-                return decodedCurrentLocation
+                do {
+                    return try NSKeyedUnarchiver.unarchivedObject(ofClass: CLLocation.self, from: value)
+                } catch let error {
+                    print("color error \(error.localizedDescription)")
+                    return nil
+                }
             }
             return nil
         }
         set {
-            let encodedData = NSKeyedArchiver.archivedData(withRootObject: newValue as Any)
-            appDefaults?.set(encodedData, forKey: "currentLocation")
+            do {
+                let encodedData = try NSKeyedArchiver.archivedData(withRootObject: newValue as Any, requiringSecureCoding: false)
+                appDefaults?.set(encodedData, forKey: "currentLocation")
+            } catch let error {
+                print("error color key data not saved \(error.localizedDescription)")
+            }
         }
     }
     

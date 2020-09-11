@@ -139,27 +139,29 @@ open class SocialShareVideo: NSObject, SharingDelegate {
     func twitterShareCompose(image: UIImage? = nil, url: URL? = nil, text: String = Constant.Application.displayName) {
     
         var displayMessage = text
-        #if SOCIALCAMAPP
-        displayMessage = R.string.localizable.checkOutThisCoolNewAppSocialCam()
-        #elseif VIRALCAMAPP
-        displayMessage = R.string.localizable.checkOutThisCoolNewAppViralCam()
-        #elseif SOCCERCAMAPP
-        displayMessage = R.string.localizable.checkOutThisCoolNewAppSoccerCam()
-        #elseif FUTBOLCAMAPP
-        displayMessage = R.string.localizable.checkOutThisCoolNewAppFutbolCam()
-        #elseif SNAPCAMAPP
-        displayMessage = R.string.localizable.checkOutThisCoolNewAppSnapCam()
-        #elseif TIMESPEEDAPP
-        displayMessage = R.string.localizable.checkOutThisCoolNewAppTimeSpeed()
-        #elseif FASTCAMAPP
-        displayMessage = R.string.localizable.checkOutThisCoolNewAppFastCam()
-        #elseif BOOMICAMAPP
-        displayMessage = R.string.localizable.checkOutThisCoolNewAppBoomiCam()
-        #elseif PIC2ARTAPP
-        displayMessage = R.string.localizable.checkOutThisCoolNewAppPic2Art()
-        #elseif QUICKCAMAPP
-        displayMessage = R.string.localizable.checkOutThisCoolNewAppQuickCam()
-        #endif
+        if isSocialCamApp {
+            displayMessage = R.string.localizable.checkOutThisCoolNewAppSocialCam()
+        } else if isViralCamApp {
+            displayMessage = R.string.localizable.checkOutThisCoolNewAppViralCam()
+        } else if isSoccerCamApp {
+            displayMessage = R.string.localizable.checkOutThisCoolNewAppSoccerCam()
+        } else if isFutbolCamApp {
+            displayMessage = R.string.localizable.checkOutThisCoolNewAppFutbolCam()
+        } else if isSnapCamApp {
+            displayMessage = R.string.localizable.checkOutThisCoolNewAppSnapCam()
+        } else if isSpeedCamApp {
+            displayMessage = R.string.localizable.checkOutThisCoolNewAppSpeedCam()
+        } else if isTimeSpeedApp {
+            displayMessage = R.string.localizable.checkOutThisCoolNewAppTimeSpeed()
+        } else if isFastCamApp {
+            displayMessage = R.string.localizable.checkOutThisCoolNewAppFastCam()
+        } else if isBoomiCamApp {
+            displayMessage = R.string.localizable.checkOutThisCoolNewAppBoomiCam()
+        } else if isPic2ArtApp {
+            displayMessage = R.string.localizable.checkOutThisCoolNewAppPic2Art()
+        } else if isQuickCamApp {
+            displayMessage = R.string.localizable.checkOutThisCoolNewAppQuickCam()
+        }
         displayMessage.append(" ")
         displayMessage.append("\(Constant.URLs.websiteURL)/referral/\(Defaults.shared.currentUser?.referralCode ?? "")")
         if let twitterComposeViewController = R.storyboard.twitterCompose.twitterComposeViewController() {

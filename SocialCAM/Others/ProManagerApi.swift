@@ -55,6 +55,7 @@ public enum ProManagerApi {
     case checkChannelExists(channelNames: [String])
     case addToCart(userId: String, packageName:Int, individualChannels:[String]?)
     case getChannelSuggestion(channelName: String)
+    case getCalculatorConfig
 
     var endpoint: Endpoint {
         var endpointClosure = MoyaProvider<ProManagerApi>.defaultEndpointMapping(for: self)
@@ -89,6 +90,8 @@ extension ProManagerApi: TargetType {
             break
         case .uploadYoutubeVideo(let token, _, _, _):
             return ["Authorization": "Bearer \(token)"]
+        case .getCalculatorConfig:
+            return nil
         default:
             return APIHeaders().headerWithToken
         }
@@ -205,6 +208,8 @@ extension ProManagerApi: TargetType {
             return Paths.removeSocialConnection
         case .youTubeChannels:
             return Paths.youTubechannels
+        case .getCalculatorConfig:
+            return Paths.getCalculatorConfig
         }
        
     }
@@ -214,7 +219,7 @@ extension ProManagerApi: TargetType {
         switch self {
         case .signUp, .logIn, .verifyChannel, .search, .getAccessToken:
             return .post
-        case .getSplashImages, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getHashTagSets, .getWeather, .getyoutubeSubscribedChannel, .getYoutubeCategory, .instgramProfile, .instgramProfileDetails, .getLongLivedToken, .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels:
+        case .getSplashImages, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getHashTagSets, .getWeather, .getyoutubeSubscribedChannel, .getYoutubeCategory, .instgramProfile, .instgramProfileDetails, .getLongLivedToken, .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig:
             return .get
         case .updateProfile, .editStory, .updatePost:
             return .put
@@ -517,6 +522,8 @@ extension ProManagerApi: TargetType {
             param = ["socialAccountId": socialAccountId]
         case .youTubeChannels(let token):
             param = ["part": "snippet,contentDetails,statistics", "key": Constant.GoogleService.serviceKey, "mine": "true", "access_token": token]
+        case .getCalculatorConfig:
+            break
         }
         return param
     }
@@ -530,7 +537,7 @@ extension ProManagerApi: TargetType {
             return JSONEncoding.default
         case .getyoutubeSubscribedChannel:
             return TokenURLEncoding.default
-        case .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels:
+        case .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig:
             return URLEncoding.default
         default:
             return JSONEncoding.default

@@ -194,27 +194,6 @@ class StoryEditorViewController: UIViewController {
         return avAsset
     }
     
-    private var isViralCamLiteApp: Bool {
-        #if VIRALCAMLITEAPP
-        return true
-        #endif
-        return false
-    }
-    
-    private var isFastCamLiteApp: Bool {
-        #if FASTCAMLITEAPP
-        return true
-        #endif
-        return false
-    }
-    
-    private var isQuickCamLiteApp: Bool {
-        #if QUICKCAMLITEAPP
-        return true
-        #endif
-        return false
-    }
-    
     public var medias = [StoryEditorMedia]()
     public var selectedSlideShowMedias = [StoryEditorMedia]() {
         didSet {
@@ -282,46 +261,6 @@ class StoryEditorViewController: UIViewController {
             }
             socialShareBottomView.isHidden = isViewEditMode
         }
-    }
-    
-    var isViralCamCloneApp: Bool {
-        #if VIRALCAMAPP || QUICKCAMAPP
-        return true
-        #else
-        return false
-        #endif
-    }
-    
-    var isPic2ArtApp: Bool {
-        #if PIC2ARTAPP
-        return true
-        #else
-        return false
-        #endif
-    }
-    
-    var isTimeSpeedApp: Bool {
-        #if TIMESPEEDAPP
-        return true
-        #else
-        return false
-        #endif
-    }
-    
-    var isBoomiCamApp: Bool {
-        #if BOOMICAMAPP
-        return true
-        #else
-        return false
-        #endif
-    }
-    
-    var isFastCamApp: Bool {
-        #if FASTCAMAPP
-        return true
-        #else
-        return false
-        #endif
     }
     
     override func viewDidLoad() {
@@ -437,7 +376,7 @@ class StoryEditorViewController: UIViewController {
         
         self.editOptionView.isHidden = !isImage
         self.applyFilterOptionView.isHidden = !isImage
-        if !isTimeSpeedApp && !isFastCamApp && !isPic2ArtApp && !isViralCamCloneApp && !isViralCamLiteApp && !isFastCamLiteApp && !isQuickCamLiteApp {
+        if !isTimeSpeedApp && !isFastCamApp && !isPic2ArtApp && !isViralCamApp && !isQuickCamApp && !isViralCamLiteApp && !isFastCamLiteApp && !isQuickCamLiteApp && !isSpeedCamApp {
             self.specificBoomerangView.isHidden = (Defaults.shared.appMode != .free && isBoomerang) ? true : isImage
         } else {
             self.specificBoomerangView.isHidden = true
@@ -1532,6 +1471,8 @@ extension StoryEditorViewController: SSUTagSelectionDelegate {
                 storyEditors[currentStoryIndex].addReferLinkView(type: .futbolcam)
             case .snapCam:
                 storyEditors[currentStoryIndex].addReferLinkView(type: .snapcam)
+            case .speedCam:
+                storyEditors[currentStoryIndex].addReferLinkView(type: .speedcam)
             case .quickCam:
                 storyEditors[currentStoryIndex].addReferLinkView(type: .quickcam)
             case .viralCamLite:

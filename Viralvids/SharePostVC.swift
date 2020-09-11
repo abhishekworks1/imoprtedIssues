@@ -194,7 +194,7 @@ class SharePostVC: UIViewController {
                                     _ = self.openURL(URL(string: "storiCamPro://com.simform.viralcam")!)
                                     self.extensionContext?.completeRequest(returningItems: [], completionHandler: nil)
                                 })
-                            }), UIAlertAction(title: R.string.localizable.no(), style: .default, handler: { (action) in
+                            }), UIAlertAction(title: R.string.localizable.no(), style: .default, handler: { _ in
                                 let errMsg = NSError(domain: "domain", code: 1001, userInfo: [NSLocalizedDescriptionKey: "Localised details here"])
                                 self.extensionContext!.cancelRequest(withError: errMsg)
                             })])

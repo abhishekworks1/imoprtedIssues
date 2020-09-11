@@ -37,7 +37,7 @@ extension StoryCameraViewController: PhotosPickerViewControllerDelegate {
                         if self.recordingType == .promo && asset.duration > 10.0 {
                             self.showAlert(alertMessage: R.string.localizable.videoMoreThan10SecondsError())
                             return
-                        } else if self.recordingType == .fastMotion && asset.duration > 240.0 && (isViralcamLiteApp || isQuickCamLiteApp || isFastCamApp) {
+                        } else if self.recordingType == .fastMotion && asset.duration > 240.0 && (isViralCamLiteApp || isQuickCamLiteApp || isFastCamApp) {
                             self.showAlert(alertMessage: R.string.localizable.videoMoreThan240SecondsError())
                             return
                         }

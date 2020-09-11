@@ -12,11 +12,11 @@ import ObjectMapper
 
 class ExtensionStory: Mappable {
     var id: String?
-    var url : String?
-    var duration : String?
-    var type : String?
-    var created : String?
-    var thumb : String?
+    var url: String?
+    var duration: String?
+    var type: String?
+    var created: String?
+    var thumb: String?
     var isViewed: Int?
     var isFavorite: Bool?
     
@@ -24,7 +24,7 @@ class ExtensionStory: Mappable {
         
     }
     
-    init(id: String?,url: String,duration: String,type: String,created: String) {
+    init(id: String?, url: String,duration: String,type: String,created: String) {
         self.id = id
         self.url = url
         self.duration = duration
