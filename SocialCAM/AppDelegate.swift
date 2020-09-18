@@ -143,6 +143,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             StorySettings.storySettings.filter({$0.settingsType == .socialLogins}).first?.settings.removeLast()
             StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
+        #elseif VIRALCAMLITEAPP
+            print("[FIREBASE] VIRALCAMLITEAPP mode.")
+            if let filePath = Bundle.main.path(forResource: "GoogleService-Info-ViralCamLite", ofType: "plist"),
+                let options = FirebaseOptions(contentsOfFile: filePath) {
+                    FirebaseApp.configure(options: options)
+            } else {
+                fatalError("GoogleService-Info-ViralCamLite.plist is missing!")
+            }
+            StorySettings.storySettings.filter({$0.settingsType == .socialLogins}).first?.settings.removeLast()
+        StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
+        #elseif FASTCAMLITEAPP
+            print("[FIREBASE] FASTCAMLITEAPP mode.")
+            if let filePath = Bundle.main.path(forResource: "GoogleService-Info-FastCamLite", ofType: "plist"),
+                let options = FirebaseOptions(contentsOfFile: filePath) {
+                    FirebaseApp.configure(options: options)
+            } else {
+                fatalError("GoogleService-Info-FastCamLite.plist is missing!")
+            }
+            StorySettings.storySettings.filter({$0.settingsType == .socialLogins}).first?.settings.removeLast()
+        StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
+        #elseif QUICKCAMLITEAPP
+            print("[FIREBASE] QUICKCAMLITEAPP mode.")
+            if let filePath = Bundle.main.path(forResource: "GoogleService-Info-QuickCamLite", ofType: "plist"),
+                let options = FirebaseOptions(contentsOfFile: filePath) {
+                    FirebaseApp.configure(options: options)
+            } else {
+                fatalError("GoogleService-Info-QuickCamLite.plist is missing!")
+            }
+            StorySettings.storySettings.filter({$0.settingsType == .socialLogins}).first?.settings.removeLast()
+        StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
         #endif
         
         configureGoogleService()

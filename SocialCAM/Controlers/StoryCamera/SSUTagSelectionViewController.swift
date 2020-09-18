@@ -77,13 +77,13 @@ struct SSUTagOption {
            SSUTagOption(name: R.string.localizable.snapCam(), image: R.image.ssuSnapCam(), type: .snapCam)]
     #elseif VIRALCAMLITEAPP
     static let contents: [SSUTagOption] = [
-        SSUTagOption(name: R.string.localizable.viralCamLite(), image: R.image.viralcamLiteWatermark(), type: .viralCamLite)]
+        SSUTagOption(name: R.string.localizable.viralCamLite(), image: R.image.ssuViralCamLite(), type: .viralCamLite)]
     #elseif FASTCAMLITEAPP
     static let contents: [SSUTagOption] = [
-        SSUTagOption(name: R.string.localizable.fastCamLite(), image: R.image.fastcamLiteWatermarkLogo(), type: .fastCamLite)]
+        SSUTagOption(name: R.string.localizable.fastCamLite(), image: R.image.ssuFastCamLite(), type: .fastCamLite)]
     #elseif QUICKCAMLITEAPP
     static let contents: [SSUTagOption] = [
-        SSUTagOption(name: R.string.localizable.quickCamLite(), image: R.image.quickcamliteSplashLogo(), type: .quickCamLite)]
+        SSUTagOption(name: R.string.localizable.quickCamLite(), image: R.image.ssuQuickCamLite(), type: .quickCamLite)]
     #else
     static let contents: [SSUTagOption] = [
         SSUTagOption(name: R.string.localizable.socialCam(), image: R.image.ssuSocialCam(), type: .socialCam),

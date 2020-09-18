@@ -17,6 +17,7 @@ enum StyleTransferType {
 }
 
 class StyleCollectionViewCell: UICollectionViewCell {
+    @IBOutlet weak var lblFilterNumber: UILabel!
     @IBOutlet weak var styleImageView: UIImageView!
 }
 
@@ -645,7 +646,7 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
             selectedIndex = index
             switch type {
             case .image(let image):
-                if selectedIndex == 0 {
+                if (selectedIndex % styleData.count) == 0 {
                     self.filteredImage = image
                     self.applyFilter()
                     return
@@ -664,7 +665,7 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
                         for index in 0..<styles.count {
                             styles[index] = 0.0
                         }
-                        styles[self.selectedIndex - 1] = 1.0
+                        styles[(self.selectedIndex % self.styleData.count) - 1] = 1.0
                         if let image = self.pixelBuffer(from: image) {
                             do {
                                 let predictionOutput = try model.prediction(image: image, index: styles)
@@ -683,7 +684,7 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
                     self.isProcessing = false
                 }
             case .video:
-                videoView.selectedIndex = selectedIndex
+                videoView.selectedIndex = selectedIndex % styleData.count
             }
         }
     }
@@ -692,20 +693,34 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
 
 extension StyleTransferVC: UIScrollViewDelegate {
     
+    func multiplier(estimatedItemSize: CGSize, enabled: Bool) -> Int {
+        guard enabled else {
+            return 1
+        }
+        let min = Swift.min(estimatedItemSize.width, estimatedItemSize.height)
+        let count = ceil((max(UIScreen.main.bounds.width, UIScreen.main.bounds.height) * 4) / min)
+        return Int(count)
+    }
+    
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         if scrollView == self.scrollView {
-            let scrollIndex = Int(scrollView.contentOffset.x/UIScreen.width)
-            guard scrollIndex != selectedIndex, !self.isProcessing else {
+            let totalCells = self.styleData.count * self.multiplier(estimatedItemSize: collectionView.infiniteLayout.itemSize, enabled: collectionView.infiniteLayout.isEnabled)
+            if scrollView.panGestureRecognizer.translation(in: scrollView.superview).x > 0 {
+                selectedIndex = selectedIndex == 0 ? totalCells - 1 : selectedIndex - 1
+            } else {
+                selectedIndex = selectedIndex == totalCells - 1 ? 0 : selectedIndex + 1
+            }
+            guard !self.isProcessing else {
                 return
             }
             for (index, style) in self.styleData.enumerated() {
-                style.isSelected = (index == scrollIndex)
+                style.isSelected = (index == selectedIndex)
             }
             self.collectionView.reloadData()
-            self.collectionView.scrollToItem(at: IndexPath(row: scrollIndex, section: 0),
+            self.collectionView.scrollToItem(at: IndexPath(row: selectedIndex, section: 0),
                                              at: .centeredHorizontally,
                                              animated: true)
-            self.applyStyle(index: scrollIndex)
+            self.applyStyle(index: selectedIndex)
         }
     }
     
@@ -824,8 +839,9 @@ extension StyleTransferVC: UICollectionViewDelegate {
             }
             cell.styleImageView.image = styleData[indexPath.row % styleData.count].image
             cell.tag = indexPath.row % styleData.count
+            cell.lblFilterNumber.text = "\(Int(indexPath.row % styleData.count) + 1)"
             let borderWidth: CGFloat = styleData[indexPath.row % styleData.count].isSelected ? 2.0 : 0.0
-            cell.layer.borderWidth = borderWidth
+            cell.styleImageView.layer.borderWidth = borderWidth
             switch type {
             case .image:
                 let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressOnFilterImageView(_:)))
@@ -857,7 +873,7 @@ extension StyleTransferVC: UICollectionViewDelegate {
         let xScrollOffset = CGFloat(indexPath.row)*UIScreen.width
         self.scrollView.setContentOffset(CGPoint(x: xScrollOffset, y: 0),
                                          animated: false)
-        self.applyStyle(index: indexPath.row % styleData.count)
+        self.applyStyle(index: indexPath.row)
     }
 }
 

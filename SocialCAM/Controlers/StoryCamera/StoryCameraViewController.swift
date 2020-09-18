@@ -720,7 +720,6 @@ class StoryCameraViewController: UIViewController {
         if recordingType == .fastMotion {
             if isFastcamLiteApp || isViralcamLiteApp || isQuickCamLiteApp {
                 verticalLines.numberOfViews = .speed5x
-                Defaults.shared.cameraMode = .fastMotion
                 self.setupLiteAppMode(mode: .fastMotion)
             }
             verticalLines.visibleLeftSideViews = false
@@ -731,7 +730,6 @@ class StoryCameraViewController: UIViewController {
         }
         if recordingType == .promo {
             timerValueView.isHidden = true
-            Defaults.shared.cameraMode = .promo
             verticalLines.visibleLeftSideViews = false
             verticalLines.numberOfViews = .speed3x
             speedOptions = ["", "", "1x", "2x", "3x"]
@@ -836,6 +834,8 @@ class StoryCameraViewController: UIViewController {
                 cameraModeArray = cameraModeArray.filter({$0.recordingType == .promo})
                 if Defaults.shared.appMode == .professional {
                     cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .fastMotion})
+                } else {
+                    self.setupLiteAppMode(mode: .promo)
                 }
             } else {
                 if Defaults.shared.appMode == .free {
@@ -1644,7 +1644,7 @@ extension StoryCameraViewController {
                 } else if self.isPic2ArtApp {
                     totalSeconds = 5
                 } else if self.isViralcamLiteApp || self.isFastcamLiteApp || self.isQuickCamLiteApp {
-                    totalSeconds = self.recordingType == .promo ? 15 : totalSeconds
+                    totalSeconds = self.recordingType == .promo ? 10 : totalSeconds
                 }
                 self.progressMaxSeconds = totalSeconds
                 self.circularProgress.progressInsideFillColor = .red
