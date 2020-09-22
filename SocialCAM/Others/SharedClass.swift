@@ -149,6 +149,18 @@ enum OpeningScreen: Int {
     case chat
 }
 
+enum GuidelineTypes: Int {
+    case solidLine = 0
+    case dottedLine
+    case dashedLine
+}
+
+enum GuidelineThickness: Int {
+    case small = 1
+    case medium = 3
+    case thick = 5
+}
+
 public enum ImageFormat {
     case PNG
     case JPEG(Float)

@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreLocation
+import AVKit
 
 class Defaults {
     
@@ -364,6 +365,42 @@ class Defaults {
         }
     }
     
+    var cameraGuidelineTypes: GuidelineTypes {
+        get {
+            return GuidelineTypes(rawValue: (appDefaults?.integer(forKey: "cameraGuidelineTypes") ?? 2)) ?? .dashedLine
+        }
+        set {
+            appDefaults?.set(newValue.rawValue, forKey: "cameraGuidelineTypes")
+        }
+    }
+    
+    var cameraGuidelineThickness: GuidelineThickness {
+        get {
+            return GuidelineThickness(rawValue: (appDefaults?.integer(forKey: "cameraGuidelineThickness") ?? 1)) ?? .small
+        }
+        set {
+            appDefaults?.set(newValue.rawValue, forKey: "cameraGuidelineThickness")
+        }
+    }
+    
+    var cameraGuidelineActiveColor: UIColor {
+        get {
+            return appDefaults?.getColor(forKey: "cameraGuidelineActiveColor") ?? R.color.active5()!
+        }
+        set {
+            appDefaults?.setColor(newValue, forKey: "cameraGuidelineActiveColor")
+        }
+    }
+    
+    var cameraGuidelineInActiveColor: UIColor {
+        get {
+            return appDefaults?.getColor(forKey: "cameraGuidelineInActiveColor") ?? R.color.inActive6()!
+        }
+        set {
+            appDefaults?.setColor(newValue, forKey: "cameraGuidelineInActiveColor")
+        }
+    }
+    
     func clearData() {
         if let appDefaultsDictionary = appDefaults?.dictionaryRepresentation() {
             appDefaultsDictionary.keys.forEach { key in
@@ -377,4 +414,28 @@ class Defaults {
         }
     }
     
+}
+
+extension UserDefaults {
+
+    func getColor(forKey key: String) -> UIColor? {
+        guard let colorData = data(forKey: key) else { return nil }
+        do {
+            return try NSKeyedUnarchiver.unarchivedObject(ofClass: UIColor.self, from: colorData)
+        } catch let error {
+            print("color error \(error.localizedDescription)")
+            return nil
+        }
+    }
+
+    func setColor(_ value: UIColor?, forKey key: String) {
+        guard let color = value else { return }
+        do {
+            let data = try NSKeyedArchiver.archivedData(withRootObject: color, requiringSecureCoding: false)
+            set(data, forKey: key)
+        } catch let error {
+            print("error color key data not saved \(error.localizedDescription)")
+        }
+    }
+
 }

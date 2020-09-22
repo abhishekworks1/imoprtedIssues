@@ -614,6 +614,7 @@ class StoryCameraViewController: UIViewController {
         }
         self.reloadUploadViewData()
         self.stopMotionCollectionView.reloadData()
+        dynamicSetSlowFastVerticalBar()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -1838,10 +1839,10 @@ extension StoryCameraViewController {
                 SCAlbum.shared.saveMovieToLibrary(movieURL: url) { (isSuccess) in
                     if isSuccess {
                         DispatchQueue.main.async {
-                            self.view.makeToast(R.string.localizable.videoSaved())
+                            self.view.makeToast(R.string.localizable.videoSaved(), duration: ToastManager.shared.duration, position: .top)
                         }
                     } else {
-                        self.view.makeToast(R.string.localizable.pleaseGivePhotosAccessFromSettingsToSaveShareImageOrVideo())
+                        self.view.makeToast(R.string.localizable.pleaseGivePhotosAccessFromSettingsToSaveShareImageOrVideo(), duration: ToastManager.shared.duration, position: .top, style: ToastStyle())
                     }
                 }
             }
