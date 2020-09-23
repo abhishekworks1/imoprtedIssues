@@ -484,7 +484,6 @@ extension PostDataManager {
         self.saveChanges()
         self.isThumbCreated = false
         self.isPostUploaded = false
-        //        self.currentPostData = nil
         self.currentPostUploadData = nil
         PostDataManager.shared.startUpload()
     }

@@ -87,7 +87,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             isRecording = true
             self.view.bringSubviewToFront(slowFastVerticalBar.superview ?? UIView())
             if recordingType != .basicCamera {
-                slowFastVerticalBar.isHidden = (isViralCamLiteApp || isFastCamLiteApp || isQuickCamLiteApp) ? false : (Defaults.shared.appMode == .free)
+                slowFastVerticalBar.isHidden = (isViralCamLiteApp || isFastCamLiteApp || isQuickCamLiteApp || isSpeedCamLiteApp) ? false : (Defaults.shared.appMode == .free)
             } else {
                 slowFastVerticalBar.isHidden = true
             }
@@ -134,8 +134,8 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
                 speedOptions.insert(contentsOf: [.slow5x, .slow4x], at: 0)
             }
             
-            if isViralCamLiteApp || isFastCamLiteApp || isQuickCamLiteApp {
-                speedOptions = recordingType == .promo ? [.normal, .fast2x, .fast3x] : [.normal, .fast2x, .fast3x, .fast4x, .fast5x]
+            if isViralCamLiteApp || isFastCamLiteApp || isQuickCamLiteApp || isSpeedCamLiteApp {
+                speedOptions = recordingType == .promo ? [.normal, .fast2x, .fast3x] : speedOptions
             }
             
             var currentValue = checkValue(values: speedOptions, newPoint.x)
@@ -301,14 +301,13 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
     // values = ["-3x", "2x", "1x", "1x", "2x", "3x"]
     func checkValue(values: [StoryCameraSpeedValue], _ pointX: CGFloat) -> StoryCameraSpeedValue {
         var values = values
-        if isViralCamLiteApp || isFastCamLiteApp || isQuickCamLiteApp {
-            values = (recordingType == .promo ? [.normal, .normal] : [.normal, .normal, .normal, .normal, .normal]) + values
+        if isViralCamLiteApp || isFastCamLiteApp || isQuickCamLiteApp || isSpeedCamLiteApp {
+            values = (recordingType == .promo ? [.normal, .normal] : []) + values
         }
         let screenPart = UIScreen.main.bounds.width / CGFloat(values.count)
         for (index, value) in values.enumerated() {
             let multiplyValue = index + 1
             if pointX < screenPart*CGFloat(multiplyValue) {
-                print(value)
                 return value
             }
         }
@@ -328,106 +327,127 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             speedOptions.insert(contentsOf: [.slow4x, .slow5x], at: 0)
         }
         
-        if isViralCamLiteApp || isFastCamLiteApp || isQuickCamLiteApp {
+        if isViralCamLiteApp || isFastCamLiteApp || isQuickCamLiteApp || isSpeedCamLiteApp {
             speedOptions = recordingType == .promo ? [.normal, .fast2x, .fast3x] : [.normal, .fast2x, .fast3x, .fast4x, .fast5x]
         }
         
         var value = 1
         var speedText = ""
-        print("speed slider value", speedSlider.value)
-        switch speedSlider.value {
-        case 0:
-            if speedOptions.count % 5 == 0 {
-                value = self.recordingType == .fastMotion ? 1 : 5
-                speedText = self.recordingType == .fastMotion ? "" : R.string.localizable.slow5x()
-            } else if speedOptions.count % 4 == 0 {
-                value = self.recordingType == .fastMotion ? 1 : 4
-                speedText = self.recordingType == .fastMotion ? "" : R.string.localizable.slow4x()
-            } else if speedOptions.count % 3 == 0 {
-                value = self.recordingType == .fastMotion ? 1 : 3
-                speedText = self.recordingType == .fastMotion ? "" : R.string.localizable.slow3x()
-            }
-        case 1:
-            if speedOptions.count % 5 == 0 {
-                value = self.recordingType == .fastMotion ? 1 : 4
-                speedText = self.recordingType == .fastMotion ? "" : R.string.localizable.slow4x()
-            } else if speedOptions.count % 4 == 0 {
-                value = self.recordingType == .fastMotion ? 1 : 3
-                speedText = self.recordingType == .fastMotion ? "" : R.string.localizable.slow3x()
-            } else if speedOptions.count % 3 == 0 {
-                value = self.recordingType == .fastMotion ? 1 : 2
-                speedText = self.recordingType == .fastMotion ? "" : R.string.localizable.slow2x()
-            }
-        case 2:
-            if speedOptions.count % 5 == 0 {
-                value = self.recordingType == .fastMotion ? 1 : 3
-                speedText = self.recordingType == .fastMotion ? "" : R.string.localizable.slow3x()
-            } else if speedOptions.count % 4 == 0 {
-                value = self.recordingType == .fastMotion ? 1 : 2
-                speedText = self.recordingType == .fastMotion ? "" : R.string.localizable.slow2x()
-            } else if speedOptions.count % 3 == 0 {
+        if self.recordingType == .normal && (isViralCamLiteApp || isFastCamLiteApp || isQuickCamLiteApp || isSpeedCamLiteApp) {
+            switch speedSlider.value {
+            case 0:
+                value = 3
+                speedText = R.string.localizable.slow3x()
+            case 1:
+                value = 2
+                speedText = R.string.localizable.slow2x()
+            case 2:
                 value = 1
                 speedText = ""
-            }
-        case 3:
-            if speedOptions.count % 5 == 0 {
-                value = self.recordingType == .fastMotion ? 1 : 2
-                speedText = self.recordingType == .fastMotion ? "" : R.string.localizable.slow2x()
-            } else if speedOptions.count % 4 == 0 {
-                value = 1
-                speedText = ""
-            } else if speedOptions.count % 3 == 0 {
+            case 3:
                 value = 1/2
                 speedText = R.string.localizable.fast2x()
-            }
-        case 4:
-            if speedOptions.count % 5 == 0 {
-                value = 1
-                speedText = ""
-            } else if speedOptions.count % 4 == 0 {
-                value = 1/2
-                speedText = R.string.localizable.fast2x()
-            } else if speedOptions.count % 3 == 0 {
+            case 4:
                 value = 1/3
                 speedText = R.string.localizable.fast3x()
+            default:
+                break
             }
-        case 5:
-            if speedOptions.count % 5 == 0 {
-                value = 1/2
-                speedText = R.string.localizable.fast2x()
-            } else if speedOptions.count % 4 == 0 {
-                value = 1/3
-                speedText = R.string.localizable.fast3x()
-            } else if speedOptions.count % 3 == 0 {
-                value = 1/4
-                speedText = R.string.localizable.fast4x()
+        } else {
+            switch speedSlider.value {
+            case 0:
+                if speedOptions.count % 5 == 0 {
+                    value = self.recordingType == .fastMotion ? 1 : 5
+                    speedText = self.recordingType == .fastMotion ? "" : R.string.localizable.slow5x()
+                } else if speedOptions.count % 4 == 0 {
+                    value = self.recordingType == .fastMotion ? 1 : 4
+                    speedText = self.recordingType == .fastMotion ? "" : R.string.localizable.slow4x()
+                } else if speedOptions.count % 3 == 0 {
+                    value = self.recordingType == .fastMotion ? 1 : 3
+                    speedText = self.recordingType == .fastMotion ? "" : R.string.localizable.slow3x()
+                }
+            case 1:
+                if speedOptions.count % 5 == 0 {
+                    value = self.recordingType == .fastMotion ? 1 : 4
+                    speedText = self.recordingType == .fastMotion ? "" : R.string.localizable.slow4x()
+                } else if speedOptions.count % 4 == 0 {
+                    value = self.recordingType == .fastMotion ? 1 : 3
+                    speedText = self.recordingType == .fastMotion ? "" : R.string.localizable.slow3x()
+                } else if speedOptions.count % 3 == 0 {
+                    value = self.recordingType == .fastMotion ? 1 : 2
+                    speedText = self.recordingType == .fastMotion ? "" : R.string.localizable.slow2x()
+                }
+            case 2:
+                if speedOptions.count % 5 == 0 {
+                    value = self.recordingType == .fastMotion ? 1 : 3
+                    speedText = self.recordingType == .fastMotion ? "" : R.string.localizable.slow3x()
+                } else if speedOptions.count % 4 == 0 {
+                    value = self.recordingType == .fastMotion ? 1 : 2
+                    speedText = self.recordingType == .fastMotion ? "" : R.string.localizable.slow2x()
+                } else if speedOptions.count % 3 == 0 {
+                    value = 1
+                    speedText = ""
+                }
+            case 3:
+                if speedOptions.count % 5 == 0 {
+                    value = self.recordingType == .fastMotion ? 1 : 2
+                    speedText = self.recordingType == .fastMotion ? "" : R.string.localizable.slow2x()
+                } else if speedOptions.count % 4 == 0 {
+                    value = 1
+                    speedText = ""
+                } else if speedOptions.count % 3 == 0 {
+                    value = 1/2
+                    speedText = R.string.localizable.fast2x()
+                }
+            case 4:
+                if speedOptions.count % 5 == 0 {
+                    value = 1
+                    speedText = ""
+                } else if speedOptions.count % 4 == 0 {
+                    value = 1/2
+                    speedText = R.string.localizable.fast2x()
+                } else if speedOptions.count % 3 == 0 {
+                    value = 1/3
+                    speedText = R.string.localizable.fast3x()
+                }
+            case 5:
+                if speedOptions.count % 5 == 0 {
+                    value = 1/2
+                    speedText = R.string.localizable.fast2x()
+                } else if speedOptions.count % 4 == 0 {
+                    value = 1/3
+                    speedText = R.string.localizable.fast3x()
+                } else if speedOptions.count % 3 == 0 {
+                    value = 1/4
+                    speedText = R.string.localizable.fast4x()
+                }
+            case 6:
+                if speedOptions.count % 5 == 0 {
+                    value = 1/3
+                    speedText = R.string.localizable.fast3x()
+                } else if speedOptions.count % 4 == 0 {
+                    value = 1/4
+                    speedText = R.string.localizable.fast4x()
+                } else if speedOptions.count % 3 == 0 {
+                    value = 1/5
+                    speedText = R.string.localizable.fast5x()
+                }
+            case 7:
+                if speedOptions.count % 5 == 0 {
+                    value = 1/4
+                    speedText = R.string.localizable.fast4x()
+                } else if speedOptions.count % 4 == 0 {
+                    value = 1/5
+                    speedText = R.string.localizable.fast5x()
+                }
+            case 8:
+                if speedOptions.count % 5 == 0 {
+                    value = 1/5
+                    speedText = R.string.localizable.fast5x()
+                }
+            default:
+                break
             }
-        case 6:
-            if speedOptions.count % 5 == 0 {
-                value = 1/3
-                speedText = R.string.localizable.fast3x()
-            } else if speedOptions.count % 4 == 0 {
-                value = 1/4
-                speedText = R.string.localizable.fast4x()
-            } else if speedOptions.count % 3 == 0 {
-                value = 1/5
-                speedText = R.string.localizable.fast5x()
-            }
-        case 7:
-            if speedOptions.count % 5 == 0 {
-                value = 1/4
-                speedText = R.string.localizable.fast4x()
-            } else if speedOptions.count % 4 == 0 {
-                value = 1/5
-                speedText = R.string.localizable.fast5x()
-            }
-        case 8:
-            if speedOptions.count % 5 == 0 {
-                value = 1/5
-                speedText = R.string.localizable.fast5x()
-            }
-        default:
-            break
         }
         
         nextLevel.videoConfiguration.timescale = Float64(value)

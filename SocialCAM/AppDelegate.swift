@@ -174,6 +174,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             StorySettings.storySettings.filter({$0.settingsType == .socialLogins}).first?.settings.removeLast()
             StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
             SubscriptionSettings.storySettings.first?.settings.removeLast()
+        } else if isSpeedCamLiteApp {
+            if let filePath = Bundle.main.path(forResource: "GoogleService-SpeedCamLiteInfo", ofType: "plist"),
+                let options = FirebaseOptions(contentsOfFile: filePath) {
+                FirebaseApp.configure(options: options)
+            } else {
+                fatalError("GoogleService-SpeedCamLiteInfo.plist is missing!")
+            }
+            StorySettings.storySettings.filter({$0.settingsType == .socialLogins}).first?.settings.removeLast()
+            StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
+            SubscriptionSettings.storySettings.first?.settings.removeLast()
         }
         
         configureGoogleService()

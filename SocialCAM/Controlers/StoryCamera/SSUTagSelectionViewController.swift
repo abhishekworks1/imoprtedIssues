@@ -28,6 +28,7 @@ enum SSUTagType {
     case quickCamLite
     case fastCamLite
     case speedCam
+    case speedCamLite
 }
 
 enum SSUWaitingListOptionType {
@@ -88,6 +89,9 @@ struct SSUTagOption {
     #elseif QUICKCAMLITEAPP
     static let contents: [SSUTagOption] = [
         SSUTagOption(name: R.string.localizable.quickCamLite(), image: R.image.ssuQuickCamLite(), type: .quickCamLite)]
+    #elseif SPEEDCAMLITEAPP
+    static let contents: [SSUTagOption] = [
+        SSUTagOption(name: R.string.localizable.speedCamLite(), image: R.image.speedcamLiteSsu(), type: .speedCamLite)]
     #else
     static let contents: [SSUTagOption] = [
         SSUTagOption(name: R.string.localizable.socialCam(), image: R.image.ssuSocialCam(), type: .socialCam),

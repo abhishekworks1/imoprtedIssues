@@ -146,7 +146,7 @@ extension SubscriptionVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if (isViralCamLiteApp || isFastCamLiteApp || isQuickCamLiteApp) && (indexPath.row == 1 || indexPath.row == 2) {
+        if (isViralCamLiteApp || isFastCamLiteApp || isQuickCamLiteApp || isSpeedCamLiteApp) && (indexPath.row == 3 || indexPath.row == 2) {
             return 0
         }
         return UITableView.automaticDimension

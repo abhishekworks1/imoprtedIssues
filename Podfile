@@ -145,6 +145,11 @@ target 'SpeedCam' do
   projectShared_pods
 end
 
+target 'SpeedCamLite' do
+  use_frameworks!
+  projectShared_pods
+end
+
 target 'SocialCamShare' do
   shared_pods
 end
