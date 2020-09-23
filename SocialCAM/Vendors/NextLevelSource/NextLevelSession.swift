@@ -198,6 +198,7 @@ public class NextLevelSession {
     
     internal var _audioSkipCount: Int = 0
 
+    var muteTime = CMTime.zero
     private let NextLevelSessionAudioQueueIdentifier = "engineering.NextLevel.session.audioQueue"
     private let NextLevelSessionQueueIdentifier = "engineering.NextLevel.sessionQueue"
     private let NextLevelSessionSpecificKey = DispatchSpecificKey<()>()
@@ -474,14 +475,40 @@ extension NextLevelSession {
         if let adjustedBuffer = CMSampleBuffer.createSampleBuffer(fromSampleBuffer: sampleBuffer, withTimeOffset: self._timeOffset, duration: duration) {
             if let timeScale = self._videoConfiguration?.timescale {
                 let scaleFactor = Int(timeScale)
-                if scaleFactor > 0 {
-                    // Slow Motion
+                if scaleFactor == 1 {
+                    print("Normal")
                     _audioSkipCount = 0
                     for _ in 0..<scaleFactor {
                         self.appendAudioBuffer(adjustedBuffer,
                                                dur: duration,
                                                completionHandler: completionHandler)
                     }
+                } else if scaleFactor > 1 {
+                    print("Slow")
+                    // Slow Motion
+                    _audioSkipCount = 0
+                    let formatDescription = CMSampleBufferGetFormatDescription(sampleBuffer)
+                    let streamBasicDescription = CMAudioFormatDescriptionGetStreamBasicDescription(formatDescription!)!
+                    let audioSampleRate = streamBasicDescription.pointee.mSampleRate
+                    let audioNumberOfChannels = streamBasicDescription.pointee.mChannelsPerFrame
+                   
+                    var frames: Int = 2020
+                    if scaleFactor == 3 {
+                        frames = 3040
+                    } else if scaleFactor == 4 {
+                        frames = 4080
+                    } else if scaleFactor == 5 {
+                        frames = 5120
+                    }
+                    guard let sampleBuffer = CMSampleBuffer.silentAudioBuffer(at: self._lastAudioTimestamp, nFrames: frames , sampleRate: audioSampleRate, numChannels: audioNumberOfChannels) else {
+                        return
+                    }
+                    let duration = CMSampleBufferGetDuration(sampleBuffer)
+                    let adjustedBuffer = CMSampleBuffer.createSampleBuffer(fromSampleBuffer: sampleBuffer, withTimeOffset: self._timeOffset, duration: duration)!
+                    
+                    self.appendAudioBuffer(adjustedBuffer,
+                                           dur: duration,
+                                           completionHandler: completionHandler)
                 } else {
                     // Fast Motion
                     var fastScaleFactor = 1

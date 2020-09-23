@@ -27,6 +27,7 @@ enum SSUTagType {
     case viralCamLite
     case quickCamLite
     case fastCamLite
+    case speedCam
 }
 
 enum SSUWaitingListOptionType {
@@ -75,6 +76,9 @@ struct SSUTagOption {
     #elseif SNAPCAMAPP
     static let contents: [SSUTagOption] = [
            SSUTagOption(name: R.string.localizable.snapCam(), image: R.image.ssuSnapCam(), type: .snapCam)]
+    #elseif SPEEDCAMAPP
+    static let contents: [SSUTagOption] = [
+           SSUTagOption(name: R.string.localizable.speedCam(), image: R.image.ssuSpeedCam(), type: .speedCam)]
     #elseif VIRALCAMLITEAPP
     static let contents: [SSUTagOption] = [
         SSUTagOption(name: R.string.localizable.viralCamLite(), image: R.image.ssuViralCamLite(), type: .viralCamLite)]
@@ -216,7 +220,7 @@ extension SSUTagSelectionViewController: UICollectionViewDataSource, UICollectio
                     navigation.isNavigationBarHidden = true
                     self.present(navigation, animated: true)
                 }
-            case .pic2art, .timeSpeed, .boomiCam, .soccerCam, .fastCam, .futbolCam, .socialCam, .snapCam, .quickCam, .quickCamLite, .viralCamLite, .fastCamLite:
+            case .pic2art, .timeSpeed, .boomiCam, .soccerCam, .fastCam, .futbolCam, .socialCam, .snapCam, .quickCam, .quickCamLite, .viralCamLite, .fastCamLite, .speedCam:
                 self.dismiss(animated: true) {
                     self.delegate?.didSelect(type: SSUTagOption.contents[indexPath.row].type, waitingListOptionType: nil, socialShareType: nil, screenType: self.type)
                 }

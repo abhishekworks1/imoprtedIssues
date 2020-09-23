@@ -26,6 +26,7 @@ enum ReferType {
     case viralCamLite
     case quickCamLite
     case fastCamLite
+    case speedcam
 }
 
 enum StoryEditorType: Equatable {
@@ -653,6 +654,9 @@ extension StoryEditorView {
                 } else if type == .snapcam {
                     followMeStoryView.userBitEmoji.image = R.image.snapcamWatermarkLogo()
                     followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppSnapCam()
+                } else if type == .speedcam {
+                    followMeStoryView.userBitEmoji.image = R.image.speedcamWatermarkLogo()
+                    followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppSpeedCam()
                 } else if type == .viralCamLite {
                                    followMeStoryView.userBitEmoji.image = R.image.viralcamLiteWatermark()
                                    followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppViralCamLite()
@@ -719,6 +723,9 @@ extension StoryEditorView {
         } else if type == .quickCamLite {
             followMeStoryView.userBitEmoji.image = R.image.quickcamliteSplashLogo()
             followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppQuickCamLite()
+        } else if type == .speedcam {
+            followMeStoryView.userBitEmoji.image = R.image.speedcamWatermarkLogo()
+            followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppSpeedCam()
         } else {
             followMeStoryView.userBitEmoji.image = (type == .viralCam) ? R.image.viralcamWatermarkLogo() : R.image.socialcamWatermarkLogo()
             followMeStoryView.textView.text = (type == .viralCam) ? R.string.localizable.checkOutThisCoolNewAppViralCam() : R.string.localizable.checkOutThisCoolNewAppSocialCam()

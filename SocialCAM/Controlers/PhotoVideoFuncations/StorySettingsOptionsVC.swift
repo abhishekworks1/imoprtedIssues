@@ -57,9 +57,9 @@ class StorySettingsOptionsVC: UIViewController {
 extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        #if PIC2ARTAPP
-        return CameraSettings.storySettings.count - 1
-        #endif
+        if isPic2ArtApp {
+            return CameraSettings.storySettings.count - 1
+        }
         return CameraSettings.storySettings.count
     }
        

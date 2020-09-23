@@ -41,28 +41,6 @@ class SubscriptionVC: UIViewController {
     
     @IBOutlet weak var settingsTableView: UITableView!
     
-    private var isViralCamLiteApp: Bool {
-        #if VIRALCAMLITEAPP
-        return true
-        #endif
-        return false
-    }
-    
-    private var isFastCamLiteApp: Bool {
-        #if FASTCAMLITEAPP
-        return true
-        #endif
-        return false
-    }
-    
-    private var isQuickCamLiteApp: Bool {
-        #if QUICKCAMLITEAPP
-        return true
-        #else
-        return false
-        #endif
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         

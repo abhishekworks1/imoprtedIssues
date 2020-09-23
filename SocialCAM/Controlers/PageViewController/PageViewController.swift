@@ -17,10 +17,10 @@ class PageViewController: PageboyViewController {
             cameraNavVC.navigationBar.isHidden = true
             viewControllers.append(cameraNavVC)
         }
-        #if PIC2ARTAPP || SOCIALCAMAPP || SOCCERCAMAPP || FUTBOLCAMAPP || SNAPCAMAPP
-        if let homeVC = R.storyboard.homeScreen.homeTabBarController() {
+        if isPic2ArtApp || isSocialCamApp || isSoccerCamApp || isFutbolCamApp || isSnapCamApp || isSpeedCamApp {
+            if let homeVC = R.storyboard.homeScreen.homeTabBarController() {
+            }
         }
-        #endif
         if let viralToolsVC = R.storyboard.storyCameraViewController.businessNavigationController() {
             viralToolsVC.navigationBar.isHidden = true
             viewControllers.append(viralToolsVC)

@@ -15,6 +15,7 @@ def shared_pods
     pod 'SDWebImage', '5.6.1'
     pod 'AWSS3', '2.13.0'
     pod 'InfiniteLayout'
+    pod 'GMStepper', '2.2'
 end
 
 def projectShared_pods
@@ -92,6 +93,11 @@ target 'QuickCamLite' do
   projectShared_pods
 end
 
+target 'QuickCam' do
+  use_frameworks!
+  projectShared_pods
+end
+
 target 'ViralCam' do
   use_frameworks!
   projectShared_pods
@@ -128,6 +134,11 @@ target 'FutbolCam' do
 end
 
 target 'SnapCam' do
+  use_frameworks!
+  projectShared_pods
+end
+
+target 'SpeedCam' do
   use_frameworks!
   projectShared_pods
 end

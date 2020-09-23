@@ -23,18 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
-    var isLiteApp: Bool {
-        #if VIRALCAMLITEAPP
-        return true
-        #elseif FASTCAMLITEAPP
-        return true
-        #elseif QUICKCAMLITEAPP
-        return true
-        #else
-        return false
-        #endif
-    }
-    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         UIApplication.shared.applicationIconBadgeNumber = 0
@@ -46,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
        
         StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .subscriptions})
 
-        #if SOCIALCAMAPP
+        if isSocialCamApp {
             print("[FIREBASE] SOCIALCAMAPP mode.")
             if let filePath = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist"),
                 let options = FirebaseOptions(contentsOfFile: filePath) {
@@ -54,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             } else {
                 fatalError("GoogleService-Info.plist is missing!")
             }
-        #elseif VIRALCAMAPP
+        } else if isViralCamApp {
             print("[FIREBASE] VIRALCAMAPP mode.")
             if let filePath = Bundle.main.path(forResource: "GoogleService-Info-ViralCam", ofType: "plist"),
                 let options = FirebaseOptions(contentsOfFile: filePath) {
@@ -64,47 +52,48 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             StorySettings.storySettings.filter({$0.settingsType == .socialLogins}).first?.settings.removeLast()
             StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
-        #elseif SOCCERCAMAPP
-        print("[FIREBASE] SOCCERCAMAPP mode.")
-        if let filePath = Bundle.main.path(forResource: "GoogleService-Info-SoccerCam", ofType: "plist"),
-            let options = FirebaseOptions(contentsOfFile: filePath) {
+        } else if isSoccerCamApp {
+            print("[FIREBASE] SOCCERCAMAPP mode.")
+            if let filePath = Bundle.main.path(forResource: "GoogleService-Info-SoccerCam", ofType: "plist"),
+                let options = FirebaseOptions(contentsOfFile: filePath) {
                 FirebaseApp.configure(options: options)
-        } else {
-            fatalError("GoogleService-Info-SoccerCam.plist is missing!")
-        }
-        StorySettings.storySettings.filter({$0.settingsType == .socialLogins}).first?.settings.removeLast()
-        StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
-        #elseif FUTBOLCAMAPP
-        print("[FIREBASE] FutbolCam mode.")
-        if let filePath = Bundle.main.path(forResource: "GoogleService-Info-FutbolCam", ofType: "plist"),
-            let options = FirebaseOptions(contentsOfFile: filePath) {
+            } else {
+                fatalError("GoogleService-Info-SoccerCam.plist is missing!")
+            }
+            StorySettings.storySettings.filter({$0.settingsType == .socialLogins}).first?.settings.removeLast()
+            StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
+        } else if isFutbolCamApp {
+            print("[FIREBASE] FutbolCam mode.")
+            if let filePath = Bundle.main.path(forResource: "GoogleService-Info-FutbolCam", ofType: "plist"),
+                let options = FirebaseOptions(contentsOfFile: filePath) {
                 FirebaseApp.configure(options: options)
-        } else {
-            fatalError("GoogleService-Info-FutbolCam.plist is missing!")
-        }
-        StorySettings.storySettings.filter({$0.settingsType == .socialLogins}).first?.settings.removeLast()
-        StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
-        #elseif QUICKCAMAPP
-        print("[FIREBASE] QuickCam mode.")
-        if let filePath = Bundle.main.path(forResource: "GoogleService-Info-QuickCam", ofType: "plist"),
-            let options = FirebaseOptions(contentsOfFile: filePath) {
+            } else {
+                fatalError("GoogleService-Info-FutbolCam.plist is missing!")
+            }
+            StorySettings.storySettings.filter({$0.settingsType == .socialLogins}).first?.settings.removeLast()
+            StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
+        } else if isQuickCamApp {
+            print("[FIREBASE] QuickCam mode.")
+            if let filePath = Bundle.main.path(forResource: "GoogleService-Info-QuickCam", ofType: "plist"),
+                let options = FirebaseOptions(contentsOfFile: filePath) {
                 FirebaseApp.configure(options: options)
-        } else {
-            fatalError("GoogleService-Info-QuickCam.plist is missing!")
-        }
-        StorySettings.storySettings.filter({$0.settingsType == .socialLogins}).first?.settings.removeLast()
-        StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
-        #elseif SNAPCAMAPP
-        print("[FIREBASE] SnapCam mode.")
-        if let filePath = Bundle.main.path(forResource: "GoogleService-Info-SnapCam", ofType: "plist"),
-            let options = FirebaseOptions(contentsOfFile: filePath) {
+            } else {
+                fatalError("GoogleService-Info-QuickCam.plist is missing!")
+            }
+            StorySettings.storySettings.filter({$0.settingsType == .socialLogins}).first?.settings.removeLast()
+            StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
+        } else if isSnapCamApp {
+            print("[FIREBASE] SnapCam mode.")
+            if let filePath = Bundle.main.path(forResource: "GoogleService-Info-SnapCam", ofType: "plist"),
+                let options = FirebaseOptions(contentsOfFile: filePath) {
                 FirebaseApp.configure(options: options)
-        } else {
-            fatalError("GoogleService-Info-FutbolCam.plist is missing!")
-        }
-        StorySettings.storySettings.filter({$0.settingsType == .socialLogins}).first?.settings.removeLast()
-        StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
-        #elseif PIC2ARTAPP
+            } else {
+                fatalError("GoogleService-Info-FutbolCam.plist is missing!")
+            }
+            StorySettings.storySettings.filter({$0.settingsType == .socialLogins}).first?.settings.removeLast()
+            StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
+            SubscriptionSettings.storySettings.first?.settings.removeLast()
+        } else if isPic2ArtApp {
             print("[FIREBASE] Pic2Art mode.")
             if let filePath = Bundle.main.path(forResource: "GoogleService-Info-Pic2Art", ofType: "plist"),
                 let options = FirebaseOptions(contentsOfFile: filePath) {
@@ -114,16 +103,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             StorySettings.storySettings.filter({$0.settingsType == .socialLogins}).first?.settings.removeLast()
             StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
-        #elseif BOOMICAMAPP
-        if let filePath = Bundle.main.path(forResource: "GoogleService-Info-BoomiCam", ofType: "plist"),
-            let options = FirebaseOptions(contentsOfFile: filePath) {
+        } else if isBoomiCamApp {
+            if let filePath = Bundle.main.path(forResource: "GoogleService-Info-BoomiCam", ofType: "plist"),
+                let options = FirebaseOptions(contentsOfFile: filePath) {
                 FirebaseApp.configure(options: options)
-        } else {
-            fatalError("GoogleService-Info-BoomiCam.plist is missing!")
-        }
-        StorySettings.storySettings.filter({$0.settingsType == .socialLogins}).first?.settings.removeLast()
-        StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
-        #elseif TIMESPEEDAPP
+            } else {
+                fatalError("GoogleService-Info-BoomiCam.plist is missing!")
+            }
+            StorySettings.storySettings.filter({$0.settingsType == .socialLogins}).first?.settings.removeLast()
+            StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
+        } else if isTimeSpeedApp {
             print("[FIREBASE] TIMESPEEDAPP mode.")
             if let filePath = Bundle.main.path(forResource: "GoogleService-Info-TimeSpeed", ofType: "plist"),
                 let options = FirebaseOptions(contentsOfFile: filePath) {
@@ -133,7 +122,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             StorySettings.storySettings.filter({$0.settingsType == .socialLogins}).first?.settings.removeLast()
             StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
-        #elseif FASTCAMAPP
+        } else if isFastCamApp {
             print("[FIREBASE] FASTCAMAPP mode.")
             if let filePath = Bundle.main.path(forResource: "GoogleService-Info-FastCam", ofType: "plist"),
                 let options = FirebaseOptions(contentsOfFile: filePath) {
@@ -143,7 +132,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             StorySettings.storySettings.filter({$0.settingsType == .socialLogins}).first?.settings.removeLast()
             StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
-        #elseif VIRALCAMLITEAPP
+            SubscriptionSettings.storySettings.first?.settings.removeLast()
+        } else if isViralCamLiteApp {
             print("[FIREBASE] VIRALCAMLITEAPP mode.")
             if let filePath = Bundle.main.path(forResource: "GoogleService-Info-ViralCamLite", ofType: "plist"),
                 let options = FirebaseOptions(contentsOfFile: filePath) {
@@ -152,8 +142,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 fatalError("GoogleService-Info-ViralCamLite.plist is missing!")
             }
             StorySettings.storySettings.filter({$0.settingsType == .socialLogins}).first?.settings.removeLast()
-        StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
-        #elseif FASTCAMLITEAPP
+            StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
+        } else if isFastCamLiteApp {
             print("[FIREBASE] FASTCAMLITEAPP mode.")
             if let filePath = Bundle.main.path(forResource: "GoogleService-Info-FastCamLite", ofType: "plist"),
                 let options = FirebaseOptions(contentsOfFile: filePath) {
@@ -162,8 +152,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 fatalError("GoogleService-Info-FastCamLite.plist is missing!")
             }
             StorySettings.storySettings.filter({$0.settingsType == .socialLogins}).first?.settings.removeLast()
-        StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
-        #elseif QUICKCAMLITEAPP
+            StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
+        } else if isQuickCamLiteApp {
             print("[FIREBASE] QUICKCAMLITEAPP mode.")
             if let filePath = Bundle.main.path(forResource: "GoogleService-Info-QuickCamLite", ofType: "plist"),
                 let options = FirebaseOptions(contentsOfFile: filePath) {
@@ -172,8 +162,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 fatalError("GoogleService-Info-QuickCamLite.plist is missing!")
             }
             StorySettings.storySettings.filter({$0.settingsType == .socialLogins}).first?.settings.removeLast()
-        StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
-        #endif
+            StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
+        } else if isSpeedCamApp {
+            print("[FIREBASE] SpeedCam mode.")
+            if let filePath = Bundle.main.path(forResource: "GoogleService-Info-SpeedCam", ofType: "plist"),
+                let options = FirebaseOptions(contentsOfFile: filePath) {
+                FirebaseApp.configure(options: options)
+            } else {
+                fatalError("GoogleService-Info-SpeedCam.plist is missing!")
+            }
+            StorySettings.storySettings.filter({$0.settingsType == .socialLogins}).first?.settings.removeLast()
+            StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
+            SubscriptionSettings.storySettings.first?.settings.removeLast()
+        }
         
         configureGoogleService()
         

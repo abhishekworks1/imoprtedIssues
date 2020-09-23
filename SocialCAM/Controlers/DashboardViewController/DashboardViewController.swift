@@ -30,25 +30,27 @@ class DashboardViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         headerTitle.text = Defaults.shared.currentUser?.channelId
-        #if SOCIALCAMAPP
-        headerImageView.image = R.image.socialCamSplashLogo()
-        #elseif VIRALCAMAPP
-        headerImageView.image = R.image.viralCamSplashLogo()
-        #elseif SOCCERCAMAPP || FUTBOLCAMAPP
-        headerImageView.image = R.image.soccercamWatermarkLogo()
-        #elseif QUICKCAMAPP
-        headerImageView.image = R.image.quickcamWatermarkLogo()
-        #elseif SNAPCAMAPP
-        headerImageView.image = R.image.snapcamWatermarkLogo()
-        #elseif TIMESPEEDAPP
-        headerImageView.image = R.image.timeSpeedWatermarkLogo()
-        #elseif FASTCAMAPP
-        headerImageView.image = R.image.fastcamWatermarkLogo()
-        #elseif BOOMICAMAPP
-        headerImageView.image = R.image.boomicamWatermarkLogo()
-        #else
-        headerImageView.image = R.image.pic2artWatermarkLogo()
-        #endif
+        if isSocialCamApp {
+            headerImageView.image = R.image.socialCamSplashLogo()
+        } else if isViralCamApp {
+            headerImageView.image = R.image.viralCamSplashLogo()
+        } else if isSoccerCamApp || isFutbolCamApp {
+            headerImageView.image = R.image.soccercamWatermarkLogo()
+        } else if isQuickCamApp {
+            headerImageView.image = R.image.quickcamWatermarkLogo()
+        } else if isSnapCamApp {
+            headerImageView.image = R.image.snapcamWatermarkLogo()
+        } else if isSpeedCamApp {
+            headerImageView.image = R.image.speedcamWatermarkLogo()
+        } else if isTimeSpeedApp {
+            headerImageView.image = R.image.timeSpeedWatermarkLogo()
+        } else if isFastCamApp {
+            headerImageView.image = R.image.fastcamWatermarkLogo()
+        } else if isBoomiCamApp {
+            headerImageView.image = R.image.boomicamWatermarkLogo()
+        } else if isPic2ArtApp {
+            headerImageView.image = R.image.pic2artWatermarkLogo()
+        }
         self.lblBadgeText.text = ""
         self.roundBadgeView.isHidden = true
         

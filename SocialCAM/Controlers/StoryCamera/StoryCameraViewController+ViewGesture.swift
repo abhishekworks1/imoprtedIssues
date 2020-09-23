@@ -87,7 +87,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             isRecording = true
             self.view.bringSubviewToFront(slowFastVerticalBar.superview ?? UIView())
             if recordingType != .basicCamera {
-                slowFastVerticalBar.isHidden = (isViralcamLiteApp || isFastcamLiteApp || isQuickCamLiteApp) ? false : (Defaults.shared.appMode == .free)
+                slowFastVerticalBar.isHidden = (isViralCamLiteApp || isFastCamLiteApp || isQuickCamLiteApp) ? false : (Defaults.shared.appMode == .free)
             } else {
                 slowFastVerticalBar.isHidden = true
             }
@@ -134,7 +134,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
                 speedOptions.insert(contentsOf: [.slow5x, .slow4x], at: 0)
             }
             
-            if isViralcamLiteApp || isFastcamLiteApp || isQuickCamLiteApp {
+            if isViralCamLiteApp || isFastCamLiteApp || isQuickCamLiteApp {
                 speedOptions = recordingType == .promo ? [.normal, .fast2x, .fast3x] : [.normal, .fast2x, .fast3x, .fast4x, .fast5x]
             }
             
@@ -301,7 +301,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
     // values = ["-3x", "2x", "1x", "1x", "2x", "3x"]
     func checkValue(values: [StoryCameraSpeedValue], _ pointX: CGFloat) -> StoryCameraSpeedValue {
         var values = values
-        if isViralcamLiteApp || isFastcamLiteApp || isQuickCamLiteApp {
+        if isViralCamLiteApp || isFastCamLiteApp || isQuickCamLiteApp {
             values = (recordingType == .promo ? [.normal, .normal] : [.normal, .normal, .normal, .normal, .normal]) + values
         }
         let screenPart = UIScreen.main.bounds.width / CGFloat(values.count)
@@ -328,7 +328,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             speedOptions.insert(contentsOf: [.slow4x, .slow5x], at: 0)
         }
         
-        if isViralcamLiteApp || isFastcamLiteApp || isQuickCamLiteApp {
+        if isViralCamLiteApp || isFastCamLiteApp || isQuickCamLiteApp {
             speedOptions = recordingType == .promo ? [.normal, .fast2x, .fast3x] : [.normal, .fast2x, .fast3x, .fast4x, .fast5x]
         }
         

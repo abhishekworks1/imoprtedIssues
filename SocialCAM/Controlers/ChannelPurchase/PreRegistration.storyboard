@@ -29,15 +29,15 @@
         <!--PreRegistrationViewController-->
         <scene sceneID="E1b-2z-bwU">
             <objects>
-                <viewController storyboardIdentifier="PreRegistrationViewController" title="PreRegistrationViewController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HGA-2E-69u" userLabel="PreRegistrationViewController" customClass="PreRegistrationViewController" customModule="Pic2Art" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PreRegistrationViewController" title="PreRegistrationViewController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HGA-2E-69u" userLabel="PreRegistrationViewController" customClass="PreRegistrationViewController" customModule="BoomiCam" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9M8-SF-AT7">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kNg-6r-fyc" customClass="BorderView" customModule="Pic2Art" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kNg-6r-fyc" customClass="BorderView" customModule="BoomiCam" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p7y-Th-bHZ" customClass="PButton" customModule="Pic2Art" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p7y-Th-bHZ" customClass="PButton" customModule="BoomiCam" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="7" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="p7y-Th-bHZ" secondAttribute="height" multiplier="1:1" id="eAu-o5-HzU"/>
@@ -185,7 +185,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZoX-oK-2Gi">
                                 <rect key="frame" x="7" y="135.66666666666669" width="361" height="642.33333333333326"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hDO-1l-nX8" customClass="DashedBorderView" customModule="Pic2Art" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hDO-1l-nX8" customClass="DashedBorderView" customModule="BoomiCam" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="361" height="120"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="Ftn-so-tqV">
@@ -298,7 +298,7 @@
                                         <rect key="frame" x="0.0" y="132.00000000000003" width="361" height="510.33333333333337"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="PackageSuggesstionTableViewCell" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PackageSuggesstionTableViewCell" rowHeight="60" id="HPg-Au-e7b" userLabel="PackageSuggesstionTableViewCell" customClass="PackageSuggesstionTableViewCell" customModule="Pic2Art" customModuleProvider="target">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="PackageSuggesstionTableViewCell" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PackageSuggesstionTableViewCell" rowHeight="60" id="HPg-Au-e7b" userLabel="PackageSuggesstionTableViewCell" customClass="PackageSuggesstionTableViewCell" customModule="BoomiCam" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="361" height="60"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HPg-Au-e7b" id="Jd9-uK-xKI">
@@ -311,7 +311,7 @@
                                                             <color key="textColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WKb-Jh-8MX" customClass="ColorImageButton" customModule="Pic2Art" customModuleProvider="target">
+                                                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WKb-Jh-8MX" customClass="ColorImageButton" customModule="BoomiCam" customModuleProvider="target">
                                                             <rect key="frame" x="314" y="17.666666666666668" width="25" height="25.000000000000004"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="25" id="6gT-ts-e2Z"/>
@@ -430,15 +430,15 @@
         <!--CartViewController-->
         <scene sceneID="CPv-Io-H8C">
             <objects>
-                <viewController storyboardIdentifier="CartViewController" title="CartViewController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="sjA-MD-CFJ" customClass="CartViewController" customModule="Pic2Art" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CartViewController" title="CartViewController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="sjA-MD-CFJ" customClass="CartViewController" customModule="BoomiCam" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="deo-qC-vQI">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="406-a3-gb6" customClass="BorderView" customModule="Pic2Art" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="406-a3-gb6" customClass="BorderView" customModule="BoomiCam" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G3B-q6-zES" customClass="PButton" customModule="Pic2Art" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G3B-q6-zES" customClass="PButton" customModule="BoomiCam" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="-4.3333333333333357" width="50" height="53"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="53" id="Tux-Rb-ZC0"/>
@@ -476,7 +476,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="855-sG-LQh">
                                 <rect key="frame" x="7" y="686" width="361" height="70"/>
                                 <subviews>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4L4-1o-SWk" customClass="ColorButton" customModule="Pic2Art" customModuleProvider="target">
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4L4-1o-SWk" customClass="ColorButton" customModule="BoomiCam" customModuleProvider="target">
                                         <rect key="frame" x="40" y="12" width="280" height="46"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="46" id="i80-ty-GIK"/>
@@ -515,7 +515,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="CartTableViewCell" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CartTableViewCell" rowHeight="50" id="Arf-4X-ODm" customClass="CartTableViewCell" customModule="Pic2Art" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="CartTableViewCell" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CartTableViewCell" rowHeight="50" id="Arf-4X-ODm" customClass="CartTableViewCell" customModule="BoomiCam" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="361" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Arf-4X-ODm" id="Jby-Nk-BTH">
@@ -548,7 +548,7 @@
                                                         <constraint firstAttribute="width" constant="2" id="heE-Ba-Wga"/>
                                                     </constraints>
                                                 </view>
-                                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="87T-vQ-3ei" customClass="PButton" customModule="Pic2Art" customModuleProvider="target">
+                                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="87T-vQ-3ei" customClass="PButton" customModule="BoomiCam" customModuleProvider="target">
                                                     <rect key="frame" x="316" y="15" width="20" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="3W3-Ob-KaY"/>
@@ -645,15 +645,15 @@
         <!--PurchaseFriendPackageViewController-->
         <scene sceneID="jgl-Y2-ww4">
             <objects>
-                <viewController storyboardIdentifier="PurchaseFriendPackageViewController" title="PurchaseFriendPackageViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="7DY-jG-FqL" customClass="PurchaseFriendPackageViewController" customModule="Pic2Art" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PurchaseFriendPackageViewController" title="PurchaseFriendPackageViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="7DY-jG-FqL" customClass="PurchaseFriendPackageViewController" customModule="BoomiCam" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Iew-MN-bMP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xvm-Cy-95y" customClass="BorderView" customModule="Pic2Art" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xvm-Cy-95y" customClass="BorderView" customModule="BoomiCam" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gHD-58-DVr" customClass="PButton" customModule="Pic2Art" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gHD-58-DVr" customClass="PButton" customModule="BoomiCam" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="55" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="55" id="cFB-6K-tEU"/>
@@ -694,7 +694,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A2X-s6-HoC">
                                 <rect key="frame" x="7" y="95" width="361" height="676"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OIV-qG-zCx" customClass="FourSideShadow" customModule="Pic2Art" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OIV-qG-zCx" customClass="FourSideShadow" customModule="BoomiCam" customModuleProvider="target">
                                         <rect key="frame" x="21" y="20" width="318" height="570"/>
                                         <subviews>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Liq-9x-IKH">
@@ -706,7 +706,7 @@
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
                                                 <prototypes>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="FriendPackageTableViewCell" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FriendPackageTableViewCell" rowHeight="60" id="7K4-6M-xpM" customClass="FriendPackageTableViewCell" customModule="Pic2Art" customModuleProvider="target">
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="FriendPackageTableViewCell" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FriendPackageTableViewCell" rowHeight="60" id="7K4-6M-xpM" customClass="FriendPackageTableViewCell" customModule="BoomiCam" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="28" width="318" height="60"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7K4-6M-xpM" id="s21-1e-aG5">
@@ -852,7 +852,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Us-sT-gAt" customClass="ColorButton" customModule="Pic2Art" customModuleProvider="target">
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Us-sT-gAt" customClass="ColorButton" customModule="BoomiCam" customModuleProvider="target">
                                         <rect key="frame" x="33" y="610" width="294" height="46"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="46" id="Fcf-Qr-Yd8"/>
@@ -930,15 +930,15 @@
         <!--PaymentViewController-->
         <scene sceneID="bv5-Nf-7qa">
             <objects>
-                <viewController storyboardIdentifier="PaymentViewController" title="PaymentViewController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HkF-9h-fbE" customClass="PaymentViewController" customModule="Pic2Art" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PaymentViewController" title="PaymentViewController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HkF-9h-fbE" customClass="PaymentViewController" customModule="BoomiCam" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fB1-1v-v3d">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wAy-Ai-in0" customClass="BorderView" customModule="Pic2Art" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wAy-Ai-in0" customClass="BorderView" customModule="BoomiCam" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ytM-RC-ge9" customClass="PButton" customModule="Pic2Art" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ytM-RC-ge9" customClass="PButton" customModule="BoomiCam" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="-4.3333333333333357" width="35" height="53"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="35" id="KKk-Xi-Kfm"/>
@@ -975,7 +975,7 @@
                                 <rect key="frame" x="7" y="88" width="361" height="618"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="PaymentTableViewCell" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PaymentTableViewCell" id="SVt-Zd-2LW" customClass="PaymentTableViewCell" customModule="Pic2Art" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="PaymentTableViewCell" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PaymentTableViewCell" id="SVt-Zd-2LW" customClass="PaymentTableViewCell" customModule="BoomiCam" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="361" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SVt-Zd-2LW" id="Fo0-X4-dH4">
@@ -998,7 +998,7 @@
                                                         <constraint firstAttribute="width" constant="32" id="rHV-SQ-OSA"/>
                                                     </constraints>
                                                 </imageView>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PYT-Sk-jmu" customClass="CheckButton" customModule="Pic2Art" customModuleProvider="target">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PYT-Sk-jmu" customClass="CheckButton" customModule="BoomiCam" customModuleProvider="target">
                                                     <rect key="frame" x="16" y="13.666666666666664" width="17" height="17"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="17" id="9ti-ze-DIC"/>
@@ -1060,7 +1060,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yig-VX-53r">
                                 <rect key="frame" x="7" y="708" width="361" height="70"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QJZ-2Y-t5v" customClass="ColorButton" customModule="Pic2Art" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QJZ-2Y-t5v" customClass="ColorButton" customModule="BoomiCam" customModuleProvider="target">
                                         <rect key="frame" x="40.666666666666657" y="10.666666666666629" width="280" height="49"/>
                                         <color key="backgroundColor" red="0.32156862749999998" green="0.59607843140000005" blue="0.2470588235" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -1152,15 +1152,15 @@
         <!--UpgradeViewCotroller-->
         <scene sceneID="GbJ-BF-z4E">
             <objects>
-                <viewController storyboardIdentifier="UpgradeViewController" title="UpgradeViewController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="b1x-9R-dz3" userLabel="UpgradeViewCotroller" customClass="UpgradeViewController" customModule="Pic2Art" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UpgradeViewController" title="UpgradeViewController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="b1x-9R-dz3" userLabel="UpgradeViewCotroller" customClass="UpgradeViewController" customModule="BoomiCam" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uo7-8e-I8r">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HGT-Nd-l0R" customClass="BorderView" customModule="Pic2Art" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HGT-Nd-l0R" customClass="BorderView" customModule="BoomiCam" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rp5-wV-ye2" customClass="PButton" customModule="Pic2Art" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rp5-wV-ye2" customClass="PButton" customModule="BoomiCam" customModuleProvider="target">
                                         <rect key="frame" x="8" y="0.0" width="44" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="054-88-kWq"/>
@@ -1199,7 +1199,7 @@
                                     <constraint firstAttribute="height" constant="10" id="LCl-v9-Kwx"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ufD-x4-Cer" customClass="BorderView" customModule="Pic2Art" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ufD-x4-Cer" customClass="BorderView" customModule="BoomiCam" customModuleProvider="target">
                                 <rect key="frame" x="7" y="87" width="361" height="691"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ubW-0T-vbT">
@@ -1244,7 +1244,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jmM-uf-Nlc">
                                                         <rect key="frame" x="0.0" y="0.0" width="156.66666666666666" height="52.333333333333336"/>
                                                         <subviews>
-                                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9qk-Ob-PfL" customClass="ColorRoundedView" customModule="Pic2Art" customModuleProvider="target">
+                                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9qk-Ob-PfL" customClass="ColorRoundedView" customModule="BoomiCam" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="156.66666666666666" height="52.333333333333336"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upgrade Now" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LEx-hW-YDy">
@@ -1289,7 +1289,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jot-YC-g60">
                                                         <rect key="frame" x="172.66666666666663" y="0.0" width="156.33333333333337" height="52.333333333333336"/>
                                                         <subviews>
-                                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kVh-Qr-edH" customClass="ColorRoundedView" customModule="Pic2Art" customModuleProvider="target">
+                                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kVh-Qr-edH" customClass="ColorRoundedView" customModule="BoomiCam" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="0.0" width="156.33333333333334" height="52.333333333333336"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Skip" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sae-A4-9dk">
@@ -1390,7 +1390,7 @@
         <!--Channel List View Controller-->
         <scene sceneID="a2x-d8-0rD">
             <objects>
-                <viewController storyboardIdentifier="ChannelListViewController" id="ucy-St-waN" customClass="ChannelListViewController" customModule="Pic2Art" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChannelListViewController" id="ucy-St-waN" customClass="ChannelListViewController" customModule="BoomiCam" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dBs-g2-NZg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1398,7 +1398,7 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Esl-AO-vqm">
                                 <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="GreenPlushIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Jlr-pe-jCl" customClass="ColorImageView" customModule="Pic2Art" customModuleProvider="target">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="GreenPlushIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Jlr-pe-jCl" customClass="ColorImageView" customModule="BoomiCam" customModuleProvider="target">
                                         <rect key="frame" x="336" y="10" width="24" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="24" id="KWr-k0-2fv"/>
@@ -1530,7 +1530,7 @@
                                     </constraints>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ChannelSelectedCell" rowHeight="100" id="lmd-Rw-nXq" customClass="ChannelSelectedCell" customModule="Pic2Art" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ChannelSelectedCell" rowHeight="100" id="lmd-Rw-nXq" customClass="ChannelSelectedCell" customModule="BoomiCam" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lmd-Rw-nXq" id="f6L-zQ-Lor">
@@ -1541,7 +1541,7 @@
                                                     <rect key="frame" x="3" y="3" width="369" height="96"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profilePhoto" translatesAutoresizingMaskIntoConstraints="NO" id="g8B-cF-w85" customClass="RoundedImageView" customModule="Pic2Art" customModuleProvider="target">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profilePhoto" translatesAutoresizingMaskIntoConstraints="NO" id="g8B-cF-w85" customClass="RoundedImageView" customModule="BoomiCam" customModuleProvider="target">
                                                     <rect key="frame" x="15" y="24" width="60" height="65"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="60" id="MCe-Dz-pMv"/>
@@ -1810,7 +1810,7 @@
                                             <outlet property="selectedView" destination="tTG-Q6-rho" id="YHe-V1-DkN"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ChannelTableViewCell" rowHeight="100" id="YPv-YO-RYB" customClass="ChannelTableViewCell" customModule="Pic2Art" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ChannelTableViewCell" rowHeight="100" id="YPv-YO-RYB" customClass="ChannelTableViewCell" customModule="BoomiCam" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="128" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="YPv-YO-RYB" id="l2H-AF-5YN">
@@ -1832,7 +1832,7 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profilePhoto" translatesAutoresizingMaskIntoConstraints="NO" id="Sn6-E4-YdQ" customClass="RoundedImageView" customModule="Pic2Art" customModuleProvider="target">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profilePhoto" translatesAutoresizingMaskIntoConstraints="NO" id="Sn6-E4-YdQ" customClass="RoundedImageView" customModule="BoomiCam" customModuleProvider="target">
                                                     <rect key="frame" x="15" y="20" width="60" height="60"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="60" id="eO6-S5-dsk"/>

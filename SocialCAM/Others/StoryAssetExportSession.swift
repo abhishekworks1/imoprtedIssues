@@ -41,7 +41,7 @@ class StoryAssetExportSession {
     private var watermarkPosition: WatermarkPosition = .topLeft
     private var gifWaterMarkURL = Bundle.main.url(forResource: "SocialCamWaterMark", withExtension: "gif")
     private var gifFrames = [CGImage]()
-    private var gifCount = 0
+    private var gifCount = 0                            
 
     public var overlayImage: UIImage?
     public var filter: CIFilter?
@@ -307,49 +307,68 @@ class StoryAssetExportSession {
     }
     
     func addWaterMarkImageIfNeeded(isGIF: Bool = false) {
-        #if VIRALCAMAPP || VIRALCAMLITEAPP
-        var image = R.image.viralcamWatermarkLogo()
-        if watermarkPosition == .topLeft {
-            image = R.image.viralcamWaterMark()
-        }
-        #elseif SOCCERCAMAPP || FUTBOLCAMAPP
-        var image = R.image.soccercamWatermarkLogo()
-        if watermarkPosition == .topLeft {
+        var image = R.image.socialCamWaterMark()
+        if isViralCamApp {
+            image = R.image.viralcamWatermarkLogo()
+            if watermarkPosition == .topLeft {
+                image = R.image.viralcamWaterMark()
+            }
+        } else if isSoccerCamApp || isFutbolCamApp {
             image = R.image.soccercamWatermarkLogo()
-        }
-        #elseif QUICKCAMAPP || QUICKCAMLITEAPP
-        var image = R.image.quickcamWatermarkLogo()
-        if watermarkPosition == .topLeft {
+            if watermarkPosition == .topLeft {
+                image = R.image.soccercamWatermarkLogo()
+            }
+        } else if isQuickCamApp || isQuickCamLiteApp {
             image = R.image.quickcamWatermarkLogo()
-        }
-        #elseif SNAPCAMAPP
-        var image = R.image.snapcamWatermarkLogo()
-        if watermarkPosition == .topLeft {
+            if watermarkPosition == .topLeft {
+                image = R.image.quickcamWatermarkLogo()
+            }
+        } else if isSnapCamApp {
             image = R.image.snapcamWatermarkLogo()
-        }
-        #elseif PIC2ARTAPP
-        var image = R.image.pic2artWatermarkLogo()
-        if watermarkPosition == .topLeft {
+            if watermarkPosition == .topLeft {
+                image = R.image.snapcamWatermarkLogo()
+            }
+        } else if isSpeedCamApp {
+            image = R.image.speedcamWatermarkLogo()
+            if watermarkPosition == .topLeft {
+                image = R.image.speedcamWatermarkLogo()
+            }
+        } else if isPic2ArtApp {
             image = R.image.pic2artWatermarkLogo()
-        }
-        #elseif BOOMICAMAPP
-        var image = R.image.boomicamWatermarkLogo()
-        if watermarkPosition == .topLeft {
+            if watermarkPosition == .topLeft {
+                image = R.image.pic2artWatermarkLogo()
+            }
+        } else if isBoomiCamApp {
             image = R.image.boomicamWatermarkLogo()
-        }
-        #elseif TIMESPEEDAPP
-        var image = R.image.timeSpeedWatermarkLogo()
-        if watermarkPosition == .topLeft {
+            if watermarkPosition == .topLeft {
+                image = R.image.boomicamWatermarkLogo()
+            }
+        } else if isTimeSpeedApp {
             image = R.image.timeSpeedWatermarkLogo()
-        }
-        #elseif FASTCAMAPP || FASTCAMLITEAPP
-        var image = R.image.fastcamWatermarkLogo()
-        if watermarkPosition == .topLeft {
+            if watermarkPosition == .topLeft {
+                image = R.image.timeSpeedWatermarkLogo()
+            }
+        } else if isFastCamApp {
             image = R.image.fastcamWatermarkLogo()
+            if watermarkPosition == .topLeft {
+                image = R.image.fastcamWatermarkLogo()
+            }
+        } else if isFastCamLiteApp {
+            image = R.image.fastCamLiteWatermarkText()
+            if watermarkPosition == .topLeft {
+                image = R.image.fastCamLiteWatermarkText()
+            }
+        } else if isQuickCamLiteApp {
+            image = R.image.quickCamLiteWatermarkText()
+            if watermarkPosition == .topLeft {
+                image = R.image.quickCamLiteWatermarkText()
+            }
+        } else if isViralCamLiteApp {
+            image = R.image.viralCamLiteWatermarkText()
+            if watermarkPosition == .topLeft {
+                image = R.image.viralCamLiteWatermarkText()
+            }
         }
-        #else
-        let image = R.image.socialCamWaterMark()
-        #endif
 
         guard !watermarkAdded,
             let backgroundImage = self.overlayImage,
