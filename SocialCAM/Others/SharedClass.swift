@@ -404,7 +404,7 @@ public struct Constant {
             static let websiteURL = "https://quickcam.iicc.online"
         #elseif SNAPCAMAPP
             static let websiteURL = "https://snapcam.iicc.online"
-        #elseif SPEEDCAMAPP
+        #elseif SPEEDCAMAPP || SPEEDCAMLITEAPP
             static let websiteURL = "https://speedcam.iicc.online"
         #else
             static let websiteURL = Defaults.shared.currentUser?.viralcamReferralLink ?? "https://viralcam.iicc.online"
@@ -515,8 +515,14 @@ public struct Constant {
         static let publicLink = URL(string: "https://testflight.apple.com/join/6zE0nt7P")
         static let splashBG = UIImage(named: "quickcamLiteLaunchScreenBG")!
         static let appIcon = UIImage(named: "quickcamliteSplashLogo")!
+        #elseif SPEEDCAMLITEAPP
+        static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "QuickCam Lite"
+        static let simformIdentifier: String = "com.simform.SpeedCamLite"
+        static let proModeCode: String = "socialcam2020"
+        static let publicLink = URL(string: "https://testflight.apple.com/join/qlMx1LpF")
+        static let splashBG = UIImage(named: "speedCCamSplashBG")!
+        static let appIcon = UIImage(named: "speedcamliteSplashLogo")!
         #endif
-        
         static let groupIdentifier: String = "group.com.simform.storiCamPro"
         static let appVersion: String = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
         static let appBuildNumber: String = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1"

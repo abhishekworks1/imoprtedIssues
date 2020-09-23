@@ -82,6 +82,14 @@ var isSpeedCamApp: Bool {
     #endif
 }
 
+var isSpeedCamLiteApp: Bool {
+    #if SPEEDCAMLITEAPP
+    return true
+    #else
+    return false
+    #endif
+}
+
 var isBoomiCamApp: Bool {
     #if BOOMICAMAPP
     return true
@@ -417,8 +425,8 @@ class Defaults {
         get {
             if isLiteApp {
                 let appMode = AppMode(rawValue: (appDefaults?.integer(forKey: "appMode") ?? 0)) ?? .free
-                if appMode == .advanced || appMode == .basic {
-                    return .free
+                if appMode == .advanced || appMode == .professional {
+                    return .basic
                 } else {
                     return appMode
                 }

@@ -214,13 +214,13 @@ extension IncomeCalculatorOneViewController: UITableViewDataSource, UITableViewD
     private func getIncome(followers: Int, indexPath: IndexPath) -> String {
         switch indexPath.row {
         case 0:
-            let income = Int(followers * self.referLimit * percentageFilled * averageInAppPurchase / 10000)
+            let income = Int((followers * self.referLimit * percentageFilled * averageInAppPurchase) / 10000)
             return income.description
         case 1:
-            let income = Int(followers * 25 * self.levelTwoReferLimit * averageInAppPurchase / 10000)
+            let income = Int((followers * self.levelTwoReferLimit * percentageFilled * averageInAppPurchase) / 10000)
             return income.description
         case 2:
-            let income = Int(followers * 5 * self.levelThreeReferLimit * averageInAppPurchase / 10000)
+            let income = Int((followers * self.levelThreeReferLimit * percentageFilled * averageInAppPurchase) / 10000)
             return income.description
         default:
             return self.totalIncomeCount.description
