@@ -29,7 +29,7 @@ class IncomeCalculatorTwoViewController: UIViewController {
             self.lblAverageInAppPurchase.text = "$" + averageInAppPurchase.description
         }
     }
-    private var percentageFilled = 100 {
+    private var percentageFilled = 10 {
         didSet {
             self.lblPercentageFilled.text = percentageFilled.description + "%"
         }
@@ -52,8 +52,6 @@ class IncomeCalculatorTwoViewController: UIViewController {
         if isCalculatorThree {
             lblNavigationTitle.text = "Potential Income Calculator 3"
         }
-        lblPercentageFilled.font = R.font.sfuiTextSemibold(size: 15.0) ?? UIFont.systemFont(ofSize: 15.0)
-        lblAverageInAppPurchase.font = R.font.sfuiTextSemibold(size: 15.0) ?? UIFont.systemFont(ofSize: 15.0)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -72,30 +70,15 @@ class IncomeCalculatorTwoViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
 
-    @IBAction func percentageMinusTapped(_ sender: Any) {
-        if self.percentageFilled > 1 {
-            self.percentageFilled -= 1
-        }
+    
+    @IBAction func percentageSliderValueChanged(_ sender: UISlider) {
+        self.percentageFilled = Int(sender.value)
     }
     
-    @IBAction func percentagePlusTapped(_ sender: Any) {
-        if self.percentageFilled < 100 {
-            self.percentageFilled += 1
-        }
+    @IBAction func inAppSliderChanged(_ sender: UISlider) {
+        self.averageInAppPurchase = Int(sender.value)
     }
     
-    @IBAction func inAppPurchaseMinusTapped(_ sender: Any) {
-        if averageInAppPurchase > 1 {
-            self.averageInAppPurchase -= 1
-        }
-    }
-    
-    @IBAction func inAppPurchasePlusTapped(_ sender: Any) {
-        if self.averageInAppPurchase < 35 {
-            self.averageInAppPurchase += 1
-        }
-    }
-
     // MARK: -
     // MARK: - Class Functions
     

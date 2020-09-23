@@ -10,6 +10,7 @@ import UIKit
 import SkyFloatingLabelTextField
 import RxSwift
 import IQKeyboardManagerSwift
+import AVFoundation
 
 class YouTubeUploadViewController: UIViewController {
     @IBOutlet weak var txtTitle: SkyFloatingLabelTextField!
@@ -24,6 +25,7 @@ class YouTubeUploadViewController: UIViewController {
     @IBOutlet var playerView: PlayerView!
     @IBOutlet var btnPlayPause: UIButton!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var imgThumbnail: UIImageView!
     let dropDownMenu = DropDown()
     var privacy: [String] =  ["Public", "Private", "Unlisted"]
     var channels: [Item] = []
@@ -91,6 +93,8 @@ class YouTubeUploadViewController: UIViewController {
             self.playerView.isAutoPlay = false
             self.playerView.playUrl = videourl
             self.playerView.pause()
+            self.imgThumbnail.contentMode = .scaleAspectFill
+            self.imgThumbnail.image = UIImage.getThumbnailFrom(videoUrl: videourl)
         }
     }
     
