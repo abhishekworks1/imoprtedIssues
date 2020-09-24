@@ -54,12 +54,19 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var socialSingUpView: UIView!
     @IBOutlet var btnSignUP: UIButton!
     @IBOutlet weak var logoLable: UILabel!
+    @IBOutlet var appleLoginView: UIView!
     weak var delegate: LoginViewControllerDelegate?
     
     // MARK: View life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if #available(iOS 13.0, *) {
+            appleLoginView.isHidden = false
+        } else {
+            appleLoginView.isHidden = true
+        }
         
         #if SOCIALCAMAPP
         headerView.isHidden = true
@@ -196,6 +203,14 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
                     completion(userModel)
                 }
             }
+        case .apple:
+            if #available(iOS 13.0, *) {
+                if AppleSignInManager.shared.isUserLogin {
+                    AppleSignInManager.shared.loadUserData { (userModel) in
+                        completion(userModel)
+                    }
+                }
+            }
         default: break
         }
     }
@@ -214,6 +229,8 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
                     provider = "snapchat"
                 case .youtube:
                     provider = "google"
+                case .apple:
+                    provider = "apple"
                 default:
                     break
                 }
@@ -271,6 +288,13 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
             }
         case .storiCam:
             break
+        case .apple:
+            if #available(iOS 13.0, *) {
+                if AppleSignInManager.shared.isUserLogin {
+                    AppleSignInManager.shared.logout()
+                    completion(false)
+                }
+            }
         }
     }
     
@@ -331,6 +355,15 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
                 completion(true)
             }) { (_, _) in
                 completion(false)
+            }
+        case .apple:
+            if #available(iOS 13.0, *) {
+                AppleSignInManager.shared.logout()
+                AppleSignInManager.shared.login(controller: self, complitionBlock: { (_, _) in
+                    completion(true)
+                }) { (_, _) in
+                    completion(false)
+                }
             }
         default:
             break

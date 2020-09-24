@@ -300,6 +300,9 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             SnapKitManager.shared.logout { _ in
                 
             }
+            if #available(iOS 13.0, *) {
+                AppleSignInManager.shared.logout()
+            }
             self.settingsTableView.reloadData()
             if let loginNav = R.storyboard.loginViewController.loginNavigation() {
                 Defaults.shared.clearData()
@@ -364,6 +367,14 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             if StoriCamManager.shared.isUserLogin {
                 StoriCamManager.shared.loadUserData { (userModel) in
                     completion(userModel?.userName, userModel?.userId)
+                }
+            }
+        case .apple:
+            if #available(iOS 13.0, *) {
+                if AppleSignInManager.shared.isUserLogin {
+                    AppleSignInManager.shared.loadUserData { (userModel) in
+                        completion(userModel?.userName, userModel?.userId)
+                    }
                 }
             }
         }
@@ -437,6 +448,19 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 StoriCamManager.shared.logout()
                 completion(false)
             }
+        case .apple:
+            if #available(iOS 13.0, *) {
+                if !AppleSignInManager.shared.isUserLogin {
+                    AppleSignInManager.shared.login(controller: self, complitionBlock: { _, _  in
+                        completion(true)
+                    }) { _, _  in
+                        completion(false)
+                    }
+                } else {
+                    AppleSignInManager.shared.logout()
+                    completion(false)
+                }
+            }
         }
     }
     
@@ -501,6 +525,9 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             InstagramManager.shared.logout()
             SnapKitManager.shared.logout { _ in
                 self.settingsTableView.reloadData()
+            }
+            if #available(iOS 13.0, *) {
+                AppleSignInManager.shared.logout()
             }
             self.settingsTableView.reloadData()
         }

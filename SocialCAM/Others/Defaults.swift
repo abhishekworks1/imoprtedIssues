@@ -234,6 +234,25 @@ class Defaults {
         }
     }
     
+    var appleLoginUserData: LoginUserData? {
+        get {
+            if let loggedUser = appDefaults?.object(forKey: "appleLoginUserData") as? Data {
+                let decoder = JSONDecoder()
+                return try? decoder.decode(LoginUserData.self, from: loggedUser)
+            }
+            return nil
+        } set {
+            let encoder = JSONEncoder()
+            if let encoded = try? encoder.encode(newValue) {
+                appDefaults?.set(encoded, forKey: "appleLoginUserData")
+                appDefaults?.synchronize()
+            } else {
+                appDefaults?.set(nil, forKey: "appleLoginUserData")
+                appDefaults?.synchronize()
+            }
+        }
+    }
+    
     var instagramToken: String? {
         get {
             return appDefaults?.string(forKey: "instagramToken")

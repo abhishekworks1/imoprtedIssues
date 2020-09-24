@@ -59,8 +59,8 @@ enum SocialLogin: Int, CaseIterable {
     case snapchat
     case youtube
     case storiCam
-    
-    static let allValues = [facebook, twitter, instagram, snapchat, youtube, storiCam]
+    case apple
+    static let allValues = [facebook, twitter, instagram, snapchat, youtube, storiCam, apple]
 }
 
 public enum CameraMode: Int {

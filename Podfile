@@ -44,8 +44,9 @@ def projectShared_pods
     pod 'Firebase/Auth'
     pod 'GooglePlaces'
     pod 'GooglePlacePicker'
-    pod 'FBSDKShareKit/Swift'
-    pod 'FBSDKLoginKit/Swift'
+    pod 'FBSDKCoreKit'
+    pod 'FBSDKShareKit'
+    pod 'FBSDKLoginKit'
     pod 'SnapSDK', :subspecs => ['SCSDKCreativeKit', 'SCSDKLoginKit', 'SCSDKBitmojiKit']
     pod 'AppCenter'
     pod 'GoogleSignIn', '~> 5.0'
@@ -62,6 +63,7 @@ def projectShared_pods
     pod "ESPullToRefresh"
     shared_pods
 end
+
 
 target 'SocialCAM' do
   # Comment the next line if you don't want to use dynamic frameworks
