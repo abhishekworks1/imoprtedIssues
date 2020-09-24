@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GKc-0J-97B">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GKc-0J-97B">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -449,10 +449,10 @@
                                                                 <rect key="frame" x="62" y="-5.5" width="290" height="83"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DVP-fN-Wfz">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="47" height="83"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="36.5" height="83"/>
                                                                         <subviews>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y4c-CC-Dj4">
-                                                                                <rect key="frame" x="-12.5" y="5.5" width="72" height="72"/>
+                                                                                <rect key="frame" x="0.5" y="23.5" width="36" height="36"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="width" secondItem="y4c-CC-Dj4" secondAttribute="height" multiplier="1:1" id="3k6-qp-AwU"/>
                                                                                 </constraints>
@@ -469,10 +469,10 @@
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jb0-TA-63U">
-                                                                        <rect key="frame" x="61" y="0.0" width="46.5" height="83"/>
+                                                                        <rect key="frame" x="50.5" y="0.0" width="37" height="83"/>
                                                                         <subviews>
                                                                             <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zqf-jH-wEt">
-                                                                                <rect key="frame" x="-13" y="5.5" width="72" height="72"/>
+                                                                                <rect key="frame" x="0.5" y="23.5" width="36" height="36"/>
                                                                                 <state key="normal" image="icoYoutube"/>
                                                                                 <connections>
                                                                                     <action selector="btnSocialLoginClicked:" destination="Q1G-jg-0gQ" eventType="touchUpInside" id="FdL-Ay-hPy"/>
@@ -487,10 +487,10 @@
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LQp-5h-3Zo">
-                                                                        <rect key="frame" x="121.5" y="0.0" width="47" height="83"/>
+                                                                        <rect key="frame" x="101.5" y="0.0" width="36.5" height="83"/>
                                                                         <subviews>
                                                                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="soZ-ce-xIc">
-                                                                                <rect key="frame" x="-12.5" y="5.5" width="72" height="72"/>
+                                                                                <rect key="frame" x="0.0" y="23.5" width="36" height="36"/>
                                                                                 <state key="normal" image="icoTwitter"/>
                                                                                 <connections>
                                                                                     <action selector="btnSocialLoginClicked:" destination="Q1G-jg-0gQ" eventType="touchUpInside" id="bn1-ro-WYC"/>
@@ -505,10 +505,10 @@
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lfV-vg-ZUC">
-                                                                        <rect key="frame" x="182.5" y="0.0" width="46.5" height="83"/>
+                                                                        <rect key="frame" x="152" y="0.0" width="36.5" height="83"/>
                                                                         <subviews>
                                                                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oBr-hA-5Jj">
-                                                                                <rect key="frame" x="-12.5" y="5.5" width="72" height="72"/>
+                                                                                <rect key="frame" x="0.5" y="23.5" width="36" height="36"/>
                                                                                 <state key="normal" image="icoInstagram"/>
                                                                                 <connections>
                                                                                     <action selector="btnSocialLoginClicked:" destination="Q1G-jg-0gQ" eventType="touchUpInside" id="80b-w9-6er"/>
@@ -523,10 +523,10 @@
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="inQ-lY-UNi">
-                                                                        <rect key="frame" x="243" y="0.0" width="47" height="83"/>
+                                                                        <rect key="frame" x="202.5" y="0.0" width="37" height="83"/>
                                                                         <subviews>
                                                                             <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="567-Gj-Rdr">
-                                                                                <rect key="frame" x="-12.5" y="5.5" width="72" height="72"/>
+                                                                                <rect key="frame" x="0.5" y="23.5" width="36" height="36"/>
                                                                                 <state key="normal" image="icoSnapchat"/>
                                                                                 <connections>
                                                                                     <action selector="btnSocialLoginClicked:" destination="Q1G-jg-0gQ" eventType="touchUpInside" id="3EX-XY-CBX"/>
@@ -538,6 +538,24 @@
                                                                             <constraint firstItem="567-Gj-Rdr" firstAttribute="centerX" secondItem="inQ-lY-UNi" secondAttribute="centerX" id="8on-nU-p3u"/>
                                                                             <constraint firstItem="567-Gj-Rdr" firstAttribute="width" secondItem="567-Gj-Rdr" secondAttribute="height" multiplier="1:1" id="8sq-bZ-eCc"/>
                                                                             <constraint firstItem="567-Gj-Rdr" firstAttribute="centerY" secondItem="inQ-lY-UNi" secondAttribute="centerY" id="Qt9-MW-LdH"/>
+                                                                        </constraints>
+                                                                    </view>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dsb-kc-F98">
+                                                                        <rect key="frame" x="253.5" y="0.0" width="36.5" height="83"/>
+                                                                        <subviews>
+                                                                            <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mgf-le-rEP">
+                                                                                <rect key="frame" x="-1" y="22.5" width="38" height="38"/>
+                                                                                <state key="normal" image="icoApple"/>
+                                                                                <connections>
+                                                                                    <action selector="btnSocialLoginClicked:" destination="Q1G-jg-0gQ" eventType="touchUpInside" id="t7E-8i-pOm"/>
+                                                                                </connections>
+                                                                            </button>
+                                                                        </subviews>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        <constraints>
+                                                                            <constraint firstItem="Mgf-le-rEP" firstAttribute="centerX" secondItem="Dsb-kc-F98" secondAttribute="centerX" id="9gW-3n-0bj"/>
+                                                                            <constraint firstItem="Mgf-le-rEP" firstAttribute="width" secondItem="Mgf-le-rEP" secondAttribute="height" multiplier="1:1" id="Df5-8U-8fL"/>
+                                                                            <constraint firstItem="Mgf-le-rEP" firstAttribute="centerY" secondItem="Dsb-kc-F98" secondAttribute="centerY" id="n3Q-Hs-RPo"/>
                                                                         </constraints>
                                                                     </view>
                                                                 </subviews>
@@ -657,6 +675,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="iWo-F4-YEh"/>
                     <connections>
+                        <outlet property="appleLoginView" destination="Dsb-kc-F98" id="rUd-Nb-nC0"/>
                         <outlet property="btnHidePassWord" destination="dWv-Ar-1JC" id="zsy-Oi-Gdn"/>
                         <outlet property="btnSignUP" destination="O5E-C7-aET" id="ZRK-hH-yuE"/>
                         <outlet property="headerView" destination="dTT-jj-D6Y" id="fFa-y1-dFU"/>
@@ -1634,6 +1653,7 @@
     <resources>
         <image name="email" width="16" height="16"/>
         <image name="hidePassword" width="16" height="16"/>
+        <image name="icoApple" width="38" height="38"/>
         <image name="icoCalender" width="16" height="16"/>
         <image name="icoClose" width="17" height="16"/>
         <image name="icoFacebook" width="36" height="36"/>
@@ -1643,7 +1663,7 @@
         <image name="icoTwitter" width="36" height="36"/>
         <image name="icoYoutube" width="36" height="36"/>
         <image name="ico_cameraButton_tag" width="200" height="200"/>
-        <image name="magnifyingglass" catalog="system" width="64" height="56"/>
+        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="socialcamrgb" width="255" height="266.5"/>
         <image name="storyBack" width="19" height="19"/>
         <image name="userProfilePlaceholder" width="77" height="77"/>

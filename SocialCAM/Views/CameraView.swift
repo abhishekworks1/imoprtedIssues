@@ -274,9 +274,8 @@ public class CameraView: UIView, AVCapturePhotoCaptureDelegate {
     
     @IBAction func btnCameraClick(_ sender: UIButton) {
         let settings = AVCapturePhotoSettings()
-        let previewPixelType = settings.availablePreviewPhotoPixelFormatTypes.first!
         let previewFormat = [
-            kCVPixelBufferPixelFormatTypeKey as String: previewPixelType,
+            kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_420YpCbCr8BiPlanarFullRange,
             kCVPixelBufferWidthKey as String: 480,
             kCVPixelBufferHeightKey as String: 640
         ]

@@ -15,6 +15,7 @@ enum SocialConnectionType: CaseIterable {
     case snapchat
     case twitter
     case youtube
+    case apple
     
     var image: UIImage? {
         switch self {
@@ -28,6 +29,8 @@ enum SocialConnectionType: CaseIterable {
             return R.image.icoTwitter()
         case .youtube:
             return R.image.icoYoutube()
+        case .apple:
+            return R.image.icoApple()
         }
     }
     
@@ -43,6 +46,8 @@ enum SocialConnectionType: CaseIterable {
             return R.color.icoTwitterColor()
         case .youtube:
             return R.color.icoYoutubeColor()
+        case .apple:
+            return R.color.icoAppleColor()
         }
     }
 }
@@ -147,7 +152,6 @@ class AddSocialConnectionViewController: UIViewController {
         warningViewHeight.constant = isOneSocialConnected ? 0 : warningHeight
         connectButton.alpha = isOneSocialConnected ? 1.0 : 0.7
         connectButton.isEnabled = isOneSocialConnected
-        unconnectedView.frame.size.height = isOneSocialConnected ? (isOneSocialDisconnected ? collectionViewCellWidth + 40 : 0) : (collectionViewCellWidth*2 + 45)
     }
     
     func reloadData() {
@@ -231,6 +235,20 @@ class AddSocialConnectionViewController: UIViewController {
                 }
             } else {
                 completion(nil)
+            }
+        case .apple:
+            if #available(iOS 13.0, *) {
+                if AppleSignInManager.shared.isUserLogin {
+                    AppleSignInManager.shared.loadUserData { (userModel) in
+                        guard let userData = userModel else {
+                            completion(nil)
+                            return
+                        }
+                        completion(SocialUserData(socialId: userModel?.userId ?? "", name: userData.userName, profileURL: userData.photoUrl, type: .apple))
+                    }
+                } else {
+                    completion(nil)
+                }
             }
         }
     }
@@ -331,6 +349,24 @@ class AddSocialConnectionViewController: UIViewController {
                     }
                 }
             }
+        case .apple:
+            if #available(iOS 13.0, *) {
+                if !AppleSignInManager.shared.isUserLogin {
+                    AppleSignInManager.shared.login(controller: self, complitionBlock: { (_, _) in
+                        completion(true)
+                    }) { (_, _) in
+                        completion(false)
+                    }
+                } else {
+                    self.socialLoadProfile(socialLogin: socialLogin) { socialUserData in
+                        if let userData = socialUserData {
+                            self.removeSocialConnection(socialId: userData.socialId)
+                            AppleSignInManager.shared.logout()
+                            completion(false)
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -394,23 +430,25 @@ extension AddSocialConnectionViewController: UICollectionViewDataSource, UIColle
                 return
             }
             
-            var socialPlatform: String = "facebook"
+            var socialPlatform: String = R.string.localizable.facebook()
             switch optionType {
             case .twitter:
-                socialPlatform = "twitter"
+                socialPlatform = R.string.localizable.twitter()
             case .instagram:
-                socialPlatform = "instagram"
+                socialPlatform = R.string.localizable.instagram()
             case .snapchat:
-                socialPlatform = "snapchat"
+                socialPlatform = R.string.localizable.snapchat()
             case .youtube:
-                socialPlatform = "google"
+                socialPlatform = R.string.localizable.google()
+            case .apple:
+                socialPlatform = R.string.localizable.apple()
             default:
                 break
             }
             self.socialLoadProfile(socialLogin: optionType) { socialUserData in
                 if let userData = socialUserData {
                     if isLogin {
-                        self.connectSocial(socialPlatform: socialPlatform, socialId: userData.socialId ?? "", socialName: userData.name ?? "")
+                        self.connectSocial(socialPlatform: socialPlatform.lowercased(), socialId: userData.socialId ?? "", socialName: userData.name ?? "")
                     }
                     self.updateSocialOptions(userData: userData)
                 }
