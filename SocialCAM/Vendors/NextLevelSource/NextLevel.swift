@@ -59,6 +59,9 @@ public enum NextLevelDeviceType: Int, CustomStringConvertible {
     case wideAngleCamera
     case telephotoCamera
     case duoCamera
+    case dualWideCamera
+    case ultraWideAngleCamera
+    case tripleCamera
     #if USE_TRUE_DEPTH
     case trueDepthCamera
     #endif
@@ -85,6 +88,24 @@ public enum NextLevelDeviceType: Int, CustomStringConvertible {
                 return AVCaptureDevice.DeviceType(rawValue: "Unavailable")
             }
             #endif
+        case .dualWideCamera:
+            if #available(iOS 13.0, *) {
+                return AVCaptureDevice.DeviceType.builtInDualWideCamera
+            } else {
+                return AVCaptureDevice.DeviceType(rawValue: "Unavailable")
+            }
+        case .ultraWideAngleCamera:
+            if #available(iOS 13.0, *) {
+                return AVCaptureDevice.DeviceType.builtInUltraWideCamera
+            } else {
+                return AVCaptureDevice.DeviceType(rawValue: "Unavailable")
+            }
+        case .tripleCamera:
+            if #available(iOS 13.0, *) {
+                return AVCaptureDevice.DeviceType.builtInTripleCamera
+            } else {
+                return AVCaptureDevice.DeviceType(rawValue: "Unavailable")
+            }
         }
     }
     
@@ -99,6 +120,12 @@ public enum NextLevelDeviceType: Int, CustomStringConvertible {
                 return "Telephoto Camera"
             case .duoCamera:
                 return "Duo Camera"
+            case .dualWideCamera:
+                return "Dual Wide Camera"
+            case .ultraWideAngleCamera:
+                return "Ultra Wide Angle Camera"
+            case .tripleCamera:
+                return "Triple Camera"
                 #if USE_TRUE_DEPTH
             case .trueDepthCamera:
                 return "True Depth Camera"
@@ -232,7 +259,7 @@ public class NextLevel: NSObject {
     #endif
     public weak var portraitEffectsMatteDelegate: NextLevelPortraitEffectsMatteDelegate?
     public weak var metadataObjectsDelegate: NextLevelMetadataOutputObjectsDelegate?
-
+    
     // preview
     
     /// Live camera preview, add as a sublayer to the UIView's primary layer.
@@ -333,7 +360,7 @@ public class NextLevel: NSObject {
     
     /// When `true`, enables streaming of portrait effects matte data capture (use PhotoConfiguration for photos)
     public var portraitEffectsMatteCaptureEnabled: Bool = false
-
+    
     /// Specifies types of metadata objects to detect
     public var metadataObjectTypes: [AVMetadataObject.ObjectType]?
     
@@ -411,10 +438,10 @@ public class NextLevel: NSObject {
     @available(iOS 11.0, *)
     internal var depthDataOutput: AVCaptureDepthDataOutput? {
         get {
-            return self._depthDataOutput as? AVCaptureDepthDataOutput
+        return self._depthDataOutput as? AVCaptureDepthDataOutput
         }
         set {
-            self._depthDataOutput = newValue
+        self._depthDataOutput = newValue
         }
     }
     #endif
@@ -496,7 +523,7 @@ public class NextLevel: NSObject {
         
         self._recordingSession = nil
         self._captureSession = nil
-
+        
         self.sharedCIContext = nil
     }
 }
@@ -659,7 +686,7 @@ extension NextLevel {
         #if USE_ARKIT
         self.executeClosureAsyncOnSessionQueueIfNecessary {
             guard let config = self.arConfiguration?.config,
-                  let options = self.arConfiguration?.runOptions else {
+                let options = self.arConfiguration?.runOptions else {
                     return
             }
             
@@ -877,35 +904,35 @@ extension NextLevel {
         
         self.commitConfiguration()
     }
-
+    
     private func configureMetadataObjects() {
         guard let session = self._captureSession else {
             return
         }
-
+        
         guard let metadataObjectTypes = metadataObjectTypes,
             !metadataObjectTypes.isEmpty else {
                 return
         }
-
+        
         if self._metadataOutput == nil {
             self._metadataOutput = AVCaptureMetadataOutput()
         }
-
+        
         guard let metadataOutput = self._metadataOutput else {
             return
         }
-
+        
         if !session.outputs.contains(metadataOutput),
             session.canAddOutput(metadataOutput) {
             session.addOutput(metadataOutput)
-
+            
             metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
-
+            
             let availableTypes = metadataObjectTypes.filter { type in
                 metadataOutput.availableMetadataObjectTypes.contains(type)
             }
-
+            
             metadataOutput.metadataObjectTypes = availableTypes
         }
     }
@@ -1006,7 +1033,8 @@ extension NextLevel {
             self._videoOutput = AVCaptureVideoDataOutput()
             self._videoOutput?.alwaysDiscardsLateVideoFrames = false
             
-            var videoSettings = [String(kCVPixelBufferPixelFormatTypeKey): Int(kCVPixelFormatType_32BGRA)]
+            var videoSettings = [String(kCVPixelBufferPixelFormatTypeKey):Int(kCVPixelFormatType_32BGRA)]
+            #if !( targetEnvironment(simulator) )
             if let formatTypes = self._videoOutput?.availableVideoPixelFormatTypes {
                 var supportsFullRange = false
                 var supportsVideoRange = false
@@ -1024,6 +1052,7 @@ extension NextLevel {
                     videoSettings[String(kCVPixelBufferPixelFormatTypeKey)] = Int(kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange)
                 }
             }
+            #endif
             self._videoOutput?.videoSettings = videoSettings
         }
         
@@ -1259,6 +1288,26 @@ extension NextLevel {
     public func unfreezePreview() {
         if let previewConnection = self.previewLayer.connection {
             previewConnection.isEnabled = true
+        }
+    }
+}
+
+// MARK: - audio device
+extension NextLevel {
+    
+    /// Removes the active audio device from the capture session. Will be useful for enabling haptics; as haptics will not work when the audio input device is active
+    public func disableAudioDevice() {
+        if let audioInput = self._audioInput, let session = self._captureSession {
+            session.removeInput(audioInput)
+        }
+    }
+    
+    /// Enables the audio input device for the capture session
+    public func enableAudioDevice() {
+        if let audioInput = self._audioInput, let session = self._captureSession {
+            if (session.canAddInput(audioInput)) {
+                session.addInput(audioInput)
+            }
         }
     }
 }
@@ -2116,7 +2165,7 @@ extension NextLevel {
                         print("unsupported frame rate for current device format config, \(newValue) fps")
                         return
                 }
-                    
+                
                 let fps: CMTime = CMTimeMake(value: 1, timescale: newValue)
                 do {
                     try device.lockForConfiguration()
@@ -2291,7 +2340,7 @@ extension NextLevel {
             var photoDict: [String: Any]?
             let ratio = self.videoConfiguration.aspectRatio.ratio
             if let customFrame = self._sessionVideoCustomContextImageBuffer {
-            
+                
                 // TODO append exif metadata
                 
                 // add JPEG, thumbnail
@@ -2898,17 +2947,17 @@ extension NextLevel {
 // MARK: - AVCaptureMetadataOutputObjectsDelegate
 
 extension NextLevel: AVCaptureMetadataOutputObjectsDelegate {
-
+    
     public func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         // convert metadata object coordinates to preview layer coordinates
         let convertedMetadataObjects = metadataObjects.compactMap { metadataObject in
             return self.previewLayer.transformedMetadataObject(for: metadataObject)
         }
-
+        
         // main queue is explicitly specified during configuration
         self.metadataObjectsDelegate?.metadataOutputObjects(self, didOutput: convertedMetadataObjects)
     }
-
+    
 }
 
 // MARK: - queues

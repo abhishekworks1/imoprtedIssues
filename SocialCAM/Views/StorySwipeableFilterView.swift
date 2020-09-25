@@ -36,7 +36,7 @@ struct StoryFilter: Equatable {
                                       ciFilter: CIFilter(name: "CIPhotoEffectProcess")),
                           StoryFilter(name: "Tonal",
                                       ciFilter: CIFilter(name: "CIPhotoEffectTonal")),
-                          StoryFilter(name: "Structure",
+                          StoryFilter(name: "Fine",
                                       ciFilter: CIFilter(name: "CISharpenLuminance",
                                                          parameters: ["inputSharpness": 5.0]))]
 }

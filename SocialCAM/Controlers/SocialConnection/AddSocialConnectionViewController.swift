@@ -138,6 +138,8 @@ class AddSocialConnectionViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        socialOptions.removeLast()
         backButton.isHidden = fromLogin
         connectButton.isHidden = !fromLogin
         skipButton.isHidden = !fromLogin

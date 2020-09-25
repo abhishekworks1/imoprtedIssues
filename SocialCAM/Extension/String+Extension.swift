@@ -25,6 +25,18 @@ extension Dictionary {
 }
 
 extension String {
+  
+    var lastPathComponent: String {
+        get {
+            return (self as NSString).lastPathComponent
+        }
+    }
+    
+    var stringByDeletingPathExtension: String {
+        get {
+            return (self as NSString).deletingPathExtension
+        }
+    }
     
     func toMIMETypeFromExt() -> String? {
         let ext = self.replacingOccurrences(of: ".", with: "").lowercased()

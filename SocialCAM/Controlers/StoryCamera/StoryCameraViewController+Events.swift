@@ -535,15 +535,23 @@ extension StoryCameraViewController: PickerViewDataSource {
             var maximumItem = "240"
             switch Defaults.shared.appMode {
             case .free:
-                maximumItem = "30"
+                if isSpeedCamApp || isSnapCamApp || isFastCamApp {
+                    maximumItem = "10"
+                } else {
+                    maximumItem = "30"
+                }
             case .basic:
-                if isViralCamLiteApp || isQuickCamLiteApp || isFastCamLiteApp || isSpeedCamLiteApp {
+                if isViralCamLiteApp || isQuickCamLiteApp || isFastCamLiteApp || isSpeedCamLiteApp || isSpeedCamApp || isSnapCamApp || isFastCamApp {
                     maximumItem = "30"
                 } else {
                     maximumItem = "60"
                 }
             case .advanced:
-                maximumItem = "180"
+                if isSpeedCamApp || isSnapCamApp || isFastCamApp {
+                    maximumItem = "60"
+                } else {
+                    maximumItem = "180"
+                }
             default:
                 break
             }

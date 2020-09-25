@@ -388,13 +388,13 @@ open class TrimmerView: UIView {
             .constraint(equalTo: leftDraggableView.trailingAnchor, constant: 0)
         
         cutViewWidthgAnchor = cutView.widthAnchor
-            .constraint(equalToConstant: 23)
+            .constraint(equalToConstant: 35)
         cutViewHeightAnchor = cutView.heightAnchor
-            .constraint(equalToConstant: 23)
+            .constraint(equalToConstant: 35)
         cutViewTopAnchor = cutView.topAnchor
-            .constraint(equalTo: topAnchor, constant: -18)
+            .constraint(equalTo: topAnchor, constant: -30)
         cutViewLeadingAnchor = cutView.leadingAnchor
-            .constraint(equalTo: leftDraggableView.trailingAnchor, constant: 0)
+            .constraint(equalTo: leftDraggableView.trailingAnchor, constant: 15)
         
         leftImageViewCenterX = leftImageView.centerXAnchor
             .constraint(equalTo: leftDraggableView.centerXAnchor)
@@ -746,7 +746,7 @@ open class TrimmerView: UIView {
         DispatchQueue.main.async {
             self.timePointerViewWidth = 2
             self.timePointerViewLeadingAnchor.constant = CGFloat(clampedPosition)
-            self.cutViewLeadingAnchor.constant = CGFloat(clampedPosition) - 9
+            self.cutViewLeadingAnchor.constant = CGFloat(clampedPosition) - 15
             self.layoutIfNeeded()
             self.layoutSubviews()
         }
