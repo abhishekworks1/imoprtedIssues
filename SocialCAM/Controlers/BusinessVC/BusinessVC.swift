@@ -97,6 +97,8 @@ class BusinessVC: UIViewController {
             navTitle = R.string.localizable.fastCamLite()
         } else if isSpeedCamApp {
             navTitle = R.string.localizable.speedCam()
+        } else if isSpeedCamLiteApp {
+            navTitle = R.string.localizable.speedCamLite()
         }
         
         navigationTitle.text = navTitle + " " + R.string.localizable.businessCenter()
@@ -177,9 +179,9 @@ extension BusinessVC: UICollectionViewDataSource, UICollectionViewDelegate, UICo
             self.navigationController?.present(calculatorSelectorVc, animated: true, completion: nil)
             break
         default:
-            #if VIRALCAMLITEAPP || FASTCAMLITEAPP || QUICKCAMLITEAPP
+            if isViralCamLiteApp || isQuickCamLiteApp || isFastCamLiteApp || isSpeedCamLiteApp {
             self.view.makeToast(R.string.localizable.thisFeatureIsNotAvailable())
-            #endif
+            }
             break
         }
     }

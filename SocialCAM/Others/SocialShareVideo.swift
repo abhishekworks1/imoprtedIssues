@@ -150,7 +150,7 @@ open class SocialShareVideo: NSObject, SharingDelegate {
         } else if isSnapCamApp {
             displayMessage = R.string.localizable.checkOutThisCoolNewAppSnapCam()
         } else if isSpeedCamApp {
-            displayMessage = R.string.localizable.checkOutThisCoolNewAppSpeedCam()
+            displayMessage = R.string.localizable.speedCam()
         } else if isTimeSpeedApp {
             displayMessage = R.string.localizable.checkOutThisCoolNewAppTimeSpeed()
         } else if isFastCamApp {
