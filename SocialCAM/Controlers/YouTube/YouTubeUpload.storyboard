@@ -20,7 +20,7 @@
         <!--You Tube Upload View Controller-->
         <scene sceneID="Ax9-2t-sSW">
             <objects>
-                <viewController storyboardIdentifier="YouTubeUploadViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="nPM-ws-Clc" customClass="YouTubeUploadViewController" customModule="SocialCam" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="YouTubeUploadViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="nPM-ws-Clc" customClass="YouTubeUploadViewController" customModule="BoomiCam" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="f0L-Fb-yBA">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -29,9 +29,9 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2ko-zc-0ac">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="819"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="763.5"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wfm-Kp-VPE" customClass="PlayerView" customModule="SocialCam" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wfm-Kp-VPE" customClass="PlayerView" customModule="BoomiCam" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="176.5"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vTN-AD-LIO">
@@ -49,7 +49,7 @@
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WvS-B6-VGH">
-                                                <rect key="frame" x="186" y="67.5" width="42" height="42"/>
+                                                <rect key="frame" x="165" y="46.5" width="84" height="84"/>
                                                 <state key="normal" image="storyPlay"/>
                                                 <connections>
                                                     <action selector="btnPlayPauseClicked:" destination="nPM-ws-Clc" eventType="touchUpInside" id="nGh-YU-UsZ"/>
@@ -96,7 +96,7 @@
                                                     <outlet property="delegate" destination="nPM-ws-Clc" id="ocU-Ge-F9I"/>
                                                 </connections>
                                             </textField>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" contentInsetAdjustmentBehavior="never" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="9os-oL-SYd" customClass="GrowingTextView" customModule="SocialCam" customModuleProvider="target">
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" contentInsetAdjustmentBehavior="never" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="9os-oL-SYd" customClass="GrowingTextView" customModule="BoomiCam" customModuleProvider="target">
                                                 <rect key="frame" x="12" y="266.5" width="387" height="80"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -193,7 +193,7 @@
                                                 </connections>
                                             </textField>
                                             <textField opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ne3-g9-P0y" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                                <rect key="frame" x="15" y="546.5" width="384" height="40"/>
+                                                <rect key="frame" x="15" y="491.5" width="384" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="VTo-xC-OQ8"/>
                                                 </constraints>
@@ -234,16 +234,16 @@
                                                 </connections>
                                             </textField>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icoArrowRight" translatesAutoresizingMaskIntoConstraints="NO" id="Hzl-dL-UR5">
-                                                <rect key="frame" x="391" y="560" width="8" height="13"/>
+                                                <rect key="frame" x="383" y="498.5" width="16" height="26"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Click &quot;Publish&quot; to make your video live." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KW0-a6-tKf">
-                                                <rect key="frame" x="15" y="606.5" width="384" height="17"/>
+                                                <rect key="frame" x="15" y="551.5" width="384" height="16.5"/>
                                                 <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="14"/>
                                                 <color key="textColor" red="0.19215686274509802" green="0.24705882352941178" blue="0.28235294117647058" alpha="0.603515625" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Yt5-Pf-Fju">
-                                                <rect key="frame" x="67" y="643.5" width="280" height="50"/>
+                                                <rect key="frame" x="67" y="588" width="280" height="50"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d95-zU-vYt">
                                                         <rect key="frame" x="0.0" y="0.0" width="130" height="50"/>
@@ -465,7 +465,7 @@
                                     <constraint firstAttribute="height" constant="260" id="xYf-Sg-8YW"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="USd-2S-Oh7" customClass="BorderView" customModule="SocialCam" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="USd-2S-Oh7" customClass="BorderView" customModule="BoomiCam" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dhb-pg-Tdt">
@@ -480,8 +480,8 @@
                                             <action selector="btnBackClicked:" destination="nPM-ws-Clc" eventType="touchUpInside" id="7sf-J4-807"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upload YouTube" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nKR-a7-DmZ" customClass="PLabel" customModule="SocialCam" customModuleProvider="target">
-                                        <rect key="frame" x="136.5" y="11.5" width="141" height="21.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upload YouTube" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nKR-a7-DmZ" customClass="PLabel" customModule="BoomiCam" customModuleProvider="target">
+                                        <rect key="frame" x="141" y="11.5" width="132.5" height="21"/>
                                         <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="18"/>
                                         <color key="textColor" red="0.19215686274509802" green="0.24705882352941178" blue="0.28235294117647058" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -521,6 +521,7 @@
                         <outlet property="activityIndicator" destination="EBU-8x-alk" id="S2h-xI-YYy"/>
                         <outlet property="btnPlayPause" destination="WvS-B6-VGH" id="FcN-hE-7cA"/>
                         <outlet property="btnPublish" destination="Rol-0r-NEM" id="472-3O-PPh"/>
+                        <outlet property="imgThumbnail" destination="vTN-AD-LIO" id="d0h-gd-CLX"/>
                         <outlet property="pickerContainer" destination="7Hs-Wn-gUu" id="t4Q-q9-McV"/>
                         <outlet property="playerView" destination="Wfm-Kp-VPE" id="jg9-H6-Ufy"/>
                         <outlet property="privacyPicker" destination="AtV-zM-gBK" id="vUi-a8-tiz"/>
@@ -539,12 +540,12 @@
         <!--You Tube Categories View Controller-->
         <scene sceneID="1Su-5z-VpM">
             <objects>
-                <viewController storyboardIdentifier="YouTubeCategoriesViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9m7-d4-Ueh" customClass="YouTubeCategoriesViewController" customModule="SocialCam" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="YouTubeCategoriesViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9m7-d4-Ueh" customClass="YouTubeCategoriesViewController" customModule="BoomiCam" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="SyY-S4-otg">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UNl-LK-xgS" customClass="BorderView" customModule="SocialCam" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UNl-LK-xgS" customClass="BorderView" customModule="BoomiCam" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="72k-KC-gYD">
@@ -560,8 +561,8 @@
                                             <action selector="btnBackClicked:" destination="9m7-d4-Ueh" eventType="touchUpInside" id="yYw-ax-A6q"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Categories" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bnF-w1-AaI" customClass="PLabel" customModule="SocialCam" customModuleProvider="target">
-                                        <rect key="frame" x="159.5" y="11.5" width="95" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Categories" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bnF-w1-AaI" customClass="PLabel" customModule="BoomiCam" customModuleProvider="target">
+                                        <rect key="frame" x="163.5" y="11.5" width="87.5" height="21"/>
                                         <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="18"/>
                                         <color key="textColor" red="0.19215686269999999" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -585,7 +586,7 @@
                                 <rect key="frame" x="0.0" y="99" width="414" height="759"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="YouCategoryTableViewCell" id="qft-wa-dcF" customClass="YouCategoryTableViewCell" customModule="SocialCam" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="YouCategoryTableViewCell" id="qft-wa-dcF" customClass="YouCategoryTableViewCell" customModule="BoomiCam" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="20.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qft-wa-dcF" id="3ko-UV-5CZ">

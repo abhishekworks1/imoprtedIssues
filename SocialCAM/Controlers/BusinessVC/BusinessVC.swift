@@ -32,14 +32,14 @@ struct BusinessVCOption {
     
     static let contents: [BusinessVCOption] = [BusinessVCOption(name: R.string.localizable.share(), image: R.image.share(), type: .share),
                                                BusinessVCOption(name: R.string.localizable.subscription(), image: R.image.subscription(), type: .subscription),
-                                               BusinessVCOption(name: R.string.localizable.socialConnection(), image: R.image.socialConnection(), type: .socialConnection),
-                                               BusinessVCOption(name: "\(R.string.localizable.channel()) \n \(R.string.localizable.management())", image: R.image.channelManagement(), type: .channelManagement),
-                                               BusinessVCOption(name: R.string.localizable.stats(), image: R.image.stat(), type: .stats),
-                                               BusinessVCOption(name: R.string.localizable.leaderboard(), image: R.image.leaderboard(), type: .leaderboard),
                                                BusinessVCOption(name: R.string.localizable.announcement(), image: R.image.announcementCopy(), type: .announcement),
+                                               BusinessVCOption(name: "\(R.string.localizable.channel()) \n \(R.string.localizable.management())", image: R.image.channelManagement(), type: .channelManagement),
+                                               BusinessVCOption(name: R.string.localizable.calculator(), image: R.image.calculator(), type: .calculator),
+                                               BusinessVCOption(name: R.string.localizable.socialConnection(), image: R.image.socialConnection(), type: .socialConnection),
+                                               BusinessVCOption(name: R.string.localizable.leaderboard(), image: R.image.leaderboard(), type: .leaderboard),
                                                BusinessVCOption(name: R.string.localizable.map(), image: R.image.world(), type: .map),
                                                BusinessVCOption(name: R.string.localizable.followerNetwork(), image: R.image.genealogy(), type: .genealogy),
-                                               BusinessVCOption(name: R.string.localizable.calculator(), image: R.image.calculator(), type: .calculator),
+                                               BusinessVCOption(name: R.string.localizable.stats(), image: R.image.stat(), type: .stats),
                                                BusinessVCOption(name: R.string.localizable.money(), image: R.image.money(), type: .money),
                                                BusinessVCOption(name: R.string.localizable.influencerTools(), image: R.image.subscribers(), type: .influencerTools),
                                                BusinessVCOption(name: R.string.localizable.iicC(), image: R.image.iiCc(), type: .iicC)]
@@ -123,7 +123,7 @@ extension BusinessVC: UICollectionViewDataSource, UICollectionViewDelegate, UICo
         let businessVCOption = BusinessVCOption.contents[indexPath.row]
         if businessVCOption.type != .subscription && businessVCOption.type != .socialConnection && businessVCOption.type != .channelManagement && businessVCOption.type != .share && businessVCOption.type != .calculator {
             cell.tagImageView.alpha = 0.5
-            cell.tagLabel.alpha = 0.5
+            cell.tagLabel.alpha = 0.7
         }
         
         cell.tagImageView.image = BusinessVCOption.contents[indexPath.row].image
@@ -181,6 +181,8 @@ extension BusinessVC: UICollectionViewDataSource, UICollectionViewDelegate, UICo
         default:
             if isViralCamLiteApp || isQuickCamLiteApp || isFastCamLiteApp || isSpeedCamLiteApp {
             self.view.makeToast(R.string.localizable.thisFeatureIsNotAvailable())
+            } else {
+                self.view.makeToast(R.string.localizable.comingSoon())
             }
             break
         }

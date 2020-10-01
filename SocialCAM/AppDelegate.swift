@@ -17,6 +17,7 @@ import GoogleMaps
 import AppCenter
 import AppCenterAnalytics
 import AppCenterCrashes
+import EasyTipView
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -29,6 +30,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         configureIQKeyboardManager()
         
         configureAppTheme()
+        
+        var preferences = EasyTipView.Preferences()
+        preferences.drawing.foregroundColor = UIColor.white
+        preferences.drawing.backgroundColor = UIColor.black.withAlphaComponent(0.8)
+        preferences.drawing.arrowPosition = EasyTipView.ArrowPosition.top
+        EasyTipView.globalPreferences = preferences
         
         ColorCubeStorage.loadToDefault()
        

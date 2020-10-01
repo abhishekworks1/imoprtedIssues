@@ -61,6 +61,8 @@ def projectShared_pods
     pod 'MXPagerView', :git => 'https://github.com/simformsolutions/MXPagerView'
     pod 'MXSegmentedPager', :git => 'https://github.com/simformsolutions/MXSegmentedPager'
     pod "ESPullToRefresh"
+    pod 'EasyTipView', '~> 2.0.4'
+
     shared_pods
 end
 

@@ -29,7 +29,7 @@ class SubscriptionSettings {
     static var storySettings = [StorySettings(name: R.string.localizable.subscriptions(),
                                               settings: [StorySetting(name: R.string.localizable.free(),
                                                                       selected: true),
-                                                         StorySetting(name: R.string.localizable.basic(),
+                                                         StorySetting(name: (isViralCamLiteApp || isQuickCamLiteApp || isFastCamLiteApp || isSpeedCamLiteApp ? R.string.localizable.basicLite() :  R.string.localizable.basic()),
                                                                       selected: false),
                                                          StorySetting(name: R.string.localizable.advanced(),
                                                                       selected: true),
@@ -170,8 +170,13 @@ extension SubscriptionVC: UITableViewDataSource, UITableViewDelegate {
             message = R.string.localizable.areYouSureYouWantToEnableFree()
             successMessage = R.string.localizable.freeModeIsEnabled()
         case .basic:
-            message = R.string.localizable.areYouSureYouWantToEnableBasic()
-            successMessage = R.string.localizable.basicModeIsEnabled()
+            if isViralCamLiteApp || isQuickCamLiteApp || isFastCamLiteApp || isSpeedCamLiteApp {
+                message = R.string.localizable.areYouSureYouWantToEnableBasicLite()
+                successMessage = R.string.localizable.basicLiteModeIsEnabled()
+            } else {
+                message = R.string.localizable.areYouSureYouWantToEnableBasic()
+                successMessage = R.string.localizable.basicModeIsEnabled()
+            }
         case .advanced:
             message = R.string.localizable.areYouSureYouWantToEnableAdvanced()
             successMessage = R.string.localizable.advancedModeIsEnabled()

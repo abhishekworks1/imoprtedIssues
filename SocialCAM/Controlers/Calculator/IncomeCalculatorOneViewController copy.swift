@@ -42,8 +42,10 @@ class IncomeCalculatorOneViewController: UIViewController {
     // MARK: -
     // MARK: - Outlets
     
+    @IBOutlet weak var inAppSlider: UISlider!
     @IBOutlet weak var txtDirectReferCount: UITextField!
     @IBOutlet weak var txtLevel2ReferCount: UITextField!
+    @IBOutlet weak var percentageSlider: UISlider!
     @IBOutlet weak var txtLevel3ReferCount: UITextField!
     @IBOutlet weak var lblAverageInAppPurchase: UILabel!
     @IBOutlet weak var lblPercentageFilled: UILabel!
@@ -59,7 +61,7 @@ class IncomeCalculatorOneViewController: UIViewController {
             self.lblAverageInAppPurchase.text = "$" + averageInAppPurchase.description
         }
     }
-    private var percentageFilled = 100 {
+    private var percentageFilled = 10 {
         didSet {
             self.lblPercentageFilled.text = percentageFilled.description + "%"
         }
@@ -78,8 +80,6 @@ class IncomeCalculatorOneViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        lblPercentageFilled.font = R.font.sfuiTextSemibold(size: 15.0) ?? UIFont.systemFont(ofSize: 15.0)
-        lblAverageInAppPurchase.font = R.font.sfuiTextSemibold(size: 15.0) ?? UIFont.systemFont(ofSize: 15.0)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -97,29 +97,13 @@ class IncomeCalculatorOneViewController: UIViewController {
     @IBAction func btnBackTapped(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
-
-    @IBAction func percentageMinusTapped(_ sender: Any) {
-        if self.percentageFilled > 1 {
-            self.percentageFilled -= 1
-        }
+    
+    @IBAction func percentageSliderChanged(_ sender: UISlider) {
+        self.percentageFilled = Int(sender.value)
     }
     
-    @IBAction func percentagePlusTapped(_ sender: Any) {
-        if self.percentageFilled < 100 {
-            self.percentageFilled += 1
-        }
-    }
-    
-    @IBAction func inAppPurchaseMinusTapped(_ sender: Any) {
-        if self.averageInAppPurchase > 1 {
-            self.averageInAppPurchase -= 1
-        }
-    }
-    
-    @IBAction func inAppPurchasePlusTapped(_ sender: Any) {
-        if self.averageInAppPurchase < 35 {
-            self.averageInAppPurchase += 1
-        }
+    @IBAction func inAppSliderChanged(_ sender: UISlider) {
+        self.averageInAppPurchase = Int(sender.value)
     }
     
     // MARK: -

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import EasyTipView
 
 class CalculatorTableViewCell: UITableViewCell {
     
@@ -36,6 +37,7 @@ class CalculatorViewController: UIViewController {
     // MARK: -
     // MARK: - Outlets
     
+    @IBOutlet weak var percentageSlider: UISlider!
     @IBOutlet weak var txtReferCount: UITextField!
     @IBOutlet weak var txtOtherReferCount: UITextField!
     @IBOutlet weak var tableview: UITableView!
@@ -55,9 +57,11 @@ class CalculatorViewController: UIViewController {
     private var percentage = 10 {
         didSet {
             self.lblPercentageFilled.text = percentage.description + "%"
+            self.percentageSlider.value = Float(percentage)
         }
     }
-    private var followersCount = [String]()
+    private var toolTip = EasyTipView(text: "")
+    private var followersCount = [Int]()
     
     // MARK: -
     // MARK: - Life Cycle Methods
@@ -65,7 +69,6 @@ class CalculatorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableview.tableHeaderView = tableHeaderView
-        lblPercentageFilled.font = R.font.sfuiTextSemibold(size: 15.0) ?? UIFont.systemFont(ofSize: 15.0)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -76,6 +79,11 @@ class CalculatorViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.tableview.tableHeaderView?.frame.size.height = 126
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        self.toolTip.dismiss()
     }
 
     // MARK: -
@@ -88,23 +96,29 @@ class CalculatorViewController: UIViewController {
     @IBAction func btnBackTapped(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
-
-    @IBAction func btnPlusTapped(_ sender: Any) {
-        if self.percentage < 100 {
-            percentage += 1
-        }
+    
+    @IBAction func percentageBarChanged(_ sender: UISlider) {
+        self.toolTip.dismiss()
+        self.percentage = Int(sender.value)
     }
     
-    @IBAction func btnMinusTapped(_ sender: Any) {
-        if self.percentage > 1 {
-            percentage -= 1
-        }
+    @IBAction func directReferHelpTapped(_ sender: UIButton) {
+        self.toolTip.dismiss()
+        toolTip = EasyTipView(text: R.string.localizable.numberOfPeopleYouPersonallyReferInTheNext612Months(), preferences: EasyTipView.globalPreferences)
+        toolTip.show(animated: true, forView: sender, withinSuperview: self.view)
+    }
+    
+    @IBAction func indirectReferHelpTapped(_ sender: UIButton) {
+        self.toolTip.dismiss()
+        toolTip = EasyTipView(text: R.string.localizable.averageNumberOfPeopleTheyReferInTheNext612Months(), preferences: EasyTipView.globalPreferences)
+        toolTip.show(animated: true, forView: sender, withinSuperview: self.view)
     }
     
     // MARK: -
     // MARK: - Class Functions
     
     private func validateAndCalculate() {
+        self.toolTip.dismiss()
         self.view.endEditing(true)
         if let referCount = self.txtReferCount.text, let otherReferCount = self.txtOtherReferCount.text, let referCountInt = Int(referCount), let otherReferCountInt = Int(otherReferCount), referCountInt <= self.referLimit, otherReferCountInt <= self.otherReferLimit {
             self.referCount = referCountInt
@@ -118,12 +132,14 @@ class CalculatorViewController: UIViewController {
     }
     
     private func calculateFollowers() {
-        self.followersCount = []
-        self.totalCount = 0
-        for row in 0...referCount - 1 {
-            self.followersCount.append(self.getFollowers(indexPath: IndexPath(row: row, section: 0)))
+        self.followersCount = [self.referCount]
+        self.totalCount = self.referCount
+        for row in 1...9 {
+            let newFollowers = followersCount[row - 1] * self.otherReferCount * percentage / 100
+            self.followersCount.append(newFollowers)
+            self.totalCount += newFollowers
         }
-        self.lblTotalFollowers.text = totalCount.description
+        self.lblTotalFollowers.text = self.getFormattedNumberString(number: totalCount)
     }
     
     private func getCalculatorConfig() {
@@ -153,25 +169,26 @@ class CalculatorViewController: UIViewController {
 extension CalculatorViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return referCount + 1
+        return referCount == 0 ? 0 : 11
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.calculatorCell.identifier) as? CalculatorTableViewCell else { return UITableViewCell() }
-        if indexPath.row == referCount {
-            cell.setData(level: "Total", followers: self.totalCount.description)
+        if indexPath.row == 10 {
+            cell.setData(level: "Total", followers: self.getFormattedNumberString(number: totalCount))
             cell.setBlueBorder()
         } else {
-            cell.setData(level: "\(indexPath.row + 1)", followers: self.followersCount[indexPath.row])
+            cell.setData(level: "\(indexPath.row + 1)", followers: self.getFormattedNumberString(number: self.followersCount[indexPath.row]))
             cell.setGrayBorder()
         }
         return cell
     }
     
-    private func getFollowers(indexPath: IndexPath) -> String {
-        let followers = referCount * Int(pow(Double(otherReferCount), Double(indexPath.row + 1))) * percentage/100
-        totalCount += followers
-        return followers.description
+    private func getFormattedNumberString(number: Int) -> String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        let formattedNumber = numberFormatter.string(from: NSNumber(value: number))
+        return formattedNumber ?? ""
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -182,4 +199,29 @@ extension CalculatorViewController: UITableViewDataSource, UITableViewDelegate {
         return 45
     }
 
+}
+
+extension CalculatorViewController: UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if string == "" {
+            return true
+        } else {
+            var maxLimit = 0
+            switch textField {
+            case self.txtReferCount:
+                maxLimit = self.referLimit
+            case self.txtOtherReferCount:
+                maxLimit = self.otherReferLimit
+            default:
+                return true
+            }
+            if let text = textField.text, let int = Int(text + string), int <= maxLimit {
+                return true
+            } else {
+                return false
+            }
+        }
+    }
+    
 }
