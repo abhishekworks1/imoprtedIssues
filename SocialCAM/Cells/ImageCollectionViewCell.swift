@@ -71,6 +71,98 @@ class ImageCollectionViewCell: UICollectionViewCell {
         trimmerView?.isHidden = true
     }
     
+    func setLayout(indexPath: IndexPath, currentPage: Int, currentAsset: AVAsset, storySegment: [StoryEditorMedia]) {
+        var borderColor: CGColor! = ApplicationSettings.appClearColor.cgColor
+        var borderWidth: CGFloat = 0
+        if currentPage == indexPath.row || storySegment.first!.isSelected {
+            borderColor = ApplicationSettings.appPrimaryColor.cgColor
+            borderWidth = 3
+            self.lblVideoersiontag.isHidden = false
+        } else {
+            borderColor = ApplicationSettings.appWhiteColor.cgColor
+            borderWidth = 3
+            self.lblVideoersiontag.isHidden = true
+        }
+        self.imagesStackView.tag = indexPath.row
+        let views = self.imagesStackView.subviews
+        for view in views {
+            self.imagesStackView.removeArrangedSubview(view)
+        }
+        
+        self.lblSegmentCount.text = "\(indexPath.row + 1)"
+        
+        var mainView: UIView = UIView()
+        var imageView = UIImageView()
+        
+        self.imagesView.layer.cornerRadius = 5
+        self.imagesView.layer.borderWidth = borderWidth
+        self.imagesView.layer.borderColor = borderColor
+       
+        if currentPage == indexPath.row {
+            for (index, _) in storySegment.enumerated() {
+                mainView = UIView.init(frame: CGRect(x: 0, y: 3, width: Double(41 * 1.2), height: Double(self.imagesView.frame.height * 1.18)))
+                
+                imageView = UIImageView.init(frame: CGRect(x: 0, y: 0, width: Double(41 * 1.2), height: Double(self.imagesView.frame.height * 1.18)))
+                guard let thumbImage = currentAsset.thumbnailImage() else {
+                    return
+                }
+                imageView.image = thumbImage
+                imageView.contentMode = .scaleToFill
+                imageView.clipsToBounds = true
+                mainView.addSubview(imageView)
+                self.imagesStackView.addArrangedSubview(mainView)
+            }
+            self.loadAsset(currentAsset)
+        } else {
+            if !(storySegment.first?.isSelected ?? false) {
+                for (index, _) in storySegment.enumerated() {
+                    mainView = UIView(frame: CGRect(x: 0, y: 3, width: Double(35), height: Double(imagesView.frame.height)))
+                    
+                    imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: Double(35), height: Double(imagesView.frame.height)))
+                    guard let thumbImage = currentAsset.thumbnailImage() else {
+                        return
+                    }
+                    imageView.image = thumbImage
+                    imageView.contentMode = .scaleToFill
+                    imageView.clipsToBounds = true
+                    mainView.addSubview(imageView)
+                    imagesStackView.addArrangedSubview(mainView)
+                }
+            } else {
+                mainView = UIView.init(frame: CGRect(x: 0, y: 3, width: Double(35 * 1.2), height: Double(imagesView.frame.height * 1.18)))
+                imageView = UIImageView.init(frame: CGRect(x: 0, y: 0, width: Double(35 * 1.2), height: Double(imagesView.frame.height * 1.18)))
+                guard let thumbImage = currentAsset.thumbnailImage() else {
+                    return
+                }
+                imageView.image = thumbImage
+                imageView.contentMode = .scaleToFill
+                imageView.clipsToBounds = true
+                mainView.addSubview(imageView)
+                imagesStackView.addArrangedSubview(mainView)
+            }
+        }
+        self.layoutIfNeeded()
+        self.isHidden = false
+    }
+    
+    func setEditLayout(indexPath: IndexPath, currentPage: Int, currentAsset: AVAsset) {
+        self.lblVideoersiontag.isHidden = false
+       
+        let views = self.imagesStackView.subviews
+        for view in views {
+            self.imagesStackView.removeArrangedSubview(view)
+        }
+        imagesView.layer.cornerRadius = 5
+        imagesView.layer.borderWidth = 3
+        imagesView.layer.borderColor = ApplicationSettings.appPrimaryColor.cgColor
+        lblSegmentCount.text = "\(currentPage + 1)"
+        isEditMode = true
+        loadAsset(currentAsset)
+        
+        self.layoutIfNeeded()
+        self.isHidden = false
+    }
+    
     func loadAsset(_ asset: AVAsset) {
         trimmerView.layoutIfNeeded()
         trimmerView.minVideoDurationAfterTrimming = 3.0

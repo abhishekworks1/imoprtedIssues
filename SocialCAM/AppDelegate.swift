@@ -246,7 +246,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         rootViewController?.view.addSubview(revealingSplashView)
         UIApplication.shared.delegate!.window!!.rootViewController = rootViewController
         revealingSplashView.startAnimation() {
-            print("Completed SplashView")
+            dLog("Completed SplashView")
         }
         IAPManager.shared.startObserving()
         return true

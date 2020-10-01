@@ -134,6 +134,13 @@ class StoryEditorViewController: UIViewController {
             self.trimOptionView.isHidden = true
         }
     }
+    
+    @IBOutlet weak var mergeOptionView: UIView! {
+        didSet {
+            self.mergeOptionView.isHidden = true
+        }
+    }
+    
     @IBOutlet weak var timeSpeedOptionView: UIView! {
         didSet {
             self.timeSpeedOptionView.isHidden = true
@@ -399,6 +406,7 @@ class StoryEditorViewController: UIViewController {
         }
         self.soundOptionView.isHidden = isImage
         self.trimOptionView.isHidden = isImage
+        self.mergeOptionView.isHidden = isImage
         if !isBoomiCamApp && !isFastCamApp && !isViralCamLiteApp && !isFastCamLiteApp && !isQuickCamLiteApp || isSpeedCamLiteApp {
             self.timeSpeedOptionView.isHidden = Defaults.shared.appMode != .free ? isImage : true
         } else {
@@ -502,8 +510,48 @@ extension StoryEditorViewController {
         soundButton.setImage(soundIcon, for: .normal)
     }
     
+    @IBAction func mergeVideosClicked(_ sender: UIButton) {
+        let mergeVC: MergeVideoVC = R.storyboard.videoTrim.mergeVideoVC()!
+        
+        var filteredMedias: [StoryEditorMedia] = []
+        for editor in storyEditors {
+            if case StoryEditorType.video(_, _) = editor.type {
+                filteredMedias.append(StoryEditorMedia(type: editor.type))
+            } else {
+                filteredImagesStory.append(StoryEditorMedia(type: editor.type))
+            }
+        }
+        
+        mergeVC.videoUrls = filteredMedias
+        mergeVC.doneHandler = { [weak self] urls in
+            guard let `self` = self else {
+                return
+            }
+            self.currentStoryIndex = 0
+            self.medias.removeAll()
+            
+            for item in urls {
+                guard let storyEditorMedia = item.copy() as? StoryEditorMedia else {
+                    return
+                }
+                self.medias.append(storyEditorMedia)
+            }
+            
+            self.medias.append(contentsOf: self.filteredImagesStory)
+            
+            for storyEditor in self.storyEditors {
+                storyEditor.removeFromSuperview()
+            }
+            self.filteredImagesStory.removeAll()
+            self.storyEditors.removeAll()
+            self.setupFilterViews()
+            self.needToExportVideo()
+        }
+        self.navigationController?.pushViewController(mergeVC, animated: true)
+    }
+    
     @IBAction func trimClicked(_ sender: UIButton) {
-        let trimVC: TrimEditorViewController = R.storyboard.photoEditor.trimEditorViewController()!
+        let trimVC: TrimEditorViewController = R.storyboard.videoTrim.trimEditorViewController()!
         
         var filteredMedias: [StoryEditorMedia] = []
         for editor in storyEditors {

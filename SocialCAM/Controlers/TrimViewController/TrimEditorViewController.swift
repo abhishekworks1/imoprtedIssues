@@ -8,18 +8,12 @@
 
 import Foundation
 import AVKit
-import SCRecorder
-import IQKeyboardManagerSwift
-import CoreLocation
-
-enum ViewState {
-  case splitView, mergeView, handlerModeView
-}
 
 class TrimEditorViewController: UIViewController {
     @IBOutlet weak var postStoryButton: UIButton!
     @IBOutlet weak var storyExportLabel: UILabel!
     @IBOutlet weak var storyCollectionView: DragAndDropCollectionView!
+    @IBOutlet weak var editStoryCollectionView: DragAndDropCollectionView!
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var topToolbar: UIView!
     @IBOutlet weak var bottomToolbar: UIView!
@@ -31,7 +25,6 @@ class TrimEditorViewController: UIViewController {
     @IBOutlet weak var mergeView: UIView!
     @IBOutlet weak var handlerModeView: UIView!
     @IBOutlet open var videoView: UIView!
-    
     @IBOutlet weak var doneView: UIView!
     @IBOutlet weak var segmentTypeMergeView: UIStackView! {
         didSet {
@@ -51,33 +44,6 @@ class TrimEditorViewController: UIViewController {
     @IBOutlet weak var combineButton: UIButton!
     @IBOutlet weak var resequenceButton: UIButton!
     @IBOutlet weak var resequenceLabel: UILabel!
-    var lastSelectedViewState: ViewState = .splitView
-    
-    var currentViewState: ViewState = .splitView {
-        didSet {
-            if currentViewState == .splitView {
-                isMergeModeEnable = false
-                mergeButton.isSelected = false
-                isMovable = mergeButton.isSelected
-                splitView.alpha = 1
-                mergeView.alpha = 0.5
-                handlerModeView.alpha = 0.5
-                segmentEditOptionView.isHidden = true
-                segmentEditOptionButton.isHidden = true
-                segmentTypeMergeView.isHidden = true
-            } else if currentViewState == .mergeView {
-                isMergeModeEnable = true
-                mergeButton.isSelected = false
-                isMovable = mergeButton.isSelected
-                splitView.alpha = 0.5
-                mergeView.alpha = 1
-                handlerModeView.alpha = 0.5
-                segmentEditOptionView.isHidden = segmentEditOptionButton.isSelected
-                segmentEditOptionButton.isHidden = false
-                segmentTypeMergeView.isHidden = true
-            }
-        }
-    }
     
     var isOriginalSequence = false
     var undoMgr = MyUndoManager<Void>()
@@ -87,44 +53,19 @@ class TrimEditorViewController: UIViewController {
     var draggingCell: IndexPath?
     var lastMergeCell: IndexPath?
     var isStartMovable: Bool = false
-    var isMovable: Bool = false
-    private var dragAndDropManager: DragAndDropManager?
     
     // MARK: - Public Properties
-    public private(set) var currentTime = CMTime.zero
     var videoUrls: [StoryEditorMedia] = []
-    
     var storyEditorMedias: [[StoryEditorMedia]] = []
     var resetStoryEditorMedias: [[StoryEditorMedia]] = []
     
     var currentPlayVideo: Int = -1
-    var selectedItem: Int = 0
     var isViewAppear = false
     var currentPage: Int = 0
     var playerObserver: Any?
-    var isEditMode: Bool = false
-    var isMergeModeEnable: Bool = false {
-        didSet {
-            if !isMergeModeEnable {
-                splitView.alpha = 1
-                mergeView.alpha = 0.5
-                segmentEditOptionView.isHidden = true
-                segmentEditOptionButton.isHidden = true
-                segmentTypeMergeView.isHidden = true
-            } else {
-                splitView.alpha = 0.5
-                mergeView.alpha = 1
-                segmentEditOptionView.isHidden = segmentEditOptionButton.isSelected
-                segmentEditOptionButton.isHidden = false
-                segmentTypeMergeView.isHidden = true
-            }
-        }
-    }
-    
-    var positionConstraint: NSLayoutConstraint?
+    var isEditMode: Bool = true
     var heightConstraint: NSLayoutConstraint?
     var isPlayerInitialize = false
-    let positionBar = UIView()
     var playbackTimeCheckerTimer: Timer?
     var doneHandler: ((_ urls: [StoryEditorMedia]) -> Void)?
     @IBInspectable open var isTimePrecisionInfinity: Bool = false
@@ -167,7 +108,6 @@ class TrimEditorViewController: UIViewController {
             storyEditorMedias.append([videoSegment])
             resetStoryEditorMedias.append([videoSegment])
         }
-        isMergeModeEnable = false
         doneView.alpha = 0.5
         doneView.isUserInteractionEnabled = false
     }
@@ -188,7 +128,6 @@ class TrimEditorViewController: UIViewController {
         super.viewWillAppear(animated)
         isViewAppear = true
         observeState()
-        IQKeyboardManager.shared.enableAutoToolbar = false
     }
     
     public override func viewDidAppear(_ animated: Bool) {
@@ -196,7 +135,7 @@ class TrimEditorViewController: UIViewController {
         playerLayer?.frame = videoView.frame
         if !isPlayerInitialize {
             isPlayerInitialize = true
-            connVideoPlay()
+            connVideoPlay(isReload: true)
         }
     }
     
@@ -215,39 +154,13 @@ class TrimEditorViewController: UIViewController {
                 self.playerObserver = nil
             }
         }
-        
         removeObserveState()
-        IQKeyboardManager.shared.enableAutoToolbar = true
-    }
-    
-    func setupPositionBar(cell: ImageCollectionViewCell) {
-        positionBar.frame = CGRect(x: 0, y: 0, width: 3, height: cell.imagesView.frame.height)
-        positionBar.backgroundColor = ApplicationSettings.appWhiteColor
-        positionBar.center = CGPoint(x: cell.imagesView.frame.maxX + 10, y: cell.imagesView.center.y)
-        positionBar.layer.cornerRadius = 1
-        positionBar.translatesAutoresizingMaskIntoConstraints = false
-        positionBar.isUserInteractionEnabled = false
-        cell.contentView.addSubview(positionBar)
-        
-        positionBar.centerYAnchor.constraint(equalTo: cell.centerYAnchor, constant: 7).isActive = true
-        positionBar.widthAnchor.constraint(equalToConstant: 2).isActive = true
-        cell.imagesView.layoutIfNeeded()
-        heightConstraint = positionBar.heightAnchor.constraint(equalToConstant: CGFloat(cell.imagesView.frame.height))
-        heightConstraint?.isActive = true
-        positionConstraint = positionBar.leftAnchor.constraint(equalTo: cell.leftAnchor)
-        positionConstraint?.isActive = true
-    }
-    
-    func removePositionBar(cell: ImageCollectionViewCell) {
-        positionBar.removeFromSuperview()
     }
     
     fileprivate func setupLayout() {
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         self.storyCollectionView.register(R.nib.imageCollectionViewCell)
-        
-        self.dragAndDropManager = DragAndDropManager(canvas: self.view,
-                                                     collectionViews: [self.storyCollectionView])
+        self.editStoryCollectionView.register(R.nib.imageCollectionViewCell)
     }
     
     func getPosition(from time: CMTime, cell: ImageCollectionViewCell, index: IndexPath) -> CGFloat? {
@@ -259,22 +172,24 @@ class TrimEditorViewController: UIViewController {
             let timeRatio = CGFloat(time.value) * CGFloat(currentAsset.duration.timescale) /
                 (CGFloat(time.timescale) * CGFloat(currentAsset.duration.value))
             return timeRatio * cell.bounds.width
+        } else if let cell: ImageCollectionViewCell = self.editStoryCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? ImageCollectionViewCell {
+            guard let currentAsset = currentAsset(index: self.currentPage) else {
+                return 0
+            }
+            
+            let timeRatio = CGFloat(time.value) * CGFloat(currentAsset.duration.timescale) /
+                (CGFloat(time.timescale) * CGFloat(currentAsset.duration.value))
+            return timeRatio * cell.bounds.width
         }
+        
         return 0
     }
     
     /// Move the position bar to the given time.
     func seek(to time: CMTime, cell: ImageCollectionViewCell) {
-        if let newPosition = getPosition(from: time, cell: cell, index: IndexPath.init(row: 0, section: 0)) {
-            let offsetPosition = newPosition
-            let maxPosition = cell.imagesView.bounds.width
-            let normalizedPosition = min(max(0, offsetPosition), maxPosition)
-            positionConstraint?.constant = normalizedPosition
-            cell.imagesView.layoutIfNeeded()
-            heightConstraint?.constant = cell.imagesView.frame.height
-            cell.videoPlayerPlayback(to: time, asset: cell.trimmerView.thumbnailsView.asset)
-            cell.layoutIfNeeded()
-        }
+        cell.imagesView.layoutIfNeeded()
+        cell.videoPlayerPlayback(to: time, asset: cell.trimmerView.thumbnailsView.asset)
+        cell.layoutIfNeeded()
     }
     
     func startPlaybackTimeChecker() {
@@ -292,7 +207,7 @@ class TrimEditorViewController: UIViewController {
     @objc func onPlaybackTimeChecker() {
         if let player = self.player {
             let playBackTime = player.currentTime()
-            if let cell: ImageCollectionViewCell = self.storyCollectionView.cellForItem(at: getCurrentIndexPath) as? ImageCollectionViewCell {
+            if let cell: ImageCollectionViewCell = self.editStoryCollectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? ImageCollectionViewCell {
                 if !isStartMovable {
                     guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
                         return
@@ -310,7 +225,7 @@ class TrimEditorViewController: UIViewController {
             }
         }
     }
-
+    
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         if let player = player {
             player.pause()
@@ -327,6 +242,11 @@ class TrimEditorViewController: UIViewController {
                     return
                 }
                 player.seek(to: startTime, toleranceBefore: tolerance, toleranceAfter: tolerance)
+            } else if let cell: ImageCollectionViewCell = self.editStoryCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? ImageCollectionViewCell {
+                guard let startTime = cell.trimmerView.startTime else {
+                    return
+                }
+                player.seek(to: startTime, toleranceBefore: tolerance, toleranceAfter: tolerance)
             }
         }
     }
@@ -336,6 +256,9 @@ class TrimEditorViewController: UIViewController {
 extension TrimEditorViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if collectionView == self.editStoryCollectionView {
+            return 1
+        }
         return storyEditorMedias.count
     }
     
@@ -348,84 +271,21 @@ extension TrimEditorViewController: UICollectionViewDataSource {
             fatalError("Unable to find cell with '\(R.nib.imageCollectionViewCell.identifier)' reuseIdentifier")
         }
         
-        var borderColor: CGColor! = ApplicationSettings.appClearColor.cgColor
-        var borderWidth: CGFloat = 0
-        if self.currentPage == indexPath.row || storyEditorMedias[indexPath.row][0].isSelected {
-            borderColor = ApplicationSettings.appPrimaryColor.cgColor
-            borderWidth = 3
-            cell.lblVideoersiontag.isHidden = false
-        } else {
-            borderColor = ApplicationSettings.appWhiteColor.cgColor
-            borderWidth = 3
-            cell.lblVideoersiontag.isHidden = true
-        }
-        
-        cell.imagesStackView.tag = indexPath.row
-        
-        let views = cell.imagesStackView.subviews
-        for view in views {
-            cell.imagesStackView.removeArrangedSubview(view)
-        }
-        
-        cell.lblSegmentCount.text = "\(indexPath.row + 1)"
-        
-        guard let currentAsset = currentAsset(index: indexPath.row) else {
-            return cell
-        }
-        
-        var mainView: UIView = UIView()
-        var imageView = UIImageView()
-       
-        cell.imagesView.layer.cornerRadius = 5
-        cell.imagesView.layer.borderWidth = borderWidth
-        cell.imagesView.layer.borderColor = borderColor
         let storySegment = storyEditorMedias[indexPath.row]
         
-        if self.currentPage == indexPath.row {
-            for (index, _) in storySegment.enumerated() {
-                mainView = UIView.init(frame: CGRect(x: 0, y: 3, width: Double(41 * 1.2), height: Double(cell.imagesView.frame.height * 1.18)))
-                
-                imageView = UIImageView.init(frame: CGRect(x: 0, y: 0, width: Double(41 * 1.2), height: Double(cell.imagesView.frame.height * 1.18)))
-                imageView.image = thumbImage(index: indexPath.row, secondIndex: index)
-                imageView.contentMode = .scaleToFill
-                imageView.clipsToBounds = true
-                mainView.addSubview(imageView)
-                cell.imagesStackView.addArrangedSubview(mainView)
+        if collectionView == self.editStoryCollectionView {
+            guard let currentSelectedAsset = currentAsset(index: currentPage) else {
+                return cell
             }
-            cell.loadAsset(currentAsset)
-            cell.trimmerView.delegate = self
-            cell.isEditMode = isEditMode
-            if isEditMode {
-                self.removePositionBar(cell: cell)
-            } else {
-                self.setupPositionBar(cell: cell)
-            }
+            cell.setEditLayout(indexPath: indexPath, currentPage: currentPage, currentAsset: currentSelectedAsset)
         } else {
-            if !storyEditorMedias[indexPath.row][0].isSelected {
-                for (index, _) in storySegment.enumerated() {
-                    mainView = UIView(frame: CGRect(x: 0, y: 3, width: Double(41), height: Double(cell.imagesView.frame.height)))
-                    
-                    imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: Double(41), height: Double(cell.imagesView.frame.height)))
-                    imageView.image = thumbImage(index: indexPath.row, secondIndex: index)
-                    imageView.contentMode = .scaleToFill
-                    imageView.clipsToBounds = true
-                    mainView.addSubview(imageView)
-                    cell.imagesStackView.addArrangedSubview(mainView)
-                }
-            } else {
-                mainView = UIView.init(frame: CGRect(x: 0, y: 3, width: Double(41 * 1.2), height: Double(cell.imagesView.frame.height * 1.18)))
-                imageView = UIImageView.init(frame: CGRect(x: 0, y: 0, width: Double(41 * 1.2), height: Double(cell.imagesView.frame.height * 1.18)))
-                imageView.image = thumbImage(index: indexPath.row)
-                imageView.contentMode = .scaleToFill
-                imageView.clipsToBounds = true
-                mainView.addSubview(imageView)
-                cell.imagesStackView.addArrangedSubview(mainView)
+            guard let currentAsset = currentAsset(index: indexPath.row) else {
+                return cell
             }
-            
-            cell.isEditMode = false
+            cell.setLayout(indexPath: indexPath, currentPage: currentPage, currentAsset: currentAsset, storySegment: storySegment)
         }
-        cell.layoutIfNeeded()
-        cell.isHidden = false
+        cell.trimmerView.delegate = self
+        
         if let draggingPathOfCellBeingDragged = self.storyCollectionView.draggingPathOfCellBeingDragged {
             if draggingPathOfCellBeingDragged.item == indexPath.item {
                 cell.isHidden = true
@@ -454,34 +314,29 @@ extension TrimEditorViewController: UICollectionViewDataSource {
 extension TrimEditorViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if selectedItem == indexPath.row {
-            isEditMode = !isEditMode
-        } else {
-            isEditMode = true
-        }
-        selectedItem = indexPath.row
-        self.currentPlayVideo = indexPath.row
-        if self.currentPlayVideo == self.storyEditorMedias.count {
-            self.currentPlayVideo = 0
-        }
-        self.currentPage = self.currentPlayVideo
-        self.storyCollectionView.reloadData()
-        guard let currentAsset = self.currentAsset(index: self.currentPage) else {
+        if collectionView == self.editStoryCollectionView {
             return
         }
-        self.loadViewWith(asset: currentAsset)
+        currentPlayVideo = indexPath.row
+        if currentPlayVideo == storyEditorMedias.count {
+            currentPlayVideo = 0
+        }
+        currentPage = currentPlayVideo
+        storyCollectionView.reloadData()
+        editStoryCollectionView.reloadData()
+        guard let currentAsset = self.currentAsset(index: currentPage) else {
+            return
+        }
+        loadViewWith(asset: currentAsset)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let storySegment = storyEditorMedias[indexPath.row]
-        if currentPage == indexPath.row {
-            if isEditMode {
-                return CGSize(width: 225, height: Double(118 * 1.17))
-            } else {
-                return CGSize(width: (Double(storySegment.count * 41) * 1.2), height: Double(98 * 1.17))
-            }
+        if collectionView == self.editStoryCollectionView {
+            return CGSize(width: Double(self.view.frame.width - 40), height: Double(118 * 1.17))
+        } else {
+            return CGSize(width: (Double(storySegment.count * 35)), height: Double(98))
         }
-        return CGSize(width: (Double(storySegment.count * 41)), height: Double(98))
     }
     
 }
@@ -509,7 +364,7 @@ extension TrimEditorViewController {
         playerLayer?.player = player
         player?.play()
         btnPlayPause.isSelected = true
-        self.startPlaybackTimeChecker()
+        startPlaybackTimeChecker()
     }
     
     func replaceNewViewWith(asset: AVAsset?) {
@@ -561,9 +416,6 @@ extension TrimEditorViewController {
                 else {
                     return
             }
-            if self.storyEditorMedias.count == 1 {
-                self.isEditMode = true
-            }
             self.connVideoPlay()
         }
     }
@@ -602,8 +454,7 @@ extension TrimEditorViewController: TrimmerViewDelegate {
             if player.timeControlStatus == .playing {
                 player.pause()
             }
-            
-            if let cell: ImageCollectionViewCell = self.storyCollectionView.cellForItem(at: getCurrentIndexPath) as? ImageCollectionViewCell {
+            if let cell: ImageCollectionViewCell = self.editStoryCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? ImageCollectionViewCell {
                 guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
                     return
                 }
@@ -711,31 +562,32 @@ extension TrimEditorViewController {
 extension TrimEditorViewController {
     
     func connVideoPlay(isReload: Bool = false) {
-        if !self.isEditMode || isReload {
-            self.currentPlayVideo += 1
-            if self.currentPlayVideo == self.storyEditorMedias.count {
-                self.currentPlayVideo = 0
+        if !isEditMode || isReload {
+            currentPlayVideo += 1
+            if currentPlayVideo == self.storyEditorMedias.count {
+                currentPlayVideo = 0
             }
-            self.currentPage = self.currentPlayVideo
-            if self.storyEditorMedias.count == 1 {
-                self.isEditMode = true
-            }
-            self.selectedItem = self.currentPage
-            
-            self.storyCollectionView.reloadData()
-            guard let currentAsset = self.currentAsset(index: self.currentPage) else {
+            currentPage = currentPlayVideo
+            storyCollectionView.reloadData()
+            editStoryCollectionView.reloadData()
+            guard let currentAsset = self.currentAsset(index: currentPage) else {
                 return
             }
-            
-            self.loadViewWith(asset: currentAsset)
+            loadViewWith(asset: currentAsset)
         } else {
-            self.player?.seek(to: CMTime.zero)
-            self.player?.play()
+            player?.seek(to: CMTime.zero)
+            player?.play()
             btnPlayPause.isSelected = true
         }
         
         if let player = self.player, !self.storyEditorMedias.isEmpty {
             if let cell: ImageCollectionViewCell = self.storyCollectionView.cellForItem(at: self.getCurrentIndexPath) as? ImageCollectionViewCell {
+                guard let startTime = cell.trimmerView.startTime else {
+                    return
+                }
+                player.seek(to: startTime, toleranceBefore: self.tolerance, toleranceAfter: self.tolerance)
+            }
+            if let cell: ImageCollectionViewCell = self.editStoryCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? ImageCollectionViewCell {
                 guard let startTime = cell.trimmerView.startTime else {
                     return
                 }
@@ -763,9 +615,9 @@ extension TrimEditorViewController {
     @IBAction func resequenceButtonTapped(_ sender: AnyObject) {
         resequenceButton.isSelected = !resequenceButton.isSelected
         if resequenceButton.isSelected {
-            resequenceLabel.text = "Rearranged"
+            resequenceLabel.text = R.string.localizable.rearranged()
         } else {
-            resequenceLabel.text = "Original"
+            resequenceLabel.text = R.string.localizable.original()
         }
         isOriginalSequence = !isOriginalSequence
         self.storyCollectionView.reloadData()
@@ -773,7 +625,6 @@ extension TrimEditorViewController {
     
     @IBAction func mergeButtonTapped(_ sender: AnyObject) {
         mergeButton.isSelected = !mergeButton.isSelected
-        isMovable = !isMovable
         combineButton.isSelected = false
     }
     
@@ -805,7 +656,6 @@ extension TrimEditorViewController {
             return
         }
         mergeButton.isSelected = false
-        isMovable = mergeButton.isSelected
         combineButton.isSelected = !combineButton.isSelected
         DispatchQueue.main.async {
             if self.storyEditorMedias.count > 1 {
@@ -920,6 +770,7 @@ extension TrimEditorViewController {
             self.segmentTypeMergeView.isHidden = true
             self.segmentEditOptionView.isHidden = false
             self.storyCollectionView.isUserInteractionEnabled = true
+            self.editStoryCollectionView.isUserInteractionEnabled = true
             self.bottomToolbar.isHidden = false
         }
     }
@@ -929,7 +780,7 @@ extension TrimEditorViewController {
             return
         }
         if button.tag == 1 {
-            if isEditMode, let cell: ImageCollectionViewCell = self.storyCollectionView.cellForItem(at: getCurrentIndexPath) as? ImageCollectionViewCell {
+            if isEditMode, let cell: ImageCollectionViewCell = self.editStoryCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? ImageCollectionViewCell {
                 guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
                     return
                 }
@@ -952,7 +803,7 @@ extension TrimEditorViewController {
                 }
             }
         } else {
-            if let doneHandler = self.doneHandler, isEditMode, let cell: ImageCollectionViewCell = self.storyCollectionView.cellForItem(at: getCurrentIndexPath) as? ImageCollectionViewCell {
+            if let doneHandler = self.doneHandler, isEditMode, let cell: ImageCollectionViewCell = self.editStoryCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? ImageCollectionViewCell {
                 guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
                     return
                 }
@@ -985,12 +836,9 @@ extension TrimEditorViewController {
             if player.timeControlStatus == .playing {
                 player.pause()
                 btnPlayPause.isSelected = false
-                lastSelectedViewState = currentViewState
-                
                 doneView.alpha = 1
                 doneView.isUserInteractionEnabled = true
             } else {
-                currentViewState = lastSelectedViewState
                 player.play()
                 btnPlayPause.isSelected = true
                 
@@ -1008,21 +856,15 @@ extension TrimEditorViewController {
                 btnPlayPause.isSelected = false
             }
         }
-        currentViewState = .handlerModeView
     }
     
     @IBAction func mergeButtonClicked(_ sender: UIButton) {
-        if sender.isSelected {
-            currentViewState = .splitView
-        } else {
-            currentViewState = .mergeView
-        }
         sender.isSelected = !sender.isSelected
     }
     
     @IBAction func btnTrimClick(_ sender: UIButton) {
-        if let player = self.player, !isMergeModeEnable {
-            if let cell: ImageCollectionViewCell = self.storyCollectionView.cellForItem(at: getCurrentIndexPath) as? ImageCollectionViewCell {
+        if let player = self.player {
+            if let cell: ImageCollectionViewCell = self.editStoryCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? ImageCollectionViewCell {
                 guard let trimmerView = cell.trimmerView else {
                     return
                 }
@@ -1034,74 +876,6 @@ extension TrimEditorViewController {
     
     @IBAction func backButtonTapped(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
-    }
-    
-}
-
-extension TrimEditorViewController: DragAndDropCollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, indexPathForDataItem dataItem: AnyObject) -> IndexPath? {
-        guard let data = dataItem as? StoryEditorMedia,
-            let index = self.storyEditorMedias.first!.firstIndex(where: { $0 == data }) else {
-                return nil
-        }
-        return IndexPath(item: index, section: 0)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, dataItemForIndexPath indexPath: IndexPath) -> AnyObject {
-        return storyEditorMedias[indexPath.item][0]
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, moveDataItemFromIndexPath from: IndexPath, toIndexPath to: IndexPath) {
-        
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, insertDataItem dataItem: AnyObject, atIndexPath indexPath: IndexPath) {
-       
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, deleteDataItemAtIndexPath indexPath: IndexPath) -> Void {
-        
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellIsDraggableAtIndexPath indexPath: IndexPath) -> Bool {
-        return isMovable
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, canMoveAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, startDrag dataItem: AnyObject, atIndexPath indexPath: IndexPath) {
-        print("Stat Move : \(indexPath)")
-        draggingCell = indexPath
-        if let player = self.player {
-            if player.timeControlStatus == .playing {
-                player.pause()
-            }
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, stopDrag dataItem: AnyObject, atIndexPath indexPath: IndexPath?, sourceRect rect: CGRect) {
-        guard let indexPath = indexPath else {
-            return
-        }
-        print("stopDrag : \(String(describing: indexPath))")
-        self.lastMergeCell = indexPath
-        
-        if self.lastMergeCell != self.draggingCell {
-            storyCollectionView.isUserInteractionEnabled = false
-            segmentEditOptionView.isHidden = true
-            segmentEditOptionButton.isHidden = true
-            segmentTypeMergeView.isHidden = false
-            bottomToolbar.isHidden = true
-        } else {
-            if let player = self.player {
-                if player.timeControlStatus == .paused && btnPlayPause.isSelected {
-                    player.play()
-                }
-            }
-        }
     }
     
 }
