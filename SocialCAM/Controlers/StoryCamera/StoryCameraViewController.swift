@@ -534,14 +534,9 @@ class StoryCameraViewController: UIViewController {
         enableFaceDetectionIfNeeded()
         swapeControlsIfNeeded()
         UIApplication.shared.isIdleTimerDisabled = true
-        let loadingView = LoadingView.instanceFromNib()
-        loadingView.loadingViewShow = true
-        loadingView.shouldCancelShow = true
-        loadingView.show(on: self.view)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.isViewAppear = true
             self.startCapture()
-            loadingView.hide()
         }
         observeState()
         self.flashView?.removeFromSuperview()
