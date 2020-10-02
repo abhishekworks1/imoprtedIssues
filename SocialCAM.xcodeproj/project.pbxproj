@@ -1035,6 +1035,7 @@
 		8232CECB240E396A00AD8E63 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB3AD23619E5B00205993 /* FileManager.swift */; };
 		8232CECC240E3A5000AD8E63 /* ExtensionStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8232CEC6240E36EC00AD8E63 /* ExtensionStory.swift */; };
 		8232CED3240E7AB000AD8E63 /* AWSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8232CED2240E7AB000AD8E63 /* AWSManager.swift */; };
+		8233CB092526EF1500B65E89 /* StoryCameraViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95EDD2C42460491E00DD3348 /* StoryCameraViewController.storyboard */; };
 		823855D924BEF3B300F32759 /* SocialCamShareVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823855D824BEF3B300F32759 /* SocialCamShareVC.swift */; };
 		823855DA24BEF3B300F32759 /* SocialCamShareVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823855D824BEF3B300F32759 /* SocialCamShareVC.swift */; };
 		823855DB24BEF3B300F32759 /* SocialCamShareVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823855D824BEF3B300F32759 /* SocialCamShareVC.swift */; };
@@ -2523,7 +2524,6 @@
 		82532CF72513315700ABC366 /* SF-UI-Text-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8205FC0D236C2C2F002B2603 /* SF-UI-Text-Bold.otf */; };
 		82532CF82513315700ABC366 /* Courier Prime Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8205FC02236C2C2F002B2603 /* Courier Prime Italic.ttf */; };
 		82532CF92513315700ABC366 /* LoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8205FA83236C0F9C002B2603 /* LoadingView.xib */; };
-		82532CFA2513315700ABC366 /* StoryCameraViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95EDD2C42460491E00DD3348 /* StoryCameraViewController.storyboard */; };
 		82532CFB2513315700ABC366 /* AMColorPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8271068724A45EFB00C53521 /* AMColorPickerViewController.xib */; };
 		82532CFC2513315700ABC366 /* Innocence.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 82D1EC0523702B4200A680E7 /* Innocence.JPG */; };
 		82532CFD2513315700ABC366 /* Playful.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 82D1EC1423702B4200A680E7 /* Playful.JPG */; };
@@ -14610,6 +14610,7 @@
 				82532C9A2513315700ABC366 /* Mood.JPG in Resources */,
 				82532C9B2513315700ABC366 /* FrameCollectionViewCell.xib in Resources */,
 				82532C9C2513315700ABC366 /* 03 Mysterious Intro.mp3 in Resources */,
+				8233CB092526EF1500B65E89 /* StoryCameraViewController.storyboard in Resources */,
 				82532C9D2513315700ABC366 /* SplashScreen.storyboard in Resources */,
 				82532C9E2513315700ABC366 /* HomeScreen.storyboard in Resources */,
 				82532C9F2513315700ABC366 /* SF-UI-Text-Semibold.otf in Resources */,
@@ -14705,7 +14706,6 @@
 				82532CF72513315700ABC366 /* SF-UI-Text-Bold.otf in Resources */,
 				82532CF82513315700ABC366 /* Courier Prime Italic.ttf in Resources */,
 				82532CF92513315700ABC366 /* LoadingView.xib in Resources */,
-				82532CFA2513315700ABC366 /* StoryCameraViewController.storyboard in Resources */,
 				82532CFB2513315700ABC366 /* AMColorPickerViewController.xib in Resources */,
 				82532CFC2513315700ABC366 /* Innocence.JPG in Resources */,
 				82532CFD2513315700ABC366 /* Playful.JPG in Resources */,
@@ -26763,7 +26763,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 36;
+				CURRENT_PROJECT_VERSION = 37;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = "ViralCam-Info.plist";
@@ -26798,7 +26798,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 36;
+				CURRENT_PROJECT_VERSION = 37;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = "ViralCam-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -27194,7 +27194,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = "SpeedCam-Info.plist";
@@ -27229,7 +27229,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = "SpeedCam-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -27314,7 +27314,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = "FastCam-Info.plist";
@@ -27349,7 +27349,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = "FastCam-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -27568,7 +27568,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = "QuickCam-Info.plist";
@@ -27603,7 +27603,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = "QuickCam-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -27704,7 +27704,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = "SnapCam-Info.plist";
@@ -27739,7 +27739,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = "SnapCam-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -27772,7 +27772,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = "BoomiCam-Info.plist";
@@ -27807,7 +27807,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = "BoomiCam-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
