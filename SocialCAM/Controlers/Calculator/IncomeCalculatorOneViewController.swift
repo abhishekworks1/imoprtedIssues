@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import EasyTipView
 
 class IncomeCalculatorTableViewCell: UITableViewCell {
     
@@ -43,37 +44,36 @@ class IncomeCalculatorOneViewController: UIViewController {
     // MARK: - Outlets
     
     @IBOutlet weak var inAppSlider: UISlider!
-    @IBOutlet weak var txtDirectReferCount: UITextField!
-    @IBOutlet weak var txtLevel2ReferCount: UITextField!
     @IBOutlet weak var percentageSlider: UISlider!
-    @IBOutlet weak var txtLevel3ReferCount: UITextField!
     @IBOutlet weak var lblAverageInAppPurchase: UILabel!
     @IBOutlet weak var lblPercentageFilled: UILabel!
     @IBOutlet weak var tableview: UITableView!
     @IBOutlet var tableSectionHeaderView: UIView!
+    @IBOutlet weak var levelOneRefferalsSlider: UISlider!
+    @IBOutlet weak var levelTwoRefferalsSlider: UISlider!
+    @IBOutlet weak var levelThreeRefferalsSlider: UISlider!
+    @IBOutlet weak var lblLevelOneRefferals: UILabel!
+    @IBOutlet weak var lblLevelTwoRefferals: UILabel!
+    @IBOutlet weak var lblLevelThreeRefferals: UILabel!
     
     // MARK: -
     // MARK: - Variables
     
-    private var incomeData = [(String, String)]()
-    private var averageInAppPurchase = 2 {
-        didSet {
-            self.lblAverageInAppPurchase.text = "$" + averageInAppPurchase.description
-        }
-    }
-    private var percentageFilled = 10 {
-        didSet {
-            self.lblPercentageFilled.text = percentageFilled.description + "%"
-        }
-    }
+    private var incomeData = [(Int, Int)]()
+    private var averageInAppPurchase = 2
+    private var percentageFilled = 10
     private var directRefferals = 0
     private var levelTwoRefferals = 0
     private var levelThreeRefferals = 0
     private var totalFollowerCount = 0
     private var totalIncomeCount = 0
-    private var referLimit = 0
-    private var levelTwoReferLimit = 0
-    private var levelThreeReferLimit = 0
+    private var levelOnePercentage = 0
+    private var levelTwoPercentage = 0
+    private var levelThreePercentage = 0
+    private var percentageArray: [Int] {
+        return [levelOnePercentage, levelTwoPercentage, levelThreePercentage]
+    }
+    private var toolTip = EasyTipView(text: "")
     
     // MARK: -
     // MARK: - Life Cycle Methods
@@ -84,7 +84,15 @@ class IncomeCalculatorOneViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.getCalculatorConfig()
+        self.getWebsiteId { [weak self] (type) in
+            guard let `self` = self else { return }
+            self.getCalculatorConfig(type: type)
+        }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        self.toolTip.dismiss()
     }
     
     // MARK: -
@@ -99,28 +107,71 @@ class IncomeCalculatorOneViewController: UIViewController {
     }
     
     @IBAction func percentageSliderChanged(_ sender: UISlider) {
+        self.toolTip.dismiss()
         self.percentageFilled = Int(sender.value)
     }
     
     @IBAction func inAppSliderChanged(_ sender: UISlider) {
+        self.toolTip.dismiss()
         self.averageInAppPurchase = Int(sender.value)
+    }
+    
+    @IBAction func levelOneSliderChanged(_ sender: UISlider) {
+        self.toolTip.dismiss()
+    }
+    
+    @IBAction func levelTwoSliderChanged(_ sender: UISlider) {
+        self.toolTip.dismiss()
+    }
+    
+    @IBAction func levelThreeSliderChanged(_ sender: UISlider) {
+        self.toolTip.dismiss()
+    }
+    
+    @IBAction func levelOneRefferalsHelpTapped(_ sender: UIButton) {
+        self.toolTip.dismiss()
+        self.showTipView(text: R.string.localizable.levelOneToolTipText(), on: sender)
+    }
+    
+    @IBAction func levelTwoRefferalsHelpTapped(_ sender: UIButton) {
+        self.toolTip.dismiss()
+        self.showTipView(text: R.string.localizable.levelTwoToolTipText(), on: sender)
+    }
+    
+    @IBAction func levelThreeRefferalsHelpTapped(_ sender: UIButton) {
+        self.toolTip.dismiss()
+        self.showTipView(text: R.string.localizable.levelThreeToolTipText(), on: sender)
+    }
+    
+    @IBAction func percentageHelpTapped(_ sender: UIButton) {
+        self.toolTip.dismiss()
+        self.showTipView(text: R.string.localizable.percentageToolTipText(), on: sender)
+    }
+    
+    @IBAction func inAppPurchaseHelpTapped(_ sender: UIButton) {
+        self.toolTip.dismiss()
+        self.showTipView(text: R.string.localizable.inAppToolTipText(), on: sender)
     }
     
     // MARK: -
     // MARK: - Class Functions
     
     private func validateAndCalculate() {
+        self.toolTip.dismiss()
         self.view.endEditing(true)
-        if let directReferCount = self.txtDirectReferCount.text, let levelTwoReferCount = self.txtLevel2ReferCount.text, let levelThreeReferCount = self.txtLevel3ReferCount.text, let directReferCountInt = Int(directReferCount), let levelTwoReferCountInt = Int(levelTwoReferCount), let levelThreeReferCountInt = Int(levelThreeReferCount) {
-            self.directRefferals = directReferCountInt
-            self.levelTwoRefferals = levelTwoReferCountInt
-            self.levelThreeRefferals = levelThreeReferCountInt
-            self.calculateIncome()
-            tableview.isHidden = false
-            self.tableview.reloadData()
-        } else {
-            self.showAlert(alertMessage: R.string.localizable.levelThreeReferCountAlertMessage("\(self.directRefferals)", "\(self.levelTwoReferLimit)", "\(self.levelThreeRefferals)"))
-        }
+        self.directRefferals = Int(self.levelOneRefferalsSlider.value)
+        self.levelTwoRefferals = Int(self.levelTwoRefferalsSlider.value)
+        self.levelThreeRefferals = Int(self.levelThreeRefferalsSlider.value)
+        self.calculateIncome()
+        tableview.isHidden = false
+        self.tableview.reloadData()
+    }
+    
+    private func getFormattedNumberString(number: Int) -> String {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        let formattedNumber = numberFormatter.string(from: NSNumber(value: number))
+        return formattedNumber ?? ""
     }
     
     private func calculateIncome() {
@@ -133,22 +184,34 @@ class IncomeCalculatorOneViewController: UIViewController {
             if index < 3 {
                 self.totalIncomeCount += income
                 self.totalFollowerCount += followers
-                incomeData.append((followers.description, income.description))
+                incomeData.append((followers, income))
             } else {
-                incomeData.append((totalFollowerCount.description, totalIncomeCount.description))
+                incomeData.append((totalFollowerCount, totalIncomeCount))
             }
         }
     }
     
-    private func getCalculatorConfig() {
+    private func showTipView(text: String, on view: UIView) {
+        self.toolTip.dismiss()
+        toolTip = EasyTipView(text: text, preferences: EasyTipView.globalPreferences)
+        toolTip.show(animated: true, forView: view, withinSuperview: self.view)
+    }
+    
+    private func getCalculatorConfig(type: String) {
         if UIApplication.checkInternetConnection() {
             self.showHUD()
-            ProManagerApi.getCalculatorConfig.request(CalculatorConfigurationModel.self).subscribe(onNext: { (response) in
+            ProManagerApi.getCalculatorConfig(type: type).request(CalculatorConfigurationModel.self).subscribe(onNext: { (response) in
                 self.dismissHUD()
                 if let calcConfig = response.result?.first(where: { $0.type == "potential_income_1" }) {
-                    self.referLimit = calcConfig.level1 ?? self.referLimit
-                    self.levelTwoReferLimit = calcConfig.level2 ?? self.levelTwoReferLimit
-                    self.levelThreeReferLimit = calcConfig.level3 ?? self.levelThreeReferLimit
+                    self.levelOneRefferalsSlider.maximumValue = Float(calcConfig.levelsArray?[0] ?? 0)
+                    self.levelTwoRefferalsSlider.maximumValue = Float(calcConfig.levelsArray?[1] ?? 0)
+                    self.levelThreeRefferalsSlider.maximumValue = Float(calcConfig.levelsArray?[2] ?? 0)
+                    self.levelOnePercentage = Int(self.levelOneRefferalsSlider.maximumValue)
+                    self.levelTwoPercentage = Int(self.levelTwoRefferalsSlider.maximumValue)
+                    self.levelThreePercentage = Int(self.levelThreeRefferalsSlider.maximumValue)
+                    self.lblLevelOneRefferals.text = Int(self.levelOneRefferalsSlider.maximumValue).description
+                    self.lblLevelTwoRefferals.text = Int(self.levelTwoRefferalsSlider.maximumValue).description
+                    self.lblLevelThreeRefferals.text = Int(self.levelThreeRefferalsSlider.maximumValue).description
                 }
             }, onError: { error in
                 self.showAlert(alertMessage: error.localizedDescription)
@@ -172,9 +235,11 @@ extension IncomeCalculatorOneViewController: UITableViewDataSource, UITableViewD
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.incomeCalculatorTableViewCell.identifier) as? IncomeCalculatorTableViewCell else { return UITableViewCell() }
-        cell.setData(level: (indexPath.row + 1).description, followers: self.incomeData[indexPath.row].0, income: self.incomeData[indexPath.row].1)
         if indexPath.row == incomeData.count - 1 {
+            cell.setData(level: "Total", followers: self.getFormattedNumberString(number: self.incomeData[indexPath.row].0), income: self.getFormattedNumberString(number: self.incomeData[indexPath.row].1))
             cell.setBlueBorder()
+        } else {
+            cell.setData(level: (indexPath.row + 1).description + " (\(self.percentageArray[indexPath.row])%)", followers: self.getFormattedNumberString(number: self.incomeData[indexPath.row].0), income: self.getFormattedNumberString(number: self.incomeData[indexPath.row].1))
         }
         return cell
     }
@@ -198,13 +263,13 @@ extension IncomeCalculatorOneViewController: UITableViewDataSource, UITableViewD
     private func getIncome(followers: Int, indexPath: IndexPath) -> String {
         switch indexPath.row {
         case 0:
-            let income = Int((followers * self.referLimit * percentageFilled * averageInAppPurchase) / 10000)
+            let income = Int((followers * self.levelOnePercentage * percentageFilled * averageInAppPurchase) / 10000)
             return income.description
         case 1:
-            let income = Int((followers * self.levelTwoReferLimit * percentageFilled * averageInAppPurchase) / 10000)
+            let income = Int((followers * self.levelTwoPercentage * percentageFilled * averageInAppPurchase) / 10000)
             return income.description
         case 2:
-            let income = Int((followers * self.levelThreeReferLimit * percentageFilled * averageInAppPurchase) / 10000)
+            let income = Int((followers * self.levelThreePercentage * percentageFilled * averageInAppPurchase) / 10000)
             return income.description
         default:
             return self.totalIncomeCount.description

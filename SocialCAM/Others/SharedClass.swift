@@ -396,6 +396,29 @@ public struct Paths {
     static let storieLike = "stories/like"
     static let getCommentsStory = "getComments"
     static let getCalculatorConfig = "calcConfig"
+    static let getWebsiteData = "faq/website"
+}
+
+struct WebsiteData {
+    static var websiteName: String {
+        if isTimeSpeedApp {
+            return "TimeSpeed"
+        } else if isSoccerCamApp {
+            return "SoccerCam"
+        } else if isSnapCamApp {
+            return "SnapCam"
+        } else if isFutbolCamApp {
+            return "FutbolCam"
+        } else if isBoomiCamApp {
+            return "BoomiCam"
+        } else if isPic2ArtApp {
+            return "Pic2Art"
+        } else if isViralCamApp || isViralCamLiteApp {
+            return "ViralCam"
+        } else {
+            return "SocialCam"
+        }
+    }
 }
 
 public struct APIHeaders {

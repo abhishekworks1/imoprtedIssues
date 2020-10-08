@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import EasyTipView
 
 extension UINavigationController {
     public func pushViewController(_ viewController: UIViewController, animated: Bool, completion: @escaping () -> Void)
@@ -96,6 +97,23 @@ extension UIViewController {
                 activityIndicator.stopAnimating()
                 activityIndicator.removeFromSuperview()
             }
+        }
+    }
+    
+    func getWebsiteId(completion: @escaping (String) -> ()) {
+        if UIApplication.checkInternetConnection() {
+            self.showHUD()
+            ProManagerApi.getWebsiteData.request(WebsiteDataModel.self).subscribe(onNext: { (response) in
+                self.dismissHUD()
+                if let type = response.result?.result?.first(where: { $0.name == WebsiteData.websiteName })?.id {
+                    completion(type)
+                }
+            }, onError: { error in
+                self.showAlert(alertMessage: error.localizedDescription)
+            }, onCompleted: {
+            }).disposed(by: rx.disposeBag)
+        } else {
+            self.showAlert(alertMessage: R.string.localizable.nointernetconnectioN())
         }
     }
 }

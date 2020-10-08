@@ -53,6 +53,13 @@ class CalculatorSelectorViewController: UIViewController {
         }
     }
     
+    @IBAction func btnCalculatorFourTapped(_ sender: Any) {
+        self.dismiss(animated: true) { [weak self] in
+            guard let uSelf = self else { return }
+            uSelf.buttonAction?(4)
+        }
+    }
+    
     @IBAction func btnDismissTapped(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
