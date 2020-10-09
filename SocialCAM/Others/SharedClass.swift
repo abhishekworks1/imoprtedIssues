@@ -415,6 +415,15 @@ struct WebsiteData {
             return "Pic2Art"
         } else if isViralCamApp || isViralCamLiteApp {
             return "ViralCam"
+        } else if isSpeedCamApp || isSpeedCamLiteApp {
+            return "SocialCam"
+            return "SpeedCam"
+        } else if isQuickCamApp || isQuickCamLiteApp {
+            return "SocialCam"
+            return "QuickCam"
+        } else if isFastCamApp || isFastCamLiteApp {
+            return "SocialCam"
+            return "FastCam"
         } else {
             return "SocialCam"
         }
