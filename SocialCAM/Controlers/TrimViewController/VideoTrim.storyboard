@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -63,13 +63,13 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="de9-ve-MUm">
-                                        <rect key="frame" x="56" y="14.5" width="302" height="65.5"/>
+                                        <rect key="frame" x="56" y="-19.5" width="302" height="99.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="0ey-lk-rwl">
-                                                <rect key="frame" x="31" y="0.0" width="240" height="65.5"/>
+                                                <rect key="frame" x="31" y="0.0" width="240" height="99.5"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h0C-U7-pc5">
-                                                        <rect key="frame" x="0.0" y="0.0" width="80" height="65.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="80" height="99.5"/>
                                                         <subviews>
                                                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cRI-24-RyG" customClass="RPCircularProgress" customModule="BoomiCam" customModuleProvider="target">
                                                                 <rect key="frame" x="26.5" y="3.5" width="50" height="50"/>
@@ -91,14 +91,14 @@
                                                                 <size key="shadowOffset" width="0.0" height="1"/>
                                                             </label>
                                                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JFR-px-X1S">
-                                                                <rect key="frame" x="0.0" y="14" width="80" height="34"/>
+                                                                <rect key="frame" x="0.0" y="14" width="80" height="68"/>
                                                                 <state key="normal" image="trimDone"/>
                                                                 <connections>
                                                                     <action selector="saveButtonTapped:" destination="Ovp-wb-YXy" eventType="touchUpInside" id="LV5-wg-kGS"/>
                                                                 </connections>
                                                             </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Done" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xcv-zs-nUe">
-                                                                <rect key="frame" x="0.0" y="51.5" width="80" height="14"/>
+                                                                <rect key="frame" x="0.0" y="85.5" width="80" height="14"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="14" id="okQ-8K-Vva"/>
                                                                 </constraints>
@@ -132,7 +132,7 @@
                                                         </variation>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tJL-CH-UCM">
-                                                        <rect key="frame" x="80" y="0.0" width="80" height="65.5"/>
+                                                        <rect key="frame" x="80" y="0.0" width="80" height="99.5"/>
                                                         <subviews>
                                                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kip-f1-2Pu" customClass="RPCircularProgress" customModule="BoomiCam" customModuleProvider="target">
                                                                 <rect key="frame" x="26.5" y="3.5" width="50" height="50"/>
@@ -154,14 +154,14 @@
                                                                 <size key="shadowOffset" width="0.0" height="1"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Qe-gB-Rvg">
-                                                                <rect key="frame" x="0.0" y="14" width="80" height="34"/>
+                                                                <rect key="frame" x="0.0" y="14" width="80" height="68"/>
                                                                 <state key="normal" image="trimSave"/>
                                                                 <connections>
                                                                     <action selector="saveButtonTapped:" destination="Ovp-wb-YXy" eventType="touchUpInside" id="Wx3-iO-HYP"/>
                                                                 </connections>
                                                             </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YPl-2p-xME">
-                                                                <rect key="frame" x="0.0" y="51.5" width="80" height="14"/>
+                                                                <rect key="frame" x="0.0" y="85.5" width="80" height="14"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="14" id="WFY-8Z-ZAT"/>
                                                                 </constraints>
@@ -194,7 +194,7 @@
                                                         </variation>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e2s-bt-KaV">
-                                                        <rect key="frame" x="160" y="0.0" width="80" height="65.5"/>
+                                                        <rect key="frame" x="160" y="0.0" width="80" height="99.5"/>
                                                         <subviews>
                                                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="feg-ZL-Oat" customClass="RPCircularProgress" customModule="BoomiCam" customModuleProvider="target">
                                                                 <rect key="frame" x="26" y="3.5" width="50" height="50"/>
@@ -216,14 +216,14 @@
                                                                 <size key="shadowOffset" width="0.0" height="1"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NH6-nw-RDk">
-                                                                <rect key="frame" x="0.0" y="14" width="80" height="34"/>
+                                                                <rect key="frame" x="0.0" y="14" width="80" height="68"/>
                                                                 <state key="normal" image="trimSplit"/>
                                                                 <connections>
                                                                     <action selector="btnTrimClick:" destination="Ovp-wb-YXy" eventType="touchUpInside" id="ysK-0w-o7f"/>
                                                                 </connections>
                                                             </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Split" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wsA-qr-3Vd">
-                                                                <rect key="frame" x="0.0" y="51.5" width="80" height="14"/>
+                                                                <rect key="frame" x="0.0" y="85.5" width="80" height="14"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="14" id="xCM-iO-Ulz"/>
                                                                 </constraints>
@@ -313,10 +313,10 @@
                                                         </constraints>
                                                     </view>
                                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pba-km-lUp">
-                                                        <rect key="frame" x="240" y="0.0" width="0.0" height="65.5"/>
+                                                        <rect key="frame" x="240" y="0.0" width="0.0" height="99.5"/>
                                                         <subviews>
                                                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xur-FO-I74" customClass="RPCircularProgress" customModule="BoomiCam" customModuleProvider="target">
-                                                                <rect key="frame" x="-25" y="6" width="50" height="50"/>
+                                                                <rect key="frame" x="-25" y="23" width="50" height="50"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="50" id="gik-bF-rNx"/>
@@ -335,14 +335,14 @@
                                                                 <size key="shadowOffset" width="0.0" height="1"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZMP-Vr-79R">
-                                                                <rect key="frame" x="0.0" y="14" width="0.0" height="34"/>
+                                                                <rect key="frame" x="0.0" y="14" width="0.0" height="68"/>
                                                                 <state key="normal" image="trimVideo"/>
                                                                 <connections>
                                                                     <action selector="handleButtonClicked:" destination="Ovp-wb-YXy" eventType="touchUpInside" id="PTs-B1-K3C"/>
                                                                 </connections>
                                                             </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Mode" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="luz-h9-aOA">
-                                                                <rect key="frame" x="0.0" y="51.5" width="0.0" height="14"/>
+                                                                <rect key="frame" x="0.0" y="85.5" width="0.0" height="14"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="14" id="eUd-Oe-wWa"/>
                                                                 </constraints>
@@ -906,7 +906,7 @@
                                         <rect key="frame" x="56" y="20" width="358" height="60"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f6i-lU-orl">
-                                                <rect key="frame" x="288" y="-0.5" width="60" height="61.5"/>
+                                                <rect key="frame" x="288" y="-15.5" width="60" height="91.5"/>
                                                 <subviews>
                                                     <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="32b-sy-san" customClass="RPCircularProgress" customModule="BoomiCam" customModuleProvider="target">
                                                         <rect key="frame" x="5" y="0.0" width="50" height="50"/>
@@ -928,14 +928,14 @@
                                                         <size key="shadowOffset" width="0.0" height="1"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JVo-YZ-9ET">
-                                                        <rect key="frame" x="0.0" y="14" width="60" height="30"/>
+                                                        <rect key="frame" x="0.0" y="14" width="60" height="60"/>
                                                         <state key="normal" image="trimDone"/>
                                                         <connections>
                                                             <action selector="saveButtonTapped:" destination="q2P-Bv-Tyf" eventType="touchUpInside" id="IUd-ZB-V8G"/>
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Done" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L8d-Gd-QPa">
-                                                        <rect key="frame" x="0.0" y="47.5" width="60" height="14"/>
+                                                        <rect key="frame" x="0.0" y="77.5" width="60" height="14"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="14" id="nxC-QF-Mka"/>
                                                         </constraints>

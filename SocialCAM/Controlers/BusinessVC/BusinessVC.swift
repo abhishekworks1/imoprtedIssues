@@ -174,6 +174,9 @@ extension BusinessVC: UICollectionViewDataSource, UICollectionViewDelegate, UICo
                     guard let destinationVc = R.storyboard.calculator.incomeCalculatorTwo() else { return }
                     destinationVc.isCalculatorThree = true
                     self.navigationController?.pushViewController(destinationVc, animated: true)
+                case 4:
+                    guard let destinationVc = R.storyboard.calculator.incomeCalculatorFourViewController() else { return }
+                    self.navigationController?.pushViewController(destinationVc, animated: true)
                 default:
                     break
                 }

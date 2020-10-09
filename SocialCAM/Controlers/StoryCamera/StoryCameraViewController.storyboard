@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="AtK-B9-Jht">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="AtK-B9-Jht">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -644,14 +644,14 @@
                                         <rect key="frame" x="0.0" y="414" width="375" height="398"/>
                                         <subviews>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4ms-aR-EMl">
-                                                <rect key="frame" x="335" y="0.0" width="30" height="44"/>
+                                                <rect key="frame" x="315" y="0.0" width="50" height="44"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="USA-yP-JIl">
-                                                        <rect key="frame" x="0.0" y="0.0" width="30" height="44"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="50" height="44"/>
                                                         <state key="normal" image="storyDelete"/>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jMW-b6-4aq">
-                                                        <rect key="frame" x="0.0" y="44" width="30" height="0.0"/>
+                                                        <rect key="frame" x="0.0" y="44" width="50" height="0.0"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" id="UwK-zP-DbP"/>
                                                         </constraints>
@@ -965,7 +965,7 @@
                                                                 <rect key="frame" x="62.333333333333329" y="0.0" width="62.333333333333329" height="64"/>
                                                                 <subviews>
                                                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3w5-o8-zsW">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="32" height="0.0"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="64" height="0.0"/>
                                                                         <state key="normal" image="openFilter"/>
                                                                         <connections>
                                                                             <action selector="effectButtonClicked:" destination="aJT-JN-hbU" eventType="touchUpInside" id="JgG-H5-aTN"/>
@@ -1290,7 +1290,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="99.666666666666671" height="70"/>
                                                         <subviews>
                                                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VPt-9o-56n">
-                                                                <rect key="frame" x="32.333333333333329" y="2" width="35" height="27"/>
+                                                                <rect key="frame" x="15" y="2" width="70" height="27"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="27" id="us1-BY-0rS"/>
@@ -1366,7 +1366,7 @@
                                                         <rect key="frame" x="107.66666666666666" y="0.0" width="99.666666666666657" height="70"/>
                                                         <subviews>
                                                             <button opaque="NO" tag="1" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2V5-Gs-HPv">
-                                                                <rect key="frame" x="35.333333333333343" y="2" width="29" height="27"/>
+                                                                <rect key="frame" x="21" y="2" width="58" height="54"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                 <state key="normal" image="icoCountdown">
@@ -1438,7 +1438,7 @@ Countdown</string>
                                                         <rect key="frame" x="215.33333333333329" y="0.0" width="99.666666666666657" height="70"/>
                                                         <subviews>
                                                             <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yVw-qi-4zd">
-                                                                <rect key="frame" x="32" y="2" width="36" height="27"/>
+                                                                <rect key="frame" x="14" y="2" width="72" height="27"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="27" id="ab1-Yw-Wuk"/>
@@ -1513,7 +1513,7 @@ Countdown</string>
                                                         <rect key="frame" x="315" y="0.0" width="0.0" height="70"/>
                                                         <subviews>
                                                             <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sVi-B4-DGv">
-                                                                <rect key="frame" x="-12" y="2" width="24" height="27"/>
+                                                                <rect key="frame" x="-24" y="2" width="48" height="27"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="27" id="Mmr-W5-cWB"/>
@@ -1889,7 +1889,7 @@ Countdown</string>
                                                     </subviews>
                                                 </stackView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4NA-le-UqP">
-                                                    <rect key="frame" x="339" y="0.0" width="10" height="22"/>
+                                                    <rect key="frame" x="339" y="0.0" width="10" height="32"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="10" id="u93-4D-ERP"/>
                                                     </constraints>
@@ -1950,7 +1950,7 @@ Countdown</string>
                                                                                     <rect key="frame" x="0.0" y="0.0" width="169.66666666666666" height="334.33333333333331"/>
                                                                                 </imageView>
                                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rightIconSetting" translatesAutoresizingMaskIntoConstraints="NO" id="AdC-dF-fRt">
-                                                                                    <rect key="frame" x="74.333333333333329" y="159.66666666666669" width="21" height="15"/>
+                                                                                    <rect key="frame" x="63.666666666666657" y="152.33333333333331" width="42" height="30"/>
                                                                                 </imageView>
                                                                             </subviews>
                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -2010,7 +2010,7 @@ Countdown</string>
                                                                                     <rect key="frame" x="0.0" y="0.0" width="169.33333333333334" height="334.33333333333331"/>
                                                                                 </imageView>
                                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rightIconSetting" translatesAutoresizingMaskIntoConstraints="NO" id="Hdw-lq-wgk">
-                                                                                    <rect key="frame" x="74.000000000000028" y="159.66666666666669" width="21" height="15"/>
+                                                                                    <rect key="frame" x="63.666666666666686" y="152.33333333333331" width="42" height="30"/>
                                                                                 </imageView>
                                                                             </subviews>
                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -2070,7 +2070,7 @@ Countdown</string>
                                                                                     <rect key="frame" x="0.0" y="0.0" width="0.0" height="334.33333333333331"/>
                                                                                 </imageView>
                                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rightIconSetting" translatesAutoresizingMaskIntoConstraints="NO" id="baI-Kx-K4C">
-                                                                                    <rect key="frame" x="-10.333333333333314" y="159.66666666666669" width="21" height="15"/>
+                                                                                    <rect key="frame" x="-21" y="152.33333333333331" width="42" height="30"/>
                                                                                 </imageView>
                                                                             </subviews>
                                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -2455,7 +2455,7 @@ Countdown</string>
                                                             <rect key="frame" x="114.33333333333334" y="0.0" width="110.33333333333334" height="244.33333333333334"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ikq-pv-Avw">
-                                                                    <rect key="frame" x="5.3333333333333286" y="224.33333333333331" width="100" height="20"/>
+                                                                    <rect key="frame" x="25.333333333333329" y="224.33333333333331" width="60" height="20"/>
                                                                     <subviews>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="radioDeselected" translatesAutoresizingMaskIntoConstraints="NO" id="28M-qw-THE">
                                                                             <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
@@ -2465,7 +2465,7 @@ Countdown</string>
                                                                             </constraints>
                                                                         </imageView>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dotted Line" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="txg-QM-hSq">
-                                                                            <rect key="frame" x="25" y="0.0" width="75" height="20"/>
+                                                                            <rect key="frame" x="25" y="0.0" width="35" height="20"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
@@ -2500,7 +2500,7 @@ Countdown</string>
                                                             <rect key="frame" x="228.66666666666666" y="0.0" width="110.33333333333334" height="244.33333333333334"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="7Bq-jc-eJf">
-                                                                    <rect key="frame" x="2.6666666666666856" y="224.33333333333331" width="105" height="20"/>
+                                                                    <rect key="frame" x="24.000000000000032" y="224.33333333333331" width="62.333333333333343" height="20"/>
                                                                     <subviews>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="radioDeselected" translatesAutoresizingMaskIntoConstraints="NO" id="p1L-Ab-GtA">
                                                                             <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
@@ -2510,7 +2510,7 @@ Countdown</string>
                                                                             </constraints>
                                                                         </imageView>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dashed Line" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="kt9-UD-7ST">
-                                                                            <rect key="frame" x="24.999999999999972" y="0.0" width="80" height="20"/>
+                                                                            <rect key="frame" x="25.000000000000004" y="0.0" width="37.333333333333343" height="20"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
@@ -2742,8 +2742,8 @@ Countdown</string>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
-                                            <outlet property="activeColorsCollectionView" destination="lON-PC-Zdm" id="MwK-x3-HiK"/>
-                                            <outlet property="inActiveColorsCollectionView" destination="GTm-4L-7Ds" id="Stt-8m-TjJ"/>
+                                            <outlet property="activeColorsCollectionView" destination="lON-PC-Zdm" id="vm5-8h-Sdt"/>
+                                            <outlet property="inActiveColorsCollectionView" destination="GTm-4L-7Ds" id="UVE-gu-q7j"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -3279,13 +3279,13 @@ Countdown</string>
                                 <rect key="frame" x="0.0" y="44" width="375" height="734"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="uBF-ue-vDP">
-                                        <rect key="frame" x="104.33333333333333" y="299" width="166.66666666666669" height="136"/>
+                                        <rect key="frame" x="80.666666666666686" y="246" width="214" height="242"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="uploadStory" translatesAutoresizingMaskIntoConstraints="NO" id="SMh-eb-DFO">
-                                                <rect key="frame" x="29.666666666666671" y="0.0" width="107.00000000000001" height="106"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="214" height="212"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" verticalCompressionResistancePriority="753" text="No uploads remaining" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bwk-GS-iZP">
-                                                <rect key="frame" x="0.0" y="116" width="166.66666666666666" height="20"/>
+                                                <rect key="frame" x="23.666666666666657" y="222" width="166.66666666666666" height="20"/>
                                                 <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="17"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -3664,13 +3664,13 @@ Countdown</string>
                                 <rect key="frame" x="0.0" y="44" width="375" height="734"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="WKl-ia-KGd">
-                                        <rect key="frame" x="98.333333333333329" y="299" width="178.33333333333337" height="136.33333333333337"/>
+                                        <rect key="frame" x="81.666666666666686" y="246" width="212" height="242.33333333333337"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="uploadFeed" translatesAutoresizingMaskIntoConstraints="NO" id="nBl-41-IFE">
-                                                <rect key="frame" x="36.333333333333329" y="0.0" width="105.99999999999999" height="106"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="212" height="212"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" verticalCompressionResistancePriority="753" text="No uploads remaining" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uja-h9-QRb">
-                                                <rect key="frame" x="0.0" y="116" width="178.33333333333334" height="20.333333333333343"/>
+                                                <rect key="frame" x="16.666666666666657" y="222" width="178.33333333333334" height="20.333333333333343"/>
                                                 <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="17"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -3745,7 +3745,7 @@ Countdown</string>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dimond" translatesAutoresizingMaskIntoConstraints="NO" id="1cu-h2-WXJ">
-                                                    <rect key="frame" x="42" y="39" width="36" height="20"/>
+                                                    <rect key="frame" x="24" y="19" width="72" height="40"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I5C-fC-pc4">
                                                     <rect key="frame" x="41.333333333333329" y="64" width="37.333333333333329" height="18"/>
@@ -3842,7 +3842,7 @@ Countdown</string>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dimond" translatesAutoresizingMaskIntoConstraints="NO" id="uN7-aU-7gE">
-                                                    <rect key="frame" x="42" y="39" width="36" height="20"/>
+                                                    <rect key="frame" x="24" y="19" width="72" height="40"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o6i-vt-VNl">
                                                     <rect key="frame" x="41.333333333333329" y="64" width="37.333333333333329" height="18"/>
@@ -3921,11 +3921,11 @@ Countdown</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CAR-CK-oFg">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="117"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="137"/>
                                 <color key="backgroundColor" name="AppPrimaryColor"/>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="fqr-Se-dH8">
-                                <rect key="frame" x="0.0" y="125" width="375" height="653"/>
+                                <rect key="frame" x="0.0" y="145" width="375" height="633"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="WKP-LR-zV5">
                                     <size key="itemSize" width="120" height="87"/>
@@ -3943,10 +3943,10 @@ Countdown</string>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dimond" translatesAutoresizingMaskIntoConstraints="NO" id="EdQ-jl-Wlj">
-                                                    <rect key="frame" x="42" y="28.666666666666671" width="36" height="20"/>
+                                                    <rect key="frame" x="24" y="18.666666666666671" width="72" height="40"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dnc-3b-3fG">
-                                                    <rect key="frame" x="41.333333333333329" y="53.666666666666657" width="37.333333333333329" height="33.333333333333343"/>
+                                                    <rect key="frame" x="41.333333333333329" y="63.666666666666664" width="37.333333333333329" height="23.333333333333336"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -3986,13 +3986,13 @@ Countdown</string>
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="kb2-VK-GdB">
-                                <rect key="frame" x="120" y="35.333333333333343" width="135" height="61.666666666666657"/>
+                                <rect key="frame" x="120" y="15.333333333333336" width="135" height="101.66666666666666"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ssuSoccerCam" translatesAutoresizingMaskIntoConstraints="NO" id="0i7-OO-Uas">
-                                        <rect key="frame" x="0.0" y="0.0" width="135" height="40"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="135" height="80"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Business Center" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a2o-oN-i1U">
-                                        <rect key="frame" x="0.0" y="39.999999999999993" width="135" height="21.666666666666664"/>
+                                        <rect key="frame" x="0.0" y="80" width="135" height="21.666666666666671"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -4164,7 +4164,7 @@ Countdown</string>
                                                     </subviews>
                                                 </stackView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aX1-KM-bQz">
-                                                    <rect key="frame" x="339" y="0.0" width="10" height="22"/>
+                                                    <rect key="frame" x="339" y="0.0" width="10" height="32"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="10" id="GzR-eB-fV9"/>
                                                     </constraints>
