@@ -30,7 +30,7 @@ class IncomeCalculatorTableViewCell: UITableViewCell {
         self.viewIncome.backgroundColor = UIColor.blue.withAlphaComponent(0.2)
     }
     
-    internal func setData(level: String, followers: String, income: String) {
+    internal func setData(level: String, followers: String, income: String = "") {
         self.lblLevel.text = level
         self.lblFollowers.text = followers
         self.lblIncome.text = "$" + income
@@ -61,7 +61,11 @@ class IncomeCalculatorOneViewController: UIViewController {
     
     private var incomeData = [(Int, Int)]()
     private var averageInAppPurchase = 2
-    private var percentageFilled = 10
+    private var percentageFilled = 10 {
+        didSet {
+            self.percentageSlider.value = Float(percentageFilled)
+        }
+    }
     private var directRefferals = 0
     private var levelTwoRefferals = 0
     private var levelThreeRefferals = 0

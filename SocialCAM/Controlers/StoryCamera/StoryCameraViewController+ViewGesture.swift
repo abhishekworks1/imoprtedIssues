@@ -123,19 +123,21 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             self.zoomSlider.value = Float(minZoom)
             
             var speedOptions: [StoryCameraSpeedValue] = [.slow3x, .slow2x, .normal, .normal, .fast2x, .fast3x]
-            switch Defaults.shared.appMode {
-            case .free, .basic:
-                break
-            case .advanced:
-                speedOptions.append(.fast4x)
-                speedOptions.insert(.slow4x, at: 0)
-            default:
-                speedOptions.append(contentsOf: [.fast4x, .fast5x])
-                speedOptions.insert(contentsOf: [.slow5x, .slow4x], at: 0)
-            }
+            
             
             if isViralCamLiteApp || isFastCamLiteApp || isQuickCamLiteApp || isSpeedCamLiteApp {
-                speedOptions = recordingType == .promo ? [.normal, .fast2x, .fast3x] : speedOptions
+                speedOptions = recordingType == .promo ? [.normal, .normal, .normal, .fast2x, .fast3x] : speedOptions
+            } else {
+                switch Defaults.shared.appMode {
+                case .free, .basic:
+                    break
+                case .advanced:
+                    speedOptions.append(.fast4x)
+                    speedOptions.insert(.slow4x, at: 0)
+                default:
+                    speedOptions.append(contentsOf: [.fast4x, .fast5x])
+                    speedOptions.insert(contentsOf: [.slow5x, .slow4x], at: 0)
+                }
             }
             
             var currentValue = checkValue(values: speedOptions, newPoint.x)
@@ -300,10 +302,6 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
     
     // values = ["-3x", "2x", "1x", "1x", "2x", "3x"]
     func checkValue(values: [StoryCameraSpeedValue], _ pointX: CGFloat) -> StoryCameraSpeedValue {
-        var values = values
-        if isViralCamLiteApp || isFastCamLiteApp || isQuickCamLiteApp || isSpeedCamLiteApp {
-            values = (recordingType == .promo ? [.normal, .normal] : []) + values
-        }
         let screenPart = UIScreen.main.bounds.width / CGFloat(values.count)
         for (index, value) in values.enumerated() {
             let multiplyValue = index + 1
