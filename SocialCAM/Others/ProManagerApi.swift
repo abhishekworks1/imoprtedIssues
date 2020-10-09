@@ -32,7 +32,9 @@ public enum ProManagerApi {
     case youTubeChannels(token: String)
     case youTubeKeyWordSerch(key: String, order: String?, nextPageToken: String?)
     case deleteHashTagSet(hashId: String)
+    case addHashTagSet(categoryName:String, hashTags:[String], user : String)
     case getHashTagSets(Void)
+    case updateHashTagSet(categoryName:String?, hashTags:[String]?, usedCount : Int?,hashId:String)   
     case logOut(deviceToken: String, userId: String)
     case createStory(url: String, duration: String, type: String, storiType: Int, user: String, thumb: String?, lat: String, long: String, address: String, tags: [[String: Any]]?, hashtags: [String]?, publish: Int)
     case writePost(type: String, text: String?, isChekedIn: Bool?, user: String, media: [[String:Any]]?, youTubeData: [String:Any]?, wallTheme: [String:Any]?, albumId: String?, checkedIn: [String:Any]?, hashTags:[String]?, privacy: String?, friendExcept:[String]?, friendsOnly:[String]?, feelingType: String?, feelings:[[String:Any]]?, previewUrlData: [String: Any]?, tagChannelAry:[String]?)
@@ -171,9 +173,9 @@ extension ProManagerApi: TargetType {
             return Paths.getYoutubeCategoty
         case .uploadYoutubeVideo:
             return ""
-        case .deleteHashTagSet(let hashID):
+        case .updateHashTagSet(_,_,_,let hashID),.deleteHashTagSet(let hashID):
             return Paths.addHashTag + "/\(hashID)"
-        case .getHashTagSets:
+        case .addHashTagSet, .getHashTagSets:
             return Paths.addHashTag
         case .updateProfile:
             return Paths.updateProfile
@@ -224,7 +226,7 @@ extension ProManagerApi: TargetType {
             return .post
         case .getSplashImages, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getHashTagSets, .getWeather, .getyoutubeSubscribedChannel, .getYoutubeCategory, .instgramProfile, .instgramProfileDetails, .getLongLivedToken, .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData:
             return .get
-        case .updateProfile, .editStory, .updatePost:
+        case .updateProfile, .editStory, .updatePost, .updateHashTagSet:
             return .put
         case .deleteHashTagSet:
             return .delete
@@ -456,8 +458,20 @@ extension ProManagerApi: TargetType {
             }
         case .logOut(let deviceToken, _):
             param = ["deviceToken": deviceToken]
+        case .addHashTagSet(let categoryName, let hashTags, let user):
+            param = ["categoryName" : categoryName, "hashTags" : hashTags,"user":user]
         case .getHashTagSets:
             break
+        case .updateHashTagSet(let categoryName, let hashTags , let usedCount, _) :
+            if let categoryName = categoryName {
+                param["categoryName"] = categoryName
+            }
+            if let hashTags = hashTags {
+                param["hashTags"] = hashTags
+            }
+            if let usedCount = usedCount {
+                param["usedCount"] = usedCount
+            }
         case .deleteHashTagSet:
             break
         case .getWeather(let lattitude, let longitude):
@@ -538,11 +552,11 @@ extension ProManagerApi: TargetType {
         switch self {
         case .logIn:
             return JSONEncoding.default
-        case .getSplashImages, .youTubeDetail, .youTubeKeyWordSerch, .youTubeChannelSearch, .getHashTagSets, .getWeather, .getYoutubeCategory:
+        case .getSplashImages, .youTubeDetail, .youTubeKeyWordSerch, .youTubeChannelSearch, .getWeather, .getYoutubeCategory:
             return JSONEncoding.default
         case .getyoutubeSubscribedChannel:
             return TokenURLEncoding.default
-        case .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData:
+        case .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData, .getHashTagSets:
             return URLEncoding.default
         default:
             return JSONEncoding.default

@@ -281,8 +281,6 @@ class StoryEditorViewController: UIViewController {
         }
         self.dragAndDropManager = DragAndDropManager(canvas: self.view,
                                                      collectionViews: collectionViews)
-        
-        downloadViewGesture()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -406,7 +404,16 @@ class StoryEditorViewController: UIViewController {
         }
         self.soundOptionView.isHidden = isImage
         self.trimOptionView.isHidden = isImage
-        self.mergeOptionView.isHidden = isImage
+        
+        var videoCount = 0
+        for editor in storyEditors {
+            if case StoryEditorType.video(_, _) = editor.type {
+                videoCount += 1
+            }
+        }
+        
+        self.mergeOptionView.isHidden = !(!isImage && (videoCount > 1))
+       
         if !isBoomiCamApp && !isFastCamApp && !isViralCamLiteApp && !isFastCamLiteApp && !isQuickCamLiteApp || isSpeedCamLiteApp {
             self.timeSpeedOptionView.isHidden = Defaults.shared.appMode != .free ? isImage : true
         } else {

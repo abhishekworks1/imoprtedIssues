@@ -90,10 +90,10 @@ class YouTubeUploadViewController: UIViewController {
         self.tagView.font = UIFont.sfuifont
         self.tagView.layoutIfNeeded()
         if let videourl = self.videoUrl {
-            self.playerView.isAutoPlay = false
+            self.playerView.isAutoPlay = true
             self.playerView.playUrl = videourl
             self.playerView.pause()
-            self.imgThumbnail.contentMode = .scaleAspectFill
+            self.imgThumbnail.contentMode = .scaleAspectFit
             self.imgThumbnail.image = UIImage.getThumbnailFrom(videoUrl: videourl)
         }
     }
@@ -200,7 +200,10 @@ class YouTubeUploadViewController: UIViewController {
     }
     
     @IBAction func btnHashSetClicked(_ sender: Any) {
-        
+        if let vc = R.storyboard.youTubeUpload.selectHashTagViewController() {
+            vc.delegate = self
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     @IBAction func btnCancelClicked(_ sender: Any) {
@@ -219,6 +222,7 @@ class YouTubeUploadViewController: UIViewController {
             self.playerView.pause()
             self.btnPlayPause.setImage(R.image.storyPlay(), for: .normal)
         default:
+            self.imgThumbnail.isHidden = true
             self.playerView.play()
             self.btnPlayPause.setImage(R.image.storyPause(), for: .normal)
         }

@@ -90,8 +90,10 @@ class SelectHashTagViewController: UIViewController {
     }
     
     @IBAction func createHashTagBtnCLicked(_ sender: Any) {
-        //        let vc = R.storyboard.addPost.createHashTagViewController()!
-        //        self.navigationController?.pushViewController(vc, animated: true)
+        guard let createHashTagViewController = R.storyboard.youTubeUpload.createHashTagViewController() else {
+            return
+        }
+        self.navigationController?.pushViewController(createHashTagViewController, animated: true)
     }
     
     override func didReceiveMemoryWarning() {
