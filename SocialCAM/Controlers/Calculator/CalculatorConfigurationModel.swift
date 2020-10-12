@@ -84,6 +84,7 @@ class CalculatorConfigurationData: NSObject, NSCoding, Mappable {
     var type: String?
     var updatedAt: String?
     var levelsArray: [Int]?
+    var inAppPurchaseLimit: Int?
     
     class func newInstance(map: Map) -> Mappable? {
         return CalculatorConfigurationData()
@@ -110,6 +111,7 @@ class CalculatorConfigurationData: NSObject, NSCoding, Mappable {
         type <- map["type"]
         updatedAt <- map["updatedAt"]
         levelsArray <- map["levelsArray"]
+        inAppPurchaseLimit <- map["inAppPurchaseLimit"]
     }
 
     /**
@@ -134,6 +136,7 @@ class CalculatorConfigurationData: NSObject, NSCoding, Mappable {
         type = aDecoder.decodeObject(forKey: "type") as? String
         updatedAt = aDecoder.decodeObject(forKey: "updatedAt") as? String
         levelsArray = aDecoder.decodeBool(forKey: "levelsArray") as? [Int]
+        inAppPurchaseLimit = aDecoder.decodeObject(forKey: "inAppPurchaseLimit") as? Int
     }
 
     /**
@@ -191,6 +194,9 @@ class CalculatorConfigurationData: NSObject, NSCoding, Mappable {
         }
         if levelsArray != nil {
             aCoder.encode(levelsArray, forKey: "levelsArray")
+        }
+        if inAppPurchaseLimit != nil {
+            aCoder.encode(inAppPurchaseLimit, forKey: "inAppPurchaseLimit")
         }
     }
 

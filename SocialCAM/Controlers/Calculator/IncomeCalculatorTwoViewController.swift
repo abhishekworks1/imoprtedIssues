@@ -23,12 +23,24 @@ class IncomeCalculatorTwoViewController: UIViewController {
     @IBOutlet var tableViewSectionHeader: UIView!
     @IBOutlet weak var lblPercentageFilled: UILabel!
     @IBOutlet weak var lblAverageInAppPurchase: UILabel!
+    @IBOutlet weak var percentageSlider: CustomSlider!
+    @IBOutlet weak var inAppSlider: CustomSlider!
     
     // MARK: -
     // MARK: - Variables
     
-    private var averageInAppPurchase = 2
-    private var percentageFilled = 10
+    private var averageInAppPurchase = 0 {
+        didSet {
+            self.lblAverageInAppPurchase.text = "$" + averageInAppPurchase.description
+            self.inAppSlider.value = Float(averageInAppPurchase)
+        }
+    }
+    private var percentageFilled = 0 {
+        didSet {
+            self.lblPercentageFilled.text = percentageFilled.description + "%"
+            self.percentageSlider.value = Float(percentageFilled)
+        }
+    }
     internal var isCalculatorThree = false
     private var directRefferals = 0
     private var levelTwoRefferals = 0
@@ -81,19 +93,23 @@ class IncomeCalculatorTwoViewController: UIViewController {
 
     
     @IBAction func percentageSliderValueChanged(_ sender: UISlider) {
+        self.toolTip.dismiss()
         self.percentageFilled = Int(sender.value)
     }
     
     @IBAction func inAppSliderChanged(_ sender: UISlider) {
+        self.toolTip.dismiss()
         self.averageInAppPurchase = Int(sender.value)
     }
     
     @IBAction func levelOneSliderChanged(_ sender: UISlider) {
         self.toolTip.dismiss()
+        self.lblLevelOneRefferals.text = Int(sender.value).description
     }
     
     @IBAction func levelTwoSliderChanged(_ sender: UISlider) {
         self.toolTip.dismiss()
+        self.lblLevelTwoRefferals.text = Int(sender.value).description
     }
     
     @IBAction func levelOneHelpTapped(_ sender: UIButton) {
@@ -171,10 +187,9 @@ class IncomeCalculatorTwoViewController: UIViewController {
                 if let calcConfig = response.result?.first(where: { $0.type == (self.isCalculatorThree ? "potential_income_2" : "potential_income_3") }) {
                     self.levelOneSlider.maximumValue = Float(calcConfig.maxLevel1 ?? 0)
                     self.levelTwoSlider.maximumValue = Float(calcConfig.maxLevel2 ?? 0)
+                    self.inAppSlider.maximumValue = Float(calcConfig.inAppPurchaseLimit ?? 0)
                     self.levelOnePercentage = calcConfig.levelsArray?[0] ?? self.levelOnePercentage
                     self.levelTwoPercentage = calcConfig.levelsArray?[1] ?? self.levelOnePercentage
-                    self.lblLevelOneRefferals.text = Int(self.levelOneSlider.maximumValue).description
-                    self.lblLevelTwoRefferals.text = Int(self.levelTwoSlider.maximumValue).description
                 }
                 }, onError: { error in
                     self.showAlert(alertMessage: error.localizedDescription)

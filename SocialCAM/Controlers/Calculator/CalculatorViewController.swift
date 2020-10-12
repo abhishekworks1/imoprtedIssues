@@ -45,8 +45,8 @@ class CalculatorViewController: UIViewController {
     @IBOutlet weak var lblTotalFollowers: UILabel!
     @IBOutlet var tableHeaderView: UIView!
     @IBOutlet weak var lblPercentageFilled: UILabel!
-    @IBOutlet weak var txtInnerCircleCount: UILabel!
-    @IBOutlet weak var txtExtendedCircleCount: UILabel!
+    @IBOutlet weak var lblInnerCircleCount: UILabel!
+    @IBOutlet weak var lblExtendedCircleCount: UILabel!
     
     // MARK: -
     // MARK: - Variables
@@ -56,9 +56,10 @@ class CalculatorViewController: UIViewController {
     private var totalCount = 0
     private var referLimit = 0
     private var otherReferLimit = 0
-    private var percentage = 10 {
+    private var percentage = 0 {
         didSet {
             self.percentageSlider.value = Float(percentage)
+            self.lblPercentageFilled.text = percentage.description + "%"
         }
     }
     private var toolTip = EasyTipView(text: "")
@@ -119,10 +120,12 @@ class CalculatorViewController: UIViewController {
     }
     
     @IBAction func innerCircleSliderChanged(_ sender: UISlider) {
+        self.lblInnerCircleCount.text = Int(sender.value).description
         self.toolTip.dismiss()
     }
     
     @IBAction func extendedCircleSliderChanged(_ sender: UISlider) {
+        self.lblExtendedCircleCount.text = Int(sender.value).description
         self.toolTip.dismiss()
     }
     
@@ -165,8 +168,6 @@ class CalculatorViewController: UIViewController {
                     self.innerCircleSlider.maximumValue = Float(calcConfig.maxLevel ?? 0)
                     self.extendedCircleSlider.maximumValue = Float(calcConfig.maxRefer ?? 0)
                     self.percentage = calcConfig.percentage ?? 0
-                    self.txtInnerCircleCount.text = Int(self.innerCircleSlider.maximumValue).description
-                    self.txtExtendedCircleCount.text = Int(self.extendedCircleSlider.maximumValue).description
                 }
             }, onError: { error in
                 self.showAlert(alertMessage: error.localizedDescription)

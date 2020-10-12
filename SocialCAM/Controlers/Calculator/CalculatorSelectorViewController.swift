@@ -23,45 +23,56 @@ class CalculatorSelectorViewController: UIViewController {
     }
     
     // MARK: -
+    // MARK: - Class Functions
+    
+    func goToCalculatosScreen(index: Int) {
+        switch index {
+        case 0:
+            guard let destinationVc = R.storyboard.calculator.calculatorViewController() else { return }
+            self.navigationController?.pushViewController(destinationVc, animated: true)
+        case 1:
+            guard let destinationVc = R.storyboard.calculator.incomeCalculatorOne() else { return }
+            self.navigationController?.pushViewController(destinationVc, animated: true)
+        case 2:
+            guard let destinationVc = R.storyboard.calculator.incomeCalculatorTwo() else { return }
+            self.navigationController?.pushViewController(destinationVc, animated: true)
+        case 3:
+            guard let destinationVc = R.storyboard.calculator.incomeCalculatorTwo() else { return }
+            destinationVc.isCalculatorThree = true
+            self.navigationController?.pushViewController(destinationVc, animated: true)
+        case 4:
+            guard let destinationVc = R.storyboard.calculator.incomeCalculatorFourViewController() else { return }
+            self.navigationController?.pushViewController(destinationVc, animated: true)
+        default:
+            break
+        }
+    }
+    
+    // MARK: -
     // MARK: - Button Action Methods
     
+    @IBAction func btnBackTapped(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     @IBAction func btnPotentialFollowersTapped(_ sender: Any) {
-        self.dismiss(animated: true) { [weak self] in
-            guard let uSelf = self else { return }
-            uSelf.buttonAction?(0)
-        }
+        self.goToCalculatosScreen(index: 0)
     }
     
     @IBAction func btnCalculatorOneTapped(_ sender: Any) {
-        self.dismiss(animated: true) { [weak self] in
-            guard let uSelf = self else { return }
-            uSelf.buttonAction?(1)
-        }
+        self.goToCalculatosScreen(index: 1)
     }
     
     @IBAction func btnCalculatorTwoTapped(_ sender: Any) {
-        self.dismiss(animated: true) { [weak self] in
-            guard let uSelf = self else { return }
-            uSelf.buttonAction?(2)
-        }
+        self.goToCalculatosScreen(index: 2)
     }
     
     @IBAction func btnCalculatorThreeTapped(_ sender: Any) {
-        self.dismiss(animated: true) { [weak self] in
-            guard let uSelf = self else { return }
-            uSelf.buttonAction?(3)
-        }
+        self.goToCalculatosScreen(index: 3)
     }
     
     @IBAction func btnCalculatorFourTapped(_ sender: Any) {
-        self.dismiss(animated: true) { [weak self] in
-            guard let uSelf = self else { return }
-            uSelf.buttonAction?(4)
-        }
-    }
-    
-    @IBAction func btnDismissTapped(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        self.goToCalculatosScreen(index: 4)
     }
     
 }

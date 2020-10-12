@@ -8,14 +8,13 @@
 
 import UIKit
 
-
 class CustomSlider: UISlider {
     
     // MARK: -
     // MARK: - Variables
 
-    @IBInspectable var trackHeight: CGFloat = 5
-    @IBInspectable var thumbRadius: CGFloat = 10 {
+    @IBInspectable var trackHeight: CGFloat = 3
+    @IBInspectable var thumbRadius: CGFloat = 8 {
         didSet {
             let thumb = thumbImage(radius: thumbRadius)
             setThumbImage(thumb, for: .normal)
@@ -37,23 +36,8 @@ class CustomSlider: UISlider {
     // MARK: -
     // MARK: - Life Cycle
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.thumbTextLabel.center = thumbFrame.center
-        thumbTextLabel.frame = CGRect(x: thumbTextLabel.frame.origin.x, y: thumbFrame.origin.y - 20, width: 80, height: thumbFrame.size.height)
-        thumbTextLabel.font = UIFont.systemFont(ofSize: 12.0)
-        if appendUnit {
-            thumbTextLabel.text = Int(self.value).description + unitString
-        } else {
-            thumbTextLabel.text = unitString + Int(self.value).description
-        }
-    }
-    
     override func awakeFromNib() {
         super.awakeFromNib()
-        addSubview(thumbTextLabel)
-        thumbTextLabel.textAlignment = .center
-        thumbTextLabel.layer.zPosition = layer.zPosition + 1
         self.addTarget(self, action: #selector(sliderTouchUp), for: .touchUpInside)
         self.addTarget(self, action: #selector(sliderTouchUp), for: .touchUpOutside)
         self.addTarget(self, action: #selector(sliderTouchDown), for: .touchDown)
@@ -66,13 +50,13 @@ class CustomSlider: UISlider {
     }
     
     @objc func sliderTouchUp() {
-        self.trackHeight = 5
-        self.thumbRadius = 10
+        self.trackHeight = 3
+        self.thumbRadius = 8
     }
     
     @objc func sliderTouchDown() {
-        self.trackHeight = 10
-        self.thumbRadius = 15
+        self.trackHeight = 5
+        self.thumbRadius = 10
     }
     
     // MARK: -

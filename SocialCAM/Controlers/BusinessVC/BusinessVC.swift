@@ -159,30 +159,7 @@ extension BusinessVC: UICollectionViewDataSource, UICollectionViewDelegate, UICo
             self.present(activityViewController, animated: true, completion: nil)
         case .calculator:
             guard let calculatorSelectorVc = R.storyboard.calculator.calculatorSelectorViewController() else { break }
-            calculatorSelectorVc.buttonAction = { index in
-                switch index {
-                case 0:
-                    guard let destinationVc = R.storyboard.calculator.calculatorViewController() else { return }
-                    self.navigationController?.pushViewController(destinationVc, animated: true)
-                case 1:
-                    guard let destinationVc = R.storyboard.calculator.incomeCalculatorOne() else { return }
-                    self.navigationController?.pushViewController(destinationVc, animated: true)
-                case 2:
-                    guard let destinationVc = R.storyboard.calculator.incomeCalculatorTwo() else { return }
-                    self.navigationController?.pushViewController(destinationVc, animated: true)
-                case 3:
-                    guard let destinationVc = R.storyboard.calculator.incomeCalculatorTwo() else { return }
-                    destinationVc.isCalculatorThree = true
-                    self.navigationController?.pushViewController(destinationVc, animated: true)
-                case 4:
-                    guard let destinationVc = R.storyboard.calculator.incomeCalculatorFourViewController() else { return }
-                    self.navigationController?.pushViewController(destinationVc, animated: true)
-                default:
-                    break
-                }
-            }
-            calculatorSelectorVc.modalPresentationStyle = .overFullScreen
-            self.navigationController?.present(calculatorSelectorVc, animated: true, completion: nil)
+            self.navigationController?.pushViewController(calculatorSelectorVc, animated: true)
             break
         case .announcement:
             if isLiteApp {
