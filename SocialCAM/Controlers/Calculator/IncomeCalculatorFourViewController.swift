@@ -56,6 +56,8 @@ class IncomeCalculatorFourViewController: UIViewController {
     @IBOutlet weak var lblExtendedCircleLimit: UILabel!
     @IBOutlet weak var lblInnerCircleLimit: UILabel!
     @IBOutlet weak var lblPotentialIncome: UILabel!
+    @IBOutlet weak var lblPercentage: UILabel!
+    @IBOutlet weak var lblInAppPurchase: UILabel!
     
     // MARK: -
     // MARK: - Variables
@@ -63,17 +65,23 @@ class IncomeCalculatorFourViewController: UIViewController {
     private var referCount = 0
     private var otherReferCount = 0
     private var totalCount = 0
-    private var totalIncome: Float = 0.0
+    private var totalIncome = 0
     private var referLimit = 0
     private var otherReferLimit = 0
     private var percentage = 0 {
         didSet {
             self.percentageSlider.value = Float(percentage)
+            self.lblPercentage.text = percentage.description + "%"
         }
     }
-    private var inAppPurchase = 0
+    private var inAppPurchase = 0 {
+        didSet {
+            self.inAppSlider.value = Float(inAppPurchase)
+            self.lblInAppPurchase.text = "$" +  inAppPurchase.description
+        }
+    }
     private var toolTip = EasyTipView(text: "")
-    private var incomeData = [Float]()
+    private var incomeData = [Int]()
     private var followersData = [Int]()
     private var levelOnePercentage = 0
     private var levelTwoPercentage = 0
@@ -118,10 +126,12 @@ class IncomeCalculatorFourViewController: UIViewController {
     
     @IBAction func innerCircleSliderChanged(_ sender: UISlider) {
         self.toolTip.dismiss()
+        self.lblInnerCircleLimit.text = Int(sender.value).description
     }
     
     @IBAction func extendedCircleSliderChanged(_ sender: UISlider) {
         self.toolTip.dismiss()
+        self.lblExtendedCircleLimit.text = Int(sender.value).description
     }
     
     @IBAction func percentageBarChanged(_ sender: UISlider) {
@@ -188,11 +198,11 @@ class IncomeCalculatorFourViewController: UIViewController {
         self.lblTotalFollowers.text = self.totalIncome.description
     }
     
-    private func getInome(followers: Int, index: Int) -> Float {
+    private func getInome(followers: Int, index: Int) -> Int {
         if index == 0 {
-            return Float(followers) * self.inAppSlider.value * Float(self.percentageArray[index]) / 100
+            return followers * Int(self.inAppSlider.value) * self.percentageArray[index] / 100
         } else {
-            let result = Float(followers) * self.percentageSlider.value * Float(self.percentageArray[index]) * self.inAppSlider.value
+            let result = followers * Int(self.percentageSlider.value) * self.percentageArray[index] * Int(self.inAppSlider.value)
             return result / 10000
         }
     }
@@ -205,9 +215,7 @@ class IncomeCalculatorFourViewController: UIViewController {
                 if let calcConfig = response.result?.first(where: { $0.type == "potential_income_4"}) {
                     self.innerCircleSlider.maximumValue = Float(calcConfig.maxPersonal ?? 0)
                     self.extendedCircleSlider.maximumValue = Float(calcConfig.maxExtended ?? 0)
-                    self.percentage = calcConfig.percentage ?? 0
-                    self.lblInnerCircleLimit.text = Int(self.innerCircleSlider.maximumValue).description
-                    self.lblExtendedCircleLimit.text = Int(self.extendedCircleSlider.maximumValue).description
+                    self.inAppSlider.maximumValue = Float(calcConfig.inAppPurchaseLimit ?? 0)
                     self.percentageArray = calcConfig.levelsArray ?? []
                 }
             }, onError: { error in

@@ -60,10 +60,16 @@ class IncomeCalculatorOneViewController: UIViewController {
     // MARK: - Variables
     
     private var incomeData = [(Int, Int)]()
-    private var averageInAppPurchase = 2
-    private var percentageFilled = 10 {
+    private var averageInAppPurchase = 0 {
+        didSet {
+            self.inAppSlider.value = Float(averageInAppPurchase)
+            self.lblAverageInAppPurchase.text = "$" + averageInAppPurchase.description
+        }
+    }
+    private var percentageFilled = 0 {
         didSet {
             self.percentageSlider.value = Float(percentageFilled)
+            self.lblPercentageFilled.text = percentageFilled.description + "%"
         }
     }
     private var directRefferals = 0
@@ -121,39 +127,37 @@ class IncomeCalculatorOneViewController: UIViewController {
     }
     
     @IBAction func levelOneSliderChanged(_ sender: UISlider) {
+        self.lblLevelOneRefferals.text = Int(sender.value).description
         self.toolTip.dismiss()
     }
     
     @IBAction func levelTwoSliderChanged(_ sender: UISlider) {
+        self.lblLevelTwoRefferals.text = Int(sender.value).description
         self.toolTip.dismiss()
     }
     
     @IBAction func levelThreeSliderChanged(_ sender: UISlider) {
+        self.lblLevelThreeRefferals.text = Int(sender.value).description
         self.toolTip.dismiss()
     }
     
     @IBAction func levelOneRefferalsHelpTapped(_ sender: UIButton) {
-        self.toolTip.dismiss()
         self.showTipView(text: R.string.localizable.levelOneToolTipText(), on: sender)
     }
     
     @IBAction func levelTwoRefferalsHelpTapped(_ sender: UIButton) {
-        self.toolTip.dismiss()
         self.showTipView(text: R.string.localizable.levelTwoToolTipText(), on: sender)
     }
     
     @IBAction func levelThreeRefferalsHelpTapped(_ sender: UIButton) {
-        self.toolTip.dismiss()
         self.showTipView(text: R.string.localizable.levelThreeToolTipText(), on: sender)
     }
     
     @IBAction func percentageHelpTapped(_ sender: UIButton) {
-        self.toolTip.dismiss()
         self.showTipView(text: R.string.localizable.percentageToolTipText(), on: sender)
     }
     
     @IBAction func inAppPurchaseHelpTapped(_ sender: UIButton) {
-        self.toolTip.dismiss()
         self.showTipView(text: R.string.localizable.inAppToolTipText(), on: sender)
     }
     
@@ -207,15 +211,13 @@ class IncomeCalculatorOneViewController: UIViewController {
             ProManagerApi.getCalculatorConfig(type: type).request(CalculatorConfigurationModel.self).subscribe(onNext: { (response) in
                 self.dismissHUD()
                 if let calcConfig = response.result?.first(where: { $0.type == "potential_income_1" }) {
-                    self.levelOneRefferalsSlider.maximumValue = Float(calcConfig.levelsArray?[0] ?? 0)
-                    self.levelTwoRefferalsSlider.maximumValue = Float(calcConfig.levelsArray?[1] ?? 0)
-                    self.levelThreeRefferalsSlider.maximumValue = Float(calcConfig.levelsArray?[2] ?? 0)
+                    self.levelOneRefferalsSlider.maximumValue = Float(calcConfig.maxLevel1 ?? 0)
+                    self.levelTwoRefferalsSlider.maximumValue = Float(calcConfig.maxLevel2 ?? 0)
+                    self.levelThreeRefferalsSlider.maximumValue = Float(calcConfig.maxLevel3 ?? 0)
+                    self.inAppSlider.maximumValue = Float(calcConfig.inAppPurchaseLimit ?? 0)
                     self.levelOnePercentage = Int(self.levelOneRefferalsSlider.maximumValue)
                     self.levelTwoPercentage = Int(self.levelTwoRefferalsSlider.maximumValue)
                     self.levelThreePercentage = Int(self.levelThreeRefferalsSlider.maximumValue)
-                    self.lblLevelOneRefferals.text = Int(self.levelOneRefferalsSlider.maximumValue).description
-                    self.lblLevelTwoRefferals.text = Int(self.levelTwoRefferalsSlider.maximumValue).description
-                    self.lblLevelThreeRefferals.text = Int(self.levelThreeRefferalsSlider.maximumValue).description
                 }
             }, onError: { error in
                 self.showAlert(alertMessage: error.localizedDescription)
