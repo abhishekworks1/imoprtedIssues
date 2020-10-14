@@ -75,6 +75,7 @@ extension StoryCameraViewController: PhotosPickerViewControllerDelegate {
                     DispatchQueue.main.async {
                         if self.recordingType == .custom {
                             self.takenVideoUrls.append(contentsOf: imageVideoSegments)
+                            self.settingsButton.isSelected = true
                             self.stopMotionCollectionView.reloadData()
                         } else {
                             self.openStoryEditor(segementedVideos: imageVideoSegments, photosSelection: true)

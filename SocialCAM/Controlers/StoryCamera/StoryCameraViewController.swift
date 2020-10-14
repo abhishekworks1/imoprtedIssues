@@ -125,7 +125,12 @@ class StoryCameraViewController: UIViewController {
     @IBOutlet weak var baseView: UIView!
     @IBOutlet weak var topStackView: UIStackView!
     @IBOutlet weak var outtakesButton: UIButton!
-    @IBOutlet weak var settingsButton: UIButton!
+    @IBOutlet weak var settingsButton: UIButton! {
+        didSet {
+            settingsButton.setImage(R.image.storySettings()!, for: .normal)
+            settingsButton.setImage(R.image.storyBack()!, for: .selected)
+        }
+}
     @IBOutlet weak var settingsLabel: UILabel!
     @IBOutlet weak var zoomSliderView: UIView!
     @IBOutlet weak var muteButton: UIButton!
@@ -1229,14 +1234,18 @@ extension StoryCameraViewController {
     }
     
     public func removeData() {
-        self.totalDurationOfOneSegment = 0.0
-        self.circularProgress.animate(toAngle: 0, duration: 0, completion: nil)
-        self.circularProgress.progressInsideFillColor = .white
-        self.takenSlideShowImages.removeAll()
-        self.takenImages.removeAll()
-        self.takenVideoUrls.removeAll()
-        self.stopMotionCollectionView.reloadData()
-        self.resetPositionRecordButton()
+        DispatchQueue.main.async { [weak self] in
+            guard let `self` = self else { return }
+            self.settingsButton.isSelected = false
+            self.totalDurationOfOneSegment = 0.0
+            self.circularProgress.animate(toAngle: 0, duration: 0, completion: nil)
+            self.circularProgress.progressInsideFillColor = .white
+            self.takenSlideShowImages.removeAll()
+            self.takenImages.removeAll()
+            self.takenVideoUrls.removeAll()
+            self.stopMotionCollectionView.reloadData()
+            self.resetPositionRecordButton()
+        }
     }
     
     @objc func speedSliderValueChanged(_ sender: Any) {
@@ -1579,7 +1588,7 @@ extension StoryCameraViewController {
         }
         self.isMute ? muteButton.startBlink(0.5) : muteButton.stopBlink()
         self.view.bringSubviewToFront(slowFastVerticalBar.superview ?? UIView())
-        if recordingType != .basicCamera {
+        if recordingType != .basicCamera && Defaults.shared.enableGuildlines {
             slowFastVerticalBar.isHidden = (isViralCamLiteApp || isFastCamLiteApp || isQuickCamLiteApp || isSpeedCamLiteApp) ? false : (Defaults.shared.appMode == .free)
         } else {
             slowFastVerticalBar.isHidden = true
@@ -1632,70 +1641,50 @@ extension StoryCameraViewController {
     
     func stopRecording() {
         resetProgressTimer()
-        self.circularProgress.pauseAnimation()
         muteButton.stopBlink()
-        if self.recordingType == .custom {
-            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
-                self.circularProgress.trackThickness = 0.75
-                self.circularProgress.transform = CGAffineTransform(scaleX: 1, y: 1)
-            }, completion: { (_: Bool) in
-                self.nextLevel.pause {
-                    self.circularProgress.pauseAnimation()
-                    self.circularProgress.progressInsideFillColor = .white
-                    if let session = self.nextLevel.session {
-                        if let url = session.lastClipUrl {
-                            self.takenVideoUrls.append(SegmentVideos(urlStr: url, thumbimage: session.clips.last?.thumbnailImage, latitued: nil, longitued: nil, placeAddress: nil, numberOfSegement: "\(self.takenVideoUrls.count + 1)", videoduration: nil, combineOneVideo: true))
-                            
-                            DispatchQueue.main.async {
-                                self.setupForPreviewScreen()
-                            }
-                            session.removeAllClips(removeFiles: false)
-                        } else if session.currentClipHasStarted {
-                            session.endClip(completionHandler: { (clip, error) in
-                                if error == nil, let url = clip?.url {
-                                    self.takenVideoUrls.append(SegmentVideos(urlStr: url, thumbimage: clip?.thumbnailImage, latitued: nil, longitued: nil, placeAddress: nil, numberOfSegement: "\(self.takenVideoUrls.count + 1)", videoduration: nil, combineOneVideo: true))
-                                    
-                                    DispatchQueue.main.async {
-                                        self.setupForPreviewScreen()
-                                    }
-                                    session.removeAllClips(removeFiles: false)
-                                }
-                            })
-                        }
-                    }
-                }
-            })
-            return
-        }
-        showControls()
-        
-        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
+       
+        DispatchQueue.main.async { [weak self] in
+            guard let `self` = self else { return }
+            self.circularProgress.pauseAnimation()
             self.circularProgress.trackThickness = 0.75
             self.circularProgress.transform = CGAffineTransform(scaleX: 1, y: 1)
-        }, completion: { (_: Bool) in
-            self.nextLevel.pause {
-                self.circularProgress.animate(toAngle: 0, duration: 0) { _ in
-                    self.circularProgress.progressInsideFillColor = .white
-                    if let session = self.nextLevel.session {
-                        if let url = session.lastClipUrl {
-                            print("Recording completed \(url.path)")
-                            self.videoDidCompletedSession(url: url, thumbimage: session.clips.last?.thumbnailImage)
-                            session.removeAllClips(removeFiles: false)
-                        } else if session.currentClipHasStarted {
-                            session.endClip(completionHandler: { [weak self] (clip, error) in
-                                guard let `self` = self else { return }
-                                if error == nil, let url = clip?.url {
-                                    print("Recording completed \(url.path)")
-                                    self.videoDidCompletedSession(url: url, thumbimage: clip?.thumbnailImage)
-                                    session.removeAllClips(removeFiles: false)
-                                }
-                            })
+            self.circularProgress.progressInsideFillColor = .white
+        }
+        
+        self.nextLevel.pause { [weak self] in
+            guard let `self` = self else { return }
+            if let session = self.nextLevel.session {
+                if let url = session.lastClipUrl {
+                    self.afterVideoCreateSave(url: url, session: session)
+                } else if session.currentClipHasStarted {
+                    session.endClip(completionHandler: { [weak self] (clip, error) in
+                        guard let `self` = self else { return }
+                        if error == nil, let url = clip?.url {
+                            self.afterVideoCreateSave(url: url, session: session)
                         }
-                    }
-                    self.nextLevel.audioConfiguration.isMute = self.isMute
+                    })
                 }
+                session.removeAllClips(removeFiles: false)
             }
-        })
+            self.nextLevel.audioConfiguration.isMute = self.isMute
+        }
+        
+        if self.recordingType != .custom {
+            showControls()
+        }
+    }
+    
+    func afterVideoCreateSave(url: URL, session: NextLevelSession) {
+        if recordingType == .custom {
+            takenVideoUrls.append(SegmentVideos(urlStr: url, thumbimage: session.clips.last?.thumbnailImage, latitued: nil, longitued: nil, placeAddress: nil, numberOfSegement: "\(takenVideoUrls.count + 1)", videoduration: nil, combineOneVideo: true))
+            settingsButton.isSelected = true
+            DispatchQueue.main.async { [weak self] in
+                guard let `self` = self else { return }
+                self.setupForPreviewScreen()
+            }
+        } else {
+            self.videoDidCompletedSession(url: url, thumbimage: session.clips.last?.thumbnailImage)
+        }
     }
     
     func videoDidCompletedSession(url: URL, thumbimage: UIImage?) {
@@ -1729,6 +1718,7 @@ extension StoryCameraViewController {
         } else {
             DispatchQueue.main.async {
                 self.takenVideoUrls.append(SegmentVideos(urlStr: url, thumbimage: thumbimage, numberOfSegement: "\(self.takenVideoUrls.count + 1)"))
+                self.settingsButton.isSelected = true
                 self.setupForPreviewScreen()
             }
         }

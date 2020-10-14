@@ -86,7 +86,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             onStartRecordSetSpeed()
             isRecording = true
             self.view.bringSubviewToFront(slowFastVerticalBar.superview ?? UIView())
-            if recordingType != .basicCamera {
+            if recordingType != .basicCamera && Defaults.shared.enableGuildlines {
                 slowFastVerticalBar.isHidden = (isViralCamLiteApp || isFastCamLiteApp || isQuickCamLiteApp || isSpeedCamLiteApp) ? false : (Defaults.shared.appMode == .free)
             } else {
                 slowFastVerticalBar.isHidden = true

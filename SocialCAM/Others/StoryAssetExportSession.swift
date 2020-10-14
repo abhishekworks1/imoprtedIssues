@@ -309,7 +309,7 @@ class StoryAssetExportSession {
                 guard let `self` = self else {
                     return
                 }
-                self.addWaterMarkImageIfNeeded(isGIF: true)
+                self.addWaterMarkImageIfNeeded(isGIF: false)
             }
         }
         gifCount += 1
@@ -346,9 +346,9 @@ class StoryAssetExportSession {
                 image = R.image.snapcamWatermarkLogo()
             }
         } else if isSpeedCamApp {
-            image = R.image.speedcamWatermarkLogo()
+            image = R.image.wmSpeedCamLogo()
             if watermarkPosition == .topLeft {
-                image = R.image.speedcamWatermarkLogo()
+                image = R.image.wmSpeedCamLogo()
             }
         } else if isPic2ArtApp {
             image = R.image.pic2artWatermarkLogo()
@@ -398,29 +398,21 @@ class StoryAssetExportSession {
                 return
         }
         
+        let newWatermarkImage = watermarkImage.combineWith(image: watermarkTextImage)
+        
         let backgroundImageSize = backgroundImage.size
         UIGraphicsBeginImageContext(backgroundImageSize)
 
         let backgroundImageRect = CGRect(origin: .zero, size: backgroundImageSize)
         backgroundImage.draw(in: backgroundImageRect)
 
-        let watermarkImageSize = watermarkImage.size
+        let watermarkImageSize = newWatermarkImage.size
         var watermarkOrigin = CGPoint(x: backgroundImageSize.width - watermarkImageSize.width - 20, y: backgroundImageSize.height - watermarkImageSize.height - 70)
         if watermarkPosition == .topLeft {
             watermarkOrigin = CGPoint(x: 8, y: 8)
         }
-        let watermarkImageRect = CGRect(origin: watermarkOrigin,
-                                        size: watermarkImageSize)
-        watermarkImage.draw(in: watermarkImageRect, blendMode: .normal, alpha: 1.0)
-        
-        let watermarkTextImageSize = watermarkTextImage.size
-        var watermarkTextOrigin = CGPoint(x: backgroundImageSize.width - watermarkTextImageSize.width - 10, y: backgroundImageSize.height - watermarkTextImageSize.height - 10)
-        if watermarkPosition == .topLeft {
-            watermarkTextOrigin = CGPoint(x: 10, y: 150)
-        }
-        
-        let watermarkTextImageRect = CGRect(origin: watermarkTextOrigin, size: watermarkTextImageSize)
-        watermarkTextImage.draw(in: watermarkTextImageRect, blendMode: .normal, alpha: 1.0)
+        let watermarkImageRect = CGRect(origin: watermarkOrigin, size: watermarkImageSize)
+        newWatermarkImage.draw(in: watermarkImageRect, blendMode: .normal, alpha: 1.0)
         
         if let newImage = UIGraphicsGetImageFromCurrentImageContext() {
             self.overlayWatermarkImage = newImage
