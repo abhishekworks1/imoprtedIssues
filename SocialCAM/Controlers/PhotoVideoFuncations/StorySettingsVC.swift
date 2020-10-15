@@ -27,6 +27,7 @@ enum SettingsMode: Int {
     case guidelineType
     case guidelineTickness
     case guidelineColor
+    case guildlines
 }
 
 class StorySetting {

@@ -598,11 +598,37 @@ extension StoryEditorViewController {
     }
 
     @IBAction func timeSpeedClicked(_ sender: UIButton) {
-        guard let currentAsset = currentVideoAsset, currentAsset.duration.seconds > 2.0 else {
-            self.showAlert(alertMessage: R.string.localizable.minimumTwoSecondsVideoRequiredToChangeSpeed())
-           
+        guard let currentAsset = currentVideoAsset else {
             return
         }
+        let assetSize = currentAsset.tracks(withMediaType: .video)[0].naturalSize
+        if assetSize.height >= 2160 { // 3840 × 2160
+            VideoMediaHelper.compressMovie(asset: currentAsset, filename: "compressMovie", quality: VideoQuality.medium, deleteSource: true) { _ in
+            } completionHandler: { [weak self] url in
+                guard let `self` = self else {
+                    return
+                }
+                guard let videoUrl = url else {
+                    return
+                }
+                let currentAsset = AVAsset(url: videoUrl)
+                guard currentAsset.duration.seconds > 2.0 else {
+                    self.showAlert(alertMessage: R.string.localizable.minimumTwoSecondsVideoRequiredToChangeSpeed())
+                    return
+                }
+                DispatchQueue.main.async { [weak self] in
+                    guard let `self` = self else {
+                        return
+                    }
+                    self.showHistogram(currentAsset: currentAsset)
+                }
+            }
+        } else {
+            self.showHistogram(currentAsset: currentAsset)
+        }
+    }
+    
+    func showHistogram(currentAsset: AVAsset) {
         guard let histroGramVC = R.storyboard.photoEditor.histroGramVC() else {
             return
         }

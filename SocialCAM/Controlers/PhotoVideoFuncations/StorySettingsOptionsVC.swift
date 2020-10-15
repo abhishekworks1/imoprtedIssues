@@ -23,6 +23,7 @@ class CameraSettings {
     
     static var storySettings = [
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.faceDetection(), selected: false)], settingsType: .faceDetection),
+        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.guideline(), selected: false)], settingsType: .guildlines),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.changePositionsOfMuteSwitchingCamera(), selected: false)], settingsType: .swapeContols),
         StorySettings(name: R.string.localizable.supportedFrameRates(), settings: [StorySetting(name: R.string.localizable.supportedFrameRates(), selected: false)], settingsType: .supportedFrameRates),
         StorySettings(name: R.string.localizable.guidelineTypes(), settings:
@@ -87,6 +88,8 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
         
         if settingTitle.settingsType == .faceDetection {
             cell.onOffButton.isSelected = Defaults.shared.enableFaceDetection
+        } else if settingTitle.settingsType == .guildlines {
+            cell.onOffButton.isSelected = Defaults.shared.enableGuildlines
         } else if settingTitle.settingsType == .swapeContols {
             cell.onOffButton.isSelected = Defaults.shared.swapeContols
             guard let iconPositionCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.iconPositionCell.identifier) else { return cell }
@@ -148,6 +151,9 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
         let settingTitle = CameraSettings.storySettings[indexPath.section]
         if settingTitle.settingsType == .faceDetection {
             Defaults.shared.enableFaceDetection = !Defaults.shared.enableFaceDetection
+            self.settingsTableView.reloadData()
+        } else if settingTitle.settingsType == .guildlines {
+            Defaults.shared.enableGuildlines = !Defaults.shared.enableGuildlines
             self.settingsTableView.reloadData()
         } else if settingTitle.settingsType == .swapeContols {
             Defaults.shared.swapeContols = !Defaults.shared.swapeContols

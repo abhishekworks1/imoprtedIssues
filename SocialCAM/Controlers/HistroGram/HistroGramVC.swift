@@ -325,7 +325,6 @@ class HistroGramVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         addPlayerLayer()
         loadViewWith(asset: currentAsset)
         videoProgressViewGesture()

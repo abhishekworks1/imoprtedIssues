@@ -459,6 +459,15 @@ class Defaults {
         }
     }
     
+    var enableGuildlines: Bool {
+        get {
+            return (appDefaults?.value(forKey: "enableGuildlines") as? Bool) ?? false
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "enableGuildlines")
+        }
+    }
+    
     var enableFaceDetection: Bool {
         get {
             return (appDefaults?.value(forKey: "enableFaceDetection") as? Bool) ?? false

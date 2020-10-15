@@ -416,3 +416,22 @@ public extension UIImage {
         return nil
     }
 }
+
+extension UIImage {
+    func combineWith(image: UIImage) -> UIImage {
+        let newImageWidth = max(self.size.width, image.size.width)
+        let getStaringPoint = self.size.width - image.size.width
+        let newImageSize = CGSize(width: newImageWidth, height: self.size.height + image.size.height + 10)
+        
+        let size = newImageSize
+        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+
+        self.draw(in: CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height))
+        image.draw(in: CGRect(x: abs(getStaringPoint), y: 5 + self.size.height, width: image.size.width, height: image.size.height))
+
+        let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+
+        return newImage
+    }
+}
