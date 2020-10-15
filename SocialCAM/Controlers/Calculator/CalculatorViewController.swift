@@ -70,6 +70,7 @@ class CalculatorViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.showHUD()
         self.tableview.tableHeaderView = tableHeaderView
     }
     
@@ -156,7 +157,7 @@ class CalculatorViewController: UIViewController {
             self.followersCount.append(newFollowers)
             self.totalCount += newFollowers
         }
-        self.lblTotalFollowers.text = self.getFormattedNumberString(number: totalCount)
+        self.lblTotalFollowers.text = CommonFunctions.getFormattedNumberString(number: totalCount)
     }
     
     private func getCalculatorConfig(type: String) {
@@ -192,20 +193,13 @@ extension CalculatorViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.calculatorCell.identifier) as? CalculatorTableViewCell else { return UITableViewCell() }
         if indexPath.row == 10 {
-            cell.setData(level: "Total", followers: self.getFormattedNumberString(number: totalCount))
+            cell.setData(level: R.string.localizable.total(), followers: CommonFunctions.getFormattedNumberString(number: totalCount))
             cell.setBlueBorder()
         } else {
-            cell.setData(level: "\(indexPath.row + 1)", followers: self.getFormattedNumberString(number: self.followersCount[indexPath.row]))
+            cell.setData(level: "\(indexPath.row + 1)", followers: CommonFunctions.getFormattedNumberString(number: self.followersCount[indexPath.row]))
             cell.setGrayBorder()
         }
         return cell
-    }
-    
-    private func getFormattedNumberString(number: Int) -> String {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .decimal
-        let formattedNumber = numberFormatter.string(from: NSNumber(value: number))
-        return formattedNumber ?? ""
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

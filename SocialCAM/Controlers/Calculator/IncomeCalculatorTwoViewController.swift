@@ -25,6 +25,11 @@ class IncomeCalculatorTwoViewController: UIViewController {
     @IBOutlet weak var lblAverageInAppPurchase: UILabel!
     @IBOutlet weak var percentageSlider: CustomSlider!
     @IBOutlet weak var inAppSlider: CustomSlider!
+    @IBOutlet weak var viewSliderContainer: UIView!
+    @IBOutlet weak var sliderContainerHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var lblFixedInAppPurchase: UILabel!
+    @IBOutlet weak var btnInAppHelp: UIButton!
+    @IBOutlet weak var inAppPurchaseTopConstraint: NSLayoutConstraint!
     
     // MARK: -
     // MARK: - Variables
@@ -47,9 +52,9 @@ class IncomeCalculatorTwoViewController: UIViewController {
     private var totalCount = 0
     private var levelOnePercentage = 0
     private var levelTwoPercentage = 0
-    private var incomeData = [(Int, Int)]()
+    private var incomeData = [(Int, Double)]()
     private var totalFollowerCount = 0
-    private var totalIncomeCount = 0
+    private var totalIncomeCount: Double = 0
     private var percentageArray: [Int] {
         return [levelOnePercentage, levelTwoPercentage]
     }
@@ -65,6 +70,7 @@ class IncomeCalculatorTwoViewController: UIViewController {
         if isCalculatorThree {
             lblNavigationTitle.text = "Potential Income Calculator 3"
         }
+        self.setupUiForLiteApps()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -128,10 +134,22 @@ class IncomeCalculatorTwoViewController: UIViewController {
         self.showTipView(text: R.string.localizable.inAppToolTipText(), on: sender)
     }
     
-    
-    
     // MARK: -
     // MARK: - Class Functions
+    
+    private func setupUiForLiteApps() {
+        if isLiteApp {
+            self.inAppPurchaseTopConstraint.constant = 20
+            self.btnInAppHelp.isHidden = false
+            self.lblFixedInAppPurchase.isHidden = false
+            self.percentageFilled = 100
+            self.averageInAppPurchase = 1
+            self.sliderContainerHeightConstraint.constant = 0
+            self.viewSliderContainer.isHidden = true
+            self.inAppSlider.isHidden = true
+            self.lblAverageInAppPurchase.isHidden = true
+        }
+    }
     
     private func showTipView(text: String, on view: UIView) {
         self.toolTip.dismiss()
@@ -154,7 +172,7 @@ class IncomeCalculatorTwoViewController: UIViewController {
         self.totalIncomeCount = 0
         for index in 0...2 {
             let followers = Int(self.getNoOfPeople(indexPath: IndexPath(row: index, section: 0))) ?? 0
-            let income = Int(self.getIncome(followers: followers, indexPath: IndexPath(row: index, section: 0))) ?? 0
+            let income = Double(self.getIncome(followers: followers, indexPath: IndexPath(row: index, section: 0))) ?? 0
             if index < 2 {
                 self.totalIncomeCount += income
                 self.totalFollowerCount += followers
@@ -166,15 +184,19 @@ class IncomeCalculatorTwoViewController: UIViewController {
     }
     
     private func getIncome(followers: Int, indexPath: IndexPath) -> String {
+        var income: Float = 0
         switch indexPath.row {
         case 0:
-            let income = Int(followers * self.levelOnePercentage * percentageFilled * averageInAppPurchase / 10000)
-            return income.description
+            income = Float(followers) * Float(self.levelOnePercentage) * Float(percentageFilled) * Float(averageInAppPurchase) / 10000
         case 1:
-            let income = Int(followers * self.levelTwoPercentage * percentageFilled * averageInAppPurchase / 10000)
-            return income.description
+            income = Float(followers) * Float(self.levelTwoPercentage) * Float(percentageFilled) * Float(averageInAppPurchase) / 10000
         default:
             return self.totalIncomeCount.description
+        }
+        if isLiteApp {
+            return income.roundToPlaces(places: 1).description
+        } else {
+            return Int(income).description
         }
     }
     
@@ -215,18 +237,11 @@ extension IncomeCalculatorTwoViewController: UITableViewDataSource, UITableViewD
         guard let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.incomeCalculator2TableViewCell.identifier) as? IncomeCalculatorTableViewCell else { return UITableViewCell() }
         if indexPath.row == incomeData.count - 1 {
             cell.setBlueBorder()
-            cell.setData(level: "Total", followers: self.getFormattedNumberString(number: self.incomeData[indexPath.row].0), income: self.getFormattedNumberString(number: self.incomeData[indexPath.row].1))
+            cell.setData(level: R.string.localizable.total(), followers: CommonFunctions.getFormattedNumberString(number: self.incomeData[indexPath.row].0), income: CommonFunctions.getFormattedNumberString(number: self.incomeData[indexPath.row].1))
         } else {
-            cell.setData(level: (indexPath.row + 1).description + " (\(self.percentageArray[indexPath.row])%)", followers: self.getFormattedNumberString(number: self.incomeData[indexPath.row].0), income: self.getFormattedNumberString(number: self.incomeData[indexPath.row].1))
+            cell.setData(level: (indexPath.row + 1).description + " (\(self.percentageArray[indexPath.row])%)", followers: CommonFunctions.getFormattedNumberString(number: self.incomeData[indexPath.row].0), income: CommonFunctions.getFormattedNumberString(number: self.incomeData[indexPath.row].1))
         }
         return cell
-    }
-    
-    private func getFormattedNumberString(number: Int) -> String {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .decimal
-        let formattedNumber = numberFormatter.string(from: NSNumber(value: number))
-        return formattedNumber ?? ""
     }
     
     private func getNoOfPeople(indexPath: IndexPath) -> String {
