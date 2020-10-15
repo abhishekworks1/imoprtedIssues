@@ -121,7 +121,7 @@ extension BusinessVC: UICollectionViewDataSource, UICollectionViewDelegate, UICo
             return UICollectionViewCell()
         }
         let businessVCOption = BusinessVCOption.contents[indexPath.row]
-        if isLiteApp && businessVCOption.type != .subscription && businessVCOption.type != .socialConnection && businessVCOption.type != .channelManagement && businessVCOption.type != .share && businessVCOption.type != .calculator {
+        if isLiteApp && businessVCOption.type != .subscription && businessVCOption.type != .socialConnection && businessVCOption.type != .share && businessVCOption.type != .calculator {
             cell.tagImageView.alpha = 0.5
             cell.tagLabel.alpha = 0.7
         } else if businessVCOption.type != .subscription && businessVCOption.type != .socialConnection && businessVCOption.type != .channelManagement && businessVCOption.type != .share && businessVCOption.type != .calculator && businessVCOption.type != .announcement  {
@@ -147,7 +147,9 @@ extension BusinessVC: UICollectionViewDataSource, UICollectionViewDelegate, UICo
                 navigationController?.pushViewController(addSocialConnectionViewController, animated: true)
             }
         case .channelManagement:
-            if let chVc = R.storyboard.preRegistration.channelListViewController() {
+            if isLiteApp {
+                self.view.makeToast(R.string.localizable.thisFeatureIsNotAvailable())
+            } else if let chVc = R.storyboard.preRegistration.channelListViewController() {
                 chVc.remainingPackageCountForOthers = Defaults.shared.currentUser?.remainingOtherUserPackageCount ?? 0
                 self.navigationController?.pushViewController(chVc, animated: true)
             }

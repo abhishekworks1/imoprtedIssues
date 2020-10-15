@@ -68,11 +68,11 @@ class CustomSlider: UISlider {
         thumbView.layer.cornerRadius = radius / 2
 
         let renderer = UIGraphicsImageRenderer(bounds: thumbView.bounds)
-        return renderer.image { rendererContext in
+        let image = renderer.image { rendererContext in
             let context = rendererContext.cgContext
-            context.setFillColor(R.color.appPrimaryColor()?.cgColor ?? UIColor.blue.cgColor)
             thumbView.layer.render(in: context)
         }
+        return image.withImageTintColor(R.color.appPrimaryColor() ?? UIColor.blue) ?? image
     }
 
     override func trackRect(forBounds bounds: CGRect) -> CGRect {

@@ -34,7 +34,7 @@ class IncomeCalculatorFourTableViewCell: UITableViewCell {
     internal func setData(level: String, followers: String, income: String) {
         self.lblLevel.text = level
         self.lblFollowers.text = followers
-        self.lblIncome.text = income
+        self.lblIncome.text = "$" + income
     }
     
 }
@@ -52,12 +52,16 @@ class IncomeCalculatorFourViewController: UIViewController {
     @IBOutlet var tableHeaderView: UIView!
     @IBOutlet weak var inAppSlider: CustomSlider!
     @IBOutlet weak var innerCircleSlider: CustomSlider!
+    @IBOutlet weak var inAppPurchaseTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var extendedCircleSlider: CustomSlider!
     @IBOutlet weak var lblExtendedCircleLimit: UILabel!
     @IBOutlet weak var lblInnerCircleLimit: UILabel!
     @IBOutlet weak var lblPotentialIncome: UILabel!
     @IBOutlet weak var lblPercentage: UILabel!
     @IBOutlet weak var lblInAppPurchase: UILabel!
+    @IBOutlet weak var calculateButtonTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var lblFixedInAppPurchase: UILabel!
+    @IBOutlet weak var btnInAppHelp: UIButton!
     
     // MARK: -
     // MARK: - Variables
@@ -65,7 +69,7 @@ class IncomeCalculatorFourViewController: UIViewController {
     private var referCount = 0
     private var otherReferCount = 0
     private var totalCount = 0
-    private var totalIncome = 0
+    private var totalIncome: Double = 0
     private var referLimit = 0
     private var otherReferLimit = 0
     private var percentage = 0 {
@@ -81,7 +85,7 @@ class IncomeCalculatorFourViewController: UIViewController {
         }
     }
     private var toolTip = EasyTipView(text: "")
-    private var incomeData = [Int]()
+    private var incomeData = [Double]()
     private var followersData = [Int]()
     private var levelOnePercentage = 0
     private var levelTwoPercentage = 0
@@ -93,6 +97,7 @@ class IncomeCalculatorFourViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableview.tableHeaderView = tableHeaderView
+        configureUiForLiteApps()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -163,6 +168,17 @@ class IncomeCalculatorFourViewController: UIViewController {
     // MARK: -
     // MARK: - Class Functions
     
+    private func configureUiForLiteApps() {
+        if isLiteApp {
+            self.inAppPurchaseTopConstraint.constant = 40
+            self.btnInAppHelp.isHidden = false
+            self.inAppPurchase = 1
+            self.lblFixedInAppPurchase.isHidden = false
+            self.inAppSlider.isHidden = true
+            self.lblInAppPurchase.isHidden = true
+        }
+    }
+    
     private func showTipView(text: String, on view: UIView) {
         self.toolTip.dismiss()
         toolTip = EasyTipView(text: text, preferences: EasyTipView.globalPreferences)
@@ -184,27 +200,29 @@ class IncomeCalculatorFourViewController: UIViewController {
         self.followersData = [self.referCount]
         self.totalCount = self.referCount
         self.followersData = [self.totalCount]
-        self.totalIncome = self.getInome(followers: self.referCount, index: 0)
+        self.totalIncome = Double(self.getIncome(followers: self.referCount, index: 0)) ?? 0
         self.incomeData = [totalIncome]
         for row in 1...9 {
             let newFollowers = followersData[row - 1] * self.otherReferCount * percentage / 100
             self.followersData.append(newFollowers)
-            let newIncome = self.getInome(followers: newFollowers, index: row)
+            let newIncome = Double(self.getIncome(followers: newFollowers, index: row)) ?? 0
             incomeData.append(newIncome)
             self.totalCount += newFollowers
             self.totalIncome += newIncome
         }
-        self.lblTotalFollowers.text = self.getFormattedNumberString(number: totalCount)
-        self.lblTotalFollowers.text = self.totalIncome.description
+        self.lblTotalFollowers.text = CommonFunctions.getFormattedNumberString(number: totalCount)
+        self.lblTotalIncome.text = CommonFunctions.getFormattedNumberString(number: totalIncome)
     }
     
-    private func getInome(followers: Int, index: Int) -> Int {
+    private func getIncome(followers: Int, index: Int) -> String {
+        var income: Float = 0
         if index == 0 {
-            return followers * Int(self.inAppSlider.value) * self.percentageArray[index] / 100
+            income = Float(followers) * Float(inAppPurchase) * Float(self.percentageArray[index]) / 100
         } else {
-            let result = followers * Int(self.percentageSlider.value) * self.percentageArray[index] * Int(self.inAppSlider.value)
-            return result / 10000
+            let result = Float(followers) * Float(self.percentageSlider.value) * Float(self.percentageArray[index]) * Float(inAppPurchase)
+            income = result / 10000
         }
+        return income.roundToPlaces(places: 1).description
     }
     
     private func getCalculatorConfig(type: String) {
@@ -241,24 +259,17 @@ extension IncomeCalculatorFourViewController: UITableViewDataSource, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.incomeCalculatorFourTableViewCell.identifier) as? IncomeCalculatorFourTableViewCell else { return UITableViewCell() }
         if indexPath.row == 10 {
-            cell.setData(level: "Total", followers: self.getFormattedNumberString(number: totalCount), income: self.totalIncome.description)
+            cell.setData(level: R.string.localizable.total(), followers: CommonFunctions.getFormattedNumberString(number: totalCount), income: CommonFunctions.getFormattedNumberString(number: totalIncome))
             cell.setBlueBorder()
         } else {
             if indexPath.row >= self.percentageArray.count {
-                cell.setData(level: "\(indexPath.row + 1)", followers: self.getFormattedNumberString(number: self.followersData[indexPath.row]), income: incomeData[indexPath.row].description)
+                cell.setData(level: "\(indexPath.row + 1)", followers: CommonFunctions.getFormattedNumberString(number: self.followersData[indexPath.row]), income: CommonFunctions.getFormattedNumberString(number: incomeData[indexPath.row]))
             } else {
-                cell.setData(level: "\(indexPath.row + 1)" + " (\(self.percentageArray[indexPath.row])%)", followers: self.getFormattedNumberString(number: self.followersData[indexPath.row]), income: incomeData[indexPath.row].description)
+                cell.setData(level: "\(indexPath.row + 1)" + " (\(self.percentageArray[indexPath.row])%)", followers: CommonFunctions.getFormattedNumberString(number: self.followersData[indexPath.row]), income: CommonFunctions.getFormattedNumberString(number:  incomeData[indexPath.row]))
             }
             cell.setGrayBorder()
         }
         return cell
-    }
-    
-    private func getFormattedNumberString(number: Int) -> String {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .decimal
-        let formattedNumber = numberFormatter.string(from: NSNumber(value: number))
-        return formattedNumber ?? ""
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
