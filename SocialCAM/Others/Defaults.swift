@@ -461,7 +461,7 @@ class Defaults {
     
     var enableGuildlines: Bool {
         get {
-            return (appDefaults?.value(forKey: "enableGuildlines") as? Bool) ?? false
+            return (appDefaults?.value(forKey: "enableGuildlines") as? Bool) ?? true
         }
         set {
             appDefaults?.set(newValue, forKey: "enableGuildlines")

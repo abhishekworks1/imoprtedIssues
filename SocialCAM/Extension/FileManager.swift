@@ -34,6 +34,15 @@ extension FileManager {
         return paths[0]
     }
     
+    func clearTempDirectory() {
+        let tempDirectoryURL = FileManager.default.temporaryDirectory
+        let tempDirectory = try? contentsOfDirectory(atPath: tempDirectoryURL.path)
+        try? tempDirectory?.forEach { file in
+            let fileUrl = tempDirectoryURL.appendingPathComponent(file)
+            try? removeItem(atPath: fileUrl.path)
+        }
+    }
+    
     func removeFileIfNecessary(at url: URL) throws {
         guard fileExists(atPath: url.path) else {
             return

@@ -103,6 +103,12 @@ public class LoadingView: UIView {
         }
     }
     
+    public var isExporting = false {
+        didSet {
+            lblCompleted.text = isExporting ? R.string.localizable.exporting() : R.string.localizable.downloading()
+        }
+    }
+    
     public var shouldDescriptionTextShow = false {
         didSet {
             lblDescriptionText.isHidden = !shouldDescriptionTextShow
@@ -244,6 +250,7 @@ public class LoadingView: UIView {
     }
     
     @objc open func hide() {
+        isExporting = false
         hideContainerView()
     }
    
