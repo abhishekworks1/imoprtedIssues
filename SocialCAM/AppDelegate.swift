@@ -249,6 +249,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             dLog("Completed SplashView")
         }
         IAPManager.shared.startObserving()
+        
+        FileManager.default.clearTempDirectory()
+        
         return true
     }
     

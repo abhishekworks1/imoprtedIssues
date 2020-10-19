@@ -603,11 +603,34 @@ extension StoryEditorViewController {
         }
         let assetSize = currentAsset.tracks(withMediaType: .video)[0].naturalSize
         if assetSize.height >= 2160 { // 3840 × 2160
-            VideoMediaHelper.compressMovie(asset: currentAsset, filename: "compressMovie", quality: VideoQuality.medium, deleteSource: true) { _ in
-            } completionHandler: { [weak self] url in
+            DispatchQueue.runOnMainThread {
+                if let loadingView = self.loadingView {
+                    loadingView.progressView.setProgress(to: Double(0), withAnimation: true)
+                    loadingView.isExporting = true
+                    loadingView.shouldDescriptionTextShow = true
+                    loadingView.show(on: self.view, completion: {
+                        loadingView.cancelClick = { _ in
+                            VideoMediaHelper.shared.cancelExporting()
+                            loadingView.hide()
+                        }
+                    })
+                }
+            }
+            
+            VideoMediaHelper.shared.compressMovie(asset: currentAsset, filename: String.fileName + ".mp4", quality: VideoQuality.high, deleteSource: true, progressCallback: { [weak self] (progress) in
                 guard let `self` = self else {
                     return
                 }
+                DispatchQueue.runOnMainThread {
+                    if let loadingView = self.loadingView {
+                        loadingView.progressView.setProgress(to: Double(progress), withAnimation: true)
+                    }
+                }
+            }) { [weak self] url in
+                guard let `self` = self else {
+                    return
+                }
+                self.hideLoadingView()
                 guard let videoUrl = url else {
                     return
                 }

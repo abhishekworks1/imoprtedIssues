@@ -326,9 +326,9 @@ class StoryAssetExportSession {
         var image = R.image.socialCamWaterMark()
         let userName = Defaults.shared.currentUser?.username ?? ""
         if isViralCamApp {
-            image = R.image.viralcamWatermarkLogo()
+            image = R.image.wmViralCamLogo()
             if watermarkPosition == .topLeft {
-                image = R.image.viralcamWaterMark()
+                image = R.image.wmViralCamLogo()
             }
         } else if isSoccerCamApp || isFutbolCamApp {
             image = R.image.soccercamWatermarkLogo()
@@ -361,9 +361,9 @@ class StoryAssetExportSession {
                 image = R.image.boomicamWatermarkLogo()
             }
         } else if isTimeSpeedApp {
-            image = R.image.timeSpeedWatermarkLogo()
+            image = R.image.wmTimespeedLogo()
             if watermarkPosition == .topLeft {
-                image = R.image.timeSpeedWatermarkLogo()
+                image = R.image.wmTimespeedLogo()
             }
         } else if isFastCamApp {
             image = R.image.fastcamWatermarkLogo()
