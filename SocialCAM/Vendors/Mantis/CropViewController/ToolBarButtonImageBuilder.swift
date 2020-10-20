@@ -65,6 +65,9 @@ struct ToolBarButtonImageBuilder {
     }
     
     static func rotateCWImage() -> UIImage? {
+        if isSpeedCamLiteApp {
+            return R.image.rotateLeft()
+        }
         guard let rotateCCWImage = self.rotateCCWImage(), let cgImage = rotateCCWImage.cgImage else { return nil }
         
         UIGraphicsBeginImageContextWithOptions(rotateCCWImage.size, false, rotateCCWImage.scale )
@@ -78,6 +81,9 @@ struct ToolBarButtonImageBuilder {
     }
     
     static func clampImage() -> UIImage? {
+        if isSpeedCamLiteApp {
+            return R.image.aspectRatio()
+        }
         var clampImage: UIImage?
         
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 22, height: 16), false, 0.0)
@@ -114,6 +120,9 @@ struct ToolBarButtonImageBuilder {
     }
     
     static func resetImage() -> UIImage? {
+        if isSpeedCamLiteApp {
+            return R.image.se_undo()
+        }
         var resetImage: UIImage?
         
         UIGraphicsBeginImageContextWithOptions(CGSize(width: 22, height: 18), false, 0.0)            //// Bezier 2 Drawing

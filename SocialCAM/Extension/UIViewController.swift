@@ -100,6 +100,13 @@ extension UIViewController {
         }
     }
     
+    func showCustomAlert(message: String) {
+        guard let customAlertViewController = R.storyboard.calculator.calculatorCustomAlertController() else { return }
+        customAlertViewController.message = message
+        customAlertViewController.modalPresentationStyle = .overFullScreen
+        self.present(customAlertViewController, animated: true, completion: nil)
+    }
+    
     func getWebsiteId(completion: @escaping (String) -> ()) {
         if UIApplication.checkInternetConnection() {
             self.showHUD()

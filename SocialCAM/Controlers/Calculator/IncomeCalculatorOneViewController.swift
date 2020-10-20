@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import EasyTipView
 
 class IncomeCalculatorTableViewCell: UITableViewCell {
     
@@ -24,10 +23,10 @@ class IncomeCalculatorTableViewCell: UITableViewCell {
     // MARK: - Class Functions
     
     internal func setBlueBorder() {
-        self.viewFollowers.layer.borderColor = UIColor.blue.cgColor
-        self.viewFollowers.backgroundColor = UIColor.blue.withAlphaComponent(0.2)
-        self.viewIncome.layer.borderColor = UIColor.blue.cgColor
-        self.viewIncome.backgroundColor = UIColor.blue.withAlphaComponent(0.2)
+        self.viewFollowers.layer.borderColor = R.color.calculatorButtonColor()?.cgColor
+        self.viewFollowers.backgroundColor = R.color.calculatorButtonColor()?.withAlphaComponent(0.1)
+        self.viewIncome.layer.borderColor = R.color.calculatorButtonColor()?.cgColor
+        self.viewIncome.backgroundColor = R.color.calculatorButtonColor()?.withAlphaComponent(0.1)
     }
     
     internal func setData(level: String, followers: String, income: String = "") {
@@ -88,7 +87,6 @@ class IncomeCalculatorOneViewController: UIViewController {
     private var percentageArray: [Int] {
         return [levelOnePercentage, levelTwoPercentage, levelThreePercentage]
     }
-    private var toolTip = EasyTipView(text: "")
     
     // MARK: -
     // MARK: - Life Cycle Methods
@@ -106,11 +104,6 @@ class IncomeCalculatorOneViewController: UIViewController {
         }
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        self.toolTip.dismiss()
-    }
-    
     // MARK: -
     // MARK: - Button Action Methods
     
@@ -123,48 +116,43 @@ class IncomeCalculatorOneViewController: UIViewController {
     }
     
     @IBAction func percentageSliderChanged(_ sender: UISlider) {
-        self.toolTip.dismiss()
         self.percentageFilled = Int(sender.value)
     }
     
     @IBAction func inAppSliderChanged(_ sender: UISlider) {
-        self.toolTip.dismiss()
         self.averageInAppPurchase = Int(sender.value)
     }
     
     @IBAction func levelOneSliderChanged(_ sender: UISlider) {
         self.lblLevelOneRefferals.text = Int(sender.value).description
-        self.toolTip.dismiss()
     }
     
     @IBAction func levelTwoSliderChanged(_ sender: UISlider) {
         self.lblLevelTwoRefferals.text = Int(sender.value).description
-        self.toolTip.dismiss()
     }
     
     @IBAction func levelThreeSliderChanged(_ sender: UISlider) {
         self.lblLevelThreeRefferals.text = Int(sender.value).description
-        self.toolTip.dismiss()
     }
     
     @IBAction func levelOneRefferalsHelpTapped(_ sender: UIButton) {
-        self.showTipView(text: R.string.localizable.levelOneToolTipText(), on: sender)
+        showCustomAlert(message: R.string.localizable.levelOneToolTipText())
     }
     
     @IBAction func levelTwoRefferalsHelpTapped(_ sender: UIButton) {
-        self.showTipView(text: R.string.localizable.levelTwoToolTipText(), on: sender)
+        showCustomAlert(message: R.string.localizable.levelTwoToolTipText())
     }
     
     @IBAction func levelThreeRefferalsHelpTapped(_ sender: UIButton) {
-        self.showTipView(text: R.string.localizable.levelThreeToolTipText(), on: sender)
+        showCustomAlert(message: R.string.localizable.levelThreeToolTipText())
     }
     
     @IBAction func percentageHelpTapped(_ sender: UIButton) {
-        self.showTipView(text: R.string.localizable.percentageToolTipText(), on: sender)
+        showCustomAlert(message: R.string.localizable.percentageToolTipText())
     }
     
     @IBAction func inAppPurchaseHelpTapped(_ sender: UIButton) {
-        self.showTipView(text: R.string.localizable.inAppToolTipText(), on: sender)
+        showCustomAlert(message: R.string.localizable.inAppToolTipText())
     }
     
     // MARK: -
@@ -186,7 +174,6 @@ class IncomeCalculatorOneViewController: UIViewController {
     }
     
     private func validateAndCalculate() {
-        self.toolTip.dismiss()
         self.view.endEditing(true)
         self.directRefferals = Int(self.levelOneRefferalsSlider.value)
         self.levelTwoRefferals = Int(self.levelTwoRefferalsSlider.value)
@@ -211,12 +198,6 @@ class IncomeCalculatorOneViewController: UIViewController {
                 incomeData.append((totalFollowerCount, totalIncomeCount))
             }
         }
-    }
-    
-    private func showTipView(text: String, on view: UIView) {
-        self.toolTip.dismiss()
-        toolTip = EasyTipView(text: text, preferences: EasyTipView.globalPreferences)
-        toolTip.show(animated: true, forView: view, withinSuperview: self.view)
     }
     
     private func getCalculatorConfig(type: String) {
@@ -305,6 +286,13 @@ extension IncomeCalculatorOneViewController: UITableViewDataSource, UITableViewD
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 132
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == incomeData.count - 1, let destinationVc = R.storyboard.calculator.calculationViewController() {
+            destinationVc.modalPresentationStyle = .overFullScreen
+            self.present(destinationVc, animated: true, completion: nil)
+        }
     }
     
 }

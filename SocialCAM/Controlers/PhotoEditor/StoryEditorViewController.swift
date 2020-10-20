@@ -111,7 +111,9 @@ class StoryEditorViewController: UIViewController {
     @IBOutlet weak var downloadView: UIView!
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var undoButton: UIButton!
-
+    @IBOutlet weak var fastestEverCenterConstraint: NSLayoutConstraint!
+    @IBOutlet weak var imgFastestEverWatermark: UIImageView!
+    
     @IBOutlet weak var specificBoomerangView: UIView! {
         didSet {
             self.specificBoomerangView.isHidden = true
@@ -281,6 +283,15 @@ class StoryEditorViewController: UIViewController {
         }
         self.dragAndDropManager = DragAndDropManager(canvas: self.view,
                                                      collectionViews: collectionViews)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.imgFastestEverWatermark.isHidden = Defaults.shared.cameraMode != .promo
+        if Defaults.shared.cameraMode == .promo, let track = self.currentVideoAsset?.tracks(withMediaType: .video).first {
+            self.fastestEverCenterConstraint.constant = track.naturalSize.height / 2
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
