@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -906,7 +906,7 @@
                                         <rect key="frame" x="56" y="20" width="358" height="60"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f6i-lU-orl">
-                                                <rect key="frame" x="288" y="-15.5" width="60" height="91.5"/>
+                                                <rect key="frame" x="288" y="-0.5" width="60" height="61.5"/>
                                                 <subviews>
                                                     <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="32b-sy-san" customClass="RPCircularProgress" customModule="BoomiCam" customModuleProvider="target">
                                                         <rect key="frame" x="5" y="0.0" width="50" height="50"/>
@@ -928,14 +928,14 @@
                                                         <size key="shadowOffset" width="0.0" height="1"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JVo-YZ-9ET">
-                                                        <rect key="frame" x="0.0" y="14" width="60" height="60"/>
+                                                        <rect key="frame" x="0.0" y="14" width="60" height="30"/>
                                                         <state key="normal" image="trimDone"/>
                                                         <connections>
                                                             <action selector="saveButtonTapped:" destination="q2P-Bv-Tyf" eventType="touchUpInside" id="IUd-ZB-V8G"/>
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Done" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L8d-Gd-QPa">
-                                                        <rect key="frame" x="0.0" y="77.5" width="60" height="14"/>
+                                                        <rect key="frame" x="0.0" y="47.5" width="60" height="14"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="14" id="nxC-QF-Mka"/>
                                                         </constraints>
@@ -1426,7 +1426,7 @@
         <image name="playHistoGram" width="49" height="53"/>
         <image name="resequence_original" width="26" height="38"/>
         <image name="resequence_rearranged" width="26" height="38"/>
-        <image name="se_Reset" width="26" height="38"/>
+        <image name="se_Reset" width="34" height="34"/>
         <image name="se_ResetCopy" width="30" height="44"/>
         <image name="se_combine" width="26" height="38"/>
         <image name="se_combineCopy" width="30" height="44"/>
@@ -1434,13 +1434,13 @@
         <image name="se_mergeAfter" width="39" height="34"/>
         <image name="se_mergeBefore" width="39" height="34"/>
         <image name="se_mergeCopy" width="30" height="44"/>
-        <image name="se_undo" width="26" height="38"/>
+        <image name="se_undo" width="32" height="32"/>
         <image name="se_undoCopy" width="30" height="44"/>
         <image name="storyClose" width="24" height="24"/>
         <image name="storyPause" width="44" height="44"/>
         <image name="trimDone" width="30" height="30"/>
         <image name="trimSave" width="32" height="32"/>
         <image name="trimSplit" width="34" height="34"/>
-        <image name="trimVideo" width="22" height="21"/>
+        <image name="trimVideo" width="34" height="34"/>
     </resources>
 </document>

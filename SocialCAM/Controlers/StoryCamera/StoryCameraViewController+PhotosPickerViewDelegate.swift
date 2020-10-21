@@ -51,9 +51,27 @@ extension StoryCameraViewController: PhotosPickerViewControllerDelegate {
                         let manager = PHImageManager.default()
                         manager.requestAVAsset(forVideo: asset, options: options) { (avasset, _, _) in
                             if let avassetURL = avasset as? AVURLAsset {
-                                imageVideoSegments.append(SegmentVideos(urlStr: avassetURL.url, thumbimage: video.thumbImage, numberOfSegement: String(self.takenSlideShowImages.count + 1)))
-                                dispatchSemaphore.signal()
-                                exportGroup.leave()
+                                let currentAsset = AVAsset(url: avassetURL.url)
+                                let assetSize = currentAsset.tracks(withMediaType: .video)[0].naturalSize
+                                if assetSize.height >= 2160 { // 3840 × 2160
+                                    VideoMediaHelper.shared.compressMovie(asset: currentAsset, filename: String.fileName + ".mp4", quality: .high, deleteSource: true, progressCallback: { _ in
+                                        
+                                    }) { [weak self] url in
+                                        guard let `self` = self else {
+                                            return
+                                        }
+                                        guard let videoUrl = url else {
+                                            return
+                                        }
+                                        imageVideoSegments.append(SegmentVideos(urlStr: videoUrl, thumbimage: video.thumbImage, numberOfSegement: String(self.takenSlideShowImages.count + 1)))
+                                        dispatchSemaphore.signal()
+                                        exportGroup.leave()
+                                    }
+                                } else {
+                                    imageVideoSegments.append(SegmentVideos(urlStr: avassetURL.url, thumbimage: video.thumbImage, numberOfSegement: String(self.takenSlideShowImages.count + 1)))
+                                    dispatchSemaphore.signal()
+                                    exportGroup.leave()
+                                }
                             } else {
                                 self.showAlert(alertMessage: R.string.localizable.selectedVideoIsnTSupported())
                                 dispatchSemaphore.signal()
