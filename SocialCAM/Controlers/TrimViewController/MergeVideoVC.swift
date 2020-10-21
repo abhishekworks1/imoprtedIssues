@@ -14,7 +14,6 @@ class MergeVideoVC: UIViewController {
     @IBOutlet weak var storyCollectionView: DragAndDropCollectionView!
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var topToolbar: UIView!
-    @IBOutlet weak var bottomToolbar: UIView!
     @IBOutlet weak var topGradient: UIView!
     @IBOutlet weak var bottomGradient: UIView!
     @IBOutlet open var btnPlayPause: UIButton!
@@ -502,7 +501,6 @@ extension MergeVideoVC {
             self.segmentTypeMergeView.isHidden = true
             self.segmentEditOptionView.isHidden = false
             self.storyCollectionView.isUserInteractionEnabled = true
-            self.bottomToolbar.isHidden = false
         }
     }
     
@@ -589,7 +587,6 @@ extension MergeVideoVC: DragAndDropCollectionViewDataSource {
             segmentEditOptionView.isHidden = true
             segmentEditOptionButton.isHidden = true
             segmentTypeMergeView.isHidden = false
-            bottomToolbar.isHidden = true
         } else {
             if let player = self.player {
                 if player.timeControlStatus == .paused && btnPlayPause.isSelected {

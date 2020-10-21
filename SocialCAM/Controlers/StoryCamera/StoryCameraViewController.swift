@@ -361,7 +361,15 @@ class StoryCameraViewController: UIViewController {
     var currentCameraPosition = AVCaptureDevice.Position.front
     var flashMode: AVCaptureDevice.TorchMode = .off
     var takenImages: [UIImage] = []
-    var takenVideoUrls: [SegmentVideos] = []
+    var takenVideoUrls: [SegmentVideos] = [] {
+        didSet {
+            if (takenVideoUrls.count > 0) && (recordingType == .custom) {
+                settingsButton.isSelected = true
+            } else {
+                settingsButton.isSelected = false
+            }
+        }
+    }
     var takenSlideShowImages: [SegmentVideos] = []
     var videoSpeedType = VideoSpeedType.normal
     var isSpeedChanged = false
@@ -1718,7 +1726,6 @@ extension StoryCameraViewController {
         } else {
             DispatchQueue.main.async {
                 self.takenVideoUrls.append(SegmentVideos(urlStr: url, thumbimage: thumbimage, numberOfSegement: "\(self.takenVideoUrls.count + 1)"))
-                self.settingsButton.isSelected = true
                 self.setupForPreviewScreen()
             }
         }
