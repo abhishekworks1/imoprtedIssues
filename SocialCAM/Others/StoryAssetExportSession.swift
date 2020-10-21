@@ -24,6 +24,7 @@ class StoryAssetExportSession {
     enum WatermarkPosition {
         case topLeft
         case bottomRight
+        case bottomLeft
     }
     
     enum WatermarkType {
@@ -310,6 +311,7 @@ class StoryAssetExportSession {
                     return
                 }
                 self.addWaterMarkImageIfNeeded(isGIF: false)
+                self.addFastestEverWaterMarkImage()
             }
         }
         gifCount += 1
@@ -345,7 +347,7 @@ class StoryAssetExportSession {
             if watermarkPosition == .topLeft {
                 image = R.image.snapcamWatermarkLogo()
             }
-        } else if isSpeedCamApp {
+        } else if isSpeedCamApp || isSpeedCamLiteApp {
             image = R.image.wmSpeedCamLogo()
             if watermarkPosition == .topLeft {
                 image = R.image.wmSpeedCamLogo()
@@ -419,6 +421,28 @@ class StoryAssetExportSession {
             self.watermarkAdded = true
         }
         UIGraphicsEndImageContext()
+    }
+    
+    func addFastestEverWaterMarkImage() {
+        if Defaults.shared.cameraMode == .promo {
+            guard let image = R.image.fastestever() else { return }
+            guard let backgroundImage = self.overlayWatermarkImage else { return }
+            let backgroundImageSize = backgroundImage.size
+            UIGraphicsBeginImageContext(backgroundImageSize)
+            
+            let backgroundImageRect = CGRect(origin: .zero, size: backgroundImageSize)
+            backgroundImage.draw(in: backgroundImageRect)
+            
+            let watermarkImageSize = CGSize(width: image.size.width * 2, height: image.size.height * 2)
+            let watermarkOrigin = CGPoint(x: 8, y: backgroundImageSize.height - watermarkImageSize.height - 70)
+            let watermarkImageRect = CGRect(origin: watermarkOrigin, size: watermarkImageSize)
+            image.draw(in: watermarkImageRect, blendMode: .normal, alpha: 1.0)
+            
+            if let newImage = UIGraphicsGetImageFromCurrentImageContext() {
+                self.overlayWatermarkImage = newImage
+            }
+            UIGraphicsEndImageContext()
+        }
     }
     
 }

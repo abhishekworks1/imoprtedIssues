@@ -18,8 +18,8 @@ class CalculatorCustomLabel: UILabel {
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         self.layer.borderWidth = 1
-        self.layer.borderColor = UIColor.blue.cgColor
-        self.layer.backgroundColor = UIColor.blue.withAlphaComponent(0.2).cgColor
+        self.layer.borderColor = R.color.calculatorButtonColor()?.cgColor
+        self.layer.backgroundColor = R.color.calculatorButtonColor()?.withAlphaComponent(0.1).cgColor
         self.layer.cornerRadius = 5
     }
     

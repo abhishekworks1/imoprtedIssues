@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import EasyTipView
 
 class IncomeCalculatorTwoViewController: UIViewController {
     
@@ -59,7 +58,6 @@ class IncomeCalculatorTwoViewController: UIViewController {
         return [levelOnePercentage, levelTwoPercentage]
     }
     private var levels = [Int]()
-    private var toolTip = EasyTipView(text: "")
     
     
     // MARK: -
@@ -80,11 +78,6 @@ class IncomeCalculatorTwoViewController: UIViewController {
             self.getCalculatorConfig(type: type)
         }
     }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        self.toolTip.dismiss()
-    }
 
     // MARK: -
     // MARK: - Button Action Methods
@@ -99,39 +92,35 @@ class IncomeCalculatorTwoViewController: UIViewController {
 
     
     @IBAction func percentageSliderValueChanged(_ sender: UISlider) {
-        self.toolTip.dismiss()
         self.percentageFilled = Int(sender.value)
     }
     
     @IBAction func inAppSliderChanged(_ sender: UISlider) {
-        self.toolTip.dismiss()
         self.averageInAppPurchase = Int(sender.value)
     }
     
     @IBAction func levelOneSliderChanged(_ sender: UISlider) {
-        self.toolTip.dismiss()
         self.lblLevelOneRefferals.text = Int(sender.value).description
     }
     
     @IBAction func levelTwoSliderChanged(_ sender: UISlider) {
-        self.toolTip.dismiss()
         self.lblLevelTwoRefferals.text = Int(sender.value).description
     }
     
     @IBAction func levelOneHelpTapped(_ sender: UIButton) {
-        self.showTipView(text: R.string.localizable.levelOneToolTipText(), on: sender)
+        showCustomAlert(message: R.string.localizable.levelOneToolTipText())
     }
     
     @IBAction func levelTwoHelpTapped(_ sender: UIButton) {
-        self.showTipView(text: R.string.localizable.levelTwoToolTipText(), on: sender)
+        showCustomAlert(message: R.string.localizable.levelTwoToolTipText())
     }
     
     @IBAction func percentageHelpTapped(_ sender: UIButton) {
-        self.showTipView(text: R.string.localizable.percentageToolTipText(), on: sender)
+        showCustomAlert(message: R.string.localizable.percentageToolTipText())
     }
     
     @IBAction func inAppHelpTapped(_ sender: UIButton) {
-        self.showTipView(text: R.string.localizable.inAppToolTipText(), on: sender)
+        showCustomAlert(message: R.string.localizable.inAppToolTipText())
     }
     
     // MARK: -
@@ -149,12 +138,6 @@ class IncomeCalculatorTwoViewController: UIViewController {
             self.inAppSlider.isHidden = true
             self.lblAverageInAppPurchase.isHidden = true
         }
-    }
-    
-    private func showTipView(text: String, on view: UIView) {
-        self.toolTip.dismiss()
-        toolTip = EasyTipView(text: text, preferences: EasyTipView.globalPreferences)
-        toolTip.show(animated: true, forView: view, withinSuperview: self.view)
     }
     
     private func validateAndCalculate() {
@@ -261,6 +244,13 @@ extension IncomeCalculatorTwoViewController: UITableViewDataSource, UITableViewD
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 132
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == incomeData.count - 1, let destinationVc = R.storyboard.calculator.calculationViewController() {
+            destinationVc.modalPresentationStyle = .overFullScreen
+            self.present(destinationVc, animated: true, completion: nil)
+        }
     }
     
 }

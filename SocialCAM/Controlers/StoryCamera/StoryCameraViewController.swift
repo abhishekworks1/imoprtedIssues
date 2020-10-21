@@ -1896,6 +1896,9 @@ extension StoryCameraViewController {
     }
     
     func openStoryEditor(segementedVideos: [SegmentVideos], isSlideShow: Bool = false, photosSelection: Bool = false) {
+        if isLiteApp {
+            Defaults.shared.cameraMode = self.recordingType
+        }
         if isPic2ArtApp {
             if self.recordingType == .slideshow {
                 guard let storyEditorViewController = R.storyboard.storyEditor.storyEditorViewController() else {
