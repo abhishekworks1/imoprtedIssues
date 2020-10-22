@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-import EasyTipView
+import ProgressHUD
 
 extension UINavigationController {
     public func pushViewController(_ viewController: UIViewController, animated: Bool, completion: @escaping () -> Void)
@@ -107,16 +107,28 @@ extension UIViewController {
         self.present(customAlertViewController, animated: true, completion: nil)
     }
     
+    func showCalculationAlert(message: String, total: String) {
+        guard let customAlertViewController = R.storyboard.calculator.calculationAlertViewController() else { return }
+        customAlertViewController.message = message
+        customAlertViewController.total = total
+        customAlertViewController.modalPresentationStyle = .overFullScreen
+        self.present(customAlertViewController, animated: true, completion: nil)
+    }
+    
     func getWebsiteId(completion: @escaping (String) -> ()) {
         if UIApplication.checkInternetConnection() {
-            self.showHUD()
+            ProgressHUD.show()
+            self.view.isUserInteractionEnabled = false
             ProManagerApi.getWebsiteData.request(WebsiteDataModel.self).subscribe(onNext: { (response) in
-                self.dismissHUD()
                 if let type = response.result?.result?.first(where: { $0.name == WebsiteData.websiteName })?.id {
                     completion(type)
+                } else {
+                    self.dismissHUD()
+                    self.view.makeToast(R.string.localizable.somethingWentWrongPleaseTryAgainLater())
                 }
             }, onError: { error in
                 self.showAlert(alertMessage: error.localizedDescription)
+                self.dismissHUD()
             }, onCompleted: {
             }).disposed(by: rx.disposeBag)
         } else {

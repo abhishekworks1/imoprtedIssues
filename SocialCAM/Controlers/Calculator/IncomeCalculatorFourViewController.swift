@@ -51,7 +51,6 @@ class IncomeCalculatorFourViewController: UIViewController {
     @IBOutlet var tableHeaderView: UIView!
     @IBOutlet weak var inAppSlider: CustomSlider!
     @IBOutlet weak var innerCircleSlider: CustomSlider!
-    @IBOutlet weak var inAppPurchaseTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var extendedCircleSlider: CustomSlider!
     @IBOutlet weak var lblExtendedCircleLimit: UILabel!
     @IBOutlet weak var lblInnerCircleLimit: UILabel!
@@ -61,6 +60,7 @@ class IncomeCalculatorFourViewController: UIViewController {
     @IBOutlet weak var calculateButtonTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var lblFixedInAppPurchase: UILabel!
     @IBOutlet weak var btnInAppHelp: UIButton!
+    @IBOutlet weak var inAppPurchaseTopConstraint: NSLayoutConstraint!
     
     // MARK: -
     // MARK: - Variables
@@ -96,10 +96,6 @@ class IncomeCalculatorFourViewController: UIViewController {
         super.viewDidLoad()
         self.tableview.tableHeaderView = tableHeaderView
         configureUiForLiteApps()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         self.getWebsiteId { [weak self] (type) in
             guard let `self` = self else { return }
             self.getCalculatorConfig(type: type)
@@ -159,7 +155,8 @@ class IncomeCalculatorFourViewController: UIViewController {
     
     private func configureUiForLiteApps() {
         if isLiteApp {
-            self.inAppPurchaseTopConstraint.constant = 40
+            self.inAppPurchaseTopConstraint.constant = 20
+            self.calculateButtonTopConstraint.constant = 20
             self.btnInAppHelp.isHidden = false
             self.inAppPurchase = 1
             self.lblFixedInAppPurchase.isHidden = false
@@ -179,6 +176,9 @@ class IncomeCalculatorFourViewController: UIViewController {
     }
     
     private func calculateFollowers() {
+        if referCount == 0 {
+            return
+        }
         self.followersData = [self.referCount]
         self.totalCount = self.referCount
         self.followersData = [self.totalCount]
@@ -209,16 +209,16 @@ class IncomeCalculatorFourViewController: UIViewController {
     
     private func getCalculatorConfig(type: String) {
         if UIApplication.checkInternetConnection() {
-            self.showHUD()
             ProManagerApi.getCalculatorConfig(type: type).request(CalculatorConfigurationModel.self).subscribe(onNext: { (response) in
-                self.dismissHUD()
                 if let calcConfig = response.result?.first(where: { $0.type == "potential_income_4"}) {
                     self.innerCircleSlider.maximumValue = Float(calcConfig.maxPersonal ?? 0)
                     self.extendedCircleSlider.maximumValue = Float(calcConfig.maxExtended ?? 0)
                     self.inAppSlider.maximumValue = Float(calcConfig.inAppPurchaseLimit ?? 0)
                     self.percentageArray = calcConfig.levelsArray ?? []
                 }
+                self.dismissHUD()
             }, onError: { error in
+                self.dismissHUD()
                 self.showAlert(alertMessage: error.localizedDescription)
             }, onCompleted: {
             }).disposed(by: rx.disposeBag)

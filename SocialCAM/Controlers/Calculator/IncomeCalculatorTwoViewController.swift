@@ -69,10 +69,6 @@ class IncomeCalculatorTwoViewController: UIViewController {
             lblNavigationTitle.text = "Potential Income Calculator 3"
         }
         self.setupUiForLiteApps()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         self.getWebsiteId { [weak self] (type) in
             guard let `self` = self else { return }
             self.getCalculatorConfig(type: type)
@@ -89,7 +85,6 @@ class IncomeCalculatorTwoViewController: UIViewController {
     @IBAction func btnBackTapped(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
-
     
     @IBAction func percentageSliderValueChanged(_ sender: UISlider) {
         self.percentageFilled = Int(sender.value)
@@ -185,10 +180,8 @@ class IncomeCalculatorTwoViewController: UIViewController {
     
     private func getCalculatorConfig(type: String) {
         if UIApplication.checkInternetConnection() {
-            self.showHUD()
             ProManagerApi.getCalculatorConfig(type: type).request(CalculatorConfigurationModel.self).subscribe(onNext: { [weak self] (response) in
                 guard let `self` = self else { return }
-                self.dismissHUD()
                 if let calcConfig = response.result?.first(where: { $0.type == (self.isCalculatorThree ? "potential_income_2" : "potential_income_3") }) {
                     self.levelOneSlider.maximumValue = Float(calcConfig.maxLevel1 ?? 0)
                     self.levelTwoSlider.maximumValue = Float(calcConfig.maxLevel2 ?? 0)
@@ -196,7 +189,9 @@ class IncomeCalculatorTwoViewController: UIViewController {
                     self.levelOnePercentage = calcConfig.levelsArray?[0] ?? self.levelOnePercentage
                     self.levelTwoPercentage = calcConfig.levelsArray?[1] ?? self.levelOnePercentage
                 }
+                self.dismissHUD()
                 }, onError: { error in
+                    self.dismissHUD()
                     self.showAlert(alertMessage: error.localizedDescription)
             }, onCompleted: {
             }).disposed(by: rx.disposeBag)

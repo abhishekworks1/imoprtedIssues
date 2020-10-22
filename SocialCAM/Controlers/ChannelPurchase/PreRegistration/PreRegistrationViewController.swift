@@ -10,7 +10,6 @@ import UIKit
 import RxSwift
 import NSObject_Rx
 import MXSegmentedPager
-import SVProgressHUD
 import NVActivityIndicatorView
 
 struct PurchasedPackageForOthers {
@@ -249,7 +248,7 @@ class PreRegistrationViewController: UIViewController {
         self.packageTableView.estimatedRowHeight = 100
         
         result?.subscribe(onNext: { response in
-            SVProgressHUD.dismiss()
+            self.dismissHUD()
             self.indicatorView.stopAnimating()
             if response.status == ResponseType.success {
                 if response.suggestionList == nil {
@@ -267,9 +266,9 @@ class PreRegistrationViewController: UIViewController {
                 UIApplication.showAlert(title: Constant.Application.displayName, message: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
             }
         }, onError: { error in
-            SVProgressHUD.dismiss()
+            self.dismissHUD()
         }, onCompleted: {
-            SVProgressHUD.dismiss()
+            self.dismissHUD()
         }).disposed(by: rx.disposeBag)
     }
     
