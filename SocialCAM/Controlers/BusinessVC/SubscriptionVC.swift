@@ -113,7 +113,11 @@ extension SubscriptionVC: UITableViewDataSource, UITableViewDelegate {
         if settingTitle.settingsType == .subscriptions {
             headerView.collapsed = settingTitle.isCollapsed
             headerView.arrowLabel?.isHidden = false
-            headerView.title.text = settingTitle.name + " - \(Defaults.shared.appMode.description)"
+            if Defaults.shared.appMode == .basic {
+                headerView.title.text = settingTitle.name + " - \(Defaults.shared.appMode.description) Lite"
+            } else {
+                headerView.title.text = settingTitle.name + " - \(Defaults.shared.appMode.description)"
+            }
         } else {
             headerView.title.text = settingTitle.name
             headerView.arrowLabel?.isHidden = true

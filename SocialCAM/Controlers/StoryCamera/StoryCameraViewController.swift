@@ -130,7 +130,7 @@ class StoryCameraViewController: UIViewController {
             settingsButton.setImage(R.image.storySettings()!, for: .normal)
             settingsButton.setImage(R.image.storyBack()!, for: .selected)
         }
-}
+    }
     @IBOutlet weak var settingsLabel: UILabel!
     @IBOutlet weak var zoomSliderView: UIView!
     @IBOutlet weak var muteButton: UIButton!
