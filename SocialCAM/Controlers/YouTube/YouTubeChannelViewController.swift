@@ -10,7 +10,6 @@ import UIKit
 import RxCocoa
 import RxSwift
 import NSObject_Rx
-import SVProgressHUD
 import NVActivityIndicatorView
 import TagListView
 

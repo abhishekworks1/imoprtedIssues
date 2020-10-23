@@ -94,10 +94,6 @@ class IncomeCalculatorOneViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUiForLiteApp()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         self.getWebsiteId { [weak self] (type) in
             guard let `self` = self else { return }
             self.getCalculatorConfig(type: type)
@@ -202,9 +198,7 @@ class IncomeCalculatorOneViewController: UIViewController {
     
     private func getCalculatorConfig(type: String) {
         if UIApplication.checkInternetConnection() {
-            self.showHUD()
             ProManagerApi.getCalculatorConfig(type: type).request(CalculatorConfigurationModel.self).subscribe(onNext: { (response) in
-                self.dismissHUD()
                 if let calcConfig = response.result?.first(where: { $0.type == "potential_income_1" }) {
                     self.levelOneRefferalsSlider.maximumValue = Float(calcConfig.maxLevel1 ?? 0)
                     self.levelTwoRefferalsSlider.maximumValue = Float(calcConfig.maxLevel2 ?? 0)
@@ -214,7 +208,9 @@ class IncomeCalculatorOneViewController: UIViewController {
                     self.levelTwoPercentage = calcConfig.levelsArray?[1] ?? 0
                     self.levelThreePercentage = calcConfig.levelsArray?[2] ?? 0
                 }
+                self.dismissHUD()
             }, onError: { error in
+                self.dismissHUD()
                 self.showAlert(alertMessage: error.localizedDescription)
             }, onCompleted: {
             }).disposed(by: rx.disposeBag)

@@ -8,9 +8,9 @@
 
 import Foundation
 import UIKit
-import SVProgressHUD
 import SDWebImage
 import AVKit
+import ProgressHUD
 
 extension UIFont {
     @nonobjc public static let tagTxtSel = UIFont(name: "HelveticaNeue", size: 12)
@@ -31,20 +31,20 @@ extension UIFont {
 extension UIViewController {
     
     func showHUD() {
-        SVProgressHUD.show()
+        ProgressHUD.show()
     }
     
     func dismissHUD() {
-        SVProgressHUD.dismiss()
+        ProgressHUD.dismiss()
+        self.view.isUserInteractionEnabled = true
     }
     
     func dismissHUDWithError(_ error: String) {
-        SVProgressHUD.dismiss()
-       // SVProgressHUD.showError(withStatus: error)
+        ProgressHUD.dismiss()
     }
     
     func dismissHUDWithSuccessMsg(_ message: String) {
-        SVProgressHUD.showSuccess(withStatus: message)
+        ProgressHUD.showSuccess(message)
     }
     
     func changeChannelData(newChannel channel: User) {

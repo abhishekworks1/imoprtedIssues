@@ -68,16 +68,11 @@ class CalculatorViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.showHUD()
-        self.tableview.tableHeaderView = tableHeaderView
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         self.getWebsiteId { [weak self] (type) in
             guard let `self` = self else { return }
             self.getCalculatorConfig(type: type)
         }
+        self.tableview.tableHeaderView = tableHeaderView
     }
     
     override func viewDidLayoutSubviews() {
@@ -145,15 +140,15 @@ class CalculatorViewController: UIViewController {
     
     private func getCalculatorConfig(type: String) {
         if UIApplication.checkInternetConnection() {
-            self.showHUD()
             ProManagerApi.getCalculatorConfig(type: type).request(CalculatorConfigurationModel.self).subscribe(onNext: { (response) in
-                self.dismissHUD()
                 if let calcConfig = response.result?.first(where: { $0.type == "potential_followers"}) {
                     self.innerCircleSlider.maximumValue = Float(calcConfig.maxLevel ?? 0)
                     self.extendedCircleSlider.maximumValue = Float(calcConfig.maxRefer ?? 0)
                     self.percentage = calcConfig.percentage ?? 0
                 }
+                self.dismissHUD()
             }, onError: { error in
+                self.dismissHUD()
                 self.showAlert(alertMessage: error.localizedDescription)
             }, onCompleted: {
             }).disposed(by: rx.disposeBag)

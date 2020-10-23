@@ -28,7 +28,6 @@ def projectShared_pods
     pod 'Gemini', '1.3.1'
     pod 'OnlyPictures', :git => 'https://github.com/simformsolutions/OnlyPictures'
     pod 'FLAnimatedImage', '1.0.12'
-    pod 'SVProgressHUD', '2.2.5'
     pod 'SwiftVideoGenerator', :git => 'https://github.com/jasminpsimform/swift-video-generator', :branch => 'swift5'
     pod 'ColorSlider', '4.4'
     pod 'IQKeyboardManagerSwift', '6.5.5'
@@ -61,7 +60,7 @@ def projectShared_pods
     pod 'MXPagerView', :git => 'https://github.com/simformsolutions/MXPagerView'
     pod 'MXSegmentedPager', :git => 'https://github.com/simformsolutions/MXSegmentedPager'
     pod "ESPullToRefresh"
-    pod 'EasyTipView', '~> 2.0.4'
+    pod 'ProgressHUD', '~> 2.70'
 
     shared_pods
 end

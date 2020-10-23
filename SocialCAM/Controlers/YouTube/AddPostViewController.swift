@@ -10,7 +10,6 @@ import Foundation
 import RxCocoa
 import RxSwift
 import NSObject_Rx
-import SVProgressHUD
 import NVActivityIndicatorView
 import WebKit
 import YoutubePlayerView

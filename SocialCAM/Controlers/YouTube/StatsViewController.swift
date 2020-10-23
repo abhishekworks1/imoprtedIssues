@@ -8,7 +8,6 @@
 
 import Foundation
 import MXSegmentedPager
-import SVProgressHUD
 import NVActivityIndicatorView
 import RxCocoa
 import RxSwift
