@@ -119,14 +119,12 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             if recordingType == .basicCamera {
                 return
             }
-            
             self.zoomSlider.value = Float(minZoom)
-            
+
             var speedOptions: [StoryCameraSpeedValue] = [.slow3x, .slow2x, .normal, .normal, .fast2x, .fast3x]
             
-            
             if isViralCamLiteApp || isFastCamLiteApp || isQuickCamLiteApp || isSpeedCamLiteApp {
-                speedOptions = recordingType == .promo ? [.normal, .normal, .normal, .fast2x, .fast3x] : speedOptions
+                speedOptions = recordingType == .promo ? [.normal, .normal, .normal, .normal, .fast2x, .fast3x] : speedOptions
             } else {
                 switch Defaults.shared.appMode {
                 case .free, .basic:
@@ -156,7 +154,47 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
                 }
             }
             
-            if recordingType != .boomerang {
+            if isLiteApp {
+                var recordingSpeed = VideoSpeedType.normal
+                var timeScale: Float64 = 1
+                var speedTitle = ""
+                var value = 2
+                switch currentValue {
+                case .slow3x:
+                    timeScale = 3
+                    recordingSpeed = .slow(scaleFactor: 3.0)
+                    speedTitle = R.string.localizable.slow3x()
+                    value = 0
+                case .slow2x:
+                    timeScale = 2
+                    recordingSpeed = .slow(scaleFactor: 2.0)
+                    speedTitle = R.string.localizable.slow2x()
+                    value = 1
+                case .normal:
+                    timeScale = 1
+                    recordingSpeed = .normal
+                    self.setNormalSpeed(selectedValue: 2)
+                    return
+                case .fast2x:
+                    timeScale = 1/2
+                    recordingSpeed = .fast(scaleFactor: 2.0)
+                    value = 3
+                    speedTitle = R.string.localizable.fast2x()
+                case .fast3x:
+                    timeScale = 1/3
+                    recordingSpeed = .fast(scaleFactor: 3.0)
+                    value = 4
+                    speedTitle = R.string.localizable.fast3x()
+                default:
+                    break
+                }
+                DispatchQueue.main.async {
+                    self.nextLevel.videoConfiguration.timescale = timeScale
+                    self.setSpeed(type: recordingSpeed,
+                                  value: value,
+                                  text: speedTitle)
+                }
+            } else if recordingType != .boomerang {
                 switch currentValue {
                 case .slow5x:
                     if videoSpeedType != VideoSpeedType.slow(scaleFactor: 5.0) {
@@ -326,12 +364,12 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
         }
         
         if isViralCamLiteApp || isFastCamLiteApp || isQuickCamLiteApp || isSpeedCamLiteApp {
-            speedOptions = recordingType == .promo ? [.normal, .fast2x, .fast3x] : [.normal, .fast2x, .fast3x, .fast4x, .fast5x]
+            speedOptions = recordingType == .promo ? [.normal, .normal, .normal, .fast2x, .fast3x] : [.slow3x, .slow2x, .normal, .fast2x, .fast3x]
         }
         
         var value = 1
         var speedText = ""
-        if self.recordingType == .normal && (isViralCamLiteApp || isFastCamLiteApp || isQuickCamLiteApp || isSpeedCamLiteApp) {
+        if isLiteApp {
             switch speedSlider.value {
             case 0:
                 value = 3

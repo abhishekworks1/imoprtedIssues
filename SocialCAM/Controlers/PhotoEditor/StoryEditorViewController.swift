@@ -188,7 +188,8 @@ class StoryEditorViewController: UIViewController {
     
     @IBOutlet weak var cursorContainerViewCenterConstraint: NSLayoutConstraint!
     @IBOutlet weak var ssuTagView: UIView!
-
+    
+    private let fastestEverWatermarkBottomMargin = 112
     weak var cursorContainerViewController: KeyframePickerCursorVC!
     var playbackTimeCheckerTimer: Timer?
     var displayKeyframeImages: [KeyframeImage] = []
@@ -290,7 +291,7 @@ class StoryEditorViewController: UIViewController {
         
         self.imgFastestEverWatermark.isHidden = Defaults.shared.cameraMode != .promo
         if Defaults.shared.cameraMode == .promo, let track = self.currentVideoAsset?.tracks(withMediaType: .video).first {
-            self.fastestEverCenterConstraint.constant = track.naturalSize.height / 2
+            self.fastestEverCenterConstraint.constant = (track.naturalSize.height / 2) - self.fastestEverWatermarkBottomMargin
         }
     }
     
