@@ -291,7 +291,7 @@ class StoryEditorViewController: UIViewController {
         
         self.imgFastestEverWatermark.isHidden = Defaults.shared.cameraMode != .promo
         if Defaults.shared.cameraMode == .promo, let track = self.currentVideoAsset?.tracks(withMediaType: .video).first {
-            self.fastestEverCenterConstraint.constant = (track.naturalSize.height / 2) - self.fastestEverWatermarkBottomMargin
+            self.fastestEverCenterConstraint.constant = (track.naturalSize.height / 2) - CGFloat(self.fastestEverWatermarkBottomMargin)
         }
     }
     
