@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -31,10 +32,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WrK-aL-Bvq">
-                                <rect key="frame" x="0.0" y="88" width="414" height="253"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="380"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="D9a-g4-1Ia">
-                                        <rect key="frame" x="5" y="20" width="404" height="233"/>
+                                        <rect key="frame" x="5" y="20" width="404" height="360"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="XbO-sb-NNe">
                                                 <rect key="frame" x="0.0" y="0.0" width="404" height="106.5"/>
@@ -156,10 +157,10 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="mzW-ib-N0C">
-                                                <rect key="frame" x="0.0" y="126.5" width="404" height="106.5"/>
+                                                <rect key="frame" x="0.0" y="126.5" width="404" height="107"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e0D-k5-Ij3">
-                                                        <rect key="frame" x="0.0" y="0.0" width="134.5" height="106.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="134.5" height="107"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="incomecal3" translatesAutoresizingMaskIntoConstraints="NO" id="rcS-Ej-jgr">
                                                                 <rect key="frame" x="40" y="0.0" width="55" height="55"/>
@@ -175,7 +176,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h3z-ua-E7C">
-                                                                <rect key="frame" x="0.0" y="0.0" width="134.5" height="106.5"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="134.5" height="107"/>
                                                                 <connections>
                                                                     <action selector="btnCalculatorThreeTapped:" destination="zOq-gR-n5J" eventType="touchUpInside" id="OgQ-ED-n8G"/>
                                                                 </connections>
@@ -197,7 +198,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xZ9-AJ-4hP">
-                                                        <rect key="frame" x="134.5" y="0.0" width="135" height="106.5"/>
+                                                        <rect key="frame" x="134.5" y="0.0" width="135" height="107"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="incomecal4" translatesAutoresizingMaskIntoConstraints="NO" id="Aap-Mf-mLw">
                                                                 <rect key="frame" x="40" y="0.0" width="55" height="55"/>
@@ -213,7 +214,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5RJ-Kv-Bhi">
-                                                                <rect key="frame" x="0.0" y="0.0" width="135" height="106.5"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="135" height="107"/>
                                                                 <connections>
                                                                     <action selector="btnCalculatorFourTapped:" destination="zOq-gR-n5J" eventType="touchUpInside" id="Ii5-hO-bZc"/>
                                                                 </connections>
@@ -234,7 +235,126 @@
                                                             <constraint firstItem="Aap-Mf-mLw" firstAttribute="top" secondItem="xZ9-AJ-4hP" secondAttribute="top" id="zhZ-Gn-QUh"/>
                                                         </constraints>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2EV-uA-jcq">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rn0-yn-JeO">
+                                                        <rect key="frame" x="269.5" y="0.0" width="134.5" height="107"/>
+                                                        <subviews>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="incomecal4" translatesAutoresizingMaskIntoConstraints="NO" id="gxb-uK-Kcf">
+                                                                <rect key="frame" x="39.5" y="0.0" width="55" height="55"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="55" id="E03-fa-Z0v"/>
+                                                                    <constraint firstAttribute="height" constant="55" id="i8k-4O-8b6"/>
+                                                                </constraints>
+                                                            </imageView>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lite Calculator 1" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="oS5-px-5bs">
+                                                                <rect key="frame" x="5" y="60" width="124.5" height="19.5"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l7Y-1J-CGT">
+                                                                <rect key="frame" x="0.0" y="0.0" width="134.5" height="107"/>
+                                                                <connections>
+                                                                    <action selector="btnLiteCalculatorOneTapped:" destination="zOq-gR-n5J" eventType="touchUpInside" id="HUs-2N-nFj"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                        <constraints>
+                                                            <constraint firstItem="l7Y-1J-CGT" firstAttribute="width" secondItem="Rn0-yn-JeO" secondAttribute="width" id="644-xc-Wjb"/>
+                                                            <constraint firstItem="oS5-px-5bs" firstAttribute="centerX" secondItem="gxb-uK-Kcf" secondAttribute="centerX" id="8PE-qI-hq6"/>
+                                                            <constraint firstItem="oS5-px-5bs" firstAttribute="leading" secondItem="Rn0-yn-JeO" secondAttribute="leading" constant="5" id="EON-Ji-oFg"/>
+                                                            <constraint firstItem="l7Y-1J-CGT" firstAttribute="height" secondItem="Rn0-yn-JeO" secondAttribute="height" id="GVh-un-h7W"/>
+                                                            <constraint firstItem="l7Y-1J-CGT" firstAttribute="centerY" secondItem="Rn0-yn-JeO" secondAttribute="centerY" id="JWN-3u-sEn"/>
+                                                            <constraint firstItem="gxb-uK-Kcf" firstAttribute="top" secondItem="Rn0-yn-JeO" secondAttribute="top" id="K6J-yN-igH"/>
+                                                            <constraint firstItem="oS5-px-5bs" firstAttribute="top" secondItem="gxb-uK-Kcf" secondAttribute="bottom" constant="5" id="nE1-Qp-Kla"/>
+                                                            <constraint firstItem="l7Y-1J-CGT" firstAttribute="centerX" secondItem="Rn0-yn-JeO" secondAttribute="centerX" id="p6x-uw-alo"/>
+                                                            <constraint firstItem="gxb-uK-Kcf" firstAttribute="centerX" secondItem="Rn0-yn-JeO" secondAttribute="centerX" id="pTK-Vm-cKS"/>
+                                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="oS5-px-5bs" secondAttribute="bottom" constant="5" id="tkw-iG-Gsq"/>
+                                                            <constraint firstAttribute="trailing" secondItem="oS5-px-5bs" secondAttribute="trailing" constant="5" id="xFh-ZZ-uyf"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Bg5-WI-ft1">
+                                                <rect key="frame" x="0.0" y="253.5" width="404" height="106.5"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7j0-Tc-MoZ">
+                                                        <rect key="frame" x="0.0" y="0.0" width="134.5" height="106.5"/>
+                                                        <subviews>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="incomecal3" translatesAutoresizingMaskIntoConstraints="NO" id="B3Q-Lr-r4u">
+                                                                <rect key="frame" x="40" y="0.0" width="55" height="55"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="55" id="Q4w-gT-CZA"/>
+                                                                    <constraint firstAttribute="height" constant="55" id="nNX-5B-74U"/>
+                                                                </constraints>
+                                                            </imageView>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lite Calculator 2" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="dY7-7W-mxw">
+                                                                <rect key="frame" x="5" y="60" width="124.5" height="19.5"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SNl-OD-Wkw">
+                                                                <rect key="frame" x="0.0" y="0.0" width="134.5" height="106.5"/>
+                                                                <connections>
+                                                                    <action selector="btnLiteCalculatorTwoTapped:" destination="zOq-gR-n5J" eventType="touchUpInside" id="o2G-Ie-cnr"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                        <constraints>
+                                                            <constraint firstItem="SNl-OD-Wkw" firstAttribute="height" secondItem="7j0-Tc-MoZ" secondAttribute="height" id="1vs-qQ-HMN"/>
+                                                            <constraint firstItem="SNl-OD-Wkw" firstAttribute="width" secondItem="7j0-Tc-MoZ" secondAttribute="width" id="3SV-qh-6v4"/>
+                                                            <constraint firstItem="dY7-7W-mxw" firstAttribute="top" secondItem="B3Q-Lr-r4u" secondAttribute="bottom" constant="5" id="Edj-0V-CST"/>
+                                                            <constraint firstItem="B3Q-Lr-r4u" firstAttribute="top" secondItem="7j0-Tc-MoZ" secondAttribute="top" id="HUl-GD-zRR"/>
+                                                            <constraint firstItem="B3Q-Lr-r4u" firstAttribute="centerX" secondItem="7j0-Tc-MoZ" secondAttribute="centerX" id="Qaf-Oq-tvN"/>
+                                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="dY7-7W-mxw" secondAttribute="bottom" constant="5" id="XrC-8l-wFp"/>
+                                                            <constraint firstItem="dY7-7W-mxw" firstAttribute="leading" secondItem="7j0-Tc-MoZ" secondAttribute="leading" constant="5" id="cvf-Tm-Lx3"/>
+                                                            <constraint firstItem="SNl-OD-Wkw" firstAttribute="centerX" secondItem="7j0-Tc-MoZ" secondAttribute="centerX" id="jCy-1o-tiZ"/>
+                                                            <constraint firstItem="dY7-7W-mxw" firstAttribute="centerX" secondItem="B3Q-Lr-r4u" secondAttribute="centerX" id="pRc-GP-g33"/>
+                                                            <constraint firstItem="SNl-OD-Wkw" firstAttribute="centerY" secondItem="7j0-Tc-MoZ" secondAttribute="centerY" id="u4F-t0-0V0"/>
+                                                            <constraint firstAttribute="trailing" secondItem="dY7-7W-mxw" secondAttribute="trailing" constant="5" id="y4H-nT-spG"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gRE-Jz-lc9">
+                                                        <rect key="frame" x="134.5" y="0.0" width="135" height="106.5"/>
+                                                        <subviews>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="incomecal4" translatesAutoresizingMaskIntoConstraints="NO" id="mof-8d-DyF">
+                                                                <rect key="frame" x="40" y="0.0" width="55" height="55"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="55" id="XZ3-oc-TBE"/>
+                                                                    <constraint firstAttribute="height" constant="55" id="p0k-5C-pEZ"/>
+                                                                </constraints>
+                                                            </imageView>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lite Calculator 3" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="gzm-pm-qTh">
+                                                                <rect key="frame" x="5" y="60" width="125" height="19.5"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0n1-BA-y3V">
+                                                                <rect key="frame" x="0.0" y="0.0" width="135" height="106.5"/>
+                                                                <connections>
+                                                                    <action selector="btnLiteCalculatorThreeTapped:" destination="zOq-gR-n5J" eventType="touchUpInside" id="20K-06-ozb"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                        <constraints>
+                                                            <constraint firstItem="gzm-pm-qTh" firstAttribute="top" secondItem="mof-8d-DyF" secondAttribute="bottom" constant="5" id="3jg-8N-7rk"/>
+                                                            <constraint firstItem="gzm-pm-qTh" firstAttribute="centerX" secondItem="mof-8d-DyF" secondAttribute="centerX" id="7Zk-7T-RmO"/>
+                                                            <constraint firstItem="gzm-pm-qTh" firstAttribute="leading" secondItem="gRE-Jz-lc9" secondAttribute="leading" constant="5" id="7ir-MU-TC2"/>
+                                                            <constraint firstItem="0n1-BA-y3V" firstAttribute="height" secondItem="gRE-Jz-lc9" secondAttribute="height" id="BB8-z9-5Gh"/>
+                                                            <constraint firstItem="0n1-BA-y3V" firstAttribute="centerX" secondItem="gRE-Jz-lc9" secondAttribute="centerX" id="GfW-0E-LqF"/>
+                                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="gzm-pm-qTh" secondAttribute="bottom" constant="5" id="VGz-UV-hSG"/>
+                                                            <constraint firstAttribute="trailing" secondItem="gzm-pm-qTh" secondAttribute="trailing" constant="5" id="YsW-UU-fHg"/>
+                                                            <constraint firstItem="0n1-BA-y3V" firstAttribute="centerY" secondItem="gRE-Jz-lc9" secondAttribute="centerY" id="gew-yg-fh7"/>
+                                                            <constraint firstItem="mof-8d-DyF" firstAttribute="top" secondItem="gRE-Jz-lc9" secondAttribute="top" id="gw8-d6-P39"/>
+                                                            <constraint firstItem="0n1-BA-y3V" firstAttribute="width" secondItem="gRE-Jz-lc9" secondAttribute="width" id="kXd-SQ-IIA"/>
+                                                            <constraint firstItem="mof-8d-DyF" firstAttribute="centerX" secondItem="gRE-Jz-lc9" secondAttribute="centerX" id="wu8-hl-Rvn"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i8K-PD-6qd">
                                                         <rect key="frame" x="269.5" y="0.0" width="134.5" height="106.5"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                     </view>
@@ -258,7 +378,7 @@
                                     <constraint firstItem="t6E-KI-Wn1" firstAttribute="top" secondItem="WrK-aL-Bvq" secondAttribute="top" constant="10" id="5di-Lm-XFp"/>
                                     <constraint firstAttribute="bottom" secondItem="D9a-g4-1Ia" secondAttribute="bottom" id="9gc-gT-1YT"/>
                                     <constraint firstAttribute="trailing" secondItem="D9a-g4-1Ia" secondAttribute="trailing" constant="5" id="Dn4-qI-dkf"/>
-                                    <constraint firstAttribute="height" constant="253" id="M6G-aE-I3s"/>
+                                    <constraint firstAttribute="height" constant="380" id="M6G-aE-I3s"/>
                                     <constraint firstItem="t6E-KI-Wn1" firstAttribute="centerX" secondItem="WrK-aL-Bvq" secondAttribute="centerX" id="SXk-3X-pfx"/>
                                     <constraint firstItem="D9a-g4-1Ia" firstAttribute="top" secondItem="t6E-KI-Wn1" secondAttribute="bottom" constant="10" id="cLS-zt-Yca"/>
                                 </constraints>
@@ -286,7 +406,7 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calculator" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RCE-xV-bhm">
-                                                <rect key="frame" x="170.5" y="12.5" width="73" height="19"/>
+                                                <rect key="frame" x="167.5" y="12.5" width="79" height="19.5"/>
                                                 <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="16"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -355,7 +475,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Potential followers calculator" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y9s-4Y-VPH">
-                                        <rect key="frame" x="104" y="12.5" width="206" height="19"/>
+                                        <rect key="frame" x="95.5" y="12.5" width="223.5" height="19"/>
                                         <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="16"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -701,7 +821,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Followers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dgl-Ej-S7E">
-                            <rect key="frame" x="98" y="14" width="119" height="21"/>
+                            <rect key="frame" x="98" y="14" width="126" height="21"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="21" id="6cw-Bj-4uR"/>
                             </constraints>
@@ -750,7 +870,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Potential Income Calculator 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3BY-YY-I12">
-                                        <rect key="frame" x="101.5" y="12.5" width="211" height="19"/>
+                                        <rect key="frame" x="94.5" y="12.5" width="225" height="19.5"/>
                                         <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="16"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -1208,6 +1328,7 @@
                         <outlet property="lblLevelOneRefferals" destination="wV2-E8-dIj" id="czi-F9-vKl"/>
                         <outlet property="lblLevelThreeRefferals" destination="pwK-yP-TSC" id="s5M-RI-dz5"/>
                         <outlet property="lblLevelTwoRefferals" destination="pea-ih-nRG" id="QdN-Ox-ycH"/>
+                        <outlet property="lblNavigationTitle" destination="3BY-YY-I12" id="vVr-Wp-VEK"/>
                         <outlet property="lblPercentageFilled" destination="Cvn-qm-Hsl" id="Qkb-C7-K1Y"/>
                         <outlet property="lblStaticInAppPurchase" destination="RCf-z3-R5c" id="HCU-Gb-pKy"/>
                         <outlet property="levelOneRefferalsSlider" destination="TZn-bK-RZe" id="d2x-8C-2di"/>
@@ -1237,16 +1358,16 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="vFe-e8-3TW">
-                            <rect key="frame" x="96" y="36.5" width="300" height="63"/>
+                            <rect key="frame" x="96" y="36" width="300" height="64.5"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="# of people making in-app purchases" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="KwI-eu-gU7">
-                                    <rect key="frame" x="0.0" y="0.0" width="139" height="63"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="139" height="64.5"/>
                                     <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="18"/>
                                     <color key="textColor" name="AppBackgroundColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Potential income" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="YzD-kV-q4Q">
-                                    <rect key="frame" x="161" y="0.0" width="139" height="63"/>
+                                    <rect key="frame" x="161" y="0.0" width="139" height="64.5"/>
                                     <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="18"/>
                                     <color key="textColor" name="AppBackgroundColor"/>
                                     <nil key="highlightedColor"/>
@@ -1295,7 +1416,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Potential Income Calculator 2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dwJ-MQ-c8A">
-                                        <rect key="frame" x="101.5" y="12.5" width="211" height="19"/>
+                                        <rect key="frame" x="93.5" y="12.5" width="227" height="19.5"/>
                                         <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="16"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -1734,16 +1855,16 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="6OF-ql-dPj">
-                            <rect key="frame" x="96" y="36.5" width="300" height="63"/>
+                            <rect key="frame" x="96" y="36" width="300" height="64.5"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="# of people making in-app purchases" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="GVg-hw-6ec">
-                                    <rect key="frame" x="0.0" y="0.0" width="139" height="63"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="139" height="64.5"/>
                                     <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="18"/>
                                     <color key="textColor" name="AppBackgroundColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Potential income" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="TWK-SQ-YGE">
-                                    <rect key="frame" x="161" y="0.0" width="139" height="63"/>
+                                    <rect key="frame" x="161" y="0.0" width="139" height="64.5"/>
                                     <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="18"/>
                                     <color key="textColor" name="AppBackgroundColor"/>
                                     <nil key="highlightedColor"/>
@@ -1792,7 +1913,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Potential Income Calculator 4" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eh4-MP-l8t">
-                                        <rect key="frame" x="101.5" y="12.5" width="211" height="19"/>
+                                        <rect key="frame" x="93.5" y="12.5" width="227.5" height="19.5"/>
                                         <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="16"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -2301,10 +2422,10 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="t1m-EC-v3t">
-                            <rect key="frame" x="96" y="39" width="307" height="42"/>
+                            <rect key="frame" x="96" y="38.5" width="307" height="43"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="CSv-Ps-R4V">
-                                    <rect key="frame" x="0.0" y="0.0" width="148" height="42"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="148" height="43"/>
                                     <string key="text">In-app 
 purchases</string>
                                     <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="18"/>
@@ -2312,7 +2433,7 @@ purchases</string>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="IIT-AT-Gab">
-                                    <rect key="frame" x="159" y="0.0" width="148" height="42"/>
+                                    <rect key="frame" x="159" y="0.0" width="148" height="43"/>
                                     <string key="text">Potential 
 income</string>
                                     <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="18"/>
@@ -2388,7 +2509,7 @@ income</string>
                                 <rect key="frame" x="10" y="93" width="394" height="769"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bHR-65-AeV">
-                                        <rect key="frame" x="0.0" y="0.0" width="394" height="1177"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="394" height="1178"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="12b-3o-JZK">
                                                 <rect key="frame" x="9" y="10" width="376" height="233"/>
@@ -2946,7 +3067,7 @@ income</string>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G23-5n-t1q">
-                                                <rect key="frame" x="9" y="561" width="376" height="602"/>
+                                                <rect key="frame" x="9" y="561" width="376" height="603"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Detailed calculation " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E4a-Lb-g9s">
                                                         <rect key="frame" x="0.0" y="11" width="376" height="21"/>
@@ -2958,13 +3079,13 @@ income</string>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Potential follower calculation" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aWs-jW-gX3">
-                                                        <rect key="frame" x="0.0" y="48" width="376" height="21"/>
+                                                        <rect key="frame" x="0.0" y="48" width="376" height="21.5"/>
                                                         <fontDescription key="fontDescription" name="SFUIText-Heavy" family="SF UI Text" pointSize="18"/>
                                                         <color key="textColor" red="0.27843137254901962" green="0.37647058823529411" blue="0.47450980392156861" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rw0-3x-vyE">
-                                                        <rect key="frame" x="15" y="81" width="321" height="21"/>
+                                                        <rect key="frame" x="15" y="81.5" width="321" height="21"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Level" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="552-0S-D98">
                                                                 <rect key="frame" x="0.0" y="0.0" width="96.5" height="21"/>
@@ -2995,7 +3116,7 @@ income</string>
                                                         </constraints>
                                                     </view>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="vdH-ac-SKr">
-                                                        <rect key="frame" x="15" y="120" width="321" height="189"/>
+                                                        <rect key="frame" x="15" y="120.5" width="321" height="189"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oz3-MQ-jYB">
                                                                 <rect key="frame" x="0.0" y="0.0" width="321" height="39"/>
@@ -3141,7 +3262,7 @@ income</string>
                                                                                 <fragment content="10 + 50 +200 = 260">
                                                                                     <attributes>
                                                                                         <color key="NSColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                                        <font key="NSFont" size="16" name=".AppleSystemUIFont"/>
+                                                                                        <font key="NSFont" metaFont="system" size="16"/>
                                                                                     </attributes>
                                                                                 </fragment>
                                                                             </attributedString>
@@ -3177,13 +3298,13 @@ income</string>
                                                         </constraints>
                                                     </stackView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Potential Income calculation" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HCs-g4-2KS">
-                                                        <rect key="frame" x="0.0" y="325" width="376" height="21"/>
+                                                        <rect key="frame" x="0.0" y="325.5" width="376" height="21.5"/>
                                                         <fontDescription key="fontDescription" name="SFUIText-Heavy" family="SF UI Text" pointSize="18"/>
                                                         <color key="textColor" red="0.2784313725" green="0.37647058820000001" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gIK-CD-cU0">
-                                                        <rect key="frame" x="15" y="358" width="321" height="21"/>
+                                                        <rect key="frame" x="15" y="359" width="321" height="21"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Level" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EDD-KB-GP3">
                                                                 <rect key="frame" x="0.0" y="0.0" width="96.5" height="21"/>
@@ -3214,7 +3335,7 @@ income</string>
                                                         </constraints>
                                                     </view>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="zlM-wU-2GN">
-                                                        <rect key="frame" x="15" y="393" width="321" height="189"/>
+                                                        <rect key="frame" x="15" y="394" width="321" height="189"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6HV-gx-wIQ">
                                                                 <rect key="frame" x="0.0" y="0.0" width="321" height="39"/>
@@ -3356,7 +3477,7 @@ income</string>
                                                                                 <fragment content="$5 + $25 + $20 = $50">
                                                                                     <attributes>
                                                                                         <color key="NSColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                                        <font key="NSFont" size="16" name=".AppleSystemUIFont"/>
+                                                                                        <font key="NSFont" metaFont="system" size="16"/>
                                                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                                     </attributes>
                                                                                 </fragment>
@@ -3668,7 +3789,7 @@ income</string>
         <image name="potentialcalculator" width="55" height="55"/>
         <image name="storyBack" width="19" height="19"/>
         <namedColor name="AppBackgroundColor">
-            <color red="0.10980392156862745" green="0.15294117647058825" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.10999999940395355" green="0.15299999713897705" blue="0.23899999260902405" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
             <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

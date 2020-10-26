@@ -811,6 +811,32 @@ enum StorySelectionType {
     case error(error: Error)
 }
 
+enum CalculatorType: String {
+    case incomeOne = "potential_income_1"
+    case incomeTwo = "potential_income_2"
+    case incomeThree = "potential_income_3"
+    case liteIncomeOne = "lite_potential_income_1"
+    case liteIncomeTwo = "lite_potential_income_2"
+    case liteIncomeThree = "lite_potential_income_3"
+    
+    func getNavigationTitle() -> String {
+        switch self {
+        case .incomeOne:
+            return "Potential Income Calculator 1"
+        case .incomeTwo:
+            return "Potential Income Calculator 2"
+        case .incomeThree:
+            return "Potential Income Calculator 3"
+        case .liteIncomeOne:
+            return "Lite Potential Income Calculator 1"
+        case .liteIncomeTwo:
+            return "Lite Potential Income Calculator 2"
+        case .liteIncomeThree:
+            return "Lite Potential Income Calculator 3"
+        }
+    }
+}
+
 enum VideoSpeedType: Equatable {
     
     static func ==(lhs: VideoSpeedType, rhs: VideoSpeedType) -> Bool {

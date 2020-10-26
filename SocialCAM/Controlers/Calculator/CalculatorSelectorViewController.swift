@@ -38,10 +38,27 @@ class CalculatorSelectorViewController: UIViewController {
             self.navigationController?.pushViewController(destinationVc, animated: true)
         case 3:
             guard let destinationVc = R.storyboard.calculator.incomeCalculatorTwo() else { return }
-            destinationVc.isCalculatorThree = true
+            destinationVc.calculatorType = .incomeThree
             self.navigationController?.pushViewController(destinationVc, animated: true)
         case 4:
             guard let destinationVc = R.storyboard.calculator.incomeCalculatorFourViewController() else { return }
+            self.navigationController?.pushViewController(destinationVc, animated: true)
+        case 5:
+            if isLiteApp {
+                guard let destinationVc = R.storyboard.calculator.incomeCalculatorTwo() else { return }
+                destinationVc.isLiteCalculator = true
+                destinationVc.calculatorType = .liteIncomeOne
+                self.navigationController?.pushViewController(destinationVc, animated: true)
+            } else {
+                guard let destinationVc = R.storyboard.calculator.incomeCalculatorOne() else { return }
+                destinationVc.isLiteCalculator = true
+                destinationVc.calculatorType = .liteIncomeOne
+                self.navigationController?.pushViewController(destinationVc, animated: true)
+            }
+        case 6, 7:
+            guard let destinationVc = R.storyboard.calculator.incomeCalculatorTwo() else { return }
+            destinationVc.isLiteCalculator = true
+            destinationVc.calculatorType = index == 6 ? .liteIncomeTwo : .liteIncomeThree
             self.navigationController?.pushViewController(destinationVc, animated: true)
         default:
             break
@@ -73,6 +90,18 @@ class CalculatorSelectorViewController: UIViewController {
     
     @IBAction func btnCalculatorFourTapped(_ sender: Any) {
         self.goToCalculatosScreen(index: 4)
+    }
+    
+    @IBAction func btnLiteCalculatorOneTapped(_ sender: Any) {
+        self.goToCalculatosScreen(index: 5)
+    }
+    
+    @IBAction func btnLiteCalculatorTwoTapped(_ sender: Any) {
+        self.goToCalculatosScreen(index: 6)
+    }
+    
+    @IBAction func btnLiteCalculatorThreeTapped(_ sender: Any) {
+        self.goToCalculatosScreen(index: 7)
     }
     
 }
