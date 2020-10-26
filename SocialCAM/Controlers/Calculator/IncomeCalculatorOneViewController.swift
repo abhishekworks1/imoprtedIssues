@@ -42,6 +42,7 @@ class IncomeCalculatorOneViewController: UIViewController {
     // MARK: -
     // MARK: - Outlets
     
+    @IBOutlet weak var lblNavigationTitle: UILabel!
     @IBOutlet weak var inAppPurchaseTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var percentageViewHeightCeonstraint: NSLayoutConstraint!
     @IBOutlet weak var lblStaticInAppPurchase: UILabel!
@@ -63,6 +64,8 @@ class IncomeCalculatorOneViewController: UIViewController {
     // MARK: -
     // MARK: - Variables
     
+    internal var isLiteCalculator = false
+    internal var calculatorType = CalculatorType.incomeOne
     private var incomeData = [(Int, Double)]()
     private var averageInAppPurchase = 0 {
         didSet {
@@ -93,6 +96,7 @@ class IncomeCalculatorOneViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.lblNavigationTitle.text = calculatorType.getNavigationTitle()
         setupUiForLiteApp()
         self.getWebsiteId { [weak self] (type) in
             guard let `self` = self else { return }
@@ -155,7 +159,7 @@ class IncomeCalculatorOneViewController: UIViewController {
     // MARK: - Class Functions
     
     private func setupUiForLiteApp() {
-        if isLiteApp {
+        if isLiteCalculator {
             self.inAppPurchaseTopConstraint.constant += 10
             self.btnStaticInAppHelp.isHidden = false
             self.percentageFilled = 100
@@ -199,7 +203,7 @@ class IncomeCalculatorOneViewController: UIViewController {
     private func getCalculatorConfig(type: String) {
         if UIApplication.checkInternetConnection() {
             ProManagerApi.getCalculatorConfig(type: type).request(CalculatorConfigurationModel.self).subscribe(onNext: { (response) in
-                if let calcConfig = response.result?.first(where: { $0.type == "potential_income_1" }) {
+                if let calcConfig = response.result?.first(where: { $0.type == self.calculatorType.rawValue }) {
                     self.levelOneRefferalsSlider.maximumValue = Float(calcConfig.maxLevel1 ?? 0)
                     self.levelTwoRefferalsSlider.maximumValue = Float(calcConfig.maxLevel2 ?? 0)
                     self.levelThreeRefferalsSlider.maximumValue = Float(calcConfig.maxLevel3 ?? 0)

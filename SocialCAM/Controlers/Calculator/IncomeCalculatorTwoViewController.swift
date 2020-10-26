@@ -45,7 +45,8 @@ class IncomeCalculatorTwoViewController: UIViewController {
             self.percentageSlider.value = Float(percentageFilled)
         }
     }
-    internal var isCalculatorThree = false
+    internal var isLiteCalculator = false
+    internal var calculatorType = CalculatorType.incomeTwo
     private var directRefferals = 0
     private var levelTwoRefferals = 0
     private var totalCount = 0
@@ -65,9 +66,7 @@ class IncomeCalculatorTwoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if isCalculatorThree {
-            lblNavigationTitle.text = "Potential Income Calculator 3"
-        }
+        lblNavigationTitle.text = calculatorType.getNavigationTitle()
         self.setupUiForLiteApps()
         self.getWebsiteId { [weak self] (type) in
             guard let `self` = self else { return }
@@ -122,7 +121,7 @@ class IncomeCalculatorTwoViewController: UIViewController {
     // MARK: - Class Functions
     
     private func setupUiForLiteApps() {
-        if isLiteApp {
+        if isLiteCalculator {
             self.inAppPurchaseTopConstraint.constant = 20
             self.btnInAppHelp.isHidden = false
             self.lblFixedInAppPurchase.isHidden = false
@@ -182,7 +181,7 @@ class IncomeCalculatorTwoViewController: UIViewController {
         if UIApplication.checkInternetConnection() {
             ProManagerApi.getCalculatorConfig(type: type).request(CalculatorConfigurationModel.self).subscribe(onNext: { [weak self] (response) in
                 guard let `self` = self else { return }
-                if let calcConfig = response.result?.first(where: { $0.type == (self.isCalculatorThree ? "potential_income_2" : "potential_income_3") }) {
+                if let calcConfig = response.result?.first(where: { $0.type == (self.calculatorType.rawValue) }) {
                     self.levelOneSlider.maximumValue = Float(calcConfig.maxLevel1 ?? 0)
                     self.levelTwoSlider.maximumValue = Float(calcConfig.maxLevel2 ?? 0)
                     self.inAppSlider.maximumValue = Float(calcConfig.inAppPurchaseLimit ?? 0)
