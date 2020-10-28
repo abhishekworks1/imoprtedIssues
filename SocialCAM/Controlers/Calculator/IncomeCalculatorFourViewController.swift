@@ -95,7 +95,6 @@ class IncomeCalculatorFourViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableview.tableHeaderView = tableHeaderView
-        configureUiForLiteApps()
         self.getWebsiteId { [weak self] (type) in
             guard let `self` = self else { return }
             self.getCalculatorConfig(type: type)

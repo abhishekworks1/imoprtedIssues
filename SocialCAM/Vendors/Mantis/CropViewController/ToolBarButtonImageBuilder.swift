@@ -65,7 +65,7 @@ struct ToolBarButtonImageBuilder {
     }
     
     static func rotateCWImage() -> UIImage? {
-        if isSpeedCamLiteApp || isSpeedCamApp {
+        if isSpeedCamLiteApp || isSpeedCamApp || isFastCamLiteApp || isFastCamApp {
             return R.image.rotateLeft()
         }
         guard let rotateCCWImage = self.rotateCCWImage(), let cgImage = rotateCCWImage.cgImage else { return nil }
@@ -81,7 +81,7 @@ struct ToolBarButtonImageBuilder {
     }
     
     static func clampImage() -> UIImage? {
-        if isSpeedCamLiteApp || isSpeedCamApp {
+        if isSpeedCamLiteApp || isSpeedCamApp || isFastCamLiteApp || isFastCamApp {
             return R.image.aspectRatio()
         }
         var clampImage: UIImage?
@@ -120,7 +120,7 @@ struct ToolBarButtonImageBuilder {
     }
     
     static func resetImage() -> UIImage? {
-        if isSpeedCamLiteApp || isSpeedCamApp {
+        if isSpeedCamLiteApp || isSpeedCamApp || isFastCamLiteApp || isFastCamApp {
             return R.image.se_undo()
         }
         var resetImage: UIImage?
