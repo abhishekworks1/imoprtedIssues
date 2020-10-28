@@ -815,9 +815,9 @@ enum CalculatorType: String {
     case incomeOne = "potential_income_1"
     case incomeTwo = "potential_income_2"
     case incomeThree = "potential_income_3"
-    case liteIncomeOne = "lite_potential_income_1"
-    case liteIncomeTwo = "lite_potential_income_2"
-    case liteIncomeThree = "lite_potential_income_3"
+    case liteIncomeOne = "lite_income_1"
+    case liteIncomeTwo = "lite_income_2"
+    case liteIncomeThree = "lite_income_3"
     
     func getNavigationTitle() -> String {
         switch self {
