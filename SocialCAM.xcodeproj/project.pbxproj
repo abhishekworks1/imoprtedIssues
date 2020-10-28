@@ -986,6 +986,7 @@
 		8212D07524A4D62400B64751 /* RKTagsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8205FAC9236C10B7002B2603 /* RKTagsView.m */; };
 		8219322623EAA8FD00FFEC03 /* StoriCamManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8219322523EAA8FD00FFEC03 /* StoriCamManager.swift */; };
 		8219322823EABE3F00FFEC03 /* FontAwesome.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8219322723EABE3F00FFEC03 /* FontAwesome.otf */; };
+		8219D5C22547E07F00614F1A /* R.socialcam.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8219D5C12547E07E00614F1A /* R.socialcam.generated.swift */; };
 		821CF9E0248781B200EC1503 /* STPopupPreviewRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 821CF9DB248781B100EC1503 /* STPopupPreviewRecognizer.m */; };
 		821CF9E1248781B200EC1503 /* STPopupPreviewRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 821CF9DB248781B100EC1503 /* STPopupPreviewRecognizer.m */; };
 		821CF9E2248781B200EC1503 /* UIView+STPopupPreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 821CF9DE248781B100EC1503 /* UIView+STPopupPreview.m */; };
@@ -1056,7 +1057,6 @@
 		823A82D423F1705100BDB7BC /* SocialCamShare.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 823A82CA23F1705100BDB7BC /* SocialCamShare.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		823A82D923F1750F00BDB7BC /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB10236C1286002B2603 /* Defaults.swift */; };
 		823A82DA23F1751E00BDB7BC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB29236C1723002B2603 /* User.swift */; };
-		823A82DC23F1754300BDB7BC /* SharedClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB39B23619E3600205993 /* SharedClass.swift */; };
 		823A82DD23F1754D00BDB7BC /* SaveUserDefaultsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB08236C1211002B2603 /* SaveUserDefaultsProtocol.swift */; };
 		823A82DE23F1756300BDB7BC /* FilterImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB32236C1BAF002B2603 /* FilterImage.swift */; };
 		823A82DF23F1757300BDB7BC /* EditOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB86236C28F3002B2603 /* EditOption.swift */; };
@@ -2704,6 +2704,11 @@
 		827106F824A45EFB00C53521 /* AMColorPickerRGBSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8271069A24A45EFB00C53521 /* AMColorPickerRGBSliderView.swift */; };
 		827106F924A45EFB00C53521 /* AMColorPickerRGBSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8271069A24A45EFB00C53521 /* AMColorPickerRGBSliderView.swift */; };
 		827106FA24A45EFB00C53521 /* AMColorPickerRGBSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8271069A24A45EFB00C53521 /* AMColorPickerRGBSliderView.swift */; };
+		827703F22547D9FD00BA319F /* SharedClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB39B23619E3600205993 /* SharedClass.swift */; };
+		827703F32547DA1900BA319F /* SharedClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB39B23619E3600205993 /* SharedClass.swift */; };
+		827703F42547DA3000BA319F /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB3A923619E5B00205993 /* String+Extension.swift */; };
+		827703F52547DA3000BA319F /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB3A923619E5B00205993 /* String+Extension.swift */; };
+		827703F62547DA4D00BA319F /* UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB3AC23619E5B00205993 /* UIAlertController.swift */; };
 		8277C77224B584E400711987 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8277C77124B584E400711987 /* DashboardViewController.swift */; };
 		8277C77324B584E900711987 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8277C77124B584E400711987 /* DashboardViewController.swift */; };
 		8277C77424B584EE00711987 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8277C77124B584E400711987 /* DashboardViewController.swift */; };
@@ -2756,7 +2761,6 @@
 		827DAB9524A4CF10001A2259 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 230722C7244EC33E009454B0 /* Media.xcassets */; };
 		827DAB9624A4CF18001A2259 /* APIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EB18EE244F11AE00B6564A /* APIModels.swift */; };
 		827DAB9724A4CF35001A2259 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828F3E5923F292BB007AE35F /* APIManager.swift */; };
-		827DAB9A24A4D012001A2259 /* SharedClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB39B23619E3600205993 /* SharedClass.swift */; };
 		827DAB9B24A4D021001A2259 /* ApplicationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB39723619E2700205993 /* ApplicationSettings.swift */; };
 		827DAB9C24A4D090001A2259 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB3AD23619E5B00205993 /* FileManager.swift */; };
 		827DAB9D24A4D098001A2259 /* AWSManager+S3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820DA4ED2385392F0027A207 /* AWSManager+S3.swift */; };
@@ -2774,7 +2778,6 @@
 		8280E64F2513710600BF5A1A /* R.boomicam.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8280E63E25136F6800BF5A1A /* R.boomicam.generated.swift */; };
 		8280E6502513711600BF5A1A /* R.fastcam.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8280E64025136F6A00BF5A1A /* R.fastcam.generated.swift */; };
 		8280E6512513711E00BF5A1A /* R.futbolcam.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8280E64925136F7100BF5A1A /* R.futbolcam.generated.swift */; };
-		8280E6522513712100BF5A1A /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8280E64525136F6E00BF5A1A /* R.generated.swift */; };
 		8280E6532513712600BF5A1A /* R.mediaShared.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8280E63A25136F6500BF5A1A /* R.mediaShared.generated.swift */; };
 		8280E6562513713300BF5A1A /* R.quickcam.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8280E64225136F6B00BF5A1A /* R.quickcam.generated.swift */; };
 		8280E6572513713700BF5A1A /* R.shared.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8280E64725136F6F00BF5A1A /* R.shared.generated.swift */; };
@@ -3555,7 +3558,6 @@
 		82D1EC8423703DE300A680E7 /* PhotoEditorViewController+Picker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EC7E23703DE100A680E7 /* PhotoEditorViewController+Picker.swift */; };
 		82D1EC8523703DE300A680E7 /* PhotoEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EC7F23703DE100A680E7 /* PhotoEditorViewController.swift */; };
 		82D1EC882370426200A680E7 /* PhotoEditorViewController+LifeCycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EC8123703DE300A680E7 /* PhotoEditorViewController+LifeCycle.swift */; };
-		82D3C540251DC1B700394F24 /* StoryCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB390236197DE00205993 /* StoryCameraViewController.swift */; };
 		82DA70B32539880300DF1ED7 /* GoogleService-Info-ViralCam.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2397B8DB2435D1D000F97957 /* GoogleService-Info-ViralCam.plist */; };
 		82DCF7A823C5AD95009E12D2 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82DCF7A723C5AD95009E12D2 /* SplashScreen.storyboard */; };
 		82DCF7AA23C5AD9D009E12D2 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DCF7A923C5AD9D009E12D2 /* SplashScreen.swift */; };
@@ -9913,7 +9915,6 @@
 		F6B76C81251DBA32007EBA98 /* AppleSignInManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B76C74251DBA31007EBA98 /* AppleSignInManager.swift */; };
 		F6B76C82251DBA32007EBA98 /* AppleSignInManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B76C74251DBA31007EBA98 /* AppleSignInManager.swift */; };
 		F6B76C83251DBA32007EBA98 /* AppleSignInManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B76C74251DBA31007EBA98 /* AppleSignInManager.swift */; };
-		F6B76C85251DE6B9007EBA98 /* R.fastcam.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B76C84251DE6B9007EBA98 /* R.fastcam.generated.swift */; };
 		F6B76C86251DE6B9007EBA98 /* R.fastcam.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B76C84251DE6B9007EBA98 /* R.fastcam.generated.swift */; };
 		F6B76C87251DE6B9007EBA98 /* R.fastcam.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B76C84251DE6B9007EBA98 /* R.fastcam.generated.swift */; };
 		F6B76C8C251DED66007EBA98 /* R.quickcam.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8280E64225136F6B00BF5A1A /* R.quickcam.generated.swift */; };
@@ -11188,6 +11189,7 @@
 		820DA4ED2385392F0027A207 /* AWSManager+S3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AWSManager+S3.swift"; sourceTree = "<group>"; };
 		8219322523EAA8FD00FFEC03 /* StoriCamManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriCamManager.swift; sourceTree = "<group>"; };
 		8219322723EABE3F00FFEC03 /* FontAwesome.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.otf; sourceTree = "<group>"; };
+		8219D5C12547E07E00614F1A /* R.socialcam.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.socialcam.generated.swift; sourceTree = "<group>"; };
 		821CF9DB248781B100EC1503 /* STPopupPreviewRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STPopupPreviewRecognizer.m; sourceTree = "<group>"; };
 		821CF9DC248781B100EC1503 /* UIView+STPopupPreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+STPopupPreview.h"; sourceTree = "<group>"; };
 		821CF9DD248781B100EC1503 /* STPopupPreviewRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STPopupPreviewRecognizer.h; sourceTree = "<group>"; };
@@ -11352,7 +11354,6 @@
 		8280E64225136F6B00BF5A1A /* R.quickcam.generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = R.quickcam.generated.swift; sourceTree = "<group>"; };
 		8280E64325136F6C00BF5A1A /* R.socialvids.generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = R.socialvids.generated.swift; sourceTree = "<group>"; };
 		8280E64425136F6D00BF5A1A /* R.snapcam.generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = R.snapcam.generated.swift; sourceTree = "<group>"; };
-		8280E64525136F6E00BF5A1A /* R.generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = "<group>"; };
 		8280E64625136F6E00BF5A1A /* R.soccercam.generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = R.soccercam.generated.swift; sourceTree = "<group>"; };
 		8280E64725136F6F00BF5A1A /* R.shared.generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = R.shared.generated.swift; sourceTree = "<group>"; };
 		8280E64825136F7000BF5A1A /* R.viralvids.generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = R.viralvids.generated.swift; sourceTree = "<group>"; };
@@ -13379,7 +13380,7 @@
 				8280E63E25136F6800BF5A1A /* R.boomicam.generated.swift */,
 				8280E64025136F6A00BF5A1A /* R.fastcam.generated.swift */,
 				8280E64925136F7100BF5A1A /* R.futbolcam.generated.swift */,
-				8280E64525136F6E00BF5A1A /* R.generated.swift */,
+				8219D5C12547E07E00614F1A /* R.socialcam.generated.swift */,
 				8280E63A25136F6500BF5A1A /* R.mediaShared.generated.swift */,
 				8280E63F25136F6900BF5A1A /* R.pic2art.generated.swift */,
 				8280E64225136F6B00BF5A1A /* R.quickcam.generated.swift */,
@@ -17006,11 +17007,11 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(SRCROOT)/R/R.generated.swift",
+				"$(SRCROOT)/R/R.socialcam.generated.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"--import\" \"MXPagerView\" \"$SRCROOT/R/R.generated.swift\" \n";
+			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"--import\" \"MXPagerView\" \"$SRCROOT/R/R.socialcam.generated.swift\" \n";
 		};
 		822ED79C23953B3C00D6401A /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -18791,7 +18792,6 @@
 				8232CEC4240E35D500AD8E63 /* EditOption.swift in Sources */,
 				8232CECB240E396A00AD8E63 /* FileManager.swift in Sources */,
 				8232CEBF240E339C00AD8E63 /* User.swift in Sources */,
-				82D3C540251DC1B700394F24 /* StoryCameraViewController.swift in Sources */,
 				8232CECA240E392000AD8E63 /* UIAlertController.swift in Sources */,
 				8232CED3240E7AB000AD8E63 /* AWSManager.swift in Sources */,
 				8232CEC9240E390A00AD8E63 /* Files.swift in Sources */,
@@ -18813,12 +18813,14 @@
 				823A82DD23F1754D00BDB7BC /* SaveUserDefaultsProtocol.swift in Sources */,
 				823A82DF23F1757300BDB7BC /* EditOption.swift in Sources */,
 				8232CECC240E3A5000AD8E63 /* ExtensionStory.swift in Sources */,
-				823A82DC23F1754300BDB7BC /* SharedClass.swift in Sources */,
 				828F3E5A23F292BB007AE35F /* APIManager.swift in Sources */,
 				9578747624B7BDC90073772B /* InfiniteScrollingBehaviour.swift in Sources */,
+				827703F62547DA4D00BA319F /* UIAlertController.swift in Sources */,
 				8280E6572513713700BF5A1A /* R.shared.generated.swift in Sources */,
 				23EB18F3244F21D600B6564A /* APIModels.swift in Sources */,
 				823A82DE23F1756300BDB7BC /* FilterImage.swift in Sources */,
+				827703F32547DA1900BA319F /* SharedClass.swift in Sources */,
+				827703F42547DA3000BA319F /* String+Extension.swift in Sources */,
 				823A82E123F1798A00BDB7BC /* CreatePostData.swift in Sources */,
 				823A82E023F1782E00BDB7BC /* ProfileDetailsResponse.swift in Sources */,
 				823E19242525E4AD0078DF8F /* LoginUserData.swift in Sources */,
@@ -19490,7 +19492,6 @@
 				8205FA7C236C0F8C002B2603 /* HorizontalFlowLayout.swift in Sources */,
 				82AD6B7023704B330090498A /* UIViewUtilsExtension.swift in Sources */,
 				8205FB77236C1D0F002B2603 /* CAReactionSummaryLayer.swift in Sources */,
-				F6B76C85251DE6B9007EBA98 /* R.fastcam.generated.swift in Sources */,
 				8205FD51236C3B06002B2603 /* FilterBrightness.swift in Sources */,
 				8205FD94236C3B35002B2603 /* HistroGramVC+Controls.swift in Sources */,
 				8205FB74236C1D0F002B2603 /* Reaction.swift in Sources */,
@@ -19518,7 +19519,6 @@
 				954660492387B5CC00A37AE0 /* Mantis.swift in Sources */,
 				82D1EBC5236FEE7C00A680E7 /* StickerCollectionViewCell.swift in Sources */,
 				82D1EC8323703DE300A680E7 /* PhotoEditorViewController+Actions.swift in Sources */,
-				8280E6522513712100BF5A1A /* R.generated.swift in Sources */,
 				8205FB25236C160E002B2603 /* BaseStoryTagView.swift in Sources */,
 				821CFA0E2487897800EC1503 /* PreviewViewController.swift in Sources */,
 				824EB3BC23619E5C00205993 /* UIWindow.swift in Sources */,
@@ -19931,6 +19931,7 @@
 				8206AEF12374108C000CDD2A /* ConcurrentOperation.swift in Sources */,
 				8277C78A24B5899800711987 /* NewDashboardViewController.swift in Sources */,
 				8205FCC9236C3AFA002B2603 /* LineHandleView.swift in Sources */,
+				8219D5C22547E07F00614F1A /* R.socialcam.generated.swift in Sources */,
 				8205FD49236C3B06002B2603 /* InternalUtils.swift in Sources */,
 				8205FB75236C1D0F002B2603 /* ReactionSelector.swift in Sources */,
 				8248565223A8AE300078D117 /* StoryCameraViewController+PhotosPickerViewDelegate.swift in Sources */,
@@ -20557,11 +20558,12 @@
 				823E19262525E51A0078DF8F /* LoginUserData.swift in Sources */,
 				827DAB9624A4CF18001A2259 /* APIModels.swift in Sources */,
 				827DAB9B24A4D021001A2259 /* ApplicationSettings.swift in Sources */,
-				827DAB9A24A4D012001A2259 /* SharedClass.swift in Sources */,
 				827DABA324A4D1A4001A2259 /* Result.swift in Sources */,
 				827DAB9E24A4D0EA001A2259 /* SaveUserDefaultsProtocol.swift in Sources */,
+				827703F22547D9FD00BA319F /* SharedClass.swift in Sources */,
 				827DABA424A4D1B5001A2259 /* EditOption.swift in Sources */,
 				827DAB9724A4CF35001A2259 /* APIManager.swift in Sources */,
+				827703F52547DA3000BA319F /* String+Extension.swift in Sources */,
 				827DAB9C24A4D090001A2259 /* FileManager.swift in Sources */,
 				9578747424B7BDC80073772B /* InfiniteScrollingBehaviour.swift in Sources */,
 				827DAB9324A4CEF6001A2259 /* SharePostVC.swift in Sources */,
@@ -27100,7 +27102,7 @@
 				CODE_SIGN_ENTITLEMENTS = Viralvids/Viralvids.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 40;
+				CURRENT_PROJECT_VERSION = 41;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = Viralvids/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -27126,7 +27128,7 @@
 				CODE_SIGN_ENTITLEMENTS = Viralvids/Viralvids.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 40;
+				CURRENT_PROJECT_VERSION = 41;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = Viralvids/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -27155,7 +27157,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 40;
+				CURRENT_PROJECT_VERSION = 41;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = "ViralCam-Info.plist";
@@ -27190,7 +27192,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 40;
+				CURRENT_PROJECT_VERSION = 41;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = "ViralCam-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -27331,7 +27333,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = "TimeSpeed-Info.plist";
@@ -27366,7 +27368,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = "TimeSpeed-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -27586,7 +27588,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = "SpeedCam-Info.plist";
@@ -27620,7 +27622,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = "SpeedCam-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -27705,7 +27707,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = "FastCam-Info.plist";
@@ -27740,7 +27742,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = "FastCam-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -27770,7 +27772,7 @@
 				CODE_SIGN_ENTITLEMENTS = Pic2ArtShare/Pic2ArtShare.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = Pic2ArtShare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -27795,7 +27797,7 @@
 				CODE_SIGN_ENTITLEMENTS = Pic2ArtShare/Pic2ArtShare.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = Pic2ArtShare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -27959,7 +27961,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = "QuickCam-Info.plist";
@@ -27994,7 +27996,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = "QuickCam-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -28027,7 +28029,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = 21;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = "Pic2Art-Info.plist";
@@ -28062,7 +28064,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = "Pic2Art-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -28095,7 +28097,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = "SnapCam-Info.plist";
@@ -28130,7 +28132,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				INFOPLIST_FILE = "SnapCam-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
