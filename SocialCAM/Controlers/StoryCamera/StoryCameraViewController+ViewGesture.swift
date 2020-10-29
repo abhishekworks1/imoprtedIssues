@@ -367,7 +367,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             speedOptions = recordingType == .promo ? [.normal, .normal, .normal, .fast2x, .fast3x] : [.slow3x, .slow2x, .normal, .fast2x, .fast3x]
         }
         
-        var value = 1
+        var value: Float = 1
         var speedText = ""
         if isLiteApp {
             switch speedSlider.value {

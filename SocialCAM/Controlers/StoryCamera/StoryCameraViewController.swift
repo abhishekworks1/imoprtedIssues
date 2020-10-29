@@ -541,6 +541,12 @@ class StoryCameraViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if isViralCamLiteApp || isFastCamLiteApp || isQuickCamLiteApp || isSpeedCamLiteApp {
+            if self.recordingType == .promo {
+                self.setupLiteAppMode(mode: .promo)
+                for view in [self.lblLeftSeparator, self.lblRightSeparator, self.photoTimerSelectedLabel, self.pauseTimerSelectedLabel] {
+                    view?.isHidden = true
+                }
+            }
             setupLayoutCameraSliderView()
             dynamicSetSlowFastVerticalBar()
         }
@@ -1107,6 +1113,14 @@ extension StoryCameraViewController {
                 self.timerValueView.isHidden = true
             case .promo:
                 self.circularProgress.centerImage = UIImage()
+                if self.timerValue > 0 {
+                    self.timerValue = 0
+                    self.resetCountDown()
+                }
+                if self.photoTimerValue > 0 {
+                    self.photoTimerValue = 0
+                    self.resetPhotoCountDown()
+                }
             default:
                 break
             }
