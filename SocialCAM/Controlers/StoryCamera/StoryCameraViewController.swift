@@ -692,6 +692,8 @@ class StoryCameraViewController: UIViewController {
                 speedSlider.value = 2
                 speedSlider.ticksListener = speedSliderLabels
                 self.setupLiteAppMode(mode: .normal)
+            } else {
+                verticalLines.visibleLeftSideViews = true
             }
         }
         if recordingType == .promo {
