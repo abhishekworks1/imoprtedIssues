@@ -1445,7 +1445,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6I4-sY-RbD">
-                                <rect key="frame" x="40" y="350" width="334" height="45"/>
+                                <rect key="frame" x="40" y="360" width="334" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="JJI-7Y-THP"/>
                                 </constraints>
@@ -1455,7 +1455,7 @@
                                 </connections>
                             </button>
                             <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bUM-9m-FOg">
-                                <rect key="frame" x="8" y="421" width="398" height="465"/>
+                                <rect key="frame" x="8" y="431" width="398" height="455"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="incomeCalculator2TableViewCell" rowHeight="123" id="lmK-rV-eIV" customClass="IncomeCalculatorTableViewCell" customModule="BoomiCam" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="398" height="123"/>
@@ -1785,7 +1785,7 @@
                             <constraint firstItem="hSG-eh-obo" firstAttribute="leading" secondItem="t9V-Pd-hOT" secondAttribute="leading" id="Rsc-PE-Hr5"/>
                             <constraint firstItem="Qua-DJ-jXH" firstAttribute="trailing" secondItem="AbU-Hi-hYt" secondAttribute="trailing" id="S8W-aQ-XEr"/>
                             <constraint firstItem="ZbU-fd-0KN" firstAttribute="bottom" secondItem="cZ7-Ko-bSA" secondAttribute="bottom" id="Su2-Kz-G33"/>
-                            <constraint firstItem="6I4-sY-RbD" firstAttribute="top" secondItem="mfi-NZ-PLu" secondAttribute="bottom" constant="10" id="TtT-wn-qmt"/>
+                            <constraint firstItem="6I4-sY-RbD" firstAttribute="top" secondItem="UBV-2e-lys" secondAttribute="bottom" constant="20" id="TtT-wn-qmt"/>
                             <constraint firstItem="r25-sT-FBs" firstAttribute="top" secondItem="RoF-dU-pSw" secondAttribute="bottom" id="Wu0-mH-Od9"/>
                             <constraint firstItem="mfi-NZ-PLu" firstAttribute="leading" secondItem="HVr-Th-7DX" secondAttribute="leading" id="bQB-g7-ecr"/>
                             <constraint firstItem="cZ7-Ko-bSA" firstAttribute="leading" secondItem="hSG-eh-obo" secondAttribute="trailing" constant="10" id="bxr-4a-qc8"/>
@@ -3621,16 +3621,16 @@ income</string>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z73-CO-QTO">
-                                <rect key="frame" x="46" y="378.5" width="322" height="149.5"/>
+                                <rect key="frame" x="46" y="379" width="322" height="148.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XjJ-Gt-h2E">
-                                        <rect key="frame" x="27" y="33" width="268" height="25.5"/>
+                                        <rect key="frame" x="27" y="33" width="268" height="24.5"/>
                                         <fontDescription key="fontDescription" name="SFUIText-Semibold" family="SF UI Text" pointSize="21"/>
                                         <color key="textColor" red="0.99215686274509807" green="0.99215686274509807" blue="0.99215686274509807" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0ND-rB-ciQ">
-                                        <rect key="frame" x="106" y="81.5" width="110" height="45"/>
+                                        <rect key="frame" x="106" y="80.5" width="110" height="45"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="Ldm-Lb-Mlj"/>
@@ -3702,16 +3702,16 @@ income</string>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Deh-fR-o4H">
-                                <rect key="frame" x="46" y="334" width="322" height="238.5"/>
+                                <rect key="frame" x="46" y="335" width="322" height="236.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oft-dl-NI7">
-                                        <rect key="frame" x="27" y="33" width="268" height="24"/>
+                                        <rect key="frame" x="27" y="33" width="268" height="23.5"/>
                                         <fontDescription key="fontDescription" name="SFUIText-Semibold" family="SF UI Text" pointSize="20"/>
                                         <color key="textColor" red="0.99215686270000003" green="0.99215686270000003" blue="0.99215686270000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ypp-JH-waQ">
-                                        <rect key="frame" x="106" y="170.5" width="110" height="45"/>
+                                        <rect key="frame" x="106" y="168.5" width="110" height="45"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="110" id="bAZ-1d-lOv"/>
@@ -3731,7 +3731,7 @@ income</string>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="imH-X4-xSn">
-                                        <rect key="frame" x="27" y="90" width="268" height="57.5"/>
+                                        <rect key="frame" x="27" y="89.5" width="268" height="56"/>
                                         <fontDescription key="fontDescription" name="SFUIText-Semibold" family="SF UI Text" pointSize="48"/>
                                         <color key="textColor" red="0.99215686270000003" green="0.99215686270000003" blue="0.99215686270000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -3792,7 +3792,7 @@ income</string>
         <image name="potentialcalculator" width="55" height="55"/>
         <image name="storyBack" width="19" height="19"/>
         <namedColor name="AppBackgroundColor">
-            <color red="0.10999999940395355" green="0.15299999713897705" blue="0.23899999260902405" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.10980392156862745" green="0.15294117647058825" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
             <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
