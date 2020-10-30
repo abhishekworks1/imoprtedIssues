@@ -105,7 +105,7 @@ extension StoryCameraViewController {
         photoPickerVC.isFastCamApp = isFastCamApp
         photoPickerVC.currentCamaraMode = recordingType
         photoPickerVC.delegate = self
-        if isViralCamLiteApp || isQuickCamLiteApp || isFastCamLiteApp || isSpeedCamLiteApp {
+        if isLiteApp {
             photoPickerVC.selectionType = .video
         }
         self.navigationController?.present(photoPickerVC, animated: true, completion: nil)
@@ -412,7 +412,7 @@ extension StoryCameraViewController {
         guard !isCountDownStarted else {
             return
         }
-        photoTimerView.isHidden = isViralCamLiteApp || isFastCamLiteApp || isQuickCamLiteApp || isSpeedCamLiteApp
+        photoTimerView.isHidden = isLiteApp
         view.bringSubviewToFront(selectTimersView)
         selectTimersView.isHidden = false
         timerPicker.reloadPickerView()
@@ -559,7 +559,7 @@ extension StoryCameraViewController: PickerViewDataSource {
                     maximumItem = "30"
                 }
             case .basic:
-                if isViralCamLiteApp || isQuickCamLiteApp || isFastCamLiteApp || isSpeedCamLiteApp || isSpeedCamApp || isSnapCamApp || isFastCamApp {
+                if isLiteApp || isSpeedCamApp || isSnapCamApp || isFastCamApp {
                     maximumItem = "30"
                 } else {
                     maximumItem = "60"
@@ -622,7 +622,7 @@ extension StoryCameraViewController: CollageMakerVCDelegate {
 extension StoryCameraViewController: CountdownViewDelegate {
     
     func capturePhoto() {
-        if isTimeSpeedApp || isFastCamApp || isViralCamLiteApp || isFastCamLiteApp || isQuickCamLiteApp || isSpeedCamLiteApp {
+        if isTimeSpeedApp || isFastCamApp || isLiteApp {
             return
         }
         self.photoTapGestureRecognizer?.isEnabled = false

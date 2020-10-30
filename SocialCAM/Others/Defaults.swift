@@ -130,8 +130,16 @@ var isViralCamLiteApp: Bool {
     #endif
 }
 
+var isSnapCamLiteApp: Bool {
+    #if SNAPCAMLITEAPP
+    return true
+    #else
+    return false
+    #endif
+}
+
 var isLiteApp: Bool {
-    return isViralCamLiteApp || isQuickCamLiteApp || isFastCamLiteApp || isSpeedCamLiteApp
+    return isViralCamLiteApp || isQuickCamLiteApp || isFastCamLiteApp || isSpeedCamLiteApp || isSnapCamLiteApp
 }
 
 class Defaults {

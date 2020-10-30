@@ -393,7 +393,7 @@ class StoryEditorViewController: UIViewController {
         
         self.editOptionView.isHidden = !isImage
         self.applyFilterOptionView.isHidden = !isImage
-        if !isTimeSpeedApp && !isFastCamApp && !isPic2ArtApp && !isViralCamApp && !isQuickCamApp && !isViralCamLiteApp && !isFastCamLiteApp && !isQuickCamLiteApp && !isSpeedCamApp && !isSpeedCamLiteApp {
+        if !isTimeSpeedApp && !isFastCamApp && !isPic2ArtApp && !isViralCamApp && !isQuickCamApp && !isViralCamLiteApp && !isFastCamLiteApp && !isQuickCamLiteApp && !isSnapCamLiteApp && !isSpeedCamApp && !isSpeedCamLiteApp {
             self.specificBoomerangView.isHidden = (Defaults.shared.appMode != .free && isBoomerang) ? true : isImage
         } else {
             self.specificBoomerangView.isHidden = true
@@ -428,7 +428,7 @@ class StoryEditorViewController: UIViewController {
         
         self.mergeOptionView.isHidden = !(!isImage && (videoCount > 1))
        
-        if !isBoomiCamApp && !isFastCamApp && !isViralCamLiteApp && !isFastCamLiteApp && !isQuickCamLiteApp || isSpeedCamLiteApp {
+        if !isBoomiCamApp && !isFastCamApp && !isViralCamLiteApp && !isFastCamLiteApp && !isQuickCamLiteApp && !isSpeedCamLiteApp && !isSnapCamLiteApp {
             self.timeSpeedOptionView.isHidden = Defaults.shared.appMode != .free ? isImage : true
         } else {
             self.timeSpeedOptionView.isHidden = true

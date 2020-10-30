@@ -405,7 +405,7 @@ struct WebsiteData {
             return "TimeSpeed"
         } else if isSoccerCamApp {
             return "SoccerCam"
-        } else if isSnapCamApp {
+        } else if isSnapCamApp || isSnapCamLiteApp {
             return "SnapCam"
         } else if isFutbolCamApp {
             return "FutbolCam"
@@ -596,6 +596,13 @@ public struct Constant {
         static let publicLink = URL(string: "https://testflight.apple.com/join/qlMx1LpF")
         static let splashBG = UIImage(named: "speedCCamSplashBG")!
         static let appIcon = UIImage(named: "speedcamliteSplashLogo")!
+        #elseif SNAPCAMLITEAPP
+        static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "SnapCam"
+        static let simformIdentifier: String = "com.simform.SnapCamLite"
+        static let proModeCode: String = "snapcam2020"
+        static let publicLink = URL(string: "https://testflight.apple.com/join/MTVSBnbC")
+        static let splashBG = UIImage(named: "snapCamSplash")!
+        static let appIcon = UIImage(named: "snapCamSplashIcon")!
         #endif
         static let groupIdentifier: String = "group.com.simform.storiCamPro"
         static let appVersion: String = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"

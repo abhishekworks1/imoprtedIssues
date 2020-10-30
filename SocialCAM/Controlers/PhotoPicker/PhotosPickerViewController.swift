@@ -474,7 +474,7 @@ extension PhotosPickerViewController {
                     self.configure.maxSelectedAssets = 1
                 }
             }
-            if isViralCamLiteApp || isQuickCamLiteApp || isFastCamLiteApp || isSpeedCamLiteApp {
+            if isLiteApp {
                 type = .video
             }
             self.once.run {

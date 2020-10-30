@@ -99,6 +99,8 @@ class BusinessVC: UIViewController {
             navTitle = R.string.localizable.speedCam()
         } else if isSpeedCamLiteApp {
             navTitle = R.string.localizable.speedCamLite()
+        } else if isSnapCamLiteApp {
+            navTitle = R.string.localizable.snapCamLite()
         }
         
         navigationTitle.text = navTitle + " " + R.string.localizable.businessCenter()

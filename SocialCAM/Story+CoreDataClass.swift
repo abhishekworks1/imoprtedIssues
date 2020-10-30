@@ -113,7 +113,7 @@ class InternalStoryData {
         self.hiddenHashtags = hiddenHashtags
         self.tags = tags
     }
-
+    
 }
 
 protocol StoryUploadDelegate: class {

@@ -518,7 +518,7 @@ class StoryCameraViewController: UIViewController {
         dynamicSetSlowFastVerticalBar()
         setViewsForApp()
         setupPic2ArtAppControls()
-        if isViralCamLiteApp || isFastCamLiteApp || isQuickCamLiteApp || isSpeedCamLiteApp {
+        if isLiteApp {
             self.recordingType = .promo
             self.setupLiteAppMode(mode: .promo)
             for view in [self.lblLeftSeparator, self.lblRightSeparator, self.photoTimerSelectedLabel, self.pauseTimerSelectedLabel] {
@@ -540,7 +540,7 @@ class StoryCameraViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if isViralCamLiteApp || isFastCamLiteApp || isQuickCamLiteApp || isSpeedCamLiteApp {
+        if isLiteApp {
             if self.recordingType == .promo {
                 self.setupLiteAppMode(mode: .promo)
                 for view in [self.lblLeftSeparator, self.lblRightSeparator, self.photoTimerSelectedLabel, self.pauseTimerSelectedLabel] {
@@ -683,7 +683,7 @@ class StoryCameraViewController: UIViewController {
             speedSlider.value = CGFloat(Int(speedOptions.count/2))
         }
         if recordingType == .normal {
-            if isFastCamLiteApp || isViralCamLiteApp || isQuickCamLiteApp || isSpeedCamLiteApp {
+            if isLiteApp {
                 verticalLines.visibleLeftSideViews = true
                 verticalLines.numberOfViews = .speed3x
                 speedSliderLabels.names = speedOptions
@@ -712,7 +712,7 @@ class StoryCameraViewController: UIViewController {
         if recordingType == .normal && isBoomiCamApp {
             recordingType = .basicCamera
         }
-        if !isViralCamLiteApp || !isFastCamLiteApp || !isQuickCamLiteApp || !isSpeedCamLiteApp {
+        if !isViralCamLiteApp || !isFastCamLiteApp || !isQuickCamLiteApp || !isSpeedCamLiteApp || !isSnapCamLiteApp {
             speedSlider.isHidden = false
             speedSliderView.isHidden = false
         } else {
@@ -785,7 +785,7 @@ class StoryCameraViewController: UIViewController {
                 }
                 Defaults.shared.cameraMode = .basicCamera
                 self.recordingType = Defaults.shared.cameraMode
-            } else if isViralCamLiteApp || isFastCamLiteApp || isQuickCamLiteApp || isSpeedCamLiteApp {
+            } else if isLiteApp {
                 cameraModeArray = cameraModeArray.filter({$0.recordingType == .promo})
                 if Defaults.shared.appMode == .basic {
                     cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .normal})
@@ -818,7 +818,7 @@ class StoryCameraViewController: UIViewController {
             self.selectedSegmentLengthChange()
             self.setCameraSettings()
             self.cameraSliderView.stringArray = cameraModeArray
-            if !isFastCamApp && !isViralCamLiteApp && !isFastCamLiteApp && !isQuickCamLiteApp && !isSpeedCamLiteApp {
+            if !isFastCamApp && !isViralCamLiteApp && !isFastCamLiteApp && !isQuickCamLiteApp && !isSpeedCamLiteApp && !isSnapCamLiteApp {
                 self.cameraSliderView.selectCell = Defaults.shared.cameraMode.rawValue
             }
             self.dynamicSetSlowFastVerticalBar()
@@ -1008,7 +1008,7 @@ extension StoryCameraViewController {
                 cameraModeArray.remove(at: index)
                 cameraModeArray.insert(CameraModes(name: R.string.localizable.video2Art().uppercased(), recordingType: .handsfree), at: index)
             }
-        } else if isViralCamLiteApp || isFastCamLiteApp || isQuickCamLiteApp || isSpeedCamLiteApp {
+        } else if isLiteApp {
             cameraModeArray = cameraModeArray.filter({$0.recordingType == .promo})
             if Defaults.shared.appMode == .basic {
                 cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .normal})
@@ -1128,7 +1128,7 @@ extension StoryCameraViewController {
             }
         }
         
-        if !isFastCamApp && !isViralCamLiteApp && !isFastCamLiteApp && !isQuickCamLiteApp && !isSpeedCamLiteApp {
+        if !isFastCamApp && !isViralCamLiteApp && !isFastCamLiteApp && !isQuickCamLiteApp && !isSpeedCamLiteApp && !isSnapCamLiteApp {
             cameraSliderView.selectCell = Defaults.shared.cameraMode.rawValue
         }
     }
@@ -1613,7 +1613,7 @@ extension StoryCameraViewController {
         self.isMute ? muteButton.startBlink(0.5) : muteButton.stopBlink()
         self.view.bringSubviewToFront(slowFastVerticalBar.superview ?? UIView())
         if recordingType != .basicCamera && Defaults.shared.enableGuildlines {
-            slowFastVerticalBar.isHidden = (isViralCamLiteApp || isFastCamLiteApp || isQuickCamLiteApp || isSpeedCamLiteApp) ? false : (Defaults.shared.appMode == .free)
+            slowFastVerticalBar.isHidden = isLiteApp ? false : (Defaults.shared.appMode == .free)
         } else {
             slowFastVerticalBar.isHidden = true
         }
@@ -1635,7 +1635,7 @@ extension StoryCameraViewController {
                     }
                 } else if isPic2ArtApp {
                     totalSeconds = 5
-                } else if isViralCamLiteApp || isFastCamLiteApp || isQuickCamLiteApp || isSpeedCamLiteApp {
+                } else if isLiteApp {
                     totalSeconds = self.recordingType == .promo ? 10 : totalSeconds
                 }
                 self.progressMaxSeconds = totalSeconds
