@@ -87,7 +87,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             isRecording = true
             self.view.bringSubviewToFront(slowFastVerticalBar.superview ?? UIView())
             if recordingType != .basicCamera && Defaults.shared.enableGuildlines {
-                slowFastVerticalBar.isHidden = (isViralCamLiteApp || isFastCamLiteApp || isQuickCamLiteApp || isSpeedCamLiteApp) ? false : (Defaults.shared.appMode == .free)
+                slowFastVerticalBar.isHidden = isLiteApp ? false : (Defaults.shared.appMode == .free)
             } else {
                 slowFastVerticalBar.isHidden = true
             }
@@ -123,7 +123,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
 
             var speedOptions: [StoryCameraSpeedValue] = [.slow3x, .slow2x, .normal, .normal, .fast2x, .fast3x]
             
-            if isViralCamLiteApp || isFastCamLiteApp || isQuickCamLiteApp || isSpeedCamLiteApp {
+            if isLiteApp {
                 speedOptions = recordingType == .promo ? [.normal, .normal, .normal, .normal, .fast2x, .fast3x] : speedOptions
             } else {
                 switch Defaults.shared.appMode {
@@ -363,7 +363,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             speedOptions.insert(contentsOf: [.slow4x, .slow5x], at: 0)
         }
         
-        if isViralCamLiteApp || isFastCamLiteApp || isQuickCamLiteApp || isSpeedCamLiteApp {
+        if isLiteApp {
             speedOptions = recordingType == .promo ? [.normal, .normal, .normal, .fast2x, .fast3x] : [.slow3x, .slow2x, .normal, .fast2x, .fast3x]
         }
         

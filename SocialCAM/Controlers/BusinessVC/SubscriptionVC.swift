@@ -29,7 +29,7 @@ class SubscriptionSettings {
     static var storySettings = [StorySettings(name: R.string.localizable.subscriptions(),
                                               settings: [StorySetting(name: R.string.localizable.free(),
                                                                       selected: true),
-                                                         StorySetting(name: (isViralCamLiteApp || isQuickCamLiteApp || isFastCamLiteApp || isSpeedCamLiteApp ? R.string.localizable.basicLite() :  R.string.localizable.basic()),
+                                                         StorySetting(name: (isLiteApp ? R.string.localizable.basicLite() :  R.string.localizable.basic()),
                                                                       selected: false),
                                                          StorySetting(name: R.string.localizable.advanced(),
                                                                       selected: true),
@@ -150,7 +150,7 @@ extension SubscriptionVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if (isViralCamLiteApp || isFastCamLiteApp || isQuickCamLiteApp || isSpeedCamLiteApp) && (indexPath.row == 3 || indexPath.row == 2) {
+        if isLiteApp && (indexPath.row == 3 || indexPath.row == 2) {
             return 0
         }
         return UITableView.automaticDimension
@@ -174,7 +174,7 @@ extension SubscriptionVC: UITableViewDataSource, UITableViewDelegate {
             message = R.string.localizable.areYouSureYouWantToEnableFree()
             successMessage = R.string.localizable.freeModeIsEnabled()
         case .basic:
-            if isViralCamLiteApp || isQuickCamLiteApp || isFastCamLiteApp || isSpeedCamLiteApp {
+            if isLiteApp {
                 message = R.string.localizable.areYouSureYouWantToEnableBasicLite()
                 successMessage = R.string.localizable.basicLiteModeIsEnabled()
             } else {

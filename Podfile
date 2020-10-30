@@ -85,6 +85,11 @@ target 'ViralCamLite' do
   projectShared_pods
 end
 
+target 'SnapCamLite' do
+  use_frameworks!
+  projectShared_pods
+end
+
 
 target 'FastCamLite' do
   use_frameworks!
