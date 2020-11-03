@@ -158,7 +158,7 @@ extension SubscriptionVC: UITableViewDataSource, UITableViewDelegate {
     
     func enableMode(appMode: AppMode) {
         var message: String? = ""
-        let placeholder: String? = R.string.localizable.enterYourUniqueCodeToEnableBasicMode()
+        let placeholder: String? = R.string.localizable.activationCode()
         var proModeCode: String? = Constant.Application.proModeCode
         #if PIC2ARTAPP
         switch appMode {
@@ -175,7 +175,7 @@ extension SubscriptionVC: UITableViewDataSource, UITableViewDelegate {
             successMessage = R.string.localizable.freeModeIsEnabled()
         case .basic:
             if isLiteApp {
-                message = R.string.localizable.areYouSureYouWantToEnableBasicLite()
+                message = R.string.localizable.enterTheCodeToActivateBasicLite()
                 successMessage = R.string.localizable.basicLiteModeIsEnabled()
             } else {
                 message = R.string.localizable.areYouSureYouWantToEnableBasic()
@@ -201,8 +201,12 @@ extension SubscriptionVC: UITableViewDataSource, UITableViewDelegate {
         
         let actionSave = UIAlertAction(title: R.string.localizable.oK(), style: .default) { ( _: UIAlertAction) in
             if appMode != .free {
-                if let textField = objAlert.textFields?[0],
-                    textField.text!.count > 0, textField.text?.lowercased() != proModeCode {
+                guard let textField = objAlert.textFields?.first,
+                    textField.text?.count ?? 0 > 0 else {
+                    self.view.makeToast(R.string.localizable.pleaseEnterValidCode())
+                    return
+                }
+                if textField.text?.lowercased() != proModeCode {
                     self.view.makeToast(R.string.localizable.pleaseEnterValidCode())
                     return
                 }
@@ -216,8 +220,8 @@ extension SubscriptionVC: UITableViewDataSource, UITableViewDelegate {
             
         }
         let cancelAction = UIAlertAction(title: R.string.localizable.cancel(), style: .default) { (_: UIAlertAction) in }
-        objAlert.addAction(actionSave)
         objAlert.addAction(cancelAction)
+        objAlert.addAction(actionSave)
         self.present(objAlert, animated: true, completion: nil)
     }
     
