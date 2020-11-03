@@ -124,11 +124,11 @@ extension BusinessVC: UICollectionViewDataSource, UICollectionViewDelegate, UICo
         }
         let businessVCOption = BusinessVCOption.contents[indexPath.row]
         if isLiteApp && businessVCOption.type != .subscription && businessVCOption.type != .socialConnection && businessVCOption.type != .share && businessVCOption.type != .calculator {
-            cell.tagImageView.alpha = 0.5
-            cell.tagLabel.alpha = 0.7
+            cell.tagImageView.alpha = 0.25
+            cell.tagLabel.alpha = 0.25
         } else if businessVCOption.type != .subscription && businessVCOption.type != .socialConnection && businessVCOption.type != .channelManagement && businessVCOption.type != .share && businessVCOption.type != .calculator && businessVCOption.type != .announcement  {
-            cell.tagImageView.alpha = 0.5
-            cell.tagLabel.alpha = 0.7
+            cell.tagImageView.alpha = 0.25
+            cell.tagLabel.alpha = 0.25
         }
         
         cell.tagImageView.image = BusinessVCOption.contents[indexPath.row].image
