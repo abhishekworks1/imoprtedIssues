@@ -111,7 +111,6 @@ class StoryEditorViewController: UIViewController {
     @IBOutlet weak var downloadView: UIView!
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var undoButton: UIButton!
-    @IBOutlet weak var fastestEverCenterConstraint: NSLayoutConstraint!
     @IBOutlet weak var imgFastestEverWatermark: UIImageView!
     
     @IBOutlet weak var specificBoomerangView: UIView! {
@@ -290,9 +289,6 @@ class StoryEditorViewController: UIViewController {
         super.viewWillAppear(animated)
         
         self.imgFastestEverWatermark.isHidden = Defaults.shared.cameraMode != .promo
-        if Defaults.shared.cameraMode == .promo, let track = self.currentVideoAsset?.tracks(withMediaType: .video).first {
-            self.fastestEverCenterConstraint.constant = (track.naturalSize.height / 2) - CGFloat(self.fastestEverWatermarkBottomMargin)
-        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -398,17 +394,7 @@ class StoryEditorViewController: UIViewController {
         } else {
             self.specificBoomerangView.isHidden = true
         }
-        if isLiteApp {
-            self.ssuTagView.isHidden = true
-        } else if (isTimeSpeedApp || isPic2ArtApp) && (Defaults.shared.appMode == .professional) {
-            self.ssuTagView.isHidden = false
-        } else if (isTimeSpeedApp || isPic2ArtApp) {
-            self.ssuTagView.isHidden = true
-        } else if let currentUser = Defaults.shared.currentUser, let isAdvanceMode = currentUser.advanceGameMode {
-            self.ssuTagView.isHidden = !isAdvanceMode
-        } else {
-            self.ssuTagView.isHidden = true
-        }
+        self.ssuTagView.isHidden = false
         
         
         if !isFastCamApp {
@@ -1133,13 +1119,6 @@ extension StoryEditorViewController {
     }
     
     @IBAction func ssuButtonClicked(sender: UIButton) {
-        if !isPic2ArtApp && !isTimeSpeedApp && !isBoomiCamApp {
-            let isLoggedConnections = [FaceBookManager.shared.isUserLogin, InstagramManager.shared.isUserLogin, TwitterManger.shared.isUserLogin, SnapKitManager.shared.isUserLogin, GoogleManager.shared.isUserLogin]
-            guard isLoggedConnections.filter({ return $0 }).count > 0 else {
-                self.showAlert(alertMessage: R.string.localizable.youNeedToConnectAtLeastOneSocialMediaAccountToDoSwipeUp())
-                return
-            }
-        }
         if let ssuTagSelectionViewController = R.storyboard.storyCameraViewController.ssuTagSelectionViewController() {
             ssuTagSelectionViewController.delegate = self
             
@@ -1599,6 +1578,8 @@ extension StoryEditorViewController: SSUTagSelectionDelegate {
                 storyEditors[currentStoryIndex].addReferLinkView(type: .fastCamLite)
             case .quickCamLite:
                 storyEditors[currentStoryIndex].addReferLinkView(type: .quickCamLite)
+            case .speedCamLite:
+                storyEditors[currentStoryIndex].addReferLinkView(type: .speedcamLite)
             default:
                 storyEditors[currentStoryIndex].addReferLinkView(type: .viralCam)
             }
