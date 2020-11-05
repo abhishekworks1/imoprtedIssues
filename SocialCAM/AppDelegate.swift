@@ -184,6 +184,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             StorySettings.storySettings.filter({$0.settingsType == .socialLogins}).first?.settings.removeLast()
             StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
             SubscriptionSettings.storySettings.first?.settings.removeLast()
+        } else if isSnapCamLiteApp {
+            if let filePath = Bundle.main.path(forResource: "GoogleService-Info-SnapCamLite", ofType: "plist"),
+                let options = FirebaseOptions(contentsOfFile: filePath) {
+                FirebaseApp.configure(options: options)
+            } else {
+                fatalError("GoogleService-Info-SnapCamLite.plist is missing!")
+            }
+            StorySettings.storySettings.filter({$0.settingsType == .socialLogins}).first?.settings.removeLast()
+            StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
+            SubscriptionSettings.storySettings.first?.settings.removeLast()
         }
         
         configureGoogleService()
