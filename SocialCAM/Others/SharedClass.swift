@@ -598,11 +598,11 @@ public struct Constant {
         static let appIcon = UIImage(named: "speedcamliteSplashLogo")!
         #elseif SNAPCAMLITEAPP
         static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "SnapCam"
-        static let simformIdentifier: String = "com.simform.SnapCamLite"
+        static let simformIdentifier: String = "com.simform.viralcam"
         static let proModeCode: String = "snapcam2020"
         static let publicLink = URL(string: "https://testflight.apple.com/join/MTVSBnbC")
-        static let splashBG = UIImage(named: "snapCamSplash")!
-        static let appIcon = UIImage(named: "snapCamSplashIcon")!
+        static let splashBG = UIImage(named: "snapCamSplashLite")!
+        static let appIcon = UIImage(named: "snapCamSplashIconLite")!
         #endif
         static let groupIdentifier: String = "group.com.simform.storiCamPro"
         static let appVersion: String = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
