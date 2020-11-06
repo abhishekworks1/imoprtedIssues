@@ -1580,6 +1580,8 @@ extension StoryEditorViewController: SSUTagSelectionDelegate {
                 storyEditors[currentStoryIndex].addReferLinkView(type: .quickCamLite)
             case .speedCamLite:
                 storyEditors[currentStoryIndex].addReferLinkView(type: .speedcamLite)
+            case.snapCamLite:
+                storyEditors[currentStoryIndex].addReferLinkView(type: .snapCamLite)                
             default:
                 storyEditors[currentStoryIndex].addReferLinkView(type: .viralCam)
             }
