@@ -675,6 +675,10 @@ public struct Constant {
         static let redirectUrl = "https://speedcam-app.firebaseapp.com/__/auth/handler"
         static let clientId = "657065128572685"
         static let clientSecret = "37fed68dfafabfdd0466300b4919079e"
+        #elseif SNAPCAMLITEAPP
+        static let redirectUrl = "https://snapcam-lite.firebaseio.com/__/auth/handler"
+        static let clientId = "352633045999017"
+        static let clientSecret = "0e65fab7a2d2f4457a1896a5baeda993"
         #else
             static let redirectUrl = "https://viralcam-c3c84.firebaseapp.com/__/auth/handler"
             static let clientId = "228138878240656"

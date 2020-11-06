@@ -187,6 +187,9 @@ public class LoadingView: UIView {
     }
     
     open func setup() {
+        if isLiteApp {
+            imgAdvertisementArray = Defaults.shared.appMode == .free ? [R.image.adUpgrade()] : [R.image.adFull()]
+        }
         advertisementTimer()
     }
     
