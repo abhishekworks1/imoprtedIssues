@@ -141,7 +141,8 @@ extension BusinessVC: UICollectionViewDataSource, UICollectionViewDelegate, UICo
         let businessVCOption = BusinessVCOption.contents[indexPath.row]
         switch businessVCOption.type {
         case .subscription:
-            if let subscriptionVC = R.storyboard.storyCameraViewController.subscriptionVC() {
+            
+            if let subscriptionVC = R.storyboard.subscription.subscriptionContainerViewController() {
                 navigationController?.pushViewController(subscriptionVC, animated: true)
             }
         case .socialConnection:
