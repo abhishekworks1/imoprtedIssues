@@ -56,11 +56,13 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var logoLable: UILabel!
     @IBOutlet var appleLoginView: UIView!
     weak var delegate: LoginViewControllerDelegate?
-    
+    var tapCounter = 0
     // MARK: View life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        Defaults.shared.releaseType = ReleaseType.currentConfiguration()
         
         if #available(iOS 13.0, *) {
             appleLoginView.isHidden = false
@@ -431,6 +433,40 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
             self.btnHidePassWord.setImage(R.image.hidePassword(), for: .normal)
         } else {
             self.btnHidePassWord.setImage(R.image.showPassword(), for: .normal)
+        }
+    }
+    
+    @IBAction func btnForgotClicked(sender: Any) {
+        guard isDebug || isAlpha else {
+            return
+        }
+        tapCounter += 1
+        if tapCounter > 4 {
+            let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            let alpha = UIAlertAction(title: "Alpha", style: .default) { _ in
+                Defaults.shared.releaseType = .alpha
+            }
+            actionSheet.addAction(alpha)
+            let beta = UIAlertAction(title: "Beta", style: .default) { _ in
+                Defaults.shared.releaseType = .beta
+            }
+            actionSheet.addAction(beta)
+            let store = UIAlertAction(title: "Store", style: .default) { _ in
+                Defaults.shared.releaseType = .store
+            }
+            actionSheet.addAction(store)
+            let cancel = UIAlertAction(title: "Cancel", style: .default) { _ in
+                self.dismiss(animated: true, completion: nil)
+            }
+            actionSheet.addAction(cancel)
+            present(actionSheet, animated: true, completion: nil)
+            tapCounter = 0
+        }
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) { [weak self] in
+            guard let `self` = self else {
+                return
+            }
+            self.tapCounter = 0
         }
     }
     

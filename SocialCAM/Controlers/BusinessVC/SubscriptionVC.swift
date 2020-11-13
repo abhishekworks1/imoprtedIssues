@@ -192,9 +192,9 @@ extension SubscriptionVC: UITableViewDataSource, UITableViewDelegate {
         let objAlert = UIAlertController(title: Constant.Application.displayName, message: message, preferredStyle: .alert)
         if appMode != .free {
             objAlert.addTextField { (textField: UITextField) -> Void in
-                #if DEBUG
-                textField.text = proModeCode
-                #endif
+                if isDebug {
+                    textField.text = proModeCode
+                }
                 textField.placeholder = placeholder
             }
         }

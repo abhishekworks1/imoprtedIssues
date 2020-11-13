@@ -118,7 +118,7 @@ extension ProManagerApi: TargetType {
         case .getAccessToken:
             return URL.init(string: Constant.Instagram.basicUrl)!
         default:
-            return URL.init(string: Constant.URLs.base)!
+            return URL.init(string: API.shared.baseUrl)!
         }
     }
     

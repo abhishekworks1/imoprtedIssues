@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GKc-0J-97B">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GKc-0J-97B">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -287,8 +287,11 @@
                                                 <color key="textColor" red="0.098039215690000001" green="0.12549019610000001" blue="0.18039215689999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="753" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tTQ-ks-KhB">
+                                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="753" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tTQ-ks-KhB">
                                                 <rect key="frame" x="269.5" y="172.5" width="118.5" height="34"/>
+                                                <connections>
+                                                    <action selector="btnForgotClickedWithSender:" destination="Q1G-jg-0gQ" eventType="touchUpInside" id="Wrt-8K-Q0a"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -663,6 +666,7 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="fJ1-lG-rix"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="zdQ-Jj-hQd" firstAttribute="height" secondItem="4Fh-Lc-sY9" secondAttribute="height" priority="250" id="0RJ-ke-L1d"/>
@@ -671,7 +675,6 @@
                             <constraint firstItem="zdQ-Jj-hQd" firstAttribute="centerY" secondItem="4Fh-Lc-sY9" secondAttribute="centerY" id="HTM-07-lvQ"/>
                             <constraint firstItem="119-OD-di5" firstAttribute="width" secondItem="4Fh-Lc-sY9" secondAttribute="width" id="d8a-Ew-3oh"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="fJ1-lG-rix"/>
                     </view>
                     <navigationItem key="navigationItem" id="iWo-F4-YEh"/>
                     <connections>
@@ -819,7 +822,7 @@
                                                 <rect key="frame" x="0.0" y="157.5" width="352" height="71"/>
                                                 <subviews>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Tak-YE-LSB" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                                        <rect key="frame" x="0.0" y="20" width="352" height="41"/>
+                                                        <rect key="frame" x="15" y="25.5" width="327" height="20.5"/>
                                                         <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="16"/>
                                                         <textInputTraits key="textInputTraits" returnKeyType="next"/>
                                                         <userDefinedRuntimeAttributes>
@@ -853,19 +856,19 @@
                                                         </connections>
                                                     </textField>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0/25" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="srK-E0-g09" customClass="PLabel" customModule="BoomiCam" customModuleProvider="target">
-                                                        <rect key="frame" x="327.5" y="65" width="24.5" height="14"/>
+                                                        <rect key="frame" x="317.5" y="50" width="24.5" height="14"/>
                                                         <fontDescription key="fontDescription" name="SofiaPro-Light" family="Sofia Pro" pointSize="12"/>
                                                         <color key="textColor" red="1" green="0.0" blue="0.1333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="bottom" secondItem="Tak-YE-LSB" secondAttribute="bottom" constant="10" id="Dq1-f2-T7j"/>
                                                     <constraint firstItem="srK-E0-g09" firstAttribute="trailing" secondItem="Tak-YE-LSB" secondAttribute="trailing" id="Rzr-zk-l5i"/>
-                                                    <constraint firstItem="Tak-YE-LSB" firstAttribute="leading" secondItem="q1r-I3-Bgb" secondAttribute="leading" id="ZZn-3F-qtC"/>
+                                                    <constraint firstItem="Tak-YE-LSB" firstAttribute="leading" secondItem="q1r-I3-Bgb" secondAttribute="leading" constant="15" id="ZZn-3F-qtC"/>
                                                     <constraint firstItem="srK-E0-g09" firstAttribute="top" secondItem="Tak-YE-LSB" secondAttribute="bottom" constant="4" id="oF8-Bo-iCX"/>
-                                                    <constraint firstAttribute="trailing" secondItem="Tak-YE-LSB" secondAttribute="trailing" id="vj1-oE-dfm"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Tak-YE-LSB" secondAttribute="trailing" constant="10" id="vj1-oE-dfm"/>
+                                                    <constraint firstItem="Tak-YE-LSB" firstAttribute="centerY" secondItem="q1r-I3-Bgb" secondAttribute="centerY" id="web-r0-Mof"/>
                                                 </constraints>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c61-5c-ETd">
@@ -907,7 +910,7 @@
                                                 <rect key="frame" x="0.0" y="157.5" width="352" height="71"/>
                                                 <subviews>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Channel Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wvi-XG-bWS" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                                        <rect key="frame" x="0.0" y="25" width="352" height="41"/>
+                                                        <rect key="frame" x="0.0" y="45.5" width="352" height="20.5"/>
                                                         <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="16"/>
                                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next"/>
                                                         <userDefinedRuntimeAttributes>
@@ -953,7 +956,7 @@
                                                 <rect key="frame" x="0.0" y="165" width="352" height="71"/>
                                                 <subviews>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RlP-q6-oLk" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                                        <rect key="frame" x="15" y="15" width="310" height="41"/>
+                                                        <rect key="frame" x="15" y="25.5" width="310" height="20.5"/>
                                                         <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="16"/>
                                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next"/>
                                                         <userDefinedRuntimeAttributes>
@@ -1023,7 +1026,7 @@
                                                 <rect key="frame" x="0.0" y="251" width="352" height="71"/>
                                                 <subviews>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Gvo-fd-CKq" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                                        <rect key="frame" x="15" y="15" width="295" height="41"/>
+                                                        <rect key="frame" x="15" y="26" width="295" height="19"/>
                                                         <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="16"/>
                                                         <textInputTraits key="textInputTraits" returnKeyType="next" secureTextEntry="YES"/>
                                                         <userDefinedRuntimeAttributes>
@@ -1165,7 +1168,7 @@
                                                 <rect key="frame" x="0.0" y="337" width="352" height="70.5"/>
                                                 <subviews>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wgt-S8-uFZ" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                                        <rect key="frame" x="15" y="14.5" width="297" height="41.5"/>
+                                                        <rect key="frame" x="15" y="25" width="297" height="20.5"/>
                                                         <color key="textColor" red="0.1529411765" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="16"/>
                                                         <textInputTraits key="textInputTraits" returnKeyType="done"/>
@@ -1314,6 +1317,7 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="Y2L-Ea-gJI"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="o2F-Q1-Zjn" firstAttribute="width" secondItem="Gtj-WF-LnV" secondAttribute="width" multiplier="0.940341" id="0wu-qC-ap8"/>
@@ -1328,7 +1332,6 @@
                             <constraint firstItem="jGf-SE-LaG" firstAttribute="top" secondItem="o2F-Q1-Zjn" secondAttribute="bottom" constant="15" id="jHe-EK-14x"/>
                             <constraint firstItem="sHV-c1-C3h" firstAttribute="width" secondItem="iN5-IE-dm8" secondAttribute="width" id="rGq-ec-6uk"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="Y2L-Ea-gJI"/>
                     </view>
                     <navigationItem key="navigationItem" id="40a-Ew-vQs"/>
                     <connections>
@@ -1488,7 +1491,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P8Z-J3-xk1" customClass="BorderView" customModule="BoomiCam" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="24" width="414" height="70"/>
                                 <subviews>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="blq-4R-7Be">
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="blq-4R-7Be">
                                         <rect key="frame" x="0.0" y="22" width="45.5" height="45.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="blq-4R-7Be" secondAttribute="height" multiplier="1:1" id="YGY-m4-c8d"/>
@@ -1600,6 +1603,7 @@
                                 </connections>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="3cX-bn-eiK"/>
                         <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="IHb-ML-aWs" firstAttribute="top" secondItem="P8Z-J3-xk1" secondAttribute="bottom" id="B0d-zX-oVN"/>
@@ -1618,7 +1622,6 @@
                             <constraint firstItem="IHb-ML-aWs" firstAttribute="leading" secondItem="fdA-kI-ICX" secondAttribute="leading" constant="-13" id="nxg-jg-JHq"/>
                             <constraint firstAttribute="trailing" secondItem="UYM-pU-htM" secondAttribute="trailing" constant="7" id="wGx-SB-MPo"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="3cX-bn-eiK"/>
                     </view>
                     <connections>
                         <outlet property="lblEmpty" destination="IHb-ML-aWs" id="Ws5-bL-qBB"/>
@@ -1650,12 +1653,59 @@
             <point key="canvasLocation" x="2598.5507246376815" y="-271.20535714285711"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="7L4-g6-VrN">
+            <size key="intrinsicContentSize" width="16" height="22"/>
+        </designable>
+        <designable name="Gvo-fd-CKq">
+            <size key="intrinsicContentSize" width="71" height="19"/>
+        </designable>
+        <designable name="LJm-QX-u4c">
+            <size key="intrinsicContentSize" width="16" height="22"/>
+        </designable>
+        <designable name="Q7z-ML-iW6">
+            <size key="intrinsicContentSize" width="41" height="29"/>
+        </designable>
+        <designable name="RlP-q6-oLk">
+            <size key="intrinsicContentSize" width="39.5" height="20.5"/>
+        </designable>
+        <designable name="Tak-YE-LSB">
+            <size key="intrinsicContentSize" width="106" height="20.5"/>
+        </designable>
+        <designable name="c7Y-CH-wjf">
+            <size key="intrinsicContentSize" width="16" height="22"/>
+        </designable>
+        <designable name="dWv-Ar-1JC">
+            <size key="intrinsicContentSize" width="16" height="22"/>
+        </designable>
+        <designable name="fH8-W4-NIg">
+            <size key="intrinsicContentSize" width="58" height="31"/>
+        </designable>
+        <designable name="hjT-SL-gzR">
+            <size key="intrinsicContentSize" width="65.5" height="20.5"/>
+        </designable>
+        <designable name="tCE-FJ-ChS">
+            <size key="intrinsicContentSize" width="16" height="22"/>
+        </designable>
+        <designable name="vsn-so-8Uy">
+            <size key="intrinsicContentSize" width="300" height="300"/>
+        </designable>
+        <designable name="wgt-S8-uFZ">
+            <size key="intrinsicContentSize" width="129" height="20.5"/>
+        </designable>
+        <designable name="wvi-XG-bWS">
+            <size key="intrinsicContentSize" width="93.5" height="20.5"/>
+        </designable>
+        <designable name="xZP-Ga-5xe">
+            <size key="intrinsicContentSize" width="200" height="200"/>
+        </designable>
+    </designables>
     <resources>
         <image name="email" width="16" height="16"/>
         <image name="hidePassword" width="16" height="16"/>
         <image name="icoApple" width="38" height="38"/>
         <image name="icoCalender" width="16" height="16"/>
-        <image name="icoClose" width="17" height="16"/>
+        <image name="icoClose" width="26" height="26"/>
         <image name="icoFacebook" width="36" height="36"/>
         <image name="icoInstagram" width="36" height="36"/>
         <image name="icoSearch" width="16" height="16"/>

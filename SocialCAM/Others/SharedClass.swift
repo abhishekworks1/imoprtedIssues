@@ -22,12 +22,12 @@ import UIKit
 ///   - function: The name of the function, defaults to the function within which the call is made.
 ///   - line: The line number, defaults to the line number within the file that the call is made.
 public func dLog<T>(_ object: @autoclosure () -> T, filename: String = #file, _ function: String = #function, _ line: Int = #line) {
-    #if DEBUG
+    if isDebug {
         let value = object()
         let fileURL = filename.lastPathComponent.stringByDeletingPathExtension
         let queue = Thread.isMainThread ? "UI" : "BG"
         print("<\(queue)> \(fileURL) \(function)[\(line)] :-> " + String(reflecting: value))
-    #endif
+    }
 }
 
 /// Outputs a `dump` of the passed in value along with an optional label, the filename, function name, and line number to the standard output if the build setting for "Active Complilation Conditions" (SWIFT_ACTIVE_COMPILATION_CONDITIONS) defines `DEBUG`.
@@ -42,7 +42,7 @@ public func dLog<T>(_ object: @autoclosure () -> T, filename: String = #file, _ 
 ///   - function: The name of the function, defaults to the function within which the call is made.
 ///   - line: The line number, defaults to the line number within the file that the call is made.
 public func dLogDump<T>(_ object: @autoclosure () -> T, label: String? = nil, _ file: String = #file, _ function: String = #function, _ line: Int = #line) {
-    #if DEBUG
+    if isDebug {
         let value = object()
         let fileURL = NSURL(string: file)?.lastPathComponent ?? "Unknown file"
         let queue = Thread.isMainThread ? "UI" : "BG"
@@ -51,11 +51,47 @@ public func dLogDump<T>(_ object: @autoclosure () -> T, label: String? = nil, _ 
         label.flatMap { print($0) }
         dump(value)
         print("--------")
-    #endif
+    }
 }
 
-protocol AppMode_Enum  {
+protocol AppMode_Enum {
     var description: String { get }
+}
+
+enum ReleaseType: String, AppMode_Enum {
+    case debug
+    case alpha
+    case beta
+    case store
+
+    static func currentConfiguration() -> ReleaseType {
+        if isDebug {
+            return .debug
+        } else if isAlpha {
+            return .alpha
+        } else if isBeta {
+            return .beta
+        } else if isStore {
+            return .store
+        } else {
+            return .debug
+        }
+    }
+    
+    var description: String {
+        switch self {
+        case .debug:
+            return "debug"
+        case .alpha:
+            return "alpha"
+        case .beta:
+            return "beta"
+        case .store:
+            return "store"
+        default:
+            return "debug"
+        }
+    }
 }
 
 enum AppMode: Int, AppMode_Enum {
@@ -473,6 +509,36 @@ public struct APIHeaders {
                                            "deviceType": "1"]
 }
 
+class API {
+    static let shared = API()
+    var baseUrl: String {
+        get {
+            var baseUrlString = ""
+            switch Defaults.shared.releaseType {
+            case .debug, .alpha:
+                if isFastCamApp || isFastCamLiteApp {
+                    baseUrlString = "https://api.alpha.fastcam.app/api/"
+                } else {
+                    baseUrlString = "https://demo-api.austinconversionoptimization.com/api/"
+                }
+            case .beta:
+                if isFastCamApp || isFastCamLiteApp {
+                    baseUrlString = "https://api.beta.fastcam.app/api/"
+                } else {
+                    baseUrlString = "https://demo-api.austinconversionoptimization.com/api/"
+                }
+            case .store:
+                if isFastCamApp || isFastCamLiteApp {
+                    baseUrlString = "https://api.fastcam.app/api/"
+                } else {
+                    baseUrlString = "https://demo-api.austinconversionoptimization.com/api/"
+                }
+            }
+            return baseUrlString
+        } set { }
+    }
+}
+
 public struct Constant {
     
     struct AWS {
@@ -485,11 +551,6 @@ public struct Constant {
     }
     
     struct URLs {
-        #if DEBUG
-        static let base = "https://stage-api.austinconversionoptimization.com/api/"
-        #else
-        static let base = "https://demo-api.austinconversionoptimization.com/api/"
-        #endif
         static let cabbage = "https://staging.cabbage.cafe/api/v1/"
         static let faq = "https://www.google.com"
         static let twitter = "https://api.twitter.com/1.1/"
@@ -772,6 +833,9 @@ public struct Constant {
         #elseif FASTCAMAPP
             static let serviceKey: String = "AIzaSyARGjWmJYjfSyK8UAf_dJW4YLqq220hnCM"
             static let placeClientKey: String = "AIzaSyARGjWmJYjfSyK8UAf_dJW4YLqq220hnCM"
+        #elseif SNAPCAMLITEAPP
+            static let serviceKey: String = "AIzaSyBPfolm4DG9lJHe8W5UM9rDB3ZbeXiAt8Q"
+            static let placeClientKey: String = "AIzaSyBPfolm4DG9lJHe8W5UM9rDB3ZbeXiAt8Q"
         #else
             static let serviceKey: String = "AIzaSyBOBVwEf8bMfwCreZS-IBAEqm57A0szOfg"
             static let placeClientKey: String = "AIzaSyBOBVwEf8bMfwCreZS-IBAEqm57A0szOfg"

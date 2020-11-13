@@ -40,7 +40,7 @@ extension ProManagerApi: TargetType {
     }
     
     public var baseURL: URL {
-        return URL.init(string: Constant.URLs.base)!
+        return URL.init(string: API.shared.baseUrl)!
     }
     
     /// The path to be appended to `baseURL` to form the full `URL`.
