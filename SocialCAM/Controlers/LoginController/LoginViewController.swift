@@ -480,6 +480,17 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         self.present(navigation, animated: true)
     }
     
+    @IBAction func btnTermsAndConditionsTapped(_ sender: Any) {
+        guard let termsAndConditionsVc = R.storyboard.legal.legalViewController() else { return }
+        self.navigationController?.pushViewController(termsAndConditionsVc, animated: true)
+    }
+    
+    @IBAction func btnPrivacyPolicyTapped(_ sender: Any) {
+        guard let privacyPolicyVc = R.storyboard.legal.legalViewController() else { return }
+        privacyPolicyVc.isTermsAndConditions = false
+        self.navigationController?.pushViewController(privacyPolicyVc, animated: true)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "SignUpStep1" {
             if let dest = segue.destination as? UINavigationController {
