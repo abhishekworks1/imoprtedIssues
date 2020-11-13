@@ -375,6 +375,7 @@ extension StoryEditorView: UITextViewDelegate {
                                                 y: center.y,
                                                 width: bounds.width,
                                                 height: 30))
+        textView.text = "#"
         textView.tintColor = .white
         textView.textAlignment = .center
         textView.font = UIFont.systemFont(ofSize: 30)
@@ -402,11 +403,17 @@ extension StoryEditorView: UITextViewDelegate {
                 !(followMeStoryView.textView.text.trimString().count > 0) {
                 followMeStoryView.textView.text = R.string.localizable.checkOutThisAwesomeCoolNewApp🙂()
             }
+        } else if textViews.last?.text == "#" {
+            textViews.last?.removeFromSuperview()
+            textViews.removeLast()
         }
         endEditing(true)
     }
     
     func textViewDidChange(_ textView: UITextView) {
+        if textView.text == "" {
+            textView.text = "#"
+        }
         let rotation = atan2(textView.transform.b, textView.transform.a)
         if rotation == 0 {
             let oldFrame = textView.frame

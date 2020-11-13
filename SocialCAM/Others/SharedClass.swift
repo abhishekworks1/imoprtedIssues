@@ -58,6 +58,14 @@ protocol AppMode_Enum {
     var description: String { get }
 }
 
+public var termsAndConditionsUrl: String {
+    return "https://alpha.fastcam.app/terms-and-condition"
+}
+
+public var privacyPolicyUrl: String {
+    return "https://alpha.fastcam.app/privacy-policy"
+}
+
 enum ReleaseType: String, AppMode_Enum {
     case debug
     case alpha

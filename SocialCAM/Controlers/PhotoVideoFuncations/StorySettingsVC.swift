@@ -28,6 +28,8 @@ enum SettingsMode: Int {
     case guidelineTickness
     case guidelineColor
     case guildlines
+    case termsAndConditions
+    case privacyPolicy
 }
 
 class StorySetting {
@@ -76,6 +78,10 @@ class StorySettings {
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.controlCenter(), selected: false)], settingsType: .appStartScreen),
                                 StorySettings(name: "",
+                                              settings: [StorySetting(name: R.string.localizable.termsAndConditions(), selected: false)], settingsType: .termsAndConditions),
+                                StorySettings(name: "",
+                                              settings: [StorySetting(name: R.string.localizable.privacyPolicy(), selected: false)], settingsType: .privacyPolicy),
+                                StorySettings(name: "",
                                               settings: [StorySetting(name: "\(Constant.Application.displayName) v \(Constant.Application.appVersion) (Build \(Constant.Application.appBuildNumber))", selected: false)], settingsType: .appInfo)]
 }
 
@@ -122,7 +128,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.appOpenSettingsCell.identifier, for: indexPath) as? AppOpenSettingsCell, StorySettings.storySettings[indexPath.section].settingsType == .appStartScreen {
-            #if PIC2ARTAPP || SOCIALCAMAPP || VIRALCAMAPP || SOCCERCAMAPP || FUTBOLCAMAPP || QUICKCAMAPP || VIRALCAMLITEAPP || VIRALCAMLITEAPP || FASTCAMLITEAPP || QUICKCAMLITEAPP || SPEEDCAMLITEAPP
+            #if PIC2ARTAPP || SOCIALCAMAPP || VIRALCAMAPP || SOCCERCAMAPP || FUTBOLCAMAPP || QUICKCAMAPP || VIRALCAMLITEAPP || VIRALCAMLITEAPP || FASTCAMLITEAPP || QUICKCAMLITEAPP || SPEEDCAMLITEAPP || SNAPCAMLITEAPP
             cell.dashBoardView.isHidden = true
             #else
             cell.dashBoardView.isHidden = false
@@ -138,7 +144,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         cell.settingsName.text = settings.name
         cell.detailButton.isHidden = true
         cell.settingsName.textColor = R.color.appBlackColor()
-        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video || settingTitle.settingsType == .cameraSettings{
+        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video || settingTitle.settingsType == .cameraSettings || settingTitle.settingsType == .termsAndConditions || settingTitle.settingsType == .privacyPolicy {
             if settingTitle.settingsType == .appInfo {
                 if isDebug {
                     cell.settingsName.textColor = R.color.appPrimaryColor()
@@ -287,6 +293,10 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             if let addSocialConnectionViewController = R.storyboard.socialConnection.addSocialConnectionViewController() {
                 navigationController?.pushViewController(addSocialConnectionViewController, animated: true)
             }
+        } else if settingTitle.settingsType == .termsAndConditions || settingTitle.settingsType == .privacyPolicy {
+            guard let legalVc = R.storyboard.legal.legalViewController() else { return }
+            legalVc.isTermsAndConditions = settingTitle.settingsType == .termsAndConditions
+            self.navigationController?.pushViewController(legalVc, animated: true)
         }
     }
     
