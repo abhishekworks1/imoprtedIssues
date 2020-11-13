@@ -65,18 +65,54 @@ enum AppMode: Int, AppMode_Enum {
     case professional
     
     var description: String {
-       switch self {
-    case .free:
-       return "Free"
-    case .basic:
-       return "Basic"
-    case .advanced:
-       return "Advanced"
-    case .professional:
-          return "Professional"
-    default:
-          return "Free"
-       }
+        switch self {
+        case .free:
+            return "Free"
+        case .basic:
+            if isLiteApp {
+                return "Basic Lite"
+            } else {
+                return "Basic"
+            }
+        case .advanced:
+            return "Advanced"
+        case .professional:
+            return "Pro"
+        }
+    }
+    
+    var price: String {
+        switch self {
+        case .free:
+            return "$0 / Month"
+        case .basic:
+            return "$1 / Month"
+        case .advanced:
+            return "$99.99 / Month"
+        case .professional:
+            return "$120.99 / Month"
+        }
+    }
+    
+    var features: [String] {
+        switch self {
+        case .free:
+            return ["Recording upto 3x speed",
+                    "Segment length: Up to 15 seconds",
+                    "Face detection",
+                    "Flash on/off/auto"]
+        case .basic:
+            return ["Segment length customisation: Upto 30 seconds",
+                    "Video countdown timer: Upto 60 seconds",
+                    "Slow motion recording upto -3x speed",
+                    "Fast motion recording upto 3x speed",
+                    "Face detection",
+                    "Flash on/off/auto"]
+        case .advanced:
+            return ["Features to be decided"]
+        case .professional:
+            return ["Features to be decided"]
+        }
     }
 }
 

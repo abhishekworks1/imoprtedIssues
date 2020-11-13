@@ -61,6 +61,7 @@ def projectShared_pods
     pod 'MXSegmentedPager', :git => 'https://github.com/simformsolutions/MXSegmentedPager'
     pod "ESPullToRefresh"
     pod 'ProgressHUD', '~> 2.70'
+    pod 'Parchment'
 
     shared_pods
 end
