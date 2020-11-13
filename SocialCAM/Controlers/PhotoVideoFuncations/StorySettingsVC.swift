@@ -140,9 +140,9 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         cell.settingsName.textColor = R.color.appBlackColor()
         if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video || settingTitle.settingsType == .cameraSettings{
             if settingTitle.settingsType == .appInfo {
-                #if DEBUG
-                cell.settingsName.textColor = R.color.appPrimaryColor()
-                #endif
+                if isDebug {
+                    cell.settingsName.textColor = R.color.appPrimaryColor()
+                }
             }
             cell.onOffButton.isHidden = true
         } else if settingTitle.settingsType == .socialLogins {
@@ -488,9 +488,9 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         let objAlert = UIAlertController(title: Constant.Application.displayName, message: message, preferredStyle: .alert)
         if appMode != .free {
             objAlert.addTextField { (textField: UITextField) -> Void in
-                #if DEBUG
-                textField.text = proModeCode
-                #endif
+                if isDebug {
+                    textField.text = proModeCode
+                }
                 textField.placeholder = placeholder
             }
         }

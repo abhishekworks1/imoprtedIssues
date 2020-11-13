@@ -10,6 +10,38 @@ import Foundation
 import CoreLocation
 import AVKit
 
+var isDebug: Bool {
+    #if DEBUG
+    return true
+    #else
+    return false
+    #endif
+}
+
+var isAlpha: Bool {
+    #if ALPHA
+    return true
+    #else
+    return false
+    #endif
+}
+
+var isBeta: Bool {
+    #if BETA
+    return true
+    #else
+    return false
+    #endif
+}
+
+var isStore: Bool {
+    #if STORE
+    return true
+    #else
+    return false
+    #endif
+}
+
 var isSocialCamApp: Bool {
     #if SOCIALCAMAPP
     return true
@@ -293,6 +325,15 @@ class Defaults {
         }
         set {
             appDefaults?.set(newValue, forKey: "parentId")
+        }
+    }
+    
+    var releaseType: ReleaseType {
+        get {
+            return ReleaseType(rawValue: (appDefaults?.string(forKey: "releaseType") ?? "debug")) ?? .debug
+        }
+        set {
+            appDefaults?.set(newValue.description, forKey: "releaseType")
         }
     }
     
