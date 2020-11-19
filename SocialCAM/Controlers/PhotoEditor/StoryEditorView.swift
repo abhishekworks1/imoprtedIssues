@@ -381,13 +381,14 @@ extension StoryEditorView: UITextViewDelegate {
         textView.font = UIFont.systemFont(ofSize: 30)
         textView.textColor = textColor
         textView.layer.shadowColor = UIColor.black.cgColor
-        textView.layer.shadowOffset = CGSize(width: 1.0, height: 0.0)
-        textView.layer.shadowOpacity = 0.2
+        textView.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
+        textView.layer.shadowOpacity = 1.0
         textView.layer.shadowRadius = 1.0
         textView.layer.backgroundColor = UIColor.clear.cgColor
         textView.autocorrectionType = .no
         textView.backgroundColor = .clear
         textView.isScrollEnabled = false
+        textView.layer.masksToBounds = false
         textView.tag = textViews.count
         textView.delegate = self
         addSubview(textView)

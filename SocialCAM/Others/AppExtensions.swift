@@ -40,7 +40,7 @@ extension UIViewController {
     }
     
     func dismissHUDWithError(_ error: String) {
-        ProgressHUD.dismiss()
+        ProgressHUD.showError(error)
     }
     
     func dismissHUDWithSuccessMsg(_ message: String) {
