@@ -43,6 +43,8 @@ class IncomeCalculatorFourViewController: UIViewController {
     // MARK: -
     // MARK: - Outlets
     
+    @IBOutlet weak var lblLegal: UILabel!
+    @IBOutlet var viewLegalNotice: UIView!
     @IBOutlet weak var percentageSlider: CustomSlider!
     @IBOutlet weak var tableview: UITableView!
     @IBOutlet var tableSectionHeaderView: UIView!
@@ -94,11 +96,13 @@ class IncomeCalculatorFourViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableview.tableFooterView = viewLegalNotice
         self.tableview.tableHeaderView = tableHeaderView
         self.getWebsiteId { [weak self] (type) in
             guard let `self` = self else { return }
             self.getCalculatorConfig(type: type)
         }
+        lblLegal.setCalculatorLegalText()
     }
     
     override func viewDidLayoutSubviews() {

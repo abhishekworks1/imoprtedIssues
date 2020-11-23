@@ -13,6 +13,8 @@ class IncomeCalculatorTwoViewController: UIViewController {
     // MARK: -
     // MARK: - Outlets
     
+    @IBOutlet weak var lblLegal: UILabel!
+    @IBOutlet var viewLegalNotice: UIView!
     @IBOutlet weak var levelOneSlider: UISlider!
     @IBOutlet weak var levelTwoSlider: UISlider!
     @IBOutlet weak var lblLevelOneRefferals: UILabel!
@@ -66,12 +68,14 @@ class IncomeCalculatorTwoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableview.tableFooterView = viewLegalNotice
         lblNavigationTitle.text = calculatorType.getNavigationTitle()
         self.setupUiForLiteApps()
         self.getWebsiteId { [weak self] (type) in
             guard let `self` = self else { return }
             self.getCalculatorConfig(type: type)
         }
+        lblLegal.setCalculatorLegalText()
     }
 
     // MARK: -
@@ -217,6 +221,7 @@ extension IncomeCalculatorTwoViewController: UITableViewDataSource, UITableViewD
             cell.setData(level: R.string.localizable.total(), followers: CommonFunctions.getFormattedNumberString(number: self.incomeData[indexPath.row].0), income: CommonFunctions.getFormattedNumberString(number: self.incomeData[indexPath.row].1))
         } else {
             cell.setData(level: (indexPath.row + 1).description + " (\(self.percentageArray[indexPath.row])%)", followers: CommonFunctions.getFormattedNumberString(number: self.incomeData[indexPath.row].0), income: CommonFunctions.getFormattedNumberString(number: self.incomeData[indexPath.row].1))
+            cell.setGrayBorder()
         }
         return cell
     }
