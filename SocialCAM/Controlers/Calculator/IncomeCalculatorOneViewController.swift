@@ -29,6 +29,13 @@ class IncomeCalculatorTableViewCell: UITableViewCell {
         self.viewIncome.backgroundColor = R.color.calculatorButtonColor()?.withAlphaComponent(0.1)
     }
     
+    internal func setGrayBorder() {
+        self.viewFollowers.layer.borderColor = R.color.cellViewBorderColor()?.cgColor ?? UIColor.gray.cgColor
+        self.viewFollowers.backgroundColor = R.color.cellViewBackgroundColor()
+        self.viewIncome.layer.borderColor = R.color.cellViewBorderColor()?.cgColor ?? UIColor.gray.cgColor
+        self.viewIncome.backgroundColor = R.color.cellViewBackgroundColor()
+    }
+    
     internal func setData(level: String, followers: String, income: String = "") {
         self.lblLevel.text = level
         self.lblFollowers.text = followers
@@ -42,6 +49,8 @@ class IncomeCalculatorOneViewController: UIViewController {
     // MARK: -
     // MARK: - Outlets
     
+    @IBOutlet weak var lblLegal: UILabel!
+    @IBOutlet var viewLegalNotice: UIView!
     @IBOutlet weak var lblNavigationTitle: UILabel!
     @IBOutlet weak var inAppPurchaseTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var percentageViewHeightCeonstraint: NSLayoutConstraint!
@@ -96,12 +105,14 @@ class IncomeCalculatorOneViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableview.tableFooterView = viewLegalNotice
         self.lblNavigationTitle.text = calculatorType.getNavigationTitle()
         setupUiForLiteApp()
         self.getWebsiteId { [weak self] (type) in
             guard let `self` = self else { return }
             self.getCalculatorConfig(type: type)
         }
+        lblLegal.setCalculatorLegalText()
     }
     
     // MARK: -
@@ -241,6 +252,7 @@ extension IncomeCalculatorOneViewController: UITableViewDataSource, UITableViewD
             cell.setBlueBorder()
         } else {
             cell.setData(level: (indexPath.row + 1).description + " (\(self.percentageArray[indexPath.row])%)", followers: CommonFunctions.getFormattedNumberString(number: self.incomeData[indexPath.row].0), income: CommonFunctions.getFormattedNumberString(number: self.incomeData[indexPath.row].1))
+            cell.setGrayBorder()
         }
         return cell
     }

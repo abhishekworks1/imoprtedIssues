@@ -36,6 +36,8 @@ class CalculatorViewController: UIViewController {
     // MARK: -
     // MARK: - Outlets
     
+    @IBOutlet weak var lblLegal: UILabel!
+    @IBOutlet var viewLegalNotice: UIView!
     @IBOutlet weak var percentageSlider: CustomSlider!
     @IBOutlet weak var tableview: UITableView!
     @IBOutlet weak var innerCircleSlider: UISlider!
@@ -73,6 +75,8 @@ class CalculatorViewController: UIViewController {
             self.getCalculatorConfig(type: type)
         }
         self.tableview.tableHeaderView = tableHeaderView
+        self.tableview.tableFooterView = viewLegalNotice
+        lblLegal.setCalculatorLegalText()
     }
     
     override func viewDidLayoutSubviews() {

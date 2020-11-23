@@ -520,6 +520,76 @@
                                     <action selector="btnCalculateTapped:" destination="WCY-BY-h8j" eventType="touchUpInside" id="viS-4M-dxU"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gqz-HD-eqw">
+                                <rect key="frame" x="356" y="133" width="48" height="30"/>
+                                <connections>
+                                    <action selector="directReferHelpTapped:" destination="WCY-BY-h8j" eventType="touchUpInside" id="7Gx-0N-lQ6"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7SZ-Mi-Qz6">
+                                <rect key="frame" x="356" y="189" width="48" height="30"/>
+                                <connections>
+                                    <action selector="indirectReferHelpTapped:" destination="WCY-BY-h8j" eventType="touchUpInside" id="qko-lw-02u"/>
+                                </connections>
+                            </button>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="X3P-Zk-8Nj" customClass="CustomSlider" customModule="BoomiCam" customModuleProvider="target">
+                                <rect key="frame" x="13" y="253.5" width="335" height="29"/>
+                                <color key="minimumTrackTintColor" name="AppPrimaryColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="unitString" value="%"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="percentageBarChanged:" destination="WCY-BY-h8j" eventType="valueChanged" id="6he-hA-tws"/>
+                                </connections>
+                            </slider>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="4tC-NL-cgX" customClass="CustomSlider" customModule="BoomiCam" customModuleProvider="target">
+                                <rect key="frame" x="13" y="139" width="335" height="19"/>
+                                <color key="minimumTrackTintColor" name="AppPrimaryColor"/>
+                                <connections>
+                                    <action selector="innerCircleSliderChanged:" destination="WCY-BY-h8j" eventType="valueChanged" id="2gN-U1-41t"/>
+                                </connections>
+                            </slider>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="82V-nR-93I" customClass="CustomSlider" customModule="BoomiCam" customModuleProvider="target">
+                                <rect key="frame" x="13" y="195" width="335" height="19"/>
+                                <color key="minimumTrackTintColor" name="AppPrimaryColor"/>
+                                <connections>
+                                    <action selector="extendedCircleSliderChanged:" destination="WCY-BY-h8j" eventType="valueChanged" id="LwP-RM-GDj"/>
+                                </connections>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WtD-r6-UOy" customClass="CalculatorCustomLabel" customModule="BoomiCam" customModuleProvider="target">
+                                <rect key="frame" x="356" y="189" width="48" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="KG5-Zf-nls"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o2i-7e-GkI">
+                                <rect key="frame" x="356" y="252.5" width="48" height="30"/>
+                                <connections>
+                                    <action selector="percentageFilledHelpTapped:" destination="WCY-BY-h8j" eventType="touchUpInside" id="SJi-8L-9Eh"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vL6-cR-lfP" customClass="CalculatorCustomLabel" customModule="BoomiCam" customModuleProvider="target">
+                                <rect key="frame" x="356" y="133" width="48" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="2dW-ED-GKF"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0%" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3eD-qr-SfT" customClass="CalculatorCustomLabel" customModule="BoomiCam" customModuleProvider="target">
+                                <rect key="frame" x="356" y="252.5" width="48" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="AcX-qY-AJR"/>
+                                    <constraint firstAttribute="width" constant="48" id="jI8-cW-gg5"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2Ey-xv-4a3">
                                 <rect key="frame" x="8" y="362.5" width="398" height="523.5"/>
                                 <prototypes>
@@ -620,76 +690,6 @@
                                     <outlet property="delegate" destination="WCY-BY-h8j" id="GZ7-2G-Vg1"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gqz-HD-eqw">
-                                <rect key="frame" x="356" y="133" width="48" height="30"/>
-                                <connections>
-                                    <action selector="directReferHelpTapped:" destination="WCY-BY-h8j" eventType="touchUpInside" id="7Gx-0N-lQ6"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7SZ-Mi-Qz6">
-                                <rect key="frame" x="356" y="189" width="48" height="30"/>
-                                <connections>
-                                    <action selector="indirectReferHelpTapped:" destination="WCY-BY-h8j" eventType="touchUpInside" id="qko-lw-02u"/>
-                                </connections>
-                            </button>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="X3P-Zk-8Nj" customClass="CustomSlider" customModule="BoomiCam" customModuleProvider="target">
-                                <rect key="frame" x="13" y="253.5" width="335" height="29"/>
-                                <color key="minimumTrackTintColor" name="AppPrimaryColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="unitString" value="%"/>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="percentageBarChanged:" destination="WCY-BY-h8j" eventType="valueChanged" id="6he-hA-tws"/>
-                                </connections>
-                            </slider>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="4tC-NL-cgX" customClass="CustomSlider" customModule="BoomiCam" customModuleProvider="target">
-                                <rect key="frame" x="13" y="139" width="335" height="19"/>
-                                <color key="minimumTrackTintColor" name="AppPrimaryColor"/>
-                                <connections>
-                                    <action selector="innerCircleSliderChanged:" destination="WCY-BY-h8j" eventType="valueChanged" id="2gN-U1-41t"/>
-                                </connections>
-                            </slider>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="82V-nR-93I" customClass="CustomSlider" customModule="BoomiCam" customModuleProvider="target">
-                                <rect key="frame" x="13" y="195" width="335" height="19"/>
-                                <color key="minimumTrackTintColor" name="AppPrimaryColor"/>
-                                <connections>
-                                    <action selector="extendedCircleSliderChanged:" destination="WCY-BY-h8j" eventType="valueChanged" id="LwP-RM-GDj"/>
-                                </connections>
-                            </slider>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WtD-r6-UOy" customClass="CalculatorCustomLabel" customModule="BoomiCam" customModuleProvider="target">
-                                <rect key="frame" x="356" y="189" width="48" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="KG5-Zf-nls"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o2i-7e-GkI">
-                                <rect key="frame" x="356" y="252.5" width="48" height="30"/>
-                                <connections>
-                                    <action selector="percentageFilledHelpTapped:" destination="WCY-BY-h8j" eventType="touchUpInside" id="SJi-8L-9Eh"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vL6-cR-lfP" customClass="CalculatorCustomLabel" customModule="BoomiCam" customModuleProvider="target">
-                                <rect key="frame" x="356" y="133" width="48" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="2dW-ED-GKF"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0%" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3eD-qr-SfT" customClass="CalculatorCustomLabel" customModule="BoomiCam" customModuleProvider="target">
-                                <rect key="frame" x="356" y="252.5" width="48" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="AcX-qY-AJR"/>
-                                    <constraint firstAttribute="width" constant="48" id="jI8-cW-gg5"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="DeM-Cf-V5Y"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -754,12 +754,14 @@
                         <outlet property="innerCircleSlider" destination="4tC-NL-cgX" id="WzL-cX-x5w"/>
                         <outlet property="lblExtendedCircleCount" destination="WtD-r6-UOy" id="U4M-pa-UnU"/>
                         <outlet property="lblInnerCircleCount" destination="vL6-cR-lfP" id="4oc-sv-DgW"/>
+                        <outlet property="lblLegal" destination="vsJ-df-8yO" id="0xn-Df-SFL"/>
                         <outlet property="lblPercentageFilled" destination="3eD-qr-SfT" id="8NH-NN-pjv"/>
                         <outlet property="lblTotalFollowers" destination="cJu-qs-PdC" id="tzP-Pg-wq2"/>
                         <outlet property="percentageSlider" destination="X3P-Zk-8Nj" id="gEV-PR-FQT"/>
                         <outlet property="tableHeaderView" destination="zUL-PO-GYG" id="yeG-QL-XC4"/>
                         <outlet property="tableSectionHeaderView" destination="RSd-Zp-QxO" id="XeP-V0-uHW"/>
                         <outlet property="tableview" destination="2Ey-xv-4a3" id="5r2-GZ-nHK"/>
+                        <outlet property="viewLegalNotice" destination="863-1B-cUx" id="YPf-bg-9he"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c5X-Dt-0P6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -841,6 +843,27 @@
                         <constraint firstItem="Dgl-Ej-S7E" firstAttribute="centerY" secondItem="OWG-08-nlw" secondAttribute="centerY" id="m5B-1Z-cGB"/>
                     </constraints>
                 </view>
+                <view contentMode="scaleToFill" id="863-1B-cUx">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vsJ-df-8yO">
+                            <rect key="frame" x="11" y="11" width="218" height="106"/>
+                            <string key="text">Important Legal Notice: This follower and income potential simulations calculators are instead for illustrative and educational purpose only and in no way guarantees any specific growth pattern or income earnings.  </string>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <viewLayoutGuide key="safeArea" id="U21-62-ROS"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="U21-62-ROS" firstAttribute="trailing" secondItem="vsJ-df-8yO" secondAttribute="trailing" constant="11" id="Kvu-81-pwp"/>
+                        <constraint firstItem="vsJ-df-8yO" firstAttribute="leading" secondItem="U21-62-ROS" secondAttribute="leading" constant="11" id="puC-Gh-2Wy"/>
+                        <constraint firstItem="U21-62-ROS" firstAttribute="bottom" secondItem="vsJ-df-8yO" secondAttribute="bottom" constant="11" id="vle-Y1-d1I"/>
+                        <constraint firstItem="vsJ-df-8yO" firstAttribute="top" secondItem="863-1B-cUx" secondAttribute="top" constant="11" id="zeL-EG-6Yq"/>
+                    </constraints>
+                </view>
             </objects>
             <point key="canvasLocation" x="847.82608695652175" y="170.75892857142856"/>
         </scene>
@@ -909,7 +932,7 @@
                                     <action selector="btnCalculateTapped:" destination="DAh-fB-FuN" eventType="touchUpInside" id="7YT-nr-O0a"/>
                                 </connections>
                             </button>
-                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="QFe-BQ-xTt">
+                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="QFe-BQ-xTt">
                                 <rect key="frame" x="8" y="467" width="398" height="419"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="incomeCalculatorTableViewCell" rowHeight="123" id="RnV-aE-UOZ" customClass="IncomeCalculatorTableViewCell" customModule="BoomiCam" customModuleProvider="target">
@@ -1326,6 +1349,7 @@
                         <outlet property="inAppPurchaseTopConstraint" destination="2TP-Te-hIU" id="gnT-y0-67K"/>
                         <outlet property="inAppSlider" destination="l77-qm-2hd" id="WEv-01-En1"/>
                         <outlet property="lblAverageInAppPurchase" destination="sJo-BL-uaY" id="SwA-75-ByA"/>
+                        <outlet property="lblLegal" destination="2G4-S2-lWQ" id="t2G-iH-d2h"/>
                         <outlet property="lblLevelOneRefferals" destination="wV2-E8-dIj" id="czi-F9-vKl"/>
                         <outlet property="lblLevelThreeRefferals" destination="pwK-yP-TSC" id="s5M-RI-dz5"/>
                         <outlet property="lblLevelTwoRefferals" destination="pea-ih-nRG" id="QdN-Ox-ycH"/>
@@ -1339,6 +1363,7 @@
                         <outlet property="percentageViewHeightCeonstraint" destination="bIM-oj-Drn" id="30c-7w-s0s"/>
                         <outlet property="tableSectionHeaderView" destination="oHb-uk-bOe" id="pLT-Ua-uXE"/>
                         <outlet property="tableview" destination="QFe-BQ-xTt" id="fyf-7P-Sd5"/>
+                        <outlet property="viewLegalNotice" destination="vo1-IZ-gy7" id="0MN-yp-HFA"/>
                         <outlet property="viewPercentage" destination="d2F-vr-cKR" id="DDN-Ka-VXT"/>
                     </connections>
                 </viewController>
@@ -1385,6 +1410,27 @@
                         <constraint firstItem="vFe-e8-3TW" firstAttribute="centerY" secondItem="Crb-jo-ppv" secondAttribute="centerY" id="Z6z-Gk-z5q"/>
                         <constraint firstItem="vFe-e8-3TW" firstAttribute="leading" secondItem="Crb-jo-ppv" secondAttribute="trailing" id="ise-Ao-8Xn"/>
                         <constraint firstItem="Crb-jo-ppv" firstAttribute="top" secondItem="oHb-uk-bOe" secondAttribute="top" constant="14" id="kVu-pb-49X"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" id="vo1-IZ-gy7">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2G4-S2-lWQ">
+                            <rect key="frame" x="11" y="11" width="218" height="106"/>
+                            <string key="text">Important Legal Notice: This follower and income potential simulations calculators are instead for illustrative and educational purpose only and in no way guarantees any specific growth pattern or income earnings.  </string>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <viewLayoutGuide key="safeArea" id="oG9-up-D60"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="2G4-S2-lWQ" firstAttribute="leading" secondItem="oG9-up-D60" secondAttribute="leading" constant="11" id="6Rd-z6-SPC"/>
+                        <constraint firstItem="oG9-up-D60" firstAttribute="trailing" secondItem="2G4-S2-lWQ" secondAttribute="trailing" constant="11" id="VyG-Ha-4tg"/>
+                        <constraint firstItem="oG9-up-D60" firstAttribute="bottom" secondItem="2G4-S2-lWQ" secondAttribute="bottom" constant="11" id="es5-A6-OMC"/>
+                        <constraint firstItem="2G4-S2-lWQ" firstAttribute="top" secondItem="vo1-IZ-gy7" secondAttribute="top" constant="11" id="v6d-VE-UD5"/>
                     </constraints>
                 </view>
             </objects>
@@ -1455,7 +1501,7 @@
                                     <action selector="btnCalculateTapped:" destination="SNf-ul-4fj" eventType="touchUpInside" id="wmS-Kj-aWr"/>
                                 </connections>
                             </button>
-                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bUM-9m-FOg">
+                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bUM-9m-FOg">
                                 <rect key="frame" x="8" y="431" width="398" height="455"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="incomeCalculator2TableViewCell" rowHeight="123" id="lmK-rV-eIV" customClass="IncomeCalculatorTableViewCell" customModule="BoomiCam" customModuleProvider="target">
@@ -1826,6 +1872,7 @@
                         <outlet property="inAppSlider" destination="mfi-NZ-PLu" id="acL-fk-UCU"/>
                         <outlet property="lblAverageInAppPurchase" destination="UBV-2e-lys" id="Q3X-Ya-rSd"/>
                         <outlet property="lblFixedInAppPurchase" destination="MJX-G6-8OH" id="xdR-jv-9GB"/>
+                        <outlet property="lblLegal" destination="gfa-gb-11u" id="5Ge-UE-DCC"/>
                         <outlet property="lblLevelOneRefferals" destination="cZ7-Ko-bSA" id="Vcg-kZ-gqg"/>
                         <outlet property="lblLevelTwoRefferals" destination="AbU-Hi-hYt" id="sjD-KC-qDM"/>
                         <outlet property="lblNavigationTitle" destination="dwJ-MQ-c8A" id="hhB-8M-R1g"/>
@@ -1836,6 +1883,7 @@
                         <outlet property="sliderContainerHeightConstraint" destination="WA6-sv-sPz" id="dVs-gL-Ktq"/>
                         <outlet property="tableViewSectionHeader" destination="WsT-aE-aqp" id="dES-iY-qRE"/>
                         <outlet property="tableview" destination="bUM-9m-FOg" id="BUU-x4-3QJ"/>
+                        <outlet property="viewLegalNotice" destination="w39-mN-1wJ" id="sIm-K0-rJz"/>
                         <outlet property="viewSliderContainer" destination="r25-sT-FBs" id="lxu-mP-psM"/>
                     </connections>
                 </viewController>
@@ -1882,6 +1930,27 @@
                         <constraint firstItem="6OF-ql-dPj" firstAttribute="centerY" secondItem="CFi-dy-MdT" secondAttribute="centerY" id="mUy-77-Fnr"/>
                         <constraint firstItem="CFi-dy-MdT" firstAttribute="top" secondItem="WsT-aE-aqp" secondAttribute="top" constant="14" id="ydU-Me-6ID"/>
                         <constraint firstItem="6OF-ql-dPj" firstAttribute="leading" secondItem="CFi-dy-MdT" secondAttribute="trailing" id="ynI-OD-LoL"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" id="w39-mN-1wJ">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gfa-gb-11u">
+                            <rect key="frame" x="11" y="11" width="218" height="106"/>
+                            <string key="text">Important Legal Notice: This follower and income potential simulations calculators are instead for illustrative and educational purpose only and in no way guarantees any specific growth pattern or income earnings.  </string>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <viewLayoutGuide key="safeArea" id="QmH-hh-dro"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="gfa-gb-11u" firstAttribute="leading" secondItem="QmH-hh-dro" secondAttribute="leading" constant="11" id="6S0-kn-9F5"/>
+                        <constraint firstItem="QmH-hh-dro" firstAttribute="bottom" secondItem="gfa-gb-11u" secondAttribute="bottom" constant="11" id="9P3-U8-mGu"/>
+                        <constraint firstItem="QmH-hh-dro" firstAttribute="trailing" secondItem="gfa-gb-11u" secondAttribute="trailing" constant="11" id="AP0-Cs-LH1"/>
+                        <constraint firstItem="gfa-gb-11u" firstAttribute="top" secondItem="w39-mN-1wJ" secondAttribute="top" constant="11" id="eHn-06-nZc"/>
                     </constraints>
                 </view>
             </objects>
@@ -1958,7 +2027,7 @@
                                     <action selector="btnCalculateTapped:" destination="8Qf-Fn-ZKu" eventType="touchUpInside" id="x3r-tr-d9O"/>
                                 </connections>
                             </button>
-                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="DlT-KF-TDl">
+                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="DlT-KF-TDl">
                                 <rect key="frame" x="8" y="419" width="398" height="467"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="incomeCalculatorFourTableViewCell" rowHeight="123" id="ais-k6-Um9" customClass="IncomeCalculatorFourTableViewCell" customModule="BoomiCam" customModuleProvider="target">
@@ -2319,6 +2388,7 @@
                         <outlet property="lblFixedInAppPurchase" destination="Y8H-u0-NWJ" id="r9p-fk-Dyg"/>
                         <outlet property="lblInAppPurchase" destination="ate-VG-EJt" id="Ll7-sh-Pso"/>
                         <outlet property="lblInnerCircleLimit" destination="hE7-vh-Rqo" id="bGI-jj-tBd"/>
+                        <outlet property="lblLegal" destination="tfy-iM-emg" id="2ui-yg-jcj"/>
                         <outlet property="lblPercentage" destination="mha-YW-AO9" id="JfU-XB-7Jw"/>
                         <outlet property="lblPotentialIncome" destination="qtW-aM-4zO" id="Ow1-Ko-M8X"/>
                         <outlet property="lblTotalFollowers" destination="ZTe-kJ-W3R" id="yaM-Na-we4"/>
@@ -2327,6 +2397,7 @@
                         <outlet property="tableHeaderView" destination="wZt-GJ-Q8a" id="6iy-Jq-W4t"/>
                         <outlet property="tableSectionHeaderView" destination="uLo-ww-G8v" id="0Au-No-IVn"/>
                         <outlet property="tableview" destination="DlT-KF-TDl" id="fZt-cR-ADm"/>
+                        <outlet property="viewLegalNotice" destination="r7P-Oh-gai" id="THP-su-att"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pUV-jy-UK1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2453,6 +2524,27 @@ income</string>
                         <constraint firstItem="gOD-Xm-MhB" firstAttribute="leading" secondItem="uLo-ww-G8v" secondAttribute="leading" constant="14" id="RNg-TR-xCz"/>
                         <constraint firstItem="gOD-Xm-MhB" firstAttribute="top" secondItem="uLo-ww-G8v" secondAttribute="top" constant="14" id="da2-dB-gKJ"/>
                         <constraint firstItem="nEj-jj-25n" firstAttribute="trailing" secondItem="t1m-EC-v3t" secondAttribute="trailing" constant="11" id="rDu-Si-HRX"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" id="r7P-Oh-gai">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tfy-iM-emg">
+                            <rect key="frame" x="11" y="11" width="218" height="106"/>
+                            <string key="text">Important Legal Notice: This follower and income potential simulations calculators are instead for illustrative and educational purpose only and in no way guarantees any specific growth pattern or income earnings.  </string>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <viewLayoutGuide key="safeArea" id="Ehf-J7-nfh"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="Ehf-J7-nfh" firstAttribute="trailing" secondItem="tfy-iM-emg" secondAttribute="trailing" constant="11" id="2UG-Qm-JsY"/>
+                        <constraint firstItem="tfy-iM-emg" firstAttribute="leading" secondItem="Ehf-J7-nfh" secondAttribute="leading" constant="11" id="etv-kC-7js"/>
+                        <constraint firstItem="Ehf-J7-nfh" firstAttribute="bottom" secondItem="tfy-iM-emg" secondAttribute="bottom" constant="11" id="lmG-hU-wum"/>
+                        <constraint firstItem="tfy-iM-emg" firstAttribute="top" secondItem="r7P-Oh-gai" secondAttribute="top" constant="11" id="wRx-4U-9Uz"/>
                     </constraints>
                 </view>
             </objects>
@@ -3703,16 +3795,16 @@ income</string>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Deh-fR-o4H">
-                                <rect key="frame" x="46" y="334" width="322" height="238.5"/>
+                                <rect key="frame" x="46" y="335" width="322" height="236.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oft-dl-NI7">
-                                        <rect key="frame" x="27" y="33" width="268" height="24"/>
+                                        <rect key="frame" x="27" y="33" width="268" height="23.5"/>
                                         <fontDescription key="fontDescription" name="SFUIText-Semibold" family="SF UI Text" pointSize="20"/>
                                         <color key="textColor" red="0.99215686270000003" green="0.99215686270000003" blue="0.99215686270000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ypp-JH-waQ">
-                                        <rect key="frame" x="106" y="170.5" width="110" height="45"/>
+                                        <rect key="frame" x="106" y="168.5" width="110" height="45"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="110" id="bAZ-1d-lOv"/>
@@ -3732,7 +3824,7 @@ income</string>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="imH-X4-xSn">
-                                        <rect key="frame" x="27" y="90" width="268" height="57.5"/>
+                                        <rect key="frame" x="27" y="89.5" width="268" height="56"/>
                                         <fontDescription key="fontDescription" name="SFUIText-Semibold" family="SF UI Text" pointSize="48"/>
                                         <color key="textColor" red="0.99215686270000003" green="0.99215686270000003" blue="0.99215686270000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -3793,7 +3885,7 @@ income</string>
         <image name="potentialcalculator" width="55" height="55"/>
         <image name="storyBack" width="19" height="19"/>
         <namedColor name="AppBackgroundColor">
-            <color red="0.10980392156862745" green="0.15294117647058825" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.10999999940395355" green="0.15299999713897705" blue="0.23899999260902405" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
             <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

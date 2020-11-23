@@ -220,3 +220,21 @@ extension Notification.Name {
     static let switchChannel = Notification.Name("SwitchChannel")
     
 }
+
+extension UILabel {
+    
+    func setCalculatorLegalText() {
+        let calculatorLegalText = R.string.localizable.calculatorLegalText()
+        let attributedString = NSMutableAttributedString(string: calculatorLegalText, attributes: [
+          .font: UIFont.systemFont(ofSize: 12.0, weight: .light),
+            .foregroundColor: R.color.calculatorLegalLightColor()
+        ])
+        attributedString.addAttributes([
+          .font: UIFont.systemFont(ofSize: 12.0, weight: .medium),
+            .foregroundColor: R.color.calculatorLegalBoldColor()
+        ], range: NSRange(location: 0, length: 22))
+        attributedString.addAttribute(.foregroundColor, value: R.color.calculatorLegalBoldColor(), range: NSRange(location: 22, length: 1))
+        self.attributedText = attributedString
+    }
+    
+}
