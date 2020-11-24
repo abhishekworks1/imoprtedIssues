@@ -109,11 +109,12 @@ class SignUpStepOneViewController: UIViewController {
         }
         
         setupDefaultDropDown()
-        setColorTextField(views: [txtEmail, txtPassWord, txtRefChannel])
+        setColorTextField(views: [txtChannel, txtEmail, txtPassWord, txtRefChannel])
+        setupChannel()
         setupRefChannel()
         setupEmailField()
         
-        self.lblCount.text = "\(String(describing: self.txtChannel.text?.count ?? 0))/25"
+        self.lblCount.text = "\(String(describing: self.txtChannel.text?.count ?? 0))/\(Constant.Value.maxChannelName)"
     }
     
     func setupDefaultDropDown() {
@@ -122,6 +123,25 @@ class SignUpStepOneViewController: UIViewController {
         dropDownMenu.anchorView = txtRefChannel
         dropDownMenu.topOffset = CGPoint(x: 0, y: -50)
         dropDownMenu.direction = .top
+    }
+    
+    func setupChannel() {
+        let isExistChannel = self.txtChannel?.rx.text.orEmpty.filter { $0.count > 6}.throttle(0.5, scheduler: MainScheduler.instance).distinctUntilChanged().flatMapLatest( { (channel: String) -> Observable<Result<User>> in
+            return ProManagerApi
+                .verifyChannel(channel: channel, type: "channelId")
+                .request(Result<User>.self)
+        })
+        isExistChannel?.subscribe(onNext: { user in
+            if user.status == ResponseType.success {
+                self.isChannel = true
+            } else {
+                self.isChannel = false
+                self.dismissHUDWithError(R.string.localizable.channelNameAlreadyExist())
+            }
+        }, onError: { _ in
+            self.showAlert(alertMessage: R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+        }, onCompleted: {
+        }).disposed(by: rx.disposeBag)
     }
     
     func setupRefChannel() {
@@ -167,7 +187,7 @@ class SignUpStepOneViewController: UIViewController {
                 }
                 self.dropDownMenu.customCellConfiguration = { (index: Index, item: String, cell: DropDownCell) -> Void in
                     guard let cell = cell as? MyCell else { return }
-                    cell.logoImageView.setImageFromURL(channels[index].profileThumbnail, placeholderImage: R.image.userBitmoji())
+                    cell.logoImageView.setImageFromURL(channels[index].profileImageURL, placeholderImage: R.image.userBitmoji())
                 }
                 self.dropDownMenu.show()
                 print("true")
@@ -241,11 +261,16 @@ class SignUpStepOneViewController: UIViewController {
         guard let email = txtEmail.text,
             let password = txtPassWord.text,
             let birthdate = txtBirthdate.text,
-            let refChannel = txtRefChannel.text else {
+            let refChannel = txtRefChannel.text,
+            let channel = txtChannel.text else {
                 return
         }
         let passwordValidation = NSPredicate(format: "SELF MATCHES %@ ", "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&#])[A-Za-z\\d$@$!%*?&#]{8,35}")
-        if email.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
+        if channel.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
+            self.showAlert(alertMessage: R.string.localizable.pleaseEnterUniqueChannelName())
+        } else if channel.trimmingCharacters(in: .whitespacesAndNewlines).count <= Constant.Value.minChannelName {
+            self.showAlert(alertMessage: R.string.localizable.channelNameMustBeOf1630Characters())
+        } else if email.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
             self.showAlert(alertMessage: R.string.localizable.pleaseEnterEmail())
         } else if !email.isValidEmail() {
             self.showAlert(alertMessage: R.string.localizable.pleaseEnterValidEmail())
@@ -259,6 +284,8 @@ class SignUpStepOneViewController: UIViewController {
             self.showAlert(alertMessage: "Enter Valid Password")
         } else if refChannel.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
             self.showAlert(alertMessage: R.string.localizable.pleaseEnterTheNameOfYourReferringChannelIfYouDoNotHaveOneUseTheSearchFeatureToFindAChannelToUse())
+        } else if !isChannel {
+            self.showAlert(alertMessage: R.string.localizable.channelNameAlreadyExist())
         } else if !self.isRefChannel {
             self.showAlert(alertMessage: R.string.localizable.referringChannelDoesNotExist())
         } else {
@@ -275,7 +302,7 @@ class SignUpStepOneViewController: UIViewController {
             } else if profileImg == ApplicationSettings.shared.postURL {
                 profileImageURL = profileImg
             }
-            ProManagerApi.signUp(email: email, password: password, channel: email, refChannel: refChannel, isBusiness: isBusiness, socialId: socialId, provider: provider, channelName: email, refferId: self.refereUserId,deviceToken: "", birthDate: birthdate, profileImageURL: profileImageURL).request(Result<User>.self).subscribe(onNext: { result in
+            ProManagerApi.signUp(email: email, password: password, channel: channel, refChannel: refChannel, isBusiness: isBusiness, socialId: socialId, provider: provider, channelName: channel, refferId: self.refereUserId, deviceToken: "", birthDate: birthdate, profileImageURL: profileImageURL).request(Result<User>.self).subscribe(onNext: { result in
                 self.dismissHUD()
                 if result.status == ResponseType.success {
                     Defaults.shared.sessionToken = result.sessionToken
@@ -386,15 +413,15 @@ extension SignUpStepOneViewController : UITextFieldDelegate {
             }
             let txt = (textField.text! as NSString).replacingCharacters(in: range, with: string)
             
-            if txt.count < 4 {
+            if txt.count <= Constant.Value.minChannelName {
                 self.viewChannelBox.isHidden = true
                 self.lblCount.textColor = UIColor.red
                 self.isChannel = false
             } else {
                 self.lblCount.textColor = ApplicationSettings.appPrimaryColor
             }
-            self.lblCount.text = "\(txt.count)/25"
-            if txt.count >= 25 {
+            self.lblCount.text = "\(txt.count)/\(Constant.Value.maxChannelName)"
+            if txt.count >= Constant.Value.maxChannelName {
                 return false
             }
         } else if txtRefChannel == textField {
@@ -405,7 +432,7 @@ extension SignUpStepOneViewController : UITextFieldDelegate {
                 return false
             }
             let txt = (textField.text! as NSString).replacingCharacters(in: range, with: string)
-            if txt.count < 4 {
+            if txt.count <= Constant.Value.minChannelName {
                 self.isRefChannel = false
             }
         }

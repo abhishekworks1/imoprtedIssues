@@ -549,6 +549,11 @@ class API {
 
 public struct Constant {
     
+    struct Value {
+        static let maxChannelName = 30
+        static let minChannelName = 16
+    }
+    
     struct AWS {
         // Client Bucket
         static let poolID = "us-west-2:4918c1f8-d173-4668-8891-d6892a147259"

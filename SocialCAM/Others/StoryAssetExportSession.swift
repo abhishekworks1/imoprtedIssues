@@ -348,9 +348,9 @@ class StoryAssetExportSession {
                 image = R.image.snapcamWatermarkLogo()
             }
         } else if isSnapCamLiteApp {
-            image = R.image.snapcamWatermarkLogo()
+            image = R.image.snapcamLiteWatermarkLogo()
             if watermarkPosition == .topLeft {
-                image = R.image.snapcamWatermarkLogo()
+                image = R.image.snapcamLiteWatermarkLogo()
             }
         } else if isSpeedCamApp || isSpeedCamLiteApp {
             image = R.image.wmSpeedCamLogo()
