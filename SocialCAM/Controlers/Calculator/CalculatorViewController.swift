@@ -70,6 +70,12 @@ class CalculatorViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let calcConfig = Defaults.shared.calculatorConfig {
+            self.configureUI(configuration: calcConfig)
+        } else {
+            self.showHUD()
+            self.view.isUserInteractionEnabled = false
+        }
         self.getWebsiteId { [weak self] (type) in
             guard let `self` = self else { return }
             self.getCalculatorConfig(type: type)
@@ -122,6 +128,14 @@ class CalculatorViewController: UIViewController {
     // MARK: -
     // MARK: - Class Functions
     
+    private func configureUI(configuration: [CalculatorConfigurationData]?) {
+        if let calcConfig = configuration?.first(where: { $0.type == "potential_followers"}) {
+            self.innerCircleSlider.maximumValue = Float(calcConfig.maxLevel ?? 0)
+            self.extendedCircleSlider.maximumValue = Float(calcConfig.maxRefer ?? 0)
+            self.percentage = calcConfig.percentage ?? 0
+        }
+    }
+    
     private func validateAndCalculate() {
         self.view.endEditing(true)
         self.referCount = Int(self.innerCircleSlider.value)
@@ -145,11 +159,8 @@ class CalculatorViewController: UIViewController {
     private func getCalculatorConfig(type: String) {
         if UIApplication.checkInternetConnection() {
             ProManagerApi.getCalculatorConfig(type: type).request(CalculatorConfigurationModel.self).subscribe(onNext: { (response) in
-                if let calcConfig = response.result?.first(where: { $0.type == "potential_followers"}) {
-                    self.innerCircleSlider.maximumValue = Float(calcConfig.maxLevel ?? 0)
-                    self.extendedCircleSlider.maximumValue = Float(calcConfig.maxRefer ?? 0)
-                    self.percentage = calcConfig.percentage ?? 0
-                }
+                Defaults.shared.calculatorConfig = response.result
+                self.configureUI(configuration: response.result)
                 self.dismissHUD()
             }, onError: { error in
                 self.dismissHUD()

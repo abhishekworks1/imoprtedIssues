@@ -117,8 +117,6 @@ extension UIViewController {
     
     func getWebsiteId(completion: @escaping (String) -> ()) {
         if UIApplication.checkInternetConnection() {
-            ProgressHUD.show()
-            self.view.isUserInteractionEnabled = false
             ProManagerApi.getWebsiteData.request(WebsiteDataModel.self).subscribe(onNext: { (response) in
                 if let type = response.result?.result?.first(where: { $0.name == WebsiteData.websiteName })?.id {
                     completion(type)

@@ -79,6 +79,7 @@ class IncomeCalculatorFourViewController: UIViewController {
             self.lblPercentage.text = percentage.description + "%"
         }
     }
+    private var calculatorType = CalculatorType.incomeFour
     private var inAppPurchase = 0 {
         didSet {
             self.inAppSlider.value = Float(inAppPurchase)
@@ -98,6 +99,12 @@ class IncomeCalculatorFourViewController: UIViewController {
         super.viewDidLoad()
         self.tableview.tableFooterView = viewLegalNotice
         self.tableview.tableHeaderView = tableHeaderView
+        if let calcConfig = Defaults.shared.calculatorConfig {
+            self.configureUI(configuration: calcConfig)
+        } else {
+            self.showHUD()
+            self.view.isUserInteractionEnabled = false
+        }
         self.getWebsiteId { [weak self] (type) in
             guard let `self` = self else { return }
             self.getCalculatorConfig(type: type)
@@ -156,6 +163,15 @@ class IncomeCalculatorFourViewController: UIViewController {
     // MARK: -
     // MARK: - Class Functions
     
+    private func configureUI(configuration: [CalculatorConfigurationData]?) {
+        if let calcConfig = configuration?.first(where: { $0.type == self.calculatorType.rawValue}) {
+            self.innerCircleSlider.maximumValue = Float(calcConfig.maxPersonal ?? 0)
+            self.extendedCircleSlider.maximumValue = Float(calcConfig.maxExtended ?? 0)
+            self.inAppSlider.maximumValue = Float(calcConfig.inAppPurchaseLimit ?? 0)
+            self.percentageArray = calcConfig.levelsArray ?? []
+        }
+    }
+    
     private func configureUiForLiteApps() {
         if isLiteApp {
             self.inAppPurchaseTopConstraint.constant = 20
@@ -213,12 +229,8 @@ class IncomeCalculatorFourViewController: UIViewController {
     private func getCalculatorConfig(type: String) {
         if UIApplication.checkInternetConnection() {
             ProManagerApi.getCalculatorConfig(type: type).request(CalculatorConfigurationModel.self).subscribe(onNext: { (response) in
-                if let calcConfig = response.result?.first(where: { $0.type == "potential_income_4"}) {
-                    self.innerCircleSlider.maximumValue = Float(calcConfig.maxPersonal ?? 0)
-                    self.extendedCircleSlider.maximumValue = Float(calcConfig.maxExtended ?? 0)
-                    self.inAppSlider.maximumValue = Float(calcConfig.inAppPurchaseLimit ?? 0)
-                    self.percentageArray = calcConfig.levelsArray ?? []
-                }
+                self.configureUI(configuration: response.result)
+                Defaults.shared.calculatorConfig = response.result
                 self.dismissHUD()
             }, onError: { error in
                 self.dismissHUD()

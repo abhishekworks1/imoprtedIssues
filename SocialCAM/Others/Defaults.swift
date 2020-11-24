@@ -179,6 +179,27 @@ class Defaults {
     static let shared = Defaults()
     
     let appDefaults = UserDefaults(suiteName: Constant.Application.groupIdentifier)
+    let userDefaults = UserDefaults()
+    
+    var calculatorConfig: [CalculatorConfigurationData]? {
+        get {
+            if let calculatorConfig = userDefaults.object(forKey: "calculatorConfig") as? Data {
+                let decoder = JSONDecoder()
+                return try? decoder.decode([CalculatorConfigurationData].self, from: calculatorConfig)
+            }
+            return nil
+        }
+        set {
+            let encoder = JSONEncoder()
+            if let encoded = try? encoder.encode(newValue) {
+                userDefaults.set(encoded, forKey: "calculatorConfig")
+                userDefaults.synchronize()
+            } else {
+                userDefaults.set(nil, forKey: "calculatorConfig")
+                userDefaults.synchronize()
+            }
+        }
+    }
     
     var postViralCamModel: CreatePostViralCam? {
         get {

@@ -104,6 +104,19 @@ class BusinessVC: UIViewController {
         }
         
         navigationTitle.text = navTitle + " " + R.string.localizable.businessCenter()
+        
+        self.getWebsiteId { [weak self] (type) in
+            guard let `self` = self else { return }
+            if UIApplication.checkInternetConnection() {
+                ProManagerApi.getCalculatorConfig(type: type).request(CalculatorConfigurationModel.self).subscribe(onNext: { (response) in
+                    Defaults.shared.calculatorConfig = response.result
+                }, onError: { error in
+                }, onCompleted: {
+                }).disposed(by: self.rx.disposeBag)
+            } else {
+                self.showAlert(alertMessage: R.string.localizable.nointernetconnectioN())
+            }
+        }
     }
     
     @IBAction func onBack(_ sender: UIButton) {
