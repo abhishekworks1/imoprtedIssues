@@ -108,6 +108,12 @@ class IncomeCalculatorOneViewController: UIViewController {
         self.tableview.tableFooterView = viewLegalNotice
         self.lblNavigationTitle.text = calculatorType.getNavigationTitle()
         setupUiForLiteApp()
+        if let calcConfig = Defaults.shared.calculatorConfig {
+            self.configureUI(configuration: calcConfig)
+        } else {
+            self.showHUD()
+            self.view.isUserInteractionEnabled = false
+        }
         self.getWebsiteId { [weak self] (type) in
             guard let `self` = self else { return }
             self.getCalculatorConfig(type: type)
@@ -211,18 +217,23 @@ class IncomeCalculatorOneViewController: UIViewController {
         }
     }
     
+    private func configureUI(configuration: [CalculatorConfigurationData]?) {
+        if let calcConfig = configuration?.first(where: { $0.type == self.calculatorType.rawValue }) {
+            self.levelOneRefferalsSlider.maximumValue = Float(calcConfig.maxLevel1 ?? 0)
+            self.levelTwoRefferalsSlider.maximumValue = Float(calcConfig.maxLevel2 ?? 0)
+            self.levelThreeRefferalsSlider.maximumValue = Float(calcConfig.maxLevel3 ?? 0)
+            self.inAppSlider.maximumValue = Float(calcConfig.inAppPurchaseLimit ?? 0)
+            self.levelOnePercentage = calcConfig.levelsArray?[0] ?? 0
+            self.levelTwoPercentage = calcConfig.levelsArray?[1] ?? 0
+            self.levelThreePercentage = calcConfig.levelsArray?[2] ?? 0
+        }
+    }
+    
     private func getCalculatorConfig(type: String) {
         if UIApplication.checkInternetConnection() {
             ProManagerApi.getCalculatorConfig(type: type).request(CalculatorConfigurationModel.self).subscribe(onNext: { (response) in
-                if let calcConfig = response.result?.first(where: { $0.type == self.calculatorType.rawValue }) {
-                    self.levelOneRefferalsSlider.maximumValue = Float(calcConfig.maxLevel1 ?? 0)
-                    self.levelTwoRefferalsSlider.maximumValue = Float(calcConfig.maxLevel2 ?? 0)
-                    self.levelThreeRefferalsSlider.maximumValue = Float(calcConfig.maxLevel3 ?? 0)
-                    self.inAppSlider.maximumValue = Float(calcConfig.inAppPurchaseLimit ?? 0)
-                    self.levelOnePercentage = calcConfig.levelsArray?[0] ?? 0
-                    self.levelTwoPercentage = calcConfig.levelsArray?[1] ?? 0
-                    self.levelThreePercentage = calcConfig.levelsArray?[2] ?? 0
-                }
+                self.configureUI(configuration: response.result)
+                Defaults.shared.calculatorConfig = response.result
                 self.dismissHUD()
             }, onError: { error in
                 self.dismissHUD()

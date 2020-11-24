@@ -9,7 +9,7 @@
 import Foundation
 import ObjectMapper
 
-class CalculatorConfigurationModel: NSObject, NSCoding, Mappable {
+class CalculatorConfigurationModel: NSObject, NSCoding, Mappable, Codable {
 
     var code: Int?
     var message: String?
@@ -65,7 +65,7 @@ class CalculatorConfigurationModel: NSObject, NSCoding, Mappable {
 
 }
 
-class CalculatorConfigurationData: NSObject, NSCoding, Mappable {
+class CalculatorConfigurationData: NSObject, NSCoding, Mappable, Codable {
 
     var id: String?
     var createdAt: String?
@@ -85,6 +85,27 @@ class CalculatorConfigurationData: NSObject, NSCoding, Mappable {
     var updatedAt: String?
     var levelsArray: [Int]?
     var inAppPurchaseLimit: Int?
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "id"
+        case createdAt = "createdAt"
+        case levels = "levels"
+        case maxAverageRefer = "maxAverageRefer"
+        case maxExtended = "maxExtended"
+        case maxLevel = "maxLevel"
+        case maxLevel1 = "maxLevel1"
+        case maxLevel2 = "maxLevel2"
+        case maxLevel3 = "maxLevel3"
+        case maxPersonal = "maxPersonal"
+        case maxRefer = "maxRefer"
+        case months = "months"
+        case name = "name"
+        case percentage = "percentage"
+        case type = "type"
+        case updatedAt = "updatedAt"
+        case levelsArray = "levelsArray"
+        case inAppPurchaseLimit = "inAppPurchaseLimit"
+    }
     
     class func newInstance(map: Map) -> Mappable? {
         return CalculatorConfigurationData()
@@ -135,7 +156,7 @@ class CalculatorConfigurationData: NSObject, NSCoding, Mappable {
         percentage = aDecoder.decodeObject(forKey: "percentage") as? Int
         type = aDecoder.decodeObject(forKey: "type") as? String
         updatedAt = aDecoder.decodeObject(forKey: "updatedAt") as? String
-        levelsArray = aDecoder.decodeBool(forKey: "levelsArray") as? [Int]
+        levelsArray = aDecoder.decodeObject(forKey: "levelsArray") as? [Int]
         inAppPurchaseLimit = aDecoder.decodeObject(forKey: "inAppPurchaseLimit") as? Int
     }
 
@@ -202,7 +223,7 @@ class CalculatorConfigurationData: NSObject, NSCoding, Mappable {
 
 }
 
-class Level: NSObject, NSCoding, Mappable {
+class Level: NSObject, NSCoding, Mappable, Codable {
 
     var level1: Int?
     var level10: Int?
@@ -214,6 +235,19 @@ class Level: NSObject, NSCoding, Mappable {
     var level7: Int?
     var level8: Int?
     var level9: Int?
+    
+    enum CodingKeys: String, CodingKey {
+        case level1 = "level1"
+        case level2 = "level2"
+        case level3 = "level3"
+        case level4 = "level4"
+        case level5 = "level5"
+        case level6 = "level6"
+        case level7 = "level7"
+        case level8 = "level8"
+        case level9 = "level9"
+        case level10 = "level10"
+    }
 
     class func newInstance(map: Map) -> Mappable? {
         return Level()
