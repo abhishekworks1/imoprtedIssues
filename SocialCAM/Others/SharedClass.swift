@@ -526,18 +526,24 @@ class API {
             case .debug, .alpha:
                 if isFastCamApp || isFastCamLiteApp {
                     baseUrlString = "https://api.alpha.fastcam.app/api/"
+                } else if isSnapCamApp || isSnapCamLiteApp {
+                    baseUrlString = "https://api.alpha.snapcam.app/api/"
                 } else {
                     baseUrlString = "https://demo-api.austinconversionoptimization.com/api/"
                 }
             case .beta:
                 if isFastCamApp || isFastCamLiteApp {
                     baseUrlString = "https://api.beta.fastcam.app/api/"
+                } else if isSnapCamApp || isSnapCamLiteApp {
+                    baseUrlString = "https://api.beta.snapcam.app/api/"
                 } else {
                     baseUrlString = "https://demo-api.austinconversionoptimization.com/api/"
                 }
             case .store:
                 if isFastCamApp || isFastCamLiteApp {
                     baseUrlString = "https://api.fastcam.app/api/"
+                } else if isSnapCamApp || isSnapCamLiteApp {
+                    baseUrlString = "https://api.snapcam.app/api/"
                 } else {
                     baseUrlString = "https://demo-api.austinconversionoptimization.com/api/"
                 }
