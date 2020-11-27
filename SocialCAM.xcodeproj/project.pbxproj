@@ -11463,6 +11463,7 @@
 		F6C05E3024E299F70018E8DA /* QuickCamLiteLauchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6C05E2F24E296180018E8DA /* QuickCamLiteLauchScreen.storyboard */; };
 		F6C05E3124E29A820018E8DA /* QuickCamLiteLauchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6C05E2F24E296180018E8DA /* QuickCamLiteLauchScreen.storyboard */; };
 		F6CC60E3251C674B00934303 /* GoogleService-SpeedCamLiteInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = F6CC60E2251C674B00934303 /* GoogleService-SpeedCamLiteInfo.plist */; };
+		F6CE1B97256FCE50003F8CDF /* BridgingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6CE1B96256FCE50003F8CDF /* BridgingViewController.swift */; };
 		F6DA88DE24CA8FEE008D4764 /* InstagramMediaDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6DA88DD24CA8FEE008D4764 /* InstagramMediaDownloader.swift */; };
 		F6DA88DF24CAA16B008D4764 /* InstagramMediaDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6DA88DD24CA8FEE008D4764 /* InstagramMediaDownloader.swift */; };
 		F6DA88E024CAA16E008D4764 /* InstagramMediaDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6DA88DD24CA8FEE008D4764 /* InstagramMediaDownloader.swift */; };
@@ -12533,6 +12534,7 @@
 		F6C05E2E24E294F80018E8DA /* QuickCamLite-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "QuickCamLite-Info.plist"; sourceTree = "<group>"; };
 		F6C05E2F24E296180018E8DA /* QuickCamLiteLauchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = QuickCamLiteLauchScreen.storyboard; sourceTree = "<group>"; };
 		F6CC60E2251C674B00934303 /* GoogleService-SpeedCamLiteInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-SpeedCamLiteInfo.plist"; sourceTree = "<group>"; };
+		F6CE1B96256FCE50003F8CDF /* BridgingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgingViewController.swift; sourceTree = "<group>"; };
 		F6D351D424DABC3000520FFD /* ViralvidsLite-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ViralvidsLite-Info.plist"; sourceTree = "<group>"; };
 		F6D3548F24DAC21D00520FFD /* ViralCamLite-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ViralCamLite-Info.plist"; sourceTree = "<group>"; };
 		F6DA88DD24CA8FEE008D4764 /* InstagramMediaDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramMediaDownloader.swift; sourceTree = "<group>"; };
@@ -14056,6 +14058,7 @@
 				8205FB12236C14C7002B2603 /* Localizable.strings */,
 				824AC20E250A2875008F3F33 /* AllColors.xcassets */,
 				82F3FCE025345B9600488755 /* WatermarksMedia.xcassets */,
+				F6CE1B96256FCE50003F8CDF /* BridgingViewController.swift */,
 			);
 			path = SocialCAM;
 			sourceTree = "<group>";
@@ -21038,6 +21041,7 @@
 				820BFB6723E7EB100087B38E /* ProfileDetailsResponse.swift in Sources */,
 				9546605C2387B5CC00A37AE0 /* CropBoxLockedAspectFrameUpdater.swift in Sources */,
 				8205FB0D236C121F002B2603 /* LocationManager.swift in Sources */,
+				F6CE1B97256FCE50003F8CDF /* BridgingViewController.swift in Sources */,
 				82D1EBA4236FED1700A680E7 /* EmojiCollectionViewDelegate.swift in Sources */,
 				239D60EA2447161E00650816 /* SearchDropDown.swift in Sources */,
 				824EB3E623619FB000205993 /* NextLevel+Foundation.swift in Sources */,
@@ -28960,7 +28964,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 023AAE1BAA3564793D187707 /* Pods-Viralvids.debug.xcconfig */;
 			buildSettings = {
-				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = Viralvids/Viralvids.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -28987,7 +28990,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6EF64607989E26E4BDA4C801 /* Pods-Viralvids.release.xcconfig */;
 			buildSettings = {
-				BITCODE_GENERATION_MODE = bitcode;
 				CODE_SIGN_ENTITLEMENTS = Viralvids/Viralvids.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -29084,7 +29086,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6D00DCDAFBB84B8BA9422C87 /* Pods-SocialCamMediaShare.debug.xcconfig */;
 			buildSettings = {
-				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = SocialCamMediaShare/SocialCamMediaShare.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -29112,7 +29113,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2C5385B7FB968013B59EAA97 /* Pods-SocialCamMediaShare.release.xcconfig */;
 			buildSettings = {
-				BITCODE_GENERATION_MODE = bitcode;
 				CODE_SIGN_ENTITLEMENTS = SocialCamMediaShare/SocialCamMediaShare.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -29141,7 +29141,6 @@
 			baseConfigurationReference = C2E9A9C2CD90D7949E392D19 /* Pods-SocialCamShare.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(EMBEDDED_CONTENT_CONTAINS_SWIFT) $(inherited)";
-				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = SocialCamShare/SocialCamShare.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -29170,7 +29169,6 @@
 			baseConfigurationReference = 79C5A4018CB826CF0CA0F7B1 /* Pods-SocialCamShare.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(EMBEDDED_CONTENT_CONTAINS_SWIFT) $(inherited)";
-				BITCODE_GENERATION_MODE = bitcode;
 				CODE_SIGN_ENTITLEMENTS = SocialCamShare/SocialCamShare.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -29398,6 +29396,7 @@
 				CURRENT_PROJECT_VERSION = 35;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/SocialCAM/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -29430,6 +29429,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 35;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/SocialCAM/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -29523,7 +29523,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1E35B420E5A499896E03FE8A /* Pods-SocialVids.debug.xcconfig */;
 			buildSettings = {
-				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = SocialVids/SocialVids.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -29550,7 +29549,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 43B97E0AA708ED21C943F925 /* Pods-SocialVids.release.xcconfig */;
 			buildSettings = {
-				BITCODE_GENERATION_MODE = bitcode;
 				CODE_SIGN_ENTITLEMENTS = SocialVids/SocialVids.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -29713,13 +29711,14 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				BITCODE_GENERATION_MODE = bitcode;
+				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 35;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/SocialCAM/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -29746,7 +29745,6 @@
 			baseConfigurationReference = C1B80AB1D98CE08F7C86DE9C /* Pods-SocialCamShare.alpha.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(EMBEDDED_CONTENT_CONTAINS_SWIFT) $(inherited)";
-				BITCODE_GENERATION_MODE = bitcode;
 				CODE_SIGN_ENTITLEMENTS = SocialCamShare/SocialCamShare.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -29775,7 +29773,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FD8EAB22BDACFC3F8C03F585 /* Pods-SocialCamMediaShare.alpha.xcconfig */;
 			buildSettings = {
-				BITCODE_GENERATION_MODE = bitcode;
 				CODE_SIGN_ENTITLEMENTS = SocialCamMediaShare/SocialCamMediaShare.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -29804,7 +29801,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FBA854242A2A722DA9F5A4C5 /* Pods-SocialVids.alpha.xcconfig */;
 			buildSettings = {
-				BITCODE_GENERATION_MODE = bitcode;
 				CODE_SIGN_ENTITLEMENTS = SocialVids/SocialVids.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -29834,7 +29830,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Pic2Art";
-				BITCODE_GENERATION_MODE = bitcode;
+				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -29868,7 +29864,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 31974CCF361ADE2507BABFAD /* Pods-Pic2ArtShare.alpha.xcconfig */;
 			buildSettings = {
-				BITCODE_GENERATION_MODE = bitcode;
 				CODE_SIGN_ENTITLEMENTS = Pic2ArtShare/Pic2ArtShare.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -29897,7 +29892,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-TimeSpeed";
-				BITCODE_GENERATION_MODE = bitcode;
+				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -29933,7 +29928,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-BoomiCam";
-				BITCODE_GENERATION_MODE = bitcode;
+				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -29969,7 +29964,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-SoccerCam";
-				BITCODE_GENERATION_MODE = bitcode;
+				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -30005,7 +30000,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-SoccerCam";
-				BITCODE_GENERATION_MODE = bitcode;
+				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -30041,7 +30036,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-ViralCam";
-				BITCODE_GENERATION_MODE = bitcode;
+				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -30075,7 +30070,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6454ECF0A515056C19E8406F /* Pods-Viralvids.alpha.xcconfig */;
 			buildSettings = {
-				BITCODE_GENERATION_MODE = bitcode;
 				CODE_SIGN_ENTITLEMENTS = Viralvids/Viralvids.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -30105,7 +30099,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-ViralCamLite";
-				BITCODE_GENERATION_MODE = bitcode;
+				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -30139,7 +30133,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 20EC380553B245AE11BC9C88 /* Pods-ViralvidsLite.alpha.xcconfig */;
 			buildSettings = {
-				BITCODE_GENERATION_MODE = bitcode;
 				CODE_SIGN_ENTITLEMENTS = Viralvids/Viralvids.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -30169,7 +30162,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-FastCam";
-				BITCODE_GENERATION_MODE = bitcode;
+				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -30205,7 +30198,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-FastCamLite";
-				BITCODE_GENERATION_MODE = bitcode;
+				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -30241,7 +30234,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-QuickCam";
-				BITCODE_GENERATION_MODE = bitcode;
+				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -30277,7 +30270,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-QuickCamLite";
-				BITCODE_GENERATION_MODE = bitcode;
+				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -30313,7 +30306,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-SpeedCam";
-				BITCODE_GENERATION_MODE = bitcode;
+				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -30348,7 +30341,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-SpeedCamLite";
-				BITCODE_GENERATION_MODE = bitcode;
+				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -30384,7 +30377,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-SnapCam";
-				BITCODE_GENERATION_MODE = bitcode;
+				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -30420,11 +30413,11 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-SnapCamLite";
-				BITCODE_GENERATION_MODE = bitcode;
+				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 54;
+				CURRENT_PROJECT_VERSION = 56;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				ENABLE_BITCODE = NO;
@@ -30521,13 +30514,14 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				BITCODE_GENERATION_MODE = bitcode;
+				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 35;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/SocialCAM/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -30554,7 +30548,6 @@
 			baseConfigurationReference = 4DD9F6E0FBB2670F630D8C5A /* Pods-SocialCamShare.beta.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(EMBEDDED_CONTENT_CONTAINS_SWIFT) $(inherited)";
-				BITCODE_GENERATION_MODE = bitcode;
 				CODE_SIGN_ENTITLEMENTS = SocialCamShare/SocialCamShare.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -30583,7 +30576,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 952DF87A8B5905883A447E16 /* Pods-SocialCamMediaShare.beta.xcconfig */;
 			buildSettings = {
-				BITCODE_GENERATION_MODE = bitcode;
 				CODE_SIGN_ENTITLEMENTS = SocialCamMediaShare/SocialCamMediaShare.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -30612,7 +30604,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FCC6CF3F23150F342148454C /* Pods-SocialVids.beta.xcconfig */;
 			buildSettings = {
-				BITCODE_GENERATION_MODE = bitcode;
 				CODE_SIGN_ENTITLEMENTS = SocialVids/SocialVids.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -30642,7 +30633,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Pic2Art";
-				BITCODE_GENERATION_MODE = bitcode;
+				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -30676,7 +30667,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D7659D34907C4B4FE00AF5A7 /* Pods-Pic2ArtShare.beta.xcconfig */;
 			buildSettings = {
-				BITCODE_GENERATION_MODE = bitcode;
 				CODE_SIGN_ENTITLEMENTS = Pic2ArtShare/Pic2ArtShare.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -30705,7 +30695,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-TimeSpeed";
-				BITCODE_GENERATION_MODE = bitcode;
+				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -30741,7 +30731,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-BoomiCam";
-				BITCODE_GENERATION_MODE = bitcode;
+				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -30777,7 +30767,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-SoccerCam";
-				BITCODE_GENERATION_MODE = bitcode;
+				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -30813,7 +30803,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-SoccerCam";
-				BITCODE_GENERATION_MODE = bitcode;
+				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -30849,7 +30839,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-ViralCam";
-				BITCODE_GENERATION_MODE = bitcode;
+				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -30883,7 +30873,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F6F20157DBFC407B1E18A0E0 /* Pods-Viralvids.beta.xcconfig */;
 			buildSettings = {
-				BITCODE_GENERATION_MODE = bitcode;
 				CODE_SIGN_ENTITLEMENTS = Viralvids/Viralvids.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -30913,7 +30902,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-ViralCamLite";
-				BITCODE_GENERATION_MODE = bitcode;
+				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -30947,7 +30936,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AC0AA9971C311163AF02EFCE /* Pods-ViralvidsLite.beta.xcconfig */;
 			buildSettings = {
-				BITCODE_GENERATION_MODE = bitcode;
 				CODE_SIGN_ENTITLEMENTS = Viralvids/Viralvids.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -30977,7 +30965,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-FastCam";
-				BITCODE_GENERATION_MODE = bitcode;
+				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -31013,7 +31001,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-FastCamLite";
-				BITCODE_GENERATION_MODE = bitcode;
+				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -31049,7 +31037,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-QuickCam";
-				BITCODE_GENERATION_MODE = bitcode;
+				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -31085,7 +31073,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-QuickCamLite";
-				BITCODE_GENERATION_MODE = bitcode;
+				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -31121,7 +31109,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-SpeedCam";
-				BITCODE_GENERATION_MODE = bitcode;
+				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -31156,7 +31144,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-SpeedCamLite";
-				BITCODE_GENERATION_MODE = bitcode;
+				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -31192,7 +31180,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-SnapCam";
-				BITCODE_GENERATION_MODE = bitcode;
+				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -31228,11 +31216,11 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-SnapCamLite";
-				BITCODE_GENERATION_MODE = bitcode;
+				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 54;
+				CURRENT_PROJECT_VERSION = 56;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				ENABLE_BITCODE = NO;
@@ -31263,7 +31251,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4054E0EEBDFF3456E03897F0 /* Pods-Pic2ArtShare.debug.xcconfig */;
 			buildSettings = {
-				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = Pic2ArtShare/Pic2ArtShare.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -31289,7 +31276,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 509006E8EDAE384BA4DBCE65 /* Pods-Pic2ArtShare.release.xcconfig */;
 			buildSettings = {
-				BITCODE_GENERATION_MODE = bitcode;
 				CODE_SIGN_ENTITLEMENTS = Pic2ArtShare/Pic2ArtShare.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -31943,7 +31929,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 54;
+				CURRENT_PROJECT_VERSION = 56;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				ENABLE_BITCODE = NO;
@@ -31980,7 +31966,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 54;
+				CURRENT_PROJECT_VERSION = 56;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
 				ENABLE_BITCODE = NO;
 				EXCLUDED_ARCHS = "";
@@ -32010,7 +31996,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6E5F1DC12E2631A0A84C74D1 /* Pods-ViralvidsLite.debug.xcconfig */;
 			buildSettings = {
-				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = Viralvids/Viralvids.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -32037,7 +32022,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 57A10355C626D6C43538435D /* Pods-ViralvidsLite.release.xcconfig */;
 			buildSettings = {
-				BITCODE_GENERATION_MODE = bitcode;
 				CODE_SIGN_ENTITLEMENTS = Viralvids/Viralvids.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
