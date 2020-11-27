@@ -558,6 +558,7 @@ public struct Constant {
     struct Value {
         static let maxChannelName = 30
         static let minChannelName = 16
+        static let channelName = 15
     }
     
     struct AWS {

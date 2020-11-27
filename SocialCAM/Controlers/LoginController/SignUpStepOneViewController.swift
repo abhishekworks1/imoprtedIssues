@@ -268,7 +268,7 @@ class SignUpStepOneViewController: UIViewController {
         let passwordValidation = NSPredicate(format: "SELF MATCHES %@ ", "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&#])[A-Za-z\\d$@$!%*?&#]{8,35}")
         if channel.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
             self.showAlert(alertMessage: R.string.localizable.pleaseEnterUniqueChannelName())
-        } else if channel.trimmingCharacters(in: .whitespacesAndNewlines).count <= Constant.Value.minChannelName {
+        } else if channel.trimmingCharacters(in: .whitespacesAndNewlines).count <= Constant.Value.channelName {
             self.showAlert(alertMessage: R.string.localizable.channelNameMustBeOf1630Characters())
         } else if email.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
             self.showAlert(alertMessage: R.string.localizable.pleaseEnterEmail())
@@ -378,7 +378,7 @@ class SignUpStepOneViewController: UIViewController {
     
 }
 
-extension SignUpStepOneViewController : UITextFieldDelegate {
+extension SignUpStepOneViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if txtEmail == textField {
@@ -413,7 +413,7 @@ extension SignUpStepOneViewController : UITextFieldDelegate {
             }
             let txt = (textField.text! as NSString).replacingCharacters(in: range, with: string)
             
-            if txt.count <= Constant.Value.minChannelName {
+            if txt.count <= Constant.Value.channelName {
                 self.viewChannelBox.isHidden = true
                 self.lblCount.textColor = UIColor.red
                 self.isChannel = false
