@@ -59,11 +59,65 @@ protocol AppMode_Enum {
 }
 
 public var termsAndConditionsUrl: String {
-    return "https://alpha.fastcam.app/terms-and-condition"
+    var baseUrlString = ""
+    switch Defaults.shared.releaseType {
+    case .debug, .alpha:
+        if isFastCamApp || isFastCamLiteApp {
+            baseUrlString = "https://alpha.fastcam.app/terms-and-condition"
+        } else if isSnapCamApp || isSnapCamLiteApp {
+            baseUrlString = "https://alpha.snapcam.app/terms-and-condition"
+        } else {
+            baseUrlString = "https://alpha.snapcam.app/terms-and-condition"
+        }
+    case .beta:
+        if isFastCamApp || isFastCamLiteApp {
+            baseUrlString = "https://beta.fastcam.app/terms-and-condition"
+        } else if isSnapCamApp || isSnapCamLiteApp {
+            baseUrlString = "https://beta.snapcam.app/terms-and-condition"
+        } else {
+            baseUrlString = "https://beta.snapcam.app/terms-and-condition"
+        }
+    case .store:
+        if isFastCamApp || isFastCamLiteApp {
+            baseUrlString = "https://fastcam.app/terms-and-condition"
+        } else if isSnapCamApp || isSnapCamLiteApp {
+            baseUrlString = "https://snapcam.app/terms-and-condition"
+        } else {
+            baseUrlString = "https://snapcam.app/terms-and-condition"
+        }
+    }
+    return baseUrlString
 }
 
 public var privacyPolicyUrl: String {
-    return "https://alpha.fastcam.app/privacy-policy"
+    var baseUrlString = ""
+    switch Defaults.shared.releaseType {
+    case .debug, .alpha:
+        if isFastCamApp || isFastCamLiteApp {
+            baseUrlString = "https://alpha.fastcam.app/privacy-policy"
+        } else if isSnapCamApp || isSnapCamLiteApp {
+            baseUrlString = "https://alpha.snapcam.app/privacy-policy"
+        } else {
+            baseUrlString = "https://alpha.snapcam.app/privacy-policy"
+        }
+    case .beta:
+        if isFastCamApp || isFastCamLiteApp {
+            baseUrlString = "https://beta.fastcam.app/privacy-policy"
+        } else if isSnapCamApp || isSnapCamLiteApp {
+            baseUrlString = "https://beta.snapcam.app/privacy-policy"
+        } else {
+            baseUrlString = "https://beta.snapcam.app/privacy-policy"
+        }
+    case .store:
+        if isFastCamApp || isFastCamLiteApp {
+            baseUrlString = "https://fastcam.app/privacy-policy"
+        } else if isSnapCamApp || isSnapCamLiteApp {
+            baseUrlString = "https://snapcam.app/privacy-policy"
+        } else {
+            baseUrlString = "https://snapcam.app/privacy-policy"
+        }
+    }
+    return baseUrlString
 }
 
 enum ReleaseType: String, AppMode_Enum {

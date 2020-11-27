@@ -39,6 +39,9 @@ class SignUpStepOneViewController: UIViewController {
     var imagePicker: UIImagePickerController!
     
     @IBOutlet weak var imgLogo: UIImageView!
+    @IBOutlet weak var lblChannelNameError: PLabel!
+    @IBOutlet weak var lblEmailError: PLabel!
+    @IBOutlet weak var lblPasswordError: PLabel!
     
     // MARK :-- iVars ---
     
@@ -278,10 +281,8 @@ class SignUpStepOneViewController: UIViewController {
             self.showAlert(alertMessage: R.string.localizable.emailAlreadyExist())
         } else if password.isEmpty {
             self.showAlert(alertMessage: R.string.localizable.pleaseEnterPassword())
-//        } else if birthdate.isEmpty {
-//            self.showAlert(alertMessage: R.string.localizable.pleaseSelectBirthdate())
         } else if !passwordValidation.evaluate(with: password) {
-            self.showAlert(alertMessage: "Enter Valid Password")
+            self.showAlert(alertMessage: R.string.localizable.invalidPassword())
         } else if refChannel.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
             self.showAlert(alertMessage: R.string.localizable.pleaseEnterTheNameOfYourReferringChannelIfYouDoNotHaveOneUseTheSearchFeatureToFindAChannelToUse())
         } else if !isChannel {
@@ -384,14 +385,26 @@ extension SignUpStepOneViewController: UITextFieldDelegate {
         if txtEmail == textField {
             textField.resignFirstResponder()
             txtPassWord.becomeFirstResponder()
+            self.lblEmailError.text = (txtEmail.text?.isValidEmail() ?? false) ? nil : R.string.localizable.pleaseEnterValidEmail()
         } else if txtPassWord == textField {
             txtPassWord.resignFirstResponder()
             txtRefChannel.becomeFirstResponder()
+            if let password = txtPassWord.text {
+                let passwordValidation = NSPredicate(format: "SELF MATCHES %@ ", "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&#])[A-Za-z\\d$@$!%*?&#]{8,35}")
+                if password.isEmpty {
+                    lblPasswordError.text = R.string.localizable.pleaseEnterPassword()
+                } else if !passwordValidation.evaluate(with: password) {
+                    lblPasswordError.text = R.string.localizable.invalidPassword()
+                } else {
+                    lblPasswordError.text = nil
+                }
+            }
         } else if txtRefChannel == textField {
             txtRefChannel.resignFirstResponder()
         } else if txtChannel == textField {
             txtChannel.resignFirstResponder()
-            txtChannelTitle.becomeFirstResponder()
+            txtEmail.becomeFirstResponder()
+            self.lblChannelNameError.text = (txtChannel.text?.count ?? 0) <= Constant.Value.channelName ? R.string.localizable.minimumCharactersRequired(Constant.Value.channelName.description) : nil
         } else if txtChannelTitle == textField {
             DispatchQueue.main.async {
                 self.txtChannelTitle.resignFirstResponder()
@@ -423,6 +436,9 @@ extension SignUpStepOneViewController: UITextFieldDelegate {
             self.lblCount.text = "\(txt.count)/\(Constant.Value.maxChannelName)"
             if txt.count >= Constant.Value.maxChannelName {
                 return false
+            }
+            if (txtChannel.text?.count ?? 0) > Constant.Value.channelName {
+                self.lblChannelNameError.text = nil
             }
         } else if txtRefChannel == textField {
             let specialCharacterRegEx  = "^[a-zA-Z0-9_]*$"
