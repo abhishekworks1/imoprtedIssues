@@ -31,9 +31,9 @@ class CameraSettings {
         StorySettings(name: R.string.localizable.guidelineThickness(), settings:
             [StorySetting(name: R.string.localizable.free(), selected: true)], settingsType: .guidelineTickness),
         StorySettings(name: R.string.localizable.guidelineColor(), settings: [StorySetting(name: R.string.localizable.free(), selected: true)], settingsType: .guidelineColor),
-        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.opacityPercentage("30"), selected: false)], settingsType: .watermarkAlpha30),
-        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.opacityPercentage("50"), selected: false)], settingsType: .watermarkAlpha50),
-        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.opacityPercentage("80"), selected: false)], settingsType: .watermarkAlpha80)
+        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.light(), selected: false)], settingsType: .watermarkAlpha30),
+        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.medium(), selected: false)], settingsType: .watermarkAlpha50),
+        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.dark(), selected: false)], settingsType: .watermarkAlpha80)
     ]
 }
 

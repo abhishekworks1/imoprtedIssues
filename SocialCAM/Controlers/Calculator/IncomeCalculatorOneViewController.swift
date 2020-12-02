@@ -187,6 +187,10 @@ class IncomeCalculatorOneViewController: UIViewController {
             self.percentageViewHeightCeonstraint.constant = 0
             self.inAppSlider.isHidden = true
             self.lblAverageInAppPurchase.isHidden = true
+        } else {
+            self.percentageViewHeightCeonstraint.constant = 0
+            self.percentageFilled = 100
+            self.viewPercentage.isHidden = true
         }
     }
     

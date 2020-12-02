@@ -28,37 +28,51 @@ class CalculatorSelectorViewController: UIViewController {
     func goToCalculatosScreen(index: Int) {
         switch index {
         case 0:
-            guard let destinationVc = R.storyboard.calculator.calculatorViewController() else { return }
+            guard let destinationVc = R.storyboard.calculator.calculatorViewController() else {
+                return
+            }
             self.navigationController?.pushViewController(destinationVc, animated: true)
         case 1:
-            guard let destinationVc = R.storyboard.calculator.incomeCalculatorOne() else { return }
+            guard let destinationVc = R.storyboard.calculator.incomeCalculatorOne() else {
+                return
+            }
             self.navigationController?.pushViewController(destinationVc, animated: true)
         case 2:
-            guard let destinationVc = R.storyboard.calculator.incomeCalculatorTwo() else { return }
+            guard let destinationVc = R.storyboard.calculator.incomeCalculatorTwo() else {
+                return
+            }
             self.navigationController?.pushViewController(destinationVc, animated: true)
         case 3:
-            guard let destinationVc = R.storyboard.calculator.incomeCalculatorTwo() else { return }
+            guard let destinationVc = R.storyboard.calculator.incomeCalculatorTwo() else {
+                return
+            }
             destinationVc.calculatorType = .incomeThree
             self.navigationController?.pushViewController(destinationVc, animated: true)
         case 4:
-            guard let destinationVc = R.storyboard.calculator.incomeCalculatorFourViewController() else { return }
+            guard let destinationVc = R.storyboard.calculator.incomeCalculatorFourViewController() else {
+                return
+            }
             self.navigationController?.pushViewController(destinationVc, animated: true)
         case 5:
-            if isLiteApp {
-                guard let destinationVc = R.storyboard.calculator.incomeCalculatorTwo() else { return }
-                destinationVc.isLiteCalculator = true
-                destinationVc.calculatorType = .liteIncomeOne
-                self.navigationController?.pushViewController(destinationVc, animated: true)
-            } else {
-                guard let destinationVc = R.storyboard.calculator.incomeCalculatorOne() else { return }
-                destinationVc.isLiteCalculator = true
-                destinationVc.calculatorType = .liteIncomeOne
-                self.navigationController?.pushViewController(destinationVc, animated: true)
+            guard let destinationVc = R.storyboard.calculator.incomeCalculatorOne() else {
+                return
             }
+            destinationVc.isLiteCalculator = true
+            destinationVc.calculatorType = .liteIncomeOne
+            self.navigationController?.pushViewController(destinationVc, animated: true)
         case 6, 7:
-            guard let destinationVc = R.storyboard.calculator.incomeCalculatorTwo() else { return }
+            guard let destinationVc = R.storyboard.calculator.incomeCalculatorTwo() else {
+                return
+            }
             destinationVc.isLiteCalculator = true
             destinationVc.calculatorType = index == 6 ? .liteIncomeTwo : .liteIncomeThree
+            self.navigationController?.pushViewController(destinationVc, animated: true)
+        case 8:
+            guard let destinationVc = R.storyboard.calculator.incomeCalculatorFourViewController() else {
+                return
+            }
+            destinationVc.isLiteCalculator = true
+            destinationVc.calculatorType = .liteIncomeFour
             self.navigationController?.pushViewController(destinationVc, animated: true)
         default:
             break
@@ -104,4 +118,7 @@ class CalculatorSelectorViewController: UIViewController {
         self.goToCalculatosScreen(index: 7)
     }
     
+    @IBAction func btnLiteCalculatorFourTapped(_ sender: Any) {
+        self.goToCalculatosScreen(index: 8)
+    }
 }

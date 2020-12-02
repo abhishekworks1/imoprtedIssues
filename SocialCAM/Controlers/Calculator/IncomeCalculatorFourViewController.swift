@@ -43,6 +43,7 @@ class IncomeCalculatorFourViewController: UIViewController {
     // MARK: -
     // MARK: - Outlets
     
+    @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblLegal: UILabel!
     @IBOutlet var viewLegalNotice: UIView!
     @IBOutlet weak var percentageSlider: CustomSlider!
@@ -62,6 +63,8 @@ class IncomeCalculatorFourViewController: UIViewController {
     @IBOutlet weak var calculateButtonTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var lblFixedInAppPurchase: UILabel!
     @IBOutlet weak var btnInAppHelp: UIButton!
+    @IBOutlet weak var percentageViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var viewPercentageFilled: UIView!
     @IBOutlet weak var inAppPurchaseTopConstraint: NSLayoutConstraint!
     
     // MARK: -
@@ -79,7 +82,7 @@ class IncomeCalculatorFourViewController: UIViewController {
             self.lblPercentage.text = percentage.description + "%"
         }
     }
-    private var calculatorType = CalculatorType.incomeFour
+    internal var calculatorType = CalculatorType.incomeFour
     private var inAppPurchase = 0 {
         didSet {
             self.inAppSlider.value = Float(inAppPurchase)
@@ -91,12 +94,14 @@ class IncomeCalculatorFourViewController: UIViewController {
     private var levelOnePercentage = 0
     private var levelTwoPercentage = 0
     private var percentageArray: [Int] = []
+    internal var isLiteCalculator = false
     
     // MARK: -
     // MARK: - Life Cycle Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.lblTitle.text = self.calculatorType.getNavigationTitle()
         self.tableview.tableFooterView = viewLegalNotice
         self.tableview.tableHeaderView = tableHeaderView
         if let calcConfig = Defaults.shared.calculatorConfig {
@@ -110,6 +115,7 @@ class IncomeCalculatorFourViewController: UIViewController {
             self.getCalculatorConfig(type: type)
         }
         lblLegal.setCalculatorLegalText()
+        configureUiForLiteApps()
     }
     
     override func viewDidLayoutSubviews() {
@@ -173,7 +179,7 @@ class IncomeCalculatorFourViewController: UIViewController {
     }
     
     private func configureUiForLiteApps() {
-        if isLiteApp {
+        if isLiteCalculator {
             self.inAppPurchaseTopConstraint.constant = 20
             self.calculateButtonTopConstraint.constant = 20
             self.btnInAppHelp.isHidden = false
@@ -186,7 +192,6 @@ class IncomeCalculatorFourViewController: UIViewController {
     
     private func validateAndCalculate() {
         self.view.endEditing(true)
-        
         self.referCount = Int(self.innerCircleSlider.value)
         self.otherReferCount = Int(self.extendedCircleSlider.value)
         self.calculateFollowers()
@@ -198,13 +203,15 @@ class IncomeCalculatorFourViewController: UIViewController {
         if referCount == 0 {
             return
         }
-        self.followersData = [self.referCount]
-        self.totalCount = self.referCount
-        self.followersData = [self.totalCount]
+        self.totalCount = self.referCount + (self.referCount * self.otherReferCount)
+        self.followersData = [self.referCount, self.referCount * self.otherReferCount]
         self.totalIncome = Double(self.getIncome(followers: self.referCount, index: 0)) ?? 0
         self.incomeData = [totalIncome]
-        for row in 1...9 {
-            let newFollowers = followersData[row - 1] * self.otherReferCount
+        let levelTwoIncome = Double(self.getIncome(followers: (self.referCount * self.otherReferCount), index: 1)) ?? 0
+        self.incomeData.append(levelTwoIncome)
+        self.totalIncome += levelTwoIncome
+        for row in 2...9 {
+            let newFollowers = (followersData[row - 1] * self.otherReferCount * percentage) / 100
             self.followersData.append(newFollowers)
             let newIncome = Double(self.getIncome(followers: newFollowers, index: row)) ?? 0
             incomeData.append(newIncome)
@@ -216,13 +223,7 @@ class IncomeCalculatorFourViewController: UIViewController {
     }
     
     private func getIncome(followers: Int, index: Int) -> String {
-        var income: Float = 0
-        if index == 0 {
-            income = Float(followers) * Float(inAppPurchase) * Float(self.percentageArray[index]) / 100
-        } else {
-            let result = Float(followers) * Float(self.percentageSlider.value) * Float(self.percentageArray[index]) * Float(inAppPurchase)
-            income = result / 10000
-        }
+        let income: Float = Float(followers) * Float(inAppPurchase) * Float(self.percentageArray[index]) / 100
         return income.roundToPlaces(places: 1).description
     }
     

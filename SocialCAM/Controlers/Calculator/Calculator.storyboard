@@ -355,9 +355,43 @@
                                                             <constraint firstItem="mof-8d-DyF" firstAttribute="centerX" secondItem="gRE-Jz-lc9" secondAttribute="centerX" id="wu8-hl-Rvn"/>
                                                         </constraints>
                                                     </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i8K-PD-6qd">
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nRp-yd-OvD">
                                                         <rect key="frame" x="269.5" y="0.0" width="134.5" height="106.5"/>
+                                                        <subviews>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="incomecal4lite" translatesAutoresizingMaskIntoConstraints="NO" id="W3d-is-zJx">
+                                                                <rect key="frame" x="39.5" y="0.0" width="55" height="55"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="55" id="diW-Bo-gXK"/>
+                                                                    <constraint firstAttribute="height" constant="55" id="fYU-Nx-zT6"/>
+                                                                </constraints>
+                                                            </imageView>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lite Calculator 4" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="yWi-ag-mGo">
+                                                                <rect key="frame" x="5" y="60" width="124.5" height="19.5"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6WQ-kL-Pof">
+                                                                <rect key="frame" x="0.0" y="0.0" width="134.5" height="106.5"/>
+                                                                <connections>
+                                                                    <action selector="btnLiteCalculatorFourTapped:" destination="zOq-gR-n5J" eventType="touchUpInside" id="qng-LS-QlP"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <constraints>
+                                                            <constraint firstItem="6WQ-kL-Pof" firstAttribute="height" secondItem="nRp-yd-OvD" secondAttribute="height" id="4we-Ho-wcm"/>
+                                                            <constraint firstItem="W3d-is-zJx" firstAttribute="top" secondItem="nRp-yd-OvD" secondAttribute="top" id="8TM-Kd-dZN"/>
+                                                            <constraint firstItem="6WQ-kL-Pof" firstAttribute="centerY" secondItem="nRp-yd-OvD" secondAttribute="centerY" id="9bW-hn-pqe"/>
+                                                            <constraint firstAttribute="trailing" secondItem="yWi-ag-mGo" secondAttribute="trailing" constant="5" id="Bjs-ZX-4X3"/>
+                                                            <constraint firstItem="6WQ-kL-Pof" firstAttribute="width" secondItem="nRp-yd-OvD" secondAttribute="width" id="Cjy-R0-afe"/>
+                                                            <constraint firstItem="W3d-is-zJx" firstAttribute="centerX" secondItem="nRp-yd-OvD" secondAttribute="centerX" id="DdJ-89-LLZ"/>
+                                                            <constraint firstItem="yWi-ag-mGo" firstAttribute="top" secondItem="W3d-is-zJx" secondAttribute="bottom" constant="5" id="Egi-bB-gec"/>
+                                                            <constraint firstItem="yWi-ag-mGo" firstAttribute="centerX" secondItem="W3d-is-zJx" secondAttribute="centerX" id="OVO-xe-Shn"/>
+                                                            <constraint firstItem="6WQ-kL-Pof" firstAttribute="centerX" secondItem="nRp-yd-OvD" secondAttribute="centerX" id="Ton-bc-hYD"/>
+                                                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="yWi-ag-mGo" secondAttribute="bottom" constant="5" id="s1g-jE-uKh"/>
+                                                            <constraint firstItem="yWi-ag-mGo" firstAttribute="leading" secondItem="nRp-yd-OvD" secondAttribute="leading" constant="5" id="vzl-bj-JdI"/>
+                                                        </constraints>
                                                     </view>
                                                 </subviews>
                                             </stackView>
@@ -1489,7 +1523,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6I4-sY-RbD">
-                                <rect key="frame" x="40" y="360" width="334" height="45"/>
+                                <rect key="frame" x="40" y="354.5" width="334" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="JJI-7Y-THP"/>
                                 </constraints>
@@ -1499,7 +1533,7 @@
                                 </connections>
                             </button>
                             <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bUM-9m-FOg">
-                                <rect key="frame" x="8" y="431" width="398" height="455"/>
+                                <rect key="frame" x="8" y="425.5" width="398" height="460.5"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="incomeCalculator2TableViewCell" rowHeight="123" id="lmK-rV-eIV" customClass="IncomeCalculatorTableViewCell" customModule="BoomiCam" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="398" height="123"/>
@@ -1719,7 +1753,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="19" id="OPu-Kd-Diq"/>
                                 </constraints>
-                                <color key="minimumTrackTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="minimumTrackTintColor" name="AppPrimaryColor"/>
                                 <connections>
                                     <action selector="levelOneSliderChanged:" destination="SNf-ul-4fj" eventType="valueChanged" id="j1n-t6-Tj2"/>
                                 </connections>
@@ -1763,7 +1797,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="35" translatesAutoresizingMaskIntoConstraints="NO" id="mfi-NZ-PLu" customClass="CustomSlider" customModule="BoomiCam" customModuleProvider="target">
-                                <rect key="frame" x="13" y="310" width="335" height="31"/>
+                                <rect key="frame" x="13" y="310" width="335" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="19" id="1c5-x7-BRE"/>
+                                </constraints>
                                 <color key="minimumTrackTintColor" name="AppPrimaryColor"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="unitString" value="$"/>
@@ -1774,13 +1811,13 @@
                                 </connections>
                             </slider>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0cP-UH-Sne">
-                                <rect key="frame" x="356" y="310" width="48" height="30"/>
+                                <rect key="frame" x="356" y="304.5" width="48" height="30"/>
                                 <connections>
                                     <action selector="inAppHelpTapped:" destination="SNf-ul-4fj" eventType="touchUpInside" id="hAq-e2-AFU"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UBV-2e-lys" customClass="CalculatorCustomLabel" customModule="BoomiCam" customModuleProvider="target">
-                                <rect key="frame" x="356" y="310" width="48" height="30"/>
+                                <rect key="frame" x="356" y="304.5" width="48" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="DID-Go-z2z"/>
                                 </constraints>
@@ -2008,14 +2045,57 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="% Filled" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Frh-CJ-Xvr">
-                                <rect key="frame" x="15" y="225" width="54" height="18"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8JK-qa-Hep">
+                                <rect key="frame" x="0.0" y="220.5" width="414" height="57"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="% Filled" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Frh-CJ-Xvr">
+                                        <rect key="frame" x="15" y="0.0" width="54" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="gl3-kg-GDR" customClass="CustomSlider" customModule="BoomiCam" customModuleProvider="target">
+                                        <rect key="frame" x="13" y="28" width="335" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="19" id="SB1-xh-Aew"/>
+                                        </constraints>
+                                        <color key="minimumTrackTintColor" name="AppPrimaryColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="unitString" value="%"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="percentageBarChanged:" destination="8Qf-Fn-ZKu" eventType="valueChanged" id="PJa-ur-WxP"/>
+                                        </connections>
+                                    </slider>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ah0-2s-ney">
+                                        <rect key="frame" x="361" y="42.5" width="48" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <connections>
+                                            <action selector="btnPercentageHelpTapped:" destination="8Qf-Fn-ZKu" eventType="touchUpInside" id="iYy-bj-zGV"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0%" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mha-YW-AO9" customClass="CalculatorCustomLabel" customModule="BoomiCam" customModuleProvider="target">
+                                        <rect key="frame" x="356" y="22.5" width="48" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="jL7-3i-qRc"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="gl3-kg-GDR" secondAttribute="bottom" constant="10" id="QIE-tM-yCg"/>
+                                    <constraint firstItem="mha-YW-AO9" firstAttribute="centerY" secondItem="gl3-kg-GDR" secondAttribute="centerY" id="esN-gM-zWo"/>
+                                    <constraint firstItem="Frh-CJ-Xvr" firstAttribute="leading" secondItem="8JK-qa-Hep" secondAttribute="leading" constant="15" id="fvC-QE-krH"/>
+                                    <constraint firstItem="gl3-kg-GDR" firstAttribute="top" secondItem="Frh-CJ-Xvr" secondAttribute="bottom" constant="10" id="kgE-8q-PHj"/>
+                                    <constraint firstItem="Frh-CJ-Xvr" firstAttribute="top" secondItem="8JK-qa-Hep" secondAttribute="top" id="sjT-Hg-UjQ"/>
+                                    <constraint firstAttribute="height" constant="57" id="vKM-rC-jbS"/>
+                                </constraints>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZRQ-s4-9A0">
-                                <rect key="frame" x="40" y="348" width="334" height="45"/>
+                                <rect key="frame" x="40" y="349.5" width="334" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="Nsc-Q7-rxS"/>
                                 </constraints>
@@ -2025,7 +2105,7 @@
                                 </connections>
                             </button>
                             <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="DlT-KF-TDl">
-                                <rect key="frame" x="8" y="419" width="398" height="467"/>
+                                <rect key="frame" x="8" y="420.5" width="398" height="465.5"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="incomeCalculatorFourTableViewCell" rowHeight="123" id="ais-k6-Um9" customClass="IncomeCalculatorFourTableViewCell" customModule="BoomiCam" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="398" height="123"/>
@@ -2181,36 +2261,14 @@
                                     <action selector="indirectReferHelpTapped:" destination="8Qf-Fn-ZKu" eventType="touchUpInside" id="ITG-k7-iBr"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0%" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mha-YW-AO9" customClass="CalculatorCustomLabel" customModule="BoomiCam" customModuleProvider="target">
-                                <rect key="frame" x="356" y="247.5" width="48" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="jL7-3i-qRc"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="gl3-kg-GDR" customClass="CustomSlider" customModule="BoomiCam" customModuleProvider="target">
-                                <rect key="frame" x="13" y="253" width="335" height="20"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="19" id="SB1-xh-Aew"/>
-                                </constraints>
-                                <color key="minimumTrackTintColor" name="AppPrimaryColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="unitString" value="%"/>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="percentageBarChanged:" destination="8Qf-Fn-ZKu" eventType="valueChanged" id="PJa-ur-WxP"/>
-                                </connections>
-                            </slider>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Average In-app purchase" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nzp-B4-9p2">
-                                <rect key="frame" x="15" y="282" width="172" height="18"/>
+                                <rect key="frame" x="15" y="283.5" width="172" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ate-VG-EJt" customClass="CalculatorCustomLabel" customModule="BoomiCam" customModuleProvider="target">
-                                <rect key="frame" x="356" y="304.5" width="48" height="30"/>
+                                <rect key="frame" x="356" y="306" width="48" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="OPR-ZL-7DE"/>
                                 </constraints>
@@ -2219,15 +2277,9 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hOY-oh-tI6">
-                                <rect key="frame" x="356" y="304.5" width="48" height="30"/>
+                                <rect key="frame" x="356" y="306" width="48" height="30"/>
                                 <connections>
                                     <action selector="btnInAppHelpTapped:" destination="8Qf-Fn-ZKu" eventType="touchUpInside" id="8v7-gd-ygD"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ah0-2s-ney">
-                                <rect key="frame" x="356" y="247.5" width="48" height="30"/>
-                                <connections>
-                                    <action selector="btnPercentageHelpTapped:" destination="8Qf-Fn-ZKu" eventType="touchUpInside" id="iYy-bj-zGV"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hE7-vh-Rqo" customClass="CalculatorCustomLabel" customModule="BoomiCam" customModuleProvider="target">
@@ -2270,7 +2322,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="ZKm-Kv-nlk" customClass="CustomSlider" customModule="BoomiCam" customModuleProvider="target">
-                                <rect key="frame" x="13" y="310" width="335" height="20"/>
+                                <rect key="frame" x="13" y="311.5" width="335" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="19" id="Ync-7b-zmW"/>
                                 </constraints>
@@ -2284,7 +2336,7 @@
                                 </connections>
                             </slider>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y8H-u0-NWJ" customClass="CalculatorCustomLabel" customModule="BoomiCam" customModuleProvider="target">
-                                <rect key="frame" x="356" y="276" width="48" height="30"/>
+                                <rect key="frame" x="356" y="277.5" width="48" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="Gkp-Wl-4XL"/>
                                     <constraint firstAttribute="width" constant="48" id="cXq-jD-5Eg"/>
@@ -2294,7 +2346,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nNF-Nm-Tfg">
-                                <rect key="frame" x="356" y="276" width="48" height="30"/>
+                                <rect key="frame" x="356" y="277.5" width="48" height="30"/>
                                 <connections>
                                     <action selector="btnInAppHelpTapped:" destination="8Qf-Fn-ZKu" eventType="touchUpInside" id="CiF-1z-AWU"/>
                                 </connections>
@@ -2304,8 +2356,8 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="nNF-Nm-Tfg" firstAttribute="bottom" secondItem="Y8H-u0-NWJ" secondAttribute="bottom" id="00r-uQ-6kV"/>
+                            <constraint firstItem="8JK-qa-Hep" firstAttribute="top" secondItem="NHL-Ep-GHQ" secondAttribute="bottom" id="0AF-8c-rSh"/>
                             <constraint firstItem="ZRQ-s4-9A0" firstAttribute="top" secondItem="Nzp-B4-9p2" secondAttribute="bottom" constant="48" id="2Sh-rg-wf4"/>
-                            <constraint firstItem="Frh-CJ-Xvr" firstAttribute="top" secondItem="FJF-KT-kwa" secondAttribute="bottom" constant="10" id="2iw-Po-Wd4"/>
                             <constraint firstItem="NHL-Ep-GHQ" firstAttribute="trailing" secondItem="pd8-em-t2U" secondAttribute="trailing" id="37b-IT-oOW"/>
                             <constraint firstItem="FJF-KT-kwa" firstAttribute="leading" secondItem="CPh-mx-3rr" secondAttribute="leading" id="3c2-Ty-gN2"/>
                             <constraint firstItem="0Q8-fk-3mn" firstAttribute="bottom" secondItem="hE7-vh-Rqo" secondAttribute="bottom" id="4XS-QV-Lbo"/>
@@ -2317,6 +2369,7 @@
                             <constraint firstItem="FtS-W7-TK1" firstAttribute="trailing" secondItem="ZRQ-s4-9A0" secondAttribute="trailing" constant="40" id="CA1-jP-RYT"/>
                             <constraint firstItem="ate-VG-EJt" firstAttribute="centerY" secondItem="ZKm-Kv-nlk" secondAttribute="centerY" id="CMi-Mw-B4a"/>
                             <constraint firstItem="NHL-Ep-GHQ" firstAttribute="bottom" secondItem="pd8-em-t2U" secondAttribute="bottom" id="E16-cV-zfd"/>
+                            <constraint firstItem="mha-YW-AO9" firstAttribute="leading" secondItem="hE7-vh-Rqo" secondAttribute="leading" id="EOj-mG-Jbv"/>
                             <constraint firstItem="ate-VG-EJt" firstAttribute="leading" secondItem="ZKm-Kv-nlk" secondAttribute="trailing" constant="10" id="EgS-8T-Kp1"/>
                             <constraint firstItem="jsJ-fS-mO1" firstAttribute="leading" secondItem="FtS-W7-TK1" secondAttribute="leading" constant="15" id="FOn-Zp-nQd"/>
                             <constraint firstItem="pd8-em-t2U" firstAttribute="centerY" secondItem="FJF-KT-kwa" secondAttribute="centerY" id="Fh9-sz-Vw3"/>
@@ -2324,53 +2377,47 @@
                             <constraint firstItem="CPh-mx-3rr" firstAttribute="leading" secondItem="jsJ-fS-mO1" secondAttribute="leading" id="H6C-sk-W5A"/>
                             <constraint firstItem="0Q8-fk-3mn" firstAttribute="top" secondItem="hE7-vh-Rqo" secondAttribute="top" id="HCI-sx-q10"/>
                             <constraint firstItem="pd8-em-t2U" firstAttribute="leading" secondItem="FJF-KT-kwa" secondAttribute="trailing" constant="10" id="HFU-ad-vqm"/>
-                            <constraint firstItem="ah0-2s-ney" firstAttribute="top" secondItem="mha-YW-AO9" secondAttribute="top" id="HKa-C9-If5"/>
-                            <constraint firstItem="Nzp-B4-9p2" firstAttribute="top" secondItem="gl3-kg-GDR" secondAttribute="bottom" constant="10" id="K31-vZ-bff"/>
+                            <constraint firstItem="ZKm-Kv-nlk" firstAttribute="leading" secondItem="CPh-mx-3rr" secondAttribute="leading" id="LEG-bY-Uvv"/>
                             <constraint firstItem="DlT-KF-TDl" firstAttribute="leading" secondItem="FtS-W7-TK1" secondAttribute="leading" constant="8" id="M9Z-H0-IF3"/>
-                            <constraint firstItem="Frh-CJ-Xvr" firstAttribute="leading" secondItem="FtS-W7-TK1" secondAttribute="leading" constant="15" id="MFw-hy-ilG"/>
                             <constraint firstItem="g6S-pF-4gI" firstAttribute="trailing" secondItem="FtS-W7-TK1" secondAttribute="trailing" id="NUf-6V-jPd"/>
                             <constraint firstItem="FtS-W7-TK1" firstAttribute="trailing" secondItem="Y8H-u0-NWJ" secondAttribute="trailing" constant="10" id="PTx-zh-J32"/>
+                            <constraint firstItem="8JK-qa-Hep" firstAttribute="trailing" secondItem="FtS-W7-TK1" secondAttribute="trailing" id="QPN-Ee-vYe"/>
+                            <constraint firstItem="hOY-oh-tI6" firstAttribute="leading" secondItem="pd8-em-t2U" secondAttribute="leading" id="ST7-ML-gN6"/>
+                            <constraint firstItem="gl3-kg-GDR" firstAttribute="leading" secondItem="CPh-mx-3rr" secondAttribute="leading" id="TEX-1f-xab"/>
+                            <constraint firstItem="Nzp-B4-9p2" firstAttribute="leading" secondItem="FtS-W7-TK1" secondAttribute="leading" constant="15" id="UIp-5h-hcs"/>
                             <constraint firstItem="hOY-oh-tI6" firstAttribute="top" secondItem="ate-VG-EJt" secondAttribute="top" id="WJG-1C-zWP"/>
                             <constraint firstItem="FtS-W7-TK1" firstAttribute="trailing" secondItem="hE7-vh-Rqo" secondAttribute="trailing" constant="10" id="XX9-5q-ups"/>
-                            <constraint firstItem="ah0-2s-ney" firstAttribute="trailing" secondItem="mha-YW-AO9" secondAttribute="trailing" id="Xc9-Kl-lRE"/>
                             <constraint firstItem="hE7-vh-Rqo" firstAttribute="centerY" secondItem="CPh-mx-3rr" secondAttribute="centerY" id="Y2W-Mb-zlp"/>
                             <constraint firstItem="hE7-vh-Rqo" firstAttribute="leading" secondItem="CPh-mx-3rr" secondAttribute="trailing" constant="10" id="Yk6-q2-PAf"/>
                             <constraint firstItem="wwo-JV-J6w" firstAttribute="top" secondItem="FtS-W7-TK1" secondAttribute="top" id="bcX-US-1O6"/>
                             <constraint firstItem="DvG-ha-2uk" firstAttribute="leading" secondItem="jsJ-fS-mO1" secondAttribute="leading" id="bwl-wI-Zfv"/>
+                            <constraint firstItem="mha-YW-AO9" firstAttribute="trailing" secondItem="hE7-vh-Rqo" secondAttribute="trailing" id="dqZ-GX-Kae"/>
                             <constraint firstItem="ZKm-Kv-nlk" firstAttribute="top" secondItem="Nzp-B4-9p2" secondAttribute="bottom" constant="10" id="eAt-e8-T50"/>
                             <constraint firstItem="jsJ-fS-mO1" firstAttribute="top" secondItem="g6S-pF-4gI" secondAttribute="bottom" constant="23" id="eOw-AN-ph2"/>
                             <constraint firstItem="pd8-em-t2U" firstAttribute="trailing" secondItem="hE7-vh-Rqo" secondAttribute="trailing" id="etc-R1-kAr"/>
                             <constraint firstItem="g6S-pF-4gI" firstAttribute="bottom" secondItem="wwo-JV-J6w" secondAttribute="bottom" id="f3J-2J-ja1"/>
-                            <constraint firstItem="ah0-2s-ney" firstAttribute="leading" secondItem="mha-YW-AO9" secondAttribute="leading" id="hRO-M8-hTz"/>
+                            <constraint firstItem="hOY-oh-tI6" firstAttribute="trailing" secondItem="pd8-em-t2U" secondAttribute="trailing" id="fDU-vv-cqv"/>
                             <constraint firstItem="NHL-Ep-GHQ" firstAttribute="top" secondItem="pd8-em-t2U" secondAttribute="top" id="ha3-m2-B1u"/>
                             <constraint firstItem="nNF-Nm-Tfg" firstAttribute="leading" secondItem="Y8H-u0-NWJ" secondAttribute="leading" id="hdJ-eB-AAJ"/>
                             <constraint firstAttribute="bottom" secondItem="DlT-KF-TDl" secondAttribute="bottom" constant="10" id="hho-q1-7Jf"/>
-                            <constraint firstItem="mha-YW-AO9" firstAttribute="trailing" secondItem="pd8-em-t2U" secondAttribute="trailing" id="hyW-AF-phd"/>
+                            <constraint firstItem="ZKm-Kv-nlk" firstAttribute="trailing" secondItem="CPh-mx-3rr" secondAttribute="trailing" id="huu-Af-md1"/>
                             <constraint firstItem="DlT-KF-TDl" firstAttribute="top" secondItem="ZRQ-s4-9A0" secondAttribute="bottom" constant="26" id="ifV-1n-T1r"/>
-                            <constraint firstItem="ate-VG-EJt" firstAttribute="trailing" secondItem="mha-YW-AO9" secondAttribute="trailing" id="jV6-Sf-hiL"/>
-                            <constraint firstItem="ah0-2s-ney" firstAttribute="bottom" secondItem="mha-YW-AO9" secondAttribute="bottom" id="lIm-YS-ipR"/>
                             <constraint firstItem="0Q8-fk-3mn" firstAttribute="trailing" secondItem="hE7-vh-Rqo" secondAttribute="trailing" id="luk-jW-Xjs"/>
                             <constraint firstItem="FJF-KT-kwa" firstAttribute="top" secondItem="DvG-ha-2uk" secondAttribute="bottom" constant="10" id="mEo-Ew-w6Z"/>
                             <constraint firstItem="g6S-pF-4gI" firstAttribute="leading" secondItem="FtS-W7-TK1" secondAttribute="leading" id="oae-c2-cJ7"/>
                             <constraint firstItem="DvG-ha-2uk" firstAttribute="top" secondItem="CPh-mx-3rr" secondAttribute="bottom" constant="10" id="pUJ-ui-RBa"/>
                             <constraint firstItem="CPh-mx-3rr" firstAttribute="top" secondItem="jsJ-fS-mO1" secondAttribute="bottom" constant="10" id="pZB-Kl-WB8"/>
-                            <constraint firstItem="ZKm-Kv-nlk" firstAttribute="leading" secondItem="gl3-kg-GDR" secondAttribute="leading" id="pb5-Kj-cPA"/>
-                            <constraint firstItem="gl3-kg-GDR" firstAttribute="top" secondItem="Frh-CJ-Xvr" secondAttribute="bottom" constant="10" id="qNk-EX-AkJ"/>
                             <constraint firstItem="g6S-pF-4gI" firstAttribute="top" secondItem="Erm-Ye-CNz" secondAttribute="top" id="r7I-gc-j7h"/>
                             <constraint firstItem="hOY-oh-tI6" firstAttribute="leading" secondItem="ate-VG-EJt" secondAttribute="leading" id="rg1-uJ-9hW"/>
-                            <constraint firstItem="Nzp-B4-9p2" firstAttribute="leading" secondItem="Frh-CJ-Xvr" secondAttribute="leading" id="rgf-uN-sOc"/>
-                            <constraint firstItem="ate-VG-EJt" firstAttribute="leading" secondItem="mha-YW-AO9" secondAttribute="leading" id="sH9-YC-vSt"/>
-                            <constraint firstItem="Frh-CJ-Xvr" firstAttribute="leading" secondItem="DvG-ha-2uk" secondAttribute="leading" id="sPD-is-0Pp"/>
+                            <constraint firstItem="gl3-kg-GDR" firstAttribute="trailing" secondItem="CPh-mx-3rr" secondAttribute="trailing" id="sae-5P-z81"/>
                             <constraint firstItem="wwo-JV-J6w" firstAttribute="leading" secondItem="FtS-W7-TK1" secondAttribute="leading" id="tYT-7G-A9P"/>
-                            <constraint firstItem="mha-YW-AO9" firstAttribute="leading" secondItem="pd8-em-t2U" secondAttribute="leading" id="vdw-zp-9S5"/>
-                            <constraint firstItem="mha-YW-AO9" firstAttribute="leading" secondItem="gl3-kg-GDR" secondAttribute="trailing" constant="10" id="w1v-qY-vF1"/>
+                            <constraint firstItem="Y8H-u0-NWJ" firstAttribute="top" secondItem="8JK-qa-Hep" secondAttribute="bottom" id="vyg-XR-jcn"/>
                             <constraint firstItem="0Q8-fk-3mn" firstAttribute="leading" secondItem="hE7-vh-Rqo" secondAttribute="leading" id="wkM-JV-jFg"/>
                             <constraint firstItem="nNF-Nm-Tfg" firstAttribute="trailing" secondItem="Y8H-u0-NWJ" secondAttribute="trailing" id="wo7-Uy-PkN"/>
-                            <constraint firstItem="gl3-kg-GDR" firstAttribute="leading" secondItem="FJF-KT-kwa" secondAttribute="leading" id="xSR-1O-m3v"/>
+                            <constraint firstItem="8JK-qa-Hep" firstAttribute="leading" secondItem="Erm-Ye-CNz" secondAttribute="leading" id="xfC-u5-niu"/>
                             <constraint firstItem="ZRQ-s4-9A0" firstAttribute="leading" secondItem="FtS-W7-TK1" secondAttribute="leading" constant="40" id="yEo-dh-NlG"/>
                             <constraint firstItem="wwo-JV-J6w" firstAttribute="trailing" secondItem="FtS-W7-TK1" secondAttribute="trailing" id="zGY-Jn-JJJ"/>
                             <constraint firstItem="FtS-W7-TK1" firstAttribute="trailing" secondItem="DlT-KF-TDl" secondAttribute="trailing" constant="8" id="zWW-Lt-xaq"/>
-                            <constraint firstItem="mha-YW-AO9" firstAttribute="centerY" secondItem="gl3-kg-GDR" secondAttribute="centerY" id="zgN-EX-M1O"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="1Mx-Re-hyF"/>
@@ -2378,7 +2425,7 @@
                         <outlet property="btnInAppHelp" destination="nNF-Nm-Tfg" id="c5k-gv-tYm"/>
                         <outlet property="calculateButtonTopConstraint" destination="2Sh-rg-wf4" id="ZWF-zP-Aoh"/>
                         <outlet property="extendedCircleSlider" destination="FJF-KT-kwa" id="Pm9-6M-ryk"/>
-                        <outlet property="inAppPurchaseTopConstraint" destination="K31-vZ-bff" id="Pn5-Dz-Kw2"/>
+                        <outlet property="inAppPurchaseTopConstraint" destination="vyg-XR-jcn" id="gy9-tH-Efs"/>
                         <outlet property="inAppSlider" destination="ZKm-Kv-nlk" id="CS7-7K-kEk"/>
                         <outlet property="innerCircleSlider" destination="CPh-mx-3rr" id="xH6-19-UWI"/>
                         <outlet property="lblExtendedCircleLimit" destination="pd8-em-t2U" id="6qf-fF-7yo"/>
@@ -2388,13 +2435,16 @@
                         <outlet property="lblLegal" destination="tfy-iM-emg" id="2ui-yg-jcj"/>
                         <outlet property="lblPercentage" destination="mha-YW-AO9" id="JfU-XB-7Jw"/>
                         <outlet property="lblPotentialIncome" destination="qtW-aM-4zO" id="Ow1-Ko-M8X"/>
+                        <outlet property="lblTitle" destination="eh4-MP-l8t" id="fY0-zl-cMe"/>
                         <outlet property="lblTotalFollowers" destination="ZTe-kJ-W3R" id="yaM-Na-we4"/>
                         <outlet property="lblTotalIncome" destination="qtW-aM-4zO" id="Xin-FT-cmb"/>
                         <outlet property="percentageSlider" destination="gl3-kg-GDR" id="09U-J4-PH2"/>
+                        <outlet property="percentageViewHeightConstraint" destination="vKM-rC-jbS" id="nB1-Sz-U4W"/>
                         <outlet property="tableHeaderView" destination="wZt-GJ-Q8a" id="6iy-Jq-W4t"/>
                         <outlet property="tableSectionHeaderView" destination="uLo-ww-G8v" id="0Au-No-IVn"/>
                         <outlet property="tableview" destination="DlT-KF-TDl" id="fZt-cR-ADm"/>
                         <outlet property="viewLegalNotice" destination="r7P-Oh-gai" id="THP-su-att"/>
+                        <outlet property="viewPercentageFilled" destination="8JK-qa-Hep" id="Iwa-V9-FjG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pUV-jy-UK1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -3876,6 +3926,7 @@ income</string>
         <image name="incomecal2" width="55" height="55"/>
         <image name="incomecal3" width="55" height="55"/>
         <image name="incomecal4" width="55" height="55"/>
+        <image name="incomecal4lite" width="55" height="55"/>
         <image name="liteCalculator2" width="55" height="55"/>
         <image name="liteCalculator3" width="55" height="55"/>
         <image name="liteCalculatorOne" width="55" height="55"/>

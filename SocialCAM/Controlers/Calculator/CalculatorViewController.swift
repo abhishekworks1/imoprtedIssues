@@ -146,9 +146,9 @@ class CalculatorViewController: UIViewController {
     }
     
     private func calculateFollowers() {
-        self.followersCount = [self.referCount]
-        self.totalCount = self.referCount
-        for row in 1...9 {
+        self.followersCount = [self.referCount, self.referCount * self.otherReferCount]
+        self.totalCount = self.referCount + (self.referCount * self.otherReferCount)
+        for row in 2...9 {
             let newFollowers = followersCount[row - 1] * self.otherReferCount * percentage / 100
             self.followersCount.append(newFollowers)
             self.totalCount += newFollowers

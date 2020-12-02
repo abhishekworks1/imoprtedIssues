@@ -1005,6 +1005,7 @@ enum CalculatorType: String {
     case liteIncomeOne = "lite_income_1"
     case liteIncomeTwo = "lite_income_2"
     case liteIncomeThree = "lite_income_3"
+    case liteIncomeFour = "lite_income_4"
     
     func getNavigationTitle() -> String {
         switch self {
@@ -1016,14 +1017,16 @@ enum CalculatorType: String {
             return "Potential Income Calculator 2"
         case .incomeThree:
             return "Potential Income Calculator 3"
+        case .incomeFour:
+            return "Potential Income Calculator 4"
         case .liteIncomeOne:
             return "Lite Potential Income Calculator 1"
         case .liteIncomeTwo:
             return "Lite Potential Income Calculator 2"
         case .liteIncomeThree:
             return "Lite Potential Income Calculator 3"
-        case .incomeFour:
-            return "Potential Income Calculator 4"
+        case .liteIncomeFour:
+            return "Lite Potential Income Calculator 4"
         }
     }
 }

@@ -342,15 +342,14 @@ class StoryAssetExportSession {
             if watermarkPosition == .topLeft {
                 image = R.image.quickcamWatermarkLogo()
             }
-        } else if isSnapCamApp {
-            image = R.image.snapcamWatermarkLogo()
-            if watermarkPosition == .topLeft {
-                image = R.image.snapcamWatermarkLogo()
-            }
-        } else if isSnapCamLiteApp {
-            image = R.image.snapcamLiteWatermarkLogo()
-            if watermarkPosition == .topLeft {
-                image = R.image.snapcamLiteWatermarkLogo()
+        } else if isSnapCamApp || isSnapCamLiteApp {
+            switch Defaults.shared.waterarkOpacity {
+            case 30:
+                image = R.image.snapCamWatermark30()
+            case 50:
+                image = R.image.snapCamWatermark50()
+            default:
+                image = R.image.snapCamWatermark80()
             }
         } else if isSpeedCamApp || isSpeedCamLiteApp {
             image = R.image.wmSpeedCamLogo()
