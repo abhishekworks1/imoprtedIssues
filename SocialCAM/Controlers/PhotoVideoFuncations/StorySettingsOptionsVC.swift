@@ -30,7 +30,11 @@ class CameraSettings {
             [StorySetting(name: R.string.localizable.free(), selected: true)], settingsType: .guidelineType),
         StorySettings(name: R.string.localizable.guidelineThickness(), settings:
             [StorySetting(name: R.string.localizable.free(), selected: true)], settingsType: .guidelineTickness),
-        StorySettings(name: R.string.localizable.guidelineColor(), settings: [StorySetting(name: R.string.localizable.free(), selected: true)], settingsType: .guidelineColor)]
+        StorySettings(name: R.string.localizable.guidelineColor(), settings: [StorySetting(name: R.string.localizable.free(), selected: true)], settingsType: .guidelineColor),
+        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.opacityPercentage("30"), selected: false)], settingsType: .watermarkAlpha30),
+        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.opacityPercentage("50"), selected: false)], settingsType: .watermarkAlpha50),
+        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.opacityPercentage("80"), selected: false)], settingsType: .watermarkAlpha80)
+    ]
 }
 
 class StorySettingsOptionsVC: UIViewController {
@@ -116,6 +120,8 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
             } else {
                 cell.onOffButton.isSelected = false
             }
+        } else if settingTitle.settingsType == .watermarkAlpha30 || settingTitle.settingsType == .watermarkAlpha50 || settingTitle.settingsType == .watermarkAlpha80 {
+            cell.onOffButton.isSelected = Defaults.shared.waterarkOpacity == settingTitle.settingsType.rawValue
         }
         return cell
     }
@@ -161,6 +167,9 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
         } else if settingTitle.settingsType == .supportedFrameRates {
             Defaults.shared.selectedFrameRates = Defaults.shared.supportedFrameRates?[indexPath.row]
             self.settingsTableView.reloadData()
+        } else if settingTitle.settingsType == .watermarkAlpha30 || settingTitle.settingsType == .watermarkAlpha50 || settingTitle.settingsType == .watermarkAlpha80 {
+            Defaults.shared.waterarkOpacity = settingTitle.settingsType.rawValue
+            tableView.reloadData()
         }
     }
     

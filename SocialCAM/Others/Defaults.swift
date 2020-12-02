@@ -201,6 +201,16 @@ class Defaults {
         }
     }
     
+    var waterarkOpacity: Int {
+        get {
+            return appDefaults?.integer(forKey: "opacity") ?? 30
+        }
+        set {
+            appDefaults?.setValue(newValue, forKey: "opacity")
+            userDefaults.synchronize()
+        }
+    }
+    
     var postViralCamModel: CreatePostViralCam? {
         get {
             if let loggedUser = appDefaults?.object(forKey: "createPostViralCam") as? Data {

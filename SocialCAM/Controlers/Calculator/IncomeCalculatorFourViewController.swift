@@ -204,7 +204,7 @@ class IncomeCalculatorFourViewController: UIViewController {
         self.totalIncome = Double(self.getIncome(followers: self.referCount, index: 0)) ?? 0
         self.incomeData = [totalIncome]
         for row in 1...9 {
-            let newFollowers = followersData[row - 1] * self.otherReferCount * percentage / 100
+            let newFollowers = followersData[row - 1] * self.otherReferCount
             self.followersData.append(newFollowers)
             let newIncome = Double(self.getIncome(followers: newFollowers, index: row)) ?? 0
             incomeData.append(newIncome)

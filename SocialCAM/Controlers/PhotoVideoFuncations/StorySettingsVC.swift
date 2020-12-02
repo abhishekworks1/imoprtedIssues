@@ -30,6 +30,9 @@ enum SettingsMode: Int {
     case guildlines
     case termsAndConditions
     case privacyPolicy
+    case watermarkAlpha30 = 30
+    case watermarkAlpha50 = 50
+    case watermarkAlpha80 = 80
 }
 
 class StorySetting {

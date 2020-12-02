@@ -647,7 +647,7 @@ public struct Constant {
             static let websiteURL = "https://fastcam.iicc.online"
         #elseif QUICKCAMLITEAPP
             static let websiteURL = "https://quickcam.iicc.online"
-        #elseif SNAPCAMAPP
+        #elseif SNAPCAMAPP || SNAPCAMLITEAPP
             static let websiteURL = "https://snapcam.iicc.online"
         #elseif SPEEDCAMAPP || SPEEDCAMLITEAPP
             static let websiteURL = "https://speedcam.iicc.online"
