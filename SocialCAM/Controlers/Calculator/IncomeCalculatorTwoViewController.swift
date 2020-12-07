@@ -151,6 +151,10 @@ class IncomeCalculatorTwoViewController: UIViewController {
             self.viewSliderContainer.isHidden = true
             self.inAppSlider.isHidden = true
             self.lblAverageInAppPurchase.isHidden = true
+        } else {
+            self.sliderContainerHeightConstraint.constant = 0
+            self.percentageFilled = 100
+            self.viewSliderContainer.isHidden = true
         }
     }
     

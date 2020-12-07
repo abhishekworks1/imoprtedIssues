@@ -14,7 +14,7 @@ class CustomSlider: UISlider {
     // MARK: - Variables
 
     @IBInspectable var trackHeight: CGFloat = 3
-    @IBInspectable var thumbRadius: CGFloat = 8 {
+    @IBInspectable var thumbRadius: CGFloat = 10 {
         didSet {
             let thumb = thumbImage(radius: thumbRadius)
             setThumbImage(thumb, for: .normal)
@@ -51,12 +51,12 @@ class CustomSlider: UISlider {
     
     @objc func sliderTouchUp() {
         self.trackHeight = 3
-        self.thumbRadius = 8
+        self.thumbRadius = 10
     }
     
     @objc func sliderTouchDown() {
         self.trackHeight = 5
-        self.thumbRadius = 10
+        self.thumbRadius = 15
     }
     
     // MARK: -
