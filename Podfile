@@ -91,7 +91,6 @@ target 'SnapCamLite' do
   projectShared_pods
 end
 
-
 target 'FastCamLite' do
   use_frameworks!
   projectShared_pods
@@ -152,6 +151,11 @@ target 'SpeedCam' do
   projectShared_pods
 end
 
+target 'SocialScreenRecorder' do
+  use_frameworks!
+  projectShared_pods
+end
+
 target 'SpeedCamLite' do
   use_frameworks!
   projectShared_pods
@@ -177,6 +181,10 @@ end
 target 'SocialVids' do
   shared_pods
   pod "SSSpinnerButton"
+end
+
+target 'SocialScreenRecorderExtension' do
+  shared_pods
 end
 
 post_install do |installer|

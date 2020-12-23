@@ -13,10 +13,18 @@ class PageViewController: PageboyViewController {
     
     var pageControllers: [UIViewController] = {
         var viewControllers = [UIViewController]()
-        if let cameraNavVC = R.storyboard.storyCameraViewController.storyCameraViewNavigationController() {
-            cameraNavVC.navigationBar.isHidden = true
-            viewControllers.append(cameraNavVC)
+        if isRecorderApp {
+            if let recorderNavigation = R.storyboard.recorder.recorderNavigationController() {
+                recorderNavigation.navigationBar.isHidden = true
+                viewControllers.append(recorderNavigation)
+            }
+        } else {
+            if let cameraNavVC = R.storyboard.storyCameraViewController.storyCameraViewNavigationController() {
+                cameraNavVC.navigationBar.isHidden = true
+                viewControllers.append(cameraNavVC)
+            }
         }
+        
         if isPic2ArtApp || isSocialCamApp || isSoccerCamApp || isFutbolCamApp || isSnapCamApp || isSpeedCamApp {
             if let homeVC = R.storyboard.homeScreen.homeTabBarController() {
             }

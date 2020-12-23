@@ -29,6 +29,7 @@ enum ReferType {
     case fastCamLite
     case speedcam
     case speedcamLite
+    case socialScreenRecorder
 }
 
 enum StoryEditorType: Equatable {
@@ -679,6 +680,9 @@ extension StoryEditorView {
                 } else if type == .speedcamLite {
                     followMeStoryView.userBitEmoji.image = R.image.speedcamLiteSsu()
                     followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppSpeedCamLite()
+                } else if type == .socialScreenRecorder {
+                    followMeStoryView.userBitEmoji.image = R.image.socialScreenRecorderSSU()
+                    followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppSocialScreenRecorder()
                 } else {
                     followMeStoryView.userBitEmoji.image = (type == .viralCam) ? R.image.viralcamWatermarkLogo() : R.image.socialcamWatermarkLogo()
                     followMeStoryView.textView.text = (type == .viralCam) ? R.string.localizable.checkOutThisCoolNewAppViralCam() : R.string.localizable.checkOutThisCoolNewAppSocialCam()
@@ -745,6 +749,9 @@ extension StoryEditorView {
         } else if type == .snapCamLite {
             followMeStoryView.userBitEmoji.image = R.image.snapcamliteSplashLogo()
             followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppSnapCamLite()
+        } else if type == .socialScreenRecorder {
+            followMeStoryView.userBitEmoji.image = R.image.socialScreenRecorderSSU()
+            followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppSocialScreenRecorder()
         } else {
             followMeStoryView.userBitEmoji.image = (type == .viralCam) ? R.image.viralcamWatermarkLogo() : R.image.socialcamWatermarkLogo()
             followMeStoryView.textView.text = (type == .viralCam) ? R.string.localizable.checkOutThisCoolNewAppViralCam() : R.string.localizable.checkOutThisCoolNewAppSocialCam()

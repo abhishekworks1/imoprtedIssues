@@ -58,6 +58,14 @@ var isViralCamApp: Bool {
     #endif
 }
 
+var isRecorderApp: Bool {
+    #if RECORDERAPP
+    return true
+    #else
+    return false
+    #endif
+}
+
 var isSoccerCamApp: Bool {
     #if SOCCERCAMAPP
     return true

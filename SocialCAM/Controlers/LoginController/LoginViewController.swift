@@ -101,6 +101,8 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         imgLogo.image = R.image.speedcamliteSplashLogo()
         #elseif SNAPCAMLITEAPP
         imgLogo.image = R.image.snapcamliteSplashLogo()
+        #elseif RECORDERAPP
+        imgLogo.image = R.image.socialScreenRecorderWatermarkLogo()
         #else
         imgLogo.image = R.image.pic2artWatermarkLogo()
         #endif
