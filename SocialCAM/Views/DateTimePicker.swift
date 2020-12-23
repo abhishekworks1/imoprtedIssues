@@ -388,7 +388,7 @@ private extension UIApplication {
     }
 }
 
-private extension UIWindow {
+extension UIWindow {
     
     static var currentController: UIViewController? {
         return UIApplication.keyWindow?.currentController

@@ -984,17 +984,29 @@ extension StoryEditorViewController {
         if let saveImage = image {
             album.save(image: saveImage) { (isSuccess) in
                 if isSuccess {
-                    self.view.makeToast(R.string.localizable.photoSaved())
+                    DispatchQueue.runOnMainThread { [weak self] in
+                        guard let `self` = self else { return }
+                        self.view.makeToast(R.string.localizable.photoSaved())
+                    }
                 } else {
-                    self.view.makeToast(R.string.localizable.pleaseGivePhotosAccessFromSettingsToSaveShareImageOrVideo())
+                    DispatchQueue.runOnMainThread { [weak self] in
+                        guard let `self` = self else { return }
+                        self.view.makeToast(R.string.localizable.pleaseGivePhotosAccessFromSettingsToSaveShareImageOrVideo())
+                    }
                 }
             }
         } else if let exportURL = exportURL {
             album.saveMovieToLibrary(movieURL: exportURL, completion: { (isSuccess) in
                 if isSuccess {
-                    self.view.makeToast(R.string.localizable.videoSaved())
+                    DispatchQueue.runOnMainThread { [weak self] in
+                        guard let `self` = self else { return }
+                        self.view.makeToast(R.string.localizable.videoSaved())
+                    }
                 } else {
-                    self.view.makeToast(R.string.localizable.pleaseGivePhotosAccessFromSettingsToSaveShareImageOrVideo())
+                    DispatchQueue.runOnMainThread { [weak self] in
+                        guard let `self` = self else { return }
+                        self.view.makeToast(R.string.localizable.pleaseGivePhotosAccessFromSettingsToSaveShareImageOrVideo())
+                    }
                 }
             })
         }
@@ -1581,9 +1593,11 @@ extension StoryEditorViewController: SSUTagSelectionDelegate {
             case .speedCamLite:
                 storyEditors[currentStoryIndex].addReferLinkView(type: .speedcamLite)
             case.snapCamLite:
-                storyEditors[currentStoryIndex].addReferLinkView(type: .snapCamLite)                
+                storyEditors[currentStoryIndex].addReferLinkView(type: .snapCamLite)
+            case.socialScreenRecorder:
+                storyEditors[currentStoryIndex].addReferLinkView(type: .socialScreenRecorder)
             default:
-                storyEditors[currentStoryIndex].addReferLinkView(type: .viralCam)
+                storyEditors[currentStoryIndex].addReferLinkView(type: .socialScreenRecorder)
             }
         case .ssutWaitingList:
             storyEditors[currentStoryIndex].addReferLinkView(type: .socialCam)

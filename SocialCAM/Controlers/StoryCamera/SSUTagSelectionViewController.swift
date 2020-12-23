@@ -30,6 +30,7 @@ enum SSUTagType {
     case speedCam
     case speedCamLite
     case snapCamLite
+    case socialScreenRecorder
 }
 
 enum SSUWaitingListOptionType {
@@ -96,6 +97,9 @@ struct SSUTagOption {
     #elseif SNAPCAMLITEAPP
     static let contents: [SSUTagOption] = [
         SSUTagOption(name: R.string.localizable.snapCamLite(), image: R.image.snapCamLiteSSU(), type: .snapCamLite)]
+    #elseif RECORDERAPP
+    static let contents: [SSUTagOption] = [
+        SSUTagOption(name: R.string.localizable.socialScreenRecorder(), image: R.image.socialScreenRecorderSSU(), type: .socialScreenRecorder)]
     #else
     static let contents: [SSUTagOption] = [
         SSUTagOption(name: R.string.localizable.socialCam(), image: R.image.ssuSocialCam(), type: .socialCam),
@@ -228,7 +232,7 @@ extension SSUTagSelectionViewController: UICollectionViewDataSource, UICollectio
                     navigation.isNavigationBarHidden = true
                     self.present(navigation, animated: true)
                 }
-            case .pic2art, .timeSpeed, .boomiCam, .soccerCam, .fastCam, .futbolCam, .socialCam, .snapCam, .quickCam, .quickCamLite, .viralCamLite, .fastCamLite, .speedCam, .speedCamLite, .snapCamLite:
+            case .pic2art, .timeSpeed, .boomiCam, .soccerCam, .fastCam, .futbolCam, .socialCam, .snapCam, .quickCam, .quickCamLite, .viralCamLite, .fastCamLite, .speedCam, .speedCamLite, .snapCamLite, .socialScreenRecorder:
                 self.dismiss(animated: true) {
                     self.delegate?.didSelect(type: SSUTagOption.contents[indexPath.row].type, waitingListOptionType: nil, socialShareType: nil, screenType: self.type)
                 }
