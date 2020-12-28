@@ -10657,6 +10657,7 @@
 		F6A43A08254BCEDF005CD17D /* YouTube.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8287D21523828FE00074FC39 /* YouTube.storyboard */; };
 		F6A43A09254BCEDF005CD17D /* Thursday.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 82D1EC1323702B4200A680E7 /* Thursday.JPG */; };
 		F6A43A13254BFAC9005CD17D /* LaunchScreenSnapCamLite.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6A43A12254BFAA6005CD17D /* LaunchScreenSnapCamLite.storyboard */; };
+		F6A4B6E02599BF8700A94384 /* CalculatorConfigurationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63E1906251B2D6100558591 /* CalculatorConfigurationModel.swift */; };
 		F6A76D64255BABA400A5E3B9 /* SubscriptionFeatureTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A76D63255BABA400A5E3B9 /* SubscriptionFeatureTableViewCell.swift */; };
 		F6A76D7B255BAC0200A5E3B9 /* SubscriptionFeatureTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A76D63255BABA400A5E3B9 /* SubscriptionFeatureTableViewCell.swift */; };
 		F6A76D92255BAC0300A5E3B9 /* SubscriptionFeatureTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6A76D63255BABA400A5E3B9 /* SubscriptionFeatureTableViewCell.swift */; };
@@ -19411,6 +19412,7 @@
 				230722D1244EE932009454B0 /* ColorRoundedView.swift in Sources */,
 				230722CC244EE552009454B0 /* RoundedButton.swift in Sources */,
 				230722BE244EC127009454B0 /* Defaults.swift in Sources */,
+				F6A4B6E02599BF8700A94384 /* CalculatorConfigurationModel.swift in Sources */,
 				9578747324B7BDC60073772B /* InfiniteScrollingBehaviour.swift in Sources */,
 				230722C2244EC185009454B0 /* SaveUserDefaultsProtocol.swift in Sources */,
 				230722D3244EE9C9009454B0 /* ApplicationSettings.swift in Sources */,
@@ -29030,6 +29032,7 @@
 				CURRENT_PROJECT_VERSION = 41;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ViralCam-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -29064,6 +29067,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 41;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ViralCam-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -30047,6 +30051,7 @@
 				CURRENT_PROJECT_VERSION = 41;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ViralCam-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -30206,9 +30211,9 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				DEVELOPMENT_TEAM = PRD8NJU6BH;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "FastCamLite-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -30223,7 +30228,7 @@
 					"$(inherited)",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D FASTCAMLITEAPP";
-				PRODUCT_BUNDLE_IDENTIFIER = com.simform.fastCamLite;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fastcamLite.app;
 				PRODUCT_NAME = "FastCam Lite";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = ALPHA;
@@ -30279,9 +30284,10 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				DEVELOPMENT_TEAM = PRD8NJU6BH;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "QuickCamLite-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -30295,7 +30301,7 @@
 					"$(inherited)",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D QUICKCAMLITEAPP";
-				PRODUCT_BUNDLE_IDENTIFIER = com.simform.QuickCamLite;
+				PRODUCT_BUNDLE_IDENTIFIER = com.QuickCamLite.app;
 				PRODUCT_NAME = "QuickCam Lite";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = ALPHA;
@@ -30424,7 +30430,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 59;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				DEVELOPMENT_TEAM = PRD8NJU6BH;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "SnapCamLite-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -30439,7 +30445,7 @@
 					"$(inherited)",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D SNAPCAMLITEAPP";
-				PRODUCT_BUNDLE_IDENTIFIER = com.simform.viralcam;
+				PRODUCT_BUNDLE_IDENTIFIER = com.snapcamLite.app;
 				PRODUCT_NAME = "SnapCam Lite";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = ALPHA;
@@ -30851,6 +30857,7 @@
 				CURRENT_PROJECT_VERSION = 41;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "ViralCam-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -31010,9 +31017,9 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				DEVELOPMENT_TEAM = PRD8NJU6BH;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "FastCamLite-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -31027,7 +31034,7 @@
 					"$(inherited)",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D FASTCAMLITEAPP";
-				PRODUCT_BUNDLE_IDENTIFIER = com.simform.fastCamLite;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fastcamLite.app;
 				PRODUCT_NAME = "FastCam Lite";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = BETA;
@@ -31083,9 +31090,10 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				DEVELOPMENT_TEAM = PRD8NJU6BH;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "QuickCamLite-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -31099,7 +31107,7 @@
 					"$(inherited)",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D QUICKCAMLITEAPP";
-				PRODUCT_BUNDLE_IDENTIFIER = com.simform.QuickCamLite;
+				PRODUCT_BUNDLE_IDENTIFIER = com.QuickCamLite.app;
 				PRODUCT_NAME = "QuickCam Lite";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = BETA;
@@ -31228,7 +31236,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 59;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				DEVELOPMENT_TEAM = PRD8NJU6BH;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "SnapCamLite-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -31243,7 +31251,7 @@
 					"$(inherited)",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D SNAPCAMLITEAPP";
-				PRODUCT_BUNDLE_IDENTIFIER = com.simform.viralcam;
+				PRODUCT_BUNDLE_IDENTIFIER = com.snapcamLite.app;
 				PRODUCT_NAME = "SnapCam Lite";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = BETA;
@@ -31728,9 +31736,9 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				DEVELOPMENT_TEAM = PRD8NJU6BH;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "FastCamLite-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -31745,7 +31753,7 @@
 					"$(inherited)",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D FASTCAMLITEAPP";
-				PRODUCT_BUNDLE_IDENTIFIER = com.simform.fastCamLite;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fastcamLite.app;
 				PRODUCT_NAME = "FastCam Lite";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "SocialCAM/SocialCAM-Bridging-Header.h";
@@ -31764,8 +31772,8 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 19;
-				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = PRD8NJU6BH;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "FastCamLite-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -31779,7 +31787,7 @@
 					"$(inherited)",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D FASTCAMLITEAPP";
-				PRODUCT_BUNDLE_IDENTIFIER = com.simform.fastCamLite;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fastcamLite.app;
 				PRODUCT_NAME = "FastCam Lite";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = STORE;
@@ -31939,7 +31947,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 59;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				DEVELOPMENT_TEAM = PRD8NJU6BH;
 				ENABLE_BITCODE = NO;
 				EXCLUDED_ARCHS = "";
 				INFOPLIST_FILE = "SnapCamLite-Info.plist";
@@ -31955,7 +31963,7 @@
 					"$(inherited)",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D SNAPCAMLITEAPP";
-				PRODUCT_BUNDLE_IDENTIFIER = com.simform.viralcam;
+				PRODUCT_BUNDLE_IDENTIFIER = com.snapcamLite.app;
 				PRODUCT_NAME = "SnapCam Lite";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "SocialCAM/SocialCAM-Bridging-Header.h";
@@ -31975,7 +31983,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 59;
-				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				DEVELOPMENT_TEAM = PRD8NJU6BH;
 				ENABLE_BITCODE = NO;
 				EXCLUDED_ARCHS = "";
 				INFOPLIST_FILE = "SnapCamLite-Info.plist";
@@ -31990,7 +31998,7 @@
 					"$(inherited)",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D SNAPCAMLITEAPP";
-				PRODUCT_BUNDLE_IDENTIFIER = com.simform.viralcam;
+				PRODUCT_BUNDLE_IDENTIFIER = com.snapcamLite.app;
 				PRODUCT_NAME = "SnapCam Lite";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = STORE;
@@ -32063,9 +32071,10 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				DEVELOPMENT_TEAM = PRD8NJU6BH;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "QuickCamLite-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -32079,7 +32088,7 @@
 					"$(inherited)",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D QUICKCAMLITEAPP";
-				PRODUCT_BUNDLE_IDENTIFIER = com.simform.QuickCamLite;
+				PRODUCT_BUNDLE_IDENTIFIER = com.QuickCamLite.app;
 				PRODUCT_NAME = "QuickCam Lite";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "SocialCAM/SocialCAM-Bridging-Header.h";
@@ -32098,8 +32107,9 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
-				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = PRD8NJU6BH;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "QuickCamLite-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -32112,7 +32122,7 @@
 					"$(inherited)",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D QUICKCAMLITEAPP";
-				PRODUCT_BUNDLE_IDENTIFIER = com.simform.QuickCamLite;
+				PRODUCT_BUNDLE_IDENTIFIER = com.QuickCamLite.app;
 				PRODUCT_NAME = "QuickCam Lite";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = STORE;
