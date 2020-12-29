@@ -212,7 +212,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         MSCrashes.hasReceivedMemoryWarningInLastSession()
       
         InternetConnectionAlert.shared.enable = true
-        
+       
         var rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
         
         if let user = Defaults.shared.currentUser,
@@ -254,7 +254,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IAPManager.shared.startObserving()
         
         FileManager.default.clearTempDirectory()
-        
+        UNUserNotificationCenter.current().delegate = self
         return true
     }
     
@@ -386,5 +386,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         Defaults.shared.postViralCamModel = nil
         IAPManager.shared.stopObserving()
+    }
+}
+
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        let id = response.notification.request.identifier
+        dLog("Received notification with ID = \(id)")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            NotificationManager.shared.openReviewScreenWithLastVideo()
+        }
+        completionHandler()
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        let id = notification.request.identifier
+        dLog("Received notification with ID = \(id)")
+        if #available(iOS 14.0, *) {
+            completionHandler([.banner, .badge, .sound, .list])
+        } else {
+            completionHandler([.alert, .sound, .badge])
+        }
     }
 }
