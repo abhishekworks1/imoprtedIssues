@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8LB-Cf-tg4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8LB-Cf-tg4">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -70,6 +70,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="p6C-uR-09Z"/>
                         <color key="backgroundColor" name="AppBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="bvd-de-JmA" firstAttribute="leading" secondItem="p6C-uR-09Z" secondAttribute="leading" id="2FU-q4-lOc"/>
@@ -81,7 +82,6 @@
                             <constraint firstItem="fSk-hX-uaq" firstAttribute="top" secondItem="bvd-de-JmA" secondAttribute="bottom" id="qlK-Kg-Gsz"/>
                             <constraint firstItem="p6C-uR-09Z" firstAttribute="trailing" secondItem="fSk-hX-uaq" secondAttribute="trailing" constant="15" id="tSd-Sx-ozr"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="p6C-uR-09Z"/>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="bvd-de-JmA"/>
@@ -117,11 +117,11 @@
                                 </connections>
                             </button>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="84k-hD-CHn"/>
                         <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="84k-hD-CHn" firstAttribute="trailing" secondItem="g0u-OK-0Ur" secondAttribute="trailing" constant="10" id="LHc-wd-0Xb"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="84k-hD-CHn"/>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="g0u-OK-0Ur"/>
@@ -143,7 +143,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eHU-sk-elE">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fKW-aO-ESu">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fKW-aO-ESu">
                             <rect key="frame" x="8" y="0.0" width="44" height="44"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="44" id="Dum-Tb-5nN"/>
@@ -162,6 +162,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
+                    <viewLayoutGuide key="safeArea" id="Ijp-P6-rfb"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="kJD-g6-0Kg" firstAttribute="centerY" secondItem="fKW-aO-ESu" secondAttribute="centerY" id="1H4-S8-bnw"/>
@@ -170,24 +171,23 @@
                         <constraint firstItem="fKW-aO-ESu" firstAttribute="leading" secondItem="eHU-sk-elE" secondAttribute="leading" constant="8" id="gJK-yI-WCB"/>
                         <constraint firstItem="fKW-aO-ESu" firstAttribute="centerY" secondItem="eHU-sk-elE" secondAttribute="centerY" id="wx4-hw-WmU"/>
                     </constraints>
-                    <viewLayoutGuide key="safeArea" id="Ijp-P6-rfb"/>
                 </view>
             </objects>
             <point key="canvasLocation" x="-3945" y="-1951"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="gwf-a3-bh4"/>
+    </inferredMetricsTieBreakers>
     <resources>
-        <image name="icoClose" width="17" height="16"/>
+        <image name="icoClose" width="26" height="26"/>
         <image name="reload" width="16" height="16"/>
         <image name="storyBack" width="19" height="19"/>
         <namedColor name="AppBackgroundColor">
-            <color red="0.10999999940395355" green="0.15299999713897705" blue="0.23899999260902405" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.10980392156862745" green="0.15294117647058825" blue="0.23921568627450981" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppBlackColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="gwf-a3-bh4"/>
-    </inferredMetricsTieBreakers>
 </document>

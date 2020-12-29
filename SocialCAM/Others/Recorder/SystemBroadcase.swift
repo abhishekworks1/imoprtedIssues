@@ -27,12 +27,11 @@ struct SystemBroadcastPickerViewBuilder {
     static func setup(superView: UIView, tag: Int = viewTag) {
         
         let broadCastPickerFrame = CGRect(x: 0,
-                                          y: screenSize.height - broadCastPickerHeight,
-                                          width: screenSize.width,
+                                          y: 0,
+                                          width: superView.frame.width,
                                           height: broadCastPickerHeight)
         broadCastPicker = RPSystemBroadcastPickerView(frame: broadCastPickerFrame)
         broadCastPicker?.preferredExtension = Constant.Application.recorderExtensionIdentifier
-        broadCastPicker?.backgroundColor = .red
         broadCastPicker?.tag = tag
         
         guard let broadCastPickerView = broadCastPicker else {
@@ -48,11 +47,11 @@ struct SystemBroadcastPickerViewBuilder {
         
         let isCaptured = UIScreen.main.isCaptured
         let buttonTitle = isCaptured ? R.string.localizable.stopRecored() : R.string.localizable.screenRecored()
-        broadCastPickerView.backgroundColor = isCaptured ? .blue : .red
+        broadCastPickerView.backgroundColor = isCaptured ? .red : .clear
+        broadCastPickerView.roundCorners(corners: [.allCorners], radius: 22)
         broadCastPickerView.subviews.forEach {
             if let button = $0 as? UIButton {
-                button.setImage(nil, for: .normal)
-                button.setTitle(buttonTitle, for: .normal)
+                button.setImage(R.image.recordingScreen(), for: .normal)
             }
         }
         
@@ -60,7 +59,7 @@ struct SystemBroadcastPickerViewBuilder {
         broadCastPickerView.translatesAutoresizingMaskIntoConstraints = false
         broadCastPickerView.centerXAnchor.constraint(equalTo: superView.centerXAnchor, constant: 0).isActive = true
         broadCastPickerView.centerYAnchor.constraint(equalTo: superView.centerYAnchor, constant: 0).isActive = true
-        broadCastPickerView.widthAnchor.constraint(equalTo: superView.widthAnchor, constant: -100).isActive = true
+        broadCastPickerView.widthAnchor.constraint(equalToConstant: broadCastPickerHeight).isActive = true
         broadCastPickerView.heightAnchor.constraint(equalToConstant: broadCastPickerHeight).isActive = true
     }
 }

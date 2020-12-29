@@ -107,7 +107,7 @@ public struct Constant {
         static let appIcon = UIImage(named: "speedCamSplashIcon")!
         #elseif PIC2ARTAPP
         static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "PIC2ART"
-        static let simformIdentifier: String = "com.simform.Pic2Art"
+        static let simformIdentifier: String = "com.Pic2Art.app"
         static let proModeCode: String = "pic2art2020"
         static let pic2artProModeCode: String = "pic2art2020pro!!"
         static let publicLink = URL(string: "https://testflight.apple.com/join/hshtsh9O")
@@ -185,8 +185,13 @@ public struct Constant {
         static let appIcon = UIImage(named: "recordeAppSplashLogo")!
         #endif
         static let groupIdentifier: String = "group.com.simform.storiCamPro"
-        static let recordeGroupIdentifier: String = "group.com.socialScreenRecorder.app"
-        static let recorderExtensionIdentifier: String = "com.socialScreenRecorder.app.recorderExtension"
+        static let recordeGroupIdentifier: String = "group.com.quickCamLite.app"
+        static let recorderExtensionIdentifier: String = "com.QuickCamLite.app.QuickCamLiteExtension"
+        
+        static let pasteboardName: String = "com.Pic2Art.app.CopyFrom"
+        static let pasteboardType: String = "com.Pic2Art.app.shareImageData"
+        static let pic2artApp: String = "pic2art://com.Pic2Art.app"
+        
         static let screenRecodingNotification: String = "ScreenRecodingNotification"
         static let appVersion: String = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
         static let appBuildNumber: String = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1"
@@ -308,8 +313,8 @@ public struct Constant {
         static let serviceKey: String = "AIzaSyD9_sy-klWwfrLTrT4ub-E4fC-iwnzoCG0"
         static let placeClientKey: String = "AIzaSyD9_sy-klWwfrLTrT4ub-E4fC-iwnzoCG0"
         #elseif PIC2ARTAPP
-        static let serviceKey: String = "AIzaSyBOBVwEf8bMfwCreZS-IBAEqm57A0szOfg"
-        static let placeClientKey: String = "AIzaSyBOBVwEf8bMfwCreZS-IBAEqm57A0szOfg"
+        static let serviceKey: String = "AIzaSyAhDvrppyVLvXTAD2fMj1wdBsUgyf1bZpM"
+        static let placeClientKey: String = "AIzaSyAhDvrppyVLvXTAD2fMj1wdBsUgyf1bZpM"
         #elseif TIMESPEED
         static let serviceKey: String = "AIzaSyA0GnKcXJS6uFQUm_SASEsCaGgoeJhq2QA"
         static let placeClientKey: String = "AIzaSyBOBVwEf8bMfwCreZS-IBAEqm57A0szOfg"
