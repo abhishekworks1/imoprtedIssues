@@ -261,9 +261,6 @@ class StoryCameraViewController: UIViewController {
     var isMute: Bool = false {
         didSet {
             NextLevel.shared.audioConfiguration.isMute = self.isMute
-            if NextLevel.shared.isRecording {
-                self.isMute ? muteButton.startBlink(0.5) : muteButton.stopBlink()
-            }
         }
     }
     
@@ -359,7 +356,7 @@ class StoryCameraViewController: UIViewController {
     var panStartPoint: CGPoint = .zero
     var panStartZoom: CGFloat = 0.0
     var currentCameraPosition = AVCaptureDevice.Position.front
-    var flashMode: AVCaptureDevice.TorchMode = .off
+    var flashMode: AVCaptureDevice.TorchMode = .on
     var takenImages: [UIImage] = []
     var takenVideoUrls: [SegmentVideos] = [] {
         didSet {
@@ -875,9 +872,9 @@ extension StoryCameraViewController {
     
     func setCameraSettings() {
         if let flashmode = Defaults.shared.flashMode {
-            flashMode = AVCaptureDevice.TorchMode(rawValue: flashmode) ?? .off
+            flashMode = AVCaptureDevice.TorchMode(rawValue: flashmode) ?? .on
         } else {
-            flashMode = .off
+            flashMode = .on
             Defaults.shared.flashMode = flashMode.rawValue
         }
         setupFlashUI()
@@ -1610,7 +1607,6 @@ extension StoryCameraViewController {
         guard !nextLevel.isRecording else {
             return
         }
-        self.isMute ? muteButton.startBlink(0.5) : muteButton.stopBlink()
         self.view.bringSubviewToFront(slowFastVerticalBar.superview ?? UIView())
         if recordingType != .basicCamera && Defaults.shared.enableGuildlines {
             slowFastVerticalBar.isHidden = isLiteApp ? false : (Defaults.shared.appMode == .free)
@@ -1665,7 +1661,6 @@ extension StoryCameraViewController {
     
     func stopRecording() {
         resetProgressTimer()
-        muteButton.stopBlink()
        
         DispatchQueue.main.async { [weak self] in
             guard let `self` = self else { return }
