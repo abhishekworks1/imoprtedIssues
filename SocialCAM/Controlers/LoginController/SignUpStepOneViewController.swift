@@ -22,6 +22,7 @@ enum SignUpStep :Int {
 class SignUpStepOneViewController: UIViewController {
     
     // MARK :-- IBOutlets ---
+    @IBOutlet weak var viewPasswordRules: UIView!
     @IBOutlet var txtEmail: SkyFloatingLabelTextField!
     @IBOutlet var txtPassWord: SkyFloatingLabelTextField!
     @IBOutlet var txtChannel: SkyFloatingLabelTextField!
@@ -35,6 +36,10 @@ class SignUpStepOneViewController: UIViewController {
     @IBOutlet var lblChannel: PLabel!
     @IBOutlet var viewPassWord: UIView!
     @IBOutlet var btnHidePassWord: PButton!
+    @IBOutlet weak var imgSpecialCharactersValidation: UIImageView!
+    @IBOutlet weak var imgNumberValidation: UIImageView!
+    @IBOutlet weak var imgCapitalValidation: UIImageView!
+    @IBOutlet weak var imgLengthValidation: UIImageView!
     var profileImg: String?
     var imagePicker: UIImagePickerController!
     
@@ -416,6 +421,14 @@ extension SignUpStepOneViewController: UITextFieldDelegate {
         return true
     }
     
+    func textFieldDidEndEditing(_ textField: UITextField) {
+            self.viewPasswordRules.isHidden = true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self.viewPasswordRules.isHidden = (textField != self.txtPassWord)
+    }
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField == txtChannel {
             let specialCharacterRegEx  = "^[a-zA-Z0-9_]*$"
@@ -451,12 +464,32 @@ extension SignUpStepOneViewController: UITextFieldDelegate {
             if txt.count <= Constant.Value.minChannelName {
                 self.isRefChannel = false
             }
+        } else if textField == self.txtPassWord {
+            let text = ((textField.text ?? "" )as NSString).replacingCharacters(in: range, with: string)
+            self.modifyPasswordRulesView(password: text)
         }
         return true
     }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         return true
+    }
+    
+    func modifyPasswordRulesView(password: String) {
+        let specialCharacterValidation = NSPredicate(format: "SELF MATCHES %@ ", ".*[^A-Za-z0-9].*")
+        self.imgSpecialCharactersValidation.image = specialCharacterValidation.evaluate(with: password) ? R.image.passwordValid() : R.image.passwordInvalid()
+        let numbersRange = password.rangeOfCharacter(from: .decimalDigits)
+        self.imgNumberValidation.image = numbersRange != nil ? R.image.passwordValid() : R.image.passwordInvalid()
+        
+        for char in password {
+            if char.isUppercase {
+                self.imgCapitalValidation.image = R.image.passwordValid()
+                break
+            } else {
+                self.imgCapitalValidation.image = R.image.passwordInvalid()
+            }
+        }
+        self.imgLengthValidation.image =   password.length >= 8 ? R.image.passwordValid() : R.image.passwordInvalid()
     }
     
 }
