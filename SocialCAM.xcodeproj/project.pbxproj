@@ -1131,6 +1131,12 @@
 		82262115239E165A00B963CF /* SpeedViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82262114239E165A00B963CF /* SpeedViewController.storyboard */; };
 		82262117239E172A00B963CF /* SpeedViewController+Controls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82262116239E172A00B963CF /* SpeedViewController+Controls.swift */; };
 		82270CBD23B08C780003569E /* StorySegmmentAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82270CBC23B08C780003569E /* StorySegmmentAsset.swift */; };
+		822ABCC0259C473500323EBD /* GoogleService-Info-Pic2Art.plist in Resources */ = {isa = PBXBuildFile; fileRef = 822ABCBF259C473400323EBD /* GoogleService-Info-Pic2Art.plist */; };
+		822ABD2D259C4B1500323EBD /* CalculatorConfigurationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63E1906251B2D6100558591 /* CalculatorConfigurationModel.swift */; };
+		822ABF1E259C74DC00323EBD /* FileSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828F3B38258B53D9001F4500 /* FileSystem.swift */; };
+		822ABF3A259C74F400323EBD /* ConstantClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826935C7259307DF00C0B2C6 /* ConstantClass.swift */; };
+		822ABF72259C754400323EBD /* R.quickCamLiteExtension.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822ABF71259C754300323EBD /* R.quickCamLiteExtension.generated.swift */; };
+		822ABF73259C754400323EBD /* R.quickCamLiteExtension.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822ABF71259C754300323EBD /* R.quickCamLiteExtension.generated.swift */; };
 		822F413C238FE39100084007 /* Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822F413B238FE39100084007 /* Async.swift */; };
 		822F413F238FE3E900084007 /* ExportVideoOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822F413E238FE3E900084007 /* ExportVideoOperation.swift */; };
 		8232CEAE240E2A2300AD8E63 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8232CEAC240E2A2300AD8E63 /* MainInterface.storyboard */; };
@@ -2767,8 +2773,6 @@
 		826935DD259307DF00C0B2C6 /* ConstantClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826935C7259307DF00C0B2C6 /* ConstantClass.swift */; };
 		826935DE259307DF00C0B2C6 /* ConstantClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826935C7259307DF00C0B2C6 /* ConstantClass.swift */; };
 		826935DF259307DF00C0B2C6 /* ConstantClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826935C7259307DF00C0B2C6 /* ConstantClass.swift */; };
-		8269361325930D5900C0B2C6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8269361225930D5900C0B2C6 /* Localizable.strings */; };
-		8269361425930D5900C0B2C6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8269361225930D5900C0B2C6 /* Localizable.strings */; };
 		8269361525930D5900C0B2C6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8269361225930D5900C0B2C6 /* Localizable.strings */; };
 		8269372D25930EA700C0B2C6 /* R.socialScreenRecorderExtension.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8269372C25930EA600C0B2C6 /* R.socialScreenRecorderExtension.generated.swift */; };
 		826937482593116D00C0B2C6 /* RecorderNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826937472593116D00C0B2C6 /* RecorderNavigationController.swift */; };
@@ -4447,6 +4451,14 @@
 		82DA70B32539880300DF1ED7 /* GoogleService-Info-ViralCam.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2397B8DB2435D1D000F97957 /* GoogleService-Info-ViralCam.plist */; };
 		82DCF7A823C5AD95009E12D2 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82DCF7A723C5AD95009E12D2 /* SplashScreen.storyboard */; };
 		82DCF7AA23C5AD9D009E12D2 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DCF7A923C5AD9D009E12D2 /* SplashScreen.swift */; };
+		82E4D674259B465D005B41C1 /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 828F3B5B258B8342001F4500 /* ReplayKit.framework */; };
+		82E4D677259B465E005B41C1 /* SampleHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E4D676259B465E005B41C1 /* SampleHandler.swift */; };
+		82E4D67E259B466D005B41C1 /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 828F3B5B258B8342001F4500 /* ReplayKit.framework */; };
+		82E4D67F259B466D005B41C1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 828F3B67258B8342001F4500 /* UIKit.framework */; };
+		82E4D682259B466D005B41C1 /* BroadcastSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E4D681259B466D005B41C1 /* BroadcastSetupViewController.swift */; };
+		82E4D686259B466D005B41C1 /* QuickCamLiteExtensionSetupUI.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 82E4D67D259B466D005B41C1 /* QuickCamLiteExtensionSetupUI.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		82E4D689259B466D005B41C1 /* QuickCamLiteExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 82E4D673259B465D005B41C1 /* QuickCamLiteExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		82E4D6E7259B475F005B41C1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8269361225930D5900C0B2C6 /* Localizable.strings */; };
 		82E73CE724BC484200C9E150 /* MJScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E73CE624BC484200C9E150 /* MJScrollView.swift */; };
 		82E73CE824BC484200C9E150 /* MJScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E73CE624BC484200C9E150 /* MJScrollView.swift */; };
 		82E73CE924BC484200C9E150 /* MJScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82E73CE624BC484200C9E150 /* MJScrollView.swift */; };
@@ -7847,7 +7859,6 @@
 		9578747524B7BDC80073772B /* InfiniteScrollingBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B2D3CB249286A50059C6C9 /* InfiniteScrollingBehaviour.swift */; };
 		9578747624B7BDC90073772B /* InfiniteScrollingBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B2D3CB249286A50059C6C9 /* InfiniteScrollingBehaviour.swift */; };
 		957BE963248AB360007A5891 /* LaunchScreenPic2Art.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 957BE962248AB360007A5891 /* LaunchScreenPic2Art.storyboard */; };
-		958F890E248E772200630AF8 /* GoogleService-Info-Pic2Art.plist in Resources */ = {isa = PBXBuildFile; fileRef = 958F890D248E772200630AF8 /* GoogleService-Info-Pic2Art.plist */; };
 		959A91D62449CFDD0062AA67 /* IAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959A91D42449CFDD0062AA67 /* IAPManager.swift */; };
 		959A91D72449CFDD0062AA67 /* IAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959A91D42449CFDD0062AA67 /* IAPManager.swift */; };
 		959A91D82449CFDD0062AA67 /* IAP_ProductIDs.plist in Resources */ = {isa = PBXBuildFile; fileRef = 959A91D52449CFDD0062AA67 /* IAP_ProductIDs.plist */; };
@@ -8558,6 +8569,7 @@
 		95EE425424B8BA81002E5D84 /* ComingSoonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824C677824B5B404000396E9 /* ComingSoonController.swift */; };
 		95F117E423FD04B400EB99B4 /* SpecificBoomerangOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F117E323FD04B400EB99B4 /* SpecificBoomerangOptions.swift */; };
 		A5DFA48E6B7A3F536FA84BC6 /* Pods_Pic2Art.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12AB906D69BDE0807AD8E9CF /* Pods_Pic2Art.framework */; };
+		C8833F073614A35DF244A44F /* Pods_QuickCamLiteExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C75F3E270A1CF04C6B6C834 /* Pods_QuickCamLiteExtension.framework */; };
 		CC8AB60956C8C2397C44AEB1 /* Pods_TimeSpeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D316223FF43DF3C4848C8D1 /* Pods_TimeSpeed.framework */; };
 		D9DF212ED66A510B12B12655 /* Pods_ViralvidsLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64860F0FF59BD32DA416C04A /* Pods_ViralvidsLite.framework */; };
 		DA36631B7BBD20CFF9B0B104 /* Pods_SocialScreenRecorder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63766CD8E1412A0DBDCEAF0B /* Pods_SocialScreenRecorder.framework */; };
@@ -12419,6 +12431,20 @@
 			remoteGlobalIDString = 828F3B59258B8341001F4500;
 			remoteInfo = SocialScreenRecorderExtension;
 		};
+		82E4D684259B466D005B41C1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 824EB3702361959800205993 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 82E4D67C259B466D005B41C1;
+			remoteInfo = QuickCamLiteExtensionSetupUI;
+		};
+		82E4D687259B466D005B41C1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 824EB3702361959800205993 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 82E4D672259B465D005B41C1;
+			remoteInfo = QuickCamLiteExtension;
+		};
 		951FE82D24B870920059B9A7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 824EB3702361959800205993 /* Project object */;
@@ -12472,6 +12498,18 @@
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		82E4D636259B45F9005B41C1 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				82E4D689259B466D005B41C1 /* QuickCamLiteExtension.appex in Embed App Extensions */,
+				82E4D686259B466D005B41C1 /* QuickCamLiteExtensionSetupUI.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		951FE83024B870920059B9A7 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -12506,6 +12544,7 @@
 		0A8337BFCBD730279C06A3CD /* Pods-SpeedCamLite.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpeedCamLite.release.xcconfig"; path = "Target Support Files/Pods-SpeedCamLite/Pods-SpeedCamLite.release.xcconfig"; sourceTree = "<group>"; };
 		12AB906D69BDE0807AD8E9CF /* Pods_Pic2Art.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pic2Art.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1381F126D22E1FAB9224F38D /* Pods-Pic2Art.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pic2Art.beta.xcconfig"; path = "Target Support Files/Pods-Pic2Art/Pods-Pic2Art.beta.xcconfig"; sourceTree = "<group>"; };
+		1650934B0D92C1DCF2195C09 /* Pods-QuickCamLiteExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickCamLiteExtension.release.xcconfig"; path = "Target Support Files/Pods-QuickCamLiteExtension/Pods-QuickCamLiteExtension.release.xcconfig"; sourceTree = "<group>"; };
 		165D81CAFBC32CDFFEEDD5C1 /* Pods_SocialScreenRecorderExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SocialScreenRecorderExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		179D8A0B6EB27617D10082CA /* Pods-QuickCam.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickCam.debug.xcconfig"; path = "Target Support Files/Pods-QuickCam/Pods-QuickCam.debug.xcconfig"; sourceTree = "<group>"; };
 		192D67013DDEDAF0F2578071 /* Pods_SnapCamLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SnapCamLite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -12564,6 +12603,7 @@
 		6454ECF0A515056C19E8406F /* Pods-Viralvids.alpha.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Viralvids.alpha.xcconfig"; path = "Target Support Files/Pods-Viralvids/Pods-Viralvids.alpha.xcconfig"; sourceTree = "<group>"; };
 		64860F0FF59BD32DA416C04A /* Pods_ViralvidsLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ViralvidsLite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		65467013A0D3EEBED85C18CA /* Pods-FutbolCam.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FutbolCam.release.xcconfig"; path = "Target Support Files/Pods-FutbolCam/Pods-FutbolCam.release.xcconfig"; sourceTree = "<group>"; };
+		677B745EDE801C145032FC1D /* Pods-QuickCamLiteExtension.alpha.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickCamLiteExtension.alpha.xcconfig"; path = "Target Support Files/Pods-QuickCamLiteExtension/Pods-QuickCamLiteExtension.alpha.xcconfig"; sourceTree = "<group>"; };
 		68BBD02FF8C81E1CD3F22F37 /* Pods-FastCamLite.alpha.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FastCamLite.alpha.xcconfig"; path = "Target Support Files/Pods-FastCamLite/Pods-FastCamLite.alpha.xcconfig"; sourceTree = "<group>"; };
 		6B895EEE0048CB24034FD885 /* Pods_SpeedCam.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpeedCam.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D00DCDAFBB84B8BA9422C87 /* Pods-SocialCamMediaShare.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialCamMediaShare.debug.xcconfig"; path = "Target Support Files/Pods-SocialCamMediaShare/Pods-SocialCamMediaShare.debug.xcconfig"; sourceTree = "<group>"; };
@@ -12955,6 +12995,8 @@
 		82262114239E165A00B963CF /* SpeedViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SpeedViewController.storyboard; sourceTree = "<group>"; };
 		82262116239E172A00B963CF /* SpeedViewController+Controls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpeedViewController+Controls.swift"; sourceTree = "<group>"; };
 		82270CBC23B08C780003569E /* StorySegmmentAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorySegmmentAsset.swift; sourceTree = "<group>"; };
+		822ABCBF259C473400323EBD /* GoogleService-Info-Pic2Art.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Pic2Art.plist"; sourceTree = "<group>"; };
+		822ABF71259C754300323EBD /* R.quickCamLiteExtension.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.quickCamLiteExtension.generated.swift; sourceTree = "<group>"; };
 		822F413B238FE39100084007 /* Async.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Async.swift; sourceTree = "<group>"; };
 		822F413E238FE3E900084007 /* ExportVideoOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportVideoOperation.swift; sourceTree = "<group>"; };
 		8232CEA8240E2A2300AD8E63 /* SocialCamMediaShare.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SocialCamMediaShare.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -12982,7 +13024,6 @@
 		823B810C24618A1A0024BDD9 /* MyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCell.swift; sourceTree = "<group>"; };
 		823BCDBA24AC580B00D7350B /* BusinessNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessNavigationController.swift; sourceTree = "<group>"; };
 		823BCDC124AC817500D7350B /* SubscriptionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionVC.swift; sourceTree = "<group>"; };
-		823BCDCB24AC8E9F00D7350B /* SoccerCam-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = "SoccerCam-Info.plist"; path = "../../../../../../../jasmin.patel/Documents/Projects/SocialCam/SoccerCam-Info.plist"; sourceTree = "<group>"; };
 		82402E19248F91D50057133F /* TimeSpeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimeSpeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		82402E1A248F91D60057133F /* TimeSpeed-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TimeSpeed-Info.plist"; sourceTree = "<group>"; };
 		82402E1C248F92D30057133F /* LaunchScreenTimeSpeed.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreenTimeSpeed.storyboard; sourceTree = "<group>"; };
@@ -13267,6 +13308,13 @@
 		82D22F29258B4B6700957045 /* R.socialscreenrecorder.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.socialscreenrecorder.generated.swift; sourceTree = "<group>"; };
 		82DCF7A723C5AD95009E12D2 /* SplashScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SplashScreen.storyboard; sourceTree = "<group>"; };
 		82DCF7A923C5AD9D009E12D2 /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
+		82E4D673259B465D005B41C1 /* QuickCamLiteExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = QuickCamLiteExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		82E4D676259B465E005B41C1 /* SampleHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleHandler.swift; sourceTree = "<group>"; };
+		82E4D67D259B466D005B41C1 /* QuickCamLiteExtensionSetupUI.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = QuickCamLiteExtensionSetupUI.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		82E4D681259B466D005B41C1 /* BroadcastSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadcastSetupViewController.swift; sourceTree = "<group>"; };
+		82E4D683259B466D005B41C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		82E4D6CA259B46CC005B41C1 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		82E4D703259B4778005B41C1 /* QuickCamLiteExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = QuickCamLiteExtension.entitlements; sourceTree = "<group>"; };
 		82E73CE624BC484200C9E150 /* MJScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MJScrollView.swift; sourceTree = "<group>"; };
 		82E7EFC423792E8B00501345 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		82E7EFC523792E8B00501345 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -13280,6 +13328,7 @@
 		836CCA44492AC16792D73C11 /* Pods-BoomiCam.alpha.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoomiCam.alpha.xcconfig"; path = "Target Support Files/Pods-BoomiCam/Pods-BoomiCam.alpha.xcconfig"; sourceTree = "<group>"; };
 		872CB0932B2F6C092F0397B6 /* Pods_SpeedCamLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpeedCamLite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AC74AE5A11D7165F31DF267 /* Pods-FutbolCam.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FutbolCam.debug.xcconfig"; path = "Target Support Files/Pods-FutbolCam/Pods-FutbolCam.debug.xcconfig"; sourceTree = "<group>"; };
+		8B6173CADCDD1773AF2D64B7 /* Pods-QuickCamLiteExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickCamLiteExtension.debug.xcconfig"; path = "Target Support Files/Pods-QuickCamLiteExtension/Pods-QuickCamLiteExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		8B8ECC8E2D118F9031CF7B46 /* Pods-TimeSpeed.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TimeSpeed.beta.xcconfig"; path = "Target Support Files/Pods-TimeSpeed/Pods-TimeSpeed.beta.xcconfig"; sourceTree = "<group>"; };
 		8C4AC73C687F1ADCF729D194 /* Pods-SpeedCam.alpha.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpeedCam.alpha.xcconfig"; path = "Target Support Files/Pods-SpeedCam/Pods-SpeedCam.alpha.xcconfig"; sourceTree = "<group>"; };
 		8F3D411D8525CCA77B1FEA9F /* Pods_ViralCam.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ViralCam.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -13378,7 +13427,6 @@
 		95584DD12464323B006E9894 /* SwipeUpStoryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SwipeUpStoryView.xib; sourceTree = "<group>"; };
 		956DA2F824910630001BED39 /* LaunchScreenBoomiCam.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreenBoomiCam.storyboard; sourceTree = "<group>"; };
 		957BE962248AB360007A5891 /* LaunchScreenPic2Art.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreenPic2Art.storyboard; sourceTree = "<group>"; };
-		958F890D248E772200630AF8 /* GoogleService-Info-Pic2Art.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Pic2Art.plist"; sourceTree = "<group>"; };
 		959A91D42449CFDD0062AA67 /* IAPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPManager.swift; sourceTree = "<group>"; };
 		959A91D52449CFDD0062AA67 /* IAP_ProductIDs.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = IAP_ProductIDs.plist; sourceTree = "<group>"; };
 		95A2EA222490FE8E00226181 /* BoomiCam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BoomiCam.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -13395,6 +13443,7 @@
 		95F117E323FD04B400EB99B4 /* SpecificBoomerangOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecificBoomerangOptions.swift; sourceTree = "<group>"; };
 		979084F593CE042352BAE1C6 /* Pods-QuickCamLite.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickCamLite.debug.xcconfig"; path = "Target Support Files/Pods-QuickCamLite/Pods-QuickCamLite.debug.xcconfig"; sourceTree = "<group>"; };
 		991B94D62FC52F62CBAB0E70 /* Pods-QuickCamLite.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickCamLite.release.xcconfig"; path = "Target Support Files/Pods-QuickCamLite/Pods-QuickCamLite.release.xcconfig"; sourceTree = "<group>"; };
+		9C75F3E270A1CF04C6B6C834 /* Pods_QuickCamLiteExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuickCamLiteExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A32455081ED8F0CC55A1E49A /* Pods-ViralCamLite.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ViralCamLite.release.xcconfig"; path = "Target Support Files/Pods-ViralCamLite/Pods-ViralCamLite.release.xcconfig"; sourceTree = "<group>"; };
 		A6291129B82617C0D72DA5B3 /* Pods-SoccerCam.alpha.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SoccerCam.alpha.xcconfig"; path = "Target Support Files/Pods-SoccerCam/Pods-SoccerCam.alpha.xcconfig"; sourceTree = "<group>"; };
 		AC0AA9971C311163AF02EFCE /* Pods-ViralvidsLite.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ViralvidsLite.beta.xcconfig"; path = "Target Support Files/Pods-ViralvidsLite/Pods-ViralvidsLite.beta.xcconfig"; sourceTree = "<group>"; };
@@ -13437,6 +13486,7 @@
 		E6758FD9EA2913CB6C63503F /* Pods-SocialScreenRecorder.alpha.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialScreenRecorder.alpha.xcconfig"; path = "Target Support Files/Pods-SocialScreenRecorder/Pods-SocialScreenRecorder.alpha.xcconfig"; sourceTree = "<group>"; };
 		ED41D41CDE7064D41421BB49 /* Pods_ViralCamLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ViralCamLite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EEA225A87DD90FE23A4B16B6 /* Pods-SnapCam.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnapCam.beta.xcconfig"; path = "Target Support Files/Pods-SnapCam/Pods-SnapCam.beta.xcconfig"; sourceTree = "<group>"; };
+		F01539CE34E30BF9B1B2B100 /* Pods-QuickCamLiteExtension.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickCamLiteExtension.beta.xcconfig"; path = "Target Support Files/Pods-QuickCamLiteExtension/Pods-QuickCamLiteExtension.beta.xcconfig"; sourceTree = "<group>"; };
 		F162176A05183AD90DA0E408 /* Pods-SocialScreenRecorderExtension.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialScreenRecorderExtension.beta.xcconfig"; path = "Target Support Files/Pods-SocialScreenRecorderExtension/Pods-SocialScreenRecorderExtension.beta.xcconfig"; sourceTree = "<group>"; };
 		F16628DDDEA6A88B8ED73FF4 /* Pods-SocialCAM.alpha.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialCAM.alpha.xcconfig"; path = "Target Support Files/Pods-SocialCAM/Pods-SocialCAM.alpha.xcconfig"; sourceTree = "<group>"; };
 		F1B316CD75AF0912A5963759 /* Pods-SpeedCam.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpeedCam.debug.xcconfig"; path = "Target Support Files/Pods-SpeedCam/Pods-SpeedCam.debug.xcconfig"; sourceTree = "<group>"; };
@@ -13618,6 +13668,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		82E4D670259B465D005B41C1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				82E4D674259B465D005B41C1 /* ReplayKit.framework in Frameworks */,
+				C8833F073614A35DF244A44F /* Pods_QuickCamLiteExtension.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		82E4D67A259B466D005B41C1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				82E4D67E259B466D005B41C1 /* ReplayKit.framework in Frameworks */,
+				82E4D67F259B466D005B41C1 /* UIKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		951FE82224B870910059B9A7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -13790,7 +13858,6 @@
 			isa = PBXGroup;
 			children = (
 				23E503CC24500B570026BDF6 /* ViralCamVideos.storyboard */,
-				823BCDCB24AC8E9F00D7350B /* SoccerCam-Info.plist */,
 				23E503CE24500B6C0026BDF6 /* ViralCamVideos.swift */,
 				23E503D424500E270026BDF6 /* VideoTableViewCell.xib */,
 				23E503D624500E3D0026BDF6 /* VideoTableViewCell.swift */,
@@ -13899,6 +13966,10 @@
 				2A12D31E4EBA741AF75632B8 /* Pods-SocialScreenRecorderExtension.alpha.xcconfig */,
 				F162176A05183AD90DA0E408 /* Pods-SocialScreenRecorderExtension.beta.xcconfig */,
 				0394A940406213433551F51D /* Pods-SocialScreenRecorderExtension.release.xcconfig */,
+				8B6173CADCDD1773AF2D64B7 /* Pods-QuickCamLiteExtension.debug.xcconfig */,
+				677B745EDE801C145032FC1D /* Pods-QuickCamLiteExtension.alpha.xcconfig */,
+				F01539CE34E30BF9B1B2B100 /* Pods-QuickCamLiteExtension.beta.xcconfig */,
+				1650934B0D92C1DCF2195C09 /* Pods-QuickCamLiteExtension.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -14967,6 +15038,8 @@
 				827DAB8224A4CCE5001A2259 /* SocialVids */,
 				828F3B5D258B8342001F4500 /* SocialScreenRecorderExtension */,
 				828F3B69258B8342001F4500 /* SocialScreenRecorderExtensionSetupUI */,
+				82E4D675259B465D005B41C1 /* QuickCamLiteExtension */,
+				82E4D680259B466D005B41C1 /* QuickCamLiteExtensionSetupUI */,
 				824EB3792361959800205993 /* Products */,
 				42EECCA896FCF095AA83BB36 /* Pods */,
 				F6303928DF96F75577001E96 /* Frameworks */,
@@ -15018,6 +15091,8 @@
 				8274E6A9258B45DD00AE4FB0 /* SocialScreenRecorder.app */,
 				828F3B5A258B8341001F4500 /* SocialScreenRecorderExtension.appex */,
 				828F3B65258B8342001F4500 /* SocialScreenRecorderExtensionSetupUI.appex */,
+				82E4D673259B465D005B41C1 /* QuickCamLiteExtension.appex */,
+				82E4D67D259B466D005B41C1 /* QuickCamLiteExtensionSetupUI.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -15330,6 +15405,7 @@
 				8269372C25930EA600C0B2C6 /* R.socialScreenRecorderExtension.generated.swift */,
 				8280E63C25136F6600BF5A1A /* R.timespeed.generated.swift */,
 				8280E64825136F7000BF5A1A /* R.viralvids.generated.swift */,
+				822ABF71259C754300323EBD /* R.quickCamLiteExtension.generated.swift */,
 			);
 			path = R;
 			sourceTree = "<group>";
@@ -15548,6 +15624,25 @@
 			path = SplashScreen;
 			sourceTree = "<group>";
 		};
+		82E4D675259B465D005B41C1 /* QuickCamLiteExtension */ = {
+			isa = PBXGroup;
+			children = (
+				82E4D703259B4778005B41C1 /* QuickCamLiteExtension.entitlements */,
+				82E4D676259B465E005B41C1 /* SampleHandler.swift */,
+				82E4D6CA259B46CC005B41C1 /* Info.plist */,
+			);
+			path = QuickCamLiteExtension;
+			sourceTree = "<group>";
+		};
+		82E4D680259B466D005B41C1 /* QuickCamLiteExtensionSetupUI */ = {
+			isa = PBXGroup;
+			children = (
+				82E4D681259B466D005B41C1 /* BroadcastSetupViewController.swift */,
+				82E4D683259B466D005B41C1 /* Info.plist */,
+			);
+			path = QuickCamLiteExtensionSetupUI;
+			sourceTree = "<group>";
+		};
 		951D5C9C24472AC600DBD742 /* ChannelPurchase */ = {
 			isa = PBXGroup;
 			children = (
@@ -15742,7 +15837,7 @@
 		957BE961248AB33E007A5891 /* Pic2Art */ = {
 			isa = PBXGroup;
 			children = (
-				958F890D248E772200630AF8 /* GoogleService-Info-Pic2Art.plist */,
+				822ABCBF259C473400323EBD /* GoogleService-Info-Pic2Art.plist */,
 				957BE962248AB360007A5891 /* LaunchScreenPic2Art.storyboard */,
 			);
 			path = Pic2Art;
@@ -15793,6 +15888,7 @@
 				828F3B67258B8342001F4500 /* UIKit.framework */,
 				B965D2FAA33744D609D69C5E /* Pods_QuickCamLite.framework */,
 				165D81CAFBC32CDFFEEDD5C1 /* Pods_SocialScreenRecorderExtension.framework */,
+				9C75F3E270A1CF04C6B6C834 /* Pods_QuickCamLiteExtension.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -16114,6 +16210,42 @@
 			productReference = 82AF1E61249A05DE00D386E9 /* FastCam.app */;
 			productType = "com.apple.product-type.application";
 		};
+		82E4D672259B465D005B41C1 /* QuickCamLiteExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 82E4D68F259B466D005B41C1 /* Build configuration list for PBXNativeTarget "QuickCamLiteExtension" */;
+			buildPhases = (
+				3A95AA504F67A4046378FE16 /* [CP] Check Pods Manifest.lock */,
+				822ABE80259C718B00323EBD /* ShellScript */,
+				82E4D66F259B465D005B41C1 /* Sources */,
+				82E4D670259B465D005B41C1 /* Frameworks */,
+				82E4D671259B465D005B41C1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = QuickCamLiteExtension;
+			productName = QuickCamLiteExtension;
+			productReference = 82E4D673259B465D005B41C1 /* QuickCamLiteExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		82E4D67C259B466D005B41C1 /* QuickCamLiteExtensionSetupUI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 82E4D68A259B466D005B41C1 /* Build configuration list for PBXNativeTarget "QuickCamLiteExtensionSetupUI" */;
+			buildPhases = (
+				82E4D679259B466D005B41C1 /* Sources */,
+				82E4D67A259B466D005B41C1 /* Frameworks */,
+				82E4D67B259B466D005B41C1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = QuickCamLiteExtensionSetupUI;
+			productName = QuickCamLiteExtensionSetupUI;
+			productReference = 82E4D67D259B466D005B41C1 /* QuickCamLiteExtensionSetupUI.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		951FE82424B870910059B9A7 /* Pic2ArtShare */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 951FE83324B870920059B9A7 /* Build configuration list for PBXNativeTarget "Pic2ArtShare" */;
@@ -16388,10 +16520,13 @@
 				F6C05E2924E294F80018E8DA /* ShellScript */,
 				A3648A0D7F06FC28BD4925EC /* [CP] Embed Pods Frameworks */,
 				66C39DEFE5C3CD16B4493B5A /* [CP] Copy Pods Resources */,
+				82E4D636259B45F9005B41C1 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				82E4D685259B466D005B41C1 /* PBXTargetDependency */,
+				82E4D688259B466D005B41C1 /* PBXTargetDependency */,
 			);
 			name = QuickCamLite;
 			productName = StoriCam;
@@ -16427,6 +16562,12 @@
 						CreatedOnToolsVersion = 12.1;
 					};
 					828F3B64258B8342001F4500 = {
+						CreatedOnToolsVersion = 12.1;
+					};
+					82E4D672259B465D005B41C1 = {
+						CreatedOnToolsVersion = 12.1;
+					};
+					82E4D67C259B466D005B41C1 = {
 						CreatedOnToolsVersion = 12.1;
 					};
 					951FE82424B870910059B9A7 = {
@@ -16465,6 +16606,8 @@
 				F61D216424DD3ECF000A816E /* FastCamLite */,
 				95284AB824C89C4600786662 /* QuickCam */,
 				F6C05B7924E294F80018E8DA /* QuickCamLite */,
+				82E4D672259B465D005B41C1 /* QuickCamLiteExtension */,
+				82E4D67C259B466D005B41C1 /* QuickCamLiteExtensionSetupUI */,
 				82532A652513315700ABC366 /* SpeedCam */,
 				F63E1915251B36A200558591 /* SpeedCamLite */,
 				9545ADAA24B61A600076844A /* SnapCam */,
@@ -16985,7 +17128,6 @@
 				82532CD02513315700ABC366 /* love.json in Resources */,
 				82532CD12513315700ABC366 /* StoryEditor.storyboard in Resources */,
 				82532D2E25134E2300ABC366 /* GoogleService-Info-SpeedCam.plist in Resources */,
-				8269361425930D5900C0B2C6 /* Localizable.strings in Resources */,
 				82532CD32513315700ABC366 /* SF-UI-Text-Light.otf in Resources */,
 				82532CD42513315700ABC366 /* VideoTableViewCell.xib in Resources */,
 				82532CD52513315700ABC366 /* LUT_M05.png in Resources */,
@@ -17369,6 +17511,21 @@
 				82AF1E59249A05DE00D386E9 /* YouTube.storyboard in Resources */,
 				82AF1E5A249A05DE00D386E9 /* Thursday.JPG in Resources */,
 				827106F424A45EFB00C53521 /* AMColorPickerRGBSliderView.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		82E4D671259B465D005B41C1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				82E4D6E7259B475F005B41C1 /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		82E4D67B259B466D005B41C1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -17871,6 +18028,7 @@
 				952F60B3248A439F00917082 /* SF-UI-Text-Medium.otf in Resources */,
 				952F60B4248A439F00917082 /* TikTokShareView.xib in Resources */,
 				952F60B5248A439F00917082 /* PageViewController.storyboard in Resources */,
+				822ABCC0259C473500323EBD /* GoogleService-Info-Pic2Art.plist in Resources */,
 				957BE963248AB360007A5891 /* LaunchScreenPic2Art.storyboard in Resources */,
 				952F60B6248A439F00917082 /* DropDownCell.xib in Resources */,
 				952F60B8248A439F00917082 /* LUT_M11.png in Resources */,
@@ -17897,7 +18055,6 @@
 				952F60CA248A439F00917082 /* RedLips.JPG in Resources */,
 				952F60CB248A439F00917082 /* SpeedViewController.storyboard in Resources */,
 				952F60CC248A439F00917082 /* SF-UI-Text-Bold.otf in Resources */,
-				958F890E248E772200630AF8 /* GoogleService-Info-Pic2Art.plist in Resources */,
 				952F60CD248A439F00917082 /* Courier Prime Italic.ttf in Resources */,
 				952F60CE248A439F00917082 /* LoadingView.xib in Resources */,
 				952F60D0248A439F00917082 /* StoryCameraViewController.storyboard in Resources */,
@@ -18820,7 +18977,6 @@
 				F6C05DB224E294F80018E8DA /* Pink.JPG in Resources */,
 				F6C05DB324E294F80018E8DA /* Philharmonic.JPG in Resources */,
 				F6C05DB424E294F80018E8DA /* Rejoicing.JPG in Resources */,
-				8269361325930D5900C0B2C6 /* Localizable.strings in Resources */,
 				F6C05DB624E294F80018E8DA /* LaunchScreen.storyboard in Resources */,
 				F6C05DB724E294F80018E8DA /* AMColorPickerAssets.xcassets in Resources */,
 				F6C05DB824E294F80018E8DA /* IAP_ProductIDs.plist in Resources */,
@@ -19223,6 +19379,28 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		3A95AA504F67A4046378FE16 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-QuickCamLiteExtension-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		443F2611EAC9EC51832EB69D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -19476,6 +19654,25 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"--import\" \"MXPagerView\" \"$SRCROOT/R/R.socialcam.generated.swift\" \n";
+		};
+		822ABE80259C718B00323EBD /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$TEMP_DIR/rswift-lastrun",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				$SRCROOT/R/R.quickCamLiteExtension.generated.swift,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/R/R.quickCamLiteExtension.generated.swift\"\n";
 		};
 		822ED79C23953B3C00D6401A /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -20860,6 +21057,7 @@
 				230722BF244EC13C009454B0 /* SharedClass.swift in Sources */,
 				F604D98E2526D36E0063FF7B /* String+Extension.swift in Sources */,
 				F604D9892526C7530063FF7B /* LoginUserData.swift in Sources */,
+				822ABF72259C754400323EBD /* R.quickCamLiteExtension.generated.swift in Sources */,
 				230722B9244EBDC1009454B0 /* SharePostVC.swift in Sources */,
 				825E51112599CD0F002FCAF9 /* CalculatorConfigurationModel.swift in Sources */,
 				230722C3244EC18F009454B0 /* FilterImage.swift in Sources */,
@@ -24496,6 +24694,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		82E4D66F259B465D005B41C1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				822ABF73259C754400323EBD /* R.quickCamLiteExtension.generated.swift in Sources */,
+				822ABF1E259C74DC00323EBD /* FileSystem.swift in Sources */,
+				82E4D677259B465E005B41C1 /* SampleHandler.swift in Sources */,
+				822ABF3A259C74F400323EBD /* ConstantClass.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		82E4D679259B466D005B41C1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				82E4D682259B466D005B41C1 /* BroadcastSetupViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		951FE82124B870910059B9A7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -24516,6 +24733,7 @@
 				951FE84124B874F50059B9A7 /* ProfileDetailsResponse.swift in Sources */,
 				951FE84524B875310059B9A7 /* UIAlertController.swift in Sources */,
 				951FE83D24B874AA0059B9A7 /* FileManager.swift in Sources */,
+				822ABD2D259C4B1500323EBD /* CalculatorConfigurationModel.swift in Sources */,
 				951FE83924B874710059B9A7 /* Defaults.swift in Sources */,
 				F68DEE41251A3993009B699C /* R.pic2artshare.generated.swift in Sources */,
 				951FE83B24B874910059B9A7 /* FilterImage.swift in Sources */,
@@ -31032,6 +31250,16 @@
 			target = 828F3B59258B8341001F4500 /* SocialScreenRecorderExtension */;
 			targetProxy = 828F3B70258B8342001F4500 /* PBXContainerItemProxy */;
 		};
+		82E4D685259B466D005B41C1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 82E4D67C259B466D005B41C1 /* QuickCamLiteExtensionSetupUI */;
+			targetProxy = 82E4D684259B466D005B41C1 /* PBXContainerItemProxy */;
+		};
+		82E4D688259B466D005B41C1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 82E4D672259B465D005B41C1 /* QuickCamLiteExtension */;
+			targetProxy = 82E4D687259B466D005B41C1 /* PBXContainerItemProxy */;
+		};
 		951FE82E24B870920059B9A7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 951FE82424B870910059B9A7 /* Pic2ArtShare */;
@@ -32360,9 +32588,9 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				DEVELOPMENT_TEAM = PRD8NJU6BH;
 				INFOPLIST_FILE = "Pic2Art-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -32376,7 +32604,7 @@
 					"$(inherited)",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D PIC2ARTAPP";
-				PRODUCT_BUNDLE_IDENTIFIER = com.simform.Pic2Art;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Pic2Art.app;
 				PRODUCT_NAME = Pic2Art;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = ALPHA;
@@ -32393,8 +32621,8 @@
 				CODE_SIGN_ENTITLEMENTS = Pic2ArtShare/Pic2ArtShare.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
-				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = PRD8NJU6BH;
 				INFOPLIST_FILE = Pic2ArtShare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -32403,7 +32631,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D IS_PIC2ARTSHARE";
-				PRODUCT_BUNDLE_IDENTIFIER = com.simform.Pic2Art.Pic2ArtShare;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Pic2Art.app.Pic2ArtShare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = ALPHA;
@@ -32770,6 +32998,7 @@
 				CURRENT_PROJECT_VERSION = 6;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "QuickCam-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -33167,9 +33396,9 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				DEVELOPMENT_TEAM = PRD8NJU6BH;
 				INFOPLIST_FILE = "Pic2Art-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -33183,7 +33412,7 @@
 					"$(inherited)",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D PIC2ARTAPP";
-				PRODUCT_BUNDLE_IDENTIFIER = com.simform.Pic2Art;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Pic2Art.app;
 				PRODUCT_NAME = Pic2Art;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = BETA;
@@ -33200,8 +33429,8 @@
 				CODE_SIGN_ENTITLEMENTS = Pic2ArtShare/Pic2ArtShare.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
-				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = PRD8NJU6BH;
 				INFOPLIST_FILE = Pic2ArtShare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -33210,7 +33439,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D IS_PIC2ARTSHARE";
-				PRODUCT_BUNDLE_IDENTIFIER = com.simform.Pic2Art.Pic2ArtShare;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Pic2Art.app.Pic2ArtShare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = BETA;
@@ -33577,6 +33806,7 @@
 				CURRENT_PROJECT_VERSION = 6;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "QuickCam-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -33781,6 +34011,186 @@
 			};
 			name = Beta;
 		};
+		82E4D68B259B466D005B41C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = PRD8NJU6BH;
+				INFOPLIST_FILE = QuickCamLiteExtensionSetupUI/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.QuickCamLite.app.QuickCamLiteExtensionSetupUI;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		82E4D68C259B466D005B41C1 /* Alpha */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = PRD8NJU6BH;
+				INFOPLIST_FILE = QuickCamLiteExtensionSetupUI/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.QuickCamLite.app.QuickCamLiteExtensionSetupUI;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Alpha;
+		};
+		82E4D68D259B466D005B41C1 /* Beta */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = PRD8NJU6BH;
+				INFOPLIST_FILE = QuickCamLiteExtensionSetupUI/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.QuickCamLite.app.QuickCamLiteExtensionSetupUI;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Beta;
+		};
+		82E4D68E259B466D005B41C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = PRD8NJU6BH;
+				INFOPLIST_FILE = QuickCamLiteExtensionSetupUI/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.QuickCamLite.app.QuickCamLiteExtensionSetupUI;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		82E4D690259B466D005B41C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8B6173CADCDD1773AF2D64B7 /* Pods-QuickCamLiteExtension.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = QuickCamLiteExtension/QuickCamLiteExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = PRD8NJU6BH;
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = QuickCamLiteExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.QuickCamLite.app.QuickCamLiteExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		82E4D691259B466D005B41C1 /* Alpha */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 677B745EDE801C145032FC1D /* Pods-QuickCamLiteExtension.alpha.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = QuickCamLiteExtension/QuickCamLiteExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = PRD8NJU6BH;
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = QuickCamLiteExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.QuickCamLite.app.QuickCamLiteExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Alpha;
+		};
+		82E4D692259B466D005B41C1 /* Beta */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F01539CE34E30BF9B1B2B100 /* Pods-QuickCamLiteExtension.beta.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = QuickCamLiteExtension/QuickCamLiteExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = PRD8NJU6BH;
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = QuickCamLiteExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.QuickCamLite.app.QuickCamLiteExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Beta;
+		};
+		82E4D693259B466D005B41C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1650934B0D92C1DCF2195C09 /* Pods-QuickCamLiteExtension.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = QuickCamLiteExtension/QuickCamLiteExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = PRD8NJU6BH;
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = QuickCamLiteExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.QuickCamLite.app.QuickCamLiteExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		951FE83124B870920059B9A7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4054E0EEBDFF3456E03897F0 /* Pods-Pic2ArtShare.debug.xcconfig */;
@@ -33788,8 +34198,8 @@
 				CODE_SIGN_ENTITLEMENTS = Pic2ArtShare/Pic2ArtShare.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
-				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = PRD8NJU6BH;
 				INFOPLIST_FILE = Pic2ArtShare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -33798,7 +34208,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D IS_PIC2ARTSHARE";
-				PRODUCT_BUNDLE_IDENTIFIER = com.simform.Pic2Art.Pic2ArtShare;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Pic2Art.app.Pic2ArtShare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -33813,8 +34223,8 @@
 				CODE_SIGN_ENTITLEMENTS = Pic2ArtShare/Pic2ArtShare.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
-				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = PRD8NJU6BH;
 				INFOPLIST_FILE = Pic2ArtShare/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -33823,7 +34233,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D IS_PIC2ARTSHARE";
-				PRODUCT_BUNDLE_IDENTIFIER = com.simform.Pic2Art.Pic2ArtShare;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Pic2Art.app.Pic2ArtShare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = STORE;
@@ -33983,6 +34393,7 @@
 				CURRENT_PROJECT_VERSION = 6;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "QuickCam-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -34017,6 +34428,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "QuickCam-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -34049,9 +34461,9 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				DEVELOPMENT_TEAM = PRD8NJU6BH;
 				INFOPLIST_FILE = "Pic2Art-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -34065,7 +34477,7 @@
 					"$(inherited)",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D PIC2ARTAPP";
-				PRODUCT_BUNDLE_IDENTIFIER = com.simform.Pic2Art;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Pic2Art.app;
 				PRODUCT_NAME = Pic2Art;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "SocialCAM/SocialCAM-Bridging-Header.h";
@@ -34084,8 +34496,8 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
-				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = PRD8NJU6BH;
 				INFOPLIST_FILE = "Pic2Art-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -34098,7 +34510,7 @@
 					"$(inherited)",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D PIC2ARTAPP";
-				PRODUCT_BUNDLE_IDENTIFIER = com.simform.Pic2Art;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Pic2Art.app;
 				PRODUCT_NAME = Pic2Art;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = STORE;
@@ -34794,6 +35206,28 @@
 				82D5EDC1255C063500E2FE74 /* Alpha */,
 				82D5EDD8255C064000E2FE74 /* Beta */,
 				82AF1E60249A05DE00D386E9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		82E4D68A259B466D005B41C1 /* Build configuration list for PBXNativeTarget "QuickCamLiteExtensionSetupUI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				82E4D68B259B466D005B41C1 /* Debug */,
+				82E4D68C259B466D005B41C1 /* Alpha */,
+				82E4D68D259B466D005B41C1 /* Beta */,
+				82E4D68E259B466D005B41C1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		82E4D68F259B466D005B41C1 /* Build configuration list for PBXNativeTarget "QuickCamLiteExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				82E4D690259B466D005B41C1 /* Debug */,
+				82E4D691259B466D005B41C1 /* Alpha */,
+				82E4D692259B466D005B41C1 /* Beta */,
+				82E4D693259B466D005B41C1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

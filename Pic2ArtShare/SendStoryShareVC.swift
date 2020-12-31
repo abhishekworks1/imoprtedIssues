@@ -59,12 +59,15 @@ class SendStoryShareVC: UIViewController {
             print("Image type")
             if let image = filterImage.image,
                 let data = image.jpegData(compressionQuality: 1.0),
-                let pasteboard = UIPasteboard(name: UIPasteboard.Name(rawValue: "com.simform.Pic2Art.CopyFrom"), create: true) {
-                pasteboard.setData(data, forPasteboardType: "com.simform.Pic2Art.shareImageData")
+                let pasteboard = UIPasteboard(name: UIPasteboard.Name(rawValue: Constant.Application.pasteboardName), create: true) {
+                pasteboard.setData(data, forPasteboardType: Constant.Application.pasteboardType)
             }
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-                _ = self.openURL(URL(string: "pic2art://com.simform.Pic2Art")!)
+                guard let pic2artApp = URL(string: Constant.Application.pic2artApp) else {
+                    return
+                }
+                _ = self.openURL(pic2artApp)
                 self.extensionContext?.completeRequest(returningItems: [], completionHandler: nil)
             })
         case .video:

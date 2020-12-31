@@ -27,7 +27,7 @@ public class CameraModes {
     }
 }
 
-class StoryCameraViewController: UIViewController {
+class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
    
     let popupOffset: CGFloat = (UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0) != 0 ? 110 : 86
     
@@ -459,7 +459,7 @@ class StoryCameraViewController: UIViewController {
     let nextLevel = NextLevel.shared
     var selectedFPS: Float = 30
     var isUserTimerValueChange = true
-    
+    var isCameraLoadOnRecording = true
     var progressTimer: Timer?
     var progress: CGFloat = 0
     var progressMaxSeconds: CGFloat = 240
@@ -490,6 +490,8 @@ class StoryCameraViewController: UIViewController {
         return CGFloat(speedvalue)
     }
     
+    var observers = [NSObjectProtocol]()
+    
     // MARK: ViewController lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -515,6 +517,9 @@ class StoryCameraViewController: UIViewController {
         dynamicSetSlowFastVerticalBar()
         setViewsForApp()
         setupPic2ArtAppControls()
+        if isQuickCamLiteApp || isQuickCamApp {
+            setupRecordingView()
+        }
         if isLiteApp {
             self.recordingType = .promo
             self.setupLiteAppMode(mode: .promo)
@@ -522,6 +527,40 @@ class StoryCameraViewController: UIViewController {
                 view?.isHidden = true
             }
         }
+    }
+    
+    func setupRecordingView() {
+        if self.faceFiltersView.viewWithTag(SystemBroadcastPickerViewBuilder.viewTag) == nil {
+            SystemBroadcastPickerViewBuilder.setup(superView: self.faceFiltersView)
+        }
+    }
+    
+    private func reloadView() {
+        guard let broadCastPicker = SystemBroadcastPickerViewBuilder.broadCastPicker else {
+            return
+        }
+        SystemBroadcastPickerViewBuilder.layout(broadCastPickerView: broadCastPicker, superView: self.faceFiltersView)
+    }
+    
+    private func addObserverForRecordingView() {
+        self.reloadView()
+
+        let observer = self.addObserver(forCapturedDidChange: { [weak self] _ in
+            guard let `self` = self else {
+                return
+            }
+            self.isCameraLoadOnRecording = false
+            self.stopCapture()
+            self.reloadView()
+        }) { [weak self] _ in
+            guard let `self` = self else {
+                return
+            }
+            self.isCameraLoadOnRecording = true
+            self.reloadView()
+            self.startCapture()
+        }
+        self.observers.append(observer)
     }
     
     func setupPic2ArtAppControls() {
@@ -537,6 +576,11 @@ class StoryCameraViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        if isQuickCamLiteApp || isQuickCamApp {
+            addObserverForRecordingView()
+        }
+        
         if isLiteApp {
             if self.recordingType == .promo {
                 self.setupLiteAppMode(mode: .promo)
@@ -582,10 +626,10 @@ class StoryCameraViewController: UIViewController {
         self.resetPositionRecordButton()
         addVolumeButtonHandler()
         addTikTokShareViewIfNeeded()
-        if let pasteboard = UIPasteboard(name: UIPasteboard.Name(rawValue: "com.simform.Pic2Art.CopyFrom"), create: true),
-            let data = pasteboard.data(forPasteboardType: "com.simform.Pic2Art.shareImageData"),
+        if let pasteboard = UIPasteboard(name: UIPasteboard.Name(rawValue: Constant.Application.pasteboardName), create: true),
+           let data = pasteboard.data(forPasteboardType: Constant.Application.pasteboardType),
             let image = UIImage(data: data) {
-            UIPasteboard.remove(withName: UIPasteboard.Name(rawValue: "com.simform.Pic2Art.CopyFrom"))
+            UIPasteboard.remove(withName: UIPasteboard.Name(rawValue: Constant.Application.pasteboardName))
             openStoryEditor(images: [image])
         }
     }
@@ -848,6 +892,9 @@ extension StoryCameraViewController {
     }
     
     func startCapture() {
+        guard isCameraLoadOnRecording else {
+            return
+        }
         do {
             if let metadataObjectViews = metadataObjectViews {
                 for view in metadataObjectViews {
@@ -1503,10 +1550,10 @@ extension StoryCameraViewController {
         if isViewAppear {
             startCapture()
             addTikTokShareViewIfNeeded()
-            if let pasteboard = UIPasteboard(name: UIPasteboard.Name(rawValue: "com.simform.Pic2Art.CopyFrom"), create: true),
-                let data = pasteboard.data(forPasteboardType: "com.simform.Pic2Art.shareImageData"),
+            if let pasteboard = UIPasteboard(name: UIPasteboard.Name(rawValue: Constant.Application.pasteboardName), create: true),
+               let data = pasteboard.data(forPasteboardType: Constant.Application.pasteboardType),
                 let image = UIImage(data: data) {
-                UIPasteboard.remove(withName: UIPasteboard.Name(rawValue: "com.simform.Pic2Art.CopyFrom"))
+                UIPasteboard.remove(withName: UIPasteboard.Name(rawValue: Constant.Application.pasteboardName))
                 openStoryEditor(images: [image])
             }
         }
@@ -1533,7 +1580,6 @@ extension StoryCameraViewController {
                     self.fpsView.alpha = 0
                     self.timerValueView.alpha = 0
                 } else {
-                    self.muteStackView.alpha = 0
                     self.showhideView.alpha = 0
                     self.timerStackView.alpha = 0
                     self.nextButtonView.alpha = 0
@@ -1555,7 +1601,6 @@ extension StoryCameraViewController {
                     if self.recordingType == .slideshow || self.recordingType == .collage || self.recordingType == .capture || self.recordingType == .custom {
                         self.nextButtonView.alpha = 1
                     }
-                    self.muteStackView.alpha = 1
                     self.showhideView.alpha = 1
                     self.timerStackView.alpha = 1
                     self.cameraSliderView.alpha = 1
