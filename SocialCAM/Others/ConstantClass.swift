@@ -144,35 +144,35 @@ public struct Constant {
         #elseif VIRALCAMLITEAPP
         static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "ViralCam Lite"
         static let simformIdentifier: String = "com.simform.viralcamLite"
-        static let proModeCode: String = "socialcam2020"
+        static let proModeCode: String = "viralcamlite2020"
         static let publicLink = URL(string: "https://testflight.apple.com/join/6zE0nt7P")
         static let splashBG = UIImage(named: "viralcamSplashBG")!
         static let appIcon = UIImage(named: "viralcamLiteSplash")!
         #elseif FASTCAMLITEAPP
         static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "FastCam Lite"
         static let simformIdentifier: String = "com.simform.fastCamLite"
-        static let proModeCode: String = "socialcam2020"
+        static let proModeCode: String = "fastcamlite2020"
         static let publicLink = URL(string: "https://testflight.apple.com/join/6zE0nt7P")
         static let splashBG = UIImage(named: "fastcamLiteSplashBG")!
         static let appIcon = UIImage(named: "fastcamLiteWatermarkLogo")!
         #elseif QUICKCAMLITEAPP
         static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "QuickCam Lite"
         static let simformIdentifier: String = "com.simform.fastCamLite"
-        static let proModeCode: String = "socialcam2020"
+        static let proModeCode: String = "quickcamlite2020"
         static let publicLink = URL(string: "https://testflight.apple.com/join/6zE0nt7P")
         static let splashBG = UIImage(named: "quickcamLiteLaunchScreenBG")!
         static let appIcon = UIImage(named: "quickcamliteSplashLogo")!
         #elseif SPEEDCAMLITEAPP
         static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "QuickCam Lite"
         static let simformIdentifier: String = "com.simform.SpeedCamLite"
-        static let proModeCode: String = "socialcam2020"
+        static let proModeCode: String = "speedcamlite2020"
         static let publicLink = URL(string: "https://testflight.apple.com/join/qlMx1LpF")
         static let splashBG = UIImage(named: "speedCCamSplashBG")!
         static let appIcon = UIImage(named: "speedcamliteSplashLogo")!
         #elseif SNAPCAMLITEAPP
         static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "SnapCam"
         static let simformIdentifier: String = "com.simform.viralcam"
-        static let proModeCode: String = "snapcam2020"
+        static let proModeCode: String = "snapcamlite2020"
         static let publicLink = URL(string: "https://testflight.apple.com/join/MTVSBnbC")
         static let splashBG = UIImage(named: "snapCamSplashLite")!
         static let appIcon = UIImage(named: "snapCamSplashIconLite")!
