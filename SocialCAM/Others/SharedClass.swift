@@ -168,14 +168,12 @@ enum ReleaseType: String, AppMode_Enum {
         switch self {
         case .debug:
             return "debug"
-        case .alpha:
+        case .alpha, .debug:
             return "alpha"
         case .beta:
             return "beta"
         case .store:
             return "store"
-        default:
-            return "debug"
         }
     }
 }
@@ -397,6 +395,36 @@ public struct Reactions {
     static let reactionWOW = "wow"
     static let reactionSAD = "sad"
     static let reactionANGRY = "angry"
+}
+
+struct DeepLinkData {
+    static let deepLinkUrlString = "storicam://businessStack/businessCentre/"
+    
+    static var appDeeplinkName: String {
+        if isTimeSpeedApp {
+            return "TimeSpeed"
+        } else if isSoccerCamApp {
+            return "SoccerCam"
+        } else if isSnapCamApp || isSnapCamLiteApp {
+            return "SnapCam"
+        } else if isFutbolCamApp {
+            return "FutbolCam"
+        } else if isBoomiCamApp {
+            return "BoomiCam"
+        } else if isPic2ArtApp {
+            return "Pic2Art"
+        } else if isViralCamApp || isViralCamLiteApp {
+            return "ViralCam"
+        } else if isSpeedCamApp || isSpeedCamLiteApp {
+            return "SpeedCam"
+        } else if isQuickCamApp || isQuickCamLiteApp {
+            return "QuickCam"
+        } else if isFastCamApp || isFastCamLiteApp {
+            return "FastCam"
+        } else {
+            return "SocialCam"
+        }
+    }
 }
 
 struct TrimError: Error {

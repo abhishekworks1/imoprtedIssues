@@ -1624,7 +1624,7 @@ extension StoryCameraViewController {
     
     func startProgress() {
         if isQuickCamApp && Defaults.shared.appMode == .professional && self.recordingType == .capture {
-            self.startPulse(position: CGPoint(x: circularProgress.bounds.width/2, y: circularProgress.bounds.height/2))
+            self.startPulse(position: circularProgress.center)
         }
         self.progressTimer = Timer.scheduledTimer(timeInterval: 0.0625, target: self, selector: #selector(updateProgress), userInfo: nil, repeats: true)
     }
@@ -1780,7 +1780,8 @@ extension StoryCameraViewController {
     func startPulse(position: CGPoint) {
         pulse = Pulsing(numberOfPulses: Float.infinity, radius: 50, position: position)
         pulse.animationDuration = 0.9
-        self.circularProgress.layer.addSublayer(pulse)
+        pulse.backgroundColor = UIColor.white.cgColor
+        self.controlView.layer.insertSublayer(pulse, below: circularProgress.layer)
     }
     
     func stopPulse() {
