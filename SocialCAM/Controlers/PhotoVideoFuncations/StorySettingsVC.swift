@@ -33,6 +33,7 @@ enum SettingsMode: Int {
     case watermarkAlpha30 = 30
     case watermarkAlpha50 = 50
     case watermarkAlpha80 = 80
+    case subscription
 }
 
 class StorySetting {
@@ -80,6 +81,8 @@ class StorySettings {
                                               settings: [StorySetting(name: R.string.localizable.logout(), selected: false)], settingsType: .logout),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.controlCenter(), selected: false)], settingsType: .appStartScreen),
+                                StorySettings(name: "",
+                                              settings: [StorySetting(name: R.string.localizable.subscription(), selected: false)], settingsType: .subscription),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.termsAndConditions(), selected: false)], settingsType: .termsAndConditions),
                                 StorySettings(name: "",
@@ -147,7 +150,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         cell.settingsName.text = settings.name
         cell.detailButton.isHidden = true
         cell.settingsName.textColor = R.color.appBlackColor()
-        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video || settingTitle.settingsType == .cameraSettings || settingTitle.settingsType == .termsAndConditions || settingTitle.settingsType == .privacyPolicy {
+        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video || settingTitle.settingsType == .cameraSettings || settingTitle.settingsType == .termsAndConditions || settingTitle.settingsType == .privacyPolicy || settingTitle.settingsType == .subscription {
             if settingTitle.settingsType == .appInfo {
                 if isDebug {
                     cell.settingsName.textColor = R.color.appPrimaryColor()
@@ -300,6 +303,10 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             guard let legalVc = R.storyboard.legal.legalViewController() else { return }
             legalVc.isTermsAndConditions = settingTitle.settingsType == .termsAndConditions
             self.navigationController?.pushViewController(legalVc, animated: true)
+        } else if settingTitle.settingsType == .subscription {
+            if let subscriptionVC = R.storyboard.subscription.subscriptionContainerViewController() {
+                navigationController?.pushViewController(subscriptionVC, animated: true)
+            }
         }
     }
     
