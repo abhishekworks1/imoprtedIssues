@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="AtK-B9-Jht">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="AtK-B9-Jht">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -2732,11 +2732,22 @@ Countdown</string>
                                                         </view>
                                                     </subviews>
                                                 </stackView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Watermark Opacity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tcs-XL-Xwj">
+                                                    <rect key="frame" x="16" y="261" width="159" height="22"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="19" id="20V-GJ-SWy"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                                    <color key="textColor" name="AppPrimaryColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="Upk-Bs-9PG" secondAttribute="bottom" constant="25" id="Mha-3e-P7n"/>
+                                                <constraint firstItem="Tcs-XL-Xwj" firstAttribute="top" secondItem="Upk-Bs-9PG" secondAttribute="bottom" id="LKN-Y5-Oxu"/>
                                                 <constraint firstItem="9M3-xK-7Ud" firstAttribute="leading" secondItem="bvI-D0-q7c" secondAttribute="leading" constant="15" id="Ypp-Q7-JMQ"/>
                                                 <constraint firstItem="Upk-Bs-9PG" firstAttribute="top" secondItem="9M3-xK-7Ud" secondAttribute="bottom" constant="15" id="Zdh-Cn-JpD"/>
+                                                <constraint firstAttribute="bottom" secondItem="Tcs-XL-Xwj" secondAttribute="bottom" constant="6" id="deA-Of-tBl"/>
+                                                <constraint firstItem="Tcs-XL-Xwj" firstAttribute="leading" secondItem="bvI-D0-q7c" secondAttribute="leading" constant="15" id="idY-tr-K1A"/>
                                                 <constraint firstItem="Upk-Bs-9PG" firstAttribute="leading" secondItem="bvI-D0-q7c" secondAttribute="leading" id="slI-P8-0mP"/>
                                                 <constraint firstAttribute="trailing" secondItem="Upk-Bs-9PG" secondAttribute="trailing" id="vBl-4K-gRH"/>
                                                 <constraint firstItem="9M3-xK-7Ud" firstAttribute="top" secondItem="bvI-D0-q7c" secondAttribute="top" constant="14" id="vMS-XM-Eze"/>

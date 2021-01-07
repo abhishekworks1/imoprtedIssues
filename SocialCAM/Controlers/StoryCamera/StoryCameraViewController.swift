@@ -491,6 +491,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     }
     
     var observers = [NSObjectProtocol]()
+    var pulse = Pulsing()
     
     // MARK: ViewController lifecycle
     override func viewDidLoad() {
@@ -1622,6 +1623,9 @@ extension StoryCameraViewController {
     }
     
     func startProgress() {
+        if isQuickCamApp && Defaults.shared.appMode == .professional && self.recordingType == .capture {
+            self.startPulse()
+        }
         self.progressTimer = Timer.scheduledTimer(timeInterval: 0.0625, target: self, selector: #selector(updateProgress), userInfo: nil, repeats: true)
     }
     
@@ -1631,15 +1635,27 @@ extension StoryCameraViewController {
         print(progressMaxSeconds)
         print((progressUP / progressMaxSeconds))
         progress += progressUP // (progressUP / progressMaxSeconds)
-        circularProgress.progress = Double(progress)
         print("progress: \(progress)")
-        if progress >= 1 {
-            if isTimeSpeedApp || isBoomiCamApp || isPic2ArtApp {
-                self.isStopConnVideo = true
-            } else {
-                self.isStopConnVideo = self.recordingType != .handsfree ? true : false
+        if isQuickCamApp && Defaults.shared.appMode == .professional && self.recordingType == .capture {
+            if progress >= 1 {
+                if self.getFreeSpace() > 200 {
+                    let freeSpace = self.getFreeSpace()
+                    self.startRecording()
+                    print(freeSpace)
+                } else {
+                    self.stopRecording()
+                }
             }
-            self.stopRecording()
+        } else {
+            circularProgress.progress = Double(progress)
+            if progress >= 1 {
+                if isTimeSpeedApp || isBoomiCamApp || isPic2ArtApp {
+                    self.isStopConnVideo = true
+                } else {
+                    self.isStopConnVideo = self.recordingType != .handsfree ? true : false
+                }
+                self.stopRecording()
+            }
         }
     }
     
@@ -1664,25 +1680,31 @@ extension StoryCameraViewController {
         }, completion: { completed in
             DispatchQueue.main.async {
                 var totalSeconds = self.videoSegmentSeconds
-                if self.recordingType == .custom {
-                    totalSeconds = 240
-                } else if self.recordingType == .boomerang {
-                    totalSeconds = 2
-                } else if self.recordingType == .capture {
-                    if (isSpeedCamApp || isFastCamApp || isSnapCamApp) {
-                        totalSeconds = Defaults.shared.appMode == .basic ? 60 : 120
-                    } else {
-                        totalSeconds = 3600
+                if isQuickCamApp && Defaults.shared.appMode == .professional && self.recordingType == .capture {
+                    self.progressMaxSeconds = 60
+                    self.startProgress()
+                    NextLevel.shared.record()
+                } else {
+                    if self.recordingType == .custom {
+                        totalSeconds = 240
+                    } else if self.recordingType == .boomerang {
+                        totalSeconds = 2
+                    } else if self.recordingType == .capture {
+                        if (isSpeedCamApp || isFastCamApp || isSnapCamApp) {
+                            totalSeconds = Defaults.shared.appMode == .basic ? 60 : 120
+                        } else {
+                            totalSeconds = 3600
+                        }
+                    } else if isPic2ArtApp {
+                        totalSeconds = 5
+                    } else if isLiteApp {
+                        totalSeconds = self.recordingType == .promo ? 15 : totalSeconds
                     }
-                } else if isPic2ArtApp {
-                    totalSeconds = 5
-                } else if isLiteApp {
-                    totalSeconds = self.recordingType == .promo ? 15 : totalSeconds
+                    self.progressMaxSeconds = totalSeconds
+                    self.circularProgress.progressInsideFillColor = .red
+                    self.startProgress()
+                    NextLevel.shared.record()
                 }
-                self.progressMaxSeconds = totalSeconds
-                self.circularProgress.progressInsideFillColor = .red
-                self.startProgress()
-                NextLevel.shared.record()
             }
 /* TODO: If new logic will not work with all scenario then we need this code.
             self.circularProgress.animate(toAngle: 360, duration: Double(totalSeconds) - (NextLevel.shared.session?.totalDuration.seconds ?? 0)) { completed in
@@ -1706,9 +1728,12 @@ extension StoryCameraViewController {
     
     func stopRecording() {
         resetProgressTimer()
-       
+        
         DispatchQueue.main.async { [weak self] in
             guard let `self` = self else { return }
+            if isQuickCamApp && Defaults.shared.appMode == .professional && self.recordingType == .capture {
+                self.stopPulse()
+            }
             self.circularProgress.pauseAnimation()
             self.circularProgress.trackThickness = 0.75
             self.circularProgress.transform = CGAffineTransform(scaleX: 1, y: 1)
@@ -1736,6 +1761,32 @@ extension StoryCameraViewController {
         if self.recordingType != .custom {
             showControls()
         }
+    }
+    
+    // return free space in MB
+    func getFreeSpace() -> Int64 {
+        var totalFreeSpaceInBytes: Int64 = 0 //total free space in bytes
+        do {
+            let spaceFree: Int64 = try FileManager.default.attributesOfFileSystem(forPath: NSHomeDirectory())[FileAttributeKey.systemFreeSize] as! Int64
+            totalFreeSpaceInBytes = spaceFree
+        } catch let error { // Catch error that may be thrown by FileManager
+            print("Error is ", error)
+        }
+        let totalBytes: Int64 = 1 * CLongLong(totalFreeSpaceInBytes)
+        let totalMb: Int64 = totalBytes / (1024 * 1024)
+        return totalMb
+    }
+    
+    func startPulse() {
+        pulse = Pulsing(numberOfPulses: Float.infinity, radius: 50, position: circularProgress.center)
+        pulse.animationDuration = 0.9
+        pulse.backgroundColor = UIColor.white.cgColor
+        self.controlView.layer.insertSublayer(pulse, below: circularProgress.layer)
+    }
+    
+    func stopPulse() {
+        pulse.removeFromSuperlayer()
+        self.circularProgress.layer.removeAllAnimations()
     }
     
     func afterVideoCreateSave(url: URL, session: NextLevelSession) {

@@ -1221,7 +1221,7 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
         hideOptionIfNeeded()
         _ = storyEditors[currentStoryIndex].updatedThumbnailImage()
         nativeVideoPlayerRefresh()
-        playVideo()
+        isVideoPlay ? pauseVideo() : playVideo()
         self.collectionView.reloadData()
         self.shareCollectionView.reloadData()
         self.tableView.reloadData()
