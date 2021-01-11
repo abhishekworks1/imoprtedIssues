@@ -14,8 +14,8 @@ class Pulsing: CALayer {
     var animationGroup = CAAnimationGroup()
     var initialPulseScale: Float = 0.3
     var nextPulseAfter: TimeInterval = 0
-    var animationDuration: TimeInterval = 7.0
-    var radius: CGFloat = 80
+    var animationDuration: TimeInterval = 0.9
+    var radius: CGFloat = 50
     var numberOfPulses: Float = Float.infinity
     
     // MARK: - Initializers
@@ -27,9 +27,9 @@ class Pulsing: CALayer {
         super.init(coder: aDecoder)
     }
     
-    init (numberOfPulses: Float = Float.infinity, radius: CGFloat = 80, position: CGPoint = .zero) {
+    init (numberOfPulses: Float = Float.infinity, radius: CGFloat = 50, position: CGPoint = .zero) {
         super.init()
-        self.backgroundColor = UIColor.black.cgColor
+        self.backgroundColor = UIColor.white.cgColor
         self.contentsScale = UIScreen.main.scale
         self.opacity = 0
         self.radius = radius
@@ -58,16 +58,17 @@ class Pulsing: CALayer {
     func createOpacityAnimation() -> CAKeyframeAnimation {
         let opacityAnimation = CAKeyframeAnimation(keyPath: R.string.localizable.opacity())
         opacityAnimation.duration = animationDuration
-        opacityAnimation.values = [0.2, 0.9, 0]
+        opacityAnimation.values = [1, 0.9, 0]
         opacityAnimation.keyTimes = [0, 0.2, 1]
         return opacityAnimation
     }
     
     func setupAnimationGroup() {
+        
         self.animationGroup = CAAnimationGroup()
         self.animationGroup.duration = animationDuration
         self.animationGroup.repeatCount = .infinity
-        let defaultCurve = CAMediaTimingFunction(name: CAMediaTimingFunctionName.default)
+        let defaultCurve = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
         self.animationGroup.timingFunction = defaultCurve
         self.animationGroup.animations = [createScaleAnimation(), createOpacityAnimation()]
     }

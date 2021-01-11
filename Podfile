@@ -6,21 +6,21 @@ use_frameworks!
 inhibit_all_warnings!
 
 def shared_pods
-    pod 'R.swift'#, '5.1.0'
-    pod 'SwiftLint'
+    pod 'R.swift', '5.3.1'
+    pod 'SwiftLint', '0.42.0'
     pod 'Moya/RxSwift', '~> 14.0'
-    pod 'Moya-ObjectMapper/RxSwift'
+    pod 'Moya-ObjectMapper/RxSwift', '2.9'
     pod 'NSObject+Rx', '5.0.2'
     pod 'URLEmbeddedView', '0.18.0'
     pod 'SDWebImage', '5.6.1'
     pod 'AWSS3', '2.13.0'
-    pod 'InfiniteLayout'
+    pod 'InfiniteLayout', '0.4.2'
     pod 'GMStepper', '2.2'
 end
 
 def projectShared_pods
-    pod 'RxCocoa'
-    pod 'RxDataSources'
+    pod 'RxCocoa', '5.1.1'
+    pod 'RxDataSources', '4.0.1'
     pod 'TGPControls', '5.1.0'
     pod 'Toast-Swift', '5.0.0'
     pod 'YoutubePlayerView', :git => 'https://github.com/simformsolutions/YoutubePlayerView.git'
@@ -37,31 +37,31 @@ def projectShared_pods
     pod 'SkyFloatingLabelTextField', '3.7.0'
     pod 'FontAwesome.swift', '1.5.0'
     pod 'Spring', :git => 'https://github.com/MengTo/Spring.git'
-    pod 'Firebase/Core'
-    pod 'Firebase/Crashlytics'
-    pod 'Firebase/Analytics'
-    pod 'Firebase/Auth'
-    pod 'GooglePlaces'
-    pod 'GooglePlacePicker'
-    pod 'FBSDKCoreKit'
-    pod 'FBSDKShareKit'
-    pod 'FBSDKLoginKit'
-    pod 'SnapSDK', :subspecs => ['SCSDKCreativeKit', 'SCSDKLoginKit', 'SCSDKBitmojiKit']
-    pod 'AppCenter'
+    pod 'Firebase/Core', '7.3.0'
+    pod 'Firebase/Crashlytics', '7.3.0'
+    pod 'Firebase/Analytics', '7.3.0'
+    pod 'Firebase/Auth', '7.3.0'
+    pod 'GooglePlaces', '3.1.0'
+    pod 'GooglePlacePicker', '3.1.0'
+    pod 'FBSDKCoreKit', '8.2.0'
+    pod 'FBSDKShareKit', '8.2.0'
+    pod 'FBSDKLoginKit', '8.2.0'
+    pod 'SnapSDK', '1.6.2', :subspecs => ['SCSDKCreativeKit', 'SCSDKLoginKit', 'SCSDKBitmojiKit']
+    pod 'AppCenter', '3.3.4'
     pod 'GoogleSignIn', '~> 5.0'
     pod 'TagListView', '1.3.2'
 #    pod 'TwitterKit'
-    pod 'TwitterKit5'
+    pod 'TwitterKit5', '5.2.0'
     pod 'TikTokOpenSDK', '~> 3.0.0'
     pod 'SwiftySound', '1.2'
-    pod 'JPSVolumeButtonHandler'
+    pod 'JPSVolumeButtonHandler', '1.0.5'
     pod 'Pageboy', '~> 3.5'
 #    pod 'PayPal-iOS-SDK', '2.18.1'
     pod 'MXPagerView', :git => 'https://github.com/simformsolutions/MXPagerView'
     pod 'MXSegmentedPager', :git => 'https://github.com/simformsolutions/MXSegmentedPager'
-    pod "ESPullToRefresh"
+    pod "ESPullToRefresh", '2.9.3'
     pod 'ProgressHUD', '~> 2.70'
-    pod 'Parchment'
+    pod 'Parchment', '3.0.1'
 
     shared_pods
 end
@@ -78,7 +78,7 @@ end
 
 target 'ViralvidsLite' do
   shared_pods
-  pod "SSSpinnerButton"
+  pod "SSSpinnerButton", '3.0.2'
 end
 
 target 'ViralCamLite' do
