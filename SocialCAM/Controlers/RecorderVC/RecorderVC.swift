@@ -25,7 +25,7 @@ class RecorderVC: UIViewController, ScreenCaptureObservable {
         guard let broadCastPicker = SystemBroadcastPickerViewBuilder.broadCastPicker else {
             return
         }
-        SystemBroadcastPickerViewBuilder.layout(broadCastPickerView: broadCastPicker, superView: self.view)
+        SystemBroadcastPickerViewBuilder.layout(broadCastPickerView: broadCastPicker)
     }
     
     override func viewWillAppear(_ animated: Bool) {
