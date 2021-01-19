@@ -79,6 +79,7 @@ class User: Codable, Mappable {
     var advanceGameMode: Bool?
     var viralcamReferralLink: String?
     var referralCode: String?
+    var subscriptionStatus: String?
     
     required init?(map: Map) {
         
@@ -147,6 +148,7 @@ class User: Codable, Mappable {
         // Chat
         isTyping <- map["is_typing"]
         isAdmin <- map["is_admin"]
+        subscriptionStatus <- map["subscriptionStatus"]
         if id == nil {
             id <- map["id"]
         }

@@ -1,5 +1,5 @@
 PODS:
-  - Alamofire (5.4.1)
+  - Alamofire (5.2.2)
   - AppAuth (1.4.0):
     - AppAuth/Core (= 1.4.0)
     - AppAuth/ExternalUserAgent (= 1.4.0)
@@ -84,7 +84,7 @@ PODS:
   - FLAnimatedImage (1.0.12)
   - FontAwesome.swift (1.5.0)
   - FSPagerView (0.8.2)
-  - Gemini (1.3.1)
+  - Gemini (1.4.0)
   - GMStepper (2.2)
   - GoogleAppMeasurement (7.3.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 7.0)
@@ -127,14 +127,14 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (7.1.1):
     - GoogleUtilities/Logger
-  - GTMAppAuth (1.1.0):
-    - AppAuth/Core (~> 1.4)
-    - GTMSessionFetcher (~> 1.4)
-  - GTMSessionFetcher (1.5.0):
-    - GTMSessionFetcher/Full (= 1.5.0)
-  - GTMSessionFetcher/Core (1.5.0)
-  - GTMSessionFetcher/Full (1.5.0):
-    - GTMSessionFetcher/Core (= 1.5.0)
+  - GTMAppAuth (1.0.0):
+    - AppAuth/Core (~> 1.0)
+    - GTMSessionFetcher (~> 1.1)
+  - GTMSessionFetcher (1.4.0):
+    - GTMSessionFetcher/Full (= 1.4.0)
+  - GTMSessionFetcher/Core (1.4.0)
+  - GTMSessionFetcher/Full (1.4.0):
+    - GTMSessionFetcher/Core (= 1.4.0)
   - InfiniteLayout (0.4.2):
     - InfiniteLayout/Core (= 0.4.2)
   - InfiniteLayout/CocoaProxy (0.4.2)
@@ -173,16 +173,10 @@ PODS:
   - NVActivityIndicatorView/Presenter (4.6.1)
   - ObjectMapper (4.2.0)
   - OnlyPictures (1.0.0)
-  - Pageboy (3.6.2)
+  - Pageboy (3.6.1)
   - Parchment (3.0.1)
-  - PINCache (3.0.3):
-    - PINCache/Arc-exception-safe (= 3.0.3)
-    - PINCache/Core (= 3.0.3)
-  - PINCache/Arc-exception-safe (3.0.3):
-    - PINCache/Core
-  - PINCache/Core (3.0.3):
-    - PINOperation (~> 1.2.1)
-  - PINOperation (1.2.1)
+  - PINCache (2.3)
+  - PINOperation (1.2)
   - ProgressHUD (2.70)
   - PromisesObjC (1.2.12)
   - R.swift (5.3.1):
@@ -240,7 +234,7 @@ DEPENDENCIES:
   - FLAnimatedImage (= 1.0.12)
   - FontAwesome.swift (= 1.5.0)
   - FSPagerView (= 0.8.2)
-  - Gemini (= 1.3.1)
+  - Gemini
   - GMStepper (= 2.2)
   - GooglePlacePicker (= 3.1.0)
   - GooglePlaces (= 3.1.0)
@@ -395,7 +389,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/simformsolutions/YoutubePlayerView.git
 
 SPEC CHECKSUMS:
-  Alamofire: 2291f7d21ca607c491dd17642e5d40fdcda0e65c
+  Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
   AppCenter: 0487be185c038ed2ecc5ed38219af1dcd280af23
   AWSCore: 167aba8cdaff6873193a66f062f41749c6c6a3d3
@@ -417,7 +411,7 @@ SPEC CHECKSUMS:
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   FontAwesome.swift: 55291c7a334ffacf9b62793d27c14014ec09a11b
   FSPagerView: 816a18842306973cc7cc6df8a5332272f7815c30
-  Gemini: 25fd4ae5dcde4cbd136dac899faf38a1dddea1a8
+  Gemini: 4ad915cca8805577fe3021e02feeca2b77dcdbfc
   GMStepper: 89fb106944dfcc3aa3add7164e3ebd463ea2104b
   GoogleAppMeasurement: 8d3c0aeede16ab7764144b5a4ca8e1d4323841b7
   GoogleDataTransport: 116c84c4bdeb76be2a7a46de51244368f9794eab
@@ -426,8 +420,8 @@ SPEC CHECKSUMS:
   GooglePlaces: e874db179f2675c4f3eeda0b686b540273a578b0
   GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
   GoogleUtilities: 3dc4ff0d5e4840e2fa8eef0889620e8c33d4218c
-  GTMAppAuth: 197a8dabfea5d665224aa00d17f164fc2248dab9
-  GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
+  GTMAppAuth: 4deac854479704f348309e7b66189e604cf5e01e
+  GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
   InfiniteLayout: de51cfad9ed480a3e3a0af7d28242d3257c606d9
   IQKeyboardManagerSwift: 0fb93310284665245591f50f7a5e38de615960b7
   JPSVolumeButtonHandler: 53110330c9168ed325def93eabff39f0fe3e8082
@@ -441,10 +435,10 @@ SPEC CHECKSUMS:
   NVActivityIndicatorView: 4ca19fccc84595a78957336a086d00a49be6ce61
   ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
   OnlyPictures: a91e5b202783fb3a36d4e2f1899d400a22b26259
-  Pageboy: cf121b9dd48c63f3f281b2a9ec93d02e0f23879b
+  Pageboy: 29a2d474ad99404b4d77f325e0ab6d705930a4fb
   Parchment: 466a1cfb6151780db8acb4bbedc2d9c6bfa1e2ff
-  PINCache: 7a8fc1a691173d21dbddbf86cd515de6efa55086
-  PINOperation: 00c935935f1e8cf0d1e2d6b542e75b88fc3e5e20
+  PINCache: ce36ed282031b92fc7733ffe831f474ff80fddc2
+  PINOperation: 3a967a927e7867e61976c6cc23e5770416449fbc
   ProgressHUD: e603e8b8622c47d8818b9fb38b3cfe9d3e7ca421
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   R.swift: 56ec7e3aef34b9eee47a659e42462db2c1cc5ac3
@@ -472,6 +466,6 @@ SPEC CHECKSUMS:
   URLEmbeddedView: 3fe17ae535d2b8d38c3b08ab8ba0aea5efe5d1cd
   YoutubePlayerView: 9e21d0286415264c6b6a5f3c5cb53ed9272e2bd6
 
-PODFILE CHECKSUM: aed734f59a89a9425126dcd9b732b25490179106
+PODFILE CHECKSUM: c186da9d66ff29a3a8301803aee27c2b55deb052
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.10.0.beta.1

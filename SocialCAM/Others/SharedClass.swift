@@ -184,6 +184,32 @@ enum AppMode: Int, AppMode_Enum {
     case advanced
     case professional
     
+    func getTypeFromString(type: String) -> AppMode {
+        switch type {
+        case "pro":
+            return .professional
+        case "basic":
+            return .basic
+        case "advance":
+            return .advanced
+        default:
+            return .free
+        }
+    }
+    
+    var getType: String {
+        switch self {
+        case .free:
+            return "free"
+        case .basic:
+            return "basic"
+        case .advanced:
+            return "advance"
+        case .professional:
+            return "pro"
+        }
+    }
+    
     var description: String {
         switch self {
         case .free:
@@ -583,6 +609,7 @@ public struct Paths {
     static let getCommentsStory = "getComments"
     static let getCalculatorConfig = "calcConfig"
     static let getWebsiteData = "faq/website"
+    static let setSubsctiption = "users/buySubscription"
 }
 
 struct WebsiteData {
