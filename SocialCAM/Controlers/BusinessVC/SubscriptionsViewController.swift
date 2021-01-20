@@ -112,29 +112,46 @@ class SubscriptionsViewController: UIViewController {
             }
         }
         
-        let actionSave = UIAlertAction(title: R.string.localizable.oK(), style: .default) { ( _: UIAlertAction) in
+        let actionSave = UIAlertAction(title: R.string.localizable.oK(), style: .default) { [weak self] ( _: UIAlertAction) in
+            guard let `self` = self else {
+                return
+            }
             if appMode != .free {
                 guard let textField = objAlert.textFields?.first,
                     textField.text?.count ?? 0 > 0 else {
                     self.view.makeToast(R.string.localizable.pleaseEnterValidCode())
                     return
                 }
-                if textField.text?.lowercased() != proModeCode {
-                    self.view.makeToast(R.string.localizable.pleaseEnterValidCode())
-                    return
-                }
+                self.callSubscriptionApi(appMode: appMode, code: textField.text ?? "", successMessage: successMessage)
+            } else {
+                self.callSubscriptionApi(appMode: appMode, code: "GET_SUBSCRIPTION", successMessage: successMessage)
             }
-            Defaults.shared.appMode = appMode
-            SubscriptionSettings.storySettings[0].settings[appMode.rawValue].selected = true
-            AppEventBus.post("changeMode")
-            self.navigationController?.popViewController(animated: true)
-            Utils.appDelegate?.window?.makeToast(successMessage)
             
         }
         let cancelAction = UIAlertAction(title: R.string.localizable.cancel(), style: .default) { (_: UIAlertAction) in }
         objAlert.addAction(cancelAction)
         objAlert.addAction(actionSave)
         self.present(objAlert, animated: true, completion: nil)
+    }
+    
+    func callSubscriptionApi(appMode: AppMode, code: String, successMessage: String?) {
+        ProManagerApi.setSubscription(type: appMode.getType, code: code).request(Result<User>.self).subscribe(onNext: { (response) in
+            self.dismissHUD()
+            if response.status == ResponseType.success {
+                Defaults.shared.currentUser = response.result
+                CurrentUser.shared.setActiveUser(response.result)
+                SubscriptionSettings.storySettings[0].settings[appMode.rawValue].selected = true
+                AppEventBus.post("changeMode")
+                self.navigationController?.popViewController(animated: true)
+                Utils.appDelegate?.window?.makeToast(successMessage)
+            } else {
+                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+            }
+        }, onError: { error in
+            self.showAlert(alertMessage: error.localizedDescription)
+        }, onCompleted: {
+        }).disposed(by: self.rx.disposeBag)
+        
     }
     
 }

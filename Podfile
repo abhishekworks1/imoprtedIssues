@@ -25,7 +25,7 @@ def projectShared_pods
     pod 'Toast-Swift', '5.0.0'
     pod 'YoutubePlayerView', :git => 'https://github.com/simformsolutions/YoutubePlayerView.git'
     pod 'SCRecorder', :git => 'https://github.com/jasminpsimform/SCRecorder'
-    pod 'Gemini', '1.3.1'
+    pod 'Gemini', '1.4.0'
     pod 'OnlyPictures', :git => 'https://github.com/simformsolutions/OnlyPictures'
     pod 'FLAnimatedImage', '1.0.12'
     pod 'SwiftVideoGenerator', :git => 'https://github.com/jasminpsimform/swift-video-generator', :branch => 'swift5'

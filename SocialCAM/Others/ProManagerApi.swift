@@ -59,6 +59,7 @@ public enum ProManagerApi {
     case getChannelSuggestion(channelName: String)
     case getCalculatorConfig(type: String)
     case getWebsiteData
+    case setSubscription(type: String, code: String)
 
     var endpoint: Endpoint {
         var endpointClosure = MoyaProvider<ProManagerApi>.defaultEndpointMapping(for: self)
@@ -215,6 +216,8 @@ extension ProManagerApi: TargetType {
             return Paths.getCalculatorConfig
         case .getWebsiteData:
             return Paths.getWebsiteData
+        case .setSubscription:
+            return Paths.setSubsctiption
         }
        
     }
@@ -543,6 +546,8 @@ extension ProManagerApi: TargetType {
             param = ["type": type]
         case .getWebsiteData:
             param = ["page": 0, "limit": 100]
+        case .setSubscription(let type, let code):
+            param = ["code": code, "subscriptionType": type]
         }
         return param
     }

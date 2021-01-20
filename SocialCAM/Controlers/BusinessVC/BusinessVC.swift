@@ -31,7 +31,6 @@ struct BusinessVCOption {
     var type: BusinessVCOptionType
     
     static let contents: [BusinessVCOption] = [BusinessVCOption(name: R.string.localizable.share(), image: R.image.share(), type: .share),
-                                               BusinessVCOption(name: R.string.localizable.subscription(), image: R.image.subscription(), type: .subscription),
                                                BusinessVCOption(name: R.string.localizable.announcement(), image: R.image.announcementCopy(), type: .announcement),
                                                BusinessVCOption(name: R.string.localizable.channelManagement(), image: R.image.channelManagement(), type: .channelManagement),
                                                BusinessVCOption(name: R.string.localizable.calculator(), image: R.image.calculator(), type: .calculator),
@@ -125,7 +124,6 @@ class BusinessVC: UIViewController {
         super.viewDidAppear(animated)
         let application = UIApplication.shared
         if let user = Defaults.shared.currentUser, let userId = user.id, let authToken = Defaults.shared.sessionToken, let messagesAppURL = URL(string: "\(DeepLinkData.deepLinkUrlString)\(DeepLinkData.appDeeplinkName)/\(Defaults.shared.releaseType.description)/\(userId)/\(authToken)"), application.canOpenURL(messagesAppURL) {
-                application.open(messagesAppURL)
             }
     }
     
