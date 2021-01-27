@@ -296,7 +296,7 @@ class StoryEditorViewController: UIViewController {
         IQKeyboardManager.shared.enable = false
         IQKeyboardManager.shared.enableAutoToolbar = false
         videoProgressBar.layoutSubviews()
-        playVideo()
+        isVideoPlay ? pauseVideo() : playVideo()
     }
     
     override func viewDidDisappear(_ animated: Bool) {

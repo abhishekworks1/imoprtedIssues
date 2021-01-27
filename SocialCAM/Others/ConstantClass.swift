@@ -328,8 +328,8 @@ public struct Constant {
         static let serviceKey: String = "AIzaSyBPfolm4DG9lJHe8W5UM9rDB3ZbeXiAt8Q"
         static let placeClientKey: String = "AIzaSyBPfolm4DG9lJHe8W5UM9rDB3ZbeXiAt8Q"
         #else
-        static let serviceKey: String = "AIzaSyBOBVwEf8bMfwCreZS-IBAEqm57A0szOfg"
-        static let placeClientKey: String = "AIzaSyBOBVwEf8bMfwCreZS-IBAEqm57A0szOfg"
+        static let serviceKey: String = "AIzaSyCxjExNbUx2d-DvH8aroRCAhHarFQo1JRA"
+        static let placeClientKey: String = "AIzaSyCxjExNbUx2d-DvH8aroRCAhHarFQo1JRA"
         #endif
         static let youtubeScope: String = "https://www.googleapis.com/auth/youtube.force-ssl"
     }
