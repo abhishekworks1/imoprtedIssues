@@ -672,7 +672,7 @@ extension StoryEditorView {
                                    followMeStoryView.userBitEmoji.image = R.image.viralcamLiteWatermark()
                                    followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppViralCamLite()
                 } else if type == .quickCamLite {
-                                   followMeStoryView.userBitEmoji.image = R.image.quickcamliteSplashLogo()
+                                   followMeStoryView.userBitEmoji.image = R.image.ssuQuickCamLite()
                                    followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppQuickCamLite()
                 } else if type == .fastCamLite {
                                    followMeStoryView.userBitEmoji.image = R.image.fastcamLiteWatermarkLogo()
@@ -738,7 +738,7 @@ extension StoryEditorView {
             followMeStoryView.userBitEmoji.image = R.image.fastcamLiteWatermarkLogo()
             followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppFastCamLite()
         } else if type == .quickCamLite {
-            followMeStoryView.userBitEmoji.image = R.image.quickcamliteSplashLogo()
+            followMeStoryView.userBitEmoji.image = R.image.ssuQuickCamLite()
             followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppQuickCamLite()
         } else if type == .speedcam {
             followMeStoryView.userBitEmoji.image = R.image.speedcamWatermarkLogo()
