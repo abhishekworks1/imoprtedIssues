@@ -444,6 +444,25 @@ extension StoryCameraViewController {
         nextLevel.videoZoomFactor = zoomSlider.value
     }
     
+    @IBAction func switchAppButtonClicked(_ sender: UIButton) {
+        blurView.effect = UIBlurEffect(style: .dark)
+        blurView.isHidden = false
+        blurView.alpha = 0.75
+        blurView.backgroundColor = R.color.blurViewBackgroundColor()
+        switchingAppView.isHidden = false
+    }
+    
+    @IBAction func businessCentreButtonClicked(_ sender: UIButton) {
+        let application = UIApplication.shared
+        if let user = Defaults.shared.currentUser, let channelId = user.channelId, let messagesAppURL = URL(string: "\(DeepLinkData.deepLinkUrlString)\(DeepLinkData.appDeeplinkName)/\(Defaults.shared.releaseType.description)/\(channelId)"), application.canOpenURL(messagesAppURL) {
+            application.open(messagesAppURL)
+        }
+    }
+    
+    @IBAction func gameCentreButtonClicked(_ sender: UIButton) {
+        UIApplication.showAlert(title: R.string.localizable.gameCentre(), message: R.string.localizable.comingSoon())
+    }
+    
 }
 
 // MARK: StoryUploadDelegate

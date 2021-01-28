@@ -168,7 +168,7 @@ enum ReleaseType: String, AppMode_Enum {
         switch self {
         case .debug:
             return "debug"
-        case .alpha, .debug:
+        case .alpha:
             return "alpha"
         case .beta:
             return "beta"
@@ -424,8 +424,7 @@ public struct Reactions {
 }
 
 struct DeepLinkData {
-    static let deepLinkUrlString = "storicam://businessStack/businessCentre/"
-    
+    static let deepLinkUrlString = "businesscentre://splash/"
     static var appDeeplinkName: String {
         if isTimeSpeedApp {
             return "TimeSpeed"

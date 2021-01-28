@@ -37,9 +37,9 @@ class StoryCameraViewNavigationController: UINavigationController, UINavigationC
             self.parentPageViewController?.isScrollEnabled = false
         } else {
             #if VIRALCAMAPP || SOCCERCAMAPP || FUTBOLCAMAPP || SNAPCAMAPP || QUICKCAMAPP || SPEEDCAMAPP
-            self.parentPageViewController?.isScrollEnabled = true
+            self.parentPageViewController?.isScrollEnabled = false
             #else
-            self.parentPageViewController?.isScrollEnabled = true
+            self.parentPageViewController?.isScrollEnabled = false
             #endif
         }
     }
