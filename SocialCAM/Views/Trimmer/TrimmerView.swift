@@ -131,6 +131,8 @@ open class TrimmerView: UIView {
     @IBInspectable open var isLeftRightViewTapable: Bool = false
     
     open weak var delegate: TrimmerViewDelegate?
+   
+    var minDistance: CGFloat = 0
     
     // MARK: Views
     lazy var trimView: UIView = {
@@ -453,7 +455,6 @@ open class TrimmerView: UIView {
         super.layoutSubviews()
         
         thumbnailsView.frame = thumbnailViewRect
-       
     }
     
     // MARK: Setups views
@@ -472,6 +473,12 @@ open class TrimmerView: UIView {
         
         setupTimePointer()
         setupPanGestures()
+        minDistanceUpdate()
+    }
+    
+    private func minDistanceUpdate() {
+        self.layoutIfNeeded()
+        self.minDistance = self.bounds.width - abs((trimViewTrailingConstraint.constant - trimViewLeadingConstraint.constant) - (draggableViewWidth * 2))
     }
     
     private func setupTimePointer() {
@@ -667,29 +674,28 @@ open class TrimmerView: UIView {
     @objc func handleScrubbingPan(_ sender: UIPanGestureRecognizer) {
         guard let view = sender.view else { return }
         let translation = sender.translation(in: view)
-        sender.setTranslation(.zero, in: view)
         let position = sender.location(in: view)
         
         switch sender.state {
         case .began:
+            currentLeadingConstraint = trimViewLeadingConstraint.constant
+            currentTrailingConstraint = trimViewTrailingConstraint.constant
             currentPointerLeadingConstraint = position.x + view.frame.minX - draggableViewWidth
-            
-            guard let time = thumbnailsView.getTime(
-                from: currentPointerLeadingConstraint) else { return }
-            delegate?.trimmerScrubbingDidBegin?(self,
-                                                with: time)
-            
+            minDistanceUpdate()
+            guard let time = thumbnailsView.getTime(from: currentPointerLeadingConstraint) else { return }
+            delegate?.trimmerScrubbingDidBegin?(self, with: time)
         case .changed:
-             currentPointerLeadingConstraint += translation.x
-             guard let time = thumbnailsView.getTime(
-                from: currentPointerLeadingConstraint) else { return }
-             delegate?.trimmerScrubbingDidChange?(self,
-                                                 with: time)
+            let maxConstraint = (self.frame.width - (draggableViewWidth * 2) - minDistance) + trimViewTrailingConstraint.constant
+            let newConstraintLeading = min(max(0, currentLeadingConstraint + (translation.x)), maxConstraint)
+            trimViewLeadingConstraint.constant = newConstraintLeading
+            
+            let maxConstraintRight = (self.frame.width - (draggableViewWidth * 2) - minDistance) - trimViewLeadingConstraint.constant
+            let newConstraintTrailing = clamp(currentTrailingConstraint + translation.x, -maxConstraintRight, 0)
+            trimViewTrailingConstraint.constant = newConstraintTrailing
         case .failed, .ended, .cancelled:
             guard let time = thumbnailsView.getTime(
-                from: currentPointerLeadingConstraint) else { return }
-            delegate?.trimmerScrubbingDidEnd?(self,
-                                              with: time, with: sender)
+                from: trimViewLeadingConstraint.constant) else { return }
+            delegate?.trimmerScrubbingDidEnd?(self, with: time, with: sender)
         default:
             break
         }
