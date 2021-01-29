@@ -123,8 +123,9 @@ class BusinessVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         let application = UIApplication.shared
-        if let user = Defaults.shared.currentUser, let userId = user.id, let authToken = Defaults.shared.sessionToken, let messagesAppURL = URL(string: "\(DeepLinkData.deepLinkUrlString)\(DeepLinkData.appDeeplinkName)/\(Defaults.shared.releaseType.description)/\(userId)/\(authToken)"), application.canOpenURL(messagesAppURL) {
-            }
+        if let user = Defaults.shared.currentUser, let channelId = user.channelId, let messagesAppURL = URL(string: "\(DeepLinkData.deepLinkUrlString)\(DeepLinkData.appDeeplinkName)/\(Defaults.shared.releaseType.description)/\(channelId)"), application.canOpenURL(messagesAppURL) {
+            application.open(messagesAppURL)
+        }
     }
     
     @IBAction func onBack(_ sender: UIButton) {

@@ -15,6 +15,10 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let point = touches.first?.location(in: self.baseView)
         setScrollViewEvent(point: point)
+        if !switchingAppView.isHidden {
+            blurView.isHidden = true
+            switchingAppView.isHidden = true
+        }
     }
     
     func setScrollViewEvent(point: CGPoint?) {

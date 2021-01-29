@@ -186,7 +186,11 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     @IBOutlet var speedIndicatorView: [DottedLineView]!
     
     @IBOutlet weak var cameraModeIndicatorImageView: UIImageView!
-
+    
+    @IBOutlet weak var switchingAppView: UIView!
+    
+    @IBOutlet weak var switchAppButton: UIButton!
+    
     // MARK: Variables
     var recordButtonCenterPoint: CGPoint = CGPoint.init()
     
@@ -510,7 +514,9 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         view.bringSubviewToFront(blurView)
         view.bringSubviewToFront(enableAccessView)
         view.bringSubviewToFront(selectTimersView)
+        view.bringSubviewToFront(switchingAppView)
         layout()
+        switchingAppView.isHidden = true
         self.view.isMultipleTouchEnabled = true
         bottomCameraViews.addGestureRecognizer(panRecognizer)
         volumeButtonHandler()

@@ -442,11 +442,24 @@
                                                     </mask>
                                                 </variation>
                                             </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="kBH-jX-hCx">
+                                                <rect key="frame" x="268" y="0.0" width="53.333333333333314" height="54"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s3x-ka-hkz">
+                                                        <rect key="frame" x="0.0" y="0.0" width="53.333333333333336" height="54"/>
+                                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <state key="normal" image="iconSwitchApp"/>
+                                                        <connections>
+                                                            <action selector="switchAppButtonClicked:" destination="aJT-JN-hbU" eventType="touchUpInside" id="gEO-aO-uhy"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Qbg-AX-n5f">
-                                                <rect key="frame" x="312.66666666666669" y="0.0" width="62.333333333333314" height="54"/>
+                                                <rect key="frame" x="321.33333333333331" y="0.0" width="53.666666666666686" height="54"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="odQ-Fo-NjO">
-                                                        <rect key="frame" x="0.0" y="0.0" width="62.333333333333336" height="54"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="53.666666666666664" height="54"/>
                                                         <state key="normal" image="icoDone"/>
                                                         <state key="selected" image="icoDone"/>
                                                         <connections>
@@ -1257,6 +1270,100 @@
                                     <constraint firstAttribute="bottom" secondItem="zEA-nj-3C1" secondAttribute="bottom" id="vtW-Xa-zlQ"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="whw-Qg-HTy">
+                                <rect key="frame" x="48" y="324.66666666666669" width="279" height="173"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="ahI-bb-j5f">
+                                        <rect key="frame" x="0.0" y="0.0" width="279" height="173"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oee-qJ-61j">
+                                                <rect key="frame" x="0.0" y="0.0" width="139.66666666666666" height="173"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="businessCenter" translatesAutoresizingMaskIntoConstraints="NO" id="AZz-UE-wHM">
+                                                        <rect key="frame" x="42" y="34.333333333333314" width="79" height="79"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="79" id="6rw-hm-cGE"/>
+                                                            <constraint firstAttribute="height" constant="79" id="och-zm-72p"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Business Center" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kGS-aF-HD5">
+                                                        <rect key="frame" x="31.333333333333321" y="122.66666666666663" width="100.66666666666669" height="16"/>
+                                                        <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="13.699999809265137"/>
+                                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nze-RY-1S9">
+                                                        <rect key="frame" x="0.0" y="0.0" width="139.66666666666666" height="173"/>
+                                                        <connections>
+                                                            <action selector="businessCentreButtonClicked:" destination="aJT-JN-hbU" eventType="touchUpInside" id="rUO-rM-061"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="Nze-RY-1S9" secondAttribute="trailing" id="HpW-e0-6lf"/>
+                                                    <constraint firstItem="kGS-aF-HD5" firstAttribute="centerX" secondItem="AZz-UE-wHM" secondAttribute="centerX" id="PdR-97-HaQ"/>
+                                                    <constraint firstItem="Nze-RY-1S9" firstAttribute="leading" secondItem="Oee-qJ-61j" secondAttribute="leading" id="RUK-tf-AIE"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Nze-RY-1S9" secondAttribute="bottom" id="csP-uR-Fky"/>
+                                                    <constraint firstItem="Nze-RY-1S9" firstAttribute="top" secondItem="Oee-qJ-61j" secondAttribute="top" id="enm-na-LJX"/>
+                                                    <constraint firstItem="kGS-aF-HD5" firstAttribute="top" secondItem="AZz-UE-wHM" secondAttribute="bottom" constant="9.0999999999999996" id="hzA-SP-xxl"/>
+                                                    <constraint firstItem="AZz-UE-wHM" firstAttribute="leading" secondItem="Oee-qJ-61j" secondAttribute="leading" constant="42.100000000000001" id="jU6-5g-ntX"/>
+                                                    <constraint firstItem="AZz-UE-wHM" firstAttribute="top" secondItem="Oee-qJ-61j" secondAttribute="top" constant="34.600000000000001" id="qdi-OL-vrZ"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J91-kF-RpZ">
+                                                <rect key="frame" x="139.66666666666663" y="0.0" width="139.33333333333337" height="173"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gameCenter" translatesAutoresizingMaskIntoConstraints="NO" id="8MR-bD-JQA">
+                                                        <rect key="frame" x="31.333333333333343" y="34.333333333333314" width="79" height="79"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="79" id="GtQ-lA-hJQ"/>
+                                                            <constraint firstAttribute="height" constant="79" id="fXm-s9-L8O"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Center" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OD8-29-uxD">
+                                                        <rect key="frame" x="30" y="122.66666666666663" width="82" height="16"/>
+                                                        <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="13.699999809265137"/>
+                                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Op-ju-2D3">
+                                                        <rect key="frame" x="0.0" y="0.0" width="139.33333333333334" height="173"/>
+                                                        <connections>
+                                                            <action selector="gameCentreButtonClicked:" destination="aJT-JN-hbU" eventType="touchUpInside" id="Iy6-Gk-dlw"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="2Op-ju-2D3" firstAttribute="top" secondItem="J91-kF-RpZ" secondAttribute="top" id="5L0-g4-gWA"/>
+                                                    <constraint firstAttribute="trailing" secondItem="8MR-bD-JQA" secondAttribute="trailing" constant="29" id="8hg-im-99R"/>
+                                                    <constraint firstAttribute="trailing" secondItem="2Op-ju-2D3" secondAttribute="trailing" id="AHx-Zv-Zzb"/>
+                                                    <constraint firstItem="OD8-29-uxD" firstAttribute="top" secondItem="8MR-bD-JQA" secondAttribute="bottom" constant="9.0999999999999996" id="GdA-bQ-eAS"/>
+                                                    <constraint firstItem="OD8-29-uxD" firstAttribute="centerX" secondItem="8MR-bD-JQA" secondAttribute="centerX" id="JF9-4T-tQH"/>
+                                                    <constraint firstItem="8MR-bD-JQA" firstAttribute="top" secondItem="J91-kF-RpZ" secondAttribute="top" constant="34.600000000000001" id="Ub1-x4-dMW"/>
+                                                    <constraint firstItem="2Op-ju-2D3" firstAttribute="leading" secondItem="J91-kF-RpZ" secondAttribute="leading" id="a3l-0W-RHs"/>
+                                                    <constraint firstAttribute="bottom" secondItem="2Op-ju-2D3" secondAttribute="bottom" id="ds3-OK-vZF"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="ahI-bb-j5f" secondAttribute="bottom" id="EVt-Cv-kp0"/>
+                                    <constraint firstAttribute="height" constant="173" id="JOe-Lg-TQC"/>
+                                    <constraint firstAttribute="trailing" secondItem="ahI-bb-j5f" secondAttribute="trailing" id="Nim-1a-4F8"/>
+                                    <constraint firstItem="ahI-bb-j5f" firstAttribute="leading" secondItem="whw-Qg-HTy" secondAttribute="leading" id="bKk-cU-a9C"/>
+                                    <constraint firstAttribute="width" constant="279" id="kUW-dt-0NM"/>
+                                    <constraint firstItem="ahI-bb-j5f" firstAttribute="top" secondItem="whw-Qg-HTy" secondAttribute="top" id="vDZ-fO-5st"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
+                                        <real key="value" value="5.9000000000000004"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                             <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cP2-CL-XHV">
                                 <rect key="frame" x="600" y="0.0" width="414" height="896"/>
                                 <subviews>
@@ -1647,7 +1754,9 @@ Countdown</string>
                             <constraint firstAttribute="bottom" secondItem="6VI-Pb-DwZ" secondAttribute="bottom" id="OMh-Lh-OGc"/>
                             <constraint firstItem="kKV-Df-MAW" firstAttribute="trailing" secondItem="4Wv-ah-CaL" secondAttribute="trailing" id="PI7-5q-Bft"/>
                             <constraint firstItem="bJn-xb-pyp" firstAttribute="centerY" secondItem="4Wv-ah-CaL" secondAttribute="centerY" id="RBT-1g-Vv6"/>
+                            <constraint firstItem="whw-Qg-HTy" firstAttribute="centerX" secondItem="4Wv-ah-CaL" secondAttribute="centerX" id="RgH-2r-r5z"/>
                             <constraint firstItem="6VI-Pb-DwZ" firstAttribute="leading" secondItem="4Wv-ah-CaL" secondAttribute="leading" id="SXw-lv-d20"/>
+                            <constraint firstItem="whw-Qg-HTy" firstAttribute="centerY" secondItem="4Wv-ah-CaL" secondAttribute="centerY" id="SgR-cP-aXA"/>
                             <constraint firstItem="6VI-Pb-DwZ" firstAttribute="top" secondItem="QjN-ny-SBW" secondAttribute="top" id="VCU-iC-K57"/>
                             <constraint firstItem="6VI-Pb-DwZ" firstAttribute="top" secondItem="4Wv-ah-CaL" secondAttribute="top" id="YbR-mk-Fbq"/>
                             <constraint firstItem="cP2-CL-XHV" firstAttribute="width" secondItem="QjN-ny-SBW" secondAttribute="width" id="c6J-6a-Hqf"/>
@@ -1730,6 +1839,8 @@ Countdown</string>
                         <outlet property="storyUploadRoundView" destination="MSD-vT-lIi" id="EWM-UU-ct3"/>
                         <outlet property="storyUploadView" destination="nYg-n0-LSZ" id="sR9-uo-3Dg"/>
                         <outlet property="swipeCameraStackView" destination="pZZ-bn-Erv" id="0TU-3T-tpp"/>
+                        <outlet property="switchAppButton" destination="s3x-ka-hkz" id="Ke1-l4-B3V"/>
+                        <outlet property="switchingAppView" destination="whw-Qg-HTy" id="Koc-PB-XqT"/>
                         <outlet property="timerButton" destination="eWQ-4g-KOj" id="egD-Nt-ihR"/>
                         <outlet property="timerLabel" destination="cBR-b9-DOE" id="Hd2-R7-3y6"/>
                         <outlet property="timerPicker" destination="Byt-R1-vfR" id="q0I-Lf-XbN"/>
@@ -4256,6 +4367,7 @@ Countdown</string>
         </designable>
     </designables>
     <resources>
+        <image name="businessCenter" width="80" height="80"/>
         <image name="cameraFlip" width="32" height="32"/>
         <image name="cameraOptionSet" width="82" height="167"/>
         <image name="cancelDownload" width="16" height="16"/>
@@ -4267,6 +4379,7 @@ Countdown</string>
         <image name="dimond" width="36" height="20"/>
         <image name="dottedLine" width="4" height="106"/>
         <image name="flashOff" width="33" height="34"/>
+        <image name="gameCenter" width="79" height="79"/>
         <image name="hideStoryCamIcons" width="34" height="34"/>
         <image name="icoClose" width="26" height="26"/>
         <image name="icoCountdown" width="29" height="27"/>
@@ -4277,6 +4390,7 @@ Countdown</string>
         <image name="icoUpWhite" width="128" height="128"/>
         <image name="iconInversePosition" width="298" height="80"/>
         <image name="iconPosition" width="298" height="80"/>
+        <image name="iconSwitchApp" width="31" height="32"/>
         <image name="icon_fps" width="33" height="33"/>
         <image name="openFilter" width="34" height="34"/>
         <image name="outtakes" width="38" height="38"/>
