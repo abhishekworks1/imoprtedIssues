@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="btp-jk-KCy">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="btp-jk-KCy">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -31,7 +32,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="barTintColor" name="AppTabBarColor"/>
-                        <color key="selectedImageTintColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="selectedImageTintColor" systemColor="linkColor"/>
                     </tabBar>
                     <connections>
                         <segue destination="rKa-bF-NkQ" kind="relationship" relationship="viewControllers" id="O1u-xQ-SG5"/>
@@ -73,8 +74,8 @@
                     <view key="view" contentMode="scaleToFill" id="dyC-LD-vuz">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="jQL-Th-E6u"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" tag="2" title="" id="MNc-sd-VGX"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
@@ -169,6 +170,7 @@
                                 </variation>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="Vwd-9N-foQ"/>
                         <color key="backgroundColor" name="AppPrimaryColor"/>
                         <constraints>
                             <constraint firstItem="Vwd-9N-foQ" firstAttribute="trailing" secondItem="egm-VB-ZFD" secondAttribute="trailing" id="3vF-6y-XuK"/>
@@ -176,7 +178,6 @@
                             <constraint firstItem="egm-VB-ZFD" firstAttribute="leading" secondItem="Vwd-9N-foQ" secondAttribute="leading" id="GdB-4B-UeP"/>
                             <constraint firstItem="egm-VB-ZFD" firstAttribute="top" secondItem="Vwd-9N-foQ" secondAttribute="top" id="HJU-k6-xAY"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="Vwd-9N-foQ"/>
                     </view>
                     <navigationItem key="navigationItem" title="Home" id="KnZ-se-gAB"/>
                     <connections>
@@ -220,12 +221,12 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="WrV-j4-guO"/>
                         <color key="backgroundColor" name="AppBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="HAy-v5-vS6" firstAttribute="centerY" secondItem="WrV-j4-guO" secondAttribute="centerY" id="Baq-8B-zkl"/>
                             <constraint firstItem="HAy-v5-vS6" firstAttribute="centerX" secondItem="WrV-j4-guO" secondAttribute="centerX" id="aUw-tt-2N4"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="WrV-j4-guO"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aJI-pF-ZCj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -237,7 +238,7 @@
             <objects>
                 <viewController id="SWQ-H8-sEn" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Qwb-cG-XfQ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coming Soon" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Q0-5F-o7v">
@@ -247,12 +248,12 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="6ny-49-RPS"/>
                         <color key="backgroundColor" name="AppBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="1Q0-5F-o7v" firstAttribute="centerY" secondItem="6ny-49-RPS" secondAttribute="centerY" id="CXm-WT-0Gg"/>
                             <constraint firstItem="1Q0-5F-o7v" firstAttribute="centerX" secondItem="6ny-49-RPS" secondAttribute="centerX" id="Tbx-Gd-uDI"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="6ny-49-RPS"/>
                     </view>
                     <navigationItem key="navigationItem" id="ls5-Gt-AXn"/>
                 </viewController>
@@ -282,7 +283,7 @@
             <objects>
                 <viewController storyboardIdentifier="DashboardViewController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="dIG-8o-v1y" customClass="DashboardViewController" customModule="BoomiCam" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VR6-fT-2VT">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="id9-sx-FFz">
@@ -310,7 +311,7 @@
                                                     <action selector="btnChannelClicked:" destination="dIG-8o-v1y" eventType="touchUpInside" id="2Ch-9L-tfx"/>
                                                 </connections>
                                             </button>
-                                            <button hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TCF-aJ-dJr">
+                                            <button hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TCF-aJ-dJr">
                                                 <rect key="frame" x="10" y="2" width="40" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="TCF-aJ-dJr" secondAttribute="height" multiplier="1:1" id="NSQ-bN-e7w"/>
@@ -483,6 +484,7 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="a3K-7J-71Z"/>
                         <color key="backgroundColor" name="AppTabBarColor"/>
                         <constraints>
                             <constraint firstItem="Bnb-Y0-8oD" firstAttribute="width" secondItem="VR6-fT-2VT" secondAttribute="width" id="2qh-OD-Yeu"/>
@@ -495,7 +497,6 @@
                             <constraint firstItem="id9-sx-FFz" firstAttribute="leading" secondItem="a3K-7J-71Z" secondAttribute="leading" constant="4" id="hpg-EB-Xax"/>
                             <constraint firstItem="id9-sx-FFz" firstAttribute="top" secondItem="a3K-7J-71Z" secondAttribute="top" id="o06-Wk-UiR"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="a3K-7J-71Z"/>
                     </view>
                     <navigationItem key="navigationItem" id="HgO-8w-GKp"/>
                     <connections>
@@ -528,8 +529,8 @@
                     <view key="view" contentMode="scaleToFill" id="qYu-Ih-4xo">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="16x-Hs-IkI"/>
+                        <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="NJt-gi-r1s"/>
                     <connections>
@@ -551,13 +552,18 @@
                 <view contentMode="scaleToFill" id="TMQ-AC-adL">
                     <rect key="frame" x="0.0" y="0.0" width="366" height="5"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <viewLayoutGuide key="safeArea" id="qsM-nY-k83"/>
+                    <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </view>
             </objects>
             <point key="canvasLocation" x="-4638" y="-1114"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="jTF-IA-ZMd"/>
+        <segue reference="kTg-OQ-W0j"/>
+        <segue reference="xrt-1C-nyY"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="DownArrow" width="64" height="64"/>
         <image name="ico_cameraButton_tag" width="200" height="200"/>
@@ -581,18 +587,13 @@
             <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppTabBarColor">
-            <color red="0.071000002324581146" green="0.10199999809265137" blue="0.18799999356269836" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.070588235294117646" green="0.10196078431372549" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppWhiteColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="AppWhiteColor">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
+        <systemColor name="linkColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="jTF-IA-ZMd"/>
-        <segue reference="kTg-OQ-W0j"/>
-        <segue reference="xrt-1C-nyY"/>
-    </inferredMetricsTieBreakers>
 </document>

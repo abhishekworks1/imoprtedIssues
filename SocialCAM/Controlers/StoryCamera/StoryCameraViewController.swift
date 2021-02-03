@@ -546,26 +546,24 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         guard let broadCastPicker = SystemBroadcastPickerViewBuilder.broadCastPicker else {
             return
         }
-        SystemBroadcastPickerViewBuilder.layout(broadCastPickerView: broadCastPicker, superView: self.faceFiltersView)
+        SystemBroadcastPickerViewBuilder.layout(broadCastPickerView: broadCastPicker)
     }
     
     private func addObserverForRecordingView() {
         self.reloadView()
-
+        let loadingView = RecorderStopScreenView.instanceFromNib()
+        
         let observer = self.addObserver(forCapturedDidChange: { [weak self] _ in
             guard let `self` = self else {
                 return
             }
-            self.isCameraLoadOnRecording = false
-            self.stopCapture()
+            loadingView.show(on: self.view)
             self.reloadView()
         }) { [weak self] _ in
             guard let `self` = self else {
                 return
             }
-            self.isCameraLoadOnRecording = true
-            self.reloadView()
-            self.startCapture()
+            loadingView.hide()
         }
         self.observers.append(observer)
     }
