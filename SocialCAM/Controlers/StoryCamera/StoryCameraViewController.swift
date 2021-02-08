@@ -511,10 +511,8 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         self.storyUploadManager.delegate = self
         self.storyUploadManager.startUpload()
         view.bringSubviewToFront(baseView)
-        view.bringSubviewToFront(blurView)
         view.bringSubviewToFront(enableAccessView)
         view.bringSubviewToFront(selectTimersView)
-        view.bringSubviewToFront(switchingAppView)
         layout()
         switchingAppView.isHidden = true
         self.view.isMultipleTouchEnabled = true
@@ -581,7 +579,8 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        view.bringSubviewToFront(blurView)
+        view.bringSubviewToFront(switchingAppView)
         if isQuickCamLiteApp || isQuickCamApp {
             addObserverForRecordingView()
         }
