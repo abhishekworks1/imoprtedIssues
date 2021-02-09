@@ -1489,7 +1489,7 @@
                                                                     <constraint firstAttribute="height" constant="20" id="li7-th-U7H"/>
                                                                 </constraints>
                                                             </imageView>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="At least  8 characters long" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="8Ai-uU-ZXs">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="At least 12 characters long" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="8Ai-uU-ZXs">
                                                                 <rect key="frame" x="40" y="9.5" width="264" height="20.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <nil key="textColor"/>
@@ -1865,6 +1865,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnClear" destination="dMW-VT-6ln" id="j3z-hj-D1h"/>
                         <outlet property="lblEmpty" destination="IHb-ML-aWs" id="Ws5-bL-qBB"/>
                         <outlet property="searchView" destination="ZtC-Fn-gMA" id="QGJ-k9-kaS"/>
                         <outlet property="tblSearch" destination="t03-sa-qIo" id="Tqr-9L-YBw"/>

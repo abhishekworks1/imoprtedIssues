@@ -187,6 +187,10 @@ class StoryEditorViewController: UIViewController {
     
     @IBOutlet weak var cursorContainerViewCenterConstraint: NSLayoutConstraint!
     @IBOutlet weak var ssuTagView: UIView!
+    @IBOutlet weak var doneButtonView: UIView!
+    @IBOutlet weak var backButtonView: UIView!
+    @IBOutlet weak var closeLabel: UILabel!
+    @IBOutlet weak var showHideLabel: UILabel!
     
     private let fastestEverWatermarkBottomMargin = 112
     weak var cursorContainerViewController: KeyframePickerCursorVC!
@@ -264,6 +268,7 @@ class StoryEditorViewController: UIViewController {
             }
             
             btnShowHideEditImage.isSelected = isViewEditMode
+            isViewEditMode ? (showHideLabel.text = R.string.localizable.show()) : (showHideLabel.text = R.string.localizable.hide())
             if currentVideoAsset != nil {
                 playPauseButton.isHidden = isViewEditMode
                 progressBarView.isHidden = !progressBarView.isHidden
@@ -437,13 +442,14 @@ class StoryEditorViewController: UIViewController {
     func hideToolBar(hide: Bool, hideColorSlider: Bool = false) {
         editToolBarView.isHidden = hide
         downloadView.isHidden = hide
-        backButton.isHidden = hide
+        backButtonView.isHidden = hide
         deleteView.isHidden = hideColorSlider ? true : hide
         collectionView.isHidden = (storyEditors.count > 1) ? hide : true
         slideShowCollectionView.isHidden = !isSlideShow ? true : hide
         slideShowPreviewView.isHidden = !isSlideShow ? true : hide
         self.slideShowFillAuto.isHidden = !isSlideShow ? true : hide
-        doneButton.isHidden = !hide
+        doneButtonView.isHidden = !hide
+        doneButtonView.isHidden ? (closeLabel.text = R.string.localizable.back()) : (closeLabel.text = R.string.localizable.close())
         colorSlider.isHidden = hideColorSlider ? true : !hide
     }
 }

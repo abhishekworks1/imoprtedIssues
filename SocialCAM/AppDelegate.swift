@@ -17,6 +17,7 @@ import GoogleMaps
 import AppCenter
 import AppCenterAnalytics
 import AppCenterCrashes
+import Bagel
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -27,6 +28,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         UIApplication.shared.applicationIconBadgeNumber = 0
         configureIQKeyboardManager()
+        
+        //Start Bagel
+        if isDebug || isAlpha || isBeta {
+            Bagel.start()
+        }
         
         configureAppTheme()
         
