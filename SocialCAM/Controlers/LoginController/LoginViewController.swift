@@ -439,37 +439,8 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @IBAction func btnForgotClicked(sender: Any) {
-        guard isDebug || isAlpha else {
-            return
-        }
-        tapCounter += 1
-        if tapCounter > 4 {
-            let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-            let alpha = UIAlertAction(title: "Alpha", style: .default) { _ in
-                Defaults.shared.releaseType = .alpha
-            }
-            actionSheet.addAction(alpha)
-            let beta = UIAlertAction(title: "Beta", style: .default) { _ in
-                Defaults.shared.releaseType = .beta
-            }
-            actionSheet.addAction(beta)
-            let store = UIAlertAction(title: "Store", style: .default) { _ in
-                Defaults.shared.releaseType = .store
-            }
-            actionSheet.addAction(store)
-            let cancel = UIAlertAction(title: "Cancel", style: .default) { _ in
-                self.dismiss(animated: true, completion: nil)
-            }
-            actionSheet.addAction(cancel)
-            present(actionSheet, animated: true, completion: nil)
-            tapCounter = 0
-        }
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) { [weak self] in
-            guard let `self` = self else {
-                return
-            }
-            self.tapCounter = 0
-        }
+        guard let forgotPasswordViewController = R.storyboard.forgotPassword.forgotPasswordViewController() else { return }
+        self.navigationController?.pushViewController(forgotPasswordViewController, animated: true)
     }
     
     @IBAction func btnSignUpClicked(sender: Any) {
