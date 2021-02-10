@@ -18,6 +18,7 @@ class SearchChannelViewController: UIViewController {
     @IBOutlet var tblSearch: UITableView!
     @IBOutlet var topImgViewBgConstraint: NSLayoutConstraint!
     @IBOutlet var lblEmpty: UIView!
+    @IBOutlet weak var btnClear: UIButton!
     
     var channels: [Channel] = []
     var ChanelHandler: ((_ channel:Channel)->Void)?
@@ -30,7 +31,9 @@ class SearchChannelViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tblSearch.delegate = self
-        
+        txtField.delegate = self
+        self.searchView.isHidden = false
+        self.changeClearButton(shouldShow: !(txtField.text?.isEmpty ?? false))
         self.tblSearch.rowHeight = UITableView.automaticDimension
         self.tblSearch.estimatedRowHeight = 80
         txtField.returnKeyType = .search
@@ -61,6 +64,11 @@ class SearchChannelViewController: UIViewController {
         }).disposed(by: (rx.disposeBag))
     }
     
+    /// Hide clear button when search is complete
+    private func changeClearButton(shouldShow: Bool) {
+        btnClear.isHidden = !shouldShow
+    }
+    
     @IBAction func closeViewClicked() {
         self.view.endEditing(true)
     }
@@ -70,7 +78,7 @@ class SearchChannelViewController: UIViewController {
     }
     
     @IBAction func searchClose(_ sender:Any) {
-        self.searchView.isHidden = true
+        self.changeClearButton(shouldShow: false)
         self.txtField.text = ""
         self.txtField.becomeFirstResponder()
         self.txtField.resignFirstResponder()
@@ -79,6 +87,21 @@ class SearchChannelViewController: UIViewController {
     @IBAction func searchOpen(_ sender:Any) {
         self.searchView.isHidden = false
     }
+    
+}
+
+// MARK: - TextField Delegate
+extension SearchChannelViewController: UITextFieldDelegate {
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        self.changeClearButton(shouldShow: true)
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        self.changeClearButton(shouldShow: !(txtField.text?.isEmpty ?? false))
+    }
+    
 }
 
 extension SearchChannelViewController : UITableViewDataSource , UITableViewDelegate {

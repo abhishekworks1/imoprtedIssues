@@ -273,7 +273,7 @@ class SignUpStepOneViewController: UIViewController {
             let channel = txtChannel.text else {
                 return
         }
-        let passwordValidation = NSPredicate(format: "SELF MATCHES %@ ", "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&#])[A-Za-z\\d$@$!%*?&#]{8,35}")
+        let passwordValidation = NSPredicate(format: "SELF MATCHES %@ ", "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&#])[A-Za-z\\d$@$!%*?&#]{12,35}")
         if channel.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
             self.showAlert(alertMessage: R.string.localizable.pleaseEnterUniqueChannelName())
         } else if channel.trimmingCharacters(in: .whitespacesAndNewlines).count <= Constant.Value.channelName {
@@ -292,8 +292,6 @@ class SignUpStepOneViewController: UIViewController {
             self.showAlert(alertMessage: R.string.localizable.pleaseEnterTheNameOfYourReferringChannelIfYouDoNotHaveOneUseTheSearchFeatureToFindAChannelToUse())
         } else if !isChannel {
             self.showAlert(alertMessage: R.string.localizable.channelNameAlreadyExist())
-        } else if !self.isRefChannel {
-            self.showAlert(alertMessage: R.string.localizable.referringChannelDoesNotExist())
         } else {
             self.showHUD()
             var socialId: String? = nil
@@ -395,7 +393,7 @@ extension SignUpStepOneViewController: UITextFieldDelegate {
             txtPassWord.resignFirstResponder()
             txtRefChannel.becomeFirstResponder()
             if let password = txtPassWord.text {
-                let passwordValidation = NSPredicate(format: "SELF MATCHES %@ ", "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&#])[A-Za-z\\d$@$!%*?&#]{8,35}")
+                let passwordValidation = NSPredicate(format: "SELF MATCHES %@ ", "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&#])[A-Za-z\\d$@$!%*?&#]{12,35}")
                 if password.isEmpty {
                     lblPasswordError.text = R.string.localizable.pleaseEnterPassword()
                 } else if !passwordValidation.evaluate(with: password) {
@@ -489,7 +487,7 @@ extension SignUpStepOneViewController: UITextFieldDelegate {
                 self.imgCapitalValidation.image = R.image.passwordInvalid()
             }
         }
-        self.imgLengthValidation.image =   password.length >= 8 ? R.image.passwordValid() : R.image.passwordInvalid()
+        self.imgLengthValidation.image =   password.length >= 12 ? R.image.passwordValid() : R.image.passwordInvalid()
     }
     
 }

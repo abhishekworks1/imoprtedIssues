@@ -662,7 +662,7 @@ class API {
                     baseUrlString = "https://api.alpha.snapcam.app/api/"
                 } else if isQuickCamApp || isQuickCamLiteApp {
                     baseUrlString = "https://api.alpha.quickcam.app/api/"
-                } else if isSpeedCamApp || isSnapCamLiteApp {
+                } else if isSpeedCamApp || isSpeedCamLiteApp {
                     baseUrlString = "https://api.alpha.speedcam.net/api/"
                 } else {
                     baseUrlString = "https://demo-api.austinconversionoptimization.com/api/"
@@ -674,7 +674,7 @@ class API {
                     baseUrlString = "https://api.beta.snapcam.app/api/"
                 } else if isQuickCamApp || isQuickCamLiteApp {
                     baseUrlString = "https://api.beta.quickcam.app/api/"
-                } else if isSpeedCamApp || isSnapCamLiteApp {
+                } else if isSpeedCamApp || isSpeedCamLiteApp {
                     baseUrlString = "https://api.beta.speedcam.net/api/"
                 } else {
                     baseUrlString = "https://demo-api.austinconversionoptimization.com/api/"
@@ -686,7 +686,7 @@ class API {
                     baseUrlString = "https://api.snapcam.app/api/"
                 } else if isQuickCamApp || isQuickCamLiteApp {
                     baseUrlString = "https://api.quickcam.app/api/"
-                } else if isSpeedCamApp || isSnapCamLiteApp {
+                } else if isSpeedCamApp || isSpeedCamLiteApp {
                     baseUrlString = "https://api.speedcam.net/api/"
                 } else {
                     baseUrlString = "https://demo-api.austinconversionoptimization.com/api/"
