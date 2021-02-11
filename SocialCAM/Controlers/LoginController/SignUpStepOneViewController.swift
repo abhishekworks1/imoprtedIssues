@@ -60,6 +60,8 @@ class SignUpStepOneViewController: UIViewController {
     var isSocial: Bool = false
     var socialDict: [String: Any]?
     let dropDownMenu = DropDown()
+    var isPasswordValid: Bool = false
+    var isCharUpperCase: Bool = false
     
     // MARK: - ---  View Life Cycle Methods ----
     
@@ -273,7 +275,6 @@ class SignUpStepOneViewController: UIViewController {
             let channel = txtChannel.text else {
                 return
         }
-        let passwordValidation = NSPredicate(format: "SELF MATCHES %@ ", "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&#])[A-Za-z\\d$@$!%*?&#]{12,35}")
         if channel.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
             self.showAlert(alertMessage: R.string.localizable.pleaseEnterUniqueChannelName())
         } else if channel.trimmingCharacters(in: .whitespacesAndNewlines).count <= Constant.Value.channelName {
@@ -286,7 +287,7 @@ class SignUpStepOneViewController: UIViewController {
             self.showAlert(alertMessage: R.string.localizable.emailAlreadyExist())
         } else if password.isEmpty {
             self.showAlert(alertMessage: R.string.localizable.pleaseEnterPassword())
-        } else if !passwordValidation.evaluate(with: password) {
+        } else if !isPasswordValid {
             self.showAlert(alertMessage: R.string.localizable.invalidPassword())
         } else if refChannel.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
             self.showAlert(alertMessage: R.string.localizable.pleaseEnterTheNameOfYourReferringChannelIfYouDoNotHaveOneUseTheSearchFeatureToFindAChannelToUse())
@@ -393,10 +394,9 @@ extension SignUpStepOneViewController: UITextFieldDelegate {
             txtPassWord.resignFirstResponder()
             txtRefChannel.becomeFirstResponder()
             if let password = txtPassWord.text {
-                let passwordValidation = NSPredicate(format: "SELF MATCHES %@ ", "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&#])[A-Za-z\\d$@$!%*?&#]{12,35}")
                 if password.isEmpty {
                     lblPasswordError.text = R.string.localizable.pleaseEnterPassword()
-                } else if !passwordValidation.evaluate(with: password) {
+                } else if !isPasswordValid {
                     lblPasswordError.text = R.string.localizable.invalidPassword()
                 } else {
                     lblPasswordError.text = nil
@@ -464,7 +464,7 @@ extension SignUpStepOneViewController: UITextFieldDelegate {
             }
         } else if textField == self.txtPassWord {
             let text = ((textField.text ?? "" )as NSString).replacingCharacters(in: range, with: string)
-            self.modifyPasswordRulesView(password: text)
+            isPasswordValid = self.modifyPasswordRulesView(password: text)
         }
         return true
     }
@@ -473,7 +473,7 @@ extension SignUpStepOneViewController: UITextFieldDelegate {
         return true
     }
     
-    func modifyPasswordRulesView(password: String) {
+    func modifyPasswordRulesView(password: String) -> Bool {
         let specialCharacterValidation = NSPredicate(format: "SELF MATCHES %@ ", ".*[^A-Za-z0-9].*")
         self.imgSpecialCharactersValidation.image = specialCharacterValidation.evaluate(with: password) ? R.image.passwordValid() : R.image.passwordInvalid()
         let numbersRange = password.rangeOfCharacter(from: .decimalDigits)
@@ -482,12 +482,19 @@ extension SignUpStepOneViewController: UITextFieldDelegate {
         for char in password {
             if char.isUppercase {
                 self.imgCapitalValidation.image = R.image.passwordValid()
+                isCharUpperCase = true
                 break
             } else {
                 self.imgCapitalValidation.image = R.image.passwordInvalid()
+                isCharUpperCase = false
             }
         }
-        self.imgLengthValidation.image =   password.length >= 12 ? R.image.passwordValid() : R.image.passwordInvalid()
+        self.imgLengthValidation.image =   password.length >= 8 ? R.image.passwordValid() : R.image.passwordInvalid()
+        if specialCharacterValidation.evaluate(with: password), numbersRange != nil, password.length >= 8, isCharUpperCase {
+            return true
+        } else {
+            return false
+        }
     }
     
 }

@@ -62,7 +62,7 @@ def projectShared_pods
     pod "ESPullToRefresh", '2.9.3'
     pod 'ProgressHUD', '~> 2.70'
     pod 'Parchment', '3.0.1'
-    pod 'Bagel', '1.4.0'
+    pod 'Bagel'
 
     shared_pods
 end
