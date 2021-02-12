@@ -60,12 +60,13 @@ public enum ProManagerApi {
     case getCalculatorConfig(type: String)
     case getWebsiteData
     case setSubscription(type: String, code: String)
+    case forgotPassword(username: String)
 
     var endpoint: Endpoint {
         var endpointClosure = MoyaProvider<ProManagerApi>.defaultEndpointMapping(for: self)
         
         switch self {
-        case .confirmEmail, .signUp, .verifyChannel, .getSplashImages, .logIn, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getYoutubeCategory, .getAccessToken, .socialLogin, .youTubeChannels(_):
+        case .confirmEmail, .signUp, .verifyChannel, .getSplashImages, .logIn, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getYoutubeCategory, .getAccessToken, .socialLogin, .youTubeChannels(_), .forgotPassword:
             endpointClosure = endpointClosure.adding(newHTTPHeaderFields: APIHeaders().headerWithoutAccessToken)
         case .getWeather:
             break
@@ -88,7 +89,7 @@ public enum ProManagerApi {
 extension ProManagerApi: TargetType {
     public var headers: [String: String]? {
         switch self {
-        case .confirmEmail, .signUp, .verifyChannel, .getSplashImages, .logIn, .doLogin, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getYoutubeCategory, .socialLogin, .youTubeChannels:
+        case .confirmEmail, .signUp, .verifyChannel, .getSplashImages, .logIn, .doLogin, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getYoutubeCategory, .socialLogin, .youTubeChannels, .forgotPassword:
             return APIHeaders().headerWithoutAccessToken
         case .getWeather, .getAccessToken:
             break
@@ -218,6 +219,8 @@ extension ProManagerApi: TargetType {
             return Paths.getWebsiteData
         case .setSubscription:
             return Paths.setSubsctiption
+        case .forgotPassword:
+            return Paths.forgotPassword
         }
        
     }
@@ -548,6 +551,8 @@ extension ProManagerApi: TargetType {
             param = ["page": 0, "limit": 100]
         case .setSubscription(let type, let code):
             param = ["code": code, "subscriptionType": type]
+        case .forgotPassword(let username):
+            param = ["username": username]
         }
         return param
     }
