@@ -479,7 +479,6 @@ public struct Paths {
     static let getProfile = "users/getProfile"
     static let getProfileByName = "users/getProfileByChannel"
     static let getPlaceHolder = "auth/getPlaceHolder"
-    static let forgotPassword = "auth/forgot"
     static let newUserAdded = "new-user-added"
     static let setChannel = "set-channel"
     static let confirmEmail = "confirm-email"
@@ -609,6 +608,7 @@ public struct Paths {
     static let getCalculatorConfig = "calcConfig"
     static let getWebsiteData = "faq/website"
     static let setSubsctiption = "users/buySubscription"
+    static let forgotPassword = "user/forgetPassword"
 }
 
 struct WebsiteData {
