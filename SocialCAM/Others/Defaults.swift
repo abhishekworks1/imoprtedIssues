@@ -419,7 +419,7 @@ class Defaults {
     
     var flashMode: Int? {
         get {
-            return appDefaults?.integer(forKey: "flashMode")
+            return appDefaults?.value(forKey: "flashMode") as? Int
         }
         set {
             appDefaults?.set(newValue, forKey: "flashMode")
@@ -604,7 +604,7 @@ class Defaults {
     
     var cameraGuidelineTypes: GuidelineTypes {
         get {
-            return GuidelineTypes(rawValue: (appDefaults?.integer(forKey: "cameraGuidelineTypes") ?? 2)) ?? .dashedLine
+            return GuidelineTypes(rawValue: (appDefaults?.integer(forKey: "cameraGuidelineTypes") ?? 3)) ?? .dashedLine
         }
         set {
             appDefaults?.set(newValue.rawValue, forKey: "cameraGuidelineTypes")
@@ -613,7 +613,7 @@ class Defaults {
     
     var cameraGuidelineThickness: GuidelineThickness {
         get {
-            return GuidelineThickness(rawValue: (appDefaults?.integer(forKey: "cameraGuidelineThickness") ?? 1)) ?? .small
+            return GuidelineThickness(rawValue: (appDefaults?.integer(forKey: "cameraGuidelineThickness") ?? 3)) ?? .medium
         }
         set {
             appDefaults?.set(newValue.rawValue, forKey: "cameraGuidelineThickness")

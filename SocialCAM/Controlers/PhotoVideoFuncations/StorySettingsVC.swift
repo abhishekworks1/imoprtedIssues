@@ -80,8 +80,6 @@ class StorySettings {
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.logout(), selected: false)], settingsType: .logout),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.controlCenter(), selected: false)], settingsType: .appStartScreen),
-                                StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.subscription(), selected: false)], settingsType: .subscription),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.termsAndConditions(), selected: false)], settingsType: .termsAndConditions),
