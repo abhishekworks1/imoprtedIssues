@@ -923,9 +923,9 @@ extension StoryCameraViewController {
     
     func setCameraSettings() {
         if let flashmode = Defaults.shared.flashMode {
-            flashMode = AVCaptureDevice.TorchMode(rawValue: flashmode) ?? .on
+            flashMode = AVCaptureDevice.TorchMode(rawValue: flashmode) ?? .auto
         } else {
-            flashMode = .on
+            flashMode = .auto
             Defaults.shared.flashMode = flashMode.rawValue
         }
         setupFlashUI()
@@ -1385,8 +1385,8 @@ extension StoryCameraViewController {
             flashButton.setImage(R.image.flashOn(), for: UIControl.State.normal)
             flashLabel.text = R.string.localizable.flash()
         @unknown default:
-            flashButton.setImage(R.image.flashOff(), for: UIControl.State.normal)
-            flashLabel.text = R.string.localizable.noFlash()
+            flashButton.setImage(R.image.flashAuto(), for: UIControl.State.normal)
+            flashLabel.text = R.string.localizable.autoFlash()
         }
     }
     

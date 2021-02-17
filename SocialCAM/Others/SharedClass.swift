@@ -377,7 +377,7 @@ enum OpeningScreen: Int {
 }
 
 enum GuidelineTypes: Int {
-    case solidLine = 0
+    case solidLine = 1
     case dottedLine
     case dashedLine
 }
