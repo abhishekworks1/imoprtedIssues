@@ -27,6 +27,7 @@ class ForgotPasswordViewController: UIViewController {
     @IBOutlet weak var borderView: BorderView!
     @IBOutlet weak var btnNotReceivedMail: UIButton!
     @IBOutlet weak var btnNotReceivedHeight: NSLayoutConstraint!
+    @IBOutlet weak var btnResendLink: UIButton!
     
     // MARK: - Variables
     var isLoginNow: Bool = false
@@ -82,6 +83,7 @@ class ForgotPasswordViewController: UIViewController {
     func setEmailSentView(isSuccess: Bool) {
         blurView.isHidden = !isSuccess
         sentEmailView.isHidden = !isSuccess
+        btnResendLink.isHidden = isResendLink
     }
     
     func resendLinkView() {
@@ -116,24 +118,16 @@ class ForgotPasswordViewController: UIViewController {
     }
     
     @IBAction func btnResetPasswordClicked(_ sender: UIButton) {
-        if isLoginNow {
-            self.navigationController?.popViewController(animated: true)
-        } else {
-            guard let emailText = txtEmail.text else {
-                return
-            }
-            let email = emailText.trimmingCharacters(in: .whitespacesAndNewlines)
-            if email.isEmpty {
-                self.showAlert(alertMessage: R.string.localizable.pleaseEnterEmail())
-                return
-            }
-            emailLogin(emailText)
+        guard let emailText = txtEmail.text,
+              !emailText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            self.showAlert(alertMessage: R.string.localizable.pleaseEnterEmail())
+            return
         }
+        emailLogin(emailText)
     }
     
     @IBAction func btnOkayClicked(_ sender: UIButton) {
-        setEmailSentView(isSuccess: false)
-        resendLinkView()
+        self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func btnNotReceiveMailClicked(_ sender: UIButton) {
@@ -143,6 +137,14 @@ class ForgotPasswordViewController: UIViewController {
         isResendLink = true
         lblResetPassword.text = R.string.localizable.passwordRequestSent()
         lblResetPasswordInfo.text = R.string.localizable.checkEmailMessage()
+    }
+    
+    @IBAction func btnResendLink(_ sender: UIButton) {
+        guard let emailText = txtEmail.text else {
+            return
+        }
+        emailLogin(emailText)
+        isResendLink = true
     }
     
 }
