@@ -525,6 +525,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         if isLiteApp {
             self.recordingType = .promo
             self.setupLiteAppMode(mode: .promo)
+            self.timerValueView.isHidden = true
             for view in [self.lblLeftSeparator, self.lblRightSeparator, self.photoTimerSelectedLabel, self.pauseTimerSelectedLabel] {
                 view?.isHidden = true
             }
@@ -777,7 +778,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     
     func setupLiteAppMode(mode: CameraMode) {
         fpsView.isHidden = true
-        timerStackView.isHidden = mode == .promo
+        timerStackView.isHidden = true
     }
     
     func changeModeHandler() {
@@ -1122,7 +1123,7 @@ extension StoryCameraViewController {
             
             self.timer = Timer.scheduledTimer(timeInterval: 0.7, target: self, selector: #selector(self.animate), userInfo: nil, repeats: false)
             
-            self.timerValueView.isHidden = !self.isUserTimerValueChange
+            self.timerValueView.isHidden = isLiteApp ? self.isUserTimerValueChange : !self.isUserTimerValueChange
             self.segmentLengthSelectedLabel.text = self.selectedSegmentLengthValue.value
             self.recordingType = Defaults.shared.cameraMode
             self.circularProgress.centerImage = UIImage()
@@ -1701,7 +1702,7 @@ extension StoryCameraViewController {
                     } else if isPic2ArtApp {
                         totalSeconds = 5
                     } else if isLiteApp {
-                        totalSeconds = self.recordingType == .promo ? 15 : totalSeconds
+                        totalSeconds = self.recordingType == .promo ? 15 : 30
                     }
                     self.progressMaxSeconds = totalSeconds
                     self.circularProgress.progressInsideFillColor = .red
