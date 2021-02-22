@@ -901,8 +901,44 @@
                                     <constraint firstItem="VOj-eA-8by" firstAttribute="top" secondItem="6AU-2O-HNh" secondAttribute="top" id="k1S-UP-i4m"/>
                                 </constraints>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RFs-6T-HQy">
+                                <rect key="frame" x="336.66666666666669" y="49" width="44" height="44"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A1d-MQ-FOl">
+                                        <rect key="frame" x="0.0" y="0.0" width="44" height="30"/>
+                                        <state key="normal" image="trimDone"/>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Done" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Sv-a6-8v8">
+                                        <rect key="frame" x="0.0" y="30" width="44" height="14"/>
+                                        <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="12"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HAN-7F-9tR">
+                                        <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
+                                        <connections>
+                                            <action selector="doneClicked:" destination="f9j-8w-2WB" eventType="touchUpInside" id="nYs-Pz-gtB"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="HAN-7F-9tR" secondAttribute="trailing" id="FZY-fz-s4q"/>
+                                    <constraint firstAttribute="bottom" secondItem="HAN-7F-9tR" secondAttribute="bottom" id="Ixp-nQ-Y3A"/>
+                                    <constraint firstItem="HAN-7F-9tR" firstAttribute="top" secondItem="RFs-6T-HQy" secondAttribute="top" id="MYy-Py-jaB"/>
+                                    <constraint firstAttribute="width" constant="44" id="QX7-EB-UaB"/>
+                                    <constraint firstAttribute="trailing" secondItem="0Sv-a6-8v8" secondAttribute="trailing" id="UCl-ND-DIn"/>
+                                    <constraint firstAttribute="trailing" secondItem="A1d-MQ-FOl" secondAttribute="trailing" id="UIo-6P-Wpb"/>
+                                    <constraint firstItem="HAN-7F-9tR" firstAttribute="leading" secondItem="RFs-6T-HQy" secondAttribute="leading" id="VyO-fA-jad"/>
+                                    <constraint firstItem="A1d-MQ-FOl" firstAttribute="top" secondItem="RFs-6T-HQy" secondAttribute="top" id="dlp-fp-AKG"/>
+                                    <constraint firstAttribute="height" constant="44" id="mDU-py-GMC"/>
+                                    <constraint firstItem="0Sv-a6-8v8" firstAttribute="leading" secondItem="RFs-6T-HQy" secondAttribute="leading" id="mjl-P4-8oI"/>
+                                    <constraint firstItem="A1d-MQ-FOl" firstAttribute="leading" secondItem="RFs-6T-HQy" secondAttribute="leading" id="rFW-eR-A4A"/>
+                                    <constraint firstAttribute="bottom" secondItem="0Sv-a6-8v8" secondAttribute="bottom" id="ym6-MH-V9K"/>
+                                </constraints>
+                            </view>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iLz-yd-XL6">
-                                <rect key="frame" x="336.66666666666669" y="44" width="44" height="44"/>
+                                <rect key="frame" x="336.66666666666669" y="52" width="44" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="2Qc-q6-SA9"/>
                                     <constraint firstAttribute="width" constant="44" id="uAV-fI-huA"/>
@@ -921,9 +957,6 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0oI-l0-EjZ">
                                         <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
-                                        <connections>
-                                            <action selector="doneClicked:" destination="f9j-8w-2WB" eventType="touchUpInside" id="RaE-iA-8fV"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1885,7 +1918,9 @@
                             <constraint firstItem="gEK-ly-VTf" firstAttribute="top" secondItem="6YW-e7-QvR" secondAttribute="top" constant="-5" id="DVX-WE-UKA"/>
                             <constraint firstItem="gEK-ly-VTf" firstAttribute="leading" secondItem="6YW-e7-QvR" secondAttribute="leading" id="E4Z-8g-SSI"/>
                             <constraint firstItem="gph-8j-lAt" firstAttribute="top" secondItem="DnE-hD-fmN" secondAttribute="top" constant="8" id="E5h-ZZ-TOm"/>
+                            <constraint firstItem="RFs-6T-HQy" firstAttribute="top" secondItem="DnE-hD-fmN" secondAttribute="top" constant="5" id="Ecz-VN-RhJ"/>
                             <constraint firstItem="nAR-NW-Sbu" firstAttribute="bottom" secondItem="BmQ-Of-ecQ" secondAttribute="bottom" id="Ij2-Bp-wCa"/>
+                            <constraint firstItem="RFs-6T-HQy" firstAttribute="centerX" secondItem="gph-8j-lAt" secondAttribute="centerX" id="Ixg-X8-XZI"/>
                             <constraint firstItem="nAR-NW-Sbu" firstAttribute="leading" secondItem="BmQ-Of-ecQ" secondAttribute="leading" id="MG9-aG-iQW"/>
                             <constraint firstAttribute="bottom" secondItem="LJg-Fc-gtB" secondAttribute="bottom" id="MGp-V5-Ddk"/>
                             <constraint firstItem="kDB-nP-EV7" firstAttribute="top" secondItem="gph-8j-lAt" secondAttribute="top" id="Men-DR-JXF"/>
@@ -1958,8 +1993,7 @@
                         <outlet property="cropOptionView" destination="kdi-tp-nRa" id="zU2-nT-rw5"/>
                         <outlet property="cursorContainerViewCenterConstraint" destination="ykT-jP-bu9" id="gvB-K7-D2m"/>
                         <outlet property="deleteView" destination="6AU-2O-HNh" id="C36-dO-Xb9"/>
-                        <outlet property="doneButton" destination="7b2-Ej-9KH" id="g7g-CL-DqY"/>
-                        <outlet property="doneButtonView" destination="BmQ-Of-ecQ" id="I6J-0g-i8H"/>
+                        <outlet property="doneButtonView" destination="RFs-6T-HQy" id="BSr-LL-vxh"/>
                         <outlet property="downloadView" destination="kDB-nP-EV7" id="2CU-0Q-rpC"/>
                         <outlet property="editOptionView" destination="mZd-io-D56" id="JFW-PO-3V6"/>
                         <outlet property="editToolBarView" destination="gph-8j-lAt" id="HyL-ZQ-0wt"/>
@@ -1977,6 +2011,7 @@
                         <outlet property="shareCollectionViewHeight" destination="A5v-hf-nQF" id="D9Z-cB-h1Q"/>
                         <outlet property="shareViewHeight" destination="gFr-C2-GpV" id="lLu-4Z-1NC"/>
                         <outlet property="showHideLabel" destination="8wl-Hr-TsL" id="gu0-Mg-9LT"/>
+                        <outlet property="showHideView" destination="Ki8-gW-roJ" id="wYa-vG-wdi"/>
                         <outlet property="slideShowCollectionView" destination="IC4-qA-25p" id="SZf-1v-69o"/>
                         <outlet property="slideShowFillAuto" destination="Dfq-bl-UuZ" id="M1V-mg-zAE"/>
                         <outlet property="slideShowPreviewView" destination="KJb-qZ-sZQ" id="ja4-4Q-lzc"/>
@@ -2581,7 +2616,7 @@
         <image name="download" width="24" height="24"/>
         <image name="editOptionStory" width="34" height="34"/>
         <image name="fastestever" width="163" height="23"/>
-        <image name="hideStoryCamIcons" width="34" height="34"/>
+        <image name="hideStoryCamIcons" width="29" height="30"/>
         <image name="icoBitmoji" width="24" height="24"/>
         <image name="icoClose" width="26" height="26"/>
         <image name="icoFacebook" width="36" height="36"/>
@@ -2620,6 +2655,7 @@
         <image name="storySticker" width="34" height="34"/>
         <image name="storyType" width="24" height="24"/>
         <image name="timeSpeed" width="34" height="34"/>
+        <image name="trimDone" width="30" height="30"/>
         <namedColor name="AppPrimaryColor">
             <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
@@ -2630,7 +2666,7 @@
             <color red="0.98039215686274506" green="0.85098039215686272" blue="0.38039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="quetag_darkSkyBlue">
-            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="storytag_watermelon">
             <color red="0.9649999737739563" green="0.31000000238418579" blue="0.34900000691413879" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

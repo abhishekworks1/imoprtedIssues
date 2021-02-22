@@ -84,7 +84,7 @@ class SubscriptionsViewController: UIViewController {
             if Defaults.shared.appMode == .advanced || Defaults.shared.appMode == .professional {
                 upgradeString = R.string.localizable.downgrade()
             }
-            message = R.string.localizable.areYouSureSubscriptionMessage(upgradeString, appMode.description)
+            message = R.string.localizable.enterCodeSubscriptionMessage(appMode.description)
             if isLiteApp {
                 successMessage = R.string.localizable.basicLiteModeIsEnabled()
             } else {

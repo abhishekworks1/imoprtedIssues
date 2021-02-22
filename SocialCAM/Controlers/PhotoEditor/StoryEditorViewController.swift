@@ -163,7 +163,6 @@ class StoryEditorViewController: UIViewController {
     @IBOutlet weak var nativePlayercollectionView: UICollectionView!
     @IBOutlet weak var slideShowCollectionView: DragAndDropCollectionView!
     @IBOutlet weak var mediaImageView: UIImageView!
-    @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var deleteView: UIView!
 
     @IBOutlet weak var youtubeShareView: UIView!
@@ -191,6 +190,7 @@ class StoryEditorViewController: UIViewController {
     @IBOutlet weak var backButtonView: UIView!
     @IBOutlet weak var closeLabel: UILabel!
     @IBOutlet weak var showHideLabel: UILabel!
+    @IBOutlet weak var showHideView: UIView!
     
     private let fastestEverWatermarkBottomMargin = 112
     weak var cursorContainerViewController: KeyframePickerCursorVC!
@@ -368,7 +368,7 @@ class StoryEditorViewController: UIViewController {
         colorSlider.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             colorSlider.centerXAnchor.constraint(equalTo: undoButton.centerXAnchor),
-            colorSlider.topAnchor.constraint(equalTo: undoButton.bottomAnchor, constant: 10),
+            colorSlider.topAnchor.constraint(equalTo: undoButton.bottomAnchor, constant: 20),
             colorSlider.widthAnchor.constraint(equalToConstant: 15),
             colorSlider.heightAnchor.constraint(equalToConstant: colorSliderHeight)
         ])
@@ -449,7 +449,7 @@ class StoryEditorViewController: UIViewController {
         slideShowPreviewView.isHidden = !isSlideShow ? true : hide
         self.slideShowFillAuto.isHidden = !isSlideShow ? true : hide
         doneButtonView.isHidden = !hide
-        doneButtonView.isHidden ? (closeLabel.text = R.string.localizable.back()) : (closeLabel.text = R.string.localizable.close())
+        showHideView.isHidden = !doneButtonView.isHidden
         colorSlider.isHidden = hideColorSlider ? true : !hide
     }
 }
