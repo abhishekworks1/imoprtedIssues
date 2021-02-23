@@ -1019,7 +1019,7 @@ extension StoryCameraViewController {
     }
 
     func setupLayoutCameraSliderView() {
-        self.timerValueView.isHidden = !self.isUserTimerValueChange
+        self.timerValueView.isHidden = isLiteApp ? self.isUserTimerValueChange : !self.isUserTimerValueChange
         var cameraModeArray = self.cameraModeArray
         if isTimeSpeedApp {
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .slideshow})

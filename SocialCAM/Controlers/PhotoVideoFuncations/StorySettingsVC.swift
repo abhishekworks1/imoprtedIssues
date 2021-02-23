@@ -78,13 +78,13 @@ class StorySettings {
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.cameraSettings(), selected: false)], settingsType: .cameraSettings),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.logout(), selected: false)], settingsType: .logout),
-                                StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.subscription(), selected: false)], settingsType: .subscription),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.termsAndConditions(), selected: false)], settingsType: .termsAndConditions),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.privacyPolicy(), selected: false)], settingsType: .privacyPolicy),
+                                StorySettings(name: "",
+                                              settings: [StorySetting(name: R.string.localizable.logout(), selected: false)], settingsType: .logout),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: "\(Constant.Application.displayName) v \(Constant.Application.appVersion) (Build \(Constant.Application.appBuildNumber))", selected: false)], settingsType: .appInfo)]
 }
