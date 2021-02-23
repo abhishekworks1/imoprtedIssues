@@ -64,6 +64,8 @@ class StoryEditorView: UIView {
     
     public var type: StoryEditorType = .image(#imageLiteral(resourceName: "videoBackground"))
     
+    internal var startEditingAction: ((Bool, UIColor) -> ())?
+    
     private var isZooming = false {
         didSet {
             self.storySwipeableFilterView.selectFilterScrollView.isScrollEnabled = !isZooming
@@ -392,10 +394,21 @@ extension StoryEditorView: UITextViewDelegate {
         textView.layer.masksToBounds = false
         textView.tag = textViews.count
         textView.delegate = self
+        let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(textViewDoubleTapped(_:)))
+        doubleTapGesture.numberOfTapsRequired = 1
+        textView.addGestureRecognizer(doubleTapGesture)
         addSubview(textView)
         addStickerGestures(textView)
         textView.becomeFirstResponder()
         textViews.append(textView)
+    }
+    
+    @objc func textViewDoubleTapped(_ sender: UITapGestureRecognizer? = nil) {
+        if let textView = sender?.view as? UITextView {
+            self.startEditingAction?(true, textView.textColor ?? UIColor.white)
+            isTyping = true
+            textView.becomeFirstResponder()
+        }
     }
     
     func endTextEditing() {
