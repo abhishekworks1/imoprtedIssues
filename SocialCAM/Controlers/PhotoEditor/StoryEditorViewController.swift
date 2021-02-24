@@ -490,6 +490,12 @@ extension StoryEditorViewController {
     
     @IBAction func textClicked(_ sender: UIButton) {
         storyEditors[currentStoryIndex].startTextEditing()
+        storyEditors[currentStoryIndex].startEditingAction = { [weak self] (isEditing, textColor) in
+            guard let `self` = self else { return }
+            self.hideToolBar(hide: isEditing)
+            self.colorSlider.color = textColor
+            self.colorSlider.layoutSubviews()
+        }
         hideToolBar(hide: true)
         colorSlider.color = storyEditors[currentStoryIndex].textColor
         colorSlider.layoutSubviews()
