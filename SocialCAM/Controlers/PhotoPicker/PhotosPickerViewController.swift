@@ -524,6 +524,21 @@ extension PhotosPickerViewController {
             self.showAlert(alertMessage: "Maximum 5 seconds video allowed.")
             return
         }
+        if isLiteApp,
+            let asset = self.selectedAssets.first,
+            asset.assetType == .video,
+            Defaults.shared.appMode == .basic,
+            asset.asset.duration >= 30.0 {
+            self.showAlert(alertMessage: R.string.localizable.videoMoreThan30SecondsError())
+            return
+        } else if isLiteApp,
+                  let asset = self.selectedAssets.first,
+                  asset.assetType == .video,
+                  Defaults.shared.appMode == .free,
+                  asset.asset.duration >= 15.0 {
+            self.showAlert(alertMessage: R.string.localizable.videoMoreThan15SecondsError())
+            return
+        }
         self.dismiss(done: true)
     }
     
