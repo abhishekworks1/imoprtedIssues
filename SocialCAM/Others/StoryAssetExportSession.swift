@@ -43,7 +43,7 @@ class StoryAssetExportSession {
     private var watermarkPosition: WatermarkPosition = .topLeft
     private var gifWaterMarkURL = Bundle.main.url(forResource: "SocialCamWaterMark", withExtension: "gif")
     private var gifFrames = [CGImage]()
-    private var gifCount = 0                            
+    private var gifCount = 0
 
     public var overlayImage: UIImage?
     public var filter: CIFilter?
@@ -105,13 +105,19 @@ class StoryAssetExportSession {
             return
         }
         
-        let videoSettings: [String: Any] = [
+        var videoSettings: [String: Any] = [
             AVVideoCompressionPropertiesKey: [AVVideoAverageBitRateKey: NSNumber.init(value: videoTrack.estimatedDataRate)],
             AVVideoCodecKey: AVVideoCodecType.h264,
             AVVideoHeightKey: 1280,
             AVVideoWidthKey: 720,
             AVVideoScalingModeKey: AVVideoScalingModeResizeAspect
         ]
+        if imageContentMode == .scaleAspectFill {
+            videoSettings[AVVideoHeightKey] = videoTrack.naturalSize.height
+            videoSettings[AVVideoWidthKey] = videoTrack.naturalSize.width
+            videoSettings[AVVideoScalingModeKey] = AVVideoScalingModeResizeAspectFill
+        }
+        
         let videoInput = AVAssetWriterInput(mediaType: .video, outputSettings: videoSettings)
         if writer.canAdd(videoInput) {
             writer.add(videoInput)
@@ -212,7 +218,7 @@ class StoryAssetExportSession {
     }
     
     private func renderWithTransformation(sampleBuffer: CMSampleBuffer) -> CVPixelBuffer {
-        guard let backgroundImageBuffer = R.image.videoBackground()?.buffer(),
+        guard var backgroundImageBuffer = R.image.videoBackground()?.buffer(),
             let videoBuffer = CMSampleBufferGetImageBuffer(sampleBuffer),
             let transformation = self.inputTransformation else {
                 let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)!
@@ -226,12 +232,20 @@ class StoryAssetExportSession {
                 self.ciContext.render(ciImage, to: imageBuffer, bounds: ciImage.extent, colorSpace: CGColorSpaceCreateDeviceRGB())
                 return imageBuffer
         }
+        var overlayCIImage = CIImage(cvImageBuffer: videoBuffer)
+        if imageContentMode == .scaleAspectFill {
+            do {
+                let backgroundImage = try R.image.videoBackground()!.resized(to: overlayCIImage.extent.size, with: .accelerate)
+                backgroundImageBuffer = backgroundImage.buffer()!
+            } catch {
+                
+            }
+        }
         
         let backgroundCIImage = CIImage(cvImageBuffer: backgroundImageBuffer)
         let backgroundCIImageWidth = backgroundCIImage.extent.width
         let backgroundCIImageHeight = backgroundCIImage.extent.height
         
-        var overlayCIImage = CIImage(cvImageBuffer: videoBuffer)
         if let preferredTransform = self.preferredTransform {
             overlayCIImage = overlayCIImage.transformed(by: CGAffineTransform(rotationAngle: -(atan2(preferredTransform.b, preferredTransform.a))))
         }
@@ -247,9 +261,9 @@ class StoryAssetExportSession {
         
         let txValue = (backgroundCIImageWidth*transformation.tx/100) - overlayCIImage.extent.origin.x
         let tyValue = backgroundCIImageHeight - (backgroundCIImageHeight*transformation.ty/100) - overlayCIImage.extent.height - overlayCIImage.extent.origin.y
-        
-        overlayCIImage = overlayCIImage.transformed(by: CGAffineTransform(translationX: txValue, y: tyValue))
-        
+        if imageContentMode != .scaleAspectFill {
+            overlayCIImage = overlayCIImage.transformed(by: CGAffineTransform(translationX: txValue, y: tyValue))
+        }
         var combinedCIImage = overlayCIImage.composited(over: backgroundCIImage)
         combinedCIImage = combinedCIImage.cropped(to: backgroundCIImage.extent)
            
@@ -392,7 +406,7 @@ class StoryAssetExportSession {
             }
         }
 
-        let newTextimage: UIImage? = LetterImageGenerator.imageWith(name: userName)
+        let newTextimage: UIImage? = LetterImageGenerator.imageWith(name: "@\(userName)")
         guard let watermarkTextImage = newTextimage else {
             return
         }
