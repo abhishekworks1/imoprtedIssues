@@ -44,11 +44,11 @@ protocol StoryEditorViewDelegate: class {
 
 class StoryEditorView: UIView {
     
-    private var mediaGestureView: UIView
+    var mediaGestureView: UIView
     
-    private var mediaContentMode: StoryImageView.ImageContentMode = .scaleAspectFit
+    var mediaContentMode: StoryImageView.ImageContentMode = .scaleAspectFit
     
-    private var storySwipeableFilterView: StorySwipeableFilterView
+    var storySwipeableFilterView: StorySwipeableFilterView
     
     private var drawView: SketchView
     
@@ -150,7 +150,8 @@ class StoryEditorView: UIView {
     public var currentTime: CMTime {
         return self.storyPlayer?.currentTime() ?? .zero
     }
-    
+    public var isCropped: Bool = false
+    public var isCroppedTextView: Bool = false
     // TODO : Disable for Some Issue.
 //    override var frame: CGRect {
 //        didSet {
@@ -257,7 +258,24 @@ extension StoryEditorView {
         DispatchQueue.runOnMainThread {
             self.mediaGestureView.transform = .identity
             self.mediaGestureView.frame = self.mediaRect()
+            self.drawView.isUserInteractionEnabled = false
+            self.isCroppedTextView = false
             self.adjustMediaTransformIfNeeded()
+            if self.isCropped {
+                self.storySwipeableFilterView.imageContentMode = .scaleAspectFill
+                let frame = CGRect(origin: .zero,
+                                   size: CGSize(width: self.mediaGestureView.bounds.width,
+                                                height: self.mediaGestureView.bounds.height))
+                self.storySwipeableFilterView.bounds = frame
+                self.drawView.bounds = frame
+                self.layoutIfNeeded()
+            } else {
+                self.storySwipeableFilterView.imageContentMode = .scaleAspectFit
+                self.storySwipeableFilterView.frame = self.bounds
+                self.drawView.frame = self.bounds
+                self.layoutIfNeeded()
+            }
+            self.adjustTextViews()
         }
     }
     
@@ -375,9 +393,10 @@ extension StoryEditorView: UITextViewDelegate {
     func startTextEditing() {
         isTyping = true
         let textView = UITextView(frame: CGRect(x: 0,
-                                                y: center.y,
+                                                y: 0,
                                                 width: bounds.width,
                                                 height: 30))
+        textView.center = CGPoint(x: drawView.frame.width/2, y: drawView.frame.height/2)
         textView.text = "#"
         textView.tintColor = .white
         textView.textAlignment = .center
@@ -397,7 +416,8 @@ extension StoryEditorView: UITextViewDelegate {
         let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(textViewDoubleTapped(_:)))
         doubleTapGesture.numberOfTapsRequired = 1
         textView.addGestureRecognizer(doubleTapGesture)
-        addSubview(textView)
+        isCropped ? drawView.addSubview(textView) : addSubview(textView)
+        textView.clipsToBounds = true
         addStickerGestures(textView)
         textView.becomeFirstResponder()
         textViews.append(textView)
@@ -466,6 +486,8 @@ extension StoryEditorView: UITextViewDelegate {
                         textView.transform = self.lastTextViewTransform!
                         textView.center = self.lastTextViewTransCenter!
         }, completion: nil)
+        drawView.isUserInteractionEnabled = isCropped
+        isCroppedTextView = isCropped
     }
     
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
@@ -544,52 +566,58 @@ extension StoryEditorView {
     }
     
     @objc func handleMediaPanGesture(_ recognizer: UIPanGestureRecognizer) {
-        guard self.isZooming && recognizer.state == .changed else {
-            return
+        if !isCropped {
+            guard self.isZooming && recognizer.state == .changed else {
+                return
+            }
+            let translation = recognizer.translation(in: self)
+            mediaGestureView.center = CGPoint(x: mediaGestureView.center.x + translation.x,
+                                              y: mediaGestureView.center.y + translation.y)
+            recognizer.setTranslation(.zero, in: self)
+            adjustMediaTransformIfNeeded()
+            delegate?.needToExportVideo()
         }
-        let translation = recognizer.translation(in: self)
-        mediaGestureView.center = CGPoint(x: mediaGestureView.center.x + translation.x,
-                                          y: mediaGestureView.center.y + translation.y)
-        recognizer.setTranslation(.zero, in: self)
-        adjustMediaTransformIfNeeded()
-        delegate?.needToExportVideo()
     }
     
     @objc func handleMediaPinchGesture(_ recognizer: UIPinchGestureRecognizer) {
-        let location = recognizer.location(in: self)
-        guard mediaGestureView.frame.contains(location) else {
-            return
+        if !isCropped {
+            let location = recognizer.location(in: self)
+            guard mediaGestureView.frame.contains(location) else {
+                return
+            }
+            switch recognizer.state {
+            case .began:
+                self.isZooming = true
+                break
+            case .changed:
+                let pinchCenter = CGPoint(x: recognizer.location(in: mediaGestureView).x - mediaGestureView.bounds.midX,
+                                          y: recognizer.location(in: mediaGestureView).y - mediaGestureView.bounds.midY)
+                let transform = mediaGestureView.transform.translatedBy(x: pinchCenter.x, y: pinchCenter.y)
+                    .scaledBy(x: recognizer.scale, y: recognizer.scale)
+                    .translatedBy(x: -pinchCenter.x, y: -pinchCenter.y)
+                mediaGestureView.transform = transform
+                recognizer.scale = 1
+                break
+            case .ended, .failed, .cancelled:
+                self.isZooming = false
+                break
+            case .possible:
+                break
+            @unknown default:
+                break
+            }
+            adjustMediaTransformIfNeeded()
+            delegate?.needToExportVideo()
         }
-        switch recognizer.state {
-        case .began:
-            self.isZooming = true
-            break
-        case .changed:
-            let pinchCenter = CGPoint(x: recognizer.location(in: mediaGestureView).x - mediaGestureView.bounds.midX,
-                                      y: recognizer.location(in: mediaGestureView).y - mediaGestureView.bounds.midY)
-            let transform = mediaGestureView.transform.translatedBy(x: pinchCenter.x, y: pinchCenter.y)
-                .scaledBy(x: recognizer.scale, y: recognizer.scale)
-                .translatedBy(x: -pinchCenter.x, y: -pinchCenter.y)
-            mediaGestureView.transform = transform
-            recognizer.scale = 1
-            break
-        case .ended, .failed, .cancelled:
-            self.isZooming = false
-            break
-        case .possible:
-            break
-        @unknown default:
-            break
-        }
-        adjustMediaTransformIfNeeded()
-        delegate?.needToExportVideo()
     }
     
     @objc func handleMediaRotationGesture(_ recognizer: UIRotationGestureRecognizer) {
-        mediaGestureView.transform = mediaGestureView.transform.rotated(by: recognizer.rotation)
-        recognizer.rotation = 0
-        adjustMediaTransformIfNeeded()
-        delegate?.needToExportVideo()
+        if !isCropped {
+            mediaGestureView.transform = mediaGestureView.transform.rotated(by: recognizer.rotation)
+            recognizer.rotation = 0
+            adjustMediaTransformIfNeeded()
+            delegate?.needToExportVideo()
+        }
     }
     
 }
@@ -852,18 +880,24 @@ extension StoryEditorView {
     }
     
     func moveView(view: UIView, recognizer: UIPanGestureRecognizer) {
-        guard let superView = self.superview else {
-            return
+        var superView: UIView
+        if isCropped {
+            superView = self.drawView
+        } else {
+            guard let parentView = self.superview else {
+                return
+            }
+            superView = parentView
         }
         deleteView?.isHidden = false
         socialShareView?.isHidden = true
         view.superview?.bringSubviewToFront(view)
         let pointToSuperView = recognizer.location(in: superView)
         
-        view.center = CGPoint(x: view.center.x + recognizer.translation(in: self).x,
-                              y: view.center.y + recognizer.translation(in: self).y)
+        view.center = CGPoint(x: view.center.x + recognizer.translation(in: superView).x,
+                              y: view.center.y + recognizer.translation(in: superView).y)
         
-        recognizer.setTranslation(.zero, in: self)
+        recognizer.setTranslation(.zero, in: superView)
         
         if let previousPoint = lastPanPoint {
             // View is going into deleteView
@@ -898,24 +932,47 @@ extension StoryEditorView {
             deleteView?.isHidden = true
             socialShareView?.isHidden = false
             let point = recognizer.location(in: superview)
-            
-            if deleteView?.frame.contains(point) ?? false { // Delete the view
-                view.removeFromSuperview()
-                if view is FollowMeStoryView {
-                    referType = .none
-                }
-                if view is TikTokShareView {
-                    Defaults.shared.postViralCamModel = nil
-                    referType = .none
-                }
-                let generator = UINotificationFeedbackGenerator()
-                generator.notificationOccurred(.success)
-                self.deleteView?.transform = CGAffineTransform(scaleX: 1, y: 1)
-            } else if !bounds.contains(view.center) { // Snap the view back to canvasImageView
-                UIView.animate(withDuration: 0.3, animations: {
-                    view.center = self.center
-                })
+            adjustView(point: point, view: view)
+        }
+    }
+    
+    func adjustView(point: CGPoint, view: UIView) {
+        if deleteView?.frame.contains(point) ?? false { // Delete the view
+            view.removeFromSuperview()
+            if view is FollowMeStoryView {
+                referType = .none
             }
+            if view is TikTokShareView {
+                Defaults.shared.postViralCamModel = nil
+                referType = .none
+            }
+            let generator = UINotificationFeedbackGenerator()
+            generator.notificationOccurred(.success)
+            self.deleteView?.transform = CGAffineTransform(scaleX: 1, y: 1)
+        } else if isCropped {
+            if isCroppedTextView {
+                if !self.drawView.bounds.contains(view.center) {
+                    UIView.animate(withDuration: 0.3, animations: {
+                        view.center = CGPoint(x: self.drawView.bounds.width/2, y: self.drawView.bounds.height/2)
+                    })
+                }
+            } else {
+                if !self.drawView.frame.contains(view.center) {
+                    UIView.animate(withDuration: 0.3, animations: {
+                        view.center = CGPoint(x: self.drawView.bounds.width/2, y: self.drawView.bounds.height/2)
+                    })
+                }
+            }
+        } else if !bounds.contains(view.center) { // Snap the view back to canvasImageView
+            UIView.animate(withDuration: 0.3, animations: {
+                view.center = self.center
+            })
+        }
+    }
+    
+    func adjustTextViews() {
+        for textView in textViews {
+            adjustView(point: textView.center, view: textView)
         }
     }
     

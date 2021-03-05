@@ -191,6 +191,8 @@ class StoryEditorViewController: UIViewController {
     @IBOutlet weak var closeLabel: UILabel!
     @IBOutlet weak var showHideLabel: UILabel!
     @IBOutlet weak var showHideView: UIView!
+    @IBOutlet weak var cropPopupBlurView: UIVisualEffectView!
+    @IBOutlet weak var croppedAlertView: UIView!
     
     private let fastestEverWatermarkBottomMargin = 112
     weak var cursorContainerViewController: KeyframePickerCursorVC!
@@ -254,6 +256,9 @@ class StoryEditorViewController: UIViewController {
     
     public var referType: ReferType = .none
     var popupVC: STPopupController = STPopupController()
+    var isCropped: Bool = false
+    var croppedImage: UIImage?
+    var croppedUrl: URL?
     
     var isViewEditMode: Bool = false {
         didSet {
@@ -452,6 +457,18 @@ class StoryEditorViewController: UIViewController {
         showHideView.isHidden = !doneButtonView.isHidden
         colorSlider.isHidden = hideColorSlider ? true : !hide
     }
+    
+    func hideCropPopView(isHide: Bool) {
+        cropPopupBlurView.isHidden = isHide
+        croppedAlertView.isHidden = isHide
+        isVideoPlay ? pauseVideo() : playVideo()
+    }
+    
+    func changeCroppedMediaFrame(image: UIImage, croppedUrl: URL) {
+        self.croppedImage = image
+        self.croppedUrl = croppedUrl
+    }
+    
 }
 
 extension StoryEditorViewController: StickerDelegate {
@@ -1152,6 +1169,36 @@ extension StoryEditorViewController {
         }
     }
     
+    @IBAction func fullScreenButtonClicked(sender: UIButton) {
+        if isCropped {
+            guard let image = self.croppedImage,
+                  let croppedUrl = self.croppedUrl else {
+                return
+            }
+            let storyEditor = storyEditors[currentStoryIndex]
+            storyEditor.isCropped = false
+            storyEditor.replaceMedia(.video(image, AVAsset(url: croppedUrl)))
+            nativeVideoPlayerRefresh()
+            self.needToExportVideo()
+        }
+        self.hideCropPopView(isHide: true)
+    }
+    
+    @IBAction func croppedScreenButtonClicked(sender: UIButton) {
+        if isCropped {
+            guard let image = self.croppedImage,
+                  let croppedUrl = self.croppedUrl else {
+                return
+            }
+            let storyEditor = storyEditors[currentStoryIndex]
+            storyEditor.isCropped = true
+            storyEditor.replaceMedia(.video(image, AVAsset(url: croppedUrl)))
+            nativeVideoPlayerRefresh()
+            self.needToExportVideo()
+        }
+        self.hideCropPopView(isHide: true)
+    }
+    
 }
 
 extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -1541,9 +1588,9 @@ extension StoryEditorViewController: CropViewControllerDelegate {
     
     func cropViewControllerDidCrop(_ cropViewController: CropViewController, croppedURL: URL) {
         if case let StoryEditorType.video(image, _) = storyEditors[self.currentStoryIndex].type {
-            storyEditors[currentStoryIndex].replaceMedia(.video(image, AVAsset(url: croppedURL)))
-            nativeVideoPlayerRefresh()
-            self.needToExportVideo()
+            isCropped = true
+            changeCroppedMediaFrame(image: image, croppedUrl: croppedURL)
+            hideCropPopView(isHide: false)
         }
     }
     
@@ -1688,6 +1735,8 @@ extension StoryEditorViewController {
             exportSession.filter = filter.ciFilter
         }
         exportSession.isMute = storyEditor.isMuted
+        storyEditors[currentStoryIndex].isCropped ? (storyEditors[currentStoryIndex].storySwipeableFilterView.imageContentMode = .scaleAspectFill) : (storyEditors[currentStoryIndex].storySwipeableFilterView.imageContentMode = .scaleAspectFit)
+        storyEditors[currentStoryIndex].isCropped ? (exportSession.imageContentMode = .scaleAspectFill) : (exportSession.imageContentMode = .scaleAspectFit)
         exportSession.overlayImage = storyEditor.toVideoImage()
         exportSession.inputTransformation = storyEditor.imageTransformation
         exportSession.export(for: asset, progress: { [weak self] progress in

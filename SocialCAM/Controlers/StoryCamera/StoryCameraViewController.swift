@@ -247,7 +247,8 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                                              self.zoomSliderView,
                                              self.timerStackView,
                                              self.flashStackView,
-                                             self.nextButtonView],
+                                             self.nextButtonView,
+                                             self.switchAppButton],
                                             alpha: alpha)
                     // Make the animation happen
                     self.view.setNeedsLayout()
@@ -1615,6 +1616,7 @@ extension StoryCameraViewController {
                     self.timerValueView.alpha = 1
                     self.faceFiltersView.alpha = 1
                     self.collectionViewStackVIew.alpha = 1
+                    self.switchAppButton.alpha = 1
                 })
             }
         } else {
