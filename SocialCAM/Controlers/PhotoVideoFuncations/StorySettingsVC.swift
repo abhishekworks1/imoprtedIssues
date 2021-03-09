@@ -34,6 +34,7 @@ enum SettingsMode: Int {
     case watermarkAlpha50 = 50
     case watermarkAlpha80 = 80
     case subscription
+    case goToWebsite
 }
 
 class StorySetting {
@@ -80,21 +81,19 @@ class StorySettings {
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.subscription(), selected: false)], settingsType: .subscription),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.termsAndConditions(), selected: false)], settingsType: .termsAndConditions),
+                                              settings: [StorySetting(name: R.string.localizable.goToWebsite(), selected: false)], settingsType: .goToWebsite),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.privacyPolicy(), selected: false)], settingsType: .privacyPolicy),
-                                StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.logout(), selected: false)], settingsType: .logout),
-                                StorySettings(name: "",
-                                              settings: [StorySetting(name: "\(Constant.Application.displayName) v \(Constant.Application.appVersion) (Build \(Constant.Application.appBuildNumber))", selected: false)], settingsType: .appInfo)]
+                                              settings: [StorySetting(name: R.string.localizable.logout(), selected: false)], settingsType: .logout)]
 }
 
 class StorySettingsVC: UIViewController {
     
     @IBOutlet weak var settingsTableView: UITableView!
+    @IBOutlet weak var lblAppInfo: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        lblAppInfo.text = "\(Constant.Application.displayName) - \(Constant.Application.appVersion)(\(Constant.Application.appBuildNumber))"
     }
     
     deinit {
@@ -103,6 +102,12 @@ class StorySettingsVC: UIViewController {
     
     @IBAction func onBack(_ sender: Any) {
         navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func btnLegalDetailsTapped(_ sender: UIButton) {
+        guard let legalVc = R.storyboard.legal.legalViewController() else { return }
+        legalVc.isTermsAndConditions = (sender.tag == 0)
+        self.navigationController?.pushViewController(legalVc, animated: true)
     }
     
 }
@@ -148,7 +153,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         cell.settingsName.text = settings.name
         cell.detailButton.isHidden = true
         cell.settingsName.textColor = R.color.appBlackColor()
-        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video || settingTitle.settingsType == .cameraSettings || settingTitle.settingsType == .termsAndConditions || settingTitle.settingsType == .privacyPolicy || settingTitle.settingsType == .subscription {
+        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video || settingTitle.settingsType == .cameraSettings || settingTitle.settingsType == .termsAndConditions || settingTitle.settingsType == .privacyPolicy || settingTitle.settingsType == .subscription || settingTitle.settingsType == .goToWebsite {
             if settingTitle.settingsType == .appInfo {
                 if isDebug {
                     cell.settingsName.textColor = R.color.appPrimaryColor()
@@ -305,6 +310,9 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             if let subscriptionVC = R.storyboard.subscription.subscriptionContainerViewController() {
                 navigationController?.pushViewController(subscriptionVC, animated: true)
             }
+        } else if settingTitle.settingsType == .goToWebsite {
+            guard let url = URL(string: websiteUrl) else { return }
+            UIApplication.shared.open(url)
         }
     }
     

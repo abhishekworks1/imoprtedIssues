@@ -144,6 +144,49 @@ public var privacyPolicyUrl: String {
     return baseUrlString
 }
 
+public var websiteUrl: String {
+    var baseUrlString = ""
+    switch Defaults.shared.releaseType {
+    case .debug, .alpha:
+        if isFastCamApp || isFastCamLiteApp {
+            baseUrlString = "https://alpha.fastcam.app/"
+        } else if isSnapCamApp || isSnapCamLiteApp {
+            baseUrlString = "https://alpha.snapcam.app/"
+        } else if isQuickCamApp || isQuickCamLiteApp {
+            baseUrlString = "https://alpha.quickcam.app/"
+        } else if isSpeedCamApp || isSpeedCamLiteApp {
+            baseUrlString = "https://alpha.speedcam.net/"
+        } else {
+            baseUrlString = "https://alpha.snapcam.app/"
+        }
+    case .beta:
+        if isFastCamApp || isFastCamLiteApp {
+            baseUrlString = "https://beta.fastcam.app/"
+        } else if isSnapCamApp || isSnapCamLiteApp {
+            baseUrlString = "https://beta.snapcam.app/"
+        } else if isQuickCamApp || isQuickCamLiteApp {
+            baseUrlString = "https://beta.quickcam.app/"
+        } else if isSpeedCamApp || isSpeedCamLiteApp {
+            baseUrlString = "https://beta.speedcam.net/"
+        } else {
+            baseUrlString = "https://beta.snapcam.app/"
+        }
+    case .store:
+        if isFastCamApp || isFastCamLiteApp {
+            baseUrlString = "https://fastcam.app/"
+        } else if isSnapCamApp || isSnapCamLiteApp {
+            baseUrlString = "https://snapcam.app/"
+        } else if isQuickCamApp || isQuickCamLiteApp {
+            baseUrlString = "https://quickcam.app/"
+        } else if isSpeedCamApp || isSpeedCamLiteApp {
+            baseUrlString = "https://speedcam.net/"
+        } else {
+            baseUrlString = "https://snapcam.app/"
+        }
+    }
+    return baseUrlString
+}
+
 enum ReleaseType: String, AppMode_Enum {
     case debug
     case alpha

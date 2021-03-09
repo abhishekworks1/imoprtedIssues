@@ -199,6 +199,8 @@ class StoryEditorViewController: UIViewController {
     @IBOutlet weak var btnTwitter: UIButton!
     @IBOutlet weak var btnTiktok: UIButton!
     @IBOutlet weak var btnStoricamShare: UIButton!
+    @IBOutlet weak var hideToolTipView: UIView!
+    @IBOutlet weak var btnDoNotShowAgain: UIButton!
     
     private let fastestEverWatermarkBottomMargin = 112
     weak var cursorContainerViewController: KeyframePickerCursorVC!
@@ -265,11 +267,14 @@ class StoryEditorViewController: UIViewController {
     var isCropped: Bool = false
     var croppedImage: UIImage?
     var croppedUrl: URL?
+    var isHideTapped = false
+    var isToolTipHide = false
     
     var isViewEditMode: Bool = false {
         didSet {
             editToolBarView.isHidden = isViewEditMode
             downloadView.isHidden = isViewEditMode
+            backButtonView.isHidden = isViewEditMode
             if (storyEditors.count > 1) {
                 collectionView.isHidden = isViewEditMode
                 backgroundCollectionView.isHidden = isViewEditMode
@@ -285,12 +290,15 @@ class StoryEditorViewController: UIViewController {
                 progressBarView.isHidden = !progressBarView.isHidden
             }
             socialShareBottomView.isHidden = isViewEditMode
+            showHideView.isHidden = isViewEditMode
+            isHideTapped = isViewEditMode
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupFilterViews()
+        setGestureViewForShowHide(view: storyEditors[currentStoryIndex])
         selectedSlideShowMedias = (0...20).map({ _ in StoryEditorMedia(type: .image(UIImage())) })
         slideShowCollectionView.reloadData()
         var collectionViews: [UIView] = [collectionView]
@@ -501,6 +509,10 @@ class StoryEditorViewController: UIViewController {
         }))
         alert.addAction(UIAlertAction(title: R.string.localizable.later(), style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func hideToolTipView(isHide: Bool) {
+        hideToolTipView.isHidden = isHide
     }
     
 }
@@ -1084,7 +1096,12 @@ extension StoryEditorViewController {
     }
     
     @IBAction func btnShowHideEditOptionsClick(_ sender: AnyObject) {
-        isViewEditMode = !isViewEditMode
+        btnDoNotShowAgain.setImage(R.image.hideToolTipCheckMark()?.alpha(0.5), for: .normal)
+        if !isToolTipHide {
+            hideToolTipView(isHide: isToolTipHide)
+        } else {
+            isViewEditMode = !isViewEditMode
+        }
     }
     
     @objc private func backgroundViewDidTap() {
@@ -1220,6 +1237,22 @@ extension StoryEditorViewController {
             self.needToExportVideo()
         }
         self.hideCropPopView(isHide: true)
+    }
+    
+    @IBAction func doNotShowAgainButtonClicked(sender: UIButton) {
+        btnDoNotShowAgain.isSelected = !btnDoNotShowAgain.isSelected
+        isToolTipHide = !isToolTipHide
+    }
+    
+    @IBAction func okayButtonClicked(sender: UIButton) {
+        isViewEditMode = !isViewEditMode
+        hideToolTipView(isHide: true)
+    }
+    
+    @IBAction func cancelButtonClicked(sender: UIButton) {
+        hideToolTipView(isHide: true)
+        isToolTipHide = false
+        btnDoNotShowAgain.isSelected = isToolTipHide
     }
     
 }
@@ -1863,4 +1896,22 @@ extension StoryEditorViewController {
 
 enum SecurityError: Error {
     case minimumThreeImagesRequiredForSlideshowVideo
+}
+
+// MARK: - UIGestureRecognizerDelegate
+extension StoryEditorViewController: UIGestureRecognizerDelegate {
+    
+    func setGestureViewForShowHide(view: UIView) {
+        let focusTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleFocusTapGestureRecognizer(_:)))
+        focusTapGestureRecognizer.delegate = self
+        focusTapGestureRecognizer.numberOfTapsRequired = 1
+        view.addGestureRecognizer(focusTapGestureRecognizer)
+    }
+    
+    @objc func handleFocusTapGestureRecognizer(_ gestureRecognizer: UIGestureRecognizer) {
+        if btnShowHideEditImage.isSelected {
+            isViewEditMode = !isViewEditMode
+        }
+    }
+    
 }

@@ -460,7 +460,7 @@ extension StoryCameraViewController {
     }
     
     @IBAction func gameCentreButtonClicked(_ sender: UIButton) {
-        UIApplication.showAlert(title: R.string.localizable.gameCentre(), message: R.string.localizable.comingSoon())
+        UIApplication.showAlert(title: R.string.localizable.vidPlay(), message: R.string.localizable.comingSoon())
     }
     
 }
