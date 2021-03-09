@@ -1529,41 +1529,8 @@
                                                     <constraint firstAttribute="bottom" secondItem="L63-iu-1YY" secondAttribute="bottom" id="k89-UK-01A"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yB7-8N-cMe">
-                                                <rect key="frame" x="242.99999999999997" y="0.0" width="45.666666666666657" height="70"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0rb-P9-ozr">
-                                                        <rect key="frame" x="0.0" y="0.0" width="45.666666666666664" height="14"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="14" id="mRS-jZ-UTl"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="12"/>
-                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <nil key="highlightedColor"/>
-                                                        <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <size key="shadowOffset" width="0.0" height="1"/>
-                                                    </label>
-                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WGd-gU-1jH">
-                                                        <rect key="frame" x="0.0" y="14" width="45.666666666666664" height="56"/>
-                                                        <state key="normal" image="icoSnapchat"/>
-                                                        <connections>
-                                                            <action selector="btnSocialMediaShareClick:" destination="f9j-8w-2WB" eventType="touchUpInside" id="TRH-DL-mh7"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                <constraints>
-                                                    <constraint firstItem="0rb-P9-ozr" firstAttribute="leading" secondItem="yB7-8N-cMe" secondAttribute="leading" id="LmY-EE-GEf"/>
-                                                    <constraint firstAttribute="trailing" secondItem="0rb-P9-ozr" secondAttribute="trailing" id="Os3-59-kLp"/>
-                                                    <constraint firstAttribute="bottom" secondItem="WGd-gU-1jH" secondAttribute="bottom" id="dET-qo-BRe"/>
-                                                    <constraint firstItem="WGd-gU-1jH" firstAttribute="leading" secondItem="yB7-8N-cMe" secondAttribute="leading" id="dy2-dw-5ik"/>
-                                                    <constraint firstItem="WGd-gU-1jH" firstAttribute="top" secondItem="0rb-P9-ozr" secondAttribute="bottom" id="ezN-uo-fai"/>
-                                                    <constraint firstAttribute="trailing" secondItem="WGd-gU-1jH" secondAttribute="trailing" id="fMt-Qj-KHG"/>
-                                                    <constraint firstItem="0rb-P9-ozr" firstAttribute="top" secondItem="yB7-8N-cMe" secondAttribute="top" id="xxW-ZR-iVC"/>
-                                                </constraints>
-                                            </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hhS-Ca-tkf">
-                                                <rect key="frame" x="303.66666666666669" y="0.0" width="45.666666666666686" height="70"/>
+                                                <rect key="frame" x="242.99999999999997" y="0.0" width="45.666666666666657" height="70"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DzI-Bb-uqV">
                                                         <rect key="frame" x="0.0" y="0.0" width="45.666666666666664" height="14"/>
@@ -1626,6 +1593,39 @@
                                                     <constraint firstAttribute="bottom" secondItem="YJ1-ZR-4Je" secondAttribute="bottom" id="YAa-af-fnb"/>
                                                     <constraint firstAttribute="trailing" secondItem="Bb7-Fj-Vc4" secondAttribute="trailing" id="iJP-vf-hSt"/>
                                                     <constraint firstItem="YJ1-ZR-4Je" firstAttribute="top" secondItem="Bb7-Fj-Vc4" secondAttribute="bottom" id="wOi-hI-ldC"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yB7-8N-cMe">
+                                                <rect key="frame" x="364.33333333333331" y="0.0" width="45.666666666666686" height="70"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0rb-P9-ozr">
+                                                        <rect key="frame" x="0.0" y="0.0" width="45.666666666666664" height="14"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="14" id="mRS-jZ-UTl"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="12"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <size key="shadowOffset" width="0.0" height="1"/>
+                                                    </label>
+                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WGd-gU-1jH">
+                                                        <rect key="frame" x="0.0" y="14" width="45.666666666666664" height="56"/>
+                                                        <state key="normal" image="icoSnapchat"/>
+                                                        <connections>
+                                                            <action selector="btnSocialMediaShareClick:" destination="f9j-8w-2WB" eventType="touchUpInside" id="TRH-DL-mh7"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstItem="0rb-P9-ozr" firstAttribute="leading" secondItem="yB7-8N-cMe" secondAttribute="leading" id="LmY-EE-GEf"/>
+                                                    <constraint firstAttribute="trailing" secondItem="0rb-P9-ozr" secondAttribute="trailing" id="Os3-59-kLp"/>
+                                                    <constraint firstAttribute="bottom" secondItem="WGd-gU-1jH" secondAttribute="bottom" id="dET-qo-BRe"/>
+                                                    <constraint firstItem="WGd-gU-1jH" firstAttribute="leading" secondItem="yB7-8N-cMe" secondAttribute="leading" id="dy2-dw-5ik"/>
+                                                    <constraint firstItem="WGd-gU-1jH" firstAttribute="top" secondItem="0rb-P9-ozr" secondAttribute="bottom" id="ezN-uo-fai"/>
+                                                    <constraint firstAttribute="trailing" secondItem="WGd-gU-1jH" secondAttribute="trailing" id="fMt-Qj-KHG"/>
+                                                    <constraint firstItem="0rb-P9-ozr" firstAttribute="top" secondItem="yB7-8N-cMe" secondAttribute="top" id="xxW-ZR-iVC"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -2096,7 +2096,13 @@
                         <outlet property="backgroundCollectionView" destination="U8O-6K-azW" id="EGS-f4-WhD"/>
                         <outlet property="blurView" destination="bbz-cN-sqx" id="j4Q-M5-bzI"/>
                         <outlet property="bottomContainerView" destination="Lgu-rn-Fgm" id="JSc-MN-NiO"/>
+                        <outlet property="btnFacebook" destination="dPW-f5-Kaw" id="Enz-e6-y7z"/>
+                        <outlet property="btnInstagram" destination="mZZ-vO-y3f" id="6K7-q7-hHP"/>
                         <outlet property="btnShowHideEditImage" destination="Nsv-ae-Igz" id="dN6-b3-Jy6"/>
+                        <outlet property="btnStoricamShare" destination="YJ1-ZR-4Je" id="K26-zI-2yZ"/>
+                        <outlet property="btnTiktok" destination="h0Y-zC-rSF" id="wCu-pV-7bf"/>
+                        <outlet property="btnTwitter" destination="L63-iu-1YY" id="BPz-hr-fKk"/>
+                        <outlet property="btnYoutube" destination="2So-LO-liF" id="DmS-NR-RCa"/>
                         <outlet property="closeLabel" destination="tZ4-q9-Wkm" id="MWY-je-J9B"/>
                         <outlet property="collectionView" destination="mAc-mp-A25" id="qlt-Hr-LG6"/>
                         <outlet property="cropOptionView" destination="kdi-tp-nRa" id="zU2-nT-rw5"/>
@@ -2728,7 +2734,6 @@
         <image name="download" width="24" height="24"/>
         <image name="editOptionStory" width="34" height="34"/>
         <image name="fastestever" width="163" height="23"/>
-        <image name="hideStoryCamIcons" width="29" height="30"/>
         <image name="fullScreenDisplay" width="82" height="160"/>
         <image name="hideStoryCamIcons" width="29" height="30"/>
         <image name="icoBitmoji" width="24" height="24"/>

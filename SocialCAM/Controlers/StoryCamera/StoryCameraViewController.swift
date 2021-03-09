@@ -248,8 +248,10 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                                              self.timerStackView,
                                              self.flashStackView,
                                              self.nextButtonView,
-                                             self.switchAppButton],
+                                             self.switchAppButton,
+                                             self.btnShowHide],
                                             alpha: alpha)
+                    self.isHideTapped = self.hideControls
                     // Make the animation happen
                     self.view.setNeedsLayout()
                     self.view.layoutIfNeeded()
@@ -497,6 +499,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     
     var observers = [NSObjectProtocol]()
     var pulse = Pulsing()
+    var isHideTapped = false
     
     // MARK: ViewController lifecycle
     override func viewDidLoad() {
@@ -1473,7 +1476,10 @@ extension StoryCameraViewController {
     
     @objc  func handleFocusTapGestureRecognizer(_ gestureRecognizer: UIGestureRecognizer) {
         let tapPoint = gestureRecognizer.location(in: self.previewView)
-        
+        if btnShowHide.isSelected {
+            btnShowHide.alpha = isHideTapped ? 1 : 0
+            isHideTapped = !isHideTapped
+        }
         if let focusView = self.focusView {
             var focusFrame = focusView.frame
             focusFrame.origin.x = CGFloat((tapPoint.x - (focusFrame.size.width * 0.5)).rounded())
@@ -1595,6 +1601,7 @@ extension StoryCameraViewController {
                     self.timerValueView.alpha = 0
                     self.faceFiltersView.alpha = 0
                     self.cameraSliderView.alpha = 0
+                    self.switchAppButton.alpha = 0
                 }
             })
         }

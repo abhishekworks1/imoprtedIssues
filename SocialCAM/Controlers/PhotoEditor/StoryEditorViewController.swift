@@ -193,6 +193,12 @@ class StoryEditorViewController: UIViewController {
     @IBOutlet weak var showHideView: UIView!
     @IBOutlet weak var cropPopupBlurView: UIVisualEffectView!
     @IBOutlet weak var croppedAlertView: UIView!
+    @IBOutlet weak var btnFacebook: UIButton!
+    @IBOutlet weak var btnYoutube: UIButton!
+    @IBOutlet weak var btnInstagram: UIButton!
+    @IBOutlet weak var btnTwitter: UIButton!
+    @IBOutlet weak var btnTiktok: UIButton!
+    @IBOutlet weak var btnStoricamShare: UIButton!
     
     private let fastestEverWatermarkBottomMargin = 112
     weak var cursorContainerViewController: KeyframePickerCursorVC!
@@ -297,7 +303,7 @@ class StoryEditorViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        self.setSocialShareView()
         self.imgFastestEverWatermark.isHidden = Defaults.shared.cameraMode != .promo
     }
     
@@ -363,6 +369,23 @@ class StoryEditorViewController: UIViewController {
         }
         
         hideOptionIfNeeded()
+    }
+    
+    /// Set images for social share buttons
+    func setSocialShareView() {
+        if Defaults.shared.appMode == .free, isSnapCamLiteApp {
+            btnFacebook.setImage(R.image.icoFacebookTransparent(), for: .normal)
+            btnYoutube.setImage(R.image.icoYoutubeTransparent(), for: .normal)
+            btnInstagram.setImage(R.image.icoInstagramTransparent(), for: .normal)
+            btnTwitter.setImage(R.image.icoTwitterTransparent(), for: .normal)
+            btnTiktok.setImage(R.image.icoTiktokTransparent(), for: .normal)
+        } else {
+            btnFacebook.setImage(R.image.icoFacebook(), for: .normal)
+            btnYoutube.setImage(R.image.icoYoutube(), for: .normal)
+            btnInstagram.setImage(R.image.icoInstagram(), for: .normal)
+            btnTwitter.setImage(R.image.icoTwitter(), for: .normal)
+            btnTiktok.setImage(R.image.icoTikTok(), for: .normal)
+        }
     }
     
     func setupColorSlider() {
@@ -467,6 +490,17 @@ class StoryEditorViewController: UIViewController {
     func changeCroppedMediaFrame(image: UIImage, croppedUrl: URL) {
         self.croppedImage = image
         self.croppedUrl = croppedUrl
+    }
+    
+    func showAlertForUpgradeSubscription() {
+        let alert = UIAlertController(title: Constant.Application.displayName, message: R.string.localizable.upgradeSubscriptionWarning(), preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: R.string.localizable.upgradeNow(), style: .default, handler: { (_) in
+            if let subscriptionVC = R.storyboard.subscription.subscriptionContainerViewController() {
+                self.navigationController?.pushViewController(subscriptionVC, animated: true)
+            }
+        }))
+        alert.addAction(UIAlertAction(title: R.string.localizable.later(), style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
 }
@@ -1058,48 +1092,33 @@ extension StoryEditorViewController {
     }
     
     @IBAction func btnSocialMediaShareClick(_ sender: UIButton) {
-        if SocialShare(rawValue: sender.tag) ?? SocialShare.facebook == .storiCam {
-            guard let socialshareVC = R.storyboard.socialCamShareVC.socialCamShareVC() else {
-                return
-            }
-            socialshareVC.btnStoryPostClicked = { [weak self] (selectedIndex) in
-                guard let `self` = self else { return }
-                self.popupVC.dismiss {
-                    if selectedIndex == 0 {
-                        self.shareSocialMedia(type: .storiCam)
-                    } else {
-                        self.shareSocialMedia(type: .storiCamPost)
+        if Defaults.shared.appMode == .free, !(sender.tag == 3) {
+            showAlertForUpgradeSubscription()
+        } else {
+            if SocialShare(rawValue: sender.tag) ?? SocialShare.facebook == .storiCam {
+                guard let socialshareVC = R.storyboard.socialCamShareVC.socialCamShareVC() else {
+                    return
+                }
+                socialshareVC.btnStoryPostClicked = { [weak self] (selectedIndex) in
+                    guard let `self` = self else { return }
+                    self.popupVC.dismiss {
+                        if selectedIndex == 0 {
+                            self.shareSocialMedia(type: .storiCam)
+                        } else {
+                            self.shareSocialMedia(type: .storiCamPost)
+                        }
                     }
                 }
+                popupVC = STPopupController(rootViewController: socialshareVC)
+                popupVC.style = .formSheet
+                popupVC.navigationBarHidden = true
+                popupVC.transitionStyle = .fade
+                popupVC.containerView.roundCorners(corners: .allCorners, radius: 20)
+                popupVC.backgroundView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backgroundViewDidTap)))
+                popupVC.present(in: self)
+            } else {
+                self.shareSocialMedia(type: SocialShare(rawValue: sender.tag) ?? SocialShare.facebook)
             }
-            popupVC = STPopupController(rootViewController: socialshareVC)
-            popupVC.style = .formSheet
-            popupVC.navigationBarHidden = true
-            popupVC.transitionStyle = .fade
-            popupVC.containerView.roundCorners(corners: .allCorners, radius: 20)
-            popupVC.backgroundView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backgroundViewDidTap)))
-            popupVC.present(in: self)
-            return
-            
-            let menuOptions: [UIImage] = [R.image.icoStoriCamStory()!, R.image.icoStoriCamPost()!]
-            let menuOptionsString: [String] = ["", ""]
-            
-            BasePopConfiguration.shared.backgoundTintColor = R.color.lightBlackColor()!
-            BasePopConfiguration.shared.menuWidth = 45
-            BasePopConfiguration.shared.menuRowHeight = 45
-            BasePopConfiguration.shared.showCheckMark = .none
-            BasePopOverMenu
-                .showForSender(sender: sender, with: menuOptionsString, menuImageArray: menuOptions, done: { [weak self] (selectedIndex) in
-                    guard let `self` = self else { return }
-                    if selectedIndex == 0 {
-                        self.shareSocialMedia(type: .storiCam)
-                    } else {
-                        self.shareSocialMedia(type: .storiCamPost)
-                    }
-                    }, cancel: {
-                })
-        } else {
-            self.shareSocialMedia(type: SocialShare(rawValue: sender.tag) ?? SocialShare.facebook)
         }
     }
     
@@ -1160,12 +1179,16 @@ extension StoryEditorViewController {
     }
     
     @IBAction func ssuButtonClicked(sender: UIButton) {
-        if let ssuTagSelectionViewController = R.storyboard.storyCameraViewController.ssuTagSelectionViewController() {
-            ssuTagSelectionViewController.delegate = self
-            
-            let navigation: UINavigationController = UINavigationController(rootViewController: ssuTagSelectionViewController)
-            navigation.isNavigationBarHidden = true
-            self.present(navigation, animated: true)
+        if isSnapCamLiteApp {
+            self.didSelect(type: SnapCam_Lite.SSUTagType.snapCamLite, waitingListOptionType: nil, socialShareType: nil, screenType: SnapCam_Lite.SSUTagScreen.ssutTypes)
+        } else {
+            if let ssuTagSelectionViewController = R.storyboard.storyCameraViewController.ssuTagSelectionViewController() {
+                ssuTagSelectionViewController.delegate = self
+                
+                let navigation: UINavigationController = UINavigationController(rootViewController: ssuTagSelectionViewController)
+                navigation.isNavigationBarHidden = true
+                self.present(navigation, animated: true)
+            }
         }
     }
     
