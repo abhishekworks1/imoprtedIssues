@@ -63,8 +63,8 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dTT-jj-D6Y">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LOGIN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j5z-WB-eGx">
-                                                <rect key="frame" x="179" y="11.5" width="56.5" height="21.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j5z-WB-eGx">
+                                                <rect key="frame" x="184.5" y="11.5" width="45" height="21"/>
                                                 <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="18"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -90,32 +90,20 @@
                                             <constraint firstItem="lOk-JB-GEf" firstAttribute="top" secondItem="dTT-jj-D6Y" secondAttribute="top" id="uZp-Ux-SSx"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="119-OD-di5">
-                                        <rect key="frame" x="0.0" y="44" width="414" height="198.5"/>
-                                        <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="socialcamrgb" translatesAutoresizingMaskIntoConstraints="NO" id="xhd-Uz-8Ht" customClass="DownAnimation" customModule="BoomiCam" customModuleProvider="target">
-                                                <rect key="frame" x="44" y="38.5" width="326" height="122"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" secondItem="xhd-Uz-8Ht" secondAttribute="height" multiplier="401:150" id="0rJ-lA-G6u"/>
-                                                </constraints>
-                                            </imageView>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstItem="xhd-Uz-8Ht" firstAttribute="centerX" secondItem="119-OD-di5" secondAttribute="centerX" id="1Ws-Cz-5lv"/>
-                                            <constraint firstAttribute="width" secondItem="119-OD-di5" secondAttribute="height" multiplier="375:180" id="5E7-kp-iMR"/>
-                                            <constraint firstItem="xhd-Uz-8Ht" firstAttribute="centerY" secondItem="119-OD-di5" secondAttribute="centerY" id="6EM-8Q-Lqg"/>
-                                            <constraint firstItem="xhd-Uz-8Ht" firstAttribute="width" secondItem="119-OD-di5" secondAttribute="width" multiplier="0.787" id="Ktp-wL-spX"/>
-                                        </constraints>
-                                    </view>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o0W-8N-s07">
-                                        <rect key="frame" x="0.0" y="242.5" width="414" height="224.5"/>
+                                        <rect key="frame" x="0.0" y="44" width="414" height="228"/>
                                         <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email Address / Channel Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sia-9f-WFj">
+                                                <rect key="frame" x="19" y="27" width="376" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GrD-Kj-spv" customClass="BorderView" customModule="BoomiCam" customModuleProvider="target">
-                                                <rect key="frame" x="26" y="15" width="362" height="66.5"/>
+                                                <rect key="frame" x="19" y="50.5" width="376" height="40"/>
                                                 <subviews>
-                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email or Channel Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OXa-jX-M9P" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
-                                                        <rect key="frame" x="10" y="7" width="315" height="53"/>
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter email address or channel name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OXa-jX-M9P">
+                                                        <rect key="frame" x="13" y="0.0" width="363" height="40"/>
                                                         <color key="textColor" red="0.30980392159999998" green="0.30980392159999998" blue="0.30980392159999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="16"/>
                                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next"/>
@@ -141,7 +129,6 @@
                                                             <userDefinedRuntimeAttribute type="color" keyPath="selectedTitleColor">
                                                                 <color key="value" red="0.2901960784" green="0.56470588239999997" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
                                                             </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="selectedTitle" value="Email or Channel Name"/>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="iconColor">
                                                                 <color key="value" red="0.34901960780000002" green="0.3803921569" blue="0.4823529412" alpha="0.38016374139999998" colorSpace="custom" customColorSpace="sRGB"/>
                                                             </userDefinedRuntimeAttribute>
@@ -154,7 +141,6 @@
                                                             <userDefinedRuntimeAttribute type="number" keyPath="iconMarginBottom">
                                                                 <real key="value" value="0.0"/>
                                                             </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="Email or Channel Name"/>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Email or Channel Name"/>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
                                                                 <color key="value" red="0.2901960784" green="0.56470588239999997" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
@@ -164,42 +150,27 @@
                                                             <outlet property="delegate" destination="Q1G-jg-0gQ" id="FS3-Yu-wr9"/>
                                                         </connections>
                                                     </textField>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tCE-FJ-ChS" customClass="PButton" customModule="BoomiCam" customModuleProvider="target">
-                                                        <rect key="frame" x="325" y="17.5" width="32" height="32"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="32" id="J7Q-q3-dgA"/>
-                                                            <constraint firstAttribute="height" constant="32" id="e0y-Lv-pp2"/>
-                                                        </constraints>
-                                                        <state key="normal" image="email"/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                <color key="value" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
-                                                    </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="OXa-jX-M9P" secondAttribute="trailing" id="DoK-Br-fbM"/>
                                                     <constraint firstItem="OXa-jX-M9P" firstAttribute="centerY" secondItem="GrD-Kj-spv" secondAttribute="centerY" id="I79-Ek-siB"/>
-                                                    <constraint firstItem="tCE-FJ-ChS" firstAttribute="leading" secondItem="OXa-jX-M9P" secondAttribute="trailing" id="Usw-kf-WgN"/>
-                                                    <constraint firstItem="OXa-jX-M9P" firstAttribute="leading" secondItem="GrD-Kj-spv" secondAttribute="leading" constant="10" id="ZWJ-n4-aWd"/>
-                                                    <constraint firstAttribute="width" secondItem="GrD-Kj-spv" secondAttribute="height" multiplier="82:15" id="guz-LF-Fj2"/>
-                                                    <constraint firstItem="tCE-FJ-ChS" firstAttribute="centerY" secondItem="GrD-Kj-spv" secondAttribute="centerY" id="iiR-Wf-D1O"/>
-                                                    <constraint firstItem="OXa-jX-M9P" firstAttribute="height" secondItem="GrD-Kj-spv" secondAttribute="height" multiplier="0.8" id="nX9-65-Y17"/>
-                                                    <constraint firstAttribute="trailing" secondItem="tCE-FJ-ChS" secondAttribute="trailing" constant="5" id="wgU-Fd-NwP"/>
+                                                    <constraint firstItem="OXa-jX-M9P" firstAttribute="leading" secondItem="GrD-Kj-spv" secondAttribute="leading" constant="13" id="ZWJ-n4-aWd"/>
+                                                    <constraint firstItem="OXa-jX-M9P" firstAttribute="height" secondItem="GrD-Kj-spv" secondAttribute="height" id="nX9-65-Y17"/>
+                                                    <constraint firstAttribute="height" constant="40" id="uBg-a6-2zq"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="addShadow" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="addShadow" value="NO"/>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="10"/>
+                                                        <real key="value" value="4"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C3u-Kp-o67" customClass="BorderView" customModule="BoomiCam" customModuleProvider="target">
-                                                <rect key="frame" x="26" y="96.5" width="362" height="66"/>
+                                                <rect key="frame" x="19" y="126" width="376" height="40"/>
                                                 <subviews>
-                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zQo-94-51O" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
-                                                        <rect key="frame" x="10" y="6.5" width="315" height="53"/>
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zQo-94-51O">
+                                                        <rect key="frame" x="13" y="0.0" width="326" height="40"/>
                                                         <color key="textColor" red="0.30980392159999998" green="0.30980392159999998" blue="0.30980392159999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="16"/>
                                                         <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES"/>
@@ -232,11 +203,9 @@
                                                                 <real key="value" value="0.0"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Password"/>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="selectedTitle" value="Password"/>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="iconMarginBottom">
                                                                 <real key="value" value="0.0"/>
                                                             </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="Password"/>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="selectedTitleColor">
                                                                 <color key="value" red="0.2901960784" green="0.56470588239999997" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
                                                             </userDefinedRuntimeAttribute>
@@ -249,7 +218,7 @@
                                                         </connections>
                                                     </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dWv-Ar-1JC" customClass="PButton" customModule="BoomiCam" customModuleProvider="target">
-                                                        <rect key="frame" x="325" y="17" width="32" height="32"/>
+                                                        <rect key="frame" x="339" y="4" width="32" height="32"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="32" id="DaM-qT-jkh"/>
                                                             <constraint firstAttribute="height" constant="32" id="cEW-11-juL"/>
@@ -267,65 +236,80 @@
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" secondItem="C3u-Kp-o67" secondAttribute="height" multiplier="82:15" id="5hd-Q0-VwM"/>
-                                                    <constraint firstItem="zQo-94-51O" firstAttribute="height" secondItem="C3u-Kp-o67" secondAttribute="height" multiplier="0.8" id="IqD-rn-gi0"/>
-                                                    <constraint firstItem="zQo-94-51O" firstAttribute="leading" secondItem="C3u-Kp-o67" secondAttribute="leading" constant="10" id="Iqi-nq-vUX"/>
+                                                    <constraint firstAttribute="height" constant="40" id="HMj-NF-vBc"/>
+                                                    <constraint firstItem="zQo-94-51O" firstAttribute="height" secondItem="C3u-Kp-o67" secondAttribute="height" id="IqD-rn-gi0"/>
+                                                    <constraint firstItem="zQo-94-51O" firstAttribute="leading" secondItem="C3u-Kp-o67" secondAttribute="leading" constant="13" id="Iqi-nq-vUX"/>
                                                     <constraint firstItem="dWv-Ar-1JC" firstAttribute="centerY" secondItem="C3u-Kp-o67" secondAttribute="centerY" id="Ky4-gZ-UHe"/>
                                                     <constraint firstItem="dWv-Ar-1JC" firstAttribute="leading" secondItem="zQo-94-51O" secondAttribute="trailing" id="dIr-Ub-Z04"/>
                                                     <constraint firstAttribute="trailing" secondItem="dWv-Ar-1JC" secondAttribute="trailing" constant="5" id="hQ6-3T-3dD"/>
                                                     <constraint firstItem="zQo-94-51O" firstAttribute="centerY" secondItem="C3u-Kp-o67" secondAttribute="centerY" id="qAV-Qh-OBK"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="addShadow" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="addShadow" value="NO"/>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="10"/>
+                                                        <real key="value" value="4"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forgot Password ?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lHP-hL-VjA" customClass="PLabel" customModule="BoomiCam" customModuleProvider="target">
-                                                <rect key="frame" x="269.5" y="172.5" width="118.5" height="34"/>
+                                                <rect key="frame" x="276.5" y="176" width="118.5" height="34"/>
                                                 <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="14"/>
                                                 <color key="textColor" red="0.098039215690000001" green="0.12549019610000001" blue="0.18039215689999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="753" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tTQ-ks-KhB">
-                                                <rect key="frame" x="269.5" y="172.5" width="118.5" height="34"/>
+                                                <rect key="frame" x="276.5" y="176" width="118.5" height="34"/>
+                                                <state key="normal">
+                                                    <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
                                                 <connections>
                                                     <action selector="btnForgotClickedWithSender:" destination="Q1G-jg-0gQ" eventType="touchUpInside" id="mz1-pj-D8Z"/>
                                                 </connections>
                                             </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="stD-xA-X4n">
+                                                <rect key="frame" x="19" y="102.5" width="376" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="tTQ-ks-KhB" firstAttribute="height" secondItem="lHP-hL-VjA" secondAttribute="height" id="3Bi-fR-57n"/>
                                             <constraint firstAttribute="bottom" secondItem="lHP-hL-VjA" secondAttribute="bottom" constant="18" id="641-6A-9nT"/>
                                             <constraint firstItem="tTQ-ks-KhB" firstAttribute="width" secondItem="lHP-hL-VjA" secondAttribute="width" id="64a-N2-pHc"/>
-                                            <constraint firstItem="GrD-Kj-spv" firstAttribute="centerX" secondItem="o0W-8N-s07" secondAttribute="centerX" id="6Er-Vf-Pgr"/>
-                                            <constraint firstItem="GrD-Kj-spv" firstAttribute="top" secondItem="o0W-8N-s07" secondAttribute="top" constant="15" id="6JK-ji-tgj"/>
-                                            <constraint firstItem="C3u-Kp-o67" firstAttribute="top" secondItem="GrD-Kj-spv" secondAttribute="bottom" constant="15" id="Jhb-ID-e9D"/>
+                                            <constraint firstAttribute="trailing" secondItem="stD-xA-X4n" secondAttribute="trailing" constant="19" id="8Qr-JM-q30"/>
+                                            <constraint firstItem="C3u-Kp-o67" firstAttribute="trailing" secondItem="GrD-Kj-spv" secondAttribute="trailing" id="9W8-Mz-F8j"/>
+                                            <constraint firstAttribute="trailing" secondItem="sia-9f-WFj" secondAttribute="trailing" constant="19" id="BQV-no-d61"/>
+                                            <constraint firstAttribute="trailing" secondItem="GrD-Kj-spv" secondAttribute="trailing" constant="19" id="GeM-iT-jCi"/>
+                                            <constraint firstItem="C3u-Kp-o67" firstAttribute="leading" secondItem="GrD-Kj-spv" secondAttribute="leading" id="Gya-ln-akC"/>
+                                            <constraint firstItem="sia-9f-WFj" firstAttribute="leading" secondItem="o0W-8N-s07" secondAttribute="leading" constant="19" id="HFN-Zc-ee0"/>
+                                            <constraint firstItem="stD-xA-X4n" firstAttribute="leading" secondItem="o0W-8N-s07" secondAttribute="leading" constant="19" id="Jjd-Of-Ygr"/>
                                             <constraint firstItem="lHP-hL-VjA" firstAttribute="top" secondItem="C3u-Kp-o67" secondAttribute="bottom" constant="10" id="Kbe-G7-H6w"/>
-                                            <constraint firstItem="GrD-Kj-spv" firstAttribute="width" secondItem="o0W-8N-s07" secondAttribute="width" multiplier="0.8746" id="NhC-8c-oOD"/>
+                                            <constraint firstItem="GrD-Kj-spv" firstAttribute="leading" secondItem="o0W-8N-s07" secondAttribute="leading" constant="19" id="LnY-28-Drv"/>
                                             <constraint firstItem="tTQ-ks-KhB" firstAttribute="centerX" secondItem="lHP-hL-VjA" secondAttribute="centerX" id="PJd-kH-0O8"/>
-                                            <constraint firstItem="C3u-Kp-o67" firstAttribute="width" secondItem="o0W-8N-s07" secondAttribute="width" multiplier="0.8746" id="PVj-Z9-K19"/>
-                                            <constraint firstItem="C3u-Kp-o67" firstAttribute="centerX" secondItem="o0W-8N-s07" secondAttribute="centerX" id="c3s-xk-Y6f"/>
+                                            <constraint firstItem="C3u-Kp-o67" firstAttribute="top" secondItem="stD-xA-X4n" secondAttribute="bottom" constant="3" id="Yjh-Ro-Sn4"/>
+                                            <constraint firstItem="sia-9f-WFj" firstAttribute="top" secondItem="o0W-8N-s07" secondAttribute="top" constant="27" id="YrL-1d-tOS"/>
+                                            <constraint firstItem="stD-xA-X4n" firstAttribute="top" secondItem="GrD-Kj-spv" secondAttribute="bottom" constant="12" id="eAx-8P-EY6"/>
+                                            <constraint firstItem="GrD-Kj-spv" firstAttribute="top" secondItem="sia-9f-WFj" secondAttribute="bottom" constant="3" id="oQV-im-ZtU"/>
                                             <constraint firstItem="tTQ-ks-KhB" firstAttribute="centerY" secondItem="lHP-hL-VjA" secondAttribute="centerY" id="riD-ln-VzY"/>
                                             <constraint firstItem="lHP-hL-VjA" firstAttribute="trailing" secondItem="C3u-Kp-o67" secondAttribute="trailing" id="xEg-TA-Mb9"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6nn-YT-Mbv">
-                                        <rect key="frame" x="0.0" y="467" width="414" height="332"/>
+                                        <rect key="frame" x="0.0" y="272" width="414" height="332"/>
                                         <subviews>
                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qAB-KS-iXM" customClass="ColorRoundedView" customModule="BoomiCam" customModuleProvider="target">
-                                                <rect key="frame" x="26" y="0.0" width="362" height="55"/>
+                                                <rect key="frame" x="19" y="0.0" width="376" height="55"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jPl-4q-PE6">
-                                                        <rect key="frame" x="0.0" y="0.0" width="362" height="55"/>
+                                                        <rect key="frame" x="19" y="0.0" width="338" height="55"/>
                                                         <connections>
                                                             <action selector="btnLoginClicked:" destination="Q1G-jg-0gQ" eventType="touchUpInside" id="epg-hB-CuN"/>
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="STm-hj-kk2" customClass="PLabel" customModule="BoomiCam" customModuleProvider="target">
-                                                        <rect key="frame" x="162" y="19" width="38.5" height="17"/>
+                                                        <rect key="frame" x="170.5" y="19.5" width="35" height="16.5"/>
                                                         <fontDescription key="fontDescription" name="SFUIText-Bold" family="SF UI Text" pointSize="14"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <nil key="highlightedColor"/>
@@ -336,7 +320,8 @@
                                                     <constraint firstItem="jPl-4q-PE6" firstAttribute="centerX" secondItem="qAB-KS-iXM" secondAttribute="centerX" id="1J3-ok-B9I"/>
                                                     <constraint firstItem="jPl-4q-PE6" firstAttribute="centerY" secondItem="qAB-KS-iXM" secondAttribute="centerY" id="Qey-Kr-eyV"/>
                                                     <constraint firstAttribute="height" constant="55" id="TDa-tD-QAj"/>
-                                                    <constraint firstItem="jPl-4q-PE6" firstAttribute="width" secondItem="qAB-KS-iXM" secondAttribute="width" id="ZIj-zb-Lfp"/>
+                                                    <constraint firstAttribute="trailing" secondItem="jPl-4q-PE6" secondAttribute="trailing" constant="19" id="Y2g-za-PbW"/>
+                                                    <constraint firstItem="jPl-4q-PE6" firstAttribute="leading" secondItem="qAB-KS-iXM" secondAttribute="leading" constant="19" id="asD-IT-Mj6"/>
                                                     <constraint firstItem="STm-hj-kk2" firstAttribute="centerX" secondItem="qAB-KS-iXM" secondAttribute="centerX" id="dP0-N4-06Q"/>
                                                     <constraint firstItem="jPl-4q-PE6" firstAttribute="height" secondItem="qAB-KS-iXM" secondAttribute="height" id="foh-57-itv"/>
                                                     <constraint firstItem="STm-hj-kk2" firstAttribute="centerY" secondItem="qAB-KS-iXM" secondAttribute="centerY" id="je5-Ed-a8r"/>
@@ -402,7 +387,7 @@
                                                         </constraints>
                                                     </imageView>
                                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0us-cO-hYe" customClass="RoundedView" customModule="BoomiCam" customModuleProvider="target">
-                                                        <rect key="frame" x="175.5" y="15.5" width="63" height="39.5"/>
+                                                        <rect key="frame" x="175.5" y="15.5" width="63.5" height="39"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
@@ -414,13 +399,13 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xCS-wz-LON" customClass="PLabel" customModule="BoomiCam" customModuleProvider="target">
-                                                        <rect key="frame" x="195.5" y="25.5" width="23" height="19.5"/>
+                                                        <rect key="frame" x="195.5" y="25.5" width="23.5" height="19"/>
                                                         <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="16"/>
                                                         <color key="textColor" red="0.098039215690000001" green="0.12549019610000001" blue="0.18039215689999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="a3d-fr-7dv">
-                                                        <rect key="frame" x="238.5" y="34.5" width="62.5" height="1"/>
+                                                        <rect key="frame" x="239" y="34.5" width="62.5" height="1"/>
                                                         <color key="backgroundColor" red="0.61960784310000006" green="0.75686274509999996" blue="0.83921568629999999" alpha="0.50387949489999995" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="62.5" id="RDs-Cf-ocf"/>
@@ -651,6 +636,7 @@
                                             <constraint firstItem="EvE-Yh-45G" firstAttribute="leading" secondItem="6nn-YT-Mbv" secondAttribute="leading" id="0H0-rp-nMd"/>
                                             <constraint firstItem="o0V-pY-q8D" firstAttribute="height" secondItem="qAB-KS-iXM" secondAttribute="height" id="2xQ-Kq-6jy"/>
                                             <constraint firstItem="xf4-8X-bvb" firstAttribute="width" secondItem="6nn-YT-Mbv" secondAttribute="width" id="2z5-nf-gNf"/>
+                                            <constraint firstItem="qAB-KS-iXM" firstAttribute="leading" secondItem="6nn-YT-Mbv" secondAttribute="leading" constant="19" id="8Ew-wl-Gzf"/>
                                             <constraint firstItem="qAB-KS-iXM" firstAttribute="centerX" secondItem="6nn-YT-Mbv" secondAttribute="centerX" id="8l5-lm-fbg"/>
                                             <constraint firstItem="rBM-0e-2kx" firstAttribute="leading" secondItem="6nn-YT-Mbv" secondAttribute="leading" constant="20" id="Bji-Hn-yBB"/>
                                             <constraint firstAttribute="trailing" secondItem="rBM-0e-2kx" secondAttribute="trailing" constant="20" id="DBO-O6-VnR"/>
@@ -668,6 +654,7 @@
                                             <constraint firstItem="O5E-C7-aET" firstAttribute="centerX" secondItem="6nn-YT-Mbv" secondAttribute="centerX" constant="-3" id="qCC-hd-YtW"/>
                                             <constraint firstItem="qAB-KS-iXM" firstAttribute="top" secondItem="6nn-YT-Mbv" secondAttribute="top" id="rdj-70-l2S"/>
                                             <constraint firstItem="o0V-pY-q8D" firstAttribute="leading" secondItem="qAB-KS-iXM" secondAttribute="leading" id="rnm-pC-tI1"/>
+                                            <constraint firstAttribute="trailing" secondItem="qAB-KS-iXM" secondAttribute="trailing" constant="19" id="tEC-un-0gP"/>
                                             <constraint firstItem="rBM-0e-2kx" firstAttribute="top" secondItem="xf4-8X-bvb" secondAttribute="bottom" constant="10" id="vsr-AL-wKL"/>
                                             <constraint firstAttribute="trailing" secondItem="EvE-Yh-45G" secondAttribute="trailing" id="x6d-LE-IzD"/>
                                         </constraints>
@@ -680,18 +667,15 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="6nn-YT-Mbv" secondAttribute="bottom" constant="1" id="55L-4t-1nS"/>
-                                    <constraint firstItem="119-OD-di5" firstAttribute="top" secondItem="dTT-jj-D6Y" secondAttribute="bottom" id="5JA-n7-Ahd"/>
                                     <constraint firstItem="6nn-YT-Mbv" firstAttribute="top" secondItem="o0W-8N-s07" secondAttribute="bottom" id="6N6-57-boq"/>
                                     <constraint firstItem="dTT-jj-D6Y" firstAttribute="leading" secondItem="zdQ-Jj-hQd" secondAttribute="leading" id="Ggf-9X-WbB"/>
                                     <constraint firstItem="6nn-YT-Mbv" firstAttribute="width" secondItem="zdQ-Jj-hQd" secondAttribute="width" id="JB2-uf-lgP"/>
                                     <constraint firstItem="6nn-YT-Mbv" firstAttribute="centerX" secondItem="zdQ-Jj-hQd" secondAttribute="centerX" id="NUo-RR-sLn"/>
-                                    <constraint firstAttribute="trailing" secondItem="119-OD-di5" secondAttribute="trailing" id="Ozf-Et-hqx"/>
                                     <constraint firstItem="dTT-jj-D6Y" firstAttribute="top" secondItem="zdQ-Jj-hQd" secondAttribute="top" id="UzY-tj-sdJ"/>
+                                    <constraint firstItem="o0W-8N-s07" firstAttribute="top" secondItem="dTT-jj-D6Y" secondAttribute="bottom" id="atC-wH-i1I"/>
                                     <constraint firstItem="o0W-8N-s07" firstAttribute="width" secondItem="zdQ-Jj-hQd" secondAttribute="width" id="avd-n0-Pgn"/>
-                                    <constraint firstItem="qAB-KS-iXM" firstAttribute="width" secondItem="C3u-Kp-o67" secondAttribute="width" id="juK-jT-dCF"/>
-                                    <constraint firstItem="119-OD-di5" firstAttribute="leading" secondItem="zdQ-Jj-hQd" secondAttribute="leading" id="kW2-Vl-bfS"/>
+                                    <constraint firstItem="dTT-jj-D6Y" firstAttribute="centerX" secondItem="zdQ-Jj-hQd" secondAttribute="centerX" id="pZr-ur-UxU"/>
                                     <constraint firstItem="o0W-8N-s07" firstAttribute="centerX" secondItem="zdQ-Jj-hQd" secondAttribute="centerX" id="wat-fb-Bxu"/>
-                                    <constraint firstItem="o0W-8N-s07" firstAttribute="top" secondItem="119-OD-di5" secondAttribute="bottom" id="wuA-kl-QcB"/>
                                     <constraint firstAttribute="trailing" secondItem="dTT-jj-D6Y" secondAttribute="trailing" id="wuu-Rd-6zw"/>
                                 </constraints>
                             </scrollView>
@@ -703,7 +687,6 @@
                             <constraint firstItem="zdQ-Jj-hQd" firstAttribute="centerX" secondItem="4Fh-Lc-sY9" secondAttribute="centerX" id="9Qd-1v-qGV"/>
                             <constraint firstItem="zdQ-Jj-hQd" firstAttribute="width" secondItem="4Fh-Lc-sY9" secondAttribute="width" id="Alk-zc-vyu"/>
                             <constraint firstItem="zdQ-Jj-hQd" firstAttribute="centerY" secondItem="4Fh-Lc-sY9" secondAttribute="centerY" id="HTM-07-lvQ"/>
-                            <constraint firstItem="119-OD-di5" firstAttribute="width" secondItem="4Fh-Lc-sY9" secondAttribute="width" id="d8a-Ew-3oh"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="iWo-F4-YEh"/>
@@ -712,7 +695,6 @@
                         <outlet property="btnHidePassWord" destination="dWv-Ar-1JC" id="zsy-Oi-Gdn"/>
                         <outlet property="btnSignUP" destination="O5E-C7-aET" id="ZRK-hH-yuE"/>
                         <outlet property="headerView" destination="dTT-jj-D6Y" id="fFa-y1-dFU"/>
-                        <outlet property="imgLogo" destination="xhd-Uz-8Ht" id="yXU-3b-Sr7"/>
                         <outlet property="signUpView" destination="o0V-pY-q8D" id="0cm-Ci-TCz"/>
                         <outlet property="socialSingUpTitleView" destination="EvE-Yh-45G" id="AcL-tb-Gdb"/>
                         <outlet property="socialSingUpView" destination="xf4-8X-bvb" id="bEK-ZZ-bTH"/>
@@ -792,7 +774,7 @@
                                         <rect key="frame" x="0.0" y="25" width="414" height="33"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SIGN UP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PU7-Ya-kew">
-                                                <rect key="frame" x="170" y="6" width="74.5" height="21.5"/>
+                                                <rect key="frame" x="170.5" y="6" width="73" height="21"/>
                                                 <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="18"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -852,7 +834,7 @@
                                                 <rect key="frame" x="0.0" y="165" width="352" height="71"/>
                                                 <subviews>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Tak-YE-LSB" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                                        <rect key="frame" x="15" y="14.5" width="327" height="42"/>
+                                                        <rect key="frame" x="15" y="25.5" width="327" height="20.5"/>
                                                         <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="16"/>
                                                         <textInputTraits key="textInputTraits" returnKeyType="next"/>
                                                         <userDefinedRuntimeAttributes>
@@ -886,13 +868,13 @@
                                                         </connections>
                                                     </textField>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0/30" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="srK-E0-g09" customClass="PLabel" customModule="BoomiCam" customModuleProvider="target">
-                                                        <rect key="frame" x="317.5" y="56.5" width="24.5" height="14"/>
+                                                        <rect key="frame" x="317.5" y="46" width="24.5" height="14"/>
                                                         <fontDescription key="fontDescription" name="SofiaPro-Light" family="Sofia Pro" pointSize="12"/>
                                                         <color key="textColor" red="1" green="0.0" blue="0.1333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ip-L7-Kth" customClass="PLabel" customModule="BoomiCam" customModuleProvider="target">
-                                                        <rect key="frame" x="15" y="56.5" width="0.0" height="0.0"/>
+                                                        <rect key="frame" x="15" y="46" width="0.0" height="0.0"/>
                                                         <fontDescription key="fontDescription" name="SofiaPro-Light" family="Sofia Pro" pointSize="12"/>
                                                         <color key="textColor" red="1" green="0.0" blue="0.1333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -916,10 +898,10 @@
                                                 <rect key="frame" x="0.0" y="243.5" width="352" height="0.0"/>
                                                 <subviews>
                                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xlb-oY-1mz" customClass="BorderView" customModule="BoomiCam" customModuleProvider="target">
-                                                        <rect key="frame" x="15" y="-22" width="322" height="44"/>
+                                                        <rect key="frame" x="6" y="-21.5" width="340.5" height="43"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to STORiCAM, your referrer channel url is http://spinach.cafe/abc" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JxU-Ub-NDz" customClass="PLabel" customModule="BoomiCam" customModuleProvider="target">
-                                                                <rect key="frame" x="15" y="7.5" width="292" height="29"/>
+                                                                <rect key="frame" x="15" y="7.5" width="310.5" height="28"/>
                                                                 <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="12"/>
                                                                 <color key="textColor" red="0.1529411765" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -951,7 +933,7 @@
                                                 <rect key="frame" x="0.0" y="243.5" width="352" height="71"/>
                                                 <subviews>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Channel Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wvi-XG-bWS" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                                        <rect key="frame" x="0.0" y="24" width="352" height="42"/>
+                                                        <rect key="frame" x="0.0" y="45.5" width="352" height="20.5"/>
                                                         <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="16"/>
                                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next"/>
                                                         <userDefinedRuntimeAttributes>
@@ -997,7 +979,7 @@
                                                 <rect key="frame" x="0.0" y="251" width="352" height="71"/>
                                                 <subviews>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RlP-q6-oLk" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                                        <rect key="frame" x="15" y="14.5" width="310" height="41.5"/>
+                                                        <rect key="frame" x="15" y="25" width="310" height="20.5"/>
                                                         <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="16"/>
                                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next"/>
                                                         <userDefinedRuntimeAttributes>
@@ -1050,7 +1032,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aaP-EN-NYS" customClass="PLabel" customModule="BoomiCam" customModuleProvider="target">
-                                                        <rect key="frame" x="15" y="56" width="0.0" height="0.0"/>
+                                                        <rect key="frame" x="15" y="45.5" width="0.0" height="0.0"/>
                                                         <fontDescription key="fontDescription" name="SofiaPro-Light" family="Sofia Pro" pointSize="12"/>
                                                         <color key="textColor" red="1" green="0.0" blue="0.1333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -1075,7 +1057,7 @@
                                                 <rect key="frame" x="0.0" y="337" width="352" height="70.5"/>
                                                 <subviews>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Gvo-fd-CKq" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                                        <rect key="frame" x="15" y="14.5" width="295" height="41.5"/>
+                                                        <rect key="frame" x="15" y="25.5" width="295" height="19"/>
                                                         <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="16"/>
                                                         <textInputTraits key="textInputTraits" returnKeyType="next" secureTextEntry="YES"/>
                                                         <userDefinedRuntimeAttributes>
@@ -1131,7 +1113,7 @@
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eSy-dJ-HsK" customClass="PLabel" customModule="BoomiCam" customModuleProvider="target">
-                                                        <rect key="frame" x="15" y="56" width="0.0" height="0.0"/>
+                                                        <rect key="frame" x="15" y="44.5" width="0.0" height="0.0"/>
                                                         <fontDescription key="fontDescription" name="SofiaPro-Light" family="Sofia Pro" pointSize="12"/>
                                                         <color key="textColor" red="1" green="0.0" blue="0.1333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -1225,7 +1207,7 @@
                                                 <rect key="frame" x="0.0" y="422.5" width="352" height="71"/>
                                                 <subviews>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wgt-S8-uFZ" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                                        <rect key="frame" x="15" y="14.5" width="297" height="42"/>
+                                                        <rect key="frame" x="15" y="25" width="297" height="20.5"/>
                                                         <color key="textColor" red="0.1529411765" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="16"/>
                                                         <textInputTraits key="textInputTraits" returnKeyType="done"/>
@@ -1321,13 +1303,13 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Is this a business?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qea-CD-Jwy">
-                                                        <rect key="frame" x="28" y="25.5" width="137.5" height="19.5"/>
+                                                        <rect key="frame" x="28" y="26" width="132" height="19"/>
                                                         <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="16"/>
                                                         <color key="textColor" red="0.1529411765" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QwY-6e-niR">
-                                                        <rect key="frame" x="0.0" y="25.5" width="165.5" height="20"/>
+                                                        <rect key="frame" x="0.0" y="25.5" width="160" height="20"/>
                                                         <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="16"/>
                                                         <connections>
                                                             <action selector="btnBusinessClicked:" destination="Dl4-Rf-8uf" eventType="touchUpInside" id="1ZD-ln-sVA"/>
@@ -1658,7 +1640,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Lisa Cuddy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JmX-8X-NmO" customClass="PLabel" customModule="BoomiCam" customModuleProvider="target">
-                                                    <rect key="frame" x="102.5" y="25" width="75.5" height="17"/>
+                                                    <rect key="frame" x="102.5" y="25" width="71" height="17"/>
                                                     <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="14"/>
                                                     <color key="textColor" red="0.22352941179999999" green="0.22352941179999999" blue="0.22352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -1670,7 +1652,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="225" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GX4-Rl-oma" customClass="PLabel" customModule="BoomiCam" customModuleProvider="target">
-                                                    <rect key="frame" x="102.5" y="42" width="269.5" height="17"/>
+                                                    <rect key="frame" x="102.5" y="42" width="269.5" height="16.5"/>
                                                     <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="14"/>
                                                     <color key="textColor" red="0.48627450979999998" green="0.48627450979999998" blue="0.48627450979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -1900,57 +1882,48 @@
             <size key="intrinsicContentSize" width="16" height="22"/>
         </designable>
         <designable name="Gvo-fd-CKq">
-            <size key="intrinsicContentSize" width="295" height="41.607421875"/>
+            <size key="intrinsicContentSize" width="71" height="19"/>
         </designable>
         <designable name="LJm-QX-u4c">
-            <size key="intrinsicContentSize" width="16" height="22"/>
-        </designable>
-        <designable name="OXa-jX-M9P">
-            <size key="intrinsicContentSize" width="315" height="41.607421875"/>
+            <size key="intrinsicContentSize" width="24" height="24"/>
         </designable>
         <designable name="Q7z-ML-iW6">
             <size key="intrinsicContentSize" width="41" height="29"/>
         </designable>
         <designable name="RlP-q6-oLk">
-            <size key="intrinsicContentSize" width="310" height="41.607421875"/>
+            <size key="intrinsicContentSize" width="39.5" height="20.5"/>
         </designable>
         <designable name="Tak-YE-LSB">
-            <size key="intrinsicContentSize" width="327" height="41.607421875"/>
+            <size key="intrinsicContentSize" width="106" height="20.5"/>
         </designable>
         <designable name="c7Y-CH-wjf">
             <size key="intrinsicContentSize" width="16" height="22"/>
         </designable>
         <designable name="dWv-Ar-1JC">
-            <size key="intrinsicContentSize" width="16" height="22"/>
+            <size key="intrinsicContentSize" width="24" height="24"/>
         </designable>
         <designable name="fH8-W4-NIg">
-            <size key="intrinsicContentSize" width="63" height="32"/>
+            <size key="intrinsicContentSize" width="58" height="31"/>
         </designable>
         <designable name="hjT-SL-gzR">
-            <size key="intrinsicContentSize" width="318" height="41.607421875"/>
-        </designable>
-        <designable name="tCE-FJ-ChS">
-            <size key="intrinsicContentSize" width="16" height="22"/>
+            <size key="intrinsicContentSize" width="65.5" height="20.5"/>
         </designable>
         <designable name="vsn-so-8Uy">
             <size key="intrinsicContentSize" width="300" height="300"/>
         </designable>
         <designable name="wgt-S8-uFZ">
-            <size key="intrinsicContentSize" width="297" height="41.607421875"/>
+            <size key="intrinsicContentSize" width="129" height="20.5"/>
         </designable>
         <designable name="wvi-XG-bWS">
-            <size key="intrinsicContentSize" width="352" height="41.607421875"/>
+            <size key="intrinsicContentSize" width="93.5" height="20.5"/>
         </designable>
         <designable name="xZP-Ga-5xe">
             <size key="intrinsicContentSize" width="200" height="200"/>
         </designable>
-        <designable name="zQo-94-51O">
-            <size key="intrinsicContentSize" width="315" height="41.607421875"/>
-        </designable>
     </designables>
     <resources>
         <image name="email" width="16" height="16"/>
-        <image name="hidePassword" width="16" height="16"/>
+        <image name="hidePassword" width="24" height="24"/>
         <image name="icoApple" width="38" height="38"/>
         <image name="icoCalender" width="16" height="16"/>
         <image name="icoClose" width="26" height="26"/>
@@ -1964,7 +1937,6 @@
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="noresults" width="257" height="303"/>
         <image name="passwordInvalid" width="20" height="20"/>
-        <image name="socialcamrgb" width="255" height="266.5"/>
         <image name="storyBack" width="19" height="19"/>
         <image name="viralcamrgb" width="300" height="300"/>
         <namedColor name="Active2">

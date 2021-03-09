@@ -8,7 +8,6 @@
 
 import Foundation
 import AVKit
-import SkyFloatingLabelTextField
 import FontAwesome_swift
 import Spring
 import FirebaseCrashlytics
@@ -44,16 +43,14 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
     var parentId: String = ""
     
     // MARK: IBOutlets
-    @IBOutlet var txtEmail: SkyFloatingLabelTextFieldWithIcon!
-    @IBOutlet var txtPassword: SkyFloatingLabelTextFieldWithIcon!
+    @IBOutlet var txtEmail: UITextField!
+    @IBOutlet var txtPassword: UITextField!
     @IBOutlet var btnHidePassWord: PButton!
     @IBOutlet weak var headerView: UIView!
-    @IBOutlet weak var imgLogo: UIImageView!
     @IBOutlet weak var signUpView: UIView!
     @IBOutlet weak var socialSingUpTitleView: UIView!
     @IBOutlet weak var socialSingUpView: UIView!
     @IBOutlet var btnSignUP: UIButton!
-    @IBOutlet weak var logoLable: UILabel!
     @IBOutlet var appleLoginView: UIView!
     weak var delegate: LoginViewControllerDelegate?
     var tapCounter = 0
@@ -75,43 +72,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         signUpView.isHidden = true
         socialSingUpTitleView.isHidden = true
         socialSingUpView.isHidden = true
-        #elseif VIRALCAMAPP
-        imgLogo.image = R.image.viralcamrgb()
-        #elseif SOCCERCAMAPP || FUTBOLCAMAPP
-        imgLogo.image = R.image.soccercamWatermarkLogo()
-        #elseif QUICKCAMAPP
-        imgLogo.image = R.image.quickcamWatermarkLogo()
-        #elseif SNAPCAMAPP
-        imgLogo.image = R.image.snapcamWatermarkLogo()
-        #elseif SPEEDCAMAPP
-        imgLogo.image = R.image.speedcamWatermarkLogo()
-        #elseif TIMESPEEDAPP
-        imgLogo.image = R.image.timeSpeedWatermarkLogo()
-        #elseif FASTCAMAPP
-        imgLogo.image = R.image.fastcamWatermarkLogo()
-        #elseif BOOMICAMAPP
-        imgLogo.image = R.image.boomicamWatermarkLogo()
-        #elseif VIRALCAMLITEAPP
-        imgLogo.image = R.image.viralcamLiteWatermark()
-        #elseif FASTCAMLITEAPP
-        imgLogo.image = R.image.fastcamLiteWatermarkLogo()
-        #elseif QUICKCAMLITEAPP
-        imgLogo.image = R.image.quickcamliteSplashLogo()
-        #elseif SPEEDCAMLITEAPP
-        imgLogo.image = R.image.speedcamliteSplashLogo()
-        #elseif SNAPCAMLITEAPP
-        imgLogo.image = R.image.snapcamliteSplashLogo()
-        #elseif RECORDERAPP
-        imgLogo.image = R.image.socialScreenRecorderWatermarkLogo()
-        #else
-        imgLogo.image = R.image.pic2artWatermarkLogo()
         #endif
-        
-        txtEmail.iconFont = UIFont.fontAwesome(ofSize: 12, style: .solid)
-        txtEmail.iconText = String.fontAwesomeIcon(name: .check)
-        txtPassword.iconFont = UIFont.fontAwesome(ofSize: 12, style: .solid)
-        txtPassword.iconText = String.fontAwesomeIcon(name: .lock)
-        setColorTextField(views: [txtEmail, txtPassword])
         
         let attributedString = NSMutableAttributedString(string: R.string.localizable.donTHaveAnAccountSignUp(), attributes: [
           .font: UIFont.systemFont(ofSize: 14.0, weight: .medium),
@@ -132,14 +93,6 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-    }
-    
-    func setColorTextField(views: [SkyFloatingLabelTextFieldWithIcon]) {
-        for textField in views {
-            textField.titleColor = ApplicationSettings.appPrimaryColor
-            textField.selectedTitleColor = ApplicationSettings.appPrimaryColor
-            textField.selectedIconColor = ApplicationSettings.appPrimaryColor
-        }
     }
     
     // MARK: IBActions
