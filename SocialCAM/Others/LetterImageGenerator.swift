@@ -17,7 +17,13 @@ class LetterImageGenerator: NSObject {
         nameLabel.textAlignment = .left
         nameLabel.backgroundColor = .clear
         nameLabel.textColor = .white
-        nameLabel.font = UIFont.boldSystemFont(ofSize: 40)
+        if name.count >= 27, name.count <= 30 {
+            nameLabel.font = UIFont.boldSystemFont(ofSize: 28)
+        } else if name.count >= 21, name.count <= 26 {
+            nameLabel.font = UIFont.boldSystemFont(ofSize: 30)
+        } else {
+            nameLabel.font = UIFont.boldSystemFont(ofSize: 40)
+        }
         nameLabel.text = name
         UIGraphicsBeginImageContext(frame.size)
         if let currentContext = UIGraphicsGetCurrentContext() {
