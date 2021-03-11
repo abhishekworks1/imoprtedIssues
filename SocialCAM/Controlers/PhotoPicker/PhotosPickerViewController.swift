@@ -476,6 +476,7 @@ extension PhotosPickerViewController {
             }
             if isLiteApp {
                 type = .video
+                self.configure.maxSelectedAssets = 1
             }
             self.once.run {
                 self.library.reload(type, {
