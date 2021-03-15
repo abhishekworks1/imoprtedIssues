@@ -437,8 +437,9 @@ class StoryEditorViewController: UIViewController {
         }
         self.ssuTagView.isHidden = false
         
-        
-        if !isFastCamApp {
+        if isQuickCamLiteApp {
+            self.pic2ArtOptionView.isHidden = false
+        } else if !isFastCamApp {
             self.pic2ArtOptionView.isHidden = (Defaults.shared.appMode != .free && Defaults.shared.appMode != .basic) ? !isImage : true
         } else {
             self.pic2ArtOptionView.isHidden = true
