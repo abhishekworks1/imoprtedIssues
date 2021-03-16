@@ -359,11 +359,11 @@ class StoryAssetExportSession {
         } else if isSnapCamApp || isSnapCamLiteApp {
             switch Defaults.shared.waterarkOpacity {
             case 30:
-                image = R.image.snapCamWatermark30()
+                image = R.image.snapCamNewWaterMark()
             case 50:
-                image = R.image.snapCamWatermark50()
+                image = R.image.snapCamNewWaterMark()
             default:
-                image = R.image.snapCamWatermark80()
+                image = R.image.snapCamNewWaterMark()
             }
         } else if isSpeedCamApp || isSpeedCamLiteApp {
             image = R.image.wmSpeedCamLogo()
