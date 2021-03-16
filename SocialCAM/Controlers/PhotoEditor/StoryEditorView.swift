@@ -258,8 +258,6 @@ extension StoryEditorView {
         DispatchQueue.runOnMainThread {
             self.mediaGestureView.transform = .identity
             self.mediaGestureView.frame = self.mediaRect()
-            self.drawView.isUserInteractionEnabled = false
-            self.isCroppedTextView = false
             self.adjustMediaTransformIfNeeded()
             if self.isCropped {
                 self.storySwipeableFilterView.imageContentMode = .scaleAspectFill
@@ -416,7 +414,7 @@ extension StoryEditorView: UITextViewDelegate {
         let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(textViewDoubleTapped(_:)))
         doubleTapGesture.numberOfTapsRequired = 1
         textView.addGestureRecognizer(doubleTapGesture)
-        isCropped ? drawView.addSubview(textView) : addSubview(textView)
+        addSubview(textView)
         textView.clipsToBounds = true
         addStickerGestures(textView)
         textView.becomeFirstResponder()
@@ -486,8 +484,6 @@ extension StoryEditorView: UITextViewDelegate {
                         textView.transform = self.lastTextViewTransform!
                         textView.center = self.lastTextViewTransCenter!
         }, completion: nil)
-        drawView.isUserInteractionEnabled = isCropped
-        isCroppedTextView = isCropped
     }
     
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
@@ -953,22 +949,46 @@ extension StoryEditorView {
             generator.notificationOccurred(.success)
             self.deleteView?.transform = CGAffineTransform(scaleX: 1, y: 1)
         } else if isCropped {
-            if isCroppedTextView {
-                if !self.drawView.bounds.contains(view.center) {
-                    UIView.animate(withDuration: 0.3, animations: {
-                        view.center = CGPoint(x: self.drawView.bounds.width/2, y: self.drawView.bounds.height/2)
-                    })
-                }
-            } else {
-                if !self.drawView.frame.contains(view.center) {
-                    UIView.animate(withDuration: 0.3, animations: {
-                        view.center = CGPoint(x: self.drawView.bounds.width/2, y: self.drawView.bounds.height/2)
-                    })
-                }
+            if !self.drawView.frame.contains(view.center) {
+                UIView.animate(withDuration: 0.3, animations: {
+                    if view.center.x > self.drawView.frame.width {
+                        if view.center.y < self.drawView.frame.minY || view.center.y > self.drawView.frame.maxY {
+                            view.center = self.drawView.center
+                        } else {
+                            view.center = CGPoint(x: self.drawView.frame.maxX - 90, y: view.center.y)
+                        }
+                    } else if view.center.x < 0 {
+                        if view.center.y < self.drawView.frame.minY || view.center.y > self.drawView.frame.maxY {
+                            view.center = self.drawView.center
+                        } else {
+                            view.center = CGPoint(x: self.drawView.frame.minX + 90, y: view.center.y)
+                        }
+                    } else if view.center.y > self.drawView.frame.height {
+                        view.center = CGPoint(x: view.center.x, y: self.drawView.frame.maxY - 60)
+                    } else if view.center.y < self.drawView.frame.height {
+                        view.center = CGPoint(x: view.center.x, y: self.drawView.frame.minY + 60)
+                    }
+                })
             }
         } else if !bounds.contains(view.center) { // Snap the view back to canvasImageView
             UIView.animate(withDuration: 0.3, animations: {
-                view.center = self.center
+                if view.center.x > self.frame.width {
+                    if view.center.y < self.frame.minY || view.center.y > self.frame.maxY {
+                        view.center = self.center
+                    } else {
+                        view.center = CGPoint(x: self.frame.maxX - 90, y: view.center.y)
+                    }
+                } else if view.center.x < 0 {
+                    if view.center.y < self.frame.minY || view.center.y > self.frame.maxY {
+                        view.center = self.center
+                    } else {
+                        view.center = CGPoint(x: self.frame.minX + 90, y: view.center.y)
+                    }
+                } else if view.center.y > self.frame.height {
+                    view.center = CGPoint(x: view.center.x, y: self.frame.maxY - 60)
+                } else if view.center.y < self.frame.height {
+                    view.center = CGPoint(x: view.center.x, y: self.frame.minY + 60)
+                }
             })
         }
     }
