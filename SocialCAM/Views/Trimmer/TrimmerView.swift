@@ -12,7 +12,7 @@ import AVKit
 @objc public protocol TrimmerViewDelegate: class {
     @objc optional func trimmerDidBeginDragging(
         _ trimmer: TrimmerView,
-        with currentTimeTrim: CMTime)
+        with currentTimeTrim: CMTime, isLeftGesture: Bool)
     
     @objc optional func trimmerDidChangeDraggingPosition(
         _ trimmer: TrimmerView,
@@ -21,7 +21,7 @@ import AVKit
     @objc optional func trimmerDidEndDragging(
         _ trimmer: TrimmerView,
         with startTime: CMTime,
-        endTime: CMTime)
+        endTime: CMTime, isLeftGesture: Bool)
     
     @objc optional func trimmerScrubbingDidBegin(
         _ trimmer: TrimmerView,
@@ -626,7 +626,7 @@ open class TrimmerView: UIView {
             }
             
             if let start = startTime {
-                delegate?.trimmerDidBeginDragging?(self, with: start)
+                delegate?.trimmerDidBeginDragging?(self, with: start, isLeftGesture: isLeftGesture)
             }
             
         case .changed:
@@ -659,7 +659,8 @@ open class TrimmerView: UIView {
                 delegate?.trimmerDidEndDragging?(
                     self,
                     with: startTime,
-                    endTime: endTime)
+                    endTime: endTime,
+                    isLeftGesture: isLeftGesture)
                 
                 timePointerView.isHidden = false
                 cutView.isHidden = false

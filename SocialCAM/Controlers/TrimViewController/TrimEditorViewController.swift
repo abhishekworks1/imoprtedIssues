@@ -72,6 +72,7 @@ class TrimEditorViewController: UIViewController {
     var tolerance: CMTime {
         return isTimePrecisionInfinity ? CMTime.indefinite : CMTime.zero
     }
+    var saveTime: CMTime = CMTime.zero
     
     var getCurrentIndexPath: IndexPath {
         return IndexPath.init(row: self.currentPage, section: 0)
@@ -205,6 +206,9 @@ class TrimEditorViewController: UIViewController {
     }
     
     @objc func onPlaybackTimeChecker() {
+        if isStartMovable {
+            return
+        }
         if let player = self.player {
             let playBackTime = player.currentTime()
             if let cell: ImageCollectionViewCell = self.editStoryCollectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? ImageCollectionViewCell {
@@ -424,10 +428,11 @@ extension TrimEditorViewController {
 // MARK: TrimmerViewDelegate
 extension TrimEditorViewController: TrimmerViewDelegate {
     
-    func trimmerDidBeginDragging(_ trimmer: TrimmerView, with currentTimeTrim: CMTime) {
+    func trimmerDidBeginDragging(_ trimmer: TrimmerView, with currentTimeTrim: CMTime, isLeftGesture: Bool) {
         if let player = player {
             isStartMovable = true
             player.pause()
+            self.saveTime = player.currentTime()
         }
     }
     
@@ -437,11 +442,18 @@ extension TrimEditorViewController: TrimmerViewDelegate {
         }
     }
     
-    func trimmerDidEndDragging(_ trimmer: TrimmerView, with startTime: CMTime, endTime: CMTime) {
+    func trimmerDidEndDragging(_ trimmer: TrimmerView, with startTime: CMTime, endTime: CMTime, isLeftGesture: Bool) {
         if let player = player {
             isStartMovable = false
             DispatchQueue.main.async {
                 if self.btnPlayPause.isSelected {
+                    if !isLeftGesture {
+                        guard let endTime = trimmer.endTime else {
+                            return
+                        }
+                        let newEndTime = endTime - CMTime.init(seconds: 2, preferredTimescale: endTime.timescale)
+                        player.seek(to: newEndTime, toleranceBefore: self.tolerance, toleranceAfter: self.tolerance)
+                    }
                     player.play()
                 }
             }

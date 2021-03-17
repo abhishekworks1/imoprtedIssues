@@ -418,7 +418,8 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         CameraModes(name: R.string.localizable.handsfreE(), recordingType: .handsfree),
         CameraModes(name: R.string.localizable.custoM(), recordingType: .custom),
         CameraModes(name: R.string.localizable.capturE(), recordingType: .capture),
-        CameraModes(name: R.string.localizable.promo(), recordingType: .promo)]
+        CameraModes(name: R.string.localizable.promo(), recordingType: .promo),
+        CameraModes(name: R.string.localizable.pic2ArtTitle(), recordingType: .pic2Art)]
         
     var timerOptions = ["-",
                         "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
@@ -1064,6 +1065,8 @@ extension StoryCameraViewController {
             cameraModeArray = cameraModeArray.filter({$0.recordingType == .promo})
             if Defaults.shared.appMode == .basic {
                 cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .normal})
+                cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .pic2Art})
+                cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .capture})
             }
         } else if isSnapCamApp || isFastCamApp || isSpeedCamApp {
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .slideshow})
@@ -2163,6 +2166,31 @@ extension StoryCameraViewController {
             self.navigationController?.pushViewController(storyEditorViewController, animated: false)
             self.removeData()
         }
+    }
+    
+    func openStyleTransferVC(images: [UIImage], isSlideShow: Bool = false) {
+        guard images.count > 0 else {
+            return
+        }
+        
+        guard let styleTransferVC = R.storyboard.photoEditor.styleTransferVC() else {
+            return
+        }
+        var medias: [StoryEditorMedia] = []
+        for image in images {
+            medias.append(StoryEditorMedia(type: .image(image)))
+            SCAlbum.shared.save(image: image)
+        }
+        switch medias[0].type {
+        case let .image(image):
+            styleTransferVC.type = .image(image: image)
+        case .video:
+            break
+        }
+        styleTransferVC.cameraMode = self.recordingType
+        styleTransferVC.isPic2ArtApp = true
+        styleTransferVC.isSingleImage = isSlideShow
+        self.navigationController?.pushViewController(styleTransferVC, animated: true)
     }
     
     func openStoryEditor(images: [UIImage], isSlideShow: Bool = false) {

@@ -476,6 +476,9 @@ extension PhotosPickerViewController {
             }
             if isLiteApp {
                 type = .video
+                if currentCamaraMode == .pic2Art {
+                    type = .image
+                }
                 self.configure.maxSelectedAssets = 1
             }
             self.once.run {

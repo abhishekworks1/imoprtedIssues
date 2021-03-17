@@ -350,6 +350,7 @@ public enum CameraMode: Int {
     case quizVideo
     case multiplePhotos
     case promo
+    case pic2Art
 }
 
 public enum RecordingType {

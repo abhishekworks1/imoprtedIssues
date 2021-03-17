@@ -97,7 +97,6 @@ class StoryEditorViewController: UIViewController {
     @IBOutlet weak var shareCollectionViewHeight: NSLayoutConstraint!
 
     @IBOutlet weak var shareViewHeight: NSLayoutConstraint!
-    
     @IBOutlet weak var tableView: UITableView! {
         didSet {
             self.tableView.tableFooterView = UIView()
@@ -256,6 +255,7 @@ class StoryEditorViewController: UIViewController {
     public var isBoomerang: Bool = false
 
     private var colorSlider: ColorSlider!
+    var cameraMode: CameraMode = .basicCamera
     
     private var loadingView: LoadingView? = LoadingView.instanceFromNib()
     
@@ -848,7 +848,7 @@ extension StoryEditorViewController {
     
     @IBAction func backClicked(_ sender: UIButton) {
         Defaults.shared.postViralCamModel = nil
-        if isPic2ArtApp {
+        if isPic2ArtApp || cameraMode == .pic2Art {
             if let controllers = navigationController?.viewControllers,
                 controllers.count > 0 {
                 for controller in controllers {
