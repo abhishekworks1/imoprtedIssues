@@ -38,6 +38,7 @@ extension StyleTransferVC: UIGestureRecognizerDelegate {
 class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
     
     @IBOutlet weak var collectionView: InfiniteCollectionView!
+    var cameraMode: CameraMode = .basicCamera
     
     var dragAndDropManager: KDDragAndDropManager?
     @IBOutlet weak var btnSlideShow: UIButton!
@@ -213,6 +214,9 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
         if isSingleImage {
             btnAddImage.isHidden = true
         }
+        if cameraMode == .pic2Art {
+            btnAddImage.isHidden = true
+        }
     }
         
     override func viewDidDisappear(_ animated: Bool) {
@@ -368,6 +372,7 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
         storyEditorViewController.isBoomerang = false
         storyEditorViewController.medias = medias
         storyEditorViewController.isSlideShow = isSlideShow
+        storyEditorViewController.cameraMode = cameraMode
         return storyEditorViewController
     }
     

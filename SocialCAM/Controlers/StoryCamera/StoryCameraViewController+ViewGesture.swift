@@ -56,7 +56,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
     }
     
     @objc internal func handleLongPressGestureRecognizer(_ gestureRecognizer: UIGestureRecognizer) {
-        if self.recordingType == .slideshow || self.recordingType == .collage {
+        if self.recordingType == .slideshow || self.recordingType == .collage || self.recordingType == .pic2Art {
             return
         }
         
@@ -533,7 +533,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             return
         }
         
-        if self.recordingType == .slideshow || self.recordingType == .collage {
+        if self.recordingType == .slideshow || self.recordingType == .collage || self.recordingType == .pic2Art {
             capturePhoto()
             return
         }

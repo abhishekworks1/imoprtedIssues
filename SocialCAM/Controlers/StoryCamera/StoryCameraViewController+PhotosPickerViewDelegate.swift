@@ -99,6 +99,12 @@ extension StoryCameraViewController: PhotosPickerViewControllerDelegate {
                             self.takenVideoUrls.append(contentsOf: imageVideoSegments)
                             self.settingsButton.isSelected = true
                             self.stopMotionCollectionView.reloadData()
+                        } else if self.recordingType == .pic2Art {
+                            var images: [UIImage] = []
+                            imageVideoSegments.forEach { (segment) in
+                                images.append(segment.image ?? UIImage())
+                            }
+                            self.openStyleTransferVC(images: images)
                         } else {
                             self.openStoryEditor(segementedVideos: imageVideoSegments, photosSelection: true)
                         }
