@@ -53,7 +53,7 @@ class StoryAssetExportSession {
     public var watermarkType: WatermarkType = .image
     
     private func fileURL() -> URL {
-        let fileName = String.fileName + FileExtension.mov.rawValue
+        let fileName = "\(Constant.Application.displayName.replacingOccurrences(of: " ", with: "").lowercased())_\(Defaults.shared.releaseType.description)_v\(Constant.Application.appBuildNumber)_\(String.fileName)" + FileExtension.mp4.rawValue
         return Utils.getLocalPath(fileName)
     }
     
@@ -426,11 +426,9 @@ class StoryAssetExportSession {
         backgroundImage.draw(in: backgroundImageRect)
 
         let watermarkImageSize = newWatermarkImage.size
-        var watermarkOrigin = CGPoint(x: backgroundImageSize.width - watermarkImageSize.width - 20, y: backgroundImageSize.height - watermarkImageSize.height - 70)
+        var watermarkOrigin = CGPoint(x: backgroundImageSize.width - watermarkImageSize.width - 20, y: backgroundImageSize.height - watermarkImageSize.height - 50)
         if watermarkPosition == .topLeft {
             watermarkOrigin = CGPoint(x: 8, y: 8)
-        } else if watermarkPosition == .bottomRight {
-            watermarkOrigin = CGPoint(x: 270, y: backgroundImageSize.height - watermarkImageSize.height - 70)
         }
         let watermarkImageRect = CGRect(origin: watermarkOrigin, size: watermarkImageSize)
         newWatermarkImage.draw(in: watermarkImageRect, blendMode: .normal, alpha: 1.0)

@@ -53,7 +53,7 @@ class ExportVideoOpration: AsynchronousOperation {
     }
     
     private func filePath() -> URL {
-        let fileData = String.fileName + FileExtension.mov.rawValue
+        let fileData = "\(Constant.Application.displayName.replacingOccurrences(of: " ", with: "").lowercased())_\(Defaults.shared.releaseType.description)_v\(Constant.Application.appBuildNumber)_\(String.fileName)" + FileExtension.mp4.rawValue
         let filename = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].appendingPathComponent(fileData)
         return filename
     }

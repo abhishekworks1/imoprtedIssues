@@ -1493,17 +1493,19 @@ extension StoryCameraViewController {
     }
     
     @objc func handlePinchGestureRecognizer(_ pinchGestureRecognizer: UIPinchGestureRecognizer) {
-        func minMaxZoom(_ factor: Float) -> Float {
-            return min(max(factor, 1.0), 10.0)
-        }
-        let newScaleFactor = minMaxZoom(Float(pinchGestureRecognizer.scale) * Float(lastZoomFactor))
-        switch pinchGestureRecognizer.state {
-        case .began: break
-        case .changed: NextLevel.shared.videoZoomFactor = newScaleFactor
-        case .ended:
-            lastZoomFactor = CGFloat(minMaxZoom(newScaleFactor))
-            NextLevel.shared.videoZoomFactor = newScaleFactor
-        default: break
+        if !(Defaults.shared.appMode == .free) {
+            func minMaxZoom(_ factor: Float) -> Float {
+                return min(max(factor, 1.0), 10.0)
+            }
+            let newScaleFactor = minMaxZoom(Float(pinchGestureRecognizer.scale) * Float(lastZoomFactor))
+            switch pinchGestureRecognizer.state {
+            case .began: break
+            case .changed: NextLevel.shared.videoZoomFactor = newScaleFactor
+            case .ended:
+                lastZoomFactor = CGFloat(minMaxZoom(newScaleFactor))
+                NextLevel.shared.videoZoomFactor = newScaleFactor
+            default: break
+            }
         }
     }
     
