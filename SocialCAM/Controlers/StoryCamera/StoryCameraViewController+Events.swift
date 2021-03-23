@@ -641,9 +641,16 @@ extension StoryCameraViewController: CollageMakerVCDelegate {
 extension StoryCameraViewController: CountdownViewDelegate {
     
     func capturePhoto() {
-        if isTimeSpeedApp || isFastCamApp || isLiteApp {
+        if self.recordingType == .pic2Art {
+            self.capturePhotoFromVideo()
+        } else if isTimeSpeedApp || isFastCamApp || isLiteApp {
             return
+        } else {
+            self.capturePhotoFromVideo()
         }
+    }
+    
+    func capturePhotoFromVideo() {
         self.photoTapGestureRecognizer?.isEnabled = false
         self.addFlashView()
         NextLevel.shared.torchMode = flashMode
