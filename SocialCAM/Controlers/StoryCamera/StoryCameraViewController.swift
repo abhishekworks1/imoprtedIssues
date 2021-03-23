@@ -1747,6 +1747,9 @@ extension StoryCameraViewController {
             if isQuickCamApp && Defaults.shared.appMode == .professional && self.recordingType == .capture {
                 self.stopPulse()
             }
+            if self.recordingType == .capture {
+                self.circularProgress.animate(toAngle: 0, duration: 0, completion: nil)
+            }
             self.circularProgress.pauseAnimation()
             self.circularProgress.trackThickness = 0.75
             self.circularProgress.transform = CGAffineTransform(scaleX: 1, y: 1)
