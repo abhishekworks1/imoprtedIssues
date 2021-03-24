@@ -248,6 +248,15 @@ class Defaults {
         }
     }
     
+    var isSubscriptionApiCalled: Bool? {
+        get {
+            return appDefaults?.bool(forKey: "isSubscriptionApiCalled") ?? false
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isSubscriptionApiCalled")
+        }
+    }
+    
     var isPro: Bool {
         get {
             return appDefaults?.bool(forKey: "isPro") ?? false

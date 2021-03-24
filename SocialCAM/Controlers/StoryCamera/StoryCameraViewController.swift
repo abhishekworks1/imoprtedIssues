@@ -418,7 +418,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         CameraModes(name: R.string.localizable.handsfreE(), recordingType: .handsfree),
         CameraModes(name: R.string.localizable.custoM(), recordingType: .custom),
         CameraModes(name: R.string.localizable.capturE(), recordingType: .capture),
-        CameraModes(name: R.string.localizable.promo(), recordingType: .promo),
+        CameraModes(name: R.string.localizable.freeMode(), recordingType: .promo),
         CameraModes(name: R.string.localizable.pic2ArtTitle(), recordingType: .pic2Art)]
         
     var timerOptions = ["-",
