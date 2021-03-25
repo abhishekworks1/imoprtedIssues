@@ -15,6 +15,7 @@ class SubscriptionContainerViewController: UIViewController {
     // MARK: - Outlets
 
     @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var backButton: UIButton!
     
     // MARK: -
     // MARK: - Variables
@@ -73,7 +74,9 @@ class SubscriptionContainerViewController: UIViewController {
     // MARK: - Button Action Methods
     
     @IBAction func btnBackTapped(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+        if Defaults.shared.isSubscriptionApiCalled == false {
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
 }

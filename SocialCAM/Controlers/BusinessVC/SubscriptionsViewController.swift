@@ -28,6 +28,7 @@ class SubscriptionsViewController: UIViewController {
     
     @IBAction func btnUpgradeTapped(_ sender: Any) {
         if Defaults.shared.appMode != self.subscriptionType {
+            Defaults.shared.isSubscriptionApiCalled = true
             self.enableMode(appMode: self.subscriptionType)
         }
     }
@@ -138,6 +139,7 @@ class SubscriptionsViewController: UIViewController {
         ProManagerApi.setSubscription(type: appMode.getType, code: code).request(Result<User>.self).subscribe(onNext: { (response) in
             self.dismissHUD()
             if response.status == ResponseType.success {
+                Defaults.shared.isSubscriptionApiCalled = false
                 Defaults.shared.currentUser = response.result
                 CurrentUser.shared.setActiveUser(response.result)
                 SubscriptionSettings.storySettings[0].settings[appMode.rawValue].selected = true
@@ -145,9 +147,11 @@ class SubscriptionsViewController: UIViewController {
                 self.navigationController?.popViewController(animated: true)
                 Utils.appDelegate?.window?.makeToast(successMessage)
             } else {
+                Defaults.shared.isSubscriptionApiCalled = false
                 self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
             }
         }, onError: { error in
+            Defaults.shared.isSubscriptionApiCalled = false
             self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
