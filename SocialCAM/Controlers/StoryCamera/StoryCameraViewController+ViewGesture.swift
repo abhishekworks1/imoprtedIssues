@@ -109,7 +109,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             
             circularProgress.center = CGPoint(x: circularProgress.center.x + translation.x - 35,
                                               y: circularProgress.center.y + translation.y - 35)
-            if Defaults.shared.appMode != .free {
+            if Defaults.shared.appMode != .free && self.recordingType != .promo {
                 nextLevel.videoZoomFactor = Float(minZoom)
             }
             switch Defaults.shared.appMode {
