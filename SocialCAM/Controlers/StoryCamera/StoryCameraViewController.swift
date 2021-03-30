@@ -164,32 +164,25 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             speedSlider.addTarget(self, action: #selector(speedSliderValueChanged(_:)), for: UIControl.Event.valueChanged)
         }
     }
-    
     @IBOutlet var stopMotionCollectionView: KDDragAndDropCollectionView!
     @IBOutlet weak var lblStoryCount: UILabel!
     @IBOutlet weak var lblStoryPercentage: UILabel!
-    
     @IBOutlet weak var storyUploadView: UIView!
-    
     @IBOutlet weak var storyUploadRoundView: UIView!
-    
     @IBOutlet weak var storyUploadImageView: UIImageView! {
         didSet {
             storyUploadImageView.layer.cornerRadius = 1
         }
     }
-    
     @IBOutlet weak var speedSliderWidthConstraint: NSLayoutConstraint!
-    
     @IBOutlet weak var cameraModeIndicatorView: UIView!
-    
     @IBOutlet var speedIndicatorView: [DottedLineView]!
-    
     @IBOutlet weak var cameraModeIndicatorImageView: UIImageView!
-    
     @IBOutlet weak var switchingAppView: UIView!
-    
     @IBOutlet weak var switchAppButton: UIButton!
+    @IBOutlet weak var confirmRecordedSegmentStackView: UIStackView!
+    @IBOutlet weak var discardSegmentsStackView: UIStackView!
+    @IBOutlet weak var discardSegmentButton: UIButton!
     
     // MARK: Variables
     var recordButtonCenterPoint: CGPoint = CGPoint.init()
@@ -216,7 +209,9 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     var isRecording: Bool = false {
         didSet {
             isPageScrollEnable = !isRecording
-            deleteView.isHidden = isRecording
+            if !isLiteApp {
+                deleteView.isHidden = isRecording
+            }
             DispatchQueue.main.async {
                 if self.isRecording {
                     self.collectionViewStackVIew.isHidden = !self.takenVideoUrls.isEmpty
@@ -248,7 +243,8 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                                              self.timerStackView,
                                              self.flashStackView,
                                              self.nextButtonView,
-                                             self.switchAppButton],
+                                             self.switchAppButton,
+                                             self.discardSegmentsStackView],
                                             alpha: alpha)
                     self.isHideTapped = self.hideControls
                     // Make the animation happen
@@ -500,6 +496,9 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     var observers = [NSObjectProtocol]()
     var pulse = Pulsing()
     var isHideTapped = false
+    var isConfirmCapture = false
+    var totalVideoDuration: [CGFloat] = []
+    var segmentsProgress: [CGFloat] = []
     
     // MARK: ViewController lifecycle
     override func viewDidLoad() {
@@ -589,7 +588,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         if isQuickCamLiteApp || isQuickCamApp {
             addObserverForRecordingView()
         }
-        
+        refreshCircularProgressBar()
         if isLiteApp {
             if self.recordingType == .promo {
                 self.setupLiteAppMode(mode: .promo)
@@ -1135,6 +1134,7 @@ extension StoryCameraViewController {
             self.circularProgress.centerImage = UIImage()
             self.dynamicSetSlowFastVerticalBar()
             self.changeSpeedSliderValues()
+            self.refreshCircularProgressBar()
             switch Defaults.shared.cameraMode {
             case .boomerang:
                 self.circularProgress.centerImage = R.image.icoBoomrang()
@@ -1493,7 +1493,7 @@ extension StoryCameraViewController {
     }
     
     @objc func handlePinchGestureRecognizer(_ pinchGestureRecognizer: UIPinchGestureRecognizer) {
-        if !(Defaults.shared.appMode == .free) {
+        if !isSnapCamLiteApp {
             func minMaxZoom(_ factor: Float) -> Float {
                 return min(max(factor, 1.0), 10.0)
             }
@@ -1673,7 +1673,9 @@ extension StoryCameraViewController {
     }
     
     func resetProgressTimer() {
-        progress = 0
+        if recordingType != .normal {
+            progress = 0
+        }
         self.progressTimer?.invalidate()
     }
     
@@ -1711,6 +1713,7 @@ extension StoryCameraViewController {
                     } else if isPic2ArtApp {
                         totalSeconds = 5
                     } else if isLiteApp {
+                        self.discardSegmentButton.setImage(R.image.trimBack()?.alpha(1), for: .normal)
                         totalSeconds = self.recordingType == .promo ? 15 : 30
                     }
                     self.progressMaxSeconds = totalSeconds
@@ -1740,8 +1743,14 @@ extension StoryCameraViewController {
     }
     
     func stopRecording() {
+        if isLiteApp, recordingType == .normal {
+            self.segmentsProgress.append(progress)
+            self.circularProgress.drawArc(startAngle: Double(progress))
+            self.discardSegmentsStackView.isHidden = false
+            self.confirmRecordedSegmentStackView.isHidden = false
+            self.stopMotionCollectionView.isHidden = true
+        }
         resetProgressTimer()
-        
         DispatchQueue.main.async { [weak self] in
             guard let `self` = self else { return }
             if isQuickCamApp && Defaults.shared.appMode == .professional && self.recordingType == .capture {
@@ -1813,11 +1822,15 @@ extension StoryCameraViewController {
                 self.setupForPreviewScreen()
             }
         } else {
-            self.videoDidCompletedSession(url: url, thumbimage: session.clips.last?.thumbnailImage)
+            guard let cmtime = session.clips.last?.duration else {
+                return
+            }
+            let floatTime = CGFloat(CMTimeGetSeconds(cmtime))
+            self.videoDidCompletedSession(url: url, thumbimage: session.clips.last?.thumbnailImage, duration: floatTime)
         }
     }
     
-    func videoDidCompletedSession(url: URL, thumbimage: UIImage?) {
+    func videoDidCompletedSession(url: URL, thumbimage: UIImage?, duration: CGFloat) {
         if self.recordingType == .boomerang {
             let loadingView = LoadingView.instanceFromNib()
             loadingView.shouldCancelShow = true
@@ -1833,7 +1846,7 @@ extension StoryCameraViewController {
                 self.newVideoCreate(url: url, newUrl: urls)
                 DispatchQueue.main.async {
                     self.takenVideoUrls.append(SegmentVideos(urlStr: url, thumbimage: thumbimage, numberOfSegement: "\(self.takenVideoUrls.count + 1)"))
-                    self.setupForPreviewScreen()
+                    self.setupForPreviewScreen(duration: duration)
                 }
             }, { (progress) in
                 DispatchQueue.main.async {
@@ -1848,7 +1861,7 @@ extension StoryCameraViewController {
         } else {
             DispatchQueue.main.async {
                 self.takenVideoUrls.append(SegmentVideos(urlStr: url, thumbimage: thumbimage, numberOfSegement: "\(self.takenVideoUrls.count + 1)"))
-                self.setupForPreviewScreen()
+                self.setupForPreviewScreen(duration: duration)
             }
         }
     }
@@ -1884,7 +1897,7 @@ extension StoryCameraViewController {
         }
     }
     
-    func setupForPreviewScreen() {
+    func setupForPreviewScreen(duration: CGFloat = 0.0) {
         self.stopMotionCollectionView.reloadData()
         let layout = self.stopMotionCollectionView.collectionViewLayout as? UICollectionViewFlowLayout
         let pageSide = (layout?.scrollDirection == .horizontal) ? self.pageSize.width : self.pageSize.height
@@ -1992,7 +2005,13 @@ extension StoryCameraViewController {
                 if (self.recordingType == .timer) || (self.recordingType == .photoTimer) {
                     self.recordingType = .normal
                 }
-                self.openStoryEditor(segementedVideos: takenVideoUrls)
+                totalVideoDuration.append(duration)
+                let totalDurationSum = totalVideoDuration.reduce(0, +)
+                if recordingType != .normal {
+                    self.openStoryEditor(segementedVideos: takenVideoUrls)
+                } else if isLiteApp, recordingType == .normal, totalDurationSum >= 30 {
+                    self.openStoryEditor(segementedVideos: takenVideoUrls)
+                }
             }
         }
     }
@@ -2150,15 +2169,21 @@ extension StoryCameraViewController {
             self.navigationController?.pushViewController(specificBoomerangViewController, animated: true)
             self.removeData()
         } else {
+            let asset = self.getRecordSession(videoModel: segementedVideos)
             guard let storyEditorViewController = R.storyboard.storyEditor.storyEditorViewController() else {
                 fatalError("PhotoEditorViewController Not Found")
             }
             var medias: [StoryEditorMedia] = []
-            for segmentedVideo in segementedVideos {
-                if segmentedVideo.url == URL(string: Constant.Application.imageIdentifier) {
-                    medias.append(StoryEditorMedia(type: .image(segmentedVideo.image!)))
-                } else {
-                    medias.append(StoryEditorMedia(type: .video(segmentedVideo.image!, AVAsset(url: segmentedVideo.url!))))
+            if isLiteApp, recordingType == .normal {
+                progress = 0
+                medias.append(StoryEditorMedia(type: .video(segementedVideos.first!.image!, asset)))
+            } else {
+                for segmentedVideo in segementedVideos {
+                    if segmentedVideo.url == URL(string: Constant.Application.imageIdentifier) {
+                        medias.append(StoryEditorMedia(type: .image(segmentedVideo.image!)))
+                    } else {
+                        medias.append(StoryEditorMedia(type: .video(segmentedVideo.image!, AVAsset(url: segmentedVideo.url!))))
+                    }
                 }
             }
             let tiktokShareViews = self.baseView.subviews.filter({ return $0 is TikTokShareView })
@@ -2251,6 +2276,46 @@ extension StoryCameraViewController {
         storyEditorViewController.medias = medias
         storyEditorViewController.isSlideShow = isSlideShow
         return storyEditorViewController
+    }
+    
+    func showAlertOnDiscardVideoSegment() {
+        let alert = UIAlertController(title: R.string.localizable.discardClipTitle(), message: R.string.localizable.discardClipMessage(), preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: R.string.localizable.discard(), style: .destructive, handler: { (_) in
+            self.takenVideoUrls.removeLast()
+            self.totalVideoDuration.removeLast()
+            self.segmentsProgress.removeLast()
+            if let lastSegmentsprogress = self.segmentsProgress.last {
+                self.progress = lastSegmentsprogress
+            } else {
+                self.refreshCircularProgressBar()
+            }
+            self.circularProgress.deleteLayer()
+            self.updateProgress()
+            if self.takenVideoUrls.isEmpty {
+                self.discardSegmentButton.setImage(R.image.trimBack()?.alpha(0.5), for: .normal)
+            }
+        }))
+        alert.addAction(UIAlertAction(title: R.string.localizable.keep(), style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func getRecordSession(videoModel: [SegmentVideos]) -> AVAsset {
+        let recodeSession = SCRecordSession.init()
+        for segementModel in videoModel {
+            let segment = SCRecordSessionSegment(url: segementModel.url!, info: nil)
+            recodeSession.addSegment(segment)
+        }
+        return recodeSession.assetRepresentingSegments()
+    }
+    
+    func refreshCircularProgressBar() {
+        self.circularProgress.animate(toAngle: 0, duration: 0, completion: nil)
+        self.totalVideoDuration.removeAll()
+        self.segmentsProgress.removeAll()
+        self.circularProgress.deleteAllSubLayers()
+        self.progress = 0
+        self.discardSegmentsStackView.isHidden = true
+        self.confirmRecordedSegmentStackView.isHidden = true
     }
     
 }

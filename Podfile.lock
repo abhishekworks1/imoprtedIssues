@@ -1,5 +1,5 @@
 PODS:
-  - Alamofire (5.2.2)
+  - Alamofire (5.4.1)
   - AppAuth (1.4.0):
     - AppAuth/Core (= 1.4.0)
     - AppAuth/ExternalUserAgent (= 1.4.0)
@@ -130,14 +130,14 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (7.1.1):
     - GoogleUtilities/Logger
-  - GTMAppAuth (1.0.0):
-    - AppAuth/Core (~> 1.0)
-    - GTMSessionFetcher (~> 1.1)
-  - GTMSessionFetcher (1.4.0):
-    - GTMSessionFetcher/Full (= 1.4.0)
-  - GTMSessionFetcher/Core (1.4.0)
-  - GTMSessionFetcher/Full (1.4.0):
-    - GTMSessionFetcher/Core (= 1.4.0)
+  - GTMAppAuth (1.1.0):
+    - AppAuth/Core (~> 1.4)
+    - GTMSessionFetcher (~> 1.4)
+  - GTMSessionFetcher (1.5.0):
+    - GTMSessionFetcher/Full (= 1.5.0)
+  - GTMSessionFetcher/Core (1.5.0)
+  - GTMSessionFetcher/Full (1.5.0):
+    - GTMSessionFetcher/Core (= 1.5.0)
   - InfiniteLayout (0.4.2):
     - InfiniteLayout/Core (= 0.4.2)
   - InfiniteLayout/CocoaProxy (0.4.2)
@@ -176,10 +176,16 @@ PODS:
   - NVActivityIndicatorView/Presenter (4.6.1)
   - ObjectMapper (4.2.0)
   - OnlyPictures (1.0.0)
-  - Pageboy (3.6.1)
+  - Pageboy (3.6.2)
   - Parchment (3.0.1)
-  - PINCache (2.3)
-  - PINOperation (1.2)
+  - PINCache (3.0.3):
+    - PINCache/Arc-exception-safe (= 3.0.3)
+    - PINCache/Core (= 3.0.3)
+  - PINCache/Arc-exception-safe (3.0.3):
+    - PINCache/Core
+  - PINCache/Core (3.0.3):
+    - PINOperation (~> 1.2.1)
+  - PINOperation (1.2.1)
   - ProgressHUD (2.70)
   - PromisesObjC (1.2.12)
   - R.swift (5.3.1):
@@ -395,7 +401,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/simformsolutions/YoutubePlayerView.git
 
 SPEC CHECKSUMS:
-  Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
+  Alamofire: 2291f7d21ca607c491dd17642e5d40fdcda0e65c
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
   AppCenter: 0487be185c038ed2ecc5ed38219af1dcd280af23
   AWSCore: 167aba8cdaff6873193a66f062f41749c6c6a3d3
@@ -428,8 +434,8 @@ SPEC CHECKSUMS:
   GooglePlaces: e874db179f2675c4f3eeda0b686b540273a578b0
   GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
   GoogleUtilities: 3dc4ff0d5e4840e2fa8eef0889620e8c33d4218c
-  GTMAppAuth: 4deac854479704f348309e7b66189e604cf5e01e
-  GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
+  GTMAppAuth: 197a8dabfea5d665224aa00d17f164fc2248dab9
+  GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
   InfiniteLayout: de51cfad9ed480a3e3a0af7d28242d3257c606d9
   IQKeyboardManagerSwift: 0fb93310284665245591f50f7a5e38de615960b7
   JPSVolumeButtonHandler: 53110330c9168ed325def93eabff39f0fe3e8082
@@ -443,10 +449,10 @@ SPEC CHECKSUMS:
   NVActivityIndicatorView: 4ca19fccc84595a78957336a086d00a49be6ce61
   ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
   OnlyPictures: a91e5b202783fb3a36d4e2f1899d400a22b26259
-  Pageboy: 29a2d474ad99404b4d77f325e0ab6d705930a4fb
+  Pageboy: cf121b9dd48c63f3f281b2a9ec93d02e0f23879b
   Parchment: 466a1cfb6151780db8acb4bbedc2d9c6bfa1e2ff
-  PINCache: ce36ed282031b92fc7733ffe831f474ff80fddc2
-  PINOperation: 3a967a927e7867e61976c6cc23e5770416449fbc
+  PINCache: 7a8fc1a691173d21dbddbf86cd515de6efa55086
+  PINOperation: 00c935935f1e8cf0d1e2d6b542e75b88fc3e5e20
   ProgressHUD: e603e8b8622c47d8818b9fb38b3cfe9d3e7ca421
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
   R.swift: 56ec7e3aef34b9eee47a659e42462db2c1cc5ac3
@@ -476,4 +482,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: ceec9e5ae6180c5c9caeac67a821188245a39654
 
-COCOAPODS: 1.10.0.beta.1
+COCOAPODS: 1.10.0

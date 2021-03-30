@@ -136,6 +136,7 @@ public class CircularProgress: UIView, CAAnimationDelegate {
     @IBInspectable private var IBColor3: UIColor?
     
     private var animationCompletionBlock: ((Bool) -> Void)?
+    var layerArray = NSMutableArray()
     
     override public init(frame: CGRect) {
         super.init(frame: frame)
@@ -264,6 +265,56 @@ public class CircularProgress: UIView, CAAnimationDelegate {
     public func stopAnimation() {
         progressLayer?.removeAllAnimations()
         angle = 0
+    }
+    
+    func drawArc(startAngle: Double) {
+        let size = bounds.size
+        let width = size.width
+        let height = size.height
+        let trackLineWidth: CGFloat = 10.5
+        let progressLineWidth: CGFloat = 0.1
+        let arcRadius = max(radius - trackLineWidth / 2.0, radius - progressLineWidth / 2.0)
+        let path1 = UIBezierPath(arcCenter: CGPoint(x: width / 2.0, y: height / 2.0),
+                                 radius: arcRadius + 2,
+                                 startAngle: CGFloat(angle - 90).radians,
+                                 endAngle: CGFloat(angle - 90).radians + 0.05,
+                                 clockwise: true)
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.path = path1.cgPath
+        shapeLayer.fillColor = UIColor.clear.cgColor
+        shapeLayer.lineWidth = radius * progressThickness
+        shapeLayer.strokeColor = UIColor.yellow.cgColor
+        layerArray.add(shapeLayer)
+        progressLayer?.addSublayer(shapeLayer)
+    }
+    
+    public func deleteLayer() {
+        guard let progressLayer = self.progressLayer?.sublayers else {
+            return
+        }
+        for layer in progressLayer {
+            if layerArray.contains(layer) {
+                guard let lastLayer = layerArray.lastObject as? NSObject else {
+                    return
+                }
+                if layer == lastLayer {
+                    layer.removeFromSuperlayer()
+                    layerArray.remove(layer)
+                }
+            }
+        }
+    }
+    
+    public func deleteAllSubLayers() {
+        guard let progressLayer = self.progressLayer?.sublayers else {
+            return
+        }
+        for layer in progressLayer {
+            if layerArray.contains(layer) {
+                layer.removeFromSuperlayer()
+                layerArray.remove(layer)
+            }
+        }
     }
     
     public func isAnimating() -> Bool {

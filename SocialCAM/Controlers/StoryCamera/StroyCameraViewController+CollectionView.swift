@@ -29,8 +29,9 @@ extension StoryCameraViewController: UICollectionViewDataSource {
         } else {
             isShow = true
         }
-        
-        self.deleteView.isHidden = isShow
+        if !isLiteApp {
+            self.deleteView.isHidden = isShow
+        }
         self.stopMotionCollectionView.isUserInteractionEnabled = isShow
         return takenVideoUrls.count
         

@@ -463,6 +463,18 @@ extension StoryCameraViewController {
         UIApplication.showAlert(title: R.string.localizable.vidPlay(), message: R.string.localizable.comingSoon())
     }
     
+    @IBAction func confirmVideoButtonClicked(_ sender: UIButton) {
+        if !takenVideoUrls.isEmpty {
+            self.openStoryEditor(segementedVideos: takenVideoUrls)
+        }
+    }
+    
+    @IBAction func discardSegementButtonClicked(_ sender: UIButton) {
+        if !self.takenVideoUrls.isEmpty {
+            showAlertOnDiscardVideoSegment()
+        }
+    }
+    
 }
 
 // MARK: StoryUploadDelegate
