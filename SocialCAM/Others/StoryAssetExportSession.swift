@@ -305,7 +305,9 @@ class StoryAssetExportSession {
                             guard let `self` = self else {
                                 return
                             }
-                            self.addWaterMarkImageIfNeeded(isGIF: true)
+                            if Defaults.shared.appIdentifierWatermarkSetting == .show {
+                                self.addWaterMarkImageIfNeeded(isGIF: true)
+                            }
                         }
                     }
                 } else {
@@ -314,7 +316,9 @@ class StoryAssetExportSession {
                             guard let `self` = self else {
                                 return
                             }
-                            self.addWaterMarkImageIfNeeded(isGIF: true)
+                            if Defaults.shared.appIdentifierWatermarkSetting == .show {
+                                self.addWaterMarkImageIfNeeded(isGIF: true)
+                            }
                         }
                     }
                 }
@@ -324,8 +328,12 @@ class StoryAssetExportSession {
                 guard let `self` = self else {
                     return
                 }
-                self.addWaterMarkImageIfNeeded(isGIF: false)
-                self.addFastestEverWaterMarkImage()
+                if Defaults.shared.appIdentifierWatermarkSetting == .show {
+                    self.addWaterMarkImageIfNeeded(isGIF: false)
+                }
+                if Defaults.shared.fastestEverWatermarkSetting == .show {
+                    self.addFastestEverWaterMarkImage()
+                }
             }
         }
         gifCount += 1

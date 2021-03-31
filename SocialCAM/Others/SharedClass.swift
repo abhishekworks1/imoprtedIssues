@@ -432,6 +432,16 @@ enum GuidelineThickness: Int {
     case thick = 5
 }
 
+enum FastestEverWatermarkSetting: Int {
+    case show = 1
+    case hide
+}
+
+enum AppIdentifierWatermarkSetting: Int {
+    case show = 1
+    case hide
+}
+
 public enum ImageFormat {
     case PNG
     case JPEG(Float)

@@ -35,6 +35,9 @@ enum SettingsMode: Int {
     case watermarkAlpha80 = 80
     case subscription
     case goToWebsite
+    case watermarkSettings
+    case fatesteverWatermark
+    case applIdentifierWatermark
 }
 
 class StorySetting {
@@ -85,6 +88,10 @@ class StorySettings {
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.goToWebsite(), selected: false)], settingsType: .goToWebsite),
                                 StorySettings(name: "",
+                                              settings: [StorySetting(name: R.string.localizable.fastesteverImage(), selected: false)], settingsType: .fatesteverWatermark),
+                                StorySettings(name: "",
+                                              settings: [StorySetting(name: R.string.localizable.applicationIdentifier(), selected: false)], settingsType: .applIdentifierWatermark),
+                                StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.logout(), selected: false)], settingsType: .logout)]
 }
 
@@ -96,6 +103,11 @@ class StorySettingsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         lblAppInfo.text = "\(Constant.Application.displayName) - \(Constant.Application.appVersion)(\(Constant.Application.appBuildNumber))"
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.settingsTableView.reloadData()
     }
     
     deinit {
@@ -155,11 +167,9 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         cell.settingsName.text = settings.name
         cell.detailButton.isHidden = true
         cell.settingsName.textColor = R.color.appBlackColor()
-        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video || settingTitle.settingsType == .cameraSettings || settingTitle.settingsType == .termsAndConditions || settingTitle.settingsType == .privacyPolicy || settingTitle.settingsType == .subscription || settingTitle.settingsType == .goToWebsite {
-            if settingTitle.settingsType == .appInfo {
-                if isDebug {
-                    cell.settingsName.textColor = R.color.appPrimaryColor()
-                }
+        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video || settingTitle.settingsType == .cameraSettings || settingTitle.settingsType == .termsAndConditions || settingTitle.settingsType == .privacyPolicy || settingTitle.settingsType == .subscription || settingTitle.settingsType == .goToWebsite || settingTitle.settingsType == .watermarkSettings {
+            if settingTitle.settingsType == .appInfo || settingTitle.settingsType == .watermarkSettings {
+                cell.settingsName.textColor = R.color.appPrimaryColor()
             }
             cell.onOffButton.isHidden = true
         } else if settingTitle.settingsType == .socialLogins {
@@ -192,6 +202,26 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         } else if settingTitle.settingsType == .swapeContols {
             cell.onOffButton.isHidden = false
             cell.onOffButton.isSelected = Defaults.shared.swapeContols
+        } else if settingTitle.settingsType == .fatesteverWatermark {
+            cell.onOffButton.isHidden = true
+            guard let watermarkSettingCell: WatermarkSettingCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.watermarkSettingCell.identifier) as? WatermarkSettingCell else {
+                return cell
+            }
+            watermarkSettingCell.watermarkType = .fastestEverWatermark
+            if Defaults.shared.appMode == .free {
+                watermarkSettingCell.hideWatermarkButton.addTarget(self, action: #selector(goToSubscriptionVC), for: .touchUpInside)
+            }
+            return watermarkSettingCell
+        } else if settingTitle.settingsType == .applIdentifierWatermark {
+            cell.onOffButton.isHidden = true
+            guard let watermarkSettingCell: WatermarkSettingCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.watermarkSettingCell.identifier) as? WatermarkSettingCell else {
+                return cell
+            }
+            watermarkSettingCell.watermarkType = .applicationIdentifier
+            if Defaults.shared.appMode == .free {
+                watermarkSettingCell.hideWatermarkButton.addTarget(self, action: #selector(goToSubscriptionVC), for: .touchUpInside)
+            }
+            return watermarkSettingCell
         }
         return cell
     }
@@ -315,6 +345,16 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         } else if settingTitle.settingsType == .goToWebsite {
             guard let url = URL(string: websiteUrl) else { return }
             UIApplication.shared.open(url)
+        }
+    }
+    
+    @objc func goToSubscriptionVC() {
+        if (Defaults.shared.fastestEverWatermarkSetting == .hide || Defaults.shared.appIdentifierWatermarkSetting == .hide) && Defaults.shared.appMode == .free {
+            if let subscriptionVC = R.storyboard.subscription.subscriptionContainerViewController() {
+                Defaults.shared.fastestEverWatermarkSetting = .show
+                Defaults.shared.appIdentifierWatermarkSetting = .show
+                navigationController?.pushViewController(subscriptionVC, animated: true)
+            }
         }
     }
     
