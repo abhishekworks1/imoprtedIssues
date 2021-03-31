@@ -2288,6 +2288,8 @@ extension StoryCameraViewController {
                 self.progress = lastSegmentsprogress
             } else {
                 self.refreshCircularProgressBar()
+                self.view.bringSubviewToFront(self.blurView)
+                self.view.bringSubviewToFront(self.switchingAppView)
             }
             self.circularProgress.deleteLayer()
             self.updateProgress()
@@ -2316,6 +2318,7 @@ extension StoryCameraViewController {
         self.progress = 0
         self.discardSegmentsStackView.isHidden = true
         self.confirmRecordedSegmentStackView.isHidden = true
+        self.slowFastVerticalBar.isHidden = true
     }
     
 }
