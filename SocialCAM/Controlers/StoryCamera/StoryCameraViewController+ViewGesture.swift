@@ -349,7 +349,13 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
         let screenPart = UIScreen.main.bounds.width / CGFloat(values.count)
         for (index, value) in values.enumerated() {
             let multiplyValue = index + 1
-            if pointX < screenPart*CGFloat(multiplyValue) {
+            var midPoint = (screenPart*CGFloat(multiplyValue))
+            if (UIScreen.main.bounds.width / 2) < pointX {
+                midPoint -= (screenPart/2)
+            } else {
+                midPoint += (screenPart/2)
+            }
+            if pointX < midPoint {
                 return value
             }
         }

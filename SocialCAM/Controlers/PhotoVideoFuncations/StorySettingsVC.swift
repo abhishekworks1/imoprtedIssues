@@ -81,6 +81,8 @@ class StorySettings {
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.subscription(), selected: false)], settingsType: .subscription),
                                 StorySettings(name: "",
+                                              settings: [StorySetting(name: R.string.localizable.socialPosting(), selected: false)], settingsType: .socialConnections),
+                                StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.goToWebsite(), selected: false)], settingsType: .goToWebsite),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.logout(), selected: false)], settingsType: .logout)]
