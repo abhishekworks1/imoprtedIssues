@@ -114,7 +114,6 @@ class WatermarkSettingCell: UITableViewCell {
             }
         }
     }
-    var isFreeMode = false
     
     // MARK: - Life cycle methods
     override func awakeFromNib() {

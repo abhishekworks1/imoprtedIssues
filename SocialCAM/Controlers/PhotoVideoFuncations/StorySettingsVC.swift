@@ -38,6 +38,7 @@ enum SettingsMode: Int {
     case watermarkSettings
     case fatesteverWatermark
     case applIdentifierWatermark
+    case videoResolution
 }
 
 class StorySetting {
@@ -91,6 +92,8 @@ class StorySettings {
                                               settings: [StorySetting(name: R.string.localizable.fastesteverImage(), selected: false)], settingsType: .fatesteverWatermark),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.applicationIdentifier(), selected: false)], settingsType: .applIdentifierWatermark),
+                                StorySettings(name: "",
+                                              settings: [StorySetting(name: R.string.localizable.videoRecordingResolution(), selected: false)], settingsType: .videoResolution),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.logout(), selected: false)], settingsType: .logout)]
 }
@@ -222,6 +225,15 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 watermarkSettingCell.hideWatermarkButton.addTarget(self, action: #selector(goToSubscriptionVC), for: .touchUpInside)
             }
             return watermarkSettingCell
+        } else if settingTitle.settingsType == .videoResolution {
+            cell.onOffButton.isHidden = true
+            guard let videoResolutionCell: VideoResolutionCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.videoResolutionCell.identifier) as? VideoResolutionCell else {
+                return cell
+            }
+            if Defaults.shared.appMode == .free {
+                videoResolutionCell.highResolutionButton.addTarget(self, action: #selector(goToSubscriptionVC), for: .touchUpInside)
+            }
+            return videoResolutionCell
         }
         return cell
     }
@@ -349,7 +361,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     @objc func goToSubscriptionVC() {
-        if (Defaults.shared.fastestEverWatermarkSetting == .hide || Defaults.shared.appIdentifierWatermarkSetting == .hide) && Defaults.shared.appMode == .free {
+        if (Defaults.shared.fastestEverWatermarkSetting == .hide || Defaults.shared.appIdentifierWatermarkSetting == .hide || Defaults.shared.videoResolution == .high) && Defaults.shared.appMode == .free {
             if let subscriptionVC = R.storyboard.subscription.subscriptionContainerViewController() {
                 Defaults.shared.fastestEverWatermarkSetting = .show
                 Defaults.shared.appIdentifierWatermarkSetting = .show

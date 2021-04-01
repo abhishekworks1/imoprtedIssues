@@ -12,7 +12,12 @@ import AVKit
 extension StoryCameraViewController: NextLevelDeviceDelegate {
     
     func saveFrameRates() {
-        let supportedFrameRates = NextLevel.shared.getAllSupportedFrameRate(dimensions: CMVideoDimensions(width: 1280, height: 720))
+        var supportedFrameRates: [String]
+        if Defaults.shared.videoResolution == .high {
+            supportedFrameRates = NextLevel.shared.getAllSupportedFrameRate(dimensions: CMVideoDimensions(width: 1920, height: 1080))
+        } else {
+            supportedFrameRates = NextLevel.shared.getAllSupportedFrameRate(dimensions: CMVideoDimensions(width: 1280, height: 720))
+        }
         Defaults.shared.supportedFrameRates = supportedFrameRates
         print(Defaults.shared.supportedFrameRates ?? "")
     }

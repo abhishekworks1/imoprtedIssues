@@ -129,7 +129,9 @@ class SubscriptionsViewController: UIViewController {
             }
             
         }
-        let cancelAction = UIAlertAction(title: R.string.localizable.cancel(), style: .default) { (_: UIAlertAction) in }
+        let cancelAction = UIAlertAction(title: R.string.localizable.cancel(), style: .default) { (_: UIAlertAction) in
+            Defaults.shared.isSubscriptionApiCalled = false
+        }
         objAlert.addAction(cancelAction)
         objAlert.addAction(actionSave)
         self.present(objAlert, animated: true, completion: nil)
