@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -47,8 +48,8 @@
                                             <action selector="backClicked:" destination="Gnm-Af-J53" eventType="touchUpInside" id="9KA-sD-yfF"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Social Connections" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p5u-1d-KrG">
-                                        <rect key="frame" x="137.5" y="12.5" width="139" height="19"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Social Posting" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p5u-1d-KrG">
+                                        <rect key="frame" x="155.5" y="12.5" width="103" height="19"/>
                                         <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="16"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -130,7 +131,7 @@
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uYj-dU-yiZ">
                                 <rect key="frame" x="12" y="178.5" width="390" height="611.5"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="oBL-a9-MOY">
                                     <rect key="frame" x="0.0" y="148" width="390" height="331"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -143,7 +144,7 @@
                                         </label>
                                         <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="880-UR-ZBt">
                                             <rect key="frame" x="0.0" y="59" width="390" height="272"/>
-                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="Yy8-Kg-jEp">
                                                 <size key="itemSize" width="64" height="68"/>
                                                 <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -165,7 +166,7 @@
                                                                         <rect key="frame" x="2" y="6" width="36" height="36"/>
                                                                     </imageView>
                                                                 </subviews>
-                                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
                                                                     <constraint firstItem="AAP-ab-e0u" firstAttribute="centerY" secondItem="MoA-OL-IGO" secondAttribute="centerY" id="rXd-aG-zBb"/>
                                                                     <constraint firstItem="AAP-ab-e0u" firstAttribute="centerX" secondItem="MoA-OL-IGO" secondAttribute="centerX" id="xsx-Tm-DCh"/>
@@ -202,7 +203,7 @@
                                             </connections>
                                         </collectionView>
                                     </subviews>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <constraints>
                                         <constraint firstItem="4qE-Oc-Rm4" firstAttribute="top" secondItem="oBL-a9-MOY" secondAttribute="top" constant="20" id="2a7-dB-z3y"/>
                                         <constraint firstItem="880-UR-ZBt" firstAttribute="top" secondItem="4qE-Oc-Rm4" secondAttribute="bottom" constant="20" id="Bsb-95-XQO"/>
@@ -298,6 +299,7 @@
                                 </connections>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="iAs-TZ-als"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="iAs-TZ-als" firstAttribute="trailing" secondItem="N9g-TU-7lm" secondAttribute="trailing" constant="24" id="3VG-A0-AxX"/>
@@ -318,7 +320,6 @@
                             <constraint firstItem="N9g-TU-7lm" firstAttribute="leading" secondItem="iAs-TZ-als" secondAttribute="leading" constant="24" id="weq-MS-ioc"/>
                             <constraint firstItem="vgT-1t-T7C" firstAttribute="top" secondItem="UEx-Dw-6Jw" secondAttribute="bottom" constant="10" id="z5H-bv-t0D"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="iAs-TZ-als"/>
                     </view>
                     <connections>
                         <outlet property="backButton" destination="YIF-Hz-7O8" id="hev-R5-QBO"/>
@@ -343,5 +344,8 @@
         <namedColor name="AppPrimaryColor">
             <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

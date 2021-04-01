@@ -149,9 +149,7 @@ class AddSocialConnectionViewController: UIViewController {
     
     func updateUI() {
         let isOneSocialConnected = socialOptions.filter({ return $0.socialUserData != nil }).count > 0
-        let isOneSocialDisconnected = socialOptions.filter({ return $0.socialUserData == nil }).count > 0
-        
-        warningViewHeight.constant = isOneSocialConnected ? 0 : warningHeight
+        warningViewHeight.constant = 0
         connectButton.alpha = isOneSocialConnected ? 1.0 : 0.7
         connectButton.isEnabled = isOneSocialConnected
     }
