@@ -533,6 +533,11 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                 view?.isHidden = true
             }
         }
+        NotificationCenter.default.addObserver(self, selector: #selector(callUserProfileApi), name: UIApplication.willEnterForegroundNotification, object: nil)
+    }
+    
+    @objc func callUserProfileApi() {
+        getUserProfile()
     }
     
     func setupRecordingView() {
@@ -588,6 +593,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         if isQuickCamLiteApp || isQuickCamApp {
             addObserverForRecordingView()
         }
+        getUserProfile()
         refreshCircularProgressBar()
         if isLiteApp {
             if self.recordingType == .promo {
@@ -2319,6 +2325,23 @@ extension StoryCameraViewController {
         self.discardSegmentsStackView.isHidden = true
         self.confirmRecordedSegmentStackView.isHidden = true
         self.slowFastVerticalBar.isHidden = true
+    }
+    
+    func getUserProfile() {
+        ProManagerApi.getUserProfile.request(Result<User>.self).subscribe(onNext: { (response) in
+            if response.status == ResponseType.success {
+                print("Subscription: \(Defaults.shared.appMode)")
+                Defaults.shared.currentUser = response.result
+                print("Subscription: \(Defaults.shared.appMode)")
+                CurrentUser.shared.setActiveUser(response.result)
+                AppEventBus.post("changeMode")
+            } else {
+                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+            }
+        }, onError: { error in
+            self.showAlert(alertMessage: error.localizedDescription)
+        }, onCompleted: {
+        }).disposed(by: self.rx.disposeBag)
     }
     
 }

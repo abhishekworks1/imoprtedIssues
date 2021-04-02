@@ -61,6 +61,7 @@ public enum ProManagerApi {
     case getWebsiteData
     case setSubscription(type: String, code: String)
     case forgotPassword(username: String)
+    case getUserProfile
 
     var endpoint: Endpoint {
         var endpointClosure = MoyaProvider<ProManagerApi>.defaultEndpointMapping(for: self)
@@ -221,6 +222,8 @@ extension ProManagerApi: TargetType {
             return Paths.setSubsctiption
         case .forgotPassword:
             return Paths.forgotPassword
+        case .getUserProfile:
+            return Paths.getUserProfile
         }
        
     }
@@ -230,7 +233,7 @@ extension ProManagerApi: TargetType {
         switch self {
         case .signUp, .logIn, .verifyChannel, .search, .getAccessToken:
             return .post
-        case .getSplashImages, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getHashTagSets, .getWeather, .getyoutubeSubscribedChannel, .getYoutubeCategory, .instgramProfile, .instgramProfileDetails, .getLongLivedToken, .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData:
+        case .getSplashImages, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getHashTagSets, .getWeather, .getyoutubeSubscribedChannel, .getYoutubeCategory, .instgramProfile, .instgramProfileDetails, .getLongLivedToken, .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData, .getUserProfile:
             return .get
         case .updateProfile, .editStory, .updatePost, .updateHashTagSet:
             return .put
@@ -553,6 +556,8 @@ extension ProManagerApi: TargetType {
             param = ["code": code, "subscriptionType": type]
         case .forgotPassword(let username):
             param = ["username": username]
+        case .getUserProfile:
+            break
         }
         return param
     }
@@ -566,7 +571,7 @@ extension ProManagerApi: TargetType {
             return JSONEncoding.default
         case .getyoutubeSubscribedChannel:
             return TokenURLEncoding.default
-        case .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData, .getHashTagSets:
+        case .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData, .getHashTagSets, .getUserProfile:
             return URLEncoding.default
         default:
             return JSONEncoding.default
