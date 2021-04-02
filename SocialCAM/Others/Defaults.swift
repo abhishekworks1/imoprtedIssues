@@ -557,15 +557,6 @@ class Defaults {
         }
     }
     
-    var isWatermarkShow: Bool {
-        get {
-            return (appDefaults?.value(forKey: "isWatermarkShow") as? Bool) ?? false
-        }
-        set {
-            appDefaults?.set(newValue, forKey: "isWatermarkShow")
-        }
-    }
-    
     var fastestEverWatermarkSetting: FastestEverWatermarkSetting {
         get {
             return FastestEverWatermarkSetting(rawValue: (appDefaults?.integer(forKey: "FastestEverWatermarkSetting") ?? 1)) ?? .show
@@ -581,6 +572,15 @@ class Defaults {
         }
         set {
             appDefaults?.set(newValue.rawValue, forKey: "AppIdentifierWatermarkSetting")
+        }
+    }
+    
+    var videoResolution: VideoResolution {
+        get {
+            return VideoResolution(rawValue: (appDefaults?.integer(forKey: "VideoResolution") ?? 1)) ?? .low
+        }
+        set {
+            appDefaults?.set(newValue.rawValue, forKey: "VideoResolution")
         }
     }
     

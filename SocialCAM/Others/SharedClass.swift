@@ -442,6 +442,11 @@ enum AppIdentifierWatermarkSetting: Int {
     case hide
 }
 
+enum VideoResolution: Int {
+    case low = 1
+    case high
+}
+
 public enum ImageFormat {
     case PNG
     case JPEG(Float)
