@@ -668,6 +668,7 @@ public struct Paths {
     static let getWebsiteData = "faq/website"
     static let setSubsctiption = "users/buySubscription"
     static let forgotPassword = "user/forgetPassword"
+    static let getUserProfile = "user/profile"
 }
 
 struct WebsiteData {
