@@ -312,7 +312,11 @@ class StoryEditorViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.setSocialShareView()
-        self.imgFastestEverWatermark.isHidden = Defaults.shared.cameraMode != .promo
+        if Defaults.shared.cameraMode != .promo || Defaults.shared.fastestEverWatermarkSetting == .hide {
+            self.imgFastestEverWatermark.isHidden = true
+        } else {
+            self.imgFastestEverWatermark.isHidden = false
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
