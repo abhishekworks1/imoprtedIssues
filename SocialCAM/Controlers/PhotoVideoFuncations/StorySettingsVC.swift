@@ -39,6 +39,7 @@ enum SettingsMode: Int {
     case fatesteverWatermark
     case applIdentifierWatermark
     case videoResolution
+    case applicationSurvey
 }
 
 class StorySetting {
@@ -94,6 +95,8 @@ class StorySettings {
                                               settings: [StorySetting(name: R.string.localizable.applicationIdentifier(), selected: false)], settingsType: .applIdentifierWatermark),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.videoRecordingResolution(), selected: false)], settingsType: .videoResolution),
+                                StorySettings(name: "",
+                                              settings: [StorySetting(name: R.string.localizable.applicationSurvey(), selected: false)], settingsType: .applicationSurvey),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.logout(), selected: false)], settingsType: .logout)]
 }
@@ -170,7 +173,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         cell.settingsName.text = settings.name
         cell.detailButton.isHidden = true
         cell.settingsName.textColor = R.color.appBlackColor()
-        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video || settingTitle.settingsType == .cameraSettings || settingTitle.settingsType == .termsAndConditions || settingTitle.settingsType == .privacyPolicy || settingTitle.settingsType == .subscription || settingTitle.settingsType == .goToWebsite || settingTitle.settingsType == .watermarkSettings {
+        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video || settingTitle.settingsType == .cameraSettings || settingTitle.settingsType == .termsAndConditions || settingTitle.settingsType == .privacyPolicy || settingTitle.settingsType == .subscription || settingTitle.settingsType == .goToWebsite || settingTitle.settingsType == .watermarkSettings || settingTitle.settingsType == .applicationSurvey {
             if settingTitle.settingsType == .appInfo || settingTitle.settingsType == .watermarkSettings {
                 cell.settingsName.textColor = R.color.appPrimaryColor()
             }
@@ -356,6 +359,9 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             }
         } else if settingTitle.settingsType == .goToWebsite {
             guard let url = URL(string: websiteUrl) else { return }
+            UIApplication.shared.open(url)
+        } else if settingTitle.settingsType == .applicationSurvey {
+            guard let url = URL(string: Constant.URLs.applicationSurveyURL) else { return }
             UIApplication.shared.open(url)
         }
     }

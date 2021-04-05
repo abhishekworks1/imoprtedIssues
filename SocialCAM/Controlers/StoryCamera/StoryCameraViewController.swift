@@ -533,11 +533,6 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                 view?.isHidden = true
             }
         }
-        NotificationCenter.default.addObserver(self, selector: #selector(callUserProfileApi), name: UIApplication.willEnterForegroundNotification, object: nil)
-    }
-    
-    @objc func callUserProfileApi() {
-        getUserProfile()
     }
     
     func setupRecordingView() {
@@ -1566,6 +1561,7 @@ extension StoryCameraViewController {
     
     @objc func enterForeground(_ notifi: Notification) {
         if isViewAppear {
+            getUserProfile()
             startCapture()
             addTikTokShareViewIfNeeded()
             if let pasteboard = UIPasteboard(name: UIPasteboard.Name(rawValue: Constant.Application.pasteboardName), create: true),
@@ -2330,11 +2326,8 @@ extension StoryCameraViewController {
     func getUserProfile() {
         ProManagerApi.getUserProfile.request(Result<User>.self).subscribe(onNext: { (response) in
             if response.status == ResponseType.success {
-                print("Subscription: \(Defaults.shared.appMode)")
                 Defaults.shared.currentUser = response.result
-                print("Subscription: \(Defaults.shared.appMode)")
                 CurrentUser.shared.setActiveUser(response.result)
-                AppEventBus.post("changeMode")
             } else {
                 self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
             }
