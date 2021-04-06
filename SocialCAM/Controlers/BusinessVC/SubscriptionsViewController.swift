@@ -59,7 +59,7 @@ class SubscriptionsViewController: UIViewController {
         case .professional:
             break
         }
-        btnUpgrade.setTitle(R.string.localizable.downgradeNow(), for: .normal)
+        btnUpgrade.setTitle(R.string.localizable.downgrade(), for: .normal)
         btnUpgrade.backgroundColor = R.color.downgradeButtonColor()
     }
     
@@ -78,7 +78,7 @@ class SubscriptionsViewController: UIViewController {
         var successMessage: String? = ""
         switch appMode {
         case .free:
-            message = R.string.localizable.areYouSureSubscriptionMessage(R.string.localizable.downgrade(), appMode.description)
+            message = Defaults.shared.releaseType == .beta ? R.string.localizable.thisFeatureIsNotAvailable() : R.string.localizable.areYouSureSubscriptionMessage(R.string.localizable.downgrade(), appMode.description)
             successMessage = R.string.localizable.freeModeIsEnabled()
         case .basic:
             var upgradeString = R.string.localizable.upgrade()
@@ -133,7 +133,9 @@ class SubscriptionsViewController: UIViewController {
             Defaults.shared.isSubscriptionApiCalled = false
         }
         objAlert.addAction(cancelAction)
-        objAlert.addAction(actionSave)
+        if Defaults.shared.releaseType != .beta || appMode != .free {
+            objAlert.addAction(actionSave)
+        }
         self.present(objAlert, animated: true, completion: nil)
     }
     
