@@ -732,7 +732,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             speedSlider.tickCount = speedOptions.count
             speedSlider.value = CGFloat(Int(speedOptions.count/2))
         }
-        if recordingType == .normal {
+        if recordingType == .normal || recordingType == .capture {
             if isLiteApp {
                 verticalLines.visibleLeftSideViews = true
                 verticalLines.numberOfViews = .speed3x
@@ -1065,8 +1065,8 @@ extension StoryCameraViewController {
             cameraModeArray = cameraModeArray.filter({$0.recordingType == .promo})
             if Defaults.shared.appMode == .basic {
                 cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .normal})
-                cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .pic2Art})
                 cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .capture})
+                cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .pic2Art})
             }
         } else if isSnapCamApp || isFastCamApp || isSpeedCamApp {
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .slideshow})
@@ -1453,6 +1453,10 @@ extension StoryCameraViewController {
         nextLevel.metadataObjectsDelegate = self
         enableFaceDetectionIfNeeded()
         setupImageLoadFromGallary()
+        if !(Defaults.shared.isUserFirstLoggedIn) {
+            showAlertForAppSurvey()
+            Defaults.shared.isUserFirstLoggedIn = true
+        }
     }
     
     func enableFaceDetectionIfNeeded() {
@@ -2335,6 +2339,20 @@ extension StoryCameraViewController {
             self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
+    }
+    
+    func showAlertForAppSurvey() {
+        let alert = UIAlertController(title: Constant.Application.displayName, message: R.string.localizable.applicationSurvey(), preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: R.string.localizable.sure(), style: .default, handler: { (_) in
+            guard let url = URL(string: Constant.URLs.applicationSurveyURL) else {
+                return
+            }
+            UIApplication.shared.open(url)
+        }))
+        alert.addAction(UIAlertAction(title: R.string.localizable.noThanks(), style: .cancel, handler: { (_) in
+            self.view.makeToast(R.string.localizable.youCanFillUpThisFormAnytimeFromOurSettingsMenu())
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
     
 }
