@@ -84,17 +84,11 @@ class StorySettings {
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.cameraSettings(), selected: false)], settingsType: .cameraSettings),
                                 StorySettings(name: "",
+                                              settings: [StorySetting(name: R.string.localizable.watermark(), selected: false)], settingsType: .watermarkSettings),
+                                StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.subscription(), selected: false)], settingsType: .subscription),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.socialPosting(), selected: false)], settingsType: .socialConnections),
-                                StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.goToWebsite(), selected: false)], settingsType: .goToWebsite),
-                                StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.fastesteverImage(), selected: false)], settingsType: .fatesteverWatermark),
-                                StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.applicationIdentifier(), selected: false)], settingsType: .applIdentifierWatermark),
-                                StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.videoRecordingResolution(), selected: false)], settingsType: .videoResolution),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.applicationSurvey(), selected: false)], settingsType: .applicationSurvey),
                                 StorySettings(name: "",
@@ -105,19 +99,57 @@ class StorySettingsVC: UIViewController {
     
     @IBOutlet weak var settingsTableView: UITableView!
     @IBOutlet weak var lblAppInfo: UILabel!
+    @IBOutlet weak var imgAppLogo: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         lblAppInfo.text = "\(Constant.Application.displayName) - \(Constant.Application.appVersion)(\(Constant.Application.appBuildNumber))"
+        setupUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.settingsTableView.reloadData()
     }
     
     deinit {
         print("Deinit \(self.description)")
+    }
+    
+    // MARK: - Setup UI Methods
+    private func setupUI() {
+        #if SOCIALCAMAPP
+        imgAppLogo.image = R.image.socialCamSplashLogo()
+        #elseif VIRALCAMAPP
+        imgAppLogo.image = R.image.viralcamrgb()
+        #elseif SOCCERCAMAPP || FUTBOLCAMAPP
+        imgAppLogo.image = R.image.soccercamWatermarkLogo()
+        #elseif QUICKCAMAPP
+        imgAppLogo.image = R.image.ssuQuickCam()
+        #elseif SNAPCAMAPP
+        imgAppLogo.image = R.image.snapcamWatermarkLogo()
+        #elseif SPEEDCAMAPP
+        imgAppLogo.image = R.image.ssuSpeedCam()
+        #elseif TIMESPEEDAPP
+        imgAppLogo.image = R.image.timeSpeedWatermarkLogo()
+        #elseif FASTCAMAPP
+        imgAppLogo.image = R.image.ssuFastCam()
+        #elseif BOOMICAMAPP
+        imgAppLogo.image = R.image.boomicamWatermarkLogo()
+        #elseif VIRALCAMLITEAPP
+        imgAppLogo.image = R.image.viralcamLiteWatermark()
+        #elseif FASTCAMLITEAPP
+        imgAppLogo.image = R.image.ssuFastCamLite()
+        #elseif QUICKCAMLITEAPP
+        imgAppLogo.image = R.image.ssuQuickCamLite()
+        #elseif SPEEDCAMLITEAPP
+        imgAppLogo.image = R.image.speedcamLiteSsu()
+        #elseif SNAPCAMLITEAPP
+        imgAppLogo.image = R.image.snapcamliteSplashLogo()
+        #elseif RECORDERAPP
+        imgAppLogo.image = R.image.socialScreenRecorderWatermarkLogo()
+        #else
+        imgAppLogo.image = R.image.pic2artWatermarkLogo()
+        #endif
     }
     
     @IBAction func onBack(_ sender: Any) {
@@ -174,7 +206,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         cell.detailButton.isHidden = true
         cell.settingsName.textColor = R.color.appBlackColor()
         if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video || settingTitle.settingsType == .cameraSettings || settingTitle.settingsType == .termsAndConditions || settingTitle.settingsType == .privacyPolicy || settingTitle.settingsType == .subscription || settingTitle.settingsType == .goToWebsite || settingTitle.settingsType == .watermarkSettings || settingTitle.settingsType == .applicationSurvey {
-            if settingTitle.settingsType == .appInfo || settingTitle.settingsType == .watermarkSettings {
+            if settingTitle.settingsType == .appInfo {
                 cell.settingsName.textColor = R.color.appPrimaryColor()
             }
             cell.onOffButton.isHidden = true
@@ -208,35 +240,6 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         } else if settingTitle.settingsType == .swapeContols {
             cell.onOffButton.isHidden = false
             cell.onOffButton.isSelected = Defaults.shared.swapeContols
-        } else if settingTitle.settingsType == .fatesteverWatermark {
-            cell.onOffButton.isHidden = true
-            guard let watermarkSettingCell: WatermarkSettingCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.watermarkSettingCell.identifier) as? WatermarkSettingCell else {
-                return cell
-            }
-            watermarkSettingCell.watermarkType = .fastestEverWatermark
-            if Defaults.shared.appMode == .free {
-                watermarkSettingCell.hideWatermarkButton.addTarget(self, action: #selector(goToSubscriptionVC), for: .touchUpInside)
-            }
-            return watermarkSettingCell
-        } else if settingTitle.settingsType == .applIdentifierWatermark {
-            cell.onOffButton.isHidden = true
-            guard let watermarkSettingCell: WatermarkSettingCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.watermarkSettingCell.identifier) as? WatermarkSettingCell else {
-                return cell
-            }
-            watermarkSettingCell.watermarkType = .applicationIdentifier
-            if Defaults.shared.appMode == .free {
-                watermarkSettingCell.hideWatermarkButton.addTarget(self, action: #selector(goToSubscriptionVC), for: .touchUpInside)
-            }
-            return watermarkSettingCell
-        } else if settingTitle.settingsType == .videoResolution {
-            cell.onOffButton.isHidden = true
-            guard let videoResolutionCell: VideoResolutionCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.videoResolutionCell.identifier) as? VideoResolutionCell else {
-                return cell
-            }
-            if Defaults.shared.appMode == .free {
-                videoResolutionCell.highResolutionButton.addTarget(self, action: #selector(goToSubscriptionVC), for: .touchUpInside)
-            }
-            return videoResolutionCell
         }
         return cell
     }
@@ -363,15 +366,9 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         } else if settingTitle.settingsType == .applicationSurvey {
             guard let url = URL(string: Constant.URLs.applicationSurveyURL) else { return }
             UIApplication.shared.open(url)
-        }
-    }
-    
-    @objc func goToSubscriptionVC() {
-        if (Defaults.shared.fastestEverWatermarkSetting == .hide || Defaults.shared.appIdentifierWatermarkSetting == .hide || Defaults.shared.videoResolution == .high) && Defaults.shared.appMode == .free {
-            if let subscriptionVC = R.storyboard.subscription.subscriptionContainerViewController() {
-                Defaults.shared.fastestEverWatermarkSetting = .show
-                Defaults.shared.appIdentifierWatermarkSetting = .show
-                navigationController?.pushViewController(subscriptionVC, animated: true)
+        } else if settingTitle.settingsType == .watermarkSettings {
+            if let watermarkSettingsVC = R.storyboard.storyCameraViewController.watermarkSettingsViewController() {
+                navigationController?.pushViewController(watermarkSettingsVC, animated: true)
             }
         }
     }

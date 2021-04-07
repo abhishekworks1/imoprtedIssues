@@ -14,6 +14,8 @@ class SubscriptionsViewController: UIViewController {
     @IBOutlet weak var lblPrice: UILabel!
     @IBOutlet weak var btnUpgrade: UIButton!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var freeModeAlertView: UIView!
+    @IBOutlet weak var freeModeAlertBlurView: UIVisualEffectView!
     
     internal var subscriptionType = AppMode.free {
         didSet {
@@ -27,10 +29,20 @@ class SubscriptionsViewController: UIViewController {
     }
     
     @IBAction func btnUpgradeTapped(_ sender: Any) {
-        if Defaults.shared.appMode != self.subscriptionType {
-            Defaults.shared.isSubscriptionApiCalled = true
-            self.enableMode(appMode: self.subscriptionType)
+        if Defaults.shared.appMode != .free, Defaults.shared.releaseType == .beta {
+            freeModeAlertBlurView.isHidden = false
+            freeModeAlertView.isHidden = false
+        } else {
+            if Defaults.shared.appMode != self.subscriptionType {
+                Defaults.shared.isSubscriptionApiCalled = true
+                self.enableMode(appMode: self.subscriptionType)
+            }
         }
+    }
+    
+    @IBAction func btnOkayTapped(_ sender: UIButton) {
+        freeModeAlertBlurView.isHidden = true
+        freeModeAlertView.isHidden = true
     }
     
     private func setupUI() {
@@ -78,7 +90,7 @@ class SubscriptionsViewController: UIViewController {
         var successMessage: String? = ""
         switch appMode {
         case .free:
-            message = Defaults.shared.releaseType == .beta ? R.string.localizable.thisFeatureIsNotAvailable() : R.string.localizable.areYouSureSubscriptionMessage(R.string.localizable.downgrade(), appMode.description)
+            message = R.string.localizable.areYouSureSubscriptionMessage(R.string.localizable.downgrade(), appMode.description)
             successMessage = R.string.localizable.freeModeIsEnabled()
         case .basic:
             var upgradeString = R.string.localizable.upgrade()
@@ -133,9 +145,7 @@ class SubscriptionsViewController: UIViewController {
             Defaults.shared.isSubscriptionApiCalled = false
         }
         objAlert.addAction(cancelAction)
-        if Defaults.shared.releaseType != .beta || appMode != .free {
-            objAlert.addAction(actionSave)
-        }
+        objAlert.addAction(actionSave)
         self.present(objAlert, animated: true, completion: nil)
     }
     
