@@ -357,6 +357,8 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             }
             if pointX < midPoint {
                 return value
+            } else if values.count - 1 == index, pointX > midPoint {
+                return value
             }
         }
         return .normal
