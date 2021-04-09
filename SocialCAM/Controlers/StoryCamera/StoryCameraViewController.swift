@@ -573,8 +573,6 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        stopCapture()
-        isViewAppear = false
         removeVolumeButtonHandler()
     }
     
@@ -603,6 +601,11 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         enableFaceDetectionIfNeeded()
         swapeControlsIfNeeded()
         UIApplication.shared.isIdleTimerDisabled = true
+        if Defaults.shared.isCameraSettingChanged {
+            self.stopCapture()
+            self.isViewAppear = false
+            Defaults.shared.isCameraSettingChanged = false
+        }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.isViewAppear = true
             self.startCapture()
@@ -1062,13 +1065,11 @@ extension StoryCameraViewController {
                 cameraModeArray.insert(CameraModes(name: R.string.localizable.video2Art().uppercased(), recordingType: .handsfree), at: index)
             }
         } else if isLiteApp {
+            cameraModeArray = cameraModeArray.filter({$0.recordingType == .promo})
             if Defaults.shared.appMode == .basic {
-                cameraModeArray = self.cameraModeArray.filter({$0.recordingType == .normal})
-                cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .promo})
+                cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .normal})
                 cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .capture})
                 cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .pic2Art})
-            } else {
-                cameraModeArray = cameraModeArray.filter({$0.recordingType == .promo})
             }
         } else if isSnapCamApp || isFastCamApp || isSpeedCamApp {
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .slideshow})
@@ -1188,6 +1189,17 @@ extension StoryCameraViewController {
         
         if !isFastCamApp && !isViralCamLiteApp && !isFastCamLiteApp && !isQuickCamLiteApp && !isSpeedCamLiteApp && !isSnapCamLiteApp {
             cameraSliderView.selectCell = Defaults.shared.cameraMode.rawValue
+        }
+        if isSnapCamLiteApp, Defaults.shared.appMode == .basic {
+            print(Defaults.shared.cameraMode.rawValue)
+            cameraSliderView.selectCell = 1
+            UIView.animate(withDuration: 0.1, animations: { () -> Void in
+                self.animateTransitionIfNeeded(to: self.currentState.opposite, duration: 0)
+            }, completion: { (_ finished: Bool) -> Void in
+                if finished {
+                    self.currentState = .open
+                }
+            })
         }
     }
     

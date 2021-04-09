@@ -176,6 +176,7 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
         let settingTitle = CameraSettings.storySettings[indexPath.section]
         if settingTitle.settingsType == .faceDetection {
             Defaults.shared.enableFaceDetection = !Defaults.shared.enableFaceDetection
+            Defaults.shared.isCameraSettingChanged = true
             self.settingsTableView.reloadData()
         } else if settingTitle.settingsType == .guildlines {
             Defaults.shared.enableGuildlines = !Defaults.shared.enableGuildlines
@@ -185,6 +186,7 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
             self.settingsTableView.reloadData()
         } else if settingTitle.settingsType == .supportedFrameRates {
             Defaults.shared.selectedFrameRates = Defaults.shared.supportedFrameRates?[indexPath.row]
+            Defaults.shared.isCameraSettingChanged = true
             self.settingsTableView.reloadData()
         } else if settingTitle.settingsType == .watermarkAlpha30 || settingTitle.settingsType == .watermarkAlpha50 || settingTitle.settingsType == .watermarkAlpha80 {
             Defaults.shared.waterarkOpacity = settingTitle.settingsType.rawValue

@@ -674,6 +674,15 @@ class Defaults {
         }
     }
     
+    var isCameraSettingChanged: Bool {
+        get {
+            return (appDefaults?.value(forKey: "isCameraSettingChanged") as? Bool) ?? false
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isCameraSettingChanged")
+        }
+    }
+    
     var isUserFirstLoggedIn: Bool {
         get {
             return appDefaults?.value(forKey: "isUserFirstLoggedIn") as? Bool ?? false

@@ -2,12 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>NSBonjourServices</key>
-    <array>
-        <string>_Bagel._tcp</string>
-    </array>
-    <key>NSLocalNetworkUsageDescription</key>
-    <string>Network access required</string>
 	<key>AWS</key>
 	<dict>
 		<key>CredentialsProvider</key>
@@ -122,7 +116,7 @@
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>tiktokopensdk</string>
-		<string>businesscentre</string>
+		<string>businesscenter</string>
 		<string>tiktoksharesdk</string>
 		<string>snssdk1180</string>
 		<string>snssdk1233</string>
@@ -151,10 +145,16 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_Bagel._tcp</string>
+	</array>
 	<key>NSCameraUsageDescription</key>
 	<string>Pic2Art would like access your Camera.</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Pic2Art is use face id for login </string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Network access required</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Pic2Art Show your location on the map</string>
 	<key>NSMicrophoneUsageDescription</key>
