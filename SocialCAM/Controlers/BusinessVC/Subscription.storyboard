@@ -13,6 +13,12 @@
         <array key="SF-UI-Text-Medium.otf">
             <string>SFUIText-Medium</string>
         </array>
+        <array key="SF-UI-Text-Regular.otf">
+            <string>SFUIText-Regular</string>
+        </array>
+        <array key="SF-UI-Text-Semibold.otf">
+            <string>SFUIText-Semibold</string>
+        </array>
     </customFonts>
     <scenes>
         <!--Subscription Container View Controller-->
@@ -194,11 +200,80 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
+                                    <visualEffectView hidden="YES" opaque="NO" alpha="0.29999999999999999" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m0z-cb-MFl">
+                                        <rect key="frame" x="0.0" y="-44" width="414" height="906"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Ei0-Tt-ft3">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="906"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        </view>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <blurEffect style="regular"/>
+                                    </visualEffectView>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XB6-io-hYJ">
+                                        <rect key="frame" x="64.5" y="317.5" width="285" height="183"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Downgrading to Free Subscription is disabled during Betatest." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bFG-dX-PrL">
+                                                <rect key="frame" x="28" y="25" width="229" height="62"/>
+                                                <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="16"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="lpZ-ZA-HVZ">
+                                                <rect key="frame" x="80.5" y="117" width="124" height="46"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MB0-gs-NPi">
+                                                        <rect key="frame" x="0.0" y="0.0" width="124" height="46"/>
+                                                        <color key="backgroundColor" name="resendLinkColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="124" id="dtU-UA-6QK"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="SFUIText-Semibold" family="SF UI Text" pointSize="16"/>
+                                                        <state key="normal" title="Okay">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                                <real key="value" value="8"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="btnOkayTapped:" destination="cbr-YN-Zsh" eventType="touchUpInside" id="p9C-Ye-25w"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="46" id="K6j-cy-MHM"/>
+                                                </constraints>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="lpZ-ZA-HVZ" secondAttribute="bottom" constant="20" id="9yu-my-5zt"/>
+                                            <constraint firstAttribute="width" constant="285" id="HTe-0H-cYk"/>
+                                            <constraint firstItem="lpZ-ZA-HVZ" firstAttribute="centerX" secondItem="bFG-dX-PrL" secondAttribute="centerX" id="NcP-dT-EUa"/>
+                                            <constraint firstItem="bFG-dX-PrL" firstAttribute="top" secondItem="XB6-io-hYJ" secondAttribute="top" constant="25" id="PjO-6s-BKx"/>
+                                            <constraint firstAttribute="height" constant="183" id="Wlo-xw-jNV"/>
+                                            <constraint firstItem="lpZ-ZA-HVZ" firstAttribute="top" secondItem="bFG-dX-PrL" secondAttribute="bottom" constant="30" id="biE-Xp-BuZ"/>
+                                            <constraint firstAttribute="trailing" secondItem="bFG-dX-PrL" secondAttribute="trailing" constant="28" id="k2I-TG-MKZ"/>
+                                            <constraint firstItem="bFG-dX-PrL" firstAttribute="leading" secondItem="XB6-io-hYJ" secondAttribute="leading" constant="28" id="kb0-n0-qY6"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="m0z-cb-MFl" secondAttribute="bottom" constant="-44" id="08L-td-WSF"/>
+                                    <constraint firstItem="XB6-io-hYJ" firstAttribute="centerY" secondItem="JpW-fA-Nvp" secondAttribute="centerY" id="1pq-8i-7Q6"/>
+                                    <constraint firstAttribute="trailing" secondItem="m0z-cb-MFl" secondAttribute="trailing" id="23t-fw-UlX"/>
+                                    <constraint firstItem="XB6-io-hYJ" firstAttribute="centerX" secondItem="JpW-fA-Nvp" secondAttribute="centerX" id="5Q8-J1-Oet"/>
+                                    <constraint firstItem="m0z-cb-MFl" firstAttribute="top" secondItem="JpW-fA-Nvp" secondAttribute="top" constant="-44" id="9s7-3Z-x6l"/>
                                     <constraint firstItem="4gL-OI-IDh" firstAttribute="leading" secondItem="JpW-fA-Nvp" secondAttribute="leading" constant="23" id="F2A-cH-hgm"/>
                                     <constraint firstAttribute="trailing" secondItem="LoK-od-CUJ" secondAttribute="trailing" constant="22" id="Iw3-89-KNl"/>
+                                    <constraint firstItem="m0z-cb-MFl" firstAttribute="leading" secondItem="JpW-fA-Nvp" secondAttribute="leading" id="Sgw-N1-2uK"/>
                                     <constraint firstItem="LoK-od-CUJ" firstAttribute="leading" secondItem="JpW-fA-Nvp" secondAttribute="leading" constant="22" id="gSx-ob-Hce"/>
                                     <constraint firstItem="4gL-OI-IDh" firstAttribute="top" secondItem="JpW-fA-Nvp" secondAttribute="top" constant="21" id="hJc-hH-aQ7"/>
                                     <constraint firstItem="LoK-od-CUJ" firstAttribute="top" secondItem="4gL-OI-IDh" secondAttribute="bottom" constant="20" id="n5a-oV-zzF"/>
@@ -240,6 +315,8 @@
                     </view>
                     <connections>
                         <outlet property="btnUpgrade" destination="a9w-D1-Q4W" id="PZY-PS-31E"/>
+                        <outlet property="freeModeAlertBlurView" destination="m0z-cb-MFl" id="5LO-6z-Iqa"/>
+                        <outlet property="freeModeAlertView" destination="XB6-io-hYJ" id="FS0-VD-9DX"/>
                         <outlet property="lblPrice" destination="xnQ-aO-Vug" id="0GM-2X-RhL"/>
                         <outlet property="lblTitle" destination="H7c-hT-gaA" id="YnV-2N-0F9"/>
                         <outlet property="tableView" destination="jxV-sn-mVE" id="nA9-cW-qh4"/>
@@ -255,7 +332,10 @@
         <image name="storyBack" width="19" height="19"/>
         <image name="subscriptionSeparator" width="46" height="5"/>
         <namedColor name="AppPrimaryColor">
-            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="resendLinkColor">
+            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

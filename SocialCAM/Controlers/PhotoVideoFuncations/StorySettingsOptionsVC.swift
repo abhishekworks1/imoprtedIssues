@@ -26,6 +26,8 @@ class CameraSettings {
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.guideline(), selected: false)], settingsType: .guildlines),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.changePositionsOfMuteSwitchingCamera(), selected: false)], settingsType: .swapeContols),
         StorySettings(name: R.string.localizable.supportedFrameRates(), settings: [StorySetting(name: R.string.localizable.supportedFrameRates(), selected: false)], settingsType: .supportedFrameRates),
+        StorySettings(name: "", settings: [StorySetting(name:
+            R.string.localizable.videoRecordingResolution(), selected: false)], settingsType: .videoResolution),
         StorySettings(name: R.string.localizable.guidelineTypes(), settings:
             [StorySetting(name: R.string.localizable.free(), selected: true)], settingsType: .guidelineType),
         StorySettings(name: R.string.localizable.guidelineThickness(), settings:
@@ -51,6 +53,14 @@ class StorySettingsOptionsVC: UIViewController {
     
     deinit {
         print("Deinit \(self.description)")
+    }
+    
+    @objc func goToSubscriptionVC() {
+        if Defaults.shared.videoResolution == .high && Defaults.shared.appMode == .free {
+            if let subscriptionVC = R.storyboard.subscription.subscriptionContainerViewController() {
+                navigationController?.pushViewController(subscriptionVC, animated: true)
+            }
+        }
     }
 
     @IBAction func onBack(_ sender: Any) {
@@ -122,6 +132,15 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
             }
         } else if settingTitle.settingsType == .watermarkAlpha30 || settingTitle.settingsType == .watermarkAlpha50 || settingTitle.settingsType == .watermarkAlpha80 {
             cell.onOffButton.isSelected = Defaults.shared.waterarkOpacity == settingTitle.settingsType.rawValue
+        } else if settingTitle.settingsType == .videoResolution {
+            cell.onOffButton.isHidden = true
+            guard let videoResolutionCell: VideoResolutionCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.videoResolutionCell.identifier) as? VideoResolutionCell else {
+                return cell
+            }
+            if Defaults.shared.appMode == .free {
+                videoResolutionCell.highResolutionButton.addTarget(self, action: #selector(goToSubscriptionVC), for: .touchUpInside)
+            }
+            return videoResolutionCell
         }
         return cell
     }

@@ -1062,11 +1062,13 @@ extension StoryCameraViewController {
                 cameraModeArray.insert(CameraModes(name: R.string.localizable.video2Art().uppercased(), recordingType: .handsfree), at: index)
             }
         } else if isLiteApp {
-            cameraModeArray = cameraModeArray.filter({$0.recordingType == .promo})
             if Defaults.shared.appMode == .basic {
-                cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .normal})
+                cameraModeArray = self.cameraModeArray.filter({$0.recordingType == .normal})
+                cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .promo})
                 cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .capture})
                 cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .pic2Art})
+            } else {
+                cameraModeArray = cameraModeArray.filter({$0.recordingType == .promo})
             }
         } else if isSnapCamApp || isFastCamApp || isSpeedCamApp {
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .slideshow})
@@ -2332,6 +2334,7 @@ extension StoryCameraViewController {
             if response.status == ResponseType.success {
                 Defaults.shared.currentUser = response.result
                 CurrentUser.shared.setActiveUser(response.result)
+                self.setupLayoutCameraSliderView()
             } else {
                 self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
             }

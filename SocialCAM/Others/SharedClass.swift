@@ -483,7 +483,7 @@ public struct Reactions {
 }
 
 struct DeepLinkData {
-    static let deepLinkUrlString = "businesscentre://splash/"
+    static let deepLinkUrlString = "businesscenter://splash/"
     static var appDeeplinkName: String {
         if isTimeSpeedApp {
             return "TimeSpeed"
