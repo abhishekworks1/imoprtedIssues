@@ -62,11 +62,13 @@ class VideoResolutionCell: UITableViewCell {
     // MARK: - Action methods
     @IBAction func btnLowResolutionTapped(_ sender: UIButton) {
         Defaults.shared.videoResolution = .low
+        Defaults.shared.isCameraSettingChanged = true
         self.setSelection(videoResolution: Defaults.shared.videoResolution)
     }
     
     @IBAction func btnHighResolutionTapped(_ sender: UIButton) {
         Defaults.shared.videoResolution = .high
+        Defaults.shared.isCameraSettingChanged = true
         self.setSelection(videoResolution: Defaults.shared.videoResolution)
     }
     

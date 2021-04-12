@@ -2,12 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>NSBonjourServices</key>
-    <array>
-        <string>_Bagel._tcp</string>
-    </array>
-    <key>NSLocalNetworkUsageDescription</key>
-    <string>Network access required</string>
 	<key>AWS</key>
 	<dict>
 		<key>CredentialsProvider</key>
@@ -121,7 +115,7 @@
 	<false/>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-		<string>businesscentre</string>
+		<string>businesscenter</string>
 		<string>fbapi</string>
 		<string>fbapi20130214</string>
 		<string>fbapi20130410</string>
@@ -161,10 +155,16 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_Bagel._tcp</string>
+	</array>
 	<key>NSCameraUsageDescription</key>
 	<string>BoomiCam would like access your Camera.</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>BoomiCam is use face id for login </string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Network access required</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>BoomiCam Show your location on the map</string>
 	<key>NSMicrophoneUsageDescription</key>

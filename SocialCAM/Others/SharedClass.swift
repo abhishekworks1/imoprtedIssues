@@ -489,22 +489,32 @@ struct DeepLinkData {
             return "TimeSpeed"
         } else if isSoccerCamApp {
             return "SoccerCam"
-        } else if isSnapCamApp || isSnapCamLiteApp {
+        } else if isSnapCamApp {
             return "SnapCam"
+        } else if  isSnapCamLiteApp {
+            return "SnapCamLite"
         } else if isFutbolCamApp {
             return "FutbolCam"
         } else if isBoomiCamApp {
             return "BoomiCam"
         } else if isPic2ArtApp {
             return "Pic2Art"
-        } else if isViralCamApp || isViralCamLiteApp {
+        } else if isViralCamApp {
             return "ViralCam"
-        } else if isSpeedCamApp || isSpeedCamLiteApp {
+        } else if isViralCamLiteApp {
+            return "ViralCamLite"
+        } else if isSpeedCamApp {
             return "SpeedCam"
-        } else if isQuickCamApp || isQuickCamLiteApp {
+        } else if isSpeedCamLiteApp {
+            return "SpeedCamLite"
+        } else if isQuickCamApp {
             return "QuickCam"
-        } else if isFastCamApp || isFastCamLiteApp {
+        } else if isQuickCamLiteApp {
+            return "QuickCamLite"
+        } else if isFastCamApp {
             return "FastCam"
+        } else if isFastCamLiteApp {
+            return "FastCamLite"
         } else {
             return "SocialCam"
         }

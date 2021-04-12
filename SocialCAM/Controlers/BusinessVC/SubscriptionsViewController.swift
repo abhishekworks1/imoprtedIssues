@@ -29,20 +29,16 @@ class SubscriptionsViewController: UIViewController {
     }
     
     @IBAction func btnUpgradeTapped(_ sender: Any) {
-        if Defaults.shared.appMode != .free, Defaults.shared.releaseType == .beta {
-            freeModeAlertBlurView.isHidden = false
-            freeModeAlertView.isHidden = false
-        } else {
-            if Defaults.shared.appMode != self.subscriptionType {
-                Defaults.shared.isSubscriptionApiCalled = true
-                self.enableMode(appMode: self.subscriptionType)
-            }
+        if Defaults.shared.appMode != self.subscriptionType {
+            Defaults.shared.isSubscriptionApiCalled = true
+            self.enableMode(appMode: self.subscriptionType)
         }
     }
     
     @IBAction func btnOkayTapped(_ sender: UIButton) {
         freeModeAlertBlurView.isHidden = true
         freeModeAlertView.isHidden = true
+        Defaults.shared.isSubscriptionApiCalled = false
     }
     
     private func setupUI() {
@@ -90,8 +86,13 @@ class SubscriptionsViewController: UIViewController {
         var successMessage: String? = ""
         switch appMode {
         case .free:
-            message = R.string.localizable.areYouSureSubscriptionMessage(R.string.localizable.downgrade(), appMode.description)
-            successMessage = R.string.localizable.freeModeIsEnabled()
+            if Defaults.shared.releaseType == .beta {
+                freeModeAlertBlurView.isHidden = false
+                freeModeAlertView.isHidden = false
+            } else {
+                message = R.string.localizable.areYouSureSubscriptionMessage(R.string.localizable.downgrade(), appMode.description)
+                successMessage = R.string.localizable.freeModeIsEnabled()
+            }
         case .basic:
             var upgradeString = R.string.localizable.upgrade()
             if Defaults.shared.appMode == .advanced || Defaults.shared.appMode == .professional {
@@ -146,7 +147,9 @@ class SubscriptionsViewController: UIViewController {
         }
         objAlert.addAction(cancelAction)
         objAlert.addAction(actionSave)
-        self.present(objAlert, animated: true, completion: nil)
+        if appMode != .free {
+            self.present(objAlert, animated: true, completion: nil)
+        }
     }
     
     func callSubscriptionApi(appMode: AppMode, code: String, successMessage: String?) {
