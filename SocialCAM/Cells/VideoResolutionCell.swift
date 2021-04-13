@@ -67,6 +67,10 @@ class VideoResolutionCell: UITableViewCell {
     }
     
     @IBAction func btnHighResolutionTapped(_ sender: UIButton) {
+        if isLiteApp {
+            self.makeToast(R.string.localizable.onlyAvailableForFullApps())
+            return
+        }
         Defaults.shared.videoResolution = .high
         Defaults.shared.isCameraSettingChanged = true
         self.setSelection(videoResolution: Defaults.shared.videoResolution)
