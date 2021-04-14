@@ -209,11 +209,11 @@ open class TrimmerView: UIView {
     }()
     
     public let timePointerView: UIView = {
-        let view = UIView()
+        let view = DraggableView()
         view.frame = .zero
         view.backgroundColor = ApplicationSettings.appWhiteColor
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.isUserInteractionEnabled = false
+        view.isUserInteractionEnabled = true
         return view
     }()
     
@@ -547,6 +547,37 @@ open class TrimmerView: UIView {
             target: self,
             action: #selector(handleScrubbingPan))
         trimView.addGestureRecognizer(thumbsPanGesture)
+        
+        let timePointerViewGesture = UIPanGestureRecognizer(target: self, action: #selector(handleTimePointerViewPan))
+        timePointerView.addGestureRecognizer(timePointerViewGesture)
+    }
+    
+    @objc func handleTimePointerViewPan(_ sender: UIPanGestureRecognizer) {
+        guard let view = sender.view else { return }
+        let translation = sender.translation(in: view)
+        sender.setTranslation(.zero, in: view)
+        let position = sender.location(in: view)
+        switch sender.state {
+        case .began:
+            currentLeadingConstraint = trimViewLeadingConstraint.constant
+            currentPointerLeadingConstraint = position.x + view.frame.minX - draggableViewWidth
+            guard let time = thumbnailsView.getTime(from: currentPointerLeadingConstraint) else { return }
+            delegate?.trimmerScrubbingDidBegin?(self, with: time)
+        case .changed:
+            currentPointerLeadingConstraint += translation.x
+            if currentLeadingConstraint < currentPointerLeadingConstraint {
+                guard let time = thumbnailsView.getTime(from: currentPointerLeadingConstraint) else { return }
+                delegate?.trimmerScrubbingDidChange?(self, with: time)
+            }
+        case .failed, .ended, .cancelled:
+            if currentLeadingConstraint > currentPointerLeadingConstraint {
+                currentPointerLeadingConstraint = currentLeadingConstraint
+            }
+            guard let time = thumbnailsView.getTime(from: currentPointerLeadingConstraint) else { return }
+            delegate?.trimmerScrubbingDidEnd?(self, with: time, with: sender)
+        default:
+            break
+        }
     }
     
     @objc func handleLeftRightTap(_ sender: UITapGestureRecognizer) {
