@@ -369,6 +369,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             UIApplication.shared.delegate!.window!!.rootViewController = rootViewController
             return true
+        } else if let deepLinkURL = URL(string: "\(DeepLinkData.appDeeplinkName.lowercased())://"),
+                  deepLinkURL == url {
+            if let window = self.window {
+                if let pageViewController = window.rootViewController as? PageViewController,
+                   let navigationController = pageViewController.pageControllers.first as? UINavigationController {
+                    if let subscriptionVC = R.storyboard.subscription.subscriptionContainerViewController() {
+                        if let settingVC = R.storyboard.storyCameraViewController.storySettingsVC() {
+                            navigationController.viewControllers.append(settingVC)
+                        }
+                        navigationController.pushViewController(subscriptionVC, animated: true)
+                    }
+                }
+            }
+            return true
         }
         return false
     }
