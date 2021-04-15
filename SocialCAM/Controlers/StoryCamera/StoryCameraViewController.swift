@@ -586,7 +586,6 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         if isQuickCamLiteApp || isQuickCamApp {
             addObserverForRecordingView()
         }
-        getUserProfile()
         refreshCircularProgressBar()
         if isLiteApp {
             if self.recordingType == .promo {
@@ -1579,7 +1578,6 @@ extension StoryCameraViewController {
     
     @objc func enterForeground(_ notifi: Notification) {
         if isViewAppear {
-            getUserProfile()
             startCapture()
             addTikTokShareViewIfNeeded()
             if let pasteboard = UIPasteboard(name: UIPasteboard.Name(rawValue: Constant.Application.pasteboardName), create: true),
