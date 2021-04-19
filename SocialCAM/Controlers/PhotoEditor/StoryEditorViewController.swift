@@ -200,6 +200,12 @@ class StoryEditorViewController: UIViewController {
     @IBOutlet weak var btnStoricamShare: UIButton!
     @IBOutlet weak var hideToolTipView: UIView!
     @IBOutlet weak var btnDoNotShowAgain: UIButton!
+    @IBOutlet weak var btnFastesteverWatermark: UIButton!
+    @IBOutlet weak var btnAppIdentifierWatermark: UIButton!
+    @IBOutlet weak var watermarkView: UIView!
+    @IBOutlet weak var watermarkOptionsView: UIView!
+    @IBOutlet weak var btnSelectFastesteverWatermark: UIButton!
+    @IBOutlet weak var btnSelectAppIdentifierWatermark: UIButton!
     
     private let fastestEverWatermarkBottomMargin = 112
     weak var cursorContainerViewController: KeyframePickerCursorVC!
@@ -269,6 +275,8 @@ class StoryEditorViewController: UIViewController {
     var croppedUrl: URL?
     var isHideTapped = false
     var isToolTipHide = false
+    var isFastesteverWatermarkShow = false
+    var isAppIdentifierWatermarkShow = false
     
     var isViewEditMode: Bool = false {
         didSet {
@@ -291,6 +299,7 @@ class StoryEditorViewController: UIViewController {
             }
             socialShareBottomView.isHidden = isViewEditMode
             showHideView.isHidden = isViewEditMode
+            watermarkView.isHidden = isViewEditMode
             isHideTapped = isViewEditMode
         }
     }
@@ -317,6 +326,12 @@ class StoryEditorViewController: UIViewController {
         } else {
             self.imgFastestEverWatermark.isHidden = false
         }
+        isFastesteverWatermarkShow = Defaults.shared.fastestEverWatermarkSetting == .show
+        btnSelectFastesteverWatermark.isSelected = isFastesteverWatermarkShow
+        btnFastesteverWatermark.isSelected = isFastesteverWatermarkShow
+        isAppIdentifierWatermarkShow = Defaults.shared.appIdentifierWatermarkSetting == .show
+        btnSelectAppIdentifierWatermark.isSelected = isAppIdentifierWatermarkShow
+        btnAppIdentifierWatermark.isSelected = isAppIdentifierWatermarkShow
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -518,6 +533,21 @@ class StoryEditorViewController: UIViewController {
     
     func hideToolTipView(isHide: Bool) {
         hideToolTipView.isHidden = isHide
+    }
+    
+    func showAlertForWatermarkShowHide() {
+        let alert = UIAlertController(title: Constant.Application.displayName, message: R.string.localizable.updateDefaultSettings(), preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: R.string.localizable.oK(), style: .default, handler: { (_) in
+            Defaults.shared.fastestEverWatermarkSetting = self.isFastesteverWatermarkShow ?  .show : .hide
+            Defaults.shared.appIdentifierWatermarkSetting = self.isAppIdentifierWatermarkShow ? .show : .hide
+        }))
+        alert.addAction(UIAlertAction(title: R.string.localizable.later(), style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func hideWatermarkView(isHide: Bool) {
+        cropPopupBlurView.isHidden = isHide
+        watermarkOptionsView.isHidden = isHide
     }
     
 }
@@ -1258,6 +1288,39 @@ extension StoryEditorViewController {
         hideToolTipView(isHide: true)
         isToolTipHide = false
         btnDoNotShowAgain.isSelected = isToolTipHide
+    }
+    
+    @IBAction func watermarkButtonClicked(sender: UIButton) {
+        if Defaults.shared.appMode == .free {
+            showAlertForUpgradeSubscription()
+        } else {
+            hideWatermarkView(isHide: false)
+        }
+    }
+    
+    @IBAction func watermarkViewCloseButtonClicked(sender: UIButton) {
+        hideWatermarkView(isHide: true)
+    }
+    
+    @IBAction func fastesteverWatermarkButtonClicked(sender: UIButton) {
+        isFastesteverWatermarkShow = !isFastesteverWatermarkShow
+        btnFastesteverWatermark.isSelected = isFastesteverWatermarkShow
+        btnSelectFastesteverWatermark.isSelected = isFastesteverWatermarkShow
+    }
+    
+    @IBAction func appIdentifierWatermarkButtonClicked(sender: UIButton) {
+        isAppIdentifierWatermarkShow = !isAppIdentifierWatermarkShow
+        btnAppIdentifierWatermark.isSelected = isAppIdentifierWatermarkShow
+        btnSelectAppIdentifierWatermark.isSelected = isAppIdentifierWatermarkShow
+    }
+    
+    @IBAction func watermarkViewOkayButtonClicked(sender: UIButton) {
+        Defaults.shared.fastestEverWatermarkSetting = self.isFastesteverWatermarkShow ? .show : .hide
+        Defaults.shared.appIdentifierWatermarkSetting = self.isAppIdentifierWatermarkShow ? .show : .hide
+        if Defaults.shared.cameraMode == .promo {
+            imgFastestEverWatermark.isHidden = !isFastesteverWatermarkShow
+        }
+        hideWatermarkView(isHide: true)
     }
     
 }

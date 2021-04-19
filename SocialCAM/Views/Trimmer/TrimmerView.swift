@@ -140,6 +140,7 @@ open class TrimmerView: UIView {
         view.frame = .zero
         view.backgroundColor = ApplicationSettings.appClearColor
         view.layer.borderWidth = 2.0
+        view.layer.cornerRadius = 8
         view.layer.borderColor = ApplicationSettings.appPrimaryColor.cgColor
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isUserInteractionEnabled = true
@@ -150,6 +151,7 @@ open class TrimmerView: UIView {
         let view = DraggableView()
         view.frame = .zero
         view.backgroundColor = ApplicationSettings.appPrimaryColor
+        view.layer.cornerRadius = 8
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isUserInteractionEnabled = true
         return view
@@ -159,6 +161,7 @@ open class TrimmerView: UIView {
         let view = DraggableView()
         view.frame = .zero
         view.backgroundColor = ApplicationSettings.appPrimaryColor
+        view.layer.cornerRadius = 8
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isUserInteractionEnabled = true
         return view
@@ -203,6 +206,7 @@ open class TrimmerView: UIView {
     public var cutView: UIView = {
         let cutView = UIImageView.init(image: R.image.icoTrimCutter())
         cutView.frame = .zero
+        cutView.clipsToBounds = true
         cutView.translatesAutoresizingMaskIntoConstraints = false
         cutView.isUserInteractionEnabled = true
         return cutView
@@ -220,6 +224,7 @@ open class TrimmerView: UIView {
     open var thumbnailsView: ThumbnailsView = {
         let thumbsView = ThumbnailsView()
         thumbsView.frame = .zero
+        thumbsView.layer.cornerRadius = 8
         thumbsView.translatesAutoresizingMaskIntoConstraints = false
         thumbsView.isUserInteractionEnabled = true
         return thumbsView
