@@ -62,6 +62,8 @@ public enum ProManagerApi {
     case setSubscription(type: String, code: String)
     case forgotPassword(username: String)
     case getUserProfile
+    case setUserSettings(appWatermark: Int, fastesteverWatermark: Int, faceDetection: Bool, guidelineThickness: Int, guidelineTypes: Int, guidelinesShow: Bool, iconPosition: Bool, supportedFrameRates: [String], videoResolution: Int, watermarkOpacity: Int, guidelineActiveColor: String, guidelineInActiveColor: String)
+    case getUserSettings
 
     var endpoint: Endpoint {
         var endpointClosure = MoyaProvider<ProManagerApi>.defaultEndpointMapping(for: self)
@@ -224,6 +226,8 @@ extension ProManagerApi: TargetType {
             return Paths.forgotPassword
         case .getUserProfile:
             return Paths.getUserProfile
+        case .setUserSettings, .getUserSettings:
+            return Paths.userSettings
         }
        
     }
@@ -233,7 +237,7 @@ extension ProManagerApi: TargetType {
         switch self {
         case .signUp, .logIn, .verifyChannel, .search, .getAccessToken:
             return .post
-        case .getSplashImages, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getHashTagSets, .getWeather, .getyoutubeSubscribedChannel, .getYoutubeCategory, .instgramProfile, .instgramProfileDetails, .getLongLivedToken, .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData, .getUserProfile:
+        case .getSplashImages, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getHashTagSets, .getWeather, .getyoutubeSubscribedChannel, .getYoutubeCategory, .instgramProfile, .instgramProfileDetails, .getLongLivedToken, .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData, .getUserProfile, .getUserSettings:
             return .get
         case .updateProfile, .editStory, .updatePost, .updateHashTagSet:
             return .put
@@ -558,6 +562,10 @@ extension ProManagerApi: TargetType {
             param = ["username": username]
         case .getUserProfile:
             break
+        case .setUserSettings(let appWatermark, let fastesteverWatermark, let faceDetection, let guidelineThickness, let guidelineTypes, let guidelinesShow, let iconPosition, let supportedFrameRates, let videoResolution, let watermarkOpacity, let guidelineActiveColor, let guidelineInActiveColor):
+            param["userSettings"] = ["faceDetection": faceDetection, "guidelinesShow": guidelinesShow, "iconPosition": iconPosition, "supportedFrameRates": supportedFrameRates, "videoResolution" : videoResolution, "guidelineTypes": guidelineTypes, "guidelineThickness": guidelineThickness, "watermarkOpacity": watermarkOpacity, "fastesteverWatermark": fastesteverWatermark, "appWatermark": appWatermark, "guidelineActiveColor": guidelineActiveColor, "guidelineInActiveColor": guidelineInActiveColor]
+        case .getUserSettings:
+            break
         }
         return param
     }
@@ -571,7 +579,7 @@ extension ProManagerApi: TargetType {
             return JSONEncoding.default
         case .getyoutubeSubscribedChannel:
             return TokenURLEncoding.default
-        case .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData, .getHashTagSets, .getUserProfile:
+        case .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData, .getHashTagSets, .getUserProfile, .getUserSettings:
             return URLEncoding.default
         default:
             return JSONEncoding.default

@@ -221,6 +221,118 @@ enum ReleaseType: String, AppMode_Enum {
     }
 }
 
+enum GuidelineActiveColors: Int {
+    case active1 = 1
+    case active2
+    case active3
+    case active4
+    case active5
+    case active6
+    case active7
+    case active8
+    
+    func getTypeFromHexString(type: String) -> GuidelineActiveColors {
+        switch type {
+        case "#FFFFFF":
+            return .active1
+        case "#000000":
+            return .active2
+        case "#5E0000":
+            return .active3
+        case "#04C106":
+            return .active4
+        case "#4A90E2":
+            return .active5
+        case "#F7B500":
+            return .active6
+        case "#6F4AF5":
+            return .active7
+        case "#FF1BE3":
+            return .active8
+        default:
+            return .active6
+        }
+    }
+    
+    var getColor: UIColor {
+        switch self {
+        case .active1:
+            return R.color.active1()!
+        case .active2:
+            return R.color.active2()!
+        case .active3:
+            return R.color.active3()!
+        case .active4:
+            return R.color.active4()!
+        case .active5:
+            return R.color.active5()!
+        case .active6:
+            return R.color.active6()!
+        case .active7:
+            return R.color.active7()!
+        case .active8:
+            return R.color.active8()!
+        }
+    }
+    
+}
+
+enum GuidelineInActiveColors: Int {
+    case inActive1 = 1
+    case inActive2
+    case inActive3
+    case inActive4
+    case inActive5
+    case inActive6
+    case inActive7
+    case inActive8
+    
+    func getTypeFromHexString(type: String) -> GuidelineInActiveColors {
+        switch type {
+        case "#FFFFFF":
+            return .inActive1
+        case "#000000":
+            return .inActive2
+        case "#5E0000":
+            return .inActive3
+        case "#04C106":
+            return .inActive4
+        case "#4A90E2":
+            return .inActive5
+        case "#F7B500":
+            return .inActive6
+        case "#6F4AF5":
+            return .inActive7
+        case "#FF1BE3":
+            return .inActive8
+        default:
+            return .inActive6
+        }
+    }
+    
+    var getColor: UIColor {
+        switch self {
+        case .inActive1:
+            return R.color.inActive1()!
+        case .inActive2:
+            return R.color.inActive2()!
+        case .inActive3:
+            return R.color.inActive3()!
+        case .inActive4:
+            return R.color.inActive4()!
+        case .inActive5:
+            return R.color.inActive5()!
+        case .inActive6:
+            return R.color.inActive6()!
+        case .inActive7:
+            return R.color.inActive7()!
+        case .inActive8:
+            return R.color.inActive8()!
+        }
+    }
+    
+}
+
 enum AppMode: Int, AppMode_Enum {
     case free = 0
     case basic
@@ -669,6 +781,7 @@ public struct Paths {
     static let setSubsctiption = "users/buySubscription"
     static let forgotPassword = "user/forgetPassword"
     static let getUserProfile = "user/profile"
+    static let userSettings = "user/settings"
 }
 
 struct WebsiteData {

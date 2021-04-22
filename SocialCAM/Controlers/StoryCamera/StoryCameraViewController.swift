@@ -583,6 +583,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         view.bringSubviewToFront(enableAccessView)
         view.bringSubviewToFront(selectTimersView)
         view.bringSubviewToFront(switchingAppView)
+        getUserSettings()
         if isQuickCamLiteApp || isQuickCamApp {
             addObserverForRecordingView()
         }
@@ -2366,6 +2367,65 @@ extension StoryCameraViewController {
             self.view.makeToast(R.string.localizable.youCanFillUpThisFormAnytimeFromOurSettingsMenu())
         }))
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func getUserSettings() {
+        ProManagerApi.getUserSettings.request(Result<UserSettingsResult>.self).subscribe(onNext: { response in
+            if response.status == ResponseType.success {
+                if let faceDetection = response.result?.userSettings?.faceDetection {
+                    Defaults.shared.enableFaceDetection = faceDetection
+                }
+                if let guidelinesShow = response.result?.userSettings?.guidelinesShow {
+                    Defaults.shared.enableGuildlines = guidelinesShow
+                }
+                if let iconPosition = response.result?.userSettings?.iconPosition {
+                    Defaults.shared.swapeContols = iconPosition
+                }
+                if let supportedFrameRates = response.result?.userSettings?.supportedFrameRates {
+                    Defaults.shared.supportedFrameRates = supportedFrameRates
+                }
+                if let videoResolution = response.result?.userSettings?.videoResolution {
+                    Defaults.shared.videoResolution = VideoResolution(rawValue: videoResolution) ?? .low
+                }
+                if let guidelineTypes = response.result?.userSettings?.guidelineTypes {
+                    Defaults.shared.cameraGuidelineTypes = GuidelineTypes(rawValue: guidelineTypes) ?? .dashedLine
+                }
+                if let guidelineThickness = response.result?.userSettings?.guidelineThickness {
+                    Defaults.shared.cameraGuidelineThickness = GuidelineThickness(rawValue: guidelineThickness) ?? .medium
+                }
+                if let watermarkOpacity = response.result?.userSettings?.watermarkOpacity {
+                    Defaults.shared.waterarkOpacity = watermarkOpacity
+                }
+                if let fastesteverWatermark = response.result?.userSettings?.fastesteverWatermark {
+                    Defaults.shared.fastestEverWatermarkSetting = FastestEverWatermarkSetting(rawValue: fastesteverWatermark) ?? .hide
+                }
+                if let appWatermark = response.result?.userSettings?.appWatermark {
+                    Defaults.shared.appIdentifierWatermarkSetting = AppIdentifierWatermarkSetting(rawValue: appWatermark) ?? .hide
+                }
+                if let guidelineActiveColor = response.result?.userSettings?.guidelineActiveColor {
+                    var colorCode = GuidelineActiveColors(rawValue: 5)
+                    colorCode = colorCode?.getTypeFromHexString(type: guidelineActiveColor)
+                    Defaults.shared.cameraGuidelineActiveColor = colorCode?.getColor ?? R.color.active5()!
+                }
+                if let guidelineInActiveColor = response.result?.userSettings?.guidelineInActiveColor {
+                    var colorCode = GuidelineInActiveColors(rawValue: 6)
+                    colorCode = colorCode?.getTypeFromHexString(type: guidelineInActiveColor)
+                    Defaults.shared.cameraGuidelineInActiveColor = colorCode?.getColor ?? R.color.inActive6()!
+                }
+                if let fastesteverWatermark = response.result?.userSettings?.fastesteverWatermark {
+                    Defaults.shared.fastestEverWatermarkSetting = FastestEverWatermarkSetting(rawValue: fastesteverWatermark) ?? .hide
+                }
+                if let appWatermark = response.result?.userSettings?.appWatermark {
+                    Defaults.shared.appIdentifierWatermarkSetting = AppIdentifierWatermarkSetting(rawValue: appWatermark) ?? .hide
+                }
+            } else {
+                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+            }
+        }, onError: { error in
+            print(error.localizedDescription)
+        }, onCompleted: {
+            
+        }).disposed(by: (rx.disposeBag))
     }
     
 }
