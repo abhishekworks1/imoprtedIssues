@@ -187,6 +187,64 @@ public var websiteUrl: String {
     return baseUrlString
 }
 
+public var keycloakClientId: String {
+    let baseUrl = "auth/realms/master/protocol/openid-connect/auth?client_id="
+    let endUrl = "&response_mode=fragment&response_type=code&login=true&redirect_uri="
+    var clientId = ""
+    switch Defaults.shared.releaseType {
+    case .debug, .alpha:
+        if isFastCamApp || isFastCamLiteApp {
+            clientId = "fastcam-alpha"
+        } else if isSnapCamApp || isSnapCamLiteApp {
+            clientId = "snapcam-alpha"
+        } else if isQuickCamApp || isQuickCamLiteApp {
+            clientId = "quickcam-alpha"
+        } else if isSpeedCamApp || isSpeedCamLiteApp {
+            clientId = "speedcam-alpha"
+        } else {
+            clientId = "snapcam-alpha"
+        }
+    case .beta:
+        if isFastCamApp || isFastCamLiteApp {
+            clientId = "fastcam-beta"
+        } else if isSnapCamApp || isSnapCamLiteApp {
+            clientId = "snapcam-beta"
+        } else if isQuickCamApp || isQuickCamLiteApp {
+            clientId = "quickcam-beta"
+        } else if isSpeedCamApp || isSpeedCamLiteApp {
+            clientId = "speedcam-beta"
+        } else {
+            clientId = "snapcam-beta"
+        }
+    case .store:
+        if isFastCamApp || isFastCamLiteApp {
+            clientId = "fastcam-prod"
+        } else if isSnapCamApp || isSnapCamLiteApp {
+            clientId = "snapcam-prod"
+        } else if isQuickCamApp || isQuickCamLiteApp {
+            clientId = "quickcam-prod"
+        } else if isSpeedCamApp || isSpeedCamLiteApp {
+            clientId = "speedcam-prod"
+        } else {
+            clientId = "snapcam-prod"
+        }
+    }
+    return baseUrl + clientId + endUrl
+}
+
+public var keycloakUrl: String {
+    var baseUrlString = ""
+    switch Defaults.shared.releaseType {
+    case .debug, .alpha:
+        baseUrlString = "https://accounts.alpha.promanager.online/"
+    case .beta:
+        baseUrlString = "https://accounts.beta.promanager.online/"
+    case .store:
+        baseUrlString = "https://accounts.promanager.online/"
+    }
+    return baseUrlString
+}
+
 enum ReleaseType: String, AppMode_Enum {
     case debug
     case alpha
@@ -623,6 +681,45 @@ struct DeepLinkData {
     }
 }
 
+struct KeycloakRedirectLink {
+    static let endUrl = "://app"
+    static var keycloakRedirectLinkName: String {
+        if isTimeSpeedApp {
+            return "TimeSpeed"
+        } else if isSoccerCamApp {
+            return "SoccerCam"
+        } else if isSnapCamApp {
+            return "SnapCam"
+        } else if  isSnapCamLiteApp {
+            return "SnapCamLite"
+        } else if isFutbolCamApp {
+            return "FutbolCam"
+        } else if isBoomiCamApp {
+            return "BoomiCam"
+        } else if isPic2ArtApp {
+            return "Pic2Art"
+        } else if isViralCamApp {
+            return "ViralCam"
+        } else if isViralCamLiteApp {
+            return "ViralCamLite"
+        }   else if isSpeedCamApp {
+            return "SpeedCam"
+        } else if isSpeedCamLiteApp {
+            return "SpeedCamLite"
+        } else if isQuickCamApp {
+            return "QuickCam"
+        } else if isQuickCamLiteApp {
+            return "QuickCamLite"
+        } else if isFastCamApp {
+            return "FastCam"
+        } else if isFastCamLiteApp {
+            return "FastCamLite"
+        } else {
+            return "SocialCam"
+        }
+    }
+}
+
 struct TrimError: Error {
     let description: String
     let underlyingError: Error?
@@ -782,6 +879,8 @@ public struct Paths {
     static let forgotPassword = "user/forgetPassword"
     static let getUserProfile = "user/profile"
     static let userSettings = "user/settings"
+    static let loginWithKeycloak = "user/login"
+    static let logoutWithKeycloak = "user/logout"
 }
 
 struct WebsiteData {

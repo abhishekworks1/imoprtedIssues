@@ -64,12 +64,14 @@ public enum ProManagerApi {
     case getUserProfile
     case setUserSettings(appWatermark: Int, fastesteverWatermark: Int, faceDetection: Bool, guidelineThickness: Int, guidelineTypes: Int, guidelinesShow: Bool, iconPosition: Bool, supportedFrameRates: [String], videoResolution: Int, watermarkOpacity: Int, guidelineActiveColor: String, guidelineInActiveColor: String)
     case getUserSettings
+    case loginWithKeycloak(code: String, redirectUrl: String)
+    case logoutKeycloak
 
     var endpoint: Endpoint {
         var endpointClosure = MoyaProvider<ProManagerApi>.defaultEndpointMapping(for: self)
         
         switch self {
-        case .confirmEmail, .signUp, .verifyChannel, .getSplashImages, .logIn, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getYoutubeCategory, .getAccessToken, .socialLogin, .youTubeChannels(_), .forgotPassword:
+        case .confirmEmail, .signUp, .verifyChannel, .getSplashImages, .logIn, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getYoutubeCategory, .getAccessToken, .socialLogin, .youTubeChannels(_), .forgotPassword, .loginWithKeycloak:
             endpointClosure = endpointClosure.adding(newHTTPHeaderFields: APIHeaders().headerWithoutAccessToken)
         case .getWeather:
             break
@@ -92,7 +94,7 @@ public enum ProManagerApi {
 extension ProManagerApi: TargetType {
     public var headers: [String: String]? {
         switch self {
-        case .confirmEmail, .signUp, .verifyChannel, .getSplashImages, .logIn, .doLogin, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getYoutubeCategory, .socialLogin, .youTubeChannels, .forgotPassword:
+        case .confirmEmail, .signUp, .verifyChannel, .getSplashImages, .logIn, .doLogin, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getYoutubeCategory, .socialLogin, .youTubeChannels, .forgotPassword, .loginWithKeycloak:
             return APIHeaders().headerWithoutAccessToken
         case .getWeather, .getAccessToken:
             break
@@ -228,6 +230,10 @@ extension ProManagerApi: TargetType {
             return Paths.getUserProfile
         case .setUserSettings, .getUserSettings:
             return Paths.userSettings
+        case .loginWithKeycloak:
+            return Paths.loginWithKeycloak
+        case .logoutKeycloak:
+            return Paths.logoutWithKeycloak
         }
        
     }
@@ -237,7 +243,7 @@ extension ProManagerApi: TargetType {
         switch self {
         case .signUp, .logIn, .verifyChannel, .search, .getAccessToken:
             return .post
-        case .getSplashImages, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getHashTagSets, .getWeather, .getyoutubeSubscribedChannel, .getYoutubeCategory, .instgramProfile, .instgramProfileDetails, .getLongLivedToken, .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData, .getUserProfile, .getUserSettings:
+        case .getSplashImages, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getHashTagSets, .getWeather, .getyoutubeSubscribedChannel, .getYoutubeCategory, .instgramProfile, .instgramProfileDetails, .getLongLivedToken, .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData, .getUserProfile, .getUserSettings, .logoutKeycloak:
             return .get
         case .updateProfile, .editStory, .updatePost, .updateHashTagSet:
             return .put
@@ -566,6 +572,11 @@ extension ProManagerApi: TargetType {
             param["userSettings"] = ["faceDetection": faceDetection, "guidelinesShow": guidelinesShow, "iconPosition": iconPosition, "supportedFrameRates": supportedFrameRates, "videoResolution" : videoResolution, "guidelineTypes": guidelineTypes, "guidelineThickness": guidelineThickness, "watermarkOpacity": watermarkOpacity, "fastesteverWatermark": fastesteverWatermark, "appWatermark": appWatermark, "guidelineActiveColor": guidelineActiveColor, "guidelineInActiveColor": guidelineInActiveColor]
         case .getUserSettings:
             break
+        case .loginWithKeycloak(let code, let redirectUrl):
+            param = ["code": code,
+                     "redirect_uri": redirectUrl]
+        case .logoutKeycloak:
+            break
         }
         return param
     }
@@ -579,7 +590,7 @@ extension ProManagerApi: TargetType {
             return JSONEncoding.default
         case .getyoutubeSubscribedChannel:
             return TokenURLEncoding.default
-        case .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData, .getHashTagSets, .getUserProfile, .getUserSettings:
+        case .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData, .getHashTagSets, .getUserProfile, .getUserSettings, .logoutKeycloak:
             return URLEncoding.default
         default:
             return JSONEncoding.default

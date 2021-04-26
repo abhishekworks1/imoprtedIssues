@@ -292,7 +292,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 navigationController?.pushViewController(storySettingsVC, animated: true)
             }
         } else if settingTitle.settingsType == .logout {
-            viralCamLogout()
+            logoutWithKeycloak()
         } else if settingTitle.settingsType == .socialLogout {
             logoutUser()
         } else if settingTitle.settingsType == .socialLogins {
@@ -393,6 +393,19 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         objAlert.addAction(actionlogOut)
         objAlert.addAction(cancelAction)
         self.present(objAlert, animated: true, completion: nil)
+    }
+    
+    func logoutWithKeycloak() {
+        ProManagerApi.logoutKeycloak.request(Result<EmptyModel>.self).subscribe(onNext: { (response) in
+            if response.status == ResponseType.success {
+                self.viralCamLogout()
+            } else {
+                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+            }
+        }, onError: { error in
+            self.showAlert(alertMessage: error.localizedDescription)
+        }, onCompleted: {
+        }).disposed(by: self.rx.disposeBag)
     }
     
     func connectSocial(socialPlatform: String, socialId: String, socialName: String) {

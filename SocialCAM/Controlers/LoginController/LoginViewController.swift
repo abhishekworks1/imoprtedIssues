@@ -147,6 +147,13 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         self.dismiss(animated: true)
     }
     
+    @IBAction func btnKeyCloakLoginClicked(_ sender: UIButton) {
+        guard let messagesAppURL = URL(string: "\(keycloakUrl)\(keycloakClientId)\(KeycloakRedirectLink.keycloakRedirectLinkName.lowercased())\(KeycloakRedirectLink.endUrl)") else  {
+            return
+        }
+        UIApplication.shared.open(messagesAppURL)
+    }
+    
     @IBAction func btnLoginClicked(_ sender: Any?) {
         guard let emailText = txtEmail.text else {
             return
