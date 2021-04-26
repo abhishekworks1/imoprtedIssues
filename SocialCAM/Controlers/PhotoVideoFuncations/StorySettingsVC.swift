@@ -107,10 +107,6 @@ class StorySettingsVC: UIViewController {
         setupUI()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
     deinit {
         print("Deinit \(self.description)")
     }

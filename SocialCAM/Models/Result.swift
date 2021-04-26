@@ -72,3 +72,53 @@ class ChannelSuggestionResult: Mappable {
         existsChannel <- map["existsChannel"]
     }
 }
+
+class UserSettingsResult: Mappable {
+    
+    var userSettings: UserSettings?
+    
+    required init?(map: Map) {
+        
+    }
+    
+    func mapping(map: Map) {
+        userSettings <- map["userSettings"]
+    }
+    
+}
+
+class UserSettings: Mappable {
+    
+    var appWatermark: Int?
+    var faceDetection: Bool?
+    var fastesteverWatermark: Int?
+    var guidelineActiveColor: String?
+    var guidelineInActiveColor: String?
+    var guidelineThickness: Int?
+    var guidelineTypes: Int?
+    var guidelinesShow: Bool?
+    var iconPosition: Bool?
+    var supportedFrameRates: [String]?
+    var videoResolution: Int?
+    var watermarkOpacity: Int?
+    
+    required init?(map: Map) {
+        
+    }
+    
+    func mapping(map: Map) {
+        appWatermark <- map["appWatermark"]
+        faceDetection <- map["faceDetection"]
+        fastesteverWatermark <- map["fastesteverWatermark"]
+        guidelineActiveColor <- map["guidelineActiveColor"]
+        guidelineInActiveColor <- map["guidelineInActiveColor"]
+        guidelineThickness <- map["guidelineThickness"]
+        guidelineTypes <- map["guidelineTypes"]
+        guidelinesShow <- map["guidelinesShow"]
+        iconPosition <- map["iconPosition"]
+        supportedFrameRates <- map["supportedFrameRates"]
+        videoResolution <- map["videoResolution"]
+        watermarkOpacity <- map["watermarkOpacity"]
+    }
+    
+}
