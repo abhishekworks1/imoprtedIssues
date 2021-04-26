@@ -73,6 +73,18 @@ class ChannelSuggestionResult: Mappable {
     }
 }
 
+class EmptyModel: Mappable {
+    
+    required init?(map: Map) {
+        
+    }
+    
+    func mapping(map: Map) {
+        
+    }
+    
+}
+
 class UserSettingsResult: Mappable {
     
     var userSettings: UserSettings?

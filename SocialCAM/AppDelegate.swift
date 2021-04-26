@@ -369,7 +369,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             UIApplication.shared.delegate!.window!!.rootViewController = rootViewController
             return true
-        } else if let deepLinkURL = URL(string: "\(DeepLinkData.appDeeplinkName.lowercased())://"),
+        } else if let deepLinkURL = URL(string: "\(DeepLinkData.appDeeplinkName.lowercased())://subscription"),
                   deepLinkURL == url {
             if let window = self.window {
                 if let pageViewController = window.rootViewController as? PageViewController,
@@ -383,6 +383,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
             return true
+        } else {
+            // Process the URL.
+            guard let components = NSURLComponents(url: url, resolvingAgainstBaseURL: true),
+                  let fragments = components.fragment else {
+                return false
+            }
+            components.query = fragments
+            if let url = components.scheme {
+                let redirectUrl = "\(url)\(KeycloakRedirectLink.endUrl)"
+                var code: String?
+                for item in components.queryItems! {
+                    if item.name == R.string.localizable.code() {
+                        code = item.value
+                    }
+                }
+                loginWithKeycloak(code: code ?? "", redirectUrl: redirectUrl)
+            }
         }
         return false
     }
@@ -407,6 +424,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Defaults.shared.postViralCamModel = nil
         IAPManager.shared.stopObserving()
     }
+    
+    func loginWithKeycloak(code: String, redirectUrl: String) {
+        ProManagerApi.loginWithKeycloak(code: code, redirectUrl: redirectUrl).request(Result<User>.self).subscribe(onNext: { (response) in
+            if response.status == ResponseType.success {
+                self.goHomeScreen(response)
+            }
+        }, onError: { error in
+        }, onCompleted: {
+        }).disposed(by: rx.disposeBag)
+    }
+    
+    func goHomeScreen(_ response: Result<User>) {
+        Defaults.shared.sessionToken = response.sessionToken
+        Defaults.shared.currentUser = response.result
+        CurrentUser.shared.setActiveUser(response.result)
+        Crashlytics.crashlytics().setUserID(CurrentUser.shared.activeUser?.username ?? "")
+        CurrentUser.shared.createNewReferrerChannelURL { (_, _) -> Void in }
+        let parentId = Defaults.shared.currentUser?.parentId ?? Defaults.shared.currentUser?.id
+        Defaults.shared.parentID = parentId
+        #if !IS_SHAREPOST && !IS_MEDIASHARE && !IS_VIRALVIDS  && !IS_SOCIALVIDS && !IS_PIC2ARTSHARE
+        self.goToHomeScreen()
+        #endif
+    }
+    
+    func goToHomeScreen() {
+        #if PIC2ARTAPP || TIMESPEEDAPP || BOOMICAMAPP
+        Utils.appDelegate?.window?.rootViewController = R.storyboard.pageViewController.pageViewController()
+        #else
+        let addSocialConnectionViewController = R.storyboard.socialConnection.addSocialConnectionViewController()
+        addSocialConnectionViewController?.fromLogin = true
+        Utils.appDelegate?.window?.rootViewController = addSocialConnectionViewController
+        RunLoop.current.run(until: Date(timeIntervalSinceNow: 1.0))
+        #endif
+    }
+    
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {

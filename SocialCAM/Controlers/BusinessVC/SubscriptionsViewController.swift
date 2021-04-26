@@ -147,7 +147,7 @@ class SubscriptionsViewController: UIViewController {
         }
         objAlert.addAction(cancelAction)
         objAlert.addAction(actionSave)
-        if appMode != .free {
+        if appMode != .free || Defaults.shared.releaseType != .beta {
             self.present(objAlert, animated: true, completion: nil)
         }
     }
