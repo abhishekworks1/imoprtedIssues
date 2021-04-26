@@ -452,9 +452,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #if PIC2ARTAPP || TIMESPEEDAPP || BOOMICAMAPP
         Utils.appDelegate?.window?.rootViewController = R.storyboard.pageViewController.pageViewController()
         #else
-        let addSocialConnectionViewController = R.storyboard.socialConnection.addSocialConnectionViewController()
-        addSocialConnectionViewController?.fromLogin = true
-        Utils.appDelegate?.window?.rootViewController = addSocialConnectionViewController
+        if !(Defaults.shared.isUserFirstLoggedIn) {
+            let tooltipViewController = R.storyboard.loginViewController.tooltipViewController()
+            Utils.appDelegate?.window?.rootViewController = tooltipViewController
+        } else {
+            let addSocialConnectionViewController = R.storyboard.socialConnection.addSocialConnectionViewController()
+            addSocialConnectionViewController?.fromLogin = true
+            Utils.appDelegate?.window?.rootViewController = addSocialConnectionViewController
+        }
         RunLoop.current.run(until: Date(timeIntervalSinceNow: 1.0))
         #endif
     }
