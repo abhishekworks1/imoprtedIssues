@@ -449,25 +449,23 @@ class StoryAssetExportSession {
     }
     
     func addFastestEverWaterMarkImage() {
-        if Defaults.shared.cameraMode == .promo {
-            guard let image = R.image.fastestever() else { return }
-            guard let backgroundImage = self.overlayWatermarkImage else { return }
-            let backgroundImageSize = backgroundImage.size
-            UIGraphicsBeginImageContext(backgroundImageSize)
-            
-            let backgroundImageRect = CGRect(origin: .zero, size: backgroundImageSize)
-            backgroundImage.draw(in: backgroundImageRect)
-            
-            let watermarkImageSize = CGSize(width: image.size.width * 1.5, height: image.size.height * 1.5)
-            let watermarkOrigin = CGPoint(x: 8, y: backgroundImageSize.height - watermarkImageSize.height - 70)
-            let watermarkImageRect = CGRect(origin: watermarkOrigin, size: watermarkImageSize)
-            image.draw(in: watermarkImageRect, blendMode: .normal, alpha: 1.0)
-            
-            if let newImage = UIGraphicsGetImageFromCurrentImageContext() {
-                self.overlayWatermarkImage = newImage
-            }
-            UIGraphicsEndImageContext()
+        guard let image = R.image.fastestever() else { return }
+        guard let backgroundImage = self.overlayWatermarkImage else { return }
+        let backgroundImageSize = backgroundImage.size
+        UIGraphicsBeginImageContext(backgroundImageSize)
+        
+        let backgroundImageRect = CGRect(origin: .zero, size: backgroundImageSize)
+        backgroundImage.draw(in: backgroundImageRect)
+        
+        let watermarkImageSize = CGSize(width: image.size.width * 1.5, height: image.size.height * 1.5)
+        let watermarkOrigin = CGPoint(x: 8, y: backgroundImageSize.height - watermarkImageSize.height - 70)
+        let watermarkImageRect = CGRect(origin: watermarkOrigin, size: watermarkImageSize)
+        image.draw(in: watermarkImageRect, blendMode: .normal, alpha: 1.0)
+        
+        if let newImage = UIGraphicsGetImageFromCurrentImageContext() {
+            self.overlayWatermarkImage = newImage
         }
+        UIGraphicsEndImageContext()
     }
     
 }

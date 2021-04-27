@@ -48,9 +48,10 @@ class WatermarkSettingsViewController: UIViewController {
     }
     
     @objc func goToSubscriptionVC() {
-        if Defaults.shared.videoResolution == .high && Defaults.shared.appMode == .free {
+        if Defaults.shared.appIdentifierWatermarkSetting == .hide && Defaults.shared.appMode == .free {
             if let subscriptionVC = R.storyboard.subscription.subscriptionContainerViewController() {
                 navigationController?.pushViewController(subscriptionVC, animated: true)
+                Defaults.shared.appIdentifierWatermarkSetting = .show
             }
         }
     }

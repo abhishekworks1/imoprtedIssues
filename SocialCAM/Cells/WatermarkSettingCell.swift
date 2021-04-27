@@ -28,6 +28,8 @@ class WatermarkSettingCell: UITableViewCell {
         didSet {
             if watermarkType == .fastestEverWatermark {
                 lblWatermarkName.text = R.string.localizable.fastesteverImage()
+                self.hideWatermarkView.backgroundColor = .white
+                self.lblUpgrade.isHidden = true
                 self.setSelection(fastestEverWatermarkSetting: Defaults.shared.fastestEverWatermarkSetting)
             } else if watermarkType == .applicationIdentifier {
                 lblWatermarkName.text = R.string.localizable.applicationIdentifier()
@@ -62,18 +64,12 @@ class WatermarkSettingCell: UITableViewCell {
     
     func setSelection(fastestEverWatermarkSetting: FastestEverWatermarkSetting) {
         self.imgWatermarkShow.image = R.image.radioDeselected()
-        if Defaults.shared.appMode != .free {
-            self.imgWatermarkHide.image = R.image.radioDeselected()
-        }
+        self.imgWatermarkHide.image = R.image.radioDeselected()
         switch fastestEverWatermarkSetting {
         case .show:
             self.imgWatermarkShow.image = R.image.radioSelected()
         case .hide:
-            if Defaults.shared.appMode != .free {
-                self.imgWatermarkHide.image = R.image.radioSelected()
-            } else {
-                self.imgWatermarkShow.image = R.image.radioSelected()
-            }
+            self.imgWatermarkHide.image = R.image.radioSelected()
         }
     }
     
