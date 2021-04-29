@@ -1709,7 +1709,7 @@ extension StoryCameraViewController {
             slowFastVerticalBar.isHidden = true
         }
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
-            self.circularProgress.trackThickness = 0.75*1.5
+            self.circularProgress.trackThickness = 0.75*0.7
             self.circularProgress.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
         }, completion: { completed in
             DispatchQueue.main.async {
