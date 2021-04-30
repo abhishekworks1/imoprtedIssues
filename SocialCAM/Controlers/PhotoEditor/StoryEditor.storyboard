@@ -2171,11 +2171,11 @@
                                                             <constraint firstAttribute="width" constant="18" id="aGe-tt-iSj"/>
                                                             <constraint firstAttribute="height" constant="18" id="dcc-QO-nx6"/>
                                                         </constraints>
-                                                        <state key="normal" image="iconDeselected"/>
-                                                        <state key="selected" image="radioSelected"/>
+                                                        <state key="normal" image="checkBoxInActive"/>
+                                                        <state key="selected" image="checkBoxActive"/>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9fi-z6-rt2">
-                                                        <rect key="frame" x="47" y="3" width="117" height="30"/>
+                                                        <rect key="frame" x="47" y="3" width="170" height="30"/>
                                                         <state key="normal" image="fastesteverWatermark">
                                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
@@ -2210,8 +2210,8 @@
                                                             <constraint firstAttribute="width" constant="18" id="Eqh-An-bmz"/>
                                                             <constraint firstAttribute="height" constant="18" id="Rlh-tc-pco"/>
                                                         </constraints>
-                                                        <state key="normal" image="iconDeselected"/>
-                                                        <state key="selected" image="radioSelected"/>
+                                                        <state key="normal" image="checkBoxInActive"/>
+                                                        <state key="selected" image="checkBoxActive"/>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cR8-qh-nis">
                                                         <rect key="frame" x="47" y="3" width="101" height="30"/>
@@ -3018,12 +3018,14 @@
     </scenes>
     <resources>
         <image name="addNewMusic" width="34" height="34"/>
+        <image name="checkBoxActive" width="20" height="20"/>
+        <image name="checkBoxInActive" width="20" height="20"/>
         <image name="closeWatermarkView" width="26" height="26"/>
         <image name="crop" width="34" height="34"/>
         <image name="croppedDisplay" width="82" height="160"/>
         <image name="download" width="24" height="24"/>
         <image name="editOptionStory" width="34" height="34"/>
-        <image name="fastestever" width="163" height="23"/>
+        <image name="fastestever" width="266" height="23"/>
         <image name="fastesteverWatermark" width="170" height="30"/>
         <image name="fastesteverWatermarkSelected" width="198" height="36"/>
         <image name="fullScreenDisplay" width="82" height="160"/>
@@ -3040,7 +3042,6 @@
         <image name="icoYoutube" width="36" height="36"/>
         <image name="ico_Arrange" width="34" height="34"/>
         <image name="ico_Preview" width="34" height="34"/>
-        <image name="iconDeselected" width="18" height="18"/>
         <image name="iconTrim" width="34" height="34"/>
         <image name="iconWatermark" width="30" height="30"/>
         <image name="madeWithWatermark" width="101" height="30"/>
@@ -3052,7 +3053,6 @@
         <image name="pause.fill" catalog="system" width="116" height="128"/>
         <image name="play.fill" catalog="system" width="116" height="128"/>
         <image name="plusSegment" width="18" height="18"/>
-        <image name="radioSelected" width="20" height="20"/>
         <image name="reverseBoom" width="30" height="20"/>
         <image name="reverseBoomSelected" width="30" height="20"/>
         <image name="selectedCheckmark" width="16" height="16"/>

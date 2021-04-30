@@ -12,6 +12,7 @@ import SkyFloatingLabelTextField
 import FontAwesome_swift
 import Spring
 import FirebaseCrashlytics
+import SafariServices
 
 class UpAnimation: SpringView {
         
@@ -151,7 +152,8 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         guard let messagesAppURL = URL(string: "\(keycloakUrl)\(keycloakClientId)\(KeycloakRedirectLink.keycloakRedirectLinkName.lowercased())\(KeycloakRedirectLink.endUrl)") else  {
             return
         }
-        UIApplication.shared.open(messagesAppURL)
+        let safariVC = SFSafariViewController(url: messagesAppURL)
+        present(safariVC, animated: true, completion: nil)
     }
     
     @IBAction func btnLoginClicked(_ sender: Any?) {

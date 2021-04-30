@@ -236,7 +236,7 @@ public var keycloakUrl: String {
     var baseUrlString = ""
     switch Defaults.shared.releaseType {
     case .debug, .alpha:
-        baseUrlString = "https://accounts.alpha.promanager.online/"
+        baseUrlString = "https://account.alpha.promanager.online/"
     case .beta:
         baseUrlString = "https://accounts.beta.promanager.online/"
     case .store:
