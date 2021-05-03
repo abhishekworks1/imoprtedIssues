@@ -457,7 +457,7 @@ class StoryAssetExportSession {
         let backgroundImageRect = CGRect(origin: .zero, size: backgroundImageSize)
         backgroundImage.draw(in: backgroundImageRect)
         
-        let watermarkImageSize = CGSize(width: image.size.width * 1.5, height: image.size.height * 1.5)
+        let watermarkImageSize = CGSize(width: image.size.width * 1, height: image.size.height * 1)
         let watermarkOrigin = CGPoint(x: 8, y: backgroundImageSize.height - watermarkImageSize.height - 70)
         let watermarkImageRect = CGRect(origin: watermarkOrigin, size: watermarkImageSize)
         image.draw(in: watermarkImageRect, blendMode: .normal, alpha: 1.0)

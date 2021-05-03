@@ -1621,6 +1621,8 @@ extension StoryCameraViewController {
                     self.faceFiltersView.alpha = 0
                     self.cameraSliderView.alpha = 0
                     self.switchAppButton.alpha = 0
+                    self.discardSegmentsStackView.alpha = 0
+                    self.confirmRecordedSegmentStackView.alpha = 0
                 }
             })
         }
@@ -1643,6 +1645,8 @@ extension StoryCameraViewController {
                     self.faceFiltersView.alpha = 1
                     self.collectionViewStackVIew.alpha = 1
                     self.switchAppButton.alpha = 1
+                    self.discardSegmentsStackView.alpha = 1
+                    self.confirmRecordedSegmentStackView.alpha = 1
                 })
             }
         } else {
@@ -1724,6 +1728,7 @@ extension StoryCameraViewController {
                     } else if self.recordingType == .boomerang {
                         totalSeconds = 2
                     } else if self.recordingType == .capture {
+                        self.settingsButton.isUserInteractionEnabled = false
                         if (isSpeedCamApp || isFastCamApp || isSnapCamApp) {
                             totalSeconds = Defaults.shared.appMode == .basic ? 60 : 120
                         } else {
@@ -1768,6 +1773,11 @@ extension StoryCameraViewController {
             self.discardSegmentsStackView.isHidden = false
             self.confirmRecordedSegmentStackView.isHidden = false
             self.stopMotionCollectionView.isHidden = true
+        }
+        if recordingType == .capture {
+            self.settingsButton.isUserInteractionEnabled = true
+            self.view.bringSubviewToFront(self.blurView)
+            self.view.bringSubviewToFront(self.switchingAppView)
         }
         resetProgressTimer()
         DispatchQueue.main.async { [weak self] in
