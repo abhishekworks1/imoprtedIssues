@@ -30,7 +30,7 @@ class VideoResolutionCell: UITableViewCell {
     
     // MARK: - Setup methods
     func setup() {
-        if Defaults.shared.appMode == .free {
+        if isLiteApp {
             self.imgHighResolution.image = R.image.oval()
             self.highResolutionView.backgroundColor = R.color.hideWatermarkBackgroundColor()
             self.lblUpgrade.isHidden = false
@@ -44,15 +44,15 @@ class VideoResolutionCell: UITableViewCell {
     
     func setSelection(videoResolution: VideoResolution) {
         self.imgLowResolution.image = R.image.radioDeselected()
-        if Defaults.shared.appMode != .free {
-            self.imgHighResolution.image = R.image.radioDeselected()
+        if isLiteApp {
+            self.imgHighResolution.image = R.image.oval()
         }
         switch videoResolution {
         case .low:
             self.imgLowResolution.image = R.image.radioSelected()
         case .high:
-            if Defaults.shared.appMode != .free {
-                self.imgHighResolution.image = R.image.radioSelected()
+            if isLiteApp {
+                self.imgHighResolution.image = R.image.oval()
             } else {
                 self.imgLowResolution.image = R.image.radioSelected()
             }
@@ -68,7 +68,6 @@ class VideoResolutionCell: UITableViewCell {
     
     @IBAction func btnHighResolutionTapped(_ sender: UIButton) {
         if isLiteApp {
-            self.makeToast(R.string.localizable.onlyAvailableForFullApps())
             return
         }
         Defaults.shared.videoResolution = .high

@@ -143,9 +143,6 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
             guard let videoResolutionCell: VideoResolutionCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.videoResolutionCell.identifier) as? VideoResolutionCell else {
                 return cell
             }
-            if Defaults.shared.appMode == .free {
-                videoResolutionCell.highResolutionButton.addTarget(self, action: #selector(goToSubscriptionVC), for: .touchUpInside)
-            }
             return videoResolutionCell
         }
         return cell
