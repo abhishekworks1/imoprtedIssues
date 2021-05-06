@@ -438,6 +438,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func goHomeScreen(_ response: Result<User>) {
         Defaults.shared.sessionToken = response.sessionToken
         Defaults.shared.currentUser = response.result
+        Defaults.shared.userCreatedDate = response.result?.created ?? ""
         CurrentUser.shared.setActiveUser(response.result)
         Crashlytics.crashlytics().setUserID(CurrentUser.shared.activeUser?.username ?? "")
         CurrentUser.shared.createNewReferrerChannelURL { (_, _) -> Void in }

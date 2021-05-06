@@ -32,6 +32,28 @@ struct CommonFunctions {
         let hexString = String.init(format: "#%02lX%02lX%02lX", lroundf(Float(r * 255)), lroundf(Float(g * 255)), lroundf(Float(b * 255)))
         print(hexString)
         return hexString
-     }
+    }
+    
+    static func getDateInSpecificFormat(dateInput: String, dateOutput: String) -> String {
+        let dateFormatterGet = DateFormatter()
+        dateFormatterGet.dateFormat = R.string.localizable.yyyyMMDdTHHMmSsSSSZ()
+        let dateFormatterPrint = DateFormatter()
+        dateFormatterPrint.dateFormat = dateOutput
+        if let date = dateFormatterGet.date(from: dateInput) {
+            return dateFormatterPrint.string(from: date)
+        } else {
+            return R.string.localizable.thereWasAnErrorDecodingTheString()
+        }
+    }
+    
+    static func getCurrentDate(dateOutput: String) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = R.string.localizable.yyyyMMDdHHMmSs()
+        let myString = formatter.string(from: Date())
+        let yourDate = formatter.date(from: myString)
+        formatter.dateFormat = dateOutput
+        let currentDate = formatter.string(from: yourDate!)
+        return currentDate
+    }
     
 }

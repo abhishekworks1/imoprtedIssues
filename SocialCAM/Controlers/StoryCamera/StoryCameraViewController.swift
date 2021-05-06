@@ -503,7 +503,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     // MARK: ViewController lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        showSurveyAlertAfterThreeDays()
         UIApplication.shared.isIdleTimerDisabled = true
         setCameraSettings()
         checkPermissions()
@@ -573,6 +573,8 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        self.stopCapture()
+        self.isViewAppear = false
         removeVolumeButtonHandler()
     }
     
@@ -603,12 +605,22 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         UIApplication.shared.isIdleTimerDisabled = true
         if Defaults.shared.isCameraSettingChanged {
             self.stopCapture()
-            self.isViewAppear = false
             Defaults.shared.isCameraSettingChanged = false
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.isViewAppear = true
-            self.startCapture()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                guard let `self` = self else {
+                    return
+                }
+                self.isViewAppear = true
+                self.startCapture()
+            }
+        } else {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                guard let `self` = self else {
+                    return
+                }
+                self.isViewAppear = true
+                self.startCapture()
+            }
         }
         observeState()
         self.flashView?.removeFromSuperview()
@@ -2436,6 +2448,26 @@ extension StoryCameraViewController {
         }, onCompleted: {
             
         }).disposed(by: (rx.disposeBag))
+    }
+    
+    func showSurveyAlertAfterThreeDays() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = R.string.localizable.yyyyMMDdTHHMmSsSSSZ()
+        if let userCreatedDate = Defaults.shared.userCreatedDate {
+            guard let createdDate = dateFormatter.date(from: userCreatedDate) else {
+                return
+            }
+            let formatedCreatedDate = CommonFunctions.getDateInSpecificFormat(dateInput: userCreatedDate, dateOutput: R.string.localizable.mmDdYyyy())
+            let currentDate = CommonFunctions.getCurrentDate(dateOutput: R.string.localizable.mmDdYyyy())
+            let date = Date()
+            let dateAfterThreeDays = date.days(from: createdDate)
+            if dateAfterThreeDays % 3 == 0 {
+                if currentDate != formatedCreatedDate {
+                    Defaults.shared.userCreatedDate = CommonFunctions.getDateInSpecificFormat(dateInput: currentDate, dateOutput: R.string.localizable.yyyyMMDdTHHMmSsSSSZ())
+                    showAlertForAppSurvey()
+                }
+            }
+        }
     }
     
 }
