@@ -528,6 +528,17 @@ extension UIView {
 
         return aspectFillSize
     }
+    
+    /**
+     Rotate a view by specified degrees
+
+     - parameter angle: angle in degrees
+     */
+    func transformRotate(angle: CGFloat) {
+        let radians = angle / 180.0 * CGFloat.pi
+        let rotation = self.transform.rotated(by: radians);
+        self.transform = rotation
+    }
 }
 
 // NSLayoutConstraint UIView

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -80,11 +80,6 @@
                             <view hidden="YES" opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gle-DO-dvN" customClass="TrimmerView" customModule="BoomiCam" customModuleProvider="target">
                                 <rect key="frame" x="10" y="30" width="304" height="84.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
-                                        <real key="value" value="8"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -111,6 +106,7 @@
                     </view>
                 </subviews>
             </view>
+            <viewLayoutGuide key="safeArea" id="zrS-N3-e1o"/>
             <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="Piq-pr-mJm" firstAttribute="leading" secondItem="9kS-ke-6XX" secondAttribute="leading" constant="3" id="24V-ia-E4x"/>
@@ -118,7 +114,6 @@
                 <constraint firstAttribute="trailing" secondItem="Piq-pr-mJm" secondAttribute="trailing" constant="3" id="6UK-fO-by3"/>
                 <constraint firstItem="Piq-pr-mJm" firstAttribute="top" secondItem="9kS-ke-6XX" secondAttribute="top" id="K7J-ts-cLh"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="zrS-N3-e1o"/>
             <size key="customSize" width="330" height="135"/>
             <connections>
                 <outlet property="imagesStackView" destination="MIe-Jw-iFr" id="Mf8-V1-Dwt"/>
