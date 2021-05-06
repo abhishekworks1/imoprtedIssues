@@ -188,7 +188,7 @@ public var websiteUrl: String {
 }
 
 public var keycloakClientId: String {
-    let baseUrl = "auth/realms/master/protocol/openid-connect/auth?client_id="
+    let baseUrl = "auth/realms/main/protocol/openid-connect/auth?client_id="
     let endUrl = "&response_mode=fragment&response_type=code&login=true&redirect_uri="
     var clientId = ""
     switch Defaults.shared.releaseType {
@@ -236,7 +236,7 @@ public var keycloakUrl: String {
     var baseUrlString = ""
     switch Defaults.shared.releaseType {
     case .debug, .alpha:
-        baseUrlString = "https://account.alpha.promanager.online/"
+        baseUrlString = "https://accounts.alpha.promanager.online/"
     case .beta:
         baseUrlString = "https://accounts.beta.promanager.online/"
     case .store:
