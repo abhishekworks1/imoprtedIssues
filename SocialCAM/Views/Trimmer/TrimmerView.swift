@@ -133,6 +133,7 @@ open class TrimmerView: UIView {
     open weak var delegate: TrimmerViewDelegate?
    
     var minDistance: CGFloat = 0
+    open var viewCornerRadius: CGFloat = 10.0
     
     // MARK: Views
     lazy var trimView: UIView = {
@@ -140,7 +141,9 @@ open class TrimmerView: UIView {
         view.frame = .zero
         view.backgroundColor = ApplicationSettings.appClearColor
         view.layer.borderWidth = 2.0
-        view.layer.cornerRadius = 8
+        view.layer.cornerRadius = viewCornerRadius
+        view.clipsToBounds = false
+        view.layer.masksToBounds = true
         view.layer.borderColor = ApplicationSettings.appPrimaryColor.cgColor
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isUserInteractionEnabled = true
@@ -150,8 +153,7 @@ open class TrimmerView: UIView {
     lazy var leftDraggableView: UIView = {
         let view = DraggableView()
         view.frame = .zero
-        view.backgroundColor = ApplicationSettings.appPrimaryColor
-        view.layer.cornerRadius = 8
+        view.backgroundColor = ApplicationSettings.appClearColor
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isUserInteractionEnabled = true
         return view
@@ -160,8 +162,7 @@ open class TrimmerView: UIView {
     lazy var rightDraggableView: UIView = {
         let view = DraggableView()
         view.frame = .zero
-        view.backgroundColor = ApplicationSettings.appPrimaryColor
-        view.layer.cornerRadius = 8
+        view.backgroundColor = ApplicationSettings.appClearColor
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isUserInteractionEnabled = true
         return view
@@ -172,6 +173,10 @@ open class TrimmerView: UIView {
         view.frame = .zero
         view.backgroundColor = ApplicationSettings.appWhiteColor
         view.alpha = 0.7
+        view.layer.cornerRadius = viewCornerRadius
+        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
+        view.clipsToBounds = false
+        view.layer.masksToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isUserInteractionEnabled = false
         return view
@@ -182,9 +187,58 @@ open class TrimmerView: UIView {
         view.frame = .zero
         view.backgroundColor = ApplicationSettings.appWhiteColor
         view.alpha = 0.7
+        view.layer.cornerRadius = viewCornerRadius
+        view.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
+        view.clipsToBounds = false
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isUserInteractionEnabled = false
         return view
+    }()
+    
+    lazy var topTrimCornerView: UIView = {
+        let view = UIView()
+        view.frame = .zero
+        view.backgroundColor = ApplicationSettings.appClearColor
+        view.layer.borderWidth = 5.0
+        view.layer.cornerRadius = viewCornerRadius
+        view.clipsToBounds = true
+        view.layer.masksToBounds = true
+        view.layer.borderColor = ApplicationSettings.appClearColor.cgColor
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.isUserInteractionEnabled = false
+        return view
+    }()
+    
+    lazy var leftTopCornerMaskView: UIView = {
+        let cutView = UIImageView.init(image: R.image.imgTrimCorners())
+        cutView.frame = .zero
+        cutView.translatesAutoresizingMaskIntoConstraints = false
+        cutView.isUserInteractionEnabled = true
+        return cutView
+    }()
+    
+    lazy var leftBottomCornerMaskView: UIView = {
+        let cutView = UIImageView.init(image: R.image.imgTrimCorners())
+        cutView.frame = .zero
+        cutView.translatesAutoresizingMaskIntoConstraints = false
+        cutView.isUserInteractionEnabled = true
+        return cutView
+    }()
+    
+    lazy var rightTopCornerMaskView: UIView = {
+        let cutView = UIImageView.init(image: R.image.imgTrimCorners())
+        cutView.frame = .zero
+        cutView.translatesAutoresizingMaskIntoConstraints = false
+        cutView.isUserInteractionEnabled = true
+        return cutView
+    }()
+    
+    lazy var rightBottomCornerMaskView: UIView = {
+        let cutView = UIImageView.init(image: R.image.imgTrimCorners())
+        cutView.frame = .zero
+        cutView.translatesAutoresizingMaskIntoConstraints = false
+        cutView.isUserInteractionEnabled = true
+        return cutView
     }()
     
     private let leftImageView: UIImageView = {
@@ -206,7 +260,6 @@ open class TrimmerView: UIView {
     public var cutView: UIView = {
         let cutView = UIImageView.init(image: R.image.icoTrimCutter())
         cutView.frame = .zero
-        cutView.clipsToBounds = true
         cutView.translatesAutoresizingMaskIntoConstraints = false
         cutView.isUserInteractionEnabled = true
         return cutView
@@ -224,7 +277,9 @@ open class TrimmerView: UIView {
     open var thumbnailsView: ThumbnailsView = {
         let thumbsView = ThumbnailsView()
         thumbsView.frame = .zero
-        thumbsView.layer.cornerRadius = 8
+        thumbsView.layer.cornerRadius = 10
+        thumbsView.clipsToBounds = false
+        thumbsView.layer.masksToBounds = true
         thumbsView.translatesAutoresizingMaskIntoConstraints = false
         thumbsView.isUserInteractionEnabled = true
         return thumbsView
@@ -303,7 +358,7 @@ open class TrimmerView: UIView {
     private var leftMaskViewBottomAnchor: NSLayoutConstraint!
     private var leftMaskViewLeadingAnchor: NSLayoutConstraint!
     private var leftMaskViewTrailingAnchor: NSLayoutConstraint!
-    
+     
     private var rightMaskViewTopAnchor: NSLayoutConstraint!
     private var rightMaskViewBottomAnchor: NSLayoutConstraint!
     private var rightMaskViewTrailingAnchor: NSLayoutConstraint!
@@ -337,6 +392,51 @@ open class TrimmerView: UIView {
             .constraint(equalTo: leadingAnchor, constant: draggableViewWidth)
         dimmingViewTrailingAnchor = thumbnailsView.trailingAnchor
             .constraint(equalTo: trailingAnchor, constant: -draggableViewWidth)
+        
+        let dimmingViewTopAnchor2 = topTrimCornerView.topAnchor
+            .constraint(equalTo: topAnchor, constant: 0)
+        let dimmingViewBottomAnchor2 = topTrimCornerView.bottomAnchor
+            .constraint(equalTo: bottomAnchor, constant: 0)
+        let dimmingViewLeadingAnchor2 = topTrimCornerView.leadingAnchor
+            .constraint(equalTo: leadingAnchor, constant: draggableViewWidth)
+        let dimmingViewTrailingAnchor2 = topTrimCornerView.trailingAnchor
+            .constraint(equalTo: trailingAnchor, constant: -draggableViewWidth)
+        
+        let leftTopCornerMaskViewTopAnchor = leftTopCornerMaskView.topAnchor
+            .constraint(equalTo: trimView.topAnchor, constant: 0)
+        let leftTopCornerMaskViewHeightAnchor = leftTopCornerMaskView.heightAnchor
+            .constraint(equalToConstant: 15)
+        let leftTopCornerMaskViewLeadingAnchor = leftTopCornerMaskView.leadingAnchor
+            .constraint(equalTo: trimView.leadingAnchor, constant: 0)
+        let leftTopCornerMaskViewWidthAnchor = leftTopCornerMaskView.widthAnchor
+            .constraint(equalToConstant: 15)
+        
+        let leftBottomCornerMaskViewTopAnchor = leftBottomCornerMaskView.bottomAnchor
+            .constraint(equalTo: trimView.bottomAnchor, constant: 0)
+        let leftBottomCornerMaskViewHeightAnchor = leftBottomCornerMaskView.heightAnchor
+            .constraint(equalToConstant: 15)
+        let leftBottomCornerMaskViewLeadingAnchor = leftBottomCornerMaskView.leadingAnchor
+            .constraint(equalTo: trimView.leadingAnchor, constant: 0)
+        let leftBottomCornerMaskViewWidthAnchor = leftBottomCornerMaskView.widthAnchor
+            .constraint(equalToConstant: 15)
+        
+        let rightTopCornerMaskViewTopAnchor = rightTopCornerMaskView.topAnchor
+            .constraint(equalTo: trimView.topAnchor, constant: 0)
+        let rightTopCornerMaskViewHeightAnchor = rightTopCornerMaskView.heightAnchor
+            .constraint(equalToConstant: 15)
+        let rightTopCornerMaskViewLeadingAnchor = rightTopCornerMaskView.trailingAnchor
+            .constraint(equalTo: trimView.trailingAnchor, constant: 0)
+        let rightTopCornerMaskViewWidthAnchor = rightTopCornerMaskView.widthAnchor
+            .constraint(equalToConstant: 15)
+        
+        let rightBottomCornerMaskViewTopAnchor = rightBottomCornerMaskView.bottomAnchor
+            .constraint(equalTo: trimView.bottomAnchor, constant: 0)
+        let rightBottomCornerMaskViewHeightAnchor = rightBottomCornerMaskView.heightAnchor
+            .constraint(equalToConstant: 15)
+        let rightBottomCornerMaskViewLeadingAnchor = rightBottomCornerMaskView.trailingAnchor
+            .constraint(equalTo: trimView.trailingAnchor, constant: 0)
+        let rightBottomCornerMaskViewWidthAnchor = rightBottomCornerMaskView.widthAnchor
+            .constraint(equalToConstant: 15)
         
         trimViewTopAnchorConstraint = trimView.topAnchor
             .constraint(equalTo: topAnchor, constant: 0)
@@ -418,6 +518,31 @@ open class TrimmerView: UIView {
         
         setup()
         
+        NSLayoutConstraint.activate([dimmingViewTopAnchor2,
+                                     dimmingViewBottomAnchor2,
+                                     dimmingViewLeadingAnchor2,
+                                     dimmingViewTrailingAnchor2])
+        
+        NSLayoutConstraint.activate([leftTopCornerMaskViewTopAnchor,
+                                     leftTopCornerMaskViewHeightAnchor,
+                                     leftTopCornerMaskViewLeadingAnchor,
+                                     leftTopCornerMaskViewWidthAnchor])
+        
+        NSLayoutConstraint.activate([leftBottomCornerMaskViewTopAnchor,
+                                     leftBottomCornerMaskViewHeightAnchor,
+                                     leftBottomCornerMaskViewLeadingAnchor,
+                                     leftBottomCornerMaskViewWidthAnchor])
+        
+        NSLayoutConstraint.activate([rightTopCornerMaskViewTopAnchor,
+                                     rightTopCornerMaskViewHeightAnchor,
+                                     rightTopCornerMaskViewLeadingAnchor,
+                                     rightTopCornerMaskViewWidthAnchor])
+        
+        NSLayoutConstraint.activate([rightBottomCornerMaskViewTopAnchor,
+                                     rightBottomCornerMaskViewHeightAnchor,
+                                     rightBottomCornerMaskViewLeadingAnchor,
+                                     rightBottomCornerMaskViewWidthAnchor])
+        
         NSLayoutConstraint.activate([dimmingViewTopAnchor,
                                      dimmingViewBottomAnchor,
                                      dimmingViewLeadingAnchor,
@@ -443,6 +568,7 @@ open class TrimmerView: UIView {
             leftMaskViewBottomAnchor,
             leftMaskViewLeadingAnchor,
             leftMaskViewTrailingAnchor])
+       
         NSLayoutConstraint.activate([
             rightMaskViewTopAnchor,
             rightMaskViewBottomAnchor,
@@ -465,14 +591,23 @@ open class TrimmerView: UIView {
     // MARK: Setups views
     private func setup() {
         backgroundColor = ApplicationSettings.appClearColor
-        
         addSubview(thumbnailsView)
         addSubview(trimView)
-        
-        addSubview(leftDraggableView)
-        addSubview(rightDraggableView)
+        addSubview(topTrimCornerView)
         addSubview(leftMaskView)
         addSubview(rightMaskView)
+        addSubview(leftDraggableView)
+        addSubview(rightDraggableView)
+        
+        topTrimCornerView.addSubview(leftTopCornerMaskView)
+        topTrimCornerView.addSubview(leftBottomCornerMaskView)
+        topTrimCornerView.addSubview(rightTopCornerMaskView)
+        topTrimCornerView.addSubview(rightBottomCornerMaskView)
+        
+        leftBottomCornerMaskView.transformRotate(angle: 270)
+        rightTopCornerMaskView.transformRotate(angle: 90)
+        rightBottomCornerMaskView.transformRotate(angle: 180)
+        
         leftDraggableView.addSubview(leftImageView)
         rightDraggableView.addSubview(rightImageView)
         
