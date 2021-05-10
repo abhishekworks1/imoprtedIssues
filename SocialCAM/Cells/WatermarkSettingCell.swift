@@ -22,6 +22,7 @@ class WatermarkSettingCell: UITableViewCell {
     @IBOutlet weak var imgWatermarkShow: UIImageView!
     @IBOutlet weak var imgWatermarkHide: UIImageView!
     @IBOutlet weak var hideWatermarkView: UIView!
+    @IBOutlet weak var lblWatermarkTitle: UILabel!
     
     // MARK: - Variables declaration
     var watermarkType: WatermarkType = .fastestEverWatermark {
@@ -29,6 +30,7 @@ class WatermarkSettingCell: UITableViewCell {
             if watermarkType == .fastestEverWatermark {
                 lblWatermarkName.text = R.string.localizable.fastesteverImage()
                 self.hideWatermarkView.backgroundColor = .white
+                self.lblWatermarkTitle.textColor = R.color.watermarkTitleColor()
                 self.lblUpgrade.isHidden = true
                 self.setSelection(fastestEverWatermarkSetting: Defaults.shared.fastestEverWatermarkSetting)
             } else if watermarkType == .applicationIdentifier {
@@ -53,10 +55,12 @@ class WatermarkSettingCell: UITableViewCell {
     func setup() {
         if Defaults.shared.appMode == .free {
             self.imgWatermarkHide.image = R.image.oval()
+            self.lblWatermarkTitle.textColor = R.color.watermarkTitleForFreeUserColor()
             self.hideWatermarkView.backgroundColor = R.color.hideWatermarkBackgroundColor()
             self.lblUpgrade.isHidden = false
         } else {
             self.imgWatermarkHide.image = R.image.radioDeselected()
+            self.lblWatermarkTitle.textColor = R.color.watermarkTitleColor()
             self.hideWatermarkView.backgroundColor = .white
             self.lblUpgrade.isHidden = true
         }

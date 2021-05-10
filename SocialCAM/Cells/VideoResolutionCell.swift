@@ -16,6 +16,7 @@ class VideoResolutionCell: UITableViewCell {
     @IBOutlet weak var imgLowResolution: UIImageView!
     @IBOutlet weak var imgHighResolution: UIImageView!
     @IBOutlet weak var highResolutionView: UIView!
+    @IBOutlet weak var lblWatermarkTitle: UILabel!
     
     // MARK: - Life cycle methods
     override func awakeFromNib() {
@@ -33,9 +34,11 @@ class VideoResolutionCell: UITableViewCell {
         if isLiteApp {
             self.imgHighResolution.image = R.image.oval()
             self.highResolutionView.backgroundColor = R.color.hideWatermarkBackgroundColor()
+            self.lblWatermarkTitle.textColor = R.color.watermarkTitleForFreeUserColor()
             self.lblUpgrade.isHidden = false
         } else {
             self.imgHighResolution.image = R.image.radioDeselected()
+            self.lblWatermarkTitle.textColor = R.color.watermarkTitleColor()
             self.highResolutionView.backgroundColor = .white
             self.lblUpgrade.isHidden = true
         }
