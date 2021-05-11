@@ -403,7 +403,7 @@ class StoryEditorViewController: UIViewController {
     
     /// Set images for social share buttons
     func setSocialShareView() {
-        if Defaults.shared.appMode == .free, isSnapCamLiteApp {
+        if Defaults.shared.appMode == .free && (isSnapCamLiteApp || isQuickApp) {
             btnFacebook.setImage(R.image.icoFacebookTransparent(), for: .normal)
             btnYoutube.setImage(R.image.icoYoutubeTransparent(), for: .normal)
             btnInstagram.setImage(R.image.icoInstagramTransparent(), for: .normal)
@@ -452,7 +452,7 @@ class StoryEditorViewController: UIViewController {
         
         self.editOptionView.isHidden = !isImage
         self.applyFilterOptionView.isHidden = !isImage
-        if !isTimeSpeedApp && !isFastCamApp && !isPic2ArtApp && !isViralCamApp && !isQuickCamApp && !isViralCamLiteApp && !isFastCamLiteApp && !isQuickCamLiteApp && !isSnapCamLiteApp && !isSpeedCamApp && !isSpeedCamLiteApp {
+        if !isTimeSpeedApp && !isFastCamApp && !isPic2ArtApp && !isViralCamApp && !isQuickCamApp && !isViralCamLiteApp && !isFastCamLiteApp && !isQuickCamLiteApp && !isSnapCamLiteApp && !isSpeedCamApp && !isSpeedCamLiteApp && !isQuickApp {
             self.specificBoomerangView.isHidden = (Defaults.shared.appMode != .free && isBoomerang) ? true : isImage
         } else {
             self.specificBoomerangView.isHidden = true
@@ -478,7 +478,7 @@ class StoryEditorViewController: UIViewController {
         
         self.mergeOptionView.isHidden = !(!isImage && (videoCount > 1))
        
-        if !isBoomiCamApp && !isFastCamApp && !isViralCamLiteApp && !isFastCamLiteApp && !isQuickCamLiteApp && !isSpeedCamLiteApp && !isSnapCamLiteApp {
+        if !isBoomiCamApp && !isFastCamApp && !isViralCamLiteApp && !isFastCamLiteApp && !isQuickCamLiteApp && !isSpeedCamLiteApp && !isSnapCamLiteApp && !isQuickApp {
             self.timeSpeedOptionView.isHidden = Defaults.shared.appMode != .free ? isImage : true
         } else {
             self.timeSpeedOptionView.isHidden = true
@@ -1234,8 +1234,8 @@ extension StoryEditorViewController {
     }
     
     @IBAction func ssuButtonClicked(sender: UIButton) {
-        if isSnapCamLiteApp {
-            self.didSelect(type: SnapCam_Lite.SSUTagType.snapCamLite, waitingListOptionType: nil, socialShareType: nil, screenType: SnapCam_Lite.SSUTagScreen.ssutTypes)
+        if isQuickApp {
+            self.didSelect(type: QuickCamLiteApp.SSUTagType.quickCamLite, waitingListOptionType: nil, socialShareType: nil, screenType: SSUTagScreen.ssutTypes)
         } else {
             if let ssuTagSelectionViewController = R.storyboard.storyCameraViewController.ssuTagSelectionViewController() {
                 ssuTagSelectionViewController.delegate = self
@@ -1777,6 +1777,8 @@ extension StoryEditorViewController: SSUTagSelectionDelegate {
                 storyEditors[currentStoryIndex].addReferLinkView(type: .snapCamLite)
             case.socialScreenRecorder:
                 storyEditors[currentStoryIndex].addReferLinkView(type: .socialScreenRecorder)
+            case .quickApp:
+                storyEditors[currentStoryIndex].addReferLinkView(type: .quickCamLite)
             default:
                 storyEditors[currentStoryIndex].addReferLinkView(type: .socialScreenRecorder)
             }

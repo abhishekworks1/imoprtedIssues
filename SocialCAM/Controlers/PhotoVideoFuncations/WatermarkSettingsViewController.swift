@@ -37,6 +37,11 @@ class WatermarkSettingsViewController: UIViewController {
         self.watermarkSettingsTableView.reloadData()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.watermarkSettingsTableView.reloadData()
+    }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         let sharedModel = Defaults.shared

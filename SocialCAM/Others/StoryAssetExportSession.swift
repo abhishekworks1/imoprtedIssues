@@ -359,7 +359,7 @@ class StoryAssetExportSession {
             if watermarkPosition == .topLeft {
                 image = R.image.soccercamWatermarkLogo()
             }
-        } else if isQuickCamApp || isQuickCamLiteApp {
+        } else if isQuickCamApp || isQuickCamLiteApp || isQuickApp {
             image = R.image.quickcamWatermarkLogo()
             if watermarkPosition == .topLeft {
                 image = R.image.quickcamWatermarkLogo()

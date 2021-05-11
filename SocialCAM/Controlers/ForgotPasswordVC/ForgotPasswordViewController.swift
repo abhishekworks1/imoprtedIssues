@@ -67,7 +67,7 @@ class ForgotPasswordViewController: UIViewController {
         imgLogo.image = R.image.viralcamLiteWatermark()
         #elseif FASTCAMLITEAPP
         imgLogo.image = R.image.ssuFastCamLite()
-        #elseif QUICKCAMLITEAPP
+        #elseif QUICKCAMLITEAPP || QUICKAPP
         imgLogo.image = R.image.ssuQuickCamLite()
         #elseif SPEEDCAMLITEAPP
         imgLogo.image = R.image.speedcamLiteSsu()
