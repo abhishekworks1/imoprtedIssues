@@ -96,7 +96,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         imgLogo.image = R.image.viralcamLiteWatermark()
         #elseif FASTCAMLITEAPP
         imgLogo.image = R.image.fastcamLiteWatermarkLogo()
-        #elseif QUICKCAMLITEAPP
+        #elseif QUICKCAMLITEAPP || QUICKAPP
         imgLogo.image = R.image.quickcamliteSplashLogo()
         #elseif SPEEDCAMLITEAPP
         imgLogo.image = R.image.speedcamliteSplashLogo()

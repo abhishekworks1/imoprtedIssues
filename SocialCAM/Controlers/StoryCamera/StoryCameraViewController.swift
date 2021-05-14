@@ -777,7 +777,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         if recordingType == .normal && isBoomiCamApp {
             recordingType = .basicCamera
         }
-        if !isViralCamLiteApp || !isFastCamLiteApp || !isQuickCamLiteApp || !isSpeedCamLiteApp || !isSnapCamLiteApp {
+        if !isViralCamLiteApp || !isFastCamLiteApp || !isQuickCamLiteApp || !isSpeedCamLiteApp || !isSnapCamLiteApp || !isQuickApp {
             speedSlider.isHidden = false
             speedSliderView.isHidden = false
         } else {
@@ -883,7 +883,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             self.selectedSegmentLengthChange()
             self.setCameraSettings()
             self.cameraSliderView.stringArray = cameraModeArray
-            if !isFastCamApp && !isViralCamLiteApp && !isFastCamLiteApp && !isQuickCamLiteApp && !isSpeedCamLiteApp && !isSnapCamLiteApp {
+            if !isFastCamApp && !isViralCamLiteApp && !isFastCamLiteApp && !isQuickCamLiteApp && !isSpeedCamLiteApp && !isSnapCamLiteApp && !isQuickApp {
                 self.cameraSliderView.selectCell = Defaults.shared.cameraMode.rawValue
             }
             self.dynamicSetSlowFastVerticalBar()
@@ -1199,10 +1199,10 @@ extension StoryCameraViewController {
             }
         }
         
-        if !isFastCamApp && !isViralCamLiteApp && !isFastCamLiteApp && !isQuickCamLiteApp && !isSpeedCamLiteApp && !isSnapCamLiteApp {
+        if !isFastCamApp && !isViralCamLiteApp && !isFastCamLiteApp && !isQuickCamLiteApp && !isSpeedCamLiteApp && !isSnapCamLiteApp && !isQuickApp {
             cameraSliderView.selectCell = Defaults.shared.cameraMode.rawValue
         }
-        if isSnapCamLiteApp, Defaults.shared.appMode == .basic {
+        if (isSnapCamLiteApp || isQuickApp) && Defaults.shared.appMode == .basic {
             print(Defaults.shared.cameraMode.rawValue)
             cameraSliderView.selectCell = 1
             UIView.animate(withDuration: 0.1, animations: { () -> Void in
@@ -1524,7 +1524,7 @@ extension StoryCameraViewController {
     }
     
     @objc func handlePinchGestureRecognizer(_ pinchGestureRecognizer: UIPinchGestureRecognizer) {
-        if !isSnapCamLiteApp {
+        if !isSnapCamLiteApp || !isQuickApp {
             func minMaxZoom(_ factor: Float) -> Float {
                 return min(max(factor, 1.0), 10.0)
             }
@@ -1741,6 +1741,7 @@ extension StoryCameraViewController {
                         totalSeconds = 2
                     } else if self.recordingType == .capture {
                         self.settingsButton.isUserInteractionEnabled = false
+                        self.switchAppButton.isUserInteractionEnabled = false
                         if (isSpeedCamApp || isFastCamApp || isSnapCamApp) {
                             totalSeconds = Defaults.shared.appMode == .basic ? 60 : 120
                         } else {
@@ -1788,6 +1789,7 @@ extension StoryCameraViewController {
         }
         if recordingType == .capture {
             self.settingsButton.isUserInteractionEnabled = true
+            self.switchAppButton.isUserInteractionEnabled = true
             self.view.bringSubviewToFront(self.blurView)
             self.view.bringSubviewToFront(self.switchingAppView)
         }

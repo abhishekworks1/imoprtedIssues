@@ -90,7 +90,7 @@ class BusinessVC: UIViewController {
             navTitle = R.string.localizable.snapCam()
         } else if isViralCamLiteApp {
             navTitle = R.string.localizable.viralCamLite()
-        } else if isQuickCamLiteApp {
+        } else if isQuickCamLiteApp || isQuickApp {
             navTitle = R.string.localizable.quickCamLite()
         } else if isFastCamLiteApp {
             navTitle = R.string.localizable.fastCamLite()

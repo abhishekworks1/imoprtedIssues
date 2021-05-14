@@ -139,7 +139,7 @@ class StorySettingsVC: UIViewController {
         imgAppLogo.image = R.image.viralcamLiteWatermark()
         #elseif FASTCAMLITEAPP
         imgAppLogo.image = R.image.ssuFastCamLite()
-        #elseif QUICKCAMLITEAPP
+        #elseif QUICKCAMLITEAPP || QUICKAPP
         imgAppLogo.image = R.image.ssuQuickCamLite()
         #elseif SPEEDCAMLITEAPP
         imgAppLogo.image = R.image.speedcamLiteSsu()
@@ -189,7 +189,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.appOpenSettingsCell.identifier, for: indexPath) as? AppOpenSettingsCell, StorySettings.storySettings[indexPath.section].settingsType == .appStartScreen {
-            #if PIC2ARTAPP || SOCIALCAMAPP || VIRALCAMAPP || SOCCERCAMAPP || FUTBOLCAMAPP || QUICKCAMAPP || VIRALCAMLITEAPP || VIRALCAMLITEAPP || FASTCAMLITEAPP || QUICKCAMLITEAPP || SPEEDCAMLITEAPP || SNAPCAMLITEAPP
+            #if PIC2ARTAPP || SOCIALCAMAPP || VIRALCAMAPP || SOCCERCAMAPP || FUTBOLCAMAPP || QUICKCAMAPP || VIRALCAMLITEAPP || VIRALCAMLITEAPP || FASTCAMLITEAPP || QUICKCAMLITEAPP || SPEEDCAMLITEAPP || SNAPCAMLITEAPP || QUICKAPP
             cell.dashBoardView.isHidden = true
             #else
             cell.dashBoardView.isHidden = false

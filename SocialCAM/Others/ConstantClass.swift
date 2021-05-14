@@ -47,7 +47,7 @@ public struct Constant {
         static let websiteURL = "https://timespeed.iicc.online"
         #elseif FASTCAMAPP || FASTCAMLITEAPP
         static let websiteURL = "https://fastcam.iicc.online"
-        #elseif QUICKCAMLITEAPP
+        #elseif QUICKCAMLITEAPP || QUICKAPP
         static let websiteURL = "https://quickcam.iicc.online"
         #elseif SNAPCAMAPP || SNAPCAMLITEAPP
         static let websiteURL = "https://snapcam.iicc.online"
@@ -156,7 +156,7 @@ public struct Constant {
         static let publicLink = URL(string: "https://testflight.apple.com/join/6zE0nt7P")
         static let splashBG = UIImage(named: "fastcamLiteSplashBG")!
         static let appIcon = UIImage(named: "fastcamLiteWatermarkLogo")!
-        #elseif QUICKCAMLITEAPP
+        #elseif QUICKCAMLITEAPP || QUICKAPP
         static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "QuickCam Lite"
         static let simformIdentifier: String = "com.simform.fastCamLite"
         static let proModeCode: String = "quickcamlite2020"
@@ -255,7 +255,7 @@ public struct Constant {
         static let redirectUrl = "https://futbolcam-ddf06.firebaseapp.com/__/auth/handler"
         static let clientId = "1431217550411859"
         static let clientSecret = "39554fc089d5154b5ee77499e549eb65"
-        #elseif QUICKCAMAPP
+        #elseif QUICKCAMAPP || QUICKAPP
         static let redirectUrl = "https://quickcam-fde9d.firebaseapp.com/__/auth/handler"
         static let clientId = "896406730769747"
         static let clientSecret = "47bfa6fac6eef802ab5346f896013a9c"

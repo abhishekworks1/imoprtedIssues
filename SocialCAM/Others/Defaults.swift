@@ -154,6 +154,15 @@ var isFastCamLiteApp: Bool {
     #endif
 }
 
+/// Clone app of SnapCamLite
+var isQuickApp: Bool {
+    #if QUICKAPP
+    return true
+    #else
+    return false
+    #endif
+}
+
 var isQuickCamLiteApp: Bool {
     #if QUICKCAMLITEAPP
     return true
@@ -179,7 +188,7 @@ var isSnapCamLiteApp: Bool {
 }
 
 var isLiteApp: Bool {
-    return isViralCamLiteApp || isQuickCamLiteApp || isFastCamLiteApp || isSpeedCamLiteApp || isSnapCamLiteApp
+    return isViralCamLiteApp || isQuickCamLiteApp || isFastCamLiteApp || isSpeedCamLiteApp || isSnapCamLiteApp || isQuickApp
 }
 
 class Defaults {

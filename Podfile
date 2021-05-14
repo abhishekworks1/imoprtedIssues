@@ -157,6 +157,11 @@ target 'SocialScreenRecorder' do
   projectShared_pods
 end
 
+target 'QuickApp' do
+  use_frameworks!
+  projectShared_pods
+end
+
 target 'SpeedCamLite' do
   use_frameworks!
   projectShared_pods

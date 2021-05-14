@@ -30,6 +30,7 @@ enum ReferType {
     case speedcam
     case speedcamLite
     case socialScreenRecorder
+    case quickApp
 }
 
 enum StoryEditorType: Equatable {
@@ -708,7 +709,7 @@ extension StoryEditorView {
                 } else if type == .viralCamLite {
                                    followMeStoryView.userBitEmoji.image = R.image.viralcamLiteWatermark()
                                    followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppViralCamLite()
-                } else if type == .quickCamLite {
+                } else if type == .quickCamLite || type == .quickApp {
                                    followMeStoryView.userBitEmoji.image = R.image.ssuQuickCamLite()
                                    followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppQuickCamLite()
                 } else if type == .fastCamLite {
@@ -777,7 +778,7 @@ extension StoryEditorView {
         } else if type == .fastCamLite {
             followMeStoryView.userBitEmoji.image = R.image.fastcamLiteWatermarkLogo()
             followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppFastCamLite()
-        } else if type == .quickCamLite {
+        } else if type == .quickCamLite || type == .quickApp {
             followMeStoryView.userBitEmoji.image = R.image.ssuQuickCamLite()
             followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppQuickCamLite()
         } else if type == .speedcam {
