@@ -135,7 +135,6 @@
 		23CE89FD24349B110096233C /* TemperatureControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FD18236C3B06002B2603 /* TemperatureControl.swift */; };
 		23CE89FE24349B110096233C /* ThumbSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FAA2236C0FD6002B2603 /* ThumbSelectorView.swift */; };
 		23CE89FF24349B110096233C /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CCB16F2372D0F800EC76E8 /* CurrentUser.swift */; };
-		23CE8A0024349B110096233C /* AWSManager+S3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820DA4ED2385392F0027A207 /* AWSManager+S3.swift */; };
 		23CE8A0124349B110096233C /* DNDLongPressDragRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8205FADC236C10F3002B2603 /* DNDLongPressDragRecognizer.m */; };
 		23CE8A0224349B110096233C /* GameGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CA3E4A23D98F1B00DD48B8 /* GameGridCell.swift */; };
 		23CE8A0324349B110096233C /* MMPlayer+UINavigationController+LastDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FBAB236C2A88002B2603 /* MMPlayer+UINavigationController+LastDelegate.swift */; };
@@ -984,7 +983,6 @@
 		820BFB7323E810F30087B38E /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820BFB7223E810F30087B38E /* ProfilePresenter.swift */; };
 		820BFB7423E845EF0087B38E /* StorySettingsOptionsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FD9D236C3B65002B2603 /* StorySettingsOptionsVC.swift */; };
 		820C3AF923797896007FCF15 /* SocialShareVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820C3AF823797896007FCF15 /* SocialShareVideo.swift */; };
-		820DA4EE2385392F0027A207 /* AWSManager+S3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820DA4ED2385392F0027A207 /* AWSManager+S3.swift */; };
 		8212D07524A4D62400B64751 /* RKTagsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8205FAC9236C10B7002B2603 /* RKTagsView.m */; };
 		8219322623EAA8FD00FFEC03 /* StoriCamManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8219322523EAA8FD00FFEC03 /* StoriCamManager.swift */; };
 		8219322823EABE3F00FFEC03 /* FontAwesome.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8219322723EABE3F00FFEC03 /* FontAwesome.otf */; };
@@ -1135,6 +1133,8 @@
 		822ABF1E259C74DC00323EBD /* FileSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828F3B38258B53D9001F4500 /* FileSystem.swift */; };
 		822ABF3A259C74F400323EBD /* ConstantClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826935C7259307DF00C0B2C6 /* ConstantClass.swift */; };
 		822ABF73259C754400323EBD /* R.quickCamLiteExtension.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822ABF71259C754300323EBD /* R.quickCamLiteExtension.generated.swift */; };
+		822EE296264E424600FDA76B /* GoogleService-Info-QuickCamLite.plist in Resources */ = {isa = PBXBuildFile; fileRef = 822EE295264E424500FDA76B /* GoogleService-Info-QuickCamLite.plist */; };
+		822EE297264E424900FDA76B /* GoogleService-Info-QuickCamLite.plist in Resources */ = {isa = PBXBuildFile; fileRef = 822EE295264E424500FDA76B /* GoogleService-Info-QuickCamLite.plist */; };
 		822F413C238FE39100084007 /* Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822F413B238FE39100084007 /* Async.swift */; };
 		822F413F238FE3E900084007 /* ExportVideoOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822F413E238FE3E900084007 /* ExportVideoOperation.swift */; };
 		8232CEAE240E2A2300AD8E63 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8232CEAC240E2A2300AD8E63 /* MainInterface.storyboard */; };
@@ -1222,7 +1222,6 @@
 		823E19252525E4AE0078DF8F /* LoginUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CC0C8523E2A3AC00038B3C /* LoginUserData.swift */; };
 		823E19262525E51A0078DF8F /* LoginUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CC0C8523E2A3AC00038B3C /* LoginUserData.swift */; };
 		823E19272525E70F0078DF8F /* LoginUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CC0C8523E2A3AC00038B3C /* LoginUserData.swift */; };
-		823E19292525E7110078DF8F /* LoginUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CC0C8523E2A3AC00038B3C /* LoginUserData.swift */; };
 		823E192A2525EB280078DF8F /* VideoTrim.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 825C29FF25232042002CFF4D /* VideoTrim.storyboard */; };
 		82402B87248F91D50057133F /* MMPlayerTransitionDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FBA4236C2A88002B2603 /* MMPlayerTransitionDefine.swift */; };
 		82402B88248F91D50057133F /* ChannelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2CC24487B7B0020992A /* ChannelTableViewCell.swift */; };
@@ -1333,7 +1332,6 @@
 		82402BF1248F91D50057133F /* TemperatureControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FD18236C3B06002B2603 /* TemperatureControl.swift */; };
 		82402BF2248F91D50057133F /* ThumbSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FAA2236C0FD6002B2603 /* ThumbSelectorView.swift */; };
 		82402BF3248F91D50057133F /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CCB16F2372D0F800EC76E8 /* CurrentUser.swift */; };
-		82402BF4248F91D50057133F /* AWSManager+S3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820DA4ED2385392F0027A207 /* AWSManager+S3.swift */; };
 		82402BF5248F91D50057133F /* FriendPackageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2A424486C690020992A /* FriendPackageTableViewCell.swift */; };
 		82402BF6248F91D50057133F /* DNDLongPressDragRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8205FADC236C10F3002B2603 /* DNDLongPressDragRecognizer.m */; };
 		82402BF7248F91D50057133F /* GameGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CA3E4A23D98F1B00DD48B8 /* GameGridCell.swift */; };
@@ -2130,7 +2128,6 @@
 		82532ADF2513315700ABC366 /* TemperatureControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FD18236C3B06002B2603 /* TemperatureControl.swift */; };
 		82532AE02513315700ABC366 /* ThumbSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FAA2236C0FD6002B2603 /* ThumbSelectorView.swift */; };
 		82532AE12513315700ABC366 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CCB16F2372D0F800EC76E8 /* CurrentUser.swift */; };
-		82532AE22513315700ABC366 /* AWSManager+S3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820DA4ED2385392F0027A207 /* AWSManager+S3.swift */; };
 		82532AE32513315700ABC366 /* FriendPackageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2A424486C690020992A /* FriendPackageTableViewCell.swift */; };
 		82532AE42513315700ABC366 /* DNDLongPressDragRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8205FADC236C10F3002B2603 /* DNDLongPressDragRecognizer.m */; };
 		82532AE52513315700ABC366 /* GameGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CA3E4A23D98F1B00DD48B8 /* GameGridCell.swift */; };
@@ -2730,7 +2727,6 @@
 		825DAEF624A61CD6001463F4 /* BusinessVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825DAEF224A61C7C001463F4 /* BusinessVC.swift */; };
 		825DAEF724A61CD6001463F4 /* BusinessVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825DAEF224A61C7C001463F4 /* BusinessVC.swift */; };
 		825DAEF824A61CD6001463F4 /* BusinessVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825DAEF224A61C7C001463F4 /* BusinessVC.swift */; };
-		825E51112599CD0F002FCAF9 /* CalculatorConfigurationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63E1906251B2D6100558591 /* CalculatorConfigurationModel.swift */; };
 		82610BF2253882A4004BC4F0 /* VideoExportHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82610BF1253882A4004BC4F0 /* VideoExportHelper.swift */; };
 		82610BF3253882A4004BC4F0 /* VideoExportHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82610BF1253882A4004BC4F0 /* VideoExportHelper.swift */; };
 		82610BF4253882A4004BC4F0 /* VideoExportHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82610BF1253882A4004BC4F0 /* VideoExportHelper.swift */; };
@@ -2870,7 +2866,6 @@
 		827106F824A45EFB00C53521 /* AMColorPickerRGBSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8271069A24A45EFB00C53521 /* AMColorPickerRGBSliderView.swift */; };
 		827106F924A45EFB00C53521 /* AMColorPickerRGBSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8271069A24A45EFB00C53521 /* AMColorPickerRGBSliderView.swift */; };
 		827106FA24A45EFB00C53521 /* AMColorPickerRGBSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8271069A24A45EFB00C53521 /* AMColorPickerRGBSliderView.swift */; };
-		8274E3C0258B420500AE4FB0 /* SnapCamLite-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8274E3BF258B420400AE4FB0 /* SnapCamLite-Info.plist */; };
 		8274E3DB258B45DD00AE4FB0 /* MMPlayerTransitionDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FBA4236C2A88002B2603 /* MMPlayerTransitionDefine.swift */; };
 		8274E3DC258B45DD00AE4FB0 /* ChannelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2CC24487B7B0020992A /* ChannelTableViewCell.swift */; };
 		8274E3DD258B45DD00AE4FB0 /* AMColorPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8271068924A45EFB00C53521 /* AMColorPickerViewController.swift */; };
@@ -2988,7 +2983,6 @@
 		8274E44E258B45DD00AE4FB0 /* TemperatureControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FD18236C3B06002B2603 /* TemperatureControl.swift */; };
 		8274E44F258B45DD00AE4FB0 /* ThumbSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FAA2236C0FD6002B2603 /* ThumbSelectorView.swift */; };
 		8274E450258B45DD00AE4FB0 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CCB16F2372D0F800EC76E8 /* CurrentUser.swift */; };
-		8274E451258B45DD00AE4FB0 /* AWSManager+S3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820DA4ED2385392F0027A207 /* AWSManager+S3.swift */; };
 		8274E452258B45DD00AE4FB0 /* FriendPackageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2A424486C690020992A /* FriendPackageTableViewCell.swift */; };
 		8274E453258B45DD00AE4FB0 /* DNDLongPressDragRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8205FADC236C10F3002B2603 /* DNDLongPressDragRecognizer.m */; };
 		8274E454258B45DD00AE4FB0 /* GameGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CA3E4A23D98F1B00DD48B8 /* GameGridCell.swift */; };
@@ -3496,7 +3490,6 @@
 		8274E64D258B45DD00AE4FB0 /* SocialConnection.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95224B3C246C258E001AD3C4 /* SocialConnection.storyboard */; };
 		8274E64E258B45DD00AE4FB0 /* love.json in Resources */ = {isa = PBXBuildFile; fileRef = 8205FB3A236C1D0F002B2603 /* love.json */; };
 		8274E64F258B45DD00AE4FB0 /* StoryEditor.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 950514C2239FA9AB00F07D8F /* StoryEditor.storyboard */; };
-		8274E650258B45DD00AE4FB0 /* GoogleService-Info-QuickCamLite.plist in Resources */ = {isa = PBXBuildFile; fileRef = F64F5F5F2505F48800703E4B /* GoogleService-Info-QuickCamLite.plist */; };
 		8274E651258B45DD00AE4FB0 /* WatermarksMedia.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 82F3FCE025345B9600488755 /* WatermarksMedia.xcassets */; };
 		8274E652258B45DD00AE4FB0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8205FB12236C14C7002B2603 /* Localizable.strings */; };
 		8274E653258B45DD00AE4FB0 /* SF-UI-Text-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8205FC11236C2C2F002B2603 /* SF-UI-Text-Light.otf */; };
@@ -3635,7 +3628,6 @@
 		827DAB9724A4CF35001A2259 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828F3E5923F292BB007AE35F /* APIManager.swift */; };
 		827DAB9B24A4D021001A2259 /* ApplicationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB39723619E2700205993 /* ApplicationSettings.swift */; };
 		827DAB9C24A4D090001A2259 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB3AD23619E5B00205993 /* FileManager.swift */; };
-		827DAB9D24A4D098001A2259 /* AWSManager+S3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820DA4ED2385392F0027A207 /* AWSManager+S3.swift */; };
 		827DAB9E24A4D0EA001A2259 /* SaveUserDefaultsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB08236C1211002B2603 /* SaveUserDefaultsProtocol.swift */; };
 		827DAB9F24A4D0F0001A2259 /* FilterImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB32236C1BAF002B2603 /* FilterImage.swift */; };
 		827DABA024A4D105001A2259 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB10236C1286002B2603 /* Defaults.swift */; };
@@ -3648,7 +3640,6 @@
 		8280E64C251370BE00BF5A1A /* LaunchScreenFastCam.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8280E64B251370BE00BF5A1A /* LaunchScreenFastCam.storyboard */; };
 		8280E64E251370EA00BF5A1A /* LaunchScreenViralCamLite.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8280E64D251370E900BF5A1A /* LaunchScreenViralCamLite.storyboard */; };
 		8280E64F2513710600BF5A1A /* R.boomicam.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8280E63E25136F6800BF5A1A /* R.boomicam.generated.swift */; };
-		8280E6502513711600BF5A1A /* R.fastcam.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8280E64025136F6A00BF5A1A /* R.fastcam.generated.swift */; };
 		8280E6512513711E00BF5A1A /* R.futbolcam.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8280E64925136F7100BF5A1A /* R.futbolcam.generated.swift */; };
 		8280E6532513712600BF5A1A /* R.mediaShared.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8280E63A25136F6500BF5A1A /* R.mediaShared.generated.swift */; };
 		8280E6562513713300BF5A1A /* R.quickcam.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8280E64225136F6B00BF5A1A /* R.quickcam.generated.swift */; };
@@ -3731,7 +3722,6 @@
 		828F873F25CA6D1E000E645E /* RecorderStopScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 828F871F25CA6D1D000E645E /* RecorderStopScreen.xib */; };
 		828F874025CA6D1E000E645E /* RecorderStopScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 828F871F25CA6D1D000E645E /* RecorderStopScreen.xib */; };
 		828F874125CA6D1E000E645E /* RecorderStopScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 828F871F25CA6D1D000E645E /* RecorderStopScreen.xib */; };
-		8294874F2552804E0022FBF6 /* GoogleService-Info-SnapCamLite.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8294874E2552804E0022FBF6 /* GoogleService-Info-SnapCamLite.plist */; };
 		8299F563237135BF00963318 /* UIAppleColorWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8299F55E237135BF00963318 /* UIAppleColorWrapper.swift */; };
 		8299F564237135BF00963318 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8299F55F237135BF00963318 /* UIColor+Extension.swift */; };
 		8299F565237135BF00963318 /* UIColor+Apple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8299F560237135BF00963318 /* UIColor+Apple.swift */; };
@@ -3855,7 +3845,6 @@
 		82AF1C3A249A05DE00D386E9 /* TemperatureControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FD18236C3B06002B2603 /* TemperatureControl.swift */; };
 		82AF1C3B249A05DE00D386E9 /* ThumbSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FAA2236C0FD6002B2603 /* ThumbSelectorView.swift */; };
 		82AF1C3C249A05DE00D386E9 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CCB16F2372D0F800EC76E8 /* CurrentUser.swift */; };
-		82AF1C3D249A05DE00D386E9 /* AWSManager+S3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820DA4ED2385392F0027A207 /* AWSManager+S3.swift */; };
 		82AF1C3E249A05DE00D386E9 /* FriendPackageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2A424486C690020992A /* FriendPackageTableViewCell.swift */; };
 		82AF1C3F249A05DE00D386E9 /* DNDLongPressDragRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8205FADC236C10F3002B2603 /* DNDLongPressDragRecognizer.m */; };
 		82AF1C40249A05DE00D386E9 /* GameGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CA3E4A23D98F1B00DD48B8 /* GameGridCell.swift */; };
@@ -4441,6 +4430,7 @@
 		82CCB1702372D0F800EC76E8 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CCB16F2372D0F800EC76E8 /* CurrentUser.swift */; };
 		82CCB1722372D21E00EC76E8 /* PromanagerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CCB1712372D21E00EC76E8 /* PromanagerData.swift */; };
 		82CCB1762372E9D000EC76E8 /* LoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82CCB1752372E9D000EC76E8 /* LoginViewController.storyboard */; };
+		82CCD416264A49B7000463F0 /* GoogleService-Info-SnapCamLite.plist in Resources */ = {isa = PBXBuildFile; fileRef = 82CCD415264A49B6000463F0 /* GoogleService-Info-SnapCamLite.plist */; };
 		82D1EB9F236FE68E00A680E7 /* StorySettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EB9E236FE68E00A680E7 /* StorySettingsCell.swift */; };
 		82D1EBA2236FED0500A680E7 /* MensionCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EBA1236FED0500A680E7 /* MensionCollectionViewDelegate.swift */; };
 		82D1EBA4236FED1700A680E7 /* EmojiCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EBA3236FED1700A680E7 /* EmojiCollectionViewDelegate.swift */; };
@@ -4515,6 +4505,23 @@
 		82D1EC882370426200A680E7 /* PhotoEditorViewController+LifeCycle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EC8123703DE300A680E7 /* PhotoEditorViewController+LifeCycle.swift */; };
 		82D22E67258B486300957045 /* RecordeAppAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 82D22E66258B486300957045 /* RecordeAppAssets.xcassets */; };
 		82D22F2B258B4B6B00957045 /* R.socialscreenrecorder.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D22F29258B4B6700957045 /* R.socialscreenrecorder.generated.swift */; };
+		82D86952264B9F73007A8D06 /* AWSManager+S3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D86951264B9F73007A8D06 /* AWSManager+S3.swift */; };
+		82D86953264B9F73007A8D06 /* AWSManager+S3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D86951264B9F73007A8D06 /* AWSManager+S3.swift */; };
+		82D86954264B9F73007A8D06 /* AWSManager+S3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D86951264B9F73007A8D06 /* AWSManager+S3.swift */; };
+		82D86955264B9F73007A8D06 /* AWSManager+S3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D86951264B9F73007A8D06 /* AWSManager+S3.swift */; };
+		82D86956264B9F73007A8D06 /* AWSManager+S3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D86951264B9F73007A8D06 /* AWSManager+S3.swift */; };
+		82D86957264B9F73007A8D06 /* AWSManager+S3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D86951264B9F73007A8D06 /* AWSManager+S3.swift */; };
+		82D86958264B9F73007A8D06 /* AWSManager+S3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D86951264B9F73007A8D06 /* AWSManager+S3.swift */; };
+		82D86959264B9F73007A8D06 /* AWSManager+S3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D86951264B9F73007A8D06 /* AWSManager+S3.swift */; };
+		82D8695A264B9F73007A8D06 /* AWSManager+S3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D86951264B9F73007A8D06 /* AWSManager+S3.swift */; };
+		82D8695B264B9F73007A8D06 /* AWSManager+S3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D86951264B9F73007A8D06 /* AWSManager+S3.swift */; };
+		82D8695C264B9F73007A8D06 /* AWSManager+S3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D86951264B9F73007A8D06 /* AWSManager+S3.swift */; };
+		82D8695D264B9F73007A8D06 /* AWSManager+S3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D86951264B9F73007A8D06 /* AWSManager+S3.swift */; };
+		82D8695E264B9F73007A8D06 /* AWSManager+S3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D86951264B9F73007A8D06 /* AWSManager+S3.swift */; };
+		82D8695F264B9F73007A8D06 /* AWSManager+S3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D86951264B9F73007A8D06 /* AWSManager+S3.swift */; };
+		82D86960264B9F73007A8D06 /* AWSManager+S3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D86951264B9F73007A8D06 /* AWSManager+S3.swift */; };
+		82D86961264B9F73007A8D06 /* AWSManager+S3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D86951264B9F73007A8D06 /* AWSManager+S3.swift */; };
+		82D86962264B9F73007A8D06 /* AWSManager+S3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D86951264B9F73007A8D06 /* AWSManager+S3.swift */; };
 		82DA70B32539880300DF1ED7 /* GoogleService-Info-ViralCam.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2397B8DB2435D1D000F97957 /* GoogleService-Info-ViralCam.plist */; };
 		82DCF7A823C5AD95009E12D2 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82DCF7A723C5AD95009E12D2 /* SplashScreen.storyboard */; };
 		82DCF7AA23C5AD9D009E12D2 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DCF7A923C5AD9D009E12D2 /* SplashScreen.swift */; };
@@ -4693,7 +4700,6 @@
 		952144BA24A491FB00BA1A9F /* TemperatureControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FD18236C3B06002B2603 /* TemperatureControl.swift */; };
 		952144BB24A491FB00BA1A9F /* ThumbSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FAA2236C0FD6002B2603 /* ThumbSelectorView.swift */; };
 		952144BC24A491FB00BA1A9F /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CCB16F2372D0F800EC76E8 /* CurrentUser.swift */; };
-		952144BD24A491FB00BA1A9F /* AWSManager+S3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820DA4ED2385392F0027A207 /* AWSManager+S3.swift */; };
 		952144BE24A491FB00BA1A9F /* FriendPackageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2A424486C690020992A /* FriendPackageTableViewCell.swift */; };
 		952144BF24A491FB00BA1A9F /* DNDLongPressDragRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8205FADC236C10F3002B2603 /* DNDLongPressDragRecognizer.m */; };
 		952144C024A491FB00BA1A9F /* GameGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CA3E4A23D98F1B00DD48B8 /* GameGridCell.swift */; };
@@ -5334,7 +5340,6 @@
 		9521845A24ACD2FA0096DC45 /* TemperatureControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FD18236C3B06002B2603 /* TemperatureControl.swift */; };
 		9521845B24ACD2FA0096DC45 /* ThumbSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FAA2236C0FD6002B2603 /* ThumbSelectorView.swift */; };
 		9521845C24ACD2FA0096DC45 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CCB16F2372D0F800EC76E8 /* CurrentUser.swift */; };
-		9521845D24ACD2FA0096DC45 /* AWSManager+S3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820DA4ED2385392F0027A207 /* AWSManager+S3.swift */; };
 		9521845E24ACD2FA0096DC45 /* FriendPackageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2A424486C690020992A /* FriendPackageTableViewCell.swift */; };
 		9521845F24ACD2FA0096DC45 /* DNDLongPressDragRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8205FADC236C10F3002B2603 /* DNDLongPressDragRecognizer.m */; };
 		9521846024ACD2FA0096DC45 /* GameGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CA3E4A23D98F1B00DD48B8 /* GameGridCell.swift */; };
@@ -5985,7 +5990,6 @@
 		95284B3324C89C4600786662 /* TemperatureControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FD18236C3B06002B2603 /* TemperatureControl.swift */; };
 		95284B3424C89C4600786662 /* ThumbSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FAA2236C0FD6002B2603 /* ThumbSelectorView.swift */; };
 		95284B3524C89C4600786662 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CCB16F2372D0F800EC76E8 /* CurrentUser.swift */; };
-		95284B3624C89C4600786662 /* AWSManager+S3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820DA4ED2385392F0027A207 /* AWSManager+S3.swift */; };
 		95284B3724C89C4600786662 /* FriendPackageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2A424486C690020992A /* FriendPackageTableViewCell.swift */; };
 		95284B3824C89C4600786662 /* DNDLongPressDragRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8205FADC236C10F3002B2603 /* DNDLongPressDragRecognizer.m */; };
 		95284B3924C89C4600786662 /* GameGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CA3E4A23D98F1B00DD48B8 /* GameGridCell.swift */; };
@@ -6681,7 +6685,6 @@
 		952F5ED1248A439F00917082 /* TemperatureControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FD18236C3B06002B2603 /* TemperatureControl.swift */; };
 		952F5ED2248A439F00917082 /* ThumbSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FAA2236C0FD6002B2603 /* ThumbSelectorView.swift */; };
 		952F5ED3248A439F00917082 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CCB16F2372D0F800EC76E8 /* CurrentUser.swift */; };
-		952F5ED4248A439F00917082 /* AWSManager+S3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820DA4ED2385392F0027A207 /* AWSManager+S3.swift */; };
 		952F5ED5248A439F00917082 /* FriendPackageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2A424486C690020992A /* FriendPackageTableViewCell.swift */; };
 		952F5ED6248A439F00917082 /* DNDLongPressDragRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8205FADC236C10F3002B2603 /* DNDLongPressDragRecognizer.m */; };
 		952F5ED7248A439F00917082 /* GameGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CA3E4A23D98F1B00DD48B8 /* GameGridCell.swift */; };
@@ -7326,7 +7329,6 @@
 		9545AE2324B61A600076844A /* TemperatureControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FD18236C3B06002B2603 /* TemperatureControl.swift */; };
 		9545AE2424B61A600076844A /* ThumbSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FAA2236C0FD6002B2603 /* ThumbSelectorView.swift */; };
 		9545AE2524B61A600076844A /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CCB16F2372D0F800EC76E8 /* CurrentUser.swift */; };
-		9545AE2624B61A600076844A /* AWSManager+S3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820DA4ED2385392F0027A207 /* AWSManager+S3.swift */; };
 		9545AE2724B61A600076844A /* FriendPackageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2A424486C690020992A /* FriendPackageTableViewCell.swift */; };
 		9545AE2824B61A600076844A /* DNDLongPressDragRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8205FADC236C10F3002B2603 /* DNDLongPressDragRecognizer.m */; };
 		9545AE2924B61A600076844A /* GameGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CA3E4A23D98F1B00DD48B8 /* GameGridCell.swift */; };
@@ -8039,7 +8041,6 @@
 		95A2E7F92490FE8E00226181 /* TemperatureControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FD18236C3B06002B2603 /* TemperatureControl.swift */; };
 		95A2E7FA2490FE8E00226181 /* ThumbSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FAA2236C0FD6002B2603 /* ThumbSelectorView.swift */; };
 		95A2E7FB2490FE8E00226181 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CCB16F2372D0F800EC76E8 /* CurrentUser.swift */; };
-		95A2E7FC2490FE8E00226181 /* AWSManager+S3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820DA4ED2385392F0027A207 /* AWSManager+S3.swift */; };
 		95A2E7FD2490FE8E00226181 /* FriendPackageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2A424486C690020992A /* FriendPackageTableViewCell.swift */; };
 		95A2E7FE2490FE8E00226181 /* DNDLongPressDragRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8205FADC236C10F3002B2603 /* DNDLongPressDragRecognizer.m */; };
 		95A2E7FF2490FE8E00226181 /* GameGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CA3E4A23D98F1B00DD48B8 /* GameGridCell.swift */; };
@@ -8954,7 +8955,7 @@
 		C2F9327A264AA0CA006CA527 /* TemperatureControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FD18236C3B06002B2603 /* TemperatureControl.swift */; };
 		C2F9327B264AA0CA006CA527 /* ThumbSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FAA2236C0FD6002B2603 /* ThumbSelectorView.swift */; };
 		C2F9327C264AA0CA006CA527 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CCB16F2372D0F800EC76E8 /* CurrentUser.swift */; };
-		C2F9327D264AA0CA006CA527 /* AWSManager+S3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820DA4ED2385392F0027A207 /* AWSManager+S3.swift */; };
+		C2F9327D264AA0CA006CA527 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		C2F9327E264AA0CA006CA527 /* FriendPackageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2A424486C690020992A /* FriendPackageTableViewCell.swift */; };
 		C2F9327F264AA0CA006CA527 /* DNDLongPressDragRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8205FADC236C10F3002B2603 /* DNDLongPressDragRecognizer.m */; };
 		C2F93280264AA0CA006CA527 /* GameGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CA3E4A23D98F1B00DD48B8 /* GameGridCell.swift */; };
@@ -9558,7 +9559,6 @@
 		C2F934E2264AA0CA006CA527 /* Thursday.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 82D1EC1323702B4200A680E7 /* Thursday.JPG */; };
 		C2F935C7264AA8EB006CA527 /* Pods_QuickCamLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2F935C6264AA8EB006CA527 /* Pods_QuickCamLite.framework */; };
 		C2F935C8264AA9CA006CA527 /* R.quickcam.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8280E64225136F6B00BF5A1A /* R.quickcam.generated.swift */; };
-		C2F935E5264AAA03006CA527 /* GoogleService-Info-QuickCamLite.plist in Resources */ = {isa = PBXBuildFile; fileRef = F64F5F5F2505F48800703E4B /* GoogleService-Info-QuickCamLite.plist */; };
 		C2F935E6264AAA13006CA527 /* GoogleService-Info-QuickCam.plist in Resources */ = {isa = PBXBuildFile; fileRef = 95D991D424C98DE2000AFCC0 /* GoogleService-Info-QuickCam.plist */; };
 		C2F935E7264AAA27006CA527 /* QuickCamLiteLauchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6C05E2F24E296180018E8DA /* QuickCamLiteLauchScreen.storyboard */; };
 		C8833F073614A35DF244A44F /* Pods_QuickCamLiteExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C75F3E270A1CF04C6B6C834 /* Pods_QuickCamLiteExtension.framework */; };
@@ -9647,7 +9647,6 @@
 		F61055D4253871B700B89F7B /* CommonFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61055C62538713000B89F7B /* CommonFunctions.swift */; };
 		F61055D5253871B800B89F7B /* CommonFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61055C62538713000B89F7B /* CommonFunctions.swift */; };
 		F61082DC25765BB300E495CF /* FastCam-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F61082DB25765BB200E495CF /* FastCam-Info.plist */; };
-		F61082DD25765BB300E495CF /* FastCam-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F61082DB25765BB200E495CF /* FastCam-Info.plist */; };
 		F61D216E24DD3ECF000A816E /* MMPlayerTransitionDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FBA4236C2A88002B2603 /* MMPlayerTransitionDefine.swift */; };
 		F61D216F24DD3ECF000A816E /* ChannelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2CC24487B7B0020992A /* ChannelTableViewCell.swift */; };
 		F61D217024DD3ECF000A816E /* FacebookReactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB57236C1D0F002B2603 /* FacebookReactions.swift */; };
@@ -9763,7 +9762,6 @@
 		F61D21DE24DD3ECF000A816E /* ThumbSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FAA2236C0FD6002B2603 /* ThumbSelectorView.swift */; };
 		F61D21DF24DD3ECF000A816E /* SplashAnimationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824C678524B5BA9C000396E9 /* SplashAnimationType.swift */; };
 		F61D21E024DD3ECF000A816E /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CCB16F2372D0F800EC76E8 /* CurrentUser.swift */; };
-		F61D21E124DD3ECF000A816E /* AWSManager+S3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820DA4ED2385392F0027A207 /* AWSManager+S3.swift */; };
 		F61D21E224DD3ECF000A816E /* FriendPackageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2A424486C690020992A /* FriendPackageTableViewCell.swift */; };
 		F61D21E324DD3ECF000A816E /* DNDLongPressDragRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8205FADC236C10F3002B2603 /* DNDLongPressDragRecognizer.m */; };
 		F61D21E424DD3ECF000A816E /* GameGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CA3E4A23D98F1B00DD48B8 /* GameGridCell.swift */; };
@@ -10433,7 +10431,6 @@
 		F628C04A24D955F300BA5963 /* ThumbSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FAA2236C0FD6002B2603 /* ThumbSelectorView.swift */; };
 		F628C04B24D955F300BA5963 /* SplashAnimationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824C678524B5BA9C000396E9 /* SplashAnimationType.swift */; };
 		F628C04C24D955F300BA5963 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CCB16F2372D0F800EC76E8 /* CurrentUser.swift */; };
-		F628C04D24D955F300BA5963 /* AWSManager+S3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820DA4ED2385392F0027A207 /* AWSManager+S3.swift */; };
 		F628C04E24D955F300BA5963 /* FriendPackageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2A424486C690020992A /* FriendPackageTableViewCell.swift */; };
 		F628C04F24D955F300BA5963 /* DNDLongPressDragRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8205FADC236C10F3002B2603 /* DNDLongPressDragRecognizer.m */; };
 		F628C05024D955F300BA5963 /* GameGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CA3E4A23D98F1B00DD48B8 /* GameGridCell.swift */; };
@@ -11160,7 +11157,6 @@
 		F63E1991251B36A200558591 /* TemperatureControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FD18236C3B06002B2603 /* TemperatureControl.swift */; };
 		F63E1992251B36A200558591 /* ThumbSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FAA2236C0FD6002B2603 /* ThumbSelectorView.swift */; };
 		F63E1993251B36A200558591 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CCB16F2372D0F800EC76E8 /* CurrentUser.swift */; };
-		F63E1994251B36A200558591 /* AWSManager+S3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820DA4ED2385392F0027A207 /* AWSManager+S3.swift */; };
 		F63E1995251B36A200558591 /* FriendPackageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2A424486C690020992A /* FriendPackageTableViewCell.swift */; };
 		F63E1996251B36A200558591 /* DNDLongPressDragRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8205FADC236C10F3002B2603 /* DNDLongPressDragRecognizer.m */; };
 		F63E1997251B36A200558591 /* GameGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CA3E4A23D98F1B00DD48B8 /* GameGridCell.swift */; };
@@ -11734,7 +11730,6 @@
 		F64F5F5B2505F30200703E4B /* GoogleService-Info-FastCamLite.plist in Resources */ = {isa = PBXBuildFile; fileRef = F64F5F592505F30200703E4B /* GoogleService-Info-FastCamLite.plist */; };
 		F64F5F5C2505F30200703E4B /* GoogleService-Info-FastCamLite.plist in Resources */ = {isa = PBXBuildFile; fileRef = F64F5F592505F30200703E4B /* GoogleService-Info-FastCamLite.plist */; };
 		F64F5F5D2505F30200703E4B /* GoogleService-Info-FastCamLite.plist in Resources */ = {isa = PBXBuildFile; fileRef = F64F5F592505F30200703E4B /* GoogleService-Info-FastCamLite.plist */; };
-		F64F5F612505F48800703E4B /* GoogleService-Info-QuickCamLite.plist in Resources */ = {isa = PBXBuildFile; fileRef = F64F5F5F2505F48800703E4B /* GoogleService-Info-QuickCamLite.plist */; };
 		F6540ADB2511E0AE00434507 /* IncomeCalculatorOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F67A26F42511D0EE0068D053 /* IncomeCalculatorOneViewController.swift */; };
 		F6540ADC2511E0B200434507 /* IncomeCalculatorOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F67A26F42511D0EE0068D053 /* IncomeCalculatorOneViewController.swift */; };
 		F6540ADD2511E0B200434507 /* IncomeCalculatorOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F67A26F42511D0EE0068D053 /* IncomeCalculatorOneViewController.swift */; };
@@ -11964,7 +11959,6 @@
 		F6A437BC254BCEDF005CD17D /* TemperatureControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FD18236C3B06002B2603 /* TemperatureControl.swift */; };
 		F6A437BD254BCEDF005CD17D /* ThumbSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FAA2236C0FD6002B2603 /* ThumbSelectorView.swift */; };
 		F6A437BE254BCEDF005CD17D /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CCB16F2372D0F800EC76E8 /* CurrentUser.swift */; };
-		F6A437BF254BCEDF005CD17D /* AWSManager+S3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820DA4ED2385392F0027A207 /* AWSManager+S3.swift */; };
 		F6A437C0254BCEDF005CD17D /* FriendPackageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2A424486C690020992A /* FriendPackageTableViewCell.swift */; };
 		F6A437C1254BCEDF005CD17D /* DNDLongPressDragRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8205FADC236C10F3002B2603 /* DNDLongPressDragRecognizer.m */; };
 		F6A437C2254BCEDF005CD17D /* GameGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CA3E4A23D98F1B00DD48B8 /* GameGridCell.swift */; };
@@ -12626,7 +12620,6 @@
 		F6B98FB624E1A536004E7147 /* SharePostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2307229E244EAFA7009454B0 /* SharePostVC.swift */; };
 		F6B98FB724E1A536004E7147 /* FilterImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB32236C1BAF002B2603 /* FilterImage.swift */; };
 		F6B98FB824E1A536004E7147 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB29236C1723002B2603 /* User.swift */; };
-		F6B98FB924E1A536004E7147 /* AWSManager+S3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820DA4ED2385392F0027A207 /* AWSManager+S3.swift */; };
 		F6B98FBA24E1A536004E7147 /* RKTagsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8205FAC9236C10B7002B2603 /* RKTagsView.m */; };
 		F6B98FBB24E1A536004E7147 /* UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB3AC23619E5B00205993 /* UIAlertController.swift */; };
 		F6B98FC124E1A536004E7147 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 230722AD244EBCB2009454B0 /* MainInterface.storyboard */; };
@@ -12797,7 +12790,6 @@
 		F6C05BF324E294F80018E8DA /* TemperatureControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FD18236C3B06002B2603 /* TemperatureControl.swift */; };
 		F6C05BF424E294F80018E8DA /* ThumbSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FAA2236C0FD6002B2603 /* ThumbSelectorView.swift */; };
 		F6C05BF524E294F80018E8DA /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CCB16F2372D0F800EC76E8 /* CurrentUser.swift */; };
-		F6C05BF624E294F80018E8DA /* AWSManager+S3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820DA4ED2385392F0027A207 /* AWSManager+S3.swift */; };
 		F6C05BF724E294F80018E8DA /* FriendPackageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952EC2A424486C690020992A /* FriendPackageTableViewCell.swift */; };
 		F6C05BF824E294F80018E8DA /* DNDLongPressDragRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8205FADC236C10F3002B2603 /* DNDLongPressDragRecognizer.m */; };
 		F6C05BF924E294F80018E8DA /* GameGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CA3E4A23D98F1B00DD48B8 /* GameGridCell.swift */; };
@@ -13972,7 +13964,6 @@
 		820BFB7023E7F5170087B38E /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		820BFB7223E810F30087B38E /* ProfilePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
 		820C3AF823797896007FCF15 /* SocialShareVideo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialShareVideo.swift; sourceTree = "<group>"; };
-		820DA4ED2385392F0027A207 /* AWSManager+S3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AWSManager+S3.swift"; sourceTree = "<group>"; };
 		8219322523EAA8FD00FFEC03 /* StoriCamManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriCamManager.swift; sourceTree = "<group>"; };
 		8219322723EABE3F00FFEC03 /* FontAwesome.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.otf; sourceTree = "<group>"; };
 		8219D5C12547E07E00614F1A /* R.socialcam.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.socialcam.generated.swift; sourceTree = "<group>"; };
@@ -14003,6 +13994,7 @@
 		82270CBC23B08C780003569E /* StorySegmmentAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorySegmmentAsset.swift; sourceTree = "<group>"; };
 		822ABCBF259C473400323EBD /* GoogleService-Info-Pic2Art.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-Pic2Art.plist"; sourceTree = "<group>"; };
 		822ABF71259C754300323EBD /* R.quickCamLiteExtension.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.quickCamLiteExtension.generated.swift; sourceTree = "<group>"; };
+		822EE295264E424500FDA76B /* GoogleService-Info-QuickCamLite.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-QuickCamLite.plist"; sourceTree = "<group>"; };
 		822F413B238FE39100084007 /* Async.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Async.swift; sourceTree = "<group>"; };
 		822F413E238FE3E900084007 /* ExportVideoOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportVideoOperation.swift; sourceTree = "<group>"; };
 		8232CEA8240E2A2300AD8E63 /* SocialCamMediaShare.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SocialCamMediaShare.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -14198,7 +14190,6 @@
 		828F3E6823F2B4E4007AE35F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		828F871E25CA6D1C000E645E /* RecorderStopScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecorderStopScreen.swift; sourceTree = "<group>"; };
 		828F871F25CA6D1D000E645E /* RecorderStopScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecorderStopScreen.xib; sourceTree = "<group>"; };
-		8294874E2552804E0022FBF6 /* GoogleService-Info-SnapCamLite.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-SnapCamLite.plist"; sourceTree = "<group>"; };
 		8299F55E237135BF00963318 /* UIAppleColorWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAppleColorWrapper.swift; sourceTree = "<group>"; };
 		8299F55F237135BF00963318 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		8299F560237135BF00963318 /* UIColor+Apple.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Apple.swift"; sourceTree = "<group>"; };
@@ -14238,6 +14229,7 @@
 		82CCB16F2372D0F800EC76E8 /* CurrentUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
 		82CCB1712372D21E00EC76E8 /* PromanagerData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromanagerData.swift; sourceTree = "<group>"; };
 		82CCB1752372E9D000EC76E8 /* LoginViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginViewController.storyboard; sourceTree = "<group>"; };
+		82CCD415264A49B6000463F0 /* GoogleService-Info-SnapCamLite.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-SnapCamLite.plist"; sourceTree = "<group>"; };
 		82D1EB9E236FE68E00A680E7 /* StorySettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorySettingsCell.swift; sourceTree = "<group>"; };
 		82D1EBA1236FED0500A680E7 /* MensionCollectionViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MensionCollectionViewDelegate.swift; sourceTree = "<group>"; };
 		82D1EBA3236FED1700A680E7 /* EmojiCollectionViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiCollectionViewDelegate.swift; sourceTree = "<group>"; };
@@ -14316,6 +14308,7 @@
 		82D1EC8123703DE300A680E7 /* PhotoEditorViewController+LifeCycle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PhotoEditorViewController+LifeCycle.swift"; sourceTree = "<group>"; };
 		82D22E66258B486300957045 /* RecordeAppAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = RecordeAppAssets.xcassets; sourceTree = "<group>"; };
 		82D22F29258B4B6700957045 /* R.socialscreenrecorder.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.socialscreenrecorder.generated.swift; sourceTree = "<group>"; };
+		82D86951264B9F73007A8D06 /* AWSManager+S3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AWSManager+S3.swift"; sourceTree = "<group>"; };
 		82DCF7A723C5AD95009E12D2 /* SplashScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SplashScreen.storyboard; sourceTree = "<group>"; };
 		82DCF7A923C5AD9D009E12D2 /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
 		82E4D673259B465D005B41C1 /* QuickCamLiteExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = QuickCamLiteExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -14537,7 +14530,6 @@
 		F63E1BE1251B4AA100558591 /* SpeedCamLite-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SpeedCamLite-Info.plist"; sourceTree = "<group>"; };
 		F64F5F542505F14C00703E4B /* GoogleService-Info-ViralCamLite.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-ViralCamLite.plist"; sourceTree = "<group>"; };
 		F64F5F592505F30200703E4B /* GoogleService-Info-FastCamLite.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-FastCamLite.plist"; sourceTree = "<group>"; };
-		F64F5F5F2505F48800703E4B /* GoogleService-Info-QuickCamLite.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-QuickCamLite.plist"; sourceTree = "<group>"; };
 		F6540AE82511F3FF00434507 /* CalculatorSelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorSelectorViewController.swift; sourceTree = "<group>"; };
 		F65D45F22553E6C600B1EE51 /* SnapCamAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = SnapCamAssets.xcassets; sourceTree = "<group>"; };
 		F6755B02255D29D5003D6D53 /* Legal.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Legal.storyboard; sourceTree = "<group>"; };
@@ -15030,7 +15022,6 @@
 				827C711B25302F26006D1EB6 /* LetterImageGenerator.swift */,
 				F6B76C74251DBA31007EBA98 /* AppleSignInManager.swift */,
 				820BFB6E23E7EDAC0087B38E /* InstaGramManager */,
-				820DA4ED2385392F0027A207 /* AWSManager+S3.swift */,
 				825A2BFF23E19188003BE8D5 /* GoogleManager.swift */,
 				8219322523EAA8FD00FFEC03 /* StoriCamManager.swift */,
 				825A2C0323E1AD94003BE8D5 /* FaceBookConstant.swift */,
@@ -15038,6 +15029,7 @@
 				82C4B2B02383F3CB00551B51 /* TwitterManger.swift */,
 				824AD525237BEAD700BF226F /* TiktokClass.swift */,
 				82437BF523DEBDE600F5A2FD /* SnapKitManager.swift */,
+				82D86951264B9F73007A8D06 /* AWSManager+S3.swift */,
 				820C3AF823797896007FCF15 /* SocialShareVideo.swift */,
 				820B23702371961F00906BF0 /* ProManagerApi.swift */,
 				824EB39F23619E3D00205993 /* Utility.swift */,
@@ -16783,7 +16775,7 @@
 			children = (
 				9545B06024B621320076844A /* GoogleService-Info-SnapCam.plist */,
 				F6A43A12254BFAA6005CD17D /* LaunchScreenSnapCamLite.storyboard */,
-				8294874E2552804E0022FBF6 /* GoogleService-Info-SnapCamLite.plist */,
+				82CCD415264A49B6000463F0 /* GoogleService-Info-SnapCamLite.plist */,
 				9545B05C24B61CF40076844A /* LaunchScreenSnapCam.storyboard */,
 			);
 			path = SnapCam;
@@ -16985,7 +16977,7 @@
 		F64F5F5E2505F46800703E4B /* QuickCam Lite */ = {
 			isa = PBXGroup;
 			children = (
-				F64F5F5F2505F48800703E4B /* GoogleService-Info-QuickCamLite.plist */,
+				822EE295264E424500FDA76B /* GoogleService-Info-QuickCamLite.plist */,
 			);
 			path = "QuickCam Lite";
 			sourceTree = "<group>";
@@ -17626,7 +17618,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1210;
-				LastUpgradeCheck = 1200;
+				LastUpgradeCheck = 1250;
 				ORGANIZATIONNAME = "Viraj Patel";
 				TargetAttributes = {
 					230722A8244EBCB2009454B0 = {
@@ -18380,7 +18372,6 @@
 				8274E64D258B45DD00AE4FB0 /* SocialConnection.storyboard in Resources */,
 				8274E64E258B45DD00AE4FB0 /* love.json in Resources */,
 				8274E64F258B45DD00AE4FB0 /* StoryEditor.storyboard in Resources */,
-				8274E650258B45DD00AE4FB0 /* GoogleService-Info-QuickCamLite.plist in Resources */,
 				8274E651258B45DD00AE4FB0 /* WatermarksMedia.xcassets in Resources */,
 				8274E652258B45DD00AE4FB0 /* Localizable.strings in Resources */,
 				8274E653258B45DD00AE4FB0 /* SF-UI-Text-Light.otf in Resources */,
@@ -18584,7 +18575,6 @@
 				82AF1E2C249A05DE00D386E9 /* SF-UI-Text-Heavy.otf in Resources */,
 				82AF1E2D249A05DE00D386E9 /* UpgradePageCollectionViewCell.xib in Resources */,
 				82AF1E2E249A05DE00D386E9 /* FeedbackLocalizable.strings in Resources */,
-				F61082DD25765BB300E495CF /* FastCam-Info.plist in Resources */,
 				82AF1E2F249A05DE00D386E9 /* Marshmallow.JPG in Resources */,
 				82AF1E30249A05DE00D386E9 /* Muse.JPG in Resources */,
 				82AF1E31249A05DE00D386E9 /* StickerCollectionViewCell.xib in Resources */,
@@ -19542,11 +19532,11 @@
 			files = (
 				C2F935E7264AAA27006CA527 /* QuickCamLiteLauchScreen.storyboard in Resources */,
 				C2F935E6264AAA13006CA527 /* GoogleService-Info-QuickCam.plist in Resources */,
-				C2F935E5264AAA03006CA527 /* GoogleService-Info-QuickCamLite.plist in Resources */,
 				C2F93451264AA0CA006CA527 /* Fragrance.JPG in Resources */,
 				C2F93452264AA0CA006CA527 /* Mood.JPG in Resources */,
 				C2F93454264AA0CA006CA527 /* FrameCollectionViewCell.xib in Resources */,
 				C2F93455264AA0CA006CA527 /* 03 Mysterious Intro.mp3 in Resources */,
+				822EE296264E424600FDA76B /* GoogleService-Info-QuickCamLite.plist in Resources */,
 				C2F93456264AA0CA006CA527 /* SplashScreen.storyboard in Resources */,
 				C2F93457264AA0CA006CA527 /* Legal.storyboard in Resources */,
 				C2F93458264AA0CA006CA527 /* HomeScreen.storyboard in Resources */,
@@ -20195,6 +20185,7 @@
 				F6A439B7254BCEDF005CD17D /* HomeTableViewCellWithCollectionView.xib in Resources */,
 				F6A439B8254BCEDF005CD17D /* SocialConnection.storyboard in Resources */,
 				F6A439B9254BCEDF005CD17D /* love.json in Resources */,
+				82CCD416264A49B7000463F0 /* GoogleService-Info-SnapCamLite.plist in Resources */,
 				F6A439BA254BCEDF005CD17D /* StoryEditor.storyboard in Resources */,
 				F6A439BB254BCEDF005CD17D /* Localizable.strings in Resources */,
 				822283BF259224150074F5B0 /* Recorder.storyboard in Resources */,
@@ -20208,7 +20199,6 @@
 				F6A439C2254BCEDF005CD17D /* SF-UI-Text-Medium.otf in Resources */,
 				F6A439C3254BCEDF005CD17D /* TikTokShareView.xib in Resources */,
 				F6A439C4254BCEDF005CD17D /* PageViewController.storyboard in Resources */,
-				8274E3C0258B420500AE4FB0 /* SnapCamLite-Info.plist in Resources */,
 				F6A439C5254BCEDF005CD17D /* DropDownCell.xib in Resources */,
 				F6A439C6254BCEDF005CD17D /* LUT_M11.png in Resources */,
 				F6A439C7254BCEDF005CD17D /* FairyTales.JPG in Resources */,
@@ -20221,7 +20211,6 @@
 				F6A439D0254BCEDF005CD17D /* Warm.JPG in Resources */,
 				F6A439D1254BCEDF005CD17D /* LUT_M08.png in Resources */,
 				F6A439D2254BCEDF005CD17D /* Wonderful.JPG in Resources */,
-				8294874F2552804E0022FBF6 /* GoogleService-Info-SnapCamLite.plist in Resources */,
 				F6A439D3254BCEDF005CD17D /* SF-UI-Text-Heavy.otf in Resources */,
 				F6A439D4254BCEDF005CD17D /* Assets.xcassets in Resources */,
 				F6A439D5254BCEDF005CD17D /* UpgradePageCollectionViewCell.xib in Resources */,
@@ -20325,6 +20314,7 @@
 				F6C05DBE24E294F80018E8DA /* HomeTableViewCell.xib in Resources */,
 				F6C05DBF24E294F80018E8DA /* Sundae.JPG in Resources */,
 				F6C05DC024E294F80018E8DA /* CameraView.xib in Resources */,
+				822EE297264E424900FDA76B /* GoogleService-Info-QuickCamLite.plist in Resources */,
 				F6C05DC124E294F80018E8DA /* CoverA.xib in Resources */,
 				F6C05DC224E294F80018E8DA /* ReactionSummaryLocalizable.strings in Resources */,
 				F6C05DC324E294F80018E8DA /* StickersViewController.xib in Resources */,
@@ -20357,7 +20347,6 @@
 				F6C05DDB24E294F80018E8DA /* SocialConnection.storyboard in Resources */,
 				F6C05DDC24E294F80018E8DA /* love.json in Resources */,
 				F6C05DDD24E294F80018E8DA /* StoryEditor.storyboard in Resources */,
-				F64F5F612505F48800703E4B /* GoogleService-Info-QuickCamLite.plist in Resources */,
 				82F3FCED25345B9600488755 /* WatermarksMedia.xcassets in Resources */,
 				F6C05DDE24E294F80018E8DA /* Localizable.strings in Resources */,
 				F6C05DDF24E294F80018E8DA /* SF-UI-Text-Light.otf in Resources */,
@@ -22492,10 +22481,8 @@
 				F604D98E2526D36E0063FF7B /* String+Extension.swift in Sources */,
 				F604D9892526C7530063FF7B /* LoginUserData.swift in Sources */,
 				230722B9244EBDC1009454B0 /* SharePostVC.swift in Sources */,
-				825E51112599CD0F002FCAF9 /* CalculatorConfigurationModel.swift in Sources */,
 				230722C3244EC18F009454B0 /* FilterImage.swift in Sources */,
 				230722C0244EC14C009454B0 /* User.swift in Sources */,
-				827DAB9D24A4D098001A2259 /* AWSManager+S3.swift in Sources */,
 				230722DF244EF356009454B0 /* RKTagsView.m in Sources */,
 				820B650B2472855B0011D033 /* UIAlertController.swift in Sources */,
 				8280E65F2513716800BF5A1A /* R.viralvids.generated.swift in Sources */,
@@ -22631,7 +22618,6 @@
 				23CE89FE24349B110096233C /* ThumbSelectorView.swift in Sources */,
 				824C679D24B5BA9C000396E9 /* SplashAnimationType.swift in Sources */,
 				23CE89FF24349B110096233C /* CurrentUser.swift in Sources */,
-				23CE8A0024349B110096233C /* AWSManager+S3.swift in Sources */,
 				952EC2A624486C690020992A /* FriendPackageTableViewCell.swift in Sources */,
 				23CE8A0124349B110096233C /* DNDLongPressDragRecognizer.m in Sources */,
 				23CE8A0224349B110096233C /* GameGridCell.swift in Sources */,
@@ -22877,6 +22863,7 @@
 				23CE8AC424349B110096233C /* GrowingTextView.swift in Sources */,
 				23CE8AC524349B110096233C /* ComponentBuilder.swift in Sources */,
 				23CE8AC624349B110096233C /* CropAssetExportSession.swift in Sources */,
+				82D86958264B9F73007A8D06 /* AWSManager+S3.swift in Sources */,
 				23CE8AC724349B110096233C /* CollageViewT309.swift in Sources */,
 				23CE8AC924349B110096233C /* CollageViewT304.swift in Sources */,
 				23CE8ACA24349B110096233C /* StatTableViewCell.swift in Sources */,
@@ -23286,7 +23273,6 @@
 				824C679F24B5BA9C000396E9 /* SplashAnimationType.swift in Sources */,
 				82402BF3248F91D50057133F /* CurrentUser.swift in Sources */,
 				82228524259227CC0074F5B0 /* AppPreferences.swift in Sources */,
-				82402BF4248F91D50057133F /* AWSManager+S3.swift in Sources */,
 				82402BF5248F91D50057133F /* FriendPackageTableViewCell.swift in Sources */,
 				82402BF6248F91D50057133F /* DNDLongPressDragRecognizer.m in Sources */,
 				82402BF7248F91D50057133F /* GameGridCell.swift in Sources */,
@@ -23738,6 +23724,7 @@
 				82402D83248F91D50057133F /* HomeTableViewCellWithCollectionView.swift in Sources */,
 				82402D84248F91D50057133F /* CollageViewT802.swift in Sources */,
 				82402D85248F91D50057133F /* Files.swift in Sources */,
+				82D86954264B9F73007A8D06 /* AWSManager+S3.swift in Sources */,
 				82402D86248F91D50057133F /* NSURLSessionExtension.swift in Sources */,
 				8277C77524B584EE00711987 /* DashboardViewController.swift in Sources */,
 				82402D87248F91D50057133F /* IAPManager.swift in Sources */,
@@ -23878,7 +23865,6 @@
 				8205FAA5236C0FD7002B2603 /* ThumbSelectorView.swift in Sources */,
 				82CCB1702372D0F800EC76E8 /* CurrentUser.swift in Sources */,
 				F6A9DE2D24EE9D19005E8E1B /* IconPositionTableViewCell.swift in Sources */,
-				820DA4EE2385392F0027A207 /* AWSManager+S3.swift in Sources */,
 				952EC2A524486C690020992A /* FriendPackageTableViewCell.swift in Sources */,
 				8205FAE6236C10F3002B2603 /* DNDLongPressDragRecognizer.m in Sources */,
 				823855D924BEF3B300F32759 /* SocialCamShareVC.swift in Sources */,
@@ -23993,6 +23979,7 @@
 				954660692387B5CC00A37AE0 /* RotationDial.swift in Sources */,
 				8287D20E23826ECD0074FC39 /* YouTubeCategoriesViewController.swift in Sources */,
 				821CFA03248784E000EC1503 /* UIResponder+STPopup.m in Sources */,
+				82D86952264B9F73007A8D06 /* AWSManager+S3.swift in Sources */,
 				8277C78224B587FA00711987 /* HMSegmentViewController.swift in Sources */,
 				954660542387B5CC00A37AE0 /* CropViewModel.swift in Sources */,
 				9546604E2387B5CC00A37AE0 /* ToolBarButtonImageBuilder.swift in Sources */,
@@ -24482,7 +24469,6 @@
 				82532ADF2513315700ABC366 /* TemperatureControl.swift in Sources */,
 				82532AE02513315700ABC366 /* ThumbSelectorView.swift in Sources */,
 				82532AE12513315700ABC366 /* CurrentUser.swift in Sources */,
-				82532AE22513315700ABC366 /* AWSManager+S3.swift in Sources */,
 				82532AE32513315700ABC366 /* FriendPackageTableViewCell.swift in Sources */,
 				82532AE42513315700ABC366 /* DNDLongPressDragRecognizer.m in Sources */,
 				82532AE52513315700ABC366 /* GameGridCell.swift in Sources */,
@@ -24568,6 +24554,7 @@
 				82532B312513315700ABC366 /* VIExportSession.swift in Sources */,
 				82532B322513315700ABC366 /* BlurredMosaicView.swift in Sources */,
 				82532B332513315700ABC366 /* FrameCollectionViewCell.swift in Sources */,
+				82D8695E264B9F73007A8D06 /* AWSManager+S3.swift in Sources */,
 				82532B342513315700ABC366 /* AdjustmentControlView.swift in Sources */,
 				82228453259226A10074F5B0 /* SystemBroadcase.swift in Sources */,
 				82532B352513315700ABC366 /* FilterContrast.swift in Sources */,
@@ -25072,7 +25059,6 @@
 				8274E44E258B45DD00AE4FB0 /* TemperatureControl.swift in Sources */,
 				8274E44F258B45DD00AE4FB0 /* ThumbSelectorView.swift in Sources */,
 				8274E450258B45DD00AE4FB0 /* CurrentUser.swift in Sources */,
-				8274E451258B45DD00AE4FB0 /* AWSManager+S3.swift in Sources */,
 				8274E452258B45DD00AE4FB0 /* FriendPackageTableViewCell.swift in Sources */,
 				8274E453258B45DD00AE4FB0 /* DNDLongPressDragRecognizer.m in Sources */,
 				8274E454258B45DD00AE4FB0 /* GameGridCell.swift in Sources */,
@@ -25524,6 +25510,7 @@
 				8274E604258B45DD00AE4FB0 /* HomeTableViewCellWithCollectionView.swift in Sources */,
 				8274E605258B45DD00AE4FB0 /* CollageViewT802.swift in Sources */,
 				8274E606258B45DD00AE4FB0 /* CustomSlider.swift in Sources */,
+				82D86962264B9F73007A8D06 /* AWSManager+S3.swift in Sources */,
 				8274E607258B45DD00AE4FB0 /* SubscriptionVC.swift in Sources */,
 				8274E608258B45DD00AE4FB0 /* Files.swift in Sources */,
 				8274E609258B45DD00AE4FB0 /* NSURLSessionExtension.swift in Sources */,
@@ -25716,7 +25703,6 @@
 				82AF1C3B249A05DE00D386E9 /* ThumbSelectorView.swift in Sources */,
 				824C67A124B5BA9C000396E9 /* SplashAnimationType.swift in Sources */,
 				82AF1C3C249A05DE00D386E9 /* CurrentUser.swift in Sources */,
-				82AF1C3D249A05DE00D386E9 /* AWSManager+S3.swift in Sources */,
 				82AF1C3E249A05DE00D386E9 /* FriendPackageTableViewCell.swift in Sources */,
 				82AF1C3F249A05DE00D386E9 /* DNDLongPressDragRecognizer.m in Sources */,
 				82AF1C40249A05DE00D386E9 /* GameGridCell.swift in Sources */,
@@ -25827,6 +25813,7 @@
 				82AF1C96249A05DE00D386E9 /* ReactionButton.swift in Sources */,
 				82AF1C97249A05DE00D386E9 /* YouTubeViewController.swift in Sources */,
 				82AF1C98249A05DE00D386E9 /* AssetVideoScrollView.swift in Sources */,
+				82D8695A264B9F73007A8D06 /* AWSManager+S3.swift in Sources */,
 				82AF1C99249A05DE00D386E9 /* MaskControlView.swift in Sources */,
 				82AF1C9A249A05DE00D386E9 /* Post+CoreDataClass.swift in Sources */,
 				82AF1C9B249A05DE00D386E9 /* FixedRatioManager.swift in Sources */,
@@ -25999,7 +25986,6 @@
 				82AF1D36249A05DE00D386E9 /* VignetteControl.swift in Sources */,
 				82AF1D37249A05DE00D386E9 /* SnapKitManager.swift in Sources */,
 				82AF1D38249A05DE00D386E9 /* StyleTransferModel43.mlmodel in Sources */,
-				8280E6502513711600BF5A1A /* R.fastcam.generated.swift in Sources */,
 				82AF1D39249A05DE00D386E9 /* DrawingContainerView.swift in Sources */,
 				82AF1D3A249A05DE00D386E9 /* VSSlider.swift in Sources */,
 				82AF1D3B249A05DE00D386E9 /* CropMaskView.swift in Sources */,
@@ -26368,7 +26354,6 @@
 				82228526259227CD0074F5B0 /* AppPreferences.swift in Sources */,
 				952144BB24A491FB00BA1A9F /* ThumbSelectorView.swift in Sources */,
 				952144BC24A491FB00BA1A9F /* CurrentUser.swift in Sources */,
-				952144BD24A491FB00BA1A9F /* AWSManager+S3.swift in Sources */,
 				952144BE24A491FB00BA1A9F /* FriendPackageTableViewCell.swift in Sources */,
 				F6A9DE3324EE9D20005E8E1B /* IconPositionTableViewCell.swift in Sources */,
 				952144BF24A491FB00BA1A9F /* DNDLongPressDragRecognizer.m in Sources */,
@@ -26756,6 +26741,7 @@
 				9521461724A491FB00BA1A9F /* NextLevelSession.swift in Sources */,
 				9521461824A491FB00BA1A9F /* MusicPickerVC.swift in Sources */,
 				9521461924A491FB00BA1A9F /* TwitterComposeViewController.swift in Sources */,
+				82D86956264B9F73007A8D06 /* AWSManager+S3.swift in Sources */,
 				824C677F24B5B404000396E9 /* ComingSoonController.swift in Sources */,
 				9521461A24A491FB00BA1A9F /* Story.swift in Sources */,
 				9521461B24A491FB00BA1A9F /* ContrastControl.swift in Sources */,
@@ -26964,7 +26950,6 @@
 				82228527259227CE0074F5B0 /* AppPreferences.swift in Sources */,
 				9521845B24ACD2FA0096DC45 /* ThumbSelectorView.swift in Sources */,
 				9521845C24ACD2FA0096DC45 /* CurrentUser.swift in Sources */,
-				9521845D24ACD2FA0096DC45 /* AWSManager+S3.swift in Sources */,
 				9521845E24ACD2FA0096DC45 /* FriendPackageTableViewCell.swift in Sources */,
 				F6A9DE3424EE9D21005E8E1B /* IconPositionTableViewCell.swift in Sources */,
 				9521845F24ACD2FA0096DC45 /* DNDLongPressDragRecognizer.m in Sources */,
@@ -27352,6 +27337,7 @@
 				952185B824ACD2FA0096DC45 /* MusicPickerVC.swift in Sources */,
 				952185B924ACD2FA0096DC45 /* TwitterComposeViewController.swift in Sources */,
 				952185BA24ACD2FA0096DC45 /* Story.swift in Sources */,
+				82D86957264B9F73007A8D06 /* AWSManager+S3.swift in Sources */,
 				952185BB24ACD2FA0096DC45 /* ContrastControl.swift in Sources */,
 				952185BC24ACD2FA0096DC45 /* CollageViewT305.swift in Sources */,
 				952185BD24ACD2FA0096DC45 /* CollageViewT312.swift in Sources */,
@@ -27554,7 +27540,6 @@
 				95284B3324C89C4600786662 /* TemperatureControl.swift in Sources */,
 				95284B3424C89C4600786662 /* ThumbSelectorView.swift in Sources */,
 				95284B3524C89C4600786662 /* CurrentUser.swift in Sources */,
-				95284B3624C89C4600786662 /* AWSManager+S3.swift in Sources */,
 				95284B3724C89C4600786662 /* FriendPackageTableViewCell.swift in Sources */,
 				95284B3824C89C4600786662 /* DNDLongPressDragRecognizer.m in Sources */,
 				95284B3924C89C4600786662 /* GameGridCell.swift in Sources */,
@@ -28007,6 +27992,7 @@
 				95284CD324C89C4600786662 /* HomeTableViewCellWithCollectionView.swift in Sources */,
 				95284CD424C89C4600786662 /* CollageViewT802.swift in Sources */,
 				F6B65D50253039E6007F3917 /* CustomSlider.swift in Sources */,
+				82D8695C264B9F73007A8D06 /* AWSManager+S3.swift in Sources */,
 				95284CD524C89C4600786662 /* SubscriptionVC.swift in Sources */,
 				95284CD624C89C4600786662 /* Files.swift in Sources */,
 				95284CD724C89C4600786662 /* NSURLSessionExtension.swift in Sources */,
@@ -28151,7 +28137,6 @@
 				952F5ED2248A439F00917082 /* ThumbSelectorView.swift in Sources */,
 				824C679E24B5BA9C000396E9 /* SplashAnimationType.swift in Sources */,
 				952F5ED3248A439F00917082 /* CurrentUser.swift in Sources */,
-				952F5ED4248A439F00917082 /* AWSManager+S3.swift in Sources */,
 				82228523259227CC0074F5B0 /* AppPreferences.swift in Sources */,
 				952F5ED5248A439F00917082 /* FriendPackageTableViewCell.swift in Sources */,
 				952F5ED6248A439F00917082 /* DNDLongPressDragRecognizer.m in Sources */,
@@ -28543,6 +28528,7 @@
 				952F602E248A439F00917082 /* NextLevelSession.swift in Sources */,
 				952F602F248A439F00917082 /* MusicPickerVC.swift in Sources */,
 				952F6030248A439F00917082 /* TwitterComposeViewController.swift in Sources */,
+				82D86953264B9F73007A8D06 /* AWSManager+S3.swift in Sources */,
 				952F6031248A439F00917082 /* Story.swift in Sources */,
 				952F6032248A439F00917082 /* ContrastControl.swift in Sources */,
 				952F6033248A439F00917082 /* CollageViewT305.swift in Sources */,
@@ -28749,7 +28735,6 @@
 				9545AE2324B61A600076844A /* TemperatureControl.swift in Sources */,
 				9545AE2424B61A600076844A /* ThumbSelectorView.swift in Sources */,
 				9545AE2524B61A600076844A /* CurrentUser.swift in Sources */,
-				9545AE2624B61A600076844A /* AWSManager+S3.swift in Sources */,
 				9545AE2724B61A600076844A /* FriendPackageTableViewCell.swift in Sources */,
 				9545AE2824B61A600076844A /* DNDLongPressDragRecognizer.m in Sources */,
 				9545AE2924B61A600076844A /* GameGridCell.swift in Sources */,
@@ -28836,6 +28821,7 @@
 				9545AE7524B61A600076844A /* BlurredMosaicView.swift in Sources */,
 				9545AE7624B61A600076844A /* FrameCollectionViewCell.swift in Sources */,
 				9545AE7724B61A600076844A /* AdjustmentControlView.swift in Sources */,
+				82D86960264B9F73007A8D06 /* AWSManager+S3.swift in Sources */,
 				9545AE7824B61A600076844A /* FilterContrast.swift in Sources */,
 				82228451259226A00074F5B0 /* SystemBroadcase.swift in Sources */,
 				9545AE7A24B61A600076844A /* FilterTemperature.swift in Sources */,
@@ -29343,7 +29329,6 @@
 				824C67A024B5BA9C000396E9 /* SplashAnimationType.swift in Sources */,
 				95A2E7FB2490FE8E00226181 /* CurrentUser.swift in Sources */,
 				82228525259227CD0074F5B0 /* AppPreferences.swift in Sources */,
-				95A2E7FC2490FE8E00226181 /* AWSManager+S3.swift in Sources */,
 				95A2E7FD2490FE8E00226181 /* FriendPackageTableViewCell.swift in Sources */,
 				95A2E7FE2490FE8E00226181 /* DNDLongPressDragRecognizer.m in Sources */,
 				95A2E7FF2490FE8E00226181 /* GameGridCell.swift in Sources */,
@@ -29733,6 +29718,7 @@
 				95A2E9532490FE8E00226181 /* RotationDialPlate.swift in Sources */,
 				95A2E9542490FE8E00226181 /* Queuer.swift in Sources */,
 				95A2E9562490FE8E00226181 /* NextLevelSession.swift in Sources */,
+				82D86955264B9F73007A8D06 /* AWSManager+S3.swift in Sources */,
 				95A2E9572490FE8E00226181 /* MusicPickerVC.swift in Sources */,
 				95A2E9582490FE8E00226181 /* TwitterComposeViewController.swift in Sources */,
 				95A2E9592490FE8E00226181 /* Story.swift in Sources */,
@@ -29940,7 +29926,7 @@
 				C2F9327A264AA0CA006CA527 /* TemperatureControl.swift in Sources */,
 				C2F9327B264AA0CA006CA527 /* ThumbSelectorView.swift in Sources */,
 				C2F9327C264AA0CA006CA527 /* CurrentUser.swift in Sources */,
-				C2F9327D264AA0CA006CA527 /* AWSManager+S3.swift in Sources */,
+				C2F9327D264AA0CA006CA527 /* (null) in Sources */,
 				C2F9327E264AA0CA006CA527 /* FriendPackageTableViewCell.swift in Sources */,
 				C2F9327F264AA0CA006CA527 /* DNDLongPressDragRecognizer.m in Sources */,
 				C2F93280264AA0CA006CA527 /* GameGridCell.swift in Sources */,
@@ -30532,7 +30518,6 @@
 				F61D21DE24DD3ECF000A816E /* ThumbSelectorView.swift in Sources */,
 				F61D21DF24DD3ECF000A816E /* SplashAnimationType.swift in Sources */,
 				F61D21E024DD3ECF000A816E /* CurrentUser.swift in Sources */,
-				F61D21E124DD3ECF000A816E /* AWSManager+S3.swift in Sources */,
 				F61D21E224DD3ECF000A816E /* FriendPackageTableViewCell.swift in Sources */,
 				F61D21E324DD3ECF000A816E /* DNDLongPressDragRecognizer.m in Sources */,
 				F61D21E424DD3ECF000A816E /* GameGridCell.swift in Sources */,
@@ -30642,6 +30627,7 @@
 				F61D224224DD3ECF000A816E /* YouTubeViewController.swift in Sources */,
 				F61D224324DD3ECF000A816E /* AssetVideoScrollView.swift in Sources */,
 				F61D224424DD3ECF000A816E /* MaskControlView.swift in Sources */,
+				82D8695B264B9F73007A8D06 /* AWSManager+S3.swift in Sources */,
 				F61D224524DD3ECF000A816E /* Post+CoreDataClass.swift in Sources */,
 				F61D224624DD3ECF000A816E /* FixedRatioManager.swift in Sources */,
 				F61D224724DD3ECF000A816E /* GetPlayList.swift in Sources */,
@@ -31128,7 +31114,6 @@
 				F628C04A24D955F300BA5963 /* ThumbSelectorView.swift in Sources */,
 				F628C04B24D955F300BA5963 /* SplashAnimationType.swift in Sources */,
 				F628C04C24D955F300BA5963 /* CurrentUser.swift in Sources */,
-				F628C04D24D955F300BA5963 /* AWSManager+S3.swift in Sources */,
 				F628C04E24D955F300BA5963 /* FriendPackageTableViewCell.swift in Sources */,
 				F628C04F24D955F300BA5963 /* DNDLongPressDragRecognizer.m in Sources */,
 				F628C05024D955F300BA5963 /* GameGridCell.swift in Sources */,
@@ -31239,6 +31224,7 @@
 				F628C0AF24D955F300BA5963 /* AssetVideoScrollView.swift in Sources */,
 				F628C0B024D955F300BA5963 /* MaskControlView.swift in Sources */,
 				F628C0B124D955F300BA5963 /* Post+CoreDataClass.swift in Sources */,
+				82D86959264B9F73007A8D06 /* AWSManager+S3.swift in Sources */,
 				F628C0B224D955F300BA5963 /* FixedRatioManager.swift in Sources */,
 				F628C0B324D955F300BA5963 /* GetPlayList.swift in Sources */,
 				F628C0B424D955F300BA5963 /* AVMutableComposition+AVAsset.swift in Sources */,
@@ -31728,7 +31714,6 @@
 				F63E1991251B36A200558591 /* TemperatureControl.swift in Sources */,
 				F63E1992251B36A200558591 /* ThumbSelectorView.swift in Sources */,
 				F63E1993251B36A200558591 /* CurrentUser.swift in Sources */,
-				F63E1994251B36A200558591 /* AWSManager+S3.swift in Sources */,
 				F63E1995251B36A200558591 /* FriendPackageTableViewCell.swift in Sources */,
 				F63E1996251B36A200558591 /* DNDLongPressDragRecognizer.m in Sources */,
 				F63E1997251B36A200558591 /* GameGridCell.swift in Sources */,
@@ -31814,6 +31799,7 @@
 				F63E19E4251B36A200558591 /* VIExportSession.swift in Sources */,
 				F63E19E5251B36A200558591 /* BlurredMosaicView.swift in Sources */,
 				F63E19E6251B36A200558591 /* FrameCollectionViewCell.swift in Sources */,
+				82D8695F264B9F73007A8D06 /* AWSManager+S3.swift in Sources */,
 				F63E19E7251B36A200558591 /* AdjustmentControlView.swift in Sources */,
 				82228452259226A10074F5B0 /* SystemBroadcase.swift in Sources */,
 				F63E19E8251B36A200558591 /* FilterContrast.swift in Sources */,
@@ -32321,7 +32307,6 @@
 				F6A437BC254BCEDF005CD17D /* TemperatureControl.swift in Sources */,
 				F6A437BD254BCEDF005CD17D /* ThumbSelectorView.swift in Sources */,
 				F6A437BE254BCEDF005CD17D /* CurrentUser.swift in Sources */,
-				F6A437BF254BCEDF005CD17D /* AWSManager+S3.swift in Sources */,
 				F6A437C0254BCEDF005CD17D /* FriendPackageTableViewCell.swift in Sources */,
 				F6A437C1254BCEDF005CD17D /* DNDLongPressDragRecognizer.m in Sources */,
 				F6A437C2254BCEDF005CD17D /* GameGridCell.swift in Sources */,
@@ -32408,6 +32393,7 @@
 				F6A43812254BCEDF005CD17D /* BlurredMosaicView.swift in Sources */,
 				F6A43813254BCEDF005CD17D /* FrameCollectionViewCell.swift in Sources */,
 				F6A43814254BCEDF005CD17D /* AdjustmentControlView.swift in Sources */,
+				82D86961264B9F73007A8D06 /* AWSManager+S3.swift in Sources */,
 				F6A43815254BCEDF005CD17D /* FilterContrast.swift in Sources */,
 				822284372592269F0074F5B0 /* SystemBroadcase.swift in Sources */,
 				F6A43816254BCEDF005CD17D /* FilterTemperature.swift in Sources */,
@@ -32806,12 +32792,10 @@
 				F6B98FB224E1A536004E7147 /* APIModels.swift in Sources */,
 				F6B98FB324E1A536004E7147 /* APIManager.swift in Sources */,
 				F6B98FB424E1A536004E7147 /* ProfileDetailsResponse.swift in Sources */,
-				823E19292525E7110078DF8F /* LoginUserData.swift in Sources */,
 				F6B98FB524E1A536004E7147 /* SharedClass.swift in Sources */,
 				F6B98FB624E1A536004E7147 /* SharePostVC.swift in Sources */,
 				F6B98FB724E1A536004E7147 /* FilterImage.swift in Sources */,
 				F6B98FB824E1A536004E7147 /* User.swift in Sources */,
-				F6B98FB924E1A536004E7147 /* AWSManager+S3.swift in Sources */,
 				F6B98FBA24E1A536004E7147 /* RKTagsView.m in Sources */,
 				F6B98FBB24E1A536004E7147 /* UIAlertController.swift in Sources */,
 				F6BFEBD72508B5F500BFFF1A /* (null) in Sources */,
@@ -32944,7 +32928,6 @@
 				F6C05BF324E294F80018E8DA /* TemperatureControl.swift in Sources */,
 				F6C05BF424E294F80018E8DA /* ThumbSelectorView.swift in Sources */,
 				F6C05BF524E294F80018E8DA /* CurrentUser.swift in Sources */,
-				F6C05BF624E294F80018E8DA /* AWSManager+S3.swift in Sources */,
 				F6C05BF724E294F80018E8DA /* FriendPackageTableViewCell.swift in Sources */,
 				F6C05BF824E294F80018E8DA /* DNDLongPressDragRecognizer.m in Sources */,
 				F6C05BF924E294F80018E8DA /* GameGridCell.swift in Sources */,
@@ -33397,6 +33380,7 @@
 				F6C05D9324E294F80018E8DA /* HomeTableViewCellWithCollectionView.swift in Sources */,
 				F6C05D9424E294F80018E8DA /* CollageViewT802.swift in Sources */,
 				F6B65D53253039E9007F3917 /* CustomSlider.swift in Sources */,
+				82D8695D264B9F73007A8D06 /* AWSManager+S3.swift in Sources */,
 				F6C05D9524E294F80018E8DA /* SubscriptionVC.swift in Sources */,
 				F6C05D9624E294F80018E8DA /* Files.swift in Sources */,
 				F6C05D9724E294F80018E8DA /* NSURLSessionExtension.swift in Sources */,
@@ -33691,6 +33675,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
 					"-fembed-bitcode",
 					"$(inherited)",
@@ -33946,6 +33931,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -34003,6 +33989,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -34655,6 +34642,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Alpha;
 		};
@@ -35346,6 +35334,8 @@
 				CURRENT_PROJECT_VERSION = 8;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				EXCLUDED_ARCHS = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				INFOPLIST_FILE = "SnapCam-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -35469,6 +35459,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Beta;
 		};
@@ -36158,6 +36149,7 @@
 				CURRENT_PROJECT_VERSION = 8;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				INFOPLIST_FILE = "SnapCam-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -36747,6 +36739,7 @@
 				CURRENT_PROJECT_VERSION = 8;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
 				INFOPLIST_FILE = "SnapCam-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -36781,6 +36774,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				EXCLUDED_ARCHS = "";
 				INFOPLIST_FILE = "SnapCam-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -37291,6 +37285,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
 					"-fembed-bitcode",
 					"$(inherited)",

@@ -9,6 +9,8 @@
 import UIKit
 import GoogleSignIn
 import Firebase
+import GoogleAPIClientForREST
+import GTMSessionFetcher // needed for fetchAuthorizer?
 
 public typealias UserDataComplition = (_ userData: LoginUserData?, _ error: Error?) -> Void
 
@@ -17,6 +19,7 @@ public class GoogleManager: NSObject {
     public let googleManager = GIDSignIn.sharedInstance()
     var userDataBlock: UserDataComplition?
     var userDidDisconnectWithBlock: UserDataComplition?
+    let youTubeService: GTLRYouTubeService = GTLRYouTubeService()
     
     var isUserLogin: Bool {
         guard let signIn = GIDSignIn.sharedInstance() else { return false }
@@ -81,6 +84,7 @@ public class GoogleManager: NSObject {
                 signIn.currentUser.authentication.getTokensWithHandler({ (accessToken, error) in
                     guard error == nil else { return }
                     let token = accessToken
+                    self.youTubeService.authorizer = signIn.currentUser.authentication.fetcherAuthorizer()
                     completion(token?.accessToken)
                 })
             }
@@ -96,8 +100,12 @@ public class GoogleManager: NSObject {
         super.init()
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         var scopes = GIDSignIn.sharedInstance().scopes
-        scopes?.append(Constant.GoogleService.youtubeScope)
+        scopes?.append(kGTLRAuthScopeYouTubeForceSsl)
+        scopes?.append(kGTLRAuthScopeYouTubeUpload)
+        scopes?.append(kGTLRAuthScopeYouTube)
+        scopes?.append(kGTLRAuthScopeYouTubeYoutubepartner)
         GIDSignIn.sharedInstance().scopes = scopes
+        GIDSignIn.sharedInstance().delegate = self
     }
     
     public func logout() {
@@ -116,6 +124,19 @@ public class GoogleManager: NSObject {
     public func handelOpenUrl(app: UIApplication, url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
         return GIDSignIn.sharedInstance().handle(url)
     }
+    
+    public func uploadVideoOnYoutube(youtubeObject: GTLRYouTube_Video, params: GTLRUploadParameters, completion: @escaping (_ isUpload: Bool?) -> ()) {
+        
+        let query = GTLRYouTubeQuery_VideosInsert.query(withObject: youtubeObject, part: ["snippet","status"], uploadParameters: params)
+        
+        youTubeService.executeQuery(query, completionHandler: { (ticket, anyobject, error) in
+            if error == nil {
+                completion(true)
+            } else {
+                completion(false)
+            }
+        })
+    }
 }
 
 // MARK: - GIDSignInDelegate
@@ -131,6 +152,7 @@ extension GoogleManager: GIDSignInDelegate {
             // Perform any operations on signed in user here.
             let data = LoginUserData(userId: user.userID, userName: user.profile.name, email: user.profile.email, gender: 0, photoUrl: user.profile.imageURL(withDimension: 200)?.absoluteString, idToken: user.authentication.idToken, accessToken: user.authentication.accessToken)
             userData = data
+            youTubeService.authorizer = user.authentication.fetcherAuthorizer()
             if let block = self.userDataBlock {
                 block(data, nil)
             }

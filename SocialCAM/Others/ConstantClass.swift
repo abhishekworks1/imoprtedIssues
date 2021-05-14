@@ -310,6 +310,9 @@ public struct Constant {
         #elseif QUICKCAMAPP
         static let serviceKey: String = "AIzaSyDb7qoLWUdqXgq2rdEvpxFg95iE8Vh20Pc"
         static let placeClientKey: String = "AIzaSyDb7qoLWUdqXgq2rdEvpxFg95iE8Vh20Pc"
+        #elseif QUICKAPP
+        static let serviceKey: String = "AIzaSyBAMQXHTLq424mZeMQ02LeUROVP3Cq6Fgo"
+        static let placeClientKey: String = "AIzaSyBAMQXHTLq424mZeMQ02LeUROVP3Cq6Fgo"
         #elseif SNAPCAMAPP
         static let serviceKey: String = "AIzaSyD9_sy-klWwfrLTrT4ub-E4fC-iwnzoCG0"
         static let placeClientKey: String = "AIzaSyD9_sy-klWwfrLTrT4ub-E4fC-iwnzoCG0"
@@ -329,8 +332,8 @@ public struct Constant {
         static let serviceKey: String = "AIzaSyARGjWmJYjfSyK8UAf_dJW4YLqq220hnCM"
         static let placeClientKey: String = "AIzaSyARGjWmJYjfSyK8UAf_dJW4YLqq220hnCM"
         #elseif SNAPCAMLITEAPP
-        static let serviceKey: String = "AIzaSyBPfolm4DG9lJHe8W5UM9rDB3ZbeXiAt8Q"
-        static let placeClientKey: String = "AIzaSyBPfolm4DG9lJHe8W5UM9rDB3ZbeXiAt8Q"
+        static let serviceKey: String = "AIzaSyD98DGWLsAPFEn2e0m72ghTKuiMsj2vHII"
+        static let placeClientKey: String = "AIzaSyD98DGWLsAPFEn2e0m72ghTKuiMsj2vHII"
         #else
         static let serviceKey: String = "AIzaSyCxjExNbUx2d-DvH8aroRCAhHarFQo1JRA"
         static let placeClientKey: String = "AIzaSyCxjExNbUx2d-DvH8aroRCAhHarFQo1JRA"

@@ -19,6 +19,8 @@ def shared_pods
 end
 
 def projectShared_pods
+    pod 'GoogleAPIClientForREST', '~> 1.5'
+    pod 'GoogleAPIClientForREST/YouTube', '~> 1.5'
     pod 'RxCocoa', '5.1.1'
     pod 'RxDataSources', '4.0.1'
     pod 'TGPControls', '5.1.0'
