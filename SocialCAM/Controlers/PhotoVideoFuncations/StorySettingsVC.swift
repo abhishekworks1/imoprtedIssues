@@ -8,6 +8,7 @@
 
 import UIKit
 import GoogleSignIn
+import SafariServices
 
 enum SettingsMode: Int {
     case subscriptions = 0
@@ -361,10 +362,10 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             }
         } else if settingTitle.settingsType == .goToWebsite {
             guard let url = URL(string: websiteUrl) else { return }
-            UIApplication.shared.open(url)
+            presentSafariBrowser(url: url)
         } else if settingTitle.settingsType == .applicationSurvey {
             guard let url = URL(string: Constant.URLs.applicationSurveyURL) else { return }
-            UIApplication.shared.open(url)
+            presentSafariBrowser(url: url)
         } else if settingTitle.settingsType == .watermarkSettings {
             if let watermarkSettingsVC = R.storyboard.storyCameraViewController.watermarkSettingsViewController() {
                 navigationController?.pushViewController(watermarkSettingsVC, animated: true)
@@ -414,6 +415,11 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
+    }
+    
+    func presentSafariBrowser(url: URL) {
+        let safariVC = SFSafariViewController(url: url)
+        present(safariVC, animated: true, completion: nil)
     }
     
     func connectSocial(socialPlatform: String, socialId: String, socialName: String) {

@@ -692,6 +692,15 @@ class Defaults {
         }
     }
     
+    var userCreatedDate: String? {
+        get {
+            return appDefaults?.value(forKey: "userCreatedDate") as? String
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "userCreatedDate")
+        }
+    }
+    
     func clearData() {
         if let appDefaultsDictionary = appDefaults?.dictionaryRepresentation() {
             appDefaultsDictionary.keys.forEach { key in

@@ -140,4 +140,9 @@ extension Date {
         }
     }
     
+    /// Returns the amount of days from another date
+    func days(from date: Date) -> Int {
+        return Calendar.current.dateComponents([.day], from: date, to: self).day ?? 0
+    }
+    
 }
