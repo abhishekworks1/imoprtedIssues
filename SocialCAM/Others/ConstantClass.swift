@@ -217,6 +217,9 @@ public struct Constant {
         #if SOCIALCAMAPP
         static let consumerKey: String = "y39BclEMDbGXVzAaiXv55PGrn"
         static let consumerSecret: String = "o4NcSHnBPaS1jeNW4xjMGg2WTVHm3HUV7WPsCt3b4nRWHa2Kcf"
+        #elseif SNAPCAMLITEAPP
+        static let consumerKey: String = "V9iNRskf2gV4GonINp2mIzHyl"
+        static let consumerSecret: String = "st8TbCmhIRVjy3zp8cGnaHFivXmUbc0FVQe2F22VpHnfxKEaDl"
         #else
         static let consumerKey: String = "DJCr4ckk2RhVWckLrw524qcou"
         static let consumerSecret: String = "w20x8fh0Cqgh4iJDYscTMmlzMEalcgouPqHnuRoXb6rdzA7Uzk"

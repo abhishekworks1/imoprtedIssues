@@ -2855,12 +2855,12 @@ Countdown</string>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1080p" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wV3-o8-6bX">
                                                                                             <rect key="frame" x="0.0" y="8.9999999999999982" width="42.333333333333336" height="17.666666666666664"/>
                                                                                             <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="15"/>
-                                                                                            <color key="textColor" name="watermarkTitleColor"/>
+                                                                                            <color key="textColor" name="watermarkTitleForFreeUserColor"/>
                                                                                             <nil key="highlightedColor"/>
                                                                                         </label>
-                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upgrade to Basiclite" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5aq-KD-QgI">
-                                                                                            <rect key="frame" x="159.33333333333334" y="8.9999999999999982" width="127.66666666666666" height="17.666666666666664"/>
-                                                                                            <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="14"/>
+                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Available for Full Version" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5aq-KD-QgI">
+                                                                                            <rect key="frame" x="128" y="8.9999999999999982" width="159" height="17.666666666666664"/>
+                                                                                            <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="14.600000381469727"/>
                                                                                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                             <nil key="highlightedColor"/>
                                                                                         </label>
@@ -2942,6 +2942,7 @@ Countdown</string>
                                             <outlet property="imgHighResolution" destination="i5B-ex-oD1" id="LDF-Bi-Rh3"/>
                                             <outlet property="imgLowResolution" destination="spL-0t-d47" id="ag0-Hd-dMV"/>
                                             <outlet property="lblUpgrade" destination="5aq-KD-QgI" id="RaU-xt-LvT"/>
+                                            <outlet property="lblWatermarkTitle" destination="wV3-o8-6bX" id="afm-CU-8ax"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="iconPositionCell" rowHeight="409" id="FfD-N5-Hkq" customClass="IconPositionTableViewCell" customModule="BoomiCam" customModuleProvider="target">
@@ -5078,13 +5079,13 @@ Countdown</string>
                                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hide" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tk1-Gw-ddN">
                                                                                             <rect key="frame" x="0.0" y="8.9999999999999982" width="31.333333333333332" height="17.666666666666664"/>
                                                                                             <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="15"/>
-                                                                                            <color key="textColor" name="watermarkTitleColor"/>
+                                                                                            <color key="textColor" name="watermarkTitleForFreeUserColor"/>
                                                                                             <nil key="highlightedColor"/>
                                                                                         </label>
-                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upgrade to Basiclite" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1cy-P4-PGb">
-                                                                                            <rect key="frame" x="159.33333333333334" y="8.9999999999999982" width="127.66666666666666" height="17.666666666666664"/>
-                                                                                            <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="14"/>
-                                                                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upgrade to Basic Lite" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1cy-P4-PGb">
+                                                                                            <rect key="frame" x="150.66666666666663" y="8.9999999999999982" width="136.33333333333337" height="17.666666666666664"/>
+                                                                                            <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="14"/>
+                                                                                            <color key="textColor" name="AppPrimaryColor"/>
                                                                                             <nil key="highlightedColor"/>
                                                                                         </label>
                                                                                     </subviews>
@@ -5166,6 +5167,7 @@ Countdown</string>
                                             <outlet property="imgWatermarkShow" destination="SbL-9l-fF0" id="anm-XC-RkP"/>
                                             <outlet property="lblUpgrade" destination="1cy-P4-PGb" id="p6w-hg-Rng"/>
                                             <outlet property="lblWatermarkName" destination="RaO-rE-8Ak" id="YUm-xH-sQ2"/>
+                                            <outlet property="lblWatermarkTitle" destination="tk1-Gw-ddN" id="huY-Ae-HvS"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -5288,6 +5290,9 @@ Countdown</string>
         </namedColor>
         <namedColor name="watermarkTitleColor">
             <color red="0.13725490196078433" green="0.12549019607843137" blue="0.1803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="watermarkTitleForFreeUserColor">
+            <color red="0.098039215686274508" green="0.12549019607843137" blue="0.1803921568627451" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
