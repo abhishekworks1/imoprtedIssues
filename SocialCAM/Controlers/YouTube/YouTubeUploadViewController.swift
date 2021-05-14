@@ -11,6 +11,7 @@ import SkyFloatingLabelTextField
 import RxSwift
 import IQKeyboardManagerSwift
 import AVFoundation
+import GoogleAPIClientForREST
 
 class YouTubeUploadViewController: UIViewController {
     @IBOutlet weak var txtTitle: SkyFloatingLabelTextField!
@@ -161,42 +162,59 @@ class YouTubeUploadViewController: UIViewController {
             self.showAlert(alertMessage: R.string.localizable.pleaseSelectCategory())
             return
         }
-        
-        var snippet: [String: Any] = ["title": title, "categoryId": selectCat.id ?? ""]
-        
-        if let describtion = txtDescribtion.text, describtion.length > 0 {
-            snippet["description"] = describtion
-        }
-        
-        if !tagView.tags.isEmpty {
-            snippet["tags"] = tagView.tags
-        }
-        
-        if let channelId = selectedChannel?.id {
-            snippet["channelId"] = channelId
-        }
-        
-        var status: String = ""
-        
-        if let privacy = selectedPrivacy {
-            status = privacy
-        }
         let loadingView = LoadingView.instanceFromNib()
         loadingView.loadingViewShow = true
         loadingView.shouldCancelShow = true
         loadingView.show(on: self.view)
         
         self.isUploading = true
-        ProManagerApi.uploadYoutubeVideo(token: token, videoURL: videoUrl!, snippet: snippet, status: status).request().subscribe(onNext: { (_) in
-            self.isUploading = false
-            loadingView.hide()
-            Utils.appDelegate?.window?.makeToast(R.string.localizable.postSuccess())
-            self.dismiss(animated: true)
-        }, onError: { (error) in
-            self.isUploading = false
-            loadingView.hide()
-            self.showAlert(alertMessage: error.localizedDescription)
-        }).disposed(by: disposeBag ?? rx.disposeBag)
+        //Status
+        let status = GTLRYouTube_VideoStatus()
+        switch selectedPrivacy ?? "" {
+        case "Public":
+            status.privacyStatus = kGTLRYouTube_ChannelStatus_PrivacyStatus_Public
+        case "Private":
+            status.privacyStatus = kGTLRYouTube_ChannelStatus_PrivacyStatus_Private
+        case "Unlisted":
+            status.privacyStatus = kGTLRYouTube_ChannelStatus_PrivacyStatus_Unlisted
+        default:
+            status.privacyStatus = kGTLRYouTube_ChannelStatus_PrivacyStatus_Private
+        }
+        
+        //Snippet
+        let snippet = GTLRYouTube_VideoSnippet()
+        snippet.title = title
+        snippet.categoryId = selectCat.id ?? ""
+        if let describtion = txtDescribtion.text, describtion.length > 0 {
+            snippet.descriptionProperty = describtion
+        }
+        if !tagView.tags.isEmpty {
+            snippet.tags = tagView.tags
+        }
+        if let channelId = selectedChannel?.id {
+            snippet.channelId = channelId.videoId
+        }
+        //Upload parameters
+        let params = GTLRUploadParameters(fileURL: videoUrl!, mimeType: "video/mp4")
+        let video = GTLRYouTube_Video()
+        video.status = status
+        video.snippet = snippet
+        
+        GoogleManager.shared.uploadVideoOnYoutube(youtubeObject: video, params: params) { [weak self] isUpload in
+            guard let `self` = self else {
+                return
+            }
+            if isUpload ?? false {
+                self.isUploading = false
+                loadingView.hide()
+                Utils.appDelegate?.window?.makeToast(R.string.localizable.postSuccess())
+                self.dismiss(animated: true)
+            } else {
+                self.isUploading = false
+                loadingView.hide()
+                self.showAlert(alertMessage: "error.localizedDescription")
+            }
+        }
     }
     
     @IBAction func btnHashSetClicked(_ sender: Any) {

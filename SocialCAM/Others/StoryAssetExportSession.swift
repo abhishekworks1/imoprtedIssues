@@ -364,7 +364,7 @@ class StoryAssetExportSession {
             if watermarkPosition == .topLeft {
                 image = R.image.quickcamWatermarkLogo()
             }
-        } else if isSnapCamApp || isSnapCamLiteApp {
+        } else if isSnapCamApp || isSnapCamLiteApp || isQuickApp {
             switch Defaults.shared.waterarkOpacity {
             case 30:
                 image = R.image.snapCamNewWaterMark()

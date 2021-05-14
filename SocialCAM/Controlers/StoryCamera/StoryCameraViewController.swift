@@ -1724,6 +1724,8 @@ extension StoryCameraViewController {
         } else {
             slowFastVerticalBar.isHidden = true
         }
+        
+        nextLevel.torchMode = NextLevelTorchMode(rawValue: flashMode.rawValue) ?? .auto
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
             self.circularProgress.trackThickness = 0.75*0.7
             self.circularProgress.transform = CGAffineTransform(scaleX: 1.7, y: 1.7)
@@ -1780,6 +1782,7 @@ extension StoryCameraViewController {
     }
     
     func stopRecording() {
+        nextLevel.torchMode = .off
         if isLiteApp, recordingType == .normal {
             self.segmentsProgress.append(progress)
             self.circularProgress.drawArc(startAngle: Double(progress))

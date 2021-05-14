@@ -258,6 +258,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             dLog("Completed SplashView")
         }
         IAPManager.shared.startObserving()
+        GoogleManager.shared.restorePreviousSignIn()
         
         FileManager.default.clearTempDirectory()
         UNUserNotificationCenter.current().delegate = self
