@@ -359,12 +359,12 @@ class StoryAssetExportSession {
             if watermarkPosition == .topLeft {
                 image = R.image.soccercamWatermarkLogo()
             }
-        } else if isQuickCamApp || isQuickCamLiteApp || isQuickApp {
+        } else if isQuickCamApp || isQuickCamLiteApp {
             image = R.image.quickcamWatermarkLogo()
             if watermarkPosition == .topLeft {
                 image = R.image.quickcamWatermarkLogo()
             }
-        } else if isSnapCamApp || isSnapCamLiteApp || isQuickApp {
+        } else if isSnapCamApp || isSnapCamLiteApp {
             switch Defaults.shared.waterarkOpacity {
             case 30:
                 image = R.image.snapCamNewWaterMark()
@@ -411,6 +411,11 @@ class StoryAssetExportSession {
             image = R.image.viralCamLiteWatermarkText()
             if watermarkPosition == .topLeft {
                 image = R.image.viralCamLiteWatermarkText()
+            }
+        } else if isQuickApp {
+            image = R.image.quickCamLiteWatermark()
+            if watermarkPosition == .topLeft {
+                image = R.image.quickCamLiteWatermark()
             }
         }
 

@@ -54,7 +54,7 @@ def projectShared_pods
     pod 'TagListView', '1.3.2'
 #    pod 'TwitterKit'
     pod 'TwitterKit5', '5.2.0'
-    pod 'TikTokOpenSDK', '~> 3.0.0'
+    pod 'TikTokOpenSDK'
     pod 'SwiftySound', '1.2'
     pod 'JPSVolumeButtonHandler', '1.0.5'
     pod 'Pageboy', '~> 3.5'
@@ -159,7 +159,7 @@ target 'SocialScreenRecorder' do
   projectShared_pods
 end
 
-target 'QuickApp' do
+target 'QuickCamLiteApp' do
   use_frameworks!
   projectShared_pods
 end

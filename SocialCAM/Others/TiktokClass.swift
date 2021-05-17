@@ -10,7 +10,7 @@ import Foundation
 import TikTokOpenSDK
 import Photos
 
-open class TiktokShare: TikTokOpenSDKApplicationDelegate, BDOpenPlatformLogDelegate {
+open class TiktokShare: TikTokOpenSDKApplicationDelegate, TikTokOpenSDKLogDelegate {
    
     static let shared: TiktokShare = TiktokShare()
     

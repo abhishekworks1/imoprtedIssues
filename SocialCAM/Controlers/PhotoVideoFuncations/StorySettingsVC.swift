@@ -42,6 +42,7 @@ enum SettingsMode: Int {
     case videoResolution
     case applicationSurvey
     case instruction
+    case intellectualProperties
 }
 
 class StorySetting {
@@ -86,7 +87,7 @@ class StorySettings {
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.cameraSettings(), selected: false)], settingsType: .cameraSettings),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.watermark(), selected: false)], settingsType: .watermarkSettings),
+                                              settings: [StorySetting(name: R.string.localizable.promote(), selected: false)], settingsType: .watermarkSettings),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.subscription(), selected: false)], settingsType: .subscription),
                                 StorySettings(name: "",
@@ -95,6 +96,8 @@ class StorySettings {
                                               settings: [StorySetting(name: R.string.localizable.applicationSurvey(), selected: false)], settingsType: .applicationSurvey),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.instruction(), selected: false)], settingsType: .instruction),
+                                StorySettings(name: "",
+                                              settings: [StorySetting(name: R.string.localizable.intellectualProperties(), selected: false)], settingsType: .intellectualProperties),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.logout(), selected: false)], settingsType: .logout)]
 }
@@ -205,7 +208,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         cell.settingsName.text = settings.name
         cell.detailButton.isHidden = true
         cell.settingsName.textColor = R.color.appBlackColor()
-        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video || settingTitle.settingsType == .cameraSettings || settingTitle.settingsType == .termsAndConditions || settingTitle.settingsType == .privacyPolicy || settingTitle.settingsType == .subscription || settingTitle.settingsType == .goToWebsite || settingTitle.settingsType == .watermarkSettings || settingTitle.settingsType == .applicationSurvey || settingTitle.settingsType == .instruction {
+        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video || settingTitle.settingsType == .cameraSettings || settingTitle.settingsType == .termsAndConditions || settingTitle.settingsType == .privacyPolicy || settingTitle.settingsType == .subscription || settingTitle.settingsType == .goToWebsite || settingTitle.settingsType == .watermarkSettings || settingTitle.settingsType == .applicationSurvey || settingTitle.settingsType == .instruction || settingTitle.settingsType == .intellectualProperties {
             if settingTitle.settingsType == .appInfo {
                 cell.settingsName.textColor = R.color.appPrimaryColor()
             }
@@ -375,6 +378,8 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 tooltipViewController.pushFromSettingScreen = true
                 navigationController?.pushViewController(tooltipViewController, animated: true)
             }
+        } else if settingTitle.settingsType == .intellectualProperties {
+            // TODO: - Need to add redirection link
         }
     }
     

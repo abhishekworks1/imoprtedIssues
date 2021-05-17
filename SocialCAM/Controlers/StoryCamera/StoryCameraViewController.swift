@@ -943,9 +943,9 @@ extension StoryCameraViewController {
     
     func setCameraSettings() {
         if let flashmode = Defaults.shared.flashMode {
-            flashMode = AVCaptureDevice.TorchMode(rawValue: flashmode) ?? .auto
+            flashMode = AVCaptureDevice.TorchMode(rawValue: flashmode) ?? .off
         } else {
-            flashMode = .auto
+            flashMode = .off
             Defaults.shared.flashMode = flashMode.rawValue
         }
         setupFlashUI()
@@ -2464,11 +2464,12 @@ extension StoryCameraViewController {
             }
             let formatedCreatedDate = CommonFunctions.getDateInSpecificFormat(dateInput: userCreatedDate, dateOutput: R.string.localizable.mmDdYyyy())
             let currentDate = CommonFunctions.getCurrentDate(dateOutput: R.string.localizable.mmDdYyyy())
+            let currentDateInCreatedDateFormat = CommonFunctions.getCurrentDate(dateOutput: R.string.localizable.yyyyMMDdTHHMmSsSSSZ())
             let date = Date()
             let dateAfterThreeDays = date.days(from: createdDate)
             if dateAfterThreeDays % 3 == 0 {
                 if currentDate != formatedCreatedDate {
-                    Defaults.shared.userCreatedDate = CommonFunctions.getDateInSpecificFormat(dateInput: currentDate, dateOutput: R.string.localizable.yyyyMMDdTHHMmSsSSSZ())
+                    Defaults.shared.userCreatedDate = currentDateInCreatedDateFormat
                     showAlertForAppSurvey()
                 }
             }
