@@ -2146,7 +2146,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CyM-i6-goR">
-                                <rect key="frame" x="66" y="353" width="282" height="200"/>
+                                <rect key="frame" x="66" y="307.66666666666669" width="282" height="291.00000000000006"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O8v-y2-ISu">
                                         <rect key="frame" x="243" y="8" width="28" height="28"/>
@@ -2175,8 +2175,8 @@
                                                         <state key="selected" image="checkBoxActive"/>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9fi-z6-rt2">
-                                                        <rect key="frame" x="47" y="6.6666666666666856" width="205" height="23"/>
-                                                        <state key="normal" image="fastestever">
+                                                        <rect key="frame" x="47" y="7" width="205" height="22"/>
+                                                        <state key="normal" image="fastestevercontestWatermarkPopupOption">
                                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
                                                     </button>
@@ -2214,8 +2214,8 @@
                                                         <state key="selected" image="checkBoxActive"/>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cR8-qh-nis">
-                                                        <rect key="frame" x="47" y="-15" width="205" height="66"/>
-                                                        <state key="normal" image="quickCamLiteWatermark">
+                                                        <rect key="frame" x="47" y="-6" width="205" height="48"/>
+                                                        <state key="normal" image="quickCamLiteWatermarkPopupOption">
                                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
                                                     </button>
@@ -2240,13 +2240,51 @@
                                                     <constraint firstAttribute="height" constant="36" id="yX7-iq-Jbd"/>
                                                 </constraints>
                                             </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jF5-0p-bpc">
+                                                <rect key="frame" x="0.0" y="120" width="282" height="36"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="taS-of-WEx">
+                                                        <rect key="frame" x="12" y="9" width="18" height="18"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="18" id="UFO-yH-G7v"/>
+                                                            <constraint firstAttribute="height" constant="18" id="VeI-7I-Qbv"/>
+                                                        </constraints>
+                                                        <state key="normal" image="checkBoxInActive"/>
+                                                        <state key="selected" image="checkBoxActive"/>
+                                                    </button>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="liV-zF-WtJ">
+                                                        <rect key="frame" x="47" y="0.0" width="205" height="36"/>
+                                                    </imageView>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Efw-b1-2v3">
+                                                        <rect key="frame" x="0.0" y="0.0" width="282" height="36"/>
+                                                        <connections>
+                                                            <action selector="madeWithGifButtonClickedWithSender:" destination="f9j-8w-2WB" eventType="touchUpInside" id="ui4-Db-o8G"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="Efw-b1-2v3" secondAttribute="trailing" id="9b0-Q7-1YI"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Efw-b1-2v3" secondAttribute="bottom" id="Fb1-E7-g5r"/>
+                                                    <constraint firstItem="liV-zF-WtJ" firstAttribute="leading" secondItem="taS-of-WEx" secondAttribute="trailing" constant="17" id="IYB-sk-kFR"/>
+                                                    <constraint firstAttribute="height" constant="36" id="IoW-N0-wKK"/>
+                                                    <constraint firstItem="taS-of-WEx" firstAttribute="leading" secondItem="jF5-0p-bpc" secondAttribute="leading" constant="12" id="Lts-hp-WVB"/>
+                                                    <constraint firstItem="liV-zF-WtJ" firstAttribute="centerY" secondItem="taS-of-WEx" secondAttribute="centerY" id="MHq-Hd-kiE"/>
+                                                    <constraint firstItem="Efw-b1-2v3" firstAttribute="leading" secondItem="jF5-0p-bpc" secondAttribute="leading" id="a9Z-lD-mTg"/>
+                                                    <constraint firstItem="Efw-b1-2v3" firstAttribute="top" secondItem="jF5-0p-bpc" secondAttribute="top" id="h86-ha-OzF"/>
+                                                    <constraint firstAttribute="trailing" secondItem="liV-zF-WtJ" secondAttribute="trailing" constant="30" id="oEg-3V-qRg"/>
+                                                    <constraint firstItem="liV-zF-WtJ" firstAttribute="top" secondItem="jF5-0p-bpc" secondAttribute="top" id="oWp-aJ-qMJ"/>
+                                                    <constraint firstItem="taS-of-WEx" firstAttribute="centerY" secondItem="jF5-0p-bpc" secondAttribute="centerY" id="tg0-iU-Z1o"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NNI-bB-Jcb">
-                                        <rect key="frame" x="94" y="154" width="94" height="30"/>
+                                        <rect key="frame" x="94" y="238.99999999999994" width="94" height="36"/>
                                         <color key="backgroundColor" name="AppPrimaryColor"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="94" id="AaA-sG-Ipr"/>
+                                            <constraint firstAttribute="height" constant="36" id="seI-Xt-xYq"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="16"/>
                                         <state key="normal" title="Ok">
@@ -2269,15 +2307,14 @@
                                     <constraint firstItem="NNI-bB-Jcb" firstAttribute="centerX" secondItem="CyM-i6-goR" secondAttribute="centerX" id="cYh-fk-aW4"/>
                                     <constraint firstItem="5mS-aw-wml" firstAttribute="top" secondItem="O8v-y2-ISu" secondAttribute="bottom" constant="4" id="dHH-Xx-yUW"/>
                                     <constraint firstAttribute="trailing" secondItem="5mS-aw-wml" secondAttribute="trailing" id="kaV-gg-rKV"/>
-                                    <constraint firstItem="NNI-bB-Jcb" firstAttribute="top" secondItem="5mS-aw-wml" secondAttribute="bottom" constant="18" id="o6Y-q2-DDW"/>
                                     <constraint firstAttribute="trailing" secondItem="O8v-y2-ISu" secondAttribute="trailing" constant="11" id="r5K-JK-7Kf"/>
                                     <constraint firstAttribute="bottom" secondItem="NNI-bB-Jcb" secondAttribute="bottom" constant="16" id="uCa-pF-b0g"/>
-                                    <constraint firstAttribute="height" constant="200" id="x5b-Wn-YU8"/>
+                                    <constraint firstAttribute="height" constant="291" id="x5b-Wn-YU8"/>
                                     <constraint firstItem="5mS-aw-wml" firstAttribute="leading" secondItem="CyM-i6-goR" secondAttribute="leading" id="zdS-FC-pca"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
-                                        <real key="value" value="10"/>
+                                        <real key="value" value="15"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
@@ -2381,9 +2418,11 @@
                         <outlet property="btnFacebook" destination="dPW-f5-Kaw" id="Enz-e6-y7z"/>
                         <outlet property="btnFastesteverWatermark" destination="9fi-z6-rt2" id="AX8-RY-PVx"/>
                         <outlet property="btnInstagram" destination="mZZ-vO-y3f" id="6K7-q7-hHP"/>
+                        <outlet property="btnMadeWithGif" destination="Efw-b1-2v3" id="JHg-9j-9qM"/>
                         <outlet property="btnMadeWithWatermark" destination="EQF-0E-13A" id="ZHN-di-eh0"/>
                         <outlet property="btnSelectAppIdentifierWatermark" destination="ZfP-Qc-mHz" id="bZ7-cy-H16"/>
                         <outlet property="btnSelectFastesteverWatermark" destination="iQR-xQ-FOJ" id="quk-IJ-bvt"/>
+                        <outlet property="btnSelectedMadeWithGif" destination="taS-of-WEx" id="lZi-xX-6Xt"/>
                         <outlet property="btnShowHideEditImage" destination="Nsv-ae-Igz" id="dN6-b3-Jy6"/>
                         <outlet property="btnStoricamShare" destination="YJ1-ZR-4Je" id="K26-zI-2yZ"/>
                         <outlet property="btnTiktok" destination="h0Y-zC-rSF" id="wCu-pV-7bf"/>
@@ -2402,6 +2441,7 @@
                         <outlet property="editToolBarView" destination="gph-8j-lAt" id="HyL-ZQ-0wt"/>
                         <outlet property="hideToolTipView" destination="wNc-Wk-RFC" id="fmF-pq-2Lh"/>
                         <outlet property="imgFastestEverWatermark" destination="dom-Lv-f2J" id="G1p-eJ-0yc"/>
+                        <outlet property="imgViewMadeWithGif" destination="liV-zF-WtJ" id="IqF-x8-aY5"/>
                         <outlet property="lblStoryTime" destination="dAM-cc-QnM" id="XsM-A8-2VO"/>
                         <outlet property="mediaImageView" destination="Zv7-Iw-Ljf" id="pzI-fN-ls3"/>
                         <outlet property="mergeOptionView" destination="WED-d7-giW" id="2xq-4n-u10"/>
@@ -3026,6 +3066,7 @@
         <image name="download" width="24" height="24"/>
         <image name="editOptionStory" width="34" height="34"/>
         <image name="fastestever" width="266" height="23"/>
+        <image name="fastestevercontestWatermarkPopupOption" width="195" height="17"/>
         <image name="fullScreenDisplay" width="82" height="160"/>
         <image name="hideStoryCamIcons" width="29" height="30"/>
         <image name="hideToolTipCheckMark" width="20" height="20"/>
@@ -3049,7 +3090,7 @@
         <image name="pause.fill" catalog="system" width="116" height="128"/>
         <image name="play.fill" catalog="system" width="116" height="128"/>
         <image name="plusSegment" width="18" height="18"/>
-        <image name="quickCamLiteWatermark" width="129" height="66"/>
+        <image name="quickCamLiteWatermarkPopupOption" width="97" height="48"/>
         <image name="reverseBoom" width="30" height="20"/>
         <image name="reverseBoomSelected" width="30" height="20"/>
         <image name="selectedCheckmark" width="16" height="16"/>
