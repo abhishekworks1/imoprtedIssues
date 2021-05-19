@@ -27,7 +27,7 @@ open class SocialShareVideo: NSObject, SharingDelegate {
         var attachmentUrl: String = ""
         switch referType {
         case .viralCam:
-            attachmentUrl = Defaults.shared.currentUser?.viralcamReferralLink ?? Constant.URLs.websiteURL
+            attachmentUrl = Defaults.shared.currentUser?.viralcamReferralLink ?? websiteUrl
         case .socialCam:
             attachmentUrl = Constant.URLs.socialCamWebsiteURL
         case .tiktokShare:
@@ -163,7 +163,7 @@ open class SocialShareVideo: NSObject, SharingDelegate {
             displayMessage = R.string.localizable.checkOutThisCoolNewAppQuickCam()
         }
         displayMessage.append(" ")
-        displayMessage.append("\(Constant.URLs.websiteURL)/referral/\(Defaults.shared.currentUser?.referralCode ?? "")")
+        displayMessage.append("\(websiteUrl)/referral/\(Defaults.shared.currentUser?.referralCode ?? "")")
         if let twitterComposeViewController = R.storyboard.twitterCompose.twitterComposeViewController() {
             twitterComposeViewController.presetText = displayMessage
             if let image = image {
@@ -288,7 +288,7 @@ open class SocialShareVideo: NSObject, SharingDelegate {
         let snapPhoto = SCSDKPhotoSnapContent(snapPhoto: photo)
         switch referType {
         case .viralCam:
-            snapPhoto.attachmentUrl = Constant.URLs.websiteURL
+            snapPhoto.attachmentUrl = websiteUrl
         case .socialCam:
             snapPhoto.attachmentUrl = Constant.URLs.socialCamWebsiteURL
         case .tiktokShare:
@@ -310,7 +310,7 @@ open class SocialShareVideo: NSObject, SharingDelegate {
         let snapVideo = SCSDKVideoSnapContent(snapVideo: video)
         switch referType {
         case .viralCam:
-            snapVideo.attachmentUrl = Defaults.shared.currentUser?.viralcamReferralLink ?? Constant.URLs.websiteURL
+            snapVideo.attachmentUrl = Defaults.shared.currentUser?.viralcamReferralLink ?? websiteUrl
         case .socialCam:
             snapVideo.attachmentUrl = Constant.URLs.socialCamWebsiteURL
         case .tiktokShare:
