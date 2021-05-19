@@ -66,6 +66,7 @@ public enum ProManagerApi {
     case getUserSettings
     case loginWithKeycloak(code: String, redirectUrl: String)
     case logoutKeycloak
+    case addReferral(refferingChannel: String)
 
     var endpoint: Endpoint {
         var endpointClosure = MoyaProvider<ProManagerApi>.defaultEndpointMapping(for: self)
@@ -234,6 +235,8 @@ extension ProManagerApi: TargetType {
             return Paths.loginWithKeycloak
         case .logoutKeycloak:
             return Paths.logoutWithKeycloak
+        case .addReferral:
+            return Paths.addReferral
         }
        
     }
@@ -577,6 +580,8 @@ extension ProManagerApi: TargetType {
                      "redirect_uri": redirectUrl]
         case .logoutKeycloak:
             break
+        case .addReferral(let refferingChannel):
+            param = ["refferingChannel": refferingChannel]
         }
         return param
     }
