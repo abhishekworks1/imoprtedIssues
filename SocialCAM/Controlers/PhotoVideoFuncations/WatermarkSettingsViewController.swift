@@ -22,7 +22,8 @@ class WatermarkSettings {
     
     static var watermarkSettings = [
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.fastesteverImage(), selected: false)], settingsType: .fatesteverWatermark),
-        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.applicationIdentifier(), selected: false)], settingsType: .applIdentifierWatermark)
+        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.applicationIdentifier(), selected: false)], settingsType: .applIdentifierWatermark),
+        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.giF(), selected: false)], settingsType: .madeWithGif)
     ]
 }
 
@@ -53,7 +54,7 @@ class WatermarkSettingsViewController: UIViewController {
     }
     
     @objc func goToSubscriptionVC() {
-        if Defaults.shared.appIdentifierWatermarkSetting == .hide && Defaults.shared.appMode == .free {
+        if (Defaults.shared.appIdentifierWatermarkSetting == .hide || Defaults.shared.madeWithGifSetting == .hide) && Defaults.shared.appMode == .free {
             if let subscriptionVC = R.storyboard.subscription.subscriptionContainerViewController() {
                 navigationController?.pushViewController(subscriptionVC, animated: true)
                 Defaults.shared.appIdentifierWatermarkSetting = .show
@@ -92,6 +93,11 @@ extension WatermarkSettingsViewController: UITableViewDataSource {
             }
         } else if settingTitle.settingsType == .applIdentifierWatermark {
             watermarkSettingCell.watermarkType = .applicationIdentifier
+            if Defaults.shared.appMode == .free {
+                watermarkSettingCell.hideWatermarkButton.addTarget(self, action: #selector(goToSubscriptionVC), for: .touchUpInside)
+            }
+        } else if settingTitle.settingsType == .madeWithGif {
+            watermarkSettingCell.watermarkType = .madeWithGif
             if Defaults.shared.appMode == .free {
                 watermarkSettingCell.hideWatermarkButton.addTarget(self, action: #selector(goToSubscriptionVC), for: .touchUpInside)
             }

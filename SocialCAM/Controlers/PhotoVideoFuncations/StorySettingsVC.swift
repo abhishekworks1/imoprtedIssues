@@ -43,6 +43,7 @@ enum SettingsMode: Int {
     case applicationSurvey
     case instruction
     case intellectualProperties
+    case madeWithGif
 }
 
 class StorySetting {

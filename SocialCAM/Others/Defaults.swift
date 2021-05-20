@@ -584,6 +584,15 @@ class Defaults {
         }
     }
     
+    var madeWithGifSetting: MadeWithGifSetting {
+        get {
+            return MadeWithGifSetting(rawValue: (appDefaults?.integer(forKey: "madeWithGifSetting") ?? 1)) ?? .show
+        }
+        set {
+            appDefaults?.set(newValue.rawValue, forKey: "madeWithGifSetting")
+        }
+    }
+    
     var videoResolution: VideoResolution {
         get {
             return VideoResolution(rawValue: (appDefaults?.integer(forKey: "VideoResolution") ?? 1)) ?? .low

@@ -207,6 +207,9 @@ class StoryEditorViewController: UIViewController {
     @IBOutlet weak var btnSelectFastesteverWatermark: UIButton!
     @IBOutlet weak var btnSelectAppIdentifierWatermark: UIButton!
     @IBOutlet weak var btnMadeWithWatermark: UIButton!
+    @IBOutlet weak var imgViewMadeWithGif: UIImageView!
+    @IBOutlet weak var btnSelectedMadeWithGif: UIButton!
+    @IBOutlet weak var btnMadeWithGif: UIButton!
     
     private let fastestEverWatermarkBottomMargin = 112
     weak var cursorContainerViewController: KeyframePickerCursorVC!
@@ -278,6 +281,7 @@ class StoryEditorViewController: UIViewController {
     var isToolTipHide = false
     var isFastesteverWatermarkShow = false
     var isAppIdentifierWatermarkShow = false
+    var isMadeWithGifShow = false
     
     var isViewEditMode: Bool = false {
         didSet {
@@ -307,6 +311,7 @@ class StoryEditorViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        imgViewMadeWithGif.loadGif(name: R.string.localizable.madeWithQuickCamLite())
         setupFilterViews()
         setGestureViewForShowHide(view: storyEditors[currentStoryIndex])
         selectedSlideShowMedias = (0...20).map({ _ in StoryEditorMedia(type: .image(UIImage())) })
@@ -329,11 +334,12 @@ class StoryEditorViewController: UIViewController {
         isAppIdentifierWatermarkShow = Defaults.shared.appIdentifierWatermarkSetting == .show
         btnSelectAppIdentifierWatermark.isSelected = isAppIdentifierWatermarkShow
         btnAppIdentifierWatermark.isSelected = isAppIdentifierWatermarkShow
-        btnMadeWithWatermark.isUserInteractionEnabled = Defaults.shared.appMode != .free
-        btnAppIdentifierWatermark.isUserInteractionEnabled = Defaults.shared.appMode != .free
+        isMadeWithGifShow = Defaults.shared.madeWithGifSetting == .show
+        btnSelectedMadeWithGif.isSelected = isMadeWithGifShow
         if Defaults.shared.appMode == .free {
             btnAppIdentifierWatermark.isSelected = true
             btnSelectAppIdentifierWatermark.isSelected = true
+            btnSelectedMadeWithGif.isSelected = true
         }
     }
     
@@ -1308,14 +1314,32 @@ extension StoryEditorViewController {
     }
     
     @IBAction func appIdentifierWatermarkButtonClicked(sender: UIButton) {
-        isAppIdentifierWatermarkShow = !isAppIdentifierWatermarkShow
-        btnAppIdentifierWatermark.isSelected = isAppIdentifierWatermarkShow
-        btnSelectAppIdentifierWatermark.isSelected = isAppIdentifierWatermarkShow
+        if Defaults.shared.appMode == .free {
+            if let watermarkSettingsVC = R.storyboard.storyCameraViewController.watermarkSettingsViewController() {
+                navigationController?.pushViewController(watermarkSettingsVC, animated: true)
+            }
+        } else {
+            isAppIdentifierWatermarkShow = !isAppIdentifierWatermarkShow
+            btnAppIdentifierWatermark.isSelected = isAppIdentifierWatermarkShow
+            btnSelectAppIdentifierWatermark.isSelected = isAppIdentifierWatermarkShow
+        }
+    }
+    
+    @IBAction func madeWithGifButtonClicked(sender: UIButton) {
+        if Defaults.shared.appMode == .free {
+            if let watermarkSettingsVC = R.storyboard.storyCameraViewController.watermarkSettingsViewController() {
+                navigationController?.pushViewController(watermarkSettingsVC, animated: true)
+            }
+        } else {
+            isMadeWithGifShow = !isMadeWithGifShow
+            btnSelectedMadeWithGif.isSelected = isMadeWithGifShow
+        }
     }
     
     @IBAction func watermarkViewOkayButtonClicked(sender: UIButton) {
         Defaults.shared.fastestEverWatermarkSetting = self.isFastesteverWatermarkShow ? .show : .hide
         Defaults.shared.appIdentifierWatermarkSetting = self.isAppIdentifierWatermarkShow ? .show : .hide
+        Defaults.shared.madeWithGifSetting = self.isMadeWithGifShow ? .show : .hide
         self.imgFastestEverWatermark.isHidden = !self.isFastesteverWatermarkShow
         hideWatermarkView(isHide: true)
         callSetUserSetting()

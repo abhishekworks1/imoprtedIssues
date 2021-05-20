@@ -11,6 +11,7 @@ import UIKit
 enum WatermarkType: Int {
     case fastestEverWatermark = 0
     case applicationIdentifier
+    case madeWithGif
 }
 
 class WatermarkSettingCell: UITableViewCell {
@@ -36,6 +37,9 @@ class WatermarkSettingCell: UITableViewCell {
             } else if watermarkType == .applicationIdentifier {
                 lblWatermarkName.text = R.string.localizable.applicationIdentifier()
                 self.setSelection(appIdentifierWatermarkSetting: Defaults.shared.appIdentifierWatermarkSetting)
+            } else if watermarkType == .madeWithGif {
+                lblWatermarkName.text = R.string.localizable.giF()
+                self.setSelection(madeWithGifSetting: Defaults.shared.madeWithGifSetting)
             }
         }
     }
@@ -94,6 +98,23 @@ class WatermarkSettingCell: UITableViewCell {
         }
     }
     
+    func setSelection(madeWithGifSetting: MadeWithGifSetting) {
+        self.imgWatermarkShow.image = R.image.radioDeselected()
+        if Defaults.shared.appMode != .free {
+            self.imgWatermarkHide.image = R.image.radioDeselected()
+        }
+        switch madeWithGifSetting {
+        case .show:
+            self.imgWatermarkShow.image = R.image.radioSelected()
+        case .hide:
+            if Defaults.shared.appMode != .free {
+                self.imgWatermarkHide.image = R.image.radioSelected()
+            } else {
+                self.imgWatermarkShow.image = R.image.radioSelected()
+            }
+        }
+    }
+    
     // MARK: - Action methods
     @IBAction func btnWatermarkShowTapped(_ sender: UIButton) {
         if watermarkType == .fastestEverWatermark {
@@ -102,6 +123,9 @@ class WatermarkSettingCell: UITableViewCell {
         } else if watermarkType == .applicationIdentifier {
             Defaults.shared.appIdentifierWatermarkSetting = .show
             self.setSelection(appIdentifierWatermarkSetting: Defaults.shared.appIdentifierWatermarkSetting)
+        } else if watermarkType == .madeWithGif {
+            Defaults.shared.madeWithGifSetting = .show
+            self.setSelection(madeWithGifSetting: Defaults.shared.madeWithGifSetting)
         }
     }
     
@@ -112,6 +136,9 @@ class WatermarkSettingCell: UITableViewCell {
         } else if watermarkType == .applicationIdentifier {
             Defaults.shared.appIdentifierWatermarkSetting = .hide
             self.setSelection(appIdentifierWatermarkSetting: Defaults.shared.appIdentifierWatermarkSetting)
+        } else if watermarkType == .madeWithGif {
+            Defaults.shared.madeWithGifSetting = .hide
+            self.setSelection(madeWithGifSetting: Defaults.shared.madeWithGifSetting)
         }
     }
     
