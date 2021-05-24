@@ -20,7 +20,8 @@ class ReferringChannelSuggestionViewController: UIViewController {
     @IBOutlet var btnClear: UIButton!
     @IBOutlet weak var tblView: UITableView!
     @IBOutlet weak var referringTooltipView: UIView!
-    @IBOutlet weak var lblTooltip: UILabel!
+    @IBOutlet weak var lblReferringChannel: UILabel!
+    @IBOutlet weak var imgLogo: UIImageView!
     
     // MARK: - Variables Declaration
     var channels: [Channel] = []
@@ -30,6 +31,8 @@ class ReferringChannelSuggestionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tblView.isHidden = true
+        self.lblReferringChannel.text = R.string.localizable.referringChannelScreenText(Constant.Application.displayName)
+        CommonFunctions.setAppLogo(imgLogo: imgLogo)
     }
     
     // MARK: - UI Setup Methods
@@ -90,7 +93,6 @@ extension ReferringChannelSuggestionViewController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         self.changeClearButton(shouldShow: !(txtField.text?.isEmpty ?? false))
-        self.tblView.isHidden = true
     }
     
 }
@@ -120,6 +122,7 @@ extension ReferringChannelSuggestionViewController: UITableViewDelegate {
             channel(self.channels[indexPath.row])
         }
         self.txtField.text = self.channels[indexPath.row].channelName
+        self.tblView.isHidden = true
     }
     
 }

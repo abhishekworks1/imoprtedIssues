@@ -22,10 +22,14 @@ class SubscriptionsViewController: UIViewController {
             self.title = subscriptionType.description
         }
     }
+    var appMode: AppMode?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        bindPaymentSuccessVariable(appMode: appMode ?? .basic)
+        PurchaseHelper.shared.setProductIds(ids: [Constant.IAPProductIds.quickCamLiteBasic])
+        PurchaseHelper.shared.fetchAvailableProducts { }
     }
     
     @IBAction func btnUpgradeTapped(_ sender: Any) {
@@ -147,7 +151,10 @@ class SubscriptionsViewController: UIViewController {
         }
         objAlert.addAction(cancelAction)
         objAlert.addAction(actionSave)
-        if appMode != .free || Defaults.shared.releaseType != .beta {
+        if isQuickApp && appMode == .basic {
+            self.purchaseProduct(productIdentifire: Constant.IAPProductIds.quickCamLiteBasic, productServerID: Constant.IAPProductServerIds.quickCamLiteBasic)
+            self.appMode = appMode
+        } else if appMode != .free || Defaults.shared.releaseType != .beta {
             self.present(objAlert, animated: true, completion: nil)
         }
     }
@@ -187,6 +194,42 @@ extension SubscriptionsViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.subscriptionFeatureCell.identifier) as? SubscriptionFeatureTableViewCell else { return UITableViewCell() }
         cell.setData(description: self.subscriptionType.features[indexPath.row])
         return cell
+    }
+    
+}
+
+// MARK: - Purchase Product Method
+extension SubscriptionsViewController {
+    
+    internal func purchaseProduct(productIdentifire: String, productServerID: String) {
+        guard let selectedProduct = PurchaseHelper.shared.iapProducts.filter({$0.productIdentifier == productIdentifire}).first else {
+            Defaults.shared.isSubscriptionApiCalled = false
+            return
+        }
+        appDelegate?.isSubscriptionButtonPressed = true
+        PurchaseHelper.shared.purchaseProduct(product: selectedProduct, productid: productServerID) { (expired, error, isUserCancelled) in
+            if let error = error {
+                if !isUserCancelled {
+                    Defaults.shared.isSubscriptionApiCalled = false
+                    self.showAlert(alertMessage: error.localizedDescription)
+                } else {
+                    Defaults.shared.isSubscriptionApiCalled = false
+                }
+            } else {
+                Defaults.shared.isSubscriptionApiCalled = false
+                guard let expired = expired else {
+                    return
+                }
+            }
+        }
+    }
+    
+    func bindPaymentSuccessVariable(appMode: AppMode) {
+        PurchaseHelper.shared.isPaymentSuccessfull.bind { (isSuccess) in
+            if isSuccess {
+                self.callSubscriptionApi(appMode: appMode, code: R.string.localizable.quickcam2021(), successMessage: R.string.localizable.basicLiteModeIsEnabled())
+            }
+        }
     }
     
 }

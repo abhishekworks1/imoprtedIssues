@@ -719,6 +719,15 @@ class Defaults {
         }
     }
     
+    var isSubscriptionExpired: Bool {
+        get {
+            return appDefaults?.value(forKey: "isSubscriptionExpired") as? Bool ?? true
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isSubscriptionExpired")
+        }
+    }
+    
     func clearData() {
         if let appDefaultsDictionary = appDefaults?.dictionaryRepresentation() {
             appDefaultsDictionary.keys.forEach { key in
