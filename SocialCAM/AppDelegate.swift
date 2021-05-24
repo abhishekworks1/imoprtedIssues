@@ -224,7 +224,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let user = Defaults.shared.currentUser,
             let _ = Defaults.shared.sessionToken,
             let channelId = user.channelId,
-            channelId.count > 0 {
+            channelId.count > 0,
+            user.refferingChannel != nil {
             InternetConnectionAlert.shared.internetConnectionHandler = { reachability in
                 if reachability.connection != .none {
                     StoryDataManager.shared.startUpload()
@@ -446,17 +447,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let parentId = Defaults.shared.currentUser?.parentId ?? Defaults.shared.currentUser?.id
         Defaults.shared.parentID = parentId
         #if !IS_SHAREPOST && !IS_MEDIASHARE && !IS_VIRALVIDS  && !IS_SOCIALVIDS && !IS_PIC2ARTSHARE
-        self.goToHomeScreen()
+        self.goToHomeScreen(isRefferencingChannelEmpty: response.result?.refferingChannel == nil)
         #endif
     }
     
-    func goToHomeScreen() {
+    func goToHomeScreen(isRefferencingChannelEmpty: Bool) {
         #if PIC2ARTAPP || TIMESPEEDAPP || BOOMICAMAPP
         Utils.appDelegate?.window?.rootViewController = R.storyboard.pageViewController.pageViewController()
         #else
-        if !(Defaults.shared.isUserFirstLoggedIn) {
-            let tooltipViewController = R.storyboard.loginViewController.tooltipViewController()
-            Utils.appDelegate?.window?.rootViewController = tooltipViewController
+        if isRefferencingChannelEmpty {
+            let referringChannelSuggestionViewController = R.storyboard.loginViewController.referringChannelSuggestionViewController()
+            Utils.appDelegate?.window?.rootViewController = referringChannelSuggestionViewController
         } else {
             let addSocialConnectionViewController = R.storyboard.socialConnection.addSocialConnectionViewController()
             addSocialConnectionViewController?.fromLogin = true

@@ -886,6 +886,7 @@ public struct Paths {
     static let userSettings = "user/settings"
     static let loginWithKeycloak = "user/login"
     static let logoutWithKeycloak = "user/logout"
+    static let addReferral = "user/addReferral"
 }
 
 struct WebsiteData {
