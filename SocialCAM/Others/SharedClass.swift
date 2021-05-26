@@ -245,6 +245,17 @@ public var keycloakUrl: String {
     return baseUrlString
 }
 
+public var inAppConfig: String {
+    var appSpecificSecretKey = ""
+    switch Defaults.shared.releaseType {
+    case .debug, .alpha, .beta:
+        appSpecificSecretKey = ""
+    case .store:
+        appSpecificSecretKey = ""
+    }
+    return appSpecificSecretKey
+}
+
 enum ReleaseType: String, AppMode_Enum {
     case debug
     case alpha
@@ -630,6 +641,16 @@ public enum ImageFormat {
 enum ProfilePicType: Int {
     case imageType = 1
     case videoType = 2
+}
+
+/// IAP modes
+enum IAPMode: String {
+    case production
+    case sandbox
+    
+    func getStringValue() -> String {
+        return self.rawValue
+    }
 }
 
 public struct ResponseType {

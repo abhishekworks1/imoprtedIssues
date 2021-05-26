@@ -56,4 +56,38 @@ struct CommonFunctions {
         return currentDate
     }
     
+    static func setAppLogo(imgLogo: UIImageView) {
+        #if VIRALCAMAPP
+        imgLogo.image = R.image.viralcamrgb()
+        #elseif SOCCERCAMAPP || FUTBOLCAMAPP
+        imgLogo.image = R.image.soccercamWatermarkLogo()
+        #elseif QUICKCAMAPP
+        imgLogo.image = R.image.quickcamWatermarkLogo()
+        #elseif SNAPCAMAPP
+        imgLogo.image = R.image.snapcamWatermarkLogo()
+        #elseif SPEEDCAMAPP
+        imgLogo.image = R.image.speedcamWatermarkLogo()
+        #elseif TIMESPEEDAPP
+        imgLogo.image = R.image.timeSpeedWatermarkLogo()
+        #elseif FASTCAMAPP
+        imgLogo.image = R.image.fastcamWatermarkLogo()
+        #elseif BOOMICAMAPP
+        imgLogo.image = R.image.boomicamWatermarkLogo()
+        #elseif VIRALCAMLITEAPP
+        imgLogo.image = R.image.viralcamLiteWatermark()
+        #elseif FASTCAMLITEAPP
+        imgLogo.image = R.image.fastcamLiteWatermarkLogo()
+        #elseif QUICKCAMLITEAPP || QUICKAPP
+        imgLogo.image = R.image.quickcamWatermarkLogo()
+        #elseif SPEEDCAMLITEAPP
+        imgLogo.image = R.image.speedcamliteSplashLogo()
+        #elseif SNAPCAMLITEAPP
+        imgLogo.image = R.image.snapcamliteSplashLogo()
+        #elseif RECORDERAPP
+        imgLogo.image = R.image.socialScreenRecorderWatermarkLogo()
+        #else
+        imgLogo.image = R.image.pic2artWatermarkLogo()
+        #endif
+    }
+    
 }

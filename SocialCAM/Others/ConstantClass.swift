@@ -349,4 +349,26 @@ public struct Constant {
         static let dsn = "https://e7751d4eaf0746dab650503adbb943fa@sentry.io/1548827"
     }
     
+    struct BuySubscription {
+        static let subscriptionID   = "subscriptionId"
+        static let receipt          = "receipt"
+        static let password         = "password"
+        static let mode             = "mode"
+    }
+    
+    struct IAPError {
+        static let notMakePurchase  = "Can not make purchase"
+        static let inAppNotFound    = "No In-App Purchases were found"
+        static let purchaseFailed   = "purchase failed"
+    }
+    
+    /// IAP product id's
+    struct IAPProductIds {
+        static let quickCamLiteBasic = "com.QuickCamLite.app.basic"
+    }
+    
+    struct IAPProductServerIds {
+        static let quickCamLiteBasic = "1"
+    }
+    
 }

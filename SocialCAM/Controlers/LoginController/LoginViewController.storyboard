@@ -2050,33 +2050,54 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oUq-d3-S98">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XoS-7V-uka">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="818"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="promanagerLogo" translatesAutoresizingMaskIntoConstraints="NO" id="YjZ-39-lZj">
-                                                <rect key="frame" x="103" y="22" width="208" height="23.5"/>
+                                                <rect key="frame" x="103" y="66" width="208" height="23.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="207.90000000000001" id="bpe-Ru-lvt"/>
                                                     <constraint firstAttribute="height" constant="23.699999999999999" id="gDv-my-IqW"/>
                                                 </constraints>
                                             </imageView>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="piw-Q7-qPa">
+                                                <rect key="frame" x="31" y="113.5" width="352" height="100"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="viralcamWatermarkLogo" translatesAutoresizingMaskIntoConstraints="NO" id="cc6-nr-c8m" customClass="RoundedImageView" customModule="BoomiCam" customModuleProvider="target">
+                                                        <rect key="frame" x="121" y="-5" width="110" height="110"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="110" id="3RK-PT-IV0"/>
+                                                            <constraint firstAttribute="width" secondItem="cc6-nr-c8m" secondAttribute="height" multiplier="1:1" id="8iK-6b-N2F"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="100" id="3Jt-OL-YwN"/>
+                                                    <constraint firstItem="cc6-nr-c8m" firstAttribute="centerY" secondItem="piw-Q7-qPa" secondAttribute="centerY" id="VNh-zy-7dz"/>
+                                                    <constraint firstItem="cc6-nr-c8m" firstAttribute="centerX" secondItem="piw-Q7-qPa" secondAttribute="centerX" id="ikj-Nb-Bg4"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="addShadow" value="NO"/>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thank you!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mTk-cJ-Oqb">
-                                                <rect key="frame" x="166" y="69.5" width="82.5" height="18"/>
+                                                <rect key="frame" x="169" y="237.5" width="76" height="18"/>
                                                 <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="15.399999618530273"/>
                                                 <color key="textColor" red="0.16470588235294117" green="0.19607843137254902" blue="0.29411764705882354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yLh-VW-Ucg">
-                                                <rect key="frame" x="23" y="97.5" width="375.5" height="48"/>
+                                                <rect key="frame" x="23" y="265.5" width="375.5" height="47"/>
                                                 <string key="text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since. </string>
                                                 <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="13.399999618530273"/>
                                                 <color key="textColor" red="0.29019607843137252" green="0.29019607843137252" blue="0.29019607843137252" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="woY-YZ-NVx">
-                                                <rect key="frame" x="46" y="171.5" width="323" height="38"/>
+                                                <rect key="frame" x="46" y="338.5" width="323" height="38"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Referring Channel" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="x6N-uZ-WRS">
                                                         <rect key="frame" x="11" y="2" width="277" height="34"/>
@@ -2253,15 +2274,14 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aUl-s0-4UG">
                                                         <rect key="frame" x="77" y="358" width="260" height="180"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ev7-eA-L8u">
-                                                                <rect key="frame" x="20" y="20" width="220" height="78.5"/>
-                                                                <string key="text">Congratulations and welcome to QuickCam Lite. To get started, please enter the channel name of the user who referred you to this app.</string>
-                                                                <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="13.399999618530273"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Referring Channel is the channel name of the user who referred you to this app or website." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ev7-eA-L8u">
+                                                                <rect key="frame" x="20" y="20" width="220" height="72"/>
+                                                                <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="15.399999618530273"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N4D-c5-hwP">
-                                                                <rect key="frame" x="83" y="118.5" width="94" height="36"/>
+                                                                <rect key="frame" x="83" y="112" width="94" height="36"/>
                                                                 <color key="backgroundColor" name="AppPrimaryColor"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="94" id="BuP-Ne-YdE"/>
@@ -2316,6 +2336,8 @@
                                             <constraint firstAttribute="trailing" secondItem="eYj-za-4V3" secondAttribute="trailing" constant="5" id="IPV-OP-S17"/>
                                             <constraint firstAttribute="bottom" secondItem="9aX-IW-c7b" secondAttribute="bottom" constant="160" id="KJb-4L-UWK"/>
                                             <constraint firstItem="9aX-IW-c7b" firstAttribute="leading" secondItem="woY-YZ-NVx" secondAttribute="leading" id="M8i-be-g22"/>
+                                            <constraint firstItem="piw-Q7-qPa" firstAttribute="leading" secondItem="XoS-7V-uka" secondAttribute="leading" constant="31" id="RVK-wo-456"/>
+                                            <constraint firstItem="piw-Q7-qPa" firstAttribute="top" secondItem="YjZ-39-lZj" secondAttribute="bottom" constant="23.899999999999999" id="Rbd-Qa-4Vg"/>
                                             <constraint firstItem="ovL-uN-rOE" firstAttribute="top" secondItem="XoS-7V-uka" secondAttribute="top" id="TNu-Ke-6YR"/>
                                             <constraint firstAttribute="trailing" secondItem="woY-YZ-NVx" secondAttribute="trailing" constant="44.899999999999999" id="Ti2-Bp-Gmd"/>
                                             <constraint firstItem="eYj-za-4V3" firstAttribute="bottom" secondItem="woY-YZ-NVx" secondAttribute="bottom" id="a43-pF-Dcu"/>
@@ -2328,10 +2350,11 @@
                                             <constraint firstItem="eYj-za-4V3" firstAttribute="leading" secondItem="woY-YZ-NVx" secondAttribute="trailing" constant="10" id="cH2-aG-Kxr"/>
                                             <constraint firstItem="mTk-cJ-Oqb" firstAttribute="centerX" secondItem="YjZ-39-lZj" secondAttribute="centerX" id="e5I-U4-oaN"/>
                                             <constraint firstAttribute="trailing" secondItem="IkD-oj-hmg" secondAttribute="trailing" constant="30.300000000000001" id="fRC-yR-sHo"/>
-                                            <constraint firstItem="mTk-cJ-Oqb" firstAttribute="top" secondItem="YjZ-39-lZj" secondAttribute="bottom" constant="23.899999999999999" id="fiO-1w-xRV"/>
+                                            <constraint firstItem="mTk-cJ-Oqb" firstAttribute="top" secondItem="piw-Q7-qPa" secondAttribute="bottom" constant="23.899999999999999" id="hdS-1m-DbU"/>
                                             <constraint firstItem="YjZ-39-lZj" firstAttribute="centerX" secondItem="XoS-7V-uka" secondAttribute="centerX" id="mOb-DA-sni"/>
                                             <constraint firstItem="eYj-za-4V3" firstAttribute="top" secondItem="woY-YZ-NVx" secondAttribute="top" id="n7D-2j-Zwi"/>
                                             <constraint firstAttribute="bottom" secondItem="ovL-uN-rOE" secondAttribute="bottom" id="o8G-dV-HoT"/>
+                                            <constraint firstAttribute="trailing" secondItem="piw-Q7-qPa" secondAttribute="trailing" constant="31" id="oMl-jl-GZe"/>
                                             <constraint firstItem="IkD-oj-hmg" firstAttribute="top" secondItem="woY-YZ-NVx" secondAttribute="bottom" constant="15.699999999999999" id="pnB-CF-cBo"/>
                                             <constraint firstItem="IkD-oj-hmg" firstAttribute="leading" secondItem="XoS-7V-uka" secondAttribute="leading" constant="30.699999999999999" id="ryM-ED-QCA"/>
                                             <constraint firstItem="woY-YZ-NVx" firstAttribute="top" secondItem="yLh-VW-Ucg" secondAttribute="bottom" constant="25.899999999999999" id="xF8-2g-u4l"/>
@@ -2359,7 +2382,8 @@
                     <connections>
                         <outlet property="btnClear" destination="ops-Br-HKl" id="UOt-Yj-J9y"/>
                         <outlet property="btnSearch" destination="hbV-Ay-Vj3" id="Joj-Hb-2f6"/>
-                        <outlet property="lblTooltip" destination="Ev7-eA-L8u" id="lUZ-AQ-3pP"/>
+                        <outlet property="imgLogo" destination="cc6-nr-c8m" id="7Io-Dw-fXE"/>
+                        <outlet property="lblReferringChannel" destination="yLh-VW-Ucg" id="WRm-CQ-4PJ"/>
                         <outlet property="referringTooltipView" destination="ovL-uN-rOE" id="ss2-yQ-X7m"/>
                         <outlet property="searchView" destination="woY-YZ-NVx" id="Gcp-Pc-LAH"/>
                         <outlet property="tblView" destination="9aX-IW-c7b" id="KEb-mV-QA1"/>
@@ -2470,6 +2494,7 @@
         <image name="storyBack" width="19" height="19"/>
         <image name="textFieldClose" width="15" height="15"/>
         <image name="userProfilePlaceholder" width="77" height="77"/>
+        <image name="viralcamWatermarkLogo" width="150" height="150"/>
         <image name="viralcamrgb" width="300" height="300"/>
         <namedColor name="Active2">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
