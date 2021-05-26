@@ -701,12 +701,12 @@ class Defaults {
         }
     }
     
-    var isUserFirstLoggedIn: Bool {
+    var isRegistered: Bool? {
         get {
-            return appDefaults?.value(forKey: "isUserFirstLoggedIn") as? Bool ?? false
+            return appDefaults?.value(forKey: "isRegistered") as? Bool ?? false
         }
         set {
-            appDefaults?.set(newValue, forKey: "isUserFirstLoggedIn")
+            appDefaults?.set(newValue, forKey: "isRegistered")
         }
     }
     
@@ -731,9 +731,7 @@ class Defaults {
     func clearData() {
         if let appDefaultsDictionary = appDefaults?.dictionaryRepresentation() {
             appDefaultsDictionary.keys.forEach { key in
-                if key != "isUserFirstLoggedIn" {
-                    appDefaults?.removeObject(forKey: key)
-                }
+                appDefaults?.removeObject(forKey: key)
             }
         }
     }

@@ -131,9 +131,11 @@ extension ReferringChannelSuggestionViewController: UITableViewDelegate {
 extension ReferringChannelSuggestionViewController {
     
     func redirectToHomeScreen() {
-        if !(Defaults.shared.isUserFirstLoggedIn) {
-            let tooltipViewController = R.storyboard.loginViewController.tooltipViewController()
-            Utils.appDelegate?.window?.rootViewController = tooltipViewController
+        if let isRegistered = Defaults.shared.isRegistered {
+            if isRegistered {
+                let tooltipViewController = R.storyboard.loginViewController.tooltipViewController()
+                Utils.appDelegate?.window?.rootViewController = tooltipViewController
+            }
         } else {
             let addSocialConnectionViewController = R.storyboard.socialConnection.addSocialConnectionViewController()
             addSocialConnectionViewController?.fromLogin = true

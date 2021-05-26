@@ -134,3 +134,19 @@ class UserSettings: Mappable {
     }
     
 }
+
+class LoginResult: Mappable{
+    
+    var isRegistered : Bool?
+    var user : User?
+    
+    required init?(map: Map) {
+        
+    }
+    
+    func mapping(map: Map) {
+        isRegistered <- map["isRegistered"]
+        user <- map["user"]
+    }
+    
+}

@@ -429,7 +429,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func loginWithKeycloak(code: String, redirectUrl: String) {
-        ProManagerApi.loginWithKeycloak(code: code, redirectUrl: redirectUrl).request(Result<User>.self).subscribe(onNext: { (response) in
+        ProManagerApi.loginWithKeycloak(code: code, redirectUrl: redirectUrl).request(Result<LoginResult>.self).subscribe(onNext: { (response) in
             if response.status == ResponseType.success {
                 self.goHomeScreen(response)
             }
@@ -438,17 +438,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }).disposed(by: rx.disposeBag)
     }
     
-    func goHomeScreen(_ response: Result<User>) {
+    func goHomeScreen(_ response: Result<LoginResult>) {
         Defaults.shared.sessionToken = response.sessionToken
-        Defaults.shared.currentUser = response.result
-        Defaults.shared.userCreatedDate = response.result?.created ?? ""
-        CurrentUser.shared.setActiveUser(response.result)
+        Defaults.shared.currentUser = response.result?.user
+        Defaults.shared.isRegistered = response.result?.isRegistered
+        Defaults.shared.userCreatedDate = response.result?.user?.created ?? ""
+        CurrentUser.shared.setActiveUser(response.result?.user)
         Crashlytics.crashlytics().setUserID(CurrentUser.shared.activeUser?.username ?? "")
         CurrentUser.shared.createNewReferrerChannelURL { (_, _) -> Void in }
         let parentId = Defaults.shared.currentUser?.parentId ?? Defaults.shared.currentUser?.id
         Defaults.shared.parentID = parentId
         #if !IS_SHAREPOST && !IS_MEDIASHARE && !IS_VIRALVIDS  && !IS_SOCIALVIDS && !IS_PIC2ARTSHARE
-        self.goToHomeScreen(isRefferencingChannelEmpty: response.result?.refferingChannel == nil)
+        self.goToHomeScreen(isRefferencingChannelEmpty: response.result?.user?.refferingChannel == nil)
         #endif
     }
     
