@@ -29,16 +29,16 @@ class WatermarkSettingCell: UITableViewCell {
     var watermarkType: WatermarkType = .fastestEverWatermark {
         didSet {
             if watermarkType == .fastestEverWatermark {
-                lblWatermarkName.text = R.string.localizable.fastesteverImage()
+                lblWatermarkName.text = R.string.localizable.fastestevercontest()
                 self.hideWatermarkView.backgroundColor = .white
                 self.lblWatermarkTitle.textColor = R.color.watermarkTitleColor()
                 self.lblUpgrade.isHidden = true
                 self.setSelection(fastestEverWatermarkSetting: Defaults.shared.fastestEverWatermarkSetting)
             } else if watermarkType == .applicationIdentifier {
-                lblWatermarkName.text = R.string.localizable.applicationIdentifier()
+                lblWatermarkName.text = R.string.localizable.madeWith(Constant.Application.displayName)
                 self.setSelection(appIdentifierWatermarkSetting: Defaults.shared.appIdentifierWatermarkSetting)
             } else if watermarkType == .madeWithGif {
-                lblWatermarkName.text = R.string.localizable.giF()
+                lblWatermarkName.text = R.string.localizable.madeWithgif(Constant.Application.displayName)
                 self.setSelection(madeWithGifSetting: Defaults.shared.madeWithGifSetting)
             }
         }

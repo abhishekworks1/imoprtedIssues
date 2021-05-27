@@ -269,6 +269,20 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             headerView.arrowLabel?.isHidden = true
         }
         
+        headerView.userImage.layer.cornerRadius = headerView.userImage.bounds.width / 2
+        if settingTitle.settingsType == .cameraSettings {
+            headerView.title.isHidden = false
+            if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
+                headerView.userImage.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: ApplicationSettings.userPlaceHolder)
+            } else {
+                headerView.userImage.image = ApplicationSettings.userPlaceHolder
+            }
+            headerView.title.text = Defaults.shared.currentUser?.channelId
+        } else {
+            headerView.title.isHidden = true
+            headerView.userImage.isHidden = true
+        }
+        
         return headerView
     }
     
@@ -276,8 +290,10 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         let settingTitle = StorySettings.storySettings[section]
         if settingTitle.settingsType == .subscriptions {
             return 60
+        } else if settingTitle.settingsType == .cameraSettings {
+            return 80
         } else {
-            return 24
+            return 0
         }
     }
     

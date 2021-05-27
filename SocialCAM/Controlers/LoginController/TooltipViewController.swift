@@ -16,7 +16,7 @@ class TooltipViewController: UIViewController {
     @IBOutlet weak var btnNext: UIButton!
     
     // MARK: - Variables declaration
-    var gifArray = ["Tooltip1", "Tooltip2", "Tooltip3", "Tooltip4"]
+    var gifArray = ["Tooltip1", "Tooltip2", "Tooltip3", "Tooltip4", "Tooltip5"]
     var gifCount = 0
     var pushFromSettingScreen = false
     
@@ -41,11 +41,11 @@ class TooltipViewController: UIViewController {
     
     @IBAction func btnNextClicked(_ sender: UIButton) {
         gifCount += 1
-        if (gifCount == 4) {
+        if (gifCount == 5) {
             btnSkipClicked(sender)
         } else {
             addGifToImageView(gifName: gifArray[gifCount])
-            if gifCount == 3 {
+            if gifCount == 4 {
                 btnNext.setTitle(R.string.localizable.done(), for: .normal)
                 btnSkip.isHidden = true
             }

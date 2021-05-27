@@ -17,6 +17,8 @@ class StorySettingsHeader: UITableViewCell {
     @IBOutlet weak var separator: UIView!
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var arrowLabel: UILabel?
+    @IBOutlet weak var userImage: UIImageView!
+    @IBOutlet weak var userName: UILabel!
     
     weak var delegate: HeaderViewDelegate?
     var section: Int = 0

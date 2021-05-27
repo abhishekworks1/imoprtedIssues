@@ -153,21 +153,38 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
             fatalError("StorySettingsHeader Not Found")
         }
         let settingTitle = CameraSettings.storySettings[section]
+        headerView.userName.isHidden = true
+        headerView.userImage.isHidden = true
         if settingTitle.settingsType != .supportedFrameRates {
             headerView.title.isHidden = true
         } else {
             headerView.title.isHidden = false
         }
         headerView.title.text = settingTitle.name
+        
+        if settingTitle.settingsType == .faceDetection {
+            headerView.userImage.isHidden = false
+            headerView.userName.isHidden = false
+            headerView.title.isHidden = true
+            headerView.userImage.layer.cornerRadius = headerView.userImage.bounds.width / 2
+            if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
+                headerView.userImage.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: ApplicationSettings.userPlaceHolder)
+            } else {
+                headerView.userImage.image = ApplicationSettings.userPlaceHolder
+            }
+            headerView.userName.text = Defaults.shared.currentUser?.channelId
+        }
         return headerView
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         let settingTitle = CameraSettings.storySettings[section]
-        if settingTitle.settingsType != .supportedFrameRates {
-            return 1
-        } else {
+        if settingTitle.settingsType == .supportedFrameRates {
             return 60
+        } else if settingTitle.settingsType == .faceDetection {
+            return 80
+        } else {
+            return 1
         }
     }
     
