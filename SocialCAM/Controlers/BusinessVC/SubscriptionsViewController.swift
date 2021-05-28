@@ -206,6 +206,7 @@ extension SubscriptionsViewController {
             Defaults.shared.isSubscriptionApiCalled = false
             return
         }
+        self.showHUD()
         appDelegate?.isSubscriptionButtonPressed = true
         PurchaseHelper.shared.purchaseProduct(product: selectedProduct, productid: productServerID) { (expired, error, isUserCancelled) in
             if let error = error {
@@ -228,6 +229,8 @@ extension SubscriptionsViewController {
         PurchaseHelper.shared.isPaymentSuccessfull.bind { (isSuccess) in
             if isSuccess {
                 self.callSubscriptionApi(appMode: appMode, code: R.string.localizable.quickcam2021(), successMessage: R.string.localizable.basicLiteModeIsEnabled())
+            } else {
+                self.dismissHUD()
             }
         }
     }

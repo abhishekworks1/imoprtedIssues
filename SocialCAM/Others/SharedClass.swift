@@ -232,6 +232,51 @@ public var keycloakClientId: String {
     return baseUrl + clientId + endUrl
 }
 
+public var keycloakRegistrationClientId: String {
+    let baseUrl = "auth/realms/main/protocol/openid-connect/registrations?client_id="
+    let endUrl = "&response_mode=fragment&response_type=code&redirect_uri="
+    var clientId = ""
+    switch Defaults.shared.releaseType {
+    case .debug, .alpha:
+        if isFastCamApp || isFastCamLiteApp {
+            clientId = "fastcam-alpha"
+        } else if isSnapCamApp || isSnapCamLiteApp {
+            clientId = "snapcam-alpha"
+        } else if isQuickCamApp || isQuickCamLiteApp || isQuickApp {
+            clientId = "quickcam-alpha"
+        } else if isSpeedCamApp || isSpeedCamLiteApp {
+            clientId = "speedcam-alpha"
+        } else {
+            clientId = "snapcam-alpha"
+        }
+    case .beta:
+        if isFastCamApp || isFastCamLiteApp {
+            clientId = "fastcam-beta"
+        } else if isSnapCamApp || isSnapCamLiteApp {
+            clientId = "snapcam-beta"
+        } else if isQuickCamApp || isQuickCamLiteApp || isQuickApp {
+            clientId = "quickcam-beta"
+        } else if isSpeedCamApp || isSpeedCamLiteApp {
+            clientId = "speedcam-beta"
+        } else {
+            clientId = "snapcam-beta"
+        }
+    case .store:
+        if isFastCamApp || isFastCamLiteApp {
+            clientId = "fastcam-prod"
+        } else if isSnapCamApp || isSnapCamLiteApp {
+            clientId = "snapcam-prod"
+        } else if isQuickCamApp || isQuickCamLiteApp || isQuickApp {
+            clientId = "quickcam-prod"
+        } else if isSpeedCamApp || isSpeedCamLiteApp {
+            clientId = "speedcam-prod"
+        } else {
+            clientId = "snapcam-prod"
+        }
+    }
+    return baseUrl + clientId + endUrl
+}
+
 public var keycloakUrl: String {
     var baseUrlString = ""
     switch Defaults.shared.releaseType {

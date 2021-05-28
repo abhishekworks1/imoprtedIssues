@@ -156,6 +156,14 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         present(safariVC, animated: true, completion: nil)
     }
     
+    @IBAction func btnKeyCloakRegisterClicked(_ sender: UIButton) {
+        guard let messagesAppURL = URL(string: "\(keycloakUrl)\(keycloakRegistrationClientId)\(KeycloakRedirectLink.keycloakRedirectLinkName.lowercased())\(KeycloakRedirectLink.endUrl)") else  {
+            return
+        }
+        let safariVC = SFSafariViewController(url: messagesAppURL)
+        present(safariVC, animated: true, completion: nil)
+    }
+    
     @IBAction func btnLoginClicked(_ sender: Any?) {
         guard let emailText = txtEmail.text else {
             return

@@ -1479,9 +1479,10 @@ extension StoryCameraViewController {
         nextLevel.metadataObjectsDelegate = self
         enableFaceDetectionIfNeeded()
         setupImageLoadFromGallary()
-        if !(Defaults.shared.isUserFirstLoggedIn) {
-            showAlertForAppSurvey()
-            Defaults.shared.isUserFirstLoggedIn = true
+        if let isRegistered = Defaults.shared.isRegistered {
+            if isRegistered {
+                showAlertForAppSurvey()
+            }
         }
     }
     

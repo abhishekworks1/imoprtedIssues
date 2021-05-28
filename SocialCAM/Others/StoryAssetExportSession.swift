@@ -41,7 +41,7 @@ class StoryAssetExportSession {
     private var watermarkAdded: Bool = false
     private var overlayWatermarkImage: UIImage?
     private var watermarkPosition: WatermarkPosition = .topLeft
-    private var gifWaterMarkURL = Bundle.main.url(forResource: "SocialCamWaterMark", withExtension: "gif")
+    private var gifWaterMarkURL = Bundle.main.url(forResource: "MadeWithQuickCamLite", withExtension: "gif")
     private var gifFrames = [CGImage]()
     private var gifCount = 0
 
@@ -291,6 +291,9 @@ class StoryAssetExportSession {
     }
     
     func overlaidCIImage(_ image: CIImage) -> CIImage? {
+        if Defaults.shared.madeWithGifSetting == .show {
+            watermarkType = .gif
+        }
         if overlayWatermarkImage == nil {
             overlayWatermarkImage = overlayImage
         }
@@ -305,8 +308,11 @@ class StoryAssetExportSession {
                             guard let `self` = self else {
                                 return
                             }
-                            if Defaults.shared.appIdentifierWatermarkSetting == .show {
+                            if Defaults.shared.appIdentifierWatermarkSetting == .show || Defaults.shared.madeWithGifSetting == .show {
                                 self.addWaterMarkImageIfNeeded(isGIF: true)
+                            }
+                            if Defaults.shared.fastestEverWatermarkSetting == .show {
+                                self.addFastestEverWaterMarkImage()
                             }
                         }
                     }
@@ -316,8 +322,11 @@ class StoryAssetExportSession {
                             guard let `self` = self else {
                                 return
                             }
-                            if Defaults.shared.appIdentifierWatermarkSetting == .show {
+                            if Defaults.shared.appIdentifierWatermarkSetting == .show || Defaults.shared.madeWithGifSetting == .show {
                                 self.addWaterMarkImageIfNeeded(isGIF: true)
+                            }
+                            if Defaults.shared.fastestEverWatermarkSetting == .show {
+                                self.addFastestEverWaterMarkImage()
                             }
                         }
                     }
@@ -426,11 +435,18 @@ class StoryAssetExportSession {
         
         guard !watermarkAdded,
             let backgroundImage = self.overlayImage,
-            let watermarkImage = isGIF ? UIImage(cgImage: gifFrames.remove(at: 0)) : image else {
+            let watermarkImage = Defaults.shared.appIdentifierWatermarkSetting == .show ? image : UIImage() else {
                 return
         }
         
-        let newWatermarkImage = watermarkImage.combineWith(image: watermarkTextImage)
+        let watermarkGIFImage = isGIF ? UIImage(cgImage: gifFrames.remove(at: 0)) : UIImage()
+        
+        var newWatermarkImage = watermarkImage
+        if Defaults.shared.appIdentifierWatermarkSetting == .show {
+            newWatermarkImage = watermarkImage.combineWith(image: watermarkTextImage)
+        }
+        
+        let newWatermarkGIFImage = watermarkGIFImage
         
         let backgroundImageSize = backgroundImage.size
         UIGraphicsBeginImageContext(backgroundImageSize)
@@ -438,14 +454,28 @@ class StoryAssetExportSession {
         let backgroundImageRect = CGRect(origin: .zero, size: backgroundImageSize)
         backgroundImage.draw(in: backgroundImageRect)
 
-        let watermarkImageSize = newWatermarkImage.size
+        let watermarkImageSize = CGSize(width: newWatermarkImage.size.width * 1.3, height: newWatermarkImage.size.height * 1.3)
+        let watermarkGIFImageSize = CGSize(width: newWatermarkGIFImage.size.width * 1.3, height: newWatermarkGIFImage.size.height * 2)
+        
         var watermarkOrigin = CGPoint(x: backgroundImageSize.width - watermarkImageSize.width - 20, y: backgroundImageSize.height - watermarkImageSize.height - 50)
-        if watermarkPosition == .topLeft {
+        if watermarkPosition == .topLeft && Defaults.shared.appIdentifierWatermarkSetting == .show {
             watermarkOrigin = CGPoint(x: 8, y: 8)
         }
-        let watermarkImageRect = CGRect(origin: watermarkOrigin, size: watermarkImageSize)
-        newWatermarkImage.draw(in: watermarkImageRect, blendMode: .normal, alpha: 1.0)
+        let watermarkGIFOrigin = CGPoint(x: backgroundImageSize.width - watermarkGIFImageSize.width - 20, y: 8)
         
+        var watermarkImageRect = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: 0, height: 0))
+        if Defaults.shared.appIdentifierWatermarkSetting == .show && Defaults.shared.madeWithGifSetting == .show {
+            watermarkImageRect = CGRect(origin: watermarkOrigin, size: watermarkImageSize)
+            newWatermarkImage.draw(in: watermarkImageRect, blendMode: .normal, alpha: 1.0)
+            watermarkImageRect = CGRect(origin: watermarkGIFOrigin, size: watermarkGIFImageSize)
+            newWatermarkGIFImage.draw(in: watermarkImageRect, blendMode: .normal, alpha: 1.0)
+        } else if Defaults.shared.appIdentifierWatermarkSetting == .show {
+            watermarkImageRect = CGRect(origin: watermarkOrigin, size: watermarkImageSize)
+            newWatermarkImage.draw(in: watermarkImageRect, blendMode: .normal, alpha: 1.0)
+        } else if Defaults.shared.madeWithGifSetting == .show {
+            watermarkImageRect = CGRect(origin: watermarkGIFOrigin, size: watermarkGIFImageSize)
+            newWatermarkGIFImage.draw(in: watermarkImageRect, blendMode: .normal, alpha: 1.0)
+        }
         if let newImage = UIGraphicsGetImageFromCurrentImageContext() {
             self.overlayWatermarkImage = newImage
             self.watermarkAdded = true
