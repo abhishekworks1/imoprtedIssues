@@ -1965,45 +1965,31 @@ Countdown</string>
                                             <rect key="frame" x="0.0" y="0.0" width="359" height="61"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="32H-uU-7lq">
-                                                    <rect key="frame" x="0.0" y="0.0" width="359" height="2"/>
-                                                    <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KaT-dA-dZj">
+                                                    <rect key="frame" x="10" y="0.66666666666666785" width="60" height="60"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="2" id="TX3-c5-5cg"/>
+                                                        <constraint firstAttribute="width" constant="60" id="Tug-eg-d8r"/>
+                                                        <constraint firstAttribute="height" constant="60" id="wGZ-Bg-QrV"/>
                                                     </constraints>
-                                                </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set Privacy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zK1-TT-d86">
-                                                    <rect key="frame" x="15" y="21" width="85.333333333333329" height="19.333333333333329"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
-                                                    <color key="textColor" name="AppPrimaryColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="▽" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cpS-GN-hPI">
-                                                    <rect key="frame" x="329" y="21" width="20" height="19.333333333333329"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="20" id="KnD-5K-MHm"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
-                                                    <color key="textColor" name="AppPrimaryColor"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UserName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zK1-TT-d86">
+                                                    <rect key="frame" x="82" y="21.666666666666668" width="74.333333333333314" height="18.000000000000004"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                                    <color key="textColor" name="AppBlackColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="cpS-GN-hPI" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="zK1-TT-d86" secondAttribute="trailing" constant="5" id="IOE-5P-BWv"/>
-                                                <constraint firstAttribute="trailing" secondItem="cpS-GN-hPI" secondAttribute="trailing" constant="10" id="Vvv-nO-Soz"/>
-                                                <constraint firstItem="zK1-TT-d86" firstAttribute="centerY" secondItem="DZQ-x1-CR4" secondAttribute="centerY" id="XfZ-kU-eE2"/>
-                                                <constraint firstItem="zK1-TT-d86" firstAttribute="leading" secondItem="DZQ-x1-CR4" secondAttribute="leading" constant="15" id="ahp-zQ-Qtm"/>
-                                                <constraint firstItem="32H-uU-7lq" firstAttribute="leading" secondItem="DZQ-x1-CR4" secondAttribute="leading" id="dFo-te-5Sc"/>
-                                                <constraint firstItem="32H-uU-7lq" firstAttribute="top" secondItem="DZQ-x1-CR4" secondAttribute="top" id="h2y-mA-292"/>
-                                                <constraint firstAttribute="trailing" secondItem="32H-uU-7lq" secondAttribute="trailing" id="p3g-jB-nbl"/>
-                                                <constraint firstItem="cpS-GN-hPI" firstAttribute="centerY" secondItem="zK1-TT-d86" secondAttribute="centerY" id="phP-Zb-XvQ"/>
+                                                <constraint firstItem="KaT-dA-dZj" firstAttribute="centerY" secondItem="DZQ-x1-CR4" secondAttribute="centerY" id="BWp-KR-hvo"/>
+                                                <constraint firstItem="KaT-dA-dZj" firstAttribute="leading" secondItem="DZQ-x1-CR4" secondAttribute="leading" constant="10" id="nQK-Yx-Fn6"/>
+                                                <constraint firstItem="zK1-TT-d86" firstAttribute="centerY" secondItem="KaT-dA-dZj" secondAttribute="centerY" id="nx1-Lu-jWB"/>
+                                                <constraint firstItem="zK1-TT-d86" firstAttribute="leading" secondItem="KaT-dA-dZj" secondAttribute="trailing" constant="12" id="wjt-Nh-HUP"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
-                                            <outlet property="arrowLabel" destination="cpS-GN-hPI" id="k0Y-90-EoG"/>
-                                            <outlet property="separator" destination="32H-uU-7lq" id="Qeg-bd-pMb"/>
                                             <outlet property="title" destination="zK1-TT-d86" id="2V9-SU-U1K"/>
+                                            <outlet property="userImage" destination="KaT-dA-dZj" id="fd9-rq-c9O"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="StorySettingsCell" id="WST-z2-GwX" customClass="StorySettingsCell" customModule="BoomiCam" customModuleProvider="target">
@@ -2688,10 +2674,27 @@ Countdown</string>
                                                     <color key="textColor" name="AppPrimaryColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6Gu-Ky-XTG">
+                                                    <rect key="frame" x="10" y="0.66666666666666785" width="60" height="60"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="60" id="GFo-8c-bEs"/>
+                                                        <constraint firstAttribute="width" constant="60" id="aCN-3R-9Fu"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UserName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Hh-cb-7V7">
+                                                    <rect key="frame" x="82" y="21.666666666666668" width="74.333333333333314" height="18.000000000000004"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                                    <color key="textColor" name="AppBlackColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="V7c-jh-3wP" firstAttribute="centerY" secondItem="O2e-4W-gr0" secondAttribute="centerY" id="3wX-GP-Mu6"/>
                                                 <constraint firstItem="V7c-jh-3wP" firstAttribute="leading" secondItem="O2e-4W-gr0" secondAttribute="leading" constant="15" id="RwC-HV-gBh"/>
+                                                <constraint firstItem="6Gu-Ky-XTG" firstAttribute="leading" secondItem="O2e-4W-gr0" secondAttribute="leading" constant="10" id="XkG-k0-MjF"/>
+                                                <constraint firstItem="6Gu-Ky-XTG" firstAttribute="centerY" secondItem="O2e-4W-gr0" secondAttribute="centerY" id="YK2-Rb-mVk"/>
+                                                <constraint firstItem="0Hh-cb-7V7" firstAttribute="centerY" secondItem="6Gu-Ky-XTG" secondAttribute="centerY" id="dkE-yk-iZ4"/>
+                                                <constraint firstItem="0Hh-cb-7V7" firstAttribute="leading" secondItem="6Gu-Ky-XTG" secondAttribute="trailing" constant="12" id="hBZ-hf-0YT"/>
                                                 <constraint firstItem="3Lj-9s-wkr" firstAttribute="leading" secondItem="O2e-4W-gr0" secondAttribute="leading" id="jqG-SR-aJD"/>
                                                 <constraint firstAttribute="trailing" secondItem="3Lj-9s-wkr" secondAttribute="trailing" id="onF-Qz-kTP"/>
                                                 <constraint firstItem="3Lj-9s-wkr" firstAttribute="top" secondItem="O2e-4W-gr0" secondAttribute="top" id="yoV-s1-JyM"/>
@@ -2701,6 +2704,8 @@ Countdown</string>
                                         <connections>
                                             <outlet property="separator" destination="3Lj-9s-wkr" id="CV8-og-fCd"/>
                                             <outlet property="title" destination="V7c-jh-3wP" id="FsP-6h-5ah"/>
+                                            <outlet property="userImage" destination="6Gu-Ky-XTG" id="JJ3-0T-sYf"/>
+                                            <outlet property="userName" destination="0Hh-cb-7V7" id="6gR-jq-iaT"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="StorySettingsCell" id="f9s-xS-CEQ" customClass="StorySettingsCell" customModule="BoomiCam" customModuleProvider="target">
@@ -4919,8 +4924,8 @@ Countdown</string>
                                     <action selector="onBack:" destination="BtE-Ri-H8d" eventType="touchUpInside" id="kHk-QY-Auo"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Promote Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DWk-c8-iDc">
-                                <rect key="frame" x="116.00000000000001" y="55.333333333333336" width="143.33333333333337" height="21.666666666666664"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Promotions" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DWk-c8-iDc">
+                                <rect key="frame" x="140.33333333333334" y="55.333333333333336" width="94.666666666666657" height="21.666666666666664"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                 <color key="textColor" red="0.19215686269999999" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>

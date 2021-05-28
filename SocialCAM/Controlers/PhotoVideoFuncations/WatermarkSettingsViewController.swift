@@ -21,9 +21,9 @@ class WatermarkSettings {
     }
     
     static var watermarkSettings = [
-        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.fastesteverImage(), selected: false)], settingsType: .fatesteverWatermark),
-        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.applicationIdentifier(), selected: false)], settingsType: .applIdentifierWatermark),
-        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.giF(), selected: false)], settingsType: .madeWithGif)
+        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.fastestevercontest(), selected: false)], settingsType: .fatesteverWatermark),
+        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.madeWith(Constant.Application.displayName), selected: false)], settingsType: .applIdentifierWatermark),
+        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.madeWithgif(Constant.Application.displayName), selected: false)], settingsType: .madeWithGif)
     ]
 }
 
