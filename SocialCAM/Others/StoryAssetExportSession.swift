@@ -41,7 +41,7 @@ class StoryAssetExportSession {
     private var watermarkAdded: Bool = false
     private var overlayWatermarkImage: UIImage?
     private var watermarkPosition: WatermarkPosition = .topLeft
-    private var gifWaterMarkURL = Bundle.main.url(forResource: "MadeWithQuickCamLite", withExtension: "gif")
+    private var gifWaterMarkURL = Bundle.main.url(forResource: "QuickCamLiteWatermarkGIF", withExtension: "gif")
     private var gifFrames = [CGImage]()
     private var gifCount = 0
 
@@ -455,13 +455,13 @@ class StoryAssetExportSession {
         backgroundImage.draw(in: backgroundImageRect)
 
         let watermarkImageSize = CGSize(width: newWatermarkImage.size.width * 1.3, height: newWatermarkImage.size.height * 1.3)
-        let watermarkGIFImageSize = CGSize(width: newWatermarkGIFImage.size.width * 1.3, height: newWatermarkGIFImage.size.height * 2)
+        let watermarkGIFImageSize = CGSize(width: newWatermarkGIFImage.size.width * 1.5, height: newWatermarkGIFImage.size.height * 2)
         
         var watermarkOrigin = CGPoint(x: backgroundImageSize.width - watermarkImageSize.width - 20, y: backgroundImageSize.height - watermarkImageSize.height - 50)
         if watermarkPosition == .topLeft && Defaults.shared.appIdentifierWatermarkSetting == .show {
             watermarkOrigin = CGPoint(x: 8, y: 8)
         }
-        let watermarkGIFOrigin = CGPoint(x: backgroundImageSize.width - watermarkGIFImageSize.width - 20, y: 8)
+        let watermarkGIFOrigin = CGPoint(x: backgroundImageSize.width - watermarkGIFImageSize.width + 10, y: 0)
         
         var watermarkImageRect = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: 0, height: 0))
         if Defaults.shared.appIdentifierWatermarkSetting == .show && Defaults.shared.madeWithGifSetting == .show {
