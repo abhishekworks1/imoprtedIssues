@@ -56,8 +56,13 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet var btnSignUP: UIButton!
     @IBOutlet weak var logoLable: UILabel!
     @IBOutlet var appleLoginView: UIView!
+    @IBOutlet weak var loginTooltip: UIView!
+    @IBOutlet weak var lblLoginTooltip: UILabel!
+    
     weak var delegate: LoginViewControllerDelegate?
     var tapCounter = 0
+    var isLoginButtonPressed = false
+    
     // MARK: View life cycle
     
     override func viewDidLoad() {
@@ -124,6 +129,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
           .foregroundColor: ApplicationSettings.appPrimaryColor
         ], range: NSRange(location: 23, length: 7))
         btnSignUP.setAttributedTitle(attributedString, for: .normal)
+        self.lblLoginTooltip.text = R.string.localizable.loginScreenTooltipText(Constant.Application.displayName)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -143,24 +149,38 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
+    /// Hide and show tooltip
+    private func hideShowTooltipView(shouldShow: Bool) {
+        self.loginTooltip.isHidden = !shouldShow
+    }
+    
     // MARK: IBActions
     @IBAction func btnCloseClicked(_ sender: UIButton) {
         self.dismiss(animated: true)
     }
     
     @IBAction func btnKeyCloakLoginClicked(_ sender: UIButton) {
-        guard let messagesAppURL = URL(string: "\(keycloakUrl)\(keycloakClientId)\(KeycloakRedirectLink.keycloakRedirectLinkName.lowercased())\(KeycloakRedirectLink.endUrl)") else  {
-            return
-        }
-        let safariVC = SFSafariViewController(url: messagesAppURL)
-        present(safariVC, animated: true, completion: nil)
+        isLoginButtonPressed = true
+        self.hideShowTooltipView(shouldShow: true)
     }
     
     @IBAction func btnKeyCloakRegisterClicked(_ sender: UIButton) {
-        guard let messagesAppURL = URL(string: "\(keycloakUrl)\(keycloakRegistrationClientId)\(KeycloakRedirectLink.keycloakRedirectLinkName.lowercased())\(KeycloakRedirectLink.endUrl)") else  {
+        self.hideShowTooltipView(shouldShow: true)
+    }
+    
+    @IBAction func btnOkayClicked(_ sender: UIButton) {
+        self.hideShowTooltipView(shouldShow: false)
+        let messagesAppURL: URL?
+        if isLoginButtonPressed {
+            isLoginButtonPressed = false
+            messagesAppURL = URL(string: "\(keycloakUrl)\(keycloakClientId)\(KeycloakRedirectLink.keycloakRedirectLinkName.lowercased())\(KeycloakRedirectLink.endUrl)")
+        } else {
+            messagesAppURL = URL(string: "\(keycloakUrl)\(keycloakRegistrationClientId)\(KeycloakRedirectLink.keycloakRedirectLinkName.lowercased())\(KeycloakRedirectLink.endUrl)")
+        }
+        guard let msgURL = messagesAppURL else {
             return
         }
-        let safariVC = SFSafariViewController(url: messagesAppURL)
+        let safariVC = SFSafariViewController(url: msgURL)
         present(safariVC, animated: true, completion: nil)
     }
     

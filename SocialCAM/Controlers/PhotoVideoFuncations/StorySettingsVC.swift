@@ -44,6 +44,7 @@ enum SettingsMode: Int {
     case instruction
     case intellectualProperties
     case madeWithGif
+    case pic2Art
 }
 
 class StorySetting {
@@ -96,7 +97,9 @@ class StorySettings {
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.applicationSurvey(), selected: false)], settingsType: .applicationSurvey),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.instruction(), selected: false)], settingsType: .instruction),
+                                              settings: [StorySetting(name: R.string.localizable.main(), selected: false)], settingsType: .instruction),
+                                StorySettings(name: "",
+                                              settings: [StorySetting(name: R.string.localizable.pic2Art(), selected: false)], settingsType: .pic2Art),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.intellectualProperties(), selected: false)], settingsType: .intellectualProperties),
                                 StorySettings(name: "",
@@ -209,7 +212,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         cell.settingsName.text = settings.name
         cell.detailButton.isHidden = true
         cell.settingsName.textColor = R.color.appBlackColor()
-        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video || settingTitle.settingsType == .cameraSettings || settingTitle.settingsType == .termsAndConditions || settingTitle.settingsType == .privacyPolicy || settingTitle.settingsType == .subscription || settingTitle.settingsType == .goToWebsite || settingTitle.settingsType == .watermarkSettings || settingTitle.settingsType == .applicationSurvey || settingTitle.settingsType == .instruction || settingTitle.settingsType == .intellectualProperties {
+        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video || settingTitle.settingsType == .cameraSettings || settingTitle.settingsType == .termsAndConditions || settingTitle.settingsType == .privacyPolicy || settingTitle.settingsType == .subscription || settingTitle.settingsType == .goToWebsite || settingTitle.settingsType == .watermarkSettings || settingTitle.settingsType == .applicationSurvey || settingTitle.settingsType == .instruction || settingTitle.settingsType == .intellectualProperties || settingTitle.settingsType == .pic2Art {
             if settingTitle.settingsType == .appInfo {
                 cell.settingsName.textColor = R.color.appPrimaryColor()
             }
@@ -396,6 +399,8 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 navigationController?.pushViewController(tooltipViewController, animated: true)
             }
         } else if settingTitle.settingsType == .intellectualProperties {
+            // TODO: - Need to add redirection link
+        } else if settingTitle.settingsType == .pic2Art {
             // TODO: - Need to add redirection link
         }
     }
