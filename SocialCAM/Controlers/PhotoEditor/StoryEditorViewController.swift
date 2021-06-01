@@ -282,6 +282,7 @@ class StoryEditorViewController: UIViewController {
     var isFastesteverWatermarkShow = false
     var isAppIdentifierWatermarkShow = false
     var isMadeWithGifShow = false
+    var isSettingsChange = false
     
     var isViewEditMode: Bool = false {
         didSet {
@@ -591,6 +592,7 @@ extension StoryEditorViewController {
             }
             self.didSelectSticker(StorySticker(image: stickerImage, type: .image))
             self.needToExportVideo()
+            self.isSettingsChange = true
         }
         present(bitmojiStickerPickerViewController, animated: true, completion: nil)
     }
@@ -606,6 +608,7 @@ extension StoryEditorViewController {
         hideToolBar(hide: true)
         colorSlider.color = storyEditors[currentStoryIndex].textColor
         colorSlider.layoutSubviews()
+        self.isSettingsChange = true
     }
     
     @IBAction func drawClicked(_ sender: UIButton) {
@@ -1013,12 +1016,13 @@ extension StoryEditorViewController {
                     }
                 }
             case let .video(_, asset):
-                if let exportURL = videoExportedURL, !isDownload {
+                if let exportURL = videoExportedURL, !isDownload, !isSettingsChange {
                     DispatchQueue.runOnMainThread {
                         SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type, referType: self.referType)
                         self.pauseVideo()
                     }
                 } else {
+                    self.isSettingsChange = false
                     self.exportViewWithURL(asset) { [weak self] url in
                         guard let `self` = self else { return }
                         if let exportURL = url {
@@ -1242,6 +1246,7 @@ extension StoryEditorViewController {
     @IBAction func ssuButtonClicked(sender: UIButton) {
         if isQuickApp {
             self.didSelect(type: QuickCamLiteApp.SSUTagType.quickCamLite, waitingListOptionType: nil, socialShareType: nil, screenType: SSUTagScreen.ssutTypes)
+            self.isSettingsChange = true
         } else {
             if let ssuTagSelectionViewController = R.storyboard.storyCameraViewController.ssuTagSelectionViewController() {
                 ssuTagSelectionViewController.delegate = self
@@ -1343,6 +1348,7 @@ extension StoryEditorViewController {
         self.imgFastestEverWatermark.isHidden = !self.isFastesteverWatermarkShow
         hideWatermarkView(isHide: true)
         callSetUserSetting()
+        self.isSettingsChange = true
     }
     
 }

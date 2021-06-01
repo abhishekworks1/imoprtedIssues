@@ -298,36 +298,34 @@ class StoryAssetExportSession {
             overlayWatermarkImage = overlayImage
         }
         if watermarkType == .gif {
-            if gifCount % 3 == 0 {
-                if gifFrames.count == 0,
-                    let watermarkURL = self.gifWaterMarkURL,
-                    let imageData = try? Data(contentsOf: watermarkURL) {
-                    gifFrames = imageData.gifFrames()
-                    if gifFrames.count > 0 {
-                        DispatchQueue.main.async { [weak self] in
-                            guard let `self` = self else {
-                                return
-                            }
-                            if Defaults.shared.appIdentifierWatermarkSetting == .show || Defaults.shared.madeWithGifSetting == .show {
-                                self.addWaterMarkImageIfNeeded(isGIF: true)
-                            }
-                            if Defaults.shared.fastestEverWatermarkSetting == .show {
-                                self.addFastestEverWaterMarkImage()
-                            }
+            if gifFrames.count == 0,
+               let watermarkURL = self.gifWaterMarkURL,
+               let imageData = try? Data(contentsOf: watermarkURL) {
+                gifFrames = imageData.gifFrames()
+                if gifFrames.count > 0 {
+                    DispatchQueue.main.async { [weak self] in
+                        guard let `self` = self else {
+                            return
+                        }
+                        if Defaults.shared.appIdentifierWatermarkSetting == .show || Defaults.shared.madeWithGifSetting == .show {
+                            self.addWaterMarkImageIfNeeded(isGIF: true)
+                        }
+                        if Defaults.shared.fastestEverWatermarkSetting == .show {
+                            self.addFastestEverWaterMarkImage()
                         }
                     }
-                } else {
-                    if gifFrames.count > 0 {
-                        DispatchQueue.main.async { [weak self] in
-                            guard let `self` = self else {
-                                return
-                            }
-                            if Defaults.shared.appIdentifierWatermarkSetting == .show || Defaults.shared.madeWithGifSetting == .show {
-                                self.addWaterMarkImageIfNeeded(isGIF: true)
-                            }
-                            if Defaults.shared.fastestEverWatermarkSetting == .show {
-                                self.addFastestEverWaterMarkImage()
-                            }
+                }
+            } else {
+                if gifFrames.count > 0 {
+                    DispatchQueue.main.async { [weak self] in
+                        guard let `self` = self else {
+                            return
+                        }
+                        if Defaults.shared.appIdentifierWatermarkSetting == .show || Defaults.shared.madeWithGifSetting == .show {
+                            self.addWaterMarkImageIfNeeded(isGIF: true)
+                        }
+                        if Defaults.shared.fastestEverWatermarkSetting == .show {
+                            self.addFastestEverWaterMarkImage()
                         }
                     }
                 }
@@ -433,13 +431,14 @@ class StoryAssetExportSession {
             return
         }
         
-        guard !watermarkAdded,
-            let backgroundImage = self.overlayImage,
+        guard let backgroundImage = self.overlayImage,
             let watermarkImage = Defaults.shared.appIdentifierWatermarkSetting == .show ? image : UIImage() else {
                 return
         }
-        
-        let watermarkGIFImage = isGIF ? UIImage(cgImage: gifFrames.remove(at: 0)) : UIImage()
+        var watermarkGIFImage = UIImage()
+        if gifFrames.count != 0 {
+            watermarkGIFImage = isGIF ? UIImage(cgImage: gifFrames.remove(at: 0)) : UIImage()
+        }
         
         var newWatermarkImage = watermarkImage
         if Defaults.shared.appIdentifierWatermarkSetting == .show {
@@ -492,7 +491,7 @@ class StoryAssetExportSession {
         let backgroundImageRect = CGRect(origin: .zero, size: backgroundImageSize)
         backgroundImage.draw(in: backgroundImageRect)
         
-        let watermarkImageSize = CGSize(width: image.size.width * 1, height: image.size.height * 1)
+        let watermarkImageSize = CGSize(width: image.size.width * 1.2, height: image.size.height * 1.2)
         let watermarkOrigin = CGPoint(x: 8, y: backgroundImageSize.height - watermarkImageSize.height - 70)
         let watermarkImageRect = CGRect(origin: watermarkOrigin, size: watermarkImageSize)
         image.draw(in: watermarkImageRect, blendMode: .normal, alpha: 1.0)
