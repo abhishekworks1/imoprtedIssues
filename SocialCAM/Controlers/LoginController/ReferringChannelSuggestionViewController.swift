@@ -93,6 +93,7 @@ extension ReferringChannelSuggestionViewController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         self.changeClearButton(shouldShow: !(txtField.text?.isEmpty ?? false))
+        self.tblView.isHidden = false
     }
     
 }
