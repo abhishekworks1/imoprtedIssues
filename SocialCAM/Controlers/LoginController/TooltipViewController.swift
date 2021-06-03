@@ -35,7 +35,9 @@ class TooltipViewController: UIViewController {
         if pushFromSettingScreen {
             navigationController?.popViewController(animated: true)
         } else {
-            Utils.appDelegate?.window?.rootViewController = R.storyboard.pageViewController.pageViewController()
+            let cameraNavVC = R.storyboard.storyCameraViewController.storyCameraViewNavigationController()
+            cameraNavVC?.navigationBar.isHidden = true
+            Utils.appDelegate?.window?.rootViewController = cameraNavVC
         }
     }
     

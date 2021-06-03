@@ -225,14 +225,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let user = Defaults.shared.currentUser,
             let _ = Defaults.shared.sessionToken,
             let channelId = user.channelId,
-            channelId.count > 0,
-            user.refferingChannel != nil {
-            InternetConnectionAlert.shared.internetConnectionHandler = { reachability in
-                if reachability.connection != .none {
-                    StoryDataManager.shared.startUpload()
-                    PostDataManager.shared.startUpload()
+            channelId.count > 0 {
+                if user.refferingChannel != nil {
+                    InternetConnectionAlert.shared.internetConnectionHandler = { reachability in
+                        if reachability.connection != .none {
+                            StoryDataManager.shared.startUpload()
+                            PostDataManager.shared.startUpload()
+                        }
+                    }
+                } else {
+                    rootViewController = R.storyboard.loginViewController.referringChannelSuggestionViewController()
                 }
-            }
         } else {
             rootViewController = R.storyboard.loginViewController.loginNavigation()
         }
@@ -461,9 +464,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let referringChannelSuggestionViewController = R.storyboard.loginViewController.referringChannelSuggestionViewController()
             Utils.appDelegate?.window?.rootViewController = referringChannelSuggestionViewController
         } else {
-            let addSocialConnectionViewController = R.storyboard.socialConnection.addSocialConnectionViewController()
-            addSocialConnectionViewController?.fromLogin = true
-            Utils.appDelegate?.window?.rootViewController = addSocialConnectionViewController
+            let cameraNavVC = R.storyboard.storyCameraViewController.storyCameraViewNavigationController()
+            cameraNavVC?.navigationBar.isHidden = true
+            Utils.appDelegate?.window?.rootViewController = cameraNavVC
         }
         RunLoop.current.run(until: Date(timeIntervalSinceNow: 1.0))
         #endif

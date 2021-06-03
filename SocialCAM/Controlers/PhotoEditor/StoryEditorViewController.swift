@@ -496,7 +496,6 @@ class StoryEditorViewController: UIViewController {
         self.slideShowFillAuto.isHidden = !isSlideShow
         self.addMusicOptionView.isHidden = !isSlideShow
         self.collectionView.isHidden = !(storyEditors.count > 1)
-        self.playButtonBottomLayoutConstraint.constant = (storyEditors.count > 1) ? 77 : 10
         self.backgroundCollectionView.isHidden = self.collectionView.isHidden
         
         self.youtubeShareView.isHidden = isImage
