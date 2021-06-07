@@ -51,6 +51,7 @@ class ReferringChannelSuggestionViewController: UIViewController {
     // MARK: - Action Methods
     @IBAction func btnSearchClicked(_ sender: UIButton) {
         self.getReferringChannelSuggestion()
+        self.showHUD()
     }
     
     @IBAction func btnContinueClicked(_ sender: UIButton) {
@@ -84,16 +85,20 @@ extension ReferringChannelSuggestionViewController: UITextFieldDelegate {
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         self.changeClearButton(shouldShow: true)
+        self.tblView.isHidden = true
         return true
-    }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        self.getReferringChannelSuggestion()
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         self.changeClearButton(shouldShow: !(txtField.text?.isEmpty ?? false))
-        self.tblView.isHidden = false
+        if let textFieldCount = textField.text?.count {
+            if textFieldCount >= 3 {
+                self.getReferringChannelSuggestion()
+                self.showHUD()
+            } else if textFieldCount < 3 {
+                self.tblView.isHidden = true
+            }
+        }
     }
     
 }
@@ -138,21 +143,21 @@ extension ReferringChannelSuggestionViewController {
                 Utils.appDelegate?.window?.rootViewController = tooltipViewController
             }
         } else {
-            let addSocialConnectionViewController = R.storyboard.socialConnection.addSocialConnectionViewController()
-            addSocialConnectionViewController?.fromLogin = true
-            Utils.appDelegate?.window?.rootViewController = addSocialConnectionViewController
+            let cameraNavVC = R.storyboard.storyCameraViewController.storyCameraViewNavigationController()
+            cameraNavVC?.navigationBar.isHidden = true
+            Utils.appDelegate?.window?.rootViewController = cameraNavVC
         }
     }
     
     func getReferringChannelSuggestion() {
-        let result = self.txtField.rx.text.orEmpty.throttle(0.5, scheduler: MainScheduler.instance).distinctUntilChanged().flatMapLatest { (channel: String) -> Observable<ResultArray<Channel>> in
-            self.showHUD()
-            return ProManagerApi.search(channel: channel).request(ResultArray<Channel>.self)
+        guard let text = txtField.text else {
+            return
         }
-        result.subscribe(onNext: { response in
+        ProManagerApi.search(channel: text).request(ResultArray<Channel>.self).subscribe(onNext: { response in
             self.dismissHUD()
             let channel: [Channel] = response.result!
             self.channels = channel
+            self.tblView.isHidden = false
             self.tblView.reloadData()
         }, onError: { error in
             self.dismissHUD()
@@ -167,6 +172,9 @@ extension ReferringChannelSuggestionViewController {
         }
         ProManagerApi.addReferral(refferingChannel: referringChannel).request(Result<EmptyModel>.self).subscribe(onNext: { (response) in
             if response.status == ResponseType.success {
+                let user = Defaults.shared.currentUser
+                user?.refferingChannel = referringChannel
+                Defaults.shared.currentUser = user
                 self.redirectToHomeScreen()
             } else {
                 self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
@@ -175,6 +183,18 @@ extension ReferringChannelSuggestionViewController {
             self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
+    }
+    
+}
+
+// MARK: - UIGestureRecognizer Delegate
+extension ReferringChannelSuggestionViewController: UIGestureRecognizerDelegate {
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touch: UITouch? = touches.first
+        if touch?.view != tblView {
+            tblView.isHidden = true
+        }
     }
     
 }

@@ -1062,22 +1062,25 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yt0-6A-GFU">
-                                <rect key="frame" x="10" y="655" width="40" height="40"/>
+                                <rect key="frame" x="10" y="674.33333333333337" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="DrZ-Sf-Gtp"/>
                                     <constraint firstAttribute="width" constant="40" id="uJd-tg-tud"/>
                                 </constraints>
-                                <state key="normal" image="storyPause"/>
-                                <state key="selected" image="storyPlay"/>
+                                <state key="normal" image="iconTrimPlay"/>
+                                <state key="selected" image="iconTrimPause"/>
                                 <connections>
                                     <action selector="playPauseButtonClick:" destination="f9j-8w-2WB" eventType="touchUpInside" id="YsT-FD-9LX"/>
                                 </connections>
                             </button>
+                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fastestever" translatesAutoresizingMaskIntoConstraints="NO" id="dom-Lv-f2J">
+                                <rect key="frame" x="8" y="729.33333333333337" width="266" height="23"/>
+                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ki8-gW-roJ">
                                 <rect key="frame" x="177" y="52" width="60" height="44"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nsv-ae-Igz">
-                                        <rect key="frame" x="0.0" y="0.0" width="60" height="34"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="60" height="30"/>
                                         <state key="normal" image="hideStoryCamIcons"/>
                                         <state key="selected" image="showStoryCamIcons"/>
                                     </button>
@@ -1941,9 +1944,6 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fastestever" translatesAutoresizingMaskIntoConstraints="NO" id="dom-Lv-f2J">
-                                <rect key="frame" x="8" y="729.33333333333337" width="163" height="23"/>
-                            </imageView>
                             <visualEffectView hidden="YES" opaque="NO" alpha="0.75" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FDA-EF-CrG">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Zjl-52-rXK">
@@ -2348,6 +2348,7 @@
                             <constraint firstItem="DnE-hD-fmN" firstAttribute="trailing" secondItem="FDA-EF-CrG" secondAttribute="trailing" id="QuS-LH-QOn"/>
                             <constraint firstAttribute="trailing" secondItem="Zv7-Iw-Ljf" secondAttribute="trailing" id="Rce-Z1-2w0"/>
                             <constraint firstItem="DnE-hD-fmN" firstAttribute="trailing" secondItem="U8O-6K-azW" secondAttribute="trailing" id="S1V-X9-VqK"/>
+                            <constraint firstItem="dom-Lv-f2J" firstAttribute="top" secondItem="yt0-6A-GFU" secondAttribute="bottom" constant="15" id="SC5-CI-IOh"/>
                             <constraint firstItem="bbz-cN-sqx" firstAttribute="top" secondItem="huD-At-JGe" secondAttribute="top" id="SgN-2f-gg4"/>
                             <constraint firstItem="dom-Lv-f2J" firstAttribute="leading" secondItem="DnE-hD-fmN" secondAttribute="leading" constant="8" id="T0a-eV-6S1"/>
                             <constraint firstItem="mAc-mp-A25" firstAttribute="leading" secondItem="U8O-6K-azW" secondAttribute="leading" id="TFN-BA-DdG"/>
@@ -2371,7 +2372,6 @@
                             <constraint firstItem="iLz-yd-XL6" firstAttribute="top" secondItem="kDB-nP-EV7" secondAttribute="top" id="eM0-71-6Ew"/>
                             <constraint firstItem="Lgu-rn-Fgm" firstAttribute="trailing" secondItem="6YW-e7-QvR" secondAttribute="trailing" id="esw-Wc-GOE"/>
                             <constraint firstItem="Kzk-LF-y6H" firstAttribute="centerY" secondItem="DnE-hD-fmN" secondAttribute="centerY" id="f0c-zh-4Wf"/>
-                            <constraint firstItem="6YW-e7-QvR" firstAttribute="top" secondItem="yt0-6A-GFU" secondAttribute="bottom" constant="77" id="fED-DW-VdU"/>
                             <constraint firstItem="yt0-6A-GFU" firstAttribute="leading" secondItem="DnE-hD-fmN" secondAttribute="leading" constant="10" id="fON-4c-JGn"/>
                             <constraint firstItem="Zv7-Iw-Ljf" firstAttribute="leading" secondItem="huD-At-JGe" secondAttribute="leading" id="gEx-Qo-eWN"/>
                             <constraint firstItem="iLz-yd-XL6" firstAttribute="centerX" secondItem="gph-8j-lAt" secondAttribute="centerX" id="gta-ex-gXd"/>
@@ -2448,7 +2448,6 @@
                         <outlet property="nativePlayerPlayPauseButton" destination="2cr-jQ-HmA" id="a4h-aJ-1fi"/>
                         <outlet property="nativePlayercollectionView" destination="I16-L3-RIn" id="mb1-Ev-OYo"/>
                         <outlet property="pic2ArtOptionView" destination="ZKi-QO-rN0" id="NgT-KP-6zY"/>
-                        <outlet property="playButtonBottomLayoutConstraint" destination="fED-DW-VdU" id="lbe-o3-oaQ"/>
                         <outlet property="playPauseButton" destination="yt0-6A-GFU" id="IwB-9c-Wj2"/>
                         <outlet property="progressBarView" destination="gEK-ly-VTf" id="DRa-Y6-1ik"/>
                         <outlet property="shareCollectionView" destination="vzy-zQ-m6y" id="RfP-kd-90O"/>
@@ -3082,6 +3081,8 @@
         <image name="ico_Arrange" width="34" height="34"/>
         <image name="ico_Preview" width="34" height="34"/>
         <image name="iconTrim" width="34" height="34"/>
+        <image name="iconTrimPause" width="70" height="70"/>
+        <image name="iconTrimPlay" width="70" height="70"/>
         <image name="iconWatermark" width="30" height="30"/>
         <image name="maskStory" width="34" height="34"/>
         <image name="merge" width="32" height="32"/>
