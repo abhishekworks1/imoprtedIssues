@@ -322,7 +322,7 @@ open class SocialShareVideo: NSObject, SharingDelegate {
         case .futbolcam:
             snapVideo.attachmentUrl = "\(Constant.URLs.futbolWebsiteURL)/referral/\(Defaults.shared.currentUser?.referralCode ?? "")"
         case .quickCamLite:
-            snapVideo.attachmentUrl = "\(Constant.URLs.websiteURL)/referral/\(Defaults.shared.currentUser?.referralCode ?? "")"
+            snapVideo.attachmentUrl = "\(websiteUrl)/referral/\(Defaults.shared.currentUser?.referralCode ?? "")"
         default:
             break
         }
