@@ -499,6 +499,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     var isConfirmCapture = false
     var totalVideoDuration: [CGFloat] = []
     var segmentsProgress: [CGFloat] = []
+    var cameraModeCell = 1
     
     // MARK: ViewController lifecycle
     override func viewDidLoad() {
@@ -1194,6 +1195,18 @@ extension StoryCameraViewController {
                     self.photoTimerValue = 0
                     self.resetPhotoCountDown()
                 }
+            case .pic2Art:
+                if let isPic2ArtShowed = Defaults.shared.isPic2ArtShowed {
+                    if isPic2ArtShowed {
+                        self.cameraModeCell = 3
+                        Defaults.shared.isPic2ArtShowed = false
+                        if let tooltipViewController = R.storyboard.loginViewController.tooltipViewController() {
+                            tooltipViewController.pushFromSettingScreen = true
+                            tooltipViewController.isPic2ArtGif = true
+                            self.navigationController?.pushViewController(tooltipViewController, animated: true)
+                        }
+                    }
+                }
             default:
                 break
             }
@@ -1203,8 +1216,8 @@ extension StoryCameraViewController {
             cameraSliderView.selectCell = Defaults.shared.cameraMode.rawValue
         }
         if (isSnapCamLiteApp || isQuickApp) && Defaults.shared.appMode == .basic {
-            print(Defaults.shared.cameraMode.rawValue)
-            cameraSliderView.selectCell = 1
+            cameraSliderView.selectCell = self.cameraModeCell
+            self.cameraModeCell = 1
             UIView.animate(withDuration: 0.1, animations: { () -> Void in
                 self.animateTransitionIfNeeded(to: self.currentState.opposite, duration: 0)
             }, completion: { (_ finished: Bool) -> Void in
