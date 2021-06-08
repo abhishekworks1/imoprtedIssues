@@ -58,10 +58,13 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet var appleLoginView: UIView!
     @IBOutlet weak var loginTooltip: UIView!
     @IBOutlet weak var lblLoginTooltip: UILabel!
+    @IBOutlet weak var doNotShowAgainView: UIView!
+    @IBOutlet weak var btnDoNotShowAgain: UIButton!
     
     weak var delegate: LoginViewControllerDelegate?
     var tapCounter = 0
     var isLoginButtonPressed = false
+    var isLoginToolTipHide = false
     
     // MARK: View life cycle
     
@@ -161,11 +164,20 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
     
     @IBAction func btnKeyCloakLoginClicked(_ sender: UIButton) {
         isLoginButtonPressed = true
-        self.hideShowTooltipView(shouldShow: true)
+        if Defaults.shared.isLoginTooltipHide == false {
+            self.hideShowTooltipView(shouldShow: true)
+        } else {
+            isLoginButtonPressed = false
+            if let messagesAppURL = URL(string: "\(keycloakUrl)\(keycloakClientId)\(KeycloakRedirectLink.keycloakRedirectLinkName.lowercased())\(KeycloakRedirectLink.endUrl)") {
+                let safariVC = SFSafariViewController(url: messagesAppURL)
+                present(safariVC, animated: true, completion: nil)
+            }
+        }
     }
     
     @IBAction func btnKeyCloakRegisterClicked(_ sender: UIButton) {
         self.hideShowTooltipView(shouldShow: true)
+        self.doNotShowAgainView.isHidden = true
     }
     
     @IBAction func btnOkayClicked(_ sender: UIButton) {
@@ -182,6 +194,12 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         }
         let safariVC = SFSafariViewController(url: msgURL)
         present(safariVC, animated: true, completion: nil)
+    }
+    
+    @IBAction func btnDoNotShowAgainClicked(_ sender: UIButton) {
+        btnDoNotShowAgain.isSelected = !btnDoNotShowAgain.isSelected
+        isLoginToolTipHide = !isLoginToolTipHide
+        Defaults.shared.isLoginTooltipHide = isLoginToolTipHide
     }
     
     @IBAction func btnLoginClicked(_ sender: Any?) {

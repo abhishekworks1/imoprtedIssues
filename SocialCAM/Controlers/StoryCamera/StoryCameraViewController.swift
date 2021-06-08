@@ -1481,6 +1481,7 @@ extension StoryCameraViewController {
         setupImageLoadFromGallary()
         if let isRegistered = Defaults.shared.isRegistered {
             if isRegistered {
+                Defaults.shared.isRegistered = false
                 showAlertForAppSurvey()
             }
         }

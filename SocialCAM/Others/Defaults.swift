@@ -728,10 +728,21 @@ class Defaults {
         }
     }
     
+    var isLoginTooltipHide: Bool {
+        get {
+            return appDefaults?.value(forKey: "isLoginTooltipShow") as? Bool ?? false
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isLoginTooltipShow")
+        }
+    }
+    
     func clearData() {
         if let appDefaultsDictionary = appDefaults?.dictionaryRepresentation() {
             appDefaultsDictionary.keys.forEach { key in
-                appDefaults?.removeObject(forKey: key)
+                if key != "isLoginTooltipShow", key != "userCreatedDate" {
+                    appDefaults?.removeObject(forKey: key)
+                }
             }
         }
     }
