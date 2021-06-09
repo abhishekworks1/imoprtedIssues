@@ -18,6 +18,7 @@ import AppCenter
 import AppCenterAnalytics
 import AppCenterCrashes
 import Bagel
+import Sentry
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -33,6 +34,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Start Bagel
         if isDebug || isAlpha || isBeta {
             Bagel.start()
+        }
+        
+        // Setup Sentry
+        SentrySDK.start { options in
+            options.dsn = Constant.Sentry.dsn
+            options.debug = true // Enabled debug when first installing is always helpful
         }
         
         configureAppTheme()

@@ -51,6 +51,7 @@ class StoryAssetExportSession {
     public var inputTransformation: StoryImageView.ImageTransformation?
     public var imageContentMode: StoryImageView.ImageContentMode = .scaleAspectFit
     public var watermarkType: WatermarkType = .image
+    public var socialShareType: SocialShare = .facebook
     
     private func fileURL() -> URL {
         let fileName = "\(Constant.Application.displayName.replacingOccurrences(of: " ", with: "").lowercased())_\(Defaults.shared.releaseType.description)_v\(Constant.Application.appBuildNumber)_\(String.fileName)" + FileExtension.mp4.rawValue
@@ -271,8 +272,10 @@ class StoryAssetExportSession {
             combinedCIImage = filteredCIImage
         }
         
-        if let overlaidCIImage = overlaidCIImage(combinedCIImage) {
-            combinedCIImage = overlaidCIImage
+        if socialShareType != .tiktok {
+            if let overlaidCIImage = overlaidCIImage(combinedCIImage) {
+                combinedCIImage = overlaidCIImage
+            }
         }
         
         self.ciContext.render(combinedCIImage, to: backgroundImageBuffer, bounds: combinedCIImage.extent, colorSpace: CGColorSpaceCreateDeviceRGB())
