@@ -445,7 +445,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Defaults.shared.sessionToken = response.sessionToken
         Defaults.shared.currentUser = response.result?.user
         Defaults.shared.isRegistered = response.result?.isRegistered
-        Defaults.shared.userCreatedDate = response.result?.user?.created ?? ""
+        Defaults.shared.isPic2ArtShowed = response.result?.isRegistered
+        if Defaults.shared.isRegistered ?? false {
+            Defaults.shared.userCreatedDate = response.result?.user?.created ?? ""
+        }
         CurrentUser.shared.setActiveUser(response.result?.user)
         Crashlytics.crashlytics().setUserID(CurrentUser.shared.activeUser?.username ?? "")
         CurrentUser.shared.createNewReferrerChannelURL { (_, _) -> Void in }

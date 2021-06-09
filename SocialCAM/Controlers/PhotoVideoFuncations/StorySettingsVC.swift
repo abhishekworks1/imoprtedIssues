@@ -401,7 +401,11 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         } else if settingTitle.settingsType == .intellectualProperties {
             // TODO: - Need to add redirection link
         } else if settingTitle.settingsType == .pic2Art {
-            // TODO: - Need to add redirection link
+            if let tooltipViewController = R.storyboard.loginViewController.tooltipViewController() {
+                tooltipViewController.pushFromSettingScreen = true
+                tooltipViewController.isPic2ArtGif = true
+                navigationController?.pushViewController(tooltipViewController, animated: true)
+            }
         }
     }
     

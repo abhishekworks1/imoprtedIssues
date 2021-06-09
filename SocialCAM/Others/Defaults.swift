@@ -737,6 +737,15 @@ class Defaults {
         }
     }
     
+    var isPic2ArtShowed: Bool? {
+        get {
+            return appDefaults?.value(forKey: "isPic2ArtShowed") as? Bool ?? false
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isPic2ArtShowed")
+        }
+    }
+    
     func clearData() {
         if let appDefaultsDictionary = appDefaults?.dictionaryRepresentation() {
             appDefaultsDictionary.keys.forEach { key in

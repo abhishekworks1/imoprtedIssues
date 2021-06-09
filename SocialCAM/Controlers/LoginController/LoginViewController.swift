@@ -132,7 +132,6 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
           .foregroundColor: ApplicationSettings.appPrimaryColor
         ], range: NSRange(location: 23, length: 7))
         btnSignUP.setAttributedTitle(attributedString, for: .normal)
-        self.lblLoginTooltip.text = R.string.localizable.loginScreenTooltipText(Constant.Application.displayName)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -163,6 +162,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @IBAction func btnKeyCloakLoginClicked(_ sender: UIButton) {
+        self.lblLoginTooltip.text = R.string.localizable.loginTooltip(Constant.Application.displayName)
         isLoginButtonPressed = true
         if Defaults.shared.isLoginTooltipHide == false {
             self.hideShowTooltipView(shouldShow: true)
@@ -176,6 +176,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @IBAction func btnKeyCloakRegisterClicked(_ sender: UIButton) {
+        self.lblLoginTooltip.text = R.string.localizable.registerTooltip(Constant.Application.displayName)
         self.hideShowTooltipView(shouldShow: true)
         self.doNotShowAgainView.isHidden = true
     }
