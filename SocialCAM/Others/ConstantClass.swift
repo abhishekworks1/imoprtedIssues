@@ -346,7 +346,7 @@ public struct Constant {
     }
     
     struct Sentry {
-        static let dsn = "https://e7751d4eaf0746dab650503adbb943fa@sentry.io/1548827"
+        static let dsn = "https://27563ce0602444f2ad121da0972473a4@o272032.ingest.sentry.io/5807690"
     }
     
     struct BuySubscription {

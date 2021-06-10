@@ -283,6 +283,8 @@ class StoryEditorViewController: UIViewController {
     var isAppIdentifierWatermarkShow = false
     var isMadeWithGifShow = false
     var isSettingsChange = false
+    var socialShareTag = 0
+    var isTiktokShare = false
     
     var isViewEditMode: Bool = false {
         didSet {
@@ -1022,7 +1024,7 @@ extension StoryEditorViewController {
                     }
                 } else {
                     self.isSettingsChange = false
-                    self.exportViewWithURL(asset) { [weak self] url in
+                    self.exportViewWithURL(asset, type: type) { [weak self] url in
                         guard let `self` = self else { return }
                         if let exportURL = url {
                             self.videoExportedURL =  exportURL
@@ -1181,6 +1183,13 @@ extension StoryEditorViewController {
                 popupVC.backgroundView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(backgroundViewDidTap)))
                 popupVC.present(in: self)
             } else {
+                if sender.tag == 5 {
+                    self.isSettingsChange = true
+                    self.isTiktokShare = true
+                } else if isTiktokShare {
+                    self.isSettingsChange = true
+                    self.isTiktokShare = false
+                }
                 self.shareSocialMedia(type: SocialShare(rawValue: sender.tag) ?? SocialShare.facebook)
             }
         }
@@ -1859,7 +1868,7 @@ extension StoryEditorViewController {
         imageVideoExport(isDownload: false, type: type)
     }
     
-    func exportViewWithURL(_ asset: AVAsset, index: Int? = nil, completionHandler: @escaping (_ url: URL?) -> Void) {
+    func exportViewWithURL(_ asset: AVAsset, type: SocialShare = .facebook, index: Int? = nil, completionHandler: @escaping (_ url: URL?) -> Void) {
         let storyIndex: Int = index ?? self.currentStoryIndex
         let storyEditor = storyEditors[storyIndex]
         let exportSession = StoryAssetExportSession()
@@ -1888,6 +1897,7 @@ extension StoryEditorViewController {
             exportSession.filter = filter.ciFilter
         }
         exportSession.isMute = storyEditor.isMuted
+        exportSession.socialShareType = type
         storyEditors[currentStoryIndex].isCropped ? (storyEditors[currentStoryIndex].storySwipeableFilterView.imageContentMode = .scaleAspectFill) : (storyEditors[currentStoryIndex].storySwipeableFilterView.imageContentMode = .scaleAspectFit)
         storyEditors[currentStoryIndex].isCropped ? (exportSession.imageContentMode = .scaleAspectFill) : (exportSession.imageContentMode = .scaleAspectFit)
         exportSession.overlayImage = storyEditor.toVideoImage()

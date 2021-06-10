@@ -65,6 +65,7 @@ def projectShared_pods
     pod 'ProgressHUD', '~> 2.70'
     pod 'Parchment', '3.0.1'
     pod 'Bagel'
+    pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git', :tag => '7.1.3'
 
     shared_pods
 end
