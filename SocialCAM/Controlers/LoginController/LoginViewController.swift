@@ -60,6 +60,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var lblLoginTooltip: UILabel!
     @IBOutlet weak var doNotShowAgainView: UIView!
     @IBOutlet weak var btnDoNotShowAgain: UIButton!
+    @IBOutlet weak var tooltipView: UIView!
     
     weak var delegate: LoginViewControllerDelegate?
     var tapCounter = 0
@@ -154,6 +155,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
     /// Hide and show tooltip
     private func hideShowTooltipView(shouldShow: Bool) {
         self.loginTooltip.isHidden = !shouldShow
+        self.tooltipView.isHidden = !shouldShow
     }
     
     // MARK: IBActions
@@ -163,6 +165,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
     
     @IBAction func btnKeyCloakLoginClicked(_ sender: UIButton) {
         self.lblLoginTooltip.text = R.string.localizable.loginTooltip(Constant.Application.displayName)
+        self.doNotShowAgainView.isHidden = false
         isLoginButtonPressed = true
         if Defaults.shared.isLoginTooltipHide == false {
             self.hideShowTooltipView(shouldShow: true)
@@ -201,6 +204,12 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         btnDoNotShowAgain.isSelected = !btnDoNotShowAgain.isSelected
         isLoginToolTipHide = !isLoginToolTipHide
         Defaults.shared.isLoginTooltipHide = isLoginToolTipHide
+    }
+    
+    @IBAction func tooltipTapView(_ sender: UITapGestureRecognizer) {
+        if !self.loginTooltip.isHidden {
+            self.hideShowTooltipView(shouldShow: false)
+        }
     }
     
     @IBAction func btnLoginClicked(_ sender: Any?) {
