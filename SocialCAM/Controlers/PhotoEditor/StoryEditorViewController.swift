@@ -1021,6 +1021,7 @@ extension StoryEditorViewController {
                     DispatchQueue.runOnMainThread {
                         SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type, referType: self.referType)
                         self.pauseVideo()
+                        self.isVideoPlay = true
                     }
                 } else {
                     self.isSettingsChange = false
@@ -1036,6 +1037,7 @@ extension StoryEditorViewController {
                                 DispatchQueue.runOnMainThread {
                                     SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type, referType: self.referType)
                                     self.pauseVideo()
+                                    self.isVideoPlay = true
                                 }
                             }
                         }
