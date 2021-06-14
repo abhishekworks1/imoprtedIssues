@@ -114,23 +114,12 @@ extension WatermarkSettingsViewController: UITableViewDelegate {
         guard let headerView = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.storySettingsHeader.identifier) as? StorySettingsHeader else {
             fatalError("StorySettingsHeader Not Found")
         }
-        let settingTitle = CameraSettings.storySettings[section]
-        if settingTitle.settingsType != .supportedFrameRates {
-            headerView.title.isHidden = true
-        } else {
-            headerView.title.isHidden = false
-        }
-        headerView.title.text = settingTitle.name
+        headerView.title.isHidden = true
         return headerView
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        let settingTitle = CameraSettings.storySettings[section]
-        if settingTitle.settingsType != .supportedFrameRates {
-            return 1
-        } else {
-            return 60
-        }
+        return 1
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

@@ -737,6 +737,15 @@ class Defaults {
         }
     }
     
+    var isSurveyAlertShowed: Bool {
+        get {
+            return appDefaults?.value(forKey: "isSurveyAlertShowed") as? Bool ?? false
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isSurveyAlertShowed")
+        }
+    }
+    
     var isPic2ArtShowed: Bool? {
         get {
             return appDefaults?.value(forKey: "isPic2ArtShowed") as? Bool ?? false
@@ -749,7 +758,7 @@ class Defaults {
     func clearData() {
         if let appDefaultsDictionary = appDefaults?.dictionaryRepresentation() {
             appDefaultsDictionary.keys.forEach { key in
-                if key != "isLoginTooltipShow", key != "userCreatedDate" {
+                if key != "isLoginTooltipShow", key != "isSurveyAlertShowed" {
                     appDefaults?.removeObject(forKey: key)
                 }
             }
