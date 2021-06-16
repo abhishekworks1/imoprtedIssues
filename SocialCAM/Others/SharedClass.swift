@@ -320,9 +320,9 @@ public var inAppConfig: String {
     var appSpecificSecretKey = ""
     switch Defaults.shared.releaseType {
     case .debug, .alpha, .beta:
-        appSpecificSecretKey = ""
+        appSpecificSecretKey = "599f6daf47d141df8f528d6c24e1ef56"
     case .store:
-        appSpecificSecretKey = ""
+        appSpecificSecretKey = "599f6daf47d141df8f528d6c24e1ef56"
     }
     return appSpecificSecretKey
 }
@@ -527,7 +527,7 @@ enum AppMode: Int, AppMode_Enum {
         case .free:
             return "$0 / Month"
         case .basic:
-            return "$1 / Month"
+            return "$0.99 / Month"
         case .advanced:
             return "$99.99 / Month"
         case .professional:
@@ -980,6 +980,10 @@ public struct Paths {
     static let loginWithKeycloak = "user/login"
     static let logoutWithKeycloak = "user/logout"
     static let addReferral = "user/addReferral"
+    static let buySubscription = "subscription/buySubscription"
+    static let subsciptionList = "subscriptions"
+    static let userSync = "user/userSync"
+    static let downgradeSubscription = "subscription/downgrade"
 }
 
 struct WebsiteData {
