@@ -41,7 +41,7 @@ class StoryAssetExportSession {
     private var watermarkAdded: Bool = false
     private var overlayWatermarkImage: UIImage?
     private var watermarkPosition: WatermarkPosition = .topLeft
-    private var gifWaterMarkURL = Bundle.main.url(forResource: "QuickCamLiteWatermarkGIF", withExtension: "gif")
+    private var gifWaterMarkURL: URL?
     private var gifFrames = [CGImage]()
     private var gifCount = 0
 
@@ -293,9 +293,16 @@ class StoryAssetExportSession {
         return nil
     }
     
+    func addWatermarkGifUrl(urlString: String) {
+        gifWaterMarkURL = Bundle.main.url(forResource: urlString, withExtension: "gif")
+    }
+    
     func overlaidCIImage(_ image: CIImage) -> CIImage? {
         if Defaults.shared.madeWithGifSetting == .show {
             watermarkType = .gif
+        }
+        if isQuickApp || isQuickCamLiteApp {
+            addWatermarkGifUrl(urlString: R.string.localizable.quickCamLiteWatermarkGIF())
         }
         if overlayWatermarkImage == nil {
             overlayWatermarkImage = overlayImage
