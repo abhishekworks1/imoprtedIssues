@@ -463,7 +463,16 @@ extension StoryCameraViewController {
     }
     
     @IBAction func gameCentreButtonClicked(_ sender: UIButton) {
-        UIApplication.showAlert(title: R.string.localizable.vidPlay(), message: R.string.localizable.comingSoon())
+        let application = UIApplication.shared
+        if let user = Defaults.shared.currentUser,
+           let channelId = user.channelId,
+           let authToken = Defaults.shared.sessionToken,
+           let messagesAppURL = URL(string: "\(DeepLinkData.vidplayDeepLinkUrlString)\(DeepLinkData.appDeeplinkName.lowercased())/\(Defaults.shared.releaseType.description)/\(channelId)/\(authToken)/\(isLiteApp)"),
+           application.canOpenURL(messagesAppURL) {
+            application.open(messagesAppURL)
+            blurView.isHidden = true
+            switchingAppView.isHidden = true
+        }
     }
     
     @IBAction func confirmVideoButtonClicked(_ sender: UIButton) {

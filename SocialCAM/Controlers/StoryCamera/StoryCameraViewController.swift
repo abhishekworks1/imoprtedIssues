@@ -1492,12 +1492,6 @@ extension StoryCameraViewController {
         nextLevel.metadataObjectsDelegate = self
         enableFaceDetectionIfNeeded()
         setupImageLoadFromGallary()
-        if let isRegistered = Defaults.shared.isRegistered {
-            if isRegistered {
-                Defaults.shared.isRegistered = false
-                showAlertForAppSurvey()
-            }
-        }
     }
     
     func enableFaceDetectionIfNeeded() {
@@ -2471,21 +2465,19 @@ extension StoryCameraViewController {
     }
     
     func showSurveyAlertAfterThreeDays() {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = R.string.localizable.yyyyMMDdTHHMmSsSSSZ()
-        if let userCreatedDate = Defaults.shared.userCreatedDate {
-            guard let createdDate = dateFormatter.date(from: userCreatedDate) else {
-                return
-            }
-            let formatedCreatedDate = CommonFunctions.getDateInSpecificFormat(dateInput: userCreatedDate, dateOutput: R.string.localizable.mmDdYyyy())
-            let currentDate = CommonFunctions.getCurrentDate(dateOutput: R.string.localizable.mmDdYyyy())
-            let currentDateInCreatedDateFormat = CommonFunctions.getCurrentDate(dateOutput: R.string.localizable.yyyyMMDdTHHMmSsSSSZ())
-            let date = Date()
-            let dateAfterThreeDays = date.days(from: createdDate)
-            if dateAfterThreeDays % 3 == 0 {
-                if currentDate != formatedCreatedDate {
-                    Defaults.shared.userCreatedDate = currentDateInCreatedDateFormat
+        if !Defaults.shared.isSurveyAlertShowed {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = R.string.localizable.yyyyMMDdTHHMmSsSSSZ()
+            if let userCreatedDate = Defaults.shared.userCreatedDate {
+                guard let createdDate = dateFormatter.date(from: userCreatedDate) else {
+                    return
+                }
+                guard let dateAfterThreeDays = Calendar.current.date(byAdding: .day, value: 3, to: createdDate) else {
+                    return
+                }
+                if Calendar.current.isDateInToday(dateAfterThreeDays) {
                     showAlertForAppSurvey()
+                    Defaults.shared.isSurveyAlertShowed = true
                 }
             }
         }
