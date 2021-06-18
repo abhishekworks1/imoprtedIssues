@@ -1079,11 +1079,9 @@ extension StoryCameraViewController {
             }
         } else if isLiteApp {
             cameraModeArray = cameraModeArray.filter({$0.recordingType == .promo})
-            if Defaults.shared.appMode == .basic {
-                cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .normal})
-                cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .capture})
-                cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .pic2Art})
-            }
+            cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .normal})
+            cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .capture})
+            cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .pic2Art})
         } else if isSnapCamApp || isFastCamApp || isSpeedCamApp {
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .slideshow})
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastMotion})
@@ -1183,6 +1181,9 @@ extension StoryCameraViewController {
                 self.circularProgress.centerImage = R.image.icoCustomMode()
                 self.timerValueView.isHidden = true
             case .capture:
+                if isQuickApp && Defaults.shared.appMode == .free {
+                    self.showAlertForUpgradeSubscription()
+                }
                 self.circularProgress.centerImage = R.image.icoCaptureMode()
                 self.timerValueView.isHidden = true
             case .promo:
@@ -1196,16 +1197,24 @@ extension StoryCameraViewController {
                     self.resetPhotoCountDown()
                 }
             case .pic2Art:
-                if let isPic2ArtShowed = Defaults.shared.isPic2ArtShowed {
-                    if isPic2ArtShowed {
-                        self.cameraModeCell = 3
-                        Defaults.shared.isPic2ArtShowed = false
-                        if let tooltipViewController = R.storyboard.loginViewController.tooltipViewController() {
-                            tooltipViewController.pushFromSettingScreen = true
-                            tooltipViewController.isPic2ArtGif = true
-                            self.navigationController?.pushViewController(tooltipViewController, animated: true)
+                if isQuickApp && Defaults.shared.appMode == .free {
+                    self.showAlertForUpgradeSubscription()
+                } else {
+                    if let isPic2ArtShowed = Defaults.shared.isPic2ArtShowed {
+                        if isPic2ArtShowed {
+                            self.cameraModeCell = 3
+                            Defaults.shared.isPic2ArtShowed = false
+                            if let tooltipViewController = R.storyboard.loginViewController.tooltipViewController() {
+                                tooltipViewController.pushFromSettingScreen = true
+                                tooltipViewController.isPic2ArtGif = true
+                                self.navigationController?.pushViewController(tooltipViewController, animated: true)
+                            }
                         }
                     }
+                }
+            case .normal:
+                if isQuickApp && Defaults.shared.appMode == .free {
+                    self.showAlertForUpgradeSubscription()
                 }
             default:
                 break
@@ -1218,14 +1227,16 @@ extension StoryCameraViewController {
         if (isSnapCamLiteApp || isQuickApp) && Defaults.shared.appMode == .basic {
             cameraSliderView.selectCell = self.cameraModeCell
             self.cameraModeCell = 1
-            UIView.animate(withDuration: 0.1, animations: { () -> Void in
-                self.animateTransitionIfNeeded(to: self.currentState.opposite, duration: 0)
-            }, completion: { (_ finished: Bool) -> Void in
-                if finished {
-                    self.currentState = .open
-                }
-            })
+        } else if isQuickApp && Defaults.shared.appMode == .free {
+            cameraSliderView.selectCell = 0
         }
+        UIView.animate(withDuration: 0.1, animations: { () -> Void in
+            self.animateTransitionIfNeeded(to: self.currentState.opposite, duration: 0)
+        }, completion: { (_ finished: Bool) -> Void in
+            if finished {
+                self.currentState = .open
+            }
+        })
     }
     
     func volumeButtonHandler() {
@@ -2481,6 +2492,26 @@ extension StoryCameraViewController {
                 }
             }
         }
+    }
+    
+    func showAlertForUpgradeSubscription() {
+        let alert = UIAlertController(title: Constant.Application.displayName, message: R.string.localizable.upgradeSubscriptionWarning(), preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: R.string.localizable.upgradeNow(), style: .default, handler: { (_) in
+            if let subscriptionVC = R.storyboard.subscription.subscriptionContainerViewController() {
+                self.navigationController?.pushViewController(subscriptionVC, animated: true)
+            }
+        }))
+        alert.addAction(UIAlertAction(title: R.string.localizable.later(), style: .cancel, handler: { (_) in
+            self.cameraSliderView.selectCell = 0
+            UIView.animate(withDuration: 0.1, animations: { () -> Void in
+                self.animateTransitionIfNeeded(to: self.currentState.opposite, duration: 0)
+            }, completion: { (_ finished: Bool) -> Void in
+                if finished {
+                    self.currentState = .open
+                }
+            })
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
     
 }
