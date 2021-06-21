@@ -2722,40 +2722,115 @@
             </objects>
             <point key="canvasLocation" x="2598.5507246376815" y="-271.20535714285711"/>
         </scene>
+        <!--Keycloak Auth View Controller-->
+        <scene sceneID="iII-xw-KFP">
+            <objects>
+                <viewController storyboardIdentifier="KeycloakAuthViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="NXU-cn-Rgj" customClass="KeycloakAuthViewController" customModule="BoomiCam" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="29x-XJ-Leb">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QNb-c3-bma">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bmk-7M-38S">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ieY-vE-P6f">
+                                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9fE-r4-cuh">
+                                                <rect key="frame" x="8" y="0.0" width="44" height="44"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="44" id="IXN-0X-ygk"/>
+                                                    <constraint firstAttribute="height" constant="44" id="hXy-fa-GQd"/>
+                                                </constraints>
+                                                <state key="normal" image="storyBack"/>
+                                                <connections>
+                                                    <action selector="btnBackTapped:" destination="NXU-cn-Rgj" eventType="touchUpInside" id="yUz-ID-Ms7"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="9fE-r4-cuh" firstAttribute="centerY" secondItem="ieY-vE-P6f" secondAttribute="centerY" id="Fd6-MY-YcE"/>
+                                            <constraint firstAttribute="height" constant="44" id="NBt-QN-Ze6"/>
+                                            <constraint firstItem="9fE-r4-cuh" firstAttribute="leading" secondItem="ieY-vE-P6f" secondAttribute="leading" constant="8" id="NO7-7S-lS8"/>
+                                            <constraint firstAttribute="height" constant="44" id="fKC-2N-SX8"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" name="AppPrimaryColor"/>
+                                <constraints>
+                                    <constraint firstItem="ieY-vE-P6f" firstAttribute="leading" secondItem="bmk-7M-38S" secondAttribute="leading" id="OKQ-Qt-OYd"/>
+                                    <constraint firstAttribute="bottom" secondItem="ieY-vE-P6f" secondAttribute="bottom" id="VlA-8D-qgv"/>
+                                    <constraint firstAttribute="height" constant="88" id="Yyv-vZ-bzd"/>
+                                    <constraint firstAttribute="trailing" secondItem="ieY-vE-P6f" secondAttribute="trailing" id="h5H-KL-DSQ"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Ss1-4P-Lep"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="QNb-c3-bma" firstAttribute="leading" secondItem="Ss1-4P-Lep" secondAttribute="leading" id="7Cr-aI-TYR"/>
+                            <constraint firstItem="Ss1-4P-Lep" firstAttribute="trailing" secondItem="QNb-c3-bma" secondAttribute="trailing" id="Gxa-rr-QSg"/>
+                            <constraint firstItem="bmk-7M-38S" firstAttribute="leading" secondItem="29x-XJ-Leb" secondAttribute="leading" id="Hx1-3J-GIo"/>
+                            <constraint firstItem="bmk-7M-38S" firstAttribute="top" secondItem="29x-XJ-Leb" secondAttribute="top" id="Mtk-Kq-iYU"/>
+                            <constraint firstItem="Ss1-4P-Lep" firstAttribute="trailing" secondItem="bmk-7M-38S" secondAttribute="trailing" id="OKx-QE-UIh"/>
+                            <constraint firstItem="QNb-c3-bma" firstAttribute="top" secondItem="bmk-7M-38S" secondAttribute="bottom" id="Rvv-aJ-Szb"/>
+                            <constraint firstItem="Ss1-4P-Lep" firstAttribute="bottom" secondItem="QNb-c3-bma" secondAttribute="bottom" id="cM3-5X-8Vx"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="QNb-c3-bma" id="7Iw-eA-Jn3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wi3-vo-EWY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-393" y="365"/>
+        </scene>
     </scenes>
     <designables>
         <designable name="7L4-g6-VrN">
             <size key="intrinsicContentSize" width="16" height="22"/>
         </designable>
         <designable name="Gvo-fd-CKq">
-            <size key="intrinsicContentSize" width="295" height="41.607421875"/>
+            <size key="intrinsicContentSize" width="71" height="19"/>
         </designable>
         <designable name="LJm-QX-u4c">
             <size key="intrinsicContentSize" width="16" height="22"/>
         </designable>
         <designable name="OXa-jX-M9P">
-            <size key="intrinsicContentSize" width="315" height="41.607421875"/>
+            <size key="intrinsicContentSize" width="168.5" height="20.5"/>
         </designable>
         <designable name="Q7z-ML-iW6">
             <size key="intrinsicContentSize" width="41" height="29"/>
         </designable>
         <designable name="RlP-q6-oLk">
-            <size key="intrinsicContentSize" width="310" height="41.607421875"/>
+            <size key="intrinsicContentSize" width="39.5" height="20.5"/>
         </designable>
         <designable name="Tak-YE-LSB">
-            <size key="intrinsicContentSize" width="327" height="41.607421875"/>
+            <size key="intrinsicContentSize" width="106" height="20.5"/>
         </designable>
         <designable name="c7Y-CH-wjf">
             <size key="intrinsicContentSize" width="16" height="22"/>
+        </designable>
+        <designable name="cc6-nr-c8m">
+            <size key="intrinsicContentSize" width="150" height="150"/>
         </designable>
         <designable name="dWv-Ar-1JC">
             <size key="intrinsicContentSize" width="16" height="22"/>
         </designable>
         <designable name="fH8-W4-NIg">
-            <size key="intrinsicContentSize" width="63" height="32"/>
+            <size key="intrinsicContentSize" width="58" height="31"/>
         </designable>
         <designable name="hjT-SL-gzR">
-            <size key="intrinsicContentSize" width="70" height="21"/>
+            <size key="intrinsicContentSize" width="65.5" height="20.5"/>
         </designable>
         <designable name="kf6-m2-1be">
             <size key="intrinsicContentSize" width="77" height="77"/>

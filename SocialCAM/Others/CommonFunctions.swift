@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WebKit
 
 struct CommonFunctions {
     
@@ -88,6 +89,38 @@ struct CommonFunctions {
         #else
         imgLogo.image = R.image.pic2artWatermarkLogo()
         #endif
+    }
+    
+    final class WebCacheCleaner {
+        class func clean() {
+            HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
+            WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
+                records.forEach { record in
+                    WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
+                }
+            }
+        }
+        // Clear the cookie
+        func removeWKWebViewCookies() {
+            //How to use iOS9.0 or above
+            if #available(iOS 9.0, *) {
+                let dataStore = WKWebsiteDataStore.default()
+                dataStore.fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes(), completionHandler: { (records) in
+                    for record in records{
+                        // Clear the cookie of this site
+                        if record.displayName.contains("sina.com"){//This comment is commented out to clean up all cookies
+                            WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {
+                            })
+                        }
+                    }
+                })
+            } else {
+                //The method used by ios8.0 or above
+                let libraryPath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.libraryDirectory, FileManager.SearchPathDomainMask.userDomainMask, true).first
+                let cookiesPath = libraryPath! + "/Cookies"
+                try!FileManager.default.removeItem(atPath: cookiesPath)
+            }
+        }
     }
     
 }
