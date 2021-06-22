@@ -455,11 +455,15 @@ extension StoryCameraViewController {
     @IBAction func businessCentreButtonClicked(_ sender: UIButton) {
         let application = UIApplication.shared
         if let user = Defaults.shared.currentUser, let channelId = user.channelId, let authToken = Defaults.shared.sessionToken, let messagesAppURL = URL(string: "\(DeepLinkData.deepLinkUrlString)\(DeepLinkData.appDeeplinkName.lowercased())/\(Defaults.shared.releaseType.description)/\(channelId)/\(authToken)/\(isLiteApp)"), application.canOpenURL(messagesAppURL) {
-            print(messagesAppURL)
             application.open(messagesAppURL)
-            blurView.isHidden = true
-            switchingAppView.isHidden = true
+        } else {
+            guard let url = URL(string: businessCenterWebsiteUrl) else {
+                return
+            }
+            presentSafariBrowser(url: url)
         }
+        blurView.isHidden = true
+        switchingAppView.isHidden = true
     }
     
     @IBAction func gameCentreButtonClicked(_ sender: UIButton) {
@@ -470,9 +474,14 @@ extension StoryCameraViewController {
            let messagesAppURL = URL(string: "\(DeepLinkData.vidplayDeepLinkUrlString)\(DeepLinkData.appDeeplinkName.lowercased())/\(Defaults.shared.releaseType.description)/\(channelId)/\(authToken)/\(isLiteApp)"),
            application.canOpenURL(messagesAppURL) {
             application.open(messagesAppURL)
-            blurView.isHidden = true
-            switchingAppView.isHidden = true
+        } else {
+            guard let url = URL(string: vidplayWebsiteUrl) else {
+                return
+            }
+            presentSafariBrowser(url: url)
         }
+        blurView.isHidden = true
+        switchingAppView.isHidden = true
     }
     
     @IBAction func confirmVideoButtonClicked(_ sender: UIButton) {

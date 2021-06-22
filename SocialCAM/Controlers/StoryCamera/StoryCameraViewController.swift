@@ -16,6 +16,7 @@ import MobileCoreServices
 import SCRecorder
 import AVKit
 import JPSVolumeButtonHandler
+import SafariServices
 
 public class CameraModes {
     var name: String
@@ -2512,6 +2513,11 @@ extension StoryCameraViewController {
             })
         }))
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func presentSafariBrowser(url: URL) {
+        let safariVC = SFSafariViewController(url: url)
+        present(safariVC, animated: true, completion: nil)
     }
     
 }

@@ -22,7 +22,7 @@ class HelpSettings {
     
     static var helpSettings = [
         StorySettings(name: "",
-                      settings: [StorySetting(name: R.string.localizable.main(), selected: false)], settingsType: .instruction),
+                      settings: [StorySetting(name: R.string.localizable.camera(), selected: false)], settingsType: .instruction),
         StorySettings(name: "",
                       settings: [StorySetting(name: R.string.localizable.pic2Art(), selected: false)], settingsType: .pic2Art)
     ]
