@@ -187,6 +187,32 @@ public var websiteUrl: String {
     return baseUrlString
 }
 
+public var businessCenterWebsiteUrl: String {
+    var baseUrlString = ""
+    switch Defaults.shared.releaseType {
+    case .debug, .alpha:
+        baseUrlString = "https://alpha.mybusinesscenter.app/"
+    case .beta:
+        baseUrlString = "https://alpha.mybusinesscenter.app/"
+    case .store:
+        baseUrlString = "https://mybusinesscenter.app/"
+    }
+    return baseUrlString
+}
+
+public var vidplayWebsiteUrl: String {
+    var baseUrlString = ""
+    switch Defaults.shared.releaseType {
+    case .debug, .alpha:
+        baseUrlString = "https://alpha.vidplay.cafe/"
+    case .beta:
+        baseUrlString = "https://alpha.vidplay.cafe/"
+    case .store:
+        baseUrlString = "https://vidplay.cafe/"
+    }
+    return baseUrlString
+}
+
 public var keycloakClientId: String {
     let baseUrl = "auth/realms/main/protocol/openid-connect/auth?client_id="
     let endUrl = "&response_mode=fragment&response_type=code&login=true&redirect_uri="
