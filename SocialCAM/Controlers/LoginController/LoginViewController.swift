@@ -61,6 +61,8 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var doNotShowAgainView: UIView!
     @IBOutlet weak var btnDoNotShowAgain: UIButton!
     @IBOutlet weak var tooltipView: UIView!
+    @IBOutlet weak var imgAppLogo: UIImageView!
+    @IBOutlet weak var lblAppInfo: UILabel!
     
     weak var delegate: LoginViewControllerDelegate?
     var tapCounter = 0
@@ -107,6 +109,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         imgLogo.image = R.image.fastcamLiteWatermarkLogo()
         #elseif QUICKCAMLITEAPP || QUICKAPP
         imgLogo.image = R.image.quickcamliteSplashLogo()
+        imgAppLogo.image = R.image.ssuQuickCamLite()
         #elseif SPEEDCAMLITEAPP
         imgLogo.image = R.image.speedcamliteSplashLogo()
         #elseif SNAPCAMLITEAPP
@@ -122,6 +125,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         txtPassword.iconFont = UIFont.fontAwesome(ofSize: 12, style: .solid)
         txtPassword.iconText = String.fontAwesomeIcon(name: .lock)
         setColorTextField(views: [txtEmail, txtPassword])
+        lblAppInfo.text = "\(Constant.Application.displayName) - \(Constant.Application.appVersion)(\(Constant.Application.appBuildNumber))"
         
         let attributedString = NSMutableAttributedString(string: R.string.localizable.donTHaveAnAccountSignUp(), attributes: [
           .font: UIFont.systemFont(ofSize: 14.0, weight: .medium),
