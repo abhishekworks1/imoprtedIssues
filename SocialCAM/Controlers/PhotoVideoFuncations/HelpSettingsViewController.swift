@@ -24,7 +24,9 @@ class HelpSettings {
         StorySettings(name: "",
                       settings: [StorySetting(name: R.string.localizable.camera(), selected: false)], settingsType: .instruction),
         StorySettings(name: "",
-                      settings: [StorySetting(name: R.string.localizable.pic2Art(), selected: false)], settingsType: .pic2Art)
+                      settings: [StorySetting(name: R.string.localizable.pic2Art(), selected: false)], settingsType: .pic2Art),
+        StorySettings(name: "",
+                      settings: [StorySetting(name: R.string.localizable.edit(), selected: false)], settingsType: .edit)
     ]
 }
 
@@ -103,6 +105,12 @@ extension HelpSettingsViewController: UITableViewDelegate {
             if let tooltipViewController = R.storyboard.loginViewController.tooltipViewController() {
                 tooltipViewController.pushFromSettingScreen = true
                 tooltipViewController.isPic2ArtGif = true
+                navigationController?.pushViewController(tooltipViewController, animated: true)
+            }
+        } else if settingTitle.settingsType == .edit {
+            if let tooltipViewController = R.storyboard.loginViewController.tooltipViewController() {
+                tooltipViewController.pushFromSettingScreen = true
+                tooltipViewController.isEditScreenTooltip = true
                 navigationController?.pushViewController(tooltipViewController, animated: true)
             }
         }

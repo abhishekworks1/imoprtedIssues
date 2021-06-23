@@ -46,6 +46,7 @@ enum SettingsMode: Int {
     case madeWithGif
     case pic2Art
     case help
+    case edit
 }
 
 class StorySetting {

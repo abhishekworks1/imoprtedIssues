@@ -1914,8 +1914,12 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JWn-8u-r4K">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="87r-BW-HN6">
+                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="87r-BW-HN6">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="M3b-PX-ZiJ" appends="YES" id="u4D-VJ-Qor"/>
+                                        </connections>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0qc-G6-m4X">
                                         <rect key="frame" x="20" y="60" width="63" height="30"/>
@@ -2007,9 +2011,21 @@
                                             <action selector="btnNextClicked:" destination="4oZ-eg-D2n" eventType="touchUpInside" id="B5i-HA-1wc"/>
                                         </connections>
                                     </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k5d-cA-EPe">
+                                        <rect key="frame" x="159.5" y="773" width="95" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="95" id="3NJ-FE-weT"/>
+                                            <constraint firstAttribute="height" constant="40" id="5lo-K5-GWt"/>
+                                        </constraints>
+                                        <state key="normal" image="btnSkipEditTooltip"/>
+                                        <connections>
+                                            <action selector="btnSkipClicked:" destination="4oZ-eg-D2n" eventType="touchUpInside" id="d9H-eS-JrX"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="k5d-cA-EPe" firstAttribute="centerX" secondItem="JWn-8u-r4K" secondAttribute="centerX" id="1nP-EZ-B81"/>
                                     <constraint firstItem="VIR-3F-Ej8" firstAttribute="top" secondItem="JWn-8u-r4K" secondAttribute="top" constant="60" id="57A-ed-uFU"/>
                                     <constraint firstAttribute="trailing" secondItem="87r-BW-HN6" secondAttribute="trailing" id="8Ir-lt-YVN"/>
                                     <constraint firstItem="87r-BW-HN6" firstAttribute="leading" secondItem="JWn-8u-r4K" secondAttribute="leading" id="8OE-TW-t3B"/>
@@ -2018,6 +2034,7 @@
                                     <constraint firstItem="VFC-Eb-lWt" firstAttribute="leading" secondItem="JWn-8u-r4K" secondAttribute="leading" constant="20" id="Xhh-Cr-6nC"/>
                                     <constraint firstItem="0qc-G6-m4X" firstAttribute="leading" secondItem="JWn-8u-r4K" secondAttribute="leading" constant="20" id="cQW-mm-v7b"/>
                                     <constraint firstAttribute="bottom" secondItem="87r-BW-HN6" secondAttribute="bottom" id="hHH-3x-DQE"/>
+                                    <constraint firstAttribute="bottom" secondItem="k5d-cA-EPe" secondAttribute="bottom" constant="83" id="hRf-ef-ded"/>
                                     <constraint firstAttribute="trailing" secondItem="gme-O3-L75" secondAttribute="trailing" constant="20" id="mMX-vC-wwQ"/>
                                     <constraint firstItem="gme-O3-L75" firstAttribute="top" secondItem="VIR-3F-Ej8" secondAttribute="bottom" id="oGP-Nq-S3c"/>
                                     <constraint firstAttribute="trailing" secondItem="VIR-3F-Ej8" secondAttribute="trailing" constant="20" id="pkh-So-ajx"/>
@@ -2039,10 +2056,16 @@
                         <outlet property="btnPic2ArtNext" destination="gme-O3-L75" id="pEZ-Af-pwM"/>
                         <outlet property="btnPic2ArtSkip" destination="VFC-Eb-lWt" id="pSs-PR-wmn"/>
                         <outlet property="btnSkip" destination="0qc-G6-m4X" id="f7F-rO-yyD"/>
+                        <outlet property="btnSkipEditTooltip" destination="k5d-cA-EPe" id="FRE-06-uDs"/>
                         <outlet property="imgViewTooltip" destination="87r-BW-HN6" id="YqK-Yr-xke"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VPg-23-WxN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="M3b-PX-ZiJ">
+                    <connections>
+                        <action selector="tooltipTapView:" destination="4oZ-eg-D2n" id="lL3-Nt-P1k"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="4143.4782608695659" y="-270.53571428571428"/>
         </scene>
@@ -2755,11 +2778,9 @@
         <designable name="xZP-Ga-5xe">
             <size key="intrinsicContentSize" width="200" height="200"/>
         </designable>
-        <designable name="zQo-94-51O">
-            <size key="intrinsicContentSize" width="71" height="19"/>
-        </designable>
     </designables>
     <resources>
+        <image name="btnSkipEditTooltip" width="97" height="42"/>
         <image name="checkBoxActive" width="20" height="20"/>
         <image name="checkBoxInActive" width="20" height="20"/>
         <image name="circleHelpQuestionMark" width="16" height="16"/>
