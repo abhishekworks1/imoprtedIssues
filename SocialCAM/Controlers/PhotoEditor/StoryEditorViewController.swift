@@ -210,6 +210,10 @@ class StoryEditorViewController: UIViewController {
     @IBOutlet weak var imgViewMadeWithGif: UIImageView!
     @IBOutlet weak var btnSelectedMadeWithGif: UIButton!
     @IBOutlet weak var btnMadeWithGif: UIButton!
+    @IBOutlet weak var editTooltipView: UIView!
+    @IBOutlet var imgEditTooltip: [UIImageView]?
+    @IBOutlet weak var lblEditTooltip: UILabel!
+    @IBOutlet weak var btnSkipEditTooltip: UIButton!
     
     private let fastestEverWatermarkBottomMargin = 112
     weak var cursorContainerViewController: KeyframePickerCursorVC!
@@ -285,6 +289,8 @@ class StoryEditorViewController: UIViewController {
     var isSettingsChange = false
     var socialShareTag = 0
     var isTiktokShare = false
+    var editTooltipCount = 0
+    var editTooltipText = Constant.EditTooltip.editTooltipTextArray
     
     var isViewEditMode: Bool = false {
         didSet {
@@ -314,6 +320,12 @@ class StoryEditorViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let isRegistered = Defaults.shared.isRegistered {
+            if isRegistered {
+                Defaults.shared.isRegistered = false
+                showEditTooltip()
+            }
+        }
         imgViewMadeWithGif.loadGif(name: R.string.localizable.madeWithQuickCamLite())
         setupFilterViews()
         setGestureViewForShowHide(view: storyEditors[currentStoryIndex])
@@ -560,6 +572,12 @@ class StoryEditorViewController: UIViewController {
     func hideWatermarkView(isHide: Bool) {
         cropPopupBlurView.isHidden = isHide
         watermarkOptionsView.isHidden = isHide
+    }
+    
+    func showEditTooltip() {
+        editTooltipView.isHidden = false
+        imgEditTooltip?.first?.alpha = 1
+        lblEditTooltip.text = editTooltipText.first
     }
     
 }
@@ -1360,6 +1378,30 @@ extension StoryEditorViewController {
         hideWatermarkView(isHide: true)
         callSetUserSetting()
         self.isSettingsChange = true
+    }
+    
+    @IBAction func editTooltipSkipButtonClicked(sender: UIButton) {
+        editTooltipView.isHidden = true
+    }
+    
+    @IBAction func editTooltipTapView(_ sender: UITapGestureRecognizer) {
+        editTooltipCount += 1
+        if let imgEditTooltipCount = imgEditTooltip?.count {
+            for imageCount in 0...imgEditTooltipCount - 1 {
+                if editTooltipCount == imageCount {
+                    if imageCount == imgEditTooltipCount - 1 {
+                        btnSkipEditTooltip.isHidden = true
+                    }
+                    imgEditTooltip?[imageCount].alpha = 1
+                    lblEditTooltip.text = editTooltipText[imageCount]
+                } else {
+                    imgEditTooltip?[imageCount].alpha = 0
+                }
+            }
+            if editTooltipCount == imgEditTooltipCount {
+                editTooltipView.isHidden = true
+            }
+        }
     }
     
 }

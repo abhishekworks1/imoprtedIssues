@@ -21,7 +21,7 @@ class TooltipViewController: UIViewController {
     // MARK: - Variables declaration
     var gifArray = ["Tooltip1", "Tooltip2", "Tooltip3", "Tooltip4", "Tooltip5"]
     var pic2ArtGifArray = ["Pic2ArtTooltip1", "Pic2ArtTooltip2"]
-    var editTooltip = ["editTooltip1", "editTooltip2", "editTooltip3", "editTooltip4", "editTooltip5", "editTooltip6", "editTooltip7"]
+    var editTooltip = ["editTooltip1", "editTooltip2", "editTooltip3", "editTooltip4", "editTooltip5", "editTooltip6", "editTooltip7", "editTooltip8", "editTooltip9"]
     var gifCount = 0
     var pushFromSettingScreen = false
     var isPic2ArtGif = false
@@ -103,13 +103,15 @@ class TooltipViewController: UIViewController {
     }
     
     @IBAction func tooltipTapView(_ sender: UITapGestureRecognizer) {
-        gifCount += 1
-        if (gifCount == 7) {
-            navigationController?.popViewController(animated: true)
-        } else {
-            addEditTooltipToImgView(imgName: editTooltip[gifCount])
-            if gifCount == 6 {
-                btnSkipEditTooltip.isHidden = true
+        if isEditScreenTooltip {
+            gifCount += 1
+            if (gifCount == 9) {
+                navigationController?.popViewController(animated: true)
+            } else {
+                addEditTooltipToImgView(imgName: editTooltip[gifCount])
+                if gifCount == 8 {
+                    btnSkipEditTooltip.isHidden = true
+                }
             }
         }
     }
