@@ -16,20 +16,26 @@ class TooltipViewController: UIViewController {
     @IBOutlet weak var btnNext: UIButton!
     @IBOutlet weak var btnPic2ArtSkip: UIButton!
     @IBOutlet weak var btnPic2ArtNext: UIButton!
+    @IBOutlet weak var btnSkipEditTooltip: UIButton!
     
     // MARK: - Variables declaration
     var gifArray = ["Tooltip1", "Tooltip2", "Tooltip3", "Tooltip4", "Tooltip5"]
     var pic2ArtGifArray = ["Pic2ArtTooltip1", "Pic2ArtTooltip2"]
+    var editTooltip = ["editTooltip1", "editTooltip2", "editTooltip3", "editTooltip4", "editTooltip5", "editTooltip6", "editTooltip7"]
     var gifCount = 0
     var pushFromSettingScreen = false
     var isPic2ArtGif = false
+    var isEditScreenTooltip = false
     
     // MARK: - View life cycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
         if isPic2ArtGif {
             hideShowSkipNextButton(shouldShow: false)
-            addGifToImageView(gifName: pic2ArtGifArray.first ?? "Pic2ArtTooltip1")
+            addGifToImageView(gifName: pic2ArtGifArray.first ?? R.string.localizable.pic2ArtTooltip1())
+        } else if isEditScreenTooltip {
+            hideButtonsForEditTooltip()
+            addEditTooltipToImgView(imgName: editTooltip.first ?? R.string.localizable.editTooltip1())
         } else {
             hideShowSkipNextButton(shouldShow: true)
             addGifToImageView(gifName: gifArray.first ?? R.string.localizable.tooltip1())
@@ -40,11 +46,24 @@ class TooltipViewController: UIViewController {
         imgViewTooltip.loadGif(name: gifName)
     }
     
+    private func addEditTooltipToImgView(imgName: String) {
+        imgViewTooltip.image = UIImage(named: imgName)
+    }
+    
     private func hideShowSkipNextButton(shouldShow: Bool) {
         btnPic2ArtSkip.isHidden = shouldShow
         btnPic2ArtNext.isHidden = shouldShow
         btnSkip.isHidden = !shouldShow
         btnNext.isHidden = !shouldShow
+        btnSkipEditTooltip.isHidden = true
+    }
+    
+    private func hideButtonsForEditTooltip() {
+        btnPic2ArtSkip.isHidden = true
+        btnPic2ArtNext.isHidden = true
+        btnSkip.isHidden = true
+        btnNext.isHidden = true
+        btnSkipEditTooltip.isHidden = false
     }
     
     // MARK: - Action mehtods
@@ -79,6 +98,18 @@ class TooltipViewController: UIViewController {
                     btnNext.setTitle(R.string.localizable.done(), for: .normal)
                     btnSkip.isHidden = true
                 }
+            }
+        }
+    }
+    
+    @IBAction func tooltipTapView(_ sender: UITapGestureRecognizer) {
+        gifCount += 1
+        if (gifCount == 7) {
+            navigationController?.popViewController(animated: true)
+        } else {
+            addEditTooltipToImgView(imgName: editTooltip[gifCount])
+            if gifCount == 6 {
+                btnSkipEditTooltip.isHidden = true
             }
         }
     }
