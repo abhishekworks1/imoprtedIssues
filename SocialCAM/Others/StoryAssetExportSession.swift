@@ -272,10 +272,8 @@ class StoryAssetExportSession {
             combinedCIImage = filteredCIImage
         }
         
-        if socialShareType != .tiktok {
-            if let overlaidCIImage = overlaidCIImage(combinedCIImage) {
-                combinedCIImage = overlaidCIImage
-            }
+        if let overlaidCIImage = overlaidCIImage(combinedCIImage) {
+            combinedCIImage = overlaidCIImage
         }
         
         self.ciContext.render(combinedCIImage, to: backgroundImageBuffer, bounds: combinedCIImage.extent, colorSpace: CGColorSpaceCreateDeviceRGB())
@@ -317,10 +315,10 @@ class StoryAssetExportSession {
                         guard let `self` = self else {
                             return
                         }
-                        if Defaults.shared.appIdentifierWatermarkSetting == .show || Defaults.shared.madeWithGifSetting == .show {
+                        if (Defaults.shared.appIdentifierWatermarkSetting == .show || Defaults.shared.madeWithGifSetting == .show) && self.socialShareType != .tiktok {
                             self.addWaterMarkImageIfNeeded(isGIF: true)
                         }
-                        if Defaults.shared.fastestEverWatermarkSetting == .show {
+                        if Defaults.shared.fastestEverWatermarkSetting == .show && self.socialShareType != .tiktok {
                             self.addFastestEverWaterMarkImage()
                         }
                     }
@@ -331,10 +329,10 @@ class StoryAssetExportSession {
                         guard let `self` = self else {
                             return
                         }
-                        if Defaults.shared.appIdentifierWatermarkSetting == .show || Defaults.shared.madeWithGifSetting == .show {
+                        if (Defaults.shared.appIdentifierWatermarkSetting == .show || Defaults.shared.madeWithGifSetting == .show) && self.socialShareType != .tiktok {
                             self.addWaterMarkImageIfNeeded(isGIF: true)
                         }
-                        if Defaults.shared.fastestEverWatermarkSetting == .show {
+                        if Defaults.shared.fastestEverWatermarkSetting == .show && self.socialShareType != .tiktok {
                             self.addFastestEverWaterMarkImage()
                         }
                     }
@@ -345,10 +343,10 @@ class StoryAssetExportSession {
                 guard let `self` = self else {
                     return
                 }
-                if Defaults.shared.appIdentifierWatermarkSetting == .show {
+                if Defaults.shared.appIdentifierWatermarkSetting == .show && self.socialShareType != .tiktok {
                     self.addWaterMarkImageIfNeeded(isGIF: false)
                 }
-                if Defaults.shared.fastestEverWatermarkSetting == .show {
+                if Defaults.shared.fastestEverWatermarkSetting == .show && self.socialShareType != .tiktok {
                     self.addFastestEverWaterMarkImage()
                 }
             }
