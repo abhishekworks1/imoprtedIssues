@@ -371,4 +371,16 @@ public struct Constant {
         static let quickCamLiteBasic = "1"
     }
     
+    struct EditTooltip {
+        static let editTooltipTextArray = ["Click on Hide icon to hide/show icon",
+                                           "Click on save icon to save videos in gallery",
+                                           "Click on Bitmoji to add Bitmoji in the video",
+                                           "Click on Hashtag to add hashtag",
+                                           "Click on sound to mute/unmute sound",
+                                           "Click on Crop to crop video",
+                                           "Click on Trim to trim/split video",
+                                           "Click on Swipe Up to add swipe up tag",
+                                           "Click on Promote to add watermarks"]
+    }
+    
 }
