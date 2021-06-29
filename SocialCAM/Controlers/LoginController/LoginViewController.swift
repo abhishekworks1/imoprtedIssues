@@ -12,7 +12,6 @@ import SkyFloatingLabelTextField
 import FontAwesome_swift
 import Spring
 import FirebaseCrashlytics
-import SafariServices
 
 class UpAnimation: SpringView {
         
@@ -156,6 +155,14 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
+    func goToKeycloakWebview(url: String) {
+        guard let keycloakAuthViewController = R.storyboard.loginViewController.keycloakAuthViewController() else {
+            return
+        }
+        keycloakAuthViewController.urlString = url
+        navigationController?.pushViewController(keycloakAuthViewController, animated: true)
+    }
+    
     /// Hide and show tooltip
     private func hideShowTooltipView(shouldShow: Bool) {
         self.loginTooltip.isHidden = !shouldShow
@@ -175,10 +182,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
             self.hideShowTooltipView(shouldShow: true)
         } else {
             isLoginButtonPressed = false
-            if let messagesAppURL = URL(string: "\(keycloakUrl)\(keycloakClientId)\(KeycloakRedirectLink.keycloakRedirectLinkName.lowercased())\(KeycloakRedirectLink.endUrl)") {
-                let safariVC = SFSafariViewController(url: messagesAppURL)
-                present(safariVC, animated: true, completion: nil)
-            }
+            goToKeycloakWebview(url: "\(keycloakUrl)\(keycloakClientId)\(KeycloakRedirectLink.keycloakRedirectLinkName.lowercased())\(KeycloakRedirectLink.endUrl)")
         }
     }
     
@@ -190,18 +194,14 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
     
     @IBAction func btnOkayClicked(_ sender: UIButton) {
         self.hideShowTooltipView(shouldShow: false)
-        let messagesAppURL: URL?
+        let messagesAppURL: String
         if isLoginButtonPressed {
             isLoginButtonPressed = false
-            messagesAppURL = URL(string: "\(keycloakUrl)\(keycloakClientId)\(KeycloakRedirectLink.keycloakRedirectLinkName.lowercased())\(KeycloakRedirectLink.endUrl)")
+            messagesAppURL = "\(keycloakUrl)\(keycloakClientId)\(KeycloakRedirectLink.keycloakRedirectLinkName.lowercased())\(KeycloakRedirectLink.endUrl)"
         } else {
-            messagesAppURL = URL(string: "\(keycloakUrl)\(keycloakRegistrationClientId)\(KeycloakRedirectLink.keycloakRedirectLinkName.lowercased())\(KeycloakRedirectLink.endUrl)")
+            messagesAppURL = "\(keycloakUrl)\(keycloakRegistrationClientId)\(KeycloakRedirectLink.keycloakRedirectLinkName.lowercased())\(KeycloakRedirectLink.endUrl)"
         }
-        guard let msgURL = messagesAppURL else {
-            return
-        }
-        let safariVC = SFSafariViewController(url: msgURL)
-        present(safariVC, animated: true, completion: nil)
+        goToKeycloakWebview(url: messagesAppURL)
     }
     
     @IBAction func btnDoNotShowAgainClicked(_ sender: UIButton) {
