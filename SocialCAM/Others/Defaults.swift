@@ -755,6 +755,15 @@ class Defaults {
         }
     }
     
+    var isFromSignup: Bool? {
+        get {
+            return appDefaults?.value(forKey: "isFromSignup") as? Bool ?? false
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isFromSignup")
+        }
+    }
+    
     func clearData() {
         if let appDefaultsDictionary = appDefaults?.dictionaryRepresentation() {
             appDefaultsDictionary.keys.forEach { key in

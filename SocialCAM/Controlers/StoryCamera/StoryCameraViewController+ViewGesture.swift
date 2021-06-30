@@ -18,6 +18,9 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
         if !switchingAppView.isHidden {
             blurView.isHidden = true
             switchingAppView.isHidden = true
+        } else if !quickLinkTooltipView.isHidden {
+            blurView.isHidden = true
+            quickLinkTooltipView.isHidden = true
         }
     }
     

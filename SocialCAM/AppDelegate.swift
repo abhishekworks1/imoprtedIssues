@@ -453,6 +453,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Defaults.shared.currentUser = response.result?.user
         Defaults.shared.isRegistered = response.result?.isRegistered
         Defaults.shared.isPic2ArtShowed = response.result?.isRegistered
+        Defaults.shared.isFromSignup = response.result?.isRegistered
         Defaults.shared.userCreatedDate = response.result?.user?.created
         CurrentUser.shared.setActiveUser(response.result?.user)
         Crashlytics.crashlytics().setUserID(CurrentUser.shared.activeUser?.username ?? "")

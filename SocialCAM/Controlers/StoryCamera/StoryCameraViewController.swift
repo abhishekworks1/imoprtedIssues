@@ -49,6 +49,9 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     var timer: Timer?
     var volButtonTimer: Timer?
     var secondsElapsed: Int = 0
+    var isBusinessCenter: Bool = false
+    var quickLinkAppUrl: URL?
+    var quickLinkWebsiteUrl: URL?
     
     // MARK: IBOutlets
     @IBOutlet weak var bottomCameraViews: UIView!
@@ -184,6 +187,9 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     @IBOutlet weak var confirmRecordedSegmentStackView: UIStackView!
     @IBOutlet weak var discardSegmentsStackView: UIStackView!
     @IBOutlet weak var discardSegmentButton: UIButton!
+    @IBOutlet weak var signupTooltipView: UIView!
+    @IBOutlet weak var quickLinkTooltipView: UIView!
+    @IBOutlet weak var lblQuickLinkTooltipView: UILabel!
     
     // MARK: Variables
     var recordButtonCenterPoint: CGPoint = CGPoint.init()
@@ -537,6 +543,13 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         }
     }
     
+    // MARK: - Action Method
+    @IBAction func btnOkClicked(_ sender: UIButton) {
+        signupTooltipView.isHidden = true
+        let tooltipViewController = R.storyboard.loginViewController.tooltipViewController()
+        Utils.appDelegate?.window?.rootViewController = tooltipViewController
+    }
+    
     func setupRecordingView() {
         if self.faceFiltersView.viewWithTag(SystemBroadcastPickerViewBuilder.viewTag) == nil {
             SystemBroadcastPickerViewBuilder.setup(superView: self.faceFiltersView)
@@ -585,8 +598,10 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         view.bringSubviewToFront(baseView)
         view.bringSubviewToFront(blurView)
         view.bringSubviewToFront(enableAccessView)
+        view.bringSubviewToFront(signupTooltipView)
         view.bringSubviewToFront(selectTimersView)
         view.bringSubviewToFront(switchingAppView)
+        view.bringSubviewToFront(quickLinkTooltipView)
         getUserSettings()
         if isQuickCamLiteApp || isQuickCamApp {
             addObserverForRecordingView()
@@ -1351,17 +1366,31 @@ extension StoryCameraViewController {
         #if targetEnvironment(simulator)
         blurView.isHidden = false
         enableAccessView.isHidden = false
+        checkIsFromSignup()
         #else
         changePermissionButtonColor()
         if ApplicationSettings.isCameraEnabled && ApplicationSettings.isMicrophoneEnabled {
             blurView.isHidden = true
             enableAccessView.isHidden = true
+            checkIsFromSignup()
             initCamera()
         } else {
             blurView.isHidden = false
             enableAccessView.isHidden = false
+            checkIsFromSignup()
         }
         #endif
+    }
+    
+    func checkIsFromSignup() {
+        if let isFromSignup = Defaults.shared.isFromSignup {
+            if isFromSignup {
+                self.signupTooltipView.isHidden = false
+                Defaults.shared.isFromSignup = false
+                enableAccessView.isHidden = true
+                blurView.alpha = 0.9
+            }
+        }
     }
     
     public func removeData() {
@@ -2520,4 +2549,17 @@ extension StoryCameraViewController {
         present(safariVC, animated: true, completion: nil)
     }
     
+    func getUrlForQuickLink() {
+        let user = Defaults.shared.currentUser
+        let channelId = user?.channelId
+        let authToken = Defaults.shared.sessionToken
+        if isBusinessCenter {
+            quickLinkAppUrl = URL(string: "\(DeepLinkData.deepLinkUrlString)\(DeepLinkData.appDeeplinkName.lowercased())/\(Defaults.shared.releaseType.description)/\(channelId ?? "")/\(authToken ?? "")/\(isLiteApp)")
+            quickLinkWebsiteUrl = URL(string: businessCenterWebsiteUrl)
+            isBusinessCenter = false
+        } else {
+            quickLinkAppUrl = URL(string: "\(DeepLinkData.vidplayDeepLinkUrlString)\(DeepLinkData.appDeeplinkName.lowercased())/\(Defaults.shared.releaseType.description)/\(channelId ?? "")/\(authToken ?? "")/\(isLiteApp)")
+            quickLinkWebsiteUrl = URL(string: vidplayWebsiteUrl)
+        }
+    }
 }
