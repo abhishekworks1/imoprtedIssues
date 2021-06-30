@@ -593,6 +593,15 @@ class Defaults {
         }
     }
     
+    var outtroVideoSetting: OuttroVideoSetting {
+        get {
+            return OuttroVideoSetting(rawValue: (appDefaults?.integer(forKey: "outtroVideoSetting") ?? 1)) ?? .show
+        }
+        set {
+            appDefaults?.set(newValue.rawValue, forKey: "outtroVideoSetting")
+        }
+    }
+    
     var videoResolution: VideoResolution {
         get {
             return VideoResolution(rawValue: (appDefaults?.integer(forKey: "VideoResolution") ?? 1)) ?? .low

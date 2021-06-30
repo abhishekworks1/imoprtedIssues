@@ -12,6 +12,7 @@ enum WatermarkType: Int {
     case fastestEverWatermark = 0
     case applicationIdentifier
     case madeWithGif
+    case outtroVideo
 }
 
 class WatermarkSettingCell: UITableViewCell {
@@ -40,6 +41,9 @@ class WatermarkSettingCell: UITableViewCell {
             } else if watermarkType == .madeWithGif {
                 lblWatermarkName.text = R.string.localizable.madeWithgif(Constant.Application.displayName)
                 self.setSelection(madeWithGifSetting: Defaults.shared.madeWithGifSetting)
+            } else if watermarkType == .outtroVideo {
+                lblWatermarkName.text = R.string.localizable.outtroVdieo()
+                self.setSelection(outtroVideoSetting: Defaults.shared.outtroVideoSetting)
             }
         }
     }
@@ -115,6 +119,23 @@ class WatermarkSettingCell: UITableViewCell {
         }
     }
     
+    func setSelection(outtroVideoSetting: OuttroVideoSetting) {
+        self.imgWatermarkShow.image = R.image.radioDeselected()
+        if Defaults.shared.appMode != .free {
+            self.imgWatermarkHide.image = R.image.radioDeselected()
+        }
+        switch outtroVideoSetting {
+        case .show:
+            self.imgWatermarkShow.image = R.image.radioSelected()
+        case .hide:
+            if Defaults.shared.appMode != .free {
+                self.imgWatermarkHide.image = R.image.radioSelected()
+            } else {
+                self.imgWatermarkShow.image = R.image.radioSelected()
+            }
+        }
+    }
+    
     // MARK: - Action methods
     @IBAction func btnWatermarkShowTapped(_ sender: UIButton) {
         if watermarkType == .fastestEverWatermark {
@@ -126,6 +147,9 @@ class WatermarkSettingCell: UITableViewCell {
         } else if watermarkType == .madeWithGif {
             Defaults.shared.madeWithGifSetting = .show
             self.setSelection(madeWithGifSetting: Defaults.shared.madeWithGifSetting)
+        } else if watermarkType == .outtroVideo {
+            Defaults.shared.outtroVideoSetting = .show
+            self.setSelection(outtroVideoSetting: Defaults.shared.outtroVideoSetting)
         }
     }
     
@@ -139,6 +163,9 @@ class WatermarkSettingCell: UITableViewCell {
         } else if watermarkType == .madeWithGif {
             Defaults.shared.madeWithGifSetting = .hide
             self.setSelection(madeWithGifSetting: Defaults.shared.madeWithGifSetting)
+        } else if watermarkType == .outtroVideo {
+            Defaults.shared.outtroVideoSetting = .hide
+            self.setSelection(outtroVideoSetting: Defaults.shared.outtroVideoSetting)
         }
     }
     

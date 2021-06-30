@@ -23,7 +23,8 @@ class WatermarkSettings {
     static var watermarkSettings = [
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.fastestevercontest(), selected: false)], settingsType: .fatesteverWatermark),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.madeWith(Constant.Application.displayName), selected: false)], settingsType: .applIdentifierWatermark),
-        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.madeWithgif(Constant.Application.displayName), selected: false)], settingsType: .madeWithGif)
+        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.madeWithgif(Constant.Application.displayName), selected: false)], settingsType: .madeWithGif),
+        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.outtroVdieo(), selected: false)], settingsType: .outtroVideo)
     ]
 }
 
@@ -54,7 +55,7 @@ class WatermarkSettingsViewController: UIViewController {
     }
     
     @objc func goToSubscriptionVC() {
-        if (Defaults.shared.appIdentifierWatermarkSetting == .hide || Defaults.shared.madeWithGifSetting == .hide) && Defaults.shared.appMode == .free {
+        if (Defaults.shared.appIdentifierWatermarkSetting == .hide || Defaults.shared.madeWithGifSetting == .hide || Defaults.shared.outtroVideoSetting == .hide) && Defaults.shared.appMode == .free {
             if let subscriptionVC = R.storyboard.subscription.subscriptionContainerViewController() {
                 navigationController?.pushViewController(subscriptionVC, animated: true)
                 Defaults.shared.appIdentifierWatermarkSetting = .show
@@ -98,6 +99,11 @@ extension WatermarkSettingsViewController: UITableViewDataSource {
             }
         } else if settingTitle.settingsType == .madeWithGif {
             watermarkSettingCell.watermarkType = .madeWithGif
+            if Defaults.shared.appMode == .free {
+                watermarkSettingCell.hideWatermarkButton.addTarget(self, action: #selector(goToSubscriptionVC), for: .touchUpInside)
+            }
+        }  else if settingTitle.settingsType == .outtroVideo {
+            watermarkSettingCell.watermarkType = .outtroVideo
             if Defaults.shared.appMode == .free {
                 watermarkSettingCell.hideWatermarkButton.addTarget(self, action: #selector(goToSubscriptionVC), for: .touchUpInside)
             }

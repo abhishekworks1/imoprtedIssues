@@ -510,4 +510,59 @@ class StoryAssetExportSession {
         UIGraphicsEndImageContext()
     }
     
+    func merge(video videoPath: String, withForegroundImage foregroundImage: UIImage, completion: @escaping (URL?) -> Void) -> () {
+        
+        let videoUrl = URL(fileURLWithPath: videoPath)
+        let videoUrlAsset = AVURLAsset(url: videoUrl, options: nil)
+        
+        // Setup `mutableComposition` from the existing video
+        let mutableComposition = AVMutableComposition()
+        let videoAssetTrack = videoUrlAsset.tracks(withMediaType: AVMediaType.video).first!
+        let videoCompositionTrack = mutableComposition.addMutableTrack(withMediaType: AVMediaType.video, preferredTrackID: kCMPersistentTrackID_Invalid)
+        videoCompositionTrack?.preferredTransform = videoAssetTrack.preferredTransform
+        try! videoCompositionTrack?.insertTimeRange(CMTimeRange(start:CMTime.zero, duration:videoAssetTrack.timeRange.duration), of: videoAssetTrack, at: CMTime.zero)
+        
+//        addAudioTrack(composition: mutableComposition, videoUrl: videoUrl)
+        
+        let videoSize: CGSize = (videoCompositionTrack?.naturalSize)!
+        let frame = CGRect(x: 0.0, y: 0.0, width: videoSize.width, height: videoSize.height)
+        let imageLayer = CALayer()
+        imageLayer.contents = foregroundImage.cgImage
+        imageLayer.frame = CGRect(x: 0.0, y: 0.0, width:50, height:50)
+        
+        let videoLayer = CALayer()
+        videoLayer.frame = frame
+        let animationLayer = CALayer()
+        animationLayer.frame = frame
+        animationLayer.addSublayer(videoLayer)
+        animationLayer.addSublayer(imageLayer)
+        
+        let videoComposition = AVMutableVideoComposition(propertiesOf: (videoCompositionTrack?.asset!)!)
+        videoComposition.animationTool = AVVideoCompositionCoreAnimationTool(postProcessingAsVideoLayer: videoLayer, in: animationLayer)
+        
+        let documentDirectory = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.cachesDirectory, FileManager.SearchPathDomainMask.userDomainMask, true).first!
+        let documentDirectoryUrl = URL(fileURLWithPath: documentDirectory)
+        let destinationFilePath = documentDirectoryUrl.appendingPathComponent("result.mp4")
+        do {
+            if FileManager.default.fileExists(atPath: destinationFilePath.path) {
+                
+                try FileManager.default.removeItem(at: destinationFilePath)
+                
+                print("removed")
+            }
+        } catch {
+            print(error)
+        }
+        let exportSession = AVAssetExportSession( asset: mutableComposition, presetName: AVAssetExportPresetHighestQuality)!
+        exportSession.videoComposition = videoComposition
+        exportSession.outputURL = destinationFilePath
+        exportSession.outputFileType = AVFileType.mp4
+        exportSession.exportAsynchronously { [weak exportSession] in
+            if let strongExportSession = exportSession {
+                completion(strongExportSession.outputURL!)
+                //self.play(strongExportSession.outputURL!)
+            }
+        }
+    }
+    
 }
