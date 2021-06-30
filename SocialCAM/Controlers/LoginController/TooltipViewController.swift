@@ -19,7 +19,7 @@ class TooltipViewController: UIViewController {
     @IBOutlet weak var btnSkipEditTooltip: UIButton!
     
     // MARK: - Variables declaration
-    var gifArray = ["Tooltip1", "Tooltip2", "Tooltip3", "Tooltip4", "Tooltip5"]
+    var gifArray = ["Tooltip1", "Tooltip2", "Tooltip3", "Tooltip4", "Tooltip5", "Tooltip6"]
     var pic2ArtGifArray = ["Pic2ArtTooltip1", "Pic2ArtTooltip2"]
     var editTooltip = ["editTooltip1", "editTooltip2", "editTooltip3", "editTooltip4", "editTooltip5", "editTooltip6", "editTooltip7", "editTooltip8", "editTooltip9"]
     var gifCount = 0
@@ -90,11 +90,11 @@ class TooltipViewController: UIViewController {
                 }
             }
         } else {
-            if (gifCount == 5) {
+            if (gifCount == 6) {
                 btnSkipClicked(sender)
             } else {
                 addGifToImageView(gifName: gifArray[gifCount])
-                if gifCount == 4 {
+                if gifCount == 5 {
                     btnNext.setTitle(R.string.localizable.done(), for: .normal)
                     btnSkip.isHidden = true
                 }
