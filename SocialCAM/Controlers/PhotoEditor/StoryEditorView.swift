@@ -176,6 +176,7 @@ class StoryEditorView: UIView {
         self.type = type
         self.mediaContentMode = contentMode
         self.deleteView = deleteView
+        self.deleteView?.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
         self.undoView = undoView
         setup()
         backgroundColor = ApplicationSettings.appClearColor
@@ -908,7 +909,7 @@ extension StoryEditorView {
                     generator.impactOccurred()
                 }
                 UIView.animate(withDuration: 0.3, animations: {
-                    self.deleteView?.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+                    self.deleteView?.transform = CGAffineTransform(scaleX: 2.5, y: 2.5)
                     view.transform = view.transform.scaledBy(x: 0.5, y: 0.5)
                     view.center = recognizer.location(in: self)
                 })
@@ -918,7 +919,7 @@ extension StoryEditorView {
                 !(deleteView?.frame.contains(pointToSuperView) ?? false) {
                 // Scale to original Size
                 UIView.animate(withDuration: 0.3, animations: {
-                    self.deleteView?.transform = CGAffineTransform(scaleX: 1, y: 1)
+                    self.deleteView?.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
                     view.transform = view.transform.scaledBy(x: 2, y: 2)
                     view.center = recognizer.location(in: self)
                 })
@@ -948,7 +949,7 @@ extension StoryEditorView {
             }
             let generator = UINotificationFeedbackGenerator()
             generator.notificationOccurred(.success)
-            self.deleteView?.transform = CGAffineTransform(scaleX: 1, y: 1)
+            self.deleteView?.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
         } else if isCropped {
             if !self.drawView.frame.contains(view.center) {
                 UIView.animate(withDuration: 0.3, animations: {
