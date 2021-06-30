@@ -452,36 +452,35 @@ extension StoryCameraViewController {
         switchingAppView.isHidden = false
     }
     
-    @IBAction func businessCentreButtonClicked(_ sender: UIButton) {
+    @IBAction func quickLinkOkButtonClicked(_ sender: UIButton) {
         let application = UIApplication.shared
-        if let user = Defaults.shared.currentUser, let channelId = user.channelId, let authToken = Defaults.shared.sessionToken, let messagesAppURL = URL(string: "\(DeepLinkData.deepLinkUrlString)\(DeepLinkData.appDeeplinkName.lowercased())/\(Defaults.shared.releaseType.description)/\(channelId)/\(authToken)/\(isLiteApp)"), application.canOpenURL(messagesAppURL) {
-            application.open(messagesAppURL)
+        getUrlForQuickLink()
+        if let quickLinkAppUrl = quickLinkAppUrl, application.canOpenURL(quickLinkAppUrl) {
+            application.open(quickLinkAppUrl)
         } else {
-            guard let url = URL(string: businessCenterWebsiteUrl) else {
+            guard let url = quickLinkWebsiteUrl else {
                 return
             }
             presentSafariBrowser(url: url)
         }
         blurView.isHidden = true
         switchingAppView.isHidden = true
+        quickLinkTooltipView.isHidden = true
+    }
+    
+    @IBAction func businessCentreButtonClicked(_ sender: UIButton) {
+        blurView.isHidden = false
+        switchingAppView.isHidden = true
+        quickLinkTooltipView.isHidden = false
+        isBusinessCenter = true
+        lblQuickLinkTooltipView.text = R.string.localizable.quickLinkTooltip(Defaults.shared.currentUser?.channelId ?? "")
     }
     
     @IBAction func gameCentreButtonClicked(_ sender: UIButton) {
-        let application = UIApplication.shared
-        if let user = Defaults.shared.currentUser,
-           let channelId = user.channelId,
-           let authToken = Defaults.shared.sessionToken,
-           let messagesAppURL = URL(string: "\(DeepLinkData.vidplayDeepLinkUrlString)\(DeepLinkData.appDeeplinkName.lowercased())/\(Defaults.shared.releaseType.description)/\(channelId)/\(authToken)/\(isLiteApp)"),
-           application.canOpenURL(messagesAppURL) {
-            application.open(messagesAppURL)
-        } else {
-            guard let url = URL(string: vidplayWebsiteUrl) else {
-                return
-            }
-            presentSafariBrowser(url: url)
-        }
-        blurView.isHidden = true
+        blurView.isHidden = false
         switchingAppView.isHidden = true
+        quickLinkTooltipView.isHidden = false
+        lblQuickLinkTooltipView.text = R.string.localizable.quickLinkTooltip(Defaults.shared.currentUser?.channelId ?? "")
     }
     
     @IBAction func confirmVideoButtonClicked(_ sender: UIButton) {
