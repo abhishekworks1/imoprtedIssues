@@ -791,6 +791,15 @@ class Defaults {
         }
     }
     
+    var isFreeTrial: Bool? {
+        get {
+            return appDefaults?.value(forKey: "isFreeTrial") as? Bool ?? false
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isFreeTrial")
+        }
+    }
+    
     func clearData() {
         if let appDefaultsDictionary = appDefaults?.dictionaryRepresentation() {
             appDefaultsDictionary.keys.forEach { key in
