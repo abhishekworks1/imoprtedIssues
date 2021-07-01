@@ -118,7 +118,9 @@ struct CommonFunctions {
                 //The method used by ios8.0 or above
                 let libraryPath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.libraryDirectory, FileManager.SearchPathDomainMask.userDomainMask, true).first
                 let cookiesPath = libraryPath! + "/Cookies"
-                try!FileManager.default.removeItem(atPath: cookiesPath)
+                do {
+                    try FileManager.default.removeItem(atPath: cookiesPath)
+                } catch {}
             }
         }
     }

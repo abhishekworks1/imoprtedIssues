@@ -47,6 +47,7 @@ enum SettingsMode: Int {
     case pic2Art
     case help
     case edit
+    case quickLink
 }
 
 class StorySetting {
