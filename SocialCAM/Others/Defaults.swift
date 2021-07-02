@@ -542,7 +542,7 @@ class Defaults {
     var appMode: AppMode {
         get {
             if isLiteApp {
-                let appMode = AppMode(rawValue: (appDefaults?.integer(forKey: "appMode") ?? 0)) ?? .free
+                let appMode = AppMode(rawValue: (appDefaults?.integer(forKey: "appMode") ?? 1)) ?? .basic
                 if appMode == .advanced || appMode == .professional {
                     return .basic
                 } else {
@@ -761,6 +761,33 @@ class Defaults {
         }
         set {
             appDefaults?.set(newValue, forKey: "isFromSignup")
+        }
+    }
+    
+    var numberOfFreeTrialDays: Int? {
+        get {
+            return appDefaults?.value(forKey: "numberOfFreeTrialDays") as? Int
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "numberOfFreeTrialDays")
+        }
+    }
+    
+    var subscriptionId: String? {
+        get {
+            return appDefaults?.value(forKey: "subscriptionId") as? String
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "subscriptionId")
+        }
+    }
+    
+    var isDowngradeSubscription: Bool? {
+        get {
+            return appDefaults?.value(forKey: "isDowngradeSubscription") as? Bool ?? false
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isDowngradeSubscription")
         }
     }
     

@@ -13,9 +13,11 @@ class SubscriptionsViewController: UIViewController {
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblPrice: UILabel!
     @IBOutlet weak var btnUpgrade: UIButton!
+    @IBOutlet weak var btnYourCurrentPlan: UIButton!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var freeModeAlertView: UIView!
     @IBOutlet weak var freeModeAlertBlurView: UIVisualEffectView!
+    @IBOutlet weak var lblExpireText: UILabel!
     
     internal var subscriptionType = AppMode.free {
         didSet {
@@ -23,17 +25,23 @@ class SubscriptionsViewController: UIViewController {
         }
     }
     var appMode: AppMode?
+    private var viewModel = PurchaseHelper.shared.objSubscriptionListViewModel
+    private var subscriptionsList: [Subscription] {
+        return viewModel.subscriptionPlanData
+    }
+    var isFreeTrialMode = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.viewModel.getPackageList()
         setupUI()
-        bindPaymentSuccessVariable(appMode: appMode ?? .basic)
-        PurchaseHelper.shared.setProductIds(ids: [Constant.IAPProductIds.quickCamLiteBasic])
-        PurchaseHelper.shared.fetchAvailableProducts { }
+        if subscriptionType == .basic {
+            bindViewModel(appMode: appMode ?? .basic)
+        }
     }
     
     @IBAction func btnUpgradeTapped(_ sender: Any) {
-        if Defaults.shared.appMode != self.subscriptionType {
+        if Defaults.shared.appMode != self.subscriptionType || isFreeTrialMode || (Defaults.shared.isDowngradeSubscription == true && Defaults.shared.appMode != .free) {
             Defaults.shared.isSubscriptionApiCalled = true
             self.enableMode(appMode: self.subscriptionType)
         }
@@ -46,11 +54,31 @@ class SubscriptionsViewController: UIViewController {
     }
     
     private func setupUI() {
+        if let currentUser = Defaults.shared.currentUser {
+            if currentUser.isTempSubscription ?? false && subscriptionType != .free && Defaults.shared.appMode != .free {
+                isFreeTrialMode = true
+                lblExpireText.text = R.string.localizable.expireFreeTrialText("\(Defaults.shared.numberOfFreeTrialDays ?? 0)")
+                setupForFreeTrial(isFreeTrial: true)
+            } else if Defaults.shared.isDowngradeSubscription == true && subscriptionType != .free && Defaults.shared.appMode != .free {
+                lblExpireText.isHidden = true
+                btnYourCurrentPlan.isHidden = false
+            } else {
+                setupForFreeTrial(isFreeTrial: false)
+            }
+            if currentUser.isTempSubscription ?? false || Defaults.shared.isDowngradeSubscription == true && subscriptionType == .free {
+                btnUpgrade.isHidden = true
+            }
+        }
         self.lblTitle.text = self.subscriptionType.description
         self.lblPrice.text = self.subscriptionType.price
         if Defaults.shared.appMode == self.subscriptionType {
-            btnUpgrade.setTitle(R.string.localizable.yourCurrentPlan(), for: .normal)
-            btnUpgrade.backgroundColor = R.color.currentPlanButtonColor()
+            if Defaults.shared.isDowngradeSubscription == true && Defaults.shared.appMode != .free {
+                btnUpgrade.setTitle(R.string.localizable.upgradeNow(), for: .normal)
+                btnUpgrade.backgroundColor = R.color.appPrimaryColor()
+            } else {
+                btnUpgrade.setTitle(isFreeTrialMode ? R.string.localizable.upgradeNow() : R.string.localizable.yourCurrentPlan(), for: .normal)
+                btnUpgrade.backgroundColor = isFreeTrialMode ? R.color.appPrimaryColor() : R.color.currentPlanButtonColor()
+            }
         } else {
             self.setDowngradeButton()
         }
@@ -142,7 +170,16 @@ class SubscriptionsViewController: UIViewController {
                 }
                 self.callSubscriptionApi(appMode: appMode, code: textField.text ?? "", successMessage: successMessage)
             } else {
-                self.callSubscriptionApi(appMode: appMode, code: "GET_SUBSCRIPTION", successMessage: successMessage)
+                if Defaults.shared.releaseType == .store {
+                    guard let url = URL(string: "https://apps.apple.com/account/subscriptions") else {
+                        return
+                    }
+                    UIApplication.shared.open(url)
+                } else {
+                    if let subscriptionId = Defaults.shared.subscriptionId {
+                        self.downgradeSubscription(subscriptionId)
+                    }
+                }
             }
             
         }
@@ -152,7 +189,9 @@ class SubscriptionsViewController: UIViewController {
         objAlert.addAction(cancelAction)
         objAlert.addAction(actionSave)
         if isQuickApp && appMode == .basic {
-            self.purchaseProduct(productIdentifire: Constant.IAPProductIds.quickCamLiteBasic, productServerID: Constant.IAPProductServerIds.quickCamLiteBasic)
+            let subscriptionData = subscriptionsList.filter({$0.productId == Constant.IAPProductIds.quickCamLiteBasic})
+            self.purchaseProduct(productIdentifire: subscriptionData.first?.productId ?? "", productServerID: subscriptionData.first?.id ?? "")
+            Defaults.shared.subscriptionId = subscriptionData.first?.id ?? ""
             self.appMode = appMode
         } else if appMode != .free || Defaults.shared.releaseType != .beta {
             self.present(objAlert, animated: true, completion: nil)
@@ -213,26 +252,61 @@ extension SubscriptionsViewController {
                 if !isUserCancelled {
                     Defaults.shared.isSubscriptionApiCalled = false
                     self.showAlert(alertMessage: error.localizedDescription)
+                    self.dismissHUD()
                 } else {
                     Defaults.shared.isSubscriptionApiCalled = false
+                    self.dismissHUD()
                 }
             } else {
                 Defaults.shared.isSubscriptionApiCalled = false
-                guard let expired = expired else {
-                    return
-                }
+                self.dismissHUD()
             }
         }
     }
     
-    func bindPaymentSuccessVariable(appMode: AppMode) {
-        PurchaseHelper.shared.isPaymentSuccessfull.bind { (isSuccess) in
+    func bindViewModel(appMode: AppMode) {
+        self.viewModel.subscriptionResponseMsg.bind { [weak self] (message, isSuccess) in
+            guard let `self` = self else { return }
+            self.dismissHUD()
             if isSuccess {
-                self.callSubscriptionApi(appMode: appMode, code: R.string.localizable.quickcam2021(), successMessage: R.string.localizable.basicLiteModeIsEnabled())
-            } else {
-                self.dismissHUD()
+                let user = Defaults.shared.currentUser
+                user?.subscriptionStatus = appMode.getType
+                user?.isTempSubscription = false
+                Defaults.shared.currentUser = user
+                Defaults.shared.isSubscriptionApiCalled = false
+                SubscriptionSettings.storySettings[0].settings[appMode.rawValue].selected = true
+                AppEventBus.post("changeMode")
+                self.navigationController?.popViewController(animated: true)
+                Utils.appDelegate?.window?.makeToast(R.string.localizable.basicLiteModeIsEnabled())
             }
+            self.showAlert(alertMessage: message)
         }
+        
+        self.viewModel.subscriptionError.bind { [weak self] (message) in
+            guard let `self` = self else { return }
+            self.dismissHUD()
+            self.showAlert(alertMessage: message)
+        }
+    }
+    
+    func setupForFreeTrial(isFreeTrial: Bool) {
+        lblExpireText.isHidden = !isFreeTrial
+        btnYourCurrentPlan.isHidden = !isFreeTrial
+    }
+    
+    func downgradeSubscription(_ subscriptionId: String) {
+        ProManagerApi.downgradeSubscription(subscriptionId: subscriptionId).request(Result<EmptyModel>.self).subscribe(onNext: { (response) in
+            if response.status == ResponseType.success {
+                Defaults.shared.isSubscriptionApiCalled = false
+                self.navigationController?.popViewController(animated: true)
+                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+            } else {
+                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+            }
+        }, onError: { error in
+            self.showAlert(alertMessage: error.localizedDescription)
+        }, onCompleted: {
+        }).disposed(by: self.rx.disposeBag)
     }
     
 }

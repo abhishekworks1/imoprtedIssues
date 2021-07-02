@@ -80,7 +80,9 @@ class User: Codable, Mappable {
     var viralcamReferralLink: String?
     var referralCode: String?
     var subscriptionStatus: String?
-    var dob : String?
+    var dob: String?
+    var freeTrialExpiry: String?
+    var isTempSubscription: Bool?
     
     required init?(map: Map) {
         
@@ -173,6 +175,8 @@ class User: Codable, Mappable {
         viralcamReferralLink <- map["viralcamReferralLink"]
         referralCode <- map["referralCode"]
         dob <- map["dob"]
+        freeTrialExpiry <- map["freeTrialExpiry"]
+        isTempSubscription <- map["isTempSubscription"]
     }
     
 }

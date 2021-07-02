@@ -67,6 +67,10 @@ public enum ProManagerApi {
     case loginWithKeycloak(code: String, redirectUrl: String)
     case logoutKeycloak
     case addReferral(refferingChannel: String)
+    case subscriptionList
+    case buySubscription(param: [String:Any])
+    case userSync
+    case downgradeSubscription(subscriptionId: String)
 
     var endpoint: Endpoint {
         var endpointClosure = MoyaProvider<ProManagerApi>.defaultEndpointMapping(for: self)
@@ -237,6 +241,14 @@ extension ProManagerApi: TargetType {
             return Paths.logoutWithKeycloak
         case .addReferral:
             return Paths.addReferral
+        case .buySubscription:
+            return Paths.buySubscription
+        case .subscriptionList:
+            return Paths.subsciptionList
+        case .userSync:
+            return Paths.userSync
+        case .downgradeSubscription:
+            return Paths.downgradeSubscription
         }
        
     }
@@ -246,7 +258,7 @@ extension ProManagerApi: TargetType {
         switch self {
         case .signUp, .logIn, .verifyChannel, .search, .getAccessToken:
             return .post
-        case .getSplashImages, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getHashTagSets, .getWeather, .getyoutubeSubscribedChannel, .getYoutubeCategory, .instgramProfile, .instgramProfileDetails, .getLongLivedToken, .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData, .getUserProfile, .getUserSettings, .logoutKeycloak:
+        case .getSplashImages, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getHashTagSets, .getWeather, .getyoutubeSubscribedChannel, .getYoutubeCategory, .instgramProfile, .instgramProfileDetails, .getLongLivedToken, .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData, .getUserProfile, .getUserSettings, .logoutKeycloak, .subscriptionList, .userSync:
             return .get
         case .updateProfile, .editStory, .updatePost, .updateHashTagSet:
             return .put
@@ -582,6 +594,14 @@ extension ProManagerApi: TargetType {
             break
         case .addReferral(let refferingChannel):
             param = ["refferingChannel": refferingChannel]
+        case .subscriptionList:
+            break
+        case .buySubscription(let parameters):
+            param = parameters
+        case .userSync:
+            break
+        case .downgradeSubscription(let subscriptionId):
+            param = ["subscriptionId": subscriptionId]
         }
         return param
     }
@@ -595,7 +615,7 @@ extension ProManagerApi: TargetType {
             return JSONEncoding.default
         case .getyoutubeSubscribedChannel:
             return TokenURLEncoding.default
-        case .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData, .getHashTagSets, .getUserProfile, .getUserSettings, .logoutKeycloak:
+        case .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData, .getHashTagSets, .getUserProfile, .getUserSettings, .logoutKeycloak, .subscriptionList, .userSync:
             return URLEncoding.default
         default:
             return JSONEncoding.default

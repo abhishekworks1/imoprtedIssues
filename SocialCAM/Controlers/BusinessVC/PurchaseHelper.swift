@@ -9,6 +9,9 @@
 import Foundation
 import StoreKit
 
+/// Validate InApp Purchase Completion Block
+typealias ValidateInAppPurchaseCompletionBlock = (Bool, Bool, String?) -> Void
+
 typealias PurchaseCompleteCallBack = (_ isSuccess: Bool?, _ error: NSError?, _ isUserCancelled: Bool) -> Void
 
 var appDelegate: AppDelegate? {
@@ -21,6 +24,7 @@ class PurchaseHelper: NSObject {
     var productIdentifier: [String] =  []
     var productID = ""
     var productServerID = ""
+    var platformType = "ios"
     var productsRequest = SKProductsRequest()
     var iapProducts = [SKProduct]()
     var isProduction: Bool?
@@ -29,6 +33,7 @@ class PurchaseHelper: NSObject {
     var receiptValidationBlock: (() -> Void)?
     public static let shared = PurchaseHelper()
     public var isPaymentSuccessfull = Dynamic(false)
+    var objSubscriptionListViewModel: SubscriptionViewModel = SubscriptionViewModel()
     
     // MARK: - Initializers
     override init() {
@@ -87,10 +92,25 @@ extension PurchaseHelper {
             let receiptString = receiptData.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
             let mode = isProduction ?? false ? IAPMode.production.getStringValue() : IAPMode.sandbox.getStringValue()
             let data = receiptString
-            let requestContents: [String: Any] = [Constant.BuySubscription.receipt: data, Constant.BuySubscription.password: inAppConfig, Constant.BuySubscription.mode: mode, Constant.BuySubscription.subscriptionID: productServerID]
+            let requestContents: [String: Any] = [Constant.BuySubscription.receipt: data, Constant.BuySubscription.password: inAppConfig, Constant.BuySubscription.mode: mode, Constant.BuySubscription.subscriptionID: productServerID, Constant.BuySubscription.platformType: platformType]
+            validateReceiptFromServer(userInfo: requestContents)
         } catch {
             if let block = self.receiptValidationBlock {
                 block()
+            }
+        }
+    }
+    
+    func validateReceiptFromServer(userInfo: [String: Any]) {
+        objSubscriptionListViewModel.validateRecieptOverSeverData(param: userInfo) { [weak self] (isSucess, isExpired, _) in
+            guard let vSelf = self else { return }
+            if isSucess {
+                Defaults.shared.isSubscriptionExpired = isExpired
+            } else {
+                Defaults.shared.isSubscriptionExpired = true
+            }
+            if let block = vSelf.purchaseCompleteBlock {
+                block(Defaults.shared.isSubscriptionExpired, nil, false)
             }
         }
     }

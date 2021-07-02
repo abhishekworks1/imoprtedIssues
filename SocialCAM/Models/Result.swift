@@ -137,8 +137,9 @@ class UserSettings: Mappable {
 
 class LoginResult: Mappable{
     
-    var isRegistered : Bool?
-    var user : User?
+    var isRegistered: Bool?
+    var user: User?
+    var diffDays: Int?
     
     required init?(map: Map) {
         
@@ -147,6 +148,125 @@ class LoginResult: Mappable{
     func mapping(map: Map) {
         isRegistered <- map["isRegistered"]
         user <- map["user"]
+        diffDays <- map["diffDays"]
+    }
+    
+}
+
+class SubscriptionList: Mappable {
+    
+    var subscriptions: [Subscription]?
+    
+    required init?(map: Map) {
+        
+    }
+    
+    func mapping(map: Map) {
+        subscriptions <- map["subscriptions"]
+    }
+    
+}
+
+class Subscription: Mappable {
+    
+    var v: Int?
+    var id: String?
+    var createdAt: String?
+    var cycle: String?
+    var descriptionField: String?
+    var name: String?
+    var price: Int?
+    var productId: String?
+    var updatedAt: String?
+    
+    required init?(map: Map) {
+        
+    }
+    
+    func mapping(map: Map) {
+        v <- map["__v"]
+        id <- map["_id"]
+        createdAt <- map["createdAt"]
+        cycle <- map["cycle"]
+        descriptionField <- map["description"]
+        name <- map["name"]
+        price <- map["price"]
+        productId <- map["productId"]
+        updatedAt <- map["updatedAt"]
+    }
+    
+}
+
+class BuySubscriptionResponseModel: Mappable {
+    
+    var userSubscriptionId: String?
+    
+    required init?(map: Map) {
+        
+    }
+    
+    func mapping(map: Map) {
+        userSubscriptionId <- map["userSubscriptionId"]
+    }
+    
+}
+
+class UserSyncModel: Mappable{
+    
+    var diffDays: Int?
+    var user: User?
+    var userSubscription: UserSubscription?
+    
+    required init?(map: Map) {
+        
+    }
+    
+    func mapping(map: Map) {
+        diffDays <- map["diffDays"]
+        user <- map["user"]
+        userSubscription <- map["userSubscription"]
+    }
+    
+}
+
+class UserSubscription: Mappable{
+    
+    var v: Int?
+    var id: String?
+    var amount: Int?
+    var createdAt: String?
+    var endDate: String?
+    var inAppMode: String?
+    var inAppResponse: String?
+    var isDowngraded: Bool?
+    var isRenewable: Bool?
+    var platformType: String?
+    var startDate: String?
+    var subscription: Subscription?
+    var subscriptionId: String?
+    var updatedAt: String?
+    var userId: String?
+    
+    required init?(map: Map) {
+        
+    }
+    
+    func mapping(map: Map) {
+        v <- map["__v"]
+        id <- map["_id"]
+        amount <- map["amount"]
+        createdAt <- map["createdAt"]
+        endDate <- map["endDate"]
+        inAppMode <- map["inAppMode"]
+        inAppResponse <- map["inAppResponse"]
+        isDowngraded <- map["isDowngraded"]
+        isRenewable <- map["isRenewable"]
+        platformType <- map["platformType"]
+        startDate <- map["startDate"]
+        subscription <- map["subscription"]
+        subscriptionId <- map["subscriptionId"]
+        updatedAt <- map["updatedAt"]
+        userId <- map["userId"]
     }
     
 }

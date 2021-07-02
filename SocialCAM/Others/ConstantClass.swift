@@ -354,6 +354,7 @@ public struct Constant {
         static let receipt          = "receipt"
         static let password         = "password"
         static let mode             = "mode"
+        static let platformType     = "platformType"
     }
     
     struct IAPError {
@@ -364,7 +365,7 @@ public struct Constant {
     
     /// IAP product id's
     struct IAPProductIds {
-        static let quickCamLiteBasic = "com.QuickCamLite.app.basic"
+        static let quickCamLiteBasic = "com.quickcamlite.app.basic"
     }
     
     struct IAPProductServerIds {

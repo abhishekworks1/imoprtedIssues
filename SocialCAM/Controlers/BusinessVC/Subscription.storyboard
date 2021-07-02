@@ -280,43 +280,75 @@
                                     <constraint firstAttribute="bottom" secondItem="LoK-od-CUJ" secondAttribute="bottom" id="pwi-1g-J9B"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a9w-D1-Q4W">
-                                <rect key="frame" x="48" y="786" width="318" height="49"/>
-                                <color key="backgroundColor" name="AppPrimaryColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="49" id="qbG-Co-WwU"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
-                                <state key="normal" title="Upgrade Now">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
-                                        <real key="value" value="5"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="btnUpgradeTapped:" destination="cbr-YN-Zsh" eventType="touchUpInside" id="tHU-4A-2n9"/>
-                                </connections>
-                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expire in 14 days" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5gJ-7i-uQc">
+                                <rect key="frame" x="48" y="695" width="318" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" name="currentPlanButtonColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="npZ-x8-Pna">
+                                <rect key="frame" x="48" y="727" width="318" height="108"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Idw-jz-Jyg">
+                                        <rect key="frame" x="0.0" y="0.0" width="318" height="49"/>
+                                        <color key="backgroundColor" name="currentPlanButtonColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="49" id="EHL-ug-hOO"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                                        <state key="normal" title="Your Current Plan">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                <real key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a9w-D1-Q4W">
+                                        <rect key="frame" x="0.0" y="69" width="318" height="49"/>
+                                        <color key="backgroundColor" name="AppPrimaryColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="49" id="qbG-Co-WwU"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                                        <state key="normal" title="Upgrade Now">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                <real key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="btnUpgradeTapped:" destination="cbr-YN-Zsh" eventType="touchUpInside" id="tHU-4A-2n9"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="d2c-p1-I8a"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="JpW-fA-Nvp" firstAttribute="top" secondItem="d2c-p1-I8a" secondAttribute="top" id="06D-4K-SIj"/>
                             <constraint firstItem="JpW-fA-Nvp" firstAttribute="trailing" secondItem="d2c-p1-I8a" secondAttribute="trailing" id="1yl-e0-TIx"/>
-                            <constraint firstItem="jxV-sn-mVE" firstAttribute="bottom" secondItem="a9w-D1-Q4W" secondAttribute="top" constant="-10" id="Aid-Nt-VjV"/>
-                            <constraint firstItem="a9w-D1-Q4W" firstAttribute="leading" secondItem="d2c-p1-I8a" secondAttribute="leading" constant="48" id="FST-n0-ziq"/>
+                            <constraint firstItem="5gJ-7i-uQc" firstAttribute="top" secondItem="jxV-sn-mVE" secondAttribute="bottom" constant="10" id="3Rs-cW-TY4"/>
+                            <constraint firstItem="5gJ-7i-uQc" firstAttribute="leading" secondItem="npZ-x8-Pna" secondAttribute="leading" id="8pn-fd-Zvy"/>
+                            <constraint firstItem="npZ-x8-Pna" firstAttribute="top" secondItem="5gJ-7i-uQc" secondAttribute="bottom" constant="8" symbolic="YES" id="F4a-Fr-deK"/>
                             <constraint firstItem="JpW-fA-Nvp" firstAttribute="leading" secondItem="d2c-p1-I8a" secondAttribute="leading" id="H4D-e0-Koz"/>
-                            <constraint firstItem="a9w-D1-Q4W" firstAttribute="bottom" secondItem="JpW-fA-Nvp" secondAttribute="bottom" constant="-27" id="QaA-Ya-31s"/>
-                            <constraint firstItem="d2c-p1-I8a" firstAttribute="trailing" secondItem="a9w-D1-Q4W" secondAttribute="trailing" constant="48" id="dbH-LF-nfZ"/>
+                            <constraint firstItem="npZ-x8-Pna" firstAttribute="leading" secondItem="d2c-p1-I8a" secondAttribute="leading" constant="48" id="ZcG-gJ-jlp"/>
+                            <constraint firstItem="npZ-x8-Pna" firstAttribute="bottom" secondItem="JpW-fA-Nvp" secondAttribute="bottom" constant="-27" id="jF1-Tt-GzQ"/>
+                            <constraint firstItem="5gJ-7i-uQc" firstAttribute="trailing" secondItem="npZ-x8-Pna" secondAttribute="trailing" id="kQq-L2-oca"/>
                             <constraint firstItem="JpW-fA-Nvp" firstAttribute="bottom" secondItem="d2c-p1-I8a" secondAttribute="bottom" id="qzI-94-lvd"/>
+                            <constraint firstItem="d2c-p1-I8a" firstAttribute="trailing" secondItem="npZ-x8-Pna" secondAttribute="trailing" constant="48" id="wVF-zg-kuQ"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="btnUpgrade" destination="a9w-D1-Q4W" id="PZY-PS-31E"/>
+                        <outlet property="btnYourCurrentPlan" destination="Idw-jz-Jyg" id="Gxe-Xa-l1j"/>
                         <outlet property="freeModeAlertBlurView" destination="m0z-cb-MFl" id="5LO-6z-Iqa"/>
                         <outlet property="freeModeAlertView" destination="XB6-io-hYJ" id="FS0-VD-9DX"/>
+                        <outlet property="lblExpireText" destination="5gJ-7i-uQc" id="WiZ-BX-tDH"/>
                         <outlet property="lblPrice" destination="xnQ-aO-Vug" id="0GM-2X-RhL"/>
                         <outlet property="lblTitle" destination="H7c-hT-gaA" id="YnV-2N-0F9"/>
                         <outlet property="tableView" destination="jxV-sn-mVE" id="nA9-cW-qh4"/>
@@ -332,7 +364,10 @@
         <image name="storyBack" width="19" height="19"/>
         <image name="subscriptionSeparator" width="46" height="5"/>
         <namedColor name="AppPrimaryColor">
-            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="currentPlanButtonColor">
+            <color red="0.87058823529411766" green="0.20392156862745098" blue="0.20392156862745098" alpha="0.89999997615814209" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="resendLinkColor">
             <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -602,6 +602,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         view.bringSubviewToFront(selectTimersView)
         view.bringSubviewToFront(switchingAppView)
         view.bringSubviewToFront(quickLinkTooltipView)
+        self.syncUserModel()
         getUserSettings()
         if isQuickCamLiteApp || isQuickCamApp {
             addObserverForRecordingView()
@@ -1641,6 +1642,7 @@ extension StoryCameraViewController {
     
     @objc func enterForeground(_ notifi: Notification) {
         if isViewAppear {
+            syncUserModel()
             startCapture()
             addTikTokShareViewIfNeeded()
             if let pasteboard = UIPasteboard(name: UIPasteboard.Name(rawValue: Constant.Application.pasteboardName), create: true),
@@ -2562,4 +2564,21 @@ extension StoryCameraViewController {
             quickLinkWebsiteUrl = URL(string: vidplayWebsiteUrl)
         }
     }
+    
+    func syncUserModel() {
+        ProManagerApi.userSync.request(Result<UserSyncModel>.self).subscribe(onNext: { (response) in
+            if response.status == ResponseType.success {
+                Defaults.shared.currentUser = response.result?.user
+                Defaults.shared.numberOfFreeTrialDays = response.result?.diffDays
+                Defaults.shared.userCreatedDate = response.result?.user?.created
+                Defaults.shared.isDowngradeSubscription = response.result?.userSubscription?.isDowngraded
+            } else {
+                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+            }
+        }, onError: { error in
+            self.showAlert(alertMessage: error.localizedDescription)
+        }, onCompleted: {
+        }).disposed(by: self.rx.disposeBag)
+    }
+    
 }
