@@ -26,7 +26,9 @@ class HelpSettings {
         StorySettings(name: "",
                       settings: [StorySetting(name: R.string.localizable.pic2Art(), selected: false)], settingsType: .pic2Art),
         StorySettings(name: "",
-                      settings: [StorySetting(name: R.string.localizable.edit(), selected: false)], settingsType: .edit)
+                      settings: [StorySetting(name: R.string.localizable.edit(), selected: false)], settingsType: .edit),
+        StorySettings(name: "",
+                      settings: [StorySetting(name: R.string.localizable.quickLink(), selected: false)], settingsType: .quickLink)
     ]
 }
 
@@ -111,6 +113,12 @@ extension HelpSettingsViewController: UITableViewDelegate {
             if let tooltipViewController = R.storyboard.loginViewController.tooltipViewController() {
                 tooltipViewController.pushFromSettingScreen = true
                 tooltipViewController.isEditScreenTooltip = true
+                navigationController?.pushViewController(tooltipViewController, animated: true)
+            }
+        } else if settingTitle.settingsType == .quickLink {
+            if let tooltipViewController = R.storyboard.loginViewController.tooltipViewController() {
+                tooltipViewController.pushFromSettingScreen = true
+                tooltipViewController.isQuickLinkTooltip = true
                 navigationController?.pushViewController(tooltipViewController, animated: true)
             }
         }

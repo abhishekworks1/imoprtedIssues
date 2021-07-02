@@ -22,10 +22,12 @@ class TooltipViewController: UIViewController {
     var gifArray = ["Tooltip1", "Tooltip2", "Tooltip3", "Tooltip4", "Tooltip5", "Tooltip6"]
     var pic2ArtGifArray = ["Pic2ArtTooltip1", "Pic2ArtTooltip2"]
     var editTooltip = ["editTooltip1", "editTooltip2", "editTooltip3", "editTooltip4", "editTooltip5", "editTooltip6", "editTooltip7", "editTooltip8", "editTooltip9"]
+    var quickLinkGifArray = ["QuickLinkTooltip1", "QuickLinkTooltip2"]
     var gifCount = 0
     var pushFromSettingScreen = false
     var isPic2ArtGif = false
     var isEditScreenTooltip = false
+    var isQuickLinkTooltip = false
     
     // MARK: - View life cycle methods
     override func viewDidLoad() {
@@ -36,6 +38,9 @@ class TooltipViewController: UIViewController {
         } else if isEditScreenTooltip {
             hideButtonsForEditTooltip()
             addEditTooltipToImgView(imgName: editTooltip.first ?? R.string.localizable.editTooltip1())
+        } else if isQuickLinkTooltip {
+            hideShowSkipNextButton(shouldShow: false)
+            addGifToImageView(gifName: quickLinkGifArray.first ?? R.string.localizable.quickLinkTooltip1())
         } else {
             hideShowSkipNextButton(shouldShow: true)
             addGifToImageView(gifName: gifArray.first ?? R.string.localizable.tooltip1())
@@ -89,9 +94,26 @@ class TooltipViewController: UIViewController {
                     btnPic2ArtSkip.isHidden = true
                 }
             }
+        } else if isQuickLinkTooltip {
+            if gifCount == 2 {
+                btnSkipClicked(sender)
+            } else {
+                addGifToImageView(gifName: quickLinkGifArray[gifCount])
+                if gifCount == 1 {
+                    btnPic2ArtNext.setTitle(R.string.localizable.done(), for: .normal)
+                    btnPic2ArtSkip.isHidden = true
+                }
+            }
         } else {
             if (gifCount == 6) {
-                btnSkipClicked(sender)
+                if pushFromSettingScreen == false {
+                    if let tooltipViewController = R.storyboard.loginViewController.tooltipViewController() {
+                        tooltipViewController.isQuickLinkTooltip = true
+                        Utils.appDelegate?.window?.rootViewController = tooltipViewController
+                    }
+                } else {
+                    btnSkipClicked(sender)
+                }
             } else {
                 addGifToImageView(gifName: gifArray[gifCount])
                 if gifCount == 5 {
