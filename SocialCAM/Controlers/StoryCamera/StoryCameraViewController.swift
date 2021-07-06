@@ -190,6 +190,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     @IBOutlet weak var signupTooltipView: UIView!
     @IBOutlet weak var quickLinkTooltipView: UIView!
     @IBOutlet weak var lblQuickLinkTooltipView: UILabel!
+    @IBOutlet weak var btnDoNotShowAgain: UIButton!
     
     // MARK: Variables
     var recordButtonCenterPoint: CGPoint = CGPoint.init()

@@ -469,18 +469,57 @@ extension StoryCameraViewController {
     }
     
     @IBAction func businessCentreButtonClicked(_ sender: UIButton) {
-        blurView.isHidden = false
+        let application = UIApplication.shared
+        blurView.isHidden = true
         switchingAppView.isHidden = true
-        quickLinkTooltipView.isHidden = false
         isBusinessCenter = true
-        lblQuickLinkTooltipView.text = R.string.localizable.quickLinkTooltip(Defaults.shared.currentUser?.channelId ?? "")
+        if (Defaults.shared.isDoNotShowAgainBusinessCenterClicked == false) {
+            blurView.isHidden = false
+            quickLinkTooltipView.isHidden = false
+            lblQuickLinkTooltipView.text = R.string.localizable.quickLinkTooltip(R.string.localizable.businessCenter(), Defaults.shared.currentUser?.channelId ?? "")
+        } else {
+            getUrlForQuickLink()
+            if let quickLinkAppUrl = quickLinkAppUrl, application.canOpenURL(quickLinkAppUrl) {
+                application.open(quickLinkAppUrl)
+            } else {
+                guard let url = quickLinkWebsiteUrl else {
+                    return
+                }
+                presentSafariBrowser(url: url)
+            }
+        }
+        btnDoNotShowAgain.isSelected = false
     }
     
     @IBAction func gameCentreButtonClicked(_ sender: UIButton) {
-        blurView.isHidden = false
+        let application = UIApplication.shared
+        blurView.isHidden = true
         switchingAppView.isHidden = true
-        quickLinkTooltipView.isHidden = false
-        lblQuickLinkTooltipView.text = R.string.localizable.quickLinkTooltip(Defaults.shared.currentUser?.channelId ?? "")
+        if (Defaults.shared.isDoNotShowAgainVidPlayClicked == false) {
+            blurView.isHidden = false
+            quickLinkTooltipView.isHidden = false
+            lblQuickLinkTooltipView.text = R.string.localizable.quickLinkTooltip(R.string.localizable.vidPlay(), Defaults.shared.currentUser?.channelId ?? "")
+        } else {
+            getUrlForQuickLink()
+            if let quickLinkAppUrl = quickLinkAppUrl, application.canOpenURL(quickLinkAppUrl) {
+                application.open(quickLinkAppUrl)
+            } else {
+                guard let url = quickLinkWebsiteUrl else {
+                    return
+                }
+                presentSafariBrowser(url: url)
+            }
+        }
+        btnDoNotShowAgain.isSelected = false
+    }
+    
+    @IBAction func doNotShowAgainClicked(_ sender: UIButton) {
+        btnDoNotShowAgain.isSelected = !btnDoNotShowAgain.isSelected
+        if isBusinessCenter {
+            Defaults.shared.isDoNotShowAgainBusinessCenterClicked = btnDoNotShowAgain.isSelected
+        } else {
+            Defaults.shared.isDoNotShowAgainVidPlayClicked = btnDoNotShowAgain.isSelected
+        }
     }
     
     @IBAction func confirmVideoButtonClicked(_ sender: UIButton) {
