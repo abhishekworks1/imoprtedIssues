@@ -737,6 +737,24 @@ class Defaults {
         }
     }
     
+    var isDoNotShowAgainBusinessCenterClicked: Bool {
+        get {
+            return appDefaults?.value(forKey: "isDoNotShowAgainBusinessCenterClicked") as? Bool ?? false
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isDoNotShowAgainBusinessCenterClicked")
+        }
+    }
+    
+    var isDoNotShowAgainVidPlayClicked: Bool {
+        get {
+            return appDefaults?.value(forKey: "isDoNotShowAgainVidPlayClicked") as? Bool ?? false
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isDoNotShowAgainVidPlayClicked")
+        }
+    }
+    
     var isSurveyAlertShowed: Bool {
         get {
             return appDefaults?.value(forKey: "isSurveyAlertShowed") as? Bool ?? false
