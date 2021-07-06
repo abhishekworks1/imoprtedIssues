@@ -65,7 +65,7 @@ class SubscriptionsViewController: UIViewController {
             } else {
                 setupForFreeTrial(isFreeTrial: false)
             }
-            if currentUser.isTempSubscription ?? false || Defaults.shared.isDowngradeSubscription == true && subscriptionType == .free {
+            if (currentUser.isTempSubscription == true && subscriptionType == .free) || (Defaults.shared.isDowngradeSubscription == true && subscriptionType == .free) {
                 btnUpgrade.isHidden = true
             }
         }

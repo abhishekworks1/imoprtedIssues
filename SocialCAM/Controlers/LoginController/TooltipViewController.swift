@@ -19,7 +19,7 @@ class TooltipViewController: UIViewController {
     @IBOutlet weak var btnSkipEditTooltip: UIButton!
     
     // MARK: - Variables declaration
-    var gifArray = ["Tooltip1", "Tooltip2", "Tooltip3", "Tooltip4", "Tooltip5", "Tooltip6"]
+    var gifArray = ["Tooltip1", "Tooltip2", "Tooltip3", "Tooltip6", "Tooltip4", "Tooltip5"]
     var pic2ArtGifArray = ["Pic2ArtTooltip1", "Pic2ArtTooltip2"]
     var editTooltip = ["editTooltip1", "editTooltip2", "editTooltip3", "editTooltip4", "editTooltip5", "editTooltip6", "editTooltip7", "editTooltip8", "editTooltip9"]
     var quickLinkGifArray = ["QuickLinkTooltip1", "QuickLinkTooltip2"]

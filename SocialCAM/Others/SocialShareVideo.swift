@@ -330,7 +330,6 @@ open class SocialShareVideo: NSObject, SharingDelegate {
     }
     
     func snapChatShare(snapContent: SCSDKSnapContent) {
-        snapContent.caption = Constant.Application.displayName
         let api = SCSDKSnapAPI.init(content: snapContent)
         api.startSnapping { _ in
            

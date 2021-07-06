@@ -188,9 +188,29 @@ public class LoadingView: UIView {
     
     open func setup() {
         if isLiteApp {
-            imgAdvertisementArray = Defaults.shared.appMode == .free ? [R.image.adUpgrade(), R.image.adFull()] : [R.image.adFull()]
+            if Defaults.shared.isFreeTrial == true {
+                checkForBanners(bannerImg: R.image.specialOfferForLifebanner())
+            } else if Defaults.shared.isFreeTrial == false {
+                if Defaults.shared.appMode != .basic {
+                    checkForBanners(bannerImg: R.image.upgradeBasicLiteBanner())
+                } else {
+                    checkForBanners(bannerImg: R.image.fullVersionComingBanner())
+                }
+            }
         }
         advertisementTimer()
+    }
+    
+    func checkForBanners(bannerImg: UIImage?) {
+        if !openApp(appName: R.string.localizable.vidPlay().lowercased()) && !openApp(appName: R.string.localizable.businesscenter()) {
+            imgAdvertisementArray = [bannerImg, R.image.installVidplayBanner(), R.image.installBusinesscenterBanner()]
+        } else if !openApp(appName: R.string.localizable.vidPlay().lowercased()) {
+            imgAdvertisementArray = [bannerImg, R.image.installVidplayBanner()]
+        } else if !openApp(appName: R.string.localizable.businesscenter()) {
+            imgAdvertisementArray = [bannerImg, R.image.installBusinesscenterBanner()]
+        } else {
+            imgAdvertisementArray = [bannerImg]
+        }
     }
     
     public override func layoutSubviews() {
@@ -278,6 +298,18 @@ public class LoadingView: UIView {
                     containerView.free()
                 })
             }
+        }
+    }
+    
+    func openApp(appName: String) -> Bool {
+        let appScheme = "\(appName)://app"
+        guard let appUrl = URL(string: appScheme) else {
+            return false
+        }
+        if UIApplication.shared.canOpenURL(appUrl) {
+            return true
+        } else {
+            return false
         }
     }
     

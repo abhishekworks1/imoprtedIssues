@@ -89,7 +89,7 @@ extension ReferringChannelSuggestionViewController: UITextFieldDelegate {
         return true
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         self.changeClearButton(shouldShow: !(txtField.text?.isEmpty ?? false))
         if let textFieldCount = textField.text?.count {
             if textFieldCount >= 3 {
@@ -99,6 +99,7 @@ extension ReferringChannelSuggestionViewController: UITextFieldDelegate {
                 self.tblView.isHidden = true
             }
         }
+        return true
     }
     
 }
