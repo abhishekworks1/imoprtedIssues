@@ -112,10 +112,13 @@ class StorySettingsVC: UIViewController {
     @IBOutlet weak var settingsTableView: UITableView!
     @IBOutlet weak var lblAppInfo: UILabel!
     @IBOutlet weak var imgAppLogo: UIImageView!
+    @IBOutlet weak var lblLogoutPopupAppName: UILabel!
+    @IBOutlet weak var logoutPopupView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         lblAppInfo.text = "\(Constant.Application.displayName) - \(Constant.Application.appVersion)(\(Constant.Application.appBuildNumber))"
+        lblLogoutPopupAppName.text = "\(Constant.Application.displayName)"
         setupUI()
     }
     
@@ -168,6 +171,14 @@ class StorySettingsVC: UIViewController {
         guard let legalVc = R.storyboard.legal.legalViewController() else { return }
         legalVc.isTermsAndConditions = (sender.tag == 0)
         self.navigationController?.pushViewController(legalVc, animated: true)
+    }
+    
+    @IBAction func btnLogoutTapped(_ sender: UIButton) {
+        logoutWithKeycloak()
+    }
+    
+    @IBAction func btnCancelLogout(_ sender: UIButton) {
+        logoutPopupView.isHidden = true
     }
     
 }
@@ -320,7 +331,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 navigationController?.pushViewController(storySettingsVC, animated: true)
             }
         } else if settingTitle.settingsType == .logout {
-            logoutWithKeycloak()
+            logoutPopupView.isHidden = false
         } else if settingTitle.settingsType == .socialLogout {
             logoutUser()
         } else if settingTitle.settingsType == .socialLogins {
@@ -432,11 +443,28 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
     func logoutWithKeycloak() {
         ProManagerApi.logoutKeycloak.request(Result<EmptyModel>.self).subscribe(onNext: { (response) in
             if response.status == ResponseType.success {
-                self.viralCamLogout()
+                StoriCamManager.shared.logout()
+                TwitterManger.shared.logout()
+                GoogleManager.shared.logout()
+                FaceBookManager.shared.logout()
+                InstagramManager.shared.logout()
+                SnapKitManager.shared.logout { _ in
+                    
+                }
+                if #available(iOS 13.0, *) {
+                    AppleSignInManager.shared.logout()
+                }
+                self.settingsTableView.reloadData()
+                if let loginNav = R.storyboard.loginViewController.loginNavigation() {
+                    Defaults.shared.clearData()
+                    Utils.appDelegate?.window?.rootViewController = loginNav
+                }
             } else {
                 self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
             }
+            self.logoutPopupView.isHidden = true
         }, onError: { error in
+            self.logoutPopupView.isHidden = true
             self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
