@@ -297,8 +297,15 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             headerView.title.isHidden = true
             headerView.userImage.isHidden = true
         }
+        headerView.btnProfilePic.addTarget(self, action: #selector(btnEditProfilePic), for: .touchUpInside)
         
         return headerView
+    }
+    
+    @objc func btnEditProfilePic() {
+        if let editProfilePicViewController = R.storyboard.storyCameraViewController.editProfilePicViewController() {
+            navigationController?.pushViewController(editProfilePicViewController, animated: true)
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
