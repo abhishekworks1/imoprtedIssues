@@ -60,7 +60,8 @@ class SubscriptionsViewController: UIViewController {
                 isFreeTrialMode = true
                 setupForFreeTrial(isFreeTrial: true)
             } else if Defaults.shared.isDowngradeSubscription == true && subscriptionType != .free && Defaults.shared.appMode != .free {
-                setupForFreeTrial(isFreeTrial: true)
+                lblExpireText.isHidden = true
+                btnYourCurrentPlan.isHidden = false
             } else {
                 setupForFreeTrial(isFreeTrial: false)
             }
@@ -75,9 +76,11 @@ class SubscriptionsViewController: UIViewController {
                 btnUpgrade.setTitle(R.string.localizable.upgradeNow(), for: .normal)
                 btnUpgrade.backgroundColor = R.color.appPrimaryColor()
             } else {
-                btnUpgrade.titleLabel?.font = UIFont(name: "sfuiTextRegular", size: isFreeTrialMode ? 24 : 20)
                 btnUpgrade.setTitle(isFreeTrialMode ? R.string.localizable.upgradeNow() : R.string.localizable.yourCurrentPlan(), for: .normal)
                 btnUpgrade.backgroundColor = isFreeTrialMode ? R.color.appPrimaryColor() : R.color.currentPlanButtonColor()
+                if !isFreeTrialMode {
+                    btnUpgrade.titleLabel?.font = R.font.sfuiTextRegular(size: 20)
+                }
             }
         } else {
             self.setDowngradeButton()
@@ -301,9 +304,11 @@ extension SubscriptionsViewController {
                 self.navigationController?.popViewController(animated: true)
                 self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
             } else {
+                Defaults.shared.isSubscriptionApiCalled = false
                 self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
             }
         }, onError: { error in
+            Defaults.shared.isSubscriptionApiCalled = false
             self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
