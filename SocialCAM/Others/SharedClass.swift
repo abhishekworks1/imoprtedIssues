@@ -511,7 +511,7 @@ enum AppMode: Int, AppMode_Enum {
             return "Free"
         case .basic:
             if isLiteApp {
-                return "Basic Lite"
+                return "Basic"
             } else {
                 return "Basic"
             }

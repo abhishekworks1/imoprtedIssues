@@ -55,7 +55,7 @@ extension EditProfilePicViewController {
     
     /// Delete Image
     private func deleteImage() {
-        self.imgProfilePic.image = nil
+        self.imgProfilePic.image = R.image.user_placeholder()
     }
     
     /// Show ActionSheet for selecting Image

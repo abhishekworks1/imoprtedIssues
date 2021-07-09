@@ -55,13 +55,12 @@ class SubscriptionsViewController: UIViewController {
     
     private func setupUI() {
         if let currentUser = Defaults.shared.currentUser {
+            lblExpireText.text = R.string.localizable.expireFreeTrialText("\(Defaults.shared.numberOfFreeTrialDays ?? 0)")
             if currentUser.isTempSubscription ?? false && subscriptionType != .free && Defaults.shared.appMode != .free {
                 isFreeTrialMode = true
-                lblExpireText.text = R.string.localizable.expireFreeTrialText("\(Defaults.shared.numberOfFreeTrialDays ?? 0)")
                 setupForFreeTrial(isFreeTrial: true)
             } else if Defaults.shared.isDowngradeSubscription == true && subscriptionType != .free && Defaults.shared.appMode != .free {
-                lblExpireText.isHidden = true
-                btnYourCurrentPlan.isHidden = false
+                setupForFreeTrial(isFreeTrial: true)
             } else {
                 setupForFreeTrial(isFreeTrial: false)
             }
@@ -76,6 +75,7 @@ class SubscriptionsViewController: UIViewController {
                 btnUpgrade.setTitle(R.string.localizable.upgradeNow(), for: .normal)
                 btnUpgrade.backgroundColor = R.color.appPrimaryColor()
             } else {
+                btnUpgrade.titleLabel?.font = UIFont(name: "sfuiTextRegular", size: isFreeTrialMode ? 24 : 20)
                 btnUpgrade.setTitle(isFreeTrialMode ? R.string.localizable.upgradeNow() : R.string.localizable.yourCurrentPlan(), for: .normal)
                 btnUpgrade.backgroundColor = isFreeTrialMode ? R.color.appPrimaryColor() : R.color.currentPlanButtonColor()
             }
