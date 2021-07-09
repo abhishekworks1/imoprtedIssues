@@ -544,13 +544,6 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         }
     }
     
-    // MARK: - Action Method
-    @IBAction func btnOkClicked(_ sender: UIButton) {
-        signupTooltipView.isHidden = true
-        let tooltipViewController = R.storyboard.loginViewController.tooltipViewController()
-        Utils.appDelegate?.window?.rootViewController = tooltipViewController
-    }
-    
     func setupRecordingView() {
         if self.faceFiltersView.viewWithTag(SystemBroadcastPickerViewBuilder.viewTag) == nil {
             SystemBroadcastPickerViewBuilder.setup(superView: self.faceFiltersView)
@@ -599,7 +592,6 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         view.bringSubviewToFront(baseView)
         view.bringSubviewToFront(blurView)
         view.bringSubviewToFront(enableAccessView)
-        view.bringSubviewToFront(signupTooltipView)
         view.bringSubviewToFront(selectTimersView)
         view.bringSubviewToFront(switchingAppView)
         view.bringSubviewToFront(quickLinkTooltipView)
@@ -1368,18 +1360,15 @@ extension StoryCameraViewController {
         #if targetEnvironment(simulator)
         blurView.isHidden = false
         enableAccessView.isHidden = false
-        checkIsFromSignup()
         #else
         changePermissionButtonColor()
         if ApplicationSettings.isCameraEnabled && ApplicationSettings.isMicrophoneEnabled {
             blurView.isHidden = true
             enableAccessView.isHidden = true
-            checkIsFromSignup()
             initCamera()
         } else {
             blurView.isHidden = false
             enableAccessView.isHidden = false
-            checkIsFromSignup()
         }
         #endif
     }
