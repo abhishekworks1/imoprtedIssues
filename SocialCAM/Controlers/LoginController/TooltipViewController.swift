@@ -17,6 +17,8 @@ class TooltipViewController: UIViewController {
     @IBOutlet weak var btnPic2ArtSkip: UIButton!
     @IBOutlet weak var btnPic2ArtNext: UIButton!
     @IBOutlet weak var btnSkipEditTooltip: UIButton!
+    @IBOutlet weak var blurView: UIVisualEffectView!
+    @IBOutlet weak var signupTooltipView: UIView!
     
     // MARK: - Variables declaration
     var gifArray = ["Tooltip1", "Tooltip2", "Tooltip3", "Tooltip6", "Tooltip4", "Tooltip5"]
@@ -45,6 +47,13 @@ class TooltipViewController: UIViewController {
             hideShowSkipNextButton(shouldShow: true)
             addGifToImageView(gifName: gifArray.first ?? R.string.localizable.tooltip1())
         }
+        blurView.isHidden = true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        view.bringSubviewToFront(blurView)
+        view.bringSubviewToFront(signupTooltipView)
     }
     
     private func addGifToImageView(gifName: String) {
@@ -138,4 +147,8 @@ class TooltipViewController: UIViewController {
         }
     }
     
+    @IBAction func signUpTooltipOkClicked(_ sender: UIButton) {
+        blurView.isHidden = true
+        signupTooltipView.isHidden = true
+    }
 }

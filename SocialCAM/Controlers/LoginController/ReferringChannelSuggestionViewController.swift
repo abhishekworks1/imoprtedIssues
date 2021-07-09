@@ -138,9 +138,19 @@ extension ReferringChannelSuggestionViewController: UITableViewDelegate {
 extension ReferringChannelSuggestionViewController {
     
     func redirectToHomeScreen() {
-        let cameraNavVC = R.storyboard.storyCameraViewController.storyCameraViewNavigationController()
-        cameraNavVC?.navigationBar.isHidden = true
-        Utils.appDelegate?.window?.rootViewController = cameraNavVC
+        if let isRegistered = Defaults.shared.isRegistered {
+            if isRegistered {
+                let tooltipViewController = R.storyboard.loginViewController.tooltipViewController()
+                Utils.appDelegate?.window?.rootViewController = tooltipViewController
+                tooltipViewController?.blurView.isHidden = false
+                tooltipViewController?.blurView.alpha = 0.7
+                tooltipViewController?.signupTooltipView.isHidden = false
+            }
+        } else {
+            let cameraNavVC = R.storyboard.storyCameraViewController.storyCameraViewNavigationController()
+            cameraNavVC?.navigationBar.isHidden = true
+            Utils.appDelegate?.window?.rootViewController = cameraNavVC
+        }
     }
     
     func getReferringChannelSuggestion() {

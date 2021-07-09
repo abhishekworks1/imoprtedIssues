@@ -373,15 +373,15 @@ public struct Constant {
     }
     
     struct EditTooltip {
-        static let editTooltipTextArray = ["Click on Hide icon to hide/show icon",
-                                           "Click on save icon to save videos in gallery",
-                                           "Click on Bitmoji to add Bitmoji in the video",
+        static let editTooltipTextArray = ["Click on Hide icon to hide icon",
+                                           "Click on save to save your videos. Long press to save all video segments",
+                                           "Click on Bitmoji to add your Bitmojis in the video",
                                            "Click on Hashtag to add hashtag",
-                                           "Click on sound to mute/unmute sound",
+                                           "Click on Sound to mute/unmute",
                                            "Click on Crop to crop video",
-                                           "Click on Trim to trim/split video",
-                                           "Click on Swipe Up to add swipe up tag",
-                                           "Click on Promote to add watermarks"]
+                                           "Click on Trim to trim or split the video",
+                                           "Click on Link to add your affiliate link to your videos",
+                                           "Click on Promote to add watermarks and protect your videos"]
     }
     
     struct WebviewUserAgent {

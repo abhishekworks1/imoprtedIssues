@@ -1911,6 +1911,81 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vA0-Pe-MDJ" userLabel="Blur View">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="fDl-rv-4D1">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </view>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QuI-8v-rOF" userLabel="Tooltip View">
+                                <rect key="frame" x="57" y="373" width="300" height="150"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Congratulations, you have signed up successfully and Your 14-day free trial has begun." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ntm-N1-jck" userLabel="Lbl Signup Tooltip">
+                                        <rect key="frame" x="20" y="20" width="260" height="54"/>
+                                        <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="15.399999618530273"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="I0A-bR-252">
+                                        <rect key="frame" x="0.0" y="74" width="300" height="76"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aot-VS-wH9">
+                                                <rect key="frame" x="0.0" y="0.0" width="300" height="76"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QY0-BN-IFh">
+                                                        <rect key="frame" x="103" y="20" width="94" height="36"/>
+                                                        <color key="backgroundColor" name="AppPrimaryColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="94" id="1ns-iZ-JJk"/>
+                                                            <constraint firstAttribute="height" constant="36" id="wd3-sr-aNC"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="16"/>
+                                                        <state key="normal" title="Ok">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                                <real key="value" value="5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="signUpTooltipOkClicked:" destination="4oZ-eg-D2n" eventType="touchUpInside" id="K7n-gG-0VS"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="QY0-BN-IFh" firstAttribute="centerY" secondItem="aot-VS-wH9" secondAttribute="centerY" id="20Y-CA-gjz"/>
+                                                    <constraint firstItem="QY0-BN-IFh" firstAttribute="centerX" secondItem="aot-VS-wH9" secondAttribute="centerX" id="Isc-63-AEk"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="I0A-bR-252" secondAttribute="trailing" id="YcF-xC-rsr"/>
+                                    <constraint firstItem="I0A-bR-252" firstAttribute="top" secondItem="Ntm-N1-jck" secondAttribute="bottom" id="gio-cI-dPa"/>
+                                    <constraint firstItem="I0A-bR-252" firstAttribute="leading" secondItem="QuI-8v-rOF" secondAttribute="leading" id="hQ1-hv-ROR"/>
+                                    <constraint firstAttribute="trailing" secondItem="Ntm-N1-jck" secondAttribute="trailing" constant="20" id="j6q-3e-gXP"/>
+                                    <constraint firstAttribute="width" constant="300" id="ktl-fS-jas"/>
+                                    <constraint firstAttribute="bottom" secondItem="I0A-bR-252" secondAttribute="bottom" id="kzx-9w-dmI"/>
+                                    <constraint firstItem="Ntm-N1-jck" firstAttribute="leading" secondItem="QuI-8v-rOF" secondAttribute="leading" constant="20" id="l82-aD-u9x"/>
+                                    <constraint firstItem="Ntm-N1-jck" firstAttribute="top" secondItem="QuI-8v-rOF" secondAttribute="top" constant="20" id="oH8-mu-Ive"/>
+                                    <constraint firstAttribute="height" constant="150" id="uYz-Sl-qIo"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                        <real key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColorChat">
+                                        <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JWn-8u-r4K">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
@@ -2049,15 +2124,23 @@
                             <constraint firstItem="JWn-8u-r4K" firstAttribute="top" secondItem="tjQ-2x-FbG" secondAttribute="top" id="PGi-be-FOv"/>
                             <constraint firstAttribute="bottom" secondItem="JWn-8u-r4K" secondAttribute="bottom" id="Sk9-B1-CLI"/>
                             <constraint firstItem="9vv-2O-Jlo" firstAttribute="trailing" secondItem="JWn-8u-r4K" secondAttribute="trailing" id="Tvj-ge-pBB"/>
+                            <constraint firstItem="vA0-Pe-MDJ" firstAttribute="top" secondItem="tjQ-2x-FbG" secondAttribute="top" id="VVR-Ts-Dob"/>
+                            <constraint firstAttribute="bottom" secondItem="vA0-Pe-MDJ" secondAttribute="bottom" id="cz2-hf-Ewj"/>
+                            <constraint firstItem="QuI-8v-rOF" firstAttribute="centerY" secondItem="tjQ-2x-FbG" secondAttribute="centerY" id="nif-m5-7f2"/>
+                            <constraint firstItem="vA0-Pe-MDJ" firstAttribute="leading" secondItem="9vv-2O-Jlo" secondAttribute="leading" id="sbg-fz-mHB"/>
+                            <constraint firstItem="QuI-8v-rOF" firstAttribute="centerX" secondItem="tjQ-2x-FbG" secondAttribute="centerX" id="xFI-dy-8l0"/>
+                            <constraint firstItem="9vv-2O-Jlo" firstAttribute="trailing" secondItem="vA0-Pe-MDJ" secondAttribute="trailing" id="yfB-lc-ZPb"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="blurView" destination="vA0-Pe-MDJ" id="vph-gU-oCG"/>
                         <outlet property="btnNext" destination="VIR-3F-Ej8" id="Ahj-ec-XoU"/>
                         <outlet property="btnPic2ArtNext" destination="gme-O3-L75" id="pEZ-Af-pwM"/>
                         <outlet property="btnPic2ArtSkip" destination="VFC-Eb-lWt" id="pSs-PR-wmn"/>
                         <outlet property="btnSkip" destination="0qc-G6-m4X" id="f7F-rO-yyD"/>
                         <outlet property="btnSkipEditTooltip" destination="k5d-cA-EPe" id="FRE-06-uDs"/>
                         <outlet property="imgViewTooltip" destination="87r-BW-HN6" id="YqK-Yr-xke"/>
+                        <outlet property="signupTooltipView" destination="QuI-8v-rOF" id="s0U-Ro-g3S"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VPg-23-WxN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2800,22 +2883,22 @@
             <size key="intrinsicContentSize" width="16" height="22"/>
         </designable>
         <designable name="Gvo-fd-CKq">
-            <size key="intrinsicContentSize" width="71" height="19"/>
+            <size key="intrinsicContentSize" width="72.5" height="20"/>
         </designable>
         <designable name="LJm-QX-u4c">
             <size key="intrinsicContentSize" width="16" height="22"/>
         </designable>
         <designable name="OXa-jX-M9P">
-            <size key="intrinsicContentSize" width="168.5" height="20.5"/>
+            <size key="intrinsicContentSize" width="175" height="21"/>
         </designable>
         <designable name="Q7z-ML-iW6">
             <size key="intrinsicContentSize" width="41" height="29"/>
         </designable>
         <designable name="RlP-q6-oLk">
-            <size key="intrinsicContentSize" width="39.5" height="20.5"/>
+            <size key="intrinsicContentSize" width="40.5" height="21"/>
         </designable>
         <designable name="Tak-YE-LSB">
-            <size key="intrinsicContentSize" width="106" height="20.5"/>
+            <size key="intrinsicContentSize" width="110" height="21"/>
         </designable>
         <designable name="c7Y-CH-wjf">
             <size key="intrinsicContentSize" width="16" height="22"/>
@@ -2845,13 +2928,16 @@
             <size key="intrinsicContentSize" width="300" height="300"/>
         </designable>
         <designable name="wgt-S8-uFZ">
-            <size key="intrinsicContentSize" width="129" height="20.5"/>
+            <size key="intrinsicContentSize" width="136" height="21"/>
         </designable>
         <designable name="wvi-XG-bWS">
-            <size key="intrinsicContentSize" width="93.5" height="20.5"/>
+            <size key="intrinsicContentSize" width="99.5" height="21"/>
         </designable>
         <designable name="xZP-Ga-5xe">
             <size key="intrinsicContentSize" width="200" height="200"/>
+        </designable>
+        <designable name="zQo-94-51O">
+            <size key="intrinsicContentSize" width="72.5" height="20"/>
         </designable>
     </designables>
     <resources>
