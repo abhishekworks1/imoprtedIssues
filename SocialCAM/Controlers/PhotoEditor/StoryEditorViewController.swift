@@ -326,6 +326,7 @@ class StoryEditorViewController: UIViewController {
                 showEditTooltip()
             }
         }
+        downloadViewGesture()
         imgViewMadeWithGif.loadGif(name: R.string.localizable.madeWithQuickCamLite())
         setupFilterViews()
         setGestureViewForShowHide(view: storyEditors[currentStoryIndex])
@@ -937,7 +938,6 @@ extension StoryEditorViewController {
     @IBAction func downloadClicked(_ sender: UIButton) {
         referType = storyEditors[currentStoryIndex].referType
         imageVideoExport(isDownload: true)
-        downloadViewGesture()
     }
     
     @IBAction func slideShowAutoFillClicked(_ sender: UIButton) {
