@@ -51,11 +51,11 @@
                                 <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <size key="shadowOffset" width="0.0" height="1"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="RxE-Ir-i3r">
-                                <rect key="frame" x="0.0" y="119.5" width="324" height="15.5"/>
+                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="RxE-Ir-i3r">
+                                <rect key="frame" x="0.0" y="105" width="324" height="30"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="A9z-6l-Zgj">
-                                        <rect key="frame" x="0.0" y="0.0" width="324" height="15.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="324" height="30"/>
                                         <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="12"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -63,13 +63,16 @@
                                         <size key="shadowOffset" width="0.0" height="1"/>
                                     </label>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="IPk-wP-mmh"/>
+                                </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="6Kw-Ov-6Vp">
-                                <rect key="frame" x="0.0" y="119.5" width="314" height="15.5"/>
+                                <rect key="frame" x="0.0" y="105" width="314" height="30"/>
                                 <subviews>
-                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="xNk-gK-mRR">
-                                        <rect key="frame" x="0.0" y="0.0" width="31" height="0.0"/>
-                                        <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="12"/>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="xNk-gK-mRR">
+                                        <rect key="frame" x="0.0" y="0.0" width="36" height="0.0"/>
+                                        <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                         <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -101,7 +104,7 @@
                             <constraint firstItem="6Kw-Ov-6Vp" firstAttribute="leading" secondItem="RxE-Ir-i3r" secondAttribute="leading" id="iTE-vu-ODm"/>
                             <constraint firstItem="RxE-Ir-i3r" firstAttribute="top" secondItem="yQf-Oi-aAX" secondAttribute="bottom" constant="5" id="udH-6M-e7Y"/>
                             <constraint firstItem="Ra6-9F-dLm" firstAttribute="leading" secondItem="Piq-pr-mJm" secondAttribute="leading" id="uwY-yG-NhX"/>
-                            <constraint firstItem="RxE-Ir-i3r" firstAttribute="top" secondItem="gle-DO-dvN" secondAttribute="bottom" constant="5" id="yVH-8d-s1G"/>
+                            <constraint firstItem="RxE-Ir-i3r" firstAttribute="top" secondItem="gle-DO-dvN" secondAttribute="bottom" id="yVH-8d-s1G"/>
                         </constraints>
                     </view>
                 </subviews>

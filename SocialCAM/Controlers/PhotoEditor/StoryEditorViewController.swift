@@ -214,6 +214,8 @@ class StoryEditorViewController: UIViewController {
     @IBOutlet var imgEditTooltip: [UIImageView]?
     @IBOutlet weak var lblEditTooltip: UILabel!
     @IBOutlet weak var btnSkipEditTooltip: UIButton!
+    @IBOutlet weak var discardVideoPopupView: UIView!
+    @IBOutlet weak var btnDoNotShowDiscardVideo: UIButton!
     
     private let fastestEverWatermarkBottomMargin = 112
     weak var cursorContainerViewController: KeyframePickerCursorVC!
@@ -291,6 +293,7 @@ class StoryEditorViewController: UIViewController {
     var isTiktokShare = false
     var editTooltipCount = 0
     var editTooltipText = Constant.EditTooltip.editTooltipTextArray
+    var isDiscardVideoPopupHide = false
     
     var isViewEditMode: Bool = false {
         didSet {
@@ -579,6 +582,10 @@ class StoryEditorViewController: UIViewController {
         editTooltipView.isHidden = false
         imgEditTooltip?.first?.alpha = 1
         lblEditTooltip.text = editTooltipText.first
+    }
+    
+    func hideShowDiscardVideoPopup(shouldShow: Bool) {
+        self.discardVideoPopupView.isHidden = !shouldShow
     }
     
 }
@@ -914,19 +921,23 @@ extension StoryEditorViewController {
     }
     
     @IBAction func backClicked(_ sender: UIButton) {
-        Defaults.shared.postViralCamModel = nil
-        if isPic2ArtApp || cameraMode == .pic2Art {
-            if let controllers = navigationController?.viewControllers,
-                controllers.count > 0 {
-                for controller in controllers {
-                    if let storyCameraVC = controller as? StoryCameraViewController {
-                        navigationController?.popToViewController(storyCameraVC, animated: true)
-                        return
+        if Defaults.shared.isDiscardVideoPopupHide == false {
+            self.hideShowDiscardVideoPopup(shouldShow: true)
+        } else {
+            Defaults.shared.postViralCamModel = nil
+            if isPic2ArtApp || cameraMode == .pic2Art {
+                if let controllers = navigationController?.viewControllers,
+                    controllers.count > 0 {
+                    for controller in controllers {
+                        if let storyCameraVC = controller as? StoryCameraViewController {
+                            navigationController?.popToViewController(storyCameraVC, animated: true)
+                            return
+                        }
                     }
                 }
             }
+            navigationController?.popViewController(animated: true)
         }
-        navigationController?.popViewController(animated: true)
     }
     
     @IBAction func doneClicked(_ sender: UIButton) {
@@ -1403,6 +1414,33 @@ extension StoryEditorViewController {
                 editTooltipView.isHidden = true
             }
         }
+    }
+    
+    @IBAction func doNotShowDiscardVideoButtonClicked(_ sender: UIButton) {
+        btnDoNotShowDiscardVideo.isSelected = !btnDoNotShowDiscardVideo.isSelected
+        isDiscardVideoPopupHide = !isDiscardVideoPopupHide
+        Defaults.shared.isDiscardVideoPopupHide = isDiscardVideoPopupHide
+    }
+    
+    @IBAction func discardVideoYesButtonClicked(_ sender: UIButton) {
+        hideShowDiscardVideoPopup(shouldShow: false)
+        Defaults.shared.postViralCamModel = nil
+        if isPic2ArtApp || cameraMode == .pic2Art {
+            if let controllers = navigationController?.viewControllers,
+                controllers.count > 0 {
+                for controller in controllers {
+                    if let storyCameraVC = controller as? StoryCameraViewController {
+                        navigationController?.popToViewController(storyCameraVC, animated: true)
+                        return
+                    }
+                }
+            }
+        }
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func discardVideoNoButtonClicked(_ sender: UIButton) {
+        hideShowDiscardVideoPopup(shouldShow: false)
     }
     
 }

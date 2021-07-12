@@ -445,6 +445,16 @@ extension StoryCameraViewController {
     }
     
     @IBAction func switchAppButtonClicked(_ sender: UIButton) {
+        if let isQuickLinkShowed = Defaults.shared.isQuickLinkShowed {
+            if isQuickLinkShowed {
+                if let tooltipViewController = R.storyboard.loginViewController.tooltipViewController() {
+                    tooltipViewController.pushFromSettingScreen = true
+                    tooltipViewController.isQuickLinkTooltip = true
+                    navigationController?.pushViewController(tooltipViewController, animated: true)
+                }
+                Defaults.shared.isQuickLinkShowed = false
+            }
+        }
         blurView.effect = UIBlurEffect(style: .dark)
         blurView.isHidden = false
         blurView.alpha = 0.75

@@ -111,6 +111,7 @@ extension KeycloakAuthViewController {
         Defaults.shared.isRegistered = response.result?.isRegistered
         Defaults.shared.numberOfFreeTrialDays = response.result?.diffDays
         Defaults.shared.isPic2ArtShowed = response.result?.isRegistered
+        Defaults.shared.isQuickLinkShowed = response.result?.isRegistered
         Defaults.shared.isFromSignup = response.result?.isRegistered
         Defaults.shared.userCreatedDate = response.result?.user?.created
         CurrentUser.shared.setActiveUser(response.result?.user)

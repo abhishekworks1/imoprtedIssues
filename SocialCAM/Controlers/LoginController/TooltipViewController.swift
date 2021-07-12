@@ -115,14 +115,7 @@ class TooltipViewController: UIViewController {
             }
         } else {
             if (gifCount == 6) {
-                if pushFromSettingScreen == false {
-                    if let tooltipViewController = R.storyboard.loginViewController.tooltipViewController() {
-                        tooltipViewController.isQuickLinkTooltip = true
-                        Utils.appDelegate?.window?.rootViewController = tooltipViewController
-                    }
-                } else {
-                    btnSkipClicked(sender)
-                }
+                btnSkipClicked(sender)
             } else {
                 addGifToImageView(gifName: gifArray[gifCount])
                 if gifCount == 5 {

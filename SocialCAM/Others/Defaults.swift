@@ -818,6 +818,24 @@ class Defaults {
         }
     }
     
+    var isQuickLinkShowed: Bool? {
+        get {
+            return appDefaults?.value(forKey: "isQuickLinkShowed") as? Bool ?? false
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isQuickLinkShowed")
+        }
+    }
+    
+    var isDiscardVideoPopupHide: Bool {
+        get {
+            return appDefaults?.value(forKey: "isDiscardVideoPopupHide") as? Bool ?? false
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isDiscardVideoPopupHide")
+        }
+    }
+    
     func clearData() {
         if let appDefaultsDictionary = appDefaults?.dictionaryRepresentation() {
             appDefaultsDictionary.keys.forEach { key in
