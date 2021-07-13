@@ -373,8 +373,8 @@ public struct Constant {
     }
     
     struct EditTooltip {
-        static let editTooltipTextArray = ["Click on Hide icon to hide icon",
-                                           "Click on save to save your videos. Long press to save all video segments",
+        static let editTooltipTextArray = ["Click on Hide icon to hide icons",
+                                           "Click on Save to save your videos. Long press to save all video segments",
                                            "Click on Bitmoji to add your Bitmojis in the video",
                                            "Click on Hashtag to add hashtag",
                                            "Click on Sound to mute/unmute",
