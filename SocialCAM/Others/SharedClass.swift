@@ -525,13 +525,13 @@ enum AppMode: Int, AppMode_Enum {
     var price: String {
         switch self {
         case .free:
-            return "$0 / Month"
+            return "$0/Month"
         case .basic:
-            return "$0.99 / Month"
+            return "$0.99/Month"
         case .advanced:
-            return "$99.99 / Month"
+            return "$99.99/Month"
         case .professional:
-            return "$120.99 / Month"
+            return "$120.99/Month"
         }
     }
     

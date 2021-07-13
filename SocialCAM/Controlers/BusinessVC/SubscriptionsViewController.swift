@@ -17,7 +17,9 @@ class SubscriptionsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var freeModeAlertView: UIView!
     @IBOutlet weak var freeModeAlertBlurView: UIVisualEffectView!
-    @IBOutlet weak var lblExpireText: UILabel!
+    @IBOutlet weak var btnExpiryDate: UIButton!
+    @IBOutlet weak var lblFreeTrial: UILabel!
+    @IBOutlet weak var expiryDateHeightConstraint: NSLayoutConstraint!
     
     internal var subscriptionType = AppMode.free {
         didSet {
@@ -55,13 +57,13 @@ class SubscriptionsViewController: UIViewController {
     
     private func setupUI() {
         if let currentUser = Defaults.shared.currentUser {
-            lblExpireText.text = R.string.localizable.expireFreeTrialText("\(Defaults.shared.numberOfFreeTrialDays ?? 0)")
+            btnExpiryDate.setTitle(R.string.localizable.expiryDaysLeft("\(Defaults.shared.numberOfFreeTrialDays ?? 0)"), for: .normal)
             if currentUser.isTempSubscription ?? false && subscriptionType != .free && Defaults.shared.appMode != .free {
                 isFreeTrialMode = true
                 setupForFreeTrial(isFreeTrial: true)
             } else if Defaults.shared.isDowngradeSubscription == true && subscriptionType != .free && Defaults.shared.appMode != .free {
-                lblExpireText.isHidden = true
                 btnYourCurrentPlan.isHidden = false
+                setupForFreeTrial(isFreeTrial: false)
             } else {
                 setupForFreeTrial(isFreeTrial: false)
             }
@@ -293,8 +295,8 @@ extension SubscriptionsViewController {
     }
     
     func setupForFreeTrial(isFreeTrial: Bool) {
-        lblExpireText.isHidden = !isFreeTrial
-        btnYourCurrentPlan.isHidden = !isFreeTrial
+        expiryDateHeightConstraint.constant = isFreeTrial ? 38 : 0
+        lblFreeTrial.isHidden = !isFreeTrial
     }
     
     func downgradeSubscription(_ subscriptionId: String) {
