@@ -22,6 +22,15 @@ class KeycloakAuthViewController: UIViewController {
     // MARK: - ViewController Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        URLCache.shared.removeAllCachedResponses()
+        URLCache.shared.diskCapacity = 0
+        URLCache.shared.memoryCapacity = 0
+        CommonFunctions.WebCacheCleaner.clean()
+        if let cookies = HTTPCookieStorage.shared.cookies {
+            for cookie in cookies {
+                HTTPCookieStorage.shared.deleteCookie(cookie)
+            }
+        } 
         self.showHUD()
         webView.customUserAgent = Constant.WebviewUserAgent.userAgent
         guard let keycloakURL = URL(string: urlString) else {

@@ -31,16 +31,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.applicationIconBadgeNumber = 0
         configureIQKeyboardManager()
         
-        URLCache.shared.removeAllCachedResponses()
-        URLCache.shared.diskCapacity = 0
-        URLCache.shared.memoryCapacity = 0
-        CommonFunctions.WebCacheCleaner.clean()
-        if let cookies = HTTPCookieStorage.shared.cookies {
-            for cookie in cookies {
-                HTTPCookieStorage.shared.deleteCookie(cookie)
-            }
-        }
-        
         //Start Bagel
         if isDebug || isAlpha || isBeta {
             Bagel.start()
