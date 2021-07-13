@@ -96,7 +96,7 @@ class StorySettings {
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.subscription(), selected: false)], settingsType: .subscription),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.goToWebsite(), selected: false)], settingsType: .goToWebsite),
+                                              settings: [StorySetting(name: R.string.localizable.yourAffiliateLink(), selected: false)], settingsType: .goToWebsite),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.applicationSurvey(), selected: false)], settingsType: .applicationSurvey),
                                 StorySettings(name: "",
@@ -112,13 +112,13 @@ class StorySettingsVC: UIViewController {
     @IBOutlet weak var settingsTableView: UITableView!
     @IBOutlet weak var lblAppInfo: UILabel!
     @IBOutlet weak var imgAppLogo: UIImageView!
-    @IBOutlet weak var lblLogoutPopupAppName: UILabel!
+    @IBOutlet weak var lblLogoutPopup: UILabel!
     @IBOutlet weak var logoutPopupView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         lblAppInfo.text = "\(Constant.Application.displayName) - \(Constant.Application.appVersion)(\(Constant.Application.appBuildNumber))"
-        lblLogoutPopupAppName.text = "\(Constant.Application.displayName)"
+        lblLogoutPopup.text = R.string.localizable.areYouSureYouWantToLogoutFromApp("\(Constant.Application.displayName)")
         setupUI()
     }
     
@@ -403,7 +403,9 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 navigationController?.pushViewController(subscriptionVC, animated: true)
             }
         } else if settingTitle.settingsType == .goToWebsite {
-            guard let url = URL(string: websiteUrl) else { return }
+            guard let url = URL(string: "\(websiteUrl)/referral/@\(Defaults.shared.currentUser?.channelId ?? "")") else {
+                return
+            }
             presentSafariBrowser(url: url)
         } else if settingTitle.settingsType == .applicationSurvey {
             guard let url = URL(string: Constant.URLs.applicationSurveyURL) else { return }
