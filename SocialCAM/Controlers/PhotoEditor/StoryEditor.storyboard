@@ -2452,17 +2452,20 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don’t show it again" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Cz-Ai-xfW">
-                                                <rect key="frame" x="72.999999999999986" y="83.666666666666686" width="137.66666666666663" height="30"/>
+                                                <rect key="frame" x="72.999999999999986" y="84.666666666666686" width="147.66666666666663" height="30"/>
                                                 <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="yIa-fE-32L">
-                                                <rect key="frame" x="35" y="133.66666666666669" width="257" height="51.333333333333343"/>
+                                                <rect key="frame" x="29" y="134.66666666666669" width="242" height="45.333333333333343"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vvu-rG-v65">
-                                                        <rect key="frame" x="0.0" y="0.0" width="122.33333333333333" height="51.333333333333336"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="115" height="45.333333333333336"/>
                                                         <color key="backgroundColor" name="AppPrimaryColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="115" id="oXb-ze-Gow"/>
+                                                        </constraints>
                                                         <fontDescription key="fontDescription" name="SFUIText-Semibold" family="SF UI Text" pointSize="16"/>
                                                         <state key="normal" title="Yes">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2477,7 +2480,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9v8-B5-1KU">
-                                                        <rect key="frame" x="134.33333333333331" y="0.0" width="122.66666666666669" height="51.333333333333336"/>
+                                                        <rect key="frame" x="127" y="0.0" width="115" height="45.333333333333336"/>
                                                         <color key="backgroundColor" name="AppPrimaryColor"/>
                                                         <fontDescription key="fontDescription" name="SFUIText-Semibold" family="SF UI Text" pointSize="16"/>
                                                         <state key="normal" title="No">
@@ -2497,20 +2500,19 @@
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstItem="hwJ-NS-t3Q" firstAttribute="leading" secondItem="2xj-1M-hNU" secondAttribute="leading" constant="28" id="2ER-0S-5Rt"/>
-                                            <constraint firstAttribute="trailing" secondItem="yIa-fE-32L" secondAttribute="trailing" constant="35" id="A2u-nT-Vup"/>
+                                            <constraint firstItem="hwJ-NS-t3Q" firstAttribute="leading" secondItem="2xj-1M-hNU" secondAttribute="leading" constant="15" id="2ER-0S-5Rt"/>
                                             <constraint firstItem="3Cz-Ai-xfW" firstAttribute="bottom" secondItem="pOI-HW-F1b" secondAttribute="bottom" id="BR3-yT-VEv"/>
-                                            <constraint firstItem="yIa-fE-32L" firstAttribute="leading" secondItem="2xj-1M-hNU" secondAttribute="leading" constant="35" id="DPZ-AJ-1ch"/>
                                             <constraint firstAttribute="height" constant="200" id="LEY-ph-IZU"/>
-                                            <constraint firstAttribute="trailing" secondItem="hwJ-NS-t3Q" secondAttribute="trailing" constant="28" id="RSt-g0-b6h"/>
+                                            <constraint firstAttribute="trailing" secondItem="hwJ-NS-t3Q" secondAttribute="trailing" constant="15" id="RSt-g0-b6h"/>
                                             <constraint firstItem="yIa-fE-32L" firstAttribute="top" secondItem="3Cz-Ai-xfW" secondAttribute="bottom" constant="20" id="Yyz-Kg-B8P"/>
                                             <constraint firstItem="pOI-HW-F1b" firstAttribute="top" secondItem="hwJ-NS-t3Q" secondAttribute="bottom" constant="20" id="dr0-x2-3zu"/>
-                                            <constraint firstAttribute="width" constant="327" id="jNL-Ah-XS9"/>
+                                            <constraint firstAttribute="width" constant="300" id="jNL-Ah-XS9"/>
                                             <constraint firstItem="3Cz-Ai-xfW" firstAttribute="leading" secondItem="pOI-HW-F1b" secondAttribute="trailing" constant="10" id="lr5-CO-sju"/>
-                                            <constraint firstAttribute="bottom" secondItem="yIa-fE-32L" secondAttribute="bottom" constant="15" id="n8D-pY-qgd"/>
+                                            <constraint firstAttribute="bottom" secondItem="yIa-fE-32L" secondAttribute="bottom" constant="20" id="n8D-pY-qgd"/>
                                             <constraint firstItem="hwJ-NS-t3Q" firstAttribute="top" secondItem="2xj-1M-hNU" secondAttribute="top" constant="24" id="oaS-lm-fy3"/>
                                             <constraint firstItem="pOI-HW-F1b" firstAttribute="leading" secondItem="2xj-1M-hNU" secondAttribute="leading" constant="33" id="pLX-pV-6vE"/>
                                             <constraint firstItem="3Cz-Ai-xfW" firstAttribute="top" secondItem="pOI-HW-F1b" secondAttribute="top" id="wAO-lT-Ubr"/>
+                                            <constraint firstItem="yIa-fE-32L" firstAttribute="centerX" secondItem="2xj-1M-hNU" secondAttribute="centerX" id="wSN-m2-2Qm"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
