@@ -180,7 +180,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
         let leftTopViewHeightAnchor = leftTopView.heightAnchor
             .constraint(equalToConstant: 23)
         let leftTopViewTopAnchor = leftTopView.topAnchor
-            .constraint(equalTo: topAnchor, constant: 0)
+            .constraint(equalTo: topAnchor, constant: 110)
         let leftTopViewLeadingAnchor = leftTopView.leadingAnchor
             .constraint(equalTo: self.trimmerView.leadingAnchor, constant: 0)
         
@@ -189,7 +189,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
         let rightTopViewHeightAnchor = rightTopView.heightAnchor
             .constraint(equalToConstant: 23)
         let rightTopViewTopAnchor = rightTopView.topAnchor
-            .constraint(equalTo: topAnchor, constant: 0)
+            .constraint(equalTo: topAnchor, constant: 110)
         let rightTopViewLeadingAnchor = rightTopView.trailingAnchor
             .constraint(equalTo: self.trimmerView.trailingAnchor, constant: 0)
         
