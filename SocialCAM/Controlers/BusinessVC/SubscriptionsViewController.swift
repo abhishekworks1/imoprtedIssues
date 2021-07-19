@@ -110,6 +110,8 @@ class SubscriptionsViewController: UIViewController {
         } else {
             self.setDowngradeButton()
         }
+        let subscriptionData = subscriptionsList.filter({$0.productId == Constant.IAPProductIds.quickCamLiteBasic})
+        Defaults.shared.subscriptionId = subscriptionData.first?.id ?? ""
     }
     
     private func setDowngradeButton() {
@@ -304,6 +306,7 @@ extension SubscriptionsViewController {
                 user?.isTempSubscription = false
                 Defaults.shared.currentUser = user
                 Defaults.shared.isSubscriptionApiCalled = false
+                Defaults.shared.isDowngradeSubscription = false
                 SubscriptionSettings.storySettings[0].settings[appMode.rawValue].selected = true
                 AppEventBus.post("changeMode")
                 self.navigationController?.popViewController(animated: true)
