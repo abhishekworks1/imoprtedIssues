@@ -117,7 +117,6 @@ class StorySettingsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.syncUserModel()
         lblAppInfo.text = "\(Constant.Application.displayName) - \(Constant.Application.appVersion)(\(Constant.Application.appBuildNumber))"
         lblLogoutPopup.text = R.string.localizable.areYouSureYouWantToLogoutFromApp("\(Constant.Application.displayName)")
         setupUI()
@@ -299,6 +298,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             headerView.userImage.isHidden = true
         }
         headerView.btnProfilePic.addTarget(self, action: #selector(btnEditProfilePic), for: .touchUpInside)
+        headerView.btnProfilePic.isUserInteractionEnabled = false
         
         return headerView
     }
@@ -705,23 +705,6 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         objAlert.addAction(actionlogOut)
         objAlert.addAction(cancelAction)
         self.present(objAlert, animated: true, completion: nil)
-    }
-    
-    func syncUserModel() {
-        ProManagerApi.userSync.request(Result<UserSyncModel>.self).subscribe(onNext: { (response) in
-            if response.status == ResponseType.success {
-                Defaults.shared.currentUser = response.result?.user
-                Defaults.shared.numberOfFreeTrialDays = response.result?.diffDays
-                Defaults.shared.userCreatedDate = response.result?.user?.created
-                Defaults.shared.isDowngradeSubscription = response.result?.userSubscription?.isDowngraded
-                Defaults.shared.isFreeTrial = response.result?.user?.isTempSubscription
-            } else {
-                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
-            }
-        }, onError: { error in
-            self.showAlert(alertMessage: error.localizedDescription)
-        }, onCompleted: {
-        }).disposed(by: self.rx.disposeBag)
     }
     
 }

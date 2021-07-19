@@ -317,6 +317,83 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vK3-EF-vu0">
+                                        <rect key="frame" x="0.0" y="-44" width="414" height="906"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oa9-c0-Bui">
+                                                <rect key="frame" x="41.5" y="374.5" width="331" height="157"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Are you sure you want to Downgrade to Free version?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BwZ-oR-5Zq">
+                                                        <rect key="frame" x="20" y="20" width="291" height="36"/>
+                                                        <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="15"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="svf-gl-IuP">
+                                                        <rect key="frame" x="40" y="81" width="251" height="36"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K3G-yh-zJl">
+                                                                <rect key="frame" x="0.0" y="0.0" width="119" height="36"/>
+                                                                <color key="backgroundColor" name="AppPrimaryColor"/>
+                                                                <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="16"/>
+                                                                <state key="normal" title="Cancel">
+                                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </state>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                                        <real key="value" value="5"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                                <connections>
+                                                                    <action selector="btnCancelPopupTapped:" destination="cbr-YN-Zsh" eventType="touchUpInside" id="68G-f5-lNw"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ItZ-C4-WUi">
+                                                                <rect key="frame" x="132" y="0.0" width="119" height="36"/>
+                                                                <color key="backgroundColor" name="AppPrimaryColor"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="36" id="PPd-lx-g0g"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="16"/>
+                                                                <state key="normal" title="OK">
+                                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </state>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                                        <real key="value" value="5"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                                <connections>
+                                                                    <action selector="btnOkDowngradeTapped:" destination="cbr-YN-Zsh" eventType="touchUpInside" id="8PT-ln-Eu5"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="svf-gl-IuP" firstAttribute="trailing" secondItem="BwZ-oR-5Zq" secondAttribute="trailing" constant="-20" id="4LZ-5i-pmJ"/>
+                                                    <constraint firstItem="BwZ-oR-5Zq" firstAttribute="top" secondItem="Oa9-c0-Bui" secondAttribute="top" constant="20" id="4W9-jb-LWj"/>
+                                                    <constraint firstAttribute="trailing" secondItem="BwZ-oR-5Zq" secondAttribute="trailing" constant="20" id="9fd-rW-dIp"/>
+                                                    <constraint firstItem="BwZ-oR-5Zq" firstAttribute="leading" secondItem="Oa9-c0-Bui" secondAttribute="leading" constant="20" id="Eg0-4l-T8t"/>
+                                                    <constraint firstAttribute="bottom" secondItem="svf-gl-IuP" secondAttribute="bottom" constant="40" id="dd7-8r-ct2"/>
+                                                    <constraint firstItem="svf-gl-IuP" firstAttribute="leading" secondItem="BwZ-oR-5Zq" secondAttribute="leading" constant="20" id="g6S-da-hDq"/>
+                                                    <constraint firstItem="svf-gl-IuP" firstAttribute="top" secondItem="BwZ-oR-5Zq" secondAttribute="bottom" constant="25" id="mrG-gr-JfW"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                        <real key="value" value="15"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="Oa9-c0-Bui" firstAttribute="centerX" secondItem="vK3-EF-vu0" secondAttribute="centerX" id="BaK-v9-9zN"/>
+                                            <constraint firstItem="Oa9-c0-Bui" firstAttribute="centerY" secondItem="vK3-EF-vu0" secondAttribute="centerY" id="PvF-eR-tXq"/>
+                                            <constraint firstItem="Oa9-c0-Bui" firstAttribute="width" secondItem="vK3-EF-vu0" secondAttribute="width" multiplier="0.8" id="Rnw-1L-aAT"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
@@ -327,11 +404,15 @@
                                     <constraint firstItem="m0z-cb-MFl" firstAttribute="top" secondItem="JpW-fA-Nvp" secondAttribute="top" constant="-44" id="9s7-3Z-x6l"/>
                                     <constraint firstItem="4gL-OI-IDh" firstAttribute="leading" secondItem="JpW-fA-Nvp" secondAttribute="leading" constant="23" id="F2A-cH-hgm"/>
                                     <constraint firstAttribute="trailing" secondItem="LoK-od-CUJ" secondAttribute="trailing" constant="22" id="Iw3-89-KNl"/>
+                                    <constraint firstItem="vK3-EF-vu0" firstAttribute="leading" secondItem="JpW-fA-Nvp" secondAttribute="leading" id="PCG-y8-xsr"/>
                                     <constraint firstItem="m0z-cb-MFl" firstAttribute="leading" secondItem="JpW-fA-Nvp" secondAttribute="leading" id="Sgw-N1-2uK"/>
+                                    <constraint firstAttribute="trailing" secondItem="vK3-EF-vu0" secondAttribute="trailing" id="eFQ-r8-7iF"/>
                                     <constraint firstItem="LoK-od-CUJ" firstAttribute="leading" secondItem="JpW-fA-Nvp" secondAttribute="leading" constant="22" id="gSx-ob-Hce"/>
                                     <constraint firstItem="4gL-OI-IDh" firstAttribute="top" secondItem="JpW-fA-Nvp" secondAttribute="top" constant="21" id="hJc-hH-aQ7"/>
+                                    <constraint firstItem="vK3-EF-vu0" firstAttribute="top" secondItem="m0z-cb-MFl" secondAttribute="top" id="kau-i5-TDC"/>
                                     <constraint firstItem="LoK-od-CUJ" firstAttribute="top" secondItem="4gL-OI-IDh" secondAttribute="bottom" constant="20" id="n5a-oV-zzF"/>
                                     <constraint firstAttribute="bottom" secondItem="LoK-od-CUJ" secondAttribute="bottom" id="pwi-1g-J9B"/>
+                                    <constraint firstItem="vK3-EF-vu0" firstAttribute="bottom" secondItem="m0z-cb-MFl" secondAttribute="bottom" id="sLp-Qw-SLU"/>
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="npZ-x8-Pna">
@@ -392,6 +473,7 @@
                         <outlet property="btnExpiryDate" destination="eJY-5m-VHC" id="d4o-nc-LFk"/>
                         <outlet property="btnUpgrade" destination="a9w-D1-Q4W" id="PZY-PS-31E"/>
                         <outlet property="btnYourCurrentPlan" destination="Idw-jz-Jyg" id="Gxe-Xa-l1j"/>
+                        <outlet property="downgradePopupView" destination="vK3-EF-vu0" id="Qti-8F-eIl"/>
                         <outlet property="expiryDateHeightConstraint" destination="U8X-xB-yWu" id="HZ8-qQ-GGp"/>
                         <outlet property="freeModeAlertBlurView" destination="m0z-cb-MFl" id="5LO-6z-Iqa"/>
                         <outlet property="freeModeAlertView" destination="XB6-io-hYJ" id="FS0-VD-9DX"/>
