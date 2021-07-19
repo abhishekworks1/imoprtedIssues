@@ -388,4 +388,8 @@ public struct Constant {
         static let userAgent = "Mozilla/5.0 (Linux; U; Android 2.2.1; en-us; Nexus One Build/FRG83) AppleWebKit/533.1 (KHTML, like Gecko) Version/8.0.2 Mobile Safari/600.2.5"
     }
     
+    struct SubscriptionUrl {
+        static let cancelSubscriptionUrl = "https://apps.apple.com/account/subscriptions"
+    }
+    
 }

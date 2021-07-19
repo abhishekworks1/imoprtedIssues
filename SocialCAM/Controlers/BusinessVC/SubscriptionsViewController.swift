@@ -20,6 +20,7 @@ class SubscriptionsViewController: UIViewController {
     @IBOutlet weak var btnExpiryDate: UIButton!
     @IBOutlet weak var lblFreeTrial: UILabel!
     @IBOutlet weak var expiryDateHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var downgradePopupView: UIView!
     
     internal var subscriptionType = AppMode.free {
         didSet {
@@ -53,6 +54,27 @@ class SubscriptionsViewController: UIViewController {
         freeModeAlertBlurView.isHidden = true
         freeModeAlertView.isHidden = true
         Defaults.shared.isSubscriptionApiCalled = false
+    }
+    
+    @IBAction func btnCancelPopupTapped(_ sender: UIButton) {
+        self.downgradePopupView.isHidden = true
+        Defaults.shared.isSubscriptionApiCalled = false
+    }
+    
+    @IBAction func btnOkDowngradeTapped(_ sender: UIButton) {
+        self.downgradePopupView.isHidden = true
+        if Defaults.shared.releaseType == .store {
+            guard let url = URL(string: Constant.SubscriptionUrl.cancelSubscriptionUrl) else {
+                return
+            }
+            UIApplication.shared.open(url)
+        } else {
+            if let subscriptionId = Defaults.shared.subscriptionId {
+                self.downgradeSubscription(subscriptionId)
+            } else {
+                Defaults.shared.isSubscriptionApiCalled = false
+            }
+        }
     }
     
     private func setupUI() {
@@ -198,8 +220,9 @@ class SubscriptionsViewController: UIViewController {
         if isQuickApp && appMode == .basic {
             let subscriptionData = subscriptionsList.filter({$0.productId == Constant.IAPProductIds.quickCamLiteBasic})
             self.purchaseProduct(productIdentifire: subscriptionData.first?.productId ?? "", productServerID: subscriptionData.first?.id ?? "")
-            Defaults.shared.subscriptionId = subscriptionData.first?.id ?? ""
             self.appMode = appMode
+        } else if isQuickApp && appMode == .free {
+            self.downgradePopupView.isHidden = false
         } else if appMode != .free || Defaults.shared.releaseType != .beta {
             self.present(objAlert, animated: true, completion: nil)
         }
