@@ -37,7 +37,7 @@
                     <color key="textColor" red="0.9986641839" green="0.9986641839" blue="0.9986641839" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vpg-dw-Xh5">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vpg-dw-Xh5">
                     <rect key="frame" x="177" y="558.5" width="60" height="34"/>
                     <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="18"/>
                     <state key="normal" title="Cancel">
@@ -48,9 +48,9 @@
                     </connections>
                 </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ad1" translatesAutoresizingMaskIntoConstraints="NO" id="U9d-aU-XfD">
-                    <rect key="frame" x="0.0" y="836" width="414" height="60"/>
+                    <rect key="frame" x="0.0" y="746" width="414" height="150"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="60" id="L5Y-pU-eTe"/>
+                        <constraint firstAttribute="height" constant="150" id="L5Y-pU-eTe"/>
                     </constraints>
                 </imageView>
                 <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please don't lock screen or switch to other apps" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eQ7-oW-qve">

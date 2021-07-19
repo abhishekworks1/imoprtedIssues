@@ -64,6 +64,7 @@ class SubscriptionsViewController: UIViewController {
             } else if Defaults.shared.isDowngradeSubscription == true && subscriptionType != .free && Defaults.shared.appMode != .free {
                 btnYourCurrentPlan.isHidden = false
                 setupForFreeTrial(isFreeTrial: false)
+                expiryDateHeightConstraint.constant = 38
             } else {
                 setupForFreeTrial(isFreeTrial: false)
             }
@@ -105,7 +106,6 @@ class SubscriptionsViewController: UIViewController {
             break
         }
         btnUpgrade.setTitle(R.string.localizable.downgrade(), for: .normal)
-        btnUpgrade.backgroundColor = R.color.downgradeButtonColor()
     }
     
     func enableMode(appMode: AppMode) {
@@ -183,6 +183,8 @@ class SubscriptionsViewController: UIViewController {
                 } else {
                     if let subscriptionId = Defaults.shared.subscriptionId {
                         self.downgradeSubscription(subscriptionId)
+                    } else {
+                        Defaults.shared.isSubscriptionApiCalled = false
                     }
                 }
             }
@@ -303,6 +305,7 @@ extension SubscriptionsViewController {
         ProManagerApi.downgradeSubscription(subscriptionId: subscriptionId).request(Result<EmptyModel>.self).subscribe(onNext: { (response) in
             if response.status == ResponseType.success {
                 Defaults.shared.isSubscriptionApiCalled = false
+                Defaults.shared.isDowngradeSubscription = true
                 self.navigationController?.popViewController(animated: true)
                 self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
             } else {
