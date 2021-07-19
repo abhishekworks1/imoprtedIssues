@@ -32,7 +32,6 @@ class StorySettingsHeader: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        btnProfilePic.isUserInteractionEnabled = false
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapHeader)))
     }
     
