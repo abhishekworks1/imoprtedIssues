@@ -95,6 +95,9 @@ extension StoryCameraViewController {
         }
         self.setupFlashUI()
         Defaults.shared.flashMode = flashMode.rawValue
+        if isVideoRecording {
+            nextLevel.torchMode = NextLevelTorchMode(rawValue: flashMode.rawValue) ?? .auto
+        }
     }
     
     @IBAction func outTakeButtonClicked(_ sender: Any) {

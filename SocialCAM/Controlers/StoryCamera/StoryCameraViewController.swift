@@ -508,6 +508,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     var totalVideoDuration: [CGFloat] = []
     var segmentsProgress: [CGFloat] = []
     var cameraModeCell = 1
+    var isVideoRecording = false
     
     // MARK: ViewController lifecycle
     override func viewDidLoad() {
@@ -1768,6 +1769,7 @@ extension StoryCameraViewController {
         }
         
         nextLevel.torchMode = NextLevelTorchMode(rawValue: flashMode.rawValue) ?? .auto
+        self.isVideoRecording = true
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
             self.circularProgress.trackThickness = 0.75*0.7
             self.circularProgress.transform = CGAffineTransform(scaleX: 1.7, y: 1.7)
@@ -1825,6 +1827,7 @@ extension StoryCameraViewController {
     
     func stopRecording() {
         nextLevel.torchMode = .off
+        self.isVideoRecording = false
         if isLiteApp, recordingType == .normal {
             self.segmentsProgress.append(progress)
             self.circularProgress.drawArc(startAngle: Double(progress))
