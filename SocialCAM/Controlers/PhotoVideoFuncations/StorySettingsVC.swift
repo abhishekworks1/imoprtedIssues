@@ -100,9 +100,9 @@ class StorySettings {
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.applicationSurvey(), selected: false)], settingsType: .applicationSurvey),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.help(), selected: false)], settingsType: .help),
-                                StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.intellectualProperties(), selected: false)], settingsType: .intellectualProperties),
+                                StorySettings(name: "",
+                                              settings: [StorySetting(name: R.string.localizable.help(), selected: false)], settingsType: .help),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.logout(), selected: false)], settingsType: .logout)]
 }
@@ -404,7 +404,8 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 navigationController?.pushViewController(subscriptionVC, animated: true)
             }
         } else if settingTitle.settingsType == .goToWebsite {
-            guard let url = URL(string: "\(websiteUrl)/referral/@\(Defaults.shared.currentUser?.channelId ?? "")") else {
+            let urlString = "\(websiteUrl)/referral/\(Defaults.shared.currentUser?.channelId ?? "")"
+            guard let url = URL(string: urlString) else {
                 return
             }
             presentSafariBrowser(url: url)
