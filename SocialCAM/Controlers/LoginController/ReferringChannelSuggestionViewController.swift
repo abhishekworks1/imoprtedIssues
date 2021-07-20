@@ -149,9 +149,8 @@ extension ReferringChannelSuggestionViewController {
                 tooltipViewController?.signupTooltipView.isHidden = false
             }
         } else {
-            let cameraNavVC = R.storyboard.storyCameraViewController.storyCameraViewNavigationController()
-            cameraNavVC?.navigationBar.isHidden = true
-            Utils.appDelegate?.window?.rootViewController = cameraNavVC
+            let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
+            Utils.appDelegate?.window?.rootViewController = rootViewController
         }
     }
     
