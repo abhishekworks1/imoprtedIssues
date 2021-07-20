@@ -2488,8 +2488,39 @@
                                                 <color key="textColor" red="0.29019607843137252" green="0.29019607843137252" blue="0.29019607843137252" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xpb-TU-9je">
+                                                <rect key="frame" x="46" y="338.5" width="323" height="38"/>
+                                                <subviews>
+                                                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Channel Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bQO-BG-6tC">
+                                                        <rect key="frame" x="11" y="2" width="94.5" height="34"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="5ef-jh-6rm" id="Dnq-ub-ZCJ"/>
+                                                        </connections>
+                                                    </textField>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="bQO-BG-6tC" firstAttribute="centerY" secondItem="Xpb-TU-9je" secondAttribute="centerY" id="8cH-e7-fmI"/>
+                                                    <constraint firstAttribute="height" constant="38" id="ZkI-mK-WaZ"/>
+                                                    <constraint firstItem="bQO-BG-6tC" firstAttribute="leading" secondItem="Xpb-TU-9je" secondAttribute="leading" constant="11" id="iPC-Ca-l2C"/>
+                                                    <constraint firstItem="bQO-BG-6tC" firstAttribute="height" secondItem="Xpb-TU-9je" secondAttribute="height" multiplier="0.894737" id="wAS-Lx-ngw"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                        <real key="value" value="6.9000000000000004"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidthChat">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColorChat">
+                                                        <color key="value" red="0.86274509799999999" green="0.87450980389999999" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9aX-IW-c7b">
-                                                <rect key="frame" x="36" y="108.5" width="333" height="220"/>
+                                                <rect key="frame" x="36" y="162" width="333" height="220"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="220" id="7xF-21-5DL"/>
@@ -2728,12 +2759,16 @@
                                             <constraint firstItem="ovL-uN-rOE" firstAttribute="leading" secondItem="XoS-7V-uka" secondAttribute="leading" id="0Ju-aB-DRz"/>
                                             <constraint firstAttribute="trailing" secondItem="yLh-VW-Ucg" secondAttribute="trailing" constant="15.4" id="0zt-Xk-Vev"/>
                                             <constraint firstItem="YjZ-39-lZj" firstAttribute="top" secondItem="XoS-7V-uka" secondAttribute="top" constant="66" id="3or-Oo-QwK"/>
+                                            <constraint firstItem="Xpb-TU-9je" firstAttribute="leading" secondItem="woY-YZ-NVx" secondAttribute="leading" id="DVP-wb-OSc"/>
                                             <constraint firstAttribute="trailing" secondItem="eYj-za-4V3" secondAttribute="trailing" constant="5" id="IPV-OP-S17"/>
                                             <constraint firstItem="9aX-IW-c7b" firstAttribute="leading" secondItem="woY-YZ-NVx" secondAttribute="leading" constant="-10" id="M8i-be-g22"/>
                                             <constraint firstItem="piw-Q7-qPa" firstAttribute="leading" secondItem="XoS-7V-uka" secondAttribute="leading" constant="31" id="RVK-wo-456"/>
                                             <constraint firstItem="piw-Q7-qPa" firstAttribute="top" secondItem="YjZ-39-lZj" secondAttribute="bottom" constant="23.899999999999999" id="Rbd-Qa-4Vg"/>
                                             <constraint firstItem="ovL-uN-rOE" firstAttribute="top" secondItem="XoS-7V-uka" secondAttribute="top" id="TNu-Ke-6YR"/>
                                             <constraint firstAttribute="trailing" secondItem="woY-YZ-NVx" secondAttribute="trailing" constant="44.899999999999999" id="Ti2-Bp-Gmd"/>
+                                            <constraint firstItem="woY-YZ-NVx" firstAttribute="top" secondItem="Xpb-TU-9je" secondAttribute="bottom" constant="15.6" id="UkG-tH-OgA"/>
+                                            <constraint firstItem="Xpb-TU-9je" firstAttribute="trailing" secondItem="woY-YZ-NVx" secondAttribute="trailing" id="YgF-Oc-blf"/>
+                                            <constraint firstItem="Xpb-TU-9je" firstAttribute="top" secondItem="yLh-VW-Ucg" secondAttribute="bottom" constant="25.899999999999999" id="ZEM-Bk-d5S"/>
                                             <constraint firstItem="eYj-za-4V3" firstAttribute="bottom" secondItem="woY-YZ-NVx" secondAttribute="bottom" id="a43-pF-Dcu"/>
                                             <constraint firstItem="yLh-VW-Ucg" firstAttribute="top" secondItem="mTk-cJ-Oqb" secondAttribute="bottom" constant="9.9000000000000004" id="aQG-q2-lJa"/>
                                             <constraint firstItem="woY-YZ-NVx" firstAttribute="leading" secondItem="XoS-7V-uka" secondAttribute="leading" constant="46.100000000000001" id="aYc-O7-LD8"/>
@@ -2748,9 +2783,8 @@
                                             <constraint firstItem="eYj-za-4V3" firstAttribute="top" secondItem="woY-YZ-NVx" secondAttribute="top" id="n7D-2j-Zwi"/>
                                             <constraint firstAttribute="bottom" secondItem="ovL-uN-rOE" secondAttribute="bottom" id="o8G-dV-HoT"/>
                                             <constraint firstAttribute="trailing" secondItem="piw-Q7-qPa" secondAttribute="trailing" constant="31" id="oMl-jl-GZe"/>
-                                            <constraint firstItem="IkD-oj-hmg" firstAttribute="top" secondItem="woY-YZ-NVx" secondAttribute="bottom" constant="15.699999999999999" id="pnB-CF-cBo"/>
                                             <constraint firstItem="IkD-oj-hmg" firstAttribute="leading" secondItem="XoS-7V-uka" secondAttribute="leading" constant="30.699999999999999" id="ryM-ED-QCA"/>
-                                            <constraint firstItem="woY-YZ-NVx" firstAttribute="top" secondItem="yLh-VW-Ucg" secondAttribute="bottom" constant="25.899999999999999" id="xF8-2g-u4l"/>
+                                            <constraint firstItem="IkD-oj-hmg" firstAttribute="top" secondItem="woY-YZ-NVx" secondAttribute="bottom" constant="15.9" id="wHB-wr-YBw"/>
                                             <constraint firstItem="woY-YZ-NVx" firstAttribute="top" secondItem="9aX-IW-c7b" secondAttribute="bottom" constant="10" id="y35-jM-sAz"/>
                                         </constraints>
                                     </view>
@@ -2781,6 +2815,7 @@
                         <outlet property="referringTooltipView" destination="ovL-uN-rOE" id="ss2-yQ-X7m"/>
                         <outlet property="searchView" destination="woY-YZ-NVx" id="Gcp-Pc-LAH"/>
                         <outlet property="tblView" destination="9aX-IW-c7b" id="KEb-mV-QA1"/>
+                        <outlet property="txtChannelName" destination="bQO-BG-6tC" id="w7t-aX-CPI"/>
                         <outlet property="txtField" destination="x6N-uZ-WRS" id="Xl3-hz-H3c"/>
                     </connections>
                 </viewController>

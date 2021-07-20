@@ -230,19 +230,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
         
         if let user = Defaults.shared.currentUser,
-            let _ = Defaults.shared.sessionToken,
-            let channelId = user.channelId,
-            channelId.count > 0 {
-                if user.refferingChannel != nil {
-                    InternetConnectionAlert.shared.internetConnectionHandler = { reachability in
-                        if reachability.connection != .none {
-                            StoryDataManager.shared.startUpload()
-                            PostDataManager.shared.startUpload()
-                        }
-                    }
-                } else {
-                    rootViewController = R.storyboard.loginViewController.referringChannelSuggestionViewController()
+           let _ = Defaults.shared.sessionToken,
+           let channelId = user.channelId,
+           user.refferingChannel != nil,
+           channelId.count > 0 {
+            InternetConnectionAlert.shared.internetConnectionHandler = { reachability in
+                if reachability.connection != .none {
+                    StoryDataManager.shared.startUpload()
+                    PostDataManager.shared.startUpload()
                 }
+            }
         } else {
             rootViewController = R.storyboard.loginViewController.loginNavigation()
         }

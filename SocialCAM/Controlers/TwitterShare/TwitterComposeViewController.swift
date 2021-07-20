@@ -31,7 +31,7 @@ class TwitterComposeViewController: UIViewController, UINavigationControllerDele
         self.navigationItem.leftBarButtonItem = leftBarButton
         
         let rightBarButton = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(self.sendAction))
-        rightBarButton.title = R.string.localizable.send()
+        rightBarButton.title = R.string.localizable.tweet()
         self.navigationItem.rightBarButtonItem = rightBarButton
         
         self.inputTextView?.text = PLACEHOLDER
