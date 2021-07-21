@@ -128,13 +128,12 @@ extension KeycloakAuthViewController {
         #if PIC2ARTAPP || TIMESPEEDAPP || BOOMICAMAPP
         Utils.appDelegate?.window?.rootViewController = R.storyboard.pageViewController.pageViewController()
         #else
+        let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
         if isRefferencingChannelEmpty {
             let referringChannelSuggestionViewController = R.storyboard.loginViewController.referringChannelSuggestionViewController()
             Utils.appDelegate?.window?.rootViewController = referringChannelSuggestionViewController
         } else {
-            let cameraNavVC = R.storyboard.storyCameraViewController.storyCameraViewNavigationController()
-            cameraNavVC?.navigationBar.isHidden = true
-            Utils.appDelegate?.window?.rootViewController = cameraNavVC
+            Utils.appDelegate?.window?.rootViewController = rootViewController
         }
         RunLoop.current.run(until: Date(timeIntervalSinceNow: 1.0))
         #endif
