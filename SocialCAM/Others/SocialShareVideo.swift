@@ -163,7 +163,7 @@ open class SocialShareVideo: NSObject, SharingDelegate {
             displayMessage = R.string.localizable.checkOutThisCoolNewAppQuickCam()
         }
         displayMessage.append(" ")
-        displayMessage.append("\(websiteUrl)/referral/@\(Defaults.shared.currentUser?.channelId ?? "")")
+        displayMessage.append("\(websiteUrl)/referral/\(Defaults.shared.currentUser?.channelId ?? "")")
         if let twitterComposeViewController = R.storyboard.twitterCompose.twitterComposeViewController() {
             twitterComposeViewController.presetText = displayMessage
             if let image = image {
@@ -322,7 +322,7 @@ open class SocialShareVideo: NSObject, SharingDelegate {
         case .futbolcam:
             snapVideo.attachmentUrl = "\(Constant.URLs.futbolWebsiteURL)/referral/\(Defaults.shared.currentUser?.referralCode ?? "")"
         case .quickCamLite:
-            snapVideo.attachmentUrl = "\(websiteUrl)/referral/@\(Defaults.shared.currentUser?.channelId ?? "")"
+            snapVideo.attachmentUrl = "\(websiteUrl)/referral/\(Defaults.shared.currentUser?.channelId ?? "")"
         default:
             break
         }
