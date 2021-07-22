@@ -96,8 +96,6 @@ extension KeycloakAuthViewController {
         ProManagerApi.loginWithKeycloak(code: code, redirectUrl: redirectUrl).request(Result<LoginResult>.self).subscribe(onNext: { (response) in
             if response.status == ResponseType.success {
                 self.goHomeScreen(response)
-            } else {
-                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
             }
         }, onError: { error in
             self.showAlert(alertMessage: error.localizedDescription)
