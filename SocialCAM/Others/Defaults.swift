@@ -836,6 +836,15 @@ class Defaults {
         }
     }
     
+    var channelId: String? {
+        get {
+            return appDefaults?.value(forKey: "channelId") as? String
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "channelId")
+        }
+    }
+    
     func clearData() {
         if let appDefaultsDictionary = appDefaults?.dictionaryRepresentation() {
             appDefaultsDictionary.keys.forEach { key in

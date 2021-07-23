@@ -270,3 +270,77 @@ class UserSubscription: Mappable{
     }
     
 }
+
+class GetTokenModel: Mappable {
+    
+    var data: UserTokenData?
+    var hasAnyError: Bool?
+    var isAccountFound: Bool?
+    
+    required init?(map: Map) {
+        
+    }
+    
+    func mapping(map: Map) {
+        data <- map["data"]
+        hasAnyError <- map["hasAnyError"]
+        isAccountFound <- map["isAccountFound"]
+    }
+    
+}
+
+class UserTokenData: Mappable {
+    
+    var token: String?
+    var user: UserTokenModel?
+    
+    required init?(map: Map) {
+        
+    }
+    
+    func mapping(map: Map) {
+        token <- map["token"]
+        user <- map["user"]
+    }
+    
+}
+
+class UserTokenModel: Mappable{
+
+    var id: String?
+    var bannerImageURL: String?
+    var channelId: String?
+    var channelName: String?
+    var displayName: String?
+    var email: String?
+    var firstName: String?
+    var lastName: String?
+    var profileImageURL: String?
+    var profileThumbnail: String?
+    var provider: String?
+    var referralCode: String?
+    var subscriptionStatus: String?
+    var username: String?
+
+    required init?(map: Map) {
+        
+    }
+
+    func mapping(map: Map) {
+        id <- map["_id"]
+        bannerImageURL <- map["bannerImageURL"]
+        channelId <- map["channelId"]
+        channelName <- map["channelName"]
+        displayName <- map["displayName"]
+        email <- map["email"]
+        firstName <- map["firstName"]
+        lastName <- map["lastName"]
+        profileImageURL <- map["profileImageURL"]
+        profileThumbnail <- map["profileThumbnail"]
+        provider <- map["provider"]
+        referralCode <- map["referralCode"]
+        subscriptionStatus <- map["subscriptionStatus"]
+        username <- map["username"]
+    }
+
+}

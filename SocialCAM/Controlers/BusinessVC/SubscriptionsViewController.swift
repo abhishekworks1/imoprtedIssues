@@ -89,6 +89,9 @@ class SubscriptionsViewController: UIViewController {
                 expiryDateHeightConstraint.constant = 48
             } else {
                 setupForFreeTrial(isFreeTrial: false)
+                if Defaults.shared.numberOfFreeTrialDays != 0 && subscriptionType != .free && Defaults.shared.appMode != .free {
+                    expiryDateHeightConstraint.constant = 48
+                }
             }
             if (currentUser.isTempSubscription == true && subscriptionType == .free) || (Defaults.shared.isDowngradeSubscription == true && subscriptionType == .free) {
                 btnUpgrade.isHidden = true

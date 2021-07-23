@@ -112,6 +112,7 @@ extension KeycloakAuthViewController {
         Defaults.shared.isQuickLinkShowed = response.result?.isRegistered
         Defaults.shared.isFromSignup = response.result?.isRegistered
         Defaults.shared.userCreatedDate = response.result?.user?.created
+        Defaults.shared.channelId = response.result?.user?.channelId
         CurrentUser.shared.setActiveUser(response.result?.user)
         Crashlytics.crashlytics().setUserID(CurrentUser.shared.activeUser?.username ?? "")
         CurrentUser.shared.createNewReferrerChannelURL { (_, _) -> Void in }
