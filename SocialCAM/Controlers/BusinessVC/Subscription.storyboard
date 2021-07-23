@@ -112,8 +112,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JpW-fA-Nvp">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose a suitable plan for you" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4gL-OI-IDh">
-                                        <rect key="frame" x="23" y="21" width="219" height="19.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose your Subcription Plan" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4gL-OI-IDh">
+                                        <rect key="frame" x="23" y="21" width="214.5" height="19.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <color key="highlightedColor" red="0.3529411764705882" green="0.38039215686274508" blue="0.4823529411764706" alpha="1" colorSpace="calibratedRGB"/>
@@ -121,31 +121,33 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LoK-od-CUJ">
                                         <rect key="frame" x="22" y="60.5" width="370" height="757.5"/>
                                         <subviews>
-                                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eJY-5m-VHC">
-                                                <rect key="frame" x="271" y="0.0" width="99" height="38"/>
-                                                <color key="backgroundColor" name="freeTrailBackgroundColor"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iV9-OP-ntd">
+                                                <rect key="frame" x="0.0" y="0.0" width="370" height="48"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have 4 days left on your free trial before your subscription starts" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6LC-op-AUD">
+                                                        <rect key="frame" x="5" y="0.0" width="360" height="48"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" name="AppPrimaryColor"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="38" id="U8X-xB-yWu"/>
-                                                    <constraint firstAttribute="width" constant="99" id="pIh-Qy-ksf"/>
+                                                    <constraint firstItem="6LC-op-AUD" firstAttribute="leading" secondItem="iV9-OP-ntd" secondAttribute="leading" constant="5" id="3LX-SE-xjl"/>
+                                                    <constraint firstAttribute="trailing" secondItem="6LC-op-AUD" secondAttribute="trailing" constant="5" id="Rew-bY-1qw"/>
+                                                    <constraint firstItem="6LC-op-AUD" firstAttribute="top" secondItem="iV9-OP-ntd" secondAttribute="top" id="kee-Bg-Lo2"/>
+                                                    <constraint firstAttribute="height" constant="48" id="le0-iN-04c"/>
+                                                    <constraint firstAttribute="bottom" secondItem="6LC-op-AUD" secondAttribute="bottom" id="wha-hW-uu9"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" name="SFUIText-Bold" family="SF UI Text" pointSize="15"/>
-                                                <state key="normal" title="14 days left">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </state>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
-                                                        <real key="value" value="5"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                            </button>
+                                            </view>
                                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.65000000000000002" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Free Trial" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H7c-hT-gaA">
-                                                <rect key="frame" x="131" y="56" width="108.5" height="29"/>
+                                                <rect key="frame" x="131" y="66" width="108.5" height="29"/>
                                                 <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="24"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Cm-G8-K2b">
-                                                <rect key="frame" x="30.5" y="95" width="309" height="50"/>
+                                                <rect key="frame" x="30.5" y="105" width="309" height="50"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Advance" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b0P-zp-94a">
                                                         <rect key="frame" x="0.0" y="0.0" width="116.5" height="50"/>
@@ -228,19 +230,20 @@
                                                 </connections>
                                             </tableView>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.29019607843137252" green="0.56470588235294117" blue="0.89411764705882346" alpha="0.10000000000000001" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="1" green="0.84313725490196079" blue="0.89411764705882346" alpha="0.10000000000000001" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstItem="eJY-5m-VHC" firstAttribute="top" secondItem="LoK-od-CUJ" secondAttribute="top" id="99t-uO-lMt"/>
                                             <constraint firstItem="4Cm-G8-K2b" firstAttribute="centerX" secondItem="LoK-od-CUJ" secondAttribute="centerX" id="K8d-8T-4XL"/>
-                                            <constraint firstAttribute="trailing" secondItem="eJY-5m-VHC" secondAttribute="trailing" id="S7y-iW-5Kk"/>
+                                            <constraint firstItem="H7c-hT-gaA" firstAttribute="top" secondItem="iV9-OP-ntd" secondAttribute="bottom" constant="18" id="Tgs-uQ-x8G"/>
                                             <constraint firstItem="7jd-VW-as7" firstAttribute="top" secondItem="4Cm-G8-K2b" secondAttribute="bottom" constant="9" id="Voh-cR-Lu9"/>
+                                            <constraint firstItem="iV9-OP-ntd" firstAttribute="top" secondItem="LoK-od-CUJ" secondAttribute="top" id="Ypz-5V-qfQ"/>
                                             <constraint firstItem="7jd-VW-as7" firstAttribute="centerX" secondItem="4Cm-G8-K2b" secondAttribute="centerX" id="cgF-hw-puh"/>
                                             <constraint firstItem="H7c-hT-gaA" firstAttribute="centerX" secondItem="LoK-od-CUJ" secondAttribute="centerX" id="eZY-38-YmR"/>
                                             <constraint firstItem="jxV-sn-mVE" firstAttribute="top" secondItem="7jd-VW-as7" secondAttribute="bottom" constant="17" id="kme-4P-tLQ"/>
+                                            <constraint firstItem="iV9-OP-ntd" firstAttribute="leading" secondItem="LoK-od-CUJ" secondAttribute="leading" id="l9H-TB-KAg"/>
                                             <constraint firstItem="4Cm-G8-K2b" firstAttribute="top" secondItem="H7c-hT-gaA" secondAttribute="bottom" constant="10" id="mRg-4d-w4c"/>
-                                            <constraint firstItem="H7c-hT-gaA" firstAttribute="top" secondItem="eJY-5m-VHC" secondAttribute="bottom" constant="18" id="n2a-Ul-acU"/>
                                             <constraint firstAttribute="trailing" secondItem="jxV-sn-mVE" secondAttribute="trailing" id="pfO-7O-9yT"/>
                                             <constraint firstItem="jxV-sn-mVE" firstAttribute="leading" secondItem="LoK-od-CUJ" secondAttribute="leading" id="r05-Rh-U6j"/>
+                                            <constraint firstAttribute="trailing" secondItem="iV9-OP-ntd" secondAttribute="trailing" id="vAa-0O-csG"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidthChat">
@@ -434,6 +437,12 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </button>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Current Plan" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1RE-XD-bMp">
+                                        <rect key="frame" x="0.0" y="0.0" width="318" height="0.0"/>
+                                        <fontDescription key="fontDescription" name="SFUIText-Bold" family="SF UI Text" pointSize="22"/>
+                                        <color key="textColor" name="quetag_darkPastelGreen"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a9w-D1-Q4W">
                                         <rect key="frame" x="0.0" y="0.0" width="318" height="49"/>
                                         <color key="backgroundColor" name="AppPrimaryColor"/>
@@ -470,16 +479,16 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="btnExpiryDate" destination="eJY-5m-VHC" id="d4o-nc-LFk"/>
                         <outlet property="btnUpgrade" destination="a9w-D1-Q4W" id="PZY-PS-31E"/>
-                        <outlet property="btnYourCurrentPlan" destination="Idw-jz-Jyg" id="Gxe-Xa-l1j"/>
                         <outlet property="downgradePopupView" destination="vK3-EF-vu0" id="Qti-8F-eIl"/>
-                        <outlet property="expiryDateHeightConstraint" destination="U8X-xB-yWu" id="HZ8-qQ-GGp"/>
+                        <outlet property="expiryDateHeightConstraint" destination="le0-iN-04c" id="cfp-Iv-TcE"/>
                         <outlet property="freeModeAlertBlurView" destination="m0z-cb-MFl" id="5LO-6z-Iqa"/>
                         <outlet property="freeModeAlertView" destination="XB6-io-hYJ" id="FS0-VD-9DX"/>
-                        <outlet property="lblFreeTrial" destination="H7c-hT-gaA" id="82e-2a-7cD"/>
+                        <outlet property="lblExpiryDate" destination="6LC-op-AUD" id="914-Ij-msT"/>
+                        <outlet property="lblFreeTrial" destination="H7c-hT-gaA" id="c5B-hB-kZC"/>
                         <outlet property="lblPrice" destination="xnQ-aO-Vug" id="0GM-2X-RhL"/>
                         <outlet property="lblTitle" destination="b0P-zp-94a" id="4bO-Mm-2GW"/>
+                        <outlet property="lblYourCurrentPlan" destination="1RE-XD-bMp" id="YUe-ZY-8Ft"/>
                         <outlet property="tableView" destination="jxV-sn-mVE" id="nA9-cW-qh4"/>
                     </connections>
                 </viewController>
@@ -493,13 +502,13 @@
         <image name="storyBack" width="19" height="19"/>
         <image name="subscriptionSeparator" width="46" height="5"/>
         <namedColor name="AppPrimaryColor">
-            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="currentPlanButtonColor">
             <color red="0.87058823529411766" green="0.20392156862745098" blue="0.20392156862745098" alpha="0.89999997615814209" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="freeTrailBackgroundColor">
-            <color red="0.87450980392156863" green="0.27450980392156865" blue="0.27843137254901962" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="quetag_darkPastelGreen">
+            <color red="0.23899999260902405" green="0.77300000190734863" blue="0.32499998807907104" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="resendLinkColor">
             <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

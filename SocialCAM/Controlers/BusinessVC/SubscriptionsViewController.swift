@@ -13,11 +13,11 @@ class SubscriptionsViewController: UIViewController {
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblPrice: UILabel!
     @IBOutlet weak var btnUpgrade: UIButton!
-    @IBOutlet weak var btnYourCurrentPlan: UIButton!
+    @IBOutlet weak var lblYourCurrentPlan: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var freeModeAlertView: UIView!
     @IBOutlet weak var freeModeAlertBlurView: UIVisualEffectView!
-    @IBOutlet weak var btnExpiryDate: UIButton!
+    @IBOutlet weak var lblExpiryDate: UILabel!
     @IBOutlet weak var lblFreeTrial: UILabel!
     @IBOutlet weak var expiryDateHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var downgradePopupView: UIView!
@@ -79,14 +79,14 @@ class SubscriptionsViewController: UIViewController {
     
     private func setupUI() {
         if let currentUser = Defaults.shared.currentUser {
-            btnExpiryDate.setTitle(R.string.localizable.expiryDaysLeft("\(Defaults.shared.numberOfFreeTrialDays ?? 0)"), for: .normal)
+            lblExpiryDate.text = R.string.localizable.expiryDaysLeft("\(Defaults.shared.numberOfFreeTrialDays ?? 0)")
             if currentUser.isTempSubscription ?? false && subscriptionType != .free && Defaults.shared.appMode != .free {
                 isFreeTrialMode = true
                 setupForFreeTrial(isFreeTrial: true)
             } else if Defaults.shared.isDowngradeSubscription == true && subscriptionType != .free && Defaults.shared.appMode != .free {
-                btnYourCurrentPlan.isHidden = false
+                lblYourCurrentPlan.isHidden = false
                 setupForFreeTrial(isFreeTrial: false)
-                expiryDateHeightConstraint.constant = 38
+                expiryDateHeightConstraint.constant = 48
             } else {
                 setupForFreeTrial(isFreeTrial: false)
             }
@@ -103,6 +103,8 @@ class SubscriptionsViewController: UIViewController {
             } else {
                 btnUpgrade.setTitle(isFreeTrialMode ? R.string.localizable.upgradeNow() : R.string.localizable.yourCurrentPlan(), for: .normal)
                 btnUpgrade.backgroundColor = isFreeTrialMode ? R.color.appPrimaryColor() : R.color.currentPlanButtonColor()
+                btnUpgrade.isHidden = !isFreeTrialMode
+                lblYourCurrentPlan.isHidden = isFreeTrialMode
                 if !isFreeTrialMode {
                     btnUpgrade.titleLabel?.font = R.font.sfuiTextRegular(size: 20)
                 }
@@ -323,7 +325,7 @@ extension SubscriptionsViewController {
     }
     
     func setupForFreeTrial(isFreeTrial: Bool) {
-        expiryDateHeightConstraint.constant = isFreeTrial ? 38 : 0
+        expiryDateHeightConstraint.constant = isFreeTrial ? 48 : 0
         lblFreeTrial.isHidden = !isFreeTrial
     }
     
