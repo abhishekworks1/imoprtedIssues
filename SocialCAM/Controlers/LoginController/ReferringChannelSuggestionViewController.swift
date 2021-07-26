@@ -92,13 +92,21 @@ extension ReferringChannelSuggestionViewController: UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        self.changeClearButton(shouldShow: !(txtField.text?.isEmpty ?? false))
-        if let textFieldCount = textField.text?.count {
-            if textFieldCount >= 3 {
-                self.getReferringChannelSuggestion()
-                self.showHUD()
-            } else if textFieldCount < 3 {
-                self.tblView.isHidden = true
+        if textField == txtField {
+            let specialCharacterRegEx = "^[a-zA-Z0-9_]*$"
+            let text = NSPredicate(format: "SELF MATCHES %@", specialCharacterRegEx)
+            let specialresult = text.evaluate(with: string)
+            if !specialresult {
+                return false
+            }
+            self.changeClearButton(shouldShow: !(txtField.text?.isEmpty ?? false))
+            if let textFieldCount = textField.text?.count {
+                if textFieldCount >= 2 {
+                    self.getReferringChannelSuggestion()
+                    self.showHUD()
+                } else if textFieldCount < 3 {
+                    self.tblView.isHidden = true
+                }
             }
         }
         return true
