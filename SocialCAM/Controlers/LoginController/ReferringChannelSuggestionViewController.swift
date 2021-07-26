@@ -22,7 +22,6 @@ class ReferringChannelSuggestionViewController: UIViewController {
     @IBOutlet weak var referringTooltipView: UIView!
     @IBOutlet weak var lblReferringChannel: UILabel!
     @IBOutlet weak var imgLogo: UIImageView!
-    @IBOutlet weak var txtChannelName: UITextField!
     
     // MARK: - Variables Declaration
     var channels: [Channel] = []
@@ -32,9 +31,10 @@ class ReferringChannelSuggestionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tblView.isHidden = true
-        self.lblReferringChannel.text = R.string.localizable.referringChannelScreenText(Constant.Application.displayName)
+        if let channelName = Defaults.shared.currentUser?.channelName {
+            self.lblReferringChannel.text = R.string.localizable.referringChannelScreenText(channelName, Constant.Application.displayName)
+        }
         CommonFunctions.setAppLogo(imgLogo: imgLogo)
-        self.txtChannelName.text = Defaults.shared.currentUser?.channelName
     }
     
     // MARK: - UI Setup Methods
