@@ -26,18 +26,20 @@
                         <rect key="frame" x="3" y="0.0" width="324" height="135"/>
                         <subviews>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yQf-Oi-aAX">
-                                <rect key="frame" x="0.0" y="30" width="324" height="84.5"/>
+                                <rect key="frame" x="0.0" y="30" width="324" height="85"/>
                                 <subviews>
                                     <stackView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="MIe-Jw-iFr">
-                                        <rect key="frame" x="3" y="3" width="318" height="78.5"/>
+                                        <rect key="frame" x="3" y="5" width="318" height="80"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="80" id="WHR-an-CaC"/>
+                                        </constraints>
                                     </stackView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="MIe-Jw-iFr" firstAttribute="leading" secondItem="yQf-Oi-aAX" secondAttribute="leading" constant="3" id="3AK-GC-Rum"/>
                                     <constraint firstAttribute="trailing" secondItem="MIe-Jw-iFr" secondAttribute="trailing" constant="3" id="OAc-v6-XYC"/>
-                                    <constraint firstItem="MIe-Jw-iFr" firstAttribute="top" secondItem="yQf-Oi-aAX" secondAttribute="top" constant="3" id="kwO-cb-RHh"/>
-                                    <constraint firstAttribute="bottom" secondItem="MIe-Jw-iFr" secondAttribute="bottom" constant="3" id="t7u-Ay-e9y"/>
+                                    <constraint firstAttribute="bottom" secondItem="MIe-Jw-iFr" secondAttribute="bottom" id="t7u-Ay-e9y"/>
                                 </constraints>
                             </view>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Ra6-9F-dLm">
@@ -51,10 +53,10 @@
                                 <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <size key="shadowOffset" width="0.0" height="1"/>
                             </label>
-                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="RxE-Ir-i3r">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="RxE-Ir-i3r">
                                 <rect key="frame" x="0.0" y="105" width="324" height="30"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="A9z-6l-Zgj">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="A9z-6l-Zgj">
                                         <rect key="frame" x="0.0" y="0.0" width="324" height="30"/>
                                         <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="12"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -79,9 +81,12 @@
                                         <size key="shadowOffset" width="0.0" height="1"/>
                                     </label>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="xNk-gK-mRR" firstAttribute="top" secondItem="6Kw-Ov-6Vp" secondAttribute="top" constant="5" id="QVO-8s-1BK"/>
+                                </constraints>
                             </stackView>
                             <view hidden="YES" opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gle-DO-dvN" customClass="TrimmerView" customModule="BoomiCam" customModuleProvider="target">
-                                <rect key="frame" x="10" y="30" width="304" height="84.5"/>
+                                <rect key="frame" x="10" y="30" width="304" height="75"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
@@ -102,7 +107,7 @@
                             <constraint firstItem="yQf-Oi-aAX" firstAttribute="top" secondItem="Ra6-9F-dLm" secondAttribute="bottom" id="YuJ-RF-ya0"/>
                             <constraint firstItem="gle-DO-dvN" firstAttribute="leading" secondItem="yQf-Oi-aAX" secondAttribute="leading" constant="10" id="hgU-4y-7zY"/>
                             <constraint firstItem="6Kw-Ov-6Vp" firstAttribute="leading" secondItem="RxE-Ir-i3r" secondAttribute="leading" id="iTE-vu-ODm"/>
-                            <constraint firstItem="RxE-Ir-i3r" firstAttribute="top" secondItem="yQf-Oi-aAX" secondAttribute="bottom" constant="5" id="udH-6M-e7Y"/>
+                            <constraint firstItem="RxE-Ir-i3r" firstAttribute="top" secondItem="yQf-Oi-aAX" secondAttribute="bottom" constant="-10" id="udH-6M-e7Y"/>
                             <constraint firstItem="Ra6-9F-dLm" firstAttribute="leading" secondItem="Piq-pr-mJm" secondAttribute="leading" id="uwY-yG-NhX"/>
                             <constraint firstItem="RxE-Ir-i3r" firstAttribute="top" secondItem="gle-DO-dvN" secondAttribute="bottom" id="yVH-8d-s1G"/>
                         </constraints>

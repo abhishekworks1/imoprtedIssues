@@ -156,6 +156,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
         imagesView.layer.borderWidth = 3
         imagesView.layer.borderColor = ApplicationSettings.appPrimaryColor.cgColor
         lblSegmentCount.text = "\(currentPage + 1)"
+        lblSegmentCount.isHidden = true
         isEditMode = true
         loadAsset(currentAsset)
         
