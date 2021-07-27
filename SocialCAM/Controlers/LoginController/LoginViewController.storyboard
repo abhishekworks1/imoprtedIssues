@@ -2488,77 +2488,46 @@
                                                 <color key="textColor" red="0.29019607843137252" green="0.29019607843137252" blue="0.29019607843137252" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xpb-TU-9je">
-                                                <rect key="frame" x="46" y="338.5" width="323" height="38"/>
-                                                <subviews>
-                                                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Channel Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bQO-BG-6tC">
-                                                        <rect key="frame" x="11" y="2" width="94.5" height="34"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits"/>
-                                                        <connections>
-                                                            <outlet property="delegate" destination="5ef-jh-6rm" id="Dnq-ub-ZCJ"/>
-                                                        </connections>
-                                                    </textField>
-                                                </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                <constraints>
-                                                    <constraint firstItem="bQO-BG-6tC" firstAttribute="centerY" secondItem="Xpb-TU-9je" secondAttribute="centerY" id="8cH-e7-fmI"/>
-                                                    <constraint firstAttribute="height" constant="38" id="ZkI-mK-WaZ"/>
-                                                    <constraint firstItem="bQO-BG-6tC" firstAttribute="leading" secondItem="Xpb-TU-9je" secondAttribute="leading" constant="11" id="iPC-Ca-l2C"/>
-                                                    <constraint firstItem="bQO-BG-6tC" firstAttribute="height" secondItem="Xpb-TU-9je" secondAttribute="height" multiplier="0.894737" id="wAS-Lx-ngw"/>
-                                                </constraints>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
-                                                        <real key="value" value="6.9000000000000004"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidthChat">
-                                                        <real key="value" value="1"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColorChat">
-                                                        <color key="value" red="0.86274509799999999" green="0.87450980389999999" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                            </view>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9aX-IW-c7b">
-                                                <rect key="frame" x="36" y="162" width="333" height="220"/>
+                                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9aX-IW-c7b">
+                                                <rect key="frame" x="46" y="108.5" width="323" height="220"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="220" id="7xF-21-5DL"/>
                                                 </constraints>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ChanelCell" rowHeight="114" id="B4A-y7-cke" customClass="ChanelCell" customModule="BoomiCam" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="28" width="333" height="114"/>
+                                                        <rect key="frame" x="0.0" y="28" width="323" height="114"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="B4A-y7-cke" id="M4V-TE-02v">
-                                                            <rect key="frame" x="0.0" y="0.0" width="333" height="114"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="323" height="114"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userProfilePlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="kf6-m2-1be" customClass="RoundedImageView" customModule="BoomiCam" customModuleProvider="target">
-                                                                    <rect key="frame" x="30" y="25" width="44.5" height="44.5"/>
+                                                                    <rect key="frame" x="30" y="25" width="43" height="43"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" secondItem="kf6-m2-1be" secondAttribute="height" multiplier="1:1" id="Njj-wM-rb9"/>
                                                                     </constraints>
                                                                 </imageView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="253" text="Lisa Cuddy" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e3v-40-T8l" customClass="PLabel" customModule="BoomiCam" customModuleProvider="target">
-                                                                    <rect key="frame" x="88.5" y="25" width="71" height="17"/>
+                                                                    <rect key="frame" x="87" y="25" width="71" height="17"/>
                                                                     <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="14"/>
                                                                     <color key="textColor" red="0.22352941179999999" green="0.22352941179999999" blue="0.22352941179999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Gf-3u-cki" customClass="PLabel" customModule="BoomiCam" customModuleProvider="target">
-                                                                    <rect key="frame" x="88.5" y="42" width="216.5" height="0.0"/>
+                                                                    <rect key="frame" x="87" y="42" width="208" height="0.0"/>
                                                                     <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="14"/>
                                                                     <color key="textColor" red="0.36470588240000001" green="0.36470588240000001" blue="0.36470588240000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="225" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lMX-v4-V62" customClass="PLabel" customModule="BoomiCam" customModuleProvider="target">
-                                                                    <rect key="frame" x="88.5" y="42" width="216.5" height="16.5"/>
+                                                                    <rect key="frame" x="87" y="42" width="208" height="16.5"/>
                                                                     <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="14"/>
                                                                     <color key="textColor" red="0.48627450979999998" green="0.48627450979999998" blue="0.48627450979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uZg-4b-8nw" customClass="PButton" customModule="BoomiCam" customModuleProvider="target">
-                                                                    <rect key="frame" x="315" y="42.5" width="0.0" height="29"/>
+                                                                    <rect key="frame" x="305" y="42.5" width="0.0" height="29"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" id="9Bm-aT-z1W"/>
                                                                     </constraints>
@@ -2607,6 +2576,17 @@
                                                         </connections>
                                                     </tableViewCell>
                                                 </prototypes>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidthChat">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColorChat">
+                                                        <color key="value" red="0.86274509803921573" green="0.87450980392156863" blue="0.89803921568627454" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                        <real key="value" value="8"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <outlet property="dataSource" destination="5ef-jh-6rm" id="MdH-u3-zHG"/>
                                                     <outlet property="delegate" destination="5ef-jh-6rm" id="6PX-at-LCG"/>
@@ -2759,22 +2739,19 @@
                                             <constraint firstItem="ovL-uN-rOE" firstAttribute="leading" secondItem="XoS-7V-uka" secondAttribute="leading" id="0Ju-aB-DRz"/>
                                             <constraint firstAttribute="trailing" secondItem="yLh-VW-Ucg" secondAttribute="trailing" constant="15.4" id="0zt-Xk-Vev"/>
                                             <constraint firstItem="YjZ-39-lZj" firstAttribute="top" secondItem="XoS-7V-uka" secondAttribute="top" constant="66" id="3or-Oo-QwK"/>
-                                            <constraint firstItem="Xpb-TU-9je" firstAttribute="leading" secondItem="woY-YZ-NVx" secondAttribute="leading" id="DVP-wb-OSc"/>
                                             <constraint firstAttribute="trailing" secondItem="eYj-za-4V3" secondAttribute="trailing" constant="5" id="IPV-OP-S17"/>
-                                            <constraint firstItem="9aX-IW-c7b" firstAttribute="leading" secondItem="woY-YZ-NVx" secondAttribute="leading" constant="-10" id="M8i-be-g22"/>
+                                            <constraint firstItem="9aX-IW-c7b" firstAttribute="leading" secondItem="woY-YZ-NVx" secondAttribute="leading" id="M8i-be-g22"/>
                                             <constraint firstItem="piw-Q7-qPa" firstAttribute="leading" secondItem="XoS-7V-uka" secondAttribute="leading" constant="31" id="RVK-wo-456"/>
                                             <constraint firstItem="piw-Q7-qPa" firstAttribute="top" secondItem="YjZ-39-lZj" secondAttribute="bottom" constant="23.899999999999999" id="Rbd-Qa-4Vg"/>
                                             <constraint firstItem="ovL-uN-rOE" firstAttribute="top" secondItem="XoS-7V-uka" secondAttribute="top" id="TNu-Ke-6YR"/>
                                             <constraint firstAttribute="trailing" secondItem="woY-YZ-NVx" secondAttribute="trailing" constant="44.899999999999999" id="Ti2-Bp-Gmd"/>
-                                            <constraint firstItem="woY-YZ-NVx" firstAttribute="top" secondItem="Xpb-TU-9je" secondAttribute="bottom" constant="15.6" id="UkG-tH-OgA"/>
-                                            <constraint firstItem="Xpb-TU-9je" firstAttribute="trailing" secondItem="woY-YZ-NVx" secondAttribute="trailing" id="YgF-Oc-blf"/>
-                                            <constraint firstItem="Xpb-TU-9je" firstAttribute="top" secondItem="yLh-VW-Ucg" secondAttribute="bottom" constant="25.899999999999999" id="ZEM-Bk-d5S"/>
                                             <constraint firstItem="eYj-za-4V3" firstAttribute="bottom" secondItem="woY-YZ-NVx" secondAttribute="bottom" id="a43-pF-Dcu"/>
                                             <constraint firstItem="yLh-VW-Ucg" firstAttribute="top" secondItem="mTk-cJ-Oqb" secondAttribute="bottom" constant="9.9000000000000004" id="aQG-q2-lJa"/>
                                             <constraint firstItem="woY-YZ-NVx" firstAttribute="leading" secondItem="XoS-7V-uka" secondAttribute="leading" constant="46.100000000000001" id="aYc-O7-LD8"/>
                                             <constraint firstAttribute="trailing" secondItem="ovL-uN-rOE" secondAttribute="trailing" id="abA-pF-B9C"/>
                                             <constraint firstItem="yLh-VW-Ucg" firstAttribute="leading" secondItem="XoS-7V-uka" secondAttribute="leading" constant="23" id="aeS-S1-gtE"/>
                                             <constraint firstItem="9aX-IW-c7b" firstAttribute="trailing" secondItem="woY-YZ-NVx" secondAttribute="trailing" id="bc3-sG-O6o"/>
+                                            <constraint firstItem="woY-YZ-NVx" firstAttribute="top" secondItem="yLh-VW-Ucg" secondAttribute="bottom" constant="25.899999999999999" id="bvX-Xx-351"/>
                                             <constraint firstItem="eYj-za-4V3" firstAttribute="leading" secondItem="woY-YZ-NVx" secondAttribute="trailing" constant="10" id="cH2-aG-Kxr"/>
                                             <constraint firstItem="mTk-cJ-Oqb" firstAttribute="centerX" secondItem="YjZ-39-lZj" secondAttribute="centerX" id="e5I-U4-oaN"/>
                                             <constraint firstAttribute="trailing" secondItem="IkD-oj-hmg" secondAttribute="trailing" constant="30.300000000000001" id="fRC-yR-sHo"/>
@@ -2815,7 +2792,6 @@
                         <outlet property="referringTooltipView" destination="ovL-uN-rOE" id="ss2-yQ-X7m"/>
                         <outlet property="searchView" destination="woY-YZ-NVx" id="Gcp-Pc-LAH"/>
                         <outlet property="tblView" destination="9aX-IW-c7b" id="KEb-mV-QA1"/>
-                        <outlet property="txtChannelName" destination="bQO-BG-6tC" id="w7t-aX-CPI"/>
                         <outlet property="txtField" destination="x6N-uZ-WRS" id="Xl3-hz-H3c"/>
                     </connections>
                 </viewController>
