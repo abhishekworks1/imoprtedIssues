@@ -984,6 +984,8 @@ public struct Paths {
     static let subsciptionList = "subscriptions"
     static let userSync = "user/userSync"
     static let downgradeSubscription = "subscription/downgrade"
+    static let getToken = "user/getToken"
+    static let createUser = "user/createUser"
 }
 
 struct WebsiteData {

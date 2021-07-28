@@ -315,11 +315,8 @@ class StoryAssetExportSession {
                         guard let `self` = self else {
                             return
                         }
-                        if (Defaults.shared.appIdentifierWatermarkSetting == .show || Defaults.shared.madeWithGifSetting == .show) && self.socialShareType != .tiktok {
+                        if (Defaults.shared.appIdentifierWatermarkSetting == .show || Defaults.shared.madeWithGifSetting == .show || Defaults.shared.fastestEverWatermarkSetting == .show) && self.socialShareType != .tiktok {
                             self.addWaterMarkImageIfNeeded(isGIF: true)
-                        }
-                        if Defaults.shared.fastestEverWatermarkSetting == .show && self.socialShareType != .tiktok {
-                            self.addFastestEverWaterMarkImage()
                         }
                     }
                 }
@@ -329,11 +326,8 @@ class StoryAssetExportSession {
                         guard let `self` = self else {
                             return
                         }
-                        if (Defaults.shared.appIdentifierWatermarkSetting == .show || Defaults.shared.madeWithGifSetting == .show) && self.socialShareType != .tiktok {
+                        if (Defaults.shared.appIdentifierWatermarkSetting == .show || Defaults.shared.madeWithGifSetting == .show || Defaults.shared.fastestEverWatermarkSetting == .show) && self.socialShareType != .tiktok {
                             self.addWaterMarkImageIfNeeded(isGIF: true)
-                        }
-                        if Defaults.shared.fastestEverWatermarkSetting == .show && self.socialShareType != .tiktok {
-                            self.addFastestEverWaterMarkImage()
                         }
                     }
                 }
@@ -343,11 +337,8 @@ class StoryAssetExportSession {
                 guard let `self` = self else {
                     return
                 }
-                if Defaults.shared.appIdentifierWatermarkSetting == .show && self.socialShareType != .tiktok {
+                if (Defaults.shared.appIdentifierWatermarkSetting == .show || Defaults.shared.fastestEverWatermarkSetting == .show) && self.socialShareType != .tiktok {
                     self.addWaterMarkImageIfNeeded(isGIF: false)
-                }
-                if Defaults.shared.fastestEverWatermarkSetting == .show && self.socialShareType != .tiktok {
-                    self.addFastestEverWaterMarkImage()
                 }
             }
         }
@@ -448,6 +439,10 @@ class StoryAssetExportSession {
             watermarkGIFImage = isGIF ? UIImage(cgImage: gifFrames.remove(at: 0)) : UIImage()
         }
         
+        guard let fastesteverImage = R.image.fastestever() else {
+            return
+        }
+        
         var newWatermarkImage = watermarkImage
         if Defaults.shared.appIdentifierWatermarkSetting == .show {
             newWatermarkImage = watermarkImage.combineWith(image: watermarkTextImage)
@@ -463,12 +458,14 @@ class StoryAssetExportSession {
 
         let watermarkImageSize = CGSize(width: newWatermarkImage.size.width * 1.3, height: newWatermarkImage.size.height * 1.3)
         let watermarkGIFImageSize = CGSize(width: newWatermarkGIFImage.size.width * 1.5, height: newWatermarkGIFImage.size.height * 2)
+        let fastesteverImageSize = CGSize(width: fastesteverImage.size.width * 1.4, height: fastesteverImage.size.height * 1.4)
         
         var watermarkOrigin = CGPoint(x: backgroundImageSize.width - watermarkImageSize.width - 20, y: backgroundImageSize.height - watermarkImageSize.height - 50)
         if watermarkPosition == .topLeft && Defaults.shared.appIdentifierWatermarkSetting == .show {
             watermarkOrigin = CGPoint(x: 8, y: 8)
         }
         let watermarkGIFOrigin = CGPoint(x: backgroundImageSize.width - watermarkGIFImageSize.width + 10, y: 0)
+        let fastesteverOrigin = CGPoint(x: 8, y: backgroundImageSize.height - fastesteverImageSize.height - 70)
         
         var watermarkImageRect = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: 0, height: 0))
         if Defaults.shared.appIdentifierWatermarkSetting == .show && Defaults.shared.madeWithGifSetting == .show {
@@ -482,6 +479,10 @@ class StoryAssetExportSession {
         } else if Defaults.shared.madeWithGifSetting == .show {
             watermarkImageRect = CGRect(origin: watermarkGIFOrigin, size: watermarkGIFImageSize)
             newWatermarkGIFImage.draw(in: watermarkImageRect, blendMode: .normal, alpha: 1.0)
+        }
+        if Defaults.shared.fastestEverWatermarkSetting == .show {
+            watermarkImageRect = CGRect(origin: fastesteverOrigin, size: fastesteverImageSize)
+            fastesteverImage.draw(in: watermarkImageRect, blendMode: .normal, alpha: 1.0)
         }
         if let newImage = UIGraphicsGetImageFromCurrentImageContext() {
             self.overlayWatermarkImage = newImage

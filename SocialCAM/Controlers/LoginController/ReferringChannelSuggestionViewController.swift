@@ -26,13 +26,16 @@ class ReferringChannelSuggestionViewController: UIViewController {
     // MARK: - Variables Declaration
     var channels: [Channel] = []
     var ChanelHandler: ((_ channel:Channel)->Void)?
+    var fromOtherApp = false
+    var channelId = Defaults.shared.channelId
     
     // MARK: - View Life Cycle Method
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tblView.isHidden = true
-        if let channelName = Defaults.shared.currentUser?.channelName {
-            self.lblReferringChannel.text = R.string.localizable.referringChannelScreenText(channelName, Constant.Application.displayName)
+        if let channelName = Defaults.shared.currentUser?.channelName,
+           let channelId = Defaults.shared.channelId {
+            self.lblReferringChannel.text = R.string.localizable.referringChannelScreenText(fromOtherApp ? channelId : channelName, Constant.Application.displayName)
         }
         CommonFunctions.setAppLogo(imgLogo: imgLogo)
     }
@@ -63,7 +66,11 @@ class ReferringChannelSuggestionViewController: UIViewController {
         if referringChannel.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
             self.showAlert(alertMessage: R.string.localizable.pleaseEnterTheNameOfYourReferringChannelIfYouDoNotHaveOneUseTheSearchFeatureToFindAChannelToUse())
         } else {
-            self.addReferral()
+            if self.fromOtherApp {
+                self.createUser(referringChannel: referringChannel)
+            } else {
+                self.addReferral()
+            }
         }
     }
     
@@ -155,6 +162,9 @@ extension ReferringChannelSuggestionViewController {
                 tooltipViewController?.blurView.isHidden = false
                 tooltipViewController?.blurView.alpha = 0.7
                 tooltipViewController?.signupTooltipView.isHidden = false
+            } else {
+                let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
+                Utils.appDelegate?.window?.rootViewController = rootViewController
             }
         } else {
             let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
@@ -166,9 +176,12 @@ extension ReferringChannelSuggestionViewController {
         guard let text = txtField.text else {
             return
         }
-        ProManagerApi.search(channel: text).request(ResultArray<Channel>.self).subscribe(onNext: { response in
+        ProManagerApi.search(channel: text, channelId: channelId ?? "").request(ResultArray<Channel>.self).subscribe(onNext: { response in
             self.dismissHUD()
-            let channel: [Channel] = response.result!
+            guard let channelNames = response.result else {
+                return
+            }
+            let channel: [Channel] = channelNames
             self.channels = channel
             self.tblView.isHidden = false
             self.tblView.reloadData()
@@ -196,6 +209,28 @@ extension ReferringChannelSuggestionViewController {
             self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
+    }
+    
+    func createUser(referringChannel: String) {
+        ProManagerApi.createUser(channelId: channelId ?? "", refferingChannel: referringChannel).request(Result<LoginResult>.self).subscribe(onNext: { (response) in
+            if response.status == ResponseType.success {
+                Defaults.shared.sessionToken = response.sessionToken
+                Defaults.shared.currentUser = response.result?.user
+                Defaults.shared.isRegistered = response.result?.isRegistered
+                Defaults.shared.numberOfFreeTrialDays = response.result?.diffDays
+                Defaults.shared.isPic2ArtShowed = response.result?.isRegistered
+                Defaults.shared.isQuickLinkShowed = response.result?.isRegistered
+                Defaults.shared.isFromSignup = response.result?.isRegistered
+                Defaults.shared.userCreatedDate = response.result?.user?.created
+                CurrentUser.shared.setActiveUser(response.result?.user)
+                self.redirectToHomeScreen()
+            } else {
+                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+            }
+        }, onError: { error in
+            self.showAlert(alertMessage: error.localizedDescription)
+        }, onCompleted: {
+        }).disposed(by: rx.disposeBag)
     }
     
 }

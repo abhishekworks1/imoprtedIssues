@@ -42,7 +42,7 @@ class SearchChannelViewController: UIViewController {
         let result = self.txtField.rx.text.orEmpty.throttle(0.5, scheduler:MainScheduler.instance).distinctUntilChanged().flatMapLatest { (q:String) -> Observable<ResultArray<Channel>> in
             self.showHUD()
             return ProManagerApi
-                .search(channel:q)
+                .search(channel:q, channelId: "")
                 .request(ResultArray<Channel>.self)
         }
         

@@ -23,7 +23,7 @@ public enum ProManagerApi {
     case signUp(email: String, password: String, channel: String, refChannel: String, isBusiness: Bool, socialId:String?, provider:String?, channelName: String, refferId: String?, deviceToken: String?, birthDate: String?, profileImageURL: String?)
     case socialLogin(socialId: String, email: String?)
     case uploadYoutubeVideo(token: String, videoURL: URL, snippet: [String:Any], status: String)
-    case search(channel: String)
+    case search(channel: String, channelId: String)
     case verifyChannel(channel: String, type: String)
     case getYoutubeCategory(token: String)
     case getyoutubeSubscribedChannel(token: String, forChannelId: String?)
@@ -71,12 +71,14 @@ public enum ProManagerApi {
     case buySubscription(param: [String:Any])
     case userSync
     case downgradeSubscription(subscriptionId: String)
+    case getToken(appName: String)
+    case createUser(channelId: String, refferingChannel: String)
 
     var endpoint: Endpoint {
         var endpointClosure = MoyaProvider<ProManagerApi>.defaultEndpointMapping(for: self)
         
         switch self {
-        case .confirmEmail, .signUp, .verifyChannel, .getSplashImages, .logIn, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getYoutubeCategory, .getAccessToken, .socialLogin, .youTubeChannels(_), .forgotPassword, .loginWithKeycloak:
+        case .confirmEmail, .signUp, .verifyChannel, .getSplashImages, .logIn, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getYoutubeCategory, .getAccessToken, .socialLogin, .youTubeChannels(_), .forgotPassword, .loginWithKeycloak, .createUser, .search:
             endpointClosure = endpointClosure.adding(newHTTPHeaderFields: APIHeaders().headerWithoutAccessToken)
         case .getWeather:
             break
@@ -99,7 +101,7 @@ public enum ProManagerApi {
 extension ProManagerApi: TargetType {
     public var headers: [String: String]? {
         switch self {
-        case .confirmEmail, .signUp, .verifyChannel, .getSplashImages, .logIn, .doLogin, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getYoutubeCategory, .socialLogin, .youTubeChannels, .forgotPassword, .loginWithKeycloak:
+        case .confirmEmail, .signUp, .verifyChannel, .getSplashImages, .logIn, .doLogin, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getYoutubeCategory, .socialLogin, .youTubeChannels, .forgotPassword, .loginWithKeycloak, .createUser, .search:
             return APIHeaders().headerWithoutAccessToken
         case .getWeather, .getAccessToken:
             break
@@ -249,6 +251,10 @@ extension ProManagerApi: TargetType {
             return Paths.userSync
         case .downgradeSubscription:
             return Paths.downgradeSubscription
+        case .getToken:
+            return Paths.getToken
+        case .createUser:
+            return Paths.createUser
         }
        
     }
@@ -280,8 +286,9 @@ extension ProManagerApi: TargetType {
             if let type = socialPlatform {
                 param["type"] = type
             }
-        case .search(let channel):
-            param = ["channelName": channel]
+        case .search(let channel, let channelId):
+            param = ["channelName": channel,
+                     "channelId": channelId]
         case .confirmEmail(let userId, let email):
             param = ["userId": userId, "email": email]
         case .signUp(let email, let password, let channel, let refChannel, let isBusiness, let socialId, let provider, let channelName, let refferId, let deviceToken, let birthDate, let profileImageURL):
@@ -602,6 +609,11 @@ extension ProManagerApi: TargetType {
             break
         case .downgradeSubscription(let subscriptionId):
             param = ["subscriptionId": subscriptionId]
+        case .getToken(let appName):
+            param = ["appName": appName]
+        case .createUser(let channelId, let refferingChannel):
+            param = ["channelId": channelId,
+                     "refferingChannel": refferingChannel]
         }
         return param
     }

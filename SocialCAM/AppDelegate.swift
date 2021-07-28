@@ -395,20 +395,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return true
         } else {
             // Process the URL.
-            guard let components = NSURLComponents(url: url, resolvingAgainstBaseURL: true),
-                  let fragments = components.fragment else {
-                return false
-            }
-            components.query = fragments
-            if let url = components.scheme {
-                let redirectUrl = "\(url)\(KeycloakRedirectLink.endUrl)"
-                var code: String?
-                for item in components.queryItems! {
-                    if item.name == R.string.localizable.code() {
-                        code = item.value
+            if let components = NSURLComponents(url: url, resolvingAgainstBaseURL: true) {
+                let fragments = components.fragment
+                if fragments != nil {
+                    components.query = fragments
+                    if let url = components.scheme {
+                        let redirectUrl = "\(url)\(KeycloakRedirectLink.endUrl)"
+                        var code: String?
+                        for item in components.queryItems! {
+                            if item.name == R.string.localizable.code() {
+                                code = item.value
+                            }
+                        }
+                        loginWithKeycloak(code: code ?? "", redirectUrl: redirectUrl)
+                    }
+                } else {
+                    if components.path?.hasSuffix("undefined") != true {
+                        let pathComponents = url.pathComponents
+                        if pathComponents.count == 6 {
+                            Defaults.shared.sessionToken = pathComponents[4]
+                            Defaults.shared.channelId = pathComponents[3]
+                            if Defaults.shared.sessionToken != "null" {
+                                syncUserModel()
+                            } else {
+                                self.goToHomeScreen(isRefferencingChannelEmpty: true)
+                            }
+                        }
+                    } else {
+                        let pathComponents = url.pathComponents
+                        if pathComponents.count == 6 {
+                            Defaults.shared.channelId = pathComponents[3]
+                            goToHomeScreen(isRefferencingChannelEmpty: true)
+                        }
                     }
                 }
-                loginWithKeycloak(code: code ?? "", redirectUrl: redirectUrl)
             }
         }
         return false
@@ -468,6 +488,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #else
         if isRefferencingChannelEmpty {
             let referringChannelSuggestionViewController = R.storyboard.loginViewController.referringChannelSuggestionViewController()
+            referringChannelSuggestionViewController?.fromOtherApp = true
             Utils.appDelegate?.window?.rootViewController = referringChannelSuggestionViewController
         } else {
             let cameraNavVC = R.storyboard.storyCameraViewController.storyCameraViewNavigationController()
@@ -476,6 +497,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         RunLoop.current.run(until: Date(timeIntervalSinceNow: 1.0))
         #endif
+    }
+    
+    func syncUserModel() {
+        ProManagerApi.userSync.request(Result<UserSyncModel>.self).subscribe(onNext: { (response) in
+            if response.status == ResponseType.success {
+                self.goToHomeScreen(isRefferencingChannelEmpty: response.result?.user?.refferingChannel == nil)
+            }
+        }, onError: { error in
+        }, onCompleted: {
+        }).disposed(by: self.rx.disposeBag)
     }
     
 }

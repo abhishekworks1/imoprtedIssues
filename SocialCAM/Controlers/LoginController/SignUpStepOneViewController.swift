@@ -160,7 +160,7 @@ class SignUpStepOneViewController: UIViewController {
                 self.showHUD()
             }
             return ProManagerApi
-                .search(channel: channel)
+                .search(channel: channel, channelId: "")
                 .request(ResultArray<Channel>.self)
         })
         
