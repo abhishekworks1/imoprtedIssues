@@ -48,6 +48,7 @@ enum SettingsMode: Int {
     case help
     case edit
     case quickLink
+    case deleteAccount
 }
 
 class StorySetting {
@@ -104,7 +105,9 @@ class StorySettings {
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.help(), selected: false)], settingsType: .help),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.logout(), selected: false)], settingsType: .logout)]
+                                              settings: [StorySetting(name: R.string.localizable.logout(), selected: false)], settingsType: .logout),
+                                StorySettings(name: "",
+                                              settings: [StorySetting(name: R.string.localizable.deleteAccount(), selected: false)], settingsType: .deleteAccount)]
 }
 
 class StorySettingsVC: UIViewController {
@@ -114,6 +117,9 @@ class StorySettingsVC: UIViewController {
     @IBOutlet weak var imgAppLogo: UIImageView!
     @IBOutlet weak var lblLogoutPopup: UILabel!
     @IBOutlet weak var logoutPopupView: UIView!
+    
+    // MARK: - Variables declaration
+    var isDeletePopup = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -174,10 +180,15 @@ class StorySettingsVC: UIViewController {
     }
     
     @IBAction func btnLogoutTapped(_ sender: UIButton) {
-        logoutWithKeycloak()
+        if isDeletePopup {
+            self.deleteUserAccount()
+        } else {
+            self.logoutWithKeycloak()
+        }
     }
     
     @IBAction func btnCancelLogout(_ sender: UIButton) {
+        isDeletePopup = false
         logoutPopupView.isHidden = true
     }
     
@@ -224,9 +235,11 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         cell.settingsName.text = settings.name
         cell.detailButton.isHidden = true
         cell.settingsName.textColor = R.color.appBlackColor()
-        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video || settingTitle.settingsType == .cameraSettings || settingTitle.settingsType == .termsAndConditions || settingTitle.settingsType == .privacyPolicy || settingTitle.settingsType == .subscription || settingTitle.settingsType == .goToWebsite || settingTitle.settingsType == .watermarkSettings || settingTitle.settingsType == .applicationSurvey || settingTitle.settingsType == .intellectualProperties || settingTitle.settingsType == .help {
+        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video || settingTitle.settingsType == .cameraSettings || settingTitle.settingsType == .termsAndConditions || settingTitle.settingsType == .privacyPolicy || settingTitle.settingsType == .subscription || settingTitle.settingsType == .goToWebsite || settingTitle.settingsType == .watermarkSettings || settingTitle.settingsType == .applicationSurvey || settingTitle.settingsType == .intellectualProperties || settingTitle.settingsType == .help || settingTitle.settingsType == .deleteAccount {
             if settingTitle.settingsType == .appInfo {
                 cell.settingsName.textColor = R.color.appPrimaryColor()
+            } else if settingTitle.settingsType == .deleteAccount {
+                cell.settingsName.textColor = R.color.labelError()
             }
             cell.onOffButton.isHidden = true
         } else if settingTitle.settingsType == .socialLogins {
@@ -339,6 +352,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 navigationController?.pushViewController(storySettingsVC, animated: true)
             }
         } else if settingTitle.settingsType == .logout {
+            lblLogoutPopup.text = R.string.localizable.areYouSureYouWantToLogoutFromApp("\(Constant.Application.displayName)")
             logoutPopupView.isHidden = false
         } else if settingTitle.settingsType == .socialLogout {
             logoutUser()
@@ -422,6 +436,10 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             }
         } else if settingTitle.settingsType == .intellectualProperties {
             // TODO: - Need to add redirection link
+        } else if settingTitle.settingsType == .deleteAccount {
+            lblLogoutPopup.text = R.string.localizable.areYouSureYouWantToDeactivateYourAccount()
+            isDeletePopup = true
+            logoutPopupView.isHidden = false
         }
     }
     
@@ -468,6 +486,36 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 self.settingsTableView.reloadData()
                 if let loginNav = R.storyboard.loginViewController.loginNavigation() {
                     Defaults.shared.clearData()
+                    Utils.appDelegate?.window?.rootViewController = loginNav
+                }
+            } else {
+                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+            }
+            self.logoutPopupView.isHidden = true
+        }, onError: { error in
+            self.logoutPopupView.isHidden = true
+            self.showAlert(alertMessage: error.localizedDescription)
+        }, onCompleted: {
+        }).disposed(by: self.rx.disposeBag)
+    }
+    
+    func deleteUserAccount() {
+        ProManagerApi.userDelete.request(Result<EmptyModel>.self).subscribe(onNext: { (response) in
+            if response.status == ResponseType.success {
+                StoriCamManager.shared.logout()
+                TwitterManger.shared.logout()
+                GoogleManager.shared.logout()
+                FaceBookManager.shared.logout()
+                InstagramManager.shared.logout()
+                SnapKitManager.shared.logout { _ in
+                
+                }
+                if #available(iOS 13.0, *) {
+                    AppleSignInManager.shared.logout()
+                }
+                self.settingsTableView.reloadData()
+                if let loginNav = R.storyboard.loginViewController.loginNavigation() {
+                    Defaults.shared.clearData(isDeleteAccount: true)
                     Utils.appDelegate?.window?.rootViewController = loginNav
                 }
             } else {

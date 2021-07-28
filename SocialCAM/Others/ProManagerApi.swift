@@ -73,6 +73,7 @@ public enum ProManagerApi {
     case downgradeSubscription(subscriptionId: String)
     case getToken(appName: String)
     case createUser(channelId: String, refferingChannel: String)
+    case userDelete
 
     var endpoint: Endpoint {
         var endpointClosure = MoyaProvider<ProManagerApi>.defaultEndpointMapping(for: self)
@@ -255,6 +256,8 @@ extension ProManagerApi: TargetType {
             return Paths.getToken
         case .createUser:
             return Paths.createUser
+        case .userDelete:
+            return Paths.userDelete
         }
        
     }
@@ -614,6 +617,8 @@ extension ProManagerApi: TargetType {
         case .createUser(let channelId, let refferingChannel):
             param = ["channelId": channelId,
                      "refferingChannel": refferingChannel]
+        case .userDelete:
+            break
         }
         return param
     }
