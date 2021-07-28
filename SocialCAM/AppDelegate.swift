@@ -418,14 +418,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             if Defaults.shared.sessionToken != "null" {
                                 syncUserModel()
                             } else {
-                                self.goToHomeScreen(isRefferencingChannelEmpty: true)
+                                self.goToHomeScreen(isRefferencingChannelEmpty: true, isFromOtherApp: true)
                             }
                         }
                     } else {
                         let pathComponents = url.pathComponents
                         if pathComponents.count == 6 {
                             Defaults.shared.channelId = pathComponents[3]
-                            goToHomeScreen(isRefferencingChannelEmpty: true)
+                            goToHomeScreen(isRefferencingChannelEmpty: true, isFromOtherApp: true)
                         }
                     }
                 }
@@ -478,17 +478,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let parentId = Defaults.shared.currentUser?.parentId ?? Defaults.shared.currentUser?.id
         Defaults.shared.parentID = parentId
         #if !IS_SHAREPOST && !IS_MEDIASHARE && !IS_VIRALVIDS  && !IS_SOCIALVIDS && !IS_PIC2ARTSHARE
-        self.goToHomeScreen(isRefferencingChannelEmpty: response.result?.user?.refferingChannel == nil)
+        self.goToHomeScreen(isRefferencingChannelEmpty: response.result?.user?.refferingChannel == nil, isFromOtherApp: false)
         #endif
     }
     
-    func goToHomeScreen(isRefferencingChannelEmpty: Bool) {
+    func goToHomeScreen(isRefferencingChannelEmpty: Bool, isFromOtherApp: Bool) {
         #if PIC2ARTAPP || TIMESPEEDAPP || BOOMICAMAPP
         Utils.appDelegate?.window?.rootViewController = R.storyboard.pageViewController.pageViewController()
         #else
         if isRefferencingChannelEmpty {
             let referringChannelSuggestionViewController = R.storyboard.loginViewController.referringChannelSuggestionViewController()
-            referringChannelSuggestionViewController?.fromOtherApp = true
+            referringChannelSuggestionViewController?.fromOtherApp = isFromOtherApp
             Utils.appDelegate?.window?.rootViewController = referringChannelSuggestionViewController
         } else {
             let cameraNavVC = R.storyboard.storyCameraViewController.storyCameraViewNavigationController()
@@ -502,7 +502,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func syncUserModel() {
         ProManagerApi.userSync.request(Result<UserSyncModel>.self).subscribe(onNext: { (response) in
             if response.status == ResponseType.success {
-                self.goToHomeScreen(isRefferencingChannelEmpty: response.result?.user?.refferingChannel == nil)
+                self.goToHomeScreen(isRefferencingChannelEmpty: response.result?.user?.refferingChannel == nil, isFromOtherApp: false)
             }
         }, onError: { error in
         }, onCompleted: {

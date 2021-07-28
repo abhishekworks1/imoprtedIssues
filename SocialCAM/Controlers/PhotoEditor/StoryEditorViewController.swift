@@ -12,6 +12,7 @@ import SwiftVideoGenerator
 import AVKit
 import IQKeyboardManagerSwift
 import ColorSlider
+import GoogleAPIClientForREST
 
 class ShareStoryCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var storyImageView: UIImageView!
@@ -1030,7 +1031,11 @@ extension StoryEditorViewController {
                     }
                 } else {
                     DispatchQueue.runOnMainThread {
-                        SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type, referType: self.referType)
+                        if type == .youtube {
+                            self.checkYoutubeAuthentication(exportURL)
+                        } else {
+                            SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type, referType: self.referType)
+                        }
                         self.pauseVideo()
                     }
                 }
@@ -1050,7 +1055,11 @@ extension StoryEditorViewController {
             case let .video(_, asset):
                 if let exportURL = videoExportedURL, !isDownload, !isSettingsChange {
                     DispatchQueue.runOnMainThread {
-                        SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type, referType: self.referType)
+                        if type == .youtube {
+                            self.checkYoutubeAuthentication(exportURL)
+                        } else {
+                            SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type, referType: self.referType)
+                        }
                         self.pauseVideo()
                         self.isVideoPlay = true
                     }
@@ -1066,7 +1075,11 @@ extension StoryEditorViewController {
                                 }
                             } else {
                                 DispatchQueue.runOnMainThread {
-                                    SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type, referType: self.referType)
+                                    if type == .youtube {
+                                        self.checkYoutubeAuthentication(exportURL)
+                                    } else {
+                                        SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type, referType: self.referType)
+                                    }
                                     self.pauseVideo()
                                     self.isVideoPlay = true
                                 }
@@ -1074,6 +1087,39 @@ extension StoryEditorViewController {
                         }
                     }
                 }
+            }
+        }
+    }
+    
+    func checkYoutubeAuthentication(_ url: URL) {
+        if GoogleManager.shared.isUserLogin {
+            self.getUserToken(url)
+        } else {
+            GoogleManager.shared.login(controller: self, complitionBlock: { [weak self] (userData, error) in
+                guard let `self` = self else {
+                    return
+                }
+                self.getUserToken(url)
+            }) { (_, _) in
+                
+            }
+        }
+    }
+    
+    func getUserToken(_ url: URL) {
+        GoogleManager.shared.getUserToken { [weak self] (token) in
+            guard let `self` = self else {
+                return
+            }
+            guard let token = token else {
+                return
+            }
+            if let youTubeUploadVC = R.storyboard.youTubeUpload.youTubeUploadViewController() {
+                youTubeUploadVC.videoUrl = url
+                youTubeUploadVC.token = token
+                let navYouTubeUpload = UINavigationController(rootViewController: youTubeUploadVC)
+                navYouTubeUpload.navigationBar.isHidden = true
+                Utils.appDelegate?.window?.visibleViewController()!.present(navYouTubeUpload, animated: true)
             }
         }
     }
