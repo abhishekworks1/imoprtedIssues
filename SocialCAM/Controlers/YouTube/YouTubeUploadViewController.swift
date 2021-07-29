@@ -74,6 +74,7 @@ class YouTubeUploadViewController: UIViewController {
             }
         }
     }
+    var token: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -125,17 +126,8 @@ class YouTubeUploadViewController: UIViewController {
     }
     
     @IBAction func btnPublishClicked(_ sender: Any?) {
-        btnPublish.isUserInteractionEnabled = false
-        if GoogleManager.shared.isUserLogin {
-            self.getUserToken()
-        } else {
-            GoogleManager.shared.login(controller: self, complitionBlock: { [weak self] (userData, error) in
-                guard let `self` = self else { return }
-                self.getUserToken()
-            }) { (_, _) in
-                self.btnPublish.isUserInteractionEnabled = true
-            }
-        }
+        btnPublish.isUserInteractionEnabled = true
+        uploadVideo(token: token)
     }
     
     func getUserToken() {

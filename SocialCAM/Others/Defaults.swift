@@ -845,11 +845,15 @@ class Defaults {
         }
     }
     
-    func clearData() {
+    func clearData(isDeleteAccount: Bool = false) {
         if let appDefaultsDictionary = appDefaults?.dictionaryRepresentation() {
             appDefaultsDictionary.keys.forEach { key in
-                if key != "isLoginTooltipShow", key != "isSurveyAlertShowed" {
+                if isDeleteAccount {
                     appDefaults?.removeObject(forKey: key)
+                } else {
+                    if key != "isLoginTooltipShow", key != "isSurveyAlertShowed" {
+                        appDefaults?.removeObject(forKey: key)
+                    }
                 }
             }
         }

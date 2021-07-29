@@ -986,6 +986,7 @@ public struct Paths {
     static let downgradeSubscription = "subscription/downgrade"
     static let getToken = "user/getToken"
     static let createUser = "user/createUser"
+    static let userDelete = "user/deactive"
 }
 
 struct WebsiteData {
