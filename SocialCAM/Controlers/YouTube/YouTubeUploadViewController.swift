@@ -27,6 +27,9 @@ class YouTubeUploadViewController: UIViewController {
     @IBOutlet var btnPlayPause: UIButton!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var imgThumbnail: UIImageView!
+    @IBOutlet weak var postSuccessPopupView: UIView!
+    @IBOutlet weak var lblPostSuccess: UILabel!
+    
     let dropDownMenu = DropDown()
     var privacy: [String] =  ["Public", "Private", "Unlisted"]
     var channels: [Item] = []
@@ -199,12 +202,11 @@ class YouTubeUploadViewController: UIViewController {
             if isUpload ?? false {
                 self.isUploading = false
                 loadingView.hide()
-                Utils.appDelegate?.window?.makeToast(R.string.localizable.postSuccess())
-                self.dismiss(animated: true)
+                self.showPostSuccessPopupView(isSuccess: true)
             } else {
                 self.isUploading = false
                 loadingView.hide()
-                self.showAlert(alertMessage: "error.localizedDescription")
+                self.showPostSuccessPopupView(isSuccess: false)
             }
         }
     }
@@ -236,6 +238,15 @@ class YouTubeUploadViewController: UIViewController {
             self.playerView.play()
             self.btnPlayPause.setImage(R.image.storyPause(), for: .normal)
         }
+    }
+    
+    @IBAction func btnPostSuccessOkClicked(_ sender: UIButton) {
+        self.dismiss(animated: true)
+    }
+    
+    func showPostSuccessPopupView(isSuccess: Bool) {
+        lblPostSuccess.text = isSuccess ? R.string.localizable.yourVideoPostedSuccessfully() : R.string.localizable.somethingWentWrongPleaseTryAgainLater()
+        self.postSuccessPopupView.isHidden = false
     }
     
     func channelClicked() {
