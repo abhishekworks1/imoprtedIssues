@@ -285,7 +285,6 @@ class StoryEditorViewController: UIViewController {
     var croppedImage: UIImage?
     var croppedUrl: URL?
     var isHideTapped = false
-    var isToolTipHide = false
     var isFastesteverWatermarkShow = false
     var isAppIdentifierWatermarkShow = false
     var isMadeWithGifShow = false
@@ -922,7 +921,9 @@ extension StoryEditorViewController {
     }
     
     @IBAction func backClicked(_ sender: UIButton) {
-        if Defaults.shared.isDiscardVideoPopupHide == false {
+        if Defaults.shared.isShowAllPopUpChecked == true {
+            self.hideShowDiscardVideoPopup(shouldShow: true)
+        } else if Defaults.shared.isDiscardVideoPopupHide == false {
             self.hideShowDiscardVideoPopup(shouldShow: true)
         } else {
             Defaults.shared.postViralCamModel = nil
@@ -1229,8 +1230,10 @@ extension StoryEditorViewController {
     
     @IBAction func btnShowHideEditOptionsClick(_ sender: AnyObject) {
         btnDoNotShowAgain.setImage(R.image.hideToolTipCheckMark()?.alpha(0.5), for: .normal)
-        if !isToolTipHide {
-            hideToolTipView(isHide: isToolTipHide)
+        if Defaults.shared.isShowAllPopUpChecked == true {
+            hideToolTipView(isHide: Defaults.shared.isToolTipHide)
+        } else if !Defaults.shared.isToolTipHide {
+            hideToolTipView(isHide: Defaults.shared.isToolTipHide)
         } else {
             isViewEditMode = !isViewEditMode
         }
@@ -1380,8 +1383,9 @@ extension StoryEditorViewController {
     }
     
     @IBAction func doNotShowAgainButtonClicked(sender: UIButton) {
+        Defaults.shared.isShowAllPopUpChecked = false
         btnDoNotShowAgain.isSelected = !btnDoNotShowAgain.isSelected
-        isToolTipHide = !isToolTipHide
+        Defaults.shared.isToolTipHide = !Defaults.shared.isToolTipHide
     }
     
     @IBAction func okayButtonClicked(sender: UIButton) {
@@ -1391,8 +1395,8 @@ extension StoryEditorViewController {
     
     @IBAction func cancelButtonClicked(sender: UIButton) {
         hideToolTipView(isHide: true)
-        isToolTipHide = false
-        btnDoNotShowAgain.isSelected = isToolTipHide
+        Defaults.shared.isToolTipHide = false
+        btnDoNotShowAgain.isSelected = Defaults.shared.isToolTipHide
     }
     
     @IBAction func watermarkButtonClicked(sender: UIButton) {
@@ -1468,6 +1472,7 @@ extension StoryEditorViewController {
     
     @IBAction func doNotShowDiscardVideoButtonClicked(_ sender: UIButton) {
         btnDoNotShowDiscardVideo.isSelected = !btnDoNotShowDiscardVideo.isSelected
+        Defaults.shared.isShowAllPopUpChecked = !btnDoNotShowDiscardVideo.isSelected
         isDiscardVideoPopupHide = !isDiscardVideoPopupHide
         Defaults.shared.isDiscardVideoPopupHide = isDiscardVideoPopupHide
     }

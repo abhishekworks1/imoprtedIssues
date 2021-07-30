@@ -486,7 +486,11 @@ extension StoryCameraViewController {
         blurView.isHidden = true
         switchingAppView.isHidden = true
         isBusinessCenter = true
-        if (Defaults.shared.isDoNotShowAgainBusinessCenterClicked == false) {
+        if Defaults.shared.isShowAllPopUpChecked == true {
+            blurView.isHidden = false
+            quickLinkTooltipView.isHidden = false
+            lblQuickLinkTooltipView.text = R.string.localizable.quickLinkTooltip(R.string.localizable.businessCenter(), Defaults.shared.currentUser?.channelId ?? "")
+        } else if Defaults.shared.isDoNotShowAgainBusinessCenterClicked == false {
             blurView.isHidden = false
             quickLinkTooltipView.isHidden = false
             lblQuickLinkTooltipView.text = R.string.localizable.quickLinkTooltip(R.string.localizable.businessCenter(), Defaults.shared.currentUser?.channelId ?? "")
@@ -508,7 +512,11 @@ extension StoryCameraViewController {
         let application = UIApplication.shared
         blurView.isHidden = true
         switchingAppView.isHidden = true
-        if (Defaults.shared.isDoNotShowAgainVidPlayClicked == false) {
+        if Defaults.shared.isShowAllPopUpChecked == true {
+            blurView.isHidden = false
+            quickLinkTooltipView.isHidden = false
+            lblQuickLinkTooltipView.text = R.string.localizable.quickLinkTooltip(R.string.localizable.vidPlay(), Defaults.shared.currentUser?.channelId ?? "")
+        } else if Defaults.shared.isDoNotShowAgainVidPlayClicked == false {
             blurView.isHidden = false
             quickLinkTooltipView.isHidden = false
             lblQuickLinkTooltipView.text = R.string.localizable.quickLinkTooltip(R.string.localizable.vidPlay(), Defaults.shared.currentUser?.channelId ?? "")
@@ -528,6 +536,7 @@ extension StoryCameraViewController {
     
     @IBAction func doNotShowAgainClicked(_ sender: UIButton) {
         btnDoNotShowAgain.isSelected = !btnDoNotShowAgain.isSelected
+        Defaults.shared.isShowAllPopUpChecked = false
         if isBusinessCenter {
             Defaults.shared.isDoNotShowAgainBusinessCenterClicked = btnDoNotShowAgain.isSelected
         } else {
