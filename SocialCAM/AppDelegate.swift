@@ -413,9 +413,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     if components.path?.hasSuffix("undefined") != true {
                         let pathComponents = url.pathComponents
                         if pathComponents.count == 6 {
-                            Defaults.shared.sessionToken = pathComponents[4]
                             Defaults.shared.channelId = pathComponents[3]
-                            if Defaults.shared.sessionToken != "null" {
+                            if pathComponents[4] != "null" {
+                                Defaults.shared.sessionToken = pathComponents[4]
                                 syncUserModel()
                             } else {
                                 self.goToHomeScreen(isRefferencingChannelEmpty: true, isFromOtherApp: true)

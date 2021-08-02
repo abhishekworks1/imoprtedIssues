@@ -1114,13 +1114,17 @@ extension StoryEditorViewController {
             guard let token = token else {
                 return
             }
-            if let youTubeUploadVC = R.storyboard.youTubeUpload.youTubeUploadViewController() {
-                youTubeUploadVC.videoUrl = url
-                youTubeUploadVC.token = token
-                let navYouTubeUpload = UINavigationController(rootViewController: youTubeUploadVC)
-                navYouTubeUpload.navigationBar.isHidden = true
-                Utils.appDelegate?.window?.visibleViewController()!.present(navYouTubeUpload, animated: true)
-            }
+            self.dismiss(animated: true, completion: {
+                if let youTubeUploadVC = R.storyboard.youTubeUpload.youTubeUploadViewController() {
+                    youTubeUploadVC.videoUrl = url
+                    youTubeUploadVC.token = token
+                    let navYouTubeUpload = UINavigationController(rootViewController: youTubeUploadVC)
+                    navYouTubeUpload.navigationBar.isHidden = true
+                    if let visibleViewController = Utils.appDelegate?.window?.visibleViewController() {
+                        visibleViewController.present(navYouTubeUpload, animated: true)
+                    }
+                }
+            })
         }
     }
     
