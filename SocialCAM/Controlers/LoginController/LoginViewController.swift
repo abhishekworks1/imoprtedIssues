@@ -208,6 +208,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         btnDoNotShowAgain.isSelected = !btnDoNotShowAgain.isSelected
         isLoginToolTipHide = !isLoginToolTipHide
         Defaults.shared.isLoginTooltipHide = isLoginToolTipHide
+        Defaults.shared.isShowAllPopUpChecked = false
     }
     
     @IBAction func tooltipTapView(_ sender: UITapGestureRecognizer) {

@@ -1,0 +1,48 @@
+//
+//  SystemSettingsCell.swift
+//  SocialCAM
+//
+//  Created by Meet Mistry on 29/07/21.
+//  Copyright © 2021 Viraj Patel. All rights reserved.
+//
+
+import UIKit
+
+enum SystemSettingType {
+    case showAllPopUps
+}
+
+class SystemSettingsCell: UITableViewCell {
+    
+    // MARK: - Outlets Declaration
+    @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var btnSelectShowAllPopup: UIButton!
+    
+    // MARK: - Varable Declaration
+    var systemSettingType: SystemSettingType = .showAllPopUps {
+        didSet {
+            if systemSettingType == .showAllPopUps {
+                title.text = R.string.localizable.showAllPopups()
+                btnSelectShowAllPopup.isSelected = Defaults.shared.isShowAllPopUpChecked
+            }
+        }
+    }
+        
+    // MARK: - View Life cycle methods
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
+    
+    // MARK: - Action Methods
+    @IBAction func btnSystemSettingTaped(_ sender: UIButton) {
+        if systemSettingType == .showAllPopUps {
+            Defaults.shared.isShowAllPopUpChecked = !btnSelectShowAllPopup.isSelected
+            btnSelectShowAllPopup.isSelected = !btnSelectShowAllPopup.isSelected
+            Defaults.shared.isDoNotShowAgainBusinessCenterClicked = !btnSelectShowAllPopup.isSelected
+            Defaults.shared.isDoNotShowAgainVidPlayClicked = !btnSelectShowAllPopup.isSelected
+            Defaults.shared.isLoginTooltipHide = !btnSelectShowAllPopup.isSelected
+            Defaults.shared.isDiscardVideoPopupHide = !btnSelectShowAllPopup.isSelected
+            Defaults.shared.isToolTipHide = !btnSelectShowAllPopup.isSelected
+        }
+    }
+}

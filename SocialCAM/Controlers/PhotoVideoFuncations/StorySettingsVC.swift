@@ -49,6 +49,8 @@ enum SettingsMode: Int {
     case edit
     case quickLink
     case deleteAccount
+    case system
+    case showAllPopups
 }
 
 class StorySetting {
@@ -92,6 +94,8 @@ class StorySettings {
                                                                       selected: true)], settingsType: .subscriptions),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.cameraSettings(), selected: false)], settingsType: .cameraSettings),
+                                StorySettings(name: "",
+                                              settings: [StorySetting(name: R.string.localizable.system(), selected: false)], settingsType: .system),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.promote(), selected: false)], settingsType: .watermarkSettings),
                                 StorySettings(name: "",
@@ -235,7 +239,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         cell.settingsName.text = settings.name
         cell.detailButton.isHidden = true
         cell.settingsName.textColor = R.color.appBlackColor()
-        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video || settingTitle.settingsType == .cameraSettings || settingTitle.settingsType == .termsAndConditions || settingTitle.settingsType == .privacyPolicy || settingTitle.settingsType == .subscription || settingTitle.settingsType == .goToWebsite || settingTitle.settingsType == .watermarkSettings || settingTitle.settingsType == .applicationSurvey || settingTitle.settingsType == .intellectualProperties || settingTitle.settingsType == .help || settingTitle.settingsType == .deleteAccount {
+        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video || settingTitle.settingsType == .cameraSettings || settingTitle.settingsType == .termsAndConditions || settingTitle.settingsType == .privacyPolicy || settingTitle.settingsType == .subscription || settingTitle.settingsType == .goToWebsite || settingTitle.settingsType == .watermarkSettings || settingTitle.settingsType == .applicationSurvey || settingTitle.settingsType == .intellectualProperties || settingTitle.settingsType == .help || settingTitle.settingsType == .deleteAccount || settingTitle.settingsType == .system {
             if settingTitle.settingsType == .appInfo {
                 cell.settingsName.textColor = R.color.appPrimaryColor()
             } else if settingTitle.settingsType == .deleteAccount {
@@ -350,6 +354,10 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         } else if settingTitle.settingsType == .cameraSettings {
             if let storySettingsVC = R.storyboard.storyCameraViewController.storySettingsOptionsVC() {
                 navigationController?.pushViewController(storySettingsVC, animated: true)
+            }
+        } else if settingTitle.settingsType == .system {
+            if let systemSettingsVC = R.storyboard.storyCameraViewController.systemSettingsViewController() {
+                navigationController?.pushViewController(systemSettingsVC, animated: true)
             }
         } else if settingTitle.settingsType == .logout {
             lblLogoutPopup.text = R.string.localizable.areYouSureYouWantToLogoutFromApp("\(Constant.Application.displayName)")

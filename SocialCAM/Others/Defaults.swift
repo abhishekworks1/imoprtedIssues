@@ -845,6 +845,24 @@ class Defaults {
         }
     }
     
+    var isShowAllPopUpChecked: Bool {
+        get {
+            return appDefaults?.value(forKey: "isShowAllPopUpChecked") as? Bool ?? true
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isShowAllPopUpChecked")
+        }
+    }
+    
+    var isToolTipHide: Bool {
+        get {
+            return appDefaults?.value(forKey: "isToolTipHide") as? Bool ?? false
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isToolTipHide")
+        }
+    }
+    
     func clearData(isDeleteAccount: Bool = false) {
         if let appDefaultsDictionary = appDefaults?.dictionaryRepresentation() {
             appDefaultsDictionary.keys.forEach { key in
