@@ -49,10 +49,10 @@ class FollowMeStoryView: UIView {
         openActionSheet()
     }
     
-    func openGallery() {
+    func openGallery(fromSourceType sourceType: UIImagePickerController.SourceType) {
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
             imagePicker.delegate = self
-            imagePicker.sourceType = .photoLibrary
+            imagePicker.sourceType = sourceType
             imagePicker.allowsEditing = true
             
             guard let superView = self.superview else {
@@ -68,11 +68,15 @@ class FollowMeStoryView: UIView {
             self.bitEmojiChange()
         }
         actionSheet.addAction(bitmojiAction)
-        let galleryAction = UIAlertAction(title: "Gallery", style: .default) { [unowned self] _ in
-            self.openGallery()
+        let galleryAction = UIAlertAction(title: R.string.localizable.gallery(), style: .default) { [unowned self] _ in
+            self.openGallery(fromSourceType: .photoLibrary)
         }
         actionSheet.addAction(galleryAction)
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { [unowned self] _ in
+        let cameraAction = UIAlertAction(title: R.string.localizable.camera(), style: .default) { [unowned self] _ in
+            self.openGallery(fromSourceType: .camera)
+        }
+        actionSheet.addAction(cameraAction)
+        let cancel = UIAlertAction(title: R.string.localizable.cancel(), style: .cancel) { [unowned self] _ in
             guard let superView = self.superview else {
                 return
             }
