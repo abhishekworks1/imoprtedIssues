@@ -419,9 +419,9 @@ class StoryAssetExportSession {
                 image = R.image.viralCamLiteWatermarkText()
             }
         } else if isQuickApp {
-            image = R.image.quickCamLiteWatermark()
+            image = R.image.quickcamWatermark()
             if watermarkPosition == .topLeft {
-                image = R.image.quickCamLiteWatermark()
+                image = R.image.quickcamWatermark()
             }
         }
 
@@ -458,7 +458,7 @@ class StoryAssetExportSession {
 
         let watermarkImageSize = CGSize(width: newWatermarkImage.size.width * 1.3, height: newWatermarkImage.size.height * 1.3)
         let watermarkGIFImageSize = CGSize(width: newWatermarkGIFImage.size.width * 1.5, height: newWatermarkGIFImage.size.height * 2)
-        let fastesteverImageSize = CGSize(width: fastesteverImage.size.width * 1.4, height: fastesteverImage.size.height * 1.4)
+        let fastesteverImageSize = CGSize(width: fastesteverImage.size.width * 1.5, height: fastesteverImage.size.height * 2.0)
         
         var watermarkOrigin = CGPoint(x: backgroundImageSize.width - watermarkImageSize.width - 20, y: backgroundImageSize.height - watermarkImageSize.height - 50)
         if watermarkPosition == .topLeft && Defaults.shared.appIdentifierWatermarkSetting == .show {

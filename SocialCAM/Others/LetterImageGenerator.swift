@@ -18,7 +18,7 @@ class LetterImageGenerator: NSObject {
         } else if name.count >= 21, name.count <= 26 {
             textSize = 30
         } else {
-            textSize = 40
+            textSize = 35
         }
         size = name.size(withAttributes:[.font: UIFont.boldSystemFont(ofSize: textSize)])
         let frame = CGRect(x: 0, y: 0, width: size.width, height: 50)

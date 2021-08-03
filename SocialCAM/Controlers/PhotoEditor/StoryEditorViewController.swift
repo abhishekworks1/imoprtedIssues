@@ -217,6 +217,7 @@ class StoryEditorViewController: UIViewController {
     @IBOutlet weak var btnSkipEditTooltip: UIButton!
     @IBOutlet weak var discardVideoPopupView: UIView!
     @IBOutlet weak var btnDoNotShowDiscardVideo: UIButton!
+    @IBOutlet weak var lblUserNameWatermark: UILabel!
     
     private let fastestEverWatermarkBottomMargin = 112
     weak var cursorContainerViewController: KeyframePickerCursorVC!
@@ -318,6 +319,7 @@ class StoryEditorViewController: UIViewController {
             showHideView.isHidden = isViewEditMode
             watermarkView.isHidden = isViewEditMode
             isHideTapped = isViewEditMode
+            self.imgFastestEverWatermark.isHidden = isViewEditMode
         }
     }
     
@@ -331,6 +333,7 @@ class StoryEditorViewController: UIViewController {
         }
         downloadViewGesture()
         imgViewMadeWithGif.loadGif(name: R.string.localizable.madeWithQuickCamLite())
+        self.lblUserNameWatermark.text = Defaults.shared.currentUser?.username
         setupFilterViews()
         setGestureViewForShowHide(view: storyEditors[currentStoryIndex])
         selectedSlideShowMedias = (0...20).map({ _ in StoryEditorMedia(type: .image(UIImage())) })
