@@ -304,15 +304,18 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         headerView.userImage.layer.cornerRadius = headerView.userImage.bounds.width / 2
         if settingTitle.settingsType == .cameraSettings {
             headerView.title.isHidden = false
+            headerView.addProfilePic.isHidden = true
             if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
+                if userImageURL.isEmpty {
+                    headerView.addProfilePic.isHidden = false
+                }
                 headerView.userImage.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: ApplicationSettings.userPlaceHolder)
-            } else {
-                headerView.userImage.image = ApplicationSettings.userPlaceHolder
             }
             headerView.title.text = Defaults.shared.currentUser?.channelId
         } else {
             headerView.title.isHidden = true
             headerView.userImage.isHidden = true
+            headerView.addProfilePic.isHidden = true
         }
         headerView.btnProfilePic.addTarget(self, action: #selector(btnEditProfilePic), for: .touchUpInside)
         headerView.btnProfilePic.isUserInteractionEnabled = false
