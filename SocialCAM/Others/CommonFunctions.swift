@@ -79,7 +79,7 @@ struct CommonFunctions {
         #elseif FASTCAMLITEAPP
         imgLogo.image = R.image.fastcamLiteWatermarkLogo()
         #elseif QUICKCAMLITEAPP || QUICKAPP
-        imgLogo.image = R.image.quickcamWatermarkLogo()
+        imgLogo.image = R.image.ssuQuickCamLite()
         #elseif SPEEDCAMLITEAPP
         imgLogo.image = R.image.speedcamliteSplashLogo()
         #elseif SNAPCAMLITEAPP
