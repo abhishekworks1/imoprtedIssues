@@ -429,7 +429,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 navigationController?.pushViewController(subscriptionVC, animated: true)
             }
         } else if settingTitle.settingsType == .goToWebsite {
-            let urlString = "\(websiteUrl)/referral/\(Defaults.shared.currentUser?.channelId ?? "")"
+            let urlString = "\(websiteUrl)/ref/$\(Defaults.shared.currentUser?.channelId ?? "")"
             guard let url = URL(string: urlString) else {
                 return
             }
