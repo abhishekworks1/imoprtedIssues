@@ -420,12 +420,12 @@ public extension UIImage {
 extension UIImage {
     func combineWith(image: UIImage) -> UIImage {
         let newImageWidth = max(self.size.width, image.size.width)
-        let newImageSize = CGSize(width: newImageWidth, height: self.size.height + image.size.height + 10)
+        let newImageSize = CGSize(width: newImageWidth, height: self.size.height * 1.5 + image.size.height + 10)
         let size = newImageSize
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
 
-        self.draw(in: CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height))
-        image.draw(in: CGRect(x: 0, y: 5 + self.size.height, width: image.size.width, height: image.size.height))
+        self.draw(in: CGRect(x: 0, y: 0, width: self.size.width * 1.5, height: self.size.height * 1.5))
+        image.draw(in: CGRect(x: 0, y: 5 + self.size.height * 1.5, width: image.size.width, height: image.size.height))
 
         let newImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()

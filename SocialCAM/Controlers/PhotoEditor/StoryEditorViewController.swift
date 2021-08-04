@@ -295,6 +295,7 @@ class StoryEditorViewController: UIViewController {
     var editTooltipCount = 0
     var editTooltipText = Constant.EditTooltip.editTooltipTextArray
     var isDiscardVideoPopupHide = false
+    var storyEditorSubViews: [UIView]?
     
     var isViewEditMode: Bool = false {
         didSet {
@@ -418,6 +419,17 @@ class StoryEditorViewController: UIViewController {
                 storyEditorView.isHidden = true
             }
             storyEditors.append(storyEditorView)
+            if let storyEditorSubViews = storyEditorSubViews {
+                for views in storyEditorSubViews {
+                    if views.className == "FollowMeStoryView" || views.className == "UIImageView" || views.className == "UITextView" {
+                        storyEditors.first?.addSubview(views)
+                        for recognizer in views.gestureRecognizers ?? [] {
+                            views.removeGestureRecognizer(recognizer)
+                        }
+                        storyEditors.first?.addStickerGestures(views)
+                    }
+                }
+            }
         }
         collectionView.reloadData()
         
@@ -738,7 +750,7 @@ extension StoryEditorViewController {
             }
             
             self.medias.append(contentsOf: self.filteredImagesStory)
-            
+            self.storyEditorSubViews = self.storyEditors.first?.subviews
             for storyEditor in self.storyEditors {
                 storyEditor.removeFromSuperview()
             }
@@ -1342,8 +1354,11 @@ extension StoryEditorViewController {
     
     @IBAction func ssuButtonClicked(sender: UIButton) {
         if isQuickApp {
-            self.didSelect(type: QuickCamLiteApp.SSUTagType.quickCamLite, waitingListOptionType: nil, socialShareType: nil, screenType: SSUTagScreen.ssutTypes)
-            self.isSettingsChange = true
+            let followMeStoryShareViews = storyEditors[currentStoryIndex].subviews.filter({ return $0 is FollowMeStoryView })
+            if followMeStoryShareViews.count != 1 && currentStoryIndex == 0 {
+                self.didSelect(type: QuickCamLiteApp.SSUTagType.quickCamLite, waitingListOptionType: nil, socialShareType: nil, screenType: SSUTagScreen.ssutTypes)
+                self.isSettingsChange = true
+            }
         } else {
             if let ssuTagSelectionViewController = R.storyboard.storyCameraViewController.ssuTagSelectionViewController() {
                 ssuTagSelectionViewController.delegate = self
