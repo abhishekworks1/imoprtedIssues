@@ -2854,15 +2854,42 @@ Countdown</string>
                                                     </button>
                                                 </subviews>
                                             </stackView>
+                                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="JhL-7V-uVy">
+                                                <rect key="frame" x="95.666666666666657" y="80" width="90" height="36"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J4G-P9-f4x">
+                                                        <rect key="frame" x="0.0" y="0.0" width="90" height="36"/>
+                                                        <color key="backgroundColor" name="AppPrimaryColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="90" id="c6D-uu-XKe"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="16"/>
+                                                        <state key="normal" title="OK">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                                <real key="value" value="5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="btnOkPopupTapped:" destination="Tnp-J8-3Je" eventType="touchUpInside" id="eTt-aD-hnK"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="bhL-ag-vWY" secondAttribute="trailing" constant="10" id="43E-nU-lWK"/>
+                                            <constraint firstItem="JhL-7V-uVy" firstAttribute="centerX" secondItem="uba-ao-Fwt" secondAttribute="centerX" id="9Au-3r-P6P"/>
+                                            <constraint firstItem="JhL-7V-uVy" firstAttribute="bottom" secondItem="uba-ao-Fwt" secondAttribute="bottom" id="EXy-UH-zZ0"/>
                                             <constraint firstItem="uba-ao-Fwt" firstAttribute="trailing" secondItem="bhL-ag-vWY" secondAttribute="trailing" constant="-20" id="H15-vy-ckt"/>
                                             <constraint firstItem="bhL-ag-vWY" firstAttribute="top" secondItem="kZk-g5-M3O" secondAttribute="top" constant="25" id="TN3-yl-CW9"/>
                                             <constraint firstItem="uba-ao-Fwt" firstAttribute="leading" secondItem="bhL-ag-vWY" secondAttribute="leading" constant="20" id="XQQ-Bh-zoh"/>
                                             <constraint firstItem="bhL-ag-vWY" firstAttribute="leading" secondItem="kZk-g5-M3O" secondAttribute="leading" constant="10" id="kNz-re-135"/>
                                             <constraint firstAttribute="bottom" secondItem="uba-ao-Fwt" secondAttribute="bottom" constant="28" id="kRx-m2-gxA"/>
+                                            <constraint firstItem="JhL-7V-uVy" firstAttribute="top" secondItem="uba-ao-Fwt" secondAttribute="top" id="ox4-Ko-7UY"/>
                                             <constraint firstItem="uba-ao-Fwt" firstAttribute="top" secondItem="bhL-ag-vWY" secondAttribute="bottom" constant="20" id="qSB-PS-mPM"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
@@ -2910,12 +2937,14 @@ Countdown</string>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="doubleButtonStackView" destination="uba-ao-Fwt" id="Vwd-n8-OkE"/>
                         <outlet property="imgAppLogo" destination="C5S-7v-OkQ" id="kcq-Fw-1hH"/>
                         <outlet property="lblAppInfo" destination="p4A-EK-sYV" id="lTR-AH-Tgs"/>
                         <outlet property="lblLogoutPopup" destination="bhL-ag-vWY" id="9IS-Ab-gWV"/>
                         <outlet property="logoutPopupView" destination="VyN-by-AzL" id="6Vx-S0-IeK"/>
                         <outlet property="longPressPopupView" destination="DeM-Ch-kJ2" id="4WR-3z-jW0"/>
                         <outlet property="settingsTableView" destination="PB8-Zg-48F" id="RDy-vu-cMH"/>
+                        <outlet property="singleButtonSttackView" destination="JhL-7V-uVy" id="kuC-OB-AP3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i8D-mD-3zC" userLabel="First Responder" sceneMemberID="firstResponder"/>

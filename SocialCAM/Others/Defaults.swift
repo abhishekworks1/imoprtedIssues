@@ -863,6 +863,15 @@ class Defaults {
         }
     }
     
+    var allowFullAccess: Bool? {
+        get {
+            return appDefaults?.value(forKey: "allowFullAccess") as? Bool ?? false
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "allowFullAccess")
+        }
+    }
+    
     func clearData(isDeleteAccount: Bool = false) {
         if let appDefaultsDictionary = appDefaults?.dictionaryRepresentation() {
             appDefaultsDictionary.keys.forEach { key in

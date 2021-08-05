@@ -122,6 +122,8 @@ class StorySettingsVC: UIViewController {
     @IBOutlet weak var lblLogoutPopup: UILabel!
     @IBOutlet weak var logoutPopupView: UIView!
     @IBOutlet weak var longPressPopupView: UIView!
+    @IBOutlet weak var doubleButtonStackView: UIStackView!
+    @IBOutlet weak var singleButtonSttackView: UIStackView!
     
     // MARK: - Variables declaration
     var isDeletePopup = false
@@ -193,6 +195,11 @@ class StorySettingsVC: UIViewController {
         #endif
     }
     
+    func showHideButtonView(isHide: Bool) {
+        self.singleButtonSttackView.isHidden = isHide
+        self.doubleButtonStackView.isHidden = !isHide
+    }
+    
     @IBAction func onBack(_ sender: Any) {
         navigationController?.popViewController(animated: true)
     }
@@ -213,6 +220,10 @@ class StorySettingsVC: UIViewController {
     }
     @IBAction func btnOkTapped(_ sender: UIButton) {
         longPressPopupView.isHidden = true
+    }
+    
+    @IBAction func btnOkPopupTapped(_ sender: UIButton) {
+        logoutPopupView.isHidden = true
     }
     
 }
@@ -381,6 +392,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             }
         } else if settingTitle.settingsType == .logout {
             lblLogoutPopup.text = R.string.localizable.areYouSureYouWantToLogoutFromApp("\(Constant.Application.displayName)")
+            showHideButtonView(isHide: true)
             logoutPopupView.isHidden = false
         } else if settingTitle.settingsType == .socialLogout {
             logoutUser()
@@ -441,6 +453,16 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             guard let legalVc = R.storyboard.legal.legalViewController() else { return }
             legalVc.isTermsAndConditions = settingTitle.settingsType == .termsAndConditions
             self.navigationController?.pushViewController(legalVc, animated: true)
+        } else if settingTitle.settingsType == .subscription {
+            if Defaults.shared.allowFullAccess == true {
+                lblLogoutPopup.text = R.string.localizable.freeDuringBetaTest()
+                showHideButtonView(isHide: false)
+                logoutPopupView.isHidden = false
+            } else {
+                if let subscriptionVC = R.storyboard.subscription.subscriptionContainerViewController() {
+                    navigationController?.pushViewController(subscriptionVC, animated: true)
+                }
+            }
         } else if settingTitle.settingsType == .goToWebsite {
             let urlString = "\(websiteUrl)/ref/$\(Defaults.shared.currentUser?.channelId ?? "")"
             guard let url = URL(string: urlString) else {
@@ -464,6 +486,11 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             if let accountSettingsViewController = R.storyboard.storyCameraViewController.accountSettingsViewController() {
                 navigationController?.pushViewController(accountSettingsViewController, animated: true)
             }
+        } else if settingTitle.settingsType == .deleteAccount {
+            lblLogoutPopup.text = R.string.localizable.areYouSureYouWantToDeactivateYourAccount()
+            isDeletePopup = true
+            showHideButtonView(isHide: true)
+            logoutPopupView.isHidden = false
         }
     }
     

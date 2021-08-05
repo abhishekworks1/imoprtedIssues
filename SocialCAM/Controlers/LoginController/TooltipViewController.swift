@@ -52,8 +52,6 @@ class TooltipViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        view.bringSubviewToFront(blurView)
-        view.bringSubviewToFront(signupTooltipView)
     }
     
     private func addGifToImageView(gifName: String) {
