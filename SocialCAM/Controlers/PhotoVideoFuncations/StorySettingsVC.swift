@@ -464,7 +464,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 }
             }
         } else if settingTitle.settingsType == .goToWebsite {
-            let urlString = "\(websiteUrl)/ref/$\(Defaults.shared.currentUser?.channelId ?? "")"
+            let urlString = "\(websiteUrl)/ref/\(Defaults.shared.currentUser?.channelId ?? "")"
             guard let url = URL(string: urlString) else {
                 return
             }

@@ -103,6 +103,11 @@ class YouTubeUploadViewController: UIViewController {
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        GoogleManager.shared.logout()
+    }
+    
     func setupDefaultDropDown() {
         DropDown.setupDefaultAppearance()
         dropDownMenu.cellNib = UINib(nibName: "MyCell", bundle: nil)
