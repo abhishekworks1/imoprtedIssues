@@ -131,10 +131,29 @@ class StorySettingsVC: UIViewController {
         lblAppInfo.text = "\(Constant.Application.displayName) - \(Constant.Application.appVersion)(\(Constant.Application.appBuildNumber))"
         lblLogoutPopup.text = R.string.localizable.areYouSureYouWantToLogoutFromApp("\(Constant.Application.displayName)")
         setupUI()
+        let longpress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(sender:)))
+        longpress.minimumPressDuration = 0.5
+        settingsTableView.addGestureRecognizer(longpress)
     }
     
     deinit {
         print("Deinit \(self.description)")
+    }
+    
+    @objc private func handleLongPress(sender: UILongPressGestureRecognizer) {
+        switch sender.state {
+        case .began:
+            let touchPoint = sender.location(in: settingsTableView)
+            if let indexPath = settingsTableView.indexPathForRow(at: touchPoint) {
+                if indexPath.section == 3 {
+                    let urlString = "\(websiteUrl)/ref/\(Defaults.shared.currentUser?.channelId ?? "")"
+                    UIPasteboard.general.string = urlString
+                    longPressPopupView.isHidden = false
+                }
+            }
+        default:
+            break
+        }
     }
     
     // MARK: - Setup UI Methods
