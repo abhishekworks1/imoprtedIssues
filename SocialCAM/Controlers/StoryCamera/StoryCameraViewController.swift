@@ -2566,6 +2566,7 @@ extension StoryCameraViewController {
                 Defaults.shared.userCreatedDate = response.result?.user?.created
                 Defaults.shared.isDowngradeSubscription = response.result?.userSubscription?.isDowngraded
                 Defaults.shared.isFreeTrial = response.result?.user?.isTempSubscription
+                Defaults.shared.allowFullAccess = response.result?.userSubscription?.allowFullAccess
             } else {
                 self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
             }

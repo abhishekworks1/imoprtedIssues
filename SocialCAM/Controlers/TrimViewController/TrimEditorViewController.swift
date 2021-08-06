@@ -437,8 +437,10 @@ extension TrimEditorViewController: TrimmerViewDelegate {
     }
     
     func trimmerDidChangeDraggingPosition(_ trimmer: TrimmerView, with currentTimeTrim: CMTime) {
-        if let player = player {
+        if let player = player,
+           let cell: ImageCollectionViewCell = self.editStoryCollectionView.cellForItem(at: self.getCurrentIndexPath) as? ImageCollectionViewCell {
             player.seek(to: currentTimeTrim, toleranceBefore: tolerance, toleranceAfter: tolerance)
+            self.seek(to: CMTime.init(seconds: currentTimeTrim.seconds, preferredTimescale: 10000), cell: cell)
         }
     }
     
