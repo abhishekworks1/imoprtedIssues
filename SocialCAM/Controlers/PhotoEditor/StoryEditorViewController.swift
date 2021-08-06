@@ -295,7 +295,8 @@ class StoryEditorViewController: UIViewController {
     var editTooltipCount = 0
     var editTooltipText = Constant.EditTooltip.editTooltipTextArray
     var isDiscardVideoPopupHide = false
-    var storyEditorSubViews: [UIView]?
+    var storyEditorsSubviews: [StoryEditorView] = []
+    var isTrim = false
     
     var isViewEditMode: Bool = false {
         didSet {
@@ -419,9 +420,17 @@ class StoryEditorViewController: UIViewController {
                 storyEditorView.isHidden = true
             }
             storyEditors.append(storyEditorView)
-            if let storyEditorSubViews = storyEditorSubViews {
-                for views in storyEditorSubViews {
-                    if views.className == "FollowMeStoryView" || views.className == "UIImageView" || views.className == "UITextView" {
+        }
+        for index in 0..<storyEditorsSubviews.count {
+            for views in storyEditorsSubviews[index].subviews {
+                if views.className == "FollowMeStoryView" || views.className == "UIImageView" || views.className == "UITextView" {
+                    if isTrim {
+                        storyEditors[index].addSubview(views)
+                        for recognizer in views.gestureRecognizers ?? [] {
+                            views.removeGestureRecognizer(recognizer)
+                        }
+                        storyEditors[index].addStickerGestures(views)
+                    } else {
                         storyEditors.first?.addSubview(views)
                         for recognizer in views.gestureRecognizers ?? [] {
                             views.removeGestureRecognizer(recognizer)
@@ -432,7 +441,9 @@ class StoryEditorViewController: UIViewController {
             }
         }
         collectionView.reloadData()
-        
+        for index in 0..<storyEditors.count {
+            self.storyEditors[index].isCropped = self.isCropped
+        }
         if currentVideoAsset != nil {
             self.loadData()
             self.configUI()
@@ -708,10 +719,13 @@ extension StoryEditorViewController {
                 }
                 self.medias.append(storyEditorMedia)
             }
-            
+            self.isTrim = false
             self.medias.append(contentsOf: self.filteredImagesStory)
-            
+            if !self.storyEditorsSubviews.isEmpty {
+                self.storyEditorsSubviews.removeAll()
+            }
             for storyEditor in self.storyEditors {
+                self.storyEditorsSubviews.append(storyEditor)
                 storyEditor.removeFromSuperview()
             }
             self.filteredImagesStory.removeAll()
@@ -748,10 +762,13 @@ extension StoryEditorViewController {
                 }
                 self.medias.append(storyEditorMedia)
             }
-            
+            self.isTrim = true
             self.medias.append(contentsOf: self.filteredImagesStory)
-            self.storyEditorSubViews = self.storyEditors.first?.subviews
+            if !self.storyEditorsSubviews.isEmpty {
+                self.storyEditorsSubviews.removeAll()
+            }
             for storyEditor in self.storyEditors {
+                self.storyEditorsSubviews.append(storyEditor)
                 storyEditor.removeFromSuperview()
             }
             self.filteredImagesStory.removeAll()
