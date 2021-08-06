@@ -107,9 +107,9 @@ class StorySettings {
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.intellectualProperties(), selected: false)], settingsType: .intellectualProperties),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.help(), selected: false)], settingsType: .help),
-                                StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.accountSettings(), selected: false)], settingsType: .accountSettings),
+                                StorySettings(name: "",
+                                              settings: [StorySetting(name: R.string.localizable.help(), selected: false)], settingsType: .help),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.logout(), selected: false)], settingsType: .logout)]
 }

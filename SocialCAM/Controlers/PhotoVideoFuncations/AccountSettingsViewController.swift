@@ -31,13 +31,20 @@ class AccountSettingsViewController: UIViewController {
     
     // MARK: - Outlets Declaration
     @IBOutlet weak var accountSettingsTableView: UITableView!
-    @IBOutlet weak var deleteAccountPopup: UIView!
-    @IBOutlet weak var lblDeleteAccout: UILabel!
+    @IBOutlet weak var popupView: UIView!
+    @IBOutlet weak var lblPopup: UILabel!
+    @IBOutlet weak var doubleButtonStackView: UIStackView!
+    @IBOutlet weak var singleButtonSttackView: UIStackView!
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.accountSettingsTableView.reloadData()
+    }
+    
+    func showHideButtonView(isHide: Bool) {
+        self.singleButtonSttackView.isHidden = isHide
+        self.doubleButtonStackView.isHidden = !isHide
     }
     
     // MARK: - Action Method
@@ -48,7 +55,10 @@ class AccountSettingsViewController: UIViewController {
         self.deleteUserAccount()
     }
     @IBAction func onNoPressed(_ sender: UIButton) {
-        deleteAccountPopup.isHidden = true
+        popupView.isHidden = true
+    }
+    @IBAction func onOkPressed(_ sender: UIButton) {
+        popupView.isHidden = true
     }
 }
 
@@ -112,12 +122,19 @@ extension AccountSettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let settingTitle = AccountSettings.accountSettings[indexPath.section]
         if settingTitle.settingsType == .subscription {
-            if let subscriptionVC = R.storyboard.subscription.subscriptionContainerViewController() {
-                navigationController?.pushViewController(subscriptionVC, animated: true)
+            if Defaults.shared.allowFullAccess == true {
+                lblPopup.text = R.string.localizable.freeDuringBetaTest()
+                showHideButtonView(isHide: false)
+                popupView.isHidden = false
+            } else {
+                if let subscriptionVC = R.storyboard.subscription.subscriptionContainerViewController() {
+                    navigationController?.pushViewController(subscriptionVC, animated: true)
+                }
             }
         } else if settingTitle.settingsType == .deleteAccount {
-            lblDeleteAccout.text = R.string.localizable.areYouSureYouWantToDeactivateYourAccount()
-            deleteAccountPopup.isHidden = false
+            lblPopup.text = R.string.localizable.areYouSureYouWantToDeactivateYourAccount()
+            showHideButtonView(isHide: true)
+            popupView.isHidden = false
         }
     }
     
@@ -143,9 +160,9 @@ extension AccountSettingsViewController: UITableViewDelegate {
             } else {
                 self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
             }
-            self.deleteAccountPopup.isHidden = true
+            self.popupView.isHidden = true
         }, onError: { error in
-            self.deleteAccountPopup.isHidden = true
+            self.popupView.isHidden = true
             self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)

@@ -6071,16 +6071,42 @@ Countdown</string>
                                                     </button>
                                                 </subviews>
                                             </stackView>
+                                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="mvm-5c-SAe">
+                                                <rect key="frame" x="95.666666666666657" y="81" width="90" height="36"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n1x-8h-mDV">
+                                                        <rect key="frame" x="0.0" y="0.0" width="90" height="36"/>
+                                                        <color key="backgroundColor" name="AppPrimaryColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="90" id="tde-5e-0xm"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="16"/>
+                                                        <state key="normal" title="OK">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                                <real key="value" value="5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="onOkPressed:" destination="052-Wc-oDn" eventType="touchUpInside" id="wfG-2G-ffC"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="Wmk-iT-Odg" firstAttribute="trailing" secondItem="kBL-AI-IgM" secondAttribute="trailing" constant="-20" id="31C-n9-Yjr"/>
+                                            <constraint firstItem="mvm-5c-SAe" firstAttribute="top" secondItem="Wmk-iT-Odg" secondAttribute="top" id="AQ4-61-bFd"/>
                                             <constraint firstItem="kBL-AI-IgM" firstAttribute="leading" secondItem="8Kw-E3-IH0" secondAttribute="leading" constant="20" id="CUU-Jb-miy"/>
                                             <constraint firstItem="Wmk-iT-Odg" firstAttribute="top" secondItem="kBL-AI-IgM" secondAttribute="bottom" constant="20" id="V4M-vD-ZWd"/>
                                             <constraint firstItem="kBL-AI-IgM" firstAttribute="top" secondItem="8Kw-E3-IH0" secondAttribute="top" constant="25" id="ZhT-D6-0Mn"/>
-                                            <constraint firstAttribute="width" constant="300" id="hvg-BC-RAr"/>
+                                            <constraint firstItem="mvm-5c-SAe" firstAttribute="centerX" secondItem="Wmk-iT-Odg" secondAttribute="centerX" id="aqR-HR-9ee"/>
                                             <constraint firstItem="Wmk-iT-Odg" firstAttribute="leading" secondItem="kBL-AI-IgM" secondAttribute="leading" constant="20" id="lxw-VJ-qCm"/>
                                             <constraint firstAttribute="bottom" secondItem="Wmk-iT-Odg" secondAttribute="bottom" constant="28" id="mHP-Zb-Mnw"/>
+                                            <constraint firstItem="mvm-5c-SAe" firstAttribute="bottom" secondItem="Wmk-iT-Odg" secondAttribute="bottom" id="oDQ-po-60l"/>
                                             <constraint firstAttribute="trailing" secondItem="kBL-AI-IgM" secondAttribute="trailing" constant="20" id="uT4-Qg-Xhi"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
@@ -6094,6 +6120,7 @@ Countdown</string>
                                 <constraints>
                                     <constraint firstItem="8Kw-E3-IH0" firstAttribute="centerY" secondItem="Qyd-1q-f31" secondAttribute="centerY" id="5oh-d2-HbK"/>
                                     <constraint firstItem="8Kw-E3-IH0" firstAttribute="centerX" secondItem="Qyd-1q-f31" secondAttribute="centerX" id="SNI-If-kGj"/>
+                                    <constraint firstItem="8Kw-E3-IH0" firstAttribute="width" secondItem="Qyd-1q-f31" secondAttribute="width" multiplier="0.75" id="bgS-nA-cEl"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -6116,8 +6143,10 @@ Countdown</string>
                     </view>
                     <connections>
                         <outlet property="accountSettingsTableView" destination="vka-yq-X4u" id="n0g-C6-0nw"/>
-                        <outlet property="deleteAccountPopup" destination="Qyd-1q-f31" id="c47-TY-seQ"/>
-                        <outlet property="lblDeleteAccout" destination="kBL-AI-IgM" id="rkL-le-fKM"/>
+                        <outlet property="doubleButtonStackView" destination="Wmk-iT-Odg" id="Xzc-9Z-NLO"/>
+                        <outlet property="lblPopup" destination="kBL-AI-IgM" id="dmy-fU-1VK"/>
+                        <outlet property="popupView" destination="Qyd-1q-f31" id="c47-TY-seQ"/>
+                        <outlet property="singleButtonSttackView" destination="mvm-5c-SAe" id="1h4-RE-hrD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Az-bX-kiP" userLabel="First Responder" sceneMemberID="firstResponder"/>
