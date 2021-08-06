@@ -51,6 +51,8 @@ enum SettingsMode: Int {
     case deleteAccount
     case system
     case showAllPopups
+    case accountSettings
+    case referringChannelName
 }
 
 class StorySetting {
@@ -99,8 +101,6 @@ class StorySettings {
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.promote(), selected: false)], settingsType: .watermarkSettings),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.subscription(), selected: false)], settingsType: .subscription),
-                                StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.yourAffiliateLink(), selected: false)], settingsType: .goToWebsite),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.applicationSurvey(), selected: false)], settingsType: .applicationSurvey),
@@ -109,9 +109,9 @@ class StorySettings {
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.help(), selected: false)], settingsType: .help),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.logout(), selected: false)], settingsType: .logout),
+                                              settings: [StorySetting(name: R.string.localizable.accountSettings(), selected: false)], settingsType: .accountSettings),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.deleteAccount(), selected: false)], settingsType: .deleteAccount)]
+                                              settings: [StorySetting(name: R.string.localizable.logout(), selected: false)], settingsType: .logout)]
 }
 
 class StorySettingsVC: UIViewController {
@@ -121,6 +121,7 @@ class StorySettingsVC: UIViewController {
     @IBOutlet weak var imgAppLogo: UIImageView!
     @IBOutlet weak var lblLogoutPopup: UILabel!
     @IBOutlet weak var logoutPopupView: UIView!
+    @IBOutlet weak var longPressPopupView: UIView!
     
     // MARK: - Variables declaration
     var isDeletePopup = false
@@ -130,10 +131,29 @@ class StorySettingsVC: UIViewController {
         lblAppInfo.text = "\(Constant.Application.displayName) - \(Constant.Application.appVersion)(\(Constant.Application.appBuildNumber))"
         lblLogoutPopup.text = R.string.localizable.areYouSureYouWantToLogoutFromApp("\(Constant.Application.displayName)")
         setupUI()
+        let longpress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(sender:)))
+        longpress.minimumPressDuration = 0.5
+        settingsTableView.addGestureRecognizer(longpress)
     }
     
     deinit {
         print("Deinit \(self.description)")
+    }
+    
+    @objc private func handleLongPress(sender: UILongPressGestureRecognizer) {
+        switch sender.state {
+        case .began:
+            let touchPoint = sender.location(in: settingsTableView)
+            if let indexPath = settingsTableView.indexPathForRow(at: touchPoint) {
+                if indexPath.section == 3 {
+                    let urlString = "\(websiteUrl)/ref/\(Defaults.shared.currentUser?.channelId ?? "")"
+                    UIPasteboard.general.string = urlString
+                    longPressPopupView.isHidden = false
+                }
+            }
+        default:
+            break
+        }
     }
     
     // MARK: - Setup UI Methods
@@ -184,16 +204,15 @@ class StorySettingsVC: UIViewController {
     }
     
     @IBAction func btnLogoutTapped(_ sender: UIButton) {
-        if isDeletePopup {
-            self.deleteUserAccount()
-        } else {
-            self.logoutWithKeycloak()
-        }
+        self.logoutWithKeycloak()
     }
     
     @IBAction func btnCancelLogout(_ sender: UIButton) {
         isDeletePopup = false
         logoutPopupView.isHidden = true
+    }
+    @IBAction func btnOkTapped(_ sender: UIButton) {
+        longPressPopupView.isHidden = true
     }
     
 }
@@ -239,11 +258,9 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         cell.settingsName.text = settings.name
         cell.detailButton.isHidden = true
         cell.settingsName.textColor = R.color.appBlackColor()
-        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video || settingTitle.settingsType == .cameraSettings || settingTitle.settingsType == .termsAndConditions || settingTitle.settingsType == .privacyPolicy || settingTitle.settingsType == .subscription || settingTitle.settingsType == .goToWebsite || settingTitle.settingsType == .watermarkSettings || settingTitle.settingsType == .applicationSurvey || settingTitle.settingsType == .intellectualProperties || settingTitle.settingsType == .help || settingTitle.settingsType == .deleteAccount || settingTitle.settingsType == .system {
+        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video || settingTitle.settingsType == .cameraSettings || settingTitle.settingsType == .termsAndConditions || settingTitle.settingsType == .privacyPolicy || settingTitle.settingsType == .goToWebsite || settingTitle.settingsType == .watermarkSettings || settingTitle.settingsType == .applicationSurvey || settingTitle.settingsType == .intellectualProperties || settingTitle.settingsType == .help || settingTitle.settingsType == .system || settingTitle.settingsType == .accountSettings {
             if settingTitle.settingsType == .appInfo {
                 cell.settingsName.textColor = R.color.appPrimaryColor()
-            } else if settingTitle.settingsType == .deleteAccount {
-                cell.settingsName.textColor = R.color.labelError()
             }
             cell.onOffButton.isHidden = true
         } else if settingTitle.settingsType == .socialLogins {
@@ -424,10 +441,6 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             guard let legalVc = R.storyboard.legal.legalViewController() else { return }
             legalVc.isTermsAndConditions = settingTitle.settingsType == .termsAndConditions
             self.navigationController?.pushViewController(legalVc, animated: true)
-        } else if settingTitle.settingsType == .subscription {
-            if let subscriptionVC = R.storyboard.subscription.subscriptionContainerViewController() {
-                navigationController?.pushViewController(subscriptionVC, animated: true)
-            }
         } else if settingTitle.settingsType == .goToWebsite {
             let urlString = "\(websiteUrl)/ref/$\(Defaults.shared.currentUser?.channelId ?? "")"
             guard let url = URL(string: urlString) else {
@@ -447,10 +460,10 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             }
         } else if settingTitle.settingsType == .intellectualProperties {
             // TODO: - Need to add redirection link
-        } else if settingTitle.settingsType == .deleteAccount {
-            lblLogoutPopup.text = R.string.localizable.areYouSureYouWantToDeactivateYourAccount()
-            isDeletePopup = true
-            logoutPopupView.isHidden = false
+        } else if settingTitle.settingsType == .accountSettings {
+            if let accountSettingsViewController = R.storyboard.storyCameraViewController.accountSettingsViewController() {
+                navigationController?.pushViewController(accountSettingsViewController, animated: true)
+            }
         }
     }
     
@@ -497,36 +510,6 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 self.settingsTableView.reloadData()
                 if let loginNav = R.storyboard.loginViewController.loginNavigation() {
                     Defaults.shared.clearData()
-                    Utils.appDelegate?.window?.rootViewController = loginNav
-                }
-            } else {
-                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
-            }
-            self.logoutPopupView.isHidden = true
-        }, onError: { error in
-            self.logoutPopupView.isHidden = true
-            self.showAlert(alertMessage: error.localizedDescription)
-        }, onCompleted: {
-        }).disposed(by: self.rx.disposeBag)
-    }
-    
-    func deleteUserAccount() {
-        ProManagerApi.userDelete.request(Result<EmptyModel>.self).subscribe(onNext: { (response) in
-            if response.status == ResponseType.success {
-                StoriCamManager.shared.logout()
-                TwitterManger.shared.logout()
-                GoogleManager.shared.logout()
-                FaceBookManager.shared.logout()
-                InstagramManager.shared.logout()
-                SnapKitManager.shared.logout { _ in
-                
-                }
-                if #available(iOS 13.0, *) {
-                    AppleSignInManager.shared.logout()
-                }
-                self.settingsTableView.reloadData()
-                if let loginNav = R.storyboard.loginViewController.loginNavigation() {
-                    Defaults.shared.clearData(isDeleteAccount: true)
                     Utils.appDelegate?.window?.rootViewController = loginNav
                 }
             } else {
