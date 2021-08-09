@@ -149,39 +149,39 @@ public var websiteUrl: String {
     switch Defaults.shared.releaseType {
     case .debug, .alpha:
         if isFastCamApp || isFastCamLiteApp {
-            baseUrlString = "https://alpha.fastcam.app/"
+            baseUrlString = "https://alpha.fastcam.app"
         } else if isSnapCamApp || isSnapCamLiteApp {
-            baseUrlString = "https://alpha.snapcam.app/"
+            baseUrlString = "https://alpha.snapcam.app"
         } else if isQuickCamApp || isQuickCamLiteApp || isQuickApp {
-            baseUrlString = "https://alpha.quickcam.app/"
+            baseUrlString = "https://alpha.quickcam.app"
         } else if isSpeedCamApp || isSpeedCamLiteApp {
-            baseUrlString = "https://alpha.speedcam.net/"
+            baseUrlString = "https://alpha.speedcam.net"
         } else {
-            baseUrlString = "https://alpha.snapcam.app/"
+            baseUrlString = "https://alpha.snapcam.app"
         }
     case .beta:
         if isFastCamApp || isFastCamLiteApp {
-            baseUrlString = "https://beta.fastcam.app/"
+            baseUrlString = "https://beta.fastcam.app"
         } else if isSnapCamApp || isSnapCamLiteApp {
-            baseUrlString = "https://beta.snapcam.app/"
+            baseUrlString = "https://beta.snapcam.app"
         } else if isQuickCamApp || isQuickCamLiteApp || isQuickApp {
-            baseUrlString = "https://beta.quickcam.app/"
+            baseUrlString = "https://beta.quickcam.app"
         } else if isSpeedCamApp || isSpeedCamLiteApp {
-            baseUrlString = "https://beta.speedcam.net/"
+            baseUrlString = "https://beta.speedcam.net"
         } else {
-            baseUrlString = "https://beta.snapcam.app/"
+            baseUrlString = "https://beta.snapcam.app"
         }
     case .store:
         if isFastCamApp || isFastCamLiteApp {
-            baseUrlString = "https://fastcam.app/"
+            baseUrlString = "https://fastcam.app"
         } else if isSnapCamApp || isSnapCamLiteApp {
-            baseUrlString = "https://snapcam.app/"
+            baseUrlString = "https://snapcam.app"
         } else if isQuickCamApp || isQuickCamLiteApp || isQuickApp {
-            baseUrlString = "https://quickcam.app/"
+            baseUrlString = "https://quickcam.app"
         } else if isSpeedCamApp || isSpeedCamLiteApp {
-            baseUrlString = "https://speedcam.net/"
+            baseUrlString = "https://speedcam.net"
         } else {
-            baseUrlString = "https://snapcam.app/"
+            baseUrlString = "https://snapcam.app"
         }
     }
     return baseUrlString
@@ -260,6 +260,51 @@ public var keycloakClientId: String {
 
 public var keycloakRegistrationClientId: String {
     let baseUrl = "auth/realms/main/protocol/openid-connect/registrations?client_id="
+    let endUrl = "&response_mode=fragment&response_type=code&redirect_uri="
+    var clientId = ""
+    switch Defaults.shared.releaseType {
+    case .debug, .alpha:
+        if isFastCamApp || isFastCamLiteApp {
+            clientId = "fastcam-alpha"
+        } else if isSnapCamApp || isSnapCamLiteApp {
+            clientId = "snapcam-alpha"
+        } else if isQuickCamApp || isQuickCamLiteApp || isQuickApp {
+            clientId = "quickcam-alpha"
+        } else if isSpeedCamApp || isSpeedCamLiteApp {
+            clientId = "speedcam-alpha"
+        } else {
+            clientId = "snapcam-alpha"
+        }
+    case .beta:
+        if isFastCamApp || isFastCamLiteApp {
+            clientId = "fastcam-beta"
+        } else if isSnapCamApp || isSnapCamLiteApp {
+            clientId = "snapcam-beta"
+        } else if isQuickCamApp || isQuickCamLiteApp || isQuickApp {
+            clientId = "quickcam-beta"
+        } else if isSpeedCamApp || isSpeedCamLiteApp {
+            clientId = "speedcam-beta"
+        } else {
+            clientId = "snapcam-beta"
+        }
+    case .store:
+        if isFastCamApp || isFastCamLiteApp {
+            clientId = "fastcam-prod"
+        } else if isSnapCamApp || isSnapCamLiteApp {
+            clientId = "snapcam-prod"
+        } else if isQuickCamApp || isQuickCamLiteApp || isQuickApp {
+            clientId = "quickcam-prod"
+        } else if isSpeedCamApp || isSpeedCamLiteApp {
+            clientId = "speedcam-prod"
+        } else {
+            clientId = "snapcam-prod"
+        }
+    }
+    return baseUrl + clientId + endUrl
+}
+
+public var keycloakForogtPasswordClientId: String {
+    let baseUrl = "auth/realms/main/protocol/openid-connect/forgot-credentials?client_id="
     let endUrl = "&response_mode=fragment&response_type=code&redirect_uri="
     var clientId = ""
     switch Defaults.shared.releaseType {
