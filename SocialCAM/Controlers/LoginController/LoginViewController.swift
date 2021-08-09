@@ -509,8 +509,8 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @IBAction func btnForgotClicked(sender: Any) {
-        guard let forgotPasswordViewController = R.storyboard.forgotPassword.forgotPasswordViewController() else { return }
-        self.navigationController?.pushViewController(forgotPasswordViewController, animated: true)
+        let url = "\(keycloakUrl)\(keycloakForogtPasswordClientId)\(KeycloakRedirectLink.keycloakRedirectLinkName.lowercased())\(KeycloakRedirectLink.endUrl)"
+        goToKeycloakWebview(url: url)
     }
     
     @IBAction func btnSignUpClicked(sender: Any) {
