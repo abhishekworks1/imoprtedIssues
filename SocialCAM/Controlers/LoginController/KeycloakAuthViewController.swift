@@ -58,26 +58,31 @@ class KeycloakAuthViewController: UIViewController {
 extension KeycloakAuthViewController: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Swift.Void) {
+        self.showHUD()
         if navigationAction.request.url != nil {
             guard let url = navigationAction.request.url else {
-                decisionHandler(.allow)
+                decisionHandler(.cancel)
                 return
             }
-            guard let components = NSURLComponents(url: url, resolvingAgainstBaseURL: false),
-                  let fragments = components.fragment else {
-                decisionHandler(.allow)
-                return
-            }
-            components.query = fragments
-            if let url = components.scheme {
-                let redirectUrl = "\(url)\(KeycloakRedirectLink.endUrl)"
-                var code: String?
-                for item in components.queryItems! {
-                    if item.name == R.string.localizable.code() {
-                        code = item.value
+            if let components = NSURLComponents(url: url, resolvingAgainstBaseURL: false),
+               let fragments = components.fragment {
+                components.query = fragments
+                if let url = components.scheme {
+                    let redirectUrl = "\(url)\(KeycloakRedirectLink.endUrl)"
+                    var code: String?
+                    for item in components.queryItems! {
+                        if item.name == R.string.localizable.code() {
+                            code = item.value
+                        }
                     }
+                    loginWithKeycloak(code: code ?? "", redirectUrl: redirectUrl)
                 }
-                loginWithKeycloak(code: code ?? "", redirectUrl: redirectUrl)
+            } else {
+                if navigationAction.navigationType == WKNavigationType.linkActivated {
+                    webView.load(navigationAction.request)
+                    decisionHandler(.cancel)
+                    return
+                }
             }
         }
         decisionHandler(.allow)
