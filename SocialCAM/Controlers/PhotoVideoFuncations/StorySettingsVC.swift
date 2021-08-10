@@ -53,6 +53,7 @@ enum SettingsMode: Int {
     case showAllPopups
     case accountSettings
     case referringChannelName
+    case skipYoutubeLogin
 }
 
 class StorySetting {

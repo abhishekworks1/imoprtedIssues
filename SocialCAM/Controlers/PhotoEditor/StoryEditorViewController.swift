@@ -322,6 +322,9 @@ class StoryEditorViewController: UIViewController {
             watermarkView.isHidden = isViewEditMode
             isHideTapped = isViewEditMode
             self.imgFastestEverWatermark.isHidden = isViewEditMode
+            if !isViewEditMode {
+                self.imgFastestEverWatermark.isHidden = Defaults.shared.fastestEverWatermarkSetting == .hide
+            }
         }
     }
     

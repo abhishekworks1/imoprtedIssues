@@ -6214,6 +6214,48 @@ Countdown</string>
                                             <outlet property="title" destination="hx6-Hr-X44" id="JHP-mb-iFk"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SystemSettingsCell" id="yht-ai-Ycs" userLabel="SystemSettingsCell" customClass="SystemSettingsCell" customModule="BoomiCam" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="160.33333206176758" width="359" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yht-ai-Ycs" id="mFl-oa-aLH">
+                                            <rect key="frame" x="0.0" y="0.0" width="359" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dgs-Tj-aYn">
+                                                    <rect key="frame" x="45" y="13.333333333333334" width="28.333333333333329" height="17.666666666666664"/>
+                                                    <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LBu-r9-I39">
+                                                    <rect key="frame" x="15" y="11" width="20" height="22"/>
+                                                    <state key="normal" image="checkBoxInActive"/>
+                                                    <state key="selected" image="checkBoxActive"/>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZKF-c3-iJJ">
+                                                    <rect key="frame" x="15" y="7" width="329" height="30"/>
+                                                    <connections>
+                                                        <action selector="btnSystemSettingTaped:" destination="yht-ai-Ycs" eventType="touchUpInside" id="v5V-OR-4gu"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Dgs-Tj-aYn" firstAttribute="centerY" secondItem="mFl-oa-aLH" secondAttribute="centerY" id="8tN-Zw-xOW"/>
+                                                <constraint firstItem="ZKF-c3-iJJ" firstAttribute="leading" secondItem="mFl-oa-aLH" secondAttribute="leading" constant="15" id="Has-9r-Ojo"/>
+                                                <constraint firstItem="ZKF-c3-iJJ" firstAttribute="centerY" secondItem="mFl-oa-aLH" secondAttribute="centerY" id="Hmp-xP-cSF"/>
+                                                <constraint firstItem="ZKF-c3-iJJ" firstAttribute="centerX" secondItem="mFl-oa-aLH" secondAttribute="centerX" id="I4T-vF-oPB"/>
+                                                <constraint firstItem="LBu-r9-I39" firstAttribute="leading" secondItem="mFl-oa-aLH" secondAttribute="leading" constant="15" id="ILt-Hx-S3p"/>
+                                                <constraint firstAttribute="trailing" secondItem="ZKF-c3-iJJ" secondAttribute="trailing" constant="15" id="OLu-I1-CUy"/>
+                                                <constraint firstItem="Dgs-Tj-aYn" firstAttribute="leading" secondItem="mFl-oa-aLH" secondAttribute="leading" constant="45" id="Rge-Ge-lic"/>
+                                                <constraint firstItem="LBu-r9-I39" firstAttribute="centerY" secondItem="mFl-oa-aLH" secondAttribute="centerY" id="vAD-FH-dA7"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="btnSelectShowAllPopup" destination="LBu-r9-I39" id="X1X-2d-YQB"/>
+                                            <outlet property="title" destination="Dgs-Tj-aYn" id="znU-eE-dGB"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>

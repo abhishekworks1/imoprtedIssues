@@ -10,6 +10,7 @@ import UIKit
 
 enum SystemSettingType {
     case showAllPopUps
+    case skipYoutubeLogin
 }
 
 class SystemSettingsCell: UITableViewCell {
@@ -24,6 +25,9 @@ class SystemSettingsCell: UITableViewCell {
             if systemSettingType == .showAllPopUps {
                 title.text = R.string.localizable.showAllPopups()
                 btnSelectShowAllPopup.isSelected = Defaults.shared.isShowAllPopUpChecked
+            } else if systemSettingType == .skipYoutubeLogin {
+                title.text = R.string.localizable.skipYoutubeLogin()
+                btnSelectShowAllPopup.isSelected = Defaults.shared.isSkipYoutubeLogin
             }
         }
     }
@@ -43,6 +47,9 @@ class SystemSettingsCell: UITableViewCell {
             Defaults.shared.isLoginTooltipHide = !btnSelectShowAllPopup.isSelected
             Defaults.shared.isDiscardVideoPopupHide = !btnSelectShowAllPopup.isSelected
             Defaults.shared.isToolTipHide = !btnSelectShowAllPopup.isSelected
+        } else if systemSettingType == .skipYoutubeLogin {
+            Defaults.shared.isSkipYoutubeLogin = !btnSelectShowAllPopup.isSelected
+            btnSelectShowAllPopup.isSelected = !btnSelectShowAllPopup.isSelected
         }
     }
 }
