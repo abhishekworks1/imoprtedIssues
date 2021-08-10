@@ -568,7 +568,7 @@ class Defaults {
     
     var fastestEverWatermarkSetting: FastestEverWatermarkSetting {
         get {
-            return FastestEverWatermarkSetting(rawValue: (appDefaults?.integer(forKey: "FastestEverWatermarkSetting") ?? 1)) ?? .show
+            return FastestEverWatermarkSetting(rawValue: (appDefaults?.integer(forKey: "FastestEverWatermarkSetting") ?? 2)) ?? .hide
         }
         set {
             appDefaults?.set(newValue.rawValue, forKey: "FastestEverWatermarkSetting")
@@ -586,7 +586,7 @@ class Defaults {
     
     var madeWithGifSetting: MadeWithGifSetting {
         get {
-            return MadeWithGifSetting(rawValue: (appDefaults?.integer(forKey: "madeWithGifSetting") ?? 1)) ?? .show
+            return MadeWithGifSetting(rawValue: (appDefaults?.integer(forKey: "madeWithGifSetting") ?? 2)) ?? .hide
         }
         set {
             appDefaults?.set(newValue.rawValue, forKey: "madeWithGifSetting")

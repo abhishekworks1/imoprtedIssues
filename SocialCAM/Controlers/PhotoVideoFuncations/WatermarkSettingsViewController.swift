@@ -31,11 +31,40 @@ class WatermarkSettingsViewController: UIViewController {
     
     // MARK: - Outlets Declaration
     @IBOutlet weak var watermarkSettingsTableView: UITableView!
+    @IBOutlet weak var btnFastesteverWatermark: UIButton!
+    @IBOutlet weak var btnSelectFastesteverWatermark: UIButton!
+    @IBOutlet weak var btnAppIdentifierWatermark: UIButton!
+    @IBOutlet weak var btnSelectAppIdentifierWatermark: UIButton!
+    @IBOutlet weak var btnMadeWithWatermark: UIButton!
+    @IBOutlet weak var imgViewMadeWithGif: UIImageView!
+    @IBOutlet weak var btnSelectedMadeWithGif: UIButton!
+    @IBOutlet weak var btnMadeWithGif: UIButton!
+    @IBOutlet weak var lblUserNameWatermark: UILabel!
+    
+    // MARK: - Variables Declaration
+    var isFastesteverWatermarkShow = false
+    var isAppIdentifierWatermarkShow = false
+    var isMadeWithGifShow = false
     
     // MARK: - View Controller Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         self.watermarkSettingsTableView.reloadData()
+        imgViewMadeWithGif.loadGif(name: R.string.localizable.madeWithQuickCamLite())
+        self.lblUserNameWatermark.text = "@\(Defaults.shared.currentUser?.username ?? "")"
+        isFastesteverWatermarkShow = Defaults.shared.fastestEverWatermarkSetting == .show
+        btnSelectFastesteverWatermark.isSelected = isFastesteverWatermarkShow
+        btnFastesteverWatermark.isSelected = isFastesteverWatermarkShow
+        isAppIdentifierWatermarkShow = Defaults.shared.appIdentifierWatermarkSetting == .show
+        btnSelectAppIdentifierWatermark.isSelected = isAppIdentifierWatermarkShow
+        btnAppIdentifierWatermark.isSelected = isAppIdentifierWatermarkShow
+        isMadeWithGifShow = Defaults.shared.madeWithGifSetting == .show
+        btnSelectedMadeWithGif.isSelected = isMadeWithGifShow
+        if Defaults.shared.appMode == .free {
+            btnAppIdentifierWatermark.isSelected = true
+            btnSelectAppIdentifierWatermark.isSelected = true
+            btnSelectedMadeWithGif.isSelected = true
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -45,8 +74,7 @@ class WatermarkSettingsViewController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        let sharedModel = Defaults.shared
-        setUserSettings(appWatermark: sharedModel.appIdentifierWatermarkSetting.rawValue, fastesteverWatermark: sharedModel.fastestEverWatermarkSetting.rawValue, faceDetection: sharedModel.enableFaceDetection, guidelineThickness: sharedModel.cameraGuidelineThickness.rawValue, guidelineTypes: sharedModel.cameraGuidelineTypes.rawValue, guidelinesShow: sharedModel.enableGuildlines, iconPosition: sharedModel.swapeContols, supportedFrameRates: sharedModel.supportedFrameRates, videoResolution: sharedModel.videoResolution.rawValue, watermarkOpacity: sharedModel.waterarkOpacity, guidelineActiveColor: CommonFunctions.hexStringFromColor(color: sharedModel.cameraGuidelineActiveColor), guidelineInActiveColor: CommonFunctions.hexStringFromColor(color: sharedModel.cameraGuidelineInActiveColor))
+        callSetUserSetting()
     }
     
     deinit {
@@ -65,6 +93,38 @@ class WatermarkSettingsViewController: UIViewController {
     // MARK: - Action Methods
     @IBAction func onBack(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func fastesteverWatermarkButtonClicked(sender: UIButton) {
+        isFastesteverWatermarkShow = !isFastesteverWatermarkShow
+        btnFastesteverWatermark.isSelected = isFastesteverWatermarkShow
+        btnSelectFastesteverWatermark.isSelected = isFastesteverWatermarkShow
+        Defaults.shared.fastestEverWatermarkSetting = self.isFastesteverWatermarkShow ? .show : .hide
+    }
+    
+    @IBAction func appIdentifierWatermarkButtonClicked(sender: UIButton) {
+        if Defaults.shared.appMode == .free {
+            if let watermarkSettingsVC = R.storyboard.storyCameraViewController.watermarkSettingsViewController() {
+                navigationController?.pushViewController(watermarkSettingsVC, animated: true)
+            }
+        } else {
+            isAppIdentifierWatermarkShow = !isAppIdentifierWatermarkShow
+            btnAppIdentifierWatermark.isSelected = isAppIdentifierWatermarkShow
+            btnSelectAppIdentifierWatermark.isSelected = isAppIdentifierWatermarkShow
+        }
+        Defaults.shared.appIdentifierWatermarkSetting = self.isAppIdentifierWatermarkShow ? .show : .hide
+    }
+    
+    @IBAction func madeWithGifButtonClicked(sender: UIButton) {
+        if Defaults.shared.appMode == .free {
+            if let watermarkSettingsVC = R.storyboard.storyCameraViewController.watermarkSettingsViewController() {
+                navigationController?.pushViewController(watermarkSettingsVC, animated: true)
+            }
+        } else {
+            isMadeWithGifShow = !isMadeWithGifShow
+            btnSelectedMadeWithGif.isSelected = isMadeWithGifShow
+        }
+        Defaults.shared.madeWithGifSetting = self.isMadeWithGifShow ? .show : .hide
     }
     
 }
@@ -130,8 +190,8 @@ extension WatermarkSettingsViewController: UITableViewDelegate {
 
 extension WatermarkSettingsViewController {
     
-    func setUserSettings(appWatermark: Int? = 1, fastesteverWatermark: Int? = 1, faceDetection: Bool? = false, guidelineThickness: Int? = 3, guidelineTypes: Int? = 3, guidelinesShow: Bool? = false, iconPosition: Bool? = false, supportedFrameRates: [String]?, videoResolution: Int? = 1, watermarkOpacity: Int? = 30, guidelineActiveColor: String?, guidelineInActiveColor: String?) {
-        ProManagerApi.setUserSettings(appWatermark: appWatermark ?? 1, fastesteverWatermark: fastesteverWatermark ?? 1, faceDetection: faceDetection ?? false, guidelineThickness: guidelineThickness ?? 3, guidelineTypes: guidelineTypes ?? 3, guidelinesShow: guidelinesShow ?? false, iconPosition: iconPosition ?? false, supportedFrameRates: supportedFrameRates ?? [], videoResolution: videoResolution ?? 1, watermarkOpacity: watermarkOpacity ?? 30, guidelineActiveColor: guidelineActiveColor ?? "", guidelineInActiveColor: guidelineInActiveColor ?? "").request(Result<UserSettingsResult>.self).subscribe(onNext: { response in
+    func setUserSettings(appWatermark: Int? = 1, fastesteverWatermark: Int? = 2, faceDetection: Bool? = false, guidelineThickness: Int? = 3, guidelineTypes: Int? = 3, guidelinesShow: Bool? = false, iconPosition: Bool? = false, supportedFrameRates: [String]?, videoResolution: Int? = 1, watermarkOpacity: Int? = 30, guidelineActiveColor: String?, guidelineInActiveColor: String?) {
+        ProManagerApi.setUserSettings(appWatermark: appWatermark ?? 1, fastesteverWatermark: fastesteverWatermark ?? 2, faceDetection: faceDetection ?? false, guidelineThickness: guidelineThickness ?? 3, guidelineTypes: guidelineTypes ?? 3, guidelinesShow: guidelinesShow ?? false, iconPosition: iconPosition ?? false, supportedFrameRates: supportedFrameRates ?? [], videoResolution: videoResolution ?? 1, watermarkOpacity: watermarkOpacity ?? 30, guidelineActiveColor: guidelineActiveColor ?? "", guidelineInActiveColor: guidelineInActiveColor ?? "").request(Result<UserSettingsResult>.self).subscribe(onNext: { response in
             if response.status == ResponseType.success {
                 print(R.string.localizable.success())
             } else {
@@ -141,6 +201,11 @@ extension WatermarkSettingsViewController {
             print(error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: (rx.disposeBag))
+    }
+    
+    func callSetUserSetting() {
+        let sharedModel = Defaults.shared
+        setUserSettings(appWatermark: sharedModel.appIdentifierWatermarkSetting.rawValue, fastesteverWatermark: sharedModel.fastestEverWatermarkSetting.rawValue, faceDetection: sharedModel.enableFaceDetection, guidelineThickness: sharedModel.cameraGuidelineThickness.rawValue, guidelineTypes: sharedModel.cameraGuidelineTypes.rawValue, guidelinesShow: sharedModel.enableGuildlines, iconPosition: sharedModel.swapeContols, supportedFrameRates: sharedModel.supportedFrameRates, videoResolution: sharedModel.videoResolution.rawValue, watermarkOpacity: sharedModel.waterarkOpacity, guidelineActiveColor: CommonFunctions.hexStringFromColor(color: sharedModel.cameraGuidelineActiveColor), guidelineInActiveColor: CommonFunctions.hexStringFromColor(color: sharedModel.cameraGuidelineInActiveColor))
     }
     
 }
