@@ -76,6 +76,10 @@ class FollowMeStoryView: UIView {
             self.openGallery(fromSourceType: .camera)
         }
         actionSheet.addAction(cameraAction)
+        let yourProfilePictureAction = UIAlertAction(title: "Your Profile Pic", style: .default) { [unowned self] _ in
+            self.setFromUserProfilePic()
+        }
+        actionSheet.addAction(yourProfilePictureAction)
         let cancel = UIAlertAction(title: R.string.localizable.cancel(), style: .cancel) { [unowned self] _ in
             guard let superView = self.superview else {
                 return
@@ -105,6 +109,12 @@ class FollowMeStoryView: UIView {
             return
         }
         superView.parentViewController?.present(bitmojiStickerPickerViewController, animated: true, completion: nil)
+    }
+    
+    func setFromUserProfilePic() {
+        if let userImageUrl = Defaults.shared.currentUser?.profileImageURL {
+            userBitEmoji.sd_setImage(with: URL.init(string: userImageUrl), placeholderImage: ApplicationSettings.userPlaceHolder)
+        }
     }
 }
 
