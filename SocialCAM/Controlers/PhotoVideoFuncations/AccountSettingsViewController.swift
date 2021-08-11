@@ -101,9 +101,17 @@ extension AccountSettingsViewController: UITableViewDataSource {
         accountSettingsCell.title.text = settings.name
         
         if settingTitle.settingsType == .referringChannelName {
-            if let refferingChannel = Defaults.shared.currentUser?.refferingChannel {
-                accountSettingsCell.title.text = R.string.localizable.referringChannel(refferingChannel)
+            guard let referringChannelNameCell: ReferringChannelNameCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.referringChannelNameCell.identifier) as? ReferringChannelNameCell else {
+                return accountSettingsCell
             }
+            referringChannelNameCell.lblReferringChannelTitle.text = R.string.localizable.referringChannelName()
+            if let name = Defaults.shared.currentUser?.refferingChannel,
+               let userImageUrl = Defaults.shared.currentUser?.profileImageURL {
+                referringChannelNameCell.lblChannelName.text = R.string.localizable.referringChannel(name)
+                referringChannelNameCell.userImageView.layer.cornerRadius = referringChannelNameCell.userImageView.bounds.width / 2
+                referringChannelNameCell.userImageView.sd_setImage(with: URL.init(string: userImageUrl), placeholderImage: ApplicationSettings.userPlaceHolder)
+            }
+            return referringChannelNameCell
         } else if settingTitle.settingsType == .deleteAccount {
             accountSettingsCell.title.textColor = R.color.labelError()
         } else if settingTitle.settingsType == .skipYoutubeLogin {
@@ -135,13 +143,24 @@ extension AccountSettingsViewController: UITableViewDelegate {
         let settingTitle = AccountSettings.accountSettings[section]
         if settingTitle.settingsType == .deleteAccount {
             return 40
+        } else if settingTitle.settingsType == .referringChannelName {
+            return 10
         } else {
-            return 20
+            return 5
         }
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 1.0
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let settingTitle = AccountSettings.accountSettings[indexPath.section]
+        if settingTitle.settingsType == .referringChannelName {
+            return 60
+        } else {
+            return 40
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

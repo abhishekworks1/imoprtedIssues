@@ -6205,13 +6205,56 @@ Countdown</string>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="hx6-Hr-X44" firstAttribute="centerY" secondItem="YTf-UF-kUV" secondAttribute="centerY" id="3pc-WH-zha"/>
-                                                <constraint firstItem="hx6-Hr-X44" firstAttribute="leading" secondItem="YTf-UF-kUV" secondAttribute="leading" constant="15" id="odv-Uj-uGI"/>
+                                                <constraint firstItem="ir1-l2-5NB" firstAttribute="centerY" secondItem="cJ4-kn-6jj" secondAttribute="centerY" id="3kp-4R-4P2"/>
+                                                <constraint firstItem="ir1-l2-5NB" firstAttribute="leading" secondItem="cJ4-kn-6jj" secondAttribute="leading" constant="15" id="nua-wH-xZc"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
-                                            <outlet property="title" destination="hx6-Hr-X44" id="JHP-mb-iFk"/>
+                                            <outlet property="title" destination="ir1-l2-5NB" id="dtn-wn-cKT"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ReferringChannelNameCell" rowHeight="70" id="TNQ-6h-1JH" userLabel="ReferringChannelCell" customClass="ReferringChannelNameCell" customModule="BoomiCam" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="160.33333206176758" width="359" height="70"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TNQ-6h-1JH" id="YTf-UF-kUV">
+                                            <rect key="frame" x="0.0" y="0.0" width="359" height="70"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ht5-py-Bfz">
+                                                    <rect key="frame" x="66" y="32.666666666666664" width="41.333333333333343" height="20.333333333333336"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hx6-Hr-X44">
+                                                    <rect key="frame" x="14.999999999999998" y="0.0" width="28.333333333333329" height="17.666666666666668"/>
+                                                    <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZO5-gf-Utw">
+                                                    <rect key="frame" x="16" y="22.666666666666671" width="40" height="40"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="40" id="pZF-FH-WfD"/>
+                                                        <constraint firstAttribute="height" constant="40" id="uga-74-8bk"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="hx6-Hr-X44" firstAttribute="top" secondItem="YTf-UF-kUV" secondAttribute="top" id="7C6-No-wZN"/>
+                                                <constraint firstItem="ht5-py-Bfz" firstAttribute="leading" secondItem="ZO5-gf-Utw" secondAttribute="trailing" constant="10" id="EHX-sD-IYK"/>
+                                                <constraint firstItem="ht5-py-Bfz" firstAttribute="centerY" secondItem="ZO5-gf-Utw" secondAttribute="centerY" id="glz-0p-bM2"/>
+                                                <constraint firstItem="ZO5-gf-Utw" firstAttribute="leading" secondItem="YTf-UF-kUV" secondAttribute="leading" constant="16" id="oa7-Wx-zlk"/>
+                                                <constraint firstItem="hx6-Hr-X44" firstAttribute="leading" secondItem="YTf-UF-kUV" secondAttribute="leading" constant="15" id="odv-Uj-uGI"/>
+                                                <constraint firstItem="ZO5-gf-Utw" firstAttribute="top" secondItem="hx6-Hr-X44" secondAttribute="bottom" constant="5" id="wYT-08-i1O"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="lblChannelName" destination="ht5-py-Bfz" id="icj-G5-dh1"/>
+                                            <outlet property="lblReferringChannelTitle" destination="hx6-Hr-X44" id="RG5-fz-cFy"/>
+                                            <outlet property="userImageView" destination="ZO5-gf-Utw" id="11A-hP-Q60"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SystemSettingsCell" id="yht-ai-Ycs" userLabel="SystemSettingsCell" customClass="SystemSettingsCell" customModule="BoomiCam" customModuleProvider="target">
