@@ -568,8 +568,8 @@ extension TrimEditorViewController {
             guard let currentPlayer = self.player else { return }
             if currentPlayer.timeControlStatus == .playing && !btnPlayPause.isSelected {
                 currentPlayer.play()
-                startPlaybackTimeChecker()
             }
+            startPlaybackTimeChecker()
         }
     }
 }
