@@ -105,7 +105,9 @@ class YouTubeUploadViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        GoogleManager.shared.logout()
+        if Defaults.shared.isSkipYoutubeLogin == false {
+            GoogleManager.shared.logout()
+        }
     }
     
     func setupDefaultDropDown() {

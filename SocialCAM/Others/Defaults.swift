@@ -872,6 +872,15 @@ class Defaults {
         }
     }
     
+    var isSkipYoutubeLogin: Bool {
+        get {
+            return appDefaults?.value(forKey: "isSkipYoutubeLogin") as? Bool ?? false
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isSkipYoutubeLogin")
+        }
+    }
+    
     func clearData(isDeleteAccount: Bool = false) {
         if let appDefaultsDictionary = appDefaults?.dictionaryRepresentation() {
             appDefaultsDictionary.keys.forEach { key in
