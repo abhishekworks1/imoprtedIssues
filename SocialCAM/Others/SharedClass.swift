@@ -365,9 +365,9 @@ public var inAppConfig: String {
     var appSpecificSecretKey = ""
     switch Defaults.shared.releaseType {
     case .debug, .alpha, .beta:
-        appSpecificSecretKey = "599f6daf47d141df8f528d6c24e1ef56"
+        appSpecificSecretKey = "f95f3e130bd34017b82898245abea599"
     case .store:
-        appSpecificSecretKey = "599f6daf47d141df8f528d6c24e1ef56"
+        appSpecificSecretKey = "f95f3e130bd34017b82898245abea599"
     }
     return appSpecificSecretKey
 }
