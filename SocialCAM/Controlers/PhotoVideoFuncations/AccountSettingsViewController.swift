@@ -69,6 +69,9 @@ class AccountSettingsViewController: UIViewController {
     }
     @IBAction func onOkPressed(_ sender: UIButton) {
         popupView.isHidden = true
+        if let subscriptionVC = R.storyboard.subscription.subscriptionContainerViewController() {
+            navigationController?.pushViewController(subscriptionVC, animated: true)
+        }
     }
 }
 

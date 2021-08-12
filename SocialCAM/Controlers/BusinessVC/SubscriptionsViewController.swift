@@ -41,6 +41,11 @@ class SubscriptionsViewController: UIViewController {
         if subscriptionType == .basic {
             bindViewModel(appMode: appMode ?? .basic)
         }
+        if Defaults.shared.allowFullAccess == true {
+            btnUpgrade.isUserInteractionEnabled = false
+            expiryDateHeightConstraint.constant = 0
+            lblFreeTrial.isHidden = true
+        }
     }
     
     @IBAction func btnUpgradeTapped(_ sender: Any) {

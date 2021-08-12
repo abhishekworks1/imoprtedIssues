@@ -251,7 +251,9 @@ class ImageCollectionViewCell: UICollectionViewCell {
     func videoPlayerPlayback(to time: CMTime, asset: AVAsset) {
         let (progressTimeM, progressTimeS) = Utils.secondsToHoursMinutesSeconds(Int(Float(time.seconds).roundToPlaces(places: 0)))
         let (totalTimeM, totalTimeS) = Utils.secondsToHoursMinutesSeconds(Int(Float(asset.duration.seconds).roundToPlaces(places: 0)))
-        self.lblVideoDuration.text = "\(progressTimeM):\(progressTimeS) / \(totalTimeM):\(totalTimeS)"
+        let remainTime = asset.duration.seconds - time.seconds
+        let (remainTimeM, remainTimeS) = Utils.secondsToHoursMinutesSeconds(Int(Float(remainTime).roundToPlaces(places: 0)))
+        self.lblVideoDuration.text = "\(progressTimeM):\(progressTimeS) / \(remainTimeM):\(remainTimeS)"
     }
     
     func hideLeftRightHandle() {
