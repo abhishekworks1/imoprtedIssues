@@ -3729,8 +3729,8 @@ Countdown</string>
                                                         </view>
                                                     </subviews>
                                                 </stackView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Watermark Opacity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tcs-XL-Xwj">
-                                                    <rect key="frame" x="16" y="261" width="159" height="22"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Watermark Opacity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tcs-XL-Xwj">
+                                                    <rect key="frame" x="15" y="269.66666666666669" width="146.33333333333334" height="19"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="19" id="20V-GJ-SWy"/>
                                                     </constraints>
@@ -3754,6 +3754,58 @@ Countdown</string>
                                         <connections>
                                             <outlet property="activeColorsCollectionView" destination="lON-PC-Zdm" id="vm5-8h-Sdt"/>
                                             <outlet property="inActiveColorsCollectionView" destination="GTm-4L-7Ds" id="UVE-gu-q7j"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SystemSettingsCell" id="LNm-N2-7nK" userLabel="SystemSettingsCell" customClass="SystemSettingsCell" customModule="BoomiCam" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="1332.3333320617676" width="359" height="30"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LNm-N2-7nK" id="7Ze-JY-kNK">
+                                            <rect key="frame" x="0.0" y="0.0" width="359" height="30"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MQi-iP-igJ">
+                                                    <rect key="frame" x="45" y="6" width="32.333333333333343" height="18"/>
+                                                    <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pJu-4I-ijv">
+                                                    <rect key="frame" x="15" y="4" width="20" height="22"/>
+                                                    <state key="normal" image="checkBoxInActive"/>
+                                                    <state key="selected" image="checkBoxActive"/>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KLV-DY-NWv">
+                                                    <rect key="frame" x="15" y="0.0" width="293" height="30"/>
+                                                    <connections>
+                                                        <action selector="btnSystemSettingTaped:" destination="LNm-N2-7nK" eventType="touchUpInside" id="D4D-wd-bqU"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DcM-Jj-DhC">
+                                                    <rect key="frame" x="313" y="0.0" width="46" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="46" id="a2H-WP-SK2"/>
+                                                    </constraints>
+                                                    <state key="normal" image="circleHelpQuestionMark"/>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="KLV-DY-NWv" secondAttribute="bottom" id="0Xx-4v-B97"/>
+                                                <constraint firstItem="MQi-iP-igJ" firstAttribute="leading" secondItem="7Ze-JY-kNK" secondAttribute="leading" constant="45" id="43j-qP-G5m"/>
+                                                <constraint firstAttribute="trailing" secondItem="DcM-Jj-DhC" secondAttribute="trailing" id="6R8-EI-AQd"/>
+                                                <constraint firstItem="DcM-Jj-DhC" firstAttribute="leading" secondItem="KLV-DY-NWv" secondAttribute="trailing" constant="5" id="Fte-Es-qqA"/>
+                                                <constraint firstItem="DcM-Jj-DhC" firstAttribute="top" secondItem="KLV-DY-NWv" secondAttribute="top" id="PAE-ov-nu0"/>
+                                                <constraint firstItem="KLV-DY-NWv" firstAttribute="leading" secondItem="7Ze-JY-kNK" secondAttribute="leading" constant="15" id="Ute-hx-rhh"/>
+                                                <constraint firstItem="KLV-DY-NWv" firstAttribute="top" secondItem="7Ze-JY-kNK" secondAttribute="top" id="Xkw-vO-Mod"/>
+                                                <constraint firstItem="DcM-Jj-DhC" firstAttribute="bottom" secondItem="KLV-DY-NWv" secondAttribute="bottom" id="jWV-KC-46j"/>
+                                                <constraint firstItem="pJu-4I-ijv" firstAttribute="leading" secondItem="7Ze-JY-kNK" secondAttribute="leading" constant="15" id="qSa-tj-8Ib"/>
+                                                <constraint firstItem="MQi-iP-igJ" firstAttribute="centerY" secondItem="7Ze-JY-kNK" secondAttribute="centerY" id="uAX-fK-gd6"/>
+                                                <constraint firstItem="pJu-4I-ijv" firstAttribute="centerY" secondItem="7Ze-JY-kNK" secondAttribute="centerY" id="wEX-at-2Qo"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="btnSelectShowAllPopup" destination="pJu-4I-ijv" id="vHn-mL-zEt"/>
+                                            <outlet property="title" destination="MQi-iP-igJ" id="8Hg-kF-FsP"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -6477,6 +6529,7 @@ Countdown</string>
         <image name="checkBoxInActive" width="20" height="20"/>
         <image name="checkOff" width="20" height="20"/>
         <image name="checkOn" width="20" height="20"/>
+        <image name="circleHelpQuestionMark" width="16" height="16"/>
         <image name="dashBoard" width="84" height="160"/>
         <image name="dashedLine" width="2" height="105"/>
         <image name="dimond" width="36" height="20"/>

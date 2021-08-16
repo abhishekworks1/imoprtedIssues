@@ -23,7 +23,6 @@ class AccountSettings {
     static var accountSettings = [
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.referringChannelName(), selected: false)], settingsType: .referringChannelName),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.subscription(), selected: false)], settingsType: .subscription),
-        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.skipYoutubeLogin(), selected: false)], settingsType: .skipYoutubeLogin),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.deleteAccount(), selected: false)], settingsType: .deleteAccount)
     ]
 }
@@ -41,15 +40,6 @@ class AccountSettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.accountSettingsTableView.reloadData()
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        if Defaults.shared.isSkipYoutubeLogin == false {
-            if GoogleManager.shared.isUserLogin {
-                GoogleManager.shared.logout()
-            }
-        }
     }
     
     func showHideButtonView(isHide: Bool) {
@@ -84,11 +74,7 @@ extension AccountSettingsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let settingTitle = AccountSettings.accountSettings[section]
-        if settingTitle.settingsType == .skipYoutubeLogin {
-            return 1
-        } else {
-            return settingTitle.settings.count
-        }
+        return settingTitle.settings.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -114,14 +100,6 @@ extension AccountSettingsViewController: UITableViewDataSource {
             return referringChannelNameCell
         } else if settingTitle.settingsType == .deleteAccount {
             accountSettingsCell.title.textColor = R.color.labelError()
-        } else if settingTitle.settingsType == .skipYoutubeLogin {
-            guard let systemSettingsCell: SystemSettingsCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.systemSettingsCell.identifier) as? SystemSettingsCell else {
-                fatalError("\(R.reuseIdentifier.systemSettingsCell.identifier) Not Found")
-            }
-            if settingTitle.settingsType == .skipYoutubeLogin {
-                systemSettingsCell.systemSettingType = .skipYoutubeLogin
-            }
-            return systemSettingsCell
         }
         
         return accountSettingsCell
