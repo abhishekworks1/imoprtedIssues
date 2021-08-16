@@ -252,7 +252,8 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                                              self.flashStackView,
                                              self.nextButtonView,
                                              self.switchAppButton,
-                                             self.discardSegmentsStackView],
+                                             self.discardSegmentsStackView,
+                                             self.confirmRecordedSegmentStackView],
                                             alpha: alpha)
                     self.isHideTapped = self.hideControls
                     // Make the animation happen
