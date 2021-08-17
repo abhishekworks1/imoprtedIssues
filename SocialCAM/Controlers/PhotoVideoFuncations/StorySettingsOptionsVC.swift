@@ -24,6 +24,7 @@ class CameraSettings {
     static var storySettings = [
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.faceDetection(), selected: false)], settingsType: .faceDetection),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.guideline(), selected: false)], settingsType: .guildlines),
+        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.skipYoutubeLogin(), selected: false)], settingsType: .skipYoutubeLogin),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.changePositionsOfMuteSwitchingCamera(), selected: false)], settingsType: .swapeContols),
         StorySettings(name: R.string.localizable.supportedFrameRates(), settings: [StorySetting(name: R.string.localizable.supportedFrameRates(), selected: false)], settingsType: .supportedFrameRates),
         StorySettings(name: "", settings: [StorySetting(name:
@@ -48,13 +49,17 @@ class StorySettingsOptionsVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         let sharedModel = Defaults.shared
         setUserSettings(appWatermark: sharedModel.appIdentifierWatermarkSetting.rawValue, fastesteverWatermark: sharedModel.fastestEverWatermarkSetting.rawValue, faceDetection: sharedModel.enableFaceDetection, guidelineThickness: sharedModel.cameraGuidelineThickness.rawValue, guidelineTypes: sharedModel.cameraGuidelineTypes.rawValue, guidelinesShow: sharedModel.enableGuildlines, iconPosition: sharedModel.swapeContols, supportedFrameRates: sharedModel.supportedFrameRates, videoResolution: sharedModel.videoResolution.rawValue, watermarkOpacity: sharedModel.waterarkOpacity, guidelineActiveColor: CommonFunctions.hexStringFromColor(color: sharedModel.cameraGuidelineActiveColor), guidelineInActiveColor: CommonFunctions.hexStringFromColor(color: sharedModel.cameraGuidelineInActiveColor))
+        if Defaults.shared.isSkipYoutubeLogin == false {
+            if GoogleManager.shared.isUserLogin {
+                GoogleManager.shared.logout()
+            }
+        }
     }
     
     deinit {
@@ -88,6 +93,8 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
         let settingTitle = CameraSettings.storySettings[section]
         if settingTitle.settingsType == .supportedFrameRates {
             return Defaults.shared.supportedFrameRates?.count ?? 0
+        } else if settingTitle.settingsType == .skipYoutubeLogin {
+            return 1
         } else {
             return settingTitle.settings.count
         }
@@ -144,6 +151,14 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
                 return cell
             }
             return videoResolutionCell
+        } else if settingTitle.settingsType == .skipYoutubeLogin {
+            guard let systemSettingsCell: SystemSettingsCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.systemSettingsCell.identifier) as? SystemSettingsCell else {
+                fatalError("\(R.reuseIdentifier.systemSettingsCell.identifier) Not Found")
+            }
+            if settingTitle.settingsType == .skipYoutubeLogin {
+                systemSettingsCell.systemSettingType = .skipYoutubeLogin
+            }
+            return systemSettingsCell
         }
         return cell
     }
@@ -183,6 +198,8 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
             return 60
         } else if settingTitle.settingsType == .faceDetection {
             return 80
+        } else if settingTitle.settingsType == .skipYoutubeLogin {
+            return 20
         } else {
             return 1
         }
