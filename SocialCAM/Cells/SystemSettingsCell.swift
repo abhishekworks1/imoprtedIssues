@@ -11,6 +11,7 @@ import UIKit
 enum SystemSettingType {
     case showAllPopUps
     case skipYoutubeLogin
+    case saveVideoAfterRecording
 }
 
 class SystemSettingsCell: UITableViewCell {
@@ -18,6 +19,7 @@ class SystemSettingsCell: UITableViewCell {
     // MARK: - Outlets Declaration
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var btnSelectShowAllPopup: UIButton!
+    @IBOutlet weak var btnHelpTooltip: UIButton!
     
     // MARK: - Varable Declaration
     var systemSettingType: SystemSettingType = .showAllPopUps {
@@ -28,6 +30,10 @@ class SystemSettingsCell: UITableViewCell {
             } else if systemSettingType == .skipYoutubeLogin {
                 title.text = R.string.localizable.skipYoutubeLogin()
                 btnSelectShowAllPopup.isSelected = Defaults.shared.isSkipYoutubeLogin
+            } else if systemSettingType == .saveVideoAfterRecording {
+                title.text = R.string.localizable.saveVideoAfterRecording()
+                btnHelpTooltip.isHidden = true
+                btnSelectShowAllPopup.isSelected = Defaults.shared.isVideoSavedAfterRecording
             }
         }
     }
@@ -49,6 +55,9 @@ class SystemSettingsCell: UITableViewCell {
             Defaults.shared.isToolTipHide = !btnSelectShowAllPopup.isSelected
         } else if systemSettingType == .skipYoutubeLogin {
             Defaults.shared.isSkipYoutubeLogin = !btnSelectShowAllPopup.isSelected
+            btnSelectShowAllPopup.isSelected = !btnSelectShowAllPopup.isSelected
+        } else if systemSettingType == .saveVideoAfterRecording {
+            Defaults.shared.isVideoSavedAfterRecording = !btnSelectShowAllPopup.isSelected
             btnSelectShowAllPopup.isSelected = !btnSelectShowAllPopup.isSelected
         }
     }

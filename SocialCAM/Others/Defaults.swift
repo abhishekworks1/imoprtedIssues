@@ -881,6 +881,15 @@ class Defaults {
         }
     }
     
+    var isVideoSavedAfterRecording: Bool {
+        get {
+            return appDefaults?.value(forKey: "isVideoSavedAfterRecording") as? Bool ?? true
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isVideoSavedAfterRecording")
+        }
+    }
+    
     func clearData(isDeleteAccount: Bool = false) {
         if let appDefaultsDictionary = appDefaults?.dictionaryRepresentation() {
             appDefaultsDictionary.keys.forEach { key in
