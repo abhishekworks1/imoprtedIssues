@@ -2100,6 +2100,11 @@ extension StoryCameraViewController {
                 totalVideoDuration.append(duration)
                 let totalDurationSum = totalVideoDuration.reduce(0, +)
                 if recordingType != .normal {
+                    if Defaults.shared.isVideoSavedAfterRecording == true {
+                        if let url = self.takenVideoUrls.last?.url {
+                            SCAlbum.shared.saveMovieToLibrary(movieURL: url)
+                        }
+                    }
                     self.openStoryEditor(segementedVideos: takenVideoUrls)
                 } else if isLiteApp, recordingType == .normal, totalDurationSum >= 30 {
                     self.openStoryEditor(segementedVideos: takenVideoUrls)
