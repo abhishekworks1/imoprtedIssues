@@ -827,6 +827,33 @@ class Defaults {
         }
     }
     
+    var isAffiliateLinkActivated: Bool {
+        get {
+            return appDefaults?.value(forKey: "isAffiliateLinkActivated") as? Bool ?? false
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isAffiliateLinkActivated")
+        }
+    }
+    
+    var isAffiliatePopupShowed: Bool {
+        get {
+            return appDefaults?.value(forKey: "isAffiliatePopupShowed") as? Bool ?? false
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isAffiliatePopupShowed")
+        }
+    }
+    
+    var enterLinkValue: String {
+        get {
+            return appDefaults?.value(forKey: "enterLinkValue") as? String ?? ""
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "enterLinkValue")
+        }
+    }
+    
     var isDiscardVideoPopupHide: Bool {
         get {
             return appDefaults?.value(forKey: "isDiscardVideoPopupHide") as? Bool ?? false

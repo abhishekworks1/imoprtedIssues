@@ -32,6 +32,10 @@ enum SSUTagType {
     case snapCamLite
     case socialScreenRecorder
     case quickApp
+    case vidPlay
+    case businessCenter
+    case enterLink
+    case noLink
 }
 
 enum SSUWaitingListOptionType {

@@ -471,11 +471,9 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 }
             }
         } else if settingTitle.settingsType == .goToWebsite {
-            let urlString = "\(websiteUrl)/ref/\(Defaults.shared.currentUser?.channelId ?? "")"
-            guard let url = URL(string: urlString) else {
-                return
+            if let yourAffiliateLinkVC = R.storyboard.storyCameraViewController.yourAffiliateLinkViewController() {
+                navigationController?.pushViewController(yourAffiliateLinkVC, animated: true)
             }
-            presentSafariBrowser(url: url)
         } else if settingTitle.settingsType == .applicationSurvey {
             guard let url = URL(string: Constant.URLs.applicationSurveyURL) else { return }
             presentSafariBrowser(url: url)
