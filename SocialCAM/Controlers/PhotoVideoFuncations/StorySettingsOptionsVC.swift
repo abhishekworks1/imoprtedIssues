@@ -44,6 +44,7 @@ class CameraSettings {
 class StorySettingsOptionsVC: UIViewController {
     
     @IBOutlet weak var settingsTableView: UITableView!
+    @IBOutlet weak var skipYTLoginTooltipView: UIView!
     
     var firstPercentage: Double = 0.0
     var firstUploadCompletedSize: Double = 0.0
@@ -74,9 +75,17 @@ class StorySettingsOptionsVC: UIViewController {
             }
         }
     }
+    
+    @objc func showYoutubeLoginTooltip() {
+        self.skipYTLoginTooltipView.isHidden = false
+    }
 
     @IBAction func onBack(_ sender: Any) {
         navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func btnOkClicked(_ sender: UIButton) {
+        self.skipYTLoginTooltipView.isHidden = true
     }
     
 }
@@ -158,6 +167,7 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
             }
             if settingTitle.settingsType == .skipYoutubeLogin {
                 systemSettingsCell.systemSettingType = .skipYoutubeLogin
+                systemSettingsCell.btnHelpTooltip.addTarget(self, action: #selector(showYoutubeLoginTooltip), for: .touchUpInside)
             } else if settingTitle.settingsType == .saveVideoAfterRecording {
                 systemSettingsCell.systemSettingType = .saveVideoAfterRecording
             }
