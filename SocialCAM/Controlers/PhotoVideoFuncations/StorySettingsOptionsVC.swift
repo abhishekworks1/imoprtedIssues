@@ -25,6 +25,7 @@ class CameraSettings {
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.faceDetection(), selected: false)], settingsType: .faceDetection),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.guideline(), selected: false)], settingsType: .guildlines),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.skipYoutubeLogin(), selected: false)], settingsType: .skipYoutubeLogin),
+        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.saveVideoAfterRecording(), selected: false)], settingsType: .saveVideoAfterRecording),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.changePositionsOfMuteSwitchingCamera(), selected: false)], settingsType: .swapeContols),
         StorySettings(name: R.string.localizable.supportedFrameRates(), settings: [StorySetting(name: R.string.localizable.supportedFrameRates(), selected: false)], settingsType: .supportedFrameRates),
         StorySettings(name: "", settings: [StorySetting(name:
@@ -151,12 +152,14 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
                 return cell
             }
             return videoResolutionCell
-        } else if settingTitle.settingsType == .skipYoutubeLogin {
+        } else if settingTitle.settingsType == .skipYoutubeLogin || settingTitle.settingsType == .saveVideoAfterRecording {
             guard let systemSettingsCell: SystemSettingsCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.systemSettingsCell.identifier) as? SystemSettingsCell else {
                 fatalError("\(R.reuseIdentifier.systemSettingsCell.identifier) Not Found")
             }
             if settingTitle.settingsType == .skipYoutubeLogin {
                 systemSettingsCell.systemSettingType = .skipYoutubeLogin
+            } else if settingTitle.settingsType == .saveVideoAfterRecording {
+                systemSettingsCell.systemSettingType = .saveVideoAfterRecording
             }
             return systemSettingsCell
         }
@@ -198,7 +201,7 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
             return 60
         } else if settingTitle.settingsType == .faceDetection {
             return 80
-        } else if settingTitle.settingsType == .skipYoutubeLogin {
+        } else if settingTitle.settingsType == .skipYoutubeLogin || settingTitle.settingsType == .saveVideoAfterRecording {
             return 20
         } else {
             return 1
