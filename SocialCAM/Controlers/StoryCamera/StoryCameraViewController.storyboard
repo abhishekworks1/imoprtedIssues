@@ -3821,10 +3821,73 @@ Countdown</string>
                                     <outlet property="delegate" destination="X2c-Jo-9u0" id="gQS-pg-1Wh"/>
                                 </connections>
                             </tableView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HWf-sj-Xpe">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Ci-gv-WxS">
+                                        <rect key="frame" x="47" y="310.33333333333331" width="281" height="191.66666666666669"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nzk-SK-xjn">
+                                                <rect key="frame" x="10" y="25.000000000000007" width="261" height="87.666666666666686"/>
+                                                <string key="text">Preselect the default YouTube channel your videos will be posted. If unchecked, you will be asked to select the YouTube channel every time you post to YouTube</string>
+                                                <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="15"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="xZ3-Yn-Io9">
+                                                <rect key="frame" x="95.666666666666657" y="132.66666666666669" width="90" height="31"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cOv-Dd-2KK">
+                                                        <rect key="frame" x="0.0" y="0.0" width="90" height="31"/>
+                                                        <color key="backgroundColor" name="AppPrimaryColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="90" id="uic-Eg-6BI"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="16"/>
+                                                        <state key="normal" title="OK">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                                <real key="value" value="5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="btnCancelLogout:" destination="Tnp-J8-3Je" eventType="touchUpInside" id="UAl-mh-Akh"/>
+                                                            <action selector="btnOkClicked:" destination="X2c-Jo-9u0" eventType="touchUpInside" id="zdA-tg-cEQ"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="xZ3-Yn-Io9" firstAttribute="top" secondItem="Nzk-SK-xjn" secondAttribute="bottom" constant="20" id="Mf0-hO-5fs"/>
+                                            <constraint firstAttribute="bottom" secondItem="xZ3-Yn-Io9" secondAttribute="bottom" constant="28" id="Yi5-iF-mfG"/>
+                                            <constraint firstItem="Nzk-SK-xjn" firstAttribute="leading" secondItem="1Ci-gv-WxS" secondAttribute="leading" constant="10" id="hRL-3o-Npu"/>
+                                            <constraint firstAttribute="trailing" secondItem="Nzk-SK-xjn" secondAttribute="trailing" constant="10" id="ju5-mD-ro5"/>
+                                            <constraint firstItem="xZ3-Yn-Io9" firstAttribute="centerX" secondItem="1Ci-gv-WxS" secondAttribute="centerX" id="t5a-FK-uq7"/>
+                                            <constraint firstItem="Nzk-SK-xjn" firstAttribute="top" secondItem="1Ci-gv-WxS" secondAttribute="top" constant="25" id="uiO-Bx-dRh"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                <real key="value" value="15"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="1Ci-gv-WxS" firstAttribute="centerY" secondItem="HWf-sj-Xpe" secondAttribute="centerY" id="4dz-vf-dCX"/>
+                                    <constraint firstItem="1Ci-gv-WxS" firstAttribute="width" secondItem="HWf-sj-Xpe" secondAttribute="width" multiplier="0.75" id="bt2-dx-tUp"/>
+                                    <constraint firstItem="1Ci-gv-WxS" firstAttribute="centerX" secondItem="HWf-sj-Xpe" secondAttribute="centerX" id="sra-Vd-eWO"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vfw-u2-lnj"/>
                         <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="vfw-u2-lnj" firstAttribute="trailing" secondItem="HWf-sj-Xpe" secondAttribute="trailing" id="GsU-Ld-16u"/>
                             <constraint firstItem="MDf-Uo-98z" firstAttribute="top" secondItem="Twl-Hm-VJr" secondAttribute="bottom" constant="18" id="Ivr-MP-Wg0"/>
                             <constraint firstItem="Twl-Hm-VJr" firstAttribute="centerY" secondItem="W5K-bH-ee9" secondAttribute="centerY" id="Kzt-jn-sCl"/>
                             <constraint firstAttribute="bottom" secondItem="MDf-Uo-98z" secondAttribute="bottom" constant="10" id="MTO-Kg-4Lv"/>
@@ -3832,11 +3895,15 @@ Countdown</string>
                             <constraint firstItem="vfw-u2-lnj" firstAttribute="trailing" secondItem="MDf-Uo-98z" secondAttribute="trailing" constant="8" id="PNK-oR-7BI"/>
                             <constraint firstItem="W5K-bH-ee9" firstAttribute="top" secondItem="vfw-u2-lnj" secondAttribute="top" id="Xbu-p4-u8p"/>
                             <constraint firstItem="MDf-Uo-98z" firstAttribute="leading" secondItem="vfw-u2-lnj" secondAttribute="leading" constant="8" id="g7v-om-ma3"/>
+                            <constraint firstItem="HWf-sj-Xpe" firstAttribute="bottom" secondItem="bWl-cL-g3A" secondAttribute="bottom" id="nv1-gO-Za1"/>
+                            <constraint firstItem="HWf-sj-Xpe" firstAttribute="leading" secondItem="vfw-u2-lnj" secondAttribute="leading" id="o6F-DT-WHS"/>
                             <constraint firstItem="W5K-bH-ee9" firstAttribute="leading" secondItem="vfw-u2-lnj" secondAttribute="leading" constant="8" id="r0p-TH-T74"/>
+                            <constraint firstAttribute="top" secondItem="HWf-sj-Xpe" secondAttribute="top" id="xWr-KW-u81"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="settingsTableView" destination="MDf-Uo-98z" id="j1z-F7-oyq"/>
+                        <outlet property="skipYTLoginTooltipView" destination="HWf-sj-Xpe" id="ogj-Ie-d9s"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TRn-25-CPu" userLabel="First Responder" sceneMemberID="firstResponder"/>
