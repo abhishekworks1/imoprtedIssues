@@ -97,6 +97,8 @@ class StorySettings {
                                                          StorySetting(name: R.string.localizable.professional(),
                                                                       selected: true)], settingsType: .subscriptions),
                                 StorySettings(name: "",
+                                              settings: [StorySetting(name: R.string.localizable.accountSettings(), selected: false)], settingsType: .accountSettings),
+                                StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.cameraSettings(), selected: false)], settingsType: .cameraSettings),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.system(), selected: false)], settingsType: .system),
@@ -108,8 +110,6 @@ class StorySettings {
                                               settings: [StorySetting(name: R.string.localizable.applicationSurvey(), selected: false)], settingsType: .applicationSurvey),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.intellectualProperties(), selected: false)], settingsType: .intellectualProperties),
-                                StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.accountSettings(), selected: false)], settingsType: .accountSettings),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.help(), selected: false)], settingsType: .help),
                                 StorySettings(name: "",
@@ -332,7 +332,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         }
         
         headerView.userImage.layer.cornerRadius = headerView.userImage.bounds.width / 2
-        if settingTitle.settingsType == .cameraSettings {
+        if settingTitle.settingsType == .accountSettings {
             headerView.title.isHidden = false
             headerView.addProfilePic.isHidden = true
             if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
@@ -341,7 +341,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 }
                 headerView.userImage.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: ApplicationSettings.userPlaceHolder)
             }
-            headerView.title.text = Defaults.shared.currentUser?.channelId
+            headerView.title.text = R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? "")
         } else {
             headerView.title.isHidden = true
             headerView.userImage.isHidden = true
@@ -363,7 +363,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         let settingTitle = StorySettings.storySettings[section]
         if settingTitle.settingsType == .subscriptions {
             return 60
-        } else if settingTitle.settingsType == .cameraSettings {
+        } else if settingTitle.settingsType == .accountSettings {
             return 80
         } else {
             return 0

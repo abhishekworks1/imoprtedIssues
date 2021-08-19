@@ -190,7 +190,7 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
             } else {
                 headerView.userImage.image = ApplicationSettings.userPlaceHolder
             }
-            headerView.userName.text = Defaults.shared.currentUser?.channelId
+            headerView.userName.text = R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? "")
         }
         return headerView
     }
