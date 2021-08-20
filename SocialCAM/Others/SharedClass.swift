@@ -372,6 +372,11 @@ public var inAppConfig: String {
     return appSpecificSecretKey
 }
 
+public var redirectUri: String {
+    let redirectUri = "quickcamrefer://app"
+    return redirectUri
+}
+
 enum ReleaseType: String, AppMode_Enum {
     case debug
     case alpha

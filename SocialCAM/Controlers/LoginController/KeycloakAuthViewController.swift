@@ -58,7 +58,6 @@ class KeycloakAuthViewController: UIViewController {
 extension KeycloakAuthViewController: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Swift.Void) {
-        self.showHUD()
         if navigationAction.request.url != nil {
             guard let url = navigationAction.request.url else {
                 decisionHandler(.cancel)
@@ -83,6 +82,11 @@ extension KeycloakAuthViewController: WKNavigationDelegate {
                     decisionHandler(.cancel)
                     return
                 }
+            }
+            let urlString = "\(url)"
+            if urlString == redirectUri {
+                let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
+                Utils.appDelegate?.window?.rootViewController = rootViewController
             }
         }
         decisionHandler(.allow)
@@ -124,18 +128,21 @@ extension KeycloakAuthViewController {
         let parentId = Defaults.shared.currentUser?.parentId ?? Defaults.shared.currentUser?.id
         Defaults.shared.parentID = parentId
         #if !IS_SHAREPOST && !IS_MEDIASHARE && !IS_VIRALVIDS  && !IS_SOCIALVIDS && !IS_PIC2ARTSHARE
-        self.goToHomeScreen(isRefferencingChannelEmpty: response.result?.user?.refferingChannel == nil)
+        self.goToHomeScreen(isRefferencingChannelEmpty: response.result?.user?.refferingChannel == nil, channelId: response.result?.user?.channelId ?? "")
         #endif
     }
     
-    func goToHomeScreen(isRefferencingChannelEmpty: Bool) {
+    func goToHomeScreen(isRefferencingChannelEmpty: Bool, channelId: String) {
         #if PIC2ARTAPP || TIMESPEEDAPP || BOOMICAMAPP
         Utils.appDelegate?.window?.rootViewController = R.storyboard.pageViewController.pageViewController()
         #else
         let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
         if isRefferencingChannelEmpty {
-            let referringChannelSuggestionViewController = R.storyboard.loginViewController.referringChannelSuggestionViewController()
-            Utils.appDelegate?.window?.rootViewController = referringChannelSuggestionViewController
+            guard let keycloakURL = URL(string: "\(websiteUrl)/referral/\(channelId)?redirect_uri=\(redirectUri)") else {
+                return
+            }
+            let urlRequest = URLRequest(url: keycloakURL)
+            webView.load(urlRequest)
         } else {
             Utils.appDelegate?.window?.rootViewController = rootViewController
         }
