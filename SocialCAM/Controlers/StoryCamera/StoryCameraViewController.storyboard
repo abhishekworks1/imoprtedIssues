@@ -6383,33 +6383,33 @@ Countdown</string>
                                             <rect key="frame" x="0.0" y="0.0" width="359" height="65"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WLm-MT-80n">
-                                                    <rect key="frame" x="15.000000000000004" y="5" width="37.333333333333343" height="18"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wqV-SC-1OI">
-                                                    <rect key="frame" x="15" y="31" width="30" height="30"/>
+                                                    <rect key="frame" x="15" y="2.6666666666666643" width="60" height="60"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="30" id="BIl-64-3I7"/>
-                                                        <constraint firstAttribute="height" constant="30" id="tXT-JS-ikX"/>
+                                                        <constraint firstAttribute="width" constant="60" id="BIl-64-3I7"/>
+                                                        <constraint firstAttribute="height" constant="60" id="tXT-JS-ikX"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fza-d6-2g2">
-                                                    <rect key="frame" x="53" y="37" width="37.333333333333343" height="18"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                    <rect key="frame" x="83" y="22" width="39.666666666666657" height="19.333333333333329"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WLm-MT-80n">
+                                                    <rect key="frame" x="83" y="5" width="35.333333333333343" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="wqV-SC-1OI" firstAttribute="top" secondItem="WLm-MT-80n" secondAttribute="bottom" constant="8" id="0e5-pS-zgL"/>
+                                                <constraint firstItem="Fza-d6-2g2" firstAttribute="leading" secondItem="wqV-SC-1OI" secondAttribute="trailing" constant="8" symbolic="YES" id="32X-Ss-tpw"/>
+                                                <constraint firstItem="Fza-d6-2g2" firstAttribute="top" secondItem="WLm-MT-80n" secondAttribute="bottom" id="5LK-77-mNG"/>
                                                 <constraint firstItem="wqV-SC-1OI" firstAttribute="leading" secondItem="McD-u7-bYG" secondAttribute="leading" constant="15" id="AHb-dc-oiR"/>
-                                                <constraint firstItem="Fza-d6-2g2" firstAttribute="centerY" secondItem="wqV-SC-1OI" secondAttribute="centerY" id="SN0-aF-dyi"/>
-                                                <constraint firstItem="WLm-MT-80n" firstAttribute="top" secondItem="McD-u7-bYG" secondAttribute="top" constant="5" id="XHK-Bi-g2G"/>
-                                                <constraint firstItem="WLm-MT-80n" firstAttribute="leading" secondItem="McD-u7-bYG" secondAttribute="leading" constant="15" id="aRv-5D-E0m"/>
-                                                <constraint firstItem="Fza-d6-2g2" firstAttribute="leading" secondItem="wqV-SC-1OI" secondAttribute="trailing" constant="8" symbolic="YES" id="iUI-1j-7tb"/>
+                                                <constraint firstItem="WLm-MT-80n" firstAttribute="leading" secondItem="wqV-SC-1OI" secondAttribute="trailing" constant="8" symbolic="YES" id="Ye2-kt-Rxh"/>
+                                                <constraint firstItem="WLm-MT-80n" firstAttribute="top" secondItem="McD-u7-bYG" secondAttribute="top" constant="5" id="ebg-HQ-z8V"/>
+                                                <constraint firstItem="wqV-SC-1OI" firstAttribute="centerY" secondItem="McD-u7-bYG" secondAttribute="centerY" id="iTj-Xx-qbY"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -6430,20 +6430,20 @@ Countdown</string>
                                     <outlet property="delegate" destination="052-Wc-oDn" id="hv5-9B-hhP"/>
                                 </connections>
                             </tableView>
-                            <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Qyd-1q-f31" userLabel="Delete Account Popup View">
-                                <rect key="frame" x="0.0" y="407" width="375" height="405"/>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qyd-1q-f31" userLabel="Delete Account Popup View">
+                                <rect key="frame" x="0.0" y="44" width="375" height="724"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Kw-E3-IH0">
-                                        <rect key="frame" x="47" y="333.66666666666669" width="281" height="145"/>
+                                        <rect key="frame" x="47" y="290" width="281" height="144"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Are you sure you want to logout from App?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kBL-AI-IgM">
-                                                <rect key="frame" x="20" y="25" width="241" height="36"/>
+                                                <rect key="frame" x="20" y="25" width="241" height="35"/>
                                                 <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="15"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="Wmk-iT-Odg">
-                                                <rect key="frame" x="40" y="81" width="201" height="36"/>
+                                                <rect key="frame" x="40" y="80" width="201" height="36"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rbW-BV-zT7">
                                                         <rect key="frame" x="0.0" y="0.0" width="94" height="36"/>
