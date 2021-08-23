@@ -278,7 +278,7 @@ class StoryEditorViewController: UIViewController {
     private var loadingView: LoadingView? = LoadingView.instanceFromNib()
     
     private var slideShowExportedURL: URL?
-    private var videoExportedURL: URL?
+    var videoExportedURL: URL?
     
     public var referType: ReferType = .none
     var popupVC: STPopupController = STPopupController()

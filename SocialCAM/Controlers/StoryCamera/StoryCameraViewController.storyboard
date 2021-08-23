@@ -6687,21 +6687,14 @@ Countdown</string>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WcM-6c-WBP">
                                                             <rect key="frame" x="0.0" y="0.0" width="329" height="36"/>
                                                             <subviews>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="oval" translatesAutoresizingMaskIntoConstraints="NO" id="PP3-9z-xWI">
-                                                                    <rect key="frame" x="0.0" y="8" width="20" height="20"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="height" constant="20" id="5ET-N4-kUK"/>
-                                                                        <constraint firstAttribute="width" constant="20" id="aXU-Ka-vcz"/>
-                                                                    </constraints>
-                                                                </imageView>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Yes, activate my Affiliate Link now!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dRx-Fq-CVl">
-                                                                    <rect key="frame" x="28" y="9" width="236" height="18"/>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WB8-wC-vXw">
+                                                                    <rect key="frame" x="0.0" y="9" width="319" height="18"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                                    <nil key="textColor"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WB8-wC-vXw">
-                                                                    <rect key="frame" x="10" y="3" width="309" height="30"/>
+                                                                    <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                                    <state key="normal" title="Yes, Activate my Affiliate Link now!" image="oval">
+                                                                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    </state>
+                                                                    <state key="selected" image="radioSelected"/>
                                                                     <connections>
                                                                         <action selector="btnYesPressed:" destination="h1D-hC-uA0" eventType="touchUpInside" id="DjF-Bt-9Z9"/>
                                                                     </connections>
@@ -6709,35 +6702,23 @@ Countdown</string>
                                                             </subviews>
                                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                             <constraints>
-                                                                <constraint firstItem="WB8-wC-vXw" firstAttribute="centerX" secondItem="WcM-6c-WBP" secondAttribute="centerX" id="5Qo-M2-N3R"/>
                                                                 <constraint firstItem="WB8-wC-vXw" firstAttribute="centerY" secondItem="WcM-6c-WBP" secondAttribute="centerY" id="8X2-cG-7gs"/>
-                                                                <constraint firstItem="PP3-9z-xWI" firstAttribute="centerY" secondItem="WcM-6c-WBP" secondAttribute="centerY" id="D1Y-6z-Acb"/>
-                                                                <constraint firstItem="dRx-Fq-CVl" firstAttribute="leading" secondItem="PP3-9z-xWI" secondAttribute="trailing" constant="8" symbolic="YES" id="GGM-vg-zKJ"/>
                                                                 <constraint firstAttribute="trailing" secondItem="WB8-wC-vXw" secondAttribute="trailing" constant="10" id="L64-sa-7eg"/>
-                                                                <constraint firstItem="WB8-wC-vXw" firstAttribute="leading" secondItem="WcM-6c-WBP" secondAttribute="leading" constant="10" id="eT9-ll-V9K"/>
-                                                                <constraint firstItem="dRx-Fq-CVl" firstAttribute="centerY" secondItem="PP3-9z-xWI" secondAttribute="centerY" id="iwF-QB-9Eq"/>
+                                                                <constraint firstItem="WB8-wC-vXw" firstAttribute="leading" secondItem="WcM-6c-WBP" secondAttribute="leading" id="eT9-ll-V9K"/>
                                                                 <constraint firstAttribute="height" constant="36" id="sIB-K0-9it"/>
-                                                                <constraint firstItem="PP3-9z-xWI" firstAttribute="leading" secondItem="WcM-6c-WBP" secondAttribute="leading" id="vjD-eo-sbf"/>
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fp7-g9-STe">
                                                             <rect key="frame" x="0.0" y="44" width="329" height="36"/>
                                                             <subviews>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="oval" translatesAutoresizingMaskIntoConstraints="NO" id="K2s-Tj-Rlk">
-                                                                    <rect key="frame" x="0.0" y="8" width="20" height="20"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="width" constant="20" id="PZr-EJ-Whi"/>
-                                                                        <constraint firstAttribute="height" constant="20" id="RJL-0t-wm2"/>
-                                                                    </constraints>
-                                                                </imageView>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No thanks" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QZ4-1c-aGN">
-                                                                    <rect key="frame" x="28" y="9" width="69.333333333333329" height="18"/>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NCl-qa-SnH">
+                                                                    <rect key="frame" x="0.0" y="9" width="319" height="18"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                                    <nil key="textColor"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NCl-qa-SnH">
-                                                                    <rect key="frame" x="10" y="3" width="309" height="30"/>
+                                                                    <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                                    <state key="normal" title="No thanks" image="oval">
+                                                                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    </state>
+                                                                    <state key="selected" image="radioSelected"/>
                                                                     <connections>
                                                                         <action selector="btnNoPressed:" destination="h1D-hC-uA0" eventType="touchUpInside" id="1GP-As-20n"/>
                                                                     </connections>
@@ -6746,14 +6727,9 @@ Countdown</string>
                                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                             <constraints>
                                                                 <constraint firstItem="NCl-qa-SnH" firstAttribute="centerY" secondItem="fp7-g9-STe" secondAttribute="centerY" id="2Fl-ZE-tpJ"/>
-                                                                <constraint firstItem="NCl-qa-SnH" firstAttribute="leading" secondItem="fp7-g9-STe" secondAttribute="leading" constant="10" id="5eM-pM-U6p"/>
-                                                                <constraint firstItem="NCl-qa-SnH" firstAttribute="centerX" secondItem="fp7-g9-STe" secondAttribute="centerX" id="Brh-th-y4i"/>
+                                                                <constraint firstItem="NCl-qa-SnH" firstAttribute="leading" secondItem="fp7-g9-STe" secondAttribute="leading" id="5eM-pM-U6p"/>
                                                                 <constraint firstAttribute="height" constant="36" id="Sx1-gu-vfh"/>
                                                                 <constraint firstAttribute="trailing" secondItem="NCl-qa-SnH" secondAttribute="trailing" constant="10" id="akg-LC-Xh8"/>
-                                                                <constraint firstItem="QZ4-1c-aGN" firstAttribute="centerY" secondItem="K2s-Tj-Rlk" secondAttribute="centerY" id="fNU-5y-Gpc"/>
-                                                                <constraint firstItem="QZ4-1c-aGN" firstAttribute="leading" secondItem="K2s-Tj-Rlk" secondAttribute="trailing" constant="8" symbolic="YES" id="iCL-dp-MM7"/>
-                                                                <constraint firstItem="K2s-Tj-Rlk" firstAttribute="centerY" secondItem="fp7-g9-STe" secondAttribute="centerY" id="lBB-jh-p6N"/>
-                                                                <constraint firstItem="K2s-Tj-Rlk" firstAttribute="leading" secondItem="fp7-g9-STe" secondAttribute="leading" id="s2N-Fn-Og1"/>
                                                             </constraints>
                                                         </view>
                                                     </subviews>
@@ -6769,8 +6745,8 @@ Countdown</string>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="btnRadioNo" destination="K2s-Tj-Rlk" id="XED-ob-z3j"/>
-                                            <outlet property="btnRadioYes" destination="PP3-9z-xWI" id="dEM-Kx-2HZ"/>
+                                            <outlet property="btnNo" destination="NCl-qa-SnH" id="phc-HW-Lpp"/>
+                                            <outlet property="btnYes" destination="WB8-wC-vXw" id="qXS-EU-1vy"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

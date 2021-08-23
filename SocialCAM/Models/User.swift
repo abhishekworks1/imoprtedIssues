@@ -83,6 +83,7 @@ class User: Codable, Mappable {
     var dob: String?
     var freeTrialExpiry: String?
     var isTempSubscription: Bool?
+    var isAllowAffiliate: Bool?
     
     required init?(map: Map) {
         
@@ -177,6 +178,7 @@ class User: Codable, Mappable {
         dob <- map["dob"]
         freeTrialExpiry <- map["freeTrialExpiry"]
         isTempSubscription <- map["isTempSubscription"]
+        isAllowAffiliate <- map["isAllowAffiliate"]
     }
     
 }

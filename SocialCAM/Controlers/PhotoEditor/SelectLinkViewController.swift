@@ -16,76 +16,49 @@ enum LinkMode: Int {
     case noLink
 }
 
-class SelectLinkSetting {
-    var name: String
-    var image: UIImage?
-    
-    init(name: String, image: UIImage? = UIImage()) {
-        self.name = name
-        self.image = image
-    }
-}
-
-class SelectLink {
-    
-    var name: String
-    var linkSettings: [SelectLinkSetting]
-    var linkType: LinkMode
-    
-    init(name: String, linkSettings: [SelectLinkSetting], linkType: LinkMode) {
-        self.name = name
-        self.linkSettings = linkSettings
-        self.linkType = linkType
-    }
-    
-    static var selectLinks = [SelectLink(name: "", linkSettings: [SelectLinkSetting(name: R.string.localizable.quickCam(), image: UIImage(named: "iconQuickCam"))], linkType: .quickCam),
-                              SelectLink(name: "", linkSettings: [SelectLinkSetting(name: R.string.localizable.vidPlay(), image: UIImage(named: "iconVidPlay"))], linkType: .vidPlay),
-                              SelectLink(name: "", linkSettings: [SelectLinkSetting(name: R.string.localizable.newBusinessCenter(), image: UIImage(named: "iconBusinessCenter"))], linkType: .businessCenter),
-                              SelectLink(name: "", linkSettings: [SelectLinkSetting(name: R.string.localizable.enterALink(), image: UIImage(named: "iconLink"))], linkType: .enterLink),
-                              SelectLink(name: "", linkSettings: [SelectLinkSetting(name: R.string.localizable.noLink(), image: UIImage(named: "iconNoLink"))], linkType: .noLink)
-    ]
-}
-
 class SelectLinkViewController: UIViewController {
     
     // MARK: - Outlets Declaration
     @IBOutlet weak var selectLinkTableView: UITableView!
     @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var activateAffiliateLinkPopup: UIView!
-    @IBOutlet weak var tempBackGroundView: UIView!
+    @IBOutlet weak var blurBackGroundView: UIView!
     @IBOutlet weak var enterLinkPopupView: UIView!
     @IBOutlet weak var tfEnterLink: UITextField!
     
     // MARK: - Variable Declaration
     var storyEditors: [StoryEditorView] = []
     private var currentStoryIndex = 0
+    private lazy var yourAffiliateLinkVC = YourAffiliateLinkViewController()
+    private lazy var storyEditorVC = StoryEditorViewController()
     
     // MARK: - View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        tempBackGroundView.isHidden = true
+        blurBackGroundView.isHidden = true
         self.selectLinkTableView.reloadData()
     }
     
     // MARK: - Action Methods
     @IBAction func btnYesTapped(_ sender: UIButton) {
-        if currentStoryIndex == 0 {
-            self.didSelect(type: QuickCamLiteApp.SSUTagType.quickApp, waitingListOptionType: nil, socialShareType: nil,
-                           screenType: SSUTagScreen.ssutTypes)
-        }
-        Defaults.shared.isAffiliateLinkActivated = true
+        yourAffiliateLinkVC.setAffiliate(setAffiliateValue: true)
+        callDidSelectMethod(type: QuickCamLiteApp.SSUTagType.quickApp)
         dismiss(animated: true, completion: nil)
     }
     @IBAction func btnNoTapped(_ sender: UIButton) {
-        if currentStoryIndex == 0 {
-            self.didSelect(type: QuickCamLiteApp.SSUTagType.quickApp, waitingListOptionType: nil, socialShareType: nil,
-                           screenType: SSUTagScreen.ssutTypes)
-        }
+        callDidSelectMethod(type: QuickCamLiteApp.SSUTagType.quickApp)
         dismiss(animated: true, completion: nil)
     }
     @IBAction func btnOkTapped(_ sender: UIButton) {
-        Defaults.shared.enterLinkValue = tfEnterLink.text!
+        Defaults.shared.enterLinkValue = tfEnterLink.text ?? ""
         dismiss(animated: true, completion: nil)
+    }
+    
+    func callDidSelectMethod(type: SSUTagType) {
+        if currentStoryIndex == 0 {
+            self.didSelect(type: type, waitingListOptionType: nil, socialShareType: nil,
+                           screenType: SSUTagScreen.ssutTypes)
+        }
     }
 }
 
@@ -97,8 +70,7 @@ extension SelectLinkViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let linkTitle = SelectLink.selectLinks[section]
-        return linkTitle.linkSettings.count
+        return SelectLink.selectLinks[section].linkSettings.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -138,46 +110,31 @@ extension SelectLinkViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let linkTitle = SelectLink.selectLinks[indexPath.section]
         if linkTitle.linkType == .quickCam {
-            if Defaults.shared.isFromSignup! && !Defaults.shared.isAffiliatePopupShowed
+            if Defaults.shared.isFromSignup ?? false && !Defaults.shared.isAffiliatePopupShowed
                 && !Defaults.shared.isAffiliateLinkActivated {
                 backgroundView.isHidden = true
                 selectLinkTableView.isHidden = true
-                tempBackGroundView.isHidden = false
+                blurBackGroundView.isHidden = false
                 activateAffiliateLinkPopup.isHidden = false
                 Defaults.shared.isAffiliatePopupShowed = true
             } else {
-                if currentStoryIndex == 0 {
-                    self.didSelect(type: QuickCamLiteApp.SSUTagType.quickApp, waitingListOptionType: nil, socialShareType: nil,
-                                   screenType: SSUTagScreen.ssutTypes)
-                }
+                callDidSelectMethod(type: QuickCamLiteApp.SSUTagType.quickApp)
                 dismiss(animated: true, completion: nil)
             }
         } else if linkTitle.linkType == .vidPlay {
-            if currentStoryIndex == 0 {
-                self.didSelect(type: QuickCamLiteApp.SSUTagType.vidPlay, waitingListOptionType: nil, socialShareType: nil,
-                               screenType: SSUTagScreen.ssutTypes)
-            }
+            callDidSelectMethod(type: QuickCamLiteApp.SSUTagType.vidPlay)
             dismiss(animated: true, completion: nil)
         } else if linkTitle.linkType == .businessCenter {
-            if currentStoryIndex == 0 {
-                self.didSelect(type: QuickCamLiteApp.SSUTagType.businessCenter, waitingListOptionType: nil,
-                               socialShareType: nil, screenType: SSUTagScreen.ssutTypes)
-            }
+            callDidSelectMethod(type: QuickCamLiteApp.SSUTagType.businessCenter)
             dismiss(animated: true, completion: nil)
         } else if linkTitle.linkType == .enterLink {
             backgroundView.isHidden = true
             selectLinkTableView.isHidden = true
-            tempBackGroundView.isHidden = false
+            blurBackGroundView.isHidden = false
             enterLinkPopupView.isHidden = false
-            if currentStoryIndex == 0 {
-                self.didSelect(type: QuickCamLiteApp.SSUTagType.enterLink, waitingListOptionType: nil,
-                               socialShareType: nil, screenType: SSUTagScreen.ssutTypes)
-            }
+            callDidSelectMethod(type: QuickCamLiteApp.SSUTagType.enterLink)
         } else if linkTitle.linkType == .noLink {
-            if currentStoryIndex == 0 {
-                self.didSelect(type: QuickCamLiteApp.SSUTagType.noLink, waitingListOptionType: nil,
-                               socialShareType: nil, screenType: SSUTagScreen.ssutTypes)
-            }
+            callDidSelectMethod(type: QuickCamLiteApp.SSUTagType.noLink)
             dismiss(animated: true, completion: nil)
         }
     }
@@ -211,6 +168,6 @@ extension SelectLinkViewController: SSUTagSelectionDelegate {
             storyEditors[currentStoryIndex].addReferLinkView(type: .socialCam)
         default: break
         }
-        //        self.needToExportVideo()
+        storyEditorVC.videoExportedURL = nil
     }
 }

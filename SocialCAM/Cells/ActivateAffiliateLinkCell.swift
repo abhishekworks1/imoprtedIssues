@@ -17,26 +17,29 @@ protocol DismissViewDelegate: class {
 }
 
 class ActivateAffiliateLinkCell: UITableViewCell {
-
-    @IBOutlet weak var btnRadioYes: UIImageView!
-    @IBOutlet weak var btnRadioNo: UIImageView!
     
+    // MARK: - Outlets Declaration
+    @IBOutlet weak var btnYes: UIButton!
+    @IBOutlet weak var btnNo: UIButton!
+    
+    // MARK: - variable Declaration
     weak var delegate: ChangeDataDelegate?
     weak var dismissViewDelegate: DismissViewDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
     }
+    
+    // MARK: - Action Methods
     @IBAction func btnYesPressed(_ sender: UIButton) {
-        btnRadioYes.image = R.image.radioSelected()
-        btnRadioNo.image = R.image.oval()
-        Defaults.shared.isAffiliateLinkActivated = true
+        btnYes.isSelected = true
+        btnNo.isSelected = false
         delegate?.changeTableData()
     }
     
     @IBAction func btnNoPressed(_ sender: UIButton) {
-        btnRadioYes.image = R.image.oval()
-        btnRadioNo.image = R.image.radioSelected()
+        btnNo.isSelected = true
+        btnYes.isSelected = false
         dismissViewDelegate?.dismissView()
     }
 }

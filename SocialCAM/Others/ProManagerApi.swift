@@ -76,6 +76,7 @@ public enum ProManagerApi {
     case userDelete
     case uploadPicture(image: UIImage)
     case getReferredUserList(page: Int, limit: Int)
+    case setAffiliate(isAllowAffiliate: Bool)
 
     var endpoint: Endpoint {
         var endpointClosure = MoyaProvider<ProManagerApi>.defaultEndpointMapping(for: self)
@@ -264,6 +265,8 @@ extension ProManagerApi: TargetType {
             return Paths.updateUserProfile
         case .getReferredUserList:
             return Paths.getReferredUsersList
+        case .setAffiliate:
+            return Paths.setAffiliate
         }
        
     }
@@ -629,6 +632,8 @@ extension ProManagerApi: TargetType {
             break
         case .getReferredUserList(let page, let limit):
             param = ["page": page, "limit": limit]
+        case .setAffiliate(let isAllowAffiliate):
+            param = ["isAllowAffiliate": isAllowAffiliate]
         }
         return param
     }

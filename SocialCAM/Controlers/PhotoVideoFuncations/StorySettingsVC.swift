@@ -130,6 +130,7 @@ class StorySettingsVC: UIViewController {
     // MARK: - Variables declaration
     var isDeletePopup = false
     let releaseType = Defaults.shared.releaseType
+    private lazy var storyCameraVC = StoryCameraViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -144,6 +145,7 @@ class StorySettingsVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.settingsTableView.reloadData()
+        storyCameraVC.syncUserModel()
     }
     
     deinit {

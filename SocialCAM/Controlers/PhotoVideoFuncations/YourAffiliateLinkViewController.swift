@@ -17,33 +17,13 @@ enum Type: Int {
     case listOfReferredUsers
 }
 
-class AffiliateSetting {
-    var name: String
-    
-    init(name: String) {
-        self.name = name
-    }
-}
-
-class YourAffiliateLink {
-    var name: String
-    var settings: [AffiliateSetting]
-    var type: Type
-    
-    init(name: String, settings: [AffiliateSetting], type: Type) {
-        self.name = name
-        self.settings = settings
-        self.type = type
-    }
-    
-    static var yourAffiliteLinks = [YourAffiliateLink]()
-}
-
 class YourAffiliateLinkViewController: UIViewController {
     
     // MARK: - Outlets Declaration
     @IBOutlet weak var affiliateLinkTabeView: UITableView!
     @IBOutlet weak var affiliateLinkCellView: UITableViewCell!
+    
+    // MARK: - Variable Declarations
     var referredUserList: [Referee] = []
     var referredUserPageIndex: Int = 1
     var userCount = 0
@@ -86,35 +66,6 @@ class YourAffiliateLinkViewController: UIViewController {
     // MARK: - Action Methods
     @IBAction func btnBackTapped(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)
-    }
-    
-    func getRefferdUserList(index: Int) {
-        self.showHUD()
-        ProManagerApi.getReferredUserList(page: index, limit: 10).request(Result<ReferredUserModel>.self).subscribe(onNext: { (response) in
-            if response.status == ResponseType.success {
-                guard let arrayOfUsers = response.result else {
-                    return
-                }
-                self.dismissHUD()
-                if let  userCount = response.result?.count {
-                    self.userCount = userCount
-                }
-                if self.referredUserPageIndex == 0 {
-                    self.referredUserList = arrayOfUsers.referees!
-                } else {
-                    self.referredUserList.append(contentsOf: arrayOfUsers.referees!)
-                }
-                self.affiliateLinkTabeView.reloadData()
-                self.affiliateLinkTabeView.es.stopLoadingMore()
-                if self.referredUserList.isEmpty {
-                    self.dismissHUD()
-                }
-            }
-        }, onError: { error in
-            print(error)
-        }, onCompleted: {
-            
-        }).disposed(by: self.rx.disposeBag)
     }
 }
 
@@ -216,6 +167,7 @@ extension YourAffiliateLinkViewController: UITableViewDelegate {
 extension YourAffiliateLinkViewController: ChangeDataDelegate {
     
     func changeTableData() {
+        setAffiliate(setAffiliateValue: true)
         YourAffiliateLink.yourAffiliteLinks.removeAll()
         getAffiliateLinkActivatedCell()
         affiliateLinkTabeView.reloadData()
@@ -226,5 +178,57 @@ extension YourAffiliateLinkViewController: ChangeDataDelegate {
 extension YourAffiliateLinkViewController: DismissViewDelegate {
     func dismissView() {
         navigationController?.popViewController(animated: true)
+    }
+}
+
+// MARK: - API Methods
+extension YourAffiliateLinkViewController {
+    
+    func getRefferdUserList(index: Int) {
+        self.showHUD()
+        ProManagerApi.getReferredUserList(page: index, limit: 10).request(Result<ReferredUserModel>.self).subscribe(onNext: { [weak self] (response) in
+            guard let self = self else {
+                return
+            }
+            if response.status == ResponseType.success {
+                guard let arrayOfUsers = response.result else {
+                    return
+                }
+                self.dismissHUD()
+                if let  userCount = response.result?.count {
+                    self.userCount = userCount
+                }
+                if let referees = arrayOfUsers.referees {
+                    if self.referredUserPageIndex == 0 {
+                        self.referredUserList = referees
+                    } else {
+                        self.referredUserList.append(contentsOf: referees)
+                    }
+                }
+                self.affiliateLinkTabeView.reloadData()
+                self.affiliateLinkTabeView.es.stopLoadingMore()
+                if self.referredUserList.isEmpty {
+                    self.dismissHUD()
+                }
+            }
+        }, onError: { error in
+            self.showAlert(alertMessage: error.localizedDescription)
+        }, onCompleted: {
+            
+        }).disposed(by: self.rx.disposeBag)
+    }
+    
+    func setAffiliate(setAffiliateValue: Bool) {
+        ProManagerApi.setAffiliate(isAllowAffiliate: setAffiliateValue).request(Result<SetAffiliateModel>.self).subscribe(onNext: { [weak self] (response) in
+            guard let self = self else {
+                return
+            }
+            if response.status == ResponseType.success {
+                // No furthur action 
+            }
+        }, onError: { error in
+            self.showAlert(alertMessage: error.localizedDescription)
+        }, onCompleted: {
+        }).disposed(by: rx.disposeBag)
     }
 }

@@ -3514,7 +3514,7 @@
                                     <outlet property="delegate" destination="mEF-5M-VSI" id="688-lo-jjm"/>
                                 </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jvd-jF-eLp">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jvd-jF-eLp" userLabel="Blur Back Ground View">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sYa-RG-iuG" userLabel="Activate Affiliate Link Popup">
@@ -3696,9 +3696,9 @@
                     <connections>
                         <outlet property="activateAffiliateLinkPopup" destination="sYa-RG-iuG" id="neX-47-B9X"/>
                         <outlet property="backgroundView" destination="7jc-Cl-MHH" id="EUj-sx-usT"/>
+                        <outlet property="blurBackGroundView" destination="jvd-jF-eLp" id="exh-KP-4Eh"/>
                         <outlet property="enterLinkPopupView" destination="Kff-Bj-qdl" id="F0s-EX-A3v"/>
                         <outlet property="selectLinkTableView" destination="7Oc-CL-Soc" id="3dX-I1-7nK"/>
-                        <outlet property="tempBackGroundView" destination="jvd-jF-eLp" id="HG7-oY-TlK"/>
                         <outlet property="tfEnterLink" destination="AUY-He-2dx" id="Tjv-Bm-K6q"/>
                     </connections>
                 </viewController>
