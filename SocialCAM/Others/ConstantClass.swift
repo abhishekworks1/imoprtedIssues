@@ -60,7 +60,7 @@ public struct Constant {
         static let pic2ArtWebsiteURL = "https://pic2art.iicc.online"
         static let soccercamWebsiteURL = "http://soccercam.iicc.online"
         static let futbolWebsiteURL = "http://futbolcam.iicc.online"
-        static let applicationSurveyURL = "https://docs.google.com/forms/d/e/1FAIpQLSfjHUxhARTecUA39brgD0XunJdnOgJ9QUhfnH-k-yrAk-nUnA/viewform"
+        static let applicationSurveyURL = "https://docs.google.com/forms/d/e/1FAIpQLSevMPz6yVq56rmVcprOfZ9kSckBbrq9XNZXUFAb7zAuBQZDbw/viewform"
     }
     
     struct Application {
