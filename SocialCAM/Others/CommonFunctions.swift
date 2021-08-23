@@ -58,6 +58,7 @@ struct CommonFunctions {
     }
     
     static func setAppLogo(imgLogo: UIImageView) {
+        let releaseType = Defaults.shared.releaseType
         #if VIRALCAMAPP
         imgLogo.image = R.image.viralcamrgb()
         #elseif SOCCERCAMAPP || FUTBOLCAMAPP
@@ -79,7 +80,7 @@ struct CommonFunctions {
         #elseif FASTCAMLITEAPP
         imgLogo.image = R.image.fastcamLiteWatermarkLogo()
         #elseif QUICKCAMLITEAPP || QUICKAPP
-        imgLogo.image = R.image.ssuQuickCamLite()
+        imgLogo.image = (releaseType == .store) ? R.image.ssuQuickCam() : R.image.ssuQuickCamLite()
         #elseif SPEEDCAMLITEAPP
         imgLogo.image = R.image.speedcamliteSplashLogo()
         #elseif SNAPCAMLITEAPP

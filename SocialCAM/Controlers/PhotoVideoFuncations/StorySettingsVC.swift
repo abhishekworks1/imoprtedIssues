@@ -129,6 +129,7 @@ class StorySettingsVC: UIViewController {
     
     // MARK: - Variables declaration
     var isDeletePopup = false
+    let releaseType = Defaults.shared.releaseType
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -185,7 +186,7 @@ class StorySettingsVC: UIViewController {
         #elseif FASTCAMLITEAPP
         imgAppLogo.image = R.image.ssuFastCamLite()
         #elseif QUICKCAMLITEAPP || QUICKAPP
-        imgAppLogo.image = R.image.ssuQuickCamLite()
+        imgAppLogo.image = (releaseType == .store) ? R.image.ssuQuickCam() : R.image.ssuQuickCamLite()
         #elseif SPEEDCAMLITEAPP
         imgAppLogo.image = R.image.speedcamLiteSsu()
         #elseif SNAPCAMLITEAPP

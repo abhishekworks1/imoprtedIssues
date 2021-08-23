@@ -162,7 +162,8 @@ public struct Constant {
         static let proModeCode: String = "quickcamlite2020"
         static let publicLink = URL(string: "https://testflight.apple.com/join/6zE0nt7P")
         static let splashBG = UIImage(named: "quickcamLiteLaunchScreenBG")!
-        static let appIcon = UIImage(named: "quickcamliteSplashLogo")!
+        static let releaseType = Defaults.shared.releaseType
+        static let appIcon = UIImage(named: (releaseType == .store) ? "quickCamSplashLogo" : "quickcamliteSplashLogo")!
         #elseif SPEEDCAMLITEAPP
         static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "QuickCam Lite"
         static let simformIdentifier: String = "com.simform.SpeedCamLite"

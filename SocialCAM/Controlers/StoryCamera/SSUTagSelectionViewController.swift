@@ -90,8 +90,9 @@ struct SSUTagOption {
     static let contents: [SSUTagOption] = [
         SSUTagOption(name: R.string.localizable.fastCamLite(), image: R.image.ssuFastCamLite(), type: .fastCamLite)]
     #elseif QUICKCAMLITEAPP || QUICKAPP
+    static let releaseType = Defaults.shared.releaseType
     static let contents: [SSUTagOption] = [
-        SSUTagOption(name: R.string.localizable.quickCamLite(), image: R.image.ssuQuickCamLite(), type: .quickCamLite)]
+        SSUTagOption(name: R.string.localizable.quickCamLite(), image: (releaseType == .store) ? R.image.ssuQuickCam() : R.image.ssuQuickCamLite(), type: .quickCamLite)]
     #elseif SPEEDCAMLITEAPP
     static let contents: [SSUTagOption] = [
         SSUTagOption(name: R.string.localizable.speedCamLite(), image: R.image.speedcamLiteSsu(), type: .speedCamLite)]
