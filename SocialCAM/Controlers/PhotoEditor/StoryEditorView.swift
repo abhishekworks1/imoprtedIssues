@@ -153,6 +153,7 @@ class StoryEditorView: UIView {
     }
     public var isCropped: Bool = false
     public var isCroppedTextView: Bool = false
+    public let releaseType = Defaults.shared.releaseType
     // TODO : Disable for Some Issue.
 //    override var frame: CGRect {
 //        didSet {
@@ -711,7 +712,7 @@ extension StoryEditorView {
                                    followMeStoryView.userBitEmoji.image = R.image.viralcamLiteWatermark()
                                    followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppViralCamLite()
                 } else if type == .quickCamLite || type == .quickApp {
-                                   followMeStoryView.userBitEmoji.image = R.image.ssuQuickCamLite()
+                                   followMeStoryView.userBitEmoji.image = (releaseType == .store) ? R.image.ssuQuickCam() : R.image.ssuQuickCamLite()
                                    followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppQuickCamLite()
                 } else if type == .fastCamLite {
                                    followMeStoryView.userBitEmoji.image = R.image.fastcamLiteWatermarkLogo()
@@ -780,7 +781,7 @@ extension StoryEditorView {
             followMeStoryView.userBitEmoji.image = R.image.fastcamLiteWatermarkLogo()
             followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppFastCamLite()
         } else if type == .quickCamLite || type == .quickApp {
-            followMeStoryView.userBitEmoji.image = R.image.ssuQuickCamLite()
+            followMeStoryView.userBitEmoji.image = (releaseType == .store) ? R.image.ssuQuickCam() : R.image.ssuQuickCamLite()
             followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppQuickCamLite()
         } else if type == .speedcam {
             followMeStoryView.userBitEmoji.image = R.image.speedcamWatermarkLogo()

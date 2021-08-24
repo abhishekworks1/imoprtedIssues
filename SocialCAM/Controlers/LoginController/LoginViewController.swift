@@ -67,6 +67,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
     var tapCounter = 0
     var isLoginButtonPressed = false
     var isLoginToolTipHide = false
+    let releaseType = Defaults.shared.releaseType
     
     // MARK: View life cycle
     
@@ -107,8 +108,8 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         #elseif FASTCAMLITEAPP
         imgLogo.image = R.image.fastcamLiteWatermarkLogo()
         #elseif QUICKCAMLITEAPP || QUICKAPP
-        imgLogo.image = R.image.quickcamliteSplashLogo()
-        imgAppLogo.image = R.image.ssuQuickCamLite()
+        imgLogo.image = (releaseType == .store) ? R.image.quickCamSplashLogo() : R.image.quickcamliteSplashLogo()
+        imgAppLogo.image = (releaseType == .store) ? R.image.ssuQuickCam() : R.image.ssuQuickCamLite()
         #elseif SPEEDCAMLITEAPP
         imgLogo.image = R.image.speedcamliteSplashLogo()
         #elseif SNAPCAMLITEAPP
