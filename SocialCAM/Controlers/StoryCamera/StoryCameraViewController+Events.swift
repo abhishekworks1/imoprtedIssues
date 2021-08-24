@@ -546,12 +546,14 @@ extension StoryCameraViewController {
     
     @IBAction func confirmVideoButtonClicked(_ sender: UIButton) {
         if !takenVideoUrls.isEmpty {
-            if let asset = self.getRecordSession(videoModel: takenVideoUrls) as? AVURLAsset {
-                SCAlbum.shared.saveMovieToLibrary(movieURL: asset.url)
-            } else {
-                for videoUrl in takenVideoUrls {
-                    if let url = videoUrl.url {
-                        SCAlbum.shared.saveMovieToLibrary(movieURL: url)
+            if Defaults.shared.isVideoSavedAfterRecording == true {
+                if let asset = self.getRecordSession(videoModel: takenVideoUrls) as? AVURLAsset {
+                    SCAlbum.shared.saveMovieToLibrary(movieURL: asset.url)
+                } else {
+                    for videoUrl in takenVideoUrls {
+                        if let url = videoUrl.url {
+                            SCAlbum.shared.saveMovieToLibrary(movieURL: url)
+                        }
                     }
                 }
             }
