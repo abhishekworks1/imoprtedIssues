@@ -346,3 +346,16 @@ class UserTokenModel: Mappable{
     }
 
 }
+
+class SetAffiliateModel: Mappable {
+    
+    var isAllowAffiliate: Bool?
+    
+    required init?(map: Map) {
+        
+    }
+    
+    func mapping(map: Map) {
+        isAllowAffiliate <- map["isAllowAffiliate"]
+    }
+}

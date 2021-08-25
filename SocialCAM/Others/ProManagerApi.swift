@@ -75,6 +75,8 @@ public enum ProManagerApi {
     case createUser(channelId: String, refferingChannel: String)
     case userDelete
     case uploadPicture(image: UIImage)
+    case getReferredUserList(page: Int, limit: Int)
+    case setAffiliate(isAllowAffiliate: Bool)
 
     var endpoint: Endpoint {
         var endpointClosure = MoyaProvider<ProManagerApi>.defaultEndpointMapping(for: self)
@@ -261,6 +263,10 @@ extension ProManagerApi: TargetType {
             return Paths.userDelete
         case .uploadPicture:
             return Paths.updateUserProfile
+        case .getReferredUserList:
+            return Paths.getReferredUsersList
+        case .setAffiliate:
+            return Paths.setAffiliate
         }
        
     }
@@ -270,7 +276,7 @@ extension ProManagerApi: TargetType {
         switch self {
         case .signUp, .logIn, .verifyChannel, .search, .getAccessToken:
             return .post
-        case .getSplashImages, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getHashTagSets, .getWeather, .getyoutubeSubscribedChannel, .getYoutubeCategory, .instgramProfile, .instgramProfileDetails, .getLongLivedToken, .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData, .getUserProfile, .getUserSettings, .logoutKeycloak, .subscriptionList, .userSync:
+        case .getSplashImages, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getHashTagSets, .getWeather, .getyoutubeSubscribedChannel, .getYoutubeCategory, .instgramProfile, .instgramProfileDetails, .getLongLivedToken, .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData, .getUserProfile, .getUserSettings, .logoutKeycloak, .subscriptionList, .userSync, .getReferredUserList:
             return .get
         case .updateProfile, .editStory, .updatePost, .updateHashTagSet:
             return .put
@@ -624,6 +630,10 @@ extension ProManagerApi: TargetType {
             break
         case .uploadPicture:
             break
+        case .getReferredUserList(let page, let limit):
+            param = ["page": page, "limit": limit]
+        case .setAffiliate(let isAllowAffiliate):
+            param = ["isAllowAffiliate": isAllowAffiliate]
         }
         return param
     }
@@ -637,7 +647,7 @@ extension ProManagerApi: TargetType {
             return JSONEncoding.default
         case .getyoutubeSubscribedChannel:
             return TokenURLEncoding.default
-        case .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData, .getHashTagSets, .getUserProfile, .getUserSettings, .logoutKeycloak, .subscriptionList, .userSync:
+        case .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData, .getHashTagSets, .getUserProfile, .getUserSettings, .logoutKeycloak, .subscriptionList, .userSync, .getReferredUserList:
             return URLEncoding.default
         default:
             return JSONEncoding.default

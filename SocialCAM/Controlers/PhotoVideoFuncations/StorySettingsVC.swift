@@ -130,6 +130,7 @@ class StorySettingsVC: UIViewController {
     // MARK: - Variables declaration
     var isDeletePopup = false
     let releaseType = Defaults.shared.releaseType
+    private lazy var storyCameraVC = StoryCameraViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -144,6 +145,7 @@ class StorySettingsVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.settingsTableView.reloadData()
+        storyCameraVC.syncUserModel()
     }
     
     deinit {
@@ -471,11 +473,9 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 }
             }
         } else if settingTitle.settingsType == .goToWebsite {
-            let urlString = "\(websiteUrl)/ref/\(Defaults.shared.currentUser?.channelId ?? "")"
-            guard let url = URL(string: urlString) else {
-                return
+            if let yourAffiliateLinkVC = R.storyboard.storyCameraViewController.yourAffiliateLinkViewController() {
+                navigationController?.pushViewController(yourAffiliateLinkVC, animated: true)
             }
-            presentSafariBrowser(url: url)
         } else if settingTitle.settingsType == .applicationSurvey {
             guard let url = URL(string: Constant.URLs.applicationSurveyURL) else { return }
             presentSafariBrowser(url: url)

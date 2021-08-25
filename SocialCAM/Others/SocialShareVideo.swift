@@ -323,6 +323,16 @@ open class SocialShareVideo: NSObject, SharingDelegate {
             snapVideo.attachmentUrl = "\(Constant.URLs.futbolWebsiteURL)/referral/\(Defaults.shared.currentUser?.referralCode ?? "")"
         case .quickCamLite:
             snapVideo.attachmentUrl = "\(websiteUrl)/ref/\(Defaults.shared.currentUser?.channelId ?? "")"
+        case .quickApp:
+            snapVideo.attachmentUrl = "\(websiteUrl)/ref/\(Defaults.shared.currentUser?.channelId ?? "")"
+        case .vidPlay:
+            snapVideo.attachmentUrl = "\(vidplayWebsiteUrl)/ref/\(Defaults.shared.currentUser?.channelId ?? "")"
+        case .businessCenter:
+            snapVideo.attachmentUrl = "\(businessCenterWebsiteUrl)/ref/\(Defaults.shared.currentUser?.channelId ?? "")"
+        case .enterLink:
+            snapVideo.attachmentUrl = "\(Defaults.shared.enterLinkValue)"
+        case .NoLink:
+            snapVideo.attachmentUrl = ""
         default:
             break
         }

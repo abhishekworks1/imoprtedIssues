@@ -1038,6 +1038,8 @@ public struct Paths {
     static let createUser = "user/createUser"
     static let userDelete = "user/deactive"
     static let updateUserProfile = "user/updateProfile"
+    static let getReferredUsersList = "user/referees"
+    static let setAffiliate = "user/setAffiliate"
 }
 
 struct WebsiteData {

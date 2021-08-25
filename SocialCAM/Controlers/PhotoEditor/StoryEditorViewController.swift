@@ -278,7 +278,7 @@ class StoryEditorViewController: UIViewController {
     private var loadingView: LoadingView? = LoadingView.instanceFromNib()
     
     private var slideShowExportedURL: URL?
-    private var videoExportedURL: URL?
+    var videoExportedURL: URL?
     
     public var referType: ReferType = .none
     var popupVC: STPopupController = STPopupController()
@@ -1375,9 +1375,10 @@ extension StoryEditorViewController {
         if isQuickApp {
             let followMeStoryShareViews = storyEditors[currentStoryIndex].subviews.filter({ return $0 is FollowMeStoryView })
             if followMeStoryShareViews.count != 1 && currentStoryIndex == 0 {
-                self.didSelect(type: QuickCamLiteApp.SSUTagType.quickCamLite, waitingListOptionType: nil, socialShareType: nil, screenType: SSUTagScreen.ssutTypes)
+                self.didSelect(type: QuickCamLiteApp.SSUTagType.quickApp, waitingListOptionType: nil, socialShareType: nil, screenType: SSUTagScreen.ssutTypes)
                 self.isSettingsChange = true
             }
+            openActionSheet()
         } else {
             if let ssuTagSelectionViewController = R.storyboard.storyCameraViewController.ssuTagSelectionViewController() {
                 ssuTagSelectionViewController.delegate = self
@@ -1385,8 +1386,24 @@ extension StoryEditorViewController {
                 let navigation: UINavigationController = UINavigationController(rootViewController: ssuTagSelectionViewController)
                 navigation.isNavigationBarHidden = true
                 self.present(navigation, animated: true)
+                openActionSheet()
             }
         }
+    }
+    
+    func openActionSheet() {
+        if let selectLinkVC = R.storyboard.storyEditor.selectLinkViewController() {
+            selectLinkVC.modalPresentationStyle = .popover
+            selectLinkVC.storyEditors = storyEditors
+            navigationController?.present(selectLinkVC, animated: true, completion: {
+                selectLinkVC.backgroundView.isUserInteractionEnabled = true
+                selectLinkVC.backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.backgroundTapped)))
+            })
+        }
+    }
+    
+    @objc func backgroundTapped() {
+        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func fullScreenButtonClicked(sender: UIButton) {

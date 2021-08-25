@@ -31,6 +31,10 @@ enum ReferType {
     case speedcamLite
     case socialScreenRecorder
     case quickApp
+    case vidPlay
+    case businessCenter
+    case enterLink
+    case NoLink
 }
 
 enum StoryEditorType: Equatable {
@@ -726,6 +730,15 @@ extension StoryEditorView {
                 } else if type == .snapCamLite {
                     followMeStoryView.userBitEmoji.image = R.image.snapcamliteSplashLogo()
                     followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppSnapCamLite()
+                } else if type == .businessCenter {
+                    followMeStoryView.userBitEmoji.image = R.image.ssuBusinessCenter()
+                    followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppBusinessCenter()
+                } else if type == .vidPlay {
+                    followMeStoryView.userBitEmoji.image = R.image.ssuVidPlay()
+                    followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppVidPlay()
+                } else if type == .enterLink || type == .NoLink {
+                    followMeStoryView.userBitEmoji.image = R.image.ssuQuickCamLite()
+                    followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppQuickCamLite()
                 } else {
                     followMeStoryView.userBitEmoji.image = (type == .viralCam) ? R.image.viralcamWatermarkLogo() : R.image.socialcamWatermarkLogo()
                     followMeStoryView.textView.text = (type == .viralCam) ? R.string.localizable.checkOutThisCoolNewAppViralCam() : R.string.localizable.checkOutThisCoolNewAppSocialCam()
@@ -795,6 +808,15 @@ extension StoryEditorView {
         } else if type == .socialScreenRecorder {
             followMeStoryView.userBitEmoji.image = R.image.socialScreenRecorderSSU()
             followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppSocialScreenRecorder()
+        } else if type == .businessCenter {
+            followMeStoryView.userBitEmoji.image = R.image.ssuBusinessCenter()
+            followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppBusinessCenter()
+        } else if type == .vidPlay {
+            followMeStoryView.userBitEmoji.image = R.image.ssuVidPlay()
+            followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppVidPlay()
+        } else if type == .enterLink || type == .NoLink {
+            followMeStoryView.userBitEmoji.image = R.image.ssuQuickCamLite()
+            followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppQuickCamLite()
         } else {
             followMeStoryView.userBitEmoji.image = (type == .viralCam) ? R.image.viralcamWatermarkLogo() : R.image.socialcamWatermarkLogo()
             followMeStoryView.textView.text = (type == .viralCam) ? R.string.localizable.checkOutThisCoolNewAppViralCam() : R.string.localizable.checkOutThisCoolNewAppSocialCam()
