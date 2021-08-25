@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVKit
 
 class EditProfilePicViewController: UIViewController {
     
@@ -16,7 +17,9 @@ class EditProfilePicViewController: UIViewController {
     // MARK: - Variables declaration
     private var localImageUrl: URL?
     private var imagePicker = UIImagePickerController()
+    var storyCameraVCInstance = StoryCameraViewController()
     
+    // MARK: - View Controller Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
@@ -24,13 +27,12 @@ class EditProfilePicViewController: UIViewController {
         } else {
             imgProfilePic.image = R.image.user_placeholder()
         }
+        imgProfilePic.layer.cornerRadius = imgProfilePic.bounds.width / 2
+        imgProfilePic.contentMode = .scaleAspectFill
     }
     
     // MARK: - Action Methods
     @IBAction func btnBackTapped(_ sender: UIButton) {
-        var userProfile = Defaults.shared.currentUser?.profileImageURL
-        userProfile = "\(String(describing: localImageUrl))"
-        Defaults.shared.currentUser?.profileImageURL = userProfile
         navigationController?.popViewController(animated: true)
     }
     
@@ -49,29 +51,25 @@ extension EditProfilePicViewController {
         if UIImagePickerController.isSourceTypeAvailable(sourceType) {
             imagePicker.delegate = self
             imagePicker.sourceType = sourceType
+            imagePicker.allowsEditing = true
             self.present(imagePicker, animated: true, completion: nil)
         }
     }
     
     /// Delete Image
     private func deleteImage() {
-        self.imgProfilePic.image = R.image.user_placeholder()
+        self.imgProfilePic.image = UIImage()
     }
     
     /// Show ActionSheet for selecting Image
     private func showActionSheet() {
-        let alert = UIAlertController(title: "", message: nil, preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: R.string.localizable.gallery(), style: .default, handler: { _ in
             self.getImage(fromSourceType: .photoLibrary)
         }))
         alert.addAction(UIAlertAction(title: R.string.localizable.camera(), style: .default, handler: { _ in
             self.getImage(fromSourceType: .camera)
         }))
-        if imgProfilePic.image != nil {
-            alert.addAction(UIAlertAction(title: R.string.localizable.remove(), style: .destructive, handler: { _ in
-                self.deleteImage()
-            }))
-        }
         alert.addAction(UIAlertAction(title: R.string.localizable.cancel(), style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
@@ -84,8 +82,41 @@ extension EditProfilePicViewController: UIImagePickerControllerDelegate, UINavig
     /// Get selected image
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         self.localImageUrl = info[.imageURL] as? URL
-        imgProfilePic.image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
-        self.dismiss(animated: true, completion: nil)
+        imgProfilePic.image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
+        if let img = imgProfilePic.image,
+           let compressedImg = img.jpegData(compressionQuality: 1) {
+            let imageSize: Int = compressedImg.count
+            let imgSizeInKb = Double(imageSize) / 1000.0
+            if imgSizeInKb > 8000.0 {
+                imgProfilePic.image = imgProfilePic.image?.resizeWithWidth(width: 2000)
+            }
+            self.dismiss(animated: true, completion: nil)
+            if let img = imgProfilePic.image {
+                self.showHUD()
+                self.view.isUserInteractionEnabled = false
+                self.updateProfilePic(image: img)
+            }
+        }
+    }
+    
+}
+
+// MARK: - API Methods
+extension EditProfilePicViewController {
+    
+    func updateProfilePic(image: UIImage) {
+        ProManagerApi.uploadPicture(image: image).request(Result<EmptyModel>.self).subscribe(onNext: { (response) in
+            self.dismissHUD()
+            self.view.isUserInteractionEnabled = true
+            if response.status == ResponseType.success {
+                self.storyCameraVCInstance.syncUserModel()
+            } else {
+                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+            }
+        }, onError: { error in
+            self.showAlert(alertMessage: error.localizedDescription)
+        }, onCompleted: {
+        }).disposed(by: self.rx.disposeBag)
     }
     
 }

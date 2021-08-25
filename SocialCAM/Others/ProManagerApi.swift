@@ -74,6 +74,7 @@ public enum ProManagerApi {
     case getToken(appName: String)
     case createUser(channelId: String, refferingChannel: String)
     case userDelete
+    case uploadPicture(image: UIImage)
 
     var endpoint: Endpoint {
         var endpointClosure = MoyaProvider<ProManagerApi>.defaultEndpointMapping(for: self)
@@ -258,6 +259,8 @@ extension ProManagerApi: TargetType {
             return Paths.createUser
         case .userDelete:
             return Paths.userDelete
+        case .uploadPicture:
+            return Paths.updateUserProfile
         }
        
     }
@@ -619,6 +622,8 @@ extension ProManagerApi: TargetType {
                      "refferingChannel": refferingChannel]
         case .userDelete:
             break
+        case .uploadPicture:
+            break
         }
         return param
     }
@@ -669,6 +674,13 @@ extension ProManagerApi: TargetType {
                 multipartFormData.append(MultipartFormData.init(provider: MultipartFormData.FormDataProvider.data(videoData), name: "video", fileName: videoURL.lastPathComponent, mimeType: "application/octet-stream"))
             }
             return .uploadMultipart(multipartFormData)
+        case .uploadPicture(let image):
+            guard let imageData = image.jpegData(compressionQuality: 0.8) else {
+                return .requestParameters(parameters: self.parameters ?? [:], encoding: self.parameterEncoding)
+            }
+            let imageDataMultiPart = [MultipartFormData(provider: .data(imageData), name: "image", fileName: "photo.jpg", mimeType: "image/jpeg")]
+            let multipartData = imageDataMultiPart
+            return .uploadMultipart(multipartData)
         default:
             return .requestParameters(parameters: self.parameters ?? [:], encoding: self.parameterEncoding)
         }
