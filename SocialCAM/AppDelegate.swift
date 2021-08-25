@@ -423,14 +423,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                 Defaults.shared.sessionToken = pathComponents[4]
                                 syncUserModel()
                             } else {
-                                self.goToHomeScreen(isRefferencingChannelEmpty: true, isFromOtherApp: true)
+                                self.goToHomeScreen(isRefferencingChannelEmpty: true, isFromOtherApp: true, channelId: Defaults.shared.channelId ?? "", isSessionCodeExist: false)
                             }
                         }
                     } else {
                         let pathComponents = url.pathComponents
                         if pathComponents.count == 6 {
                             Defaults.shared.channelId = pathComponents[3]
-                            goToHomeScreen(isRefferencingChannelEmpty: true, isFromOtherApp: true)
+                            goToHomeScreen(isRefferencingChannelEmpty: true, isFromOtherApp: true, channelId: Defaults.shared.channelId ?? "")
                         }
                     }
                 }
@@ -483,18 +483,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let parentId = Defaults.shared.currentUser?.parentId ?? Defaults.shared.currentUser?.id
         Defaults.shared.parentID = parentId
         #if !IS_SHAREPOST && !IS_MEDIASHARE && !IS_VIRALVIDS  && !IS_SOCIALVIDS && !IS_PIC2ARTSHARE
-        self.goToHomeScreen(isRefferencingChannelEmpty: response.result?.user?.refferingChannel == nil, isFromOtherApp: false)
+        self.goToHomeScreen(isRefferencingChannelEmpty: response.result?.user?.refferingChannel == nil, isFromOtherApp: false, channelId: response.result?.user?.channelId ?? "")
         #endif
     }
     
-    func goToHomeScreen(isRefferencingChannelEmpty: Bool, isFromOtherApp: Bool) {
+    func goToHomeScreen(isRefferencingChannelEmpty: Bool, isFromOtherApp: Bool, channelId: String, isSessionCodeExist: Bool = false) {
         #if PIC2ARTAPP || TIMESPEEDAPP || BOOMICAMAPP
         Utils.appDelegate?.window?.rootViewController = R.storyboard.pageViewController.pageViewController()
         #else
         if isRefferencingChannelEmpty {
-            let referringChannelSuggestionViewController = R.storyboard.loginViewController.referringChannelSuggestionViewController()
-            referringChannelSuggestionViewController?.fromOtherApp = isFromOtherApp
-            Utils.appDelegate?.window?.rootViewController = referringChannelSuggestionViewController
+            let keycloakURL = "\(websiteUrl)/referral/\(channelId)?redirect_uri=\(redirectUri)"
+            goToKeycloakWebview(url: keycloakURL, isSessionCodeExist: isSessionCodeExist)
         } else {
             let cameraNavVC = R.storyboard.storyCameraViewController.storyCameraViewNavigationController()
             cameraNavVC?.navigationBar.isHidden = true
@@ -507,11 +506,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func syncUserModel() {
         ProManagerApi.userSync.request(Result<UserSyncModel>.self).subscribe(onNext: { (response) in
             if response.status == ResponseType.success {
-                self.goToHomeScreen(isRefferencingChannelEmpty: response.result?.user?.refferingChannel == nil, isFromOtherApp: false)
+                self.goToHomeScreen(isRefferencingChannelEmpty: response.result?.user?.refferingChannel == nil, isFromOtherApp: false, channelId: response.result?.user?.channelId ?? "")
             }
         }, onError: { error in
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
+    }
+    
+    func goToKeycloakWebview(url: String, isSessionCodeExist: Bool) {
+        guard let keycloakAuthViewController = R.storyboard.loginViewController.keycloakAuthViewController() else {
+            return
+        }
+        keycloakAuthViewController.urlString = url
+        keycloakAuthViewController.isSessionCodeExist = isSessionCodeExist
+        Utils.appDelegate?.window?.rootViewController = keycloakAuthViewController
     }
     
 }

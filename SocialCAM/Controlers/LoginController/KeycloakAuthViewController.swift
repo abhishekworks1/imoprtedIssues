@@ -18,6 +18,7 @@ class KeycloakAuthViewController: UIViewController {
     // MARK: - Variables
     internal var isRegister = true
     var urlString = ""
+    var isSessionCodeExist = false
     
     // MARK: - ViewController Life Cycle
     override func viewDidLoad() {
@@ -84,9 +85,15 @@ extension KeycloakAuthViewController: WKNavigationDelegate {
                 }
             }
             let urlString = "\(url)"
-            if urlString == redirectUri {
-                let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
-                Utils.appDelegate?.window?.rootViewController = rootViewController
+            if urlString.contains("quickcamrefer://app?refferingChannel=") {
+                if !isSessionCodeExist {
+                    let paramOne = urlString.split(separator: "&")
+                    let referringChannel = String(paramOne.first?.split(separator: "=").last ?? "")
+                    let channelId = String(paramOne.last?.split(separator: "=").last ?? "")
+                    self.createUser(referringChannel: referringChannel, channelId: channelId)
+                } else {
+                    self.redirectToHomeScreen()
+                }
             }
         }
         decisionHandler(.allow)
@@ -148,6 +155,47 @@ extension KeycloakAuthViewController {
         }
         RunLoop.current.run(until: Date(timeIntervalSinceNow: 1.0))
         #endif
+    }
+    
+    func redirectToHomeScreen() {
+        if let isRegistered = Defaults.shared.isRegistered {
+            if isRegistered {
+                let tooltipViewController = R.storyboard.loginViewController.tooltipViewController()
+                Utils.appDelegate?.window?.rootViewController = tooltipViewController
+                tooltipViewController?.blurView.isHidden = false
+                tooltipViewController?.blurView.alpha = 0.7
+                tooltipViewController?.signupTooltipView.isHidden = false
+            } else {
+                let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
+                Utils.appDelegate?.window?.rootViewController = rootViewController
+            }
+        } else {
+            let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
+            Utils.appDelegate?.window?.rootViewController = rootViewController
+        }
+    }
+    
+    func createUser(referringChannel: String, channelId: String) {
+        ProManagerApi.createUser(channelId: channelId, refferingChannel: referringChannel).request(Result<LoginResult>.self).subscribe(onNext: { (response) in
+            if response.status == ResponseType.success {
+                Defaults.shared.sessionToken = response.sessionToken
+                self.isSessionCodeExist = true
+                Defaults.shared.currentUser = response.result?.user
+                Defaults.shared.isRegistered = true
+                Defaults.shared.numberOfFreeTrialDays = response.result?.diffDays
+                Defaults.shared.isPic2ArtShowed = Defaults.shared.isRegistered
+                Defaults.shared.isQuickLinkShowed = Defaults.shared.isRegistered
+                Defaults.shared.isFromSignup = Defaults.shared.isRegistered
+                Defaults.shared.userCreatedDate = response.result?.user?.created
+                CurrentUser.shared.setActiveUser(response.result?.user)
+                self.redirectToHomeScreen()
+            } else {
+                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+            }
+        }, onError: { error in
+            self.showAlert(alertMessage: error.localizedDescription)
+        }, onCompleted: {
+        }).disposed(by: rx.disposeBag)
     }
     
 }
