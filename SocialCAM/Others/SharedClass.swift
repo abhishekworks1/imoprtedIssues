@@ -1037,6 +1037,7 @@ public struct Paths {
     static let getToken = "user/getToken"
     static let createUser = "user/createUser"
     static let userDelete = "user/deactive"
+    static let updateUserProfile = "user/updateProfile"
 }
 
 struct WebsiteData {

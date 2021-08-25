@@ -141,6 +141,11 @@ class StorySettingsVC: UIViewController {
         settingsTableView.addGestureRecognizer(longpress)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.settingsTableView.reloadData()
+    }
+    
     deinit {
         print("Deinit \(self.description)")
     }
@@ -349,7 +354,6 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             headerView.addProfilePic.isHidden = true
         }
         headerView.btnProfilePic.addTarget(self, action: #selector(btnEditProfilePic), for: .touchUpInside)
-        headerView.btnProfilePic.isUserInteractionEnabled = false
         
         return headerView
     }

@@ -95,7 +95,7 @@ extension AccountSettingsViewController: UITableViewDataSource {
                let userImageUrl = Defaults.shared.currentUser?.profileImageURL {
                 referringChannelNameCell.lblChannelName.text = R.string.localizable.referringChannel(name)
                 referringChannelNameCell.userImageView.layer.cornerRadius = referringChannelNameCell.userImageView.bounds.width / 2
-                referringChannelNameCell.userImageView.sd_setImage(with: URL.init(string: userImageUrl), placeholderImage: ApplicationSettings.userPlaceHolder)
+                referringChannelNameCell.userImageView.image = R.image.user_placeholder()
             }
             return referringChannelNameCell
         } else if settingTitle.settingsType == .deleteAccount {
