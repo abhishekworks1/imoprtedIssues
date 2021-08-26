@@ -36,7 +36,8 @@ class SelectLinkViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         blurBackGroundView.isHidden = true
-        self.selectLinkTableView.reloadData()
+        SelectLink.selectLinks.removeAll()
+        getLinkCells()
     }
     
     // MARK: - Action Methods
@@ -52,13 +53,6 @@ class SelectLinkViewController: UIViewController {
     @IBAction func btnOkTapped(_ sender: UIButton) {
         Defaults.shared.enterLinkValue = tfEnterLink.text ?? ""
         dismiss(animated: true, completion: nil)
-    }
-    
-    func callDidSelectMethod(type: SSUTagType) {
-        if currentStoryIndex == 0 {
-            self.didSelect(type: type, waitingListOptionType: nil, socialShareType: nil,
-                           screenType: SSUTagScreen.ssutTypes)
-        }
     }
 }
 
@@ -169,5 +163,37 @@ extension SelectLinkViewController: SSUTagSelectionDelegate {
         default: break
         }
         storyEditorVC.videoExportedURL = nil
+    }
+}
+
+// MARK: - Methods
+extension SelectLinkViewController {
+    
+    func callDidSelectMethod(type: SSUTagType) {
+        if currentStoryIndex == 0 {
+            self.didSelect(type: type, waitingListOptionType: nil, socialShareType: nil,
+                           screenType: SSUTagScreen.ssutTypes)
+        }
+    }
+    
+    func getLinkCells() {
+        guard let businessCenterAppUrl = URL(string: DeepLinkData.deepLinkUrlString),
+              let vidPlayAppUrl = URL(string: DeepLinkData.vidplayDeepLinkUrlString) else {
+            return
+        }
+        let quickCamCell = SelectLink(name: "", linkSettings: [SelectLinkSetting(name: R.string.localizable.quickCam(), image: R.image.iconQuickCam())], linkType: .quickCam)
+        SelectLink.selectLinks.append(quickCamCell)
+        if UIApplication.shared.canOpenURL(vidPlayAppUrl) {
+            let vidPlayCell = SelectLink(name: "", linkSettings: [SelectLinkSetting(name: R.string.localizable.vidPlay(), image: R.image.iconVidPlay())], linkType: .vidPlay)
+            SelectLink.selectLinks.append(vidPlayCell)
+        }
+        if UIApplication.shared.canOpenURL(businessCenterAppUrl) {
+            let businessCenterCell = SelectLink(name: "", linkSettings: [SelectLinkSetting(name: R.string.localizable.businessCenter(), image: R.image.iconBusinessCenter())], linkType: .businessCenter)
+            SelectLink.selectLinks.append(businessCenterCell)
+        }
+        let enterLinkCell = SelectLink(name: "", linkSettings: [SelectLinkSetting(name: R.string.localizable.enterALink(), image: R.image.iconLink())], linkType: .enterLink)
+        SelectLink.selectLinks.append(enterLinkCell)
+        let noLinkCell = SelectLink(name: "", linkSettings: [SelectLinkSetting(name: R.string.localizable.noLink(), image: R.image.iconNoLink())], linkType: .noLink)
+        SelectLink.selectLinks.append(noLinkCell)
     }
 }

@@ -8,6 +8,7 @@
 
 import Foundation
 import AVKit
+import Alamofire
 
 public struct Constant {
     
@@ -393,4 +394,10 @@ public struct Constant {
         static let cancelSubscriptionUrl = "https://apps.apple.com/account/subscriptions"
     }
     
+    struct Connectivity {
+        static let sharedInstance = NetworkReachabilityManager()!
+        static var isConnectedToInternet: Bool {
+            return self.sharedInstance.isReachable
+        }
+    }
 }
