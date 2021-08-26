@@ -1392,13 +1392,15 @@ extension StoryEditorViewController {
     }
     
     func openActionSheet() {
-        if let selectLinkVC = R.storyboard.storyEditor.selectLinkViewController() {
-            selectLinkVC.modalPresentationStyle = .popover
-            selectLinkVC.storyEditors = storyEditors
-            navigationController?.present(selectLinkVC, animated: true, completion: {
-                selectLinkVC.backgroundView.isUserInteractionEnabled = true
-                selectLinkVC.backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.backgroundTapped)))
-            })
+        if Constant.Connectivity.isConnectedToInternet {
+            if let selectLinkVC = R.storyboard.storyEditor.selectLinkViewController() {
+                selectLinkVC.modalPresentationStyle = .popover
+                selectLinkVC.storyEditors = storyEditors
+                navigationController?.present(selectLinkVC, animated: true, completion: {
+                    selectLinkVC.backgroundView.isUserInteractionEnabled = true
+                    selectLinkVC.backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.backgroundTapped)))
+                })
+            }
         }
     }
     

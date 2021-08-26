@@ -3416,7 +3416,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="494"/>
                                 <color key="backgroundColor" name="transparentBackgroundView"/>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="7Oc-CL-Soc">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="414" placeholderIntrinsicHeight="402" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="7Oc-CL-Soc" customClass="SelfSizedTableView" customModule="BoomiCam" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="494" width="414" height="402"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -3687,7 +3687,6 @@
                             <constraint firstItem="gVo-q8-Gl3" firstAttribute="trailing" secondItem="7jc-Cl-MHH" secondAttribute="trailing" id="aNO-0n-yJb"/>
                             <constraint firstItem="gVo-q8-Gl3" firstAttribute="bottom" secondItem="jvd-jF-eLp" secondAttribute="bottom" id="gRu-NJ-jt1"/>
                             <constraint firstItem="jvd-jF-eLp" firstAttribute="top" secondItem="gVo-q8-Gl3" secondAttribute="top" id="jqP-o3-nBy"/>
-                            <constraint firstItem="7Oc-CL-Soc" firstAttribute="top" secondItem="gVo-q8-Gl3" secondAttribute="top" constant="450" id="mRj-pf-5ak"/>
                             <constraint firstItem="7jc-Cl-MHH" firstAttribute="leading" secondItem="gVo-q8-Gl3" secondAttribute="leading" id="n7N-Dd-sat"/>
                             <constraint firstItem="gVo-q8-Gl3" firstAttribute="trailing" secondItem="7Oc-CL-Soc" secondAttribute="trailing" id="sDR-La-YzD"/>
                             <constraint firstItem="7Oc-CL-Soc" firstAttribute="top" secondItem="7jc-Cl-MHH" secondAttribute="bottom" id="xcN-Hm-csy"/>
