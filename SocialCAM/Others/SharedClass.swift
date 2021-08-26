@@ -577,7 +577,7 @@ enum AppMode: Int, AppMode_Enum {
         case .free:
             return "$0/Month"
         case .basic:
-            return "$0.99/Month"
+            return "$1.99/Month"
         case .advanced:
             return "$99.99/Month"
         case .professional:

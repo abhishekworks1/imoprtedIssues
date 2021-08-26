@@ -175,7 +175,7 @@ class Subscription: Mappable {
     var cycle: String?
     var descriptionField: String?
     var name: String?
-    var price: Int?
+    var price: Double?
     var productId: String?
     var updatedAt: String?
     
