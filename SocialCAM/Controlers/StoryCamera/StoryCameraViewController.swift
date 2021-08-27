@@ -1196,7 +1196,7 @@ extension StoryCameraViewController {
                 if isQuickApp && Defaults.shared.appMode == .free {
                     self.showAlertForUpgradeSubscription()
                 }
-                self.circularProgress.centerImage = R.image.icoCaptureMode()
+                self.circularProgress.centerImage = R.image.capture_mode()
                 self.timerValueView.isHidden = true
             case .promo:
                 self.circularProgress.centerImage = UIImage()
