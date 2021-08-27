@@ -509,6 +509,7 @@ extension StoryCameraViewController {
     }
     
     @IBAction func gameCentreButtonClicked(_ sender: UIButton) {
+        verifyUserToken(appName: R.string.localizable.vidPlay().lowercased())
         let application = UIApplication.shared
         blurView.isHidden = true
         switchingAppView.isHidden = true

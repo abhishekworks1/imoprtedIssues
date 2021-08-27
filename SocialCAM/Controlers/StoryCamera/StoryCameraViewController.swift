@@ -510,10 +510,13 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     var segmentsProgress: [CGFloat] = []
     var cameraModeCell = 1
     var isVideoRecording = false
+    var isVidplayAccountFound: Bool? = false
+    var vidplaySessionToken = ""
     
     // MARK: ViewController lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.switchAppButton.isUserInteractionEnabled = Defaults.shared.releaseType != .store
         showSurveyAlertAfterThreeDays()
         UIApplication.shared.isIdleTimerDisabled = true
         setCameraSettings()
@@ -2553,14 +2556,17 @@ extension StoryCameraViewController {
     func getUrlForQuickLink() {
         let user = Defaults.shared.currentUser
         let channelId = user?.channelId
-        let authToken = Defaults.shared.sessionToken
+        var authToken = Defaults.shared.sessionToken
         if isBusinessCenter {
             quickLinkAppUrl = URL(string: "\(DeepLinkData.deepLinkUrlString)\(DeepLinkData.appDeeplinkName.lowercased())/\(Defaults.shared.releaseType.description)/\(channelId ?? "")/\(authToken ?? "")/\(isLiteApp)")
             quickLinkWebsiteUrl = URL(string: businessCenterWebsiteUrl)
             isBusinessCenter = false
         } else {
-            quickLinkAppUrl = URL(string: "\(DeepLinkData.vidplayDeepLinkUrlString)\(DeepLinkData.appDeeplinkName.lowercased())/\(Defaults.shared.releaseType.description)/\(channelId ?? "")/\(authToken ?? "")/\(isLiteApp)")
-            quickLinkWebsiteUrl = URL(string: vidplayWebsiteUrl)
+            if let isVidplayAccountFound = self.isVidplayAccountFound {
+                authToken = isVidplayAccountFound ? self.vidplaySessionToken : "null"
+            }
+            self.quickLinkAppUrl = URL(string: "\(DeepLinkData.vidplayDeepLinkUrlString)\(DeepLinkData.appDeeplinkName.lowercased())/\(Defaults.shared.releaseType.description)/\(channelId ?? "")/\(authToken ?? "")/\(isLiteApp)")
+            self.quickLinkWebsiteUrl = URL(string: vidplayWebsiteUrl)
         }
     }
     
@@ -2576,6 +2582,20 @@ extension StoryCameraViewController {
                 if let isAllowAffiliate = response.result?.user?.isAllowAffiliate {
                     Defaults.shared.isAffiliateLinkActivated = isAllowAffiliate
                 }
+            } else {
+                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+            }
+        }, onError: { error in
+            self.showAlert(alertMessage: error.localizedDescription)
+        }, onCompleted: {
+        }).disposed(by: self.rx.disposeBag)
+    }
+    
+    func verifyUserToken(appName: String) {
+        ProManagerApi.getToken(appName: appName).request(Result<GetTokenModel>.self).subscribe(onNext: { (response) in
+            if response.status == ResponseType.success {
+                self.isVidplayAccountFound = response.result?.isAccountFound
+                self.vidplaySessionToken = response.result?.data?.token ?? ""
             } else {
                 self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
             }
