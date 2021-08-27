@@ -448,6 +448,7 @@ extension StoryCameraViewController {
     }
     
     @IBAction func switchAppButtonClicked(_ sender: UIButton) {
+        verifyUserToken(appName: R.string.localizable.vidPlay().lowercased())
         if let isQuickLinkShowed = Defaults.shared.isQuickLinkShowed {
             if isQuickLinkShowed {
                 if let tooltipViewController = R.storyboard.loginViewController.tooltipViewController() {
@@ -509,7 +510,6 @@ extension StoryCameraViewController {
     }
     
     @IBAction func gameCentreButtonClicked(_ sender: UIButton) {
-        verifyUserToken(appName: R.string.localizable.vidPlay().lowercased())
         let application = UIApplication.shared
         blurView.isHidden = true
         switchingAppView.isHidden = true

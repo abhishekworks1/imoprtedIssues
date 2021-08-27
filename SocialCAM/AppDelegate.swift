@@ -504,7 +504,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func syncUserModel() {
-        ProManagerApi.userSync.request(Result<UserSyncModel>.self).subscribe(onNext: { (response) in
+        ProManagerApi.userSync.request(Result<UserSyncModel>.self).subscribe(onNext: { [weak self] (response) in
+            guard let `self` = self else {
+                return
+            }
             if response.status == ResponseType.success {
                 self.goToHomeScreen(isRefferencingChannelEmpty: response.result?.user?.refferingChannel == nil, isFromOtherApp: false, channelId: response.result?.user?.channelId ?? "")
             }

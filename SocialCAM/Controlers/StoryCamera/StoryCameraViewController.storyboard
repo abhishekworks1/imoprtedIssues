@@ -6644,32 +6644,58 @@ Countdown</string>
                                             <outlet property="title" destination="oA9-xx-zBn" id="byu-wf-fnd"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AffiliateLinkCell" id="Q3h-he-vJ9" userLabel="AffiliateLinkCell" customClass="AffiliateLinkCell" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="116.33333206176758" width="359" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AffiliateLinkCell" rowHeight="75" id="Q3h-he-vJ9" userLabel="AffiliateLinkCell" customClass="AffiliateLinkCell" customModule="BoomiCam" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="116.33333206176758" width="359" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Q3h-he-vJ9" id="0yr-L2-C8V">
-                                            <rect key="frame" x="0.0" y="0.0" width="359" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="359" height="75"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M9R-yY-caW">
-                                                    <rect key="frame" x="15" y="22" width="0.0" height="0.0"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3d8-gV-4CX">
+                                                    <rect key="frame" x="15" y="7.6666666666666643" width="60" height="59.999999999999993"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="60" id="UA5-Fg-Ncx"/>
+                                                        <constraint firstAttribute="height" constant="60" id="Vuj-r8-2sc"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                            <real key="value" value="30"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M9R-yY-caW">
+                                                    <rect key="frame" x="90" y="15.000000000000002" width="31.666666666666671" height="17.666666666666671"/>
+                                                    <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="15"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8cQ-SA-gmz">
+                                                    <rect key="frame" x="90" y="35.333333333333336" width="31.666666666666671" height="17.666666666666664"/>
                                                     <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="M9R-yY-caW" firstAttribute="leading" secondItem="0yr-L2-C8V" secondAttribute="leading" constant="15" id="ArF-AL-4A7"/>
-                                                <constraint firstItem="M9R-yY-caW" firstAttribute="centerY" secondItem="0yr-L2-C8V" secondAttribute="centerY" id="JTu-m6-ewQ"/>
+                                                <constraint firstItem="3d8-gV-4CX" firstAttribute="centerY" secondItem="0yr-L2-C8V" secondAttribute="centerY" id="Cm9-qB-cg4"/>
+                                                <constraint firstItem="8cQ-SA-gmz" firstAttribute="leading" secondItem="M9R-yY-caW" secondAttribute="leading" id="UWV-1Q-37N"/>
+                                                <constraint firstItem="8cQ-SA-gmz" firstAttribute="top" secondItem="M9R-yY-caW" secondAttribute="bottom" constant="2.6666679382324219" id="aDi-DX-Zzj"/>
+                                                <constraint firstItem="M9R-yY-caW" firstAttribute="leading" secondItem="3d8-gV-4CX" secondAttribute="trailing" constant="15" id="gFJ-Kt-0qH"/>
+                                                <constraint firstItem="3d8-gV-4CX" firstAttribute="leading" secondItem="0yr-L2-C8V" secondAttribute="leading" constant="15" id="uHd-0f-F5X"/>
+                                                <constraint firstItem="M9R-yY-caW" firstAttribute="top" secondItem="0yr-L2-C8V" secondAttribute="top" constant="15" id="ysw-M1-lTh"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
+                                            <outlet property="imgReferredUser" destination="3d8-gV-4CX" id="vY8-aj-SIn"/>
                                             <outlet property="lblAffiliateTitle" destination="M9R-yY-caW" id="pGf-Wf-MaR"/>
+                                            <outlet property="lblFollowers" destination="8cQ-SA-gmz" id="QoO-Qw-vvT"/>
+                                            <outlet property="referredUserImgLeadingConstrarint" destination="uHd-0f-F5X" id="LSn-D4-rWz"/>
+                                            <outlet property="referredUserImgWidthConstraint" destination="UA5-Fg-Ncx" id="vcu-PZ-YbT"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ActivateAffiliateLinkCell" rowHeight="140" id="h1D-hC-uA0" userLabel="ActivateAffiliateLinkCell" customClass="ActivateAffiliateLinkCell" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="160.33333206176758" width="359" height="140"/>
+                                        <rect key="frame" x="0.0" y="191.33333206176758" width="359" height="140"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="h1D-hC-uA0" id="0VA-9g-4Un">
                                             <rect key="frame" x="0.0" y="0.0" width="359" height="140"/>

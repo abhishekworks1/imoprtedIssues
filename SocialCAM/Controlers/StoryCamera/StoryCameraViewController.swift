@@ -2592,7 +2592,10 @@ extension StoryCameraViewController {
     }
     
     func verifyUserToken(appName: String) {
-        ProManagerApi.getToken(appName: appName).request(Result<GetTokenModel>.self).subscribe(onNext: { (response) in
+        ProManagerApi.getToken(appName: appName).request(Result<GetTokenModel>.self).subscribe(onNext: { [weak self] (response) in
+            guard let `self` = self else {
+                return
+            }
             if response.status == ResponseType.success {
                 self.isVidplayAccountFound = response.result?.isAccountFound
                 self.vidplaySessionToken = response.result?.data?.token ?? ""

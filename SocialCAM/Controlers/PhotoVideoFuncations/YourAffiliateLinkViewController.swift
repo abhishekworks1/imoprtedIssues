@@ -52,8 +52,10 @@ class YourAffiliateLinkViewController: UIViewController {
     func getAffiliateLinkActivatedCell() {
         let copyLinkCell = YourAffiliateLink(name: "", settings: [AffiliateSetting(name: R.string.localizable.copyLink())], type: .copyLink)
         let gotoAffiliatePageCell = YourAffiliateLink(name: "", settings: [AffiliateSetting(name: R.string.localizable.goToAffiliatePage())], type: .goToAffiliatePage)
+        let listOfReferredUserCell = YourAffiliateLink(name: "", settings: [AffiliateSetting(name: "")], type: .listOfReferredUsers)
         YourAffiliateLink.yourAffiliteLinks.append(copyLinkCell)
         YourAffiliateLink.yourAffiliteLinks.append(gotoAffiliatePageCell)
+        YourAffiliateLink.yourAffiliteLinks.append(listOfReferredUserCell)
     }
     
     func getAffiliateLinkNotActivatedCell() {
@@ -65,6 +67,7 @@ class YourAffiliateLinkViewController: UIViewController {
     
     // MARK: - Action Methods
     @IBAction func btnBackTapped(_ sender: UIButton) {
+        self.dismissHUD()
         navigationController?.popViewController(animated: true)
     }
 }
@@ -78,14 +81,15 @@ extension YourAffiliateLinkViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let cellTitle = YourAffiliateLink.yourAffiliteLinks[section]
-        return section == 1 && cellTitle.type == .listOfReferredUsers ? referredUserList.count : cellTitle.settings.count
+        return cellTitle.type == .listOfReferredUsers ? referredUserList.count : cellTitle.settings.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let affiliateLinkCell: AffiliateLinkCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.affiliateLinkCell.identifier) as? AffiliateLinkCell else {
             fatalError("\(R.reuseIdentifier.affiliateLinkCell.identifier) Not Found")
         }
-        
+        affiliateLinkCell.referredUserImgWidthConstraint.constant = 0
+        affiliateLinkCell.referredUserImgLeadingConstrarint.constant = 0
         let cellTitle = YourAffiliateLink.yourAffiliteLinks[indexPath.section]
         if cellTitle.type == .copyLink || cellTitle.type == .goToAffiliatePage {
             let affiliateTitle = cellTitle.settings[indexPath.row]
@@ -102,7 +106,19 @@ extension YourAffiliateLinkViewController: UITableViewDataSource {
                 referredUserPageIndex += 1
                 refresh(index: referredUserPageIndex)
             } else {
-                affiliateLinkCell.lblAffiliateTitle.text = referredUserList[indexPath.row].user?.channelId
+                if !referredUserList.isEmpty {
+                    affiliateLinkCell.referredUserImgWidthConstraint.constant = 60
+                    affiliateLinkCell.referredUserImgLeadingConstrarint.constant = 15
+                    affiliateLinkCell.lblFollowers.isHidden = false
+                    if let referredUser = referredUserList[indexPath.row].user?.channelId,
+                       let userImageUrl = referredUserList[indexPath.row].user?.profileImageURL,
+                       let followersCount = referredUserList[indexPath.row].user?.followers {
+                        affiliateLinkCell.lblAffiliateTitle.text = "@\(referredUser)"
+                        affiliateLinkCell.imgReferredUser.layer.cornerRadius = affiliateLinkCell.imgReferredUser.frame.width / 2
+                        affiliateLinkCell.imgReferredUser.sd_setImage(with: URL.init(string: userImageUrl), placeholderImage: ApplicationSettings.userPlaceHolder)
+                        affiliateLinkCell.lblFollowers.text = "\(followersCount) \(R.string.localizable.followers())"
+                    }
+                }
                 self.dismissHUD()
             }
         }
@@ -119,7 +135,7 @@ extension YourAffiliateLinkViewController: UITableViewDelegate {
             fatalError("StorySettingsHeader Not Found")
         }
         let cellTitle = YourAffiliateLink.yourAffiliteLinks[section]
-        if cellTitle.type == .listOfReferredUsers && section == 1 {
+        if cellTitle.type == .listOfReferredUsers {
             headerView.title.isHidden = false
             referredUserList.isEmpty ? (headerView.title.text = R.string.localizable.noReferredUser()) : (headerView.title.text = R.string.localizable.referredUserList())
             headerView.title.textColor = UIColor.black
@@ -131,7 +147,7 @@ extension YourAffiliateLinkViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         let cellTitle = YourAffiliateLink.yourAffiliteLinks[section]
-        return cellTitle.type == .listOfReferredUsers && section == 1 ? 40.0 : 10.0
+        return cellTitle.type == .listOfReferredUsers ? 40.0 : 10.0
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -140,7 +156,13 @@ extension YourAffiliateLinkViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let cellTitle = YourAffiliateLink.yourAffiliteLinks[indexPath.section]
-        return cellTitle.type == .activateAffiliateLink ? 140 : 40
+        if cellTitle.type == .activateAffiliateLink {
+            return 140
+        } else if cellTitle.type == .listOfReferredUsers && !referredUserList.isEmpty {
+            return 75
+        } else {
+            return 40
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

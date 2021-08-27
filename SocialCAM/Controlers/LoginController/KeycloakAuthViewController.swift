@@ -18,7 +18,7 @@ class KeycloakAuthViewController: UIViewController {
     // MARK: - Variables
     internal var isRegister = true
     var urlString = ""
-    var isSessionCodeExist = false
+    var isSessionCodeExist = true
     
     // MARK: - ViewController Life Cycle
     override func viewDidLoad() {
@@ -85,11 +85,11 @@ extension KeycloakAuthViewController: WKNavigationDelegate {
                 }
             }
             let urlString = "\(url)"
-            if urlString.contains("quickcamrefer://app?refferingChannel=") {
+            if urlString.contains("\(redirectUri)?refferingChannel=") {
                 if !isSessionCodeExist {
-                    let paramOne = urlString.split(separator: "&")
-                    let referringChannel = String(paramOne.first?.split(separator: "=").last ?? "")
-                    let channelId = String(paramOne.last?.split(separator: "=").last ?? "")
+                    let separatedString = urlString.split(separator: "&")
+                    let referringChannel = String(separatedString.first?.split(separator: "=").last ?? "")
+                    let channelId = String(separatedString.last?.split(separator: "=").last ?? "")
                     self.createUser(referringChannel: referringChannel, channelId: channelId)
                 } else {
                     self.redirectToHomeScreen()
@@ -109,7 +109,10 @@ extension KeycloakAuthViewController: WKNavigationDelegate {
 extension KeycloakAuthViewController {
     
     func loginWithKeycloak(code: String, redirectUrl: String) {
-        ProManagerApi.loginWithKeycloak(code: code, redirectUrl: redirectUrl).request(Result<LoginResult>.self).subscribe(onNext: { (response) in
+        ProManagerApi.loginWithKeycloak(code: code, redirectUrl: redirectUrl).request(Result<LoginResult>.self).subscribe(onNext: { [weak self] (response) in
+            guard let `self` = self else {
+                return
+            }
             if response.status == ResponseType.success {
                 self.goHomeScreen(response)
             }
@@ -176,7 +179,10 @@ extension KeycloakAuthViewController {
     }
     
     func createUser(referringChannel: String, channelId: String) {
-        ProManagerApi.createUser(channelId: channelId, refferingChannel: referringChannel).request(Result<LoginResult>.self).subscribe(onNext: { (response) in
+        ProManagerApi.createUser(channelId: channelId, refferingChannel: referringChannel).request(Result<LoginResult>.self).subscribe(onNext: { [weak self] (response) in
+            guard let `self` = self else {
+                return
+            }
             if response.status == ResponseType.success {
                 Defaults.shared.sessionToken = response.sessionToken
                 self.isSessionCodeExist = true
