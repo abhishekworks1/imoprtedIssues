@@ -6391,24 +6391,24 @@ Countdown</string>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fza-d6-2g2">
-                                                    <rect key="frame" x="83" y="22" width="39.666666666666657" height="19.333333333333329"/>
+                                                    <rect key="frame" x="83" y="30" width="39.666666666666657" height="19.333333333333329"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WLm-MT-80n">
-                                                    <rect key="frame" x="83" y="5" width="35.333333333333343" height="17"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <nil key="textColor"/>
+                                                    <rect key="frame" x="83" y="10" width="36.666666666666657" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                                    <color key="textColor" name="AppPrimaryColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="Fza-d6-2g2" firstAttribute="leading" secondItem="wqV-SC-1OI" secondAttribute="trailing" constant="8" symbolic="YES" id="32X-Ss-tpw"/>
-                                                <constraint firstItem="Fza-d6-2g2" firstAttribute="top" secondItem="WLm-MT-80n" secondAttribute="bottom" id="5LK-77-mNG"/>
+                                                <constraint firstItem="Fza-d6-2g2" firstAttribute="top" secondItem="WLm-MT-80n" secondAttribute="bottom" constant="3" id="5LK-77-mNG"/>
                                                 <constraint firstItem="wqV-SC-1OI" firstAttribute="leading" secondItem="McD-u7-bYG" secondAttribute="leading" constant="15" id="AHb-dc-oiR"/>
                                                 <constraint firstItem="WLm-MT-80n" firstAttribute="leading" secondItem="wqV-SC-1OI" secondAttribute="trailing" constant="8" symbolic="YES" id="Ye2-kt-Rxh"/>
-                                                <constraint firstItem="WLm-MT-80n" firstAttribute="top" secondItem="McD-u7-bYG" secondAttribute="top" constant="5" id="ebg-HQ-z8V"/>
+                                                <constraint firstItem="WLm-MT-80n" firstAttribute="top" secondItem="McD-u7-bYG" secondAttribute="top" constant="10" id="ebg-HQ-z8V"/>
                                                 <constraint firstItem="wqV-SC-1OI" firstAttribute="centerY" secondItem="McD-u7-bYG" secondAttribute="centerY" id="iTj-Xx-qbY"/>
                                             </constraints>
                                         </tableViewCellContentView>

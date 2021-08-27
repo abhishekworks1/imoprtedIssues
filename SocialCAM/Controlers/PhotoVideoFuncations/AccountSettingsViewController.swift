@@ -129,7 +129,7 @@ extension AccountSettingsViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 1.0
+        return AccountSettings.accountSettings[section].settingsType == .referringChannelName ? 10.0 : 1.0
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
