@@ -92,10 +92,10 @@ extension AccountSettingsViewController: UITableViewDataSource {
             }
             referringChannelNameCell.lblReferringChannelTitle.text = R.string.localizable.referringChannelName()
             if let name = Defaults.shared.currentUser?.refferingChannel,
-               let userImageUrl = Defaults.shared.currentUser?.profileImageURL {
+               let userImageUrl = Defaults.shared.currentUser?.refferedBy?.profileImageURL {
                 referringChannelNameCell.lblChannelName.text = R.string.localizable.referringChannel(name)
                 referringChannelNameCell.userImageView.layer.cornerRadius = referringChannelNameCell.userImageView.bounds.width / 2
-                referringChannelNameCell.userImageView.image = R.image.user_placeholder()
+                referringChannelNameCell.userImageView.sd_setImage(with: URL.init(string: userImageUrl), placeholderImage: ApplicationSettings.userPlaceHolder)
             }
             return referringChannelNameCell
         } else if settingTitle.settingsType == .deleteAccount {

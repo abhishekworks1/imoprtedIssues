@@ -83,6 +83,7 @@ class SubscriptionsViewController: UIViewController {
     }
     
     private func setupUI() {
+        let subscriptionData = subscriptionsList.filter({$0.productId == Constant.IAPProductIds.quickCamLiteBasic})
         if let currentUser = Defaults.shared.currentUser {
             lblExpiryDate.text = R.string.localizable.expiryDaysLeft("\(Defaults.shared.numberOfFreeTrialDays ?? 0)")
             if currentUser.isTempSubscription ?? false && subscriptionType != .free && Defaults.shared.appMode != .free {
@@ -103,7 +104,14 @@ class SubscriptionsViewController: UIViewController {
             }
         }
         self.lblTitle.text = self.subscriptionType.description
-        self.lblPrice.text = self.subscriptionType.price
+        DispatchQueue.main.async {
+            if let price = subscriptionData.first?.price,
+               price == 1.99 {
+                self.lblPrice.text = (self.subscriptionType != .free) ? "$\(price)/Month" : self.subscriptionType.price
+            } else {
+                self.lblPrice.text = self.subscriptionType.price
+            }
+        }
         if Defaults.shared.appMode == self.subscriptionType {
             if Defaults.shared.isDowngradeSubscription == true && Defaults.shared.appMode != .free {
                 btnUpgrade.setTitle(R.string.localizable.upgradeNow(), for: .normal)
@@ -120,7 +128,6 @@ class SubscriptionsViewController: UIViewController {
         } else {
             self.setDowngradeButton()
         }
-        let subscriptionData = subscriptionsList.filter({$0.productId == Constant.IAPProductIds.quickCamLiteBasic})
         Defaults.shared.subscriptionId = subscriptionData.first?.id ?? ""
     }
     
