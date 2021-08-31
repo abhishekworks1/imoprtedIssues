@@ -191,6 +191,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     @IBOutlet weak var quickLinkTooltipView: UIView!
     @IBOutlet weak var lblQuickLinkTooltipView: UILabel!
     @IBOutlet weak var btnDoNotShowAgain: UIButton!
+    @IBOutlet weak var appSurveyPopupView: UIView!
     
     // MARK: Variables
     var recordButtonCenterPoint: CGPoint = CGPoint.init()
@@ -600,6 +601,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         view.bringSubviewToFront(selectTimersView)
         view.bringSubviewToFront(switchingAppView)
         view.bringSubviewToFront(quickLinkTooltipView)
+        view.bringSubviewToFront(appSurveyPopupView)
         self.syncUserModel()
         getUserSettings()
         if isQuickCamLiteApp || isQuickCamApp {
@@ -2437,17 +2439,7 @@ extension StoryCameraViewController {
     }
     
     func showAlertForAppSurvey() {
-        let alert = UIAlertController(title: Constant.Application.displayName, message: R.string.localizable.applicationSurvey(), preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: R.string.localizable.sure(), style: .default, handler: { (_) in
-            guard let url = URL(string: Constant.URLs.applicationSurveyURL) else {
-                return
-            }
-            UIApplication.shared.open(url)
-        }))
-        alert.addAction(UIAlertAction(title: R.string.localizable.noThanks(), style: .cancel, handler: { (_) in
-            self.view.makeToast(R.string.localizable.youCanFillUpThisFormAnytimeFromOurSettingsMenu())
-        }))
-        self.present(alert, animated: true, completion: nil)
+        appSurveyPopupView.isHidden = false
     }
     
     func getUserSettings() {

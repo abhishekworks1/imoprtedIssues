@@ -568,6 +568,18 @@ extension StoryCameraViewController {
         }
     }
     
+    @IBAction func btnNotYetTapped(_ sender: UIButton) {
+        appSurveyPopupView.isHidden = true
+        self.view.makeToast(R.string.localizable.youCanFillUpThisFormAnytimeFromOurSettingsMenu())
+    }
+    
+    @IBAction func btnSureTapped(_ sender: UIButton) {
+        appSurveyPopupView.isHidden = true
+        guard let url = URL(string: Constant.URLs.applicationSurveyURL) else {
+            return
+        }
+        UIApplication.shared.open(url)
+    }
 }
 
 // MARK: StoryUploadDelegate
