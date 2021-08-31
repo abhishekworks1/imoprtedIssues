@@ -23,6 +23,7 @@ class ReferredUser: Mappable {
     var profileImageURL: String?
     var refferingChannel: String?
     var username: String?
+    var followers: Int?
     
     required init?(map: Map) {
         
@@ -41,5 +42,6 @@ class ReferredUser: Mappable {
         profileImageURL <- map["profileImageURL"]
         refferingChannel <- map["refferingChannel"]
         username <- map["username"]
+        followers <- map["followers"]
     }
 }
