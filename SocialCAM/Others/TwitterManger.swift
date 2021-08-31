@@ -132,6 +132,19 @@ open class TwitterManger: NSObject {
         }
     }
     
+    func uploadTextOnTwitter(withText text: String = Constant.Application.displayName, completion: @escaping (Bool, String?) -> Void) {
+        guard let userId = store.session()?.userID else { return }
+        let client = TWTRAPIClient.init(userID: userId)
+        client.sendTweet(withText: text) { (tweet, error) in
+            if let error = error {
+                print(error.localizedDescription as Any)
+                completion(false, error.localizedDescription)
+            } else {
+                completion(true, tweet?.author.name)
+            }
+        }
+    }
+    
     func uploadVideoOnTwitter(withText text: String = Constant.Application.displayName, videoUrl: URL, completion: @escaping (Bool, String?) -> Void) {
         guard let userId = store.session()?.userID else { return }
         let client = TWTRAPIClient.init(userID: userId)

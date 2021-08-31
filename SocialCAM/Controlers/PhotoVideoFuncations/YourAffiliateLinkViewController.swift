@@ -31,7 +31,13 @@ class YourAffiliateLinkViewController: UIViewController {
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewSetUp()
+        setupForQuickApp()
+    }
+    
+    func setupForQuickApp() {
+        refresh(index: self.referredUserPageIndex)
+        YourAffiliateLink.yourAffiliteLinks.removeAll()
+        getReferralsCell()
     }
     
     func viewSetUp() {
@@ -62,6 +68,11 @@ class YourAffiliateLinkViewController: UIViewController {
         let activateAffiliateLinkCell = YourAffiliateLink(name: "", settings: [AffiliateSetting(name: "")], type: .activateAffiliateLink)
         let listOfReferredUserCell = YourAffiliateLink(name: "", settings: [AffiliateSetting(name: "")], type: .listOfReferredUsers)
         YourAffiliateLink.yourAffiliteLinks.append(activateAffiliateLinkCell)
+        YourAffiliateLink.yourAffiliteLinks.append(listOfReferredUserCell)
+    }
+    
+    func getReferralsCell() {
+        let listOfReferredUserCell = YourAffiliateLink(name: "", settings: [AffiliateSetting(name: "")], type: .listOfReferredUsers)
         YourAffiliateLink.yourAffiliteLinks.append(listOfReferredUserCell)
     }
     
@@ -137,8 +148,9 @@ extension YourAffiliateLinkViewController: UITableViewDelegate {
         let cellTitle = YourAffiliateLink.yourAffiliteLinks[section]
         if cellTitle.type == .listOfReferredUsers {
             headerView.title.isHidden = false
+            headerView.title.textAlignment = .center
             referredUserList.isEmpty ? (headerView.title.text = R.string.localizable.noReferredUser()) : (headerView.title.text = R.string.localizable.referredUserList())
-            headerView.title.textColor = UIColor.black
+            headerView.title.textColor = R.color.appPrimaryColor()
         } else {
             headerView.title.isHidden = true
         }
@@ -159,7 +171,7 @@ extension YourAffiliateLinkViewController: UITableViewDelegate {
         if cellTitle.type == .activateAffiliateLink {
             return 140
         } else if cellTitle.type == .listOfReferredUsers && !referredUserList.isEmpty {
-            return 75
+            return 85
         } else {
             return 40
         }

@@ -37,6 +37,7 @@ class CameraSettings {
         StorySettings(name: R.string.localizable.guidelineThickness(), settings:
             [StorySetting(name: R.string.localizable.free(), selected: true)], settingsType: .guidelineTickness),
         StorySettings(name: R.string.localizable.guidelineColor(), settings: [StorySetting(name: R.string.localizable.free(), selected: true)], settingsType: .guidelineColor),
+        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.watermark(), selected: false)], settingsType: .watermarkSettings),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.light(), selected: false)], settingsType: .watermarkAlpha30),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.medium(), selected: false)], settingsType: .watermarkAlpha50),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.dark(), selected: false)], settingsType: .watermarkAlpha80)
@@ -155,7 +156,10 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
             } else {
                 cell.onOffButton.isSelected = false
             }
+        } else if settingTitle.settingsType == .watermarkSettings {
+            cell.onOffButton.isHidden = true
         } else if settingTitle.settingsType == .watermarkAlpha30 || settingTitle.settingsType == .watermarkAlpha50 || settingTitle.settingsType == .watermarkAlpha80 {
+            cell.onOffButton.isHidden = false
             cell.onOffButton.isSelected = Defaults.shared.waterarkOpacity == settingTitle.settingsType.rawValue
         } else if settingTitle.settingsType == .videoResolution {
             cell.onOffButton.isHidden = true
@@ -207,6 +211,10 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
                 headerView.userImage.image = ApplicationSettings.userPlaceHolder
             }
             headerView.userName.text = R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? "")
+        } else if settingTitle.settingsType == .watermarkAlpha30 {
+            headerView.title.isHidden = false
+            headerView.title.text = R.string.localizable.watermarkOpacity()
+            headerView.title.textColor = R.color.appPrimaryColor()
         }
         return headerView
     }
@@ -219,6 +227,8 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
             return 80
         } else if settingTitle.settingsType == .skipYoutubeLogin || settingTitle.settingsType == .saveVideoAfterRecording || settingTitle.settingsType == .muteRecordingSlowMotion || settingTitle.settingsType == .muteRecordingFastMotion {
             return 20
+        } else if settingTitle.settingsType == .watermarkAlpha30 {
+            return 40
         } else {
             return 1
         }
@@ -247,6 +257,10 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
         } else if settingTitle.settingsType == .watermarkAlpha30 || settingTitle.settingsType == .watermarkAlpha50 || settingTitle.settingsType == .watermarkAlpha80 {
             Defaults.shared.waterarkOpacity = settingTitle.settingsType.rawValue
             tableView.reloadData()
+        } else if settingTitle.settingsType == .watermarkSettings {
+            if let watermarkSettingsVC = R.storyboard.storyCameraViewController.watermarkSettingsViewController() {
+                navigationController?.pushViewController(watermarkSettingsVC, animated: true)
+            }
         }
     }
     

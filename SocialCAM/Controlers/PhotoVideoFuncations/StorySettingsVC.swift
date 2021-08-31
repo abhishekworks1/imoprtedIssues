@@ -57,6 +57,7 @@ enum SettingsMode: Int {
     case saveVideoAfterRecording
     case muteRecordingSlowMotion
     case muteRecordingFastMotion
+    case shareSetting
 }
 
 class StorySetting {
@@ -105,9 +106,9 @@ class StorySettings {
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.system(), selected: false)], settingsType: .system),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.promote(), selected: false)], settingsType: .watermarkSettings),
+                                              settings: [StorySetting(name: R.string.localizable.share(), selected: false)], settingsType: .shareSetting),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.yourAffiliateLink(), selected: false)], settingsType: .goToWebsite),
+                                              settings: [StorySetting(name: R.string.localizable.yourReferrals(), selected: false)], settingsType: .goToWebsite),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.applicationSurvey(), selected: false)], settingsType: .applicationSurvey),
                                 StorySettings(name: "",
@@ -281,9 +282,11 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         cell.settingsName.text = settings.name
         cell.detailButton.isHidden = true
         cell.settingsName.textColor = R.color.appBlackColor()
-        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video || settingTitle.settingsType == .cameraSettings || settingTitle.settingsType == .termsAndConditions || settingTitle.settingsType == .privacyPolicy || settingTitle.settingsType == .goToWebsite || settingTitle.settingsType == .watermarkSettings || settingTitle.settingsType == .applicationSurvey || settingTitle.settingsType == .intellectualProperties || settingTitle.settingsType == .help || settingTitle.settingsType == .system || settingTitle.settingsType == .accountSettings {
+        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video || settingTitle.settingsType == .cameraSettings || settingTitle.settingsType == .termsAndConditions || settingTitle.settingsType == .privacyPolicy || settingTitle.settingsType == .goToWebsite || settingTitle.settingsType == .watermarkSettings || settingTitle.settingsType == .applicationSurvey || settingTitle.settingsType == .intellectualProperties || settingTitle.settingsType == .help || settingTitle.settingsType == .system || settingTitle.settingsType == .accountSettings || settingTitle.settingsType == .shareSetting {
             if settingTitle.settingsType == .appInfo {
                 cell.settingsName.textColor = R.color.appPrimaryColor()
+            } else if settingTitle.settingsType == .applicationSurvey {
+                cell.settingsName.alpha = 0.5
             }
             cell.onOffButton.isHidden = true
         } else if settingTitle.settingsType == .socialLogins {
@@ -357,7 +360,9 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             headerView.userImage.isHidden = true
             headerView.addProfilePic.isHidden = true
         }
-        headerView.btnProfilePic.addTarget(self, action: #selector(btnEditProfilePic), for: .touchUpInside)
+        if headerView.section == 0 {
+            headerView.btnProfilePic.addTarget(self, action: #selector(btnEditProfilePic), for: .touchUpInside)
+        }
         
         return headerView
     }
@@ -479,8 +484,10 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 navigationController?.pushViewController(yourAffiliateLinkVC, animated: true)
             }
         } else if settingTitle.settingsType == .applicationSurvey {
-            guard let url = URL(string: Constant.URLs.applicationSurveyURL) else { return }
-            presentSafariBrowser(url: url)
+            if !isQuickApp {
+                guard let url = URL(string: Constant.URLs.applicationSurveyURL) else { return }
+                presentSafariBrowser(url: url)
+            }
         } else if settingTitle.settingsType == .watermarkSettings {
             if let watermarkSettingsVC = R.storyboard.storyCameraViewController.watermarkSettingsViewController() {
                 navigationController?.pushViewController(watermarkSettingsVC, animated: true)
@@ -500,6 +507,10 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             isDeletePopup = true
             showHideButtonView(isHide: true)
             logoutPopupView.isHidden = false
+        } else if settingTitle.settingsType == .shareSetting {
+            if let shareSettingViewController = R.storyboard.storyCameraViewController.shareSettingViewController() {
+                navigationController?.pushViewController(shareSettingViewController, animated: true)
+            }
         }
     }
     
