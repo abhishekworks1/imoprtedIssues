@@ -82,6 +82,8 @@ class TwitterComposeViewController: UIViewController, UINavigationControllerDele
                 twitterVideoShare(image: image, text: text)
             } else if let url = self.preselectedVideoUrl, let text = inputTextView?.text {
                 twitterVideoShare(url, text: text)
+            } else if let text = inputTextView?.text {
+                twitterVideoShare(text: text)
             }
         }
     }
@@ -172,6 +174,17 @@ class TwitterComposeViewController: UIViewController, UINavigationControllerDele
             }
         } else if let videoUrl = url {
             TwitterManger.shared.uploadVideoOnTwitter(withText: text, videoUrl: videoUrl) { [weak self] (isSuccess, _) in
+                guard let `self` = self else {
+                    return
+                }
+                if isSuccess {
+                    self.showSuccessAlert()
+                } else {
+                    self.showFailureAlert()
+                }
+            }
+        } else {
+            TwitterManger.shared.uploadTextOnTwitter(withText: text) { [weak self] (isSuccess, _) in
                 guard let `self` = self else {
                     return
                 }

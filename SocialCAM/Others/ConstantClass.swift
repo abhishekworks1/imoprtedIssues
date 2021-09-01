@@ -220,8 +220,8 @@ public struct Constant {
         static let consumerKey: String = "y39BclEMDbGXVzAaiXv55PGrn"
         static let consumerSecret: String = "o4NcSHnBPaS1jeNW4xjMGg2WTVHm3HUV7WPsCt3b4nRWHa2Kcf"
         #elseif QUICKAPP
-        static let consumerKey: String = "bk4XD4mRg0CDa7ffAoWRLvYq6"
-        static let consumerSecret: String = "WejpCOFFNKtOolNAihK3qj6v88SjkA2uNY5Fb6n4Qg04piG0H7"
+        static let consumerKey: String = "xzyFMxK0covEysGtoRdh2xv2W"
+        static let consumerSecret: String = "OKdmJ8LXefqYowVZKSSM6nWyQcnxcaiJjF20r6ceniYqYkDa33"
         #else
         static let consumerKey: String = "DJCr4ckk2RhVWckLrw524qcou"
         static let consumerSecret: String = "w20x8fh0Cqgh4iJDYscTMmlzMEalcgouPqHnuRoXb6rdzA7Uzk"

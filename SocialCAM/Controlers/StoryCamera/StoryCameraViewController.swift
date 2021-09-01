@@ -2295,6 +2295,7 @@ extension StoryCameraViewController {
             storyEditorViewController.isBoomerang = photosSelection ? false : (self.recordingType == .boomerang)
             storyEditorViewController.medias = medias
             storyEditorViewController.isSlideShow = isSlideShow
+            storyEditorViewController.isFromGallery = photosSelection
             self.navigationController?.pushViewController(storyEditorViewController, animated: false)
             self.removeData()
         }

@@ -297,6 +297,7 @@ class StoryEditorViewController: UIViewController {
     var isDiscardVideoPopupHide = false
     var storyEditorsSubviews: [StoryEditorView] = []
     var isTrim = false
+    var isFromGallery = false
     
     var isViewEditMode: Bool = false {
         didSet {
@@ -368,6 +369,11 @@ class StoryEditorViewController: UIViewController {
             btnSelectAppIdentifierWatermark.isSelected = true
             btnSelectedMadeWithGif.isSelected = true
         }
+        if Defaults.shared.isVideoSavedAfterRecording == true && !isFromGallery {
+            DispatchQueue.main.async {
+                self.view.makeToast(R.string.localizable.videoSaved())
+            }
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -417,7 +423,9 @@ class StoryEditorViewController: UIViewController {
 
             
             storyEditorView.center = mediaImageView.center
-            storyEditorView.filters = StoryFilter.filters
+            if !isQuickApp {
+                storyEditorView.filters = StoryFilter.filters
+            }
             storyEditorView.addTikTokShareViewIfNeeded()
             if index > 0 {
                 storyEditorView.isHidden = true
