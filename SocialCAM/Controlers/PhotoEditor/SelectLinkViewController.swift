@@ -43,11 +43,11 @@ class SelectLinkViewController: UIViewController {
     // MARK: - Action Methods
     @IBAction func btnYesTapped(_ sender: UIButton) {
         yourAffiliateLinkVC.setAffiliate(setAffiliateValue: true)
-        callDidSelectMethod(type: QuickCamLiteApp.SSUTagType.quickApp)
+        callDidSelectMethod(type: QuickCam.SSUTagType.quickApp)
         dismiss(animated: true, completion: nil)
     }
     @IBAction func btnNoTapped(_ sender: UIButton) {
-        callDidSelectMethod(type: QuickCamLiteApp.SSUTagType.quickApp)
+        callDidSelectMethod(type: QuickCam.SSUTagType.quickApp)
         dismiss(animated: true, completion: nil)
     }
     @IBAction func btnOkTapped(_ sender: UIButton) {
@@ -112,23 +112,23 @@ extension SelectLinkViewController: UITableViewDelegate {
                 activateAffiliateLinkPopup.isHidden = false
                 Defaults.shared.isAffiliatePopupShowed = true
             } else {
-                callDidSelectMethod(type: QuickCamLiteApp.SSUTagType.quickApp)
+                callDidSelectMethod(type: QuickCam.SSUTagType.quickApp)
                 dismiss(animated: true, completion: nil)
             }
         } else if linkTitle.linkType == .vidPlay {
-            callDidSelectMethod(type: QuickCamLiteApp.SSUTagType.vidPlay)
+            callDidSelectMethod(type: QuickCam.SSUTagType.vidPlay)
             dismiss(animated: true, completion: nil)
         } else if linkTitle.linkType == .businessCenter {
-            callDidSelectMethod(type: QuickCamLiteApp.SSUTagType.businessCenter)
+            callDidSelectMethod(type: QuickCam.SSUTagType.businessCenter)
             dismiss(animated: true, completion: nil)
         } else if linkTitle.linkType == .enterLink {
             backgroundView.isHidden = true
             selectLinkTableView.isHidden = true
             blurBackGroundView.isHidden = false
             enterLinkPopupView.isHidden = false
-            callDidSelectMethod(type: QuickCamLiteApp.SSUTagType.enterLink)
+            callDidSelectMethod(type: QuickCam.SSUTagType.enterLink)
         } else if linkTitle.linkType == .noLink {
-            callDidSelectMethod(type: QuickCamLiteApp.SSUTagType.noLink)
+            callDidSelectMethod(type: QuickCam.SSUTagType.noLink)
             dismiss(animated: true, completion: nil)
         }
     }
