@@ -13,6 +13,9 @@ class EditProfilePicViewController: UIViewController {
     
     // MARK: - Outlets declaration
     @IBOutlet weak var imgProfilePic: UIImageView!
+    @IBOutlet weak var btnProfilePic: UIButton!
+    @IBOutlet weak var btnPlusButton: UIButton!
+    var isSignUpFlow: Bool = false
     
     // MARK: - Variables declaration
     private var localImageUrl: URL?
@@ -23,17 +26,32 @@ class EditProfilePicViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
+            if userImageURL.isEmpty {
+                imgProfilePic.image = R.image.userIconWithPlus()
+                return
+            }
             imgProfilePic.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
+            imgProfilePic.layer.cornerRadius = imgProfilePic.bounds.width / 2
+            imgProfilePic.contentMode = .scaleAspectFill
+            btnProfilePic.layer.cornerRadius = btnProfilePic.bounds.width / 2
         } else {
-            imgProfilePic.image = R.image.user_placeholder()
+            imgProfilePic.image = R.image.userIconWithPlus()
         }
-        imgProfilePic.layer.cornerRadius = imgProfilePic.bounds.width / 2
-        imgProfilePic.contentMode = .scaleAspectFill
     }
     
     // MARK: - Action Methods
     @IBAction func btnBackTapped(_ sender: UIButton) {
-        navigationController?.popViewController(animated: true)
+        if isSignUpFlow {
+            self.dismiss(animated: false) {
+                let tooltipViewController = R.storyboard.loginViewController.tooltipViewController()
+                Utils.appDelegate?.window?.rootViewController = tooltipViewController
+                tooltipViewController?.blurView.isHidden = false
+                tooltipViewController?.blurView.alpha = 0.7
+                tooltipViewController?.signupTooltipView.isHidden = false
+            }
+        } else {
+            navigationController?.popViewController(animated: true)
+        }
     }
     
     @IBAction func btnUpdateTapped(_ sender: UIButton) {

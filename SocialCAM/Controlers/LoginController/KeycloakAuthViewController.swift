@@ -14,6 +14,12 @@ class KeycloakAuthViewController: UIViewController {
     
     // MARK: - Outlets
     @IBOutlet weak var webView: WKWebView!
+    @IBOutlet weak var loginTooltip: UIView!
+    @IBOutlet weak var lblLoginTooltip: UILabel!
+    @IBOutlet weak var doNotShowAgainView: UIView!
+    @IBOutlet weak var btnDoNotShowAgain: UIButton!
+    @IBOutlet weak var tooltipView: UIView!
+    var isProfileTooltipHide = false
     
     // MARK: - Variables
     internal var isRegister = true
@@ -51,6 +57,46 @@ class KeycloakAuthViewController: UIViewController {
     // MARK: - Button Action Methods
     @IBAction func btnBackTapped(_ sender: Any) {
         webView.canGoBack ? webView.goBack() : self.navigationController?.popViewController(animated: true)
+    }
+    
+    /// Hide and show tooltip
+    private func hideShowTooltipView(shouldShow: Bool) {
+        self.loginTooltip.isHidden = !shouldShow
+        self.tooltipView.isHidden = !shouldShow
+    }
+    
+    @IBAction func btnDoNotShowAgainClicked(_ sender: UIButton) {
+        btnDoNotShowAgain.isSelected = !btnDoNotShowAgain.isSelected
+        isProfileTooltipHide = !isProfileTooltipHide
+        Defaults.shared.isProfileTooltipHide = isProfileTooltipHide
+        Defaults.shared.isShowAllPopUpChecked = false
+    }
+    
+    @IBAction func btnOkayClicked(_ sender: UIButton) {
+        self.hideShowTooltipView(shouldShow: false)
+        self.doNotShowAgainAPI()
+        if let editProfilePicViewController = R.storyboard.storyCameraViewController.editProfilePicViewController() {
+            editProfilePicViewController.isSignUpFlow = true
+            navigationController?.pushViewController(editProfilePicViewController, animated: true)
+        }
+    }
+    
+    @IBAction func btnCancelClicked(_ sender: UIButton) {
+        self.hideShowTooltipView(shouldShow: false)
+        self.doNotShowAgainAPI()
+        let tooltipViewController = R.storyboard.loginViewController.tooltipViewController()
+        Utils.appDelegate?.window?.rootViewController = tooltipViewController
+        tooltipViewController?.blurView.isHidden = false
+        tooltipViewController?.blurView.alpha = 0.7
+        tooltipViewController?.signupTooltipView.isHidden = false
+    }
+    
+    func doNotShowAgainAPI() {
+        ProManagerApi.doNotShowAgain(isDoNotShowMessage: btnDoNotShowAgain.isSelected).request(Result<LoginResult>.self).subscribe(onNext: { (response) in
+        }, onError: { error in
+            self.showAlert(alertMessage: error.localizedDescription)
+        }, onCompleted: {
+        }).disposed(by: rx.disposeBag)
     }
     
 }
@@ -154,7 +200,11 @@ extension KeycloakAuthViewController {
             let urlRequest = URLRequest(url: keycloakURL)
             webView.load(urlRequest)
         } else {
-            Utils.appDelegate?.window?.rootViewController = rootViewController
+            if let isShow = Defaults.shared.currentUser?.isDoNotShowMsg, !isShow && Defaults.shared.currentUser?.profileImageURL == "" {
+                self.hideShowTooltipView(shouldShow: true)
+            } else {
+                Utils.appDelegate?.window?.rootViewController = rootViewController
+            }
         }
         RunLoop.current.run(until: Date(timeIntervalSinceNow: 1.0))
         #endif
@@ -163,11 +213,16 @@ extension KeycloakAuthViewController {
     func redirectToHomeScreen() {
         if let isRegistered = Defaults.shared.isRegistered {
             if isRegistered {
-                let tooltipViewController = R.storyboard.loginViewController.tooltipViewController()
-                Utils.appDelegate?.window?.rootViewController = tooltipViewController
-                tooltipViewController?.blurView.isHidden = false
-                tooltipViewController?.blurView.alpha = 0.7
-                tooltipViewController?.signupTooltipView.isHidden = false
+                self.doNotShowAgainView.isHidden = false
+                if let isShow = Defaults.shared.currentUser?.isDoNotShowMsg, !isShow && Defaults.shared.currentUser?.profileImageURL == "" {
+                    self.hideShowTooltipView(shouldShow: true)
+                } else {
+                    let tooltipViewController = R.storyboard.loginViewController.tooltipViewController()
+                    Utils.appDelegate?.window?.rootViewController = tooltipViewController
+                    tooltipViewController?.blurView.isHidden = false
+                    tooltipViewController?.blurView.alpha = 0.7
+                    tooltipViewController?.signupTooltipView.isHidden = false
+                }
             } else {
                 let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
                 Utils.appDelegate?.window?.rootViewController = rootViewController

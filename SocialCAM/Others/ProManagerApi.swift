@@ -19,6 +19,7 @@ public enum ProManagerApi {
     case connectSocial(socialPlatform: String, socialId: String, socialName: String)
     case removeSocialConnection(socialAccountId: String)
     case logIn(email: String, password: String, deviceToken: String?)
+    case doNotShowAgain(isDoNotShowMessage: Bool)
     case confirmEmail(userId: String, email: String)
     case signUp(email: String, password: String, channel: String, refChannel: String, isBusiness: Bool, socialId:String?, provider:String?, channelName: String, refferId: String?, deviceToken: String?, birthDate: String?, profileImageURL: String?)
     case socialLogin(socialId: String, email: String?)
@@ -267,6 +268,8 @@ extension ProManagerApi: TargetType {
             return Paths.getReferredUsersList
         case .setAffiliate:
             return Paths.setAffiliate
+        case .doNotShowAgain:
+            return Paths.doNotShowAgain
         }
        
     }
@@ -293,6 +296,8 @@ extension ProManagerApi: TargetType {
     public var parameters: [String: Any]? {
         var param = [String: Any]()
         switch self {
+        case .doNotShowAgain(let isDoNotShowAgain):
+            param = ["isDoNotShowMsg": isDoNotShowAgain]
         case .getViralvids(let page, let limit, let socialPlatform):
             param = ["page": page, "limit": limit]
             if let type = socialPlatform {

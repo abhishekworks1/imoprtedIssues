@@ -917,6 +917,33 @@ class Defaults {
         }
     }
     
+    var isProfileTooltipHide: Bool {
+        get {
+            return appDefaults?.value(forKey: "isProfileTooltipShow") as? Bool ?? false
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isProfileTooltipShow")
+        }
+    }
+    
+    var muteOnSlowMotion: Bool {
+        get {
+            return (appDefaults?.value(forKey: "muteOnSlowMotion") as? Bool) ?? true
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "muteOnSlowMotion")
+        }
+    }
+    
+    var muteOnFastMotion: Bool {
+        get {
+            return (appDefaults?.value(forKey: "muteOnFastMotion") as? Bool) ?? true
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "muteOnFastMotion")
+        }
+    }
+    
     func clearData(isDeleteAccount: Bool = false) {
         if let appDefaultsDictionary = appDefaults?.dictionaryRepresentation() {
             appDefaultsDictionary.keys.forEach { key in
