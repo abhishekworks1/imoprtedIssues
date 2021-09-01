@@ -602,7 +602,9 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         view.bringSubviewToFront(switchingAppView)
         view.bringSubviewToFront(quickLinkTooltipView)
         view.bringSubviewToFront(appSurveyPopupView)
-        self.syncUserModel()
+        self.syncUserModel { _ in
+            
+        }
         getUserSettings()
         if isQuickCamLiteApp || isQuickCamApp {
             addObserverForRecordingView()
@@ -1639,7 +1641,9 @@ extension StoryCameraViewController {
     
     @objc func enterForeground(_ notifi: Notification) {
         if isViewAppear {
-            syncUserModel()
+            syncUserModel { _ in
+                
+            }
             startCapture()
             addTikTokShareViewIfNeeded()
             if let pasteboard = UIPasteboard(name: UIPasteboard.Name(rawValue: Constant.Application.pasteboardName), create: true),
@@ -2563,7 +2567,7 @@ extension StoryCameraViewController {
         }
     }
     
-    func syncUserModel() {
+    func syncUserModel(completion: @escaping (_ isCompleted: Bool?) -> Void) {
         ProManagerApi.userSync.request(Result<UserSyncModel>.self).subscribe(onNext: { (response) in
             if response.status == ResponseType.success {
                 Defaults.shared.currentUser = response.result?.user
@@ -2575,6 +2579,7 @@ extension StoryCameraViewController {
                 if let isAllowAffiliate = response.result?.user?.isAllowAffiliate {
                     Defaults.shared.isAffiliateLinkActivated = isAllowAffiliate
                 }
+                completion(true)
             } else {
                 self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
             }

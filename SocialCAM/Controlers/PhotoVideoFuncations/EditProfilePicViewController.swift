@@ -15,12 +15,13 @@ class EditProfilePicViewController: UIViewController {
     @IBOutlet weak var imgProfilePic: UIImageView!
     @IBOutlet weak var btnProfilePic: UIButton!
     @IBOutlet weak var btnPlusButton: UIButton!
-    var isSignUpFlow: Bool = false
     
     // MARK: - Variables declaration
     private var localImageUrl: URL?
     private var imagePicker = UIImagePickerController()
     var storyCameraVCInstance = StoryCameraViewController()
+    var isSignUpFlow: Bool = false
+    var isImageSelected = false
     
     // MARK: - View Controller Life Cycle
     override func viewDidLoad() {
@@ -41,21 +42,21 @@ class EditProfilePicViewController: UIViewController {
     
     // MARK: - Action Methods
     @IBAction func btnBackTapped(_ sender: UIButton) {
-        if isSignUpFlow {
-            self.dismiss(animated: false) {
-                let tooltipViewController = R.storyboard.loginViewController.tooltipViewController()
-                Utils.appDelegate?.window?.rootViewController = tooltipViewController
-                tooltipViewController?.blurView.isHidden = false
-                tooltipViewController?.blurView.alpha = 0.7
-                tooltipViewController?.signupTooltipView.isHidden = false
-            }
-        } else {
-            navigationController?.popViewController(animated: true)
-        }
+        self.setupMethod()
     }
     
     @IBAction func btnUpdateTapped(_ sender: UIButton) {
         self.showActionSheet()
+    }
+    
+    @IBAction func btnOKTapped(_ sender: UIButton) {
+        if isImageSelected {
+            if let img = imgProfilePic.image {
+                self.showHUD()
+                self.view.isUserInteractionEnabled = false
+                self.updateProfilePic(image: img)
+            }
+        }
     }
     
 }
@@ -83,9 +84,11 @@ extension EditProfilePicViewController {
     private func showActionSheet() {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: R.string.localizable.gallery(), style: .default, handler: { _ in
+            self.isImageSelected = true
             self.getImage(fromSourceType: .photoLibrary)
         }))
         alert.addAction(UIAlertAction(title: R.string.localizable.camera(), style: .default, handler: { _ in
+            self.isImageSelected = true
             self.getImage(fromSourceType: .camera)
         }))
         alert.addAction(UIAlertAction(title: R.string.localizable.cancel(), style: .cancel, handler: nil))
@@ -108,12 +111,10 @@ extension EditProfilePicViewController: UIImagePickerControllerDelegate, UINavig
             if imgSizeInKb > 8000.0 {
                 imgProfilePic.image = imgProfilePic.image?.resizeWithWidth(width: 2000)
             }
-            self.dismiss(animated: true, completion: nil)
-            if let img = imgProfilePic.image {
-                self.showHUD()
-                self.view.isUserInteractionEnabled = false
-                self.updateProfilePic(image: img)
-            }
+            picker.dismiss(animated: true, completion: nil)
+            imgProfilePic.layer.cornerRadius = imgProfilePic.bounds.width / 2
+            imgProfilePic.contentMode = .scaleAspectFill
+            btnProfilePic.layer.cornerRadius = btnProfilePic.bounds.width / 2
         }
     }
     
@@ -127,7 +128,9 @@ extension EditProfilePicViewController {
             self.dismissHUD()
             self.view.isUserInteractionEnabled = true
             if response.status == ResponseType.success {
-                self.storyCameraVCInstance.syncUserModel()
+                self.storyCameraVCInstance.syncUserModel { (isComplete) in
+                    self.setupMethod()
+                }
             } else {
                 self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
             }
@@ -135,6 +138,25 @@ extension EditProfilePicViewController {
             self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
+    }
+    
+    func setupMethod() {
+        if isSignUpFlow {
+            self.dismiss(animated: false) {
+                if let isRegistered = Defaults.shared.isRegistered, isRegistered {
+                    let tooltipViewController = R.storyboard.loginViewController.tooltipViewController()
+                    Utils.appDelegate?.window?.rootViewController = tooltipViewController
+                    tooltipViewController?.blurView.isHidden = false
+                    tooltipViewController?.blurView.alpha = 0.7
+                    tooltipViewController?.signupTooltipView.isHidden = false
+                } else {
+                    let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
+                    Utils.appDelegate?.window?.rootViewController = rootViewController
+                }
+            }
+        } else {
+            navigationController?.popViewController(animated: true)
+        }
     }
     
 }

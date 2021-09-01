@@ -313,8 +313,8 @@ public struct Constant {
         static let serviceKey: String = "AIzaSyDb7qoLWUdqXgq2rdEvpxFg95iE8Vh20Pc"
         static let placeClientKey: String = "AIzaSyDb7qoLWUdqXgq2rdEvpxFg95iE8Vh20Pc"
         #elseif QUICKAPP
-        static let serviceKey: String = "AIzaSyBAMQXHTLq424mZeMQ02LeUROVP3Cq6Fgo"
-        static let placeClientKey: String = "AIzaSyBAMQXHTLq424mZeMQ02LeUROVP3Cq6Fgo"
+        static let serviceKey: String = "AIzaSyB3nPSELLjcCb4r7kPE9zKpw-j8VaAvaBY"
+        static let placeClientKey: String = "AIzaSyB3nPSELLjcCb4r7kPE9zKpw-j8VaAvaBY"
         #elseif SNAPCAMAPP
         static let serviceKey: String = "AIzaSyD9_sy-klWwfrLTrT4ub-E4fC-iwnzoCG0"
         static let placeClientKey: String = "AIzaSyD9_sy-klWwfrLTrT4ub-E4fC-iwnzoCG0"

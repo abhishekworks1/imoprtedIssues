@@ -41,8 +41,19 @@ class SystemSettingsViewController: UIViewController {
         self.systemSettingsTableView.reloadData()
     }
     
+    func doNotShowAgainAPI() {
+        if let cell: SystemSettingsCell = self.systemSettingsTableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? SystemSettingsCell {
+            ProManagerApi.doNotShowAgain(isDoNotShowMessage: cell.btnSelectShowAllPopup.isSelected).request(Result<LoginResult>.self).subscribe(onNext: { (response) in
+            }, onError: { error in
+                self.showAlert(alertMessage: error.localizedDescription)
+            }, onCompleted: {
+            }).disposed(by: rx.disposeBag)
+        }
+    }
+    
     // MARK: - Action Methods
     @IBAction func onBackPressed(_ sender: UIButton) {
+        self.doNotShowAgainAPI()
         navigationController?.popViewController(animated: true)
     }
 }

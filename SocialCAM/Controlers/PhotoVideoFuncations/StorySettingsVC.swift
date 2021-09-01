@@ -148,7 +148,9 @@ class StorySettingsVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.settingsTableView.reloadData()
-        storyCameraVC.syncUserModel()
+        storyCameraVC.syncUserModel { _ in
+            
+        }
     }
     
     deinit {

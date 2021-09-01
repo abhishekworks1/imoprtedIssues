@@ -84,11 +84,16 @@ class KeycloakAuthViewController: UIViewController {
     @IBAction func btnCancelClicked(_ sender: UIButton) {
         self.hideShowTooltipView(shouldShow: false)
         self.doNotShowAgainAPI()
-        let tooltipViewController = R.storyboard.loginViewController.tooltipViewController()
-        Utils.appDelegate?.window?.rootViewController = tooltipViewController
-        tooltipViewController?.blurView.isHidden = false
-        tooltipViewController?.blurView.alpha = 0.7
-        tooltipViewController?.signupTooltipView.isHidden = false
+        if let isRegistered = Defaults.shared.isRegistered, isRegistered {
+            let tooltipViewController = R.storyboard.loginViewController.tooltipViewController()
+            Utils.appDelegate?.window?.rootViewController = tooltipViewController
+            tooltipViewController?.blurView.isHidden = false
+            tooltipViewController?.blurView.alpha = 0.7
+            tooltipViewController?.signupTooltipView.isHidden = false
+        } else {
+            let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
+            Utils.appDelegate?.window?.rootViewController = rootViewController
+        }
     }
     
     func doNotShowAgainAPI() {

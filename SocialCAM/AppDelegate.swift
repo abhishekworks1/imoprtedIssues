@@ -169,11 +169,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
         } else if isQuickCamLiteApp || isQuickApp {
             print("[FIREBASE] QUICKCAMLITEAPP mode.")
-            if let filePath = Bundle.main.path(forResource: "GoogleService-Info-QuickCamLite", ofType: "plist"),
+            if let filePath = Bundle.main.path(forResource: "GoogleService-Info-QuickCam", ofType: "plist"),
                 let options = FirebaseOptions(contentsOfFile: filePath) {
                     FirebaseApp.configure(options: options)
             } else {
-                fatalError("GoogleService-Info-QuickCamLite.plist is missing!")
+                fatalError("GoogleService-Info-QuickCam.plist is missing!")
             }
             StorySettings.storySettings.filter({$0.settingsType == .socialLogins}).first?.settings.removeLast()
             StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
