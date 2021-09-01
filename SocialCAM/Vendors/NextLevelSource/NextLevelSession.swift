@@ -484,31 +484,40 @@ extension NextLevelSession {
                                                completionHandler: completionHandler)
                     }
                 } else if scaleFactor > 1 {
-                    print("Slow")
-                    // Slow Motion
-                    _audioSkipCount = 0
-                    let formatDescription = CMSampleBufferGetFormatDescription(sampleBuffer)
-                    let streamBasicDescription = CMAudioFormatDescriptionGetStreamBasicDescription(formatDescription!)!
-                    let audioSampleRate = streamBasicDescription.pointee.mSampleRate
-                    let audioNumberOfChannels = streamBasicDescription.pointee.mChannelsPerFrame
-                   
-                    var frames: Int = 2020
-                    if scaleFactor == 3 {
-                        frames = 3040
-                    } else if scaleFactor == 4 {
-                        frames = 4080
-                    } else if scaleFactor == 5 {
-                        frames = 5120
+                    if Defaults.shared.muteOnSlowMotion {
+                        // Slow Motion Silent Append
+                        _audioSkipCount = 0
+                        let formatDescription = CMSampleBufferGetFormatDescription(sampleBuffer)
+                        let streamBasicDescription = CMAudioFormatDescriptionGetStreamBasicDescription(formatDescription!)!
+                        let audioSampleRate = streamBasicDescription.pointee.mSampleRate
+                        let audioNumberOfChannels = streamBasicDescription.pointee.mChannelsPerFrame
+                       
+                        var frames: Int = 2020
+                        if scaleFactor == 3 {
+                            frames = 3040
+                        } else if scaleFactor == 4 {
+                            frames = 4080
+                        } else if scaleFactor == 5 {
+                            frames = 5120
+                        }
+                        guard let sampleBuffer = CMSampleBuffer.silentAudioBuffer(at: self._lastAudioTimestamp, nFrames: frames , sampleRate: audioSampleRate, numChannels: audioNumberOfChannels) else {
+                            return
+                        }
+                        let duration = CMSampleBufferGetDuration(sampleBuffer)
+                        let adjustedBuffer = CMSampleBuffer.createSampleBuffer(fromSampleBuffer: sampleBuffer, withTimeOffset: self._timeOffset, duration: duration)!
+                        
+                        self.appendAudioBuffer(adjustedBuffer,
+                                               dur: duration,
+                                               completionHandler: completionHandler)
+                    } else {
+                        // Slow Motion Append Sound
+                        _audioSkipCount = 0
+                        for _ in 0..<scaleFactor {
+                            self.appendAudioBuffer(adjustedBuffer,
+                                                   dur: duration,
+                                                   completionHandler: completionHandler)
+                        }
                     }
-                    guard let sampleBuffer = CMSampleBuffer.silentAudioBuffer(at: self._lastAudioTimestamp, nFrames: frames , sampleRate: audioSampleRate, numChannels: audioNumberOfChannels) else {
-                        return
-                    }
-                    let duration = CMSampleBufferGetDuration(sampleBuffer)
-                    let adjustedBuffer = CMSampleBuffer.createSampleBuffer(fromSampleBuffer: sampleBuffer, withTimeOffset: self._timeOffset, duration: duration)!
-                    
-                    self.appendAudioBuffer(adjustedBuffer,
-                                           dur: duration,
-                                           completionHandler: completionHandler)
                 } else {
                     // Fast Motion
                     var fastScaleFactor = 1
@@ -522,12 +531,39 @@ extension NextLevelSession {
                         fastScaleFactor = 5
                     }
                     if fastScaleFactor > 1 {
-                        _audioSkipCount += 1
-                        if _audioSkipCount == fastScaleFactor {
+                        if Defaults.shared.muteOnFastMotion {
+                            // Slow Motion Silent Append
                             _audioSkipCount = 0
+                            let formatDescription = CMSampleBufferGetFormatDescription(sampleBuffer)
+                            let streamBasicDescription = CMAudioFormatDescriptionGetStreamBasicDescription(formatDescription!)!
+                            let audioSampleRate = streamBasicDescription.pointee.mSampleRate
+                            let audioNumberOfChannels = streamBasicDescription.pointee.mChannelsPerFrame
+                           
+                            var frames: Int = 2020
+                            if fastScaleFactor == 3 {
+                                frames = 3040
+                            } else if fastScaleFactor == 4 {
+                                frames = 4080
+                            } else if fastScaleFactor == 5 {
+                                frames = 5120
+                            }
+                            guard let sampleBuffer = CMSampleBuffer.silentAudioBuffer(at: self._lastAudioTimestamp, nFrames: frames , sampleRate: audioSampleRate, numChannels: audioNumberOfChannels) else {
+                                return
+                            }
+                            let duration = CMSampleBufferGetDuration(sampleBuffer)
+                            let adjustedBuffer = CMSampleBuffer.createSampleBuffer(fromSampleBuffer: sampleBuffer, withTimeOffset: self._timeOffset, duration: duration)!
+                            
                             self.appendAudioBuffer(adjustedBuffer,
                                                    dur: duration,
                                                    completionHandler: completionHandler)
+                        } else {
+                            _audioSkipCount += 1
+                            if _audioSkipCount == fastScaleFactor {
+                                _audioSkipCount = 0
+                                self.appendAudioBuffer(adjustedBuffer,
+                                                       dur: duration,
+                                                       completionHandler: completionHandler)
+                            }
                         }
                     } else {
                         self.appendAudioBuffer(adjustedBuffer,

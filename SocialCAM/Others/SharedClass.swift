@@ -1040,6 +1040,7 @@ public struct Paths {
     static let updateUserProfile = "user/updateProfile"
     static let getReferredUsersList = "user/referees"
     static let setAffiliate = "user/setAffiliate"
+    static let doNotShowAgain = "user/setFlag"
 }
 
 struct WebsiteData {

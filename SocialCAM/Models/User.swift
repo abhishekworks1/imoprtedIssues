@@ -85,6 +85,7 @@ class User: Codable, Mappable {
     var isTempSubscription: Bool?
     var isAllowAffiliate: Bool?
     var refferedBy : RefferedBy?
+    var isDoNotShowMsg: Bool?
     
     required init?(map: Map) {
         
@@ -139,7 +140,7 @@ class User: Codable, Mappable {
         isBenefactor <- map["isBenefactor"]
         remainingOtherUserPackageCount <- map["remainingOtherUserPackageCount"]
         remainingPackageCount <- map["remainingPackageCount"]
-        
+        isDoNotShowMsg <- map["isDoNotShowMsg"]
         // OtherProfile
         businessName <- map["businessName"]
         created <- map["created"]
