@@ -3153,7 +3153,21 @@ Countdown</string>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Premium Version Only" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QKa-zU-fCT">
+                                                            <rect key="frame" x="314" y="9.3333333333333339" width="0.0" height="17.333333333333329"/>
+                                                            <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="14.600000381469727"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                     </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="trailing" secondItem="QKa-zU-fCT" secondAttribute="trailing" constant="10" id="DdB-3b-qmx"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                            <real key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </stackView>
                                             </subviews>
                                             <constraints>
@@ -3164,8 +3178,10 @@ Countdown</string>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="lblPremiumVersionOnly" destination="QKa-zU-fCT" id="hEq-so-zsI"/>
                                             <outlet property="onOffButton" destination="yGS-8o-LRp" id="sMw-du-OJD"/>
                                             <outlet property="settingsName" destination="CWQ-ji-wJX" id="1T6-Yb-zcC"/>
+                                            <outlet property="stackView" destination="77B-G9-mWE" id="7GV-p6-3KT"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="VideoResolutionCell" id="zdb-e6-cug" customClass="VideoResolutionCell" customModule="BoomiCam" customModuleProvider="target">
@@ -6103,20 +6119,20 @@ Countdown</string>
                                             <action selector="btnBackTapped:" destination="C1d-i6-X3Z" eventType="touchUpInside" id="OyL-74-LDh"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit profile picture" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7TT-yA-Tlc">
-                                        <rect key="frame" x="112.00000000000001" y="55.333333333333336" width="151.33333333333337" height="21.666666666666664"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit Profile Picture" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7TT-yA-Tlc">
+                                        <rect key="frame" x="111.33333333333333" y="55.333333333333336" width="152.33333333333337" height="21.666666666666664"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                         <color key="textColor" red="0.2498272061" green="0.3152070642" blue="0.35203957559999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XKO-eB-qT9">
-                                        <rect key="frame" x="327" y="50" width="40" height="32"/>
+                                        <rect key="frame" x="337" y="50" width="30" height="32"/>
                                         <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="17"/>
-                                        <state key="normal" title="Okay">
+                                        <state key="normal" title="OK">
                                             <color key="titleColor" name="AppPrimaryColor"/>
                                         </state>
                                         <connections>
-                                            <action selector="btnBackTapped:" destination="C1d-i6-X3Z" eventType="touchUpInside" id="mIG-le-Z7o"/>
+                                            <action selector="btnOKTapped:" destination="C1d-i6-X3Z" eventType="touchUpInside" id="0Ri-W7-hgF"/>
                                         </connections>
                                     </button>
                                 </subviews>

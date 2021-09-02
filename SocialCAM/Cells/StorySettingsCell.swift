@@ -14,6 +14,8 @@ class StorySettingsCell: UITableViewCell {
     @IBOutlet weak var onOffButton: UIButton!
     @IBOutlet weak var settingsName: UILabel!
     @IBOutlet weak var socialImageView: UIImageView?
+    @IBOutlet weak var lblPremiumVersionOnly: UILabel!
+    @IBOutlet weak var stackView: UIStackView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

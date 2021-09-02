@@ -155,11 +155,17 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
                 cell.onOffButton.isSelected = true
             } else {
                 cell.onOffButton.isSelected = false
+                cell.stackView.backgroundColor = R.color.hideWatermarkBackgroundColor()
+                cell.lblPremiumVersionOnly.isHidden = false
             }
         } else if settingTitle.settingsType == .watermarkSettings {
             cell.onOffButton.isHidden = true
+            cell.stackView.backgroundColor = UIColor.white
+            cell.lblPremiumVersionOnly.isHidden = true
         } else if settingTitle.settingsType == .watermarkAlpha30 || settingTitle.settingsType == .watermarkAlpha50 || settingTitle.settingsType == .watermarkAlpha80 {
             cell.onOffButton.isHidden = false
+            cell.stackView.backgroundColor = UIColor.white
+            cell.lblPremiumVersionOnly.isHidden = true
             cell.onOffButton.isSelected = Defaults.shared.waterarkOpacity == settingTitle.settingsType.rawValue
         } else if settingTitle.settingsType == .videoResolution {
             cell.onOffButton.isHidden = true
@@ -251,9 +257,11 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
             Defaults.shared.swapeContols = !Defaults.shared.swapeContols
             self.settingsTableView.reloadData()
         } else if settingTitle.settingsType == .supportedFrameRates {
-            Defaults.shared.selectedFrameRates = Defaults.shared.supportedFrameRates?[indexPath.row]
-            Defaults.shared.isCameraSettingChanged = true
-            self.settingsTableView.reloadData()
+            if Defaults.shared.supportedFrameRates?[indexPath.row] == "30" {
+                Defaults.shared.selectedFrameRates = Defaults.shared.supportedFrameRates?[indexPath.row]
+                Defaults.shared.isCameraSettingChanged = true
+                self.settingsTableView.reloadData()
+            }
         } else if settingTitle.settingsType == .watermarkAlpha30 || settingTitle.settingsType == .watermarkAlpha50 || settingTitle.settingsType == .watermarkAlpha80 {
             Defaults.shared.waterarkOpacity = settingTitle.settingsType.rawValue
             tableView.reloadData()
