@@ -287,7 +287,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video || settingTitle.settingsType == .cameraSettings || settingTitle.settingsType == .termsAndConditions || settingTitle.settingsType == .privacyPolicy || settingTitle.settingsType == .goToWebsite || settingTitle.settingsType == .watermarkSettings || settingTitle.settingsType == .applicationSurvey || settingTitle.settingsType == .intellectualProperties || settingTitle.settingsType == .help || settingTitle.settingsType == .system || settingTitle.settingsType == .accountSettings || settingTitle.settingsType == .shareSetting {
             if settingTitle.settingsType == .appInfo {
                 cell.settingsName.textColor = R.color.appPrimaryColor()
-            } else if settingTitle.settingsType == .applicationSurvey {
+            } else if settingTitle.settingsType == .applicationSurvey || settingTitle.settingsType == .intellectualProperties {
                 cell.settingsName.alpha = 0.5
             }
             cell.onOffButton.isHidden = true
