@@ -370,7 +370,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     @objc func btnEditProfilePic() {
-        if let editProfilePicViewController = R.storyboard.storyCameraViewController.editProfilePicViewController() {
+        if let editProfilePicViewController = R.storyboard.editProfileViewController.editProfilePicViewController() {
             navigationController?.pushViewController(editProfilePicViewController, animated: true)
         }
     }

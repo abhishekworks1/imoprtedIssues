@@ -29,7 +29,8 @@ class InstagramManager: NSObject {
     }
     
     var profileDetails: ProfileDetailsResponse? {
-        if isUserLogin, let profileDetailsResponse = Defaults.shared.instagramProfile {
+        if isUserLogin,
+           let profileDetailsResponse = Defaults.shared.instagramProfile {
            return profileDetailsResponse
         } else {
             return nil

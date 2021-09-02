@@ -86,6 +86,8 @@ class User: Codable, Mappable {
     var isAllowAffiliate: Bool?
     var refferedBy : RefferedBy?
     var isDoNotShowMsg: Bool?
+    var imageSource: String?
+    var socialPlatforms: [String]?
     
     required init?(map: Map) {
         
@@ -182,6 +184,8 @@ class User: Codable, Mappable {
         isTempSubscription <- map["isTempSubscription"]
         isAllowAffiliate <- map["isAllowAffiliate"]
         refferedBy <- map["refferedBy"]
+        imageSource <- map["imageSource"]
+        socialPlatforms <- map["socialPlatforms"]
     }
     
 }

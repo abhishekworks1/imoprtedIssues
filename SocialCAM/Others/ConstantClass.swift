@@ -257,7 +257,7 @@ public struct Constant {
         static let redirectUrl = "https://futbolcam-ddf06.firebaseapp.com/__/auth/handler"
         static let clientId = "1431217550411859"
         static let clientSecret = "39554fc089d5154b5ee77499e549eb65"
-        #elseif QUICKCAMAPP || QUICKAPP
+        #elseif QUICKCAMAPP
         static let redirectUrl = "https://quickcam-fde9d.firebaseapp.com/__/auth/handler"
         static let clientId = "896406730769747"
         static let clientSecret = "47bfa6fac6eef802ab5346f896013a9c"
@@ -271,8 +271,12 @@ public struct Constant {
         static let clientSecret = "37fed68dfafabfdd0466300b4919079e"
         #elseif SNAPCAMLITEAPP
         static let redirectUrl = "https://snapcam-lite.firebaseio.com/__/auth/handler"
-        static let clientId = "352633045999017"
-        static let clientSecret = "0e65fab7a2d2f4457a1896a5baeda993"
+        static let clientId = "387791969377946"
+        static let clientSecret = "686a753453cc0025ab73844fa48b3f2d"
+        #elseif QUICKAPP
+        static let redirectUrl = "https://quickcam-c8481.firebaseapp.com/__/auth/handler"
+        static let clientId = "896406730769747"
+        static let clientSecret = "47bfa6fac6eef802ab5346f896013a9c"
         #else
         static let redirectUrl = "https://viralcam-c3c84.firebaseapp.com/__/auth/handler"
         static let clientId = "228138878240656"

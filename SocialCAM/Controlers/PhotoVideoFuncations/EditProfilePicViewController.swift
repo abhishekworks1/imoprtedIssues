@@ -9,12 +9,18 @@
 import UIKit
 import AVKit
 
+protocol SharingSocialTypeDelegate {
+  func shareSocialType(socialType: ProfileSocialShare)
+}
+
 class EditProfilePicViewController: UIViewController {
     
     // MARK: - Outlets declaration
     @IBOutlet weak var imgProfilePic: UIImageView!
     @IBOutlet weak var btnProfilePic: UIButton!
     @IBOutlet weak var btnPlusButton: UIButton!
+    @IBOutlet weak var lblSocialSharePopup: UILabel!
+    @IBOutlet weak var socialSharePopupView: UIView!
     
     // MARK: - Variables declaration
     private var localImageUrl: URL?
@@ -22,6 +28,8 @@ class EditProfilePicViewController: UIViewController {
     var storyCameraVCInstance = StoryCameraViewController()
     var isSignUpFlow: Bool = false
     var isImageSelected = false
+    var imageSource = ""
+    var socialPlatforms: [String] = []
     
     // MARK: - View Controller Life Cycle
     override func viewDidLoad() {
@@ -38,6 +46,11 @@ class EditProfilePicViewController: UIViewController {
         } else {
             imgProfilePic.image = R.image.userIconWithPlus()
         }
+        self.view.isUserInteractionEnabled = true
+    }
+    
+    func showHidePopupView(isHide: Bool) {
+        self.socialSharePopupView.isHidden = isHide
     }
     
     // MARK: - Action Methods
@@ -46,17 +59,26 @@ class EditProfilePicViewController: UIViewController {
     }
     
     @IBAction func btnUpdateTapped(_ sender: UIButton) {
-        self.showActionSheet()
+        self.openSocialShareVC()
     }
     
     @IBAction func btnOKTapped(_ sender: UIButton) {
         if isImageSelected {
-            if let img = imgProfilePic.image {
-                self.showHUD()
-                self.view.isUserInteractionEnabled = false
-                self.updateProfilePic(image: img)
-            }
+            showHidePopupView(isHide: false)
         }
+    }
+    
+    @IBAction func btnYesTapped(_ sender: UIButton) {
+        showHidePopupView(isHide: true)
+        if let img = imgProfilePic.image {
+            self.showHUD()
+            self.view.isUserInteractionEnabled = false
+            self.updateProfilePic(image: img)
+        }
+    }
+    
+    @IBAction func btnNoTapped(_ sender: UIButton) {
+        showHidePopupView(isHide: true)
     }
     
 }
@@ -80,19 +102,61 @@ extension EditProfilePicViewController {
         self.imgProfilePic.image = UIImage()
     }
     
-    /// Show ActionSheet for selecting Image
-    private func showActionSheet() {
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: R.string.localizable.gallery(), style: .default, handler: { _ in
-            self.isImageSelected = true
+    func openSheet(socialType: ProfileSocialShare) {
+        self.isImageSelected = true
+        switch socialType {
+        case .gallery:
+            self.lblSocialSharePopup.text = R.string.localizable.wouldYouLikeToSaveProfilePictureFromGallery()
             self.getImage(fromSourceType: .photoLibrary)
-        }))
-        alert.addAction(UIAlertAction(title: R.string.localizable.camera(), style: .default, handler: { _ in
-            self.isImageSelected = true
+        case .camera:
+            self.lblSocialSharePopup.text = R.string.localizable.wouldYouLikeToSaveProfilePictureFromCamera()
             self.getImage(fromSourceType: .camera)
-        }))
-        alert.addAction(UIAlertAction(title: R.string.localizable.cancel(), style: .cancel, handler: nil))
-        self.present(alert, animated: true, completion: nil)
+        case .instagram:
+            self.lblSocialSharePopup.text = R.string.localizable.wouldYouLikeToSaveProfilePictureFromInstagram()
+            self.setSocialMediaPicture(socialShareType: .instagram)
+        case .snapchat:
+            self.lblSocialSharePopup.text = R.string.localizable.wouldYouLikeToSaveProfilePictureFromSnapchat()
+            self.setSocialMediaPicture(socialShareType: .snapchat)
+        case .youTube:
+            self.lblSocialSharePopup.text = R.string.localizable.wouldYouLikeToSaveProfilePictureFromYoutube()
+            self.setSocialMediaPicture(socialShareType: .youtube)
+        case .twitter:
+            self.lblSocialSharePopup.text = R.string.localizable.wouldYouLikeToSaveProfilePictureFromTwitter()
+            self.setSocialMediaPicture(socialShareType: .twitter)
+        case .facebook:
+            self.lblSocialSharePopup.text = R.string.localizable.wouldYouLikeToSaveProfilePictureFromFacebook()
+            self.setSocialMediaPicture(socialShareType: .facebook)
+        }
+    }
+    
+    func setSocialMediaPicture(socialShareType: SocialConnectionType) {
+        self.imageSource = socialShareType.stringValue
+        self.socialLogin(socialLogin: socialShareType) { (isLogin) in
+            if isLogin {
+                self.socialLoadProfile(socialLogin: socialShareType) { socialUserData in
+                    if let userData = socialUserData {
+                        self.addProfile(userData: userData, completion: {
+                            self.socialPlatforms.append(self.imageSource.lowercased())
+                            self.addSocialPlatform()
+                        })
+                    }
+                }
+            }
+        }
+    }
+    
+    func openSocialShareVC() {
+        if let editProfileSocialShareVC = R.storyboard.editProfileViewController.editProfileSocialShareViewController() {
+            editProfileSocialShareVC.modalPresentationStyle = .overFullScreen
+            editProfileSocialShareVC.delegate = self
+            navigationController?.present(editProfileSocialShareVC, animated: true, completion: {
+                editProfileSocialShareVC.backgroundUpperView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.backgroundTapped)))
+            })
+        }
+    }
+    
+    @objc func backgroundTapped() {
+        self.dismiss(animated: true)
     }
     
 }
@@ -124,12 +188,35 @@ extension EditProfilePicViewController: UIImagePickerControllerDelegate, UINavig
 extension EditProfilePicViewController {
     
     func updateProfilePic(image: UIImage) {
-        ProManagerApi.uploadPicture(image: image).request(Result<EmptyModel>.self).subscribe(onNext: { (response) in
+        ProManagerApi.uploadPicture(image: image, imageSource: imageSource).request(Result<EmptyModel>.self).subscribe(onNext: { [weak self] (response) in
+            guard let `self` = self else {
+                return
+            }
             self.dismissHUD()
-            self.view.isUserInteractionEnabled = true
             if response.status == ResponseType.success {
                 self.storyCameraVCInstance.syncUserModel { (isComplete) in
                     self.setupMethod()
+                }
+            } else {
+                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+            }
+        }, onError: { error in
+            self.showAlert(alertMessage: error.localizedDescription)
+        }, onCompleted: {
+        }).disposed(by: self.rx.disposeBag)
+    }
+    
+    func addSocialPlatform() {
+        self.view.isUserInteractionEnabled = false
+        self.socialPlatforms = socialPlatforms.uniq()
+        Defaults.shared.socialPlatforms?.append(contentsOf: self.socialPlatforms)
+        ProManagerApi.addSocialPlatforms(socialPlatforms: Defaults.shared.socialPlatforms?.uniq() ?? []).request(Result<EmptyModel>.self).subscribe(onNext: { [weak self] (response) in
+            guard let `self` = self else {
+                return
+            }
+            if response.status == ResponseType.success {
+                self.storyCameraVCInstance.syncUserModel { (isComplete) in
+                    self.view.isUserInteractionEnabled = true
                 }
             } else {
                 self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
@@ -157,6 +244,206 @@ extension EditProfilePicViewController {
         } else {
             navigationController?.popViewController(animated: true)
         }
+    }
+    
+    func socialLoadProfile(socialLogin: SocialConnectionType, completion: @escaping (SocialUserData?) -> ()) {
+        switch socialLogin {
+        case .facebook:
+            if FaceBookManager.shared.isUserLogin {
+                FaceBookManager.shared.loadUserData { (userModel) in
+                    guard let userData = userModel else {
+                        completion(nil)
+                        return
+                    }
+                    completion(SocialUserData(socialId: userModel?.userId ?? "", name: userData.userName, profileURL: userData.photoUrl, type: .facebook))
+                }
+            } else {
+                completion(nil)
+            }
+        case .twitter:
+            if TwitterManger.shared.isUserLogin {
+                TwitterManger.shared.loadUserData { (userModel) in
+                    guard let userData = userModel else {
+                        completion(nil)
+                        return
+                    }
+                    completion(SocialUserData(socialId: userModel?.userId ?? "", name: userData.userName, profileURL: userData.photoUrl, type: .twitter))
+                }
+            } else {
+                completion(nil)
+            }
+        case .instagram:
+            if InstagramManager.shared.isUserLogin {
+                if let userModel = InstagramManager.shared.profileDetails {
+                    completion(SocialUserData(socialId: userModel.id ?? "", name: userModel.username, profileURL: userModel.profilePicUrl, type: .instagram))
+                } else {
+                    completion(nil)
+                }
+            } else {
+                completion(nil)
+            }
+        case .snapchat:
+            if SnapKitManager.shared.isUserLogin {
+                SnapKitManager.shared.loadUserData { (userModel) in
+                    guard let userData = userModel else {
+                        completion(nil)
+                        return
+                    }
+                    completion(SocialUserData(socialId: userModel?.userId ?? "", name: userData.userName, profileURL: userData.photoUrl, type: .snapchat))
+                }
+            } else {
+                completion(nil)
+            }
+        case .youtube:
+            if GoogleManager.shared.isUserLogin {
+                GoogleManager.shared.loadUserData { (userModel) in
+                    guard let userData = userModel else {
+                        completion(nil)
+                        return
+                    }
+                    completion(SocialUserData(socialId: userModel?.userId ?? "", name: userData.userName, profileURL: userData.photoUrl, type: .youtube))
+                }
+            } else {
+                completion(nil)
+            }
+        default:
+            break
+        }
+    }
+    
+    func socialLogin(socialLogin: SocialConnectionType, completion: @escaping (Bool) -> ()) {
+        switch socialLogin {
+        case .facebook:
+            if !FaceBookManager.shared.isUserLogin {
+                FaceBookManager.shared.login(controller: self, loginCompletion: { (_, _) in
+                    completion(true)
+                }) { (_, _) in
+                    completion(false)
+                }
+            } else {
+                self.socialLoadProfile(socialLogin: socialLogin) { socialUserData in
+                    if let userData = socialUserData {
+                        self.addProfile(userData: userData, completion: {
+                            FaceBookManager.shared.logout()
+                        })
+                        completion(false)
+                    }
+                }
+            }
+        case .twitter:
+            if !TwitterManger.shared.isUserLogin {
+                TwitterManger.shared.login { (_, _) in
+                    completion(true)
+                }
+            } else {
+                self.socialLoadProfile(socialLogin: socialLogin) { socialUserData in
+                    if let userData = socialUserData {
+                        self.addProfile(userData: userData, completion: {
+                        })
+                        completion(false)
+                    }
+                }
+            }
+        case .instagram:
+            if !InstagramManager.shared.isUserLogin {
+                let loginViewController: WebViewController = WebViewController()
+                loginViewController.delegate = self
+                self.present(loginViewController, animated: true) {
+                    completion(true)
+                }
+            } else {
+                self.socialLoadProfile(socialLogin: socialLogin) { socialUserData in
+                    if let userData = socialUserData {
+                        self.addProfile(userData: userData, completion: {
+                        })
+                        completion(false)
+                    }
+                }
+            }
+        case .snapchat:
+            if !SnapKitManager.shared.isUserLogin {
+                SnapKitManager.shared.login(viewController: self) { (isLogin, error) in
+                    if !isLogin {
+                        DispatchQueue.main.async {
+                            self.showAlert(alertMessage: error ?? "")
+                        }
+                    }
+                    completion(isLogin)
+                }
+            } else {
+                self.socialLoadProfile(socialLogin: socialLogin) { socialUserData in
+                    if let userData = socialUserData {
+                        self.addProfile(userData: userData, completion: {
+                        })
+                    }
+                }
+            }
+        case .youtube:
+            if !GoogleManager.shared.isUserLogin {
+                GoogleManager.shared.login(controller: self, complitionBlock: { (_, _) in
+                    completion(true)
+                }) { (_, _) in
+                    completion(false)
+                }
+            } else {
+                self.socialLoadProfile(socialLogin: socialLogin) { socialUserData in
+                    if let userData = socialUserData {
+                        self.addProfile(userData: userData, completion: {
+                        })
+                        completion(false)
+                    }
+                }
+            }
+        default:
+            break
+        }
+    }
+    
+    func addProfile(userData: SocialUserData, completion: @escaping () -> ()) {
+        let userData = userData
+        if let url = URL(string: userData.profileURL ?? ""),
+           let data = try? Data(contentsOf: url) {
+            DispatchQueue.main.async {
+                self.imgProfilePic.image = UIImage(data: data)
+                self.imgProfilePic.layer.cornerRadius = self.imgProfilePic.bounds.width / 2
+                self.imgProfilePic.contentMode = .scaleAspectFill
+                self.btnProfilePic.layer.cornerRadius = self.btnProfilePic.bounds.width / 2
+            }
+            completion()
+        }
+    }
+    
+}
+
+// MARK: - InstagramLoginViewControllerDelegate, ProfileDelegate
+extension EditProfilePicViewController: InstagramLoginViewControllerDelegate, ProfileDelegate {
+   
+    func profileDidLoad(profile: ProfileDetailsResponse) {
+        let optionType = SocialConnectionType.instagram
+        self.socialLoadProfile(socialLogin: optionType) { socialUserData in
+            if let userData = socialUserData {
+                
+            }
+        }
+    }
+    
+    func profileLoadFailed(error: Error) {
+        
+    }
+   
+    func instagramLoginDidFinish(accessToken: String?, error: Error?) {
+        if accessToken != nil {
+            InstagramManager.shared.delegate = self
+            InstagramManager.shared.loadProfile()
+        }
+    }
+}
+
+// MARK: - SharingSocialTypeDelegate
+extension EditProfilePicViewController: SharingSocialTypeDelegate {
+    
+    func shareSocialType(socialType: ProfileSocialShare) {
+        self.openSheet(socialType: socialType)
     }
     
 }

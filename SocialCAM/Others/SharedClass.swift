@@ -1041,6 +1041,7 @@ public struct Paths {
     static let getReferredUsersList = "user/referees"
     static let setAffiliate = "user/setAffiliate"
     static let doNotShowAgain = "user/setFlag"
+    static let addSocialPlatforms = "user/addSocialPlatforms"
 }
 
 struct WebsiteData {

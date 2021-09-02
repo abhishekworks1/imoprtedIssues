@@ -75,7 +75,7 @@ class KeycloakAuthViewController: UIViewController {
     @IBAction func btnOkayClicked(_ sender: UIButton) {
         self.hideShowTooltipView(shouldShow: false)
         self.doNotShowAgainAPI()
-        if let editProfilePicViewController = R.storyboard.storyCameraViewController.editProfilePicViewController() {
+        if let editProfilePicViewController = R.storyboard.editProfileViewController.editProfilePicViewController() {
             editProfilePicViewController.isSignUpFlow = true
             navigationController?.pushViewController(editProfilePicViewController, animated: true)
         }
