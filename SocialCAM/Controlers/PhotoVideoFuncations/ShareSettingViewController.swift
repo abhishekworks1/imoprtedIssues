@@ -29,9 +29,11 @@ class ShareSettingViewController: UIViewController {
     
     // MARK: - Setup Methods
     func setup() {
-        setAttributedString()
-        self.lblLinkWithCheckOut.text = "\(R.string.localizable.checkOutThisCoolNewAppQuickCam()) \(websiteUrl)/ref/\(Defaults.shared.currentUser?.channelId ?? "")"
-        self.lblReferralLink.text = "\(websiteUrl)/ref/\(Defaults.shared.currentUser?.channelId ?? "")"
+        if let channelId = Defaults.shared.currentUser?.channelId {
+            self.lblHyperLink.text = "\(websiteUrl)/ref/\(channelId)"
+            self.lblLinkWithCheckOut.text = "\(R.string.localizable.checkOutThisCoolNewAppQuickCam()) \(websiteUrl)/ref/\(channelId)"
+            self.lblReferralLink.text = "\(websiteUrl)/ref/\(channelId)"
+        }
     }
     
     func presentSafariBrowser(url: URL) {
