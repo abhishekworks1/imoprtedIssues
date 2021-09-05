@@ -58,6 +58,7 @@ enum SettingsMode: Int {
     case muteRecordingSlowMotion
     case muteRecordingFastMotion
     case shareSetting
+    case userDashboard
 }
 
 class StorySetting {
@@ -109,6 +110,8 @@ class StorySettings {
                                               settings: [StorySetting(name: R.string.localizable.share(), selected: false)], settingsType: .shareSetting),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.yourReferrals(), selected: false)], settingsType: .goToWebsite),
+                                StorySettings(name: "",
+                                              settings: [StorySetting(name: R.string.localizable.userDashboard(), selected: false)], settingsType: .userDashboard),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.applicationSurvey(), selected: false)], settingsType: .applicationSurvey),
                                 StorySettings(name: "",
@@ -284,7 +287,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         cell.settingsName.text = settings.name
         cell.detailButton.isHidden = true
         cell.settingsName.textColor = R.color.appBlackColor()
-        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video || settingTitle.settingsType == .cameraSettings || settingTitle.settingsType == .termsAndConditions || settingTitle.settingsType == .privacyPolicy || settingTitle.settingsType == .goToWebsite || settingTitle.settingsType == .watermarkSettings || settingTitle.settingsType == .applicationSurvey || settingTitle.settingsType == .intellectualProperties || settingTitle.settingsType == .help || settingTitle.settingsType == .system || settingTitle.settingsType == .accountSettings || settingTitle.settingsType == .shareSetting {
+        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video || settingTitle.settingsType == .cameraSettings || settingTitle.settingsType == .termsAndConditions || settingTitle.settingsType == .privacyPolicy || settingTitle.settingsType == .goToWebsite || settingTitle.settingsType == .watermarkSettings || settingTitle.settingsType == .applicationSurvey || settingTitle.settingsType == .intellectualProperties || settingTitle.settingsType == .help || settingTitle.settingsType == .system || settingTitle.settingsType == .accountSettings || settingTitle.settingsType == .shareSetting || settingTitle.settingsType == .userDashboard {
             if settingTitle.settingsType == .appInfo {
                 cell.settingsName.textColor = R.color.appPrimaryColor()
             } else if settingTitle.settingsType == .applicationSurvey || settingTitle.settingsType == .intellectualProperties {
@@ -513,6 +516,12 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             if let shareSettingViewController = R.storyboard.storyCameraViewController.shareSettingViewController() {
                 navigationController?.pushViewController(shareSettingViewController, animated: true)
             }
+        } else if settingTitle.settingsType == .userDashboard {
+            let urlString = "\(websiteUrl)/ref/\(Defaults.shared.currentUser?.channelId ?? "")"
+            guard let url = URL(string: urlString) else {
+                return
+            }
+            presentSafariBrowser(url: url)
         }
     }
     
