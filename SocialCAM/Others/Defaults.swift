@@ -944,6 +944,15 @@ class Defaults {
         }
     }
     
+    var socialPlatforms: [String]? {
+        get {
+            return appDefaults?.value(forKey: StaticKeys.socialPlatforms) as? [String]
+        }
+        set {
+            appDefaults?.set(newValue, forKey: StaticKeys.socialPlatforms)
+        }
+    }
+    
     func clearData(isDeleteAccount: Bool = false) {
         if let appDefaultsDictionary = appDefaults?.dictionaryRepresentation() {
             appDefaultsDictionary.keys.forEach { key in

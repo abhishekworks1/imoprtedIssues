@@ -2576,6 +2576,7 @@ extension StoryCameraViewController {
                 Defaults.shared.isDowngradeSubscription = response.result?.userSubscription?.isDowngraded
                 Defaults.shared.isFreeTrial = response.result?.user?.isTempSubscription
                 Defaults.shared.allowFullAccess = response.result?.userSubscription?.allowFullAccess
+                Defaults.shared.socialPlatforms = response.result?.user?.socialPlatforms
                 if let isAllowAffiliate = response.result?.user?.isAllowAffiliate {
                     Defaults.shared.isAffiliateLinkActivated = isAllowAffiliate
                 }

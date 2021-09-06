@@ -13,6 +13,7 @@ class SelectLinkCell: UITableViewCell {
     // MARK: - Outlets Declaration
     @IBOutlet weak var lblLinkName: UILabel!
     @IBOutlet weak var imgLinkIcon: UIImageView!
+    @IBOutlet weak var imgSocialCheckmark: UIImageView!
     
     // MARK: - View life cycle
     override func awakeFromNib() {

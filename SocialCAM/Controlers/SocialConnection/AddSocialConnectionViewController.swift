@@ -50,6 +50,24 @@ enum SocialConnectionType: CaseIterable {
             return R.color.icoAppleColor()
         }
     }
+    
+    var stringValue: String {
+        switch self {
+        case .facebook:
+            return R.string.localizable.facebook()
+        case .instagram:
+            return R.string.localizable.instagram()
+        case .snapchat:
+            return R.string.localizable.snapchat()
+        case .twitter:
+            return R.string.localizable.twitter()
+        case .youtube:
+            return R.string.localizable.youtube()
+        case .apple:
+            return R.string.localizable.apple()
+        }
+    }
+    
 }
 
 class SocialUserData {

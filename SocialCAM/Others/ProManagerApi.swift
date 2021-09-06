@@ -75,9 +75,10 @@ public enum ProManagerApi {
     case getToken(appName: String)
     case createUser(channelId: String, refferingChannel: String)
     case userDelete
-    case uploadPicture(image: UIImage)
+    case uploadPicture(image: UIImage, imageSource: String)
     case getReferredUserList(page: Int, limit: Int)
     case setAffiliate(isAllowAffiliate: Bool)
+    case addSocialPlatforms(socialPlatforms: [String])
 
     var endpoint: Endpoint {
         var endpointClosure = MoyaProvider<ProManagerApi>.defaultEndpointMapping(for: self)
@@ -270,6 +271,8 @@ extension ProManagerApi: TargetType {
             return Paths.setAffiliate
         case .doNotShowAgain:
             return Paths.doNotShowAgain
+        case .addSocialPlatforms:
+            return Paths.addSocialPlatforms
         }
        
     }
@@ -639,6 +642,8 @@ extension ProManagerApi: TargetType {
             param = ["page": page, "limit": limit]
         case .setAffiliate(let isAllowAffiliate):
             param = ["isAllowAffiliate": isAllowAffiliate]
+        case .addSocialPlatforms(let socialPlatforms):
+            param = ["socialPlatforms": socialPlatforms]
         }
         return param
     }
@@ -689,12 +694,17 @@ extension ProManagerApi: TargetType {
                 multipartFormData.append(MultipartFormData.init(provider: MultipartFormData.FormDataProvider.data(videoData), name: "video", fileName: videoURL.lastPathComponent, mimeType: "application/octet-stream"))
             }
             return .uploadMultipart(multipartFormData)
-        case .uploadPicture(let image):
-            guard let imageData = image.jpegData(compressionQuality: 0.8) else {
+        case .uploadPicture(let image, let imageSource):
+            guard let imageData = image.jpegData(compressionQuality: 1.0) else {
                 return .requestParameters(parameters: self.parameters ?? [:], encoding: self.parameterEncoding)
             }
             let imageDataMultiPart = [MultipartFormData(provider: .data(imageData), name: "image", fileName: "photo.jpg", mimeType: "image/jpeg")]
-            let multipartData = imageDataMultiPart
+            var multipartData = imageDataMultiPart
+            let imageSource = "\(imageSource)"
+            guard let data = imageSource.data(using: String.Encoding.utf8, allowLossyConversion: false) else {
+                return .requestParameters(parameters: self.parameters ?? [:], encoding: self.parameterEncoding)
+            }
+            multipartData.append(MultipartFormData.init(provider: MultipartFormData.FormDataProvider.data(data), name: "imageSource", mimeType: "application/json"))
             return .uploadMultipart(multipartData)
         default:
             return .requestParameters(parameters: self.parameters ?? [:], encoding: self.parameterEncoding)
