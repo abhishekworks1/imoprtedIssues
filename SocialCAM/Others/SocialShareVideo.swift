@@ -331,7 +331,7 @@ open class SocialShareVideo: NSObject, SharingDelegate {
             snapVideo.attachmentUrl = "\(businessCenterWebsiteUrl)/ref/\(Defaults.shared.currentUser?.channelId ?? "")"
         case .enterLink:
             snapVideo.attachmentUrl = "\(Defaults.shared.enterLinkValue)"
-        case .NoLink:
+        case .noLink:
             snapVideo.attachmentUrl = ""
         default:
             break

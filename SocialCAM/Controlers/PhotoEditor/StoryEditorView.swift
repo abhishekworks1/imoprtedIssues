@@ -34,7 +34,7 @@ enum ReferType {
     case vidPlay
     case businessCenter
     case enterLink
-    case NoLink
+    case noLink
 }
 
 enum StoryEditorType: Equatable {
@@ -736,8 +736,12 @@ extension StoryEditorView {
                 } else if type == .vidPlay {
                     followMeStoryView.userBitEmoji.image = R.image.ssuVidPlay()
                     followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppVidPlay()
-                } else if type == .enterLink || type == .NoLink {
-                    followMeStoryView.userBitEmoji.image = R.image.ssuQuickCamLite()
+                } else if type == .enterLink {
+                    followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppQuickCamLite()
+                } else if type == .noLink {
+                    if let userImageUrl = Defaults.shared.currentUser?.profileImageURL {
+                        followMeStoryView.userBitEmoji.sd_setImage(with: URL.init(string: userImageUrl), placeholderImage: ApplicationSettings.userPlaceHolder)
+                    }
                     followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppQuickCamLite()
                 } else {
                     followMeStoryView.userBitEmoji.image = (type == .viralCam) ? R.image.viralcamWatermarkLogo() : R.image.socialcamWatermarkLogo()
@@ -814,8 +818,12 @@ extension StoryEditorView {
         } else if type == .vidPlay {
             followMeStoryView.userBitEmoji.image = R.image.ssuVidPlay()
             followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppVidPlay()
-        } else if type == .enterLink || type == .NoLink {
-            followMeStoryView.userBitEmoji.image = R.image.ssuQuickCamLite()
+        } else if type == .enterLink {
+            followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppQuickCamLite()
+        } else if type == .noLink {
+            if let userImageUrl = Defaults.shared.currentUser?.profileImageURL {
+                followMeStoryView.userBitEmoji.sd_setImage(with: URL.init(string: userImageUrl), placeholderImage: ApplicationSettings.userPlaceHolder)
+            }
             followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppQuickCamLite()
         } else {
             followMeStoryView.userBitEmoji.image = (type == .viralCam) ? R.image.viralcamWatermarkLogo() : R.image.socialcamWatermarkLogo()
