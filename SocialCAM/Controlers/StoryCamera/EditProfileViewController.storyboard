@@ -26,10 +26,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Nmp-nu-gTv">
-                                <rect key="frame" x="47" y="288" width="320" height="320"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="founderMemberProfileBadge" translatesAutoresizingMaskIntoConstraints="NO" id="3WO-30-aTw">
+                                <rect key="frame" x="44.5" y="265.5" width="325" height="375"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="320" id="KzR-fJ-9ai"/>
+                                    <constraint firstAttribute="width" constant="325" id="7qn-aY-rqG"/>
+                                    <constraint firstAttribute="height" constant="375" id="nwe-cm-g5k"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userIconWithPlus" translatesAutoresizingMaskIntoConstraints="NO" id="Nmp-nu-gTv">
+                                <rect key="frame" x="127" y="322.5" width="160" height="160"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="160" id="KzR-fJ-9ai"/>
                                     <constraint firstAttribute="width" secondItem="Nmp-nu-gTv" secondAttribute="height" multiplier="1:1" id="Uqo-5w-tBM"/>
                                 </constraints>
                             </imageView>
@@ -43,7 +50,7 @@
                                             <constraint firstAttribute="width" constant="44" id="SaL-9M-nvZ"/>
                                         </constraints>
                                         <color key="tintColor" name="AppBlackColor"/>
-                                        <state key="normal" image="storyBack"/>
+                                        <state key="normal" image="textFieldClose"/>
                                         <connections>
                                             <action selector="btnBackTapped:" destination="k7D-XT-pBV" eventType="touchUpInside" id="AeB-9h-ZbC"/>
                                         </connections>
@@ -83,14 +90,14 @@
                                     <action selector="btnUpdateTapped:" destination="k7D-XT-pBV" eventType="touchUpInside" id="Ptd-lS-bzz"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dvU-ya-Joh">
-                                <rect key="frame" x="297" y="313" width="45" height="45"/>
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dvU-ya-Joh">
+                                <rect key="frame" x="242" y="322.5" width="45" height="45"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="45" id="QTg-Jy-uIQ"/>
                                     <constraint firstAttribute="height" constant="45" id="l97-Mi-0h5"/>
                                 </constraints>
-                                <state key="normal" image="check_plus"/>
+                                <state key="normal" image="editProfilePlusIcon"/>
                             </button>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xPd-JQ-tiK" userLabel="Blur Back Ground View">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -174,17 +181,19 @@
                         <color key="backgroundColor" red="0.41960784309999999" green="0.59607843140000005" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="xPd-JQ-tiK" firstAttribute="top" secondItem="kzn-v6-T73" secondAttribute="top" id="2tR-I5-1nP"/>
-                            <constraint firstItem="dvU-ya-Joh" firstAttribute="trailing" secondItem="Nmp-nu-gTv" secondAttribute="trailing" constant="-25" id="7Pl-1v-Ssh"/>
-                            <constraint firstItem="Nmp-nu-gTv" firstAttribute="centerX" secondItem="kzn-v6-T73" secondAttribute="centerX" id="HdU-Nd-bpR"/>
+                            <constraint firstItem="dvU-ya-Joh" firstAttribute="trailing" secondItem="Nmp-nu-gTv" secondAttribute="trailing" id="7Pl-1v-Ssh"/>
                             <constraint firstAttribute="top" secondItem="0dB-yk-Da0" secondAttribute="top" id="Kbf-Gw-LY0"/>
                             <constraint firstAttribute="bottom" secondItem="xPd-JQ-tiK" secondAttribute="bottom" id="LO0-Be-PEe"/>
                             <constraint firstItem="XkW-Yh-sdb" firstAttribute="width" secondItem="Nmp-nu-gTv" secondAttribute="width" id="LpN-9X-8WD"/>
                             <constraint firstItem="xPd-JQ-tiK" firstAttribute="trailing" secondItem="Beb-Hq-Yu5" secondAttribute="trailing" id="NP1-FD-zpb"/>
                             <constraint firstItem="XkW-Yh-sdb" firstAttribute="height" secondItem="Nmp-nu-gTv" secondAttribute="height" id="QNh-Uv-1kV"/>
                             <constraint firstItem="xPd-JQ-tiK" firstAttribute="leading" secondItem="Beb-Hq-Yu5" secondAttribute="leading" id="Rsi-yi-acd"/>
-                            <constraint firstItem="dvU-ya-Joh" firstAttribute="top" secondItem="Nmp-nu-gTv" secondAttribute="top" constant="25" id="XVd-v1-6xG"/>
+                            <constraint firstItem="Nmp-nu-gTv" firstAttribute="top" secondItem="3WO-30-aTw" secondAttribute="top" constant="57" id="Vt5-t3-P86"/>
+                            <constraint firstItem="dvU-ya-Joh" firstAttribute="top" secondItem="Nmp-nu-gTv" secondAttribute="top" id="XVd-v1-6xG"/>
                             <constraint firstItem="Beb-Hq-Yu5" firstAttribute="leading" secondItem="0dB-yk-Da0" secondAttribute="leading" id="ZnK-gA-eRS"/>
-                            <constraint firstItem="Nmp-nu-gTv" firstAttribute="centerY" secondItem="kzn-v6-T73" secondAttribute="centerY" id="fNQ-OS-Svw"/>
+                            <constraint firstItem="Nmp-nu-gTv" firstAttribute="centerX" secondItem="3WO-30-aTw" secondAttribute="centerX" id="abb-98-Qon"/>
+                            <constraint firstItem="3WO-30-aTw" firstAttribute="centerX" secondItem="Beb-Hq-Yu5" secondAttribute="centerX" id="d9A-FG-NlK"/>
+                            <constraint firstItem="3WO-30-aTw" firstAttribute="centerY" secondItem="Beb-Hq-Yu5" secondAttribute="centerY" id="qdR-ri-LAq"/>
                             <constraint firstItem="Beb-Hq-Yu5" firstAttribute="trailing" secondItem="0dB-yk-Da0" secondAttribute="trailing" id="wwl-PJ-g9b"/>
                             <constraint firstItem="XkW-Yh-sdb" firstAttribute="centerX" secondItem="Nmp-nu-gTv" secondAttribute="centerX" id="yJM-LJ-WK2"/>
                             <constraint firstItem="XkW-Yh-sdb" firstAttribute="centerY" secondItem="Nmp-nu-gTv" secondAttribute="centerY" id="z55-Xw-f6X"/>
@@ -489,8 +498,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="check_plus" width="45" height="48"/>
-        <image name="storyBack" width="19" height="19"/>
+        <image name="editProfilePlusIcon" width="44" height="44"/>
+        <image name="founderMemberProfileBadge" width="325" height="375"/>
+        <image name="textFieldClose" width="15" height="15"/>
+        <image name="userIconWithPlus" width="298" height="298"/>
         <namedColor name="AppBlackColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
