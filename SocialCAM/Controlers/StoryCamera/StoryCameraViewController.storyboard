@@ -6879,16 +6879,22 @@ Countdown</string>
                                 <rect key="frame" x="0.0" y="96" width="375" height="682"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yb1-1m-Yrw">
-                                        <rect key="frame" x="10" y="28" width="355" height="30"/>
+                                        <rect key="frame" x="10" y="28.000000000000004" width="355" height="42.333333333333343"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your referral link:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gV9-NV-zxZ">
-                                                <rect key="frame" x="6" y="0.0" width="343" height="30"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your referral link:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hrs-YZ-8f3">
+                                                <rect key="frame" x="6.0000000000000071" y="0.0" width="119.66666666666669" height="18.666666666666668"/>
                                                 <fontDescription key="fontDescription" name="SFUIText-Semibold" family="SF UI Text" pointSize="16"/>
                                                 <color key="textColor" name="shareScreenTitleColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gV9-NV-zxZ">
+                                                <rect key="frame" x="6" y="23.666666666666657" width="343" height="18.666666666666671"/>
+                                                <fontDescription key="fontDescription" name="SFUIText-Semibold" family="SF UI Text" pointSize="16"/>
+                                                <color key="textColor" name="AppPrimaryColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XWc-gP-QZy">
-                                                <rect key="frame" x="6" y="0.0" width="343" height="30"/>
+                                                <rect key="frame" x="319" y="12.333333333333343" width="30" height="30"/>
                                                 <connections>
                                                     <action selector="btnHyperLinkClicked:" destination="qsY-XB-h3J" eventType="touchUpInside" id="Q2L-qT-nLQ"/>
                                                 </connections>
@@ -6896,18 +6902,20 @@ Countdown</string>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstItem="gV9-NV-zxZ" firstAttribute="top" secondItem="yb1-1m-Yrw" secondAttribute="top" id="15l-5h-NAf"/>
                                             <constraint firstAttribute="trailing" secondItem="gV9-NV-zxZ" secondAttribute="trailing" constant="6" id="7MX-Zx-mzb"/>
-                                            <constraint firstItem="XWc-gP-QZy" firstAttribute="leading" secondItem="gV9-NV-zxZ" secondAttribute="leading" id="Rtn-V4-bVb"/>
+                                            <constraint firstItem="Hrs-YZ-8f3" firstAttribute="top" secondItem="yb1-1m-Yrw" secondAttribute="top" id="93A-Lh-qwM"/>
+                                            <constraint firstItem="Hrs-YZ-8f3" firstAttribute="leading" secondItem="yb1-1m-Yrw" secondAttribute="leading" constant="6" id="E5k-Pg-ecd"/>
+                                            <constraint firstItem="gV9-NV-zxZ" firstAttribute="top" secondItem="Hrs-YZ-8f3" secondAttribute="bottom" constant="5" id="S8r-Af-lSn"/>
                                             <constraint firstItem="XWc-gP-QZy" firstAttribute="trailing" secondItem="gV9-NV-zxZ" secondAttribute="trailing" id="Uq3-ME-YEz"/>
                                             <constraint firstItem="XWc-gP-QZy" firstAttribute="bottom" secondItem="gV9-NV-zxZ" secondAttribute="bottom" id="ZIg-Lh-txc"/>
-                                            <constraint firstItem="XWc-gP-QZy" firstAttribute="top" secondItem="gV9-NV-zxZ" secondAttribute="top" id="ctU-cc-jKt"/>
+                                            <constraint firstItem="XWc-gP-QZy" firstAttribute="leading" secondItem="gV9-NV-zxZ" secondAttribute="leading" id="g2I-0G-xap"/>
                                             <constraint firstAttribute="bottom" secondItem="gV9-NV-zxZ" secondAttribute="bottom" id="lSB-Bl-tYI"/>
-                                            <constraint firstItem="gV9-NV-zxZ" firstAttribute="leading" secondItem="yb1-1m-Yrw" secondAttribute="leading" constant="6" id="v9s-Sj-LMi"/>
+                                            <constraint firstItem="gV9-NV-zxZ" firstAttribute="leading" secondItem="Hrs-YZ-8f3" secondAttribute="leading" id="nGl-JI-ITY"/>
+                                            <constraint firstItem="XWc-gP-QZy" firstAttribute="top" secondItem="gV9-NV-zxZ" secondAttribute="top" id="zc7-kR-Rpa"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wvV-h4-WjT">
-                                        <rect key="frame" x="10" y="80" width="355" height="80"/>
+                                        <rect key="frame" x="10" y="103.66666666666666" width="355" height="80"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Checkout this cool new app" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uaE-pf-9xe">
                                                 <rect key="frame" x="6" y="12.999999999999998" width="276" height="16.333333333333329"/>

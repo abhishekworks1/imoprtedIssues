@@ -22,7 +22,6 @@ class AccountSettings {
     
     static var accountSettings = [
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.referringChannelName(), selected: false)], settingsType: .referringChannelName),
-        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.subscription(), selected: false)], settingsType: .subscription),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.deleteAccount(Constant.Application.displayName), selected: false)], settingsType: .deleteAccount)
     ]
 }
