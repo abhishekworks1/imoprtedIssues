@@ -7109,6 +7109,42 @@ Countdown</string>
                                                     <constraint firstItem="mMK-yf-iY3" firstAttribute="leading" secondItem="QtV-lP-LfF" secondAttribute="leading" id="sNo-PI-CEA"/>
                                                 </constraints>
                                             </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dvi-QJ-1qp">
+                                                <rect key="frame" x="210.00000000000003" y="0.0" width="69.999999999999972" height="66"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EOi-Q6-N2S">
+                                                        <rect key="frame" x="0.0" y="0.0" width="70" height="45"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="45" id="mwz-jp-Dt2"/>
+                                                        </constraints>
+                                                        <state key="normal" image="outlookSocialShare"/>
+                                                    </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Outlook" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bbN-K5-G0V">
+                                                        <rect key="frame" x="12.666666666666625" y="51" width="44.666666666666657" height="15"/>
+                                                        <fontDescription key="fontDescription" name="SFUIText-Semibold" family="SF UI Text" pointSize="12.600000381469727"/>
+                                                        <color key="textColor" name="shareScreenTitleColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uPx-NB-nLn">
+                                                        <rect key="frame" x="0.0" y="0.0" width="70" height="66"/>
+                                                        <connections>
+                                                            <action selector="btnOutlookShareClicked:" destination="qsY-XB-h3J" eventType="touchUpInside" id="2Xf-MQ-5kD"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="uPx-NB-nLn" secondAttribute="bottom" id="7dB-Xa-7ZN"/>
+                                                    <constraint firstAttribute="trailing" secondItem="EOi-Q6-N2S" secondAttribute="trailing" id="8LL-QC-tEi"/>
+                                                    <constraint firstItem="bbN-K5-G0V" firstAttribute="centerX" secondItem="EOi-Q6-N2S" secondAttribute="centerX" id="YF9-7V-Gf7"/>
+                                                    <constraint firstItem="uPx-NB-nLn" firstAttribute="leading" secondItem="Dvi-QJ-1qp" secondAttribute="leading" id="c0v-sR-npc"/>
+                                                    <constraint firstItem="EOi-Q6-N2S" firstAttribute="leading" secondItem="Dvi-QJ-1qp" secondAttribute="leading" id="dRz-7x-QSv"/>
+                                                    <constraint firstItem="uPx-NB-nLn" firstAttribute="top" secondItem="Dvi-QJ-1qp" secondAttribute="top" id="fvl-ug-5eA"/>
+                                                    <constraint firstItem="bbN-K5-G0V" firstAttribute="top" secondItem="EOi-Q6-N2S" secondAttribute="bottom" constant="6" id="pp1-Ej-b2Z"/>
+                                                    <constraint firstItem="EOi-Q6-N2S" firstAttribute="top" secondItem="Dvi-QJ-1qp" secondAttribute="top" id="vMD-Ny-nzQ"/>
+                                                    <constraint firstAttribute="trailing" secondItem="uPx-NB-nLn" secondAttribute="trailing" id="zxp-oG-0z6"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="66" id="TSt-9E-NwP"/>
@@ -7207,6 +7243,7 @@ Countdown</string>
         <image name="iconSwitchApp" width="31" height="32"/>
         <image name="icon_fps" width="33" height="33"/>
         <image name="openFilter" width="34" height="34"/>
+        <image name="outlookSocialShare" width="44" height="44"/>
         <image name="outtakes" width="38" height="38"/>
         <image name="oval" width="18" height="18"/>
         <image name="overLayOption" width="82" height="167"/>
