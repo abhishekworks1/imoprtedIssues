@@ -187,6 +187,49 @@ public var websiteUrl: String {
     return baseUrlString
 }
 
+public var userDashboardUrl: String {
+    var baseUrlString = ""
+    switch Defaults.shared.releaseType {
+    case .debug, .alpha:
+        if isFastCamApp || isFastCamLiteApp {
+            baseUrlString = "https://alpha.react.fastcam.app"
+        } else if isSnapCamApp || isSnapCamLiteApp {
+            baseUrlString = "https://alpha.react.snapcam.app"
+        } else if isQuickCamApp || isQuickCamLiteApp || isQuickApp {
+            baseUrlString = "https://alpha.react.quickcam.app"
+        } else if isSpeedCamApp || isSpeedCamLiteApp {
+            baseUrlString = "https://alpha.react.speedcam.net"
+        } else {
+            baseUrlString = "https://alpha.react.snapcam.app"
+        }
+    case .beta:
+        if isFastCamApp || isFastCamLiteApp {
+            baseUrlString = "https://beta.react.fastcam.app"
+        } else if isSnapCamApp || isSnapCamLiteApp {
+            baseUrlString = "https://beta.react.snapcam.app"
+        } else if isQuickCamApp || isQuickCamLiteApp || isQuickApp {
+            baseUrlString = "https://beta.react.quickcam.app"
+        } else if isSpeedCamApp || isSpeedCamLiteApp {
+            baseUrlString = "https://beta.react.speedcam.net"
+        } else {
+            baseUrlString = "https://beta.react.snapcam.app"
+        }
+    case .store:
+        if isFastCamApp || isFastCamLiteApp {
+            baseUrlString = "https://react.fastcam.app"
+        } else if isSnapCamApp || isSnapCamLiteApp {
+            baseUrlString = "https://react.snapcam.app"
+        } else if isQuickCamApp || isQuickCamLiteApp || isQuickApp {
+            baseUrlString = "https://react.quickcam.app"
+        } else if isSpeedCamApp || isSpeedCamLiteApp {
+            baseUrlString = "https://react.speedcam.net"
+        } else {
+            baseUrlString = "https://react.snapcam.app"
+        }
+    }
+    return baseUrlString
+}
+
 public var businessCenterWebsiteUrl: String {
     var baseUrlString = ""
     switch Defaults.shared.releaseType {

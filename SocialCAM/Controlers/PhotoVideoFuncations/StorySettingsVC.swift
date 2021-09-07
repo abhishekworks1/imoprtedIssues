@@ -517,11 +517,13 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 navigationController?.pushViewController(shareSettingViewController, animated: true)
             }
         } else if settingTitle.settingsType == .userDashboard {
-            let urlString = "\(websiteUrl)/ref/\(Defaults.shared.currentUser?.channelId ?? "")"
-            guard let url = URL(string: urlString) else {
-                return
+            if let token = Defaults.shared.sessionToken {
+                let urlString = "\(userDashboardUrl)/redirect?token=\(token)"
+                guard let url = URL(string: urlString) else {
+                    return
+                }
+                presentSafariBrowser(url: url)
             }
-            presentSafariBrowser(url: url)
         }
     }
     
