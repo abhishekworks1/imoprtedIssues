@@ -11,6 +11,11 @@ import SafariServices
 import FBSDKShareKit
 import MessageUI
 
+enum EmailType {
+    case gmail
+    case outlook
+}
+
 class ShareSettingViewController: UIViewController {
     
     // MARK: - Outlets Declaration
@@ -79,7 +84,11 @@ class ShareSettingViewController: UIViewController {
     }
     
     @IBAction func btnGmailShareClicked(_ sender: UIButton) {
-        self.shareTextOnGmail()
+        self.shareTextWithMail(emailType: .gmail)
+    }
+    
+    @IBAction func btnOutlookShareClicked(_ sender: UIButton) {
+        self.shareTextWithMail(emailType: .outlook)
     }
     
     @IBAction func btnHyperLinkClicked(_ sender: UIButton) {
@@ -119,22 +128,28 @@ extension ShareSettingViewController {
         }
     }
     
-    func shareTextOnGmail() {
+    func shareTextWithMail(emailType: EmailType) {
         // Modify following variables with your text / recipient
         let recipientEmail = ""
         let subject = ""
         let body = self.lblLinkWithCheckOut.text ?? ""
-        // Show default mail composer
-        if MFMailComposeViewController.canSendMail() {
-            let mail = MFMailComposeViewController()
-            mail.mailComposeDelegate = self
-            mail.setToRecipients([recipientEmail])
-            mail.setSubject(subject)
-            mail.setMessageBody(body, isHTML: false)
-            present(mail, animated: true)
-            // Show third party email composer if default Mail app is not present
-        } else if let emailUrl = createEmailUrl(to: recipientEmail, subject: subject, body: body) {
-            UIApplication.shared.open(emailUrl)
+        switch emailType {
+        case .gmail:
+            if MFMailComposeViewController.canSendMail() {
+                let mail = MFMailComposeViewController()
+                mail.mailComposeDelegate = self
+                mail.setToRecipients([recipientEmail])
+                mail.setSubject(subject)
+                mail.setMessageBody(body, isHTML: false)
+                present(mail, animated: true)
+                // Show third party email composer if default Mail app is not present
+            } else if let emailUrl = createEmailUrl(to: recipientEmail, subject: subject, body: body, emailType: .gmail) {
+                UIApplication.shared.open(emailUrl)
+            }
+        case .outlook:
+            if let emailUrl = createEmailUrl(to: recipientEmail, subject: subject, body: body, emailType: .outlook) {
+                UIApplication.shared.open(emailUrl)
+            }
         }
     }
     
@@ -143,24 +158,30 @@ extension ShareSettingViewController {
 // MARK: - MFMail Compose View Controller Delegate
 extension ShareSettingViewController: MFMailComposeViewControllerDelegate {
     
-    private func createEmailUrl(to: String, subject: String, body: String) -> URL? {
+    private func createEmailUrl(to: String, subject: String, body: String, emailType: EmailType) -> URL? {
         if let subjectEncoded = subject.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
            let bodyEncoded = body.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
-            let gmailUrl = URL(string: "googlegmail://co?to=\(to)&subject=\(subjectEncoded)&body=\(bodyEncoded)")
-            let outlookUrl = URL(string: "ms-outlook://compose?to=\(to)&subject=\(subjectEncoded)")
-            let yahooMail = URL(string: "ymail://mail/compose?to=\(to)&subject=\(subjectEncoded)&body=\(bodyEncoded)")
-            let sparkUrl = URL(string: "readdle-spark://compose?recipient=\(to)&subject=\(subjectEncoded)&body=\(bodyEncoded)")
-            let defaultUrl = URL(string: "mailto:\(to)?subject=\(subjectEncoded)&body=\(bodyEncoded)")
-            
-            if let gmailUrl = gmailUrl, UIApplication.shared.canOpenURL(gmailUrl) {
-                return gmailUrl
-            } else if let outlookUrl = outlookUrl, UIApplication.shared.canOpenURL(outlookUrl) {
-                return outlookUrl
-            } else if let yahooMail = yahooMail, UIApplication.shared.canOpenURL(yahooMail) {
-                return yahooMail
-            } else if let sparkUrl = sparkUrl, UIApplication.shared.canOpenURL(sparkUrl) {
-                return sparkUrl
+            switch emailType {
+            case .gmail:
+                let gmailUrl = URL(string: "googlegmail://co?to=\(to)&subject=\(subjectEncoded)&body=\(bodyEncoded)")
+                let yahooMail = URL(string: "ymail://mail/compose?to=\(to)&subject=\(subjectEncoded)&body=\(bodyEncoded)")
+                let sparkUrl = URL(string: "readdle-spark://compose?recipient=\(to)&subject=\(subjectEncoded)&body=\(bodyEncoded)")
+                
+                if let gmailUrl = gmailUrl, UIApplication.shared.canOpenURL(gmailUrl) {
+                    return gmailUrl
+                } else if let yahooMail = yahooMail, UIApplication.shared.canOpenURL(yahooMail) {
+                    return yahooMail
+                } else if let sparkUrl = sparkUrl, UIApplication.shared.canOpenURL(sparkUrl) {
+                    return sparkUrl
+                }
+            case .outlook:
+                let outlookUrl = URL(string: "ms-outlook://compose?to=\(to)&subject=\(subjectEncoded)&body=\(bodyEncoded)")
+                if let outlookUrl = outlookUrl,
+                   UIApplication.shared.canOpenURL(outlookUrl) {
+                    return outlookUrl
+                }
             }
+            let defaultUrl = URL(string: "mailto:\(to)?subject=\(subjectEncoded)&body=\(bodyEncoded)")
             return defaultUrl
         }
         return URL(string: "")
