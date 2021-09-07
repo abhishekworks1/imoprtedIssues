@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import LinkPresentation
 
 enum LinkMode: Int {
     case quickCam = 0
@@ -38,6 +40,8 @@ class SelectLinkViewController: UIViewController {
         blurBackGroundView.isHidden = true
         SelectLink.selectLinks.removeAll()
         getLinkCells()
+        blurBackGroundView.isUserInteractionEnabled = true
+        blurBackGroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.backgroundTapped)))
     }
     
     // MARK: - Action Methods
@@ -51,8 +55,24 @@ class SelectLinkViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     @IBAction func btnOkTapped(_ sender: UIButton) {
-        Defaults.shared.enterLinkValue = tfEnterLink.text ?? ""
-        dismiss(animated: true, completion: nil)
+        let link = tfEnterLink.text ?? ""
+        Defaults.shared.enterLinkValue = link
+        guard let followMeStoryView: FollowMeStoryView = storyEditors[currentStoryIndex].subviews[4] as? FollowMeStoryView else {
+            return
+        }
+        if !link.isEmpty && (link.contains("https") || link.contains("http")) {
+            self.showHUD()
+            getLinkPreview(link: link) { [weak self] image in
+                guard let `self` = self else { return }
+                DispatchQueue.main.sync {
+                    followMeStoryView.userBitEmoji.image = image
+                    self.dismiss(animated: true, completion: nil)
+                    self.dismissHUD()
+                }
+            }
+        } else {
+            self.showAlert(alertMessage: R.string.localizable.pleaseEnterProperUrl())
+        }
     }
 }
 
@@ -154,7 +174,7 @@ extension SelectLinkViewController: SSUTagSelectionDelegate {
             case .enterLink:
                 storyEditors[currentStoryIndex].addReferLinkView(type: .enterLink)
             case .noLink:
-                storyEditors[currentStoryIndex].addReferLinkView(type: .NoLink)
+                storyEditors[currentStoryIndex].addReferLinkView(type: .noLink)
             default:
                 storyEditors[currentStoryIndex].addReferLinkView(type: .socialScreenRecorder)
             }
@@ -162,12 +182,16 @@ extension SelectLinkViewController: SSUTagSelectionDelegate {
             storyEditors[currentStoryIndex].addReferLinkView(type: .socialCam)
         default: break
         }
-        storyEditorVC.videoExportedURL = nil
+        storyEditorVC.isSettingsChange = true
     }
 }
 
 // MARK: - Methods
 extension SelectLinkViewController {
+    
+    @objc func backgroundTapped() {
+        self.dismiss(animated: true, completion: nil)
+    }
     
     func callDidSelectMethod(type: SSUTagType) {
         if currentStoryIndex == 0 {
@@ -195,5 +219,47 @@ extension SelectLinkViewController {
         SelectLink.selectLinks.append(enterLinkCell)
         let noLinkCell = SelectLink(name: "", linkSettings: [SelectLinkSetting(name: R.string.localizable.noLink(), image: R.image.iconNoLink())], linkType: .noLink)
         SelectLink.selectLinks.append(noLinkCell)
+    }
+    
+    func getLinkPreview(link: String, completionHandler: @escaping (UIImage) -> Void) {
+        guard let url = URL(string: link) else {
+            return
+        }
+
+        if #available(iOS 13.0, *) {
+            let provider = LPMetadataProvider()
+            provider.startFetchingMetadata(for: url) { [weak self] metaData, error in
+                guard let `self` = self else {
+                    return
+                }
+                guard let data = metaData, error == nil else {
+                    if let previewImage = R.image.ssuQuickCam() {
+                        completionHandler(previewImage)
+                    }
+                    return
+                }
+                DispatchQueue.main.async {
+                    self.getImage(data: data) { [weak self] image in
+                        guard let `self` = self else { return }
+                        completionHandler(image)
+                    }
+                }
+            }
+        }
+    }
+    
+    @available(iOS 13.0, *)
+    func getImage(data: LPLinkMetadata, handler: @escaping (UIImage) -> Void) {
+        data.iconProvider?.loadDataRepresentation(forTypeIdentifier: data.iconProvider!.registeredTypeIdentifiers[0], completionHandler: { (data, error) in
+            guard let imageData = data else {
+                return
+            }
+            if error != nil {
+                self.showAlert(alertMessage: error?.localizedDescription ?? "Error")
+            }
+            if let previewImage = UIImage(data: imageData) {
+                handler(previewImage)
+            }
+        })
     }
 }
