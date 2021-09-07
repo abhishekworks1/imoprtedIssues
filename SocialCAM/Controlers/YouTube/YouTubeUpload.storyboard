@@ -45,14 +45,19 @@
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </imageView>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" secondItem="Wfm-Kp-VPE" secondAttribute="height" multiplier="361:154" id="8XR-yf-gHj"/>
+                                                    <constraint firstAttribute="width" secondItem="Wfm-Kp-VPE" secondAttribute="height" multiplier="361:200" id="8XR-yf-gHj"/>
                                                     <constraint firstItem="vTN-AD-LIO" firstAttribute="centerX" secondItem="Wfm-Kp-VPE" secondAttribute="centerX" id="CjA-A6-0Qi"/>
                                                     <constraint firstItem="vTN-AD-LIO" firstAttribute="height" secondItem="Wfm-Kp-VPE" secondAttribute="height" id="PJt-gy-5kA"/>
                                                     <constraint firstItem="vTN-AD-LIO" firstAttribute="width" secondItem="Wfm-Kp-VPE" secondAttribute="width" id="SI6-pF-n61"/>
                                                     <constraint firstItem="vTN-AD-LIO" firstAttribute="centerY" secondItem="Wfm-Kp-VPE" secondAttribute="centerY" id="bCS-90-6FF"/>
                                                 </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                        <real key="value" value="15"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WvS-B6-VGH">
                                                 <rect key="frame" x="186" y="67.5" width="42" height="42"/>
@@ -364,7 +369,7 @@
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstItem="Wfm-Kp-VPE" firstAttribute="top" secondItem="2ko-zc-0ac" secondAttribute="top" id="0Df-2Z-b4R"/>
+                                            <constraint firstItem="Wfm-Kp-VPE" firstAttribute="top" secondItem="2ko-zc-0ac" secondAttribute="top" constant="10" id="0Df-2Z-b4R"/>
                                             <constraint firstItem="KW0-a6-tKf" firstAttribute="top" secondItem="ne3-g9-P0y" secondAttribute="bottom" constant="20" id="8dV-8Y-gcO"/>
                                             <constraint firstAttribute="trailing" secondItem="qaa-Lb-g2c" secondAttribute="trailing" constant="15" id="9aO-vn-x8Y"/>
                                             <constraint firstItem="ne3-g9-P0y" firstAttribute="width" secondItem="qaa-Lb-g2c" secondAttribute="width" id="AV6-fq-kFi"/>
@@ -379,6 +384,7 @@
                                             <constraint firstItem="ne3-g9-P0y" firstAttribute="centerX" secondItem="qaa-Lb-g2c" secondAttribute="centerX" id="N8d-rc-ltB"/>
                                             <constraint firstAttribute="trailing" secondItem="9Ty-QX-LTD" secondAttribute="trailing" constant="55" id="N9B-5b-Sho"/>
                                             <constraint firstItem="WvS-B6-VGH" firstAttribute="centerX" secondItem="Wfm-Kp-VPE" secondAttribute="centerX" id="NNA-iv-fZ3"/>
+                                            <constraint firstItem="Wfm-Kp-VPE" firstAttribute="leading" secondItem="2ko-zc-0ac" secondAttribute="leading" constant="60" id="RJC-Pi-nNg"/>
                                             <constraint firstItem="imZ-Q2-wxd" firstAttribute="bottom" secondItem="9os-oL-SYd" secondAttribute="bottom" id="SSm-CL-e2i"/>
                                             <constraint firstAttribute="trailing" secondItem="9os-oL-SYd" secondAttribute="trailing" constant="15" id="SeR-aB-3MX"/>
                                             <constraint firstAttribute="trailing" secondItem="cKg-cE-2Ik" secondAttribute="trailing" constant="15" id="SmE-Fo-zXy"/>
@@ -391,14 +397,13 @@
                                             <constraint firstItem="Yt5-Pf-Fju" firstAttribute="top" secondItem="KW0-a6-tKf" secondAttribute="bottom" constant="20" id="Y3i-ql-ttW"/>
                                             <constraint firstAttribute="trailing" secondItem="1vj-Xo-FXS" secondAttribute="trailing" constant="15" id="bQf-hz-wUU"/>
                                             <constraint firstItem="9os-oL-SYd" firstAttribute="leading" secondItem="2ko-zc-0ac" secondAttribute="leading" constant="12" id="d9a-Mw-xo0"/>
-                                            <constraint firstItem="Wfm-Kp-VPE" firstAttribute="centerX" secondItem="2ko-zc-0ac" secondAttribute="centerX" id="dfY-eC-PSE"/>
                                             <constraint firstItem="Yt5-Pf-Fju" firstAttribute="centerX" secondItem="2ko-zc-0ac" secondAttribute="centerX" id="e4s-Za-gWq"/>
                                             <constraint firstItem="qaa-Lb-g2c" firstAttribute="leading" secondItem="2ko-zc-0ac" secondAttribute="leading" constant="15" id="euJ-vh-icR"/>
                                             <constraint firstAttribute="trailing" secondItem="Rbb-ds-GQM" secondAttribute="trailing" constant="15" id="fqA-Li-FQh"/>
                                             <constraint firstItem="9os-oL-SYd" firstAttribute="top" secondItem="cKg-cE-2Ik" secondAttribute="bottom" constant="25" id="g4Z-HK-7GB"/>
                                             <constraint firstAttribute="bottom" secondItem="Yt5-Pf-Fju" secondAttribute="bottom" priority="50" constant="125.5" id="gEY-NA-7To"/>
-                                            <constraint firstItem="Wfm-Kp-VPE" firstAttribute="width" secondItem="2ko-zc-0ac" secondAttribute="width" id="hBg-Yn-x4R"/>
                                             <constraint firstItem="Rbb-ds-GQM" firstAttribute="bottom" secondItem="9Ty-QX-LTD" secondAttribute="bottom" id="kX7-Ui-7IX"/>
+                                            <constraint firstAttribute="trailing" secondItem="Wfm-Kp-VPE" secondAttribute="trailing" constant="60" id="lXr-HC-kMS"/>
                                             <constraint firstItem="Hzl-dL-UR5" firstAttribute="trailing" secondItem="ne3-g9-P0y" secondAttribute="trailing" id="qaa-h9-RgJ"/>
                                             <constraint firstItem="Rbb-ds-GQM" firstAttribute="leading" secondItem="9Ty-QX-LTD" secondAttribute="leading" id="tXz-oG-KAl"/>
                                             <constraint firstItem="qaa-Lb-g2c" firstAttribute="top" secondItem="Rbb-ds-GQM" secondAttribute="bottom" constant="25" id="xvD-DD-FDD"/>
@@ -1162,5 +1167,8 @@
         <namedColor name="AppPrimaryColor">
             <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

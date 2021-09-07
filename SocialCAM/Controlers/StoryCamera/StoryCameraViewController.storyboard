@@ -5472,10 +5472,10 @@ Countdown</string>
                                 <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="t2J-qE-Br2" firstAttribute="leading" secondItem="G5p-gA-J8W" secondAttribute="leading" constant="8" id="89v-Xn-eTj"/>
-                                    <constraint firstItem="t2J-qE-Br2" firstAttribute="top" secondItem="G5p-gA-J8W" secondAttribute="top" constant="44" id="MNK-RO-Zyz"/>
+                                    <constraint firstItem="t2J-qE-Br2" firstAttribute="top" secondItem="G5p-gA-J8W" secondAttribute="top" id="MNK-RO-Zyz"/>
                                     <constraint firstItem="DWk-c8-iDc" firstAttribute="centerY" secondItem="t2J-qE-Br2" secondAttribute="centerY" id="kDZ-Vj-CFu"/>
                                     <constraint firstItem="DWk-c8-iDc" firstAttribute="centerX" secondItem="G5p-gA-J8W" secondAttribute="centerX" id="vLE-OD-nCR"/>
-                                    <constraint firstAttribute="height" constant="96" id="xJ7-nn-gF8"/>
+                                    <constraint firstAttribute="height" constant="52" id="xJ7-nn-gF8"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KrR-jE-rjD">
@@ -5923,7 +5923,7 @@ Countdown</string>
                             <constraint firstItem="zgz-lI-YnV" firstAttribute="bottom" secondItem="NIl-IK-LAJ" secondAttribute="bottom" id="24O-gq-ubh"/>
                             <constraint firstItem="KrR-jE-rjD" firstAttribute="trailing" secondItem="G5p-gA-J8W" secondAttribute="trailing" id="8XW-Xn-snX"/>
                             <constraint firstItem="zgz-lI-YnV" firstAttribute="trailing" secondItem="G5p-gA-J8W" secondAttribute="trailing" id="EM9-Yp-K3I"/>
-                            <constraint firstAttribute="top" secondItem="G5p-gA-J8W" secondAttribute="top" id="Zjf-1m-Wi9"/>
+                            <constraint firstItem="zgz-lI-YnV" firstAttribute="top" secondItem="G5p-gA-J8W" secondAttribute="top" id="Zjf-1m-Wi9"/>
                             <constraint firstItem="NIl-IK-LAJ" firstAttribute="leading" secondItem="zgz-lI-YnV" secondAttribute="leading" constant="8" id="aD0-Ga-FLv"/>
                             <constraint firstItem="KrR-jE-rjD" firstAttribute="top" secondItem="G5p-gA-J8W" secondAttribute="bottom" id="bIj-T1-IWF"/>
                             <constraint firstItem="zgz-lI-YnV" firstAttribute="trailing" secondItem="NIl-IK-LAJ" secondAttribute="trailing" constant="8" id="dBo-cN-kRr"/>
@@ -6868,8 +6868,8 @@ Countdown</string>
                                 </subviews>
                                 <color key="backgroundColor" name="hideWatermarkBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="96" id="Cqa-GG-j75"/>
-                                    <constraint firstItem="DXy-0N-yfu" firstAttribute="top" secondItem="F5p-Po-Ebc" secondAttribute="top" constant="44" id="IU0-Hc-T7g"/>
+                                    <constraint firstAttribute="height" constant="52" id="Cqa-GG-j75"/>
+                                    <constraint firstItem="DXy-0N-yfu" firstAttribute="top" secondItem="F5p-Po-Ebc" secondAttribute="top" id="IU0-Hc-T7g"/>
                                     <constraint firstItem="IgB-gg-jyC" firstAttribute="centerX" secondItem="F5p-Po-Ebc" secondAttribute="centerX" id="JYF-6M-Zlb"/>
                                     <constraint firstItem="IgB-gg-jyC" firstAttribute="centerY" secondItem="DXy-0N-yfu" secondAttribute="centerY" id="PZQ-Uf-dmk"/>
                                     <constraint firstItem="DXy-0N-yfu" firstAttribute="leading" secondItem="F5p-Po-Ebc" secondAttribute="leading" constant="8" id="sWq-i1-pnI"/>
@@ -7167,9 +7167,9 @@ Countdown</string>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="GbM-rV-f8x"/>
-                        <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" name="hideWatermarkBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="top" secondItem="F5p-Po-Ebc" secondAttribute="top" id="0vM-MO-vR0"/>
+                            <constraint firstItem="GbM-rV-f8x" firstAttribute="top" secondItem="F5p-Po-Ebc" secondAttribute="top" id="0vM-MO-vR0"/>
                             <constraint firstItem="GbM-rV-f8x" firstAttribute="leading" secondItem="F5p-Po-Ebc" secondAttribute="leading" id="3hi-1Q-CWN"/>
                             <constraint firstItem="tAW-3Z-6Uu" firstAttribute="centerX" secondItem="GbM-rV-f8x" secondAttribute="centerX" id="7m9-cu-r8Q"/>
                             <constraint firstItem="GbM-rV-f8x" firstAttribute="bottom" secondItem="9my-ax-2fN" secondAttribute="bottom" id="AK9-uW-CgF"/>
