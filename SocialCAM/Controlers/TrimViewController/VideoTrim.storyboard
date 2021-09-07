@@ -1232,32 +1232,32 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zwe-6g-1FV">
-                                        <rect key="frame" x="0.0" y="675" width="414" height="70"/>
+                                        <rect key="frame" x="0.0" y="640" width="420" height="105"/>
                                         <subviews>
                                             <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="drN-7s-VfB">
-                                                <rect key="frame" x="110" y="15" width="194" height="55"/>
+                                                <rect key="frame" x="110" y="15" width="200" height="90"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1gT-E7-Rzu">
-                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="55"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="100" height="90"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hKI-CV-Hja">
-                                                                <rect key="frame" x="0.0" y="0.0" width="100" height="35"/>
-                                                                <state key="normal" image="se_mergeBefore"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="100" height="70"/>
+                                                                <state key="normal" image="se_merge_before_new"/>
                                                                 <state key="selected" image="se_mergeBefore"/>
                                                             </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Before" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tIk-7B-40R">
-                                                                <rect key="frame" x="0.0" y="41" width="100" height="14"/>
+                                                                <rect key="frame" x="0.0" y="76" width="100" height="14"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="14" id="cfe-tR-IQA"/>
                                                                 </constraints>
-                                                                <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="12"/>
+                                                                <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="15"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
                                                                 <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <size key="shadowOffset" width="0.0" height="1"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e3y-Ac-ZFh">
-                                                                <rect key="frame" x="0.0" y="0.0" width="100" height="55"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="100" height="90"/>
                                                                 <connections>
                                                                     <action selector="segmentBeforeMergeButtonTapped:" destination="q2P-Bv-Tyf" eventType="touchUpInside" id="QUK-jP-Z7a"/>
                                                                 </connections>
@@ -1280,26 +1280,26 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GxP-lU-1Lb">
-                                                        <rect key="frame" x="100" y="0.0" width="94" height="55"/>
+                                                        <rect key="frame" x="100" y="0.0" width="100" height="90"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vaq-FY-zJs">
-                                                                <rect key="frame" x="0.0" y="0.0" width="94" height="35"/>
-                                                                <state key="normal" image="se_mergeAfter"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="100" height="70"/>
+                                                                <state key="normal" image="se_merge_after_new"/>
                                                                 <state key="selected" image="se_mergeAfter"/>
                                                             </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="After" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="he7-po-3m3">
-                                                                <rect key="frame" x="0.0" y="41" width="94" height="14"/>
+                                                                <rect key="frame" x="0.0" y="76" width="100" height="14"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="14" id="5nn-ht-P9c"/>
                                                                 </constraints>
-                                                                <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="12"/>
+                                                                <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="15"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
                                                                 <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <size key="shadowOffset" width="0.0" height="1"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="woh-sB-0tR">
-                                                                <rect key="frame" x="0.0" y="0.0" width="94" height="55"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="100" height="90"/>
                                                                 <connections>
                                                                     <action selector="segmentAfterMergeButtonTapped:" destination="q2P-Bv-Tyf" eventType="touchUpInside" id="rGh-h7-LeI"/>
                                                                 </connections>
@@ -1327,7 +1327,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="drN-7s-VfB" firstAttribute="leading" secondItem="zwe-6g-1FV" secondAttribute="leading" constant="110" id="ORH-AA-ehI"/>
-                                            <constraint firstAttribute="height" constant="70" id="YnW-KP-geq"/>
+                                            <constraint firstAttribute="height" constant="105" id="YnW-KP-geq"/>
                                             <constraint firstAttribute="trailing" secondItem="drN-7s-VfB" secondAttribute="trailing" constant="110" id="iI4-rq-ksC"/>
                                             <constraint firstItem="drN-7s-VfB" firstAttribute="top" secondItem="zwe-6g-1FV" secondAttribute="top" constant="15" id="kgf-Eg-VPI"/>
                                             <constraint firstAttribute="bottom" secondItem="drN-7s-VfB" secondAttribute="bottom" id="mpY-KA-cXc"/>
@@ -1367,7 +1367,6 @@
                                     <constraint firstItem="x12-cV-Ht0" firstAttribute="leading" secondItem="e2h-3Z-6bU" secondAttribute="leading" id="dZI-KI-Ngi"/>
                                     <constraint firstAttribute="trailing" secondItem="wxP-uA-sLJ" secondAttribute="trailing" constant="25" id="eXd-5F-GCu"/>
                                     <constraint firstAttribute="trailing" secondItem="3CK-mg-Dl2" secondAttribute="trailing" id="fQp-Ke-I1c"/>
-                                    <constraint firstAttribute="trailing" secondItem="zwe-6g-1FV" secondAttribute="trailing" id="jnP-hI-Lxi"/>
                                     <constraint firstItem="vbm-iv-Mpy" firstAttribute="leading" secondItem="e2h-3Z-6bU" secondAttribute="leading" id="kdG-or-l0C"/>
                                     <constraint firstAttribute="bottom" secondItem="wxP-uA-sLJ" secondAttribute="bottom" constant="40" id="mhi-Em-uDw"/>
                                     <constraint firstItem="3CK-mg-Dl2" firstAttribute="top" secondItem="e2h-3Z-6bU" secondAttribute="top" constant="-30" id="oJo-Tf-xtd"/>
@@ -1438,6 +1437,8 @@
         <image name="se_mergeAfter" width="39" height="34"/>
         <image name="se_mergeBefore" width="39" height="34"/>
         <image name="se_mergeCopy" width="30" height="44"/>
+        <image name="se_merge_after_new" width="88" height="78"/>
+        <image name="se_merge_before_new" width="88" height="78"/>
         <image name="se_undo" width="32" height="32"/>
         <image name="se_undoCopy" width="30" height="44"/>
         <image name="trimBack" width="32" height="32"/>
