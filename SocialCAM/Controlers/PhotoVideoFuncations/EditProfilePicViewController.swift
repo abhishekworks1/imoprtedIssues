@@ -10,7 +10,8 @@ import UIKit
 import AVKit
 
 protocol SharingSocialTypeDelegate {
-  func shareSocialType(socialType: ProfileSocialShare)
+    func shareSocialType(socialType: ProfileSocialShare)
+    func setCroppedImage(croppedImg: UIImage)
 }
 
 class EditProfilePicViewController: UIViewController {
@@ -92,7 +93,6 @@ extension EditProfilePicViewController {
         if UIImagePickerController.isSourceTypeAvailable(sourceType) {
             imagePicker.delegate = self
             imagePicker.sourceType = sourceType
-            imagePicker.allowsEditing = true
             self.present(imagePicker, animated: true, completion: nil)
         }
     }
@@ -159,6 +159,14 @@ extension EditProfilePicViewController {
         self.dismiss(animated: true)
     }
     
+    func pushCropVC(img: UIImage) {
+        if let editProfileCropVC = R.storyboard.editProfileViewController.editProfileCropViewController() {
+            editProfileCropVC.inputImage = img
+            editProfileCropVC.delegate = self
+            navigationController?.pushViewController(editProfileCropVC, animated: true)
+        }
+    }
+    
 }
 
 // MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
@@ -167,15 +175,16 @@ extension EditProfilePicViewController: UIImagePickerControllerDelegate, UINavig
     /// Get selected image
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         self.localImageUrl = info[.imageURL] as? URL
-        imgProfilePic.image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
-        if let img = imgProfilePic.image,
+        if let img = info[.originalImage] as? UIImage,
            let compressedImg = img.jpegData(compressionQuality: 1) {
             let imageSize: Int = compressedImg.count
             let imgSizeInKb = Double(imageSize) / 1000.0
             if imgSizeInKb > 8000.0 {
-                imgProfilePic.image = imgProfilePic.image?.resizeWithWidth(width: 2000)
+                imgProfilePic.image = img.resizeWithWidth(width: 2000)
             }
-            picker.dismiss(animated: true, completion: nil)
+            picker.dismiss(animated: true, completion: {
+                self.pushCropVC(img: img)
+            })
             imgProfilePic.layer.cornerRadius = imgProfilePic.bounds.width / 2
             imgProfilePic.contentMode = .scaleAspectFill
             btnProfilePic.layer.cornerRadius = btnProfilePic.bounds.width / 2
@@ -404,7 +413,9 @@ extension EditProfilePicViewController {
         if let url = URL(string: userData.profileURL ?? ""),
            let data = try? Data(contentsOf: url) {
             DispatchQueue.main.async {
-                self.imgProfilePic.image = UIImage(data: data)
+                if let img = UIImage(data: data) {
+                    self.pushCropVC(img: img)
+                }
                 self.imgProfilePic.layer.cornerRadius = self.imgProfilePic.bounds.width / 2
                 self.imgProfilePic.contentMode = .scaleAspectFill
                 self.btnProfilePic.layer.cornerRadius = self.btnProfilePic.bounds.width / 2
@@ -441,6 +452,10 @@ extension EditProfilePicViewController: InstagramLoginViewControllerDelegate, Pr
 
 // MARK: - SharingSocialTypeDelegate
 extension EditProfilePicViewController: SharingSocialTypeDelegate {
+    
+    func setCroppedImage(croppedImg: UIImage) {
+        imgProfilePic.image = croppedImg
+    }
     
     func shareSocialType(socialType: ProfileSocialShare) {
         self.openSheet(socialType: socialType)
