@@ -20,7 +20,7 @@ class ShareSettingViewController: UIViewController {
     
     // MARK: - Outlets Declaration
     @IBOutlet weak var lblHyperLink: UILabel!
-    @IBOutlet weak var lblLinkWithCheckOut: UILabel!
+    @IBOutlet weak var txtViewLinkWithCheckOut: UITextView!
     @IBOutlet weak var lblReferralLink: UILabel!
     
     // MARK: - Variable Declarations
@@ -36,7 +36,7 @@ class ShareSettingViewController: UIViewController {
     func setup() {
         if let channelId = Defaults.shared.currentUser?.channelId {
             self.lblHyperLink.text = "\(websiteUrl)/ref/\(channelId)"
-            self.lblLinkWithCheckOut.text = "\(R.string.localizable.checkOutThisCoolNewAppQuickCam()) \(websiteUrl)/ref/\(channelId)"
+            self.txtViewLinkWithCheckOut.text = "\(R.string.localizable.checkOutThisCoolNewAppQuickCam()) \(websiteUrl)/ref/\(channelId)"
             self.lblReferralLink.text = "\(websiteUrl)/ref/\(channelId)"
         }
     }
@@ -62,7 +62,7 @@ class ShareSettingViewController: UIViewController {
     }
     
     @IBAction func btnCheckOutCopyClicked(_ sender: UIButton) {
-        if let urlString = self.lblLinkWithCheckOut.text {
+        if let urlString = self.txtViewLinkWithCheckOut.text {
             UIPasteboard.general.string = urlString
             showAlert(alertMessage: R.string.localizable.linkIsCopiedToClipboard())
         }
@@ -106,7 +106,7 @@ class ShareSettingViewController: UIViewController {
 extension ShareSettingViewController {
     
     func twitterShareCompose(text: String = Constant.Application.displayName) {
-        let displayMessage = self.lblLinkWithCheckOut.text
+        let displayMessage = self.txtViewLinkWithCheckOut.text
         if let twitterComposeViewController = R.storyboard.twitterCompose.twitterComposeViewController() {
             twitterComposeViewController.presetText = displayMessage
             let navController = UINavigationController(rootViewController: twitterComposeViewController)
@@ -122,7 +122,7 @@ extension ShareSettingViewController {
             let text = "\(websiteUrl)/ref/\(channelId)"
             if let url = URL(string: text) {
                 shareContent.contentURL = url
-                shareContent.quote = "\(R.string.localizable.checkOutThisCoolNewAppQuickCam())"
+                shareContent.quote = "\(self.txtViewLinkWithCheckOut.text ?? R.string.localizable.checkOutThisCoolNewAppQuickCam())"
                 SocialShareVideo.shared.showShareDialog(shareContent)
             }
         }
@@ -132,7 +132,7 @@ extension ShareSettingViewController {
         // Modify following variables with your text / recipient
         let recipientEmail = ""
         let subject = ""
-        let body = self.lblLinkWithCheckOut.text ?? ""
+        let body = self.txtViewLinkWithCheckOut.text ?? ""
         switch emailType {
         case .gmail:
             if MFMailComposeViewController.canSendMail() {
