@@ -6915,9 +6915,16 @@ Countdown</string>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wvV-h4-WjT">
-                                        <rect key="frame" x="10" y="103.66666666666666" width="355" height="80"/>
+                                        <rect key="frame" x="10" y="103.66666666666666" width="355" height="90"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Checkout this cool new app" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uaE-pf-9xe">
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="E5M-m7-kyI">
+                                                <rect key="frame" x="6" y="6" width="276" height="78"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="textColor" systemColor="labelColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Checkout this cool new app" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uaE-pf-9xe">
                                                 <rect key="frame" x="6" y="12.999999999999998" width="276" height="16.333333333333329"/>
                                                 <fontDescription key="fontDescription" name="SFUIText-Bold" family="SF UI Text" pointSize="14"/>
                                                 <color key="textColor" name="shareScreenTitleColor"/>
@@ -6936,12 +6943,16 @@ Countdown</string>
                                             </button>
                                         </subviews>
                                         <constraints>
+                                            <constraint firstItem="E5M-m7-kyI" firstAttribute="leading" secondItem="wvV-h4-WjT" secondAttribute="leading" constant="6" id="2hw-U3-juq"/>
                                             <constraint firstItem="uaE-pf-9xe" firstAttribute="leading" secondItem="wvV-h4-WjT" secondAttribute="leading" constant="6" id="81d-aW-9X2"/>
                                             <constraint firstItem="uaE-pf-9xe" firstAttribute="top" secondItem="wvV-h4-WjT" secondAttribute="top" constant="13" id="QS1-qQ-Dyj"/>
                                             <constraint firstItem="oKX-Dk-OV8" firstAttribute="top" secondItem="wvV-h4-WjT" secondAttribute="top" constant="13" id="bVn-d8-AXX"/>
+                                            <constraint firstAttribute="bottom" secondItem="E5M-m7-kyI" secondAttribute="bottom" constant="6" id="eR8-gt-RnN"/>
                                             <constraint firstAttribute="trailing" secondItem="oKX-Dk-OV8" secondAttribute="trailing" constant="6" id="fXp-vD-Sb6"/>
+                                            <constraint firstItem="E5M-m7-kyI" firstAttribute="top" secondItem="wvV-h4-WjT" secondAttribute="top" constant="6" id="g6t-vL-3RB"/>
+                                            <constraint firstItem="oKX-Dk-OV8" firstAttribute="leading" secondItem="E5M-m7-kyI" secondAttribute="trailing" constant="10" id="ivi-Kt-dCX"/>
                                             <constraint firstItem="oKX-Dk-OV8" firstAttribute="leading" secondItem="uaE-pf-9xe" secondAttribute="trailing" constant="10" id="qqD-1f-QEC"/>
-                                            <constraint firstAttribute="height" constant="80" id="wnC-Ep-nKM"/>
+                                            <constraint firstAttribute="height" constant="90" id="wnC-Ep-nKM"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidthChat">
@@ -7181,8 +7192,8 @@ Countdown</string>
                     </view>
                     <connections>
                         <outlet property="lblHyperLink" destination="gV9-NV-zxZ" id="jHd-cN-ICE"/>
-                        <outlet property="lblLinkWithCheckOut" destination="uaE-pf-9xe" id="tiY-m8-xUy"/>
                         <outlet property="lblReferralLink" destination="9d3-Aq-VUJ" id="pnI-lM-H3S"/>
+                        <outlet property="txtViewLinkWithCheckOut" destination="E5M-m7-kyI" id="t0z-Gz-cYc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ngn-nO-Zgj" userLabel="First Responder" sceneMemberID="firstResponder"/>
