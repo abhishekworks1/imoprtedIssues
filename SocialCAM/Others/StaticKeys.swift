@@ -11,5 +11,6 @@ import Foundation
 public struct StaticKeys {
     
     static let socialPlatforms = "socialPlatforms"
+    static let includeImg = "includeProfileImgForShare"
     
 }

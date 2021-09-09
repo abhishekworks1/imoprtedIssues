@@ -20,11 +20,22 @@ class ShareSettingViewController: UIViewController {
     
     // MARK: - Outlets Declaration
     @IBOutlet weak var lblHyperLink: UILabel!
-    @IBOutlet weak var txtViewLinkWithCheckOut: UITextView!
+    @IBOutlet weak var lblLinkWithCheckOut: UILabel!
     @IBOutlet weak var lblReferralLink: UILabel!
+    @IBOutlet weak var profileView: UIView!
+    @IBOutlet weak var imgProfileBadge: UIImageView!
+    @IBOutlet weak var imgProfilePic: UIImageView!
+    @IBOutlet weak var lblUserName: UILabel!
+    @IBOutlet weak var facebookVerifiedView: UIView!
+    @IBOutlet weak var twitterVerifiedView: UIView!
+    @IBOutlet weak var snapchatVerifiedView: UIView!
+    @IBOutlet weak var youtubeVerifiedView: UIView!
+    @IBOutlet weak var btnIncludeProfileImg: UIButton!
+    @IBOutlet weak var instagramView: UIView!
     
     // MARK: - Variable Declarations
     var myMutableString = NSMutableAttributedString()
+    var isIncludeProfileImg = Defaults.shared.includeProfileImgForShare
     
     // MARK: - View Life Cycle Methods
     override func viewDidLoad() {
@@ -35,10 +46,19 @@ class ShareSettingViewController: UIViewController {
     // MARK: - Setup Methods
     func setup() {
         if let channelId = Defaults.shared.currentUser?.channelId {
-            self.lblHyperLink.text = "\(websiteUrl)/\(channelId)"
-            self.txtViewLinkWithCheckOut.text = "\(R.string.localizable.checkOutThisCoolNewAppQuickCam()) \(websiteUrl)/\(channelId)"
+            self.setAttributedString()
+            self.lblLinkWithCheckOut.text = "\(R.string.localizable.checkOutThisCoolNewAppQuickCam()) \(websiteUrl)/\(channelId)"
             self.lblReferralLink.text = "\(websiteUrl)/\(channelId)"
+            self.lblUserName.text = "@\(channelId)"
         }
+        if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
+            self.imgProfilePic.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
+            self.imgProfilePic.layer.cornerRadius = imgProfilePic.bounds.width / 2
+            self.imgProfilePic.contentMode = .scaleAspectFill
+        }
+        self.btnIncludeProfileImg.isSelected = Defaults.shared.includeProfileImgForShare == true
+        self.getVerifiedSocialPlatforms()
+        self.instagramView.isHidden = Defaults.shared.includeProfileImgForShare != true
     }
     
     func presentSafariBrowser(url: URL) {
@@ -49,10 +69,27 @@ class ShareSettingViewController: UIViewController {
     func setAttributedString() {
         if let channelId = Defaults.shared.currentUser?.channelId {
             let channelCount = "\(websiteUrl)/\(channelId)".count
-            let myString = "\(R.string.localizable.yourReferralLink()): \(websiteUrl)/\(channelId)"
-            myMutableString = NSMutableAttributedString(string: myString)
-            myMutableString.addAttribute(NSAttributedString.Key.foregroundColor, value: R.color.appPrimaryColor() ?? UIColor.systemBlue, range: NSRange(location: 20, length: channelCount))
+            let myString = "\(websiteUrl)/\(channelId)"
+            let underlineAttribute = [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue]
+            myMutableString = NSMutableAttributedString(string: myString, attributes: underlineAttribute)
+            myMutableString.addAttribute(NSAttributedString.Key.foregroundColor, value: R.color.appPrimaryColor() ?? UIColor.systemBlue, range: NSRange(location: 0, length: channelCount))
             lblHyperLink.attributedText = myMutableString
+        }
+    }
+    
+    func getVerifiedSocialPlatforms() {
+        if let socialPlatforms = Defaults.shared.socialPlatforms {
+            for socialPlatform in socialPlatforms {
+                if socialPlatform == R.string.localizable.facebook().lowercased() {
+                    self.facebookVerifiedView.isHidden = false
+                } else if socialPlatform == R.string.localizable.twitter().lowercased() {
+                    self.twitterVerifiedView.isHidden = false
+                } else if socialPlatform == R.string.localizable.snapchat().lowercased() {
+                    self.snapchatVerifiedView.isHidden = false
+                } else if socialPlatform == R.string.localizable.youtube().lowercased() {
+                    self.youtubeVerifiedView.isHidden = false
+                }
+            }
         }
     }
     
@@ -62,7 +99,7 @@ class ShareSettingViewController: UIViewController {
     }
     
     @IBAction func btnCheckOutCopyClicked(_ sender: UIButton) {
-        if let urlString = self.txtViewLinkWithCheckOut.text {
+        if let urlString = self.lblLinkWithCheckOut.text {
             UIPasteboard.general.string = urlString
             showAlert(alertMessage: R.string.localizable.linkIsCopiedToClipboard())
         }
@@ -76,7 +113,12 @@ class ShareSettingViewController: UIViewController {
     }
     
     @IBAction func btnFacebookShareClicked(_ sender: UIButton) {
-        self.shareTextOnFaceBook()
+        if isIncludeProfileImg {
+            let image = self.profileView.toImage()
+            self.fbShareImage(image)
+        } else {
+            self.shareTextOnFaceBook()
+        }
     }
     
     @IBAction func btnTwitterShareClicked(_ sender: UIButton) {
@@ -100,20 +142,43 @@ class ShareSettingViewController: UIViewController {
         }
     }
     
+    @IBAction func btnInclueProfileImgClicked(_ sender: UIButton) {
+        self.isIncludeProfileImg = !isIncludeProfileImg
+        self.btnIncludeProfileImg.isSelected = isIncludeProfileImg
+        Defaults.shared.includeProfileImgForShare = isIncludeProfileImg
+        self.instagramView.isHidden = !isIncludeProfileImg
+    }
+    
+    @IBAction func btnInstagramClicked(_ sender: UIButton) {
+        //TODO: - Need to add intagram sharing
+    }
+    
 }
 
 // MARK: - Social share methods
 extension ShareSettingViewController {
     
     func twitterShareCompose(text: String = Constant.Application.displayName) {
-        let displayMessage = self.txtViewLinkWithCheckOut.text
+        let displayMessage = self.lblLinkWithCheckOut.text
         if let twitterComposeViewController = R.storyboard.twitterCompose.twitterComposeViewController() {
             twitterComposeViewController.presetText = displayMessage
+            if isIncludeProfileImg {
+                let image = self.profileView.toImage()
+                twitterComposeViewController.preselectedImage = image
+            }
             let navController = UINavigationController(rootViewController: twitterComposeViewController)
             if let visibleViewController = Utils.appDelegate?.window?.visibleViewController() {
                 visibleViewController.present(navController, animated: true, completion: nil)
             }
         }
+    }
+    
+    func fbShareImage(_ image: UIImage) {
+        let photo = SharePhoto(image: image, userGenerated: true)
+        photo.caption = "\(R.string.localizable.checkOutThisCoolNewAppQuickCam())"
+        let content = SharePhotoContent()
+        content.photos = [photo]
+        SocialShareVideo.shared.showShareDialog(content)
     }
     
     func shareTextOnFaceBook() {
@@ -122,7 +187,7 @@ extension ShareSettingViewController {
             let text = "\(websiteUrl)/\(channelId)"
             if let url = URL(string: text) {
                 shareContent.contentURL = url
-                shareContent.quote = "\(self.txtViewLinkWithCheckOut.text ?? R.string.localizable.checkOutThisCoolNewAppQuickCam())"
+                shareContent.quote = "\(R.string.localizable.checkOutThisCoolNewAppQuickCam())"
                 SocialShareVideo.shared.showShareDialog(shareContent)
             }
         }
@@ -132,7 +197,7 @@ extension ShareSettingViewController {
         // Modify following variables with your text / recipient
         let recipientEmail = ""
         let subject = ""
-        let body = self.txtViewLinkWithCheckOut.text ?? ""
+        let body = self.lblLinkWithCheckOut.text ?? ""
         switch emailType {
         case .gmail:
             if MFMailComposeViewController.canSendMail() {
@@ -141,6 +206,12 @@ extension ShareSettingViewController {
                 mail.setToRecipients([recipientEmail])
                 mail.setSubject(subject)
                 mail.setMessageBody(body, isHTML: false)
+                if isIncludeProfileImg {
+                    guard let imageData = self.profileView.toImage().pngData() else {
+                        return
+                    }
+                    mail.addAttachmentData(imageData, mimeType: "image/png", fileName: "quickcam.png")
+                }
                 present(mail, animated: true)
                 // Show third party email composer if default Mail app is not present
             } else if let emailUrl = createEmailUrl(to: recipientEmail, subject: subject, body: body, emailType: .gmail) {
@@ -161,6 +232,11 @@ extension ShareSettingViewController: MFMailComposeViewControllerDelegate {
     private func createEmailUrl(to: String, subject: String, body: String, emailType: EmailType) -> URL? {
         if let subjectEncoded = subject.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
            let bodyEncoded = body.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
+            if isIncludeProfileImg {
+                guard let imageData = self.profileView.toImage().pngData() else {
+                    return URL(string: "")
+                }
+            }
             switch emailType {
             case .gmail:
                 let gmailUrl = URL(string: "googlegmail://co?to=\(to)&subject=\(subjectEncoded)&body=\(bodyEncoded)")

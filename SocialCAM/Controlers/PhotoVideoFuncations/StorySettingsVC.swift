@@ -513,7 +513,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             showHideButtonView(isHide: true)
             logoutPopupView.isHidden = false
         } else if settingTitle.settingsType == .shareSetting {
-            if let shareSettingViewController = R.storyboard.storyCameraViewController.shareSettingViewController() {
+            if let shareSettingViewController = R.storyboard.editProfileViewController.shareSettingViewController() {
                 navigationController?.pushViewController(shareSettingViewController, animated: true)
             }
         } else if settingTitle.settingsType == .userDashboard {
