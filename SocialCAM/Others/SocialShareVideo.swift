@@ -163,7 +163,7 @@ open class SocialShareVideo: NSObject, SharingDelegate {
             displayMessage = R.string.localizable.checkOutThisCoolNewAppQuickCam()
         }
         displayMessage.append(" ")
-        displayMessage.append("\(websiteUrl)/ref/\(Defaults.shared.currentUser?.channelId ?? "")")
+        displayMessage.append("\(websiteUrl)/\(Defaults.shared.currentUser?.channelId ?? "")")
         if let twitterComposeViewController = R.storyboard.twitterCompose.twitterComposeViewController() {
             twitterComposeViewController.presetText = displayMessage
             if let image = image {
@@ -322,13 +322,13 @@ open class SocialShareVideo: NSObject, SharingDelegate {
         case .futbolcam:
             snapVideo.attachmentUrl = "\(Constant.URLs.futbolWebsiteURL)/referral/\(Defaults.shared.currentUser?.referralCode ?? "")"
         case .quickCamLite:
-            snapVideo.attachmentUrl = "\(websiteUrl)/ref/\(Defaults.shared.currentUser?.channelId ?? "")"
+            snapVideo.attachmentUrl = "\(websiteUrl)/\(Defaults.shared.currentUser?.channelId ?? "")"
         case .quickApp:
-            snapVideo.attachmentUrl = "\(websiteUrl)/ref/\(Defaults.shared.currentUser?.channelId ?? "")"
+            snapVideo.attachmentUrl = "\(websiteUrl)/\(Defaults.shared.currentUser?.channelId ?? "")"
         case .vidPlay:
-            snapVideo.attachmentUrl = "\(vidplayWebsiteUrl)/ref/\(Defaults.shared.currentUser?.channelId ?? "")"
+            snapVideo.attachmentUrl = "\(vidplayWebsiteUrl)/\(Defaults.shared.currentUser?.channelId ?? "")"
         case .businessCenter:
-            snapVideo.attachmentUrl = "\(businessCenterWebsiteUrl)/ref/\(Defaults.shared.currentUser?.channelId ?? "")"
+            snapVideo.attachmentUrl = "\(businessCenterWebsiteUrl)/\(Defaults.shared.currentUser?.channelId ?? "")"
         case .enterLink:
             snapVideo.attachmentUrl = "\(Defaults.shared.enterLinkValue)"
         case .noLink:

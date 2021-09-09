@@ -166,7 +166,7 @@ class StorySettingsVC: UIViewController {
             let touchPoint = sender.location(in: settingsTableView)
             if let indexPath = settingsTableView.indexPathForRow(at: touchPoint) {
                 if indexPath.section == 4 {
-                    let urlString = "\(websiteUrl)/ref/\(Defaults.shared.currentUser?.channelId ?? "")"
+                    let urlString = "\(websiteUrl)/\(Defaults.shared.currentUser?.channelId ?? "")"
                     UIPasteboard.general.string = urlString
                     longPressPopupView.isHidden = false
                 }

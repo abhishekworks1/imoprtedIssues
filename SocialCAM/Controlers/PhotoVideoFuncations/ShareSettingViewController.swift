@@ -35,9 +35,9 @@ class ShareSettingViewController: UIViewController {
     // MARK: - Setup Methods
     func setup() {
         if let channelId = Defaults.shared.currentUser?.channelId {
-            self.lblHyperLink.text = "\(websiteUrl)/ref/\(channelId)"
-            self.txtViewLinkWithCheckOut.text = "\(R.string.localizable.checkOutThisCoolNewAppQuickCam()) \(websiteUrl)/ref/\(channelId)"
-            self.lblReferralLink.text = "\(websiteUrl)/ref/\(channelId)"
+            self.lblHyperLink.text = "\(websiteUrl)/\(channelId)"
+            self.txtViewLinkWithCheckOut.text = "\(R.string.localizable.checkOutThisCoolNewAppQuickCam()) \(websiteUrl)/\(channelId)"
+            self.lblReferralLink.text = "\(websiteUrl)/\(channelId)"
         }
     }
     
@@ -48,8 +48,8 @@ class ShareSettingViewController: UIViewController {
     
     func setAttributedString() {
         if let channelId = Defaults.shared.currentUser?.channelId {
-            let channelCount = "\(websiteUrl)/ref/\(channelId)".count
-            let myString = "\(R.string.localizable.yourReferralLink()): \(websiteUrl)/ref/\(channelId)"
+            let channelCount = "\(websiteUrl)/\(channelId)".count
+            let myString = "\(R.string.localizable.yourReferralLink()): \(websiteUrl)/\(channelId)"
             myMutableString = NSMutableAttributedString(string: myString)
             myMutableString.addAttribute(NSAttributedString.Key.foregroundColor, value: R.color.appPrimaryColor() ?? UIColor.systemBlue, range: NSRange(location: 20, length: channelCount))
             lblHyperLink.attributedText = myMutableString
@@ -119,7 +119,7 @@ extension ShareSettingViewController {
     func shareTextOnFaceBook() {
         let shareContent = ShareLinkContent()
         if let channelId = Defaults.shared.currentUser?.channelId {
-            let text = "\(websiteUrl)/ref/\(channelId)"
+            let text = "\(websiteUrl)/\(channelId)"
             if let url = URL(string: text) {
                 shareContent.contentURL = url
                 shareContent.quote = "\(self.txtViewLinkWithCheckOut.text ?? R.string.localizable.checkOutThisCoolNewAppQuickCam())"

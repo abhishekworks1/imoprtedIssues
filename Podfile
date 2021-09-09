@@ -66,6 +66,7 @@ def projectShared_pods
     pod 'Parchment', '3.0.1'
     pod 'Bagel'
     pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git', :tag => '7.1.3'
+    pod 'CropPickerView'
 
     shared_pods
 end

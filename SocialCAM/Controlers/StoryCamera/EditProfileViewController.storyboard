@@ -508,6 +508,118 @@
             </objects>
             <point key="canvasLocation" x="195.6521739130435" y="-16.071428571428569"/>
         </scene>
+        <!--Edit Profile Crop View Controller-->
+        <scene sceneID="8eJ-eZ-Ye4">
+            <objects>
+                <viewController storyboardIdentifier="EditProfileCropViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="weh-tp-lev" customClass="EditProfileCropViewController" customModule="BoomiCam" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="kqO-zI-10h">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EO9-Sq-jWW">
+                                <rect key="frame" x="0.0" y="44" width="414" height="698"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4gM-Ky-GRo">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="96"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dfC-wh-joP">
+                                        <rect key="frame" x="8" y="44" width="44" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="A0Q-wF-J8w"/>
+                                            <constraint firstAttribute="width" constant="44" id="qg1-P7-13l"/>
+                                        </constraints>
+                                        <color key="tintColor" name="AppBlackColor"/>
+                                        <state key="normal" image="textFieldClose"/>
+                                        <connections>
+                                            <action selector="btnBackTapped:" destination="weh-tp-lev" eventType="touchUpInside" id="ULI-PA-SgD"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Crop Profile Pic" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZkJ-R6-yWz">
+                                        <rect key="frame" x="143.5" y="55.5" width="127.5" height="21.5"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                        <color key="textColor" red="0.2498272061" green="0.3152070642" blue="0.35203957559999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xok-lI-2TM">
+                                        <rect key="frame" x="376" y="49.5" width="30" height="33"/>
+                                        <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="17"/>
+                                        <state key="normal" title="OK">
+                                            <color key="titleColor" name="AppPrimaryColor"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnOKTapped:" destination="weh-tp-lev" eventType="touchUpInside" id="9T0-YX-2mR"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" name="hideWatermarkBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="xok-lI-2TM" firstAttribute="centerY" secondItem="ZkJ-R6-yWz" secondAttribute="centerY" id="49e-wW-lNF"/>
+                                    <constraint firstItem="dfC-wh-joP" firstAttribute="top" secondItem="4gM-Ky-GRo" secondAttribute="top" constant="44" id="4ZQ-O7-UwP"/>
+                                    <constraint firstItem="dfC-wh-joP" firstAttribute="leading" secondItem="4gM-Ky-GRo" secondAttribute="leading" constant="8" id="OTj-Fn-X8m"/>
+                                    <constraint firstAttribute="height" constant="96" id="Wum-mG-gUh"/>
+                                    <constraint firstItem="ZkJ-R6-yWz" firstAttribute="centerY" secondItem="dfC-wh-joP" secondAttribute="centerY" id="kiH-bh-9ch"/>
+                                    <constraint firstItem="ZkJ-R6-yWz" firstAttribute="centerX" secondItem="4gM-Ky-GRo" secondAttribute="centerX" id="tk6-8V-4sd"/>
+                                    <constraint firstAttribute="trailing" secondItem="xok-lI-2TM" secondAttribute="trailing" constant="8" id="xU2-bt-RHa"/>
+                                </constraints>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="fA7-x0-Fij">
+                                <rect key="frame" x="50" y="782" width="314" height="60"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tku-Or-9aQ">
+                                        <rect key="frame" x="0.0" y="0.0" width="147" height="60"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="zWf-uy-ecr"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="SFUIText-Semibold" family="SF UI Text" pointSize="18"/>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnCancelTapped:" destination="weh-tp-lev" eventType="touchUpInside" id="BvI-yr-CaH"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MUb-le-8XH">
+                                        <rect key="frame" x="167" y="0.0" width="147" height="60"/>
+                                        <fontDescription key="fontDescription" name="SFUIText-Semibold" family="SF UI Text" pointSize="18"/>
+                                        <state key="normal" title="Done">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnDoneTapped:" destination="weh-tp-lev" eventType="touchUpInside" id="wLM-Li-fVM"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="oY8-Ux-CcY"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="fA7-x0-Fij" firstAttribute="bottom" secondItem="oY8-Ux-CcY" secondAttribute="bottom" constant="-20" id="1ye-zQ-B7p"/>
+                            <constraint firstAttribute="top" secondItem="4gM-Ky-GRo" secondAttribute="top" id="3I2-3E-PT4"/>
+                            <constraint firstItem="fA7-x0-Fij" firstAttribute="leading" secondItem="oY8-Ux-CcY" secondAttribute="leading" constant="50" id="4o1-gN-F40"/>
+                            <constraint firstItem="oY8-Ux-CcY" firstAttribute="trailing" secondItem="4gM-Ky-GRo" secondAttribute="trailing" id="Lvx-2w-6Zb"/>
+                            <constraint firstItem="EO9-Sq-jWW" firstAttribute="top" secondItem="oY8-Ux-CcY" secondAttribute="top" id="TXm-nm-hWk"/>
+                            <constraint firstItem="oY8-Ux-CcY" firstAttribute="leading" secondItem="4gM-Ky-GRo" secondAttribute="leading" id="UJX-8k-pkD"/>
+                            <constraint firstItem="oY8-Ux-CcY" firstAttribute="trailing" secondItem="EO9-Sq-jWW" secondAttribute="trailing" id="YyA-Yc-r6H"/>
+                            <constraint firstItem="fA7-x0-Fij" firstAttribute="top" secondItem="EO9-Sq-jWW" secondAttribute="bottom" constant="40" id="gE8-ev-56Q"/>
+                            <constraint firstItem="oY8-Ux-CcY" firstAttribute="trailing" secondItem="fA7-x0-Fij" secondAttribute="trailing" constant="50" id="ko1-9b-Lj1"/>
+                            <constraint firstItem="EO9-Sq-jWW" firstAttribute="leading" secondItem="oY8-Ux-CcY" secondAttribute="leading" id="nlk-kU-wjO"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="4gM-Ky-GRo"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="cropContainerView" destination="EO9-Sq-jWW" id="KPM-2Z-9I9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Sns-nc-OjE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="908.69565217391312" y="-16.071428571428569"/>
+        </scene>
     </scenes>
     <resources>
         <image name="editProfilePlusIcon" width="44" height="44"/>
