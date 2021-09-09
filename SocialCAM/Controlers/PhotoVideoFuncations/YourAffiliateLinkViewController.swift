@@ -179,7 +179,7 @@ extension YourAffiliateLinkViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cellTitle = YourAffiliateLink.yourAffiliteLinks[indexPath.section]
-        let urlString = "\(websiteUrl)/ref/\(Defaults.shared.currentUser?.channelId ?? "")"
+        let urlString = "\(websiteUrl)/\(Defaults.shared.currentUser?.channelId ?? "")"
         if cellTitle.type == .copyLink {
             UIPasteboard.general.string = urlString
             showAlert(alertMessage: R.string.localizable.linkIsCopiedToClipboard())
