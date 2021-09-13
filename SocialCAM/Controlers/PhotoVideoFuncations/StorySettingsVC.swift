@@ -111,13 +111,9 @@ class StorySettings {
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.yourReferrals(), selected: false)], settingsType: .goToWebsite),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.userDashboard(), selected: false)], settingsType: .userDashboard),
+                                              settings: [StorySetting(name: R.string.localizable.businessDashboard(), selected: false)], settingsType: .userDashboard),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.applicationSurvey(), selected: false)], settingsType: .applicationSurvey),
-                                StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.intellectualProperties(), selected: false)], settingsType: .intellectualProperties),
-                                StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.help(), selected: false)], settingsType: .help),
+                                              settings: [StorySetting(name: R.string.localizable.howItWorks(), selected: false)], settingsType: .help),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.logout(), selected: false)], settingsType: .logout)]
 }
