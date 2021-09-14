@@ -517,7 +517,6 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     // MARK: ViewController lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.switchAppButton.isUserInteractionEnabled = Defaults.shared.releaseType != .store
         showSurveyAlertAfterThreeDays()
         UIApplication.shared.isIdleTimerDisabled = true
         setCameraSettings()

@@ -22,6 +22,11 @@ class EditProfilePicViewController: UIViewController {
     @IBOutlet weak var btnPlusButton: UIButton!
     @IBOutlet weak var lblSocialSharePopup: UILabel!
     @IBOutlet weak var socialSharePopupView: UIView!
+    @IBOutlet weak var facebookVerifiedView: UIView!
+    @IBOutlet weak var twitterVerifiedView: UIView!
+    @IBOutlet weak var snapchatVerifiedView: UIView!
+    @IBOutlet weak var youtubeVerifiedView: UIView!
+    @IBOutlet weak var lblSinceDate: UILabel!
     
     // MARK: - Variables declaration
     private var localImageUrl: URL?
@@ -48,6 +53,11 @@ class EditProfilePicViewController: UIViewController {
             imgProfilePic.image = R.image.userIconWithPlus()
         }
         self.view.isUserInteractionEnabled = true
+        if let createdDate = Defaults.shared.currentUser?.created {
+            let date = CommonFunctions.getDateInSpecificFormat(dateInput: createdDate, dateOutput: R.string.localizable.mmmdYyyy())
+            self.lblSinceDate.text = R.string.localizable.sinceJoined(date)
+        }
+        self.getVerifiedSocialPlatforms()
     }
     
     func showHidePopupView(isHide: Bool) {
@@ -136,8 +146,6 @@ extension EditProfilePicViewController {
                 self.socialLoadProfile(socialLogin: socialShareType) { socialUserData in
                     if let userData = socialUserData {
                         self.addProfile(userData: userData, completion: {
-                            self.socialPlatforms.append(self.imageSource.lowercased())
-                            self.addSocialPlatform()
                         })
                     }
                 }
@@ -226,6 +234,7 @@ extension EditProfilePicViewController {
             if response.status == ResponseType.success {
                 self.storyCameraVCInstance.syncUserModel { (isComplete) in
                     self.view.isUserInteractionEnabled = true
+                    self.getVerifiedSocialPlatforms()
                 }
             } else {
                 self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
@@ -234,6 +243,22 @@ extension EditProfilePicViewController {
             self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
+    }
+    
+    func getVerifiedSocialPlatforms() {
+        if let socialPlatforms = Defaults.shared.socialPlatforms {
+            for socialPlatform in socialPlatforms {
+                if socialPlatform == R.string.localizable.facebook().lowercased() {
+                    self.facebookVerifiedView.isHidden = false
+                } else if socialPlatform == R.string.localizable.twitter().lowercased() {
+                    self.twitterVerifiedView.isHidden = false
+                } else if socialPlatform == R.string.localizable.snapchat().lowercased() {
+                    self.snapchatVerifiedView.isHidden = false
+                } else if socialPlatform == R.string.localizable.youtube().lowercased() {
+                    self.youtubeVerifiedView.isHidden = false
+                }
+            }
+        }
     }
     
     func setupMethod() {
@@ -454,7 +479,9 @@ extension EditProfilePicViewController: InstagramLoginViewControllerDelegate, Pr
 extension EditProfilePicViewController: SharingSocialTypeDelegate {
     
     func setCroppedImage(croppedImg: UIImage) {
-        imgProfilePic.image = croppedImg
+        self.imgProfilePic.image = croppedImg
+        self.socialPlatforms.append(self.imageSource.lowercased())
+        self.addSocialPlatform()
     }
     
     func shareSocialType(socialType: ProfileSocialShare) {

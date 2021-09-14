@@ -32,6 +32,7 @@ class ShareSettingViewController: UIViewController {
     @IBOutlet weak var youtubeVerifiedView: UIView!
     @IBOutlet weak var btnIncludeProfileImg: UIButton!
     @IBOutlet weak var instagramView: UIView!
+    @IBOutlet weak var lblSinceDate: UILabel!
     
     // MARK: - Variable Declarations
     var myMutableString = NSMutableAttributedString()
@@ -58,7 +59,11 @@ class ShareSettingViewController: UIViewController {
         }
         self.btnIncludeProfileImg.isSelected = Defaults.shared.includeProfileImgForShare == true
         self.getVerifiedSocialPlatforms()
-        self.instagramView.isHidden = Defaults.shared.includeProfileImgForShare != true
+        self.instagramView.isHidden = true
+        if let createdDate = Defaults.shared.currentUser?.created {
+            let date = CommonFunctions.getDateInSpecificFormat(dateInput: createdDate, dateOutput: R.string.localizable.mmmdYyyy())
+            self.lblSinceDate.text = R.string.localizable.sinceJoined(date)
+        }
     }
     
     func presentSafariBrowser(url: URL) {
@@ -146,7 +151,6 @@ class ShareSettingViewController: UIViewController {
         self.isIncludeProfileImg = !isIncludeProfileImg
         self.btnIncludeProfileImg.isSelected = isIncludeProfileImg
         Defaults.shared.includeProfileImgForShare = isIncludeProfileImg
-        self.instagramView.isHidden = !isIncludeProfileImg
     }
     
     @IBAction func btnInstagramClicked(_ sender: UIButton) {

@@ -159,6 +159,8 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
                 cell.lblPremiumVersionOnly.isHidden = false
             }
         } else if settingTitle.settingsType == .watermarkSettings {
+            cell.settingsName.textColor = R.color.appPrimaryColor()
+            cell.settingsName.font = R.font.sfuiTextSemibold(size: 16)
             cell.onOffButton.isHidden = true
             cell.stackView.backgroundColor = UIColor.white
             cell.lblPremiumVersionOnly.isHidden = true
