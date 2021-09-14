@@ -172,11 +172,7 @@ extension YourAffiliateLinkViewController: UITableViewDelegate {
         if cellTitle.type == .activateAffiliateLink {
             return 140
         } else if cellTitle.type == .listOfReferredUsers && !referredUserList.isEmpty {
-            if indexPath.row == 0 {
-                return 120
-            } else {
-                return 90
-            }
+            return indexPath.row == 0 ? 120 : 90
         } else {
             return 40
         }
