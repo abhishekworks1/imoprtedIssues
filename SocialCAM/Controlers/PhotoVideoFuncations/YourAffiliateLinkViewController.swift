@@ -113,6 +113,9 @@ extension YourAffiliateLinkViewController: UITableViewDataSource {
             activateAffiliateLinkCell.dismissViewDelegate = self
             return activateAffiliateLinkCell
         } else if cellTitle.type == .listOfReferredUsers {
+            affiliateLinkCell.lblReferredCount.isHidden = indexPath.row != 0
+            affiliateLinkCell.affiliateViewTopConstraint.constant = indexPath.row != 0 ? 5 : 40
+            affiliateLinkCell.lblReferredCount.text = R.string.localizable.totalReferredCount("\(referredUserList.count)")
             if userCount > referredUserList.count {
                 referredUserPageIndex += 1
                 refresh(index: referredUserPageIndex)
@@ -120,14 +123,12 @@ extension YourAffiliateLinkViewController: UITableViewDataSource {
                 if !referredUserList.isEmpty {
                     affiliateLinkCell.referredUserImgWidthConstraint.constant = 60
                     affiliateLinkCell.referredUserImgLeadingConstrarint.constant = 15
-                    affiliateLinkCell.lblFollowers.isHidden = false
                     if let referredUser = referredUserList[indexPath.row].user?.channelId,
                        let userImageUrl = referredUserList[indexPath.row].user?.profileImageURL,
                        let followersCount = referredUserList[indexPath.row].user?.followers {
                         affiliateLinkCell.lblAffiliateTitle.text = "@\(referredUser)"
                         affiliateLinkCell.imgReferredUser.layer.cornerRadius = affiliateLinkCell.imgReferredUser.frame.width / 2
                         affiliateLinkCell.imgReferredUser.sd_setImage(with: URL.init(string: userImageUrl), placeholderImage: ApplicationSettings.userPlaceHolder)
-                        affiliateLinkCell.lblFollowers.text = "\(followersCount) \(R.string.localizable.followers())"
                     }
                 }
                 self.dismissHUD()
@@ -171,7 +172,11 @@ extension YourAffiliateLinkViewController: UITableViewDelegate {
         if cellTitle.type == .activateAffiliateLink {
             return 140
         } else if cellTitle.type == .listOfReferredUsers && !referredUserList.isEmpty {
-            return 85
+            if indexPath.row == 0 {
+                return 120
+            } else {
+                return 90
+            }
         } else {
             return 40
         }

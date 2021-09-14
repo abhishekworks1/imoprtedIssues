@@ -6657,8 +6657,8 @@ Countdown</string>
                                             <outlet property="title" destination="oA9-xx-zBn" id="byu-wf-fnd"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AffiliateLinkCell" rowHeight="85" id="Q3h-he-vJ9" userLabel="AffiliateLinkCell" customClass="AffiliateLinkCell" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="116.33333206176758" width="359" height="85"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AffiliateLinkCell" rowHeight="120" id="Q3h-he-vJ9" userLabel="AffiliateLinkCell" customClass="AffiliateLinkCell" customModule="BoomiCam" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="116.33333206176758" width="359" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Q3h-he-vJ9" id="0yr-L2-C8V">
                                             <rect key="frame" x="0.0" y="0.0" width="359" height="85"/>
@@ -6685,21 +6685,13 @@ Countdown</string>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8cQ-SA-gmz">
-                                                            <rect key="frame" x="95" y="35.666666666666664" width="34.666666666666657" height="18"/>
-                                                            <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="15"/>
-                                                            <color key="textColor" name="InActive2"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
                                                     </subviews>
                                                     <color key="backgroundColor" name="referralViewBackgroundColor"/>
                                                     <constraints>
                                                         <constraint firstItem="3d8-gV-4CX" firstAttribute="leading" secondItem="lMX-DQ-6Dw" secondAttribute="leading" constant="20" id="Brv-6V-kIX"/>
                                                         <constraint firstItem="3d8-gV-4CX" firstAttribute="centerY" secondItem="lMX-DQ-6Dw" secondAttribute="centerY" id="FyU-FJ-ma7"/>
                                                         <constraint firstItem="M9R-yY-caW" firstAttribute="leading" secondItem="3d8-gV-4CX" secondAttribute="trailing" constant="15" id="Q3j-bS-UxI"/>
-                                                        <constraint firstItem="8cQ-SA-gmz" firstAttribute="top" secondItem="M9R-yY-caW" secondAttribute="bottom" constant="2.6666679382324219" id="eUt-2j-Hb8"/>
-                                                        <constraint firstItem="M9R-yY-caW" firstAttribute="top" secondItem="lMX-DQ-6Dw" secondAttribute="top" constant="15" id="kG2-Ed-uVQ"/>
-                                                        <constraint firstItem="8cQ-SA-gmz" firstAttribute="leading" secondItem="M9R-yY-caW" secondAttribute="leading" id="t6q-n2-nkc"/>
+                                                        <constraint firstItem="M9R-yY-caW" firstAttribute="centerY" secondItem="lMX-DQ-6Dw" secondAttribute="centerY" id="leP-qo-h5V"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
@@ -6707,25 +6699,34 @@ Countdown</string>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KDu-Q1-PpD">
+                                                    <rect key="frame" x="10" y="9.9999999999999982" width="41.333333333333336" height="20.333333333333329"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="lMX-DQ-6Dw" firstAttribute="leading" secondItem="0yr-L2-C8V" secondAttribute="leading" constant="5" id="2pF-me-7S0"/>
                                                 <constraint firstAttribute="trailing" secondItem="lMX-DQ-6Dw" secondAttribute="trailing" constant="5" id="8Fy-bA-WX3"/>
                                                 <constraint firstAttribute="bottom" secondItem="lMX-DQ-6Dw" secondAttribute="bottom" constant="5" id="Ap0-db-iUc"/>
-                                                <constraint firstItem="lMX-DQ-6Dw" firstAttribute="top" secondItem="0yr-L2-C8V" secondAttribute="top" constant="5" id="Ffc-Dq-7Eo"/>
+                                                <constraint firstItem="lMX-DQ-6Dw" firstAttribute="top" secondItem="0yr-L2-C8V" secondAttribute="top" constant="40" id="Ffc-Dq-7Eo"/>
+                                                <constraint firstItem="KDu-Q1-PpD" firstAttribute="leading" secondItem="0yr-L2-C8V" secondAttribute="leading" constant="10" id="hYI-m7-eFk"/>
+                                                <constraint firstItem="KDu-Q1-PpD" firstAttribute="top" secondItem="0yr-L2-C8V" secondAttribute="top" constant="10" id="sER-y5-wmt"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
+                                            <outlet property="affiliateViewTopConstraint" destination="Ffc-Dq-7Eo" id="jQd-Ce-P23"/>
                                             <outlet property="imgReferredUser" destination="3d8-gV-4CX" id="vY8-aj-SIn"/>
                                             <outlet property="lblAffiliateTitle" destination="M9R-yY-caW" id="pGf-Wf-MaR"/>
-                                            <outlet property="lblFollowers" destination="8cQ-SA-gmz" id="QoO-Qw-vvT"/>
-                                            <outlet property="referredUserImgLeadingConstrarint" destination="Brv-6V-kIX" id="mdR-jX-LBc"/>
+                                            <outlet property="lblReferredCount" destination="KDu-Q1-PpD" id="uHx-o1-seP"/>
+                                            <outlet property="referredUserImgLeadingConstrarint" destination="Brv-6V-kIX" id="n9o-iU-pNZ"/>
                                             <outlet property="referredUserImgWidthConstraint" destination="UA5-Fg-Ncx" id="ycQ-R9-nUD"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ActivateAffiliateLinkCell" rowHeight="140" id="h1D-hC-uA0" userLabel="ActivateAffiliateLinkCell" customClass="ActivateAffiliateLinkCell" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="201.33333206176758" width="359" height="140"/>
+                                        <rect key="frame" x="0.0" y="236.33333206176758" width="359" height="140"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="h1D-hC-uA0" id="0VA-9g-4Un">
                                             <rect key="frame" x="0.0" y="0.0" width="359" height="140"/>
