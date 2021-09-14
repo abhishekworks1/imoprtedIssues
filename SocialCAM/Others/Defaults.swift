@@ -953,6 +953,15 @@ class Defaults {
         }
     }
     
+    var includeProfileImgForShare: Bool {
+        get {
+            return (appDefaults?.value(forKey: StaticKeys.includeImg) as? Bool) ?? true
+        }
+        set {
+            appDefaults?.set(newValue, forKey: StaticKeys.includeImg)
+        }
+    }
+    
     func clearData(isDeleteAccount: Bool = false) {
         if let appDefaultsDictionary = appDefaults?.dictionaryRepresentation() {
             appDefaultsDictionary.keys.forEach { key in
