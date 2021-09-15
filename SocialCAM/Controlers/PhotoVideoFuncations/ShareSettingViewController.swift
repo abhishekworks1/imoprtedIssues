@@ -26,6 +26,7 @@ class ShareSettingViewController: UIViewController {
     @IBOutlet weak var imgProfileBadge: UIImageView!
     @IBOutlet weak var imgProfilePic: UIImageView!
     @IBOutlet weak var lblUserName: UILabel!
+    @IBOutlet weak var verifiedStackView: UIStackView!
     @IBOutlet weak var facebookVerifiedView: UIView!
     @IBOutlet weak var twitterVerifiedView: UIView!
     @IBOutlet weak var snapchatVerifiedView: UIView!
@@ -83,7 +84,8 @@ class ShareSettingViewController: UIViewController {
     }
     
     func getVerifiedSocialPlatforms() {
-        if let socialPlatforms = Defaults.shared.socialPlatforms {
+        if let socialPlatforms = Defaults.shared.socialPlatforms, socialPlatforms.count > 0 {
+            verifiedStackView.isHidden = false
             for socialPlatform in socialPlatforms {
                 if socialPlatform == R.string.localizable.facebook().lowercased() {
                     self.facebookVerifiedView.isHidden = false
@@ -95,6 +97,8 @@ class ShareSettingViewController: UIViewController {
                     self.youtubeVerifiedView.isHidden = false
                 }
             }
+        } else {
+            verifiedStackView.isHidden = true
         }
     }
     
