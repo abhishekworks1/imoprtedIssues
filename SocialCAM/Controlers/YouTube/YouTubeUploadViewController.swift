@@ -101,6 +101,7 @@ class YouTubeUploadViewController: UIViewController {
             self.imgThumbnail.contentMode = .scaleAspectFit
             self.imgThumbnail.image = UIImage.getThumbnailFrom(videoUrl: videourl)
         }
+        getChannelName()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -148,6 +149,36 @@ class YouTubeUploadViewController: UIViewController {
             }
             self.btnPublish.isUserInteractionEnabled = true
             self.uploadVideo(token: token)
+        }
+    }
+    
+    func getChannelName() {
+        GoogleManager.shared.getUserToken { (token) in
+            guard let token = token else {
+                return
+            }
+            ProManagerApi.youTubeChannels(token: token).request(YouTubeItmeListResponse<Item>.self).subscribe(onNext: { [weak self] (response) in
+                guard let `self` = self else {
+                    return
+                }
+                if response.item.count > 0 {
+                    if let data = response.item[0].snippet {
+                        guard let channelName = data.title,
+                              let thumbNail = data.thumbnail else {
+                            return
+                        }
+                        Defaults.shared.ytChannelName = channelName
+                        Defaults.shared.channelThumbNail = thumbNail
+                    }
+                } else {
+                    self.showAlert(alertMessage: R.string.localizable.noChannelFound())
+                    Defaults.shared.ytChannelName = ""
+                    
+                }
+            }, onError: { error in
+                self.showAlert(alertMessage: error.localizedDescription)
+            }, onCompleted: {
+            }).disposed(by: self.rx.disposeBag)
         }
     }
     

@@ -961,6 +961,24 @@ class Defaults {
             appDefaults?.set(newValue, forKey: StaticKeys.includeImg)
         }
     }
+        
+    var ytChannelName: String {
+        get {
+            return appDefaults?.value(forKey: StaticKeys.ytChannelName) as? String ?? ""
+        }
+        set {
+            appDefaults?.set(newValue, forKey: StaticKeys.ytChannelName)
+        }
+    }
+    
+    var channelThumbNail: String {
+        get {
+            return appDefaults?.value(forKey: StaticKeys.channelThumbNail) as? String ?? ""
+        }
+        set {
+            appDefaults?.set(newValue, forKey: StaticKeys.channelThumbNail)
+        }
+    }
     
     func clearData(isDeleteAccount: Bool = false) {
         if let appDefaultsDictionary = appDefaults?.dictionaryRepresentation() {
