@@ -243,7 +243,39 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 1.0
+        let settingTitle = CameraSettings.storySettings[section]
+        if settingTitle.settingsType == .skipYoutubeLogin && Defaults.shared.isSkipYoutubeLogin
+            && !Defaults.shared.ytChannelName.isEmpty {
+            return 80
+        } else {
+            return 1.0
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        guard let footerView = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.storySettingsHeader.identifier) as? StorySettingsHeader else {
+            fatalError("StorySettingsHeader Not Found")
+        }
+        
+        let settingTitle = CameraSettings.storySettings[section]
+        footerView.userName.isHidden = true
+        footerView.userImage.isHidden = true
+        footerView.title.isHidden = true
+        
+        if settingTitle.settingsType == .skipYoutubeLogin && Defaults.shared.isSkipYoutubeLogin
+            && !Defaults.shared.ytChannelName.isEmpty {
+            footerView.userName.isHidden = false
+            footerView.userImage.isHidden = false
+            footerView.userImage.layer.cornerRadius = footerView.userImage.bounds.width / 2
+            footerView.userName.text = Defaults.shared.ytChannelName
+            footerView.userImage.sd_setImage(with: URL.init(string: Defaults.shared.channelThumbNail), placeholderImage: ApplicationSettings.userPlaceHolder)
+            footerView.separator.isHidden = true
+            self.settingsTableView.reloadData()
+        } else {
+            self.settingsTableView.reloadData()
+        }
+        
+        return footerView
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
