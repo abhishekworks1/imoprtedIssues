@@ -59,7 +59,7 @@ class ShareSettingViewController: UIViewController {
         }
         self.btnIncludeProfileImg.isSelected = Defaults.shared.includeProfileImgForShare == true
         self.getVerifiedSocialPlatforms()
-        self.instagramView.isHidden = true
+        self.instagramView.isHidden = Defaults.shared.includeProfileImgForShare != true
         if let createdDate = Defaults.shared.currentUser?.created {
             let date = CommonFunctions.getDateInSpecificFormat(dateInput: createdDate, dateOutput: R.string.localizable.mmmdYyyy())
             self.lblSinceDate.text = R.string.localizable.sinceJoined(date)
@@ -151,10 +151,14 @@ class ShareSettingViewController: UIViewController {
         self.isIncludeProfileImg = !isIncludeProfileImg
         self.btnIncludeProfileImg.isSelected = isIncludeProfileImg
         Defaults.shared.includeProfileImgForShare = isIncludeProfileImg
+        self.instagramView.isHidden = !isIncludeProfileImg
     }
     
     @IBAction func btnInstagramClicked(_ sender: UIButton) {
-        //TODO: - Need to add intagram sharing
+        if isIncludeProfileImg {
+            let image = self.profileView.toImage()
+            self.shareImageWithInsta(image)
+        }
     }
     
 }
@@ -195,6 +199,16 @@ extension ShareSettingViewController {
                 SocialShareVideo.shared.showShareDialog(shareContent)
             }
         }
+    }
+    
+    func shareImageWithInsta(_ image: UIImage) {
+        SocialShareVideo.shared.saveImageToCameraRoll(image: image, completion: { (_, phAsset) in
+            DispatchQueue.runOnMainThread {
+                if let asset = phAsset {
+                    SocialShareVideo.shared.instaImageVideoShare(asset)
+                }
+            }
+        })
     }
     
     func shareTextWithMail(emailType: EmailType) {
