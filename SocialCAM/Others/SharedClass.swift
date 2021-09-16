@@ -797,6 +797,16 @@ enum VideoResolution: Int {
     case high
 }
 
+enum NewSignupsNotificationType: Int {
+    case forAllUsers = 1
+    case forLimitedUsers
+}
+
+enum NewSubscriptionNotificationType: Int {
+    case forAllUsers = 1
+    case forLimitedUsers
+}
+
 public enum ImageFormat {
     case PNG
     case JPEG(Float)

@@ -980,6 +980,33 @@ class Defaults {
         }
     }
     
+    var newSignupsNotificationType: NewSignupsNotificationType {
+        get {
+            return NewSignupsNotificationType(rawValue: (appDefaults?.integer(forKey: StaticKeys.newSignupsNotificationType) ?? 1)) ?? .forAllUsers
+        }
+        set {
+            appDefaults?.set(newValue.rawValue, forKey: StaticKeys.newSignupsNotificationType)
+        }
+    }
+    
+    var newSubscriptionNotificationType: NewSubscriptionNotificationType {
+        get {
+            return NewSubscriptionNotificationType(rawValue: (appDefaults?.integer(forKey: StaticKeys.newSubscriptionNotificationType) ?? 1)) ?? .forAllUsers
+        }
+        set {
+            appDefaults?.set(newValue.rawValue, forKey: StaticKeys.newSubscriptionNotificationType)
+        }
+    }
+    
+    var milestonesReached: Bool {
+        get {
+            return (appDefaults?.value(forKey: StaticKeys.milestonesReached) as? Bool) ?? true
+        }
+        set {
+            appDefaults?.set(newValue, forKey: StaticKeys.milestonesReached)
+        }
+    }
+    
     func clearData(isDeleteAccount: Bool = false) {
         if let appDefaultsDictionary = appDefaults?.dictionaryRepresentation() {
             appDefaultsDictionary.keys.forEach { key in

@@ -59,6 +59,9 @@ enum SettingsMode: Int {
     case muteRecordingFastMotion
     case shareSetting
     case userDashboard
+    case newSignupsNotificationSetting
+    case newSubscriptionNotificationSetting
+    case milestoneReachedNotification
 }
 
 class StorySetting {

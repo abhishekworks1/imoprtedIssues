@@ -14,5 +14,8 @@ public struct StaticKeys {
     static let includeImg = "includeProfileImgForShare"
     static let ytChannelName = "ytChannelName"
     static let channelThumbNail = "channelThumbNail"
+    static let newSignupsNotificationType = "newSignupsNotificationType"
+    static let newSubscriptionNotificationType = "newSubscriptionNotificationType"
+    static let milestonesReached = "milestonesReached"
     
 }
