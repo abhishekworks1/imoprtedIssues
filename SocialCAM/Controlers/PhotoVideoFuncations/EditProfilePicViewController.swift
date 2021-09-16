@@ -12,6 +12,7 @@ import AVKit
 protocol SharingSocialTypeDelegate {
     func shareSocialType(socialType: ProfileSocialShare)
     func setCroppedImage(croppedImg: UIImage)
+    func setSocialPlatforms()
 }
 
 class EditProfilePicViewController: UIViewController {
@@ -28,10 +29,10 @@ class EditProfilePicViewController: UIViewController {
     @IBOutlet weak var youtubeVerifiedView: UIView!
     @IBOutlet weak var lblSinceDate: UILabel!
     @IBOutlet weak var btnSelectCountry: UIButton!
-    
     @IBOutlet var countryView: [UIView]!
     @IBOutlet var lblCountrys: [UILabel]!
     @IBOutlet var imgCountrys: [UIImageView]!
+    @IBOutlet weak var lblUserName: UILabel!
     
     // MARK: - Variables declaration
     private var localImageUrl: URL?
@@ -58,6 +59,7 @@ class EditProfilePicViewController: UIViewController {
             imgProfilePic.image = R.image.userIconWithPlus()
         }
         self.view.isUserInteractionEnabled = true
+        self.lblUserName.text = "@\(Defaults.shared.currentUser?.channelId ?? "")"
         if let createdDate = Defaults.shared.currentUser?.created {
             let date = CommonFunctions.getDateInSpecificFormat(dateInput: createdDate, dateOutput: R.string.localizable.mmmdYyyy())
             self.lblSinceDate.text = R.string.localizable.sinceJoined(date)
@@ -511,6 +513,11 @@ extension EditProfilePicViewController: InstagramLoginViewControllerDelegate, Pr
 
 // MARK: - SharingSocialTypeDelegate
 extension EditProfilePicViewController: SharingSocialTypeDelegate {
+    
+    func setSocialPlatforms() {
+        self.socialPlatforms.append(self.imageSource.lowercased())
+        self.addSocialPlatform()
+    }
     
     func setCroppedImage(croppedImg: UIImage) {
         self.imgProfilePic.image = croppedImg
