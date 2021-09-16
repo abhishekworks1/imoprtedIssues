@@ -27,6 +27,11 @@ class EditProfilePicViewController: UIViewController {
     @IBOutlet weak var snapchatVerifiedView: UIView!
     @IBOutlet weak var youtubeVerifiedView: UIView!
     @IBOutlet weak var lblSinceDate: UILabel!
+    @IBOutlet weak var btnSelectCountry: UIButton!
+    
+    @IBOutlet var countryView: [UIView]!
+    @IBOutlet var lblCountrys: [UILabel]!
+    @IBOutlet var imgCountrys: [UIImageView]!
     
     // MARK: - Variables declaration
     private var localImageUrl: URL?
@@ -79,6 +84,17 @@ class EditProfilePicViewController: UIViewController {
         }
     }
     
+    @IBAction func btnShowCountryTapped(_ sender: UIButton) {
+        if btnSelectCountry.isSelected {
+            btnSelectCountry.isSelected = !btnSelectCountry.isSelected
+            return
+        }
+        if let countryVc = R.storyboard.countryPicker.countryPickerViewController() {
+            countryVc.delegate = self
+            self.navigationController?.pushViewController(countryVc, animated: true)
+        }
+    }
+    
     @IBAction func btnYesTapped(_ sender: UIButton) {
         showHidePopupView(isHide: true)
         if let img = imgProfilePic.image {
@@ -92,6 +108,24 @@ class EditProfilePicViewController: UIViewController {
         showHidePopupView(isHide: true)
     }
     
+}
+
+extension EditProfilePicViewController: CountryPickerViewDelegate {
+    func countryPickerView(_ didSelectCountry : [Country]) {
+        for (index, _) in countryView.enumerated() {
+            countryView[index].isHidden = true
+            lblCountrys[index].text = nil
+            imgCountrys[index].image = nil
+        }
+        if didSelectCountry.count > 0 {
+            for (index, item) in didSelectCountry.enumerated() {
+                countryView[index].isHidden = false
+                lblCountrys[index].text = item.name
+                imgCountrys[index].image = item.flag
+            }
+            btnSelectCountry.isSelected = !btnSelectCountry.isSelected
+        }
+    }
 }
 
 // MARK: - Camera and Photo gallery methods
