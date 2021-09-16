@@ -165,6 +165,7 @@ extension KeycloakAuthViewController {
                 return
             }
             if response.status == ResponseType.success {
+                self.setDeviceToken()
                 self.goHomeScreen(response)
             }
         }, onError: { error in
@@ -254,6 +255,7 @@ extension KeycloakAuthViewController {
                 Defaults.shared.isFromSignup = Defaults.shared.isRegistered
                 Defaults.shared.userCreatedDate = response.result?.user?.created
                 CurrentUser.shared.setActiveUser(response.result?.user)
+                self.setDeviceToken()
                 self.redirectToHomeScreen()
             } else {
                 self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
@@ -262,6 +264,24 @@ extension KeycloakAuthViewController {
             self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: rx.disposeBag)
+    }
+    
+    func setDeviceToken() {
+        if let deviceToken = Defaults.shared.currentUser?.deviceToken {
+            ProManagerApi.setToken(deviceToken: deviceToken, deviceType: "ios").request(Result<SetTokenModel>.self).subscribe(onNext: { [weak self] (response) in
+                guard let `self` = self else {
+                    return
+                }
+                if response.status == ResponseType.success {
+                    
+                } else {
+                    self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+                }
+            }, onError: { error in
+                self.showAlert(alertMessage: error.localizedDescription)
+            }, onCompleted: {
+            }).disposed(by: rx.disposeBag)
+        }
     }
     
 }

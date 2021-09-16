@@ -1085,6 +1085,7 @@ public struct Paths {
     static let setAffiliate = "user/setAffiliate"
     static let doNotShowAgain = "user/setFlag"
     static let addSocialPlatforms = "user/addSocialPlatforms"
+    static let setToken = "device/setToken"
 }
 
 struct WebsiteData {

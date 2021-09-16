@@ -79,6 +79,7 @@ public enum ProManagerApi {
     case getReferredUserList(page: Int, limit: Int)
     case setAffiliate(isAllowAffiliate: Bool)
     case addSocialPlatforms(socialPlatforms: [String])
+    case setToken(deviceToken: String, deviceType: String)
 
     var endpoint: Endpoint {
         var endpointClosure = MoyaProvider<ProManagerApi>.defaultEndpointMapping(for: self)
@@ -273,6 +274,8 @@ extension ProManagerApi: TargetType {
             return Paths.doNotShowAgain
         case .addSocialPlatforms:
             return Paths.addSocialPlatforms
+        case .setToken:
+            return Paths.setToken
         }
        
     }
@@ -644,6 +647,9 @@ extension ProManagerApi: TargetType {
             param = ["isAllowAffiliate": isAllowAffiliate]
         case .addSocialPlatforms(let socialPlatforms):
             param = ["socialPlatforms": socialPlatforms]
+        case .setToken(let deviceToken, let deviceType):
+            param = ["deviceToken": deviceToken,
+                     "deviceType": deviceType]
         }
         return param
     }
