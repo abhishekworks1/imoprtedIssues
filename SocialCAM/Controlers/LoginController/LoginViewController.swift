@@ -12,6 +12,7 @@ import SkyFloatingLabelTextField
 import FontAwesome_swift
 import Spring
 import FirebaseCrashlytics
+import FirebaseMessaging
 
 class UpAnimation: SpringView {
         
@@ -137,6 +138,9 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
           .foregroundColor: ApplicationSettings.appPrimaryColor
         ], range: NSRange(location: 23, length: 7))
         btnSignUP.setAttributedTitle(attributedString, for: .normal)
+        if let delegate = UIApplication.shared.delegate as? AppDelegate {
+            delegate.getFCMToken()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

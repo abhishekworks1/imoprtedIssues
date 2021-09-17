@@ -67,6 +67,8 @@ def projectShared_pods
     pod 'Bagel'
     pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git', :tag => '7.1.3'
     pod 'CropPickerView'
+    pod 'Firebase/Messaging'
+    pod 'iOSDropDown'
 
     shared_pods
 end

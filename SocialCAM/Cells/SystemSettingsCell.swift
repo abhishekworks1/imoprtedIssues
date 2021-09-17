@@ -14,6 +14,7 @@ enum SystemSettingType {
     case saveVideoAfterRecording
     case muteRecordingSlowMotion
     case muteRecordingFastMotion
+    case milestonesReached
 }
 
 class SystemSettingsCell: UITableViewCell {
@@ -44,6 +45,9 @@ class SystemSettingsCell: UITableViewCell {
                 title.text = R.string.localizable.muteWhileRecordingInSlowMotion()
                 btnHelpTooltip.isHidden = true
                 btnSelectShowAllPopup.isSelected = Defaults.shared.muteOnSlowMotion
+            } else if systemSettingType == .milestonesReached {
+                title.text = R.string.localizable.milestonesReached()
+                btnSelectShowAllPopup.isSelected = Defaults.shared.milestonesReached
             }
         }
     }
@@ -74,6 +78,9 @@ class SystemSettingsCell: UITableViewCell {
             btnSelectShowAllPopup.isSelected = !btnSelectShowAllPopup.isSelected
         } else if systemSettingType == .muteRecordingFastMotion {
             Defaults.shared.muteOnFastMotion = !btnSelectShowAllPopup.isSelected
+            btnSelectShowAllPopup.isSelected = !btnSelectShowAllPopup.isSelected
+        } else if systemSettingType == .milestonesReached {
+            Defaults.shared.milestonesReached = !btnSelectShowAllPopup.isSelected
             btnSelectShowAllPopup.isSelected = !btnSelectShowAllPopup.isSelected
         }
     }

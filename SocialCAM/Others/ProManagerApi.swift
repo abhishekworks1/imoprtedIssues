@@ -79,6 +79,10 @@ public enum ProManagerApi {
     case getReferredUserList(page: Int, limit: Int)
     case setAffiliate(isAllowAffiliate: Bool)
     case addSocialPlatforms(socialPlatforms: [String])
+    case setToken(deviceToken: String, deviceType: String)
+    case removeToken(deviceToken: String)
+    case getReferralNotification
+    case setReferralNotification(isForEveryone: Bool, customSignupNumber: Int)
 
     var endpoint: Endpoint {
         var endpointClosure = MoyaProvider<ProManagerApi>.defaultEndpointMapping(for: self)
@@ -273,6 +277,14 @@ extension ProManagerApi: TargetType {
             return Paths.doNotShowAgain
         case .addSocialPlatforms:
             return Paths.addSocialPlatforms
+        case .setToken:
+            return Paths.setToken
+        case .removeToken:
+            return Paths.removeToken
+        case .getReferralNotification:
+            return Paths.getReferralNotification
+        case .setReferralNotification:
+            return Paths.setReferralNotification
         }
        
     }
@@ -282,7 +294,7 @@ extension ProManagerApi: TargetType {
         switch self {
         case .signUp, .logIn, .verifyChannel, .search, .getAccessToken:
             return .post
-        case .getSplashImages, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getHashTagSets, .getWeather, .getyoutubeSubscribedChannel, .getYoutubeCategory, .instgramProfile, .instgramProfileDetails, .getLongLivedToken, .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData, .getUserProfile, .getUserSettings, .logoutKeycloak, .subscriptionList, .userSync, .getReferredUserList:
+        case .getSplashImages, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getHashTagSets, .getWeather, .getyoutubeSubscribedChannel, .getYoutubeCategory, .instgramProfile, .instgramProfileDetails, .getLongLivedToken, .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData, .getUserProfile, .getUserSettings, .logoutKeycloak, .subscriptionList, .userSync, .getReferredUserList, .getReferralNotification:
             return .get
         case .updateProfile, .editStory, .updatePost, .updateHashTagSet:
             return .put
@@ -644,6 +656,16 @@ extension ProManagerApi: TargetType {
             param = ["isAllowAffiliate": isAllowAffiliate]
         case .addSocialPlatforms(let socialPlatforms):
             param = ["socialPlatforms": socialPlatforms]
+        case .setToken(let deviceToken, let deviceType):
+            param = [StaticKeys.deviceToken: deviceToken,
+                     StaticKeys.deviceType: deviceType]
+        case .removeToken(let deviceToken):
+            param = [StaticKeys.deviceToken: deviceToken]
+        case .getReferralNotification:
+            break
+        case .setReferralNotification(let isForEveryone, let customSignupNumber):
+            param = [StaticKeys.isForEveryone: isForEveryone,
+                     StaticKeys.customSignupNumber: customSignupNumber]
         }
         return param
     }
@@ -657,7 +679,7 @@ extension ProManagerApi: TargetType {
             return JSONEncoding.default
         case .getyoutubeSubscribedChannel:
             return TokenURLEncoding.default
-        case .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData, .getHashTagSets, .getUserProfile, .getUserSettings, .logoutKeycloak, .subscriptionList, .userSync, .getReferredUserList:
+        case .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData, .getHashTagSets, .getUserProfile, .getUserSettings, .logoutKeycloak, .subscriptionList, .userSync, .getReferredUserList, .getReferralNotification:
             return URLEncoding.default
         default:
             return JSONEncoding.default

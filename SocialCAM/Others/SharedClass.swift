@@ -797,6 +797,16 @@ enum VideoResolution: Int {
     case high
 }
 
+enum NewSignupsNotificationType: Int {
+    case forAllUsers = 1
+    case forLimitedUsers
+}
+
+enum NewSubscriptionNotificationType: Int {
+    case forAllUsers = 1
+    case forLimitedUsers
+}
+
 public enum ImageFormat {
     case PNG
     case JPEG(Float)
@@ -1085,6 +1095,10 @@ public struct Paths {
     static let setAffiliate = "user/setAffiliate"
     static let doNotShowAgain = "user/setFlag"
     static let addSocialPlatforms = "user/addSocialPlatforms"
+    static let setToken = "device/setToken"
+    static let removeToken = "device/removeToken"
+    static let getReferralNotification = "user/getReferralNotification"
+    static let setReferralNotification = "user/setReferralNotification"
 }
 
 struct WebsiteData {

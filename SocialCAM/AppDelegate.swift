@@ -19,6 +19,8 @@ import AppCenterAnalytics
 import AppCenterCrashes
 import Bagel
 import Sentry
+import FirebaseMessaging
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -271,6 +273,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FileManager.default.clearTempDirectory()
         UNUserNotificationCenter.current().delegate = self
+        Messaging.messaging().delegate = self
+        registerForPushNitification(application)
+        getFCMToken()
         
         // Implement app updater
         SSAppUpdater.shared.performCheck(isForceUpdate: true, updateAlertFrequency: .always, showDefaultAlert: true) { (_) in
@@ -525,6 +530,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Utils.appDelegate?.window?.rootViewController = keycloakAuthViewController
     }
     
+    // Push Notification Setup
+    func registerForPushNitification(_ application: UIApplication) {
+        if #available(iOS 10.0, *) {
+            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound], completionHandler: { _, _ in })
+        } else {
+            let settings: UIUserNotificationSettings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+            application.registerUserNotificationSettings(settings)
+        }
+        application.registerForRemoteNotifications()
+    }
+    
+    func getFCMToken() {
+        Messaging.messaging().token { (token, error) in
+            if let error = error {
+                debugPrint("ERROR FETCHING FCM TOKEN: \(error)")
+            } else if let token = token {
+                Defaults.shared.deviceToken = token
+                debugPrint("FCM registration Token: \(token)")
+            }
+        }
+    }
+    
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
@@ -547,4 +574,12 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             completionHandler([.alert, .sound, .badge])
         }
     }
+}
+
+extension AppDelegate: MessagingDelegate {
+    
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        debugPrint("Firebase Registration Token: \(fcmToken)")
+    }
+    
 }
