@@ -31,38 +31,6 @@ class SetTokenModel: Mappable {
         notificationPref <- map["notificationPref"]
         updatedAt <- map["updatedAt"]
         userId <- map["userId"]
-        
-    }
-    
-}
-
-class RemoveTokenModel: Mappable {
-    
-    var isDeleted: Bool?
-    
-    required init?(map: Map) {
-        
-    }
-    
-    func mapping(map: Map) {
-        isDeleted <- map["isDeleted"]
-        
-    }
-    
-}
-
-class GetReferralNotificationModel: Mappable {
-    
-    var isForEveryone: Bool?
-    var customSignupNumber: Int?
-    
-    required init?(map: Map) {
-        
-    }
-    
-    func mapping(map: Map) {
-        isForEveryone <- map["isForEveryone"]
-        customSignupNumber <- map["customSignupNumber"]
     }
     
 }

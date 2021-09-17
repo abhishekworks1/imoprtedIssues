@@ -568,6 +568,10 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 }
                 self.settingsTableView.reloadData()
                 self.removeDeviceToken()
+                if let loginNav = R.storyboard.loginViewController.loginNavigation() {
+                    Defaults.shared.clearData()
+                    Utils.appDelegate?.window?.rootViewController = loginNav
+                }
             } else {
                 self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
             }
@@ -580,17 +584,12 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func removeDeviceToken() {
-        if let deviceToken = Defaults.shared.currentUser?.deviceToken {
+        if let deviceToken = Defaults.shared.deviceToken {
             ProManagerApi.removeToken(deviceToken: deviceToken).request(Result<RemoveTokenModel>.self).subscribe(onNext: { [weak self] (response) in
                 guard let `self` = self else {
                     return
                 }
-                if response.status == ResponseType.success {
-                    if let loginNav = R.storyboard.loginViewController.loginNavigation() {
-                        Defaults.shared.clearData()
-                        Utils.appDelegate?.window?.rootViewController = loginNav
-                    }
-                } else {
+                if response.status != ResponseType.success {
                     self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
                 }
             }, onError: { error in

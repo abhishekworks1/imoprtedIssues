@@ -17,5 +17,9 @@ public struct StaticKeys {
     static let newSignupsNotificationType = "newSignupsNotificationType"
     static let newSubscriptionNotificationType = "newSubscriptionNotificationType"
     static let milestonesReached = "milestonesReached"
+    static let deviceToken = "deviceToken"
+    static let deviceType = "deviceType"
+    static let isForEveryone = "isForEveryone"
+    static let customSignupNumber = "customSignupNumber"
     
 }

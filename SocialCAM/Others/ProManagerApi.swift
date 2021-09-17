@@ -657,15 +657,15 @@ extension ProManagerApi: TargetType {
         case .addSocialPlatforms(let socialPlatforms):
             param = ["socialPlatforms": socialPlatforms]
         case .setToken(let deviceToken, let deviceType):
-            param = ["deviceToken": deviceToken,
-                     "deviceType": deviceType]
+            param = [StaticKeys.deviceToken: deviceToken,
+                     StaticKeys.deviceType: deviceType]
         case .removeToken(let deviceToken):
-            param = ["deviceToken": deviceToken]
+            param = [StaticKeys.deviceToken: deviceToken]
         case .getReferralNotification:
             break
         case .setReferralNotification(let isForEveryone, let customSignupNumber):
-            param = ["isForEveryone": isForEveryone,
-                     "customSignupNumber": customSignupNumber]
+            param = [StaticKeys.isForEveryone: isForEveryone,
+                     StaticKeys.customSignupNumber: customSignupNumber]
         }
         return param
     }

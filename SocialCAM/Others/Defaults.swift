@@ -1007,6 +1007,15 @@ class Defaults {
         }
     }
     
+    var deviceToken: String? {
+        get {
+            return appDefaults?.value(forKey: StaticKeys.deviceToken) as? String
+        }
+        set {
+            appDefaults?.set(newValue, forKey: StaticKeys.deviceToken)
+        }
+    }
+    
     func clearData(isDeleteAccount: Bool = false) {
         if let appDefaultsDictionary = appDefaults?.dictionaryRepresentation() {
             appDefaultsDictionary.keys.forEach { key in

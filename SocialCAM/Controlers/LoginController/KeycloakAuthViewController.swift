@@ -267,14 +267,12 @@ extension KeycloakAuthViewController {
     }
     
     func setDeviceToken() {
-        if let deviceToken = Defaults.shared.currentUser?.deviceToken {
+        if let deviceToken = Defaults.shared.deviceToken {
             ProManagerApi.setToken(deviceToken: deviceToken, deviceType: "ios").request(Result<SetTokenModel>.self).subscribe(onNext: { [weak self] (response) in
                 guard let `self` = self else {
                     return
                 }
-                if response.status == ResponseType.success {
-                    
-                } else {
+                if response.status != ResponseType.success {
                     self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
                 }
             }, onError: { error in
