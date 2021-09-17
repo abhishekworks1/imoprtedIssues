@@ -106,13 +106,19 @@
                                         <state key="normal" image="editProfilePlusIcon"/>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Iv-po-Sf6">
-                                        <rect key="frame" x="185" y="508" width="44.5" height="21"/>
+                                        <rect key="frame" x="187.5" y="475" width="39.5" height="19"/>
+                                        <fontDescription key="fontDescription" name="SFUIText-Semibold" family="SF UI Text" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NU1-qX-Byj">
+                                        <rect key="frame" x="185" y="504" width="44.5" height="21"/>
                                         <fontDescription key="fontDescription" name="SFUIText-Semibold" family="SF UI Text" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="BL6-eO-oEA">
-                                        <rect key="frame" x="207" y="549" width="0.0" height="37"/>
+                                        <rect key="frame" x="207" y="545" width="0.0" height="37"/>
                                         <subviews>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bhu-cN-5sr">
                                                 <rect key="frame" x="0.0" y="0.0" width="36" height="50"/>
@@ -303,27 +309,29 @@
                                 </subviews>
                                 <color key="backgroundColor" name="shareScreenProfileBadgeView"/>
                                 <constraints>
-                                    <constraint firstItem="BL6-eO-oEA" firstAttribute="top" secondItem="9Iv-po-Sf6" secondAttribute="bottom" constant="20" id="2mR-Cp-wwD"/>
                                     <constraint firstItem="dvU-ya-Joh" firstAttribute="top" secondItem="Nmp-nu-gTv" secondAttribute="top" id="3vH-Bf-4lQ"/>
                                     <constraint firstItem="XkW-Yh-sdb" firstAttribute="height" secondItem="Nmp-nu-gTv" secondAttribute="height" id="8vy-zu-3OQ"/>
                                     <constraint firstItem="BL6-eO-oEA" firstAttribute="bottom" secondItem="EPY-di-HyD" secondAttribute="top" constant="-10" id="Aad-M0-Nuu"/>
                                     <constraint firstItem="XkW-Yh-sdb" firstAttribute="centerY" secondItem="Nmp-nu-gTv" secondAttribute="centerY" id="C9q-jI-a2o"/>
                                     <constraint firstItem="EPY-di-HyD" firstAttribute="leading" secondItem="ufZ-C2-mJH" secondAttribute="leading" priority="250" constant="20" id="E16-8U-ijh"/>
+                                    <constraint firstItem="NU1-qX-Byj" firstAttribute="top" secondItem="9Iv-po-Sf6" secondAttribute="bottom" constant="10" id="G7I-Ft-Fza"/>
                                     <constraint firstItem="BL6-eO-oEA" firstAttribute="centerX" secondItem="ufZ-C2-mJH" secondAttribute="centerX" id="NGa-gc-WCP"/>
                                     <constraint firstItem="3WO-30-aTw" firstAttribute="centerX" secondItem="ufZ-C2-mJH" secondAttribute="centerX" id="OtV-4T-iKP"/>
                                     <constraint firstItem="Si9-yc-LR4" firstAttribute="top" secondItem="EPY-di-HyD" secondAttribute="bottom" id="Pi3-On-iqi"/>
                                     <constraint firstItem="9Iv-po-Sf6" firstAttribute="centerX" secondItem="ufZ-C2-mJH" secondAttribute="centerX" id="RyH-iB-Zvb"/>
-                                    <constraint firstItem="9Iv-po-Sf6" firstAttribute="top" secondItem="3WO-30-aTw" secondAttribute="bottom" constant="20" id="SvN-uu-vHU"/>
+                                    <constraint firstItem="9Iv-po-Sf6" firstAttribute="top" secondItem="3WO-30-aTw" secondAttribute="bottom" constant="10" id="SvN-uu-vHU"/>
                                     <constraint firstItem="Nmp-nu-gTv" firstAttribute="centerX" secondItem="3WO-30-aTw" secondAttribute="centerX" id="SwB-WH-L6k"/>
                                     <constraint firstItem="XkW-Yh-sdb" firstAttribute="centerX" secondItem="Nmp-nu-gTv" secondAttribute="centerX" id="W34-9Q-QDJ"/>
                                     <constraint firstItem="EPY-di-HyD" firstAttribute="centerX" secondItem="BL6-eO-oEA" secondAttribute="centerX" id="ZIc-Su-Xcb"/>
                                     <constraint firstItem="Nmp-nu-gTv" firstAttribute="top" secondItem="3WO-30-aTw" secondAttribute="top" constant="57" id="ebJ-4I-Yqy"/>
                                     <constraint firstAttribute="trailing" secondItem="Si9-yc-LR4" secondAttribute="trailing" constant="8" id="kbh-Bh-HBO"/>
                                     <constraint firstAttribute="trailing" secondItem="EPY-di-HyD" secondAttribute="trailing" priority="250" constant="20" id="lmz-Mk-VBw"/>
+                                    <constraint firstItem="BL6-eO-oEA" firstAttribute="top" secondItem="NU1-qX-Byj" secondAttribute="bottom" constant="20" id="u7n-hC-rxJ"/>
                                     <constraint firstItem="XkW-Yh-sdb" firstAttribute="width" secondItem="Nmp-nu-gTv" secondAttribute="width" id="u7z-X9-CFg"/>
                                     <constraint firstItem="dvU-ya-Joh" firstAttribute="trailing" secondItem="Nmp-nu-gTv" secondAttribute="trailing" id="xQ3-qe-jUc"/>
+                                    <constraint firstItem="NU1-qX-Byj" firstAttribute="centerX" secondItem="9Iv-po-Sf6" secondAttribute="centerX" id="yI5-Ve-u5V"/>
                                     <constraint firstItem="Si9-yc-LR4" firstAttribute="leading" secondItem="ufZ-C2-mJH" secondAttribute="leading" constant="7" id="yRo-Jm-nfb"/>
-                                    <constraint firstItem="3WO-30-aTw" firstAttribute="top" secondItem="ufZ-C2-mJH" secondAttribute="top" constant="113" id="z9v-FG-BiV"/>
+                                    <constraint firstItem="3WO-30-aTw" firstAttribute="top" secondItem="ufZ-C2-mJH" secondAttribute="top" constant="90" id="z9v-FG-BiV"/>
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xPd-JQ-tiK" userLabel="Blur Back Ground View">
@@ -433,6 +441,7 @@
                         <outlet property="imgProfilePic" destination="Nmp-nu-gTv" id="aqf-7a-lsS"/>
                         <outlet property="lblSinceDate" destination="9Iv-po-Sf6" id="Og7-Hy-sBY"/>
                         <outlet property="lblSocialSharePopup" destination="Nqa-f7-Izm" id="lMn-IU-lHJ"/>
+                        <outlet property="lblUserName" destination="NU1-qX-Byj" id="8Bq-Du-DXx"/>
                         <outlet property="snapchatVerifiedView" destination="1R2-fR-ceP" id="00L-qK-U03"/>
                         <outlet property="socialSharePopupView" destination="xPd-JQ-tiK" id="ChG-8Z-ZoC"/>
                         <outlet property="twitterVerifiedView" destination="Yj6-OA-bsE" id="DFW-2m-veP"/>

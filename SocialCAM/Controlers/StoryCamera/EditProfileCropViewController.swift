@@ -47,7 +47,9 @@ class EditProfileCropViewController: UIViewController {
     
     // MARK: - Action Methods
     @IBAction func btnCancelTapped(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
+        self.navigationController?.popViewController(animated: true, completion: {
+            self.delegate?.setSocialPlatforms()
+        })
     }
     
     @IBAction func btnDoneTapped(_ sender: UIButton) {
