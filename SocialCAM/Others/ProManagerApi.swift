@@ -83,7 +83,9 @@ public enum ProManagerApi {
     case removeToken(deviceToken: String)
     case getReferralNotification
     case setReferralNotification(isForEveryone: Bool, customSignupNumber: Int)
-
+    case setUserStateFlag(isUserStateFlag: Bool)
+    case setCountrys(arrayCountry: [[String:Any]]?)
+    
     var endpoint: Endpoint {
         var endpointClosure = MoyaProvider<ProManagerApi>.defaultEndpointMapping(for: self)
         
@@ -101,6 +103,7 @@ public enum ProManagerApi {
         }
         
         print("Request URL : \(endpointClosure.url) \n\n")
+        print("Request Header : \(endpointClosure.httpHeaderFields) \n\n")
         if let parameters = self.parameters {
             print("Request parameters : \(parameters) \n")
         }
@@ -285,6 +288,10 @@ extension ProManagerApi: TargetType {
             return Paths.getReferralNotification
         case .setReferralNotification:
             return Paths.setReferralNotification
+        case .setUserStateFlag:
+            return Paths.setUserStateFlag
+        case .setCountrys:
+            return Paths.setUserStates
         }
        
     }
@@ -666,6 +673,12 @@ extension ProManagerApi: TargetType {
         case .setReferralNotification(let isForEveryone, let customSignupNumber):
             param = [StaticKeys.isForEveryone: isForEveryone,
                      StaticKeys.customSignupNumber: customSignupNumber]
+        case .setUserStateFlag(let isUserStateFlag):
+            param = ["isShowFlags": isUserStateFlag]
+        case .setCountrys(let countrys):
+            if let country = countrys {
+                param["userStateFlags"] = country
+            }
         }
         return param
     }

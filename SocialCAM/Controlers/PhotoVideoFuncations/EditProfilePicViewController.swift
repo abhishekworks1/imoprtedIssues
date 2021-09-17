@@ -42,6 +42,7 @@ class EditProfilePicViewController: UIViewController {
     var isImageSelected = false
     var imageSource = ""
     var socialPlatforms: [String] = []
+    private lazy var storyCameraVC = StoryCameraViewController()
     
     // MARK: - View Controller Life Cycle
     override func viewDidLoad() {
@@ -64,10 +65,24 @@ class EditProfilePicViewController: UIViewController {
             let date = CommonFunctions.getDateInSpecificFormat(dateInput: createdDate, dateOutput: R.string.localizable.mmmdYyyy())
             self.lblSinceDate.text = R.string.localizable.sinceJoined(date)
         }
+        
+        btnSelectCountry.isSelected = Defaults.shared.currentUser?.isShowFlags ?? false
+        
+        DispatchQueue.main.async {
+            if let flages = Defaults.shared.currentUser?.userStateFlags, flages.count > 0 {
+                for (index, item) in flages.enumerated() {
+                    self.countryView[index].isHidden = false
+                    self.lblCountrys[index].text = item.country
+                    let country: Country = Country(name: item.country ?? "", code: item.countryCode ?? "", phoneCode: "")
+                    self.imgCountrys[index].image = country.flag
+                }
+            }
+        }
         self.getVerifiedSocialPlatforms()
     }
     
     func showHidePopupView(isHide: Bool) {
+        socialSharePopupView.bringSubviewToFront(self.view)
         self.socialSharePopupView.isHidden = isHide
     }
     
@@ -89,6 +104,7 @@ class EditProfilePicViewController: UIViewController {
     @IBAction func btnShowCountryTapped(_ sender: UIButton) {
         if btnSelectCountry.isSelected {
             btnSelectCountry.isSelected = !btnSelectCountry.isSelected
+            self.setUserStateFlag(false)
             return
         }
         if let countryVc = R.storyboard.countryPicker.countryPickerViewController() {
@@ -114,19 +130,22 @@ class EditProfilePicViewController: UIViewController {
 
 extension EditProfilePicViewController: CountryPickerViewDelegate {
     func countryPickerView(_ didSelectCountry : [Country]) {
-        for (index, _) in countryView.enumerated() {
-            countryView[index].isHidden = true
-            lblCountrys[index].text = nil
-            imgCountrys[index].image = nil
-        }
-        if didSelectCountry.count > 0 {
-            for (index, item) in didSelectCountry.enumerated() {
-                countryView[index].isHidden = false
-                lblCountrys[index].text = item.name
-                imgCountrys[index].image = item.flag
+        DispatchQueue.main.async {
+            for (index, _) in self.countryView.enumerated() {
+                self.countryView[index].isHidden = true
+                self.lblCountrys[index].text = nil
+                self.imgCountrys[index].image = nil
             }
-            btnSelectCountry.isSelected = !btnSelectCountry.isSelected
+            if didSelectCountry.count > 0 {
+                for (index, item) in didSelectCountry.enumerated() {
+                    self.countryView[index].isHidden = false
+                    self.lblCountrys[index].text = item.name
+                    self.imgCountrys[index].image = item.flag
+                }
+                self.btnSelectCountry.isSelected = !self.btnSelectCountry.isSelected
+            }
         }
+        self.setCountrys(didSelectCountry)
     }
 }
 
@@ -239,6 +258,38 @@ extension EditProfilePicViewController: UIImagePickerControllerDelegate, UINavig
 
 // MARK: - API Methods
 extension EditProfilePicViewController {
+    
+    func setCountrys(_ countrys: [Country]) {
+        var arrayCountry: [[String: Any]] = []
+        for country in countrys {
+            let material: [String: Any] = [
+                "state": "",
+                "country": country.name,
+                "countryCode": country.code
+            ]
+            arrayCountry.append(material)
+        }
+        
+        ProManagerApi.setCountrys(arrayCountry: arrayCountry).request(Result<EmptyModel>.self).subscribe(onNext: { [weak self] (response) in
+            guard let `self` = self else {
+                return
+            }
+            self.storyCameraVC.syncUserModel { _ in
+                
+            }
+        }, onError: { error in
+            self.showAlert(alertMessage: error.localizedDescription)
+        }, onCompleted: {
+        }).disposed(by: self.rx.disposeBag)
+    }
+    
+    func setUserStateFlag(_ isUserStateFlag: Bool) {
+        ProManagerApi.setUserStateFlag(isUserStateFlag: isUserStateFlag).request(Result<EmptyModel>.self).subscribe(onNext: { (response) in
+        }, onError: { error in
+            self.showAlert(alertMessage: error.localizedDescription)
+        }, onCompleted: {
+        }).disposed(by: self.rx.disposeBag)
+    }
     
     func updateProfilePic(image: UIImage) {
         ProManagerApi.uploadPicture(image: image, imageSource: imageSource).request(Result<EmptyModel>.self).subscribe(onNext: { [weak self] (response) in

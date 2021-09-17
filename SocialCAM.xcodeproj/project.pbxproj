@@ -5008,6 +5008,7 @@
 		82CCB1722372D21E00EC76E8 /* PromanagerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CCB1712372D21E00EC76E8 /* PromanagerData.swift */; };
 		82CCB1762372E9D000EC76E8 /* LoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82CCB1752372E9D000EC76E8 /* LoginViewController.storyboard */; };
 		82CCD416264A49B7000463F0 /* GoogleService-Info-SnapCamLite.plist in Resources */ = {isa = PBXBuildFile; fileRef = 82CCD415264A49B6000463F0 /* GoogleService-Info-SnapCamLite.plist */; };
+		82D0443826F4B9C700F8F19A /* UserCountry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D0443726F4B9C700F8F19A /* UserCountry.swift */; };
 		82D1EB9F236FE68E00A680E7 /* StorySettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EB9E236FE68E00A680E7 /* StorySettingsCell.swift */; };
 		82D1EBA2236FED0500A680E7 /* MensionCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EBA1236FED0500A680E7 /* MensionCollectionViewDelegate.swift */; };
 		82D1EBA4236FED1700A680E7 /* EmojiCollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EBA3236FED1700A680E7 /* EmojiCollectionViewDelegate.swift */; };
@@ -15459,6 +15460,7 @@
 		82CCB1712372D21E00EC76E8 /* PromanagerData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromanagerData.swift; sourceTree = "<group>"; };
 		82CCB1752372E9D000EC76E8 /* LoginViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginViewController.storyboard; sourceTree = "<group>"; };
 		82CCD415264A49B6000463F0 /* GoogleService-Info-SnapCamLite.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-SnapCamLite.plist"; sourceTree = "<group>"; };
+		82D0443726F4B9C700F8F19A /* UserCountry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCountry.swift; sourceTree = "<group>"; };
 		82D1EB9E236FE68E00A680E7 /* StorySettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorySettingsCell.swift; sourceTree = "<group>"; };
 		82D1EBA1236FED0500A680E7 /* MensionCollectionViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MensionCollectionViewDelegate.swift; sourceTree = "<group>"; };
 		82D1EBA3236FED1700A680E7 /* EmojiCollectionViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiCollectionViewDelegate.swift; sourceTree = "<group>"; };
@@ -16569,6 +16571,7 @@
 				49DE09EC26F36BB800E7FC65 /* SetTokenModel.swift */,
 				49C61BDD26F4BA9D0017C28E /* RemoveTokenModel.swift */,
 				49C61C4426F4BAF10017C28E /* GetReferralNotificationModel.swift */,
+				82D0443726F4B9C700F8F19A /* UserCountry.swift */
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -25774,6 +25777,7 @@
 				8287D22823829D3B0074FC39 /* SubscribeChannelCell.swift in Sources */,
 				8205FB0F236C123B002B2603 /* AppExtensions.swift in Sources */,
 				8205FCCD236C3AFA002B2603 /* CollageCell.swift in Sources */,
+				82D0443826F4B9C700F8F19A /* UserCountry.swift in Sources */,
 				82D1EBA2236FED0500A680E7 /* MensionCollectionViewDelegate.swift in Sources */,
 				C2AA273926E5F3A0003C6486 /* StaticKeys.swift in Sources */,
 				8205FBBF236C2A88002B2603 /* MMPlayerPassViewPushTransition.swift in Sources */,
@@ -39440,7 +39444,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.4;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
 					"-fembed-bitcode-marker",
@@ -39478,7 +39482,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.4;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
 					"-fembed-bitcode-marker",
@@ -39516,7 +39520,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.4;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
 					"-fembed-bitcode-marker",
@@ -39553,7 +39557,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.4;
 				OTHER_CFLAGS = (
 					"-fembed-bitcode",
 					"$(inherited)",

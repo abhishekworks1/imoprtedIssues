@@ -388,7 +388,7 @@ class Defaults {
     
     var releaseType: ReleaseType {
         get {
-            return ReleaseType(rawValue: (appDefaults?.string(forKey: "releaseType") ?? "debug")) ?? .debug
+            return ReleaseType(rawValue: (appDefaults?.string(forKey: "releaseType") ?? "store")) ?? .store
         }
         set {
             appDefaults?.set(newValue.description, forKey: "releaseType")

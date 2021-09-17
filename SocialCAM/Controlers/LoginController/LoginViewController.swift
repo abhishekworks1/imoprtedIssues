@@ -75,8 +75,6 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        Defaults.shared.releaseType = ReleaseType.currentConfiguration()
-        
         if #available(iOS 13.0, *) {
             appleLoginView.isHidden = false
         } else {
