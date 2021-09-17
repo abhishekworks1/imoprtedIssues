@@ -54,7 +54,7 @@ public class GoogleManager: NSObject {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                     signIn.currentUser.authentication.getTokensWithHandler({ (accessToken, error) in
                         guard error == nil else { return }
-                        let loginUserData = LoginUserData(userId: signIn.currentUser.userID, userName: signIn.currentUser.profile.name, email: signIn.currentUser.profile.email, gender: 0, photoUrl: signIn.currentUser.profile.imageURL(withDimension: 200)?.absoluteString, idToken: signIn.currentUser.authentication.idToken, accessToken: signIn.currentUser.authentication.accessToken)
+                        let loginUserData = LoginUserData(userId: signIn.currentUser.userID, userName: signIn.currentUser.profile.name, email: signIn.currentUser.profile.email, gender: 0, photoUrl: signIn.currentUser.profile.imageURL(withDimension: 400)?.absoluteString, idToken: signIn.currentUser.authentication.idToken, accessToken: signIn.currentUser.authentication.accessToken)
                         completion(loginUserData)
                     })
                 }

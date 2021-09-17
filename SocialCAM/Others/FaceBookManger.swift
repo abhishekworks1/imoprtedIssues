@@ -141,7 +141,7 @@ public class FaceBookManager: NSObject {
         if let gender = dataResponse.object(forKey: NeededFields.gender.rawValue) as? String {
             userData.gender = gender == "Male" ? 0 : 1
         }
-        if let picture = dataResponse.object(forKey: NeededFields.picture.rawValue) as? NSDictionary {
+        if let picture = dataResponse.object(forKey: NeededFields.pictureLarge.rawValue) as? NSDictionary {
             if let data = picture.value(forKey: "data") as? NSDictionary {
                 userData.photoUrl = data.value(forKey: "url") as? String ?? ""
             }
