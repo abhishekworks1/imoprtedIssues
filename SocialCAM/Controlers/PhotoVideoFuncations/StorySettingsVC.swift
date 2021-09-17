@@ -567,10 +567,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                     AppleSignInManager.shared.logout()
                 }
                 self.settingsTableView.reloadData()
-                if let loginNav = R.storyboard.loginViewController.loginNavigation() {
-                    Defaults.shared.clearData()
-                    Utils.appDelegate?.window?.rootViewController = loginNav
-                }
+                self.removeDeviceToken()
             } else {
                 self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
             }
@@ -580,6 +577,27 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
+    }
+    
+    func removeDeviceToken() {
+        if let deviceToken = Defaults.shared.currentUser?.deviceToken {
+            ProManagerApi.removeToken(deviceToken: deviceToken).request(Result<RemoveTokenModel>.self).subscribe(onNext: { [weak self] (response) in
+                guard let `self` = self else {
+                    return
+                }
+                if response.status == ResponseType.success {
+                    if let loginNav = R.storyboard.loginViewController.loginNavigation() {
+                        Defaults.shared.clearData()
+                        Utils.appDelegate?.window?.rootViewController = loginNav
+                    }
+                } else {
+                    self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+                }
+            }, onError: { error in
+                self.showAlert(alertMessage: error.localizedDescription)
+            }, onCompleted: {
+            }).disposed(by: rx.disposeBag)
+        }
     }
     
     func presentSafariBrowser(url: URL) {

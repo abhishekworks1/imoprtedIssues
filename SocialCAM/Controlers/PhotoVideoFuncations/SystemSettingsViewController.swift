@@ -127,3 +127,25 @@ extension SystemSettingsViewController: UITableViewDelegate {
         return 1.0
     }
 }
+
+// MARK: - API Methods
+extension SystemSettingsViewController {
+    
+    func setReferralNotification() {
+        let isForEveryone = Defaults.shared.newSignupsNotificationType == .forAllUsers
+        ProManagerApi.setReferralNotification(isForEveryone: isForEveryone, customSignupNumber: 0).request(Result<GetReferralNotificationModel>.self).subscribe(onNext: { [weak self] (response) in
+            guard let `self` = self else {
+                return
+            }
+            if response.status == ResponseType.success {
+                Defaults.shared.newSignupsNotificationType = (response.result?.isForEveryone == true) ? .forAllUsers : .forLimitedUsers
+            } else {
+                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+            }
+        }, onError: { error in
+            self.showAlert(alertMessage: error.localizedDescription)
+        }, onCompleted: {
+        }).disposed(by: rx.disposeBag)
+    }
+    
+}

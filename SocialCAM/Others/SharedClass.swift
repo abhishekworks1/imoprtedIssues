@@ -1096,6 +1096,9 @@ public struct Paths {
     static let doNotShowAgain = "user/setFlag"
     static let addSocialPlatforms = "user/addSocialPlatforms"
     static let setToken = "device/setToken"
+    static let removeToken = "device/removeToken"
+    static let getReferralNotification = "user/getReferralNotification"
+    static let setReferralNotification = "user/setReferralNotification"
 }
 
 struct WebsiteData {

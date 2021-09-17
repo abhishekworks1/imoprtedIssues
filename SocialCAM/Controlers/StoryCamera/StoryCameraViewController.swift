@@ -518,6 +518,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     override func viewDidLoad() {
         super.viewDidLoad()
         showSurveyAlertAfterThreeDays()
+        self.getReferralNotification()
         UIApplication.shared.isIdleTimerDisabled = true
         setCameraSettings()
         checkPermissions()
@@ -2604,6 +2605,22 @@ extension StoryCameraViewController {
             self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
+    }
+    
+    func getReferralNotification() {
+        ProManagerApi.getReferralNotification.request(Result<GetReferralNotificationModel>.self).subscribe(onNext: { [weak self] (response) in
+            guard let `self` = self else {
+                return
+            }
+            if response.status == ResponseType.success {
+                Defaults.shared.newSignupsNotificationType = (response.result?.isForEveryone == true) ? .forAllUsers : .forLimitedUsers
+            } else {
+                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+            }
+        }, onError: { error in
+            self.showAlert(alertMessage: error.localizedDescription)
+        }, onCompleted: {
+        }).disposed(by: rx.disposeBag)
     }
     
 }
