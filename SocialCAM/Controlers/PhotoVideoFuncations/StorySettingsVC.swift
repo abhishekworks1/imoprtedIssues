@@ -104,17 +104,15 @@ class StorySettings {
                                                          StorySetting(name: R.string.localizable.professional(),
                                                                       selected: true)], settingsType: .subscriptions),
                                 StorySettings(name: "",
+                                              settings: [StorySetting(name: R.string.localizable.businessDashboard(), selected: false)], settingsType: .userDashboard),
+                                StorySettings(name: "",
+                                              settings: [StorySetting(name: R.string.localizable.share(), selected: false)], settingsType: .shareSetting),
+                                StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.accountSettings(), selected: false)], settingsType: .accountSettings),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.cameraSettings(), selected: false)], settingsType: .cameraSettings),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.system(), selected: false)], settingsType: .system),
-                                StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.share(), selected: false)], settingsType: .shareSetting),
-                                StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.yourReferrals(), selected: false)], settingsType: .goToWebsite),
-                                StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.businessDashboard(), selected: false)], settingsType: .userDashboard),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.howItWorks(), selected: false)], settingsType: .help),
                                 StorySettings(name: "",
@@ -349,7 +347,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         }
         
         headerView.userImage.layer.cornerRadius = headerView.userImage.bounds.width / 2
-        if settingTitle.settingsType == .accountSettings {
+        if settingTitle.settingsType == .userDashboard {
             headerView.title.isHidden = false
             headerView.addProfilePic.isHidden = true
             if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
@@ -381,7 +379,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         let settingTitle = StorySettings.storySettings[section]
         if settingTitle.settingsType == .subscriptions {
             return 60
-        } else if settingTitle.settingsType == .accountSettings {
+        } else if settingTitle.settingsType == .userDashboard {
             return 80
         } else {
             return 0
