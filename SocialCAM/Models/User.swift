@@ -88,6 +88,8 @@ class User: Codable, Mappable {
     var isDoNotShowMsg: Bool?
     var imageSource: String?
     var socialPlatforms: [String]?
+    var userStateFlags: [UserCountry]?
+    var isShowFlags: Bool?
     
     required init?(map: Map) {
         
@@ -186,6 +188,8 @@ class User: Codable, Mappable {
         refferedBy <- map["refferedBy"]
         imageSource <- map["imageSource"]
         socialPlatforms <- map["socialPlatforms"]
+        userStateFlags <- map["userStateFlags"]
+        isShowFlags <- map["isShowFlags"]
     }
     
 }

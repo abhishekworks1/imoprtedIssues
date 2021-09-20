@@ -436,7 +436,7 @@ enum ReleaseType: String, AppMode_Enum {
         } else if isStore {
             return .store
         } else {
-            return .debug
+            return .store
         }
     }
     
@@ -1099,6 +1099,8 @@ public struct Paths {
     static let removeToken = "device/removeToken"
     static let getReferralNotification = "user/getReferralNotification"
     static let setReferralNotification = "user/setReferralNotification"
+    static let setUserStateFlag = "user/setUserStateFlag"
+    static let setUserStates = "user/setUserStates"
 }
 
 struct WebsiteData {

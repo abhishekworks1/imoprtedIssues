@@ -38,6 +38,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             Bagel.start()
         }
         
+        Defaults.shared.releaseType = ReleaseType.currentConfiguration()
+        
         // Setup Sentry
         SentrySDK.start { options in
             options.dsn = Constant.Sentry.dsn

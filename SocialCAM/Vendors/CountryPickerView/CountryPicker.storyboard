@@ -30,7 +30,7 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="52"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lFb-Gb-nCP">
-                                        <rect key="frame" x="8" y="0.0" width="44" height="44"/>
+                                        <rect key="frame" x="8" y="4" width="44" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="S0O-EU-t7A"/>
                                             <constraint firstAttribute="width" constant="44" id="T0E-Sh-Qhf"/>
@@ -42,13 +42,13 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Country Flag" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i9a-Gz-S0v">
-                                        <rect key="frame" x="154.33333333333334" y="11.333333333333337" width="105.66666666666666" height="21.666666666666671"/>
+                                        <rect key="frame" x="154.33333333333334" y="15.333333333333337" width="105.66666666666666" height="21.666666666666671"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                         <color key="textColor" red="0.2498272061" green="0.3152070642" blue="0.35203957559999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qfu-tl-BRl">
-                                        <rect key="frame" x="366" y="6" width="40" height="32"/>
+                                        <rect key="frame" x="366" y="10" width="40" height="32"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="Ltx-mN-1BV"/>
                                         </constraints>
@@ -60,15 +60,15 @@
                                             <action selector="donebuttonTapped:" destination="GxX-QO-EZ4" eventType="touchUpInside" id="OoR-ie-r6T"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TpI-qJ-z91">
-                                        <rect key="frame" x="316" y="6" width="40" height="32"/>
+                                    <button clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TpI-qJ-z91">
+                                        <rect key="frame" x="316" y="10" width="40" height="32"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="VA7-Sn-SSr"/>
                                         </constraints>
-                                        <state key="normal" image="radioDeselected">
-                                            <color key="titleColor" name="AppPrimaryColor"/>
-                                        </state>
-                                        <state key="selected" image="radioSelected"/>
+                                        <color key="tintColor" name="resendLinkColor"/>
+                                        <state key="normal" image="icoListView"/>
+                                        <state key="selected" image="icoGridView"/>
                                         <connections>
                                             <action selector="buttonTapped:" destination="GxX-QO-EZ4" eventType="touchUpInside" id="A7Y-Ec-OQ9"/>
                                         </connections>
@@ -78,9 +78,9 @@
                                 <constraints>
                                     <constraint firstItem="TpI-qJ-z91" firstAttribute="top" secondItem="Qfu-tl-BRl" secondAttribute="top" id="Ddo-9G-YtJ"/>
                                     <constraint firstItem="TpI-qJ-z91" firstAttribute="centerY" secondItem="Qfu-tl-BRl" secondAttribute="centerY" id="FFs-94-mqP"/>
+                                    <constraint firstItem="lFb-Gb-nCP" firstAttribute="centerY" secondItem="Bn6-Zp-qKX" secondAttribute="centerY" id="IAn-fS-QLH"/>
                                     <constraint firstAttribute="height" constant="52" id="J4e-8h-Epf"/>
                                     <constraint firstItem="lFb-Gb-nCP" firstAttribute="leading" secondItem="Bn6-Zp-qKX" secondAttribute="leading" constant="8" id="MjQ-bU-NhI"/>
-                                    <constraint firstItem="lFb-Gb-nCP" firstAttribute="top" secondItem="Bn6-Zp-qKX" secondAttribute="top" id="P7g-6z-lWU"/>
                                     <constraint firstItem="i9a-Gz-S0v" firstAttribute="centerX" secondItem="Bn6-Zp-qKX" secondAttribute="centerX" id="P7w-aa-kZr"/>
                                     <constraint firstItem="i9a-Gz-S0v" firstAttribute="centerY" secondItem="lFb-Gb-nCP" secondAttribute="centerY" id="TE4-kg-oKj"/>
                                     <constraint firstItem="Qfu-tl-BRl" firstAttribute="leading" secondItem="TpI-qJ-z91" secondAttribute="trailing" constant="10" id="htN-m5-9Dr"/>
@@ -156,13 +156,16 @@
         </scene>
     </scenes>
     <resources>
-        <image name="radioDeselected" width="20" height="20"/>
-        <image name="radioSelected" width="20" height="20"/>
+        <image name="icoGridView" width="22" height="22"/>
+        <image name="icoListView" width="22" height="22"/>
         <image name="textFieldClose" width="15" height="15"/>
         <namedColor name="AppBlackColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
+            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="resendLinkColor">
             <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
