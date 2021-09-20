@@ -517,7 +517,6 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     // MARK: ViewController lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        showSurveyAlertAfterThreeDays()
         self.getReferralNotification()
         UIApplication.shared.isIdleTimerDisabled = true
         setCameraSettings()
