@@ -50,6 +50,19 @@
                                         <color key="textColor" red="0.2498272061" green="0.3152070642" blue="0.35203957559999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KaM-yX-Y1T">
+                                        <rect key="frame" x="266" y="10" width="40" height="32"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="5Ys-dn-v5k"/>
+                                        </constraints>
+                                        <color key="tintColor" name="resendLinkColor"/>
+                                        <state key="normal" image="shareIcon"/>
+                                        <state key="selected" image="icoGridView"/>
+                                        <connections>
+                                            <action selector="btnShareTapped:" destination="GxX-QO-EZ4" eventType="touchUpInside" id="SM2-Ok-zn6"/>
+                                        </connections>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qfu-tl-BRl">
                                         <rect key="frame" x="346" y="10" width="60" height="32"/>
                                         <constraints>
@@ -88,6 +101,7 @@
                                 <constraints>
                                     <constraint firstItem="TpI-qJ-z91" firstAttribute="top" secondItem="Qfu-tl-BRl" secondAttribute="top" id="Ddo-9G-YtJ"/>
                                     <constraint firstItem="TpI-qJ-z91" firstAttribute="centerY" secondItem="Qfu-tl-BRl" secondAttribute="centerY" id="FFs-94-mqP"/>
+                                    <constraint firstItem="KaM-yX-Y1T" firstAttribute="centerY" secondItem="i9a-Gz-S0v" secondAttribute="centerY" id="Gfe-PF-dlx"/>
                                     <constraint firstItem="lFb-Gb-nCP" firstAttribute="centerY" secondItem="Bn6-Zp-qKX" secondAttribute="centerY" id="IAn-fS-QLH"/>
                                     <constraint firstAttribute="height" constant="52" id="J4e-8h-Epf"/>
                                     <constraint firstItem="lFb-Gb-nCP" firstAttribute="leading" secondItem="Bn6-Zp-qKX" secondAttribute="leading" constant="8" id="MjQ-bU-NhI"/>
@@ -96,7 +110,9 @@
                                     <constraint firstAttribute="trailing" secondItem="awt-3b-YbD" secondAttribute="trailing" constant="5" id="gc6-ua-S0r"/>
                                     <constraint firstItem="Qfu-tl-BRl" firstAttribute="leading" secondItem="TpI-qJ-z91" secondAttribute="trailing" constant="10" id="htN-m5-9Dr"/>
                                     <constraint firstItem="awt-3b-YbD" firstAttribute="leading" secondItem="Bn6-Zp-qKX" secondAttribute="leading" constant="5" id="huk-f0-LH6"/>
+                                    <constraint firstItem="TpI-qJ-z91" firstAttribute="leading" secondItem="KaM-yX-Y1T" secondAttribute="trailing" constant="5" id="k8z-a8-ago"/>
                                     <constraint firstItem="TpI-qJ-z91" firstAttribute="bottom" secondItem="Qfu-tl-BRl" secondAttribute="bottom" id="llO-pC-wcU"/>
+                                    <constraint firstItem="KaM-yX-Y1T" firstAttribute="top" secondItem="TpI-qJ-z91" secondAttribute="top" id="qyW-Xx-tZJ"/>
                                     <constraint firstAttribute="trailing" secondItem="Qfu-tl-BRl" secondAttribute="trailing" constant="8" id="sg6-ec-Nku"/>
                                     <constraint firstAttribute="bottom" secondItem="awt-3b-YbD" secondAttribute="bottom" id="udT-hF-JfV"/>
                                     <constraint firstItem="Qfu-tl-BRl" firstAttribute="centerY" secondItem="i9a-Gz-S0v" secondAttribute="centerY" id="yZw-9W-dOx"/>

@@ -23,6 +23,7 @@ class SystemSettingsCell: UITableViewCell {
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var btnSelectShowAllPopup: UIButton!
     @IBOutlet weak var btnHelpTooltip: UIButton!
+    @IBOutlet weak var selectButtonLeadingConstraint: NSLayoutConstraint!
     
     // MARK: - Varable Declaration
     var systemSettingType: SystemSettingType = .showAllPopUps {
@@ -47,6 +48,7 @@ class SystemSettingsCell: UITableViewCell {
                 btnSelectShowAllPopup.isSelected = Defaults.shared.muteOnSlowMotion
             } else if systemSettingType == .milestonesReached {
                 title.text = R.string.localizable.milestonesReached()
+                selectButtonLeadingConstraint.constant = 34
                 btnSelectShowAllPopup.isSelected = Defaults.shared.milestonesReached
             }
         }

@@ -19,17 +19,21 @@ class NotificationTypeCell: UITableViewCell {
     @IBOutlet weak var lblNotificationType: UILabel!
     @IBOutlet weak var lblTitleForAllUsers: UILabel!
     @IBOutlet weak var btnForAllUsers: UIButton!
-    @IBOutlet weak var txtDropDown: DropDown!
+    @IBOutlet weak var txtNumberOfUsers: UITextField!
+    @IBOutlet weak var lblNotification: UILabel!
     @IBOutlet weak var btnForLimitedUsers: UIButton!
+    @IBOutlet weak var notificationLabelHeightConstraint: NSLayoutConstraint!
     
     // MARK: - Variables declaration
     var notificationType: NotificationType = .newSignups {
         didSet {
             if notificationType == .newSignups {
+                self.notificationLabelHeightConstraint.constant = 19
                 self.lblNotificationType.text = R.string.localizable.newSignups()
                 self.lblTitleForAllUsers.text = R.string.localizable.everyone()
                 self.setSelection(newSignupsNotificationType: Defaults.shared.newSignupsNotificationType)
             } else if notificationType == . newSubscriptions {
+                self.notificationLabelHeightConstraint.constant = 0
                 self.lblNotificationType.text = R.string.localizable.newSubscriptions()
                 self.lblTitleForAllUsers.text = R.string.localizable.everytime()
                 self.setSelection(newSubscriptionNotificationType: Defaults.shared.newSubscriptionNotificationType)
