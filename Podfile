@@ -12,53 +12,50 @@ def shared_pods
     pod 'Moya-ObjectMapper/RxSwift', '2.9'
     pod 'NSObject+Rx', '5.0.2'
     pod 'URLEmbeddedView', '0.18.0'
-    pod 'SDWebImage', '5.6.1'
-    pod 'AWSS3', '2.13.0'
-    pod 'InfiniteLayout', '0.4.2'
+    pod 'SDWebImage', '~> 5.11.1'
+    pod 'AWSS3', '~> 2.25.0'
+    pod 'InfiniteLayout', '0.5.0'
     pod 'GMStepper', '2.2'
 end
 
 def projectShared_pods
     pod 'GoogleAPIClientForREST', '~> 1.5'
     pod 'GoogleAPIClientForREST/YouTube', '~> 1.5'
-    pod 'RxCocoa', '5.1.1'
+    pod 'RxCocoa', '5.1.3'
     pod 'RxDataSources', '4.0.1'
     pod 'TGPControls', '5.1.0'
-    pod 'Toast-Swift', '5.0.0'
+    pod 'Toast-Swift', '5.0.1'
     pod 'YoutubePlayerView', :git => 'https://github.com/simformsolutions/YoutubePlayerView.git'
     pod 'SCRecorder', :git => 'https://github.com/jasminpsimform/SCRecorder'
     pod 'Gemini', '1.4.0'
     pod 'OnlyPictures', :git => 'https://github.com/simformsolutions/OnlyPictures'
-    pod 'FLAnimatedImage', '1.0.12'
+    pod 'FLAnimatedImage', '~> 1.0.16'
     pod 'SwiftVideoGenerator', :git => 'https://github.com/jasminpsimform/swift-video-generator', :branch => 'swift5'
     pod 'ColorSlider', '4.4'
-    pod 'IQKeyboardManagerSwift', '6.5.5'
-    pod 'FSPagerView', '0.8.2'
-    pod 'NVActivityIndicatorView', '4.6.1'
-    pod 'Tiercel', '3.2.0'
-    pod 'SkyFloatingLabelTextField', '3.7.0'
-    pod 'FontAwesome.swift', '1.5.0'
+    pod 'IQKeyboardManagerSwift', '~> 6.5.6'
+    pod 'FSPagerView', '~> 0.8.3'
+    pod 'NVActivityIndicatorView', '5.1.1'
+    pod 'Tiercel', '3.2.3'
+    pod 'SkyFloatingLabelTextField', '4.0.0'
+    pod 'FontAwesome.swift', '~> 1.9.1'
     pod 'Spring', :git => 'https://github.com/MengTo/Spring.git'
-    pod 'Firebase/Core', '7.3.0'
-    pod 'Firebase/Crashlytics', '7.3.0'
-    pod 'Firebase/Analytics', '7.3.0'
-    pod 'Firebase/Auth', '7.3.0'
+    pod 'Firebase/Core', '~> 8.7.0'
+    pod 'Firebase/Crashlytics', '~> 8.7.0'
+    pod 'Firebase/Analytics', '~> 8.7.0'
+    pod 'Firebase/Auth', '~> 8.7.0'
     pod 'GooglePlaces', '3.1.0'
     pod 'GooglePlacePicker', '3.1.0'
-    pod 'FBSDKCoreKit', '8.2.0'
-    pod 'FBSDKShareKit', '8.2.0'
-    pod 'FBSDKLoginKit', '8.2.0'
-    pod 'SnapSDK', '1.6.2', :subspecs => ['SCSDKCreativeKit', 'SCSDKLoginKit', 'SCSDKBitmojiKit']
-    pod 'AppCenter', '3.3.4'
+    pod 'FBSDKCoreKit', '11.1.0'
+    pod 'FBSDKShareKit', '11.1.0'
+    pod 'FBSDKLoginKit', '11.1.0'
+    pod 'SnapSDK', '1.13.0', :subspecs => ['SCSDKCreativeKit', 'SCSDKLoginKit', 'SCSDKBitmojiKit']
     pod 'GoogleSignIn', '~> 5.0'
-    pod 'TagListView', '1.3.2'
-#    pod 'TwitterKit'
-    pod 'TwitterKit5', '5.2.0'
+    pod 'TagListView', '~> 1.4.1'
+    pod 'TwitterKit5'
     pod 'TikTokOpenSDK'
     pod 'SwiftySound', '1.2'
     pod 'JPSVolumeButtonHandler', '1.0.5'
-    pod 'Pageboy', '~> 3.5'
-#    pod 'PayPal-iOS-SDK', '2.18.1'
+    pod 'Pageboy', '~> 3.6'
     pod 'MXPagerView', :git => 'https://github.com/simformsolutions/MXPagerView'
     pod 'MXSegmentedPager', :git => 'https://github.com/simformsolutions/MXSegmentedPager'
     pod "ESPullToRefresh", '2.9.3'
@@ -68,7 +65,6 @@ def projectShared_pods
     pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git', :tag => '7.1.3'
     pod 'CropPickerView'
     pod 'Firebase/Messaging'
-    pod 'iOSDropDown'
 
     shared_pods
 end
@@ -85,7 +81,7 @@ end
 
 target 'ViralvidsLite' do
   shared_pods
-  pod "SSSpinnerButton", '3.0.2'
+  pod "SSSpinnerButton"
 end
 
 target 'ViralCamLite' do
@@ -201,8 +197,7 @@ end
 post_install do |installer|
     installer.pods_project.targets.each do |target|
           target.build_configurations.each do |config|
-                config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'arm64'
-          config.build_settings['ENABLE_BITCODE'] = 'NO'
+          config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'arm64'
           end
     end
 end
