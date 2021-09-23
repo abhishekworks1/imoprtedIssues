@@ -26,9 +26,7 @@ class HelpSettings {
         StorySettings(name: "",
                       settings: [StorySetting(name: R.string.localizable.pic2Art(), selected: false)], settingsType: .pic2Art),
         StorySettings(name: "",
-                      settings: [StorySetting(name: R.string.localizable.edit(), selected: false)], settingsType: .edit),
-        StorySettings(name: "",
-                      settings: [StorySetting(name: R.string.localizable.quickLink(), selected: false)], settingsType: .quickLink)
+                      settings: [StorySetting(name: R.string.localizable.edit(), selected: false)], settingsType: .edit)
     ]
 }
 
