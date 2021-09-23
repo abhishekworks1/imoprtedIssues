@@ -33,16 +33,23 @@ class EditProfilePicViewController: UIViewController {
     @IBOutlet var lblCountrys: [UILabel]!
     @IBOutlet var imgCountrys: [UIImageView]!
     @IBOutlet weak var lblUserName: UILabel!
+    @IBOutlet weak var flagsStackViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var socialPlatformStackViewHeightConstraint: NSLayoutConstraint!
     
     // MARK: - Variables declaration
     private var localImageUrl: URL?
     private var imagePicker = UIImagePickerController()
-    var storyCameraVCInstance = StoryCameraViewController()
     var isSignUpFlow: Bool = false
     var isImageSelected = false
     var imageSource = ""
     var socialPlatforms: [String] = []
     private lazy var storyCameraVC = StoryCameraViewController()
+    var croppedImg: UIImage?
+    var uncroppedImg: UIImage?
+    var isCroppedImage = false
+    var isCountryFlagSelected = false
+    var countrySelected: [Country] = []
+    var isFlagSelected = false
     
     // MARK: - View Controller Life Cycle
     override func viewDidLoad() {
@@ -57,7 +64,9 @@ class EditProfilePicViewController: UIViewController {
         btnSelectCountry.isSelected = Defaults.shared.currentUser?.isShowFlags ?? false
         
         DispatchQueue.main.async {
-            if let flages = Defaults.shared.currentUser?.userStateFlags, flages.count > 0 {
+            if let flages = Defaults.shared.currentUser?.userStateFlags,
+               flages.count > 0 {
+                self.flagsStackViewHeightConstraint.constant = self.btnSelectCountry.isSelected ? 70 : 0
                 for (index, item) in flages.enumerated() {
                     self.countryView[index].isHidden = false
                     self.lblCountrys[index].text = item.country
@@ -84,6 +93,10 @@ class EditProfilePicViewController: UIViewController {
     func showHidePopupView(isHide: Bool) {
         socialSharePopupView.bringSubviewToFront(self.view)
         self.socialSharePopupView.isHidden = isHide
+        if isCroppedImage {
+            self.socialPlatforms.append(self.imageSource.lowercased())
+            self.addSocialPlatform()
+        }
     }
     
     // MARK: - Action Methods
@@ -96,34 +109,44 @@ class EditProfilePicViewController: UIViewController {
     }
     
     @IBAction func btnOKTapped(_ sender: UIButton) {
+        self.showHUD()
+        self.view.isUserInteractionEnabled = false
         if isImageSelected {
-            showHidePopupView(isHide: false)
+            if let img = imgProfilePic.image {
+                self.updateProfilePic(image: img)
+            }
+        }
+        if isCountryFlagSelected {
+            self.setCountrys(self.countrySelected)
+        }
+        if isFlagSelected {
+            self.setUserStateFlag(btnSelectCountry.isSelected)
         }
     }
     
     @IBAction func btnShowCountryTapped(_ sender: UIButton) {
-        if btnSelectCountry.isSelected {
-            btnSelectCountry.isSelected = !btnSelectCountry.isSelected
-            self.setUserStateFlag(false)
-            return
-        }
-        if let countryVc = R.storyboard.countryPicker.countryPickerViewController() {
-            countryVc.delegate = self
-            self.navigationController?.pushViewController(countryVc, animated: true)
+        self.isFlagSelected = true
+        btnSelectCountry.isSelected.toggle()
+        if let flages = Defaults.shared.currentUser?.userStateFlags,
+           flages.count > 0 || countrySelected.count > 0 {
+            self.flagsStackViewHeightConstraint.constant = self.btnSelectCountry.isSelected ? 70 : 0
         }
     }
     
     @IBAction func btnYesTapped(_ sender: UIButton) {
         showHidePopupView(isHide: true)
-        if let img = imgProfilePic.image {
-            self.showHUD()
-            self.view.isUserInteractionEnabled = false
-            self.updateProfilePic(image: img)
-        }
+        self.imgProfilePic.image = isCroppedImage ? self.croppedImg : self.uncroppedImg
     }
     
     @IBAction func btnNoTapped(_ sender: UIButton) {
         showHidePopupView(isHide: true)
+    }
+    
+    @IBAction func btnSetFlagTapped(_ sender: UIButton) {
+        if let countryVc = R.storyboard.countryPicker.countryPickerViewController() {
+            countryVc.delegate = self
+            self.navigationController?.pushViewController(countryVc, animated: true)
+        }
     }
     
 }
@@ -137,15 +160,16 @@ extension EditProfilePicViewController: CountryPickerViewDelegate {
                 self.imgCountrys[index].image = nil
             }
             if didSelectCountry.count > 0 {
+                self.isCountryFlagSelected = true
                 for (index, item) in didSelectCountry.enumerated() {
                     self.countryView[index].isHidden = false
                     self.lblCountrys[index].text = item.name
                     self.imgCountrys[index].image = item.flag
                 }
-                self.btnSelectCountry.isSelected = !self.btnSelectCountry.isSelected
             }
         }
-        self.setCountrys(didSelectCountry)
+        self.countrySelected = didSelectCountry
+        self.flagsStackViewHeightConstraint.constant = self.btnSelectCountry.isSelected ? 70 : 0
     }
 }
 
@@ -240,13 +264,18 @@ extension EditProfilePicViewController: UIImagePickerControllerDelegate, UINavig
         self.localImageUrl = info[.imageURL] as? URL
         if let img = info[.originalImage] as? UIImage,
            let compressedImg = img.jpegData(compressionQuality: 1) {
+            var image = img
             let imageSize: Int = compressedImg.count
             let imgSizeInKb = Double(imageSize) / 1000.0
             if imgSizeInKb > 8000.0 {
-                imgProfilePic.image = img.resizeWithWidth(width: 2000)
+                if let resizeImage = image.resizeWithWidth(width: 2000) {
+                    image = resizeImage
+                }
             }
+            self.isCroppedImage = false
+            self.uncroppedImg = image
             picker.dismiss(animated: true, completion: {
-                self.pushCropVC(img: img)
+                self.pushCropVC(img: image)
             })
             imgProfilePic.layer.cornerRadius = imgProfilePic.bounds.width / 2
             imgProfilePic.contentMode = .scaleAspectFill
@@ -269,13 +298,15 @@ extension EditProfilePicViewController {
             ]
             arrayCountry.append(material)
         }
-        
         ProManagerApi.setCountrys(arrayCountry: arrayCountry).request(Result<EmptyModel>.self).subscribe(onNext: { [weak self] (response) in
             guard let `self` = self else {
                 return
             }
+            self.dismissHUD()
             self.storyCameraVC.syncUserModel { _ in
-                
+                if !self.isImageSelected {
+                    self.setupMethod()
+                }
             }
         }, onError: { error in
             self.showAlert(alertMessage: error.localizedDescription)
@@ -284,7 +315,14 @@ extension EditProfilePicViewController {
     }
     
     func setUserStateFlag(_ isUserStateFlag: Bool) {
-        ProManagerApi.setUserStateFlag(isUserStateFlag: isUserStateFlag).request(Result<EmptyModel>.self).subscribe(onNext: { (response) in
+        self.dismissHUD()
+        ProManagerApi.setUserStateFlag(isUserStateFlag: isUserStateFlag).request(Result<EmptyModel>.self).subscribe(onNext: { [weak self] (response) in
+            guard let `self` = self else {
+                return
+            }
+            if !self.isCountryFlagSelected || !self.isImageSelected {
+                self.setupMethod()
+            }
         }, onError: { error in
             self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
@@ -297,34 +335,26 @@ extension EditProfilePicViewController {
                 return
             }
             self.dismissHUD()
-            if response.status == ResponseType.success {
-                self.storyCameraVCInstance.syncUserModel { (isComplete) in
-                    self.setupMethod()
-                }
-            } else {
-                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+            self.storyCameraVC.syncUserModel { (isComplete) in
+                self.setupMethod()
             }
         }, onError: { error in
+            self.dismissHUD()
+            self.view.isUserInteractionEnabled = true
             self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
     }
     
     func addSocialPlatform() {
-        self.view.isUserInteractionEnabled = false
         self.socialPlatforms = socialPlatforms.uniq()
         Defaults.shared.socialPlatforms?.append(contentsOf: self.socialPlatforms)
         ProManagerApi.addSocialPlatforms(socialPlatforms: Defaults.shared.socialPlatforms?.uniq() ?? []).request(Result<EmptyModel>.self).subscribe(onNext: { [weak self] (response) in
             guard let `self` = self else {
                 return
             }
-            if response.status == ResponseType.success {
-                self.storyCameraVCInstance.syncUserModel { (isComplete) in
-                    self.view.isUserInteractionEnabled = true
-                    self.getVerifiedSocialPlatforms()
-                }
-            } else {
-                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+            self.storyCameraVC.syncUserModel { (isComplete) in
+                self.getVerifiedSocialPlatforms()
             }
         }, onError: { error in
             self.showAlert(alertMessage: error.localizedDescription)
@@ -334,6 +364,7 @@ extension EditProfilePicViewController {
     
     func getVerifiedSocialPlatforms() {
         if let socialPlatforms = Defaults.shared.socialPlatforms {
+            self.socialPlatformStackViewHeightConstraint.constant = 37
             for socialPlatform in socialPlatforms {
                 if socialPlatform == R.string.localizable.facebook().lowercased() {
                     self.facebookVerifiedView.isHidden = false
@@ -526,6 +557,8 @@ extension EditProfilePicViewController {
            let data = try? Data(contentsOf: url) {
             DispatchQueue.main.async {
                 if let img = UIImage(data: data) {
+                    self.isCroppedImage = false
+                    self.uncroppedImg = img
                     self.pushCropVC(img: img)
                 }
                 self.imgProfilePic.layer.cornerRadius = self.imgProfilePic.bounds.width / 2
@@ -566,14 +599,14 @@ extension EditProfilePicViewController: InstagramLoginViewControllerDelegate, Pr
 extension EditProfilePicViewController: SharingSocialTypeDelegate {
     
     func setSocialPlatforms() {
-        self.socialPlatforms.append(self.imageSource.lowercased())
-        self.addSocialPlatform()
+        showHidePopupView(isHide: false)
+        self.isCroppedImage = false
     }
     
     func setCroppedImage(croppedImg: UIImage) {
-        self.imgProfilePic.image = croppedImg
-        self.socialPlatforms.append(self.imageSource.lowercased())
-        self.addSocialPlatform()
+        showHidePopupView(isHide: false)
+        self.isCroppedImage = true
+        self.croppedImg = croppedImg
     }
     
     func shareSocialType(socialType: ProfileSocialShare) {
