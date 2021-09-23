@@ -17,12 +17,20 @@ public struct Country: Equatable {
     public let name: String
     public let code: String
     public let phoneCode: String
+    public let isState: Bool
     public func localizedName(_ locale: Locale = Locale.current) -> String? {
         return locale.localizedString(forRegionCode: code)
     }
     public var flag: UIImage {
-        return UIImage(named: "CountryPickerView.bundle/Images/\(code.uppercased())",
-                       in: Bundle.main, compatibleWith: nil)!
+        if isState {
+            return UIImage(named: "\(code.lowercased())") ?? UIImage()
+        } else {
+            guard let image = UIImage(named: "CountryPickerView.bundle/Images/\(code.uppercased())",
+                                      in: Bundle.main, compatibleWith: nil) else {
+                return UIImage()
+            }
+            return image
+        }
     }
 }
 
