@@ -203,13 +203,13 @@ public class LoadingView: UIView {
     
     func checkForBanners(bannerImg: UIImage?) {
         if !openApp(appName: R.string.localizable.vidPlay().lowercased()) && !openApp(appName: R.string.localizable.businesscenter()) {
-            imgAdvertisementArray = [bannerImg, R.image.installVidplayBanner(), R.image.installBusinesscenterBanner()]
+            imgAdvertisementArray = [R.image.installVidplayBanner(), R.image.installBusinesscenterBanner()]
         } else if !openApp(appName: R.string.localizable.vidPlay().lowercased()) {
-            imgAdvertisementArray = [bannerImg, R.image.installVidplayBanner()]
+            imgAdvertisementArray = [R.image.installVidplayBanner()]
         } else if !openApp(appName: R.string.localizable.businesscenter()) {
-            imgAdvertisementArray = [bannerImg, R.image.installBusinesscenterBanner()]
+            imgAdvertisementArray = [R.image.installBusinesscenterBanner()]
         } else {
-            imgAdvertisementArray = [bannerImg]
+            imgAdvertisementArray = [R.image.fullVersionComingBanner()]
         }
     }
     

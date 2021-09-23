@@ -31,7 +31,7 @@ public class FaceBookManager: NSObject {
                 completion(existUserData)
                 return
             }
-            GraphRequest.init(graphPath: "me", parameters: ["fields": self.getNeededFields(requiredPermission: nil)]).start { [weak self] (connection, response, meError) in
+            GraphRequest.init(graphPath: Constant.FacebookKeys.me, parameters: [Constant.FacebookKeys.fields: self.getNeededFields(requiredPermission: nil)]).start { [weak self] (connection, response, meError) in
                 guard let `self` = self else { return }
                 if let _ = meError {
                     completion(nil)
@@ -78,7 +78,7 @@ public class FaceBookManager: NSObject {
                 }
                 if uResult.declinedPermissions.count == 0 {
                     if let _ = uResult.token?.tokenString {
-                        GraphRequest.init(graphPath: "me", parameters: ["fields": self.getNeededFields(requiredPermission: requriedFields)]).start { (connection, response, meError) in
+                        GraphRequest.init(graphPath: Constant.FacebookKeys.me, parameters: [Constant.FacebookKeys.fields: self.getNeededFields(requiredPermission: requriedFields)]).start { (connection, response, meError) in
                             if let unwrappedMeError = meError {
                                 userDatacompletion(nil, unwrappedMeError as NSError?)
                             } else {
@@ -141,9 +141,9 @@ public class FaceBookManager: NSObject {
         if let gender = dataResponse.object(forKey: NeededFields.gender.rawValue) as? String {
             userData.gender = gender == "Male" ? 0 : 1
         }
-        if let picture = dataResponse.object(forKey: "picture_large") as? NSDictionary {
-            if let data = picture.value(forKey: "data") as? NSDictionary {
-                userData.photoUrl = data.value(forKey: "url") as? String ?? ""
+        if let picture = dataResponse.object(forKey: Constant.FacebookKeys.picture_large) as? NSDictionary {
+            if let data = picture.value(forKey: Constant.FacebookKeys.data) as? NSDictionary {
+                userData.photoUrl = data.value(forKey: Constant.FacebookKeys.url) as? String ?? ""
             }
         }
         return userData

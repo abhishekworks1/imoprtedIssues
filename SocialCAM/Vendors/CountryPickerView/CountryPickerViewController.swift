@@ -74,7 +74,7 @@ class CountryPickerViewController: UIViewController {
         nextLayoutStaticCellHeight: listLayoutStaticCellHeight,
         layoutState: .grid
     )
-    fileprivate var layoutState: LayoutState = .list
+    fileprivate var layoutState: LayoutState = .grid
     
     
     // MARK: - Lifecycle
@@ -84,15 +84,14 @@ class CountryPickerViewController: UIViewController {
         tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         searchBar.delegate = self
         searchUsers = users
-        layoutButton.isSelected = true
+        layoutButton.isSelected = layoutState == .list
         setupCollectionView()
-        
         doneButton.isEnabled = selectedCountries.count > 0
     }
     
     // MARK: - Private methods
     fileprivate func setupCollectionView() {
-        collectionView.collectionViewLayout = listLayout
+        collectionView.collectionViewLayout = gridLayout
         collectionView.register(CountryPickerViewCell.cellNib, forCellWithReuseIdentifier: CountryPickerViewCell.id)
     }
     
