@@ -34,6 +34,10 @@ class ShareSettingViewController: UIViewController {
     @IBOutlet weak var btnIncludeProfileImg: UIButton!
     @IBOutlet weak var instagramView: UIView!
     @IBOutlet weak var lblSinceDate: UILabel!
+    @IBOutlet var countryView: [UIView]!
+    @IBOutlet var lblCountrys: [UILabel]!
+    @IBOutlet var imgCountrys: [UIImageView]!
+    @IBOutlet weak var flagStackviewHeightConstraint: NSLayoutConstraint!
     
     // MARK: - Variable Declarations
     var myMutableString = NSMutableAttributedString()
@@ -64,6 +68,19 @@ class ShareSettingViewController: UIViewController {
         if let createdDate = Defaults.shared.currentUser?.created {
             let date = CommonFunctions.getDateInSpecificFormat(dateInput: createdDate, dateOutput: R.string.localizable.mmmdYyyy())
             self.lblSinceDate.text = R.string.localizable.sinceJoined(date)
+        }
+        DispatchQueue.main.async {
+            if let flages = Defaults.shared.currentUser?.userStateFlags, flages.count > 0 {
+                self.flagStackviewHeightConstraint.constant = 70
+                for (index, item) in flages.enumerated() {
+                    self.countryView[index].isHidden = false
+                    let country: Country = Country(name: item.country ?? "", code: (item.state == "") ? (item.countryCode ?? "") : (item.stateCode ?? ""), phoneCode: "", isState: (item.state != ""))
+                    self.lblCountrys[index].text = country.isState ? item.state : item.country
+                    self.imgCountrys[index].image = country.flag
+                }
+            } else {
+                self.flagStackviewHeightConstraint.constant = 0
+            }
         }
     }
     

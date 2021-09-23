@@ -18,6 +18,7 @@ class UserCountry: Codable, Mappable {
     var state: String?
     var countryFlag: String?
     var stateFlag: String?
+    var stateCode: String?
     
     required init?(map: Map) {
         
@@ -30,6 +31,7 @@ class UserCountry: Codable, Mappable {
         state <- map["state"]
         countryFlag <- map["countryFlag"]
         stateFlag <- map["stateFlag"]
+        stateCode <- map["stateCode"]
     }
     
 }

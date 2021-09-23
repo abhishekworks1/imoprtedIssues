@@ -24,14 +24,14 @@ class CountryPickerViewController: UIViewController {
     @IBOutlet fileprivate weak var searchBar: UISearchBar!
     @IBOutlet fileprivate weak var doneButton: UIButton!
     @IBOutlet fileprivate weak var layoutButton: UIButton!
-    public weak var delegate: CountryPickerViewDelegate?
+    @IBOutlet fileprivate weak var lblCountryFlag: UILabel!
+    @IBOutlet weak var lblPopup: UILabel!
+    @IBOutlet weak var popupView: UIView!
     
+    public weak var delegate: CountryPickerViewDelegate?
+    public weak var statePickerDelegate: StatePickerViewDelegate?
     fileprivate var tap: UITapGestureRecognizer!
-    public var selectedCountries: [Country] = [Country](){
-        didSet{
-            doneButton.isEnabled = self.selectedCountries.count > 0
-        }
-    }
+    public var selectedCountries: [Country] = [Country]()
     fileprivate var searchUsers = [Country]()
     public let users: [Country] = {
         var countries = [Country]()
@@ -56,7 +56,7 @@ class CountryPickerViewController: UIViewController {
                         continue
                 }
                 
-                let country = Country(name: name, code: code, phoneCode: phoneCode)
+                let country = Country(name: name, code: code, phoneCode: phoneCode, isState: false)
                 countries.append(country)
             }
         }
@@ -75,24 +75,38 @@ class CountryPickerViewController: UIViewController {
         layoutState: .grid
     )
     fileprivate var layoutState: LayoutState = .grid
-    
+    private lazy var storyCameraVC = StoryCameraViewController()
+    var isClearFlagSelected = false
+    var isShareButtonSelected = false
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         searchBar.delegate = self
         searchUsers = users
         layoutButton.isSelected = layoutState == .list
         setupCollectionView()
-        doneButton.isEnabled = selectedCountries.count > 0
     }
     
     // MARK: - Private methods
     fileprivate func setupCollectionView() {
         collectionView.collectionViewLayout = gridLayout
         collectionView.register(CountryPickerViewCell.cellNib, forCellWithReuseIdentifier: CountryPickerViewCell.id)
+    }
+    
+    private func showHidePopupView(isHide: Bool, text: String) {
+        self.popupView.isHidden = isHide
+        self.lblPopup.text = text
+    }
+    
+    private func openStateView() {
+        self.showHidePopupView(isHide: true, text: "")
+        if let stateVc = R.storyboard.countryPicker.statePickerViewController() {
+            stateVc.delegate = self
+            stateVc.selectedStates = self.selectedCountries
+            self.navigationController?.pushViewController(stateVc, animated: true)
+        }
     }
     
     // MARK: - Actions
@@ -128,8 +142,13 @@ class CountryPickerViewController: UIViewController {
     
     // MARK: - Actions
     @IBAction func donebuttonTapped(_ sender: AnyObject) {
-        delegate?.countryPickerView(selectedCountries)
-        self.navigationController?.popViewController(animated: true)
+        if selectedCountries.isEmpty {
+            self.isClearFlagSelected = true
+            self.showHidePopupView(isHide: false, text: R.string.localizable.didYouWantToClearYourFlagSelection())
+        } else {
+            delegate?.countryPickerView(selectedCountries)
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     @IBAction func tapRecognized() {
@@ -137,14 +156,100 @@ class CountryPickerViewController: UIViewController {
     }
     
     fileprivate func maxCheck() -> Bool {
-        if 3 <= self.selectedCountries.count {
+        if 2 <= self.selectedCountries.count {
             DispatchQueue.runOnMainThread {
-                Utils.appDelegate?.window?.makeToast(R.string.localizable.youCanSelectMaximum3Country())
+                Utils.appDelegate?.window?.makeToast(R.string.localizable.youCanSelectMaximum2Country())
             }
             return true
         }
         return false
     }
+    
+    @IBAction func btnShareTapped(_ sender: UIButton) {
+        if !self.selectedCountries.isEmpty {
+            self.isShareButtonSelected = true
+            self.showHidePopupView(isHide: false, text: R.string.localizable.doYouWantToSaveTheChanges())
+        } else {
+            if let shareSettingVC = R.storyboard.editProfileViewController.shareSettingViewController() {
+                self.navigationController?.pushViewController(shareSettingVC, animated: true)
+            }
+        }
+    }
+    
+    @IBAction func btnPopupYesTapped(_ sender: UIButton) {
+        self.showHidePopupView(isHide: true, text: "")
+        if isClearFlagSelected {
+            self.isClearFlagSelected = false
+            self.delegate?.countryPickerView(selectedCountries)
+            self.navigationController?.popViewController(animated: true)
+        } else if isShareButtonSelected {
+            self.isShareButtonSelected = false
+            self.showHUD()
+            setCountrys(selectedCountries)
+        } else {
+            self.openStateView()
+        }
+    }
+    
+    @IBAction func btnPopupNoTapped(_ sender: UIButton) {
+        self.showHidePopupView(isHide: true, text: "")
+        if isClearFlagSelected {
+            self.isClearFlagSelected = false
+            self.navigationController?.popViewController(animated: true)
+        } else if isShareButtonSelected {
+            self.isShareButtonSelected = false
+            if let shareSettingVC = R.storyboard.editProfileViewController.shareSettingViewController() {
+                self.navigationController?.pushViewController(shareSettingVC, animated: true)
+            }
+        }
+    }
+    
+}
+
+// MARK: - API Methods
+extension CountryPickerViewController {
+    
+    func setCountrys(_ countrys: [Country]) {
+        var arrayCountry: [[String: Any]] = []
+        for country in countrys {
+            let material: [String: Any] = [
+                StaticKeys.state: country.isState ? country.name : "",
+                StaticKeys.stateCode: country.isState ? country.code : "",
+                StaticKeys.country: country.isState ? StaticKeys.countryNameUS : country.name,
+                StaticKeys.countryCode: country.isState ? StaticKeys.countryCodeUS: country.code
+            ]
+            arrayCountry.append(material)
+        }
+        
+        ProManagerApi.setCountrys(arrayCountry: arrayCountry).request(Result<EmptyModel>.self).subscribe(onNext: { [weak self] (response) in
+            guard let `self` = self else {
+                return
+            }
+            self.storyCameraVC.syncUserModel { _ in
+                self.dismissHUD()
+                if let shareSettingVC = R.storyboard.editProfileViewController.shareSettingViewController() {
+                    self.navigationController?.pushViewController(shareSettingVC, animated: true)
+                }
+            }
+        }, onError: { error in
+            self.dismissHUD()
+            self.showAlert(alertMessage: error.localizedDescription)
+        }, onCompleted: {
+        }).disposed(by: self.rx.disposeBag)
+    }
+    
+}
+
+extension CountryPickerViewController: StatePickerViewDelegate {
+    
+    func getSelectStates(_ selectedStates: [Country], isSelectionDone: Bool) {
+        self.selectedCountries = selectedStates
+        if isSelectionDone {
+            self.delegate?.countryPickerView(selectedCountries)
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+    
 }
 
 extension CountryPickerViewController: UICollectionViewDataSource {
@@ -175,10 +280,20 @@ extension CountryPickerViewController: UICollectionViewDataSource {
             let co = searchUsers[indexPath.row]
             if let index = self.selectedCountries.firstIndex(where: { $0.code == co.code }) {
                 //deselect
-                self.selectedCountries.remove(at: index)
+                if self.selectedCountries[index].code == StaticKeys.countryCodeUS {
+                    self.selectedCountries.remove(at: index)
+                    if let stateIndex = self.selectedCountries.firstIndex(where: { $0.isState == true }) {
+                        self.selectedCountries.remove(at: stateIndex)
+                    }
+                } else {
+                    self.selectedCountries.remove(at: index)
+                }
                 cell.selectedItem = false
             } else {
                 guard !maxCheck() else { return }
+                if co.code == StaticKeys.countryCodeUS {
+                    showHidePopupView(isHide: false, text: R.string.localizable.setYourStateOrTerritoryFlag())
+                }
                 selectedCountries.append(users[indexPath.row])
                 cell.selectedItem = true
             }
