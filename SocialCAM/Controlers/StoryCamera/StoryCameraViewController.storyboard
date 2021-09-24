@@ -6223,11 +6223,11 @@ Countdown</string>
                                             <outlet property="title" destination="NbA-dg-Ozu" id="QSI-Dx-pFO"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="NotificationTypeCell" rowHeight="138" id="VDo-Xs-w0X" customClass="NotificationTypeCell" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="160.33333206176758" width="359" height="138"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="NotificationTypeCell" id="VDo-Xs-w0X" customClass="NotificationTypeCell" customModule="BoomiCam" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="160.33333206176758" width="359" height="112"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="VDo-Xs-w0X" id="md5-9n-QZW">
-                                            <rect key="frame" x="0.0" y="0.0" width="359" height="138"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="359" height="112"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Notifications" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gvd-q1-irC">
@@ -6240,10 +6240,10 @@ Countdown</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="SKr-jF-e6L">
-                                                    <rect key="frame" x="34" y="19" width="307" height="101"/>
+                                                    <rect key="frame" x="34" y="19" width="307" height="75"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="848-Va-Kf2">
-                                                            <rect key="frame" x="0.0" y="0.0" width="307" height="101"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="307" height="75"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VX3-90-x7Q">
                                                                     <rect key="frame" x="0.0" y="10" width="30" height="18"/>
@@ -6255,7 +6255,7 @@ Countdown</string>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ueh-mh-Qff">
-                                                                    <rect key="frame" x="13" y="39" width="294" height="62"/>
+                                                                    <rect key="frame" x="13" y="39" width="294" height="36"/>
                                                                     <subviews>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YBl-hv-Eqn">
                                                                             <rect key="frame" x="0.0" y="0.0" width="294" height="28.666666666666668"/>
@@ -6266,7 +6266,7 @@ Countdown</string>
                                                                                     <state key="selected" image="checkBoxActive"/>
                                                                                 </button>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nox-yn-kb5">
-                                                                                    <rect key="frame" x="30.000000000000004" y="0.0" width="34.333333333333343" height="28.666666666666668"/>
+                                                                                    <rect key="frame" x="30" y="0.0" width="36" height="28.666666666666668"/>
                                                                                     <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="14"/>
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
@@ -6299,10 +6299,10 @@ Countdown</string>
                                                                             </constraints>
                                                                         </view>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fbm-SE-dY1">
-                                                                            <rect key="frame" x="0.0" y="33.666666666666671" width="294" height="28.333333333333329"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="294" height="36"/>
                                                                             <subviews>
                                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="saK-Ti-Yhb">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="20" height="28.333333333333332"/>
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="20" height="62"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="width" constant="20" id="OVQ-Zb-6Wu"/>
                                                                                     </constraints>
@@ -6312,14 +6312,14 @@ Countdown</string>
                                                                                         <action selector="btnForSelectedUserClicked:" destination="VDo-Xs-w0X" eventType="touchUpInside" id="c9Q-cw-dbt"/>
                                                                                     </connections>
                                                                                 </button>
-                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="new Signups between notifications" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8iB-jm-3Iy">
-                                                                                    <rect key="frame" x="95" y="0.0" width="194" height="28.333333333333332"/>
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number of signups between notifications" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8iB-jm-3Iy">
+                                                                                    <rect key="frame" x="75" y="1.6666666666666679" width="214" height="32.666666666666657"/>
                                                                                     <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="14"/>
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="1" borderStyle="line" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bcE-9w-trz">
-                                                                                    <rect key="frame" x="30" y="0.66666666666665719" width="55" height="26.666666666666668"/>
+                                                                                    <rect key="frame" x="10" y="4.6666666666666661" width="55" height="26.666666666666671"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="width" constant="55" id="yIR-rM-lFF"/>
                                                                                     </constraints>
@@ -6337,7 +6337,10 @@ Countdown</string>
                                                                             </subviews>
                                                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                             <constraints>
+                                                                                <constraint firstItem="8iB-jm-3Iy" firstAttribute="centerY" secondItem="bcE-9w-trz" secondAttribute="centerY" id="9RK-bI-Dz9"/>
+                                                                                <constraint firstItem="bcE-9w-trz" firstAttribute="leading" secondItem="fbm-SE-dY1" secondAttribute="leading" constant="10" id="CXu-C9-cHX"/>
                                                                                 <constraint firstItem="8iB-jm-3Iy" firstAttribute="bottom" secondItem="saK-Ti-Yhb" secondAttribute="bottom" id="D5U-Dz-QzJ"/>
+                                                                                <constraint firstItem="bcE-9w-trz" firstAttribute="centerY" secondItem="fbm-SE-dY1" secondAttribute="centerY" id="R57-0S-4vz"/>
                                                                                 <constraint firstItem="saK-Ti-Yhb" firstAttribute="leading" secondItem="fbm-SE-dY1" secondAttribute="leading" id="RzU-7d-H5B"/>
                                                                                 <constraint firstItem="8iB-jm-3Iy" firstAttribute="leading" secondItem="bcE-9w-trz" secondAttribute="trailing" constant="10" id="TBF-fU-gX7"/>
                                                                                 <constraint firstItem="8iB-jm-3Iy" firstAttribute="top" secondItem="saK-Ti-Yhb" secondAttribute="top" id="Tfv-9l-brU"/>
@@ -6348,8 +6351,18 @@ Countdown</string>
                                                                                 <constraint firstAttribute="trailing" secondItem="8iB-jm-3Iy" secondAttribute="trailing" constant="5" id="rIA-mf-hu8"/>
                                                                                 <constraint firstAttribute="bottom" secondItem="saK-Ti-Yhb" secondAttribute="bottom" id="vBo-2X-Qkc"/>
                                                                             </constraints>
+                                                                            <variation key="default">
+                                                                                <mask key="subviews">
+                                                                                    <exclude reference="saK-Ti-Yhb"/>
+                                                                                </mask>
+                                                                            </variation>
                                                                         </view>
                                                                     </subviews>
+                                                                    <variation key="default">
+                                                                        <mask key="subviews">
+                                                                            <exclude reference="YBl-hv-Eqn"/>
+                                                                        </mask>
+                                                                    </variation>
                                                                 </stackView>
                                                             </subviews>
                                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>

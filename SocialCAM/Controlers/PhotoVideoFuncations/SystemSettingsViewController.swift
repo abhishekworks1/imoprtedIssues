@@ -23,7 +23,7 @@ class SystemSettings {
     static var systemSettings = [
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.showAllPopups(), selected: false)], settingsType: .showAllPopups),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.newSignups(), selected: false)], settingsType: .newSignupsNotificationSetting),
-        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.milestonesReached(), selected: false)], settingsType: .milestoneReachedNotification),
+        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.newBadgeEarned(), selected: false)], settingsType: .milestoneReachedNotification),
     ]
 }
 
@@ -36,6 +36,7 @@ class SystemSettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.systemSettingsTableView.reloadData()
+        self.getReferralNotification()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -127,6 +128,24 @@ extension SystemSettingsViewController: UITableViewDelegate {
 
 // MARK: - API Methods
 extension SystemSettingsViewController {
+    
+    func getReferralNotification() {
+        ProManagerApi.getReferralNotification.request(Result<GetReferralNotificationModel>.self).subscribe(onNext: { [weak self] (response) in
+            guard let `self` = self else {
+                return
+            }
+            if response.status == ResponseType.success {
+                if let cell = self.systemSettingsTableView.cellForRow(at: IndexPath(row: 0, section: 1)) as? NotificationTypeCell, let numberOfUserText = response.result?.customSignupNumber {
+                    cell.txtNumberOfUsers.text = "\(numberOfUserText)"
+                }
+            } else {
+                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+            }
+        }, onError: { error in
+            self.showAlert(alertMessage: error.localizedDescription)
+        }, onCompleted: {
+        }).disposed(by: rx.disposeBag)
+    }
     
     func setReferralNotification() {
         var numberOfUsers = 1

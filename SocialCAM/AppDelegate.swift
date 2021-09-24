@@ -48,20 +48,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ColorCubeStorage.loadToDefault()
        
         StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .subscriptions})
-
+        
         if isSocialCamApp {
             print("[FIREBASE] SOCIALCAMAPP mode.")
             if let filePath = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist"),
-                let options = FirebaseOptions(contentsOfFile: filePath) {
-                    FirebaseApp.configure(options: options)
+               let options = FirebaseOptions(contentsOfFile: filePath) {
+                FirebaseApp.configure(options: options)
             } else {
                 fatalError("GoogleService-Info.plist is missing!")
             }
         } else if isViralCamApp {
             print("[FIREBASE] VIRALCAMAPP mode.")
             if let filePath = Bundle.main.path(forResource: "GoogleService-Info-ViralCam", ofType: "plist"),
-                let options = FirebaseOptions(contentsOfFile: filePath) {
-                    FirebaseApp.configure(options: options)
+               let options = FirebaseOptions(contentsOfFile: filePath) {
+                FirebaseApp.configure(options: options)
             } else {
                 fatalError("GoogleService-Info-ViralCam.plist is missing!")
             }
@@ -70,7 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else if isSoccerCamApp {
             print("[FIREBASE] SOCCERCAMAPP mode.")
             if let filePath = Bundle.main.path(forResource: "GoogleService-Info-SoccerCam", ofType: "plist"),
-                let options = FirebaseOptions(contentsOfFile: filePath) {
+               let options = FirebaseOptions(contentsOfFile: filePath) {
                 FirebaseApp.configure(options: options)
             } else {
                 fatalError("GoogleService-Info-SoccerCam.plist is missing!")
@@ -80,7 +80,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else if isFutbolCamApp {
             print("[FIREBASE] FutbolCam mode.")
             if let filePath = Bundle.main.path(forResource: "GoogleService-Info-FutbolCam", ofType: "plist"),
-                let options = FirebaseOptions(contentsOfFile: filePath) {
+               let options = FirebaseOptions(contentsOfFile: filePath) {
                 FirebaseApp.configure(options: options)
             } else {
                 fatalError("GoogleService-Info-FutbolCam.plist is missing!")
@@ -90,7 +90,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else if isQuickCamApp {
             print("[FIREBASE] QuickCam mode.")
             if let filePath = Bundle.main.path(forResource: "GoogleService-Info-QuickCam", ofType: "plist"),
-                let options = FirebaseOptions(contentsOfFile: filePath) {
+               let options = FirebaseOptions(contentsOfFile: filePath) {
                 FirebaseApp.configure(options: options)
             } else {
                 fatalError("GoogleService-Info-QuickCam.plist is missing!")
@@ -100,7 +100,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else if isSnapCamApp {
             print("[FIREBASE] SnapCam mode.")
             if let filePath = Bundle.main.path(forResource: "GoogleService-Info-SnapCam", ofType: "plist"),
-                let options = FirebaseOptions(contentsOfFile: filePath) {
+               let options = FirebaseOptions(contentsOfFile: filePath) {
                 FirebaseApp.configure(options: options)
             } else {
                 fatalError("GoogleService-Info-FutbolCam.plist is missing!")
@@ -111,8 +111,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else if isPic2ArtApp {
             print("[FIREBASE] Pic2Art mode.")
             if let filePath = Bundle.main.path(forResource: "GoogleService-Info-Pic2Art", ofType: "plist"),
-                let options = FirebaseOptions(contentsOfFile: filePath) {
-                    FirebaseApp.configure(options: options)
+               let options = FirebaseOptions(contentsOfFile: filePath) {
+                FirebaseApp.configure(options: options)
             } else {
                 fatalError("GoogleService-Info-Pic2Art.plist is missing!")
             }
@@ -120,7 +120,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             StorySettings.storySettings = StorySettings.storySettings.filter({$0.settingsType != .controlcenter})
         } else if isBoomiCamApp {
             if let filePath = Bundle.main.path(forResource: "GoogleService-Info-BoomiCam", ofType: "plist"),
-                let options = FirebaseOptions(contentsOfFile: filePath) {
+               let options = FirebaseOptions(contentsOfFile: filePath) {
                 FirebaseApp.configure(options: options)
             } else {
                 fatalError("GoogleService-Info-BoomiCam.plist is missing!")
@@ -130,7 +130,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else if isTimeSpeedApp {
             print("[FIREBASE] TIMESPEEDAPP mode.")
             if let filePath = Bundle.main.path(forResource: "GoogleService-Info-TimeSpeed", ofType: "plist"),
-                let options = FirebaseOptions(contentsOfFile: filePath) {
+               let options = FirebaseOptions(contentsOfFile: filePath) {
                 FirebaseApp.configure(options: options)
             } else {
                 fatalError("GoogleService-Info-TimeSpeed.plist is missing!")
@@ -140,7 +140,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else if isFastCamApp {
             print("[FIREBASE] FASTCAMAPP mode.")
             if let filePath = Bundle.main.path(forResource: "GoogleService-Info-FastCam", ofType: "plist"),
-                let options = FirebaseOptions(contentsOfFile: filePath) {
+               let options = FirebaseOptions(contentsOfFile: filePath) {
                 FirebaseApp.configure(options: options)
             } else {
                 fatalError("GoogleService-Info-FastCam.plist is missing!")
@@ -151,8 +151,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else if isViralCamLiteApp {
             print("[FIREBASE] VIRALCAMLITEAPP mode.")
             if let filePath = Bundle.main.path(forResource: "GoogleService-Info-ViralCamLite", ofType: "plist"),
-                let options = FirebaseOptions(contentsOfFile: filePath) {
-                    FirebaseApp.configure(options: options)
+               let options = FirebaseOptions(contentsOfFile: filePath) {
+                FirebaseApp.configure(options: options)
             } else {
                 fatalError("GoogleService-Info-ViralCamLite.plist is missing!")
             }
@@ -161,8 +161,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else if isFastCamLiteApp {
             print("[FIREBASE] FASTCAMLITEAPP mode.")
             if let filePath = Bundle.main.path(forResource: "GoogleService-Info-FastCamLite", ofType: "plist"),
-                let options = FirebaseOptions(contentsOfFile: filePath) {
-                    FirebaseApp.configure(options: options)
+               let options = FirebaseOptions(contentsOfFile: filePath) {
+                FirebaseApp.configure(options: options)
             } else {
                 fatalError("GoogleService-Info-FastCamLite.plist is missing!")
             }
@@ -171,8 +171,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else if isQuickCamLiteApp || isQuickApp {
             print("[FIREBASE] QUICKCAMLITEAPP mode.")
             if let filePath = Bundle.main.path(forResource: "GoogleService-Info-QuickCam", ofType: "plist"),
-                let options = FirebaseOptions(contentsOfFile: filePath) {
-                    FirebaseApp.configure(options: options)
+               let options = FirebaseOptions(contentsOfFile: filePath) {
+                FirebaseApp.configure(options: options)
             } else {
                 fatalError("GoogleService-Info-QuickCam.plist is missing!")
             }
@@ -181,7 +181,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else if isSpeedCamApp {
             print("[FIREBASE] SpeedCam mode.")
             if let filePath = Bundle.main.path(forResource: "GoogleService-Info-SpeedCam", ofType: "plist"),
-                let options = FirebaseOptions(contentsOfFile: filePath) {
+               let options = FirebaseOptions(contentsOfFile: filePath) {
                 FirebaseApp.configure(options: options)
             } else {
                 fatalError("GoogleService-Info-SpeedCam.plist is missing!")
@@ -191,7 +191,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             SubscriptionSettings.storySettings.first?.settings.removeLast()
         } else if isSpeedCamLiteApp {
             if let filePath = Bundle.main.path(forResource: "GoogleService-SpeedCamLiteInfo", ofType: "plist"),
-                let options = FirebaseOptions(contentsOfFile: filePath) {
+               let options = FirebaseOptions(contentsOfFile: filePath) {
                 FirebaseApp.configure(options: options)
             } else {
                 fatalError("GoogleService-SpeedCamLiteInfo.plist is missing!")
@@ -201,7 +201,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             SubscriptionSettings.storySettings.first?.settings.removeLast()
         } else if isSnapCamLiteApp {
             if let filePath = Bundle.main.path(forResource: "GoogleService-Info-SnapCamLite", ofType: "plist"),
-                let options = FirebaseOptions(contentsOfFile: filePath) {
+               let options = FirebaseOptions(contentsOfFile: filePath) {
                 FirebaseApp.configure(options: options)
             } else {
                 fatalError("GoogleService-Info-SnapCamLite.plist is missing!")
@@ -222,9 +222,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         TiktokShare.shared.setupTiktok(application, didFinishLaunchingWithOptions: launchOptions)
         
         GoogleManager.shared.restorePreviousSignIn()
-     
+        
+        registerForPushNitification(application)
+        getFCMToken()
+        
         InternetConnectionAlert.shared.enable = true
-       
+        
         var rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
         
         if let user = Defaults.shared.currentUser,
@@ -268,14 +271,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GoogleManager.shared.restorePreviousSignIn()
         
         FileManager.default.clearTempDirectory()
-        UNUserNotificationCenter.current().delegate = self
-        Messaging.messaging().delegate = self
-        registerForPushNitification(application)
-        getFCMToken()
         
         // Implement app updater
-        SSAppUpdater.shared.performCheck(isForceUpdate: true, updateAlertFrequency: .always, showDefaultAlert: true) { (_) in
-        }
+//        SSAppUpdater.shared.performCheck(isForceUpdate: true, updateAlertFrequency: .always, showDefaultAlert: true) { (_) in
+//        }
         
         return true
     }
@@ -368,12 +367,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else if FaceBookManager.shared.application(app, open: url, sourceApplication: nil, annotation: [:]) {
             return true
         } else if let viralcamURL = URL(string: "viralCam://com.simform.viralcam"),
-            viralcamURL == url {
+                  viralcamURL == url {
             var rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
             if let user = Defaults.shared.currentUser,
-                let _ = Defaults.shared.sessionToken,
-                let channelId = user.channelId,
-                channelId.count > 0 {
+               let _ = Defaults.shared.sessionToken,
+               let channelId = user.channelId,
+               channelId.count > 0 {
                 InternetConnectionAlert.shared.internetConnectionHandler = { reachability in
                     if reachability.connection != .none {
                         StoryDataManager.shared.startUpload()
@@ -529,6 +528,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Push Notification Setup
     func registerForPushNitification(_ application: UIApplication) {
         if #available(iOS 10.0, *) {
+            UNUserNotificationCenter.current().delegate = self
+            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+            UNUserNotificationCenter.current().requestAuthorization(
+                options: authOptions,
+                completionHandler: {_, _ in })
+            // For iOS 10 data message (sent via FCM)
+            Messaging.messaging().delegate = self
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound], completionHandler: { _, _ in })
         } else {
             let settings: UIUserNotificationSettings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
@@ -551,12 +557,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+        
+    }
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any],
+                     fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        UIApplication.shared.applicationIconBadgeNumber = 0
+        Messaging.messaging().appDidReceiveMessage(userInfo)
+        print(userInfo)
+        if application.applicationState == .active {
+            print(userInfo)
+            if userInfo["gcm.message_id"] != nil {
+                if Defaults.shared.sessionToken != nil {
+                    if let ch = Defaults.shared.currentUser?.channelName, ch.count > 0 {
+                        if let type = userInfo["gcm.notification.type"] as? String, type == "others" {
+                            
+                        }
+                        if let rootController = Utils.appDelegate?.window?.rootViewController as? PageViewController {
+                            print(rootController)
+                        }
+                        print(Utils.appDelegate?.window?.rootViewController)
+                    }
+                }
+            }
+            debugPrint("DidReceiveRemoteNotification \(userInfo)")
+            completionHandler(UIBackgroundFetchResult.newData)
+        }
+    }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         let id = response.notification.request.identifier
         dLog("Received notification with ID = \(id)")
+        let userInfo = response.notification.request.content.userInfo
+        
+        Messaging.messaging().appDidReceiveMessage(userInfo)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            NotificationManager.shared.openReviewScreenWithLastVideo()
+            NotificationManager.shared.openNotificationScreen()
         }
         completionHandler()
     }
@@ -564,11 +600,19 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         let id = notification.request.identifier
         dLog("Received notification with ID = \(id)")
+        let userInfo = notification.request.content.userInfo
+        
+        Messaging.messaging().appDidReceiveMessage(userInfo)
+        
         if #available(iOS 14.0, *) {
             completionHandler([.banner, .badge, .sound, .list])
         } else {
             completionHandler([.alert, .sound, .badge])
         }
+    }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        Messaging.messaging().apnsToken = deviceToken
     }
 }
 

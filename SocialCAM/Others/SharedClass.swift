@@ -1101,6 +1101,8 @@ public struct Paths {
     static let setReferralNotification = "user/setReferralNotification"
     static let setUserStateFlag = "user/setUserStateFlag"
     static let setUserStates = "user/setUserStates"
+    static let getNotification = "user/notifications"
+    static let readNotification = "user/notifications/read"
 }
 
 struct WebsiteData {
