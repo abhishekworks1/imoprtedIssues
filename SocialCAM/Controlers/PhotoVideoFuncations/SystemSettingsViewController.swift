@@ -22,7 +22,6 @@ class SystemSettings {
     
     static var systemSettings = [
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.showAllPopups(), selected: false)], settingsType: .showAllPopups),
-        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.newSignups(), selected: false)], settingsType: .newSignupsNotificationSetting),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.newBadgeEarned(), selected: false)], settingsType: .milestoneReachedNotification),
     ]
 }
@@ -36,7 +35,6 @@ class SystemSettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.systemSettingsTableView.reloadData()
-        self.getReferralNotification()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -61,7 +59,7 @@ class SystemSettingsViewController: UIViewController {
     }
     
     @IBAction func btnOkClicked(_ sender: UIButton) {
-        self.setReferralNotification()
+        
     }
     
 }
@@ -124,49 +122,4 @@ extension SystemSettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 1.0
     }
-}
-
-// MARK: - API Methods
-extension SystemSettingsViewController {
-    
-    func getReferralNotification() {
-        ProManagerApi.getReferralNotification.request(Result<GetReferralNotificationModel>.self).subscribe(onNext: { [weak self] (response) in
-            guard let `self` = self else {
-                return
-            }
-            if response.status == ResponseType.success {
-                if let cell = self.systemSettingsTableView.cellForRow(at: IndexPath(row: 0, section: 1)) as? NotificationTypeCell, let numberOfUserText = response.result?.customSignupNumber {
-                    cell.txtNumberOfUsers.text = "\(numberOfUserText)"
-                }
-            } else {
-                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
-            }
-        }, onError: { error in
-            self.showAlert(alertMessage: error.localizedDescription)
-        }, onCompleted: {
-        }).disposed(by: rx.disposeBag)
-    }
-    
-    func setReferralNotification() {
-        var numberOfUsers = 1
-        if let cell = self.systemSettingsTableView.cellForRow(at: IndexPath(row: 0, section: 1)) as? NotificationTypeCell, let numberOfUserText = cell.txtNumberOfUsers.text {
-            numberOfUsers = Int(numberOfUserText) ?? 1
-        }
-        let isForEveryone = Defaults.shared.newSignupsNotificationType == .forAllUsers
-        ProManagerApi.setReferralNotification(isForEveryone: isForEveryone, customSignupNumber: isForEveryone ? 0 : numberOfUsers).request(Result<GetReferralNotificationModel>.self).subscribe(onNext: { [weak self] (response) in
-            guard let `self` = self else {
-                return
-            }
-            if response.status == ResponseType.success {
-                Defaults.shared.newSignupsNotificationType = (response.result?.isForEveryone == true) ? .forAllUsers : .forLimitedUsers
-                self.navigationController?.popViewController(animated: true)
-            } else {
-                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
-            }
-        }, onError: { error in
-            self.showAlert(alertMessage: error.localizedDescription)
-        }, onCompleted: {
-        }).disposed(by: rx.disposeBag)
-    }
-    
 }

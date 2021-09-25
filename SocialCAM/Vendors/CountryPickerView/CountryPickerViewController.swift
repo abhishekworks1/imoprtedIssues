@@ -170,7 +170,6 @@ class CountryPickerViewController: UIViewController {
             self.isShareButtonSelected = true
             self.showHidePopupView(isHide: false, text: R.string.localizable.doYouWantToSaveTheChanges())
         } else {
-            self.isShareButtonSelected = false
             if let shareSettingVC = R.storyboard.editProfileViewController.shareSettingViewController() {
                 self.navigationController?.pushViewController(shareSettingVC, animated: true)
             }
