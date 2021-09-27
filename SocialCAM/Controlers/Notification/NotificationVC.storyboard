@@ -210,14 +210,14 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tIU-ae-v97">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tIU-ae-v97">
                                 <rect key="frame" x="363" y="44" width="44" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="44" id="lL9-0B-xFL"/>
                                     <constraint firstAttribute="height" constant="44" id="xcc-0b-yGd"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="SFUIText-Semibold" family="SF UI Text" pointSize="17"/>
-                                <state key="normal" title="OK"/>
+                                <color key="tintColor" name="AppBlackColor"/>
+                                <state key="normal" image="storySettings"/>
                                 <connections>
                                     <action selector="btnOkClicked:" destination="vHk-9c-f9g" eventType="touchUpInside" id="mLG-5U-pLi"/>
                                     <segue destination="vHk-9c-f9g" kind="show" id="KOC-Wy-ywA"/>
@@ -710,6 +710,7 @@
         <image name="shareScreenProfileBadge" width="163" height="187"/>
         <image name="snapchatVerified" width="37" height="39"/>
         <image name="storyBack" width="19" height="19"/>
+        <image name="storySettings" width="24" height="25"/>
         <image name="twitterVerified" width="37" height="38"/>
         <image name="youtubeVerified" width="37" height="39"/>
         <namedColor name="AppBlackColor">
