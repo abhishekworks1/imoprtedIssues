@@ -43,7 +43,7 @@ struct CommonFunctions {
         if let date = dateFormatterGet.date(from: dateInput) {
             return dateFormatterPrint.string(from: date)
         } else {
-            return R.string.localizable.thereWasAnErrorDecodingTheString()
+            return ""
         }
     }
     

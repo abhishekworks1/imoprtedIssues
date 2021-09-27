@@ -73,6 +73,13 @@
                                             <action selector="buttonTapped:" destination="GxX-QO-EZ4" eventType="touchUpInside" id="A7Y-Ec-OQ9"/>
                                         </connections>
                                     </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="awt-3b-YbD">
+                                        <rect key="frame" x="5" y="51" width="404" height="1"/>
+                                        <color key="backgroundColor" name="editProfilePopupBlurView"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="ZHQ-bl-Wf7"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
@@ -83,9 +90,12 @@
                                     <constraint firstItem="lFb-Gb-nCP" firstAttribute="leading" secondItem="Bn6-Zp-qKX" secondAttribute="leading" constant="8" id="MjQ-bU-NhI"/>
                                     <constraint firstItem="i9a-Gz-S0v" firstAttribute="centerX" secondItem="Bn6-Zp-qKX" secondAttribute="centerX" id="P7w-aa-kZr"/>
                                     <constraint firstItem="i9a-Gz-S0v" firstAttribute="centerY" secondItem="lFb-Gb-nCP" secondAttribute="centerY" id="TE4-kg-oKj"/>
+                                    <constraint firstAttribute="trailing" secondItem="awt-3b-YbD" secondAttribute="trailing" constant="5" id="gc6-ua-S0r"/>
                                     <constraint firstItem="Qfu-tl-BRl" firstAttribute="leading" secondItem="TpI-qJ-z91" secondAttribute="trailing" constant="10" id="htN-m5-9Dr"/>
+                                    <constraint firstItem="awt-3b-YbD" firstAttribute="leading" secondItem="Bn6-Zp-qKX" secondAttribute="leading" constant="5" id="huk-f0-LH6"/>
                                     <constraint firstItem="TpI-qJ-z91" firstAttribute="bottom" secondItem="Qfu-tl-BRl" secondAttribute="bottom" id="llO-pC-wcU"/>
                                     <constraint firstAttribute="trailing" secondItem="Qfu-tl-BRl" secondAttribute="trailing" constant="8" id="sg6-ec-Nku"/>
+                                    <constraint firstAttribute="bottom" secondItem="awt-3b-YbD" secondAttribute="bottom" id="udT-hF-JfV"/>
                                     <constraint firstItem="Qfu-tl-BRl" firstAttribute="centerY" secondItem="i9a-Gz-S0v" secondAttribute="centerY" id="yZw-9W-dOx"/>
                                 </constraints>
                             </view>
@@ -163,7 +173,10 @@
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
-            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="editProfilePopupBlurView">
+            <color red="0.35294117647058826" green="0.38039215686274508" blue="0.4823529411764706" alpha="0.30000001192092896" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="resendLinkColor">
             <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
