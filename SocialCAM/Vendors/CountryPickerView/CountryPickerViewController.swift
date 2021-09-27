@@ -89,7 +89,6 @@ class CountryPickerViewController: UIViewController {
     fileprivate var layoutState: LayoutState = .grid
     private lazy var storyCameraVC = StoryCameraViewController()
     var isClearFlagSelected = false
-    var isShareButtonSelected = false
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -182,27 +181,12 @@ class CountryPickerViewController: UIViewController {
         return false
     }
     
-    @IBAction func btnShareTapped(_ sender: UIButton) {
-        if !self.selectedCountries.isEmpty {
-            self.isShareButtonSelected = true
-            self.showHidePopupView(isHide: false, text: R.string.localizable.doYouWantToSaveTheChanges())
-        } else {
-            if let shareSettingVC = R.storyboard.editProfileViewController.shareSettingViewController() {
-                self.navigationController?.pushViewController(shareSettingVC, animated: true)
-            }
-        }
-    }
-    
     @IBAction func btnPopupYesTapped(_ sender: UIButton) {
         self.showHidePopupView(isHide: true, text: "")
         if isClearFlagSelected {
             self.isClearFlagSelected = false
             self.delegate?.countryPickerView(selectedCountries)
             self.navigationController?.popViewController(animated: true)
-        } else if isShareButtonSelected {
-            self.isShareButtonSelected = false
-            self.showHUD()
-            setCountrys(selectedCountries)
         } else {
             self.openStateView()
         }
@@ -213,11 +197,6 @@ class CountryPickerViewController: UIViewController {
         if isClearFlagSelected {
             self.isClearFlagSelected = false
             self.navigationController?.popViewController(animated: true)
-        } else if isShareButtonSelected {
-            self.isShareButtonSelected = false
-            if let shareSettingVC = R.storyboard.editProfileViewController.shareSettingViewController() {
-                self.navigationController?.pushViewController(shareSettingVC, animated: true)
-            }
         }
     }
     
