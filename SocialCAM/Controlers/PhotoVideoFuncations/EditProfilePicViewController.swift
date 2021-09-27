@@ -50,6 +50,7 @@ class EditProfilePicViewController: UIViewController {
     var isCountryFlagSelected = false
     var countrySelected: [Country] = []
     var isFlagSelected = false
+    var isShareButtonSelected = false
     
     // MARK: - View Controller Life Cycle
     override func viewDidLoad() {
@@ -93,9 +94,15 @@ class EditProfilePicViewController: UIViewController {
     func showHidePopupView(isHide: Bool) {
         socialSharePopupView.bringSubviewToFront(self.view)
         self.socialSharePopupView.isHidden = isHide
-        if isCroppedImage {
+        if !isShareButtonSelected {
             self.socialPlatforms.append(self.imageSource.lowercased())
             self.addSocialPlatform()
+        }
+    }
+    
+    func goToShareScreen() {
+        if let shareSettingVC = R.storyboard.editProfileViewController.shareSettingViewController() {
+            self.navigationController?.pushViewController(shareSettingVC, animated: true)
         }
     }
     
@@ -140,17 +147,36 @@ class EditProfilePicViewController: UIViewController {
     
     @IBAction func btnYesTapped(_ sender: UIButton) {
         showHidePopupView(isHide: true)
-        self.imgProfilePic.image = isCroppedImage ? self.croppedImg : self.uncroppedImg
+        if isShareButtonSelected {
+            btnOKTapped(sender)
+        }
+        if isImageSelected {
+            self.imgProfilePic.image = isCroppedImage ? self.croppedImg : self.uncroppedImg
+        }
     }
     
     @IBAction func btnNoTapped(_ sender: UIButton) {
         showHidePopupView(isHide: true)
+        if isShareButtonSelected {
+            isShareButtonSelected = false
+            self.goToShareScreen()
+        }
     }
     
     @IBAction func btnSetFlagTapped(_ sender: UIButton) {
         if let countryVc = R.storyboard.countryPicker.countryPickerViewController() {
             countryVc.delegate = self
             self.navigationController?.pushViewController(countryVc, animated: true)
+        }
+    }
+    
+    @IBAction func btnShareTapped(_ sender: UIButton) {
+        if isImageSelected || isFlagSelected || isCountryFlagSelected {
+            self.isShareButtonSelected = true
+            self.lblSocialSharePopup.text = R.string.localizable.doYouWantToSaveTheChanges()
+            self.showHidePopupView(isHide: false)
+        } else {
+            self.goToShareScreen()
         }
     }
     
@@ -352,7 +378,12 @@ extension EditProfilePicViewController {
             self.dismissHUD()
             self.storyCameraVC.syncUserModel { _ in
                 if !self.isImageSelected {
-                    self.setupMethod()
+                    if self.isShareButtonSelected {
+                        self.isShareButtonSelected = false
+                        self.goToShareScreen()
+                    } else {
+                        self.setupMethod()
+                    }
                 }
             }
         }, onError: { error in
@@ -368,7 +399,12 @@ extension EditProfilePicViewController {
                 return
             }
             if !self.isCountryFlagSelected || !self.isImageSelected {
-                self.setupMethod()
+                if self.isShareButtonSelected {
+                    self.isShareButtonSelected = false
+                    self.goToShareScreen()
+                } else {
+                    self.setupMethod()
+                }
             }
         }, onError: { error in
             self.showAlert(alertMessage: error.localizedDescription)
@@ -383,7 +419,12 @@ extension EditProfilePicViewController {
             }
             self.dismissHUD()
             self.storyCameraVC.syncUserModel { (isComplete) in
-                self.setupMethod()
+                if self.isShareButtonSelected {
+                    self.isShareButtonSelected = false
+                    self.goToShareScreen()
+                } else {
+                    self.setupMethod()
+                }
             }
         }, onError: { error in
             self.dismissHUD()
