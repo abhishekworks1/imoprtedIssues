@@ -19,7 +19,8 @@ class NotificationTypeCell: UITableViewCell {
     @IBOutlet weak var lblNotificationType: UILabel!
     @IBOutlet weak var lblTitleForAllUsers: UILabel!
     @IBOutlet weak var btnForAllUsers: UIButton!
-    @IBOutlet weak var txtDropDown: DropDown!
+    @IBOutlet weak var txtNumberOfUsers: UITextField!
+    @IBOutlet weak var lblNotification: UILabel!
     @IBOutlet weak var btnForLimitedUsers: UIButton!
     
     // MARK: - Variables declaration

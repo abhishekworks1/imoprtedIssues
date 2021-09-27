@@ -222,9 +222,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         TiktokShare.shared.setupTiktok(application, didFinishLaunchingWithOptions: launchOptions)
         
         GoogleManager.shared.restorePreviousSignIn()
-     
+        
+        registerForPushNitification(application)
+        getFCMToken()
+        
         InternetConnectionAlert.shared.enable = true
-       
+        
         var rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
         
         if let user = Defaults.shared.currentUser,
@@ -268,10 +271,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GoogleManager.shared.restorePreviousSignIn()
         
         FileManager.default.clearTempDirectory()
-        UNUserNotificationCenter.current().delegate = self
-        Messaging.messaging().delegate = self
-        registerForPushNitification(application)
-        getFCMToken()
         
         // Implement app updater
         SSAppUpdater.shared.performCheck(isForceUpdate: true, updateAlertFrequency: .always, showDefaultAlert: true) { (_) in
@@ -529,6 +528,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Push Notification Setup
     func registerForPushNitification(_ application: UIApplication) {
         if #available(iOS 10.0, *) {
+            UNUserNotificationCenter.current().delegate = self
+            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+            UNUserNotificationCenter.current().requestAuthorization(
+                options: authOptions,
+                completionHandler: {_, _ in })
+            Messaging.messaging().delegate = self
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound], completionHandler: { _, _ in })
         } else {
             let settings: UIUserNotificationSettings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
@@ -551,24 +556,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
+
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any],
+                     fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        UIApplication.shared.applicationIconBadgeNumber = 0
+        Messaging.messaging().appDidReceiveMessage(userInfo)
+    }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        let id = response.notification.request.identifier
-        dLog("Received notification with ID = \(id)")
+        let userInfo = response.notification.request.content.userInfo
+        Messaging.messaging().appDidReceiveMessage(userInfo)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            NotificationManager.shared.openReviewScreenWithLastVideo()
+            NotificationManager.shared.openNotificationScreen()
         }
         completionHandler()
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        let id = notification.request.identifier
-        dLog("Received notification with ID = \(id)")
+        let userInfo = notification.request.content.userInfo
+        Messaging.messaging().appDidReceiveMessage(userInfo)
         if #available(iOS 14.0, *) {
             completionHandler([.banner, .badge, .sound, .list])
         } else {
             completionHandler([.alert, .sound, .badge])
         }
+    }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        Messaging.messaging().apnsToken = deviceToken
     }
 }
 

@@ -85,6 +85,8 @@ public enum ProManagerApi {
     case setReferralNotification(isForEveryone: Bool, customSignupNumber: Int)
     case setUserStateFlag(isUserStateFlag: Bool)
     case setCountrys(arrayCountry: [[String:Any]]?)
+    case getNotification(page: Int)
+    case notificationsRead(notificationId: String)
     
     var endpoint: Endpoint {
         var endpointClosure = MoyaProvider<ProManagerApi>.defaultEndpointMapping(for: self)
@@ -292,6 +294,10 @@ extension ProManagerApi: TargetType {
             return Paths.setUserStateFlag
         case .setCountrys:
             return Paths.setUserStates
+        case .getNotification:
+            return Paths.getNotification
+        case .notificationsRead:
+            return Paths.readNotification
         }
        
     }
@@ -301,7 +307,7 @@ extension ProManagerApi: TargetType {
         switch self {
         case .signUp, .logIn, .verifyChannel, .search, .getAccessToken:
             return .post
-        case .getSplashImages, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getHashTagSets, .getWeather, .getyoutubeSubscribedChannel, .getYoutubeCategory, .instgramProfile, .instgramProfileDetails, .getLongLivedToken, .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData, .getUserProfile, .getUserSettings, .logoutKeycloak, .subscriptionList, .userSync, .getReferredUserList, .getReferralNotification:
+        case .getSplashImages, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getHashTagSets, .getWeather, .getyoutubeSubscribedChannel, .getYoutubeCategory, .instgramProfile, .instgramProfileDetails, .getLongLivedToken, .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData, .getUserProfile, .getUserSettings, .logoutKeycloak, .subscriptionList, .userSync, .getReferredUserList, .getReferralNotification, .getNotification:
             return .get
         case .updateProfile, .editStory, .updatePost, .updateHashTagSet:
             return .put
@@ -679,6 +685,10 @@ extension ProManagerApi: TargetType {
             if let country = countrys {
                 param["userStateFlags"] = country
             }
+        case .getNotification(let page):
+            param = ["page": page, "limit": Constant.Value.paginationValue, "type": Constant.Value.devicetype]
+        case .notificationsRead(let notificationId):
+            param = ["notificationId": notificationId]
         }
         return param
     }
@@ -692,7 +702,7 @@ extension ProManagerApi: TargetType {
             return JSONEncoding.default
         case .getyoutubeSubscribedChannel:
             return TokenURLEncoding.default
-        case .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData, .getHashTagSets, .getUserProfile, .getUserSettings, .logoutKeycloak, .subscriptionList, .userSync, .getReferredUserList, .getReferralNotification:
+        case .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData, .getHashTagSets, .getUserProfile, .getUserSettings, .logoutKeycloak, .subscriptionList, .userSync, .getReferredUserList, .getReferralNotification, .getNotification:
             return URLEncoding.default
         default:
             return JSONEncoding.default
