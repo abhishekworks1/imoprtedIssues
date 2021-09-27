@@ -14,9 +14,6 @@ import Firebase
 import FirebaseCrashlytics
 import GooglePlaces
 import GoogleMaps
-import AppCenter
-import AppCenterAnalytics
-import AppCenterCrashes
 import Bagel
 import Sentry
 import FirebaseMessaging
@@ -225,10 +222,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         TiktokShare.shared.setupTiktok(application, didFinishLaunchingWithOptions: launchOptions)
         
         GoogleManager.shared.restorePreviousSignIn()
-        
-        MSAppCenter.start(Constant.AppCenter.apiKey, withServices: [MSAnalytics.self, MSCrashes.self])
-        MSCrashes.hasReceivedMemoryWarningInLastSession()
-      
+     
         InternetConnectionAlert.shared.enable = true
        
         var rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()

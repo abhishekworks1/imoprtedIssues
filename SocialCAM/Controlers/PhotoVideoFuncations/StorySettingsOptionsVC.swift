@@ -271,8 +271,6 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
             footerView.userImage.sd_setImage(with: URL.init(string: Defaults.shared.channelThumbNail), placeholderImage: ApplicationSettings.userPlaceHolder)
             footerView.separator.isHidden = true
             self.settingsTableView.reloadData()
-        } else {
-            self.settingsTableView.reloadData()
         }
         
         return footerView

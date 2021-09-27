@@ -35,7 +35,17 @@ class SCAlbum: NSObject {
                 completion(success)
             }
         } else {
-            completion(false)
+            if #available(iOS 14, *) {
+                if PHPhotoLibrary.authorizationStatus() == .limited {
+                    self.createAlbumIfNeeded { (success) in
+                        completion(success)
+                    }
+                } else {
+                    completion(false)
+                }
+            } else {
+                completion(false)
+            }
         }
     }
     
@@ -108,14 +118,16 @@ class SCAlbum: NSObject {
     
     func saveMovieToLibrary(movieURL: URL, completion: ((_ success: Bool) -> Void)? = nil) {
         self.checkAuthorizationWithHandler(completion: { (isSuccess) in
-            do {
-                let placeholder = try self.saveVideo(at: movieURL)
-                try PHPhotoLibrary.shared().performChangesAndWait {
-                    let request = PHAssetCollectionChangeRequest(for: self.assetCollection)
-                    request?.addAssets([placeholder] as NSArray)
+            if isSuccess, self.assetCollection != nil {
+                do {
+                    let placeholder = try self.saveVideo(at: movieURL)
+                    try PHPhotoLibrary.shared().performChangesAndWait {
+                        let request = PHAssetCollectionChangeRequest(for: self.assetCollection)
+                        request?.addAssets([placeholder] as NSArray)
+                    }
+                } catch {
+                    
                 }
-            } catch {
-                
             }
             completion?(isSuccess)
         })

@@ -47,18 +47,6 @@ class EditProfilePicViewController: UIViewController {
     // MARK: - View Controller Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
-            if userImageURL.isEmpty {
-                imgProfilePic.image = R.image.userIconWithPlus()
-                return
-            }
-            imgProfilePic.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
-            imgProfilePic.layer.cornerRadius = imgProfilePic.bounds.width / 2
-            imgProfilePic.contentMode = .scaleAspectFill
-            btnProfilePic.layer.cornerRadius = btnProfilePic.bounds.width / 2
-        } else {
-            imgProfilePic.image = R.image.userIconWithPlus()
-        }
         self.view.isUserInteractionEnabled = true
         self.lblUserName.text = "@\(Defaults.shared.currentUser?.channelId ?? "")"
         if let createdDate = Defaults.shared.currentUser?.created {
@@ -79,6 +67,18 @@ class EditProfilePicViewController: UIViewController {
             }
         }
         self.getVerifiedSocialPlatforms()
+        if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
+            if userImageURL.isEmpty {
+                imgProfilePic.image = R.image.userIconWithPlus()
+                return
+            }
+            imgProfilePic.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
+            imgProfilePic.layer.cornerRadius = imgProfilePic.bounds.width / 2
+            imgProfilePic.contentMode = .scaleAspectFill
+            btnProfilePic.layer.cornerRadius = btnProfilePic.bounds.width / 2
+        } else {
+            imgProfilePic.image = R.image.userIconWithPlus()
+        }
     }
     
     func showHidePopupView(isHide: Bool) {

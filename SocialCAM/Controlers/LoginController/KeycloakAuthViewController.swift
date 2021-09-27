@@ -165,8 +165,8 @@ extension KeycloakAuthViewController {
                 return
             }
             if response.status == ResponseType.success {
-                self.setDeviceToken()
                 self.goHomeScreen(response)
+                self.setDeviceToken()
             }
         }, onError: { error in
             self.showAlert(alertMessage: error.localizedDescription)

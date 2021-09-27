@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import iOSDropDown
 
 enum NotificationType: Int {
     case newSignups = 0

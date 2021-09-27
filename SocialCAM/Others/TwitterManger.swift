@@ -62,7 +62,7 @@ open class TwitterManger: NSObject {
                 print(user?.profileImageURL ?? "")
                 print(user?.name ?? "")
                 twitterClient.requestEmail { email, _ in
-                    self.userData = LoginUserData(userId: userId, userName: user?.name, email: email, gender: 0, photoUrl: user?.profileImageURL)
+                    self.userData = LoginUserData(userId: userId, userName: user?.name, email: email, gender: 0, photoUrl: user?.profileImageLargeURL)
                     completion(self.userData)
                 }
             }

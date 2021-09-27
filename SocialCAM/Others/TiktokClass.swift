@@ -44,12 +44,12 @@ open class TiktokShare: TikTokOpenSDKApplicationDelegate, TikTokOpenSDKLogDelega
         shareRequest.mediaType = isImage ? .image : .video
         shareRequest.localIdentifiers = [phAsset.localIdentifier]
         shareRequest.state = text
-        shareRequest.send { (tikTokOpenPlatformShareResponse) in
+        shareRequest.send(complete: { (tikTokOpenPlatformShareResponse) in
             if tikTokOpenPlatformShareResponse.isSucceed {
                 Utils.appDelegate?.window?.makeToast(R.string.localizable.postSuccess())
             } else {
                 
             }
-        }
+        })
     }
 }

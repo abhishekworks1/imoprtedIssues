@@ -105,7 +105,7 @@ public class FacebookConstante: NSObject {
 
     static let readPermissions = ["public_profile", "email"]
     
-    static let neededFields = "id, name, first_name, last_name, picture, email, gender, birthday,about"
+    static let neededFields = "id, name, first_name, last_name, picture, email, gender, birthday,about, picture.width(700).height(700).as(picture_large)"
     
 }
 /*

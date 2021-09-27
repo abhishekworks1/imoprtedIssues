@@ -355,6 +355,14 @@ public struct Constant {
         static let dsn = "https://27563ce0602444f2ad121da0972473a4@o272032.ingest.sentry.io/5807690"
     }
     
+    struct FacebookKeys {
+        static let me = "me"
+        static let fields = "fields"
+        static let picture_large = "picture_large"
+        static let data = "data"
+        static let url = "url"
+    }
+    
     struct BuySubscription {
         static let subscriptionID   = "subscriptionId"
         static let receipt          = "receipt"
