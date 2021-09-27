@@ -48,7 +48,6 @@ class SystemSettingsCell: UITableViewCell {
                 btnSelectShowAllPopup.isSelected = Defaults.shared.muteOnSlowMotion
             } else if systemSettingType == .milestonesReached {
                 title.text = R.string.localizable.milestonesReached()
-                selectButtonLeadingConstraint.constant = 34
                 btnSelectShowAllPopup.isSelected = Defaults.shared.milestonesReached
             }
         }
