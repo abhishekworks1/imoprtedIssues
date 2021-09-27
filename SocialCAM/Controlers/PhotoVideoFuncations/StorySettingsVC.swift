@@ -287,14 +287,47 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         cell.settingsName.text = settings.name
         cell.detailButton.isHidden = true
         cell.settingsName.textColor = R.color.appBlackColor()
-        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .logout || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video || settingTitle.settingsType == .cameraSettings || settingTitle.settingsType == .termsAndConditions || settingTitle.settingsType == .privacyPolicy || settingTitle.settingsType == .goToWebsite || settingTitle.settingsType == .watermarkSettings || settingTitle.settingsType == .applicationSurvey || settingTitle.settingsType == .intellectualProperties || settingTitle.settingsType == .help || settingTitle.settingsType == .system || settingTitle.settingsType == .accountSettings || settingTitle.settingsType == .shareSetting || settingTitle.settingsType == .userDashboard || settingTitle.settingsType == .notification {
+        if settingTitle.settingsType == .controlcenter || settingTitle.settingsType == .socialLogout || settingTitle.settingsType == .socialConnections || settingTitle.settingsType == .channelManagement || settingTitle.settingsType == .appInfo || settingTitle.settingsType == .video || settingTitle.settingsType == .termsAndConditions || settingTitle.settingsType == .privacyPolicy || settingTitle.settingsType == .goToWebsite || settingTitle.settingsType == .watermarkSettings || settingTitle.settingsType == .applicationSurvey || settingTitle.settingsType == .intellectualProperties {
             if settingTitle.settingsType == .appInfo {
                 cell.settingsName.textColor = R.color.appPrimaryColor()
             } else if settingTitle.settingsType == .applicationSurvey || settingTitle.settingsType == .intellectualProperties {
                 cell.settingsName.alpha = 0.5
             }
             cell.onOffButton.isHidden = true
-        } else if settingTitle.settingsType == .socialLogins {
+        } else if settingTitle.settingsType == .userDashboard {
+            cell.onOffButton.isHidden = true
+            cell.socialImageView?.isHidden = false
+            cell.socialImageView?.image = R.image.iconBusinessDashboard()
+        } else if settingTitle.settingsType == .shareSetting {
+            cell.onOffButton.isHidden = true
+            cell.socialImageView?.isHidden = false
+            cell.socialImageView?.image = R.image.iconShare()
+        } else if settingTitle.settingsType == .accountSettings {
+            cell.onOffButton.isHidden = true
+            cell.socialImageView?.isHidden = false
+            cell.socialImageView?.image = R.image.iconAccount()
+        } else if settingTitle.settingsType == .cameraSettings {
+            cell.onOffButton.isHidden = true
+            cell.socialImageView?.isHidden = false
+            cell.socialImageView?.image = R.image.iconCameraSettings()
+        } else if settingTitle.settingsType == .system {
+            cell.onOffButton.isHidden = true
+            cell.socialImageView?.isHidden = false
+            cell.socialImageView?.image = R.image.iconSystem()
+        } else if settingTitle.settingsType == .help {
+            cell.onOffButton.isHidden = true
+            cell.socialImageView?.isHidden = false
+            cell.socialImageView?.image = R.image.iconHowItWorks()
+        } else if settingTitle.settingsType == .logout {
+            cell.onOffButton.isHidden = true
+            cell.socialImageView?.isHidden = false
+            cell.socialImageView?.image = R.image.iconLogout()
+        } else if settingTitle.settingsType == .notification {
+            cell.onOffButton.isHidden = true
+            cell.socialImageView?.isHidden = false
+            cell.socialImageView?.image = R.image.iconNotification()
+        }
+        else if settingTitle.settingsType == .socialLogins {
             cell.onOffButton.isHidden = true
             cell.onOffButton.isSelected = false
             cell.socialImageView?.isHidden = false
