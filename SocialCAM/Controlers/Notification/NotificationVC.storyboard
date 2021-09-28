@@ -210,17 +210,18 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tIU-ae-v97">
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tIU-ae-v97">
                                 <rect key="frame" x="363" y="44" width="44" height="44"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="44" id="lL9-0B-xFL"/>
                                     <constraint firstAttribute="height" constant="44" id="xcc-0b-yGd"/>
                                 </constraints>
-                                <color key="tintColor" name="AppBlackColor"/>
+                                <color key="tintColor" name="resendLinkColor"/>
                                 <state key="normal" image="storySettings"/>
                                 <connections>
                                     <action selector="btnOkClicked:" destination="vHk-9c-f9g" eventType="touchUpInside" id="mLG-5U-pLi"/>
-                                    <segue destination="vHk-9c-f9g" kind="show" id="KOC-Wy-ywA"/>
+                                    <segue destination="vHk-9c-f9g" kind="show" id="xMa-VC-5Wo"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -715,6 +716,9 @@
         <image name="youtubeVerified" width="37" height="39"/>
         <namedColor name="AppBlackColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="resendLinkColor">
+            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="watermarkTitleColor">
             <color red="0.13725490196078433" green="0.12549019607843137" blue="0.1803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
