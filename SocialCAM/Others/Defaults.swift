@@ -1016,6 +1016,32 @@ class Defaults {
         }
     }
     
+    var referredUserCreatedDate: String? {
+        get {
+            return appDefaults?.value(forKey: StaticKeys.referredUserCreatedDate) as? String
+        }
+        set {
+            appDefaults?.set(newValue, forKey: StaticKeys.referredUserCreatedDate)
+        }
+    }
+    
+    var referredByData: RefferedBy? {
+        get {
+            if let referredUser = appDefaults?.object(forKey: StaticKeys.referredByData) as? Data {
+                let decoder = JSONDecoder()
+                return try? decoder.decode(RefferedBy.self, from: referredUser)
+            }
+            return nil
+        }
+        set {
+            let encoder = JSONEncoder()
+            if let encoded = try? encoder.encode(newValue) {
+                appDefaults?.set(encoded, forKey: StaticKeys.referredByData)
+                appDefaults?.synchronize()
+            }
+        }
+    }
+    
     func clearData(isDeleteAccount: Bool = false) {
         if let appDefaultsDictionary = appDefaults?.dictionaryRepresentation() {
             appDefaultsDictionary.keys.forEach { key in
