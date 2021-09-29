@@ -47,7 +47,7 @@ class SystemSettingsCell: UITableViewCell {
                 btnHelpTooltip.isHidden = true
                 btnSelectShowAllPopup.isSelected = Defaults.shared.muteOnSlowMotion
             } else if systemSettingType == .milestonesReached {
-                title.text = R.string.localizable.milestonesReached()
+                title.text = R.string.localizable.badgeEarned()
                 btnSelectShowAllPopup.isSelected = Defaults.shared.milestonesReached
             }
         }
