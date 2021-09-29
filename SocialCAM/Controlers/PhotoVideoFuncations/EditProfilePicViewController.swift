@@ -69,8 +69,8 @@ class EditProfilePicViewController: UIViewController {
                 self.flagsStackViewHeightConstraint.constant = self.btnSelectCountry.isSelected ? 70 : 0
                 for (index, item) in flages.enumerated() {
                     self.countryView[index].isHidden = false
-                    self.lblCountrys[index].text = item.country
-                    let country: Country = Country(name: item.country ?? "", code: item.countryCode ?? "", phoneCode: "")
+                    let country: Country = Country(name: item.country ?? "", code: (item.state == "") ? (item.countryCode ?? "") : (item.stateCode ?? ""), phoneCode: "", isState: (item.state != ""))
+                    self.lblCountrys[index].text = country.isState ? item.state : item.country
                     self.imgCountrys[index].image = country.flag
                 }
             }
@@ -109,8 +109,10 @@ class EditProfilePicViewController: UIViewController {
     }
     
     @IBAction func btnOKTapped(_ sender: UIButton) {
-        self.showHUD()
-        self.view.isUserInteractionEnabled = false
+        if isImageSelected || isCountryFlagSelected || isFlagSelected {
+            self.showHUD()
+            self.view.isUserInteractionEnabled = false
+        }
         if isImageSelected {
             if let img = imgProfilePic.image {
                 self.updateProfilePic(image: img)
@@ -128,8 +130,11 @@ class EditProfilePicViewController: UIViewController {
         self.isFlagSelected = true
         btnSelectCountry.isSelected.toggle()
         if let flages = Defaults.shared.currentUser?.userStateFlags,
-           flages.count > 0 || countrySelected.count > 0 {
+           flages.count > 0 {
             self.flagsStackViewHeightConstraint.constant = self.btnSelectCountry.isSelected ? 70 : 0
+        }
+        if isCountryFlagSelected {
+            self.flagsStackViewHeightConstraint.constant = (self.btnSelectCountry.isSelected && countrySelected.count > 0) ? 70 : 0
         }
     }
     
@@ -153,24 +158,65 @@ class EditProfilePicViewController: UIViewController {
 
 extension EditProfilePicViewController: CountryPickerViewDelegate {
     func countryPickerView(_ didSelectCountry : [Country]) {
+        var countryAry = didSelectCountry
+        if let index = countryAry.firstIndex(where: { $0.code == StaticKeys.countryCodeUS }) {
+            let element = countryAry[index]
+            if countryAry.count >= 2 {
+                countryAry.remove(at: index)
+                countryAry.insert(element, at: 1)
+            }
+        }
         DispatchQueue.main.async {
             for (index, _) in self.countryView.enumerated() {
                 self.countryView[index].isHidden = true
                 self.lblCountrys[index].text = nil
                 self.imgCountrys[index].image = nil
             }
-            if didSelectCountry.count > 0 {
-                self.isCountryFlagSelected = true
-                for (index, item) in didSelectCountry.enumerated() {
+            if countryAry.count > 0 {
+                for (index, item) in countryAry.enumerated() {
                     self.countryView[index].isHidden = false
                     self.lblCountrys[index].text = item.name
                     self.imgCountrys[index].image = item.flag
                 }
             }
+            self.isCountryFlagSelected = true
         }
-        self.countrySelected = didSelectCountry
-        self.flagsStackViewHeightConstraint.constant = self.btnSelectCountry.isSelected ? 70 : 0
+        self.countrySelected = countryAry
+        self.flagsStackViewHeightConstraint.constant = (self.btnSelectCountry.isSelected && !countryAry.isEmpty) ? 70 : 0
     }
+}
+
+extension EditProfilePicViewController: StatePickerViewDelegate {
+    
+    func getSelectStates(_ selectedStates: [Country], isSelectionDone: Bool) {
+        var countryAry = selectedStates
+        if let index = countryAry.firstIndex(where: { $0.code == StaticKeys.countryCodeUS }) {
+            let element = countryAry[index]
+            if countryAry.count >= 2 {
+                countryAry.remove(at: index)
+                countryAry.insert(element, at: 1)
+            }
+        }
+        DispatchQueue.main.async {
+            for (index, _) in self.countryView.enumerated() {
+                self.countryView[index].isHidden = true
+                self.lblCountrys[index].text = nil
+                self.imgCountrys[index].image = nil
+            }
+            if countryAry.count > 0 {
+                self.isCountryFlagSelected = true
+                for (index, item) in countryAry.enumerated() {
+                    self.countryView[index].isHidden = false
+                    self.lblCountrys[index].text = item.name
+                    self.imgCountrys[index].image = item.flag
+                }
+                self.btnSelectCountry.isSelected = !self.btnSelectCountry.isSelected
+            }
+        }
+        self.countrySelected = selectedStates
+        self.flagsStackViewHeightConstraint.constant = (self.btnSelectCountry.isSelected && !countryAry.isEmpty) ? 70 : 0
+    }
+    
 }
 
 // MARK: - Camera and Photo gallery methods
@@ -292,9 +338,10 @@ extension EditProfilePicViewController {
         var arrayCountry: [[String: Any]] = []
         for country in countrys {
             let material: [String: Any] = [
-                "state": "",
-                "country": country.name,
-                "countryCode": country.code
+                StaticKeys.state: country.isState ? country.name : "",
+                StaticKeys.stateCode: country.isState ? country.code : "",
+                StaticKeys.country: country.isState ? StaticKeys.countryNameUS : country.name,
+                StaticKeys.countryCode: country.isState ? StaticKeys.countryCodeUS: country.code
             ]
             arrayCountry.append(material)
         }
