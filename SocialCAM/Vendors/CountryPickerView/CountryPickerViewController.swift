@@ -179,8 +179,7 @@ class CountryPickerViewController: UIViewController {
     }
     
     fileprivate func maxCheck() -> Bool {
-        if 2 <= self.selectedCountries.count &&
-            2 <= self.onlyCountries.count {
+        if 2 <= self.onlyCountries.count {
             return true
         }
         return false
@@ -317,6 +316,11 @@ extension CountryPickerViewController: UICollectionViewDataSource {
                     if let cell = collectionView.cellForItem(at: indexPathOfItemToDelete) as? CountryPickerViewCell {
                         cell.selectedItem = false
                         self.collectionView.reloadData()
+                    }
+                    if self.selectedCountries.first?.code == "US" {
+                        if let stateIndex = self.selectedCountries.firstIndex(where: { $0.isState == true }) {
+                            self.selectedCountries.remove(at: stateIndex)
+                        }
                     }
                     self.selectedCountries.removeFirst()
                     self.onlyCountries.removeFirst()

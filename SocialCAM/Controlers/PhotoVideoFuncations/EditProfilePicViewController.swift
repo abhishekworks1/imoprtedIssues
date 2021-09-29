@@ -35,6 +35,11 @@ class EditProfilePicViewController: UIViewController {
     @IBOutlet weak var lblUserName: UILabel!
     @IBOutlet weak var flagsStackViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var socialPlatformStackViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var imgProfileBadge: UIImageView!
+    @IBOutlet weak var socialBadgeStackViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var socialPlatformsVerifiedBadge: UIView!
+    @IBOutlet weak var socialBadgeReceivedPopupView: UIView!
+    @IBOutlet weak var lblSocialBadgeReceived: UILabel!
     
     // MARK: - Variables declaration
     private var localImageUrl: URL?
@@ -75,6 +80,8 @@ class EditProfilePicViewController: UIViewController {
                     self.lblCountrys[index].text = country.isState ? item.state : item.country
                     self.imgCountrys[index].image = country.flag
                 }
+            } else {
+                self.flagsStackViewHeightConstraint.constant = 0
             }
         }
         self.getVerifiedSocialPlatforms()
@@ -99,6 +106,10 @@ class EditProfilePicViewController: UIViewController {
             self.socialPlatforms.append(self.imageSource.lowercased())
             self.addSocialPlatform()
         }
+    }
+    
+    func showHideSocialBadgePopupView(isHide: Bool) {
+        self.socialBadgeReceivedPopupView.isHidden = isHide
     }
     
     func goToShareScreen() {
@@ -180,6 +191,11 @@ class EditProfilePicViewController: UIViewController {
         } else {
             self.goToShareScreen()
         }
+    }
+    
+    
+    @IBAction func btnOKPopupTapped(_ sender: UIButton) {
+        self.showHideSocialBadgePopupView(isHide: true)
     }
     
 }
@@ -433,8 +449,14 @@ extension EditProfilePicViewController {
     }
     
     func addSocialPlatform() {
+        let previousSocialPlatformCount = Defaults.shared.socialPlatforms?.count
         self.socialPlatforms = socialPlatforms.uniq()
         Defaults.shared.socialPlatforms?.append(contentsOf: self.socialPlatforms)
+        let currentSocialPlatformCount = Defaults.shared.socialPlatforms?.count
+        if currentSocialPlatformCount == 4 && previousSocialPlatformCount == 3 {
+            self.lblSocialBadgeReceived.text = R.string.localizable.congratulationsYouReceivedTheSocialMediaBadge("@\(Defaults.shared.currentUser?.channelId ?? "")")
+            self.showHideSocialBadgePopupView(isHide: false)
+        }
         ProManagerApi.addSocialPlatforms(socialPlatforms: Defaults.shared.socialPlatforms?.uniq() ?? []).request(Result<EmptyModel>.self).subscribe(onNext: { [weak self] (response) in
             guard let `self` = self else {
                 return
@@ -462,6 +484,13 @@ extension EditProfilePicViewController {
                     self.youtubeVerifiedView.isHidden = false
                 }
             }
+            self.imgProfileBadge.image = (socialPlatforms.count == 4) ? R.image.shareScreenRibbonProfileBadge() : R.image.shareScreenProfileBadge()
+            self.socialBadgeStackViewHeightConstraint.constant = (socialPlatforms.count == 4) ? 65 : 0
+            self.socialPlatformsVerifiedBadge.isHidden = socialPlatforms.count != 4
+        } else {
+            self.socialPlatformStackViewHeightConstraint.constant = 0
+            self.socialBadgeStackViewHeightConstraint.constant = 0
+            self.socialPlatformsVerifiedBadge.isHidden = true
         }
     }
     

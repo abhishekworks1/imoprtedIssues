@@ -116,6 +116,7 @@ class ShareSettingViewController: UIViewController {
                     self.youtubeVerifiedView.isHidden = false
                 }
             }
+            self.imgProfileBadge.image = (socialPlatforms.count == 4) ? R.image.shareScreenRibbonProfileBadge() : R.image.shareScreenProfileBadge()
         } else {
             verifiedStackView.isHidden = true
         }
