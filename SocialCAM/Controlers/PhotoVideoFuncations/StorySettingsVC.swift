@@ -59,6 +59,7 @@ enum SettingsMode: Int {
     case muteRecordingFastMotion
     case shareSetting
     case userDashboard
+    case notification
     case newSignupsNotificationSetting
     case newSubscriptionNotificationSetting
     case milestoneReachedNotification
@@ -111,6 +112,8 @@ class StorySettings {
                                               settings: [StorySetting(name: R.string.localizable.accountSettings(), selected: false)], settingsType: .accountSettings),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.cameraSettings(), selected: false)], settingsType: .cameraSettings),
+                                StorySettings(name: "",
+                                              settings: [StorySetting(name: R.string.localizable.notifications(), selected: false)], settingsType: .notification),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.system(), selected: false)], settingsType: .system),
                                 StorySettings(name: "",
@@ -414,6 +417,10 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         let settingTitle = StorySettings.storySettings[indexPath.section]
         if settingTitle.settingsType == .controlcenter {
             if let baseUploadVC = R.storyboard.storyCameraViewController.baseUploadVC() {
+                navigationController?.pushViewController(baseUploadVC, animated: true)
+            }
+        } else if settingTitle.settingsType == .notification {
+            if let baseUploadVC = R.storyboard.notificationVC.notificationVC() {
                 navigationController?.pushViewController(baseUploadVC, animated: true)
             }
         } else if settingTitle.settingsType == .video {

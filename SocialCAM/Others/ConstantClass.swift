@@ -16,6 +16,8 @@ public struct Constant {
         static let maxChannelName = 30
         static let minChannelName = 12
         static let channelName = 11
+        static let paginationValue = 20
+        static let devicetype = "ios"
     }
     
     struct AWS {

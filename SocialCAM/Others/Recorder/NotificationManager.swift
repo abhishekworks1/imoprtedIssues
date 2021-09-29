@@ -23,6 +23,17 @@ open class NotificationManager: NSObject {
         super.init()
     }
     
+    func openNotificationScreen() {
+        guard let notificationVC = R.storyboard.notificationVC.notificationVC() else {
+            fatalError("notificationVC Not Found")
+        }
+        if let currentController = UIWindow.currentController {
+            if let pageViewController = currentController as? PageViewController, let navigation = pageViewController.pageControllers[pageViewController.currentIndex!] as? UINavigationController {
+                navigation.pushViewController(notificationVC, animated: true)
+            }
+        }
+    }
+    
     func openReviewScreenWithLastVideo() {
         guard let fileVideo = FileSystemUtil.getAllFiles().first, let file = fileVideo["absolutePath"] as? String, let fileUrl = URL(string: file), file.contains("test_file") && file.contains("mp4") else {
             return

@@ -22,9 +22,7 @@ class SystemSettings {
     
     static var systemSettings = [
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.showAllPopups(), selected: false)], settingsType: .showAllPopups),
-        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.newSignups(), selected: false)], settingsType: .newSignupsNotificationSetting),
-        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.newSubscriptions(), selected: false)], settingsType: .newSubscriptionNotificationSetting),
-        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.milestonesReached(), selected: false)], settingsType: .milestoneReachedNotification),
+        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.newBadgeEarned(), selected: false)], settingsType: .milestoneReachedNotification),
     ]
 }
 
@@ -59,6 +57,7 @@ class SystemSettingsViewController: UIViewController {
         self.doNotShowAgainAPI()
         navigationController?.popViewController(animated: true)
     }
+    
 }
 
 // MARK: - Table View DataSource
@@ -107,14 +106,7 @@ extension SystemSettingsViewController: UITableViewDelegate {
         guard let headerView = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.systemSettingsCell.identifier) as? SystemSettingsCell else {
             fatalError("\(R.reuseIdentifier.systemSettingsCell.identifier) Not Found")
         }
-        let settingTitle = SystemSettings.systemSettings[section]
-        if settingTitle.settingsType == .newSignupsNotificationSetting {
-            headerView.title.isHidden = false
-            headerView.title.text = R.string.localizable.notifications()
-            headerView.title.font = R.font.sfuiTextSemibold(size: 16)
-        } else {
-            headerView.title.isHidden = true
-        }
+        headerView.title.isHidden = true
         headerView.btnSelectShowAllPopup.isHidden = true
         return headerView
     }
@@ -126,26 +118,4 @@ extension SystemSettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 1.0
     }
-}
-
-// MARK: - API Methods
-extension SystemSettingsViewController {
-    
-    func setReferralNotification() {
-        let isForEveryone = Defaults.shared.newSignupsNotificationType == .forAllUsers
-        ProManagerApi.setReferralNotification(isForEveryone: isForEveryone, customSignupNumber: 0).request(Result<GetReferralNotificationModel>.self).subscribe(onNext: { [weak self] (response) in
-            guard let `self` = self else {
-                return
-            }
-            if response.status == ResponseType.success {
-                Defaults.shared.newSignupsNotificationType = (response.result?.isForEveryone == true) ? .forAllUsers : .forLimitedUsers
-            } else {
-                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
-            }
-        }, onError: { error in
-            self.showAlert(alertMessage: error.localizedDescription)
-        }, onCompleted: {
-        }).disposed(by: rx.disposeBag)
-    }
-    
 }

@@ -2580,8 +2580,6 @@ extension StoryCameraViewController {
                     Defaults.shared.isAffiliateLinkActivated = isAllowAffiliate
                 }
                 completion(true)
-            } else {
-                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
             }
         }, onError: { error in
             self.showAlert(alertMessage: error.localizedDescription)
