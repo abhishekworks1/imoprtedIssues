@@ -29,8 +29,6 @@ class CameraSettings {
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.saveVideoAfterRecording(), selected: false)], settingsType: .muteRecordingFastMotion),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.changePositionsOfMuteSwitchingCamera(), selected: false)], settingsType: .swapeContols),
         StorySettings(name: R.string.localizable.supportedFrameRates(), settings: [StorySetting(name: R.string.localizable.supportedFrameRates(), selected: false)], settingsType: .supportedFrameRates),
-        StorySettings(name: "", settings: [StorySetting(name:
-            R.string.localizable.videoRecordingResolution(), selected: false)], settingsType: .videoResolution),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.guideline(), selected: false)], settingsType: .guildlines),
         StorySettings(name: R.string.localizable.guidelineTypes(), settings:
             [StorySetting(name: R.string.localizable.free(), selected: true)], settingsType: .guidelineType),
