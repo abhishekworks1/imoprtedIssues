@@ -11,6 +11,7 @@ import AVKit
 
 private let animationDuration: TimeInterval = 0.3
 private let listLayoutStaticCellHeight: CGFloat = 70
+private let selectedGridLayoutStaticCellHeight: CGFloat = 90
 private let gridLayoutStaticCellHeight: CGFloat = 115
 
 public protocol CountryPickerViewDelegate: class {
@@ -20,6 +21,7 @@ public protocol CountryPickerViewDelegate: class {
 
 class CountryPickerViewController: UIViewController {
     
+    @IBOutlet weak var selectedCollectionView: UICollectionView!
     @IBOutlet fileprivate weak var collectionView: UICollectionView!
     @IBOutlet fileprivate weak var searchBar: UISearchBar!
     @IBOutlet fileprivate weak var doneButton: UIButton!
@@ -31,7 +33,12 @@ class CountryPickerViewController: UIViewController {
     public weak var delegate: CountryPickerViewDelegate?
     public weak var statePickerDelegate: StatePickerViewDelegate?
     fileprivate var tap: UITapGestureRecognizer!
-    public var selectedCountries: [Country] = [Country]()
+    public var selectedCountries: [Country] = [] {
+        didSet {
+            selectedCollectionView.isHidden = selectedCountries.count <= 0
+            selectedCollectionView.reloadData()
+        }
+    }
     fileprivate var searchUsers = [Country]()
     public let users: [Country] = {
         var countries = [Country]()
@@ -74,6 +81,11 @@ class CountryPickerViewController: UIViewController {
         nextLayoutStaticCellHeight: listLayoutStaticCellHeight,
         layoutState: .grid
     )
+    fileprivate lazy var selectedGridLayout = DisplaySwitchLayout(
+        staticCellHeight: selectedGridLayoutStaticCellHeight,
+        nextLayoutStaticCellHeight: listLayoutStaticCellHeight,
+        layoutState: .grid
+    )
     fileprivate var layoutState: LayoutState = .grid
     private lazy var storyCameraVC = StoryCameraViewController()
     var isClearFlagSelected = false
@@ -84,15 +96,20 @@ class CountryPickerViewController: UIViewController {
         super.viewDidLoad()
         tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         searchBar.delegate = self
+        setupCollectionView()
         searchUsers = users
         layoutButton.isSelected = layoutState == .list
-        setupCollectionView()
+        collectionView.reloadData()
+        selectedCollectionView.reloadData()
     }
     
     // MARK: - Private methods
     fileprivate func setupCollectionView() {
         collectionView.collectionViewLayout = gridLayout
         collectionView.register(CountryPickerViewCell.cellNib, forCellWithReuseIdentifier: CountryPickerViewCell.id)
+        
+        selectedCollectionView.collectionViewLayout = selectedGridLayout
+        selectedCollectionView.register(CountryPickerViewCell.cellNib, forCellWithReuseIdentifier: CountryPickerViewCell.id)
     }
     
     private func showHidePopupView(isHide: Bool, text: String) {
@@ -237,24 +254,36 @@ extension CountryPickerViewController: UICollectionViewDataSource {
             withReuseIdentifier: CountryPickerViewCell.id,
             for: indexPath
             ) as! CountryPickerViewCell
-        if layoutState == .grid {
-            cell.setupGridLayoutConstraints(1, cellWidth: cell.frame.width)
-        } else {
-            cell.setupListLayoutConstraints(1, cellWidth: cell.frame.width)
-        }
-        cell.bind(searchUsers[indexPath.row])
-        let country = searchUsers[indexPath.row]
-        cell.selectedItem = (selectedCountries.firstIndex(of: country) != nil) ? true : false
         
+        if collectionView == self.selectedCollectionView {
+            let country = selectedCountries[indexPath.row]
+            cell.bind(country)
+            cell.selectedItem = (selectedCountries.firstIndex(of: country) != nil) ? true : false
+            cell.setupSelectedGridLayoutConstraints(1, cellWidth: cell.frame.width)
+            cell.isSelectedItem = true
+        } else if collectionView == self.collectionView {
+            let country = searchUsers[indexPath.row]
+            cell.bind(country)
+            cell.selectedItem = (selectedCountries.firstIndex(of: country) != nil) ? true : false
+            if layoutState == .grid {
+                cell.setupGridLayoutConstraints(1, cellWidth: cell.frame.width)
+            } else {
+                cell.setupListLayoutConstraints(1, cellWidth: cell.frame.width)
+            }
+            cell.isSelectedItem = false
+        }
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if collectionView == self.selectedCollectionView {
+            return selectedCountries.count
+        }
         return searchUsers.count
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let cell = collectionView.cellForItem(at: indexPath) as? CountryPickerViewCell {
+        if collectionView == self.collectionView, let cell = collectionView.cellForItem(at: indexPath) as? CountryPickerViewCell {
             let co = searchUsers[indexPath.row]
             if let index = self.selectedCountries.firstIndex(where: { $0.code == co.code }),
                let onlyCountryIndex = self.onlyCountries.firstIndex(where: { $0.code == co.code }) {
