@@ -101,9 +101,7 @@ class UserDetailsVC: UIViewController {
                 self.youtubeVerifiedView.isHidden = false
             }
         }
-        if socialPlatfroms.count >= 4 {
-            self.imgUserPlaceholder.image = R.image.shareScreenSocialProfileBadge()
-        }
+        self.imgUserPlaceholder.image = (socialPlatfroms.count == 4) ? R.image.shareScreenRibbonProfileBadge() : R.image.shareScreenProfileBadge()
     }
     
     func convertDate(_ date: String) -> String {
