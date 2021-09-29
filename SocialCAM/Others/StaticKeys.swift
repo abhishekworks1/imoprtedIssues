@@ -23,5 +23,7 @@ public struct StaticKeys {
     static let customSignupNumber = "customSignupNumber"
     static let countryNameUS = "United States"
     static let countryCodeUS = "US"
+    static let referredUserCreatedDate = "referredUserCreatedDate"
+    static let referredByData = "referredByData"
     
 }

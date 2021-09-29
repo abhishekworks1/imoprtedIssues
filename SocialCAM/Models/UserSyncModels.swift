@@ -18,6 +18,9 @@ class RefferedBy: Codable, Mappable {
     var firstName: String?
     var lastName: String?
     var profileImageURL: String?
+    var socialPlatforms: [String]?
+    var userStateFlags: [UserCountry]?
+    var created: String?
     
     required init?(map: Map) {
         
@@ -31,6 +34,9 @@ class RefferedBy: Codable, Mappable {
         firstName <- map["firstName"]
         lastName <- map["lastName"]
         profileImageURL <- map["profileImageURL"]
+        socialPlatforms <- map["socialPlatforms"]
+        userStateFlags <- map["userStateFlags"]
+        created <- map["created"]
     }
     
 }

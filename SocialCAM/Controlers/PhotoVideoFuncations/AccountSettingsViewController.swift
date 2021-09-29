@@ -156,6 +156,10 @@ extension AccountSettingsViewController: UITableViewDelegate {
             lblPopup.text = R.string.localizable.areYouSureYouWantToDeactivateYourAccount()
             showHideButtonView(isHide: true)
             popupView.isHidden = false
+        } else if settingTitle.settingsType == .referringChannelName {
+            if let userDetailsVC = R.storyboard.notificationVC.userDetailsVC() {
+                MIBlurPopup.show(userDetailsVC, on: self)
+            }
         }
     }
     

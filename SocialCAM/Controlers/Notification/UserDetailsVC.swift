@@ -54,39 +54,61 @@ class UserDetailsVC: UIViewController {
     func setup() {
         if let channelId = notification?.refereeUserId?.channelId {
             self.lblUserName.text = "@\(channelId)"
+        } else {
+            if let name = Defaults.shared.currentUser?.refferingChannel {
+                self.lblUserName.text = "@\(name)"
+            }
         }
+        self.imgUserImage.layer.cornerRadius = imgUserImage.bounds.width / 2
+        self.imgUserImage.contentMode = .scaleAspectFill
         if let userImageURL = notification?.refereeUserId?.profileImageURL {
             self.imgUserImage.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
-            self.imgUserImage.layer.cornerRadius = imgUserImage.bounds.width / 2
-            self.imgUserImage.contentMode = .scaleAspectFill
+        } else {
+            if let userImageUrl = Defaults.shared.currentUser?.refferedBy?.profileImageURL {
+                self.imgUserImage.sd_setImage(with: URL.init(string: userImageUrl), placeholderImage: R.image.user_placeholder())
+            }
         }
         self.getVerifiedSocialPlatforms()
         if let createdDate = notification?.createdAt {
-            let date = CommonFunctions.getDateInSpecificFormat(dateInput: createdDate, dateOutput: R.string.localizable.mmmdYyyy())
-            self.lblJoiningDate.text = R.string.localizable.sinceJoined(date)
+            self.lblJoiningDate.text = R.string.localizable.sinceJoined(convertDate(createdDate))
+        } else {
+            if let referredUserCreatedDate = Defaults.shared.referredUserCreatedDate {
+                self.lblJoiningDate.text = R.string.localizable.sinceJoined(convertDate(referredUserCreatedDate))
+            }
         }
     }
     
     func getVerifiedSocialPlatforms() {
         if let socialPlatforms = notification?.refereeUserId?.socialPlatforms, socialPlatforms.count > 0 {
-            verifiedStackView.isHidden = false
-            for socialPlatform in socialPlatforms {
-                if socialPlatform as! String == R.string.localizable.facebook().lowercased() {
-                    self.facebookVerifiedView.isHidden = false
-                } else if socialPlatform as! String == R.string.localizable.twitter().lowercased() {
-                    self.twitterVerifiedView.isHidden = false
-                } else if socialPlatform as! String == R.string.localizable.snapchat().lowercased() {
-                    self.snapchatVerifiedView.isHidden = false
-                } else if socialPlatform as! String == R.string.localizable.youtube().lowercased() {
-                    self.youtubeVerifiedView.isHidden = false
-                }
-            }
-            if socialPlatforms.count >= 4 {
-                self.imgUserPlaceholder.image = R.image.shareScreenSocialProfileBadge()
-            }
+            socialPlatFormSettings(socialPlatforms as! [String])
+        } else if let socialPlatforms = Defaults.shared.referredByData?.socialPlatforms, socialPlatforms.count > 0 {
+            socialPlatFormSettings(socialPlatforms)
         } else {
             verifiedStackView.isHidden = true
         }
+    }
+    
+    func socialPlatFormSettings(_ socialPlatfroms: [String]) {
+        verifiedStackView.isHidden = false
+        for socialPlatform in socialPlatfroms {
+            if socialPlatform == R.string.localizable.facebook().lowercased() {
+                self.facebookVerifiedView.isHidden = false
+            } else if socialPlatform == R.string.localizable.twitter().lowercased() {
+                self.twitterVerifiedView.isHidden = false
+            } else if socialPlatform == R.string.localizable.snapchat().lowercased() {
+                self.snapchatVerifiedView.isHidden = false
+            } else if socialPlatform == R.string.localizable.youtube().lowercased() {
+                self.youtubeVerifiedView.isHidden = false
+            }
+        }
+        if socialPlatfroms.count >= 4 {
+            self.imgUserPlaceholder.image = R.image.shareScreenSocialProfileBadge()
+        }
+    }
+    
+    func convertDate(_ date: String) -> String {
+        let convertedDate = CommonFunctions.getDateInSpecificFormat(dateInput: date, dateOutput: R.string.localizable.mmmdYyyy())
+        return convertedDate
     }
 }
 
