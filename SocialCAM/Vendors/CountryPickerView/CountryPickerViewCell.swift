@@ -92,6 +92,18 @@ class CountryPickerViewCell: UICollectionViewCell, CellInterface {
         nameGridLabel.text = nameListLabel.text
     }
     
+    func setupSelectedGridLayoutConstraints(_ transitionProgress: CGFloat, cellWidth: CGFloat) {
+        avatarImageViewHeightConstraint.constant = (ceil(
+            (cellWidth - avatarListLayoutSize) * transitionProgress + avatarListLayoutSize
+        ) - 10)
+        avatarImageViewWidthConstraint.constant = ceil(avatarImageViewHeightConstraint.constant)
+        avatarImageViewHeightConstraint.constant -= 80
+        nameListLabelLeadingConstraint.constant = (-avatarImageViewWidthConstraint.constant * transitionProgress + initialLabelsLeadingConstraintValue) + 40
+        backgroundGradientView.alpha = transitionProgress <= 0.5 ? 1 - transitionProgress : transitionProgress
+        nameListLabel.alpha = 1 - transitionProgress
+        nameGridLabel.alpha = transitionProgress
+    }
+    
     func setupGridLayoutConstraints(_ transitionProgress: CGFloat, cellWidth: CGFloat) {
         avatarImageViewHeightConstraint.constant = (ceil(
             (cellWidth - avatarListLayoutSize) * transitionProgress + avatarListLayoutSize

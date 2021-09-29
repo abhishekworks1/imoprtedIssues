@@ -38,6 +38,8 @@ class ShareSettingViewController: UIViewController {
     @IBOutlet var lblCountrys: [UILabel]!
     @IBOutlet var imgCountrys: [UIImageView]!
     @IBOutlet weak var flagStackviewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var shareTooltipPopupView: UIView!
+    @IBOutlet weak var btnDoNotShowAgain: UIButton!
     
     // MARK: - Variable Declarations
     var myMutableString = NSMutableAttributedString()
@@ -136,6 +138,33 @@ class ShareSettingViewController: UIViewController {
             UIPasteboard.general.string = urlString
             showAlert(alertMessage: R.string.localizable.linkIsCopiedToClipboard())
         }
+    }
+    
+    @IBAction func btnShareClicked(_ sender: UIButton) {
+        if Defaults.shared.isShowAllPopUpChecked {
+            shareTooltipPopupView.isHidden = false
+        } else {
+            shareOkButtonClicked(sender)
+        }
+    }
+    
+    @IBAction func shareOkButtonClicked(_ sender: UIButton) {
+        if let urlString = self.lblLinkWithCheckOut.text {
+            UIPasteboard.general.string = urlString
+            shareTooltipPopupView.isHidden = true
+            var shareItems: [Any] = [urlString]
+            if isIncludeProfileImg {
+                let image = self.profileView.toImage()
+                shareItems.append(image)
+            }
+            let shareVC: UIActivityViewController = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
+            self.present(shareVC, animated: true, completion: nil)
+        }
+    }
+    
+    @IBAction func doNotShowAgainClicked(_ sender: UIButton) {
+        btnDoNotShowAgain.isSelected = !btnDoNotShowAgain.isSelected
+        Defaults.shared.isShowAllPopUpChecked = btnDoNotShowAgain.isSelected
     }
     
     @IBAction func btnFacebookShareClicked(_ sender: UIButton) {
