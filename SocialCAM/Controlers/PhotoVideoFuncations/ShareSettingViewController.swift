@@ -151,7 +151,6 @@ class ShareSettingViewController: UIViewController {
     @IBAction func shareOkButtonClicked(_ sender: UIButton) {
         if let urlString = self.lblLinkWithCheckOut.text {
             UIPasteboard.general.string = urlString
-            self.view.makeToast(R.string.localizable.linkIsCopiedToClipboard())
             shareTooltipPopupView.isHidden = true
             var shareItems: [Any] = [urlString]
             if isIncludeProfileImg {

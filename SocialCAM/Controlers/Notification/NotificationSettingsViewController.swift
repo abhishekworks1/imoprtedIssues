@@ -20,7 +20,8 @@ class NotificationSettings {
         self.settingsType = settingsType
     }
     
-    static var systemSettings = [StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.newSignups(), selected: false)], settingsType: .newSignupsNotificationSetting)]
+    static var systemSettings = [StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.newSignups(), selected: false)], settingsType: .newSignupsNotificationSetting),
+                                 StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.badgeEarned(), selected: false)], settingsType: .milestoneReachedNotification)]
 }
 
 class NotificationSettingsViewController: UIViewController {
@@ -64,7 +65,7 @@ extension NotificationSettingsViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let systemSettingsCell: NotificationTypeCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.notificationTypeCell.identifier) as? NotificationTypeCell else {
+        guard let systemSettingsCell: SystemSettingsCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.systemSettingsCell.identifier) as? SystemSettingsCell else {
             fatalError("\(R.reuseIdentifier.systemSettingsCell.identifier) Not Found")
         }
         
@@ -75,6 +76,8 @@ extension NotificationSettingsViewController: UITableViewDataSource {
             }
             notificationTypeCell.notificationType = .newSignups
             return notificationTypeCell
+        } else if settingTitle.settingsType == .milestoneReachedNotification {
+            systemSettingsCell.systemSettingType = .milestonesReached
         }
         return systemSettingsCell
     }
