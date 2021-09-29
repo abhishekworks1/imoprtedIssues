@@ -77,7 +77,7 @@ class CountryPickerViewController: UIViewController {
     fileprivate var layoutState: LayoutState = .grid
     private lazy var storyCameraVC = StoryCameraViewController()
     var isClearFlagSelected = false
-    var isShareButtonSelected = false
+    public var onlyCountries: [Country] = [Country]()
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -156,24 +156,11 @@ class CountryPickerViewController: UIViewController {
     }
     
     fileprivate func maxCheck() -> Bool {
-        if 2 <= self.selectedCountries.count {
-            DispatchQueue.runOnMainThread {
-                Utils.appDelegate?.window?.makeToast(R.string.localizable.youCanSelectMaximum2Country())
-            }
+        if 2 <= self.selectedCountries.count &&
+            2 <= self.onlyCountries.count {
             return true
         }
         return false
-    }
-    
-    @IBAction func btnShareTapped(_ sender: UIButton) {
-        if !self.selectedCountries.isEmpty {
-            self.isShareButtonSelected = true
-            self.showHidePopupView(isHide: false, text: R.string.localizable.doYouWantToSaveTheChanges())
-        } else {
-            if let shareSettingVC = R.storyboard.editProfileViewController.shareSettingViewController() {
-                self.navigationController?.pushViewController(shareSettingVC, animated: true)
-            }
-        }
     }
     
     @IBAction func btnPopupYesTapped(_ sender: UIButton) {
@@ -182,10 +169,6 @@ class CountryPickerViewController: UIViewController {
             self.isClearFlagSelected = false
             self.delegate?.countryPickerView(selectedCountries)
             self.navigationController?.popViewController(animated: true)
-        } else if isShareButtonSelected {
-            self.isShareButtonSelected = false
-            self.showHUD()
-            setCountrys(selectedCountries)
         } else {
             self.openStateView()
         }
@@ -196,11 +179,6 @@ class CountryPickerViewController: UIViewController {
         if isClearFlagSelected {
             self.isClearFlagSelected = false
             self.navigationController?.popViewController(animated: true)
-        } else if isShareButtonSelected {
-            self.isShareButtonSelected = false
-            if let shareSettingVC = R.storyboard.editProfileViewController.shareSettingViewController() {
-                self.navigationController?.pushViewController(shareSettingVC, animated: true)
-            }
         }
     }
     
@@ -278,23 +256,44 @@ extension CountryPickerViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) as? CountryPickerViewCell {
             let co = searchUsers[indexPath.row]
-            if let index = self.selectedCountries.firstIndex(where: { $0.code == co.code }) {
+            if let index = self.selectedCountries.firstIndex(where: { $0.code == co.code }),
+               let onlyCountryIndex = self.onlyCountries.firstIndex(where: { $0.code == co.code }) {
                 //deselect
                 if self.selectedCountries[index].code == StaticKeys.countryCodeUS {
                     self.selectedCountries.remove(at: index)
+                    self.onlyCountries.remove(at: onlyCountryIndex)
                     if let stateIndex = self.selectedCountries.firstIndex(where: { $0.isState == true }) {
                         self.selectedCountries.remove(at: stateIndex)
                     }
                 } else {
                     self.selectedCountries.remove(at: index)
+                    self.onlyCountries.remove(at: onlyCountryIndex)
                 }
                 cell.selectedItem = false
             } else {
-                guard !maxCheck() else { return }
+                guard !maxCheck() else {
+                    if co.code == StaticKeys.countryCodeUS {
+                        showHidePopupView(isHide: false, text: R.string.localizable.setYourStateOrTerritoryFlag())
+                    }
+                    self.selectedCountries.append(users[indexPath.row])
+                    self.onlyCountries.append(users[indexPath.row])
+                    cell.selectedItem = true
+                    guard let indexPathOfItemToDelete = collectionView.indexPathsForSelectedItems?.last else {
+                        return
+                    }
+                    if let cell = collectionView.cellForItem(at: indexPathOfItemToDelete) as? CountryPickerViewCell {
+                        cell.selectedItem = false
+                        self.collectionView.reloadData()
+                    }
+                    self.selectedCountries.removeFirst()
+                    self.onlyCountries.removeFirst()
+                    return
+                }
                 if co.code == StaticKeys.countryCodeUS {
                     showHidePopupView(isHide: false, text: R.string.localizable.setYourStateOrTerritoryFlag())
                 }
                 selectedCountries.append(users[indexPath.row])
+                onlyCountries.append(users[indexPath.row])
                 cell.selectedItem = true
             }
         }
