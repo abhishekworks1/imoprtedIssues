@@ -170,11 +170,10 @@ extension StatePickerViewController: UICollectionViewDataSource {
         ) as! CountryPickerViewCell
 
         if collectionView == self.selectedCollectionView {
+            cell.setupSelectedGridLayoutConstraints(1, cellWidth: cell.frame.width)
             let country = selectedStates[indexPath.row]
             cell.bind(country)
             cell.selectedItem = (selectedStates.firstIndex(of: country) != nil) ? true : false
-            cell.isSelectedItem = true
-            cell.setupSelectedGridLayoutConstraints(1, cellWidth: cell.frame.width)
         } else if collectionView == self.collectionView {
             if layoutState == .grid {
                 cell.setupGridLayoutConstraints(1, cellWidth: cell.frame.width)
@@ -183,7 +182,6 @@ extension StatePickerViewController: UICollectionViewDataSource {
             }
             let country = searchUsers[indexPath.row]
             cell.bind(country)
-            cell.isSelectedItem = false
             cell.selectedItem = (selectedStates.firstIndex(of: country) != nil) ? true : false
         }
         
