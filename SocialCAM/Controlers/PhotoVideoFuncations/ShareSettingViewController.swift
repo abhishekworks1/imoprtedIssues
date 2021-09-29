@@ -116,6 +116,7 @@ class ShareSettingViewController: UIViewController {
                     self.youtubeVerifiedView.isHidden = false
                 }
             }
+            self.imgProfileBadge.image = (socialPlatforms.count == 4) ? R.image.shareScreenRibbonProfileBadge() : R.image.shareScreenProfileBadge()
         } else {
             verifiedStackView.isHidden = true
         }
@@ -164,7 +165,7 @@ class ShareSettingViewController: UIViewController {
     
     @IBAction func doNotShowAgainClicked(_ sender: UIButton) {
         btnDoNotShowAgain.isSelected = !btnDoNotShowAgain.isSelected
-        Defaults.shared.isShowAllPopUpChecked = btnDoNotShowAgain.isSelected
+        Defaults.shared.isShowAllPopUpChecked = !btnDoNotShowAgain.isSelected
     }
     
     @IBAction func btnFacebookShareClicked(_ sender: UIButton) {
