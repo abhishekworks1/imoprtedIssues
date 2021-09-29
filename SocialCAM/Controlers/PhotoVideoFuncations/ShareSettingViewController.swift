@@ -141,7 +141,7 @@ class ShareSettingViewController: UIViewController {
     }
     
     @IBAction func btnShareClicked(_ sender: UIButton) {
-        if !Defaults.shared.isShowAllPopUpChecked {
+        if Defaults.shared.isShowAllPopUpChecked {
             shareTooltipPopupView.isHidden = false
         } else {
             shareOkButtonClicked(sender)
