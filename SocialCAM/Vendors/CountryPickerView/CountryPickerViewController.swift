@@ -256,21 +256,19 @@ extension CountryPickerViewController: UICollectionViewDataSource {
             ) as! CountryPickerViewCell
         
         if collectionView == self.selectedCollectionView {
+            cell.setupSelectedGridLayoutConstraints(1, cellWidth: cell.frame.width)
             let country = selectedCountries[indexPath.row]
             cell.bind(country)
             cell.selectedItem = (selectedCountries.firstIndex(of: country) != nil) ? true : false
-            cell.setupSelectedGridLayoutConstraints(1, cellWidth: cell.frame.width)
-            cell.isSelectedItem = true
         } else if collectionView == self.collectionView {
-            let country = searchUsers[indexPath.row]
-            cell.bind(country)
-            cell.selectedItem = (selectedCountries.firstIndex(of: country) != nil) ? true : false
             if layoutState == .grid {
                 cell.setupGridLayoutConstraints(1, cellWidth: cell.frame.width)
             } else {
                 cell.setupListLayoutConstraints(1, cellWidth: cell.frame.width)
             }
-            cell.isSelectedItem = false
+            let country = searchUsers[indexPath.row]
+            cell.bind(country)
+            cell.selectedItem = (selectedCountries.firstIndex(of: country) != nil) ? true : false
         }
         return cell
     }

@@ -80,13 +80,9 @@ class CountryPickerViewCell: UICollectionViewCell, CellInterface {
     fileprivate var avatarGridLayoutSize: CGFloat = 0.0
     fileprivate var initialLabelsLeadingConstraintValue: CGFloat = 0.0
     
-    @objc open var isSelectedItem: Bool = false
-    
     @objc open var selectedItem: Bool = false {
         didSet {
-            if !isSelectedItem {
-                self.btnSelected?.isHidden = !selectedItem
-            }
+            self.btnSelected?.isHidden = !selectedItem
         }
     }
     
