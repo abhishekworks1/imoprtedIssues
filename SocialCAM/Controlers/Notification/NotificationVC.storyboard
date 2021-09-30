@@ -19,6 +19,9 @@
         <array key="SF-UI-Text-Semibold.otf">
             <string>SFUIText-Semibold</string>
         </array>
+        <array key="Sofia Pro Regular.otf">
+            <string>SofiaProRegular</string>
+        </array>
     </customFonts>
     <scenes>
         <!--FollowingViewController-->
@@ -157,7 +160,7 @@
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="foT-mc-miS" customClass="RoundedImageView" customModule="BoomiCam" customModuleProvider="target">
                                                             <rect key="frame" x="10" y="10" width="62" height="53"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" secondItem="foT-mc-miS" secondAttribute="height" multiplier="1:1" id="iRj-JI-3FD"/>
+                                                                <constraint firstAttribute="width" secondItem="foT-mc-miS" secondAttribute="height" multiplier="1:1" priority="750" id="iRj-JI-3FD"/>
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lisa Cuddyhgnmgmngnjhkhnkgnhghn fggfn hg g " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m46-o7-aTe" customClass="PLabel" customModule="BoomiCam" customModuleProvider="target">
@@ -271,13 +274,13 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZK1-yZ-fkb">
-                                <rect key="frame" x="40" y="264" width="334" height="378.5"/>
+                                <rect key="frame" x="40" y="239" width="334" height="428"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a79-AL-BqR">
-                                        <rect key="frame" x="0.0" y="0.0" width="334" height="378.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="334" height="428"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="kwN-zG-oOu">
-                                                <rect key="frame" x="0.0" y="25" width="334" height="328.5"/>
+                                                <rect key="frame" x="0.0" y="25" width="334" height="378"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e4W-qq-0R2">
                                                         <rect key="frame" x="0.0" y="0.0" width="334" height="210"/>
@@ -306,13 +309,13 @@
                                                         </constraints>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J3H-YS-Tbp">
-                                                        <rect key="frame" x="151" y="225" width="32.5" height="14.5"/>
+                                                        <rect key="frame" x="152.5" y="225" width="29.5" height="14"/>
                                                         <fontDescription key="fontDescription" name="SFUIText-Semibold" family="SF UI Text" pointSize="12"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Nk-H3-7RF">
-                                                        <rect key="frame" x="147" y="254.5" width="40.5" height="22"/>
+                                                        <rect key="frame" x="148.5" y="254" width="37" height="22"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="22" id="QLA-Hj-x19"/>
                                                         </constraints>
@@ -321,7 +324,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="CUd-Qh-a7R">
-                                                        <rect key="frame" x="167" y="291.5" width="0.0" height="37"/>
+                                                        <rect key="frame" x="167" y="291" width="0.0" height="37"/>
                                                         <subviews>
                                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="spW-Ox-0d2">
                                                                 <rect key="frame" x="0.0" y="0.0" width="36" height="50"/>
@@ -393,6 +396,28 @@
                                                             <constraint firstAttribute="height" constant="37" id="4Ng-zi-E93"/>
                                                         </constraints>
                                                     </stackView>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cYb-zE-DSm" customClass="PButton" customModule="BoomiCam" customModuleProvider="target">
+                                                        <rect key="frame" x="92" y="343" width="150" height="35"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="150" id="OdD-8X-iOg"/>
+                                                            <constraint firstAttribute="height" constant="35" id="QSB-Hi-S8S"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="SofiaProRegular" family="Sofia Pro" pointSize="14"/>
+                                                        <state key="normal" title="Follow">
+                                                            <color key="titleColor" red="0.53333333329999999" green="0.77647058820000003" blue="0.1333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="3"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                <color key="value" name="editProfileScreenBackgroundColor"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                <real key="value" value="1"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </button>
                                                 </subviews>
                                             </stackView>
                                         </subviews>
@@ -428,6 +453,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btnFollow" destination="cYb-zE-DSm" id="NTb-we-2e1"/>
                         <outlet property="facebookVerifiedView" destination="spW-Ox-0d2" id="cBV-8c-JF2"/>
                         <outlet property="imgUserImage" destination="9fr-zO-hrZ" id="H4U-PH-PD0"/>
                         <outlet property="imgUserPlaceholder" destination="NNv-d2-sTw" id="oRW-EB-2rS"/>
@@ -742,6 +768,11 @@
             <point key="canvasLocation" x="-1238" y="814"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="cYb-zE-DSm">
+            <size key="intrinsicContentSize" width="41" height="29"/>
+        </designable>
+    </designables>
     <resources>
         <image name="User_placeholder" width="400" height="400"/>
         <image name="checkBoxActive" width="20" height="20"/>
@@ -756,6 +787,9 @@
         <image name="youtubeVerified" width="37" height="39"/>
         <namedColor name="AppBlackColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="editProfileScreenBackgroundColor">
+            <color red="0.41960784313725491" green="0.59607843137254901" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="resendLinkColor">
             <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -100,6 +100,10 @@ class StatePickerViewController: UIViewController {
         layoutButton.isSelected = layoutState == .list
         setupCollectionView()
         doneButton.isEnabled = selectedStates.count > 0
+        if selectedCollectionView != nil {
+            selectedCollectionView.isHidden = selectedStates.count <= 0
+            selectedCollectionView.reloadData()
+        }
     }
     
     // MARK: - Private methods

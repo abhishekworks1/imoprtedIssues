@@ -75,7 +75,8 @@ class EditProfilePicViewController: UIViewController {
                 self.flagsStackViewHeightConstraint.constant = self.btnSelectCountry.isSelected ? 70 : 0
                 for (index, item) in flages.enumerated() {
                     self.countryView[index].isHidden = false
-                    let country: Country = Country(name: item.country ?? "", code: (item.state == "") ? (item.countryCode ?? "") : (item.stateCode ?? ""), phoneCode: "", isState: (item.state != ""))
+                    let country: Country = Country(name: (item.state == "") ? (item.country ?? "") : (item.state ?? ""), code: (item.state == "") ? (item.countryCode ?? "") : (item.stateCode ?? ""), phoneCode: "", isState: (item.state != ""))
+                    self.countrySelected.append(country)
                     self.lblCountrys[index].text = country.isState ? item.state : item.country
                     self.imgCountrys[index].image = country.flag
                 }
@@ -181,6 +182,7 @@ class EditProfilePicViewController: UIViewController {
     
     @IBAction func btnSetFlagTapped(_ sender: UIButton) {
         if let countryVc = R.storyboard.countryPicker.countryPickerViewController() {
+            countryVc.selectedCountries = countrySelected
             countryVc.delegate = self
             self.navigationController?.pushViewController(countryVc, animated: true)
         }
@@ -221,9 +223,11 @@ extension EditProfilePicViewController: CountryPickerViewDelegate {
             }
             if countryAry.count > 0 {
                 for (index, item) in countryAry.enumerated() {
-                    self.countryView[index].isHidden = false
-                    self.lblCountrys[index].text = item.name
-                    self.imgCountrys[index].image = item.flag
+                    if self.countryView.count > index {
+                        self.countryView[index].isHidden = false
+                        self.lblCountrys[index].text = item.name
+                        self.imgCountrys[index].image = item.flag
+                    }
                 }
             }
             self.isCountryFlagSelected = true

@@ -27,6 +27,8 @@ class UserDetailsVC: UIViewController {
     @IBOutlet weak var twitterVerifiedView: UIView!
     @IBOutlet weak var snapchatVerifiedView: UIView!
     @IBOutlet weak var youtubeVerifiedView: UIView!
+    @IBOutlet weak var btnFollow: PButton!
+    
     var notification: UserNotification?
     
     var customBlurEffectStyle: UIBlurEffect.Style = .dark
@@ -75,6 +77,15 @@ class UserDetailsVC: UIViewController {
             if let referredUserCreatedDate = Defaults.shared.referredUserCreatedDate {
                 self.lblJoiningDate.text = R.string.localizable.sinceJoined(convertDate(referredUserCreatedDate))
             }
+        }
+        if true {
+            btnFollow.backgroundColor = ApplicationSettings.appPrimaryColor
+            btnFollow.setTitleColor(ApplicationSettings.appWhiteColor, for: .normal)
+            btnFollow.setTitle(R.string.localizable.following(), for: .normal)
+        } else {
+            btnFollow.backgroundColor = ApplicationSettings.appClearColor
+            btnFollow.setTitleColor(ApplicationSettings.appPrimaryColor, for: .normal)
+            btnFollow.setTitle(R.string.localizable.follow(), for: .normal)
         }
     }
     
