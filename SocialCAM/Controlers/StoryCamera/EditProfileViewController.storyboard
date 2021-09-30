@@ -520,16 +520,74 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sba-S2-psU" userLabel="Activate Affiliate Link Popup">
-                                        <rect key="frame" x="41.5" y="357" width="331" height="182"/>
+                                        <rect key="frame" x="41.5" y="327.5" width="331" height="241"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Congratulations @Channelname. You received the Social Media Badge" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wDz-aw-hw9">
-                                                <rect key="frame" x="23" y="26" width="285" height="63"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="120" translatesAutoresizingMaskIntoConstraints="NO" id="Lkh-Ja-IlD" userLabel="Social Badge Stack View">
+                                                <rect key="frame" x="140.5" y="10" width="50" height="65"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ePv-8L-wiW">
+                                                        <rect key="frame" x="0.0" y="0.0" width="50" height="65"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bjo-27-92w">
+                                                                <rect key="frame" x="0.0" y="0.0" width="50" height="65"/>
+                                                                <state key="normal" image="socialBadge"/>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstItem="Bjo-27-92w" firstAttribute="top" secondItem="ePv-8L-wiW" secondAttribute="top" id="BO1-Sl-yP3"/>
+                                                            <constraint firstItem="Bjo-27-92w" firstAttribute="leading" secondItem="ePv-8L-wiW" secondAttribute="leading" id="Ndt-es-3Ra"/>
+                                                            <constraint firstAttribute="bottom" secondItem="Bjo-27-92w" secondAttribute="bottom" id="Pr4-7v-iyX"/>
+                                                            <constraint firstAttribute="trailing" secondItem="Bjo-27-92w" secondAttribute="trailing" id="TRH-XS-oml"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cVA-va-efb">
+                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="65"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ie5-5l-hm3">
+                                                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="65"/>
+                                                                <state key="normal" image="snapchatVerified"/>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="trailing" secondItem="Ie5-5l-hm3" secondAttribute="trailing" id="aND-hn-o36"/>
+                                                            <constraint firstAttribute="bottom" secondItem="Ie5-5l-hm3" secondAttribute="bottom" id="ikE-7g-tVW"/>
+                                                            <constraint firstItem="Ie5-5l-hm3" firstAttribute="leading" secondItem="cVA-va-efb" secondAttribute="leading" id="luu-6G-V34"/>
+                                                            <constraint firstItem="Ie5-5l-hm3" firstAttribute="top" secondItem="cVA-va-efb" secondAttribute="top" id="ymn-cD-UDD"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4n0-Ko-5uQ">
+                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="65"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zIc-3j-Ua2">
+                                                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="65"/>
+                                                                <state key="normal" image="youtubeVerified"/>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstItem="zIc-3j-Ua2" firstAttribute="top" secondItem="4n0-Ko-5uQ" secondAttribute="top" id="3wc-Xt-OPg"/>
+                                                            <constraint firstAttribute="trailing" secondItem="zIc-3j-Ua2" secondAttribute="trailing" id="mQD-83-fus"/>
+                                                            <constraint firstItem="zIc-3j-Ua2" firstAttribute="leading" secondItem="4n0-Ko-5uQ" secondAttribute="leading" id="tYc-HG-hga"/>
+                                                            <constraint firstAttribute="bottom" secondItem="zIc-3j-Ua2" secondAttribute="bottom" id="ywd-nV-lTX"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="65" id="4N6-Xj-J4h"/>
+                                                </constraints>
+                                            </stackView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wDz-aw-hw9">
+                                                <rect key="frame" x="18" y="85" width="295" height="63"/>
+                                                <string key="text">Congratulations @Channelname. 
+You received the Social Media Badge</string>
                                                 <fontDescription key="fontDescription" name="SFUIText-Semibold" family="SF UI Text" pointSize="18"/>
                                                 <color key="textColor" name="editProfileScreenPopupTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="6Zr-2P-lvA">
-                                                <rect key="frame" x="103.5" y="110" width="124" height="46"/>
+                                                <rect key="frame" x="103.5" y="169" width="124" height="46"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9cT-HD-LoC">
                                                         <rect key="frame" x="0.0" y="0.0" width="124" height="46"/>
@@ -557,12 +615,14 @@
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstItem="wDz-aw-hw9" firstAttribute="top" secondItem="sba-S2-psU" secondAttribute="top" constant="26" id="12w-4G-JgG"/>
                                             <constraint firstItem="6Zr-2P-lvA" firstAttribute="top" secondItem="wDz-aw-hw9" secondAttribute="bottom" constant="21" id="BGD-1D-joh"/>
-                                            <constraint firstAttribute="trailing" secondItem="wDz-aw-hw9" secondAttribute="trailing" constant="23" id="Cjg-Rp-Gdo"/>
+                                            <constraint firstAttribute="trailing" secondItem="wDz-aw-hw9" secondAttribute="trailing" constant="18" id="Cjg-Rp-Gdo"/>
+                                            <constraint firstItem="Lkh-Ja-IlD" firstAttribute="top" secondItem="sba-S2-psU" secondAttribute="top" constant="10" id="Q9T-Y9-bGX"/>
                                             <constraint firstAttribute="bottom" secondItem="6Zr-2P-lvA" secondAttribute="bottom" constant="26" id="RJs-pB-1cT"/>
-                                            <constraint firstItem="wDz-aw-hw9" firstAttribute="leading" secondItem="sba-S2-psU" secondAttribute="leading" constant="23" id="VXb-SF-pcH"/>
+                                            <constraint firstItem="wDz-aw-hw9" firstAttribute="leading" secondItem="sba-S2-psU" secondAttribute="leading" constant="18" id="VXb-SF-pcH"/>
                                             <constraint firstItem="6Zr-2P-lvA" firstAttribute="centerX" secondItem="sba-S2-psU" secondAttribute="centerX" id="mp7-oQ-NcI"/>
+                                            <constraint firstItem="Lkh-Ja-IlD" firstAttribute="centerX" secondItem="sba-S2-psU" secondAttribute="centerX" id="nba-V3-yza"/>
+                                            <constraint firstItem="wDz-aw-hw9" firstAttribute="top" secondItem="Lkh-Ja-IlD" secondAttribute="bottom" constant="10" id="zbx-xS-bR4"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">

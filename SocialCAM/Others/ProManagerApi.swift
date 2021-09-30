@@ -741,7 +741,7 @@ extension ProManagerApi: TargetType {
             }
             return .uploadMultipart(multipartFormData)
         case .uploadPicture(let image, let imageSource):
-            guard let imageData = image.jpegData(compressionQuality: 1.0) else {
+            guard let imageData = image.jpegData(compressionQuality: 0.8) else {
                 return .requestParameters(parameters: self.parameters ?? [:], encoding: self.parameterEncoding)
             }
             let imageDataMultiPart = [MultipartFormData(provider: .data(imageData), name: "image", fileName: "photo.jpg", mimeType: "image/jpeg")]
