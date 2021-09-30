@@ -82,7 +82,7 @@ public enum ProManagerApi {
     case setToken(deviceToken: String, deviceType: String)
     case removeToken(deviceToken: String)
     case getReferralNotification
-    case setReferralNotification(isForEveryone: Bool, customSignupNumber: Int)
+    case setReferralNotification(isForEveryone: Bool, customSignupNumber: Int, isBadgeEarned: Bool)
     case setUserStateFlag(isUserStateFlag: Bool)
     case setCountrys(arrayCountry: [[String:Any]]?)
     case getNotification(page: Int)
@@ -676,9 +676,10 @@ extension ProManagerApi: TargetType {
             param = [StaticKeys.deviceToken: deviceToken]
         case .getReferralNotification:
             break
-        case .setReferralNotification(let isForEveryone, let customSignupNumber):
+        case .setReferralNotification(let isForEveryone, let customSignupNumber, let isBadgeEarned):
             param = [StaticKeys.isForEveryone: isForEveryone,
-                     StaticKeys.customSignupNumber: customSignupNumber]
+                     StaticKeys.customSignupNumber: customSignupNumber,
+                     StaticKeys.badgeEarned: isBadgeEarned]
         case .setUserStateFlag(let isUserStateFlag):
             param = ["isShowFlags": isUserStateFlag]
         case .setCountrys(let countrys):
