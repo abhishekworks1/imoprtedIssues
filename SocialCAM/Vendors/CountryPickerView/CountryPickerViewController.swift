@@ -292,15 +292,12 @@ extension CountryPickerViewController: UICollectionViewDataSource {
                let onlyCountryIndex = self.onlyCountries.firstIndex(where: { $0.code == co.code }) {
                 //deselect
                 if self.selectedCountries[index].code == StaticKeys.countryCodeUS {
-                    self.selectedCountries.remove(at: index)
-                    self.onlyCountries.remove(at: onlyCountryIndex)
                     if let stateIndex = self.selectedCountries.firstIndex(where: { $0.isState == true }) {
                         self.selectedCountries.remove(at: stateIndex)
                     }
-                } else {
-                    self.selectedCountries.remove(at: index)
-                    self.onlyCountries.remove(at: onlyCountryIndex)
                 }
+                self.selectedCountries.remove(at: index)
+                self.onlyCountries.remove(at: onlyCountryIndex)
                 cell.selectedItem = false
             } else {
                 guard !maxCheck() else {
@@ -317,7 +314,7 @@ extension CountryPickerViewController: UICollectionViewDataSource {
                         cell.selectedItem = false
                         self.collectionView.reloadData()
                     }
-                    if self.selectedCountries.first?.code == "US" {
+                    if self.selectedCountries.first?.code == StaticKeys.countryCodeUS {
                         if let stateIndex = self.selectedCountries.firstIndex(where: { $0.isState == true }) {
                             self.selectedCountries.remove(at: stateIndex)
                         }

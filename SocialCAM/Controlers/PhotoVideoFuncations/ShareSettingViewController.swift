@@ -40,6 +40,8 @@ class ShareSettingViewController: UIViewController {
     @IBOutlet weak var flagStackviewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var shareTooltipPopupView: UIView!
     @IBOutlet weak var btnDoNotShowAgain: UIButton!
+    @IBOutlet weak var socialPlatformsVerifiedBadgeView: UIView!
+    @IBOutlet weak var socialBadgeStackView: UIStackView!
     
     // MARK: - Variable Declarations
     var myMutableString = NSMutableAttributedString()
@@ -117,8 +119,12 @@ class ShareSettingViewController: UIViewController {
                 }
             }
             self.imgProfileBadge.image = (socialPlatforms.count == 4) ? R.image.shareScreenRibbonProfileBadge() : R.image.shareScreenProfileBadge()
+            self.socialBadgeStackView.isHidden = socialPlatforms.count != 4
+            self.socialPlatformsVerifiedBadgeView.isHidden = socialPlatforms.count != 4
         } else {
-            verifiedStackView.isHidden = true
+            self.verifiedStackView.isHidden = true
+            self.socialBadgeStackView.isHidden = true
+            self.socialPlatformsVerifiedBadgeView.isHidden = true
         }
     }
     
