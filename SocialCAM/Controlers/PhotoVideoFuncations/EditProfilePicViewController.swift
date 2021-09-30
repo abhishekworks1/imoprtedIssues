@@ -99,13 +99,18 @@ class EditProfilePicViewController: UIViewController {
         }
     }
     
+    func settingSocialPlatforms() {
+        if imageSource != "" {
+            self.socialPlatforms.append(self.imageSource.lowercased())
+        } else {
+            self.socialPlatforms.removeAll(where: {$0 == ""})
+        }
+        self.addSocialPlatform()
+    }
+    
     func showHidePopupView(isHide: Bool) {
         socialSharePopupView.bringSubviewToFront(self.view)
         self.socialSharePopupView.isHidden = isHide
-        if !isShareButtonSelected {
-            self.socialPlatforms.append(self.imageSource.lowercased())
-            self.addSocialPlatform()
-        }
     }
     
     func showHideSocialBadgePopupView(isHide: Bool) {
@@ -287,25 +292,25 @@ extension EditProfilePicViewController {
         self.isImageSelected = true
         switch socialType {
         case .gallery:
-            self.lblSocialSharePopup.text = R.string.localizable.wouldYouLikeToSaveProfilePictureFromGallery()
+            self.lblSocialSharePopup.text = R.string.localizable.useThisPicture()
             self.getImage(fromSourceType: .photoLibrary)
         case .camera:
-            self.lblSocialSharePopup.text = R.string.localizable.wouldYouLikeToSaveProfilePictureFromCamera()
+            self.lblSocialSharePopup.text = R.string.localizable.useThisPicture()
             self.getImage(fromSourceType: .camera)
         case .instagram:
-            self.lblSocialSharePopup.text = R.string.localizable.wouldYouLikeToSaveProfilePictureFromInstagram()
+            self.lblSocialSharePopup.text = R.string.localizable.loginSuccessUseThisPicture(SocialConnectionType.instagram.stringValue)
             self.setSocialMediaPicture(socialShareType: .instagram)
         case .snapchat:
-            self.lblSocialSharePopup.text = R.string.localizable.wouldYouLikeToSaveProfilePictureFromSnapchat()
+            self.lblSocialSharePopup.text = R.string.localizable.loginSuccessUseThisPicture(SocialConnectionType.snapchat.stringValue)
             self.setSocialMediaPicture(socialShareType: .snapchat)
         case .youTube:
-            self.lblSocialSharePopup.text = R.string.localizable.wouldYouLikeToSaveProfilePictureFromYoutube()
+            self.lblSocialSharePopup.text = R.string.localizable.loginSuccessUseThisPicture(SocialConnectionType.youtube.stringValue)
             self.setSocialMediaPicture(socialShareType: .youtube)
         case .twitter:
-            self.lblSocialSharePopup.text = R.string.localizable.wouldYouLikeToSaveProfilePictureFromTwitter()
+            self.lblSocialSharePopup.text = R.string.localizable.loginSuccessUseThisPicture(SocialConnectionType.twitter.stringValue)
             self.setSocialMediaPicture(socialShareType: .twitter)
         case .facebook:
-            self.lblSocialSharePopup.text = R.string.localizable.wouldYouLikeToSaveProfilePictureFromFacebook()
+            self.lblSocialSharePopup.text = R.string.localizable.loginSuccessUseThisPicture(SocialConnectionType.facebook.stringValue)
             self.setSocialMediaPicture(socialShareType: .facebook)
         }
     }
@@ -449,10 +454,14 @@ extension EditProfilePicViewController {
     }
     
     func addSocialPlatform() {
-        let previousSocialPlatformCount = Defaults.shared.socialPlatforms?.count
+        let previousSocialPlatformCount = Defaults.shared.socialPlatforms?.uniq().count
         self.socialPlatforms = socialPlatforms.uniq()
-        Defaults.shared.socialPlatforms?.append(contentsOf: self.socialPlatforms)
-        let currentSocialPlatformCount = Defaults.shared.socialPlatforms?.count
+        if !socialPlatforms.contains("") &&  !(Defaults.shared.socialPlatforms?.contains("") ?? false) {
+            Defaults.shared.socialPlatforms?.append(contentsOf: self.socialPlatforms)
+        } else {
+            Defaults.shared.socialPlatforms?.removeAll(where: {$0 == ""})
+        }
+        let currentSocialPlatformCount = Defaults.shared.socialPlatforms?.uniq().count
         if currentSocialPlatformCount == 4 && previousSocialPlatformCount == 3 {
             self.lblSocialBadgeReceived.text = R.string.localizable.congratulationsYouReceivedTheSocialMediaBadge("@\(Defaults.shared.currentUser?.channelId ?? "")")
             self.showHideSocialBadgePopupView(isHide: false)
@@ -715,11 +724,13 @@ extension EditProfilePicViewController: SharingSocialTypeDelegate {
     
     func setSocialPlatforms() {
         showHidePopupView(isHide: false)
+        self.settingSocialPlatforms()
         self.isCroppedImage = false
     }
     
     func setCroppedImage(croppedImg: UIImage) {
         showHidePopupView(isHide: false)
+        self.settingSocialPlatforms()
         self.isCroppedImage = true
         self.croppedImg = croppedImg
     }
