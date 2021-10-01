@@ -195,6 +195,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     @IBOutlet weak var lblQuickLinkTooltipView: UILabel!
     @IBOutlet weak var btnDoNotShowAgain: UIButton!
     @IBOutlet weak var appSurveyPopupView: UIView!
+    @IBOutlet weak var businessDashboardStackView: UIStackView!
     
     // MARK: Variables
     var recordButtonCenterPoint: CGPoint = CGPoint.init()
@@ -257,7 +258,8 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                                              self.nextButtonView,
                                              self.switchAppButton,
                                              self.discardSegmentsStackView,
-                                             self.confirmRecordedSegmentStackView],
+                                             self.confirmRecordedSegmentStackView,
+                                             self.businessDashboardStackView],
                                             alpha: alpha)
                     self.isHideTapped = self.hideControls
                     // Make the animation happen
