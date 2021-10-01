@@ -2730,11 +2730,35 @@ Countdown</string>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="KKh-m1-iOL">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                                         <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HLl-5r-Qc3">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="25"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5hz-T3-9CJ">
+                                                        <rect key="frame" x="87.666666666666686" y="0.0" width="200" height="25"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="200" id="sb3-xF-4hu"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                                        <state key="normal" title="Patents">
+                                                            <color key="titleColor" name="AppPrimaryColor"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="btnPatentsTapped:" destination="Tnp-J8-3Je" eventType="touchUpInside" id="jO9-9W-YGx"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="5hz-T3-9CJ" firstAttribute="centerX" secondItem="HLl-5r-Qc3" secondAttribute="centerX" id="V0j-WZ-E8k"/>
+                                                    <constraint firstAttribute="bottom" secondItem="5hz-T3-9CJ" secondAttribute="bottom" id="iVD-4F-vhg"/>
+                                                    <constraint firstItem="5hz-T3-9CJ" firstAttribute="top" secondItem="HLl-5r-Qc3" secondAttribute="top" id="opO-fN-5aK"/>
+                                                </constraints>
+                                            </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bz8-ho-c1G">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="33.333333333333336"/>
+                                                <rect key="frame" x="0.0" y="25" width="375" height="25"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OS7-gF-cRr">
-                                                        <rect key="frame" x="87.666666666666686" y="0.0" width="200" height="33.333333333333336"/>
+                                                        <rect key="frame" x="87.666666666666686" y="0.0" width="200" height="25"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="200" id="tJB-79-wHY"/>
                                                         </constraints>
