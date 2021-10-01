@@ -109,8 +109,6 @@ class StorySettings {
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.share(), selected: false)], settingsType: .shareSetting),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.accountSettings(), selected: false)], settingsType: .accountSettings),
-                                StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.cameraSettings(), selected: false)], settingsType: .cameraSettings),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.notifications(), selected: false)], settingsType: .notification),
@@ -118,6 +116,8 @@ class StorySettings {
                                               settings: [StorySetting(name: R.string.localizable.system(), selected: false)], settingsType: .system),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.howItWorks(), selected: false)], settingsType: .help),
+                                StorySettings(name: "",
+                                              settings: [StorySetting(name: R.string.localizable.accountSettings(), selected: false)], settingsType: .accountSettings),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.logout(), selected: false)], settingsType: .logout)]
 }
