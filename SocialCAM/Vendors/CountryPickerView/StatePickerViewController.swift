@@ -186,7 +186,7 @@ extension StatePickerViewController: UICollectionViewDataSource {
             }
             let country = searchUsers[indexPath.row]
             cell.bind(country)
-            cell.selectedItem = (selectedStates.firstIndex(of: country) != nil) ? true : false
+            cell.selectedItem = (selectedStates.firstIndex(of: country) != nil && !country.isState) ? true : false
         }
         
         return cell
