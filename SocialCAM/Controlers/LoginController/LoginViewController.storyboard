@@ -193,10 +193,23 @@
                                                 </connections>
                                             </button>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="S1J-ZE-U5G">
-                                                <rect key="frame" x="20" y="442.5" width="374" height="90"/>
+                                                <rect key="frame" x="20" y="412.5" width="374" height="120"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H6Y-zs-RIn">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cws-3f-Wa2">
                                                         <rect key="frame" x="0.0" y="0.0" width="374" height="30"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="30" id="HfQ-VH-Ycv"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <state key="normal" title="Patents">
+                                                            <color key="titleColor" name="AppPrimaryColor"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="btnPatentsTapped:" destination="Q1G-jg-0gQ" eventType="touchUpInside" id="Og8-LF-cSx"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H6Y-zs-RIn">
+                                                        <rect key="frame" x="0.0" y="30" width="374" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30" id="E8S-I8-Emj"/>
                                                         </constraints>
@@ -3046,22 +3059,19 @@
             <size key="intrinsicContentSize" width="16" height="22"/>
         </designable>
         <designable name="Gvo-fd-CKq">
-            <size key="intrinsicContentSize" width="72.5" height="20"/>
+            <size key="intrinsicContentSize" width="71" height="19"/>
         </designable>
         <designable name="LJm-QX-u4c">
             <size key="intrinsicContentSize" width="16" height="22"/>
-        </designable>
-        <designable name="OXa-jX-M9P">
-            <size key="intrinsicContentSize" width="175" height="21"/>
         </designable>
         <designable name="Q7z-ML-iW6">
             <size key="intrinsicContentSize" width="41" height="29"/>
         </designable>
         <designable name="RlP-q6-oLk">
-            <size key="intrinsicContentSize" width="40.5" height="21"/>
+            <size key="intrinsicContentSize" width="39.5" height="20.5"/>
         </designable>
         <designable name="Tak-YE-LSB">
-            <size key="intrinsicContentSize" width="110" height="21"/>
+            <size key="intrinsicContentSize" width="106" height="20.5"/>
         </designable>
         <designable name="c7Y-CH-wjf">
             <size key="intrinsicContentSize" width="16" height="22"/>
@@ -3091,16 +3101,13 @@
             <size key="intrinsicContentSize" width="300" height="300"/>
         </designable>
         <designable name="wgt-S8-uFZ">
-            <size key="intrinsicContentSize" width="136" height="21"/>
+            <size key="intrinsicContentSize" width="129" height="20.5"/>
         </designable>
         <designable name="wvi-XG-bWS">
-            <size key="intrinsicContentSize" width="99.5" height="21"/>
+            <size key="intrinsicContentSize" width="93.5" height="20.5"/>
         </designable>
         <designable name="xZP-Ga-5xe">
             <size key="intrinsicContentSize" width="200" height="200"/>
-        </designable>
-        <designable name="zQo-94-51O">
-            <size key="intrinsicContentSize" width="72.5" height="20"/>
         </designable>
     </designables>
     <resources>
