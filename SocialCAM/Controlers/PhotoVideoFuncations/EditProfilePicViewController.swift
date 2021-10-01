@@ -519,8 +519,7 @@ extension EditProfilePicViewController {
                     tooltipViewController?.blurView.alpha = 0.7
                     tooltipViewController?.signupTooltipView.isHidden = false
                 } else {
-                    let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
-                    Utils.appDelegate?.window?.rootViewController = rootViewController
+                    self.navigationController?.popViewController(animated: true)
                 }
             }
         } else {

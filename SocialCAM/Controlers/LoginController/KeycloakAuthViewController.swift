@@ -84,16 +84,8 @@ class KeycloakAuthViewController: UIViewController {
     @IBAction func btnCancelClicked(_ sender: UIButton) {
         self.hideShowTooltipView(shouldShow: false)
         self.doNotShowAgainAPI()
-        if let isRegistered = Defaults.shared.isRegistered, isRegistered {
-            let tooltipViewController = R.storyboard.loginViewController.tooltipViewController()
-            Utils.appDelegate?.window?.rootViewController = tooltipViewController
-            tooltipViewController?.blurView.isHidden = false
-            tooltipViewController?.blurView.alpha = 0.7
-            tooltipViewController?.signupTooltipView.isHidden = false
-        } else {
-            let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
-            Utils.appDelegate?.window?.rootViewController = rootViewController
-        }
+        let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
+        Utils.appDelegate?.window?.rootViewController = rootViewController
     }
     
     func doNotShowAgainAPI() {
@@ -195,6 +187,7 @@ extension KeycloakAuthViewController {
     }
     
     func goToHomeScreen(isRefferencingChannelEmpty: Bool, channelId: String) {
+        Defaults.shared.isSignupLoginFlow = true
         #if PIC2ARTAPP || TIMESPEEDAPP || BOOMICAMAPP
         Utils.appDelegate?.window?.rootViewController = R.storyboard.pageViewController.pageViewController()
         #else
@@ -206,37 +199,16 @@ extension KeycloakAuthViewController {
             let urlRequest = URLRequest(url: keycloakURL)
             webView.load(urlRequest)
         } else {
-            if let isShow = Defaults.shared.currentUser?.isDoNotShowMsg, !isShow && Defaults.shared.currentUser?.profileImageURL == "" {
-                self.hideShowTooltipView(shouldShow: true)
-            } else {
-                Utils.appDelegate?.window?.rootViewController = rootViewController
-            }
+            Utils.appDelegate?.window?.rootViewController = rootViewController
         }
         RunLoop.current.run(until: Date(timeIntervalSinceNow: 1.0))
         #endif
     }
     
     func redirectToHomeScreen() {
-        if let isRegistered = Defaults.shared.isRegistered {
-            if isRegistered {
-                self.doNotShowAgainView.isHidden = false
-                if let isShow = Defaults.shared.currentUser?.isDoNotShowMsg, !isShow && Defaults.shared.currentUser?.profileImageURL == "" {
-                    self.hideShowTooltipView(shouldShow: true)
-                } else {
-                    let tooltipViewController = R.storyboard.loginViewController.tooltipViewController()
-                    Utils.appDelegate?.window?.rootViewController = tooltipViewController
-                    tooltipViewController?.blurView.isHidden = false
-                    tooltipViewController?.blurView.alpha = 0.7
-                    tooltipViewController?.signupTooltipView.isHidden = false
-                }
-            } else {
-                let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
-                Utils.appDelegate?.window?.rootViewController = rootViewController
-            }
-        } else {
-            let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
-            Utils.appDelegate?.window?.rootViewController = rootViewController
-        }
+        Defaults.shared.isSignupLoginFlow = true
+        let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
+        Utils.appDelegate?.window?.rootViewController = rootViewController
     }
     
     func createUser(referringChannel: String, channelId: String) {

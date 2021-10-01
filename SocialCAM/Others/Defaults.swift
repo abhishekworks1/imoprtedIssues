@@ -782,6 +782,15 @@ class Defaults {
         }
     }
     
+    var isSignupLoginFlow: Bool? {
+        get {
+            return appDefaults?.value(forKey: "isSignupLoginFlow") as? Bool ?? false
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isSignupLoginFlow")
+        }
+    }
+    
     var numberOfFreeTrialDays: Int? {
         get {
             return appDefaults?.value(forKey: "numberOfFreeTrialDays") as? Int

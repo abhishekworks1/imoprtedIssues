@@ -22,7 +22,7 @@ class GetReferralNotificationModel: Mappable {
     func mapping(map: Map) {
         isForEveryone <- map["isForEveryone"]
         customSignupNumber <- map["customSignupNumber"]
-        onReferralEarnSocialBadge <- map["customSignupNumber"]
+        onReferralEarnSocialBadge <- map["onReferralEarnSocialBadge"]
     }
     
 }

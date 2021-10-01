@@ -57,6 +57,9 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     @IBOutlet weak var bottomCameraViews: UIView!
     @IBOutlet weak var collectionViewStackVIew: UIStackView!
     @IBOutlet weak var settingsView: UIStackView!
+    @IBOutlet weak var profilePicTooltip: UIView!
+    @IBOutlet weak var lblProfilePicTooltip: UILabel!
+    @IBOutlet weak var btnDoNotShowAgainProfilePic: UIButton!
     
     @IBOutlet weak var timerValueView: UIView!
     @IBOutlet weak var faceFiltersView: UIStackView!
@@ -547,6 +550,12 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                 view?.isHidden = true
             }
         }
+        if let isSignupLoginFlow = Defaults.shared.isSignupLoginFlow, isSignupLoginFlow, let isShow = Defaults.shared.currentUser?.isDoNotShowMsg, !isShow && Defaults.shared.currentUser?.profileImageURL == "" {
+            self.lblProfilePicTooltip.text = (Defaults.shared.isFromSignup ?? false) ? "Create your Profile Card now?" : "Update your Profile Card?"
+            self.hideShowTooltipView(shouldShow: true)
+            Defaults.shared.isFromSignup = false
+            Defaults.shared.isSignupLoginFlow = false
+        }
     }
     
     func setupRecordingView() {
@@ -601,6 +610,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         view.bringSubviewToFront(switchingAppView)
         view.bringSubviewToFront(quickLinkTooltipView)
         view.bringSubviewToFront(appSurveyPopupView)
+        view.bringSubviewToFront(profilePicTooltip)
         self.syncUserModel { _ in
             
         }
@@ -2616,6 +2626,48 @@ extension StoryCameraViewController {
             } else {
                 self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
             }
+        }, onError: { error in
+            self.showAlert(alertMessage: error.localizedDescription)
+        }, onCompleted: {
+        }).disposed(by: rx.disposeBag)
+    }
+    
+}
+
+extension StoryCameraViewController {
+    private func hideShowTooltipView(shouldShow: Bool) {
+        self.profilePicTooltip.isHidden = !shouldShow
+    }
+    
+    @IBAction func btnDoNotShowAgainClicked(_ sender: UIButton) {
+        btnDoNotShowAgainProfilePic.isSelected = !btnDoNotShowAgainProfilePic.isSelected
+        Defaults.shared.isProfileTooltipHide = btnDoNotShowAgainProfilePic.isSelected
+        Defaults.shared.isShowAllPopUpChecked = false
+    }
+    
+    @IBAction func btnOkayClicked(_ sender: UIButton) {
+        self.hideShowTooltipView(shouldShow: false)
+        self.doNotShowAgainAPI()
+        if let editProfilePicViewController = R.storyboard.editProfileViewController.editProfilePicViewController() {
+            editProfilePicViewController.isSignUpFlow = true
+            navigationController?.pushViewController(editProfilePicViewController, animated: true)
+        }
+    }
+    
+    @IBAction func btnCancelClicked(_ sender: UIButton) {
+        self.hideShowTooltipView(shouldShow: false)
+        self.doNotShowAgainAPI()
+        if let isRegistered = Defaults.shared.isRegistered, isRegistered {
+            let tooltipViewController = R.storyboard.loginViewController.tooltipViewController()
+            Utils.appDelegate?.window?.rootViewController = tooltipViewController
+            tooltipViewController?.blurView.isHidden = false
+            tooltipViewController?.blurView.alpha = 0.7
+            tooltipViewController?.signupTooltipView.isHidden = false
+        }
+    }
+    
+    func doNotShowAgainAPI() {
+        ProManagerApi.doNotShowAgain(isDoNotShowMessage: btnDoNotShowAgainProfilePic.isSelected).request(Result<LoginResult>.self).subscribe(onNext: { (response) in
         }, onError: { error in
             self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
