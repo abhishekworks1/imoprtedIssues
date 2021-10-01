@@ -27,6 +27,8 @@ class UserDetailsVC: UIViewController {
     @IBOutlet weak var twitterVerifiedView: UIView!
     @IBOutlet weak var snapchatVerifiedView: UIView!
     @IBOutlet weak var youtubeVerifiedView: UIView!
+    @IBOutlet weak var btnFollow: PButton!
+    
     var notification: UserNotification?
     
     var customBlurEffectStyle: UIBlurEffect.Style = .dark
@@ -65,6 +67,10 @@ class UserDetailsVC: UIViewController {
             let date = CommonFunctions.getDateInSpecificFormat(dateInput: createdDate, dateOutput: R.string.localizable.mmmdYyyy())
             self.lblJoiningDate.text = R.string.localizable.sinceJoined(date)
         }
+        
+        btnFollow.backgroundColor = ApplicationSettings.appPrimaryColor
+        btnFollow.setTitleColor(ApplicationSettings.appWhiteColor, for: .normal)
+        btnFollow.setTitle(R.string.localizable.following(), for: .normal)
     }
     
     func getVerifiedSocialPlatforms() {

@@ -35,8 +35,10 @@ class CountryPickerViewController: UIViewController {
     fileprivate var tap: UITapGestureRecognizer!
     public var selectedCountries: [Country] = [] {
         didSet {
-            selectedCollectionView.isHidden = selectedCountries.count <= 0
-            selectedCollectionView.reloadData()
+            if selectedCollectionView != nil {
+                selectedCollectionView.isHidden = selectedCountries.count <= 0
+                selectedCollectionView.reloadData()
+            }
         }
     }
     fileprivate var searchUsers = [Country]()
@@ -98,6 +100,10 @@ class CountryPickerViewController: UIViewController {
         setupCollectionView()
         searchUsers = users
         layoutButton.isSelected = layoutState == .list
+        if selectedCollectionView != nil {
+            selectedCollectionView.isHidden = selectedCountries.count <= 0
+            selectedCollectionView.reloadData()
+        }
         collectionView.reloadData()
         selectedCollectionView.reloadData()
     }
