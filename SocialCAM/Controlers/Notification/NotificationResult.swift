@@ -38,7 +38,8 @@ class UserNotification: Mappable{
     var refereeUserId : RefereeUserId?
     var title : String?
     var updatedAt : String?
-
+    var publicDisplayName: String?
+    var privateDisplayName: String?
 
     class func newInstance(map: Map) -> Mappable?{
         return UserNotification(map: map)
@@ -60,7 +61,8 @@ class UserNotification: Mappable{
         refereeUserId <- map["refereeUserId"]
         title <- map["title"]
         updatedAt <- map["updatedAt"]
-        
+        publicDisplayName <- map["publicDisplayName"]
+        privateDisplayName <- map["privateDisplayName"]
     }
 
     /**
@@ -142,7 +144,8 @@ class RefereeUserId : NSObject, NSCoding, Mappable{
     var created : String?
     var profileImageURL : String?
     var socialPlatforms : [AnyObject]?
-
+    var isShowFlags: Bool?
+    var userStateFlags: [UserCountry]?
 
     class func newInstance(map: Map) -> Mappable?{
         return RefereeUserId(map: map)
@@ -156,7 +159,8 @@ class RefereeUserId : NSObject, NSCoding, Mappable{
         created <- map["created"]
         profileImageURL <- map["profileImageURL"]
         socialPlatforms <- map["socialPlatforms"]
-        
+        isShowFlags <- map["isShowFlags"]
+        userStateFlags <- map["userStateFlags"]
     }
 
     /**

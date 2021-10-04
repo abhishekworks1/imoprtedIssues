@@ -22,6 +22,8 @@ class AccountSettings {
     
     static var accountSettings = [
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.referringChannelName(), selected: false)], settingsType: .referringChannelName),
+        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.publicDisplayName(), selected: false)], settingsType: .publicDisplayName),
+        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.privateDisplayName(), selected: false)], settingsType: .privateDisplayName),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.deleteAccount(Constant.Application.displayName), selected: false)], settingsType: .deleteAccount)
     ]
 }
@@ -34,6 +36,10 @@ class AccountSettingsViewController: UIViewController {
     @IBOutlet weak var lblPopup: UILabel!
     @IBOutlet weak var doubleButtonStackView: UIStackView!
     @IBOutlet weak var singleButtonSttackView: UIStackView!
+    
+    // MARK: - Variable Declarations
+    var isDisplayNameChange = false
+    private lazy var storyCameraVC = StoryCameraViewController()
     
     // MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -61,6 +67,9 @@ class AccountSettingsViewController: UIViewController {
         if let subscriptionVC = R.storyboard.subscription.subscriptionContainerViewController() {
             navigationController?.pushViewController(subscriptionVC, animated: true)
         }
+    }
+    @IBAction func onDonePressed(_ sender: UIButton) {
+        self.editDisplayName()
     }
 }
 
@@ -90,11 +99,15 @@ extension AccountSettingsViewController: UITableViewDataSource {
                 return accountSettingsCell
             }
             referringChannelNameCell.lblReferringChannelTitle.text = R.string.localizable.referringChannelName()
-            if let name = Defaults.shared.currentUser?.refferingChannel,
-               let userImageUrl = Defaults.shared.currentUser?.refferedBy?.profileImageURL {
+            if let name = Defaults.shared.currentUser?.refferingChannel {
                 referringChannelNameCell.lblChannelName.text = R.string.localizable.referringChannel(name)
+            }
+            if let userImageUrl = Defaults.shared.currentUser?.refferedBy?.profileImageURL {
                 referringChannelNameCell.userImageView.layer.cornerRadius = referringChannelNameCell.userImageView.bounds.width / 2
                 referringChannelNameCell.userImageView.sd_setImage(with: URL.init(string: userImageUrl), placeholderImage: ApplicationSettings.userPlaceHolder)
+            } else {
+                referringChannelNameCell.userImageView.layer.cornerRadius = referringChannelNameCell.userImageView.bounds.width / 2
+                referringChannelNameCell.userImageView.sd_setImage(with: URL.init(string: ""), placeholderImage: ApplicationSettings.userPlaceHolder)
             }
             if let socialPlatForms = Defaults.shared.referredByData?.socialPlatforms {
                 socialPlatForms.count == 4 ? (referringChannelNameCell.imgSocialMediaBadge.isHidden = false) : (referringChannelNameCell.imgSocialMediaBadge.isHidden = true)
@@ -102,6 +115,17 @@ extension AccountSettingsViewController: UITableViewDataSource {
             return referringChannelNameCell
         } else if settingTitle.settingsType == .deleteAccount {
             accountSettingsCell.title.textColor = R.color.labelError()
+            accountSettingsCell.imgSettingIcon.image = R.image.iconAccountDelete()
+        } else if settingTitle.settingsType == .publicDisplayName || settingTitle.settingsType == .privateDisplayName {
+            guard let displayNameCell: DisplayNameTableViewCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.displayNameTableViewCell.identifier) as? DisplayNameTableViewCell else {
+                return accountSettingsCell
+            }
+            if settingTitle.settingsType == .publicDisplayName {
+                displayNameCell.displayNameType = .publicDisplayName
+            } else if settingTitle.settingsType == .privateDisplayName {
+                displayNameCell.displayNameType = .privateDisplayName
+            }
+            return displayNameCell
         }
         
         return accountSettingsCell
@@ -138,6 +162,8 @@ extension AccountSettingsViewController: UITableViewDelegate {
         let settingTitle = AccountSettings.accountSettings[indexPath.section]
         if settingTitle.settingsType == .referringChannelName {
             return 60
+        } else if settingTitle.settingsType == .publicDisplayName || settingTitle.settingsType == .privateDisplayName {
+            return 94
         } else {
             return 40
         }
@@ -191,6 +217,30 @@ extension AccountSettingsViewController: UITableViewDelegate {
             self.popupView.isHidden = true
         }, onError: { error in
             self.popupView.isHidden = true
+            self.showAlert(alertMessage: error.localizedDescription)
+        }, onCompleted: {
+        }).disposed(by: self.rx.disposeBag)
+    }
+    
+    func editDisplayName() {
+        var publicDisplayName = ""
+        var privateDisplayName = ""
+        if let cell = self.accountSettingsTableView.cellForRow(at: IndexPath(row: 0, section: 1)) as? DisplayNameTableViewCell {
+            publicDisplayName = cell.txtDisplaName.text ?? ""
+        }
+        if let cell = self.accountSettingsTableView.cellForRow(at: IndexPath(row: 0, section: 2)) as? DisplayNameTableViewCell {
+            privateDisplayName = cell.txtDisplaName.text ?? ""
+        }
+        ProManagerApi.editDisplayName(publicDisplayName: publicDisplayName, privateDisplayName: privateDisplayName).request(Result<EmptyModel>.self).subscribe(onNext: { [weak self] (response) in
+            guard let `self` = self else {
+                return
+            }
+            if response.status == ResponseType.success {
+                self.storyCameraVC.syncUserModel { _ in
+                    self.navigationController?.popViewController(animated: true)
+                }
+            }
+        }, onError: { error in
             self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)

@@ -26,5 +26,7 @@ public struct StaticKeys {
     static let countryCodeUS = "US"
     static let referredUserCreatedDate = "referredUserCreatedDate"
     static let referredByData = "referredByData"
+    static let publicDisplayName = "publicDisplayName"
+    static let privateDisplayName = "privateDisplayName"
     
 }

@@ -25,6 +25,7 @@ class GuildlineIconPositionTableViewCell: UITableViewCell {
     @IBOutlet weak var imgDashed: UIImageView!
     
     @IBOutlet weak var lblTitle: UILabel!
+    @IBOutlet weak var iconSettingImage: UIImageView!
     
     @IBOutlet weak var lblSold: UILabel!
     @IBOutlet weak var lblDotted: UILabel!
