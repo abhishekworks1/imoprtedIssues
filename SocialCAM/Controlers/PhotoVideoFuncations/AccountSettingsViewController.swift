@@ -96,6 +96,9 @@ extension AccountSettingsViewController: UITableViewDataSource {
                 referringChannelNameCell.userImageView.layer.cornerRadius = referringChannelNameCell.userImageView.bounds.width / 2
                 referringChannelNameCell.userImageView.sd_setImage(with: URL.init(string: userImageUrl), placeholderImage: ApplicationSettings.userPlaceHolder)
             }
+            if let socialPlatForms = Defaults.shared.referredByData?.socialPlatforms {
+                socialPlatForms.count == 4 ? (referringChannelNameCell.imgSocialMediaBadge.isHidden = false) : (referringChannelNameCell.imgSocialMediaBadge.isHidden = true)
+            }
             return referringChannelNameCell
         } else if settingTitle.settingsType == .deleteAccount {
             accountSettingsCell.title.textColor = R.color.labelError()
