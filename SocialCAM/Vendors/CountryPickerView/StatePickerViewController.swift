@@ -177,7 +177,7 @@ extension StatePickerViewController: UICollectionViewDataSource {
             layoutState == .grid ? cell.setupGridLayoutConstraints(1, cellWidth: cell.frame.width) : cell.setupListLayoutConstraints(1, cellWidth: cell.frame.width)
             let country = searchUsers[indexPath.row]
             cell.bind(country)
-            cell.selectedItem = (selectedStates.firstIndex(of: country) != nil) ? true : false
+            cell.selectedItem = (selectedStates.firstIndex(of: country) != nil && !country.isState)
         }
         
         return cell

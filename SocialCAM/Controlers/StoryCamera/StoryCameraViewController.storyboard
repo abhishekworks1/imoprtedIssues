@@ -455,11 +455,24 @@
                                                     </button>
                                                 </subviews>
                                             </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="JZS-T0-hB9">
+                                                <rect key="frame" x="268" y="0.0" width="53.333333333333314" height="54"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oaj-Kx-QAa">
+                                                        <rect key="frame" x="0.0" y="0.0" width="53.333333333333336" height="54"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <state key="normal" image="iconBusinessDashboard"/>
+                                                        <connections>
+                                                            <action selector="btnBusinessDashboardTapped:" destination="aJT-JN-hbU" eventType="touchUpInside" id="Zfe-Hm-h2Q"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Qbg-AX-n5f">
-                                                <rect key="frame" x="312.66666666666669" y="0.0" width="62.333333333333314" height="54"/>
+                                                <rect key="frame" x="321.33333333333331" y="0.0" width="53.666666666666686" height="54"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="odQ-Fo-NjO">
-                                                        <rect key="frame" x="0.0" y="0.0" width="62.333333333333336" height="54"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="53.666666666666664" height="54"/>
                                                         <state key="normal" image="icoDone"/>
                                                         <state key="selected" image="icoDone"/>
                                                         <connections>
@@ -2025,6 +2038,7 @@ Countdown</string>
                         <outlet property="bottomCameraViews" destination="xSc-Ve-S1r" id="0yV-aa-IDV"/>
                         <outlet property="btnDoNotShowAgain" destination="u9y-ex-OGh" id="ukx-xN-t5x"/>
                         <outlet property="btnShowHide" destination="0m8-ct-tbU" id="ZVU-ru-q8J"/>
+                        <outlet property="businessDashboardStackView" destination="JZS-T0-hB9" id="JJr-AD-ur1"/>
                         <outlet property="cameraModeIndicatorImageView" destination="Qf7-aH-P2F" id="9rM-HQ-VT1"/>
                         <outlet property="cameraModeIndicatorView" destination="ORR-5K-f3q" id="0Le-rK-bGt"/>
                         <outlet property="cameraSliderView" destination="jpr-Aq-u3h" id="dn5-3o-Kdm"/>
@@ -6881,6 +6895,7 @@ Countdown</string>
         <image name="icoPauseCountdown" width="24" height="24"/>
         <image name="icoSegmentLength" width="35" height="21"/>
         <image name="icoUpWhite" width="128" height="128"/>
+        <image name="iconBusinessDashboard" width="21" height="22"/>
         <image name="iconInversePosition" width="298" height="81"/>
         <image name="iconPosition" width="298" height="81"/>
         <image name="iconSwitchApp" width="31" height="32"/>

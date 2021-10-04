@@ -580,6 +580,17 @@ extension StoryCameraViewController {
         }
         UIApplication.shared.open(url)
     }
+    
+    @IBAction func btnBusinessDashboardTapped(_ sender: UIButton) {
+        if let token = Defaults.shared.sessionToken {
+            let urlString = "\(userDashboardUrl)/redirect?token=\(token)"
+            guard let url = URL(string: urlString) else {
+                return
+            }
+            presentSafariBrowser(url: url)
+        }
+    }
+    
 }
 
 // MARK: StoryUploadDelegate
