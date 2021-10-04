@@ -2362,6 +2362,13 @@ Countdown</string>
                                                     <color key="textColor" name="AppBlackColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="socialBadge" translatesAutoresizingMaskIntoConstraints="NO" id="hEk-HZ-XbY" userLabel="Badge Image View">
+                                                    <rect key="frame" x="166.33333333333334" y="15" width="60" height="60"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="60" id="M74-0V-XTG"/>
+                                                        <constraint firstAttribute="height" constant="60" id="RAr-ub-Lb7"/>
+                                                    </constraints>
+                                                </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="61g-Tk-Gk6">
                                                     <rect key="frame" x="0.0" y="0.0" width="359" height="61"/>
                                                 </button>
@@ -2371,12 +2378,14 @@ Countdown</string>
                                                 <constraint firstItem="KaT-dA-dZj" firstAttribute="centerY" secondItem="DZQ-x1-CR4" secondAttribute="centerY" id="BWp-KR-hvo"/>
                                                 <constraint firstAttribute="trailing" secondItem="61g-Tk-Gk6" secondAttribute="trailing" id="F0y-4p-OTq"/>
                                                 <constraint firstItem="m5O-SX-fYi" firstAttribute="leading" secondItem="DZQ-x1-CR4" secondAttribute="leading" constant="50" id="MGB-XM-484"/>
+                                                <constraint firstItem="hEk-HZ-XbY" firstAttribute="leading" secondItem="zK1-TT-d86" secondAttribute="trailing" constant="10" id="Mga-gW-KQj"/>
                                                 <constraint firstAttribute="trailing" secondItem="zJJ-hm-C2b" secondAttribute="trailing" id="O3w-CM-0Rw"/>
                                                 <constraint firstItem="61g-Tk-Gk6" firstAttribute="leading" secondItem="DZQ-x1-CR4" secondAttribute="leading" id="Ph6-so-PNU"/>
                                                 <constraint firstItem="61g-Tk-Gk6" firstAttribute="top" secondItem="DZQ-x1-CR4" secondAttribute="top" id="Pvi-Lv-jog"/>
                                                 <constraint firstItem="zJJ-hm-C2b" firstAttribute="top" secondItem="DZQ-x1-CR4" secondAttribute="top" id="bSD-mr-aDX"/>
                                                 <constraint firstAttribute="bottom" secondItem="61g-Tk-Gk6" secondAttribute="bottom" id="cJf-4Q-cEZ"/>
                                                 <constraint firstItem="zJJ-hm-C2b" firstAttribute="leading" secondItem="DZQ-x1-CR4" secondAttribute="leading" id="fum-eJ-cWN"/>
+                                                <constraint firstItem="hEk-HZ-XbY" firstAttribute="top" secondItem="DZQ-x1-CR4" secondAttribute="top" constant="15" id="hWI-n6-c2r"/>
                                                 <constraint firstItem="KaT-dA-dZj" firstAttribute="leading" secondItem="DZQ-x1-CR4" secondAttribute="leading" constant="10" id="nQK-Yx-Fn6"/>
                                                 <constraint firstItem="zK1-TT-d86" firstAttribute="centerY" secondItem="KaT-dA-dZj" secondAttribute="centerY" id="nx1-Lu-jWB"/>
                                                 <constraint firstItem="zK1-TT-d86" firstAttribute="leading" secondItem="KaT-dA-dZj" secondAttribute="trailing" constant="12" id="wjt-Nh-HUP"/>
@@ -2386,6 +2395,7 @@ Countdown</string>
                                         <connections>
                                             <outlet property="addProfilePic" destination="m5O-SX-fYi" id="xZg-dV-1YM"/>
                                             <outlet property="btnProfilePic" destination="61g-Tk-Gk6" id="W8f-V1-ZHs"/>
+                                            <outlet property="imgSocialMediaBadge" destination="hEk-HZ-XbY" id="Ban-HH-PVJ"/>
                                             <outlet property="title" destination="zK1-TT-d86" id="2V9-SU-U1K"/>
                                             <outlet property="userImage" destination="KaT-dA-dZj" id="fd9-rq-c9O"/>
                                         </connections>
@@ -6796,17 +6806,27 @@ Countdown</string>
                                                     <color key="textColor" name="AppPrimaryColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="socialBadge" translatesAutoresizingMaskIntoConstraints="NO" id="7Ly-7Q-JWB">
+                                                    <rect key="frame" x="129.66666666666666" y="2.6666666666666643" width="60" height="60"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="60" id="Z5V-8Y-Ph4"/>
+                                                        <constraint firstAttribute="height" constant="60" id="ycL-UK-8KA"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="Fza-d6-2g2" firstAttribute="leading" secondItem="wqV-SC-1OI" secondAttribute="trailing" constant="8" symbolic="YES" id="32X-Ss-tpw"/>
                                                 <constraint firstItem="Fza-d6-2g2" firstAttribute="top" secondItem="WLm-MT-80n" secondAttribute="bottom" constant="3" id="5LK-77-mNG"/>
                                                 <constraint firstItem="wqV-SC-1OI" firstAttribute="leading" secondItem="McD-u7-bYG" secondAttribute="leading" constant="15" id="AHb-dc-oiR"/>
+                                                <constraint firstItem="7Ly-7Q-JWB" firstAttribute="leading" secondItem="WLm-MT-80n" secondAttribute="trailing" constant="10" id="IvQ-Le-hgH"/>
                                                 <constraint firstItem="WLm-MT-80n" firstAttribute="leading" secondItem="wqV-SC-1OI" secondAttribute="trailing" constant="8" symbolic="YES" id="Ye2-kt-Rxh"/>
                                                 <constraint firstItem="WLm-MT-80n" firstAttribute="top" secondItem="McD-u7-bYG" secondAttribute="top" constant="10" id="ebg-HQ-z8V"/>
+                                                <constraint firstItem="7Ly-7Q-JWB" firstAttribute="centerY" secondItem="McD-u7-bYG" secondAttribute="centerY" id="hdR-cU-p01"/>
                                                 <constraint firstItem="wqV-SC-1OI" firstAttribute="centerY" secondItem="McD-u7-bYG" secondAttribute="centerY" id="iTj-Xx-qbY"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="imgSocialMediaBadge" destination="7Ly-7Q-JWB" id="M8L-dg-wFF"/>
                                             <outlet property="lblChannelName" destination="Fza-d6-2g2" id="lLI-ua-17j"/>
                                             <outlet property="lblReferringChannelTitle" destination="WLm-MT-80n" id="7jx-ie-CYB"/>
                                             <outlet property="userImageView" destination="wqV-SC-1OI" id="zxd-ON-9r3"/>
@@ -7284,6 +7304,7 @@ Countdown</string>
         <image name="reload" width="16" height="16"/>
         <image name="rightIconSetting" width="21" height="15"/>
         <image name="showStoryCamIcons" width="34" height="34"/>
+        <image name="socialBadge" width="41" height="70"/>
         <image name="solidLine" width="2" height="107"/>
         <image name="ssuSoccerCam" width="40" height="40"/>
         <image name="storyBack" width="19" height="19"/>

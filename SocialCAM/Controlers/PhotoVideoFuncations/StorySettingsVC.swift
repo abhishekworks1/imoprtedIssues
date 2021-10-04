@@ -398,10 +398,14 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 headerView.userImage.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: ApplicationSettings.userPlaceHolder)
             }
             headerView.title.text = R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? "")
+            if let socialPlatForms = Defaults.shared.socialPlatforms {
+                socialPlatForms.count == 4 ? (headerView.imgSocialMediaBadge.isHidden = false) : (headerView.imgSocialMediaBadge.isHidden = true)
+            }
         } else {
             headerView.title.isHidden = true
             headerView.userImage.isHidden = true
             headerView.addProfilePic.isHidden = true
+            headerView.imgSocialMediaBadge.isHidden = true
         }
         if headerView.section == 0 {
             headerView.btnProfilePic.addTarget(self, action: #selector(btnEditProfilePic), for: .touchUpInside)

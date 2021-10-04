@@ -14,6 +14,7 @@ class ReferringChannelNameCell: UITableViewCell {
     @IBOutlet weak var lblReferringChannelTitle: UILabel!
     @IBOutlet weak var lblChannelName: UILabel!
     @IBOutlet weak var userImageView: UIImageView!
+    @IBOutlet weak var imgSocialMediaBadge: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
