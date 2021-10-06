@@ -330,6 +330,21 @@ extension CountryPickerViewController: UICollectionViewDataSource {
                 onlyCountries.append(users[indexPath.row])
                 cell.selectedItem = true
             }
+        } else if collectionView == self.selectedCollectionView, let cell = collectionView.cellForItem(at: indexPath) as? CountryPickerViewCell {
+            let co = selectedCountries[indexPath.row]
+            if let index = self.selectedCountries.firstIndex(where: { $0.code == co.code }),
+               let onlyCountryIndex = self.onlyCountries.firstIndex(where: { $0.code == co.code }) {
+                //deselect
+                if self.selectedCountries[index].code == StaticKeys.countryCodeUS {
+                    if let stateIndex = self.selectedCountries.firstIndex(where: { $0.isState == true }) {
+                        self.selectedCountries.remove(at: stateIndex)
+                    }
+                }
+                self.selectedCountries.remove(at: index)
+                self.onlyCountries.remove(at: onlyCountryIndex)
+                cell.selectedItem = false
+                self.collectionView.reloadData()
+            }
         }
     }
 }
