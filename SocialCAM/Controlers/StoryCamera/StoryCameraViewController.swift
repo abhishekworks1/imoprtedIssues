@@ -2576,9 +2576,11 @@ extension StoryCameraViewController {
                 Defaults.shared.isFreeTrial = response.result?.user?.isTempSubscription
                 Defaults.shared.allowFullAccess = response.result?.userSubscription?.allowFullAccess
                 Defaults.shared.socialPlatforms = response.result?.user?.socialPlatforms
+                Defaults.shared.referredUserCreatedDate = response.result?.user?.refferedBy?.created
                 if let isAllowAffiliate = response.result?.user?.isAllowAffiliate {
                     Defaults.shared.isAffiliateLinkActivated = isAllowAffiliate
                 }
+                Defaults.shared.referredByData = response.result?.user?.refferedBy
                 completion(true)
             }
         }, onError: { error in
