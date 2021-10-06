@@ -192,39 +192,39 @@ public var userDashboardUrl: String {
     switch Defaults.shared.releaseType {
     case .debug, .alpha:
         if isFastCamApp || isFastCamLiteApp {
-            baseUrlString = "https://alpha.react.fastcam.app"
+            baseUrlString = "https://dashboard.fastcam.app"
         } else if isSnapCamApp || isSnapCamLiteApp {
-            baseUrlString = "https://alpha.react.snapcam.app"
+            baseUrlString = "https://dashboard.snapcam.app"
         } else if isQuickCamApp || isQuickCamLiteApp || isQuickApp {
-            baseUrlString = "https://alpha.react.quickcam.app"
+            baseUrlString = "https://dashboard.quickcam.app"
         } else if isSpeedCamApp || isSpeedCamLiteApp {
-            baseUrlString = "https://alpha.react.speedcam.net"
+            baseUrlString = "https://dashboard.speedcam.net"
         } else {
-            baseUrlString = "https://alpha.react.snapcam.app"
+            baseUrlString = "https://dashboard.snapcam.app"
         }
     case .beta:
         if isFastCamApp || isFastCamLiteApp {
-            baseUrlString = "https://beta.react.fastcam.app"
+            baseUrlString = "https://dashboard.fastcam.app"
         } else if isSnapCamApp || isSnapCamLiteApp {
-            baseUrlString = "https://beta.react.snapcam.app"
+            baseUrlString = "https://dashboard.snapcam.app"
         } else if isQuickCamApp || isQuickCamLiteApp || isQuickApp {
-            baseUrlString = "https://beta.react.quickcam.app"
+            baseUrlString = "https://dashboard.quickcam.app"
         } else if isSpeedCamApp || isSpeedCamLiteApp {
-            baseUrlString = "https://beta.react.speedcam.net"
+            baseUrlString = "https://dashboard.speedcam.net"
         } else {
-            baseUrlString = "https://beta.react.snapcam.app"
+            baseUrlString = "https://dashboard.snapcam.app"
         }
     case .store:
         if isFastCamApp || isFastCamLiteApp {
-            baseUrlString = "https://react.fastcam.app"
+            baseUrlString = "https://dashboard.fastcam.app"
         } else if isSnapCamApp || isSnapCamLiteApp {
-            baseUrlString = "https://react.snapcam.app"
+            baseUrlString = "https://dashboard.snapcam.app"
         } else if isQuickCamApp || isQuickCamLiteApp || isQuickApp {
-            baseUrlString = "https://react.quickcam.app"
+            baseUrlString = "https://dashboard.quickcam.app"
         } else if isSpeedCamApp || isSpeedCamLiteApp {
-            baseUrlString = "https://react.speedcam.net"
+            baseUrlString = "https://dashboard.speedcam.net"
         } else {
-            baseUrlString = "https://react.snapcam.app"
+            baseUrlString = "https://dashboard.snapcam.app"
         }
     }
     return baseUrlString

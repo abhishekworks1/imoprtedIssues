@@ -87,9 +87,7 @@ class UserDetailsVC: UIViewController {
                     self.youtubeVerifiedView.isHidden = false
                 }
             }
-            if socialPlatforms.count >= 4 {
-                self.imgUserPlaceholder.image = R.image.shareScreenSocialProfileBadge()
-            }
+            self.imgUserPlaceholder.image = (socialPlatforms.count == 4) ? R.image.shareScreenRibbonProfileBadge() : R.image.shareScreenProfileBadge()
         } else {
             verifiedStackView.isHidden = true
         }

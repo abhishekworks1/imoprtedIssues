@@ -84,6 +84,7 @@ class StatePickerViewController: UIViewController {
     )
     fileprivate var layoutState: LayoutState = .grid
     var isStateSelected = false
+    public var onlyStates: [Country] = [Country]()
     
     // MARK: - View Life Cycle Methods
     override func viewDidLoad() {
@@ -109,10 +110,7 @@ class StatePickerViewController: UIViewController {
     }
     
     fileprivate func maxCheck() -> Bool {
-        if 3 <= self.selectedStates.count || isStateSelected {
-            DispatchQueue.runOnMainThread {
-                Utils.appDelegate?.window?.makeToast(R.string.localizable.youCanSelectMaximum1State())
-            }
+        if 1 <= self.onlyStates.count {
             return true
         }
         return false
@@ -195,17 +193,30 @@ extension StatePickerViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == self.collectionView, let cell = collectionView.cellForItem(at: indexPath) as? CountryPickerViewCell {
             let co = searchUsers[indexPath.row]
-            if let index = self.selectedStates.firstIndex(where: { $0.code == co.code }) {
+            if let index = self.selectedStates.firstIndex(where: { $0.code == co.code }),
+               let onlyStatesIndex = self.onlyStates.firstIndex(where: { $0.code == co.code }) {
                 //deselect
                 self.selectedStates.remove(at: index)
-                isStateSelected = false
+                self.onlyStates.remove(at: onlyStatesIndex)
                 cell.selectedItem = false
             } else {
                 guard !maxCheck() else {
+                    guard let indexPathOfItemToDelete = collectionView.indexPathsForSelectedItems?.last else {
+                        return
+                    }
+                    if let cell = collectionView.cellForItem(at: indexPathOfItemToDelete) as? CountryPickerViewCell {
+                        cell.selectedItem = false
+                        self.collectionView.reloadData()
+                    }
+                    self.selectedStates.removeLast()
+                    self.onlyStates.removeLast()
+                    self.selectedStates.append(userStates[indexPath.row])
+                    self.onlyStates.append(userStates[indexPath.row])
+                    cell.selectedItem = true
                     return
                 }
                 selectedStates.append(userStates[indexPath.row])
-                isStateSelected = true
+                onlyStates.append(userStates[indexPath.row])
                 cell.selectedItem = true
             }
         }
