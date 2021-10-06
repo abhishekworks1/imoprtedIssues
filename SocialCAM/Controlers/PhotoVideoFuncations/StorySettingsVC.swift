@@ -228,6 +228,11 @@ class StorySettingsVC: UIViewController {
         self.navigationController?.pushViewController(legalVc, animated: true)
     }
     
+    @IBAction func btnPatentsTapped(_ sender: UIButton) {
+        guard let patentsVc = R.storyboard.legal.patentsViewController() else { return }
+        self.navigationController?.pushViewController(patentsVc, animated: true)
+    }
+    
     @IBAction func btnLogoutTapped(_ sender: UIButton) {
         self.logoutWithKeycloak()
     }
