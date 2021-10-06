@@ -30,5 +30,7 @@ public struct StaticKeys {
     static let stateCode = "stateCode"
     static let country = "country"
     static let countryCode = "countryCode"
+    static let referredUserCreatedDate = "referredUserCreatedDate"
+    static let referredByData = "referredByData"
     
 }
