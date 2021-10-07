@@ -88,7 +88,7 @@ extension EditProfileSocialShareViewController: UITableViewDataSource {
             for socialType in socialLogins {
                 if socialType == setting.name.lowercased() {
                     cell.imgSocialCheckmark.isHidden = false
-                    cell.imgSocialCheckmark.image = R.image.socialShareCheckMark()
+                    //#NO_RESOURCE_FOUND_BOOMI  cell.imgSocialCheckmark.image = R.image.socialShareCheckMark()
                 }
             }
         }

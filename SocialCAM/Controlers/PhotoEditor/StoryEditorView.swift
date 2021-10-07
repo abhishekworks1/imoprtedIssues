@@ -731,10 +731,10 @@ extension StoryEditorView {
                     followMeStoryView.userBitEmoji.image = R.image.snapcamliteSplashLogo()
                     followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppSnapCamLite()
                 } else if type == .businessCenter {
-                    followMeStoryView.userBitEmoji.image = R.image.ssuBusinessCenter()
+                    //#NO_RESOURCE_FOUND_BOOMI                    followMeStoryView.userBitEmoji.image = R.image.ssuBusinessCenter()
                     followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppBusinessCenter()
                 } else if type == .vidPlay {
-                    followMeStoryView.userBitEmoji.image = R.image.ssuVidPlay()
+                    //#NO_RESOURCE_FOUND_BOOMI           followMeStoryView.userBitEmoji.image = R.image.ssuVidPlay()
                     followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppVidPlay()
                 } else if type == .enterLink {
                     followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppQuickCamLite()
@@ -813,10 +813,10 @@ extension StoryEditorView {
             followMeStoryView.userBitEmoji.image = R.image.socialScreenRecorderSSU()
             followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppSocialScreenRecorder()
         } else if type == .businessCenter {
-            followMeStoryView.userBitEmoji.image = R.image.ssuBusinessCenter()
+            //#NO_RESOURCE_FOUND_BOOMI         followMeStoryView.userBitEmoji.image = R.image.ssuBusinessCenter()
             followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppBusinessCenter()
         } else if type == .vidPlay {
-            followMeStoryView.userBitEmoji.image = R.image.ssuVidPlay()
+            //#NO_RESOURCE_FOUND_BOOMI      followMeStoryView.userBitEmoji.image = R.image.ssuVidPlay()
             followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppVidPlay()
         } else if type == .enterLink {
             followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppQuickCamLite()

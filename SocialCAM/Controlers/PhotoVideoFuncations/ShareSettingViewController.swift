@@ -62,7 +62,7 @@ class ShareSettingViewController: UIViewController {
             self.lblUserName.text = "@\(channelId)"
         }
         if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
-            self.imgProfilePic.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
+            //#NO_RESOURCE_FOUND_BOOMI            self.imgProfilePic.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
             self.imgProfilePic.layer.cornerRadius = imgProfilePic.bounds.width / 2
             self.imgProfilePic.contentMode = .scaleAspectFill
         }
@@ -118,7 +118,7 @@ class ShareSettingViewController: UIViewController {
                     self.youtubeVerifiedView.isHidden = false
                 }
             }
-            self.imgProfileBadge.image = (socialPlatforms.count == 4) ? R.image.shareScreenRibbonProfileBadge() : R.image.shareScreenProfileBadge()
+            //#NO_RESOURCE_FOUND_BOOMI     self.imgProfileBadge.image = (socialPlatforms.count == 4) ? R.image.shareScreenRibbonProfileBadge() : R.image.shareScreenProfileBadge()
             self.socialBadgeStackView.isHidden = socialPlatforms.count != 4
             self.socialPlatformsVerifiedBadgeView.isHidden = socialPlatforms.count != 4
         } else {

@@ -302,35 +302,35 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         } else if settingTitle.settingsType == .userDashboard {
             cell.onOffButton.isHidden = true
             cell.socialImageView?.isHidden = false
-            cell.socialImageView?.image = R.image.iconBusinessDashboard()
+            //#NO_RESOURCE_FOUND_BOOMI            cell.socialImageView?.image = R.image.iconBusinessDashboard()
         } else if settingTitle.settingsType == .shareSetting {
             cell.onOffButton.isHidden = true
             cell.socialImageView?.isHidden = false
-            cell.socialImageView?.image = R.image.iconShare()
+            //#NO_RESOURCE_FOUND_BOOMI     cell.socialImageView?.image = R.image.iconShare()
         } else if settingTitle.settingsType == .accountSettings {
             cell.onOffButton.isHidden = true
             cell.socialImageView?.isHidden = false
-            cell.socialImageView?.image = R.image.iconAccount()
+            //#NO_RESOURCE_FOUND_BOOMI     cell.socialImageView?.image = R.image.iconAccount()
         } else if settingTitle.settingsType == .cameraSettings {
             cell.onOffButton.isHidden = true
             cell.socialImageView?.isHidden = false
-            cell.socialImageView?.image = R.image.iconCameraSettings()
+            //#NO_RESOURCE_FOUND_BOOMI   cell.socialImageView?.image = R.image.iconCameraSettings()
         } else if settingTitle.settingsType == .system {
             cell.onOffButton.isHidden = true
             cell.socialImageView?.isHidden = false
-            cell.socialImageView?.image = R.image.iconSystem()
+            //#NO_RESOURCE_FOUND_BOOMI   cell.socialImageView?.image = R.image.iconSystem()
         } else if settingTitle.settingsType == .help {
             cell.onOffButton.isHidden = true
             cell.socialImageView?.isHidden = false
-            cell.socialImageView?.image = R.image.iconHowItWorks()
+            //#NO_RESOURCE_FOUND_BOOMI   cell.socialImageView?.image = R.image.iconHowItWorks()
         } else if settingTitle.settingsType == .logout {
             cell.onOffButton.isHidden = true
             cell.socialImageView?.isHidden = false
-            cell.socialImageView?.image = R.image.iconLogout()
+            //#NO_RESOURCE_FOUND_BOOMI   cell.socialImageView?.image = R.image.iconLogout()
         } else if settingTitle.settingsType == .notification {
             cell.onOffButton.isHidden = true
             cell.socialImageView?.isHidden = false
-            cell.socialImageView?.image = R.image.iconNotification()
+            //#NO_RESOURCE_FOUND_BOOMI  cell.socialImageView?.image = R.image.iconNotification()
         }
         else if settingTitle.settingsType == .socialLogins {
             cell.onOffButton.isHidden = true

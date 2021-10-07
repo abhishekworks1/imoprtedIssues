@@ -47,11 +47,11 @@ class SelectLinkViewController: UIViewController {
     // MARK: - Action Methods
     @IBAction func btnYesTapped(_ sender: UIButton) {
         yourAffiliateLinkVC.setAffiliate(setAffiliateValue: true)
-        callDidSelectMethod(type: QuickCam.SSUTagType.quickApp)
+        //#NO_RESOURCE_FOUND_BOOMI        callDidSelectMethod(type: QuickCam.SSUTagType.quickApp)
         dismiss(animated: true, completion: nil)
     }
     @IBAction func btnNoTapped(_ sender: UIButton) {
-        callDidSelectMethod(type: QuickCam.SSUTagType.quickApp)
+        //#NO_RESOURCE_FOUND_BOOMI//#NO_RESOURCE_FOUND_BOOMI   callDidSelectMethod(type: QuickCam.SSUTagType.quickApp)
         dismiss(animated: true, completion: nil)
     }
     @IBAction func btnOkTapped(_ sender: UIButton) {
@@ -132,23 +132,23 @@ extension SelectLinkViewController: UITableViewDelegate {
                 activateAffiliateLinkPopup.isHidden = false
                 Defaults.shared.isAffiliatePopupShowed = true
             } else {
-                callDidSelectMethod(type: QuickCam.SSUTagType.quickApp)
+                //#NO_RESOURCE_FOUND_BOOMI    callDidSelectMethod(type: QuickCam.SSUTagType.quickApp)
                 dismiss(animated: true, completion: nil)
             }
         } else if linkTitle.linkType == .vidPlay {
-            callDidSelectMethod(type: QuickCam.SSUTagType.vidPlay)
+            //#NO_RESOURCE_FOUND_BOOMI  callDidSelectMethod(type: QuickCam.SSUTagType.vidPlay)
             dismiss(animated: true, completion: nil)
         } else if linkTitle.linkType == .businessCenter {
-            callDidSelectMethod(type: QuickCam.SSUTagType.businessCenter)
+            //#NO_RESOURCE_FOUND_BOOMI callDidSelectMethod(type: QuickCam.SSUTagType.businessCenter)
             dismiss(animated: true, completion: nil)
         } else if linkTitle.linkType == .enterLink {
             backgroundView.isHidden = true
             selectLinkTableView.isHidden = true
             blurBackGroundView.isHidden = false
             enterLinkPopupView.isHidden = false
-            callDidSelectMethod(type: QuickCam.SSUTagType.enterLink)
+            //#NO_RESOURCE_FOUND_BOOMI   callDidSelectMethod(type: QuickCam.SSUTagType.enterLink)
         } else if linkTitle.linkType == .noLink {
-            callDidSelectMethod(type: QuickCam.SSUTagType.noLink)
+            //#NO_RESOURCE_FOUND_BOOMI   callDidSelectMethod(type: QuickCam.SSUTagType.noLink)
             dismiss(animated: true, completion: nil)
         }
     }
@@ -205,20 +205,20 @@ extension SelectLinkViewController {
               let vidPlayAppUrl = URL(string: DeepLinkData.vidplayDeepLinkUrlString) else {
             return
         }
-        let quickCamCell = SelectLink(name: "", linkSettings: [SelectLinkSetting(name: R.string.localizable.quickCam(), image: R.image.iconQuickCam())], linkType: .quickCam)
-        SelectLink.selectLinks.append(quickCamCell)
+        //#NO_RESOURCE_FOUND_BOOMI let quickCamCell = SelectLink(name: "", linkSettings: [SelectLinkSetting(name: R.string.localizable.quickCam(), image: R.image.iconQuickCam())], linkType: .quickCam)
+        //SelectLink.selectLinks.append(quickCamCell)
         if UIApplication.shared.canOpenURL(vidPlayAppUrl) {
-            let vidPlayCell = SelectLink(name: "", linkSettings: [SelectLinkSetting(name: R.string.localizable.vidPlay(), image: R.image.iconVidPlay())], linkType: .vidPlay)
-            SelectLink.selectLinks.append(vidPlayCell)
+            //#NO_RESOURCE_FOUND_BOOMI  let vidPlayCell = SelectLink(name: "", linkSettings: [SelectLinkSetting(name: R.string.localizable.vidPlay(), image: R.image.iconVidPlay())], linkType: .vidPlay)
+           // SelectLink.selectLinks.append(vidPlayCell)
         }
         if UIApplication.shared.canOpenURL(businessCenterAppUrl) {
-            let businessCenterCell = SelectLink(name: "", linkSettings: [SelectLinkSetting(name: R.string.localizable.businessCenter(), image: R.image.iconBusinessCenter())], linkType: .businessCenter)
-            SelectLink.selectLinks.append(businessCenterCell)
+            //#NO_RESOURCE_FOUND_BOOMI    let businessCenterCell = SelectLink(name: "", linkSettings: [SelectLinkSetting(name: R.string.localizable.businessCenter(), image: R.image.iconBusinessCenter())], linkType: .businessCenter)
+          //  SelectLink.selectLinks.append(businessCenterCell)
         }
-        let enterLinkCell = SelectLink(name: "", linkSettings: [SelectLinkSetting(name: R.string.localizable.enterALink(), image: R.image.iconLink())], linkType: .enterLink)
-        SelectLink.selectLinks.append(enterLinkCell)
-        let noLinkCell = SelectLink(name: "", linkSettings: [SelectLinkSetting(name: R.string.localizable.noLink(), image: R.image.iconNoLink())], linkType: .noLink)
-        SelectLink.selectLinks.append(noLinkCell)
+        //#NO_RESOURCE_FOUND_BOOMI let enterLinkCell = SelectLink(name: "", linkSettings: [SelectLinkSetting(name: R.string.localizable.enterALink(), image: R.image.iconLink())], linkType: .enterLink)
+       // SelectLink.selectLinks.append(enterLinkCell)
+        //#NO_RESOURCE_FOUND_BOOMI  let noLinkCell = SelectLink(name: "", linkSettings: [SelectLinkSetting(name: R.string.localizable.noLink(), image: R.image.iconNoLink())], linkType: .noLink)
+       // SelectLink.selectLinks.append(noLinkCell)
     }
     
     func getLinkPreview(link: String, completionHandler: @escaping (UIImage) -> Void) {

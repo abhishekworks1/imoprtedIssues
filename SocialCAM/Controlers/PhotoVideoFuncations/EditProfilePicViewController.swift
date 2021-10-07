@@ -90,7 +90,7 @@ class EditProfilePicViewController: UIViewController {
                 imgProfilePic.image = R.image.userIconWithPlus()
                 return
             }
-            imgProfilePic.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
+            //#NO_RESOURCE_FOUND_BOOMI   imgProfilePic.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
             imgProfilePic.layer.cornerRadius = imgProfilePic.bounds.width / 2
             imgProfilePic.contentMode = .scaleAspectFill
             btnProfilePic.layer.cornerRadius = btnProfilePic.bounds.width / 2
@@ -499,7 +499,7 @@ extension EditProfilePicViewController {
                     self.youtubeVerifiedView.isHidden = false
                 }
             }
-            self.imgProfileBadge.image = (socialPlatforms.count == 4) ? R.image.shareScreenRibbonProfileBadge() : R.image.shareScreenProfileBadge()
+            //#NO_RESOURCE_FOUND_BOOMI   self.imgProfileBadge.image = (socialPlatforms.count == 4) ? R.image.shareScreenRibbonProfileBadge() : R.image.shareScreenProfileBadge()
             self.socialBadgeStackViewHeightConstraint.constant = (socialPlatforms.count == 4) ? 65 : 0
             self.socialPlatformsVerifiedBadge.isHidden = socialPlatforms.count != 4
         } else {

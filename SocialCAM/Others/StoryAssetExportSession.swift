@@ -419,9 +419,9 @@ class StoryAssetExportSession {
                 image = R.image.viralCamLiteWatermarkText()
             }
         } else if isQuickApp {
-            image = R.image.quickcamWatermark()
+            //#NO_RESOURCE_FOUND_BOOMI            image = R.image.quickcamWatermark()
             if watermarkPosition == .topLeft {
-                image = R.image.quickcamWatermark()
+                //#NO_RESOURCE_FOUND_BOOMI image = R.image.quickcamWatermark()
             }
         }
 

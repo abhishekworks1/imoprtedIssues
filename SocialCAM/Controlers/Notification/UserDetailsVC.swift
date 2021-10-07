@@ -64,10 +64,10 @@ class UserDetailsVC: UIViewController {
         self.imgUserImage.layer.cornerRadius = imgUserImage.bounds.width / 2
         self.imgUserImage.contentMode = .scaleAspectFill
         if let userImageURL = notification?.refereeUserId?.profileImageURL {
-            self.imgUserImage.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
+            //#NO_RESOURCE_FOUND_BOOMI            self.imgUserImage.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
         } else {
             if let userImageUrl = Defaults.shared.currentUser?.refferedBy?.profileImageURL {
-                self.imgUserImage.sd_setImage(with: URL.init(string: userImageUrl), placeholderImage: R.image.user_placeholder())
+                //#NO_RESOURCE_FOUND_BOOMI     self.imgUserImage.sd_setImage(with: URL.init(string: userImageUrl), placeholderImage: R.image.user_placeholder())
             }
         }
         self.getVerifiedSocialPlatforms()
@@ -112,7 +112,7 @@ class UserDetailsVC: UIViewController {
                 self.youtubeVerifiedView.isHidden = false
             }
         }
-        self.imgUserPlaceholder.image = (socialPlatfroms.count == 4) ? R.image.shareScreenRibbonProfileBadge() : R.image.shareScreenProfileBadge()
+        //#NO_RESOURCE_FOUND_BOOMI  self.imgUserPlaceholder.image = (socialPlatfroms.count == 4) ? R.image.shareScreenRibbonProfileBadge() : R.image.shareScreenProfileBadge()
     }
     
     func convertDate(_ date: String) -> String {

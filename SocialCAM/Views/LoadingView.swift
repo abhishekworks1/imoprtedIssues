@@ -189,12 +189,12 @@ public class LoadingView: UIView {
     open func setup() {
         if isLiteApp {
             if Defaults.shared.isFreeTrial == true {
-                checkForBanners(bannerImg: R.image.specialOfferForLifebanner())
+                //#NO_RESOURCE_FOUND_BOOMI  checkForBanners(bannerImg: R.image.specialOfferForLifebanner())
             } else if Defaults.shared.isFreeTrial == false {
                 if Defaults.shared.appMode != .basic {
-                    checkForBanners(bannerImg: R.image.upgradeBasicLiteBanner())
+                    //#NO_RESOURCE_FOUND_BOOMI     checkForBanners(bannerImg: R.image.upgradeBasicLiteBanner())
                 } else {
-                    checkForBanners(bannerImg: R.image.fullVersionComingBanner())
+                    //#NO_RESOURCE_FOUND_BOOMI   checkForBanners(bannerImg: R.image.fullVersionComingBanner())
                 }
             }
         }
@@ -203,13 +203,13 @@ public class LoadingView: UIView {
     
     func checkForBanners(bannerImg: UIImage?) {
         if !openApp(appName: R.string.localizable.vidPlay().lowercased()) && !openApp(appName: R.string.localizable.businesscenter()) {
-            imgAdvertisementArray = [R.image.installVidplayBanner(), R.image.installBusinesscenterBanner()]
+            //#NO_RESOURCE_FOUND_BOOMI  imgAdvertisementArray = [R.image.installVidplayBanner(), R.image.installBusinesscenterBanner()]
         } else if !openApp(appName: R.string.localizable.vidPlay().lowercased()) {
-            imgAdvertisementArray = [R.image.installVidplayBanner()]
+            //#NO_RESOURCE_FOUND_BOOMI imgAdvertisementArray = [R.image.installVidplayBanner()]
         } else if !openApp(appName: R.string.localizable.businesscenter()) {
-            imgAdvertisementArray = [R.image.installBusinesscenterBanner()]
+            //#NO_RESOURCE_FOUND_BOOMI  imgAdvertisementArray = [R.image.installBusinesscenterBanner()]
         } else {
-            imgAdvertisementArray = [R.image.fullVersionComingBanner()]
+            //#NO_RESOURCE_FOUND_BOOMI imgAdvertisementArray = [R.image.fullVersionComingBanner()]
         }
     }
     
