@@ -289,6 +289,19 @@ extension String {
         return dateFormat.date(from: self) ?? Date()
     }
     
+    func fromUTCToLocalDateTime() -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = R.string.localizable.yyyyMMDdTHHMmSsSSSZ()
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+        var formattedString = self.replacingOccurrences(of: "Z", with: "")
+        if let lowerBound = formattedString.range(of: ".")?.lowerBound {
+            formattedString = "\(formattedString[..<lowerBound])"
+        }
+
+        dateFormatter.timeZone = TimeZone.current
+        return dateFormatter.date(from: self) ?? Date()
+    }
+    
     subscript (indexChar: Int) -> Character {
         return self[index(startIndex, offsetBy: indexChar)]
     }

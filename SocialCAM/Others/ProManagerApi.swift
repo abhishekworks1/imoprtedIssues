@@ -687,7 +687,7 @@ extension ProManagerApi: TargetType {
                 param["userStateFlags"] = country
             }
         case .getNotification(let page):
-            param = ["page": page, "limit": Constant.Value.paginationValue, "type": Constant.Value.devicetype]
+            param = [StaticKeys.page: page, StaticKeys.limit: Constant.Value.paginationValue]
         case .notificationsRead(let notificationId):
             param = ["notificationId": notificationId]
         }

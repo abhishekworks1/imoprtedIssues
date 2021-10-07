@@ -219,6 +219,16 @@ extension StatePickerViewController: UICollectionViewDataSource {
                 onlyStates.append(userStates[indexPath.row])
                 cell.selectedItem = true
             }
+        } else if collectionView == self.selectedCollectionView, let cell = collectionView.cellForItem(at: indexPath) as? CountryPickerViewCell {
+            let co = selectedStates[indexPath.row]
+            if let index = self.selectedStates.firstIndex(where: { $0.code == co.code }),
+               let onlyStatesIndex = self.onlyStates.firstIndex(where: { $0.code == co.code }) {
+                //deselect
+                self.selectedStates.remove(at: index)
+                self.onlyStates.remove(at: onlyStatesIndex)
+                cell.selectedItem = false
+                self.collectionView.reloadData()
+            }
         }
     }
 }

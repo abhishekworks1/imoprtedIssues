@@ -16,7 +16,9 @@ class RefereeUserId: Mappable{
     var created: String?
     var profileImageURL: String?
     var socialPlatforms: [AnyObject]?
-
+    var isShowFlags: Bool?
+    var userStateFlags: [UserCountry]?
+    
     required init?(map: Map){}
 
     func mapping(map: Map) {
@@ -25,5 +27,7 @@ class RefereeUserId: Mappable{
         created <- map["created"]
         profileImageURL <- map["profileImageURL"]
         socialPlatforms <- map["socialPlatforms"]
+        isShowFlags <- map["isShowFlags"]
+        userStateFlags <- map["userStateFlags"]
     }
 }

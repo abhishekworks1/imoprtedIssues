@@ -299,6 +299,9 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                         self.deleteRect = self.deleteView.frame
                         self.stopMotionCollectionView.reloadData()
                     }
+                    if self.recordingType == .pic2Art {
+                        self.speedSlider.isUserInteractionEnabled = false
+                    }
                 }
             } else if recordingType == .custom {
                 self.dragAndDropManager = KDDragAndDropManager(
