@@ -1103,6 +1103,7 @@ public struct Paths {
     static let setUserStates = "user/setUserStates"
     static let getNotification = "user/notifications"
     static let readNotification = "user/notifications/read"
+    static let editDisplayName = "user/editDisplayName"
 }
 
 struct WebsiteData {

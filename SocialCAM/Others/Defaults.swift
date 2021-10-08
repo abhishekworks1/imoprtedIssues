@@ -1042,6 +1042,24 @@ class Defaults {
         }
     }
     
+    var publicDisplayName: String? {
+        get {
+            return appDefaults?.value(forKey: StaticKeys.publicDisplayName) as? String
+        }
+        set {
+            appDefaults?.set(newValue, forKey: StaticKeys.publicDisplayName)
+        }
+    }
+    
+    var privateDisplayName: String? {
+        get {
+            return appDefaults?.value(forKey: StaticKeys.privateDisplayName) as? String
+        }
+        set {
+            appDefaults?.set(newValue, forKey: StaticKeys.privateDisplayName)
+        }
+    }
+    
     func clearData(isDeleteAccount: Bool = false) {
         if let appDefaultsDictionary = appDefaults?.dictionaryRepresentation() {
             appDefaultsDictionary.keys.forEach { key in
