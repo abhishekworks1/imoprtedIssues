@@ -207,14 +207,7 @@ class EditProfilePicViewController: UIViewController {
 
 extension EditProfilePicViewController: CountryPickerViewDelegate {
     func countryPickerView(_ didSelectCountry : [Country]) {
-        var countryAry = didSelectCountry
-        if let index = countryAry.firstIndex(where: { $0.code == StaticKeys.countryCodeUS }) {
-            let element = countryAry[index]
-            if countryAry.count >= 2 {
-                countryAry.remove(at: index)
-                countryAry.insert(element, at: 1)
-            }
-        }
+        let countryAry = rearrangeFlags(flagsArray: didSelectCountry)
         DispatchQueue.main.async {
             for (index, _) in self.countryView.enumerated() {
                 self.countryView[index].isHidden = true
@@ -240,14 +233,7 @@ extension EditProfilePicViewController: CountryPickerViewDelegate {
 extension EditProfilePicViewController: StatePickerViewDelegate {
     
     func getSelectStates(_ selectedStates: [Country], isSelectionDone: Bool) {
-        var countryAry = selectedStates
-        if let index = countryAry.firstIndex(where: { $0.code == StaticKeys.countryCodeUS }) {
-            let element = countryAry[index]
-            if countryAry.count >= 2 {
-                countryAry.remove(at: index)
-                countryAry.insert(element, at: 1)
-            }
-        }
+        let countryAry = rearrangeFlags(flagsArray: selectedStates)
         DispatchQueue.main.async {
             for (index, _) in self.countryView.enumerated() {
                 self.countryView[index].isHidden = true
@@ -349,6 +335,26 @@ extension EditProfilePicViewController {
             editProfileCropVC.delegate = self
             navigationController?.pushViewController(editProfileCropVC, animated: true)
         }
+    }
+    
+    func rearrangeFlags(flagsArray: [Country]) -> [Country] {
+        var flagsArray = flagsArray
+        if let index = flagsArray.firstIndex(where: { $0.code == StaticKeys.countryCodeUS }) {
+            let element = flagsArray[index]
+            if flagsArray.count == 3 {
+                if let stateIndex = flagsArray.firstIndex(where: { $0.isState == true }) {
+                    let stateElement = flagsArray[stateIndex]
+                    flagsArray.remove(at: stateIndex)
+                    flagsArray.insert(stateElement, at: 2)
+                }
+                flagsArray.remove(at: index)
+                flagsArray.insert(element, at: 1)
+            } else if flagsArray.count == 2 {
+                flagsArray.remove(at: index)
+                flagsArray.insert(element, at: 0)
+            }
+        }
+        return flagsArray
     }
     
 }

@@ -179,7 +179,8 @@ class CountryPickerViewController: UIViewController {
     }
     
     fileprivate func maxCheck() -> Bool {
-        if 2 <= self.onlyCountries.count {
+        let countryCount = onlyCountries.filter({$0.isState != true})
+        if 2 <= countryCount.count {
             return true
         }
         return false
@@ -273,7 +274,7 @@ extension CountryPickerViewController: UICollectionViewDataSource {
             }
             let country = searchUsers[indexPath.row]
             cell.bind(country)
-            cell.selectedItem = (selectedCountries.firstIndex(of: country) != nil) ? true : false
+            cell.selectedItem = ((selectedCountries.firstIndex(where: { $0.code == country.code && $0.name == country.name })) != nil)
         }
         return cell
     }
@@ -288,8 +289,8 @@ extension CountryPickerViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == self.collectionView, let cell = collectionView.cellForItem(at: indexPath) as? CountryPickerViewCell {
             let co = searchUsers[indexPath.row]
-            if let index = self.selectedCountries.firstIndex(where: { $0.code == co.code }),
-               let onlyCountryIndex = self.onlyCountries.firstIndex(where: { $0.code == co.code }) {
+            if let index = self.selectedCountries.firstIndex(where: { $0.code == co.code && $0.name == co.name }),
+               let onlyCountryIndex = self.onlyCountries.firstIndex(where: { $0.code == co.code && $0.name == co.name }) {
                 //deselect
                 if self.selectedCountries[index].code == StaticKeys.countryCodeUS {
                     if let stateIndex = self.selectedCountries.firstIndex(where: { $0.isState == true }) {
