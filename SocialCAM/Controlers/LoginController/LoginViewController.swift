@@ -220,6 +220,11 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
+    @IBAction func btnPatentsTapped(_ sender: UIButton) {
+        guard let patentsVc = R.storyboard.legal.patentsViewController() else { return }
+        self.navigationController?.pushViewController(patentsVc, animated: true)
+    }
+    
     @IBAction func btnLoginClicked(_ sender: Any?) {
         guard let emailText = txtEmail.text else {
             return
