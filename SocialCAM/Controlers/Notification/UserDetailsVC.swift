@@ -31,6 +31,7 @@ class UserDetailsVC: UIViewController {
     @IBOutlet var countryView: [UIView]!
     @IBOutlet var lblCountrys: [UILabel]!
     @IBOutlet var imgCountrys: [UIImageView]!
+    @IBOutlet weak var lblDisplayName: UILabel!
     
     var notification: UserNotification?
     
@@ -95,8 +96,15 @@ class UserDetailsVC: UIViewController {
                     self.imgCountrys[index].image = country.flag
                 }
             }
+            if let displayName = notification.publicDisplayName,
+               !displayName.isEmpty {
+                self.lblDisplayName.isHidden = false
+                self.lblDisplayName.text = displayName
+            } else {
+                self.lblDisplayName.isHidden = true
+            }
         } else {
-            if let isShowFlags = Defaults.shared.currentUser?.isShowFlags, isShowFlags, let flages = Defaults.shared.currentUser?.refferedBy?.userStateFlags,
+            if let isShowFlags = Defaults.shared.currentUser?.refferedBy?.isShowFlags, isShowFlags, let flages = Defaults.shared.currentUser?.refferedBy?.userStateFlags,
                flages.count > 0 {
                 for (index, item) in flages.enumerated() {
                     self.countryView[index].isHidden = false
@@ -105,16 +113,27 @@ class UserDetailsVC: UIViewController {
                     self.imgCountrys[index].image = country.flag
                 }
             }
+            if let displayName =  Defaults.shared.currentUser?.refferedBy?.publicDisplayName,
+               !displayName.isEmpty {
+                self.lblDisplayName.isHidden = false
+                self.lblDisplayName.text = displayName
+            } else {
+                self.lblDisplayName.isHidden = true
+            }
         }
     }
     
     func getVerifiedSocialPlatforms() {
-        if let socialPlatforms = notification?.refereeUserId?.socialPlatforms, socialPlatforms.count > 0, let social = socialPlatforms as? [String] {
-            socialPlatFormSettings(social)
-        } else if let socialPlatforms = Defaults.shared.referredByData?.socialPlatforms, socialPlatforms.count > 0 {
-            socialPlatFormSettings(socialPlatforms)
+        if let notification = notification {
+            if let socialPlatforms: [String] = notification.refereeUserId?.socialPlatforms as? [String], socialPlatforms.count > 0 {
+                socialPlatFormSettings(socialPlatforms)
+            } else {
+                verifiedStackView.isHidden = true
+            }
         } else {
-            verifiedStackView.isHidden = true
+            if let socialPlatforms = Defaults.shared.referredByData?.socialPlatforms, socialPlatforms.count > 0 {
+                socialPlatFormSettings(socialPlatforms)
+            }
         }
     }
     
@@ -131,9 +150,7 @@ class UserDetailsVC: UIViewController {
                 self.youtubeVerifiedView.isHidden = false
             }
         }
-        if socialPlatfroms.count >= 4 {
-            self.imgUserPlaceholder.image = R.image.shareScreenSocialProfileBadge()
-        }
+        self.imgUserPlaceholder.image = (socialPlatfroms.count == 4) ? R.image.shareScreenRibbonProfileBadge() : R.image.shareScreenProfileBadge()
     }
     
     func convertDate(_ date: String) -> String {

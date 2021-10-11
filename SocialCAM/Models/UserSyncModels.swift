@@ -19,6 +19,7 @@ class RefferedBy: Codable, Mappable {
     var lastName: String?
     var profileImageURL: String?
     var socialPlatforms: [String]?
+    var isShowFlags: Bool?
     var userStateFlags: [UserCountry]?
     var created: String?
     
@@ -36,6 +37,7 @@ class RefferedBy: Codable, Mappable {
         profileImageURL <- map["profileImageURL"]
         socialPlatforms <- map["socialPlatforms"]
         userStateFlags <- map["userStateFlags"]
+        isShowFlags <- map["isShowFlags"]
         created <- map["created"]
     }
     
