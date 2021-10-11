@@ -50,6 +50,7 @@ class EditProfilePicViewController: UIViewController {
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet weak var lblUseThisPicture: UILabel!
     @IBOutlet weak var popupImgHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var dicardPopupView: UIView!
     
     // MARK: - Variables declaration
     private var localImageUrl: URL?
@@ -154,7 +155,11 @@ class EditProfilePicViewController: UIViewController {
     
     // MARK: - Action Methods
     @IBAction func btnBackTapped(_ sender: UIButton) {
-        self.setupMethod()
+        if isImageSelected || isCountryFlagSelected || isFlagSelected {
+            self.dicardPopupView.isHidden = false
+        } else {
+            self.setupMethod()
+        }
     }
     
     @IBAction func btnUpdateTapped(_ sender: UIButton) {
@@ -242,6 +247,14 @@ class EditProfilePicViewController: UIViewController {
     
     @IBAction func btnSetDisplayNoTapped(_ sender: UIButton) {
         self.setDisplayNamePopupView.isHidden = true
+    }
+    
+    @IBAction func btnDiscardPopupOkTapped(_ sender: UIButton) {
+        self.setupMethod()
+    }
+    
+    @IBAction func btnDiscardPopupCancelTapped(_ sender: UIButton) {
+        self.dicardPopupView.isHidden = true
     }
     
 }
@@ -497,6 +510,7 @@ extension EditProfilePicViewController {
                         self.setupMethod()
                     }
                 }
+                self.isCountryFlagSelected = false
             }
         }, onError: { error in
             self.showAlert(alertMessage: error.localizedDescription)
@@ -510,13 +524,16 @@ extension EditProfilePicViewController {
             guard let `self` = self else {
                 return
             }
-            if !self.isCountryFlagSelected || !self.isImageSelected {
-                if self.isShareButtonSelected {
-                    self.isShareButtonSelected = false
-                    self.goToShareScreen()
-                } else {
-                    self.setupMethod()
+            self.storyCameraVC.syncUserModel { _ in
+                if !self.isCountryFlagSelected || !self.isImageSelected {
+                    if self.isShareButtonSelected {
+                        self.isShareButtonSelected = false
+                        self.goToShareScreen()
+                    } else {
+                        self.setupMethod()
+                    }
                 }
+                self.isFlagSelected = false
             }
         }, onError: { error in
             self.showAlert(alertMessage: error.localizedDescription)
@@ -537,6 +554,7 @@ extension EditProfilePicViewController {
                 } else {
                     self.setupMethod()
                 }
+                self.isImageSelected = false
             }
         }, onError: { error in
             self.dismissHUD()
