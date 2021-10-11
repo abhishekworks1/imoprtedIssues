@@ -87,6 +87,7 @@ public enum ProManagerApi {
     case setCountrys(arrayCountry: [[String:Any]]?)
     case getNotification(page: Int)
     case notificationsRead(notificationId: String)
+    case editDisplayName(publicDisplayName: String, privateDisplayName: String)
     
     var endpoint: Endpoint {
         var endpointClosure = MoyaProvider<ProManagerApi>.defaultEndpointMapping(for: self)
@@ -298,6 +299,8 @@ extension ProManagerApi: TargetType {
             return Paths.getNotification
         case .notificationsRead:
             return Paths.readNotification
+        case .editDisplayName:
+            return Paths.editDisplayName
         }
        
     }
@@ -690,6 +693,9 @@ extension ProManagerApi: TargetType {
             param = [StaticKeys.page: page, StaticKeys.limit: Constant.Value.paginationValue]
         case .notificationsRead(let notificationId):
             param = ["notificationId": notificationId]
+        case .editDisplayName(let publicDisplayName, let privateDisplayName):
+            param = [StaticKeys.publicDisplayName: publicDisplayName,
+                     StaticKeys.privateDisplayName: privateDisplayName]
         }
         return param
     }

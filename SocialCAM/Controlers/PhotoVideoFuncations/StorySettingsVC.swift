@@ -63,6 +63,8 @@ enum SettingsMode: Int {
     case newSignupsNotificationSetting
     case newSubscriptionNotificationSetting
     case milestoneReachedNotification
+    case publicDisplayName
+    case privateDisplayName
 }
 
 class StorySetting {

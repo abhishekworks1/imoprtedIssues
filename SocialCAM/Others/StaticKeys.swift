@@ -34,5 +34,7 @@ public struct StaticKeys {
     static let referredByData = "referredByData"
     static let page = "page"
     static let limit = "limit"
+    static let publicDisplayName = "publicDisplayName"
+    static let privateDisplayName = "privateDisplayName"
     
 }
