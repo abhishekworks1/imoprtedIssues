@@ -340,6 +340,7 @@ extension EditProfilePicViewController {
     func showHideSharePopupLabel(socialType: ProfileSocialShare) {
         switch socialType {
         case .gallery, .camera:
+            self.dismissHUD()
             self.lblSocialSharePopup.isHidden = true
         default:
             self.lblSocialSharePopup.isHidden = false
@@ -357,6 +358,7 @@ extension EditProfilePicViewController {
                     }
                 }
             }
+            self.dismissHUD()
         }
     }
     
@@ -679,6 +681,7 @@ extension EditProfilePicViewController {
             }
         case .twitter:
             if !TwitterManger.shared.isUserLogin {
+                self.dismissHUD()
                 TwitterManger.shared.login { (_, _) in
                     completion(true)
                 }
@@ -751,6 +754,7 @@ extension EditProfilePicViewController {
         if let url = URL(string: userData.profileURL ?? ""),
            let data = try? Data(contentsOf: url) {
             DispatchQueue.main.async {
+                self.dismissHUD()
                 if let img = UIImage(data: data) {
                     self.isCroppedImage = false
                     self.uncroppedImg = img
@@ -807,6 +811,7 @@ extension EditProfilePicViewController: SharingSocialTypeDelegate {
     }
     
     func shareSocialType(socialType: ProfileSocialShare) {
+        self.showHUD()
         self.openSheet(socialType: socialType)
     }
     
