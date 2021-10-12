@@ -142,7 +142,7 @@ class UserDetailsVC: UIViewController {
                flages.count > 0 {
                 for (index, item) in flages.enumerated() {
                     self.countryView[index].isHidden = false
-                    let country: Country = Country(name: (item.state == nil || item.state == "") ? (item.country ?? "") : (item.state ?? ""), code: (item.state == nil || item.state == "") ? (item.countryCode ?? "") : (item.stateCode ?? ""), phoneCode: "", isState: (item.state != nil))
+                    let country: Country = Country(name: (item.state != nil && item.state != "") ? (item.state ?? "") : (item.country ?? ""), code: (item.state != nil && item.state != "") ? (item.stateCode ?? "") : (item.countryCode ?? ""), phoneCode: "", isState: (item.state != nil && item.state != ""))
                     self.lblCountrys[index].text = country.isState ? item.state : item.country
                     self.imgCountrys[index].image = country.flag
                 }
@@ -162,7 +162,7 @@ class UserDetailsVC: UIViewController {
                flages.count > 0 {
                 for (index, item) in flages.enumerated() {
                     self.countryView[index].isHidden = false
-                    let country: Country = Country(name: (item.state == "") ? (item.country ?? "") : (item.state ?? ""), code: (item.state == "") ? (item.countryCode ?? "") : (item.stateCode ?? ""), phoneCode: "", isState: (item.state != nil || item.state != ""))
+                    let country: Country = Country(name: (item.state != nil && item.state != "") ? (item.state ?? "") : (item.country ?? ""), code: (item.state != nil && item.state != "") ? (item.stateCode ?? "") : (item.countryCode ?? ""), phoneCode: "", isState: (item.state != nil && item.state != ""))
                     self.lblCountrys[index].text = country.isState ? item.state : item.country
                     self.imgCountrys[index].image = country.flag
                 }
