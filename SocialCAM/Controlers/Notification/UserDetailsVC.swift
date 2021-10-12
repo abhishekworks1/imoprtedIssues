@@ -73,10 +73,12 @@ class UserDetailsVC: UIViewController {
     
     @IBAction func followButtonTapped(_ sender: UIButton) {
         if let notification = notification, let userId = notification.refereeUserId?.id {
+            self.showHUD()
             if let following = notification.isFollowing, !following {
                 ProManagerApi.setFollow(userId: userId).request(Result<NotificationResult>.self).subscribe(onNext: { (response) in
                     print(response)
                     self.setBtnFollow(isFollowing: true)
+                    self.dismissHUD()
                     if response.status == ResponseType.success {
                         self.notification?.isFollowing = true
                         if let handler = self.notificationUpdateHandler {
@@ -92,6 +94,7 @@ class UserDetailsVC: UIViewController {
                 ProManagerApi.setUnFollow(userId: userId).request(Result<NotificationResult>.self).subscribe(onNext: { (response) in
                     print(response)
                     self.setBtnFollow(isFollowing: false)
+                    self.dismissHUD()
                     if response.status == ResponseType.success {
                         self.notification?.isFollowing = false
                         if let handler = self.notificationUpdateHandler {

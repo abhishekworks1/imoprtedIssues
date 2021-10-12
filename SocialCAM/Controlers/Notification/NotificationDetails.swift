@@ -124,9 +124,11 @@ class NotificationDetails: UIViewController {
     
     func followButtonTapped(_ notification: UserNotification?, _ index: Int) {
         if let notification = notification, let userId = notification.refereeUserId?.id {
+            self.showHUD()
             if let following = notification.isFollowing, !following {
                 ProManagerApi.setFollow(userId: userId).request(Result<NotificationResult>.self).subscribe(onNext: { (response) in
                     print(response)
+                    self.dismissHUD()
                     if response.status == ResponseType.success {
                         notification.isFollowing = true
                         self.notificationArray[index] = notification
@@ -140,6 +142,7 @@ class NotificationDetails: UIViewController {
             } else {
                 ProManagerApi.setUnFollow(userId: userId).request(Result<NotificationResult>.self).subscribe(onNext: { (response) in
                     print(response)
+                    self.dismissHUD()
                     if response.status == ResponseType.success {
                         self.notification?.isFollowing = false
                         self.notificationArray[index] = notification
@@ -192,20 +195,5 @@ extension NotificationDetails: UICollectionViewDataSource {
 
 // MARK: - CollectionView Delegate
 extension NotificationDetails: UICollectionViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        let currentOffset = scrollView.contentOffset.y
-//        let maximumOffset = scrollView.contentSize.width - scrollView.frame.size.width
-//        print(maximumOffset - currentOffset)
-//        print(maximumOffset - currentOffset <= FetchDataBefore.bottomMargin)
-//        if maximumOffset - currentOffset <= FetchDataBefore.bottomMargin {
-//            if !startLoading, self.postsCount > (self.notificationArray.count) {
-//                startLoading = true
-//                self.pageIndex += 1
-//                self.showHUD()
-//                self.getFollowingNotifications(pageIndex: self.pageIndex)
-//            } else {
-//                self.collectionView.es.noticeNoMoreData()
-//            }
-//        }
-    }
+
 }
