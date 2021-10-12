@@ -36,6 +36,8 @@ class AccountSettingsViewController: UIViewController {
     @IBOutlet weak var lblPopup: UILabel!
     @IBOutlet weak var doubleButtonStackView: UIStackView!
     @IBOutlet weak var singleButtonSttackView: UIStackView!
+    @IBOutlet weak var displayNameTooltipView: UIView!
+    @IBOutlet weak var txtDisplayNameTooltip: UILabel!
     
     // MARK: - Variable Declarations
     var isDisplayNameChange = false
@@ -70,6 +72,10 @@ class AccountSettingsViewController: UIViewController {
     }
     @IBAction func onDonePressed(_ sender: UIButton) {
         self.editDisplayName()
+    }
+    
+    @IBAction func onDisplayNameOkPressed(_ sender: UIButton) {
+        self.displayNameTooltipView.isHidden = true
     }
 }
 
@@ -120,6 +126,8 @@ extension AccountSettingsViewController: UITableViewDataSource {
             guard let displayNameCell: DisplayNameTableViewCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.displayNameTableViewCell.identifier) as? DisplayNameTableViewCell else {
                 return accountSettingsCell
             }
+            displayNameCell.btnDisplayNameTooltipIcon.tag = indexPath.section
+            displayNameCell.displayTooltipDelegate = self
             if settingTitle.settingsType == .publicDisplayName {
                 displayNameCell.displayNameType = .publicDisplayName
             } else if settingTitle.settingsType == .privateDisplayName {
@@ -244,5 +252,17 @@ extension AccountSettingsViewController: UITableViewDelegate {
             self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
+    }
+}
+
+extension AccountSettingsViewController: DisplayTooltiPDelegate {
+    
+    func displayTooltip(index: Int) {
+        self.displayNameTooltipView.isHidden = false
+        if index == 1 {
+            self.txtDisplayNameTooltip.text = R.string.localizable.publicDisplayNameTooltip()
+        } else if index == 2 {
+            self.txtDisplayNameTooltip.text = R.string.localizable.privateDisplayNameTooltip()
+        }
     }
 }

@@ -51,6 +51,8 @@ class EditProfilePicViewController: UIViewController {
     @IBOutlet weak var lblUseThisPicture: UILabel!
     @IBOutlet weak var popupImgHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var dicardPopupView: UIView!
+    @IBOutlet weak var publicDisplayNameTooltipView: UIView!
+    @IBOutlet weak var btnPublicDisplayNameTooltip: UIButton!
     
     // MARK: - Variables declaration
     private var localImageUrl: URL?
@@ -148,8 +150,10 @@ class EditProfilePicViewController: UIViewController {
             self.lblDisplayName.text = displayName
             self.setDisplayNamePopupView.isHidden = true
             self.btnSetPublicDisplayName.isHidden = true
+            self.btnPublicDisplayNameTooltip.isHidden = true
         } else {
             self.btnSetPublicDisplayName.isHidden = false
+            self.btnPublicDisplayNameTooltip.isHidden = false
         }
     }
     
@@ -257,6 +261,13 @@ class EditProfilePicViewController: UIViewController {
         self.dicardPopupView.isHidden = true
     }
     
+    @IBAction func btnTooltipOkTapped(_ sender: UIButton) {
+        self.publicDisplayNameTooltipView.isHidden = true
+    }
+    
+    @IBAction func btnPublicDisplayNameTooltipTapped(_ sender: UIButton) {
+        self.publicDisplayNameTooltipView.isHidden = false
+    }
 }
 
 extension EditProfilePicViewController: CountryPickerViewDelegate {
