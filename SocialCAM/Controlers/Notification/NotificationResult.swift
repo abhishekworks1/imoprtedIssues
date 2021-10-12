@@ -40,7 +40,8 @@ class UserNotification: Mappable{
     var updatedAt : String?
     var publicDisplayName: String?
     var privateDisplayName: String?
-
+    var isFollowing: Bool?
+    
     class func newInstance(map: Map) -> Mappable?{
         return UserNotification(map: map)
     }
@@ -63,6 +64,7 @@ class UserNotification: Mappable{
         updatedAt <- map["updatedAt"]
         publicDisplayName <- map["publicDisplayName"]
         privateDisplayName <- map["privateDisplayName"]
+        isFollowing <- map["isFollowing"]
     }
 
     /**

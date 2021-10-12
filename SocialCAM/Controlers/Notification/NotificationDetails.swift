@@ -36,10 +36,15 @@ class NotificationDetails: UIViewController {
         collectionView.collectionViewLayout = gridLayout
         collectionView.reloadData()
         collectionView.showsHorizontalScrollIndicator = false
-        
-        self.collectionView.isPagingEnabled = false
-        self.collectionView.scrollToItem(at: IndexPath(item: self.selectedIndex, section: 0), at: UICollectionView.ScrollPosition.right, animated: false)
-        self.collectionView.isPagingEnabled = true
+        btnNext.backgroundColor = ApplicationSettings.appPrimaryColor
+        btnNext.setTitleColor(ApplicationSettings.appWhiteColor, for: .normal)
+        btnPreviews.backgroundColor = ApplicationSettings.appPrimaryColor
+        btnPreviews.setTitleColor(ApplicationSettings.appWhiteColor, for: .normal)
+        DispatchQueue.runOnMainThread {
+            self.collectionView.isPagingEnabled = false
+            self.collectionView.scrollToItem(at: IndexPath(item: self.selectedIndex, section: 0), at: UICollectionView.ScrollPosition.right, animated: false)
+            self.collectionView.isPagingEnabled = true
+        }
     }
     
     func scrollToNextCell() {
@@ -96,6 +101,7 @@ class NotificationDetails: UIViewController {
         ProManagerApi.getNotification(page: pageIndex).request(Result<NotificationResult>.self).subscribe(onNext: { (response) in
             self.collectionView.es.stopPullToRefresh()
             self.collectionView.es.stopLoadingMore()
+            self.dismissHUD()
             if response.status == ResponseType.success {
                 self.postsCount = response.result?.count ?? 0
                 if pageIndex == 0 {
@@ -115,6 +121,38 @@ class NotificationDetails: UIViewController {
         }, onCompleted: {
         }).disposed(by: rx.disposeBag)
     }
+    
+    func followButtonTapped(_ notification: UserNotification?, _ index: Int) {
+        if let notification = notification, let userId = notification.refereeUserId?.id {
+            if let following = notification.isFollowing, !following {
+                ProManagerApi.setFollow(userId: userId).request(Result<NotificationResult>.self).subscribe(onNext: { (response) in
+                    print(response)
+                    if response.status == ResponseType.success {
+                        notification.isFollowing = true
+                        self.notificationArray[index] = notification
+                        self.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+                    } else {
+                        self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+                    }
+                }, onError: { error in
+                }, onCompleted: {
+                }).disposed(by: rx.disposeBag)
+            } else {
+                ProManagerApi.setUnFollow(userId: userId).request(Result<NotificationResult>.self).subscribe(onNext: { (response) in
+                    print(response)
+                    if response.status == ResponseType.success {
+                        self.notification?.isFollowing = false
+                        self.notificationArray[index] = notification
+                        self.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+                    } else {
+                        self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+                    }
+                }, onError: { error in
+                }, onCompleted: {
+                }).disposed(by: rx.disposeBag)
+            }
+        }
+    }
 }
 
 // MARK: - CollectionView DataSource
@@ -125,6 +163,13 @@ extension NotificationDetails: UICollectionViewDataSource {
             for: indexPath
         ) as! NotificationDetailsViewCell
         cell.notification = notificationArray[indexPath.row]
+        cell.followButtonHandler = { [weak self] notification in
+            guard let `self` = self else {
+                return
+            }
+            print(indexPath.row)
+            self.followButtonTapped(notification, indexPath.row)
+        }
         return cell
     }
     
@@ -132,25 +177,35 @@ extension NotificationDetails: UICollectionViewDataSource {
         return notificationArray.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+    // prefetch
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if self.postsCount > self.notificationArray.count, indexPath.row >= notificationArray.count - 2 && !self.startLoading {
+            startLoading = true
+            self.pageIndex += 1
+            self.showHUD()
+            self.getFollowingNotifications(pageIndex: self.pageIndex)
+        }
     }
 }
+
+
 
 // MARK: - CollectionView Delegate
 extension NotificationDetails: UICollectionViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let currentOffset = scrollView.contentOffset.y
-        let maximumOffset = scrollView.contentSize.width - scrollView.frame.size.width
-        
-        if maximumOffset - currentOffset <= FetchDataBefore.bottomMargin {
-            if !startLoading, self.postsCount > (self.notificationArray.count) {
-                startLoading = true
-                self.pageIndex += 1
-                self.getFollowingNotifications(pageIndex: self.pageIndex)
-            } else {
-                self.collectionView.es.noticeNoMoreData()
-            }
-        }
+//        let currentOffset = scrollView.contentOffset.y
+//        let maximumOffset = scrollView.contentSize.width - scrollView.frame.size.width
+//        print(maximumOffset - currentOffset)
+//        print(maximumOffset - currentOffset <= FetchDataBefore.bottomMargin)
+//        if maximumOffset - currentOffset <= FetchDataBefore.bottomMargin {
+//            if !startLoading, self.postsCount > (self.notificationArray.count) {
+//                startLoading = true
+//                self.pageIndex += 1
+//                self.showHUD()
+//                self.getFollowingNotifications(pageIndex: self.pageIndex)
+//            } else {
+//                self.collectionView.es.noticeNoMoreData()
+//            }
+//        }
     }
 }

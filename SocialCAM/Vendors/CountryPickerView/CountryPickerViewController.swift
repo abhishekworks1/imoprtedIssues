@@ -45,9 +45,8 @@ class CountryPickerViewController: UIViewController {
     public let users: [Country] = {
         var countries = [Country]()
         let bundle = Bundle.main
-        guard let jsonPath = bundle.path(forResource: "CountryPickerView.bundle/Data/CountryCodes", ofType: "json"),
-            let jsonData = try? Data(contentsOf: URL(fileURLWithPath: jsonPath)) else {
-                return countries
+        guard let jsonPath = bundle.path(forResource: "CountryCodes", ofType: "json"), let jsonData = try? Data(contentsOf: URL(fileURLWithPath: jsonPath)) else {
+            return countries
         }
         
         if let jsonObjects = (try? JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization

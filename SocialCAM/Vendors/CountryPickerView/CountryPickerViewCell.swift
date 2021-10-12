@@ -23,13 +23,9 @@ public struct Country: Equatable {
     }
     public var flag: UIImage {
         if isState {
-            return UIImage(named: "\(code.lowercased())") ?? UIImage()
+            return UIImage(named: "flag_state_\(code.lowercased())") ?? UIImage()
         } else {
-            guard let image = UIImage(named: "CountryPickerView.bundle/Images/\(code.uppercased())",
-                                      in: Bundle.main, compatibleWith: nil) else {
-                return UIImage()
-            }
-            return image
+            return UIImage(named: "flag_\(code.lowercased())") ?? UIImage()
         }
     }
 }
