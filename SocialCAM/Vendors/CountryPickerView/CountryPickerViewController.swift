@@ -219,27 +219,12 @@ extension CountryPickerViewController {
         var countryAry = countrys
         if let index = countryAry.firstIndex(where: { $0.code == StaticKeys.countryCodeUS }) {
             let element = countryAry[index]
-            if countryAry.count == 3 {
+            if countryAry.count > 1 {
                 if let stateIndex = countryAry.firstIndex(where: { $0.isState == true }) {
                     let stateElement = countryAry[stateIndex]
                     countryAry.remove(at: stateIndex)
                     countryAry.insert(stateElement, at: 2)
                 }
-                countryAry.remove(at: index)
-                countryAry.insert(element, at: 1)
-            } else if countryAry.count == 2 {
-                countryAry.remove(at: index)
-                countryAry.insert(element, at: 1)
-            }
-        }
-        return countryAry
-    }
-    
-    func rearrangeOnlyContryFlag(countrys: [Country]) -> [Country] {
-        var countryAry = countrys
-        if let index = countryAry.firstIndex(where: { $0.code == StaticKeys.countryCodeUS }) {
-            let element = countryAry[index]
-            if countryAry.count == 2 {
                 countryAry.remove(at: index)
                 countryAry.insert(element, at: 1)
             }
@@ -363,7 +348,7 @@ extension CountryPickerViewController: UICollectionViewDataSource {
                     self.selectedCountries.removeFirst()
                     self.onlyCountries.removeFirst()
                     self.selectedCountries = rearrangeFlags(countrys: selectedCountries)
-                    self.onlyCountries = rearrangeOnlyContryFlag(countrys: onlyCountries)
+                    self.onlyCountries = rearrangeFlags(countrys: onlyCountries)
                     return
                 }
                 if co.code == StaticKeys.countryCodeUS {
@@ -372,7 +357,7 @@ extension CountryPickerViewController: UICollectionViewDataSource {
                 selectedCountries.append(users[indexPath.row])
                 onlyCountries.append(users[indexPath.row])
                 self.selectedCountries = rearrangeFlags(countrys: selectedCountries)
-                self.onlyCountries = rearrangeOnlyContryFlag(countrys: onlyCountries)
+                self.onlyCountries = rearrangeFlags(countrys: onlyCountries)
                 cell.selectedItem = true
             }
         } else if collectionView == self.selectedCollectionView, let cell = collectionView.cellForItem(at: indexPath) as? CountryPickerViewCell {
