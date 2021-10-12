@@ -67,6 +67,7 @@ struct SSUTagOption {
     #elseif FASTCAMAPP
     static let contents: [SSUTagOption] = [SSUTagOption(name: R.string.localizable.fastCam(), image: R.image.ssuFastCam(), type: .fastCam)]
     #elseif BOOMICAMAPP
+       static let releaseType = Defaults.shared.releaseType
        static let contents: [SSUTagOption] = [
            SSUTagOption(name: R.string.localizable.boomiCam(), image: R.image.ssuBoomiCam(), type: .boomiCam)]
     #elseif FASTCAMAPP

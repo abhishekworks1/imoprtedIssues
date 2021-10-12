@@ -2508,7 +2508,8 @@ extension StoryCameraViewController {
                     Defaults.shared.appIdentifierWatermarkSetting = AppIdentifierWatermarkSetting(rawValue: appWatermark) ?? .hide
                 }
             } else {
-                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+                //#REMOVE_LOGIN
+                //self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
             }
         }, onError: { error in
             print(error.localizedDescription)
@@ -2626,7 +2627,8 @@ extension StoryCameraViewController {
             if response.status == ResponseType.success {
                 Defaults.shared.newSignupsNotificationType = (response.result?.isForEveryone == true) ? .forAllUsers : .forLimitedUsers
             } else {
-                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+                //#REMOVE_LOGIN
+               // self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
             }
         }, onError: { error in
             self.showAlert(alertMessage: error.localizedDescription)
