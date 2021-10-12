@@ -218,12 +218,15 @@ extension CountryPickerViewController {
         var countryAry = countrys
         if let index = countryAry.firstIndex(where: { $0.code == StaticKeys.countryCodeUS }) {
             let element = countryAry[index]
-            if countryAry.count > 1 {
+            if countryAry.count == 3 {
                 if let stateIndex = countryAry.firstIndex(where: { $0.isState == true }) {
                     let stateElement = countryAry[stateIndex]
                     countryAry.remove(at: stateIndex)
                     countryAry.insert(stateElement, at: 2)
                 }
+                countryAry.remove(at: index)
+                countryAry.insert(element, at: 1)
+            } else if countryAry.count == 2 {
                 countryAry.remove(at: index)
                 countryAry.insert(element, at: 1)
             }

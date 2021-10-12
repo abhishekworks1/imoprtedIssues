@@ -416,14 +416,22 @@ extension EditProfilePicViewController {
         var flagsArray = flagsArray
         if let index = flagsArray.firstIndex(where: { $0.code == StaticKeys.countryCodeUS }) {
             let element = flagsArray[index]
-            if flagsArray.count > 1 {
-                if let stateIndex = flagsArray.firstIndex(where: { $0.isState == true }) {
-                    let stateElement = flagsArray[stateIndex]
+            if let stateIndex = flagsArray.firstIndex(where: { $0.isState == true }) {
+                let stateElement = flagsArray[stateIndex]
+                if flagsArray.count == 3 {
                     flagsArray.remove(at: stateIndex)
                     flagsArray.insert(stateElement, at: 2)
+                    flagsArray.remove(at: index)
+                    flagsArray.insert(element, at: 1)
+                } else if flagsArray.count == 2 {
+                    flagsArray.remove(at: index)
+                    flagsArray.insert(element, at: 0)
                 }
-                flagsArray.remove(at: index)
-                flagsArray.insert(element, at: 1)
+            } else {
+                if flagsArray.count == 2 {
+                    flagsArray.remove(at: index)
+                    flagsArray.insert(element, at: 1)
+                }
             }
         }
         return flagsArray
