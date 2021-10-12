@@ -74,7 +74,9 @@ class ShareSettingViewController: UIViewController {
             self.lblSinceDate.text = R.string.localizable.sinceJoined(date)
         }
         DispatchQueue.main.async {
-            if let flages = Defaults.shared.currentUser?.userStateFlags, flages.count > 0 {
+            if let flages = Defaults.shared.currentUser?.userStateFlags, flages.count > 0,
+               let isShowFlags = Defaults.shared.currentUser?.isShowFlags,
+               isShowFlags {
                 self.flagStackviewHeightConstraint.constant = 70
                 for (index, item) in flages.enumerated() {
                     self.countryView[index].isHidden = false
