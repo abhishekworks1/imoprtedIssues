@@ -107,6 +107,40 @@ class UserDetailsVC: UIViewController {
                 }, onCompleted: {
                 }).disposed(by: rx.disposeBag)
             }
+        } else {
+            if let userId = Defaults.shared.currentUser?.refferedBy?.id {
+                self.showHUD()
+                if let isFollowing = Defaults.shared.currentUser?.refferedBy?.isFollowing, !isFollowing {
+                    ProManagerApi.setFollow(userId: userId).request(Result<NotificationResult>.self).subscribe(onNext: { (response) in
+                        self.setBtnFollow(isFollowing: true)
+                        self.dismissHUD()
+                        if response.status == ResponseType.success {
+                            let currentUser = Defaults.shared.currentUser
+                            currentUser?.refferedBy?.isFollowing = true
+                            Defaults.shared.currentUser = currentUser
+                        } else {
+                            self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+                        }
+                    }, onError: { error in
+                    }, onCompleted: {
+                    }).disposed(by: rx.disposeBag)
+                } else {
+                    ProManagerApi.setUnFollow(userId: userId).request(Result<NotificationResult>.self).subscribe(onNext: { (response) in
+                        self.setBtnFollow(isFollowing: false)
+                        self.dismissHUD()
+                        if response.status == ResponseType.success {
+                            let currentUser = Defaults.shared.currentUser
+                            currentUser?.refferedBy?.isFollowing = false
+                            Defaults.shared.currentUser = currentUser
+                        } else {
+                            self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+                        }
+                    }, onError: { error in
+                    }, onCompleted: {
+                    }).disposed(by: rx.disposeBag)
+                }
+            }
+            
         }
     }
 
@@ -135,12 +169,11 @@ class UserDetailsVC: UIViewController {
                 self.lblJoiningDate.text = R.string.localizable.sinceJoined(convertDate(referredUserCreatedDate))
             }
         }
-        if let isFollowing = notification?.isFollowing {
-            setBtnFollow(isFollowing: isFollowing)
-        } else {
-            setBtnFollow(isFollowing: false)
-        }
+    
         if let notification = notification {
+            if let isFollowing = notification.isFollowing {
+                setBtnFollow(isFollowing: isFollowing)
+            }
             if let isShowFlags = notification.refereeUserId?.isShowFlags, isShowFlags, let flages = notification.refereeUserId?.userStateFlags,
                flages.count > 0 {
                 for (index, item) in flages.enumerated() {
@@ -160,7 +193,9 @@ class UserDetailsVC: UIViewController {
                 self.lblDisplayName.isHidden = true
             }
         } else {
-            btnFollow.isHidden = true
+            if let isFollowing = Defaults.shared.currentUser?.refferedBy?.isFollowing {
+                setBtnFollow(isFollowing: isFollowing)
+            }
             if let isShowFlags = Defaults.shared.currentUser?.refferedBy?.isShowFlags, isShowFlags, let flages = Defaults.shared.currentUser?.refferedBy?.userStateFlags,
                flages.count > 0 {
                 for (index, item) in flages.enumerated() {
