@@ -34,6 +34,8 @@ class UserDetailsVC: UIViewController {
     @IBOutlet var imgCountrys: [UIImageView]!
     @IBOutlet weak var lblDisplayName: UILabel!
     var notificationUpdateHandler : ((_ notification: UserNotification?) -> Void)?
+    @IBOutlet weak var socialBadgeViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var socialMediaVerifiedBadgeView: UIView!
     var notification: UserNotification?
     
     var customBlurEffectStyle: UIBlurEffect.Style = .dark
@@ -245,6 +247,13 @@ class UserDetailsVC: UIViewController {
             }
         }
         self.imgUserPlaceholder.image = (socialPlatfroms.count == 4) ? R.image.shareScreenRibbonProfileBadge() : R.image.shareScreenProfileBadge()
+        if socialPlatfroms.count == 4 {
+            self.socialBadgeViewHeightConstraint.constant = 65
+            self.socialMediaVerifiedBadgeView.isHidden = false
+        } else {
+            self.socialBadgeViewHeightConstraint.constant = 0
+            self.socialMediaVerifiedBadgeView.isHidden = true
+        }
     }
     
     func convertDate(_ date: String) -> String {

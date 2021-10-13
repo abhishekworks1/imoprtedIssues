@@ -407,8 +407,64 @@
                                                             <constraint firstAttribute="height" constant="37" id="4Ng-zi-E93"/>
                                                         </constraints>
                                                     </stackView>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="120" translatesAutoresizingMaskIntoConstraints="NO" id="Rn6-Zl-3in" userLabel="Social Badge Stack View">
+                                                        <rect key="frame" x="167" y="383.5" width="0.0" height="0.0"/>
+                                                        <subviews>
+                                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7k4-7I-ri9">
+                                                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="70"/>
+                                                                <subviews>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sRG-u9-giP">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="70"/>
+                                                                        <state key="normal" image="socialBadge"/>
+                                                                    </button>
+                                                                </subviews>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="bottom" secondItem="sRG-u9-giP" secondAttribute="bottom" id="5dd-H7-C17"/>
+                                                                    <constraint firstItem="sRG-u9-giP" firstAttribute="leading" secondItem="7k4-7I-ri9" secondAttribute="leading" id="fI8-8i-vF5"/>
+                                                                    <constraint firstItem="sRG-u9-giP" firstAttribute="top" secondItem="7k4-7I-ri9" secondAttribute="top" id="lFU-C5-PuE"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="sRG-u9-giP" secondAttribute="trailing" id="rZa-g9-vng"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kWa-Yp-HLn">
+                                                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="70"/>
+                                                                <subviews>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4bv-Qd-ZM8">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="70"/>
+                                                                        <state key="normal" image="snapchatVerified"/>
+                                                                    </button>
+                                                                </subviews>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="bottom" secondItem="4bv-Qd-ZM8" secondAttribute="bottom" id="5UJ-YN-H70"/>
+                                                                    <constraint firstItem="4bv-Qd-ZM8" firstAttribute="leading" secondItem="kWa-Yp-HLn" secondAttribute="leading" id="Mc2-aW-gJc"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="4bv-Qd-ZM8" secondAttribute="trailing" id="NJw-Md-GG3"/>
+                                                                    <constraint firstItem="4bv-Qd-ZM8" firstAttribute="top" secondItem="kWa-Yp-HLn" secondAttribute="top" id="nI2-OW-KxL"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="usI-6h-Run">
+                                                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="70"/>
+                                                                <subviews>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nIx-wH-sel">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="70"/>
+                                                                        <state key="normal" image="youtubeVerified"/>
+                                                                    </button>
+                                                                </subviews>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="trailing" secondItem="nIx-wH-sel" secondAttribute="trailing" id="1xp-zj-WhA"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="nIx-wH-sel" secondAttribute="bottom" id="5lQ-aP-Gd8"/>
+                                                                    <constraint firstItem="nIx-wH-sel" firstAttribute="top" secondItem="usI-6h-Run" secondAttribute="top" id="I8w-pk-cmf"/>
+                                                                    <constraint firstItem="nIx-wH-sel" firstAttribute="leading" secondItem="usI-6h-Run" secondAttribute="leading" id="nX0-vF-nem"/>
+                                                                </constraints>
+                                                            </view>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" id="FN6-da-hRe"/>
+                                                        </constraints>
+                                                    </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="by9-7w-xtH" userLabel="Flags Stack View">
-                                                        <rect key="frame" x="167" y="383.5" width="0.0" height="70"/>
+                                                        <rect key="frame" x="167" y="398.5" width="0.0" height="0.0"/>
                                                         <subviews>
                                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Qs-t4-BXQ">
                                                                 <rect key="frame" x="0.0" y="1.5" width="0.0" height="70"/>
@@ -558,6 +614,8 @@
                         <outlet property="popupContentContainerView" destination="ZK1-yZ-fkb" id="GLM-Cl-Fbu"/>
                         <outlet property="popupMainView" destination="a79-AL-BqR" id="LSx-04-bxZ"/>
                         <outlet property="snapchatVerifiedView" destination="0Tn-C0-hYf" id="B2e-sM-Fhn"/>
+                        <outlet property="socialBadgeViewHeightConstraint" destination="FN6-da-hRe" id="3ce-TQ-o9a"/>
+                        <outlet property="socialMediaVerifiedBadgeView" destination="7k4-7I-ri9" id="BxG-hw-aLB"/>
                         <outlet property="twitterVerifiedView" destination="G5A-p7-yVb" id="JS9-Hq-FaO"/>
                         <outlet property="verifiedStackView" destination="CUd-Qh-a7R" id="tqN-vk-t3d"/>
                         <outlet property="youtubeVerifiedView" destination="vcP-85-SaK" id="qg6-lU-TEp"/>
@@ -1138,6 +1196,7 @@
         <image name="facebookVerified" width="37" height="38"/>
         <image name="shareScreenProfileBadge" width="163" height="187"/>
         <image name="snapchatVerified" width="37" height="39"/>
+        <image name="socialBadge" width="41" height="70"/>
         <image name="storyBack" width="19" height="19"/>
         <image name="storySettings" width="24" height="25"/>
         <image name="twitterVerified" width="37" height="38"/>
