@@ -111,6 +111,11 @@ extension NotificationVC: UITableViewDataSource, UITableViewDelegate {
                         return
                     }
                     self.notificationArray[indexPath.row] = userNotification
+                    for item in self.notificationArray {
+                        if item.refereeUserId?.id == userNotification.refereeUserId?.id {
+                            item.isFollowing = userNotification.isFollowing
+                        }
+                    }
                 }
                 popupViewController.notification = notification
                 MIBlurPopup.show(popupViewController, on: self)

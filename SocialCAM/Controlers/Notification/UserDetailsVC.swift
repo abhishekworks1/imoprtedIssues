@@ -67,8 +67,8 @@ class UserDetailsVC: UIViewController {
             btnFollow.setTitleColor(ApplicationSettings.appWhiteColor, for: .normal)
             btnFollow.setTitle(R.string.localizable.following(), for: .normal)
         } else {
-            btnFollow.backgroundColor = ApplicationSettings.appClearColor
-            btnFollow.setTitleColor(ApplicationSettings.appPrimaryColor, for: .normal)
+            btnFollow.backgroundColor = ApplicationSettings.appPrimaryColor
+            btnFollow.setTitleColor(ApplicationSettings.appWhiteColor, for: .normal)
             btnFollow.setTitle(R.string.localizable.follow(), for: .normal)
         }
     }

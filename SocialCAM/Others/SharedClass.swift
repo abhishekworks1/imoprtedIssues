@@ -1391,6 +1391,11 @@ enum CurrentMode: Int {
     case background
 }
 
+enum LayoutOption {
+    case list
+    case grid
+}
+
 protocol CollageMakerVCDelegate: class {
     func didSelectImage(image: UIImage)
 }
