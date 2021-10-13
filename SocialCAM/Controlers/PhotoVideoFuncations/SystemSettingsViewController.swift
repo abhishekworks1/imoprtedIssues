@@ -21,7 +21,8 @@ class SystemSettings {
     }
     
     static var systemSettings = [
-        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.showAllPopups(), selected: false)], settingsType: .showAllPopups)
+        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.showAllPopups(), selected: false)], settingsType: .showAllPopups),
+        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.checkUpdates(), selected: false)], settingsType: .checkUpdate)
     ]
 }
 
@@ -97,6 +98,14 @@ extension SystemSettingsViewController: UITableViewDataSource {
             return notificationTypeCell
         } else if settingTitle.settingsType == .milestoneReachedNotification {
             systemSettingsCell.systemSettingType = .milestonesReached
+        } else if settingTitle.settingsType == .checkUpdate {
+            systemSettingsCell.title.isHidden = true
+            systemSettingsCell.btnSelectShowAllPopup.isHidden = true
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.checkUpdatesTableViewCell.identifier) as? CheckUpdatesTableViewCell else {
+                fatalError("\(R.reuseIdentifier.checkUpdatesTableViewCell.identifier) Not Found")
+            }
+            cell.lblCheckUpdate.text = R.string.localizable.checkUpdates()
+            return cell
         }
         return systemSettingsCell
     }
@@ -120,5 +129,14 @@ extension SystemSettingsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 1.0
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let settingTitle = SystemSettings.systemSettings[indexPath.section]
+        if settingTitle.settingsType == .checkUpdate {
+            // Implement app updater
+            SSAppUpdater.shared.performCheck(isForceUpdate: false, updateAlertFrequency: .always, showDefaultAlert: true) { (_) in
+            }
+        }
     }
 }

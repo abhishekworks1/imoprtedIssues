@@ -15,18 +15,35 @@ class SSViewController: UIViewController {
     var releaseNote: String = ""
     var trackID: Int?
     var appStoreVersion: String = ""
+    var isAlreadyUpdated = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         if SSAppUpdater.shared.isForceUpdate {
             showForceAlert()
         } else {
-            showOptionalAlert()
+            if isAlreadyUpdated {
+                showAlreadyUpdatedAlert()
+            } else {
+                showOptionalAlert()
+            }
         }
     }
     
     deinit {
         currentWindow = nil
+    }
+    
+    private func showAlreadyUpdatedAlert() {
+        let okAction = UIAlertAction(title: R.string.localizable.oK(), style: .default) { (action) in
+            DispatchQueue.main.async {
+                self.currentWindow = nil
+            }
+        }
+        let alert = UIAlertController.showAlert(title: Bundle.getAppName(), message: R.string.localizable.appHasAlreadyUpdated(), actions: [okAction], preferredStyle: .alert)
+        DispatchQueue.main.async {
+            self.present(alert, animated: true)
+        }
     }
     
     private func showForceAlert() {

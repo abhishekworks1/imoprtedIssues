@@ -174,6 +174,11 @@ class EditProfilePicViewController: UIViewController {
         if isImageSelected || isCountryFlagSelected || isFlagSelected {
             self.showHUD()
             self.view.isUserInteractionEnabled = false
+        } else {
+            DispatchQueue.main.async {
+                self.view.makeToast(R.string.localizable.noChannelFound())
+                self.navigationController?.popViewController(animated: true)
+            }
         }
         if isImageSelected {
             if let img = imgProfilePic.image {
