@@ -285,6 +285,8 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             if recordingType != .custom {
                 DispatchQueue.main.async {
                     self.speedSlider.isUserInteractionEnabled = true
+                    self.speedSlider.isHidden = false
+                    self.speedSliderView.isHidden = false
                     self.slowFastVerticalBar.isHidden = true
                     self.speedLabel.textColor = UIColor.red
                     self.speedLabel.text = ""
@@ -300,7 +302,8 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                         self.stopMotionCollectionView.reloadData()
                     }
                     if self.recordingType == .pic2Art {
-                        self.speedSlider.isUserInteractionEnabled = false
+                        self.speedSlider.isHidden = true
+                        self.speedSliderView.isHidden = true
                     }
                 }
             } else if recordingType == .custom {
