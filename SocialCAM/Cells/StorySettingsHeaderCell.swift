@@ -21,6 +21,7 @@ class StorySettingsHeader: UITableViewCell {
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var btnProfilePic: UIButton!
     @IBOutlet weak var addProfilePic: UIImageView!
+    @IBOutlet weak var imgSocialMediaBadge: UIImageView!
     
     weak var delegate: HeaderViewDelegate?
     var section: Int = 0
