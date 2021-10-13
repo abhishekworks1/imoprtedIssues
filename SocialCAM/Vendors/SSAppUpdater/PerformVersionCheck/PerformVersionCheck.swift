@@ -71,6 +71,10 @@ internal class PerformVersionCheck {
                         }
                     }
                 }
+            } else {
+                DispatchQueue.main.async {
+                    self.showAppUpdateAlert(versionInfo: versionInfo, isAlreadyUpdated: true)
+                }
             }
         }
     }
@@ -98,7 +102,7 @@ internal class PerformVersionCheck {
         }
     }
     
-    private func showAppUpdateAlert(versionInfo: SSVersionInfo) {
+    private func showAppUpdateAlert(versionInfo: SSVersionInfo, isAlreadyUpdated: Bool = false) {
         guard let releaseNote = versionInfo.appReleaseNote, let trackID = versionInfo.appID, let appStoreVersion = versionInfo.appVersion else {
             return
         }
@@ -115,6 +119,7 @@ internal class PerformVersionCheck {
         ssViewController.releaseNote = releaseNote
         ssViewController.trackID = trackID
         ssViewController.appStoreVersion = appStoreVersion
+        ssViewController.isAlreadyUpdated = isAlreadyUpdated
         let navController = UINavigationController(rootViewController: ssViewController)
         navController.navigationBar.isHidden = true
         window.rootViewController = navController
