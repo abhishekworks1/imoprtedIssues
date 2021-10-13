@@ -16,6 +16,7 @@ class StorySettingsCell: UITableViewCell {
     @IBOutlet weak var socialImageView: UIImageView?
     @IBOutlet weak var lblPremiumVersionOnly: UILabel!
     @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet weak var imgSettingsIcon: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

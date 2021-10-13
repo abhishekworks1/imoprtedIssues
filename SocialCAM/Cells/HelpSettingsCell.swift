@@ -12,6 +12,7 @@ class HelpSettingsCell: UITableViewCell {
     
     // MARK: - Outlets Declaration
     @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var imgSettingIcon: UIImageView!
     
     // MARK: - Life cycle methods
     override func awakeFromNib() {

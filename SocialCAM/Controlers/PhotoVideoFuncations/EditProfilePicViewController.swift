@@ -8,6 +8,7 @@
 
 import UIKit
 import AVKit
+import SkyFloatingLabelTextField
 
 protocol SharingSocialTypeDelegate {
     func shareSocialType(socialType: ProfileSocialShare)
@@ -40,6 +41,18 @@ class EditProfilePicViewController: UIViewController {
     @IBOutlet weak var socialPlatformsVerifiedBadge: UIView!
     @IBOutlet weak var socialBadgeReceivedPopupView: UIView!
     @IBOutlet weak var lblSocialBadgeReceived: UILabel!
+    @IBOutlet weak var popupImgView: UIImageView!
+    @IBOutlet weak var setDisplayNamePopupView: UIView!
+    @IBOutlet weak var txtDisplayName: UITextField!
+    @IBOutlet weak var lblDisplayName: UILabel!
+    @IBOutlet weak var displayNameLabelTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var btnSetPublicDisplayName: UIButton!
+    @IBOutlet var scrollView: UIScrollView!
+    @IBOutlet weak var lblUseThisPicture: UILabel!
+    @IBOutlet weak var popupImgHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var dicardPopupView: UIView!
+    @IBOutlet weak var publicDisplayNameTooltipView: UIView!
+    @IBOutlet weak var btnPublicDisplayNameTooltip: UIButton!
     
     // MARK: - Variables declaration
     private var localImageUrl: URL?
@@ -61,12 +74,13 @@ class EditProfilePicViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.isUserInteractionEnabled = true
+        self.scrollView.delegate = self
         self.lblUserName.text = "@\(Defaults.shared.currentUser?.channelId ?? "")"
         if let createdDate = Defaults.shared.currentUser?.created {
             let date = CommonFunctions.getDateInSpecificFormat(dateInput: createdDate, dateOutput: R.string.localizable.mmmdYyyy())
             self.lblSinceDate.text = R.string.localizable.sinceJoined(date)
         }
-        
+        self.setPublicDisplayName()
         btnSelectCountry.isSelected = Defaults.shared.currentUser?.isShowFlags ?? false
         
         DispatchQueue.main.async {
@@ -97,6 +111,8 @@ class EditProfilePicViewController: UIViewController {
         } else {
             imgProfilePic.image = R.image.userIconWithPlus()
         }
+        popupImgView.layer.cornerRadius = popupImgView.bounds.width / 2
+        popupImgView.contentMode = .scaleAspectFill
     }
     
     func settingSocialPlatforms() {
@@ -111,6 +127,9 @@ class EditProfilePicViewController: UIViewController {
     func showHidePopupView(isHide: Bool) {
         socialSharePopupView.bringSubviewToFront(self.view)
         self.socialSharePopupView.isHidden = isHide
+        self.lblUseThisPicture.isHidden = isShareButtonSelected
+        self.popupImgHeightConstraint.constant = isShareButtonSelected ? 0 : 100
+        self.popupImgView.image = isCroppedImage ? self.croppedImg : self.uncroppedImg
     }
     
     func showHideSocialBadgePopupView(isHide: Bool) {
@@ -123,9 +142,28 @@ class EditProfilePicViewController: UIViewController {
         }
     }
     
+    func setPublicDisplayName() {
+        if let displayName =  Defaults.shared.publicDisplayName,
+           !displayName.isEmpty {
+            self.lblDisplayName.isHidden = false
+            self.displayNameLabelTopConstraint.constant = 34
+            self.lblDisplayName.text = displayName
+            self.setDisplayNamePopupView.isHidden = true
+            self.btnSetPublicDisplayName.isHidden = true
+            self.btnPublicDisplayNameTooltip.isHidden = true
+        } else {
+            self.btnSetPublicDisplayName.isHidden = false
+            self.btnPublicDisplayNameTooltip.isHidden = false
+        }
+    }
+    
     // MARK: - Action Methods
     @IBAction func btnBackTapped(_ sender: UIButton) {
-        self.setupMethod()
+        if isImageSelected || isCountryFlagSelected || isFlagSelected {
+            self.dicardPopupView.isHidden = false
+        } else {
+            self.setupMethod()
+        }
     }
     
     @IBAction func btnUpdateTapped(_ sender: UIButton) {
@@ -198,23 +236,43 @@ class EditProfilePicViewController: UIViewController {
         }
     }
     
-    
     @IBAction func btnOKPopupTapped(_ sender: UIButton) {
         self.showHideSocialBadgePopupView(isHide: true)
     }
     
+    @IBAction func btnSetPublicDisplayNameTapped(_ sender: UIButton) {
+        self.setDisplayNamePopupView.isHidden = false
+    }
+    
+    @IBAction func btnSetDisplayYesTapped(_ sender: UIButton) {
+        self.showHUD()
+        self.editDisplayName()
+    }
+    
+    @IBAction func btnSetDisplayNoTapped(_ sender: UIButton) {
+        self.setDisplayNamePopupView.isHidden = true
+    }
+    
+    @IBAction func btnDiscardPopupOkTapped(_ sender: UIButton) {
+        self.setupMethod()
+    }
+    
+    @IBAction func btnDiscardPopupCancelTapped(_ sender: UIButton) {
+        self.dicardPopupView.isHidden = true
+    }
+    
+    @IBAction func btnTooltipOkTapped(_ sender: UIButton) {
+        self.publicDisplayNameTooltipView.isHidden = true
+    }
+    
+    @IBAction func btnPublicDisplayNameTooltipTapped(_ sender: UIButton) {
+        self.publicDisplayNameTooltipView.isHidden = false
+    }
 }
 
 extension EditProfilePicViewController: CountryPickerViewDelegate {
     func countryPickerView(_ didSelectCountry : [Country]) {
-        var countryAry = didSelectCountry
-        if let index = countryAry.firstIndex(where: { $0.code == StaticKeys.countryCodeUS }) {
-            let element = countryAry[index]
-            if countryAry.count >= 2 {
-                countryAry.remove(at: index)
-                countryAry.insert(element, at: 1)
-            }
-        }
+        let countryAry = rearrangeFlags(flagsArray: didSelectCountry)
         DispatchQueue.main.async {
             for (index, _) in self.countryView.enumerated() {
                 self.countryView[index].isHidden = true
@@ -240,14 +298,7 @@ extension EditProfilePicViewController: CountryPickerViewDelegate {
 extension EditProfilePicViewController: StatePickerViewDelegate {
     
     func statePickerView(_ didSelectCountry: [Country], isSelectionDone: Bool) {
-        var countryAry = didSelectCountry
-        if let index = countryAry.firstIndex(where: { $0.code == StaticKeys.countryCodeUS }) {
-            let element = countryAry[index]
-            if countryAry.count >= 2 {
-                countryAry.remove(at: index)
-                countryAry.insert(element, at: 1)
-            }
-        }
+        let countryAry = rearrangeFlags(flagsArray: didSelectCountry)
         DispatchQueue.main.async {
             for (index, _) in self.countryView.enumerated() {
                 self.countryView[index].isHidden = true
@@ -290,28 +341,37 @@ extension EditProfilePicViewController {
     
     func openSheet(socialType: ProfileSocialShare) {
         self.isImageSelected = true
+        self.showHideSharePopupLabel(socialType: socialType)
         switch socialType {
         case .gallery:
-            self.lblSocialSharePopup.text = R.string.localizable.useThisPicture()
             self.getImage(fromSourceType: .photoLibrary)
         case .camera:
-            self.lblSocialSharePopup.text = R.string.localizable.useThisPicture()
             self.getImage(fromSourceType: .camera)
         case .instagram:
-            self.lblSocialSharePopup.text = R.string.localizable.loginSuccessUseThisPicture(SocialConnectionType.instagram.stringValue)
+            self.lblSocialSharePopup.text = R.string.localizable.loginSuccess(SocialConnectionType.instagram.stringValue)
             self.setSocialMediaPicture(socialShareType: .instagram)
         case .snapchat:
-            self.lblSocialSharePopup.text = R.string.localizable.loginSuccessUseThisPicture(SocialConnectionType.snapchat.stringValue)
+            self.lblSocialSharePopup.text = R.string.localizable.loginSuccess(SocialConnectionType.snapchat.stringValue)
             self.setSocialMediaPicture(socialShareType: .snapchat)
         case .youTube:
-            self.lblSocialSharePopup.text = R.string.localizable.loginSuccessUseThisPicture(SocialConnectionType.youtube.stringValue)
+            self.lblSocialSharePopup.text = R.string.localizable.loginSuccess(SocialConnectionType.youtube.stringValue)
             self.setSocialMediaPicture(socialShareType: .youtube)
         case .twitter:
-            self.lblSocialSharePopup.text = R.string.localizable.loginSuccessUseThisPicture(SocialConnectionType.twitter.stringValue)
+            self.lblSocialSharePopup.text = R.string.localizable.loginSuccess(SocialConnectionType.twitter.stringValue)
             self.setSocialMediaPicture(socialShareType: .twitter)
         case .facebook:
-            self.lblSocialSharePopup.text = R.string.localizable.loginSuccessUseThisPicture(SocialConnectionType.facebook.stringValue)
+            self.lblSocialSharePopup.text = R.string.localizable.loginSuccess(SocialConnectionType.facebook.stringValue)
             self.setSocialMediaPicture(socialShareType: .facebook)
+        }
+    }
+    
+    func showHideSharePopupLabel(socialType: ProfileSocialShare) {
+        switch socialType {
+        case .gallery, .camera:
+            self.dismissHUD()
+            self.lblSocialSharePopup.isHidden = true
+        default:
+            self.lblSocialSharePopup.isHidden = false
         }
     }
     
@@ -326,6 +386,7 @@ extension EditProfilePicViewController {
                     }
                 }
             }
+            self.dismissHUD()
         }
     }
     
@@ -349,6 +410,31 @@ extension EditProfilePicViewController {
             editProfileCropVC.delegate = self
             navigationController?.pushViewController(editProfileCropVC, animated: true)
         }
+    }
+    
+    func rearrangeFlags(flagsArray: [Country]) -> [Country] {
+        var flagsArray = flagsArray
+        if let index = flagsArray.firstIndex(where: { $0.code == StaticKeys.countryCodeUS }) {
+            let element = flagsArray[index]
+            if let stateIndex = flagsArray.firstIndex(where: { $0.isState == true }) {
+                let stateElement = flagsArray[stateIndex]
+                if flagsArray.count == 3 {
+                    flagsArray.remove(at: stateIndex)
+                    flagsArray.insert(stateElement, at: 2)
+                    flagsArray.remove(at: index)
+                    flagsArray.insert(element, at: 1)
+                } else if flagsArray.count == 2 {
+                    flagsArray.remove(at: index)
+                    flagsArray.insert(element, at: 0)
+                }
+            } else {
+                if flagsArray.count == 2 {
+                    flagsArray.remove(at: index)
+                    flagsArray.insert(element, at: 1)
+                }
+            }
+        }
+        return flagsArray
     }
     
 }
@@ -385,6 +471,26 @@ extension EditProfilePicViewController: UIImagePickerControllerDelegate, UINavig
 // MARK: - API Methods
 extension EditProfilePicViewController {
     
+    func editDisplayName() {
+        guard let displayName = self.txtDisplayName.text else {
+            return
+        }
+        ProManagerApi.editDisplayName(publicDisplayName: displayName, privateDisplayName: "").request(Result<EmptyModel>.self).subscribe(onNext: { [weak self] (response) in
+            guard let `self` = self else {
+                return
+            }
+            self.dismissHUD()
+            if response.status == ResponseType.success {
+                self.storyCameraVC.syncUserModel { _ in
+                    self.setPublicDisplayName()
+                }
+            }
+        }, onError: { error in
+            self.showAlert(alertMessage: error.localizedDescription)
+        }, onCompleted: {
+        }).disposed(by: self.rx.disposeBag)
+    }
+    
     func setCountrys(_ countrys: [Country]) {
         var arrayCountry: [[String: Any]] = []
         for country in countrys {
@@ -410,6 +516,7 @@ extension EditProfilePicViewController {
                         self.setupMethod()
                     }
                 }
+                self.isCountryFlagSelected = false
             }
         }, onError: { error in
             self.showAlert(alertMessage: error.localizedDescription)
@@ -423,13 +530,16 @@ extension EditProfilePicViewController {
             guard let `self` = self else {
                 return
             }
-            if !self.isCountryFlagSelected || !self.isImageSelected {
-                if self.isShareButtonSelected {
-                    self.isShareButtonSelected = false
-                    self.goToShareScreen()
-                } else {
-                    self.setupMethod()
+            self.storyCameraVC.syncUserModel { _ in
+                if !self.isCountryFlagSelected || !self.isImageSelected {
+                    if self.isShareButtonSelected {
+                        self.isShareButtonSelected = false
+                        self.goToShareScreen()
+                    } else {
+                        self.setupMethod()
+                    }
                 }
+                self.isFlagSelected = false
             }
         }, onError: { error in
             self.showAlert(alertMessage: error.localizedDescription)
@@ -450,6 +560,7 @@ extension EditProfilePicViewController {
                 } else {
                     self.setupMethod()
                 }
+                self.isImageSelected = false
             }
         }, onError: { error in
             self.dismissHUD()
@@ -613,6 +724,7 @@ extension EditProfilePicViewController {
             }
         case .twitter:
             if !TwitterManger.shared.isUserLogin {
+                self.dismissHUD()
                 TwitterManger.shared.login { (_, _) in
                     completion(true)
                 }
@@ -685,6 +797,7 @@ extension EditProfilePicViewController {
         if let url = URL(string: userData.profileURL ?? ""),
            let data = try? Data(contentsOf: url) {
             DispatchQueue.main.async {
+                self.dismissHUD()
                 if let img = UIImage(data: data) {
                     self.isCroppedImage = false
                     self.uncroppedImg = img
@@ -741,7 +854,17 @@ extension EditProfilePicViewController: SharingSocialTypeDelegate {
     }
     
     func shareSocialType(socialType: ProfileSocialShare) {
+        self.showHUD()
         self.openSheet(socialType: socialType)
     }
     
+}
+
+// MARK: - UIScrollView Delegate
+extension EditProfilePicViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.x>0 {
+            scrollView.contentOffset.x = 0
+        }
+    }
 }

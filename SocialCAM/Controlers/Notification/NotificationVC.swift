@@ -53,11 +53,11 @@ class NotificationVC: UIViewController {
     }
 
     func getFollowingNotifications(pageIndex: Int) {
-        ProManagerApi.getNotification(page: 0).request(Result<NotificationResult>.self).subscribe(onNext: { (response) in
+        ProManagerApi.getNotification(page: pageIndex).request(Result<NotificationResult>.self).subscribe(onNext: { (response) in
             self.tblNotification.es.stopPullToRefresh()
             self.tblNotification.es.stopLoadingMore()
-            print(response)
             if response.status == ResponseType.success {
+                self.postsCount = response.result?.count ?? 0
                 if pageIndex == 0 {
                     self.notificationArray = response.result?.notifications ?? []
                     if self.notificationArray.count == 0 {
@@ -100,26 +100,66 @@ extension NotificationVC: UITableViewDataSource, UITableViewDelegate {
             fatalError("NotificationTableViewCell Not Found")
         }
         cell.notification = self.notificationArray[indexPath.row]
+        cell.profileImgHandler = { [weak self] notification in
+            guard let `self` = self, let userNotification = notification else {
+                return
+            }
+            self.notificationUnread(userNotification)
+            if let popupViewController = R.storyboard.notificationVC.userDetailsVC() {
+                popupViewController.notificationUpdateHandler = { [weak self] notification in
+                    guard let `self` = self, let userNotification = notification else {
+                        return
+                    }
+                    self.notificationArray[indexPath.row] = userNotification
+                }
+                popupViewController.notification = notification
+                MIBlurPopup.show(popupViewController, on: self)
+            }
+        }
+        cell.profileDeatilsHandler = { [weak self] notification in
+            guard let `self` = self, let userNotification = notification else {
+                return
+            }
+            self.notificationUnread(userNotification)
+            if let notificationDetails = R.storyboard.notificationVC.notificationDetails() {
+                notificationDetails.notificationArray = self.notificationArray
+                notificationDetails.pageIndex = self.pageIndex
+                notificationDetails.postsCount = self.postsCount
+                notificationDetails.notification = notification
+                notificationDetails.notificationArrayHandler = { [weak self] notificationArraay, index, count in
+                    guard let `self` = self else {
+                        return
+                    }
+                    self.notificationArray = notificationArraay
+                    self.pageIndex = index
+                    self.postsCount = count
+                    self.tblNotification.reloadData()
+                }
+                self.navigationController?.pushViewController(notificationDetails, animated: true)
+            }
+        }
         cell.updateConstraints()
         cell.setNeedsUpdateConstraints()
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let notification = self.notificationArray[indexPath.row]
+    func notificationUnread(_ notification: UserNotification) {
         if !(notification.isRead ?? true) {
             ProManagerApi.notificationsRead(notificationId: notification.id ?? "").request(Result<NotificationResult>.self).subscribe(onNext: { (response) in
                 if response.status == ResponseType.success {
-                    self.notificationArray[indexPath.row].isRead = true
-                    self.tblNotification.reloadRows(at: [indexPath], with: .automatic)
+                    if let index = self.notificationArray.firstIndex(where: { $0.id == notification.id }) {
+                        self.notificationArray[index].isRead = true
+                        self.tblNotification.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+                    }
                 }
             }, onError: { error in
             }, onCompleted: {
             }).disposed(by: rx.disposeBag)
         }
-        if let popupViewController = R.storyboard.notificationVC.userDetailsVC() {
-            popupViewController.notification = notification
-            MIBlurPopup.show(popupViewController, on: self)
-        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let notification = self.notificationArray[indexPath.row]
+        self.notificationUnread(notification)
     }
 }

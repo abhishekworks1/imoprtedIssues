@@ -90,6 +90,8 @@ class User: Codable, Mappable {
     var socialPlatforms: [String]?
     var userStateFlags: [UserCountry]?
     var isShowFlags: Bool?
+    var publicDisplayName: String?
+    var privateDisplayName: String?
     
     required init?(map: Map) {
         
@@ -190,6 +192,8 @@ class User: Codable, Mappable {
         socialPlatforms <- map["socialPlatforms"]
         userStateFlags <- map["userStateFlags"]
         isShowFlags <- map["isShowFlags"]
+        publicDisplayName <- map["publicDisplayName"]
+        privateDisplayName <- map["privateDisplayName"]
     }
     
 }

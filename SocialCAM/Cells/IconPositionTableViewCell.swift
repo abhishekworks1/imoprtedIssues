@@ -14,6 +14,7 @@ class IconPositionTableViewCell: UITableViewCell {
     @IBOutlet weak var imgInverseIconPosition: UIImageView!
     @IBOutlet weak var btnIconPosition: UIButton!
     @IBOutlet weak var btnInverseIconPosition: UIButton!
+    @IBOutlet weak var imgSettingIcon: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

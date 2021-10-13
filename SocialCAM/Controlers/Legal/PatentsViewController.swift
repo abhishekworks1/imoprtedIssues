@@ -16,6 +16,9 @@ class PatentsViewController: UIViewController {
     @IBOutlet weak var pdfWebView: WKWebView!
     @IBOutlet weak var imgPdf: UIImageView!
     
+    // MARK: - Variable Declaration
+    let documentInteractionController = UIDocumentInteractionController()
+    
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,16 +36,32 @@ class PatentsViewController: UIViewController {
     }
     
     @IBAction func btnPdfTapped(_ sender: UIButton) {
-        self.pdfWebView.isHidden = false
-        lblPatentDesciption.isHidden = true
-        imgPdf.isHidden = true
+        saveToFiles()
+    }
+    
+    func saveToFiles() {
         if let pdfUrl = Bundle.main.url(forResource: "patents", withExtension: "pdf", subdirectory: nil, localization: nil) {
+            let tempURL = FileManager.default.temporaryDirectory.appendingPathComponent("patents.pdf")
             do {
                 let data = try Data(contentsOf: pdfUrl)
-                pdfWebView.load(data, mimeType: "application/pdf", characterEncodingName: "", baseURL: pdfUrl.deletingLastPathComponent())
+                try data.write(to: tempURL)
+                if #available(iOS 14.0, *) {
+                    let controller = UIDocumentPickerViewController(forExporting: [tempURL])
+                    controller.delegate = self
+                    present(controller, animated: true, completion: nil)
+                } else {
+                    let controller = UIDocumentPickerViewController(url: tempURL, in: .exportToService)
+                    present(controller, animated: true, completion: nil)
+                }
             } catch {
                 showAlert(alertMessage: error.localizedDescription)
             }
         }
+    }
+}
+
+extension PatentsViewController: UIDocumentPickerDelegate {
+    func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
+        Utils.appDelegate?.window?.makeToast("File is not saved")
     }
 }

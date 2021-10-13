@@ -186,7 +186,7 @@ extension StatePickerViewController: UICollectionViewDataSource {
             }
             let country = searchUsers[indexPath.row]
             cell.bind(country)
-            cell.selectedItem = (selectedStates.firstIndex(of: country) != nil && !country.isState) ? true : false
+            cell.selectedItem = (selectedStates.firstIndex(where: { $0.code == country.code && $0.name == country.name }) != nil) ? true : false
         }
         
         return cell
@@ -202,8 +202,8 @@ extension StatePickerViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == self.collectionView, let cell = collectionView.cellForItem(at: indexPath) as? CountryPickerViewCell {
             let co = searchUsers[indexPath.row]
-            if let index = self.selectedStates.firstIndex(where: { $0.code == co.code }),
-               let onlyStatesIndex = self.onlyStates.firstIndex(where: { $0.code == co.code }) {
+            if let index = self.selectedStates.firstIndex(where: { $0.code == co.code && $0.name == co.name }),
+               let onlyStatesIndex = self.onlyStates.firstIndex(where: { $0.code == co.code && $0.name == co.name }) {
                 //deselect
                 self.selectedStates.remove(at: index)
                 self.onlyStates.remove(at: onlyStatesIndex)
@@ -227,6 +227,16 @@ extension StatePickerViewController: UICollectionViewDataSource {
                 selectedStates.append(userStates[indexPath.row])
                 onlyStates.append(userStates[indexPath.row])
                 cell.selectedItem = true
+            }
+        } else if collectionView == self.selectedCollectionView, let cell = collectionView.cellForItem(at: indexPath) as? CountryPickerViewCell {
+            let co = selectedStates[indexPath.row]
+            if let index = self.selectedStates.firstIndex(where: { $0.code == co.code }),
+               let onlyStatesIndex = self.onlyStates.firstIndex(where: { $0.code == co.code }) {
+                //deselect
+                self.selectedStates.remove(at: index)
+                self.onlyStates.remove(at: onlyStatesIndex)
+                cell.selectedItem = false
+                self.collectionView.reloadData()
             }
         }
     }

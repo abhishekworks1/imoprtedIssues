@@ -26,7 +26,7 @@ class ShareSettingViewController: UIViewController {
     @IBOutlet weak var imgProfileBadge: UIImageView!
     @IBOutlet weak var imgProfilePic: UIImageView!
     @IBOutlet weak var lblUserName: UILabel!
-    @IBOutlet weak var verifiedStackView: UIStackView!
+    @IBOutlet weak var verifiedView: UIView!
     @IBOutlet weak var facebookVerifiedView: UIView!
     @IBOutlet weak var twitterVerifiedView: UIView!
     @IBOutlet weak var snapchatVerifiedView: UIView!
@@ -42,6 +42,7 @@ class ShareSettingViewController: UIViewController {
     @IBOutlet weak var btnDoNotShowAgain: UIButton!
     @IBOutlet weak var socialPlatformsVerifiedBadgeView: UIView!
     @IBOutlet weak var socialBadgeStackView: UIStackView!
+    @IBOutlet weak var lblDisplayName: UILabel!
     
     // MARK: - Variable Declarations
     var myMutableString = NSMutableAttributedString()
@@ -74,7 +75,9 @@ class ShareSettingViewController: UIViewController {
             self.lblSinceDate.text = R.string.localizable.sinceJoined(date)
         }
         DispatchQueue.main.async {
-            if let flages = Defaults.shared.currentUser?.userStateFlags, flages.count > 0 {
+            if let flages = Defaults.shared.currentUser?.userStateFlags, flages.count > 0,
+               let isShowFlags = Defaults.shared.currentUser?.isShowFlags,
+               isShowFlags {
                 self.flagStackviewHeightConstraint.constant = 70
                 for (index, item) in flages.enumerated() {
                     self.countryView[index].isHidden = false
@@ -85,6 +88,13 @@ class ShareSettingViewController: UIViewController {
             } else {
                 self.flagStackviewHeightConstraint.constant = 0
             }
+        }
+        if let displayName =  Defaults.shared.publicDisplayName,
+           !displayName.isEmpty {
+            self.lblDisplayName.isHidden = false
+            self.lblDisplayName.text = displayName
+        } else {
+            self.lblDisplayName.isHidden = true
         }
     }
     
@@ -106,7 +116,7 @@ class ShareSettingViewController: UIViewController {
     
     func getVerifiedSocialPlatforms() {
         if let socialPlatforms = Defaults.shared.socialPlatforms, socialPlatforms.count > 0 {
-            verifiedStackView.isHidden = false
+            verifiedView.isHidden = false
             for socialPlatform in socialPlatforms {
                 if socialPlatform == R.string.localizable.facebook().lowercased() {
                     self.facebookVerifiedView.isHidden = false
@@ -122,7 +132,7 @@ class ShareSettingViewController: UIViewController {
             self.socialBadgeStackView.isHidden = socialPlatforms.count != 4
             self.socialPlatformsVerifiedBadgeView.isHidden = socialPlatforms.count != 4
         } else {
-            self.verifiedStackView.isHidden = true
+            self.verifiedView.isHidden = true
             self.socialBadgeStackView.isHidden = true
             self.socialPlatformsVerifiedBadgeView.isHidden = true
         }

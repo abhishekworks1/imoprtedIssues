@@ -288,6 +288,8 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             if recordingType != .custom {
                 DispatchQueue.main.async {
                     self.speedSlider.isUserInteractionEnabled = true
+                    self.speedSlider.isHidden = false
+                    self.speedSliderView.isHidden = false
                     self.slowFastVerticalBar.isHidden = true
                     self.speedLabel.textColor = UIColor.red
                     self.speedLabel.text = ""
@@ -301,6 +303,10 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                         )
                         self.deleteRect = self.deleteView.frame
                         self.stopMotionCollectionView.reloadData()
+                    }
+                    if self.recordingType == .pic2Art {
+                        self.speedSlider.isHidden = true
+                        self.speedSliderView.isHidden = true
                     }
                 }
             } else if recordingType == .custom {
@@ -1254,17 +1260,11 @@ extension StoryCameraViewController {
         if !isFastCamApp && !isViralCamLiteApp && !isFastCamLiteApp && !isQuickCamLiteApp && !isSpeedCamLiteApp && !isSnapCamLiteApp && !isQuickApp {
             cameraSliderView.selectCell = Defaults.shared.cameraMode.rawValue
         }
-        if (isSnapCamLiteApp || isQuickApp) && Defaults.shared.appMode == .basic {
-            cameraSliderView.selectCell = self.cameraModeCell
-            self.cameraModeCell = 1
-        } else if isQuickApp && Defaults.shared.appMode == .free {
-            cameraSliderView.selectCell = 0
-        }
         UIView.animate(withDuration: 0.1, animations: { () -> Void in
             self.animateTransitionIfNeeded(to: self.currentState.opposite, duration: 0)
         }, completion: { (_ finished: Bool) -> Void in
             if finished {
-                self.currentState = .open
+                self.currentState = .closed
             }
         })
     }
@@ -1699,6 +1699,7 @@ extension StoryCameraViewController {
                     self.switchAppButton.alpha = 0
                     self.discardSegmentsStackView.alpha = 0
                     self.confirmRecordedSegmentStackView.alpha = 0
+                    self.businessDashboardStackView.alpha = 0
                 }
             })
         }
@@ -1723,6 +1724,7 @@ extension StoryCameraViewController {
                     self.switchAppButton.alpha = 1
                     self.discardSegmentsStackView.alpha = 1
                     self.confirmRecordedSegmentStackView.alpha = 1
+                    self.businessDashboardStackView.alpha = 1
                 })
             }
         } else {
@@ -2590,6 +2592,8 @@ extension StoryCameraViewController {
                 Defaults.shared.allowFullAccess = response.result?.userSubscription?.allowFullAccess
                 Defaults.shared.socialPlatforms = response.result?.user?.socialPlatforms
                 Defaults.shared.referredUserCreatedDate = response.result?.user?.refferedBy?.created
+                Defaults.shared.publicDisplayName = response.result?.user?.publicDisplayName
+                Defaults.shared.privateDisplayName = response.result?.user?.privateDisplayName
                 if let isAllowAffiliate = response.result?.user?.isAllowAffiliate {
                     Defaults.shared.isAffiliateLinkActivated = isAllowAffiliate
                 }

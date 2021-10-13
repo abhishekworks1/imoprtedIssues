@@ -20,6 +20,7 @@ class EditProfileCropViewController: UIViewController {
         cropPickerView.translatesAutoresizingMaskIntoConstraints = false
         cropPickerView.scrollMinimumZoomScale = 1
         cropPickerView.aspectRatio = 1
+        cropPickerView.backgroundColor = .white
         return cropPickerView
     }()
     var croppedImage: UIImage?
@@ -43,6 +44,8 @@ class EditProfileCropViewController: UIViewController {
             NSLayoutConstraint(item: self.cropContainerView!, attribute: .leading, relatedBy: .equal, toItem: self.cropPickerView, attribute: .leading, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: self.cropContainerView!, attribute: .trailing, relatedBy: .equal, toItem: self.cropPickerView, attribute: .trailing, multiplier: 1, constant: 0)
         ])
+        self.cropPickerView.backgroundColor = .white
+        self.cropPickerView.imageBackgroundColor = .white
     }
     
     // MARK: - Action Methods

@@ -186,7 +186,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
             self.hideShowTooltipView(shouldShow: true)
         } else {
             isLoginButtonPressed = false
-            goToKeycloakWebview(url: "\(keycloakUrl)\(keycloakClientId)\(KeycloakRedirectLink.keycloakRedirectLinkName.lowercased())\(KeycloakRedirectLink.endUrl)")
+            goToKeycloakWebview(url: "\(keycloakUrl)\(keycloakClientId)\(KeycloakRedirectLink.keycloakRedirectLinkName.lowercased())\(KeycloakRedirectLink.endUrl)\(KeycloakRedirectLink.fromLogin)")
         }
     }
     
@@ -201,9 +201,9 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         let messagesAppURL: String
         if isLoginButtonPressed {
             isLoginButtonPressed = false
-            messagesAppURL = "\(keycloakUrl)\(keycloakClientId)\(KeycloakRedirectLink.keycloakRedirectLinkName.lowercased())\(KeycloakRedirectLink.endUrl)"
+            messagesAppURL = "\(keycloakUrl)\(keycloakClientId)\(KeycloakRedirectLink.keycloakRedirectLinkName.lowercased())\(KeycloakRedirectLink.endUrl)\(KeycloakRedirectLink.fromLogin)"
         } else {
-            messagesAppURL = "\(keycloakUrl)\(keycloakRegistrationClientId)\(KeycloakRedirectLink.keycloakRedirectLinkName.lowercased())\(KeycloakRedirectLink.endUrl)"
+            messagesAppURL = "\(keycloakUrl)\(keycloakClientId)\(KeycloakRedirectLink.keycloakRedirectLinkName.lowercased())\(KeycloakRedirectLink.endUrl)\(KeycloakRedirectLink.fromSignup)"
         }
         goToKeycloakWebview(url: messagesAppURL)
     }

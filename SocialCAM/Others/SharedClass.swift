@@ -840,7 +840,7 @@ public struct Messages {
 }
 
 public struct FetchDataBefore {
-    static let bottomMargin: CGFloat = 900.0
+    static let bottomMargin: CGFloat = 550.0
 }
 
 public struct Reactions {
@@ -921,6 +921,8 @@ struct KeycloakRedirectLink {
             return "SocialCam"
         }
     }
+    static let fromSignup = "&from=Signup"
+    static let fromLogin = "&from=Login"
 }
 
 struct TrimError: Error {
@@ -1105,6 +1107,9 @@ public struct Paths {
     static let setUserStates = "user/setUserStates"
     static let getNotification = "user/notifications"
     static let readNotification = "user/notifications/read"
+    static let editDisplayName = "user/editDisplayName"
+    static let setFollow = "user/follow"
+    static let setUnFollow = "user/unfollow"
 }
 
 struct WebsiteData {
