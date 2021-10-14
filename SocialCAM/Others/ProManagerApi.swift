@@ -87,7 +87,7 @@ public enum ProManagerApi {
     case setCountrys(arrayCountry: [[String:Any]]?)
     case getNotification(page: Int)
     case notificationsRead(notificationId: String)
-    case editDisplayName(publicDisplayName: String, privateDisplayName: String)
+    case editDisplayName(publicDisplayName: String?, privateDisplayName: String?)
     case setFollow(userId: String)
     case setUnFollow(userId: String)
     
