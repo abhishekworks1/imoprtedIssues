@@ -71,6 +71,7 @@ class AccountSettingsViewController: UIViewController {
         }
     }
     @IBAction func onDonePressed(_ sender: UIButton) {
+        self.showHUD()
         self.editDisplayName()
     }
     
@@ -248,6 +249,7 @@ extension AccountSettingsViewController: UITableViewDelegate {
                     self.navigationController?.popViewController(animated: true)
                 }
             }
+            self.dismissHUD()
         }, onError: { error in
             self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
