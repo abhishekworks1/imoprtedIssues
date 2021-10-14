@@ -135,7 +135,7 @@ extension SystemSettingsViewController: UITableViewDelegate {
         let settingTitle = SystemSettings.systemSettings[indexPath.section]
         if settingTitle.settingsType == .checkUpdate {
             // Implement app updater
-            SSAppUpdater.shared.performCheck(isForceUpdate: false, updateAlertFrequency: .always, showDefaultAlert: true) { (_) in
+            SSAppUpdater.shared.performCheck(isForceUpdate: false, showDefaultAlert: true) { (_) in
             }
         }
     }
