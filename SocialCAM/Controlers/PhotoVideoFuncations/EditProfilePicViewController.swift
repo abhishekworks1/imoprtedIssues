@@ -175,8 +175,8 @@ class EditProfilePicViewController: UIViewController {
             self.showHUD()
             self.view.isUserInteractionEnabled = false
         } else {
-            DispatchQueue.main.async {
-                self.view.makeToast(R.string.localizable.noChannelFound())
+            self.view.makeToast(R.string.localizable.noChannelFound())
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.navigationController?.popViewController(animated: true)
             }
         }

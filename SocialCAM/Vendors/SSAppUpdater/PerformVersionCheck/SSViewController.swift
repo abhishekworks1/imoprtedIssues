@@ -61,6 +61,9 @@ class SSViewController: UIViewController {
         UserDefaults.alertPresentationDate = Date()
         let updateAction = UIAlertAction(title: R.string.localizable.update(), style: .default) { (action) in
             self.launchAppUpdate()
+            DispatchQueue.main.async {
+                self.currentWindow = nil
+            }
         }
         let cancelAction = UIAlertAction(title: R.string.localizable.cancel(), style: .default) { (action) in
             DispatchQueue.main.async {

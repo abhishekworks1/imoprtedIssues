@@ -67,7 +67,7 @@ internal class PerformVersionCheck {
                         }
                     } else {
                         DispatchQueue.main.async {
-                            self.displayOptionalUpdateAlert(versionInfo: versionInfo)
+                            self.showAppUpdateAlert(versionInfo: versionInfo)
                         }
                     }
                 }
