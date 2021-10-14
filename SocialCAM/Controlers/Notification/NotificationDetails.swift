@@ -36,10 +36,6 @@ class NotificationDetails: UIViewController {
         collectionView.collectionViewLayout = gridLayout
         collectionView.reloadData()
         collectionView.showsHorizontalScrollIndicator = false
-        btnNext.backgroundColor = ApplicationSettings.appPrimaryColor
-        btnNext.setTitleColor(ApplicationSettings.appWhiteColor, for: .normal)
-        btnPreviews.backgroundColor = ApplicationSettings.appPrimaryColor
-        btnPreviews.setTitleColor(ApplicationSettings.appWhiteColor, for: .normal)
         DispatchQueue.runOnMainThread {
             self.collectionView.isPagingEnabled = false
             self.collectionView.scrollToItem(at: IndexPath(item: self.selectedIndex, section: 0), at: UICollectionView.ScrollPosition.right, animated: false)
