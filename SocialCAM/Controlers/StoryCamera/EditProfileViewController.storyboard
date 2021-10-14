@@ -841,6 +841,87 @@
                                     <constraint firstItem="sba-S2-psU" firstAttribute="centerX" secondItem="hlf-Uc-W7z" secondAttribute="centerX" id="tA1-LY-pFH"/>
                                 </constraints>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jfS-NO-u5c" userLabel="Discard Popup View">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yD8-H8-Lb4" userLabel="Activate Affiliate Link Popup">
+                                        <rect key="frame" x="41.5" y="376.5" width="331" height="143"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Discard changes?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p2m-TM-JN4">
+                                                <rect key="frame" x="18" y="25" width="295" height="21"/>
+                                                <fontDescription key="fontDescription" name="SFUIText-Semibold" family="SF UI Text" pointSize="18"/>
+                                                <color key="textColor" name="editProfileScreenPopupTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="P1O-T8-lgN">
+                                                <rect key="frame" x="35" y="71" width="261" height="46"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S3k-4g-KiG">
+                                                        <rect key="frame" x="0.0" y="0.0" width="124" height="46"/>
+                                                        <color key="backgroundColor" name="AppPrimaryColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="124" id="Ycc-sd-6Wi"/>
+                                                            <constraint firstAttribute="height" constant="46" id="d1W-S3-9SG"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="SFUIText-Semibold" family="SF UI Text" pointSize="16"/>
+                                                        <state key="normal" title="OK">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                                <real key="value" value="8"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="btnDiscardPopupOkTapped:" destination="k7D-XT-pBV" eventType="touchUpInside" id="HEC-8v-DbE"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5uD-Dc-P8h">
+                                                        <rect key="frame" x="137" y="0.0" width="124" height="46"/>
+                                                        <color key="backgroundColor" name="AppPrimaryColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="46" id="WNh-VG-Xax"/>
+                                                            <constraint firstAttribute="width" constant="124" id="p2v-RW-Xtx"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="SFUIText-Semibold" family="SF UI Text" pointSize="16"/>
+                                                        <state key="normal" title="Cancel">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                                <real key="value" value="8"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="btnDiscardPopupCancelTapped:" destination="k7D-XT-pBV" eventType="touchUpInside" id="cyZ-xk-d8U"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="P1O-T8-lgN" firstAttribute="centerX" secondItem="yD8-H8-Lb4" secondAttribute="centerX" id="6LZ-78-885"/>
+                                            <constraint firstAttribute="bottom" secondItem="P1O-T8-lgN" secondAttribute="bottom" constant="26" id="Di9-lh-bYt"/>
+                                            <constraint firstItem="P1O-T8-lgN" firstAttribute="top" secondItem="p2m-TM-JN4" secondAttribute="bottom" constant="25" id="LZn-xu-Pcu"/>
+                                            <constraint firstItem="p2m-TM-JN4" firstAttribute="top" secondItem="yD8-H8-Lb4" secondAttribute="top" constant="25" id="N10-4M-Qtw"/>
+                                            <constraint firstAttribute="trailing" secondItem="p2m-TM-JN4" secondAttribute="trailing" constant="18" id="kIq-Mt-zKh"/>
+                                            <constraint firstItem="p2m-TM-JN4" firstAttribute="leading" secondItem="yD8-H8-Lb4" secondAttribute="leading" constant="18" id="uk7-6z-NLu"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                <real key="value" value="6"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" name="editProfilePopupBlurView"/>
+                                <constraints>
+                                    <constraint firstItem="yD8-H8-Lb4" firstAttribute="centerY" secondItem="jfS-NO-u5c" secondAttribute="centerY" id="L2x-eu-0VA"/>
+                                    <constraint firstItem="yD8-H8-Lb4" firstAttribute="centerX" secondItem="jfS-NO-u5c" secondAttribute="centerX" id="ToL-3b-3Mx"/>
+                                    <constraint firstItem="yD8-H8-Lb4" firstAttribute="width" secondItem="jfS-NO-u5c" secondAttribute="width" multiplier="0.8" id="ga9-MS-Aav"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Beb-Hq-Yu5"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -855,12 +936,16 @@
                             <constraint firstAttribute="bottom" secondItem="Svy-im-JaM" secondAttribute="bottom" id="KF5-4O-MjT"/>
                             <constraint firstItem="Beb-Hq-Yu5" firstAttribute="top" secondItem="0dB-yk-Da0" secondAttribute="top" id="Kbf-Gw-LY0"/>
                             <constraint firstAttribute="bottom" secondItem="xPd-JQ-tiK" secondAttribute="bottom" id="LO0-Be-PEe"/>
+                            <constraint firstItem="jfS-NO-u5c" firstAttribute="leading" secondItem="kzn-v6-T73" secondAttribute="leading" id="LcK-V1-2fD"/>
                             <constraint firstItem="xPd-JQ-tiK" firstAttribute="trailing" secondItem="Beb-Hq-Yu5" secondAttribute="trailing" id="NP1-FD-zpb"/>
                             <constraint firstItem="Svy-im-JaM" firstAttribute="top" secondItem="0dB-yk-Da0" secondAttribute="bottom" id="OqL-8I-e26"/>
                             <constraint firstItem="hlf-Uc-W7z" firstAttribute="trailing" secondItem="Beb-Hq-Yu5" secondAttribute="trailing" id="QcS-GH-72p"/>
                             <constraint firstItem="xPd-JQ-tiK" firstAttribute="leading" secondItem="Beb-Hq-Yu5" secondAttribute="leading" id="Rsi-yi-acd"/>
                             <constraint firstItem="Beb-Hq-Yu5" firstAttribute="leading" secondItem="0dB-yk-Da0" secondAttribute="leading" id="ZnK-gA-eRS"/>
                             <constraint firstItem="T4E-7a-dfZ" firstAttribute="leading" secondItem="Beb-Hq-Yu5" secondAttribute="leading" id="av0-aI-oOK"/>
+                            <constraint firstAttribute="trailing" secondItem="jfS-NO-u5c" secondAttribute="trailing" id="bQp-lB-uYf"/>
+                            <constraint firstItem="jfS-NO-u5c" firstAttribute="bottom" secondItem="kzn-v6-T73" secondAttribute="bottom" id="h1A-Nw-Lrl"/>
+                            <constraint firstAttribute="top" secondItem="jfS-NO-u5c" secondAttribute="top" id="r5d-QH-9x7"/>
                             <constraint firstItem="T4E-7a-dfZ" firstAttribute="trailing" secondItem="Beb-Hq-Yu5" secondAttribute="trailing" id="riV-66-sZv"/>
                             <constraint firstItem="Svy-im-JaM" firstAttribute="leading" secondItem="kzn-v6-T73" secondAttribute="leading" id="tqS-La-ypD"/>
                             <constraint firstItem="Beb-Hq-Yu5" firstAttribute="trailing" secondItem="0dB-yk-Da0" secondAttribute="trailing" id="wwl-PJ-g9b"/>
@@ -871,6 +956,7 @@
                         <outlet property="btnProfilePic" destination="XkW-Yh-sdb" id="GqO-Cy-guR"/>
                         <outlet property="btnSelectCountry" destination="gam-QW-hWV" id="pIO-Xv-hdj"/>
                         <outlet property="btnSetPublicDisplayName" destination="UcJ-PD-IZa" id="AHt-J2-dkr"/>
+                        <outlet property="dicardPopupView" destination="jfS-NO-u5c" id="rc9-0L-ap3"/>
                         <outlet property="displayNameLabelTopConstraint" destination="i4d-hh-48u" id="f0y-FA-Mzr"/>
                         <outlet property="facebookVerifiedView" destination="bhu-cN-5sr" id="eTM-0X-Zru"/>
                         <outlet property="flagsStackViewHeightConstraint" destination="ODz-Sj-bco" id="nxk-O9-bu9"/>
@@ -880,7 +966,9 @@
                         <outlet property="lblSinceDate" destination="9Iv-po-Sf6" id="Og7-Hy-sBY"/>
                         <outlet property="lblSocialBadgeReceived" destination="wDz-aw-hw9" id="fct-Wn-qXm"/>
                         <outlet property="lblSocialSharePopup" destination="Nqa-f7-Izm" id="lMn-IU-lHJ"/>
+                        <outlet property="lblUseThisPicture" destination="NQ8-9U-Fnh" id="pHJ-5s-X5R"/>
                         <outlet property="lblUserName" destination="NU1-qX-Byj" id="8Bq-Du-DXx"/>
+                        <outlet property="popupImgHeightConstraint" destination="eNe-ch-qMw" id="esk-36-Jgm"/>
                         <outlet property="popupImgView" destination="9Ba-4E-6Fe" id="D1s-hW-rSx"/>
                         <outlet property="scrollView" destination="Svy-im-JaM" id="hcl-U9-Wbs"/>
                         <outlet property="setDisplayNamePopupView" destination="T4E-7a-dfZ" id="5Ye-0d-QlD"/>

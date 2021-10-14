@@ -210,6 +210,23 @@ class CountryPickerViewController: UIViewController {
 // MARK: - API Methods
 extension CountryPickerViewController {
     
+    func rearrangeFlags(countrys: [Country]) -> [Country] {
+        var countryAry = countrys
+        if let index = countryAry.firstIndex(where: { $0.code == StaticKeys.countryCodeUS }) {
+            let element = countryAry[index]
+            if countryAry.count >= 2 {
+                if let stateIndex = countryAry.firstIndex(where: { $0.isState == true }) {
+                    let stateElement = countryAry[stateIndex]
+                    countryAry.remove(at: stateIndex)
+                    countryAry.insert(stateElement, at: 2)
+                }
+                countryAry.remove(at: index)
+                countryAry.insert(element, at: 1)
+            }
+        }
+        return countryAry
+    }
+    
     func setCountrys(_ countrys: [Country]) {
         var arrayCountry: [[String: Any]] = []
         for country in countrys {
@@ -322,6 +339,8 @@ extension CountryPickerViewController: UICollectionViewDataSource {
                     }
                     self.selectedCountries.removeFirst()
                     self.onlyCountries.removeFirst()
+                    self.selectedCountries = rearrangeFlags(countrys: selectedCountries)
+                    self.onlyCountries = rearrangeFlags(countrys: onlyCountries)
                     return
                 }
                 if co.code == StaticKeys.countryCodeUS {
@@ -329,6 +348,8 @@ extension CountryPickerViewController: UICollectionViewDataSource {
                 }
                 selectedCountries.append(users[indexPath.row])
                 onlyCountries.append(users[indexPath.row])
+                self.selectedCountries = rearrangeFlags(countrys: selectedCountries)
+                self.onlyCountries = rearrangeFlags(countrys: onlyCountries)
                 cell.selectedItem = true
             }
         } else if collectionView == self.selectedCollectionView, let cell = collectionView.cellForItem(at: indexPath) as? CountryPickerViewCell {

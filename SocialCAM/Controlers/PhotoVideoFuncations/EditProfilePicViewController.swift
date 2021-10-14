@@ -48,6 +48,9 @@ class EditProfilePicViewController: UIViewController {
     @IBOutlet weak var displayNameLabelTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var btnSetPublicDisplayName: UIButton!
     @IBOutlet var scrollView: UIScrollView!
+    @IBOutlet weak var lblUseThisPicture: UILabel!
+    @IBOutlet weak var popupImgHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var dicardPopupView: UIView!
     
     // MARK: - Variables declaration
     private var localImageUrl: URL?
@@ -122,6 +125,8 @@ class EditProfilePicViewController: UIViewController {
     func showHidePopupView(isHide: Bool) {
         socialSharePopupView.bringSubviewToFront(self.view)
         self.socialSharePopupView.isHidden = isHide
+        self.lblUseThisPicture.isHidden = isShareButtonSelected
+        self.popupImgHeightConstraint.constant = isShareButtonSelected ? 0 : 100
         self.popupImgView.image = isCroppedImage ? self.croppedImg : self.uncroppedImg
     }
     
@@ -150,7 +155,11 @@ class EditProfilePicViewController: UIViewController {
     
     // MARK: - Action Methods
     @IBAction func btnBackTapped(_ sender: UIButton) {
-        self.setupMethod()
+        if isImageSelected || isCountryFlagSelected || isFlagSelected {
+            self.dicardPopupView.isHidden = false
+        } else {
+            self.setupMethod()
+        }
     }
     
     @IBAction func btnUpdateTapped(_ sender: UIButton) {
@@ -238,6 +247,14 @@ class EditProfilePicViewController: UIViewController {
     
     @IBAction func btnSetDisplayNoTapped(_ sender: UIButton) {
         self.setDisplayNamePopupView.isHidden = true
+    }
+    
+    @IBAction func btnDiscardPopupOkTapped(_ sender: UIButton) {
+        self.setupMethod()
+    }
+    
+    @IBAction func btnDiscardPopupCancelTapped(_ sender: UIButton) {
+        self.dicardPopupView.isHidden = true
     }
     
 }
@@ -388,17 +405,22 @@ extension EditProfilePicViewController {
         var flagsArray = flagsArray
         if let index = flagsArray.firstIndex(where: { $0.code == StaticKeys.countryCodeUS }) {
             let element = flagsArray[index]
-            if flagsArray.count == 3 {
-                if let stateIndex = flagsArray.firstIndex(where: { $0.isState == true }) {
-                    let stateElement = flagsArray[stateIndex]
+            if let stateIndex = flagsArray.firstIndex(where: { $0.isState == true }) {
+                let stateElement = flagsArray[stateIndex]
+                if flagsArray.count == 3 {
                     flagsArray.remove(at: stateIndex)
                     flagsArray.insert(stateElement, at: 2)
+                    flagsArray.remove(at: index)
+                    flagsArray.insert(element, at: 1)
+                } else if flagsArray.count == 2 {
+                    flagsArray.remove(at: index)
+                    flagsArray.insert(element, at: 0)
                 }
-                flagsArray.remove(at: index)
-                flagsArray.insert(element, at: 1)
-            } else if flagsArray.count == 2 {
-                flagsArray.remove(at: index)
-                flagsArray.insert(element, at: 0)
+            } else {
+                if flagsArray.count == 2 {
+                    flagsArray.remove(at: index)
+                    flagsArray.insert(element, at: 1)
+                }
             }
         }
         return flagsArray
@@ -487,6 +509,7 @@ extension EditProfilePicViewController {
                 if !self.isImageSelected {
                     self.setRedirection()
                 }
+                self.isCountryFlagSelected = false
             }
         }, onError: { error in
             self.showAlert(alertMessage: error.localizedDescription)
@@ -500,8 +523,16 @@ extension EditProfilePicViewController {
             guard let `self` = self else {
                 return
             }
-            if !self.isCountryFlagSelected || !self.isImageSelected {
-                self.setRedirection()
+            self.storyCameraVC.syncUserModel { _ in
+                if !self.isCountryFlagSelected || !self.isImageSelected {
+                    if self.isShareButtonSelected {
+                        self.isShareButtonSelected = false
+                        self.goToShareScreen()
+                    } else {
+                        self.setupMethod()
+                    }
+                }
+                self.isFlagSelected = false
             }
         }, onError: { error in
             self.showAlert(alertMessage: error.localizedDescription)
@@ -517,6 +548,7 @@ extension EditProfilePicViewController {
             self.dismissHUD()
             self.storyCameraVC.syncUserModel { (isComplete) in
                 self.setRedirection()
+                self.isImageSelected = false
             }
         }, onError: { error in
             self.dismissHUD()
