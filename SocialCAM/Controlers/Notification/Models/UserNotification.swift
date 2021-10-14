@@ -23,7 +23,10 @@ class UserNotification: Mappable {
     var refereeUserId: RefereeUserId?
     var title: String?
     var updatedAt: String?
-
+    var publicDisplayName: String?
+    var privateDisplayName: String?
+    var isFollowing: Bool?
+    
     required init?(map: Map){}
 
     func mapping(map: Map) {
@@ -39,6 +42,8 @@ class UserNotification: Mappable {
         refereeUserId <- map["refereeUserId"]
         title <- map["title"]
         updatedAt <- map["updatedAt"]
-        
+        publicDisplayName <- map["publicDisplayName"]
+        privateDisplayName <- map["privateDisplayName"]
+        isFollowing <- map["isFollowing"]
     }
 }

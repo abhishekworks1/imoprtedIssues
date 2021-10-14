@@ -22,6 +22,8 @@ class RefferedBy: Codable, Mappable {
     var isShowFlags: Bool?
     var userStateFlags: [UserCountry]?
     var created: String?
+    var publicDisplayName: String?
+    var isFollowing: Bool?
     
     required init?(map: Map) {
         
@@ -39,6 +41,8 @@ class RefferedBy: Codable, Mappable {
         userStateFlags <- map["userStateFlags"]
         isShowFlags <- map["isShowFlags"]
         created <- map["created"]
+        publicDisplayName <- map["publicDisplayName"]
+        isFollowing <- map["isFollowing"]
     }
     
 }

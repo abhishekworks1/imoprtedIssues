@@ -36,5 +36,7 @@ public struct StaticKeys {
     static let limit = "limit"
     static let publicDisplayName = "publicDisplayName"
     static let privateDisplayName = "privateDisplayName"
+    static let flagName = "flag_"
+    static let stateName = "state_"
     
 }

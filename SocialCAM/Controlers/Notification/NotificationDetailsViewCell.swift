@@ -19,6 +19,19 @@ class NotificationDetailsViewCell: UICollectionViewCell {
             self.setup()
         }
     }
+    var followButtonHandler : ((_ notification: UserNotification?) -> Void)?
+    
+    func setBtnFollow(isFollowing: Bool) {
+        if isFollowing {
+            btnFollow.backgroundColor = ApplicationSettings.appPrimaryColor
+            btnFollow.setTitleColor(ApplicationSettings.appWhiteColor, for: .normal)
+            btnFollow.setTitle(R.string.localizable.following(), for: .normal)
+        } else {
+            btnFollow.backgroundColor = ApplicationSettings.appPrimaryColor
+            btnFollow.setTitleColor(ApplicationSettings.appWhiteColor, for: .normal)
+            btnFollow.setTitle(R.string.localizable.follow(), for: .normal)
+        }
+    }
     
     func setup() {
         if let notification = notification {
@@ -34,8 +47,16 @@ class NotificationDetailsViewCell: UICollectionViewCell {
             }
         }
         
-        btnFollow.backgroundColor = ApplicationSettings.appClearColor
-        btnFollow.setTitleColor(ApplicationSettings.appPrimaryColor, for: .normal)
-        btnFollow.setTitle(R.string.localizable.follow(), for: .normal)
+        if let isFollowing = notification?.isFollowing {
+            setBtnFollow(isFollowing: isFollowing)
+        } else {
+            setBtnFollow(isFollowing: false)
+        }
+    }
+    
+    @IBAction func followButtonTapped(_ sender: UIButton) {
+        if let handler = self.followButtonHandler {
+            handler(self.notification)
+        }
     }
 }

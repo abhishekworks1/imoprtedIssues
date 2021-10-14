@@ -23,6 +23,7 @@ class UserDetailsVC: UIViewController {
     @IBOutlet weak var imgUserPlaceholder: UIImageView!
     @IBOutlet weak var imgUserImage: UIImageView!
     @IBOutlet weak var verifiedStackView: UIStackView!
+    @IBOutlet weak var flagStackView: UIStackView!
     @IBOutlet weak var facebookVerifiedView: UIView!
     @IBOutlet weak var twitterVerifiedView: UIView!
     @IBOutlet weak var snapchatVerifiedView: UIView!
@@ -32,7 +33,7 @@ class UserDetailsVC: UIViewController {
     @IBOutlet var lblCountrys: [UILabel]!
     @IBOutlet var imgCountrys: [UIImageView]!
     @IBOutlet weak var lblDisplayName: UILabel!
-    
+    var notificationUpdateHandler: ((_ notification: UserNotification?) -> Void)?
     var notification: UserNotification?
     
     var customBlurEffectStyle: UIBlurEffect.Style = .dark
@@ -55,6 +56,97 @@ class UserDetailsVC: UIViewController {
     
     @IBAction func dismissButtonTapped(_ sender: Any) {
         dismiss(animated: true)
+    }
+    
+    
+    func setBtnFollow(isFollowing: Bool) {
+        if isFollowing {
+            btnFollow.backgroundColor = ApplicationSettings.appPrimaryColor
+            btnFollow.setTitleColor(ApplicationSettings.appWhiteColor, for: .normal)
+            btnFollow.setTitle(R.string.localizable.following(), for: .normal)
+        } else {
+            btnFollow.backgroundColor = ApplicationSettings.appPrimaryColor
+            btnFollow.setTitleColor(ApplicationSettings.appWhiteColor, for: .normal)
+            btnFollow.setTitle(R.string.localizable.follow(), for: .normal)
+        }
+    }
+    
+    func userFollowing(_ userId: String) {
+        ProManagerApi.setFollow(userId: userId).request(Result<NotificationResult>.self).subscribe(onNext: { [weak self] response in
+            guard let `self` = self else {
+                return
+            }
+            self.setBtnFollow(isFollowing: true)
+            self.dismissHUD()
+            if response.status == ResponseType.success {
+                if let _ = self.notification {
+                    self.notification?.isFollowing = true
+                    if let handler = self.notificationUpdateHandler {
+                        handler(self.notification)
+                    }
+                } else {
+                    let currentUser = Defaults.shared.currentUser
+                    currentUser?.refferedBy?.isFollowing = true
+                    Defaults.shared.currentUser = currentUser
+                }
+            } else {
+                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+            }
+        }, onError: { [weak self] error in
+            guard let `self` = self else { return }
+            self.showAlert(alertMessage: error.localizedDescription)
+            self.dismissHUD()
+        }, onCompleted: {
+        }).disposed(by: rx.disposeBag)
+    }
+    
+    func userUnFollowing(_ userId: String) {
+        ProManagerApi.setUnFollow(userId: userId).request(Result<NotificationResult>.self).subscribe(onNext: { [weak self] response in
+            guard let `self` = self else {
+                return
+            }
+            self.setBtnFollow(isFollowing: false)
+            self.dismissHUD()
+            if response.status == ResponseType.success {
+                if let _ = self.notification {
+                    self.notification?.isFollowing = false
+                    if let handler = self.notificationUpdateHandler {
+                        handler(self.notification)
+                    }
+                } else {
+                    let currentUser = Defaults.shared.currentUser
+                    currentUser?.refferedBy?.isFollowing = false
+                    Defaults.shared.currentUser = currentUser
+                }
+            } else {
+                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+            }
+        }, onError: { [weak self] error in
+            guard let `self` = self else { return }
+            self.showAlert(alertMessage: error.localizedDescription)
+            self.dismissHUD()
+        }, onCompleted: {
+        }).disposed(by: rx.disposeBag)
+    }
+    
+    @IBAction func followButtonTapped(_ sender: UIButton) {
+        if let notification = self.notification, let userId = notification.refereeUserId?.id {
+            self.showHUD()
+            if let following = notification.isFollowing, !following {
+                self.userFollowing(userId)
+            } else {
+                self.userUnFollowing(userId)
+            }
+        } else {
+            if let userId = Defaults.shared.currentUser?.refferedBy?.id {
+                self.showHUD()
+                if let isFollowing = Defaults.shared.currentUser?.refferedBy?.isFollowing, !isFollowing {
+                    self.userFollowing(userId)
+                } else {
+                    self.userUnFollowing(userId)
+                }
+            }
+        }
     }
 
     func setup() {
@@ -82,19 +174,21 @@ class UserDetailsVC: UIViewController {
                 self.lblJoiningDate.text = R.string.localizable.sinceJoined(convertDate(referredUserCreatedDate))
             }
         }
-        btnFollow.backgroundColor = ApplicationSettings.appPrimaryColor
-        btnFollow.setTitleColor(ApplicationSettings.appWhiteColor, for: .normal)
-        btnFollow.setTitle(R.string.localizable.following(), for: .normal)
-
+    
         if let notification = notification {
+            if let isFollowing = notification.isFollowing {
+                setBtnFollow(isFollowing: isFollowing)
+            }
             if let isShowFlags = notification.refereeUserId?.isShowFlags, isShowFlags, let flages = notification.refereeUserId?.userStateFlags,
                flages.count > 0 {
                 for (index, item) in flages.enumerated() {
                     self.countryView[index].isHidden = false
-                    let country: Country = Country(name: (item.state == "") ? (item.country ?? "") : (item.state ?? ""), code: (item.state == "") ? (item.countryCode ?? "") : (item.stateCode ?? ""), phoneCode: "", isState: (item.state != ""))
+                    let country: Country = Country(name: (item.state != nil && item.state != "") ? (item.state ?? "") : (item.country ?? ""), code: (item.state != nil && item.state != "") ? (item.stateCode ?? "") : (item.countryCode ?? ""), phoneCode: "", isState: (item.state != nil && item.state != ""))
                     self.lblCountrys[index].text = country.isState ? item.state : item.country
                     self.imgCountrys[index].image = country.flag
                 }
+            } else {
+                flagStackView.isHidden = true
             }
             if let displayName = notification.publicDisplayName,
                !displayName.isEmpty {
@@ -104,14 +198,19 @@ class UserDetailsVC: UIViewController {
                 self.lblDisplayName.isHidden = true
             }
         } else {
+            if let isFollowing = Defaults.shared.currentUser?.refferedBy?.isFollowing {
+                setBtnFollow(isFollowing: isFollowing)
+            }
             if let isShowFlags = Defaults.shared.currentUser?.refferedBy?.isShowFlags, isShowFlags, let flages = Defaults.shared.currentUser?.refferedBy?.userStateFlags,
                flages.count > 0 {
                 for (index, item) in flages.enumerated() {
                     self.countryView[index].isHidden = false
-                    let country: Country = Country(name: (item.state == "") ? (item.country ?? "") : (item.state ?? ""), code: (item.state == "") ? (item.countryCode ?? "") : (item.stateCode ?? ""), phoneCode: "", isState: (item.state != ""))
+                    let country: Country = Country(name: (item.state != nil && item.state != "") ? (item.state ?? "") : (item.country ?? ""), code: (item.state != nil && item.state != "") ? (item.stateCode ?? "") : (item.countryCode ?? ""), phoneCode: "", isState: (item.state != nil && item.state != ""))
                     self.lblCountrys[index].text = country.isState ? item.state : item.country
                     self.imgCountrys[index].image = country.flag
                 }
+            } else {
+                flagStackView.isHidden = true
             }
             if let displayName =  Defaults.shared.currentUser?.refferedBy?.publicDisplayName,
                !displayName.isEmpty {
