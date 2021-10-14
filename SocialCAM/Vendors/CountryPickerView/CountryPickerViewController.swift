@@ -9,11 +9,6 @@
 import UIKit
 import AVKit
 
-private let animationDuration: TimeInterval = 0.3
-private let listLayoutStaticCellHeight: CGFloat = 70
-private let selectedGridLayoutStaticCellHeight: CGFloat = 90
-private let gridLayoutStaticCellHeight: CGFloat = 115
-
 public protocol CountryPickerViewDelegate: class {
     /// Called when the user selects a country from the list.
     func countryPickerView(_ didSelectCountry : [Country])
@@ -45,9 +40,8 @@ class CountryPickerViewController: UIViewController {
     public let users: [Country] = {
         var countries = [Country]()
         let bundle = Bundle.main
-        guard let jsonPath = bundle.path(forResource: "CountryPickerView.bundle/Data/CountryCodes", ofType: "json"),
-            let jsonData = try? Data(contentsOf: URL(fileURLWithPath: jsonPath)) else {
-                return countries
+        guard let jsonPath = bundle.path(forResource: "CountryCodes", ofType: "json"), let jsonData = try? Data(contentsOf: URL(fileURLWithPath: jsonPath)) else {
+            return countries
         }
         
         if let jsonObjects = (try? JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization
@@ -72,23 +66,58 @@ class CountryPickerViewController: UIViewController {
         return countries
     }()
     
-    fileprivate var isTransitionAvailable = true
-    fileprivate lazy var listLayout = DisplaySwitchLayout(
-        staticCellHeight: listLayoutStaticCellHeight,
-        nextLayoutStaticCellHeight: gridLayoutStaticCellHeight,
-        layoutState: .list
-    )
-    fileprivate lazy var gridLayout = DisplaySwitchLayout(
-        staticCellHeight: gridLayoutStaticCellHeight,
-        nextLayoutStaticCellHeight: listLayoutStaticCellHeight,
-        layoutState: .grid
-    )
-    fileprivate lazy var selectedGridLayout = DisplaySwitchLayout(
-        staticCellHeight: selectedGridLayoutStaticCellHeight,
-        nextLayoutStaticCellHeight: listLayoutStaticCellHeight,
-        layoutState: .grid
-    )
-    fileprivate var layoutState: LayoutState = .grid
+    private var layoutOption: LayoutOption = .grid {
+        didSet {
+            setupLayout(with: view.bounds.size)
+        }
+    }
+    
+    private func setupLayout(with containerSize: CGSize) {
+        guard let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
+            return
+        }
+        
+        switch layoutOption {
+        case .list:
+            flowLayout.minimumInteritemSpacing = 0
+            flowLayout.minimumLineSpacing = 0
+            flowLayout.sectionInset = UIEdgeInsets(top: 8.0, left: 0, bottom: 8.0, right: 0)
+            
+            if traitCollection.horizontalSizeClass == .regular {
+                let minItemWidth: CGFloat = 300
+                let numberOfCell = containerSize.width / minItemWidth
+                let width = floor((numberOfCell / floor(numberOfCell)) * minItemWidth)
+                flowLayout.itemSize = CGSize(width: width, height: 90)
+            } else {
+                flowLayout.itemSize = CGSize(width: containerSize.width, height: 70)
+            }
+            
+        case .grid:
+            let minItemWidth: CGFloat = 106
+            let numberOfCell = containerSize.width / minItemWidth
+            let width = floor((numberOfCell / floor(numberOfCell)) * minItemWidth)
+            
+            flowLayout.minimumInteritemSpacing = 0
+            flowLayout.minimumLineSpacing = 0
+            flowLayout.itemSize = CGSize(width: width, height: 90.0)
+            flowLayout.sectionInset = .zero
+        }
+        
+        guard let selectedCollectionViewFlowLayout = selectedCollectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
+            return
+        }
+        let minItemWidth: CGFloat = 106
+        let numberOfCell = containerSize.width / minItemWidth
+        let width = floor((numberOfCell / floor(numberOfCell)) * minItemWidth)
+       
+        selectedCollectionViewFlowLayout.minimumInteritemSpacing = 0
+        selectedCollectionViewFlowLayout.minimumLineSpacing = 0
+        selectedCollectionViewFlowLayout.itemSize = CGSize(width: width, height: 90.0)
+        selectedCollectionViewFlowLayout.sectionInset = .zero
+        collectionView.reloadData()
+        selectedCollectionView.reloadData()
+    }
+    
     private lazy var storyCameraVC = StoryCameraViewController()
     var isClearFlagSelected = false
     public var onlyCountries: [Country] = [Country]()
@@ -100,22 +129,25 @@ class CountryPickerViewController: UIViewController {
         searchBar.delegate = self
         setupCollectionView()
         searchUsers = users
-        layoutButton.isSelected = layoutState == .list
+        layoutButton.isSelected = layoutOption == .list
         if selectedCollectionView != nil {
             selectedCollectionView.isHidden = selectedCountries.count <= 0
             selectedCollectionView.reloadData()
         }
-        collectionView.reloadData()
+        for (_, item) in selectedCountries.enumerated() {
+            if let _ = self.searchUsers.firstIndex(where: { $0.code == item.code }) {
+                self.onlyCountries.append(item)
+            }
+        }
+        setupLayout(with: view.bounds.size)
         selectedCollectionView.reloadData()
     }
     
     // MARK: - Private methods
     fileprivate func setupCollectionView() {
-        collectionView.collectionViewLayout = gridLayout
-        collectionView.register(CountryPickerViewCell.cellNib, forCellWithReuseIdentifier: CountryPickerViewCell.id)
-        
-        selectedCollectionView.collectionViewLayout = selectedGridLayout
-        selectedCollectionView.register(CountryPickerViewCell.cellNib, forCellWithReuseIdentifier: CountryPickerViewCell.id)
+        collectionView.register(R.nib.flagLayoutListCollectionViewCell(), forCellWithReuseIdentifier: R.reuseIdentifier.flagLayoutListCollectionViewCell.identifier)
+        collectionView.register(R.nib.flagLayoutGridCollectionViewCell(), forCellWithReuseIdentifier: R.reuseIdentifier.flagLayoutGridCollectionViewCell.identifier)
+        selectedCollectionView.register(R.nib.flagLayoutGridCollectionViewCell(), forCellWithReuseIdentifier: R.reuseIdentifier.flagLayoutGridCollectionViewCell.identifier)
     }
     
     private func showHidePopupView(isHide: Bool, text: String) {
@@ -138,29 +170,8 @@ class CountryPickerViewController: UIViewController {
     }
     
     @IBAction func buttonTapped(_ sender: AnyObject) {
-        if !isTransitionAvailable {
-            return
-        }
-        let transitionManager: TransitionManager
-        if layoutState == .list {
-            layoutState = .grid
-            transitionManager = TransitionManager(
-                duration: animationDuration,
-                collectionView: collectionView!,
-                destinationLayout: gridLayout,
-                layoutState: layoutState
-            )
-        } else {
-            layoutState = .list
-            transitionManager = TransitionManager(
-                duration: animationDuration,
-                collectionView: collectionView!,
-                destinationLayout: listLayout,
-                layoutState: layoutState
-            )
-        }
-        transitionManager.startInteractiveTransition()
-        layoutButton.isSelected = layoutState == .list
+        layoutOption = layoutOption == .list ? .grid : .list
+        layoutButton.isSelected = layoutOption == .list
     }
     
     // MARK: - Actions
@@ -214,12 +225,15 @@ extension CountryPickerViewController {
         var countryAry = countrys
         if let index = countryAry.firstIndex(where: { $0.code == StaticKeys.countryCodeUS }) {
             let element = countryAry[index]
-            if countryAry.count >= 2 {
+            if countryAry.count == 3 {
                 if let stateIndex = countryAry.firstIndex(where: { $0.isState == true }) {
                     let stateElement = countryAry[stateIndex]
                     countryAry.remove(at: stateIndex)
                     countryAry.insert(stateElement, at: 2)
                 }
+                countryAry.remove(at: index)
+                countryAry.insert(element, at: 1)
+            } else if countryAry.count == 2 {
                 countryAry.remove(at: index)
                 countryAry.insert(element, at: 1)
             }
@@ -260,8 +274,8 @@ extension CountryPickerViewController {
 
 extension CountryPickerViewController: StatePickerViewDelegate {
     
-    func getSelectStates(_ selectedStates: [Country], isSelectionDone: Bool) {
-        self.selectedCountries = selectedStates
+    func statePickerView(_ didSelectCountry: [Country], isSelectionDone: Bool) {
+        self.selectedCountries = didSelectCountry
         if isSelectionDone {
             self.delegate?.countryPickerView(selectedCountries)
             self.navigationController?.popViewController(animated: true)
@@ -273,26 +287,27 @@ extension CountryPickerViewController: StatePickerViewDelegate {
 extension CountryPickerViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: CountryPickerViewCell.id,
-            for: indexPath
-            ) as! CountryPickerViewCell
-        
-        if collectionView == self.selectedCollectionView {
-            cell.setupSelectedGridLayoutConstraints(1, cellWidth: cell.frame.width)
-            let country = selectedCountries[indexPath.row]
-            cell.bind(country)
-            cell.selectedItem = (selectedCountries.firstIndex(of: country) != nil) ? true : false
-        } else if collectionView == self.collectionView {
-            if layoutState == .grid {
-                cell.setupGridLayoutConstraints(1, cellWidth: cell.frame.width)
-            } else {
-                cell.setupListLayoutConstraints(1, cellWidth: cell.frame.width)
-            }
-            let country = searchUsers[indexPath.row]
-            cell.bind(country)
-            cell.selectedItem = ((selectedCountries.firstIndex(where: { $0.code == country.code && $0.name == country.name })) != nil)
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.flagLayoutGridCollectionViewCell.identifier, for: indexPath) as? FlagLayoutGridCollectionViewCell else {
+            return UICollectionViewCell()
         }
+        var country = searchUsers[indexPath.row]
+        if collectionView == self.selectedCollectionView {
+            country = selectedCountries[indexPath.row]
+        } else {
+            switch layoutOption {
+            case .grid:
+                break
+            case .list:
+                guard let listCell = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.flagLayoutListCollectionViewCell.identifier, for: indexPath) as? FlagLayoutListCollectionViewCell else {
+                    return UICollectionViewCell()
+                }
+                listCell.setup(with: country)
+                listCell.selectedItem = (selectedCountries.firstIndex(of: country) != nil) ? true : false
+                return listCell
+            }
+        }
+        cell.setup(with: country)
+        cell.selectedItem = (selectedCountries.firstIndex(of: country) != nil) ? true : false
         return cell
     }
     
@@ -304,31 +319,45 @@ extension CountryPickerViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if collectionView == self.collectionView, let cell = collectionView.cellForItem(at: indexPath) as? CountryPickerViewCell {
+        if collectionView == self.collectionView {
             let co = searchUsers[indexPath.row]
             if let index = self.selectedCountries.firstIndex(where: { $0.code == co.code && $0.name == co.name }),
                let onlyCountryIndex = self.onlyCountries.firstIndex(where: { $0.code == co.code && $0.name == co.name }) {
                 //deselect
                 if self.selectedCountries[index].code == StaticKeys.countryCodeUS {
+                    self.selectedCountries.remove(at: index)
+                    self.onlyCountries.remove(at: onlyCountryIndex)
                     if let stateIndex = self.selectedCountries.firstIndex(where: { $0.isState == true }) {
                         self.selectedCountries.remove(at: stateIndex)
                     }
+                } else {
+                    self.selectedCountries.remove(at: index)
+                    self.onlyCountries.remove(at: onlyCountryIndex)
                 }
-                self.selectedCountries.remove(at: index)
-                self.onlyCountries.remove(at: onlyCountryIndex)
-                cell.selectedItem = false
+                if let cell = collectionView.cellForItem(at: indexPath) as? FlagLayoutGridCollectionViewCell {
+                    cell.selectedItem = false
+                } else if let cell = collectionView.cellForItem(at: indexPath) as? FlagLayoutListCollectionViewCell {
+                    cell.selectedItem = false
+                }
             } else {
                 guard !maxCheck() else {
                     if co.code == StaticKeys.countryCodeUS {
                         showHidePopupView(isHide: false, text: R.string.localizable.setYourStateOrTerritoryFlag())
                     }
-                    self.selectedCountries.append(users[indexPath.row])
-                    self.onlyCountries.append(users[indexPath.row])
-                    cell.selectedItem = true
+                    self.selectedCountries.append(searchUsers[indexPath.row])
+                    self.onlyCountries.append(searchUsers[indexPath.row])
+                    if let cell = collectionView.cellForItem(at: indexPath) as? FlagLayoutGridCollectionViewCell {
+                        cell.selectedItem = true
+                    } else if let cell = collectionView.cellForItem(at: indexPath) as? FlagLayoutListCollectionViewCell {
+                        cell.selectedItem = true
+                    }
                     guard let indexPathOfItemToDelete = collectionView.indexPathsForSelectedItems?.last else {
                         return
                     }
-                    if let cell = collectionView.cellForItem(at: indexPathOfItemToDelete) as? CountryPickerViewCell {
+                    if let cell = collectionView.cellForItem(at: indexPathOfItemToDelete) as? FlagLayoutGridCollectionViewCell {
+                        cell.selectedItem = false
+                        self.collectionView.reloadData()
+                    } else if let cell = collectionView.cellForItem(at: indexPathOfItemToDelete) as? FlagLayoutListCollectionViewCell {
                         cell.selectedItem = false
                         self.collectionView.reloadData()
                     }
@@ -346,25 +375,36 @@ extension CountryPickerViewController: UICollectionViewDataSource {
                 if co.code == StaticKeys.countryCodeUS {
                     showHidePopupView(isHide: false, text: R.string.localizable.setYourStateOrTerritoryFlag())
                 }
-                selectedCountries.append(users[indexPath.row])
-                onlyCountries.append(users[indexPath.row])
+                selectedCountries.append(searchUsers[indexPath.row])
+                onlyCountries.append(searchUsers[indexPath.row])
                 self.selectedCountries = rearrangeFlags(countrys: selectedCountries)
                 self.onlyCountries = rearrangeFlags(countrys: onlyCountries)
-                cell.selectedItem = true
+                if let cell = collectionView.cellForItem(at: indexPath) as? FlagLayoutGridCollectionViewCell {
+                    cell.selectedItem = true
+                } else if let cell = collectionView.cellForItem(at: indexPath) as? FlagLayoutListCollectionViewCell {
+                    cell.selectedItem = true
+                }
             }
-        } else if collectionView == self.selectedCollectionView, let cell = collectionView.cellForItem(at: indexPath) as? CountryPickerViewCell {
+        } else if collectionView == self.selectedCollectionView {
             let co = selectedCountries[indexPath.row]
             if let index = self.selectedCountries.firstIndex(where: { $0.code == co.code }),
                let onlyCountryIndex = self.onlyCountries.firstIndex(where: { $0.code == co.code }) {
                 //deselect
                 if self.selectedCountries[index].code == StaticKeys.countryCodeUS {
+                    self.selectedCountries.remove(at: index)
+                    self.onlyCountries.remove(at: onlyCountryIndex)
                     if let stateIndex = self.selectedCountries.firstIndex(where: { $0.isState == true }) {
                         self.selectedCountries.remove(at: stateIndex)
                     }
+                } else {
+                    self.selectedCountries.remove(at: index)
+                    self.onlyCountries.remove(at: onlyCountryIndex)
                 }
-                self.selectedCountries.remove(at: index)
-                self.onlyCountries.remove(at: onlyCountryIndex)
-                cell.selectedItem = false
+                if let cell = collectionView.cellForItem(at: indexPath) as? FlagLayoutGridCollectionViewCell {
+                    cell.selectedItem = false
+                } else if let cell = collectionView.cellForItem(at: indexPath) as? FlagLayoutListCollectionViewCell {
+                    cell.selectedItem = false
+                }
                 self.collectionView.reloadData()
             }
         }
@@ -373,23 +413,6 @@ extension CountryPickerViewController: UICollectionViewDataSource {
 
 
 extension CountryPickerViewController: UICollectionViewDelegate {
-    
-    func collectionView(_ collectionView: UICollectionView,
-                        transitionLayoutForOldLayout fromLayout: UICollectionViewLayout,
-                        newLayout toLayout: UICollectionViewLayout) -> UICollectionViewTransitionLayout {
-        
-        let customTransitionLayout = TransitionLayout(currentLayout: fromLayout, nextLayout: toLayout)
-        
-        return customTransitionLayout
-    }
-    
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        isTransitionAvailable = false
-    }
-    
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        isTransitionAvailable = true
-    }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         view.endEditing(true)
@@ -403,9 +426,8 @@ extension CountryPickerViewController: UISearchBarDelegate {
         if searchText.isEmpty {
             searchUsers = users
         } else {
-            searchUsers = searchUsers.filter { return $0.name.contains(searchText) }
+            searchUsers = users.filter { return $0.name.lowercased().contains(searchText.lowercased()) }
         }
-        
         collectionView.reloadData()
     }
     

@@ -22,15 +22,9 @@ class NotificationDetailsViewCell: UICollectionViewCell {
     var followButtonHandler : ((_ notification: UserNotification?) -> Void)?
     
     func setBtnFollow(isFollowing: Bool) {
-        if isFollowing {
-            btnFollow.backgroundColor = ApplicationSettings.appPrimaryColor
-            btnFollow.setTitleColor(ApplicationSettings.appWhiteColor, for: .normal)
-            btnFollow.setTitle(R.string.localizable.following(), for: .normal)
-        } else {
-            btnFollow.backgroundColor = ApplicationSettings.appPrimaryColor
-            btnFollow.setTitleColor(ApplicationSettings.appWhiteColor, for: .normal)
-            btnFollow.setTitle(R.string.localizable.follow(), for: .normal)
-        }
+        btnFollow.backgroundColor = ApplicationSettings.appPrimaryColor
+        btnFollow.setTitleColor(ApplicationSettings.appWhiteColor, for: .normal)
+        btnFollow.setTitle(isFollowing ? R.string.localizable.following() : R.string.localizable.follow(), for: .normal)
     }
     
     func setup() {

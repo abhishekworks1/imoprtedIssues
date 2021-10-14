@@ -36,10 +36,6 @@ class NotificationDetailsVC: UIViewController {
         collectionView.collectionViewLayout = gridLayout
         collectionView.reloadData()
         collectionView.showsHorizontalScrollIndicator = false
-        btnNext.backgroundColor = ApplicationSettings.appPrimaryColor
-        btnNext.setTitleColor(ApplicationSettings.appWhiteColor, for: .normal)
-        btnPrevious.backgroundColor = ApplicationSettings.appPrimaryColor
-        btnPrevious.setTitleColor(ApplicationSettings.appWhiteColor, for: .normal)
         DispatchQueue.runOnMainThread { [weak self]  in
             guard let `self` = self else {
                 return

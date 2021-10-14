@@ -315,6 +315,8 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             hideUnhideImgButton(cell, R.image.iconHowItWorks())
         } else if settingTitle.settingsType == .logout {
             hideUnhideImgButton(cell, R.image.iconLogout())
+        } else if settingTitle.settingsType == .notification {
+            hideUnhideImgButton(cell, R.image.iconNotification())
         } else if settingTitle.settingsType == .socialLogins {
             cell.onOffButton.isHidden = true
             cell.onOffButton.isSelected = false
