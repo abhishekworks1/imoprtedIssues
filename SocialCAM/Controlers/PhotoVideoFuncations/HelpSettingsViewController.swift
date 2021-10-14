@@ -70,6 +70,15 @@ extension HelpSettingsViewController: UITableViewDataSource {
         let settingTitle = HelpSettings.helpSettings[indexPath.section]
         let settings = settingTitle.settings[indexPath.row]
         helpSettingsCell.title.text = settings.name
+        
+        if settingTitle.settingsType == .instruction {
+            helpSettingsCell.imgSettingIcon.image = R.image.iconCameraHelp()
+        } else if settingTitle.settingsType == .pic2Art {
+            helpSettingsCell.imgSettingIcon.image = R.image.iconPic2ArtHelp()
+        } else if settingTitle.settingsType == .edit {
+            helpSettingsCell.imgSettingIcon.image = R.image.iconEditHelp()
+        }
+            
         return helpSettingsCell
     }
     

@@ -12,6 +12,7 @@ class AccountSettingsCell: UITableViewCell {
     
     // MARK: - Outlets Declaration
     @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var imgSettingIcon: UIImageView!
     
     
     // MARK: - View Life cycle Methods
