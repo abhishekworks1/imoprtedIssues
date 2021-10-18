@@ -1186,6 +1186,7 @@ extension StoryCameraViewController {
             self.dynamicSetSlowFastVerticalBar()
             self.changeSpeedSliderValues()
             self.refreshCircularProgressBar()
+            //print(Defaults.shared.cameraMode)
             switch Defaults.shared.cameraMode {
             case .boomerang:
                 self.circularProgress.centerImage = R.image.icoBoomrang()
@@ -1217,12 +1218,14 @@ extension StoryCameraViewController {
                 self.circularProgress.centerImage = R.image.icoCustomMode()
                 self.timerValueView.isHidden = true
             case .capture:
+                Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_mode_Capture)
                 if isQuickApp && Defaults.shared.appMode == .free {
                     self.showAlertForUpgradeSubscription()
                 }
                 self.circularProgress.centerImage = R.image.capture_mode()
                 self.timerValueView.isHidden = true
             case .promo:
+                Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_mode_free)
                 self.circularProgress.centerImage = UIImage()
                 if self.timerValue > 0 {
                     self.timerValue = 0
@@ -1233,6 +1236,7 @@ extension StoryCameraViewController {
                     self.resetPhotoCountDown()
                 }
             case .pic2Art:
+                Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_mode_pic2art)
                 if isQuickApp && Defaults.shared.appMode == .free {
                     self.showAlertForUpgradeSubscription()
                 } else {
@@ -1248,10 +1252,15 @@ extension StoryCameraViewController {
                         }
                     }
                 }
+                
             case .normal:
+                if self.recordingType == .normal {
+                    Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_mode_FastSlow)
+                }
                 if isQuickApp && Defaults.shared.appMode == .free {
                     self.showAlertForUpgradeSubscription()
                 }
+
             default:
                 break
             }
