@@ -36,10 +36,14 @@ class NotificationDetailsVC: UIViewController {
         collectionView.collectionViewLayout = gridLayout
         collectionView.reloadData()
         collectionView.showsHorizontalScrollIndicator = false
-        
-        self.collectionView.isPagingEnabled = false
-        self.collectionView.scrollToItem(at: IndexPath(item: self.selectedIndex, section: 0), at: UICollectionView.ScrollPosition.right, animated: false)
-        self.collectionView.isPagingEnabled = true
+        DispatchQueue.runOnMainThread { [weak self]  in
+            guard let `self` = self else {
+                return
+            }
+            self.collectionView.isPagingEnabled = false
+            self.collectionView.scrollToItem(at: IndexPath(item: self.selectedIndex, section: 0), at: UICollectionView.ScrollPosition.right, animated: false)
+            self.collectionView.isPagingEnabled = true
+        }
     }
     
     func scrollToNextCell() {
@@ -69,10 +73,12 @@ class NotificationDetailsVC: UIViewController {
     }
     
     @IBAction func btnNextTapped(_ sender: Any) {
+        btnNext.flash()
         self.scrollToNextCell()
     }
     
     @IBAction func btnPreviousTapped(_ sender: Any) {
+        btnPrevious.flash()
         self.scrollToPreviousCell()
     }
     
@@ -98,6 +104,7 @@ class NotificationDetailsVC: UIViewController {
             guard let `self` = self else { return }
             self.collectionView.es.stopPullToRefresh()
             self.collectionView.es.stopLoadingMore()
+            self.dismissHUD()
             if response.status == ResponseType.success {
                 self.postsCount = response.result?.count ?? 0
                 if pageIndex == 0 {
@@ -116,40 +123,115 @@ class NotificationDetailsVC: UIViewController {
         }, onError: { [weak self] error in
             guard let `self` = self else { return }
             self.showAlert(alertMessage: error.localizedDescription)
+            self.dismissHUD()
         }, onCompleted: {
         }).disposed(by: rx.disposeBag)
+    }
+    
+    func userFollowing(_ notification: UserNotification, _ userId: String, _ index: Int) {
+        ProManagerApi.setFollow(userId: userId).request(Result<NotificationResult>.self).subscribe(onNext: { [weak self] response in
+            guard let `self` = self else {
+                return
+            }
+            self.dismissHUD()
+            if response.status == ResponseType.success {
+                notification.isFollowing = true
+                self.notificationArray[index] = notification
+                for item in self.notificationArray {
+                    if item.refereeUserId?.id == notification.refereeUserId?.id {
+                        item.isFollowing = true
+                    }
+                }
+                self.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+            } else {
+                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+            }
+        }, onError: { [weak self] error in
+            guard let `self` = self else { return }
+            self.showAlert(alertMessage: error.localizedDescription)
+            self.dismissHUD()
+        }, onCompleted: {
+        }).disposed(by: rx.disposeBag)
+    }
+    
+    func userUnFollowing(_ notification: UserNotification, _ userId: String, _ index: Int) {
+        ProManagerApi.setUnFollow(userId: userId).request(Result<NotificationResult>.self).subscribe(onNext: { [weak self] response in
+            guard let `self` = self else {
+                return
+            }
+            self.dismissHUD()
+            if response.status == ResponseType.success {
+                notification.isFollowing = false
+                self.notificationArray[index] = notification
+                for item in self.notificationArray {
+                    if item.refereeUserId?.id == notification.refereeUserId?.id {
+                        item.isFollowing = false
+                    }
+                }
+                self.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+            } else {
+                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+            }
+        }, onError: { [weak self] error in
+            guard let `self` = self else { return }
+            self.showAlert(alertMessage: error.localizedDescription)
+            self.dismissHUD()
+        }, onCompleted: {
+        }).disposed(by: rx.disposeBag)
+    }
+    
+    func followButtonTapped(_ notification: UserNotification?, _ index: Int) {
+        if let notification = notification, let userId = notification.refereeUserId?.id {
+            self.showHUD()
+            if let following = notification.isFollowing, !following {
+                self.userFollowing(notification, userId, index)
+            } else {
+                self.userUnFollowing(notification, userId, index)
+            }
+        }
     }
 }
 
 // MARK: - CollectionView DataSource
-extension NotificationDetailsVC: UICollectionViewDataSource {
+extension NotificationDetailsVC: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.notificationDetailsViewCell.identifier, for: indexPath) as? NotificationDetailsViewCell else {
             return UICollectionViewCell()
         }
         cell.notification = notificationArray[indexPath.row]
+        cell.followButtonHandler = { [weak self] notification in
+            guard let `self` = self else {
+                return
+            }
+            self.followButtonTapped(notification, indexPath.row)
+        }
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return notificationArray.count
     }
+
+    // prefetch
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if self.postsCount > self.notificationArray.count, indexPath.row >= notificationArray.count - 2 && !self.startLoading {
+            startLoading = true
+            self.pageIndex += 1
+            self.showHUD()
+            self.getFollowingNotifications(pageIndex: self.pageIndex)
+        }
+    }
 }
 
-// MARK: - CollectionView Delegate
-extension NotificationDetailsVC: UICollectionViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let currentOffset = scrollView.contentOffset.y
-        let maximumOffset = scrollView.contentSize.width - scrollView.frame.size.width
-        
-        if maximumOffset - currentOffset <= FetchDataBefore.bottomMargin {
-            if !startLoading, self.postsCount > (self.notificationArray.count) {
-                startLoading = true
-                self.pageIndex += 1
-                self.getFollowingNotifications(pageIndex: self.pageIndex)
-            } else {
-                self.collectionView.es.noticeNoMoreData()
-            }
-        }
+extension UIButton {
+    func flash() {
+        let flash = CABasicAnimation(keyPath: "opacity")
+        flash.duration = 0.2
+        flash.fromValue = 1
+        flash.toValue = 0.1
+        flash.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        flash.autoreverses = true
+        flash.repeatCount = 1
+        layer.add(flash, forKey: nil)
     }
 }

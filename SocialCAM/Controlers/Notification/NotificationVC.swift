@@ -109,6 +109,17 @@ extension NotificationVC: UITableViewDataSource, UITableViewDelegate {
             }
             self.notificationUnread(userNotification)
             if let popupViewController = R.storyboard.notificationVC.userDetailsVC() {
+                popupViewController.notificationUpdateHandler = { [weak self] notification in
+                    guard let `self` = self, let userNotification = notification else {
+                        return
+                    }
+                    self.notificationArray[indexPath.row] = userNotification
+                    for item in self.notificationArray {
+                        if item.refereeUserId?.id == userNotification.refereeUserId?.id {
+                            item.isFollowing = userNotification.isFollowing
+                        }
+                    }
+                }
                 popupViewController.notification = notification
                 MIBlurPopup.show(popupViewController, on: self)
             }
