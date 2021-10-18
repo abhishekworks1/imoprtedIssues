@@ -272,10 +272,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FileManager.default.clearTempDirectory()
         
-        // Implement app updater
-        SSAppUpdater.shared.performCheck(isForceUpdate: true, updateAlertFrequency: .always, showDefaultAlert: true) { (_) in
-        }
-        
         return true
     }
     
