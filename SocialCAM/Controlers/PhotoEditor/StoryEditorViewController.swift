@@ -1388,7 +1388,7 @@ extension StoryEditorViewController {
         if isQuickApp {
             let followMeStoryShareViews = storyEditors[currentStoryIndex].subviews.filter({ return $0 is FollowMeStoryView })
             if followMeStoryShareViews.count != 1 && currentStoryIndex == 0 {
-                self.didSelect(type: QuickCam.SSUTagType.quickApp, waitingListOptionType: nil, socialShareType: nil, screenType: SSUTagScreen.ssutTypes)
+                self.didSelect(type: SSUTagType.quickApp, waitingListOptionType: nil, socialShareType: nil, screenType: SSUTagScreen.ssutTypes)
                 self.isSettingsChange = true
             }
             openActionSheet()
