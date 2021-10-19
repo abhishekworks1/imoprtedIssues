@@ -89,7 +89,7 @@ class EditProfilePicViewController: UIViewController {
             if let flages = Defaults.shared.currentUser?.userStateFlags,
                flages.count > 0 {
                 self.btnSetFlags.isHidden = true
-                self.flagsStackViewHeightConstraint.constant = self.btnSelectCountry.isSelected ? 70 : 0
+                self.flagsStackViewHeightConstraint.constant = self.btnSelectCountry.isSelected ? 74 : 0
                 for (index, item) in flages.enumerated() {
                     self.countryView[index].isHidden = false
                     let country: Country = Country(name: (item.state == "") ? (item.country ?? "") : (item.state ?? ""), code: (item.state == "") ? (item.countryCode ?? "") : (item.stateCode ?? ""), phoneCode: "", isState: (item.state != ""))
@@ -204,10 +204,10 @@ class EditProfilePicViewController: UIViewController {
         btnSelectCountry.isSelected.toggle()
         if let flages = Defaults.shared.currentUser?.userStateFlags,
            flages.count > 0 {
-            self.flagsStackViewHeightConstraint.constant = self.btnSelectCountry.isSelected ? 70 : 0
+            self.flagsStackViewHeightConstraint.constant = self.btnSelectCountry.isSelected ? 74 : 0
         }
         if isCountryFlagSelected {
-            self.flagsStackViewHeightConstraint.constant = (self.btnSelectCountry.isSelected && countrySelected.count > 0) ? 70 : 0
+            self.flagsStackViewHeightConstraint.constant = (self.btnSelectCountry.isSelected && countrySelected.count > 0) ? 74 : 0
         }
     }
     
@@ -317,7 +317,7 @@ extension EditProfilePicViewController: CountryPickerViewDelegate {
         }
         self.btnSetFlags.isHidden = countryAry.count > 0
         self.countrySelected = countryAry
-        self.flagsStackViewHeightConstraint.constant = (self.btnSelectCountry.isSelected && !countryAry.isEmpty) ? 70 : 0
+        self.flagsStackViewHeightConstraint.constant = (self.btnSelectCountry.isSelected && !countryAry.isEmpty) ? 74 : 0
     }
 }
 
@@ -343,7 +343,7 @@ extension EditProfilePicViewController: StatePickerViewDelegate {
         }
         self.btnSetFlags.isHidden = countryAry.count > 0
         self.countrySelected = didSelectCountry
-        self.flagsStackViewHeightConstraint.constant = (self.btnSelectCountry.isSelected && !countryAry.isEmpty) ? 70 : 0
+        self.flagsStackViewHeightConstraint.constant = (self.btnSelectCountry.isSelected && !countryAry.isEmpty) ? 74 : 0
     }
     
 }
