@@ -54,6 +54,10 @@ class AccountSettingsViewController: UIViewController {
         self.doubleButtonStackView.isHidden = !isHide
     }
     
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        self.isDisplayNameChange = true
+    }
+    
     // MARK: - Action Method
     @IBAction func onBackPressed(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)
@@ -71,8 +75,15 @@ class AccountSettingsViewController: UIViewController {
         }
     }
     @IBAction func onDonePressed(_ sender: UIButton) {
-        self.showHUD()
-        self.editDisplayName()
+        if isDisplayNameChange {
+            self.showHUD()
+            self.editDisplayName()
+        } else {
+            self.view.makeToast(R.string.localizable.noChangesMade())
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
     }
     
     @IBAction func onDisplayNameOkPressed(_ sender: UIButton) {
@@ -127,6 +138,7 @@ extension AccountSettingsViewController: UITableViewDataSource {
             guard let displayNameCell: DisplayNameTableViewCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.displayNameTableViewCell.identifier) as? DisplayNameTableViewCell else {
                 return accountSettingsCell
             }
+            displayNameCell.txtDisplaName.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
             displayNameCell.btnDisplayNameTooltipIcon.tag = indexPath.section
             displayNameCell.displayTooltipDelegate = self
             if settingTitle.settingsType == .publicDisplayName {

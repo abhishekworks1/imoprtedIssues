@@ -247,13 +247,7 @@ class UserDetailsVC: UIViewController {
             }
         }
         self.imgUserPlaceholder.image = (socialPlatfroms.count == 4) ? R.image.shareScreenRibbonProfileBadge() : R.image.shareScreenProfileBadge()
-        if socialPlatfroms.count == 4 {
-            self.socialBadgeViewHeightConstraint.constant = 65
-            self.socialMediaVerifiedBadgeView.isHidden = false
-        } else {
-            self.socialBadgeViewHeightConstraint.constant = 0
-            self.socialMediaVerifiedBadgeView.isHidden = true
-        }
+        self.socialMediaVerifiedBadgeView.isHidden = socialPlatfroms.count != 4
     }
     
     func convertDate(_ date: String) -> String {
