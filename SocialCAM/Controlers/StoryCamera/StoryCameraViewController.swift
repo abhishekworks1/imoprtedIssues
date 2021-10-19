@@ -1695,6 +1695,7 @@ extension StoryCameraViewController {
                     self.switchAppButton.alpha = 0
                     self.discardSegmentsStackView.alpha = 0
                     self.confirmRecordedSegmentStackView.alpha = 0
+                    self.businessDashboardStackView.alpha = 0
                 }
             })
         }
@@ -1719,6 +1720,7 @@ extension StoryCameraViewController {
                     self.switchAppButton.alpha = 1
                     self.discardSegmentsStackView.alpha = 1
                     self.confirmRecordedSegmentStackView.alpha = 1
+                    self.businessDashboardStackView.alpha = 1
                 })
             }
         } else {
