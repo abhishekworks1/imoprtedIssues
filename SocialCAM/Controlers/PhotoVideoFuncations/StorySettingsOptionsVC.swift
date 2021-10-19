@@ -126,8 +126,10 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
         
         if settingTitle.settingsType == .faceDetection {
             cell.onOffButton.isSelected = Defaults.shared.enableFaceDetection
+            cell.imgSettingsIcon.image = R.image.iconFaceDetection()
         } else if settingTitle.settingsType == .guildlines {
             cell.onOffButton.isSelected = Defaults.shared.enableGuildlines
+            cell.imgSettingsIcon.isHidden = true
         } else if settingTitle.settingsType == .swapeContols {
             cell.onOffButton.isSelected = Defaults.shared.swapeContols
             guard let iconPositionCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.iconPositionCell.identifier) else { return cell }
@@ -136,11 +138,13 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
             cell.onOffButton.isSelected = Defaults.shared.swapeContols
             guard let iconPositionCell: GuildlineIconPositionTableViewCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.guildlineIconPositionTableViewCell.identifier) as? GuildlineIconPositionTableViewCell else { return cell }
             iconPositionCell.guildline = .type
+            iconPositionCell.iconSettingImage.image = R.image.iconGuidelineType()
             return iconPositionCell
         } else if settingTitle.settingsType == .guidelineTickness {
             cell.onOffButton.isSelected = Defaults.shared.swapeContols
             guard let iconPositionCell: GuildlineIconPositionTableViewCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.guildlineIconPositionTableViewCell.identifier) as? GuildlineIconPositionTableViewCell else { return cell }
             iconPositionCell.guildline = .thickness
+            iconPositionCell.iconSettingImage.image = R.image.iconGuidelineThickness()
             return iconPositionCell
         } else if settingTitle.settingsType == .guidelineColor {
             cell.onOffButton.isSelected = Defaults.shared.swapeContols
@@ -151,10 +155,12 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
             cell.onOffButton.isHidden = false
             if Defaults.shared.selectedFrameRates == cell.settingsName.text {
                 cell.onOffButton.isSelected = true
+                setIcons(cell, R.image.iconSupportedFrameRate() ?? UIImage())
             } else {
                 cell.onOffButton.isSelected = false
                 cell.stackView.backgroundColor = R.color.hideWatermarkBackgroundColor()
                 cell.lblPremiumVersionOnly.isHidden = false
+                setIcons(cell, R.image.iconSupportedFrameRate() ?? UIImage())
             }
         } else if settingTitle.settingsType == .watermarkSettings {
             cell.settingsName.textColor = R.color.appPrimaryColor()
@@ -162,10 +168,12 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
             cell.onOffButton.isHidden = true
             cell.stackView.backgroundColor = UIColor.white
             cell.lblPremiumVersionOnly.isHidden = true
+            cell.imgSettingsIcon.image = R.image.iconWaterMarkSetting()
         } else if settingTitle.settingsType == .watermarkAlpha30 || settingTitle.settingsType == .watermarkAlpha50 || settingTitle.settingsType == .watermarkAlpha80 {
             cell.onOffButton.isHidden = false
             cell.stackView.backgroundColor = UIColor.white
             cell.lblPremiumVersionOnly.isHidden = true
+            cell.imgSettingsIcon.isHidden = true
             cell.onOffButton.isSelected = Defaults.shared.waterarkOpacity == settingTitle.settingsType.rawValue
         } else if settingTitle.settingsType == .videoResolution {
             cell.onOffButton.isHidden = true
@@ -192,6 +200,11 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
+    func setIcons(_ cell: StorySettingsCell, _ image: UIImage) {
+        cell.imgSettingsIcon.isHidden = false
+        cell.imgSettingsIcon.image = image
+    }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let headerView = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.storySettingsHeader.identifier) as? StorySettingsHeader else {
             fatalError("StorySettingsHeader Not Found")
@@ -199,10 +212,13 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
         let settingTitle = CameraSettings.storySettings[section]
         headerView.userName.isHidden = true
         headerView.userImage.isHidden = true
+        headerView.iconSettingsImage.isHidden = true
         if settingTitle.settingsType != .supportedFrameRates {
             headerView.title.isHidden = true
         } else {
             headerView.title.isHidden = false
+            headerView.iconSettingsImage.isHidden = false
+            headerView.iconSettingsImage.image = R.image.iconSupportedFrameRate()
         }
         headerView.title.text = settingTitle.name
         
@@ -219,6 +235,8 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
             headerView.userName.text = R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? "")
         } else if settingTitle.settingsType == .watermarkAlpha30 {
             headerView.title.isHidden = false
+            headerView.iconSettingsImage.isHidden = false
+            headerView.iconSettingsImage.image = R.image.iconWaterMarkOpacity()
             headerView.title.text = R.string.localizable.watermarkOpacity()
             headerView.title.textColor = R.color.appPrimaryColor()
         }
