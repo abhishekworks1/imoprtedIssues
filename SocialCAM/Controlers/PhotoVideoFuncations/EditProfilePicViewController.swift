@@ -45,12 +45,16 @@ class EditProfilePicViewController: UIViewController {
     @IBOutlet weak var setDisplayNamePopupView: UIView!
     @IBOutlet weak var txtDisplayName: UITextField!
     @IBOutlet weak var lblDisplayName: UILabel!
-    @IBOutlet weak var displayNameLabelTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var displayNameViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var btnSetPublicDisplayName: UIButton!
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet weak var lblUseThisPicture: UILabel!
     @IBOutlet weak var popupImgHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var dicardPopupView: UIView!
+    @IBOutlet weak var publicDisplayNameTooltipView: UIView!
+    @IBOutlet weak var btnPublicDisplayNameTooltip: UIButton!
+    @IBOutlet weak var publicDisplayNameView: UIView!
+    @IBOutlet weak var btnSetFlags: UIButton!
     
     // MARK: - Variables declaration
     private var localImageUrl: URL?
@@ -84,6 +88,7 @@ class EditProfilePicViewController: UIViewController {
         DispatchQueue.main.async {
             if let flages = Defaults.shared.currentUser?.userStateFlags,
                flages.count > 0 {
+                self.btnSetFlags.isHidden = true
                 self.flagsStackViewHeightConstraint.constant = self.btnSelectCountry.isSelected ? 70 : 0
                 for (index, item) in flages.enumerated() {
                     self.countryView[index].isHidden = false
@@ -93,6 +98,7 @@ class EditProfilePicViewController: UIViewController {
                     self.imgCountrys[index].image = country.flag
                 }
             } else {
+                self.btnSetFlags.isHidden = false
                 self.flagsStackViewHeightConstraint.constant = 0
             }
         }
@@ -143,14 +149,16 @@ class EditProfilePicViewController: UIViewController {
     func setPublicDisplayName() {
         if let displayName =  Defaults.shared.publicDisplayName,
            !displayName.isEmpty {
-            self.lblDisplayName.isHidden = false
-            self.displayNameLabelTopConstraint.constant = 34
+            self.publicDisplayNameView.isHidden = false
+            self.displayNameViewTopConstraint.constant = 34
             self.lblDisplayName.text = displayName
-            self.setDisplayNamePopupView.isHidden = true
             self.btnSetPublicDisplayName.isHidden = true
         } else {
+            self.displayNameViewTopConstraint.constant = 0
+            self.publicDisplayNameView.isHidden = true
             self.btnSetPublicDisplayName.isHidden = false
         }
+        self.setDisplayNamePopupView.isHidden = true
     }
     
     // MARK: - Action Methods
@@ -171,7 +179,7 @@ class EditProfilePicViewController: UIViewController {
             self.showHUD()
             self.view.isUserInteractionEnabled = false
         } else {
-            self.view.makeToast(R.string.localizable.noChannelFound())
+            self.view.makeToast(R.string.localizable.noChangesAreMade())
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.navigationController?.popViewController(animated: true)
             }
@@ -262,6 +270,26 @@ class EditProfilePicViewController: UIViewController {
         self.dicardPopupView.isHidden = true
     }
     
+    @IBAction func btnTooltipOkTapped(_ sender: UIButton) {
+        self.publicDisplayNameTooltipView.isHidden = true
+    }
+    
+    @IBAction func btnPublicDisplayNameTooltipTapped(_ sender: UIButton) {
+        self.publicDisplayNameTooltipView.isHidden = false
+    }
+    
+    @IBAction func editPublicDisplayNameTapped(_ sender: UIButton) {
+        self.txtDisplayName.text = Defaults.shared.publicDisplayName
+        self.setDisplayNamePopupView.isHidden = false
+    }
+    
+    @IBAction func btnFlagSelectionsTapped(_ sender: UIButton) {
+        if let countryVc = R.storyboard.countryPicker.countryPickerViewController() {
+            countryVc.selectedCountries = countrySelected
+            countryVc.delegate = self
+            self.navigationController?.pushViewController(countryVc, animated: true)
+        }
+    }
 }
 
 extension EditProfilePicViewController: CountryPickerViewDelegate {
@@ -284,6 +312,7 @@ extension EditProfilePicViewController: CountryPickerViewDelegate {
             }
             self.isCountryFlagSelected = true
         }
+        self.btnSetFlags.isHidden = countryAry.count > 0
         self.countrySelected = countryAry
         self.flagsStackViewHeightConstraint.constant = (self.btnSelectCountry.isSelected && !countryAry.isEmpty) ? 70 : 0
     }
@@ -309,6 +338,7 @@ extension EditProfilePicViewController: StatePickerViewDelegate {
                 self.btnSelectCountry.isSelected = !self.btnSelectCountry.isSelected
             }
         }
+        self.btnSetFlags.isHidden = countryAry.count > 0
         self.countrySelected = selectedStates
         self.flagsStackViewHeightConstraint.constant = (self.btnSelectCountry.isSelected && !countryAry.isEmpty) ? 70 : 0
     }
@@ -475,10 +505,8 @@ extension EditProfilePicViewController {
     }
     
     func editDisplayName() {
-        guard let displayName = self.txtDisplayName.text else {
-            return
-        }
-        ProManagerApi.editDisplayName(publicDisplayName: displayName, privateDisplayName: "").request(Result<EmptyModel>.self).subscribe(onNext: { [weak self] (response) in
+        let displayName = self.txtDisplayName.text
+        ProManagerApi.editDisplayName(publicDisplayName: displayName?.isEmpty ?? true ? "" : displayName, privateDisplayName: nil).request(Result<EmptyModel>.self).subscribe(onNext: { [weak self] (response) in
             guard let `self` = self else {
                 return
             }
@@ -558,7 +586,6 @@ extension EditProfilePicViewController {
         }, onError: { error in
             self.dismissHUD()
             self.view.isUserInteractionEnabled = true
-            self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
     }

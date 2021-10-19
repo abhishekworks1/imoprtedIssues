@@ -11,7 +11,7 @@ import AVKit
 
 public protocol StatePickerViewDelegate: class {
     /// Called when the user selects a country from the list.
-    func statePickerView(_ didSelectCountry : [Country], isSelectionDone: Bool)
+    func getSelectStates(_ selectedStates : [Country], isSelectionDone: Bool)
 }
 
 class StatePickerViewController: UIViewController {

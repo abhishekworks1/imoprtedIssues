@@ -556,7 +556,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             }
         } else if settingTitle.settingsType == .userDashboard {
             if let token = Defaults.shared.sessionToken {
-                let urlString = "\(userDashboardUrl)/redirect?token=\(token)"
+                let urlString = "\(websiteUrl)/redirect?token=\(token)"
                 guard let url = URL(string: urlString) else {
                     return
                 }

@@ -274,8 +274,8 @@ extension CountryPickerViewController {
 
 extension CountryPickerViewController: StatePickerViewDelegate {
     
-    func statePickerView(_ didSelectCountry: [Country], isSelectionDone: Bool) {
-        self.selectedCountries = didSelectCountry
+    func getSelectStates(_ selectedStates: [Country], isSelectionDone: Bool) {
+        self.selectedCountries = selectedStates
         if isSelectionDone {
             self.delegate?.countryPickerView(selectedCountries)
             self.navigationController?.popViewController(animated: true)
