@@ -35,7 +35,7 @@ class VideoMediaHelper {
         self.exportSession?.exportAsynchronously(completionHandler: {
             timer.invalidate()
             switch exportSession.status {
-            case AVAssetExportSessionStatus.completed:
+            case AVAssetExportSession.Status.completed:
                 completionHandler(fileUrl)
             default:
                 completionHandler(nil)
