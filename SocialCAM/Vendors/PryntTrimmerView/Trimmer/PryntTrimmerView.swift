@@ -248,10 +248,10 @@ public protocol TrimViewDelegate: class {
             exportSession.timeRange = range
             exportSession.exportAsynchronously(completionHandler: {
                 switch exportSession.status {
-                case AVAssetExportSessionStatus.failed:
+                case AVAssetExportSession.Status.failed:
                     print("Export failed: \(String(describing: exportSession.error?.localizedDescription))")
                   
-                case AVAssetExportSessionStatus.cancelled:
+                case AVAssetExportSession.Status.cancelled:
                     print("Export canceled")
                   
                 default:
