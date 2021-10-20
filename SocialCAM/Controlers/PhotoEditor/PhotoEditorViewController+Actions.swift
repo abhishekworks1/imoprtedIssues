@@ -107,21 +107,21 @@ extension PhotoEditorViewController {
     func flipOrientation(_ orientation: UIImage.Orientation) -> UIImage.Orientation {
         var imageOrientation: UIImage.Orientation = UIImage.Orientation.downMirrored
         switch orientation {
-        case UIImageOrientation.down:
+        case UIImage.Orientation.down:
             imageOrientation = UIImage.Orientation.up
-        case UIImageOrientation.downMirrored:
+        case UIImage.Orientation.downMirrored:
             imageOrientation = UIImage.Orientation.upMirrored
-        case UIImageOrientation.left:
+        case UIImage.Orientation.left:
             imageOrientation = UIImage.Orientation.right
-        case UIImageOrientation.leftMirrored:
+        case UIImage.Orientation.leftMirrored:
             imageOrientation = UIImage.Orientation.rightMirrored
-        case UIImageOrientation.right:
+        case UIImage.Orientation.right:
             imageOrientation = UIImage.Orientation.left
-        case UIImageOrientation.rightMirrored:
+        case UIImage.Orientation.rightMirrored:
             imageOrientation = UIImage.Orientation.leftMirrored
-        case UIImageOrientation.up:
+        case UIImage.Orientation.up:
             imageOrientation = UIImage.Orientation.down
-        case UIImageOrientation.upMirrored:
+        case UIImage.Orientation.upMirrored:
             imageOrientation = UIImage.Orientation.downMirrored
         default:
             break

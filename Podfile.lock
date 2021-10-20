@@ -1,5 +1,5 @@
 PODS:
-  - Alamofire (5.4.1)
+  - Alamofire (5.4.4)
   - AppAuth (1.4.0):
     - AppAuth/Core (= 1.4.0)
     - AppAuth/ExternalUserAgent (= 1.4.0)
@@ -80,7 +80,7 @@ PODS:
     - FirebaseCoreDiagnostics (~> 8.0)
     - GoogleUtilities/Environment (~> 7.4)
     - GoogleUtilities/Logger (~> 7.4)
-  - FirebaseCoreDiagnostics (8.7.0):
+  - FirebaseCoreDiagnostics (8.8.0):
     - GoogleDataTransport (~> 9.0)
     - GoogleUtilities/Environment (~> 7.4)
     - GoogleUtilities/Logger (~> 7.4)
@@ -92,7 +92,7 @@ PODS:
     - GoogleUtilities/Environment (~> 7.4)
     - nanopb (~> 2.30908.0)
     - PromisesObjC (< 3.0, >= 1.2)
-  - FirebaseInstallations (8.7.0):
+  - FirebaseInstallations (8.8.0):
     - FirebaseCore (~> 8.0)
     - GoogleUtilities/Environment (~> 7.4)
     - GoogleUtilities/UserDefaults (~> 7.4)
@@ -111,14 +111,14 @@ PODS:
   - FSPagerView (0.8.3)
   - Gemini (1.4.0)
   - GMStepper (2.2)
-  - GoogleAPIClientForREST (1.5.2):
-    - GoogleAPIClientForREST/Core (= 1.5.2)
-    - GTMSessionFetcher (>= 1.1.7)
-  - GoogleAPIClientForREST/Core (1.5.2):
-    - GTMSessionFetcher (>= 1.1.7)
-  - GoogleAPIClientForREST/YouTube (1.5.2):
+  - GoogleAPIClientForREST (1.6.0):
+    - GoogleAPIClientForREST/Core (= 1.6.0)
+    - GTMSessionFetcher (>= 1.6.1)
+  - GoogleAPIClientForREST/Core (1.6.0):
+    - GTMSessionFetcher (>= 1.6.1)
+  - GoogleAPIClientForREST/YouTube (1.6.0):
     - GoogleAPIClientForREST/Core
-    - GTMSessionFetcher (>= 1.1.7)
+    - GTMSessionFetcher (>= 1.6.1)
   - GoogleAppMeasurement (8.7.0):
     - GoogleAppMeasurement/AdIdSupport (= 8.7.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
@@ -169,14 +169,14 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (7.5.2):
     - GoogleUtilities/Logger
-  - GTMAppAuth (1.1.0):
+  - GTMAppAuth (1.2.2):
     - AppAuth/Core (~> 1.4)
-    - GTMSessionFetcher (~> 1.4)
-  - GTMSessionFetcher (1.5.0):
-    - GTMSessionFetcher/Full (= 1.5.0)
-  - GTMSessionFetcher/Core (1.5.0)
-  - GTMSessionFetcher/Full (1.5.0):
-    - GTMSessionFetcher/Core (= 1.5.0)
+    - GTMSessionFetcher/Core (~> 1.5)
+  - GTMSessionFetcher (1.7.0):
+    - GTMSessionFetcher/Full (= 1.7.0)
+  - GTMSessionFetcher/Core (1.7.0)
+  - GTMSessionFetcher/Full (1.7.0):
+    - GTMSessionFetcher/Core (= 1.7.0)
   - InfiniteLayout (0.5):
     - InfiniteLayout/Core (= 0.5)
   - InfiniteLayout/CocoaProxy (0.5)
@@ -216,7 +216,7 @@ PODS:
   - ObjectMapper (4.2.0)
   - OnlyPictures (1.0.0)
   - Pageboy (3.6.2)
-  - Parchment (3.0.1)
+  - Parchment (3.1.0)
   - PINCache (3.0.3):
     - PINCache/Arc-exception-safe (= 3.0.3)
     - PINCache/Core (= 3.0.3)
@@ -239,7 +239,7 @@ PODS:
     - RxSwift (~> 5.0)
   - RxRelay (5.1.3):
     - RxSwift (~> 5)
-  - RxSwift (5.1.1)
+  - RxSwift (5.1.3)
   - SCRecorder (2.7.0)
   - SDWebImage (5.11.1):
     - SDWebImage/Core (= 5.11.1)
@@ -265,7 +265,7 @@ PODS:
   - TagListView (1.4.1)
   - TGPControls (5.1.0)
   - Tiercel (3.2.3)
-  - TikTokOpenSDK (4.0.1)
+  - TikTokOpenSDK (5.0.0)
   - Toast-Swift (5.0.1)
   - TwitterCore (3.2.0)
   - TwitterKit5 (5.2.0):
@@ -308,7 +308,7 @@ DEPENDENCIES:
   - NVActivityIndicatorView (= 5.1.1)
   - OnlyPictures (from `https://github.com/simformsolutions/OnlyPictures`)
   - Pageboy (~> 3.6)
-  - Parchment (= 3.0.1)
+  - Parchment (= 3.1.0)
   - ProgressHUD (~> 2.70)
   - R.swift (= 5.3.1)
   - RxCocoa (= 5.1.3)
@@ -458,7 +458,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/simformsolutions/YoutubePlayerView.git
 
 SPEC CHECKSUMS:
-  Alamofire: 2291f7d21ca607c491dd17642e5d40fdcda0e65c
+  Alamofire: f3b09a368f1582ab751b3fff5460276e0d2cf5c9
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
   AWSCore: 9c51a3004e9e91528160ea978fd0c5d92780a45e
   AWSS3: 2c211728c36d1dbf4d0075d0e8ba317a561bc80c
@@ -477,16 +477,16 @@ SPEC CHECKSUMS:
   FirebaseAnalytics: 52768800c2add1d84b751420cb4caaf8195f2c41
   FirebaseAuth: 2e7d029977648c67a5d51a263d4cbab76d34cf12
   FirebaseCore: f4804c1d3f4bbbefc88904d15653038f2c99ddf7
-  FirebaseCoreDiagnostics: b63732f581a1c6a453ec7241f9ab60b3a5bd3450
+  FirebaseCoreDiagnostics: fe77f42da6329d6d83d21fd9d621a6b704413bfc
   FirebaseCrashlytics: 6fac03d1eef054833b71c929c93ab95c12989728
-  FirebaseInstallations: ede6fb72bb6337914e5888b399271259d0c4910c
+  FirebaseInstallations: 2563cb18a723ef9c6ef18318a49519b75dce613c
   FirebaseMessaging: 93227dd71d7888e200baef65043f81acb2b6596e
   FLAnimatedImage: 8f3e854ebf9680b71f0b6e700939687fc4d82b4b
   FontAwesome.swift: 6b52cb7be66eacd28cbfaa0ca7ffd0de4a186a1d
   FSPagerView: 670405b2f18e2a87fa37f20b00de783e562c25a8
   Gemini: 4ad915cca8805577fe3021e02feeca2b77dcdbfc
   GMStepper: 89fb106944dfcc3aa3add7164e3ebd463ea2104b
-  GoogleAPIClientForREST: 538a8ad0014fd88b78894e77100775a6b0a4f7ed
+  GoogleAPIClientForREST: 5183df28e7bcb7b7b41ebd558e16083cfed60d99
   GoogleAppMeasurement: 2be61ce546ad074dbe4dd545f222ac6033bb1d9e
   GoogleDataTransport: 85fd18ff3019bb85d3f2c551d04c481dedf71fc9
   GoogleMaps: 5c13302e6fe6bb6e686b267196586b91cd594225
@@ -494,8 +494,8 @@ SPEC CHECKSUMS:
   GooglePlaces: e874db179f2675c4f3eeda0b686b540273a578b0
   GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
   GoogleUtilities: 8de2a97a17e15b6b98e38e8770e2d129a57c0040
-  GTMAppAuth: 197a8dabfea5d665224aa00d17f164fc2248dab9
-  GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
+  GTMAppAuth: ad5c2b70b9a8689e1a04033c9369c4915bfcbe89
+  GTMSessionFetcher: 43748f93435c2aa068b1cbe39655aaf600652e91
   InfiniteLayout: 2c55b0fc14b6a9d924fbe13c0e2d88b1cbf5423d
   IQKeyboardManagerSwift: c7df9d2deb356c04522f5c4b7b6e4ce4d8ed94fe
   JPSVolumeButtonHandler: 53110330c9168ed325def93eabff39f0fe3e8082
@@ -510,7 +510,7 @@ SPEC CHECKSUMS:
   ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
   OnlyPictures: a91e5b202783fb3a36d4e2f1899d400a22b26259
   Pageboy: cf121b9dd48c63f3f281b2a9ec93d02e0f23879b
-  Parchment: 466a1cfb6151780db8acb4bbedc2d9c6bfa1e2ff
+  Parchment: 6250722ed0456d68f6bae03118eda722a28486f3
   PINCache: 7a8fc1a691173d21dbddbf86cd515de6efa55086
   PINOperation: 00c935935f1e8cf0d1e2d6b542e75b88fc3e5e20
   ProgressHUD: e603e8b8622c47d8818b9fb38b3cfe9d3e7ca421
@@ -520,7 +520,7 @@ SPEC CHECKSUMS:
   RxCocoa: e2ed092d5432e4296aa818021d27de4090ac0354
   RxDataSources: efee07fa4de48477eca0a4611e6d11e2da9c1114
   RxRelay: 5a18c2eb2d68326ebaf0112f80d837ae41b92b97
-  RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
+  RxSwift: 915abbdfb62214aa89ccd0b194d44fb478019b27
   SCRecorder: bbb521dbc222908876ec9cd9156bbc8a893bed44
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   Sentry: 6d963d64804dd06d96e778be729613f481394312
@@ -534,13 +534,13 @@ SPEC CHECKSUMS:
   TagListView: a1c236d17960a0cf64156725a76ce6d73ebce2be
   TGPControls: 52c0770bee9c9aee364f1559cc627fc01ea5e8b2
   Tiercel: 912fdb367950c356eb2100279920bce9f5ebc453
-  TikTokOpenSDK: 24a702702a64b5652f2a0bcf4ad1b11d08c6eb1b
+  TikTokOpenSDK: a63564ea4dc1fabc56352bf7aa9ddc386cdb63b6
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
   TwitterCore: 8cbc9ad34d91c63a0035ea05bfbfc0d7ca72a28c
   TwitterKit5: 64095dfefcf39be2355711ef27112d55e340d90e
   URLEmbeddedView: 3fe17ae535d2b8d38c3b08ab8ba0aea5efe5d1cd
   YoutubePlayerView: 9e21d0286415264c6b6a5f3c5cb53ed9272e2bd6
 
-PODFILE CHECKSUM: 5904d92936bec52b35f79b5a9a6f8057317d671e
+PODFILE CHECKSUM: 39f4b3fe4deef52c1d5ef1719d6f37fce25efc64
 
 COCOAPODS: 1.10.1

@@ -281,35 +281,35 @@ class PostDataManager {
 extension PostDataManager {
     
     func stopUploadFile(postData: PostData) {
-        
-        for (_,item) in getAllPostDatas().enumerated()
-        {
-            if postData.url == item.url {
-                postData.postUploadData?.isCompleted = true
-                self.saveChanges()
-                self.isThumbCreated = false
-                self.isPostUploaded = false
-                self.currentPostData = nil
-                self.currentPostUploadData = nil
-                
-                AWSManager.shared.cancelOneFileUpload(postData.url ?? "")
-                
-                self.delegate?.didCompletedPost()
-                PostDataManager.shared.startUpload()
-                break
-            }
-        }
+        // Todo : Xcode 13 Issue with this code. So Comment this code - UnUsed
+//        for (_,item) in getAllPostDatas().enumerated()
+//        {
+//            if postData.url == item.url {
+//                postData.postUploadData?.isCompleted = true
+//                self.saveChanges()
+//                self.isThumbCreated = false
+//                self.isPostUploaded = false
+//                self.currentPostData = nil
+//                self.currentPostUploadData = nil
+//
+//                AWSManager.shared.cancelOneFileUpload(postData.url ?? "")
+//
+//                self.delegate?.didCompletedPost()
+//                PostDataManager.shared.startUpload()
+//                break
+//            }
+//        }
     }
     
     func restartAll() {
-        
-        for (_ ,item) in getAllPostDatas().enumerated() {
-            self.isThumbCreated = false
-            self.isPostUploaded = false
-            self.currentPostData = nil
-            self.currentPostUploadData = nil
-            AWSManager.shared.cancelOneFileUpload(item.url ?? "")
-        }
+        // Todo : Xcode 13 Issue with this code. So Comment this code - UnUsed
+//        for (_ ,item) in getAllPostDatas().enumerated() {
+//            self.isThumbCreated = false
+//            self.isPostUploaded = false
+//            self.currentPostData = nil
+//            self.currentPostUploadData = nil
+//            AWSManager.shared.cancelOneFileUpload(item.url ?? "")
+//        }
         self.delegate?.didCompletedPost()
         PostDataManager.shared.startUpload()
     }
