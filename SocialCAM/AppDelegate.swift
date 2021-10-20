@@ -279,7 +279,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let configuration = PHGPostHogConfiguration(apiKey: Constant.Posthog.APIkey, host: Constant.Posthog.Host)
 
             configuration.captureApplicationLifecycleEvents = true; // Record certain application events automatically!
-            configuration.recordScreenViews = true; // Record screen views automatically!
+            //configuration.recordScreenViews = true; // Record screen views automatically!
 
             PHGPostHog.setup(with: configuration)
             Defaults.shared.addEventWithName(eventName: Constant.EventName.open_App)

@@ -1096,6 +1096,9 @@ class Defaults {
         }
         posthog?.capture(eventName, properties: ["$set": ["userName": userName,"userEmail": userEmail] ])
 
+        posthog?.identify(userEmail,
+                  properties: ["name": userName, "email": userEmail])
+
     }
 }
 
