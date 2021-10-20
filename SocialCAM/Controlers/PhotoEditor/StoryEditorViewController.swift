@@ -364,6 +364,7 @@ class StoryEditorViewController: UIViewController {
         btnAppIdentifierWatermark.isSelected = isAppIdentifierWatermarkShow
         isMadeWithGifShow = Defaults.shared.madeWithGifSetting == .show
         btnSelectedMadeWithGif.isSelected = isMadeWithGifShow
+        setGestureViewForShowHide(view: storyEditors[currentStoryIndex])
         if Defaults.shared.appMode == .free {
             btnAppIdentifierWatermark.isSelected = true
             btnSelectAppIdentifierWatermark.isSelected = true
