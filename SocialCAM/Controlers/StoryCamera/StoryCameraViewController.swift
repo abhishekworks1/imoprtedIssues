@@ -1220,7 +1220,7 @@ extension StoryCameraViewController {
                 if isQuickApp && Defaults.shared.appMode == .free {
                     self.showAlertForUpgradeSubscription()
                 }
-                self.circularProgress.centerImage = R.image.capture_mode()
+                self.circularProgress.centerImage = R.image.iconSaveMode()
                 self.timerValueView.isHidden = true
             case .promo:
                 self.circularProgress.centerImage = UIImage()
@@ -1813,6 +1813,8 @@ extension StoryCameraViewController {
                         self.switchAppButton.isUserInteractionEnabled = false
                         if (isSpeedCamApp || isFastCamApp || isSnapCamApp) {
                             totalSeconds = Defaults.shared.appMode == .basic ? 60 : 120
+                        } else if isQuickApp && Defaults.shared.appMode == .basic {
+                            totalSeconds = 60
                         } else {
                             totalSeconds = 3600
                         }
@@ -1857,6 +1859,7 @@ extension StoryCameraViewController {
             self.discardSegmentsStackView.isHidden = false
             self.confirmRecordedSegmentStackView.isHidden = false
             self.stopMotionCollectionView.isHidden = true
+            self.outtakesView.isHidden = true
         }
         if recordingType == .capture {
             self.settingsButton.isUserInteractionEnabled = true
@@ -2439,6 +2442,7 @@ extension StoryCameraViewController {
         self.discardSegmentsStackView.isHidden = true
         self.confirmRecordedSegmentStackView.isHidden = true
         self.slowFastVerticalBar.isHidden = true
+        self.outtakesView.isHidden = false
     }
     
     func getUserProfile() {
