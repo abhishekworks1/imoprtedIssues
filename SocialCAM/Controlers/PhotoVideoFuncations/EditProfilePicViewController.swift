@@ -179,7 +179,7 @@ class EditProfilePicViewController: UIViewController {
             self.showHUD()
             self.view.isUserInteractionEnabled = false
         } else {
-            self.view.makeToast(R.string.localizable.noChangesAreMade())
+            self.view.makeToast(R.string.localizable.noChangesMade())
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.navigationController?.popViewController(animated: true)
             }
