@@ -812,7 +812,8 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             self.setupLiteAppMode(mode: .promo)
         }
         if recordingType == .normal && isBoomiCamApp {
-            recordingType = .basicCamera
+            recordingType = .boomerang
+            self.circularProgress.centerImage = R.image.icoBoomrang()
         }
         if !isViralCamLiteApp || !isFastCamLiteApp || !isQuickCamLiteApp || !isSpeedCamLiteApp || !isSnapCamLiteApp || !isQuickApp {
             speedSlider.isHidden = false
@@ -1093,7 +1094,8 @@ extension StoryCameraViewController {
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .slideshow})
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .collage})
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastSlowMotion})
-            cameraModeArray = cameraModeArray.filter({$0.recordingType != .boomerang})
+            cameraModeArray = cameraModeArray.filter({$0.recordingType != .basicCamera})
+          // cameraModeArray = cameraModeArray.filter({$0.recordingType != .boomerang})
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .custom})
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .normal})
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .capture})
@@ -2600,7 +2602,7 @@ extension StoryCameraViewController {
                 completion(true)
             }
         }, onError: { error in
-            self.showAlert(alertMessage: error.localizedDescription)
+           // self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
     }
@@ -2633,7 +2635,7 @@ extension StoryCameraViewController {
                 self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
             }
         }, onError: { error in
-            self.showAlert(alertMessage: error.localizedDescription)
+           // self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: rx.disposeBag)
     }
