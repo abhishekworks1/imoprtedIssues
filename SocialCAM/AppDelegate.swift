@@ -257,8 +257,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #else
         Defaults.shared.cameraMode = .normal
         #endif
-        let revealingSplashView = RevealingSplashView(iconImage: Constant.Application.appIcon, iconInitialSize: isLiteApp ? CGSize(width: 300, height: 300) : Constant.Application.appIcon.size, backgroundImage: Constant.Application.splashBG)
-        revealingSplashView.duration = 2.0
+        let revealingSplashView = RevealingSplashView(iconImage: Constant.Application.appIcon, iconInitialSize: isLiteApp ? CGSize(width: 250, height: 250) : Constant.Application.appIcon.size, backgroundImage: Constant.Application.splashBG)
+        revealingSplashView.duration = 3.0
         revealingSplashView.iconColor = UIColor.red
         revealingSplashView.useCustomIconColor = false
         revealingSplashView.animationType = SplashAnimationType.popAndZoomOut
