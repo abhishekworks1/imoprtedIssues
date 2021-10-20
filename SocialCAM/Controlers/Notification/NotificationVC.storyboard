@@ -407,8 +407,77 @@
                                                             <constraint firstAttribute="height" constant="37" id="4Ng-zi-E93"/>
                                                         </constraints>
                                                     </stackView>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7zf-Ij-EjE">
+                                                        <rect key="frame" x="142" y="383.5" width="50" height="65"/>
+                                                        <subviews>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Rn6-Zl-3in" userLabel="Social Badge Stack View">
+                                                                <rect key="frame" x="-30" y="0.0" width="110" height="65"/>
+                                                                <subviews>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kWa-Yp-HLn">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="50" height="65"/>
+                                                                        <subviews>
+                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4bv-Qd-ZM8">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="50" height="65"/>
+                                                                                <state key="normal" image="prelaunchBadge"/>
+                                                                            </button>
+                                                                        </subviews>
+                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="bottom" secondItem="4bv-Qd-ZM8" secondAttribute="bottom" id="5UJ-YN-H70"/>
+                                                                            <constraint firstAttribute="width" constant="50" id="I3k-kK-fNE"/>
+                                                                            <constraint firstItem="4bv-Qd-ZM8" firstAttribute="leading" secondItem="kWa-Yp-HLn" secondAttribute="leading" id="Mc2-aW-gJc"/>
+                                                                            <constraint firstAttribute="trailing" secondItem="4bv-Qd-ZM8" secondAttribute="trailing" id="NJw-Md-GG3"/>
+                                                                            <constraint firstItem="4bv-Qd-ZM8" firstAttribute="top" secondItem="kWa-Yp-HLn" secondAttribute="top" id="nI2-OW-KxL"/>
+                                                                        </constraints>
+                                                                    </view>
+                                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7k4-7I-ri9">
+                                                                        <rect key="frame" x="55" y="0.0" width="50" height="65"/>
+                                                                        <subviews>
+                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sRG-u9-giP">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="50" height="65"/>
+                                                                                <state key="normal" image="socialBadge"/>
+                                                                            </button>
+                                                                        </subviews>
+                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="bottom" secondItem="sRG-u9-giP" secondAttribute="bottom" id="5dd-H7-C17"/>
+                                                                            <constraint firstAttribute="width" constant="50" id="DlD-nW-wtA"/>
+                                                                            <constraint firstItem="sRG-u9-giP" firstAttribute="leading" secondItem="7k4-7I-ri9" secondAttribute="leading" id="fI8-8i-vF5"/>
+                                                                            <constraint firstItem="sRG-u9-giP" firstAttribute="top" secondItem="7k4-7I-ri9" secondAttribute="top" id="lFU-C5-PuE"/>
+                                                                            <constraint firstAttribute="trailing" secondItem="sRG-u9-giP" secondAttribute="trailing" id="rZa-g9-vng"/>
+                                                                        </constraints>
+                                                                    </view>
+                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="usI-6h-Run">
+                                                                        <rect key="frame" x="60" y="0.0" width="50" height="65"/>
+                                                                        <subviews>
+                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nIx-wH-sel">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="50" height="65"/>
+                                                                                <state key="normal" image="foundingMemberBadge"/>
+                                                                            </button>
+                                                                        </subviews>
+                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="trailing" secondItem="nIx-wH-sel" secondAttribute="trailing" id="1xp-zj-WhA"/>
+                                                                            <constraint firstAttribute="bottom" secondItem="nIx-wH-sel" secondAttribute="bottom" id="5lQ-aP-Gd8"/>
+                                                                            <constraint firstItem="nIx-wH-sel" firstAttribute="top" secondItem="usI-6h-Run" secondAttribute="top" id="I8w-pk-cmf"/>
+                                                                            <constraint firstItem="nIx-wH-sel" firstAttribute="leading" secondItem="usI-6h-Run" secondAttribute="leading" id="nX0-vF-nem"/>
+                                                                        </constraints>
+                                                                    </view>
+                                                                </subviews>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="65" id="FN6-da-hRe"/>
+                                                                </constraints>
+                                                            </stackView>
+                                                        </subviews>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <constraints>
+                                                            <constraint firstItem="Rn6-Zl-3in" firstAttribute="top" secondItem="7zf-Ij-EjE" secondAttribute="top" id="TgY-uv-pwF"/>
+                                                            <constraint firstItem="Rn6-Zl-3in" firstAttribute="centerX" secondItem="7zf-Ij-EjE" secondAttribute="centerX" id="lYq-sa-Rxk"/>
+                                                            <constraint firstAttribute="bottom" secondItem="Rn6-Zl-3in" secondAttribute="bottom" id="qGa-Ac-BrT"/>
+                                                        </constraints>
+                                                    </view>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="by9-7w-xtH" userLabel="Flags Stack View">
-                                                        <rect key="frame" x="167" y="383.5" width="0.0" height="70"/>
+                                                        <rect key="frame" x="167" y="463.5" width="0.0" height="70"/>
                                                         <subviews>
                                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Qs-t4-BXQ">
                                                                 <rect key="frame" x="0.0" y="1.5" width="0.0" height="70"/>
@@ -1136,6 +1205,10 @@
         <image name="checkBoxInActive" width="20" height="20"/>
         <image name="emptyViewFollowing" width="253" height="284"/>
         <image name="facebookVerified" width="37" height="38"/>
+        <image name="foundingMemberBadge" width="187" height="297"/>
+        <image name="prelaunchBadge" width="187" height="299"/>
+        <image name="rightBackDirectionIcon" width="35" height="36"/>
+        <image name="rightNextDirectionIcon" width="35" height="36"/>
         <image name="shareScreenProfileBadge" width="163" height="187"/>
         <image name="snapchatVerified" width="37" height="39"/>
         <image name="storyBack" width="19" height="19"/>
