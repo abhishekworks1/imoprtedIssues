@@ -21,7 +21,6 @@ class AccountSettings {
     }
     
     static var accountSettings = [
-        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.referringChannelName(), selected: false)], settingsType: .referringChannelName),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.publicDisplayName(), selected: false)], settingsType: .publicDisplayName),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.privateDisplayName(), selected: false)], settingsType: .privateDisplayName),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.deleteAccount(Constant.Application.displayName), selected: false)], settingsType: .deleteAccount)
@@ -273,9 +272,9 @@ extension AccountSettingsViewController: DisplayTooltiPDelegate {
     
     func displayTooltip(index: Int) {
         self.displayNameTooltipView.isHidden = false
-        if index == 1 {
+        if index == 0 {
             self.txtDisplayNameTooltip.text = R.string.localizable.publicDisplayNameTooltip()
-        } else if index == 2 {
+        } else if index == 1 {
             self.txtDisplayNameTooltip.text = R.string.localizable.privateDisplayNameTooltip()
         }
     }
