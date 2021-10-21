@@ -812,8 +812,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             self.setupLiteAppMode(mode: .promo)
         }
         if recordingType == .normal && isBoomiCamApp {
-            recordingType = .boomerang
-            self.circularProgress.centerImage = R.image.icoBoomrang()
+            recordingType = .basicCamera
         }
         if !isViralCamLiteApp || !isFastCamLiteApp || !isQuickCamLiteApp || !isSpeedCamLiteApp || !isSnapCamLiteApp || !isQuickApp {
             speedSlider.isHidden = false
@@ -1094,11 +1093,10 @@ extension StoryCameraViewController {
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .slideshow})
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .collage})
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastSlowMotion})
-            cameraModeArray = cameraModeArray.filter({$0.recordingType != .basicCamera})
-          // cameraModeArray = cameraModeArray.filter({$0.recordingType != .boomerang})
+           // cameraModeArray = cameraModeArray.filter({$0.recordingType != .boomerang})
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .custom})
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .normal})
-            cameraModeArray = cameraModeArray.filter({$0.recordingType != .capture})
+         //   cameraModeArray = cameraModeArray.filter({$0.recordingType != .capture})
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastMotion})
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .handsfree})
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .promo})
@@ -1190,15 +1188,19 @@ extension StoryCameraViewController {
             self.refreshCircularProgressBar()
             switch Defaults.shared.cameraMode {
             case .boomerang:
-                self.circularProgress.centerImage = R.image.icoBoomrang()
-                self.timerValueView.isHidden = true
-                if self.timerValue > 0 {
-                    self.timerValue = 0
-                    self.resetCountDown()
-                }
-                if self.photoTimerValue > 0 {
-                    self.photoTimerValue = 0
-                    self.resetPhotoCountDown()
+                if isBoomiCamApp && Defaults.shared.appMode == .free {
+                    self.showAlertForUpgradeSubscription()
+                }else{
+                    self.circularProgress.centerImage = R.image.icoBoomrang()
+                    self.timerValueView.isHidden = true
+                    if self.timerValue > 0 {
+                        self.timerValue = 0
+                        self.resetCountDown()
+                    }
+                    if self.photoTimerValue > 0 {
+                        self.photoTimerValue = 0
+                        self.resetPhotoCountDown()
+                    }
                 }
             case .slideshow:
                 self.circularProgress.centerImage = R.image.icoSildeshowMode()
@@ -1221,6 +1223,8 @@ extension StoryCameraViewController {
             case .capture:
                 if isQuickApp && Defaults.shared.appMode == .free {
                     self.showAlertForUpgradeSubscription()
+                }else if isBoomiCamApp && Defaults.shared.appMode == .free {
+                    self.showAlertForUpgradeSubscription()
                 }
                 self.circularProgress.centerImage = R.image.capture_mode()
                 self.timerValueView.isHidden = true
@@ -1236,6 +1240,8 @@ extension StoryCameraViewController {
                 }
             case .pic2Art:
                 if isQuickApp && Defaults.shared.appMode == .free {
+                    self.showAlertForUpgradeSubscription()
+                }else if isBoomiCamApp && Defaults.shared.appMode == .free {
                     self.showAlertForUpgradeSubscription()
                 } else {
                     if let isPic2ArtShowed = Defaults.shared.isPic2ArtShowed {
