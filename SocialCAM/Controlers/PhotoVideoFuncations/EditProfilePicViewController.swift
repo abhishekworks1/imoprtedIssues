@@ -55,6 +55,7 @@ class EditProfilePicViewController: UIViewController {
     @IBOutlet weak var btnPublicDisplayNameTooltip: UIButton!
     @IBOutlet weak var publicDisplayNameView: UIView!
     @IBOutlet weak var btnSetFlags: UIButton!
+    @IBOutlet weak var btnSelectDiscardPopupView: UIButton!
     
     // MARK: - Variables declaration
     private var localImageUrl: URL?
@@ -166,7 +167,7 @@ class EditProfilePicViewController: UIViewController {
     
     // MARK: - Action Methods
     @IBAction func btnBackTapped(_ sender: UIButton) {
-        if isImageSelected || isCountryFlagSelected || isFlagSelected {
+        if (isImageSelected || isCountryFlagSelected || isFlagSelected) && (Defaults.shared.isShowAllPopUpChecked || Defaults.shared.isEditProfileDiscardPopupChecked) {
             self.dicardPopupView.isHidden = false
         } else {
             self.setupMethod()
@@ -297,6 +298,12 @@ class EditProfilePicViewController: UIViewController {
             countryVc.delegate = self
             self.navigationController?.pushViewController(countryVc, animated: true)
         }
+    }
+    
+    @IBAction func btnDoNotShowDiscardPopupTapped(_ sender: UIButton) {
+        btnSelectDiscardPopupView.isSelected = !btnSelectDiscardPopupView.isSelected
+        Defaults.shared.isShowAllPopUpChecked = !btnSelectDiscardPopupView.isSelected
+        Defaults.shared.isEditProfileDiscardPopupChecked = !btnSelectDiscardPopupView.isSelected
     }
     
 }

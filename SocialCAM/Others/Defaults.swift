@@ -1069,6 +1069,33 @@ class Defaults {
         }
     }
     
+    var isEditProfileDiscardPopupChecked: Bool {
+        get {
+            return appDefaults?.value(forKey: StaticKeys.isEditProfileDiscardPopupChecked) as? Bool ?? true
+        }
+        set {
+            appDefaults?.set(newValue, forKey: StaticKeys.isEditProfileDiscardPopupChecked)
+        }
+    }
+    
+    var isStateFlagDiscardPopupChecked: Bool {
+        get {
+            return appDefaults?.value(forKey: StaticKeys.isStateFlagDiscardPopupChecked) as? Bool ?? true
+        }
+        set {
+            appDefaults?.set(newValue, forKey: StaticKeys.isStateFlagDiscardPopupChecked)
+        }
+    }
+    
+    var isShareScreenDiscardPopupChecked: Bool {
+        get {
+            return appDefaults?.value(forKey: StaticKeys.isShareScreenDiscardPopupChecked) as? Bool ?? true
+        }
+        set {
+            appDefaults?.set(newValue, forKey: StaticKeys.isShareScreenDiscardPopupChecked)
+        }
+    }
+    
     func clearData(isDeleteAccount: Bool = false) {
         if let appDefaultsDictionary = appDefaults?.dictionaryRepresentation() {
             appDefaultsDictionary.keys.forEach { key in
