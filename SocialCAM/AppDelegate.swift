@@ -18,6 +18,7 @@ import Bagel
 import Sentry
 import FirebaseMessaging
 import UserNotifications
+import PostHog
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -30,6 +31,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.applicationIconBadgeNumber = 0
         configureIQKeyboardManager()
         
+        let configuration = PHGPostHogConfiguration(apiKey: "phc_fdqjiIiKd3yNLIvUetjdN7hsVyEh3zNkFYDT38XhRH8", host: "https://posthog.promanager.online")
+        configuration.captureApplicationLifecycleEvents = true; // Record certain application events automatically!
+        configuration.recordScreenViews = true; // Record screen views automatically!
+        PHGPostHog.setup(with: configuration)
         //Start Bagel
         if isDebug || isAlpha || isBeta {
             Bagel.start()
@@ -233,7 +238,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let user = Defaults.shared.currentUser,
            let _ = Defaults.shared.sessionToken,
            let channelId = user.channelId,
-           user.refferingChannel != nil,
            channelId.count > 0 {
             InternetConnectionAlert.shared.internetConnectionHandler = { reachability in
                 if reachability.connection != .none {
@@ -258,7 +262,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Defaults.shared.cameraMode = .normal
         #endif
         let revealingSplashView = RevealingSplashView(iconImage: Constant.Application.appIcon, iconInitialSize: isLiteApp ? CGSize(width: 250, height: 250) : Constant.Application.appIcon.size, backgroundImage: Constant.Application.splashBG)
-        revealingSplashView.duration = 3.0
+        revealingSplashView.duration = 2.0
         revealingSplashView.iconColor = UIColor.red
         revealingSplashView.useCustomIconColor = false
         revealingSplashView.animationType = SplashAnimationType.popAndZoomOut
