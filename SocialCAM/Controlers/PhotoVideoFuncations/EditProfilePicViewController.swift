@@ -154,10 +154,12 @@ class EditProfilePicViewController: UIViewController {
             self.displayNameViewTopConstraint.constant = 34
             self.lblDisplayName.text = displayName
             self.btnSetPublicDisplayName.isHidden = true
+            self.btnPublicDisplayNameTooltip.isHidden = true
         } else {
             self.displayNameViewTopConstraint.constant = 0
             self.publicDisplayNameView.isHidden = true
             self.btnSetPublicDisplayName.isHidden = false
+            self.btnPublicDisplayNameTooltip.isHidden = false
         }
         self.setDisplayNamePopupView.isHidden = true
     }

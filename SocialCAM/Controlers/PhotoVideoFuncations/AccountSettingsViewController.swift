@@ -36,6 +36,8 @@ class AccountSettingsViewController: UIViewController {
     @IBOutlet weak var lblPopup: UILabel!
     @IBOutlet weak var doubleButtonStackView: UIStackView!
     @IBOutlet weak var singleButtonSttackView: UIStackView!
+    @IBOutlet weak var displayNameTooltipView: UIView!
+    @IBOutlet weak var lblDisplayNameTooltip: UILabel!
     
     // MARK: - Variable Declarations
     var isDisplayNameChange = false
@@ -82,6 +84,10 @@ class AccountSettingsViewController: UIViewController {
                 self.navigationController?.popViewController(animated: true)
             }
         }
+    }
+    
+    @IBAction func onDisplayNameOkPressed(_ sender: UIButton) {
+        self.displayNameTooltipView.isHidden = true
     }
 }
 
@@ -133,6 +139,8 @@ extension AccountSettingsViewController: UITableViewDataSource {
                 return accountSettingsCell
             }
             displayNameCell.txtDisplaName.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+            displayNameCell.btnDisplayNameTooltipIcon.tag = indexPath.section
+            displayNameCell.displayTooltipDelegate = self
             if settingTitle.settingsType == .publicDisplayName {
                 displayNameCell.displayNameType = .publicDisplayName
             } else if settingTitle.settingsType == .privateDisplayName {
@@ -258,5 +266,17 @@ extension AccountSettingsViewController: UITableViewDelegate {
             self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
+    }
+}
+
+extension AccountSettingsViewController: DisplayTooltiPDelegate {
+    
+    func displayTooltip(index: Int) {
+        self.displayNameTooltipView.isHidden = false
+        if index == 1 {
+            self.lblDisplayNameTooltip.text = R.string.localizable.publicDisplayNameTooltip()
+        } else if index == 2 {
+            self.lblDisplayNameTooltip.text = R.string.localizable.privateDisplayNameTooltip()
+        }
     }
 }

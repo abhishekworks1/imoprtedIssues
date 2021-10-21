@@ -452,17 +452,29 @@
                                                                     <action selector="btnSetFlagTapped:" destination="k7D-XT-pBV" eventType="touchUpInside" id="vvb-R6-uiV"/>
                                                                 </connections>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UcJ-PD-IZa">
-                                                                <rect key="frame" x="0.0" y="34" width="172" height="34"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="34" id="D1b-Zu-ole"/>
-                                                                </constraints>
-                                                                <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="16"/>
-                                                                <state key="normal" title="Set public display name"/>
-                                                                <connections>
-                                                                    <action selector="btnSetPublicDisplayNameTapped:" destination="k7D-XT-pBV" eventType="touchUpInside" id="np3-DL-LtF"/>
-                                                                </connections>
-                                                            </button>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Xop-4i-0va">
+                                                                <rect key="frame" x="0.0" y="34" width="184" height="34"/>
+                                                                <subviews>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UcJ-PD-IZa">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="184" height="34"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="34" id="D1b-Zu-ole"/>
+                                                                        </constraints>
+                                                                        <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="16"/>
+                                                                        <state key="normal" title="Set public display name"/>
+                                                                        <connections>
+                                                                            <action selector="btnSetPublicDisplayNameTapped:" destination="k7D-XT-pBV" eventType="touchUpInside" id="np3-DL-LtF"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V3c-xM-D11">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="34"/>
+                                                                        <state key="normal" image="circleHelpQuestionMark"/>
+                                                                        <connections>
+                                                                            <action selector="btnPublicDisplayNameTooltipTapped:" destination="k7D-XT-pBV" eventType="touchUpInside" id="reE-UC-QFl"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                </subviews>
+                                                            </stackView>
                                                         </subviews>
                                                     </stackView>
                                                 </subviews>
@@ -924,7 +936,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sba-S2-psU" userLabel="Activate Affiliate Link Popup">
-                                        <rect key="frame" x="41.5" y="327.5" width="331" height="241"/>
+                                        <rect key="frame" x="41.5" y="329" width="331" height="238.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="120" translatesAutoresizingMaskIntoConstraints="NO" id="Lkh-Ja-IlD" userLabel="Social Badge Stack View">
                                                 <rect key="frame" x="140.5" y="10" width="50" height="65"/>
@@ -1053,6 +1065,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="xPd-JQ-tiK" firstAttribute="top" secondItem="kzn-v6-T73" secondAttribute="top" id="2tR-I5-1nP"/>
+                            <constraint firstItem="vKu-ub-lf0" firstAttribute="top" secondItem="hlf-Uc-W7z" secondAttribute="top" id="3Gg-cz-Ryk"/>
                             <constraint firstAttribute="top" secondItem="T4E-7a-dfZ" secondAttribute="top" id="3nP-2P-PAS"/>
                             <constraint firstItem="T4E-7a-dfZ" firstAttribute="bottom" secondItem="kzn-v6-T73" secondAttribute="bottom" id="6qF-kh-ebS"/>
                             <constraint firstAttribute="bottom" secondItem="hlf-Uc-W7z" secondAttribute="bottom" id="8HY-7N-o7H"/>
@@ -1071,6 +1084,9 @@
                             <constraint firstItem="xPd-JQ-tiK" firstAttribute="leading" secondItem="Beb-Hq-Yu5" secondAttribute="leading" id="Rsi-yi-acd"/>
                             <constraint firstItem="Beb-Hq-Yu5" firstAttribute="leading" secondItem="0dB-yk-Da0" secondAttribute="leading" id="ZnK-gA-eRS"/>
                             <constraint firstItem="T4E-7a-dfZ" firstAttribute="leading" secondItem="Beb-Hq-Yu5" secondAttribute="leading" id="av0-aI-oOK"/>
+                            <constraint firstAttribute="trailing" secondItem="jfS-NO-u5c" secondAttribute="trailing" id="bQp-lB-uYf"/>
+                            <constraint firstItem="jfS-NO-u5c" firstAttribute="bottom" secondItem="kzn-v6-T73" secondAttribute="bottom" id="h1A-Nw-Lrl"/>
+                            <constraint firstAttribute="top" secondItem="jfS-NO-u5c" secondAttribute="top" id="r5d-QH-9x7"/>
                             <constraint firstItem="vKu-ub-lf0" firstAttribute="bottom" secondItem="xPd-JQ-tiK" secondAttribute="bottom" id="b2p-ZC-Dh9"/>
                             <constraint firstItem="vKu-ub-lf0" firstAttribute="leading" secondItem="0dB-yk-Da0" secondAttribute="leading" id="fzd-tI-ZA8"/>
                             <constraint firstItem="T4E-7a-dfZ" firstAttribute="trailing" secondItem="Beb-Hq-Yu5" secondAttribute="trailing" id="riV-66-sZv"/>
@@ -1082,6 +1098,7 @@
                     <connections>
                         <outlet property="btnPlusButton" destination="dvU-ya-Joh" id="pRY-Vq-tdm"/>
                         <outlet property="btnProfilePic" destination="XkW-Yh-sdb" id="GqO-Cy-guR"/>
+                        <outlet property="btnPublicDisplayNameTooltip" destination="V3c-xM-D11" id="Tih-O2-Kde"/>
                         <outlet property="btnSelectCountry" destination="gam-QW-hWV" id="pIO-Xv-hdj"/>
                         <outlet property="btnSetFlags" destination="AF7-qD-moD" id="ntQ-Se-Fzw"/>
                         <outlet property="btnSetPublicDisplayName" destination="UcJ-PD-IZa" id="AHt-J2-dkr"/>
