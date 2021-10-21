@@ -71,6 +71,7 @@ class EditProfilePicViewController: UIViewController {
     var countrySelected: [Country] = []
     var isFlagSelected = false
     var isShareButtonSelected = false
+    var isPublicNameEdit = false
     
     // MARK: - View Controller Life Cycle
     override func viewDidLoad() {
@@ -179,8 +180,12 @@ class EditProfilePicViewController: UIViewController {
             self.showHUD()
             self.view.isUserInteractionEnabled = false
         } else {
-            self.view.makeToast(R.string.localizable.noChangesAreMade())
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            if !isPublicNameEdit {
+                self.view.makeToast(R.string.localizable.noChangesMade())
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.navigationController?.popViewController(animated: true)
+                }
+            } else {
                 self.navigationController?.popViewController(animated: true)
             }
         }
@@ -254,6 +259,7 @@ class EditProfilePicViewController: UIViewController {
     }
     
     @IBAction func btnSetDisplayYesTapped(_ sender: UIButton) {
+        self.setDisplayNamePopupView.isHidden = true
         self.showHUD()
         self.editDisplayName()
     }
@@ -511,6 +517,7 @@ extension EditProfilePicViewController {
                 return
             }
             self.dismissHUD()
+            self.isPublicNameEdit = true
             if response.status == ResponseType.success {
                 self.storyCameraVC.syncUserModel { _ in
                     self.setPublicDisplayName()
@@ -631,11 +638,9 @@ extension EditProfilePicViewController {
                 }
             }
             self.imgProfileBadge.image = (socialPlatforms.count == 4) ? R.image.shareScreenRibbonProfileBadge() : R.image.shareScreenProfileBadge()
-            self.socialBadgeStackViewHeightConstraint.constant = (socialPlatforms.count == 4) ? 65 : 0
             self.socialPlatformsVerifiedBadge.isHidden = socialPlatforms.count != 4
         } else {
             self.socialPlatformStackViewHeightConstraint.constant = 0
-            self.socialBadgeStackViewHeightConstraint.constant = 0
             self.socialPlatformsVerifiedBadge.isHidden = true
         }
     }

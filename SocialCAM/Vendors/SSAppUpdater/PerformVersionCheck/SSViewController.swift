@@ -40,7 +40,7 @@ class SSViewController: UIViewController {
                 self.currentWindow = nil
             }
         }
-        let alert = UIAlertController.showAlert(title: Bundle.getAppName(), message: R.string.localizable.appHasAlreadyUpdated(), actions: [okAction], preferredStyle: .alert)
+        let alert = UIAlertController.showAlert(title: Bundle.getAppName(), message: R.string.localizable.isUpToDate(Bundle.getAppName()), actions: [okAction], preferredStyle: .alert)
         DispatchQueue.main.async {
             self.present(alert, animated: true)
         }
