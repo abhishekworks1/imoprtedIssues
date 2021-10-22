@@ -455,19 +455,6 @@
                                                     </button>
                                                 </subviews>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="JZS-T0-hB9">
-                                                <rect key="frame" x="268" y="0.0" width="53.333333333333314" height="54"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oaj-Kx-QAa">
-                                                        <rect key="frame" x="0.0" y="0.0" width="53.333333333333336" height="54"/>
-                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <state key="normal" image="iconBusinessDashboard"/>
-                                                        <connections>
-                                                            <action selector="btnBusinessDashboardTapped:" destination="aJT-JN-hbU" eventType="touchUpInside" id="Zfe-Hm-h2Q"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                            </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Qbg-AX-n5f">
                                                 <rect key="frame" x="321.33333333333331" y="0.0" width="53.666666666666686" height="54"/>
                                                 <subviews>
@@ -496,6 +483,19 @@
                                                         <exclude reference="wll-ww-iPf"/>
                                                     </mask>
                                                 </variation>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="JZS-T0-hB9">
+                                                <rect key="frame" x="321.33333333333331" y="0.0" width="53.666666666666686" height="54"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oaj-Kx-QAa">
+                                                        <rect key="frame" x="0.0" y="0.0" width="53.666666666666664" height="54"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <state key="normal" image="iconBusinessDashboard"/>
+                                                        <connections>
+                                                            <action selector="btnBusinessDashboardTapped:" destination="aJT-JN-hbU" eventType="touchUpInside" id="Zfe-Hm-h2Q"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
                                             </stackView>
                                         </subviews>
                                         <constraints>

@@ -2451,11 +2451,8 @@ extension StoryCameraViewController {
                 Defaults.shared.currentUser = response.result
                 CurrentUser.shared.setActiveUser(response.result)
                 self.setupLayoutCameraSliderView()
-            } else {
-                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
             }
         }, onError: { error in
-            self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
     }
@@ -2513,8 +2510,6 @@ extension StoryCameraViewController {
                 if let appWatermark = response.result?.userSettings?.appWatermark {
                     Defaults.shared.appIdentifierWatermarkSetting = AppIdentifierWatermarkSetting(rawValue: appWatermark) ?? .hide
                 }
-            } else {
-                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
             }
         }, onError: { error in
             print(error.localizedDescription)
@@ -2604,7 +2599,6 @@ extension StoryCameraViewController {
                 completion(true)
             }
         }, onError: { error in
-            self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
     }
@@ -2617,11 +2611,8 @@ extension StoryCameraViewController {
             if response.status == ResponseType.success {
                 self.isVidplayAccountFound = response.result?.isAccountFound
                 self.vidplaySessionToken = response.result?.data?.token ?? ""
-            } else {
-                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
             }
         }, onError: { error in
-            self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
     }
@@ -2633,11 +2624,8 @@ extension StoryCameraViewController {
             }
             if response.status == ResponseType.success {
                 Defaults.shared.newSignupsNotificationType = (response.result?.isForEveryone == true) ? .forAllUsers : .forLimitedUsers
-            } else {
-                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
             }
         }, onError: { error in
-            self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: rx.disposeBag)
     }
@@ -2679,7 +2667,6 @@ extension StoryCameraViewController {
     func doNotShowAgainAPI() {
         ProManagerApi.doNotShowAgain(isDoNotShowMessage: btnDoNotShowAgainProfilePic.isSelected).request(Result<LoginResult>.self).subscribe(onNext: { (response) in
         }, onError: { error in
-            self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: rx.disposeBag)
     }
