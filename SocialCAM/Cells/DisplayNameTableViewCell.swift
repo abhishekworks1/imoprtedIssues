@@ -13,11 +13,17 @@ enum DisplayNameType: Int {
     case privateDisplayName
 }
 
+protocol DisplayTooltiPDelegate: class {
+    func displayTooltip(index: Int)
+}
+
 class DisplayNameTableViewCell: UITableViewCell {
     
     // MARK: - Outlets declaration
     @IBOutlet weak var lblDisplayNameType: UILabel!
     @IBOutlet weak var txtDisplaName: UITextField!
+    @IBOutlet weak var btnDisplayNameTooltipIcon: UIButton!
+    weak var displayTooltipDelegate: DisplayTooltiPDelegate?
     
     // MARK: - Variables declaration
     var displayNameType: DisplayNameType = .publicDisplayName {
@@ -39,4 +45,7 @@ class DisplayNameTableViewCell: UITableViewCell {
         super.awakeFromNib()
     }
     
+    @IBAction func btnTooltipTapped(_ sender: UIButton) {
+        displayTooltipDelegate?.displayTooltip(index: sender.tag)
+    }
 }
