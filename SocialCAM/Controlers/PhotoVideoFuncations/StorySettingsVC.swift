@@ -122,6 +122,8 @@ class StorySettings {
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.accountSettings(), selected: false)], settingsType: .accountSettings),
                                 StorySettings(name: "",
+                                              settings: [StorySetting(name: R.string.localizable.checkUpdates(), selected: false)], settingsType: .checkUpdate),
+                                StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.logout(), selected: false)], settingsType: .logout)]
 }
 
@@ -318,6 +320,8 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             hideUnhideImgButton(cell, R.image.iconLogout())
         } else if settingTitle.settingsType == .notification {
             hideUnhideImgButton(cell, R.image.iconNotification())
+        } else if settingTitle.settingsType == .checkUpdate {
+            hideUnhideImgButton(cell, R.image.iconCheckUpdate())
         } else if settingTitle.settingsType == .socialLogins {
             cell.onOffButton.isHidden = true
             cell.onOffButton.isSelected = false
@@ -561,6 +565,9 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                     return
                 }
                 presentSafariBrowser(url: url)
+            }
+        } else if settingTitle.settingsType == .checkUpdate {
+            SSAppUpdater.shared.performCheck(isForceUpdate: false, showDefaultAlert: true) { (_) in
             }
         }
     }
