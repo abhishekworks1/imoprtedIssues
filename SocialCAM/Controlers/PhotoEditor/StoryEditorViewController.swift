@@ -220,7 +220,6 @@ class StoryEditorViewController: UIViewController {
     @IBOutlet weak var lblUserNameWatermark: UILabel!
     
     @IBOutlet weak var saveVideoPopupView: UIView!
-    @IBOutlet weak var btnDoNotShowSaveVideo: UIButton!
     
     private let fastestEverWatermarkBottomMargin = 112
     weak var cursorContainerViewController: KeyframePickerCursorVC!
@@ -1570,17 +1569,9 @@ extension StoryEditorViewController {
         hideShowDiscardVideoPopup(shouldShow: false)
     }
     
-    @IBAction func doNotShowAgainSaveVideoClicked(sender: UIButton) {
-        Defaults.shared.isShowAllPopUpChecked = !sender.isSelected
-        btnDoNotShowSaveVideo.isSelected = !btnDoNotShowSaveVideo.isSelected
-    }
-    
     @IBAction func okayButtonSaveVideoClicked(sender: UIButton) {
         DispatchQueue.main.async {
             self.hideSaveVideoPopupView(isHide: true)
-        }
-        if let storySettingsVC = R.storyboard.storyCameraViewController.storySettingsOptionsVC() {
-            navigationController?.pushViewController(storySettingsVC, animated: true)
         }
     }
     
