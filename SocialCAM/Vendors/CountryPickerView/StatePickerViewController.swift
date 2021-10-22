@@ -153,7 +153,7 @@ class StatePickerViewController: UIViewController {
     
     // MARK: - Action Methods
     @IBAction func btnBackTapped(_ sender: UIButton) {
-        if isStateSelected && Defaults.shared.isShowAllPopUpChecked {
+        if isStateSelected && (Defaults.shared.isShowAllPopUpChecked || Defaults.shared.isStateFlagDiscardPopupChecked) {
             showHidePopupView(isHide: false)
         } else {
             delegate?.statePickerView(selectedStates, isSelectionDone: false)
@@ -168,6 +168,7 @@ class StatePickerViewController: UIViewController {
     @IBAction func btnDoNotShowAgainClicked(_ sender: UIButton) {
         btnDoNotShowAgain.isSelected = !btnDoNotShowAgain.isSelected
         Defaults.shared.isShowAllPopUpChecked = !btnDoNotShowAgain.isSelected
+        Defaults.shared.isStateFlagDiscardPopupChecked = !btnDoNotShowAgain.isSelected
     }
     
     @IBAction func btnPopupYesTapped(_ sender: UIButton) {

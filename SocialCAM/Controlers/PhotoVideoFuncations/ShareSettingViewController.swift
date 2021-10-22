@@ -20,7 +20,7 @@ class ShareSettingViewController: UIViewController {
     
     // MARK: - Outlets Declaration
     @IBOutlet weak var lblHyperLink: UILabel!
-    @IBOutlet weak var lblLinkWithCheckOut: UILabel!
+    @IBOutlet weak var txtLinkWithCheckOut: UITextView!
     @IBOutlet weak var lblReferralLink: UILabel!
     @IBOutlet weak var profileView: UIView!
     @IBOutlet weak var imgProfileBadge: UIImageView!
@@ -42,6 +42,7 @@ class ShareSettingViewController: UIViewController {
     @IBOutlet weak var btnDoNotShowAgain: UIButton!
     @IBOutlet weak var socialPlatformsVerifiedBadgeView: UIView!
     @IBOutlet weak var socialBadgeStackView: UIStackView!
+    @IBOutlet weak var lblDisplayName: UILabel!
     
     // MARK: - Variable Declarations
     var myMutableString = NSMutableAttributedString()
@@ -57,7 +58,7 @@ class ShareSettingViewController: UIViewController {
     func setup() {
         if let channelId = Defaults.shared.currentUser?.channelId {
             self.setAttributedString()
-            self.lblLinkWithCheckOut.text = "\(R.string.localizable.checkOutThisCoolNewAppQuickCam()) \(websiteUrl)/\(channelId)"
+            self.txtLinkWithCheckOut.text = "\(R.string.localizable.checkOutThisCoolNewAppQuickCam()) \(websiteUrl)/\(channelId)"
             self.lblReferralLink.text = "\(websiteUrl)/\(channelId)"
             self.lblUserName.text = "@\(channelId)"
         }
@@ -87,6 +88,13 @@ class ShareSettingViewController: UIViewController {
             } else {
                 self.flagStackviewHeightConstraint.constant = 0
             }
+        }
+        if let displayName =  Defaults.shared.publicDisplayName,
+           !displayName.isEmpty {
+            self.lblDisplayName.isHidden = false
+            self.lblDisplayName.text = displayName
+        } else {
+            self.lblDisplayName.isHidden = true
         }
     }
     
@@ -134,7 +142,7 @@ class ShareSettingViewController: UIViewController {
     }
     
     @IBAction func btnCheckOutCopyClicked(_ sender: UIButton) {
-        if let urlString = self.lblLinkWithCheckOut.text {
+        if let urlString = self.txtLinkWithCheckOut.text {
             UIPasteboard.general.string = urlString
             showAlert(alertMessage: R.string.localizable.linkIsCopiedToClipboard())
         }
@@ -148,7 +156,7 @@ class ShareSettingViewController: UIViewController {
     }
     
     @IBAction func btnShareClicked(_ sender: UIButton) {
-        if Defaults.shared.isShowAllPopUpChecked {
+        if Defaults.shared.isShowAllPopUpChecked || Defaults.shared.isShareScreenDiscardPopupChecked {
             shareTooltipPopupView.isHidden = false
         } else {
             shareOkButtonClicked(sender)
@@ -156,7 +164,7 @@ class ShareSettingViewController: UIViewController {
     }
     
     @IBAction func shareOkButtonClicked(_ sender: UIButton) {
-        if let urlString = self.lblLinkWithCheckOut.text {
+        if let urlString = self.txtLinkWithCheckOut.text {
             UIPasteboard.general.string = urlString
             shareTooltipPopupView.isHidden = true
             var shareItems: [Any] = [urlString]
@@ -171,7 +179,8 @@ class ShareSettingViewController: UIViewController {
     
     @IBAction func doNotShowAgainClicked(_ sender: UIButton) {
         btnDoNotShowAgain.isSelected = !btnDoNotShowAgain.isSelected
-        Defaults.shared.isShowAllPopUpChecked = btnDoNotShowAgain.isSelected
+        Defaults.shared.isShowAllPopUpChecked = !btnDoNotShowAgain.isSelected
+        Defaults.shared.isShareScreenDiscardPopupChecked = !btnDoNotShowAgain.isSelected
     }
     
     @IBAction func btnFacebookShareClicked(_ sender: UIButton) {
@@ -224,7 +233,7 @@ class ShareSettingViewController: UIViewController {
 extension ShareSettingViewController {
     
     func twitterShareCompose(text: String = Constant.Application.displayName) {
-        let displayMessage = self.lblLinkWithCheckOut.text
+        let displayMessage = self.txtLinkWithCheckOut.text
         if let twitterComposeViewController = R.storyboard.twitterCompose.twitterComposeViewController() {
             twitterComposeViewController.presetText = displayMessage
             if isIncludeProfileImg {
@@ -272,7 +281,7 @@ extension ShareSettingViewController {
         // Modify following variables with your text / recipient
         let recipientEmail = ""
         let subject = ""
-        let body = self.lblLinkWithCheckOut.text ?? ""
+        let body = self.txtLinkWithCheckOut.text ?? ""
         switch emailType {
         case .gmail:
             if MFMailComposeViewController.canSendMail() {
