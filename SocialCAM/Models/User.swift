@@ -166,6 +166,8 @@ class User: Codable, Mappable {
         }
         if profileImageURL == nil {
             profileImageURL <- map["profileimageURL"]
+        } else {
+            profileImageURL = ""
         }
         if displayName == nil {
             displayName <- map["displayname"]
