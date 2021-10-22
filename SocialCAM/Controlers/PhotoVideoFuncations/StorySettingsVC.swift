@@ -575,8 +575,8 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             SSAppUpdater.shared.performCheck(isForceUpdate: false, showDefaultAlert: true) { (_) in
             }
         } else if settingTitle.settingsType == .referringChannel {
-            if let referringChannelVC = R.storyboard.storyCameraViewController.referringChannelViewController() {
-                navigationController?.pushViewController(referringChannelVC, animated: true)
+            if let userDetailsVC = R.storyboard.notificationVC.userDetailsVC() {
+                MIBlurPopup.show(userDetailsVC, on: self)
             }
         }
     }
