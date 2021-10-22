@@ -33,9 +33,11 @@ class UserDetailsVC: UIViewController {
     @IBOutlet var lblCountrys: [UILabel]!
     @IBOutlet var imgCountrys: [UIImageView]!
     @IBOutlet weak var lblDisplayName: UILabel!
+    @IBOutlet weak var socialBadgeViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var socialMediaVerifiedBadgeView: UIView!
+    
     var notificationUpdateHandler: ((_ notification: UserNotification?) -> Void)?
     var notification: UserNotification?
-    
     var customBlurEffectStyle: UIBlurEffect.Style = .dark
     var customInitialScaleAmmount: CGFloat = CGFloat(Double(0.1))
     var customAnimationDuration: TimeInterval = TimeInterval(0.5)
