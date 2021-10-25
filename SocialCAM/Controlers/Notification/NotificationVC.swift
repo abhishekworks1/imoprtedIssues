@@ -121,8 +121,8 @@ extension NotificationVC: UITableViewDataSource, UITableViewDelegate {
                 MIBlurPopup.show(popupViewController, on: self)
             }
         }
-        cell.profileDeatilsHandler = { [weak self] notification in
-            guard let `self` = self, let userNotification = notification else {
+        cell.profileDeatilsHandler = { [weak self] profileNotification in
+            guard let `self` = self, let userNotification = profileNotification else {
                 return
             }
             self.notificationUnread(userNotification)
@@ -130,7 +130,7 @@ extension NotificationVC: UITableViewDataSource, UITableViewDelegate {
                 notificationDetails.notificationArray = self.notificationArray
                 notificationDetails.pageIndex = self.pageIndex
                 notificationDetails.postsCount = self.postsCount
-                notificationDetails.notification = notification
+                notificationDetails.notification = userNotification
                 notificationDetails.notificationArrayHandler = { [weak self] notificationArraay, index, count in
                     guard let `self` = self else {
                         return

@@ -63,6 +63,11 @@ public struct Constant {
         static let futbolWebsiteURL = "http://futbolcam.iicc.online"
         static let applicationSurveyURL = "https://docs.google.com/forms/d/e/1FAIpQLSevMPz6yVq56rmVcprOfZ9kSckBbrq9XNZXUFAb7zAuBQZDbw/viewform"
     }
+
+    struct PostHog {
+        static let key = "phc_oojAdsp8Nv6v8VQX6gb41oupMi6GxVdTFhDE8blPaQj"
+        static let host = "https://posthog.promanager.online"
+    }
     
     struct Application {
         #if VIRALCAMAPP
@@ -399,7 +404,7 @@ public struct Constant {
     }
     
     struct WebviewUserAgent {
-        static let userAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 10_3 like Mac OS X) AppleWebKit/603.1.23 (KHTML, like Gecko) Version/10.0 Mobile/14E5239e Safari/602.1"
+        static let userAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 14_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1"
     }
     
     struct SubscriptionUrl {
