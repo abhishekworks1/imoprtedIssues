@@ -66,6 +66,7 @@ enum SettingsMode: Int {
     case publicDisplayName
     case privateDisplayName
     case checkUpdate
+    case referringChannel
 }
 
 class StorySetting {
@@ -121,6 +122,8 @@ class StorySettings {
                                               settings: [StorySetting(name: R.string.localizable.howItWorks(), selected: false)], settingsType: .help),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.accountSettings(), selected: false)], settingsType: .accountSettings),
+                                StorySettings(name: "",
+                                              settings: [StorySetting(name: R.string.localizable.referringChannelOption(), selected: false)], settingsType: .referringChannel),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.checkUpdates(), selected: false)], settingsType: .checkUpdate),
                                 StorySettings(name: "",
@@ -322,6 +325,8 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             hideUnhideImgButton(cell, R.image.iconNotification())
         } else if settingTitle.settingsType == .checkUpdate {
             hideUnhideImgButton(cell, R.image.iconCheckUpdate())
+        } else if settingTitle.settingsType == .referringChannel {
+            hideUnhideImgButton(cell, R.image.iconReferringChannel())
         } else if settingTitle.settingsType == .socialLogins {
             cell.onOffButton.isHidden = true
             cell.onOffButton.isSelected = false
@@ -568,6 +573,10 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             }
         } else if settingTitle.settingsType == .checkUpdate {
             SSAppUpdater.shared.performCheck(isForceUpdate: false, showDefaultAlert: true) { (_) in
+            }
+        } else if settingTitle.settingsType == .referringChannel {
+            if let userDetailsVC = R.storyboard.notificationVC.userDetailsVC() {
+                MIBlurPopup.show(userDetailsVC, on: self)
             }
         }
     }
