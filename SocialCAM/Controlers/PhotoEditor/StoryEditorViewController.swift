@@ -221,6 +221,7 @@ class StoryEditorViewController: UIViewController {
     
     @IBOutlet weak var saveVideoPopupView: UIView!
     
+    @IBOutlet weak var lblVideoSaveText: UILabel!
     private let fastestEverWatermarkBottomMargin = 112
     weak var cursorContainerViewController: KeyframePickerCursorVC!
     var playbackTimeCheckerTimer: Timer?
@@ -353,8 +354,16 @@ class StoryEditorViewController: UIViewController {
         self.dragAndDropManager = DragAndDropManager(canvas: self.view,
                                                      collectionViews: collectionViews)
         if Defaults.shared.isVideoSavedAfterRecording == true && !isFromGallery {
-            DispatchQueue.main.async {
+            if cameraMode == .pic2Art {
+                lblVideoSaveText.text = R.string.localizable.yourPic2ArtIsAutomaticallySavedYouCanTurnOffAutoSavingInTheCameraSettings()
+            }
+            if !Defaults.shared.isVideoSavedAfterRecordingFirstTime {
                 self.hideSaveVideoPopupView(isHide: false)
+                Defaults.shared.isVideoSavedAfterRecordingFirstTime = true
+            } else {
+                DispatchQueue.main.async {
+                    self.view.makeToast(R.string.localizable.videoSaved())
+                }
             }
         }
     }
