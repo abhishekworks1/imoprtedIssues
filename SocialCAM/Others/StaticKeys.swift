@@ -38,5 +38,8 @@ public struct StaticKeys {
     static let privateDisplayName = "privateDisplayName"
     static let flagName = "flag_"
     static let stateName = "state_"
+    static let isEditProfileDiscardPopupChecked = "isEditProfileDiscardPopupChecked"
+    static let isStateFlagDiscardPopupChecked = "isStateFlagDiscardPopupChecked"
+    static let isShareScreenDiscardPopupChecked = "isShareScreenDiscardPopupChecked"
     
 }
