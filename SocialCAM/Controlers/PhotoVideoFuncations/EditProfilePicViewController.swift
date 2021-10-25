@@ -246,6 +246,7 @@ class EditProfilePicViewController: UIViewController {
     @IBAction func btnShareTapped(_ sender: UIButton) {
         if isImageSelected || isFlagSelected || isCountryFlagSelected {
             self.isShareButtonSelected = true
+            self.lblSocialSharePopup.isHidden = false
             self.lblSocialSharePopup.text = R.string.localizable.doYouWantToSaveTheChanges()
             self.showHidePopupView(isHide: false)
         } else {
@@ -562,11 +563,11 @@ extension EditProfilePicViewController {
     }
     
     func setUserStateFlag(_ isUserStateFlag: Bool) {
-        self.dismissHUD()
         ProManagerApi.setUserStateFlag(isUserStateFlag: isUserStateFlag).request(Result<EmptyModel>.self).subscribe(onNext: { [weak self] (response) in
             guard let `self` = self else {
                 return
             }
+            self.dismissHUD()
             self.storyCameraVC.syncUserModel { _ in
                 if !self.isCountryFlagSelected || !self.isImageSelected {
                     if self.isShareButtonSelected {
@@ -579,6 +580,8 @@ extension EditProfilePicViewController {
                 self.isFlagSelected = false
             }
         }, onError: { error in
+            self.dismissHUD()
+            self.view.isUserInteractionEnabled = true
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
     }
