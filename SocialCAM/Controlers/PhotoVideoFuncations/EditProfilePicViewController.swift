@@ -534,7 +534,6 @@ extension EditProfilePicViewController {
                 }
             }
         }, onError: { error in
-            self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
     }
@@ -562,7 +561,6 @@ extension EditProfilePicViewController {
                 self.isCountryFlagSelected = false
             }
         }, onError: { error in
-            self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
     }
@@ -585,7 +583,6 @@ extension EditProfilePicViewController {
                 self.isFlagSelected = false
             }
         }, onError: { error in
-            self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
     }
@@ -628,7 +625,6 @@ extension EditProfilePicViewController {
                 self.getVerifiedSocialPlatforms()
             }
         }, onError: { error in
-            self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
     }
