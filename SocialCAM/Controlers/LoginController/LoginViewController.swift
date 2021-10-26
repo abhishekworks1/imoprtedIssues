@@ -187,12 +187,16 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
             isLoginButtonPressed = false
             goToKeycloakWebview(url: "\(keycloakUrl)\(keycloakClientId)\(KeycloakRedirectLink.keycloakRedirectLinkName.lowercased())\(KeycloakRedirectLink.endUrl)\(KeycloakRedirectLink.fromLogin)")
         }
+        Defaults.shared.addEventWithName(eventName: Constant.EventName.click_Login)
+
     }
     
     @IBAction func btnKeyCloakRegisterClicked(_ sender: UIButton) {
         self.lblLoginTooltip.text = R.string.localizable.registerTooltip(Constant.Application.displayName)
         self.hideShowTooltipView(shouldShow: true)
         self.doNotShowAgainView.isHidden = true
+        Defaults.shared.addEventWithName(eventName: Constant.EventName.click_SignUp)
+
     }
     
     @IBAction func btnOkayClicked(_ sender: UIButton) {
@@ -519,6 +523,8 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBAction func btnForgotClicked(sender: Any) {
         let url = "\(keycloakUrl)\(keycloakForogtPasswordClientId)\(KeycloakRedirectLink.keycloakRedirectLinkName.lowercased())\(KeycloakRedirectLink.endUrl)"
         goToKeycloakWebview(url: url)
+        Defaults.shared.addEventWithName(eventName: Constant.EventName.click_forgotpsw)
+
     }
     
     @IBAction func btnSignUpClicked(sender: Any) {

@@ -412,4 +412,35 @@ public struct Constant {
             return self.sharedInstance.isReachable
         }
     }
+    
+    struct Posthog {
+        static let APIkey = "phc_fdqjiIiKd3yNLIvUetjdN7hsVyEh3zNkFYDT38XhRH8"
+        static let Host = "https://posthog.promanager.online/"
+    }
+    
+    struct EventName {
+        static let open_App = "Open app"
+        
+        static let click_Login = "Click Login with ProManager"
+        static let click_SignUp = "Click SignUp with ProManager"
+        static let click_forgotpsw = "Click Forgot password"
+        static let click_trmscondition = "Click Terms and Conditions"
+        static let click_privacy = "Click Privacy Policy"
+
+        static let cam_Setting = "Camera Settings"
+        static let cam_flash = "Camera Flash"
+        static let cam_HideIcons = "Hide icons"
+        static let cam_Bdashboard = "Business Dashboard"
+        static let cam_micOn = "Microphone on"
+        static let cam_micOff = "Microphone off"
+        static let cam_front = "Camera Front"
+        static let cam_rear = "Camera Rear"
+        static let cam_gallery = "Gallary Open"
+        static let cam_mode_free = "Camera Free mode selector"
+        static let cam_mode_FastSlow = "Camera Fast/Slow mode select"
+        static let cam_mode_Capture = "Camera Capture mode select"
+        static let cam_mode_pic2art = "Camera Pic2Art mode select"
+        static let cam_recordBtn = "Camera Record button"
+        
+    }
 }

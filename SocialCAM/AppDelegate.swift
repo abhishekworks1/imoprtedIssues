@@ -18,6 +18,7 @@ import Bagel
 import Sentry
 import FirebaseMessaging
 import UserNotifications
+import PostHog
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -271,6 +272,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GoogleManager.shared.restorePreviousSignIn()
         
         FileManager.default.clearTempDirectory()
+        
+        //Analytics
+        if isQuickCamLiteApp || isQuickApp || isQuickCamApp{
+            // `host` is optional if you use PostHog Cloud (app.posthog.com)
+            let configuration = PHGPostHogConfiguration(apiKey: Constant.Posthog.APIkey, host: Constant.Posthog.Host)
+
+            configuration.captureApplicationLifecycleEvents = true; // Record certain application events automatically!
+            configuration.recordScreenViews = true; // Record screen views automatically!
+
+            PHGPostHog.setup(with: configuration)
+            Defaults.shared.addEventWithName(eventName: Constant.EventName.open_App)
+        }
         
         return true
     }

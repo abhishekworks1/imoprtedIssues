@@ -9582,6 +9582,8 @@
 		95EE425324B8BA81002E5D84 /* ComingSoonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824C677824B5B404000396E9 /* ComingSoonController.swift */; };
 		95EE425424B8BA81002E5D84 /* ComingSoonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824C677824B5B404000396E9 /* ComingSoonController.swift */; };
 		95F117E423FD04B400EB99B4 /* SpecificBoomerangOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F117E323FD04B400EB99B4 /* SpecificBoomerangOptions.swift */; };
+		9C8D3494271E9C4D00A8403B /* UserCountry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D0443726F4B9C700F8F19A /* UserCountry.swift */; };
+		9C8D34B1271E9C5B00A8403B /* SnapCamAssetsV2.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2A8798725F226D7006EB597 /* SnapCamAssetsV2.xcassets */; };
 		A5DFA48E6B7A3F536FA84BC6 /* Pods_Pic2Art.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12AB906D69BDE0807AD8E9CF /* Pods_Pic2Art.framework */; };
 		C20E96A4270D6E0100B67796 /* DisplayNameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E96A3270D6E0100B67796 /* DisplayNameTableViewCell.swift */; };
 		C20E96A5270D6E0100B67796 /* DisplayNameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20E96A3270D6E0100B67796 /* DisplayNameTableViewCell.swift */; };
@@ -11243,7 +11245,6 @@
 		F601005425355DDC00F86479 /* CommonAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F601004D2535589800F86479 /* CommonAssets.xcassets */; };
 		F601005625355DDD00F86479 /* CommonAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F601004D2535589800F86479 /* CommonAssets.xcassets */; };
 		F601005725355DDE00F86479 /* CommonAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F601004D2535589800F86479 /* CommonAssets.xcassets */; };
-		F601005925355DE000F86479 /* CommonAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F601004D2535589800F86479 /* CommonAssets.xcassets */; };
 		F601005A25355DE100F86479 /* CommonAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F601004D2535589800F86479 /* CommonAssets.xcassets */; };
 		F601005B25355DE200F86479 /* CommonAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F601004D2535589800F86479 /* CommonAssets.xcassets */; };
 		F601005C25355DE300F86479 /* CommonAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F601004D2535589800F86479 /* CommonAssets.xcassets */; };
@@ -21625,6 +21626,7 @@
 				95A2E9C82490FE8E00226181 /* Rouge.JPG in Resources */,
 				82046F3C26F33BE10082EB3F /* CountryPickerViewCell.xib in Resources */,
 				C26DF1752696C4C60086F35E /* Tooltip1.gif in Resources */,
+				9C8D34B1271E9C5B00A8403B /* SnapCamAssetsV2.xcassets in Resources */,
 				95A2E9C92490FE8E00226181 /* PhotosPickerViewController.xib in Resources */,
 				95A2E9CA2490FE8E00226181 /* FontAwesome.otf in Resources */,
 				822283B3259224090074F5B0 /* Recorder.storyboard in Resources */,
@@ -21673,7 +21675,6 @@
 				95A2E9EA2490FE8E00226181 /* LUT_M08.png in Resources */,
 				95A2E9EB2490FE8E00226181 /* Wonderful.JPG in Resources */,
 				C235F212266112B000EBF11F /* Tooltip2.gif in Resources */,
-				F601005925355DE000F86479 /* CommonAssets.xcassets in Resources */,
 				95A2E9EC2490FE8E00226181 /* SF-UI-Text-Heavy.otf in Resources */,
 				95A2E9ED2490FE8E00226181 /* UpgradePageCollectionViewCell.xib in Resources */,
 				95A2E9EE2490FE8E00226181 /* FeedbackLocalizable.strings in Resources */,
@@ -32722,6 +32723,7 @@
 				95A2E8ED2490FE8E00226181 /* HalfModalInteractiveTransition.swift in Sources */,
 				95A2E8EE2490FE8E00226181 /* ImageCropperView.swift in Sources */,
 				95A2E8EF2490FE8E00226181 /* CropToolbar.swift in Sources */,
+				9C8D3494271E9C4D00A8403B /* UserCountry.swift in Sources */,
 				F6B65D4B253039E4007F3917 /* CustomSlider.swift in Sources */,
 				95A2E8F02490FE8E00226181 /* NextLevelGIFCreator.swift in Sources */,
 				95A2E8F12490FE8E00226181 /* CollageViewT202.swift in Sources */,
@@ -38448,7 +38450,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 9;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				DEVELOPMENT_TEAM = PRD8NJU6BH;
 				INFOPLIST_FILE = "BoomiCam-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -38462,7 +38464,7 @@
 					"$(inherited)",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D BOOMICAMAPP";
-				PRODUCT_BUNDLE_IDENTIFIER = com.simform.BoomiCam;
+				PRODUCT_BUNDLE_IDENTIFIER = com.promanager.BoomiCam;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = ALPHA;
@@ -39264,7 +39266,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 9;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				DEVELOPMENT_TEAM = PRD8NJU6BH;
 				INFOPLIST_FILE = "BoomiCam-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -39278,7 +39280,7 @@
 					"$(inherited)",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D BOOMICAMAPP";
-				PRODUCT_BUNDLE_IDENTIFIER = com.simform.BoomiCam;
+				PRODUCT_BUNDLE_IDENTIFIER = com.promanager.BoomiCam;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = BETA;
@@ -40378,7 +40380,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 9;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				DEVELOPMENT_TEAM = PRD8NJU6BH;
 				INFOPLIST_FILE = "BoomiCam-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -40392,7 +40394,7 @@
 					"$(inherited)",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D BOOMICAMAPP";
-				PRODUCT_BUNDLE_IDENTIFIER = com.simform.BoomiCam;
+				PRODUCT_BUNDLE_IDENTIFIER = com.promanager.BoomiCam;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "SocialCAM/SocialCAM-Bridging-Header.h";
@@ -40412,7 +40414,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 9;
-				DEVELOPMENT_TEAM = Y98X8JAPH6;
+				DEVELOPMENT_TEAM = PRD8NJU6BH;
 				INFOPLIST_FILE = "BoomiCam-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -40425,7 +40427,7 @@
 					"$(inherited)",
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D BOOMICAMAPP";
-				PRODUCT_BUNDLE_IDENTIFIER = com.simform.BoomiCam;
+				PRODUCT_BUNDLE_IDENTIFIER = com.promanager.BoomiCam;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = STORE;
@@ -40443,8 +40445,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-QuickCam-1";
 				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 6;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = GA853MZ47V;
@@ -40463,7 +40465,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D QUICKAPP";
 				PRODUCT_BUNDLE_IDENTIFIER = app.quickcam.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = QuickCam;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "SocialCAM/SocialCAM-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -40478,8 +40480,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-QuickCam-1";
 				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 6;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = GA853MZ47V;
@@ -40498,7 +40500,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D QUICKAPP";
 				PRODUCT_BUNDLE_IDENTIFIER = app.quickcam.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = QuickCam;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = ALPHA;
 				SWIFT_OBJC_BRIDGING_HEADER = "SocialCAM/SocialCAM-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -40514,8 +40516,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-QuickCam-1";
 				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 6;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = GA853MZ47V;
@@ -40534,7 +40536,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D QUICKAPP";
 				PRODUCT_BUNDLE_IDENTIFIER = app.quickcam.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = QuickCam;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = BETA;
 				SWIFT_OBJC_BRIDGING_HEADER = "SocialCAM/SocialCAM-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -40550,8 +40552,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-QuickCam";
 				BITCODE_GENERATION_MODE = bitcode;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = GA853MZ47V;
 				ENABLE_BITCODE = NO;
@@ -40569,7 +40571,7 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D QUICKAPP";
 				PRODUCT_BUNDLE_IDENTIFIER = app.quickcam.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = QuickCam;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = STORE;
 				SWIFT_OBJC_BRIDGING_HEADER = "SocialCAM/SocialCAM-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
