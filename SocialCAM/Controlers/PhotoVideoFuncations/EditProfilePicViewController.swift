@@ -876,7 +876,6 @@ extension EditProfilePicViewController: InstagramLoginViewControllerDelegate, Pr
 extension EditProfilePicViewController: SharingSocialTypeDelegate {
     
     func setSocialPlatforms() {
-        showHidePopupView(isHide: false)
         self.settingSocialPlatforms()
         self.isCroppedImage = false
     }
