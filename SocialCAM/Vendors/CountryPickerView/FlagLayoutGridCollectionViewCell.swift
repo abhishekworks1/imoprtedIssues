@@ -17,4 +17,10 @@ class FlagLayoutGridCollectionViewCell: UICollectionViewCell {
         flagImageView.image = user.flag
         nameLabel.text = user.name
     }
+    
+    func setup() {
+        flagImageView.image = R.image.addNewFlag()
+        nameLabel.text = "Add New Flag"
+        selectedItem = false
+    }
 }

@@ -918,6 +918,15 @@ class Defaults {
         }
     }
     
+    var isVideoSavedAfterRecordingFirstTime: Bool {
+        get {
+            return appDefaults?.value(forKey: "isVideoSavedAfterRecordingFirstTime") as? Bool ?? false
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isVideoSavedAfterRecordingFirstTime")
+        }
+    }
+    
     var isVideoSavedAfterRecording: Bool {
         get {
             return appDefaults?.value(forKey: "isVideoSavedAfterRecording") as? Bool ?? true
@@ -1067,6 +1076,33 @@ class Defaults {
         }
         set {
             appDefaults?.set(newValue, forKey: StaticKeys.privateDisplayName)
+        }
+    }
+    
+    var isEditProfileDiscardPopupChecked: Bool {
+        get {
+            return appDefaults?.value(forKey: StaticKeys.isEditProfileDiscardPopupChecked) as? Bool ?? true
+        }
+        set {
+            appDefaults?.set(newValue, forKey: StaticKeys.isEditProfileDiscardPopupChecked)
+        }
+    }
+    
+    var isStateFlagDiscardPopupChecked: Bool {
+        get {
+            return appDefaults?.value(forKey: StaticKeys.isStateFlagDiscardPopupChecked) as? Bool ?? true
+        }
+        set {
+            appDefaults?.set(newValue, forKey: StaticKeys.isStateFlagDiscardPopupChecked)
+        }
+    }
+    
+    var isShareScreenDiscardPopupChecked: Bool {
+        get {
+            return appDefaults?.value(forKey: StaticKeys.isShareScreenDiscardPopupChecked) as? Bool ?? true
+        }
+        set {
+            appDefaults?.set(newValue, forKey: StaticKeys.isShareScreenDiscardPopupChecked)
         }
     }
     

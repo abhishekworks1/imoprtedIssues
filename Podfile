@@ -19,6 +19,7 @@ def shared_pods
 end
 
 def projectShared_pods
+    pod "PostHog", "~> 1.1"
     pod 'GoogleAPIClientForREST', '~> 1.5'
     pod 'GoogleAPIClientForREST/YouTube', '~> 1.5'
     pod 'RxCocoa', '5.1.3'
@@ -60,7 +61,7 @@ def projectShared_pods
     pod 'MXSegmentedPager', :git => 'https://github.com/simformsolutions/MXSegmentedPager'
     pod "ESPullToRefresh", '2.9.3'
     pod 'ProgressHUD', '~> 2.70'
-    pod 'Parchment', '3.0.1'
+    pod 'Parchment', '3.1.0'
     pod 'Bagel'
     pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git', :tag => '7.1.3'
     pod 'CropPickerView'

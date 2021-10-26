@@ -215,10 +215,11 @@ extension SelectLinkViewController {
             let businessCenterCell = SelectLink(name: "", linkSettings: [SelectLinkSetting(name: R.string.localizable.businessCenter(), image: R.image.iconBusinessCenter())], linkType: .businessCenter)
             SelectLink.selectLinks.append(businessCenterCell)
         }
-        let enterLinkCell = SelectLink(name: "", linkSettings: [SelectLinkSetting(name: R.string.localizable.enterALink(), image: R.image.iconLink())], linkType: .enterLink)
-        SelectLink.selectLinks.append(enterLinkCell)
-        let noLinkCell = SelectLink(name: "", linkSettings: [SelectLinkSetting(name: R.string.localizable.noLink(), image: R.image.iconNoLink())], linkType: .noLink)
-        SelectLink.selectLinks.append(noLinkCell)
+        // TODO: - Temporary disabled from client's side
+//        let enterLinkCell = SelectLink(name: "", linkSettings: [SelectLinkSetting(name: R.string.localizable.enterALink(), image: R.image.iconLink())], linkType: .enterLink)
+//        SelectLink.selectLinks.append(enterLinkCell)
+//        let noLinkCell = SelectLink(name: "", linkSettings: [SelectLinkSetting(name: R.string.localizable.noLink(), image: R.image.iconNoLink())], linkType: .noLink)
+//        SelectLink.selectLinks.append(noLinkCell)
     }
     
     func getLinkPreview(link: String, completionHandler: @escaping (UIImage) -> Void) {

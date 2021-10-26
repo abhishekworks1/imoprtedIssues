@@ -23,6 +23,7 @@ class StorySettingsHeader: UITableViewCell {
     @IBOutlet weak var addProfilePic: UIImageView!
     @IBOutlet weak var imgSocialMediaBadge: UIImageView!
     @IBOutlet weak var iconSettingsImage: UIImageView!
+    @IBOutlet weak var badgesView: UIStackView!
     
     weak var delegate: HeaderViewDelegate?
     var section: Int = 0

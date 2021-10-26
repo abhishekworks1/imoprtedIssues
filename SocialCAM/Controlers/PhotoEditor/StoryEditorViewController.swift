@@ -219,6 +219,9 @@ class StoryEditorViewController: UIViewController {
     @IBOutlet weak var btnDoNotShowDiscardVideo: UIButton!
     @IBOutlet weak var lblUserNameWatermark: UILabel!
     
+    @IBOutlet weak var saveVideoPopupView: UIView!
+    
+    @IBOutlet weak var lblVideoSaveText: UILabel!
     private let fastestEverWatermarkBottomMargin = 112
     weak var cursorContainerViewController: KeyframePickerCursorVC!
     var playbackTimeCheckerTimer: Timer?
@@ -350,6 +353,19 @@ class StoryEditorViewController: UIViewController {
         }
         self.dragAndDropManager = DragAndDropManager(canvas: self.view,
                                                      collectionViews: collectionViews)
+        if Defaults.shared.isVideoSavedAfterRecording == true && !isFromGallery {
+            if cameraMode == .pic2Art {
+                lblVideoSaveText.text = R.string.localizable.yourPic2ArtIsAutomaticallySavedYouCanTurnOffAutoSavingInTheCameraSettings()
+            }
+            if !Defaults.shared.isVideoSavedAfterRecordingFirstTime {
+                self.hideSaveVideoPopupView(isHide: false)
+                Defaults.shared.isVideoSavedAfterRecordingFirstTime = true
+            } else {
+                DispatchQueue.main.async {
+                    self.view.makeToast(R.string.localizable.videoSaved())
+                }
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -369,11 +385,6 @@ class StoryEditorViewController: UIViewController {
             btnAppIdentifierWatermark.isSelected = true
             btnSelectAppIdentifierWatermark.isSelected = true
             btnSelectedMadeWithGif.isSelected = true
-        }
-        if Defaults.shared.isVideoSavedAfterRecording == true && !isFromGallery {
-            DispatchQueue.main.async {
-                self.view.makeToast(R.string.localizable.videoSaved())
-            }
         }
     }
     
@@ -1388,7 +1399,7 @@ extension StoryEditorViewController {
         if isQuickApp {
             let followMeStoryShareViews = storyEditors[currentStoryIndex].subviews.filter({ return $0 is FollowMeStoryView })
             if followMeStoryShareViews.count != 1 && currentStoryIndex == 0 {
-                self.didSelect(type: SSUTagType.quickApp, waitingListOptionType: nil, socialShareType: nil, screenType: SSUTagScreen.ssutTypes)
+                self.didSelect(type: QuickCam.SSUTagType.profilePicture, waitingListOptionType: nil, socialShareType: nil, screenType: SSUTagScreen.ssutTypes)
                 self.isSettingsChange = true
             }
             openActionSheet()
@@ -1567,6 +1578,19 @@ extension StoryEditorViewController {
         hideShowDiscardVideoPopup(shouldShow: false)
     }
     
+    @IBAction func okayButtonSaveVideoClicked(sender: UIButton) {
+        DispatchQueue.main.async {
+            self.hideSaveVideoPopupView(isHide: true)
+        }
+    }
+    
+    @IBAction func cancelButtonSaveVideoClicked(sender: UIButton) {
+        hideSaveVideoPopupView(isHide: true)
+    }
+    
+    func hideSaveVideoPopupView(isHide: Bool) {
+        saveVideoPopupView.isHidden = isHide
+    }
 }
 
 extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -2025,6 +2049,8 @@ extension StoryEditorViewController: SSUTagSelectionDelegate {
                 storyEditors[currentStoryIndex].addReferLinkView(type: .socialScreenRecorder)
             case .quickApp:
                 storyEditors[currentStoryIndex].addReferLinkView(type: .quickCamLite)
+            case .profilePicture:
+                storyEditors[currentStoryIndex].addReferLinkView(type: .profilePicture)
             default:
                 storyEditors[currentStoryIndex].addReferLinkView(type: .socialScreenRecorder)
             }

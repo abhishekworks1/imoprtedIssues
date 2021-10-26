@@ -209,7 +209,7 @@ public extension RevealingSplashView {
             
             animateLayer({
                 let animation = CAKeyframeAnimation(keyPath: "transform.scale")
-                animation.values = [0, 0.2 * popForce, -0.2 * popForce, 0.2 * popForce, 0]
+                animation.values = [0, 0, 0, 0, 0]
                 animation.keyTimes = [0, 0.2, 0.4, 0.6, 0.8, 1]
                 animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
                 animation.duration = CFTimeInterval(self.duration/2)

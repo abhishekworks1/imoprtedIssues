@@ -38,7 +38,7 @@ class GuildlineIconPositionTableViewCell: UITableViewCell {
     var guildline: Guideline = .type {
         didSet {
             if guildline == .type {
-                lblTitle.text = R.string.localizable.guidelineTypes()
+                lblTitle.text = R.string.localizable.timeGuidelineTypes()
                 lblSold.text = R.string.localizable.solidLine()
                 lblDotted.text = R.string.localizable.dottedLine()
                 lblDashed.text = R.string.localizable.dashedLine()
@@ -47,7 +47,7 @@ class GuildlineIconPositionTableViewCell: UITableViewCell {
                 imgLineDashed.image = R.image.dashedLine()
                 self.setSelection(guidelineTypes: Defaults.shared.cameraGuidelineTypes)
             } else if guildline == .thickness {
-                lblTitle.text = R.string.localizable.guidelineThickness()
+                lblTitle.text = R.string.localizable.timeGuidelineThickness()
                 lblSold.text = R.string.localizable.small()
                 lblDotted.text = R.string.localizable.medium()
                 lblDashed.text = R.string.localizable.thick()

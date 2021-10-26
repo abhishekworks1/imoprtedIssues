@@ -55,6 +55,7 @@ class EditProfilePicViewController: UIViewController {
     @IBOutlet weak var btnPublicDisplayNameTooltip: UIButton!
     @IBOutlet weak var publicDisplayNameView: UIView!
     @IBOutlet weak var btnSetFlags: UIButton!
+    @IBOutlet weak var btnSelectDiscardPopupView: UIButton!
     
     // MARK: - Variables declaration
     private var localImageUrl: URL?
@@ -71,6 +72,7 @@ class EditProfilePicViewController: UIViewController {
     var countrySelected: [Country] = []
     var isFlagSelected = false
     var isShareButtonSelected = false
+    var isPublicNameEdit = false
     
     // MARK: - View Controller Life Cycle
     override func viewDidLoad() {
@@ -89,7 +91,7 @@ class EditProfilePicViewController: UIViewController {
             if let flages = Defaults.shared.currentUser?.userStateFlags,
                flages.count > 0 {
                 self.btnSetFlags.isHidden = true
-                self.flagsStackViewHeightConstraint.constant = self.btnSelectCountry.isSelected ? 70 : 0
+                self.flagsStackViewHeightConstraint.constant = self.btnSelectCountry.isSelected ? 74 : 0
                 for (index, item) in flages.enumerated() {
                     self.countryView[index].isHidden = false
                     let country: Country = Country(name: (item.state == "") ? (item.country ?? "") : (item.state ?? ""), code: (item.state == "") ? (item.countryCode ?? "") : (item.stateCode ?? ""), phoneCode: "", isState: (item.state != ""))
@@ -165,7 +167,7 @@ class EditProfilePicViewController: UIViewController {
     
     // MARK: - Action Methods
     @IBAction func btnBackTapped(_ sender: UIButton) {
-        if isImageSelected || isCountryFlagSelected || isFlagSelected {
+        if (isImageSelected || isCountryFlagSelected || isFlagSelected) && (Defaults.shared.isShowAllPopUpChecked || Defaults.shared.isEditProfileDiscardPopupChecked) {
             self.dicardPopupView.isHidden = false
         } else {
             self.setupMethod()
@@ -181,8 +183,12 @@ class EditProfilePicViewController: UIViewController {
             self.showHUD()
             self.view.isUserInteractionEnabled = false
         } else {
-            self.view.makeToast(R.string.localizable.noChangesAreMade())
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            if !isPublicNameEdit {
+                self.view.makeToast(R.string.localizable.noChangesMade())
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.navigationController?.popViewController(animated: true)
+                }
+            } else {
                 self.navigationController?.popViewController(animated: true)
             }
         }
@@ -204,10 +210,10 @@ class EditProfilePicViewController: UIViewController {
         btnSelectCountry.isSelected.toggle()
         if let flages = Defaults.shared.currentUser?.userStateFlags,
            flages.count > 0 {
-            self.flagsStackViewHeightConstraint.constant = self.btnSelectCountry.isSelected ? 70 : 0
+            self.flagsStackViewHeightConstraint.constant = self.btnSelectCountry.isSelected ? 74 : 0
         }
         if isCountryFlagSelected {
-            self.flagsStackViewHeightConstraint.constant = (self.btnSelectCountry.isSelected && countrySelected.count > 0) ? 70 : 0
+            self.flagsStackViewHeightConstraint.constant = (self.btnSelectCountry.isSelected && countrySelected.count > 0) ? 74 : 0
         }
     }
     
@@ -240,6 +246,7 @@ class EditProfilePicViewController: UIViewController {
     @IBAction func btnShareTapped(_ sender: UIButton) {
         if isImageSelected || isFlagSelected || isCountryFlagSelected {
             self.isShareButtonSelected = true
+            self.lblSocialSharePopup.isHidden = false
             self.lblSocialSharePopup.text = R.string.localizable.doYouWantToSaveTheChanges()
             self.showHidePopupView(isHide: false)
         } else {
@@ -256,6 +263,7 @@ class EditProfilePicViewController: UIViewController {
     }
     
     @IBAction func btnSetDisplayYesTapped(_ sender: UIButton) {
+        self.setDisplayNamePopupView.isHidden = true
         self.showHUD()
         self.editDisplayName()
     }
@@ -293,6 +301,12 @@ class EditProfilePicViewController: UIViewController {
         }
     }
     
+    @IBAction func btnDoNotShowDiscardPopupTapped(_ sender: UIButton) {
+        btnSelectDiscardPopupView.isSelected = !btnSelectDiscardPopupView.isSelected
+        Defaults.shared.isShowAllPopUpChecked = !btnSelectDiscardPopupView.isSelected
+        Defaults.shared.isEditProfileDiscardPopupChecked = !btnSelectDiscardPopupView.isSelected
+    }
+    
 }
 
 extension EditProfilePicViewController: CountryPickerViewDelegate {
@@ -317,7 +331,7 @@ extension EditProfilePicViewController: CountryPickerViewDelegate {
         }
         self.btnSetFlags.isHidden = countryAry.count > 0
         self.countrySelected = countryAry
-        self.flagsStackViewHeightConstraint.constant = (self.btnSelectCountry.isSelected && !countryAry.isEmpty) ? 70 : 0
+        self.flagsStackViewHeightConstraint.constant = (self.btnSelectCountry.isSelected && !countryAry.isEmpty) ? 74 : 0
     }
 }
 
@@ -343,7 +357,7 @@ extension EditProfilePicViewController: StatePickerViewDelegate {
         }
         self.btnSetFlags.isHidden = countryAry.count > 0
         self.countrySelected = didSelectCountry
-        self.flagsStackViewHeightConstraint.constant = (self.btnSelectCountry.isSelected && !countryAry.isEmpty) ? 70 : 0
+        self.flagsStackViewHeightConstraint.constant = (self.btnSelectCountry.isSelected && !countryAry.isEmpty) ? 74 : 0
     }
     
 }
@@ -505,13 +519,13 @@ extension EditProfilePicViewController {
                 return
             }
             self.dismissHUD()
+            self.isPublicNameEdit = true
             if response.status == ResponseType.success {
                 self.storyCameraVC.syncUserModel { _ in
                     self.setPublicDisplayName()
                 }
             }
         }, onError: { error in
-            self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
     }
@@ -544,17 +558,16 @@ extension EditProfilePicViewController {
                 self.isCountryFlagSelected = false
             }
         }, onError: { error in
-            self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
     }
     
     func setUserStateFlag(_ isUserStateFlag: Bool) {
-        self.dismissHUD()
         ProManagerApi.setUserStateFlag(isUserStateFlag: isUserStateFlag).request(Result<EmptyModel>.self).subscribe(onNext: { [weak self] (response) in
             guard let `self` = self else {
                 return
             }
+            self.dismissHUD()
             self.storyCameraVC.syncUserModel { _ in
                 if !self.isCountryFlagSelected || !self.isImageSelected {
                     if self.isShareButtonSelected {
@@ -567,7 +580,8 @@ extension EditProfilePicViewController {
                 self.isFlagSelected = false
             }
         }, onError: { error in
-            self.showAlert(alertMessage: error.localizedDescription)
+            self.dismissHUD()
+            self.view.isUserInteractionEnabled = true
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
     }
@@ -615,7 +629,6 @@ extension EditProfilePicViewController {
                 self.getVerifiedSocialPlatforms()
             }
         }, onError: { error in
-            self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
     }
@@ -635,11 +648,9 @@ extension EditProfilePicViewController {
                 }
             }
             self.imgProfileBadge.image = (socialPlatforms.count == 4) ? R.image.shareScreenRibbonProfileBadge() : R.image.shareScreenProfileBadge()
-            self.socialBadgeStackViewHeightConstraint.constant = (socialPlatforms.count == 4) ? 65 : 0
             self.socialPlatformsVerifiedBadge.isHidden = socialPlatforms.count != 4
         } else {
             self.socialPlatformStackViewHeightConstraint.constant = 0
-            self.socialBadgeStackViewHeightConstraint.constant = 0
             self.socialPlatformsVerifiedBadge.isHidden = true
         }
     }
