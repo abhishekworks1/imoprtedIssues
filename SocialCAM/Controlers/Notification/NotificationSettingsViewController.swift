@@ -99,10 +99,12 @@ extension NotificationSettingsViewController: UITableViewDelegate {
 extension NotificationSettingsViewController {
     
     func getReferralNotification() {
+        self.showHUD()
         ProManagerApi.getReferralNotification.request(Result<GetReferralNotificationModel>.self).subscribe(onNext: { [weak self] (response) in
             guard let `self` = self else {
                 return
             }
+            self.dismissHUD()
             if response.status == ResponseType.success {
                 if let cell = self.systemSettingsTableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? NotificationTypeCell, let numberOfUserText = response.result?.customSignupNumber {
                     cell.txtNumberOfUsers.text = "\(numberOfUserText)"
@@ -115,6 +117,7 @@ extension NotificationSettingsViewController {
                 self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
             }
         }, onError: { error in
+            self.dismissHUD()
             self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: rx.disposeBag)

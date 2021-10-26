@@ -908,6 +908,15 @@ class Defaults {
         }
     }
     
+    var isVideoSavedAfterRecordingFirstTime: Bool {
+        get {
+            return appDefaults?.value(forKey: "isVideoSavedAfterRecordingFirstTime") as? Bool ?? false
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isVideoSavedAfterRecordingFirstTime")
+        }
+    }
+    
     var isVideoSavedAfterRecording: Bool {
         get {
             return appDefaults?.value(forKey: "isVideoSavedAfterRecording") as? Bool ?? true
