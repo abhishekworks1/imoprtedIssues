@@ -397,6 +397,8 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                     headerView.addProfilePic.isHidden = false
                 }
                 headerView.userImage.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: ApplicationSettings.userPlaceHolder)
+            } else {
+                headerView.userImage.image = ApplicationSettings.userPlaceHolder
             }
             headerView.title.text = R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? "")
             if let socialPlatForms = Defaults.shared.socialPlatforms {
