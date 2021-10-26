@@ -2203,19 +2203,29 @@ Countdown</string>
                                                         <constraint firstAttribute="width" constant="20" id="n4m-0b-nPg"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UserName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zK1-TT-d86">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UserName" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="zK1-TT-d86">
                                                     <rect key="frame" x="82" y="21.666666666666668" width="74.333333333333314" height="18.000000000000004"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                                     <color key="textColor" name="AppBlackColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="socialBadge" translatesAutoresizingMaskIntoConstraints="NO" id="hEk-HZ-XbY" userLabel="Badge Image View">
-                                                    <rect key="frame" x="166.33333333333334" y="15" width="60" height="60"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="60" id="M74-0V-XTG"/>
-                                                        <constraint firstAttribute="height" constant="60" id="RAr-ub-Lb7"/>
-                                                    </constraints>
-                                                </imageView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="sMi-ZI-xKb">
+                                                    <rect key="frame" x="156.33333333333334" y="10" width="85" height="41"/>
+                                                    <subviews>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="prelaunchBadge" translatesAutoresizingMaskIntoConstraints="NO" id="Zrl-CI-m7M">
+                                                            <rect key="frame" x="0.0" y="0.0" width="40" height="41"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="40" id="G0H-gX-2tq"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                        <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="socialBadge" translatesAutoresizingMaskIntoConstraints="NO" id="6hx-2K-M6D">
+                                                            <rect key="frame" x="42.666666666666657" y="0.0" width="0.0" height="41"/>
+                                                        </imageView>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="foundingMemberBadge" translatesAutoresizingMaskIntoConstraints="NO" id="V7Y-P2-fkC">
+                                                            <rect key="frame" x="45" y="0.0" width="40" height="41"/>
+                                                        </imageView>
+                                                    </subviews>
+                                                </stackView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="61g-Tk-Gk6">
                                                     <rect key="frame" x="0.0" y="0.0" width="359" height="61"/>
                                                 </button>
@@ -2223,16 +2233,18 @@ Countdown</string>
                                             <constraints>
                                                 <constraint firstItem="m5O-SX-fYi" firstAttribute="top" secondItem="DZQ-x1-CR4" secondAttribute="top" constant="5" id="5cM-FX-cnJ"/>
                                                 <constraint firstItem="KaT-dA-dZj" firstAttribute="centerY" secondItem="DZQ-x1-CR4" secondAttribute="centerY" id="BWp-KR-hvo"/>
+                                                <constraint firstItem="sMi-ZI-xKb" firstAttribute="centerY" secondItem="DZQ-x1-CR4" secondAttribute="centerY" id="DzA-NL-ewM"/>
                                                 <constraint firstAttribute="trailing" secondItem="61g-Tk-Gk6" secondAttribute="trailing" id="F0y-4p-OTq"/>
                                                 <constraint firstItem="m5O-SX-fYi" firstAttribute="leading" secondItem="DZQ-x1-CR4" secondAttribute="leading" constant="50" id="MGB-XM-484"/>
-                                                <constraint firstItem="hEk-HZ-XbY" firstAttribute="leading" secondItem="zK1-TT-d86" secondAttribute="trailing" constant="10" id="Mga-gW-KQj"/>
                                                 <constraint firstAttribute="trailing" secondItem="zJJ-hm-C2b" secondAttribute="trailing" id="O3w-CM-0Rw"/>
                                                 <constraint firstItem="61g-Tk-Gk6" firstAttribute="leading" secondItem="DZQ-x1-CR4" secondAttribute="leading" id="Ph6-so-PNU"/>
                                                 <constraint firstItem="61g-Tk-Gk6" firstAttribute="top" secondItem="DZQ-x1-CR4" secondAttribute="top" id="Pvi-Lv-jog"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="sMi-ZI-xKb" secondAttribute="trailing" constant="10" id="Sjc-h3-tZm"/>
+                                                <constraint firstAttribute="bottom" secondItem="sMi-ZI-xKb" secondAttribute="bottom" constant="10" id="Yeg-0o-guc"/>
                                                 <constraint firstItem="zJJ-hm-C2b" firstAttribute="top" secondItem="DZQ-x1-CR4" secondAttribute="top" id="bSD-mr-aDX"/>
                                                 <constraint firstAttribute="bottom" secondItem="61g-Tk-Gk6" secondAttribute="bottom" id="cJf-4Q-cEZ"/>
                                                 <constraint firstItem="zJJ-hm-C2b" firstAttribute="leading" secondItem="DZQ-x1-CR4" secondAttribute="leading" id="fum-eJ-cWN"/>
-                                                <constraint firstItem="hEk-HZ-XbY" firstAttribute="top" secondItem="DZQ-x1-CR4" secondAttribute="top" constant="15" id="hWI-n6-c2r"/>
+                                                <constraint firstItem="sMi-ZI-xKb" firstAttribute="leading" secondItem="zK1-TT-d86" secondAttribute="trailing" id="jZZ-Qt-SAR"/>
                                                 <constraint firstItem="KaT-dA-dZj" firstAttribute="leading" secondItem="DZQ-x1-CR4" secondAttribute="leading" constant="10" id="nQK-Yx-Fn6"/>
                                                 <constraint firstItem="zK1-TT-d86" firstAttribute="centerY" secondItem="KaT-dA-dZj" secondAttribute="centerY" id="nx1-Lu-jWB"/>
                                                 <constraint firstItem="zK1-TT-d86" firstAttribute="leading" secondItem="KaT-dA-dZj" secondAttribute="trailing" constant="12" id="wjt-Nh-HUP"/>
@@ -2241,8 +2253,9 @@ Countdown</string>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="addProfilePic" destination="m5O-SX-fYi" id="xZg-dV-1YM"/>
+                                            <outlet property="badgesView" destination="sMi-ZI-xKb" id="b50-ls-c5w"/>
                                             <outlet property="btnProfilePic" destination="61g-Tk-Gk6" id="W8f-V1-ZHs"/>
-                                            <outlet property="imgSocialMediaBadge" destination="hEk-HZ-XbY" id="Ban-HH-PVJ"/>
+                                            <outlet property="imgSocialMediaBadge" destination="6hx-2K-M6D" id="8bo-5A-VHQ"/>
                                             <outlet property="title" destination="zK1-TT-d86" id="2V9-SU-U1K"/>
                                             <outlet property="userImage" destination="KaT-dA-dZj" id="fd9-rq-c9O"/>
                                         </connections>
@@ -7553,6 +7566,7 @@ Countdown</string>
         <image name="dottedLine" width="4" height="106"/>
         <image name="fastestevercontestWatermarkPopupOption" width="195" height="17"/>
         <image name="flashOff" width="33" height="34"/>
+        <image name="foundingMemberBadge" width="187" height="297"/>
         <image name="gameCenter" width="79" height="104"/>
         <image name="hideStoryCamIcons" width="29" height="30"/>
         <image name="icoClose" width="26" height="26"/>
@@ -7575,6 +7589,7 @@ Countdown</string>
         <image name="overLayOption" width="82" height="167"/>
         <image name="playIconDownload" width="16" height="16"/>
         <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="prelaunchBadge" width="187" height="299"/>
         <image name="quickcamWatermark" width="60" height="42"/>
         <image name="radioDeselected" width="20" height="20"/>
         <image name="radioSelected" width="20" height="20"/>

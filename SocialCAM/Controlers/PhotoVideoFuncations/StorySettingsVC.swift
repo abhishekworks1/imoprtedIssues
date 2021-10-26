@@ -408,6 +408,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             headerView.title.isHidden = true
             headerView.userImage.isHidden = true
             headerView.addProfilePic.isHidden = true
+            headerView.badgesView.isHidden = true
             headerView.imgSocialMediaBadge.isHidden = true
         }
         if headerView.section == 0 {
