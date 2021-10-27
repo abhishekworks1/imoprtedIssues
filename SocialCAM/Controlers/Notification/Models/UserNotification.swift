@@ -26,6 +26,8 @@ class UserNotification: Mappable {
     var publicDisplayName: String?
     var privateDisplayName: String?
     var isFollowing: Bool?
+    var iosTitle: String?
+    var iosBody: String?
     
     required init?(map: Map){}
 
@@ -45,5 +47,7 @@ class UserNotification: Mappable {
         publicDisplayName <- map["publicDisplayName"]
         privateDisplayName <- map["privateDisplayName"]
         isFollowing <- map["isFollowing"]
+        iosTitle <- map["ios_title"]
+        iosBody <- map["ios_body"]
     }
 }
