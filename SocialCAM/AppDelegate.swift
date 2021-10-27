@@ -18,6 +18,7 @@ import Bagel
 import Sentry
 import FirebaseMessaging
 import UserNotifications
+import PostHog
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -30,6 +31,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.applicationIconBadgeNumber = 0
         configureIQKeyboardManager()
         
+        let configuration = PHGPostHogConfiguration(apiKey: Constant.PostHog.key, host: Constant.PostHog.host)
+        configuration.captureApplicationLifecycleEvents = true; // Record certain application events automatically!
+        configuration.recordScreenViews = true; // Record screen views automatically!
+        PHGPostHog.setup(with: configuration)
         //Start Bagel
         if isDebug || isAlpha || isBeta {
             Bagel.start()
@@ -233,7 +238,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let user = Defaults.shared.currentUser,
            let _ = Defaults.shared.sessionToken,
            let channelId = user.channelId,
-           user.refferingChannel != nil,
            channelId.count > 0 {
             InternetConnectionAlert.shared.internetConnectionHandler = { reachability in
                 if reachability.connection != .none {
@@ -257,7 +261,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #else
         Defaults.shared.cameraMode = .normal
         #endif
-        let revealingSplashView = RevealingSplashView(iconImage: Constant.Application.appIcon, iconInitialSize: isLiteApp ? CGSize(width: 300, height: 300) : Constant.Application.appIcon.size, backgroundImage: Constant.Application.splashBG)
+        let revealingSplashView = RevealingSplashView(iconImage: Constant.Application.appIcon, iconInitialSize: isLiteApp ? CGSize(width: Constant.Application.splashImageSize, height: Constant.Application.splashImageSize) : Constant.Application.appIcon.size, backgroundImage: Constant.Application.splashBG)
         revealingSplashView.duration = 2.0
         revealingSplashView.iconColor = UIColor.red
         revealingSplashView.useCustomIconColor = false
