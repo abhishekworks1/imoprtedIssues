@@ -1085,6 +1085,8 @@
 		51EDF8D6FB5B8999C6EFA903 /* Pods_SocialScreenRecorderExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 165D81CAFBC32CDFFEEDD5C1 /* Pods_SocialScreenRecorderExtension.framework */; };
 		5B9332B6723F878496140D06 /* Pods_ViralCamLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED41D41CDE7064D41421BB49 /* Pods_ViralCamLite.framework */; };
 		60DDD20C3175DB18D4E64440 /* Pods_SoccerCam.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F59BE74BB4C36E79E92BD9DB /* Pods_SoccerCam.framework */; };
+		6108377527291EEB001292C5 /* R.boomicam.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6108377427291EE8001292C5 /* R.boomicam.generated.swift */; };
+		6108377627291EEB001292C5 /* R.boomicam.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6108377427291EE8001292C5 /* R.boomicam.generated.swift */; };
 		629F74736E099C47AA2FAFC5 /* Pods_ViralCam.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F3D411D8525CCA77B1FEA9F /* Pods_ViralCam.framework */; };
 		6545E6E9760E228D7D42BBEB /* Pods_SpeedCamLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 872CB0932B2F6C092F0397B6 /* Pods_SpeedCamLite.framework */; };
 		6F8D6052B542351ABF297D6D /* Pods_Pic2ArtShare.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62636FFF70BD9B0FFEEAE899 /* Pods_Pic2ArtShare.framework */; };
@@ -4367,7 +4369,6 @@
 		827DABA724A4D2F3001A2259 /* ColorRoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230722CE244EE932009454B0 /* ColorRoundedView.swift */; };
 		8280E64C251370BE00BF5A1A /* LaunchScreenFastCam.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8280E64B251370BE00BF5A1A /* LaunchScreenFastCam.storyboard */; };
 		8280E64E251370EA00BF5A1A /* LaunchScreenViralCamLite.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8280E64D251370E900BF5A1A /* LaunchScreenViralCamLite.storyboard */; };
-		8280E64F2513710600BF5A1A /* R.boomicam.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8280E63E25136F6800BF5A1A /* R.boomicam.generated.swift */; };
 		8280E6512513711E00BF5A1A /* R.futbolcam.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8280E64925136F7100BF5A1A /* R.futbolcam.generated.swift */; };
 		8280E6532513712600BF5A1A /* R.mediaShared.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8280E63A25136F6500BF5A1A /* R.mediaShared.generated.swift */; };
 		8280E6562513713300BF5A1A /* R.quickcam.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8280E64225136F6B00BF5A1A /* R.quickcam.generated.swift */; };
@@ -15180,6 +15181,7 @@
 		537D8826B9C10B903C0A4EEB /* Pods-QuickCam.alpha.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickCam.alpha.xcconfig"; path = "Target Support Files/Pods-QuickCam/Pods-QuickCam.alpha.xcconfig"; sourceTree = "<group>"; };
 		559C003A0DCED8283AB80A11 /* Pods-QuickCamLiteApp.alpha.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickCamLiteApp.alpha.xcconfig"; path = "Target Support Files/Pods-QuickCamLiteApp/Pods-QuickCamLiteApp.alpha.xcconfig"; sourceTree = "<group>"; };
 		57A10355C626D6C43538435D /* Pods-ViralvidsLite.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ViralvidsLite.release.xcconfig"; path = "Target Support Files/Pods-ViralvidsLite/Pods-ViralvidsLite.release.xcconfig"; sourceTree = "<group>"; };
+		6108377427291EE8001292C5 /* R.boomicam.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.boomicam.generated.swift; sourceTree = "<group>"; };
 		62636FFF70BD9B0FFEEAE899 /* Pods_Pic2ArtShare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pic2ArtShare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		63766CD8E1412A0DBDCEAF0B /* Pods_SocialScreenRecorder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SocialScreenRecorder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6416D83BF0692B253BC31A73 /* Pods-SocialCAM.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialCAM.debug.xcconfig"; path = "Target Support Files/Pods-SocialCAM/Pods-SocialCAM.debug.xcconfig"; sourceTree = "<group>"; };
@@ -15736,7 +15738,6 @@
 		8280E63A25136F6500BF5A1A /* R.mediaShared.generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = R.mediaShared.generated.swift; sourceTree = "<group>"; };
 		8280E63B25136F6600BF5A1A /* R.speedcam.generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = R.speedcam.generated.swift; sourceTree = "<group>"; };
 		8280E63C25136F6600BF5A1A /* R.timespeed.generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = R.timespeed.generated.swift; sourceTree = "<group>"; };
-		8280E63E25136F6800BF5A1A /* R.boomicam.generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = R.boomicam.generated.swift; sourceTree = "<group>"; };
 		8280E63F25136F6900BF5A1A /* R.pic2art.generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = R.pic2art.generated.swift; sourceTree = "<group>"; };
 		8280E64025136F6A00BF5A1A /* R.fastcam.generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = R.fastcam.generated.swift; sourceTree = "<group>"; };
 		8280E64225136F6B00BF5A1A /* R.quickcam.generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = R.quickcam.generated.swift; sourceTree = "<group>"; };
@@ -18178,11 +18179,11 @@
 			isa = PBXGroup;
 			children = (
 				F6DE9F8D2521A23900815673 /* R.viralcam.generated.swift */,
+				6108377427291EE8001292C5 /* R.boomicam.generated.swift */,
 				F6DE9F912521A50A00815673 /* R.viralvidslite.generated.swift */,
 				F6B76C84251DE6B9007EBA98 /* R.fastcam.generated.swift */,
 				F63E1BDC251B3E8600558591 /* R.speedcamlite.generated.swift */,
 				F68DEE40251A3993009B699C /* R.pic2artshare.generated.swift */,
-				8280E63E25136F6800BF5A1A /* R.boomicam.generated.swift */,
 				8280E64025136F6A00BF5A1A /* R.fastcam.generated.swift */,
 				8280E64925136F7100BF5A1A /* R.futbolcam.generated.swift */,
 				8219D5C12547E07E00614F1A /* R.socialcam.generated.swift */,
@@ -28693,6 +28694,7 @@
 			files = (
 				822ABF73259C754400323EBD /* R.quickCamLiteExtension.generated.swift in Sources */,
 				822ABF1E259C74DC00323EBD /* FileSystem.swift in Sources */,
+				6108377627291EEB001292C5 /* R.boomicam.generated.swift in Sources */,
 				82E4D677259B465E005B41C1 /* SampleHandler.swift in Sources */,
 				822ABF3A259C74F400323EBD /* ConstantClass.swift in Sources */,
 			);
@@ -32293,6 +32295,7 @@
 				F6B9F1B2250768E700AF974A /* CalculatorViewController.swift in Sources */,
 				95A2E8472490FE8E00226181 /* StorySettingsHeaderCell.swift in Sources */,
 				95A2E8482490FE8E00226181 /* Date.swift in Sources */,
+				6108377527291EEB001292C5 /* R.boomicam.generated.swift in Sources */,
 				82610BF6253882A4004BC4F0 /* VideoExportHelper.swift in Sources */,
 				95A2E8492490FE8E00226181 /* VIExportSession.swift in Sources */,
 				95A2E84A2490FE8E00226181 /* BlurredMosaicView.swift in Sources */,
@@ -32311,7 +32314,6 @@
 				95A2E8532490FE8E00226181 /* InstagramManager.swift in Sources */,
 				95A2E8542490FE8E00226181 /* DrawnPathInRect.swift in Sources */,
 				95A2E8552490FE8E00226181 /* ReactionButton.swift in Sources */,
-				8280E64F2513710600BF5A1A /* R.boomicam.generated.swift in Sources */,
 				95A2E8562490FE8E00226181 /* YouTubeViewController.swift in Sources */,
 				95A2E8572490FE8E00226181 /* AssetVideoScrollView.swift in Sources */,
 				C233C81D26D7667F007BB90E /* UserSyncModels.swift in Sources */,

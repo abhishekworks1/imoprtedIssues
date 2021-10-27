@@ -202,6 +202,17 @@ extension InstaSlider: UICollectionViewDataSource, UICollectionViewDelegate, UIC
         kCell.layer.shouldRasterize = true
         kCell.layer.rasterizationScale = UIScreen.main.scale
         
+        if self.stringArray[indexPath.item].recordingType != CameraMode.basicCamera{
+            if Defaults.shared.appMode == .free{
+                kCell.imageView.isHidden = false
+                kCell.imageView.image = R.image.ic_lock()
+            }else{
+                kCell.imageView.isHidden = true
+            }
+        }
+        
+        
+        
         if(self.selectedCell != nil) {
             if(indexPath.item == self.selectedCell) {
                 kCell.label.textColor = selectedCellTextColor
@@ -246,6 +257,13 @@ class CollectionViewCustomCell: UICollectionViewCell {
         return label
     }()
     
+    let imageView: UIImageView = {
+        let imegeView = UIImageView()
+        imegeView.backgroundColor = .clear
+        imegeView.translatesAutoresizingMaskIntoConstraints = false
+        return imegeView
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         addViews()
@@ -255,10 +273,20 @@ class CollectionViewCustomCell: UICollectionViewCell {
         backgroundColor = UIColor.clear
         addSubview(label)
         
-        label.leftAnchor.constraint(equalTo: leftAnchor, constant: 0).isActive = true
+        
+     // label.leftAnchor.constraint(equalTo: leftAnchor, constant: 0).isActive = true
+      //label.rightAnchor.constraint(equalTo: rightAnchor, constant: 0).isActive = true
         label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0).isActive = true
         label.topAnchor.constraint(equalTo: topAnchor, constant: 0).isActive = true
-        label.rightAnchor.constraint(equalTo: rightAnchor, constant: 0).isActive = true
+        label.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 0).isActive = true
+        
+        if isBoomiCamApp{
+            addSubview(imageView)
+            imageView.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 0).isActive = true
+            imageView.leftAnchor.constraint(equalTo: label.rightAnchor, constant: 2).isActive = true
+            imageView.heightAnchor.constraint(equalToConstant: 20.0).isActive = true
+            imageView.widthAnchor.constraint(equalToConstant: 20.0).isActive = true
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

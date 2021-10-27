@@ -1188,20 +1188,21 @@ extension StoryCameraViewController {
             self.refreshCircularProgressBar()
             switch Defaults.shared.cameraMode {
             case .boomerang:
-                if isBoomiCamApp && Defaults.shared.appMode == .free {
+                self.circularProgress.centerImage = R.image.icoBoomrang()
+                self.timerValueView.isHidden = true
+                if self.timerValue > 0 {
+                    self.timerValue = 0
+                    self.resetCountDown()
+                }
+                if self.photoTimerValue > 0 {
+                    self.photoTimerValue = 0
+                    self.resetPhotoCountDown()
+                }
+              /*  if isBoomiCamApp && Defaults.shared.appMode == .free {
                     self.showAlertForUpgradeSubscription()
                 }else{
-                    self.circularProgress.centerImage = R.image.icoBoomrang()
-                    self.timerValueView.isHidden = true
-                    if self.timerValue > 0 {
-                        self.timerValue = 0
-                        self.resetCountDown()
-                    }
-                    if self.photoTimerValue > 0 {
-                        self.photoTimerValue = 0
-                        self.resetPhotoCountDown()
-                    }
-                }
+                   
+                } */
             case .slideshow:
                 self.circularProgress.centerImage = R.image.icoSildeshowMode()
                 self.timerValueView.isHidden = true
@@ -1224,7 +1225,9 @@ extension StoryCameraViewController {
                 if isQuickApp && Defaults.shared.appMode == .free {
                     self.showAlertForUpgradeSubscription()
                 }else if isBoomiCamApp && Defaults.shared.appMode == .free {
-                    self.showAlertForUpgradeSubscription()
+                   // self.showAlertForUpgradeSubscription()
+                    self.circularProgress.centerImage = R.image.capture_mode()
+                    self.timerValueView.isHidden = true
                 }
                 self.circularProgress.centerImage = R.image.capture_mode()
                 self.timerValueView.isHidden = true
@@ -1242,7 +1245,18 @@ extension StoryCameraViewController {
                 if isQuickApp && Defaults.shared.appMode == .free {
                     self.showAlertForUpgradeSubscription()
                 }else if isBoomiCamApp && Defaults.shared.appMode == .free {
-                    self.showAlertForUpgradeSubscription()
+                   // self.showAlertForUpgradeSubscription()
+                    if let isPic2ArtShowed = Defaults.shared.isPic2ArtShowed {
+                        if isPic2ArtShowed {
+                            self.cameraModeCell = 3
+                            Defaults.shared.isPic2ArtShowed = false
+                            if let tooltipViewController = R.storyboard.loginViewController.tooltipViewController() {
+                                tooltipViewController.pushFromSettingScreen = true
+                                tooltipViewController.isPic2ArtGif = true
+                                self.navigationController?.pushViewController(tooltipViewController, animated: true)
+                            }
+                        }
+                    }
                 } else {
                     if let isPic2ArtShowed = Defaults.shared.isPic2ArtShowed {
                         if isPic2ArtShowed {
