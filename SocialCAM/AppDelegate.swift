@@ -238,6 +238,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let user = Defaults.shared.currentUser,
            let _ = Defaults.shared.sessionToken,
            let channelId = user.channelId,
+           user.refferingChannel != nil,
            channelId.count > 0 {
             InternetConnectionAlert.shared.internetConnectionHandler = { reachability in
                 if reachability.connection != .none {
@@ -261,7 +262,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #else
         Defaults.shared.cameraMode = .normal
         #endif
-        let revealingSplashView = RevealingSplashView(iconImage: Constant.Application.appIcon, iconInitialSize: isLiteApp ? CGSize(width: 250, height: 250) : Constant.Application.appIcon.size, backgroundImage: Constant.Application.splashBG)
+        let revealingSplashView = RevealingSplashView(iconImage: Constant.Application.appIcon, iconInitialSize: isLiteApp ? CGSize(width: 50, height: 50) : Constant.Application.appIcon.size, backgroundImage: Constant.Application.splashBG)
         revealingSplashView.duration = 2.0
         revealingSplashView.iconColor = UIColor.red
         revealingSplashView.useCustomIconColor = false
@@ -487,6 +488,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Defaults.shared.currentUser = response.result?.user
         Defaults.shared.isRegistered = response.result?.isRegistered
         Defaults.shared.isPic2ArtShowed = response.result?.isRegistered
+        Defaults.shared.isFirstTimePic2ArtRegistered = response.result?.isRegistered
+        Defaults.shared.isFirstVideoRegistered = response.result?.isRegistered
         Defaults.shared.isFromSignup = response.result?.isRegistered
         Defaults.shared.userCreatedDate = response.result?.user?.created
         CurrentUser.shared.setActiveUser(response.result?.user)

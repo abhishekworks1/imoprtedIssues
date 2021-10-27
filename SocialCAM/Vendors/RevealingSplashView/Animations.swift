@@ -209,12 +209,12 @@ public extension RevealingSplashView {
             
             animateLayer({
                 let animation = CAKeyframeAnimation(keyPath: "transform.scale")
-                animation.values = [0, 0, 0, 0, 0]
+                animation.values = [0, 0.4, 0.8, 1.2, 1.6, 2.0]
                 animation.keyTimes = [0, 0.2, 0.4, 0.6, 0.8, 1]
                 animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-                animation.duration = CFTimeInterval(self.duration/2)
+                animation.duration = CFTimeInterval(2)
                 animation.isAdditive = true
-                animation.repeatCount = 2
+                animation.repeatCount = 1
                 animation.beginTime = CACurrentMediaTime() + CFTimeInterval(self.delay/2)
                 imageView.layer.add(animation, forKey: "pop")
             }, completion: {
