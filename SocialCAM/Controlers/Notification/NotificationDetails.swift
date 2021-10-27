@@ -38,6 +38,10 @@ class NotificationDetails: UIViewController {
         if selectedIndex == self.postsCount - 1 {
             self.changeImageColor(image: R.image.rightNextDirectionIcon() ?? UIImage(), btn: btnNext, isImageChange: true)
         }
+        if self.postsCount == 1 {
+            self.changeImageColor(image: R.image.rightBackDirectionIcon() ?? UIImage(), btn: btnPreviews, isImageChange: true)
+            self.changeImageColor(image: R.image.rightNextDirectionIcon() ?? UIImage(), btn: btnNext, isImageChange: true)
+        }
         collectionView.isPagingEnabled = true
         collectionView.collectionViewLayout = gridLayout
         collectionView.reloadData()
@@ -88,11 +92,10 @@ class NotificationDetails: UIViewController {
             let tintedImage = image.withRenderingMode(.alwaysTemplate)
             btn.setImage(tintedImage, for: .normal)
             btn.tintColor = .gray
-            btn.isUserInteractionEnabled = false
         } else {
             btn.setImage(image, for: .normal)
-            btn.isUserInteractionEnabled = true
         }
+        btn.isUserInteractionEnabled = !isImageChange
     }
     
     // MARK: - IBActions
@@ -235,11 +238,16 @@ extension NotificationDetails: UICollectionViewDataSource {
     }
 }
 
-
-
 // MARK: - CollectionView Delegate
 extension NotificationDetails: UICollectionViewDelegate {
 
+}
+
+// MARK: - CollectionView Delegate FlowLayout
+extension NotificationDetails: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return collectionView.frame.size
+    }
 }
 
 extension UIButton {

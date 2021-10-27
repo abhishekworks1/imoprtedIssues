@@ -41,6 +41,8 @@ class UserNotification: Mappable{
     var publicDisplayName: String?
     var privateDisplayName: String?
     var isFollowing: Bool?
+    var iosTitle: String?
+    var iosBody: String?
     
     class func newInstance(map: Map) -> Mappable?{
         return UserNotification(map: map)
@@ -65,6 +67,8 @@ class UserNotification: Mappable{
         publicDisplayName <- map["publicDisplayName"]
         privateDisplayName <- map["privateDisplayName"]
         isFollowing <- map["isFollowing"]
+        iosTitle <- map["ios_title"]
+        iosBody <- map["ios_body"]
     }
 
     /**
@@ -86,6 +90,8 @@ class UserNotification: Mappable{
         refereeUserId = aDecoder.decodeObject(forKey: "refereeUserId") as? RefereeUserId
          title = aDecoder.decodeObject(forKey: "title") as? String
          updatedAt = aDecoder.decodeObject(forKey: "updatedAt") as? String
+        iosTitle = aDecoder.decodeObject(forKey: "ios_title") as? String
+        iosBody = aDecoder.decodeObject(forKey: "ios_body") as? String
 
     }
 
@@ -134,7 +140,12 @@ class UserNotification: Mappable{
         if updatedAt != nil{
             aCoder.encodeConditionalObject(updatedAt, forKey: "updatedAt")
         }
-
+        if  iosTitle  != nil{
+            aCoder.encodeConditionalObject(updatedAt, forKey: "ios_title")
+        }
+        if  iosBody  != nil{
+            aCoder.encodeConditionalObject(updatedAt, forKey: "ios_body")
+        }
     }
 
 }
@@ -145,7 +156,7 @@ class RefereeUserId : NSObject, NSCoding, Mappable{
     var channelId : String?
     var created : String?
     var profileImageURL : String?
-    var socialPlatforms : [AnyObject]?
+    var socialPlatforms : [String]?
     var isShowFlags: Bool?
     var userStateFlags: [UserCountry]?
 
@@ -175,7 +186,7 @@ class RefereeUserId : NSObject, NSCoding, Mappable{
          channelId = aDecoder.decodeObject(forKey: "channelId") as? String
          created = aDecoder.decodeObject(forKey: "created") as? String
          profileImageURL = aDecoder.decodeObject(forKey: "profileImageURL") as? String
-         socialPlatforms = aDecoder.decodeObject(forKey: "socialPlatforms") as? [AnyObject]
+        socialPlatforms = aDecoder.decodeObject(forKey: "socialPlatforms") as? [String]
 
     }
 

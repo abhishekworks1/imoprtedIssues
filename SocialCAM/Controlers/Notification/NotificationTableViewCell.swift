@@ -19,7 +19,7 @@ class NotificationTableViewCell: UITableViewCell {
     var notification: UserNotification? {
         didSet {
             if let notification = self.notification {
-                self.lblName?.text = notification.title
+                self.lblName?.text = notification.iosTitle ?? notification.title
                 if let date = notification.createdAt {
                     self.lblTime?.text = date.fromUTCToLocalDateTime().timeAgoSinceDate(numericDates: true)
                 }

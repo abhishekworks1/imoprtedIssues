@@ -164,7 +164,7 @@ class UserDetailsVC: UIViewController {
             }
         }
         self.getVerifiedSocialPlatforms()
-        if let createdDate = notification?.createdAt {
+        if let createdDate = notification?.refereeUserId?.created {
             self.lblJoiningDate.text = R.string.localizable.sinceJoined(convertDate(createdDate))
         } else {
             if let referredUserCreatedDate = Defaults.shared.referredUserCreatedDate {
