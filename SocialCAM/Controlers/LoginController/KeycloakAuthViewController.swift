@@ -198,9 +198,8 @@ extension KeycloakAuthViewController {
         #if PIC2ARTAPP || TIMESPEEDAPP || BOOMICAMAPP
         Utils.appDelegate?.window?.rootViewController = R.storyboard.pageViewController.pageViewController()
         #else
-        let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
         if isRefferencingChannelEmpty {
-            guard let keycloakURL = URL(string: "\(websiteUrl)/referral/\(channelId)?redirect_uri=\(redirectUri)") else {
+            guard let sessioToken = Defaults.shared.sessionToken, let keycloakURL = URL(string: "\(websiteUrl)\(Paths.onboarding)\(sessioToken)\(Paths.redirect_uri)\(redirectUri)") else {
                 return
             }
             let urlRequest = URLRequest(url: keycloakURL)
@@ -209,6 +208,7 @@ extension KeycloakAuthViewController {
             if let isShow = Defaults.shared.currentUser?.isDoNotShowMsg, !isShow && Defaults.shared.currentUser?.profileImageURL == "" {
                 self.hideShowTooltipView(shouldShow: true)
             } else {
+                let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
                 Utils.appDelegate?.window?.rootViewController = rootViewController
             }
         }

@@ -1108,6 +1108,8 @@ public struct Paths {
     static let editDisplayName = "user/editDisplayName"
     static let setFollow = "user/follow"
     static let setUnFollow = "user/unfollow"
+    static let onboarding = "/onboarding?token="
+    static let redirect_uri = "&redirect_uri="
 }
 
 struct WebsiteData {
