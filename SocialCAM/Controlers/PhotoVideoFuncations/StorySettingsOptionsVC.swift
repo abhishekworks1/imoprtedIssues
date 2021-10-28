@@ -127,6 +127,7 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
         if settingTitle.settingsType == .faceDetection {
             cell.onOffButton.isSelected = Defaults.shared.enableFaceDetection
             cell.imgSettingsIcon.image = R.image.iconFaceDetection()
+            cell.onOffButton.alpha = cell.onOffButton.isSelected ? 1 : 0.5
         } else if settingTitle.settingsType == .guildlines {
             cell.onOffButton.isSelected = Defaults.shared.enableGuildlines
             cell.imgSettingsIcon.isHidden = true

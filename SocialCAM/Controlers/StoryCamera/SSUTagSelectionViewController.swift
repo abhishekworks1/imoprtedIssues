@@ -36,6 +36,7 @@ enum SSUTagType {
     case businessCenter
     case enterLink
     case noLink
+    case profilePicture
 }
 
 enum SSUWaitingListOptionType {
