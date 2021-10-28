@@ -353,16 +353,25 @@ class StoryEditorViewController: UIViewController {
         }
         self.dragAndDropManager = DragAndDropManager(canvas: self.view,
                                                      collectionViews: collectionViews)
-        if Defaults.shared.isVideoSavedAfterRecording == true && !isFromGallery {
+        if Defaults.shared.isVideoSavedAfterRecording {
             if cameraMode == .pic2Art {
                 lblVideoSaveText.text = R.string.localizable.yourPic2ArtIsAutomaticallySavedYouCanTurnOffAutoSavingInTheCameraSettings()
-            }
-            if !Defaults.shared.isVideoSavedAfterRecordingFirstTime {
-                self.hideSaveVideoPopupView(isHide: false)
-                Defaults.shared.isVideoSavedAfterRecordingFirstTime = true
             } else {
-                DispatchQueue.main.async {
-                    self.view.makeToast(R.string.localizable.videoSaved())
+                lblVideoSaveText.text = R.string.localizable.yourVideoWasAutomaticallySavedYouCanTurnOffAutoSavingInTheCameraSettings()
+            }
+            if let isRegistered = Defaults.shared.isFirstVideoRegistered, cameraMode != .pic2Art {
+                if isRegistered {
+                    Defaults.shared.isFirstVideoRegistered = false
+                    self.hideSaveVideoPopupView(isHide: false)
+                } else {
+                    DispatchQueue.main.async {
+                        self.view.makeToast(R.string.localizable.videoSaved())
+                    }
+                }
+            } else if let isRegistered = Defaults.shared.isFirstTimePic2ArtRegistered, cameraMode == .pic2Art {
+                if isRegistered {
+                    Defaults.shared.isFirstTimePic2ArtRegistered = false
+                    self.hideSaveVideoPopupView(isHide: false)
                 }
             }
         }

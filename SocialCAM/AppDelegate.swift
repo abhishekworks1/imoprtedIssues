@@ -238,6 +238,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let user = Defaults.shared.currentUser,
            let _ = Defaults.shared.sessionToken,
            let channelId = user.channelId,
+           user.refferingChannel != nil,
            channelId.count > 0 {
             InternetConnectionAlert.shared.internetConnectionHandler = { reachability in
                 if reachability.connection != .none {
@@ -475,6 +476,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Defaults.shared.currentUser = response.result?.user
         Defaults.shared.isRegistered = response.result?.isRegistered
         Defaults.shared.isPic2ArtShowed = response.result?.isRegistered
+        Defaults.shared.isFirstTimePic2ArtRegistered = response.result?.isRegistered
+        Defaults.shared.isFirstVideoRegistered = response.result?.isRegistered
         Defaults.shared.isFromSignup = response.result?.isRegistered
         Defaults.shared.userCreatedDate = response.result?.user?.created
         CurrentUser.shared.setActiveUser(response.result?.user)

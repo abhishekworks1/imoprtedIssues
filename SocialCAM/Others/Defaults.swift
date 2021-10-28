@@ -755,6 +755,24 @@ class Defaults {
         }
     }
     
+    var isFirstTimePic2ArtRegistered: Bool? {
+        get {
+            return appDefaults?.value(forKey: "isFirstTimePic2ArtRegistered") as? Bool ?? true
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isFirstTimePic2ArtRegistered")
+        }
+    }
+    
+    var isFirstVideoRegistered: Bool? {
+        get {
+            return appDefaults?.value(forKey: "isFirstVideoRegistered") as? Bool ?? true
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isFirstVideoRegistered")
+        }
+    }
+    
     var isSurveyAlertShowed: Bool {
         get {
             return appDefaults?.value(forKey: "isSurveyAlertShowed") as? Bool ?? false
