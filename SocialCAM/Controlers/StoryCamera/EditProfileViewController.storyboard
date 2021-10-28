@@ -309,22 +309,22 @@
                                                 </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="EPY-di-HyD" userLabel="Flags Stack View">
-                                                <rect key="frame" x="167" y="586" width="80" height="74"/>
+                                                <rect key="frame" x="25" y="586" width="364" height="74"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ugd-Lq-yRf">
-                                                        <rect key="frame" x="0.0" y="0.5" width="80" height="73.5"/>
+                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ugd-Lq-yRf">
+                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="73.5"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="flag_ai" translatesAutoresizingMaskIntoConstraints="NO" id="RLz-EF-dUv">
-                                                                <rect key="frame" x="0.0" y="0.0" width="80" height="30"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="30"/>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Labelujn  hn  gh hg" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="xqx-vD-IIy">
-                                                                <rect key="frame" x="0.0" y="35" width="80" height="38.5"/>
+                                                                <rect key="frame" x="0.0" y="35" width="0.0" height="38.5"/>
                                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MAe-6g-LcP">
-                                                                <rect key="frame" x="0.0" y="0.0" width="80" height="73.5"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="73.5"/>
                                                                 <connections>
                                                                     <action selector="btnFlagSelectionsTapped:" destination="k7D-XT-pBV" eventType="touchUpInside" id="5eZ-m2-JFA"/>
                                                                 </connections>
@@ -869,10 +869,10 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="177-q5-fGs">
-                                                <rect key="frame" x="25" y="66" width="281" height="30"/>
+                                                <rect key="frame" x="25" y="66.5" width="281" height="30"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xT7-57-0TG">
-                                                        <rect key="frame" x="50" y="0.0" width="181" height="30"/>
+                                                        <rect key="frame" x="44.5" y="0.0" width="192.5" height="30"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gFI-xo-hLL">
                                                                 <rect key="frame" x="0.0" y="0.0" width="20" height="30"/>
@@ -1606,7 +1606,7 @@
                                                 <rect key="frame" x="10" y="160.5" width="394" height="80"/>
                                                 <subviews>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Checkout this cool new app" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="uLX-pa-jOW">
-                                                        <rect key="frame" x="5" y="5" width="316" height="70"/>
+                                                        <rect key="frame" x="5" y="5" width="316" height="110"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <color key="textColor" name="shareScreenTitleColor"/>
                                                         <fontDescription key="fontDescription" name="SFUIText-Bold" family="SF UI Text" pointSize="14"/>
