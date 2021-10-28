@@ -41,16 +41,16 @@ class PatentsViewController: UIViewController {
     
     func saveToFiles() {
         if let pdfUrl = Bundle.main.url(forResource: "patents", withExtension: "pdf", subdirectory: nil, localization: nil) {
-            let tempURL = FileManager.default.temporaryDirectory.appendingPathComponent("patents.pdf")
+            let baseUrl = FileManager.default.temporaryDirectory.appendingPathComponent("patents.pdf")
             do {
                 let data = try Data(contentsOf: pdfUrl)
-                try data.write(to: tempURL)
+                try data.write(to: baseUrl)
                 if #available(iOS 14.0, *) {
-                    let controller = UIDocumentPickerViewController(forExporting: [tempURL])
+                    let controller = UIDocumentPickerViewController(forExporting: [baseUrl])
                     controller.delegate = self
                     present(controller, animated: true, completion: nil)
                 } else {
-                    let controller = UIDocumentPickerViewController(url: tempURL, in: .exportToService)
+                    let controller = UIDocumentPickerViewController(url: baseUrl, in: .exportToService)
                     present(controller, animated: true, completion: nil)
                 }
             } catch {
@@ -62,6 +62,6 @@ class PatentsViewController: UIViewController {
 
 extension PatentsViewController: UIDocumentPickerDelegate {
     func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
-        Utils.appDelegate?.window?.makeToast("File is not saved")
+        Utils.appDelegate?.window?.makeToast(R.string.localizable.patentPopup())
     }
 }

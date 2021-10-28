@@ -33,9 +33,10 @@ class UserDetailsVC: UIViewController {
     @IBOutlet var lblCountrys: [UILabel]!
     @IBOutlet var imgCountrys: [UIImageView]!
     @IBOutlet weak var lblDisplayName: UILabel!
-    var notificationUpdateHandler : ((_ notification: UserNotification?) -> Void)?
     @IBOutlet weak var socialBadgeViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var socialMediaVerifiedBadgeView: UIView!
+    
+    var notificationUpdateHandler: ((_ notification: UserNotification?) -> Void)?
     var notification: UserNotification?
     
     var customBlurEffectStyle: UIBlurEffect.Style = .dark
@@ -62,87 +63,86 @@ class UserDetailsVC: UIViewController {
     
     
     func setBtnFollow(isFollowing: Bool) {
-        if isFollowing {
-            btnFollow.backgroundColor = ApplicationSettings.appPrimaryColor
-            btnFollow.setTitleColor(ApplicationSettings.appWhiteColor, for: .normal)
-            btnFollow.setTitle(R.string.localizable.following(), for: .normal)
-        } else {
-            btnFollow.backgroundColor = ApplicationSettings.appPrimaryColor
-            btnFollow.setTitleColor(ApplicationSettings.appWhiteColor, for: .normal)
-            btnFollow.setTitle(R.string.localizable.follow(), for: .normal)
-        }
+        btnFollow.backgroundColor = ApplicationSettings.appPrimaryColor
+        btnFollow.setTitleColor(ApplicationSettings.appWhiteColor, for: .normal)
+        btnFollow.setTitle(isFollowing ? R.string.localizable.following() : R.string.localizable.follow(), for: .normal)
+    }
+    
+    func userFollowing(_ userId: String) {
+        ProManagerApi.setFollow(userId: userId).request(Result<NotificationResult>.self).subscribe(onNext: { [weak self] response in
+            guard let `self` = self else {
+                return
+            }
+            self.setBtnFollow(isFollowing: true)
+            self.dismissHUD()
+            if response.status == ResponseType.success {
+                if let _ = self.notification {
+                    self.notification?.isFollowing = true
+                    if let handler = self.notificationUpdateHandler {
+                        handler(self.notification)
+                    }
+                } else {
+                    let currentUser = Defaults.shared.currentUser
+                    currentUser?.refferedBy?.isFollowing = true
+                    Defaults.shared.currentUser = currentUser
+                }
+            } else {
+                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+            }
+        }, onError: { [weak self] error in
+            guard let `self` = self else { return }
+            self.showAlert(alertMessage: error.localizedDescription)
+            self.dismissHUD()
+        }, onCompleted: {
+        }).disposed(by: rx.disposeBag)
+    }
+    
+    func userUnFollowing(_ userId: String) {
+        ProManagerApi.setUnFollow(userId: userId).request(Result<NotificationResult>.self).subscribe(onNext: { [weak self] response in
+            guard let `self` = self else {
+                return
+            }
+            self.setBtnFollow(isFollowing: false)
+            self.dismissHUD()
+            if response.status == ResponseType.success {
+                if let _ = self.notification {
+                    self.notification?.isFollowing = false
+                    if let handler = self.notificationUpdateHandler {
+                        handler(self.notification)
+                    }
+                } else {
+                    let currentUser = Defaults.shared.currentUser
+                    currentUser?.refferedBy?.isFollowing = false
+                    Defaults.shared.currentUser = currentUser
+                }
+            } else {
+                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+            }
+        }, onError: { [weak self] error in
+            guard let `self` = self else { return }
+            self.showAlert(alertMessage: error.localizedDescription)
+            self.dismissHUD()
+        }, onCompleted: {
+        }).disposed(by: rx.disposeBag)
     }
     
     @IBAction func followButtonTapped(_ sender: UIButton) {
-        if let notification = notification, let userId = notification.refereeUserId?.id {
+        if let notification = self.notification, let userId = notification.refereeUserId?.id {
             self.showHUD()
             if let following = notification.isFollowing, !following {
-                ProManagerApi.setFollow(userId: userId).request(Result<NotificationResult>.self).subscribe(onNext: { (response) in
-                    print(response)
-                    self.setBtnFollow(isFollowing: true)
-                    self.dismissHUD()
-                    if response.status == ResponseType.success {
-                        self.notification?.isFollowing = true
-                        if let handler = self.notificationUpdateHandler {
-                            handler(self.notification)
-                        }
-                    } else {
-                        self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
-                    }
-                }, onError: { error in
-                }, onCompleted: {
-                }).disposed(by: rx.disposeBag)
+                self.userFollowing(userId)
             } else {
-                ProManagerApi.setUnFollow(userId: userId).request(Result<NotificationResult>.self).subscribe(onNext: { (response) in
-                    print(response)
-                    self.setBtnFollow(isFollowing: false)
-                    self.dismissHUD()
-                    if response.status == ResponseType.success {
-                        self.notification?.isFollowing = false
-                        if let handler = self.notificationUpdateHandler {
-                            handler(self.notification)
-                        }
-                    } else {
-                        self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
-                    }
-                }, onError: { error in
-                }, onCompleted: {
-                }).disposed(by: rx.disposeBag)
+                self.userUnFollowing(userId)
             }
         } else {
             if let userId = Defaults.shared.currentUser?.refferedBy?.id {
                 self.showHUD()
                 if let isFollowing = Defaults.shared.currentUser?.refferedBy?.isFollowing, !isFollowing {
-                    ProManagerApi.setFollow(userId: userId).request(Result<NotificationResult>.self).subscribe(onNext: { (response) in
-                        self.setBtnFollow(isFollowing: true)
-                        self.dismissHUD()
-                        if response.status == ResponseType.success {
-                            let currentUser = Defaults.shared.currentUser
-                            currentUser?.refferedBy?.isFollowing = true
-                            Defaults.shared.currentUser = currentUser
-                        } else {
-                            self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
-                        }
-                    }, onError: { error in
-                    }, onCompleted: {
-                    }).disposed(by: rx.disposeBag)
+                    self.userFollowing(userId)
                 } else {
-                    ProManagerApi.setUnFollow(userId: userId).request(Result<NotificationResult>.self).subscribe(onNext: { (response) in
-                        self.setBtnFollow(isFollowing: false)
-                        self.dismissHUD()
-                        if response.status == ResponseType.success {
-                            let currentUser = Defaults.shared.currentUser
-                            currentUser?.refferedBy?.isFollowing = false
-                            Defaults.shared.currentUser = currentUser
-                        } else {
-                            self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
-                        }
-                    }, onError: { error in
-                    }, onCompleted: {
-                    }).disposed(by: rx.disposeBag)
+                    self.userUnFollowing(userId)
                 }
             }
-            
         }
     }
 
@@ -221,8 +221,8 @@ class UserDetailsVC: UIViewController {
     
     func getVerifiedSocialPlatforms() {
         if let notification = notification {
-            if let socialPlatforms = notification.refereeUserId?.socialPlatforms, socialPlatforms.count > 0 {
-                socialPlatFormSettings(socialPlatforms as! [String])
+            if let socialPlatforms: [String] = notification.refereeUserId?.socialPlatforms as? [String], socialPlatforms.count > 0 {
+                socialPlatFormSettings(socialPlatforms)
             } else {
                 verifiedStackView.isHidden = true
             }

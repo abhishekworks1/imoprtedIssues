@@ -1,5 +1,5 @@
 //
-//  NotificationDetails.swift
+//  NotificationDetailsVC.swift
 //  SocialCAM
 //
 //  Created by Viraj Patel on 07/10/21.
@@ -8,12 +8,12 @@
 
 import AVKit
 
-class NotificationDetails: UIViewController {
+class NotificationDetailsVC: UIViewController {
 
     // MARK: - IBOutlets
     
     @IBOutlet weak var btnNext: UIButton!
-    @IBOutlet weak var btnPreviews: UIButton!
+    @IBOutlet weak var btnPrevious: UIButton!
     var notificationArray: [UserNotification] = []
     var selectedIndex = 0
     var notification: UserNotification?
@@ -33,20 +33,23 @@ class NotificationDetails: UIViewController {
             self.selectedIndex = index
         }
         if selectedIndex == 0 {
-            self.changeImageColor(image: R.image.rightBackDirectionIcon() ?? UIImage(), btn: btnPreviews, isImageChange: true)
+            self.changeImageColor(image: R.image.rightBackDirectionIcon() ?? UIImage(), btn: btnPrevious, isImageChange: true)
         }
         if selectedIndex == self.postsCount - 1 {
             self.changeImageColor(image: R.image.rightNextDirectionIcon() ?? UIImage(), btn: btnNext, isImageChange: true)
         }
         if self.postsCount == 1 {
-            self.changeImageColor(image: R.image.rightBackDirectionIcon() ?? UIImage(), btn: btnPreviews, isImageChange: true)
+            self.changeImageColor(image: R.image.rightBackDirectionIcon() ?? UIImage(), btn: btnPrevious, isImageChange: true)
             self.changeImageColor(image: R.image.rightNextDirectionIcon() ?? UIImage(), btn: btnNext, isImageChange: true)
         }
         collectionView.isPagingEnabled = true
         collectionView.collectionViewLayout = gridLayout
         collectionView.reloadData()
         collectionView.showsHorizontalScrollIndicator = false
-        DispatchQueue.runOnMainThread {
+        DispatchQueue.runOnMainThread { [weak self]  in
+            guard let `self` = self else {
+                return
+            }
             self.collectionView.isPagingEnabled = false
             self.collectionView.scrollToItem(at: IndexPath(item: self.selectedIndex, section: 0), at: UICollectionView.ScrollPosition.right, animated: false)
             self.collectionView.isPagingEnabled = true
@@ -54,15 +57,14 @@ class NotificationDetails: UIViewController {
     }
     
     func scrollToNextCell() {
-        if self.collectionView.visibleCurrentCellIndexPath?.row != (self.notificationArray.count - 1) {
-            if self.collectionView.visibleCurrentCellIndexPath?.row == self.notificationArray.count - 2 {
+        if self.collectionView.visibleCurrentCellIndexPath?.row != (self.notificationArray.count - 1), let indexPath = self.collectionView.visibleCurrentCellIndexPath {
+            if indexPath.row == self.notificationArray.count - 2 {
                 self.changeImageColor(image: R.image.rightNextDirectionIcon() ?? UIImage(), btn: btnNext, isImageChange: true)
             } else {
                 self.changeImageColor(image: R.image.rightNextDirectionIcon() ?? UIImage(), btn: btnNext, isImageChange: false)
-                self.changeImageColor(image: R.image.rightBackDirectionIcon() ?? UIImage(), btn: btnPreviews, isImageChange: false)
+                self.changeImageColor(image: R.image.rightBackDirectionIcon() ?? UIImage(), btn: btnPrevious, isImageChange: false)
             }
-            print(self.collectionView.visibleCurrentCellIndexPath!.row)
-            let notificationIndex: Int = self.collectionView.visibleCurrentCellIndexPath!.row + 1
+            let notificationIndex: Int = indexPath.row + 1
             self.notificationUnread(self.notificationArray[notificationIndex])
             self.collectionView.isPagingEnabled = false
             self.collectionView.scrollToItem(at: IndexPath(row: notificationIndex, section: 0), at: UICollectionView.ScrollPosition.right, animated: true)
@@ -71,15 +73,14 @@ class NotificationDetails: UIViewController {
     }
 
     func scrollToPreviousCell() {
-        if self.collectionView.visibleCurrentCellIndexPath?.row != 0 {
-            if self.collectionView.visibleCurrentCellIndexPath?.row == 1 {
-                self.changeImageColor(image: R.image.rightBackDirectionIcon() ?? UIImage(), btn: btnPreviews, isImageChange: true)
+        if self.collectionView.visibleCurrentCellIndexPath?.row != 0, let indexPath = self.collectionView.visibleCurrentCellIndexPath {
+            if indexPath.row == 1 {
+                self.changeImageColor(image: R.image.rightBackDirectionIcon() ?? UIImage(), btn: btnPrevious, isImageChange: true)
             } else {
                 self.changeImageColor(image: R.image.rightNextDirectionIcon() ?? UIImage(), btn: btnNext, isImageChange: false)
-                self.changeImageColor(image: R.image.rightBackDirectionIcon() ?? UIImage(), btn: btnPreviews, isImageChange: false)
+                self.changeImageColor(image: R.image.rightBackDirectionIcon() ?? UIImage(), btn: btnPrevious, isImageChange: false)
             }
-            print(self.collectionView.visibleCurrentCellIndexPath!.row)
-            let notificationIndex: Int = self.collectionView.visibleCurrentCellIndexPath!.row - 1
+            let notificationIndex: Int = indexPath.row - 1
             self.notificationUnread(self.notificationArray[notificationIndex])
             self.collectionView.isPagingEnabled = false
             self.collectionView.scrollToItem(at: IndexPath(row: notificationIndex, section: 0), at: UICollectionView.ScrollPosition.left, animated: true)
@@ -109,27 +110,31 @@ class NotificationDetails: UIViewController {
         self.scrollToNextCell()
     }
     
-    @IBAction func btnPreviewsTapped(_ sender: Any) {
-        btnPreviews.flash()
+    @IBAction func btnPreviousTapped(_ sender: Any) {
+        btnPrevious.flash()
         self.scrollToPreviousCell()
     }
     
     func notificationUnread(_ notification: UserNotification) {
         if !(notification.isRead ?? true) {
-            ProManagerApi.notificationsRead(notificationId: notification.id ?? "").request(Result<NotificationResult>.self).subscribe(onNext: { (response) in
+            ProManagerApi.notificationsRead(notificationId: notification.id ?? "").request(Result<NotificationResult>.self).subscribe(onNext: { [weak self] (response) in
+                guard let `self` = self else { return }
                 if response.status == ResponseType.success {
                     if let index = self.notificationArray.firstIndex(where: { $0.id == notification.id }) {
                         self.notificationArray[index].isRead = true
                     }
                 }
-            }, onError: { error in
+            }, onError: { [weak self] error in
+                guard let `self` = self else { return }
+                self.showAlert(alertMessage: error.localizedDescription)
             }, onCompleted: {
             }).disposed(by: rx.disposeBag)
         }
     }
     
     func getFollowingNotifications(pageIndex: Int) {
-        ProManagerApi.getNotification(page: pageIndex).request(Result<NotificationResult>.self).subscribe(onNext: { (response) in
+        ProManagerApi.getNotification(page: pageIndex).request(Result<NotificationResult>.self).subscribe(onNext: { [weak self] (response) in
+            guard let `self` = self else { return }
             self.collectionView.es.stopPullToRefresh()
             self.collectionView.es.stopLoadingMore()
             self.dismissHUD()
@@ -148,7 +153,62 @@ class NotificationDetails: UIViewController {
             } else {
                 self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
             }
-        }, onError: { error in
+        }, onError: { [weak self] error in
+            guard let `self` = self else { return }
+            self.showAlert(alertMessage: error.localizedDescription)
+            self.dismissHUD()
+        }, onCompleted: {
+        }).disposed(by: rx.disposeBag)
+    }
+    
+    func userFollowing(_ notification: UserNotification, _ userId: String, _ index: Int) {
+        ProManagerApi.setFollow(userId: userId).request(Result<NotificationResult>.self).subscribe(onNext: { [weak self] response in
+            guard let `self` = self else {
+                return
+            }
+            self.dismissHUD()
+            if response.status == ResponseType.success {
+                notification.isFollowing = true
+                self.notificationArray[index] = notification
+                for item in self.notificationArray {
+                    if item.refereeUserId?.id == notification.refereeUserId?.id {
+                        item.isFollowing = true
+                    }
+                }
+                self.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+            } else {
+                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+            }
+        }, onError: { [weak self] error in
+            guard let `self` = self else { return }
+            self.showAlert(alertMessage: error.localizedDescription)
+            self.dismissHUD()
+        }, onCompleted: {
+        }).disposed(by: rx.disposeBag)
+    }
+    
+    func userUnFollowing(_ notification: UserNotification, _ userId: String, _ index: Int) {
+        ProManagerApi.setUnFollow(userId: userId).request(Result<NotificationResult>.self).subscribe(onNext: { [weak self] response in
+            guard let `self` = self else {
+                return
+            }
+            self.dismissHUD()
+            if response.status == ResponseType.success {
+                notification.isFollowing = false
+                self.notificationArray[index] = notification
+                for item in self.notificationArray {
+                    if item.refereeUserId?.id == notification.refereeUserId?.id {
+                        item.isFollowing = false
+                    }
+                }
+                self.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+            } else {
+                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
+            }
+        }, onError: { [weak self] error in
+            guard let `self` = self else { return }
+            self.showAlert(alertMessage: error.localizedDescription)
+            self.dismissHUD()
         }, onCompleted: {
         }).disposed(by: rx.disposeBag)
     }
@@ -157,67 +217,25 @@ class NotificationDetails: UIViewController {
         if let notification = notification, let userId = notification.refereeUserId?.id {
             self.showHUD()
             if let following = notification.isFollowing, !following {
-                ProManagerApi.setFollow(userId: userId).request(Result<NotificationResult>.self).subscribe(onNext: { (response) in
-                    print(response)
-                    self.dismissHUD()
-                    if response.status == ResponseType.success {
-                        notification.isFollowing = true
-                        self.notificationArray[index] = notification
-                        for item in self.notificationArray {
-                            if item.refereeUserId?.id == notification.refereeUserId?.id {
-                                item.isFollowing = true
-                            }
-                        }
-                        if let handler = self.notificationArrayHandler {
-                            handler(self.notificationArray, self.pageIndex, self.postsCount)
-                        }
-                        self.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
-                    } else {
-                        self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
-                    }
-                }, onError: { error in
-                }, onCompleted: {
-                }).disposed(by: rx.disposeBag)
+                self.userFollowing(notification, userId, index)
             } else {
-                ProManagerApi.setUnFollow(userId: userId).request(Result<NotificationResult>.self).subscribe(onNext: { (response) in
-                    print(response)
-                    self.dismissHUD()
-                    if response.status == ResponseType.success {
-                        self.notification?.isFollowing = false
-                        self.notificationArray[index] = notification
-                        for item in self.notificationArray {
-                            if item.refereeUserId?.id == notification.refereeUserId?.id {
-                                item.isFollowing = false
-                            }
-                        }
-                        if let handler = self.notificationArrayHandler {
-                            handler(self.notificationArray, self.pageIndex, self.postsCount)
-                        }
-                        self.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
-                    } else {
-                        self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
-                    }
-                }, onError: { error in
-                }, onCompleted: {
-                }).disposed(by: rx.disposeBag)
+                self.userUnFollowing(notification, userId, index)
             }
         }
     }
 }
 
 // MARK: - CollectionView DataSource
-extension NotificationDetails: UICollectionViewDataSource {
+extension NotificationDetailsVC: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: R.reuseIdentifier.notificationDetailsViewCell.identifier,
-            for: indexPath
-        ) as! NotificationDetailsViewCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.notificationDetailsViewCell.identifier, for: indexPath) as? NotificationDetailsViewCell else {
+            return UICollectionViewCell()
+        }
         cell.notification = notificationArray[indexPath.row]
         cell.followButtonHandler = { [weak self] notification in
             guard let `self` = self else {
                 return
             }
-            print(indexPath.row)
             self.followButtonTapped(notification, indexPath.row)
         }
         return cell
@@ -226,7 +244,7 @@ extension NotificationDetails: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return notificationArray.count
     }
-    
+
     // prefetch
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if self.postsCount > self.notificationArray.count, indexPath.row >= notificationArray.count - 2 && !self.startLoading {
@@ -238,33 +256,14 @@ extension NotificationDetails: UICollectionViewDataSource {
     }
 }
 
-// MARK: - CollectionView Delegate
-extension NotificationDetails: UICollectionViewDelegate {
-
-}
-
 // MARK: - CollectionView Delegate FlowLayout
-extension NotificationDetails: UICollectionViewDelegateFlowLayout {
+extension NotificationDetailsVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return collectionView.frame.size
     }
 }
-
+    
 extension UIButton {
-    
-    func pulsate() {
-        let pulse = CASpringAnimation(keyPath: "transform.scale")
-        pulse.duration = 0.2
-        pulse.fromValue = 0.95
-        pulse.toValue = 1.0
-        pulse.autoreverses = true
-        pulse.repeatCount = 2
-        pulse.initialVelocity = 0.5
-        pulse.damping = 1.0
-        
-        layer.add(pulse, forKey: "pulse")
-    }
-    
     func flash() {
         let flash = CABasicAnimation(keyPath: "opacity")
         flash.duration = 0.2
@@ -274,24 +273,5 @@ extension UIButton {
         flash.autoreverses = true
         flash.repeatCount = 1
         layer.add(flash, forKey: nil)
-    }
-    
-    
-    func shake() {
-        let shake = CABasicAnimation(keyPath: "position")
-        shake.duration = 0.05
-        shake.repeatCount = 2
-        shake.autoreverses = true
-        
-        let fromPoint = CGPoint(x: center.x - 5, y: center.y)
-        let fromValue = NSValue(cgPoint: fromPoint)
-        
-        let toPoint = CGPoint(x: center.x + 5, y: center.y)
-        let toValue = NSValue(cgPoint: toPoint)
-        
-        shake.fromValue = fromValue
-        shake.toValue = toValue
-        
-        layer.add(shake, forKey: "position")
     }
 }

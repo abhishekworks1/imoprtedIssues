@@ -57,10 +57,6 @@ class SystemSettingsViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    @IBAction func btnOkClicked(_ sender: UIButton) {
-        
-    }
-    
 }
 
 // MARK: - Table View DataSource

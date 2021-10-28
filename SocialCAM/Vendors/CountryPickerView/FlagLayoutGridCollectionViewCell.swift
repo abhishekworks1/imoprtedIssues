@@ -20,7 +20,7 @@ class FlagLayoutGridCollectionViewCell: UICollectionViewCell {
     
     func setup() {
         flagImageView.image = R.image.addNewFlag()
-        nameLabel.text = "Add New Flag"
+        nameLabel.text = R.string.localizable.addNewFlag()
         selectedItem = false
     }
 }

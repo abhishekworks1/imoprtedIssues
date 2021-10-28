@@ -39,15 +39,9 @@ class NotificationDetailsViewCell: UICollectionViewCell {
     var followButtonHandler : ((_ notification: UserNotification?) -> Void)?
     
     func setBtnFollow(isFollowing: Bool) {
-        if isFollowing {
-            btnFollow.backgroundColor = ApplicationSettings.appPrimaryColor
-            btnFollow.setTitleColor(ApplicationSettings.appWhiteColor, for: .normal)
-            btnFollow.setTitle(R.string.localizable.following(), for: .normal)
-        } else {
-            btnFollow.backgroundColor = ApplicationSettings.appPrimaryColor
-            btnFollow.setTitleColor(ApplicationSettings.appWhiteColor, for: .normal)
-            btnFollow.setTitle(R.string.localizable.follow(), for: .normal)
-        }
+        btnFollow.backgroundColor = ApplicationSettings.appPrimaryColor
+        btnFollow.setTitleColor(ApplicationSettings.appWhiteColor, for: .normal)
+        btnFollow.setTitle(isFollowing ? R.string.localizable.following() : R.string.localizable.follow(), for: .normal)
     }
     
     func setup() {
@@ -107,7 +101,7 @@ class NotificationDetailsViewCell: UICollectionViewCell {
     
     func getVerifiedSocialPlatforms() {
         if let notification = notification {
-            if let socialPlatforms = notification.refereeUserId?.socialPlatforms,
+            if let socialPlatforms = notification.refereeUserId?.socialPlatforms as? [String],
                socialPlatforms.count > 0 {
                 socialPlatFormSettings(socialPlatforms)
                 verifiedStackView.isHidden = false

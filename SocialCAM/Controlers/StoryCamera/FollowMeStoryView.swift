@@ -81,7 +81,7 @@ class FollowMeStoryView: UIView {
             self.setFromUserProfilePic()
         }
         actionSheet.addAction(yourProfilePictureAction)
-        let appLogo = UIAlertAction(title: "App Logo", style: .default) { [unowned self] _ in
+        let appLogo = UIAlertAction(title: R.string.localizable.appLogo(), style: .default) { [unowned self] _ in
             self.userBitEmoji.image = (releaseType == .store) ? R.image.ssuQuickCam() : R.image.ssuQuickCamLite()
         }
         actionSheet.addAction(appLogo)

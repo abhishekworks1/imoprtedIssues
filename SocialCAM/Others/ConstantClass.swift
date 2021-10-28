@@ -16,6 +16,8 @@ public struct Constant {
         static let maxChannelName = 30
         static let minChannelName = 12
         static let channelName = 11
+        static let paginationValue = 20
+        static let devicetype = "ios"
     }
     
     struct AWS {
@@ -169,7 +171,8 @@ public struct Constant {
         static let proModeCode: String = "quickcamlite2020"
         static let publicLink = URL(string: "https://testflight.apple.com/join/6zE0nt7P")
         static let splashBG = UIImage(named: (releaseType == .store) ? "quickCamSplashBG" : "quickcamLiteLaunchScreenBG")!
-        static let appIcon = UIImage(named: (releaseType == .store) ? "quickCamSplashLogoPreLaunchVersion" : "quickCamSplashLogoPreLaunchVersion")!
+        static let appIcon = (releaseType == .store) ? (R.image.quickCamSplashLogoPreLaunchVersion() ?? UIImage()) : (R.image.quickCamSplashLogoPreLaunchVersion() ?? UIImage())
+        static let splashImageSize = 250
         #elseif SPEEDCAMLITEAPP
         static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "QuickCam Lite"
         static let simformIdentifier: String = "com.simform.SpeedCamLite"
