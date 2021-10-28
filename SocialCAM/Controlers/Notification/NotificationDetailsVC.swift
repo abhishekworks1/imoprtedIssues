@@ -38,6 +38,10 @@ class NotificationDetailsVC: UIViewController {
         if selectedIndex == self.postsCount - 1 {
             self.changeImageColor(image: R.image.rightNextDirectionIcon() ?? UIImage(), btn: btnNext, isImageChange: true)
         }
+        if self.postsCount == 1 {
+            self.changeImageColor(image: R.image.rightBackDirectionIcon() ?? UIImage(), btn: btnPrevious, isImageChange: true)
+            self.changeImageColor(image: R.image.rightNextDirectionIcon() ?? UIImage(), btn: btnNext, isImageChange: true)
+        }
         collectionView.isPagingEnabled = true
         collectionView.collectionViewLayout = gridLayout
         collectionView.reloadData()
@@ -89,11 +93,10 @@ class NotificationDetailsVC: UIViewController {
             let tintedImage = image.withRenderingMode(.alwaysTemplate)
             btn.setImage(tintedImage, for: .normal)
             btn.tintColor = .gray
-            btn.isUserInteractionEnabled = false
         } else {
             btn.setImage(image, for: .normal)
-            btn.isUserInteractionEnabled = true
         }
+        btn.isUserInteractionEnabled = !isImageChange
     }
     
     // MARK: - IBActions
@@ -253,6 +256,13 @@ extension NotificationDetailsVC: UICollectionViewDataSource, UICollectionViewDel
     }
 }
 
+// MARK: - CollectionView Delegate FlowLayout
+extension NotificationDetailsVC: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return collectionView.frame.size
+    }
+}
+    
 extension UIButton {
     func flash() {
         let flash = CABasicAnimation(keyPath: "opacity")
