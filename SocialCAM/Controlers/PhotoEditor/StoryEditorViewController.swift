@@ -353,7 +353,7 @@ class StoryEditorViewController: UIViewController {
         }
         self.dragAndDropManager = DragAndDropManager(canvas: self.view,
                                                      collectionViews: collectionViews)
-        if Defaults.shared.isVideoSavedAfterRecording {
+        if Defaults.shared.isVideoSavedAfterRecording && !isFromGallery {
             if cameraMode == .pic2Art {
                 lblVideoSaveText.text = R.string.localizable.yourPic2ArtIsAutomaticallySavedYouCanTurnOffAutoSavingInTheCameraSettings()
             } else {
