@@ -1090,16 +1090,23 @@ extension StoryCameraViewController {
                 cameraModeArray = cameraModeArray.filter({$0.recordingType != .capture})
             }
         } else if isBoomiCamApp {
-            cameraModeArray = cameraModeArray.filter({$0.recordingType != .slideshow})
-            cameraModeArray = cameraModeArray.filter({$0.recordingType != .collage})
-            cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastSlowMotion})
-           // cameraModeArray = cameraModeArray.filter({$0.recordingType != .boomerang})
-            cameraModeArray = cameraModeArray.filter({$0.recordingType != .custom})
-            cameraModeArray = cameraModeArray.filter({$0.recordingType != .normal})
-         //   cameraModeArray = cameraModeArray.filter({$0.recordingType != .capture})
-            cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastMotion})
-            cameraModeArray = cameraModeArray.filter({$0.recordingType != .handsfree})
-            cameraModeArray = cameraModeArray.filter({$0.recordingType != .promo})
+//            cameraModeArray = cameraModeArray.filter({$0.recordingType != .slideshow})
+//            cameraModeArray = cameraModeArray.filter({$0.recordingType != .collage})
+//            cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastSlowMotion})
+//            cameraModeArray = cameraModeArray.filter({$0.recordingType != .boomerang})
+//            cameraModeArray = cameraModeArray.filter({$0.recordingType != .custom})
+//            cameraModeArray = cameraModeArray.filter({$0.recordingType != .normal})
+//            cameraModeArray = cameraModeArray.filter({$0.recordingType != .capture})
+//            cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastMotion})
+//            cameraModeArray = cameraModeArray.filter({$0.recordingType != .handsfree})
+//            cameraModeArray = cameraModeArray.filter({$0.recordingType != .promo})
+            
+            cameraModeArray = cameraModeArray.filter({$0.recordingType == .basicCamera})
+            cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .normal})
+            cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .boomerang})
+            cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .capture})
+            cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .pic2Art})
+            
         } else if isPic2ArtApp {
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastSlowMotion})
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .boomerang})
