@@ -246,10 +246,10 @@ extension CountryPickerViewController {
         var arrayCountry: [[String: Any]] = []
         for country in countrys {
             let material: [String: Any] = [
-                "state": country.isState ? country.name : "",
-                "stateCode": country.isState ? country.code : "",
-                "country": country.isState ? StaticKeys.countryNameUS : country.name,
-                "countryCode": country.isState ? StaticKeys.countryCodeUS: country.code
+                StaticKeys.state: country.isState ? country.name : "",
+                StaticKeys.stateCode: country.isState ? country.code : "",
+                StaticKeys.country: country.isState ? StaticKeys.countryNameUS : country.name,
+                StaticKeys.countryCode: country.isState ? StaticKeys.countryCodeUS: country.code
             ]
             arrayCountry.append(material)
         }
@@ -275,8 +275,8 @@ extension CountryPickerViewController {
 
 extension CountryPickerViewController: StatePickerViewDelegate {
     
-    func statePickerView(_ didSelectCountry: [Country], isSelectionDone: Bool) {
-        self.selectedCountries = didSelectCountry
+    func getSelectStates(_ selectedStates: [Country], isSelectionDone: Bool) {
+        self.selectedCountries = selectedStates
         if isSelectionDone {
             self.delegate?.countryPickerView(selectedCountries)
             self.navigationController?.popViewController(animated: true)

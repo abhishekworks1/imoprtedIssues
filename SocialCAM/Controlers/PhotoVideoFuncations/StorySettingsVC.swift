@@ -308,45 +308,25 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             }
             cell.onOffButton.isHidden = true
         } else if settingTitle.settingsType == .userDashboard {
-            cell.onOffButton.isHidden = true
-            cell.socialImageView?.isHidden = false
-            cell.socialImageView?.image = R.image.iconBusinessDashboard()
+            hideUnhideImgButton(cell, R.image.iconBusinessDashboard())
         } else if settingTitle.settingsType == .shareSetting {
-            cell.onOffButton.isHidden = true
-            cell.socialImageView?.isHidden = false
-            cell.socialImageView?.image = R.image.iconShare()
+            hideUnhideImgButton(cell, R.image.iconShare())
         } else if settingTitle.settingsType == .accountSettings {
-            cell.onOffButton.isHidden = true
-            cell.socialImageView?.isHidden = false
-            cell.socialImageView?.image = R.image.iconAccount()
+            hideUnhideImgButton(cell, R.image.iconAccount())
         } else if settingTitle.settingsType == .cameraSettings {
-            cell.onOffButton.isHidden = true
-            cell.socialImageView?.isHidden = false
-            cell.socialImageView?.image = R.image.iconCameraSettings()
+            hideUnhideImgButton(cell, R.image.iconCameraSettings())
         } else if settingTitle.settingsType == .system {
-            cell.onOffButton.isHidden = true
-            cell.socialImageView?.isHidden = false
-            cell.socialImageView?.image = R.image.iconSystem()
+            hideUnhideImgButton(cell, R.image.iconSystem())
         } else if settingTitle.settingsType == .help {
-            cell.onOffButton.isHidden = true
-            cell.socialImageView?.isHidden = false
-            cell.socialImageView?.image = R.image.iconHowItWorks()
+            hideUnhideImgButton(cell, R.image.iconHowItWorks())
         } else if settingTitle.settingsType == .logout {
-            cell.onOffButton.isHidden = true
-            cell.socialImageView?.isHidden = false
-            cell.socialImageView?.image = R.image.iconLogout()
+            hideUnhideImgButton(cell, R.image.iconLogout())
         } else if settingTitle.settingsType == .notification {
-            cell.onOffButton.isHidden = true
-            cell.socialImageView?.isHidden = false
-            cell.socialImageView?.image = R.image.iconNotification()
+            hideUnhideImgButton(cell, R.image.iconNotification())
         } else if settingTitle.settingsType == .checkUpdate {
-            cell.onOffButton.isHidden = true
-            cell.socialImageView?.isHidden = false
-            cell.socialImageView?.image = R.image.iconCheckUpdate()
+            hideUnhideImgButton(cell, R.image.iconCheckUpdate())
         } else if settingTitle.settingsType == .referringChannel {
-            cell.onOffButton.isHidden = true
-            cell.socialImageView?.isHidden = false
-            cell.socialImageView?.image = R.image.iconReferringChannel()
+            hideUnhideImgButton(cell, R.image.iconReferringChannel())
         } else if settingTitle.settingsType == .socialLogins {
             cell.onOffButton.isHidden = true
             cell.onOffButton.isSelected = false
@@ -379,6 +359,12 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             cell.onOffButton.isSelected = Defaults.shared.swapeContols
         }
         return cell
+    }
+    
+    func hideUnhideImgButton(_ cell: StorySettingsCell, _ image: UIImage?) {
+        cell.onOffButton.isHidden = true
+        cell.socialImageView?.isHidden = false
+        cell.socialImageView?.image = image
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -416,7 +402,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             }
             headerView.title.text = R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? "")
             if let socialPlatForms = Defaults.shared.socialPlatforms {
-                socialPlatForms.count == 4 ? (headerView.imgSocialMediaBadge.isHidden = false) : (headerView.imgSocialMediaBadge.isHidden = true)
+                headerView.imgSocialMediaBadge.isHidden = socialPlatForms.count != 4
             }
         } else {
             headerView.title.isHidden = true

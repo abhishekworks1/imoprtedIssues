@@ -36,7 +36,7 @@ class AccountSettingsViewController: UIViewController {
     @IBOutlet weak var doubleButtonStackView: UIStackView!
     @IBOutlet weak var singleButtonSttackView: UIStackView!
     @IBOutlet weak var displayNameTooltipView: UIView!
-    @IBOutlet weak var txtDisplayNameTooltip: UILabel!
+    @IBOutlet weak var lblDisplayNameTooltip: UILabel!
     
     // MARK: - Variable Declarations
     var isDisplayNameChange = false
@@ -127,7 +127,7 @@ extension AccountSettingsViewController: UITableViewDataSource {
                 referringChannelNameCell.userImageView.sd_setImage(with: URL.init(string: ""), placeholderImage: ApplicationSettings.userPlaceHolder)
             }
             if let socialPlatForms = Defaults.shared.referredByData?.socialPlatforms {
-                socialPlatForms.count == 4 ? (referringChannelNameCell.imgSocialMediaBadge.isHidden = false) : (referringChannelNameCell.imgSocialMediaBadge.isHidden = true)
+                referringChannelNameCell.imgSocialMediaBadge.isHidden = socialPlatForms.count != 4
             }
             return referringChannelNameCell
         } else if settingTitle.settingsType == .deleteAccount {
@@ -273,9 +273,9 @@ extension AccountSettingsViewController: DisplayTooltiPDelegate {
     func displayTooltip(index: Int) {
         self.displayNameTooltipView.isHidden = false
         if index == 0 {
-            self.txtDisplayNameTooltip.text = R.string.localizable.publicDisplayNameTooltip()
+            self.lblDisplayNameTooltip.text = R.string.localizable.publicDisplayNameTooltip()
         } else if index == 1 {
-            self.txtDisplayNameTooltip.text = R.string.localizable.privateDisplayNameTooltip()
+            self.lblDisplayNameTooltip.text = R.string.localizable.privateDisplayNameTooltip()
         }
     }
 }

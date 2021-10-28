@@ -430,13 +430,13 @@ enum ReleaseType: String, AppMode_Enum {
         if isDebug {
             return .debug
         } else if isAlpha {
-            return .alpha
+            return .debug
         } else if isBeta {
-            return .beta
+            return .debug
         } else if isStore {
-            return .store
+            return .debug
         } else {
-            return .store
+            return .debug
         }
     }
     

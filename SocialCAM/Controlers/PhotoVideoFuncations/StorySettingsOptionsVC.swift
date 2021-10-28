@@ -156,12 +156,10 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
             cell.onOffButton.isHidden = false
             if Defaults.shared.selectedFrameRates == cell.settingsName.text {
                 cell.onOffButton.isSelected = true
-                cell.imgSettingsIcon.isHidden = false
-                cell.imgSettingsIcon.image = R.image.iconSupportedFrameRate()
+                setIcons(cell, R.image.iconSupportedFrameRate() ?? UIImage())
             } else {
                 cell.onOffButton.isSelected = false
-                cell.imgSettingsIcon.isHidden = false
-                cell.imgSettingsIcon.image = R.image.iconSupportedFrameRate()
+                setIcons(cell, R.image.iconSupportedFrameRate() ?? UIImage())
             }
         } else if settingTitle.settingsType == .watermarkSettings {
             cell.settingsName.textColor = R.color.appPrimaryColor()
@@ -199,6 +197,11 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
             return systemSettingsCell
         }
         return cell
+    }
+    
+    func setIcons(_ cell: StorySettingsCell, _ image: UIImage) {
+        cell.imgSettingsIcon.isHidden = false
+        cell.imgSettingsIcon.image = image
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
