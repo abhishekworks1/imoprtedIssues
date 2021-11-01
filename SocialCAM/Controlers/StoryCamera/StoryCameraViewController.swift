@@ -1101,11 +1101,18 @@ extension StoryCameraViewController {
 //            cameraModeArray = cameraModeArray.filter({$0.recordingType != .handsfree})
 //            cameraModeArray = cameraModeArray.filter({$0.recordingType != .promo})
             
-            cameraModeArray = cameraModeArray.filter({$0.recordingType == .basicCamera})
-            cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .normal})
-            cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .boomerang})
-            cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .capture})
-            cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .pic2Art})
+//            cameraModeArray = cameraModeArray.filter({$0.recordingType == .basicCamera})
+//            cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .normal})
+//            cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .boomerang})
+//            cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .capture})
+//            cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .pic2Art})
+            
+            cameraModeArray = [CameraModes]()
+            cameraModeArray.append(CameraModes(name: R.string.localizable.miniBoomi(), recordingType: .basicCamera))
+            cameraModeArray.append(CameraModes(name: R.string.localizable.boomi(), recordingType: .boomerang))
+            cameraModeArray.append(CameraModes(name: R.string.localizable.bigBoomi(), recordingType: .boomerang))
+            cameraModeArray.append(CameraModes(name: R.string.localizable.liveBoomi(), recordingType: .boomerang))
+            
             
         } else if isPic2ArtApp {
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastSlowMotion})
