@@ -2318,11 +2318,15 @@ extension StoryCameraViewController {
                 self.removeData()
                 return
             }
-            specificBoomerangViewController.currentAsset = avAsset
-            specificBoomerangViewController.delegate = self
-           
-            self.navigationController?.pushViewController(specificBoomerangViewController, animated: true)
-            self.removeData()
+            if self.recordingType == .basicCamera {
+                self.didBoomerang(assetUrl)
+            }else{
+                specificBoomerangViewController.currentAsset = avAsset
+                specificBoomerangViewController.delegate = self
+                
+                self.navigationController?.pushViewController(specificBoomerangViewController, animated: true)
+                self.removeData()
+            }
         } else {
             let asset = self.getRecordSession(videoModel: segementedVideos)
             guard let storyEditorViewController = R.storyboard.storyEditor.storyEditorViewController() else {
