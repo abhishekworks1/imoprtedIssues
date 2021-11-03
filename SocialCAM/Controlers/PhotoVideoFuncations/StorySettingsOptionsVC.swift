@@ -30,15 +30,15 @@ class CameraSettings {
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.changePositionsOfMuteSwitchingCamera(), selected: false)], settingsType: .swapeContols),
         StorySettings(name: R.string.localizable.supportedFrameRates(), settings: [StorySetting(name: R.string.localizable.supportedFrameRates(), selected: false)], settingsType: .supportedFrameRates),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.guideline(), selected: false)], settingsType: .guildlines),
-        StorySettings(name: R.string.localizable.guidelineTypes(), settings:
+        StorySettings(name: R.string.localizable.timeGuidelineTypes(), settings:
             [StorySetting(name: R.string.localizable.free(), selected: true)], settingsType: .guidelineType),
-        StorySettings(name: R.string.localizable.guidelineThickness(), settings:
+        StorySettings(name: R.string.localizable.timeGuidelineThickness(), settings:
             [StorySetting(name: R.string.localizable.free(), selected: true)], settingsType: .guidelineTickness),
-        StorySettings(name: R.string.localizable.guidelineColor(), settings: [StorySetting(name: R.string.localizable.free(), selected: true)], settingsType: .guidelineColor),
+        StorySettings(name: R.string.localizable.timeGuidelineColor(), settings: [StorySetting(name: R.string.localizable.free(), selected: true)], settingsType: .guidelineColor),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.watermark(), selected: false)], settingsType: .watermarkSettings),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.light(), selected: false)], settingsType: .watermarkAlpha30),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.medium(), selected: false)], settingsType: .watermarkAlpha50),
-        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.dark(), selected: false)], settingsType: .watermarkAlpha80)
+        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.more(), selected: false)], settingsType: .watermarkAlpha80)
     ]
 }
 
@@ -127,6 +127,7 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
         if settingTitle.settingsType == .faceDetection {
             cell.onOffButton.isSelected = Defaults.shared.enableFaceDetection
             cell.imgSettingsIcon.image = R.image.iconFaceDetection()
+            cell.onOffButton.alpha = cell.onOffButton.isSelected ? 1 : 0.5
         } else if settingTitle.settingsType == .guildlines {
             cell.onOffButton.isSelected = Defaults.shared.enableGuildlines
             cell.imgSettingsIcon.isHidden = true
@@ -159,8 +160,6 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
                 cell.imgSettingsIcon.image = R.image.iconSupportedFrameRate()
             } else {
                 cell.onOffButton.isSelected = false
-                cell.stackView.backgroundColor = R.color.hideWatermarkBackgroundColor()
-                cell.lblPremiumVersionOnly.isHidden = false
                 cell.imgSettingsIcon.isHidden = false
                 cell.imgSettingsIcon.image = R.image.iconSupportedFrameRate()
             }
@@ -220,8 +219,8 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
         headerView.title.text = settingTitle.name
         
         if settingTitle.settingsType == .faceDetection {
-            headerView.userImage.isHidden = false
-            headerView.userName.isHidden = false
+            headerView.userImage.isHidden = true
+            headerView.userName.isHidden = true
             headerView.title.isHidden = true
             headerView.userImage.layer.cornerRadius = headerView.userImage.bounds.width / 2
             if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
@@ -244,8 +243,6 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
         let settingTitle = CameraSettings.storySettings[section]
         if settingTitle.settingsType == .supportedFrameRates {
             return 60
-        } else if settingTitle.settingsType == .faceDetection {
-            return 80
         } else if settingTitle.settingsType == .skipYoutubeLogin || settingTitle.settingsType == .saveVideoAfterRecording || settingTitle.settingsType == .muteRecordingSlowMotion || settingTitle.settingsType == .muteRecordingFastMotion {
             return 20
         } else if settingTitle.settingsType == .watermarkAlpha30 {
@@ -302,11 +299,9 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
             Defaults.shared.swapeContols = !Defaults.shared.swapeContols
             self.settingsTableView.reloadData()
         } else if settingTitle.settingsType == .supportedFrameRates {
-            if Defaults.shared.supportedFrameRates?[indexPath.row] == "30" {
-                Defaults.shared.selectedFrameRates = Defaults.shared.supportedFrameRates?[indexPath.row]
-                Defaults.shared.isCameraSettingChanged = true
-                self.settingsTableView.reloadData()
-            }
+            Defaults.shared.selectedFrameRates = Defaults.shared.supportedFrameRates?[indexPath.row]
+            Defaults.shared.isCameraSettingChanged = true
+            self.settingsTableView.reloadData()
         } else if settingTitle.settingsType == .watermarkAlpha30 || settingTitle.settingsType == .watermarkAlpha50 || settingTitle.settingsType == .watermarkAlpha80 {
             Defaults.shared.waterarkOpacity = settingTitle.settingsType.rawValue
             tableView.reloadData()

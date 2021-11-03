@@ -153,7 +153,7 @@ class StatePickerViewController: UIViewController {
     
     // MARK: - Action Methods
     @IBAction func btnBackTapped(_ sender: UIButton) {
-        if isStateSelected && Defaults.shared.isShowAllPopUpChecked {
+        if isStateSelected && (Defaults.shared.isShowAllPopUpChecked || Defaults.shared.isStateFlagDiscardPopupChecked) {
             showHidePopupView(isHide: false)
         } else {
             delegate?.statePickerView(selectedStates, isSelectionDone: false)
@@ -168,6 +168,7 @@ class StatePickerViewController: UIViewController {
     @IBAction func btnDoNotShowAgainClicked(_ sender: UIButton) {
         btnDoNotShowAgain.isSelected = !btnDoNotShowAgain.isSelected
         Defaults.shared.isShowAllPopUpChecked = !btnDoNotShowAgain.isSelected
+        Defaults.shared.isStateFlagDiscardPopupChecked = !btnDoNotShowAgain.isSelected
     }
     
     @IBAction func btnPopupYesTapped(_ sender: UIButton) {
@@ -196,30 +197,36 @@ extension StatePickerViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.flagLayoutGridCollectionViewCell.identifier, for: indexPath) as? FlagLayoutGridCollectionViewCell else {
             return UICollectionViewCell()
         }
-        var country = searchUsers[indexPath.row]
         if collectionView == self.selectedCollectionView {
-            country = selectedStates[indexPath.row]
-            cell.selectedItem = (selectedStates.firstIndex(of: country) != nil) ? true : false
+            if selectedStates.count > indexPath.row {
+                let country = selectedStates[indexPath.row]
+                cell.selectedItem = (selectedStates.firstIndex(of: country) != nil) ? true : false
+                cell.setup(with: country)
+            } else {
+                cell.setup()
+            }
         } else {
+            let country = searchUsers[indexPath.row]
             switch layoutOption {
             case .grid:
                 cell.selectedItem = (selectedStates.firstIndex(where: { $0.code == country.code && $0.name == country.name }) != nil) ? true : false
+                cell.setup(with: country)
             case .list:
                 guard let listCell = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.flagLayoutListCollectionViewCell.identifier, for: indexPath) as? FlagLayoutListCollectionViewCell else {
                     return UICollectionViewCell()
                 }
+                listCell.selectedItem = (selectedStates.firstIndex(where: { $0.code == country.code && $0.name == country.name }) != nil) ? true : false
                 listCell.setup(with: country)
-                cell.selectedItem = (selectedStates.firstIndex(where: { $0.code == country.code && $0.name == country.name }) != nil) ? true : false
                 return listCell
             }
         }
-        cell.setup(with: country)
+        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.selectedCollectionView {
-            return selectedStates.count
+            return 3
         }
         return searchUsers.count
     }
@@ -270,18 +277,20 @@ extension StatePickerViewController: UICollectionViewDataSource {
                 }
             }
         } else if collectionView == self.selectedCollectionView {
-            let co = selectedStates[indexPath.row]
-            if let index = self.selectedStates.firstIndex(where: { $0.code == co.code }),
-               let onlyStatesIndex = self.onlyStates.firstIndex(where: { $0.code == co.code }) {
-                //deselect
-                self.selectedStates.remove(at: index)
-                self.onlyStates.remove(at: onlyStatesIndex)
-                if let cell = collectionView.cellForItem(at: indexPath) as? FlagLayoutGridCollectionViewCell {
-                    cell.selectedItem = false
-                } else if let cell = collectionView.cellForItem(at: indexPath) as? FlagLayoutListCollectionViewCell {
-                    cell.selectedItem = false
+            if selectedStates.count > indexPath.row {
+                let co = selectedStates[indexPath.row]
+                if let index = self.selectedStates.firstIndex(where: { $0.code == co.code }),
+                   let onlyStatesIndex = self.onlyStates.firstIndex(where: { $0.code == co.code }) {
+                    //deselect
+                    self.selectedStates.remove(at: index)
+                    self.onlyStates.remove(at: onlyStatesIndex)
+                    if let cell = collectionView.cellForItem(at: indexPath) as? FlagLayoutGridCollectionViewCell {
+                        cell.selectedItem = false
+                    } else if let cell = collectionView.cellForItem(at: indexPath) as? FlagLayoutListCollectionViewCell {
+                        cell.selectedItem = false
+                    }
+                    self.collectionView.reloadData()
                 }
-                self.collectionView.reloadData()
             }
         }
     }

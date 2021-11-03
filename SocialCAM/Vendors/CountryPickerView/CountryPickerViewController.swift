@@ -31,11 +31,12 @@ class CountryPickerViewController: UIViewController {
     public var selectedCountries: [Country] = [] {
         didSet {
             if selectedCollectionView != nil {
-                selectedCollectionView.isHidden = selectedCountries.count <= 0
+                selectedCollectionView.isHidden = false
                 selectedCollectionView.reloadData()
             }
         }
     }
+    
     fileprivate var searchUsers = [Country]()
     public let users: [Country] = {
         var countries = [Country]()
@@ -290,13 +291,22 @@ extension CountryPickerViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.flagLayoutGridCollectionViewCell.identifier, for: indexPath) as? FlagLayoutGridCollectionViewCell else {
             return UICollectionViewCell()
         }
-        var country = searchUsers[indexPath.row]
         if collectionView == self.selectedCollectionView {
-            country = selectedCountries[indexPath.row]
+            if selectedCountries.count > indexPath.row {
+                let country = selectedCountries[indexPath.row]
+                cell.setup(with: country)
+                cell.selectedItem = (selectedCountries.firstIndex(of: country) != nil) ? true : false
+            } else {
+                cell.setup()
+            }
+            return cell
         } else {
+            let country = searchUsers[indexPath.row]
             switch layoutOption {
             case .grid:
-                break
+                cell.setup(with: country)
+                cell.selectedItem = (selectedCountries.firstIndex(of: country) != nil) ? true : false
+                return cell
             case .list:
                 guard let listCell = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.flagLayoutListCollectionViewCell.identifier, for: indexPath) as? FlagLayoutListCollectionViewCell else {
                     return UICollectionViewCell()
@@ -306,14 +316,12 @@ extension CountryPickerViewController: UICollectionViewDataSource {
                 return listCell
             }
         }
-        cell.setup(with: country)
-        cell.selectedItem = (selectedCountries.firstIndex(of: country) != nil) ? true : false
-        return cell
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == self.selectedCollectionView {
-            return selectedCountries.count
+            return 3
         }
         return searchUsers.count
     }
@@ -386,26 +394,36 @@ extension CountryPickerViewController: UICollectionViewDataSource {
                 }
             }
         } else if collectionView == self.selectedCollectionView {
-            let co = selectedCountries[indexPath.row]
-            if let index = self.selectedCountries.firstIndex(where: { $0.code == co.code }),
-               let onlyCountryIndex = self.onlyCountries.firstIndex(where: { $0.code == co.code }) {
-                //deselect
-                if self.selectedCountries[index].code == StaticKeys.countryCodeUS {
-                    self.selectedCountries.remove(at: index)
-                    self.onlyCountries.remove(at: onlyCountryIndex)
-                    if let stateIndex = self.selectedCountries.firstIndex(where: { $0.isState == true }) {
-                        self.selectedCountries.remove(at: stateIndex)
+            if selectedCountries.count > indexPath.row {
+                let co = selectedCountries[indexPath.row]
+                if let index = self.selectedCountries.firstIndex(where: { $0.code == co.code }),
+                   let onlyCountryIndex = self.onlyCountries.firstIndex(where: { $0.code == co.code }) {
+                    //deselect
+                    if self.selectedCountries[index].code == StaticKeys.countryCodeUS {
+                        self.selectedCountries.remove(at: index)
+                        self.onlyCountries.remove(at: onlyCountryIndex)
+                        if let stateIndex = self.selectedCountries.firstIndex(where: { $0.isState == true }) {
+                            self.selectedCountries.remove(at: stateIndex)
+                        }
+                    } else {
+                        self.selectedCountries.remove(at: index)
+                        self.onlyCountries.remove(at: onlyCountryIndex)
                     }
-                } else {
-                    self.selectedCountries.remove(at: index)
-                    self.onlyCountries.remove(at: onlyCountryIndex)
+                    if let cell = collectionView.cellForItem(at: indexPath) as? FlagLayoutGridCollectionViewCell {
+                        cell.selectedItem = false
+                    } else if let cell = collectionView.cellForItem(at: indexPath) as? FlagLayoutListCollectionViewCell {
+                        cell.selectedItem = false
+                    }
+                    self.collectionView.reloadData()
                 }
-                if let cell = collectionView.cellForItem(at: indexPath) as? FlagLayoutGridCollectionViewCell {
-                    cell.selectedItem = false
-                } else if let cell = collectionView.cellForItem(at: indexPath) as? FlagLayoutListCollectionViewCell {
-                    cell.selectedItem = false
+            } else {
+                if let _ = self.selectedCountries.firstIndex(where: { $0.code == StaticKeys.countryCodeUS }), indexPath.row == 2  {
+                    if let stateVc = R.storyboard.countryPicker.statePickerViewController() {
+                        stateVc.delegate = self
+                        stateVc.selectedStates = self.selectedCountries
+                        self.navigationController?.pushViewController(stateVc, animated: true)
+                    }
                 }
-                self.collectionView.reloadData()
             }
         }
     }

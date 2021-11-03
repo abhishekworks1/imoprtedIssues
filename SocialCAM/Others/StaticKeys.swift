@@ -28,5 +28,8 @@ public struct StaticKeys {
     static let referredByData = "referredByData"
     static let publicDisplayName = "publicDisplayName"
     static let privateDisplayName = "privateDisplayName"
+    static let isEditProfileDiscardPopupChecked = "isEditProfileDiscardPopupChecked"
+    static let isStateFlagDiscardPopupChecked = "isStateFlagDiscardPopupChecked"
+    static let isShareScreenDiscardPopupChecked = "isShareScreenDiscardPopupChecked"
     
 }

@@ -68,6 +68,7 @@ class SystemSettingsCell: UITableViewCell {
             Defaults.shared.isLoginTooltipHide = !btnSelectShowAllPopup.isSelected
             Defaults.shared.isDiscardVideoPopupHide = !btnSelectShowAllPopup.isSelected
             Defaults.shared.isToolTipHide = !btnSelectShowAllPopup.isSelected
+            Defaults.shared.isEditProfileDiscardPopupChecked = !btnSelectShowAllPopup.isSelected
         } else if systemSettingType == .skipYoutubeLogin {
             Defaults.shared.isSkipYoutubeLogin = !btnSelectShowAllPopup.isSelected
             btnSelectShowAllPopup.isSelected = !btnSelectShowAllPopup.isSelected

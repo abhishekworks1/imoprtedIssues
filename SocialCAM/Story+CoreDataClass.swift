@@ -388,23 +388,23 @@ class StoryDataManager {
 extension StoryDataManager {
  
     func stopUploadFile(storyData: StoryData) {
-
-        for (_, item) in getAllStoryDatas().enumerated() {
-            if storyData.url == item.url {
-                storyData.storyUploadData?.isCompleted = true
-                self.saveChanges()
-                self.isThumbCreated = false
-                self.isStoryUploaded = false
-                self.currentStoryData = nil
-                self.currentStoryUploadData = nil
-                exportSession.cancelExporting()
-                Utils.uploadSingleUrlStop(storyData.url)
-                StoryDataManager.shared.startUpload()
-                self.delegate?.didChangeStoryCount("")
-                self.delegate?.didCompletedStory()
-                break
-            }
-        }
+        // Todo : Xcode 13 Issue with this code. So Comment this code - UnUsed
+//        for (_, item) in getAllStoryDatas().enumerated() {
+//            if storyData.url == item.url {
+//                storyData.storyUploadData?.isCompleted = true
+//                self.saveChanges()
+//                self.isThumbCreated = false
+//                self.isStoryUploaded = false
+//                self.currentStoryData = nil
+//                self.currentStoryUploadData = nil
+//                exportSession.cancelExporting()
+//                Utils.uploadSingleUrlStop(storyData.url)
+//                StoryDataManager.shared.startUpload()
+//                self.delegate?.didChangeStoryCount("")
+//                self.delegate?.didCompletedStory()
+//                break
+//            }
+//        }
     }
     
     func stopAll() {
@@ -413,14 +413,14 @@ extension StoryDataManager {
     }
     
     func restartAll() {
-        for (_, item) in getAllStoryDatas().enumerated() {
-            self.isThumbCreated = false
-            self.isStoryUploaded = false
-            self.currentStoryData = nil
-            self.currentStoryUploadData = nil
-            Utils.uploadSingleUrlStop(item.url)
-        }
-        
+        // Todo : Xcode 13 Issue with this code. So Comment this code - UnUsed
+//        for (_, item) in getAllStoryDatas().enumerated() {
+//            self.isThumbCreated = false
+//            self.isStoryUploaded = false
+//            self.currentStoryData = nil
+//            self.currentStoryUploadData = nil
+//            Utils.uploadSingleUrlStop(item.url)
+//        }
         StoryDataManager.shared.startUpload()
         self.delegate?.didCompletedStory()
     }

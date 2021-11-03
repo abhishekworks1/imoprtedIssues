@@ -17,12 +17,6 @@ internal class PerformVersionCheck {
     // MARK: - Initializers
     init(completion: @escaping (SSVersionInfo) -> Void) {
         self.completion = completion
-        // Observer to perform version check when app will EnterForeground
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(getVersionCheck),
-            name: UIApplication.willEnterForegroundNotification,
-            object: nil)
         getVersionCheck()
     }
     

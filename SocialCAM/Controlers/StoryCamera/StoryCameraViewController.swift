@@ -1222,7 +1222,7 @@ extension StoryCameraViewController {
                 if isQuickApp && Defaults.shared.appMode == .free {
                     self.showAlertForUpgradeSubscription()
                 }
-                self.circularProgress.centerImage = R.image.capture_mode()
+                self.circularProgress.centerImage = R.image.iconSaveMode()
                 self.timerValueView.isHidden = true
             case .promo:
                 Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_mode_free)
@@ -1822,6 +1822,8 @@ extension StoryCameraViewController {
                         self.switchAppButton.isUserInteractionEnabled = false
                         if (isSpeedCamApp || isFastCamApp || isSnapCamApp) {
                             totalSeconds = Defaults.shared.appMode == .basic ? 60 : 120
+                        } else if isQuickApp && Defaults.shared.appMode == .basic {
+                            totalSeconds = 60
                         } else {
                             totalSeconds = 3600
                         }
@@ -1866,6 +1868,7 @@ extension StoryCameraViewController {
             self.discardSegmentsStackView.isHidden = false
             self.confirmRecordedSegmentStackView.isHidden = false
             self.stopMotionCollectionView.isHidden = true
+            self.outtakesView.isHidden = true
         }
         if recordingType == .capture {
             self.settingsButton.isUserInteractionEnabled = true
@@ -2448,6 +2451,7 @@ extension StoryCameraViewController {
         self.discardSegmentsStackView.isHidden = true
         self.confirmRecordedSegmentStackView.isHidden = true
         self.slowFastVerticalBar.isHidden = true
+        self.outtakesView.isHidden = false
     }
     
     func getUserProfile() {
@@ -2456,11 +2460,8 @@ extension StoryCameraViewController {
                 Defaults.shared.currentUser = response.result
                 CurrentUser.shared.setActiveUser(response.result)
                 self.setupLayoutCameraSliderView()
-            } else {
-                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
             }
         }, onError: { error in
-            self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
     }
@@ -2518,8 +2519,6 @@ extension StoryCameraViewController {
                 if let appWatermark = response.result?.userSettings?.appWatermark {
                     Defaults.shared.appIdentifierWatermarkSetting = AppIdentifierWatermarkSetting(rawValue: appWatermark) ?? .hide
                 }
-            } else {
-                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
             }
         }, onError: { error in
             print(error.localizedDescription)
@@ -2609,7 +2608,6 @@ extension StoryCameraViewController {
                 completion(true)
             }
         }, onError: { error in
-            self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
     }
@@ -2622,11 +2620,8 @@ extension StoryCameraViewController {
             if response.status == ResponseType.success {
                 self.isVidplayAccountFound = response.result?.isAccountFound
                 self.vidplaySessionToken = response.result?.data?.token ?? ""
-            } else {
-                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
             }
         }, onError: { error in
-            self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
     }
@@ -2638,11 +2633,8 @@ extension StoryCameraViewController {
             }
             if response.status == ResponseType.success {
                 Defaults.shared.newSignupsNotificationType = (response.result?.isForEveryone == true) ? .forAllUsers : .forLimitedUsers
-            } else {
-                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
             }
         }, onError: { error in
-            self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: rx.disposeBag)
     }
@@ -2684,7 +2676,6 @@ extension StoryCameraViewController {
     func doNotShowAgainAPI() {
         ProManagerApi.doNotShowAgain(isDoNotShowMessage: btnDoNotShowAgainProfilePic.isSelected).request(Result<LoginResult>.self).subscribe(onNext: { (response) in
         }, onError: { error in
-            self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: rx.disposeBag)
     }

@@ -47,11 +47,11 @@ class SelectLinkViewController: UIViewController {
     // MARK: - Action Methods
     @IBAction func btnYesTapped(_ sender: UIButton) {
         yourAffiliateLinkVC.setAffiliate(setAffiliateValue: true)
-        callDidSelectMethod(type: QuickCam.SSUTagType.quickApp)
+        callDidSelectMethod(type: SSUTagType.quickApp)
         dismiss(animated: true, completion: nil)
     }
     @IBAction func btnNoTapped(_ sender: UIButton) {
-        callDidSelectMethod(type: QuickCam.SSUTagType.quickApp)
+        callDidSelectMethod(type: SSUTagType.quickApp)
         dismiss(animated: true, completion: nil)
     }
     @IBAction func btnOkTapped(_ sender: UIButton) {
@@ -132,23 +132,23 @@ extension SelectLinkViewController: UITableViewDelegate {
                 activateAffiliateLinkPopup.isHidden = false
                 Defaults.shared.isAffiliatePopupShowed = true
             } else {
-                callDidSelectMethod(type: QuickCam.SSUTagType.quickApp)
+                callDidSelectMethod(type: SSUTagType.quickApp)
                 dismiss(animated: true, completion: nil)
             }
         } else if linkTitle.linkType == .vidPlay {
-            callDidSelectMethod(type: QuickCam.SSUTagType.vidPlay)
+            callDidSelectMethod(type: SSUTagType.vidPlay)
             dismiss(animated: true, completion: nil)
         } else if linkTitle.linkType == .businessCenter {
-            callDidSelectMethod(type: QuickCam.SSUTagType.businessCenter)
+            callDidSelectMethod(type: SSUTagType.businessCenter)
             dismiss(animated: true, completion: nil)
         } else if linkTitle.linkType == .enterLink {
             backgroundView.isHidden = true
             selectLinkTableView.isHidden = true
             blurBackGroundView.isHidden = false
             enterLinkPopupView.isHidden = false
-            callDidSelectMethod(type: QuickCam.SSUTagType.enterLink)
+            callDidSelectMethod(type: SSUTagType.enterLink)
         } else if linkTitle.linkType == .noLink {
-            callDidSelectMethod(type: QuickCam.SSUTagType.noLink)
+            callDidSelectMethod(type: SSUTagType.noLink)
             dismiss(animated: true, completion: nil)
         }
     }
@@ -215,10 +215,11 @@ extension SelectLinkViewController {
             let businessCenterCell = SelectLink(name: "", linkSettings: [SelectLinkSetting(name: R.string.localizable.businessCenter(), image: R.image.iconBusinessCenter())], linkType: .businessCenter)
             SelectLink.selectLinks.append(businessCenterCell)
         }
-        let enterLinkCell = SelectLink(name: "", linkSettings: [SelectLinkSetting(name: R.string.localizable.enterALink(), image: R.image.iconLink())], linkType: .enterLink)
-        SelectLink.selectLinks.append(enterLinkCell)
-        let noLinkCell = SelectLink(name: "", linkSettings: [SelectLinkSetting(name: R.string.localizable.noLink(), image: R.image.iconNoLink())], linkType: .noLink)
-        SelectLink.selectLinks.append(noLinkCell)
+        // TODO: - Temporary disabled from client's side
+//        let enterLinkCell = SelectLink(name: "", linkSettings: [SelectLinkSetting(name: R.string.localizable.enterALink(), image: R.image.iconLink())], linkType: .enterLink)
+//        SelectLink.selectLinks.append(enterLinkCell)
+//        let noLinkCell = SelectLink(name: "", linkSettings: [SelectLinkSetting(name: R.string.localizable.noLink(), image: R.image.iconNoLink())], linkType: .noLink)
+//        SelectLink.selectLinks.append(noLinkCell)
     }
     
     func getLinkPreview(link: String, completionHandler: @escaping (UIImage) -> Void) {

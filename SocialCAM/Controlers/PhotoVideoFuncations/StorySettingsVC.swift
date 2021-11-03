@@ -66,6 +66,7 @@ enum SettingsMode: Int {
     case publicDisplayName
     case privateDisplayName
     case checkUpdate
+    case referringChannel
 }
 
 class StorySetting {
@@ -121,6 +122,10 @@ class StorySettings {
                                               settings: [StorySetting(name: R.string.localizable.howItWorks(), selected: false)], settingsType: .help),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.accountSettings(), selected: false)], settingsType: .accountSettings),
+                                StorySettings(name: "",
+                                              settings: [StorySetting(name: R.string.localizable.referringChannelOption(), selected: false)], settingsType: .referringChannel),
+                                StorySettings(name: "",
+                                              settings: [StorySetting(name: R.string.localizable.checkUpdates(), selected: false)], settingsType: .checkUpdate),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.logout(), selected: false)], settingsType: .logout)]
 }
@@ -334,8 +339,15 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             cell.onOffButton.isHidden = true
             cell.socialImageView?.isHidden = false
             cell.socialImageView?.image = R.image.iconNotification()
-        }
-        else if settingTitle.settingsType == .socialLogins {
+        } else if settingTitle.settingsType == .checkUpdate {
+            cell.onOffButton.isHidden = true
+            cell.socialImageView?.isHidden = false
+            cell.socialImageView?.image = R.image.iconCheckUpdate()
+        } else if settingTitle.settingsType == .referringChannel {
+            cell.onOffButton.isHidden = true
+            cell.socialImageView?.isHidden = false
+            cell.socialImageView?.image = R.image.iconReferringChannel()
+        } else if settingTitle.settingsType == .socialLogins {
             cell.onOffButton.isHidden = true
             cell.onOffButton.isSelected = false
             cell.socialImageView?.isHidden = false
@@ -399,6 +411,8 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                     headerView.addProfilePic.isHidden = false
                 }
                 headerView.userImage.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: ApplicationSettings.userPlaceHolder)
+            } else {
+                headerView.userImage.image = ApplicationSettings.userPlaceHolder
             }
             headerView.title.text = R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? "")
             if let socialPlatForms = Defaults.shared.socialPlatforms {
@@ -408,6 +422,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             headerView.title.isHidden = true
             headerView.userImage.isHidden = true
             headerView.addProfilePic.isHidden = true
+            headerView.badgesView.isHidden = true
             headerView.imgSocialMediaBadge.isHidden = true
         }
         if headerView.section == 0 {
@@ -567,11 +582,18 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             }
         } else if settingTitle.settingsType == .userDashboard {
             if let token = Defaults.shared.sessionToken {
-                let urlString = "\(userDashboardUrl)/redirect?token=\(token)"
+                let urlString = "\(websiteUrl)/redirect?token=\(token)"
                 guard let url = URL(string: urlString) else {
                     return
                 }
                 presentSafariBrowser(url: url)
+            }
+        } else if settingTitle.settingsType == .checkUpdate {
+            SSAppUpdater.shared.performCheck(isForceUpdate: false, showDefaultAlert: true) { (_) in
+            }
+        } else if settingTitle.settingsType == .referringChannel {
+            if let userDetailsVC = R.storyboard.notificationVC.userDetailsVC() {
+                MIBlurPopup.show(userDetailsVC, on: self)
             }
         }
     }

@@ -35,6 +35,7 @@ enum ReferType {
     case businessCenter
     case enterLink
     case noLink
+    case profilePicture
 }
 
 enum StoryEditorType: Equatable {
@@ -738,7 +739,7 @@ extension StoryEditorView {
                     followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppVidPlay()
                 } else if type == .enterLink {
                     followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppQuickCamLite()
-                } else if type == .noLink {
+                } else if type == .noLink || type == .profilePicture {
                     if let userImageUrl = Defaults.shared.currentUser?.profileImageURL {
                         followMeStoryView.userBitEmoji.sd_setImage(with: URL.init(string: userImageUrl), placeholderImage: ApplicationSettings.userPlaceHolder)
                     }
@@ -820,7 +821,7 @@ extension StoryEditorView {
             followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppVidPlay()
         } else if type == .enterLink {
             followMeStoryView.textView.text = R.string.localizable.checkOutThisCoolNewAppQuickCamLite()
-        } else if type == .noLink {
+        } else if type == .noLink || type == .profilePicture {
             if let userImageUrl = Defaults.shared.currentUser?.profileImageURL {
                 followMeStoryView.userBitEmoji.sd_setImage(with: URL.init(string: userImageUrl), placeholderImage: ApplicationSettings.userPlaceHolder)
             }

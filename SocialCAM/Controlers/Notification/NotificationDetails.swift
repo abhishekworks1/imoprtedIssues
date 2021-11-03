@@ -32,6 +32,12 @@ class NotificationDetails: UIViewController {
         if let index = self.notificationArray.firstIndex(where: { $0.id == notification?.id }) {
             self.selectedIndex = index
         }
+        if selectedIndex == 0 {
+            self.changeImageColor(image: R.image.rightBackDirectionIcon() ?? UIImage(), btn: btnPreviews, isImageChange: true)
+        }
+        if selectedIndex == self.postsCount - 1 {
+            self.changeImageColor(image: R.image.rightNextDirectionIcon() ?? UIImage(), btn: btnNext, isImageChange: true)
+        }
         collectionView.isPagingEnabled = true
         collectionView.collectionViewLayout = gridLayout
         collectionView.reloadData()
@@ -45,6 +51,12 @@ class NotificationDetails: UIViewController {
     
     func scrollToNextCell() {
         if self.collectionView.visibleCurrentCellIndexPath?.row != (self.notificationArray.count - 1) {
+            if self.collectionView.visibleCurrentCellIndexPath?.row == self.notificationArray.count - 2 {
+                self.changeImageColor(image: R.image.rightNextDirectionIcon() ?? UIImage(), btn: btnNext, isImageChange: true)
+            } else {
+                self.changeImageColor(image: R.image.rightNextDirectionIcon() ?? UIImage(), btn: btnNext, isImageChange: false)
+                self.changeImageColor(image: R.image.rightBackDirectionIcon() ?? UIImage(), btn: btnPreviews, isImageChange: false)
+            }
             print(self.collectionView.visibleCurrentCellIndexPath!.row)
             let notificationIndex: Int = self.collectionView.visibleCurrentCellIndexPath!.row + 1
             self.notificationUnread(self.notificationArray[notificationIndex])
@@ -56,12 +68,30 @@ class NotificationDetails: UIViewController {
 
     func scrollToPreviousCell() {
         if self.collectionView.visibleCurrentCellIndexPath?.row != 0 {
+            if self.collectionView.visibleCurrentCellIndexPath?.row == 1 {
+                self.changeImageColor(image: R.image.rightBackDirectionIcon() ?? UIImage(), btn: btnPreviews, isImageChange: true)
+            } else {
+                self.changeImageColor(image: R.image.rightNextDirectionIcon() ?? UIImage(), btn: btnNext, isImageChange: false)
+                self.changeImageColor(image: R.image.rightBackDirectionIcon() ?? UIImage(), btn: btnPreviews, isImageChange: false)
+            }
             print(self.collectionView.visibleCurrentCellIndexPath!.row)
             let notificationIndex: Int = self.collectionView.visibleCurrentCellIndexPath!.row - 1
             self.notificationUnread(self.notificationArray[notificationIndex])
             self.collectionView.isPagingEnabled = false
             self.collectionView.scrollToItem(at: IndexPath(row: notificationIndex, section: 0), at: UICollectionView.ScrollPosition.left, animated: true)
             self.collectionView.isPagingEnabled = true
+        }
+    }
+    
+    func changeImageColor(image: UIImage, btn: UIButton, isImageChange: Bool) {
+        if isImageChange {
+            let tintedImage = image.withRenderingMode(.alwaysTemplate)
+            btn.setImage(tintedImage, for: .normal)
+            btn.tintColor = .gray
+            btn.isUserInteractionEnabled = false
+        } else {
+            btn.setImage(image, for: .normal)
+            btn.isUserInteractionEnabled = true
         }
     }
     
