@@ -1112,6 +1112,8 @@ extension StoryCameraViewController {
             cameraModeArray.append(CameraModes(name: R.string.localizable.boomi(), recordingType: .boomerang))
             cameraModeArray.append(CameraModes(name: R.string.localizable.bigBoomi(), recordingType: .boomerang))
             cameraModeArray.append(CameraModes(name: R.string.localizable.liveBoomi(), recordingType: .boomerang))
+            cameraModeArray.append(CameraModes(name: R.string.localizable.liveBoomi(), recordingType: .boomerang))
+            cameraModeArray.append(CameraModes(name: R.string.localizable.capturE(), recordingType: .capture))
             
             
         } else if isPic2ArtApp {
@@ -1843,7 +1845,16 @@ extension StoryCameraViewController {
                     if self.recordingType == .custom {
                         totalSeconds = 240
                     } else if self.recordingType == .boomerang {
-                        totalSeconds = 2
+                        if (isBoomiCamApp) {
+                            if Defaults.shared.appMode == .basic{
+                                totalSeconds = 7
+                            }else{
+                                totalSeconds = 2
+                            }
+                        }else{
+                            totalSeconds = 2
+                        }
+                      
                     } else if self.recordingType == .capture {
                         self.settingsButton.isUserInteractionEnabled = false
                         self.switchAppButton.isUserInteractionEnabled = false
