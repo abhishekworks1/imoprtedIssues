@@ -337,8 +337,8 @@ extension EditProfilePicViewController: CountryPickerViewDelegate {
 
 extension EditProfilePicViewController: StatePickerViewDelegate {
     
-    func statePickerView(_ didSelectCountry: [Country], isSelectionDone: Bool) {
-        let countryAry = rearrangeFlags(flagsArray: didSelectCountry)
+    func getSelectStates(_ selectedStates: [Country], isSelectionDone: Bool) {
+        let countryAry = rearrangeFlags(flagsArray: selectedStates)
         DispatchQueue.main.async {
             for (index, _) in self.countryView.enumerated() {
                 self.countryView[index].isHidden = true
@@ -356,7 +356,7 @@ extension EditProfilePicViewController: StatePickerViewDelegate {
             }
         }
         self.btnSetFlags.isHidden = countryAry.count > 0
-        self.countrySelected = didSelectCountry
+        self.countrySelected = selectedStates
         self.flagsStackViewHeightConstraint.constant = (self.btnSelectCountry.isSelected && !countryAry.isEmpty) ? 74 : 0
     }
     
@@ -512,6 +512,15 @@ extension EditProfilePicViewController: UIImagePickerControllerDelegate, UINavig
 // MARK: - API Methods
 extension EditProfilePicViewController {
     
+    fileprivate func setRedirection() {
+        if self.isShareButtonSelected {
+            self.isShareButtonSelected = false
+            self.goToShareScreen()
+        } else {
+            self.setupMethod()
+        }
+    }
+    
     func editDisplayName() {
         let displayName = self.txtDisplayName.text
         ProManagerApi.editDisplayName(publicDisplayName: displayName?.isEmpty ?? true ? "" : displayName, privateDisplayName: nil).request(Result<EmptyModel>.self).subscribe(onNext: { [weak self] (response) in
@@ -534,10 +543,10 @@ extension EditProfilePicViewController {
         var arrayCountry: [[String: Any]] = []
         for country in countrys {
             let material: [String: Any] = [
-                "state": country.isState ? country.name : "",
-                "stateCode": country.isState ? country.code : "",
-                "country": country.isState ? StaticKeys.countryNameUS : country.name,
-                "countryCode": country.isState ? StaticKeys.countryCodeUS: country.code
+                StaticKeys.state: country.isState ? country.name : "",
+                StaticKeys.stateCode: country.isState ? country.code : "",
+                StaticKeys.country: country.isState ? StaticKeys.countryNameUS : country.name,
+                StaticKeys.countryCode: country.isState ? StaticKeys.countryCodeUS: country.code
             ]
             arrayCountry.append(material)
         }
@@ -548,12 +557,7 @@ extension EditProfilePicViewController {
             self.dismissHUD()
             self.storyCameraVC.syncUserModel { _ in
                 if !self.isImageSelected {
-                    if self.isShareButtonSelected {
-                        self.isShareButtonSelected = false
-                        self.goToShareScreen()
-                    } else {
-                        self.setupMethod()
-                    }
+                    self.setRedirection()
                 }
                 self.isCountryFlagSelected = false
             }
@@ -593,12 +597,7 @@ extension EditProfilePicViewController {
             }
             self.dismissHUD()
             self.storyCameraVC.syncUserModel { (isComplete) in
-                if self.isShareButtonSelected {
-                    self.isShareButtonSelected = false
-                    self.goToShareScreen()
-                } else {
-                    self.setupMethod()
-                }
+                self.setRedirection()
                 self.isImageSelected = false
             }
         }, onError: { error in
@@ -665,7 +664,8 @@ extension EditProfilePicViewController {
                     tooltipViewController?.blurView.alpha = 0.7
                     tooltipViewController?.signupTooltipView.isHidden = false
                 } else {
-                    self.navigationController?.popViewController(animated: true)
+                    let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
+                    Utils.appDelegate?.window?.rootViewController = rootViewController
                 }
             }
         } else {
@@ -876,7 +876,6 @@ extension EditProfilePicViewController: InstagramLoginViewControllerDelegate, Pr
 extension EditProfilePicViewController: SharingSocialTypeDelegate {
     
     func setSocialPlatforms() {
-        showHidePopupView(isHide: false)
         self.settingSocialPlatforms()
         self.isCroppedImage = false
     }

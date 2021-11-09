@@ -9,7 +9,7 @@
 import Foundation
 
 class GridFlowLayout: UICollectionViewFlowLayout {
-    let itemHeight: CGFloat = (UIScreen.main.bounds.size.height * 300)
+    let itemHeight: CGFloat = 440
     let itemWidth: CGFloat = (UIScreen.main.bounds.size.width)
     
     override init() {
@@ -22,10 +22,6 @@ class GridFlowLayout: UICollectionViewFlowLayout {
         setupLayout()
     }
     
-    /*
-     Sets up the layout for the collectionView. 1pt distance between each cell and 1pt distance between each row plus use a vertical layout
-     */
-    
     func setupLayout() {
         minimumInteritemSpacing = 0
         minimumLineSpacing = 0
@@ -33,20 +29,17 @@ class GridFlowLayout: UICollectionViewFlowLayout {
         self.invalidateLayout()
     }
     
-    /// here we define the width of each cell, creating a 2 column layout. In case you would create 3 columns, change the number 2 to 3
- 
-    
     override var itemSize: CGSize {
         set {
-            self.itemSize = CGSize(width: itemWidth, height: 440)
+            self.itemSize = CGSize(width: itemWidth, height: itemHeight)
         }
         get {
-            return CGSize(width: itemWidth, height: 440)
+            return CGSize(width: itemWidth, height: itemHeight)
         }
     }
     
     override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint) -> CGPoint {
-        return collectionView!.contentOffset
+        return collectionView?.contentOffset ?? .zero
     }
     
     override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
@@ -61,7 +54,6 @@ extension UICollectionView {
             let indexPath = self.indexPath(for: cell)
             return indexPath
         }
-        
         return nil
     }
 }

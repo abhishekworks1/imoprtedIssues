@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.applicationIconBadgeNumber = 0
         configureIQKeyboardManager()
         
-        let configuration = PHGPostHogConfiguration(apiKey: "phc_fdqjiIiKd3yNLIvUetjdN7hsVyEh3zNkFYDT38XhRH8", host: "https://posthog.promanager.online")
+        let configuration = PHGPostHogConfiguration(apiKey: Constant.PostHog.key, host: Constant.PostHog.host)
         configuration.captureApplicationLifecycleEvents = true; // Record certain application events automatically!
         configuration.recordScreenViews = true; // Record screen views automatically!
         PHGPostHog.setup(with: configuration)
@@ -238,6 +238,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let user = Defaults.shared.currentUser,
            let _ = Defaults.shared.sessionToken,
            let channelId = user.channelId,
+           user.refferingChannel != nil,
            channelId.count > 0 {
             InternetConnectionAlert.shared.internetConnectionHandler = { reachability in
                 if reachability.connection != .none {
@@ -261,7 +262,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #else
         Defaults.shared.cameraMode = .normal
         #endif
-        let revealingSplashView = RevealingSplashView(iconImage: Constant.Application.appIcon, iconInitialSize: isLiteApp ? CGSize(width: 250, height: 250) : Constant.Application.appIcon.size, backgroundImage: Constant.Application.splashBG)
+        let revealingSplashView = RevealingSplashView(iconImage: Constant.Application.appIcon, iconInitialSize: isLiteApp ? CGSize(width: Constant.Application.splashImageSize, height: Constant.Application.splashImageSize) : Constant.Application.appIcon.size, backgroundImage: Constant.Application.splashBG)
         revealingSplashView.duration = 2.0
         revealingSplashView.iconColor = UIColor.red
         revealingSplashView.useCustomIconColor = false
@@ -275,7 +276,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         GoogleManager.shared.restorePreviousSignIn()
         
         FileManager.default.clearTempDirectory()
-        
+
         //Analytics
         if isQuickCamLiteApp || isQuickApp || isQuickCamApp{
             // `host` is optional if you use PostHog Cloud (app.posthog.com)
@@ -486,6 +487,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Defaults.shared.currentUser = response.result?.user
         Defaults.shared.isRegistered = response.result?.isRegistered
         Defaults.shared.isPic2ArtShowed = response.result?.isRegistered
+        Defaults.shared.isFirstTimePic2ArtRegistered = response.result?.isRegistered
+        Defaults.shared.isFirstVideoRegistered = response.result?.isRegistered
         Defaults.shared.isFromSignup = response.result?.isRegistered
         Defaults.shared.userCreatedDate = response.result?.user?.created
         CurrentUser.shared.setActiveUser(response.result?.user)
@@ -544,7 +547,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UNUserNotificationCenter.current().requestAuthorization(
                 options: authOptions,
                 completionHandler: {_, _ in })
-            // For iOS 10 data message (sent via FCM)
             Messaging.messaging().delegate = self
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound], completionHandler: { _, _ in })
         } else {
@@ -568,39 +570,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
-        
-    }
+
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any],
                      fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         UIApplication.shared.applicationIconBadgeNumber = 0
         Messaging.messaging().appDidReceiveMessage(userInfo)
-        print(userInfo)
-        if application.applicationState == .active {
-            print(userInfo)
-            if userInfo["gcm.message_id"] != nil {
-                if Defaults.shared.sessionToken != nil {
-                    if let ch = Defaults.shared.currentUser?.channelName, ch.count > 0 {
-                        if let type = userInfo["gcm.notification.type"] as? String, type == "others" {
-                            
-                        }
-                        if let rootController = Utils.appDelegate?.window?.rootViewController as? PageViewController {
-                            print(rootController)
-                        }
-                        print(Utils.appDelegate?.window?.rootViewController)
-                    }
-                }
-            }
-            debugPrint("DidReceiveRemoteNotification \(userInfo)")
-            completionHandler(UIBackgroundFetchResult.newData)
-        }
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        let id = response.notification.request.identifier
-        dLog("Received notification with ID = \(id)")
         let userInfo = response.notification.request.content.userInfo
-        
         Messaging.messaging().appDidReceiveMessage(userInfo)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             NotificationManager.shared.openNotificationScreen()
@@ -609,12 +587,8 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        let id = notification.request.identifier
-        dLog("Received notification with ID = \(id)")
         let userInfo = notification.request.content.userInfo
-        
         Messaging.messaging().appDidReceiveMessage(userInfo)
-        
         if #available(iOS 14.0, *) {
             completionHandler([.banner, .badge, .sound, .list])
         } else {

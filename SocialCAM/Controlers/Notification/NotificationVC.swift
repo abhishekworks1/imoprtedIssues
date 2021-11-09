@@ -53,7 +53,8 @@ class NotificationVC: UIViewController {
     }
 
     func getFollowingNotifications(pageIndex: Int) {
-        ProManagerApi.getNotification(page: pageIndex).request(Result<NotificationResult>.self).subscribe(onNext: { (response) in
+        ProManagerApi.getNotification(page: pageIndex).request(Result<NotificationResult>.self).subscribe(onNext: { [weak self] (response) in
+            guard let `self` = self else { return }
             self.tblNotification.es.stopPullToRefresh()
             self.tblNotification.es.stopLoadingMore()
             if response.status == ResponseType.success {
@@ -72,7 +73,9 @@ class NotificationVC: UIViewController {
             } else {
                 self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
             }
-        }, onError: { error in
+        }, onError: { [weak self] error in
+            guard let `self` = self else { return }
+            self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: rx.disposeBag)
     }
@@ -100,8 +103,8 @@ extension NotificationVC: UITableViewDataSource, UITableViewDelegate {
             fatalError("NotificationTableViewCell Not Found")
         }
         cell.notification = self.notificationArray[indexPath.row]
-        cell.profileImgHandler = { [weak self] notification in
-            guard let `self` = self, let userNotification = notification else {
+        cell.profileImgHandler = { [weak self] profileNotification in
+            guard let `self` = self, let userNotification = profileNotification else {
                 return
             }
             self.notificationUnread(userNotification)
@@ -117,7 +120,7 @@ extension NotificationVC: UITableViewDataSource, UITableViewDelegate {
                         }
                     }
                 }
-                popupViewController.notification = notification
+                popupViewController.notification = userNotification
                 MIBlurPopup.show(popupViewController, on: self)
             }
         }
@@ -126,12 +129,12 @@ extension NotificationVC: UITableViewDataSource, UITableViewDelegate {
                 return
             }
             self.notificationUnread(userNotification)
-            if let notificationDetails = R.storyboard.notificationVC.notificationDetails() {
-                notificationDetails.notificationArray = self.notificationArray
-                notificationDetails.pageIndex = self.pageIndex
-                notificationDetails.postsCount = self.postsCount
-                notificationDetails.notification = userNotification
-                notificationDetails.notificationArrayHandler = { [weak self] notificationArraay, index, count in
+            if let notificationDetailsVC = R.storyboard.notificationVC.notificationDetailsVC() {
+                notificationDetailsVC.notificationArray = self.notificationArray
+                notificationDetailsVC.pageIndex = self.pageIndex
+                notificationDetailsVC.postsCount = self.postsCount
+                notificationDetailsVC.notification = userNotification
+                notificationDetailsVC.notificationArrayHandler = { [weak self] notificationArraay, index, count in
                     guard let `self` = self else {
                         return
                     }
@@ -140,7 +143,7 @@ extension NotificationVC: UITableViewDataSource, UITableViewDelegate {
                     self.postsCount = count
                     self.tblNotification.reloadData()
                 }
-                self.navigationController?.pushViewController(notificationDetails, animated: true)
+                self.navigationController?.pushViewController(notificationDetailsVC, animated: true)
             }
         }
         cell.updateConstraints()
@@ -150,14 +153,17 @@ extension NotificationVC: UITableViewDataSource, UITableViewDelegate {
     
     func notificationUnread(_ notification: UserNotification) {
         if !(notification.isRead ?? true) {
-            ProManagerApi.notificationsRead(notificationId: notification.id ?? "").request(Result<NotificationResult>.self).subscribe(onNext: { (response) in
+            ProManagerApi.notificationsRead(notificationId: notification.id ?? "").request(Result<NotificationResult>.self).subscribe(onNext: { [weak self] (response) in
+                guard let `self` = self else { return }
                 if response.status == ResponseType.success {
                     if let index = self.notificationArray.firstIndex(where: { $0.id == notification.id }) {
                         self.notificationArray[index].isRead = true
                         self.tblNotification.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
                     }
                 }
-            }, onError: { error in
+            }, onError: { [weak self] error in
+                guard let `self` = self else { return }
+                self.showAlert(alertMessage: error.localizedDescription)
             }, onCompleted: {
             }).disposed(by: rx.disposeBag)
         }

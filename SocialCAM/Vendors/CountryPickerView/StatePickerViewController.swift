@@ -11,7 +11,7 @@ import AVKit
 
 public protocol StatePickerViewDelegate: class {
     /// Called when the user selects a country from the list.
-    func statePickerView(_ didSelectCountry : [Country], isSelectionDone: Bool)
+    func getSelectStates(_ selectedStates : [Country], isSelectionDone: Bool)
 }
 
 class StatePickerViewController: UIViewController {
@@ -156,7 +156,7 @@ class StatePickerViewController: UIViewController {
         if isStateSelected && (Defaults.shared.isShowAllPopUpChecked || Defaults.shared.isStateFlagDiscardPopupChecked) {
             showHidePopupView(isHide: false)
         } else {
-            delegate?.statePickerView(selectedStates, isSelectionDone: false)
+            delegate?.getSelectStates(selectedStates, isSelectionDone: false)
             navigationController?.popViewController(animated: true)
         }
     }
@@ -186,7 +186,7 @@ class StatePickerViewController: UIViewController {
     }
     
     @IBAction func donebuttonTapped(_ sender: AnyObject) {
-        delegate?.statePickerView(selectedStates, isSelectionDone: false)
+        delegate?.getSelectStates(selectedStates, isSelectionDone: false)
         self.navigationController?.popViewController(animated: true)
     }
 }
@@ -312,10 +312,6 @@ extension StatePickerViewController: UISearchBarDelegate {
             searchUsers = userStates.filter { return $0.name.lowercased().contains(searchText.lowercased()) }
         }
         collectionView.reloadData()
-    }
-    
-    func collectionView(_ collectionView: UICollectionView,didSelectItemAtIndexPath indexPath: IndexPath) {
-        print("Hi \(indexPath.row)")
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {

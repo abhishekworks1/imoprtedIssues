@@ -201,23 +201,14 @@ public extension RevealingSplashView {
      
      - parameter completion: completion
      */
-    func playPopAnimation(_ completion: SplashAnimatableCompletion? = nil)
-    {
-        if let imageView = self.imageView{
-            
-            let popForce = 0.5
-            
-            animateLayer({
-                let animation = CAKeyframeAnimation(keyPath: "transform.scale")
-                animation.values = [0, 0, 0, 0, 0]
-                animation.keyTimes = [0, 0.2, 0.4, 0.6, 0.8, 1]
-                animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
-                animation.duration = CFTimeInterval(self.duration/2)
-                animation.isAdditive = true
-                animation.repeatCount = 2
-                animation.beginTime = CACurrentMediaTime() + CFTimeInterval(self.delay/2)
-                imageView.layer.add(animation, forKey: "pop")
-            }, completion: {
+    func playPopAnimation(_ completion: SplashAnimatableCompletion? = nil) {
+        if let imageView = self.imageView {
+            let zoomOutTranform: CGAffineTransform = CGAffineTransform(scaleX: 5, y: 5)
+            let growDuration: TimeInterval = duration - 0.5
+            UIView.animate(withDuration: growDuration, animations:{
+                imageView.transform = zoomOutTranform
+            }, completion: { [weak self] _ in
+                guard let `self` = self else { return }
                 self.playZoomOutAnimation(completion)
             })
         }
@@ -228,27 +219,21 @@ public extension RevealingSplashView {
      
      - parameter completion: completion
      */
-    func playZoomOutAnimation(_ completion: SplashAnimatableCompletion? = nil)
-    {
-        if let imageView =  imageView
-        {
+    func playZoomOutAnimation(_ completion: SplashAnimatableCompletion? = nil) {
+        if let imageView = imageView {
             let growDuration: TimeInterval = duration * 0.3
-            
-            UIView.animate(withDuration: growDuration, animations:{
-                
+            RunLoop.current.run(until: Date(timeIntervalSinceNow: 2.0))
+            UIView.animate(withDuration: growDuration, animations:{ [weak self] in
+                guard let `self` = self else { return }
                 imageView.transform = self.getZoomOutTranform()
                 self.alpha = 0
-                
-                //When animation completes remote self from super view
-            }, completion: { finished in
-                
+            }, completion: { [weak self] _ in
+                guard let `self` = self else { return }
                 self.removeFromSuperview()
-                
                 completion?()
             })
         }
     }
-    
     
     
     /**
