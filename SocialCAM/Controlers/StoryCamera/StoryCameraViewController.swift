@@ -541,7 +541,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         layout()
         switchingAppView.isHidden = true
         self.view.isMultipleTouchEnabled = true
-        bottomCameraViews.addGestureRecognizer(panRecognizer)
+        //bottomCameraViews.addGestureRecognizer(panRecognizer)
         volumeButtonHandler()
         changeModeHandler()
         dynamicSetSlowFastVerticalBar()
@@ -1177,7 +1177,7 @@ extension StoryCameraViewController {
             self.showControls()
             self.stop()
             
-            self.timer = Timer.scheduledTimer(timeInterval: 0.7, target: self, selector: #selector(self.animate), userInfo: nil, repeats: false)
+          //  self.timer = Timer.scheduledTimer(timeInterval: 0.7, target: self, selector: #selector(self.animate), userInfo: nil, repeats: false)
             
             self.timerValueView.isHidden = isLiteApp ? self.isUserTimerValueChange : !self.isUserTimerValueChange
             self.segmentLengthSelectedLabel.text = self.selectedSegmentLengthValue.value
@@ -1269,13 +1269,13 @@ extension StoryCameraViewController {
         if !isFastCamApp && !isViralCamLiteApp && !isFastCamLiteApp && !isQuickCamLiteApp && !isSpeedCamLiteApp && !isSnapCamLiteApp && !isQuickApp {
             cameraSliderView.selectCell = Defaults.shared.cameraMode.rawValue
         }
-        UIView.animate(withDuration: 0.1, animations: { () -> Void in
-            self.animateTransitionIfNeeded(to: self.currentState.opposite, duration: 0)
-        }, completion: { (_ finished: Bool) -> Void in
-            if finished {
-                self.currentState = .closed
-            }
-        })
+//        UIView.animate(withDuration: 0.1, animations: { () -> Void in
+//            self.animateTransitionIfNeeded(to: self.currentState.opposite, duration: 0)
+//        }, completion: { (_ finished: Bool) -> Void in
+//            if finished {
+//                self.currentState = .closed
+//            }
+//        })
     }
     
     func volumeButtonHandler() {
@@ -1324,13 +1324,13 @@ extension StoryCameraViewController {
     }
     
     @objc func animate() {
-        UIView.animate(withDuration: 0.1, animations: { () -> Void in
-            self.animateTransitionIfNeeded(to: self.currentState.opposite, duration: 1)
-        }, completion: { (_ finished: Bool) -> Void in
-            if finished {
-                self.currentState = .open
-            }
-        })
+//        UIView.animate(withDuration: 0.1, animations: { () -> Void in
+//            self.animateTransitionIfNeeded(to: self.currentState.opposite, duration: 1)
+//        }, completion: { (_ finished: Bool) -> Void in
+//            if finished {
+//                self.currentState = .open
+//            }
+//        })
     }
     
     func setupLayout() {
@@ -2555,13 +2555,13 @@ extension StoryCameraViewController {
         }))
         alert.addAction(UIAlertAction(title: R.string.localizable.later(), style: .cancel, handler: { (_) in
             self.cameraSliderView.selectCell = 0
-            UIView.animate(withDuration: 0.1, animations: { () -> Void in
-                self.animateTransitionIfNeeded(to: self.currentState.opposite, duration: 0)
-            }, completion: { (_ finished: Bool) -> Void in
-                if finished {
-                    self.currentState = .open
-                }
-            })
+//            UIView.animate(withDuration: 0.1, animations: { () -> Void in
+//                self.animateTransitionIfNeeded(to: self.currentState.opposite, duration: 0)
+//            }, completion: { (_ finished: Bool) -> Void in
+//                if finished {
+//                    self.currentState = .open
+//                }
+//            })
         }))
         self.present(alert, animated: true, completion: nil)
     }

@@ -69,17 +69,16 @@ open class InstaSlider: UIView {
     func collectionViewInitialization() {
         // Initialization code
         backgroundColor = UIColor.clear
-        backgroundImage = UIImageView(frame: CGRect.init(x: (self.bounds.minX), y: (self.bounds.maxY) - 37, width: UIScreen.ratioWidth, height: 37))
-        backgroundImage?.contentMode = .scaleAspectFit
-        let image = bottomImage
-        backgroundImage?.image = image
-        if let anImage = backgroundImage {
-            self.addSubview(anImage)
-        }
+//        backgroundImage = UIImageView(frame: CGRect.init(x: (self.bounds.minX), y: (self.bounds.maxY) - 37, width: UIScreen.ratioWidth, height: 37))
+//        backgroundImage?.contentMode = .scaleAspectFit
+//        let image = bottomImage
+//        backgroundImage?.image = image
+//        if let anImage = backgroundImage {
+//            self.addSubview(anImage)
+//        }
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         self.collectionView = UICollectionView(frame: bounds, collectionViewLayout: layout)
-        collectionViewLayout = HorizontalFlowLayout
-            .configureLayout(collectionView: self.collectionView, itemSize: CGSize.init(width: 110, height: self.collectionView.frame.height/2), minimumLineSpacing: 2)
+        collectionViewLayout = HorizontalFlowLayout.configureLayout(collectionView: self.collectionView, itemSize: CGSize.init(width: 110, height: self.collectionView.frame.height/2), minimumLineSpacing: 2)
         
         self.collectionView.collectionViewLayout = collectionViewLayout
         self.collectionView.showsHorizontalScrollIndicator = false
@@ -125,8 +124,13 @@ open class InstaSlider: UIView {
             newX = collectionOrigin.x + collectionWidth / 2
             centerPoint = CGPoint(x: newX, y: collectionOrigin.y)
         }
-        
-        let index = collectionView!.indexPathForItem(at: centerPoint)
+        //let index = collectionView!.indexPathForItem(at: centerPoint)
+
+        // for linear collectionview
+        let visibleRect = CGRect(origin: collectionView.contentOffset, size: collectionView.bounds.size)
+        let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
+
+        let index = collectionView!.indexPathForItem(at: visiblePoint)
         let cells = collectionView!.cellForItem(at: IndexPath.init(item: 0, section: 0)) as? CollectionViewCustomCell
         
         if(index != nil) {
@@ -154,6 +158,7 @@ open class InstaSlider: UIView {
                 if(currentCell == cells! && (selectedCell == 0 || selectedCell == 1) && actualPosition.x > 0) {
                     selectedCell = collectionView.indexPath(for: cells!)?.item
                     cells!.label.textColor = selectedCellTextColor
+                    
                 }
             }
         }
@@ -201,6 +206,7 @@ extension InstaSlider: UICollectionViewDataSource, UICollectionViewDelegate, UIC
         kCell.tag = indexPath.row
         kCell.layer.shouldRasterize = true
         kCell.layer.rasterizationScale = UIScreen.main.scale
+        //kCell.backgroundColor = .red
         
         if(self.selectedCell != nil) {
             if(indexPath.item == self.selectedCell) {
