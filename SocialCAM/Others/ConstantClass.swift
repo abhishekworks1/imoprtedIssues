@@ -129,6 +129,7 @@ public struct Constant {
         static let publicLink = URL(string: "https://testflight.apple.com/join/kYCCo1AW")
         static let splashBG = UIImage(named: "boomiCamSplashBG")!
         static let appIcon = UIImage(named: "boomiCamSplashLogo")!
+        static let splashImageSize = 250
         #elseif TIMESPEEDAPP
         static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "TIMESPEED"
         static let simformIdentifier: String = "com.simform.timespeed"
