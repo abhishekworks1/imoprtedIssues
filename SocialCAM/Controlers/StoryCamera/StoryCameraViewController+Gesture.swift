@@ -107,6 +107,14 @@ extension StoryCameraViewController {
         bottomConstraint = bottomCameraViews.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: popupOffset)
         bottomConstraint.isActive = true
         bottomCameraViews.heightAnchor.constraint(equalToConstant: 400).isActive = true
+        
+        UIView.animate(withDuration: 0.1, animations: { () -> Void in
+            self.animateTransitionIfNeeded(to: self.currentState.opposite, duration: 1)
+        }, completion: { (_ finished: Bool) -> Void in
+            if finished {
+                self.currentState = .open
+            }
+        })
     }
     
     /// Animates the transition, if the animation is not already running.

@@ -21,6 +21,7 @@ class FollowMeStoryView: UIView {
     }
     
     var imagePicker = UIImagePickerController()
+    public let releaseType = Defaults.shared.releaseType
 
     var didChangeEditing: ((Bool) -> ())?
 
@@ -80,6 +81,10 @@ class FollowMeStoryView: UIView {
             self.setFromUserProfilePic()
         }
         actionSheet.addAction(yourProfilePictureAction)
+        let appLogo = UIAlertAction(title: R.string.localizable.appLogo(), style: .default) { [unowned self] _ in
+            self.userBitEmoji.image = (releaseType == .store) ? R.image.ssuQuickCam() : R.image.ssuQuickCamLite()
+        }
+        actionSheet.addAction(appLogo)
         let cancel = UIAlertAction(title: R.string.localizable.cancel(), style: .cancel) { [unowned self] _ in
             guard let superView = self.superview else {
                 return

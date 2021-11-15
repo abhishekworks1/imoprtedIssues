@@ -541,7 +541,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         layout()
         switchingAppView.isHidden = true
         self.view.isMultipleTouchEnabled = true
-        bottomCameraViews.addGestureRecognizer(panRecognizer)
+        //bottomCameraViews.addGestureRecognizer(panRecognizer)
         volumeButtonHandler()
         changeModeHandler()
         dynamicSetSlowFastVerticalBar()
@@ -1090,30 +1090,16 @@ extension StoryCameraViewController {
                 cameraModeArray = cameraModeArray.filter({$0.recordingType != .capture})
             }
         } else if isBoomiCamApp {
-//            cameraModeArray = cameraModeArray.filter({$0.recordingType != .slideshow})
-//            cameraModeArray = cameraModeArray.filter({$0.recordingType != .collage})
-//            cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastSlowMotion})
-//            cameraModeArray = cameraModeArray.filter({$0.recordingType != .boomerang})
-//            cameraModeArray = cameraModeArray.filter({$0.recordingType != .custom})
-//            cameraModeArray = cameraModeArray.filter({$0.recordingType != .normal})
-//            cameraModeArray = cameraModeArray.filter({$0.recordingType != .capture})
-//            cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastMotion})
-//            cameraModeArray = cameraModeArray.filter({$0.recordingType != .handsfree})
-//            cameraModeArray = cameraModeArray.filter({$0.recordingType != .promo})
-            
-//            cameraModeArray = cameraModeArray.filter({$0.recordingType == .basicCamera})
-//            cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .normal})
-//            cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .boomerang})
-//            cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .capture})
-//            cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .pic2Art})
-            
-            cameraModeArray = [CameraModes]()
-            cameraModeArray.append(CameraModes(name: R.string.localizable.miniBoomi(), recordingType: .basicCamera))
-            cameraModeArray.append(CameraModes(name: R.string.localizable.boomi(), recordingType: .boomerang))
-            cameraModeArray.append(CameraModes(name: R.string.localizable.bigBoomi(), recordingType: .boomerang))
-            cameraModeArray.append(CameraModes(name: R.string.localizable.liveBoomi(), recordingType: .boomerang))
-            
-            
+            cameraModeArray = cameraModeArray.filter({$0.recordingType != .slideshow})
+            cameraModeArray = cameraModeArray.filter({$0.recordingType != .collage})
+            cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastSlowMotion})
+            cameraModeArray = cameraModeArray.filter({$0.recordingType != .boomerang})
+            cameraModeArray = cameraModeArray.filter({$0.recordingType != .custom})
+            cameraModeArray = cameraModeArray.filter({$0.recordingType != .normal})
+            cameraModeArray = cameraModeArray.filter({$0.recordingType != .capture})
+            cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastMotion})
+            cameraModeArray = cameraModeArray.filter({$0.recordingType != .handsfree})
+            cameraModeArray = cameraModeArray.filter({$0.recordingType != .promo})
         } else if isPic2ArtApp {
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastSlowMotion})
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .boomerang})
@@ -1191,7 +1177,7 @@ extension StoryCameraViewController {
             self.showControls()
             self.stop()
             
-            self.timer = Timer.scheduledTimer(timeInterval: 0.7, target: self, selector: #selector(self.animate), userInfo: nil, repeats: false)
+          //  self.timer = Timer.scheduledTimer(timeInterval: 0.7, target: self, selector: #selector(self.animate), userInfo: nil, repeats: false)
             
             self.timerValueView.isHidden = isLiteApp ? self.isUserTimerValueChange : !self.isUserTimerValueChange
             self.segmentLengthSelectedLabel.text = self.selectedSegmentLengthValue.value
@@ -1200,6 +1186,7 @@ extension StoryCameraViewController {
             self.dynamicSetSlowFastVerticalBar()
             self.changeSpeedSliderValues()
             self.refreshCircularProgressBar()
+            //print(Defaults.shared.cameraMode)
             switch Defaults.shared.cameraMode {
             case .boomerang:
                 self.circularProgress.centerImage = R.image.icoBoomrang()
@@ -1212,11 +1199,6 @@ extension StoryCameraViewController {
                     self.photoTimerValue = 0
                     self.resetPhotoCountDown()
                 }
-              /*  if isBoomiCamApp && Defaults.shared.appMode == .free {
-                    self.showAlertForUpgradeSubscription()
-                }else{
-                   
-                } */
             case .slideshow:
                 self.circularProgress.centerImage = R.image.icoSildeshowMode()
                 self.timerValueView.isHidden = true
@@ -1236,16 +1218,14 @@ extension StoryCameraViewController {
                 self.circularProgress.centerImage = R.image.icoCustomMode()
                 self.timerValueView.isHidden = true
             case .capture:
+                Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_mode_Capture)
                 if isQuickApp && Defaults.shared.appMode == .free {
                     self.showAlertForUpgradeSubscription()
-                }else if isBoomiCamApp && Defaults.shared.appMode == .free {
-                   // self.showAlertForUpgradeSubscription()
-                    self.circularProgress.centerImage = R.image.capture_mode()
-                    self.timerValueView.isHidden = true
                 }
-                self.circularProgress.centerImage = R.image.capture_mode()
+                self.circularProgress.centerImage = R.image.iconSaveMode()
                 self.timerValueView.isHidden = true
             case .promo:
+                Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_mode_free)
                 self.circularProgress.centerImage = UIImage()
                 if self.timerValue > 0 {
                     self.timerValue = 0
@@ -1256,21 +1236,9 @@ extension StoryCameraViewController {
                     self.resetPhotoCountDown()
                 }
             case .pic2Art:
+                Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_mode_pic2art)
                 if isQuickApp && Defaults.shared.appMode == .free {
                     self.showAlertForUpgradeSubscription()
-                }else if isBoomiCamApp && Defaults.shared.appMode == .free {
-                   // self.showAlertForUpgradeSubscription()
-                    if let isPic2ArtShowed = Defaults.shared.isPic2ArtShowed {
-                        if isPic2ArtShowed {
-                            self.cameraModeCell = 3
-                            Defaults.shared.isPic2ArtShowed = false
-                            if let tooltipViewController = R.storyboard.loginViewController.tooltipViewController() {
-                                tooltipViewController.pushFromSettingScreen = true
-                                tooltipViewController.isPic2ArtGif = true
-                                self.navigationController?.pushViewController(tooltipViewController, animated: true)
-                            }
-                        }
-                    }
                 } else {
                     if let isPic2ArtShowed = Defaults.shared.isPic2ArtShowed {
                         if isPic2ArtShowed {
@@ -1284,10 +1252,15 @@ extension StoryCameraViewController {
                         }
                     }
                 }
+                
             case .normal:
+                if self.recordingType == .normal {
+                    Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_mode_FastSlow)
+                }
                 if isQuickApp && Defaults.shared.appMode == .free {
                     self.showAlertForUpgradeSubscription()
                 }
+
             default:
                 break
             }
@@ -1296,13 +1269,13 @@ extension StoryCameraViewController {
         if !isFastCamApp && !isViralCamLiteApp && !isFastCamLiteApp && !isQuickCamLiteApp && !isSpeedCamLiteApp && !isSnapCamLiteApp && !isQuickApp {
             cameraSliderView.selectCell = Defaults.shared.cameraMode.rawValue
         }
-        UIView.animate(withDuration: 0.1, animations: { () -> Void in
-            self.animateTransitionIfNeeded(to: self.currentState.opposite, duration: 0)
-        }, completion: { (_ finished: Bool) -> Void in
-            if finished {
-                self.currentState = .closed
-            }
-        })
+//        UIView.animate(withDuration: 0.1, animations: { () -> Void in
+//            self.animateTransitionIfNeeded(to: self.currentState.opposite, duration: 0)
+//        }, completion: { (_ finished: Bool) -> Void in
+//            if finished {
+//                self.currentState = .closed
+//            }
+//        })
     }
     
     func volumeButtonHandler() {
@@ -1351,13 +1324,13 @@ extension StoryCameraViewController {
     }
     
     @objc func animate() {
-        UIView.animate(withDuration: 0.1, animations: { () -> Void in
-            self.animateTransitionIfNeeded(to: self.currentState.opposite, duration: 1)
-        }, completion: { (_ finished: Bool) -> Void in
-            if finished {
-                self.currentState = .open
-            }
-        })
+//        UIView.animate(withDuration: 0.1, animations: { () -> Void in
+//            self.animateTransitionIfNeeded(to: self.currentState.opposite, duration: 1)
+//        }, completion: { (_ finished: Bool) -> Void in
+//            if finished {
+//                self.currentState = .open
+//            }
+//        })
     }
     
     func setupLayout() {
@@ -1849,6 +1822,8 @@ extension StoryCameraViewController {
                         self.switchAppButton.isUserInteractionEnabled = false
                         if (isSpeedCamApp || isFastCamApp || isSnapCamApp) {
                             totalSeconds = Defaults.shared.appMode == .basic ? 60 : 120
+                        } else if isQuickApp && Defaults.shared.appMode == .basic {
+                            totalSeconds = 60
                         } else {
                             totalSeconds = 3600
                         }
@@ -1893,6 +1868,7 @@ extension StoryCameraViewController {
             self.discardSegmentsStackView.isHidden = false
             self.confirmRecordedSegmentStackView.isHidden = false
             self.stopMotionCollectionView.isHidden = true
+            self.outtakesView.isHidden = true
         }
         if recordingType == .capture {
             self.settingsButton.isUserInteractionEnabled = true
@@ -2318,15 +2294,11 @@ extension StoryCameraViewController {
                 self.removeData()
                 return
             }
-            if self.recordingType == .basicCamera {
-                self.didBoomerang(assetUrl)
-            }else{
-                specificBoomerangViewController.currentAsset = avAsset
-                specificBoomerangViewController.delegate = self
-                
-                self.navigationController?.pushViewController(specificBoomerangViewController, animated: true)
-                self.removeData()
-            }
+            specificBoomerangViewController.currentAsset = avAsset
+            specificBoomerangViewController.delegate = self
+           
+            self.navigationController?.pushViewController(specificBoomerangViewController, animated: true)
+            self.removeData()
         } else {
             let asset = self.getRecordSession(videoModel: segementedVideos)
             guard let storyEditorViewController = R.storyboard.storyEditor.storyEditorViewController() else {
@@ -2479,6 +2451,7 @@ extension StoryCameraViewController {
         self.discardSegmentsStackView.isHidden = true
         self.confirmRecordedSegmentStackView.isHidden = true
         self.slowFastVerticalBar.isHidden = true
+        self.outtakesView.isHidden = false
     }
     
     func getUserProfile() {
@@ -2487,11 +2460,8 @@ extension StoryCameraViewController {
                 Defaults.shared.currentUser = response.result
                 CurrentUser.shared.setActiveUser(response.result)
                 self.setupLayoutCameraSliderView()
-            } else {
-                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
             }
         }, onError: { error in
-            self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
     }
@@ -2549,8 +2519,6 @@ extension StoryCameraViewController {
                 if let appWatermark = response.result?.userSettings?.appWatermark {
                     Defaults.shared.appIdentifierWatermarkSetting = AppIdentifierWatermarkSetting(rawValue: appWatermark) ?? .hide
                 }
-            } else {
-                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
             }
         }, onError: { error in
             print(error.localizedDescription)
@@ -2587,13 +2555,13 @@ extension StoryCameraViewController {
         }))
         alert.addAction(UIAlertAction(title: R.string.localizable.later(), style: .cancel, handler: { (_) in
             self.cameraSliderView.selectCell = 0
-            UIView.animate(withDuration: 0.1, animations: { () -> Void in
-                self.animateTransitionIfNeeded(to: self.currentState.opposite, duration: 0)
-            }, completion: { (_ finished: Bool) -> Void in
-                if finished {
-                    self.currentState = .open
-                }
-            })
+//            UIView.animate(withDuration: 0.1, animations: { () -> Void in
+//                self.animateTransitionIfNeeded(to: self.currentState.opposite, duration: 0)
+//            }, completion: { (_ finished: Bool) -> Void in
+//                if finished {
+//                    self.currentState = .open
+//                }
+//            })
         }))
         self.present(alert, animated: true, completion: nil)
     }
@@ -2640,7 +2608,6 @@ extension StoryCameraViewController {
                 completion(true)
             }
         }, onError: { error in
-           // self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
     }
@@ -2653,11 +2620,8 @@ extension StoryCameraViewController {
             if response.status == ResponseType.success {
                 self.isVidplayAccountFound = response.result?.isAccountFound
                 self.vidplaySessionToken = response.result?.data?.token ?? ""
-            } else {
-                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
             }
         }, onError: { error in
-            self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
     }
@@ -2669,11 +2633,8 @@ extension StoryCameraViewController {
             }
             if response.status == ResponseType.success {
                 Defaults.shared.newSignupsNotificationType = (response.result?.isForEveryone == true) ? .forAllUsers : .forLimitedUsers
-            } else {
-                self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
             }
         }, onError: { error in
-           // self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: rx.disposeBag)
     }
@@ -2715,7 +2676,6 @@ extension StoryCameraViewController {
     func doNotShowAgainAPI() {
         ProManagerApi.doNotShowAgain(isDoNotShowMessage: btnDoNotShowAgainProfilePic.isSelected).request(Result<LoginResult>.self).subscribe(onNext: { (response) in
         }, onError: { error in
-            self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: rx.disposeBag)
     }

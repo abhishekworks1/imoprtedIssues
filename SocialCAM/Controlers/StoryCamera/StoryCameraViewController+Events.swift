@@ -17,6 +17,13 @@ extension StoryCameraViewController {
             isMute = !isMute
             setupMuteUI()
             Defaults.shared.isMicOn = isMute
+            if isMute {
+                Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_micOff)
+
+            }else{
+                Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_micOn)
+
+            }
         }
     }
     
@@ -98,6 +105,7 @@ extension StoryCameraViewController {
         if isVideoRecording {
             nextLevel.torchMode = NextLevelTorchMode(rawValue: flashMode.rawValue) ?? .auto
         }
+        Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_flash)
     }
     
     @IBAction func outTakeButtonClicked(_ sender: Any) {
@@ -112,6 +120,8 @@ extension StoryCameraViewController {
             photoPickerVC.selectionType = .video
         }
         self.navigationController?.present(photoPickerVC, animated: true, completion: nil)
+        
+        Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_gallery)
     }
     
     @IBAction func flipButtonClicked(_ sender: Any) {
@@ -125,16 +135,23 @@ extension StoryCameraViewController {
                             self.nextLevel.flipCaptureDevicePosition()
         }, completion: { (_) in
             blurView.removeFromSuperview()
+            if  (self.currentCameraPosition == .front){
+                Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_rear)
+            }else{
+                Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_front)
+            }
             self.flipButton.isSelected = !self.flipButton.isSelected
             self.currentCameraPosition = (self.currentCameraPosition == .front) ? .back : .front
             self.setCameraPositionUI()
             Defaults.shared.cameraPosition = self.currentCameraPosition.rawValue
+           
         })
     }
     
     @IBAction func btnShowHideEditOptionsClick(_ sender: AnyObject) {
         btnShowHide.isSelected = !btnShowHide.isSelected
         hideControls = !hideControls
+        Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_HideIcons)
     }
     
     @IBAction func changeFPSButtonCliked(sender: UIButton) {
@@ -386,6 +403,7 @@ extension StoryCameraViewController {
     }
     
     @IBAction func onStorySettings(_ sender: Any) {
+        Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_Setting)
         if settingsButton.isSelected {
             if Defaults.shared.cameraMode == .custom && self.takenVideoUrls.count > 0 {
                 let alert = UIAlertController(title: Constant.Application.displayName, message: R.string.localizable.switchingCameraModeWillDeleteTheRecordedVideosAreYouSure(), preferredStyle: .actionSheet)
@@ -583,12 +601,14 @@ extension StoryCameraViewController {
     
     @IBAction func btnBusinessDashboardTapped(_ sender: UIButton) {
         if let token = Defaults.shared.sessionToken {
-            let urlString = "\(userDashboardUrl)/redirect?token=\(token)"
+            let urlString = "\(websiteUrl)/redirect?token=\(token)"
             guard let url = URL(string: urlString) else {
                 return
             }
             presentSafariBrowser(url: url)
         }
+        Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_Bdashboard)
+
     }
     
 }

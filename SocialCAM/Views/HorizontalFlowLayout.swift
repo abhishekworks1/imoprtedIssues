@@ -36,7 +36,7 @@ class HorizontalFlowLayout: UICollectionViewFlowLayout {
   var minimumScaleFactor: CGFloat = 0.85
     var scaleItems: Bool = true
     var needsZoom = true
-    var needsDial = true
+    var needsDial = false
     var currentIndex: Int?
     var angleAtExtreme: CGFloat {
       return collectionView!.numberOfItems(inSection: 0) > 0 ? -CGFloat(collectionView!.numberOfItems(inSection: 0)-1)*anglePerItem : 0

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="VSc-xf-4zF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="VSc-xf-4zF">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -25,6 +25,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="vVU-YE-fut"/>
                         <color key="backgroundColor" name="AppLunchScreen"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="HPV-KY-NGP" secondAttribute="bottom" id="0Th-PH-TaN"/>
@@ -36,7 +37,6 @@
                             <constraint firstItem="vVU-YE-fut" firstAttribute="trailing" secondItem="uZu-9X-wGc" secondAttribute="trailing" id="lUU-yZ-EHa"/>
                             <constraint firstItem="HPV-KY-NGP" firstAttribute="top" secondItem="IGX-av-Lc5" secondAttribute="top" id="uiy-aO-bdN"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="vVU-YE-fut"/>
                     </view>
                     <connections>
                         <outlet property="backgroundImageView" destination="uZu-9X-wGc" id="0cx-TC-RV6"/>
@@ -51,7 +51,7 @@
         <image name="launchScreen" width="375" height="667"/>
         <image name="socialCam" width="277" height="48"/>
         <namedColor name="AppLunchScreen">
-            <color red="0.96078431372549022" green="0.98039215686274506" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.96100002527236938" green="0.98000001907348633" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

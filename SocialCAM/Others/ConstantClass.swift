@@ -16,6 +16,8 @@ public struct Constant {
         static let maxChannelName = 30
         static let minChannelName = 12
         static let channelName = 11
+        static let paginationValue = 20
+        static let devicetype = "ios"
     }
     
     struct AWS {
@@ -62,6 +64,11 @@ public struct Constant {
         static let soccercamWebsiteURL = "http://soccercam.iicc.online"
         static let futbolWebsiteURL = "http://futbolcam.iicc.online"
         static let applicationSurveyURL = "https://docs.google.com/forms/d/e/1FAIpQLSevMPz6yVq56rmVcprOfZ9kSckBbrq9XNZXUFAb7zAuBQZDbw/viewform"
+    }
+
+    struct PostHog {
+        static let key = "phc_oojAdsp8Nv6v8VQX6gb41oupMi6GxVdTFhDE8blPaQj"
+        static let host = "https://posthog.promanager.online"
     }
     
     struct Application {
@@ -164,7 +171,8 @@ public struct Constant {
         static let proModeCode: String = "quickcamlite2020"
         static let publicLink = URL(string: "https://testflight.apple.com/join/6zE0nt7P")
         static let splashBG = UIImage(named: (releaseType == .store) ? "quickCamSplashBG" : "quickcamLiteLaunchScreenBG")!
-        static let appIcon = UIImage(named: (releaseType == .store) ? "quickCamSplashLogoOfficialMember" : "quickCamSplashLogoOfficialMember")!
+        static let appIcon = (releaseType == .store) ? (R.image.quickCamSplashLogoPreLaunchVersion() ?? UIImage()) : (R.image.quickCamSplashLogoPreLaunchVersion() ?? UIImage())
+        static let splashImageSize = 250
         #elseif SPEEDCAMLITEAPP
         static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "QuickCam Lite"
         static let simformIdentifier: String = "com.simform.SpeedCamLite"
@@ -399,7 +407,7 @@ public struct Constant {
     }
     
     struct WebviewUserAgent {
-        static let userAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 10_3 like Mac OS X) AppleWebKit/603.1.23 (KHTML, like Gecko) Version/10.0 Mobile/14E5239e Safari/602.1"
+        static let userAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 14_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1"
     }
     
     struct SubscriptionUrl {
@@ -411,5 +419,36 @@ public struct Constant {
         static var isConnectedToInternet: Bool {
             return self.sharedInstance.isReachable
         }
+    }
+    
+    struct Posthog {
+        static let APIkey = "phc_A1cMof0rKpwXlP0y1sJ4BdqS5RAcwzPXvJcd19maTTa"
+        static let Host = "https://posthog.promanager.online/"
+    }
+    
+    struct EventName {
+        static let open_App = "Open app"
+        
+        static let click_Login = "Click Login with ProManager"
+        static let click_SignUp = "Click SignUp with ProManager"
+        static let click_forgotpsw = "Click Forgot password"
+        static let click_trmscondition = "Click Terms and Conditions"
+        static let click_privacy = "Click Privacy Policy"
+
+        static let cam_Setting = "Camera Settings"
+        static let cam_flash = "Camera Flash"
+        static let cam_HideIcons = "Hide icons"
+        static let cam_Bdashboard = "Business Dashboard"
+        static let cam_micOn = "Microphone on"
+        static let cam_micOff = "Microphone off"
+        static let cam_front = "Camera Front"
+        static let cam_rear = "Camera Rear"
+        static let cam_gallery = "Gallary Open"
+        static let cam_mode_free = "Camera Free mode selector"
+        static let cam_mode_FastSlow = "Camera Fast/Slow mode select"
+        static let cam_mode_Capture = "Camera Capture mode select"
+        static let cam_mode_pic2art = "Camera Pic2Art mode select"
+        static let cam_recordBtn = "Camera Record button"
+        
     }
 }

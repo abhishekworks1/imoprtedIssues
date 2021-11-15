@@ -172,6 +172,8 @@ extension KeycloakAuthViewController {
         Defaults.shared.isRegistered = response.result?.isRegistered
         Defaults.shared.numberOfFreeTrialDays = response.result?.diffDays
         Defaults.shared.isPic2ArtShowed = response.result?.isRegistered
+        Defaults.shared.isFirstTimePic2ArtRegistered = response.result?.isRegistered
+        Defaults.shared.isFirstVideoRegistered = response.result?.isRegistered
         Defaults.shared.isQuickLinkShowed = response.result?.isRegistered
         Defaults.shared.isFromSignup = response.result?.isRegistered
         Defaults.shared.userCreatedDate = response.result?.user?.created
@@ -191,14 +193,14 @@ extension KeycloakAuthViewController {
         #if PIC2ARTAPP || TIMESPEEDAPP || BOOMICAMAPP
         Utils.appDelegate?.window?.rootViewController = R.storyboard.pageViewController.pageViewController()
         #else
-        let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
         if isRefferencingChannelEmpty {
-            guard let keycloakURL = URL(string: "\(websiteUrl)/referral/\(channelId)?redirect_uri=\(redirectUri)") else {
+            guard let sessioToken = Defaults.shared.sessionToken, let keycloakURL = URL(string: "\(websiteUrl)\(Paths.onboarding)\(sessioToken)\(Paths.redirect_uri)\(redirectUri)") else {
                 return
             }
             let urlRequest = URLRequest(url: keycloakURL)
             webView.load(urlRequest)
         } else {
+            let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
             Utils.appDelegate?.window?.rootViewController = rootViewController
         }
         RunLoop.current.run(until: Date(timeIntervalSinceNow: 1.0))

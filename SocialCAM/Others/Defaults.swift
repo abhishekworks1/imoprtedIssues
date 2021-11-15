@@ -9,6 +9,7 @@
 import Foundation
 import CoreLocation
 import AVKit
+import PostHog
 
 var isDebug: Bool {
     #if DEBUG
@@ -755,6 +756,24 @@ class Defaults {
         }
     }
     
+    var isFirstTimePic2ArtRegistered: Bool? {
+        get {
+            return appDefaults?.value(forKey: "isFirstTimePic2ArtRegistered") as? Bool ?? true
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isFirstTimePic2ArtRegistered")
+        }
+    }
+    
+    var isFirstVideoRegistered: Bool? {
+        get {
+            return appDefaults?.value(forKey: "isFirstVideoRegistered") as? Bool ?? true
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isFirstVideoRegistered")
+        }
+    }
+    
     var isSurveyAlertShowed: Bool {
         get {
             return appDefaults?.value(forKey: "isSurveyAlertShowed") as? Bool ?? false
@@ -917,6 +936,15 @@ class Defaults {
         }
     }
     
+    var isVideoSavedAfterRecordingFirstTime: Bool {
+        get {
+            return appDefaults?.value(forKey: "isVideoSavedAfterRecordingFirstTime") as? Bool ?? false
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isVideoSavedAfterRecordingFirstTime")
+        }
+    }
+    
     var isVideoSavedAfterRecording: Bool {
         get {
             return appDefaults?.value(forKey: "isVideoSavedAfterRecording") as? Bool ?? true
@@ -1069,6 +1097,33 @@ class Defaults {
         }
     }
     
+    var isEditProfileDiscardPopupChecked: Bool {
+        get {
+            return appDefaults?.value(forKey: StaticKeys.isEditProfileDiscardPopupChecked) as? Bool ?? true
+        }
+        set {
+            appDefaults?.set(newValue, forKey: StaticKeys.isEditProfileDiscardPopupChecked)
+        }
+    }
+    
+    var isStateFlagDiscardPopupChecked: Bool {
+        get {
+            return appDefaults?.value(forKey: StaticKeys.isStateFlagDiscardPopupChecked) as? Bool ?? true
+        }
+        set {
+            appDefaults?.set(newValue, forKey: StaticKeys.isStateFlagDiscardPopupChecked)
+        }
+    }
+    
+    var isShareScreenDiscardPopupChecked: Bool {
+        get {
+            return appDefaults?.value(forKey: StaticKeys.isShareScreenDiscardPopupChecked) as? Bool ?? true
+        }
+        set {
+            appDefaults?.set(newValue, forKey: StaticKeys.isShareScreenDiscardPopupChecked)
+        }
+    }
+    
     func clearData(isDeleteAccount: Bool = false) {
         if let appDefaultsDictionary = appDefaults?.dictionaryRepresentation() {
             appDefaultsDictionary.keys.forEach { key in
@@ -1082,7 +1137,23 @@ class Defaults {
             }
         }
     }
-    
+    func addEventWithName(eventName:String){
+        let posthog = PHGPostHog.shared()
+        //print("**************eventName**********")
+        //print(eventName)
+        //print("**************eventName**********")
+        var userName = ""
+        var userEmail = ""
+        if let user = Defaults.shared.currentUser{
+            userName = user.username ?? ""
+            userEmail = user.email ?? ""
+        }
+        posthog?.capture(eventName, properties: ["$set": ["userName": userName,"userEmail": userEmail] ])
+        posthog?.identify(userEmail,
+                  properties: ["name": userName, "email": userEmail])
+
+
+    }
 }
 
 extension UserDefaults {

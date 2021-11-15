@@ -87,7 +87,7 @@ public enum ProManagerApi {
     case setCountrys(arrayCountry: [[String:Any]]?)
     case getNotification(page: Int)
     case notificationsRead(notificationId: String)
-    case editDisplayName(publicDisplayName: String, privateDisplayName: String)
+    case editDisplayName(publicDisplayName: String?, privateDisplayName: String?)
     case setFollow(userId: String)
     case setUnFollow(userId: String)
     
@@ -696,7 +696,7 @@ extension ProManagerApi: TargetType {
                 param["userStateFlags"] = country
             }
         case .getNotification(let page):
-            param = ["page": page, "limit": 20]
+            param = [StaticKeys.page: page, StaticKeys.limit: Constant.Value.paginationValue]
         case .notificationsRead(let notificationId):
             param = ["notificationId": notificationId]
         case .editDisplayName(let publicDisplayName, let privateDisplayName):

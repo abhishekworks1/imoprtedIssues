@@ -76,7 +76,7 @@ open class RevealingSplashView: UIView, SplashAnimatable{
     open var duration: Double = 1.5
     
     /// The delay of the animation, default to 0.5 seconds
-    open var delay: Double = 0.5
+    open var delay: Double = 1.5
     
     /// The boolean to stop the heart beat animation, default to false (continuous beat)
     open var heartAttack: Bool = false

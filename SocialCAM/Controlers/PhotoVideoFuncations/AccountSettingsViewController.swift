@@ -21,7 +21,6 @@ class AccountSettings {
     }
     
     static var accountSettings = [
-        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.referringChannelName(), selected: false)], settingsType: .referringChannelName),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.publicDisplayName(), selected: false)], settingsType: .publicDisplayName),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.privateDisplayName(), selected: false)], settingsType: .privateDisplayName),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.deleteAccount(Constant.Application.displayName), selected: false)], settingsType: .deleteAccount)
@@ -37,7 +36,7 @@ class AccountSettingsViewController: UIViewController {
     @IBOutlet weak var doubleButtonStackView: UIStackView!
     @IBOutlet weak var singleButtonSttackView: UIStackView!
     @IBOutlet weak var displayNameTooltipView: UIView!
-    @IBOutlet weak var txtDisplayNameTooltip: UILabel!
+    @IBOutlet weak var lblDisplayNameTooltip: UILabel!
     
     // MARK: - Variable Declarations
     var isDisplayNameChange = false
@@ -52,6 +51,10 @@ class AccountSettingsViewController: UIViewController {
     func showHideButtonView(isHide: Bool) {
         self.singleButtonSttackView.isHidden = isHide
         self.doubleButtonStackView.isHidden = !isHide
+    }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        self.isDisplayNameChange = true
     }
     
     // MARK: - Action Method
@@ -71,7 +74,15 @@ class AccountSettingsViewController: UIViewController {
         }
     }
     @IBAction func onDonePressed(_ sender: UIButton) {
-        self.editDisplayName()
+        if isDisplayNameChange {
+            self.showHUD()
+            self.editDisplayName()
+        } else {
+            self.view.makeToast(R.string.localizable.noChangesMade())
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
     }
     
     @IBAction func onDisplayNameOkPressed(_ sender: UIButton) {
@@ -116,7 +127,7 @@ extension AccountSettingsViewController: UITableViewDataSource {
                 referringChannelNameCell.userImageView.sd_setImage(with: URL.init(string: ""), placeholderImage: ApplicationSettings.userPlaceHolder)
             }
             if let socialPlatForms = Defaults.shared.referredByData?.socialPlatforms {
-                socialPlatForms.count == 4 ? (referringChannelNameCell.imgSocialMediaBadge.isHidden = false) : (referringChannelNameCell.imgSocialMediaBadge.isHidden = true)
+                referringChannelNameCell.imgSocialMediaBadge.isHidden = socialPlatForms.count != 4
             }
             return referringChannelNameCell
         } else if settingTitle.settingsType == .deleteAccount {
@@ -126,6 +137,7 @@ extension AccountSettingsViewController: UITableViewDataSource {
             guard let displayNameCell: DisplayNameTableViewCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.displayNameTableViewCell.identifier) as? DisplayNameTableViewCell else {
                 return accountSettingsCell
             }
+            displayNameCell.txtDisplaName.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
             displayNameCell.btnDisplayNameTooltipIcon.tag = indexPath.section
             displayNameCell.displayTooltipDelegate = self
             if settingTitle.settingsType == .publicDisplayName {
@@ -248,6 +260,7 @@ extension AccountSettingsViewController: UITableViewDelegate {
                     self.navigationController?.popViewController(animated: true)
                 }
             }
+            self.dismissHUD()
         }, onError: { error in
             self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
@@ -259,10 +272,10 @@ extension AccountSettingsViewController: DisplayTooltiPDelegate {
     
     func displayTooltip(index: Int) {
         self.displayNameTooltipView.isHidden = false
-        if index == 1 {
-            self.txtDisplayNameTooltip.text = R.string.localizable.publicDisplayNameTooltip()
-        } else if index == 2 {
-            self.txtDisplayNameTooltip.text = R.string.localizable.privateDisplayNameTooltip()
+        if index == 0 {
+            self.lblDisplayNameTooltip.text = R.string.localizable.publicDisplayNameTooltip()
+        } else if index == 1 {
+            self.lblDisplayNameTooltip.text = R.string.localizable.privateDisplayNameTooltip()
         }
     }
 }
