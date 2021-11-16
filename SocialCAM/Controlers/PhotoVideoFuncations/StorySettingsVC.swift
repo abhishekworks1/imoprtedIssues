@@ -67,6 +67,7 @@ enum SettingsMode: Int {
     case privateDisplayName
     case checkUpdate
     case referringChannel
+    case qrcode
 }
 
 class StorySetting {
@@ -126,6 +127,8 @@ class StorySettings {
                                               settings: [StorySetting(name: R.string.localizable.referringChannelOption(), selected: false)], settingsType: .referringChannel),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.checkUpdates(), selected: false)], settingsType: .checkUpdate),
+                                StorySettings(name: "",
+                                              settings: [StorySetting(name: R.string.localizable.qrCode(), selected: false)], settingsType: .qrcode),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.logout(), selected: false)], settingsType: .logout)]
 }
@@ -461,7 +464,10 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             if let systemSettingsVC = R.storyboard.storyCameraViewController.systemSettingsViewController() {
                 navigationController?.pushViewController(systemSettingsVC, animated: true)
             }
-        } else if settingTitle.settingsType == .logout {
+        } else if settingTitle.settingsType == .qrcode {
+            print("Click on QR")
+        }
+        else if settingTitle.settingsType == .logout {
             lblLogoutPopup.text = R.string.localizable.areYouSureYouWantToLogoutFromApp("\(Constant.Application.displayName)")
             showHideButtonView(isHide: true)
             logoutPopupView.isHidden = false

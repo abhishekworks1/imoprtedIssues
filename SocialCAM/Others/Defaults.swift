@@ -998,6 +998,15 @@ class Defaults {
             appDefaults?.set(newValue, forKey: StaticKeys.includeImg)
         }
     }
+    
+    var includeQRImgForShare: Bool {
+        get {
+            return (appDefaults?.value(forKey: StaticKeys.includeQrImg) as? Bool) ?? true
+        }
+        set {
+            appDefaults?.set(newValue, forKey: StaticKeys.includeQrImg)
+        }
+    }
         
     var ytChannelName: String {
         get {

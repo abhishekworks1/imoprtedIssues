@@ -92,7 +92,8 @@ class User: Codable, Mappable {
     var isShowFlags: Bool?
     var publicDisplayName: String?
     var privateDisplayName: String?
-    
+    var qrcode: String?
+
     required init?(map: Map) {
         
     }
@@ -194,6 +195,7 @@ class User: Codable, Mappable {
         isShowFlags <- map["isShowFlags"]
         publicDisplayName <- map["publicDisplayName"]
         privateDisplayName <- map["privateDisplayName"]
+        qrcode <- map["qrcode"]
     }
     
 }

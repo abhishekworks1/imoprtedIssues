@@ -12,6 +12,7 @@ public struct StaticKeys {
     
     static let socialPlatforms = "socialPlatforms"
     static let includeImg = "includeProfileImgForShare"
+    static let includeQrImg = "includeQrImgForShare"
     static let ytChannelName = "ytChannelName"
     static let channelThumbNail = "channelThumbNail"
     static let newSignupsNotificationType = "newSignupsNotificationType"
