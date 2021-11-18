@@ -466,6 +466,10 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             }
         } else if settingTitle.settingsType == .qrcode {
             print("Click on QR")
+            if let qrViewController = R.storyboard.editProfileViewController.qrCodeViewController() {
+                navigationController?.pushViewController(qrViewController, animated: true)
+            }
+            
         }
         else if settingTitle.settingsType == .logout {
             lblLogoutPopup.text = R.string.localizable.areYouSureYouWantToLogoutFromApp("\(Constant.Application.displayName)")

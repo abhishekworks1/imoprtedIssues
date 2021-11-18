@@ -173,7 +173,7 @@ class ShareSettingViewController: UIViewController {
     @IBAction func shareOkButtonClicked(_ sender: UIButton) {
         if let urlString = self.txtLinkWithCheckOut.text {
             let channelId = Defaults.shared.currentUser?.channelId ?? ""
-            let urlwithString = urlString + " \(websiteUrl)/\(channelId)"
+            let urlwithString = urlString + "\n" + " \(websiteUrl)/\(channelId)"
             UIPasteboard.general.string = urlwithString
             shareTooltipPopupView.isHidden = true
             var shareItems: [Any] = [urlwithString]
@@ -186,6 +186,11 @@ class ShareSettingViewController: UIViewController {
         }
     }
     
+    @IBAction func downloadButtonClicked(_ sender: UIButton) {
+            let image = self.profileView.toImage()
+            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+        Utils.appDelegate?.window?.makeToast(R.string.localizable.profileCardSaved())
+    }
     @IBAction func doNotShowAgainClicked(_ sender: UIButton) {
         btnDoNotShowAgain.isSelected = !btnDoNotShowAgain.isSelected
         Defaults.shared.isShowAllPopUpChecked = !btnDoNotShowAgain.isSelected
@@ -297,7 +302,7 @@ extension ShareSettingViewController {
         let recipientEmail = ""
         let subject = ""
         let channelId = Defaults.shared.currentUser?.channelId ?? ""
-        let body = (self.txtLinkWithCheckOut.text ?? "") + " \(websiteUrl)/\(channelId)"
+        let body = (self.txtLinkWithCheckOut.text ?? "") + "\n" + " \(websiteUrl)/\(channelId)"
         switch emailType {
         case .gmail:
             if MFMailComposeViewController.canSendMail() {
