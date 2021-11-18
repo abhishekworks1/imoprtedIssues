@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="AtK-B9-Jht">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="AtK-B9-Jht">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -2329,7 +2329,7 @@ Countdown</string>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="StorySettingsHeader" rowHeight="61" id="Qfd-3Z-mOX" customClass="StorySettingsHeader" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="49" width="359" height="61"/>
+                                        <rect key="frame" x="0.0" y="55.333332061767578" width="359" height="61"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Qfd-3Z-mOX" id="DZQ-x1-CR4">
                                             <rect key="frame" x="0.0" y="0.0" width="359" height="61"/>
@@ -2414,7 +2414,7 @@ Countdown</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="StorySettingsCell" id="WST-z2-GwX" customClass="StorySettingsCell" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="110" width="359" height="44"/>
+                                        <rect key="frame" x="0.0" y="116.33333206176758" width="359" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WST-z2-GwX" id="u5h-Xu-o4t">
                                             <rect key="frame" x="0.0" y="0.0" width="359" height="44"/>
@@ -2480,7 +2480,7 @@ Countdown</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AppOpenSettingsCell" id="CNV-Hv-Rep" customClass="AppOpenSettingsCell" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="154" width="359" height="413.33334350585938"/>
+                                        <rect key="frame" x="0.0" y="160.33333206176758" width="359" height="413.33334350585938"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CNV-Hv-Rep" id="xnQ-gx-Bn2">
                                             <rect key="frame" x="0.0" y="0.0" width="359" height="413.33334350585938"/>
@@ -2697,7 +2697,7 @@ Countdown</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="WatermarkSettingCell" id="MdD-5J-A1l" customClass="WatermarkSettingCell" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="567.33334350585938" width="359" height="174"/>
+                                        <rect key="frame" x="0.0" y="573.66667556762695" width="359" height="174"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MdD-5J-A1l" id="7xP-V9-6pm">
                                             <rect key="frame" x="0.0" y="0.0" width="359" height="174"/>
@@ -3040,6 +3040,123 @@ Countdown</string>
                                     <constraint firstItem="KKh-m1-iOL" firstAttribute="top" secondItem="92p-n2-ebb" secondAttribute="top" id="v9W-ga-Koj"/>
                                 </constraints>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iRu-ao-hRX" userLabel="Business Dashboard Confirm Popup">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nUW-I3-obg">
+                                        <rect key="frame" x="37.666666666666657" y="308.33333333333331" width="300" height="195.33333333333331"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You referral link has been copied to clipboard and ready to paste in your post." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pfa-u2-dOT">
+                                                <rect key="frame" x="20" y="20.000000000000004" width="260" height="55.333333333333343"/>
+                                                <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="15.399999618530273"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="25G-ZX-yg7">
+                                                <rect key="frame" x="0.0" y="75.333333333333371" width="300" height="120"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nIq-vQ-qXv">
+                                                        <rect key="frame" x="0.0" y="0.0" width="300" height="60"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ebL-VV-g63">
+                                                                <rect key="frame" x="5" y="15" width="30" height="30"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="30" id="ZUs-gK-vgu"/>
+                                                                    <constraint firstAttribute="width" constant="30" id="ypb-6m-bx4"/>
+                                                                </constraints>
+                                                                <state key="normal" image="checkBoxInActive"/>
+                                                                <state key="selected" image="checkBoxActive"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColorChat">
+                                                                        <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                            </button>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Do not display this message again" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KU7-BL-kpd">
+                                                                <rect key="frame" x="45" y="21" width="246" height="18"/>
+                                                                <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="15"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dn7-OA-dt3">
+                                                                <rect key="frame" x="0.0" y="0.0" width="300" height="60"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="60" id="rvD-kp-efJ"/>
+                                                                </constraints>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <constraints>
+                                                            <constraint firstItem="KU7-BL-kpd" firstAttribute="leading" secondItem="ebL-VV-g63" secondAttribute="trailing" constant="10" id="8rM-tX-m1w"/>
+                                                            <constraint firstItem="dn7-OA-dt3" firstAttribute="top" secondItem="nIq-vQ-qXv" secondAttribute="top" id="C4r-bK-Yxw"/>
+                                                            <constraint firstAttribute="bottom" secondItem="dn7-OA-dt3" secondAttribute="bottom" id="HNT-gz-0Pd"/>
+                                                            <constraint firstItem="dn7-OA-dt3" firstAttribute="leading" secondItem="nIq-vQ-qXv" secondAttribute="leading" id="NR6-rw-gk3"/>
+                                                            <constraint firstItem="KU7-BL-kpd" firstAttribute="centerY" secondItem="ebL-VV-g63" secondAttribute="centerY" id="YIc-dw-Hyo"/>
+                                                            <constraint firstAttribute="trailing" secondItem="dn7-OA-dt3" secondAttribute="trailing" id="aOo-nI-D2E"/>
+                                                            <constraint firstItem="ebL-VV-g63" firstAttribute="centerY" secondItem="nIq-vQ-qXv" secondAttribute="centerY" id="k5F-RJ-eHp"/>
+                                                            <constraint firstAttribute="trailing" secondItem="KU7-BL-kpd" secondAttribute="trailing" constant="9" id="nmY-pT-u52"/>
+                                                            <constraint firstItem="ebL-VV-g63" firstAttribute="leading" secondItem="nIq-vQ-qXv" secondAttribute="leading" constant="5" id="ykj-3q-XMF"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YAK-Td-DAa">
+                                                        <rect key="frame" x="0.0" y="60" width="300" height="60"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dyL-YW-PFa">
+                                                                <rect key="frame" x="103" y="12" width="94" height="36"/>
+                                                                <color key="backgroundColor" name="AppPrimaryColor"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="36" id="BfN-aF-dK7"/>
+                                                                    <constraint firstAttribute="width" constant="94" id="py2-lT-lxW"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="16"/>
+                                                                <state key="normal" title="OK">
+                                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </state>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                                        <real key="value" value="5"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstItem="dyL-YW-PFa" firstAttribute="centerY" secondItem="YAK-Td-DAa" secondAttribute="centerY" id="U3h-Rr-vd9"/>
+                                                            <constraint firstItem="dyL-YW-PFa" firstAttribute="centerX" secondItem="YAK-Td-DAa" secondAttribute="centerX" id="cHH-3b-463"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="25G-ZX-yg7" secondAttribute="trailing" id="0vd-iK-Hh0"/>
+                                            <constraint firstItem="Pfa-u2-dOT" firstAttribute="leading" secondItem="nUW-I3-obg" secondAttribute="leading" constant="20" id="AXo-PC-btS"/>
+                                            <constraint firstItem="Pfa-u2-dOT" firstAttribute="top" secondItem="nUW-I3-obg" secondAttribute="top" constant="20" id="EET-Aq-nDy"/>
+                                            <constraint firstItem="25G-ZX-yg7" firstAttribute="top" secondItem="Pfa-u2-dOT" secondAttribute="bottom" id="EX8-sl-FKV"/>
+                                            <constraint firstItem="25G-ZX-yg7" firstAttribute="leading" secondItem="nUW-I3-obg" secondAttribute="leading" id="FSR-TT-fqc"/>
+                                            <constraint firstAttribute="height" constant="195.5" id="Sa6-bu-ud7"/>
+                                            <constraint firstAttribute="bottom" secondItem="25G-ZX-yg7" secondAttribute="bottom" id="rRa-Jf-toy"/>
+                                            <constraint firstAttribute="width" constant="300" id="xLv-Td-9cD"/>
+                                            <constraint firstAttribute="trailing" secondItem="Pfa-u2-dOT" secondAttribute="trailing" constant="20" id="yRO-Co-iHs"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                <real key="value" value="15"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColorChat">
+                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="nUW-I3-obg" firstAttribute="centerY" secondItem="iRu-ao-hRX" secondAttribute="centerY" id="u00-0r-I4D"/>
+                                    <constraint firstItem="nUW-I3-obg" firstAttribute="centerX" secondItem="iRu-ao-hRX" secondAttribute="centerX" id="ukm-o8-dM2"/>
+                                </constraints>
+                            </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DeM-Ch-kJ2" userLabel="Long Press Popup">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                 <subviews>
@@ -3098,6 +3215,119 @@ Countdown</string>
                                     <constraint firstItem="fcq-oK-7Uc" firstAttribute="centerY" secondItem="DeM-Ch-kJ2" secondAttribute="centerY" id="66u-Sz-RJh"/>
                                     <constraint firstItem="fcq-oK-7Uc" firstAttribute="centerX" secondItem="DeM-Ch-kJ2" secondAttribute="centerX" id="Zwy-dB-Ivk"/>
                                 </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BT0-mM-WFE">
+                                <rect key="frame" x="67" y="342" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wcr-jl-DU8" userLabel="Quick Link Tooltip View">
+                                        <rect key="frame" x="-30" y="-34" width="300" height="195.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You referral link has been copied to clipboard and ready to paste in your post." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CSs-Et-kXy">
+                                                <rect key="frame" x="20" y="20.000000000000004" width="260" height="55.333333333333343"/>
+                                                <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="15.399999618530273"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="5RU-RV-xsr">
+                                                <rect key="frame" x="0.0" y="75.333333333333314" width="300" height="120"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eb1-oF-epB">
+                                                        <rect key="frame" x="0.0" y="0.0" width="300" height="60"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WM8-3y-0ZD">
+                                                                <rect key="frame" x="5" y="15" width="30" height="30"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="30" id="bS3-7Q-2to"/>
+                                                                    <constraint firstAttribute="height" constant="30" id="fkj-eO-ueA"/>
+                                                                </constraints>
+                                                                <state key="normal" image="checkBoxInActive"/>
+                                                                <state key="selected" image="checkBoxActive"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColorChat">
+                                                                        <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                            </button>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Do not display this message again" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Pc-8F-igs">
+                                                                <rect key="frame" x="45" y="21" width="246" height="18"/>
+                                                                <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="15"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XeO-b8-tjq">
+                                                                <rect key="frame" x="0.0" y="0.0" width="300" height="60"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="60" id="JDH-Fi-KtV"/>
+                                                                </constraints>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <constraints>
+                                                            <constraint firstItem="WM8-3y-0ZD" firstAttribute="centerY" secondItem="eb1-oF-epB" secondAttribute="centerY" id="3EN-uZ-G9n"/>
+                                                            <constraint firstItem="WM8-3y-0ZD" firstAttribute="leading" secondItem="eb1-oF-epB" secondAttribute="leading" constant="5" id="4l3-La-liN"/>
+                                                            <constraint firstItem="XeO-b8-tjq" firstAttribute="leading" secondItem="eb1-oF-epB" secondAttribute="leading" id="4yM-G0-U5v"/>
+                                                            <constraint firstItem="XeO-b8-tjq" firstAttribute="top" secondItem="eb1-oF-epB" secondAttribute="top" id="II4-YD-NZH"/>
+                                                            <constraint firstAttribute="bottom" secondItem="XeO-b8-tjq" secondAttribute="bottom" id="MRn-NY-iOU"/>
+                                                            <constraint firstItem="2Pc-8F-igs" firstAttribute="leading" secondItem="WM8-3y-0ZD" secondAttribute="trailing" constant="10" id="Rsz-eP-Le7"/>
+                                                            <constraint firstItem="2Pc-8F-igs" firstAttribute="centerY" secondItem="WM8-3y-0ZD" secondAttribute="centerY" id="dmp-La-TnJ"/>
+                                                            <constraint firstAttribute="trailing" secondItem="XeO-b8-tjq" secondAttribute="trailing" id="rbL-sA-6Vc"/>
+                                                            <constraint firstAttribute="trailing" secondItem="2Pc-8F-igs" secondAttribute="trailing" constant="9" id="zwI-iV-71G"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eUq-17-B1l">
+                                                        <rect key="frame" x="0.0" y="60" width="300" height="60"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MIc-TF-jBQ">
+                                                                <rect key="frame" x="103" y="12" width="94" height="36"/>
+                                                                <color key="backgroundColor" name="AppPrimaryColor"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="94" id="DZH-27-QiP"/>
+                                                                    <constraint firstAttribute="height" constant="36" id="S5g-tV-vuM"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="16"/>
+                                                                <state key="normal" title="OK">
+                                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </state>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                                        <real key="value" value="5"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstItem="MIc-TF-jBQ" firstAttribute="centerX" secondItem="eUq-17-B1l" secondAttribute="centerX" id="wP3-nG-hpG"/>
+                                                            <constraint firstItem="MIc-TF-jBQ" firstAttribute="centerY" secondItem="eUq-17-B1l" secondAttribute="centerY" id="zew-hb-8bn"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="5RU-RV-xsr" firstAttribute="leading" secondItem="wcr-jl-DU8" secondAttribute="leading" id="7I3-mI-82t"/>
+                                            <constraint firstAttribute="trailing" secondItem="5RU-RV-xsr" secondAttribute="trailing" id="FXM-cQ-Sgx"/>
+                                            <constraint firstItem="5RU-RV-xsr" firstAttribute="top" secondItem="CSs-Et-kXy" secondAttribute="bottom" id="gQi-Ev-80D"/>
+                                            <constraint firstAttribute="trailing" secondItem="CSs-Et-kXy" secondAttribute="trailing" constant="20" id="hPZ-PJ-DdK"/>
+                                            <constraint firstItem="CSs-Et-kXy" firstAttribute="top" secondItem="wcr-jl-DU8" secondAttribute="top" constant="20" id="i78-2b-wvE"/>
+                                            <constraint firstAttribute="bottom" secondItem="5RU-RV-xsr" secondAttribute="bottom" id="og1-VL-3BL"/>
+                                            <constraint firstItem="CSs-Et-kXy" firstAttribute="leading" secondItem="wcr-jl-DU8" secondAttribute="leading" constant="20" id="tMQ-T0-cT4"/>
+                                            <constraint firstAttribute="width" constant="300" id="u4p-vQ-l8t"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                <real key="value" value="15"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColorChat">
+                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VyN-by-AzL">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
@@ -3213,14 +3443,18 @@ Countdown</string>
                             <constraint firstAttribute="bottom" secondItem="DeM-Ch-kJ2" secondAttribute="bottom" id="2w0-75-OCh"/>
                             <constraint firstItem="DeM-Ch-kJ2" firstAttribute="centerX" secondItem="FgY-Cq-1Ko" secondAttribute="centerX" id="7f5-iE-YR8"/>
                             <constraint firstItem="VXB-7J-tKn" firstAttribute="centerX" secondItem="y7W-1e-ghQ" secondAttribute="centerX" id="A5K-pL-OIu"/>
+                            <constraint firstItem="y7W-1e-ghQ" firstAttribute="top" secondItem="iRu-ao-hRX" secondAttribute="top" constant="44" id="AY7-pN-J5z"/>
                             <constraint firstItem="DeM-Ch-kJ2" firstAttribute="centerY" secondItem="FgY-Cq-1Ko" secondAttribute="centerY" id="I2q-C5-Nvp"/>
                             <constraint firstItem="92p-n2-ebb" firstAttribute="leading" secondItem="y7W-1e-ghQ" secondAttribute="leading" id="IXP-vK-Vxl"/>
+                            <constraint firstItem="iRu-ao-hRX" firstAttribute="leading" secondItem="y7W-1e-ghQ" secondAttribute="leading" id="Jqg-Hh-T37"/>
                             <constraint firstItem="DeM-Ch-kJ2" firstAttribute="leading" secondItem="y7W-1e-ghQ" secondAttribute="leading" id="N37-pn-Pb5"/>
                             <constraint firstItem="DeM-Ch-kJ2" firstAttribute="bottom" secondItem="VyN-by-AzL" secondAttribute="bottom" id="Sxk-ZK-wLa"/>
                             <constraint firstItem="DeM-Ch-kJ2" firstAttribute="trailing" secondItem="y7W-1e-ghQ" secondAttribute="trailing" id="Tdd-a0-I6v"/>
                             <constraint firstItem="VyN-by-AzL" firstAttribute="leading" secondItem="y7W-1e-ghQ" secondAttribute="leading" id="VNs-DV-Dyo"/>
                             <constraint firstItem="DeM-Ch-kJ2" firstAttribute="leading" secondItem="VyN-by-AzL" secondAttribute="leading" id="VWW-wP-bcl"/>
                             <constraint firstItem="PB8-Zg-48F" firstAttribute="top" secondItem="VXB-7J-tKn" secondAttribute="bottom" constant="18" id="aoC-t4-2uT"/>
+                            <constraint firstItem="iRu-ao-hRX" firstAttribute="bottom" secondItem="y7W-1e-ghQ" secondAttribute="bottom" constant="34" id="f4b-fG-zyg"/>
+                            <constraint firstItem="y7W-1e-ghQ" firstAttribute="trailing" secondItem="iRu-ao-hRX" secondAttribute="trailing" id="feU-70-McR"/>
                             <constraint firstAttribute="bottom" secondItem="VyN-by-AzL" secondAttribute="bottom" id="fl7-2D-8e9"/>
                             <constraint firstItem="GNJ-5b-aFD" firstAttribute="top" secondItem="y7W-1e-ghQ" secondAttribute="top" id="ge3-kA-PhN"/>
                             <constraint firstItem="GNJ-5b-aFD" firstAttribute="leading" secondItem="y7W-1e-ghQ" secondAttribute="leading" constant="8" id="gzS-XF-Vq3"/>
@@ -3279,7 +3513,7 @@ Countdown</string>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="StorySettingsHeader" rowHeight="61" id="8mI-EB-Fsy" customClass="StorySettingsHeader" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="49" width="359" height="61"/>
+                                        <rect key="frame" x="0.0" y="55.333332061767578" width="359" height="61"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8mI-EB-Fsy" id="O2e-4W-gr0">
                                             <rect key="frame" x="0.0" y="0.0" width="359" height="61"/>
@@ -3343,7 +3577,7 @@ Countdown</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="StorySettingsCell" id="f9s-xS-CEQ" customClass="StorySettingsCell" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="110" width="359" height="45"/>
+                                        <rect key="frame" x="0.0" y="116.33333206176758" width="359" height="45"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="f9s-xS-CEQ" id="Hig-yr-ewn">
                                             <rect key="frame" x="0.0" y="0.0" width="359" height="45"/>
@@ -3416,7 +3650,7 @@ Countdown</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="VideoResolutionCell" id="zdb-e6-cug" customClass="VideoResolutionCell" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="155" width="359" height="150"/>
+                                        <rect key="frame" x="0.0" y="161.33333206176758" width="359" height="150"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zdb-e6-cug" id="ebN-0E-0Ex">
                                             <rect key="frame" x="0.0" y="0.0" width="359" height="150"/>
@@ -3608,7 +3842,7 @@ Countdown</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="iconPositionCell" rowHeight="409" id="FfD-N5-Hkq" customClass="IconPositionTableViewCell" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="305" width="359" height="409"/>
+                                        <rect key="frame" x="0.0" y="311.33333206176758" width="359" height="409"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FfD-N5-Hkq" id="BEU-aF-Cq1">
                                             <rect key="frame" x="0.0" y="0.0" width="359" height="409"/>
@@ -3727,10 +3961,10 @@ Countdown</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="GuildlineIconPositionTableViewCell" id="j7I-aS-qpA" customClass="GuildlineIconPositionTableViewCell" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="714" width="359" height="44"/>
+                                        <rect key="frame" x="0.0" y="720.33333206176758" width="359" height="205"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="j7I-aS-qpA" id="XwH-N4-03v">
-                                            <rect key="frame" x="0.0" y="0.0" width="359" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="359" height="205"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="daN-Le-8lz">
@@ -3749,14 +3983,14 @@ Countdown</string>
                                                     <color key="textColor" name="AppPrimaryColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="3yM-td-Ffl">
-                                                    <rect key="frame" x="10" y="48" width="339" height="0.0"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="3yM-td-Ffl">
+                                                    <rect key="frame" x="10" y="48" width="339" height="132"/>
                                                     <subviews>
-                                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lhI-j3-8vH">
-                                                            <rect key="frame" x="0.0" y="-25" width="110.33333333333333" height="25"/>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lhI-j3-8vH">
+                                                            <rect key="frame" x="0.0" y="0.0" width="110.33333333333333" height="132"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="oZM-te-4Fr">
-                                                                    <rect key="frame" x="11.333333333333329" y="5" width="88" height="20"/>
+                                                                    <rect key="frame" x="11.333333333333329" y="112" width="88" height="20"/>
                                                                     <subviews>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="radioSelected" translatesAutoresizingMaskIntoConstraints="NO" id="oZ7-qa-TpJ">
                                                                             <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
@@ -3774,10 +4008,10 @@ Countdown</string>
                                                                     </subviews>
                                                                 </stackView>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="solidLine" translatesAutoresizingMaskIntoConstraints="NO" id="nO1-KO-mzp">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="110.33333333333333" height="0.0"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="110.33333333333333" height="107"/>
                                                                 </imageView>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xz1-R4-uOj">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="110.33333333333333" height="25"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="110.33333333333333" height="132"/>
                                                                     <connections>
                                                                         <action selector="btnSoldTapped:" destination="j7I-aS-qpA" eventType="touchUpInside" id="UGF-Dq-ehl"/>
                                                                     </connections>
@@ -3797,11 +4031,11 @@ Countdown</string>
                                                                 <constraint firstItem="xz1-R4-uOj" firstAttribute="centerX" secondItem="lhI-j3-8vH" secondAttribute="centerX" id="zvM-BO-q58"/>
                                                             </constraints>
                                                         </view>
-                                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OiU-H1-LqU">
-                                                            <rect key="frame" x="114.33333333333334" y="-25" width="110.33333333333334" height="25"/>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OiU-H1-LqU">
+                                                            <rect key="frame" x="114.33333333333334" y="0.0" width="110.33333333333334" height="132"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ikq-pv-Avw">
-                                                                    <rect key="frame" x="5.3333333333333286" y="5" width="100" height="20"/>
+                                                                    <rect key="frame" x="5.3333333333333286" y="112" width="100" height="20"/>
                                                                     <subviews>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="radioDeselected" translatesAutoresizingMaskIntoConstraints="NO" id="28M-qw-THE">
                                                                             <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
@@ -3819,10 +4053,10 @@ Countdown</string>
                                                                     </subviews>
                                                                 </stackView>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dottedLine" translatesAutoresizingMaskIntoConstraints="NO" id="4nZ-VK-2BU">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="110.33333333333333" height="0.0"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="110.33333333333333" height="107"/>
                                                                 </imageView>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UmG-lE-NCg">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="110.33333333333333" height="25"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="110.33333333333333" height="132"/>
                                                                     <connections>
                                                                         <action selector="btnDottedTapped:" destination="j7I-aS-qpA" eventType="touchUpInside" id="3Be-s1-8At"/>
                                                                     </connections>
@@ -3842,11 +4076,11 @@ Countdown</string>
                                                                 <constraint firstItem="4nZ-VK-2BU" firstAttribute="leading" secondItem="OiU-H1-LqU" secondAttribute="leading" id="zrV-BE-O5d"/>
                                                             </constraints>
                                                         </view>
-                                                        <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XJ8-ez-Chd">
-                                                            <rect key="frame" x="228.66666666666666" y="-25" width="110.33333333333334" height="25"/>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XJ8-ez-Chd">
+                                                            <rect key="frame" x="228.66666666666666" y="0.0" width="110.33333333333334" height="132"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="7Bq-jc-eJf">
-                                                                    <rect key="frame" x="2.6666666666666856" y="5" width="105" height="20"/>
+                                                                    <rect key="frame" x="2.6666666666666856" y="112" width="105" height="20"/>
                                                                     <subviews>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="radioDeselected" translatesAutoresizingMaskIntoConstraints="NO" id="p1L-Ab-GtA">
                                                                             <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
@@ -3864,10 +4098,10 @@ Countdown</string>
                                                                     </subviews>
                                                                 </stackView>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dashedLine" translatesAutoresizingMaskIntoConstraints="NO" id="9GK-Ta-kTu">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="110.33333333333333" height="0.0"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="110.33333333333333" height="107"/>
                                                                 </imageView>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uAQ-zs-Oh1">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="110.33333333333333" height="25"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="110.33333333333333" height="132"/>
                                                                     <connections>
                                                                         <action selector="btnDashedTapped:" destination="j7I-aS-qpA" eventType="touchUpInside" id="iie-al-CQ3"/>
                                                                     </connections>
@@ -3917,10 +4151,10 @@ Countdown</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ColorPickCell" id="AcL-i8-6c0" customClass="ColorPickCell" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="758" width="359" height="44"/>
+                                        <rect key="frame" x="0.0" y="925.33333206176758" width="359" height="180"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="AcL-i8-6c0" id="bvI-D0-q7c">
-                                            <rect key="frame" x="0.0" y="0.0" width="359" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="359" height="180.00000000000011"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconGuidelineColor" translatesAutoresizingMaskIntoConstraints="NO" id="Obj-MA-Xzx">
@@ -3931,7 +4165,7 @@ Countdown</string>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time Guideline Colors" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9M3-xK-7Ud">
-                                                    <rect key="frame" x="49.999999999999986" y="14" width="165.66666666666663" height="9"/>
+                                                    <rect key="frame" x="49.999999999999986" y="14" width="165.66666666666663" height="19"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="19" id="L7q-tc-LWN"/>
                                                     </constraints>
@@ -3940,13 +4174,13 @@ Countdown</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Upk-Bs-9PG">
-                                                    <rect key="frame" x="0.0" y="38" width="359" height="0.0"/>
+                                                    <rect key="frame" x="0.0" y="48" width="359" height="126"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Wi-nF-Kqq">
-                                                            <rect key="frame" x="0.0" y="0.0" width="359" height="0.0"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="359" height="60"/>
                                                             <subviews>
-                                                                <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="lON-PC-Zdm">
-                                                                    <rect key="frame" x="15" y="48.333333333333329" width="329" height="50"/>
+                                                                <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="lON-PC-Zdm">
+                                                                    <rect key="frame" x="15" y="0.0" width="329" height="50"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="50" id="sMy-Ox-dqV"/>
@@ -4014,10 +4248,10 @@ Countdown</string>
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qSh-Za-gf6">
-                                                            <rect key="frame" x="0.0" y="0.0" width="359" height="0.0"/>
+                                                            <rect key="frame" x="0.0" y="65" width="359" height="61"/>
                                                             <subviews>
-                                                                <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="GTm-4L-7Ds">
-                                                                    <rect key="frame" x="15" y="48.333333333333314" width="329" height="50"/>
+                                                                <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="GTm-4L-7Ds">
+                                                                    <rect key="frame" x="15" y="1" width="329" height="50"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="50" id="4DQ-DL-YGi"/>
@@ -4066,7 +4300,7 @@ Countdown</string>
                                                                     </cells>
                                                                 </collectionView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Inactive Guidelines" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="87m-ff-GCE">
-                                                                    <rect key="frame" x="15" y="0.0" width="324" height="0.0"/>
+                                                                    <rect key="frame" x="15" y="0.0" width="324" height="1"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -4105,31 +4339,31 @@ Countdown</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SystemSettingsCell" id="LNm-N2-7nK" userLabel="SystemSettingsCell" customClass="SystemSettingsCell" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="802" width="359" height="44"/>
+                                        <rect key="frame" x="0.0" y="1105.3333320617676" width="359" height="30"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LNm-N2-7nK" id="7Ze-JY-kNK">
-                                            <rect key="frame" x="0.0" y="0.0" width="359" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="359" height="30"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MQi-iP-igJ">
-                                                    <rect key="frame" x="45" y="13" width="32.333333333333343" height="18"/>
+                                                    <rect key="frame" x="45" y="6" width="32.333333333333343" height="18"/>
                                                     <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pJu-4I-ijv">
-                                                    <rect key="frame" x="15" y="11" width="20" height="22"/>
+                                                    <rect key="frame" x="15" y="4" width="20" height="22"/>
                                                     <state key="normal" image="checkBoxInActive"/>
                                                     <state key="selected" image="checkBoxActive"/>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KLV-DY-NWv">
-                                                    <rect key="frame" x="15" y="0.0" width="293" height="44"/>
+                                                    <rect key="frame" x="15" y="0.0" width="293" height="30"/>
                                                     <connections>
                                                         <action selector="btnSystemSettingTaped:" destination="LNm-N2-7nK" eventType="touchUpInside" id="D4D-wd-bqU"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DcM-Jj-DhC">
-                                                    <rect key="frame" x="313" y="0.0" width="46" height="44"/>
+                                                    <rect key="frame" x="313" y="0.0" width="46" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="46" id="a2H-WP-SK2"/>
                                                     </constraints>
@@ -5552,7 +5786,7 @@ Countdown</string>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="StorySettingsHeader" rowHeight="61" id="4vM-Wb-djm" customClass="StorySettingsHeader" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="49" width="359" height="61"/>
+                                        <rect key="frame" x="0.0" y="55.333332061767578" width="359" height="61"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4vM-Wb-djm" id="fld-qE-emc">
                                             <rect key="frame" x="0.0" y="0.0" width="359" height="61"/>
@@ -5600,7 +5834,7 @@ Countdown</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="StorySettingsCell" id="dlB-4T-o9x" customClass="StorySettingsCell" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="110" width="359" height="44"/>
+                                        <rect key="frame" x="0.0" y="116.33333206176758" width="359" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dlB-4T-o9x" id="qIp-fx-cSv">
                                             <rect key="frame" x="0.0" y="0.0" width="359" height="44"/>
@@ -6247,7 +6481,7 @@ Countdown</string>
                                 <color key="backgroundColor" red="0.99991279840000002" green="1" blue="0.99988144639999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="StorySettingsHeader" rowHeight="61" id="0tU-gk-hYz" customClass="StorySettingsHeader" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="49" width="359" height="61"/>
+                                        <rect key="frame" x="0.0" y="55.333332061767578" width="359" height="61"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="0tU-gk-hYz" id="BDE-r4-1f2">
                                             <rect key="frame" x="0.0" y="0.0" width="359" height="61"/>
@@ -6295,7 +6529,7 @@ Countdown</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="HelpSettingsCell" id="zvu-Eq-Cku" customClass="HelpSettingsCell" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="110" width="359" height="44"/>
+                                        <rect key="frame" x="0.0" y="116.33333206176758" width="359" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zvu-Eq-Cku" id="NF3-Qg-2HI">
                                             <rect key="frame" x="0.0" y="0.0" width="359" height="44"/>
@@ -6402,7 +6636,7 @@ Countdown</string>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="StorySettingsHeader" rowHeight="61" id="Nx7-qq-O4y" customClass="StorySettingsHeader" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="49" width="359" height="61"/>
+                                        <rect key="frame" x="0.0" y="55.333332061767578" width="359" height="61"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Nx7-qq-O4y" id="e8E-FT-kai">
                                             <rect key="frame" x="0.0" y="0.0" width="359" height="61"/>
@@ -6450,7 +6684,7 @@ Countdown</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SystemSettingsCell" id="oGd-CR-Zix" userLabel="SystemSettingsCell" customClass="SystemSettingsCell" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="110" width="359" height="44"/>
+                                        <rect key="frame" x="0.0" y="116.33333206176758" width="359" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oGd-CR-Zix" id="5gZ-O1-MMc">
                                             <rect key="frame" x="0.0" y="0.0" width="359" height="44"/>
@@ -6491,7 +6725,7 @@ Countdown</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="CheckUpdatesTableViewCell" id="4bM-C7-vJj" userLabel="CheckUpdatesTableViewCell" customClass="CheckUpdatesTableViewCell" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="154" width="359" height="44"/>
+                                        <rect key="frame" x="0.0" y="160.33333206176758" width="359" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4bM-C7-vJj" id="lW6-dy-4E6">
                                             <rect key="frame" x="0.0" y="0.0" width="359" height="44"/>
@@ -6515,7 +6749,7 @@ Countdown</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="NotificationTypeCell" id="VDo-Xs-w0X" customClass="NotificationTypeCell" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="198" width="359" height="112"/>
+                                        <rect key="frame" x="0.0" y="204.33333206176758" width="359" height="112"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="VDo-Xs-w0X" id="md5-9n-QZW">
                                             <rect key="frame" x="0.0" y="0.0" width="359" height="112"/>
@@ -6775,7 +7009,7 @@ Countdown</string>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="StorySettingsHeader" rowHeight="61" id="zLE-y1-dM0" customClass="StorySettingsHeader" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="49" width="359" height="61"/>
+                                        <rect key="frame" x="0.0" y="55.333332061767578" width="359" height="61"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zLE-y1-dM0" id="mT4-w7-61I">
                                             <rect key="frame" x="0.0" y="0.0" width="359" height="61"/>
@@ -6823,7 +7057,7 @@ Countdown</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AccountSettingsCell" id="TNQ-6h-1JH" userLabel="AccountSettingsCell" customClass="AccountSettingsCell" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="110" width="359" height="44"/>
+                                        <rect key="frame" x="0.0" y="116.33333206176758" width="359" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TNQ-6h-1JH" id="YTf-UF-kUV">
                                             <rect key="frame" x="0.0" y="0.0" width="359" height="44"/>
@@ -6857,7 +7091,7 @@ Countdown</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SystemSettingsCell" id="yht-ai-Ycs" userLabel="SystemSettingsCell" customClass="SystemSettingsCell" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="154" width="359" height="44"/>
+                                        <rect key="frame" x="0.0" y="160.33333206176758" width="359" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="yht-ai-Ycs" id="mFl-oa-aLH">
                                             <rect key="frame" x="0.0" y="0.0" width="359" height="44"/>
@@ -6899,7 +7133,7 @@ Countdown</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ReferringChannelNameCell" rowHeight="65" id="HrE-9u-lDS" userLabel="ReferringChannelNameCell" customClass="ReferringChannelNameCell" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="198" width="359" height="65"/>
+                                        <rect key="frame" x="0.0" y="204.33333206176758" width="359" height="65"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HrE-9u-lDS" id="McD-u7-bYG">
                                             <rect key="frame" x="0.0" y="0.0" width="359" height="65"/>
@@ -6951,7 +7185,7 @@ Countdown</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="DisplayNameTableViewCell" id="tJX-Bp-Tut" userLabel="DisplayNameTableViewCell" customClass="DisplayNameTableViewCell" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="263" width="359" height="94"/>
+                                        <rect key="frame" x="0.0" y="269.33333206176758" width="359" height="94"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tJX-Bp-Tut" id="snS-Mf-Q2g">
                                             <rect key="frame" x="0.0" y="0.0" width="359" height="94"/>
@@ -7307,7 +7541,7 @@ Countdown</string>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="StorySettingsHeader" rowHeight="61" id="vQR-Cr-gyQ" customClass="StorySettingsHeader" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="49" width="359" height="61"/>
+                                        <rect key="frame" x="0.0" y="55.333332061767578" width="359" height="61"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vQR-Cr-gyQ" id="QHQ-Wc-Lxb">
                                             <rect key="frame" x="0.0" y="0.0" width="359" height="61"/>
@@ -7354,7 +7588,7 @@ Countdown</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AffiliateLinkCell" rowHeight="120" id="Q3h-he-vJ9" userLabel="AffiliateLinkCell" customClass="AffiliateLinkCell" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="110" width="359" height="120"/>
+                                        <rect key="frame" x="0.0" y="116.33333206176758" width="359" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Q3h-he-vJ9" id="0yr-L2-C8V">
                                             <rect key="frame" x="0.0" y="0.0" width="359" height="120"/>
@@ -7422,7 +7656,7 @@ Countdown</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ActivateAffiliateLinkCell" rowHeight="140" id="h1D-hC-uA0" userLabel="ActivateAffiliateLinkCell" customClass="ActivateAffiliateLinkCell" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="230" width="359" height="140"/>
+                                        <rect key="frame" x="0.0" y="236.33333206176758" width="359" height="140"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="h1D-hC-uA0" id="0VA-9g-4Un">
                                             <rect key="frame" x="0.0" y="0.0" width="359" height="140"/>
@@ -7567,7 +7801,7 @@ Countdown</string>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="StorySettingsHeader" rowHeight="61" id="SF9-rF-RhN" customClass="StorySettingsHeader" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="49" width="359" height="61"/>
+                                        <rect key="frame" x="0.0" y="55.333332061767578" width="359" height="61"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SF9-rF-RhN" id="a70-92-wYr">
                                             <rect key="frame" x="0.0" y="0.0" width="359" height="61"/>
@@ -7615,7 +7849,7 @@ Countdown</string>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ReferringChannelNameCell" rowHeight="65" id="7Du-MB-HZy" userLabel="ReferringChannelNameCell" customClass="ReferringChannelNameCell" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="110" width="359" height="65"/>
+                                        <rect key="frame" x="0.0" y="116.33333206176758" width="359" height="65"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7Du-MB-HZy" id="2RZ-fA-5iG">
                                             <rect key="frame" x="0.0" y="0.0" width="359" height="65"/>

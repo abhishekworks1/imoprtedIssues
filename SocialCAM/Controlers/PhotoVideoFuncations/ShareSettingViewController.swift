@@ -45,7 +45,7 @@ class ShareSettingViewController: UIViewController {
     @IBOutlet weak var socialPlatformsVerifiedBadgeView: UIView!
     @IBOutlet weak var socialBadgeStackView: UIStackView!
     @IBOutlet weak var lblDisplayName: UILabel!
-    
+    @IBOutlet weak var showFlagsView: UIStackView!
     // MARK: - Variable Declarations
     var myMutableString = NSMutableAttributedString()
     var isIncludeProfileImg = Defaults.shared.includeProfileImgForShare
@@ -102,6 +102,9 @@ class ShareSettingViewController: UIViewController {
             self.lblDisplayName.text = displayName
         } else {
             self.lblDisplayName.isHidden = true
+        }
+        if isQuickApp || isQuickCamApp {
+           self.showFlagsView.isHidden = true
         }
     }
     

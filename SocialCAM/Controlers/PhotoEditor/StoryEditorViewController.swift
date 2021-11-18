@@ -342,7 +342,7 @@ class StoryEditorViewController: UIViewController {
         }
         downloadViewGesture()
         imgViewMadeWithGif.loadGif(name: R.string.localizable.madeWithQuickCamLite())
-        self.lblUserNameWatermark.text = "@\(Defaults.shared.currentUser?.username ?? "")"
+       self.lblUserNameWatermark.text = "@\(Defaults.shared.currentUser?.username ?? "")"
         setupFilterViews()
         setGestureViewForShowHide(view: storyEditors[currentStoryIndex])
         selectedSlideShowMedias = (0...20).map({ _ in StoryEditorMedia(type: .image(UIImage())) })
