@@ -196,7 +196,8 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     @IBOutlet weak var btnDoNotShowAgain: UIButton!
     @IBOutlet weak var appSurveyPopupView: UIView!
     @IBOutlet weak var businessDashboardStackView: UIStackView!
-    
+    @IBOutlet weak var businessDashbardConfirmPopupView: UIView!
+    @IBOutlet weak var btnDoNotShowAgainBusinessConfirmPopup: UIButton!
     // MARK: Variables
     var recordButtonCenterPoint: CGPoint = CGPoint.init()
     
@@ -618,6 +619,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         view.bringSubviewToFront(switchingAppView)
         view.bringSubviewToFront(quickLinkTooltipView)
         view.bringSubviewToFront(appSurveyPopupView)
+        view.bringSubviewToFront(businessDashbardConfirmPopupView)
         view.bringSubviewToFront(profilePicTooltip)
         self.syncUserModel { _ in
             
