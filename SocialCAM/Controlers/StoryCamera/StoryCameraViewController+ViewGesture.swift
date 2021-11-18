@@ -21,6 +21,9 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
         } else if !quickLinkTooltipView.isHidden {
             blurView.isHidden = true
             quickLinkTooltipView.isHidden = true
+        } else if !businessDashbardConfirmPopupView.isHidden {
+            blurView.isHidden = true
+            businessDashbardConfirmPopupView.isHidden = true
         }
     }
     
