@@ -176,7 +176,7 @@ class ShareSettingViewController: UIViewController {
     @IBAction func shareOkButtonClicked(_ sender: UIButton) {
         if let urlString = self.txtLinkWithCheckOut.text {
             let channelId = Defaults.shared.currentUser?.channelId ?? ""
-            let urlwithString = urlString + "\n" + " \(websiteUrl)/\(channelId)"
+            let urlwithString = urlString + "\n" + "\n" + " \(websiteUrl)/\(channelId)"
             UIPasteboard.general.string = urlwithString
             shareTooltipPopupView.isHidden = true
             var shareItems: [Any] = [urlwithString]
@@ -305,7 +305,7 @@ extension ShareSettingViewController {
         let recipientEmail = ""
         let subject = ""
         let channelId = Defaults.shared.currentUser?.channelId ?? ""
-        let body = (self.txtLinkWithCheckOut.text ?? "") + "\n" + " \(websiteUrl)/\(channelId)"
+        let body = (self.txtLinkWithCheckOut.text ?? "") + "\n" + "\n" + " \(websiteUrl)/\(channelId)"
         switch emailType {
         case .gmail:
             if MFMailComposeViewController.canSendMail() {

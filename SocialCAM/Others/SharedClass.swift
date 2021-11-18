@@ -267,7 +267,7 @@ public var keycloakClientId: String {
         } else if isSnapCamApp || isSnapCamLiteApp {
             clientId = "snapcam-alpha"
         } else if isQuickCamApp || isQuickCamLiteApp || isQuickApp {
-            clientId = "quickcam-alpha"
+            clientId = "a-quickcam"
         } else if isSpeedCamApp || isSpeedCamLiteApp {
             clientId = "speedcam-alpha"
         } else {
@@ -312,7 +312,7 @@ public var keycloakRegistrationClientId: String {
         } else if isSnapCamApp || isSnapCamLiteApp {
             clientId = "snapcam-alpha"
         } else if isQuickCamApp || isQuickCamLiteApp || isQuickApp {
-            clientId = "quickcam-alpha"
+            clientId = "a-quickcam"
         } else if isSpeedCamApp || isSpeedCamLiteApp {
             clientId = "speedcam-alpha"
         } else {
@@ -357,7 +357,7 @@ public var keycloakForogtPasswordClientId: String {
         } else if isSnapCamApp || isSnapCamLiteApp {
             clientId = "snapcam-alpha"
         } else if isQuickCamApp || isQuickCamLiteApp || isQuickApp {
-            clientId = "quickcam-alpha"
+            clientId = "a-quickcam"
         } else if isSpeedCamApp || isSpeedCamLiteApp {
             clientId = "speedcam-alpha"
         } else {
