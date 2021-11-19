@@ -65,6 +65,7 @@ enum SettingsMode: Int {
     case milestoneReachedNotification
     case publicDisplayName
     case privateDisplayName
+    case email
     case checkUpdate
     case referringChannel
     case qrcode

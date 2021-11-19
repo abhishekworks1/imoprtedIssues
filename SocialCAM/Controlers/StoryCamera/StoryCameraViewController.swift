@@ -2602,6 +2602,7 @@ extension StoryCameraViewController {
                 Defaults.shared.socialPlatforms = response.result?.user?.socialPlatforms
                 Defaults.shared.referredUserCreatedDate = response.result?.user?.refferedBy?.created
                 Defaults.shared.publicDisplayName = response.result?.user?.publicDisplayName
+                Defaults.shared.emailAddress = response.result?.user?.email
                 Defaults.shared.privateDisplayName = response.result?.user?.privateDisplayName
                 if let isAllowAffiliate = response.result?.user?.isAllowAffiliate {
                     Defaults.shared.isAffiliateLinkActivated = isAllowAffiliate

@@ -157,9 +157,11 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
             if Defaults.shared.selectedFrameRates == cell.settingsName.text {
                 cell.onOffButton.isSelected = true
                 setIcons(cell, R.image.iconSupportedFrameRate() ?? UIImage())
+                cell.onOffButton.alpha = cell.onOffButton.isSelected ? 1 : 0.5
             } else {
                 cell.onOffButton.isSelected = false
                 setIcons(cell, R.image.iconSupportedFrameRate() ?? UIImage())
+                cell.onOffButton.alpha = cell.onOffButton.isSelected ? 1 : 0.5
             }
         } else if settingTitle.settingsType == .watermarkSettings {
             cell.settingsName.textColor = R.color.appPrimaryColor()
@@ -174,6 +176,7 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
             cell.lblPremiumVersionOnly.isHidden = true
             cell.imgSettingsIcon.isHidden = true
             cell.onOffButton.isSelected = Defaults.shared.waterarkOpacity == settingTitle.settingsType.rawValue
+            cell.onOffButton.alpha = cell.onOffButton.isSelected ? 1 : 0.5
         } else if settingTitle.settingsType == .videoResolution {
             cell.onOffButton.isHidden = true
             guard let videoResolutionCell: VideoResolutionCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.videoResolutionCell.identifier) as? VideoResolutionCell else {

@@ -29,6 +29,7 @@ public struct StaticKeys {
     static let referredByData = "referredByData"
     static let publicDisplayName = "publicDisplayName"
     static let privateDisplayName = "privateDisplayName"
+    static let emailAddress = "emailAddress"
     static let name = "name"
     static let code = "code"
     static let state = "state"

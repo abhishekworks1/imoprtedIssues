@@ -1115,6 +1115,15 @@ class Defaults {
         }
     }
     
+    var emailAddress: String? {
+        get {
+            return appDefaults?.value(forKey: StaticKeys.emailAddress) as? String
+        }
+        set {
+            appDefaults?.set(newValue, forKey: StaticKeys.emailAddress)
+        }
+    }
+    
     var isEditProfileDiscardPopupChecked: Bool {
         get {
             return appDefaults?.value(forKey: StaticKeys.isEditProfileDiscardPopupChecked) as? Bool ?? true
