@@ -399,9 +399,9 @@ extension EditProfilePicViewController {
             self.lblSocialSharePopup.text = R.string.localizable.loginSuccess(SocialConnectionType.snapchat.stringValue)
             self.dismissHUD()
             self.setSocialMediaPicture(socialShareType: .snapchat)
-        case .youTube:
-            self.lblSocialSharePopup.text = R.string.localizable.loginSuccess(SocialConnectionType.youtube.stringValue)
-            self.setSocialMediaPicture(socialShareType: .youtube)
+//        case .youTube:
+//            self.lblSocialSharePopup.text = R.string.localizable.loginSuccess(SocialConnectionType.youtube.stringValue)
+//            self.setSocialMediaPicture(socialShareType: .youtube)
         case .twitter:
             self.lblSocialSharePopup.text = R.string.localizable.loginSuccess(SocialConnectionType.twitter.stringValue)
             self.setSocialMediaPicture(socialShareType: .twitter)

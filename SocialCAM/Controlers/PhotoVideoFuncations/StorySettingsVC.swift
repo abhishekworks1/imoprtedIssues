@@ -315,7 +315,9 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             hideUnhideImgButton(cell, R.image.iconBusinessDashboard())
         } else if settingTitle.settingsType == .shareSetting {
             hideUnhideImgButton(cell, R.image.iconShare())
-        } else if settingTitle.settingsType == .accountSettings {
+        }else if settingTitle.settingsType == .qrcode {
+            hideUnhideImgButton(cell, R.image.ic_qrcode())
+        }else if settingTitle.settingsType == .accountSettings {
             hideUnhideImgButton(cell, R.image.iconAccount())
         } else if settingTitle.settingsType == .cameraSettings {
             hideUnhideImgButton(cell, R.image.iconCameraSettings())

@@ -1147,7 +1147,7 @@ extension StoryCameraViewController {
         
         cameraSliderView.stringArray = cameraModeArray
         cameraSliderView.bottomImage = R.image.cameraModeSelect()
-        cameraSliderView.cellTextColor = .white
+        //cameraSliderView.cellTextColor = .white
         cameraSliderView.isScrollEnable = { [weak self] (index, currentMode) in
             guard let `self` = self else { return }
             let currentMode = currentMode.recordingType
@@ -2557,6 +2557,7 @@ extension StoryCameraViewController {
         }))
         alert.addAction(UIAlertAction(title: R.string.localizable.later(), style: .cancel, handler: { (_) in
             self.cameraSliderView.selectCell = 0
+            self.cameraSliderView.collectionView.reloadData()
 //            UIView.animate(withDuration: 0.1, animations: { () -> Void in
 //                self.animateTransitionIfNeeded(to: self.currentState.opposite, duration: 0)
 //            }, completion: { (_ finished: Bool) -> Void in

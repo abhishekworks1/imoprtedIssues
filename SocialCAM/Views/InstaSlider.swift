@@ -22,7 +22,7 @@ open class InstaSlider: UIView {
         }
     }
     
-    open var cellTextColor: UIColor = UIColor.black
+    open var cellTextColor: UIColor = UIColor.lightGray
     open var selectedCellTextColor: UIColor = UIColor.white
     
     open var stringArray: [CameraModes] = [] {
@@ -145,6 +145,7 @@ open class InstaSlider: UIView {
             if(cell != nil) {
                 selectedCell = collectionView.indexPath(for: cell!)?.item
                 cell!.label.textColor = selectedCellTextColor
+                //print("**SelectedC1 \(cell!.label.text)")
                 if (self.currentCell != nil) {
                     self.currentCell!((index?.row)!, self.stringArray[(index!.row)])
                 }
@@ -154,11 +155,10 @@ open class InstaSlider: UIView {
             for cellView in self.collectionView.visibleCells {
                 let currentCell = cellView as? CollectionViewCustomCell
                 currentCell!.label.textColor = cellTextColor
-                
                 if(currentCell == cells! && (selectedCell == 0 || selectedCell == 1) && actualPosition.x > 0) {
                     selectedCell = collectionView.indexPath(for: cells!)?.item
                     cells!.label.textColor = selectedCellTextColor
-                    
+                    //print("**SelectedC2 \(cells!.label.text)")
                 }
             }
         }
