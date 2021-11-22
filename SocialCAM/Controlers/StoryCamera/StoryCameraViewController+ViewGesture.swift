@@ -112,9 +112,11 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             newZoom += lastZoomFactor
             let minZoom = max(1.0, newZoom)
             let translation = gestureRecognizer.location(in: circularProgress)
-            
-            circularProgress.center = CGPoint(x: circularProgress.center.x + translation.x - 35,
-                                              y: circularProgress.center.y + translation.y - 35)
+            if Defaults.shared.appMode == .free{
+                self.circularProgress.center = CGPoint(x: circularProgress.center.x + translation.x - 35,y: circularProgress.center.y)
+            }else{
+                self.circularProgress.center = CGPoint(x: circularProgress.center.x + translation.x - 35,y: circularProgress.center.y + translation.y - 35)
+            }
             if Defaults.shared.appMode != .free && self.recordingType != .promo {
                 nextLevel.videoZoomFactor = Float(minZoom)
             }
@@ -125,6 +127,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
                 }
                 //return
             default:
+                self.circularProgress.center = CGPoint(x: circularProgress.center.x + translation.x - 35,y: circularProgress.center.y)
                 break
             }
             

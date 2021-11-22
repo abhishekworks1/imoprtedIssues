@@ -393,7 +393,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             headerView.title.text = settingTitle.name
             headerView.arrowLabel?.isHidden = true
         }
-        
+       
         headerView.userImage.layer.cornerRadius = headerView.userImage.bounds.width / 2
         if settingTitle.settingsType == .userDashboard {
             headerView.title.isHidden = false
@@ -407,6 +407,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 headerView.userImage.image = ApplicationSettings.userPlaceHolder
             }
             headerView.title.text = R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? "")
+            headerView.nameLabel.text = (Defaults.shared.currentUser?.firstName ?? "") + " " + (Defaults.shared.currentUser?.lastName ?? "")
             if let socialPlatForms = Defaults.shared.socialPlatforms {
                 headerView.imgSocialMediaBadge.isHidden = socialPlatForms.count != 4
             }
