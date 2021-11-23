@@ -2552,6 +2552,7 @@ extension StoryCameraViewController {
         let alert = UIAlertController(title: Constant.Application.displayName, message: R.string.localizable.upgradeSubscriptionWarning(), preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: R.string.localizable.upgradeNow(), style: .default, handler: { (_) in
             if let subscriptionVC = R.storyboard.subscription.subscriptionContainerViewController() {
+                subscriptionVC.subscriptionDelegate = self
                 self.navigationController?.pushViewController(subscriptionVC, animated: true)
             }
         }))
@@ -2684,4 +2685,13 @@ extension StoryCameraViewController {
         }).disposed(by: rx.disposeBag)
     }
     
+}
+
+extension StoryCameraViewController: SubscriptionScreenDelegate {
+    
+    func backFromSubscription() {
+        self.cameraSliderView.selectCell = 0
+        self.cameraSliderView.collectionView.reloadData()
+    }
+
 }

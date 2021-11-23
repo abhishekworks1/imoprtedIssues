@@ -167,7 +167,30 @@ open class InstaSlider: UIView {
             }
         }
     }
+    func findCenterIndexWhileScrolling(scrollView: UIScrollView) {
+        // for linear collectionview
+        let visibleRect = CGRect(origin: collectionView.contentOffset, size: collectionView.bounds.size)
+        let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
 
+        let index = collectionView!.indexPathForItem(at: visiblePoint)
+        
+        if(index != nil) {
+            for cell in self.collectionView.visibleCells {
+                guard let currentCell = cell as? CollectionViewCustomCell else {
+                    return
+                }
+                currentCell.label.textColor = cellTextColor
+                currentCell.label.font = UIFont.systemFont(ofSize: 15)
+            }
+            
+            let cell = collectionView.cellForItem(at: index!) as? CollectionViewCustomCell
+            if(cell != nil) {
+                cell!.label.textColor = selectedCellTextColor
+                cell!.label.font = UIFont.systemFont(ofSize: 17)
+                //print("**SelectedC1 \(cell!.label.text)")
+            }
+        }
+    }
     func isScrollViewScroll(scrollView: UIScrollView) {
         let collectionOrigin = collectionView!.bounds.origin
         let collectionWidth = collectionView!.bounds.width
@@ -182,7 +205,6 @@ open class InstaSlider: UIView {
         }
         
         let index = collectionView!.indexPathForItem(at: centerPoint)
-        
         if(index != nil) {
             if (self.isScrollEnable != nil) {
                 self.isScrollEnable!((index?.row)!, self.stringArray[(index!.row)])
@@ -236,6 +258,10 @@ extension InstaSlider: UICollectionViewDataSource, UICollectionViewDelegate, UIC
         self.findCenterIndex(scrollView: scrollView)
     }
     
+    // while scrolling this delegate is being called so you may now check which direction your scrollView is being scrolled to
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.findCenterIndexWhileScrolling(scrollView: scrollView)
+    }
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         self.findCenterIndex(scrollView: scrollView)
     }
