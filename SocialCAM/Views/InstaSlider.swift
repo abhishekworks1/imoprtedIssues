@@ -55,7 +55,7 @@ open class InstaSlider: UIView {
     open var isScrollEnable: CurrentCellCallBack?
     
     convenience init() {
-        self.init(frame: CGRect(x: 0, y: 0, width: UIScreen.ratioWidth, height: 64))
+        self.init(frame: CGRect(x: 0, y: 0, width: UIScreen.ratioWidth, height: 50))
     }
     
     override init(frame: CGRect) {
@@ -78,7 +78,7 @@ open class InstaSlider: UIView {
 //        }
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         self.collectionView = UICollectionView(frame: bounds, collectionViewLayout: layout)
-        collectionViewLayout = HorizontalFlowLayout.configureLayout(collectionView: self.collectionView, itemSize: CGSize.init(width: 110, height: self.collectionView.frame.height/2), minimumLineSpacing: 2)
+        collectionViewLayout = HorizontalFlowLayout.configureLayout(collectionView: self.collectionView, itemSize: CGSize.init(width: 100, height: self.collectionView.frame.height/2), minimumLineSpacing: 1)
         
         self.collectionView.collectionViewLayout = collectionViewLayout
         self.collectionView.showsHorizontalScrollIndicator = false
@@ -139,12 +139,14 @@ open class InstaSlider: UIView {
                     return
                 }
                 currentCell.label.textColor = cellTextColor
+                currentCell.label.font = UIFont.systemFont(ofSize: 15)
             }
             
             let cell = collectionView.cellForItem(at: index!) as? CollectionViewCustomCell
             if(cell != nil) {
                 selectedCell = collectionView.indexPath(for: cell!)?.item
                 cell!.label.textColor = selectedCellTextColor
+                cell!.label.font = UIFont.systemFont(ofSize: 17)
                 //print("**SelectedC1 \(cell!.label.text)")
                 if (self.currentCell != nil) {
                     self.currentCell!((index?.row)!, self.stringArray[(index!.row)])
@@ -155,9 +157,11 @@ open class InstaSlider: UIView {
             for cellView in self.collectionView.visibleCells {
                 let currentCell = cellView as? CollectionViewCustomCell
                 currentCell!.label.textColor = cellTextColor
+                currentCell!.label.font = UIFont.systemFont(ofSize: 15)
                 if(currentCell == cells! && (selectedCell == 0 || selectedCell == 1) && actualPosition.x > 0) {
                     selectedCell = collectionView.indexPath(for: cells!)?.item
                     cells!.label.textColor = selectedCellTextColor
+                    cells!.label.font = UIFont.systemFont(ofSize: 17)
                     //print("**SelectedC2 \(cells!.label.text)")
                 }
             }
@@ -207,12 +211,13 @@ extension InstaSlider: UICollectionViewDataSource, UICollectionViewDelegate, UIC
         kCell.layer.shouldRasterize = true
         kCell.layer.rasterizationScale = UIScreen.main.scale
         //kCell.backgroundColor = .red
-        
         if(self.selectedCell != nil) {
             if(indexPath.item == self.selectedCell) {
                 kCell.label.textColor = selectedCellTextColor
+                kCell.label.font = UIFont.systemFont(ofSize: 17)
             } else {
                 kCell.label.textColor = cellTextColor
+                kCell.label.font = UIFont.systemFont(ofSize: 15)
             }
         }
         
@@ -220,7 +225,7 @@ extension InstaSlider: UICollectionViewDataSource, UICollectionViewDelegate, UIC
     }
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize.init(width: 110, height: self.collectionView.frame.height/2)
+        return CGSize.init(width: 100, height: self.collectionView.frame.height/2)
     }
     
     public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
@@ -245,7 +250,7 @@ class CollectionViewCustomCell: UICollectionViewCell {
     
     let label: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16)
+        label.font = UIFont.systemFont(ofSize: 15)
         label.textColor = UIColor.darkGray
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
