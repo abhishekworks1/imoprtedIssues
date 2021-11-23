@@ -36,7 +36,9 @@ extension UIViewController {
     
     func dismissHUD() {
         ProgressHUD.dismiss()
-        self.view.isUserInteractionEnabled = true
+        DispatchQueue.main.async {
+            self.view.isUserInteractionEnabled = true
+        }
     }
     
     func dismissHUDWithError(_ error: String) {

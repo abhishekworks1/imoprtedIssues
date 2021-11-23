@@ -407,7 +407,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 headerView.userImage.image = ApplicationSettings.userPlaceHolder
             }
             headerView.title.text = R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? "")
-            headerView.nameLabel.text = (Defaults.shared.currentUser?.firstName ?? "") + " " + (Defaults.shared.currentUser?.lastName ?? "")
+            headerView.nameLabel.text = Defaults.shared.publicDisplayName ?? ""
             if let socialPlatForms = Defaults.shared.socialPlatforms {
                 headerView.imgSocialMediaBadge.isHidden = socialPlatForms.count != 4
             }
