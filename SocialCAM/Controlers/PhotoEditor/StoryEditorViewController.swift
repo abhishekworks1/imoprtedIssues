@@ -391,6 +391,7 @@ class StoryEditorViewController: UIViewController {
         btnSelectedMadeWithGif.isSelected = isMadeWithGifShow
         setGestureViewForShowHide(view: storyEditors[currentStoryIndex])
         if Defaults.shared.appMode == .free {
+            btnFastesteverWatermark.isSelected = true
             btnAppIdentifierWatermark.isSelected = true
             btnSelectAppIdentifierWatermark.isSelected = true
             btnSelectedMadeWithGif.isSelected = true
@@ -1500,6 +1501,7 @@ extension StoryEditorViewController {
         isFastesteverWatermarkShow = !isFastesteverWatermarkShow
         btnFastesteverWatermark.isSelected = isFastesteverWatermarkShow
         btnSelectFastesteverWatermark.isSelected = isFastesteverWatermarkShow
+        Defaults.shared.fastestEverWatermarkSetting = self.isFastesteverWatermarkShow ? .show : .hide
     }
     
     @IBAction func appIdentifierWatermarkButtonClicked(sender: UIButton) {
@@ -1515,6 +1517,7 @@ extension StoryEditorViewController {
         isAppIdentifierWatermarkShow = !isAppIdentifierWatermarkShow
         btnAppIdentifierWatermark.isSelected = isAppIdentifierWatermarkShow
         btnSelectAppIdentifierWatermark.isSelected = isAppIdentifierWatermarkShow
+        Defaults.shared.appIdentifierWatermarkSetting = self.isAppIdentifierWatermarkShow ? .show : .hide
     }
     
     @IBAction func madeWithGifButtonClicked(sender: UIButton) {
@@ -1528,6 +1531,7 @@ extension StoryEditorViewController {
         } */
         isMadeWithGifShow = !isMadeWithGifShow
         btnSelectedMadeWithGif.isSelected = isMadeWithGifShow
+        Defaults.shared.madeWithGifSetting = self.isMadeWithGifShow ? .show : .hide
     }
     
     @IBAction func watermarkViewOkayButtonClicked(sender: UIButton) {

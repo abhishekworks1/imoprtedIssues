@@ -98,23 +98,23 @@
                                         <rect key="frame" x="0.0" y="-20" width="414" height="790"/>
                                         <subviews>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0J6-CG-hzD">
-                                                <rect key="frame" x="162.5" y="0.0" width="89" height="30"/>
+                                                <rect key="frame" x="164.5" y="0.0" width="85" height="30"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UYT-ji-1C7">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UYT-ji-1C7">
                                                         <rect key="frame" x="0.0" y="0.0" width="54" height="30"/>
                                                         <fontDescription key="fontDescription" name="SFUIText-Semibold" family="SF UI Text" pointSize="22"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="87y-2C-cnA">
-                                                        <rect key="frame" x="64" y="0.0" width="25" height="30"/>
+                                                        <rect key="frame" x="60" y="0.0" width="25" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="25" id="YVm-ka-C95"/>
                                                         </constraints>
                                                         <state key="normal" title="Button" image="editDisplayName"/>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2J0-c7-Gj7">
-                                                        <rect key="frame" x="0.0" y="0.0" width="89" height="30"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="85" height="30"/>
                                                         <connections>
                                                             <action selector="editPublicDisplayNameTapped:" destination="k7D-XT-pBV" eventType="touchUpInside" id="6cI-cE-wn4"/>
                                                         </connections>
@@ -124,7 +124,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="UYT-ji-1C7" secondAttribute="bottom" id="5JX-da-PVd"/>
                                                     <constraint firstAttribute="trailing" secondItem="2J0-c7-Gj7" secondAttribute="trailing" id="IPy-Dr-EgA"/>
-                                                    <constraint firstItem="87y-2C-cnA" firstAttribute="leading" secondItem="UYT-ji-1C7" secondAttribute="trailing" constant="10" id="NUS-E9-4wb"/>
+                                                    <constraint firstItem="87y-2C-cnA" firstAttribute="leading" secondItem="UYT-ji-1C7" secondAttribute="trailing" constant="6" id="NUS-E9-4wb"/>
                                                     <constraint firstItem="2J0-c7-Gj7" firstAttribute="top" secondItem="0J6-CG-hzD" secondAttribute="top" id="WzD-jL-OH8"/>
                                                     <constraint firstItem="UYT-ji-1C7" firstAttribute="leading" secondItem="0J6-CG-hzD" secondAttribute="leading" id="Ycg-qw-3mu"/>
                                                     <constraint firstAttribute="trailing" secondItem="87y-2C-cnA" secondAttribute="trailing" id="hVN-Cs-2ak"/>
@@ -2830,7 +2830,7 @@
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
-            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="InActive5">
             <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>

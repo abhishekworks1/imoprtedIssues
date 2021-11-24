@@ -60,11 +60,12 @@ class WatermarkSettingsViewController: UIViewController {
         btnAppIdentifierWatermark.isSelected = isAppIdentifierWatermarkShow
         isMadeWithGifShow = Defaults.shared.madeWithGifSetting == .show
         btnSelectedMadeWithGif.isSelected = isMadeWithGifShow
-        if Defaults.shared.appMode == .free {
+       /* if Defaults.shared.appMode == .free {
+            btnFastesteverWatermark.isSelected = true
             btnAppIdentifierWatermark.isSelected = true
             btnSelectAppIdentifierWatermark.isSelected = true
             btnSelectedMadeWithGif.isSelected = true
-        }
+        } */
     }
     
     override func viewWillAppear(_ animated: Bool) {
