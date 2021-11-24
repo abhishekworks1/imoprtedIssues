@@ -2610,12 +2610,34 @@ extension StoryCameraViewController {
                     Defaults.shared.isAffiliateLinkActivated = isAllowAffiliate
                 }
                 Defaults.shared.referredByData = response.result?.user?.refferedBy
+                
+                self.setAppModeBasedOnUserSync()
+                
                 completion(true)
             }
         }, onError: { error in
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
     }
+    
+    func setAppModeBasedOnUserSync(){
+            //
+            if Defaults.shared.allowFullAccess ?? false == true{
+                Defaults.shared.appMode = .basic
+            }else if (Defaults.shared.isFreeTrial ?? false == true){
+                if (Defaults.shared.numberOfFreeTrialDays ?? 0 > 0){
+                    Defaults.shared.appMode = .basic
+                }else {
+                    Defaults.shared.appMode = .free
+                }
+            }else if(Defaults.shared.isDowngradeSubscription ?? false == true){
+                if (Defaults.shared.numberOfFreeTrialDays ?? 0 > 0){
+                    Defaults.shared.appMode = .basic
+                }else {
+                    Defaults.shared.appMode = .free
+                }
+            }
+        }
     
     func verifyUserToken(appName: String) {
         ProManagerApi.getToken(appName: appName).request(Result<GetTokenModel>.self).subscribe(onNext: { [weak self] (response) in
