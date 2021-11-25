@@ -6881,190 +6881,6 @@ Countdown</string>
                                     <action selector="onBackPressed:" destination="052-Wc-oDn" eventType="touchUpInside" id="V4f-Fs-2H7"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PGo-GO-GR0">
-                                <rect key="frame" x="153.33333333333334" y="55.333333333333336" width="68.666666666666657" height="21.666666666666664"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                <color key="textColor" red="0.19215686269999999" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r6c-FE-Ts7" userLabel="Display Name Tooltip View">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ekB-E4-tlg">
-                                        <rect key="frame" x="47" y="326.66666666666669" width="281" height="158.66666666666669"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Public Display Name appears in your Profile Card and other pages in the website." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hbc-2f-Cr4">
-                                                <rect key="frame" x="20" y="24.999999999999996" width="241" height="52.666666666666657"/>
-                                                <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="15"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="z4p-fV-9qT">
-                                                <rect key="frame" x="95.666666666666657" y="97.666666666666629" width="90" height="31"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bqa-eI-XmE">
-                                                        <rect key="frame" x="0.0" y="0.0" width="90" height="31"/>
-                                                        <color key="backgroundColor" name="AppPrimaryColor"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="90" id="AYU-TJ-WPM"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="16"/>
-                                                        <state key="normal" title="OK">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        </state>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
-                                                                <real key="value" value="5"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
-                                                        <connections>
-                                                            <action selector="onDisplayNameOkPressed:" destination="052-Wc-oDn" eventType="touchUpInside" id="s7w-ec-TcS"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                            </stackView>
-                                        </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="Hbc-2f-Cr4" secondAttribute="trailing" constant="20" id="8fX-86-QYL"/>
-                                            <constraint firstAttribute="bottom" secondItem="z4p-fV-9qT" secondAttribute="bottom" constant="30" id="BcY-Da-MnU"/>
-                                            <constraint firstItem="z4p-fV-9qT" firstAttribute="top" secondItem="Hbc-2f-Cr4" secondAttribute="bottom" constant="20" id="PiO-7N-fMy"/>
-                                            <constraint firstItem="z4p-fV-9qT" firstAttribute="centerX" secondItem="Hbc-2f-Cr4" secondAttribute="centerX" id="c5Z-63-6fk"/>
-                                            <constraint firstItem="Hbc-2f-Cr4" firstAttribute="top" secondItem="ekB-E4-tlg" secondAttribute="top" constant="25" id="hlN-An-5Qr"/>
-                                            <constraint firstItem="Hbc-2f-Cr4" firstAttribute="leading" secondItem="ekB-E4-tlg" secondAttribute="leading" constant="20" id="my6-hm-VBr"/>
-                                        </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
-                                                <real key="value" value="15"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstItem="ekB-E4-tlg" firstAttribute="centerX" secondItem="r6c-FE-Ts7" secondAttribute="centerX" id="KXC-4t-oSh"/>
-                                    <constraint firstItem="ekB-E4-tlg" firstAttribute="width" secondItem="r6c-FE-Ts7" secondAttribute="width" multiplier="0.75" id="X2x-sE-16R"/>
-                                    <constraint firstItem="ekB-E4-tlg" firstAttribute="centerY" secondItem="r6c-FE-Ts7" secondAttribute="centerY" id="zOB-BC-F0x"/>
-                                </constraints>
-                            </view>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qyd-1q-f31" userLabel="Delete Account Popup View">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Kw-E3-IH0">
-                                        <rect key="frame" x="47" y="334" width="281" height="144"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Are you sure you want to logout from App?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kBL-AI-IgM">
-                                                <rect key="frame" x="20" y="25" width="241" height="35"/>
-                                                <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="15"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="Wmk-iT-Odg">
-                                                <rect key="frame" x="40" y="80" width="201" height="36"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rbW-BV-zT7">
-                                                        <rect key="frame" x="0.0" y="0.0" width="94" height="36"/>
-                                                        <color key="backgroundColor" name="AppPrimaryColor"/>
-                                                        <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="16"/>
-                                                        <state key="normal" title="Yes">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        </state>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
-                                                                <real key="value" value="5"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
-                                                        <connections>
-                                                            <action selector="btnLogoutTapped:" destination="Tnp-J8-3Je" eventType="touchUpInside" id="bCA-Tx-xyP"/>
-                                                            <action selector="onYesPressed:" destination="052-Wc-oDn" eventType="touchUpInside" id="UH3-JC-5jp"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AFW-aU-PcF">
-                                                        <rect key="frame" x="107" y="0.0" width="94" height="36"/>
-                                                        <color key="backgroundColor" name="AppPrimaryColor"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="36" id="euB-CY-qYr"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="16"/>
-                                                        <state key="normal" title="No">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        </state>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
-                                                                <real key="value" value="5"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
-                                                        <connections>
-                                                            <action selector="btnCancelLogout:" destination="Tnp-J8-3Je" eventType="touchUpInside" id="9EX-Oz-xkb"/>
-                                                            <action selector="onNoPressed:" destination="052-Wc-oDn" eventType="touchUpInside" id="LLX-S6-xbR"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                            </stackView>
-                                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="mvm-5c-SAe">
-                                                <rect key="frame" x="95.666666666666657" y="80" width="90" height="36"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n1x-8h-mDV">
-                                                        <rect key="frame" x="0.0" y="0.0" width="90" height="36"/>
-                                                        <color key="backgroundColor" name="AppPrimaryColor"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="90" id="tde-5e-0xm"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="16"/>
-                                                        <state key="normal" title="OK">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        </state>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
-                                                                <real key="value" value="5"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
-                                                        <connections>
-                                                            <action selector="onOkPressed:" destination="052-Wc-oDn" eventType="touchUpInside" id="wfG-2G-ffC"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                            </stackView>
-                                        </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <constraints>
-                                            <constraint firstItem="Wmk-iT-Odg" firstAttribute="trailing" secondItem="kBL-AI-IgM" secondAttribute="trailing" constant="-20" id="31C-n9-Yjr"/>
-                                            <constraint firstItem="mvm-5c-SAe" firstAttribute="top" secondItem="Wmk-iT-Odg" secondAttribute="top" id="AQ4-61-bFd"/>
-                                            <constraint firstItem="kBL-AI-IgM" firstAttribute="leading" secondItem="8Kw-E3-IH0" secondAttribute="leading" constant="20" id="CUU-Jb-miy"/>
-                                            <constraint firstItem="Wmk-iT-Odg" firstAttribute="top" secondItem="kBL-AI-IgM" secondAttribute="bottom" constant="20" id="V4M-vD-ZWd"/>
-                                            <constraint firstItem="kBL-AI-IgM" firstAttribute="top" secondItem="8Kw-E3-IH0" secondAttribute="top" constant="25" id="ZhT-D6-0Mn"/>
-                                            <constraint firstItem="mvm-5c-SAe" firstAttribute="centerX" secondItem="Wmk-iT-Odg" secondAttribute="centerX" id="aqR-HR-9ee"/>
-                                            <constraint firstItem="Wmk-iT-Odg" firstAttribute="leading" secondItem="kBL-AI-IgM" secondAttribute="leading" constant="20" id="lxw-VJ-qCm"/>
-                                            <constraint firstAttribute="bottom" secondItem="Wmk-iT-Odg" secondAttribute="bottom" constant="28" id="mHP-Zb-Mnw"/>
-                                            <constraint firstItem="mvm-5c-SAe" firstAttribute="bottom" secondItem="Wmk-iT-Odg" secondAttribute="bottom" id="oDQ-po-60l"/>
-                                            <constraint firstAttribute="trailing" secondItem="kBL-AI-IgM" secondAttribute="trailing" constant="20" id="uT4-Qg-Xhi"/>
-                                        </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
-                                                <real key="value" value="15"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstItem="8Kw-E3-IH0" firstAttribute="centerY" secondItem="Qyd-1q-f31" secondAttribute="centerY" id="5oh-d2-HbK"/>
-                                    <constraint firstItem="8Kw-E3-IH0" firstAttribute="centerX" secondItem="Qyd-1q-f31" secondAttribute="centerX" id="SNI-If-kGj"/>
-                                    <constraint firstItem="8Kw-E3-IH0" firstAttribute="width" secondItem="Qyd-1q-f31" secondAttribute="width" multiplier="0.75" id="bgS-nA-cEl"/>
-                                </constraints>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4lm-yY-drm">
-                                <rect key="frame" x="321" y="44" width="44" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="2w8-fz-ioG"/>
-                                    <constraint firstAttribute="width" constant="44" id="bzu-61-UaA"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="SFUIText-Semibold" family="SF UI Text" pointSize="17"/>
-                                <state key="normal" title="OK"/>
-                                <connections>
-                                    <action selector="onDonePressed:" destination="052-Wc-oDn" eventType="touchUpInside" id="fJP-oE-dLt"/>
-                                </connections>
-                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="vka-yq-X4u" userLabel="Account Settings Table View">
                                 <rect key="frame" x="8" y="96" width="359" height="682"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -7367,6 +7183,190 @@ Countdown</string>
                                     <outlet property="delegate" destination="052-Wc-oDn" id="hv5-9B-hhP"/>
                                 </connections>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PGo-GO-GR0">
+                                <rect key="frame" x="153.33333333333334" y="55.333333333333336" width="68.666666666666657" height="21.666666666666664"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                <color key="textColor" red="0.19215686269999999" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r6c-FE-Ts7" userLabel="Display Name Tooltip View">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ekB-E4-tlg">
+                                        <rect key="frame" x="47" y="326.66666666666669" width="281" height="158.66666666666669"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Public Display Name appears in your Profile Card and other pages in the website." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hbc-2f-Cr4">
+                                                <rect key="frame" x="20" y="24.999999999999996" width="241" height="52.666666666666657"/>
+                                                <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="15"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="z4p-fV-9qT">
+                                                <rect key="frame" x="95.666666666666657" y="97.666666666666629" width="90" height="31"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bqa-eI-XmE">
+                                                        <rect key="frame" x="0.0" y="0.0" width="90" height="31"/>
+                                                        <color key="backgroundColor" name="AppPrimaryColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="90" id="AYU-TJ-WPM"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="16"/>
+                                                        <state key="normal" title="OK">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                                <real key="value" value="5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="onDisplayNameOkPressed:" destination="052-Wc-oDn" eventType="touchUpInside" id="s7w-ec-TcS"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="Hbc-2f-Cr4" secondAttribute="trailing" constant="20" id="8fX-86-QYL"/>
+                                            <constraint firstAttribute="bottom" secondItem="z4p-fV-9qT" secondAttribute="bottom" constant="30" id="BcY-Da-MnU"/>
+                                            <constraint firstItem="z4p-fV-9qT" firstAttribute="top" secondItem="Hbc-2f-Cr4" secondAttribute="bottom" constant="20" id="PiO-7N-fMy"/>
+                                            <constraint firstItem="z4p-fV-9qT" firstAttribute="centerX" secondItem="Hbc-2f-Cr4" secondAttribute="centerX" id="c5Z-63-6fk"/>
+                                            <constraint firstItem="Hbc-2f-Cr4" firstAttribute="top" secondItem="ekB-E4-tlg" secondAttribute="top" constant="25" id="hlN-An-5Qr"/>
+                                            <constraint firstItem="Hbc-2f-Cr4" firstAttribute="leading" secondItem="ekB-E4-tlg" secondAttribute="leading" constant="20" id="my6-hm-VBr"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                <real key="value" value="15"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="ekB-E4-tlg" firstAttribute="centerX" secondItem="r6c-FE-Ts7" secondAttribute="centerX" id="KXC-4t-oSh"/>
+                                    <constraint firstItem="ekB-E4-tlg" firstAttribute="width" secondItem="r6c-FE-Ts7" secondAttribute="width" multiplier="0.75" id="X2x-sE-16R"/>
+                                    <constraint firstItem="ekB-E4-tlg" firstAttribute="centerY" secondItem="r6c-FE-Ts7" secondAttribute="centerY" id="zOB-BC-F0x"/>
+                                </constraints>
+                            </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qyd-1q-f31" userLabel="Delete Account Popup View">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Kw-E3-IH0">
+                                        <rect key="frame" x="47" y="334" width="281" height="144"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Are you sure you want to logout from App?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kBL-AI-IgM">
+                                                <rect key="frame" x="20" y="25" width="241" height="35"/>
+                                                <fontDescription key="fontDescription" name="SFUIText-Regular" family="SF UI Text" pointSize="15"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="Wmk-iT-Odg">
+                                                <rect key="frame" x="40" y="80" width="201" height="36"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rbW-BV-zT7">
+                                                        <rect key="frame" x="0.0" y="0.0" width="94" height="36"/>
+                                                        <color key="backgroundColor" name="AppPrimaryColor"/>
+                                                        <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="16"/>
+                                                        <state key="normal" title="Yes">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                                <real key="value" value="5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="btnLogoutTapped:" destination="Tnp-J8-3Je" eventType="touchUpInside" id="bCA-Tx-xyP"/>
+                                                            <action selector="onYesPressed:" destination="052-Wc-oDn" eventType="touchUpInside" id="UH3-JC-5jp"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AFW-aU-PcF">
+                                                        <rect key="frame" x="107" y="0.0" width="94" height="36"/>
+                                                        <color key="backgroundColor" name="AppPrimaryColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="36" id="euB-CY-qYr"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="16"/>
+                                                        <state key="normal" title="No">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                                <real key="value" value="5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="btnCancelLogout:" destination="Tnp-J8-3Je" eventType="touchUpInside" id="9EX-Oz-xkb"/>
+                                                            <action selector="onNoPressed:" destination="052-Wc-oDn" eventType="touchUpInside" id="LLX-S6-xbR"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="mvm-5c-SAe">
+                                                <rect key="frame" x="95.666666666666657" y="80" width="90" height="36"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n1x-8h-mDV">
+                                                        <rect key="frame" x="0.0" y="0.0" width="90" height="36"/>
+                                                        <color key="backgroundColor" name="AppPrimaryColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="90" id="tde-5e-0xm"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="16"/>
+                                                        <state key="normal" title="OK">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                                <real key="value" value="5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="onOkPressed:" destination="052-Wc-oDn" eventType="touchUpInside" id="wfG-2G-ffC"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="Wmk-iT-Odg" firstAttribute="trailing" secondItem="kBL-AI-IgM" secondAttribute="trailing" constant="-20" id="31C-n9-Yjr"/>
+                                            <constraint firstItem="mvm-5c-SAe" firstAttribute="top" secondItem="Wmk-iT-Odg" secondAttribute="top" id="AQ4-61-bFd"/>
+                                            <constraint firstItem="kBL-AI-IgM" firstAttribute="leading" secondItem="8Kw-E3-IH0" secondAttribute="leading" constant="20" id="CUU-Jb-miy"/>
+                                            <constraint firstItem="Wmk-iT-Odg" firstAttribute="top" secondItem="kBL-AI-IgM" secondAttribute="bottom" constant="20" id="V4M-vD-ZWd"/>
+                                            <constraint firstItem="kBL-AI-IgM" firstAttribute="top" secondItem="8Kw-E3-IH0" secondAttribute="top" constant="25" id="ZhT-D6-0Mn"/>
+                                            <constraint firstItem="mvm-5c-SAe" firstAttribute="centerX" secondItem="Wmk-iT-Odg" secondAttribute="centerX" id="aqR-HR-9ee"/>
+                                            <constraint firstItem="Wmk-iT-Odg" firstAttribute="leading" secondItem="kBL-AI-IgM" secondAttribute="leading" constant="20" id="lxw-VJ-qCm"/>
+                                            <constraint firstAttribute="bottom" secondItem="Wmk-iT-Odg" secondAttribute="bottom" constant="28" id="mHP-Zb-Mnw"/>
+                                            <constraint firstItem="mvm-5c-SAe" firstAttribute="bottom" secondItem="Wmk-iT-Odg" secondAttribute="bottom" id="oDQ-po-60l"/>
+                                            <constraint firstAttribute="trailing" secondItem="kBL-AI-IgM" secondAttribute="trailing" constant="20" id="uT4-Qg-Xhi"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                <real key="value" value="15"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="8Kw-E3-IH0" firstAttribute="centerY" secondItem="Qyd-1q-f31" secondAttribute="centerY" id="5oh-d2-HbK"/>
+                                    <constraint firstItem="8Kw-E3-IH0" firstAttribute="centerX" secondItem="Qyd-1q-f31" secondAttribute="centerX" id="SNI-If-kGj"/>
+                                    <constraint firstItem="8Kw-E3-IH0" firstAttribute="width" secondItem="Qyd-1q-f31" secondAttribute="width" multiplier="0.75" id="bgS-nA-cEl"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4lm-yY-drm">
+                                <rect key="frame" x="321" y="44" width="44" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="2w8-fz-ioG"/>
+                                    <constraint firstAttribute="width" constant="44" id="bzu-61-UaA"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="SFUIText-Semibold" family="SF UI Text" pointSize="17"/>
+                                <state key="normal" title="OK"/>
+                                <connections>
+                                    <action selector="onDonePressed:" destination="052-Wc-oDn" eventType="touchUpInside" id="fJP-oE-dLt"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Tf0-0J-ztS"/>
                         <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -7921,7 +7921,7 @@ Countdown</string>
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
-            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="hideWatermarkBackgroundColor">
             <color red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
