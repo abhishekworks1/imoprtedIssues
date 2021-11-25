@@ -147,6 +147,7 @@ extension AccountSettingsViewController: UITableViewDataSource {
                 displayNameCell.displayNameType = .privateDisplayName
             }else if settingTitle.settingsType == .email {
                 displayNameCell.displayNameType = .emailAddress
+                displayNameCell.btnDisplayNameTooltipIcon.isHidden = true
             }
             return displayNameCell
         }
@@ -282,7 +283,7 @@ extension AccountSettingsViewController: DisplayTooltiPDelegate {
             self.lblDisplayNameTooltip.text = R.string.localizable.publicDisplayNameTooltip()
         }else if index == 1 {
             self.lblDisplayNameTooltip.text = R.string.localizable.publicDisplayNameTooltip()
-        } else if index == 1 {
+        } else if index == 2 {
             self.lblDisplayNameTooltip.text = R.string.localizable.privateDisplayNameTooltip()
         }
     }
