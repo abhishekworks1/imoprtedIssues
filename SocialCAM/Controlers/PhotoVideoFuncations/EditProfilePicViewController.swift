@@ -390,8 +390,10 @@ extension EditProfilePicViewController {
         switch socialType {
         case .gallery:
             self.getImage(fromSourceType: .photoLibrary)
+            self.imageSource = ""
         case .camera:
             self.getImage(fromSourceType: .camera)
+            self.imageSource = ""
         case .instagram:
             self.lblSocialSharePopup.text = R.string.localizable.loginSuccess(SocialConnectionType.instagram.stringValue)
             self.setSocialMediaPicture(socialShareType: .instagram)
