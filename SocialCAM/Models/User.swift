@@ -93,7 +93,7 @@ class User: Codable, Mappable {
     var publicDisplayName: String?
     var privateDisplayName: String?
     var qrcode: String?
-
+    var subscriptions : Subscriptions?
     required init?(map: Map) {
         
     }
@@ -196,6 +196,7 @@ class User: Codable, Mappable {
         publicDisplayName <- map["publicDisplayName"]
         privateDisplayName <- map["privateDisplayName"]
         qrcode <- map["qrcode"]
+        subscriptions <- map["subscriptions"]
     }
     
 }
@@ -213,6 +214,36 @@ class SocialUserConnect: Codable, Mappable {
     func mapping(map: Map) {
         id <- map["_id"]
         message <- map["message"]
+    }
+    
+}
+
+class Subscriptions: Codable, Mappable {
+    var ios: iOSsubcription?
+    
+    required init?(map: Map) {
+        
+    }
+    
+    // MARK: - - Mappable Protocol
+    
+    func mapping(map: Map) {
+        ios <- map["ios"]
+    }
+    
+}
+
+class iOSsubcription: Codable, Mappable {
+    var currentStatus: String?
+    
+    required init?(map: Map) {
+        
+    }
+    
+    // MARK: - - Mappable Protocol
+    
+    func mapping(map: Map) {
+        currentStatus <- map["currentStatus"]
     }
     
 }

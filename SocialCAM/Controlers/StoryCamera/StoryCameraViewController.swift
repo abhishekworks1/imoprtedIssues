@@ -2610,9 +2610,7 @@ extension StoryCameraViewController {
                     Defaults.shared.isAffiliateLinkActivated = isAllowAffiliate
                 }
                 Defaults.shared.referredByData = response.result?.user?.refferedBy
-                
                 self.setAppModeBasedOnUserSync()
-                
                 completion(true)
             }
         }, onError: { error in
@@ -2630,13 +2628,45 @@ extension StoryCameraViewController {
                 }else {
                     Defaults.shared.appMode = .free
                 }
-            }else if(Defaults.shared.isDowngradeSubscription ?? false == true){
-                if (Defaults.shared.numberOfFreeTrialDays ?? 0 > 0){
+            }else if(Defaults.shared.currentUser?.subscriptions?.ios?.currentStatus == "basic")
+            {
+                if(Defaults.shared.isDowngradeSubscription ?? false == true){
+                    if (Defaults.shared.numberOfFreeTrialDays ?? 0 > 0){
+                        Defaults.shared.appMode = .basic
+                    }else {
+                        Defaults.shared.appMode = .free
+                    }
+                }else{
                     Defaults.shared.appMode = .basic
-                }else {
-                    Defaults.shared.appMode = .free
                 }
+            }else{
+                Defaults.shared.appMode = .free
             }
+            
+/*
+         if(allowFullAccess){
+              Allow access to premium content
+         }else if(isTempSubscription){
+             if(diffDays > 0){
+              Allow access to premium content
+              }else{
+              Free trial expired
+              }
+         }else if(subscriptions.android.currentStatus === 'basic'){
+             if(userSubscription.isDowngraded){
+                 if(diffDays > 0){
+                    Allow access to premium content
+                   }else{
+                    Subscription is expired
+                   }
+
+             }else{
+              Allow access to premium content
+             }
+         }else{
+           User does not have any active subscriptions
+         }
+         */
         }
     
     func verifyUserToken(appName: String) {

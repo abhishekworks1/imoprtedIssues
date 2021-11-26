@@ -321,7 +321,7 @@ class Defaults {
             return nil
         }
         set {
-            appMode = self.appMode.getTypeFromString(type: newValue?.subscriptionStatus ?? "free")
+            appMode = self.appMode.getTypeFromString(type: newValue?.subscriptions?.ios?.currentStatus ?? "free")
             let encoder = JSONEncoder()
             if let encoded = try? encoder.encode(newValue) {
                 appDefaults?.set(encoded, forKey: "loggedUser")
