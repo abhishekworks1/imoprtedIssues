@@ -17,6 +17,8 @@ import SCRecorder
 import AVKit
 import JPSVolumeButtonHandler
 import SafariServices
+import Alamofire
+import ObjectMapper
 
 public class CameraModes {
     var name: String
@@ -624,6 +626,9 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         self.syncUserModel { _ in
             
         }
+        
+        self.verifyForceUpdate(isForground: false)
+        
         getUserSettings()
         if isQuickCamLiteApp || isQuickCamApp {
             addObserverForRecordingView()
@@ -1666,6 +1671,8 @@ extension StoryCameraViewController {
             syncUserModel { _ in
                 
             }
+            self.verifyForceUpdate(isForground: true)
+            
             startCapture()
             addTikTokShareViewIfNeeded()
             if let pasteboard = UIPasteboard(name: UIPasteboard.Name(rawValue: Constant.Application.pasteboardName), create: true),
@@ -2696,6 +2703,93 @@ extension StoryCameraViewController {
         }).disposed(by: rx.disposeBag)
     }
     
+    
+    func verifyForceUpdate(isForground:Bool) {
+        
+        var appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+
+        appVersion = appVersion?.replacingOccurrences(of: ".", with: "", options: NSString.CompareOptions.literal, range: nil)
+        
+        //print(appVersion)
+
+        let headers: HTTPHeaders = [
+                "Content-Type": "application/json",
+            "token": "8F16C1ADEEF8F87B74DECB483D385"
+            ]
+        let url = URL.init(string: (API.shared.baseUrl+Paths.checkForceUpdate).replacingOccurrences(of: "api/", with: "", options: NSString.CompareOptions.literal, range: nil))!
+
+        
+        let parameters: Parameters = ["version": appVersion ?? "118",
+                                      "platformType" : "ios"]
+        
+        
+        
+        AF.request(url, parameters: parameters, headers: headers).validate().responseJSON  { response in
+               print(response)
+                switch response.result {
+                case.success(let jsonData):
+                    print("success", jsonData)
+                    guard let json = jsonData as? [String: Any] else {
+                        return
+                    }
+                    guard let object = Mapper<ForceUpdateModel>().map(JSONString: json.dict2json() ?? "") else {
+                        return
+                    }
+                    let forceUpdate = object.forceUpdate ?? false
+                    let updateApp = object.updateApp ?? false
+                    print(forceUpdate)
+                    print(updateApp)
+                    //print("*********AAA********")
+//                    SSAppUpdater.shared.performCheck(isForceUpdate: true, showDefaultAlert: updateApp){ (_) in }
+                    
+                    var message = ""
+                    
+                    if forceUpdate {
+                        message = "Please download the latest version from the store."
+                    }else{
+                        message = "New version is available to download."
+                    }
+                    
+                    var timeSec = 5.0
+                    if isForground
+                    {timeSec = 0.0}
+                    
+                    if forceUpdate{
+                        DispatchQueue.main.asyncAfter(deadline: .now() + timeSec) {
+                            self.showForceUpdateAlert(controller: self, message: message, Isforce: forceUpdate)
+                        }
+                    }
+                    else if updateApp && ( appDelegate?.isUpdateAppButtonPressed ?? false == false){
+                        DispatchQueue.main.asyncAfter(deadline: .now() + timeSec) {
+                            self.showForceUpdateAlert(controller: self, message: message, Isforce: forceUpdate)
+                        }
+                    }
+                case.failure(let error):
+                    print("****Not Success",error.localizedDescription)
+                }
+            }
+    }
+    
+    func  showForceUpdateAlert(controller:UIViewController,message: String , Isforce: Bool){
+        let alertController = UIAlertController(title: "QuickCam", message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Update", style: .default, handler: { alert in
+            appDelegate?.isUpdateAppButtonPressed = true
+            guard let url = URL(string: "itms-apps://apple.com/app/id1580876968") else { return }
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
+        }))
+        if Isforce == false {
+            alertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { alert in
+                 appDelegate?.isUpdateAppButtonPressed = true
+            }))
+        }
+        DispatchQueue.main.async {
+            controller.present(alertController, animated: true)
+        }
+    }
 }
 
 extension StoryCameraViewController {
