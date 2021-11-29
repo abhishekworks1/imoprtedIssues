@@ -1188,7 +1188,6 @@ extension StoryCameraViewController {
             self.dynamicSetSlowFastVerticalBar()
             self.changeSpeedSliderValues()
             self.refreshCircularProgressBar()
-            //print(Defaults.shared.cameraMode)
             switch Defaults.shared.cameraMode {
             case .boomerang:
                 self.circularProgress.centerImage = R.image.icoBoomrang()
@@ -1237,6 +1236,7 @@ extension StoryCameraViewController {
                     self.photoTimerValue = 0
                     self.resetPhotoCountDown()
                 }
+                NextLevel.shared.videoZoomFactor = 1.0
             case .pic2Art:
                 Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_mode_pic2art)
                 if isQuickApp && Defaults.shared.appMode == .free {
