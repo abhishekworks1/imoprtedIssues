@@ -131,6 +131,7 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
         } else if settingTitle.settingsType == .guildlines {
             cell.onOffButton.isSelected = Defaults.shared.enableGuildlines
             cell.imgSettingsIcon.isHidden = true
+            cell.onOffButton.alpha = cell.onOffButton.isSelected ? 1 : 0.5
         } else if settingTitle.settingsType == .swapeContols {
             cell.onOffButton.isSelected = Defaults.shared.swapeContols
             guard let iconPositionCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.iconPositionCell.identifier) else { return cell }
