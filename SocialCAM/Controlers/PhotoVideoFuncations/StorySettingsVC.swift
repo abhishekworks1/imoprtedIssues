@@ -642,7 +642,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 self.settingsTableView.reloadData()
                 self.removeDeviceToken()
                 if let loginNav = R.storyboard.loginViewController.loginNavigation() {
-                    Defaults.shared.clearData()
+                   // Defaults.shared.clearData()
                     Utils.appDelegate?.window?.rootViewController = loginNav
                 }
             } else {

@@ -113,7 +113,14 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             let minZoom = max(1.0, newZoom)
             let translation = gestureRecognizer.location(in: circularProgress)
             if (recordingType == .promo) && isLiteApp{
-                self.circularProgress.center = CGPoint(x: circularProgress.center.x + translation.x - 35,y: circularProgress.center.y)
+                let centerPoint1x = UIScreen.width / 2   // 1X point
+                let centerPoint3x =  UIScreen.width - (UIScreen.width / 6) // 3X point
+                let newX = circularProgress.center.x + translation.x - 35
+                if newX < centerPoint1x || newX > centerPoint3x{
+                   self.circularProgress.center = CGPoint(x: circularProgress.center.x,y: circularProgress.center.y)
+                }else{
+                    self.circularProgress.center = CGPoint(x: newX,y: circularProgress.center.y)
+                }
             }else{
                 self.circularProgress.center = CGPoint(x: circularProgress.center.x + translation.x - 35,y: circularProgress.center.y + translation.y - 35)
             }
@@ -664,3 +671,4 @@ enum StoryCameraSpeedValue: String {
     case fast4x = "4x"
     case fast5x = "5x"
 }
+
