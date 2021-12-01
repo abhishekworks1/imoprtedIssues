@@ -69,6 +69,7 @@ enum SettingsMode: Int {
     case checkUpdate
     case referringChannel
     case qrcode
+    case mutehapticFeedbackOnSpeedSelection
 }
 
 class StorySetting {

@@ -15,6 +15,7 @@ enum SystemSettingType {
     case muteRecordingSlowMotion
     case muteRecordingFastMotion
     case milestonesReached
+    case mutehapticFeedbackOnSpeedSelection
 }
 
 class SystemSettingsCell: UITableViewCell {
@@ -49,6 +50,10 @@ class SystemSettingsCell: UITableViewCell {
             } else if systemSettingType == .milestonesReached {
                 title.text = R.string.localizable.badgeEarned()
                 btnSelectShowAllPopup.isSelected = Defaults.shared.milestonesReached
+            } else if systemSettingType == .mutehapticFeedbackOnSpeedSelection {
+                btnHelpTooltip.isHidden = true
+                title.text = R.string.localizable.muteHapticFeedback()
+                btnSelectShowAllPopup.isSelected = Defaults.shared.isMutehapticFeedbackOnSpeedSelection
             }
         }
     }
@@ -83,6 +88,9 @@ class SystemSettingsCell: UITableViewCell {
             btnSelectShowAllPopup.isSelected = !btnSelectShowAllPopup.isSelected
         } else if systemSettingType == .milestonesReached {
             Defaults.shared.milestonesReached = !btnSelectShowAllPopup.isSelected
+            btnSelectShowAllPopup.isSelected = !btnSelectShowAllPopup.isSelected
+        } else if systemSettingType == .mutehapticFeedbackOnSpeedSelection {
+            Defaults.shared.isMutehapticFeedbackOnSpeedSelection = !btnSelectShowAllPopup.isSelected
             btnSelectShowAllPopup.isSelected = !btnSelectShowAllPopup.isSelected
         }
     }

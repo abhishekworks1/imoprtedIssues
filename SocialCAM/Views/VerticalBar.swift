@@ -73,11 +73,6 @@ class VerticalBar: UIStackView {
     
     func speedIndicatorViewColorChange(index: Int) {
         // Initialize Selection Feedback Generator
-//        let feedbackGenerator = UISelectionFeedbackGenerator()
-//        // Trigger Haptic Feedback
-//        feedbackGenerator.selectionChanged()
-        
-        
         for view in lineView {
             if view.tag != (numberOfViews.rawValue / 2) && view.tag != 0 && view.tag != numberOfViews.rawValue {
                 view.lineColor = Defaults.shared.cameraGuidelineInActiveColor
