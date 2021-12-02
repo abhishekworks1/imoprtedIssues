@@ -23,9 +23,9 @@ class AccountSettings {
     static var accountSettings = [
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.pleaseEnterEmail(), selected: false)], settingsType: .email),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.publicDisplayName(), selected: false)], settingsType: .publicDisplayName),
-        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.privateDisplayName(), selected: false)], settingsType: .privateDisplayName),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.deleteAccount(Constant.Application.displayName), selected: false)], settingsType: .deleteAccount)
     ]
+    //StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.privateDisplayName(), selected: false)], settingsType: .privateDisplayName), // Hide Private name for boomicam
 }
 
 class AccountSettingsViewController: UIViewController {
@@ -256,9 +256,9 @@ extension AccountSettingsViewController: UITableViewDelegate {
         if let cell = self.accountSettingsTableView.cellForRow(at: IndexPath(row: 0, section: 1)) as? DisplayNameTableViewCell {
             publicDisplayName = cell.txtDisplaName.text ?? ""
         }
-        if let cell = self.accountSettingsTableView.cellForRow(at: IndexPath(row: 0, section: 2)) as? DisplayNameTableViewCell {
-            privateDisplayName = cell.txtDisplaName.text ?? ""
-        }
+//        if let cell = self.accountSettingsTableView.cellForRow(at: IndexPath(row: 0, section: 2)) as? DisplayNameTableViewCell {
+//            privateDisplayName = cell.txtDisplaName.text ?? ""
+//        }
         ProManagerApi.editDisplayName(publicDisplayName: publicDisplayName, privateDisplayName: privateDisplayName).request(Result<EmptyModel>.self).subscribe(onNext: { [weak self] (response) in
             guard let `self` = self else {
                 return
@@ -284,7 +284,7 @@ extension AccountSettingsViewController: DisplayTooltiPDelegate {
         }else if index == 1 {
             self.lblDisplayNameTooltip.text = R.string.localizable.publicDisplayNameTooltip()
         } else if index == 2 {
-            self.lblDisplayNameTooltip.text = R.string.localizable.privateDisplayNameTooltip()
+           // self.lblDisplayNameTooltip.text = R.string.localizable.privateDisplayNameTooltip()
         }
     }
     func displayTextAlert(string:String){
