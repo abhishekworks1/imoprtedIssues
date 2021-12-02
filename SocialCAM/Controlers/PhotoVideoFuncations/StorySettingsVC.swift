@@ -65,8 +65,11 @@ enum SettingsMode: Int {
     case milestoneReachedNotification
     case publicDisplayName
     case privateDisplayName
+    case email
     case checkUpdate
     case referringChannel
+    case qrcode
+    case mutehapticFeedbackOnSpeedSelection
 }
 
 class StorySetting {
@@ -111,7 +114,9 @@ class StorySettings {
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.businessDashboard(), selected: false)], settingsType: .userDashboard),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.share(), selected: false)], settingsType: .shareSetting),
+                                              settings: [StorySetting(name: R.string.localizable.shareYourReferralLink(), selected: false)], settingsType: .shareSetting),
+                                StorySettings(name: "",
+                                              settings: [StorySetting(name: R.string.localizable.qrCode(), selected: false)], settingsType: .qrcode),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.cameraSettings(), selected: false)], settingsType: .cameraSettings),
                                 StorySettings(name: "",
@@ -311,7 +316,9 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             hideUnhideImgButton(cell, R.image.iconBusinessDashboard())
         } else if settingTitle.settingsType == .shareSetting {
             hideUnhideImgButton(cell, R.image.iconShare())
-        } else if settingTitle.settingsType == .accountSettings {
+        }else if settingTitle.settingsType == .qrcode {
+            hideUnhideImgButton(cell, R.image.ic_qrcode())
+        }else if settingTitle.settingsType == .accountSettings {
             hideUnhideImgButton(cell, R.image.iconAccount())
         } else if settingTitle.settingsType == .cameraSettings {
             hideUnhideImgButton(cell, R.image.iconCameraSettings())
@@ -387,7 +394,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             headerView.title.text = settingTitle.name
             headerView.arrowLabel?.isHidden = true
         }
-        
+       
         headerView.userImage.layer.cornerRadius = headerView.userImage.bounds.width / 2
         if settingTitle.settingsType == .userDashboard {
             headerView.title.isHidden = false
@@ -401,6 +408,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 headerView.userImage.image = ApplicationSettings.userPlaceHolder
             }
             headerView.title.text = R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? "")
+            headerView.nameLabel.text = Defaults.shared.publicDisplayName ?? ""
             if let socialPlatForms = Defaults.shared.socialPlatforms {
                 headerView.imgSocialMediaBadge.isHidden = socialPlatForms.count != 4
             }
@@ -461,7 +469,14 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             if let systemSettingsVC = R.storyboard.storyCameraViewController.systemSettingsViewController() {
                 navigationController?.pushViewController(systemSettingsVC, animated: true)
             }
-        } else if settingTitle.settingsType == .logout {
+        } else if settingTitle.settingsType == .qrcode {
+            print("Click on QR")
+            if let qrViewController = R.storyboard.editProfileViewController.qrCodeViewController() {
+                navigationController?.pushViewController(qrViewController, animated: true)
+            }
+            
+        }
+        else if settingTitle.settingsType == .logout {
             lblLogoutPopup.text = R.string.localizable.areYouSureYouWantToLogoutFromApp("\(Constant.Application.displayName)")
             showHideButtonView(isHide: true)
             logoutPopupView.isHidden = false
@@ -627,7 +642,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 self.settingsTableView.reloadData()
                 self.removeDeviceToken()
                 if let loginNav = R.storyboard.loginViewController.loginNavigation() {
-                    Defaults.shared.clearData()
+                   // Defaults.shared.clearData()
                     Utils.appDelegate?.window?.rootViewController = loginNav
                 }
             } else {

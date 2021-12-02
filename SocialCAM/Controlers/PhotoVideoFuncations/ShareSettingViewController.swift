@@ -24,6 +24,7 @@ class ShareSettingViewController: UIViewController {
     @IBOutlet weak var lblReferralLink: UILabel!
     @IBOutlet weak var profileView: UIView!
     @IBOutlet weak var imgProfileBadge: UIImageView!
+    @IBOutlet weak var imageQrCode: UIImageView!
     @IBOutlet weak var imgProfilePic: UIImageView!
     @IBOutlet weak var lblUserName: UILabel!
     @IBOutlet weak var verifiedView: UIView!
@@ -32,6 +33,7 @@ class ShareSettingViewController: UIViewController {
     @IBOutlet weak var snapchatVerifiedView: UIView!
     @IBOutlet weak var youtubeVerifiedView: UIView!
     @IBOutlet weak var btnIncludeProfileImg: UIButton!
+    @IBOutlet weak var btnIncludeQrImg: UIButton!
     @IBOutlet weak var instagramView: UIView!
     @IBOutlet weak var lblSinceDate: UILabel!
     @IBOutlet var countryView: [UIView]!
@@ -43,11 +45,12 @@ class ShareSettingViewController: UIViewController {
     @IBOutlet weak var socialPlatformsVerifiedBadgeView: UIView!
     @IBOutlet weak var socialBadgeStackView: UIStackView!
     @IBOutlet weak var lblDisplayName: UILabel!
-    
+    @IBOutlet weak var showFlagsView: UIStackView!
     // MARK: - Variable Declarations
     var myMutableString = NSMutableAttributedString()
     var isIncludeProfileImg = Defaults.shared.includeProfileImgForShare
-    
+    var isIncludeQrImg = Defaults.shared.includeQRImgForShare
+
     // MARK: - View Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,7 +61,7 @@ class ShareSettingViewController: UIViewController {
     func setup() {
         if let channelId = Defaults.shared.currentUser?.channelId {
             self.setAttributedString()
-            self.txtLinkWithCheckOut.text = "\(R.string.localizable.checkOutThisCoolNewAppQuickCam()) \(websiteUrl)/\(channelId)"
+            self.txtLinkWithCheckOut.text = "\(R.string.localizable.checkOutThisCoolNewAppQuickCam())"
             self.lblReferralLink.text = "\(websiteUrl)/\(channelId)"
             self.lblUserName.text = "@\(channelId)"
         }
@@ -67,7 +70,11 @@ class ShareSettingViewController: UIViewController {
             self.imgProfilePic.layer.cornerRadius = imgProfilePic.bounds.width / 2
             self.imgProfilePic.contentMode = .scaleAspectFill
         }
+        if let qrImageURL = Defaults.shared.currentUser?.qrcode {
+            self.imageQrCode.sd_setImage(with: URL.init(string: qrImageURL), placeholderImage: nil)
+        }
         self.btnIncludeProfileImg.isSelected = Defaults.shared.includeProfileImgForShare == true
+        self.btnIncludeQrImg.isSelected = Defaults.shared.includeQRImgForShare == true
         self.getVerifiedSocialPlatforms()
         self.instagramView.isHidden = Defaults.shared.includeProfileImgForShare != true
         if let createdDate = Defaults.shared.currentUser?.created {
@@ -95,6 +102,9 @@ class ShareSettingViewController: UIViewController {
             self.lblDisplayName.text = displayName
         } else {
             self.lblDisplayName.isHidden = true
+        }
+        if isQuickApp || isQuickCamApp {
+           self.showFlagsView.isHidden = true
         }
     }
     
@@ -165,9 +175,11 @@ class ShareSettingViewController: UIViewController {
     
     @IBAction func shareOkButtonClicked(_ sender: UIButton) {
         if let urlString = self.txtLinkWithCheckOut.text {
-            UIPasteboard.general.string = urlString
+            let channelId = Defaults.shared.currentUser?.channelId ?? ""
+            let urlwithString = urlString + "\n" + "\n" + " \(websiteUrl)/\(channelId)"
+            UIPasteboard.general.string = urlwithString
             shareTooltipPopupView.isHidden = true
-            var shareItems: [Any] = [urlString]
+            var shareItems: [Any] = [urlwithString]
             if isIncludeProfileImg {
                 let image = self.profileView.toImage()
                 shareItems.append(image)
@@ -177,6 +189,11 @@ class ShareSettingViewController: UIViewController {
         }
     }
     
+    @IBAction func downloadButtonClicked(_ sender: UIButton) {
+            let image = self.profileView.toImage()
+            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+        Utils.appDelegate?.window?.makeToast(R.string.localizable.profileCardSaved())
+    }
     @IBAction func doNotShowAgainClicked(_ sender: UIButton) {
         btnDoNotShowAgain.isSelected = !btnDoNotShowAgain.isSelected
         Defaults.shared.isShowAllPopUpChecked = !btnDoNotShowAgain.isSelected
@@ -219,7 +236,13 @@ class ShareSettingViewController: UIViewController {
         Defaults.shared.includeProfileImgForShare = isIncludeProfileImg
         self.instagramView.isHidden = !isIncludeProfileImg
     }
-    
+    @IBAction func btnIncludeQRCodeClicked(_ sender: UIButton) {
+        self.isIncludeQrImg = !isIncludeQrImg
+        self.btnIncludeQrImg.isSelected = isIncludeQrImg
+        Defaults.shared.includeQRImgForShare = isIncludeQrImg
+        self.imageQrCode.isHidden = !isIncludeQrImg
+    }
+
     @IBAction func btnInstagramClicked(_ sender: UIButton) {
         if isIncludeProfileImg {
             let image = self.profileView.toImage()
@@ -281,7 +304,8 @@ extension ShareSettingViewController {
         // Modify following variables with your text / recipient
         let recipientEmail = ""
         let subject = ""
-        let body = self.txtLinkWithCheckOut.text ?? ""
+        let channelId = Defaults.shared.currentUser?.channelId ?? ""
+        let body = (self.txtLinkWithCheckOut.text ?? "") + "\n" + "\n" + " \(websiteUrl)/\(channelId)"
         switch emailType {
         case .gmail:
             if MFMailComposeViewController.canSendMail() {

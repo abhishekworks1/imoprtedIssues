@@ -499,7 +499,21 @@ extension StoryCameraViewController {
         switchingAppView.isHidden = true
         quickLinkTooltipView.isHidden = true
     }
-    
+    @IBAction func businessDahboardConfirmPopupOkButtonClicked(_ sender: UIButton) {
+        
+        if let token = Defaults.shared.sessionToken {
+            let urlString = "\(websiteUrl)/redirect?token=\(token)"
+            guard let url = URL(string: urlString) else {
+                return
+            }
+            presentSafariBrowser(url: url)
+        }
+        Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_Bdashboard)
+        
+        blurView.isHidden = true
+        switchingAppView.isHidden = true
+        businessDashbardConfirmPopupView.isHidden = true
+    }
     @IBAction func businessCentreButtonClicked(_ sender: UIButton) {
         let application = UIApplication.shared
         blurView.isHidden = true
@@ -553,6 +567,13 @@ extension StoryCameraViewController {
         btnDoNotShowAgain.isSelected = false
     }
     
+    @IBAction func doNotShowAgainBusinessCenterOpenPopupClicked(_ sender: UIButton) {
+        btnDoNotShowAgainBusinessConfirmPopup.isSelected = !btnDoNotShowAgainBusinessConfirmPopup.isSelected
+        Defaults.shared.isShowAllPopUpChecked = false
+        Defaults.shared.isDoNotShowAgainOpenBusinessCenterPopup = btnDoNotShowAgainBusinessConfirmPopup.isSelected
+       
+    }
+   
     @IBAction func doNotShowAgainClicked(_ sender: UIButton) {
         btnDoNotShowAgain.isSelected = !btnDoNotShowAgain.isSelected
         Defaults.shared.isShowAllPopUpChecked = false
@@ -600,15 +621,21 @@ extension StoryCameraViewController {
     }
     
     @IBAction func btnBusinessDashboardTapped(_ sender: UIButton) {
-        if let token = Defaults.shared.sessionToken {
-            let urlString = "\(websiteUrl)/redirect?token=\(token)"
-            guard let url = URL(string: urlString) else {
-                return
-            }
-            presentSafariBrowser(url: url)
+      if Defaults.shared.isDoNotShowAgainOpenBusinessCenterPopup == false {
+            blurView.isHidden = false
+            businessDashbardConfirmPopupView.isHidden = false
+            switchingAppView.isHidden = true
+          //  lblQuickLinkTooltipView.text = R.string.localizable.quickLinkTooltip(R.string.localizable.businessCenter(), Defaults.shared.currentUser?.channelId ?? "")
+        }else{
+            if let token = Defaults.shared.sessionToken {
+                 let urlString = "\(websiteUrl)/redirect?token=\(token)"
+                 guard let url = URL(string: urlString) else {
+                     return
+                 }
+                 presentSafariBrowser(url: url)
+             }
+             Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_Bdashboard)
         }
-        Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_Bdashboard)
-
     }
     
 }

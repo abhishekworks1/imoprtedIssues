@@ -21,6 +21,9 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
         } else if !quickLinkTooltipView.isHidden {
             blurView.isHidden = true
             quickLinkTooltipView.isHidden = true
+        } else if !businessDashbardConfirmPopupView.isHidden {
+            blurView.isHidden = true
+            businessDashbardConfirmPopupView.isHidden = true
         }
     }
     
@@ -109,9 +112,18 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             newZoom += lastZoomFactor
             let minZoom = max(1.0, newZoom)
             let translation = gestureRecognizer.location(in: circularProgress)
-            
-            circularProgress.center = CGPoint(x: circularProgress.center.x + translation.x - 35,
-                                              y: circularProgress.center.y + translation.y - 35)
+            if (recordingType == .promo) && isLiteApp{
+                let centerPoint1x = UIScreen.width / 2   // 1X point
+                let centerPoint3x =  UIScreen.width - (UIScreen.width / 6) // 3X point
+                let newX = circularProgress.center.x + translation.x - 35
+                if newX < centerPoint1x || newX > centerPoint3x{
+                   self.circularProgress.center = CGPoint(x: circularProgress.center.x,y: circularProgress.center.y)
+                }else{
+                    self.circularProgress.center = CGPoint(x: newX,y: circularProgress.center.y)
+                }
+            }else{
+                self.circularProgress.center = CGPoint(x: circularProgress.center.x + translation.x - 35,y: circularProgress.center.y + translation.y - 35)
+            }
             if Defaults.shared.appMode != .free && self.recordingType != .promo {
                 nextLevel.videoZoomFactor = Float(minZoom)
             }
@@ -346,7 +358,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             break
         }
     }
-    
+   
     // values = ["-3x", "2x", "1x", "1x", "2x", "3x"]
     func checkValue(values: [StoryCameraSpeedValue], _ pointX: CGFloat) -> StoryCameraSpeedValue {
         let screenPart = UIScreen.main.bounds.width / CGFloat(values.count)
@@ -524,6 +536,29 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
         self.speedLabel.startBlink()
         self.view.bringSubviewToFront(self.speedLabel)
         speedIndicatorViewColorChange()
+        self.hepticEventGenerator(text:text)
+    }
+    func hepticEventGenerator(text:String){
+        if self.labelSpeedTxt != text {
+            do {
+                if #available(iOS 13.0, *) {
+                    try AVAudioSession.sharedInstance().setAllowHapticsAndSystemSoundsDuringRecording(true)
+                } else {
+                    // Fallback on earlier versions
+                }
+            } catch {
+                print(error)
+            }
+            self.labelSpeedTxt = text
+            //print("**line change**\(text)")
+            if Defaults.shared.isMutehapticFeedbackOnSpeedSelection == false {
+                DispatchQueue.main.async  {
+                    // your code here
+                    let generator = UIImpactFeedbackGenerator(style: .heavy)
+                    generator.impactOccurred()
+                }
+            }
+        }
     }
     
     func setNormalSpeed(selectedValue: Int) {
@@ -636,3 +671,4 @@ enum StoryCameraSpeedValue: String {
     case fast4x = "4x"
     case fast5x = "5x"
 }
+

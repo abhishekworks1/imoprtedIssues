@@ -17,6 +17,8 @@ import SCRecorder
 import AVKit
 import JPSVolumeButtonHandler
 import SafariServices
+import Alamofire
+import ObjectMapper
 
 public class CameraModes {
     var name: String
@@ -196,7 +198,8 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     @IBOutlet weak var btnDoNotShowAgain: UIButton!
     @IBOutlet weak var appSurveyPopupView: UIView!
     @IBOutlet weak var businessDashboardStackView: UIStackView!
-    
+    @IBOutlet weak var businessDashbardConfirmPopupView: UIView!
+    @IBOutlet weak var btnDoNotShowAgainBusinessConfirmPopup: UIButton!
     // MARK: Variables
     var recordButtonCenterPoint: CGPoint = CGPoint.init()
     
@@ -282,7 +285,8 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     }
     
     var isForceCaptureImageWithVolumeKey: Bool = false
-    
+    var labelSpeedTxt = ""
+
     var recordingType: CameraMode = .basicCamera {
         didSet {
             if recordingType != .custom {
@@ -564,8 +568,10 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             Defaults.shared.isFromSignup = false
             Defaults.shared.isSignupLoginFlow = false
         }
+        
+
     }
-    
+
     func setupRecordingView() {
         if self.faceFiltersView.viewWithTag(SystemBroadcastPickerViewBuilder.viewTag) == nil {
             SystemBroadcastPickerViewBuilder.setup(superView: self.faceFiltersView)
@@ -618,10 +624,14 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         view.bringSubviewToFront(switchingAppView)
         view.bringSubviewToFront(quickLinkTooltipView)
         view.bringSubviewToFront(appSurveyPopupView)
+        view.bringSubviewToFront(businessDashbardConfirmPopupView)
         view.bringSubviewToFront(profilePicTooltip)
         self.syncUserModel { _ in
             
         }
+        
+        self.verifyForceUpdate(isForground: false)
+        
         getUserSettings()
         if isQuickCamLiteApp || isQuickCamApp {
             addObserverForRecordingView()
@@ -1160,7 +1170,7 @@ extension StoryCameraViewController {
         
         cameraSliderView.stringArray = cameraModeArray
         cameraSliderView.bottomImage = R.image.cameraModeSelect()
-        cameraSliderView.cellTextColor = .white
+        //cameraSliderView.cellTextColor = .white
         cameraSliderView.isScrollEnable = { [weak self] (index, currentMode) in
             guard let `self` = self else { return }
             let currentMode = currentMode.recordingType
@@ -1201,7 +1211,6 @@ extension StoryCameraViewController {
             self.dynamicSetSlowFastVerticalBar()
             self.changeSpeedSliderValues()
             self.refreshCircularProgressBar()
-            //print(Defaults.shared.cameraMode)
             switch Defaults.shared.cameraMode {
             case .boomerang:
                 self.circularProgress.centerImage = R.image.icoBoomrang()
@@ -1250,6 +1259,7 @@ extension StoryCameraViewController {
                     self.photoTimerValue = 0
                     self.resetPhotoCountDown()
                 }
+                NextLevel.shared.videoZoomFactor = 1.0
             case .pic2Art:
                 Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_mode_pic2art)
                 if isQuickApp && Defaults.shared.appMode == .free {
@@ -1450,6 +1460,7 @@ extension StoryCameraViewController {
             return
         }
         onStartRecordSetSpeed()
+        
     }
     
     func showCollectionView(_ mode: CollectionMode = .effect) {
@@ -1679,6 +1690,8 @@ extension StoryCameraViewController {
             syncUserModel { _ in
                 
             }
+            self.verifyForceUpdate(isForground: true)
+            
             startCapture()
             addTikTokShareViewIfNeeded()
             if let pasteboard = UIPasteboard(name: UIPasteboard.Name(rawValue: Constant.Application.pasteboardName), create: true),
@@ -2574,11 +2587,13 @@ extension StoryCameraViewController {
         let alert = UIAlertController(title: Constant.Application.displayName, message: R.string.localizable.upgradeSubscriptionWarning(), preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: R.string.localizable.upgradeNow(), style: .default, handler: { (_) in
             if let subscriptionVC = R.storyboard.subscription.subscriptionContainerViewController() {
+                subscriptionVC.subscriptionDelegate = self
                 self.navigationController?.pushViewController(subscriptionVC, animated: true)
             }
         }))
         alert.addAction(UIAlertAction(title: R.string.localizable.later(), style: .cancel, handler: { (_) in
             self.cameraSliderView.selectCell = 0
+            self.cameraSliderView.collectionView.reloadData()
 //            UIView.animate(withDuration: 0.1, animations: { () -> Void in
 //                self.animateTransitionIfNeeded(to: self.currentState.opposite, duration: 0)
 //            }, completion: { (_ finished: Bool) -> Void in
@@ -2624,17 +2639,70 @@ extension StoryCameraViewController {
                 Defaults.shared.socialPlatforms = response.result?.user?.socialPlatforms
                 Defaults.shared.referredUserCreatedDate = response.result?.user?.refferedBy?.created
                 Defaults.shared.publicDisplayName = response.result?.user?.publicDisplayName
+                Defaults.shared.emailAddress = response.result?.user?.email
                 Defaults.shared.privateDisplayName = response.result?.user?.privateDisplayName
                 if let isAllowAffiliate = response.result?.user?.isAllowAffiliate {
                     Defaults.shared.isAffiliateLinkActivated = isAllowAffiliate
                 }
                 Defaults.shared.referredByData = response.result?.user?.refferedBy
+                self.setAppModeBasedOnUserSync()
                 completion(true)
             }
         }, onError: { error in
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
     }
+    
+    func setAppModeBasedOnUserSync(){
+            //
+            if Defaults.shared.allowFullAccess ?? false == true{
+                Defaults.shared.appMode = .basic
+            }else if (Defaults.shared.isFreeTrial ?? false == true){
+                if (Defaults.shared.numberOfFreeTrialDays ?? 0 > 0){
+                    Defaults.shared.appMode = .basic
+                }else {
+                    Defaults.shared.appMode = .free
+                }
+            }else if(Defaults.shared.currentUser?.subscriptions?.ios?.currentStatus == "basic")
+            {
+                if(Defaults.shared.isDowngradeSubscription ?? false == true){
+                    if (Defaults.shared.numberOfFreeTrialDays ?? 0 > 0){
+                        Defaults.shared.appMode = .basic
+                    }else {
+                        Defaults.shared.appMode = .free
+                    }
+                }else{
+                    Defaults.shared.appMode = .basic
+                }
+            }else{
+                Defaults.shared.appMode = .free
+            }
+            
+/*
+         if(allowFullAccess){
+              Allow access to premium content
+         }else if(isTempSubscription){
+             if(diffDays > 0){
+              Allow access to premium content
+              }else{
+              Free trial expired
+              }
+         }else if(subscriptions.android.currentStatus === 'basic'){
+             if(userSubscription.isDowngraded){
+                 if(diffDays > 0){
+                    Allow access to premium content
+                   }else{
+                    Subscription is expired
+                   }
+
+             }else{
+              Allow access to premium content
+             }
+         }else{
+           User does not have any active subscriptions
+         }
+         */
+        }
     
     func verifyUserToken(appName: String) {
         ProManagerApi.getToken(appName: appName).request(Result<GetTokenModel>.self).subscribe(onNext: { [weak self] (response) in
@@ -2663,6 +2731,93 @@ extension StoryCameraViewController {
         }).disposed(by: rx.disposeBag)
     }
     
+    
+    func verifyForceUpdate(isForground:Bool) {
+        
+        var appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+
+        appVersion = appVersion?.replacingOccurrences(of: ".", with: "", options: NSString.CompareOptions.literal, range: nil)
+        
+        //print(appVersion)
+
+        let headers: HTTPHeaders = [
+                "Content-Type": "application/json",
+            "token": "8F16C1ADEEF8F87B74DECB483D385"
+            ]
+        let url = URL.init(string: (API.shared.baseUrl+Paths.checkForceUpdate).replacingOccurrences(of: "api/", with: "", options: NSString.CompareOptions.literal, range: nil))!
+
+        
+        let parameters: Parameters = ["version": appVersion ?? "118",
+                                      "platformType" : "ios"]
+        
+        
+        
+        AF.request(url, parameters: parameters, headers: headers).validate().responseJSON  { response in
+               print(response)
+                switch response.result {
+                case.success(let jsonData):
+                    print("success", jsonData)
+                    guard let json = jsonData as? [String: Any] else {
+                        return
+                    }
+                    guard let object = Mapper<ForceUpdateModel>().map(JSONString: json.dict2json() ?? "") else {
+                        return
+                    }
+                    let forceUpdate = object.forceUpdate ?? false
+                    let updateApp = object.updateApp ?? false
+                    print(forceUpdate)
+                    print(updateApp)
+                    //print("*********AAA********")
+//                    SSAppUpdater.shared.performCheck(isForceUpdate: true, showDefaultAlert: updateApp){ (_) in }
+                    
+                    var message = ""
+                    
+                    if forceUpdate {
+                        message = "Please download the latest version from the store."
+                    }else{
+                        message = "New version is available to download."
+                    }
+                    
+                    var timeSec = 5.0
+                    if isForground
+                    {timeSec = 0.0}
+                    
+                    if forceUpdate{
+                        DispatchQueue.main.asyncAfter(deadline: .now() + timeSec) {
+                            self.showForceUpdateAlert(controller: self, message: message, Isforce: forceUpdate)
+                        }
+                    }
+                    else if updateApp && ( appDelegate?.isUpdateAppButtonPressed ?? false == false){
+                        DispatchQueue.main.asyncAfter(deadline: .now() + timeSec) {
+                            self.showForceUpdateAlert(controller: self, message: message, Isforce: forceUpdate)
+                        }
+                    }
+                case.failure(let error):
+                    print("****Not Success",error.localizedDescription)
+                }
+            }
+    }
+    
+    func  showForceUpdateAlert(controller:UIViewController,message: String , Isforce: Bool){
+        let alertController = UIAlertController(title: "QuickCam", message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Update", style: .default, handler: { alert in
+            appDelegate?.isUpdateAppButtonPressed = true
+            guard let url = URL(string: "itms-apps://apple.com/app/id1580876968") else { return }
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
+        }))
+        if Isforce == false {
+            alertController.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { alert in
+                 appDelegate?.isUpdateAppButtonPressed = true
+            }))
+        }
+        DispatchQueue.main.async {
+            controller.present(alertController, animated: true)
+        }
+    }
 }
 
 extension StoryCameraViewController {
@@ -2704,4 +2859,13 @@ extension StoryCameraViewController {
         }).disposed(by: rx.disposeBag)
     }
     
+}
+
+extension StoryCameraViewController: SubscriptionScreenDelegate {
+    
+    func backFromSubscription() {
+        self.cameraSliderView.selectCell = 0
+        self.cameraSliderView.collectionView.reloadData()
+    }
+
 }

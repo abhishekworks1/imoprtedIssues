@@ -97,12 +97,15 @@ public enum ProManagerApi {
         switch self {
         case .confirmEmail, .signUp, .verifyChannel, .getSplashImages, .logIn, .youTubeKeyWordSerch, .youTubeDetail, .youTubeChannelSearch, .getYoutubeCategory, .getAccessToken, .socialLogin, .youTubeChannels(_), .forgotPassword, .loginWithKeycloak, .createUser, .search:
             endpointClosure = endpointClosure.adding(newHTTPHeaderFields: APIHeaders().headerWithoutAccessToken)
+            
         case .getWeather:
             break
         case .getyoutubeSubscribedChannel(let token, _):
             endpointClosure = endpointClosure.adding(newHTTPHeaderFields: ["Content-Type": "application/json", "Authorization": "Bearer \(token)"])
         case .uploadYoutubeVideo(let token, _, _, _):
             endpointClosure = endpointClosure.adding(newHTTPHeaderFields: ["Authorization": "Bearer \(token)"])
+       
+            
         default:
             endpointClosure = endpointClosure.adding(newHTTPHeaderFields: APIHeaders().headerWithToken)
         }
@@ -873,6 +876,7 @@ extension ProManagerApi: TargetType {
             }
         }
     }
+    
     
 }
 

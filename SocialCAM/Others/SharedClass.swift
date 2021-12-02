@@ -267,7 +267,7 @@ public var keycloakClientId: String {
         } else if isSnapCamApp || isSnapCamLiteApp {
             clientId = "snapcam-alpha"
         } else if isQuickCamApp || isQuickCamLiteApp || isQuickApp {
-            clientId = "quickcam-alpha"
+            clientId = "a-quickcam"
         } else if isSpeedCamApp || isSpeedCamLiteApp {
             clientId = "speedcam-alpha"
         } else {
@@ -312,7 +312,7 @@ public var keycloakRegistrationClientId: String {
         } else if isSnapCamApp || isSnapCamLiteApp {
             clientId = "snapcam-alpha"
         } else if isQuickCamApp || isQuickCamLiteApp || isQuickApp {
-            clientId = "quickcam-alpha"
+            clientId = "a-quickcam"
         } else if isSpeedCamApp || isSpeedCamLiteApp {
             clientId = "speedcam-alpha"
         } else {
@@ -357,7 +357,7 @@ public var keycloakForogtPasswordClientId: String {
         } else if isSnapCamApp || isSnapCamLiteApp {
             clientId = "snapcam-alpha"
         } else if isQuickCamApp || isQuickCamLiteApp || isQuickApp {
-            clientId = "quickcam-alpha"
+            clientId = "a-quickcam"
         } else if isSpeedCamApp || isSpeedCamLiteApp {
             clientId = "speedcam-alpha"
         } else {
@@ -1090,6 +1090,7 @@ public struct Paths {
     static let userSync = "user/userSync"
     static let downgradeSubscription = "subscription/downgrade"
     static let getToken = "user/getToken"
+    static let checkForceUpdate = "app/release/forceUpdateStatus"
     static let createUser = "user/createUser"
     static let userDelete = "user/deactive"
     static let updateUserProfile = "user/updateProfile"
@@ -1148,6 +1149,9 @@ public struct APIHeaders {
                                    "x-access-token": Defaults.shared.sessionToken ?? "" ]
     let headerWithoutAccessToken = ["Content-Type": "application/json",
                                            "deviceType": "1"]
+    
+    let headerForForceUpdate = ["Content-Type": "application/json",
+                                "token": "8F16C1ADEEF8F87B74DECB483D385"]
 }
 
 class API {

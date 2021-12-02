@@ -21,10 +21,11 @@ class AccountSettings {
     }
     
     static var accountSettings = [
+        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.pleaseEnterEmail(), selected: false)], settingsType: .email),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.publicDisplayName(), selected: false)], settingsType: .publicDisplayName),
-        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.privateDisplayName(), selected: false)], settingsType: .privateDisplayName),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.deleteAccount(Constant.Application.displayName), selected: false)], settingsType: .deleteAccount)
     ]
+    //StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.privateDisplayName(), selected: false)], settingsType: .privateDisplayName), // Hide Private name for boomicam
 }
 
 class AccountSettingsViewController: UIViewController {
@@ -133,7 +134,7 @@ extension AccountSettingsViewController: UITableViewDataSource {
         } else if settingTitle.settingsType == .deleteAccount {
             accountSettingsCell.title.textColor = R.color.labelError()
             accountSettingsCell.imgSettingIcon.image = R.image.iconAccountDelete()
-        } else if settingTitle.settingsType == .publicDisplayName || settingTitle.settingsType == .privateDisplayName {
+        } else if settingTitle.settingsType == .publicDisplayName || settingTitle.settingsType == .privateDisplayName || settingTitle.settingsType == .email {
             guard let displayNameCell: DisplayNameTableViewCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.displayNameTableViewCell.identifier) as? DisplayNameTableViewCell else {
                 return accountSettingsCell
             }
@@ -144,6 +145,9 @@ extension AccountSettingsViewController: UITableViewDataSource {
                 displayNameCell.displayNameType = .publicDisplayName
             } else if settingTitle.settingsType == .privateDisplayName {
                 displayNameCell.displayNameType = .privateDisplayName
+            }else if settingTitle.settingsType == .email {
+                displayNameCell.displayNameType = .emailAddress
+                displayNameCell.btnDisplayNameTooltipIcon.isHidden = true
             }
             return displayNameCell
         }
@@ -182,7 +186,7 @@ extension AccountSettingsViewController: UITableViewDelegate {
         let settingTitle = AccountSettings.accountSettings[indexPath.section]
         if settingTitle.settingsType == .referringChannelName {
             return 60
-        } else if settingTitle.settingsType == .publicDisplayName || settingTitle.settingsType == .privateDisplayName {
+        } else if settingTitle.settingsType == .publicDisplayName || settingTitle.settingsType == .privateDisplayName || settingTitle.settingsType == .email {
             return 94
         } else {
             return 40
@@ -245,12 +249,16 @@ extension AccountSettingsViewController: UITableViewDelegate {
     func editDisplayName() {
         var publicDisplayName = ""
         var privateDisplayName = ""
+        var emailAddress = ""
+        if let cell = self.accountSettingsTableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? DisplayNameTableViewCell {
+            emailAddress = cell.txtDisplaName.text ?? ""
+        }
         if let cell = self.accountSettingsTableView.cellForRow(at: IndexPath(row: 0, section: 1)) as? DisplayNameTableViewCell {
             publicDisplayName = cell.txtDisplaName.text ?? ""
         }
-        if let cell = self.accountSettingsTableView.cellForRow(at: IndexPath(row: 0, section: 2)) as? DisplayNameTableViewCell {
-            privateDisplayName = cell.txtDisplaName.text ?? ""
-        }
+//        if let cell = self.accountSettingsTableView.cellForRow(at: IndexPath(row: 0, section: 2)) as? DisplayNameTableViewCell {
+//            privateDisplayName = cell.txtDisplaName.text ?? ""
+//        }
         ProManagerApi.editDisplayName(publicDisplayName: publicDisplayName, privateDisplayName: privateDisplayName).request(Result<EmptyModel>.self).subscribe(onNext: { [weak self] (response) in
             guard let `self` = self else {
                 return
@@ -269,13 +277,17 @@ extension AccountSettingsViewController: UITableViewDelegate {
 }
 
 extension AccountSettingsViewController: DisplayTooltiPDelegate {
-    
     func displayTooltip(index: Int) {
         self.displayNameTooltipView.isHidden = false
         if index == 0 {
             self.lblDisplayNameTooltip.text = R.string.localizable.publicDisplayNameTooltip()
-        } else if index == 1 {
-            self.lblDisplayNameTooltip.text = R.string.localizable.privateDisplayNameTooltip()
+        }else if index == 1 {
+            self.lblDisplayNameTooltip.text = R.string.localizable.publicDisplayNameTooltip()
+        } else if index == 2 {
+           // self.lblDisplayNameTooltip.text = R.string.localizable.privateDisplayNameTooltip()
         }
+    }
+    func displayTextAlert(string:String){
+        self.showAlert(alertMessage: string)
     }
 }

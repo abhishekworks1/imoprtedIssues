@@ -291,6 +291,31 @@ class GetTokenModel: Mappable {
     
 }
 
+class ForceUpdateModel: Mappable {
+
+    var forceUpdate: Bool?
+    var updateApp: Bool?
+
+    required init?(map: Map) {
+
+    }
+
+    func mapping(map: Map) {
+        forceUpdate <- map["forceUpdate"]
+        updateApp <- map["updateApp"]
+    }
+
+}
+//
+//struct ForceUpdateModel: Codable {
+//    let forceUpdate: Bool?
+//    let updateApp: Bool?
+//    private enum CodingKeys: String, CodingKey {
+//        case forceUpdate
+//        case updateApp
+//    }
+//}
+
 class UserTokenData: Mappable {
     
     var token: String?

@@ -54,6 +54,7 @@ class EditProfilePicViewController: UIViewController {
     @IBOutlet weak var publicDisplayNameTooltipView: UIView!
     @IBOutlet weak var btnPublicDisplayNameTooltip: UIButton!
     @IBOutlet weak var publicDisplayNameView: UIView!
+    @IBOutlet weak var showFlagsView: UIView!
     @IBOutlet weak var btnSetFlags: UIButton!
     @IBOutlet weak var btnSelectDiscardPopupView: UIButton!
     
@@ -119,6 +120,9 @@ class EditProfilePicViewController: UIViewController {
         }
         popupImgView.layer.cornerRadius = popupImgView.bounds.width / 2
         popupImgView.contentMode = .scaleAspectFill
+        if isQuickApp || isQuickCamApp {
+            self.showFlagsView.isHidden = true
+        }
     }
     
     func settingSocialPlatforms() {
@@ -386,17 +390,20 @@ extension EditProfilePicViewController {
         switch socialType {
         case .gallery:
             self.getImage(fromSourceType: .photoLibrary)
+            self.imageSource = ""
         case .camera:
             self.getImage(fromSourceType: .camera)
+            self.imageSource = ""
         case .instagram:
             self.lblSocialSharePopup.text = R.string.localizable.loginSuccess(SocialConnectionType.instagram.stringValue)
             self.setSocialMediaPicture(socialShareType: .instagram)
         case .snapchat:
             self.lblSocialSharePopup.text = R.string.localizable.loginSuccess(SocialConnectionType.snapchat.stringValue)
+            self.dismissHUD()
             self.setSocialMediaPicture(socialShareType: .snapchat)
-        case .youTube:
-            self.lblSocialSharePopup.text = R.string.localizable.loginSuccess(SocialConnectionType.youtube.stringValue)
-            self.setSocialMediaPicture(socialShareType: .youtube)
+//        case .youTube:
+//            self.lblSocialSharePopup.text = R.string.localizable.loginSuccess(SocialConnectionType.youtube.stringValue)
+//            self.setSocialMediaPicture(socialShareType: .youtube)
         case .twitter:
             self.lblSocialSharePopup.text = R.string.localizable.loginSuccess(SocialConnectionType.twitter.stringValue)
             self.setSocialMediaPicture(socialShareType: .twitter)
