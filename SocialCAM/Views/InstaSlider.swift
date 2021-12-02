@@ -232,12 +232,11 @@ extension InstaSlider: UICollectionViewDataSource, UICollectionViewDelegate, UIC
         kCell.tag = indexPath.row
         kCell.layer.shouldRasterize = true
         kCell.layer.rasterizationScale = UIScreen.main.scale
-        //kCell.backgroundColor = .red
         
         if self.stringArray[indexPath.item].recordingType != CameraMode.basicCamera{
             if Defaults.shared.appMode == .free{
                 kCell.imageView.isHidden = false
-               // kCell.imageView.image = R.image.ic_lock()
+                kCell.imageView.image = R.image.ic_lock()
             }else{
                 kCell.imageView.isHidden = true
             }

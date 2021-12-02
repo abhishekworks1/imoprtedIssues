@@ -70,7 +70,10 @@ public var termsAndConditionsUrl: String {
             baseUrlString = "https://alpha.quickcam.app/terms-and-condition"
         } else if isSpeedCamApp || isSpeedCamLiteApp {
             baseUrlString = "https://alpha.speedcam.net/terms-and-condition"
-        } else {
+        } else if isBoomiCamApp {
+            baseUrlString = "https://alpha.boomicam.app/terms-and-condition"
+        }
+        else {
             baseUrlString = "https://alpha.snapcam.app/terms-and-condition"
         }
     case .beta:
@@ -82,7 +85,9 @@ public var termsAndConditionsUrl: String {
             baseUrlString = "https://beta.quickcam.app/terms-and-condition"
         } else if isSpeedCamApp || isSpeedCamLiteApp {
             baseUrlString = "https://beta.speedcam.net/terms-and-condition"
-        } else {
+        } else if isBoomiCamApp {
+            baseUrlString = "https://beta.boomicam.app/terms-and-condition"
+        }else {
             baseUrlString = "https://beta.snapcam.app/terms-and-condition"
         }
     case .store:
@@ -94,7 +99,9 @@ public var termsAndConditionsUrl: String {
             baseUrlString = "https://quickcam.app/terms-and-condition"
         } else if isSpeedCamApp || isSpeedCamLiteApp {
             baseUrlString = "https://speedcam.net/terms-and-condition"
-        } else {
+        } else if isBoomiCamApp {
+            baseUrlString = "https://boomicam.app/terms-and-condition"
+        }else {
             baseUrlString = "https://snapcam.app/terms-and-condition"
         }
     }
@@ -113,7 +120,9 @@ public var privacyPolicyUrl: String {
             baseUrlString = "https://alpha.quickcam.app/privacy-policy"
         } else if isSpeedCamApp || isSpeedCamLiteApp {
             baseUrlString = "https://alpha.speedcam.net/privacy-policy"
-        } else {
+        } else if isBoomiCamApp {
+            baseUrlString = "https://alpha.boomicam.app/privacy-policy"
+        }else {
             baseUrlString = "https://alpha.snapcam.app/privacy-policy"
         }
     case .beta:
@@ -125,7 +134,9 @@ public var privacyPolicyUrl: String {
             baseUrlString = "https://beta.quickcam.app/privacy-policy"
         } else if isSpeedCamApp || isSpeedCamLiteApp {
             baseUrlString = "https://beta.speedcam.net/privacy-policy"
-        } else {
+        } else if isBoomiCamApp {
+            baseUrlString = "https://beta.boomicam.app/privacy-policy"
+        }else {
             baseUrlString = "https://beta.snapcam.app/privacy-policy"
         }
     case .store:
@@ -137,7 +148,9 @@ public var privacyPolicyUrl: String {
             baseUrlString = "https://quickcam.app/privacy-policy"
         } else if isSpeedCamApp || isSpeedCamLiteApp {
             baseUrlString = "https://speedcam.net/privacy-policy"
-        } else {
+        } else if isBoomiCamApp {
+            baseUrlString = "https://boomicam.app/privacy-policy"
+        }else {
             baseUrlString = "https://snapcam.app/privacy-policy"
         }
     }
@@ -156,7 +169,9 @@ public var websiteUrl: String {
             baseUrlString = "https://alpha.quickcam.app"
         } else if isSpeedCamApp || isSpeedCamLiteApp {
             baseUrlString = "https://alpha.speedcam.net"
-        } else {
+        } else if isBoomiCamApp {
+            baseUrlString = "https://alpha.boomicam.app"
+        }else {
             baseUrlString = "https://alpha.snapcam.app"
         }
     case .beta:
@@ -168,7 +183,9 @@ public var websiteUrl: String {
             baseUrlString = "https://beta.quickcam.app"
         } else if isSpeedCamApp || isSpeedCamLiteApp {
             baseUrlString = "https://beta.speedcam.net"
-        } else {
+        } else if isBoomiCamApp {
+            baseUrlString = "https://beta.boomicam.app"
+        }else {
             baseUrlString = "https://beta.snapcam.app"
         }
     case .store:
@@ -180,7 +197,9 @@ public var websiteUrl: String {
             baseUrlString = "https://quickcam.app"
         } else if isSpeedCamApp || isSpeedCamLiteApp {
             baseUrlString = "https://speedcam.net"
-        } else {
+        } else if isBoomiCamApp {
+            baseUrlString = "https://boomicam.app"
+        }else {
             baseUrlString = "https://snapcam.app"
         }
     }
@@ -199,7 +218,9 @@ public var userDashboardUrl: String {
             baseUrlString = "https://dashboard.quickcam.app"
         } else if isSpeedCamApp || isSpeedCamLiteApp {
             baseUrlString = "https://dashboard.speedcam.net"
-        } else {
+        } else if isBoomiCamApp {
+            baseUrlString = "https://dashboard.boomicam.app"
+        }else {
             baseUrlString = "https://dashboard.snapcam.app"
         }
     case .beta:
@@ -211,7 +232,9 @@ public var userDashboardUrl: String {
             baseUrlString = "https://dashboard.quickcam.app"
         } else if isSpeedCamApp || isSpeedCamLiteApp {
             baseUrlString = "https://dashboard.speedcam.net"
-        } else {
+        } else if isBoomiCamApp {
+            baseUrlString = "https://dashboard.boomicam.app"
+        }else {
             baseUrlString = "https://dashboard.snapcam.app"
         }
     case .store:
@@ -223,7 +246,9 @@ public var userDashboardUrl: String {
             baseUrlString = "https://dashboard.quickcam.app"
         } else if isSpeedCamApp || isSpeedCamLiteApp {
             baseUrlString = "https://dashboard.speedcam.net"
-        } else {
+        } else if isBoomiCamApp {
+            baseUrlString = "https://dashboard.boomicam.app"
+        }else {
             baseUrlString = "https://dashboard.snapcam.app"
         }
     }
@@ -270,7 +295,9 @@ public var keycloakClientId: String {
             clientId = "a-quickcam"
         } else if isSpeedCamApp || isSpeedCamLiteApp {
             clientId = "speedcam-alpha"
-        } else {
+        } else if isBoomiCamApp {
+            clientId = "a-boomicam"
+        }else {
             clientId = "snapcam-alpha"
         }
     case .beta:
@@ -282,7 +309,9 @@ public var keycloakClientId: String {
             clientId = "quickcam-beta"
         } else if isSpeedCamApp || isSpeedCamLiteApp {
             clientId = "speedcam-beta"
-        } else {
+        } else if isBoomiCamApp {
+            clientId = "boomicam-beta"
+        }else {
             clientId = "snapcam-beta"
         }
     case .store:
@@ -294,7 +323,10 @@ public var keycloakClientId: String {
             clientId = "quickcam-prod"
         } else if isSpeedCamApp || isSpeedCamLiteApp {
             clientId = "speedcam-prod"
-        } else {
+        }
+        else if isBoomiCamApp {
+            clientId = "p-boomicam"
+        }else {
             clientId = "snapcam-prod"
         }
     }
@@ -315,7 +347,9 @@ public var keycloakRegistrationClientId: String {
             clientId = "a-quickcam"
         } else if isSpeedCamApp || isSpeedCamLiteApp {
             clientId = "speedcam-alpha"
-        } else {
+        } else if isBoomiCamApp {
+            clientId = "a-boomicam"
+        }else {
             clientId = "snapcam-alpha"
         }
     case .beta:
@@ -327,7 +361,9 @@ public var keycloakRegistrationClientId: String {
             clientId = "quickcam-beta"
         } else if isSpeedCamApp || isSpeedCamLiteApp {
             clientId = "speedcam-beta"
-        } else {
+        } else if isBoomiCamApp {
+            clientId = "boomicam-beta"
+        }else {
             clientId = "snapcam-beta"
         }
     case .store:
@@ -339,7 +375,9 @@ public var keycloakRegistrationClientId: String {
             clientId = "quickcam-prod"
         } else if isSpeedCamApp || isSpeedCamLiteApp {
             clientId = "speedcam-prod"
-        } else {
+        } else if isBoomiCamApp {
+            clientId = "p-boomicam"
+        }else {
             clientId = "snapcam-prod"
         }
     }
@@ -360,7 +398,9 @@ public var keycloakForogtPasswordClientId: String {
             clientId = "a-quickcam"
         } else if isSpeedCamApp || isSpeedCamLiteApp {
             clientId = "speedcam-alpha"
-        } else {
+        } else if isBoomiCamApp {
+            clientId = "a-boomicam"
+        }else {
             clientId = "snapcam-alpha"
         }
     case .beta:
@@ -372,7 +412,9 @@ public var keycloakForogtPasswordClientId: String {
             clientId = "quickcam-beta"
         } else if isSpeedCamApp || isSpeedCamLiteApp {
             clientId = "speedcam-beta"
-        } else {
+        } else if isBoomiCamApp {
+            clientId = "boomicam-beta"
+        }else {
             clientId = "snapcam-beta"
         }
     case .store:
@@ -384,7 +426,9 @@ public var keycloakForogtPasswordClientId: String {
             clientId = "quickcam-prod"
         } else if isSpeedCamApp || isSpeedCamLiteApp {
             clientId = "speedcam-prod"
-        } else {
+        } else if isBoomiCamApp {
+            clientId = "p-boomicam"
+        }else {
             clientId = "snapcam-prod"
         }
     }
@@ -1169,7 +1213,9 @@ class API {
                     baseUrlString = "https://api.alpha.quickcam.app/api/"
                 } else if isSpeedCamApp || isSpeedCamLiteApp {
                     baseUrlString = "https://api.alpha.speedcam.net/api/"
-                } else {
+                } else if isBoomiCamApp {
+                    baseUrlString = "https://api.alpha.boomicam.app/api/"
+                }else {
                     baseUrlString = "https://demo-api.austinconversionoptimization.com/api/"
                 }
             case .beta:
@@ -1181,7 +1227,9 @@ class API {
                     baseUrlString = "https://api.beta.quickcam.app/api/"
                 } else if isSpeedCamApp || isSpeedCamLiteApp {
                     baseUrlString = "https://api.beta.speedcam.net/api/"
-                } else {
+                } else if isBoomiCamApp {
+                    baseUrlString = "https://api.beta.boomicam.app/api/"
+                }else {
                     baseUrlString = "https://demo-api.austinconversionoptimization.com/api/"
                 }
             case .store:
@@ -1193,7 +1241,9 @@ class API {
                     baseUrlString = "https://api.quickcam.app/api/"
                 } else if isSpeedCamApp || isSpeedCamLiteApp {
                     baseUrlString = "https://api.speedcam.net/api/"
-                } else {
+                } else if isBoomiCamApp {
+                    baseUrlString = "https://api.boomicam.app/api/"
+                }else {
                     baseUrlString = "https://demo-api.austinconversionoptimization.com/api/"
                 }
             }
