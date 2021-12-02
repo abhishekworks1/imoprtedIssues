@@ -945,6 +945,15 @@ class Defaults {
         }
     }
     
+    var isMutehapticFeedbackOnSpeedSelection: Bool {
+        get {
+            return appDefaults?.value(forKey: "isMutehapticFeedbackOnSpeedSelection") as? Bool ?? false
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isMutehapticFeedbackOnSpeedSelection")
+        }
+    }
+    
     var isVideoSavedAfterRecordingFirstTime: Bool {
         get {
             return appDefaults?.value(forKey: "isVideoSavedAfterRecordingFirstTime") as? Bool ?? false

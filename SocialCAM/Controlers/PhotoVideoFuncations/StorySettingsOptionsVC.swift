@@ -27,6 +27,7 @@ class CameraSettings {
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.saveVideoAfterRecording(), selected: false)], settingsType: .saveVideoAfterRecording),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.saveVideoAfterRecording(), selected: false)], settingsType: .muteRecordingSlowMotion),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.saveVideoAfterRecording(), selected: false)], settingsType: .muteRecordingFastMotion),
+        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.muteHapticFeedback(), selected: false)], settingsType: .mutehapticFeedbackOnSpeedSelection),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.changePositionsOfMuteSwitchingCamera(), selected: false)], settingsType: .swapeContols),
         StorySettings(name: R.string.localizable.supportedFrameRates(), settings: [StorySetting(name: R.string.localizable.supportedFrameRates(), selected: false)], settingsType: .supportedFrameRates),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.guideline(), selected: false)], settingsType: .guildlines),
@@ -184,7 +185,7 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
                 return cell
             }
             return videoResolutionCell
-        } else if settingTitle.settingsType == .skipYoutubeLogin || settingTitle.settingsType == .saveVideoAfterRecording || settingTitle.settingsType == .muteRecordingSlowMotion || settingTitle.settingsType == .muteRecordingFastMotion {
+        } else if settingTitle.settingsType == .skipYoutubeLogin || settingTitle.settingsType == .saveVideoAfterRecording || settingTitle.settingsType == .muteRecordingSlowMotion || settingTitle.settingsType == .muteRecordingFastMotion  || settingTitle.settingsType == .mutehapticFeedbackOnSpeedSelection {
             guard let systemSettingsCell: SystemSettingsCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.systemSettingsCell.identifier) as? SystemSettingsCell else {
                 fatalError("\(R.reuseIdentifier.systemSettingsCell.identifier) Not Found")
             }
@@ -197,6 +198,8 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
                 systemSettingsCell.systemSettingType = .muteRecordingSlowMotion
             } else if settingTitle.settingsType == .muteRecordingFastMotion {
                 systemSettingsCell.systemSettingType = .muteRecordingFastMotion
+            }else if settingTitle.settingsType == .mutehapticFeedbackOnSpeedSelection {
+                systemSettingsCell.systemSettingType = .mutehapticFeedbackOnSpeedSelection
             }
             return systemSettingsCell
         }
@@ -250,7 +253,7 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
         let settingTitle = CameraSettings.storySettings[section]
         if settingTitle.settingsType == .supportedFrameRates {
             return 60
-        } else if settingTitle.settingsType == .skipYoutubeLogin || settingTitle.settingsType == .saveVideoAfterRecording || settingTitle.settingsType == .muteRecordingSlowMotion || settingTitle.settingsType == .muteRecordingFastMotion {
+        } else if settingTitle.settingsType == .skipYoutubeLogin || settingTitle.settingsType == .saveVideoAfterRecording || settingTitle.settingsType == .muteRecordingSlowMotion || settingTitle.settingsType == .muteRecordingFastMotion || settingTitle.settingsType == .mutehapticFeedbackOnSpeedSelection {
             return 20
         } else if settingTitle.settingsType == .watermarkAlpha30 {
             return 40

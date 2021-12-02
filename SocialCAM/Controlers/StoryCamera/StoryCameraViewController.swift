@@ -285,7 +285,8 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     }
     
     var isForceCaptureImageWithVolumeKey: Bool = false
-    
+    var labelSpeedTxt = ""
+
     var recordingType: CameraMode = .basicCamera {
         didSet {
             if recordingType != .custom {
@@ -567,8 +568,10 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             Defaults.shared.isFromSignup = false
             Defaults.shared.isSignupLoginFlow = false
         }
+        
+
     }
-    
+
     func setupRecordingView() {
         if self.faceFiltersView.viewWithTag(SystemBroadcastPickerViewBuilder.viewTag) == nil {
             SystemBroadcastPickerViewBuilder.setup(superView: self.faceFiltersView)
@@ -1442,6 +1445,7 @@ extension StoryCameraViewController {
             return
         }
         onStartRecordSetSpeed()
+        
     }
     
     func showCollectionView(_ mode: CollectionMode = .effect) {

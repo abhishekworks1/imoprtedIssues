@@ -472,6 +472,7 @@ extension PhotoEditorViewController {
         if controller != nil {
             controller.delegate = self
             let navigationController = UINavigationController(rootViewController: controller)
+            navigationController.modalPresentationStyle = .fullScreen //or .overFullScreen for transparency
             self.present(navigationController, animated: true, completion: nil)
         }
     }

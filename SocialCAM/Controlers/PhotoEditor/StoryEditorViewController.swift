@@ -950,6 +950,7 @@ extension StoryEditorViewController {
         if let controller = pixelEditViewController {
             controller.delegate = self
             let navigationController = UINavigationController(rootViewController: controller)
+            navigationController.modalPresentationStyle = .fullScreen //or .overFullScreen for transparency
             self.present(navigationController, animated: true, completion: nil)
         }
     }

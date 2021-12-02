@@ -358,7 +358,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             break
         }
     }
-    
+   
     // values = ["-3x", "2x", "1x", "1x", "2x", "3x"]
     func checkValue(values: [StoryCameraSpeedValue], _ pointX: CGFloat) -> StoryCameraSpeedValue {
         let screenPart = UIScreen.main.bounds.width / CGFloat(values.count)
@@ -536,6 +536,29 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
         self.speedLabel.startBlink()
         self.view.bringSubviewToFront(self.speedLabel)
         speedIndicatorViewColorChange()
+        self.hepticEventGenerator(text:text)
+    }
+    func hepticEventGenerator(text:String){
+        if self.labelSpeedTxt != text {
+            do {
+                if #available(iOS 13.0, *) {
+                    try AVAudioSession.sharedInstance().setAllowHapticsAndSystemSoundsDuringRecording(true)
+                } else {
+                    // Fallback on earlier versions
+                }
+            } catch {
+                print(error)
+            }
+            self.labelSpeedTxt = text
+            //print("**line change**\(text)")
+            if Defaults.shared.isMutehapticFeedbackOnSpeedSelection == false {
+                DispatchQueue.main.async  {
+                    // your code here
+                    let generator = UIImpactFeedbackGenerator(style: .heavy)
+                    generator.impactOccurred()
+                }
+            }
+        }
     }
     
     func setNormalSpeed(selectedValue: Int) {

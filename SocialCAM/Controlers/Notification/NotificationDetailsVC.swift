@@ -69,6 +69,8 @@ class NotificationDetailsVC: UIViewController {
             self.collectionView.isPagingEnabled = false
             self.collectionView.scrollToItem(at: IndexPath(row: notificationIndex, section: 0), at: UICollectionView.ScrollPosition.right, animated: true)
             self.collectionView.isPagingEnabled = true
+        }else{
+            self.changeImageColor(image: R.image.rightNextDirectionIcon() ?? UIImage(), btn: btnNext, isImageChange: true)
         }
     }
 
@@ -92,7 +94,7 @@ class NotificationDetailsVC: UIViewController {
         if isImageChange {
             let tintedImage = image.withRenderingMode(.alwaysTemplate)
             btn.setImage(tintedImage, for: .normal)
-            btn.tintColor = .gray
+            btn.tintColor = .lightGray
         } else {
             btn.setImage(image, for: .normal)
         }
