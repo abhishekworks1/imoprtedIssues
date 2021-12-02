@@ -25,7 +25,10 @@ class SubscriptionContainerViewController: UIViewController {
     private let indicatorWidth: CGFloat = 47
     private let indicatorWidthDividend: CGFloat = isLiteApp ? 2 : 4
     
-    // MARK: -
+    // MARK: -Delegate
+    public weak var subscriptionDelegate: SubscriptionScreenDelegate?
+
+    //
     // MARK: - Life Cycle Methods
     
     override func viewDidLoad() {
@@ -75,8 +78,16 @@ class SubscriptionContainerViewController: UIViewController {
     
     @IBAction func btnBackTapped(_ sender: Any) {
         if Defaults.shared.isSubscriptionApiCalled == false {
+            subscriptionDelegate?.backFromSubscription()
             self.navigationController?.popViewController(animated: true)
         }
     }
     
+}
+
+// MARK: - SubscriptionScreenDelegateDelegate
+
+public protocol SubscriptionScreenDelegate: AnyObject {
+
+    func backFromSubscription()
 }

@@ -20,7 +20,11 @@ class SSViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         if SSAppUpdater.shared.isForceUpdate {
-            showForceAlert()
+            if isAlreadyUpdated {
+                showAlreadyUpdatedAlert()
+            } else {
+                showForceAlert()
+            }
         } else {
             if isAlreadyUpdated {
                 showAlreadyUpdatedAlert()

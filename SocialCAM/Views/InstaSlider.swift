@@ -22,7 +22,7 @@ open class InstaSlider: UIView {
         }
     }
     
-    open var cellTextColor: UIColor = UIColor.black
+    open var cellTextColor: UIColor = UIColor.lightGray
     open var selectedCellTextColor: UIColor = UIColor.white
     
     open var stringArray: [CameraModes] = [] {
@@ -55,7 +55,7 @@ open class InstaSlider: UIView {
     open var isScrollEnable: CurrentCellCallBack?
     
     convenience init() {
-        self.init(frame: CGRect(x: 0, y: 0, width: UIScreen.ratioWidth, height: 64))
+        self.init(frame: CGRect(x: 0, y: 0, width: UIScreen.ratioWidth, height: 50))
     }
     
     override init(frame: CGRect) {
@@ -78,7 +78,7 @@ open class InstaSlider: UIView {
 //        }
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         self.collectionView = UICollectionView(frame: bounds, collectionViewLayout: layout)
-        collectionViewLayout = HorizontalFlowLayout.configureLayout(collectionView: self.collectionView, itemSize: CGSize.init(width: 110, height: self.collectionView.frame.height/2), minimumLineSpacing: 2)
+        collectionViewLayout = HorizontalFlowLayout.configureLayout(collectionView: self.collectionView, itemSize: CGSize.init(width: 100, height: self.collectionView.frame.height/2), minimumLineSpacing: 1)
         
         self.collectionView.collectionViewLayout = collectionViewLayout
         self.collectionView.showsHorizontalScrollIndicator = false
@@ -139,12 +139,15 @@ open class InstaSlider: UIView {
                     return
                 }
                 currentCell.label.textColor = cellTextColor
+                currentCell.label.font = UIFont.systemFont(ofSize: 15)
             }
             
             let cell = collectionView.cellForItem(at: index!) as? CollectionViewCustomCell
             if(cell != nil) {
                 selectedCell = collectionView.indexPath(for: cell!)?.item
                 cell!.label.textColor = selectedCellTextColor
+                cell!.label.font = UIFont.systemFont(ofSize: 17)
+                //print("**SelectedC1 \(cell!.label.text)")
                 if (self.currentCell != nil) {
                     self.currentCell!((index?.row)!, self.stringArray[(index!.row)])
                 }
@@ -154,16 +157,40 @@ open class InstaSlider: UIView {
             for cellView in self.collectionView.visibleCells {
                 let currentCell = cellView as? CollectionViewCustomCell
                 currentCell!.label.textColor = cellTextColor
-                
+                currentCell!.label.font = UIFont.systemFont(ofSize: 15)
                 if(currentCell == cells! && (selectedCell == 0 || selectedCell == 1) && actualPosition.x > 0) {
                     selectedCell = collectionView.indexPath(for: cells!)?.item
                     cells!.label.textColor = selectedCellTextColor
-                    
+                    cells!.label.font = UIFont.systemFont(ofSize: 17)
+                    //print("**SelectedC2 \(cells!.label.text)")
                 }
             }
         }
     }
+    func findCenterIndexWhileScrolling(scrollView: UIScrollView) {
+        // for linear collectionview
+        let visibleRect = CGRect(origin: collectionView.contentOffset, size: collectionView.bounds.size)
+        let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
 
+        let index = collectionView!.indexPathForItem(at: visiblePoint)
+        
+        if(index != nil) {
+            for cell in self.collectionView.visibleCells {
+                guard let currentCell = cell as? CollectionViewCustomCell else {
+                    return
+                }
+                currentCell.label.textColor = cellTextColor
+                currentCell.label.font = UIFont.systemFont(ofSize: 15)
+            }
+            
+            let cell = collectionView.cellForItem(at: index!) as? CollectionViewCustomCell
+            if(cell != nil) {
+                cell!.label.textColor = selectedCellTextColor
+                cell!.label.font = UIFont.systemFont(ofSize: 17)
+                //print("**SelectedC1 \(cell!.label.text)")
+            }
+        }
+    }
     func isScrollViewScroll(scrollView: UIScrollView) {
         let collectionOrigin = collectionView!.bounds.origin
         let collectionWidth = collectionView!.bounds.width
@@ -178,7 +205,6 @@ open class InstaSlider: UIView {
         }
         
         let index = collectionView!.indexPathForItem(at: centerPoint)
-        
         if(index != nil) {
             if (self.isScrollEnable != nil) {
                 self.isScrollEnable!((index?.row)!, self.stringArray[(index!.row)])
@@ -207,12 +233,13 @@ extension InstaSlider: UICollectionViewDataSource, UICollectionViewDelegate, UIC
         kCell.layer.shouldRasterize = true
         kCell.layer.rasterizationScale = UIScreen.main.scale
         //kCell.backgroundColor = .red
-        
         if(self.selectedCell != nil) {
             if(indexPath.item == self.selectedCell) {
                 kCell.label.textColor = selectedCellTextColor
+                kCell.label.font = UIFont.systemFont(ofSize: 17)
             } else {
                 kCell.label.textColor = cellTextColor
+                kCell.label.font = UIFont.systemFont(ofSize: 15)
             }
         }
         
@@ -220,7 +247,7 @@ extension InstaSlider: UICollectionViewDataSource, UICollectionViewDelegate, UIC
     }
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize.init(width: 110, height: self.collectionView.frame.height/2)
+        return CGSize.init(width: 100, height: self.collectionView.frame.height/2)
     }
     
     public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
@@ -231,6 +258,10 @@ extension InstaSlider: UICollectionViewDataSource, UICollectionViewDelegate, UIC
         self.findCenterIndex(scrollView: scrollView)
     }
     
+    // while scrolling this delegate is being called so you may now check which direction your scrollView is being scrolled to
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.findCenterIndexWhileScrolling(scrollView: scrollView)
+    }
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         self.findCenterIndex(scrollView: scrollView)
     }
@@ -245,7 +276,7 @@ class CollectionViewCustomCell: UICollectionViewCell {
     
     let label: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16)
+        label.font = UIFont.systemFont(ofSize: 15)
         label.textColor = UIColor.darkGray
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false

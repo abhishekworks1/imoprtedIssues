@@ -60,11 +60,12 @@ class WatermarkSettingsViewController: UIViewController {
         btnAppIdentifierWatermark.isSelected = isAppIdentifierWatermarkShow
         isMadeWithGifShow = Defaults.shared.madeWithGifSetting == .show
         btnSelectedMadeWithGif.isSelected = isMadeWithGifShow
-        if Defaults.shared.appMode == .free {
+       /* if Defaults.shared.appMode == .free {
+            btnFastesteverWatermark.isSelected = true
             btnAppIdentifierWatermark.isSelected = true
             btnSelectAppIdentifierWatermark.isSelected = true
             btnSelectedMadeWithGif.isSelected = true
-        }
+        } */
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -103,7 +104,7 @@ class WatermarkSettingsViewController: UIViewController {
     }
     
     @IBAction func appIdentifierWatermarkButtonClicked(sender: UIButton) {
-        if Defaults.shared.appMode == .free {
+       /* if Defaults.shared.appMode == .free {
             if let watermarkSettingsVC = R.storyboard.storyCameraViewController.watermarkSettingsViewController() {
                 navigationController?.pushViewController(watermarkSettingsVC, animated: true)
             }
@@ -111,19 +112,24 @@ class WatermarkSettingsViewController: UIViewController {
             isAppIdentifierWatermarkShow = !isAppIdentifierWatermarkShow
             btnAppIdentifierWatermark.isSelected = isAppIdentifierWatermarkShow
             btnSelectAppIdentifierWatermark.isSelected = isAppIdentifierWatermarkShow
-        }
+        } */
+        isAppIdentifierWatermarkShow = !isAppIdentifierWatermarkShow
+        btnAppIdentifierWatermark.isSelected = isAppIdentifierWatermarkShow
+        btnSelectAppIdentifierWatermark.isSelected = isAppIdentifierWatermarkShow
         Defaults.shared.appIdentifierWatermarkSetting = self.isAppIdentifierWatermarkShow ? .show : .hide
     }
     
     @IBAction func madeWithGifButtonClicked(sender: UIButton) {
-        if Defaults.shared.appMode == .free {
+      /*  if Defaults.shared.appMode == .free {
             if let watermarkSettingsVC = R.storyboard.storyCameraViewController.watermarkSettingsViewController() {
                 navigationController?.pushViewController(watermarkSettingsVC, animated: true)
             }
         } else {
             isMadeWithGifShow = !isMadeWithGifShow
             btnSelectedMadeWithGif.isSelected = isMadeWithGifShow
-        }
+        } */
+        isMadeWithGifShow = !isMadeWithGifShow
+        btnSelectedMadeWithGif.isSelected = isMadeWithGifShow
         Defaults.shared.madeWithGifSetting = self.isMadeWithGifShow ? .show : .hide
     }
     

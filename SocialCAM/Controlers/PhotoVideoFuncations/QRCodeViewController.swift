@@ -56,7 +56,7 @@ class QRCodeViewController: UIViewController {
     @IBAction func downloadButtonClicked(_ sender: UIButton) {
             let image = self.profileView.toImage()
             UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-        Utils.appDelegate?.window?.makeToast(R.string.localizable.profileCardSaved())
+        Utils.appDelegate?.window?.makeToast(R.string.localizable.qrCodeImageSaved())
     }
 
     /*

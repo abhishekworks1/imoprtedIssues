@@ -257,8 +257,7 @@ class SpeedViewController: UIViewController {
             self.player?.play()
         case .changed:
             let translation = gestureRecognizer.location(in: circularProgress)
-            circularProgress.center = CGPoint(x: circularProgress.center.x + translation.x - 35,
-                                              y: circularProgress.center.y + translation.y - 35)
+            circularProgress.center = CGPoint(x: circularProgress.center.x + translation.x - 35,y: circularProgress.center.y + translation.y - 35)
             
             let newPoint = gestureRecognizer.location(in: self.view)
             

@@ -65,9 +65,11 @@ enum SettingsMode: Int {
     case milestoneReachedNotification
     case publicDisplayName
     case privateDisplayName
+    case email
     case checkUpdate
     case referringChannel
     case qrcode
+    case mutehapticFeedbackOnSpeedSelection
 }
 
 class StorySetting {
@@ -314,7 +316,9 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             hideUnhideImgButton(cell, R.image.iconBusinessDashboard())
         } else if settingTitle.settingsType == .shareSetting {
             hideUnhideImgButton(cell, R.image.iconShare())
-        } else if settingTitle.settingsType == .accountSettings {
+        }else if settingTitle.settingsType == .qrcode {
+            hideUnhideImgButton(cell, R.image.ic_qrcode())
+        }else if settingTitle.settingsType == .accountSettings {
             hideUnhideImgButton(cell, R.image.iconAccount())
         } else if settingTitle.settingsType == .cameraSettings {
             hideUnhideImgButton(cell, R.image.iconCameraSettings())
@@ -390,7 +394,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             headerView.title.text = settingTitle.name
             headerView.arrowLabel?.isHidden = true
         }
-        
+       
         headerView.userImage.layer.cornerRadius = headerView.userImage.bounds.width / 2
         if settingTitle.settingsType == .userDashboard {
             headerView.title.isHidden = false
@@ -404,6 +408,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 headerView.userImage.image = ApplicationSettings.userPlaceHolder
             }
             headerView.title.text = R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? "")
+            headerView.nameLabel.text = Defaults.shared.publicDisplayName ?? ""
             if let socialPlatForms = Defaults.shared.socialPlatforms {
                 headerView.imgSocialMediaBadge.isHidden = socialPlatForms.count != 4
             }
@@ -637,7 +642,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 self.settingsTableView.reloadData()
                 self.removeDeviceToken()
                 if let loginNav = R.storyboard.loginViewController.loginNavigation() {
-                    Defaults.shared.clearData()
+                   // Defaults.shared.clearData()
                     Utils.appDelegate?.window?.rootViewController = loginNav
                 }
             } else {

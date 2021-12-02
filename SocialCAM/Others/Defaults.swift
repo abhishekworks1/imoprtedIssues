@@ -321,7 +321,7 @@ class Defaults {
             return nil
         }
         set {
-            appMode = self.appMode.getTypeFromString(type: newValue?.subscriptionStatus ?? "free")
+            appMode = self.appMode.getTypeFromString(type: newValue?.subscriptions?.ios?.currentStatus ?? "free")
             let encoder = JSONEncoder()
             if let encoded = try? encoder.encode(newValue) {
                 appDefaults?.set(encoded, forKey: "loggedUser")
@@ -945,6 +945,15 @@ class Defaults {
         }
     }
     
+    var isMutehapticFeedbackOnSpeedSelection: Bool {
+        get {
+            return appDefaults?.value(forKey: "isMutehapticFeedbackOnSpeedSelection") as? Bool ?? false
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isMutehapticFeedbackOnSpeedSelection")
+        }
+    }
+    
     var isVideoSavedAfterRecordingFirstTime: Bool {
         get {
             return appDefaults?.value(forKey: "isVideoSavedAfterRecordingFirstTime") as? Bool ?? false
@@ -1112,6 +1121,15 @@ class Defaults {
         }
         set {
             appDefaults?.set(newValue, forKey: StaticKeys.privateDisplayName)
+        }
+    }
+    
+    var emailAddress: String? {
+        get {
+            return appDefaults?.value(forKey: StaticKeys.emailAddress) as? String
+        }
+        set {
+            appDefaults?.set(newValue, forKey: StaticKeys.emailAddress)
         }
     }
     

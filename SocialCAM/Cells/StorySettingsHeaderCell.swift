@@ -15,6 +15,7 @@ protocol HeaderViewDelegate: class {
 class StorySettingsHeader: UITableViewCell {
 
     @IBOutlet weak var separator: UIView!
+    @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var arrowLabel: UILabel?
     @IBOutlet weak var userImage: UIImageView!
@@ -24,7 +25,6 @@ class StorySettingsHeader: UITableViewCell {
     @IBOutlet weak var imgSocialMediaBadge: UIImageView!
     @IBOutlet weak var iconSettingsImage: UIImageView!
     @IBOutlet weak var badgesView: UIStackView!
-    
     weak var delegate: HeaderViewDelegate?
     var section: Int = 0
     var collapsed: Bool = false {

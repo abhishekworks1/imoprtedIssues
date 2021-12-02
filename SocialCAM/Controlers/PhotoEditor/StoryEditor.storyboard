@@ -1444,10 +1444,10 @@
                                         <rect key="frame" x="2" y="10" width="410" height="70"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q2T-VV-NsE">
-                                                <rect key="frame" x="0.0" y="0.0" width="45.666666666666664" height="70"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="56" height="70"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3sR-Lc-e1J">
-                                                        <rect key="frame" x="0.0" y="0.0" width="45.666666666666664" height="14"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="56" height="14"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="14" id="LJB-sy-jfi"/>
                                                         </constraints>
@@ -1458,7 +1458,7 @@
                                                         <size key="shadowOffset" width="0.0" height="1"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dPW-f5-Kaw">
-                                                        <rect key="frame" x="0.0" y="14" width="45.666666666666664" height="56"/>
+                                                        <rect key="frame" x="0.0" y="14" width="56" height="56"/>
                                                         <state key="normal" image="icoFacebook"/>
                                                         <connections>
                                                             <action selector="btnSocialMediaShareClick:" destination="f9j-8w-2WB" eventType="touchUpInside" id="VB7-Jh-61E"/>
@@ -1476,11 +1476,11 @@
                                                     <constraint firstAttribute="bottom" secondItem="dPW-f5-Kaw" secondAttribute="bottom" id="w1k-dQ-n7Y"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1LG-RO-u8Z">
-                                                <rect key="frame" x="60.666666666666671" y="0.0" width="45.666666666666671" height="70"/>
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1LG-RO-u8Z">
+                                                <rect key="frame" x="63.333333333333329" y="0.0" width="0.0" height="70"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xRq-NI-3ea">
-                                                        <rect key="frame" x="0.0" y="0.0" width="45.666666666666664" height="14"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="14"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="14" id="cYU-Cp-qdm"/>
                                                         </constraints>
@@ -1491,7 +1491,7 @@
                                                         <size key="shadowOffset" width="0.0" height="1"/>
                                                     </label>
                                                     <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2So-LO-liF">
-                                                        <rect key="frame" x="0.0" y="14" width="45.666666666666664" height="56"/>
+                                                        <rect key="frame" x="0.0" y="14" width="0.0" height="56"/>
                                                         <state key="normal" image="icoYoutube"/>
                                                         <connections>
                                                             <action selector="btnSocialMediaShareClick:" destination="f9j-8w-2WB" eventType="touchUpInside" id="bAb-16-epB"/>
@@ -1510,10 +1510,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q2q-TW-ccl">
-                                                <rect key="frame" x="121.33333333333333" y="0.0" width="45.666666666666671" height="70"/>
+                                                <rect key="frame" x="71" y="0.0" width="55.666666666666657" height="70"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OwF-eu-e0j">
-                                                        <rect key="frame" x="0.0" y="0.0" width="45.666666666666664" height="14"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="55.666666666666664" height="14"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="14" id="x5g-Iu-oh2"/>
                                                         </constraints>
@@ -1524,7 +1524,7 @@
                                                         <size key="shadowOffset" width="0.0" height="1"/>
                                                     </label>
                                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mZZ-vO-y3f">
-                                                        <rect key="frame" x="0.0" y="14" width="45.666666666666664" height="56"/>
+                                                        <rect key="frame" x="0.0" y="14" width="55.666666666666664" height="56"/>
                                                         <state key="normal" image="icoInstagram"/>
                                                         <connections>
                                                             <action selector="btnSocialMediaShareClick:" destination="f9j-8w-2WB" eventType="touchUpInside" id="cqE-IL-Qzs"/>
@@ -1543,10 +1543,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WC9-8D-574">
-                                                <rect key="frame" x="182" y="0.0" width="46" height="70"/>
+                                                <rect key="frame" x="141.66666666666666" y="0.0" width="56" height="70"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xz0-CS-I1A">
-                                                        <rect key="frame" x="0.0" y="0.0" width="46" height="14"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="56" height="14"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="14" id="Wqa-Tk-iSP"/>
                                                         </constraints>
@@ -1557,7 +1557,7 @@
                                                         <size key="shadowOffset" width="0.0" height="1"/>
                                                     </label>
                                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L63-iu-1YY">
-                                                        <rect key="frame" x="0.0" y="14" width="46" height="56"/>
+                                                        <rect key="frame" x="0.0" y="14" width="56" height="56"/>
                                                         <state key="normal" image="icoTwitter"/>
                                                         <connections>
                                                             <action selector="btnSocialMediaShareClick:" destination="f9j-8w-2WB" eventType="touchUpInside" id="tux-NC-KMr"/>
@@ -1576,10 +1576,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hhS-Ca-tkf">
-                                                <rect key="frame" x="242.99999999999997" y="0.0" width="45.666666666666657" height="70"/>
+                                                <rect key="frame" x="212.66666666666666" y="0.0" width="55.666666666666657" height="70"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DzI-Bb-uqV">
-                                                        <rect key="frame" x="0.0" y="0.0" width="45.666666666666664" height="14"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="55.666666666666664" height="14"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="14" id="SIY-ik-MTH"/>
                                                         </constraints>
@@ -1590,7 +1590,7 @@
                                                         <size key="shadowOffset" width="0.0" height="1"/>
                                                     </label>
                                                     <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h0Y-zC-rSF">
-                                                        <rect key="frame" x="0.0" y="14" width="45.666666666666664" height="56"/>
+                                                        <rect key="frame" x="0.0" y="14" width="55.666666666666664" height="56"/>
                                                         <state key="normal" image="icoTikTok"/>
                                                         <connections>
                                                             <action selector="btnSocialMediaShareClick:" destination="f9j-8w-2WB" eventType="touchUpInside" id="HA3-g8-SXS"/>
@@ -1609,10 +1609,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ouo-Tc-ZQW">
-                                                <rect key="frame" x="303.66666666666669" y="0.0" width="45.666666666666686" height="70"/>
+                                                <rect key="frame" x="283.33333333333331" y="0.0" width="56" height="70"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bb7-Fj-Vc4">
-                                                        <rect key="frame" x="0.0" y="0.0" width="45.666666666666664" height="14"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="56" height="14"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="14" id="wVZ-O0-Qg2"/>
                                                         </constraints>
@@ -1623,7 +1623,7 @@
                                                         <size key="shadowOffset" width="0.0" height="1"/>
                                                     </label>
                                                     <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YJ1-ZR-4Je">
-                                                        <rect key="frame" x="0.0" y="14" width="45.666666666666664" height="56"/>
+                                                        <rect key="frame" x="0.0" y="14" width="56" height="56"/>
                                                         <state key="normal" image="icoStoriCam"/>
                                                         <connections>
                                                             <action selector="btnSocialMediaShareClick:" destination="f9j-8w-2WB" eventType="touchUpInside" id="Cl8-O7-o12"/>
@@ -1642,10 +1642,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yB7-8N-cMe">
-                                                <rect key="frame" x="364.33333333333331" y="0.0" width="45.666666666666686" height="70"/>
+                                                <rect key="frame" x="354.33333333333331" y="0.0" width="55.666666666666686" height="70"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0rb-P9-ozr">
-                                                        <rect key="frame" x="0.0" y="0.0" width="45.666666666666664" height="14"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="55.666666666666664" height="14"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="14" id="mRS-jZ-UTl"/>
                                                         </constraints>
@@ -1656,7 +1656,7 @@
                                                         <size key="shadowOffset" width="0.0" height="1"/>
                                                     </label>
                                                     <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WGd-gU-1jH">
-                                                        <rect key="frame" x="0.0" y="14" width="45.666666666666664" height="56"/>
+                                                        <rect key="frame" x="0.0" y="14" width="55.666666666666664" height="56"/>
                                                         <state key="normal" image="icoSnapchat"/>
                                                         <connections>
                                                             <action selector="btnSocialMediaShareClick:" destination="f9j-8w-2WB" eventType="touchUpInside" id="TRH-DL-mh7"/>
@@ -2281,8 +2281,8 @@
                                                     <action selector="doNotShowDiscardVideoButtonClicked:" destination="f9j-8w-2WB" eventType="touchUpInside" id="pBO-Ck-JZB"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don’t show it again" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Cz-Ai-xfW">
-                                                <rect key="frame" x="72.999999999999986" y="83.666666666666686" width="137.66666666666663" height="30"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Do not show again." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Cz-Ai-xfW">
+                                                <rect key="frame" x="72.999999999999986" y="83.666666666666686" width="138.66666666666663" height="30"/>
                                                 <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -3857,7 +3857,7 @@
         <image name="timeSpeed" width="34" height="34"/>
         <image name="trimDone" width="30" height="30"/>
         <namedColor name="AppPrimaryColor">
-            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppWhiteColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3866,7 +3866,7 @@
             <color red="0.35294117647058826" green="0.38039215686274508" blue="0.4823529411764706" alpha="0.36000001430511475" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="hashtag_lightGold">
-            <color red="0.98039215686274506" green="0.85098039215686272" blue="0.38039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.98000001907348633" green="0.85100001096725464" blue="0.37999999523162842" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="quetag_darkSkyBlue">
             <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
