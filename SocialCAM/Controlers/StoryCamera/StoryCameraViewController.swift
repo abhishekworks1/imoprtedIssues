@@ -1882,6 +1882,7 @@ extension StoryCameraViewController {
             self.confirmRecordedSegmentStackView.isHidden = false
             self.stopMotionCollectionView.isHidden = true
             self.outtakesView.isHidden = true
+            self.slowFastVerticalBar.isHidden = true
         }
         if recordingType == .capture {
             self.settingsButton.isUserInteractionEnabled = true
