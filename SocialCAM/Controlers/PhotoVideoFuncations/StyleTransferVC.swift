@@ -39,7 +39,7 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
     
     @IBOutlet weak var collectionView: InfiniteCollectionView!
     var cameraMode: CameraMode = .basicCamera
-    
+    var indexOfPic = 0
     var dragAndDropManager: KDDragAndDropManager?
     @IBOutlet weak var btnSlideShow: UIButton!
     @IBOutlet weak var btnCollage: UIButton!
@@ -729,6 +729,15 @@ extension StyleTransferVC: UIScrollViewDelegate {
         }
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let visibleRect = CGRect(origin: collectionView.contentOffset, size: collectionView.bounds.size)
+        let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
+        let index = collectionView!.indexPathForItem(at: visiblePoint)
+        if indexOfPic != index?.row ?? 0 {
+            indexOfPic = index?.row ?? 0
+            Defaults.shared.callHapticFeedback(isHeavy: false)
+        }
+    }
 }
 
 extension StyleTransferVC: KDDragAndDropCollectionViewDataSource {

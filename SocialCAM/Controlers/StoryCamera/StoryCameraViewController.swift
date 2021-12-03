@@ -963,6 +963,7 @@ extension StoryCameraViewController {
     }
     
     func startCapture() {
+        Defaults.shared.callHapticFeedback(isHeavy: false)
         guard isCameraLoadOnRecording else {
             return
         }
@@ -1803,6 +1804,7 @@ extension StoryCameraViewController {
     }
     
     func startRecording() {
+        Defaults.shared.callHapticFeedback(isHeavy: true)
         guard !nextLevel.isRecording else {
             return
         }
@@ -1882,6 +1884,7 @@ extension StoryCameraViewController {
             self.confirmRecordedSegmentStackView.isHidden = false
             self.stopMotionCollectionView.isHidden = true
             self.outtakesView.isHidden = true
+            self.slowFastVerticalBar.isHidden = true
         }
         if recordingType == .capture {
             self.settingsButton.isUserInteractionEnabled = true

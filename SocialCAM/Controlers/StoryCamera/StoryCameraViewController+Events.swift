@@ -816,6 +816,7 @@ extension StoryCameraViewController: CollageMakerVCDelegate {
 extension StoryCameraViewController: CountdownViewDelegate {
     
     func capturePhoto() {
+        Defaults.shared.callHapticFeedback(isHeavy: true)
         if self.recordingType == .pic2Art {
             self.capturePhotoFromVideo()
         } else if isTimeSpeedApp || isFastCamApp || isLiteApp {
