@@ -540,24 +540,8 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
     }
     func hepticEventGenerator(text:String){
         if self.labelSpeedTxt != text {
-            do {
-                if #available(iOS 13.0, *) {
-                    try AVAudioSession.sharedInstance().setAllowHapticsAndSystemSoundsDuringRecording(true)
-                } else {
-                    // Fallback on earlier versions
-                }
-            } catch {
-                print(error)
-            }
             self.labelSpeedTxt = text
-            //print("**line change**\(text)")
-            if Defaults.shared.isMutehapticFeedbackOnSpeedSelection == false {
-                DispatchQueue.main.async  {
-                    // your code here
-                    let generator = UIImpactFeedbackGenerator(style: .heavy)
-                    generator.impactOccurred()
-                }
-            }
+            Defaults.shared.callHapticFeedback(isHeavy: true)
         }
     }
     

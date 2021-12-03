@@ -963,6 +963,7 @@ extension StoryCameraViewController {
     }
     
     func startCapture() {
+        Defaults.shared.callHapticFeedback(isHeavy: false)
         guard isCameraLoadOnRecording else {
             return
         }
@@ -1803,6 +1804,7 @@ extension StoryCameraViewController {
     }
     
     func startRecording() {
+        Defaults.shared.callHapticFeedback(isHeavy: true)
         guard !nextLevel.isRecording else {
             return
         }
