@@ -792,6 +792,11 @@ enum MadeWithGifSetting: Int {
     case hide
 }
 
+enum PublicDisplaynameWatermarkSetting: Int {
+    case show = 1
+    case hide
+}
+
 enum VideoResolution: Int {
     case low = 1
     case high

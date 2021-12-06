@@ -12,6 +12,7 @@ enum WatermarkType: Int {
     case fastestEverWatermark = 0
     case applicationIdentifier
     case madeWithGif
+    case publicDisplaynameWatermark
 }
 
 class WatermarkSettingCell: UITableViewCell {
@@ -39,6 +40,9 @@ class WatermarkSettingCell: UITableViewCell {
                 self.setSelection(appIdentifierWatermarkSetting: Defaults.shared.appIdentifierWatermarkSetting)
             } else if watermarkType == .madeWithGif {
                 lblWatermarkName.text = R.string.localizable.madeWithgif(Constant.Application.displayName)
+                self.setSelection(madeWithGifSetting: Defaults.shared.madeWithGifSetting)
+            } else if watermarkType == .publicDisplaynameWatermark {
+                lblWatermarkName.text = R.string.localizable.madeWith(Constant.Application.displayName)
                 self.setSelection(madeWithGifSetting: Defaults.shared.madeWithGifSetting)
             }
         }
@@ -124,6 +128,9 @@ class WatermarkSettingCell: UITableViewCell {
             Defaults.shared.appIdentifierWatermarkSetting = .show
             self.setSelection(appIdentifierWatermarkSetting: Defaults.shared.appIdentifierWatermarkSetting)
         } else if watermarkType == .madeWithGif {
+            Defaults.shared.madeWithGifSetting = .show
+            self.setSelection(madeWithGifSetting: Defaults.shared.madeWithGifSetting)
+        } else if watermarkType == .publicDisplaynameWatermark {
             Defaults.shared.madeWithGifSetting = .show
             self.setSelection(madeWithGifSetting: Defaults.shared.madeWithGifSetting)
         }

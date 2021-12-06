@@ -5871,7 +5871,7 @@ Countdown</string>
                                 <rect key="frame" x="0.0" y="96" width="375" height="716"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="gdJ-X8-xth">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="255"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="340"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tSf-sC-aXs">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="85"/>
@@ -6012,12 +6012,22 @@ Countdown</string>
                                                             <action selector="madeWithGifButtonClickedWithSender:" destination="BtE-Ri-H8d" eventType="touchUpInside" id="BHv-Pf-IjQ"/>
                                                         </connections>
                                                     </button>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CbA-0w-CNd" userLabel="Separator">
+                                                        <rect key="frame" x="8" y="84" width="359" height="1"/>
+                                                        <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="1" id="twt-Gl-dKE"/>
+                                                        </constraints>
+                                                    </view>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstItem="y3u-aL-9sE" firstAttribute="centerY" secondItem="CC3-Wh-Mgv" secondAttribute="centerY" id="7lV-X4-ldR"/>
+                                                    <constraint firstItem="CbA-0w-CNd" firstAttribute="leading" secondItem="CC3-Wh-Mgv" secondAttribute="leading" constant="8" id="9KX-xe-PbO"/>
                                                     <constraint firstAttribute="trailing" secondItem="j3W-b5-ccq" secondAttribute="trailing" id="CMI-Wn-68U"/>
                                                     <constraint firstAttribute="bottom" secondItem="gJ2-K8-Scx" secondAttribute="bottom" id="JvF-gX-r94"/>
+                                                    <constraint firstAttribute="bottom" secondItem="CbA-0w-CNd" secondAttribute="bottom" id="T1r-gF-3pI"/>
+                                                    <constraint firstAttribute="trailing" secondItem="CbA-0w-CNd" secondAttribute="trailing" constant="8" id="VZi-eq-ckJ"/>
                                                     <constraint firstAttribute="bottom" secondItem="j3W-b5-ccq" secondAttribute="bottom" id="Vzl-Qa-Rgx"/>
                                                     <constraint firstAttribute="height" constant="85" id="gUo-8A-jIi"/>
                                                     <constraint firstItem="j3W-b5-ccq" firstAttribute="leading" secondItem="CC3-Wh-Mgv" secondAttribute="leading" id="kdv-ou-qWx"/>
@@ -6027,9 +6037,57 @@ Countdown</string>
                                                     <constraint firstItem="y3u-aL-9sE" firstAttribute="leading" secondItem="CC3-Wh-Mgv" secondAttribute="leading" constant="12" id="wKX-32-aH7"/>
                                                 </constraints>
                                             </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cYg-tf-E20">
+                                                <rect key="frame" x="0.0" y="255" width="375" height="85"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V7Z-yN-2te">
+                                                        <rect key="frame" x="12" y="33.666666666666686" width="18" height="18"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="18" id="4rV-lk-3t5"/>
+                                                            <constraint firstAttribute="height" constant="18" id="aXf-h7-Fpx"/>
+                                                        </constraints>
+                                                        <state key="normal" image="checkBoxInActive"/>
+                                                        <state key="selected" image="checkBoxActive"/>
+                                                    </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Public Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LTG-aH-lN6">
+                                                        <rect key="frame" x="60" y="33.666666666666686" width="298" height="17.666666666666671"/>
+                                                        <fontDescription key="fontDescription" name="SFUIText-Bold" family="SF UI Text" pointSize="15"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CEv-zQ-ojI">
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="85"/>
+                                                        <connections>
+                                                            <action selector="publicDisplaynameButtonClickedWithSender:" destination="BtE-Ri-H8d" eventType="touchUpInside" id="FyJ-mM-nJX"/>
+                                                        </connections>
+                                                    </button>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OgC-aU-N2t" userLabel="Separator">
+                                                        <rect key="frame" x="8" y="84" width="359" height="1"/>
+                                                        <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="1" id="eYV-Ve-FFo"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="LTG-aH-lN6" secondAttribute="trailing" constant="17" id="92g-S0-eGd"/>
+                                                    <constraint firstAttribute="bottom" secondItem="OgC-aU-N2t" secondAttribute="bottom" id="A71-Tv-eXf"/>
+                                                    <constraint firstItem="LTG-aH-lN6" firstAttribute="leading" secondItem="V7Z-yN-2te" secondAttribute="trailing" constant="30" id="Crs-NO-1E3"/>
+                                                    <constraint firstItem="OgC-aU-N2t" firstAttribute="leading" secondItem="cYg-tf-E20" secondAttribute="leading" constant="8" id="Fg7-45-jys"/>
+                                                    <constraint firstItem="CEv-zQ-ojI" firstAttribute="top" secondItem="cYg-tf-E20" secondAttribute="top" id="J37-b1-LA3"/>
+                                                    <constraint firstItem="CEv-zQ-ojI" firstAttribute="leading" secondItem="cYg-tf-E20" secondAttribute="leading" id="TVv-L5-5TG"/>
+                                                    <constraint firstItem="LTG-aH-lN6" firstAttribute="centerY" secondItem="cYg-tf-E20" secondAttribute="centerY" id="Y7g-9k-xem"/>
+                                                    <constraint firstAttribute="trailing" secondItem="CEv-zQ-ojI" secondAttribute="trailing" id="bP3-Uk-7yC"/>
+                                                    <constraint firstItem="V7Z-yN-2te" firstAttribute="leading" secondItem="cYg-tf-E20" secondAttribute="leading" constant="12" id="cUi-VF-PH2"/>
+                                                    <constraint firstItem="V7Z-yN-2te" firstAttribute="centerY" secondItem="cYg-tf-E20" secondAttribute="centerY" id="jYf-sO-oIV"/>
+                                                    <constraint firstAttribute="bottom" secondItem="CEv-zQ-ojI" secondAttribute="bottom" id="uVR-Uv-mxs"/>
+                                                    <constraint firstAttribute="trailing" secondItem="OgC-aU-N2t" secondAttribute="trailing" constant="8" id="w8O-M2-Bg0"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="255" id="C9l-Vt-6aA"/>
+                                            <constraint firstAttribute="height" constant="340" id="C9l-Vt-6aA"/>
                                         </constraints>
                                     </stackView>
                                 </subviews>
@@ -6047,7 +6105,7 @@ Countdown</string>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="NIl-IK-LAJ">
                                 <rect key="frame" x="8" y="96" width="359" height="682"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="StorySettingsHeader" rowHeight="61" id="UPt-ch-xDV" customClass="StorySettingsHeader" customModule="BoomiCam" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="55.333332061767578" width="359" height="61"/>
@@ -6333,10 +6391,13 @@ Countdown</string>
                         <outlet property="btnFastesteverWatermark" destination="WLw-A5-jf4" id="ZOe-ew-4kF"/>
                         <outlet property="btnMadeWithGif" destination="j3W-b5-ccq" id="sun-y0-gCO"/>
                         <outlet property="btnMadeWithWatermark" destination="2Oi-Cg-c3Y" id="YL3-PK-Xr7"/>
+                        <outlet property="btnPublicDisplaynameWatermark" destination="CEv-zQ-ojI" id="Hgz-Yt-VN9"/>
                         <outlet property="btnSelectAppIdentifierWatermark" destination="yBn-jk-2ld" id="TNC-MY-rWy"/>
                         <outlet property="btnSelectFastesteverWatermark" destination="MTl-fQ-IIs" id="MRH-Ra-BFa"/>
+                        <outlet property="btnSelectPublicDisplaynameWatermark" destination="V7Z-yN-2te" id="m46-xq-lAt"/>
                         <outlet property="btnSelectedMadeWithGif" destination="y3u-aL-9sE" id="oFS-rh-aBu"/>
                         <outlet property="imgViewMadeWithGif" destination="gJ2-K8-Scx" id="7W2-3a-2tm"/>
+                        <outlet property="lblPublicDisplaynameWatermark" destination="LTG-aH-lN6" id="xeB-SO-AwD"/>
                         <outlet property="lblUserNameWatermark" destination="Osc-dN-DeV" id="Dvi-yE-ua7"/>
                         <outlet property="watermarkSettingsTableView" destination="NIl-IK-LAJ" id="3Et-Vw-TWI"/>
                     </connections>
@@ -7921,7 +7982,7 @@ Countdown</string>
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
-            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="hideWatermarkBackgroundColor">
             <color red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

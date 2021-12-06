@@ -218,6 +218,9 @@ class StoryEditorViewController: UIViewController {
     @IBOutlet weak var discardVideoPopupView: UIView!
     @IBOutlet weak var btnDoNotShowDiscardVideo: UIButton!
     @IBOutlet weak var lblUserNameWatermark: UILabel!
+    @IBOutlet weak var lblPublicDisplaynameWatermark: UILabel!
+    @IBOutlet weak var btnSelectPublicDisplaynameWatermark: UIButton!
+    @IBOutlet weak var btnPublicDisplaynameWatermark: UIButton!
     
     @IBOutlet weak var saveVideoPopupView: UIView!
     
@@ -292,6 +295,7 @@ class StoryEditorViewController: UIViewController {
     var isFastesteverWatermarkShow = false
     var isAppIdentifierWatermarkShow = false
     var isMadeWithGifShow = false
+    var isPublicDisplaynameWatermarkShow = false
     var isSettingsChange = false
     var socialShareTag = 0
     var isTiktokShare = false
@@ -389,6 +393,10 @@ class StoryEditorViewController: UIViewController {
         btnAppIdentifierWatermark.isSelected = isAppIdentifierWatermarkShow
         isMadeWithGifShow = Defaults.shared.madeWithGifSetting == .show
         btnSelectedMadeWithGif.isSelected = isMadeWithGifShow
+        isPublicDisplaynameWatermarkShow = Defaults.shared.publicDisplaynameWatermarkSetting == .show
+        btnSelectPublicDisplaynameWatermark.isSelected = isPublicDisplaynameWatermarkShow
+        isPublicDisplaynameWatermarkShow = Defaults.shared.publicDisplaynameWatermarkSetting == .show
+        self.lblPublicDisplaynameWatermark.text = "@\(Defaults.shared.currentUser?.username ?? "")"
         setGestureViewForShowHide(view: storyEditors[currentStoryIndex])
         if Defaults.shared.appMode == .free {
             btnFastesteverWatermark.isSelected = true
@@ -1503,6 +1511,12 @@ extension StoryEditorViewController {
         btnFastesteverWatermark.isSelected = isFastesteverWatermarkShow
         btnSelectFastesteverWatermark.isSelected = isFastesteverWatermarkShow
         Defaults.shared.fastestEverWatermarkSetting = self.isFastesteverWatermarkShow ? .show : .hide
+    }
+    
+    @IBAction func publicDisplaynameButtonClicked(sender: UIButton) {
+        isPublicDisplaynameWatermarkShow = !isPublicDisplaynameWatermarkShow
+        btnSelectPublicDisplaynameWatermark.isSelected = isPublicDisplaynameWatermarkShow
+        Defaults.shared.publicDisplaynameWatermarkSetting = self.isPublicDisplaynameWatermarkShow ? .show : .hide
     }
     
     @IBAction func appIdentifierWatermarkButtonClicked(sender: UIButton) {

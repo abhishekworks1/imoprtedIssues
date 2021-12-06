@@ -23,7 +23,8 @@ class WatermarkSettings {
     static var watermarkSettings = [
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.fastestevercontest(), selected: false)], settingsType: .fatesteverWatermark),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.madeWith(Constant.Application.displayName), selected: false)], settingsType: .applIdentifierWatermark),
-        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.madeWithgif(Constant.Application.displayName), selected: false)], settingsType: .madeWithGif)
+        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.madeWithgif(Constant.Application.displayName), selected: false)], settingsType: .madeWithGif),
+        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.fastestevercontest(), selected: false)], settingsType: .publicDisplaynameWatermark)
     ]
 }
 
@@ -40,12 +41,15 @@ class WatermarkSettingsViewController: UIViewController {
     @IBOutlet weak var btnSelectedMadeWithGif: UIButton!
     @IBOutlet weak var btnMadeWithGif: UIButton!
     @IBOutlet weak var lblUserNameWatermark: UILabel!
+    @IBOutlet weak var lblPublicDisplaynameWatermark: UILabel!
+    @IBOutlet weak var btnSelectPublicDisplaynameWatermark: UIButton!
+    @IBOutlet weak var btnPublicDisplaynameWatermark: UIButton!
     
     // MARK: - Variables Declaration
     var isFastesteverWatermarkShow = false
     var isAppIdentifierWatermarkShow = false
     var isMadeWithGifShow = false
-    
+    var isPublicDisplaynameWatermarkShow = false
     // MARK: - View Controller Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,6 +64,10 @@ class WatermarkSettingsViewController: UIViewController {
         btnAppIdentifierWatermark.isSelected = isAppIdentifierWatermarkShow
         isMadeWithGifShow = Defaults.shared.madeWithGifSetting == .show
         btnSelectedMadeWithGif.isSelected = isMadeWithGifShow
+        isPublicDisplaynameWatermarkShow = Defaults.shared.publicDisplaynameWatermarkSetting == .show
+        btnSelectPublicDisplaynameWatermark.isSelected = isPublicDisplaynameWatermarkShow
+        isPublicDisplaynameWatermarkShow = Defaults.shared.publicDisplaynameWatermarkSetting == .show
+        self.lblPublicDisplaynameWatermark.text = "@\(Defaults.shared.currentUser?.username ?? "")"
        /* if Defaults.shared.appMode == .free {
             btnFastesteverWatermark.isSelected = true
             btnAppIdentifierWatermark.isSelected = true
@@ -132,7 +140,11 @@ class WatermarkSettingsViewController: UIViewController {
         btnSelectedMadeWithGif.isSelected = isMadeWithGifShow
         Defaults.shared.madeWithGifSetting = self.isMadeWithGifShow ? .show : .hide
     }
-    
+    @IBAction func publicDisplaynameButtonClicked(sender: UIButton) {
+        isPublicDisplaynameWatermarkShow = !isPublicDisplaynameWatermarkShow
+        btnSelectPublicDisplaynameWatermark.isSelected = isPublicDisplaynameWatermarkShow
+        Defaults.shared.publicDisplaynameWatermarkSetting = self.isPublicDisplaynameWatermarkShow ? .show : .hide
+    }
 }
 
 // MARK: - Table View DataSource
@@ -164,6 +176,11 @@ extension WatermarkSettingsViewController: UITableViewDataSource {
             }
         } else if settingTitle.settingsType == .madeWithGif {
             watermarkSettingCell.watermarkType = .madeWithGif
+            if Defaults.shared.appMode == .free {
+                watermarkSettingCell.hideWatermarkButton.addTarget(self, action: #selector(goToSubscriptionVC), for: .touchUpInside)
+            }
+        } else if settingTitle.settingsType == .publicDisplaynameWatermark {
+            watermarkSettingCell.watermarkType = .publicDisplaynameWatermark
             if Defaults.shared.appMode == .free {
                 watermarkSettingCell.hideWatermarkButton.addTarget(self, action: #selector(goToSubscriptionVC), for: .touchUpInside)
             }

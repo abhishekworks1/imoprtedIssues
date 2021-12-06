@@ -70,6 +70,7 @@ enum SettingsMode: Int {
     case referringChannel
     case qrcode
     case mutehapticFeedbackOnSpeedSelection
+    case publicDisplaynameWatermark
 }
 
 class StorySetting {

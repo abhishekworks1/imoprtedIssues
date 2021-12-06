@@ -594,6 +594,15 @@ class Defaults {
         }
     }
     
+    var publicDisplaynameWatermarkSetting: PublicDisplaynameWatermarkSetting {
+        get {
+            return PublicDisplaynameWatermarkSetting(rawValue: (appDefaults?.integer(forKey: "publicDisplaynameWatermarkSetting") ?? 2)) ?? .hide
+        }
+        set {
+            appDefaults?.set(newValue.rawValue, forKey: "publicDisplaynameWatermarkSetting")
+        }
+    }
+    
     var videoResolution: VideoResolution {
         get {
             return VideoResolution(rawValue: (appDefaults?.integer(forKey: "VideoResolution") ?? 1)) ?? .low
