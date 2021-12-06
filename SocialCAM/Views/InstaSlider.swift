@@ -148,6 +148,7 @@ open class InstaSlider: UIView {
                 cell!.label.textColor = selectedCellTextColor
                 cell!.label.font = UIFont.systemFont(ofSize: 17)
                 //print("**SelectedC1 \(cell!.label.text)")
+                Defaults.shared.callHapticFeedback(isHeavy: false)
                 if (self.currentCell != nil) {
                     self.currentCell!((index?.row)!, self.stringArray[(index!.row)])
                 }

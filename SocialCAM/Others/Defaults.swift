@@ -1199,6 +1199,25 @@ class Defaults {
 
 
     }
+    
+    func callHapticFeedback(isHeavy:Bool){
+        if Defaults.shared.isMutehapticFeedbackOnSpeedSelection == false {
+            do {
+                if #available(iOS 13.0, *) {
+                    try AVAudioSession.sharedInstance().setAllowHapticsAndSystemSoundsDuringRecording(true)
+                } else {
+                    // Fallback on earlier versions
+                }
+            } catch {
+                print(error)
+            }
+            DispatchQueue.main.async  {
+                // your code here
+                let generator = UIImpactFeedbackGenerator(style: isHeavy ?  .heavy : .medium)
+                generator.impactOccurred()
+            }
+        }
+    }
 }
 
 extension UserDefaults {
