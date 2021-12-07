@@ -643,6 +643,9 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                 for view in [self.lblLeftSeparator, self.lblRightSeparator, self.photoTimerSelectedLabel, self.pauseTimerSelectedLabel] {
                     view?.isHidden = true
                 }
+            }else if self.recordingType == .pic2Art {
+                self.speedSlider.isHidden = true
+                self.speedSliderView.isHidden = true
             }
             setupLayoutCameraSliderView()
             dynamicSetSlowFastVerticalBar()
@@ -685,6 +688,10 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         self.reloadUploadViewData()
         self.stopMotionCollectionView.reloadData()
         dynamicSetSlowFastVerticalBar()
+        if self.recordingType == .pic2Art {
+            self.speedSlider.isHidden = true
+            self.speedSliderView.isHidden = true
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -703,6 +710,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             UIPasteboard.remove(withName: UIPasteboard.Name(rawValue: Constant.Application.pasteboardName))
             openStoryEditor(images: [image])
         }
+        
     }
     
     func addTikTokShareViewIfNeeded() {
