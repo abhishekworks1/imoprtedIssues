@@ -450,7 +450,13 @@ extension StoryEditorView: UITextViewDelegate {
         }
         endEditing(true)
     }
-    
+    func cancelTextEditing() {
+        for textView in textViews {
+            textView.removeFromSuperview()
+        }
+        textViews.removeAll()
+        endEditing(true)
+    }
     func textViewDidChange(_ textView: UITextView) {
         if textView.text == "" {
             textView.text = "#"

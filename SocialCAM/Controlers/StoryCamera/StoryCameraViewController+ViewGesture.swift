@@ -553,6 +553,10 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
         self.speedLabel.stopBlink()
         nextLevel.videoConfiguration.timescale = 1
         speedIndicatorViewColorChange()
+        if self.isSpeedChanged {
+            Defaults.shared.callHapticFeedback(isHeavy: true)
+            self.isSpeedChanged = false
+        }
     }
     
     func speedIndicatorViewColorChange() {
