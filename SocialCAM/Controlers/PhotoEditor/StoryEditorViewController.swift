@@ -188,6 +188,7 @@ class StoryEditorViewController: UIViewController {
     @IBOutlet weak var ssuTagView: UIView!
     @IBOutlet weak var doneButtonView: UIView!
     @IBOutlet weak var backButtonView: UIView!
+    @IBOutlet weak var closeDoneButtonView: UIView!
     @IBOutlet weak var closeLabel: UILabel!
     @IBOutlet weak var showHideLabel: UILabel!
     @IBOutlet weak var showHideView: UIView!
@@ -600,6 +601,7 @@ class StoryEditorViewController: UIViewController {
         slideShowPreviewView.isHidden = !isSlideShow ? true : hide
         self.slideShowFillAuto.isHidden = !isSlideShow ? true : hide
         doneButtonView.isHidden = !hide
+        closeDoneButtonView.isHidden = !hide
         showHideView.isHidden = !doneButtonView.isHidden
         colorSlider.isHidden = hideColorSlider ? true : !hide
     }
@@ -1019,6 +1021,12 @@ extension StoryEditorViewController {
     @IBAction func doneClicked(_ sender: UIButton) {
         storyEditors[currentStoryIndex].endDrawing()
         storyEditors[currentStoryIndex].endTextEditing()
+        hideToolBar(hide: false)
+    }
+    
+    @IBAction func closeDoneClicked(_ sender: UIButton) {
+        storyEditors[currentStoryIndex].endDrawing()
+        storyEditors[currentStoryIndex].cancelTextEditing()
         hideToolBar(hide: false)
     }
 
@@ -2145,7 +2153,7 @@ extension StoryEditorViewController {
                 loadingView.progressView.setProgress(to: Double(0), withAnimation: true)
                 loadingView.shouldDescriptionTextShow = true
                 if let multipleIndex = index {
-                    loadingView.completedExportTotal = "\(multipleIndex) / \(self.storyEditors.count)"
+                    loadingView.completedExportTotal = "\(multipleIndex+1) / \(self.storyEditors.count)"
                     loadingView.showTotalCount = true
                 } else {
                     loadingView.showTotalCount = false
@@ -2166,7 +2174,7 @@ extension StoryEditorViewController {
         exportSession.isMute = storyEditor.isMuted
         exportSession.socialShareType = type
         storyEditors[currentStoryIndex].isCropped ? (storyEditors[currentStoryIndex].storySwipeableFilterView.imageContentMode = .scaleAspectFill) : (storyEditors[currentStoryIndex].storySwipeableFilterView.imageContentMode = .scaleAspectFit)
-        storyEditors[currentStoryIndex].isCropped ? (exportSession.imageContentMode = .scaleAspectFill) : (exportSession.imageContentMode = .scaleAspectFit)
+        storyEditors[currentStoryIndex].isCropped ? (exportSession.imageContentMode = .scaleAspectFit) : (exportSession.imageContentMode = .scaleAspectFit)
         exportSession.overlayImage = storyEditor.toVideoImage()
         exportSession.inputTransformation = storyEditor.imageTransformation
         exportSession.export(for: asset, progress: { [weak self] progress in
