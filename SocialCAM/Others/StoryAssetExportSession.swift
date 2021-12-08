@@ -236,23 +236,22 @@ class StoryAssetExportSession {
                 return imageBuffer
         }
         var overlayCIImage = CIImage(cvImageBuffer: videoBuffer)
+       
+       
         if imageContentMode == .scaleAspectFill {
             do {
                 let backgroundImage = try R.image.videoBackground()!.resized(to: overlayCIImage.extent.size, with: .accelerate)
                 backgroundImageBuffer = backgroundImage.buffer()!
             } catch {
-                
+
             }
         }
-        
         let backgroundCIImage = CIImage(cvImageBuffer: backgroundImageBuffer)
         let backgroundCIImageWidth = backgroundCIImage.extent.width
         let backgroundCIImageHeight = backgroundCIImage.extent.height
-        
         if let preferredTransform = self.preferredTransform {
             overlayCIImage = overlayCIImage.transformed(by: CGAffineTransform(rotationAngle: -(atan2(preferredTransform.b, preferredTransform.a))))
         }
-        
         let scaleTransform = scaleAndResizeTransform(overlayCIImage, for: backgroundCIImage.extent)
         overlayCIImage = overlayCIImage.transformed(by: scaleTransform)
         
@@ -264,20 +263,22 @@ class StoryAssetExportSession {
         
         let txValue = (backgroundCIImageWidth*transformation.tx/100) - overlayCIImage.extent.origin.x
         let tyValue = backgroundCIImageHeight - (backgroundCIImageHeight*transformation.ty/100) - overlayCIImage.extent.height - overlayCIImage.extent.origin.y
+        var combinedCIImage =  CIImage()
         if imageContentMode != .scaleAspectFill {
             overlayCIImage = overlayCIImage.transformed(by: CGAffineTransform(translationX: txValue, y: tyValue))
+            //combinedCIImage = self.backGroundColor(backgroundCIImage) ?? CIImage()
+            //combinedCIImage = overlayCIImage.composited(over: combinedCIImage)
+        }else{
+            //combinedCIImage = overlayCIImage.composited(over: overlayCIImage)
         }
-        var combinedCIImage = overlayCIImage.composited(over: backgroundCIImage)
+        combinedCIImage = overlayCIImage.composited(over: backgroundCIImage)
         combinedCIImage = combinedCIImage.cropped(to: backgroundCIImage.extent)
-           
         if let filteredCIImage = self.filteredCIImage(combinedCIImage) {
             combinedCIImage = filteredCIImage
         }
-        
         if let overlaidCIImage = overlaidCIImage(combinedCIImage) {
             combinedCIImage = overlaidCIImage
         }
-        
         self.ciContext.render(combinedCIImage, to: backgroundImageBuffer, bounds: combinedCIImage.extent, colorSpace: CGColorSpaceCreateDeviceRGB())
         
         return backgroundImageBuffer
@@ -296,7 +297,16 @@ class StoryAssetExportSession {
     func addWatermarkGifUrl(urlString: String) {
         gifWaterMarkURL = Bundle.main.url(forResource: urlString, withExtension: "gif")
     }
-    
+    func backGroundColor(_ image: CIImage) -> CIImage? {
+        var fillImage =  UIImage(color: .blue) ?? UIImage()
+        do {
+             fillImage = try fillImage.resized(to: image.extent.size, with: .accelerate)
+             return  CIImage(cvImageBuffer: fillImage.buffer()!)
+        } catch {
+            
+        }
+        return nil
+    }
     func overlaidCIImage(_ image: CIImage) -> CIImage? {
         if Defaults.shared.madeWithGifSetting == .show {
             watermarkType = .gif
@@ -357,6 +367,7 @@ class StoryAssetExportSession {
     func addWaterMarkImageIfNeeded(isGIF: Bool = false) {
         var image = R.image.socialCamWaterMark()
         let userName = Defaults.shared.currentUser?.username ?? ""
+        let displayname = Defaults.shared.publicDisplayName ?? ""
         if isViralCamApp {
             image = R.image.wmViralCamLogo()
             if watermarkPosition == .topLeft {
@@ -432,6 +443,10 @@ class StoryAssetExportSession {
             return
         }
         
+        let newDisplaynameTextimage: UIImage? = LetterImageGenerator.imageWith(name: "@\(displayname)")
+        guard let displaynameTextImage = newDisplaynameTextimage else {
+            return
+        }
         guard let backgroundImage = self.overlayImage,
             let watermarkImage = Defaults.shared.appIdentifierWatermarkSetting == .show ? image : UIImage() else {
                 return
@@ -449,7 +464,6 @@ class StoryAssetExportSession {
         if Defaults.shared.appIdentifierWatermarkSetting == .show {
             newWatermarkImage = watermarkImage.combineWith(image: watermarkTextImage)
         }
-        let displaynameTextImage = watermarkTextImage
         
         let newWatermarkGIFImage = watermarkGIFImage
         
