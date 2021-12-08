@@ -31,8 +31,8 @@ class DisplayNameTableViewCell: UITableViewCell {
     var displayNameType: DisplayNameType = .publicDisplayName {
         didSet {
             if displayNameType == .publicDisplayName {
-                self.lblDisplayNameType.text = R.string.localizable.publicDisplayName()
-                self.txtDisplaName.placeholder = R.string.localizable.publicDisplayName()
+                self.lblDisplayNameType.text = R.string.localizable.displayName()
+                self.txtDisplaName.placeholder = R.string.localizable.displayName()
                 self.txtDisplaName.text = Defaults.shared.publicDisplayName
             } else if displayNameType == .privateDisplayName {
                 self.lblDisplayNameType.text = R.string.localizable.privateDisplayName()

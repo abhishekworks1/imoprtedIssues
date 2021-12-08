@@ -71,6 +71,8 @@ enum SettingsMode: Int {
     case qrcode
     case mutehapticFeedbackOnSpeedSelection
     case publicDisplaynameWatermark
+    case editProfileCard
+    case socialMediaConnections
 }
 
 class StorySetting {
@@ -313,9 +315,13 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 cell.settingsName.alpha = 0.5
             }
             cell.onOffButton.isHidden = true
-        } else if settingTitle.settingsType == .userDashboard {
+        }else if settingTitle.settingsType == .userDashboard {
             hideUnhideImgButton(cell, R.image.iconBusinessDashboard())
-        } else if settingTitle.settingsType == .shareSetting {
+        }else if settingTitle.settingsType == .editProfileCard {
+            hideUnhideImgButton(cell, R.image.iconAccount())
+        }else if settingTitle.settingsType == .socialMediaConnections {
+            hideUnhideImgButton(cell, R.image.iconBusinessDashboard())
+        }else if settingTitle.settingsType == .shareSetting {
             hideUnhideImgButton(cell, R.image.iconShare())
         }else if settingTitle.settingsType == .qrcode {
             hideUnhideImgButton(cell, R.image.ic_qrcode())
@@ -450,6 +456,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let settingTitle = StorySettings.storySettings[indexPath.section]
+       
         if settingTitle.settingsType == .controlcenter {
             if let baseUploadVC = R.storyboard.storyCameraViewController.baseUploadVC() {
                 navigationController?.pushViewController(baseUploadVC, animated: true)
@@ -457,6 +464,14 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         } else if settingTitle.settingsType == .notification {
             if let baseUploadVC = R.storyboard.notificationVC.notificationVC() {
                 navigationController?.pushViewController(baseUploadVC, animated: true)
+            }
+        } else if settingTitle.settingsType == .editProfileCard {
+            if let editProfilePicViewController = R.storyboard.editProfileViewController.editProfilePicViewController() {
+                navigationController?.pushViewController(editProfilePicViewController, animated: true)
+            }
+        } else if settingTitle.settingsType == .socialMediaConnections {
+            if let addSocialConnectionViewController = R.storyboard.socialConnection.addSocialConnectionViewController() {
+                navigationController?.pushViewController(addSocialConnectionViewController, animated: true)
             }
         } else if settingTitle.settingsType == .video {
             if let viralCamVideos = R.storyboard.viralCamVideos.viralCamVideos() {

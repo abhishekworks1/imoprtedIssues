@@ -67,7 +67,7 @@ class WatermarkSettingsViewController: UIViewController {
         isPublicDisplaynameWatermarkShow = Defaults.shared.publicDisplaynameWatermarkSetting == .show
         btnSelectPublicDisplaynameWatermark.isSelected = isPublicDisplaynameWatermarkShow
         isPublicDisplaynameWatermarkShow = Defaults.shared.publicDisplaynameWatermarkSetting == .show
-        self.lblPublicDisplaynameWatermark.text = "@\(Defaults.shared.currentUser?.username ?? "")"
+        self.lblPublicDisplaynameWatermark.text = "@\(Defaults.shared.publicDisplayName ?? "")"
        /* if Defaults.shared.appMode == .free {
             btnFastesteverWatermark.isSelected = true
             btnAppIdentifierWatermark.isSelected = true

@@ -22,7 +22,7 @@ class AccountSettings {
     
     static var accountSettings = [
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.pleaseEnterEmail(), selected: false)], settingsType: .email),
-        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.publicDisplayName(), selected: false)], settingsType: .publicDisplayName),
+        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.displayName(), selected: false)], settingsType: .publicDisplayName),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.deleteAccount(Constant.Application.displayName), selected: false)], settingsType: .deleteAccount)
     ]
     //StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.privateDisplayName(), selected: false)], settingsType: .privateDisplayName), // Hide Private name for boomicam
