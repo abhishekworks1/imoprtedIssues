@@ -67,7 +67,7 @@ class WatermarkSettingsViewController: UIViewController {
         isPublicDisplaynameWatermarkShow = Defaults.shared.publicDisplaynameWatermarkSetting == .show
         btnSelectPublicDisplaynameWatermark.isSelected = isPublicDisplaynameWatermarkShow
         isPublicDisplaynameWatermarkShow = Defaults.shared.publicDisplaynameWatermarkSetting == .show
-        self.lblPublicDisplaynameWatermark.text = "@\(Defaults.shared.publicDisplayName ?? "")"
+        self.lblPublicDisplaynameWatermark.text = "@\(Defaults.shared.currentUser?.username ?? "")"
        /* if Defaults.shared.appMode == .free {
             btnFastesteverWatermark.isSelected = true
             btnAppIdentifierWatermark.isSelected = true
@@ -125,6 +125,12 @@ class WatermarkSettingsViewController: UIViewController {
         btnAppIdentifierWatermark.isSelected = isAppIdentifierWatermarkShow
         btnSelectAppIdentifierWatermark.isSelected = isAppIdentifierWatermarkShow
         Defaults.shared.appIdentifierWatermarkSetting = self.isAppIdentifierWatermarkShow ? .show : .hide
+        if (Defaults.shared.publicDisplaynameWatermarkSetting == .show){
+            Defaults.shared.publicDisplaynameWatermarkSetting = .hide
+            isPublicDisplaynameWatermarkShow = false
+            btnSelectPublicDisplaynameWatermark.isSelected = isPublicDisplaynameWatermarkShow
+        }
+        
     }
     
     @IBAction func madeWithGifButtonClicked(sender: UIButton) {
@@ -144,6 +150,11 @@ class WatermarkSettingsViewController: UIViewController {
         isPublicDisplaynameWatermarkShow = !isPublicDisplaynameWatermarkShow
         btnSelectPublicDisplaynameWatermark.isSelected = isPublicDisplaynameWatermarkShow
         Defaults.shared.publicDisplaynameWatermarkSetting = self.isPublicDisplaynameWatermarkShow ? .show : .hide
+        if (Defaults.shared.appIdentifierWatermarkSetting == .show){
+            Defaults.shared.appIdentifierWatermarkSetting = .hide
+            isAppIdentifierWatermarkShow = false
+            btnSelectAppIdentifierWatermark.isSelected = isAppIdentifierWatermarkShow
+        }
     }
 }
 

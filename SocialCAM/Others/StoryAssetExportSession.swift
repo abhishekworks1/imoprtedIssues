@@ -367,7 +367,6 @@ class StoryAssetExportSession {
     func addWaterMarkImageIfNeeded(isGIF: Bool = false) {
         var image = R.image.socialCamWaterMark()
         let userName = Defaults.shared.currentUser?.username ?? ""
-        let displayname = Defaults.shared.publicDisplayName ?? ""
         if isViralCamApp {
             image = R.image.wmViralCamLogo()
             if watermarkPosition == .topLeft {
@@ -443,7 +442,7 @@ class StoryAssetExportSession {
             return
         }
         
-        let newDisplaynameTextimage: UIImage? = LetterImageGenerator.imageWith(name: "@\(displayname)")
+        let newDisplaynameTextimage: UIImage? = LetterImageGenerator.imageWith(name: "@\(userName)")
         guard let displaynameTextImage = newDisplaynameTextimage else {
             return
         }
