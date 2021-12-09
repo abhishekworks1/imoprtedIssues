@@ -1896,6 +1896,10 @@ extension StoryCameraViewController {
             self.stopMotionCollectionView.isHidden = true
             self.outtakesView.isHidden = true
             self.slowFastVerticalBar.isHidden = true
+            
+            if Defaults.shared.swapeContols {
+                self.muteButton.isHidden = true
+            }
         }
         if recordingType == .capture {
             self.settingsButton.isUserInteractionEnabled = true
@@ -2481,6 +2485,9 @@ extension StoryCameraViewController {
         self.confirmRecordedSegmentStackView.isHidden = true
         self.slowFastVerticalBar.isHidden = true
         self.outtakesView.isHidden = false
+        if Defaults.shared.swapeContols {
+            self.muteButton.isHidden = false
+        }
     }
     
     func getUserProfile() {

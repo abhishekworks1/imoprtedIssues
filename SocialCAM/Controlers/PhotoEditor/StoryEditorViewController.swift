@@ -1026,7 +1026,7 @@ extension StoryEditorViewController {
     
     @IBAction func closeDoneClicked(_ sender: UIButton) {
         storyEditors[currentStoryIndex].endDrawing()
-        storyEditors[currentStoryIndex].cancelTextEditing()
+        storyEditors[currentStoryIndex].endTextEditing()   //cancelTextEditing()
         hideToolBar(hide: false)
     }
 

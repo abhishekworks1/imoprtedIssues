@@ -2028,11 +2028,11 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="jR1-Zt-YwQ">
-                                                <rect key="frame" x="101.33333333333334" y="166.66666666666669" width="124" height="86.333333333333314"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="jR1-Zt-YwQ">
+                                                <rect key="frame" x="39.333333333333343" y="166.66666666666669" width="248.00000000000003" height="40"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h1U-B5-ROW">
-                                                        <rect key="frame" x="0.0" y="0.0" width="124" height="43.333333333333336"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="124" height="40"/>
                                                         <color key="backgroundColor" name="AppPrimaryColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="124" id="Bvl-ei-Pvs"/>
@@ -2051,7 +2051,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="esf-NQ-yFf">
-                                                        <rect key="frame" x="0.0" y="43.333333333333314" width="124" height="43"/>
+                                                        <rect key="frame" x="124" y="0.0" width="124" height="40"/>
                                                         <state key="normal" title="Cancel">
                                                             <color key="titleColor" name="AppPrimaryColor"/>
                                                         </state>
@@ -2061,6 +2061,9 @@
                                                         </connections>
                                                     </button>
                                                 </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="kgG-Vf-WG4"/>
+                                                </constraints>
                                             </stackView>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -2075,7 +2078,6 @@
                                             <constraint firstItem="SKF-EH-eXa" firstAttribute="leading" secondItem="wFZ-Jg-oNA" secondAttribute="trailing" constant="10" id="WPW-OM-aP8"/>
                                             <constraint firstItem="wFZ-Jg-oNA" firstAttribute="leading" secondItem="7Ug-01-rA7" secondAttribute="leading" constant="33" id="fEH-Us-hb8"/>
                                             <constraint firstItem="SKF-EH-eXa" firstAttribute="bottom" secondItem="wFZ-Jg-oNA" secondAttribute="bottom" id="kQa-9L-14t"/>
-                                            <constraint firstAttribute="bottom" secondItem="jR1-Zt-YwQ" secondAttribute="bottom" constant="5" id="ltD-Xo-UxP"/>
                                             <constraint firstItem="SKF-EH-eXa" firstAttribute="top" secondItem="wFZ-Jg-oNA" secondAttribute="top" id="uJm-IR-i5o"/>
                                             <constraint firstItem="jR1-Zt-YwQ" firstAttribute="top" secondItem="SKF-EH-eXa" secondAttribute="bottom" constant="33" id="wum-CV-gYQ"/>
                                         </constraints>
@@ -3952,7 +3954,7 @@
             <color red="0.98000001907348633" green="0.85100001096725464" blue="0.37999999523162842" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="quetag_darkSkyBlue">
-            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="storytag_watermelon">
             <color red="0.96470588235294119" green="0.30980392156862746" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
