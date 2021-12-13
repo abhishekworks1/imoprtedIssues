@@ -46,7 +46,7 @@ class StoryAssetExportSession {
     private var gifWaterMarkURL: URL?
     private var gifFrames = [CGImage]()
     private var gifCount = 0
-
+    public var croppedBGcolor: UIColor = .black
     public var overlayImage: UIImage?
     public var filter: CIFilter?
     public var isMute = false
@@ -266,12 +266,12 @@ class StoryAssetExportSession {
         var combinedCIImage =  CIImage()
         if imageContentMode != .scaleAspectFill {
             overlayCIImage = overlayCIImage.transformed(by: CGAffineTransform(translationX: txValue, y: tyValue))
-            //combinedCIImage = self.backGroundColor(backgroundCIImage) ?? CIImage()
-            //combinedCIImage = overlayCIImage.composited(over: combinedCIImage)
+            combinedCIImage = self.backGroundColor(backgroundCIImage) ?? CIImage()
+            combinedCIImage = overlayCIImage.composited(over: combinedCIImage)
         }else{
-            //combinedCIImage = overlayCIImage.composited(over: overlayCIImage)
+            combinedCIImage = overlayCIImage.composited(over: overlayCIImage)
         }
-        combinedCIImage = overlayCIImage.composited(over: backgroundCIImage)
+       // combinedCIImage = overlayCIImage.composited(over: backgroundCIImage)
         combinedCIImage = combinedCIImage.cropped(to: backgroundCIImage.extent)
         if let filteredCIImage = self.filteredCIImage(combinedCIImage) {
             combinedCIImage = filteredCIImage
@@ -298,7 +298,7 @@ class StoryAssetExportSession {
         gifWaterMarkURL = Bundle.main.url(forResource: urlString, withExtension: "gif")
     }
     func backGroundColor(_ image: CIImage) -> CIImage? {
-        var fillImage =  UIImage(color: .blue) ?? UIImage()
+        var fillImage =  UIImage(color: croppedBGcolor) ?? UIImage()
         do {
              fillImage = try fillImage.resized(to: image.extent.size, with: .accelerate)
              return  CIImage(cvImageBuffer: fillImage.buffer()!)

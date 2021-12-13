@@ -291,6 +291,7 @@ class StoryEditorViewController: UIViewController {
     var popupVC: STPopupController = STPopupController()
     var isCropped: Bool = false
     var croppedImage: UIImage?
+    var croppedBGcolor: UIColor = .black
     var croppedUrl: URL?
     var isHideTapped = false
     var isFastesteverWatermarkShow = false
@@ -2029,16 +2030,18 @@ extension StoryEditorViewController: PlayerControlViewDelegate {
 
 extension StoryEditorViewController: CropViewControllerDelegate {
     
-    func cropViewControllerDidCrop(_ cropViewController: CropViewController, croppedURL: URL) {
+    func cropViewControllerDidCrop(_ cropViewController: CropViewController, croppedURL: URL,croppedBGcolor:UIColor) {
         if case let StoryEditorType.video(image, _) = storyEditors[self.currentStoryIndex].type {
             isCropped = true
+            self.croppedBGcolor = croppedBGcolor
             changeCroppedMediaFrame(image: image, croppedUrl: croppedURL)
             hideCropPopView(isHide: false)
         }
     }
     
-    func cropViewControllerDidCrop(_ cropViewController: CropViewController, cropped: UIImage) {
+    func cropViewControllerDidCrop(_ cropViewController: CropViewController, cropped: UIImage,croppedBGcolor:UIColor) {
         storyEditors[currentStoryIndex].replaceMedia(.image(cropped))
+        self.croppedBGcolor = croppedBGcolor
     }
     
 }
@@ -2183,6 +2186,7 @@ extension StoryEditorViewController {
         }
         exportSession.isMute = storyEditor.isMuted
         exportSession.socialShareType = type
+        exportSession.croppedBGcolor = croppedBGcolor
         storyEditors[currentStoryIndex].isCropped ? (storyEditors[currentStoryIndex].storySwipeableFilterView.imageContentMode = .scaleAspectFill) : (storyEditors[currentStoryIndex].storySwipeableFilterView.imageContentMode = .scaleAspectFit)
         storyEditors[currentStoryIndex].isCropped ? (exportSession.imageContentMode = .scaleAspectFit) : (exportSession.imageContentMode = .scaleAspectFit)
         exportSession.overlayImage = storyEditor.toVideoImage()

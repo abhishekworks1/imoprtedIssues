@@ -24,11 +24,11 @@
 
 import UIKit
 import AVFoundation
-
+import ColorSlider
 public protocol CropViewControllerDelegate: class {
-    func cropViewControllerDidCrop(_ cropViewController: CropViewController, cropped: UIImage)
-    func cropViewControllerDidCrop(_ cropViewController: CropViewController, croppedURL: URL)
-    func cropViewControllerDidCrop(_ cropViewController: CropViewController, updatedVideoSegments: [SegmentVideos])
+    func cropViewControllerDidCrop(_ cropViewController: CropViewController, cropped: UIImage,croppedBGcolor:UIColor)
+    func cropViewControllerDidCrop(_ cropViewController: CropViewController, croppedURL: URL,croppedBGcolor:UIColor)
+    func cropViewControllerDidCrop(_ cropViewController: CropViewController, updatedVideoSegments: [SegmentVideos],croppedBGcolor:UIColor)
     func cropViewControllerDidFailToCrop(_ cropViewController: CropViewController, original: UIImage)
     func cropViewControllerDidCancel(_ cropViewController: CropViewController, original: UIImage)
     func cropViewControllerWillDismiss(_ cropViewController: CropViewController)
@@ -38,8 +38,8 @@ public extension CropViewControllerDelegate {
     func cropViewControllerWillDismiss(_ cropViewController: CropViewController) {}
     func cropViewControllerDidFailToCrop(_ cropViewController: CropViewController, original: UIImage) {}
     func cropViewControllerDidCancel(_ cropViewController: CropViewController, original: UIImage) {}
-    func cropViewControllerDidCrop(_ cropViewController: CropViewController, croppedURL: URL) {}
-    func cropViewControllerDidCrop(_ cropViewController: CropViewController, updatedVideoSegments: [SegmentVideos]) {}
+    func cropViewControllerDidCrop(_ cropViewController: CropViewController, croppedURL: URL,croppedBGcolor:UIColor) {}
+    func cropViewControllerDidCrop(_ cropViewController: CropViewController, updatedVideoSegments: [SegmentVideos],croppedBGcolor:UIColor) {}
 }
 
 public enum CropViewControllerMode {
@@ -173,7 +173,8 @@ public class CropViewController: UIViewController {
     private var stackView: UIStackView?
     private var initialLayout = false
     private var isFlipped = false
-
+    private var colorSlider: ColorSlider!
+    private var croppedBGcolor: UIColor = .black
     deinit {
         print("Deinit \(self.description)")
     }
@@ -273,7 +274,7 @@ public class CropViewController: UIViewController {
         createCropView()
         initLayout()
         updateLayout()
-        
+        setupColorSlider()
         NotificationCenter.default.addObserver(self, selector: #selector(rotated), name: UIApplication.didChangeStatusBarOrientationNotification, object: nil)
     }
     
@@ -298,7 +299,26 @@ public class CropViewController: UIViewController {
         super.viewWillTransition(to: size, with: coordinator)
         cropView.prepareForDeviceRotation()
     }    
-    
+    func setupColorSlider() {
+        colorSlider = ColorSlider(orientation: .vertical, previewSide: .left)
+        colorSlider.addTarget(self, action: #selector(colorSliderValueChanged(_:)), for: UIControl.Event.valueChanged)
+       // view.insertSubview(colorSlider, aboveSubview: undoButton)
+        view.addSubview(colorSlider)
+        let colorSliderHeight = CGFloat(175)
+        colorSlider.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            colorSlider.trailingAnchor.constraint(equalTo:self.view.trailingAnchor, constant: -15),
+            colorSlider.centerYAnchor.constraint(equalTo:self.view.centerYAnchor, constant: -175),
+            colorSlider.widthAnchor.constraint(equalToConstant: 15),
+            colorSlider.heightAnchor.constraint(equalToConstant: colorSliderHeight)
+        ])
+        colorSlider.isHidden = false
+    }
+    @objc func colorSliderValueChanged(_ sender: ColorSlider) {
+        self.cropView.backgroundColor = sender.color
+        croppedBGcolor = sender.color
+    }
     @objc func rotated() {
         let statusBarOrientation = UIApplication.shared.statusBarOrientation
         
@@ -404,9 +424,9 @@ public class CropViewController: UIViewController {
             }
             self.delegate?.cropViewControllerWillDismiss(self)
             if let image = croppedObject as? UIImage {
-                self.delegate?.cropViewControllerDidCrop(self, cropped: image)
+                self.delegate?.cropViewControllerDidCrop(self, cropped: image,croppedBGcolor:self.croppedBGcolor)
             } else if let url = croppedObject as? URL {
-                self.delegate?.cropViewControllerDidCrop(self, croppedURL: url)
+                self.delegate?.cropViewControllerDidCrop(self, croppedURL: url,croppedBGcolor:self.croppedBGcolor)
             }
             self.dismiss(animated: true, completion: nil)
         }

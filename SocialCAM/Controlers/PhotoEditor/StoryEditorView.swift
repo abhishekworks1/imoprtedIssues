@@ -158,6 +158,7 @@ class StoryEditorView: UIView {
     }
     public var isCropped: Bool = false
     public var isCroppedTextView: Bool = false
+    public var isCroppedBGcolor: UIColor = .black
     public let releaseType = Defaults.shared.releaseType
     // TODO : Disable for Some Issue.
 //    override var frame: CGRect {

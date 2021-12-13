@@ -860,7 +860,7 @@ extension PhotoEditorViewController: ImageCropperDelegate {
 }
 
 extension PhotoEditorViewController: CropViewControllerDelegate {
-    func cropViewControllerDidCrop(_ cropViewController: CropViewController, updatedVideoSegments: [SegmentVideos]) {
+    func cropViewControllerDidCrop(_ cropViewController: CropViewController, updatedVideoSegments: [SegmentVideos],croppedBGcolor:UIColor) {
         videoUrls = updatedVideoSegments
         currentPlayVideo = currentPage - 1
         connVideoPlay()
@@ -869,7 +869,7 @@ extension PhotoEditorViewController: CropViewControllerDelegate {
         setTransformationInFilterSwitcherView()
     }
     
-    func cropViewControllerDidCrop(_ cropViewController: CropViewController, cropped: UIImage) {
+    func cropViewControllerDidCrop(_ cropViewController: CropViewController, cropped: UIImage,croppedBGcolor:UIColor) {
         self.image = cropped
         self.filterSwitcherView?.setImageBy(cropped)
         self.dummyView.transform = .identity
