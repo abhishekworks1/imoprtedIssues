@@ -1134,10 +1134,16 @@ extension StoryCameraViewController {
                 cameraModeArray.insert(CameraModes(name: R.string.localizable.video2Art().uppercased(), recordingType: .handsfree), at: index)
             }
         } else if isLiteApp {
-            cameraModeArray = cameraModeArray.filter({$0.recordingType == .promo})
-            cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .normal})
-            cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .capture})
-            cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .pic2Art})
+            if Defaults.shared.appMode == .free {
+                cameraModeArray = cameraModeArray.filter({$0.recordingType == .promo})
+                cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .normal})
+                cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .capture})
+                cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .pic2Art})
+            }else{
+                cameraModeArray = cameraModeArray.filter({$0.recordingType == .normal})
+                cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .capture})
+                cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .pic2Art})
+            }
         } else if isSnapCamApp || isFastCamApp || isSpeedCamApp {
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .slideshow})
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastMotion})
@@ -2585,14 +2591,9 @@ extension StoryCameraViewController {
     }
     
     func showAlertForUpgradeSubscription() {
-        let alert = UIAlertController(title: Constant.Application.displayName, message: R.string.localizable.upgradeSubscriptionWarning(), preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: R.string.localizable.upgradeNow(), style: .default, handler: { (_) in
-            if let subscriptionVC = R.storyboard.subscription.subscriptionContainerViewController() {
-                subscriptionVC.subscriptionDelegate = self
-                self.navigationController?.pushViewController(subscriptionVC, animated: true)
-            }
-        }))
-        alert.addAction(UIAlertAction(title: R.string.localizable.later(), style: .cancel, handler: { (_) in
+        let cameraModeNames = "\(R.string.localizable.fastsloW()),\(R.string.localizable.capturE()),\(R.string.localizable.pic2Art())"
+        let alert = UIAlertController(title: Constant.Application.displayName, message: R.string.localizable.upgradeSubscriptionWarning(cameraModeNames), preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: R.string.localizable.no(), style: .cancel, handler: { (_) in
             self.cameraSliderView.selectCell = 0
             self.cameraSliderView.collectionView.reloadData()
 //            UIView.animate(withDuration: 0.1, animations: { () -> Void in
@@ -2602,6 +2603,12 @@ extension StoryCameraViewController {
 //                    self.currentState = .open
 //                }
 //            })
+        }))
+        alert.addAction(UIAlertAction(title: R.string.localizable.yes(), style: .default, handler: { (_) in
+            if let subscriptionVC = R.storyboard.subscription.subscriptionContainerViewController() {
+                subscriptionVC.subscriptionDelegate = self
+                self.navigationController?.pushViewController(subscriptionVC, animated: true)
+            }
         }))
         self.present(alert, animated: true, completion: nil)
     }

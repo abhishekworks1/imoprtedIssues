@@ -619,13 +619,14 @@ class StoryEditorViewController: UIViewController {
     }
     
     func showAlertForUpgradeSubscription() {
-        let alert = UIAlertController(title: Constant.Application.displayName, message: R.string.localizable.upgradeSubscriptionWarning(), preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: R.string.localizable.upgradeNow(), style: .default, handler: { (_) in
+        let cameraModeNames = "\(R.string.localizable.fastsloW()),\(R.string.localizable.capturE()),\(R.string.localizable.pic2Art())"
+        let alert = UIAlertController(title: Constant.Application.displayName, message: R.string.localizable.upgradeSubscriptionWarning(cameraModeNames), preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: R.string.localizable.no(), style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: R.string.localizable.yes(), style: .default, handler: { (_) in
             if let subscriptionVC = R.storyboard.subscription.subscriptionContainerViewController() {
                 self.navigationController?.pushViewController(subscriptionVC, animated: true)
             }
         }))
-        alert.addAction(UIAlertAction(title: R.string.localizable.later(), style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
     
