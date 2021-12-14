@@ -78,7 +78,7 @@ open class InstaSlider: UIView {
 //        }
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         self.collectionView = UICollectionView(frame: bounds, collectionViewLayout: layout)
-        collectionViewLayout = HorizontalFlowLayout.configureLayout(collectionView: self.collectionView, itemSize: CGSize.init(width: 100, height: self.collectionView.frame.height/2), minimumLineSpacing: 1)
+        collectionViewLayout = HorizontalFlowLayout.configureLayout(collectionView: self.collectionView, itemSize: CGSize.init(width: 110, height: self.collectionView.frame.height/2), minimumLineSpacing: 1)
         
         self.collectionView.collectionViewLayout = collectionViewLayout
         self.collectionView.showsHorizontalScrollIndicator = false
@@ -248,7 +248,7 @@ extension InstaSlider: UICollectionViewDataSource, UICollectionViewDelegate, UIC
     }
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize.init(width: 100, height: self.collectionView.frame.height/2)
+        return CGSize.init(width: 110, height: self.collectionView.frame.height/2)
     }
     
     public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
