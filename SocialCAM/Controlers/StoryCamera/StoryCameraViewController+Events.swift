@@ -119,22 +119,24 @@ extension StoryCameraViewController {
         if isLiteApp {
             photoPickerVC.selectionType = .video
         }
+        photoPickerVC.modalPresentationStyle = .fullScreen //or .overFullScreen for transparency
+
         self.navigationController?.present(photoPickerVC, animated: true, completion: nil)
         
         Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_gallery)
     }
     
     @IBAction func flipButtonClicked(_ sender: Any) {
-        let blurView = UIVisualEffectView(frame: previewView?.bounds ?? self.view.bounds)
-        blurView.effect = UIBlurEffect.init(style: .light)
-        previewView?.addSubview(blurView)
+        let blurView1 = UIVisualEffectView(frame: previewView?.bounds ?? self.view.bounds)
+        blurView1.effect = UIBlurEffect.init(style: .light)
+        previewView?.addSubview(blurView1)
         UIView.transition(with: previewView ?? self.view,
                           duration: 0.8,
                           options: .transitionFlipFromBottom,
                           animations: {
                             self.nextLevel.flipCaptureDevicePosition()
         }, completion: { (_) in
-            blurView.removeFromSuperview()
+            blurView1.removeFromSuperview()
             if  (self.currentCameraPosition == .front){
                 Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_rear)
             }else{
@@ -624,7 +626,10 @@ extension StoryCameraViewController {
       if Defaults.shared.isDoNotShowAgainOpenBusinessCenterPopup == false {
             blurView.isHidden = false
             businessDashbardConfirmPopupView.isHidden = false
+            self.view.bringSubviewToFront(businessDashbardConfirmPopupView)
+
             switchingAppView.isHidden = true
+        
           //  lblQuickLinkTooltipView.text = R.string.localizable.quickLinkTooltip(R.string.localizable.businessCenter(), Defaults.shared.currentUser?.channelId ?? "")
         }else{
             if let token = Defaults.shared.sessionToken {

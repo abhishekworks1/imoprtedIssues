@@ -2089,7 +2089,7 @@ extension StoryCameraViewController {
                 SCAlbum.shared.saveMovieToLibrary(movieURL: url) { (isSuccess) in
                     if isSuccess {
                         DispatchQueue.main.async {
-                            self.view.makeToast(R.string.localizable.videoSaved(), duration: ToastManager.shared.duration, position: .top)
+                            self.view.makeToast(R.string.localizable.videoSaved(), duration: ToastManager.shared.duration, position: .bottom)
                         }
                     } else {
                         self.view.makeToast(R.string.localizable.pleaseGivePhotosAccessFromSettingsToSaveShareImageOrVideo(), duration: ToastManager.shared.duration, position: .top, style: ToastStyle())
