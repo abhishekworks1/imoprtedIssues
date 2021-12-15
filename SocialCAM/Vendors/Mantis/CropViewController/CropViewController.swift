@@ -300,7 +300,7 @@ public class CropViewController: UIViewController {
         cropView.prepareForDeviceRotation()
     }    
     func setupColorSlider() {
-        colorSlider = ColorSlider(orientation: .vertical, previewSide: .left)
+        colorSlider = ColorSlider(orientation: .horizontal, previewSide: .top)
         colorSlider.addTarget(self, action: #selector(colorSliderValueChanged(_:)), for: UIControl.Event.valueChanged)
        // view.insertSubview(colorSlider, aboveSubview: undoButton)
         view.addSubview(colorSlider)
@@ -308,16 +308,17 @@ public class CropViewController: UIViewController {
         colorSlider.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            colorSlider.trailingAnchor.constraint(equalTo:self.view.trailingAnchor, constant: -15),
-            colorSlider.centerYAnchor.constraint(equalTo:self.view.centerYAnchor, constant: -175),
-            colorSlider.widthAnchor.constraint(equalToConstant: 15),
-            colorSlider.heightAnchor.constraint(equalToConstant: colorSliderHeight)
+            colorSlider.centerXAnchor.constraint(equalTo:self.view.centerXAnchor, constant: 0),
+            colorSlider.bottomAnchor.constraint(equalTo:self.view.bottomAnchor, constant: -120),
+            colorSlider.widthAnchor.constraint(equalToConstant: colorSliderHeight),
+            colorSlider.heightAnchor.constraint(equalToConstant: 15)
         ])
         colorSlider.isHidden = false
     }
     @objc func colorSliderValueChanged(_ sender: ColorSlider) {
         self.cropView.backgroundColor = sender.color
         croppedBGcolor = sender.color
+        self.cropView.cropMaskViewManager.hideBackground()
     }
     @objc func rotated() {
         let statusBarOrientation = UIApplication.shared.statusBarOrientation

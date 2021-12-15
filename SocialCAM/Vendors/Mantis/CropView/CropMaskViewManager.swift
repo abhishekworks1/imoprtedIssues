@@ -50,7 +50,12 @@ class CropMaskViewManager {
             self.visualEffectView.alpha = 0
         }
     }
-    
+    func hideBackground() {
+        UIView.animate(withDuration: 0.1) {
+            self.dimmingView.alpha = 0
+            self.visualEffectView.alpha = 0
+        }
+    }
     func showVisualEffectBackground() {
         UIView.animate(withDuration: 0.5) {
             self.dimmingView.alpha = 0
