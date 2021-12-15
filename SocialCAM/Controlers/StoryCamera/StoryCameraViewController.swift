@@ -1144,6 +1144,7 @@ extension StoryCameraViewController {
                 cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .capture})
                 cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .pic2Art})
             }
+            self.recordingType = cameraModeArray.first!.recordingType
         } else if isSnapCamApp || isFastCamApp || isSpeedCamApp {
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .slideshow})
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastMotion})
@@ -1168,7 +1169,7 @@ extension StoryCameraViewController {
                 }
             }
         }
-        
+       
         cameraSliderView.stringArray = cameraModeArray
         cameraSliderView.bottomImage = R.image.cameraModeSelect()
         //cameraSliderView.cellTextColor = .white
