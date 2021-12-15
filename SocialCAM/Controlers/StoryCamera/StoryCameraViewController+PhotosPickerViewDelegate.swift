@@ -94,7 +94,8 @@ extension StoryCameraViewController: PhotosPickerViewControllerDelegate {
                 }
                 exportGroup.notify(queue: exportQueue) {
                     print("finished......")
-                    DispatchQueue.main.async {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    //DispatchQueue.main.async {
                         if self.recordingType == .custom {
                             self.takenVideoUrls.append(contentsOf: imageVideoSegments)
                             self.settingsButton.isSelected = true

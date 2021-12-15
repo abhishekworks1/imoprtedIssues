@@ -250,10 +250,11 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                 UIView.animate(withDuration: 0.2, animations: {
                     let alpha: CGFloat = self.hideControls ? 0 : 1
                     self.setAlphaOnControls([self.timerValueView,
-                                             self.settingsView,
                                              self.fpsView,
                                              self.outtakesView,
                                              self.sceneFilterView,
+                                             self.settingsView,
+                                             self.businessDashboardStackView,
                                              self.deleteView,
                                              self.faceFiltersView,
                                              self.zoomSliderView,
@@ -263,7 +264,11 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                                              self.switchAppButton,
                                              self.discardSegmentsStackView,
                                              self.confirmRecordedSegmentStackView,
-                                             self.businessDashboardStackView],
+                                             self.speedSliderView,
+                                             self.muteStackView,
+                                             self.flipButton,
+                                             self.galleryStackView,
+                                             self.cameraSliderView],
                                             alpha: alpha)
                     self.isHideTapped = self.hideControls
                     // Make the animation happen

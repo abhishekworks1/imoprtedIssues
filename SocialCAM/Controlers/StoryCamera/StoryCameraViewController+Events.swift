@@ -153,6 +153,16 @@ extension StoryCameraViewController {
     @IBAction func btnShowHideEditOptionsClick(_ sender: AnyObject) {
         btnShowHide.isSelected = !btnShowHide.isSelected
         hideControls = !hideControls
+        
+            if self.hideControls {
+                self.flashStackView.removeFromSuperview()
+            }else{
+                self.topStackView.addArrangedSubview(self.settingsView)
+                self.topStackView.addArrangedSubview(self.flashStackView)
+                self.topStackView.addArrangedSubview(self.showhideView)
+                self.topStackView.addArrangedSubview(self.businessDashboardStackView)
+            }
+       
         Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_HideIcons)
     }
     
