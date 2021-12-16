@@ -190,6 +190,10 @@ target 'SocialScreenRecorderExtension' do
   shared_pods
 end
 
+target 'SocialScreenRecorderExtensionSetupUI' do
+  shared_pods
+end
+
 target 'QuickCamLiteExtension' do
   shared_pods
 end
