@@ -19,6 +19,14 @@ class InputImageTransformation {
     var rotation: CGFloat = 0
     
 }
+extension UIImage {
+    func blur(_ radius: Double) -> UIImage? {
+        if let img = CIImage(image: self) {
+            return UIImage(ciImage: img.applyingGaussianBlur(sigma: radius))
+        }
+        return nil
+    }
+}
 class StoryAssetExportSession {
     
     enum WatermarkPosition {
@@ -54,7 +62,7 @@ class StoryAssetExportSession {
     public var imageContentMode: StoryImageView.ImageContentMode = .scaleAspectFit
     public var watermarkType: WatermarkType = .image
     public var socialShareType: SocialShare = .facebook
-    
+    private var thumbnailImage: UIImage?
     private func fileURL() -> URL {
         let fileName = "\(Constant.Application.displayName.replacingOccurrences(of: " ", with: "").lowercased())_\(Defaults.shared.releaseType.description)_v\(Constant.Application.appBuildNumber)_\(String.fileName)" + FileExtension.mp4.rawValue
         return Utils.getLocalPath(fileName)
@@ -64,7 +72,7 @@ class StoryAssetExportSession {
         cancelled = false
         var audioFinished = false
         var videoFinished = false
-        
+        thumbnailImage = asset.thumbnailImage()?.sd_blurredImage(withRadius:100)
         // Setup Reader
         do {
             reader = try AVAssetReader(asset: asset)
@@ -266,7 +274,11 @@ class StoryAssetExportSession {
         var combinedCIImage =  CIImage()
         if imageContentMode != .scaleAspectFill {
             overlayCIImage = overlayCIImage.transformed(by: CGAffineTransform(translationX: txValue, y: tyValue))
-            combinedCIImage = self.backGroundColor(backgroundCIImage) ?? CIImage()
+            if Defaults.shared.enableBlurVideoBackgroud{
+                combinedCIImage = self.getThumbnailBackground(backgroundCIImage, thumbimage: self.thumbnailImage ?? UIImage()) ?? CIImage()
+            }else{
+               combinedCIImage = self.backGroundColor(backgroundCIImage) ?? CIImage()
+            }
             combinedCIImage = overlayCIImage.composited(over: combinedCIImage)
         }else{
             combinedCIImage = overlayCIImage.composited(over: overlayCIImage)
@@ -299,6 +311,16 @@ class StoryAssetExportSession {
     }
     func backGroundColor(_ image: CIImage) -> CIImage? {
         var fillImage =  UIImage(color: croppedBGcolor) ?? UIImage()
+        do {
+             fillImage = try fillImage.resized(to: image.extent.size, with: .accelerate)
+             return  CIImage(cvImageBuffer: fillImage.buffer()!)
+        } catch {
+            
+        }
+        return nil
+    }
+    func getThumbnailBackground(_ image: CIImage,thumbimage:UIImage) -> CIImage? {
+        var fillImage =  thumbimage
         do {
              fillImage = try fillImage.resized(to: image.extent.size, with: .accelerate)
              return  CIImage(cvImageBuffer: fillImage.buffer()!)

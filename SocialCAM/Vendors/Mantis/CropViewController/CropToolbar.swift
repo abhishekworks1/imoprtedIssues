@@ -66,7 +66,6 @@ class CropToolbar: UIView {
             resetButton?.setImage(image, for: .normal)
         } else {
             let resetText = R.string.localizable.reset()
-
             resetButton = createOptionButton(withTitle: resetText, andAction: #selector(reset))
         }
     }

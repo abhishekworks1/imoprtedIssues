@@ -142,7 +142,6 @@ class VideoTimeSliderContainer: UIView {
     }
     
 }
-
 public class CropViewController: UIViewController {
     /// When a CropViewController is used in a storyboard,
     /// passing an image to it is needed after the CropViewController is created.
@@ -175,6 +174,8 @@ public class CropViewController: UIViewController {
     private var isFlipped = false
     private var colorSlider: ColorSlider!
     private var croppedBGcolor: UIColor = .black
+    var blurButton: UIButton!
+    var blurImageview: UIImageView!
     deinit {
         print("Deinit \(self.description)")
     }
@@ -275,6 +276,7 @@ public class CropViewController: UIViewController {
         initLayout()
         updateLayout()
         setupColorSlider()
+        createBlurButton()
         NotificationCenter.default.addObserver(self, selector: #selector(rotated), name: UIApplication.didChangeStatusBarOrientationNotification, object: nil)
     }
     
@@ -302,7 +304,6 @@ public class CropViewController: UIViewController {
     func setupColorSlider() {
         colorSlider = ColorSlider(orientation: .horizontal, previewSide: .top)
         colorSlider.addTarget(self, action: #selector(colorSliderValueChanged(_:)), for: UIControl.Event.valueChanged)
-       // view.insertSubview(colorSlider, aboveSubview: undoButton)
         view.addSubview(colorSlider)
         let colorSliderHeight = CGFloat(175)
         colorSlider.translatesAutoresizingMaskIntoConstraints = false
@@ -313,12 +314,88 @@ public class CropViewController: UIViewController {
             colorSlider.widthAnchor.constraint(equalToConstant: colorSliderHeight),
             colorSlider.heightAnchor.constraint(equalToConstant: 15)
         ])
-        colorSlider.isHidden = false
+        if Defaults.shared.enableBlurVideoBackgroud{
+            colorSlider.isHidden = true
+        }else{
+            colorSlider.isHidden = false
+        }
+       
     }
     @objc func colorSliderValueChanged(_ sender: ColorSlider) {
         self.cropView.backgroundColor = sender.color
         croppedBGcolor = sender.color
         self.cropView.cropMaskViewManager.hideBackground()
+    }
+    private func createBlurButton() {
+       let blurText = R.string.localizable.blur()
+       
+        let blurButtonview = UIView()
+        blurImageview = UIImageView()
+        blurImageview.image = R.image.checkOff()
+        blurButton = createOptionButton(withTitle: blurText, andAction: #selector(blur))
+        blurButtonview.addSubview(blurButton)
+        blurButtonview.addSubview(blurImageview)
+        self.view.addSubview(blurButtonview)
+        
+        blurButtonview.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            blurButtonview.leadingAnchor.constraint(equalTo:self.view.leadingAnchor, constant: 0),
+            blurButtonview.centerYAnchor.constraint(equalTo:self.colorSlider.centerYAnchor, constant: 0),
+            blurButtonview.widthAnchor.constraint(equalToConstant: 75),
+            blurButtonview.heightAnchor.constraint(equalToConstant: 20)
+        ])
+        
+        blurButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            blurButton.leadingAnchor.constraint(equalTo:blurButtonview.leadingAnchor, constant: 0),
+            blurButton.trailingAnchor.constraint(equalTo:blurButtonview.trailingAnchor, constant: 0),
+            blurButton.topAnchor.constraint(equalTo:blurButtonview.topAnchor, constant:0),
+            blurButton.bottomAnchor.constraint(equalTo:blurButtonview.bottomAnchor, constant: 0),
+        ])
+        
+        blurImageview.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            blurImageview.trailingAnchor.constraint(equalTo:blurButtonview.trailingAnchor, constant: -5),
+            blurImageview.centerYAnchor.constraint(equalTo:blurButtonview.centerYAnchor, constant: 0),
+            blurImageview.widthAnchor.constraint(equalToConstant: 14),
+            blurImageview.heightAnchor.constraint(equalToConstant: 14)
+        ])
+        
+        if Defaults.shared.enableBlurVideoBackgroud{
+            self.colorSlider.isHidden = true
+            self.blurImageview.image = R.image.checkOn()
+        }else{
+            self.colorSlider.isHidden = false
+            self.blurImageview.image = R.image.checkOff()
+        }
+    }
+    @objc private func blur(_ sender: UIButton){
+        sender.isSelected = !sender.isSelected
+        Defaults.shared.enableBlurVideoBackgroud = sender.isSelected
+        if Defaults.shared.enableBlurVideoBackgroud{
+            self.colorSlider.isHidden = true
+            self.blurImageview.image = R.image.checkOn()
+        }else{
+            self.colorSlider.isHidden = false
+            self.blurImageview.image = R.image.checkOff()
+        }
+    }
+    private func createOptionButton(withTitle title: String?, andAction action: Selector) -> UIButton {
+        let buttonColor = UIColor.white
+        let buttonFontSize: CGFloat = (UIDevice.current.userInterfaceIdiom == .pad) ? 20 : 14
+        let buttonFont = UIFont.systemFont(ofSize: buttonFontSize)
+        let button = UIButton(type: .system)
+        button.tintColor = .clear
+        button.titleLabel?.font = buttonFont
+        if let title = title {
+            button.setTitle(title, for: .normal)
+            button.setTitleColor(buttonColor, for: .normal)
+            button.setTitle(title, for: .selected)
+            button.setTitleColor(buttonColor, for: .selected)
+        }
+        button.addTarget(self, action: action, for: .touchUpInside)
+        button.contentEdgeInsets = UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 0)
+        return button
     }
     @objc func rotated() {
         let statusBarOrientation = UIApplication.shared.statusBarOrientation
@@ -349,7 +426,6 @@ public class CropViewController: UIViewController {
         cropToolbar.setRatioButton?.tintColor = nil
         cropView.aspectRatioLockEnabled = true
         cropView.viewModel.aspectRatio = CGFloat(ratio)
-        
         UIView.animate(withDuration: 0.5) {
             self.cropView.setFixedRatioCropBox()
         }

@@ -621,6 +621,15 @@ class Defaults {
         }
     }
     
+    var enableBlurVideoBackgroud: Bool {
+        get {
+            return (appDefaults?.value(forKey: "enableBlurVideoBackgroud") as? Bool) ?? true
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "enableBlurVideoBackgroud")
+        }
+    }
+    
     var enableFaceDetection: Bool {
         get {
             return (appDefaults?.value(forKey: "enableFaceDetection") as? Bool) ?? false
