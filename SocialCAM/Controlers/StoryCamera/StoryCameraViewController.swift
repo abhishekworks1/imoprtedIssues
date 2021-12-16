@@ -250,10 +250,11 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                 UIView.animate(withDuration: 0.2, animations: {
                     let alpha: CGFloat = self.hideControls ? 0 : 1
                     self.setAlphaOnControls([self.timerValueView,
-                                             self.settingsView,
                                              self.fpsView,
                                              self.outtakesView,
                                              self.sceneFilterView,
+                                             self.settingsView,
+                                             self.businessDashboardStackView,
                                              self.deleteView,
                                              self.faceFiltersView,
                                              self.zoomSliderView,
@@ -263,7 +264,11 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                                              self.switchAppButton,
                                              self.discardSegmentsStackView,
                                              self.confirmRecordedSegmentStackView,
-                                             self.businessDashboardStackView],
+                                             self.speedSliderView,
+                                             self.muteStackView,
+                                             self.flipButton,
+                                             self.galleryStackView,
+                                             self.cameraSliderView],
                                             alpha: alpha)
                     self.isHideTapped = self.hideControls
                     // Make the animation happen
@@ -2096,7 +2101,7 @@ extension StoryCameraViewController {
                 SCAlbum.shared.saveMovieToLibrary(movieURL: url) { (isSuccess) in
                     if isSuccess {
                         DispatchQueue.main.async {
-                            self.view.makeToast(R.string.localizable.videoSaved(), duration: ToastManager.shared.duration, position: .top)
+                            self.view.makeToast(R.string.localizable.videoSaved(), duration: ToastManager.shared.duration, position: .bottom)
                         }
                     } else {
                         self.view.makeToast(R.string.localizable.pleaseGivePhotosAccessFromSettingsToSaveShareImageOrVideo(), duration: ToastManager.shared.duration, position: .top, style: ToastStyle())
