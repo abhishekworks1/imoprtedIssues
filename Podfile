@@ -178,6 +178,7 @@ end
 
 target 'Viralvids' do
   shared_pods
+  pod "PostHog", "~> 1.1"
   pod "SSSpinnerButton"
 end
 

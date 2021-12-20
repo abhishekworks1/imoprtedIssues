@@ -13,14 +13,9 @@
 		18DB1BD26EB6FA26B8C7A18A /* Pods_BoomiCam.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF728F5D7E15CC1B1454C2A /* Pods_BoomiCam.framework */; };
 		230722AF244EBCB2009454B0 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 230722AD244EBCB2009454B0 /* MainInterface.storyboard */; };
 		230722B3244EBCB2009454B0 /* Viralvids.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 230722A9244EBCB2009454B0 /* Viralvids.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		230722B9244EBDC1009454B0 /* SharePostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2307229E244EAFA7009454B0 /* SharePostVC.swift */; };
 		230722BA244EBDC7009454B0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 230722A4244EB5D3009454B0 /* Localizable.strings */; };
-		230722BE244EC127009454B0 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB10236C1286002B2603 /* Defaults.swift */; };
-		230722BF244EC13C009454B0 /* SharedClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB39B23619E3600205993 /* SharedClass.swift */; };
-		230722C0244EC14C009454B0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB29236C1723002B2603 /* User.swift */; };
 		230722C1244EC160009454B0 /* ProfileDetailsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820BFB6123E7EB100087B38E /* ProfileDetailsResponse.swift */; };
 		230722C2244EC185009454B0 /* SaveUserDefaultsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB08236C1211002B2603 /* SaveUserDefaultsProtocol.swift */; };
-		230722C3244EC18F009454B0 /* FilterImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB32236C1BAF002B2603 /* FilterImage.swift */; };
 		230722C4244EC1D6009454B0 /* EditOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB86236C28F3002B2603 /* EditOption.swift */; };
 		230722C8244EC33E009454B0 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 230722C7244EC33E009454B0 /* Media.xcassets */; };
 		230722CC244EE552009454B0 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D1EBBC236FEE0700A680E7 /* RoundedButton.swift */; };
@@ -29,7 +24,6 @@
 		230722D1244EE932009454B0 /* ColorRoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230722CE244EE932009454B0 /* ColorRoundedView.swift */; };
 		230722D3244EE9C9009454B0 /* ApplicationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB39723619E2700205993 /* ApplicationSettings.swift */; };
 		230722DF244EF356009454B0 /* RKTagsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8205FAC9236C10B7002B2603 /* RKTagsView.m */; };
-		230722E3244F05AA009454B0 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828F3E5923F292BB007AE35F /* APIManager.swift */; };
 		2397B8D72435B30100F97957 /* SignUpStepOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CE8BFD2434C27C0096233C /* SignUpStepOneViewController.swift */; };
 		2397B8D82435B30100F97957 /* SearchChannelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CE8BFF2434C2890096233C /* SearchChannelViewController.swift */; };
 		2397B8D92435B4CF00F97957 /* DateTimePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23CE8C012434C40D0096233C /* DateTimePicker.swift */; };
@@ -620,7 +614,6 @@
 		23E503D524500E270026BDF6 /* VideoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 23E503D424500E270026BDF6 /* VideoTableViewCell.xib */; };
 		23E503D724500E3D0026BDF6 /* VideoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E503D624500E3D0026BDF6 /* VideoTableViewCell.swift */; };
 		23EB18EF244F11AE00B6564A /* APIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EB18EE244F11AE00B6564A /* APIModels.swift */; };
-		23EB18F0244F210C00B6564A /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820B23742371975000906BF0 /* Result.swift */; };
 		23EB18F1244F213800B6564A /* APIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EB18EE244F11AE00B6564A /* APIModels.swift */; };
 		23EB18F2244F213900B6564A /* APIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EB18EE244F11AE00B6564A /* APIModels.swift */; };
 		23EB18F3244F21D600B6564A /* APIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EB18EE244F11AE00B6564A /* APIModels.swift */; };
@@ -2677,7 +2670,6 @@
 		8243DCDC271017910066BCB2 /* NotificationDetailsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8243DCD7271017910066BCB2 /* NotificationDetailsViewCell.swift */; };
 		8243DCDD271017910066BCB2 /* NotificationDetailsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8243DCD7271017910066BCB2 /* NotificationDetailsViewCell.swift */; };
 		8243DCDE271017910066BCB2 /* NotificationDetailsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8243DCD7271017910066BCB2 /* NotificationDetailsViewCell.swift */; };
-		8243DCDF271017910066BCB2 /* NotificationDetailsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8243DCD7271017910066BCB2 /* NotificationDetailsViewCell.swift */; };
 		8243DCE0271017910066BCB2 /* NotificationDetailsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8243DCD7271017910066BCB2 /* NotificationDetailsViewCell.swift */; };
 		8243DCE1271017910066BCB2 /* NotificationDetailsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8243DCD7271017910066BCB2 /* NotificationDetailsViewCell.swift */; };
 		8243DCE2271017910066BCB2 /* NotificationDetailsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8243DCD7271017910066BCB2 /* NotificationDetailsViewCell.swift */; };
@@ -3578,7 +3570,6 @@
 		826935D0259307DF00C0B2C6 /* ConstantClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826935C7259307DF00C0B2C6 /* ConstantClass.swift */; };
 		826935D1259307DF00C0B2C6 /* ConstantClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826935C7259307DF00C0B2C6 /* ConstantClass.swift */; };
 		826935D2259307DF00C0B2C6 /* ConstantClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826935C7259307DF00C0B2C6 /* ConstantClass.swift */; };
-		826935D3259307DF00C0B2C6 /* ConstantClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826935C7259307DF00C0B2C6 /* ConstantClass.swift */; };
 		826935D4259307DF00C0B2C6 /* ConstantClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826935C7259307DF00C0B2C6 /* ConstantClass.swift */; };
 		826935D5259307DF00C0B2C6 /* ConstantClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826935C7259307DF00C0B2C6 /* ConstantClass.swift */; };
 		826935D6259307DF00C0B2C6 /* ConstantClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826935C7259307DF00C0B2C6 /* ConstantClass.swift */; };
@@ -4582,7 +4573,6 @@
 		82A4E57C2701AAAF00102628 /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A4E5772701AAAF00102628 /* NotificationSettingsViewController.swift */; };
 		82A4E57D2701AAAF00102628 /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A4E5772701AAAF00102628 /* NotificationSettingsViewController.swift */; };
 		82A4E57E2701AAAF00102628 /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A4E5772701AAAF00102628 /* NotificationSettingsViewController.swift */; };
-		82A4E57F2701AAAF00102628 /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A4E5772701AAAF00102628 /* NotificationSettingsViewController.swift */; };
 		82A4E5802701AAAF00102628 /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A4E5772701AAAF00102628 /* NotificationSettingsViewController.swift */; };
 		82A4E5812701AAAF00102628 /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A4E5772701AAAF00102628 /* NotificationSettingsViewController.swift */; };
 		82A4E5822701AAAF00102628 /* NotificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82A4E5772701AAAF00102628 /* NotificationSettingsViewController.swift */; };
@@ -9700,6 +9690,8 @@
 		95EE425324B8BA81002E5D84 /* ComingSoonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824C677824B5B404000396E9 /* ComingSoonController.swift */; };
 		95EE425424B8BA81002E5D84 /* ComingSoonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824C677824B5B404000396E9 /* ComingSoonController.swift */; };
 		95F117E423FD04B400EB99B4 /* SpecificBoomerangOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F117E323FD04B400EB99B4 /* SpecificBoomerangOptions.swift */; };
+		9C3C46982770BF52003C39FA /* UserCountry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D0443726F4B9C700F8F19A /* UserCountry.swift */; };
+		9C3C46B52770BFDD003C39FA /* SnapCamAssetsV2.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2A8798725F226D7006EB597 /* SnapCamAssetsV2.xcassets */; };
 		9C8D3494271E9C4D00A8403B /* UserCountry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D0443726F4B9C700F8F19A /* UserCountry.swift */; };
 		9C8D34B1271E9C5B00A8403B /* SnapCamAssetsV2.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2A8798725F226D7006EB597 /* SnapCamAssetsV2.xcassets */; };
 		9CAE5696274562D20067AAA5 /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAE5695274562D20067AAA5 /* QRCodeViewController.swift */; };
@@ -11365,7 +11357,6 @@
 		F601005725355DDE00F86479 /* CommonAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F601004D2535589800F86479 /* CommonAssets.xcassets */; };
 		F601005A25355DE100F86479 /* CommonAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F601004D2535589800F86479 /* CommonAssets.xcassets */; };
 		F601005B25355DE200F86479 /* CommonAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F601004D2535589800F86479 /* CommonAssets.xcassets */; };
-		F601005C25355DE300F86479 /* CommonAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F601004D2535589800F86479 /* CommonAssets.xcassets */; };
 		F601005D25355DE600F86479 /* CommonAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F601004D2535589800F86479 /* CommonAssets.xcassets */; };
 		F60252F3250F3BEC00472910 /* IncomeCalculatorTwoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60252F2250F3BEC00472910 /* IncomeCalculatorTwoViewController.swift */; };
 		F60252F4250F3C0D00472910 /* IncomeCalculatorTwoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60252F2250F3BEC00472910 /* IncomeCalculatorTwoViewController.swift */; };
@@ -11381,7 +11372,6 @@
 		F6025301250F3C2600472910 /* IncomeCalculatorTwoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60252F2250F3BEC00472910 /* IncomeCalculatorTwoViewController.swift */; };
 		F604D9892526C7530063FF7B /* LoginUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CC0C8523E2A3AC00038B3C /* LoginUserData.swift */; };
 		F604D98D2526D36D0063FF7B /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB3A923619E5B00205993 /* String+Extension.swift */; };
-		F604D98E2526D36E0063FF7B /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB3A923619E5B00205993 /* String+Extension.swift */; };
 		F604D9912526DAAE0063FF7B /* R.viralcam.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6DE9F8D2521A23900815673 /* R.viralcam.generated.swift */; };
 		F604D9922526ECD80063FF7B /* MergeVideoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825C2A0E25232200002CFF4D /* MergeVideoVC.swift */; };
 		F604D9932526ECE90063FF7B /* VideoTrim.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 825C29FF25232042002CFF4D /* VideoTrim.storyboard */; };
@@ -14400,7 +14390,6 @@
 		F6B98FAE24E1A536004E7147 /* InfiniteScrollingBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B2D3CB249286A50059C6C9 /* InfiniteScrollingBehaviour.swift */; };
 		F6B98FAF24E1A536004E7147 /* SaveUserDefaultsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB08236C1211002B2603 /* SaveUserDefaultsProtocol.swift */; };
 		F6B98FB024E1A536004E7147 /* ApplicationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB39723619E2700205993 /* ApplicationSettings.swift */; };
-		F6B98FB124E1A536004E7147 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820B23742371975000906BF0 /* Result.swift */; };
 		F6B98FB224E1A536004E7147 /* APIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EB18EE244F11AE00B6564A /* APIModels.swift */; };
 		F6B98FB324E1A536004E7147 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828F3E5923F292BB007AE35F /* APIManager.swift */; };
 		F6B98FB424E1A536004E7147 /* ProfileDetailsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820BFB6123E7EB100087B38E /* ProfileDetailsResponse.swift */; };
@@ -19896,6 +19885,7 @@
 				23CE8BB924349B110096233C /* CollageMaker.storyboard in Resources */,
 				23CE8BBA24349B110096233C /* Detached.JPG in Resources */,
 				23CE8BBB24349B110096233C /* like.json in Resources */,
+				9C3C46B52770BFDD003C39FA /* SnapCamAssetsV2.xcassets in Resources */,
 				23CE8BBC24349B110096233C /* FilterResources in Resources */,
 				C22D4BED2670F2AB00DE7085 /* Tooltip5.gif in Resources */,
 				827106C624A45EFB00C53521 /* AMColorPickerWheelView.xib in Resources */,
@@ -19922,7 +19912,6 @@
 				23CE8BCA24349B110096233C /* SF-UI-Text-Bold.otf in Resources */,
 				23CE8BCB24349B110096233C /* Courier Prime Italic.ttf in Resources */,
 				23CE8BCC24349B110096233C /* LoadingView.xib in Resources */,
-				F601005C25355DE300F86479 /* CommonAssets.xcassets in Resources */,
 				95EDD2C62460491F00DD3348 /* StoryCameraViewController.storyboard in Resources */,
 				23CE8BCE24349B110096233C /* Innocence.JPG in Resources */,
 				23CE8BCF24349B110096233C /* Playful.JPG in Resources */,
@@ -24877,27 +24866,16 @@
 				230722C4244EC1D6009454B0 /* EditOption.swift in Sources */,
 				230722D1244EE932009454B0 /* ColorRoundedView.swift in Sources */,
 				230722CC244EE552009454B0 /* RoundedButton.swift in Sources */,
-				230722BE244EC127009454B0 /* Defaults.swift in Sources */,
 				F6A4B6E02599BF8700A94384 /* CalculatorConfigurationModel.swift in Sources */,
 				9578747324B7BDC60073772B /* InfiniteScrollingBehaviour.swift in Sources */,
 				230722C2244EC185009454B0 /* SaveUserDefaultsProtocol.swift in Sources */,
 				230722D3244EE9C9009454B0 /* ApplicationSettings.swift in Sources */,
-				23EB18F0244F210C00B6564A /* Result.swift in Sources */,
 				23EB18EF244F11AE00B6564A /* APIModels.swift in Sources */,
-				230722E3244F05AA009454B0 /* APIManager.swift in Sources */,
 				82C590B4271073B400DCBC43 /* GridFlowLayout.swift in Sources */,
-				8243DCDF271017910066BCB2 /* NotificationDetailsViewCell.swift in Sources */,
-				826935D3259307DF00C0B2C6 /* ConstantClass.swift in Sources */,
 				230722C1244EC160009454B0 /* ProfileDetailsResponse.swift in Sources */,
 				49DE09F426F36BB800E7FC65 /* SetTokenModel.swift in Sources */,
-				230722BF244EC13C009454B0 /* SharedClass.swift in Sources */,
-				F604D98E2526D36E0063FF7B /* String+Extension.swift in Sources */,
 				F604D9892526C7530063FF7B /* LoginUserData.swift in Sources */,
-				230722B9244EBDC1009454B0 /* SharePostVC.swift in Sources */,
-				230722C3244EC18F009454B0 /* FilterImage.swift in Sources */,
-				230722C0244EC14C009454B0 /* User.swift in Sources */,
 				230722DF244EF356009454B0 /* RKTagsView.m in Sources */,
-				82A4E57F2701AAAF00102628 /* NotificationSettingsViewController.swift in Sources */,
 				820B650B2472855B0011D033 /* UIAlertController.swift in Sources */,
 				8280E65F2513716800BF5A1A /* R.viralvids.generated.swift in Sources */,
 				F6BFEBD42508B48200BFFF1A /* (null) in Sources */,
@@ -25027,6 +25005,7 @@
 				23CE89EF24349B110096233C /* FilterHighlights.swift in Sources */,
 				23CE89F024349B110096233C /* ProManagerApi.swift in Sources */,
 				8222833B2592230A0074F5B0 /* NotificationManager.swift in Sources */,
+				9C3C46982770BF52003C39FA /* UserCountry.swift in Sources */,
 				23CE89F124349B110096233C /* Protocols.swift in Sources */,
 				23CE89F224349B110096233C /* MMPlayerView.swift in Sources */,
 				23CE89F324349B110096233C /* UIColor+Constant.swift in Sources */,
@@ -36547,7 +36526,6 @@
 				826935D5259307DF00C0B2C6 /* ConstantClass.swift in Sources */,
 				F6B98FAF24E1A536004E7147 /* SaveUserDefaultsProtocol.swift in Sources */,
 				F6B98FB024E1A536004E7147 /* ApplicationSettings.swift in Sources */,
-				F6B98FB124E1A536004E7147 /* Result.swift in Sources */,
 				F6B98FB224E1A536004E7147 /* APIModels.swift in Sources */,
 				F6B98FB324E1A536004E7147 /* APIManager.swift in Sources */,
 				8243DCE1271017910066BCB2 /* NotificationDetailsViewCell.swift in Sources */,
@@ -37406,7 +37384,7 @@
 				CODE_SIGN_ENTITLEMENTS = Viralvids/Viralvids.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PRD8NJU6BH;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Viralvids/Info.plist;
@@ -37433,7 +37411,7 @@
 				CODE_SIGN_ENTITLEMENTS = Viralvids/Viralvids.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PRD8NJU6BH;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Viralvids/Info.plist;
@@ -37464,7 +37442,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = PRD8NJU6BH;
 				ENABLE_BITCODE = NO;
@@ -37501,7 +37479,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PRD8NJU6BH;
 				ENABLE_BITCODE = NO;
 				EXCLUDED_ARCHS = "";
@@ -38818,7 +38796,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = PRD8NJU6BH;
 				ENABLE_BITCODE = NO;
@@ -38854,7 +38832,7 @@
 				CODE_SIGN_ENTITLEMENTS = Viralvids/Viralvids.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PRD8NJU6BH;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Viralvids/Info.plist;
@@ -39634,7 +39612,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = PRD8NJU6BH;
 				ENABLE_BITCODE = NO;
@@ -39669,7 +39647,7 @@
 				CODE_SIGN_ENTITLEMENTS = Viralvids/Viralvids.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PRD8NJU6BH;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Viralvids/Info.plist;

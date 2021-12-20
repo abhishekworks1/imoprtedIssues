@@ -1192,19 +1192,19 @@ class Defaults {
         }
     }
     func addEventWithName(eventName:String){
-        let posthog = PHGPostHog.shared()
-        //print("**************eventName**********")
-        //print(eventName)
-        //print("**************eventName**********")
-        var userName = ""
-        var userEmail = ""
-        if let user = Defaults.shared.currentUser{
-            userName = user.username ?? ""
-            userEmail = user.email ?? ""
-        }
-        posthog?.capture(eventName, properties: ["$set": ["userName": userName,"userEmail": userEmail] ])
-        posthog?.identify(userEmail,
-                  properties: ["name": userName, "email": userEmail])
+//        let posthog = PHGPostHog.shared()
+//        //print("**************eventName**********")
+//        //print(eventName)
+//        //print("**************eventName**********")
+//        var userName = ""
+//        var userEmail = ""
+//        if let user = Defaults.shared.currentUser{
+//            userName = user.username ?? ""
+//            userEmail = user.email ?? ""
+//        }
+//        posthog?.capture(eventName, properties: ["$set": ["userName": userName,"userEmail": userEmail] ])
+//        posthog?.identify(userEmail,
+//                  properties: ["name": userName, "email": userEmail])
 
 
     }
