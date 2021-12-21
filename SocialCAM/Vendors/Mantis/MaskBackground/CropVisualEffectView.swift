@@ -16,6 +16,7 @@ class CropVisualEffectView: UIVisualEffectView {
         let translucencyEffect = UIBlurEffect(style: .dark)
         self.init(effect: translucencyEffect)
         self.translucencyEffect = translucencyEffect
+        backgroundColor = .clear
         initialize()
     }
         
@@ -27,11 +28,11 @@ class CropVisualEffectView: UIVisualEffectView {
 extension CropVisualEffectView: CropMaskProtocol {
     func setMask() {
         let layer = createOverLayer(opacity: 0.98)
-        
+        layer.fillColor = UIColor.yellow.cgColor
         let maskView = UIView(frame: self.bounds)
         maskView.clipsToBounds = true
         maskView.layer.addSublayer(layer)
-        
         self.mask = maskView
+        self.mask?.tag = 2001
     }
 }

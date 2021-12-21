@@ -322,9 +322,10 @@ public class CropViewController: UIViewController {
        
     }
     @objc func colorSliderValueChanged(_ sender: ColorSlider) {
-        self.cropView.backgroundColor = sender.color
+        
+        self.cropView.cropMaskViewManager.setVisualEffectBGColor(color:sender.color,opacity:1.0)
         croppedBGcolor = sender.color
-        self.cropView.cropMaskViewManager.hideBackground()
+     //   self.cropView.cropMaskViewManager.hideBackground()
     }
     private func createBlurButton() {
        let blurText = R.string.localizable.blur()
@@ -375,9 +376,11 @@ public class CropViewController: UIViewController {
         if Defaults.shared.enableBlurVideoBackgroud{
             self.colorSlider.isHidden = true
             self.blurImageview.image = R.image.checkOn()
+            self.cropView.cropMaskViewManager.setVisualEffectBGColor(color:.black,opacity:0.5)
         }else{
             self.colorSlider.isHidden = false
             self.blurImageview.image = R.image.checkOff()
+            self.cropView.cropMaskViewManager.setVisualEffectBGColor(color:colorSlider.color,opacity:1.0)
         }
     }
     private func createOptionButton(withTitle title: String?, andAction action: Selector) -> UIButton {
