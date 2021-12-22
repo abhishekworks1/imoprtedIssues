@@ -653,7 +653,7 @@ extension ProManagerApi: TargetType {
             break
         case .loginWithKeycloak(let code, let redirectUrl):
             param = ["code": code,
-                     "redirect_uri": redirectUrl]
+                     "redirect_uri": redirectUrl,"platformType":"ios"]
         case .logoutKeycloak:
             break
         case .addReferral(let refferingChannel):

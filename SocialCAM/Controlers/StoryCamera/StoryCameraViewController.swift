@@ -2677,7 +2677,7 @@ extension StoryCameraViewController {
                 }else {
                     Defaults.shared.appMode = .free
                 }
-            }else if(Defaults.shared.currentUser?.subscriptions?.ios?.currentStatus == "basic")
+            }else if(Defaults.shared.currentUser?.subscriptions?.ios?.currentStatus == "premium")
             {
                 if(Defaults.shared.isDowngradeSubscription ?? false == true){
                     if (Defaults.shared.numberOfFreeTrialDays ?? 0 > 0){
