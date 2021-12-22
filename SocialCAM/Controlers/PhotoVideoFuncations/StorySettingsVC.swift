@@ -117,6 +117,8 @@ class StorySettings {
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.businessDashboard(), selected: false)], settingsType: .userDashboard),
                                 StorySettings(name: "",
+                                              settings: [StorySetting(name: R.string.localizable.socialMediaConnections(), selected: false)], settingsType: .socialMediaConnections),
+                                StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.shareYourReferralLink(), selected: false)], settingsType: .shareSetting),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.qrCode(), selected: false)], settingsType: .qrcode),
@@ -320,7 +322,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         }else if settingTitle.settingsType == .editProfileCard {
             hideUnhideImgButton(cell, R.image.iconAccount())
         }else if settingTitle.settingsType == .socialMediaConnections {
-            hideUnhideImgButton(cell, R.image.iconBusinessDashboard())
+            hideUnhideImgButton(cell, R.image.iconAccount())
         }else if settingTitle.settingsType == .shareSetting {
             hideUnhideImgButton(cell, R.image.iconShare())
         }else if settingTitle.settingsType == .qrcode {
