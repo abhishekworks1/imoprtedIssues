@@ -477,6 +477,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func loginWithKeycloak(code: String, redirectUrl: String) {
         ProManagerApi.loginWithKeycloak(code: code, redirectUrl: redirectUrl).request(Result<LoginResult>.self).subscribe(onNext: { (response) in
             if response.status == ResponseType.success {
+                print("***Login2***\(response)")
                 self.goHomeScreen(response)
             }
         }, onError: { error in

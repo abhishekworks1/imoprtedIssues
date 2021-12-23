@@ -2642,8 +2642,10 @@ extension StoryCameraViewController {
     }
     
     func syncUserModel(completion: @escaping (_ isCompleted: Bool?) -> Void) {
+        //print("***syncUserModel***")
         ProManagerApi.userSync.request(Result<UserSyncModel>.self).subscribe(onNext: { (response) in
             if response.status == ResponseType.success {
+                //print("***userSync***\(response)")
                 Defaults.shared.currentUser = response.result?.user
                 Defaults.shared.numberOfFreeTrialDays = response.result?.diffDays
                 Defaults.shared.userCreatedDate = response.result?.user?.created

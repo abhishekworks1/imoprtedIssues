@@ -1092,7 +1092,7 @@ public struct Paths {
     static let addReferral = "user/addReferral"
     static let buySubscription = "subscription/buySubscription"
     static let subsciptionList = "subscriptions"
-    static let userSync = "user/userSync?platformType=ios"
+    static let userSync = "user/userSync"
     static let downgradeSubscription = "subscription/downgrade"
     static let getToken = "user/getToken"
     static let checkForceUpdate = "app/release/forceUpdateStatus"

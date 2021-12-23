@@ -728,18 +728,18 @@ extension EditProfilePicViewController {
             } else {
                 completion(nil)
             }
-        case .youtube:
-            if GoogleManager.shared.isUserLogin {
-                GoogleManager.shared.loadUserData { (userModel) in
-                    guard let userData = userModel else {
-                        completion(nil)
-                        return
-                    }
-                    completion(SocialUserData(socialId: userModel?.userId ?? "", name: userData.userName, profileURL: userData.photoUrl, type: .youtube))
-                }
-            } else {
-                completion(nil)
-            }
+//        case .youtube:
+//            if GoogleManager.shared.isUserLogin {
+//                GoogleManager.shared.loadUserData { (userModel) in
+//                    guard let userData = userModel else {
+//                        completion(nil)
+//                        return
+//                    }
+//                    completion(SocialUserData(socialId: userModel?.userId ?? "", name: userData.userName, profileURL: userData.photoUrl, type: .youtube))
+//                }
+//            } else {
+//                completion(nil)
+//            }
         default:
             break
         }
@@ -813,22 +813,22 @@ extension EditProfilePicViewController {
                     }
                 }
             }
-        case .youtube:
-            if !GoogleManager.shared.isUserLogin {
-                GoogleManager.shared.login(controller: self, complitionBlock: { (_, _) in
-                    completion(true)
-                }) { (_, _) in
-                    completion(false)
-                }
-            } else {
-                self.socialLoadProfile(socialLogin: socialLogin) { socialUserData in
-                    if let userData = socialUserData {
-                        self.addProfile(userData: userData, completion: {
-                        })
-                        completion(false)
-                    }
-                }
-            }
+//        case .youtube:
+//            if !GoogleManager.shared.isUserLogin {
+//                GoogleManager.shared.login(controller: self, complitionBlock: { (_, _) in
+//                    completion(true)
+//                }) { (_, _) in
+//                    completion(false)
+//                }
+//            } else {
+//                self.socialLoadProfile(socialLogin: socialLogin) { socialUserData in
+//                    if let userData = socialUserData {
+//                        self.addProfile(userData: userData, completion: {
+//                        })
+//                        completion(false)
+//                    }
+//                }
+//            }
         default:
             break
         }

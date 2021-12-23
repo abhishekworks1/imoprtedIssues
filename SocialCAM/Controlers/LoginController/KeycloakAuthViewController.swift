@@ -156,6 +156,7 @@ extension KeycloakAuthViewController {
             guard let `self` = self else {
                 return
             }
+            print("***Login1***\(response)")
             if response.status == ResponseType.success {
                 self.goHomeScreen(response)
                 self.setDeviceToken()

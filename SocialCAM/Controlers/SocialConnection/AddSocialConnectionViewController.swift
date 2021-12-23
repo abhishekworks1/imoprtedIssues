@@ -14,7 +14,7 @@ enum SocialConnectionType: CaseIterable {
     case instagram
     case snapchat
     case twitter
-    case youtube
+    //case youtube
     case apple
     
     var image: UIImage? {
@@ -27,8 +27,8 @@ enum SocialConnectionType: CaseIterable {
             return R.image.icoSnapchat()
         case .twitter:
             return R.image.icoTwitter()
-        case .youtube:
-            return R.image.icoYoutube()
+//        case .youtube:
+//            return R.image.icoYoutube()
         case .apple:
             return R.image.icoApple()
         }
@@ -44,8 +44,8 @@ enum SocialConnectionType: CaseIterable {
             return R.color.icoSnapchatColor()
         case .twitter:
             return R.color.icoTwitterColor()
-        case .youtube:
-            return R.color.icoYoutubeColor()
+//        case .youtube:
+//            return R.color.icoYoutubeColor()
         case .apple:
             return R.color.icoAppleColor()
         }
@@ -61,8 +61,8 @@ enum SocialConnectionType: CaseIterable {
             return R.string.localizable.snapchat()
         case .twitter:
             return R.string.localizable.twitter()
-        case .youtube:
-            return R.string.localizable.youtube()
+//        case .youtube:
+//            return R.string.localizable.youtube()
         case .apple:
             return R.string.localizable.apple()
         }
@@ -242,18 +242,18 @@ class AddSocialConnectionViewController: UIViewController {
             } else {
                 completion(nil)
             }
-        case .youtube:
-            if GoogleManager.shared.isUserLogin {
-                GoogleManager.shared.loadUserData { (userModel) in
-                    guard let userData = userModel else {
-                        completion(nil)
-                        return
-                    }
-                    completion(SocialUserData(socialId: userModel?.userId ?? "", name: userData.userName, profileURL: userData.photoUrl, type: .youtube))
-                }
-            } else {
-                completion(nil)
-            }
+//        case .youtube:
+//            if GoogleManager.shared.isUserLogin {
+//                GoogleManager.shared.loadUserData { (userModel) in
+//                    guard let userData = userModel else {
+//                        completion(nil)
+//                        return
+//                    }
+//                    completion(SocialUserData(socialId: userModel?.userId ?? "", name: userData.userName, profileURL: userData.photoUrl, type: .youtube))
+//                }
+//            } else {
+//                completion(nil)
+//            }
         case .apple:
             if #available(iOS 13.0, *) {
                 if AppleSignInManager.shared.isUserLogin {
@@ -351,22 +351,22 @@ class AddSocialConnectionViewController: UIViewController {
                     }
                 }
             }
-        case .youtube:
-            if !GoogleManager.shared.isUserLogin {
-                GoogleManager.shared.login(controller: self, complitionBlock: { (_, _) in
-                    completion(true)
-                }) { (_, _) in
-                    completion(false)
-                }
-            } else {
-                self.socialLoadProfile(socialLogin: socialLogin) { socialUserData in
-                    if let userData = socialUserData {
-                        self.removeSocialConnection(socialId: userData.socialId)
-                        GoogleManager.shared.logout()
-                        completion(false)
-                    }
-                }
-            }
+//        case .youtube:
+//            if !GoogleManager.shared.isUserLogin {
+//                GoogleManager.shared.login(controller: self, complitionBlock: { (_, _) in
+//                    completion(true)
+//                }) { (_, _) in
+//                    completion(false)
+//                }
+//            } else {
+//                self.socialLoadProfile(socialLogin: socialLogin) { socialUserData in
+//                    if let userData = socialUserData {
+//                        self.removeSocialConnection(socialId: userData.socialId)
+//                        GoogleManager.shared.logout()
+//                        completion(false)
+//                    }
+//                }
+//            }
         case .apple:
             if #available(iOS 13.0, *) {
                 if !AppleSignInManager.shared.isUserLogin {
@@ -456,8 +456,8 @@ extension AddSocialConnectionViewController: UICollectionViewDataSource, UIColle
                 socialPlatform = R.string.localizable.instagram()
             case .snapchat:
                 socialPlatform = R.string.localizable.snapchat()
-            case .youtube:
-                socialPlatform = R.string.localizable.google()
+//            case .youtube:
+//                socialPlatform = R.string.localizable.google()
             case .apple:
                 socialPlatform = R.string.localizable.apple()
             default:
