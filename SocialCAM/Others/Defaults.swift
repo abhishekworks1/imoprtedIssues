@@ -953,7 +953,14 @@ class Defaults {
             appDefaults?.set(newValue, forKey: "allowFullAccess")
         }
     }
-    
+    var subscriptionType: String? {
+        get {
+            return appDefaults?.value(forKey: "subscriptionType") as? String
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "subscriptionType")
+        }
+    }
     var isSkipYoutubeLogin: Bool {
         get {
             return appDefaults?.value(forKey: "isSkipYoutubeLogin") as? Bool ?? false
