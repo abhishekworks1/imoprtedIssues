@@ -387,7 +387,7 @@ public struct Constant {
     
     /// IAP product id's
     struct IAPProductIds {
-        static let quickCamLiteBasic = "com.quickcamlite.app.basic"
+        static let quickCamLiteBasic = "app.quickcamlite.app.basic"
     }
     
     struct IAPProductServerIds {
