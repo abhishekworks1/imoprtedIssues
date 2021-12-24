@@ -401,9 +401,9 @@ extension EditProfilePicViewController {
             self.lblSocialSharePopup.text = R.string.localizable.loginSuccess(SocialConnectionType.snapchat.stringValue)
             self.dismissHUD()
             self.setSocialMediaPicture(socialShareType: .snapchat)
-//        case .youTube:
-//            self.lblSocialSharePopup.text = R.string.localizable.loginSuccess(SocialConnectionType.youtube.stringValue)
-//            self.setSocialMediaPicture(socialShareType: .youtube)
+        case .youTube:
+            self.lblSocialSharePopup.text = R.string.localizable.loginSuccess(SocialConnectionType.youtube.stringValue)
+            self.setSocialMediaPicture(socialShareType: .youtube)
         case .twitter:
             self.lblSocialSharePopup.text = R.string.localizable.loginSuccess(SocialConnectionType.twitter.stringValue)
             self.setSocialMediaPicture(socialShareType: .twitter)
@@ -728,18 +728,18 @@ extension EditProfilePicViewController {
             } else {
                 completion(nil)
             }
-//        case .youtube:
-//            if GoogleManager.shared.isUserLogin {
-//                GoogleManager.shared.loadUserData { (userModel) in
-//                    guard let userData = userModel else {
-//                        completion(nil)
-//                        return
-//                    }
-//                    completion(SocialUserData(socialId: userModel?.userId ?? "", name: userData.userName, profileURL: userData.photoUrl, type: .youtube))
-//                }
-//            } else {
-//                completion(nil)
-//            }
+        case .youtube:
+            if GoogleManager.shared.isUserLogin {
+                GoogleManager.shared.loadUserData { (userModel) in
+                    guard let userData = userModel else {
+                        completion(nil)
+                        return
+                    }
+                    completion(SocialUserData(socialId: userModel?.userId ?? "", name: userData.userName, profileURL: userData.photoUrl, type: .youtube))
+                }
+            } else {
+                completion(nil)
+            }
         default:
             break
         }
@@ -813,22 +813,22 @@ extension EditProfilePicViewController {
                     }
                 }
             }
-//        case .youtube:
-//            if !GoogleManager.shared.isUserLogin {
-//                GoogleManager.shared.login(controller: self, complitionBlock: { (_, _) in
-//                    completion(true)
-//                }) { (_, _) in
-//                    completion(false)
-//                }
-//            } else {
-//                self.socialLoadProfile(socialLogin: socialLogin) { socialUserData in
-//                    if let userData = socialUserData {
-//                        self.addProfile(userData: userData, completion: {
-//                        })
-//                        completion(false)
-//                    }
-//                }
-//            }
+        case .youtube:
+            if !GoogleManager.shared.isUserLogin {
+                GoogleManager.shared.login(controller: self, complitionBlock: { (_, _) in
+                    completion(true)
+                }) { (_, _) in
+                    completion(false)
+                }
+            } else {
+                self.socialLoadProfile(socialLogin: socialLogin) { socialUserData in
+                    if let userData = socialUserData {
+                        self.addProfile(userData: userData, completion: {
+                        })
+                        completion(false)
+                    }
+                }
+            }
         default:
             break
         }

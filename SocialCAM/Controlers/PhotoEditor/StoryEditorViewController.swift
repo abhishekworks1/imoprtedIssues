@@ -586,7 +586,7 @@ class StoryEditorViewController: UIViewController {
         self.playButtonBottomLayoutConstraint.constant = (storyEditors.count > 1) ? 70 : 15
         self.backgroundCollectionView.isHidden = self.collectionView.isHidden
         
-        self.youtubeShareView.isHidden = true //isImage
+        self.youtubeShareView.isHidden = isImage //isImage
         self.tiktokShareView.isHidden = isImage
         self.playPauseButton.isHidden = isImage
         self.progressBarView.isHidden = isImage

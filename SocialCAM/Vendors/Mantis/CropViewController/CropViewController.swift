@@ -275,8 +275,10 @@ public class CropViewController: UIViewController {
         createCropView()
         initLayout()
         updateLayout()
-        setupColorSlider()
-        createBlurButton()
+        if Defaults.shared.cameraMode != .pic2Art{
+            setupColorSlider()
+            createBlurButton()
+        }
         NotificationCenter.default.addObserver(self, selector: #selector(rotated), name: UIApplication.didChangeStatusBarOrientationNotification, object: nil)
     }
     
@@ -325,7 +327,6 @@ public class CropViewController: UIViewController {
         
         self.cropView.cropMaskViewManager.setVisualEffectBGColor(color:sender.color,opacity:1.0)
         croppedBGcolor = sender.color
-     //   self.cropView.cropMaskViewManager.hideBackground()
     }
     private func createBlurButton() {
        let blurText = R.string.localizable.blur()

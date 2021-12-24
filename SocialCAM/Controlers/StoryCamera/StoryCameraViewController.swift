@@ -2670,7 +2670,7 @@ extension StoryCameraViewController {
     }
     
     func setAppModeBasedOnUserSync(){
-            //
+            
             if Defaults.shared.allowFullAccess ?? false == true{
                 Defaults.shared.appMode = .basic
             }else if (Defaults.shared.isFreeTrial ?? false == true){
@@ -2679,7 +2679,7 @@ extension StoryCameraViewController {
                 }else {
                     Defaults.shared.appMode = .free
                 }
-            }else if(Defaults.shared.currentUser?.subscriptions?.ios?.currentStatus == "premium")
+            }else if(Defaults.shared.currentUser?.subscriptionStatus == "premium")
             {
                 if(Defaults.shared.isDowngradeSubscription ?? false == true){
                     if (Defaults.shared.numberOfFreeTrialDays ?? 0 > 0){

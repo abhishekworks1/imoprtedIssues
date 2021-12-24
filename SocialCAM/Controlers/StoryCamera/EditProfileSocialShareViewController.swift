@@ -13,7 +13,7 @@ enum ProfileSocialShare: Int {
     case camera
     case instagram
     case snapchat
-   // case youTube
+    case youTube
     case twitter
     case facebook
 }
@@ -131,8 +131,8 @@ extension EditProfileSocialShareViewController: UITableViewDelegate {
             self.showHidePopupView(socialType: .instagram)
         case .snapchat:
             self.showHidePopupView(socialType: .snapchat)
-//        case .youTube:
-//            self.showHidePopupView(socialType: .youTube)
+        case .youTube:
+            self.showHidePopupView(socialType: .youTube)
         case .twitter:
             self.showHidePopupView(socialType: .twitter)
         case .facebook:
