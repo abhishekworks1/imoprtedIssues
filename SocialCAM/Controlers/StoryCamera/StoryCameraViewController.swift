@@ -2652,6 +2652,7 @@ extension StoryCameraViewController {
                 Defaults.shared.isDowngradeSubscription = response.result?.userSubscription?.isDowngraded
                 Defaults.shared.isFreeTrial = response.result?.user?.isTempSubscription
                 Defaults.shared.allowFullAccess = response.result?.userSubscription?.allowFullAccess
+                Defaults.shared.subscriptionType = response.result?.userSubscription?.subscriptionType
                 Defaults.shared.socialPlatforms = response.result?.user?.socialPlatforms
                 Defaults.shared.referredUserCreatedDate = response.result?.user?.refferedBy?.created
                 Defaults.shared.publicDisplayName = response.result?.user?.publicDisplayName
@@ -2673,13 +2674,13 @@ extension StoryCameraViewController {
             //
             if Defaults.shared.allowFullAccess ?? false == true{
                 Defaults.shared.appMode = .basic
-            }else if (Defaults.shared.isFreeTrial ?? false == true){
+            }else if (Defaults.shared.subscriptionType == "trial"){
                 if (Defaults.shared.numberOfFreeTrialDays ?? 0 > 0){
                     Defaults.shared.appMode = .basic
                 }else {
                     Defaults.shared.appMode = .free
                 }
-            }else if(Defaults.shared.currentUser?.subscriptions?.ios?.currentStatus == "premium")
+            }else if(Defaults.shared.subscriptionType == "premium")
             {
                 if(Defaults.shared.isDowngradeSubscription ?? false == true){
                     if (Defaults.shared.numberOfFreeTrialDays ?? 0 > 0){

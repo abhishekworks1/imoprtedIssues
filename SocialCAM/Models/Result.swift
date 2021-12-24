@@ -247,7 +247,7 @@ class UserSubscription: Mappable{
     var updatedAt: String?
     var userId: String?
     var allowFullAccess: Bool?
-    
+    var subscriptionType : String?
     required init?(map: Map) {
         
     }
@@ -269,6 +269,7 @@ class UserSubscription: Mappable{
         updatedAt <- map["updatedAt"]
         userId <- map["userId"]
         allowFullAccess <- map["allowFullAccess"]
+        subscriptionType <- map["subscriptionType"]
     }
     
 }
