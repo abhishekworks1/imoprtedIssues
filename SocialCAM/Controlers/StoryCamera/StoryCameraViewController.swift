@@ -344,7 +344,9 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                     self.closeButton.setImage(R.image.icoDone(), for: UIControl.State.selected)
                 }
             }
-            
+            if  Defaults.shared.cameraMode == .pic2Art{
+                self.recordingType = .pic2Art
+            }
             let showNextButton = (recordingType == .custom || recordingType == .slideshow || recordingType == .collage || recordingType == .capture)
             self.nextButtonView.isHidden = !showNextButton
             
@@ -694,7 +696,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         self.reloadUploadViewData()
         self.stopMotionCollectionView.reloadData()
         dynamicSetSlowFastVerticalBar()
-        if self.recordingType == .pic2Art {
+        if Defaults.shared.cameraMode == .pic2Art {
             self.speedSlider.isHidden = true
             self.speedSliderView.isHidden = true
         }
@@ -716,7 +718,6 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             UIPasteboard.remove(withName: UIPasteboard.Name(rawValue: Constant.Application.pasteboardName))
             openStoryEditor(images: [image])
         }
-        
     }
     
     func addTikTokShareViewIfNeeded() {

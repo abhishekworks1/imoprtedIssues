@@ -117,7 +117,7 @@ class StorySettings {
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.businessDashboard(), selected: false)], settingsType: .userDashboard),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.socialMediaConnections(), selected: false)], settingsType: .socialMediaConnections),
+                                              settings: [StorySetting(name: R.string.localizable.subscriptions(), selected: false)], settingsType: .subscription),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.shareYourReferralLink(), selected: false)], settingsType: .shareSetting),
                                 StorySettings(name: "",
@@ -138,6 +138,9 @@ class StorySettings {
                                               settings: [StorySetting(name: R.string.localizable.checkUpdates(), selected: false)], settingsType: .checkUpdate),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.logout(), selected: false)], settingsType: .logout)]
+    
+    /*StorySettings(name: "",
+                  settings: [StorySetting(name: R.string.localizable.socialMediaConnections(), selected: false)], settingsType: .socialMediaConnections) */
 }
 
 class StorySettingsVC: UIViewController {
@@ -343,6 +346,8 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             hideUnhideImgButton(cell, R.image.iconCheckUpdate())
         } else if settingTitle.settingsType == .referringChannel {
             hideUnhideImgButton(cell, R.image.iconReferringChannel())
+        } else if settingTitle.settingsType == .subscription {
+            hideUnhideImgButton(cell, R.image.iconSubscription())
         } else if settingTitle.settingsType == .socialLogins {
             cell.onOffButton.isHidden = true
             cell.onOffButton.isSelected = false
