@@ -41,11 +41,11 @@ class SubscriptionsViewController: UIViewController {
         if subscriptionType == .basic {
             bindViewModel(appMode: appMode ?? .basic)
         }
-        if Defaults.shared.allowFullAccess == true {
-            btnUpgrade.isUserInteractionEnabled = false
-            expiryDateHeightConstraint.constant = 0
-            lblFreeTrial.isHidden = true
-        }
+//        if Defaults.shared.allowFullAccess == true {
+//            btnUpgrade.isUserInteractionEnabled = false
+//            expiryDateHeightConstraint.constant = 0
+//            lblFreeTrial.isHidden = true
+//        }
     }
     
     @IBAction func btnUpgradeTapped(_ sender: Any) {
@@ -86,7 +86,8 @@ class SubscriptionsViewController: UIViewController {
         let subscriptionData = subscriptionsList.filter({$0.productId == Constant.IAPProductIds.quickCamLiteBasic})
         if let currentUser = Defaults.shared.currentUser {
             lblExpiryDate.text = R.string.localizable.expiryDaysLeft("\(Defaults.shared.numberOfFreeTrialDays ?? 0)")
-            if currentUser.isTempSubscription ?? false && subscriptionType != .free && Defaults.shared.appMode != .free {
+            //if currentUser.isTempSubscription ?? false && subscriptionType != .free && Defaults.shared.appMode != .free {
+            if (Defaults.shared.subscriptionType == "trial") && subscriptionType != .free && Defaults.shared.appMode != .free {
                 isFreeTrialMode = true
                 setupForFreeTrial(isFreeTrial: true)
             } else if Defaults.shared.isDowngradeSubscription == true && subscriptionType != .free && Defaults.shared.appMode != .free {
@@ -99,7 +100,8 @@ class SubscriptionsViewController: UIViewController {
                     expiryDateHeightConstraint.constant = 48
                 }
             }
-            if (currentUser.isTempSubscription == true && subscriptionType == .free) || (Defaults.shared.isDowngradeSubscription == true && subscriptionType == .free) {
+            //if (currentUser.isTempSubscription == true && subscriptionType == .free) || (Defaults.shared.isDowngradeSubscription == true && subscriptionType == .free) {
+            if ((Defaults.shared.subscriptionType == "trial") && subscriptionType == .free) || (Defaults.shared.isDowngradeSubscription == true && subscriptionType == .free) {
                 btnUpgrade.isHidden = true
             }
         }
@@ -112,6 +114,40 @@ class SubscriptionsViewController: UIViewController {
                 self.lblPrice.text = self.subscriptionType.price
             }
         }
+        
+        
+//        var isSubscriptionCondition = true
+//        if (Defaults.shared.subscriptionType == "trial"){
+//            if (Defaults.shared.numberOfFreeTrialDays ?? 0 > 0){
+//                isFreeTrialMode = false  // need to purchase manually
+//                setupForFreeTrial(isFreeTrial: true)
+//            }else {
+//                isFreeTrialMode = false
+//            }
+//        }else if(Defaults.shared.subscriptionType == "premium")
+//        {
+//            isSubscriptionCondition = false
+//            if(Defaults.shared.isDowngradeSubscription ?? false == true){
+//                btnUpgrade.setTitle(R.string.localizable.upgradeNow(), for: .normal)
+//                btnUpgrade.backgroundColor = R.color.appPrimaryColor()
+//            }else{
+//                lblYourCurrentPlan.isHidden = false
+//                self.setDowngradeButton()
+//            }
+//        }else{
+//            isFreeTrialMode = false
+//        }
+//
+//        if (isSubscriptionCondition) {
+//            btnUpgrade.setTitle( R.string.localizable.upgradeNow(), for: .normal)
+//            btnUpgrade.backgroundColor =  R.color.appPrimaryColor()
+//            btnUpgrade.isHidden = (subscriptionType == .free) ? false : true //!isFreeTrialMode
+//            lblYourCurrentPlan.isHidden = (subscriptionType == .free) ? false : true //isFreeTrialMode
+//            if !isFreeTrialMode {
+//                btnUpgrade.titleLabel?.font = R.font.sfuiTextRegular(size: 20)
+//            }
+//        }
+        
         if Defaults.shared.appMode == self.subscriptionType {
             if Defaults.shared.isDowngradeSubscription == true && Defaults.shared.appMode != .free {
                 btnUpgrade.setTitle(R.string.localizable.upgradeNow(), for: .normal)
