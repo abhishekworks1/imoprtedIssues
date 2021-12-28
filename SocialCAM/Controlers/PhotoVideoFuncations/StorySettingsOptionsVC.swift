@@ -39,15 +39,22 @@ class CameraSettings {
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.watermark(), selected: false)], settingsType: .watermarkSettings),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.light(), selected: false)], settingsType: .watermarkAlpha30),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.medium(), selected: false)], settingsType: .watermarkAlpha50),
-        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.more(), selected: false)], settingsType: .watermarkAlpha80)
+        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.more(), selected: false)], settingsType: .watermarkAlpha80),
+        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.all(), selected: false)], settingsType: .hapticAll),
+        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.some(), selected: false)], settingsType: .hapticSome),
+        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.none(), selected: false)], settingsType: .hapticNone)
     ]
 }
-
+enum HapticSetting: Int{
+    case all = 1
+    case some = 2
+    case none = 0
+}
 class StorySettingsOptionsVC: UIViewController {
     
     @IBOutlet weak var settingsTableView: UITableView!
     @IBOutlet weak var skipYTLoginTooltipView: UIView!
-    
+   
     var firstPercentage: Double = 0.0
     var firstUploadCompletedSize: Double = 0.0
 
@@ -179,6 +186,27 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
             cell.imgSettingsIcon.isHidden = true
             cell.onOffButton.isSelected = Defaults.shared.waterarkOpacity == settingTitle.settingsType.rawValue
             cell.onOffButton.alpha = cell.onOffButton.isSelected ? 1 : 0.5
+        } else if settingTitle.settingsType == .hapticAll {
+            cell.onOffButton.isHidden = false
+            cell.stackView.backgroundColor = UIColor.white
+            cell.lblPremiumVersionOnly.isHidden = true
+            cell.imgSettingsIcon.isHidden = true
+            cell.onOffButton.isSelected = Defaults.shared.allowHaptic == HapticSetting.all.rawValue
+            cell.onOffButton.alpha = cell.onOffButton.isSelected ? 1 : 0.5
+        } else if settingTitle.settingsType == .hapticSome {
+            cell.onOffButton.isHidden = false
+            cell.stackView.backgroundColor = UIColor.white
+            cell.lblPremiumVersionOnly.isHidden = true
+            cell.imgSettingsIcon.isHidden = true
+            cell.onOffButton.isSelected = Defaults.shared.allowHaptic == HapticSetting.some.rawValue
+            cell.onOffButton.alpha = cell.onOffButton.isSelected ? 1 : 0.5
+        } else if settingTitle.settingsType == .hapticNone {
+            cell.onOffButton.isHidden = false
+            cell.stackView.backgroundColor = UIColor.white
+            cell.lblPremiumVersionOnly.isHidden = true
+            cell.imgSettingsIcon.isHidden = true
+            cell.onOffButton.isSelected = Defaults.shared.allowHaptic == HapticSetting.none.rawValue
+            cell.onOffButton.alpha = cell.onOffButton.isSelected ? 1 : 0.5
         } else if settingTitle.settingsType == .videoResolution {
             cell.onOffButton.isHidden = true
             guard let videoResolutionCell: VideoResolutionCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.videoResolutionCell.identifier) as? VideoResolutionCell else {
@@ -245,6 +273,12 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
             headerView.iconSettingsImage.image = R.image.iconWaterMarkOpacity()
             headerView.title.text = R.string.localizable.watermarkOpacity()
             headerView.title.textColor = R.color.appPrimaryColor()
+        } else if settingTitle.settingsType == .hapticAll {
+            headerView.title.isHidden = false
+            headerView.iconSettingsImage.isHidden = false
+            headerView.iconSettingsImage.image = R.image.iconWaterMarkOpacity()
+            headerView.title.text = R.string.localizable.allowHaptic()
+            headerView.title.textColor = R.color.appPrimaryColor()
         }
         return headerView
     }
@@ -257,7 +291,9 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
             return 20
         } else if settingTitle.settingsType == .watermarkAlpha30 {
             return 40
-        } else {
+        } else if settingTitle.settingsType == .hapticAll {
+            return 40
+        }else {
             return 1
         }
     }
@@ -314,6 +350,15 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
             self.settingsTableView.reloadData()
         } else if settingTitle.settingsType == .watermarkAlpha30 || settingTitle.settingsType == .watermarkAlpha50 || settingTitle.settingsType == .watermarkAlpha80 {
             Defaults.shared.waterarkOpacity = settingTitle.settingsType.rawValue
+            tableView.reloadData()
+        } else if settingTitle.settingsType == .hapticAll{
+            Defaults.shared.allowHaptic = HapticSetting.all.rawValue
+            tableView.reloadData()
+        } else if settingTitle.settingsType == .hapticSome{
+            Defaults.shared.allowHaptic = HapticSetting.some.rawValue
+            tableView.reloadData()
+        } else if settingTitle.settingsType == .hapticNone{
+            Defaults.shared.allowHaptic = HapticSetting.none.rawValue
             tableView.reloadData()
         } else if settingTitle.settingsType == .watermarkSettings {
             if let watermarkSettingsVC = R.storyboard.storyCameraViewController.watermarkSettingsViewController() {

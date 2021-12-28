@@ -73,6 +73,9 @@ enum SettingsMode: Int {
     case publicDisplaynameWatermark
     case editProfileCard
     case socialMediaConnections
+    case hapticNone
+    case hapticAll
+    case hapticSome
 }
 
 class StorySetting {
@@ -118,6 +121,8 @@ class StorySettings {
                                               settings: [StorySetting(name: R.string.localizable.businessDashboard(), selected: false)], settingsType: .userDashboard),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.subscriptions(), selected: false)], settingsType: .subscription),
+                                StorySettings(name: "",
+                                              settings: [StorySetting(name: R.string.localizable.editProfileCard(), selected: false)], settingsType: .editProfileCard),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.shareYourReferralLink(), selected: false)], settingsType: .shareSetting),
                                 StorySettings(name: "",

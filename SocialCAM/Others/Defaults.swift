@@ -229,6 +229,16 @@ class Defaults {
         }
     }
     
+    var allowHaptic: Int {
+        get {
+            return appDefaults?.integer(forKey: "allowHaptic") ?? 0
+        }
+        set {
+            appDefaults?.setValue(newValue, forKey: "allowHaptic")
+            userDefaults.synchronize()
+        }
+    }
+    
     var postViralCamModel: CreatePostViralCam? {
         get {
             if let loggedUser = appDefaults?.object(forKey: "createPostViralCam") as? Data {
@@ -1216,7 +1226,7 @@ class Defaults {
 
     }
     
-    func callHapticFeedback(isHeavy:Bool){
+    func callHapticFeedback(isHeavy:Bool , important:Int = 0){
         if Defaults.shared.isMutehapticFeedbackOnSpeedSelection == false {
             do {
                 if #available(iOS 13.0, *) {
