@@ -2187,6 +2187,7 @@ extension StoryEditorViewController {
         }
         exportSession.isMute = storyEditor.isMuted
         exportSession.socialShareType = type
+        exportSession.isCropped = isCropped
         exportSession.croppedBGcolor = croppedBGcolor
         storyEditors[currentStoryIndex].isCropped ? (storyEditors[currentStoryIndex].storySwipeableFilterView.imageContentMode = .scaleAspectFill) : (storyEditors[currentStoryIndex].storySwipeableFilterView.imageContentMode = .scaleAspectFit)
         storyEditors[currentStoryIndex].isCropped ? (exportSession.imageContentMode = .scaleAspectFit) : (exportSession.imageContentMode = .scaleAspectFit)
