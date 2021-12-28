@@ -1226,7 +1226,16 @@ class Defaults {
 
     }
     
-    func callHapticFeedback(isHeavy:Bool , important:Int = 0){
+    func callHapticFeedback(isHeavy:Bool, isImportant:Bool = true){
+        switch  Defaults.shared.allowHaptic{
+        case HapticSetting.none.rawValue:
+            return
+        case HapticSetting.some.rawValue:
+            if !isImportant{
+                return
+            }
+        default: break
+        }
         if Defaults.shared.isMutehapticFeedbackOnSpeedSelection == false {
             do {
                 if #available(iOS 13.0, *) {

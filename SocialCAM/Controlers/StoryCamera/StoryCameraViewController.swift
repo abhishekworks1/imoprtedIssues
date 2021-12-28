@@ -346,6 +346,8 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             }
             if  Defaults.shared.cameraMode == .pic2Art{
                 self.recordingType = .pic2Art
+            } else if Defaults.shared.cameraMode == .normal{
+                self.recordingType = .normal
             }
             let showNextButton = (recordingType == .custom || recordingType == .slideshow || recordingType == .collage || recordingType == .capture)
             self.nextButtonView.isHidden = !showNextButton
