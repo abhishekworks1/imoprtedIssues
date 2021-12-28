@@ -277,7 +277,7 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
             headerView.title.isHidden = false
             headerView.iconSettingsImage.isHidden = false
             headerView.iconSettingsImage.image = R.image.iconWaterMarkOpacity()
-            headerView.title.text = R.string.localizable.allowHaptic()
+            headerView.title.text = R.string.localizable.hapticFeedback()
             headerView.title.textColor = R.color.appPrimaryColor()
         }
         return headerView
