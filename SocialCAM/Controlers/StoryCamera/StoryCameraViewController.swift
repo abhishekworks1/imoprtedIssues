@@ -405,6 +405,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     var takenSlideShowImages: [SegmentVideos] = []
     var videoSpeedType = VideoSpeedType.normal
     var isSpeedChanged = false
+    var lastselectedValue = 2
     var isStopConnVideo = false
     var firstPercentage: Double = 0.0
     var firstUploadCompletedSize: Double = 0.0
@@ -1140,16 +1141,16 @@ extension StoryCameraViewController {
                 cameraModeArray.insert(CameraModes(name: R.string.localizable.video2Art().uppercased(), recordingType: .handsfree), at: index)
             }
         } else if isLiteApp {
-            if Defaults.shared.appMode == .free {
+         //   if Defaults.shared.appMode == .free {
                 cameraModeArray = cameraModeArray.filter({$0.recordingType == .promo})
                 cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .normal})
                 cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .capture})
                 cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .pic2Art})
-            }else{
-                cameraModeArray = cameraModeArray.filter({$0.recordingType == .normal})
-                cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .capture})
-                cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .pic2Art})
-            }
+//            }else{
+//                cameraModeArray = cameraModeArray.filter({$0.recordingType == .normal})
+//                cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .capture})
+//                cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .pic2Art})
+//            }
             self.recordingType = cameraModeArray.first!.recordingType
         } else if isSnapCamApp || isFastCamApp || isSpeedCamApp {
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .slideshow})

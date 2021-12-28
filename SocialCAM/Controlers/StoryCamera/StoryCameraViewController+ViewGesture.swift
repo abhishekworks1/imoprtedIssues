@@ -194,6 +194,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
                 case .normal:
                     timeScale = 1
                     recordingSpeed = .normal
+                    self.lastselectedValue = 2
                     self.setNormalSpeed(selectedValue: 2)
                     return
                 case .fast2x:
@@ -532,6 +533,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
         self.speedSliderLabels.value = UInt(value)
         self.speedSlider.value = CGFloat(value)
         self.isSpeedChanged = true
+        self.lastselectedValue = value
         self.speedLabel.text = text
         self.speedLabel.startBlink()
         self.view.bringSubviewToFront(self.speedLabel)
@@ -539,7 +541,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
         self.hepticEventGenerator(text:text)
     }
     func hepticEventGenerator(text:String){
-        if self.labelSpeedTxt != text {
+        if self.labelSpeedTxt != text && text != ""{
             self.labelSpeedTxt = text
             Defaults.shared.callHapticFeedback(isHeavy: true)
         }
@@ -553,9 +555,11 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
         self.speedLabel.stopBlink()
         nextLevel.videoConfiguration.timescale = 1
         speedIndicatorViewColorChange()
-        if self.isSpeedChanged {
+        if self.isSpeedChanged && self.lastselectedValue == 2 {
+            print("***22***")
             Defaults.shared.callHapticFeedback(isHeavy: true)
             self.isSpeedChanged = false
+            self.lastselectedValue = 3
         }
     }
     
