@@ -58,6 +58,7 @@ class StoryAssetExportSession {
     public var overlayImage: UIImage?
     public var filter: CIFilter?
     public var isMute = false
+    public var isCropped = false
     public var inputTransformation: StoryImageView.ImageTransformation?
     public var imageContentMode: StoryImageView.ImageContentMode = .scaleAspectFit
     public var watermarkType: WatermarkType = .image
