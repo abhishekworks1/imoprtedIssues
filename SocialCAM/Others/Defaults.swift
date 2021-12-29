@@ -231,7 +231,7 @@ class Defaults {
     
     var allowHaptic: Int {
         get {
-            return appDefaults?.integer(forKey: "allowHaptic") ?? 0
+            return appDefaults?.integer(forKey: "allowHaptic") ?? 2
         }
         set {
             appDefaults?.setValue(newValue, forKey: "allowHaptic")

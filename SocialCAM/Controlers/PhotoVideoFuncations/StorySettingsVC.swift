@@ -446,9 +446,9 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     @objc func btnEditProfilePic() {
-        if let editProfilePicViewController = R.storyboard.editProfileViewController.editProfilePicViewController() {
+       /* if let editProfilePicViewController = R.storyboard.editProfileViewController.editProfilePicViewController() {
             navigationController?.pushViewController(editProfilePicViewController, animated: true)
-        }
+        } */
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
