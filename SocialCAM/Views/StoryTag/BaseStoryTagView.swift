@@ -80,7 +80,7 @@ class BaseStoryTagView: UIView {
         tapButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0).isActive = true
     }
     
-    func labelFor(text: String, textAlignment: NSTextAlignment, fontSize: CGFloat, textColor: UIColor = ApplicationSettings.appWhiteColor) -> UILabel {
+    func labelFor(text: String, textAlignment: NSTextAlignment, fontSize: CGFloat, textColor: UIColor = .white) -> UILabel {
         let label = UILabel()
         label.text = text
         label.textColor = textColor

@@ -9695,6 +9695,26 @@
 		95EE425324B8BA81002E5D84 /* ComingSoonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824C677824B5B404000396E9 /* ComingSoonController.swift */; };
 		95EE425424B8BA81002E5D84 /* ComingSoonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824C677824B5B404000396E9 /* ComingSoonController.swift */; };
 		95F117E423FD04B400EB99B4 /* SpecificBoomerangOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F117E323FD04B400EB99B4 /* SpecificBoomerangOptions.swift */; };
+		9C48CD62277DEF4F00B81C58 /* ConstantClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826935C7259307DF00C0B2C6 /* ConstantClass.swift */; };
+		9C48CD9C277DEF8F00B81C58 /* SampleHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828F3B5E258B8342001F4500 /* SampleHandler.swift */; };
+		9C48CDD5277DF04400B81C58 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB10236C1286002B2603 /* Defaults.swift */; };
+		9C48CDF2277DF04A00B81C58 /* SharedClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB39B23619E3600205993 /* SharedClass.swift */; };
+		9C48CE0F277DF0ED00B81C58 /* StaticKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2AA273826E5F3A0003C6486 /* StaticKeys.swift */; };
+		9C48CE2C277DF10800B81C58 /* ProfileDetailsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 820BFB6123E7EB100087B38E /* ProfileDetailsResponse.swift */; };
+		9C48CE49277DF12D00B81C58 /* CalculatorConfigurationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63E1906251B2D6100558591 /* CalculatorConfigurationModel.swift */; };
+		9C48CE66277DF33200B81C58 /* APIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EB18EE244F11AE00B6564A /* APIModels.swift */; };
+		9C48CE83277DF36300B81C58 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB29236C1723002B2603 /* User.swift */; };
+		9C48CEA0277DF37600B81C58 /* LoginUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CC0C8523E2A3AC00038B3C /* LoginUserData.swift */; };
+		9C48CEBD277DF39900B81C58 /* UserSyncModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = C233C7E126D76678007BB90E /* UserSyncModels.swift */; };
+		9C48D00F277DF7F700B81C58 /* AllColors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 824AC20E250A2875008F3F33 /* AllColors.xcassets */; };
+		9C48D02C277DF87700B81C58 /* FileSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828F3B38258B53D9001F4500 /* FileSystem.swift */; };
+		9C48D049277DF89000B81C58 /* BaseStoryTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB1D236C160E002B2603 /* BaseStoryTagView.swift */; };
+		9C48D066277DF8B500B81C58 /* CreatePostData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB88236C2982002B2603 /* CreatePostData.swift */; };
+		9C48D083277DF8C600B81C58 /* GetPlayList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB34236C1C08002B2603 /* GetPlayList.swift */; };
+		9C48D084277DF8E000B81C58 /* SaveUserDefaultsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB08236C1211002B2603 /* SaveUserDefaultsProtocol.swift */; };
+		9C48D085277DF8F500B81C58 /* FilterImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB32236C1BAF002B2603 /* FilterImage.swift */; };
+		9C48D0A2277DF98600B81C58 /* ReactionTypeEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824EB3B523619E5B00205993 /* ReactionTypeEnum.swift */; };
+		9C48D0DC277DF9C200B81C58 /* EditOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FB86236C28F3002B2603 /* EditOption.swift */; };
 		9C8033F6276BA79400BAE013 /* UserCountry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D0443726F4B9C700F8F19A /* UserCountry.swift */; };
 		9C803413276BA7D200BAE013 /* UserCountry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D0443726F4B9C700F8F19A /* UserCountry.swift */; };
 		9C803414276BA7D300BAE013 /* UserCountry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D0443726F4B9C700F8F19A /* UserCountry.swift */; };
@@ -20686,6 +20706,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8269361525930D5900C0B2C6 /* Localizable.strings in Resources */,
+				9C48D00F277DF7F700B81C58 /* AllColors.xcassets in Resources */,
 				82FF04AA27146EDF00E6CB90 /* CountryFlagAssets.xcassets in Resources */,
 				82FF047A27146E8B00E6CB90 /* CountryCodes.json in Resources */,
 			);
@@ -28397,12 +28418,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C48CEA0277DF37600B81C58 /* LoginUserData.swift in Sources */,
+				9C48CDD5277DF04400B81C58 /* Defaults.swift in Sources */,
+				9C48D085277DF8F500B81C58 /* FilterImage.swift in Sources */,
+				9C48D083277DF8C600B81C58 /* GetPlayList.swift in Sources */,
+				9C48D084277DF8E000B81C58 /* SaveUserDefaultsProtocol.swift in Sources */,
+				9C48CE2C277DF10800B81C58 /* ProfileDetailsResponse.swift in Sources */,
+				9C48D066277DF8B500B81C58 /* CreatePostData.swift in Sources */,
+				9C48CE49277DF12D00B81C58 /* CalculatorConfigurationModel.swift in Sources */,
+				9C48CEBD277DF39900B81C58 /* UserSyncModels.swift in Sources */,
 				9C80346B276BA91B00BAE013 /* NSObject.swift in Sources */,
 				82E3C4532722F38B008E7AE1 /* NotificationResult.swift in Sources */,
 				8269372D25930EA700C0B2C6 /* R.socialScreenRecorderExtension.generated.swift in Sources */,
 				82E3C4682722F38B008E7AE1 /* RefereeUserId.swift in Sources */,
+				9C48CE0F277DF0ED00B81C58 /* StaticKeys.swift in Sources */,
+				9C48D02C277DF87700B81C58 /* FileSystem.swift in Sources */,
+				9C48D049277DF89000B81C58 /* BaseStoryTagView.swift in Sources */,
+				9C48CE83277DF36300B81C58 /* User.swift in Sources */,
 				82E3C47D2722F38C008E7AE1 /* UserNotification.swift in Sources */,
+				9C48CD62277DEF4F00B81C58 /* ConstantClass.swift in Sources */,
+				9C48D0DC277DF9C200B81C58 /* EditOption.swift in Sources */,
+				9C48CE66277DF33200B81C58 /* APIModels.swift in Sources */,
+				9C48CDF2277DF04A00B81C58 /* SharedClass.swift in Sources */,
+				9C48D0A2277DF98600B81C58 /* ReactionTypeEnum.swift in Sources */,
 				9C803413276BA7D200BAE013 /* UserCountry.swift in Sources */,
+				9C48CD9C277DEF8F00B81C58 /* SampleHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

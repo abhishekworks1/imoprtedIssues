@@ -24,7 +24,7 @@ import UIKit
 public func dLog<T>(_ object: @autoclosure () -> T, filename: String = #file, _ function: String = #function, _ line: Int = #line) {
     if isDebug {
         let value = object()
-        let fileURL = filename.lastPathComponent.stringByDeletingPathExtension
+        let fileURL = filename
         let queue = Thread.isMainThread ? "UI" : "BG"
         print("<\(queue)> \(fileURL) \(function)[\(line)] :-> " + String(reflecting: value))
     }

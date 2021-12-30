@@ -29,12 +29,18 @@ extension ScreenCaptureObservable where Self: UIViewController {
                 if UIScreen.main.isCaptured {
                     AppPreferences.shared.set(value: true, forKey: .startedScreenRecording)
                     startCapturingBlock?(notification)
+                    print("******startedScreenRecording*********")
+
                     return
                 }
                 
                 AppPreferences.shared.set(value: false, forKey: .startedScreenRecording)
                 
                 if let block = stopCapturingBlock {
+                    print("******stopCapturingBlock*********")
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        NotificationManager.shared.openReviewScreenWithLastVideo()
+                    }
                     block(notification)
                 } else {
                     let finishedTutorial = AppPreferences.shared.bool(forKey: .finishedTutorial)
