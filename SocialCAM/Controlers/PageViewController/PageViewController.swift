@@ -29,11 +29,11 @@ class PageViewController: PageboyViewController {
             if let homeVC = R.storyboard.homeScreen.homeTabBarController() {
             }
         }
-        if !isQuickApp || !isQuickCamLiteApp {
-            if let viralToolsVC = R.storyboard.storyCameraViewController.businessNavigationController() {
-                viralToolsVC.navigationBar.isHidden = true
-                viewControllers.append(viralToolsVC)
-            }
+        if !isQuickApp || !isQuickCamLiteApp || !isRecorderApp {
+//            if let viralToolsVC = R.storyboard.storyCameraViewController.businessNavigationController() {
+//                viralToolsVC.navigationBar.isHidden = true
+//                viewControllers.append(viralToolsVC)
+//            }
         }
         return viewControllers
     }()
