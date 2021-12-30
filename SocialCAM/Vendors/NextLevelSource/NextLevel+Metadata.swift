@@ -127,7 +127,7 @@ extension CMSampleBuffer {
             packetDescriptions: nil,        // packetDescriptions
             sampleBufferOut: &sampleBuffer
         )
-        assert(status == noErr)
+       // assert(status == noErr)
         
         return sampleBuffer
     }
