@@ -261,7 +261,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #elseif QUICKCAMLITEAPP
         Defaults.shared.cameraMode = .promo
         #else
-        Defaults.shared.cameraMode = .normal
+        Defaults.shared.cameraMode = .promo
         #endif
         //isLiteApp (width: Constant.Application.splashImageSize, height: Constant.Application.splashImageSize)
         let revealingSplashView = RevealingSplashView(iconImage: Constant.Application.appIcon, iconInitialSize: isQuickApp ? CGSize(width: 50, height: 50) : Constant.Application.appIcon.size, backgroundImage: Constant.Application.splashBG)

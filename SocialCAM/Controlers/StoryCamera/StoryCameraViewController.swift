@@ -1153,8 +1153,8 @@ extension StoryCameraViewController {
 //                cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .capture})
 //                cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .pic2Art})
 //            }
-            self.recordingType = cameraModeArray.first!.recordingType
-            Defaults.shared.cameraMode = cameraModeArray.first!.recordingType
+          //  self.recordingType = cameraModeArray.first!.recordingType
+          //  Defaults.shared.cameraMode = cameraModeArray.first!.recordingType
         } else if isSnapCamApp || isFastCamApp || isSpeedCamApp {
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .slideshow})
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastMotion})
