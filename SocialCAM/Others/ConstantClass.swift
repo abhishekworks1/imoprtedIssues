@@ -196,8 +196,8 @@ public struct Constant {
         static let appIcon = UIImage(named: "recordeAppSplashLogo")!
         #endif
         static let groupIdentifier: String = "group.com.simform.storiCamPro"
-        static let recordeGroupIdentifier: String = "group.com.quickCamLite.app"
-        static let recorderExtensionIdentifier: String = "com.QuickCamLite.app.QuickCamLiteExtension"
+        static let recordeGroupIdentifier: String = "group.com.socialScreenRecorder.app"//"group.com.quickCamLite.app"
+        static let recorderExtensionIdentifier: String = "com.socialScreenRecorder.app.recorderExtension"//"com.QuickCamLite.app.QuickCamLiteExtension"
         
         static let pasteboardName: String = "com.Pic2Art.app.CopyFrom"
         static let pasteboardType: String = "com.Pic2Art.app.shareImageData"

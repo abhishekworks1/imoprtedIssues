@@ -51,11 +51,25 @@ struct SystemBroadcastPickerViewBuilder {
         superView.layoutIfNeeded()
         
         layout(broadCastPickerView: broadCastPickerView)
+        
+//        extensionContext?.loadBroadcastingApplicationInfo(completion: {
+//                    (bundleID, displayName, appIcon) in
+//
+//                    })
     }
     
     static func layout(broadCastPickerView: RPSystemBroadcastPickerView) {
         let isCaptured = UIScreen.main.isCaptured
         broadCastPickerView.backgroundColor = isCaptured ? .red : .clear
         broadCastPickerView.roundCorners(corners: [.allCorners], radius: broadCastPickerView.frame.height / 2)
+    }
+    
+    static func removeBroadcastPicker(){
+        guard let broadCastPickerView = broadCastPicker else {
+            return
+        }
+        
+        // remove from superview
+        broadCastPickerView.removeFromSuperview()
     }
 }

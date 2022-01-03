@@ -30,7 +30,7 @@ extension ScreenCaptureObservable where Self: UIViewController {
                     AppPreferences.shared.set(value: true, forKey: .startedScreenRecording)
                     startCapturingBlock?(notification)
                     print("******startedScreenRecording*********")
-
+                    //SystemBroadcastPickerViewBuilder.removeBroadcastPicker()
                     return
                 }
                 
@@ -59,4 +59,6 @@ extension ScreenCaptureObservable where Self: UIViewController {
         }
         observers.removeAll()
     }
+    
+    
 }

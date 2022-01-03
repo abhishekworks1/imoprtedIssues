@@ -14,7 +14,7 @@ public protocol NotificationManagerDelegate: class {
 }
 
 open class NotificationManager: NSObject {
-   
+    
     static let shared: NotificationManager = NotificationManager()
     
     weak var delegate: NotificationManagerDelegate?
@@ -35,12 +35,12 @@ open class NotificationManager: NSObject {
     }
     
     func openReviewScreenWithLastVideo() {
-//        guard let fileVideo = FileSystemUtil.getAllFiles().first, let file = fileVideo["absolutePath"] as? String, let fileUrl = URL(string: file), file.contains("test_file") && file.contains("mp4") else {
-//            print("file Not Found")
-//            return
-//        }
+        //        guard let fileVideo = FileSystemUtil.getAllFiles().first, let file = fileVideo["absolutePath"] as? String, let fileUrl = URL(string: file), file.contains("test_file") && file.contains("mp4") else {
+        //            print("file Not Found")
+        //            return
+        //        }
         let fileVideo1 = FileSystemUtil.getAllFiles().first
-         print(fileVideo1)
+        print(fileVideo1)
         guard let fileVideo = FileSystemUtil.getAllFiles().first, let file = fileVideo["absolutePath"] as? String, let fileUrl = URL(string: file), file.contains("test_file") && file.contains("mp4") else {
             print("file Not Found")
             return
@@ -61,5 +61,5 @@ open class NotificationManager: NSObject {
             }
         }
     }
-   
+    
 }

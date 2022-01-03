@@ -19,6 +19,7 @@ class SampleHandler: RPBroadcastSampleHandler, UNUserNotificationCenterDelegate 
     let userNotificationCenter = UNUserNotificationCenter.current()
     
     override func broadcastStarted(withSetupInfo setupInfo: [String: NSObject]?) {
+        print("**extension***broadcastStarted")
         fileName = "test_file\(Int.random(in: 10 ..< 1000))"
         let fileURL = URL(fileURLWithPath: FileSystemUtil.filePath(fileName!))
         gfileURL = fileURL
@@ -50,6 +51,7 @@ class SampleHandler: RPBroadcastSampleHandler, UNUserNotificationCenterDelegate 
         assetWriter.startWriting()
         self.userNotificationCenter.delegate = self
         requestNotificationAuthorization()
+        
     }
     
     func requestNotificationAuthorization() {
@@ -58,6 +60,8 @@ class SampleHandler: RPBroadcastSampleHandler, UNUserNotificationCenterDelegate 
         self.userNotificationCenter.requestAuthorization(options: authOptions) { (_, _) in
             
         }
+        print("**extension***requestNotificationAuthorization")
+
     }
     
     override func broadcastPaused() {
@@ -69,6 +73,7 @@ class SampleHandler: RPBroadcastSampleHandler, UNUserNotificationCenterDelegate 
     }
     
     override func broadcastFinished() {
+        print("**extension***broadcastFinished")
         let dispatchGroup = DispatchGroup()
         dispatchGroup.enter()
         self.videoInput.markAsFinished()
@@ -105,6 +110,8 @@ class SampleHandler: RPBroadcastSampleHandler, UNUserNotificationCenterDelegate 
     
     override func processSampleBuffer(_ sampleBuffer: CMSampleBuffer, with bufferType: RPSampleBufferType) {
         super.processSampleBuffer(sampleBuffer, with: bufferType)
+        //print("**extension***processSampleBuffer")
+
         if CMSampleBufferDataIsReady(sampleBuffer) {
             if !isWritingStarted {
                 self.assetWriter.startSession(atSourceTime: CMSampleBufferGetPresentationTimeStamp(sampleBuffer))
@@ -131,10 +138,14 @@ class SampleHandler: RPBroadcastSampleHandler, UNUserNotificationCenterDelegate 
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        print("**extension***userNotificationCenter-didReceive")
+
         completionHandler()
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        print("**extension***userNotificationCenter-willPresent")
+
         completionHandler([.alert, .badge, .sound])
     }
     

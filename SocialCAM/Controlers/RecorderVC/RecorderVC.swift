@@ -13,6 +13,7 @@ class RecorderVC: UIViewController, ScreenCaptureObservable {
     
     var observers = [NSObjectProtocol]()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
