@@ -1483,7 +1483,7 @@ extension StoryEditorViewController {
                 return
             }
             let storyEditor = storyEditors[currentStoryIndex]
-            storyEditor.isCropped = true
+            storyEditor.isCropped = false
             storyEditor.replaceMedia(.video(image, AVAsset(url: croppedUrl)))
             nativeVideoPlayerRefresh()
             self.needToExportVideo()
