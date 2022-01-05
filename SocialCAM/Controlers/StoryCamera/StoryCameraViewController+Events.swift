@@ -17,12 +17,12 @@ extension StoryCameraViewController {
             isMute = !isMute
             setupMuteUI()
             Defaults.shared.isMicOn = isMute
+            Defaults.shared.callHapticFeedback(isHeavy: false)
             if isMute {
                 Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_micOff)
 
             }else{
                 Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_micOn)
-
             }
         }
     }
@@ -105,6 +105,7 @@ extension StoryCameraViewController {
         if isVideoRecording {
             nextLevel.torchMode = NextLevelTorchMode(rawValue: flashMode.rawValue) ?? .auto
         }
+        Defaults.shared.callHapticFeedback(isHeavy: false)
         Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_flash)
     }
     
@@ -122,7 +123,7 @@ extension StoryCameraViewController {
         photoPickerVC.modalPresentationStyle = .fullScreen //or .overFullScreen for transparency
 
         self.navigationController?.present(photoPickerVC, animated: true, completion: nil)
-        
+        Defaults.shared.callHapticFeedback(isHeavy: false)
         Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_gallery)
     }
     
@@ -142,6 +143,7 @@ extension StoryCameraViewController {
             }else{
                 Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_front)
             }
+            Defaults.shared.callHapticFeedback(isHeavy: false)
             self.flipButton.isSelected = !self.flipButton.isSelected
             self.currentCameraPosition = (self.currentCameraPosition == .front) ? .back : .front
             self.setCameraPositionUI()
@@ -162,7 +164,7 @@ extension StoryCameraViewController {
                 self.topStackView.addArrangedSubview(self.showhideView)
                 self.topStackView.addArrangedSubview(self.businessDashboardStackView)
             }
-       
+        Defaults.shared.callHapticFeedback(isHeavy: false)
         Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_HideIcons)
     }
     
@@ -415,6 +417,7 @@ extension StoryCameraViewController {
     }
     
     @IBAction func onStorySettings(_ sender: Any) {
+        Defaults.shared.callHapticFeedback(isHeavy: false)
         Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_Setting)
         if settingsButton.isSelected {
             if Defaults.shared.cameraMode == .custom && self.takenVideoUrls.count > 0 {
@@ -520,6 +523,7 @@ extension StoryCameraViewController {
             }
             presentSafariBrowser(url: url)
         }
+        Defaults.shared.callHapticFeedback(isHeavy: false)
         Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_Bdashboard)
         
         blurView.isHidden = true
@@ -649,6 +653,7 @@ extension StoryCameraViewController {
                  }
                  presentSafariBrowser(url: url)
              }
+             Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
              Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_Bdashboard)
         }
     }

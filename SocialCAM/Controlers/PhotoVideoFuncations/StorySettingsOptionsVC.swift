@@ -46,9 +46,9 @@ class CameraSettings {
     ]
 }
 enum HapticSetting: Int{
+    case some = 0
+    case none = 2
     case all = 1
-    case some = 2
-    case none = 0
 }
 class StorySettingsOptionsVC: UIViewController {
     
@@ -193,6 +193,8 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
             cell.imgSettingsIcon.isHidden = true
             cell.onOffButton.isSelected = Defaults.shared.allowHaptic == HapticSetting.all.rawValue
             cell.onOffButton.alpha = cell.onOffButton.isSelected ? 1 : 0.5
+            print("Defaults.shared.allowHaptic == HapticSetting.none.rawValue \(Defaults.shared.allowHaptic == HapticSetting.all.rawValue)")
+            print("Defaults.shared.allowHaptic \(Defaults.shared.allowHaptic)")
         } else if settingTitle.settingsType == .hapticSome {
             cell.onOffButton.isHidden = false
             cell.stackView.backgroundColor = UIColor.white
@@ -200,6 +202,8 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
             cell.imgSettingsIcon.isHidden = true
             cell.onOffButton.isSelected = Defaults.shared.allowHaptic == HapticSetting.some.rawValue
             cell.onOffButton.alpha = cell.onOffButton.isSelected ? 1 : 0.5
+            print("Defaults.shared.allowHaptic == HapticSetting.some.rawValue \(Defaults.shared.allowHaptic == HapticSetting.none.rawValue)")
+            print("Defaults.shared.allowHaptic \(Defaults.shared.allowHaptic)")
         } else if settingTitle.settingsType == .hapticNone {
             cell.onOffButton.isHidden = false
             cell.stackView.backgroundColor = UIColor.white
@@ -207,6 +211,8 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
             cell.imgSettingsIcon.isHidden = true
             cell.onOffButton.isSelected = Defaults.shared.allowHaptic == HapticSetting.none.rawValue
             cell.onOffButton.alpha = cell.onOffButton.isSelected ? 1 : 0.5
+            print("Defaults.shared.allowHaptic == HapticSetting.none.rawValue \(Defaults.shared.allowHaptic == HapticSetting.none.rawValue)")
+            print("Defaults.shared.allowHaptic \(Defaults.shared.allowHaptic)")
         } else if settingTitle.settingsType == .videoResolution {
             cell.onOffButton.isHidden = true
             guard let videoResolutionCell: VideoResolutionCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.videoResolutionCell.identifier) as? VideoResolutionCell else {

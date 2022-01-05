@@ -636,10 +636,10 @@ enum AppMode: Int, AppMode_Enum {
                     "Face detection",
                     "Flash on/off/auto"]
         case .basic:
-            return ["Segment length customisation: Upto 30 seconds",
-                    "Video countdown timer: Upto 60 seconds",
-                    "Slow motion recording upto -3x speed",
-                    "Fast motion recording upto 3x speed",
+            return ["Segment length customisation: Up to 30 seconds",
+                    "Video countdown timer: Up to 60 seconds",
+                    "Slow motion recording up to -3x speed",
+                    "Fast motion recording up to 3x speed",
                     "Face detection",
                     "Flash on/off/auto"]
         case .advanced:

@@ -132,10 +132,12 @@ open class CropViewController: UIViewController {
     }
     
     @objc func cancel(_ sender: UIBarButtonItem) {
+        Defaults.shared.callHapticFeedback(isHeavy: false)
         delegate?.cropViewControllerDidCancel(self)
     }
     
     @objc func done(_ sender: UIBarButtonItem) {
+        Defaults.shared.callHapticFeedback(isHeavy: false)
         if let image = cropView?.croppedImage {
             guard let rotation = cropView?.rotation else {
                 return

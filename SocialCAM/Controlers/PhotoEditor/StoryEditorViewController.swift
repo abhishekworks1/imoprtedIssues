@@ -681,6 +681,7 @@ extension StoryEditorViewController {
     }
     
     @IBAction func snapDecorClicked(_ sender: UIButton) {
+        Defaults.shared.callHapticFeedback(isHeavy: false)
         guard let bitmojiStickerPickerViewController = R.storyboard.storyEditor.bitmojiStickerPickerViewController() else {
             return
         }
@@ -708,6 +709,7 @@ extension StoryEditorViewController {
         colorSlider.color = storyEditors[currentStoryIndex].textColor
         colorSlider.layoutSubviews()
         self.isSettingsChange = true
+        Defaults.shared.callHapticFeedback(isHeavy: false)
     }
     
     @IBAction func drawClicked(_ sender: UIButton) {
@@ -732,6 +734,7 @@ extension StoryEditorViewController {
     }
 
     @IBAction func soundClicked(_ sender: UIButton) {
+        Defaults.shared.callHapticFeedback(isHeavy: false)
         storyEditors[currentStoryIndex].isMuted = !storyEditors[currentStoryIndex].isMuted
         self.needToExportVideo()
         let soundIcon = storyEditors[currentStoryIndex].isMuted ? R.image.storySoundOff() : R.image.storySoundOn()
@@ -782,6 +785,7 @@ extension StoryEditorViewController {
     }
     
     @IBAction func trimClicked(_ sender: UIButton) {
+        Defaults.shared.callHapticFeedback(isHeavy: false)
         let trimVC: TrimEditorViewController = R.storyboard.videoTrim.trimEditorViewController()!
         
         var filteredMedias: [StoryEditorMedia] = []
@@ -933,6 +937,7 @@ extension StoryEditorViewController {
     }
     
     @IBAction func cropClicked(_ sender: UIButton) {
+        Defaults.shared.callHapticFeedback(isHeavy: false)
         var cropViewController: CropViewController
         switch storyEditors[currentStoryIndex].type {
         case let .image(image):
@@ -1017,22 +1022,26 @@ extension StoryEditorViewController {
                 }
             }
             navigationController?.popViewController(animated: true)
+            Defaults.shared.callHapticFeedback(isHeavy: false)
         }
     }
     
     @IBAction func doneClicked(_ sender: UIButton) {
+        Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
         storyEditors[currentStoryIndex].endDrawing()
         storyEditors[currentStoryIndex].endTextEditing()
         hideToolBar(hide: false)
     }
     
     @IBAction func closeDoneClicked(_ sender: UIButton) {
+        Defaults.shared.callHapticFeedback(isHeavy: false)
         storyEditors[currentStoryIndex].endDrawing()
         storyEditors[currentStoryIndex].endTextEditing()   //cancelTextEditing()
         hideToolBar(hide: false)
     }
 
     @IBAction func downloadClicked(_ sender: UIButton) {
+        Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
         referType = storyEditors[currentStoryIndex].referType
         imageVideoExport(isDownload: true)
     }
@@ -1313,6 +1322,7 @@ extension StoryEditorViewController {
     }
     
     @IBAction func btnShowHideEditOptionsClick(_ sender: AnyObject) {
+        Defaults.shared.callHapticFeedback(isHeavy: false)
         if Defaults.shared.isShowAllPopUpChecked == true {
             hideToolTipView(isHide: Defaults.shared.isToolTipHide)
         } else if !Defaults.shared.isToolTipHide {
@@ -1474,6 +1484,7 @@ extension StoryEditorViewController {
             self.needToExportVideo()
         }
         self.hideCropPopView(isHide: true)
+        Defaults.shared.callHapticFeedback(isHeavy: false)
     }
     
     @IBAction func croppedScreenButtonClicked(sender: UIButton) {
@@ -1489,6 +1500,7 @@ extension StoryEditorViewController {
             self.needToExportVideo()
         }
         self.hideCropPopView(isHide: true)
+        Defaults.shared.callHapticFeedback(isHeavy: false)
     }
     
     @IBAction func doNotShowAgainButtonClicked(sender: UIButton) {
@@ -1517,6 +1529,7 @@ extension StoryEditorViewController {
     }
     
     @IBAction func fastesteverWatermarkButtonClicked(sender: UIButton) {
+        Defaults.shared.callHapticFeedback(isHeavy: false)
         isFastesteverWatermarkShow = !isFastesteverWatermarkShow
         btnFastesteverWatermark.isSelected = isFastesteverWatermarkShow
         btnSelectFastesteverWatermark.isSelected = isFastesteverWatermarkShow
@@ -1524,6 +1537,7 @@ extension StoryEditorViewController {
     }
     
     @IBAction func publicDisplaynameButtonClicked(sender: UIButton) {
+        Defaults.shared.callHapticFeedback(isHeavy: false)
         isPublicDisplaynameWatermarkShow = !isPublicDisplaynameWatermarkShow
         btnSelectPublicDisplaynameWatermark.isSelected = isPublicDisplaynameWatermarkShow
         Defaults.shared.publicDisplaynameWatermarkSetting = self.isPublicDisplaynameWatermarkShow ? .show : .hide
@@ -1535,15 +1549,7 @@ extension StoryEditorViewController {
     }
     
     @IBAction func appIdentifierWatermarkButtonClicked(sender: UIButton) {
-      /*  if Defaults.shared.appMode == .free {
-            if let watermarkSettingsVC = R.storyboard.storyCameraViewController.watermarkSettingsViewController() {
-                navigationController?.pushViewController(watermarkSettingsVC, animated: true)
-            }
-        } else {
-            isAppIdentifierWatermarkShow = !isAppIdentifierWatermarkShow
-            btnAppIdentifierWatermark.isSelected = isAppIdentifierWatermarkShow
-            btnSelectAppIdentifierWatermark.isSelected = isAppIdentifierWatermarkShow
-        }*/
+        Defaults.shared.callHapticFeedback(isHeavy: false)
         isAppIdentifierWatermarkShow = !isAppIdentifierWatermarkShow
         btnAppIdentifierWatermark.isSelected = isAppIdentifierWatermarkShow
         btnSelectAppIdentifierWatermark.isSelected = isAppIdentifierWatermarkShow
@@ -1564,12 +1570,14 @@ extension StoryEditorViewController {
             isMadeWithGifShow = !isMadeWithGifShow
             btnSelectedMadeWithGif.isSelected = isMadeWithGifShow
         } */
+        Defaults.shared.callHapticFeedback(isHeavy: false)
         isMadeWithGifShow = !isMadeWithGifShow
         btnSelectedMadeWithGif.isSelected = isMadeWithGifShow
         Defaults.shared.madeWithGifSetting = self.isMadeWithGifShow ? .show : .hide
     }
     
     @IBAction func watermarkViewOkayButtonClicked(sender: UIButton) {
+        Defaults.shared.callHapticFeedback(isHeavy: false)
         Defaults.shared.fastestEverWatermarkSetting = self.isFastesteverWatermarkShow ? .show : .hide
         Defaults.shared.appIdentifierWatermarkSetting = self.isAppIdentifierWatermarkShow ? .show : .hide
         Defaults.shared.madeWithGifSetting = self.isMadeWithGifShow ? .show : .hide

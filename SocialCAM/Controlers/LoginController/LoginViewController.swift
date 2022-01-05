@@ -184,6 +184,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         if Defaults.shared.isLoginTooltipHide == false {
             self.hideShowTooltipView(shouldShow: true)
         } else {
+            Defaults.shared.callHapticFeedback(isHeavy: false)
             isLoginButtonPressed = false
             goToKeycloakWebview(url: "\(keycloakUrl)\(keycloakClientId)\(KeycloakRedirectLink.keycloakRedirectLinkName.lowercased())\(KeycloakRedirectLink.endUrl)\(KeycloakRedirectLink.fromLogin)")
         }
@@ -523,6 +524,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBAction func btnForgotClicked(sender: Any) {
         let url = "\(keycloakUrl)\(keycloakForogtPasswordClientId)\(KeycloakRedirectLink.keycloakRedirectLinkName.lowercased())\(KeycloakRedirectLink.endUrl)"
         goToKeycloakWebview(url: url)
+        Defaults.shared.callHapticFeedback(isHeavy: false)
         Defaults.shared.addEventWithName(eventName: Constant.EventName.click_forgotpsw)
 
     }
@@ -538,11 +540,13 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     @IBAction func btnTermsAndConditionsTapped(_ sender: Any) {
+        Defaults.shared.callHapticFeedback(isHeavy: false)
         guard let termsAndConditionsVc = R.storyboard.legal.legalViewController() else { return }
         self.navigationController?.pushViewController(termsAndConditionsVc, animated: true)
     }
     
     @IBAction func btnPrivacyPolicyTapped(_ sender: Any) {
+        Defaults.shared.callHapticFeedback(isHeavy: false)
         guard let privacyPolicyVc = R.storyboard.legal.legalViewController() else { return }
         privacyPolicyVc.isTermsAndConditions = false
         self.navigationController?.pushViewController(privacyPolicyVc, animated: true)
