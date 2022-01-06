@@ -22,7 +22,8 @@ open class InstaSlider: UIView {
         }
     }
     
-    open var cellTextColor: UIColor = UIColor.lightGray
+   // open var cellTextColor: UIColor = UIColor(red:130.0, green: 130.0, blue: 230.0, alpha: 1)
+    open var cellTextColor: UIColor = UIColor.yellow
     open var selectedCellTextColor: UIColor = UIColor.white
     
     open var stringArray: [CameraModes] = [] {
@@ -32,6 +33,9 @@ open class InstaSlider: UIView {
     }
     
     private var collectionViewLayout: HorizontalFlowLayout!
+    
+    
+    
     
     open var selectCell: Int = 0 {
         didSet {
@@ -138,7 +142,9 @@ open class InstaSlider: UIView {
                 guard let currentCell = cell as? CollectionViewCustomCell else {
                     return
                 }
-                currentCell.label.textColor = cellTextColor
+                currentCell.label.makeLabelOpaque()
+               // currentCell.label.textColor = cellTextColor
+                currentCell.label.textColor = UIColor(hex:"ebebeb")
                 currentCell.label.font = UIFont.systemFont(ofSize: 15)
             }
             
@@ -157,7 +163,9 @@ open class InstaSlider: UIView {
             let actualPosition = scrollView.panGestureRecognizer.translation(in: scrollView.superview)
             for cellView in self.collectionView.visibleCells {
                 let currentCell = cellView as? CollectionViewCustomCell
-                currentCell!.label.textColor = cellTextColor
+                currentCell!.label.makeLabelOpaque()
+              //  currentCell!.label.textColor = cellTextColor
+                currentCell!.label.textColor = UIColor(hex:"ebebeb")
                 currentCell!.label.font = UIFont.systemFont(ofSize: 15)
                 if(currentCell == cells! && (selectedCell == 0 || selectedCell == 1) && actualPosition.x > 0) {
                     selectedCell = collectionView.indexPath(for: cells!)?.item
@@ -180,7 +188,9 @@ open class InstaSlider: UIView {
                 guard let currentCell = cell as? CollectionViewCustomCell else {
                     return
                 }
-                currentCell.label.textColor = cellTextColor
+                currentCell.label.makeLabelOpaque()
+               // currentCell.label.textColor = cellTextColor
+                currentCell.label.textColor = UIColor(hex:"ebebeb")
                 currentCell.label.font = UIFont.systemFont(ofSize: 15)
             }
             
@@ -239,14 +249,15 @@ extension InstaSlider: UICollectionViewDataSource, UICollectionViewDelegate, UIC
                 kCell.label.textColor = selectedCellTextColor
                 kCell.label.font = UIFont.systemFont(ofSize: 17)
             } else {
-                kCell.label.textColor = cellTextColor
+                kCell.label.makeLabelOpaque()
+               // kCell.label.textColor = cellTextColor
+                kCell.label.textColor = UIColor(hex:"ebebeb")
                 kCell.label.font = UIFont.systemFont(ofSize: 15)
             }
         }
         
         return kCell
     }
-    
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize.init(width: 110, height: self.collectionView.frame.height/2)
     }
@@ -302,5 +313,18 @@ class CollectionViewCustomCell: UICollectionViewCell {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         addViews()
+    }
+}
+extension UILabel{
+    func makeLabelOpaque(){
+        self.textColor = .white
+        self.layer.shadowOpacity = 0.5
+        self.layer.shadowRadius = 0.5
+        self.backgroundColor = .clear
+        self.layer.shadowColor = UIColor.gray.cgColor
+        self.layer.shadowOffset = CGSize(width: 0.0, height: -0.5)
+        self.textAlignment = .center
+        self.numberOfLines = 1
+        self.translatesAutoresizingMaskIntoConstraints = false
     }
 }

@@ -51,8 +51,10 @@ class SSViewController: UIViewController {
     }
     
     private func showForceAlert() {
+        Defaults.shared.callHapticFeedback(isHeavy: false)
         let updateAction = UIAlertAction(title: R.string.localizable.update(), style: .default) { (action) in
             self.launchAppUpdate()
+            Defaults.shared.callHapticFeedback(isHeavy: false,isImportant:true)
         }
         
         let alert = UIAlertController.showAlert(title: Bundle.getAppName(), message: "\n \(R.string.localizable.aNewVersion()) \(appStoreVersion) \n\n \(releaseNote)", actions: [updateAction], preferredStyle: .alert)
@@ -62,17 +64,20 @@ class SSViewController: UIViewController {
     }
     
     private func showOptionalAlert() {
+        Defaults.shared.callHapticFeedback(isHeavy: false)
         UserDefaults.alertPresentationDate = Date()
         let updateAction = UIAlertAction(title: R.string.localizable.update(), style: .default) { (action) in
             self.launchAppUpdate()
             DispatchQueue.main.async {
                 self.currentWindow = nil
             }
+            Defaults.shared.callHapticFeedback(isHeavy: false,isImportant:true)
         }
         let cancelAction = UIAlertAction(title: R.string.localizable.cancel(), style: .default) { (action) in
             DispatchQueue.main.async {
                 self.currentWindow = nil
             }
+            Defaults.shared.callHapticFeedback(isHeavy: false,isImportant:true)
         }
         let skipAction = UIAlertAction(title: R.string.localizable.skipThisVersion(), style: .default) { (action) in
             DispatchQueue.main.async {

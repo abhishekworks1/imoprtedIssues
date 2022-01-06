@@ -1143,16 +1143,17 @@ extension StoryCameraViewController {
                 cameraModeArray.insert(CameraModes(name: R.string.localizable.video2Art().uppercased(), recordingType: .handsfree), at: index)
             }
         } else if isLiteApp {
-         //   if Defaults.shared.appMode == .free {
+            if Defaults.shared.appMode == .free {
                 cameraModeArray = cameraModeArray.filter({$0.recordingType == .promo})
                 cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .normal})
                 cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .capture})
                 cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .pic2Art})
-//            }else{
-//                cameraModeArray = cameraModeArray.filter({$0.recordingType == .normal})
-//                cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .capture})
-//                cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .pic2Art})
-//            }
+            }else{
+                cameraModeArray = cameraModeArray.filter({$0.recordingType == .normal})
+                cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .promo})
+                cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .capture})
+                cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .pic2Art})
+            }
           //  self.recordingType = cameraModeArray.first!.recordingType
           //  Defaults.shared.cameraMode = cameraModeArray.first!.recordingType
         } else if isSnapCamApp || isFastCamApp || isSpeedCamApp {
