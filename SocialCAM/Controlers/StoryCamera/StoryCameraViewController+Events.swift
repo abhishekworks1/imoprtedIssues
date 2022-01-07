@@ -19,7 +19,6 @@ extension StoryCameraViewController {
             Defaults.shared.isMicOn = isMute
             if isMute {
                 Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_micOff)
-
             }else{
                 Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_micOn)
 
@@ -748,21 +747,21 @@ extension StoryCameraViewController: PickerViewDataSource {
             switch Defaults.shared.appMode {
             case .free:
                 if isSpeedCamApp || isSnapCamApp || isFastCamApp {
-                    maximumItem = "10"
+                    maximumItem = "5"
                 } else {
-                    maximumItem = "30"
+                    maximumItem = "15"
                 }
             case .basic:
                 if isLiteApp || isSpeedCamApp || isSnapCamApp || isFastCamApp {
-                    maximumItem = "30"
+                    maximumItem = "15"
                 } else {
-                    maximumItem = "60"
+                    maximumItem = "30"
                 }
             case .advanced:
                 if isSpeedCamApp || isSnapCamApp || isFastCamApp {
-                    maximumItem = "60"
+                    maximumItem = "15"
                 } else {
-                    maximumItem = "180"
+                    maximumItem = "45"
                 }
             default:
                 break
