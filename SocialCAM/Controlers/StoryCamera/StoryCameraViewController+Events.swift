@@ -9,6 +9,14 @@
 import Foundation
 import AVKit
 
+enum SetSegmentLength: String {
+    case startValue = "5"
+    case free = "15"
+    case basic = "30"
+    case advanced = "45"
+    case professional = "240"
+}
+
 extension StoryCameraViewController {
     
     // MARK: IBActions
@@ -743,29 +751,32 @@ extension StoryCameraViewController: PickerViewDataSource {
             return pauseTimerOptions.count
         case .segmentLength:
             var segmentLength: [String] = []
-            var maximumItem = "240"
+//            var maximumItem = "240"
+            var setmaximumItem = setSegmentLength
+            var maximumItem = setmaximumItem.rawValue
             switch Defaults.shared.appMode {
             case .free:
                 if isSpeedCamApp || isSnapCamApp || isFastCamApp {
-                    maximumItem = "5"
+                    setmaximumItem = .startValue
                 } else {
-                    maximumItem = "15"
+                    setmaximumItem = .free
                 }
             case .basic:
                 if isLiteApp || isSpeedCamApp || isSnapCamApp || isFastCamApp {
-                    maximumItem = "15"
+                    setmaximumItem = .free
                 } else {
-                    maximumItem = "30"
+                    setmaximumItem = .basic
                 }
             case .advanced:
                 if isSpeedCamApp || isSnapCamApp || isFastCamApp {
-                    maximumItem = "15"
+                    setmaximumItem = .free
                 } else {
-                    maximumItem = "45"
+                    setmaximumItem = .advanced
                 }
             default:
                 break
             }
+            maximumItem = setmaximumItem.rawValue
             for segmentItem in segmentLengthOptions {
                 segmentLength.append(segmentItem)
                 if segmentItem == maximumItem {
