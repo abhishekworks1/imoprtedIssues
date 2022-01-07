@@ -104,18 +104,15 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     
     @IBOutlet weak var speedSliderView: UIView!
     @IBOutlet weak var closeButton: UIButton!
-    
     @IBOutlet weak var lblRightSeparator: UILabel!
     @IBOutlet weak var lblLeftSeparator: UILabel!
     @IBOutlet weak var slowFastVerticalBar: UIView!
     @IBOutlet weak var verticalLines: VerticalBar!
-    
     @IBOutlet weak var enableMicrophoneButton: UIButton!
     @IBOutlet weak var enableCameraButton: UIButton!
     @IBOutlet weak var enableAccessView: UIView!
     @IBOutlet weak var blurView: UIVisualEffectView!
     @IBOutlet weak var effectButton: UIButton!
-    
     @IBOutlet weak var circularProgress: CircularProgress! {
         didSet {
             circularProgress.startAngle = -90
@@ -156,7 +153,6 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     }
     
     @IBOutlet weak var cameraSliderView: InstaSlider!
-    
     @IBOutlet weak var photoTimerView: UIView!
     @IBOutlet weak var flipLabel: UILabel!
     @IBOutlet weak var flashLabel: UILabel!
