@@ -29,6 +29,12 @@ public class CameraModes {
         self.recordingType = recordingType
     }
 }
+enum CameraName{
+    static let miniboomi = "Mini Boomi"
+    static let boomi     =  "Boomi"
+    static let bigboomi  = "Big Boomi"
+    static let liveboomi = "Live Boomi"
+}
 
 class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
    
@@ -286,7 +292,12 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     
     var isForceCaptureImageWithVolumeKey: Bool = false
     var labelSpeedTxt = ""
-
+    
+    var currentCameraName: String = CameraName.miniboomi {
+        didSet {
+            Defaults.shared.cameraName = self.currentCameraName
+        }
+    }
     var recordingType: CameraMode = .basicCamera {
         didSet {
             if recordingType != .custom {
@@ -936,7 +947,27 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             self.dynamicSetSlowFastVerticalBar()
         }
     }
-    
+    func setMaxRecordingTime()->Int{
+        let cameraName = Defaults.shared.cameraName
+        if self.recordingType == .boomerang{
+            if cameraName == CameraName.miniboomi{
+                return 3
+            }else if cameraName == CameraName.boomi{
+                if Defaults.shared.appMode == .basic || Defaults.shared.appMode == .advanced || Defaults.shared.appMode == .professional{
+                    return 15
+                }
+            }else if cameraName == CameraName.bigboomi{
+                if Defaults.shared.appMode == .advanced || Defaults.shared.appMode == .professional{
+                    return 30
+                }
+            }else if cameraName == CameraName.liveboomi{
+                if Defaults.shared.appMode == .professional{
+                    return 30
+                }
+            }
+        }
+        return 3
+    }
     func selectedSegmentLengthChange() {
         if Defaults.shared.appMode == .free && (isSpeedCamApp || isFastCamApp || isSnapCamApp) {
             self.selectedSegmentLengthValue = SelectedTimer(value: "10", selectedRow: 1)
@@ -1118,10 +1149,9 @@ extension StoryCameraViewController {
 //            cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .pic2Art})
             
             cameraModeArray = [CameraModes]()
-            cameraModeArray.append(CameraModes(name: R.string.localizable.miniBoomi(), recordingType: .basicCamera))
+            cameraModeArray.append(CameraModes(name: R.string.localizable.miniBoomi(), recordingType: .boomerang))
             cameraModeArray.append(CameraModes(name: R.string.localizable.boomi(), recordingType: .boomerang))
             cameraModeArray.append(CameraModes(name: R.string.localizable.bigBoomi(), recordingType: .boomerang))
-            cameraModeArray.append(CameraModes(name: R.string.localizable.liveBoomi(), recordingType: .boomerang))
             cameraModeArray.append(CameraModes(name: R.string.localizable.liveBoomi(), recordingType: .boomerang))
             cameraModeArray.append(CameraModes(name: R.string.localizable.capturE(), recordingType: .capture))
 
@@ -1207,6 +1237,8 @@ extension StoryCameraViewController {
             self.timerValueView.isHidden = isLiteApp ? self.isUserTimerValueChange : !self.isUserTimerValueChange
             self.segmentLengthSelectedLabel.text = self.selectedSegmentLengthValue.value
             self.recordingType = Defaults.shared.cameraMode
+            self.currentCameraName = currentMode.name
+            print(Defaults.shared.cameraName)
             self.circularProgress.centerImage = UIImage()
             self.dynamicSetSlowFastVerticalBar()
             self.changeSpeedSliderValues()
@@ -1844,7 +1876,8 @@ extension StoryCameraViewController {
                     if self.recordingType == .custom {
                         totalSeconds = 240
                     } else if self.recordingType == .boomerang {
-                        if (isBoomiCamApp) {
+                        totalSeconds = CGFloat(self.setMaxRecordingTime())
+                        /*if (isBoomiCamApp) {
                             if Defaults.shared.appMode == .basic{
                                 totalSeconds = 7
                             }else{
@@ -1852,7 +1885,7 @@ extension StoryCameraViewController {
                             }
                         }else{
                             totalSeconds = 2
-                        }
+                        } */
                       
                     } else if self.recordingType == .capture {
                         self.settingsButton.isUserInteractionEnabled = false
