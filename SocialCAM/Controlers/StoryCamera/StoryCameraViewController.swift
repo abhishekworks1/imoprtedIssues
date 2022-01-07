@@ -381,6 +381,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     }
     
     var isViewAppear = false
+    var isFreshSession = true
     var isShowEffectCollectionView = false
     var effectData = [EffectData]()
     var styleData = [StyleData]()
@@ -638,7 +639,16 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         view.bringSubviewToFront(businessDashbardConfirmPopupView)
         view.bringSubviewToFront(profilePicTooltip)
         self.syncUserModel { _ in
-            
+            if Defaults.shared.appMode == .basic &&  self.isFreshSession{
+                for (i,cameraMode) in self.cameraSliderView.stringArray.enumerated(){
+                    if cameraMode.recordingType == .normal{
+                        self.isFreshSession = false
+                        self.cameraSliderView.selectCell = i
+                        self.cameraSliderView.collectionView.reloadData()
+                        break
+                    }
+                }
+            }
         }
         
         self.verifyForceUpdate(isForground: false)
@@ -1142,18 +1152,10 @@ extension StoryCameraViewController {
                 cameraModeArray.remove(at: index)
                 cameraModeArray.insert(CameraModes(name: R.string.localizable.video2Art().uppercased(), recordingType: .handsfree), at: index)
             }
-        } else if isLiteApp {
-            if Defaults.shared.appMode == .free {
-                cameraModeArray = cameraModeArray.filter({$0.recordingType == .promo})
-                cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .normal})
-                cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .capture})
-                cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .pic2Art})
-            }else{
-                cameraModeArray = cameraModeArray.filter({$0.recordingType == .normal})
-                cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .promo})
-                cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .capture})
-                cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .pic2Art})
-            }
+        } else if isLiteApp {            cameraModeArray = cameraModeArray.filter({$0.recordingType == .promo})
+            cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .normal})
+            cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .capture})
+            cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .pic2Art})
           //  self.recordingType = cameraModeArray.first!.recordingType
           //  Defaults.shared.cameraMode = cameraModeArray.first!.recordingType
         } else if isSnapCamApp || isFastCamApp || isSpeedCamApp {
@@ -1703,7 +1705,7 @@ extension StoryCameraViewController {
     @objc func enterForeground(_ notifi: Notification) {
         if isViewAppear {
             syncUserModel { _ in
-                
+
             }
             self.verifyForceUpdate(isForground: true)
             
