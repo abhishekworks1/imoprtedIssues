@@ -117,7 +117,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
                 let centerPoint3x =  UIScreen.width - (UIScreen.width / 6) // 3X point
                 let newX = circularProgress.center.x + translation.x - 35
                 if newX < centerPoint1x || newX > centerPoint3x{
-                   self.circularProgress.center = CGPoint(x: circularProgress.center.x,y: circularProgress.center.y)
+                    self.circularProgress.center = CGPoint(x: circularProgress.center.x,y: circularProgress.center.y)
                 }else{
                     self.circularProgress.center = CGPoint(x: newX,y: circularProgress.center.y)
                 }
@@ -132,7 +132,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
                 if videoSpeedType != VideoSpeedType.normal {
                     self.setNormalSpeed(selectedValue: 2)
                 }
-                //return
+            //return
             default:
                 break
             }
@@ -141,7 +141,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
                 return
             }
             self.zoomSlider.value = Float(minZoom)
-
+            
             var speedOptions: [StoryCameraSpeedValue] = [.slow3x, .slow2x, .normal, .normal, .fast2x, .fast3x]
             
             if isLiteApp {
