@@ -126,6 +126,8 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             }
             if Defaults.shared.appMode != .free && self.recordingType != .promo {
                 nextLevel.videoZoomFactor = Float(minZoom)
+            } else {
+                nextLevel.videoZoomFactor = Float(minZoom)
             }
             switch Defaults.shared.appMode {
             case .free:
