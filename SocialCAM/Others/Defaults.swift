@@ -540,6 +540,15 @@ class Defaults {
         }
     }
     
+    var cameraName: String {
+        get {
+            return appDefaults?.value(forKey: "currentCameraName") as? String ?? ""
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "currentCameraName")
+        }
+    }
+    
     var appMode: AppMode {
         get {
             if isLiteApp {

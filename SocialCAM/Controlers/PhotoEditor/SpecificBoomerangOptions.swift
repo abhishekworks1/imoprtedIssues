@@ -43,17 +43,53 @@ class BoomerangOptions<T> {
                 BoomerangOption<Double>(value: 3, displayText: "3 \(R.string.localizable.seconds())")
                 ] as? [BoomerangOption<T>]
         case .speed:
+            if Defaults.shared.cameraName == CameraName.miniboomi{
+                return [
+                BoomerangOption<Int>(value: 2, displayText: "2x")
+                ] as? [BoomerangOption<T>]
+            }else if Defaults.shared.cameraName == CameraName.boomi{
+                return [
+                BoomerangOption<Int>(value: 1, displayText: "1x"),
+                BoomerangOption<Int>(value: 2, displayText: "2x"),
+                BoomerangOption<Int>(value: 3, displayText: "3x")
+                ] as? [BoomerangOption<T>]
+            }else if Defaults.shared.cameraName == CameraName.bigboomi{
+                return [
+                BoomerangOption<Int>(value: -3, displayText: "-3x"),
+                BoomerangOption<Int>(value: -2, displayText: "-2x"),
+                BoomerangOption<Int>(value: -1, displayText: "-1x"),
+                BoomerangOption<Int>(value: 1, displayText: "1x"),
+                BoomerangOption<Int>(value: 2, displayText: "2x"),
+                BoomerangOption<Int>(value: 3, displayText: "3x")
+                ] as? [BoomerangOption<T>]
+            }else if Defaults.shared.cameraName == CameraName.liveboomi{
+                return [
+                BoomerangOption<Int>(value: -3, displayText: "-3x"),
+                BoomerangOption<Int>(value: -2, displayText: "-2x"),
+                BoomerangOption<Int>(value: -1, displayText: "-1x"),
+                BoomerangOption<Int>(value: 1, displayText: "1x"),
+                BoomerangOption<Int>(value: 2, displayText: "2x"),
+                BoomerangOption<Int>(value: 3, displayText: "3x")
+                ] as? [BoomerangOption<T>]
+            }else{
             return [
-            BoomerangOption<Int>(value: 1, displayText: "1x"),
-            BoomerangOption<Int>(value: 2, displayText: "2x"),
-            BoomerangOption<Int>(value: 3, displayText: "3x"),
-            BoomerangOption<Int>(value: 4, displayText: "4x")
-            ] as? [BoomerangOption<T>]
+                BoomerangOption<Int>(value: 1, displayText: "1x"),
+                BoomerangOption<Int>(value: 2, displayText: "2x"),
+                BoomerangOption<Int>(value: 3, displayText: "3x"),
+                BoomerangOption<Int>(value: 4, displayText: "4x")
+                ] as? [BoomerangOption<T>]
+            }
         case .mode:
-            return [
-            BoomerangOption<Bool>(value: false, displayText: R.string.localizable.forward()),
-            BoomerangOption<Bool>(value: true, displayText: R.string.localizable.reverse()),
-            ] as? [BoomerangOption<T>]
+            if Defaults.shared.cameraName == CameraName.miniboomi && Defaults.shared.appMode == .free{
+                return [
+                BoomerangOption<Bool>(value: false, displayText: R.string.localizable.forward()),
+                BoomerangOption<Bool>(value: true, displayText: R.string.localizable.reverse()),
+                ] as? [BoomerangOption<T>]
+            }else{
+                return [
+                BoomerangOption<Bool>(value: false, displayText: R.string.localizable.forward())
+                ] as? [BoomerangOption<T>]
+            }
         }
     }
     var displayOptions: [String] {
@@ -72,5 +108,4 @@ class BoomerangOptions<T> {
         self.type = type
         self.selectedIndex = selectedIndex
     }
-        
 }
