@@ -272,6 +272,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                                              self.businessDashboardStackView],
                                             alpha: alpha)
                     self.isHideTapped = self.hideControls
+                   
                     // Make the animation happen
                     self.view.setNeedsLayout()
                     self.view.layoutIfNeeded()
@@ -299,7 +300,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             Defaults.shared.cameraName = self.currentCameraName
         }
     }
-    var recordingType: CameraMode = .basicCamera {
+    var recordingType: CameraMode = .boomerang {
         didSet {
             if recordingType != .custom {
                 DispatchQueue.main.async {
@@ -617,7 +618,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     }
     
     func setupPic2ArtAppControls() {
-        timerStackView.isHidden = isPic2ArtApp
+       // timerStackView.isHidden = isPic2ArtApp
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -834,7 +835,26 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             self.setupLiteAppMode(mode: .promo)
         }
         if recordingType == .normal && isBoomiCamApp {
-            recordingType = .basicCamera
+            recordingType = .boomerang
+        }
+        if recordingType == .boomerang{
+            self.circularProgress.centerImage = R.image.icoBoomrang()
+            self.timerValueView.isHidden = true
+            if self.timerValue > 0 {
+                self.timerValue = 0
+                self.resetCountDown()
+            }
+            if self.photoTimerValue > 0 {
+                self.photoTimerValue = 0
+                self.resetPhotoCountDown()
+            }
+            isShowTimerButton = false
+            cameraSliderView.currentCell = { [weak self] (index, currentMode) in
+                guard let `self` = self else { return }
+                Defaults.shared.cameraMode = currentMode.recordingType
+                self.isRecording = false
+                Defaults.shared.cameraName = currentMode.name
+            }
         }
         if !isViralCamLiteApp || !isFastCamLiteApp || !isQuickCamLiteApp || !isSpeedCamLiteApp || !isSnapCamLiteApp || !isQuickApp {
             speedSlider.isHidden = false
@@ -956,13 +976,19 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             }else if cameraName == CameraName.boomi{
                 if Defaults.shared.appMode == .basic || Defaults.shared.appMode == .advanced || Defaults.shared.appMode == .professional{
                     return 15
+                }else{
+                    return 15
                 }
             }else if cameraName == CameraName.bigboomi{
                 if Defaults.shared.appMode == .advanced || Defaults.shared.appMode == .professional{
                     return 30
+                }else{
+                    return 30
                 }
             }else if cameraName == CameraName.liveboomi{
                 if Defaults.shared.appMode == .professional{
+                    return 30
+                }else{
                     return 30
                 }
             }
@@ -1776,6 +1802,8 @@ extension StoryCameraViewController {
     }
     
     func showControls() {
+        print("self.recordingType")
+        print(self.recordingType)
         if !self.hideControls {
             DispatchQueue.main.async {
                 UIView.animate(withDuration: 0.1, animations: {
@@ -2347,7 +2375,7 @@ extension StoryCameraViewController {
             }
             self.navigationController?.pushViewController(histroGramVC, animated: false)
             self.removeData()
-        } else if isBoomiCamApp {
+        } else if isBoomiCamApp && Defaults.shared.cameraName != CameraName.miniboomi{
             guard let segementedVideo = segementedVideos.first else {
                 return
             }
