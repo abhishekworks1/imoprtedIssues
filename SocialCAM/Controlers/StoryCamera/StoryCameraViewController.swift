@@ -60,6 +60,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     var isBusinessCenter: Bool = false
     var quickLinkAppUrl: URL?
     var quickLinkWebsiteUrl: URL?
+    var setSegmentLength: SetSegmentLength = .professional
     
     // MARK: IBOutlets
     @IBOutlet weak var bottomCameraViews: UIView!
