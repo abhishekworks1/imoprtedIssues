@@ -45,6 +45,7 @@ class BoomerangOptions<T> {
         case .speed:
             if Defaults.shared.cameraName == CameraName.miniboomi{
                 return [
+                BoomerangOption<Int>(value: 1, displayText: "1x"),
                 BoomerangOption<Int>(value: 2, displayText: "2x")
                 ] as? [BoomerangOption<T>]
             }else if Defaults.shared.cameraName == CameraName.boomi{
