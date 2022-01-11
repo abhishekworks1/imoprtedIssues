@@ -81,14 +81,30 @@ class BoomerangOptions<T> {
                 ] as? [BoomerangOption<T>]
             }
         case .mode:
-            if Defaults.shared.cameraName == CameraName.miniboomi && Defaults.shared.appMode == .free{
+            if Defaults.shared.cameraName == CameraName.miniboomi && Defaults.shared.appMode == .free {
                 return [
                 BoomerangOption<Bool>(value: false, displayText: R.string.localizable.forward()),
                 BoomerangOption<Bool>(value: true, displayText: R.string.localizable.reverse()),
                 ] as? [BoomerangOption<T>]
-            }else{
+            } else if Defaults.shared.cameraName == CameraName.boomi && Defaults.shared.appMode == .basic || Defaults.shared.appMode == .advanced || Defaults.shared.appMode == .professional {
                 return [
-                BoomerangOption<Bool>(value: false, displayText: R.string.localizable.forward())
+                    BoomerangOption<Bool>(value: false, displayText: R.string.localizable.forward()),
+                    BoomerangOption<Bool>(value: true, displayText: R.string.localizable.reverse()),
+                    ] as? [BoomerangOption<T>]
+            } else if Defaults.shared.cameraName == CameraName.bigboomi && Defaults.shared.appMode == .advanced || Defaults.shared.appMode == .professional {
+                return [
+                    BoomerangOption<Bool>(value: false, displayText: R.string.localizable.forward()),
+                    BoomerangOption<Bool>(value: true, displayText: R.string.localizable.reverse()),
+                    ] as? [BoomerangOption<T>]
+            } else if Defaults.shared.cameraName == CameraName.liveboomi && Defaults.shared.appMode == .professional {
+                return [
+                    BoomerangOption<Bool>(value: false, displayText: R.string.localizable.forward()),
+                    BoomerangOption<Bool>(value: true, displayText: R.string.localizable.reverse()),
+                    ] as? [BoomerangOption<T>]
+            }
+            else {
+                return [
+                    BoomerangOption<Bool>(value: false, displayText: R.string.localizable.forward())
                 ] as? [BoomerangOption<T>]
             }
         }
@@ -102,7 +118,11 @@ class BoomerangOptions<T> {
     }
     var selectedIndex: Int
     var selectedOption: BoomerangOption<T>? {
-        return options?[selectedIndex]
+        if options?.count ?? 1 > 1 {
+            return options?[selectedIndex]
+        } else {
+            return nil
+        }
     }
     
     init(type: BoomerangOptionType, selectedIndex: Int) {
