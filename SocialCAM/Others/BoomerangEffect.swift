@@ -103,9 +103,10 @@ class VideoFactory: NSObject {
         if self.type == .reverse {
             cvimgbuffer.reverse()
         }
+        let duration = Int(videoAsset?.duration.seconds ?? 2 - 1.0)
         if self.type == .boom {
-            if(cvimgbuffer.count > self.fps * 2) {
-                let slice = cvimgbuffer.dropLast(cvimgbuffer.count - self.fps * 2)
+            if(cvimgbuffer.count > self.fps * duration) {
+                let slice = cvimgbuffer.dropLast(cvimgbuffer.count - self.fps * duration)
                 cvimgbuffer = Array(slice)
             }
             
