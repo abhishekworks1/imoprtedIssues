@@ -6,10 +6,10 @@
 //  Copyright © 2019 Viraj Patel. All rights reserved.
 //
 
-import Foundation
+//import Foundation
 import AWSS3
-import AWSCore
-import AVKit
+//import AWSCore
+//import AVKit
 
 class AWSManager {
     

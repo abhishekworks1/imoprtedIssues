@@ -631,10 +631,10 @@ enum AppMode: Int, AppMode_Enum {
     var features: [String] {
         switch self {
         case .free:
-            return ["Recording upto 3x speed",
-                    "Segment length: Up to 15 seconds",
-                    "Face detection",
-                    "Flash on/off/auto"]
+            return ["Free Camera Mode\n-  Record in normal speed\n-  Record in 2x and 3x speeds\n-  Record up to 15 second videos",
+                    "Video editor features include\n- Add Bitmojis\n- Split, Trim and Crop\n- Watermark\n- Referral link\n- Share on all supported social media",
+                    "Custom Referral page for affiliates",
+                    "Business Dashboard\n- Track your referrals, see who's subscribing and how much money you're earning."]
         case .basic:
             return ["Segment length customisation: Up to 30 seconds",
                     "Video countdown timer: Up to 60 seconds",
@@ -648,6 +648,26 @@ enum AppMode: Int, AppMode_Enum {
             return ["Features to be decided"]
         }
     }
+//    var features: [String] {
+//        switch self {
+//        case .free:
+//            return ["Recording upto 3x speed",
+//                    "Segment length: Up to 15 seconds",
+//                    "Face detection",
+//                    "Flash on/off/auto"]
+//        case .basic:
+//            return ["Segment length customisation: Up to 30 seconds",
+//                    "Video countdown timer: Up to 60 seconds",
+//                    "Slow motion recording up to -3x speed",
+//                    "Fast motion recording up to 3x speed",
+//                    "Face detection",
+//                    "Flash on/off/auto"]
+//        case .advanced:
+//            return ["Features to be decided"]
+//        case .professional:
+//            return ["Features to be decided"]
+//        }
+//    }
 }
 
 enum ShapeType: Int {

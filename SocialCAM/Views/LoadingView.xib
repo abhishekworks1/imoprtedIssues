@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -47,10 +47,10 @@
                         <action selector="btnCancelClick:" destination="0Lx-Qt-fc6" eventType="touchUpInside" id="o0G-rv-42z"/>
                     </connections>
                 </button>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ad1" translatesAutoresizingMaskIntoConstraints="NO" id="U9d-aU-XfD">
-                    <rect key="frame" x="0.0" y="746" width="414" height="150"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="upgradeBasicLiteBanner" translatesAutoresizingMaskIntoConstraints="NO" id="U9d-aU-XfD">
+                    <rect key="frame" x="0.0" y="785" width="414" height="111"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="150" id="L5Y-pU-eTe"/>
+                        <constraint firstAttribute="height" constant="111" id="L5Y-pU-eTe"/>
                     </constraints>
                 </imageView>
                 <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please don't lock screen or switch to other apps" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eQ7-oW-qve">
@@ -60,12 +60,13 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 / 0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4eW-yR-MIS">
-                    <rect key="frame" x="157.5" y="531" width="99.5" height="20.5"/>
+                    <rect key="frame" x="181.5" y="531" width="51" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.9986641839" green="0.9986641839" blue="0.9986641839" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="z6i-ay-gi9"/>
             <color key="backgroundColor" red="0.25771130180000001" green="0.25771130180000001" blue="0.25771130180000001" alpha="0.82881272009999996" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="u64-IR-Na2" firstAttribute="top" secondItem="eQ7-oW-qve" secondAttribute="bottom" constant="20" id="4sl-Ns-qxQ"/>
@@ -88,7 +89,6 @@
                 <constraint firstItem="ffb-vb-TLv" firstAttribute="top" secondItem="7iU-JH-nNW" secondAttribute="bottom" constant="10" id="uBZ-iN-gDQ"/>
                 <constraint firstItem="ffb-vb-TLv" firstAttribute="centerX" secondItem="7iU-JH-nNW" secondAttribute="centerX" id="yFC-5D-8j9"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="z6i-ay-gi9"/>
             <connections>
                 <outlet property="btnCancel" destination="Vpg-dw-Xh5" id="U6E-Be-Kdw"/>
                 <outlet property="imgAdvertise" destination="U9d-aU-XfD" id="Oz0-h2-djd"/>
@@ -102,6 +102,6 @@
         </view>
     </objects>
     <resources>
-        <image name="ad1" width="375" height="60"/>
+        <image name="upgradeBasicLiteBanner" width="270" height="83.5"/>
     </resources>
 </document>

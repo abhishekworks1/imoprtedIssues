@@ -189,12 +189,15 @@ public class LoadingView: UIView {
     open func setup() {
         if isLiteApp {
             if Defaults.shared.isFreeTrial == true {
-                checkForBanners(bannerImg: R.image.specialOfferForLifebanner())
+                //checkForBanners(bannerImg: R.image.specialOfferForLifebanner())
+                imgAdvertisementArray = [R.image.joinBusinessCenter()]
             } else if Defaults.shared.isFreeTrial == false {
                 if Defaults.shared.appMode != .basic {
-                    checkForBanners(bannerImg: R.image.upgradeBasicLiteBanner())
+                    imgAdvertisementArray = [R.image.upgradeBasicLiteBanner()]
+                    //checkForBanners(bannerImg: R.image.upgradeBasicLiteBanner())
                 } else {
-                    checkForBanners(bannerImg: R.image.fullVersionComingBanner())
+                    imgAdvertisementArray = [R.image.goToQuickCamBusinessCenter(),R.image.joinBusinessCenter()]
+                    //checkForBanners(bannerImg: R.image.fullVersionComingBanner())
                 }
             }
         }
