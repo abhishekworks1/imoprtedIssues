@@ -105,7 +105,9 @@ public class LoadingView: UIView {
     
     public var isExporting = false {
         didSet {
-            lblCompleted.text = isExporting ? R.string.localizable.exporting() : R.string.localizable.saving()
+            DispatchQueue.main.async { [self] in
+                lblCompleted.text = isExporting ? R.string.localizable.exporting() : R.string.localizable.saving()
+            }
         }
     }
     

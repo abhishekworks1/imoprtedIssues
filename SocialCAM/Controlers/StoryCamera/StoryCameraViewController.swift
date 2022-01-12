@@ -229,16 +229,19 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         didSet {
             isPageScrollEnable = !isRecording
             if !isLiteApp {
+                deleteView.isHidden = !isRecording
+            } else {
                 deleteView.isHidden = isRecording
             }
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [self] in
                 if self.isRecording {
-                    self.collectionViewStackVIew.isHidden = !self.takenVideoUrls.isEmpty
+                    deleteView.isHidden = isRecording
+                    collectionViewStackVIew.isHidden = !self.takenVideoUrls.isEmpty
                 } else {
-                    self.collectionViewStackVIew.isHidden = false
+                    collectionViewStackVIew.isHidden = false
                 }
-                self.view.setNeedsLayout()
-                self.view.layoutIfNeeded()
+                view.setNeedsLayout()
+                view.layoutIfNeeded()
             }
             
         }
@@ -966,30 +969,34 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     }
     func setMaxRecordingTime()->Int{
         let cameraName = Defaults.shared.cameraName
-        if self.recordingType == .boomerang{
+        if self.recordingType == .boomerang {
             if cameraName == CameraName.miniboomi{
-                return 3
+                if Defaults.shared.appMode == .free ||  Defaults.shared.appMode == .basic || Defaults.shared.appMode == .advanced || Defaults.shared.appMode == .professional{
+                    return 2
+                }else{
+                    return 2
+                }
             }else if cameraName == CameraName.boomi{
                 if Defaults.shared.appMode == .basic || Defaults.shared.appMode == .advanced || Defaults.shared.appMode == .professional{
-                    return 15
+                    return 14
                 }else{
-                    return 15
+                    return 14
                 }
             }else if cameraName == CameraName.bigboomi{
                 if Defaults.shared.appMode == .advanced || Defaults.shared.appMode == .professional{
-                    return 30
+                    return 29
                 }else{
-                    return 30
+                    return 29
                 }
             }else if cameraName == CameraName.liveboomi{
                 if Defaults.shared.appMode == .professional{
-                    return 30
+                    return 29
                 }else{
-                    return 30
+                    return 29
                 }
             }
         }
-        return 3
+        return 2
     }
     func selectedSegmentLengthChange() {
         if Defaults.shared.appMode == .free && (isSpeedCamApp || isFastCamApp || isSnapCamApp) {
@@ -2052,9 +2059,15 @@ extension StoryCameraViewController {
     }
     
     func videoDidCompletedSession(url: URL, thumbimage: UIImage?, duration: CGFloat) {
+        var isSaving = false
         if self.recordingType == .boomerang {
             let loadingView = LoadingView.instanceFromNib()
-            loadingView.shouldCancelShow = true
+            loadingView.shouldCancelShow = false
+            loadingView.cancelClick = { [self] _ in
+                isSaving = true
+                loadingView.hide()
+                viewWillAppear(true)
+            }
             loadingView.shouldDescriptionTextShow = true
             loadingView.show(on: self.view)
             
@@ -2064,6 +2077,7 @@ extension StoryCameraViewController {
                 DispatchQueue.main.async {
                     loadingView.hide()
                 }
+                guard !isSaving else { return }
                 self.newVideoCreate(url: url, newUrl: urls)
                 DispatchQueue.main.async {
                     self.takenVideoUrls.append(SegmentVideos(urlStr: url, thumbimage: thumbimage, numberOfSegement: "\(self.takenVideoUrls.count + 1)"))
