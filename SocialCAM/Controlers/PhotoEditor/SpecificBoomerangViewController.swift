@@ -700,7 +700,13 @@ extension SpecificBoomerangViewController {
                 boomerangValue.isRunning = true
                 if boomerangValue.currentLoopCount == boomerangValue.maxLoopCount {
                     boomerangValue.currentLoopCount -= 1
-                    self.player?.rate = Float(boomerangValue.speedScale)
+                    if boomerangValue.speedScale == -2 {
+                        self.player?.rate = 0.4
+                    } else if boomerangValue.speedScale == -3  {
+                        self.player?.rate = 0.2
+                    } else {
+                        self.player?.rate = Float(boomerangValue.speedScale)
+                    }
                 }
                 return true
             } else if boomerangValue.needToChangeScale {
@@ -731,7 +737,13 @@ extension SpecificBoomerangViewController {
         } else {
             if self.player?.rate != Float(boomerangValue.speedScale) {
                 boomerangValue.currentLoopCount -= 1
-                self.player?.rate = Float(boomerangValue.speedScale)
+                if boomerangValue.speedScale == -2 {
+                    self.player?.rate = 0.4
+                } else if boomerangValue.speedScale == -3  {
+                    self.player?.rate = 0.2
+                } else {
+                    self.player?.rate = Float(boomerangValue.speedScale)
+                }
             }
         }
     }
