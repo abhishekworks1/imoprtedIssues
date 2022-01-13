@@ -47,25 +47,25 @@ class AWSManager {
     }
     
     func cancelAllUploads() {
-        AWSS3TransferUtility.default().enumerateToAssignBlocks(forUploadTask: { (uploadTask, _, _) in
-            uploadTask.cancel()
-        }, downloadTask: nil)
+//        AWSS3TransferUtility.default().enumerateToAssignBlocks(forUploadTask: { (uploadTask, _, _) in
+//            uploadTask.cancel()
+//        }, downloadTask: nil)
     }
 
-    func cancelAllUploads(withTaskId taskId: UInt) {
-        AWSS3TransferUtility.default().enumerateToAssignBlocks(forUploadTask: { (uploadTask, _, _) in
-            if uploadTask.taskIdentifier == taskId {
-                uploadTask.cancel()
-            }
-        }, downloadTask: nil)
-    }
-    
-    func cancelOneFileUpload(_ itemUrl: String) {
-        AWSS3TransferUtility.default().enumerateToAssignBlocks(forUploadTask: { (uploadTask, _, _) in
-            if uploadTask.key.dropFirst(13) == URL.init(string: itemUrl)!.lastPathComponent {
-                uploadTask.cancel()
-                return
-            }
-        }, downloadTask: nil)
-    }
+//    func cancelAllUploads(withTaskId taskId: UInt) {
+//        AWSS3TransferUtility.default().enumerateToAssignBlocks(forUploadTask: { (uploadTask, _, _) in
+//            if uploadTask.taskIdentifier == taskId {
+//                uploadTask.cancel()
+//            }
+//        }, downloadTask: nil)
+//    }
+//    
+//    func cancelOneFileUpload(_ itemUrl: String) {
+//        AWSS3TransferUtility.default().enumerateToAssignBlocks(forUploadTask: { (uploadTask, _, _) in
+//            if uploadTask.key.dropFirst(13) == URL.init(string: itemUrl)!.lastPathComponent {
+//                uploadTask.cancel()
+//                return
+//            }
+//        }, downloadTask: nil)
+//    }
 }

@@ -122,12 +122,12 @@ public struct Utils {
         AWSManager.shared.uploadImageToAmazon(currentFileName: fileName, soundFileURL: fileURL, contentType: contentType, nil, progressBlock: progressBlock, otherProgressBlock: otherProgressBlock, callBack: callBack)
     }
     
-    static func uploadSingleUrlStop(_ itemUrl: String?) {
-        guard let itemUrlString = itemUrl else {
-            return
-        }
-        AWSManager.shared.cancelOneFileUpload(itemUrlString)
-    }
+//    static func uploadSingleUrlStop(_ itemUrl: String?) {
+//        guard let itemUrlString = itemUrl else {
+//            return
+//        }
+//        AWSManager.shared.cancelOneFileUpload(itemUrlString)
+//    }
     
     static func uploadStopAll() {
         AWSManager.shared.cancelAllUploads()
