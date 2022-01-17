@@ -126,7 +126,7 @@ public struct Utils {
         guard let itemUrlString = itemUrl else {
             return
         }
-        AWSManager.shared.cancelOneFileUpload(itemUrlString)
+        //AWSManager.shared.cancelOneFileUpload(itemUrlString)
     }
     
     static func uploadStopAll() {
