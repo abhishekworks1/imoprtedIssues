@@ -253,10 +253,15 @@ open class SocialShareVideo: NSObject, SharingDelegate {
     }
     
     func fbShareVideo(_ phAsset: PHAsset?) {
-        guard let phAsset = phAsset else { return }
-        let content = ShareVideoContent()
-        content.video = ShareVideo(videoAsset: phAsset)
-        showShareDialog(content)
+        if FaceBookManager.shared.isUserLogin {
+            guard let phAsset = phAsset else { return }
+            let content = ShareVideoContent()
+            content.video = ShareVideo(videoAsset: phAsset)
+            showShareDialog(content)
+        } else {
+            print("User Details Not found")
+        }
+        
     }
     
     func instaImageVideoShare(_ phAsset: PHAsset?) {

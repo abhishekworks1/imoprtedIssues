@@ -1144,6 +1144,27 @@ extension StoryEditorViewController {
                                 DispatchQueue.runOnMainThread {
                                     if type == .youtube {
                                         self.checkYoutubeAuthentication(exportURL)
+                                    } else if type == .facebook {
+                                        if FaceBookManager.shared.isUserLogin {
+                                            if FaceBookManager.shared.userData != nil {
+                                                SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type, referType: self.referType)
+                                            } else {
+                                                FaceBookManager.shared.logout()
+                                                FaceBookManager.shared.login(controller: self, loginCompletion: { (_, _) in
+    //                                                completion(true)
+                                                }) { (_, _) in
+    //                                                completion(false)
+                                                }
+                                            }
+                                        } else {
+                                            FaceBookManager.shared.login(controller: self, loginCompletion: { (_, _) in
+                                                FaceBookManager.shared.loadUserData { userName in
+                                                    FaceBookManager.shared.userData = userName
+                                                }
+                                            }) { (_, _) in
+//                                                completion(false)
+                                            }
+                                        }
                                     } else {
                                         SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type, referType: self.referType)
                                     }
@@ -1309,9 +1330,9 @@ extension StoryEditorViewController {
     }
     
     @IBAction func btnSocialMediaShareClick(_ sender: UIButton) {
-        if Defaults.shared.appMode == .free, !(sender.tag == 3) {
-            showAlertForUpgradeSubscription()
-        } else {
+//        if Defaults.shared.appMode == .free, !(sender.tag == 3) {
+//            showAlertForUpgradeSubscription()
+//        } else {
             if SocialShare(rawValue: sender.tag) ?? SocialShare.facebook == .storiCam {
                 guard let socialshareVC = R.storyboard.socialCamShareVC.socialCamShareVC() else {
                     return
@@ -1347,7 +1368,7 @@ extension StoryEditorViewController {
                     UIPasteboard.general.string = "\(R.string.localizable.checkOutThisCoolNewAppQuickCam()) \(websiteUrl)/\(channelId)"
                 }
             }
-        }
+//        }
     }
     
     @IBAction func playPauseButtonClick(_ sender: UIButton) {
