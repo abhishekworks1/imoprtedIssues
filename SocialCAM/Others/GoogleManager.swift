@@ -68,7 +68,7 @@ public class GoogleManager: NSObject {
     func getUserToken(completion: @escaping (_ userData: String?) -> ()) {
         guard let signIn = GIDSignIn.sharedInstance() else {
             completion(nil)
-            return
+            return 
         }
         if isUserLogin {
             if signIn.currentUser == nil {

@@ -123,8 +123,8 @@ public struct Constant {
         static let splashBG = UIImage(named: "Pic2ArtSplash")!
         static let appIcon = UIImage(named: "Pic2ArtSplashIcon")!
         #elseif BOOMICAMAPP
-        static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "BOOMICAM"
-        static let simformIdentifier: String = "com.simform.BoomiCam"
+        static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "BoomiCam"
+        static let simformIdentifier: String = "app.boomicam.app"
         static let proModeCode: String = "boomicam2020"
         static let publicLink = URL(string: "https://testflight.apple.com/join/kYCCo1AW")
         static let splashBG = UIImage(named: "boomiCamSplashBG")!

@@ -576,7 +576,7 @@ class StoryEditorViewController: UIViewController {
         self.playButtonBottomLayoutConstraint.constant = (storyEditors.count > 1) ? 70 : 15
         self.backgroundCollectionView.isHidden = self.collectionView.isHidden
         
-        self.youtubeShareView.isHidden = true //isImage
+        self.youtubeShareView.isHidden = isImage
         self.tiktokShareView.isHidden = isImage
         self.playPauseButton.isHidden = isImage
         self.progressBarView.isHidden = isImage
@@ -1151,9 +1151,9 @@ extension StoryEditorViewController {
                                             } else {
                                                 FaceBookManager.shared.logout()
                                                 FaceBookManager.shared.login(controller: self, loginCompletion: { (_, _) in
-    //                                                completion(true)
+                                                    //                                                completion(true)
                                                 }) { (_, _) in
-    //                                                completion(false)
+                                                    //                                                completion(false)
                                                 }
                                             }
                                         } else {
@@ -1162,7 +1162,7 @@ extension StoryEditorViewController {
                                                     FaceBookManager.shared.userData = userName
                                                 }
                                             }) { (_, _) in
-//                                                completion(false)
+                                                //                                                completion(false)
                                             }
                                         }
                                     } else {
