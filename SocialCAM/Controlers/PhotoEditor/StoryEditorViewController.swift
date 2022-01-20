@@ -203,6 +203,7 @@ class StoryEditorViewController: UIViewController {
     @IBOutlet weak var btnDoNotShowAgain: UIButton!
     @IBOutlet weak var btnFastesteverWatermark: UIButton!
     @IBOutlet weak var btnAppIdentifierWatermark: UIButton!
+    @IBOutlet weak var hashtagView: UIView!
     @IBOutlet weak var watermarkView: UIView!
     @IBOutlet weak var watermarkOptionsView: UIView!
     @IBOutlet weak var btnSelectFastesteverWatermark: UIButton!
@@ -580,6 +581,12 @@ class StoryEditorViewController: UIViewController {
         self.tiktokShareView.isHidden = isImage
         self.playPauseButton.isHidden = isImage
         self.progressBarView.isHidden = isImage
+        
+        if isBoomiCamApp{
+            self.cropOptionView.isHidden = true
+            self.watermarkView.isHidden = true
+            self.hashtagView.isHidden = true
+        }
     }
          
     func hideToolBar(hide: Bool, hideColorSlider: Bool = false) {

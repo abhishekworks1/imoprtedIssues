@@ -68,10 +68,30 @@ class SpecificBoomerangViewController: UIViewController {
         addPlayerLayer()
         loadViewWith(asset: currentAsset)
         if let asset = currentAsset,
-            asset.duration.seconds < 6 {
-            addBoomerangButton.isEnabled = false
-            addBoomerangButton.alpha = 0.5
-        }
+                    asset.duration.seconds < 6 {
+                    if Defaults.shared.cameraName == CameraName.bigboomi{
+                        if Defaults.shared.appMode == .advanced || Defaults.shared.appMode == .advanced{
+                            addBoomerangButton.isEnabled = true
+                            addBoomerangButton.alpha = 1.0
+                        }else{
+                            addBoomerangButton.isEnabled = false
+                            addBoomerangButton.alpha = 0.5
+                        }
+                        
+                    }else if Defaults.shared.cameraName == CameraName.miniboomi{
+                        if Defaults.shared.appMode == .professional{
+                            addBoomerangButton.isEnabled = true
+                            addBoomerangButton.alpha = 1.0
+                        }else{
+                            addBoomerangButton.isEnabled = false
+                            addBoomerangButton.alpha = 0.5
+                        }
+                    }else{
+                        addBoomerangButton.isEnabled = false
+                        addBoomerangButton.alpha = 0.5
+                    }
+                   
+                }
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(onLongPressToVideoView(_:)))
         longPressGesture.minimumPressDuration = 0.2
         self.videoView.addGestureRecognizer(longPressGesture)
