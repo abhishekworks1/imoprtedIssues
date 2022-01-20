@@ -348,7 +348,9 @@ open class SocialShareVideo: NSObject, SharingDelegate {
         snapContent.caption = "@\(Defaults.shared.currentUser?.username ?? "")"
         let api = SCSDKSnapAPI.init(content: snapContent)
         api.startSnapping { _ in
-           
+            print("***********************")
+            print("Add Snap Here")
+            print("***********************")
         }
     }
     

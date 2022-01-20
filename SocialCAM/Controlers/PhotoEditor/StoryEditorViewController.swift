@@ -1165,6 +1165,24 @@ extension StoryEditorViewController {
                                                 //                                                completion(false)
                                             }
                                         }
+                                    } else if type == .snapchat {
+                                       if SnapKitManager.shared.isUserLogin {
+                                            SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type, referType: self.referType)
+                                        } else {
+                                            SnapKitManager.shared.login(viewController: self) { (isLogin, error) in
+                                                if !isLogin {
+                                                    DispatchQueue.main.async {
+                                                        self.showAlert(alertMessage: error ?? "")
+                                                    }
+                                                }
+                                                
+                                                SnapKitManager.shared.loadUserData { userData in
+                                                    guard userData != nil else { return }
+                                                    SnapKitManager.shared.userData = userData
+                                                }
+
+                                            }
+                                        }
                                     } else {
                                         SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type, referType: self.referType)
                                     }

@@ -9,6 +9,7 @@
 import Foundation
 import SCSDKLoginKit
 import SCSDKBitmojiKit
+import SCSDKCreativeKit
 
 private let externalIdQuery = "{me{displayName, bitmoji{avatar}, externalId}}"
 

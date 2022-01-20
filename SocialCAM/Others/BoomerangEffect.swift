@@ -208,7 +208,7 @@ class BufferToVideo: NSObject {
                 if pixelBufferAdaptor.pixelBufferPool == nil {
                     fatalError("pixelBufferPool is nil")
                 }
-
+                
                 let mediaQueue = DispatchQueue(label: Constant.Application.simformIdentifier)
                 videoWriterInput.requestMediaDataWhenReady(on: mediaQueue) {
                     let welf = self
@@ -216,7 +216,7 @@ class BufferToVideo: NSObject {
                     var frameCount: Int64 = 0
                     let frameDuration = CMTimeMake(value: 1, timescale: welf.fps)
                     var remainingPhotoURLs = welf.buffer
-
+                    
                     while !remainingPhotoURLs.isEmpty {
                         autoreleasepool {
                             let nextPhotoURL: CVPixelBuffer? = remainingPhotoURLs.remove(at: 0)
@@ -226,7 +226,7 @@ class BufferToVideo: NSObject {
                             while !videoWriterInput.isReadyForMoreMediaData {
                                 Thread.sleep(forTimeInterval: 0.1)
                             }
-
+                            
                             if pixelBufferAdaptor.append(newPixelBufferoutputs, withPresentationTime: presentationTime) {
                                 frameCount += 1
                                 currentProgress.completedUnitCount = frameCount
@@ -234,7 +234,7 @@ class BufferToVideo: NSObject {
                             }
                         }
                     }
-
+                    
                     videoWriterInput.markAsFinished()
                     videoWriter.finishWriting {
                         if error == nil {
