@@ -583,6 +583,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         let userInfo = response.notification.request.content.userInfo
         Messaging.messaging().appDidReceiveMessage(userInfo)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            guard !isRecorderApp else { return }
             NotificationManager.shared.openNotificationScreen()
         }
         completionHandler()

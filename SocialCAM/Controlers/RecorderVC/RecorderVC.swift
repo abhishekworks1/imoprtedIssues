@@ -45,7 +45,6 @@ class RecorderVC: UIViewController, ScreenCaptureObservable {
             }
             weakSelf.reloadView()
         }
-        self.observers.removeAll()
         self.observers.append(observer)
     }
 }
