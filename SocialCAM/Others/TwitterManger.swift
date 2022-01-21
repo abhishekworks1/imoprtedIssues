@@ -9,6 +9,7 @@
 import Foundation
 import TwitterKit
 import AVKit
+import SwiftUI
 
 public struct SocialLoginError {
     static let userUnauthorized:NSError = NSError(domain: "ShiploopHttpResponseErrorDomain", code:401, userInfo: [NSLocalizedDescriptionKey:"Unauthorized", NSLocalizedFailureReasonErrorKey:"User not logged in"])
@@ -149,18 +150,23 @@ open class TwitterManger: NSObject {
         guard let userId = store.session()?.userID else { return }
         let client = TWTRAPIClient.init(userID: userId)
         // Get data from Url
-        guard let videoData = try? Data(contentsOf: videoUrl) else {
-            // Handle if data is nil
-            return
-        }
-        client.sendTweet(withText: text, videoData: videoData) { (tweet, error) in
-            if let error = error {
-                print(error.localizedDescription as Any)
-                completion(false, error.localizedDescription)
-            } else {
-                completion(true, tweet?.author.name)
+        do {
+            guard let videoData = try? Data(contentsOf: videoUrl) else {
+                // Handle if data is nil
+                return
             }
+            client.sendTweet(withText: text, videoData: videoData) { (tweet, error) in
+                if let error = error {
+                    print(error.localizedDescription as Any)
+                    completion(false, error.localizedDescription)
+                } else {
+                    completion(true, tweet?.author.name)
+                }
+            }
+        } catch let err {
+            print(err.localizedDescription)
         }
+        
     }
     
     func logout() {

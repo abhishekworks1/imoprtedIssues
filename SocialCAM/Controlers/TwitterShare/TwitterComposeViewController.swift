@@ -101,7 +101,8 @@ class TwitterComposeViewController: UIViewController, UINavigationControllerDele
     }
     
     func showFailureAlert() {
-        self.showAlert(alertMessage: R.string.localizable.tweetWasNotPosted())
+        self.showAlert(alertMessage: "Video Data more then 5 MB")
+//        self.showAlert(alertMessage: R.string.localizable.tweetWasNotPosted())
     }
     
     func clear() {
