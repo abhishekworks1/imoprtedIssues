@@ -155,14 +155,23 @@ open class TwitterManger: NSObject {
                 // Handle if data is nil
                 return
             }
-            client.sendTweet(withText: text, videoData: videoData) { (tweet, error) in
-                if let error = error {
-                    print(error.localizedDescription as Any)
-                    completion(false, error.localizedDescription)
+            
+            client.sendTweet(withText: text, videoData: videoData) { tweet, error in
+                if let err = error {
+                    print(err.localizedDescription as Any)
+                    completion(false, err.localizedDescription)
                 } else {
                     completion(true, tweet?.author.name)
                 }
             }
+//            client.sendTweet(withText: text, videoData: videoData) { (tweet, error) in
+//                if let error = error {
+//                    print(error.localizedDescription as Any)
+//                    completion(false, error.localizedDescription)
+//                } else {
+//                    completion(true, tweet?.author.name)
+//                }
+//            }
         } catch let err {
             print(err.localizedDescription)
         }
