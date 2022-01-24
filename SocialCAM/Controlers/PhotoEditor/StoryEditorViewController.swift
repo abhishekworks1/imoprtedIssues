@@ -1190,6 +1190,17 @@ extension StoryEditorViewController {
 
                                             }
                                         }
+                                    } else if type == .twitter {
+                                        if TwitterManger.shared.isUserLogin {
+                                            SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type, referType: self.referType)
+                                        } else {
+                                            TwitterManger.shared.logout()
+                                            TwitterManger.shared.login { (_, _) in
+                                                TwitterManger.shared.loadUserData { userModel in
+                                                    TwitterManger.shared.userData = userModel
+                                                }
+                                            }
+                                        }
                                     } else {
                                         SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type, referType: self.referType)
                                     }
