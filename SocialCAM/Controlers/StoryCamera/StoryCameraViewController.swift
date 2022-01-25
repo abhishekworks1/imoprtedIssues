@@ -268,7 +268,8 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                                              self.switchAppButton,
                                              self.discardSegmentsStackView,
                                              self.confirmRecordedSegmentStackView,
-                                             self.businessDashboardStackView],
+                                             self.businessDashboardStackView,
+                                             self.cameraSliderView],
                                             alpha: alpha)
                     self.isHideTapped = self.hideControls
                    
@@ -303,11 +304,21 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         didSet {
             if recordingType != .custom {
                 DispatchQueue.main.async {
-                    self.speedSlider.isUserInteractionEnabled = true
-                    self.speedSlider.isHidden = false
-                    self.speedSliderView.isHidden = false
-                    self.slowFastVerticalBar.isHidden = true
-                    self.speedLabel.textColor = UIColor.red
+                    if isBoomiCamApp  {
+                        self.speedSlider.isUserInteractionEnabled = false
+                        self.speedSlider.isHidden = true
+                        self.speedSliderView.isHidden = true
+                        self.slowFastVerticalBar.isHidden = true
+                        self.speedLabel.textColor = UIColor.clear
+                        
+                    } else {
+                        self.speedSlider.isUserInteractionEnabled = true
+                        self.speedSlider.isHidden = false
+                        self.speedSliderView.isHidden = false
+                        self.slowFastVerticalBar.isHidden = true
+                        self.speedLabel.textColor = UIColor.red
+                    }
+                    
                     self.speedLabel.text = ""
                     self.speedLabel.stopBlink()
                     if self.recordingType != .timer {
@@ -580,7 +591,6 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             Defaults.shared.isFromSignup = false
             Defaults.shared.isSignupLoginFlow = false
         }
-        
 
     }
 
@@ -697,6 +707,14 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         self.reloadUploadViewData()
         self.stopMotionCollectionView.reloadData()
         dynamicSetSlowFastVerticalBar()
+        currentCameraName = Defaults.shared.cameraName
+        if self.currentCameraName == CameraName.miniboomi {
+            speedSlider.isHidden = true
+            speedSliderView.isHidden = true
+        } else {
+            speedSlider.isHidden = false
+            speedSliderView.isHidden = false
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -853,6 +871,13 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                 Defaults.shared.cameraMode = currentMode.recordingType
                 self.isRecording = false
                 Defaults.shared.cameraName = currentMode.name
+                if currentMode.name == CameraName.miniboomi {
+                    self.speedSlider.isHidden = true
+                    self.speedSliderView.isHidden = true
+                } else {
+                    self.speedSlider.isHidden = false
+                    self.speedSliderView.isHidden = false
+                }
             }
         }
         if !isViralCamLiteApp || !isFastCamLiteApp || !isQuickCamLiteApp || !isSpeedCamLiteApp || !isSnapCamLiteApp || !isQuickApp {

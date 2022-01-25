@@ -252,6 +252,12 @@ extension InstaSlider: UICollectionViewDataSource, UICollectionViewDelegate, UIC
             }
         }
         
+        if isBoomiCamApp {
+            kCell.imageView.isHidden = true
+        } else {
+            kCell.imageView.isHidden = false
+        }
+        
         return kCell
     }
     
