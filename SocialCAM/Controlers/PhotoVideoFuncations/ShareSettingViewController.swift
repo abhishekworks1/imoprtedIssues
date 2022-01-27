@@ -106,6 +106,9 @@ class ShareSettingViewController: UIViewController {
         if isQuickApp || isQuickCamApp {
            self.showFlagsView.isHidden = true
         }
+        if isBoomiCamApp {
+            imageQrCode.image = R.image.boomicamWatermarkLogo()
+        }
     }
     
     func presentSafariBrowser(url: URL) {
