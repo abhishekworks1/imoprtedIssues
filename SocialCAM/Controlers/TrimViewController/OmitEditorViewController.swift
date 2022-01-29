@@ -55,7 +55,8 @@ class OmitEditorViewController: UIViewController {
     var videoUrls: [StoryEditorMedia] = []
     var storyEditorMedias: [[StoryEditorMedia]] = []
     var resetStoryEditorMedias: [[StoryEditorMedia]] = []
-    
+    var combinedstoryEditorMedias: [[StoryEditorMedia]] = []
+
     var currentPlayVideo: Int = -1
     var isViewAppear = false
     var currentPage: Int = 0
@@ -81,6 +82,23 @@ class OmitEditorViewController: UIViewController {
             return avAsset
         }
         switch self.storyEditorMedias[index][secondIndex].type {
+        case .image:
+            break
+        case let .video(_, asset):
+            avAsset = asset
+        }
+        guard let currentAsset = avAsset else {
+            return nil
+        }
+        return currentAsset
+    }
+    
+    func currentCombineAsset(index: Int, secondIndex: Int = 0) -> AVAsset? {
+        var avAsset: AVAsset?
+        guard combinedstoryEditorMedias.count > index else {
+            return avAsset
+        }
+        switch self.combinedstoryEditorMedias[index][secondIndex].type {
         case .image:
             break
         case let .video(_, asset):
@@ -496,6 +514,34 @@ extension OmitEditorViewController: TrimmerViewDelegate {
         }
     }
     
+    func trimMultipleVideos(_ trimmer: TrimmerView) {
+        self.combinedstoryEditorMedias.removeAll()
+        do {
+                    try Utils.time {
+                        self.registerCombineAllData(data: self.storyEditorMedias)
+                        guard let asset = currentAsset(index: self.currentPage) else {
+                            return
+                        }
+                        let trimmed = try asset.assetByTrimming(startTime: CMTime.init(seconds: 0, preferredTimescale: 10000), endTime: trimmer.startTime!)
+                        let thumbimage = UIImage.getThumbnailFrom(asset: trimmed) ?? UIImage()
+                        
+                        self.combinedstoryEditorMedias.append([StoryEditorMedia(type: .video(thumbimage, trimmed))])
+                        do {
+                            try Utils.time {
+                                let trimmedAsset = try asset.assetByTrimming(startTime: trimmer.endTime!, endTime: CMTime.init(seconds: asset.duration.seconds, preferredTimescale: 10000))
+                                let image = UIImage.getThumbnailFrom(asset: trimmedAsset) ?? UIImage()
+                                self.combinedstoryEditorMedias.append([StoryEditorMedia(type: .video(image, trimmedAsset))])
+                            }
+                        } catch let error {
+                            print("*error2*\(error)")
+                        }
+                    }
+                } catch let error {
+                    print("*error1*\(error)")
+                }
+    
+    }
+    
     func trimVideo(_ trimmer: TrimmerView, with currentTimeScrub: CMTime) {
         guard (currentTimeScrub.seconds - trimmer.startTime!.seconds) >= 3 else {
             self.view.makeToast(R.string.localizable.minimum3SecondRequireToSplitOrTrim())
@@ -517,14 +563,14 @@ extension OmitEditorViewController: TrimmerViewDelegate {
                 }
                 let trimmed = try asset.assetByTrimming(startTime: CMTime.init(seconds: currentTimeScrub.seconds, preferredTimescale: 10000), endTime: trimmer.endTime!)
                 let thumbimage = UIImage.getThumbnailFrom(asset: trimmed) ?? UIImage()
-                
+
                 self.storyEditorMedias[self.currentPage][0] = StoryEditorMedia(type: .video(thumbimage, trimmed))
                 do {
                     try Utils.time {
                         let trimmedAsset = try asset.assetByTrimming(startTime: trimmer.startTime!, endTime: CMTime.init(seconds: currentTimeScrub.seconds, preferredTimescale: 10000))
                         let image = UIImage.getThumbnailFrom(asset: trimmedAsset) ?? UIImage()
                         self.storyEditorMedias.insert([StoryEditorMedia(type: .video(image, trimmedAsset))], at: self.currentPage)
-                        
+
                         self.connVideoPlay(isReload: true)
                     }
                 } catch let error {
@@ -790,86 +836,52 @@ extension OmitEditorViewController {
         guard let button = sender as? UIButton else {
             return
         }
-        if button.tag == 1 {
+        if let doneHandler = self.doneHandler,  let cell: ImageCollectionViewCell = self.editStoryCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? ImageCollectionViewCell  {
             
+            //            guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
+            //                return
+            //            }
+            //
+            //            print(CMTime.init(seconds: 0, preferredTimescale: 10000).seconds)
+            //            print(startTime.seconds)
+            //            print(endTime.seconds)
+            //            print(asset.duration.seconds)
             
-            if let doneHandler = self.doneHandler, isEditMode, let cell: ImageCollectionViewCell = self.editStoryCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? ImageCollectionViewCell {
-                guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
-                    return
-                }
-                do {
-                    try Utils.time {
-                        guard let asset = currentAsset(index: self.currentPage) else {
-                            return
+            self.trimMultipleVideos(cell.trimmerView)
+            
+            print(self.combinedstoryEditorMedias.count)
+            DispatchQueue.main.async {
+                if self.combinedstoryEditorMedias.count > 1 {
+                    self.registerCombineAllData(data: self.combinedstoryEditorMedias)
+                    let storySegment = StorySegment()
+                    for (index, _) in self.combinedstoryEditorMedias.enumerated() {
+                        for (indexSecond, _) in self.combinedstoryEditorMedias[index].enumerated() {
+                            guard let asset = self.currentCombineAsset(index: index, secondIndex: indexSecond) else {
+                                return
+                            }
+                            storySegment.addAsset(StoryAsset(asset: asset))
                         }
-                        let trimmedAsset = try asset.assetByTrimming(startTime: startTime, endTime: endTime)
-                        
-                        let thumbimage = UIImage.getThumbnailFrom(asset: trimmedAsset) ?? UIImage()
-                        
-                        self.storyEditorMedias[self.currentPage][0] = StoryEditorMedia(type: .video(thumbimage, trimmedAsset))
-                        var urls: [StoryEditorMedia] = []
-                        for video in self.storyEditorMedias {
-                            urls.append(video.first!)
-                        }
-                        doneHandler(urls)
                     }
-                } catch let error {
-                    print("💩 \(error)")
+                    let thumbimage = UIImage.getThumbnailFrom(asset: storySegment.assetRepresentingSegments()) ?? UIImage()
+                    
+                    guard let tempFirstSegment = self.combinedstoryEditorMedias[0][0].copy() as? StoryEditorMedia else {
+                        return
+                    }
+                    self.storyEditorMedias.removeAll()
+                    tempFirstSegment.type = .video(thumbimage, storySegment.assetRepresentingSegments())
+                    self.storyEditorMedias.append([tempFirstSegment])
+                    
+                    var urls: [StoryEditorMedia] = []
+                    for video in self.storyEditorMedias {
+                        urls.append(video.first!)
+                    }
+                    doneHandler(urls)
+                    self.navigationController?.popViewController(animated: true)
                 }
             }
-            self.navigationController?.popViewController(animated: true)
-
         }
-//        if button.tag == 1 {
-//            if isEditMode, let cell: ImageCollectionViewCell = self.editStoryCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? ImageCollectionViewCell {
-//                guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
-//                    return
-//                }
-//                do {
-//                    try Utils.time {
-//                        guard let asset = currentAsset(index: self.currentPage) else {
-//                            return
-//                        }
-//                        let trimmedAsset = try asset.assetByTrimming(startTime: startTime, endTime: endTime)
-//
-//                        let thumbimage = UIImage.getThumbnailFrom(asset: trimmedAsset) ?? UIImage()
-//
-//                        self.storyEditorMedias[self.currentPage][0] = StoryEditorMedia(type: .video(thumbimage, trimmedAsset))
-//                        self.connVideoPlay(isReload: true)
-//                        cell.trimmerView.trimViewLeadingConstraint.constant = 0
-//                        cell.trimmerView.trimViewTrailingConstraint.constant = cell.trimmerView.frame.width
-//                    }
-//                } catch let error {
-//                    print("💩 \(error)")
-//                }
-//            }
-//        } else {
-//            if let doneHandler = self.doneHandler, isEditMode, let cell: ImageCollectionViewCell = self.editStoryCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? ImageCollectionViewCell {
-//                guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
-//                    return
-//                }
-//                do {
-//                    try Utils.time {
-//                        guard let asset = currentAsset(index: self.currentPage) else {
-//                            return
-//                        }
-//                        let trimmedAsset = try asset.assetByTrimming(startTime: startTime, endTime: endTime)
-//
-//                        let thumbimage = UIImage.getThumbnailFrom(asset: trimmedAsset) ?? UIImage()
-//
-//                        self.storyEditorMedias[self.currentPage][0] = StoryEditorMedia(type: .video(thumbimage, trimmedAsset))
-//                        var urls: [StoryEditorMedia] = []
-//                        for video in self.storyEditorMedias {
-//                            urls.append(video.first!)
-//                        }
-//                        doneHandler(urls)
-//                    }
-//                } catch let error {
-//                    print("💩 \(error)")
-//                }
-//            }
-//            self.navigationController?.popViewController(animated: true)
-//        }
+        
+        
     }
     
     @IBAction func playPauseClicked(_ sender: Any) {
