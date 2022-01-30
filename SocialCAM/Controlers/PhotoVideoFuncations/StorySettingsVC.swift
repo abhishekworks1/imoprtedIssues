@@ -76,6 +76,7 @@ enum SettingsMode: Int {
     case hapticNone
     case hapticAll
     case hapticSome
+    case aboutPage
 }
 
 class StorySetting {
@@ -141,6 +142,8 @@ class StorySettings {
                                               settings: [StorySetting(name: R.string.localizable.referringChannelOption(), selected: false)], settingsType: .referringChannel),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.checkUpdates(), selected: false)], settingsType: .checkUpdate),
+                                StorySettings(name: "",
+                                              settings: [StorySetting(name: "About", selected: false)], settingsType: .aboutPage),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.logout(), selected: false)], settingsType: .logout)]
     
@@ -248,16 +251,7 @@ class StorySettingsVC: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    @IBAction func btnLegalDetailsTapped(_ sender: UIButton) {
-        guard let legalVc = R.storyboard.legal.legalViewController() else { return }
-        legalVc.isTermsAndConditions = (sender.tag == 0)
-        self.navigationController?.pushViewController(legalVc, animated: true)
-    }
-    
-    @IBAction func btnPatentsTapped(_ sender: UIButton) {
-        guard let patentsVc = R.storyboard.legal.patentsViewController() else { return }
-        self.navigationController?.pushViewController(patentsVc, animated: true)
-    }
+   
     
     @IBAction func btnLogoutTapped(_ sender: UIButton) {
         self.logoutWithKeycloak()
@@ -342,6 +336,8 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         } else if settingTitle.settingsType == .system {
             hideUnhideImgButton(cell, R.image.iconSystem())
         } else if settingTitle.settingsType == .help {
+            hideUnhideImgButton(cell, R.image.iconHowItWorks())
+        }else if settingTitle.settingsType == .aboutPage {
             hideUnhideImgButton(cell, R.image.iconHowItWorks())
         } else if settingTitle.settingsType == .logout {
             hideUnhideImgButton(cell, R.image.iconLogout())
@@ -624,6 +620,10 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             if let userDetailsVC = R.storyboard.notificationVC.userDetailsVC() {
                 MIBlurPopup.show(userDetailsVC, on: self)
             }
+        }else if settingTitle.settingsType == .aboutPage {
+            if let aboutViewController = R.storyboard.contactWizardwithAboutUs.aboutViewController() {
+                navigationController?.pushViewController(aboutViewController, animated: true)
+            }
         }
     }
     
@@ -897,8 +897,8 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             self.settingsTableView.reloadData()
             AppEventBus.post("changeMode")
             self.navigationController?.popViewController(animated: true)
-            Utils.appDelegate?.window?.makeToast(successMessage)
-            
+            //Utils.appDelegate?.window?.makeToast(successMessage)
+            Utils.appDelegate?.window?.currentController?.showAlert(alertMessage: successMessage ?? "")
         }
         let cancelAction = UIAlertAction(title: R.string.localizable.cancel(), style: .default) { (_: UIAlertAction) in }
         objAlert.addAction(actionSave)

@@ -32,6 +32,8 @@ class ColorsData {
         colorsData.append(ColorsData(name: "", color: R.color.active6()!, isSelected: false))
         colorsData.append(ColorsData(name: "", color: R.color.active7()!, isSelected: false))
         colorsData.append(ColorsData(name: "", color: R.color.active8()!, isSelected: false))
+        colorsData.append(ColorsData(name: "", color: R.color.active9()!, isSelected: false))
+        colorsData.append(ColorsData(name: "", color: R.color.active10()!, isSelected: false))
         return colorsData
     }
     
@@ -45,6 +47,9 @@ class ColorsData {
         colorsData.append(ColorsData(name: "", color: R.color.inActive6()!, isSelected: false))
         colorsData.append(ColorsData(name: "", color: R.color.inActive7()!, isSelected: false))
         colorsData.append(ColorsData(name: "", color: R.color.inActive8()!, isSelected: false))
+        colorsData.append(ColorsData(name: "", color: R.color.inActive9()!, isSelected: false))
+        colorsData.append(ColorsData(name: "", color: R.color.inActive10()!, isSelected: false))
+
         return colorsData
     }
     

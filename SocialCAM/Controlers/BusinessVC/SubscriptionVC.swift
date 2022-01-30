@@ -216,8 +216,8 @@ extension SubscriptionVC: UITableViewDataSource, UITableViewDelegate {
             self.settingsTableView.reloadData()
             AppEventBus.post("changeMode")
             self.navigationController?.popViewController(animated: true)
-            Utils.appDelegate?.window?.makeToast(successMessage)
-            
+            //Utils.appDelegate?.window?.makeToast(successMessage)
+            Utils.appDelegate?.window?.currentController?.showAlert(alertMessage: successMessage ?? "")
         }
         let cancelAction = UIAlertAction(title: R.string.localizable.cancel(), style: .default) { (_: UIAlertAction) in }
         objAlert.addAction(cancelAction)

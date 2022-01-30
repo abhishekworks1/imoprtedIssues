@@ -16,7 +16,8 @@ class SubscriptionContainerViewController: UIViewController {
 
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var backButton: UIButton!
-    
+    @IBOutlet weak var subscriptionImgV: UIImageView!
+
     // MARK: -
     // MARK: - Variables
     
@@ -34,6 +35,7 @@ class SubscriptionContainerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupPagingViewController()
+        setupSubscriotion()
     }
     
     private func setupPagingViewController() {
@@ -72,7 +74,32 @@ class SubscriptionContainerViewController: UIViewController {
             pagingViewController.view.topAnchor.constraint(equalTo: containerView.topAnchor)
         ])
     }
-    
+    func setupSubscriotion(){
+        var imgStr = "free-user-icon"
+        if Defaults.shared.allowFullAccess ?? false == true{
+            imgStr = "trial-user-icon"
+        }else if (Defaults.shared.subscriptionType == "trial"){
+            if (Defaults.shared.numberOfFreeTrialDays ?? 0 > 0){
+                imgStr = "trial-user-icon"
+            }else {
+                imgStr = "free-user-icon"
+            }
+        }else if(Defaults.shared.subscriptionType == "premium")
+        {
+            if(Defaults.shared.isDowngradeSubscription ?? false == true){
+                if (Defaults.shared.numberOfFreeTrialDays ?? 0 > 0){
+                    imgStr = "active-icon"
+                }else {
+                    imgStr = "free-user-icon"
+                }
+            }else{
+                imgStr = "active-icon"
+            }
+        }else{
+            imgStr = "free-user-icon"
+        }
+        subscriptionImgV.image = UIImage.init(named: imgStr)
+    }
     // MARK: -
     // MARK: - Button Action Methods
     

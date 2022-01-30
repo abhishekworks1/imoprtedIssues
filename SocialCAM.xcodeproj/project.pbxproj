@@ -9702,6 +9702,10 @@
 		95F117E423FD04B400EB99B4 /* SpecificBoomerangOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F117E323FD04B400EB99B4 /* SpecificBoomerangOptions.swift */; };
 		9C8D3494271E9C4D00A8403B /* UserCountry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D0443726F4B9C700F8F19A /* UserCountry.swift */; };
 		9C8D34B1271E9C5B00A8403B /* SnapCamAssetsV2.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2A8798725F226D7006EB597 /* SnapCamAssetsV2.xcassets */; };
+		9CA4AE9E27A65152001889DE /* ContactWizardwithAboutUs.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9CA4AE9D27A65152001889DE /* ContactWizardwithAboutUs.storyboard */; };
+		9CA4AE9F27A65152001889DE /* ContactWizardwithAboutUs.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9CA4AE9D27A65152001889DE /* ContactWizardwithAboutUs.storyboard */; };
+		9CA4AEA127A6517A001889DE /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA4AEA027A6517A001889DE /* AboutViewController.swift */; };
+		9CA4AEA227A6517A001889DE /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA4AEA027A6517A001889DE /* AboutViewController.swift */; };
 		9CAB00482796465600115443 /* OmitEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAB00472796465500115443 /* OmitEditorViewController.swift */; };
 		9CAB00492796465600115443 /* OmitEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAB00472796465500115443 /* OmitEditorViewController.swift */; };
 		9CAE5696274562D20067AAA5 /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CAE5695274562D20067AAA5 /* QRCodeViewController.swift */; };
@@ -16300,6 +16304,8 @@
 		979084F593CE042352BAE1C6 /* Pods-QuickCamLite.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickCamLite.debug.xcconfig"; path = "Target Support Files/Pods-QuickCamLite/Pods-QuickCamLite.debug.xcconfig"; sourceTree = "<group>"; };
 		991B94D62FC52F62CBAB0E70 /* Pods-QuickCamLite.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickCamLite.release.xcconfig"; path = "Target Support Files/Pods-QuickCamLite/Pods-QuickCamLite.release.xcconfig"; sourceTree = "<group>"; };
 		9C75F3E270A1CF04C6B6C834 /* Pods_QuickCamLiteExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuickCamLiteExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9CA4AE9D27A65152001889DE /* ContactWizardwithAboutUs.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ContactWizardwithAboutUs.storyboard; sourceTree = "<group>"; };
+		9CA4AEA027A6517A001889DE /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		9CAB00472796465500115443 /* OmitEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OmitEditorViewController.swift; sourceTree = "<group>"; };
 		9CAE5695274562D20067AAA5 /* QRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QRCodeViewController.swift; path = PhotoVideoFuncations/QRCodeViewController.swift; sourceTree = "<group>"; };
 		9CDA461D27851E09002BF726 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -18189,6 +18195,7 @@
 		824EB393236197F600205993 /* Controlers */ = {
 			isa = PBXGroup;
 			children = (
+				9CA4AE9C27A65117001889DE /* ContactWizardAndAbout */,
 				82A404BC26FC6BF80032AC0F /* Notification */,
 				C241CB9025CD63D2003B66EE /* ForgotPasswordVC */,
 				828F3AD5258B530D001F4500 /* RecorderVC */,
@@ -18938,6 +18945,15 @@
 				959A91D52449CFDD0062AA67 /* IAP_ProductIDs.plist */,
 			);
 			path = "In-App Purchases";
+			sourceTree = "<group>";
+		};
+		9CA4AE9C27A65117001889DE /* ContactWizardAndAbout */ = {
+			isa = PBXGroup;
+			children = (
+				9CA4AE9D27A65152001889DE /* ContactWizardwithAboutUs.storyboard */,
+				9CA4AEA027A6517A001889DE /* AboutViewController.swift */,
+			);
+			path = ContactWizardAndAbout;
 			sourceTree = "<group>";
 		};
 		C23950A126D6795D00C3C607 /* SSAppUpdater */ = {
@@ -20200,6 +20216,7 @@
 				8205FBD0236C2A88002B2603 /* CoverA.xib in Resources */,
 				82FF046927146E8B00E6CB90 /* CountryCodes.json in Resources */,
 				F68AFEDF255A398F00465E5F /* Subscription.storyboard in Resources */,
+				9CA4AE9E27A65152001889DE /* ContactWizardwithAboutUs.storyboard in Resources */,
 				8205FB65236C1D0F002B2603 /* ReactionSummaryLocalizable.strings in Resources */,
 				8205FD8C236C3B25002B2603 /* StickersViewController.xib in Resources */,
 				827106E324A45EFB00C53521 /* AMColorPickerTableViewCell.xib in Resources */,
@@ -22003,6 +22020,7 @@
 				C2F934BC264AA0CA006CA527 /* LoadingView.xib in Resources */,
 				C2F934BD264AA0CA006CA527 /* StoryCameraViewController.storyboard in Resources */,
 				C2F934BE264AA0CA006CA527 /* AMColorPickerViewController.xib in Resources */,
+				9CA4AE9F27A65152001889DE /* ContactWizardwithAboutUs.storyboard in Resources */,
 				C2F934BF264AA0CA006CA527 /* Innocence.JPG in Resources */,
 				C2F934C1264AA0CA006CA527 /* Playful.JPG in Resources */,
 				C2F934C2264AA0CA006CA527 /* FacebookReactionLocalizable.strings in Resources */,
@@ -26840,6 +26858,7 @@
 				82D1EBB7236FED7800A680E7 /* MLVideoView.swift in Sources */,
 				8205FC51236C3A29002B2603 /* KeyframePickerCursorVC.swift in Sources */,
 				8205FD3D236C3B06002B2603 /* MetalImageView.swift in Sources */,
+				9CA4AEA127A6517A001889DE /* AboutViewController.swift in Sources */,
 				8205FB7E236C1FC6002B2603 /* SocialCAM.xcdatamodeld in Sources */,
 				827106CB24A45EFB00C53521 /* AMColorPickerWheelView.swift in Sources */,
 				8205FAFD236C1199002B2603 /* SnapGesture.swift in Sources */,
@@ -33561,6 +33580,7 @@
 				C2F93355264AA0CA006CA527 /* CollageViewT201.swift in Sources */,
 				C2F93356264AA0CA006CA527 /* SimpleKeyWordViewController.swift in Sources */,
 				C2F93357264AA0CA006CA527 /* CropMaskViewManager.swift in Sources */,
+				9CA4AEA227A6517A001889DE /* AboutViewController.swift in Sources */,
 				C2F93358264AA0CA006CA527 /* EditOption.swift in Sources */,
 				C2F93359264AA0CA006CA527 /* UIImage+Resize.swift in Sources */,
 				C2F9335A264AA0CA006CA527 /* DateTimePicker.swift in Sources */,

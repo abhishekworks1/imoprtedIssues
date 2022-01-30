@@ -636,12 +636,11 @@ enum AppMode: Int, AppMode_Enum {
                     "Custom Referral page for affiliates",
                     "Business Dashboard\n- Track your referrals, see who's subscribing and how much money you're earning."]
         case .basic:
-            return ["Segment length customisation: Up to 30 seconds",
-                    "Video countdown timer: Up to 60 seconds",
-                    "Slow motion recording up to -3x speed",
-                    "Fast motion recording up to 3x speed",
-                    "Face detection",
-                    "Flash on/off/auto"]
+            return ["Camera Modes\nFree mode",
+                    "Fast & Slow mode\n-  Record in -2x & -3X slow motion speed\n-  Record in 2x and 3x fast motion speeds\n-  Record in normal speed\n-  Record up to 30 second videos",
+                    "Save \n- Same features as Fast & Slow but saves directly to your device",
+                    "Pic2Art \n- Turn your pictures into artVideo editor features include\n- Add Bitmojis\n- Split, Trim and Crop\n- Watermark\n- Referral link\n- Share on all supported social mediaFaster Frames Per Second (FPS)",
+                    "Custom Referral page for affiliatesBusiness Dashboard \n- Track your referrals, see who's subscribing and how much money you're earning."]
         case .advanced:
             return ["Features to be decided"]
         case .professional:
@@ -789,6 +788,7 @@ enum GuidelineTypes: Int {
     case solidLine = 1
     case dottedLine
     case dashedLine
+    case hideLine
 }
 
 enum GuidelineThickness: Int {

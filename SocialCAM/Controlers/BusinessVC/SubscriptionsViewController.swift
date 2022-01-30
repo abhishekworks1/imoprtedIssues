@@ -22,6 +22,9 @@ class SubscriptionsViewController: UIViewController {
     @IBOutlet weak var expiryDateHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var downgradePopupView: UIView!
     
+    @IBOutlet weak var lblpriceTitle: UILabel!
+
+    
     internal var subscriptionType = AppMode.free {
         didSet {
             self.title = subscriptionType.description
@@ -40,6 +43,10 @@ class SubscriptionsViewController: UIViewController {
         setupUI()
         if subscriptionType == .basic {
             bindViewModel(appMode: appMode ?? .basic)
+            lblpriceTitle.text = "Introductory Price  | $1.99/month (3 months) \n Regular Price  | $2.99/month (after 3 months)"
+        }else{
+            lblpriceTitle.text = "Free |   $0/month \n No subscription required"
+
         }
 //        if Defaults.shared.allowFullAccess == true {
 //            btnUpgrade.isUserInteractionEnabled = false
@@ -113,6 +120,12 @@ class SubscriptionsViewController: UIViewController {
             } else {
                 self.lblPrice.text = self.subscriptionType.price
             }
+        }
+        
+        if subscriptionType == .basic {
+            print("basic")
+        }else{
+            print("free")
         }
         
         
@@ -293,7 +306,8 @@ class SubscriptionsViewController: UIViewController {
                 SubscriptionSettings.storySettings[0].settings[appMode.rawValue].selected = true
                 AppEventBus.post("changeMode")
                 self.navigationController?.popViewController(animated: true)
-                Utils.appDelegate?.window?.makeToast(successMessage)
+                //Utils.appDelegate?.window?.makeToast(successMessage)
+                Utils.appDelegate?.window?.currentController?.showAlert(alertMessage: successMessage ?? "")
             } else {
                 Defaults.shared.isSubscriptionApiCalled = false
                 self.showAlert(alertMessage: response.message ?? R.string.localizable.somethingWentWrongPleaseTryAgainLater())
@@ -363,7 +377,8 @@ extension SubscriptionsViewController {
                 SubscriptionSettings.storySettings[0].settings[appMode.rawValue].selected = true
                 AppEventBus.post("changeMode")
                 self.navigationController?.popViewController(animated: true)
-                Utils.appDelegate?.window?.makeToast(R.string.localizable.basicLiteModeIsEnabled())
+                //Utils.appDelegate?.window?.makeToast(R.string.localizable.basicLiteModeIsEnabled())
+                Utils.appDelegate?.window?.currentController?.showAlert(alertMessage: R.string.localizable.basicLiteModeIsEnabled())
             }
             self.showAlert(alertMessage: message)
         }

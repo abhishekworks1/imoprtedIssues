@@ -44,7 +44,9 @@ public class DottedLineView: UIView {
         self.setNeedsDisplay()
         let path = UIBezierPath()
         path.lineWidth = lineWidth
-
+        if guidelineTypes == .hideLine {
+            path.lineWidth = CGFloat(0)
+        }
         if round {
             configureRoundPath(path: path, rect: rect)
         } else {

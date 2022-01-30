@@ -23,9 +23,13 @@ class GuildlineIconPositionTableViewCell: UITableViewCell {
     @IBOutlet weak var imgSold: UIImageView!
     @IBOutlet weak var imgDotted: UIImageView!
     @IBOutlet weak var imgDashed: UIImageView!
-    
+    @IBOutlet weak var imghide: UIImageView!
+
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var iconSettingImage: UIImageView!
+    
+    @IBOutlet weak var hideLineView: UIView!
+
     
     @IBOutlet weak var lblSold: UILabel!
     @IBOutlet weak var lblDotted: UILabel!
@@ -46,6 +50,7 @@ class GuildlineIconPositionTableViewCell: UITableViewCell {
                 imgLineDotted.image = R.image.dottedLine()
                 imgLineDashed.image = R.image.dashedLine()
                 self.setSelection(guidelineTypes: Defaults.shared.cameraGuidelineTypes)
+                hideLineView.isHidden = false
             } else if guildline == .thickness {
                 lblTitle.text = R.string.localizable.timeGuidelineThickness()
                 lblSold.text = R.string.localizable.small()
@@ -55,6 +60,7 @@ class GuildlineIconPositionTableViewCell: UITableViewCell {
                 imgLineDotted.image = R.image.mediumLine()
                 imgLineDashed.image = R.image.thickLine()
                 self.setSelection(guidelineThickness: Defaults.shared.cameraGuidelineThickness)
+                hideLineView.isHidden = true
             }
         }
     }
@@ -68,6 +74,7 @@ class GuildlineIconPositionTableViewCell: UITableViewCell {
         self.imgSold.image = R.image.radioDeselected()
         self.imgDotted.image = R.image.radioDeselected()
         self.imgDashed.image = R.image.radioDeselected()
+        self.imghide.image = R.image.radioDeselected()
         switch guidelineTypes {
         case .solidLine:
             self.imgSold.image = R.image.radioSelected()
@@ -75,6 +82,8 @@ class GuildlineIconPositionTableViewCell: UITableViewCell {
             self.imgDotted.image = R.image.radioSelected()
         case .dashedLine:
             self.imgDashed.image = R.image.radioSelected()
+        case .hideLine:
+            self.imghide.image = R.image.radioSelected()
         }
     }
     
@@ -119,6 +128,13 @@ class GuildlineIconPositionTableViewCell: UITableViewCell {
         } else if guildline == .thickness {
             Defaults.shared.cameraGuidelineThickness = .thick
             self.setSelection(guidelineThickness: Defaults.shared.cameraGuidelineThickness)
+        }
+    }
+    
+    @IBAction func btnHideTapped(_ sender: Any) {
+        if guildline == .type {
+            Defaults.shared.cameraGuidelineTypes = .hideLine
+            self.setSelection(guidelineTypes: Defaults.shared.cameraGuidelineTypes)
         }
     }
 }
