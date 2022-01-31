@@ -642,11 +642,17 @@ extension SpecificBoomerangViewController {
         guard let asset = currentAsset else {
             return
         }
+        var boomrangSettings = [BoomrangAssetSettings]()
         for boomerangValue in boomerangValues {
             boomerangValue.updateBoomerangViewSize(duration: trimmerView.thumbnailsView.videoDuration.seconds, durationSize: trimmerView.thumbnailsView.durationSize)
             boomerangValue.updateTimeRange(for: asset, boundsWidth: trimmerView.viewWidth)
             boomerangValue.reset()
+            
+            let boomrangSetting = BoomrangAssetSettings(boomrangevalue:boomerangValue)
+            boomrangSettings.append(boomrangSetting)
         }
+        Defaults.shared.boomerangAssetValues = boomrangSettings
+       // print(Defaults.shared.boomerangAssetValues)
     }
         
     func resetBoomerangValues() {
