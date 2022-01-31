@@ -1253,6 +1253,49 @@ class Defaults {
             }
         }
     }
+    func getbadgesArray() -> [String] {
+        
+        var imageArray = [String]()
+        //Defaults.shared.currentUser?.badges?[0].followingUser?.badges?[0].badge?.code
+        if Defaults.shared.currentUser?.badges?.count ?? 0 > 0 {
+            if Defaults.shared.currentUser?.badges?[0].followingUser?.badges?.count ?? 0 > 0 {
+             
+                let badgesArray = Defaults.shared.currentUser?.badges?[0].followingUser?.badges
+                
+                for i in 0 ..< (badgesArray?.count ?? 0){
+                    let badge = badgesArray![i] as MainBadges
+                    let badImgname = self.imageNameBasedOnCode(code : badge.badge?.code ?? "")
+                    if badImgname.count > 0 {
+                        imageArray.append(badImgname)
+                    }
+                }
+            }
+        }
+        return imageArray
+    }
+    
+    
+    func imageNameBasedOnCode(code:String) -> String{
+        var imageName = ""
+        switch code {
+        case Badges.PRELAUNCH.rawValue:
+            imageName = "prelaunchBadge"
+        case Badges.FOUNDING_MEMBER.rawValue:
+            imageName = "foundingMemberBadge"
+        case Badges.SOCIAL_MEDIA_CONNECTION.rawValue:
+            imageName = "socialBadge"
+        case Badges.SUBSCRIBER_IOS.rawValue:
+            imageName = "iosbadge"
+        case Badges.SUBSCRIBER_ANDROID.rawValue:
+            imageName = "androidbadge"
+        case Badges.SUBSCRIBER_WEB.rawValue:
+            imageName = "webbadge"
+        default:
+            imageName = ""
+        }
+        return imageName
+    }
+    
 }
 
 extension UserDefaults {

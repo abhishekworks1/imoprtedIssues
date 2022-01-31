@@ -34,7 +34,16 @@ class UserDetailsVC: UIViewController {
     @IBOutlet var imgCountrys: [UIImageView]!
     @IBOutlet weak var lblDisplayName: UILabel!
     @IBOutlet weak var socialBadgeViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var socialMediaVerifiedBadgeView: UIView!
+   // @IBOutlet weak var socialMediaVerifiedBadgeView: UIView!
+    
+    @IBOutlet weak var view1: UIView!
+    @IBOutlet weak var view2: UIView!
+    @IBOutlet weak var view3: UIView!
+    @IBOutlet weak var view4: UIView!
+    @IBOutlet weak var badgebtn1: UIButton!
+    @IBOutlet weak var badgebtn2: UIButton!
+    @IBOutlet weak var badgebtn3: UIButton!
+    @IBOutlet weak var badgebtn4: UIButton!
     
     var notificationUpdateHandler: ((_ notification: UserNotification?) -> Void)?
     var notification: UserNotification?
@@ -53,6 +62,7 @@ class UserDetailsVC: UIViewController {
         super.viewDidLoad()
         setup()
         modalPresentationCapturesStatusBarAppearance = true
+        self.setUpbadges()
     }
     
     // MARK: - IBActions
@@ -247,12 +257,37 @@ class UserDetailsVC: UIViewController {
             }
         }
         self.imgUserPlaceholder.image = (socialPlatfroms.count == 4) ? R.image.shareScreenRibbonProfileBadge() : R.image.shareScreenProfileBadge()
-        self.socialMediaVerifiedBadgeView.isHidden = socialPlatfroms.count != 4
+       // self.socialMediaVerifiedBadgeView.isHidden = socialPlatfroms.count != 4
     }
     
     func convertDate(_ date: String) -> String {
         let convertedDate = CommonFunctions.getDateInSpecificFormat(dateInput: date, dateOutput: R.string.localizable.mmmdYyyy())
         return convertedDate
+    }
+    
+    func setUpbadges() {
+        let badgearry = Defaults.shared.getbadgesArray()
+        view1.isHidden = true
+        view2.isHidden = true
+        view3.isHidden = true
+        view4.isHidden = true
+        
+        if  badgearry.count >  0 {
+            view1.isHidden = false
+            badgebtn1.setImage(UIImage.init(named: badgearry[0]), for: .normal)
+        }
+        if  badgearry.count >  1 {
+            view2.isHidden = false
+            badgebtn2.setImage(UIImage.init(named: badgearry[1]), for: .normal)
+        }
+        if  badgearry.count >  2 {
+            view3.isHidden = false
+            badgebtn3.setImage(UIImage.init(named: badgearry[2]), for: .normal)
+        }
+        if  badgearry.count >  3 {
+            view4.isHidden = false
+            badgebtn4.setImage(UIImage.init(named: badgearry[3]), for: .normal)
+        }
     }
 }
 

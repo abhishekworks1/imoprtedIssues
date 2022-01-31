@@ -771,6 +771,15 @@ enum PostTypes: String {
     case location = "Location"
 }
 
+enum Badges: String {
+    case PRELAUNCH = "prelaunch"
+    case FOUNDING_MEMBER = "founding-member"
+    case SOCIAL_MEDIA_CONNECTION = "social-media-connection"
+    case SUBSCRIBER_IOS = "subscriber-ios"
+    case SUBSCRIBER_ANDROID = "subscriber-android"
+    case SUBSCRIBER_WEB = "subscriber-web"
+}
+
 enum FileExtension: String {
     case jpg = ".jpg"
     case png = ".png"
@@ -1171,7 +1180,7 @@ public struct APIHeaders {
     let headerWithToken =  ["Content-Type": "application/json",
                                    "userid": Defaults.shared.currentUser?.id ?? "",
                                    "deviceType": "1",
-                                   "x-access-token": Defaults.shared.sessionToken ?? "" ]
+                                   "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTk2MjhmMzVkM2FhNzAwMjMwOGQyZGQiLCJjaGFubmVsSWQiOiJwbXRlc3RlcjExMTEiLCJpYXQiOjE2NDI2ODA4ODgsImV4cCI6MTY0NTI3Mjg4OH0.Gn0dq7fIiPM8DIMOj52Myb0COxeJHoKdA1HuW8mHCAM"  ] //Defaults.shared.sessionToken ?? ""
     let headerWithoutAccessToken = ["Content-Type": "application/json",
                                            "deviceType": "1"]
     

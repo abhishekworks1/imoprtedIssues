@@ -23,6 +23,11 @@ class StorySettingsHeader: UITableViewCell {
     @IBOutlet weak var btnProfilePic: UIButton!
     @IBOutlet weak var addProfilePic: UIImageView!
     @IBOutlet weak var imgSocialMediaBadge: UIImageView!
+    @IBOutlet weak var imgprelaunch: UIImageView!
+    @IBOutlet weak var imgfoundingMember: UIImageView!
+    @IBOutlet weak var imgSubscribeBadge: UIImageView!
+
+    
     @IBOutlet weak var iconSettingsImage: UIImageView!
     @IBOutlet weak var badgesView: UIStackView!
     weak var delegate: HeaderViewDelegate?
@@ -37,8 +42,34 @@ class StorySettingsHeader: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapHeader)))
+        
+        setUpbadges()
+        
     }
-    
+    func setUpbadges() {
+        let badgearry = Defaults.shared.getbadgesArray()
+        imgprelaunch.isHidden = true
+        imgfoundingMember.isHidden = true
+        imgSocialMediaBadge.isHidden = true
+        imgSubscribeBadge.isHidden = true
+        
+        if  badgearry.count >  0 {
+            imgprelaunch.isHidden = false
+            imgprelaunch.image = UIImage.init(named: badgearry[0])
+        }
+        if  badgearry.count >  1 {
+            imgfoundingMember.isHidden = false
+            imgfoundingMember.image = UIImage.init(named: badgearry[1])
+        }
+        if  badgearry.count >  2 {
+            imgSocialMediaBadge.isHidden = false
+            imgSocialMediaBadge.image = UIImage.init(named: badgearry[2])
+        }
+        if  badgearry.count >  3 {
+            imgSubscribeBadge.isHidden = false
+            imgSubscribeBadge.image = UIImage.init(named: badgearry[3])
+        }
+    }
     @objc private func didTapHeader() {
         delegate?.toggleSection(header: self, section: section)
     }

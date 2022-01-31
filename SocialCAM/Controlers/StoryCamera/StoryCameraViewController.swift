@@ -2671,6 +2671,10 @@ extension StoryCameraViewController {
                 }
                 Defaults.shared.referredByData = response.result?.user?.refferedBy
                 self.setAppModeBasedOnUserSync()
+                print("****badges****")
+                //print(Defaults.shared.currentUser?.badges?[0].followingUser?.badges?[0].badge?.code)
+                print("****badges****")
+                
                 completion(true)
             }
         }, onError: { error in

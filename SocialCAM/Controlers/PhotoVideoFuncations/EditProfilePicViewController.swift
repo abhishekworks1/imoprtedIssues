@@ -38,7 +38,6 @@ class EditProfilePicViewController: UIViewController {
     @IBOutlet weak var socialPlatformStackViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var imgProfileBadge: UIImageView!
     @IBOutlet weak var socialBadgeStackViewHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var socialPlatformsVerifiedBadge: UIView!
     @IBOutlet weak var socialBadgeReceivedPopupView: UIView!
     @IBOutlet weak var lblSocialBadgeReceived: UILabel!
     @IBOutlet weak var popupImgView: UIImageView!
@@ -58,6 +57,16 @@ class EditProfilePicViewController: UIViewController {
     @IBOutlet weak var btnSetFlags: UIButton!
     @IBOutlet weak var btnSelectDiscardPopupView: UIButton!
     
+    @IBOutlet weak var view1: UIView!
+    @IBOutlet weak var view2: UIView!
+    @IBOutlet weak var view3: UIView!
+    @IBOutlet weak var view4: UIView!
+    @IBOutlet weak var badgebtn1: UIButton!
+    @IBOutlet weak var badgebtn2: UIButton!
+    @IBOutlet weak var badgebtn3: UIButton!
+    @IBOutlet weak var badgebtn4: UIButton!
+
+
     // MARK: - Variables declaration
     private var localImageUrl: URL?
     private var imagePicker = UIImagePickerController()
@@ -87,6 +96,7 @@ class EditProfilePicViewController: UIViewController {
         }
         self.setPublicDisplayName()
         btnSelectCountry.isSelected = Defaults.shared.currentUser?.isShowFlags ?? false
+        self.setUpbadges()
         
         DispatchQueue.main.async {
             if let flages = Defaults.shared.currentUser?.userStateFlags,
@@ -123,6 +133,8 @@ class EditProfilePicViewController: UIViewController {
         if isQuickApp || isQuickCamApp {
             self.showFlagsView.isHidden = true
         }
+        
+       
     }
     
     func settingSocialPlatforms() {
@@ -309,6 +321,32 @@ class EditProfilePicViewController: UIViewController {
         btnSelectDiscardPopupView.isSelected = !btnSelectDiscardPopupView.isSelected
         Defaults.shared.isShowAllPopUpChecked = !btnSelectDiscardPopupView.isSelected
         Defaults.shared.isEditProfileDiscardPopupChecked = !btnSelectDiscardPopupView.isSelected
+    }
+    
+    
+    func setUpbadges() {
+        let badgearry = Defaults.shared.getbadgesArray()
+        view1.isHidden = true
+        view2.isHidden = true
+        view3.isHidden = true
+        view4.isHidden = true
+        
+        if  badgearry.count >  0 {
+            view1.isHidden = false
+            badgebtn1.setImage(UIImage.init(named: badgearry[0]), for: .normal)
+        }
+        if  badgearry.count >  1 {
+            view2.isHidden = false
+            badgebtn2.setImage(UIImage.init(named: badgearry[1]), for: .normal)
+        }
+        if  badgearry.count >  2 {
+            view3.isHidden = false
+            badgebtn3.setImage(UIImage.init(named: badgearry[2]), for: .normal)
+        }
+        if  badgearry.count >  3 {
+            view4.isHidden = false
+            badgebtn4.setImage(UIImage.init(named: badgearry[3]), for: .normal)
+        }
     }
     
 }
@@ -654,10 +692,10 @@ extension EditProfilePicViewController {
                 }
             }
             self.imgProfileBadge.image = (socialPlatforms.count == 4) ? R.image.shareScreenRibbonProfileBadge() : R.image.shareScreenProfileBadge()
-            self.socialPlatformsVerifiedBadge.isHidden = socialPlatforms.count != 4
+            //self.socialPlatformsVerifiedBadge.isHidden = socialPlatforms.count != 4
         } else {
             self.socialPlatformStackViewHeightConstraint.constant = 0
-            self.socialPlatformsVerifiedBadge.isHidden = true
+            //self.socialPlatformsVerifiedBadge.isHidden = true
         }
     }
     

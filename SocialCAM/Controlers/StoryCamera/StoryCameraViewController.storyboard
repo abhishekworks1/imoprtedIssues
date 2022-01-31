@@ -2483,7 +2483,7 @@ Countdown</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="sMi-ZI-xKb">
-                                                    <rect key="frame" x="156.33333333333334" y="10" width="85" height="41"/>
+                                                    <rect key="frame" x="156.33333333333334" y="10" width="175.00000000000003" height="41"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="prelaunchBadge" translatesAutoresizingMaskIntoConstraints="NO" id="Zrl-CI-m7M">
                                                             <rect key="frame" x="0.0" y="0.0" width="40" height="41"/>
@@ -2491,11 +2491,14 @@ Countdown</string>
                                                                 <constraint firstAttribute="width" constant="40" id="G0H-gX-2tq"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="socialBadge" translatesAutoresizingMaskIntoConstraints="NO" id="6hx-2K-M6D">
-                                                            <rect key="frame" x="42.666666666666657" y="0.0" width="0.0" height="41"/>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="socialBadge" translatesAutoresizingMaskIntoConstraints="NO" id="6hx-2K-M6D">
+                                                            <rect key="frame" x="45" y="0.0" width="40" height="41"/>
                                                         </imageView>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="foundingMemberBadge" translatesAutoresizingMaskIntoConstraints="NO" id="V7Y-P2-fkC">
-                                                            <rect key="frame" x="45" y="0.0" width="40" height="41"/>
+                                                            <rect key="frame" x="90" y="0.0" width="40" height="41"/>
+                                                        </imageView>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iosbadge" translatesAutoresizingMaskIntoConstraints="NO" id="jjD-57-6We">
+                                                            <rect key="frame" x="134.99999999999997" y="0.0" width="40" height="41"/>
                                                         </imageView>
                                                     </subviews>
                                                 </stackView>
@@ -2532,6 +2535,9 @@ Countdown</string>
                                             <outlet property="badgesView" destination="sMi-ZI-xKb" id="b50-ls-c5w"/>
                                             <outlet property="btnProfilePic" destination="61g-Tk-Gk6" id="W8f-V1-ZHs"/>
                                             <outlet property="imgSocialMediaBadge" destination="6hx-2K-M6D" id="8bo-5A-VHQ"/>
+                                            <outlet property="imgSubscribeBadge" destination="jjD-57-6We" id="NIt-0G-5ZY"/>
+                                            <outlet property="imgfoundingMember" destination="V7Y-P2-fkC" id="0qt-M6-pnK"/>
+                                            <outlet property="imgprelaunch" destination="Zrl-CI-m7M" id="7an-AU-uvc"/>
                                             <outlet property="nameLabel" destination="nGO-QM-lgp" id="5j5-sf-fFy"/>
                                             <outlet property="title" destination="zK1-TT-d86" id="2V9-SU-U1K"/>
                                             <outlet property="userImage" destination="KaT-dA-dZj" id="fd9-rq-c9O"/>
@@ -7937,7 +7943,7 @@ Countdown</string>
         <image name="dottedLine" width="4" height="106"/>
         <image name="fastestevercontestWatermarkPopupOption" width="195" height="17"/>
         <image name="flashOff" width="33" height="34"/>
-        <image name="foundingMemberBadge" width="187" height="297"/>
+        <image name="foundingMemberBadge" width="226" height="342"/>
         <image name="gameCenter" width="79" height="104"/>
         <image name="hideStoryCamIcons" width="29" height="30"/>
         <image name="icoClose" width="26" height="26"/>
@@ -7954,20 +7960,21 @@ Countdown</string>
         <image name="iconPositionImage" width="20" height="22"/>
         <image name="iconSwitchApp" width="31" height="32"/>
         <image name="icon_fps" width="33" height="33"/>
+        <image name="iosbadge" width="165" height="163"/>
         <image name="openFilter" width="34" height="34"/>
         <image name="outtakes" width="38" height="38"/>
         <image name="oval" width="18" height="18"/>
         <image name="overLayOption" width="82" height="167"/>
         <image name="playIconDownload" width="16" height="16"/>
         <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
-        <image name="prelaunchBadge" width="187" height="299"/>
+        <image name="prelaunchBadge" width="226" height="342"/>
         <image name="quickcamWatermark" width="60" height="42"/>
         <image name="radioDeselected" width="20" height="20"/>
         <image name="radioSelected" width="20" height="20"/>
         <image name="reload" width="16" height="16"/>
         <image name="rightIconSetting" width="21" height="15"/>
         <image name="showStoryCamIcons" width="34" height="34"/>
-        <image name="socialBadge" width="41" height="70"/>
+        <image name="socialBadge" width="48" height="74"/>
         <image name="solidLine" width="2" height="107"/>
         <image name="ssuSoccerCam" width="40" height="40"/>
         <image name="storyBack" width="19" height="19"/>

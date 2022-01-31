@@ -94,6 +94,7 @@ class User: Codable, Mappable {
     var privateDisplayName: String?
     var qrcode: String?
     var subscriptions : Subscriptions?
+    var badges : [ParentBadges]?
     required init?(map: Map) {
         
     }
@@ -197,6 +198,7 @@ class User: Codable, Mappable {
         privateDisplayName <- map["privateDisplayName"]
         qrcode <- map["qrcode"]
         subscriptions <- map["subscriptions"]
+        badges <- map["badges"]
     }
     
 }
@@ -244,6 +246,71 @@ class iOSsubcription: Codable, Mappable {
     
     func mapping(map: Map) {
         currentStatus <- map["currentStatus"]
+    }
+    
+}
+
+class ParentBadges: Codable, Mappable {
+    var followingUser: FollowingUser?
+    var id: String?
+    required init?(map: Map) {
+        
+    }
+    
+    // MARK: - - Mappable Protocol
+    
+    func mapping(map: Map) {
+        followingUser <- map["following_user"]
+        id <- map["_id"]
+    }
+    
+}
+
+class FollowingUser: Codable, Mappable {
+    var badges: [MainBadges]?
+    var id: String?
+    required init?(map: Map) {
+        
+    }
+    
+    // MARK: - - Mappable Protocol
+    
+    func mapping(map: Map) {
+        badges <- map["badges"]
+        id <- map["_id"]
+    }
+    
+}
+class MainBadges: Codable, Mappable {
+    var badge: Badge?
+    var id: String?
+    required init?(map: Map) {
+        
+    }
+    
+    // MARK: - - Mappable Protocol
+    
+    func mapping(map: Map) {
+        badge <- map["badge"]
+        id <- map["_id"]
+    }
+    
+}
+
+class Badge: Codable, Mappable {
+    var code: String?
+    var name: String?
+    var id: String?
+    required init?(map: Map) {
+        
+    }
+    
+    // MARK: - - Mappable Protocol
+    
+    func mapping(map: Map) {
+        code <- map["code"]
+        name <- map["name"]
+        id <- map["_id"]
     }
     
 }

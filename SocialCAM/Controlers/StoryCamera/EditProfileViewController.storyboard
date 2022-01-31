@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -251,7 +251,7 @@
                                                 </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="tN0-Xq-gwU" userLabel="Social Badge Stack View">
-                                                <rect key="frame" x="162" y="511" width="90" height="65"/>
+                                                <rect key="frame" x="112" y="511" width="190" height="65"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VrI-w9-6aA">
                                                         <rect key="frame" x="0.0" y="0.0" width="40" height="65"/>
@@ -270,8 +270,8 @@
                                                             <constraint firstAttribute="trailing" secondItem="Pmz-mc-1Z9" secondAttribute="trailing" id="y0Q-aQ-yYY"/>
                                                         </constraints>
                                                     </view>
-                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x5S-74-tUL">
-                                                        <rect key="frame" x="45" y="0.0" width="40" height="65"/>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x5S-74-tUL">
+                                                        <rect key="frame" x="50" y="0.0" width="40" height="65"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xnd-3W-vw4">
                                                                 <rect key="frame" x="0.0" y="0.0" width="40" height="65"/>
@@ -288,7 +288,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="54a-WU-42M">
-                                                        <rect key="frame" x="50" y="0.0" width="40" height="65"/>
+                                                        <rect key="frame" x="100" y="0.0" width="40" height="65"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a1e-cA-Kwf">
                                                                 <rect key="frame" x="0.0" y="0.0" width="40" height="65"/>
@@ -301,6 +301,22 @@
                                                             <constraint firstItem="a1e-cA-Kwf" firstAttribute="leading" secondItem="54a-WU-42M" secondAttribute="leading" id="Te3-2u-uuq"/>
                                                             <constraint firstItem="a1e-cA-Kwf" firstAttribute="top" secondItem="54a-WU-42M" secondAttribute="top" id="WXa-fF-7Bu"/>
                                                             <constraint firstAttribute="bottom" secondItem="a1e-cA-Kwf" secondAttribute="bottom" id="cmj-if-aQA"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="84v-m2-wXr">
+                                                        <rect key="frame" x="150" y="0.0" width="40" height="65"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="80Y-ok-fuJ">
+                                                                <rect key="frame" x="0.0" y="0.0" width="40" height="65"/>
+                                                                <state key="normal" image="foundingMemberBadge"/>
+                                                            </button>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="trailing" secondItem="80Y-ok-fuJ" secondAttribute="trailing" id="7bK-PA-sJC"/>
+                                                            <constraint firstItem="80Y-ok-fuJ" firstAttribute="top" secondItem="84v-m2-wXr" secondAttribute="top" id="CJ8-p2-xJn"/>
+                                                            <constraint firstAttribute="bottom" secondItem="80Y-ok-fuJ" secondAttribute="bottom" id="U73-mP-73O"/>
+                                                            <constraint firstItem="80Y-ok-fuJ" firstAttribute="leading" secondItem="84v-m2-wXr" secondAttribute="leading" id="afC-Yb-EbS"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
@@ -1152,6 +1168,10 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="badgebtn1" destination="Pmz-mc-1Z9" id="HTl-Ky-MaH"/>
+                        <outlet property="badgebtn2" destination="xnd-3W-vw4" id="b1o-Pz-bAB"/>
+                        <outlet property="badgebtn3" destination="a1e-cA-Kwf" id="Azc-bx-rC9"/>
+                        <outlet property="badgebtn4" destination="80Y-ok-fuJ" id="2bW-dQ-Ahp"/>
                         <outlet property="btnPlusButton" destination="dvU-ya-Joh" id="pRY-Vq-tdm"/>
                         <outlet property="btnProfilePic" destination="XkW-Yh-sdb" id="GqO-Cy-guR"/>
                         <outlet property="btnPublicDisplayNameTooltip" destination="V3c-xM-D11" id="Tih-O2-Kde"/>
@@ -1182,10 +1202,13 @@
                         <outlet property="socialBadgeReceivedPopupView" destination="hlf-Uc-W7z" id="IwM-PE-np1"/>
                         <outlet property="socialBadgeStackViewHeightConstraint" destination="UUj-Go-err" id="mO3-nP-vXT"/>
                         <outlet property="socialPlatformStackViewHeightConstraint" destination="uLn-zh-799" id="o5t-kR-zDd"/>
-                        <outlet property="socialPlatformsVerifiedBadge" destination="x5S-74-tUL" id="YZ7-c7-pKj"/>
                         <outlet property="socialSharePopupView" destination="xPd-JQ-tiK" id="ChG-8Z-ZoC"/>
                         <outlet property="twitterVerifiedView" destination="Yj6-OA-bsE" id="DFW-2m-veP"/>
                         <outlet property="txtDisplayName" destination="18H-2n-iw3" id="R0X-S6-eoZ"/>
+                        <outlet property="view1" destination="VrI-w9-6aA" id="oWx-kg-hxs"/>
+                        <outlet property="view2" destination="x5S-74-tUL" id="j5e-Ng-Rmu"/>
+                        <outlet property="view3" destination="54a-WU-42M" id="U3a-vy-KMg"/>
+                        <outlet property="view4" destination="84v-m2-wXr" id="u8q-YX-k5J"/>
                         <outlet property="youtubeVerifiedView" destination="fs4-Ze-09K" id="aua-vr-mqK"/>
                         <outletCollection property="countryView" destination="ugd-Lq-yRf" collectionClass="NSMutableArray" id="F1P-co-snx"/>
                         <outletCollection property="countryView" destination="3jW-48-e4r" collectionClass="NSMutableArray" id="R5Q-Bb-2RK"/>
@@ -2807,7 +2830,7 @@
         <image name="flag_ai" width="38" height="30"/>
         <image name="flag_al" width="37" height="30"/>
         <image name="flag_as" width="38" height="30"/>
-        <image name="foundingMemberBadge" width="187" height="297"/>
+        <image name="foundingMemberBadge" width="226" height="342"/>
         <image name="gmail" width="45" height="45"/>
         <image name="icoGridView" width="22" height="22"/>
         <image name="iconQuickCam" width="32" height="32"/>
@@ -2815,11 +2838,11 @@
         <image name="icondownload" width="24" height="24"/>
         <image name="instagram" width="45" height="45"/>
         <image name="outlookSocialShare" width="44" height="44"/>
-        <image name="prelaunchBadge" width="187" height="299"/>
+        <image name="prelaunchBadge" width="226" height="342"/>
         <image name="shareIcon" width="19" height="21"/>
         <image name="shareScreenProfileBadge" width="163" height="187"/>
         <image name="snapchatVerified" width="37" height="39"/>
-        <image name="socialBadge" width="41" height="70"/>
+        <image name="socialBadge" width="48" height="74"/>
         <image name="storyBack" width="19" height="19"/>
         <image name="textFieldClose" width="15" height="15"/>
         <image name="twitterShare" width="45" height="45"/>
@@ -2833,7 +2856,7 @@
             <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="InActive5">
-            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.89803921568627454" green="0.80000000000000004" blue="0.054901960784313725" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="editProfileBackgroundView">
             <color red="0.0" green="0.0" blue="0.0" alpha="0.090000003576278687" colorSpace="custom" customColorSpace="sRGB"/>
