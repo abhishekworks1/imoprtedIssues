@@ -215,6 +215,11 @@ extension UIImageView {
         let url = URL(string: urlString ?? "")
         sd_setImage(with: url, placeholderImage: placeholderImage)
     }
+    func setImageColor(color: UIColor) {
+        let templateImage = self.image?.withRenderingMode(.alwaysTemplate)
+        self.image = templateImage
+        self.tintColor = color
+      }
 }
 
 extension Notification.Name {

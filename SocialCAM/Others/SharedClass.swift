@@ -1180,7 +1180,7 @@ public struct APIHeaders {
     let headerWithToken =  ["Content-Type": "application/json",
                                    "userid": Defaults.shared.currentUser?.id ?? "",
                                    "deviceType": "1",
-                                   "x-access-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTk2MjhmMzVkM2FhNzAwMjMwOGQyZGQiLCJjaGFubmVsSWQiOiJwbXRlc3RlcjExMTEiLCJpYXQiOjE2NDI2ODA4ODgsImV4cCI6MTY0NTI3Mjg4OH0.Gn0dq7fIiPM8DIMOj52Myb0COxeJHoKdA1HuW8mHCAM"  ] //Defaults.shared.sessionToken ?? ""
+                                   "x-access-token": Defaults.shared.sessionToken ?? ""]
     let headerWithoutAccessToken = ["Content-Type": "application/json",
                                            "deviceType": "1"]
     

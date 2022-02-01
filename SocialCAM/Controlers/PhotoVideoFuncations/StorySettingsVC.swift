@@ -602,9 +602,13 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             showHideButtonView(isHide: true)
             logoutPopupView.isHidden = false
         } else if settingTitle.settingsType == .shareSetting {
-            if let shareSettingViewController = R.storyboard.editProfileViewController.shareSettingViewController() {
-                navigationController?.pushViewController(shareSettingViewController, animated: true)
+//            if let shareSettingViewController = R.storyboard.editProfileViewController.shareSettingViewController() {
+//                navigationController?.pushViewController(shareSettingViewController, animated: true)
+//            }
+            if let contactWizardController = R.storyboard.contactWizardwithAboutUs.contactImportVC() {
+                navigationController?.pushViewController(contactWizardController, animated: true)
             }
+
         } else if settingTitle.settingsType == .userDashboard {
             if let token = Defaults.shared.sessionToken {
                 let urlString = "\(websiteUrl)/redirect?token=\(token)"
