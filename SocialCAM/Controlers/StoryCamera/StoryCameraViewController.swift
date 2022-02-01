@@ -2083,6 +2083,7 @@ extension StoryCameraViewController {
             }
             loadingView.shouldDescriptionTextShow = true
             loadingView.show(on: self.view)
+    
             
             let factory = VideoFactory(type: .boom, video: VideoOrigin(mediaType: nil, mediaUrl: url, referenceURL: nil))
             factory.assetTOcvimgbuffer({ [weak self] (urls) in
@@ -2408,20 +2409,9 @@ extension StoryCameraViewController {
             let avAsset = AVAsset(url: assetUrl)
             
             if Defaults.shared.cameraName == CameraName.save{
-                
-                
-                
+
                 if Defaults.shared.isVideoSavedAfterRecording == true{
-                 SCAlbum.shared.saveMovieToLibrary(movieURL: assetUrl) { (isSuccess) in
-                        if isSuccess {
-                            DispatchQueue.main.async {
-                                self.view.makeToast(R.string.localizable.videoSaved(), duration: ToastManager.shared.duration, position: .top)
-                                self.removeData()
-                            }
-                        } else {
-                            self.view.makeToast(R.string.localizable.pleaseGivePhotosAccessFromSettingsToSaveShareImageOrVideo(), duration: ToastManager.shared.duration, position: .top, style: ToastStyle())
-                        }
-                    }
+                    self.saveBoomrangVideo(asset:avAsset)
                     
                 }
                 self.showControls()
@@ -2429,10 +2419,7 @@ extension StoryCameraViewController {
                 refreshCircularProgressBar()
                 return
             }
-            
 
-            
-            
             guard let specificBoomerangViewController = R.storyboard.storyEditor.specificBoomerangViewController() else {
                 return
             }
@@ -2478,8 +2465,13 @@ extension StoryCameraViewController {
         }
     }
    
-    @IBAction func onDone(_ sender: UIButton) {
-           var currentAsset: AVAsset?
+    func saveBoomrangVideo(asset:AVAsset) {
+        
+           let boomiAssetValues =  Defaults.shared.boomerangAssetValues ?? [BoomrangAssetSettings]()
+            var boomerangValues = [SpecificBoomerangValue]()
+            for value in boomiAssetValues{
+                boomerangValues.append(value.getBoomrangValues())
+           }
            guard let config = SpecificBoomerangExportConfig(boomerangValues: boomerangValues) else {
                return
            }
@@ -2492,26 +2484,29 @@ extension StoryCameraViewController {
            loadingView.show(on: self.view)
 
            exportSession = SpecificBoomerangExportSession(config: config)
-         
-         
-            exportBoomerangVideo()
-        
-        guard let asset = currentAsset else {
-            return
-        }
-        self.exportSession?.export(for: asset, progress: { progress in
-            var progress = 0
-        
+          
+          self.exportSession?.export(for: asset, progress: { progress in
+            // progress = progress
+            print("progress \(progress)")
             loadingView.progressView.setProgress(to: Double(progress), withAnimation: true)
-        }) { [weak self] url in
+         }) { [weak self] url in
             loadingView.hide()
          
             guard let `self` = self, let url = url else {
                 return
             }
+            print(url)
+            SCAlbum.shared.saveMovieToLibrary(movieURL: url) { (isSuccess) in
+                   if isSuccess {
+                       DispatchQueue.main.async {
+                           self.view.makeToast(R.string.localizable.videoSaved(), duration: ToastManager.shared.duration, position: .top)
+                           self.removeData()
+                       }
+                   } else {
+                       self.view.makeToast(R.string.localizable.pleaseGivePhotosAccessFromSettingsToSaveShareImageOrVideo(), duration: ToastManager.shared.duration, position: .top, style: ToastStyle())
+                   }
+               }
             DispatchQueue.main.async {
-                self.navigationController?.popViewController(animated: false)
-              //  self.delegate?.didBoomerang(url)
             }
         }
         
@@ -2527,28 +2522,6 @@ extension StoryCameraViewController {
                    }
                }
            }
-    }
-    func exportBoomerangVideo(isResized: Bool = false) {
-        var currentAsset: AVAsset?
-        let loadingView = LoadingView.instanceFromNib()
-        guard let asset = currentAsset else {
-            return
-        }
-        self.exportSession?.export(for: asset, progress: { progress in
-            var progress = isResized ? (0.25 + progress*0.75) : progress
-            progress = progress == 0 ? 0.25 : progress
-            loadingView.progressView.setProgress(to: Double(progress), withAnimation: true)
-        }) { [weak self] url in
-            loadingView.hide()
-         
-            guard let `self` = self, let url = url else {
-                return
-            }
-            DispatchQueue.main.async {
-                self.navigationController?.popViewController(animated: false)
-              //  self.delegate?.didBoomerang(url)
-            }
-        }
     }
     func openStyleTransferVC(images: [UIImage], isSlideShow: Bool = false) {
         guard images.count > 0 else {
