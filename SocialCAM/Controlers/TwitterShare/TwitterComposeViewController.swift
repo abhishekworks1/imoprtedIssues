@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import AVFoundation
 
 class TwitterComposeViewController: UIViewController, UINavigationControllerDelegate {
     
@@ -101,7 +102,8 @@ class TwitterComposeViewController: UIViewController, UINavigationControllerDele
     }
     
     func showFailureAlert() {
-        self.showAlert(alertMessage: R.string.localizable.tweetWasNotPosted())
+        self.showAlert(alertMessage: "Video Data more then 5 MB")
+//        self.showAlert(alertMessage: R.string.localizable.tweetWasNotPosted())
     }
     
     func clear() {
@@ -177,11 +179,14 @@ class TwitterComposeViewController: UIViewController, UINavigationControllerDele
                 guard let `self` = self else {
                     return
                 }
-                if isSuccess {
-                    self.showSuccessAlert()
-                } else {
-                    self.showFailureAlert()
+                DispatchQueue.main.async {
+                    if isSuccess {
+                        self.showSuccessAlert()
+                    } else {
+                        self.showFailureAlert()
+                    }
                 }
+               
             }
         } else {
             TwitterManger.shared.uploadTextOnTwitter(withText: text) { [weak self] (isSuccess, _) in

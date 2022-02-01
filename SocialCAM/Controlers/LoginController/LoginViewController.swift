@@ -184,6 +184,9 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         if Defaults.shared.isLoginTooltipHide == false {
             self.hideShowTooltipView(shouldShow: true)
         } else {
+            print("******************************")
+            print("\(keycloakUrl)\(keycloakClientId)\(KeycloakRedirectLink.keycloakRedirectLinkName.lowercased())\(KeycloakRedirectLink.endUrl)\(KeycloakRedirectLink.fromLogin)")
+            print("******************************")
             isLoginButtonPressed = false
             goToKeycloakWebview(url: "\(keycloakUrl)\(keycloakClientId)\(KeycloakRedirectLink.keycloakRedirectLinkName.lowercased())\(KeycloakRedirectLink.endUrl)\(KeycloakRedirectLink.fromLogin)")
         }

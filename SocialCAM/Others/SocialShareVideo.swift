@@ -169,6 +169,9 @@ open class SocialShareVideo: NSObject, SharingDelegate {
             if let image = image {
                 twitterComposeViewController.preselectedImage = image
             } else if let url = url {
+                print("***************")
+                print(url)
+                print("***************")
                 twitterComposeViewController.preselectedVideoUrl = url
             }
            let navController = UINavigationController(rootViewController: twitterComposeViewController)
@@ -348,7 +351,9 @@ open class SocialShareVideo: NSObject, SharingDelegate {
         snapContent.caption = "@\(Defaults.shared.currentUser?.username ?? "")"
         let api = SCSDKSnapAPI.init(content: snapContent)
         api.startSnapping { _ in
-           
+            print("***********************")
+            print("Add Snap Here")
+            print("***********************")
         }
     }
     

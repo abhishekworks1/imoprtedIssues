@@ -577,7 +577,7 @@ class StoryEditorViewController: UIViewController {
         self.playButtonBottomLayoutConstraint.constant = (storyEditors.count > 1) ? 70 : 15
         self.backgroundCollectionView.isHidden = self.collectionView.isHidden
         
-        self.youtubeShareView.isHidden = true //isImage
+        self.youtubeShareView.isHidden = isImage
         self.tiktokShareView.isHidden = isImage
         self.playPauseButton.isHidden = isImage
         self.progressBarView.isHidden = isImage
@@ -1158,9 +1158,9 @@ extension StoryEditorViewController {
                                             } else {
                                                 FaceBookManager.shared.logout()
                                                 FaceBookManager.shared.login(controller: self, loginCompletion: { (_, _) in
-    //                                                completion(true)
+                                                    //                                                completion(true)
                                                 }) { (_, _) in
-    //                                                completion(false)
+                                                    //                                                completion(false)
                                                 }
                                             }
                                         } else {
@@ -1169,7 +1169,36 @@ extension StoryEditorViewController {
                                                     FaceBookManager.shared.userData = userName
                                                 }
                                             }) { (_, _) in
-//                                                completion(false)
+                                                //                                                completion(false)
+                                            }
+                                        }
+                                    } else if type == .snapchat {
+                                       if SnapKitManager.shared.isUserLogin {
+                                            SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type, referType: self.referType)
+                                        } else {
+                                            SnapKitManager.shared.login(viewController: self) { (isLogin, error) in
+                                                if !isLogin {
+                                                    DispatchQueue.main.async {
+                                                        self.showAlert(alertMessage: error ?? "")
+                                                    }
+                                                }
+                                                
+                                                SnapKitManager.shared.loadUserData { userData in
+                                                    guard userData != nil else { return }
+                                                    SnapKitManager.shared.userData = userData
+                                                }
+
+                                            }
+                                        }
+                                    } else if type == .twitter {
+                                        if TwitterManger.shared.isUserLogin {
+                                            SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type, referType: self.referType)
+                                        } else {
+                                            TwitterManger.shared.logout()
+                                            TwitterManger.shared.login { (_, _) in
+                                                TwitterManger.shared.loadUserData { userModel in
+                                                    TwitterManger.shared.userData = userModel
+                                                }
                                             }
                                         }
                                     } else {
