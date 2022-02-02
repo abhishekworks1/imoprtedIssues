@@ -10,6 +10,97 @@ import Foundation
 import AVFoundation
 import UIKit
 
+
+
+
+struct BoomrangAssetSettings:Codable{
+    var startime: CustomCMTime
+    var endtime: CustomCMTime
+    var maxTime: Double
+    var speedScale: Int
+    var currentLoopCount: Int
+    var maxLoopCount: Int
+    
+    var start: CMTime
+    var end: CMTime
+    
+    enum CustomerKeys: String, CodingKey
+    {
+         case startime, endtime , maxTime, speedScale, currentLoopCount, maxLoopCount
+    }
+    init (from decoder: Decoder) throws {
+         let container =  try decoder.container (keyedBy: CustomerKeys.self)
+        self.startime = try container.decode (CustomCMTime.self, forKey: .startime)
+        self.endtime = try container.decode (CustomCMTime.self, forKey: .endtime)
+        
+        self.maxTime = try container.decode (Double.self, forKey: .maxTime)
+        self.speedScale = try container.decode (Int.self, forKey: .speedScale)
+        self.currentLoopCount = try container.decode (Int.self, forKey: .currentLoopCount)
+        self.maxLoopCount = try container.decode (Int.self, forKey: .maxLoopCount)
+        
+        self.start = CMTime(seconds: self.startime.seconds, preferredTimescale: Int32(self.startime.timescale))
+        self.end = CMTime(seconds: self.endtime.seconds, preferredTimescale: Int32(self.endtime.timescale))
+    }
+    func encode (to encoder: Encoder) throws
+    {
+       var container = encoder.container (keyedBy: CustomerKeys.self)
+       try container.encode (startime, forKey: .startime)
+       try container.encode (endtime, forKey: .endtime)
+        
+        try container.encode (maxTime, forKey: .maxTime)
+        try container.encode (speedScale, forKey: .speedScale)
+        try container.encode (currentLoopCount, forKey: .currentLoopCount)
+        try container.encode (maxLoopCount, forKey: .maxLoopCount)
+    }
+    
+    init(boomrangevalue:SpecificBoomerangValue) {
+        let timerange = boomrangevalue.timeRange
+        self.start = CMTime(seconds: timerange.start.seconds, preferredTimescale: timerange.start.timescale)
+        self.startime = CustomCMTime(timescale:Int(timerange.start.timescale), seconds: timerange.start.seconds)
+        
+        self.end = CMTime(seconds: timerange.end.seconds, preferredTimescale: timerange.end.timescale)
+        self.endtime = CustomCMTime(timescale:Int(timerange.end.timescale), seconds: timerange.end.seconds)
+        
+        self.currentLoopCount = boomrangevalue.currentLoopCount
+        self.maxTime = boomrangevalue.maxTime
+        self.speedScale = boomrangevalue.speedScale
+        self.maxLoopCount = boomrangevalue.maxLoopCount
+       
+    }
+    
+     func getBoomrangValues()->SpecificBoomerangValue{
+        
+        let timerange = CMTimeRange(start:self.start, end: self.end)
+        let boomrangeValue = SpecificBoomerangValue(timeRange: timerange, maxTime: self.maxTime, speedScale: self.speedScale, currentLoopCount: self.currentLoopCount, maxLoopCount: self.maxLoopCount, needToReverse: true, boomerangView: UIView())
+       return boomrangeValue
+       
+    }
+}
+struct CustomCMTime:Codable {
+    var timescale: Int
+    var seconds: Double
+    
+    enum CustomerKeys: String, CodingKey
+    {
+         case seconds, timescale
+    }
+    init (from decoder: Decoder) throws {
+         let container =  try decoder.container (keyedBy: CustomerKeys.self)
+        timescale = try container.decode (Int.self, forKey: .timescale)
+        seconds = try container.decode (Double.self, forKey: .seconds)
+    }
+    func encode (to encoder: Encoder) throws
+    {
+         var container = encoder.container (keyedBy: CustomerKeys.self)
+         try container.encode (timescale, forKey: .timescale)
+         try container.encode (seconds, forKey: .seconds)
+    }
+    init(timescale:Int,seconds: Double) {
+        self.timescale = timescale
+        self.seconds = seconds
+    }
+}
+
 class SpecificBoomerangValue {
     var timeRange: CMTimeRange
     var maxTime: Double
@@ -37,6 +128,7 @@ class SpecificBoomerangValue {
         self.boomerangView = boomerangView
     }
     
+    
     func reset() {
         currentLoopCount = maxLoopCount
         needToChangeScale = false
@@ -57,7 +149,9 @@ class SpecificBoomerangValue {
         let endSeconds = startSeconds + maxTime
         let endTime = CMTime(value: CMTimeValue(endSeconds*100000), timescale: 100000)
         
+        
         timeRange = CMTimeRange(start: startTime, end: endTime)
+       
     }
     
     func updateBoomerangViewSize(duration: Double, durationSize: CGFloat) {

@@ -413,6 +413,7 @@ class SpecificBoomerangViewController: UIViewController {
     }
          
     @IBAction func onDone(_ sender: UIButton) {
+        self.saveBoomrangSettings(boomerangValues:self.boomerangValues)
         guard let config = SpecificBoomerangExportConfig(boomerangValues: boomerangValues) else {
             return
         }
@@ -513,6 +514,7 @@ class SpecificBoomerangViewController: UIViewController {
     }
     
     @IBAction func onBack(_ sender: UIButton) {
+        self.saveBoomrangSettings(boomerangValues:self.boomerangValues)
         self.navigationController?.popViewController(animated: true)
     }
         
@@ -646,9 +648,19 @@ extension SpecificBoomerangViewController {
             boomerangValue.updateBoomerangViewSize(duration: trimmerView.thumbnailsView.videoDuration.seconds, durationSize: trimmerView.thumbnailsView.durationSize)
             boomerangValue.updateTimeRange(for: asset, boundsWidth: trimmerView.viewWidth)
             boomerangValue.reset()
+           
         }
+        self.saveBoomrangSettings(boomerangValues:boomerangValues)
     }
         
+    func saveBoomrangSettings(boomerangValues:[SpecificBoomerangValue]){
+        var boomrangSettings = [BoomrangAssetSettings]()
+        for boomerangValue in boomerangValues {
+            let boomrangSetting = BoomrangAssetSettings(boomrangevalue:boomerangValue)
+            boomrangSettings.append(boomrangSetting)
+        }
+        Defaults.shared.boomerangAssetValues = boomrangSettings
+    }
     func resetBoomerangValues() {
         for boomerangValue in boomerangValues {
             boomerangValue.reset()

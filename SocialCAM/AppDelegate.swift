@@ -239,7 +239,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let user = Defaults.shared.currentUser,
            let _ = Defaults.shared.sessionToken,
            let channelId = user.channelId,
-           user.refferingChannel != nil,
+         //  user.refferingChannel != nil,
            channelId.count > 0 {
             InternetConnectionAlert.shared.internetConnectionHandler = { reachability in
                 if reachability.connection != .none {

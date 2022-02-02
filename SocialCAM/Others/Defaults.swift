@@ -199,6 +199,27 @@ class Defaults {
     let appDefaults = UserDefaults(suiteName: Constant.Application.groupIdentifier)
     let userDefaults = UserDefaults()
     
+    var boomerangAssetValues: [BoomrangAssetSettings]? {
+        get {
+            if let calculatorConfig = userDefaults.object(forKey: "BoomrangAssetSettings") as? Data {
+                let decoder = JSONDecoder()
+                return try? decoder.decode([BoomrangAssetSettings].self, from: calculatorConfig)
+            }
+            return nil
+        }
+        set {
+            let encoder = JSONEncoder()
+            if let encoded = try? encoder.encode(newValue) {
+                userDefaults.set(encoded, forKey: "BoomrangAssetSettings")
+                userDefaults.synchronize()
+            } else {
+                userDefaults.set(nil, forKey: "BoomrangAssetSettings")
+                userDefaults.synchronize()
+            }
+        }
+    }
+    
+    
     var calculatorConfig: [CalculatorConfigurationData]? {
         get {
             if let calculatorConfig = userDefaults.object(forKey: "calculatorConfig") as? Data {

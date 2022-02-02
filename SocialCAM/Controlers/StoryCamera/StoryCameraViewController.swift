@@ -34,10 +34,13 @@ enum CameraName{
     static let boomi     =  "Boomi"
     static let bigboomi  = "Big Boomi"
     static let liveboomi = "Live Boomi"
+    static let save = "SAVE"
+   
 }
 
 class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
-   
+    private var boomerangValues: [SpecificBoomerangValue] = []
+    private var exportSession: SpecificBoomerangExportSession?
     let popupOffset: CGFloat = (UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0) != 0 ? 110 : 86
     
     var bottomConstraint = NSLayoutConstraint()
@@ -1021,6 +1024,16 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                 }else{
                     return 29
                 }
+            }else if cameraName == CameraName.save{
+                if Defaults.shared.appMode == .basic{
+                    return 29
+                }else if Defaults.shared.appMode == .advanced{
+                    return 44
+                }else if Defaults.shared.appMode == .professional{
+                    return 59
+                }else{
+                    return 29
+                }
             }
         }
         return 2
@@ -1210,7 +1223,7 @@ extension StoryCameraViewController {
             cameraModeArray.append(CameraModes(name: R.string.localizable.boomi(), recordingType: .boomerang))
             cameraModeArray.append(CameraModes(name: R.string.localizable.bigBoomi(), recordingType: .boomerang))
             cameraModeArray.append(CameraModes(name: R.string.localizable.liveBoomi(), recordingType: .boomerang))
-            cameraModeArray.append(CameraModes(name: R.string.localizable.capturE(), recordingType: .capture))
+            cameraModeArray.append(CameraModes(name: R.string.localizable.capturE(), recordingType: .boomerang))
 
         } else if isPic2ArtApp {
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastSlowMotion})
@@ -2097,6 +2110,7 @@ extension StoryCameraViewController {
             }
             loadingView.shouldDescriptionTextShow = true
             loadingView.show(on: self.view)
+    
             
             let factory = VideoFactory(type: .boom, video: VideoOrigin(mediaType: nil, mediaUrl: url, referenceURL: nil))
             factory.assetTOcvimgbuffer({ [weak self] (urls) in
@@ -2420,6 +2434,18 @@ extension StoryCameraViewController {
                 return
             }
             let avAsset = AVAsset(url: assetUrl)
+            
+            if Defaults.shared.cameraName == CameraName.save{
+
+                if Defaults.shared.isVideoSavedAfterRecording == true{
+                    self.saveBoomrangVideo(asset:avAsset)
+                    
+                }
+                self.showControls()
+                self.isRecording = false
+                refreshCircularProgressBar()
+                return
+            }
 
             guard let specificBoomerangViewController = R.storyboard.storyEditor.specificBoomerangViewController() else {
                 return
@@ -2465,7 +2491,65 @@ extension StoryCameraViewController {
             self.removeData()
         }
     }
-    
+   
+    func saveBoomrangVideo(asset:AVAsset) {
+        
+           let boomiAssetValues =  Defaults.shared.boomerangAssetValues ?? [BoomrangAssetSettings]()
+            var boomerangValues = [SpecificBoomerangValue]()
+            for value in boomiAssetValues{
+                boomerangValues.append(value.getBoomrangValues())
+           }
+           guard let config = SpecificBoomerangExportConfig(boomerangValues: boomerangValues) else {
+               return
+           }
+           config.adjustBoomerangValues()
+           
+           let loadingView = LoadingView.instanceFromNib()
+           loadingView.loadingViewShow = false
+           loadingView.shouldCancelShow = false
+           loadingView.shouldDescriptionTextShow = true
+           loadingView.show(on: self.view)
+
+           exportSession = SpecificBoomerangExportSession(config: config)
+          
+          self.exportSession?.export(for: asset, progress: { progress in
+            // progress = progress
+            print("progress \(progress)")
+            loadingView.progressView.setProgress(to: Double(progress), withAnimation: true)
+         }) { [weak self] url in
+            loadingView.hide()
+         
+            guard let `self` = self, let url = url else {
+                return
+            }
+            print(url)
+            SCAlbum.shared.saveMovieToLibrary(movieURL: url) { (isSuccess) in
+                   if isSuccess {
+                       DispatchQueue.main.async {
+                           self.view.makeToast(R.string.localizable.videoSaved(), duration: ToastManager.shared.duration, position: .top)
+                           self.removeData()
+                       }
+                   } else {
+                       self.view.makeToast(R.string.localizable.pleaseGivePhotosAccessFromSettingsToSaveShareImageOrVideo(), duration: ToastManager.shared.duration, position: .top, style: ToastStyle())
+                   }
+               }
+            DispatchQueue.main.async {
+            }
+        }
+        
+          
+        loadingView.cancelClick = { cancelled in
+               if cancelled {
+                   DispatchQueue.main.async {
+                       self.exportSession?.cancelExporting()
+                       self.exportSession = nil
+                       loadingView.hide()
+                       
+                      
+                   }
+               }
+           }
+    }
     func openStyleTransferVC(images: [UIImage], isSlideShow: Bool = false) {
         guard images.count > 0 else {
             return
