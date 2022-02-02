@@ -239,7 +239,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let user = Defaults.shared.currentUser,
            let _ = Defaults.shared.sessionToken,
            let channelId = user.channelId,
-         //  user.refferingChannel != nil,
+          // user.refferingChannel != nil,
            channelId.count > 0 {
             InternetConnectionAlert.shared.internetConnectionHandler = { reachability in
                 if reachability.connection != .none {
@@ -248,7 +248,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
         } else {
-            //            rootViewController = R.storyboard.loginViewController.loginNavigation()
+            rootViewController = R.storyboard.loginViewController.loginNavigation()
             InternetConnectionAlert.shared.internetConnectionHandler = { reachability in
                 if reachability.connection != .none {
                     StoryDataManager.shared.startUpload()
@@ -577,7 +577,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
 }
-
 extension AppDelegate: UNUserNotificationCenterDelegate {
 
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any],
