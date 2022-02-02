@@ -707,14 +707,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         self.reloadUploadViewData()
         self.stopMotionCollectionView.reloadData()
         dynamicSetSlowFastVerticalBar()
-        currentCameraName = Defaults.shared.cameraName
-        if self.currentCameraName == CameraName.miniboomi {
-            speedSlider.isHidden = true
-            speedSliderView.isHidden = true
-        } else {
-            speedSlider.isHidden = false
-            speedSliderView.isHidden = false
-        }
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -732,6 +725,15 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             let image = UIImage(data: data) {
             UIPasteboard.remove(withName: UIPasteboard.Name(rawValue: Constant.Application.pasteboardName))
             openStoryEditor(images: [image])
+        }
+        
+        currentCameraName = Defaults.shared.cameraName
+        if self.currentCameraName == CameraName.miniboomi {
+            speedSlider.isHidden = true
+            speedSliderView.isHidden = true
+        } else {
+            speedSlider.isHidden = false
+            speedSliderView.isHidden = false
         }
     }
     

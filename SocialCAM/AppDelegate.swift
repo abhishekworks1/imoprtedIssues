@@ -248,7 +248,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
         } else {
-            //            rootViewController = R.storyboard.loginViewController.loginNavigation()
+//                        rootViewController = R.storyboard.loginViewController.loginNavigation()
             InternetConnectionAlert.shared.internetConnectionHandler = { reachability in
                 if reachability.connection != .none {
                     StoryDataManager.shared.startUpload()

@@ -33,6 +33,11 @@ class LegalViewController: UIViewController {
         // FOR NOW URL IS STATIC. IT WILL BE DYNAMIC APP WISE
         
         guard let legalUrl = URL(string: isTermsAndConditions ? termsAndConditionsUrl : privacyPolicyUrl) else { return }
+        print("******************")
+        print(legalUrl)
+        print("******************")
+        
+        
         let urlRequest = URLRequest(url: legalUrl)
         webView.load(urlRequest)
         webView.uiDelegate = self

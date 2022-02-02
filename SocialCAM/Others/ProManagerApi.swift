@@ -111,7 +111,7 @@ public enum ProManagerApi {
         }
         
         print("Request URL : \(endpointClosure.url) \n\n")
-        print("Request Header : \(endpointClosure.httpHeaderFields) \n\n")
+        print("Request Header : \(endpointClosure.httpHeaderFields ?? [:]) \n\n")
         if let parameters = self.parameters {
             print("Request parameters : \(parameters) \n")
         }
