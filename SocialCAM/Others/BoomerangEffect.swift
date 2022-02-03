@@ -154,8 +154,8 @@ class BufferToVideo: NSObject {
     func build(videoorigin: VideoOrigin?, _ sucess: @escaping ((URL) -> Void), _ progress: @escaping ((Progress) -> Void), failure: ((NSError) -> Void)) {
         /// Get Basic Setting
         var error: NSError?
-
-        let firstPixelBuffer = buffer.first!
+        guard let finalBuffer = buffer.first else { return }
+        let firstPixelBuffer = finalBuffer
         let width = CVPixelBufferGetWidth(firstPixelBuffer)
         let height = CVPixelBufferGetHeight(firstPixelBuffer)
         guard let attr: [String: Any] = CVBufferGetAttachments(firstPixelBuffer, .shouldPropagate) as? [String: Any] else {

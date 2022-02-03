@@ -725,7 +725,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         addTikTokShareViewIfNeeded()
         if let pasteboard = UIPasteboard(name: UIPasteboard.Name(rawValue: Constant.Application.pasteboardName), create: true),
            let data = pasteboard.data(forPasteboardType: Constant.Application.pasteboardType),
-            let image = UIImage(data: data) {
+           let image = UIImage(data: data) {
             UIPasteboard.remove(withName: UIPasteboard.Name(rawValue: Constant.Application.pasteboardName))
             openStoryEditor(images: [image])
         }
