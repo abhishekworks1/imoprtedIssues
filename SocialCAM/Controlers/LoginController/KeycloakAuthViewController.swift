@@ -29,6 +29,9 @@ class KeycloakAuthViewController: UIViewController {
     // MARK: - ViewController Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("********************")
+        print(urlString)
+        print("********************")
         URLCache.shared.removeAllCachedResponses()
         URLCache.shared.diskCapacity = 0
         URLCache.shared.memoryCapacity = 0

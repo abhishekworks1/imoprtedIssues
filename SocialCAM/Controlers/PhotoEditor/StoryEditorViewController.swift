@@ -94,9 +94,9 @@ class StoryEditorViewController: UIViewController {
     }
     
     @IBOutlet weak var blurView: UIView!
-
+    
     @IBOutlet weak var shareCollectionViewHeight: NSLayoutConstraint!
-
+    
     @IBOutlet weak var shareViewHeight: NSLayoutConstraint!
     @IBOutlet weak var tableView: UITableView! {
         didSet {
@@ -151,11 +151,11 @@ class StoryEditorViewController: UIViewController {
     @IBOutlet weak var cropOptionView: UIView!
     @IBOutlet weak var editOptionView: UIView!
     @IBOutlet weak var applyFilterOptionView: UIView!
-
+    
     @IBOutlet weak var slideShowPreviewView: UIView!
     
     @IBOutlet weak var slideShowFillAuto: UIView!
- 
+    
     @IBOutlet weak var soundButton: UIButton!
     
     @IBOutlet weak var backgroundCollectionView: UIView!
@@ -164,7 +164,7 @@ class StoryEditorViewController: UIViewController {
     @IBOutlet weak var slideShowCollectionView: DragAndDropCollectionView!
     @IBOutlet weak var mediaImageView: UIImageView!
     @IBOutlet weak var deleteView: UIView!
-
+    
     @IBOutlet weak var youtubeShareView: UIView!
     @IBOutlet weak var tiktokShareView: UIView!
     @IBOutlet weak var storiCamShareView: UIView!
@@ -244,7 +244,7 @@ class StoryEditorViewController: UIViewController {
             var imageData: [UIImage] = []
             for media in selectedSlideShowMedias {
                 if case let .image(image) = media.type,
-                    image != UIImage() {
+                   image != UIImage() {
                     imageData.append(image)
                 }
             }
@@ -257,17 +257,17 @@ class StoryEditorViewController: UIViewController {
             }
         }
     }
-
+    
     private var filteredImagesStory: [StoryEditorMedia] = []
     
     private var storyEditors: [StoryEditorView] = []
-
+    
     private var isVideoPlay: Bool = false
     
     private var currentStoryIndex = 0
     
     private var editingStack: EditingStack?
-        
+    
     private var dragAndDropManager: DragAndDropManager?
     
     private var slideShowAudioURL: URL?
@@ -275,7 +275,7 @@ class StoryEditorViewController: UIViewController {
     public var isSlideShow: Bool = false
     
     public var isBoomerang: Bool = false
-
+    
     private var colorSlider: ColorSlider!
     var cameraMode: CameraMode = .basicCamera
     
@@ -343,7 +343,7 @@ class StoryEditorViewController: UIViewController {
         }
         downloadViewGesture()
         imgViewMadeWithGif.loadGif(name: R.string.localizable.madeWithQuickCamLite())
-       self.lblUserNameWatermark.text = "@\(Defaults.shared.currentUser?.username ?? "")"
+        self.lblUserNameWatermark.text = "@\(Defaults.shared.currentUser?.username ?? "")"
         setupFilterViews()
         setGestureViewForShowHide(view: storyEditors[currentStoryIndex])
         selectedSlideShowMedias = (0...20).map({ _ in StoryEditorMedia(type: .image(UIImage())) })
@@ -443,7 +443,7 @@ class StoryEditorViewController: UIViewController {
             storyEditorView.delegate = self
             storyEditorView.socialShareView = self.socialShareBottomView
             view.insertSubview(storyEditorView, aboveSubview: mediaImageView)
-
+            
             
             storyEditorView.center = mediaImageView.center
             if !isQuickApp {
@@ -562,7 +562,7 @@ class StoryEditorViewController: UIViewController {
         }
         
         self.mergeOptionView.isHidden = !(!isImage && (videoCount > 1))
-       
+        
         if !isBoomiCamApp && !isFastCamApp && !isViralCamLiteApp && !isFastCamLiteApp && !isQuickCamLiteApp && !isSpeedCamLiteApp && !isSnapCamLiteApp && !isQuickApp {
             self.timeSpeedOptionView.isHidden = Defaults.shared.appMode != .free ? isImage : true
         } else {
@@ -588,7 +588,7 @@ class StoryEditorViewController: UIViewController {
             self.hashtagView.isHidden = true
         }
     }
-         
+    
     func hideToolBar(hide: Bool, hideColorSlider: Bool = false) {
         editToolBarView.isHidden = hide
         downloadView.isHidden = hide

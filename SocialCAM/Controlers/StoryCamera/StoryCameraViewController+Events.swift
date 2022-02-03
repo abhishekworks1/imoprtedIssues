@@ -126,6 +126,7 @@ extension StoryCameraViewController {
         if isLiteApp {
             photoPickerVC.selectionType = .video
         }
+        photoPickerVC.modalPresentationStyle = .fullScreen
         self.navigationController?.present(photoPickerVC, animated: true, completion: nil)
         
         Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_gallery)
