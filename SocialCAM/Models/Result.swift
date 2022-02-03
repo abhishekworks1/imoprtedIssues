@@ -307,15 +307,26 @@ class ForceUpdateModel: Mappable {
     }
 
 }
-//
-//struct ForceUpdateModel: Codable {
-//    let forceUpdate: Bool?
-//    let updateApp: Bool?
-//    private enum CodingKeys: String, CodingKey {
-//        case forceUpdate
-//        case updateApp
-//    }
-//}
+class msgTitleList: Codable {
+    var message: String?
+    var success: Bool?
+    var list : [Titletext]
+    private enum CodingKeys: String, CodingKey
+    {
+        case message
+        case success
+        case list = "data"
+    }
+}
+public struct Titletext: Codable {
+    var id: String?
+    var content: String?
+    private enum CodingKeys: String, CodingKey
+    {
+        case id = "_id"
+        case content = "content"
+    }
+}
 
 class UserTokenData: Mappable {
     

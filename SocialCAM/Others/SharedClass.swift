@@ -1145,6 +1145,7 @@ public struct Paths {
     static let setUnFollow = "user/unfollow"
     static let onboarding = "/onboarding?token="
     static let redirect_uri = "&redirect_uri="
+    static let referralTitle = "template?type=message-content"
 }
 
 struct WebsiteData {
@@ -1227,6 +1228,51 @@ class API {
                     baseUrlString = "https://api.quickcam.app/api/"
                 } else if isSpeedCamApp || isSpeedCamLiteApp {
                     baseUrlString = "https://api.speedcam.net/api/"
+                } else {
+                    baseUrlString = "https://demo-api.austinconversionoptimization.com/api/"
+                }
+            }
+            return baseUrlString
+        } set { }
+    }
+    //https://apiv2.alpha.quickcam.app/api/
+    var baseUrlV2: String {
+        get {
+            var baseUrlString = ""
+            switch Defaults.shared.releaseType {
+            case .debug, .alpha:
+                if isFastCamApp || isFastCamLiteApp {
+                    baseUrlString = "https://apiv2.alpha.fastcam.app/api/"
+                } else if isSnapCamApp || isSnapCamLiteApp {
+                    baseUrlString = "https://apiv2.alpha.snapcam.app/api/"
+                } else if isQuickCamApp || isQuickCamLiteApp || isQuickApp {
+                    baseUrlString = "https://apiv2.alpha.quickcam.app/api/"
+                } else if isSpeedCamApp || isSpeedCamLiteApp {
+                    baseUrlString = "https://apiv2.alpha.speedcam.net/api/"
+                } else {
+                    baseUrlString = "https://demo-api.austinconversionoptimization.com/api/"
+                }
+            case .beta:
+                if isFastCamApp || isFastCamLiteApp {
+                    baseUrlString = "https://apiv2.beta.fastcam.app/api/"
+                } else if isSnapCamApp || isSnapCamLiteApp {
+                    baseUrlString = "https://apiv2.beta.snapcam.app/api/"
+                } else if isQuickCamApp || isQuickCamLiteApp || isQuickApp {
+                    baseUrlString = "https://apiv2.beta.quickcam.app/api/"
+                } else if isSpeedCamApp || isSpeedCamLiteApp {
+                    baseUrlString = "https://apiv2.beta.speedcam.net/api/"
+                } else {
+                    baseUrlString = "https://demo-api.austinconversionoptimization.com/api/"
+                }
+            case .store:
+                if isFastCamApp || isFastCamLiteApp {
+                    baseUrlString = "https://apiv2.fastcam.app/api/"
+                } else if isSnapCamApp || isSnapCamLiteApp {
+                    baseUrlString = "https://apiv2.snapcam.app/api/"
+                } else if isQuickCamApp || isQuickCamLiteApp || isQuickApp {
+                    baseUrlString = "https://apiv2.quickcam.app/api/"
+                } else if isSpeedCamApp || isSpeedCamLiteApp {
+                    baseUrlString = "https://apiv2.speedcam.net/api/"
                 } else {
                     baseUrlString = "https://demo-api.austinconversionoptimization.com/api/"
                 }
