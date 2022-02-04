@@ -269,7 +269,7 @@ extension ProManagerApi: TargetType {
         case .subscriptionList:
             return Paths.subsciptionList
         case .userSync:
-            return Paths.userSync
+            return Paths.userSync + "?platformType=ios"
         case .downgradeSubscription:
             return Paths.downgradeSubscription
         case .getToken:
@@ -720,9 +720,9 @@ extension ProManagerApi: TargetType {
             return JSONEncoding.default
         case .getSplashImages, .youTubeDetail, .youTubeKeyWordSerch, .youTubeChannelSearch, .getWeather, .getYoutubeCategory:
             return JSONEncoding.default
-        case .getyoutubeSubscribedChannel:
+        case .getyoutubeSubscribedChannel, .userSync:
             return TokenURLEncoding.default
-        case .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData, .getHashTagSets, .getUserProfile, .getUserSettings, .logoutKeycloak, .subscriptionList, .userSync, .getReferredUserList, .getReferralNotification, .getNotification:
+        case .getChannelList, .getPackage, .getCart, .getViralvids, .youTubeChannels, .getCalculatorConfig, .getWebsiteData, .getHashTagSets, .getUserProfile, .getUserSettings, .logoutKeycloak, .subscriptionList, .getReferredUserList, .getReferralNotification, .getNotification:
             return URLEncoding.default
         default:
             return JSONEncoding.default

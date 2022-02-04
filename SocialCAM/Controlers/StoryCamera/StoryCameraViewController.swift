@@ -710,7 +710,19 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         self.reloadUploadViewData()
         self.stopMotionCollectionView.reloadData()
         dynamicSetSlowFastVerticalBar()
+        hideAndShowSpeedBarForMiniBoomi()
         
+    }
+    
+    func hideAndShowSpeedBarForMiniBoomi() {
+        currentCameraName = Defaults.shared.cameraName
+        if self.currentCameraName == CameraName.miniboomi {
+            speedSlider.isHidden = true
+            speedSliderView.isHidden = true
+        } else {
+            speedSlider.isHidden = false
+            speedSliderView.isHidden = false
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -728,15 +740,6 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
            let image = UIImage(data: data) {
             UIPasteboard.remove(withName: UIPasteboard.Name(rawValue: Constant.Application.pasteboardName))
             openStoryEditor(images: [image])
-        }
-        
-        currentCameraName = Defaults.shared.cameraName
-        if self.currentCameraName == CameraName.miniboomi {
-            speedSlider.isHidden = true
-            speedSliderView.isHidden = true
-        } else {
-            speedSlider.isHidden = false
-            speedSliderView.isHidden = false
         }
     }
     
@@ -2107,6 +2110,7 @@ extension StoryCameraViewController {
                 isSaving = true
                 loadingView.hide()
                 viewWillAppear(true)
+                hideAndShowSpeedBarForMiniBoomi()
             }
             loadingView.shouldDescriptionTextShow = true
             loadingView.show(on: self.view)
@@ -2494,61 +2498,59 @@ extension StoryCameraViewController {
    
     func saveBoomrangVideo(asset:AVAsset) {
         
-           let boomiAssetValues =  Defaults.shared.boomerangAssetValues ?? [BoomrangAssetSettings]()
-            var boomerangValues = [SpecificBoomerangValue]()
-            for value in boomiAssetValues{
-                boomerangValues.append(value.getBoomrangValues())
-           }
-           guard let config = SpecificBoomerangExportConfig(boomerangValues: boomerangValues) else {
-               return
-           }
-           config.adjustBoomerangValues()
-           
-           let loadingView = LoadingView.instanceFromNib()
-           loadingView.loadingViewShow = false
-           loadingView.shouldCancelShow = false
-           loadingView.shouldDescriptionTextShow = true
-           loadingView.show(on: self.view)
-
-           exportSession = SpecificBoomerangExportSession(config: config)
-          
-          self.exportSession?.export(for: asset, progress: { progress in
+        let boomiAssetValues =  Defaults.shared.boomerangAssetValues ?? [BoomrangAssetSettings]()
+        var boomerangValues = [SpecificBoomerangValue]()
+        for value in boomiAssetValues{
+            boomerangValues.append(value.getBoomrangValues())
+        }
+        guard let config = SpecificBoomerangExportConfig(boomerangValues: boomerangValues) else {
+            return
+        }
+        config.adjustBoomerangValues()
+        
+        let loadingView = LoadingView.instanceFromNib()
+        loadingView.loadingViewShow = false
+        loadingView.shouldCancelShow = false
+        loadingView.shouldDescriptionTextShow = true
+        loadingView.show(on: self.view)
+        
+        exportSession = SpecificBoomerangExportSession(config: config)
+        
+        self.exportSession?.export(for: asset, progress: { progress in
             // progress = progress
             print("progress \(progress)")
             loadingView.progressView.setProgress(to: Double(progress), withAnimation: true)
-         }) { [weak self] url in
+        }) { [weak self] url in
             loadingView.hide()
-         
+            
             guard let `self` = self, let url = url else {
                 return
             }
             print(url)
             SCAlbum.shared.saveMovieToLibrary(movieURL: url) { (isSuccess) in
-                   if isSuccess {
-                       DispatchQueue.main.async {
-                           self.view.makeToast(R.string.localizable.videoSaved(), duration: ToastManager.shared.duration, position: .top)
-                           self.removeData()
-                       }
-                   } else {
-                       self.view.makeToast(R.string.localizable.pleaseGivePhotosAccessFromSettingsToSaveShareImageOrVideo(), duration: ToastManager.shared.duration, position: .top, style: ToastStyle())
-                   }
-               }
+                if isSuccess {
+                    DispatchQueue.main.async {
+                        self.view.makeToast(R.string.localizable.videoSaved(), duration: ToastManager.shared.duration, position: .top)
+                        self.removeData()
+                    }
+                } else {
+                    self.view.makeToast(R.string.localizable.pleaseGivePhotosAccessFromSettingsToSaveShareImageOrVideo(), duration: ToastManager.shared.duration, position: .top, style: ToastStyle())
+                }
+            }
             DispatchQueue.main.async {
             }
         }
         
-          
+        
         loadingView.cancelClick = { cancelled in
-               if cancelled {
-                   DispatchQueue.main.async {
-                       self.exportSession?.cancelExporting()
-                       self.exportSession = nil
-                       loadingView.hide()
-                       
-                      
-                   }
-               }
-           }
+            if cancelled {
+                DispatchQueue.main.async {
+                    self.exportSession?.cancelExporting()
+                    self.exportSession = nil
+                    loadingView.hide()
+                }
+            }
+        }
     }
     func openStyleTransferVC(images: [UIImage], isSlideShow: Bool = false) {
         guard images.count > 0 else {

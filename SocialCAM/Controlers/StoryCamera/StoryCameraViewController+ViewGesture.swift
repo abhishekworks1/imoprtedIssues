@@ -341,6 +341,8 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
                         }
                     }
                 }
+            } else if recordingType == .boomerang {
+                
             }
         case .ended:
             DispatchQueue.main.async {

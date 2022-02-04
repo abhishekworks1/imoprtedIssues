@@ -604,8 +604,13 @@ extension EditProfilePicViewController {
             }
             self.dismissHUD()
             self.storyCameraVC.syncUserModel { (isComplete) in
-                self.setRedirection()
-                self.isImageSelected = false
+                if isComplete ?? false {
+                    self.setRedirection()
+                    self.isImageSelected = false
+                } else {
+                    print("Some Image Issue")
+                }
+                
             }
         }, onError: { error in
             self.dismissHUD()
