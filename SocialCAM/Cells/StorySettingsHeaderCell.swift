@@ -43,7 +43,7 @@ class StorySettingsHeader: UITableViewCell {
         // Initialization code
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapHeader)))
         
-        setUpbadges()
+       // setUpbadges()
         
     }
     func setUpbadges() {

@@ -9706,6 +9706,12 @@
 		9C7546D327A8F6C30041B8D5 /* messageTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C7546D027A8F6C20041B8D5 /* messageTitleCell.xib */; };
 		9C7546D427A8F6C30041B8D5 /* messageTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7546D127A8F6C20041B8D5 /* messageTitleCell.swift */; };
 		9C7546D527A8F6C30041B8D5 /* messageTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7546D127A8F6C20041B8D5 /* messageTitleCell.swift */; };
+		9C75F7FF27ACB8090026322F /* contactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75F7FD27ACB8080026322F /* contactTableViewCell.swift */; };
+		9C75F80027ACB8090026322F /* contactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75F7FD27ACB8080026322F /* contactTableViewCell.swift */; };
+		9C75F80127ACB8090026322F /* contactTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C75F7FE27ACB8080026322F /* contactTableViewCell.xib */; };
+		9C75F80227ACB8090026322F /* contactTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C75F7FE27ACB8080026322F /* contactTableViewCell.xib */; };
+		9C75F80427ACC1BC0026322F /* PhoneContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75F80327ACC1BC0026322F /* PhoneContact.swift */; };
+		9C75F80527ACC1BC0026322F /* PhoneContact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C75F80327ACC1BC0026322F /* PhoneContact.swift */; };
 		9C8D3494271E9C4D00A8403B /* UserCountry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D0443726F4B9C700F8F19A /* UserCountry.swift */; };
 		9C8D34B1271E9C5B00A8403B /* SnapCamAssetsV2.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2A8798725F226D7006EB597 /* SnapCamAssetsV2.xcassets */; };
 		9CA4AE9E27A65152001889DE /* ContactWizardwithAboutUs.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9CA4AE9D27A65152001889DE /* ContactWizardwithAboutUs.storyboard */; };
@@ -16313,6 +16319,9 @@
 		9C7546D027A8F6C20041B8D5 /* messageTitleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = messageTitleCell.xib; sourceTree = "<group>"; };
 		9C7546D127A8F6C20041B8D5 /* messageTitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = messageTitleCell.swift; sourceTree = "<group>"; };
 		9C75F3E270A1CF04C6B6C834 /* Pods_QuickCamLiteExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuickCamLiteExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9C75F7FD27ACB8080026322F /* contactTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = contactTableViewCell.swift; sourceTree = "<group>"; };
+		9C75F7FE27ACB8080026322F /* contactTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = contactTableViewCell.xib; sourceTree = "<group>"; };
+		9C75F80327ACC1BC0026322F /* PhoneContact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneContact.swift; sourceTree = "<group>"; };
 		9CA4AE9D27A65152001889DE /* ContactWizardwithAboutUs.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ContactWizardwithAboutUs.storyboard; sourceTree = "<group>"; };
 		9CA4AEA027A6517A001889DE /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		9CAB00472796465500115443 /* OmitEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OmitEditorViewController.swift; sourceTree = "<group>"; };
@@ -18959,6 +18968,8 @@
 		9C7546CF27A8F6C20041B8D5 /* UITableViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				9C75F7FD27ACB8080026322F /* contactTableViewCell.swift */,
+				9C75F7FE27ACB8080026322F /* contactTableViewCell.xib */,
 				9C7546D027A8F6C20041B8D5 /* messageTitleCell.xib */,
 				9C7546D127A8F6C20041B8D5 /* messageTitleCell.swift */,
 			);
@@ -18972,6 +18983,7 @@
 				9CA4AE9D27A65152001889DE /* ContactWizardwithAboutUs.storyboard */,
 				9CA4AEA027A6517A001889DE /* AboutViewController.swift */,
 				9C7546CC27A82DBA0041B8D5 /* ContactImportVC.swift */,
+				9C75F80327ACC1BC0026322F /* PhoneContact.swift */,
 			);
 			path = ContactWizardAndAbout;
 			sourceTree = "<group>";
@@ -20330,6 +20342,7 @@
 				C215EE2B26A0136800D6C74E /* Tooltip6.gif in Resources */,
 				8205FC28236C2C2F002B2603 /* 02 Instrumental Theme (Orchestral Sunset).mp3 in Resources */,
 				8205FC3C236C2C2F002B2603 /* SF-UI-Text-Regular.otf in Resources */,
+				9C75F80127ACB8090026322F /* contactTableViewCell.xib in Resources */,
 				8205FD30236C3B06002B2603 /* LUT_M01.png in Resources */,
 				8205FD31236C3B06002B2603 /* LUT_M02.png in Resources */,
 				8205FC1C236C2C2F002B2603 /* Duration.ttf in Resources */,
@@ -22083,6 +22096,7 @@
 				C2F934DF264AA0CA006CA527 /* QueSliderCollectionViewCell.xib in Resources */,
 				82CDF7D526FE0C480070ED7A /* StateCodes.json in Resources */,
 				C2F934E0264AA0CA006CA527 /* AMColorPickerTableViewCell.xib in Resources */,
+				9C75F80227ACB8090026322F /* contactTableViewCell.xib in Resources */,
 				C26DF1832696C4C60086F35E /* Tooltip1.gif in Resources */,
 				C2F934E1264AA0CA006CA527 /* YouTube.storyboard in Resources */,
 				C2F934E2264AA0CA006CA527 /* Thursday.JPG in Resources */,
@@ -26549,6 +26563,7 @@
 				8205FD8A236C3B22002B2603 /* StickersViewController.swift in Sources */,
 				C271E3EE265BDEAB005098B8 /* Dynamic.swift in Sources */,
 				C27F349C270B23BE00FFD738 /* EditTooltipViewController.swift in Sources */,
+				9C75F80427ACC1BC0026322F /* PhoneContact.swift in Sources */,
 				8205FB24236C160E002B2603 /* StoryAskQuestionView.swift in Sources */,
 				82057FF923991511007AE1B7 /* StoryCameraViewController+ViewGesture.swift in Sources */,
 				8205FAAC236C0FF0002B2603 /* MultiTextField.swift in Sources */,
@@ -26919,6 +26934,7 @@
 				8205FACC236C10C7002B2603 /* Reachability.swift in Sources */,
 				954DB1E823D9C30100B0A9C4 /* NSNotification.swift in Sources */,
 				82D1EBDF236FF2DF00A680E7 /* UILabel+Extension.swift in Sources */,
+				9C75F7FF27ACB8090026322F /* contactTableViewCell.swift in Sources */,
 				8205FCC3236C3AFA002B2603 /* CollageViewT303.swift in Sources */,
 				824C678E24B5BA9C000396E9 /* SplashAnimatable.swift in Sources */,
 				8299F56A23713A8B00963318 /* StoryCameraViewController+NextLevel.swift in Sources */,
@@ -33229,6 +33245,7 @@
 				C2349851267A110800586186 /* SubscriptionViewModel.swift in Sources */,
 				C2F93206264AA0CA006CA527 /* SocialShareVideo.swift in Sources */,
 				C2F93207264AA0CA006CA527 /* StoryEditorView.swift in Sources */,
+				9C75F80027ACB8090026322F /* contactTableViewCell.swift in Sources */,
 				C2F93208264AA0CA006CA527 /* CustomViews.swift in Sources */,
 				C2F93209264AA0CA006CA527 /* AMColorPickerWheelView.swift in Sources */,
 				C2F9320A264AA0CA006CA527 /* FaceBookManger.swift in Sources */,
@@ -33300,6 +33317,7 @@
 				C2F93247264AA0CA006CA527 /* CollageViewT101.swift in Sources */,
 				C2F93248264AA0CA006CA527 /* Posts.swift in Sources */,
 				C2F93249264AA0CA006CA527 /* FSLoading.swift in Sources */,
+				9C75F80527ACC1BC0026322F /* PhoneContact.swift in Sources */,
 				C2F9324A264AA0CA006CA527 /* CreatePostData.swift in Sources */,
 				C2F9324B264AA0CA006CA527 /* BaseLineView.swift in Sources */,
 				C2F9324C264AA0CA006CA527 /* BasePopOverMenu.swift in Sources */,

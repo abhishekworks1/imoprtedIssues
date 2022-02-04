@@ -9,8 +9,12 @@
 import UIKit
 import SafariServices
 import Alamofire
+import Contacts
+import MessageUI
 
-class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSource  {
+class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSource, contactCelldelegate , MFMessageComposeViewControllerDelegate , MFMailComposeViewControllerDelegate  {
+    
+    
 
     @IBOutlet weak var line1: UILabel!
     @IBOutlet weak var line2: UILabel!
@@ -73,6 +77,14 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     var isIncludeProfileImg = Defaults.shared.includeProfileImgForShare
     var isIncludeQrImg = Defaults.shared.includeQRImgForShare
 
+    @IBOutlet weak var contactPermitView: UIView!
+    @IBOutlet weak var contactTableView: UITableView!
+    fileprivate static let CELL_IDENTIFIER_CONTACT = "contactTableViewCell"
+    var searchText:String = ""
+    
+    var phoneContacts = [PhoneContact]()
+    var mailContacts = [PhoneContact]()
+    var filter: ContactsFilter = .none
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,6 +105,13 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         itemsTableView.allowsSelection = true
         itemsTableView.dataSource = self
         itemsTableView.delegate = self
+        
+        contactTableView.register(UINib.init(nibName: ContactImportVC.CELL_IDENTIFIER_CONTACT, bundle: nil), forCellReuseIdentifier: ContactImportVC.CELL_IDENTIFIER_CONTACT)
+        
+        contactTableView.allowsSelection = true
+        contactTableView.dataSource = self
+        contactTableView.delegate = self
+        //contactTableView.reloadData()
         
         
         if let channelId = Defaults.shared.currentUser?.channelId {
@@ -125,6 +144,19 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             self.lblDisplayName.isHidden = true
         }
         setUpbadges()
+        
+        
+
+        switch CNContactStore.authorizationStatus(for: CNEntityType.contacts){
+        case .authorized: //access contacts
+            contactPermitView.isHidden = true
+            print("here")
+            self.loadContacts(filter: self.filter) // Calling loadContacts methods
+        case .denied, .notDetermined: //request permission
+            contactPermitView.isHidden = false
+        default: break
+        }
+        
     }
     func setupPage(){
         if pageNo == 1 {
@@ -261,38 +293,158 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 //            badgebtn4.setImage(UIImage.init(named: badgearry[3]), for: .normal)
 //        }
     }
+    
+    fileprivate func loadContacts(filter: ContactsFilter) {
+        phoneContacts.removeAll()
+        mailContacts.removeAll()
+        var allContacts = [PhoneContact]()
+        for contact in PhoneContact.getContacts(filter: filter) {
+            allContacts.append(PhoneContact(contact: contact))
+        }
+        
+        var filterdArray = [PhoneContact]()
+        mailContacts = [PhoneContact]()
+        phoneContacts = [PhoneContact]()
+        //if self.filter == .mail {
+            mailContacts = allContacts.filter({ $0.email.count > 0 }) // getting all email
+        //} else if self.filter == .message {
+            phoneContacts = allContacts.filter({ $0.phoneNumber.count > 0 })
+        //} else {
+            filterdArray = allContacts
+        //}
+        //phoneContacts.append(contentsOf: filterdArray)
+        
+        for contact in phoneContacts {
+//            print("Name -> \(contact.name)")
+//            print("Email -> \(contact.email)")
+//            print("Phone Number -> \(contact.phoneNumber)")
+        }
+//        let arrayCode  = self.phoneNumberWithContryCode()
+//        for codes in arrayCode {
+//            print(codes)
+//        }
+        DispatchQueue.main.async {
+            self.contactTableView.reloadData() // update your tableView having phoneContacts array
+        }
+    }
+            
     // MARK: - tableview Delegate
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
+        if tableView == itemsTableView{
+            return 60
+        }else {
+            return 75
+        }
+    }
+    func numberOfSections(in tableView: UITableView) -> Int {
+
+        if tableView == itemsTableView{
+            return 1
+        }else{
+            return 2
+        }
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if tableView == itemsTableView{
+            return self.listingResponse?.list.count ?? 0
+        }else {
+            if section == 0 {
+                return phoneContacts.count
+            }else {
+                return mailContacts.count
+            }
+        }
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.listingResponse?.list.count ?? 0
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView()
+        if tableView == itemsTableView{
+            return view
+        }else{
+            if section == 0{
+                if phoneContacts.count>0{
+                    let label = cutomHeaderView(title: "Contact Numbers")
+                    view.backgroundColor = UIColor(red:0.97, green:0.97, blue:0.97, alpha:1.0)
+//                    let bottomLine = CALayer()
+//                    bottomLine.frame = CGRect(x: 0, y: 34.5, width: self.view.frame.size.width, height: 0.5)
+//                    bottomLine.backgroundColor = UIColor.init(hexString: "#D4D4D4").cgColor
+//                    view.layer.addSublayer(bottomLine)
+                    view.addSubview(label)
+                }
+            }else if section == 1{
+                if mailContacts.count>0{
+                    let label = cutomHeaderView(title: "Contact Emails")
+                    view.backgroundColor = UIColor(red:0.97, green:0.97, blue:0.97, alpha:1.0)
+//                    let bottomLine = CALayer()
+//                    bottomLine.frame = CGRect(x: 0, y: 34.5, width: self.view.frame.size.width, height: 0.5)
+//                    bottomLine.backgroundColor = UIColor.init(hexString: "#D4D4D4").cgColor
+//                    view.layer.addSublayer(bottomLine)
+                    view.addSubview(label)
+                }
+            }
+            return view
+        }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell:messageTitleCell = self.itemsTableView.dequeueReusableCell(withIdentifier: ContactImportVC.CELL_IDENTIFIER) as! messageTitleCell
-        cell.selectionStyle = UITableViewCell.SelectionStyle.none
-        
-        let item = self.listingResponse?.list[indexPath.row]
-        if item != nil {
-            cell.textLbl.text = item?.content ?? ""
-        }
-        if selectedTitleRow == indexPath.row {
-            cell.selectionImageView.image = UIImage.init(named: "radioSelected")
-            txtLinkWithCheckOut = item?.content ?? ""
+        if tableView == itemsTableView{
+            let cell:messageTitleCell = self.itemsTableView.dequeueReusableCell(withIdentifier: ContactImportVC.CELL_IDENTIFIER) as! messageTitleCell
+            cell.selectionStyle = UITableViewCell.SelectionStyle.none
+            
+            let item = self.listingResponse?.list[indexPath.row]
+            if item != nil {
+                cell.textLbl.text = item?.content ?? ""
+            }
+            if selectedTitleRow == indexPath.row {
+                cell.selectionImageView.image = UIImage.init(named: "radioSelected")
+                txtLinkWithCheckOut = item?.content ?? ""
+            }else{
+                cell.selectionImageView.image = UIImage.init(named: "radioDeselectedBlue")
+            }
+            return cell
         }else{
-            cell.selectionImageView.image = UIImage.init(named: "radioDeselectedBlue")
+            let cell:contactTableViewCell = self.contactTableView.dequeueReusableCell(withIdentifier: ContactImportVC.CELL_IDENTIFIER_CONTACT) as! contactTableViewCell
+            cell.selectionStyle = UITableViewCell.SelectionStyle.none
+            cell.cellDelegate = self
+            if indexPath.section == 0 {
+                let contact = phoneContacts[indexPath.row] as PhoneContact
+                cell.lblDisplayName.text = contact.name ?? ""
+                cell.lblNumberEmail.text = contact.phoneNumber[0]
+                if let imagedata =  contact.avatarData {
+                    let avtar = UIImage(data:imagedata,scale:1.0)
+                    cell.contactImage.image = avtar
+                }else {
+                    cell.contactImage.image = UIImage.init(named: "User_placeholder")
+                }
+                cell.phoneContactObj = contact
+            }else {
+                let contact = mailContacts[indexPath.row] as PhoneContact
+                cell.lblDisplayName.text = contact.name ?? ""
+                cell.lblNumberEmail.text = contact.email[0]
+                if let imagedata =  contact.avatarData {
+                    let avtar = UIImage(data:imagedata,scale:1.0)
+                    cell.contactImage.image = avtar
+                }else {
+                    cell.contactImage.image = UIImage.init(named: "User_placeholder")
+                }
+                cell.phoneContactObj = contact
+            }
+
+            return cell
         }
-        return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedTitleRow = indexPath.row
-        let item = self.listingResponse?.list[indexPath.row]
-        if item != nil {
-            self.txtLinkWithCheckOut = item?.content ?? ""
+        if tableView == itemsTableView{
+            selectedTitleRow = indexPath.row
+            let item = self.listingResponse?.list[indexPath.row]
+            if item != nil {
+                self.txtLinkWithCheckOut = item?.content ?? ""
+            }
+            itemsTableView.reloadData()
         }
-        itemsTableView.reloadData()
+        else{}
     }
+    
+   
     // MARK: - Button Methods
     @IBAction func onBack(_ sender: Any) {
         navigationController?.popViewController(animated: true)
@@ -317,12 +469,12 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             self.setupPage()
         }
        else if sender.tag == 2 {
- //          if isSelectSMS {
-//               pageNo = 4
-//               self.setupPage()
-//           }else{
+           if isSelectSMS {
+               pageNo = 4
+               self.setupPage()
+           }else{
                navigationController?.popViewController(animated: true)
-   //        }
+           }
         }else if sender.tag == 3 {
             navigationController?.popViewController(animated: true)
         }
@@ -368,7 +520,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @IBAction func shareOkButtonClicked(_ sender: UIButton) {
-         let urlString = self.txtLinkWithCheckOut
+            let urlString = self.txtLinkWithCheckOut
             let channelId = Defaults.shared.currentUser?.channelId ?? ""
             let urlwithString = urlString + "\n" + "\n" + " \(websiteUrl)/\(channelId)"
             UIPasteboard.general.string = urlwithString
@@ -382,6 +534,89 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         //}
     }
     
+    
+    @IBAction func enableContactClicked(_ sender: UIButton) {
+        CNContactStore().requestAccess(for: .contacts) { (access, error) in
+          print("Access: \(access)")
+            self.contactPermitView.isHidden = true
+            self.loadContacts(filter: self.filter) // Calling loadContacts methods
+        }
+    }
+    func cutomHeaderView(title:String) -> UILabel {
+        let label = UILabel()
+        label.frame = CGRect(x: 15,y: 6,width: 200,height: 20)
+        label.text = title
+        label.textAlignment = .natural
+        label.textColor = UIColor(red:0.36, green:0.36, blue:0.36, alpha:1.0)
+        label.font = UIFont.systemFont(ofSize: 17, weight: .medium)
+        return label
+    }
+    
+    func didPressButton(_ contact: PhoneContact) {
+        
+        let urlString = self.txtLinkWithCheckOut
+        let channelId = Defaults.shared.currentUser?.channelId ?? ""
+        let urlwithString = urlString + "\n" + "\n" + " \(websiteUrl)/\(channelId)"
+        //UIPasteboard.general.string = urlwithString
+        //var shareItems: [Any] = [urlwithString]
+
+        let imageV = self.profileView.toImage()
+       // shareItems.append(image)
+        
+        var phoneNum = ""
+        var email = ""
+        if contact.phoneNumber.count > 0 {
+            phoneNum = contact.phoneNumber[0]
+            
+            if !MFMessageComposeViewController.canSendText() {
+                    //showAlert("Text services are not available")
+                    return
+                }
+
+                let textComposer = MFMessageComposeViewController()
+                textComposer.messageComposeDelegate = self
+                let recipients:[String] = [phoneNum]
+                textComposer.body = urlwithString
+                textComposer.recipients = recipients
+
+                if MFMessageComposeViewController.canSendAttachments() {
+                    let imageData = imageV.jpegData(compressionQuality: 1.0)
+                    textComposer.addAttachmentData(imageData!, typeIdentifier: "image/jpg", filename: "photo.jpg")
+                }
+
+                present(textComposer, animated: true)
+            
+        }else {
+            if contact.email.count > 0 {
+                email = contact.email[0]
+                
+                if MFMailComposeViewController.canSendMail() {
+                    let mail = MFMailComposeViewController()
+                    mail.mailComposeDelegate = self
+                    mail.setToRecipients([email])
+                    mail.setSubject(urlString)
+                    mail.setMessageBody(urlwithString, isHTML: false)
+                    
+                    let imageData = imageV.jpegData(compressionQuality: 1.0)
+                    mail.addAttachmentData(imageData!, mimeType: "image/jpg", fileName: "photo.jpg")
+                    present(mail, animated: true)
+                    
+                    // Show third party email composer if default Mail app is not present
+                }
+                
+            }
+        }
+        
+    }
+    
+    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+        controller.dismiss(animated: true, completion: nil)
+    }
+    func mailComposeController(_ controller: MFMailComposeViewController,
+                               didFinishWith result: MFMailComposeResult,
+                               error: Swift.Error?) {
+        controller.dismiss(animated: true, completion: nil)
+    }
     /*
     // MARK: - Navigation
 
