@@ -249,12 +249,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         } else {
             rootViewController = R.storyboard.loginViewController.loginNavigation()
-//            InternetConnectionAlert.shared.internetConnectionHandler = { reachability in
-//                if reachability.connection != .none {
-//                    StoryDataManager.shared.startUpload()
-//                    PostDataManager.shared.startUpload()
-//                }
-//            }
         }
         #if TIMESPEEDAPP
         Defaults.shared.cameraMode = .basicCamera

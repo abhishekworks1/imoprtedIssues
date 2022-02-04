@@ -1565,7 +1565,6 @@ extension StoryCameraViewController {
             return
         }
         onStartRecordSetSpeed()
-        
     }
     
     func showCollectionView(_ mode: CollectionMode = .effect) {

@@ -886,11 +886,50 @@ extension StoryCameraViewController: CountdownViewDelegate {
             }
         }
     }
+    
+    func removeAudioFromVideo(_ videoURL: URL) -> URL {
+        var mutableVideoURL = NSURL() //final video url
+        let inputVideoURL: URL = videoURL
+        let sourceAsset = AVURLAsset(url: inputVideoURL)
+        let sourceVideoTrack: AVAssetTrack? = sourceAsset.tracks(withMediaType: AVMediaType.video)[0]
+        let composition : AVMutableComposition = AVMutableComposition()
+        let compositionVideoTrack: AVMutableCompositionTrack? = composition.addMutableTrack(withMediaType: AVMediaType.video, preferredTrackID: kCMPersistentTrackID_Invalid)
+        let x: CMTimeRange = CMTimeRangeMake(start: CMTime.zero, duration: sourceAsset.duration)
+        _ = try? compositionVideoTrack!.insertTimeRange(x, of: sourceVideoTrack!, at: CMTime.zero)
+        mutableVideoURL = NSURL(fileURLWithPath: NSHomeDirectory() + "/Documents/FinalVideo.mov")
+        let exporter: AVAssetExportSession = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetHighestQuality)!
+        exporter.outputFileType = AVFileType.mov
+        exporter.outputURL = mutableVideoURL as URL
+        exporter.exportAsynchronously(completionHandler:
+                                        {
+            switch exporter.status
+            {
+            case AVAssetExportSession.Status.failed:
+                print("failed \(exporter.error)")
+            case AVAssetExportSession.Status.cancelled:
+                print("cancelled \(exporter.error)")
+            case AVAssetExportSession.Status.unknown:
+                print("unknown\(exporter.error)")
+            case AVAssetExportSession.Status.waiting:
+                print("waiting\(exporter.error)")
+            case AVAssetExportSession.Status.exporting:
+                print("exporting\(exporter.error)")
+            default:
+                print("-----Mutable video exportation complete.")
+            }
+        })
+        print("*********************")
+        print(mutableVideoURL)
+        print("*********************")
+        return mutableVideoURL as URL
+    }
 }
 
 extension StoryCameraViewController: SpecificBoomerangDelegate {
     
     func didBoomerang(_ url: URL) {
+        var url = url
+        url = removeAudioFromVideo(url)
         guard let storyEditorViewController = R.storyboard.storyEditor.storyEditorViewController() else {
             fatalError("PhotoEditorViewController Not Found")
         }

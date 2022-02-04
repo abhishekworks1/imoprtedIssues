@@ -112,6 +112,7 @@ class SpecificBoomerangViewController: UIViewController {
                                     size: videoView.frame.size)
         if let asset = currentAsset {
             loadAsset(asset)
+            playPlayer()
         }
     }
     
