@@ -876,6 +876,9 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                 Defaults.shared.cameraMode = currentMode.recordingType
                 self.isRecording = false
                 Defaults.shared.cameraName = currentMode.name
+                if isBoomiCamApp && Defaults.shared.appMode == .free {
+                    self.showAlertForUpgradeSubscription()
+                }
                 if currentMode.name == CameraName.miniboomi {
                     self.speedSlider.isHidden = true
                     self.speedSliderView.isHidden = true
@@ -1295,7 +1298,7 @@ extension StoryCameraViewController {
             guard let `self` = self else { return }
             Defaults.shared.cameraMode = currentMode.recordingType
             self.isRecording = false
-            
+           
             self.totalDurationOfOneSegment = 0.0
             self.circularProgress.animate(toAngle: 0, duration: 0, completion: nil)
             self.circularProgress.progressInsideFillColor = .white
@@ -1324,6 +1327,9 @@ extension StoryCameraViewController {
                 if self.photoTimerValue > 0 {
                     self.photoTimerValue = 0
                     self.resetPhotoCountDown()
+                }
+                if isBoomiCamApp && Defaults.shared.appMode == .free {
+                    self.showAlertForUpgradeSubscription()
                 }
             case .slideshow:
                 self.circularProgress.centerImage = R.image.icoSildeshowMode()
@@ -1387,7 +1393,6 @@ extension StoryCameraViewController {
                 if isQuickApp && Defaults.shared.appMode == .free {
                     self.showAlertForUpgradeSubscription()
                 }
-
             default:
                 break
             }

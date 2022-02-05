@@ -83,7 +83,9 @@ class SubscriptionsViewController: UIViewController {
     }
     
     private func setupUI() {
-        let subscriptionData = subscriptionsList.filter({$0.productId == Constant.IAPProductIds.quickCamLiteBasic})
+        var subscriptionData = subscriptionsList.filter({$0.productId == Constant.IAPProductIds.boomiCamBasic})
+       subscriptionData.append(contentsOf:subscriptionsList.filter({$0.productId == Constant.IAPProductIds.boomiCamAdvanced}))
+        subscriptionData.append(contentsOf:subscriptionsList.filter({$0.productId == Constant.IAPProductIds.boomiCamPro}))
         if let currentUser = Defaults.shared.currentUser {
             lblExpiryDate.text = R.string.localizable.expiryDaysLeft("\(Defaults.shared.numberOfFreeTrialDays ?? 0)")
             if currentUser.isTempSubscription ?? false && subscriptionType != .free && Defaults.shared.appMode != .free {
@@ -240,7 +242,11 @@ class SubscriptionsViewController: UIViewController {
             let subscriptionData = subscriptionsList.filter({$0.productId == Constant.IAPProductIds.quickCamLiteBasic})
             self.purchaseProduct(productIdentifire: subscriptionData.first?.productId ?? "", productServerID: subscriptionData.first?.id ?? "")
             self.appMode = appMode
-        } else if isQuickApp && appMode == .free {
+        } else if isBoomiCamApp{
+            let subscriptionData = subscriptionsList.filter({$0.productId == Constant.IAPProductIds.boomiCamBasic})
+            self.purchaseProduct(productIdentifire: subscriptionData.first?.productId ?? "", productServerID: subscriptionData.first?.id ?? "")
+            self.appMode = appMode
+        }else if isQuickApp && appMode == .free {
             self.downgradePopupView.isHidden = false
         } else if appMode != .free || Defaults.shared.releaseType != .beta {
             self.present(objAlert, animated: true, completion: nil)
@@ -267,9 +273,8 @@ class SubscriptionsViewController: UIViewController {
             self.showAlert(alertMessage: error.localizedDescription)
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
-        
-    }
     
+    }
 }
 
 extension SubscriptionsViewController: UITableViewDataSource {
