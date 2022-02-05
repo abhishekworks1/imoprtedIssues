@@ -62,23 +62,22 @@ class AboutViewController: UIViewController {
     
     @IBAction func rateUsTapped(_ sender: UIButton) {
         if #available(iOS 10.3, *) {
-
-                SKStoreReviewController.requestReview()
-            
-            } else {
-
-                let appID = "1580876968"
-                //let urlStr = "https://itunes.apple.com/app/id\(appID)" // (Option 1) Open App Page
-                let urlStr = "https://itunes.apple.com/app/id\(appID)?action=write-review" // (Option 2) Open App Review Page
-                
-                guard let url = URL(string: urlStr), UIApplication.shared.canOpenURL(url) else { return }
-                
-                if #available(iOS 10.0, *) {
-                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                } else {
-                    UIApplication.shared.openURL(url) // openURL(_:) is deprecated from iOS 10.
+            if #available(iOS 14, *){
+                if let scene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
+                    SKStoreReviewController.requestReview(in: scene)
                 }
+            }else{
+                SKStoreReviewController.requestReview()
             }
+        } else {
+            
+            let appID = "1580876968"
+            //let urlStr = "https://itunes.apple.com/app/id\(appID)" // (Option 1) Open App Page
+            let urlStr = "https://itunes.apple.com/app/id\(appID)?action=write-review" // (Option 2) Open App Review Page
+            
+            guard let url = URL(string: urlStr), UIApplication.shared.canOpenURL(url) else { return }
+            UIApplication.shared.openURL(url) // openURL(_:) is deprecated from iOS 10.
+        }
     }
     
     /*

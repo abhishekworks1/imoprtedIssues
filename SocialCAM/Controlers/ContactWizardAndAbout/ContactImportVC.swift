@@ -12,7 +12,7 @@ import Alamofire
 import Contacts
 import MessageUI
 
-class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSource, contactCelldelegate , MFMessageComposeViewControllerDelegate , MFMailComposeViewControllerDelegate  {
+class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSource, contactCelldelegate , MFMessageComposeViewControllerDelegate , MFMailComposeViewControllerDelegate , UISearchBarDelegate {
     
     
 
@@ -80,10 +80,14 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var contactPermitView: UIView!
     @IBOutlet weak var contactTableView: UITableView!
     fileprivate static let CELL_IDENTIFIER_CONTACT = "contactTableViewCell"
+    
+    @IBOutlet weak var searchBar: UISearchBar!
     var searchText:String = ""
     
     var phoneContacts = [PhoneContact]()
     var mailContacts = [PhoneContact]()
+    var allphoneContacts = [PhoneContact]()
+    var allmailContacts = [PhoneContact]()
     var filter: ContactsFilter = .none
     
     override func viewDidLoad() {
@@ -111,7 +115,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         contactTableView.allowsSelection = true
         contactTableView.dataSource = self
         contactTableView.delegate = self
-        //contactTableView.reloadData()
+        
+        searchBar.delegate = self
         
         
         if let channelId = Defaults.shared.currentUser?.channelId {
@@ -297,17 +302,24 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     fileprivate func loadContacts(filter: ContactsFilter) {
         phoneContacts.removeAll()
         mailContacts.removeAll()
-        var allContacts = [PhoneContact]()
-        for contact in PhoneContact.getContacts(filter: filter) {
-            allContacts.append(PhoneContact(contact: contact))
-        }
         
+       var allContacts = [PhoneContact]()
+        for contact in PhoneContact.getContacts(filter: filter) {
+                allContacts.append(PhoneContact(contact: contact))
+        }
+        allContacts.sort {
+            $0.name ?? "" < $1.name ?? ""
+        }
         var filterdArray = [PhoneContact]()
+        allmailContacts = [PhoneContact]()
+        allphoneContacts = [PhoneContact]()
         mailContacts = [PhoneContact]()
         phoneContacts = [PhoneContact]()
         //if self.filter == .mail {
+            allmailContacts = allContacts.filter({ $0.email.count > 0 }) // getting all email
             mailContacts = allContacts.filter({ $0.email.count > 0 }) // getting all email
         //} else if self.filter == .message {
+            allphoneContacts = allContacts.filter({ $0.phoneNumber.count > 0 })
             phoneContacts = allContacts.filter({ $0.phoneNumber.count > 0 })
         //} else {
             filterdArray = allContacts
@@ -331,7 +343,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     // MARK: - tableview Delegate
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if tableView == itemsTableView{
-            return 60
+            return 70
         }else {
             return 75
         }
@@ -395,7 +407,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 cell.textLbl.text = item?.content ?? ""
             }
             if selectedTitleRow == indexPath.row {
-                cell.selectionImageView.image = UIImage.init(named: "radioSelected")
+                cell.selectionImageView.image = UIImage.init(named: "radioSelectedBlue")
                 txtLinkWithCheckOut = item?.content ?? ""
             }else{
                 cell.selectionImageView.image = UIImage.init(named: "radioDeselectedBlue")
@@ -441,10 +453,43 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }
             itemsTableView.reloadData()
         }
-        else{}
+        else{
+            self.view.endEditing(true)
+        }
     }
     
-   
+    // MARK: - Searchbar delegate
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+            self.searchBar.showsCancelButton = true
+    }
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        //print(searchText)
+        guard !searchText.isEmpty  else { phoneContacts = allphoneContacts; mailContacts = allmailContacts; return }
+
+        phoneContacts = allphoneContacts.filter({ Phonecontact -> Bool in
+            return (( Phonecontact.name!.lowercased().contains(searchText.lowercased()) ) || ( Phonecontact.phoneNumber[0].contains(searchText.lowercased()) ) )
+        })
+        
+        mailContacts = allmailContacts.filter({ Phonecontact -> Bool in
+            return (Phonecontact.name!.lowercased().contains(searchText.lowercased()) || ( Phonecontact.email[0].lowercased().contains(searchText.lowercased()) ))
+        })
+        contactTableView.reloadData()
+
+    }
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+            searchBar.showsCancelButton = false
+            searchBar.text = ""
+            searchBar.resignFirstResponder()
+        
+        phoneContacts = allphoneContacts;
+        mailContacts = allmailContacts;
+        contactTableView.reloadData()
+        
+    }
+    func searchBarSearchButtonClicked(_ seachBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+
     // MARK: - Button Methods
     @IBAction func onBack(_ sender: Any) {
         navigationController?.popViewController(animated: true)
