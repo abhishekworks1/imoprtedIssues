@@ -163,12 +163,13 @@ class StorySettingsVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.settingsTableView.reloadData()
+        
 //        storyCameraVC.syncUserModel { _ in
 //
 //        }
         storyCameraVC.syncUserModel { isCompleted in
             if isCompleted! {
+                self.settingsTableView.reloadData()
                 print("UserDetails Updated")
             }
         }

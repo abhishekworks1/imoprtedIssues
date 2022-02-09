@@ -602,9 +602,10 @@ extension EditProfilePicViewController {
             guard let `self` = self else {
                 return
             }
-            self.dismissHUD()
+            
             self.storyCameraVC.syncUserModel { (isComplete) in
                 if isComplete ?? false {
+                    self.dismissHUD()
                     self.setRedirection()
                     self.isImageSelected = false
                 } else {

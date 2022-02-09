@@ -2840,55 +2840,55 @@ extension StoryCameraViewController {
     }
     
     func setAppModeBasedOnUserSync(){
-            //
-            if Defaults.shared.allowFullAccess ?? false == true{
+        //
+        if Defaults.shared.allowFullAccess ?? false == true{
+            Defaults.shared.appMode = .basic
+        }else if (Defaults.shared.isFreeTrial ?? false == true){
+            if (Defaults.shared.numberOfFreeTrialDays ?? 0 > 0){
                 Defaults.shared.appMode = .basic
-            }else if (Defaults.shared.isFreeTrial ?? false == true){
+            }else {
+                Defaults.shared.appMode = .free
+            }
+        }else if(Defaults.shared.currentUser?.subscriptions?.ios?.currentStatus == "basic")
+        {
+            if(Defaults.shared.isDowngradeSubscription ?? false == true){
                 if (Defaults.shared.numberOfFreeTrialDays ?? 0 > 0){
                     Defaults.shared.appMode = .basic
                 }else {
                     Defaults.shared.appMode = .free
                 }
-            }else if(Defaults.shared.currentUser?.subscriptions?.ios?.currentStatus == "basic")
-            {
-                if(Defaults.shared.isDowngradeSubscription ?? false == true){
-                    if (Defaults.shared.numberOfFreeTrialDays ?? 0 > 0){
-                        Defaults.shared.appMode = .basic
-                    }else {
-                        Defaults.shared.appMode = .free
-                    }
-                }else{
-                    Defaults.shared.appMode = .basic
-                }
             }else{
-                Defaults.shared.appMode = .free
+                Defaults.shared.appMode = .basic
             }
-            
-/*
+        }else{
+            Defaults.shared.appMode = .free
+        }
+        
+        /*
          if(allowFullAccess){
-              Allow access to premium content
+         Allow access to premium content
          }else if(isTempSubscription){
-             if(diffDays > 0){
-              Allow access to premium content
-              }else{
-              Free trial expired
-              }
-         }else if(subscriptions.android.currentStatus === 'basic'){
-             if(userSubscription.isDowngraded){
-                 if(diffDays > 0){
-                    Allow access to premium content
-                   }else{
-                    Subscription is expired
-                   }
-
-             }else{
-              Allow access to premium content
-             }
+         if(diffDays > 0){
+         Allow access to premium content
          }else{
-           User does not have any active subscriptions
+         Free trial expired
+         }
+         }else if(subscriptions.android.currentStatus === 'basic'){
+         if(userSubscription.isDowngraded){
+         if(diffDays > 0){
+         Allow access to premium content
+         }else{
+         Subscription is expired
+         }
+         
+         }else{
+         Allow access to premium content
+         }
+         }else{
+         User does not have any active subscriptions
          }
          */
-        }
+    }
     
     func verifyUserToken(appName: String) {
         ProManagerApi.getToken(appName: appName).request(Result<GetTokenModel>.self).subscribe(onNext: { [weak self] (response) in
