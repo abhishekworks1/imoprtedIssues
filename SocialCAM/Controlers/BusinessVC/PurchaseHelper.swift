@@ -121,8 +121,6 @@ extension PurchaseHelper {
 extension PurchaseHelper: SKProductsRequestDelegate {
     
     func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
-        print(response.products)
-        print(response.invalidProductIdentifiers)
         if response.products.count > 0 {
             iapProducts = response.products
             if iapProducts.count > 0 {
