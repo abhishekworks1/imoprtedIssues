@@ -171,7 +171,7 @@ class StoryEditorViewController: UIViewController {
 
     @IBOutlet weak var youtubeShareView: UIView!
     @IBOutlet weak var tiktokShareView: UIView!
-    @IBOutlet weak var storiCamShareView: UIView!
+   // @IBOutlet weak var storiCamShareView: UIView!
     
     @IBOutlet weak var btnShowHideEditImage: UIButton!
     @IBOutlet weak var playPauseButton: UIButton!
@@ -198,12 +198,15 @@ class StoryEditorViewController: UIViewController {
     @IBOutlet weak var showHideView: UIView!
     @IBOutlet weak var cropPopupBlurView: UIVisualEffectView!
     @IBOutlet weak var croppedAlertView: UIView!
+    
+    @IBOutlet weak var socialMediaMainView: UIView!
+
     @IBOutlet weak var btnFacebook: UIButton!
     @IBOutlet weak var btnYoutube: UIButton!
     @IBOutlet weak var btnInstagram: UIButton!
     @IBOutlet weak var btnTwitter: UIButton!
     @IBOutlet weak var btnTiktok: UIButton!
-    @IBOutlet weak var btnStoricamShare: UIButton!
+   // @IBOutlet weak var btnStoricamShare: UIButton!
     @IBOutlet weak var hideToolTipView: UIView!
     @IBOutlet weak var btnDoNotShowAgain: UIButton!
     @IBOutlet weak var btnFastesteverWatermark: UIButton!
@@ -385,6 +388,12 @@ class StoryEditorViewController: UIViewController {
                 }
             }
         }
+        
+        self.socialMediaMainView.isHidden = true
+
+    }
+    override func viewDidLayoutSubviews() {
+        //self.socialMediaMainView.frame = CGRect(x: self.view.frame.size.width, y: 0,width: self.view.frame.size.width ,height: self.view.frame.size.height)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -543,9 +552,9 @@ class StoryEditorViewController: UIViewController {
         default: break
         }
         if let currentUser = Defaults.shared.currentUser, let isAdvanceMode = currentUser.advanceGameMode {
-            self.storiCamShareView.isHidden = !isAdvanceMode
+            //self.storiCamShareView.isHidden = !isAdvanceMode
         } else {
-            self.storiCamShareView.isHidden = true
+            //self.storiCamShareView.isHidden = true
         }
         
         self.editOptionView.isHidden = !isImage
@@ -830,6 +839,20 @@ extension StoryEditorViewController {
             self.needToExportVideo()
         }
         self.navigationController?.pushViewController(trimVC, animated: true)
+    }
+    
+    @IBAction func shareOnMediaClicked(_ sender: UIButton) {
+//        self.socialMediaMainView.frame = CGRect(x: self.view.frame.size.width, y: 0,width: self.view.frame.size.width ,height: self.view.frame.size.height)
+//        UIView.animate(withDuration: 0.5, delay: 0.25, options: UIView.AnimationOptions(), animations: { () -> Void in
+//            self.socialMediaMainView.frame = CGRect(x: 0, y: 0,width: self.view.frame.size.width ,height: self.view.frame.size.height)
+//               }, completion: { (finished: Bool) -> Void in
+//                   //self.viewSideMenuHolder.backgroundColor = UIColor.clear
+//                   self.socialMediaMainView.frame = CGRect(x: 0, y: 0,width: self.view.frame.size.width ,height: self.view.frame.size.height)
+//
+//               })
+        
+        self.socialMediaMainView.isHidden = false
+    
     }
     @IBAction func omitClicked(_ sender: UIButton) {
         Defaults.shared.callHapticFeedback(isHeavy: false)
@@ -1381,7 +1404,38 @@ extension StoryEditorViewController {
     @objc private func backgroundViewDidTap() {
         popupVC.dismiss()
     }
-    
+    @IBAction func btnSocialMediaBackClick(_ sender: UIButton) {
+//        self.socialMediaMainView.frame = CGRect(x: 0, y: 0,width: self.view.frame.size.width ,height: self.view.frame.size.height)
+//        UIView.animate(withDuration: 0.5, delay: 0.25, options: UIView.AnimationOptions(), animations: { () -> Void in
+//            self.socialMediaMainView.frame = CGRect(x: self.view.frame.size.width, y: 0,width: self.view.frame.size.width ,height: self.view.frame.size.height)
+//               }, completion: { (finished: Bool) -> Void in
+//                   self.socialMediaMainView.frame = CGRect(x: self.view.frame.size.width, y: 0,width: self.view.frame.size.width ,height: self.view.frame.size.height)
+//               })
+        
+        self.socialMediaMainView.isHidden = true
+    }
+    @IBAction func btnSocialMediaDoneClick(_ sender: UIButton) {
+        if Defaults.shared.isShowAllPopUpChecked == true {
+            self.hideShowDiscardVideoPopup(shouldShow: true)
+        } else if Defaults.shared.isDiscardVideoPopupHide == false {
+            self.hideShowDiscardVideoPopup(shouldShow: true)
+        } else {
+            Defaults.shared.postViralCamModel = nil
+            if isPic2ArtApp || cameraMode == .pic2Art {
+                if let controllers = navigationController?.viewControllers,
+                    controllers.count > 0 {
+                    for controller in controllers {
+                        if let storyCameraVC = controller as? StoryCameraViewController {
+                            navigationController?.popToViewController(storyCameraVC, animated: true)
+                            return
+                        }
+                    }
+                }
+            }
+            navigationController?.popViewController(animated: true)
+            Defaults.shared.callHapticFeedback(isHeavy: false)
+        }
+    }
     @IBAction func btnSocialMediaShareClick(_ sender: UIButton) {
         if Defaults.shared.appMode == .free, !(sender.tag == 3) {
             showAlertForUpgradeSubscription()

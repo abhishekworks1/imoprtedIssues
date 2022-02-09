@@ -150,19 +150,62 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
         setUpbadges()
         
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated) // No need for semicolon
+//        if pageNo == 4 {
+//            ContactPermission()
+//        }
         
-
+    }
+    func ContactPermission(){
+        
+        let loadingView = LoadingView.instanceFromNib()
+        loadingView.shouldCancelShow = true
+        loadingView.loadingViewShow = true
+        loadingView.show(on: view)
+        
         switch CNContactStore.authorizationStatus(for: CNEntityType.contacts){
+            
         case .authorized: //access contacts
             contactPermitView.isHidden = true
             print("here")
             self.loadContacts(filter: self.filter) // Calling loadContacts methods
+            loadingView.hide()
         case .denied, .notDetermined: //request permission
-            contactPermitView.isHidden = false
+            CNContactStore().requestAccess(for: .contacts) { granted, error in
+                        if granted {
+                            //completionHandler(true)
+                            self.contactPermitView.isHidden = true
+                            self.loadContacts(filter: self.filter) // Calling loadContacts methods
+                        } else {
+                            self.contactPermitView.isHidden = false
+                            DispatchQueue.main.async {
+                                self.showSettingsAlert()
+                            }
+                        }
+                    }
+            loadingView.hide()
         default: break
         }
-        
     }
+    private func showSettingsAlert() {
+        let alert = UIAlertController(title: nil, message: "This app requires access to Contacts to proceed. Go to Settings to grant access.", preferredStyle: .alert)
+        if
+            let settings = URL(string: UIApplication.openSettingsURLString),
+            UIApplication.shared.canOpenURL(settings) {
+                alert.addAction(UIAlertAction(title: "Open Settings", style: .default) { action in
+                    //completionHandler(false)
+                    UIApplication.shared.open(settings)
+                })
+        }
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { action in
+            //completionHandler(false)
+            self.contactPermitView.isHidden = false
+        })
+        present(alert, animated: true)
+    }
+    
     func setupPage(){
         if pageNo == 1 {
             page1view.isHidden = false
@@ -336,6 +379,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 //            print(codes)
 //        }
         DispatchQueue.main.async {
+            
             self.contactTableView.reloadData() // update your tableView having phoneContacts array
         }
     }
@@ -581,11 +625,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     
     @IBAction func enableContactClicked(_ sender: UIButton) {
-        CNContactStore().requestAccess(for: .contacts) { (access, error) in
-          print("Access: \(access)")
-            self.contactPermitView.isHidden = true
-            self.loadContacts(filter: self.filter) // Calling loadContacts methods
-        }
+        
+        ContactPermission()
     }
     func cutomHeaderView(title:String) -> UILabel {
         let label = UILabel()

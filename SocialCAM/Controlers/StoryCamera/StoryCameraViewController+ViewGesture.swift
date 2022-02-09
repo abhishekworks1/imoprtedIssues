@@ -538,7 +538,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
         self.speedLabel.startBlink()
         self.view.bringSubviewToFront(self.speedLabel)
         speedIndicatorViewColorChange()
-        self.hepticEventGenerator(text:text)
+        //self.hepticEventGenerator(text:text)
     }
     func hepticEventGenerator(text:String){
         if self.labelSpeedTxt != text && text != ""{
@@ -556,8 +556,8 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
         nextLevel.videoConfiguration.timescale = 1
         speedIndicatorViewColorChange()
         if self.isSpeedChanged && self.lastselectedValue == 2 {
-            print("***22***")
-            Defaults.shared.callHapticFeedback(isHeavy: true)
+            //print("***22***")
+            //Defaults.shared.callHapticFeedback(isHeavy: true)
             self.isSpeedChanged = false
             self.lastselectedValue = 3
         }
