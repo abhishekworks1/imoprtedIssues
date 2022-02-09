@@ -1158,7 +1158,10 @@ extension StoryEditorViewController {
                                             } else {
                                                 FaceBookManager.shared.logout()
                                                 FaceBookManager.shared.login(controller: self, loginCompletion: { (_, _) in
-                                                    //                                                completion(true)
+                                                    FaceBookManager.shared.loadUserData { userName in
+                                                        FaceBookManager.shared.userData = userName
+                                                        SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type, referType: self.referType)
+                                                    }
                                                 }) { (_, _) in
                                                     //                                                completion(false)
                                                 }
@@ -1167,6 +1170,7 @@ extension StoryEditorViewController {
                                             FaceBookManager.shared.login(controller: self, loginCompletion: { (_, _) in
                                                 FaceBookManager.shared.loadUserData { userName in
                                                     FaceBookManager.shared.userData = userName
+                                                    SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type, referType: self.referType)
                                                 }
                                             }) { (_, _) in
                                                 //                                                completion(false)

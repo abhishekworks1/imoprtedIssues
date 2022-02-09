@@ -900,6 +900,7 @@ extension StoryCameraViewController: CountdownViewDelegate {
         let exporter: AVAssetExportSession = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetHighestQuality)!
         exporter.outputFileType = AVFileType.mov
         exporter.outputURL = mutableVideoURL as URL
+        removeFileAtURLIfExists(url: mutableVideoURL)
         exporter.exportAsynchronously(completionHandler:
                                         {
             switch exporter.status
@@ -923,13 +924,26 @@ extension StoryCameraViewController: CountdownViewDelegate {
         print("*********************")
         return mutableVideoURL as URL
     }
+    
+    func removeFileAtURLIfExists(url: NSURL) {
+        if let filePath = url.path {
+            let fileManager = FileManager.default
+            if fileManager.fileExists(atPath: filePath) {
+                do{
+                    try fileManager.removeItem(atPath: filePath)
+                } catch let error as NSError {
+                    print("Couldn't remove existing destination file: \(error)")
+                }
+            }
+        }
+    }
 }
 
 extension StoryCameraViewController: SpecificBoomerangDelegate {
     
     func didBoomerang(_ url: URL) {
         var url = url
-        url = removeAudioFromVideo(url)
+//        url = removeAudioFromVideo(url)
         guard let storyEditorViewController = R.storyboard.storyEditor.storyEditorViewController() else {
             fatalError("PhotoEditorViewController Not Found")
         }

@@ -793,7 +793,8 @@ extension ProManagerApi: TargetType {
                 .request(self)
                 .mapObject(T.self)
                 .subscribe(onSuccess: { (object) in
-                    print("Json Response \(String(describing: object.toJSONString()))")
+//                    print("Json Response \(String(describing: object.toJSONString()))")
+                    print(object.toJSONString() ?? "")
                     observer.onNext(object)
                 }, onError: { (error) in
                     observer.onError(error)

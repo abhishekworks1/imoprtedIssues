@@ -174,13 +174,11 @@ class SpecificBoomerangViewController: UIViewController {
         for boomerangValue in boomerangValues {
             boomerangValue.isSelected = boomerangValue.boomerangView == gesture.view
         }
-        changeBoomerangOptions()
+//        changeBoomerangOptions()
     }
     
     @objc func onPan(_ gesture: UIPanGestureRecognizer) {
-        guard let currentAsset = self.currentAsset else {
-            return
-        }
+        guard let currentAsset = self.currentAsset else { return }
         if gesture.view == timePointerView {
             let newCenterX = gesture.location(in: self.view).x
             timePointerView.center.x = newCenterX
@@ -301,7 +299,7 @@ class SpecificBoomerangViewController: UIViewController {
     
     @IBAction func onChangeBoomerangSpeedScale(_ sender: UIButton) {
         if let selectedBoomerangValue = boomerangValues.filter({ return $0.isSelected })[safe: 0],
-            let index = self.speedOptions.options?.firstIndex(where: { return $0.value == selectedBoomerangValue.speedScale }) {
+           let index = self.speedOptions.options?.firstIndex(where: { return $0.value == selectedBoomerangValue.speedScale }) {
             self.speedOptions.selectedIndex = index
         }
         
