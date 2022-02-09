@@ -42,7 +42,7 @@ class SubscriptionViewModel {
     
     // MARK: - IAP products methods
     internal func fetchIAPProducts() {
-        PurchaseHelper.shared.setProductIds(ids: self.subscriptionPlanData.map({($0.productId ?? "")}))
+       PurchaseHelper.shared.setProductIds(ids: self.subscriptionPlanData.map({($0.productId ?? "")}))
         PurchaseHelper.shared.fetchAvailableProducts { }
     }
     
@@ -53,6 +53,8 @@ class SubscriptionViewModel {
                     self.subscriptionPlanData = []
                     return
                 }
+                print("subscriptionPlanData")
+                print(subscriptionsList.toJSON())
                 self.subscriptionPlanData = subscriptionsList
                 self.isSubscriptionPlansFetched.value = true
                 self.fetchIAPProducts()

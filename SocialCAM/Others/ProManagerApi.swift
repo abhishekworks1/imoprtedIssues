@@ -663,6 +663,7 @@ extension ProManagerApi: TargetType {
         case .buySubscription(let parameters):
             param = parameters
         case .userSync:
+            param = ["platformType":"ios"]
             break
         case .downgradeSubscription(let subscriptionId):
             param = ["subscriptionId": subscriptionId]

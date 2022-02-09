@@ -393,7 +393,10 @@ public struct Constant {
     
     /// IAP product id's
     struct IAPProductIds {
-        static let quickCamLiteBasic = "com.quickcamlite.app.basic"
+        static let quickCamLiteBasic = "app.quickcamlite.app.basic"
+        static let boomiCamBasic = "app.boomicam.app.basic"
+        static let boomiCamAdvanced = "app.boomicam.app.advanced"
+        static let boomiCamPro = "app.boomicam.app.pro"
     }
     
     struct IAPProductServerIds {
