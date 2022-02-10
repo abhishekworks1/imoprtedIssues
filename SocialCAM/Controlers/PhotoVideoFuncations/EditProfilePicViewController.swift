@@ -598,27 +598,21 @@ extension EditProfilePicViewController {
     }
     
     func updateProfilePic(image: UIImage) {
-        ProManagerApi.uploadPicture(image: image, imageSource: imageSource).request(Result<EmptyModel>.self).subscribe(onNext: { [weak self] (response) in
-            guard let `self` = self else {
-                return
-            }
-            
-            self.storyCameraVC.syncUserModel { (isComplete) in
-                if isComplete ?? false {
-                    self.dismissHUD()
+            ProManagerApi.uploadPicture(image: image, imageSource: imageSource).request(Result<EmptyModel>.self).subscribe(onNext: { [weak self] (response) in
+                guard let `self` = self else {
+                    return
+                }
+                self.dismissHUD()
+                self.storyCameraVC.syncUserModel { (isComplete) in
                     self.setRedirection()
                     self.isImageSelected = false
-                } else {
-                    print("Some Image Issue")
                 }
-                
-            }
-        }, onError: { error in
-            self.dismissHUD()
-            self.view.isUserInteractionEnabled = true
-        }, onCompleted: {
-        }).disposed(by: self.rx.disposeBag)
-    }
+            }, onError: { error in
+                self.dismissHUD()
+                self.view.isUserInteractionEnabled = true
+            }, onCompleted: {
+            }).disposed(by: self.rx.disposeBag)
+        }
     
     func addSocialPlatform() {
         let previousSocialPlatformCount = Defaults.shared.socialPlatforms?.uniq().count
