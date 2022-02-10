@@ -2047,7 +2047,17 @@ extension StoryEditorViewController {
         self.videoPlayerPlayback(to: storyEditors[currentStoryIndex].currentTime, asset: asset)
     }
     
-    func videoPlayerPlayback(to time: CMTime, asset: AVAsset) {
+     func playbackTimechecker(sliderValue:Float? = nil) {
+        guard let asset = currentVideoAsset,
+            !storyEditors[currentStoryIndex].currentTime.seconds.isNaN,
+            !asset.duration.seconds.isNaN,
+            asset.duration.seconds != 0 else {
+                return
+        }
+        self.videoPlayerPlayback(to: storyEditors[currentStoryIndex].currentTime, asset: asset,sliderValue:sliderValue)
+    }
+    
+    func videoPlayerPlayback(to time: CMTime, asset: AVAsset,sliderValue:Float? = nil) {
         let percent = time.seconds / asset.duration.seconds
         let videoTrackLength = 67 * displayKeyframeImages.count
         let position = CGFloat(videoTrackLength) * CGFloat(percent) - UIScreen.main.bounds.size.width / 2
@@ -2056,8 +2066,13 @@ extension StoryEditorViewController {
         
         let (progressTimeM, progressTimeS) = Utils.secondsToHoursMinutesSeconds(Int(Float(time.seconds).roundToPlaces(places: 0)))
         let (totalTimeM, totalTimeS) = Utils.secondsToHoursMinutesSeconds(Int(Float(asset.duration.seconds).roundToPlaces(places: 0)))
-        self.storyProgressBar.currentTime = time.seconds
-        self.videoProgressBar.currentTime = Float(time.seconds)
+        if let val = sliderValue{
+               self.storyProgressBar.currentTime = TimeInterval(val)
+               self.videoProgressBar.currentTime = Float(val)
+        }else{
+               self.storyProgressBar.currentTime = time.seconds
+               self.videoProgressBar.currentTime = Float(time.seconds)
+         }
         self.lblStoryTime.text = "\(progressTimeM):\(progressTimeS) / \(totalTimeM):\(totalTimeS)"
     }
     
@@ -2151,7 +2166,9 @@ extension StoryEditorViewController: PlayerControlViewDelegate {
         }
         let currentTime = CMTimeMakeWithSeconds(Float64(sender.value), preferredTimescale: asset.duration.timescale)
         storyEditors[currentStoryIndex].seekTime = currentTime
-        self.onPlaybackTimeChecker()
+        self.playbackTimechecker(sliderValue:sender.value)
+        self.videoProgressBar.currentTime = sender.value
+        self.storyProgressBar.currentTime = TimeInterval(sender.value)
     }
     
 }
