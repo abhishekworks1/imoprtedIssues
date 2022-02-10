@@ -9700,6 +9700,12 @@
 		95EE425324B8BA81002E5D84 /* ComingSoonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824C677824B5B404000396E9 /* ComingSoonController.swift */; };
 		95EE425424B8BA81002E5D84 /* ComingSoonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824C677824B5B404000396E9 /* ComingSoonController.swift */; };
 		95F117E423FD04B400EB99B4 /* SpecificBoomerangOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F117E323FD04B400EB99B4 /* SpecificBoomerangOptions.swift */; };
+		9C56A3D127B44244007ADE04 /* TrimmerViewCut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C56A3D027B44242007ADE04 /* TrimmerViewCut.swift */; };
+		9C56A3D227B44244007ADE04 /* TrimmerViewCut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C56A3D027B44242007ADE04 /* TrimmerViewCut.swift */; };
+		9C56A3D527B444B1007ADE04 /* ImageCollectionViewCutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C56A3D327B444B0007ADE04 /* ImageCollectionViewCutCell.swift */; };
+		9C56A3D627B444B1007ADE04 /* ImageCollectionViewCutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C56A3D327B444B0007ADE04 /* ImageCollectionViewCutCell.swift */; };
+		9C56A3D727B444B1007ADE04 /* ImageCollectionViewCutCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C56A3D427B444B1007ADE04 /* ImageCollectionViewCutCell.xib */; };
+		9C56A3D827B444B1007ADE04 /* ImageCollectionViewCutCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C56A3D427B444B1007ADE04 /* ImageCollectionViewCutCell.xib */; };
 		9C7546CD27A82DBA0041B8D5 /* ContactImportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7546CC27A82DBA0041B8D5 /* ContactImportVC.swift */; };
 		9C7546CE27A82DDE0041B8D5 /* ContactImportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7546CC27A82DBA0041B8D5 /* ContactImportVC.swift */; };
 		9C7546D227A8F6C30041B8D5 /* messageTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C7546D027A8F6C20041B8D5 /* messageTitleCell.xib */; };
@@ -16315,6 +16321,9 @@
 		95F117E323FD04B400EB99B4 /* SpecificBoomerangOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecificBoomerangOptions.swift; sourceTree = "<group>"; };
 		979084F593CE042352BAE1C6 /* Pods-QuickCamLite.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickCamLite.debug.xcconfig"; path = "Target Support Files/Pods-QuickCamLite/Pods-QuickCamLite.debug.xcconfig"; sourceTree = "<group>"; };
 		991B94D62FC52F62CBAB0E70 /* Pods-QuickCamLite.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickCamLite.release.xcconfig"; path = "Target Support Files/Pods-QuickCamLite/Pods-QuickCamLite.release.xcconfig"; sourceTree = "<group>"; };
+		9C56A3D027B44242007ADE04 /* TrimmerViewCut.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrimmerViewCut.swift; sourceTree = "<group>"; };
+		9C56A3D327B444B0007ADE04 /* ImageCollectionViewCutCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCutCell.swift; sourceTree = "<group>"; };
+		9C56A3D427B444B1007ADE04 /* ImageCollectionViewCutCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageCollectionViewCutCell.xib; sourceTree = "<group>"; };
 		9C7546CC27A82DBA0041B8D5 /* ContactImportVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactImportVC.swift; sourceTree = "<group>"; };
 		9C7546D027A8F6C20041B8D5 /* messageTitleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = messageTitleCell.xib; sourceTree = "<group>"; };
 		9C7546D127A8F6C20041B8D5 /* messageTitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = messageTitleCell.swift; sourceTree = "<group>"; };
@@ -17050,6 +17059,7 @@
 		8205FA8B236C0FA5002B2603 /* Trimmer */ = {
 			isa = PBXGroup;
 			children = (
+				9C56A3D027B44242007ADE04 /* TrimmerViewCut.swift */,
 				8205FA8C236C0FA5002B2603 /* VideoPreviewView.swift */,
 				8205FA8D236C0FA5002B2603 /* ThumbnailsView.swift */,
 				8205FA8E236C0FA5002B2603 /* DraggableView.swift */,
@@ -17294,6 +17304,8 @@
 		8205FB7F236C2057002B2603 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				9C56A3D327B444B0007ADE04 /* ImageCollectionViewCutCell.swift */,
+				9C56A3D427B444B1007ADE04 /* ImageCollectionViewCutCell.xib */,
 				23CE8C032434C4A00096233C /* ChanelCell.swift */,
 				82C0FF0C27269A3800B8BE72 /* CheckUpdatesTableViewCell.swift */,
 				8287D22923829E620074FC39 /* StatTableViewCell.swift */,
@@ -20283,6 +20295,7 @@
 				8205FB62236C1D0F002B2603 /* love.json in Resources */,
 				950514C3239FA9AB00F07D8F /* StoryEditor.storyboard in Resources */,
 				959A91D82449CFDD0062AA67 /* IAP_ProductIDs.plist in Resources */,
+				9C56A3D727B444B1007ADE04 /* ImageCollectionViewCutCell.xib in Resources */,
 				8205FB13236C14C7002B2603 /* Localizable.strings in Resources */,
 				8205FC3E236C2C2F002B2603 /* SF-UI-Text-Light.otf in Resources */,
 				8205FD37236C3B06002B2603 /* LUT_M05.png in Resources */,
@@ -21946,6 +21959,7 @@
 				C2F93458264AA0CA006CA527 /* HomeScreen.storyboard in Resources */,
 				C2F93459264AA0CA006CA527 /* SF-UI-Text-Semibold.otf in Resources */,
 				C2F9345A264AA0CA006CA527 /* Linoleo Script.ttf in Resources */,
+				9C56A3D827B444B1007ADE04 /* ImageCollectionViewCutCell.xib in Resources */,
 				C2F9345B264AA0CA006CA527 /* wow.json in Resources */,
 				C2F9345C264AA0CA006CA527 /* Pink.JPG in Resources */,
 				C2F9345D264AA0CA006CA527 /* Philharmonic.JPG in Resources */,
@@ -26594,6 +26608,7 @@
 				82D1EB9F236FE68E00A680E7 /* StorySettingsCell.swift in Sources */,
 				8205FCAC236C3AFA002B2603 /* CollageViewT308.swift in Sources */,
 				82BB558E23D8424B009B820D /* HomeTabBarController.swift in Sources */,
+				9C56A3D527B444B1007ADE04 /* ImageCollectionViewCutCell.swift in Sources */,
 				8299F56E23714FCC00963318 /* Layout.swift in Sources */,
 				824EB3EF23619FB000205993 /* NextLevelClip.swift in Sources */,
 				8205FABC236C104B002B2603 /* FocusIndicatorView.swift in Sources */,
@@ -26744,6 +26759,7 @@
 				8205FA7A236C0F5B002B2603 /* ImageLibrary.swift in Sources */,
 				8205FB15236C1532002B2603 /* CountdownView.swift in Sources */,
 				9546605A2387B5CC00A37AE0 /* CropBoxFreeAspectFrameUpdater.swift in Sources */,
+				9C56A3D127B44244007ADE04 /* TrimmerViewCut.swift in Sources */,
 				8205FBC9236C2A88002B2603 /* UIView+LayoutFit.swift in Sources */,
 				3F83814A26B90AA90058BC3C /* AccountSettingsViewController.swift in Sources */,
 				82CCB1722372D21E00EC76E8 /* PromanagerData.swift in Sources */,
@@ -33641,6 +33657,7 @@
 				C2F93365264AA0CA006CA527 /* CollageViewT504.swift in Sources */,
 				C2F93366264AA0CA006CA527 /* PickerView.swift in Sources */,
 				C2F93367264AA0CA006CA527 /* Animations.swift in Sources */,
+				9C56A3D227B44244007ADE04 /* TrimmerViewCut.swift in Sources */,
 				C2F93368264AA0CA006CA527 /* HomeViewController.swift in Sources */,
 				C2F93369264AA0CA006CA527 /* MMPlayer+UIView+Shadow.swift in Sources */,
 				C2F9336A264AA0CA006CA527 /* ExportVideoOperation.swift in Sources */,
@@ -33655,6 +33672,7 @@
 				C2F93371264AA0CA006CA527 /* CollageViewT309.swift in Sources */,
 				C2F93372264AA0CA006CA527 /* CollageViewT304.swift in Sources */,
 				C2F93373264AA0CA006CA527 /* StatTableViewCell.swift in Sources */,
+				9C56A3D627B444B1007ADE04 /* ImageCollectionViewCutCell.swift in Sources */,
 				C2F93374264AA0CA006CA527 /* HalfModalPresentationController.swift in Sources */,
 				3F6037D226C27BAA005A1920 /* SelectLinkViewController.swift in Sources */,
 				C2F93375264AA0CA006CA527 /* UIColor+Apple.swift in Sources */,
@@ -40793,7 +40811,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.28;
+				MARKETING_VERSION = 1.29;
 				OTHER_CFLAGS = (
 					"-fembed-bitcode-marker",
 					"$(inherited)",
@@ -40828,7 +40846,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.28;
+				MARKETING_VERSION = 1.29;
 				OTHER_CFLAGS = (
 					"-fembed-bitcode-marker",
 					"$(inherited)",
@@ -40864,7 +40882,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.28;
+				MARKETING_VERSION = 1.29;
 				OTHER_CFLAGS = (
 					"-fembed-bitcode-marker",
 					"$(inherited)",
@@ -40899,7 +40917,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.28;
+				MARKETING_VERSION = 1.29;
 				OTHER_CFLAGS = (
 					"-fembed-bitcode",
 					"$(inherited)",

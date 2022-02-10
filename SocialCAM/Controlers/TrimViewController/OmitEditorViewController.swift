@@ -175,12 +175,12 @@ class OmitEditorViewController: UIViewController {
     
     fileprivate func setupLayout() {
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-        self.storyCollectionView.register(R.nib.imageCollectionViewCell)
-        self.editStoryCollectionView.register(R.nib.imageCollectionViewCell)
+        self.storyCollectionView.register(R.nib.imageCollectionViewCutCell)
+        self.editStoryCollectionView.register(R.nib.imageCollectionViewCutCell)
     }
     
-    func getPosition(from time: CMTime, cell: ImageCollectionViewCell, index: IndexPath) -> CGFloat? {
-        if let cell: ImageCollectionViewCell = self.storyCollectionView.cellForItem(at: getCurrentIndexPath) as? ImageCollectionViewCell {
+    func getPosition(from time: CMTime, cell: ImageCollectionViewCutCell, index: IndexPath) -> CGFloat? {
+        if let cell: ImageCollectionViewCutCell = self.storyCollectionView.cellForItem(at: getCurrentIndexPath) as? ImageCollectionViewCutCell {
             guard let currentAsset = currentAsset(index: self.currentPage) else {
                 return 0
             }
@@ -188,7 +188,7 @@ class OmitEditorViewController: UIViewController {
             let timeRatio = CGFloat(time.value) * CGFloat(currentAsset.duration.timescale) /
                 (CGFloat(time.timescale) * CGFloat(currentAsset.duration.value))
             return timeRatio * cell.bounds.width
-        } else if let cell: ImageCollectionViewCell = self.editStoryCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? ImageCollectionViewCell {
+        } else if let cell: ImageCollectionViewCutCell = self.editStoryCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? ImageCollectionViewCutCell {
             guard let currentAsset = currentAsset(index: self.currentPage) else {
                 return 0
             }
@@ -202,7 +202,7 @@ class OmitEditorViewController: UIViewController {
     }
     
     /// Move the position bar to the given time.
-    func seek(to time: CMTime, cell: ImageCollectionViewCell) {
+    func seek(to time: CMTime, cell: ImageCollectionViewCutCell) {
         cell.imagesView.layoutIfNeeded()
         cell.videoPlayerPlayback(to: time, asset: cell.trimmerView.thumbnailsView.asset)
         cell.layoutIfNeeded()
@@ -226,7 +226,7 @@ class OmitEditorViewController: UIViewController {
         }
         if let player = self.player {
             let playBackTime = player.currentTime()
-            if let cell: ImageCollectionViewCell = self.editStoryCollectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? ImageCollectionViewCell {
+            if let cell: ImageCollectionViewCutCell = self.editStoryCollectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? ImageCollectionViewCutCell {
                 if !isStartMovable {
                     guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
                         return
@@ -256,12 +256,12 @@ class OmitEditorViewController: UIViewController {
             if player.timeControlStatus == .playing && !btnPlayPause.isSelected {
                 player.play()
             }
-            if let cell: ImageCollectionViewCell = self.storyCollectionView.cellForItem(at: getCurrentIndexPath) as? ImageCollectionViewCell {
+            if let cell: ImageCollectionViewCutCell = self.storyCollectionView.cellForItem(at: getCurrentIndexPath) as? ImageCollectionViewCutCell {
                 guard let startTime = cell.trimmerView.startTime else {
                     return
                 }
                 player.seek(to: startTime, toleranceBefore: tolerance, toleranceAfter: tolerance)
-            } else if let cell: ImageCollectionViewCell = self.editStoryCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? ImageCollectionViewCell {
+            } else if let cell: ImageCollectionViewCutCell = self.editStoryCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? ImageCollectionViewCutCell {
                 guard let startTime = cell.trimmerView.startTime else {
                     return
                 }
@@ -286,10 +286,9 @@ extension OmitEditorViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.nib.imageCollectionViewCell.identifier, for: indexPath) as? ImageCollectionViewCell else {
-            fatalError("Unable to find cell with '\(R.nib.imageCollectionViewCell.identifier)' reuseIdentifier")
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.nib.imageCollectionViewCell.identifier, for: indexPath) as? ImageCollectionViewCutCell else {
+            fatalError("Unable to find cell with '\(R.nib.imageCollectionViewCutCell.identifier)' reuseIdentifier")
         }
-        
         let storySegment = storyEditorMedias[indexPath.row]
         
         if collectionView == self.editStoryCollectionView {
@@ -304,7 +303,7 @@ extension OmitEditorViewController: UICollectionViewDataSource {
             cell.setLayout(indexPath: indexPath, currentPage: currentPage, currentAsset: currentAsset, storySegment: storySegment)
         }
         cell.trimmerView.delegate = self
-        
+        cell.trimmerView.alphaView = 1.0
         if let draggingPathOfCellBeingDragged = self.storyCollectionView.draggingPathOfCellBeingDragged {
             if draggingPathOfCellBeingDragged.item == indexPath.item {
                 cell.isHidden = true
@@ -441,7 +440,7 @@ extension OmitEditorViewController {
 }
 
 // MARK: TrimmerViewDelegate
-extension OmitEditorViewController: TrimmerViewDelegate {
+extension OmitEditorViewController: TrimmerViewCutDelegate {
     
     func trimmerDidBeginDragging(_ trimmer: TrimmerView, with currentTimeTrim: CMTime, isLeftGesture: Bool) {
         if let player = player {
@@ -453,7 +452,7 @@ extension OmitEditorViewController: TrimmerViewDelegate {
     
     func trimmerDidChangeDraggingPosition(_ trimmer: TrimmerView, with currentTimeTrim: CMTime) {
         if let player = player,
-           let cell: ImageCollectionViewCell = self.editStoryCollectionView.cellForItem(at: self.getCurrentIndexPath) as? ImageCollectionViewCell {
+           let cell: ImageCollectionViewCutCell = self.editStoryCollectionView.cellForItem(at: self.getCurrentIndexPath) as? ImageCollectionViewCutCell {
             player.seek(to: currentTimeTrim, toleranceBefore: tolerance, toleranceAfter: tolerance)
             self.seek(to: CMTime.init(seconds: currentTimeTrim.seconds, preferredTimescale: 10000), cell: cell)
         }
@@ -483,7 +482,7 @@ extension OmitEditorViewController: TrimmerViewDelegate {
             if player.timeControlStatus == .playing {
                 player.pause()
             }
-            if let cell: ImageCollectionViewCell = self.editStoryCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? ImageCollectionViewCell {
+            if let cell: ImageCollectionViewCutCell = self.editStoryCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? ImageCollectionViewCutCell {
                 guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
                     return
                 }
@@ -514,7 +513,7 @@ extension OmitEditorViewController: TrimmerViewDelegate {
         }
     }
     
-    func trimMultipleVideos(_ trimmer: TrimmerView) {
+    func trimMultipleVideos(_ trimmer: TrimmerViewCut) {
         self.combinedstoryEditorMedias.removeAll()
         do {
                     try Utils.time {
@@ -542,7 +541,7 @@ extension OmitEditorViewController: TrimmerViewDelegate {
     
     }
     
-    func trimVideo(_ trimmer: TrimmerView, with currentTimeScrub: CMTime) {
+    func trimVideo(_ trimmer: TrimmerViewCut, with currentTimeScrub: CMTime) {
         guard (currentTimeScrub.seconds - trimmer.startTime!.seconds) >= 3 else {
             self.view.makeToast(R.string.localizable.minimum3SecondRequireToSplitOrTrim())
             AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
@@ -638,13 +637,16 @@ extension OmitEditorViewController {
         }
         
         if let player = self.player, !self.storyEditorMedias.isEmpty {
-            if let cell: ImageCollectionViewCell = self.storyCollectionView.cellForItem(at: self.getCurrentIndexPath) as? ImageCollectionViewCell {
+            if let cell: ImageCollectionViewCutCell = self.storyCollectionView.cellForItem(at: self.getCurrentIndexPath) as? ImageCollectionViewCutCell {
                 guard let startTime = cell.trimmerView.startTime else {
                     return
                 }
+                cell.trimmerView.alphaView = 1.0
+                //cell.trimmerView.bgViewColorwithTrim = UIColor.clear
+                //cell.trimmerView.updateColorForCut()
                 player.seek(to: startTime, toleranceBefore: self.tolerance, toleranceAfter: self.tolerance)
             }
-            if let cell: ImageCollectionViewCell = self.editStoryCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? ImageCollectionViewCell {
+            if let cell: ImageCollectionViewCutCell = self.editStoryCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? ImageCollectionViewCutCell {
                 guard let startTime = cell.trimmerView.startTime else {
                     return
                 }
@@ -836,7 +838,7 @@ extension OmitEditorViewController {
         guard let button = sender as? UIButton else {
             return
         }
-        if let doneHandler = self.doneHandler,  let cell: ImageCollectionViewCell = self.editStoryCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? ImageCollectionViewCell  {
+        if let doneHandler = self.doneHandler,  let cell: ImageCollectionViewCutCell = self.editStoryCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? ImageCollectionViewCutCell  {
             
             //            guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
             //                return
@@ -917,7 +919,7 @@ extension OmitEditorViewController {
     
     @IBAction func btnTrimClick(_ sender: UIButton) {
         if let player = self.player {
-            if let cell: ImageCollectionViewCell = self.editStoryCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? ImageCollectionViewCell {
+            if let cell: ImageCollectionViewCutCell = self.editStoryCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? ImageCollectionViewCutCell {
                 guard let trimmerView = cell.trimmerView else {
                     return
                 }

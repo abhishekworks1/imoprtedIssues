@@ -1,44 +1,41 @@
 //
-//  TrimmerView.swift
-//  TrimmerVideo
-//
-//  Created by Diego Caroli on 19/09/2018.
-//  Copyright © 2018 Diego Caroli. All rights reserved.
+//  TrimmerViewCut.swift
+
 //
 
 import UIKit
 import AVKit
 
-@objc public protocol TrimmerViewDelegate: class {
+@objc public protocol TrimmerViewCutDelegate: class {
     @objc optional func trimmerDidBeginDragging(
-        _ trimmer: TrimmerView,
+        _ trimmer: TrimmerViewCut,
         with currentTimeTrim: CMTime, isLeftGesture: Bool)
     
     @objc optional func trimmerDidChangeDraggingPosition(
-        _ trimmer: TrimmerView,
+        _ trimmer: TrimmerViewCut,
         with currentTimeTrim: CMTime)
     
     @objc optional func trimmerDidEndDragging(
-        _ trimmer: TrimmerView,
+        _ trimmer: TrimmerViewCut,
         with startTime: CMTime,
         endTime: CMTime, isLeftGesture: Bool)
     
     @objc optional func trimmerScrubbingDidBegin(
-        _ trimmer: TrimmerView,
+        _ trimmer: TrimmerViewCut,
         with currentTimeScrub: CMTime)
     
     @objc optional func trimmerScrubbingDidChange(
-        _ trimmer: TrimmerView,
+        _ trimmer: TrimmerViewCut,
         with currentTimeScrub: CMTime)
     
     @objc optional func trimmerScrubbingDidEnd(
-        _ trimmer: TrimmerView,
+        _ trimmer: TrimmerViewCut,
         with currentTimeScrub: CMTime,
         with sender: UIPanGestureRecognizer)
 }
 
 @IBDesignable
-open class TrimmerView: UIView {
+open class TrimmerViewCut: UIView {
     
     // MARK: IBInspectable
     @IBInspectable open var mainColor: UIColor = ApplicationSettings.appPrimaryColor {
@@ -130,7 +127,7 @@ open class TrimmerView: UIView {
     
     @IBInspectable open var isLeftRightViewTapable: Bool = false
     
-    open weak var delegate: TrimmerViewDelegate?
+    open weak var delegate: TrimmerViewCutDelegate?
    
     var minDistance: CGFloat = 0
     open var viewCornerRadius: CGFloat = 10.0
@@ -139,7 +136,9 @@ open class TrimmerView: UIView {
     lazy var trimView: UIView = {
         let view = UIView()
         view.frame = .zero
-        view.backgroundColor = ApplicationSettings.appClearColor
+ //       view.backgroundColor = ApplicationSettings.appClearColor
+       view.backgroundColor = ApplicationSettings.appWhiteColor
+        view.alpha = 0.7
         view.layer.borderWidth = 2.0
         view.layer.cornerRadius = viewCornerRadius
         view.clipsToBounds = false
@@ -171,7 +170,7 @@ open class TrimmerView: UIView {
     lazy var leftMaskView: UIView = {
         let view = UIView()
         view.frame = .zero
-        view.backgroundColor = ApplicationSettings.appWhiteColor
+        view.backgroundColor = ApplicationSettings.appClearColor
         view.alpha = 0.7
         view.layer.cornerRadius = viewCornerRadius
         view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
@@ -185,7 +184,7 @@ open class TrimmerView: UIView {
     lazy var rightMaskView: UIView = {
         let view = UIView()
         view.frame = .zero
-        view.backgroundColor = ApplicationSettings.appWhiteColor
+        view.backgroundColor = ApplicationSettings.appClearColor
         view.alpha = 0.7
         view.layer.cornerRadius = viewCornerRadius
         view.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
@@ -615,18 +614,7 @@ open class TrimmerView: UIView {
         setupPanGestures()
         minDistanceUpdate()
     }
-//    func updateColorForCut(){
-//
-//        trimView.backgroundColor = ApplicationSettings.appWhiteColor
-//        trimView.alpha = 0.7
-//
-//        leftDraggableView.backgroundColor = mainColor
-//        leftDraggableView.alpha = 1.0
-//
-//        rightDraggableView.backgroundColor = mainColor
-//        rightDraggableView.alpha = 1.0
-//
-//    }
+    
     private func minDistanceUpdate() {
         self.layoutIfNeeded()
         self.minDistance = self.bounds.width - abs((trimViewTrailingConstraint.constant - trimViewLeadingConstraint.constant) - (draggableViewWidth * 2))

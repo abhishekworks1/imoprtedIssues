@@ -206,6 +206,13 @@ class StoryEditorViewController: UIViewController {
     @IBOutlet weak var btnInstagram: UIButton!
     @IBOutlet weak var btnTwitter: UIButton!
     @IBOutlet weak var btnTiktok: UIButton!
+    
+    @IBOutlet weak var ivvwFacebook: UIImageView!
+    @IBOutlet weak var ivvwYoutube: UIImageView!
+    @IBOutlet weak var ivvwInstagram: UIImageView!
+    @IBOutlet weak var ivvwTwitter: UIImageView!
+    @IBOutlet weak var ivvwTiktok: UIImageView!
+    
    // @IBOutlet weak var btnStoricamShare: UIButton!
     @IBOutlet weak var hideToolTipView: UIView!
     @IBOutlet weak var btnDoNotShowAgain: UIButton!
@@ -511,17 +518,29 @@ class StoryEditorViewController: UIViewController {
     /// Set images for social share buttons
     func setSocialShareView() {
         if Defaults.shared.appMode == .free && (isSnapCamLiteApp || isQuickApp) {
-            btnFacebook.setImage(R.image.icoFacebookTransparent(), for: .normal)
-            btnYoutube.setImage(R.image.icoYoutubeTransparent(), for: .normal)
-            btnInstagram.setImage(R.image.icoInstagramTransparent(), for: .normal)
-            btnTwitter.setImage(R.image.icoTwitterTransparent(), for: .normal)
-            btnTiktok.setImage(R.image.icoTiktokTransparent(), for: .normal)
+//            btnFacebook.setImage(R.image.icoFacebookTransparent(), for: .normal)
+//            btnYoutube.setImage(R.image.icoYoutubeTransparent(), for: .normal)
+//            btnInstagram.setImage(R.image.icoInstagramTransparent(), for: .normal)
+//            btnTwitter.setImage(R.image.icoTwitterTransparent(), for: .normal)
+//            btnTiktok.setImage(R.image.icoTiktokTransparent(), for: .normal)
+            
+            ivvwFacebook.image = R.image.icoFacebookTransparent()
+            ivvwYoutube.image = R.image.icoYoutubeTransparent()
+            ivvwInstagram.image = R.image.icoInstagramTransparent()
+            ivvwTwitter.image = R.image.icoTwitterTransparent()
+            ivvwTiktok.image = R.image.icoTiktokTransparent()
         } else {
-            btnFacebook.setImage(R.image.icoFacebook(), for: .normal)
-            btnYoutube.setImage(R.image.icoYoutube(), for: .normal)
-            btnInstagram.setImage(R.image.icoInstagram(), for: .normal)
-            btnTwitter.setImage(R.image.icoTwitter(), for: .normal)
-            btnTiktok.setImage(R.image.icoTikTok(), for: .normal)
+//            btnFacebook.setImage(R.image.icoFacebook(), for: .normal)
+//            btnYoutube.setImage(R.image.icoYoutube(), for: .normal)
+//            btnInstagram.setImage(R.image.icoInstagram(), for: .normal)
+//            btnTwitter.setImage(R.image.icoTwitter(), for: .normal)
+//            btnTiktok.setImage(R.image.icoTikTok(), for: .normal)
+            
+            ivvwFacebook.image = R.image.icoFacebook()
+            ivvwYoutube.image = R.image.icoYoutube()
+            ivvwInstagram.image = R.image.icoInstagram()
+            ivvwTwitter.image = R.image.icoTwitter()
+            ivvwTiktok.image = R.image.icoTikTok()
         }
     }
     

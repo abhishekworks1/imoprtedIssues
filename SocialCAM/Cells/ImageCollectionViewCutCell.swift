@@ -4,20 +4,20 @@
 //
 //  Created by Viraj Patel on 21/05/18.
 //  Copyright © 2018 Jatin Kathrotiya. All rights reserved.
-//
+//ImageCollectionViewCutCell.swift
 
 import Foundation
 import UIKit
 import AVKit
 
-class ImageCollectionViewCell: UICollectionViewCell {
+class ImageCollectionViewCutCell: UICollectionViewCell {
     
     @IBOutlet weak var imagesView: UIView!
     @IBOutlet weak var imagesStackView: UIStackView!
     @IBOutlet weak var lblSegmentCount: UILabel!
     @IBOutlet weak var lblVideoDuration: UILabel!
     @IBOutlet weak var lblVideoersiontag: UILabel!
-    @IBOutlet weak var trimmerView: TrimmerView!
+    @IBOutlet weak var trimmerView: TrimmerViewCut!
     public var leftTopView: UIView = {
         let leftTopView = UIImageView.init(image: R.image.trim_leftWhite())
         leftTopView.frame = .zero
@@ -169,7 +169,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
     }
     func loadAsset(_ asset: AVAsset) {
         trimmerView.layoutIfNeeded()
-        trimmerView.minVideoDurationAfterTrimming = 3.0
+        trimmerView.minVideoDurationAfterTrimming = 1.0
         trimmerView.thumbnailsView.asset = asset
         trimmerView.rightImage = R.image.cut_handle_icon()
         trimmerView.leftImage = R.image.cut_handle_icon()
