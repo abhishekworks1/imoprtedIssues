@@ -542,7 +542,21 @@ extension PhotosPickerViewController {
                   asset.asset.duration >= 15.0 {
             self.showAlert(alertMessage: R.string.localizable.videoMoreThan15SecondsError())
             return
+        }else if isBoomiCamApp,
+                 let asset = self.selectedAssets.first,
+                 asset.assetType == .video{
+            
+            if Defaults.shared.appMode == .free && asset.asset.duration >= 0.0{
+            }else if Defaults.shared.appMode == .basic && asset.asset.duration >= 30.0{
+                self.showAlert(alertMessage: R.string.localizable.videoMoreThan30SecondsError())
+            }else if Defaults.shared.appMode == .advanced && asset.asset.duration >= 45.0{
+                self.showAlert(alertMessage: R.string.localizable.videoMoreThan45SecondsError())
+            }else if Defaults.shared.appMode == .professional && asset.asset.duration >= 60.0{
+                self.showAlert(alertMessage: R.string.localizable.videoMoreThan60SecondsError())
+            }
+            return
         }
+            
         self.dismiss(done: true)
     }
     
