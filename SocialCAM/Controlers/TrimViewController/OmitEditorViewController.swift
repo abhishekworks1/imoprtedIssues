@@ -442,7 +442,7 @@ extension OmitEditorViewController {
 // MARK: TrimmerViewDelegate
 extension OmitEditorViewController: TrimmerViewCutDelegate {
     
-    func trimmerDidBeginDragging(_ trimmer: TrimmerView, with currentTimeTrim: CMTime, isLeftGesture: Bool) {
+    func trimmerCutDidBeginDragging(_ trimmer: TrimmerViewCut, with currentTimeTrim: CMTime, isLeftGesture: Bool) {
         if let player = player {
             isStartMovable = true
             player.pause()
@@ -450,7 +450,7 @@ extension OmitEditorViewController: TrimmerViewCutDelegate {
         }
     }
     
-    func trimmerDidChangeDraggingPosition(_ trimmer: TrimmerView, with currentTimeTrim: CMTime) {
+    func trimmerCutDidChangeDraggingPosition(_ trimmer: TrimmerViewCut, with currentTimeTrim: CMTime) {
         if let player = player,
            let cell: ImageCollectionViewCutCell = self.editStoryCollectionView.cellForItem(at: self.getCurrentIndexPath) as? ImageCollectionViewCutCell {
             player.seek(to: currentTimeTrim, toleranceBefore: tolerance, toleranceAfter: tolerance)
@@ -458,7 +458,7 @@ extension OmitEditorViewController: TrimmerViewCutDelegate {
         }
     }
     
-    func trimmerDidEndDragging(_ trimmer: TrimmerView, with startTime: CMTime, endTime: CMTime, isLeftGesture: Bool) {
+    func trimmerCutDidEndDragging(_ trimmer: TrimmerViewCut, with startTime: CMTime, endTime: CMTime, isLeftGesture: Bool) {
         if let player = player {
             isStartMovable = false
             DispatchQueue.main.async {
@@ -476,7 +476,7 @@ extension OmitEditorViewController: TrimmerViewCutDelegate {
         }
     }
     
-    func trimmerScrubbingDidChange(_ trimmer: TrimmerView, with currentTimeScrub: CMTime) {
+    func trimmerCutScrubbingDidChange(_ trimmer: TrimmerViewCut, with currentTimeScrub: CMTime) {
         if let player = player {
             player.seek(to: currentTimeScrub, toleranceBefore: tolerance, toleranceAfter: tolerance)
             if player.timeControlStatus == .playing {
@@ -496,7 +496,7 @@ extension OmitEditorViewController: TrimmerViewCutDelegate {
         }
     }
     
-    func trimmerScrubbingDidEnd(_ trimmer: TrimmerView, with currentTimeScrub: CMTime, with sender: UIPanGestureRecognizer) {
+    func trimmerCutScrubbingDidEnd(_ trimmer: TrimmerViewCut, with currentTimeScrub: CMTime, with sender: UIPanGestureRecognizer) {
         guard let view = sender.view else { return }
         _ = sender.translation(in: view)
         sender.setTranslation(.zero, in: view)
