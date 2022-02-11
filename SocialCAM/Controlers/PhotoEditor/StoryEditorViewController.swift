@@ -322,6 +322,7 @@ class StoryEditorViewController: UIViewController {
     var isTrim = false
     var isFromGallery = false
     
+    var socialShareExportURL:URL?
     var isViewEditMode: Bool = false {
         didSet {
             editToolBarView.isHidden = isViewEditMode
@@ -395,7 +396,7 @@ class StoryEditorViewController: UIViewController {
                 }
             }
         }
-        
+        self.socialShareExportURL = nil
         self.socialMediaMainView.isHidden = true
 
     }
@@ -1257,6 +1258,7 @@ extension StoryEditorViewController {
                                 }
                             } else {
                                 DispatchQueue.runOnMainThread {
+                                    self.socialShareExportURL = exportURL
                                     if type == .youtube {
                                         self.checkYoutubeAuthentication(exportURL)
                                     } else {
@@ -1430,7 +1432,7 @@ extension StoryEditorViewController {
 //               }, completion: { (finished: Bool) -> Void in
 //                   self.socialMediaMainView.frame = CGRect(x: self.view.frame.size.width, y: 0,width: self.view.frame.size.width ,height: self.view.frame.size.height)
 //               })
-        
+        self.socialShareExportURL = nil
         self.socialMediaMainView.isHidden = true
     }
     @IBAction func btnSocialMediaDoneClick(_ sender: UIButton) {
@@ -1456,6 +1458,8 @@ extension StoryEditorViewController {
         }
     }
     @IBAction func btnSocialMediaShareClick(_ sender: UIButton) {
+        
+        
         if Defaults.shared.appMode == .free, !(sender.tag == 3) {
             showAlertForUpgradeSubscription()
         } else {
@@ -2297,8 +2301,21 @@ extension StoryEditorViewController: SpecificBoomerangDelegate {
 extension StoryEditorViewController {
     
     func shareSocialMedia(type: SocialShare) {
-        referType = storyEditors[currentStoryIndex].referType
-        imageVideoExport(isDownload: false, type: type)
+        if let exporturl = socialShareExportURL{
+            DispatchQueue.runOnMainThread {
+                if type == .youtube {
+                    self.checkYoutubeAuthentication(exporturl)
+                } else {
+                    SocialShareVideo.shared.shareVideo(url: exporturl, socialType: type, referType: self.referType)
+                }
+                self.pauseVideo()
+                self.isVideoPlay = true
+            }
+        }else{
+            referType = storyEditors[currentStoryIndex].referType
+            imageVideoExport(isDownload: false, type: type)
+        }
+        
     }
     
     func exportViewWithURL(_ asset: AVAsset, type: SocialShare = .facebook, index: Int? = nil, completionHandler: @escaping (_ url: URL?) -> Void) {
