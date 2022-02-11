@@ -1907,6 +1907,7 @@ extension StoryCameraViewController {
     
     func stopRecording() {
         nextLevel.torchMode = .off
+        nextLevel.videoZoomFactor = 0.0
         self.isVideoRecording = false
         if isLiteApp, recordingType == .normal {
             self.segmentsProgress.append(progress)

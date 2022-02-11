@@ -349,7 +349,7 @@ public class CropViewController: UIViewController {
         
         blurButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            blurButton.leadingAnchor.constraint(equalTo:blurButtonview.leadingAnchor, constant: 0),
+            blurButton.trailingAnchor.constraint(equalTo:blurButtonview.trailingAnchor, constant: -5),
             blurButton.trailingAnchor.constraint(equalTo:blurButtonview.trailingAnchor, constant: 0),
             blurButton.topAnchor.constraint(equalTo:blurButtonview.topAnchor, constant:0),
             blurButton.bottomAnchor.constraint(equalTo:blurButtonview.bottomAnchor, constant: 0),
@@ -357,7 +357,7 @@ public class CropViewController: UIViewController {
         
         blurImageview.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            blurImageview.trailingAnchor.constraint(equalTo:blurButtonview.trailingAnchor, constant: -5),
+            blurImageview.leadingAnchor.constraint(equalTo:blurButtonview.leadingAnchor, constant: 25),
             blurImageview.centerYAnchor.constraint(equalTo:blurButtonview.centerYAnchor, constant: 0),
             blurImageview.widthAnchor.constraint(equalToConstant: 14),
             blurImageview.heightAnchor.constraint(equalToConstant: 14)
