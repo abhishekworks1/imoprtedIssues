@@ -12,6 +12,11 @@ import Alamofire
 
 public struct Constant {
     
+    struct Greetings {
+        static let greetingMessages = ["Hi", "Hey", "Hello", "Howdy", "Good day", "Custom"]
+    }
+    
+    
     struct Value {
         static let maxChannelName = 30
         static let minChannelName = 12

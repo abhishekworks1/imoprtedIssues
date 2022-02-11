@@ -7,28 +7,28 @@ import UIKit
 import AVKit
 
 @objc public protocol TrimmerViewCutDelegate: class {
-    @objc optional func trimmerDidBeginDragging(
+    @objc optional func trimmerCutDidBeginDragging(
         _ trimmer: TrimmerViewCut,
         with currentTimeTrim: CMTime, isLeftGesture: Bool)
     
-    @objc optional func trimmerDidChangeDraggingPosition(
+    @objc optional func trimmerCutDidChangeDraggingPosition(
         _ trimmer: TrimmerViewCut,
         with currentTimeTrim: CMTime)
     
-    @objc optional func trimmerDidEndDragging(
+    @objc optional func trimmerCutDidEndDragging(
         _ trimmer: TrimmerViewCut,
         with startTime: CMTime,
         endTime: CMTime, isLeftGesture: Bool)
     
-    @objc optional func trimmerScrubbingDidBegin(
+    @objc optional func trimmerCutScrubbingDidBegin(
         _ trimmer: TrimmerViewCut,
         with currentTimeScrub: CMTime)
     
-    @objc optional func trimmerScrubbingDidChange(
+    @objc optional func trimmerCutScrubbingDidChange(
         _ trimmer: TrimmerViewCut,
         with currentTimeScrub: CMTime)
     
-    @objc optional func trimmerScrubbingDidEnd(
+    @objc optional func trimmerCutScrubbingDidEnd(
         _ trimmer: TrimmerViewCut,
         with currentTimeScrub: CMTime,
         with sender: UIPanGestureRecognizer)
@@ -701,19 +701,19 @@ open class TrimmerViewCut: UIView {
             currentLeadingConstraint = trimViewLeadingConstraint.constant
             currentPointerLeadingConstraint = position.x + view.frame.minX - draggableViewWidth
             guard let time = thumbnailsView.getTime(from: currentPointerLeadingConstraint) else { return }
-            delegate?.trimmerScrubbingDidBegin?(self, with: time)
+            delegate?.trimmerCutScrubbingDidBegin?(self, with: time)
         case .changed:
             currentPointerLeadingConstraint += translation.x
             if currentLeadingConstraint < currentPointerLeadingConstraint {
                 guard let time = thumbnailsView.getTime(from: currentPointerLeadingConstraint) else { return }
-                delegate?.trimmerScrubbingDidChange?(self, with: time)
+                delegate?.trimmerCutScrubbingDidChange?(self, with: time)
             }
         case .failed, .ended, .cancelled:
             if currentLeadingConstraint > currentPointerLeadingConstraint {
                 currentPointerLeadingConstraint = currentLeadingConstraint
             }
             guard let time = thumbnailsView.getTime(from: currentPointerLeadingConstraint) else { return }
-            delegate?.trimmerScrubbingDidEnd?(self, with: time, with: sender)
+            delegate?.trimmerCutScrubbingDidEnd?(self, with: time, with: sender)
         default:
             break
         }
@@ -796,7 +796,7 @@ open class TrimmerViewCut: UIView {
             }
             
             if let start = startTime {
-                delegate?.trimmerDidBeginDragging?(self, with: start, isLeftGesture: isLeftGesture)
+                delegate?.trimmerCutDidBeginDragging?(self, with: start, isLeftGesture: isLeftGesture)
             }
             
         case .changed:
@@ -815,18 +815,18 @@ open class TrimmerViewCut: UIView {
             }
             
             if isLeftGesture, let startTime = startTime {
-                delegate?.trimmerDidChangeDraggingPosition?(self, with: startTime)
+                delegate?.trimmerCutDidChangeDraggingPosition?(self, with: startTime)
                 timePointerView.isHidden = true
                 cutView.isHidden = true
             } else if let endTime = endTime {
-                delegate?.trimmerDidChangeDraggingPosition?(self, with: endTime)
+                delegate?.trimmerCutDidChangeDraggingPosition?(self, with: endTime)
                 timePointerView.isHidden = true
                 cutView.isHidden = true
             }
             
         case .cancelled, .failed, .ended:
             if let startTime = startTime, let endTime = endTime {
-                delegate?.trimmerDidEndDragging?(
+                delegate?.trimmerCutDidEndDragging?(
                     self,
                     with: startTime,
                     endTime: endTime,
@@ -854,7 +854,7 @@ open class TrimmerViewCut: UIView {
             currentPointerLeadingConstraint = position.x + view.frame.minX - draggableViewWidth
             minDistanceUpdate()
             guard let time = thumbnailsView.getTime(from: currentPointerLeadingConstraint) else { return }
-            delegate?.trimmerScrubbingDidBegin?(self, with: time)
+            delegate?.trimmerCutScrubbingDidBegin?(self, with: time)
         case .changed:
             let maxConstraint = (self.frame.width - (draggableViewWidth * 2) - minDistance) + trimViewTrailingConstraint.constant
             let newConstraintLeading = min(max(0, currentLeadingConstraint + (translation.x)), maxConstraint)
@@ -866,7 +866,7 @@ open class TrimmerViewCut: UIView {
         case .failed, .ended, .cancelled:
             guard let time = thumbnailsView.getTime(
                 from: trimViewLeadingConstraint.constant) else { return }
-            delegate?.trimmerScrubbingDidEnd?(self, with: time, with: sender)
+            delegate?.trimmerCutScrubbingDidEnd?(self, with: time, with: sender)
         default:
             break
         }
