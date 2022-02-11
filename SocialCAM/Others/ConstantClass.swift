@@ -171,7 +171,7 @@ public struct Constant {
         static let appIcon = UIImage(named: "fastcamLiteWatermarkLogo")!
         #elseif QUICKCAMLITEAPP || QUICKAPP
         static let releaseType = Defaults.shared.releaseType
-        static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "QuickCam Lite"
+        static let displayName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? "QuickCam"
         static let simformIdentifier: String = "com.simform.fastCamLite"
         static let proModeCode: String = "quickcamlite2020"
         static let publicLink = URL(string: "https://testflight.apple.com/join/6zE0nt7P")
