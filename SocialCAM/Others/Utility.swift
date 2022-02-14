@@ -46,6 +46,11 @@ public struct Utils {
     static func secondsToHoursMinutesSeconds(_ seconds: Int) -> (Int, Int) {
         return ((seconds % 3600) / 60, (seconds % 3600) % 60)
     }
+    static func secondsToMiliseconds(_ seconds: Double) -> Int {
+        var miliseconds = Int((seconds*1000).truncatingRemainder(dividingBy: 1000))
+        miliseconds = Int(miliseconds / 100)
+        return miliseconds
+    }
     
     static func downloadImage(from url: URL, completion: @escaping (String?) -> ()) {
         getData(from: url) { data, response, error in

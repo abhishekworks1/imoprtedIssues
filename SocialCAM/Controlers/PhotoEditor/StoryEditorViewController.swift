@@ -2068,16 +2068,32 @@ extension StoryEditorViewController {
         nativePlayercollectionView.contentOffset = CGPoint(x: position, y: nativePlayercollectionView.contentOffset.y)
         cursorContainerViewController.seconds = time.seconds
         
-        let (progressTimeM, progressTimeS) = Utils.secondsToHoursMinutesSeconds(Int(Float(time.seconds).roundToPlaces(places: 0)))
-        let (totalTimeM, totalTimeS) = Utils.secondsToHoursMinutesSeconds(Int(Float(asset.duration.seconds).roundToPlaces(places: 0)))
+        var timeSeconds = time.seconds
+        if let seconds = sliderValue{
+            timeSeconds = Double(seconds)
+        }
+      
+        print(time.seconds)
+        let (_, progressTimeS) =
+            Utils.secondsToHoursMinutesSeconds(Int(Float(timeSeconds).roundToPlaces(places: 0)))
+        let progressTimeMiliS = Utils.secondsToMiliseconds(timeSeconds)
+      
+        print(progressTimeMiliS)
+        print(progressTimeS)
+        let (_, totalTimeS) = Utils.secondsToHoursMinutesSeconds(Int(Float(asset.duration.seconds).roundToPlaces(places: 0)))
+        let totalTimeMiliS = Utils.secondsToMiliseconds(asset.duration.seconds)
+       
         if let val = sliderValue{
                self.storyProgressBar.currentTime = TimeInterval(val)
                self.videoProgressBar.currentTime = Float(val)
+               print(val)
         }else{
                self.storyProgressBar.currentTime = time.seconds
                self.videoProgressBar.currentTime = Float(time.seconds)
          }
-        self.lblStoryTime.text = "\(progressTimeM):\(progressTimeS) / \(totalTimeM):\(totalTimeS)"
+      //  self.lblStoryTime.text = "\(progressTimeM):\(progressTimeS) / \(totalTimeM):\(totalTimeS)"
+        
+        self.lblStoryTime.text = "\(String(format: "%02d", progressTimeS)):\(progressTimeMiliS) / \(String(format: "%02d", totalTimeS)):\(totalTimeMiliS)"
     }
     
     func startPlaybackTimeChecker() {
