@@ -500,8 +500,8 @@ extension TrimEditorViewController: TrimmerViewDelegate {
     }
     
     func trimVideo(_ trimmer: TrimmerView, with currentTimeScrub: CMTime) {
-        guard (currentTimeScrub.seconds - trimmer.startTime!.seconds) >= 3 else {
-            self.view.makeToast(R.string.localizable.minimum3SecondRequireToSplitOrTrim())
+        guard (currentTimeScrub.seconds - trimmer.startTime!.seconds) >= 1 else {
+            self.view.makeToast(R.string.localizable.minimum1SecondRequireToSplitOrTrim())
             AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
             if let player = player {
                 player.seek(to: currentTimeScrub, toleranceBefore: tolerance, toleranceAfter: tolerance)
