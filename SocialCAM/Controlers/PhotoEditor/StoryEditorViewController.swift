@@ -870,7 +870,8 @@ extension StoryEditorViewController {
 //                   self.socialMediaMainView.frame = CGRect(x: 0, y: 0,width: self.view.frame.size.width ,height: self.view.frame.size.height)
 //
 //               })
-        
+        playPauseButton.isSelected = false
+        self.playPauseButtonClick(playPauseButton)
         self.socialMediaMainView.isHidden = false
     
     }
@@ -1459,7 +1460,7 @@ extension StoryEditorViewController {
     }
     @IBAction func btnSocialMediaShareClick(_ sender: UIButton) {
         
-        
+       
         if Defaults.shared.appMode == .free, !(sender.tag == 3) {
             showAlertForUpgradeSubscription()
         } else {
@@ -2072,14 +2073,9 @@ extension StoryEditorViewController {
         if let seconds = sliderValue{
             timeSeconds = Double(seconds)
         }
-      
-        print(time.seconds)
         let (_, progressTimeS) =
             Utils.secondsToHoursMinutesSeconds(Int(Float(timeSeconds).roundToPlaces(places: 0)))
         let progressTimeMiliS = Utils.secondsToMiliseconds(timeSeconds)
-      
-        print(progressTimeMiliS)
-        print(progressTimeS)
         let (_, totalTimeS) = Utils.secondsToHoursMinutesSeconds(Int(Float(asset.duration.seconds).roundToPlaces(places: 0)))
         let totalTimeMiliS = Utils.secondsToMiliseconds(asset.duration.seconds)
        
@@ -2093,7 +2089,7 @@ extension StoryEditorViewController {
          }
       //  self.lblStoryTime.text = "\(progressTimeM):\(progressTimeS) / \(totalTimeM):\(totalTimeS)"
         
-        self.lblStoryTime.text = "\(String(format: "%02d", progressTimeS)):\(progressTimeMiliS) / \(String(format: "%02d", totalTimeS)):\(totalTimeMiliS)"
+        self.lblStoryTime.text = "\(progressTimeS):\(progressTimeMiliS) / \(totalTimeS):\(totalTimeMiliS)"
     }
     
     func startPlaybackTimeChecker() {
