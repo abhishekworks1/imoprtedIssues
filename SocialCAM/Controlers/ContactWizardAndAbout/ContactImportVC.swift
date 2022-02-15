@@ -42,14 +42,12 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     var listingResponse : msgTitleList? = nil
     @IBOutlet weak var itemsTableView: UITableView!
-    @IBOutlet weak var greetingTableView: UITableView!
     
     
     var selectedTitleRow : Int = 0
     fileprivate static let CELL_IDENTIFIER = "messageTitleCell"
 
     //share page declaration
-    @IBOutlet weak var greetingView: UIView!
     var txtLinkWithCheckOut: String = ""
     var ReferralLink: String = ""
     var greetingMessage: String = ""
@@ -228,8 +226,6 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             lblNum4.backgroundColor = .white
         }
         if pageNo == 2{
-            greetingView.isHidden = false
-            itemsTableView.isHidden = true
             page1view.isHidden = true
             page2view.isHidden = false
             page3view.isHidden = true
@@ -395,8 +391,6 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if tableView == itemsTableView{
             return 70
-        } else if tableView == greetingTableView {
-            return 65
         } else {
             return 75
         }
@@ -405,8 +399,6 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 
         if tableView == itemsTableView{
             return 1
-        } else if tableView == greetingTableView {
-            return 1
         } else{
             return 2
         }
@@ -414,8 +406,6 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == itemsTableView{
             return self.listingResponse?.list.count ?? 0
-        } else if tableView == greetingTableView {
-            return Constant.Greetings.greetingMessages.count
         } else {
             if section == 0 {
                 return phoneContacts.count
@@ -429,10 +419,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         let view = UIView()
         if tableView == itemsTableView{
             return view
-        } else if tableView == greetingTableView {
-            return view
-        }
-        else{
+        } else{
             if section == 0{
                 if phoneContacts.count>0{
                     let label = cutomHeaderView(title: "Contact Numbers")
@@ -473,23 +460,6 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 cell.selectionImageView.image = UIImage.init(named: "radioDeselectedBlue")
             }
             return cell
-        } else if tableView == greetingTableView {
-            
-            let cell:messageTitleCell = self.itemsTableView.dequeueReusableCell(withIdentifier: ContactImportVC.CELL_IDENTIFIER) as! messageTitleCell
-            cell.selectionStyle = UITableViewCell.SelectionStyle.none
-            if Constant.Greetings.greetingMessages.count > 0 {
-                cell.textLbl.text = Constant.Greetings.greetingMessages[indexPath.row]
-                
-                if selectedTitleRow == indexPath.row {
-                    cell.selectionImageView.image = UIImage.init(named: "radioSelectedBlue")
-                    greetingMessage = Constant.Greetings.greetingMessages[indexPath.row]
-                }else{
-                    cell.selectionImageView.image = UIImage.init(named: "radioDeselectedBlue")
-                }
-            }
-             
-            return cell
-            
         } else{
             let cell:contactTableViewCell = self.contactTableView.dequeueReusableCell(withIdentifier: ContactImportVC.CELL_IDENTIFIER_CONTACT) as! contactTableViewCell
             cell.selectionStyle = UITableViewCell.SelectionStyle.none
@@ -529,52 +499,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 self.txtLinkWithCheckOut = item?.content ?? ""
             }
             itemsTableView.reloadData()
-            if txtLinkWithCheckOut != "" {
-                let finalText = "\(greetingMessage) \(txtLinkWithCheckOut)"
-                txtLinkWithCheckOut = finalText
-                print(txtLinkWithCheckOut)
-            }
-            
-        } else if tableView == greetingTableView {
-            selectedTitleRow = indexPath.row
-            if Constant.Greetings.greetingMessages.count > 0 {
-                if Constant.Greetings.greetingMessages[indexPath.row] == "Custom" {
-                    openAlertTextView()
-                } else {
-                    self.greetingMessage = Constant.Greetings.greetingMessages[indexPath.row]
-                    if greetingMessage != "" {
-                        print(greetingMessage)
-                        greetingView.isHidden = true
-                        itemsTableView.isHidden = false
-                    }
-                }
-            }
-            greetingTableView.reloadData()
-        }
-        else{
+        } else{
             self.view.endEditing(true)
         }
-    }
-    
-//    MARK: - Creating Alert For User Text Enter
-    
-    func openAlertTextView() {
-        let alert = UIAlertController(title: "Greeting", message: "Please Enter Your Message", preferredStyle: .alert)
-       alert.addTextField { customTextFiled in
-           customTextFiled.placeholder = "Enter your message"
-        }
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { [self] okBtn in
-            let textFields = alert.textFields
-            greetingMessage = (textFields?.first?.text)!
-            if greetingMessage != "" {
-                print(greetingMessage)
-                itemsTableView.reloadData()
-                greetingView.isHidden = true
-                itemsTableView.isHidden = false
-            }
-        }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        self.present(alert, animated: true, completion: nil)
     }
     
     // MARK: - Searchbar delegate
