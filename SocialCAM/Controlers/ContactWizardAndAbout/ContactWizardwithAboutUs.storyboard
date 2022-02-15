@@ -998,42 +998,18 @@
                                                             <outlet property="delegate" destination="zZw-wm-uWi" id="wA4-9l-rzZ"/>
                                                         </connections>
                                                     </tableView>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nr8-PE-h22">
-                                                        <rect key="frame" x="10" y="90" width="394" height="559"/>
-                                                        <subviews>
-                                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="w4Z-Gc-3q3">
-                                                                <rect key="frame" x="0.0" y="0.0" width="394" height="559"/>
-                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                                <connections>
-                                                                    <outlet property="dataSource" destination="zZw-wm-uWi" id="fpf-9U-brR"/>
-                                                                    <outlet property="delegate" destination="zZw-wm-uWi" id="Fg4-3J-833"/>
-                                                                </connections>
-                                                            </tableView>
-                                                        </subviews>
-                                                        <color key="backgroundColor" systemColor="linkColor"/>
-                                                        <constraints>
-                                                            <constraint firstItem="w4Z-Gc-3q3" firstAttribute="leading" secondItem="nr8-PE-h22" secondAttribute="leading" id="JHI-iq-9Wd"/>
-                                                            <constraint firstItem="w4Z-Gc-3q3" firstAttribute="top" secondItem="nr8-PE-h22" secondAttribute="top" id="cv3-Mi-j0K"/>
-                                                            <constraint firstAttribute="bottom" secondItem="w4Z-Gc-3q3" secondAttribute="bottom" id="fnC-Em-m3G"/>
-                                                            <constraint firstAttribute="trailing" secondItem="w4Z-Gc-3q3" secondAttribute="trailing" id="vF7-OR-Crd"/>
-                                                        </constraints>
-                                                    </view>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="W0K-Yx-xer" secondAttribute="bottom" id="0ty-EM-221"/>
                                                     <constraint firstAttribute="trailing" secondItem="W0K-Yx-xer" secondAttribute="trailing" id="4ta-Rf-njd"/>
-                                                    <constraint firstItem="W0K-Yx-xer" firstAttribute="top" secondItem="nr8-PE-h22" secondAttribute="bottom" id="WvJ-mU-Q3s"/>
                                                     <constraint firstItem="unL-n1-Ynh" firstAttribute="top" secondItem="R1E-ez-P99" secondAttribute="top" constant="10" id="YOA-f6-ce1"/>
-                                                    <constraint firstItem="nr8-PE-h22" firstAttribute="leading" secondItem="R1E-ez-P99" secondAttribute="leading" constant="10" id="bqP-4Y-yaI"/>
                                                     <constraint firstItem="unL-n1-Ynh" firstAttribute="leading" secondItem="R1E-ez-P99" secondAttribute="leading" constant="20" id="cAx-Qe-Yxu"/>
-                                                    <constraint firstAttribute="trailing" secondItem="nr8-PE-h22" secondAttribute="trailing" constant="10" id="dAz-Wr-FVF"/>
                                                     <constraint firstItem="WCA-F4-kvb" firstAttribute="leading" secondItem="R1E-ez-P99" secondAttribute="leading" constant="20" id="njt-qc-53z"/>
                                                     <constraint firstItem="W0K-Yx-xer" firstAttribute="top" secondItem="WCA-F4-kvb" secondAttribute="bottom" id="rlH-YW-0vw"/>
                                                     <constraint firstItem="WCA-F4-kvb" firstAttribute="top" secondItem="unL-n1-Ynh" secondAttribute="bottom" constant="20" id="tN7-Wd-SoU"/>
                                                     <constraint firstItem="W0K-Yx-xer" firstAttribute="leading" secondItem="R1E-ez-P99" secondAttribute="leading" id="tyd-Zv-3pC"/>
                                                     <constraint firstAttribute="trailing" secondItem="WCA-F4-kvb" secondAttribute="trailing" constant="20" id="unJ-6B-hdO"/>
-                                                    <constraint firstItem="nr8-PE-h22" firstAttribute="top" secondItem="unL-n1-Ynh" secondAttribute="bottom" constant="20" id="wny-Jj-T8s"/>
                                                     <constraint firstAttribute="trailing" secondItem="unL-n1-Ynh" secondAttribute="trailing" constant="20" id="xTd-3z-6r1"/>
                                                 </constraints>
                                             </view>
@@ -1732,8 +1708,6 @@
                         <outlet property="frwrdarrow1" destination="JTY-VW-YDt" id="cnH-bh-v2f"/>
                         <outlet property="frwrdarrow2" destination="ULT-7h-cxH" id="ZUv-xa-gA8"/>
                         <outlet property="frwrdarrow3" destination="LkK-RF-Z59" id="tpR-zX-nHX"/>
-                        <outlet property="greetingTableView" destination="w4Z-Gc-3q3" id="h57-7Q-rtp"/>
-                        <outlet property="greetingView" destination="nr8-PE-h22" id="9CM-Nf-Fke"/>
                         <outlet property="imageQrCode" destination="Icw-zG-kpT" id="11i-bw-wod"/>
                         <outlet property="imgProfileBadge" destination="TlO-1u-JwI" id="cl3-yg-QKs"/>
                         <outlet property="imgProfilePic" destination="ApD-Ru-dJQ" id="Ovy-4t-JdM"/>
@@ -1803,9 +1777,6 @@
         <namedColor name="shareScreenProfileBadgeView">
             <color red="0.93725490196078431" green="0.94509803921568625" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="linkColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
