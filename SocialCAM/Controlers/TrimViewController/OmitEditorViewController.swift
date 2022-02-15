@@ -53,6 +53,8 @@ class OmitEditorViewController: UIViewController {
     var draggingCell: IndexPath?
     var lastMergeCell: IndexPath?
     var isStartMovable: Bool = false
+    var leftSidePlayer: AVPlayer?
+    var rightSidePlayer: AVPlayer?
     
     var videoEndTime = CMTime()
     
@@ -235,8 +237,19 @@ class OmitEditorViewController: UIViewController {
             let playBackTime = player.currentTime()
             if let cell: ImageCollectionViewCutCell = self.editStoryCollectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? ImageCollectionViewCutCell {
                 if !isStartMovable {
-                    guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
+                    guard var startTime = cell.trimmerView.startTime, var endTime = cell.trimmerView.endTime else {
                         return
+                    }
+                    
+                    let currentAsset = currentAsset(index: currentPage)
+                    
+                    if rightPlayButton.isSelected { //right player
+                        
+                        startTime = cell.trimmerView.endTime ?? .zero
+                        endTime = currentAsset?.duration ?? .zero
+                    } else if leftPlayButton.isSelected { // left player
+                        startTime = .zero
+                        endTime = cell.trimmerView.startTime ?? .zero
                     }
                     
                     cell.trimmerView.seek(to: playBackTime)
@@ -389,6 +402,8 @@ extension OmitEditorViewController {
         playerLayer?.player = player
         player?.play()
         btnPlayPause.isSelected = true
+        leftPlayButton.isSelected = false
+        rightPlayButton.isSelected = false
         startPlaybackTimeChecker()
     }
     
@@ -639,9 +654,12 @@ extension OmitEditorViewController {
             }
             loadViewWith(asset: currentAsset)
         } else {
-            player?.seek(to: CMTime.zero)
-            player?.play()
-            btnPlayPause.isSelected = true
+            
+//            player?.seek(to: CMTime.zero)
+            player?.pause()
+            btnPlayPause.isSelected = false
+            leftPlayButton.isSelected = false
+            rightPlayButton.isSelected = false
         }
         
         if let player = self.player, !self.storyEditorMedias.isEmpty {
@@ -894,48 +912,34 @@ extension OmitEditorViewController {
     
     @IBAction func leftplayPauseClicked(_ sender: Any) {
         rightPlayButton.isSelected = false
-        leftPlayButton.isSelected = true
         btnPlayPause.isSelected = false
+        player?.pause()
         
         if let cell: ImageCollectionViewCutCell = self.editStoryCollectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? ImageCollectionViewCutCell {
             if !isStartMovable {
                 guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
                     return
                 }
-                
-                if leftPlayButton.isSelected {
-                    player?.seek(to: .zero)
-                    player?.currentItem?.forwardPlaybackEndTime = startTime
-                    guard let player = player else { return }
-                    loopVideo(videoPlayer: player)
-                    leftPlayButton.isSelected = true
-                } else {
-                    player?.pause()
-                    leftPlayButton.isSelected = false
+
+                if let player = player {
+                    if leftPlayButton.isSelected {//its playing
+                        leftPlayButton.isSelected = false
+                    } else { //its not playing
+                        leftPlayButton.isSelected = true
+                        player.seek(to: .zero, toleranceBefore: self.tolerance, toleranceAfter: self.tolerance)
+                        player.play()
+                    }
+                    
                 }
-                
             }
         }
     }
     
-    func loopVideo(videoPlayer: AVPlayer) {
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil, queue: nil) { [self] notification in
-            videoPlayer.seek(to: CMTime.zero)
-            self.btnPlayPause.isSelected = false
-            videoPlayer.play()
-        }
-    }
     
     @IBAction func rightplayPauseClicked(_ sender: Any) {
-        rightPlayButton.isSelected = true
         leftPlayButton.isSelected = false
         btnPlayPause.isSelected = false
-        
-        guard let currentAsset = self.currentAsset(index: currentPage) else {
-            return
-        }
-        
-        
+        player?.pause()
         
         if let cell: ImageCollectionViewCutCell = self.editStoryCollectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? ImageCollectionViewCutCell {
             if !isStartMovable {
@@ -943,80 +947,55 @@ extension OmitEditorViewController {
                     return
                 }
                 
-                if rightPlayButton.isSelected {
-                    player?.seek(to: endTime)
-                    player?.currentItem?.forwardPlaybackEndTime = currentAsset.duration
-                    guard let player = player else { return }
-                    loopVideo(videoPlayer: player)
-                    rightPlayButton.isSelected = true
-                } else {
-                    player?.pause()
-                    rightPlayButton.isSelected = false
+                if let player = player {
+                    if rightPlayButton.isSelected {//its playing
+                        rightPlayButton.isSelected = false
+                    } else { //its not playing
+                        rightPlayButton.isSelected = true
+                        
+                        player.seek(to: endTime, toleranceBefore: self.tolerance, toleranceAfter: self.tolerance)
+                        player.play()
+                    }
+                    
                 }
                 
             }
         }
-        
-        
-        
-//        print(currentAsset.duration)
-//
-//        if rightPlayButton.isSelected {
-//            guard let player = player else { return }
-//            player.seek(to: videoEndTime)
-//            player.currentItem?.forwardPlaybackEndTime = currentAsset.duration
-//            player.play()
-//            rightPlayButton.isSelected = true
-//            btnPlayPause.isSelected = false
-//        } else {
-//            player?.pause()
-//            rightPlayButton.isSelected = false
-//        }
-        
     }
     
     
     
     @IBAction func playPauseClicked(_ sender: Any) {
-        btnPlayPause.isSelected = true
         leftPlayButton.isSelected = false
         rightPlayButton.isSelected = false
         
-        if let cell: ImageCollectionViewCutCell = self.editStoryCollectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? ImageCollectionViewCutCell {
-            if !isStartMovable {
-                guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
-                    return
-                }
-
-                if btnPlayPause.isSelected {
-                    player?.seek(to: startTime)
-                    player?.currentItem?.forwardPlaybackEndTime = endTime
-                    guard let player = player else { return }
-                    loopVideo(videoPlayer: player)
-                    btnPlayPause.isSelected = true
-                } else {
-                    player?.pause()
+        if !btnPlayPause.isSelected && !leftPlayButton.isSelected && !rightPlayButton.isSelected {
+            if let player = self.player {
+                if player.timeControlStatus == .playing {
+                    player.pause()
                     btnPlayPause.isSelected = false
+                    doneView.alpha = 1
+                    doneView.isUserInteractionEnabled = true
+                } else {
+                    player.play()
+                    btnPlayPause.isSelected = true
                 }
-
             }
-
+        }
+        else {
+            player?.pause()
+            btnPlayPause.isSelected = false
+            doneView.alpha = 1
+            doneView.isUserInteractionEnabled = true
         }
         
-//        if let player = self.player {
-//            if player.timeControlStatus == .playing {
-//                player.pause()
-//                btnPlayPause.isSelected = false
-//                doneView.alpha = 1
-//                doneView.isUserInteractionEnabled = true
-//            } else {
-//                player.play()
-//                btnPlayPause.isSelected = true
-//
-//                //                doneView.alpha = 0.5
-//                //                doneView.isUserInteractionEnabled = false
-//            }
-//        }
+    }
+    
+    func loopVideo(videoPlayer: AVPlayer) {
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil, queue: nil) { notification in
+            videoPlayer.seek(to: CMTime.zero)
+            videoPlayer.play()
+        }
     }
     
     @IBAction func handleButtonClicked(_ sender: UIButton) {
