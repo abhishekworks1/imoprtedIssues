@@ -179,8 +179,11 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             CNContactStore().requestAccess(for: .contacts) { granted, error in
                 if granted {
                     //completionHandler(true)
-                    self.contactPermitView.isHidden = true
-                    self.loadContacts(filter: self.filter) // Calling loadContacts methods
+                    DispatchQueue.main.async {
+                        self.contactPermitView.isHidden = true
+                        self.loadContacts(filter: self.filter) // Calling loadContacts methods
+                    }
+                    
                 } else {
                     self.contactPermitView.isHidden = false
                     DispatchQueue.main.async {
@@ -419,7 +422,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         let view = UIView()
         if tableView == itemsTableView{
             return view
-        } else{
+        } else {
             if section == 0{
                 if phoneContacts.count>0{
                     let label = cutomHeaderView(title: "Contact Numbers")
@@ -460,7 +463,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 cell.selectionImageView.image = UIImage.init(named: "radioDeselectedBlue")
             }
             return cell
-        } else{
+
+        } else {
             let cell:contactTableViewCell = self.contactTableView.dequeueReusableCell(withIdentifier: ContactImportVC.CELL_IDENTIFIER_CONTACT) as! contactTableViewCell
             cell.selectionStyle = UITableViewCell.SelectionStyle.none
             cell.cellDelegate = self
@@ -499,9 +503,33 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 self.txtLinkWithCheckOut = item?.content ?? ""
             }
             itemsTableView.reloadData()
+            if txtLinkWithCheckOut != "" {
+                let finalText = "\(greetingMessage) \(txtLinkWithCheckOut)"
+                txtLinkWithCheckOut = finalText
+                print(txtLinkWithCheckOut)
+            }
         } else{
             self.view.endEditing(true)
         }
+    }
+    
+//    MARK: - Creating Alert For User Text Enter
+    
+    func openAlertTextView() {
+        let alert = UIAlertController(title: "Greeting", message: "Please Enter Your Message", preferredStyle: .alert)
+       alert.addTextField { customTextFiled in
+           customTextFiled.placeholder = "Enter your message"
+        }
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { [self] okBtn in
+            let textFields = alert.textFields
+            greetingMessage = (textFields?.first?.text)!
+            if greetingMessage != "" {
+                print(greetingMessage)
+                itemsTableView.reloadData()
+            }
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
     // MARK: - Searchbar delegate
