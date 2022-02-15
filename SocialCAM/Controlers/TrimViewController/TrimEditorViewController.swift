@@ -9,7 +9,7 @@
 import Foundation
 import AVKit
 
-class TrimEditorViewController: UIViewController {
+class TrimEditorViewController: UIViewController,UIGestureRecognizerDelegate {
     @IBOutlet weak var postStoryButton: UIButton!
     @IBOutlet weak var storyExportLabel: UILabel!
     @IBOutlet weak var storyCollectionView: DragAndDropCollectionView!
@@ -111,6 +111,41 @@ class TrimEditorViewController: UIViewController {
         }
         doneView.alpha = 0.5
         doneView.isUserInteractionEnabled = false
+        
+        setupLongGestureRecognizerOnCollection()
+        
+    }
+    
+    private func setupLongGestureRecognizerOnCollection() {
+        let longPressedGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(gestureRecognizer:)))
+        longPressedGesture.minimumPressDuration = 0.5
+        longPressedGesture.delegate = self
+        longPressedGesture.delaysTouchesBegan = true
+        storyCollectionView?.addGestureRecognizer(longPressedGesture)
+    }
+    
+    @objc func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
+        if (gestureRecognizer.state != .began) {
+            return
+        }
+        let p = gestureRecognizer.location(in: self.storyCollectionView)
+
+        if let indexPath = storyCollectionView?.indexPathForItem(at: p) {
+            print("Long press at item: \(indexPath.row)")
+            openDeleteAlert(tag: indexPath.row)
+        }
+    }
+    
+    
+    func openDeleteAlert(tag: Int) {
+        let alert = UIAlertController(title: "Delete", message: "Do you want to delete?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { [self] deleteBtn in
+            storyEditorMedias.remove(at: tag)
+            storyCollectionView.reloadData()
+            editStoryCollectionView.reloadData()
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
     deinit {
