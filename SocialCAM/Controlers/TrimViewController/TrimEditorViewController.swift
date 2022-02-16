@@ -46,6 +46,7 @@ class TrimEditorViewController: UIViewController {
     @IBOutlet weak var resequenceLabel: UILabel!
     
     var isOriginalSequence = false
+    var isFromSplitView = false
     var undoMgr = MyUndoManager<Void>()
     var player: AVPlayer?
     var playerItem: AVPlayerItem?
@@ -111,6 +112,11 @@ class TrimEditorViewController: UIViewController {
         }
         doneView.alpha = 0.5
         doneView.isUserInteractionEnabled = false
+        if isFromSplitView {
+            splitView.isHidden = false
+        } else {
+            splitView.isHidden = true
+        }
     }
     
     deinit {
@@ -811,6 +817,8 @@ extension TrimEditorViewController {
                         self.connVideoPlay(isReload: true)
                         cell.trimmerView.trimViewLeadingConstraint.constant = 0
                         cell.trimmerView.trimViewTrailingConstraint.constant = cell.trimmerView.frame.width
+                        button.tag = 0
+                        
                     }
                 } catch let error {
                     print("💩 \(error)")

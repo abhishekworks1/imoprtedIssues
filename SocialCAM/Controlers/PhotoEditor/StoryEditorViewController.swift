@@ -107,6 +107,7 @@ class StoryEditorViewController: UIViewController {
     
     @IBOutlet weak var shareCollectionView: UICollectionView!
     
+    @IBOutlet weak var splitOptionView: UIView!
     @IBOutlet weak var editToolBarView: UIView!
     @IBOutlet weak var downloadView: UIView!
     @IBOutlet weak var backButton: UIButton!
@@ -822,7 +823,7 @@ extension StoryEditorViewController {
     @IBAction func trimClicked(_ sender: UIButton) {
         Defaults.shared.callHapticFeedback(isHeavy: false)
         let trimVC: TrimEditorViewController = R.storyboard.videoTrim.trimEditorViewController()!
-        
+        trimVC.isFromSplitView = false
         var filteredMedias: [StoryEditorMedia] = []
         for editor in storyEditors {
             if case StoryEditorType.video(_, _) = editor.type {
@@ -877,6 +878,53 @@ extension StoryEditorViewController {
         self.socialMediaMainView.isHidden = false
     
     }
+    
+    @IBAction func didTapSplitButtonClicked(_ sender: UIButton) {
+        Defaults.shared.callHapticFeedback(isHeavy: false)
+        let trimVC: TrimEditorViewController = R.storyboard.videoTrim.trimEditorViewController()!
+        trimVC.isFromSplitView = true
+        var filteredMedias: [StoryEditorMedia] = []
+        for editor in storyEditors {
+            if case StoryEditorType.video(_, _) = editor.type {
+                filteredMedias.append(StoryEditorMedia(type: editor.type))
+            } else {
+                filteredImagesStory.append(StoryEditorMedia(type: editor.type))
+            }
+        }
+        
+        trimVC.videoUrls = filteredMedias
+        trimVC.doneHandler = { [weak self] urls in
+            guard let `self` = self else {
+                return
+            }
+            self.currentStoryIndex = 0
+            self.medias.removeAll()
+            
+            for item in urls {
+                guard let storyEditorMedia = item.copy() as? StoryEditorMedia else {
+                    return
+                }
+                self.medias.append(storyEditorMedia)
+            }
+            self.isTrim = true
+            self.medias.append(contentsOf: self.filteredImagesStory)
+            if !self.storyEditorsSubviews.isEmpty {
+                self.storyEditorsSubviews.removeAll()
+            }
+            for storyEditor in self.storyEditors {
+                self.storyEditorsSubviews.append(storyEditor)
+                storyEditor.removeFromSuperview()
+            }
+            self.filteredImagesStory.removeAll()
+            self.storyEditors.removeAll()
+            self.setupFilterViews()
+            self.needToExportVideo()
+        }
+        self.navigationController?.pushViewController(trimVC, animated: true)
+    }
+    
+    
+    
     @IBAction func omitClicked(_ sender: UIButton) {
         Defaults.shared.callHapticFeedback(isHeavy: false)
         let trimVC: OmitEditorViewController = R.storyboard.videoTrim.omitEditorViewController()!
