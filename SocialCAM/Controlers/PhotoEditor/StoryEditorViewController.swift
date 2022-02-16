@@ -237,6 +237,7 @@ class StoryEditorViewController: UIViewController {
     @IBOutlet weak var btnSelectPublicDisplaynameWatermark: UIButton!
     @IBOutlet weak var btnPublicDisplaynameWatermark: UIButton!
     
+    @IBOutlet weak var shareView: UIView!
     @IBOutlet weak var saveVideoPopupView: UIView!
     
     @IBOutlet weak var lblVideoSaveText: UILabel!
@@ -326,7 +327,8 @@ class StoryEditorViewController: UIViewController {
     var isViewEditMode: Bool = false {
         didSet {
             editToolBarView.isHidden = isViewEditMode
-            downloadView.isHidden = isViewEditMode
+            shareView.isHidden = isViewEditMode
+            downloadView.isHidden = true
             backButtonView.isHidden = isViewEditMode
             if (storyEditors.count > 1) {
                 collectionView.isHidden = isViewEditMode
@@ -342,7 +344,7 @@ class StoryEditorViewController: UIViewController {
                 playPauseButton.isHidden = isViewEditMode
                 progressBarView.isHidden = !progressBarView.isHidden
             }
-            socialShareBottomView.isHidden = isViewEditMode
+            socialShareBottomView.isHidden = true
             showHideView.isHidden = isViewEditMode
             watermarkView.isHidden = isViewEditMode
             isHideTapped = isViewEditMode
