@@ -10,7 +10,7 @@ import Foundation
 import AVKit
 
 class TrimEditorViewController: UIViewController {
-    @IBOutlet weak var postStoryButton: UIButton!
+    @IBOutlet weak var undoStoryButton: UIButton!
     @IBOutlet weak var storyExportLabel: UILabel!
     @IBOutlet weak var storyCollectionView: DragAndDropCollectionView!
     @IBOutlet weak var editStoryCollectionView: DragAndDropCollectionView!
@@ -114,8 +114,10 @@ class TrimEditorViewController: UIViewController {
         doneView.isUserInteractionEnabled = false
         if isFromSplitView {
             splitView.isHidden = false
+            storyView.isHidden = false
         } else {
             splitView.isHidden = true
+            storyView.isHidden = true
         }
     }
     
@@ -203,7 +205,7 @@ class TrimEditorViewController: UIViewController {
         stopPlaybackTimeChecker()
         playbackTimeCheckerTimer = Timer.scheduledTimer(timeInterval: 0.001, target: self,
                                                         selector:
-            #selector(self.onPlaybackTimeChecker), userInfo: nil, repeats: true)
+                                                            #selector(self.onPlaybackTimeChecker), userInfo: nil, repeats: true)
     }
     
     func stopPlaybackTimeChecker() {
@@ -288,6 +290,18 @@ extension TrimEditorViewController: UICollectionViewDataSource {
                 return cell
             }
             cell.setEditLayout(indexPath: indexPath, currentPage: currentPage, currentAsset: currentSelectedAsset)
+            if isFromSplitView {
+                cell.trimmerView.rightImage = UIImage()
+                cell.trimmerView.leftImage = UIImage()
+                cell.leftTopView.isHidden = true
+                cell.rightTopView.isHidden = true
+            } else {
+                cell.trimmerView.rightImage = R.image.cut_handle_icon()
+                cell.trimmerView.leftImage = R.image.cut_handle_icon()
+                cell.leftTopView.isHidden = false
+                cell.rightTopView.isHidden = false
+            }
+            
         } else {
             guard let currentAsset = currentAsset(index: indexPath.row) else {
                 return cell
@@ -879,6 +893,17 @@ extension TrimEditorViewController {
             }
         }
     }
+    
+    @IBAction func didTapUndoButtonClicked(_ sender: UIButton) {
+        if undoMgr.canUndo() {
+            undoMgr.undo()
+            DispatchQueue.main.async {
+                self.combineButton.isSelected = false
+                self.storyCollectionView.reloadData()
+            }
+        }
+    }
+    
     
     @IBAction func mergeButtonClicked(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
