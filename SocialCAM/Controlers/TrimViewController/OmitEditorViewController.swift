@@ -315,6 +315,10 @@ extension OmitEditorViewController: UICollectionViewDataSource {
                 return cell
             }
             cell.setEditLayout(indexPath: indexPath, currentPage: currentPage, currentAsset: currentSelectedAsset)
+            cell.trimmerView.rightImage = UIImage()
+            cell.trimmerView.leftImage = UIImage()
+            cell.leftTopView.isHidden = true
+            cell.rightTopView.isHidden = true
         } else {
             guard let currentAsset = currentAsset(index: indexPath.row) else {
                 return cell
