@@ -1183,7 +1183,7 @@ extension StoryEditorViewController {
     @IBAction func downloadClicked(_ sender: UIButton) {
         Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
         referType = storyEditors[currentStoryIndex].referType
-        imageVideoExport(isDownload: true)
+        imageVideoExport(isDownload: true,isFromDoneTap:true)
     }
     
     @IBAction func slideShowAutoFillClicked(_ sender: UIButton) {
@@ -1252,7 +1252,7 @@ extension StoryEditorViewController {
         })
     }
     
-    func imageVideoExport(isDownload: Bool = false, type: SocialShare = .facebook) {
+    func imageVideoExport(isDownload: Bool = false, isFromDoneTap: Bool = false,type: SocialShare = .facebook) {
         if isSlideShow {
             saveSlideShow(success: { [weak self] (exportURL) in
                 guard let `self` = self else {
@@ -1262,6 +1262,9 @@ extension StoryEditorViewController {
                 if isDownload {
                     DispatchQueue.runOnMainThread {
                         self.saveImageOrVideoInGallery(exportURL: exportURL)
+                        if isFromDoneTap{
+                            self.navigationController?.popViewController(animated: true)
+                        }
                     }
                 } else {
                     DispatchQueue.runOnMainThread {
@@ -1282,6 +1285,9 @@ extension StoryEditorViewController {
                 if let image = storyEditors[currentStoryIndex].updatedThumbnailImage() {
                     if isDownload {
                         self.saveImageOrVideoInGallery(image: image)
+                        if isFromDoneTap{
+                            self.navigationController?.popViewController(animated: true)
+                        }
                     } else {
                         SocialShareVideo.shared.sharePhoto(image: image, socialType: type, referType: self.referType)
                     }
@@ -1301,11 +1307,15 @@ extension StoryEditorViewController {
                     self.isSettingsChange = false
                     self.exportViewWithURL(asset, type: type) { [weak self] url in
                         guard let `self` = self else { return }
+                        
                         if let exportURL = url {
                             self.videoExportedURL =  exportURL
                             if isDownload {
                                 DispatchQueue.runOnMainThread {
                                     self.saveImageOrVideoInGallery(exportURL: exportURL)
+                                    if isFromDoneTap{
+                                        self.navigationController?.popViewController(animated: true)
+                                    }
                                 }
                             } else {
                                 DispatchQueue.runOnMainThread {
@@ -1318,6 +1328,10 @@ extension StoryEditorViewController {
                                     self.pauseVideo()
                                     self.isVideoPlay = true
                                 }
+                            }
+                        }else{
+                            if isFromDoneTap{
+                                self.navigationController?.popViewController(animated: true)
                             }
                         }
                     }

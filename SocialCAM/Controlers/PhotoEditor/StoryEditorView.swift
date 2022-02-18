@@ -71,7 +71,6 @@ class StoryEditorView: UIView {
     public var type: StoryEditorType = .image(#imageLiteral(resourceName: "videoBackground"))
     
     internal var startEditingAction: ((Bool, UIColor) -> ())?
-    
     private var isZooming = false {
         didSet {
             self.storySwipeableFilterView.selectFilterScrollView.isScrollEnabled = !isZooming
@@ -270,9 +269,10 @@ extension StoryEditorView {
             self.adjustMediaTransformIfNeeded()
             if self.isCropped {
                 self.storySwipeableFilterView.imageContentMode = .scaleAspectFill
-                let frame = CGRect(origin: .zero,
+               let frame = CGRect(origin: .zero,
                                    size: CGSize(width: self.mediaGestureView.bounds.width,
                                                 height: self.mediaGestureView.bounds.height))
+               // let frame = CGRect(origin: .zero, size: CGSize(width: UIScreen.width, height: UIScreen.width))
                 self.storySwipeableFilterView.bounds = frame
                 self.drawView.bounds = frame
                 self.layoutIfNeeded()
@@ -322,6 +322,7 @@ extension StoryEditorView: StorySwipeableFilterViewDelegate {
             storyPlayer?.scImageView = storySwipeableFilterView
             storyPlayer?.loopEnabled = true
             storyPlayer?.delegate = self
+           
             storyPlayer?.setItemBy(asset)
             storyPlayer?.play()
             self.thumbnailImage = asset.thumbnailImage()

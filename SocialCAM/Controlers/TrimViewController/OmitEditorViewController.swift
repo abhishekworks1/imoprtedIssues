@@ -240,7 +240,7 @@ class OmitEditorViewController: UIViewController {
                     }
                     
                     
-                    let currentAsset = currentAsset(index: currentPage)
+                    let currentAsset = self.currentAsset(index: currentPage)
                     
                     if rightPlayButton.isSelected { //right player
                         
