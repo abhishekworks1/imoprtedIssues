@@ -459,7 +459,16 @@ extension TrimEditorViewController: TrimmerViewDelegate {
     func trimmerDidChangeDraggingPosition(_ trimmer: TrimmerView, with currentTimeTrim: CMTime) {
         if let player = player,
            let cell: ImageCollectionViewCell = self.editStoryCollectionView.cellForItem(at: self.getCurrentIndexPath) as? ImageCollectionViewCell {
-            player.seek(to: currentTimeTrim, toleranceBefore: tolerance, toleranceAfter: tolerance)
+            
+            var newStartpoint = currentTimeTrim.seconds - 1
+            if newStartpoint < 0{
+                newStartpoint = 0
+            }
+            
+            let start = CMTimeMakeWithSeconds(newStartpoint, preferredTimescale:10000);
+         //   player.seek(to: currentTimeTrim, toleranceBefore: tolerance, toleranceAfter: tolerance)
+            
+            player.seek(to: currentTimeTrim, toleranceBefore: start, toleranceAfter: start)
             self.seek(to: CMTime.init(seconds: currentTimeTrim.seconds, preferredTimescale: 10000), cell: cell)
         }
     }
@@ -474,7 +483,15 @@ extension TrimEditorViewController: TrimmerViewDelegate {
                             return
                         }
                         let newEndTime = endTime - CMTime.init(seconds: 2, preferredTimescale: endTime.timescale)
-                        player.seek(to: newEndTime, toleranceBefore: self.tolerance, toleranceAfter: self.tolerance)
+                        var newStartpoint = newEndTime.seconds - 1
+                        if newStartpoint < 0{
+                            newStartpoint = 0
+                        }
+                        let start = CMTimeMakeWithSeconds(newStartpoint, preferredTimescale: endTime.timescale);
+                      //  player.seek(to: newEndTime, toleranceBefore: self.tolerance, toleranceAfter: self.tolerance)
+                        print(newEndTime.seconds)
+                        print(start.seconds)
+                        player.seek(to: newEndTime, toleranceBefore: start, toleranceAfter: start)
                     }
                     player.play()
                 }
