@@ -21,6 +21,7 @@ class StorySettingsHeader: UITableViewCell {
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var btnProfilePic: UIButton!
+    @IBOutlet weak var badgeIconHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var addProfilePic: UIImageView!
     @IBOutlet weak var imgSocialMediaBadge: UIImageView!
     @IBOutlet weak var imgprelaunch: UIImageView!
@@ -32,6 +33,7 @@ class StorySettingsHeader: UITableViewCell {
     @IBOutlet weak var badgesView: UIStackView!
     weak var delegate: HeaderViewDelegate?
     var section: Int = 0
+    var callBackForReload : ((Bool) -> ())?
     var collapsed: Bool = false {
         didSet {
             arrowLabel?.rotate(collapsed ? 0.0 : .pi)
@@ -46,6 +48,13 @@ class StorySettingsHeader: UITableViewCell {
        // setUpbadges()
         
     }
+    
+    @IBAction func didTapProfilePicButton(_ sender: UIButton) {
+        self.callBackForReload!(true)
+        
+    }
+    
+    
     func setUpbadges() {
         let badgearry = Defaults.shared.getbadgesArray()
         imgprelaunch.isHidden = true
