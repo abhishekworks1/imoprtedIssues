@@ -1270,6 +1270,8 @@ extension StoryEditorViewController {
                     DispatchQueue.runOnMainThread {
                         if type == .youtube {
                             self.checkYoutubeAuthentication(exportURL)
+                        }else if type == .more {
+                            self.shareWithActivity(url:exportURL)
                         } else {
                             SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type, referType: self.referType)
                         }
@@ -1289,7 +1291,12 @@ extension StoryEditorViewController {
                             self.navigationController?.popViewController(animated: true)
                         }
                     } else {
+                        if type == .more {
+                            self.shareWithActivity(url:nil,image:image)
+                       }else{
                         SocialShareVideo.shared.sharePhoto(image: image, socialType: type, referType: self.referType)
+                       }
+                        
                     }
                 }
             case let .video(_, asset):
@@ -1297,7 +1304,9 @@ extension StoryEditorViewController {
                     DispatchQueue.runOnMainThread {
                         if type == .youtube {
                             self.checkYoutubeAuthentication(exportURL)
-                        } else {
+                        }else if type == .more {
+                            self.shareWithActivity(url:exportURL)
+                        }else {
                             SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type, referType: self.referType)
                         }
                         self.pauseVideo()
@@ -1322,6 +1331,8 @@ extension StoryEditorViewController {
                                     self.socialShareExportURL = exportURL
                                     if type == .youtube {
                                         self.checkYoutubeAuthentication(exportURL)
+                                    }else if type == .more {
+                                        self.shareWithActivity(url:exportURL)
                                     } else {
                                         SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type, referType: self.referType)
                                     }
@@ -2381,7 +2392,9 @@ extension StoryEditorViewController {
             DispatchQueue.runOnMainThread {
                 if type == .youtube {
                     self.checkYoutubeAuthentication(exporturl)
-                } else {
+                }else if type == .more {
+                    self.shareWithActivity(url:exporturl)
+                }else {
                     SocialShareVideo.shared.shareVideo(url: exporturl, socialType: type, referType: self.referType)
                 }
                 self.pauseVideo()
@@ -2525,6 +2538,23 @@ extension StoryEditorViewController {
                 loadingView.hide()
             }
         }
+    }
+    
+    func shareWithActivity(url:URL? = nil,image:UIImage? = nil) {
+    
+        var activityItems = [Any]()
+        if let videoURL = url{
+            activityItems.append(videoURL)
+        }
+        if let img = image{
+            activityItems.append(img)
+        }
+        let activityController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+
+        activityController.popoverPresentationController?.sourceView = self.view
+        activityController.popoverPresentationController?.sourceRect = self.view.frame
+
+        self.present(activityController, animated: true, completion: nil)
     }
     
 }
