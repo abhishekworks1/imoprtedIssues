@@ -127,9 +127,10 @@ extension SpeedViewController {
         }
     }
     
-    func secondsToHoursMinutesSeconds(_ seconds: Int) -> (Int, Int) {
+    func secondsToHoursMinutesSeconds(_ seconds: Int) -> (Int, Int ) {
         return ((seconds % 3600) / 60, (seconds % 3600) % 60)
     }
+   
     
     func adjustTime(currentTime: Double) -> Double {
         var seconds: Double = 0

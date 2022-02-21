@@ -972,8 +972,9 @@ class PhotoEditorViewController: UIViewController {
             progressTime += playBackTime.seconds
             
             let (progressTimeM, progressTimeS) = secondsToHoursMinutesSeconds(Int(Float(progressTime).roundToPlaces(places: 0)))
+            let progressTimeMiliS = Utils.secondsToMiliseconds(progressTime)
             let (totalTimeM, totalTimeS) = secondsToHoursMinutesSeconds(Int(Float(totalTime).roundToPlaces(places: 0)))
-            
+            let totalTimeMiliS = Utils.secondsToMiliseconds(Double(Float(totalTime).roundToPlaces(places: 0)))
             self.lblCurrentSlidingTime.text = "\(progressTimeM):\(progressTimeS) / \(totalTimeM):\(totalTimeS)"
         }
         

@@ -10,7 +10,7 @@ import Foundation
 import AVKit
 
 class TrimEditorViewController: UIViewController {
-    @IBOutlet weak var postStoryButton: UIButton!
+    @IBOutlet weak var undoStoryButton: UIButton!
     @IBOutlet weak var storyExportLabel: UILabel!
     @IBOutlet weak var storyCollectionView: DragAndDropCollectionView!
     @IBOutlet weak var editStoryCollectionView: DragAndDropCollectionView!
@@ -46,6 +46,7 @@ class TrimEditorViewController: UIViewController {
     @IBOutlet weak var resequenceLabel: UILabel!
     
     var isOriginalSequence = false
+    var isFromSplitView = false
     var undoMgr = MyUndoManager<Void>()
     var player: AVPlayer?
     var playerItem: AVPlayerItem?
@@ -111,6 +112,13 @@ class TrimEditorViewController: UIViewController {
         }
         doneView.alpha = 0.5
         doneView.isUserInteractionEnabled = false
+        if isFromSplitView {
+            splitView.isHidden = false
+            storyView.isHidden = false
+        } else {
+            splitView.isHidden = true
+            storyView.isHidden = true
+        }
     }
     
     deinit {
@@ -197,7 +205,7 @@ class TrimEditorViewController: UIViewController {
         stopPlaybackTimeChecker()
         playbackTimeCheckerTimer = Timer.scheduledTimer(timeInterval: 0.001, target: self,
                                                         selector:
-            #selector(self.onPlaybackTimeChecker), userInfo: nil, repeats: true)
+                                                            #selector(self.onPlaybackTimeChecker), userInfo: nil, repeats: true)
     }
     
     func stopPlaybackTimeChecker() {
@@ -282,6 +290,18 @@ extension TrimEditorViewController: UICollectionViewDataSource {
                 return cell
             }
             cell.setEditLayout(indexPath: indexPath, currentPage: currentPage, currentAsset: currentSelectedAsset)
+            if isFromSplitView {
+                cell.trimmerView.rightImage = UIImage()
+                cell.trimmerView.leftImage = UIImage()
+                cell.leftTopView.isHidden = true
+                cell.rightTopView.isHidden = true
+            } else {
+                cell.trimmerView.rightImage = R.image.cut_handle_icon()
+                cell.trimmerView.leftImage = R.image.cut_handle_icon()
+                cell.leftTopView.isHidden = false
+                cell.rightTopView.isHidden = false
+            }
+            
         } else {
             guard let currentAsset = currentAsset(index: indexPath.row) else {
                 return cell
@@ -439,7 +459,16 @@ extension TrimEditorViewController: TrimmerViewDelegate {
     func trimmerDidChangeDraggingPosition(_ trimmer: TrimmerView, with currentTimeTrim: CMTime) {
         if let player = player,
            let cell: ImageCollectionViewCell = self.editStoryCollectionView.cellForItem(at: self.getCurrentIndexPath) as? ImageCollectionViewCell {
-            player.seek(to: currentTimeTrim, toleranceBefore: tolerance, toleranceAfter: tolerance)
+            
+            var newStartpoint = currentTimeTrim.seconds - 1
+            if newStartpoint < 0{
+                newStartpoint = 0
+            }
+            
+            let start = CMTimeMakeWithSeconds(newStartpoint, preferredTimescale:10000);
+         //   player.seek(to: currentTimeTrim, toleranceBefore: tolerance, toleranceAfter: tolerance)
+            
+            player.seek(to: currentTimeTrim, toleranceBefore: start, toleranceAfter: start)
             self.seek(to: CMTime.init(seconds: currentTimeTrim.seconds, preferredTimescale: 10000), cell: cell)
         }
     }
@@ -454,7 +483,15 @@ extension TrimEditorViewController: TrimmerViewDelegate {
                             return
                         }
                         let newEndTime = endTime - CMTime.init(seconds: 2, preferredTimescale: endTime.timescale)
-                        player.seek(to: newEndTime, toleranceBefore: self.tolerance, toleranceAfter: self.tolerance)
+                        var newStartpoint = newEndTime.seconds - 1
+                        if newStartpoint < 0{
+                            newStartpoint = 0
+                        }
+                        let start = CMTimeMakeWithSeconds(newStartpoint, preferredTimescale: endTime.timescale);
+                      //  player.seek(to: newEndTime, toleranceBefore: self.tolerance, toleranceAfter: self.tolerance)
+                        print(newEndTime.seconds)
+                        print(start.seconds)
+                        player.seek(to: newEndTime, toleranceBefore: start, toleranceAfter: start)
                     }
                     player.play()
                 }
@@ -811,6 +848,8 @@ extension TrimEditorViewController {
                         self.connVideoPlay(isReload: true)
                         cell.trimmerView.trimViewLeadingConstraint.constant = 0
                         cell.trimmerView.trimViewTrailingConstraint.constant = cell.trimmerView.frame.width
+                        button.tag = 0
+                        
                     }
                 } catch let error {
                     print("💩 \(error)")
@@ -871,6 +910,17 @@ extension TrimEditorViewController {
             }
         }
     }
+    
+    @IBAction func didTapUndoButtonClicked(_ sender: UIButton) {
+        if undoMgr.canUndo() {
+            undoMgr.undo()
+            DispatchQueue.main.async {
+                self.combineButton.isSelected = false
+                self.storyCollectionView.reloadData()
+            }
+        }
+    }
+    
     
     @IBAction func mergeButtonClicked(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected

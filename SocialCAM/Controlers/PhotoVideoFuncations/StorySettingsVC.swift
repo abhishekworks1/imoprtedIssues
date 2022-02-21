@@ -139,19 +139,20 @@ class StorySettings {
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.accountSettings(), selected: false)], settingsType: .accountSettings),
                                 StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.referringChannelOption(), selected: false)], settingsType: .referringChannel),
-                                StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.checkUpdates(), selected: false)], settingsType: .checkUpdate),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: "About", selected: false)], settingsType: .aboutPage),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.logout(), selected: false)], settingsType: .logout)]
     
+   /* StorySettings(name: "",
+                  settings: [StorySetting(name: R.string.localizable.referringChannelOption(), selected: false)], settingsType: .referringChannel), */
+    
     /*StorySettings(name: "",
                   settings: [StorySetting(name: R.string.localizable.socialMediaConnections(), selected: false)], settingsType: .socialMediaConnections) */
 }
 
-class StorySettingsVC: UIViewController {
+class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
     
     @IBOutlet weak var settingsTableView: UITableView!
     @IBOutlet weak var lblAppInfo: UILabel!
@@ -393,6 +394,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         guard let headerView = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.storySettingsHeader.identifier) as? StorySettingsHeader else {
             fatalError("StorySettingsHeader Not Found")
         }
+        
         let settingTitle = StorySettings.storySettings[section]
         if settingTitle.settingsType != .subscriptions && settingTitle.settingsType != .appInfo {
             headerView.title.isHidden = true
@@ -434,14 +436,21 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             headerView.badgesView.isHidden = true
             headerView.imgSocialMediaBadge.isHidden = true
         }
-        if headerView.section == 0 {
-            headerView.btnProfilePic.addTarget(self, action: #selector(btnEditProfilePic), for: .touchUpInside)
-        }
+       
+        headerView.btnProfilePic.addTarget(self, action: #selector(btnEditProfilePic), for: .touchUpInside)
+        headerView.btnProfilePic.tag = section
+        headerView.callBackForReload = { [weak self] (isCalled) -> Void in
+            headerView.badgeIconHeightConstraint.constant = 45
+          }
         
         return headerView
     }
     
-    @objc func btnEditProfilePic() {
+   
+    
+    @objc func btnEditProfilePic(sender: UIButton) {
+        
+//        headerView.badgeIconHeightConstraint.constant = 45
        /* if let editProfilePicViewController = R.storyboard.editProfileViewController.editProfilePicViewController() {
             navigationController?.pushViewController(editProfilePicViewController, animated: true)
         } */

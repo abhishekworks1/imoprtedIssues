@@ -28,6 +28,8 @@ class OmitEditorViewController: UIViewController {
             segmentTypeMergeView.isHidden = true
         }
     }
+    @IBOutlet weak var rightPlayButton: UIButton!
+    @IBOutlet weak var leftPlayButton: UIButton!
     
     @IBOutlet weak var segmentEditOptionButton: UIButton!
     @IBOutlet weak var segmentEditOptionView: UIStackView!
@@ -50,6 +52,8 @@ class OmitEditorViewController: UIViewController {
     var draggingCell: IndexPath?
     var lastMergeCell: IndexPath?
     var isStartMovable: Bool = false
+    var leftSidePlayer: AVPlayer?
+    var rightSidePlayer: AVPlayer?
     
     // MARK: - Public Properties
     var videoUrls: [StoryEditorMedia] = []
@@ -124,6 +128,9 @@ class OmitEditorViewController: UIViewController {
             storyEditorMedias.append([videoSegment])
             resetStoryEditorMedias.append([videoSegment])
         }
+        
+        leftPlayButton.isSelected = false
+        rightPlayButton.isSelected = false
 //        doneView.alpha = 0.5
 //        doneView.isUserInteractionEnabled = false
     }
@@ -228,8 +235,20 @@ class OmitEditorViewController: UIViewController {
             let playBackTime = player.currentTime()
             if let cell: ImageCollectionViewCutCell = self.editStoryCollectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? ImageCollectionViewCutCell {
                 if !isStartMovable {
-                    guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
+                    guard var startTime = cell.trimmerView.startTime, var endTime = cell.trimmerView.endTime else {
                         return
+                    }
+                    
+                    
+                    let currentAsset = self.currentAsset(index: currentPage)
+                    
+                    if rightPlayButton.isSelected { //right player
+                        
+                        startTime = cell.trimmerView.endTime ?? .zero
+                        endTime = currentAsset?.duration ?? .zero
+                    } else if leftPlayButton.isSelected { // left player
+                        startTime = .zero
+                        endTime = cell.trimmerView.startTime ?? .zero
                     }
                     
                     cell.trimmerView.seek(to: playBackTime)
@@ -296,6 +315,10 @@ extension OmitEditorViewController: UICollectionViewDataSource {
                 return cell
             }
             cell.setEditLayout(indexPath: indexPath, currentPage: currentPage, currentAsset: currentSelectedAsset)
+            cell.trimmerView.rightImage = UIImage()
+            cell.trimmerView.leftImage = UIImage()
+            cell.leftTopView.isHidden = true
+            cell.rightTopView.isHidden = true
         } else {
             guard let currentAsset = currentAsset(index: indexPath.row) else {
                 return cell
@@ -382,6 +405,8 @@ extension OmitEditorViewController {
         playerLayer?.player = player
         player?.play()
         btnPlayPause.isSelected = true
+        leftPlayButton.isSelected = false
+        rightPlayButton.isSelected = false
         startPlaybackTimeChecker()
     }
     
@@ -630,9 +655,11 @@ extension OmitEditorViewController {
             }
             loadViewWith(asset: currentAsset)
         } else {
-            player?.seek(to: CMTime.zero)
-            player?.play()
-            btnPlayPause.isSelected = true
+            //            player?.seek(to: CMTime.zero)
+            player?.pause()
+            btnPlayPause.isSelected = false
+            leftPlayButton.isSelected = false
+            rightPlayButton.isSelected = false
         }
         
         if let player = self.player, !self.storyEditorMedias.isEmpty {
@@ -885,20 +912,95 @@ extension OmitEditorViewController {
         
     }
     
-    @IBAction func playPauseClicked(_ sender: Any) {
-        if let player = self.player {
-            if player.timeControlStatus == .playing {
-                player.pause()
-                btnPlayPause.isSelected = false
-                doneView.alpha = 1
-                doneView.isUserInteractionEnabled = true
-            } else {
-                player.play()
-                btnPlayPause.isSelected = true
+    @IBAction func leftplayPauseClicked(_ sender: Any) {
+        rightPlayButton.isSelected = false
+        btnPlayPause.isSelected = false
+        player?.pause()
+        
+        if let cell: ImageCollectionViewCutCell = self.editStoryCollectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? ImageCollectionViewCutCell {
+            if !isStartMovable {
+                guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
+                    return
+                }
                 
-//                doneView.alpha = 0.5
-//                doneView.isUserInteractionEnabled = false
+                if let player = player {
+                    if leftPlayButton.isSelected {//its playing
+                        leftPlayButton.isSelected = false
+                    } else { //its not playing
+                        leftPlayButton.isSelected = true
+                        player.seek(to: .zero, toleranceBefore: self.tolerance, toleranceAfter: self.tolerance)
+                        player.play()
+                    }
+                    
+                }
             }
+        }
+    }
+    
+    @IBAction func rightplayPauseClicked(_ sender: Any) {
+        leftPlayButton.isSelected = false
+        btnPlayPause.isSelected = false
+        player?.pause()
+        
+        if let cell: ImageCollectionViewCutCell = self.editStoryCollectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? ImageCollectionViewCutCell {
+            if !isStartMovable {
+                guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
+                    return
+                }
+                
+                if let player = player {
+                    if rightPlayButton.isSelected {//its playing
+                        rightPlayButton.isSelected = false
+                    } else { //its not playing
+                        rightPlayButton.isSelected = true
+                        
+                        player.seek(to: endTime, toleranceBefore: self.tolerance, toleranceAfter: self.tolerance)
+                        player.play()
+                    }
+                    
+                }
+                
+            }
+        }
+    }
+    
+    
+    @IBAction func playPauseClicked(_ sender: Any) {
+        //        if let player = self.player {
+        //            if player.timeControlStatus == .playing {
+        //                player.pause()
+        //                btnPlayPause.isSelected = false
+        //                doneView.alpha = 1
+        //                doneView.isUserInteractionEnabled = true
+        //            } else {
+        //                player.play()
+        //                btnPlayPause.isSelected = true
+        //
+        ////                doneView.alpha = 0.5
+        ////                doneView.isUserInteractionEnabled = false
+        //            }
+        //        }
+        
+        leftPlayButton.isSelected = false
+        rightPlayButton.isSelected = false
+        if !btnPlayPause.isSelected && !leftPlayButton.isSelected && !rightPlayButton.isSelected {
+            if let player = self.player {
+                if player.timeControlStatus == .playing {
+                    player.pause()
+                    btnPlayPause.isSelected = false
+                    doneView.alpha = 1
+                    doneView.isUserInteractionEnabled = true
+                } else {
+                    player.play()
+                    btnPlayPause.isSelected = true
+                }
+            }
+        }
+        else {
+            player?.pause()
+            btnPlayPause.isSelected = false
+            doneView.alpha = 1
+            doneView.isUserInteractionEnabled = true
         }
     }
     

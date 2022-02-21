@@ -107,6 +107,7 @@ class StoryEditorViewController: UIViewController {
     
     @IBOutlet weak var shareCollectionView: UICollectionView!
     
+    @IBOutlet weak var splitOptionView: UIView!
     @IBOutlet weak var editToolBarView: UIView!
     @IBOutlet weak var downloadView: UIView!
     @IBOutlet weak var backButton: UIButton!
@@ -237,6 +238,7 @@ class StoryEditorViewController: UIViewController {
     @IBOutlet weak var btnSelectPublicDisplaynameWatermark: UIButton!
     @IBOutlet weak var btnPublicDisplaynameWatermark: UIButton!
     
+    @IBOutlet weak var shareView: UIView!
     @IBOutlet weak var saveVideoPopupView: UIView!
     
     @IBOutlet weak var lblVideoSaveText: UILabel!
@@ -326,7 +328,8 @@ class StoryEditorViewController: UIViewController {
     var isViewEditMode: Bool = false {
         didSet {
             editToolBarView.isHidden = isViewEditMode
-            downloadView.isHidden = isViewEditMode
+            shareView.isHidden = isViewEditMode
+            downloadView.isHidden = true
             backButtonView.isHidden = isViewEditMode
             if (storyEditors.count > 1) {
                 collectionView.isHidden = isViewEditMode
@@ -342,7 +345,7 @@ class StoryEditorViewController: UIViewController {
                 playPauseButton.isHidden = isViewEditMode
                 progressBarView.isHidden = !progressBarView.isHidden
             }
-            socialShareBottomView.isHidden = isViewEditMode
+            socialShareBottomView.isHidden = true
             showHideView.isHidden = isViewEditMode
             watermarkView.isHidden = isViewEditMode
             isHideTapped = isViewEditMode
@@ -621,7 +624,7 @@ class StoryEditorViewController: UIViewController {
         self.slideShowFillAuto.isHidden = !isSlideShow
         self.addMusicOptionView.isHidden = !isSlideShow
         self.collectionView.isHidden = !(storyEditors.count > 1)
-        self.playButtonBottomLayoutConstraint.constant = (storyEditors.count > 1) ? 70 : 15
+//        self.playButtonBottomLayoutConstraint.constant = (storyEditors.count > 1) ? 70 : 10
         self.backgroundCollectionView.isHidden = self.collectionView.isHidden
         
         self.youtubeShareView.isHidden = isImage //isImage
@@ -825,7 +828,7 @@ extension StoryEditorViewController {
     @IBAction func trimClicked(_ sender: UIButton) {
         Defaults.shared.callHapticFeedback(isHeavy: false)
         let trimVC: TrimEditorViewController = R.storyboard.videoTrim.trimEditorViewController()!
-        
+        trimVC.isFromSplitView = false
         var filteredMedias: [StoryEditorMedia] = []
         for editor in storyEditors {
             if case StoryEditorType.video(_, _) = editor.type {
@@ -875,10 +878,58 @@ extension StoryEditorViewController {
 //                   self.socialMediaMainView.frame = CGRect(x: 0, y: 0,width: self.view.frame.size.width ,height: self.view.frame.size.height)
 //
 //               })
-        
+        playPauseButton.isSelected = false
+        self.playPauseButtonClick(playPauseButton)
         self.socialMediaMainView.isHidden = false
     
     }
+    
+    @IBAction func didTapSplitButtonClicked(_ sender: UIButton) {
+        Defaults.shared.callHapticFeedback(isHeavy: false)
+        let trimVC: TrimEditorViewController = R.storyboard.videoTrim.trimEditorViewController()!
+        trimVC.isFromSplitView = true
+        var filteredMedias: [StoryEditorMedia] = []
+        for editor in storyEditors {
+            if case StoryEditorType.video(_, _) = editor.type {
+                filteredMedias.append(StoryEditorMedia(type: editor.type))
+            } else {
+                filteredImagesStory.append(StoryEditorMedia(type: editor.type))
+            }
+        }
+        
+        trimVC.videoUrls = filteredMedias
+        trimVC.doneHandler = { [weak self] urls in
+            guard let `self` = self else {
+                return
+            }
+            self.currentStoryIndex = 0
+            self.medias.removeAll()
+            
+            for item in urls {
+                guard let storyEditorMedia = item.copy() as? StoryEditorMedia else {
+                    return
+                }
+                self.medias.append(storyEditorMedia)
+            }
+            self.isTrim = true
+            self.medias.append(contentsOf: self.filteredImagesStory)
+            if !self.storyEditorsSubviews.isEmpty {
+                self.storyEditorsSubviews.removeAll()
+            }
+            for storyEditor in self.storyEditors {
+                self.storyEditorsSubviews.append(storyEditor)
+                storyEditor.removeFromSuperview()
+            }
+            self.filteredImagesStory.removeAll()
+            self.storyEditors.removeAll()
+            self.setupFilterViews()
+            self.needToExportVideo()
+        }
+        self.navigationController?.pushViewController(trimVC, animated: true)
+    }
+    
+    
+    
     @IBAction func omitClicked(_ sender: UIButton) {
         Defaults.shared.callHapticFeedback(isHeavy: false)
         let trimVC: OmitEditorViewController = R.storyboard.videoTrim.omitEditorViewController()!
@@ -1137,7 +1188,7 @@ extension StoryEditorViewController {
     @IBAction func downloadClicked(_ sender: UIButton) {
         Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
         referType = storyEditors[currentStoryIndex].referType
-        imageVideoExport(isDownload: true)
+        imageVideoExport(isDownload: true,isFromDoneTap:true)
     }
     
     @IBAction func slideShowAutoFillClicked(_ sender: UIButton) {
@@ -1206,7 +1257,7 @@ extension StoryEditorViewController {
         })
     }
     
-    func imageVideoExport(isDownload: Bool = false, type: SocialShare = .facebook) {
+    func imageVideoExport(isDownload: Bool = false, isFromDoneTap: Bool = false,type: SocialShare = .facebook) {
         if isSlideShow {
             saveSlideShow(success: { [weak self] (exportURL) in
                 guard let `self` = self else {
@@ -1216,6 +1267,9 @@ extension StoryEditorViewController {
                 if isDownload {
                     DispatchQueue.runOnMainThread {
                         self.saveImageOrVideoInGallery(exportURL: exportURL)
+                        if isFromDoneTap{
+                            self.navigationController?.popViewController(animated: true)
+                        }
                     }
                 } else {
                     DispatchQueue.runOnMainThread {
@@ -1236,6 +1290,9 @@ extension StoryEditorViewController {
                 if let image = storyEditors[currentStoryIndex].updatedThumbnailImage() {
                     if isDownload {
                         self.saveImageOrVideoInGallery(image: image)
+                        if isFromDoneTap{
+                            self.navigationController?.popViewController(animated: true)
+                        }
                     } else {
                         SocialShareVideo.shared.sharePhoto(image: image, socialType: type, referType: self.referType)
                     }
@@ -1255,11 +1312,15 @@ extension StoryEditorViewController {
                     self.isSettingsChange = false
                     self.exportViewWithURL(asset, type: type) { [weak self] url in
                         guard let `self` = self else { return }
+                        
                         if let exportURL = url {
                             self.videoExportedURL =  exportURL
                             if isDownload {
                                 DispatchQueue.runOnMainThread {
                                     self.saveImageOrVideoInGallery(exportURL: exportURL)
+                                    if isFromDoneTap{
+                                        self.navigationController?.popViewController(animated: true)
+                                    }
                                 }
                             } else {
                                 DispatchQueue.runOnMainThread {
@@ -1272,6 +1333,10 @@ extension StoryEditorViewController {
                                     self.pauseVideo()
                                     self.isVideoPlay = true
                                 }
+                            }
+                        }else{
+                            if isFromDoneTap{
+                                self.navigationController?.popViewController(animated: true)
                             }
                         }
                     }
@@ -1464,7 +1529,7 @@ extension StoryEditorViewController {
     }
     @IBAction func btnSocialMediaShareClick(_ sender: UIButton) {
         
-        
+       
         if Defaults.shared.appMode == .free, !(sender.tag == 3) {
             showAlertForUpgradeSubscription()
         } else {
@@ -2084,16 +2149,27 @@ extension StoryEditorViewController {
         nativePlayercollectionView.contentOffset = CGPoint(x: position, y: nativePlayercollectionView.contentOffset.y)
         cursorContainerViewController.seconds = time.seconds
         
-        let (progressTimeM, progressTimeS) = Utils.secondsToHoursMinutesSeconds(Int(Float(time.seconds).roundToPlaces(places: 0)))
-        let (totalTimeM, totalTimeS) = Utils.secondsToHoursMinutesSeconds(Int(Float(asset.duration.seconds).roundToPlaces(places: 0)))
+        var timeSeconds = time.seconds
+        if let seconds = sliderValue{
+            timeSeconds = Double(seconds)
+        }
+        let (_, progressTimeS) =
+            Utils.secondsToHoursMinutesSeconds(Int(Float(timeSeconds).roundToPlaces(places: 0)))
+        let progressTimeMiliS = Utils.secondsToMiliseconds(timeSeconds)
+        let (_, totalTimeS) = Utils.secondsToHoursMinutesSeconds(Int(Float(asset.duration.seconds).roundToPlaces(places: 0)))
+        let totalTimeMiliS = Utils.secondsToMiliseconds(asset.duration.seconds)
+       
         if let val = sliderValue{
                self.storyProgressBar.currentTime = TimeInterval(val)
                self.videoProgressBar.currentTime = Float(val)
+               print(val)
         }else{
                self.storyProgressBar.currentTime = time.seconds
                self.videoProgressBar.currentTime = Float(time.seconds)
          }
-        self.lblStoryTime.text = "\(progressTimeM):\(progressTimeS) / \(totalTimeM):\(totalTimeS)"
+      //  self.lblStoryTime.text = "\(progressTimeM):\(progressTimeS) / \(totalTimeM):\(totalTimeS)"
+        
+        self.lblStoryTime.text = "\(progressTimeS):\(progressTimeMiliS) / \(totalTimeS):\(totalTimeMiliS)"
     }
     
     func startPlaybackTimeChecker() {
