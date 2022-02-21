@@ -499,7 +499,7 @@ open class TrimmerView: UIView {
         cutViewHeightAnchor = cutView.heightAnchor
             .constraint(equalToConstant: 35)
         cutViewTopAnchor = cutView.topAnchor
-            .constraint(equalTo: topAnchor, constant: -30)
+            .constraint(equalTo: topAnchor, constant: -18)
         cutViewLeadingAnchor = cutView.leadingAnchor
             .constraint(equalTo: leftDraggableView.trailingAnchor, constant: 15)
         
