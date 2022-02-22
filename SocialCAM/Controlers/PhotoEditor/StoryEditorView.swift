@@ -930,7 +930,7 @@ extension StoryEditorView {
             }
             superView = parentView
         }
-        deleteView?.isHidden = false
+        
         socialShareView?.isHidden = true
         view.superview?.bringSubviewToFront(view)
         let pointToSuperView = recognizer.location(in: superView)
@@ -938,6 +938,14 @@ extension StoryEditorView {
         view.center = CGPoint(x: view.center.x + recognizer.translation(in: superView).x,
                               y: view.center.y + recognizer.translation(in: superView).y)
         
+        print("delete view gap")
+        print(view.center.y - (deleteView?.center.y ?? 0.0))
+        if view.center.y - (deleteView?.center.y ?? 0.0) > -250.0{
+            deleteView?.isHidden = false
+        }else{
+            deleteView?.isHidden = true
+        }
+       
         recognizer.setTranslation(.zero, in: superView)
         
         if let previousPoint = lastPanPoint {
