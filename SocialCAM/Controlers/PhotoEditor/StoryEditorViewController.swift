@@ -55,6 +55,8 @@ class StoryEditorMedia: CustomStringConvertible, NSCopying, Equatable {
 
 class StoryEditorCell: UICollectionViewCell {
     
+    @IBOutlet weak var thumbnailNumberLabel: UILabel!
+    @IBOutlet weak var thumbnailTimeLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var deleteButton: UIButton!
     var deleteSlideshowImageHandler: ((Int) -> Void)?
@@ -113,7 +115,7 @@ class StoryEditorViewController: UIViewController {
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var undoButton: UIButton!
     @IBOutlet weak var imgFastestEverWatermark: UIImageView!
-    
+    var timeFloatArray = [Float]()
     @IBOutlet weak var specificBoomerangView: UIView! {
         didSet {
             self.specificBoomerangView.isHidden = true
@@ -1908,15 +1910,22 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
             guard let storyEditorCell = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.storyEditorCell.identifier, for: indexPath) as? StoryEditorCell else {
                 fatalError("Cell with identifier \(R.reuseIdentifier.storyEditorCell.identifier) not Found")
             }
+            
             let storyEditor = storyEditors[indexPath.item]
+            storyEditorCell.thumbnailNumberLabel.text = "\(indexPath.item + 1)"
+            let currentVideoAssest = Float(currentVideoAsset?.duration.seconds ?? 0.0)
+            storyEditorCell.thumbnailTimeLabel.text = String(format:"%.2f", currentVideoAssest)
             storyEditorCell.imageView.image = storyEditor.thumbnailImage
+            storyEditorCell.imageView.cornerRadiusV = 5
             storyEditorCell.imageView.layer.borderColor = storyEditor.isHidden ? UIColor.white.cgColor : R.color.appPrimaryColor()?.cgColor
             storyEditorCell.isHidden = false
+            
             if let draggingPathOfCellBeingDragged = self.collectionView.draggingPathOfCellBeingDragged {
                 if draggingPathOfCellBeingDragged.item == indexPath.item {
                     storyEditorCell.isHidden = true
                 }
             }
+            
             return storyEditorCell
         }
     }
@@ -1946,8 +1955,9 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
         } else if collectionView == nativePlayercollectionView {
             return CGSize(width: 67, height: collectionView.frame.size.height)
         }
-        return CGSize(width: collectionView.frame.height/2.3,
+        return CGSize(width: 45.0,
                       height: collectionView.frame.height)
+
     }
     
     func collectionView(_ collectionView: UICollectionView, indexPathForDataItem dataItem: AnyObject) -> IndexPath? {
