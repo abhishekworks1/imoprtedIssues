@@ -154,6 +154,10 @@ class StorySettings {
 
 class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
     
+    @IBOutlet weak var userPlaceHolderImageView: UIImageView!
+    @IBOutlet weak var nameTitleLabel: UILabel!
+    @IBOutlet weak var userNametitleLabel: UILabel!
+    @IBOutlet weak var profileDisplayView: UIView!
     @IBOutlet weak var settingsTableView: UITableView!
     @IBOutlet weak var lblAppInfo: UILabel!
     @IBOutlet weak var imgAppLogo: UIImageView!
@@ -176,7 +180,15 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         let longpress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(sender:)))
         longpress.minimumPressDuration = 0.5
         settingsTableView.addGestureRecognizer(longpress)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapProfileView))
+        tapGesture.numberOfTapsRequired = 1
+        profileDisplayView.addGestureRecognizer(tapGesture)
     }
+    
+    @objc func didTapProfileView(sender: UITapGestureRecognizer) {
+        profileDisplayView.isHidden = true
+    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -437,10 +449,24 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             headerView.imgSocialMediaBadge.isHidden = true
         }
        
-        headerView.btnProfilePic.addTarget(self, action: #selector(btnEditProfilePic), for: .touchUpInside)
+        if section == 0 {
+            headerView.btnProfilePic.addTarget(self, action: #selector(btnEditProfilePic), for: .touchUpInside)
+        }
         headerView.btnProfilePic.tag = section
         headerView.callBackForReload = { [weak self] (isCalled) -> Void in
             headerView.badgeIconHeightConstraint.constant = 45
+            self?.profileDisplayView.isHidden = false
+            self?.nameTitleLabel.text = R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? "")
+            self?.userNametitleLabel.text = R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? "")
+            if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
+                if userImageURL.isEmpty {
+                    self?.userPlaceHolderImageView.isHidden = false
+                }
+                self?.userPlaceHolderImageView.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: ApplicationSettings.userPlaceHolder)
+            } else {
+                self?.userPlaceHolderImageView.image = ApplicationSettings.userPlaceHolder
+            }
+            
           }
         
         return headerView

@@ -133,6 +133,8 @@ open class SocialShareVideo: NSObject, SharingDelegate {
             }
         case .storiCam, .storiCamPost:
             storiCamShareVideo(url, socialType: socialType)
+        case .more:
+            print(url)
         }
     }
     

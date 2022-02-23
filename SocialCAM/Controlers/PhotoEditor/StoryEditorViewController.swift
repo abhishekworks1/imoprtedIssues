@@ -55,6 +55,8 @@ class StoryEditorMedia: CustomStringConvertible, NSCopying, Equatable {
 
 class StoryEditorCell: UICollectionViewCell {
     
+    @IBOutlet weak var thumbnailNumberLabel: UILabel!
+    @IBOutlet weak var thumbnailTimeLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var deleteButton: UIButton!
     var deleteSlideshowImageHandler: ((Int) -> Void)?
@@ -113,7 +115,7 @@ class StoryEditorViewController: UIViewController {
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var undoButton: UIButton!
     @IBOutlet weak var imgFastestEverWatermark: UIImageView!
-    
+    var timeFloatArray = [Float]()
     @IBOutlet weak var specificBoomerangView: UIView! {
         didSet {
             self.specificBoomerangView.isHidden = true
@@ -603,6 +605,7 @@ class StoryEditorViewController: UIViewController {
         }
         self.soundOptionView.isHidden = isImage
         self.trimOptionView.isHidden = isImage
+        self.splitOptionView.isHidden = isImage
         self.omitOptionView.isHidden = isImage
         var videoCount = 0
         for editor in storyEditors {
@@ -1275,6 +1278,8 @@ extension StoryEditorViewController {
                     DispatchQueue.runOnMainThread {
                         if type == .youtube {
                             self.checkYoutubeAuthentication(exportURL)
+                        }else if type == .more {
+                            self.shareWithActivity(url:exportURL)
                         } else {
                             SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type, referType: self.referType)
                         }
@@ -1294,7 +1299,12 @@ extension StoryEditorViewController {
                             self.navigationController?.popViewController(animated: true)
                         }
                     } else {
+                        if type == .more {
+                            self.shareWithActivity(url:nil,image:image)
+                       }else{
                         SocialShareVideo.shared.sharePhoto(image: image, socialType: type, referType: self.referType)
+                       }
+                        
                     }
                 }
             case let .video(_, asset):
@@ -1302,7 +1312,9 @@ extension StoryEditorViewController {
                     DispatchQueue.runOnMainThread {
                         if type == .youtube {
                             self.checkYoutubeAuthentication(exportURL)
-                        } else {
+                        }else if type == .more {
+                            self.shareWithActivity(url:exportURL)
+                        }else {
                             SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type, referType: self.referType)
                         }
                         self.pauseVideo()
@@ -1327,6 +1339,8 @@ extension StoryEditorViewController {
                                     self.socialShareExportURL = exportURL
                                     if type == .youtube {
                                         self.checkYoutubeAuthentication(exportURL)
+                                    }else if type == .more {
+                                        self.shareWithActivity(url:exportURL)
                                     } else {
                                         SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type, referType: self.referType)
                                     }
@@ -1901,15 +1915,22 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
             guard let storyEditorCell = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.storyEditorCell.identifier, for: indexPath) as? StoryEditorCell else {
                 fatalError("Cell with identifier \(R.reuseIdentifier.storyEditorCell.identifier) not Found")
             }
+            
             let storyEditor = storyEditors[indexPath.item]
+            storyEditorCell.thumbnailNumberLabel.text = "\(indexPath.item + 1)"
+            let currentVideoAssest = Float(currentVideoAsset?.duration.seconds ?? 0.0)
+            storyEditorCell.thumbnailTimeLabel.text = String(format:"%.2f", currentVideoAssest)
             storyEditorCell.imageView.image = storyEditor.thumbnailImage
+            storyEditorCell.imageView.cornerRadiusV = 5
             storyEditorCell.imageView.layer.borderColor = storyEditor.isHidden ? UIColor.white.cgColor : R.color.appPrimaryColor()?.cgColor
             storyEditorCell.isHidden = false
+            
             if let draggingPathOfCellBeingDragged = self.collectionView.draggingPathOfCellBeingDragged {
                 if draggingPathOfCellBeingDragged.item == indexPath.item {
                     storyEditorCell.isHidden = true
                 }
             }
+            
             return storyEditorCell
         }
     }
@@ -1950,8 +1971,9 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
         } else if collectionView == nativePlayercollectionView {
             return CGSize(width: 67, height: collectionView.frame.size.height)
         }
-        return CGSize(width: collectionView.frame.height/2.3,
+        return CGSize(width: 45.0,
                       height: collectionView.frame.height)
+
     }
     
     func collectionView(_ collectionView: UICollectionView, indexPathForDataItem dataItem: AnyObject) -> IndexPath? {
@@ -2397,7 +2419,9 @@ extension StoryEditorViewController {
             DispatchQueue.runOnMainThread {
                 if type == .youtube {
                     self.checkYoutubeAuthentication(exporturl)
-                } else {
+                }else if type == .more {
+                    self.shareWithActivity(url:exporturl)
+                }else {
                     SocialShareVideo.shared.shareVideo(url: exporturl, socialType: type, referType: self.referType)
                 }
                 self.pauseVideo()
@@ -2541,6 +2565,23 @@ extension StoryEditorViewController {
                 loadingView.hide()
             }
         }
+    }
+    
+    func shareWithActivity(url:URL? = nil,image:UIImage? = nil) {
+    
+        var activityItems = [Any]()
+        if let videoURL = url{
+            activityItems.append(videoURL)
+        }
+        if let img = image{
+            activityItems.append(img)
+        }
+        let activityController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
+
+        activityController.popoverPresentationController?.sourceView = self.view
+        activityController.popoverPresentationController?.sourceRect = self.view.frame
+
+        self.present(activityController, animated: true, completion: nil)
     }
     
 }

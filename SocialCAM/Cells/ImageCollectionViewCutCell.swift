@@ -18,6 +18,7 @@ class ImageCollectionViewCutCell: UICollectionViewCell {
     @IBOutlet weak var lblVideoDuration: UILabel!
     @IBOutlet weak var lblVideoersiontag: UILabel!
     @IBOutlet weak var trimmerView: TrimmerViewCut!
+    var remainTimeMiliS: Int = 0
     public var leftTopView: UIView = {
         let leftTopView = UIImageView.init(image: R.image.trim_leftWhite())
         leftTopView.frame = .zero
@@ -258,6 +259,7 @@ class ImageCollectionViewCutCell: UICollectionViewCell {
         let remainTime = asset.duration.seconds - time.seconds
         let (remainTimeM, remainTimeS) = Utils.secondsToHoursMinutesSeconds(Int(Float(remainTime).roundToPlaces(places: 0)))
         let remainTimeMiliS = Utils.secondsToMiliseconds(remainTime)
+        self.remainTimeMiliS = remainTimeMiliS
         self.lblVideoDuration.text = "\(progressTimeS):\(progressTimeMiliS) / \(remainTimeS):\(remainTimeMiliS)"
     }
     
