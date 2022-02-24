@@ -231,6 +231,7 @@ class TrimEditorViewController: UIViewController {
                     if playBackTime >= endTime {
                         player.seek(to: startTime, toleranceBefore: tolerance, toleranceAfter: tolerance)
                         cell.trimmerView.seek(to: startTime)
+                        seek(to: CMTime.init(seconds: startTime.seconds, preferredTimescale: 10000), cell: cell)
                         cell.trimmerView.resetTimePointer()
                     }
                 }
@@ -645,6 +646,7 @@ extension TrimEditorViewController {
                 }
                 player.seek(to: startTime, toleranceBefore: self.tolerance, toleranceAfter: self.tolerance)
             }
+            
         }
     }
 }

@@ -279,21 +279,12 @@ class OmitEditorViewController: UIViewController,UIGestureRecognizerDelegate {
             let playBackTime = player.currentTime()
             if let cell: ImageCollectionViewCutCell = self.editStoryCollectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? ImageCollectionViewCutCell {
                 if !isStartMovable {
-                    guard var startTime = cell.trimmerView.startTime, var endTime = cell.trimmerView.endTime else {
+                    guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
                         return
                     }
                     
                     
                     let currentAsset = self.currentAsset(index: currentPage)
-                    
-//                    if rightPlayButton.isSelected { //right player
-//
-//                        startTime = cell.trimmerView.endTime ?? .zero
-//                        endTime = currentAsset?.duration ?? .zero
-//                    } else if leftPlayButton.isSelected { // left player
-//                        startTime = .zero
-//                        endTime = cell.trimmerView.startTime ?? .zero
-//                    }
                     
                     cell.trimmerView.seek(to: playBackTime)
                     seek(to: CMTime.init(seconds: playBackTime.seconds, preferredTimescale: 10000), cell: cell)
@@ -301,6 +292,7 @@ class OmitEditorViewController: UIViewController,UIGestureRecognizerDelegate {
                     if playBackTime >= endTime {
                         player.seek(to: startTime, toleranceBefore: tolerance, toleranceAfter: tolerance)
                         cell.trimmerView.seek(to: startTime)
+                        seek(to: CMTime.init(seconds: startTime.seconds, preferredTimescale: 10000), cell: cell)
                         cell.trimmerView.resetTimePointer()
                     }
                 }
@@ -531,7 +523,7 @@ extension OmitEditorViewController: TrimmerViewCutDelegate {
     func trimmerCutDidEndDragging(_ trimmer: TrimmerViewCut, with startTime: CMTime, endTime: CMTime, isLeftGesture: Bool) {
         if let player = player {
             isStartMovable = false
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [self] in
                 if self.btnPlayPause.isSelected {
                     if !isLeftGesture {
                         guard let endTime = trimmer.endTime else {
@@ -543,12 +535,21 @@ extension OmitEditorViewController: TrimmerViewCutDelegate {
                     player.play()
                     
                 }
+                
+                let finaltime = endTime.seconds - startTime.seconds
+                if finaltime >= 3.0 {
+                    doneView.alpha = 1
+                    doneView.isUserInteractionEnabled = true
+                } else {
+                    doneView.alpha = 0.5
+                    doneView.isUserInteractionEnabled = false
+                }
             }
         }
         
 //        if self.combinedstoryEditorMedias.count > 1 {
-//            doneView.alpha = 1
-//            doneView.isUserInteractionEnabled = true
+//
+//
 //        } else {
 //            doneView.alpha = 0.5
 //            doneView.isUserInteractionEnabled = false
@@ -922,14 +923,18 @@ extension OmitEditorViewController {
         }
         if let doneHandler = self.doneHandler,  let cell: ImageCollectionViewCutCell = self.editStoryCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? ImageCollectionViewCutCell  {
             
-            //            guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
-            //                return
-            //            }
-            //
-            //            print(CMTime.init(seconds: 0, preferredTimescale: 10000).seconds)
-            //            print(startTime.seconds)
-            //            print(endTime.seconds)
-            //            print(asset.duration.seconds)
+            guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
+                return
+            }
+            
+            let finaltime = endTime.seconds - startTime.seconds
+            if finaltime >= 3.0 {
+                doneView.alpha = 1
+                doneView.isUserInteractionEnabled = true
+            } else {
+                doneView.alpha = 0.5
+                doneView.isUserInteractionEnabled = false
+            }
             
             self.trimMultipleVideos(cell.trimmerView)
             print("*************************")
