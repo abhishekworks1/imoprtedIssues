@@ -146,6 +146,7 @@ class TrimEditorViewController: UIViewController {
             isPlayerInitialize = true
             connVideoPlay(isReload: true)
         }
+        player?.isMuted = Defaults.shared.isEditSoundOff
     }
     
     public override func viewDidDisappear(_ animated: Bool) {
@@ -157,6 +158,8 @@ class TrimEditorViewController: UIViewController {
         super.viewWillDisappear(animated)
         if let player = player {
             player.pause()
+            player.isMuted = Defaults.shared.isEditSoundOff
+            player.isMuted = true
             stopPlaybackTimeChecker()
             if let observer = self.playerObserver {
                 player.removeTimeObserver(observer)
@@ -231,6 +234,7 @@ class TrimEditorViewController: UIViewController {
                     if playBackTime >= endTime {
                         player.seek(to: startTime, toleranceBefore: tolerance, toleranceAfter: tolerance)
                         cell.trimmerView.seek(to: startTime)
+                        seek(to: CMTime.init(seconds: startTime.seconds, preferredTimescale: 10000), cell: cell)
                         cell.trimmerView.resetTimePointer()
                     }
                 }
@@ -532,6 +536,7 @@ extension TrimEditorViewController: TrimmerViewDelegate {
             player.seek(to: currentTimeScrub, toleranceBefore: tolerance, toleranceAfter: tolerance)
             if btnPlayPause.isSelected {
                 player.play()
+                
             }
         }
     }
@@ -644,6 +649,7 @@ extension TrimEditorViewController {
                 }
                 player.seek(to: startTime, toleranceBefore: self.tolerance, toleranceAfter: self.tolerance)
             }
+            
         }
     }
 }

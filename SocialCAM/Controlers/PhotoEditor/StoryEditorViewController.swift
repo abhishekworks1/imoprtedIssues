@@ -391,7 +391,7 @@ class StoryEditorViewController: UIViewController {
                     self.hideSaveVideoPopupView(isHide: false)
                 } else {
                     DispatchQueue.main.async {
-                        self.view.makeToast(R.string.localizable.videoSaved())
+                       // self.view.makeToast(R.string.localizable.videoSaved())
                     }
                 }
             } else if let isRegistered = Defaults.shared.isFirstTimePic2ArtRegistered, cameraMode == .pic2Art {
@@ -403,7 +403,7 @@ class StoryEditorViewController: UIViewController {
         }
         self.socialShareExportURL = nil
         self.socialMediaMainView.isHidden = true
-
+        Defaults.shared.isEditSoundOff = false
     }
     override func viewDidLayoutSubviews() {
         //self.socialMediaMainView.frame = CGRect(x: self.view.frame.size.width, y: 0,width: self.view.frame.size.width ,height: self.view.frame.size.height)
@@ -780,6 +780,7 @@ extension StoryEditorViewController {
     @IBAction func soundClicked(_ sender: UIButton) {
         Defaults.shared.callHapticFeedback(isHeavy: false)
         storyEditors[currentStoryIndex].isMuted = !storyEditors[currentStoryIndex].isMuted
+        Defaults.shared.isEditSoundOff = storyEditors[currentStoryIndex].isMuted
         self.needToExportVideo()
         let soundIcon = storyEditors[currentStoryIndex].isMuted ? R.image.storySoundOff() : R.image.storySoundOn()
         soundButton.setImage(soundIcon, for: .normal)
@@ -1189,9 +1190,15 @@ extension StoryEditorViewController {
     }
 
     @IBAction func downloadClicked(_ sender: UIButton) {
-        Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
-        referType = storyEditors[currentStoryIndex].referType
-        imageVideoExport(isDownload: true,isFromDoneTap:true)
+     //pop to recorrding screen if auto save is off
+        if Defaults.shared.isVideoSavedAfterRecording{
+            Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
+            referType = storyEditors[currentStoryIndex].referType
+            imageVideoExport(isDownload: true,isFromDoneTap:true)
+        }else{
+            self.navigationController?.popViewController(animated: true)
+        }
+        
     }
     
     @IBAction func slideShowAutoFillClicked(_ sender: UIButton) {

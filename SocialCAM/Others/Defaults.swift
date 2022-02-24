@@ -1195,6 +1195,15 @@ class Defaults {
         }
     }
     
+    var isEditSoundOff: Bool {
+        get {
+            return appDefaults?.bool(forKey: "isEditSoundOff") ?? false
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isEditSoundOff")
+        }
+    }
+    
     func clearData(isDeleteAccount: Bool = false) {
         if let appDefaultsDictionary = appDefaults?.dictionaryRepresentation() {
             appDefaultsDictionary.keys.forEach { key in
