@@ -383,6 +383,7 @@ extension MergeVideoVC {
     }
     
     @IBAction func combineButtonTapped(_ sender: AnyObject) {
+        btnPlayPause.isSelected = true
         guard !combineButton.isSelected else {
             return
         }

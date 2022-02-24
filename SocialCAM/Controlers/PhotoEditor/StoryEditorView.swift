@@ -979,7 +979,7 @@ extension StoryEditorView {
             imageViewToPan = nil
             lastPanPoint = nil
             deleteView?.isHidden = true
-            socialShareView?.isHidden = false
+            //socialShareView?.isHidden = false
             let point = recognizer.location(in: superview)
             adjustView(point: point, view: view)
         }

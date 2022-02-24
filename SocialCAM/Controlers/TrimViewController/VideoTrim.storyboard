@@ -2273,24 +2273,6 @@
                                             <action selector="playPauseClicked:" destination="cyz-fG-TfG" eventType="touchUpInside" id="l3J-XV-sCH"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z7B-OA-Ybr">
-                                        <rect key="frame" x="294" y="506" width="60" height="60"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="60" id="7pJ-gX-eph"/>
-                                            <constraint firstAttribute="height" constant="60" id="wa0-9q-Mez"/>
-                                        </constraints>
-                                        <state key="normal" image="iconTrimPause"/>
-                                        <state key="selected" image="iconTrimPlay"/>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aS3-qw-Khx">
-                                        <rect key="frame" x="60" y="506" width="60" height="60"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="60" id="bqp-m2-lZR"/>
-                                            <constraint firstAttribute="width" constant="60" id="dfz-la-fpY"/>
-                                        </constraints>
-                                        <state key="normal" image="iconTrimPause"/>
-                                        <state key="selected" image="iconTrimPlay"/>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GXP-iF-dSd">
                                         <rect key="frame" x="0.0" y="570" width="20" height="20"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2361,7 +2343,6 @@
                                     <constraint firstItem="lR1-QS-qci" firstAttribute="top" secondItem="KXo-He-bnK" secondAttribute="top" id="5sH-dt-QmT"/>
                                     <constraint firstItem="eZg-06-UXI" firstAttribute="centerX" secondItem="KXo-He-bnK" secondAttribute="centerX" id="6Vu-oP-jog"/>
                                     <constraint firstItem="hu7-WV-bTN" firstAttribute="leading" secondItem="u0p-TT-4gw" secondAttribute="leading" id="8ei-Fs-8Sp"/>
-                                    <constraint firstItem="Z7B-OA-Ybr" firstAttribute="top" secondItem="tyH-rI-R3h" secondAttribute="bottom" constant="40" id="A8s-tg-OXS"/>
                                     <constraint firstItem="GXP-iF-dSd" firstAttribute="centerY" secondItem="GUR-hT-EkT" secondAttribute="centerY" id="BEl-0s-6FR"/>
                                     <constraint firstItem="tyH-rI-R3h" firstAttribute="centerY" secondItem="KXo-He-bnK" secondAttribute="centerY" id="CdW-vF-bDh"/>
                                     <constraint firstItem="hu7-WV-bTN" firstAttribute="bottom" secondItem="GUR-hT-EkT" secondAttribute="bottom" id="DzB-b9-5Y4"/>
@@ -2374,15 +2355,12 @@
                                     <constraint firstItem="hu7-WV-bTN" firstAttribute="leading" secondItem="GUR-hT-EkT" secondAttribute="leading" id="SEG-OF-aq9"/>
                                     <constraint firstItem="u0p-TT-4gw" firstAttribute="trailing" secondItem="G4S-rK-RYr" secondAttribute="trailing" id="UYw-mA-I30"/>
                                     <constraint firstAttribute="bottom" secondItem="DsQ-Mh-D1i" secondAttribute="bottom" id="VIf-hu-wS9"/>
-                                    <constraint firstAttribute="trailing" secondItem="Z7B-OA-Ybr" secondAttribute="trailing" constant="60" id="Xnb-0S-Wb1"/>
                                     <constraint firstItem="eZg-06-UXI" firstAttribute="top" secondItem="KXo-He-bnK" secondAttribute="top" constant="20" id="c1L-s5-GzP"/>
                                     <constraint firstItem="u0p-TT-4gw" firstAttribute="leading" secondItem="G4S-rK-RYr" secondAttribute="leading" id="dgd-zg-0hK"/>
                                     <constraint firstAttribute="trailing" secondItem="eZg-06-UXI" secondAttribute="trailing" id="eEd-7b-ndZ"/>
-                                    <constraint firstItem="aS3-qw-Khx" firstAttribute="top" secondItem="tyH-rI-R3h" secondAttribute="bottom" constant="40" id="eY5-6n-W0k"/>
                                     <constraint firstAttribute="bottom" secondItem="G4S-rK-RYr" secondAttribute="bottom" constant="22" id="i3a-dy-keS"/>
                                     <constraint firstItem="u0p-TT-4gw" firstAttribute="leading" secondItem="KXo-He-bnK" secondAttribute="leading" constant="20" id="jbG-hc-042"/>
                                     <constraint firstItem="eZg-06-UXI" firstAttribute="leading" secondItem="KXo-He-bnK" secondAttribute="leading" id="laz-wT-zr9"/>
-                                    <constraint firstItem="aS3-qw-Khx" firstAttribute="leading" secondItem="KXo-He-bnK" secondAttribute="leading" constant="60" id="nWC-pS-TD2"/>
                                     <constraint firstItem="DsQ-Mh-D1i" firstAttribute="leading" secondItem="KXo-He-bnK" secondAttribute="leading" id="pwL-IK-Lb6"/>
                                     <constraint firstItem="hu7-WV-bTN" firstAttribute="height" secondItem="GUR-hT-EkT" secondAttribute="height" id="wCq-1l-sAO"/>
                                     <constraint firstItem="QUa-IU-wcD" firstAttribute="leading" secondItem="KXo-He-bnK" secondAttribute="leading" id="yGg-K6-yc5"/>
@@ -2421,14 +2399,12 @@
                         <outlet property="doneView" destination="xOX-4Z-hPz" id="OzZ-X9-WFd"/>
                         <outlet property="editStoryCollectionView" destination="u0p-TT-4gw" id="ysU-wb-CbD"/>
                         <outlet property="handlerModeView" destination="sks-ig-RJD" id="BSC-Pf-9Eg"/>
-                        <outlet property="leftPlayButton" destination="aS3-qw-Khx" id="xt9-e3-Ghu"/>
                         <outlet property="mergeButton" destination="O1D-XO-6Al" id="R9T-g5-0N2"/>
                         <outlet property="mergeView" destination="qn4-yV-w0U" id="bwx-si-enA"/>
                         <outlet property="postStoryButton" destination="O4u-hI-v3h" id="QEC-RI-OuD"/>
                         <outlet property="rearrangedView" destination="DPe-gw-q5K" id="0SQ-4D-n4Z"/>
                         <outlet property="resequenceButton" destination="90e-K7-vXM" id="kOE-Dl-Hv1"/>
                         <outlet property="resequenceLabel" destination="e7L-QO-c9O" id="loS-lW-tdI"/>
-                        <outlet property="rightPlayButton" destination="Z7B-OA-Ybr" id="g6a-6v-EMg"/>
                         <outlet property="segmentEditOptionButton" destination="GXP-iF-dSd" id="c3I-6B-chf"/>
                         <outlet property="segmentEditOptionView" destination="GUR-hT-EkT" id="T5w-Au-02Z"/>
                         <outlet property="segmentTypeMergeView" destination="hu7-WV-bTN" id="EzL-ET-wOo"/>

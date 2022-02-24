@@ -6,7 +6,7 @@
 import Foundation
 import AVKit
 
-class OmitEditorViewController: UIViewController {
+class OmitEditorViewController: UIViewController,UIGestureRecognizerDelegate {
     @IBOutlet weak var postStoryButton: UIButton!
     @IBOutlet weak var storyExportLabel: UILabel!
     @IBOutlet weak var storyCollectionView: DragAndDropCollectionView!
@@ -28,8 +28,6 @@ class OmitEditorViewController: UIViewController {
             segmentTypeMergeView.isHidden = true
         }
     }
-    @IBOutlet weak var rightPlayButton: UIButton!
-    @IBOutlet weak var leftPlayButton: UIButton!
     
     @IBOutlet weak var segmentEditOptionButton: UIButton!
     @IBOutlet weak var segmentEditOptionView: UIStackView!
@@ -54,6 +52,7 @@ class OmitEditorViewController: UIViewController {
     var isStartMovable: Bool = false
     var leftSidePlayer: AVPlayer?
     var rightSidePlayer: AVPlayer?
+    var remineTime = 0
     
     // MARK: - Public Properties
     var videoUrls: [StoryEditorMedia] = []
@@ -129,12 +128,57 @@ class OmitEditorViewController: UIViewController {
             resetStoryEditorMedias.append([videoSegment])
         }
         
-        leftPlayButton.isSelected = false
-        rightPlayButton.isSelected = false
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(didTapBtnPlayPauseLongPress))
+        longPressGesture.minimumPressDuration = 0.5
+        longPressGesture.delaysTouchesBegan = true
+        longPressGesture.delegate = self
+        btnPlayPause.addGestureRecognizer(longPressGesture)
+        
+//        leftPlayButton.isSelected = false
+//        rightPlayButton.isSelected = false
 //        doneView.alpha = 0.5
 //        doneView.isUserInteractionEnabled = false
     }
     
+    @objc func didTapBtnPlayPauseLongPress(sender: UILongPressGestureRecognizer) {
+        if let cell: ImageCollectionViewCutCell = self.editStoryCollectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? ImageCollectionViewCutCell {
+            if !isStartMovable {
+                guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
+                    return
+                }
+                let vnewStartTime = Float(startTime.seconds)
+                if vnewStartTime > 0.0 {
+                    player?.seek(to: .zero)
+                    guard let duration  = player?.currentItem?.duration else {
+                        return
+                    }
+                    let playerCurrentTime = CMTimeGetSeconds(startTime)
+                    let playerEndTime = CMTimeGetSeconds(endTime)
+                    let newRemineTime = CMTimeGetSeconds(duration) - playerCurrentTime
+                    let newRemineTime1 = CMTimeGetSeconds(duration) - playerEndTime
+                    let latestTime = newRemineTime - playerCurrentTime
+                    let newTime = playerCurrentTime + latestTime
+
+                        if newTime < (CMTimeGetSeconds(duration) - latestTime) {
+
+                            let time2: CMTime = CMTimeMake(value: Int64(newTime * 1000 as Float64), timescale: 1000)
+                            player!.seek(to: time2, toleranceBefore: CMTime.zero, toleranceAfter: CMTime.zero)
+                            player?.play()
+
+                        }
+                    
+                    
+                    
+                }
+            }
+        }
+    }
+    
+    
+    func seek(to seconds: Int) {
+        let targetTime:CMTime = CMTimeMake(value: Int64(seconds), timescale: 1)
+        player?.seek(to: targetTime)
+    }
     deinit {
         stopPlaybackTimeChecker()
         player?.pause()
@@ -236,21 +280,12 @@ class OmitEditorViewController: UIViewController {
             let playBackTime = player.currentTime()
             if let cell: ImageCollectionViewCutCell = self.editStoryCollectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? ImageCollectionViewCutCell {
                 if !isStartMovable {
-                    guard var startTime = cell.trimmerView.startTime, var endTime = cell.trimmerView.endTime else {
+                    guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
                         return
                     }
                     
                     
                     let currentAsset = self.currentAsset(index: currentPage)
-                    
-                    if rightPlayButton.isSelected { //right player
-                        
-                        startTime = cell.trimmerView.endTime ?? .zero
-                        endTime = currentAsset?.duration ?? .zero
-                    } else if leftPlayButton.isSelected { // left player
-                        startTime = .zero
-                        endTime = cell.trimmerView.startTime ?? .zero
-                    }
                     
                     cell.trimmerView.seek(to: playBackTime)
                     seek(to: CMTime.init(seconds: playBackTime.seconds, preferredTimescale: 10000), cell: cell)
@@ -258,6 +293,7 @@ class OmitEditorViewController: UIViewController {
                     if playBackTime >= endTime {
                         player.seek(to: startTime, toleranceBefore: tolerance, toleranceAfter: tolerance)
                         cell.trimmerView.seek(to: startTime)
+                        seek(to: CMTime.init(seconds: startTime.seconds, preferredTimescale: 10000), cell: cell)
                         cell.trimmerView.resetTimePointer()
                     }
                 }
@@ -316,6 +352,7 @@ extension OmitEditorViewController: UICollectionViewDataSource {
                 return cell
             }
             cell.setEditLayout(indexPath: indexPath, currentPage: currentPage, currentAsset: currentSelectedAsset)
+            remineTime = cell.remainTimeMiliS
             cell.trimmerView.rightImage = UIImage()
             cell.trimmerView.leftImage = UIImage()
             cell.leftTopView.isHidden = true
@@ -406,8 +443,8 @@ extension OmitEditorViewController {
         playerLayer?.player = player
         player?.play()
         btnPlayPause.isSelected = true
-        leftPlayButton.isSelected = false
-        rightPlayButton.isSelected = false
+//        leftPlayButton.isSelected = false
+//        rightPlayButton.isSelected = false
         startPlaybackTimeChecker()
     }
     
@@ -487,7 +524,7 @@ extension OmitEditorViewController: TrimmerViewCutDelegate {
     func trimmerCutDidEndDragging(_ trimmer: TrimmerViewCut, with startTime: CMTime, endTime: CMTime, isLeftGesture: Bool) {
         if let player = player {
             isStartMovable = false
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [self] in
                 if self.btnPlayPause.isSelected {
                     if !isLeftGesture {
                         guard let endTime = trimmer.endTime else {
@@ -497,9 +534,29 @@ extension OmitEditorViewController: TrimmerViewCutDelegate {
                         player.seek(to: newEndTime, toleranceBefore: self.tolerance, toleranceAfter: self.tolerance)
                     }
                     player.play()
+                    
+                }
+                
+                let finaltime = endTime.seconds - startTime.seconds
+                if finaltime >= 3.0 {
+                    doneView.alpha = 1
+                    doneView.isUserInteractionEnabled = true
+                } else {
+                    doneView.alpha = 0.5
+                    doneView.isUserInteractionEnabled = false
                 }
             }
         }
+        
+//        if self.combinedstoryEditorMedias.count > 1 {
+//
+//
+//        } else {
+//            doneView.alpha = 0.5
+//            doneView.isUserInteractionEnabled = false
+//        }
+       
+        
     }
     
     func trimmerCutScrubbingDidChange(_ trimmer: TrimmerViewCut, with currentTimeScrub: CMTime) {
@@ -542,28 +599,28 @@ extension OmitEditorViewController: TrimmerViewCutDelegate {
     func trimMultipleVideos(_ trimmer: TrimmerViewCut) {
         self.combinedstoryEditorMedias.removeAll()
         do {
+            try Utils.time {
+                self.registerCombineAllData(data: self.storyEditorMedias)
+                guard let asset = currentAsset(index: self.currentPage) else {
+                    return
+                }
+                let trimmed = try asset.assetByTrimming(startTime: CMTime.init(seconds: 0, preferredTimescale: 10000), endTime: trimmer.startTime!)
+                let thumbimage = UIImage.getThumbnailFrom(asset: trimmed) ?? UIImage()
+                
+                self.combinedstoryEditorMedias.append([StoryEditorMedia(type: .video(thumbimage, trimmed))])
+                do {
                     try Utils.time {
-                        self.registerCombineAllData(data: self.storyEditorMedias)
-                        guard let asset = currentAsset(index: self.currentPage) else {
-                            return
-                        }
-                        let trimmed = try asset.assetByTrimming(startTime: CMTime.init(seconds: 0, preferredTimescale: 10000), endTime: trimmer.startTime!)
-                        let thumbimage = UIImage.getThumbnailFrom(asset: trimmed) ?? UIImage()
-                        
-                        self.combinedstoryEditorMedias.append([StoryEditorMedia(type: .video(thumbimage, trimmed))])
-                        do {
-                            try Utils.time {
-                                let trimmedAsset = try asset.assetByTrimming(startTime: trimmer.endTime!, endTime: CMTime.init(seconds: asset.duration.seconds, preferredTimescale: 10000))
-                                let image = UIImage.getThumbnailFrom(asset: trimmedAsset) ?? UIImage()
-                                self.combinedstoryEditorMedias.append([StoryEditorMedia(type: .video(image, trimmedAsset))])
-                            }
-                        } catch let error {
-                            print("*error2*\(error)")
-                        }
+                        let trimmedAsset = try asset.assetByTrimming(startTime: trimmer.endTime!, endTime: CMTime.init(seconds: asset.duration.seconds, preferredTimescale: 10000))
+                        let image = UIImage.getThumbnailFrom(asset: trimmedAsset) ?? UIImage()
+                        self.combinedstoryEditorMedias.append([StoryEditorMedia(type: .video(image, trimmedAsset))])
                     }
                 } catch let error {
-                    print("*error1*\(error)")
+                    print("*error2*\(error)")
                 }
+            }
+        } catch let error {
+            print("*error1*\(error)")
+        }
     }
     
     func trimVideo(_ trimmer: TrimmerViewCut, with currentTimeScrub: CMTime) {
@@ -659,8 +716,8 @@ extension OmitEditorViewController {
             //            player?.seek(to: CMTime.zero)
             player?.pause()
             btnPlayPause.isSelected = false
-            leftPlayButton.isSelected = false
-            rightPlayButton.isSelected = false
+//            leftPlayButton.isSelected = false
+//            rightPlayButton.isSelected = false
         }
         
         if let player = self.player, !self.storyEditorMedias.isEmpty {
@@ -867,18 +924,23 @@ extension OmitEditorViewController {
         }
         if let doneHandler = self.doneHandler,  let cell: ImageCollectionViewCutCell = self.editStoryCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? ImageCollectionViewCutCell  {
             
-            //            guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
-            //                return
-            //            }
-            //
-            //            print(CMTime.init(seconds: 0, preferredTimescale: 10000).seconds)
-            //            print(startTime.seconds)
-            //            print(endTime.seconds)
-            //            print(asset.duration.seconds)
+            guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
+                return
+            }
+            
+            let finaltime = endTime.seconds - startTime.seconds
+            if finaltime >= 3.0 {
+                doneView.alpha = 1
+                doneView.isUserInteractionEnabled = true
+            } else {
+                doneView.alpha = 0.5
+                doneView.isUserInteractionEnabled = false
+            }
             
             self.trimMultipleVideos(cell.trimmerView)
-            
+            print("*************************")
             print(self.combinedstoryEditorMedias.count)
+            print("*************************")
             DispatchQueue.main.async {
                 if self.combinedstoryEditorMedias.count > 1 {
                     self.registerCombineAllData(data: self.combinedstoryEditorMedias)
@@ -913,57 +975,55 @@ extension OmitEditorViewController {
         
     }
     
-    @IBAction func leftplayPauseClicked(_ sender: Any) {
-        rightPlayButton.isSelected = false
-        btnPlayPause.isSelected = false
-        player?.pause()
-        
-        if let cell: ImageCollectionViewCutCell = self.editStoryCollectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? ImageCollectionViewCutCell {
-            if !isStartMovable {
-                guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
-                    return
-                }
-                
-                if let player = player {
-                    if leftPlayButton.isSelected {//its playing
-                        leftPlayButton.isSelected = false
-                    } else { //its not playing
-                        leftPlayButton.isSelected = true
-                        player.seek(to: .zero, toleranceBefore: self.tolerance, toleranceAfter: self.tolerance)
-                        player.play()
-                    }
-                    
-                }
-            }
-        }
-    }
+//    @IBAction func leftplayPauseClicked(_ sender: Any) {
+//        rightPlayButton.isSelected = false
+//        btnPlayPause.isSelected = false
+//        player?.pause()
+//
+//        if let cell: ImageCollectionViewCutCell = self.editStoryCollectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? ImageCollectionViewCutCell {
+//            if !isStartMovable {
+//                guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
+//                    return
+//                }
+//
+//                if let player = player {
+//                    if leftPlayButton.isSelected {//its playing
+//                        leftPlayButton.isSelected = false
+//                    } else { //its not playing
+//                        leftPlayButton.isSelected = true
+//                        player.seek(to: .zero, toleranceBefore: self.tolerance, toleranceAfter: self.tolerance)
+//                        player.play()
+//                    }
+//
+//                }
+//            }
+//        }
+//    }
     
-    @IBAction func rightplayPauseClicked(_ sender: Any) {
-        leftPlayButton.isSelected = false
-        btnPlayPause.isSelected = false
-        player?.pause()
-        
-        if let cell: ImageCollectionViewCutCell = self.editStoryCollectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? ImageCollectionViewCutCell {
-            if !isStartMovable {
-                guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
-                    return
-                }
-                
-                if let player = player {
-                    if rightPlayButton.isSelected {//its playing
-                        rightPlayButton.isSelected = false
-                    } else { //its not playing
-                        rightPlayButton.isSelected = true
-                        
-                        player.seek(to: endTime, toleranceBefore: self.tolerance, toleranceAfter: self.tolerance)
-                        player.play()
-                    }
-                    
-                }
-                
-            }
-        }
-    }
+//    @IBAction func rightplayPauseClicked(_ sender: Any) {
+//        leftPlayButton.isSelected = false
+//        btnPlayPause.isSelected = false
+//        player?.pause()
+//
+//        if let cell: ImageCollectionViewCutCell = self.editStoryCollectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? ImageCollectionViewCutCell {
+//            if !isStartMovable {
+//                guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
+//                    return
+//                }
+//
+//                if let player = player {
+//                    if rightPlayButton.isSelected {//its playing
+//                        rightPlayButton.isSelected = false
+//                    } else { //its not playing
+//                        rightPlayButton.isSelected = true
+//
+//                        player.seek(to: endTime, toleranceBefore: self.tolerance, toleranceAfter: self.tolerance)
+//                        player.play()
+//                    }
+//                }
+//            }
+//        }
+//    }
     
     
     @IBAction func playPauseClicked(_ sender: Any) {
@@ -982,9 +1042,9 @@ extension OmitEditorViewController {
         //            }
         //        }
         
-        leftPlayButton.isSelected = false
-        rightPlayButton.isSelected = false
-        if !btnPlayPause.isSelected && !leftPlayButton.isSelected && !rightPlayButton.isSelected {
+//        leftPlayButton.isSelected = false
+//        rightPlayButton.isSelected = false
+//        if !btnPlayPause.isSelected && !leftPlayButton.isSelected && !rightPlayButton.isSelected {
             if let player = self.player {
                 if player.timeControlStatus == .playing {
                     player.pause()
@@ -996,13 +1056,13 @@ extension OmitEditorViewController {
                     btnPlayPause.isSelected = true
                 }
             }
-        }
-        else {
-            player?.pause()
-            btnPlayPause.isSelected = false
-            doneView.alpha = 1
-            doneView.isUserInteractionEnabled = true
-        }
+//        }
+//        else {
+//            player?.pause()
+//            btnPlayPause.isSelected = false
+//            doneView.alpha = 1
+//            doneView.isUserInteractionEnabled = true
+//        }
     }
     
     @IBAction func handleButtonClicked(_ sender: UIButton) {

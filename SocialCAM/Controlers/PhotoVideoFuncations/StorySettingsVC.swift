@@ -449,7 +449,9 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             headerView.imgSocialMediaBadge.isHidden = true
         }
        
-        headerView.btnProfilePic.addTarget(self, action: #selector(btnEditProfilePic), for: .touchUpInside)
+        if section == 0 {
+            headerView.btnProfilePic.addTarget(self, action: #selector(btnEditProfilePic), for: .touchUpInside)
+        }
         headerView.btnProfilePic.tag = section
         headerView.callBackForReload = { [weak self] (isCalled) -> Void in
             headerView.badgeIconHeightConstraint.constant = 45
@@ -465,7 +467,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 self?.userPlaceHolderImageView.image = ApplicationSettings.userPlaceHolder
             }
             
-          }
+        }
         
         return headerView
     }
