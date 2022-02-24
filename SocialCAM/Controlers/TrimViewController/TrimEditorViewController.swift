@@ -532,6 +532,7 @@ extension TrimEditorViewController: TrimmerViewDelegate {
             player.seek(to: currentTimeScrub, toleranceBefore: tolerance, toleranceAfter: tolerance)
             if btnPlayPause.isSelected {
                 player.play()
+                
             }
         }
     }

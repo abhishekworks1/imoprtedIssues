@@ -541,9 +541,20 @@ extension OmitEditorViewController: TrimmerViewCutDelegate {
                         player.seek(to: newEndTime, toleranceBefore: self.tolerance, toleranceAfter: self.tolerance)
                     }
                     player.play()
+                    
                 }
             }
         }
+        
+//        if self.combinedstoryEditorMedias.count > 1 {
+//            doneView.alpha = 1
+//            doneView.isUserInteractionEnabled = true
+//        } else {
+//            doneView.alpha = 0.5
+//            doneView.isUserInteractionEnabled = false
+//        }
+       
+        
     }
     
     func trimmerCutScrubbingDidChange(_ trimmer: TrimmerViewCut, with currentTimeScrub: CMTime) {
@@ -586,28 +597,28 @@ extension OmitEditorViewController: TrimmerViewCutDelegate {
     func trimMultipleVideos(_ trimmer: TrimmerViewCut) {
         self.combinedstoryEditorMedias.removeAll()
         do {
+            try Utils.time {
+                self.registerCombineAllData(data: self.storyEditorMedias)
+                guard let asset = currentAsset(index: self.currentPage) else {
+                    return
+                }
+                let trimmed = try asset.assetByTrimming(startTime: CMTime.init(seconds: 0, preferredTimescale: 10000), endTime: trimmer.startTime!)
+                let thumbimage = UIImage.getThumbnailFrom(asset: trimmed) ?? UIImage()
+                
+                self.combinedstoryEditorMedias.append([StoryEditorMedia(type: .video(thumbimage, trimmed))])
+                do {
                     try Utils.time {
-                        self.registerCombineAllData(data: self.storyEditorMedias)
-                        guard let asset = currentAsset(index: self.currentPage) else {
-                            return
-                        }
-                        let trimmed = try asset.assetByTrimming(startTime: CMTime.init(seconds: 0, preferredTimescale: 10000), endTime: trimmer.startTime!)
-                        let thumbimage = UIImage.getThumbnailFrom(asset: trimmed) ?? UIImage()
-                        
-                        self.combinedstoryEditorMedias.append([StoryEditorMedia(type: .video(thumbimage, trimmed))])
-                        do {
-                            try Utils.time {
-                                let trimmedAsset = try asset.assetByTrimming(startTime: trimmer.endTime!, endTime: CMTime.init(seconds: asset.duration.seconds, preferredTimescale: 10000))
-                                let image = UIImage.getThumbnailFrom(asset: trimmedAsset) ?? UIImage()
-                                self.combinedstoryEditorMedias.append([StoryEditorMedia(type: .video(image, trimmedAsset))])
-                            }
-                        } catch let error {
-                            print("*error2*\(error)")
-                        }
+                        let trimmedAsset = try asset.assetByTrimming(startTime: trimmer.endTime!, endTime: CMTime.init(seconds: asset.duration.seconds, preferredTimescale: 10000))
+                        let image = UIImage.getThumbnailFrom(asset: trimmedAsset) ?? UIImage()
+                        self.combinedstoryEditorMedias.append([StoryEditorMedia(type: .video(image, trimmedAsset))])
                     }
                 } catch let error {
-                    print("*error1*\(error)")
+                    print("*error2*\(error)")
                 }
+            }
+        } catch let error {
+            print("*error1*\(error)")
+        }
     }
     
     func trimVideo(_ trimmer: TrimmerViewCut, with currentTimeScrub: CMTime) {
@@ -921,8 +932,9 @@ extension OmitEditorViewController {
             //            print(asset.duration.seconds)
             
             self.trimMultipleVideos(cell.trimmerView)
-            
+            print("*************************")
             print(self.combinedstoryEditorMedias.count)
+            print("*************************")
             DispatchQueue.main.async {
                 if self.combinedstoryEditorMedias.count > 1 {
                     self.registerCombineAllData(data: self.combinedstoryEditorMedias)
