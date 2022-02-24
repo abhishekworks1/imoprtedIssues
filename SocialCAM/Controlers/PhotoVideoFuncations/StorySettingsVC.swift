@@ -467,7 +467,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 self?.userPlaceHolderImageView.image = ApplicationSettings.userPlaceHolder
             }
             
-          }
+        }
         
         return headerView
     }
