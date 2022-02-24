@@ -160,6 +160,7 @@ class OmitEditorViewController: UIViewController {
             isPlayerInitialize = true
             connVideoPlay(isReload: true)
         }
+        player?.isMuted = Defaults.shared.isEditSoundOff
     }
     
     public override func viewDidDisappear(_ animated: Bool) {

@@ -146,6 +146,7 @@ class TrimEditorViewController: UIViewController {
             isPlayerInitialize = true
             connVideoPlay(isReload: true)
         }
+        player?.isMuted = Defaults.shared.isEditSoundOff
     }
     
     public override func viewDidDisappear(_ animated: Bool) {
@@ -157,6 +158,8 @@ class TrimEditorViewController: UIViewController {
         super.viewWillDisappear(animated)
         if let player = player {
             player.pause()
+            player.isMuted = Defaults.shared.isEditSoundOff
+            player.isMuted = true
             stopPlaybackTimeChecker()
             if let observer = self.playerObserver {
                 player.removeTimeObserver(observer)

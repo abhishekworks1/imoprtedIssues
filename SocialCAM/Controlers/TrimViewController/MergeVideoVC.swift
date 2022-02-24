@@ -87,6 +87,7 @@ class MergeVideoVC: UIViewController {
         super.viewDidAppear(animated)
         playerLayer?.frame = videoView.frame
         connVideoPlay(isReload: true)
+        player?.isMuted = Defaults.shared.isEditSoundOff
     }
     
     override func viewWillDisappear(_ animated: Bool) {
