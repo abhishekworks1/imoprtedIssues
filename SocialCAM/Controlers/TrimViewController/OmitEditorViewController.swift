@@ -440,6 +440,7 @@ extension OmitEditorViewController {
         }
         player = AVPlayer(playerItem: playerItem)
         playerLayer?.player = player
+        player?.volume = 0
         player?.play()
         btnPlayPause.isSelected = true
 //        leftPlayButton.isSelected = false
@@ -525,12 +526,23 @@ extension OmitEditorViewController: TrimmerViewCutDelegate {
             isStartMovable = false
             DispatchQueue.main.async { [self] in
                 if self.btnPlayPause.isSelected {
-                    if !isLeftGesture {
-                        guard let endTime = trimmer.endTime else {
-                            return
+                    if let nCell: ImageCollectionViewCutCell = self.editStoryCollectionView.cellForItem(at: self.getCurrentIndexPath) as? ImageCollectionViewCutCell {
+                        if !isLeftGesture {
+                            guard let endTime = trimmer.endTime else {
+                                return
+                            }
+                            let newEndTime = endTime - CMTime.init(seconds: 2, preferredTimescale: endTime.timescale)
+                            var newStartpoint = newEndTime.seconds - 1
+                            if newStartpoint < 0{
+                                newStartpoint = 0
+                            }
+                            let start = CMTimeMakeWithSeconds(newStartpoint, preferredTimescale: endTime.timescale);
+                            //  player.seek(to: newEndTime, toleranceBefore: self.tolerance, toleranceAfter: self.tolerance)
+                            print(newEndTime.seconds)
+                            print(start.seconds)
+                            player.seek(to: newEndTime, toleranceBefore: start, toleranceAfter: start)
+                            self.seek(to: CMTime.init(seconds: newEndTime.seconds, preferredTimescale: 10000), cell: nCell)
                         }
-                        let newEndTime = endTime - CMTime.init(seconds: 2, preferredTimescale: endTime.timescale)
-                        player.seek(to: newEndTime, toleranceBefore: self.tolerance, toleranceAfter: self.tolerance)
                     }
                     player.play()
                     
@@ -546,16 +558,6 @@ extension OmitEditorViewController: TrimmerViewCutDelegate {
                 }
             }
         }
-        
-//        if self.combinedstoryEditorMedias.count > 1 {
-//
-//
-//        } else {
-//            doneView.alpha = 0.5
-//            doneView.isUserInteractionEnabled = false
-//        }
-       
-        
     }
     
     func trimmerCutScrubbingDidChange(_ trimmer: TrimmerViewCut, with currentTimeScrub: CMTime) {
