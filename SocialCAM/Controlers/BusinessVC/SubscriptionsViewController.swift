@@ -137,7 +137,7 @@ class SubscriptionsViewController: UIViewController {
 //            }else {
 //                isFreeTrialMode = false
 //            }
-//        }else if(Defaults.shared.subscriptionType == "premium")
+//        }else if(Defaults.shared.subscriptionType == "basic")
 //        {
 //            isSubscriptionCondition = false
 //            if(Defaults.shared.isDowngradeSubscription ?? false == true){
