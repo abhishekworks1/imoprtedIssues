@@ -593,11 +593,13 @@ open class TrimmerView: UIView {
         backgroundColor = ApplicationSettings.appClearColor
         addSubview(thumbnailsView)
         addSubview(trimView)
+        
+       
+        
         addSubview(topTrimCornerView)
         addSubview(leftMaskView)
         addSubview(rightMaskView)
-        addSubview(leftDraggableView)
-        addSubview(rightDraggableView)
+       
         
         topTrimCornerView.addSubview(leftTopCornerMaskView)
         topTrimCornerView.addSubview(leftBottomCornerMaskView)
@@ -608,12 +610,22 @@ open class TrimmerView: UIView {
         rightTopCornerMaskView.transformRotate(angle: 90)
         rightBottomCornerMaskView.transformRotate(angle: 180)
         
+        addSubview(leftDraggableView)
+        addSubview(rightDraggableView)
+        
         leftDraggableView.addSubview(leftImageView)
         rightDraggableView.addSubview(rightImageView)
-        
+    
         setupTimePointer()
+        addSubview(leftDraggableView)
+        addSubview(rightDraggableView)
+        
+        leftDraggableView.addSubview(leftImageView)
+        rightDraggableView.addSubview(rightImageView)
         setupPanGestures()
         minDistanceUpdate()
+        leftDraggableView.layer.zPosition = 1
+        timePointerView.bringSubviewToFront(leftDraggableView)
     }
 //    func updateColorForCut(){
 //
@@ -674,6 +686,14 @@ open class TrimmerView: UIView {
     
     // MARK: Gestures
     private func setupPanGestures() {
+        let thumbsPanGesture = UIPanGestureRecognizer(
+            target: self,
+            action: #selector(handleScrubbingPan))
+        trimView.addGestureRecognizer(thumbsPanGesture)
+        
+        let timePointerViewGesture = UIPanGestureRecognizer(target: self, action: #selector(handleTimePointerViewPan))
+        timePointerView.addGestureRecognizer(timePointerViewGesture)
+        
         leftPanGesture = UIPanGestureRecognizer(
             target: self,
             action: #selector(handlePan))
@@ -694,13 +714,7 @@ open class TrimmerView: UIView {
             action: #selector(handlePan))
         rightDraggableView.addGestureRecognizer(rightPanGesture)
         
-        let thumbsPanGesture = UIPanGestureRecognizer(
-            target: self,
-            action: #selector(handleScrubbingPan))
-        trimView.addGestureRecognizer(thumbsPanGesture)
-        
-        let timePointerViewGesture = UIPanGestureRecognizer(target: self, action: #selector(handleTimePointerViewPan))
-        timePointerView.addGestureRecognizer(timePointerViewGesture)
+       
     }
     
     @objc func handleTimePointerViewPan(_ sender: UIPanGestureRecognizer) {
@@ -732,6 +746,7 @@ open class TrimmerView: UIView {
     }
     
     @objc func handleLeftRightTap(_ sender: UITapGestureRecognizer) {
+        print("handleLeftRightTap")
         return
         guard let view = sender.view else { return }
         
@@ -793,6 +808,7 @@ open class TrimmerView: UIView {
     }
     
     @objc func handlePan(_ sender: UIPanGestureRecognizer) {
+        print("handlePan")
         guard let view = sender.view else { return }
         
         let isLeftGesture = (view == leftDraggableView)

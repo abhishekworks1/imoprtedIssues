@@ -166,9 +166,6 @@ class OmitEditorViewController: UIViewController,UIGestureRecognizerDelegate {
                             player?.play()
 
                         }
-                    
-                    
-                    
                 }
             }
         }
