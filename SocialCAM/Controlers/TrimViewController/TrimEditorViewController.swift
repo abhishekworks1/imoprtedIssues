@@ -390,6 +390,7 @@ extension TrimEditorViewController {
         }
         player = AVPlayer(playerItem: playerItem)
         playerLayer?.player = player
+        player?.volume = 0
         player?.play()
         btnPlayPause.isSelected = true
         startPlaybackTimeChecker()
@@ -482,20 +483,23 @@ extension TrimEditorViewController: TrimmerViewDelegate {
             isStartMovable = false
             DispatchQueue.main.async {
                 if self.btnPlayPause.isSelected {
-                    if !isLeftGesture {
-                        guard let endTime = trimmer.endTime else {
-                            return
+                    if let cell: ImageCollectionViewCell = self.editStoryCollectionView.cellForItem(at: self.getCurrentIndexPath) as? ImageCollectionViewCell {
+                        if !isLeftGesture {
+                            guard let endTime = trimmer.endTime else {
+                                return
+                            }
+                            let newEndTime = endTime - CMTime.init(seconds: 2, preferredTimescale: endTime.timescale)
+                            var newStartpoint = newEndTime.seconds - 1
+                            if newStartpoint < 0{
+                                newStartpoint = 0
+                            }
+                            let start = CMTimeMakeWithSeconds(newStartpoint, preferredTimescale: endTime.timescale);
+                            //  player.seek(to: newEndTime, toleranceBefore: self.tolerance, toleranceAfter: self.tolerance)
+                            print(newEndTime.seconds)
+                            print(start.seconds)
+                            player.seek(to: newEndTime, toleranceBefore: start, toleranceAfter: start)
+                            self.seek(to: CMTime.init(seconds: newEndTime.seconds, preferredTimescale: 10000), cell: cell)
                         }
-                        let newEndTime = endTime - CMTime.init(seconds: 2, preferredTimescale: endTime.timescale)
-                        var newStartpoint = newEndTime.seconds - 1
-                        if newStartpoint < 0{
-                            newStartpoint = 0
-                        }
-                        let start = CMTimeMakeWithSeconds(newStartpoint, preferredTimescale: endTime.timescale);
-                      //  player.seek(to: newEndTime, toleranceBefore: self.tolerance, toleranceAfter: self.tolerance)
-                        print(newEndTime.seconds)
-                        print(start.seconds)
-                        player.seek(to: newEndTime, toleranceBefore: start, toleranceAfter: start)
                     }
                     player.play()
                 }
