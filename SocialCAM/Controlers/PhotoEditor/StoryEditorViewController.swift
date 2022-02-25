@@ -325,7 +325,7 @@ class StoryEditorViewController: UIViewController {
     var storyEditorsSubviews: [StoryEditorView] = []
     var isTrim = false
     var isFromGallery = false
-    
+    var isSagmentSelection = false
     var socialShareExportURL:URL?
     var isViewEditMode: Bool = false {
         didSet {
@@ -510,6 +510,11 @@ class StoryEditorViewController: UIViewController {
             }
         }
         collectionView.reloadData()
+        if storyEditors.count > 1 {
+            isSagmentSelection = true
+        }else{
+            isSagmentSelection = false
+        }
         for index in 0..<storyEditors.count {
             self.storyEditors[index].isCropped = self.isCropped
         }
@@ -1944,6 +1949,15 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
         for editor in storyEditors {
             editor.isHidden = true
         }
+        
+        self.socialShareExportURL = nil
+        self.needToExportVideo()
+        if storyEditors.count > 1 {
+            isSagmentSelection = true
+        }else{
+            isSagmentSelection = false
+        }
+        
         storyEditors[indexPath.item].isHidden = false
         currentStoryIndex = indexPath.item
         hideOptionIfNeeded()
@@ -1953,6 +1967,8 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
         self.collectionView.reloadData()
         self.shareCollectionView.reloadData()
         self.tableView.reloadData()
+        
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -2426,7 +2442,7 @@ extension StoryEditorViewController {
     }
     
     func exportViewWithURL(_ asset: AVAsset, type: SocialShare = .facebook, index: Int? = nil, completionHandler: @escaping (_ url: URL?) -> Void) {
-        let storyIndex: Int = index ?? self.currentStoryIndex
+        let storyIndex: Int = (isSagmentSelection) ? self.currentStoryIndex : index ?? self.currentStoryIndex
         let storyEditor = storyEditors[storyIndex]
         let exportSession = StoryAssetExportSession()
         

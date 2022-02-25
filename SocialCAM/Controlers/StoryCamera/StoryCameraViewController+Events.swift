@@ -601,6 +601,7 @@ extension StoryCameraViewController {
     }
     
     @IBAction func confirmVideoButtonClicked(_ sender: UIButton) {
+        Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
         if !takenVideoUrls.isEmpty {
             //uncomment to start auto save
           /*  if Defaults.shared.isVideoSavedAfterRecording == true {
@@ -619,6 +620,7 @@ extension StoryCameraViewController {
     }
     
     @IBAction func discardSegementButtonClicked(_ sender: UIButton) {
+        Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
         if !self.takenVideoUrls.isEmpty {
             showAlertOnDiscardVideoSegment()
         }
