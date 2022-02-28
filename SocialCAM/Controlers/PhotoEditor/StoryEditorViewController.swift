@@ -1315,6 +1315,7 @@ extension StoryEditorViewController {
                     }
                 }
             case let .video(_, asset):
+                videoExportedURL = nil
                 if let exportURL = videoExportedURL, !isDownload, !isSettingsChange {
                     DispatchQueue.runOnMainThread {
                         if type == .youtube {
@@ -1960,6 +1961,7 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
         
         storyEditors[indexPath.item].isHidden = false
         currentStoryIndex = indexPath.item
+        print(currentStoryIndex)
         hideOptionIfNeeded()
         _ = storyEditors[currentStoryIndex].updatedThumbnailImage()
         nativeVideoPlayerRefresh()
