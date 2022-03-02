@@ -590,7 +590,8 @@ open class TrimmerView: UIView {
     
     // MARK: Setups views
     private func setup() {
-        backgroundColor = ApplicationSettings.appClearColor
+       backgroundColor = ApplicationSettings.appClearColor
+        
         addSubview(thumbnailsView)
         addSubview(trimView)
         
@@ -617,15 +618,19 @@ open class TrimmerView: UIView {
         rightDraggableView.addSubview(rightImageView)
     
         setupTimePointer()
+        setupCutTimePointer()
         addSubview(leftDraggableView)
         addSubview(rightDraggableView)
         
         leftDraggableView.addSubview(leftImageView)
         rightDraggableView.addSubview(rightImageView)
+        
         setupPanGestures()
         minDistanceUpdate()
         leftDraggableView.layer.zPosition = 1
         timePointerView.bringSubviewToFront(leftDraggableView)
+        
+        addSubview(cutView)
     }
 //    func updateColorForCut(){
 //
@@ -655,14 +660,6 @@ open class TrimmerView: UIView {
                 timePointerViewLeadingAnchor
                 ])
             
-            addSubview(cutView)
-            
-            NSLayoutConstraint.activate([
-                cutViewWidthgAnchor,
-                cutViewHeightAnchor,
-                cutViewTopAnchor,
-                cutViewLeadingAnchor
-                ])
         } else {
             timePointerView.removeFromSuperview()
             
@@ -672,6 +669,20 @@ open class TrimmerView: UIView {
                 timePointerViewTopAnchor,
                 timePointerViewLeadingAnchor
                 ])
+            
+            
+        }
+    }
+    private func setupCutTimePointer() {
+        if isTimePointerVisible {
+            addSubview(cutView)
+            NSLayoutConstraint.activate([
+                cutViewWidthgAnchor,
+                cutViewHeightAnchor,
+                cutViewTopAnchor,
+                cutViewLeadingAnchor
+                ])
+        } else {
             
             cutView.removeFromSuperview()
             
@@ -683,7 +694,6 @@ open class TrimmerView: UIView {
                 ])
         }
     }
-    
     // MARK: Gestures
     private func setupPanGestures() {
         let thumbsPanGesture = UIPanGestureRecognizer(
@@ -692,7 +702,9 @@ open class TrimmerView: UIView {
         trimView.addGestureRecognizer(thumbsPanGesture)
         
         let timePointerViewGesture = UIPanGestureRecognizer(target: self, action: #selector(handleTimePointerViewPan))
-        timePointerView.addGestureRecognizer(timePointerViewGesture)
+       timePointerView.addGestureRecognizer(timePointerViewGesture)
+        let cutTimePointerViewGesture = UIPanGestureRecognizer(target: self, action: #selector(handleCutTimePointerViewPan))
+        cutView.addGestureRecognizer(cutTimePointerViewGesture)
         
         leftPanGesture = UIPanGestureRecognizer(
             target: self,
@@ -720,6 +732,35 @@ open class TrimmerView: UIView {
     @objc func handleTimePointerViewPan(_ sender: UIPanGestureRecognizer) {
         guard let view = sender.view else { return }
         let translation = sender.translation(in: view)
+       // print("handleTimePointerViewPan")
+        sender.setTranslation(.zero, in: view)
+        let position = sender.location(in: view)
+        switch sender.state {
+        case .began:
+            currentLeadingConstraint = trimViewLeadingConstraint.constant
+            currentPointerLeadingConstraint = position.x + view.frame.minX - draggableViewWidth
+            guard let time = thumbnailsView.getTime(from: currentPointerLeadingConstraint) else { return }
+            delegate?.trimmerScrubbingDidBegin?(self, with: time)
+        case .changed:
+            currentPointerLeadingConstraint += translation.x
+            if currentLeadingConstraint < currentPointerLeadingConstraint {
+                guard let time = thumbnailsView.getTime(from: currentPointerLeadingConstraint) else { return }
+                delegate?.trimmerScrubbingDidChange?(self, with: time)
+            }
+        case .failed, .ended, .cancelled:
+            if currentLeadingConstraint > currentPointerLeadingConstraint {
+                currentPointerLeadingConstraint = currentLeadingConstraint
+            }
+            guard let time = thumbnailsView.getTime(from: currentPointerLeadingConstraint) else { return }
+            delegate?.trimmerScrubbingDidEnd?(self, with: time, with: sender)
+        default:
+            break
+        }
+    }
+    @objc func handleCutTimePointerViewPan(_ sender: UIPanGestureRecognizer) {
+        guard let view = sender.view else { return }
+        let translation = sender.translation(in: view)
+      //  print("handleTimePointerViewPan")
         sender.setTranslation(.zero, in: view)
         let position = sender.location(in: view)
         switch sender.state {

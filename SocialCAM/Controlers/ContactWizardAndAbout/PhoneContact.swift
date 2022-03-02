@@ -7,6 +7,48 @@
 import Foundation
 import ContactsUI
 
+
+//{
+//  "content": "Hi! Dummy message text for design http://alpha.quickcam.app/sagarpersonal2/txt/cid=621dff2f0c895749b92af93d",
+//  "invitedFrom":"mobile",
+//  "contactListIds": [
+//    "621dff2f0c895749b92af93d"
+//  ]
+//}
+struct InviteDetails:Codable{
+    var content: String?
+    var invitedFrom: String?
+    var contactListIds: [String]?
+    
+    init(content:String,invitedFrom:String,contactListIds:[String]) {
+        self.contactListIds = contactListIds
+        self.content = content
+        self.invitedFrom = invitedFrom
+    }
+    
+}
+
+struct ContactDetails:Codable{
+    var name: String?
+    var email: String?
+    var mobile: String?
+    var contactSource: String?
+    var trackReferral: Bool = false
+    
+    init(contact:PhoneContact,trackRefferel:Bool = false) {
+        self.name = contact.name ?? ""
+        if contact.email.count > 0{
+            self.email = contact.email.first ?? ""
+        }
+        if contact.phoneNumber.count > 0{
+            self.mobile = contact.phoneNumber.first ?? ""
+        }
+        self.trackReferral = trackRefferel
+        self.contactSource = "mobile"
+    }
+    
+}
+
 enum ContactsFilter {
         case none
         case mail

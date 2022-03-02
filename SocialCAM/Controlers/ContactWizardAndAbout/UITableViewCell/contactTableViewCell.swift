@@ -6,7 +6,7 @@ import UIKit
 
 
 protocol contactCelldelegate : AnyObject {
-    func didPressButton(_ contact: PhoneContact)
+    func didPressButton(_ contact: PhoneContact ,mobileContact:ContactResponse?)
 }
 
 class contactTableViewCell: UITableViewCell {
@@ -18,7 +18,7 @@ class contactTableViewCell: UITableViewCell {
 
     var cellDelegate: contactCelldelegate?
     var phoneContactObj : PhoneContact?
-    
+    var mobileContactObj : ContactResponse?
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -28,8 +28,8 @@ class contactTableViewCell: UITableViewCell {
     }
     
     @IBAction func buttonPressed(_ sender: UIButton) {
-            cellDelegate?.didPressButton(phoneContactObj ?? PhoneContact())
-        }
+        cellDelegate?.didPressButton(phoneContactObj ?? PhoneContact(), mobileContact: mobileContactObj)
+    }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

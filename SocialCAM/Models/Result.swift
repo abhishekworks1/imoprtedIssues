@@ -9,6 +9,9 @@
 import Foundation
 import ObjectMapper
 
+
+
+
 class Result<T: Mappable>: Mappable {
     var sessionToken: String?
     var result: T?
@@ -394,5 +397,34 @@ class SetAffiliateModel: Mappable {
     
     func mapping(map: Map) {
         isAllowAffiliate <- map["isAllowAffiliate"]
+    }
+}
+class ContactResponse: Mappable {
+
+    var Id: String?
+    var mobile: String?
+    var name: String?
+    var emailLink: String?
+    var emailCount: NSNumber?
+    var textLink: String?
+    var textCount: NSNumber?
+    var trackReferral: Bool?
+    var status: String?
+    var emailOptedOut: Bool?
+
+    required init?(map: Map){
+    }
+
+    func mapping(map: Map) {
+        Id <- map["_id"]
+        mobile <- map["mobile"]
+        name <- map["name"]
+        emailLink <- map["emailLink"]
+        emailCount <- map["emailCount"]
+        textLink <- map["textLink"]
+        textCount <- map["textCount"]
+        trackReferral <- map["trackReferral"]
+        status <- map["status"]
+        emailOptedOut <- map["emailOptedOut"]
     }
 }

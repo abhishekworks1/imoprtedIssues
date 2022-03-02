@@ -535,11 +535,17 @@ class StoryEditorViewController: UIViewController {
 //            btnTwitter.setImage(R.image.icoTwitterTransparent(), for: .normal)
 //            btnTiktok.setImage(R.image.icoTiktokTransparent(), for: .normal)
             
-            ivvwFacebook.image = R.image.icoFacebookTransparent()
-            ivvwYoutube.image = R.image.icoYoutubeTransparent()
-            ivvwInstagram.image = R.image.icoInstagramTransparent()
-            ivvwTwitter.image = R.image.icoTwitterTransparent()
-            ivvwTiktok.image = R.image.icoTiktokTransparent()
+//            ivvwFacebook.image = R.image.icoFacebookTransparent()
+//            ivvwYoutube.image = R.image.icoYoutubeTransparent()
+//            ivvwInstagram.image = R.image.icoInstagramTransparent()
+//            ivvwTwitter.image = R.image.icoTwitterTransparent()
+//            ivvwTiktok.image = R.image.icoTiktokTransparent()
+            
+            ivvwFacebook.image = R.image.icoFacebook()
+            ivvwYoutube.image = R.image.icoYoutube()
+            ivvwInstagram.image = R.image.icoInstagram()
+            ivvwTwitter.image = R.image.icoTwitter()
+            ivvwTiktok.image = R.image.icoTikTok()
         } else {
 //            btnFacebook.setImage(R.image.icoFacebook(), for: .normal)
 //            btnYoutube.setImage(R.image.icoYoutube(), for: .normal)

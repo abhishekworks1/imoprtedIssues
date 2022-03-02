@@ -11,8 +11,9 @@ import SafariServices
 import Alamofire
 import Contacts
 import MessageUI
+import ObjectMapper
 
-class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSource, contactCelldelegate , MFMessageComposeViewControllerDelegate , MFMailComposeViewControllerDelegate , UISearchBarDelegate {
+class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSource, contactCelldelegate , MFMessageComposeViewControllerDelegate , MFMailComposeViewControllerDelegate , UISearchBarDelegate, UINavigationControllerDelegate {
     
     
 
@@ -91,6 +92,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     var mailContacts = [PhoneContact]()
     var allphoneContacts = [PhoneContact]()
     var allmailContacts = [PhoneContact]()
+    var mobileContacts = [ContactResponse]()
     var filter: ContactsFilter = .none
     
     override func viewDidLoad() {
@@ -100,6 +102,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         self.setupUI()
         self.setupPage()
         self.fetchTitleMessages()
+        self.getContactList()
     }
     // MARK: - UI setup
     func setupUI(){
@@ -385,11 +388,128 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 //            print(codes)
 //        }
         DispatchQueue.main.async {
-            
-            self.contactTableView.reloadData() // update your tableView having phoneContacts array
+            self.createContactJSON()
+           // self.contactTableView.reloadData() // update your tableView having phoneContacts array
         }
     }
+    func createContactJSON(){
+        var contacts = [ContactDetails]()
+        for contact in phoneContacts{
             
+            let newContact = ContactDetails(contact:contact)
+            contacts.append(newContact)
+
+        }
+     //   print(contacts)
+        let jsonEncoder = JSONEncoder()
+        do {
+            let jsonData = try jsonEncoder.encode(contacts)
+          //  let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: [])
+            self.createMobileContact(data:jsonData)
+           
+        } catch {
+            print("error")
+        }
+    }
+    func createMobileContact(data:Data){
+        let path = API.shared.baseUrlV2 + "contact-list/mobile"
+        print(path)
+        var request = URLRequest(url:URL(string:path)!)
+        //some header examples
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(Defaults.shared.currentUser?.id ?? "", forHTTPHeaderField: "userid")
+        request.setValue(Defaults.shared.sessionToken ?? "", forHTTPHeaderField: "x-access-token")
+        request.setValue("1", forHTTPHeaderField: "deviceType")
+        request.httpBody = data
+        AF.request(request).responseJSON { response in
+            print(response)
+            switch (response.result) {
+            case .success:
+                self.getContactList()
+                break
+               
+            case .failure(let error):
+                print(error)
+                break
+                //failure code here
+            }
+        }
+    }
+    func getContactList(){
+       // ContactResponse
+        let path = API.shared.baseUrlV2 + "contact-list?contactSource=mobile"
+      //  let parameter : Parameters =  ["Content-Type": "application/json"]
+        let headerWithToken : HTTPHeaders =  ["Content-Type": "application/json",
+                                       "userid": Defaults.shared.currentUser?.id ?? "",
+                                       "deviceType": "1",
+                                       "x-access-token": Defaults.shared.sessionToken ?? ""]
+        
+        let request = AF.request(path, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: headerWithToken, interceptor: nil)
+        
+       
+        request.response { response in
+          //  print(response)
+            switch (response.result) {
+            case .success:
+                
+                let json = try! JSONSerialization.jsonObject(with: response.data ?? Data(), options: [])
+                let contacts = Mapper<ContactResponse>().mapArray(JSONArray:json as! [[String : Any]])
+              //  print(contacts.first?.toJSON() ?? "")
+                self.mobileContacts = contacts
+                DispatchQueue.main.async {
+                    self.contactTableView.reloadData() // update your tableView having phoneContacts array
+                }
+                break
+               
+            case .failure(let error):
+                print(error)
+                break
+
+                //failure code here
+            }
+        }
+
+    }
+    func inviteGuestViaMobile(data:Data){
+        let path = API.shared.baseUrlV2 + "contact-list/mobile/status"
+        print(path)
+        var request = URLRequest(url:URL(string:path)!)
+        //some header examples
+        request.httpMethod = "PUT"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(Defaults.shared.currentUser?.id ?? "", forHTTPHeaderField: "userid")
+        request.setValue(Defaults.shared.sessionToken ?? "", forHTTPHeaderField: "x-access-token")
+        request.setValue("1", forHTTPHeaderField: "deviceType")
+        request.httpBody = data
+        AF.request(request).responseJSON { response in
+            print(response)
+            switch (response.result) {
+            case .success:
+                self.getContactList()
+                break
+               
+            case .failure(let error):
+                print(error)
+                break
+
+                //failure code here
+            }
+        }
+    }
+    func validateInvite(contact:ContactResponse){
+        let contactListids = [contact.Id ?? ""]
+        let inviteDetails = InviteDetails(content:contact.textLink ?? "", invitedFrom: "mobile", contactListIds: contactListids)
+        let jsonEncoder = JSONEncoder()
+        do {
+            let jsonData = try jsonEncoder.encode(inviteDetails)
+            self.inviteGuestViaMobile(data:jsonData)
+           
+        } catch {
+            print("error")
+        }
+        
+    }
     // MARK: - tableview Delegate
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if tableView == itemsTableView{
@@ -412,6 +532,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         } else {
             if section == 0 {
                 return phoneContacts.count
+               // return mobileContacts.count
             }else {
                 return mailContacts.count
             }
@@ -469,7 +590,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             cell.selectionStyle = UITableViewCell.SelectionStyle.none
             cell.cellDelegate = self
             if indexPath.section == 0 {
-                let contact = phoneContacts[indexPath.row] as PhoneContact
+               /* let contact = phoneContacts[indexPath.row] as PhoneContact
                 cell.lblDisplayName.text = contact.name ?? ""
                 cell.lblNumberEmail.text = contact.phoneNumber[0]
                 if let imagedata =  contact.avatarData {
@@ -478,7 +599,19 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 }else {
                     cell.contactImage.image = UIImage.init(named: "User_placeholder")
                 }
-                cell.phoneContactObj = contact
+                cell.phoneContactObj = contact */
+                
+                let contact = mobileContacts[indexPath.row]
+                cell.lblDisplayName.text = contact.name ?? ""
+                cell.lblNumberEmail.text = contact.mobile
+                cell.contactImage.image = UIImage.init(named: "User_placeholder")
+                cell.mobileContactObj = contact
+                if contact.status == "pending"{
+                    cell.inviteBtn.isHidden = false
+                }else{
+                    cell.inviteBtn.isHidden = true
+                }
+                
             }else {
                 let contact = mailContacts[indexPath.row] as PhoneContact
                 cell.lblDisplayName.text = contact.name ?? ""
@@ -668,64 +801,88 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         return label
     }
     
-    func didPressButton(_ contact: PhoneContact) {
-        
-        let urlString = self.txtLinkWithCheckOut
-        let channelId = Defaults.shared.currentUser?.channelId ?? ""
-        let urlwithString = urlString + "\n" + "\n" + " \(websiteUrl)/\(channelId)"
-        //UIPasteboard.general.string = urlwithString
-        //var shareItems: [Any] = [urlwithString]
-
-        let imageV = self.profileView.toImage()
-       // shareItems.append(image)
-        
-        var phoneNum = ""
-        var email = ""
-        if contact.phoneNumber.count > 0 {
-            phoneNum = contact.phoneNumber[0]
-            
+    func didPressButton(_ contact: PhoneContact ,mobileContact:ContactResponse?) {
+        if let mobilecontact = mobileContact{
+            let phoneNum = mobilecontact.mobile ?? ""
+            let urlString = self.txtLinkWithCheckOut
+            let urlwithString = urlString + "\n" + "\n" + " \(mobilecontact.textLink ?? "")"
             if !MFMessageComposeViewController.canSendText() {
                     //showAlert("Text services are not available")
                     return
-                }
+            }
 
-                let textComposer = MFMessageComposeViewController()
-                textComposer.messageComposeDelegate = self
-                let recipients:[String] = [phoneNum]
-                textComposer.body = urlwithString
-                textComposer.recipients = recipients
+            let textComposer = MFMessageComposeViewController()
+            textComposer.messageComposeDelegate = self
+            let recipients:[String] = [phoneNum]
+          //textComposer.body = urlwithString
+            textComposer.body = urlwithString
+            textComposer.recipients = recipients
 
-                if MFMessageComposeViewController.canSendAttachments() {
-                    let imageData = imageV.jpegData(compressionQuality: 1.0)
-                    textComposer.addAttachmentData(imageData!, typeIdentifier: "image/jpg", filename: "photo.jpg")
-                }
+            self.validateInvite(contact:mobilecontact)
 
-                present(textComposer, animated: true)
+            present(textComposer, animated: true)
+        }else{
+            let urlString = self.txtLinkWithCheckOut
+            let channelId = Defaults.shared.currentUser?.channelId ?? ""
+            let urlwithString = urlString + "\n" + "\n" + " \(websiteUrl)/\(channelId)"
+            //UIPasteboard.general.string = urlwithString
+            //var shareItems: [Any] = [urlwithString]
+
+            let imageV = self.profileView.toImage()
+           // shareItems.append(image)
             
-        }else {
-            if contact.email.count > 0 {
-                email = contact.email[0]
+            var phoneNum = ""
+            var email = ""
+            if contact.phoneNumber.count > 0 {
                 
-                if MFMailComposeViewController.canSendMail() {
-                    let mail = MFMailComposeViewController()
-                    mail.mailComposeDelegate = self
-                    mail.setToRecipients([email])
-                    mail.setSubject(urlString)
-                    mail.setMessageBody(urlwithString, isHTML: false)
-                    
-                    let imageData = imageV.jpegData(compressionQuality: 1.0)
-                    mail.addAttachmentData(imageData!, mimeType: "image/jpg", fileName: "photo.jpg")
-                    present(mail, animated: true)
-                    
-                    // Show third party email composer if default Mail app is not present
+                phoneNum = contact.phoneNumber[0]
+                if !MFMessageComposeViewController.canSendText() {
+                        //showAlert("Text services are not available")
+                        return
                 }
+
+                    let textComposer = MFMessageComposeViewController()
+                    textComposer.messageComposeDelegate = self
+                    let recipients:[String] = [phoneNum]
+                    textComposer.body = urlwithString
+                    textComposer.recipients = recipients
+                    textComposer.delegate = self
+                    if MFMessageComposeViewController.canSendAttachments() {
+                        let imageData = imageV.jpegData(compressionQuality: 1.0)
+                        textComposer.addAttachmentData(imageData!, typeIdentifier: "image/jpg", filename: "photo.jpg")
+                    }
+
+                    present(textComposer, animated: true)
                 
+            }else {
+                if contact.email.count > 0 {
+                    email = contact.email[0]
+                    
+                    if MFMailComposeViewController.canSendMail() {
+                        let mail = MFMailComposeViewController()
+                        mail.mailComposeDelegate = self
+                        mail.setToRecipients([email])
+                        mail.setSubject(urlString)
+                        mail.setMessageBody(urlwithString, isHTML: false)
+                        
+                        let imageData = imageV.jpegData(compressionQuality: 1.0)
+                        mail.addAttachmentData(imageData!, mimeType: "image/jpg", fileName: "photo.jpg")
+                        present(mail, animated: true)
+                        
+                        // Show third party email composer if default Mail app is not present
+                    }
+                    
+                }
             }
         }
-        
+
     }
     
     func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+        print(result)
+        if result == .sent{
+            
+        }
         controller.dismiss(animated: true, completion: nil)
     }
     func mailComposeController(_ controller: MFMailComposeViewController,
@@ -744,3 +901,4 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     */
 
 }
+

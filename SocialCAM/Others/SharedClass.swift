@@ -1147,6 +1147,11 @@ public struct Paths {
     static let onboarding = "/onboarding?token="
     static let redirect_uri = "&redirect_uri="
     static let referralTitle = "template?type=message-content"
+    
+    static let inviteGuesViaMobile = "contact-list/mobile/status"
+    static let createContactFroMobile = "contact-list/mobile"
+    static let getContactList = "template?type=message-content"
+    
 }
 
 struct WebsiteData {
