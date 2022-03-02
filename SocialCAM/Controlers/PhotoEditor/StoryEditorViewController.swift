@@ -684,6 +684,10 @@ class StoryEditorViewController: UIViewController {
         hideToolTipView.isHidden = isHide
     }
     
+    func hideSocialMediaShareView(isHidden: Bool) {
+        socialMediaMainView.isHidden = isHidden
+    }
+    
     func showAlertForWatermarkShowHide() {
         let alert = UIAlertController(title: Constant.Application.displayName, message: R.string.localizable.updateDefaultSettings(), preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: R.string.localizable.oK(), style: .default, handler: { (_) in
@@ -880,14 +884,6 @@ extension StoryEditorViewController {
     }
     
     @IBAction func shareOnMediaClicked(_ sender: UIButton) {
-//        self.socialMediaMainView.frame = CGRect(x: self.view.frame.size.width, y: 0,width: self.view.frame.size.width ,height: self.view.frame.size.height)
-//        UIView.animate(withDuration: 0.5, delay: 0.25, options: UIView.AnimationOptions(), animations: { () -> Void in
-//            self.socialMediaMainView.frame = CGRect(x: 0, y: 0,width: self.view.frame.size.width ,height: self.view.frame.size.height)
-//               }, completion: { (finished: Bool) -> Void in
-//                   //self.viewSideMenuHolder.backgroundColor = UIColor.clear
-//                   self.socialMediaMainView.frame = CGRect(x: 0, y: 0,width: self.view.frame.size.width ,height: self.view.frame.size.height)
-//
-//               })
         playPauseButton.isSelected = false
         self.playPauseButtonClick(playPauseButton)
         self.socialMediaMainView.isHidden = false
@@ -1511,6 +1507,7 @@ extension StoryEditorViewController {
     
     @IBAction func btnShowHideEditOptionsClick(_ sender: AnyObject) {
         Defaults.shared.callHapticFeedback(isHeavy: false)
+        hideSocialMediaShareView(isHidden: true)
         if Defaults.shared.isShowAllPopUpChecked == true {
             hideToolTipView(isHide: Defaults.shared.isToolTipHide)
         } else if !Defaults.shared.isToolTipHide {
@@ -1524,12 +1521,6 @@ extension StoryEditorViewController {
         popupVC.dismiss()
     }
     @IBAction func btnSocialMediaBackClick(_ sender: UIButton) {
-//        self.socialMediaMainView.frame = CGRect(x: 0, y: 0,width: self.view.frame.size.width ,height: self.view.frame.size.height)
-//        UIView.animate(withDuration: 0.5, delay: 0.25, options: UIView.AnimationOptions(), animations: { () -> Void in
-//            self.socialMediaMainView.frame = CGRect(x: self.view.frame.size.width, y: 0,width: self.view.frame.size.width ,height: self.view.frame.size.height)
-//               }, completion: { (finished: Bool) -> Void in
-//                   self.socialMediaMainView.frame = CGRect(x: self.view.frame.size.width, y: 0,width: self.view.frame.size.width ,height: self.view.frame.size.height)
-//               })
         self.socialShareExportURL = nil
         self.socialMediaMainView.isHidden = true
     }
@@ -1932,8 +1923,21 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
             
             let storyEditor = storyEditors[indexPath.item]
             storyEditorCell.thumbnailNumberLabel.text = "\(indexPath.item + 1)"
-            let currentVideoAssest = Float(currentVideoAsset?.duration.seconds ?? 0.0)
-            storyEditorCell.thumbnailTimeLabel.text = String(format:"%.2f", currentVideoAssest)
+//            let currentVideoAssest = Float(currentVideoAsset?.duration.seconds ?? 0.0)
+            guard let _currentVideoAsset = medias[safe: indexPath.item]?.type else {
+                return storyEditorCell
+            }
+            var avAsset: AVAsset?
+            switch _currentVideoAsset {
+            case .image:
+                break
+            case let .video(_, asset):
+                avAsset = asset
+            }
+            if let videoLenght = avAsset?.duration.seconds.description {
+                storyEditorCell.thumbnailTimeLabel.text = String(videoLenght.prefix(5))
+            }
+             //String(format: "%s", avAsset?.duration.seconds)
             storyEditorCell.imageView.image = storyEditor.thumbnailImage
             storyEditorCell.imageView.cornerRadiusV = 5
             storyEditorCell.imageView.layer.borderColor = storyEditor.isHidden ? UIColor.white.cgColor : R.color.appPrimaryColor()?.cgColor

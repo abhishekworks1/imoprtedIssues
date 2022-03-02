@@ -313,7 +313,7 @@ extension TrimEditorViewController: UICollectionViewDataSource {
             cell.setLayout(indexPath: indexPath, currentPage: currentPage, currentAsset: currentAsset, storySegment: storySegment)
         }
         cell.trimmerView.delegate = self
-        
+        player?.isMuted = Defaults.shared.isEditSoundOff
         if let draggingPathOfCellBeingDragged = self.storyCollectionView.draggingPathOfCellBeingDragged {
             if draggingPathOfCellBeingDragged.item == indexPath.item {
                 cell.isHidden = true
@@ -560,6 +560,7 @@ extension TrimEditorViewController: TrimmerViewDelegate {
                 guard let asset = currentAsset(index: self.currentPage) else {
                     return
                 }
+                
                 let trimmed = try asset.assetByTrimming(startTime: CMTime.init(seconds: currentTimeScrub.seconds, preferredTimescale: 10000), endTime: trimmer.endTime!)
                 let thumbimage = UIImage.getThumbnailFrom(asset: trimmed) ?? UIImage()
                 
@@ -649,7 +650,7 @@ extension TrimEditorViewController {
                 }
                 player.seek(to: startTime, toleranceBefore: self.tolerance, toleranceAfter: self.tolerance)
             }
-            
+            player.isMuted = Defaults.shared.isEditSoundOff
         }
     }
 }
