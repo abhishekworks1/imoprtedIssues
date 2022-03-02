@@ -1917,8 +1917,21 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
             
             let storyEditor = storyEditors[indexPath.item]
             storyEditorCell.thumbnailNumberLabel.text = "\(indexPath.item + 1)"
-            let currentVideoAssest = Float(currentVideoAsset?.duration.seconds ?? 0.0)
-            storyEditorCell.thumbnailTimeLabel.text = String(format:"%.2f", currentVideoAssest)
+//            let currentVideoAssest = Float(currentVideoAsset?.duration.seconds ?? 0.0)
+            guard let _currentVideoAsset = medias[safe: indexPath.item]?.type else {
+                return storyEditorCell
+            }
+            var avAsset: AVAsset?
+            switch _currentVideoAsset {
+            case .image:
+                break
+            case let .video(_, asset):
+                avAsset = asset
+            }
+            if let videoLenght = avAsset?.duration.seconds.description {
+                storyEditorCell.thumbnailTimeLabel.text = String(videoLenght.prefix(5))
+            }
+             //String(format: "%s", avAsset?.duration.seconds)
             storyEditorCell.imageView.image = storyEditor.thumbnailImage
             storyEditorCell.imageView.cornerRadiusV = 5
             storyEditorCell.imageView.layer.borderColor = storyEditor.isHidden ? UIColor.white.cgColor : R.color.appPrimaryColor()?.cgColor
