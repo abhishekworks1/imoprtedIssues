@@ -95,6 +95,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     var mobileContacts = [ContactResponse]()
     var filter: ContactsFilter = .none
     
+    var loadingView: LoadingView? = LoadingView.instanceFromNib()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -163,6 +165,14 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 //            ContactPermission()
 //        }
         
+    }
+    func showLoader(){
+        loadingView?.shouldCancelShow = true
+        loadingView?.loadingViewShow = true
+        loadingView?.show(on: view)
+    }
+    func hideLoader(){
+        loadingView?.hide()
     }
     func ContactPermission(){
         
@@ -393,6 +403,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
     }
     func createContactJSON(){
+        
         var contacts = [ContactDetails]()
         for contact in phoneContacts{
             
@@ -412,6 +423,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
     }
     func createMobileContact(data:Data){
+        self.showLoader()
         let path = API.shared.baseUrlV2 + "contact-list/mobile"
         print(path)
         var request = URLRequest(url:URL(string:path)!)
@@ -431,6 +443,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                
             case .failure(let error):
                 print(error)
+                self.hideLoader()
                 break
                 //failure code here
             }
@@ -438,6 +451,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     func getContactList(){
        // ContactResponse
+        self.showLoader()
         let path = API.shared.baseUrlV2 + "contact-list?contactSource=mobile"
       //  let parameter : Parameters =  ["Content-Type": "application/json"]
         let headerWithToken : HTTPHeaders =  ["Content-Type": "application/json",
@@ -460,10 +474,12 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 DispatchQueue.main.async {
                     self.contactTableView.reloadData() // update your tableView having phoneContacts array
                 }
+                self.hideLoader()
                 break
                
             case .failure(let error):
                 print(error)
+                self.hideLoader()
                 break
 
                 //failure code here
