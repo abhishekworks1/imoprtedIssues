@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -99,6 +99,7 @@
                                                             <constraint firstAttribute="width" constant="80" id="bTh-yV-8uu"/>
                                                         </constraints>
                                                         <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="plain" title=" "/>
                                                         <connections>
                                                             <action selector="tiktokTapped:" destination="Y9t-Jo-wRV" eventType="touchUpInside" id="R4D-k5-opR"/>
                                                         </connections>
@@ -163,6 +164,7 @@
                                                             <constraint firstAttribute="width" constant="80" id="deg-aU-H7y"/>
                                                         </constraints>
                                                         <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="plain" title=" "/>
                                                         <connections>
                                                             <action selector="twitterTapped:" destination="Y9t-Jo-wRV" eventType="touchUpInside" id="cC2-Vt-och"/>
                                                         </connections>
@@ -198,7 +200,7 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Instagram" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2dH-qS-n3d">
-                                                        <rect key="frame" x="75" y="29.5" width="79" height="21"/>
+                                                        <rect key="frame" x="75" y="29.5" width="78.5" height="21"/>
                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                         <color key="textColor" red="0.12941176469999999" green="0.12941176469999999" blue="0.12941176469999999" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -227,6 +229,7 @@
                                                             <constraint firstAttribute="width" constant="80" id="naT-ca-GGt"/>
                                                         </constraints>
                                                         <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="plain" title=" "/>
                                                         <connections>
                                                             <action selector="instagramTapped:" destination="Y9t-Jo-wRV" eventType="touchUpInside" id="hEs-cN-bZm"/>
                                                         </connections>
@@ -272,6 +275,7 @@
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IgW-lW-UNd">
                                                                 <rect key="frame" x="0.0" y="5" width="175" height="20"/>
                                                                 <state key="normal" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="plain" title=" "/>
                                                                 <connections>
                                                                     <action selector="websiteTapped:" destination="Y9t-Jo-wRV" eventType="touchUpInside" id="jmF-FM-UiZ"/>
                                                                 </connections>
@@ -303,6 +307,7 @@
                                                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XIy-1c-6MD">
                                                                 <rect key="frame" x="0.0" y="5" width="175" height="20"/>
                                                                 <state key="normal" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="plain" title=" "/>
                                                                 <connections>
                                                                     <action selector="btnLegalDetailsTapped:" destination="Y9t-Jo-wRV" eventType="touchUpInside" id="a7l-je-GvR"/>
                                                                 </connections>
@@ -334,6 +339,7 @@
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SVR-wC-eDk">
                                                                 <rect key="frame" x="0.0" y="5" width="175" height="20"/>
                                                                 <state key="normal" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="plain" title=" "/>
                                                                 <connections>
                                                                     <action selector="btnLegalDetailsTapped:" destination="Y9t-Jo-wRV" eventType="touchUpInside" id="spD-sx-jkV"/>
                                                                 </connections>
@@ -365,6 +371,7 @@
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zRB-nt-5Qn">
                                                                 <rect key="frame" x="0.0" y="5" width="175" height="20"/>
                                                                 <state key="normal" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="plain" title=" "/>
                                                                 <connections>
                                                                     <action selector="btnPatentsTapped:" destination="Y9t-Jo-wRV" eventType="touchUpInside" id="Y0Z-SC-nFW"/>
                                                                 </connections>
@@ -483,6 +490,7 @@
                                                             <constraint firstAttribute="width" constant="80" id="rqc-56-GDh"/>
                                                         </constraints>
                                                         <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="plain" title=" "/>
                                                         <connections>
                                                             <action selector="rateUsTapped:" destination="Y9t-Jo-wRV" eventType="touchUpInside" id="P8W-1L-Ty1"/>
                                                         </connections>
@@ -774,6 +782,7 @@
                                                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ced-Vc-X3N">
                                                                 <rect key="frame" x="0.0" y="0.0" width="169.5" height="169.5"/>
                                                                 <state key="normal" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="plain" title=" "/>
                                                                 <connections>
                                                                     <action selector="mainOptionsClick:" destination="zZw-wm-uWi" eventType="touchUpInside" id="dT9-qY-3Bd"/>
                                                                 </connections>
@@ -826,6 +835,7 @@
                                                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6ja-HQ-Obn">
                                                                 <rect key="frame" x="0.0" y="0.0" width="169.5" height="169.5"/>
                                                                 <state key="normal" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="plain" title=" "/>
                                                                 <connections>
                                                                     <action selector="mainOptionsClick:" destination="zZw-wm-uWi" eventType="touchUpInside" id="gH3-em-rDp"/>
                                                                 </connections>
@@ -877,6 +887,7 @@
                                                             <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q9p-ht-RoQ">
                                                                 <rect key="frame" x="0.0" y="0.0" width="169.5" height="170"/>
                                                                 <state key="normal" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="plain" title=" "/>
                                                                 <connections>
                                                                     <action selector="mainOptionsClick:" destination="zZw-wm-uWi" eventType="touchUpInside" id="y3G-Jp-4ey"/>
                                                                 </connections>
@@ -940,6 +951,10 @@
                                                                     <constraint firstAttribute="width" constant="100" id="pwi-6t-tC6"/>
                                                                 </constraints>
                                                                 <state key="normal" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="plain" title="Previous">
+                                                                    <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="17"/>
+                                                                    <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </buttonConfiguration>
                                                                 <connections>
                                                                     <action selector="previousClick:" destination="zZw-wm-uWi" eventType="touchUpInside" id="yI3-Oa-A9q"/>
                                                                 </connections>
@@ -952,6 +967,10 @@
                                                                     <constraint firstAttribute="height" constant="40" id="Qub-y1-mvi"/>
                                                                 </constraints>
                                                                 <state key="normal" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="plain" title="Next">
+                                                                    <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="17"/>
+                                                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </buttonConfiguration>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
                                                                         <real key="value" value="20"/>
@@ -1013,6 +1032,10 @@
                                                                     <constraint firstAttribute="width" constant="100" id="IrG-Zm-hg1"/>
                                                                 </constraints>
                                                                 <state key="normal" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="plain" title="Previous">
+                                                                    <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="17"/>
+                                                                    <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </buttonConfiguration>
                                                                 <connections>
                                                                     <action selector="previousClick:" destination="zZw-wm-uWi" eventType="touchUpInside" id="OWC-r7-pCi"/>
                                                                 </connections>
@@ -1025,6 +1048,10 @@
                                                                     <constraint firstAttribute="width" constant="100" id="vaN-h0-Lfa"/>
                                                                 </constraints>
                                                                 <state key="normal" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="plain" title="Next">
+                                                                    <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="17"/>
+                                                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </buttonConfiguration>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
                                                                         <real key="value" value="20"/>
@@ -1086,7 +1113,7 @@
                                                                                 <state key="selected" image="checkBoxActive"/>
                                                                             </button>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Include Profile Image" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XfY-qK-xQi">
-                                                                                <rect key="frame" x="42" y="11" width="131.5" height="20"/>
+                                                                                <rect key="frame" x="42" y="11" width="142.5" height="20"/>
                                                                                 <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="14"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -1101,7 +1128,7 @@
                                                                                 <state key="selected" image="checkBoxActive"/>
                                                                             </button>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add QR code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X5b-cf-NbA">
-                                                                                <rect key="frame" x="227" y="11" width="85.5" height="20"/>
+                                                                                <rect key="frame" x="227" y="11" width="88.5" height="20"/>
                                                                                 <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="14"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -1468,6 +1495,10 @@
                                                                     <constraint firstAttribute="height" constant="35" id="UZV-E4-pxx"/>
                                                                 </constraints>
                                                                 <state key="normal" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="plain" title="Previous">
+                                                                    <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="17"/>
+                                                                    <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </buttonConfiguration>
                                                                 <connections>
                                                                     <action selector="previousClick:" destination="zZw-wm-uWi" eventType="touchUpInside" id="iaw-6E-Mnd"/>
                                                                 </connections>
@@ -1480,6 +1511,10 @@
                                                                     <constraint firstAttribute="width" constant="100" id="H6W-2U-rCi"/>
                                                                 </constraints>
                                                                 <state key="normal" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="plain" title="Done">
+                                                                    <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="17"/>
+                                                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </buttonConfiguration>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
                                                                         <real key="value" value="20"/>
@@ -1558,6 +1593,10 @@
                                                                     <constraint firstAttribute="height" constant="50" id="eXy-2z-am4"/>
                                                                 </constraints>
                                                                 <state key="normal" title="Button"/>
+                                                                <buttonConfiguration key="configuration" style="plain" title="Enable Contacts">
+                                                                    <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="19"/>
+                                                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                </buttonConfiguration>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
                                                                         <real key="value" value="25"/>
