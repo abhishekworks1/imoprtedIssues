@@ -404,7 +404,20 @@ class StoryEditorViewController: UIViewController {
         self.socialShareExportURL = nil
         self.socialMediaMainView.isHidden = true
         Defaults.shared.isEditSoundOff = false
+        tapGestureSetupView()
     }
+    
+    func tapGestureSetupView() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapSocialMediaView))
+        tapGesture.numberOfTapsRequired = 1
+        socialMediaMainView.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func didTapSocialMediaView(sender: UITapGestureRecognizer) {
+        socialMediaMainView.isHidden = true
+    }
+    
+    
     override func viewDidLayoutSubviews() {
         //self.socialMediaMainView.frame = CGRect(x: self.view.frame.size.width, y: 0,width: self.view.frame.size.width ,height: self.view.frame.size.height)
     }
