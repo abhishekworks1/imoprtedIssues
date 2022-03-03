@@ -1323,9 +1323,9 @@ extension StoryEditorViewController {
                     } else {
                         if type == .more {
                             self.shareWithActivity(url:nil,image:image)
-                       }else{
-                        SocialShareVideo.shared.sharePhoto(image: image, socialType: type, referType: self.referType)
-                       }
+                        }else{
+                            SocialShareVideo.shared.sharePhoto(image: image, socialType: type, referType: self.referType)
+                        }
                         
                     }
                 }
