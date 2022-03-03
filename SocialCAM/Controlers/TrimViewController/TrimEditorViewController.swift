@@ -836,6 +836,7 @@ extension TrimEditorViewController {
         guard let button = sender as? UIButton else {
             return
         }
+        button.tag = 0
         if button.tag == 1 {
             if isEditMode, let cell: ImageCollectionViewCell = self.editStoryCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? ImageCollectionViewCell {
                 guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
