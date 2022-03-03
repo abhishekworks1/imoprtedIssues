@@ -19,7 +19,7 @@ def shared_pods
 end
 
 def projectShared_pods
-    pod "PostHog", "~> 1.1"
+    pod "PostHog"
     pod 'GoogleAPIClientForREST', '~> 1.5'
     pod 'GoogleAPIClientForREST/YouTube', '~> 1.5'
     pod 'RxCocoa', '5.1.3'
