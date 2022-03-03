@@ -299,11 +299,13 @@ extension TrimEditorViewController: UICollectionViewDataSource {
                 cell.trimmerView.leftImage = UIImage()
                 cell.leftTopView.isHidden = true
                 cell.rightTopView.isHidden = true
+                cell.trimmerView.isUserInteractionEnabled = false
             } else {
                 cell.trimmerView.rightImage = R.image.cut_handle_icon()
                 cell.trimmerView.leftImage = R.image.cut_handle_icon()
                 cell.leftTopView.isHidden = false
                 cell.rightTopView.isHidden = false
+                cell.trimmerView.isUserInteractionEnabled = true
             }
             
         } else {
