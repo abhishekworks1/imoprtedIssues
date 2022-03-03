@@ -540,7 +540,7 @@ extension PhotosPickerViewController {
                   let asset = self.selectedAssets.first,
                   asset.assetType == .video,
                   Defaults.shared.appMode == .free,
-                  asset.asset.duration >= 15.0 {
+                  asset.asset.duration > 15.0 {
             self.showAlert(alertMessage: R.string.localizable.videoMoreThan15SecondsError())
             return
         }
