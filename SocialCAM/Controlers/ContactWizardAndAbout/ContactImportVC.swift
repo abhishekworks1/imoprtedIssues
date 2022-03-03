@@ -93,6 +93,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     var allphoneContacts = [PhoneContact]()
     var allmailContacts = [PhoneContact]()
     var mobileContacts = [ContactResponse]()
+    var allmobileContacts = [ContactResponse]()
     var filter: ContactsFilter = .none
     
     var loadingView: LoadingView? = LoadingView.instanceFromNib()
@@ -104,7 +105,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         self.setupUI()
         self.setupPage()
         self.fetchTitleMessages()
-        self.getContactList()
+      //  self.getContactList()
     }
     // MARK: - UI setup
     func setupUI(){
@@ -167,27 +168,32 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         
     }
     func showLoader(){
-        loadingView?.shouldCancelShow = true
-        loadingView?.loadingViewShow = true
-        loadingView?.show(on: view)
+            self.loadingView = LoadingView.instanceFromNib()
+            self.loadingView?.shouldCancelShow = true
+            self.loadingView?.loadingViewShow = true
+            self.loadingView?.show(on: self.view)
+  
     }
     func hideLoader(){
-        loadingView?.hide()
+        DispatchQueue.main.async {
+            self.loadingView?.hide()
+        }
     }
     func ContactPermission(){
         
-        let loadingView = LoadingView.instanceFromNib()
-        loadingView.shouldCancelShow = true
-        loadingView.loadingViewShow = true
-        loadingView.show(on: view)
-        
+//        let loadingView = LoadingView.instanceFromNib()
+//        loadingView.shouldCancelShow = true
+//        loadingView.loadingViewShow = true
+//        loadingView.show(on: view)
+        self.showLoader()
         switch CNContactStore.authorizationStatus(for: CNEntityType.contacts){
             
         case .authorized: //access contacts
             contactPermitView.isHidden = true
             print("here")
             self.loadContacts(filter: self.filter) // Calling loadContacts methods
-            loadingView.hide()
+           // loadingView.hide()
+           // self.hideLoader()
         case .denied, .notDetermined: //request permission
             CNContactStore().requestAccess(for: .contacts) { granted, error in
                 if granted {
@@ -204,7 +210,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     }
                 }
             }
-            loadingView.hide()
+          //  self.hideLoader()
+           // loadingView.hide()
         default: break
         }
     }
@@ -377,6 +384,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         allphoneContacts = [PhoneContact]()
         mailContacts = [PhoneContact]()
         phoneContacts = [PhoneContact]()
+        
         //if self.filter == .mail {
             allmailContacts = allContacts.filter({ $0.email.count > 0 }) // getting all email
             mailContacts = allContacts.filter({ $0.email.count > 0 }) // getting all email
@@ -397,13 +405,14 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 //        for codes in arrayCode {
 //            print(codes)
 //        }
+        self.showLoader()
         DispatchQueue.main.async {
             self.createContactJSON()
            // self.contactTableView.reloadData() // update your tableView having phoneContacts array
         }
     }
     func createContactJSON(){
-        
+      
         var contacts = [ContactDetails]()
         for contact in phoneContacts{
             
@@ -423,7 +432,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
     }
     func createMobileContact(data:Data){
-        self.showLoader()
+        
         let path = API.shared.baseUrlV2 + "contact-list/mobile"
         print(path)
         var request = URLRequest(url:URL(string:path)!)
@@ -451,30 +460,30 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     func getContactList(){
        // ContactResponse
-        self.showLoader()
+      // self.showLoader()
         let path = API.shared.baseUrlV2 + "contact-list?contactSource=mobile"
-      //  let parameter : Parameters =  ["Content-Type": "application/json"]
+      // let parameter : Parameters =  ["Content-Type": "application/json"]
         let headerWithToken : HTTPHeaders =  ["Content-Type": "application/json",
                                        "userid": Defaults.shared.currentUser?.id ?? "",
                                        "deviceType": "1",
                                        "x-access-token": Defaults.shared.sessionToken ?? ""]
-        
         let request = AF.request(path, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: headerWithToken, interceptor: nil)
         
        
         request.response { response in
           //  print(response)
-            switch (response.result) {
+            switch (response.result){
             case .success:
                 
                 let json = try! JSONSerialization.jsonObject(with: response.data ?? Data(), options: [])
                 let contacts = Mapper<ContactResponse>().mapArray(JSONArray:json as! [[String : Any]])
-              //  print(contacts.first?.toJSON() ?? "")
+              //print(contacts.first?.toJSON() ?? "")
                 self.mobileContacts = contacts
+                self.allmobileContacts = contacts
+                self.hideLoader()
                 DispatchQueue.main.async {
                     self.contactTableView.reloadData() // update your tableView having phoneContacts array
                 }
-                self.hideLoader()
                 break
                
             case .failure(let error):
@@ -687,8 +696,14 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         //print(searchText)
-        guard !searchText.isEmpty  else { phoneContacts = allphoneContacts; mailContacts = allmailContacts; return }
+        guard !searchText.isEmpty  else { phoneContacts = allphoneContacts; mailContacts = allmailContacts
+            mobileContacts = allmobileContacts
+            ; return }
 
+        mobileContacts = allmobileContacts.filter({ ContactResponse -> Bool in
+            return (( ContactResponse.name!.lowercased().contains(searchText.lowercased()) ) || ( ContactResponse.mobile!.contains(searchText.lowercased()) ) )
+        })
+        
         phoneContacts = allphoneContacts.filter({ Phonecontact -> Bool in
             return (( Phonecontact.name!.lowercased().contains(searchText.lowercased()) ) || ( Phonecontact.phoneNumber[0].contains(searchText.lowercased()) ) )
         })
