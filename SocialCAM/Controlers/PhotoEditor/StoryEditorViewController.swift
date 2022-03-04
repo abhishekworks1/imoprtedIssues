@@ -2184,11 +2184,11 @@ extension StoryEditorViewController {
     }
     
     func videoPlayerPlayback(to time: CMTime, asset: AVAsset,sliderValue:Float? = nil) {
-        let percent = time.seconds / asset.duration.seconds
+        let percent = CMTimeGetSeconds(time) / asset.duration.seconds
         let videoTrackLength = 67 * displayKeyframeImages.count
         let position = CGFloat(videoTrackLength) * CGFloat(percent) - UIScreen.main.bounds.size.width / 2
         nativePlayercollectionView.contentOffset = CGPoint(x: position, y: nativePlayercollectionView.contentOffset.y)
-        cursorContainerViewController.seconds = time.seconds
+        cursorContainerViewController.seconds = CMTimeGetSeconds(time)
         
         var timeSeconds = time.seconds
         if let seconds = sliderValue{
