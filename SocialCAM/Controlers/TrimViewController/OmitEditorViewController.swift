@@ -292,6 +292,8 @@ class OmitEditorViewController: UIViewController,UIGestureRecognizerDelegate {
                         cell.trimmerView.seek(to: startTime)
                         seek(to: CMTime.init(seconds: startTime.seconds, preferredTimescale: 10000), cell: cell)
                         cell.trimmerView.resetTimePointer()
+                        btnPlayPause.isSelected = false
+                        player.pause()
                     }
                 }
             }
@@ -523,19 +525,22 @@ extension OmitEditorViewController: TrimmerViewCutDelegate {
             isStartMovable = false
             DispatchQueue.main.async { [self] in
                 if self.btnPlayPause.isSelected {
-                    if !isLeftGesture {
-                        guard let endTime = trimmer.endTime else {
-                            return
+                    if let cell: ImageCollectionViewCutCell = self.editStoryCollectionView.cellForItem(at: self.getCurrentIndexPath) as? ImageCollectionViewCutCell {
+                        if !isLeftGesture {
+                            guard let endTime = trimmer.endTime else {
+                                return
+                            }
+                            let newEndTime = endTime - CMTime.init(seconds: 1, preferredTimescale: endTime.timescale)
+                            player.seek(to: newEndTime, toleranceBefore: self.tolerance, toleranceAfter: self.tolerance)
+                            self.seek(to: CMTime.init(seconds: newEndTime.seconds, preferredTimescale: 10000), cell: cell)
                         }
-                        let newEndTime = endTime - CMTime.init(seconds: 2, preferredTimescale: endTime.timescale)
-                        player.seek(to: newEndTime, toleranceBefore: self.tolerance, toleranceAfter: self.tolerance)
                     }
                     player.play()
                     
                 }
                 
                 let finaltime = endTime.seconds - startTime.seconds
-                if finaltime >= 3.0 {
+                if finaltime >= 1.0 {
                     doneView.alpha = 1
                     doneView.isUserInteractionEnabled = true
                 } else {
@@ -544,16 +549,6 @@ extension OmitEditorViewController: TrimmerViewCutDelegate {
                 }
             }
         }
-        
-//        if self.combinedstoryEditorMedias.count > 1 {
-//
-//
-//        } else {
-//            doneView.alpha = 0.5
-//            doneView.isUserInteractionEnabled = false
-//        }
-       
-        
     }
     
     func trimmerCutScrubbingDidChange(_ trimmer: TrimmerViewCut, with currentTimeScrub: CMTime) {
@@ -710,9 +705,9 @@ extension OmitEditorViewController {
             }
             loadViewWith(asset: currentAsset)
         } else {
-            //            player?.seek(to: CMTime.zero)
-            player?.pause()
-            btnPlayPause.isSelected = false
+            player?.seek(to: CMTime.zero)
+            player?.play()
+            btnPlayPause.isSelected = true
 //            leftPlayButton.isSelected = false
 //            rightPlayButton.isSelected = false
         }
@@ -926,7 +921,7 @@ extension OmitEditorViewController {
             }
             
             let finaltime = endTime.seconds - startTime.seconds
-            if finaltime >= 3.0 {
+            if finaltime >= 1.0 {
                 doneView.alpha = 1
                 doneView.isUserInteractionEnabled = true
             } else {

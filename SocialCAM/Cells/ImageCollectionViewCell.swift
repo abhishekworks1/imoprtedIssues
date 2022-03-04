@@ -259,7 +259,8 @@ class ImageCollectionViewCell: UICollectionViewCell {
         let remainTime = asset.duration.seconds - time.seconds
         let (remainTimeM, remainTimeS) = Utils.secondsToHoursMinutesSeconds(Int(Float(remainTime).roundToPlaces(places: 0)))
         let remainTimeMiliS = Utils.secondsToMiliseconds(remainTime)
-        self.lblVideoDuration.text = "\(progressTimeS):\(progressTimeMiliS) / \(totalTimeS):\(totalTimeMiliS)"
+        self.lblVideoDuration.text = "\(progressTimeS):\(progressTimeMiliS) / \(remainTimeS):\(remainTimeMiliS)"
+        //\(totalTimeS):\(totalTimeMiliS)"
     }
     
     func hideLeftRightHandle() {

@@ -236,6 +236,8 @@ class TrimEditorViewController: UIViewController {
                         cell.trimmerView.seek(to: startTime)
                         seek(to: CMTime.init(seconds: startTime.seconds, preferredTimescale: 10000), cell: cell)
                         cell.trimmerView.resetTimePointer()
+                        btnPlayPause.isSelected = false
+                        player.pause()
                     }
                 }
             }
@@ -484,12 +486,13 @@ extension TrimEditorViewController: TrimmerViewDelegate {
             isStartMovable = false
             DispatchQueue.main.async {
                 if self.btnPlayPause.isSelected {
+                    if let cell: ImageCollectionViewCell = self.editStoryCollectionView.cellForItem(at: self.getCurrentIndexPath) as? ImageCollectionViewCell {
                     if !isLeftGesture {
                         guard let endTime = trimmer.endTime else {
                             return
                         }
-                        let newEndTime = endTime - CMTime.init(seconds: 2, preferredTimescale: endTime.timescale)
-                        var newStartpoint = newEndTime.seconds - 1
+                        let newEndTime = endTime - CMTime.init(seconds: 1, preferredTimescale: endTime.timescale)
+                        var newStartpoint = newEndTime.seconds - 0.5
                         if newStartpoint < 0{
                             newStartpoint = 0
                         }
@@ -498,7 +501,9 @@ extension TrimEditorViewController: TrimmerViewDelegate {
                         print(newEndTime.seconds)
                         print(start.seconds)
                         player.seek(to: newEndTime, toleranceBefore: start, toleranceAfter: start)
+                        self.seek(to: CMTime.init(seconds: newEndTime.seconds, preferredTimescale: 10000), cell: cell)
                     }
+                }
                     player.play()
                 }
             }
@@ -635,8 +640,8 @@ extension TrimEditorViewController {
             loadViewWith(asset: currentAsset)
         } else {
             player?.seek(to: CMTime.zero)
-            player?.play()
-            btnPlayPause.isSelected = true
+            player?.pause()
+            btnPlayPause.isSelected = false
         }
         
         if let player = self.player, !self.storyEditorMedias.isEmpty {

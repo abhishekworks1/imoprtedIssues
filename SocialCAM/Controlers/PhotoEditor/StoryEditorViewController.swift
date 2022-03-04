@@ -360,6 +360,7 @@ class StoryEditorViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        socialMediaViewTapGesture()
         if let isRegistered = Defaults.shared.isRegistered {
             if isRegistered {
                 Defaults.shared.isRegistered = false
@@ -404,7 +405,20 @@ class StoryEditorViewController: UIViewController {
         self.socialShareExportURL = nil
         self.socialMediaMainView.isHidden = true
         Defaults.shared.isEditSoundOff = false
+        
     }
+    
+    
+    func socialMediaViewTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapSocialMediaView))
+        tapGesture.numberOfTapsRequired = 1
+        socialMediaMainView.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func didTapSocialMediaView(sender: UITapGestureRecognizer) {
+        socialMediaMainView.isHidden = true
+    }
+    
     override func viewDidLayoutSubviews() {
         //self.socialMediaMainView.frame = CGRect(x: self.view.frame.size.width, y: 0,width: self.view.frame.size.width ,height: self.view.frame.size.height)
     }
@@ -1934,9 +1948,10 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
             case let .video(_, asset):
                 avAsset = asset
             }
-            if let videoLenght = avAsset?.duration.seconds.description {
-                storyEditorCell.thumbnailTimeLabel.text = String(videoLenght.prefix(5))
-            }
+            let seconds = Float(avAsset?.duration.seconds ?? 0.00)
+            let videoLenght = "\(seconds + 1.0)"
+            storyEditorCell.thumbnailTimeLabel.text = String(videoLenght.prefix(3))
+            
              //String(format: "%s", avAsset?.duration.seconds)
             storyEditorCell.imageView.image = storyEditor.thumbnailImage
             storyEditorCell.imageView.cornerRadiusV = 5
@@ -2470,8 +2485,11 @@ extension StoryEditorViewController {
                 }
                 loadingView.show(on: self.view, completion: {
                     loadingView.cancelClick = { _ in
-                        exportSession.cancelExporting()
-                        loadingView.hide()
+                        loadingView.progressView.stopBlink()
+                        loadingView.showTotalCount = false
+                        self.cancelExportVideoSession(view: loadingView, session: exportSession)
+                        //                        exportSession.cancelExporting()
+                        //                        loadingView.hide()
                     }
                 })
             }
@@ -2515,6 +2533,20 @@ extension StoryEditorViewController {
                     self.present(alert, animated: true, completion: nil)
                 }
         })
+    }
+    
+    func cancelExportVideoSession(view: LoadingView, session: StoryAssetExportSession)  {
+        let alert = UIAlertController(title: "Export Video", message: "Sure you want to cancel export video", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Resume", style: .default, handler: { resumeButton in
+            alert.dismiss(animated: true, completion: nil)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { cancelButton in
+//            view.cancelClick = { _ in
+                session.cancelExporting()
+                view.hide()
+//            }
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
     
     func saveSlideShow(success: @escaping ((URL) -> Void), failure: @escaping ((Error) -> Void)) {
