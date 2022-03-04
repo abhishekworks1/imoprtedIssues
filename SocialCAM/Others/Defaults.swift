@@ -937,6 +937,15 @@ class Defaults {
         }
     }
     
+    var isContactConfirmPopUpChecked: Bool {
+        get {
+            return appDefaults?.value(forKey: "isContactConfirmPopUpChecked") as? Bool ?? false
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isContactConfirmPopUpChecked")
+        }
+    }
+    
     var isShowAllPopUpChecked: Bool {
         get {
             return appDefaults?.value(forKey: "isShowAllPopUpChecked") as? Bool ?? true
