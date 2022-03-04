@@ -942,11 +942,11 @@ class PhotoEditorViewController: UIViewController {
             asset.duration.seconds != 0 else {
                 return
         }
-        let percent = time.seconds / asset.duration.seconds
+        let percent = CMTimeGetSeconds(time) / asset.duration.seconds
         let videoTrackLength = 67 * displayKeyframeImages.count
         let position = CGFloat(videoTrackLength) * CGFloat(percent) - UIScreen.main.bounds.size.width / 2
         collectionView.contentOffset = CGPoint(x: position, y: collectionView.contentOffset.y)
-        cursorContainerViewController.seconds = time.seconds
+        cursorContainerViewController.seconds = CMTimeGetSeconds(time)
         
     }
     

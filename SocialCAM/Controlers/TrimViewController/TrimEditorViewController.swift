@@ -299,11 +299,13 @@ extension TrimEditorViewController: UICollectionViewDataSource {
                 cell.trimmerView.leftImage = UIImage()
                 cell.leftTopView.isHidden = true
                 cell.rightTopView.isHidden = true
+                cell.trimmerView.isUserInteractionEnabled = false
             } else {
                 cell.trimmerView.rightImage = R.image.cut_handle_icon()
                 cell.trimmerView.leftImage = R.image.cut_handle_icon()
                 cell.leftTopView.isHidden = false
                 cell.rightTopView.isHidden = false
+                cell.trimmerView.isUserInteractionEnabled = true
             }
             
         } else {
@@ -837,6 +839,7 @@ extension TrimEditorViewController {
         guard let button = sender as? UIButton else {
             return
         }
+        button.tag = 0
         if button.tag == 1 {
             if isEditMode, let cell: ImageCollectionViewCell = self.editStoryCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? ImageCollectionViewCell {
                 guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
