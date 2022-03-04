@@ -44,6 +44,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     var listingResponse : msgTitleList? = nil
     @IBOutlet weak var itemsTableView: UITableView!
     
+    @IBOutlet weak var btnDoNotShowAgain: UIButton!
     
     var selectedTitleRow : Int = 0
     fileprivate static let CELL_IDENTIFIER = "messageTitleCell"
@@ -78,6 +79,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var badgebtn2: UIButton!
     @IBOutlet weak var badgebtn3: UIButton!
     
+    @IBOutlet weak var contactSentConfirmPopup: UIView!
     var isIncludeProfileImg = Defaults.shared.includeProfileImgForShare
     var isIncludeQrImg = Defaults.shared.includeQRImgForShare
 
@@ -512,6 +514,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             switch (response.result) {
             case .success:
                 self.getContactList()
+                
+                
                 break
                
             case .failure(let error):
@@ -535,6 +539,23 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
         
     }
+    @IBAction func doNotShowAgainButtonClicked(sender: UIButton) {
+        print("Defaults.shared.isContactConfirmPopUpChecked")
+        print("Before")
+        print(Defaults.shared.isContactConfirmPopUpChecked)
+        btnDoNotShowAgain.isSelected = !btnDoNotShowAgain.isSelected
+        Defaults.shared.isContactConfirmPopUpChecked = btnDoNotShowAgain.isSelected
+        print("After")
+        print(Defaults.shared.isContactConfirmPopUpChecked)
+    }
+    
+    @IBAction func okayButtonClicked(sender: UIButton) {
+        self.contactSentConfirmPopup.isHidden = true
+    }
+    
+    @IBAction func cancelButtonClicked(sender: UIButton) {
+        self.contactSentConfirmPopup.isHidden = true
+    }
     // MARK: - tableview Delegate
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if tableView == itemsTableView{
@@ -551,13 +572,14 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             return 2
         }
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == itemsTableView{
             return self.listingResponse?.list.count ?? 0
         } else {
             if section == 0 {
-                return phoneContacts.count
-               // return mobileContacts.count
+               // return phoneContacts.count
+              return mobileContacts.count
             }else {
                 return mailContacts.count
             }
@@ -593,6 +615,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             return view
         }
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == itemsTableView{
             let cell:messageTitleCell = self.itemsTableView.dequeueReusableCell(withIdentifier: ContactImportVC.CELL_IDENTIFIER) as! messageTitleCell
@@ -631,11 +654,11 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 cell.lblNumberEmail.text = contact.mobile
                 cell.contactImage.image = UIImage.init(named: "User_placeholder")
                 cell.mobileContactObj = contact
-                if contact.status == "pending"{
-                    cell.inviteBtn.isHidden = false
-                }else{
-                    cell.inviteBtn.isHidden = true
-                }
+//                if contact.status == "pending"{
+//                    cell.inviteBtn.isHidden = false
+//                }else{
+//                    cell.inviteBtn.isHidden = true
+//                }
                 
             }else {
                 let contact = mailContacts[indexPath.row] as PhoneContact
@@ -652,6 +675,14 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 
             return cell
         }
+    }
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if tableView == itemsTableView{
+            return false
+        }else{
+            return true
+        }
+        
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == itemsTableView{
@@ -670,6 +701,14 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             self.view.endEditing(true)
         }
     }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let hide = UITableViewRowAction(style: .default, title: "Hide") { action, index in
+            // handle Hide Contact
+        }
+        return [hide]
+    }
+   
     
 //    MARK: - Creating Alert For User Text Enter
     
@@ -908,11 +947,16 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
 
     }
-    
     func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
         print(result)
         if result == .sent{
-            
+            print("Message")
+            print(Defaults.shared.isContactConfirmPopUpChecked)
+            if Defaults.shared.isContactConfirmPopUpChecked{
+                self.contactSentConfirmPopup.isHidden = true
+            }else{
+                self.contactSentConfirmPopup.isHidden = false
+            }
         }
         controller.dismiss(animated: true, completion: nil)
     }
