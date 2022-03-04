@@ -252,11 +252,11 @@ class ImageCollectionViewCell: UICollectionViewCell {
     }
 
     func videoPlayerPlayback(to time: CMTime, asset: AVAsset) {
-        let (progressTimeM, progressTimeS) = Utils.secondsToHoursMinutesSeconds(Int(Float(time.seconds).roundToPlaces(places: 0)))
-        let progressTimeMiliS = Utils.secondsToMiliseconds(time.seconds)
+        let (progressTimeM, progressTimeS) = Utils.secondsToHoursMinutesSeconds(Int(CMTimeGetSeconds(time)))
+        let progressTimeMiliS = Utils.secondsToMiliseconds(CMTimeGetSeconds(time))
         let (totalTimeM, totalTimeS) = Utils.secondsToHoursMinutesSeconds(Int(Float(asset.duration.seconds).roundToPlaces(places: 0)))
         let totalTimeMiliS = Utils.secondsToMiliseconds(asset.duration.seconds)
-        let remainTime = asset.duration.seconds - time.seconds
+        let remainTime = asset.duration.seconds - CMTimeGetSeconds(time)
         let (remainTimeM, remainTimeS) = Utils.secondsToHoursMinutesSeconds(Int(Float(remainTime).roundToPlaces(places: 0)))
         let remainTimeMiliS = Utils.secondsToMiliseconds(remainTime)
         self.lblVideoDuration.text = "\(progressTimeS):\(progressTimeMiliS) / \(totalTimeS):\(totalTimeMiliS)"
