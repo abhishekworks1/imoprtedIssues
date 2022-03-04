@@ -19617,7 +19617,6 @@
 				C2F931FF264AA0CA006CA527 /* Sources */,
 				C2F9344B264AA0CA006CA527 /* Frameworks */,
 				C2F93450264AA0CA006CA527 /* Resources */,
-				C2F934E3264AA0CA006CA527 /* ShellScript */,
 				D9F452836C4930D2B8B8C2F3 /* [CP] Embed Pods Frameworks */,
 				6F713F8C33282169C9EB5921 /* [CP] Copy Pods Resources */,
 			);
@@ -24370,23 +24369,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"--import\" \"MXPagerView\" \"$SRCROOT/R/R.quickcam.generated.swift\" \n";
-		};
-		C2F934E3264AA0CA006CA527 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		CCD6BE1BEC8D8839028381C6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -40765,7 +40747,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = GA853MZ47V;
 				ENABLE_BITCODE = NO;
@@ -40800,7 +40782,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = GA853MZ47V;
 				ENABLE_BITCODE = NO;
@@ -40836,7 +40818,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = GA853MZ47V;
 				ENABLE_BITCODE = NO;
@@ -40872,7 +40854,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_TEAM = GA853MZ47V;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "QuickCamLiteApp-Info.plist";
