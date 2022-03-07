@@ -25,6 +25,7 @@ class CameraSettings {
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.faceDetection(), selected: false)], settingsType: .faceDetection),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.skipYoutubeLogin(), selected: false)], settingsType: .skipYoutubeLogin),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.saveVideoAfterRecording(), selected: false)], settingsType: .saveVideoAfterRecording),
+        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.autoSaveAfterEditing(), selected: false)], settingsType: .autoSaveAfterEditing),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.saveVideoAfterRecording(), selected: false)], settingsType: .muteRecordingSlowMotion),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.saveVideoAfterRecording(), selected: false)], settingsType: .muteRecordingFastMotion),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.muteHapticFeedback(), selected: false)], settingsType: .mutehapticFeedbackOnSpeedSelection),
@@ -213,7 +214,7 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
                 return cell
             }
             return videoResolutionCell
-        } else if settingTitle.settingsType == .skipYoutubeLogin || settingTitle.settingsType == .saveVideoAfterRecording || settingTitle.settingsType == .muteRecordingSlowMotion || settingTitle.settingsType == .muteRecordingFastMotion  || settingTitle.settingsType == .mutehapticFeedbackOnSpeedSelection {
+        } else if settingTitle.settingsType == .skipYoutubeLogin || settingTitle.settingsType == .saveVideoAfterRecording || settingTitle.settingsType == .autoSaveAfterEditing || settingTitle.settingsType == .muteRecordingSlowMotion || settingTitle.settingsType == .muteRecordingFastMotion  || settingTitle.settingsType == .mutehapticFeedbackOnSpeedSelection {
             guard let systemSettingsCell: SystemSettingsCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.systemSettingsCell.identifier) as? SystemSettingsCell else {
                 fatalError("\(R.reuseIdentifier.systemSettingsCell.identifier) Not Found")
             }
@@ -222,6 +223,8 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
                 systemSettingsCell.btnHelpTooltip.addTarget(self, action: #selector(showYoutubeLoginTooltip), for: .touchUpInside)
             } else if settingTitle.settingsType == .saveVideoAfterRecording {
                 systemSettingsCell.systemSettingType = .saveVideoAfterRecording
+            } else if settingTitle.settingsType == .autoSaveAfterEditing {
+                systemSettingsCell.systemSettingType = .autoSaveAfterEditing
             } else if settingTitle.settingsType == .muteRecordingSlowMotion {
                 systemSettingsCell.systemSettingType = .muteRecordingSlowMotion
             } else if settingTitle.settingsType == .muteRecordingFastMotion {
@@ -287,7 +290,7 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
         let settingTitle = CameraSettings.storySettings[section]
         if settingTitle.settingsType == .supportedFrameRates {
             return 60
-        } else if settingTitle.settingsType == .skipYoutubeLogin || settingTitle.settingsType == .saveVideoAfterRecording || settingTitle.settingsType == .muteRecordingSlowMotion || settingTitle.settingsType == .muteRecordingFastMotion || settingTitle.settingsType == .mutehapticFeedbackOnSpeedSelection {
+        } else if settingTitle.settingsType == .skipYoutubeLogin || settingTitle.settingsType == .saveVideoAfterRecording  || settingTitle.settingsType == .autoSaveAfterEditing || settingTitle.settingsType == .muteRecordingSlowMotion || settingTitle.settingsType == .muteRecordingFastMotion || settingTitle.settingsType == .mutehapticFeedbackOnSpeedSelection {
             return 20
         } else if settingTitle.settingsType == .watermarkAlpha30 {
             return 40

@@ -1009,10 +1009,19 @@ class Defaults {
     
     var isVideoSavedAfterRecording: Bool {
         get {
-            return appDefaults?.value(forKey: "isVideoSavedAfterRecording") as? Bool ?? true
+            return appDefaults?.value(forKey: "isVideoSavedAfterRecording") as? Bool ?? false
         }
         set {
             appDefaults?.set(newValue, forKey: "isVideoSavedAfterRecording")
+        }
+    }
+    
+    var isVideoSavedAfterEditing: Bool {
+        get {
+            return appDefaults?.value(forKey: "isVideoSavedAfterEditing") as? Bool ?? false
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isVideoSavedAfterEditing")
         }
     }
     
