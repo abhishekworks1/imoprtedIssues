@@ -12,6 +12,7 @@ enum SystemSettingType {
     case showAllPopUps
     case skipYoutubeLogin
     case saveVideoAfterRecording
+    case autoSaveAfterEditing
     case muteRecordingSlowMotion
     case muteRecordingFastMotion
     case milestonesReached
@@ -39,6 +40,10 @@ class SystemSettingsCell: UITableViewCell {
                 title.text = R.string.localizable.saveVideoAfterRecording()
                 btnHelpTooltip.isHidden = true
                 btnSelectShowAllPopup.isSelected = Defaults.shared.isVideoSavedAfterRecording
+            } else if systemSettingType == .autoSaveAfterEditing {
+                title.text = R.string.localizable.autoSaveAfterEditing()
+                btnHelpTooltip.isHidden = true
+                btnSelectShowAllPopup.isSelected = Defaults.shared.isVideoSavedAfterEditing
             } else if systemSettingType == .muteRecordingFastMotion {
                 title.text = R.string.localizable.muteWhileRecordingInFastMotion()
                 btnHelpTooltip.isHidden = true
@@ -79,6 +84,9 @@ class SystemSettingsCell: UITableViewCell {
             btnSelectShowAllPopup.isSelected = !btnSelectShowAllPopup.isSelected
         } else if systemSettingType == .saveVideoAfterRecording {
             Defaults.shared.isVideoSavedAfterRecording = !btnSelectShowAllPopup.isSelected
+            btnSelectShowAllPopup.isSelected = !btnSelectShowAllPopup.isSelected
+        } else if systemSettingType == .autoSaveAfterEditing {
+            Defaults.shared.isVideoSavedAfterEditing = !btnSelectShowAllPopup.isSelected
             btnSelectShowAllPopup.isSelected = !btnSelectShowAllPopup.isSelected
         } else if systemSettingType == .muteRecordingSlowMotion {
             Defaults.shared.muteOnSlowMotion = !btnSelectShowAllPopup.isSelected
