@@ -487,6 +487,9 @@ extension TrimEditorViewController: TrimmerViewDelegate {
             DispatchQueue.main.async {
                 if self.btnPlayPause.isSelected {
                     if let cell: ImageCollectionViewCell = self.editStoryCollectionView.cellForItem(at: self.getCurrentIndexPath) as? ImageCollectionViewCell {
+                        print("***************")
+                        print(trimmer.startTime?.seconds)
+                        print("***************")
                     if !isLeftGesture {
                         guard let endTime = trimmer.endTime else {
                             return
