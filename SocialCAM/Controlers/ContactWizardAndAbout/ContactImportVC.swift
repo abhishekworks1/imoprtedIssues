@@ -35,6 +35,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var frwrdarrow3: UIImageView!
     
     @IBOutlet weak var page3NextBtn: UIButton!
+    
+    @IBOutlet weak var filterOptionView: UIView!
 
     let blueColor1 = UIColor(red: 0/255, green: 125/255, blue: 255/255, alpha: 1.0)
     let grayColor = UIColor(red: 200/255, green: 200/255, blue: 200/255, alpha: 1.0)
@@ -167,7 +169,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 //        if pageNo == 4 {
 //            ContactPermission()
 //        }
-        
+        filterOptionView.isHidden = true
     }
     func showLoader(){
             self.loadingView = LoadingView.instanceFromNib()
@@ -193,7 +195,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         case .authorized: //access contacts
             contactPermitView.isHidden = true
             print("here")
-            self.loadContacts(filter: self.filter) // Calling loadContacts methods
+            //self.loadContacts(filter: self.filter) // Calling loadContacts methods
+            self.getContactList()
            // loadingView.hide()
            // self.hideLoader()
         case .denied, .notDetermined: //request permission
@@ -306,6 +309,20 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             lblNum2.backgroundColor = blueColor1
             lblNum3.backgroundColor = blueColor1
             lblNum4.backgroundColor = blueColor1
+            
+            self.showLoader()
+            switch CNContactStore.authorizationStatus(for: CNEntityType.contacts){
+                
+            case .authorized: //access contacts
+                contactPermitView.isHidden = true
+                self.getContactList()
+                break
+            case .denied, .notDetermined: break //request permission
+            case .restricted:
+                break
+            @unknown default:
+                break
+            }
         }
     }
     func fetchTitleMessages(){
@@ -556,6 +573,44 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBAction func cancelButtonClicked(sender: UIButton) {
         self.contactSentConfirmPopup.isHidden = true
     }
+    @IBAction func filterButtonClicked(sender: UIButton) {
+        if filterOptionView.isHidden{
+            filterOptionView.isHidden = false
+        }else{
+            filterOptionView.isHidden = true
+        }
+    }
+    @IBAction func syncButtonClicked(sender: UIButton) {
+        ContactPermission()
+    }
+    @IBAction func filterOptionClicked(sender: UIButton) {
+        filterOptionView.isHidden = true
+        switch sender.tag {
+        case 1:
+
+            mobileContacts = allmobileContacts
+            phoneContacts = allphoneContacts
+            mailContacts = allmailContacts
+            contactTableView.reloadData()
+            
+            break
+        case 3:
+            mobileContacts = allmobileContacts.filter({ ContactResponse -> Bool in
+                return (ContactResponse.status!.lowercased().contains("pending".lowercased()))
+            })
+            contactTableView.reloadData()
+            break
+        case 4:
+            mobileContacts = allmobileContacts.filter({ ContactResponse -> Bool in
+                return (ContactResponse.status!.lowercased().contains("invited".lowercased()))
+            })
+            contactTableView.reloadData()
+            
+            break
+        default:
+            break
+        }
+    }
     // MARK: - tableview Delegate
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if tableView == itemsTableView{
@@ -654,11 +709,18 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 cell.lblNumberEmail.text = contact.mobile
                 cell.contactImage.image = UIImage.init(named: "User_placeholder")
                 cell.mobileContactObj = contact
-//                if contact.status == "pending"{
-//                    cell.inviteBtn.isHidden = false
-//                }else{
-//                    cell.inviteBtn.isHidden = true
-//                }
+               
+                if contact.status == "pending"{
+                    
+                    cell.inviteBtn.setTitle("Invite", for: .normal)
+                    cell.inviteBtn.backgroundColor = UIColor(hex6:0xE9F1FF)
+                    cell.inviteBtn.setTitleColor(UIColor(hex6:0x4285F4), for: .normal)
+                    
+                }else{
+                    cell.inviteBtn.setTitle("Invited", for: .normal)
+                    cell.inviteBtn.backgroundColor = UIColor(hex6:0x4285F4)
+                    cell.inviteBtn.setTitleColor(.white, for: .normal)
+                }
                 
             }else {
                 let contact = mailContacts[indexPath.row] as PhoneContact
@@ -701,14 +763,22 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             self.view.endEditing(true)
         }
     }
-    
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let hide = UITableViewRowAction(style: .default, title: "Hide") { action, index in
-            // handle Hide Contact
-        }
-        return [hide]
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+       
+        let editAction = UIContextualAction(style: .normal, title:  "Hida", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+               print("OK, marked as Closed")
+               success(true)
+           })
+           editAction.image = #imageLiteral(resourceName: "hide")
+           editAction.title = "Hide"
+           editAction.backgroundColor = .lightGray
+        
+        let swipeActions = UISwipeActionsConfiguration(actions: [editAction])
+
+        return swipeActions
+      
     }
-   
+    
     
 //    MARK: - Creating Alert For User Text Enter
     
