@@ -658,7 +658,7 @@ class StoryEditorViewController: UIViewController {
          
     func hideToolBar(hide: Bool, hideColorSlider: Bool = false) {
         editToolBarView.isHidden = hide
-        downloadView.isHidden = hide
+        downloadView.isHidden = true//hide
         backButtonView.isHidden = hide
         deleteView.isHidden = hideColorSlider ? true : hide
         collectionView.isHidden = (storyEditors.count > 1) ? hide : true
