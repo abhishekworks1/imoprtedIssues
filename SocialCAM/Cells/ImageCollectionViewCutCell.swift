@@ -260,7 +260,7 @@ class ImageCollectionViewCutCell: UICollectionViewCell {
         let (remainTimeM, remainTimeS) = Utils.secondsToHoursMinutesSeconds(Int(Float(remainTime).roundToPlaces(places: 0)))
         let remainTimeMiliS = Utils.secondsToMiliseconds(remainTime)
         self.remainTimeMiliS = remainTimeMiliS
-        self.lblVideoDuration.text = "\(progressTimeS):\(progressTimeMiliS) / \(remainTimeS):\(remainTimeMiliS)"
+        self.lblVideoDuration.text = "\(progressTimeS).\(progressTimeMiliS) / \(remainTimeS).\(remainTimeMiliS)"
     }
     
     func hideLeftRightHandle() {

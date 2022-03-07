@@ -1319,7 +1319,8 @@ extension StoryEditorViewController {
                     if isDownload {
                         self.saveImageOrVideoInGallery(image: image)
                         if isFromDoneTap{
-                            self.navigationController?.popViewController(animated: true)
+                            guard let storyCamVC = R.storyboard.storyCameraViewController.storyCameraViewController() else { return }
+                            self.navigationController?.pushViewController(storyCamVC, animated: true)
                         }
                     } else {
                         if type == .more {

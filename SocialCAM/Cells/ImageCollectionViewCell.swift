@@ -259,7 +259,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
         let remainTime = asset.duration.seconds - CMTimeGetSeconds(time)
         let (remainTimeM, remainTimeS) = Utils.secondsToHoursMinutesSeconds(Int(Float(remainTime).roundToPlaces(places: 0)))
         let remainTimeMiliS = Utils.secondsToMiliseconds(remainTime)
-        self.lblVideoDuration.text = "\(progressTimeS):\(progressTimeMiliS) / \(remainTimeS):\(remainTimeMiliS)"
+        self.lblVideoDuration.text = "\(progressTimeS).\(progressTimeMiliS) / \(remainTimeS).\(remainTimeMiliS)"
         //\(totalTimeS):\(totalTimeMiliS)"
     }
     
