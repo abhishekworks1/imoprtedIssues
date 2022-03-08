@@ -251,9 +251,10 @@ class OmitEditorViewController: UIViewController,UIGestureRecognizerDelegate {
     }
     
     /// Move the position bar to the given time.
-    func seek(to time: CMTime, cell: ImageCollectionViewCutCell) {
+    func seek(to time: CMTime, cell: ImageCollectionViewCutCell, startPipe: CMTime, endPipe: CMTime) {
         cell.imagesView.layoutIfNeeded()
-        cell.videoPlayerPlayback(to: time, asset: cell.trimmerView.thumbnailsView.asset)
+        cell.videoPlayerPlayback(to: time, asset: cell.trimmerView.thumbnailsView.asset, startPipe: startPipe, endPipe: endPipe)
+//        cell.videoPlayerPlayback(to: time, asset: cell.trimmerView.thumbnailsView.asset)
         cell.layoutIfNeeded()
     }
     
@@ -285,12 +286,12 @@ class OmitEditorViewController: UIViewController,UIGestureRecognizerDelegate {
                     let currentAsset = self.currentAsset(index: currentPage)
                     
                     cell.trimmerView.seek(to: playBackTime)
-                    seek(to: CMTime.init(seconds: playBackTime.seconds, preferredTimescale: 10000), cell: cell)
+                    seek(to: CMTime.init(seconds: playBackTime.seconds, preferredTimescale: 10000), cell: cell, startPipe: startTime, endPipe: endTime)
                     
                     if playBackTime >= endTime {
                         player.seek(to: startTime, toleranceBefore: tolerance, toleranceAfter: tolerance)
                         cell.trimmerView.seek(to: startTime)
-                        seek(to: CMTime.init(seconds: startTime.seconds, preferredTimescale: 10000), cell: cell)
+                        seek(to: CMTime.init(seconds: startTime.seconds, preferredTimescale: 10000), cell: cell,startPipe: startTime, endPipe: endTime)
                         cell.trimmerView.resetTimePointer()
                         btnPlayPause.isSelected = false
                         player.pause()
@@ -515,8 +516,9 @@ extension OmitEditorViewController: TrimmerViewCutDelegate {
     func trimmerCutDidChangeDraggingPosition(_ trimmer: TrimmerViewCut, with currentTimeTrim: CMTime) {
         if let player = player,
            let cell: ImageCollectionViewCutCell = self.editStoryCollectionView.cellForItem(at: self.getCurrentIndexPath) as? ImageCollectionViewCutCell {
+            guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else { return }
             player.seek(to: currentTimeTrim, toleranceBefore: tolerance, toleranceAfter: tolerance)
-            self.seek(to: CMTime.init(seconds: currentTimeTrim.seconds, preferredTimescale: 10000), cell: cell)
+            self.seek(to: CMTime.init(seconds: currentTimeTrim.seconds, preferredTimescale: 10000), cell: cell, startPipe: startTime, endPipe: endTime)
         }
     }
     
@@ -527,12 +529,12 @@ extension OmitEditorViewController: TrimmerViewCutDelegate {
                 if self.btnPlayPause.isSelected {
                     if let cell: ImageCollectionViewCutCell = self.editStoryCollectionView.cellForItem(at: self.getCurrentIndexPath) as? ImageCollectionViewCutCell {
                         if !isLeftGesture {
-                            guard let endTime = trimmer.endTime else {
+                            guard let startTime = trimmer.startTime, let endTime = trimmer.endTime else {
                                 return
                             }
                             let newEndTime = endTime - CMTime.init(seconds: 1, preferredTimescale: endTime.timescale)
                             player.seek(to: newEndTime, toleranceBefore: self.tolerance, toleranceAfter: self.tolerance)
-                            self.seek(to: CMTime.init(seconds: newEndTime.seconds, preferredTimescale: 10000), cell: cell)
+                            seek(to: CMTime.init(seconds: newEndTime.seconds, preferredTimescale: 10000), cell: cell, startPipe: startTime, endPipe: endTime)
                         }
                     }
                     player.play()
