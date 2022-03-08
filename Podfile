@@ -7,7 +7,7 @@ inhibit_all_warnings!
 
 def shared_pods
     pod 'R.swift', '5.3.1'
-    pod 'SwiftLint', '0.42.0'
+    #pod 'SwiftLint', '0.42.0'
     pod 'Moya/RxSwift', '~> 14.0'
     pod 'Moya-ObjectMapper/RxSwift', '2.9'
     pod 'NSObject+Rx', '5.0.2'
