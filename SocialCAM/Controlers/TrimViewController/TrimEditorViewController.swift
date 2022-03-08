@@ -73,7 +73,7 @@ class TrimEditorViewController: UIViewController {
     var tolerance: CMTime {
         return isTimePrecisionInfinity ? CMTime.indefinite : CMTime.zero
     }
-    var saveTime: CMTime = CMTime.zero
+//    var saveTime: CMTime = CMTime.zero
     
     var getCurrentIndexPath: IndexPath {
         return IndexPath.init(row: self.currentPage, section: 0)
@@ -105,13 +105,15 @@ class TrimEditorViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        doneView.alpha = 1
+        doneView.isUserInteractionEnabled = true
         setupLayout()
         for videoSegment in videoUrls {
             storyEditorMedias.append([videoSegment])
             resetStoryEditorMedias.append([videoSegment])
         }
-        doneView.alpha = 0.5
-        doneView.isUserInteractionEnabled = false
+//        doneView.alpha = 0.5
+//        doneView.isUserInteractionEnabled = false
         if isFromSplitView {
             splitView.isHidden = false
             storyView.isHidden = false
@@ -198,9 +200,9 @@ class TrimEditorViewController: UIViewController {
     }
     
     /// Move the position bar to the given time.
-    func seek(to time: CMTime, cell: ImageCollectionViewCell) {
+    func seek(to time: CMTime, cell: ImageCollectionViewCell, startPipe: CMTime, endPipe: CMTime) {
         cell.imagesView.layoutIfNeeded()
-        cell.videoPlayerPlayback(to: time, asset: cell.trimmerView.thumbnailsView.asset)
+        cell.videoPlayerPlayback(to: time, asset: cell.trimmerView.thumbnailsView.asset, startPipe: startPipe, endPipe: endPipe)
         cell.layoutIfNeeded()
     }
     
@@ -221,20 +223,20 @@ class TrimEditorViewController: UIViewController {
             return
         }
         if let player = self.player {
-            let playBackTime = player.currentTime()
+            var playBackTime = player.currentTime()
             if let cell: ImageCollectionViewCell = self.editStoryCollectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? ImageCollectionViewCell {
                 if !isStartMovable {
-                    guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
+                    guard var startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
                         return
                     }
                     
                     cell.trimmerView.seek(to: playBackTime)
-                    seek(to: CMTime.init(seconds: playBackTime.seconds, preferredTimescale: 10000), cell: cell)
+                    seek(to: CMTime.init(seconds: playBackTime.seconds, preferredTimescale: 10000), cell: cell, startPipe: startTime, endPipe: endTime)
                     
                     if playBackTime >= endTime {
                         player.seek(to: startTime, toleranceBefore: tolerance, toleranceAfter: tolerance)
                         cell.trimmerView.seek(to: startTime)
-                        seek(to: CMTime.init(seconds: startTime.seconds, preferredTimescale: 10000), cell: cell)
+                        seek(to: CMTime.init(seconds: startTime.seconds, preferredTimescale: 10000), cell: cell, startPipe: startTime, endPipe: endTime)
                         cell.trimmerView.resetTimePointer()
                         btnPlayPause.isSelected = false
                         player.pause()
@@ -460,7 +462,7 @@ extension TrimEditorViewController: TrimmerViewDelegate {
         if let player = player {
             isStartMovable = true
             player.pause()
-            self.saveTime = player.currentTime()
+            
         }
     }
     
@@ -468,6 +470,7 @@ extension TrimEditorViewController: TrimmerViewDelegate {
         if let player = player,
            let cell: ImageCollectionViewCell = self.editStoryCollectionView.cellForItem(at: self.getCurrentIndexPath) as? ImageCollectionViewCell {
             
+            guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else { return }
             var newStartpoint = currentTimeTrim.seconds - 1
             if newStartpoint < 0{
                 newStartpoint = 0
@@ -477,7 +480,7 @@ extension TrimEditorViewController: TrimmerViewDelegate {
          //   player.seek(to: currentTimeTrim, toleranceBefore: tolerance, toleranceAfter: tolerance)
             
             player.seek(to: currentTimeTrim, toleranceBefore: start, toleranceAfter: start)
-            self.seek(to: CMTime.init(seconds: currentTimeTrim.seconds, preferredTimescale: 10000), cell: cell)
+            self.seek(to: CMTime.init(seconds: currentTimeTrim.seconds, preferredTimescale: 10000), cell: cell, startPipe: startTime, endPipe: endTime)
         }
     }
     
@@ -487,11 +490,8 @@ extension TrimEditorViewController: TrimmerViewDelegate {
             DispatchQueue.main.async {
                 if self.btnPlayPause.isSelected {
                     if let cell: ImageCollectionViewCell = self.editStoryCollectionView.cellForItem(at: self.getCurrentIndexPath) as? ImageCollectionViewCell {
-                        print("***************")
-                        print(trimmer.startTime?.seconds)
-                        print("***************")
                     if !isLeftGesture {
-                        guard let endTime = trimmer.endTime else {
+                        guard let startTime = cell.trimmerView.startTime, let endTime = trimmer.endTime else {
                             return
                         }
                         let newEndTime = endTime - CMTime.init(seconds: 1, preferredTimescale: endTime.timescale)
@@ -504,7 +504,7 @@ extension TrimEditorViewController: TrimmerViewDelegate {
                         print(newEndTime.seconds)
                         print(start.seconds)
                         player.seek(to: newEndTime, toleranceBefore: start, toleranceAfter: start)
-                        self.seek(to: CMTime.init(seconds: newEndTime.seconds, preferredTimescale: 10000), cell: cell)
+                        self.seek(to: CMTime.init(seconds: newEndTime.seconds, preferredTimescale: 10000), cell: cell, startPipe: startTime, endPipe: endTime)
                     }
                 }
                     player.play()
@@ -907,14 +907,14 @@ extension TrimEditorViewController {
             if player.timeControlStatus == .playing {
                 player.pause()
                 btnPlayPause.isSelected = false
-                doneView.alpha = 1
-                doneView.isUserInteractionEnabled = true
+//                doneView.alpha = 1
+//                doneView.isUserInteractionEnabled = true
             } else {
                 player.play()
                 btnPlayPause.isSelected = true
                 
-                doneView.alpha = 0.5
-                doneView.isUserInteractionEnabled = false
+//                doneView.alpha = 0.5
+//                doneView.isUserInteractionEnabled = false
             }
         }
     }
