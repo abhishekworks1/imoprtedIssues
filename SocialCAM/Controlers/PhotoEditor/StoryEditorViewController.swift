@@ -13,6 +13,7 @@ import AVKit
 import IQKeyboardManagerSwift
 import ColorSlider
 import GoogleAPIClientForREST
+import SwiftUI
 
 class ShareStoryCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var storyImageView: UIImageView!
@@ -325,6 +326,7 @@ class StoryEditorViewController: UIViewController {
     var storyEditorsSubviews: [StoryEditorView] = []
     var isTrim = false
     var isFromGallery = false
+    var isVideoModified = false
     var isSagmentSelection = false
     var socialShareExportURL:URL?
     var isViewEditMode: Bool = false {
@@ -758,6 +760,7 @@ extension StoryEditorViewController {
             guard let stickerImage = image else {
                 return
             }
+            self.isVideoModified = true
             self.didSelectSticker(StorySticker(image: stickerImage, type: .image))
             self.needToExportVideo()
             self.isSettingsChange = true
@@ -837,6 +840,7 @@ extension StoryEditorViewController {
                 self.medias.append(storyEditorMedia)
             }
             self.isTrim = false
+//            self.isVideoModified = true
             self.medias.append(contentsOf: self.filteredImagesStory)
             if !self.storyEditorsSubviews.isEmpty {
                 self.storyEditorsSubviews.removeAll()
@@ -880,6 +884,7 @@ extension StoryEditorViewController {
                 }
                 self.medias.append(storyEditorMedia)
             }
+            self.isVideoModified = true
             self.isTrim = true
             self.medias.append(contentsOf: self.filteredImagesStory)
             if !self.storyEditorsSubviews.isEmpty {
@@ -932,6 +937,7 @@ extension StoryEditorViewController {
                 self.medias.append(storyEditorMedia)
             }
             self.isTrim = true
+            self.isVideoModified = true
             self.medias.append(contentsOf: self.filteredImagesStory)
             if !self.storyEditorsSubviews.isEmpty {
                 self.storyEditorsSubviews.removeAll()
@@ -978,6 +984,7 @@ extension StoryEditorViewController {
                 self.medias.append(storyEditorMedia)
             }
             self.isTrim = true
+            self.isVideoModified = true
             self.medias.append(contentsOf: self.filteredImagesStory)
             if !self.storyEditorsSubviews.isEmpty {
                 self.storyEditorsSubviews.removeAll()
@@ -1206,7 +1213,84 @@ extension StoryEditorViewController {
     }
 
     @IBAction func downloadClicked(_ sender: UIButton) {
-     //pop to recorrding screen if auto save is off
+     //pop to recording screen if auto save is off
+        var isVideoModified = self.isVideoModified
+        var isVideoRecorded = isFromGallery
+        if Defaults.shared.isVideoSavedAfterEditing == false {
+            let alert = UIAlertController(title: "", message: R.string.localizable.pleaseSelectAnOption(), preferredStyle: .actionSheet)
+
+            alert.addAction(UIAlertAction(title: R.string.localizable.saveVideoThisTimeOnly(), style: .default , handler:{(UIAlertAction)in
+                Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
+                self.referType = self.storyEditors[self.currentStoryIndex].referType
+                self.imageVideoExport(isDownload: true,isFromDoneTap:true)
+            }))
+            
+            alert.addAction(UIAlertAction(title: R.string.localizable.alwaysSaveEditedVideos(), style: .default , handler:{ (UIAlertAction)in
+                self.saveVideoInQuickCamFolder()
+            }))
+            
+            alert.addAction(UIAlertAction(title: R.string.localizable.discardVideoThisTimeOnly(), style: .default , handler:{ (UIAlertAction)in
+                self.navigationController?.popViewController(animated: true)
+            }))
+            
+            alert.addAction(UIAlertAction(title: R.string.localizable.cancel(), style: .cancel, handler:{ (UIAlertAction)in
+            }))
+            
+            //uncomment for iPad Support
+            //alert.popoverPresentationController?.sourceView = self.view
+            
+            self.present(alert, animated: true, completion: {
+                print("completion block")
+            })
+        }
+        else {
+            //if isVideoSavedAfterEditing is on
+            if Defaults.shared.isVideoSavedAfterRecording == false {
+                //isVideoSavedAfterRecording is false
+                if isVideoModified == false {
+                    if isVideoRecorded {
+                        //source camera
+                        self.saveVideoInQuickCamFolder()
+                    } else {
+                        //source gallery
+                        let alert = UIAlertController(title: "", message: R.string.localizable.savingWillCreateAnIdenticalCopy(), preferredStyle: .actionSheet)
+                        
+                        alert.addAction(UIAlertAction(title: R.string.localizable.oK(), style: .default , handler:{ (UIAlertAction)in
+                            self.saveVideoInQuickCamFolder()
+                        }))
+                        
+                        alert.addAction(UIAlertAction(title: R.string.localizable.cancel(), style: .default , handler:{ (UIAlertAction)in
+                            self.navigationController?.popViewController(animated: true) //confirm once with Krushali
+                        }))
+                        
+                        self.present(alert, animated: true, completion: {
+                            print("completion block")
+                        })
+                    }
+                }
+                else {
+                    // videoModified is true
+                    self.saveVideoInQuickCamFolder()
+                }
+            }
+            else {
+                //isVideoSavedAfterRecording is true
+                if isVideoModified == false {
+                    if isVideoRecorded {
+                        self.navigationController?.popViewController(animated: true) //confirm once with Krushali
+                    } else {
+                        //video from gallery
+                        self.navigationController?.popViewController(animated: true) //confirm once with Krushali
+                    }
+                }
+                else {
+                    // videoModified is true
+                    self.saveVideoInQuickCamFolder()
+                }
+            }
+        }
+        //old code - 7-3-2022
+          /*
         if Defaults.shared.isVideoSavedAfterRecording{
             Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
             referType = storyEditors[currentStoryIndex].referType
@@ -1214,7 +1298,13 @@ extension StoryEditorViewController {
         }else{
             self.navigationController?.popViewController(animated: true)
         }
-        
+        */
+    }
+    func saveVideoInQuickCamFolder() {
+        Defaults.shared.isVideoSavedAfterEditing = true
+        Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
+        self.referType = self.storyEditors[self.currentStoryIndex].referType
+        self.imageVideoExport(isDownload: true,isFromDoneTap:true)
     }
     
     @IBAction func slideShowAutoFillClicked(_ sender: UIButton) {
@@ -1534,10 +1624,12 @@ extension StoryEditorViewController {
     @objc private func backgroundViewDidTap() {
         popupVC.dismiss()
     }
+    
     @IBAction func btnSocialMediaBackClick(_ sender: UIButton) {
         self.socialShareExportURL = nil
         self.socialMediaMainView.isHidden = true
     }
+    
     @IBAction func btnSocialMediaDoneClick(_ sender: UIButton) {
         if Defaults.shared.isShowAllPopUpChecked == true {
             self.hideShowDiscardVideoPopup(shouldShow: true)
@@ -1560,6 +1652,7 @@ extension StoryEditorViewController {
             Defaults.shared.callHapticFeedback(isHeavy: false)
         }
     }
+    
     @IBAction func btnSocialMediaShareClick(_ sender: UIButton) {
         
        
@@ -1703,6 +1796,7 @@ extension StoryEditorViewController {
                   let croppedUrl = self.croppedUrl else {
                 return
             }
+            self.isVideoModified = true
             let storyEditor = storyEditors[currentStoryIndex]
             storyEditor.isCropped = false
             storyEditor.replaceMedia(.video(image, AVAsset(url: croppedUrl)))
@@ -1719,6 +1813,7 @@ extension StoryEditorViewController {
                   let croppedUrl = self.croppedUrl else {
                 return
             }
+            self.isVideoModified = true
             let storyEditor = storyEditors[currentStoryIndex]
             storyEditor.isCropped = false
             storyEditor.replaceMedia(.video(image, AVAsset(url: croppedUrl)))
@@ -1755,6 +1850,7 @@ extension StoryEditorViewController {
     }
     
     @IBAction func fastesteverWatermarkButtonClicked(sender: UIButton) {
+        isVideoModified = true
         Defaults.shared.callHapticFeedback(isHeavy: false)
         isFastesteverWatermarkShow = !isFastesteverWatermarkShow
         btnFastesteverWatermark.isSelected = isFastesteverWatermarkShow
@@ -1763,6 +1859,7 @@ extension StoryEditorViewController {
     }
     
     @IBAction func publicDisplaynameButtonClicked(sender: UIButton) {
+        isVideoModified = true
         Defaults.shared.callHapticFeedback(isHeavy: false)
         isPublicDisplaynameWatermarkShow = !isPublicDisplaynameWatermarkShow
         btnSelectPublicDisplaynameWatermark.isSelected = isPublicDisplaynameWatermarkShow
@@ -1775,6 +1872,7 @@ extension StoryEditorViewController {
     }
     
     @IBAction func appIdentifierWatermarkButtonClicked(sender: UIButton) {
+        isVideoModified = true
         Defaults.shared.callHapticFeedback(isHeavy: false)
         isAppIdentifierWatermarkShow = !isAppIdentifierWatermarkShow
         btnAppIdentifierWatermark.isSelected = isAppIdentifierWatermarkShow

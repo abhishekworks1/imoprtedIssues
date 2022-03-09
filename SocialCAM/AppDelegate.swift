@@ -513,6 +513,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             goToKeycloakWebview(url: keycloakURL, isSessionCodeExist: isSessionCodeExist)
         } else {
             let cameraNavVC = R.storyboard.storyCameraViewController.storyCameraViewNavigationController()
+//            let cameraNavVC = R.storyboard.storyCameraViewController.storySettingsVC()!
             cameraNavVC?.navigationBar.isHidden = true
             Utils.appDelegate?.window?.rootViewController = cameraNavVC
         }
