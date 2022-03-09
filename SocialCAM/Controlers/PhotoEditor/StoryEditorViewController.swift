@@ -327,7 +327,8 @@ class StoryEditorViewController: UIViewController {
     var isTrim = false
     var isFromGallery = false
     var isVideoModified = false
-    var isSagmentSelection = false
+    var isVideoRecorded = false
+ var isSagmentSelection = false
     var socialShareExportURL:URL?
     var isViewEditMode: Bool = false {
         didSet {
@@ -1215,7 +1216,7 @@ extension StoryEditorViewController {
     @IBAction func downloadClicked(_ sender: UIButton) {
      //pop to recording screen if auto save is off
         var isVideoModified = self.isVideoModified
-        var isVideoRecorded = isFromGallery
+        var isVideoRecorded = self.isVideoRecorded
         if Defaults.shared.isVideoSavedAfterEditing == false {
             let alert = UIAlertController(title: "", message: R.string.localizable.pleaseSelectAnOption(), preferredStyle: .actionSheet)
 

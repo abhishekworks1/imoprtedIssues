@@ -343,6 +343,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             }
         case .ended:
             DispatchQueue.main.async {
+                self.isVideoRecordedForEditScreen = true
                 self.resetPositionRecordButton()
                 self.speedLabel.text = ""
                 self.speedLabel.stopBlink()
