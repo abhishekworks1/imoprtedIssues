@@ -411,6 +411,7 @@ class ContactResponse: Mappable {
     var trackReferral: Bool?
     var status: String?
     var emailOptedOut: Bool?
+    var hide: Bool?
 
     required init?(map: Map){
     }
@@ -426,5 +427,6 @@ class ContactResponse: Mappable {
         trackReferral <- map["trackReferral"]
         status <- map["status"]
         emailOptedOut <- map["emailOptedOut"]
+        hide <- map["hide"]
     }
 }
