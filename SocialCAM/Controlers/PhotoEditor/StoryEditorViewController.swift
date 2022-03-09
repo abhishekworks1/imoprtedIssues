@@ -1319,7 +1319,8 @@ extension StoryEditorViewController {
                     if isDownload {
                         self.saveImageOrVideoInGallery(image: image)
                         if isFromDoneTap{
-                            self.navigationController?.popViewController(animated: true)
+                            guard let storyCamVC = R.storyboard.storyCameraViewController.storyCameraViewController() else { return }
+                            self.navigationController?.pushViewController(storyCamVC, animated: true)
                         }
                     } else {
                         if type == .more {
@@ -1949,7 +1950,7 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
                 avAsset = asset
             }
             let seconds = Float(avAsset?.duration.seconds ?? 0.00)
-            let videoLenght = "\(seconds + 1.0)"
+            let videoLenght = "\(seconds + 0.0)"
             storyEditorCell.thumbnailTimeLabel.text = String(videoLenght.prefix(3))
             
              //String(format: "%s", avAsset?.duration.seconds)
@@ -2485,11 +2486,8 @@ extension StoryEditorViewController {
                 }
                 loadingView.show(on: self.view, completion: {
                     loadingView.cancelClick = { _ in
-                        loadingView.progressView.stopBlink()
-                        loadingView.showTotalCount = false
-                        self.cancelExportVideoSession(view: loadingView, session: exportSession)
-                        //                        exportSession.cancelExporting()
-                        //                        loadingView.hide()
+                        exportSession.cancelExporting()
+                        loadingView.hide()
                     }
                 })
             }
@@ -2533,20 +2531,6 @@ extension StoryEditorViewController {
                     self.present(alert, animated: true, completion: nil)
                 }
         })
-    }
-    
-    func cancelExportVideoSession(view: LoadingView, session: StoryAssetExportSession)  {
-        let alert = UIAlertController(title: "Export Video", message: "Sure you want to cancel export video", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Resume", style: .default, handler: { resumeButton in
-            alert.dismiss(animated: true, completion: nil)
-        }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { cancelButton in
-//            view.cancelClick = { _ in
-                session.cancelExporting()
-                view.hide()
-//            }
-        }))
-        self.present(alert, animated: true, completion: nil)
     }
     
     func saveSlideShow(success: @escaping ((URL) -> Void), failure: @escaping ((Error) -> Void)) {

@@ -55,6 +55,7 @@ enum SettingsMode: Int {
     case referringChannelName
     case skipYoutubeLogin
     case saveVideoAfterRecording
+    case autoSaveAfterEditing
     case muteRecordingSlowMotion
     case muteRecordingFastMotion
     case shareSetting

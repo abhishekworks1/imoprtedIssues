@@ -252,15 +252,32 @@ class ImageCollectionViewCutCell: UICollectionViewCell {
         }
     }
 
-    func videoPlayerPlayback(to time: CMTime, asset: AVAsset) {
-        let (progressTimeM, progressTimeS) = Utils.secondsToHoursMinutesSeconds(Int(CMTimeGetSeconds(time)))
-        let progressTimeMiliS = Utils.secondsToMiliseconds(CMTimeGetSeconds(time))
-        let (totalTimeM, totalTimeS) = Utils.secondsToHoursMinutesSeconds(Int(Float(asset.duration.seconds).roundToPlaces(places: 0)))
-        let remainTime = asset.duration.seconds - CMTimeGetSeconds(time)
-        let (remainTimeM, remainTimeS) = Utils.secondsToHoursMinutesSeconds(Int(Float(remainTime).roundToPlaces(places: 0)))
-        let remainTimeMiliS = Utils.secondsToMiliseconds(remainTime)
-        self.remainTimeMiliS = remainTimeMiliS
-        self.lblVideoDuration.text = "\(progressTimeS):\(progressTimeMiliS) / \(remainTimeS):\(remainTimeMiliS)"
+//    func videoPlayerPlayback(to time: CMTime, asset: AVAsset) {
+//        let (progressTimeM, progressTimeS) = Utils.secondsToHoursMinutesSeconds(Int(CMTimeGetSeconds(time)))
+//        let progressTimeMiliS = Utils.secondsToMiliseconds(CMTimeGetSeconds(time))
+//        let (totalTimeM, totalTimeS) = Utils.secondsToHoursMinutesSeconds(Int(Float(asset.duration.seconds).roundToPlaces(places: 0)))
+//        let remainTime = asset.duration.seconds - CMTimeGetSeconds(time)
+//        let (remainTimeM, remainTimeS) = Utils.secondsToHoursMinutesSeconds(Int(Float(remainTime).roundToPlaces(places: 0)))
+//        let remainTimeMiliS = Utils.secondsToMiliseconds(remainTime)
+//        self.remainTimeMiliS = remainTimeMiliS
+//        self.lblVideoDuration.text = "\(progressTimeS).\(progressTimeMiliS) / \(remainTimeS).\(remainTimeMiliS)"
+//    }
+    
+    func videoPlayerPlayback(to time: CMTime, asset: AVAsset, startPipe: CMTime, endPipe: CMTime) {
+        var startT = Double()
+        if time == startPipe {
+            startT = 0.00
+        } else {
+            startT = time.seconds - startPipe.seconds
+        }
+        let (_, progressTimeS) = Utils.secondsToHoursMinutesSeconds(Int(Float(startT).roundToPlaces(places: 0)))
+        let progressTimeMiliS = Utils.secondsToMiliseconds(startT)
+        let endT = asset.duration.seconds - startPipe.seconds - (asset.duration.seconds - endPipe.seconds)
+        let (_, totalTimeS) = Utils.secondsToHoursMinutesSeconds(Int(Float(endT).roundToPlaces(places: 0)))
+        let totalTimeMiliS = Utils.secondsToMiliseconds(endT)
+        self.lblVideoersiontag.font = UIFont.systemFont(ofSize: 12, weight: .bold)
+        self.lblVideoDuration.text = "\(progressTimeS).\(progressTimeMiliS) / \(totalTimeS).\(totalTimeMiliS)"
+
     }
     
     func hideLeftRightHandle() {
