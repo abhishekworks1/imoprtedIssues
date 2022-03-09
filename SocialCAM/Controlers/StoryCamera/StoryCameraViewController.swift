@@ -540,6 +540,8 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     var isVideoRecording = false
     var isVidplayAccountFound: Bool? = false
     var vidplaySessionToken = ""
+    var isVideoRecordedForEditScreen = true
+    
     
     // MARK: ViewController lifecycle
     override func viewDidLoad() {
@@ -2252,6 +2254,7 @@ extension StoryCameraViewController {
                 storyEditorViewController.isBoomerang = photosSelection ? false : (self.recordingType == .boomerang)
                 storyEditorViewController.medias = medias
                 storyEditorViewController.isSlideShow = isSlideShow
+                storyEditorViewController.isVideoRecorded = isVideoRecordedForEditScreen
                 self.navigationController?.pushViewController(storyEditorViewController, animated: false)
                 self.removeData()
                 return
@@ -2286,6 +2289,7 @@ extension StoryCameraViewController {
                 storyEditorViewController.isBoomerang = (self.recordingType == .boomerang)
                 storyEditorViewController.medias = medias
                 storyEditorViewController.isSlideShow = isSlideShow
+                storyEditorViewController.isVideoRecorded = self.isVideoRecordedForEditScreen
                 self.navigationController?.pushViewController(storyEditorViewController, animated: false)
                 self.removeData()
             }
@@ -2325,6 +2329,7 @@ extension StoryCameraViewController {
                 storyEditorViewController.isBoomerang = photosSelection ? false : (self.recordingType == .boomerang)
                 storyEditorViewController.medias = medias
                 storyEditorViewController.isSlideShow = isSlideShow
+                storyEditorViewController.isVideoRecorded = self.isVideoRecordedForEditScreen
                 self.navigationController?.pushViewController(storyEditorViewController, animated: false)
                 self.removeData()
             }
@@ -2379,6 +2384,7 @@ extension StoryCameraViewController {
             storyEditorViewController.medias = medias
             storyEditorViewController.isSlideShow = isSlideShow
             storyEditorViewController.isFromGallery = photosSelection
+            storyEditorViewController.isVideoRecorded = isVideoRecordedForEditScreen
             self.navigationController?.pushViewController(storyEditorViewController, animated: false)
             self.removeData()
         }
@@ -2445,6 +2451,7 @@ extension StoryCameraViewController {
                    }
                    storyEditorViewController.isBoomerang = (self.recordingType == .boomerang)
                    storyEditorViewController.medias = medias
+                    storyEditorViewController.isVideoRecorded = isVideoRecordedForEditScreen
                    self.navigationController?.pushViewController(storyEditorViewController, animated: false)
                    self.removeData()
         }
@@ -2461,6 +2468,7 @@ extension StoryCameraViewController {
         storyEditorViewController.isBoomerang = false
         storyEditorViewController.medias = medias
         storyEditorViewController.isSlideShow = isSlideShow
+        storyEditorViewController.isVideoRecorded = isVideoRecordedForEditScreen
         return storyEditorViewController
     }
     

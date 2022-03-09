@@ -15,6 +15,7 @@ extension StoryCameraViewController: PhotosPickerViewControllerDelegate {
     
     func dismissPhotoPicker(withTLPHAssets: [ImageAsset]) {
         if !withTLPHAssets.isEmpty {
+            isVideoRecordedForEditScreen = false
             if self.recordingType == .slideshow || self.recordingType == .collage {
                 for image in withTLPHAssets {
                     self.takenSlideShowImages.append(SegmentVideos(urlStr: URL.init(string: Constant.Application.imageIdentifier)!, thumbimage: image.fullResolutionImage!, numberOfSegement: String(self.takenSlideShowImages.count + 1)))
