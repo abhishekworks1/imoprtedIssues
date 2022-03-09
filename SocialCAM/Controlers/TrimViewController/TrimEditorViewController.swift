@@ -303,13 +303,15 @@ extension TrimEditorViewController: UICollectionViewDataSource {
                 cell.trimmerView.leftImage = UIImage()
                 cell.leftTopView.isHidden = true
                 cell.rightTopView.isHidden = true
-                cell.trimmerView.isUserInteractionEnabled = false
+                cell.trimmerView.leftPanGesture.isEnabled = false
+                cell.trimmerView.rightPanGesture.isEnabled = false
             } else {
                 cell.trimmerView.rightImage = R.image.cut_handle_icon()
                 cell.trimmerView.leftImage = R.image.cut_handle_icon()
                 cell.leftTopView.isHidden = false
                 cell.rightTopView.isHidden = false
-                cell.trimmerView.isUserInteractionEnabled = true
+                cell.trimmerView.leftPanGesture.isEnabled = true
+                cell.trimmerView.rightPanGesture.isEnabled = true
             }
             
         } else {
@@ -351,7 +353,7 @@ extension TrimEditorViewController: UICollectionViewDelegate, UICollectionViewDe
         if collectionView == self.editStoryCollectionView {
             return
         }
-        currentPlayVideo = indexPath.row
+        currentPlayVideo = indexPath.item
         if currentPlayVideo == storyEditorMedias.count {
             currentPlayVideo = 0
         }
@@ -699,9 +701,9 @@ extension TrimEditorViewController {
     @IBAction func undoSButtonTapped(_ sender: AnyObject) {
         if undoMgr.canUndo() {
             undoMgr.undo()
-            DispatchQueue.main.async {
-                self.combineButton.isSelected = false
-                self.storyCollectionView.reloadData()
+            DispatchQueue.main.async { [self] in
+                combineButton.isSelected = false
+                storyCollectionView.reloadData()
             }
         }
     }
@@ -907,14 +909,14 @@ extension TrimEditorViewController {
             if player.timeControlStatus == .playing {
                 player.pause()
                 btnPlayPause.isSelected = false
-//                doneView.alpha = 1
-//                doneView.isUserInteractionEnabled = true
+                //                doneView.alpha = 1
+                //                doneView.isUserInteractionEnabled = true
             } else {
                 player.play()
                 btnPlayPause.isSelected = true
                 
-//                doneView.alpha = 0.5
-//                doneView.isUserInteractionEnabled = false
+                //                doneView.alpha = 0.5
+                //                doneView.isUserInteractionEnabled = false
             }
         }
     }
@@ -932,9 +934,18 @@ extension TrimEditorViewController {
     @IBAction func didTapUndoButtonClicked(_ sender: UIButton) {
         if undoMgr.canUndo() {
             undoMgr.undo()
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [self] in
                 self.combineButton.isSelected = false
-                self.storyCollectionView.reloadData()
+                if currentPlayVideo == storyEditorMedias.count {
+                    currentPlayVideo = storyEditorMedias.count - 1
+                }
+                currentPage = currentPlayVideo
+                storyCollectionView.reloadData()
+                editStoryCollectionView.reloadData()
+                guard let currentAsset = self.currentAsset(index: currentPage) else {
+                    return
+                }
+                loadViewWith(asset: currentAsset)
             }
         }
     }
