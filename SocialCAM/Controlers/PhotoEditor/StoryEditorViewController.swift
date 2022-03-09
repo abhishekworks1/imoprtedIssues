@@ -13,6 +13,7 @@ import AVKit
 import IQKeyboardManagerSwift
 import ColorSlider
 import GoogleAPIClientForREST
+import Photos
 
 class ShareStoryCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var storyImageView: UIImageView!
@@ -660,7 +661,7 @@ class StoryEditorViewController: UIViewController {
         editToolBarView.isHidden = hide
         downloadView.isHidden = true//hide
         backButtonView.isHidden = hide
-        deleteView.isHidden = hideColorSlider ? true : hide
+        deleteView.isHidden = true//hideColorSlider ? true : hide
         collectionView.isHidden = (storyEditors.count > 1) ? hide : true
         slideShowCollectionView.isHidden = !isSlideShow ? true : hide
         slideShowPreviewView.isHidden = !isSlideShow ? true : hide
@@ -1347,35 +1348,61 @@ extension StoryEditorViewController {
                     }
                 } else {
                     self.isSettingsChange = false
-                    self.exportViewWithURL(asset, type: type) { [weak self] url in
-                        guard let `self` = self else { return }
-                        
-                        if let exportURL = url {
-                            self.videoExportedURL =  exportURL
-                            if isDownload {
-                                DispatchQueue.runOnMainThread {
-                                    self.saveImageOrVideoInGallery(exportURL: exportURL)
-                                    if isFromDoneTap{
-                                        self.navigationController?.popViewController(animated: true)
-                                    }
-                                }
-                            } else {
-                                DispatchQueue.runOnMainThread {
-                                    self.socialShareExportURL = exportURL
-                                    if type == .youtube {
-                                        self.checkYoutubeAuthentication(exportURL)
-                                    }else if type == .more {
-                                        self.shareWithActivity(url:exportURL)
-                                    } else {
-                                        SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type, referType: self.referType)
-                                    }
-                                    self.pauseVideo()
-                                    self.isVideoPlay = true
-                                }
+                    if type == .more {
+                        guard let asset = currentVideoAsset else { return }
+
+                        guard let exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetHighestQuality) else {
+                            print("Could not create AVAssetExportSession")
+                            return
+                        }
+
+                        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+                                    let outputURL = documentsURL.appendingPathComponent("\(UUID().uuidString).mp4")
+
+                        exportSession.outputURL = outputURL
+                        exportSession.outputFileType = AVFileType.mp4
+                        exportSession.shouldOptimizeForNetworkUse = true
+
+                        exportSession.exportAsynchronously {
+                            print("***************")
+                            print(outputURL)
+                            print("***************")
+                            DispatchQueue.main.async {
+                                self.shareWithActivity(url:outputURL)
                             }
-                        }else{
-                            if isFromDoneTap{
-                                self.navigationController?.popViewController(animated: true)
+                        }
+
+                    } else {
+                        self.exportViewWithURL(asset, type: type) { [weak self] url in
+                            guard let `self` = self else { return }
+                            
+                            if let exportURL = url {
+                                self.videoExportedURL = exportURL
+                                if isDownload {
+                                    DispatchQueue.runOnMainThread {
+                                        self.saveImageOrVideoInGallery(exportURL: exportURL)
+                                        if isFromDoneTap{
+                                            self.navigationController?.popViewController(animated: true)
+                                        }
+                                    }
+                                } else {
+                                    DispatchQueue.runOnMainThread {
+                                        self.socialShareExportURL = exportURL
+                                        if type == .youtube {
+                                            self.checkYoutubeAuthentication(exportURL)
+                                        }else if type == .more {
+                                            self.shareWithActivity(url:exportURL)
+                                        } else {
+                                            SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type, referType: self.referType)
+                                        }
+                                        self.pauseVideo()
+                                        self.isVideoPlay = true
+                                    }
+                                }
+                            }else{
+                                if isFromDoneTap{
+                                    self.navigationController?.popViewController(animated: true)
+                                }
                             }
                         }
                     }
@@ -2196,7 +2223,7 @@ extension StoryEditorViewController {
             asset.duration.seconds != 0 else {
                 return
         }
-        self.videoPlayerPlayback(to: storyEditors[currentStoryIndex].currentTime, asset: asset,sliderValue:sliderValue)
+         self.videoPlayerPlayback(to: storyEditors[currentStoryIndex].currentTime, asset: asset,sliderValue:sliderValue)
     }
     
     func videoPlayerPlayback(to time: CMTime, asset: AVAsset,sliderValue:Float? = nil) {
