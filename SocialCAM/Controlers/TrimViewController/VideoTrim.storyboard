@@ -1065,12 +1065,19 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AJW-jf-t3C">
                                                 <rect key="frame" x="0.0" y="143" width="60" height="61.5"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gek-UE-Ikd">
+                                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gek-UE-Ikd">
                                                         <rect key="frame" x="0.0" y="7.5" width="60" height="40"/>
                                                         <state key="normal" image="mergeCombine"/>
                                                         <state key="selected" image="mergeCombine"/>
                                                     </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Combine" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bpi-Ww-23L">
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mergeAll" translatesAutoresizingMaskIntoConstraints="NO" id="AA3-zP-Kdn">
+                                                        <rect key="frame" x="16.5" y="5" width="27" height="27"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="27" id="Isj-SY-Stl"/>
+                                                            <constraint firstAttribute="height" constant="27" id="wxm-Vi-4sK"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Join All" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bpi-Ww-23L">
                                                         <rect key="frame" x="0.0" y="47.5" width="60" height="14"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="14" id="5p8-f5-NWK"/>
@@ -1090,10 +1097,12 @@
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
+                                                    <constraint firstItem="AA3-zP-Kdn" firstAttribute="centerX" secondItem="AJW-jf-t3C" secondAttribute="centerX" id="1Xa-fo-hvC"/>
                                                     <constraint firstItem="bpi-Ww-23L" firstAttribute="top" secondItem="gek-UE-Ikd" secondAttribute="bottom" id="1r9-gK-CQ2"/>
                                                     <constraint firstItem="bpi-Ww-23L" firstAttribute="leading" secondItem="AJW-jf-t3C" secondAttribute="leading" id="5Cv-cw-QoG"/>
                                                     <constraint firstAttribute="trailing" secondItem="yj0-G2-EXq" secondAttribute="trailing" id="9nU-4I-kMl"/>
                                                     <constraint firstAttribute="bottom" secondItem="bpi-Ww-23L" secondAttribute="bottom" id="KAg-TM-2QJ"/>
+                                                    <constraint firstItem="AA3-zP-Kdn" firstAttribute="top" secondItem="AJW-jf-t3C" secondAttribute="top" constant="5" id="O9Y-ML-ihb"/>
                                                     <constraint firstItem="yj0-G2-EXq" firstAttribute="top" secondItem="AJW-jf-t3C" secondAttribute="top" id="UcF-zx-D0C"/>
                                                     <constraint firstItem="gek-UE-Ikd" firstAttribute="leading" secondItem="AJW-jf-t3C" secondAttribute="leading" id="XL0-Eh-OsH"/>
                                                     <constraint firstItem="gek-UE-Ikd" firstAttribute="top" secondItem="AJW-jf-t3C" secondAttribute="top" constant="7.5" id="a6c-Dp-JLz"/>
@@ -2457,6 +2466,7 @@
     <resources>
         <image name="iconTrimPause" width="70" height="70"/>
         <image name="iconTrimPlay" width="70" height="70"/>
+        <image name="mergeAll" width="1600" height="1600"/>
         <image name="mergeBack" width="32" height="32"/>
         <image name="mergeCombine" width="34" height="34"/>
         <image name="mergeDisableIcon" width="34" height="34"/>
