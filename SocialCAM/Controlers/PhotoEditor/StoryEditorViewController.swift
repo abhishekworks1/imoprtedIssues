@@ -1230,9 +1230,9 @@ extension StoryEditorViewController {
                 self.saveVideoInQuickCamFolder()
             }))
             
-            alert.addAction(UIAlertAction(title: R.string.localizable.discardVideoThisTimeOnly(), style: .default , handler:{ (UIAlertAction)in
+            /*alert.addAction(UIAlertAction(title: R.string.localizable.discardVideoThisTimeOnly(), style: .default , handler:{ (UIAlertAction)in
                 self.navigationController?.popViewController(animated: true)
-            }))
+            }))*/
             
             alert.addAction(UIAlertAction(title: R.string.localizable.cancel(), style: .cancel, handler:{ (UIAlertAction)in
             }))
