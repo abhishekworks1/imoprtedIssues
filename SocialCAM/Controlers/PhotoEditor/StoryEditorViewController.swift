@@ -329,7 +329,8 @@ class StoryEditorViewController: UIViewController {
     var isFromGallery = false
     var isVideoModified = false
     var isVideoRecorded = false
- var isSagmentSelection = false
+    var isSagmentSelection = false
+    var isCurrentAssetMuted = false
     var socialShareExportURL:URL?
     var isViewEditMode: Bool = false {
         didSet {
@@ -444,6 +445,9 @@ class StoryEditorViewController: UIViewController {
         isPublicDisplaynameWatermarkShow = Defaults.shared.publicDisplaynameWatermarkSetting == .show
         self.lblPublicDisplaynameWatermark.text = "@\(Defaults.shared.currentUser?.username ?? "")"
         setGestureViewForShowHide(view: storyEditors[currentStoryIndex])
+       
+        storyEditors[currentStoryIndex].isMuted = isCurrentAssetMuted
+        
         if Defaults.shared.appMode == .free {
             btnFastesteverWatermark.isSelected = true
             btnAppIdentifierWatermark.isSelected = true
@@ -812,6 +816,7 @@ extension StoryEditorViewController {
         Defaults.shared.isEditSoundOff = storyEditors[currentStoryIndex].isMuted
         self.needToExportVideo()
         let soundIcon = storyEditors[currentStoryIndex].isMuted ? R.image.storySoundOff() : R.image.storySoundOn()
+        isCurrentAssetMuted = storyEditors[currentStoryIndex].isMuted ? true : false
         soundButton.setImage(soundIcon, for: .normal)
     }
     
@@ -2114,6 +2119,7 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
         storyEditors[indexPath.item].isHidden = false
         currentStoryIndex = indexPath.item
         print(currentStoryIndex)
+        storyEditors[currentStoryIndex].isMuted = isCurrentAssetMuted
         hideOptionIfNeeded()
         _ = storyEditors[currentStoryIndex].updatedThumbnailImage()
         nativeVideoPlayerRefresh()
