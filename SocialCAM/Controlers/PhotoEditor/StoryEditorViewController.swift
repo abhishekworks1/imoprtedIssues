@@ -1215,8 +1215,8 @@ extension StoryEditorViewController {
 
     @IBAction func downloadClicked(_ sender: UIButton) {
      //pop to recording screen if auto save is off
-        var isVideoModified = self.isVideoModified
-        var isVideoRecorded = self.isVideoRecorded
+        var isVideoModify = self.isVideoModified
+        var isVideoRecord = self.isVideoRecorded
         if Defaults.shared.isVideoSavedAfterEditing == false {
             let alert = UIAlertController(title: "", message: R.string.localizable.pleaseSelectAnOption(), preferredStyle: .actionSheet)
 
@@ -1248,8 +1248,8 @@ extension StoryEditorViewController {
             //if isVideoSavedAfterEditing is on
             if Defaults.shared.isVideoSavedAfterRecording == false {
                 //isVideoSavedAfterRecording is false
-                if isVideoModified == false {
-                    if isVideoRecorded {
+                if isVideoModify == false {
+                    if isVideoRecord {
                         //source camera
                         self.saveVideoInQuickCamFolder()
                     } else {
@@ -1276,8 +1276,8 @@ extension StoryEditorViewController {
             }
             else {
                 //isVideoSavedAfterRecording is true
-                if isVideoModified == false {
-                    if isVideoRecorded {
+                if isVideoModify == false {
+                    if isVideoRecord {
                         self.navigationController?.popViewController(animated: true) //confirm once with Krushali
                     } else {
                         //video from gallery
