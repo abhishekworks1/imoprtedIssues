@@ -807,6 +807,7 @@ extension StoryEditorViewController {
     }
 
     @IBAction func soundClicked(_ sender: UIButton) {
+        isVideoModified = true
         Defaults.shared.callHapticFeedback(isHeavy: false)
         storyEditors[currentStoryIndex].isMuted = !storyEditors[currentStoryIndex].isMuted
         Defaults.shared.isEditSoundOff = storyEditors[currentStoryIndex].isMuted
@@ -1219,7 +1220,7 @@ extension StoryEditorViewController {
         var isVideoModify = self.isVideoModified
         var isVideoRecord = self.isVideoRecorded
         if Defaults.shared.isVideoSavedAfterEditing == false {
-            let alert = UIAlertController(title: "", message: R.string.localizable.pleaseSelectAnOption(), preferredStyle: .actionSheet)
+            let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
             alert.addAction(UIAlertAction(title: R.string.localizable.saveVideoThisTimeOnly(), style: .default , handler:{(UIAlertAction)in
                 Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
@@ -1784,6 +1785,7 @@ extension StoryEditorViewController {
     
     @IBAction func ssuButtonClicked(sender: UIButton) {
         if isQuickApp {
+            isVideoModified = true
             let followMeStoryShareViews = storyEditors[currentStoryIndex].subviews.filter({ return $0 is FollowMeStoryView })
             if followMeStoryShareViews.count != 1 && currentStoryIndex == 0 {
                 self.didSelect(type: QuickCam.SSUTagType.profilePicture, waitingListOptionType: nil, socialShareType: nil, screenType: SSUTagScreen.ssutTypes)
