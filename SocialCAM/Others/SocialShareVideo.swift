@@ -167,7 +167,7 @@ open class SocialShareVideo: NSObject, SharingDelegate {
         displayMessage.append(" ")
         displayMessage.append("\(websiteUrl)/\(Defaults.shared.currentUser?.channelId ?? "")")
         if let twitterComposeViewController = R.storyboard.twitterCompose.twitterComposeViewController() {
-            twitterComposeViewController.modalPresentationStyle = .fullScreen
+            twitterComposeViewController.modalPresentationStyle = .overCurrentContext
             twitterComposeViewController.presetText = displayMessage
             if let image = image {
                 twitterComposeViewController.preselectedImage = image

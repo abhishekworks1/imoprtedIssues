@@ -77,6 +77,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     @IBOutlet weak var flashStackView: UIStackView!
     @IBOutlet weak var lastCaptureImageView: UIImageView!
     
+    @IBOutlet weak var backButtonView: UIStackView!
     @IBOutlet weak var photoTimerSelectedLabel: UILabel!
     @IBOutlet weak var pauseTimerSelectedLabel: UILabel!
     @IBOutlet weak var timerSelectedLabel: UILabel!
@@ -540,6 +541,8 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     var isVideoRecording = false
     var isVidplayAccountFound: Bool? = false
     var vidplaySessionToken = ""
+    var isVideoRecordedForEditScreen = true
+    
     
     // MARK: ViewController lifecycle
     override func viewDidLoad() {
@@ -973,6 +976,22 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         }
         self.selectedSegmentLengthValue.saveWithKey(key: "selectedSegmentLengthValue")
     }
+    
+    @IBAction func didTapClearAllSegments(_ sender: UIButton) {
+        let alert = UIAlertController(title: "Clear Segments", message: "Do you want to sure clear all Segments", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "YES", style: .default, handler: { yesButton in
+            print("Yes Button Clicked")
+            Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
+            if !self.takenVideoUrls.isEmpty {
+                self.viewWillAppear(true)
+            }
+        }))
+        alert.addAction(UIAlertAction(title: "NO", style: .cancel, handler: { noButton in
+            self.dismiss(animated: true, completion: nil)
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
 }
 
 // MARK: Setup Camera
@@ -1297,9 +1316,9 @@ extension StoryCameraViewController {
                 if self.recordingType == .normal {
                     Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_mode_FastSlow)
                 }
-                if isQuickApp && Defaults.shared.appMode == .free {
-                    self.showAlertForUpgradeSubscription()
-                }
+//                if isQuickApp && Defaults.shared.appMode == .free {
+//                    self.showAlertForUpgradeSubscription()
+//                }
 
             default:
                 break
@@ -1914,6 +1933,7 @@ extension StoryCameraViewController {
             self.circularProgress.drawArc(startAngle: Double(progress))
             self.discardSegmentsStackView.isHidden = false
             self.settingsButton.isHidden = true
+            self.backButtonView.isHidden = false
             self.businessDashboardButton.isHidden = true
             self.confirmRecordedSegmentStackView.isHidden = false
             self.stopMotionCollectionView.isHidden = true
@@ -2252,6 +2272,7 @@ extension StoryCameraViewController {
                 storyEditorViewController.isBoomerang = photosSelection ? false : (self.recordingType == .boomerang)
                 storyEditorViewController.medias = medias
                 storyEditorViewController.isSlideShow = isSlideShow
+                storyEditorViewController.isVideoRecorded = isVideoRecordedForEditScreen
                 self.navigationController?.pushViewController(storyEditorViewController, animated: false)
                 self.removeData()
                 return
@@ -2286,6 +2307,7 @@ extension StoryCameraViewController {
                 storyEditorViewController.isBoomerang = (self.recordingType == .boomerang)
                 storyEditorViewController.medias = medias
                 storyEditorViewController.isSlideShow = isSlideShow
+                storyEditorViewController.isVideoRecorded = self.isVideoRecordedForEditScreen
                 self.navigationController?.pushViewController(storyEditorViewController, animated: false)
                 self.removeData()
             }
@@ -2325,6 +2347,7 @@ extension StoryCameraViewController {
                 storyEditorViewController.isBoomerang = photosSelection ? false : (self.recordingType == .boomerang)
                 storyEditorViewController.medias = medias
                 storyEditorViewController.isSlideShow = isSlideShow
+                storyEditorViewController.isVideoRecorded = self.isVideoRecordedForEditScreen
                 self.navigationController?.pushViewController(storyEditorViewController, animated: false)
                 self.removeData()
             }
@@ -2379,6 +2402,7 @@ extension StoryCameraViewController {
             storyEditorViewController.medias = medias
             storyEditorViewController.isSlideShow = isSlideShow
             storyEditorViewController.isFromGallery = photosSelection
+            storyEditorViewController.isVideoRecorded = isVideoRecordedForEditScreen
             self.navigationController?.pushViewController(storyEditorViewController, animated: false)
             self.removeData()
         }
@@ -2445,6 +2469,7 @@ extension StoryCameraViewController {
                    }
                    storyEditorViewController.isBoomerang = (self.recordingType == .boomerang)
                    storyEditorViewController.medias = medias
+                    storyEditorViewController.isVideoRecorded = isVideoRecordedForEditScreen
                    self.navigationController?.pushViewController(storyEditorViewController, animated: false)
                    self.removeData()
         }
@@ -2461,6 +2486,7 @@ extension StoryCameraViewController {
         storyEditorViewController.isBoomerang = false
         storyEditorViewController.medias = medias
         storyEditorViewController.isSlideShow = isSlideShow
+        storyEditorViewController.isVideoRecorded = isVideoRecordedForEditScreen
         return storyEditorViewController
     }
     
@@ -2504,6 +2530,7 @@ extension StoryCameraViewController {
         self.progress = 0
         self.discardSegmentsStackView.isHidden = true
         self.settingsButton.isHidden = false
+        backButtonView.isHidden = true
         self.businessDashboardButton.isHidden = false
         self.confirmRecordedSegmentStackView.isHidden = true
         self.slowFastVerticalBar.isHidden = true
