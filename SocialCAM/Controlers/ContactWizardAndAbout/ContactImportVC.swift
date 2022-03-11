@@ -46,7 +46,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var page3NextBtn: UIButton!
     
     @IBOutlet weak var filterOptionView: UIView!
-
+    var loadingStatus = false
     let blueColor1 = UIColor(red: 0/255, green: 125/255, blue: 255/255, alpha: 1.0)
     let grayColor = UIColor(red: 200/255, green: 200/255, blue: 200/255, alpha: 1.0)
     var pageNo : Int = 1
@@ -104,14 +104,16 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var searchBar: UISearchBar!
     var searchText:String = ""
     var selectedContact:ContactResponse?
+    var inviteData:Data?
     var phoneContacts = [PhoneContact]()
     var mailContacts = [PhoneContact]()
     var allphoneContacts = [PhoneContact]()
     var allmailContacts = [PhoneContact]()
     var mobileContacts = [ContactResponse]()
     var allmobileContacts = [ContactResponse]()
+    var allmobileContactsForHide = [ContactResponse]()
     var filter: ContactsFilter = .none
-    
+    var selectedFilter:String = ContactStatus.all
     var loadingView: LoadingView? = LoadingView.instanceFromNib()
     
     override func viewDidLoad() {
@@ -224,8 +226,6 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     }
                 }
             }
-          //  self.hideLoader()
-           // loadingView.hide()
         default: break
         }
     }
@@ -426,15 +426,6 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         //}
         //phoneContacts.append(contentsOf: filterdArray)
         
-        for contact in phoneContacts {
-//            print("Name -> \(contact.name)")
-//            print("Email -> \(contact.email)")
-//            print("Phone Number -> \(contact.phoneNumber)")
-        }
-//        let arrayCode  = self.phoneNumberWithContryCode()
-//        for codes in arrayCode {
-//            print(codes)
-//        }
         self.showLoader()
         DispatchQueue.main.async {
             self.createContactJSON()
@@ -488,10 +479,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }
         }
     }
-    func getContactList(){
+    func getContactList(source:String = "mobile",page:Int = 1,limit:Int = 20,filter:String = ContactStatus.all){
        // ContactResponse
       // self.showLoader()
-        let path = API.shared.baseUrlV2 + "contact-list?contactSource=mobile"
+        let path = API.shared.baseUrlV2 + "contact-list?contactSource=\(source)&filterType=\(filter)&limit=\(limit)&page=\(page)"
       // let parameter : Parameters =  ["Content-Type": "application/json"]
         let headerWithToken : HTTPHeaders =  ["Content-Type": "application/json",
                                        "userid": Defaults.shared.currentUser?.id ?? "",
@@ -499,19 +490,31 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                                        "x-access-token": Defaults.shared.sessionToken ?? ""]
         let request = AF.request(path, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: headerWithToken, interceptor: nil)
         
-       
+        loadingStatus = true
         request.response { response in
           //  print(response)
             switch (response.result){
             case .success:
                 
                 let json = try! JSONSerialization.jsonObject(with: response.data ?? Data(), options: [])
-               // print(json)
-                let contacts = Mapper<ContactResponse>().mapArray(JSONArray:json as! [[String : Any]])
-              //print(contacts.first?.toJSON() ?? "")
-                self.mobileContacts = contacts.filter {$0.hide == false}
+               print(json)
+                guard let value =  json as? [[String : Any]] else {
+                    self.hideLoader()
+                    return }
+                   
+                
+                let contacts = Mapper<ContactResponse>().mapArray(JSONArray:value)
+                if page == 1{
+                    self.allmobileContactsForHide = [ContactResponse]()
+                    self.mobileContacts = [ContactResponse]()
+                    self.allmobileContacts = [ContactResponse]()
+                }
+                print(contacts.count)
+                self.allmobileContactsForHide.append(contentsOf:contacts)
+                self.mobileContacts.append(contentsOf:contacts.filter {$0.hide == false})
                 self.allmobileContacts = self.mobileContacts
                 self.hideLoader()
+                self.loadingStatus = false
                 DispatchQueue.main.async {
                     self.contactTableView.reloadData() // update your tableView having phoneContacts array
                 }
@@ -568,29 +571,43 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         request.setValue(Defaults.shared.sessionToken ?? "", forHTTPHeaderField: "x-access-token")
         request.setValue("1", forHTTPHeaderField: "deviceType")
         request.httpBody = data
+        self.showLoader()
         AF.request(request).responseJSON { response in
             print(response)
             switch (response.result) {
             case .success:
-                self.getContactList()
+               // self.getContactList()
+                if let indexMobile = self.mobileContacts.firstIndex(where: {$0.Id == self.selectedContact?.Id}){
+                    self.mobileContacts[indexMobile].status = ContactStatus.invited
+                }
+                if let indexAll = self.allmobileContacts.firstIndex(where: {$0.Id == self.selectedContact?.Id}){
+                    self.allmobileContacts[indexAll].status = ContactStatus.invited
+                }
+                if let indexAllHidden = self.allmobileContactsForHide.firstIndex(where: {$0.Id == self.selectedContact?.Id}){
+                    self.allmobileContactsForHide[indexAllHidden].status = ContactStatus.invited
+                }
+                self.contactTableView.reloadData()
+                self.hideLoader()
                 break
                
             case .failure(let error):
                 print(error)
+                self.hideLoader()
                 break
 
                 //failure code here
             }
         }
     }
-    func validateInvite(contact:ContactResponse){
+    func validateInvite(contact:ContactResponse, completion: @escaping (_ success: Bool?) -> ()){
         self.selectedContact = nil
         let contactListids = [contact.Id ?? ""]
         let inviteDetails = InviteDetails(content:contact.textLink ?? "", invitedFrom: "mobile", contactListIds: contactListids)
         let jsonEncoder = JSONEncoder()
         do {
             let jsonData = try jsonEncoder.encode(inviteDetails)
-            self.inviteGuestViaMobile(data:jsonData)
+            self.inviteData = jsonData
+            completion(true)
            
         } catch {
             print("error")
@@ -630,6 +647,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
     }
     @IBAction func syncButtonClicked(sender: UIButton) {
+        filterOptionView.isHidden = true
         ContactPermission()
     }
     @IBAction func filterOptionClicked(sender: UIButton) {
@@ -637,31 +655,76 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         switch sender.tag {
         case 1:
 
-            mobileContacts = allmobileContacts
+          /*  mobileContacts = allmobileContacts
             phoneContacts = allphoneContacts
             mailContacts = allmailContacts
-            contactTableView.reloadData()
-            
+            contactTableView.reloadData() */
+            self.selectedFilter = ContactStatus.all
+            self.showLoader()
+            self.getContactList( page:1,filter:ContactStatus.all)
+            break
+        case 2:
+
+          /*  mobileContacts = allmobileContacts
+            phoneContacts = allphoneContacts
+            mailContacts = allmailContacts
+            contactTableView.reloadData() */
+            self.selectedFilter = ContactStatus.recent
+            self.showLoader()
+            self.getContactList( page:1,filter:ContactStatus.recent)
             break
         case 3:
-            mobileContacts = allmobileContacts.filter({ ContactResponse -> Bool in
+           /* mobileContacts = allmobileContacts.filter({ ContactResponse -> Bool in
                 return (ContactResponse.status!.lowercased().contains(ContactStatus.pending.lowercased()))
             })
-            contactTableView.reloadData()
+            contactTableView.reloadData() */
+            self.selectedFilter = ContactStatus.pending
+            self.showLoader()
+            self.getContactList( page:1,filter:ContactStatus.pending)
             break
         case 4:
-            mobileContacts = allmobileContacts.filter({ ContactResponse -> Bool in
+          /*  mobileContacts = allmobileContacts.filter({ ContactResponse -> Bool in
                 return (ContactResponse.status!.lowercased().contains(ContactStatus.invited.lowercased()))
             })
-            contactTableView.reloadData()
-            
+            contactTableView.reloadData() */
+            self.selectedFilter = ContactStatus.invited
+            self.showLoader()
+            self.getContactList( page:1,filter:ContactStatus.invited)
+            break
+        case 5:
+          /*  mobileContacts = allmobileContacts.filter({ ContactResponse -> Bool in
+                return (ContactResponse.status!.lowercased().contains(ContactStatus.invited.lowercased()))
+            })
+            contactTableView.reloadData() */
+        
+            break
+        case 6:
+          /*  mobileContacts = allmobileContacts.filter({ ContactResponse -> Bool in
+                return (ContactResponse.status!.lowercased().contains(ContactStatus.invited.lowercased()))
+            })
+            contactTableView.reloadData() */
+            self.selectedFilter = ContactStatus.signedup
+            self.showLoader()
+            self.getContactList( page:1,filter:ContactStatus.signedup)
             break
         case 7:
-            mobileContacts = allmobileContacts.filter({ ContactResponse -> Bool in
+          /*  mobileContacts = allmobileContacts.filter({ ContactResponse -> Bool in
                 return (ContactResponse.status!.lowercased().contains(ContactStatus.subscriber.lowercased()))
             })
+            contactTableView.reloadData() */
+            self.selectedFilter = ContactStatus.subscriber
+            self.showLoader()
+            self.getContactList( page:1,filter:ContactStatus.subscriber)
+            break
+        case 8:
+            self.selectedFilter = ContactStatus.optout
+            self.showLoader()
+            self.getContactList( page:1,filter:ContactStatus.optout)
+            break
+        case 9:
+            self.selectedFilter = ContactStatus.all
+            self.mobileContacts =  self.allmobileContactsForHide.filter {$0.hide == true}
             contactTableView.reloadData()
-            
             break
         default:
             mobileContacts = allmobileContacts
@@ -877,10 +940,12 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     // MARK: - Searchbar delegate
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-            self.searchBar.showsCancelButton = true
+         self.searchBar.showsCancelButton = true
+         self.filterOptionView.isHidden = true
     }
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         //print(searchText)
+        self.filterOptionView.isHidden = true
         guard !searchText.isEmpty  else { phoneContacts = allphoneContacts; mailContacts = allmailContacts
             mobileContacts = allmobileContacts
             ; return }
@@ -1016,7 +1081,33 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         label.font = UIFont.systemFont(ofSize: 17, weight: .medium)
         return label
     }
-    
+    func openMessageComposer(mobileContact:ContactResponse?,reInvite :Bool = false){
+        if let mobilecontact = mobileContact{
+            self.selectedContact = mobilecontact
+            if reInvite{
+                self.inviteAgainpopup.isHidden = false
+                return
+            }
+            let phoneNum = mobilecontact.mobile ?? ""
+            let urlString = self.txtLinkWithCheckOut
+            let urlwithString = urlString + "\n" + "\n" + " \(mobilecontact.textLink ?? "")"
+            if !MFMessageComposeViewController.canSendText() {
+                    //showAlert("Text services are not available")
+                    return
+            }
+
+            let textComposer = MFMessageComposeViewController()
+            textComposer.messageComposeDelegate = self
+            let recipients:[String] = [phoneNum]
+          //textComposer.body = urlwithString
+            textComposer.body = urlwithString
+            textComposer.recipients = recipients
+
+           
+
+            present(textComposer, animated: true)
+        }
+    }
     func didPressButton(_ contact: PhoneContact ,mobileContact:ContactResponse?,reInvite :Bool = false) {
         if let mobilecontact = mobileContact{
             self.selectedContact = mobilecontact
@@ -1039,9 +1130,13 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             textComposer.body = urlwithString
             textComposer.recipients = recipients
 
-            self.validateInvite(contact:mobilecontact)
+            self.validateInvite(contact:mobilecontact, completion: { success in
+                if success ?? false{
+                    self.openMessageComposer(mobileContact:mobilecontact,reInvite:reInvite)
+                }
+            })
 
-            present(textComposer, animated: true)
+          //  present(textComposer, animated: true)
         }else{
             let urlString = self.txtLinkWithCheckOut
             let channelId = Defaults.shared.currentUser?.channelId ?? ""
@@ -1108,6 +1203,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }else{
                 self.contactSentConfirmPopup.isHidden = false
             }
+            self.inviteGuestViaMobile(data:self.inviteData ?? Data())
         }else if result == .cancelled || result == .failed{
            // self.selectedContact?.status = ContactStatus.invited
         }
@@ -1129,7 +1225,22 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     */
 
 }
-
+extension ContactImportVC:UIScrollViewDelegate{
+    //Pagination
+     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if scrollView == contactTableView{
+            let offsetY = scrollView.contentOffset.y
+            let contentHeight = scrollView.contentSize.height
+            print(offsetY >= contentHeight - scrollView.frame.height)
+            print(!loadingStatus)
+            if (offsetY >= contentHeight - scrollView.frame.height) && !loadingStatus {
+                self.showLoader()
+                self.getContactList(page: self.mobileContacts.count, filter: self.selectedFilter)
+            }
+        }
+        
+    }
+}
 extension UISwipeActionsConfiguration {
 
     public static func makeTitledImage(
