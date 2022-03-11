@@ -1219,7 +1219,16 @@ extension StoryEditorViewController {
         storyEditors[currentStoryIndex].endTextEditing()   //cancelTextEditing()
         hideToolBar(hide: false)
     }
-
+    @IBAction func saveShareClicked(_ sender: UIButton) {
+        if Defaults.shared.isVideoSavedAfterRecording{
+            Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
+            referType = storyEditors[currentStoryIndex].referType
+            imageVideoExport(isDownload: true,isFromDoneTap:true)
+        }else{
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+  
     @IBAction func downloadClicked(_ sender: UIButton) {
      //pop to recording screen if auto save is off
         var isVideoModify = self.isVideoModified
