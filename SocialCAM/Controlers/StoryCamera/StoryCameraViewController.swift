@@ -1316,9 +1316,9 @@ extension StoryCameraViewController {
                 if self.recordingType == .normal {
                     Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_mode_FastSlow)
                 }
-//                if isQuickApp && Defaults.shared.appMode == .free {
-//                    self.showAlertForUpgradeSubscription()
-//                }
+                if isQuickApp && Defaults.shared.appMode == .free {
+                    self.showAlertForUpgradeSubscription()
+                }
 
             default:
                 break

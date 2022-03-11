@@ -1221,7 +1221,18 @@ extension StoryEditorViewController {
     }
 
     @IBAction func downloadClicked(_ sender: UIButton) {
-     //pop to recording screen if auto save is off
+        if isPic2ArtApp || cameraMode == .pic2Art {
+//            if Defaults.shared.isVideoSavedAfterRecording{
+                Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
+                referType = storyEditors[currentStoryIndex].referType
+                imageVideoExport(isDownload: true,isFromDoneTap:true)
+//            }else{
+//                self.navigationController?.popViewController(animated: true)
+//            }
+            return
+        }
+        
+        //pop to recording screen if auto save is off
         var isVideoModify = self.isVideoModified
         var isVideoRecord = self.isVideoRecorded
         if Defaults.shared.isVideoSavedAfterEditing == false {
@@ -1689,7 +1700,6 @@ extension StoryEditorViewController {
     }
     
     @IBAction func btnSocialMediaShareClick(_ sender: UIButton) {
-        
        
         if Defaults.shared.appMode == .free, !(sender.tag == 3) {
             showAlertForUpgradeSubscription()
@@ -1698,6 +1708,7 @@ extension StoryEditorViewController {
                 guard let socialshareVC = R.storyboard.socialCamShareVC.socialCamShareVC() else {
                     return
                 }
+               
                 socialshareVC.btnStoryPostClicked = { [weak self] (selectedIndex) in
                     guard let `self` = self else { return }
                     self.popupVC.dismiss {
@@ -2122,6 +2133,7 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
         currentStoryIndex = indexPath.item
         print(currentStoryIndex)
         storyEditors[currentStoryIndex].isMuted = isCurrentAssetMuted
+        setGestureViewForShowHide(view: storyEditors[currentStoryIndex])
         hideOptionIfNeeded()
         _ = storyEditors[currentStoryIndex].updatedThumbnailImage()
         nativeVideoPlayerRefresh()
