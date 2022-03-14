@@ -40762,6 +40762,7 @@
 					"-fembed-bitcode-marker",
 					"$(inherited)",
 				);
+				OTHER_CODE_SIGN_FLAGS = "--generate-entitlement-der";
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D QUICKAPP";
 				PRODUCT_BUNDLE_IDENTIFIER = app.quickcam.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -40797,6 +40798,8 @@
 					"-fembed-bitcode-marker",
 					"$(inherited)",
 				);
+				OTHER_CODE_SIGN_FLAGS = "--generate-entitlement-der";
+				"OTHER_CODE_SIGN_FLAGS[sdk=*]" = "--generate-entitlement-der";
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D QUICKAPP";
 				PRODUCT_BUNDLE_IDENTIFIER = app.quickcam.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -40833,6 +40836,7 @@
 					"-fembed-bitcode-marker",
 					"$(inherited)",
 				);
+				OTHER_CODE_SIGN_FLAGS = "--generate-entitlement-der";
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D QUICKAPP";
 				PRODUCT_BUNDLE_IDENTIFIER = app.quickcam.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -40868,6 +40872,7 @@
 					"-fembed-bitcode",
 					"$(inherited)",
 				);
+				OTHER_CODE_SIGN_FLAGS = "--generate-entitlement-der";
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D QUICKAPP";
 				PRODUCT_BUNDLE_IDENTIFIER = app.quickcam.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";

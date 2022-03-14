@@ -90,6 +90,14 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var badgebtn2: UIButton!
     @IBOutlet weak var badgebtn3: UIButton!
     
+    @IBOutlet weak var textMessageButton: UIButton!
+    @IBOutlet weak var textMessageSeperatorView: UIView!
+    @IBOutlet weak var textMessageSeperatorViewHeight: NSLayoutConstraint!
+    
+    @IBOutlet weak var emailButton: UIButton!
+    @IBOutlet weak var emailSeperatorView: UIView!
+    @IBOutlet weak var emailSeperatorViewHeight: NSLayoutConstraint!
+    
     
     @IBOutlet weak var inviteAgainpopup: UIView!
     
@@ -184,6 +192,14 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 //            ContactPermission()
 //        }
         filterOptionView.isHidden = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+        self.view.addGestureRecognizer(tap)
+        self.textMessageSelected(sender:self.textMessageButton)
+    }
+    @objc func handleTap(_ sender: UITapGestureRecognizer? = nil) {
+        if !filterOptionView.isHidden{
+            filterOptionView.isHidden = true
+        }
     }
     func showLoader(){
             self.loadingView = LoadingView.instanceFromNib()
@@ -436,12 +452,13 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
       
         var contacts = [ContactDetails]()
         for contact in phoneContacts{
-            
-            let newContact = ContactDetails(contact:contact)
-            contacts.append(newContact)
-
+            if contact.phoneNumber.count > 0{
+                print(contact.phoneNumber.first!)
+                let newContact = ContactDetails(contact:contact)
+                contacts.append(newContact)
+            }
         }
-     //   print(contacts)
+        print(contacts)
         let jsonEncoder = JSONEncoder()
         do {
             let jsonData = try jsonEncoder.encode(contacts)
@@ -648,70 +665,41 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     @IBAction func syncButtonClicked(sender: UIButton) {
         filterOptionView.isHidden = true
-        ContactPermission()
+        self.showLoader()
+        self.loadContacts(filter: self.filter)
+       //ContactPermission()
     }
     @IBAction func filterOptionClicked(sender: UIButton) {
         filterOptionView.isHidden = true
         switch sender.tag {
         case 1:
-
-          /*  mobileContacts = allmobileContacts
-            phoneContacts = allphoneContacts
-            mailContacts = allmailContacts
-            contactTableView.reloadData() */
             self.selectedFilter = ContactStatus.all
             self.showLoader()
             self.getContactList( page:1,filter:ContactStatus.all)
             break
         case 2:
-
-          /*  mobileContacts = allmobileContacts
-            phoneContacts = allphoneContacts
-            mailContacts = allmailContacts
-            contactTableView.reloadData() */
             self.selectedFilter = ContactStatus.recent
             self.showLoader()
             self.getContactList( page:1,filter:ContactStatus.recent)
             break
         case 3:
-           /* mobileContacts = allmobileContacts.filter({ ContactResponse -> Bool in
-                return (ContactResponse.status!.lowercased().contains(ContactStatus.pending.lowercased()))
-            })
-            contactTableView.reloadData() */
             self.selectedFilter = ContactStatus.pending
             self.showLoader()
             self.getContactList( page:1,filter:ContactStatus.pending)
             break
         case 4:
-          /*  mobileContacts = allmobileContacts.filter({ ContactResponse -> Bool in
-                return (ContactResponse.status!.lowercased().contains(ContactStatus.invited.lowercased()))
-            })
-            contactTableView.reloadData() */
             self.selectedFilter = ContactStatus.invited
             self.showLoader()
             self.getContactList( page:1,filter:ContactStatus.invited)
             break
         case 5:
-          /*  mobileContacts = allmobileContacts.filter({ ContactResponse -> Bool in
-                return (ContactResponse.status!.lowercased().contains(ContactStatus.invited.lowercased()))
-            })
-            contactTableView.reloadData() */
-        
             break
         case 6:
-          /*  mobileContacts = allmobileContacts.filter({ ContactResponse -> Bool in
-                return (ContactResponse.status!.lowercased().contains(ContactStatus.invited.lowercased()))
-            })
-            contactTableView.reloadData() */
             self.selectedFilter = ContactStatus.signedup
             self.showLoader()
             self.getContactList( page:1,filter:ContactStatus.signedup)
             break
         case 7:
-          /*  mobileContacts = allmobileContacts.filter({ ContactResponse -> Bool in
-                return (ContactResponse.status!.lowercased().contains(ContactStatus.subscriber.lowercased()))
-            })
-            contactTableView.reloadData() */
             self.selectedFilter = ContactStatus.subscriber
             self.showLoader()
             self.getContactList( page:1,filter:ContactStatus.subscriber)
@@ -734,6 +722,24 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             break
         }
     }
+    @IBAction func textMessageSelected(sender: UIButton) {
+        textMessageButton.setTitleColor(ApplicationSettings.appPrimaryColor, for: .normal)
+        textMessageSeperatorView.backgroundColor = ApplicationSettings.appPrimaryColor
+        textMessageSeperatorViewHeight.constant = 3.0
+        
+        emailButton.setTitleColor(UIColor(hexString: "676767"), for: .normal)
+        emailSeperatorView.backgroundColor = UIColor(hexString: "676767")
+        emailSeperatorViewHeight.constant = 1.0
+    }
+    @IBAction func emailSelected(sender: UIButton) {
+        emailButton.setTitleColor(ApplicationSettings.appPrimaryColor, for: .normal)
+        emailSeperatorView.backgroundColor = ApplicationSettings.appPrimaryColor
+        emailSeperatorViewHeight.constant = 3.0
+        
+        textMessageButton.setTitleColor(UIColor(hexString: "676767"), for: .normal)
+        textMessageSeperatorView.backgroundColor = UIColor(hexString: "676767")
+        textMessageSeperatorViewHeight.constant = 1.0
+    }
     // MARK: - tableview Delegate
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if tableView == itemsTableView{
@@ -747,7 +753,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         if tableView == itemsTableView{
             return 1
         } else{
-            return 2
+            return 1
         }
     }
     
@@ -756,7 +762,6 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             return self.listingResponse?.list.count ?? 0
         } else {
             if section == 0 {
-               // return phoneContacts.count
               return mobileContacts.count
             }else {
                 return mailContacts.count
@@ -951,7 +956,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             ; return }
 
         mobileContacts = allmobileContacts.filter({ ContactResponse -> Bool in
-            return (( ContactResponse.name!.lowercased().contains(searchText.lowercased()) ) || ( ContactResponse.mobile!.contains(searchText.lowercased()) ) )
+            return (( (ContactResponse.name?.lowercased() ?? "").contains(searchText.lowercased()) ) || ( (ContactResponse.mobile?.lowercased() ?? "").contains(searchText.lowercased()) ) )
         })
         
         phoneContacts = allphoneContacts.filter({ Phonecontact -> Bool in
@@ -969,7 +974,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             searchBar.text = ""
             searchBar.resignFirstResponder()
         
-        phoneContacts = allphoneContacts;
+        mobileContacts = allmobileContacts
         mailContacts = allmailContacts;
         contactTableView.reloadData()
         
@@ -977,6 +982,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     func searchBarSearchButtonClicked(_ seachBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }
+
 
     // MARK: - Button Methods
     @IBAction func onBack(_ sender: Any) {
@@ -1227,6 +1233,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 }
 extension ContactImportVC:UIScrollViewDelegate{
     //Pagination
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        self.filterOptionView.isHidden = true
+    }
      func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if scrollView == contactTableView{
             let offsetY = scrollView.contentOffset.y
