@@ -1709,7 +1709,7 @@ extension StoryEditorViewController {
     }
     
     @IBAction func btnSocialMediaShareClick(_ sender: UIButton) {
-       
+        
         if Defaults.shared.appMode == .free, !(sender.tag == 3) {
             showAlertForUpgradeSubscription()
         } else {
@@ -1717,7 +1717,7 @@ extension StoryEditorViewController {
                 guard let socialshareVC = R.storyboard.socialCamShareVC.socialCamShareVC() else {
                     return
                 }
-               
+                
                 socialshareVC.btnStoryPostClicked = { [weak self] (selectedIndex) in
                     guard let `self` = self else { return }
                     self.popupVC.dismiss {
@@ -2115,6 +2115,7 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
             if let draggingPathOfCellBeingDragged = self.collectionView.draggingPathOfCellBeingDragged {
                 if draggingPathOfCellBeingDragged.item == indexPath.item {
                     storyEditorCell.isHidden = true
+                    storyEditorCell.imageView.layer.borderColor = R.color.appPrimaryColor()?.cgColor
                 }
             }
             
@@ -2207,9 +2208,18 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
         for editor in storyEditors {
             editor.isHidden = true
         }
+        
         storyEditors[indexPath.item].isHidden = false
         currentStoryIndex = indexPath.item
+        deleteView.isHidden = false
         hideOptionIfNeeded()
+//        if let indexPathItem = collectionView.indexPathsForSelectedItems?[indexPath.item] {
+//            guard let currentCellValue = collectionView.cellForItem(at: indexPathItem) as? StoryEditorCell else { return }
+//            let storyEditor = storyEditors[indexPath.item]
+//            currentCellValue.imageView.layer.borderColor = storyEditor.isHidden ? UIColor.white.cgColor : R.color.appPrimaryColor()?.cgColor
+//        }
+        
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, stopDrag dataItem: AnyObject, atIndexPath indexPath: IndexPath?, sourceRect rect: CGRect) {
@@ -2267,6 +2277,8 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
                 }
             }
         }
+        deleteView.isHidden = true
+        collectionView.reloadData()
     }
     
 }

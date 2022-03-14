@@ -183,6 +183,7 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpbadges()
         self.faceBookVerifiedView.isHidden = true
         self.twitterVerifiedView.isHidden = true
         self.snapVerifiedView.isHidden = true
@@ -464,6 +465,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         if section == 0 {
             headerView.btnProfilePic.addTarget(self, action: #selector(btnEditProfilePic), for: .touchUpInside)
         }
+        headerView.setUpbadges()
         headerView.btnProfilePic.tag = section
         headerView.callBackForReload = { [weak self] (isCalled) -> Void in
             self?.getVerifiedSocialPlatforms()
