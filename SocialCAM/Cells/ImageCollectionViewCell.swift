@@ -75,7 +75,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
         var borderColor: CGColor! = ApplicationSettings.appClearColor.cgColor
         var borderWidth: CGFloat = 0
         if currentPage == indexPath.row || storySegment.first!.isSelected {
-            borderColor = ApplicationSettings.appPrimaryColor.cgColor
+            borderColor = ApplicationSettings.appBorderColor.cgColor
             borderWidth = 3
             self.lblVideoersiontag.isHidden = false
         } else {
@@ -154,7 +154,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
         }
         imagesView.layer.cornerRadius = 5
         imagesView.layer.borderWidth = 3
-        imagesView.layer.borderColor = ApplicationSettings.appPrimaryColor.cgColor
+        imagesView.layer.borderColor = ApplicationSettings.appBorderColor.cgColor
         lblSegmentCount.text = "\(currentPage + 1)"
         lblSegmentCount.isHidden = true
         isEditMode = true
