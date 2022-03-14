@@ -703,6 +703,7 @@ open class TrimmerView: UIView {
         
         let timePointerViewGesture = UIPanGestureRecognizer(target: self, action: #selector(handleTimePointerViewPan))
        timePointerView.addGestureRecognizer(timePointerViewGesture)
+        
         let cutTimePointerViewGesture = UIPanGestureRecognizer(target: self, action: #selector(handleCutTimePointerViewPan))
         cutView.addGestureRecognizer(cutTimePointerViewGesture)
         

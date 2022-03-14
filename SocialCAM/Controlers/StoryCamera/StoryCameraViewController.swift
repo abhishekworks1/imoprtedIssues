@@ -67,6 +67,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     @IBOutlet weak var faceFiltersView: UIStackView!
     @IBOutlet weak var sceneFilterView: UIStackView!
     @IBOutlet weak var muteStackView: UIStackView!
+    
     @IBOutlet weak var swipeCameraStackView: UIStackView!
     @IBOutlet weak var galleryStackView: UIStackView!
     @IBOutlet weak var fpsView: UIStackView!
@@ -1316,9 +1317,9 @@ extension StoryCameraViewController {
                 if self.recordingType == .normal {
                     Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_mode_FastSlow)
                 }
-                if isQuickApp && Defaults.shared.appMode == .free {
-                    self.showAlertForUpgradeSubscription()
-                }
+//                if isQuickApp && Defaults.shared.appMode == .free {
+//                    self.showAlertForUpgradeSubscription()
+//                }
 
             default:
                 break

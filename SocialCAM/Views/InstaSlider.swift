@@ -73,13 +73,13 @@ open class InstaSlider: UIView {
     func collectionViewInitialization() {
         // Initialization code
         backgroundColor = UIColor.clear
-//        backgroundImage = UIImageView(frame: CGRect.init(x: (self.bounds.minX), y: (self.bounds.maxY) - 37, width: UIScreen.ratioWidth, height: 37))
-//        backgroundImage?.contentMode = .scaleAspectFit
-//        let image = bottomImage
-//        backgroundImage?.image = image
-//        if let anImage = backgroundImage {
-//            self.addSubview(anImage)
-//        }
+        //        backgroundImage = UIImageView(frame: CGRect.init(x: (self.bounds.minX), y: (self.bounds.maxY) - 37, width: UIScreen.ratioWidth, height: 37))
+        //        backgroundImage?.contentMode = .scaleAspectFit
+        //        let image = bottomImage
+        //        backgroundImage?.image = image
+        //        if let anImage = backgroundImage {
+        //            self.addSubview(anImage)
+        //        }
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         self.collectionView = UICollectionView(frame: bounds, collectionViewLayout: layout)
         collectionViewLayout = HorizontalFlowLayout.configureLayout(collectionView: self.collectionView, itemSize: CGSize.init(width: 90, height: self.collectionView.frame.height/2), minimumLineSpacing: 0)
