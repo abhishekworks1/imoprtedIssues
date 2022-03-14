@@ -137,13 +137,13 @@ open class TrimmerViewCut: UIView {
         let view = UIView()
         view.frame = .zero
  //       view.backgroundColor = ApplicationSettings.appClearColor
-       view.backgroundColor = ApplicationSettings.appWhiteColor
-        view.alpha = 0.7
-        view.layer.borderWidth = 2.0
+        view.backgroundColor = ApplicationSettings.appWhiteColor
+        view.alpha = 1
+        view.layer.borderWidth = 3.0
         view.layer.cornerRadius = viewCornerRadius
         view.clipsToBounds = false
         view.layer.masksToBounds = true
-        view.layer.borderColor = ApplicationSettings.appPrimaryColor.cgColor
+        view.layer.borderColor = ApplicationSettings.appBorderColor.cgColor
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isUserInteractionEnabled = true
         return view
