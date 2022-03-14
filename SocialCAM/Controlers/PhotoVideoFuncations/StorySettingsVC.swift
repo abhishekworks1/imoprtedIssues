@@ -155,8 +155,16 @@ class StorySettings {
 
 class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
     
+    @IBOutlet weak var snapVerifiedView: UIView!
+    @IBOutlet weak var faceBookVerifiedView: UIView!
+    @IBOutlet weak var twitterVerifiedView: UIView!
+    @IBOutlet weak var preLunchBadge: UIView!
+    @IBOutlet weak var foundingMergeBadge: UIView!
+    
+    @IBOutlet weak var socialBadgeicon: UIView!
     @IBOutlet weak var userPlaceHolderImageView: UIImageView!
     @IBOutlet weak var nameTitleLabel: UILabel!
+    @IBOutlet weak var joinedDateLabel: UILabel!
     @IBOutlet weak var userNametitleLabel: UILabel!
     @IBOutlet weak var profileDisplayView: UIView!
     @IBOutlet weak var settingsTableView: UITableView!
@@ -175,6 +183,9 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.faceBookVerifiedView.isHidden = true
+        self.twitterVerifiedView.isHidden = true
+        self.snapVerifiedView.isHidden = true
         lblAppInfo.text = "\(Constant.Application.displayName) - \(Constant.Application.appVersion)(\(Constant.Application.appBuildNumber))"
         lblLogoutPopup.text = R.string.localizable.areYouSureYouWantToLogoutFromApp("\(Constant.Application.displayName)")
         setupUI()
@@ -455,10 +466,18 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         }
         headerView.btnProfilePic.tag = section
         headerView.callBackForReload = { [weak self] (isCalled) -> Void in
+            self?.getVerifiedSocialPlatforms()
+            self?.setUpbadges()
             headerView.badgeIconHeightConstraint.constant = 45
             self?.profileDisplayView.isHidden = false
+            let name = "\(Defaults.shared.currentUser?.firstName ?? "") \(Defaults.shared.currentUser?.lastName ?? "")"
             self?.nameTitleLabel.text = R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? "")
-            self?.userNametitleLabel.text = R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? "")
+            self?.userNametitleLabel.text = Defaults.shared.publicDisplayName
+            if let createdDate = Defaults.shared.currentUser?.created {
+                let date = CommonFunctions.getDateInSpecificFormat(dateInput: createdDate, dateOutput: R.string.localizable.mmmdYyyy())
+                self?.joinedDateLabel.text = R.string.localizable.sinceJoined(date)
+            }
+            //R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? "")
             if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
                 if userImageURL.isEmpty {
                     self?.userPlaceHolderImageView.isHidden = false
@@ -473,6 +492,38 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         return headerView
     }
     
+    func setUpbadges() {
+        let badgearry = Defaults.shared.getbadgesArray()
+        preLunchBadge.isHidden = true
+        foundingMergeBadge.isHidden = true
+        socialBadgeicon.isHidden = true
+        
+        if  badgearry.count >  0 {
+            preLunchBadge.isHidden = false
+        }
+        if  badgearry.count >  1 {
+            foundingMergeBadge.isHidden = false
+        }
+        if  badgearry.count >  2 {
+            socialBadgeicon.isHidden = false
+        }
+    }
+    
+    func getVerifiedSocialPlatforms() {
+        if let socialPlatforms = Defaults.shared.socialPlatforms {
+            for socialPlatform in socialPlatforms {
+                if socialPlatform == R.string.localizable.facebook().lowercased() {
+                    self.faceBookVerifiedView.isHidden = false
+                } else if socialPlatform == R.string.localizable.twitter().lowercased() {
+                    self.twitterVerifiedView.isHidden = false
+                } else if socialPlatform == R.string.localizable.snapchat().lowercased() {
+                    self.snapVerifiedView.isHidden = false
+                } else if socialPlatform == R.string.localizable.youtube().lowercased() {
+//                    self.youtubeVerifiedView.isHidden = false
+                }
+            }
+        }
+    }
    
     
     @objc func btnEditProfilePic(sender: UIButton) {

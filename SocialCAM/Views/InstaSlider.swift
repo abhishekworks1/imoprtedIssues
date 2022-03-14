@@ -82,7 +82,7 @@ open class InstaSlider: UIView {
 //        }
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         self.collectionView = UICollectionView(frame: bounds, collectionViewLayout: layout)
-        collectionViewLayout = HorizontalFlowLayout.configureLayout(collectionView: self.collectionView, itemSize: CGSize.init(width: 110, height: self.collectionView.frame.height/2), minimumLineSpacing: 1)
+        collectionViewLayout = HorizontalFlowLayout.configureLayout(collectionView: self.collectionView, itemSize: CGSize.init(width: 90, height: self.collectionView.frame.height/2), minimumLineSpacing: 0)
         
         self.collectionView.collectionViewLayout = collectionViewLayout
         self.collectionView.showsHorizontalScrollIndicator = false
