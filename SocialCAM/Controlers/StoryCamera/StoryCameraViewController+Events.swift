@@ -604,7 +604,7 @@ extension StoryCameraViewController {
         Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
         if !takenVideoUrls.isEmpty {
             //uncomment to start auto save
-          /*  if Defaults.shared.isVideoSavedAfterRecording == true {
+            if Defaults.shared.isVideoSavedAfterRecording == true {
                 if let asset = self.getRecordSession(videoModel: takenVideoUrls) as? AVURLAsset {
                     SCAlbum.shared.saveMovieToLibrary(movieURL: asset.url)
                 } else {
@@ -614,7 +614,7 @@ extension StoryCameraViewController {
                         }
                     }
                 }
-            } */
+            }
             self.openStoryEditor(segementedVideos: takenVideoUrls)
         }
     }

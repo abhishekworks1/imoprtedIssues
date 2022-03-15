@@ -2215,12 +2215,12 @@ extension StoryCameraViewController {
                         }
                     }
                     self.openStoryEditor(segementedVideos: takenVideoUrls)
-                } else if isLiteApp, recordingType == .normal {//}, totalDurationSum >= 30 { removed because video was not saving in Quickcam mode
-                    if Defaults.shared.isVideoSavedAfterRecording == true {
-                        if let url = self.takenVideoUrls.last?.url {
-                            SCAlbum.shared.saveMovieToLibrary(movieURL: url)
-                        }
-                    }
+                } else if isLiteApp, recordingType == .normal, totalDurationSum >= 30 { //removed because video was not saving in Quickcam mode
+//                    if Defaults.shared.isVideoSavedAfterRecording == true {
+//                        if let url = self.takenVideoUrls.last?.url {
+//                            SCAlbum.shared.saveMovieToLibrary(movieURL: url)
+//                        }
+//                    }
                     self.openStoryEditor(segementedVideos: takenVideoUrls)
                 }
             }

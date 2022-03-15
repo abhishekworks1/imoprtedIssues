@@ -169,7 +169,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
     }
     func loadAsset(_ asset: AVAsset) {
         trimmerView.layoutIfNeeded()
-        trimmerView.minVideoDurationAfterTrimming = 3.0
+        trimmerView.minVideoDurationAfterTrimming = 1.0
         trimmerView.thumbnailsView.asset = asset
         trimmerView.rightImage = R.image.cut_handle_icon()
         trimmerView.leftImage = R.image.cut_handle_icon()

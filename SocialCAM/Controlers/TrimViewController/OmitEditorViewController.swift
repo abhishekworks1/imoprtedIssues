@@ -425,7 +425,7 @@ extension OmitEditorViewController: UICollectionViewDelegate, UICollectionViewDe
         if collectionView == self.editStoryCollectionView {
             return CGSize(width: Double(self.view.frame.width - 40), height: Double(118 * 1.17))
         } else {
-            return CGSize(width: (Double(storySegment.count * 35)), height: Double(98))
+            return CGSize(width: (Double(storySegment.count * 45)), height: Double(98))
         }
     }
     
@@ -555,8 +555,8 @@ extension OmitEditorViewController: TrimmerViewCutDelegate {
                 let finaltime = endTime.seconds - startTime.seconds
                 if let currentAsset = currentAsset(index: self.currentPage) {
                    let time = (CGFloat(currentAsset.duration.value)/CGFloat(currentAsset.duration.timescale))
-                    print(time)
-                    if finaltime > 0.0 && finaltime < CGFloat(currentAsset.duration.seconds) {
+                    print(finaltime)
+                    if finaltime >= 1.0 && finaltime < CGFloat(currentAsset.duration.seconds) {
                     doneView.alpha = 1
                     doneView.isUserInteractionEnabled = true
                     if #available(iOS 13.0, *) {
@@ -1074,12 +1074,12 @@ extension OmitEditorViewController {
                 if player.timeControlStatus == .playing {
                     player.pause()
                     btnPlayPause.isSelected = false
-                    doneView.alpha = 1
-                    doneView.isUserInteractionEnabled = true
-                    if #available(iOS 13.0, *) {
-                        doneButton.setImage(UIImage(named: "trimDone")?.withTintColor(UIColor.white, renderingMode: .automatic), for: .normal)
-                        doneLabel.textColor = UIColor.white
-                    }
+//                    doneView.alpha = 1
+//                    doneView.isUserInteractionEnabled = true
+//                    if #available(iOS 13.0, *) {
+//                        doneButton.setImage(UIImage(named: "trimDone")?.withTintColor(UIColor.white, renderingMode: .automatic), for: .normal)
+//                        doneLabel.textColor = UIColor.white
+//                    }
                 } else {
                     player.play()
                     btnPlayPause.isSelected = true
