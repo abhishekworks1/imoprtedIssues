@@ -702,7 +702,7 @@ open class TrimmerView: UIView {
         trimView.addGestureRecognizer(thumbsPanGesture)
         
         let timePointerViewGesture = UIPanGestureRecognizer(target: self, action: #selector(handleTimePointerViewPan))
-       timePointerView.addGestureRecognizer(timePointerViewGesture)
+        timePointerView.addGestureRecognizer(timePointerViewGesture)
         
         let cutTimePointerViewGesture = UIPanGestureRecognizer(target: self, action: #selector(handleCutTimePointerViewPan))
         cutView.addGestureRecognizer(cutTimePointerViewGesture)
@@ -727,7 +727,6 @@ open class TrimmerView: UIView {
             action: #selector(handlePan))
         rightDraggableView.addGestureRecognizer(rightPanGesture)
         
-       
     }
     
     @objc func handleTimePointerViewPan(_ sender: UIPanGestureRecognizer) {
