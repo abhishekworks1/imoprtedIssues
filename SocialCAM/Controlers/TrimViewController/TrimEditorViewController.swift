@@ -483,7 +483,7 @@ extension TrimEditorViewController: TrimmerViewDelegate {
         if let player = player,
            let cell: ImageCollectionViewCell = self.editStoryCollectionView.cellForItem(at: self.getCurrentIndexPath) as? ImageCollectionViewCell {
             
-            guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else { return }
+            guard let startTime = trimmer.startTime, let endTime = trimmer.endTime else { return }
             var newStartpoint = currentTimeTrim.seconds - 1
             if newStartpoint < 0 {
                 newStartpoint = 0
@@ -504,7 +504,7 @@ extension TrimEditorViewController: TrimmerViewDelegate {
                 if self.btnPlayPause.isSelected {
                     if let cell: ImageCollectionViewCell = self.editStoryCollectionView.cellForItem(at: self.getCurrentIndexPath) as? ImageCollectionViewCell {
                     if !isLeftGesture {
-                        guard let startTime = cell.trimmerView.startTime, let endTime = trimmer.endTime else {
+                        guard let startTime = trimmer.startTime, let endTime = trimmer.endTime else {
                             return
                         }
                         let newEndTime = endTime - CMTime.init(seconds: 1, preferredTimescale: endTime.timescale)
@@ -533,7 +533,7 @@ extension TrimEditorViewController: TrimmerViewDelegate {
                 player.pause()
             }
             if let cell: ImageCollectionViewCell = self.editStoryCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? ImageCollectionViewCell {
-                guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
+                guard let startTime = trimmer.startTime, let endTime = trimmer.endTime else {
                     return
                 }
                 cell.trimmerView.seek(to: currentTimeScrub)

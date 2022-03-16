@@ -276,7 +276,7 @@ class ImageCollectionViewCutCell: UICollectionViewCell {
         let (_, totalTimeS) = Utils.secondsToHoursMinutesSeconds(Int(Float(endT).roundToPlaces(places: 0)))
         let totalTimeMiliS = Utils.secondsToMiliseconds(endT)
         self.lblVideoersiontag.font = UIFont.systemFont(ofSize: 12, weight: .bold)
-        self.lblVideoDuration.text = "\(progressTimeS).\(progressTimeMiliS) / \(totalTimeS).\(totalTimeMiliS)"
+        self.lblVideoDuration.text = "\((progressTimeS > 0) ? progressTimeS : 0).\((progressTimeMiliS > 0) ? progressTimeMiliS : 0) / \(totalTimeS).\(totalTimeMiliS)"
 
     }
     
