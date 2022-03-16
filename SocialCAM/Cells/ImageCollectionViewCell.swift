@@ -12,6 +12,7 @@ import AVKit
 
 class ImageCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet weak var segmentCountLabel: UILabel!
     @IBOutlet weak var imagesView: UIView!
     @IBOutlet weak var imagesStackView: UIStackView!
     @IBOutlet weak var lblSegmentCount: UILabel!

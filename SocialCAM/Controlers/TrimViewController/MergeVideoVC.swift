@@ -150,12 +150,18 @@ extension MergeVideoVC: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.nib.imageCollectionViewCell.identifier, for: indexPath) as? ImageCollectionViewCell else {
             fatalError("Unable to find cell with '\(R.nib.imageCollectionViewCell.identifier)' reuseIdentifier")
         }
-        let storySegment = storyEditorMedias[indexPath.row]
-        guard let currentAsset = currentAsset(index: indexPath.row) else {
+        let storySegment = storyEditorMedias[indexPath.item]
+        guard let currentAsset = currentAsset(index: indexPath.item) else {
             return cell
         }
         cell.setLayout(indexPath: indexPath, currentPage: currentPage, currentAsset: currentAsset, storySegment: storySegment)
-        cell.lblSegmentCount.text = " "
+        cell.lblSegmentCount.isHidden = true
+        cell.lblVideoDuration.isHidden = false
+        cell.segmentCountLabel.isHidden = false
+        cell.segmentCountLabel.text = "\(indexPath.item + 1)"
+        let duration = String(format: "%.1f", currentAsset.duration.seconds)
+        cell.lblVideoDuration.font = UIFont(name: "SFUIText-Regular", size: 11)
+        cell.lblVideoDuration.text = "  \(duration)"
         if let draggingPathOfCellBeingDragged = self.storyCollectionView.draggingPathOfCellBeingDragged {
             if draggingPathOfCellBeingDragged.item == indexPath.item {
                 cell.isHidden = true
@@ -182,7 +188,9 @@ extension MergeVideoVC: UICollectionViewDelegate, UICollectionViewDelegateFlowLa
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (Double(storyEditorMedias[indexPath.row].count * 35)), height: Double(98))
+        return CGSize(width: 47.0,
+                      height: collectionView.frame.height)
+
     }
     
 }
