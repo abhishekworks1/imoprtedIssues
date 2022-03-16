@@ -67,6 +67,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     @IBOutlet weak var faceFiltersView: UIStackView!
     @IBOutlet weak var sceneFilterView: UIStackView!
     @IBOutlet weak var muteStackView: UIStackView!
+    
     @IBOutlet weak var swipeCameraStackView: UIStackView!
     @IBOutlet weak var galleryStackView: UIStackView!
     @IBOutlet weak var fpsView: UIStackView!
@@ -401,8 +402,10 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         didSet {
             if (takenVideoUrls.count > 0) && (recordingType == .custom) {
                 settingsButton.isSelected = true
+                cameraSliderView.isHidden = true
             } else {
                 settingsButton.isSelected = false
+                cameraSliderView.isHidden = false
             }
         }
     }
@@ -2214,7 +2217,12 @@ extension StoryCameraViewController {
                         }
                     }
                     self.openStoryEditor(segementedVideos: takenVideoUrls)
-                } else if isLiteApp, recordingType == .normal, totalDurationSum >= 30 {
+                } else if isLiteApp, recordingType == .normal, totalDurationSum >= 30 { //removed because video was not saving in Quickcam mode
+//                    if Defaults.shared.isVideoSavedAfterRecording == true {
+//                        if let url = self.takenVideoUrls.last?.url {
+//                            SCAlbum.shared.saveMovieToLibrary(movieURL: url)
+//                        }
+//                    }
                     self.openStoryEditor(segementedVideos: takenVideoUrls)
                 }
             }

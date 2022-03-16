@@ -371,7 +371,7 @@ extension TrimEditorViewController: UICollectionViewDelegate, UICollectionViewDe
         if collectionView == self.editStoryCollectionView {
             return CGSize(width: Double(self.view.frame.width - 40), height: Double(118 * 1.17))
         } else {
-            return CGSize(width: (Double(storySegment.count * 35)), height: Double(98))
+            return CGSize(width: (Double(storySegment.count * 45)), height: Double(98))
         }
     }
     
@@ -474,7 +474,7 @@ extension TrimEditorViewController: TrimmerViewDelegate {
             
             guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else { return }
             var newStartpoint = currentTimeTrim.seconds - 1
-            if newStartpoint < 0{
+            if newStartpoint < 0 {
                 newStartpoint = 0
             }
             
@@ -498,7 +498,7 @@ extension TrimEditorViewController: TrimmerViewDelegate {
                         }
                         let newEndTime = endTime - CMTime.init(seconds: 1, preferredTimescale: endTime.timescale)
                         var newStartpoint = newEndTime.seconds - 0.5
-                        if newStartpoint < 0{
+                        if newStartpoint < 0 {
                             newStartpoint = 0
                         }
                         let start = CMTimeMakeWithSeconds(newStartpoint, preferredTimescale: endTime.timescale);

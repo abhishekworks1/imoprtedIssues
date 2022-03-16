@@ -280,6 +280,7 @@ class StoryEditorViewController: UIViewController {
             }
         }
     }
+    var draggableIndex = -1
 
     private var filteredImagesStory: [StoryEditorMedia] = []
     
@@ -307,6 +308,7 @@ class StoryEditorViewController: UIViewController {
     private var slideShowExportedURL: URL?
     var videoExportedURL: URL?
     
+    var isDragged = false
     public var referType: ReferType = .none
     var popupVC: STPopupController = STPopupController()
     var isCropped: Bool = false
@@ -938,7 +940,8 @@ extension StoryEditorViewController {
             self.currentStoryIndex = 0
             self.medias.removeAll()
             
-            for item in urls {
+            for (storyIndex, item) in urls.enumerated() {
+                var newIndex = storyIndex + 1
                 guard let storyEditorMedia = item.copy() as? StoryEditorMedia else {
                     return
                 }
@@ -1709,7 +1712,7 @@ extension StoryEditorViewController {
     }
     
     @IBAction func btnSocialMediaShareClick(_ sender: UIButton) {
-       
+        
         if Defaults.shared.appMode == .free, !(sender.tag == 3) {
             showAlertForUpgradeSubscription()
         } else {
@@ -1717,7 +1720,7 @@ extension StoryEditorViewController {
                 guard let socialshareVC = R.storyboard.socialCamShareVC.socialCamShareVC() else {
                     return
                 }
-               
+                
                 socialshareVC.btnStoryPostClicked = { [weak self] (selectedIndex) in
                     guard let `self` = self else { return }
                     self.popupVC.dismiss {
@@ -2151,7 +2154,6 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
         self.shareCollectionView.reloadData()
         self.tableView.reloadData()
         
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -2193,10 +2195,13 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, cellIsDraggableAtIndexPath indexPath: IndexPath) -> Bool {
+        guard let cell = self.collectionView.cellForItem(at: indexPath) as? StoryEditorCell else { return false }
+        cell.imageView.layer.borderColor = R.color.appPrimaryColor()?.cgColor
         return (collectionView != slideShowCollectionView)
     }
     
     func collectionView(_ collectionView: UICollectionView, canMoveAt indexPath: IndexPath) -> Bool {
+        print(indexPath.row)
         return !isSlideShow
     }
     
@@ -2207,8 +2212,10 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
         for editor in storyEditors {
             editor.isHidden = true
         }
+        
         storyEditors[indexPath.item].isHidden = false
         currentStoryIndex = indexPath.item
+        deleteView.isHidden = false
         hideOptionIfNeeded()
     }
     
@@ -2267,6 +2274,8 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
                 }
             }
         }
+        deleteView.isHidden = true
+        collectionView.reloadData()
     }
     
 }
@@ -2381,7 +2390,12 @@ extension StoryEditorViewController {
          }
       //  self.lblStoryTime.text = "\(progressTimeM):\(progressTimeS) / \(totalTimeM):\(totalTimeS)"
         
-        self.lblStoryTime.text = "\(progressTimeS):\(progressTimeMiliS) / \(totalTimeS):\(totalTimeMiliS)"
+        if totalTimeMiliS == 0 {
+            self.lblStoryTime.text = "\(progressTimeS):\(progressTimeMiliS) / \(totalTimeS)"
+        } else {
+            self.lblStoryTime.text = "\(progressTimeS):\(progressTimeMiliS) / \(totalTimeS):\(totalTimeMiliS)"
+        }
+        
     }
     
     func startPlaybackTimeChecker() {

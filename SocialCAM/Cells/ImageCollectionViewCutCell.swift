@@ -76,11 +76,11 @@ class ImageCollectionViewCutCell: UICollectionViewCell {
         var borderColor: CGColor! = ApplicationSettings.appClearColor.cgColor
         var borderWidth: CGFloat = 0
         if currentPage == indexPath.row || storySegment.first!.isSelected {
-            borderColor = ApplicationSettings.appPrimaryColor.cgColor
+            borderColor = ApplicationSettings.appBorderColor.cgColor
             borderWidth = 3
             self.lblVideoersiontag.isHidden = false
         } else {
-            borderColor = ApplicationSettings.appWhiteColor.cgColor
+            borderColor = ApplicationSettings.appBorderColor.cgColor
             borderWidth = 3
             self.lblVideoersiontag.isHidden = true
         }
@@ -155,7 +155,7 @@ class ImageCollectionViewCutCell: UICollectionViewCell {
         }
         imagesView.layer.cornerRadius = 5
         imagesView.layer.borderWidth = 3
-        imagesView.layer.borderColor = ApplicationSettings.appPrimaryColor.cgColor
+        imagesView.layer.borderColor = ApplicationSettings.appBorderColor.cgColor
         lblSegmentCount.text = "\(currentPage + 1)"
         lblSegmentCount.isHidden = true
         isEditMode = true
@@ -170,7 +170,7 @@ class ImageCollectionViewCutCell: UICollectionViewCell {
     }
     func loadAsset(_ asset: AVAsset) {
         trimmerView.layoutIfNeeded()
-        trimmerView.minVideoDurationAfterTrimming = 1.0
+        trimmerView.minVideoDurationAfterTrimming = 0.0
         trimmerView.thumbnailsView.asset = asset
         trimmerView.rightImage = R.image.cut_handle_icon()
         trimmerView.leftImage = R.image.cut_handle_icon()

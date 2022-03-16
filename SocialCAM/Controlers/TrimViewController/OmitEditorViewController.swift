@@ -42,6 +42,10 @@ class OmitEditorViewController: UIViewController,UIGestureRecognizerDelegate {
     @IBOutlet weak var resequenceButton: UIButton!
     @IBOutlet weak var resequenceLabel: UILabel!
     
+    @IBOutlet weak var doneButton: UIButton!
+    @IBOutlet weak var doneLabel: UILabel!
+    
+    
     var isOriginalSequence = false
     var undoMgr = MyUndoManager<Void>()
     var player: AVPlayer?
@@ -133,6 +137,13 @@ class OmitEditorViewController: UIViewController,UIGestureRecognizerDelegate {
         longPressGesture.delaysTouchesBegan = true
         longPressGesture.delegate = self
         btnPlayPause.addGestureRecognizer(longPressGesture)
+        
+        doneView.alpha = 0.5
+        doneView.isUserInteractionEnabled = false
+        if #available(iOS 13.0, *) {
+            doneButton.setImage(UIImage(named: "trimDone")?.withTintColor(UIColor.red, renderingMode: .automatic), for: .normal)
+            doneLabel.textColor = UIColor.red
+        }
         
 //        leftPlayButton.isSelected = false
 //        rightPlayButton.isSelected = false
@@ -414,7 +425,7 @@ extension OmitEditorViewController: UICollectionViewDelegate, UICollectionViewDe
         if collectionView == self.editStoryCollectionView {
             return CGSize(width: Double(self.view.frame.width - 40), height: Double(118 * 1.17))
         } else {
-            return CGSize(width: (Double(storySegment.count * 35)), height: Double(98))
+            return CGSize(width: (Double(storySegment.count * 45)), height: Double(98))
         }
     }
     
@@ -542,17 +553,29 @@ extension OmitEditorViewController: TrimmerViewCutDelegate {
                 }
                 
                 let finaltime = endTime.seconds - startTime.seconds
-                if finaltime >= 1.0 {
+                if let currentAsset = currentAsset(index: self.currentPage) {
+                   let time = (CGFloat(currentAsset.duration.value)/CGFloat(currentAsset.duration.timescale))
+                    print(finaltime)
+                    if finaltime >= 1.0 && finaltime < CGFloat(currentAsset.duration.seconds) {
                     doneView.alpha = 1
                     doneView.isUserInteractionEnabled = true
+                    if #available(iOS 13.0, *) {
+                        doneButton.setImage(UIImage(named: "trimDone")?.withTintColor(UIColor.white, renderingMode: .automatic), for: .normal)
+                        doneLabel.textColor = UIColor.white
+                    }
                 } else {
                     doneView.alpha = 0.5
                     doneView.isUserInteractionEnabled = false
+                    if #available(iOS 13.0, *) {
+                        doneButton.setImage(UIImage(named: "trimDone")?.withTintColor(UIColor.red, renderingMode: .automatic), for: .normal)
+                        doneLabel.textColor = UIColor.red
+                    }
                 }
             }
         }
     }
-    
+}
+
     func trimmerCutScrubbingDidChange(_ trimmer: TrimmerViewCut, with currentTimeScrub: CMTime) {
         if let player = player {
             player.seek(to: currentTimeScrub, toleranceBefore: tolerance, toleranceAfter: tolerance)
@@ -926,9 +949,17 @@ extension OmitEditorViewController {
             if finaltime >= 1.0 {
                 doneView.alpha = 1
                 doneView.isUserInteractionEnabled = true
+                if #available(iOS 13.0, *) {
+                    doneButton.setImage(UIImage(named: "trimDone")?.withTintColor(UIColor.white, renderingMode: .automatic), for: .normal)
+                    doneLabel.textColor = UIColor.white
+                }
             } else {
                 doneView.alpha = 0.5
                 doneView.isUserInteractionEnabled = false
+                if #available(iOS 13.0, *) {
+                    doneButton.setImage(UIImage(named: "trimDone")?.withTintColor(UIColor.red, renderingMode: .automatic), for: .normal)
+                    doneLabel.textColor = UIColor.red
+                }
             }
             
             self.trimMultipleVideos(cell.trimmerView)
@@ -1043,8 +1074,12 @@ extension OmitEditorViewController {
                 if player.timeControlStatus == .playing {
                     player.pause()
                     btnPlayPause.isSelected = false
-                    doneView.alpha = 1
-                    doneView.isUserInteractionEnabled = true
+//                    doneView.alpha = 1
+//                    doneView.isUserInteractionEnabled = true
+//                    if #available(iOS 13.0, *) {
+//                        doneButton.setImage(UIImage(named: "trimDone")?.withTintColor(UIColor.white, renderingMode: .automatic), for: .normal)
+//                        doneLabel.textColor = UIColor.white
+//                    }
                 } else {
                     player.play()
                     btnPlayPause.isSelected = true
