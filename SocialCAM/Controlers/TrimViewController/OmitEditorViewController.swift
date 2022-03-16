@@ -375,7 +375,7 @@ extension OmitEditorViewController: UICollectionViewDataSource {
             cell.setLayout(indexPath: indexPath, currentPage: currentPage, currentAsset: currentAsset, storySegment: storySegment)
         }
         cell.trimmerView.delegate = self
-        cell.trimmerView.alphaView = 1.0
+//        cell.trimmerView.alphaView = 0.5
         if let draggingPathOfCellBeingDragged = self.storyCollectionView.draggingPathOfCellBeingDragged {
             if draggingPathOfCellBeingDragged.item == indexPath.item {
                 cell.isHidden = true
@@ -742,7 +742,7 @@ extension OmitEditorViewController {
                 guard let startTime = cell.trimmerView.startTime else {
                     return
                 }
-                cell.trimmerView.alphaView = 1.0
+//                cell.trimmerView.alphaView = 0.5
                 //cell.trimmerView.bgViewColorwithTrim = UIColor.clear
                 //cell.trimmerView.updateColorForCut()
                 player.seek(to: startTime, toleranceBefore: self.tolerance, toleranceAfter: self.tolerance)
