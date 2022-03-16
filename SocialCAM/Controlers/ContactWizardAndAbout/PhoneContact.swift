@@ -27,6 +27,18 @@ struct InviteDetails:Codable{
     }
     
 }
+struct InviteEmailDetails:Codable{
+    var emailTitle: String?
+    var emailMessage: String?
+    var contactListIds: [String]?
+    
+    init(emailTitle:String,emailMessage:String,contactListIds:[String]) {
+        self.contactListIds = contactListIds
+        self.emailTitle = emailTitle
+        self.emailMessage = emailMessage
+    }
+    
+}
 
 struct ContactDetails:Codable{
     var name: String?

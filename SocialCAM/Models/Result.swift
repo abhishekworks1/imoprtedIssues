@@ -404,6 +404,7 @@ class ContactResponse: Mappable {
     var Id: String?
     var mobile: String?
     var name: String?
+    var email: String?
     var emailLink: String?
     var emailCount: NSNumber?
     var textLink: String?
@@ -419,6 +420,7 @@ class ContactResponse: Mappable {
     func mapping(map: Map) {
         Id <- map["_id"]
         mobile <- map["mobile"]
+        email <- map["email"]
         name <- map["name"]
         emailLink <- map["emailLink"]
         emailCount <- map["emailCount"]
