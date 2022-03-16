@@ -870,7 +870,6 @@ open class TrimmerView: UIView {
             }
             
         case .changed:
-            
             self.layoutIfNeeded()
             
             let translation = sender.translation(in: view)
