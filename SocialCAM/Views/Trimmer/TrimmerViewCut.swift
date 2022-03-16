@@ -138,7 +138,7 @@ open class TrimmerViewCut: UIView {
         view.frame = .zero
  //       view.backgroundColor = ApplicationSettings.appClearColor
         view.backgroundColor = ApplicationSettings.appWhiteColor
-        view.alpha = 1
+        view.alpha = 0.4
         view.layer.borderWidth = 3.0
         view.layer.cornerRadius = viewCornerRadius
         view.clipsToBounds = false
@@ -315,9 +315,9 @@ open class TrimmerViewCut: UIView {
     var thumbnailViewRect: CGRect {
         return CGRect(
             x: draggableViewWidth,
-            y: 0,
+            y: 30,
             width: bounds.width - 2 * draggableViewWidth,
-            height: bounds.height)
+            height: bounds.height - 30)
     }
    
     var leftPanGesture: UIPanGestureRecognizer = UIPanGestureRecognizer.init()
