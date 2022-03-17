@@ -192,6 +192,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     @IBOutlet weak var switchingAppView: UIView!
     @IBOutlet weak var switchAppButton: UIButton!
     @IBOutlet weak var confirmRecordedSegmentStackView: UIStackView!
+    
     @IBOutlet weak var discardSegmentsStackView: UIStackView!
     @IBOutlet weak var discardSegmentButton: UIButton!
     @IBOutlet weak var signupTooltipView: UIView!
@@ -1487,6 +1488,7 @@ extension StoryCameraViewController {
             self.takenVideoUrls.removeAll()
             self.stopMotionCollectionView.reloadData()
             self.resetPositionRecordButton()
+
         }
     }
     
@@ -1898,7 +1900,7 @@ extension StoryCameraViewController {
                     } else if isPic2ArtApp {
                         totalSeconds = 5
                     } else if isLiteApp {
-                        self.discardSegmentButton.setImage(R.image.trimBack()?.alpha(1), for: .normal)
+                        self.discardSegmentButton.setImage(R.image.arrow_left()?.alpha(1), for: .normal)
                         totalSeconds = self.recordingType == .promo ? 15 : 30
                     }
                     self.progressMaxSeconds = totalSeconds

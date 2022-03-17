@@ -12,6 +12,8 @@ import AVKit
 
 class ImageCollectionViewCutCell: UICollectionViewCell {
     
+    @IBOutlet weak var trimmerViewHeightConstraint: NSLayoutConstraint!
+    // @IBOutlet weak var trimmerViewHeightConstraint: TrimmerViewCut!
     @IBOutlet weak var imagesView: UIView!
     @IBOutlet weak var imagesStackView: UIStackView!
     @IBOutlet weak var lblSegmentCount: UILabel!
@@ -175,6 +177,7 @@ class ImageCollectionViewCutCell: UICollectionViewCell {
         trimmerView.rightImage = R.image.cut_handle_icon()
         trimmerView.leftImage = R.image.cut_handle_icon()
         trimmerView.thumbnailsView.isReloadImages = true
+//        trimmerViewHeightConstraint.constant = trimmerViewHeightConstraint.constant + 30
         trimmerView.layoutIfNeeded()
         
         addSubview(leftTopView)
@@ -185,7 +188,7 @@ class ImageCollectionViewCutCell: UICollectionViewCell {
         let leftTopViewHeightAnchor = leftTopView.heightAnchor
             .constraint(equalToConstant: 23)
         let leftTopViewTopAnchor = leftTopView.topAnchor
-            .constraint(equalTo: topAnchor, constant: 110)
+            .constraint(equalTo: topAnchor, constant: 140)
         let leftTopViewLeadingAnchor = leftTopView.leadingAnchor
             .constraint(equalTo: self.trimmerView.leadingAnchor, constant: 0)
         
@@ -194,7 +197,7 @@ class ImageCollectionViewCutCell: UICollectionViewCell {
         let rightTopViewHeightAnchor = rightTopView.heightAnchor
             .constraint(equalToConstant: 23)
         let rightTopViewTopAnchor = rightTopView.topAnchor
-            .constraint(equalTo: topAnchor, constant: 110)
+            .constraint(equalTo: topAnchor, constant: 140)
         let rightTopViewLeadingAnchor = rightTopView.trailingAnchor
             .constraint(equalTo: self.trimmerView.trailingAnchor, constant: 0)
         
