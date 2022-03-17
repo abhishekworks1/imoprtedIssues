@@ -316,9 +316,9 @@ open class TrimmerView: UIView {
     var thumbnailViewRect: CGRect {
         return CGRect(
             x: draggableViewWidth,
-            y: 0,
+            y: 30,
             width: bounds.width - 2 * draggableViewWidth,
-            height: bounds.height)
+            height: bounds.height - 30)
     }
    
     var leftPanGesture: UIPanGestureRecognizer = UIPanGestureRecognizer.init()
@@ -439,7 +439,7 @@ open class TrimmerView: UIView {
             .constraint(equalToConstant: 15)
         
         trimViewTopAnchorConstraint = trimView.topAnchor
-            .constraint(equalTo: topAnchor, constant: 0)
+            .constraint(equalTo: topAnchor, constant: 30)
         trimViewBottomAnchorConstraint = trimView.bottomAnchor
             .constraint(equalTo: bottomAnchor, constant: 0)
         trimViewLeadingConstraint = trimView.leadingAnchor
@@ -488,9 +488,9 @@ open class TrimmerView: UIView {
         timePointerViewWidthgAnchor = timePointerView.widthAnchor
             .constraint(equalToConstant: timePointerViewWidth)
         timePointerViewHeightAnchor = timePointerView.heightAnchor
-            .constraint(equalToConstant: frame.height - borderWidth * 2)
+            .constraint(equalToConstant: frame.height - 20)
         timePointerViewTopAnchor = timePointerView.topAnchor
-            .constraint(equalTo: topAnchor, constant: borderWidth)
+            .constraint(equalTo: topAnchor, constant: borderWidth + 30)
         timePointerViewLeadingAnchor = timePointerView.leadingAnchor
             .constraint(equalTo: leftDraggableView.trailingAnchor, constant: 0)
         
@@ -499,7 +499,7 @@ open class TrimmerView: UIView {
         cutViewHeightAnchor = cutView.heightAnchor
             .constraint(equalToConstant: 35)
         cutViewTopAnchor = cutView.topAnchor
-            .constraint(equalTo: topAnchor, constant: -30)
+            .constraint(equalTo: topAnchor, constant: 0)
         cutViewLeadingAnchor = cutView.leadingAnchor
             .constraint(equalTo: leftDraggableView.trailingAnchor, constant: 15)
         

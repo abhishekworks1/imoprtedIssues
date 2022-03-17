@@ -378,7 +378,8 @@ extension TrimEditorViewController: UICollectionViewDelegate, UICollectionViewDe
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let storySegment = storyEditorMedias[indexPath.row]
         if collectionView == self.editStoryCollectionView {
-            return CGSize(width: Double(self.view.frame.width - 40), height: Double(118 * 1.17))
+            return CGSize(width: Double(self.view.frame.width - 40), height: Double(118 * 1.30))
+//            return CGSize(width: Double(self.view.frame.width - 40), height: Double(118 * 1.17))
         } else {
             return CGSize(width: 47.0,
                           height: collectionView.frame.height)

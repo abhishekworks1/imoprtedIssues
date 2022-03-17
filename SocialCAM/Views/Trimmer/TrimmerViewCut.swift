@@ -438,7 +438,7 @@ open class TrimmerViewCut: UIView {
             .constraint(equalToConstant: 15)
         
         trimViewTopAnchorConstraint = trimView.topAnchor
-            .constraint(equalTo: topAnchor, constant: 0)
+            .constraint(equalTo: topAnchor, constant: 30)
         trimViewBottomAnchorConstraint = trimView.bottomAnchor
             .constraint(equalTo: bottomAnchor, constant: 0)
         trimViewLeadingConstraint = trimView.leadingAnchor
@@ -487,9 +487,9 @@ open class TrimmerViewCut: UIView {
         timePointerViewWidthgAnchor = timePointerView.widthAnchor
             .constraint(equalToConstant: timePointerViewWidth)
         timePointerViewHeightAnchor = timePointerView.heightAnchor
-            .constraint(equalToConstant: frame.height - borderWidth * 2)
+            .constraint(equalToConstant: frame.height - 10)
         timePointerViewTopAnchor = timePointerView.topAnchor
-            .constraint(equalTo: topAnchor, constant: borderWidth)
+            .constraint(equalTo: topAnchor, constant: borderWidth + 30)
         timePointerViewLeadingAnchor = timePointerView.leadingAnchor
             .constraint(equalTo: leftDraggableView.trailingAnchor, constant: 0)
         
@@ -498,7 +498,7 @@ open class TrimmerViewCut: UIView {
         cutViewHeightAnchor = cutView.heightAnchor
             .constraint(equalToConstant: 35)
         cutViewTopAnchor = cutView.topAnchor
-            .constraint(equalTo: topAnchor, constant: -30)
+            .constraint(equalTo: topAnchor, constant: 0)
         cutViewLeadingAnchor = cutView.leadingAnchor
             .constraint(equalTo: leftDraggableView.trailingAnchor, constant: 15)
         
@@ -689,6 +689,9 @@ open class TrimmerViewCut: UIView {
         
         let timePointerViewGesture = UIPanGestureRecognizer(target: self, action: #selector(handleTimePointerViewPan))
         timePointerView.addGestureRecognizer(timePointerViewGesture)
+        
+        let secssorsCutView = UIPanGestureRecognizer(target: self, action: #selector(handleTimePointerViewPan))
+        cutView.addGestureRecognizer(secssorsCutView)
     }
     
     @objc func handleTimePointerViewPan(_ sender: UIPanGestureRecognizer) {
