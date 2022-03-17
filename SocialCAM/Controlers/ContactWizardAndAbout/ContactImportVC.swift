@@ -702,7 +702,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }
         }else{
           //  let inviteDetails = InviteEmailDetails(emailTitle:contact.textLink ?? "", emailMessage: "email", contactListIds: contactListids)
-            let inviteDetails = InviteDetails(content:contact.emailLink ?? "", invitedFrom: "mobile", contactListIds: contactListids)
+            let inviteDetails = InviteDetails(content:contact.emailLink ?? "",subject:"Quickcam Invitation" invitedFrom: "mobile", contactListIds: contactListids)
             print("inviteDetails")
             print(inviteDetails)
             print(contact.toJSON())
