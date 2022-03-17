@@ -556,7 +556,7 @@ extension OmitEditorViewController: TrimmerViewCutDelegate {
                 if let currentAsset = currentAsset(index: self.currentPage) {
                    let time = (CGFloat(currentAsset.duration.value)/CGFloat(currentAsset.duration.timescale))
                     print(finaltime)
-                    if finaltime >= 1.0 && finaltime < CGFloat(currentAsset.duration.seconds) {
+                    if finaltime >= 1.0 && finaltime < currentAsset.duration.seconds {
                     doneView.alpha = 1
                     doneView.isUserInteractionEnabled = true
                     if #available(iOS 13.0, *) {

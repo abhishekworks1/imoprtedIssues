@@ -701,7 +701,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 print("error")
             }
         }else{
-            let inviteDetails = InviteEmailDetails(emailTitle:contact.textLink ?? "", emailMessage: "email", contactListIds: contactListids)
+          //  let inviteDetails = InviteEmailDetails(emailTitle:contact.textLink ?? "", emailMessage: "email", contactListIds: contactListids)
+            let inviteDetails = InviteDetails(content:contact.emailLink ?? "", invitedFrom: "mobile", contactListIds: contactListids)
+            print("inviteDetails")
             print(inviteDetails)
             print(contact.toJSON())
             let jsonEncoder = JSONEncoder()
@@ -731,7 +733,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         if selectedContactType == ContactType.mobile{
             self.inviteGuestViaMobile(data:self.inviteData ?? Data())
         }else{
-            self.inviteGuest(data:self.inviteData ?? Data())
+            self.inviteGuestViaMobile(data:self.inviteData ?? Data())
+           // self.inviteGuest(data:self.inviteData ?? Data())
         }
         
         self.contactSentConfirmPopup.isHidden = true
