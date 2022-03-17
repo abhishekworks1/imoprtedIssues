@@ -423,7 +423,7 @@ extension OmitEditorViewController: UICollectionViewDelegate, UICollectionViewDe
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let storySegment = storyEditorMedias[indexPath.row]
         if collectionView == self.editStoryCollectionView {
-            return CGSize(width: Double(self.view.frame.width - 40), height: Double(118 * 1.17))
+            return CGSize(width: Double(self.view.frame.width - 40), height: Double(118 * 1.40))
         } else {
             return CGSize(width: (Double(storySegment.count * 45)), height: Double(98))
         }
