@@ -477,7 +477,7 @@ open class TrimmerView: UIView {
             .constraint(equalTo: leftDraggableView.leadingAnchor, constant: 0)
         
         rightMaskViewTopAnchor = rightMaskView.topAnchor
-            .constraint(equalTo: topAnchor, constant: 0)
+            .constraint(equalTo: topAnchor, constant: 30)
         rightMaskViewBottomAnchor = rightMaskView.bottomAnchor
             .constraint(equalTo: bottomAnchor, constant: 0)
         rightMaskViewTrailingAnchor = rightMaskView.trailingAnchor
@@ -849,7 +849,6 @@ open class TrimmerView: UIView {
     }
     
     @objc func handlePan(_ sender: UIPanGestureRecognizer) {
-        print("handlePan")
         guard let view = sender.view else { return }
         
         let isLeftGesture = (view == leftDraggableView)
