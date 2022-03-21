@@ -637,7 +637,7 @@ class StoryEditorViewController: UIViewController {
         }
         self.soundOptionView.isHidden = isImage
         self.trimOptionView.isHidden = isImage
-        self.splitOptionView.isHidden = isImage
+        self.splitOptionView.isHidden = true//isImage
         self.omitOptionView.isHidden = isImage
         var videoCount = 0
         for editor in storyEditors {
