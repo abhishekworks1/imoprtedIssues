@@ -1423,7 +1423,7 @@ extension ContactImportVC:UIScrollViewDelegate{
         self.filterOptionView.isHidden = true
         
     }
-    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+    /*  func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
         if scrollView == contactTableView || scrollView == emailContactTableView{
             if segmentViewHeight.constant == 84.0{
                 UIView.animate(withDuration: 0.5, animations: {
@@ -1445,6 +1445,7 @@ extension ContactImportVC:UIScrollViewDelegate{
             }
         }
     }
+     */
      func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if scrollView == contactTableView || scrollView == emailContactTableView{
             let offsetY = scrollView.contentOffset.y
@@ -1458,6 +1459,26 @@ extension ContactImportVC:UIScrollViewDelegate{
             }
         }
         
+    }
+   
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        if scrollView == contactTableView || scrollView == emailContactTableView{
+            let offsetY = scrollView.contentOffset.y
+            print("offsetY \(offsetY)")
+            if offsetY <= 84.0 + 50.0{
+                segmentViewHeight.constant = 84.0 - offsetY
+                if offsetY > 84.0 && segmentViewHeight.constant == 0{
+                    stepViewHeight.constant = 50.0 - offsetY - 84
+                }else{
+                    stepViewHeight.constant = 50.0
+                }
+            }else{
+                segmentViewHeight.constant = 0.0
+                stepViewHeight.constant = 0.0
+            }
+        }
+      
     }
 }
 extension UISwipeActionsConfiguration {

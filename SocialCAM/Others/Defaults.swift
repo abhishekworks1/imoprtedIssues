@@ -1280,15 +1280,17 @@ class Defaults {
             }
         }
     }
-    func getbadgesArray() -> [String] {
+  /*  func getbadgesArray2() -> [String] {
         
         var imageArray = [String]()
         //Defaults.shared.currentUser?.badges?[0].followingUser?.badges?[0].badge?.code
         if Defaults.shared.currentUser?.badges?.count ?? 0 > 0 {
+            print("Defaults.shared.currentUser \(String(describing: Defaults.shared.currentUser?.toJSON()))")
             if Defaults.shared.currentUser?.badges?[0].followingUser?.badges?.count ?? 0 > 0 {
              
                 let badgesArray = Defaults.shared.currentUser?.badges?[0].followingUser?.badges
-                
+                print("badgesArray \(imageArray)")
+                print("Defaults.shared.currentUser \(String(describing: Defaults.shared.currentUser?.toJSON()))")
                 for i in 0 ..< (badgesArray?.count ?? 0){
                     let badge = badgesArray![i] as MainBadges
                     let badImgname = self.imageNameBasedOnCode(code : badge.badge?.code ?? "")
@@ -1298,9 +1300,30 @@ class Defaults {
                 }
             }
         }
+        print("Badges imageArray \(imageArray)")
+        return imageArray
+    } */
+    
+    func getbadgesArray() -> [String] {
+        
+        var imageArray = [String]()
+        print("Defaults.shared.currentUser \(String(describing: Defaults.shared.currentUser?.badges?[0].toJSON()))")
+        //Defaults.shared.currentUser?.badges?[0].followingUser?.badges?[0].badge?.code
+        if Defaults.shared.currentUser?.badges?.count ?? 0 > 0 {
+            let badgesArray = Defaults.shared.currentUser?.badges
+            print("badgesArray \(imageArray)")
+            print("Defaults.shared.currentUser \(String(describing: Defaults.shared.currentUser?.toJSON()))")
+            for i in 0 ..< (badgesArray?.count ?? 0){
+                let badge = badgesArray![i] as ParentBadges
+                let badImgname = self.imageNameBasedOnCode(code : badge.badge?.code ?? "")
+                if badImgname.count > 0 {
+                    imageArray.append(badImgname)
+                }
+            }
+        }
+        print("Badges imageArray \(imageArray)")
         return imageArray
     }
-    
     
     func imageNameBasedOnCode(code:String) -> String{
         var imageName = ""
