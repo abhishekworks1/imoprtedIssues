@@ -375,7 +375,7 @@ extension OmitEditorViewController: UICollectionViewDataSource {
             cell.setLayout(indexPath: indexPath, currentPage: currentPage, currentAsset: currentAsset, storySegment: storySegment)
         }
         cell.trimmerView.delegate = self
-        cell.trimmerView.alphaView = 1.0
+//        cell.trimmerView.alphaView = 0.5
         if let draggingPathOfCellBeingDragged = self.storyCollectionView.draggingPathOfCellBeingDragged {
             if draggingPathOfCellBeingDragged.item == indexPath.item {
                 cell.isHidden = true
@@ -423,7 +423,7 @@ extension OmitEditorViewController: UICollectionViewDelegate, UICollectionViewDe
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let storySegment = storyEditorMedias[indexPath.row]
         if collectionView == self.editStoryCollectionView {
-            return CGSize(width: Double(self.view.frame.width - 40), height: Double(118 * 1.17))
+            return CGSize(width: Double(self.view.frame.width - 40), height: Double(118 * 1.40))
         } else {
             return CGSize(width: (Double(storySegment.count * 45)), height: Double(98))
         }
@@ -556,7 +556,7 @@ extension OmitEditorViewController: TrimmerViewCutDelegate {
                 if let currentAsset = currentAsset(index: self.currentPage) {
                    let time = (CGFloat(currentAsset.duration.value)/CGFloat(currentAsset.duration.timescale))
                     print(finaltime)
-                    if finaltime >= 1.0 && finaltime < CGFloat(currentAsset.duration.seconds) {
+                    if finaltime >= 1.0 && finaltime < currentAsset.duration.seconds {
                     doneView.alpha = 1
                     doneView.isUserInteractionEnabled = true
                     if #available(iOS 13.0, *) {
@@ -742,7 +742,7 @@ extension OmitEditorViewController {
                 guard let startTime = cell.trimmerView.startTime else {
                     return
                 }
-                cell.trimmerView.alphaView = 1.0
+//                cell.trimmerView.alphaView = 0.5
                 //cell.trimmerView.bgViewColorwithTrim = UIColor.clear
                 //cell.trimmerView.updateColorForCut()
                 player.seek(to: startTime, toleranceBefore: self.tolerance, toleranceAfter: self.tolerance)

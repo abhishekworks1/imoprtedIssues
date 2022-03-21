@@ -13,6 +13,10 @@ import Contacts
 import MessageUI
 import ObjectMapper
 
+struct ContactType{
+    static let mobile = "mobile"
+    static let email = "email"
+}
 struct ContactStatus{
     static let pending = "pending"
     static let invited = "invited"
@@ -98,6 +102,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var emailSeperatorView: UIView!
     @IBOutlet weak var emailSeperatorViewHeight: NSLayoutConstraint!
     
+    @IBOutlet weak var segmentViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var stepViewHeight: NSLayoutConstraint!
     
     @IBOutlet weak var inviteAgainpopup: UIView!
     
@@ -107,6 +113,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 
     @IBOutlet weak var contactPermitView: UIView!
     @IBOutlet weak var contactTableView: UITableView!
+    @IBOutlet weak var emailContactTableView: UITableView!
     fileprivate static let CELL_IDENTIFIER_CONTACT = "contactTableViewCell"
     
     @IBOutlet weak var searchBar: UISearchBar!
@@ -118,12 +125,14 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     var allphoneContacts = [PhoneContact]()
     var allmailContacts = [PhoneContact]()
     var mobileContacts = [ContactResponse]()
+    var emailContacts = [ContactResponse]()
     var allmobileContacts = [ContactResponse]()
     var allmobileContactsForHide = [ContactResponse]()
+    var allemailContactsForHide = [ContactResponse]()
     var filter: ContactsFilter = .none
     var selectedFilter:String = ContactStatus.all
     var loadingView: LoadingView? = LoadingView.instanceFromNib()
-    
+    var selectedContactType:String = ContactType.mobile
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -147,9 +156,15 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         
         contactTableView.register(UINib.init(nibName: ContactImportVC.CELL_IDENTIFIER_CONTACT, bundle: nil), forCellReuseIdentifier: ContactImportVC.CELL_IDENTIFIER_CONTACT)
         
+        emailContactTableView.register(UINib.init(nibName: ContactImportVC.CELL_IDENTIFIER_CONTACT, bundle: nil), forCellReuseIdentifier: ContactImportVC.CELL_IDENTIFIER_CONTACT)
+        
         contactTableView.allowsSelection = true
         contactTableView.dataSource = self
         contactTableView.delegate = self
+        
+        emailContactTableView.allowsSelection = true
+        emailContactTableView.dataSource = self
+        emailContactTableView.delegate = self
         
         searchBar.delegate = self
         
@@ -192,8 +207,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 //            ContactPermission()
 //        }
         filterOptionView.isHidden = true
-        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
-        self.view.addGestureRecognizer(tap)
+      //  let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+      //  self.view.addGestureRecognizer(tap)
         self.textMessageSelected(sender:self.textMessageButton)
     }
     @objc func handleTap(_ sender: UITapGestureRecognizer? = nil) {
@@ -497,10 +512,16 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
     }
     func getContactList(source:String = "mobile",page:Int = 1,limit:Int = 20,filter:String = ContactStatus.all){
-       // ContactResponse
-      // self.showLoader()
-        let path = API.shared.baseUrlV2 + "contact-list?contactSource=\(source)&filterType=\(filter)&limit=\(limit)&page=\(page)"
-      // let parameter : Parameters =  ["Content-Type": "application/json"]
+        
+        var searchText = searchBar.text!
+        let contactType = selectedContactType
+        searchText = searchText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? ""
+        print(searchText)
+        let path = API.shared.baseUrlV2 + "contact-list?contactSource=\(source)&contactType=\(contactType)&searchText=\(searchText)&filterType=\(filter)&limit=\(limit)&page=\(page)"
+      
+       // let path = API.shared.baseUrlV2 + "contact-list?contactSource=\(source))&searchText=\("Na")&filterType=\(filter)&limit=\(limit)&page=\(page)"
+        print(path)
+       // let parameter : Parameters =  ["Content-Type": "application/json"]
         let headerWithToken : HTTPHeaders =  ["Content-Type": "application/json",
                                        "userid": Defaults.shared.currentUser?.id ?? "",
                                        "deviceType": "1",
@@ -522,19 +543,32 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 
                 let contacts = Mapper<ContactResponse>().mapArray(JSONArray:value)
                 if page == 1{
-                    self.allmobileContactsForHide = [ContactResponse]()
-                    self.mobileContacts = [ContactResponse]()
-                    self.allmobileContacts = [ContactResponse]()
+                    if self.selectedContactType == ContactType.mobile{
+                        self.allmobileContactsForHide = [ContactResponse]()
+                        self.mobileContacts = [ContactResponse]()
+                        self.allmobileContacts = [ContactResponse]()
+                    }else{
+                        self.allemailContactsForHide = [ContactResponse]()
+                        self.emailContacts = [ContactResponse]()
+                    }
                 }
                 print(contacts.count)
-                self.allmobileContactsForHide.append(contentsOf:contacts)
-                self.mobileContacts.append(contentsOf:contacts.filter {$0.hide == false})
-                self.allmobileContacts = self.mobileContacts
+                if self.selectedContactType == ContactType.mobile{
+                    self.allmobileContactsForHide.append(contentsOf:contacts)
+                    self.mobileContacts.append(contentsOf:contacts.filter {$0.hide == false})
+                    self.allmobileContacts = self.mobileContacts
+                    DispatchQueue.main.async {
+                        self.contactTableView.reloadData()
+                    }
+                }else{
+                    self.allemailContactsForHide.append(contentsOf:contacts)
+                    self.emailContacts.append(contentsOf:contacts.filter {$0.hide == false})
+                    DispatchQueue.main.async {
+                        self.emailContactTableView.reloadData()
+                    }
+                }
                 self.hideLoader()
                 self.loadingStatus = false
-                DispatchQueue.main.async {
-                    self.contactTableView.reloadData() // update your tableView having phoneContacts array
-                }
                 break
                
             case .failure(let error):
@@ -616,19 +650,73 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }
         }
     }
+    func inviteGuest(data:Data){
+        let path = API.shared.baseUrlV2 + "contact-list/invite-guest"
+        print(path)
+        var request = URLRequest(url:URL(string:path)!)
+        //some header examples
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(Defaults.shared.currentUser?.id ?? "", forHTTPHeaderField: "userid")
+        request.setValue(Defaults.shared.sessionToken ?? "", forHTTPHeaderField: "x-access-token")
+        request.setValue("1", forHTTPHeaderField: "deviceType")
+        request.httpBody = data
+        self.showLoader()
+        AF.request(request).responseJSON { response in
+            print(response)
+            switch (response.result) {
+            case .success:
+               // self.getContactList()
+                if let indexMobile = self.emailContacts.firstIndex(where: {$0.Id == self.selectedContact?.Id}){
+                    self.emailContacts[indexMobile].status = ContactStatus.invited
+                }
+                if let indexAllHidden = self.allemailContactsForHide.firstIndex(where: {$0.Id == self.selectedContact?.Id}){
+                    self.allemailContactsForHide[indexAllHidden].status = ContactStatus.invited
+                }
+                self.emailContactTableView.reloadData()
+                self.hideLoader()
+                break
+               
+            case .failure(let error):
+                print(error)
+                self.hideLoader()
+                break
+
+                //failure code here
+            }
+        }
+    }
     func validateInvite(contact:ContactResponse, completion: @escaping (_ success: Bool?) -> ()){
         self.selectedContact = nil
         let contactListids = [contact.Id ?? ""]
-        let inviteDetails = InviteDetails(content:contact.textLink ?? "", invitedFrom: "mobile", contactListIds: contactListids)
-        let jsonEncoder = JSONEncoder()
-        do {
-            let jsonData = try jsonEncoder.encode(inviteDetails)
-            self.inviteData = jsonData
-            completion(true)
-           
-        } catch {
-            print("error")
+        if selectedContactType == ContactType.mobile{
+            let inviteDetails = InviteDetails(content:contact.textLink ?? "", invitedFrom: "mobile", contactListIds: contactListids)
+            let jsonEncoder = JSONEncoder()
+            do {
+                let jsonData = try jsonEncoder.encode(inviteDetails)
+                self.inviteData = jsonData
+                completion(true)
+               
+            } catch {
+                print("error")
+            }
+        }else{
+          //  let inviteDetails = InviteEmailDetails(emailTitle:contact.textLink ?? "", emailMessage: "email", contactListIds: contactListids)
+            let inviteDetails = InviteDetails(content:contact.emailLink ?? "",subject:"Quickcam Invitation" ,invitedFrom: "mobile", contactListIds: contactListids)
+            print("inviteDetails")
+            print(inviteDetails)
+            print(contact.toJSON())
+            let jsonEncoder = JSONEncoder()
+            do {
+                let jsonData = try jsonEncoder.encode(inviteDetails)
+                self.inviteData = jsonData
+                completion(true)
+               
+            } catch {
+                print("error")
+            }
         }
+        
         
     }
     @IBAction func doNotShowAgainButtonClicked(sender: UIButton) {
@@ -642,6 +730,13 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @IBAction func okayButtonClicked(sender: UIButton) {
+        if selectedContactType == ContactType.mobile{
+            self.inviteGuestViaMobile(data:self.inviteData ?? Data())
+        }else{
+            self.inviteGuestViaMobile(data:self.inviteData ?? Data())
+           // self.inviteGuest(data:self.inviteData ?? Data())
+        }
+        
         self.contactSentConfirmPopup.isHidden = true
     }
     
@@ -730,6 +825,13 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         emailButton.setTitleColor(UIColor(hexString: "676767"), for: .normal)
         emailSeperatorView.backgroundColor = UIColor(hexString: "676767")
         emailSeperatorViewHeight.constant = 1.0
+        selectedContactType = ContactType.mobile
+        self.emailContactTableView.isHidden = true
+        self.contactTableView.isHidden = false
+        if mobileContacts.count == 0{
+            self.showLoader()
+            self.getContactList(page: 1 ,filter: self.selectedFilter)
+        }
     }
     @IBAction func emailSelected(sender: UIButton) {
         emailButton.setTitleColor(ApplicationSettings.appPrimaryColor, for: .normal)
@@ -739,6 +841,14 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         textMessageButton.setTitleColor(UIColor(hexString: "676767"), for: .normal)
         textMessageSeperatorView.backgroundColor = UIColor(hexString: "676767")
         textMessageSeperatorViewHeight.constant = 1.0
+        selectedContactType = ContactType.email
+        self.emailContactTableView.isHidden = false
+        self.contactTableView.isHidden = true
+        if emailContacts.count == 0{
+            self.showLoader()
+            self.getContactList(page: 1 ,filter: self.selectedFilter)
+        }
+        
     }
     // MARK: - tableview Delegate
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -760,6 +870,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == itemsTableView{
             return self.listingResponse?.list.count ?? 0
+        }else if tableView == emailContactTableView{
+            return emailContacts.count
         } else {
             if section == 0 {
               return mobileContacts.count
@@ -816,7 +928,45 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }
             return cell
 
-        } else {
+        }  else if tableView == emailContactTableView{
+            let cell:contactTableViewCell = self.contactTableView.dequeueReusableCell(withIdentifier: ContactImportVC.CELL_IDENTIFIER_CONTACT) as! contactTableViewCell
+            cell.selectionStyle = UITableViewCell.SelectionStyle.none
+            cell.cellDelegate = self
+            //
+          /*  let contact = mailContacts[indexPath.row] as PhoneContact
+            cell.lblDisplayName.text = contact.name ?? ""
+            cell.lblNumberEmail.text = contact.email[0]
+            if let imagedata =  contact.avatarData {
+                let avtar = UIImage(data:imagedata,scale:1.0)
+                cell.contactImage.image = avtar
+            }else {
+                cell.contactImage.image = UIImage.init(named: "User_placeholder")
+            }
+            cell.phoneContactObj = contact */
+            
+            //
+            let contact = emailContacts[indexPath.row]
+            cell.lblDisplayName.text = contact.name ?? ""
+            cell.lblNumberEmail.text = contact.email ?? ""
+            cell.contactImage.image = UIImage.init(named: "User_placeholder")
+            cell.mobileContactObj = contact
+           
+            if contact.status == ContactStatus.pending{
+                cell.inviteBtn.isHidden = false
+                cell.inviteBtn.setTitle("Invite", for: .normal)
+                cell.inviteBtn.backgroundColor = UIColor(hex6:0xE9F1FF)
+                cell.inviteBtn.setTitleColor(UIColor(hex6:0x4285F4), for: .normal)
+                
+            }else if contact.status == ContactStatus.subscriber{
+                cell.inviteBtn.isHidden = true
+            }else{
+                cell.inviteBtn.isHidden = false
+                cell.inviteBtn.setTitle("Invited", for: .normal)
+                cell.inviteBtn.backgroundColor = UIColor(hex6:0x4285F4)
+                cell.inviteBtn.setTitleColor(.white, for: .normal)
+            }
+            return cell
+        }else {
             let cell:contactTableViewCell = self.contactTableView.dequeueReusableCell(withIdentifier: ContactImportVC.CELL_IDENTIFIER_CONTACT) as! contactTableViewCell
             cell.selectionStyle = UITableViewCell.SelectionStyle.none
             cell.cellDelegate = self
@@ -899,26 +1049,44 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         if tableView == itemsTableView{
             return UISwipeActionsConfiguration(actions: [])
             
-        }
-        if indexPath.section == 1{
-            return UISwipeActionsConfiguration(actions: [])
-        }
-        let editAction = UIContextualAction(style: .normal, title:  nil, handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-              
-            self.hideContact(contact:self.mobileContacts[indexPath.row],index:indexPath.row)
-               success(true)
-           })
-           //editAction.image = #imageLiteral(resourceName: "hide")
-          // editAction.title = "Hide"
-       
-         editAction.image = UISwipeActionsConfiguration.makeTitledImage(
-            image: #imageLiteral(resourceName: "hide"),
-            title: "Hide")
-         
-        editAction.backgroundColor = #colorLiteral(red: 0.9156094193, green: 0.945283711, blue: 1, alpha: 1)
-        let swipeActions = UISwipeActionsConfiguration(actions: [editAction])
+        }else if tableView == emailContactTableView{
+            if indexPath.section == 1{
+                return UISwipeActionsConfiguration(actions: [])
+            }
+            let editAction = UIContextualAction(style: .normal, title:  nil, handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+                  
+                self.hideContact(contact:self.emailContacts[indexPath.row],index:indexPath.row)
+                   success(true)
+               })
+             editAction.image = UISwipeActionsConfiguration.makeTitledImage(
+                image: #imageLiteral(resourceName: "hide"),
+                title: "Hide")
+             
+            editAction.backgroundColor = #colorLiteral(red: 0.9156094193, green: 0.945283711, blue: 1, alpha: 1)
+            let swipeActions = UISwipeActionsConfiguration(actions: [editAction])
 
-        return swipeActions
+            return swipeActions
+        }else{
+            if indexPath.section == 1{
+                return UISwipeActionsConfiguration(actions: [])
+            }
+            let editAction = UIContextualAction(style: .normal, title:  nil, handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+                  
+                self.hideContact(contact:self.mobileContacts[indexPath.row],index:indexPath.row)
+                   success(true)
+               })
+              
+           
+             editAction.image = UISwipeActionsConfiguration.makeTitledImage(
+                image: #imageLiteral(resourceName: "hide"),
+                title: "Hide")
+             
+            editAction.backgroundColor = #colorLiteral(red: 0.9156094193, green: 0.945283711, blue: 1, alpha: 1)
+            let swipeActions = UISwipeActionsConfiguration(actions: [editAction])
+
+            return swipeActions
+        }
+        
          
       
     }
@@ -951,22 +1119,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         //print(searchText)
         self.filterOptionView.isHidden = true
-        guard !searchText.isEmpty  else { phoneContacts = allphoneContacts; mailContacts = allmailContacts
-            mobileContacts = allmobileContacts
-            ; return }
-
-        mobileContacts = allmobileContacts.filter({ ContactResponse -> Bool in
-            return (( (ContactResponse.name?.lowercased() ?? "").contains(searchText.lowercased()) ) || ( (ContactResponse.mobile?.lowercased() ?? "").contains(searchText.lowercased()) ) )
-        })
-        
-        phoneContacts = allphoneContacts.filter({ Phonecontact -> Bool in
-            return (( Phonecontact.name!.lowercased().contains(searchText.lowercased()) ) || ( Phonecontact.phoneNumber[0].contains(searchText.lowercased()) ) )
-        })
-        
-        mailContacts = allmailContacts.filter({ Phonecontact -> Bool in
-            return (Phonecontact.name!.lowercased().contains(searchText.lowercased()) || ( Phonecontact.email[0].lowercased().contains(searchText.lowercased()) ))
-        })
-        contactTableView.reloadData()
+        self.getContactList( page:1,filter:self.selectedFilter)
+        return
 
     }
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -974,9 +1128,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             searchBar.text = ""
             searchBar.resignFirstResponder()
         
-        mobileContacts = allmobileContacts
-        mailContacts = allmailContacts;
-        contactTableView.reloadData()
+     //   mobileContacts = allmobileContacts
+      //  mailContacts = allmailContacts;
+      //  contactTableView.reloadData()
+        self.getContactList( page:1,filter:self.selectedFilter)
         
     }
     func searchBarSearchButtonClicked(_ seachBar: UISearchBar) {
@@ -1094,24 +1249,48 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 self.inviteAgainpopup.isHidden = false
                 return
             }
+            
             let phoneNum = mobilecontact.mobile ?? ""
             let urlString = self.txtLinkWithCheckOut
+            let imageV = self.profileView.toImage()
             let urlwithString = urlString + "\n" + "\n" + " \(mobilecontact.textLink ?? "")"
-            if !MFMessageComposeViewController.canSendText() {
-                    //showAlert("Text services are not available")
-                    return
+            
+            if selectedContactType == ContactType.mobile{
+                if !MFMessageComposeViewController.canSendText() {
+                        //showAlert("Text services are not available")
+                        return
+                }
+
+                let textComposer = MFMessageComposeViewController()
+                textComposer.messageComposeDelegate = self
+                let recipients:[String] = [phoneNum]
+             
+                textComposer.body = urlwithString
+                textComposer.recipients = recipients
+
+                if MFMessageComposeViewController.canSendAttachments() {
+                    let imageData = imageV.jpegData(compressionQuality: 1.0)
+                    textComposer.addAttachmentData(imageData!, typeIdentifier: "image/jpg", filename: "photo.jpg")
+                }
+
+                present(textComposer, animated: true)
+            
+            }else{
+                if MFMailComposeViewController.canSendMail() {
+                    let mail = MFMailComposeViewController()
+                    mail.mailComposeDelegate = self
+                    mail.setToRecipients([mobileContact?.email ?? ""])
+                    mail.setSubject(urlString)
+                    mail.setMessageBody(urlwithString, isHTML: false)
+                    
+                    let imageData = imageV.jpegData(compressionQuality: 1.0)
+                    mail.addAttachmentData(imageData!, mimeType: "image/jpg", fileName: "photo.jpg")
+                    present(mail, animated: true)
+                    
+                    // Show third party email composer if default Mail app is not present
+                }
             }
-
-            let textComposer = MFMessageComposeViewController()
-            textComposer.messageComposeDelegate = self
-            let recipients:[String] = [phoneNum]
-          //textComposer.body = urlwithString
-            textComposer.body = urlwithString
-            textComposer.recipients = recipients
-
-           
-
-            present(textComposer, animated: true)
+            
         }
     }
     func didPressButton(_ contact: PhoneContact ,mobileContact:ContactResponse?,reInvite :Bool = false) {
@@ -1123,6 +1302,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }
             let phoneNum = mobilecontact.mobile ?? ""
             let urlString = self.txtLinkWithCheckOut
+            let imageV = self.profileView.toImage()
             let urlwithString = urlString + "\n" + "\n" + " \(mobilecontact.textLink ?? "")"
             if !MFMessageComposeViewController.canSendText() {
                     //showAlert("Text services are not available")
@@ -1132,17 +1312,20 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             let textComposer = MFMessageComposeViewController()
             textComposer.messageComposeDelegate = self
             let recipients:[String] = [phoneNum]
-          //textComposer.body = urlwithString
             textComposer.body = urlwithString
             textComposer.recipients = recipients
-
+            
+            if MFMessageComposeViewController.canSendAttachments() {
+                let imageData = imageV.jpegData(compressionQuality: 1.0)
+                textComposer.addAttachmentData(imageData!, typeIdentifier: "image/jpg", filename: "photo.jpg")
+            }
+            
             self.validateInvite(contact:mobilecontact, completion: { success in
                 if success ?? false{
                     self.openMessageComposer(mobileContact:mobilecontact,reInvite:reInvite)
                 }
             })
 
-          //  present(textComposer, animated: true)
         }else{
             let urlString = self.txtLinkWithCheckOut
             let channelId = Defaults.shared.currentUser?.channelId ?? ""
@@ -1202,14 +1385,13 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
         print(result)
         if result == .sent{
-            print("Message")
-            print(Defaults.shared.isContactConfirmPopUpChecked)
-            if Defaults.shared.isContactConfirmPopUpChecked{
+            self.contactSentConfirmPopup.isHidden = false
+          /*  if Defaults.shared.isContactConfirmPopUpChecked{
                 self.contactSentConfirmPopup.isHidden = true
             }else{
                 self.contactSentConfirmPopup.isHidden = false
-            }
-            self.inviteGuestViaMobile(data:self.inviteData ?? Data())
+            } */
+          //  self.inviteGuestViaMobile(data:self.inviteData ?? Data())
         }else if result == .cancelled || result == .failed{
            // self.selectedContact?.status = ContactStatus.invited
         }
@@ -1218,6 +1400,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     func mailComposeController(_ controller: MFMailComposeViewController,
                                didFinishWith result: MFMailComposeResult,
                                error: Swift.Error?) {
+        if result == .sent{
+            self.contactSentConfirmPopup.isHidden = false
+        }
+        
         controller.dismiss(animated: true, completion: nil)
     }
     /*
@@ -1235,19 +1421,64 @@ extension ContactImportVC:UIScrollViewDelegate{
     //Pagination
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         self.filterOptionView.isHidden = true
+        
     }
+    /*  func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+        if scrollView == contactTableView || scrollView == emailContactTableView{
+            if segmentViewHeight.constant == 84.0{
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.segmentViewHeight.constant = 0.0
+                    self.stepViewHeight.constant = 0.0
+                        self.view.layoutIfNeeded()
+                })
+            }
+        }
+    }
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if scrollView == contactTableView || scrollView == emailContactTableView{
+            if segmentViewHeight.constant == 0.0{
+                UIView.animate(withDuration: 0.0, animations: {
+                    self.segmentViewHeight.constant = 84.0
+                    self.stepViewHeight.constant = 50.0
+                        self.view.layoutIfNeeded()
+                })
+            }
+        }
+    }
+     */
      func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if scrollView == contactTableView{
+        if scrollView == contactTableView || scrollView == emailContactTableView{
             let offsetY = scrollView.contentOffset.y
             let contentHeight = scrollView.contentSize.height
             print(offsetY >= contentHeight - scrollView.frame.height)
             print(!loadingStatus)
             if (offsetY >= contentHeight - scrollView.frame.height) && !loadingStatus {
                 self.showLoader()
-                self.getContactList(page: self.mobileContacts.count, filter: self.selectedFilter)
+                let page = (selectedContactType == ContactType.mobile) ? self.mobileContacts.count : self.emailContacts.count
+                self.getContactList(page: page, filter: self.selectedFilter)
             }
         }
         
+    }
+   
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        if scrollView == contactTableView || scrollView == emailContactTableView{
+            let offsetY = scrollView.contentOffset.y
+            print("offsetY \(offsetY)")
+            if offsetY <= 84.0 + 50.0{
+                segmentViewHeight.constant = 84.0 - offsetY
+                if offsetY > 84.0 && segmentViewHeight.constant == 0{
+                    stepViewHeight.constant = 50.0 - offsetY - 84
+                }else{
+                    stepViewHeight.constant = 50.0
+                }
+            }else{
+                segmentViewHeight.constant = 0.0
+                stepViewHeight.constant = 0.0
+            }
+        }
+      
     }
 }
 extension UISwipeActionsConfiguration {

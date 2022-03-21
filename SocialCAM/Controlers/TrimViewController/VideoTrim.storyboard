@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -187,10 +187,10 @@
                                                                         <size key="shadowOffset" width="0.0" height="1"/>
                                                                     </label>
                                                                     <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NH6-nw-RDk">
-                                                                        <rect key="frame" x="34.5" y="14" width="35" height="35"/>
+                                                                        <rect key="frame" x="39.5" y="19" width="25" height="25"/>
                                                                         <constraints>
-                                                                            <constraint firstAttribute="width" constant="35" id="7fK-KI-7JR"/>
-                                                                            <constraint firstAttribute="height" constant="35" id="SCz-DU-by0"/>
+                                                                            <constraint firstAttribute="width" constant="25" id="7fK-KI-7JR"/>
+                                                                            <constraint firstAttribute="height" constant="25" id="SCz-DU-by0"/>
                                                                         </constraints>
                                                                         <state key="normal" image="split1"/>
                                                                         <connections>
@@ -217,7 +217,7 @@
                                                                     <constraint firstAttribute="trailing" secondItem="xdf-x1-IY0" secondAttribute="trailing" id="Oi0-ZH-MeC"/>
                                                                     <constraint firstItem="wsA-qr-3Vd" firstAttribute="leading" secondItem="e2s-bt-KaV" secondAttribute="leading" id="YvK-3k-pqB"/>
                                                                     <constraint firstAttribute="bottom" secondItem="wsA-qr-3Vd" secondAttribute="bottom" id="a61-Ne-Pn8"/>
-                                                                    <constraint firstItem="NH6-nw-RDk" firstAttribute="top" secondItem="xdf-x1-IY0" secondAttribute="bottom" id="vub-dy-Ph1"/>
+                                                                    <constraint firstItem="NH6-nw-RDk" firstAttribute="top" secondItem="xdf-x1-IY0" secondAttribute="bottom" constant="5" id="vub-dy-Ph1"/>
                                                                     <constraint firstAttribute="trailing" secondItem="wsA-qr-3Vd" secondAttribute="trailing" id="w2s-Xj-Sp6"/>
                                                                 </constraints>
                                                                 <variation key="default">
@@ -782,7 +782,7 @@
                                         </connections>
                                     </button>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hQ3-rH-WbZ" customClass="DragAndDropCollectionView" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="630" width="374" height="140"/>
+                                        <rect key="frame" x="20" y="615" width="374" height="140"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="140" id="vKC-XR-BLv"/>
@@ -810,10 +810,10 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="QY0-h1-waI" customClass="DragAndDropCollectionView" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="755" width="374" height="95"/>
+                                        <rect key="frame" x="20" y="740" width="374" height="110"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="95" id="zYl-4c-xU4"/>
+                                            <constraint firstAttribute="height" constant="110" id="zYl-4c-xU4"/>
                                         </constraints>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="5" minimumInteritemSpacing="0.0" id="raO-6o-3YH">
                                             <size key="itemSize" width="41" height="75"/>
@@ -1025,12 +1025,19 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o8t-e7-v7d">
                                                 <rect key="frame" x="0.0" y="71.5" width="60" height="61.5"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aef-dP-7yV">
+                                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aef-dP-7yV">
                                                         <rect key="frame" x="0.0" y="7.5" width="60" height="40"/>
                                                         <state key="normal" image="mergeDisableIcon"/>
                                                         <state key="selected" image="mergeEnableIcon"/>
                                                     </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Merge" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mxE-RU-3Cz">
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mergeNew" translatesAutoresizingMaskIntoConstraints="NO" id="4Jv-rF-H8b">
+                                                        <rect key="frame" x="16" y="10" width="28" height="28"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="28" id="HGC-fU-wMf"/>
+                                                            <constraint firstAttribute="width" constant="28" id="KTq-c5-25C"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Join" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mxE-RU-3Cz">
                                                         <rect key="frame" x="0.0" y="47.5" width="60" height="14"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="14" id="g3w-s3-pgQ"/>
@@ -1053,8 +1060,10 @@
                                                     <constraint firstItem="195-Ho-QVj" firstAttribute="top" secondItem="o8t-e7-v7d" secondAttribute="top" id="0KE-e6-pfc"/>
                                                     <constraint firstItem="Aef-dP-7yV" firstAttribute="top" secondItem="o8t-e7-v7d" secondAttribute="top" constant="7.5" id="4bz-JR-oVY"/>
                                                     <constraint firstAttribute="trailing" secondItem="mxE-RU-3Cz" secondAttribute="trailing" id="GSf-Rn-REf"/>
+                                                    <constraint firstItem="4Jv-rF-H8b" firstAttribute="centerX" secondItem="o8t-e7-v7d" secondAttribute="centerX" id="TOz-oy-iJm"/>
                                                     <constraint firstAttribute="bottom" secondItem="195-Ho-QVj" secondAttribute="bottom" id="TkN-dt-DLs"/>
                                                     <constraint firstItem="Aef-dP-7yV" firstAttribute="leading" secondItem="o8t-e7-v7d" secondAttribute="leading" id="Vdn-Mb-f20"/>
+                                                    <constraint firstItem="4Jv-rF-H8b" firstAttribute="top" secondItem="o8t-e7-v7d" secondAttribute="top" constant="10" id="eN6-aA-mpr"/>
                                                     <constraint firstItem="mxE-RU-3Cz" firstAttribute="leading" secondItem="o8t-e7-v7d" secondAttribute="leading" id="i5d-HD-FD5"/>
                                                     <constraint firstAttribute="bottom" secondItem="mxE-RU-3Cz" secondAttribute="bottom" id="kQe-Ms-amC"/>
                                                     <constraint firstItem="195-Ho-QVj" firstAttribute="leading" secondItem="o8t-e7-v7d" secondAttribute="leading" id="mo2-jS-lgN"/>
@@ -1072,10 +1081,10 @@
                                                         <state key="selected" image="mergeCombine"/>
                                                     </button>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mergeAll" translatesAutoresizingMaskIntoConstraints="NO" id="AA3-zP-Kdn">
-                                                        <rect key="frame" x="16.5" y="5" width="27" height="27"/>
+                                                        <rect key="frame" x="16" y="5" width="28" height="28"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="27" id="Isj-SY-Stl"/>
-                                                            <constraint firstAttribute="height" constant="27" id="wxm-Vi-4sK"/>
+                                                            <constraint firstAttribute="width" constant="28" id="Isj-SY-Stl"/>
+                                                            <constraint firstAttribute="height" constant="28" id="wxm-Vi-4sK"/>
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Join All" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bpi-Ww-23L">
@@ -1116,11 +1125,18 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lQJ-2s-3fE">
                                                 <rect key="frame" x="0.0" y="214.5" width="60" height="61.5"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M4X-S9-Q8E">
+                                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M4X-S9-Q8E">
                                                         <rect key="frame" x="0.0" y="11.5" width="60" height="36"/>
                                                         <state key="normal" image="mergeUndo"/>
                                                         <state key="selected" image="se_undoCopy"/>
                                                     </button>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="newUndo" translatesAutoresizingMaskIntoConstraints="NO" id="jHf-6Y-NPB">
+                                                        <rect key="frame" x="16" y="10" width="28" height="28"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="28" id="2Qa-kn-dqi"/>
+                                                            <constraint firstAttribute="width" constant="28" id="ov1-aT-QHI"/>
+                                                        </constraints>
+                                                    </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="undo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yKd-sj-3T5">
                                                         <rect key="frame" x="0.0" y="47.5" width="60" height="14"/>
                                                         <constraints>
@@ -1142,7 +1158,9 @@
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstItem="yKd-sj-3T5" firstAttribute="top" secondItem="M4X-S9-Q8E" secondAttribute="bottom" id="0vm-gn-v2Z"/>
+                                                    <constraint firstItem="jHf-6Y-NPB" firstAttribute="centerX" secondItem="lQJ-2s-3fE" secondAttribute="centerX" id="4hN-Ph-FiS"/>
                                                     <constraint firstAttribute="bottom" secondItem="ijP-oq-Me8" secondAttribute="bottom" id="7hT-NN-NMH"/>
+                                                    <constraint firstItem="jHf-6Y-NPB" firstAttribute="top" secondItem="lQJ-2s-3fE" secondAttribute="top" constant="10" id="MYl-KR-oV0"/>
                                                     <constraint firstItem="ijP-oq-Me8" firstAttribute="top" secondItem="lQJ-2s-3fE" secondAttribute="top" id="V7V-r1-7vT"/>
                                                     <constraint firstAttribute="trailing" secondItem="ijP-oq-Me8" secondAttribute="trailing" id="iK5-t2-3df"/>
                                                     <constraint firstItem="yKd-sj-3T5" firstAttribute="leading" secondItem="lQJ-2s-3fE" secondAttribute="leading" id="ixL-Bc-OtG"/>
@@ -1266,7 +1284,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zwe-6g-1FV">
-                                        <rect key="frame" x="0.0" y="640" width="420" height="105"/>
+                                        <rect key="frame" x="0.0" y="607" width="420" height="105"/>
                                         <subviews>
                                             <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="drN-7s-VfB">
                                                 <rect key="frame" x="110" y="15" width="200" height="90"/>
@@ -1368,10 +1386,10 @@
                                         </constraints>
                                     </view>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="wxP-uA-sLJ" customClass="DragAndDropCollectionView" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="25" y="755" width="364" height="77"/>
+                                        <rect key="frame" x="25" y="722" width="364" height="110"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="77" id="RqZ-Qj-5Yv"/>
+                                            <constraint firstAttribute="height" constant="110" id="RqZ-Qj-5Yv"/>
                                         </constraints>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="5" minimumInteritemSpacing="0.0" id="eBG-Gf-L5J">
                                             <size key="itemSize" width="41" height="75"/>
@@ -2331,10 +2349,10 @@
                                         </connections>
                                     </button>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="u0p-TT-4gw" customClass="DragAndDropCollectionView" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="630" width="374" height="140"/>
+                                        <rect key="frame" x="20" y="600" width="374" height="170"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="140" id="Er1-nQ-8aL"/>
+                                            <constraint firstAttribute="height" constant="170" id="Er1-nQ-8aL"/>
                                         </constraints>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="6De-ht-uRi">
                                             <size key="itemSize" width="41" height="98"/>
@@ -2475,8 +2493,10 @@
         <image name="mergeCombine" width="34" height="34"/>
         <image name="mergeDisableIcon" width="34" height="34"/>
         <image name="mergeEnableIcon" width="34" height="34"/>
+        <image name="mergeNew" width="512" height="512"/>
         <image name="mergeReset" width="30" height="30"/>
         <image name="mergeUndo" width="30" height="30"/>
+        <image name="newUndo" width="512" height="512"/>
         <image name="photoEditor_backward" width="16" height="16"/>
         <image name="photoEditor_forward" width="16" height="16"/>
         <image name="resequence_original" width="26" height="38"/>
@@ -2493,7 +2513,7 @@
         <image name="se_merge_before_new" width="88" height="78"/>
         <image name="se_undo" width="32" height="32"/>
         <image name="se_undoCopy" width="30" height="44"/>
-        <image name="split1" width="80" height="80"/>
+        <image name="split1" width="40" height="40"/>
         <image name="trimBack" width="24" height="24"/>
         <image name="trimDone" width="21" height="15"/>
         <image name="trimSave" width="21" height="15"/>

@@ -319,6 +319,15 @@ extension TrimEditorViewController: UICollectionViewDataSource {
                 return cell
             }
             cell.setLayout(indexPath: indexPath, currentPage: currentPage, currentAsset: currentAsset, storySegment: storySegment)
+            
+                cell.lblSegmentCount.isHidden = true
+                cell.lblVideoDuration.isHidden = false
+                cell.segmentCountLabel.isHidden = false
+                cell.segmentCountLabel.text = "\(indexPath.item + 1)"
+                let duration = String(format: "%.1f", currentAsset.duration.seconds)
+                cell.lblVideoDuration.font = UIFont(name: "SFUIText-Regular", size: 11)
+                cell.lblVideoDuration.text = "  \(duration)"
+            
         }
         cell.trimmerView.delegate = self
         player?.isMuted = Defaults.shared.isEditSoundOff
@@ -369,9 +378,12 @@ extension TrimEditorViewController: UICollectionViewDelegate, UICollectionViewDe
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let storySegment = storyEditorMedias[indexPath.row]
         if collectionView == self.editStoryCollectionView {
-            return CGSize(width: Double(self.view.frame.width - 40), height: Double(118 * 1.17))
+            return CGSize(width: Double(self.view.frame.width - 40), height: Double(118 * 1.30))
+//            return CGSize(width: Double(self.view.frame.width - 40), height: Double(118 * 1.17))
         } else {
-            return CGSize(width: (Double(storySegment.count * 45)), height: Double(98))
+            return CGSize(width: 47.0,
+                          height: collectionView.frame.height)
+//            return CGSize(width: (Double(storySegment.count * 45)), height: Double(98))
         }
     }
     
@@ -472,7 +484,7 @@ extension TrimEditorViewController: TrimmerViewDelegate {
         if let player = player,
            let cell: ImageCollectionViewCell = self.editStoryCollectionView.cellForItem(at: self.getCurrentIndexPath) as? ImageCollectionViewCell {
             
-            guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else { return }
+            guard let startTime = trimmer.startTime, let endTime = trimmer.endTime else { return }
             var newStartpoint = currentTimeTrim.seconds - 1
             if newStartpoint < 0 {
                 newStartpoint = 0
@@ -493,7 +505,7 @@ extension TrimEditorViewController: TrimmerViewDelegate {
                 if self.btnPlayPause.isSelected {
                     if let cell: ImageCollectionViewCell = self.editStoryCollectionView.cellForItem(at: self.getCurrentIndexPath) as? ImageCollectionViewCell {
                     if !isLeftGesture {
-                        guard let startTime = cell.trimmerView.startTime, let endTime = trimmer.endTime else {
+                        guard let startTime = trimmer.startTime, let endTime = trimmer.endTime else {
                             return
                         }
                         let newEndTime = endTime - CMTime.init(seconds: 1, preferredTimescale: endTime.timescale)
@@ -522,7 +534,7 @@ extension TrimEditorViewController: TrimmerViewDelegate {
                 player.pause()
             }
             if let cell: ImageCollectionViewCell = self.editStoryCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? ImageCollectionViewCell {
-                guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
+                guard let startTime = trimmer.startTime, let endTime = trimmer.endTime else {
                     return
                 }
                 cell.trimmerView.seek(to: currentTimeScrub)

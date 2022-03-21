@@ -32,65 +32,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0dB-yk-Da0" userLabel="HeaderView">
-                                <rect key="frame" x="0.0" y="44" width="414" height="52"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wqT-FW-zDk" userLabel="Back">
-                                        <rect key="frame" x="8" y="0.0" width="44" height="44"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="44" id="SJ1-iw-beH"/>
-                                            <constraint firstAttribute="width" constant="44" id="SaL-9M-nvZ"/>
-                                        </constraints>
-                                        <color key="tintColor" name="AppBlackColor"/>
-                                        <state key="normal" image="textFieldClose"/>
-                                        <connections>
-                                            <action selector="btnBackTapped:" destination="k7D-XT-pBV" eventType="touchUpInside" id="AeB-9h-ZbC"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit Profile Card" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HJy-qE-QYx">
-                                        <rect key="frame" x="140.5" y="11.5" width="133.5" height="21.5"/>
-                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                        <color key="textColor" red="0.2498272061" green="0.3152070642" blue="0.35203957559999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="snt-4S-Crd">
-                                        <rect key="frame" x="326" y="6" width="40" height="32"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="40" id="yZV-yM-AEx"/>
-                                        </constraints>
-                                        <color key="tintColor" name="resendLinkColor"/>
-                                        <state key="normal" image="shareIcon"/>
-                                        <state key="selected" image="icoGridView"/>
-                                        <connections>
-                                            <action selector="btnShareTapped:" destination="k7D-XT-pBV" eventType="touchUpInside" id="EWM-9T-hWT"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aHT-IN-LtZ">
-                                        <rect key="frame" x="376" y="6" width="30" height="32"/>
-                                        <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="17"/>
-                                        <state key="normal" title="OK">
-                                            <color key="titleColor" name="AppPrimaryColor"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="btnOKTapped:" destination="k7D-XT-pBV" eventType="touchUpInside" id="cZ6-Yf-gwX"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstItem="HJy-qE-QYx" firstAttribute="centerY" secondItem="wqT-FW-zDk" secondAttribute="centerY" id="Esa-Wf-kAl"/>
-                                    <constraint firstAttribute="height" constant="52" id="Mjz-c1-zGr"/>
-                                    <constraint firstItem="HJy-qE-QYx" firstAttribute="centerX" secondItem="0dB-yk-Da0" secondAttribute="centerX" id="Sgd-fl-jdl"/>
-                                    <constraint firstItem="wqT-FW-zDk" firstAttribute="top" secondItem="0dB-yk-Da0" secondAttribute="top" id="Tm8-x7-Lb1"/>
-                                    <constraint firstItem="snt-4S-Crd" firstAttribute="top" secondItem="aHT-IN-LtZ" secondAttribute="top" id="Vev-xf-KOO"/>
-                                    <constraint firstItem="aHT-IN-LtZ" firstAttribute="leading" secondItem="snt-4S-Crd" secondAttribute="trailing" constant="10" id="edv-fF-dux"/>
-                                    <constraint firstItem="snt-4S-Crd" firstAttribute="bottom" secondItem="aHT-IN-LtZ" secondAttribute="bottom" id="fQ6-mf-pfI"/>
-                                    <constraint firstItem="wqT-FW-zDk" firstAttribute="leading" secondItem="0dB-yk-Da0" secondAttribute="leading" constant="8" id="hFe-zd-pwV"/>
-                                    <constraint firstItem="aHT-IN-LtZ" firstAttribute="centerY" secondItem="HJy-qE-QYx" secondAttribute="centerY" id="ivJ-MB-NKD"/>
-                                    <constraint firstAttribute="trailing" secondItem="aHT-IN-LtZ" secondAttribute="trailing" constant="8" id="jgz-6F-5aB"/>
-                                </constraints>
-                            </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Svy-im-JaM">
                                 <rect key="frame" x="0.0" y="96" width="414" height="800"/>
                                 <subviews>
@@ -558,6 +499,65 @@
                                 <viewLayoutGuide key="contentLayoutGuide" id="KxU-yG-Q3U"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="94P-Iz-Dr3"/>
                             </scrollView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0dB-yk-Da0" userLabel="HeaderView">
+                                <rect key="frame" x="0.0" y="44" width="414" height="52"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wqT-FW-zDk" userLabel="Back">
+                                        <rect key="frame" x="8" y="0.0" width="44" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="SJ1-iw-beH"/>
+                                            <constraint firstAttribute="width" constant="44" id="SaL-9M-nvZ"/>
+                                        </constraints>
+                                        <color key="tintColor" name="AppBlackColor"/>
+                                        <state key="normal" image="textFieldClose"/>
+                                        <connections>
+                                            <action selector="btnBackTapped:" destination="k7D-XT-pBV" eventType="touchUpInside" id="AeB-9h-ZbC"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit Profile Card" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HJy-qE-QYx">
+                                        <rect key="frame" x="140.5" y="11.5" width="133.5" height="21.5"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                        <color key="textColor" red="0.2498272061" green="0.3152070642" blue="0.35203957559999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="snt-4S-Crd">
+                                        <rect key="frame" x="326" y="6" width="40" height="32"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="yZV-yM-AEx"/>
+                                        </constraints>
+                                        <color key="tintColor" name="resendLinkColor"/>
+                                        <state key="normal" image="shareIcon"/>
+                                        <state key="selected" image="icoGridView"/>
+                                        <connections>
+                                            <action selector="btnShareTapped:" destination="k7D-XT-pBV" eventType="touchUpInside" id="EWM-9T-hWT"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aHT-IN-LtZ">
+                                        <rect key="frame" x="376" y="6" width="30" height="32"/>
+                                        <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="17"/>
+                                        <state key="normal" title="OK">
+                                            <color key="titleColor" name="AppPrimaryColor"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnOKTapped:" destination="k7D-XT-pBV" eventType="touchUpInside" id="cZ6-Yf-gwX"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="HJy-qE-QYx" firstAttribute="centerY" secondItem="wqT-FW-zDk" secondAttribute="centerY" id="Esa-Wf-kAl"/>
+                                    <constraint firstAttribute="height" constant="52" id="Mjz-c1-zGr"/>
+                                    <constraint firstItem="HJy-qE-QYx" firstAttribute="centerX" secondItem="0dB-yk-Da0" secondAttribute="centerX" id="Sgd-fl-jdl"/>
+                                    <constraint firstItem="wqT-FW-zDk" firstAttribute="top" secondItem="0dB-yk-Da0" secondAttribute="top" id="Tm8-x7-Lb1"/>
+                                    <constraint firstItem="snt-4S-Crd" firstAttribute="top" secondItem="aHT-IN-LtZ" secondAttribute="top" id="Vev-xf-KOO"/>
+                                    <constraint firstItem="aHT-IN-LtZ" firstAttribute="leading" secondItem="snt-4S-Crd" secondAttribute="trailing" constant="10" id="edv-fF-dux"/>
+                                    <constraint firstItem="snt-4S-Crd" firstAttribute="bottom" secondItem="aHT-IN-LtZ" secondAttribute="bottom" id="fQ6-mf-pfI"/>
+                                    <constraint firstItem="wqT-FW-zDk" firstAttribute="leading" secondItem="0dB-yk-Da0" secondAttribute="leading" constant="8" id="hFe-zd-pwV"/>
+                                    <constraint firstItem="aHT-IN-LtZ" firstAttribute="centerY" secondItem="HJy-qE-QYx" secondAttribute="centerY" id="ivJ-MB-NKD"/>
+                                    <constraint firstAttribute="trailing" secondItem="aHT-IN-LtZ" secondAttribute="trailing" constant="8" id="jgz-6F-5aB"/>
+                                </constraints>
+                            </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xPd-JQ-tiK" userLabel="Blur Back Ground View">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <subviews>
@@ -2853,7 +2853,7 @@
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
-            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="InActive5">
             <color red="0.89803921568627454" green="0.80000000000000004" blue="0.054901960784313725" alpha="0.69999998807907104" colorSpace="custom" customColorSpace="sRGB"/>

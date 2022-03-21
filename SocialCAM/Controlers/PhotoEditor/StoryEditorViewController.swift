@@ -35,6 +35,7 @@ class ShareOptionTableViewCell: UITableViewCell {
 
 class StoryEditorMedia: CustomStringConvertible, NSCopying, Equatable {
    
+    var storyIndex: Int?
     var id: String
     var type: StoryEditorType
     var isSelected: Bool
@@ -261,6 +262,7 @@ class StoryEditorViewController: UIViewController {
         return avAsset
     }
     
+    var startDraggingIndex: Int?
     public var medias = [StoryEditorMedia]()
     public var selectedSlideShowMedias = [StoryEditorMedia]() {
         didSet {
@@ -635,7 +637,7 @@ class StoryEditorViewController: UIViewController {
         }
         self.soundOptionView.isHidden = isImage
         self.trimOptionView.isHidden = isImage
-        self.splitOptionView.isHidden = isImage
+        self.splitOptionView.isHidden = true//isImage
         self.omitOptionView.isHidden = isImage
         var videoCount = 0
         for editor in storyEditors {
@@ -945,6 +947,7 @@ extension StoryEditorViewController {
                 guard let storyEditorMedia = item.copy() as? StoryEditorMedia else {
                     return
                 }
+                storyEditorMedia.storyIndex = newIndex
                 self.medias.append(storyEditorMedia)
             }
             self.isTrim = true
@@ -1441,6 +1444,7 @@ extension StoryEditorViewController {
                         self.saveImageOrVideoInGallery(image: image)
                         if isFromDoneTap{
                             guard let storyCamVC = R.storyboard.storyCameraViewController.storyCameraViewController() else { return }
+                            storyCamVC.isfromPicsArt = true
                             self.navigationController?.pushViewController(storyCamVC, animated: true)
                         }
                     } else {
@@ -2093,11 +2097,16 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
             }
             
             let storyEditor = storyEditors[indexPath.item]
-            storyEditorCell.thumbnailNumberLabel.text = "\(indexPath.item + 1)"
+            
 //            let currentVideoAssest = Float(currentVideoAsset?.duration.seconds ?? 0.0)
             guard let _currentVideoAsset = medias[safe: indexPath.item]?.type else {
                 return storyEditorCell
             }
+            guard let newIndex = medias[safe: indexPath.item]?.storyIndex else {
+                return storyEditorCell
+            }
+            
+            storyEditorCell.thumbnailNumberLabel.text = "\(newIndex)"
             var avAsset: AVAsset?
             switch _currentVideoAsset {
             case .image:
@@ -2195,6 +2204,7 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, cellIsDraggableAtIndexPath indexPath: IndexPath) -> Bool {
+        startDraggingIndex = indexPath.row
         guard let cell = self.collectionView.cellForItem(at: indexPath) as? StoryEditorCell else { return false }
         cell.imageView.layer.borderColor = R.color.appPrimaryColor()?.cgColor
         return (collectionView != slideShowCollectionView)
@@ -2220,6 +2230,9 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, stopDrag dataItem: AnyObject, atIndexPath indexPath: IndexPath?, sourceRect rect: CGRect) {
+        if indexPath?.item != nil {
+            medias.rearrange(from: startDraggingIndex!, to: indexPath!.item)
+        }
         if deleteView.frame.contains(rect.center) {
             if isSlideShow,
                 storyEditors.count == 3 {
@@ -2830,4 +2843,10 @@ extension StoryEditorViewController {
         setUserSettings(appWatermark: sharedModel.appIdentifierWatermarkSetting.rawValue, fastesteverWatermark: sharedModel.fastestEverWatermarkSetting.rawValue, faceDetection: sharedModel.enableFaceDetection, guidelineThickness: sharedModel.cameraGuidelineThickness.rawValue, guidelineTypes: sharedModel.cameraGuidelineTypes.rawValue, guidelinesShow: sharedModel.enableGuildlines, iconPosition: sharedModel.swapeContols, supportedFrameRates: sharedModel.supportedFrameRates, videoResolution: sharedModel.videoResolution.rawValue, watermarkOpacity: sharedModel.waterarkOpacity, guidelineActiveColor: CommonFunctions.hexStringFromColor(color: sharedModel.cameraGuidelineActiveColor), guidelineInActiveColor: CommonFunctions.hexStringFromColor(color: sharedModel.cameraGuidelineInActiveColor))
     }
     
+}
+extension RangeReplaceableCollection where Indices: Equatable {
+    mutating func rearrange(from: Index, to: Index) {
+        precondition(from != to && indices.contains(from) && indices.contains(to), "invalid indices")
+        insert(remove(at: from), at: to)
+    }
 }

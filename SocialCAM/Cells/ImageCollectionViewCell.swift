@@ -12,6 +12,7 @@ import AVKit
 
 class ImageCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet weak var segmentCountLabel: UILabel!
     @IBOutlet weak var imagesView: UIView!
     @IBOutlet weak var imagesStackView: UIStackView!
     @IBOutlet weak var lblSegmentCount: UILabel!
@@ -180,20 +181,20 @@ class ImageCollectionViewCell: UICollectionViewCell {
         addSubview(rightTopView)
         
         let leftTopViewWidthAnchor = leftTopView.widthAnchor
-            .constraint(equalToConstant: 23)
+            .constraint(equalToConstant: 25)
         let leftTopViewHeightAnchor = leftTopView.heightAnchor
-            .constraint(equalToConstant: 23)
+            .constraint(equalToConstant: 25)
         let leftTopViewTopAnchor = leftTopView.topAnchor
-            .constraint(equalTo: topAnchor, constant: 110)
+            .constraint(equalTo: topAnchor, constant: 127)
         let leftTopViewLeadingAnchor = leftTopView.leadingAnchor
             .constraint(equalTo: self.trimmerView.leadingAnchor, constant: 0)
         
         let rightTopViewWidthAnchor = rightTopView.widthAnchor
-            .constraint(equalToConstant: 23)
+            .constraint(equalToConstant: 25)
         let rightTopViewHeightAnchor = rightTopView.heightAnchor
-            .constraint(equalToConstant: 23)
+            .constraint(equalToConstant: 25)
         let rightTopViewTopAnchor = rightTopView.topAnchor
-            .constraint(equalTo: topAnchor, constant: 110)
+            .constraint(equalTo: topAnchor, constant: 127)
         let rightTopViewLeadingAnchor = rightTopView.trailingAnchor
             .constraint(equalTo: self.trimmerView.trailingAnchor, constant: 0)
         
@@ -276,7 +277,9 @@ class ImageCollectionViewCell: UICollectionViewCell {
         let (_, totalTimeS) = Utils.secondsToHoursMinutesSeconds(Int(Float(endT).roundToPlaces(places: 0)))
         let totalTimeMiliS = Utils.secondsToMiliseconds(endT)
         self.lblVideoersiontag.font = UIFont.systemFont(ofSize: 12, weight: .bold)
-        self.lblVideoDuration.text = "\(progressTimeS).\(progressTimeMiliS) / \(totalTimeS).\(totalTimeMiliS)"
+    
+       
+        self.lblVideoDuration.text = "\((progressTimeS > 0) ? progressTimeS : 0).\((progressTimeMiliS > 0) ? progressTimeMiliS : 0) / \(totalTimeS).\(totalTimeMiliS)"
 
     }
     

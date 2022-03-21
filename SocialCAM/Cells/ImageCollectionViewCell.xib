@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -69,7 +69,7 @@
                                     <constraint firstAttribute="height" constant="30" id="IPk-wP-mmh"/>
                                 </constraints>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="6Kw-Ov-6Vp">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="6Kw-Ov-6Vp">
                                 <rect key="frame" x="0.0" y="105" width="314" height="30"/>
                                 <subviews>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="xNk-gK-mRR">
@@ -89,14 +89,22 @@
                                 <rect key="frame" x="10" y="30" width="304" height="75"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9CF-7e-4yJ">
+                                <rect key="frame" x="142.5" y="58" width="39.5" height="19.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="9CF-7e-4yJ" firstAttribute="centerX" secondItem="Piq-pr-mJm" secondAttribute="centerX" id="0hE-Zd-TFm"/>
                             <constraint firstItem="Ra6-9F-dLm" firstAttribute="top" secondItem="Piq-pr-mJm" secondAttribute="top" id="2YF-9s-o0x"/>
                             <constraint firstItem="gle-DO-dvN" firstAttribute="top" secondItem="yQf-Oi-aAX" secondAttribute="top" id="35Y-zC-aI9"/>
                             <constraint firstItem="6Kw-Ov-6Vp" firstAttribute="top" secondItem="RxE-Ir-i3r" secondAttribute="top" id="4m0-nk-SGx"/>
                             <constraint firstItem="gle-DO-dvN" firstAttribute="trailing" secondItem="yQf-Oi-aAX" secondAttribute="trailing" constant="-10" id="6Xk-f8-ywg"/>
                             <constraint firstAttribute="bottom" secondItem="RxE-Ir-i3r" secondAttribute="bottom" id="8mU-Bi-zgp"/>
+                            <constraint firstItem="9CF-7e-4yJ" firstAttribute="centerY" secondItem="Piq-pr-mJm" secondAttribute="centerY" id="DBA-Gu-REl"/>
                             <constraint firstItem="6Kw-Ov-6Vp" firstAttribute="trailing" secondItem="RxE-Ir-i3r" secondAttribute="trailing" constant="-10" id="EYH-QI-z85"/>
                             <constraint firstItem="RxE-Ir-i3r" firstAttribute="leading" secondItem="Piq-pr-mJm" secondAttribute="leading" id="Ezs-Cu-9BG"/>
                             <constraint firstItem="6Kw-Ov-6Vp" firstAttribute="bottom" secondItem="RxE-Ir-i3r" secondAttribute="bottom" id="HJa-hz-8m0"/>
@@ -129,6 +137,7 @@
                 <outlet property="lblSegmentCount" destination="A9z-6l-Zgj" id="Dv0-P4-yx4"/>
                 <outlet property="lblVideoDuration" destination="xNk-gK-mRR" id="i1o-xy-WPZ"/>
                 <outlet property="lblVideoersiontag" destination="Ra6-9F-dLm" id="el3-dl-b1a"/>
+                <outlet property="segmentCountLabel" destination="9CF-7e-4yJ" id="RM9-pM-sVW"/>
                 <outlet property="trimmerView" destination="gle-DO-dvN" id="NF6-Bx-an8"/>
             </connections>
             <point key="canvasLocation" x="230.40000000000001" y="616.64167916041981"/>

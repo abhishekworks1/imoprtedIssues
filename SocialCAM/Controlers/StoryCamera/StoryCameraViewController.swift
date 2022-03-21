@@ -103,6 +103,8 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         }
     }
     
+    @IBOutlet weak var discardCheckAndUnCheckBoxImageView: UIImageView!
+    @IBOutlet weak var discardAllSegmentView: UIView!
     @IBOutlet weak var speedSliderView: UIView!
     @IBOutlet weak var closeButton: UIButton!
     
@@ -192,6 +194,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     @IBOutlet weak var switchingAppView: UIView!
     @IBOutlet weak var switchAppButton: UIButton!
     @IBOutlet weak var confirmRecordedSegmentStackView: UIStackView!
+    
     @IBOutlet weak var discardSegmentsStackView: UIStackView!
     @IBOutlet weak var discardSegmentButton: UIButton!
     @IBOutlet weak var signupTooltipView: UIView!
@@ -218,6 +221,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     var dragAndDropManager: KDDragAndDropManager?
     var volumeHandler: JPSVolumeButtonHandler?
     var deleteRect: CGRect?
+    var isDiscardCheckBoxClicked = false
     
     var isDisableResequence: Bool = true {
         didSet {
@@ -398,14 +402,13 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     var currentCameraPosition = AVCaptureDevice.Position.front
     var flashMode: AVCaptureDevice.TorchMode = .on
     var takenImages: [UIImage] = []
+    var isfromPicsArt = false
     var takenVideoUrls: [SegmentVideos] = [] {
         didSet {
             if (takenVideoUrls.count > 0) && (recordingType == .custom) {
                 settingsButton.isSelected = true
-                cameraSliderView.isHidden = true
             } else {
                 settingsButton.isSelected = false
-                cameraSliderView.isHidden = false
             }
         }
     }
@@ -569,6 +572,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         dynamicSetSlowFastVerticalBar()
         setViewsForApp()
         setupPic2ArtAppControls()
+        setupTapGestureController()
         if isQuickCamLiteApp || isQuickCamApp {
             setupRecordingView()
         }
@@ -586,8 +590,16 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             Defaults.shared.isFromSignup = false
             Defaults.shared.isSignupLoginFlow = false
         }
-        
-
+    }
+    
+    func setupTapGestureController() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapOnDiscardMainView))
+        tapGesture.numberOfTapsRequired = 1
+        discardAllSegmentView.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func didTapOnDiscardMainView(_ sender: UITapGestureRecognizer) {
+        discardAllSegmentView.isHidden = true
     }
 
     func setupRecordingView() {
@@ -980,19 +992,39 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         self.selectedSegmentLengthValue.saveWithKey(key: "selectedSegmentLengthValue")
     }
     
+    
+    @IBAction func didTapDiscardCheckAndUnCheckButton(_ sender: UIButton) {
+        isDiscardCheckBoxClicked = isDiscardCheckBoxClicked ? false : true
+        discardCheckAndUnCheckBoxImageView.image = isDiscardCheckBoxClicked ? R.image.checkBoxActive() : R.image.checkBoxInActive()
+        UserDefaults.standard.set(isDiscardCheckBoxClicked, forKey: "isDiscardCheckBoxClicked")
+        
+    }
+    
+    @IBAction func didTapDiscardYesButton(_ sender: UIButton) {
+        Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
+        if !self.takenVideoUrls.isEmpty {
+            self.viewWillAppear(true)
+        }
+    }
+    
+    @IBAction func didTapDiscardNoButton(_ sender: UIButton) {
+        discardAllSegmentView.isHidden = true
+    }
+    
+    
     @IBAction func didTapClearAllSegments(_ sender: UIButton) {
-        let alert = UIAlertController(title: "Clear Segments", message: "Do you want to sure clear all Segments", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "YES", style: .default, handler: { yesButton in
-            print("Yes Button Clicked")
+        isDiscardCheckBoxClicked = UserDefaults.standard.bool(forKey: "isDiscardCheckBoxClicked")
+        print(isDiscardCheckBoxClicked)
+        if isDiscardCheckBoxClicked {
             Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
             if !self.takenVideoUrls.isEmpty {
                 self.viewWillAppear(true)
             }
-        }))
-        alert.addAction(UIAlertAction(title: "NO", style: .cancel, handler: { noButton in
-            self.dismiss(animated: true, completion: nil)
-        }))
-        self.present(alert, animated: true, completion: nil)
+        } else {
+            discardAllSegmentView.isHidden = false
+            view.bringSubviewToFront(discardAllSegmentView)
+        }
+       
     }
     
 }
@@ -1299,9 +1331,9 @@ extension StoryCameraViewController {
                 NextLevel.shared.videoZoomFactor = 1.0
             case .pic2Art:
                 Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_mode_pic2art)
-                if isQuickApp && Defaults.shared.appMode == .free {
-                    self.showAlertForUpgradeSubscription()
-                } else {
+//                if isQuickApp && Defaults.shared.appMode == .free {
+//                    self.showAlertForUpgradeSubscription()
+//                } else {
                     if let isPic2ArtShowed = Defaults.shared.isPic2ArtShowed {
                         if isPic2ArtShowed {
                             self.cameraModeCell = 3
@@ -1313,15 +1345,15 @@ extension StoryCameraViewController {
                             }
                         }
                     }
-                }
+//                }
                 
             case .normal:
                 if self.recordingType == .normal {
                     Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_mode_FastSlow)
                 }
-                if isQuickApp && Defaults.shared.appMode == .free {
-                    self.showAlertForUpgradeSubscription()
-                }
+//                if isQuickApp && Defaults.shared.appMode == .free {
+//                    self.showAlertForUpgradeSubscription()
+//                }
 
             default:
                 break
@@ -1487,6 +1519,7 @@ extension StoryCameraViewController {
             self.takenVideoUrls.removeAll()
             self.stopMotionCollectionView.reloadData()
             self.resetPositionRecordButton()
+
         }
     }
     
@@ -1898,7 +1931,7 @@ extension StoryCameraViewController {
                     } else if isPic2ArtApp {
                         totalSeconds = 5
                     } else if isLiteApp {
-                        self.discardSegmentButton.setImage(R.image.trimBack()?.alpha(1), for: .normal)
+                        self.discardSegmentButton.setImage(R.image.arrow_left()?.alpha(1), for: .normal)
                         totalSeconds = self.recordingType == .promo ? 15 : 30
                     }
                     self.progressMaxSeconds = totalSeconds
@@ -1937,6 +1970,7 @@ extension StoryCameraViewController {
             self.discardSegmentsStackView.isHidden = false
             self.settingsButton.isHidden = true
             self.backButtonView.isHidden = false
+            cameraSliderView.isHidden = true
             self.businessDashboardButton.isHidden = true
             self.confirmRecordedSegmentStackView.isHidden = false
             self.stopMotionCollectionView.isHidden = true
@@ -2538,6 +2572,7 @@ extension StoryCameraViewController {
         self.progress = 0
         self.discardSegmentsStackView.isHidden = true
         self.settingsButton.isHidden = false
+        cameraSliderView.isHidden = false
         backButtonView.isHidden = true
         self.businessDashboardButton.isHidden = false
         self.confirmRecordedSegmentStackView.isHidden = true
