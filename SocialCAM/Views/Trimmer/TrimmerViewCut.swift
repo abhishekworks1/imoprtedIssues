@@ -143,7 +143,7 @@ open class TrimmerViewCut: UIView {
         view.layer.cornerRadius = viewCornerRadius
         view.clipsToBounds = false
         view.layer.masksToBounds = true
-        view.layer.borderColor = ApplicationSettings.appBorderColor.cgColor
+        view.layer.borderColor = ApplicationSettings.appPrimaryColor.cgColor
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isUserInteractionEnabled = true
         return view
