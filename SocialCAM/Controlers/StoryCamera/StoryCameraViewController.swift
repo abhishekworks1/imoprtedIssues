@@ -92,6 +92,8 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     @IBOutlet weak var timerSelectionButton: UIButton!
     @IBOutlet weak var segmentLengthSelectionButton: UIButton!
     @IBOutlet weak var selectTimersView: UIView!
+    @IBOutlet weak var discardTextMessageLabel: UILabel!
+    
     @IBOutlet weak var timerPicker: PickerView! {
         didSet {
             timerPicker.dataSource = self
@@ -210,6 +212,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     var recordButtonCenterPoint: CGPoint = CGPoint.init()
     
     var totalDurationOfOneSegment: Double = 0
+    var isDiscardSingleSegment = false
     
     var isCountDownStarted: Bool = false {
         didSet {
@@ -222,6 +225,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     var volumeHandler: JPSVolumeButtonHandler?
     var deleteRect: CGRect?
     var isDiscardCheckBoxClicked = false
+    var isDiscardSingleCheckBoxClicked = false
     
     var isDisableResequence: Bool = true {
         didSet {
@@ -1001,17 +1005,43 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     
     
     @IBAction func didTapDiscardCheckAndUnCheckButton(_ sender: UIButton) {
-        isDiscardCheckBoxClicked = isDiscardCheckBoxClicked ? false : true
-        discardCheckAndUnCheckBoxImageView.image = isDiscardCheckBoxClicked ? R.image.checkBoxActive() : R.image.checkBoxInActive()
-        UserDefaults.standard.set(isDiscardCheckBoxClicked, forKey: "isDiscardCheckBoxClicked")
+        if isDiscardSingleSegment {
+            isDiscardSingleCheckBoxClicked = isDiscardSingleCheckBoxClicked ? false : true
+            discardCheckAndUnCheckBoxImageView.image = isDiscardCheckBoxClicked ? R.image.checkBoxActive() : R.image.checkBoxInActive()
+            UserDefaults.standard.set(isDiscardSingleCheckBoxClicked, forKey: "isDiscardSingleCheckBoxClicked")
+        } else {
+            isDiscardCheckBoxClicked = isDiscardCheckBoxClicked ? false : true
+            discardCheckAndUnCheckBoxImageView.image = isDiscardCheckBoxClicked ? R.image.checkBoxActive() : R.image.checkBoxInActive()
+            UserDefaults.standard.set(isDiscardCheckBoxClicked, forKey: "isDiscardCheckBoxClicked")
+        }
+       
         
     }
     
     @IBAction func didTapDiscardYesButton(_ sender: UIButton) {
-        Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
-        if !self.takenVideoUrls.isEmpty {
-            self.viewWillAppear(true)
+        if isDiscardSingleSegment {
+            self.takenVideoUrls.removeLast()
+            self.totalVideoDuration.removeLast()
+            self.segmentsProgress.removeLast()
+            if let lastSegmentsprogress = self.segmentsProgress.last {
+                self.progress = lastSegmentsprogress
+            } else {
+                self.refreshCircularProgressBar()
+                self.view.bringSubviewToFront(self.blurView)
+                self.view.bringSubviewToFront(self.switchingAppView)
+            }
+            self.circularProgress.deleteLayer()
+            self.updateProgress()
+            if self.takenVideoUrls.isEmpty {
+                self.discardSegmentButton.setImage(R.image.trimBack()?.alpha(0.5), for: .normal)
+            }
+        } else {
+            Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
+            if !self.takenVideoUrls.isEmpty {
+                self.viewWillAppear(true)
+            }
         }
+       
     }
     
     @IBAction func didTapDiscardNoButton(_ sender: UIButton) {
@@ -1020,6 +1050,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     
     
     @IBAction func didTapClearAllSegments(_ sender: UIButton) {
+        discardTextMessageLabel.text = "Are you sure you want discard all changes?"
         isDiscardCheckBoxClicked = UserDefaults.standard.bool(forKey: "isDiscardCheckBoxClicked")
         print(isDiscardCheckBoxClicked)
         if isDiscardCheckBoxClicked {
