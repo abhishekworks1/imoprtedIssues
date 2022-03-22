@@ -1226,13 +1226,17 @@ extension StoryEditorViewController {
         hideToolBar(hide: false)
     }
     @IBAction func saveShareClicked(_ sender: UIButton) {
-        if Defaults.shared.isVideoSavedAfterRecording{
+        Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
+        referType = storyEditors[currentStoryIndex].referType
+        imageVideoExport(isDownload: true,isFromDoneTap:true)
+        
+        /*if Defaults.shared.isVideoSavedAfterRecording{
             Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
             referType = storyEditors[currentStoryIndex].referType
             imageVideoExport(isDownload: true,isFromDoneTap:true)
         }else{
             self.navigationController?.popViewController(animated: true)
-        }
+        } */
     }
   
     @IBAction func downloadClicked(_ sender: UIButton) {
@@ -2784,7 +2788,7 @@ extension StoryEditorViewController {
         }
     }
     
-    func shareWithActivity(url:URL? = nil,image:UIImage? = nil) {
+    func shareWithActivity(url:URL? = nil, image:UIImage? = nil) {
     
         var activityItems = [Any]()
         if let videoURL = url{
@@ -2793,6 +2797,7 @@ extension StoryEditorViewController {
         if let img = image{
             activityItems.append(img)
         }
+        
         let activityController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
 
         activityController.popoverPresentationController?.sourceView = self.view
@@ -2800,7 +2805,6 @@ extension StoryEditorViewController {
 
         self.present(activityController, animated: true, completion: nil)
     }
-    
 }
 
 enum SecurityError: Error {
