@@ -1827,7 +1827,7 @@ extension StoryEditorViewController {
                 self.didSelect(type: QuickCam.SSUTagType.profilePicture, waitingListOptionType: nil, socialShareType: nil, screenType: SSUTagScreen.ssutTypes)
                 self.isSettingsChange = true
             }
-            openActionSheet()
+//            openActionSheet()
         } else {
             if let ssuTagSelectionViewController = R.storyboard.storyCameraViewController.ssuTagSelectionViewController() {
                 ssuTagSelectionViewController.delegate = self
@@ -2119,8 +2119,8 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
                 avAsset = asset
             }
             let seconds = Float(avAsset?.duration.seconds ?? 0.00)
-            let videoLenght = "\(seconds + 0.0)"
-            storyEditorCell.thumbnailTimeLabel.text = String(videoLenght.prefix(3))
+            let videoLenght = seconds
+            storyEditorCell.thumbnailTimeLabel.text = String(format: "%.1f", videoLenght)
             
              //String(format: "%s", avAsset?.duration.seconds)
             storyEditorCell.imageView.image = storyEditor.thumbnailImage
@@ -2408,7 +2408,7 @@ extension StoryEditorViewController {
       //  self.lblStoryTime.text = "\(progressTimeM):\(progressTimeS) / \(totalTimeM):\(totalTimeS)"
         
         if totalTimeMiliS == 0 {
-            self.lblStoryTime.text = "\(progressTimeS):\(progressTimeMiliS) / \(totalTimeS)"
+            self.lblStoryTime.text = "\(progressTimeS):\(progressTimeMiliS) / \(totalTimeS):0"
         } else {
             self.lblStoryTime.text = "\(progressTimeS):\(progressTimeMiliS) / \(totalTimeS):\(totalTimeMiliS)"
         }
