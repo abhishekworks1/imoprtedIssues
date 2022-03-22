@@ -749,6 +749,13 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             UIPasteboard.remove(withName: UIPasteboard.Name(rawValue: Constant.Application.pasteboardName))
             openStoryEditor(images: [image])
         }
+        
+        if isfromPicsArt {
+            self.isFreshSession = false
+            self.cameraSliderView.selectCell = 3
+            self.cameraSliderView.collectionView.reloadData()
+            isfromPicsArt = false
+        }
     }
     
     func addTikTokShareViewIfNeeded() {
@@ -1331,9 +1338,9 @@ extension StoryCameraViewController {
                 NextLevel.shared.videoZoomFactor = 1.0
             case .pic2Art:
                 Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_mode_pic2art)
-//                if isQuickApp && Defaults.shared.appMode == .free {
-//                    self.showAlertForUpgradeSubscription()
-//                } else {
+                if isQuickApp && Defaults.shared.appMode == .free {
+                    self.showAlertForUpgradeSubscription()
+                } else {
                     if let isPic2ArtShowed = Defaults.shared.isPic2ArtShowed {
                         if isPic2ArtShowed {
                             self.cameraModeCell = 3
@@ -1345,15 +1352,15 @@ extension StoryCameraViewController {
                             }
                         }
                     }
-//                }
+                }
                 
             case .normal:
                 if self.recordingType == .normal {
                     Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_mode_FastSlow)
                 }
-//                if isQuickApp && Defaults.shared.appMode == .free {
-//                    self.showAlertForUpgradeSubscription()
-//                }
+                if isQuickApp && Defaults.shared.appMode == .free {
+                    self.showAlertForUpgradeSubscription()
+                }
 
             default:
                 break
