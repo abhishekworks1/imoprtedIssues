@@ -637,7 +637,7 @@ class StoryEditorViewController: UIViewController {
         }
         self.soundOptionView.isHidden = isImage
         self.trimOptionView.isHidden = isImage
-        self.splitOptionView.isHidden = isImage
+        self.splitOptionView.isHidden = true//isImage
         self.omitOptionView.isHidden = isImage
         var videoCount = 0
         for editor in storyEditors {
@@ -1444,6 +1444,7 @@ extension StoryEditorViewController {
                         self.saveImageOrVideoInGallery(image: image)
                         if isFromDoneTap{
                             guard let storyCamVC = R.storyboard.storyCameraViewController.storyCameraViewController() else { return }
+                            storyCamVC.isfromPicsArt = true
                             self.navigationController?.pushViewController(storyCamVC, animated: true)
                         }
                     } else {
@@ -2229,7 +2230,9 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, stopDrag dataItem: AnyObject, atIndexPath indexPath: IndexPath?, sourceRect rect: CGRect) {
-        medias.rearrange(from: startDraggingIndex!, to: indexPath!.item)
+        if indexPath?.item != nil {
+            medias.rearrange(from: startDraggingIndex!, to: indexPath!.item)
+        }
         if deleteView.frame.contains(rect.center) {
             if isSlideShow,
                 storyEditors.count == 3 {

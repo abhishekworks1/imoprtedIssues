@@ -280,6 +280,7 @@ class ImageCollectionViewCutCell: UICollectionViewCell {
         let totalTimeMiliS = Utils.secondsToMiliseconds(endT)
         self.lblVideoersiontag.font = UIFont.systemFont(ofSize: 12, weight: .bold)
         self.lblVideoDuration.text = "\((progressTimeS > 0) ? progressTimeS : 0).\((progressTimeMiliS > 0) ? progressTimeMiliS : 0) / \(totalTimeS).\(totalTimeMiliS)"
+        remainTimeMiliS = totalTimeS
 
     }
     

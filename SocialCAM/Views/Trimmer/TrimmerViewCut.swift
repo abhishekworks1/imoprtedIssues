@@ -90,8 +90,8 @@ open class TrimmerViewCut: UIView {
                 .constraint(equalTo: leftDraggableView.centerXAnchor)
             leftImageViewCenterY = leftImageView.centerYAnchor
                 .constraint(equalTo: leftDraggableView.centerYAnchor)
-            let heightAnc = leftImageView.heightAnchor.constraint(equalToConstant: 40)
-            let widthAnc = leftImageView.widthAnchor.constraint(equalToConstant: 15)
+            let heightAnc = leftImageView.heightAnchor.constraint(equalToConstant: 60)
+            let widthAnc = leftImageView.widthAnchor.constraint(equalToConstant: 20)
             NSLayoutConstraint.activate([heightAnc, widthAnc])
         }
     }
@@ -103,8 +103,8 @@ open class TrimmerViewCut: UIView {
                 .constraint(equalTo: rightDraggableView.centerXAnchor)
             rightImageViewCenterY = rightImageView.centerYAnchor
                 .constraint(equalTo: rightDraggableView.centerYAnchor)
-            let heightAnc = rightImageView.heightAnchor.constraint(equalToConstant: 40)
-            let widthAnc = rightImageView.widthAnchor.constraint(equalToConstant: 15)
+            let heightAnc = rightImageView.heightAnchor.constraint(equalToConstant: 60)
+            let widthAnc = rightImageView.widthAnchor.constraint(equalToConstant: 20)
             NSLayoutConstraint.activate([heightAnc, widthAnc])
         }
     }
@@ -137,13 +137,13 @@ open class TrimmerViewCut: UIView {
         let view = UIView()
         view.frame = .zero
  //       view.backgroundColor = ApplicationSettings.appClearColor
-        view.backgroundColor = ApplicationSettings.appWhiteColor
-        view.alpha = 0.4
+        view.backgroundColor = ApplicationSettings.appWhiteColor.withAlphaComponent(0.4)
+        view.alpha = 1
         view.layer.borderWidth = 3.0
         view.layer.cornerRadius = viewCornerRadius
         view.clipsToBounds = false
         view.layer.masksToBounds = true
-        view.layer.borderColor = ApplicationSettings.appBorderColor.cgColor
+        view.layer.borderColor = ApplicationSettings.appPrimaryColor.cgColor
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isUserInteractionEnabled = true
         return view
