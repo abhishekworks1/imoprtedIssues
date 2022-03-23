@@ -155,6 +155,7 @@ class StorySettings {
 
 class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
     
+    @IBOutlet weak var youTubeVerifiedView: UIView!
     @IBOutlet weak var snapVerifiedView: UIView!
     @IBOutlet weak var faceBookVerifiedView: UIView!
     @IBOutlet weak var twitterVerifiedView: UIView!
@@ -521,7 +522,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 } else if socialPlatform == R.string.localizable.snapchat().lowercased() {
                     self.snapVerifiedView.isHidden = false
                 } else if socialPlatform == R.string.localizable.youtube().lowercased() {
-//                    self.youtubeVerifiedView.isHidden = false
+                    self.youTubeVerifiedView.isHidden = false
                 }
             }
         }
