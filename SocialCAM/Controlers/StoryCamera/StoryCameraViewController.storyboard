@@ -2314,6 +2314,13 @@ Countdown</string>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cA6-yV-wP4">
                                                 <rect key="frame" x="15" y="85.666666666666686" width="200" height="50"/>
                                                 <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkBoxInActive" translatesAutoresizingMaskIntoConstraints="NO" id="kb9-AT-JjD">
+                                                        <rect key="frame" x="15" y="12.666666666666629" width="25" height="25"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="25" id="6ZB-kG-X39"/>
+                                                            <constraint firstAttribute="height" constant="25" id="EA5-w4-4Gu"/>
+                                                        </constraints>
+                                                    </imageView>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkBoxInActive" translatesAutoresizingMaskIntoConstraints="NO" id="Fcv-0B-vE6">
                                                         <rect key="frame" x="15" y="12.666666666666629" width="25" height="25"/>
                                                         <constraints>
@@ -2345,8 +2352,10 @@ Countdown</string>
                                                     <constraint firstItem="McE-qu-KDk" firstAttribute="leading" secondItem="Fcv-0B-vE6" secondAttribute="trailing" constant="15" id="GSS-M8-Z4v"/>
                                                     <constraint firstItem="McE-qu-KDk" firstAttribute="centerY" secondItem="cA6-yV-wP4" secondAttribute="centerY" id="Htw-lb-55o"/>
                                                     <constraint firstItem="Fcv-0B-vE6" firstAttribute="centerY" secondItem="cA6-yV-wP4" secondAttribute="centerY" id="ID0-Tf-uYu"/>
+                                                    <constraint firstItem="kb9-AT-JjD" firstAttribute="centerY" secondItem="cA6-yV-wP4" secondAttribute="centerY" id="Kbl-Cs-n1I"/>
                                                     <constraint firstAttribute="height" constant="50" id="WxQ-95-b88"/>
                                                     <constraint firstItem="W3C-57-2ww" firstAttribute="leading" secondItem="cA6-yV-wP4" secondAttribute="leading" id="a24-sD-Snb"/>
+                                                    <constraint firstItem="kb9-AT-JjD" firstAttribute="leading" secondItem="cA6-yV-wP4" secondAttribute="leading" constant="15" id="cdd-bH-u3d"/>
                                                     <constraint firstItem="Fcv-0B-vE6" firstAttribute="leading" secondItem="cA6-yV-wP4" secondAttribute="leading" constant="15" id="ho8-AR-1Eb"/>
                                                     <constraint firstAttribute="bottom" secondItem="W3C-57-2ww" secondAttribute="bottom" id="jLH-bD-A9n"/>
                                                     <constraint firstAttribute="trailing" secondItem="W3C-57-2ww" secondAttribute="trailing" id="lDM-3M-qlq"/>
@@ -2571,6 +2580,7 @@ Countdown</string>
                         <outlet property="settingsLabel" destination="zzf-6b-N9r" id="uWh-2X-6GM"/>
                         <outlet property="settingsView" destination="vT8-A9-Yk0" id="WGB-Ys-Q3W"/>
                         <outlet property="showhideView" destination="Pre-Co-z2n" id="jwo-ye-oFI"/>
+                        <outlet property="signleDiscardCheckBoxClickImageView" destination="kb9-AT-JjD" id="Sed-O0-gg7"/>
                         <outlet property="slowFastVerticalBar" destination="PQI-6b-47R" id="ORX-Oe-qdu"/>
                         <outlet property="speedLabel" destination="FUI-bV-ANm" id="aDN-vZ-ekd"/>
                         <outlet property="speedSlider" destination="eal-x4-10Z" id="QnP-fD-Cfv"/>
