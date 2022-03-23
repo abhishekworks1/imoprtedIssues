@@ -546,7 +546,7 @@ extension OmitEditorViewController: TrimmerViewCutDelegate {
         if let player = player {
             isStartMovable = false
             DispatchQueue.main.async { [self] in
-                if self.btnPlayPause.isSelected {
+//                if self.btnPlayPause.isSelected {
                     if let cell: ImageCollectionViewCutCell = self.editStoryCollectionView.cellForItem(at: self.getCurrentIndexPath) as? ImageCollectionViewCutCell {
                         if !isLeftGesture {
                             guard let startTime = trimmer.startTime, let endTime = trimmer.endTime else {
@@ -559,7 +559,7 @@ extension OmitEditorViewController: TrimmerViewCutDelegate {
                     }
                     player.play()
                     
-                }
+//                }
                 
                 let finaltime = endTime.seconds - startTime.seconds
                 if let currentAsset = currentAsset(index: self.currentPage) {

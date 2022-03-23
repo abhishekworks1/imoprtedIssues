@@ -281,6 +281,8 @@ open class TrimmerViewCut: UIView {
         thumbsView.layer.masksToBounds = true
         thumbsView.translatesAutoresizingMaskIntoConstraints = false
         thumbsView.isUserInteractionEnabled = true
+        thumbsView.layer.borderWidth = 3.0
+        thumbsView.layer.borderColor = ApplicationSettings.appWhiteColor.cgColor
         return thumbsView
     }()
     
@@ -613,6 +615,9 @@ open class TrimmerViewCut: UIView {
         setupTimePointer()
         setupPanGestures()
         minDistanceUpdate()
+        
+        bringSubviewToFront(rightDraggableView)
+        bringSubviewToFront(leftDraggableView)
     }
     
     private func minDistanceUpdate() {
