@@ -311,7 +311,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                     self.speedSlider.isUserInteractionEnabled = true
                     self.speedSlider.isHidden = false
                     self.speedSliderView.isHidden = false
-                    self.slowFastVerticalBar.isHidden = true
+//                    self.slowFastVerticalBar.isHidden = true
                     self.speedLabel.textColor = UIColor.red
                     self.speedLabel.text = ""
                     self.speedLabel.stopBlink()
@@ -1393,9 +1393,9 @@ extension StoryCameraViewController {
                 if self.recordingType == .normal {
                     Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_mode_FastSlow)
                 }
-                if isQuickApp && Defaults.shared.appMode == .free {
-                    self.showAlertForUpgradeSubscription()
-                }
+//                if isQuickApp && Defaults.shared.appMode == .free {
+//                    self.showAlertForUpgradeSubscription()
+//                }
 
             default:
                 break
@@ -1936,12 +1936,14 @@ extension StoryCameraViewController {
         guard !nextLevel.isRecording else {
             return
         }
+        slowFastVerticalBar.isHidden = false
         self.view.bringSubviewToFront(slowFastVerticalBar.superview ?? UIView())
-        if recordingType != .basicCamera && Defaults.shared.enableGuildlines {
-            slowFastVerticalBar.isHidden = isLiteApp ? false : (Defaults.shared.appMode == .free)
-        } else {
-            slowFastVerticalBar.isHidden = true
-        }
+        
+//        if recordingType != .basicCamera && Defaults.shared.enableGuildlines {
+//            slowFastVerticalBar.isHidden = isLiteApp ? false : (Defaults.shared.appMode == .free)
+//        } else {
+//            slowFastVerticalBar.isHidden = true
+//        }
         
         nextLevel.torchMode = NextLevelTorchMode(rawValue: flashMode.rawValue) ?? .auto
         self.isVideoRecording = true
