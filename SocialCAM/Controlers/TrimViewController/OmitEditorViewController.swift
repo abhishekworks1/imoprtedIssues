@@ -158,7 +158,7 @@ class OmitEditorViewController: UIViewController,UIGestureRecognizerDelegate {
                     return
                 }
                 let vnewStartTime = Float(startTime.seconds)
-                if vnewStartTime > 0.0 {
+                if vnewStartTime > 2.0 {
                     player?.seek(to: .zero)
                     guard let duration  = player?.currentItem?.duration else {
                         return
@@ -527,9 +527,18 @@ extension OmitEditorViewController: TrimmerViewCutDelegate {
     func trimmerCutDidChangeDraggingPosition(_ trimmer: TrimmerViewCut, with currentTimeTrim: CMTime) {
         if let player = player,
            let cell: ImageCollectionViewCutCell = self.editStoryCollectionView.cellForItem(at: self.getCurrentIndexPath) as? ImageCollectionViewCutCell {
-            guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else { return }
-            player.seek(to: currentTimeTrim, toleranceBefore: tolerance, toleranceAfter: tolerance)
+            guard let startTime = trimmer.startTime, let endTime = trimmer.endTime else { return }
+            var newStartpoint = currentTimeTrim.seconds - 1
+            if newStartpoint < 0 {
+                newStartpoint = 0
+            }
+            
+            let start = CMTimeMakeWithSeconds(newStartpoint, preferredTimescale:10000);
+         //   player.seek(to: currentTimeTrim, toleranceBefore: tolerance, toleranceAfter: tolerance)
+            
+            player.seek(to: currentTimeTrim, toleranceBefore: start, toleranceAfter: start)
             self.seek(to: CMTime.init(seconds: currentTimeTrim.seconds, preferredTimescale: 10000), cell: cell, startPipe: startTime, endPipe: endTime)
+
         }
     }
     

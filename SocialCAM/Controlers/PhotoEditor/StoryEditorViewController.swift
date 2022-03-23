@@ -1226,13 +1226,17 @@ extension StoryEditorViewController {
         hideToolBar(hide: false)
     }
     @IBAction func saveShareClicked(_ sender: UIButton) {
-        if Defaults.shared.isVideoSavedAfterRecording{
+        Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
+        referType = storyEditors[currentStoryIndex].referType
+        imageVideoExport(isDownload: true,isFromDoneTap:true)
+        
+        /*if Defaults.shared.isVideoSavedAfterRecording{
             Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
             referType = storyEditors[currentStoryIndex].referType
             imageVideoExport(isDownload: true,isFromDoneTap:true)
         }else{
             self.navigationController?.popViewController(animated: true)
-        }
+        } */
     }
   
     @IBAction func downloadClicked(_ sender: UIButton) {
@@ -1823,7 +1827,7 @@ extension StoryEditorViewController {
                 self.didSelect(type: QuickCam.SSUTagType.profilePicture, waitingListOptionType: nil, socialShareType: nil, screenType: SSUTagScreen.ssutTypes)
                 self.isSettingsChange = true
             }
-            openActionSheet()
+//            openActionSheet()
         } else {
             if let ssuTagSelectionViewController = R.storyboard.storyCameraViewController.ssuTagSelectionViewController() {
                 ssuTagSelectionViewController.delegate = self
@@ -2115,8 +2119,8 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
                 avAsset = asset
             }
             let seconds = Float(avAsset?.duration.seconds ?? 0.00)
-            let videoLenght = "\(seconds + 0.0)"
-            storyEditorCell.thumbnailTimeLabel.text = String(videoLenght.prefix(3))
+            let videoLenght = seconds
+            storyEditorCell.thumbnailTimeLabel.text = String(format: "%.1f", videoLenght)
             
              //String(format: "%s", avAsset?.duration.seconds)
             storyEditorCell.imageView.image = storyEditor.thumbnailImage
@@ -2404,7 +2408,7 @@ extension StoryEditorViewController {
       //  self.lblStoryTime.text = "\(progressTimeM):\(progressTimeS) / \(totalTimeM):\(totalTimeS)"
         
         if totalTimeMiliS == 0 {
-            self.lblStoryTime.text = "\(progressTimeS):\(progressTimeMiliS) / \(totalTimeS)"
+            self.lblStoryTime.text = "\(progressTimeS):\(progressTimeMiliS) / \(totalTimeS):0"
         } else {
             self.lblStoryTime.text = "\(progressTimeS):\(progressTimeMiliS) / \(totalTimeS):\(totalTimeMiliS)"
         }
@@ -2784,7 +2788,7 @@ extension StoryEditorViewController {
         }
     }
     
-    func shareWithActivity(url:URL? = nil,image:UIImage? = nil) {
+    func shareWithActivity(url:URL? = nil, image:UIImage? = nil) {
     
         var activityItems = [Any]()
         if let videoURL = url{
@@ -2793,6 +2797,7 @@ extension StoryEditorViewController {
         if let img = image{
             activityItems.append(img)
         }
+        
         let activityController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
 
         activityController.popoverPresentationController?.sourceView = self.view
@@ -2800,7 +2805,6 @@ extension StoryEditorViewController {
 
         self.present(activityController, animated: true, completion: nil)
     }
-    
 }
 
 enum SecurityError: Error {

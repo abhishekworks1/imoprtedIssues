@@ -620,10 +620,35 @@ extension StoryCameraViewController {
     }
     
     @IBAction func discardSegementButtonClicked(_ sender: UIButton) {
+        isDiscardSingleSegment = true
+        discardTextMessageLabel.text = "Are you sure want to discard this segment?"
+        isDiscardSingleCheckBoxClicked = UserDefaults.standard.bool(forKey: "isDiscardSingleCheckBoxClicked")
         Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
         if !self.takenVideoUrls.isEmpty {
-            showAlertOnDiscardVideoSegment()
+//            showAlertOnDiscardVideoSegment()
+            if isDiscardSingleCheckBoxClicked {
+                self.takenVideoUrls.removeLast()
+                self.totalVideoDuration.removeLast()
+                self.segmentsProgress.removeLast()
+                if let lastSegmentsprogress = self.segmentsProgress.last {
+                    self.progress = lastSegmentsprogress
+                } else {
+                    self.refreshCircularProgressBar()
+                    self.view.bringSubviewToFront(self.blurView)
+                    self.view.bringSubviewToFront(self.switchingAppView)
+                }
+                self.circularProgress.deleteLayer()
+                self.updateProgress()
+                if self.takenVideoUrls.isEmpty {
+                    self.discardSegmentButton.setImage(R.image.trimBack()?.alpha(0.5), for: .normal)
+                }
+            } else {
+                discardAllSegmentView.isHidden = false
+                view.bringSubviewToFront(discardAllSegmentView)
+            }
         }
+        
+        
     }
     
     @IBAction func btnNotYetTapped(_ sender: UIButton) {
