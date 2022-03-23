@@ -149,9 +149,6 @@ class QRCodeViewController: UIViewController {
         refferelType = .refferalPage
         
         if let referralPage = Defaults.shared.currentUser?.referralPage {
-           print(referralPage)
-         //   let image = generateQRCode(from: referralPage)
-           
             let image =  URL(string: referralPage)?.qrImage(using: themeBlueColor, logo: logoImage)
             self.imageQrCode.image = image?.convert()
         }

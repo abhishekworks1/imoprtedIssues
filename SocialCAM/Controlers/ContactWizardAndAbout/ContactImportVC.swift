@@ -133,6 +133,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     var selectedFilter:String = ContactStatus.all
     var loadingView: LoadingView? = LoadingView.instanceFromNib()
     var selectedContactType:String = ContactType.mobile
+    
+    let themeBlueColor = UIColor(hexString:"4F2AD8")
+    let logoImage = UIImage(named:"qr_applogo")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -179,8 +183,12 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             self.imgProfilePic.layer.cornerRadius = imgProfilePic.bounds.width / 2
             self.imgProfilePic.contentMode = .scaleAspectFill
         }
-        if let qrImageURL = Defaults.shared.currentUser?.qrcode {
-            self.imageQrCode.sd_setImage(with: URL.init(string: qrImageURL), placeholderImage: nil)
+//        if let qrImageURL = Defaults.shared.currentUser?.qrcode {
+//            self.imageQrCode.sd_setImage(with: URL.init(string: qrImageURL), placeholderImage: nil)
+//        }
+        if let referralPage = Defaults.shared.currentUser?.referralPage {
+            let image =  URL(string: referralPage)?.qrImage(using: themeBlueColor, logo: logoImage)
+            self.imageQrCode.image = image?.convert()
         }
         self.btnIncludeProfileImg.isSelected = Defaults.shared.includeProfileImgForShare == true
         self.btnIncludeQrImg.isSelected = Defaults.shared.includeQRImgForShare == true
