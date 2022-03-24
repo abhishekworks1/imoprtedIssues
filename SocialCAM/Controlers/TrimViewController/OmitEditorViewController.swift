@@ -73,6 +73,7 @@ class OmitEditorViewController: UIViewController,UIGestureRecognizerDelegate {
     var isPlayerInitialize = false
     var playbackTimeCheckerTimer: Timer?
     var doneHandler: ((_ urls: [StoryEditorMedia]) -> Void)?
+    var isLeftGesture = true
     @IBInspectable open var isTimePrecisionInfinity: Bool = false
     var tolerance: CMTime {
         return isTimePrecisionInfinity ? CMTime.indefinite : CMTime.zero
@@ -304,8 +305,14 @@ class OmitEditorViewController: UIViewController,UIGestureRecognizerDelegate {
                         cell.trimmerView.seek(to: startTime)
                         seek(to: CMTime.init(seconds: startTime.seconds, preferredTimescale: 10000), cell: cell,startPipe: startTime, endPipe: endTime)
                         cell.trimmerView.resetTimePointer()
-                        btnPlayPause.isSelected = false
-                        player.pause()
+                        if isLeftGesture {
+                            btnPlayPause.isSelected = false
+                            player.pause()
+                        } else {
+                            btnPlayPause.isSelected = true
+                            player.play()
+                        }
+                        
                     }
                 }
             }
@@ -543,6 +550,7 @@ extension OmitEditorViewController: TrimmerViewCutDelegate {
     }
     
     func trimmerCutDidEndDragging(_ trimmer: TrimmerViewCut, with startTime: CMTime, endTime: CMTime, isLeftGesture: Bool) {
+        self.isLeftGesture = isLeftGesture
         if let player = player {
             isStartMovable = false
             DispatchQueue.main.async { [self] in

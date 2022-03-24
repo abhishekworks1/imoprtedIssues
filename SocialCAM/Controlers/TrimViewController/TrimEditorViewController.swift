@@ -45,6 +45,7 @@ class TrimEditorViewController: UIViewController {
     @IBOutlet weak var resequenceButton: UIButton!
     @IBOutlet weak var resequenceLabel: UILabel!
     
+    var isLeftGesture = true
     var isOriginalSequence = false
     var isFromSplitView = false
     var undoMgr = MyUndoManager<Void>()
@@ -238,8 +239,13 @@ class TrimEditorViewController: UIViewController {
                         cell.trimmerView.seek(to: startTime)
                         seek(to: CMTime.init(seconds: startTime.seconds, preferredTimescale: 10000), cell: cell, startPipe: startTime, endPipe: endTime)
                         cell.trimmerView.resetTimePointer()
-                        btnPlayPause.isSelected = false
-                        player.pause()
+                        if isLeftGesture {
+                            btnPlayPause.isSelected = false
+                            player.pause()
+                        } else {
+                            btnPlayPause.isSelected = true
+                            player.play()
+                        }
                     }
                 }
             }
@@ -499,6 +505,7 @@ extension TrimEditorViewController: TrimmerViewDelegate {
     }
     
     func trimmerDidEndDragging(_ trimmer: TrimmerView, with startTime: CMTime, endTime: CMTime, isLeftGesture: Bool) {
+        self.isLeftGesture = isLeftGesture
         if let player = player {
             isStartMovable = false
             DispatchQueue.main.async {
