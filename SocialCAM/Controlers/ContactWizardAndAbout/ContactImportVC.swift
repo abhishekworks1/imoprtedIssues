@@ -110,7 +110,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var contactSentConfirmPopup: UIView!
     var isIncludeProfileImg = Defaults.shared.includeProfileImgForShare
     var isIncludeQrImg = Defaults.shared.includeQRImgForShare
-
+    @IBOutlet weak var syncButton: UIButton!
     @IBOutlet weak var contactPermitView: UIView!
     @IBOutlet weak var contactTableView: UITableView!
     @IBOutlet weak var emailContactTableView: UITableView!
@@ -136,6 +136,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     let themeBlueColor = UIColor(hexString:"4F2AD8")
     let logoImage = UIImage(named:"qr_applogo")
+    private var lastContentOffset: CGFloat = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -208,6 +209,17 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
         setUpbadges()
         
+        textMessageButton.setTitleColor(ApplicationSettings.appPrimaryColor, for: .normal)
+        textMessageSeperatorView.backgroundColor = ApplicationSettings.appPrimaryColor
+        textMessageSeperatorViewHeight.constant = 3.0
+        
+        emailButton.setTitleColor(UIColor(hexString: "676767"), for: .normal)
+        emailSeperatorView.backgroundColor = UIColor(hexString: "676767")
+        emailSeperatorViewHeight.constant = 1.0
+        selectedContactType = ContactType.mobile
+        self.emailContactTableView.isHidden = true
+        self.contactTableView.isHidden = false
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated) // No need for semicolon
@@ -217,6 +229,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         filterOptionView.isHidden = true
       //  let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
       //  self.view.addGestureRecognizer(tap)
+        self.syncButtonClicked(sender:self.syncButton)
         self.textMessageSelected(sender:self.textMessageButton)
     }
     @objc func handleTap(_ sender: UITapGestureRecognizer? = nil) {
@@ -915,7 +928,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     view.addSubview(label)
                 }
             }
-            return view
+            return nil
         }
     }
     
@@ -1243,7 +1256,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     func cutomHeaderView(title:String) -> UILabel {
         let label = UILabel()
-        label.frame = CGRect(x: 15,y: 6,width: 200,height: 20)
+        label.frame = CGRect(x: 15,y: 6,width: 200,height: 0)
         label.text = title
         label.textAlignment = .natural
         label.textColor = UIColor(red:0.36, green:0.36, blue:0.36, alpha:1.0)
@@ -1472,7 +1485,7 @@ extension ContactImportVC:UIScrollViewDelegate{
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         if scrollView == contactTableView || scrollView == emailContactTableView{
-            let offsetY = scrollView.contentOffset.y
+         /*  let offsetY = scrollView.contentOffset.y
             print("offsetY \(offsetY)")
             if offsetY <= 84.0 + 50.0{
                 segmentViewHeight.constant = 84.0 - offsetY
@@ -1485,6 +1498,26 @@ extension ContactImportVC:UIScrollViewDelegate{
                 segmentViewHeight.constant = 0.0
                 stepViewHeight.constant = 0.0
             }
+            */
+            if (self.lastContentOffset > scrollView.contentOffset.y) {
+                // move up
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.segmentViewHeight.constant = 84.0
+                    self.stepViewHeight.constant = 50.0
+                        self.view.layoutIfNeeded()
+                })
+            }
+            else if (self.lastContentOffset < scrollView.contentOffset.y) {
+               // move down
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.segmentViewHeight.constant = 0.0
+                    self.stepViewHeight.constant = 0.0
+                        self.view.layoutIfNeeded()
+                })
+            }
+
+            // update the new position acquired
+            self.lastContentOffset = scrollView.contentOffset.y
         }
       
     }
