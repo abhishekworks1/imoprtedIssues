@@ -622,7 +622,8 @@ open class TrimmerViewCut: UIView {
     
     private func setupTimePointer() {
         if isTimePointerVisible {
-            addSubview(timePointerView)
+            trimView.addSubview(timePointerView)
+//            addSubview(timePointerView)
             
             NSLayoutConstraint.activate([
                 timePointerViewHeightAnchor,
