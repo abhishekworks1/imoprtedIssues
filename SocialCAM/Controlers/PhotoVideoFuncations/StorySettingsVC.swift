@@ -188,6 +188,7 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         self.faceBookVerifiedView.isHidden = true
         self.twitterVerifiedView.isHidden = true
         self.snapVerifiedView.isHidden = true
+        self.youTubeVerifiedView.isHidden = true
         lblAppInfo.text = "\(Constant.Application.displayName) - \(Constant.Application.appVersion)(\(Constant.Application.appBuildNumber))"
         lblLogoutPopup.text = R.string.localizable.areYouSureYouWantToLogoutFromApp("\(Constant.Application.displayName)")
         setupUI()
