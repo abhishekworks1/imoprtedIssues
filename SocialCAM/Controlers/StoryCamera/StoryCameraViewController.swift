@@ -92,6 +92,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     @IBOutlet weak var timerSelectionButton: UIButton!
     @IBOutlet weak var segmentLengthSelectionButton: UIButton!
     @IBOutlet weak var selectTimersView: UIView!
+    @IBOutlet weak var signleDiscardCheckBoxClickImageView: UIImageView!
     @IBOutlet weak var discardTextMessageLabel: UILabel!
     
     @IBOutlet weak var timerPicker: PickerView! {
@@ -310,7 +311,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                     self.speedSlider.isUserInteractionEnabled = true
                     self.speedSlider.isHidden = false
                     self.speedSliderView.isHidden = false
-                    self.slowFastVerticalBar.isHidden = true
+//                    self.slowFastVerticalBar.isHidden = true
                     self.speedLabel.textColor = UIColor.red
                     self.speedLabel.text = ""
                     self.speedLabel.stopBlink()
@@ -1007,7 +1008,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     @IBAction func didTapDiscardCheckAndUnCheckButton(_ sender: UIButton) {
         if isDiscardSingleSegment {
             isDiscardSingleCheckBoxClicked = isDiscardSingleCheckBoxClicked ? false : true
-            discardCheckAndUnCheckBoxImageView.image = isDiscardCheckBoxClicked ? R.image.checkBoxActive() : R.image.checkBoxInActive()
+            signleDiscardCheckBoxClickImageView.image = isDiscardSingleCheckBoxClicked ? R.image.checkBoxActive() : R.image.checkBoxInActive()
             UserDefaults.standard.set(isDiscardSingleCheckBoxClicked, forKey: "isDiscardSingleCheckBoxClicked")
         } else {
             isDiscardCheckBoxClicked = isDiscardCheckBoxClicked ? false : true
@@ -1035,6 +1036,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             if self.takenVideoUrls.isEmpty {
                 self.discardSegmentButton.setImage(R.image.trimBack()?.alpha(0.5), for: .normal)
             }
+            discardAllSegmentView.isHidden = true
         } else {
             Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
             if !self.takenVideoUrls.isEmpty {
@@ -1051,6 +1053,8 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     
     @IBAction func didTapClearAllSegments(_ sender: UIButton) {
         discardTextMessageLabel.text = "Are you sure you want discard all changes?"
+        discardCheckAndUnCheckBoxImageView.isHidden = false
+        signleDiscardCheckBoxClickImageView.isHidden = true
         isDiscardCheckBoxClicked = UserDefaults.standard.bool(forKey: "isDiscardCheckBoxClicked")
         print(isDiscardCheckBoxClicked)
         if isDiscardCheckBoxClicked {
@@ -1389,9 +1393,9 @@ extension StoryCameraViewController {
                 if self.recordingType == .normal {
                     Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_mode_FastSlow)
                 }
-                if isQuickApp && Defaults.shared.appMode == .free {
-                    self.showAlertForUpgradeSubscription()
-                }
+//                if isQuickApp && Defaults.shared.appMode == .free {
+//                    self.showAlertForUpgradeSubscription()
+//                }
 
             default:
                 break
@@ -1932,12 +1936,14 @@ extension StoryCameraViewController {
         guard !nextLevel.isRecording else {
             return
         }
+        slowFastVerticalBar.isHidden = false
         self.view.bringSubviewToFront(slowFastVerticalBar.superview ?? UIView())
-        if recordingType != .basicCamera && Defaults.shared.enableGuildlines {
-            slowFastVerticalBar.isHidden = isLiteApp ? false : (Defaults.shared.appMode == .free)
-        } else {
-            slowFastVerticalBar.isHidden = true
-        }
+        
+//        if recordingType != .basicCamera && Defaults.shared.enableGuildlines {
+//            slowFastVerticalBar.isHidden = isLiteApp ? false : (Defaults.shared.appMode == .free)
+//        } else {
+//            slowFastVerticalBar.isHidden = true
+//        }
         
         nextLevel.torchMode = NextLevelTorchMode(rawValue: flashMode.rawValue) ?? .auto
         self.isVideoRecording = true

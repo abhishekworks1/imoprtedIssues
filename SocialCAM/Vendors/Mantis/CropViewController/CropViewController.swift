@@ -303,16 +303,16 @@ public class CropViewController: UIViewController {
         cropView.prepareForDeviceRotation()
     }    
     func setupColorSlider() {
-        colorSlider = ColorSlider(orientation: .horizontal, previewSide: .top)
+        colorSlider = ColorSlider(orientation: .horizontal, previewSide: .left)
         colorSlider.addTarget(self, action: #selector(colorSliderValueChanged(_:)), for: UIControl.Event.valueChanged)
         view.addSubview(colorSlider)
-        let colorSliderHeight = CGFloat(175)
+        let colorSliderWidth = CGFloat(175)
         colorSlider.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
             colorSlider.centerXAnchor.constraint(equalTo:self.view.centerXAnchor, constant: 0),
             colorSlider.bottomAnchor.constraint(equalTo:self.view.bottomAnchor, constant: -80),
-            colorSlider.widthAnchor.constraint(equalToConstant: colorSliderHeight),
+            colorSlider.widthAnchor.constraint(equalToConstant: colorSliderWidth),
             colorSlider.heightAnchor.constraint(equalToConstant: 15)
         ])
         if Defaults.shared.enableBlurVideoBackgroud{

@@ -121,8 +121,8 @@ class ShareSettingViewController: UIViewController {
     
     func setAttributedString() {
         if let channelId = Defaults.shared.currentUser?.channelId {
-            let channelCount = "\(websiteUrl)/\(channelId)".count
-            let myString = "\(websiteUrl)/\(channelId)"
+            let myString = "\(Defaults.shared.currentUser?.referralPage ?? "")"
+            let channelCount = myString.count
             let underlineAttribute = [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue]
             myMutableString = NSMutableAttributedString(string: myString, attributes: underlineAttribute)
             myMutableString.addAttribute(NSAttributedString.Key.foregroundColor, value: R.color.appPrimaryColor() ?? UIColor.systemBlue, range: NSRange(location: 0, length: channelCount))

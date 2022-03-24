@@ -73,6 +73,7 @@ class OmitEditorViewController: UIViewController,UIGestureRecognizerDelegate {
     var isPlayerInitialize = false
     var playbackTimeCheckerTimer: Timer?
     var doneHandler: ((_ urls: [StoryEditorMedia]) -> Void)?
+    var isLeftGesture = true
     @IBInspectable open var isTimePrecisionInfinity: Bool = false
     var tolerance: CMTime {
         return isTimePrecisionInfinity ? CMTime.indefinite : CMTime.zero
@@ -304,8 +305,14 @@ class OmitEditorViewController: UIViewController,UIGestureRecognizerDelegate {
                         cell.trimmerView.seek(to: startTime)
                         seek(to: CMTime.init(seconds: startTime.seconds, preferredTimescale: 10000), cell: cell,startPipe: startTime, endPipe: endTime)
                         cell.trimmerView.resetTimePointer()
-                        btnPlayPause.isSelected = false
-                        player.pause()
+                        if isLeftGesture {
+                            btnPlayPause.isSelected = false
+                            player.pause()
+                        } else {
+                            btnPlayPause.isSelected = true
+                            player.play()
+                        }
+                        
                     }
                 }
             }
@@ -543,10 +550,11 @@ extension OmitEditorViewController: TrimmerViewCutDelegate {
     }
     
     func trimmerCutDidEndDragging(_ trimmer: TrimmerViewCut, with startTime: CMTime, endTime: CMTime, isLeftGesture: Bool) {
+        self.isLeftGesture = isLeftGesture
         if let player = player {
             isStartMovable = false
             DispatchQueue.main.async { [self] in
-                if self.btnPlayPause.isSelected {
+//                if self.btnPlayPause.isSelected {
                     if let cell: ImageCollectionViewCutCell = self.editStoryCollectionView.cellForItem(at: self.getCurrentIndexPath) as? ImageCollectionViewCutCell {
                         if !isLeftGesture {
                             guard let startTime = trimmer.startTime, let endTime = trimmer.endTime else {
@@ -559,7 +567,7 @@ extension OmitEditorViewController: TrimmerViewCutDelegate {
                     }
                     player.play()
                     
-                }
+//                }
                 
                 let finaltime = endTime.seconds - startTime.seconds
                 if let currentAsset = currentAsset(index: self.currentPage) {

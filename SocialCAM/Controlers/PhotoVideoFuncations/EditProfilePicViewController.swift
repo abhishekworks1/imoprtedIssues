@@ -89,6 +89,7 @@ class EditProfilePicViewController: UIViewController {
         super.viewDidLoad()
         self.view.isUserInteractionEnabled = true
         self.scrollView.delegate = self
+        
         self.lblUserName.text = "@\(Defaults.shared.currentUser?.channelId ?? "")"
         if let createdDate = Defaults.shared.currentUser?.created {
             let date = CommonFunctions.getDateInSpecificFormat(dateInput: createdDate, dateOutput: R.string.localizable.mmmdYyyy())
@@ -678,8 +679,12 @@ extension EditProfilePicViewController {
     }
     
     func getVerifiedSocialPlatforms() {
+        self.facebookVerifiedView.isHidden = true
+        self.twitterVerifiedView.isHidden = true
+        self.snapchatVerifiedView.isHidden = true
+        self.youtubeVerifiedView.isHidden = true
         if let socialPlatforms = Defaults.shared.socialPlatforms {
-            self.socialPlatformStackViewHeightConstraint.constant = 37
+            self.socialPlatformStackViewHeightConstraint.constant = 32
             for socialPlatform in socialPlatforms {
                 if socialPlatform == R.string.localizable.facebook().lowercased() {
                     self.facebookVerifiedView.isHidden = false
