@@ -212,6 +212,7 @@ class StoryEditorViewController: UIViewController {
     @IBOutlet weak var btnInstagram: UIButton!
     @IBOutlet weak var btnTwitter: UIButton!
     @IBOutlet weak var btnTiktok: UIButton!
+    @IBOutlet weak var lblSaveShare: UILabel!
     
     @IBOutlet weak var ivvwFacebook: UIImageView!
     @IBOutlet weak var ivvwYoutube: UIImageView!
@@ -414,7 +415,11 @@ class StoryEditorViewController: UIViewController {
         self.socialShareExportURL = nil
         self.socialMediaMainView.isHidden = true
         Defaults.shared.isEditSoundOff = false
-        
+        if cameraMode == .pic2Art {
+            lblSaveShare.text = R.string.localizable.savePic2art()
+        } else {
+            lblSaveShare.text = R.string.localizable.saveVideo()
+        }
     }
     
     
@@ -1228,8 +1233,8 @@ extension StoryEditorViewController {
     @IBAction func saveShareClicked(_ sender: UIButton) {
         Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
         referType = storyEditors[currentStoryIndex].referType
-        imageVideoExport(isDownload: true,isFromDoneTap:true)
-        
+        imageVideoExport(isDownload: true,isFromDoneTap:false)
+        btnSocialMediaBackClick(sender)
         /*if Defaults.shared.isVideoSavedAfterRecording{
             Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
             referType = storyEditors[currentStoryIndex].referType
