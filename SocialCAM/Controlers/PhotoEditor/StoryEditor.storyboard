@@ -4404,12 +4404,48 @@
                                     <constraint firstItem="Kff-Bj-qdl" firstAttribute="centerX" secondItem="jvd-jF-eLp" secondAttribute="centerX" id="odB-YS-ttG"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZVV-XV-c1n">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Tooltip Screen – 6" translatesAutoresizingMaskIntoConstraints="NO" id="Zd0-Eb-KTx">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dHb-Pg-DYp">
+                                        <rect key="frame" x="344" y="50" width="50" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="j9k-h2-FOO"/>
+                                            <constraint firstAttribute="width" constant="50" id="ppm-iK-HPv"/>
+                                        </constraints>
+                                        <size key="titleShadowOffset" width="1" height="0.0"/>
+                                        <state key="normal" image="mergeBack">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="0.1532266695" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="didTapCloseButton:" destination="mEF-5M-VSI" eventType="touchUpInside" id="FO7-XK-c3l"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="Zd0-Eb-KTx" secondAttribute="trailing" id="7JF-T2-IMp"/>
+                                    <constraint firstAttribute="bottom" secondItem="Zd0-Eb-KTx" secondAttribute="bottom" id="7Vk-Kd-6OJ"/>
+                                    <constraint firstItem="dHb-Pg-DYp" firstAttribute="top" secondItem="ZVV-XV-c1n" secondAttribute="top" constant="50" id="Aej-Lk-SOM"/>
+                                    <constraint firstItem="Zd0-Eb-KTx" firstAttribute="leading" secondItem="ZVV-XV-c1n" secondAttribute="leading" id="G87-Fi-Rzd"/>
+                                    <constraint firstAttribute="trailing" secondItem="dHb-Pg-DYp" secondAttribute="trailing" constant="20" id="s41-XO-6Ju"/>
+                                    <constraint firstItem="Zd0-Eb-KTx" firstAttribute="top" secondItem="ZVV-XV-c1n" secondAttribute="top" id="wpB-rn-BAm"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="gVo-q8-Gl3"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="ZVV-XV-c1n" secondAttribute="bottom" id="1Hm-H8-N6Z"/>
                             <constraint firstAttribute="bottom" secondItem="7Oc-CL-Soc" secondAttribute="bottom" id="IaG-0V-JTO"/>
+                            <constraint firstItem="ZVV-XV-c1n" firstAttribute="leading" secondItem="gVo-q8-Gl3" secondAttribute="leading" id="NHB-0N-V13"/>
                             <constraint firstItem="gVo-q8-Gl3" firstAttribute="trailing" secondItem="jvd-jF-eLp" secondAttribute="trailing" id="OCO-8o-RFg"/>
+                            <constraint firstItem="gVo-q8-Gl3" firstAttribute="trailing" secondItem="ZVV-XV-c1n" secondAttribute="trailing" id="Qfo-pt-8pa"/>
+                            <constraint firstItem="ZVV-XV-c1n" firstAttribute="top" secondItem="gKX-la-40T" secondAttribute="top" id="Rvo-G5-3j9"/>
                             <constraint firstItem="jvd-jF-eLp" firstAttribute="leading" secondItem="gVo-q8-Gl3" secondAttribute="leading" id="SOq-OD-RrS"/>
                             <constraint firstItem="7Oc-CL-Soc" firstAttribute="leading" secondItem="gVo-q8-Gl3" secondAttribute="leading" id="XpQ-HG-P6A"/>
                             <constraint firstItem="7jc-Cl-MHH" firstAttribute="top" secondItem="gKX-la-40T" secondAttribute="top" id="YT6-JS-zBL"/>
@@ -4436,6 +4472,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Tooltip Screen – 6" width="436" height="1065"/>
         <image name="addNewMusic" width="34" height="34"/>
         <image name="btnSkipEditTooltip" width="97" height="42"/>
         <image name="checkBoxActive" width="20" height="20"/>
@@ -4477,6 +4514,7 @@
         <image name="iconshare" width="50" height="50"/>
         <image name="maskStory" width="34" height="34"/>
         <image name="merge" width="32" height="32"/>
+        <image name="mergeBack" width="24" height="24"/>
         <image name="mergeNew" width="512" height="512"/>
         <image name="moreOptions" width="512" height="512"/>
         <image name="multiFilter" width="24" height="24"/>
