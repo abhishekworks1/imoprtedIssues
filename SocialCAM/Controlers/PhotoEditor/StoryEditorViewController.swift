@@ -336,6 +336,7 @@ class StoryEditorViewController: UIViewController {
     var isSagmentSelection = false
     var isCurrentAssetMuted = false
     var socialShareExportURL:URL?
+    var isShowToolTipView = false
     var isViewEditMode: Bool = false {
         didSet {
             editToolBarView.isHidden = isViewEditMode
@@ -369,6 +370,7 @@ class StoryEditorViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        isShowToolTipView = UserDefaults.standard.bool(forKey: "isShowToolTipView")
         socialMediaViewTapGesture()
         if let isRegistered = Defaults.shared.isRegistered {
             if isRegistered {
@@ -1827,7 +1829,13 @@ extension StoryEditorViewController {
                 self.didSelect(type: QuickCam.SSUTagType.profilePicture, waitingListOptionType: nil, socialShareType: nil, screenType: SSUTagScreen.ssutTypes)
                 self.isSettingsChange = true
             }
-//            openActionSheet()
+            if !isShowToolTipView {
+                openActionSheet()
+                isShowToolTipView = true
+                UserDefaults.standard.set(isShowToolTipView, forKey: "isShowToolTipView")
+            }
+            
+            
         } else {
             if let ssuTagSelectionViewController = R.storyboard.storyCameraViewController.ssuTagSelectionViewController() {
                 ssuTagSelectionViewController.delegate = self
@@ -1843,7 +1851,7 @@ extension StoryEditorViewController {
     func openActionSheet() {
         if Constant.Connectivity.isConnectedToInternet {
             if let selectLinkVC = R.storyboard.storyEditor.selectLinkViewController() {
-                selectLinkVC.modalPresentationStyle = .popover
+                selectLinkVC.modalPresentationStyle = .fullScreen
                 selectLinkVC.storyEditors = storyEditors
                 navigationController?.present(selectLinkVC, animated: true, completion: {
                     selectLinkVC.backgroundView.isUserInteractionEnabled = true
