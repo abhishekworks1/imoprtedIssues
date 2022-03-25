@@ -532,7 +532,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }
         }
     }
-    func getContactList(source:String = "mobile",page:Int = 1,limit:Int = 20,filter:String = ContactStatus.all){
+    func getContactList(source:String = "mobile",page:Int = 1,limit:Int = 20,filter:String = ContactStatus.all,hide:Bool = false){
         
         var searchText = searchBar.text!
         let contactType = selectedContactType
@@ -576,14 +576,14 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 print(contacts.count)
                 if self.selectedContactType == ContactType.mobile{
                     self.allmobileContactsForHide.append(contentsOf:contacts)
-                    self.mobileContacts.append(contentsOf:contacts.filter {$0.hide == false})
+                    self.mobileContacts.append(contentsOf:contacts.filter {$0.hide == hide})
                     self.allmobileContacts = self.mobileContacts
                     DispatchQueue.main.async {
                         self.contactTableView.reloadData()
                     }
                 }else{
                     self.allemailContactsForHide.append(contentsOf:contacts)
-                    self.emailContacts.append(contentsOf:contacts.filter {$0.hide == false})
+                    self.emailContacts.append(contentsOf:contacts.filter {$0.hide == hide})
                     DispatchQueue.main.async {
                         self.emailContactTableView.reloadData()
                     }
@@ -620,7 +620,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             case .success:
                 self.showLoader()
                // self.mobileContacts.remove(at:index)
-                
+                self.selectedFilter = ContactStatus.all
                 self.getContactList()
                 break
                
@@ -790,45 +790,45 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         switch sender.tag {
         case 1:
             self.selectedFilter = ContactStatus.all
-            self.showLoader()
+           // self.showLoader()
             self.getContactList( page:1,filter:ContactStatus.all)
             break
         case 2:
             self.selectedFilter = ContactStatus.recent
-            self.showLoader()
+           // self.showLoader()
             self.getContactList( page:1,filter:ContactStatus.recent)
             break
         case 3:
             self.selectedFilter = ContactStatus.pending
-            self.showLoader()
+           // self.showLoader()
             self.getContactList( page:1,filter:ContactStatus.pending)
             break
         case 4:
             self.selectedFilter = ContactStatus.invited
-            self.showLoader()
+            //self.showLoader()
             self.getContactList( page:1,filter:ContactStatus.invited)
             break
         case 5:
             break
         case 6:
             self.selectedFilter = ContactStatus.signedup
-            self.showLoader()
+           // self.showLoader()
             self.getContactList( page:1,filter:ContactStatus.signedup)
             break
         case 7:
             self.selectedFilter = ContactStatus.subscriber
-            self.showLoader()
+           // self.showLoader()
             self.getContactList( page:1,filter:ContactStatus.subscriber)
             break
         case 8:
             self.selectedFilter = ContactStatus.optout
-            self.showLoader()
+          //  self.showLoader()
             self.getContactList( page:1,filter:ContactStatus.optout)
             break
         case 9:
             self.selectedFilter = ContactStatus.all
-            self.mobileContacts =  self.allmobileContactsForHide.filter {$0.hide == true}
-            contactTableView.reloadData()
+          //  self.showLoader()
+            self.getContactList( page:1,filter:ContactStatus.all,hide:true)
             break
         default:
             mobileContacts = allmobileContacts
@@ -1133,6 +1133,11 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     // MARK: - Searchbar delegate
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar){
+        if searchBar.text == ""{
+            searchBar.resignFirstResponder()
+        }
+    }
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
          self.searchBar.showsCancelButton = true
          self.filterOptionView.isHidden = true
