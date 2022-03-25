@@ -344,6 +344,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             
             if recordingType == .capture {
                 DispatchQueue.main.async {
+                    self.nextButtonView.isHidden = true
                     self.closeButton.tag = 2
                     self.closeButton.setImage(R.image.handsfree(), for: UIControl.State.normal)
                     self.closeButton.setImage(R.image.handsfreeSelected()?.sd_tintedImage(with: ApplicationSettings.appPrimaryColor), for: UIControl.State.selected)
@@ -1052,6 +1053,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     
     
     @IBAction func didTapClearAllSegments(_ sender: UIButton) {
+        isDiscardSingleSegment = false
         discardTextMessageLabel.text = "Are you sure you want discard all changes?"
         discardCheckAndUnCheckBoxImageView.isHidden = false
         signleDiscardCheckBoxClickImageView.isHidden = true
@@ -1393,9 +1395,9 @@ extension StoryCameraViewController {
                 if self.recordingType == .normal {
                     Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_mode_FastSlow)
                 }
-//                if isQuickApp && Defaults.shared.appMode == .free {
-//                    self.showAlertForUpgradeSubscription()
-//                }
+                if isQuickApp && Defaults.shared.appMode == .free {
+                    self.showAlertForUpgradeSubscription()
+                }
 
             default:
                 break

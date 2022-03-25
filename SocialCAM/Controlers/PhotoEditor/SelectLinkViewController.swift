@@ -74,6 +74,11 @@ class SelectLinkViewController: UIViewController {
             self.showAlert(alertMessage: R.string.localizable.pleaseEnterProperUrl())
         }
     }
+    
+    @IBAction func didTapCloseButton(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
+    
 }
 
 // MARK: - Table View DataSource
@@ -99,6 +104,8 @@ extension SelectLinkViewController: UITableViewDataSource {
         
         return selectLinkCell
     }
+    
+    
 }
 
 // MARK: - Table View Delegate
