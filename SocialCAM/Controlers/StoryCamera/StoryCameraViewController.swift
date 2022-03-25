@@ -200,7 +200,8 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     
     @IBOutlet weak var discardSegmentsStackView: UIStackView!
     @IBOutlet weak var discardSegmentButton: UIButton!
-    @IBOutlet weak var signupTooltipView: UIView!
+    @IBOutlet weak var confirmVideoButton: UIButton!
+   @IBOutlet weak var signupTooltipView: UIView!
     @IBOutlet weak var quickLinkTooltipView: UIView!
     @IBOutlet weak var lblQuickLinkTooltipView: UILabel!
     @IBOutlet weak var btnDoNotShowAgain: UIButton!
@@ -1702,6 +1703,8 @@ extension StoryCameraViewController {
     }
     
     func swapeControlsIfNeeded() {
+        discardSegmentButton.imageEdgeInsets =  UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        confirmVideoButton.imageEdgeInsets =  UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         if Defaults.shared.swapeContols {
             galleryStackView.addArrangedSubview(swipeCameraStackView)
             galleryStackView.addArrangedSubview(muteStackView)
@@ -1715,6 +1718,9 @@ extension StoryCameraViewController {
             galleryStackView.addArrangedSubview(faceFiltersView)
             galleryStackView.addArrangedSubview(discardSegmentsStackView)
         }
+        discardSegmentButton.imageEdgeInsets =  UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -20)
+        confirmVideoButton.imageEdgeInsets =  UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -20)
+        
     }
     
     @objc  func handleFocusTapGestureRecognizer(_ gestureRecognizer: UIGestureRecognizer) {
