@@ -1706,20 +1706,25 @@ extension StoryCameraViewController {
         discardSegmentButton.imageEdgeInsets =  UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         confirmVideoButton.imageEdgeInsets =  UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         if Defaults.shared.swapeContols {
+            print("cg yes")
             galleryStackView.addArrangedSubview(swipeCameraStackView)
             galleryStackView.addArrangedSubview(muteStackView)
             galleryStackView.addArrangedSubview(discardSegmentsStackView)
             sceneFilterView.addArrangedSubview(faceFiltersView)
             sceneFilterView.addArrangedSubview(outtakesView)
+            confirmVideoButton.imageEdgeInsets =  UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
         } else {
+            print("cg no")
             sceneFilterView.addArrangedSubview(muteStackView)
             sceneFilterView.addArrangedSubview(swipeCameraStackView)
             galleryStackView.addArrangedSubview(outtakesView)
             galleryStackView.addArrangedSubview(faceFiltersView)
             galleryStackView.addArrangedSubview(discardSegmentsStackView)
+            discardSegmentButton.imageEdgeInsets =  UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -20)
         }
-        discardSegmentButton.imageEdgeInsets =  UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -20)
-        confirmVideoButton.imageEdgeInsets =  UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -20)
+        
+//        discardSegmentButton.imageEdgeInsets =  UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -20)
+//        confirmVideoButton.imageEdgeInsets =  UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -20)
         
     }
     
