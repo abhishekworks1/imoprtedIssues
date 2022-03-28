@@ -466,7 +466,8 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         CameraModes(name: R.string.localizable.custoM(), recordingType: .custom),
         CameraModes(name: R.string.localizable.capturE(), recordingType: .capture),
         CameraModes(name: R.string.localizable.freeMode(), recordingType: .promo),
-        CameraModes(name: R.string.localizable.pic2ArtTitle(), recordingType: .pic2Art)]
+        CameraModes(name: R.string.localizable.pic2ArtTitle(), recordingType: .pic2Art),
+        CameraModes(name: R.string.localizable.newNormalTitle(), recordingType: .newNormal)]
         
     var timerOptions = ["-",
                         "1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
@@ -885,8 +886,13 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             recordingType = .basicCamera
         }
         if !isViralCamLiteApp || !isFastCamLiteApp || !isQuickCamLiteApp || !isSpeedCamLiteApp || !isSnapCamLiteApp || !isQuickApp {
-            speedSlider.isHidden = false
-            speedSliderView.isHidden = false
+            if self.recordingType == .newNormal {
+                speedSlider.isHidden = true
+                speedSliderView.isHidden = true
+            } else {
+                speedSlider.isHidden = false
+                speedSliderView.isHidden = false
+            }
         } else {
             if recordingType != .basicCamera {
                 speedSlider.isHidden = Defaults.shared.appMode == .free
@@ -914,7 +920,6 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             }
             
             var cameraModeArray = self.cameraModeArray
-            
             if isTimeSpeedApp {
                 cameraModeArray = cameraModeArray.filter({$0.recordingType != .slideshow})
                 cameraModeArray = cameraModeArray.filter({$0.recordingType != .collage})
@@ -1251,7 +1256,9 @@ extension StoryCameraViewController {
                 cameraModeArray.remove(at: index)
                 cameraModeArray.insert(CameraModes(name: R.string.localizable.video2Art().uppercased(), recordingType: .handsfree), at: index)
             }
-        } else if isLiteApp {            cameraModeArray = cameraModeArray.filter({$0.recordingType == .promo})
+        } else if isLiteApp {
+            cameraModeArray = cameraModeArray.filter({$0.recordingType == .promo})
+            cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .newNormal})
             cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .normal})
             cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .capture})
             cameraModeArray += self.cameraModeArray.filter({$0.recordingType == .pic2Art})
@@ -1261,6 +1268,7 @@ extension StoryCameraViewController {
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .slideshow})
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .fastMotion})
             cameraModeArray = cameraModeArray.filter({$0.recordingType != .promo})
+            
             if Defaults.shared.appMode == .free {
                 cameraModeArray = cameraModeArray.filter({$0.recordingType != .capture})
                 cameraModeArray = cameraModeArray.filter({$0.recordingType != .normal})
@@ -1315,7 +1323,6 @@ extension StoryCameraViewController {
             self.circularProgress.progressInsideFillColor = .white
             self.showControls()
             self.stop()
-            
           //  self.timer = Timer.scheduledTimer(timeInterval: 0.7, target: self, selector: #selector(self.animate), userInfo: nil, repeats: false)
             
             self.timerValueView.isHidden = isLiteApp ? self.isUserTimerValueChange : !self.isUserTimerValueChange
@@ -1391,7 +1398,13 @@ extension StoryCameraViewController {
                         }
                     }
                 }
-                
+            case .newNormal:
+                if isQuickApp && Defaults.shared.appMode == .free {
+                    self.showAlertForUpgradeSubscription()
+                } else {
+                    self.speedSlider.isHidden = true
+                    self.speedSliderView.isHidden = true
+                }
             case .normal:
                 if self.recordingType == .normal {
                     Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_mode_FastSlow)
@@ -1708,7 +1721,6 @@ extension StoryCameraViewController {
         discardSegmentButton.imageEdgeInsets =  UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         confirmVideoButton.imageEdgeInsets =  UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         if Defaults.shared.swapeContols {
-            print("cg yes")
             galleryStackView.addArrangedSubview(swipeCameraStackView)
             galleryStackView.addArrangedSubview(muteStackView)
             galleryStackView.addArrangedSubview(discardSegmentsStackView)
@@ -1716,7 +1728,6 @@ extension StoryCameraViewController {
             sceneFilterView.addArrangedSubview(outtakesView)
             confirmVideoButton.imageEdgeInsets =  UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
         } else {
-            print("cg no")
             sceneFilterView.addArrangedSubview(muteStackView)
             sceneFilterView.addArrangedSubview(swipeCameraStackView)
             galleryStackView.addArrangedSubview(outtakesView)
