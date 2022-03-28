@@ -1725,9 +1725,6 @@ extension StoryCameraViewController {
             discardSegmentButton.imageEdgeInsets =  UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -20)
         }
         
-//        discardSegmentButton.imageEdgeInsets =  UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -20)
-//        confirmVideoButton.imageEdgeInsets =  UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -20)
-        
     }
     
     @objc  func handleFocusTapGestureRecognizer(_ gestureRecognizer: UIGestureRecognizer) {
