@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -89,6 +89,12 @@
                                 <rect key="frame" x="10" y="30" width="304" height="75"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G2s-Sd-FhK">
+                                <rect key="frame" x="141.5" y="62.5" width="41.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -101,7 +107,9 @@
                             <constraint firstItem="RxE-Ir-i3r" firstAttribute="leading" secondItem="Piq-pr-mJm" secondAttribute="leading" id="Ezs-Cu-9BG"/>
                             <constraint firstItem="6Kw-Ov-6Vp" firstAttribute="bottom" secondItem="RxE-Ir-i3r" secondAttribute="bottom" id="HJa-hz-8m0"/>
                             <constraint firstAttribute="trailing" secondItem="Ra6-9F-dLm" secondAttribute="trailing" id="HiQ-vm-Tfp"/>
+                            <constraint firstItem="G2s-Sd-FhK" firstAttribute="centerY" secondItem="Piq-pr-mJm" secondAttribute="centerY" constant="5" id="INC-IK-4WG"/>
                             <constraint firstAttribute="trailing" secondItem="RxE-Ir-i3r" secondAttribute="trailing" id="In4-ZC-ZBi"/>
+                            <constraint firstItem="G2s-Sd-FhK" firstAttribute="centerX" secondItem="Piq-pr-mJm" secondAttribute="centerX" id="M5d-3Y-9IO"/>
                             <constraint firstItem="yQf-Oi-aAX" firstAttribute="leading" secondItem="Piq-pr-mJm" secondAttribute="leading" id="Q7b-oF-3En"/>
                             <constraint firstAttribute="trailing" secondItem="yQf-Oi-aAX" secondAttribute="trailing" id="T0K-iL-ecA"/>
                             <constraint firstItem="yQf-Oi-aAX" firstAttribute="top" secondItem="Ra6-9F-dLm" secondAttribute="bottom" id="YuJ-RF-ya0"/>
@@ -129,6 +137,7 @@
                 <outlet property="lblSegmentCount" destination="A9z-6l-Zgj" id="Dv0-P4-yx4"/>
                 <outlet property="lblVideoDuration" destination="xNk-gK-mRR" id="i1o-xy-WPZ"/>
                 <outlet property="lblVideoersiontag" destination="Ra6-9F-dLm" id="el3-dl-b1a"/>
+                <outlet property="segmentCountLabel" destination="G2s-Sd-FhK" id="Juh-uY-Jde"/>
                 <outlet property="trimmerView" destination="gle-DO-dvN" id="NF6-Bx-an8"/>
             </connections>
             <point key="canvasLocation" x="210" y="563"/>
