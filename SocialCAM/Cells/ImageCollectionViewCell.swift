@@ -181,18 +181,18 @@ class ImageCollectionViewCell: UICollectionViewCell {
         addSubview(rightTopView)
         
         let leftTopViewWidthAnchor = leftTopView.widthAnchor
-            .constraint(equalToConstant: 25)
+            .constraint(equalToConstant: 30)
         let leftTopViewHeightAnchor = leftTopView.heightAnchor
-            .constraint(equalToConstant: 25)
+            .constraint(equalToConstant: 30)
         let leftTopViewTopAnchor = leftTopView.topAnchor
             .constraint(equalTo: topAnchor, constant: 127)
         let leftTopViewLeadingAnchor = leftTopView.leadingAnchor
             .constraint(equalTo: self.trimmerView.leadingAnchor, constant: 0)
         
         let rightTopViewWidthAnchor = rightTopView.widthAnchor
-            .constraint(equalToConstant: 25)
+            .constraint(equalToConstant: 30)
         let rightTopViewHeightAnchor = rightTopView.heightAnchor
-            .constraint(equalToConstant: 25)
+            .constraint(equalToConstant: 30)
         let rightTopViewTopAnchor = rightTopView.topAnchor
             .constraint(equalTo: topAnchor, constant: 127)
         let rightTopViewLeadingAnchor = rightTopView.trailingAnchor
