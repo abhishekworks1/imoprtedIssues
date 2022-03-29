@@ -20,6 +20,7 @@ class ImageCollectionViewCutCell: UICollectionViewCell {
     @IBOutlet weak var lblVideoDuration: UILabel!
     @IBOutlet weak var lblVideoersiontag: UILabel!
     @IBOutlet weak var trimmerView: TrimmerViewCut!
+    @IBOutlet weak var segmentCountLabel: UILabel!
     var remainTimeMiliS: Int = 0
     public var leftTopView: UIView = {
         let leftTopView = UIImageView.init(image: R.image.trim_leftWhite())
@@ -82,7 +83,7 @@ class ImageCollectionViewCutCell: UICollectionViewCell {
             borderWidth = 3
             self.lblVideoersiontag.isHidden = false
         } else {
-            borderColor = ApplicationSettings.appBorderColor.cgColor
+            borderColor = ApplicationSettings.appWhiteColor.cgColor
             borderWidth = 3
             self.lblVideoersiontag.isHidden = true
         }
