@@ -886,12 +886,15 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             recordingType = .basicCamera
         }
         if !isViralCamLiteApp || !isFastCamLiteApp || !isQuickCamLiteApp || !isSpeedCamLiteApp || !isSnapCamLiteApp || !isQuickApp {
-            if self.recordingType == .newNormal {
-                speedSlider.isHidden = true
-                speedSliderView.isHidden = true
-            } else {
-                speedSlider.isHidden = false
-                speedSliderView.isHidden = false
+            DispatchQueue.main.async {
+                if self.recordingType == .newNormal {
+                    self.speedSlider.isHidden = true
+                    self.speedSliderView.isHidden = true
+                } else {
+                    self.speedSlider.isUserInteractionEnabled = true
+                    self.speedSlider.isHidden = false
+                    self.speedSliderView.isHidden = false
+                }
             }
         } else {
             if recordingType != .basicCamera {
@@ -1402,8 +1405,10 @@ extension StoryCameraViewController {
                 if isQuickApp && Defaults.shared.appMode == .free {
                     self.showAlertForUpgradeSubscription()
                 } else {
-                    self.speedSlider.isHidden = true
-                    self.speedSliderView.isHidden = true
+                    DispatchQueue.main.async {
+                        self.speedSlider.isHidden = true
+                        self.speedSliderView.isHidden = true
+                    }
                 }
             case .normal:
                 if self.recordingType == .normal {
