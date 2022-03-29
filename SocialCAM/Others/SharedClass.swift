@@ -716,6 +716,7 @@ public enum CameraMode: Int {
     case multiplePhotos
     case promo
     case pic2Art
+    case newNormal 
 }
 
 public enum RecordingType {
