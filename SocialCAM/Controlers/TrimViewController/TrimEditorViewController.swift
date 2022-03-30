@@ -546,10 +546,12 @@ extension TrimEditorViewController: TrimmerViewDelegate {
                 }
                 cell.trimmerView.seek(to: currentTimeScrub)
                 
-                if currentTimeScrub >= endTime {
-                    cell.trimmerView.seek(to: startTime)
-                    cell.trimmerView.resetTimePointer()
-                }
+//                if btnPlayPause.isSelected {
+//                    if currentTimeScrub >= endTime {
+//                        cell.trimmerView.seek(to: startTime)
+//                        cell.trimmerView.resetTimePointer()
+//                    }
+//                }
             }
         }
     }
