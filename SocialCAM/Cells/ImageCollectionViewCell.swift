@@ -185,7 +185,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
         let leftTopViewHeightAnchor = leftTopView.heightAnchor
             .constraint(equalToConstant: 30)
         let leftTopViewTopAnchor = leftTopView.topAnchor
-            .constraint(equalTo: topAnchor, constant: 127)
+            .constraint(equalTo: topAnchor, constant: 125)
         let leftTopViewLeadingAnchor = leftTopView.leadingAnchor
             .constraint(equalTo: self.trimmerView.leadingAnchor, constant: 0)
         
@@ -194,7 +194,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
         let rightTopViewHeightAnchor = rightTopView.heightAnchor
             .constraint(equalToConstant: 30)
         let rightTopViewTopAnchor = rightTopView.topAnchor
-            .constraint(equalTo: topAnchor, constant: 127)
+            .constraint(equalTo: topAnchor, constant: 125)
         let rightTopViewLeadingAnchor = rightTopView.trailingAnchor
             .constraint(equalTo: self.trimmerView.trailingAnchor, constant: 0)
         
@@ -277,7 +277,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
         let (_, totalTimeS) = Utils.secondsToHoursMinutesSeconds(Int(Float(endT).roundToPlaces(places: 0)))
         let totalTimeMiliS = Utils.secondsToMiliseconds(endT)
         self.lblVideoersiontag.font = UIFont.systemFont(ofSize: 12, weight: .bold)
-    
+//        let progressTimeS = startT.rounded(.down)
        
         self.lblVideoDuration.text = "\((progressTimeS > 0) ? progressTimeS : 0).\((progressTimeMiliS > 0) ? progressTimeMiliS : 0) / \(totalTimeS).\(totalTimeMiliS)"
 
