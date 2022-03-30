@@ -20,6 +20,7 @@ class ImageCollectionViewCutCell: UICollectionViewCell {
     @IBOutlet weak var lblVideoDuration: UILabel!
     @IBOutlet weak var lblVideoersiontag: UILabel!
     @IBOutlet weak var trimmerView: TrimmerViewCut!
+    @IBOutlet weak var segmentCountLabel: UILabel!
     var remainTimeMiliS: Int = 0
     public var leftTopView: UIView = {
         let leftTopView = UIImageView.init(image: R.image.trim_leftWhite())
@@ -82,7 +83,7 @@ class ImageCollectionViewCutCell: UICollectionViewCell {
             borderWidth = 3
             self.lblVideoersiontag.isHidden = false
         } else {
-            borderColor = ApplicationSettings.appBorderColor.cgColor
+            borderColor = ApplicationSettings.appWhiteColor.cgColor
             borderWidth = 3
             self.lblVideoersiontag.isHidden = true
         }
@@ -184,18 +185,18 @@ class ImageCollectionViewCutCell: UICollectionViewCell {
         addSubview(rightTopView)
         
         let leftTopViewWidthAnchor = leftTopView.widthAnchor
-            .constraint(equalToConstant: 23)
+            .constraint(equalToConstant: 30)
         let leftTopViewHeightAnchor = leftTopView.heightAnchor
-            .constraint(equalToConstant: 23)
+            .constraint(equalToConstant: 30)
         let leftTopViewTopAnchor = leftTopView.topAnchor
             .constraint(equalTo: topAnchor, constant: 140)
         let leftTopViewLeadingAnchor = leftTopView.leadingAnchor
             .constraint(equalTo: self.trimmerView.leadingAnchor, constant: 0)
         
         let rightTopViewWidthAnchor = rightTopView.widthAnchor
-            .constraint(equalToConstant: 23)
+            .constraint(equalToConstant: 30)
         let rightTopViewHeightAnchor = rightTopView.heightAnchor
-            .constraint(equalToConstant: 23)
+            .constraint(equalToConstant: 30)
         let rightTopViewTopAnchor = rightTopView.topAnchor
             .constraint(equalTo: topAnchor, constant: 140)
         let rightTopViewLeadingAnchor = rightTopView.trailingAnchor

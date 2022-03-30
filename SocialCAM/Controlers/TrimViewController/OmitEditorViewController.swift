@@ -380,6 +380,13 @@ extension OmitEditorViewController: UICollectionViewDataSource {
                 return cell
             }
             cell.setLayout(indexPath: indexPath, currentPage: currentPage, currentAsset: currentAsset, storySegment: storySegment)
+            cell.lblSegmentCount.isHidden = true
+            cell.lblVideoDuration.isHidden = false
+            cell.segmentCountLabel.isHidden = false
+            cell.segmentCountLabel.text = "\(indexPath.item + 1)"
+            let duration = String(format: "%.1f", currentAsset.duration.seconds)
+            cell.lblVideoDuration.font = UIFont(name: "SFUIText-Regular", size: 11)
+            cell.lblVideoDuration.text = "  \(duration)"
         }
         cell.trimmerView.delegate = self
 //        cell.trimmerView.alphaView = 0.5
@@ -432,7 +439,9 @@ extension OmitEditorViewController: UICollectionViewDelegate, UICollectionViewDe
         if collectionView == self.editStoryCollectionView {
             return CGSize(width: Double(self.view.frame.width - 40), height: Double(118 * 1.40))
         } else {
-            return CGSize(width: (Double(storySegment.count * 45)), height: Double(98))
+            return CGSize(width: 47.0,
+                          height: collectionView.frame.height)
+//            return CGSize(width: (Double(storySegment.count * 45)), height: Double(98))
         }
     }
     

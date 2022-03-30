@@ -371,6 +371,7 @@ class StoryEditorViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        videoProgressBar.timeSlider.layer.cornerRadius = videoProgressBar.timeSlider.frame.height/2
         isShowToolTipView = UserDefaults.standard.bool(forKey: "isShowToolTipView")
         socialMediaViewTapGesture()
         if let isRegistered = Defaults.shared.isRegistered {
@@ -471,6 +472,7 @@ class StoryEditorViewController: UIViewController {
         super.viewDidAppear(animated)
         IQKeyboardManager.shared.enable = false
         IQKeyboardManager.shared.enableAutoToolbar = false
+        videoProgressBar.timeSlider.addTapGesture()
         videoProgressBar.layoutSubviews()
         isVideoPlay ? pauseVideo() : playVideo()
     }
@@ -897,10 +899,12 @@ extension StoryEditorViewController {
             self.currentStoryIndex = 0
             self.medias.removeAll()
             
-            for item in urls {
+            for (storyIndex, item) in urls.enumerated() {
+                let newIndex = storyIndex + 1
                 guard let storyEditorMedia = item.copy() as? StoryEditorMedia else {
                     return
                 }
+                storyEditorMedia.storyIndex = newIndex
                 self.medias.append(storyEditorMedia)
             }
             self.isVideoModified = true
@@ -2119,11 +2123,17 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
             guard let _currentVideoAsset = medias[safe: indexPath.item]?.type else {
                 return storyEditorCell
             }
-            guard let newIndex = medias[safe: indexPath.item]?.storyIndex else {
-                return storyEditorCell
-            }
             
-            storyEditorCell.thumbnailNumberLabel.text = "\(newIndex)"
+            if isTrim == true {
+                guard let newIndex = medias[safe: indexPath.item]?.storyIndex else {
+                    return storyEditorCell
+                }
+                
+                storyEditorCell.thumbnailNumberLabel.text = "\(newIndex)"
+            } else {
+                storyEditorCell.thumbnailNumberLabel.text = "\(indexPath.item + 1)"
+            }
+           
             var avAsset: AVAsset?
             switch _currentVideoAsset {
             case .image:
