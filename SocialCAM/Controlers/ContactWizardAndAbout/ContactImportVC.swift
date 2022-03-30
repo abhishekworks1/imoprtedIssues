@@ -25,6 +25,7 @@ struct ContactStatus{
     static let subscriber = "subscriber"
     static let optout = "optout"
     static let all = "all"
+    static let hidden = "hidden"
 }
 class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSource, contactCelldelegate , MFMessageComposeViewControllerDelegate , MFMailComposeViewControllerDelegate , UISearchBarDelegate, UINavigationControllerDelegate {
     
@@ -229,7 +230,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         filterOptionView.isHidden = true
       //  let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
       //  self.view.addGestureRecognizer(tap)
-        self.syncButtonClicked(sender:self.syncButton)
+      //  self.syncButtonClicked(sender:self.syncButton)
         self.textMessageSelected(sender:self.textMessageButton)
     }
     @objc func handleTap(_ sender: UITapGestureRecognizer? = nil) {
@@ -589,7 +590,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     }
                 }
                 self.hideLoader()
-                self.loadingStatus = false
+                DispatchQueue.main.asyncAfter(deadline:.now() + 0.5) {
+                    self.loadingStatus = false
+                }
+               
                 break
                
             case .failure(let error):
@@ -658,6 +662,13 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 if let indexAllHidden = self.allmobileContactsForHide.firstIndex(where: {$0.Id == self.selectedContact?.Id}){
                     self.allmobileContactsForHide[indexAllHidden].status = ContactStatus.invited
                 }
+                if let indexMobile = self.emailContacts.firstIndex(where: {$0.Id == self.selectedContact?.Id}){
+                    self.emailContacts[indexMobile].status = ContactStatus.invited
+                }
+                if let indexAllHidden = self.allemailContactsForHide.firstIndex(where: {$0.Id == self.selectedContact?.Id}){
+                    self.allemailContactsForHide[indexAllHidden].status = ContactStatus.invited
+                }
+                self.emailContactTableView.reloadData()
                 self.contactTableView.reloadData()
                 self.hideLoader()
                 break
@@ -826,9 +837,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             self.getContactList( page:1,filter:ContactStatus.optout)
             break
         case 9:
-            self.selectedFilter = ContactStatus.all
+            //hidden
+            self.selectedFilter = ContactStatus.hidden
           //  self.showLoader()
-            self.getContactList( page:1,filter:ContactStatus.all,hide:true)
+            self.getContactList( page:1,filter:ContactStatus.hidden,hide:true)
             break
         default:
             mobileContacts = allmobileContacts
@@ -1447,7 +1459,43 @@ extension ContactImportVC:UIScrollViewDelegate{
     //Pagination
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         self.filterOptionView.isHidden = true
+       
+        /*     let actualPosition = scrollView.panGestureRecognizer.translation(in: scrollView.superview)
+         if (actualPosition.y > 0){
+            // Dragging down
+            UIView.animate(withDuration: 0.5, animations: {
+                self.segmentViewHeight.constant = 84.0
+                self.stepViewHeight.constant = 50.0
+                    self.view.layoutIfNeeded()
+            })
+        }else{
+            // Dragging up
+            UIView.animate(withDuration: 0.5, animations: {
+                self.segmentViewHeight.constant = 0.0
+                self.stepViewHeight.constant = 0.0
+                    self.view.layoutIfNeeded()
+            })
+        }
         
+        if (self.lastContentOffset > scrollView.contentOffset.y) {
+                // move up
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.segmentViewHeight.constant = 84.0
+                    self.stepViewHeight.constant = 50.0
+                        self.view.layoutIfNeeded()
+                })
+            }
+            else if (self.lastContentOffset < scrollView.contentOffset.y) {
+               // move down
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.segmentViewHeight.constant = 0.0
+                    self.stepViewHeight.constant = 0.0
+                        self.view.layoutIfNeeded()
+                })
+            }
+
+            // update the new position acquired
+            self.lastContentOffset = scrollView.contentOffset.y */
     }
     /*  func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
         if scrollView == contactTableView || scrollView == emailContactTableView{
@@ -1504,12 +1552,15 @@ extension ContactImportVC:UIScrollViewDelegate{
                 stepViewHeight.constant = 0.0
             }
             */
+            if self.loadingStatus{
+                return
+            }
             if (self.lastContentOffset > scrollView.contentOffset.y) {
                 // move up
                 UIView.animate(withDuration: 0.5, animations: {
                     self.segmentViewHeight.constant = 84.0
                     self.stepViewHeight.constant = 50.0
-                        self.view.layoutIfNeeded()
+                       // self.view.layoutIfNeeded()
                 })
             }
             else if (self.lastContentOffset < scrollView.contentOffset.y) {
@@ -1517,12 +1568,12 @@ extension ContactImportVC:UIScrollViewDelegate{
                 UIView.animate(withDuration: 0.5, animations: {
                     self.segmentViewHeight.constant = 0.0
                     self.stepViewHeight.constant = 0.0
-                        self.view.layoutIfNeeded()
+                       // self.view.layoutIfNeeded()
                 })
             }
 
             // update the new position acquired
-            self.lastContentOffset = scrollView.contentOffset.y
+            self.lastContentOffset = scrollView.contentOffset.y //*/
         }
       
     }
