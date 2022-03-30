@@ -890,10 +890,12 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                 if self.recordingType == .newNormal {
                     self.speedSlider.isHidden = true
                     self.speedSliderView.isHidden = true
+                    self.verticalLines.isHidden = true
                 } else {
                     self.speedSlider.isUserInteractionEnabled = true
                     self.speedSlider.isHidden = false
                     self.speedSliderView.isHidden = false
+                    self.verticalLines.isHidden = false
                 }
             }
         } else {
@@ -1408,6 +1410,7 @@ extension StoryCameraViewController {
                     DispatchQueue.main.async {
                         self.speedSlider.isHidden = true
                         self.speedSliderView.isHidden = true
+                        self.verticalLines.isHidden = true
                     }
                 }
             case .normal:

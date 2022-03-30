@@ -112,7 +112,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             newZoom += lastZoomFactor
             let minZoom = max(1.0, newZoom)
             let translation = gestureRecognizer.location(in: circularProgress)
-            if (recordingType == .promo) && isLiteApp{
+            if (recordingType == .promo) && isLiteApp {
                 let centerPoint1x = UIScreen.width / 2   // 1X point
                 let centerPoint3x =  UIScreen.width - (UIScreen.width / 6) // 3X point
                 let newX = circularProgress.center.x + translation.x - 35
@@ -121,6 +121,8 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
                 }else{
                     self.circularProgress.center = CGPoint(x: newX,y: circularProgress.center.y)
                 }
+            } else if recordingType == .newNormal {
+                self.circularProgress.center = self.circularProgress.center
             }else{
                 self.circularProgress.center = CGPoint(x: circularProgress.center.x + translation.x - 35,y: circularProgress.center.y + translation.y - 35)
             }
@@ -146,6 +148,9 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
             
             if isLiteApp {
                 speedOptions = recordingType == .promo ? [.normal, .normal, .normal, .normal, .fast2x, .fast3x] : speedOptions
+                if recordingType == .newNormal {
+                    speedOptions = [.normal, .normal, .normal, .normal, .normal, .normal]
+                }
             } else {
                 switch Defaults.shared.appMode {
                 case .free, .basic:
