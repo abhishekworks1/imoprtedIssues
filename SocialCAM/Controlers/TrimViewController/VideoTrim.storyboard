@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -783,10 +783,10 @@
                                         </connections>
                                     </button>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hQ3-rH-WbZ" customClass="DragAndDropCollectionView" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="615" width="374" height="140"/>
+                                        <rect key="frame" x="20" y="565" width="374" height="160"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="140" id="vKC-XR-BLv"/>
+                                            <constraint firstAttribute="height" constant="160" id="vKC-XR-BLv"/>
                                         </constraints>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="nXq-x4-EHM">
                                             <size key="itemSize" width="41" height="98"/>
@@ -851,7 +851,7 @@
                                     <constraint firstItem="jNE-Xl-pHk" firstAttribute="top" secondItem="LaH-1Q-6xM" secondAttribute="bottom" constant="80" id="Y3k-qx-cdc"/>
                                     <constraint firstItem="S6m-Mh-Ptx" firstAttribute="height" secondItem="KCr-Ff-Y7S" secondAttribute="height" id="ZhL-vi-uXJ"/>
                                     <constraint firstItem="de9-ve-MUm" firstAttribute="leading" secondItem="PAl-yz-OHO" secondAttribute="leading" id="abl-a5-vJz"/>
-                                    <constraint firstItem="QY0-h1-waI" firstAttribute="top" secondItem="hQ3-rH-WbZ" secondAttribute="bottom" constant="-15" id="d9t-ZQ-F6Z"/>
+                                    <constraint firstItem="QY0-h1-waI" firstAttribute="top" secondItem="hQ3-rH-WbZ" secondAttribute="bottom" constant="15" id="d9t-ZQ-F6Z"/>
                                     <constraint firstItem="LaH-1Q-6xM" firstAttribute="leading" secondItem="PAl-yz-OHO" secondAttribute="leading" id="ePk-uy-AqE"/>
                                     <constraint firstItem="S6m-Mh-Ptx" firstAttribute="leading" secondItem="KCr-Ff-Y7S" secondAttribute="leading" id="eUC-vs-AUM"/>
                                     <constraint firstAttribute="trailing" secondItem="hQ3-rH-WbZ" secondAttribute="trailing" constant="20" id="eUf-IC-lQj"/>
