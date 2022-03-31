@@ -943,6 +943,12 @@ open class TrimmerViewCut: UIView {
         timePointerViewLeadingAnchor.constant = 0
     }
     
+    /// Fix  the pointer near the Right draggable view
+    open func fixPlaceTimePointer() {
+        print(trimView.frame.width)
+        timePointerViewLeadingAnchor.constant = trimView.frame.width
+        
+    }
 }
 
 private func clamp<T: Comparable>(_ number: T, _ minimum: T, _ maximum: T) -> T {

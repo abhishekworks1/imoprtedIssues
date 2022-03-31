@@ -56,6 +56,7 @@ class OmitEditorViewController: UIViewController,UIGestureRecognizerDelegate {
     var isStartMovable: Bool = false
     var leftSidePlayer: AVPlayer?
     var rightSidePlayer: AVPlayer?
+    var isScrubbingDidChange = false
     var remineTime = 0
     
     // MARK: - Public Properties
@@ -294,23 +295,37 @@ class OmitEditorViewController: UIViewController,UIGestureRecognizerDelegate {
                         return
                     }
                     
-                    
                     let currentAsset = self.currentAsset(index: currentPage)
-                    
                     cell.trimmerView.seek(to: playBackTime)
                     seek(to: CMTime.init(seconds: playBackTime.seconds, preferredTimescale: 10000), cell: cell, startPipe: startTime, endPipe: endTime)
                     
-                    if playBackTime >= endTime {
-                        player.seek(to: startTime, toleranceBefore: tolerance, toleranceAfter: tolerance)
-                        cell.trimmerView.seek(to: startTime)
-                        seek(to: CMTime.init(seconds: startTime.seconds, preferredTimescale: 10000), cell: cell,startPipe: startTime, endPipe: endTime)
-                        cell.trimmerView.resetTimePointer()
-                        if isLeftGesture {
+                    if !isScrubbingDidChange {
+                        if playBackTime >= endTime {
+                            player.seek(to: startTime, toleranceBefore: tolerance, toleranceAfter: tolerance)
+                            cell.trimmerView.seek(to: startTime)
+                            seek(to: CMTime.init(seconds: startTime.seconds, preferredTimescale: 10000), cell: cell,startPipe: startTime, endPipe: endTime)
+                            cell.trimmerView.resetTimePointer()
+                            if isLeftGesture {
+                                if !isScrubbingDidChange {
+                                    btnPlayPause.isSelected = true
+                                    player.play()
+                                } else {
+                                    btnPlayPause.isSelected = false
+                                    player.pause()
+                                }
+                                
+                                
+                            } else {
+                                btnPlayPause.isSelected = true
+                                player.play()
+                            }
+                        }
+                    } else {
+                        
+                        if playBackTime >= endTime {
+                            seek(to: CMTime.init(seconds: startTime.seconds, preferredTimescale: 10000), cell: cell,startPipe: startTime, endPipe: endTime)
                             btnPlayPause.isSelected = false
                             player.pause()
-                        } else {
-                            btnPlayPause.isSelected = true
-                            player.play()
                         }
                     }
                 }
@@ -602,6 +617,7 @@ extension OmitEditorViewController: TrimmerViewCutDelegate {
 }
 
     func trimmerCutScrubbingDidChange(_ trimmer: TrimmerViewCut, with currentTimeScrub: CMTime) {
+        isScrubbingDidChange = true
         if let player = player {
             player.seek(to: currentTimeScrub, toleranceBefore: tolerance, toleranceAfter: tolerance)
             if player.timeControlStatus == .playing {
@@ -1077,46 +1093,16 @@ extension OmitEditorViewController {
     
     
     @IBAction func playPauseClicked(_ sender: Any) {
-        //        if let player = self.player {
-        //            if player.timeControlStatus == .playing {
-        //                player.pause()
-        //                btnPlayPause.isSelected = false
-        //                doneView.alpha = 1
-        //                doneView.isUserInteractionEnabled = true
-        //            } else {
-        //                player.play()
-        //                btnPlayPause.isSelected = true
-        //
-        ////                doneView.alpha = 0.5
-        ////                doneView.isUserInteractionEnabled = false
-        //            }
-        //        }
-        
-//        leftPlayButton.isSelected = false
-//        rightPlayButton.isSelected = false
-//        if !btnPlayPause.isSelected && !leftPlayButton.isSelected && !rightPlayButton.isSelected {
             if let player = self.player {
                 if player.timeControlStatus == .playing {
                     player.pause()
                     btnPlayPause.isSelected = false
-//                    doneView.alpha = 1
-//                    doneView.isUserInteractionEnabled = true
-//                    if #available(iOS 13.0, *) {
-//                        doneButton.setImage(UIImage(named: "trimDone")?.withTintColor(UIColor.white, renderingMode: .automatic), for: .normal)
-//                        doneLabel.textColor = UIColor.white
-//                    }
                 } else {
                     player.play()
                     btnPlayPause.isSelected = true
+                    isScrubbingDidChange = false
                 }
             }
-//        }
-//        else {
-//            player?.pause()
-//            btnPlayPause.isSelected = false
-//            doneView.alpha = 1
-//            doneView.isUserInteractionEnabled = true
-//        }
     }
     
     @IBAction func handleButtonClicked(_ sender: UIButton) {
