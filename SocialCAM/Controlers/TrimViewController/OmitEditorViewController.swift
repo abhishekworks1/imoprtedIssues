@@ -312,7 +312,6 @@ class OmitEditorViewController: UIViewController,UIGestureRecognizerDelegate {
                             btnPlayPause.isSelected = true
                             player.play()
                         }
-                        
                     }
                 }
             }
@@ -370,7 +369,7 @@ extension OmitEditorViewController: UICollectionViewDataSource {
                 return cell
             }
             cell.setEditLayout(indexPath: indexPath, currentPage: currentPage, currentAsset: currentSelectedAsset)
-            remineTime = cell.remainTimeMiliS
+//            remineTime = cell.remainTimeMiliS
 //            cell.trimmerView.rightImage = UIImage()
 //            cell.trimmerView.leftImage = UIImage()
 //            cell.leftTopView.isHidden = true
@@ -582,7 +581,7 @@ extension OmitEditorViewController: TrimmerViewCutDelegate {
                 if let currentAsset = currentAsset(index: self.currentPage) {
                    let time = (CGFloat(currentAsset.duration.value)/CGFloat(currentAsset.duration.timescale))
                     print(finaltime)
-                    if finaltime >= 1.0 && finaltime < currentAsset.duration.seconds {
+                    if Int(finaltime) > 1 && Int(finaltime) < Int(currentAsset.duration.seconds) {
                     doneView.alpha = 1
                     doneView.isUserInteractionEnabled = true
                     if #available(iOS 13.0, *) {
