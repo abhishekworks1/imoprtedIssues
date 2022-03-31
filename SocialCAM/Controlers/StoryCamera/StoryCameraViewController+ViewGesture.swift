@@ -122,7 +122,8 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
                     self.circularProgress.center = CGPoint(x: newX,y: circularProgress.center.y)
                 }
             } else if recordingType == .newNormal {
-                self.circularProgress.center = self.circularProgress.center
+                self.circularProgress.center = CGPoint(x: circularProgress.center.x + translation.x - 35,y: circularProgress.center.y + translation.y - 35)
+//                self.circularProgress.center = self.circularProgress.center
             }else{
                 self.circularProgress.center = CGPoint(x: circularProgress.center.x + translation.x - 35,y: circularProgress.center.y + translation.y - 35)
             }
