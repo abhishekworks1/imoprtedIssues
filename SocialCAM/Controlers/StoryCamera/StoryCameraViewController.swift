@@ -760,7 +760,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         
         if isfromPicsArt {
             self.isFreshSession = false
-            self.cameraSliderView.selectCell = 3
+            self.cameraSliderView.selectCell = 4
             self.cameraSliderView.collectionView.reloadData()
             isfromPicsArt = false
         }
@@ -887,7 +887,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         }
         if !isViralCamLiteApp || !isFastCamLiteApp || !isQuickCamLiteApp || !isSpeedCamLiteApp || !isSnapCamLiteApp || !isQuickApp {
             DispatchQueue.main.async {
-                if self.recordingType == .newNormal {
+                if self.recordingType == .newNormal || self.recordingType == .pic2Art {
                     self.speedSlider.isHidden = true
                     self.speedSliderView.isHidden = true
                     self.verticalLines.isHidden = true
@@ -1223,6 +1223,7 @@ extension StoryCameraViewController {
     }
 
     func setupLayoutCameraSliderView() {
+      
         self.timerValueView.isHidden = isLiteApp ? self.isUserTimerValueChange : !self.isUserTimerValueChange
         var cameraModeArray = self.cameraModeArray
         if isTimeSpeedApp {
@@ -1393,7 +1394,12 @@ extension StoryCameraViewController {
                 } else {
                     if let isPic2ArtShowed = Defaults.shared.isPic2ArtShowed {
                         if isPic2ArtShowed {
-                            self.cameraModeCell = 3
+                            DispatchQueue.main.async {
+                                self.speedSlider.isHidden = true
+                                self.speedSliderView.isHidden = true
+                                self.verticalLines.isHidden = true
+                            }
+                            self.cameraModeCell = 4
                             Defaults.shared.isPic2ArtShowed = false
                             if let tooltipViewController = R.storyboard.loginViewController.tooltipViewController() {
                                 tooltipViewController.pushFromSettingScreen = true
@@ -2827,7 +2833,7 @@ extension StoryCameraViewController {
     }
     
     func setAppModeBasedOnUserSync(){
-            //
+        Defaults.shared.allowFullAccess = true
             if Defaults.shared.allowFullAccess ?? false == true{
                 Defaults.shared.appMode = .basic
             }else if (Defaults.shared.subscriptionType == "trial"){
