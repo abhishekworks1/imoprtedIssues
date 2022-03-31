@@ -378,7 +378,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             case .authorized: //access contacts
                 self.showLoader()
                 contactPermitView.isHidden = true
-                self.getContactList()
+                self.getContactList(firstTime:true)
                 break
             case .denied, .notDetermined:
                 break //request permission
@@ -533,7 +533,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }
         }
     }
-    func getContactList(source:String = "mobile",page:Int = 1,limit:Int = 20,filter:String = ContactStatus.all,hide:Bool = false){
+    func getContactList(source:String = "mobile",page:Int = 1,limit:Int = 20,filter:String = ContactStatus.all,hide:Bool = false,firstTime:Bool = false){
         
         var searchText = searchBar.text!
         let contactType = selectedContactType
@@ -564,6 +564,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                    
                 
                 let contacts = Mapper<ContactResponse>().mapArray(JSONArray:value)
+                if contacts.count == 0 && firstTime{
+                    self.syncButtonClicked(sender:self.syncButton)
+                    return
+                }
                 if page == 1{
                     if self.selectedContactType == ContactType.mobile{
                         self.allmobileContactsForHide = [ContactResponse]()
@@ -1527,7 +1531,7 @@ extension ContactImportVC:UIScrollViewDelegate{
             print(offsetY >= contentHeight - scrollView.frame.height)
             print(!loadingStatus)
             if (offsetY >= contentHeight - scrollView.frame.height) && !loadingStatus {
-                self.showLoader()
+              //  self.showLoader()
                 let page = (selectedContactType == ContactType.mobile) ? self.mobileContacts.count : self.emailContacts.count
                 self.getContactList(page: page, filter: self.selectedFilter)
             }
