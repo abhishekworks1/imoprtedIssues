@@ -622,7 +622,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             print(response)
             switch (response.result) {
             case .success:
-                self.showLoader()
+              //  self.showLoader()
                // self.mobileContacts.remove(at:index)
                 self.selectedFilter = ContactStatus.all
                 self.getContactList()
