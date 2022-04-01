@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="AtK-B9-Jht">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="AtK-B9-Jht">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -1563,9 +1563,26 @@
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bbp-Wh-e0v">
+                                        <rect key="frame" x="290" y="0.0" width="35" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="35" id="2VA-dB-yKh"/>
+                                            <constraint firstAttribute="height" constant="35" id="pkh-1t-lzJ"/>
+                                        </constraints>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="multiply" catalog="system" title=" ">
+                                            <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="didTapCloseButtonBusiessDashboard:" destination="aJT-JN-hbU" eventType="touchUpInside" id="gbA-W2-sKs"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="bbp-Wh-e0v" firstAttribute="top" secondItem="WI1-3t-B7u" secondAttribute="top" id="1Yd-8z-0Pp"/>
+                                    <constraint firstAttribute="trailing" secondItem="bbp-Wh-e0v" secondAttribute="trailing" id="6z8-CS-8WN"/>
                                     <constraint firstItem="KoP-hi-pyJ" firstAttribute="leading" secondItem="WI1-3t-B7u" secondAttribute="leading" constant="15" id="8L4-7Z-bcD"/>
                                     <constraint firstAttribute="trailing" secondItem="eu5-Fq-2Yl" secondAttribute="trailing" id="8dY-qj-zR8"/>
                                     <constraint firstItem="eu5-Fq-2Yl" firstAttribute="top" secondItem="KoP-hi-pyJ" secondAttribute="bottom" id="HXp-pP-mdg"/>
@@ -2299,13 +2316,13 @@ Countdown</string>
                                     </mask>
                                 </variation>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mvA-z9-clC">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mvA-z9-clC">
                                 <rect key="frame" x="0.0" y="44" width="375" height="768"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BTb-8L-0rx">
                                         <rect key="frame" x="20" y="274" width="335" height="220"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Are you sure you want discard all changes?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H7k-ca-gBE">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Are you sure you want to discard all segments?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H7k-ca-gBE">
                                                 <rect key="frame" x="15" y="24.999999999999996" width="305" height="45.666666666666657"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="19"/>
                                                 <color key="textColor" name="Active2"/>
@@ -2375,7 +2392,7 @@ Countdown</string>
                                                                     <constraint firstAttribute="width" constant="100" id="YKl-Bt-QGz"/>
                                                                 </constraints>
                                                                 <state key="normal" title="Button"/>
-                                                                <buttonConfiguration key="configuration" style="plain" title="YES">
+                                                                <buttonConfiguration key="configuration" style="plain" title="Yes">
                                                                     <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="16"/>
                                                                     <color key="baseForegroundColor" name="Active1"/>
                                                                 </buttonConfiguration>
@@ -2399,7 +2416,7 @@ Countdown</string>
                                                                     <constraint firstAttribute="width" constant="100" id="WGN-zA-l83"/>
                                                                 </constraints>
                                                                 <state key="normal" title="Button"/>
-                                                                <buttonConfiguration key="configuration" style="plain" title="NO">
+                                                                <buttonConfiguration key="configuration" style="plain" title="No">
                                                                     <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="16"/>
                                                                     <color key="baseForegroundColor" name="Active1"/>
                                                                 </buttonConfiguration>
@@ -7990,7 +8007,7 @@ Countdown</string>
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set Privacy" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oA9-xx-zBn">
-                                                    <rect key="frame" x="136" y="21" width="87.333333333333314" height="19.333333333333329"/>
+                                                    <rect key="frame" x="139" y="21.333333333333329" width="81" height="18.666666666666671"/>
                                                     <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="16"/>
                                                     <color key="textColor" name="AppPrimaryColor"/>
                                                     <nil key="highlightedColor"/>
@@ -8045,7 +8062,7 @@ Countdown</string>
                                                             </userDefinedRuntimeAttributes>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M9R-yY-caW">
-                                                            <rect key="frame" x="95" y="28.666666666666671" width="34.666666666666657" height="18"/>
+                                                            <rect key="frame" x="95" y="28.666666666666671" width="31.666666666666671" height="17.666666666666671"/>
                                                             <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="15"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -8430,6 +8447,7 @@ Countdown</string>
         <image name="iconSwitchApp" width="31" height="32"/>
         <image name="icon_fps" width="33" height="33"/>
         <image name="iosbadge" width="165" height="163"/>
+        <image name="multiply" catalog="system" width="128" height="111"/>
         <image name="openFilter" width="34" height="34"/>
         <image name="outtakes" width="38" height="38"/>
         <image name="oval" width="18" height="18"/>
@@ -8474,7 +8492,7 @@ Countdown</string>
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
-            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="hideWatermarkBackgroundColor">
             <color red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
