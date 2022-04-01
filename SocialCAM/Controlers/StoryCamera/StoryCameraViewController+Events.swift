@@ -105,7 +105,8 @@ extension StoryCameraViewController {
         if isVideoRecording {
             nextLevel.torchMode = NextLevelTorchMode(rawValue: flashMode.rawValue) ?? .auto
         }
-        Defaults.shared.callHapticFeedback(isHeavy: false)
+        //cg
+//        Defaults.shared.callHapticFeedback(isHeavy: false)
         Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_flash)
     }
     

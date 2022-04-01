@@ -1065,7 +1065,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     
     @IBAction func didTapClearAllSegments(_ sender: UIButton) {
         isDiscardSingleSegment = false
-        discardTextMessageLabel.text = "Are you sure you want discard all changes?"
+        discardTextMessageLabel.text = R.string.localizable.discardAllTitle()
         discardCheckAndUnCheckBoxImageView.isHidden = false
         signleDiscardCheckBoxClickImageView.isHidden = true
         isDiscardCheckBoxClicked = UserDefaults.standard.bool(forKey: "isDiscardCheckBoxClicked")
