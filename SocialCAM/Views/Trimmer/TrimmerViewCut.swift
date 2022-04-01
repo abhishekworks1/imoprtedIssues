@@ -281,6 +281,8 @@ open class TrimmerViewCut: UIView {
         thumbsView.layer.masksToBounds = true
         thumbsView.translatesAutoresizingMaskIntoConstraints = false
         thumbsView.isUserInteractionEnabled = true
+        thumbsView.layer.borderWidth = 3.0
+        thumbsView.layer.borderColor = ApplicationSettings.appWhiteColor.cgColor
         return thumbsView
     }()
     
@@ -288,7 +290,7 @@ open class TrimmerViewCut: UIView {
     
     // Return the minimum distance between the left and right view expressed in seconds
     open var minimumDistanceBetweenDraggableViews: CGFloat? {
-        return CGFloat(minVideoDurationAfterTrimming)
+        return CGFloat(0.1)
             * thumbnailsView.durationSize
             / CGFloat(thumbnailsView.videoDuration.seconds)
     }
@@ -613,6 +615,9 @@ open class TrimmerViewCut: UIView {
         setupTimePointer()
         setupPanGestures()
         minDistanceUpdate()
+        
+        bringSubviewToFront(rightDraggableView)
+        bringSubviewToFront(leftDraggableView)
     }
     
     private func minDistanceUpdate() {
@@ -622,7 +627,8 @@ open class TrimmerViewCut: UIView {
     
     private func setupTimePointer() {
         if isTimePointerVisible {
-            addSubview(timePointerView)
+            trimView.addSubview(timePointerView)
+//            addSubview(timePointerView)
             
             NSLayoutConstraint.activate([
                 timePointerViewHeightAnchor,
@@ -937,6 +943,12 @@ open class TrimmerViewCut: UIView {
         timePointerViewLeadingAnchor.constant = 0
     }
     
+    /// Fix  the pointer near the Right draggable view
+    open func fixPlaceTimePointer() {
+        print(trimView.frame.width)
+        timePointerViewLeadingAnchor.constant = trimView.frame.width
+        
+    }
 }
 
 private func clamp<T: Comparable>(_ number: T, _ minimum: T, _ maximum: T) -> T {

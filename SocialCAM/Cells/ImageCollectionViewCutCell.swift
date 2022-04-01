@@ -20,7 +20,8 @@ class ImageCollectionViewCutCell: UICollectionViewCell {
     @IBOutlet weak var lblVideoDuration: UILabel!
     @IBOutlet weak var lblVideoersiontag: UILabel!
     @IBOutlet weak var trimmerView: TrimmerViewCut!
-    var remainTimeMiliS: Int = 0
+    @IBOutlet weak var segmentCountLabel: UILabel!
+    var remainTimeMiliS: String = ""
     public var leftTopView: UIView = {
         let leftTopView = UIImageView.init(image: R.image.trim_leftWhite())
         leftTopView.frame = .zero
@@ -82,7 +83,7 @@ class ImageCollectionViewCutCell: UICollectionViewCell {
             borderWidth = 3
             self.lblVideoersiontag.isHidden = false
         } else {
-            borderColor = ApplicationSettings.appBorderColor.cgColor
+            borderColor = ApplicationSettings.appWhiteColor.cgColor
             borderWidth = 3
             self.lblVideoersiontag.isHidden = true
         }
@@ -184,18 +185,18 @@ class ImageCollectionViewCutCell: UICollectionViewCell {
         addSubview(rightTopView)
         
         let leftTopViewWidthAnchor = leftTopView.widthAnchor
-            .constraint(equalToConstant: 23)
+            .constraint(equalToConstant: 30)
         let leftTopViewHeightAnchor = leftTopView.heightAnchor
-            .constraint(equalToConstant: 23)
+            .constraint(equalToConstant: 30)
         let leftTopViewTopAnchor = leftTopView.topAnchor
             .constraint(equalTo: topAnchor, constant: 140)
         let leftTopViewLeadingAnchor = leftTopView.leadingAnchor
             .constraint(equalTo: self.trimmerView.leadingAnchor, constant: 0)
         
         let rightTopViewWidthAnchor = rightTopView.widthAnchor
-            .constraint(equalToConstant: 23)
+            .constraint(equalToConstant: 30)
         let rightTopViewHeightAnchor = rightTopView.heightAnchor
-            .constraint(equalToConstant: 23)
+            .constraint(equalToConstant: 30)
         let rightTopViewTopAnchor = rightTopView.topAnchor
             .constraint(equalTo: topAnchor, constant: 140)
         let rightTopViewLeadingAnchor = rightTopView.trailingAnchor
@@ -273,15 +274,16 @@ class ImageCollectionViewCutCell: UICollectionViewCell {
         } else {
             startT = time.seconds - startPipe.seconds
         }
-        let (_, progressTimeS) = Utils.secondsToHoursMinutesSeconds(Int(Float(startT).roundToPlaces(places: 0)))
-        let progressTimeMiliS = Utils.secondsToMiliseconds(startT)
-        let endT = asset.duration.seconds - startPipe.seconds - (asset.duration.seconds - endPipe.seconds)
-        let (_, totalTimeS) = Utils.secondsToHoursMinutesSeconds(Int(Float(endT).roundToPlaces(places: 0)))
-        let totalTimeMiliS = Utils.secondsToMiliseconds(endT)
-        self.lblVideoersiontag.font = UIFont.systemFont(ofSize: 12, weight: .bold)
-        self.lblVideoDuration.text = "\((progressTimeS > 0) ? progressTimeS : 0).\((progressTimeMiliS > 0) ? progressTimeMiliS : 0) / \(totalTimeS).\(totalTimeMiliS)"
-        remainTimeMiliS = totalTimeS
-
+        let progressTime = startT
+        var newProgressTime = String(format: "%.1f", progressTime)
+        if newProgressTime == "-0.0" || newProgressTime == "-0.1" || newProgressTime == "-0.2" || newProgressTime == "-0.3" || newProgressTime == "-0.4" || newProgressTime == "-0.5" {
+            newProgressTime = "0.0"
+        }
+        let totalTime = endPipe.seconds - startPipe.seconds
+        let newFinalTime = String(format: "%.1f", totalTime)
+        let fullTime = "\(newProgressTime) / \(newFinalTime)"
+        self.lblVideoDuration.font = UIFont.systemFont(ofSize: 12, weight: .bold)
+        self.lblVideoDuration.text = fullTime
     }
     
     func hideLeftRightHandle() {

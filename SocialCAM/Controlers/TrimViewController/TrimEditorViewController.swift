@@ -45,6 +45,7 @@ class TrimEditorViewController: UIViewController {
     @IBOutlet weak var resequenceButton: UIButton!
     @IBOutlet weak var resequenceLabel: UILabel!
     
+    var isLeftGesture = true
     var isOriginalSequence = false
     var isFromSplitView = false
     var undoMgr = MyUndoManager<Void>()
@@ -54,6 +55,7 @@ class TrimEditorViewController: UIViewController {
     var draggingCell: IndexPath?
     var lastMergeCell: IndexPath?
     var isStartMovable: Bool = false
+    var isScrubbingDidChange = false
     
     // MARK: - Public Properties
     var videoUrls: [StoryEditorMedia] = []
@@ -233,14 +235,46 @@ class TrimEditorViewController: UIViewController {
                     cell.trimmerView.seek(to: playBackTime)
                     seek(to: CMTime.init(seconds: playBackTime.seconds, preferredTimescale: 10000), cell: cell, startPipe: startTime, endPipe: endTime)
                     
-                    if playBackTime >= endTime {
-                        player.seek(to: startTime, toleranceBefore: tolerance, toleranceAfter: tolerance)
-                        cell.trimmerView.seek(to: startTime)
-                        seek(to: CMTime.init(seconds: startTime.seconds, preferredTimescale: 10000), cell: cell, startPipe: startTime, endPipe: endTime)
-                        cell.trimmerView.resetTimePointer()
-                        btnPlayPause.isSelected = false
-                        player.pause()
+                    if !isScrubbingDidChange {
+                        if playBackTime >= endTime {
+                            player.seek(to: startTime, toleranceBefore: tolerance, toleranceAfter: tolerance)
+                            cell.trimmerView.seek(to: startTime)
+                            seek(to: CMTime.init(seconds: startTime.seconds, preferredTimescale: 10000), cell: cell,startPipe: startTime, endPipe: endTime)
+                            cell.trimmerView.resetTimePointer()
+                            if isLeftGesture {
+                                if !isScrubbingDidChange {
+                                    btnPlayPause.isSelected = true
+                                    player.play()
+                                } else {
+                                    btnPlayPause.isSelected = false
+                                    player.pause()
+                                }
+                            } else {
+                                btnPlayPause.isSelected = true
+                                player.play()
+                            }
+                        }
+                    } else {
+                        
+                        if playBackTime >= endTime {
+                            seek(to: CMTime.init(seconds: startTime.seconds, preferredTimescale: 10000), cell: cell,startPipe: startTime, endPipe: endTime)
+                            btnPlayPause.isSelected = false
+                            player.pause()
+                        }
                     }
+//                    if playBackTime >= endTime {
+//                        player.seek(to: startTime, toleranceBefore: tolerance, toleranceAfter: tolerance)
+//                        cell.trimmerView.seek(to: startTime)
+//                        seek(to: CMTime.init(seconds: startTime.seconds, preferredTimescale: 10000), cell: cell, startPipe: startTime, endPipe: endTime)
+//                        cell.trimmerView.resetTimePointer()
+//                        if isLeftGesture {
+//                            btnPlayPause.isSelected = false
+//                            player.pause()
+//                        } else {
+//                            btnPlayPause.isSelected = true
+//                            player.play()
+//                        }
+//                    }
                 }
             }
         }
@@ -499,6 +533,7 @@ extension TrimEditorViewController: TrimmerViewDelegate {
     }
     
     func trimmerDidEndDragging(_ trimmer: TrimmerView, with startTime: CMTime, endTime: CMTime, isLeftGesture: Bool) {
+        self.isLeftGesture = isLeftGesture
         if let player = player {
             isStartMovable = false
             DispatchQueue.main.async {
@@ -528,6 +563,7 @@ extension TrimEditorViewController: TrimmerViewDelegate {
     }
     
     func trimmerScrubbingDidChange(_ trimmer: TrimmerView, with currentTimeScrub: CMTime) {
+        isScrubbingDidChange = true
         if let player = player {
             player.seek(to: currentTimeScrub, toleranceBefore: tolerance, toleranceAfter: tolerance)
             if player.timeControlStatus == .playing {
@@ -539,10 +575,12 @@ extension TrimEditorViewController: TrimmerViewDelegate {
                 }
                 cell.trimmerView.seek(to: currentTimeScrub)
                 
-                if currentTimeScrub >= endTime {
-                    cell.trimmerView.seek(to: startTime)
-                    cell.trimmerView.resetTimePointer()
-                }
+//                if btnPlayPause.isSelected {
+//                    if currentTimeScrub >= endTime {
+//                        cell.trimmerView.seek(to: startTime)
+//                        cell.trimmerView.resetTimePointer()
+//                    }
+//                }
             }
         }
     }
@@ -926,7 +964,7 @@ extension TrimEditorViewController {
             } else {
                 player.play()
                 btnPlayPause.isSelected = true
-                
+                isScrubbingDidChange = false
                 //                doneView.alpha = 0.5
                 //                doneView.isUserInteractionEnabled = false
             }

@@ -25,6 +25,7 @@ struct ContactStatus{
     static let subscriber = "subscriber"
     static let optout = "optout"
     static let all = "all"
+    static let hidden = "hidden"
 }
 class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSource, contactCelldelegate , MFMessageComposeViewControllerDelegate , MFMailComposeViewControllerDelegate , UISearchBarDelegate, UINavigationControllerDelegate {
     
@@ -110,7 +111,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var contactSentConfirmPopup: UIView!
     var isIncludeProfileImg = Defaults.shared.includeProfileImgForShare
     var isIncludeQrImg = Defaults.shared.includeQRImgForShare
-
+    @IBOutlet weak var syncButton: UIButton!
     @IBOutlet weak var contactPermitView: UIView!
     @IBOutlet weak var contactTableView: UITableView!
     @IBOutlet weak var emailContactTableView: UITableView!
@@ -133,6 +134,11 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     var selectedFilter:String = ContactStatus.all
     var loadingView: LoadingView? = LoadingView.instanceFromNib()
     var selectedContactType:String = ContactType.mobile
+    
+    let themeBlueColor = UIColor(hexString:"4F2AD8")
+    let logoImage = UIImage(named:"qr_applogo")
+    private var lastContentOffset: CGFloat = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -179,8 +185,12 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             self.imgProfilePic.layer.cornerRadius = imgProfilePic.bounds.width / 2
             self.imgProfilePic.contentMode = .scaleAspectFill
         }
-        if let qrImageURL = Defaults.shared.currentUser?.qrcode {
-            self.imageQrCode.sd_setImage(with: URL.init(string: qrImageURL), placeholderImage: nil)
+//        if let qrImageURL = Defaults.shared.currentUser?.qrcode {
+//            self.imageQrCode.sd_setImage(with: URL.init(string: qrImageURL), placeholderImage: nil)
+//        }
+        if let referralPage = Defaults.shared.currentUser?.referralPage {
+            let image =  URL(string: referralPage)?.qrImage(using: themeBlueColor, logo: logoImage)
+            self.imageQrCode.image = image?.convert()
         }
         self.btnIncludeProfileImg.isSelected = Defaults.shared.includeProfileImgForShare == true
         self.btnIncludeQrImg.isSelected = Defaults.shared.includeQRImgForShare == true
@@ -200,6 +210,17 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
         setUpbadges()
         
+        textMessageButton.setTitleColor(ApplicationSettings.appPrimaryColor, for: .normal)
+        textMessageSeperatorView.backgroundColor = ApplicationSettings.appPrimaryColor
+        textMessageSeperatorViewHeight.constant = 3.0
+        
+        emailButton.setTitleColor(UIColor(hexString: "676767"), for: .normal)
+        emailSeperatorView.backgroundColor = UIColor(hexString: "676767")
+        emailSeperatorViewHeight.constant = 1.0
+        selectedContactType = ContactType.mobile
+        self.emailContactTableView.isHidden = true
+        self.contactTableView.isHidden = false
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated) // No need for semicolon
@@ -209,6 +230,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         filterOptionView.isHidden = true
       //  let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
       //  self.view.addGestureRecognizer(tap)
+      //  self.syncButtonClicked(sender:self.syncButton)
         self.textMessageSelected(sender:self.textMessageButton)
     }
     @objc func handleTap(_ sender: UITapGestureRecognizer? = nil) {
@@ -356,7 +378,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             case .authorized: //access contacts
                 self.showLoader()
                 contactPermitView.isHidden = true
-                self.getContactList()
+                self.getContactList(firstTime:true)
                 break
             case .denied, .notDetermined:
                 break //request permission
@@ -511,7 +533,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }
         }
     }
-    func getContactList(source:String = "mobile",page:Int = 1,limit:Int = 20,filter:String = ContactStatus.all){
+    func getContactList(source:String = "mobile",page:Int = 1,limit:Int = 20,filter:String = ContactStatus.all,hide:Bool = false,firstTime:Bool = false){
         
         var searchText = searchBar.text!
         let contactType = selectedContactType
@@ -540,8 +562,22 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     self.hideLoader()
                     return }
                    
+                if page == 1{
+                    if self.selectedContactType == ContactType.mobile{
+                        self.allmobileContactsForHide = [ContactResponse]()
+                        self.mobileContacts = [ContactResponse]()
+                        self.allmobileContacts = [ContactResponse]()
+                    }else{
+                        self.allemailContactsForHide = [ContactResponse]()
+                        self.emailContacts = [ContactResponse]()
+                    }
+                }
                 
                 let contacts = Mapper<ContactResponse>().mapArray(JSONArray:value)
+                if contacts.count == 0 && firstTime{
+                    self.syncButtonClicked(sender:self.syncButton)
+                    return
+                }
                 if page == 1{
                     if self.selectedContactType == ContactType.mobile{
                         self.allmobileContactsForHide = [ContactResponse]()
@@ -555,20 +591,38 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 print(contacts.count)
                 if self.selectedContactType == ContactType.mobile{
                     self.allmobileContactsForHide.append(contentsOf:contacts)
-                    self.mobileContacts.append(contentsOf:contacts.filter {$0.hide == false})
+                    self.mobileContacts.append(contentsOf:contacts.filter {$0.hide == hide})
+                    let unhideContacts = contacts.filter {$0.hide == hide}
+                  
+                    if self.mobileContacts.count < 10 || unhideContacts.count == 0{
+                      
+                        self.getContactList(page: self.allmobileContactsForHide.count, filter: filter)
+                        return
+                    }
+                   // self.mobileContacts.append(contentsOf:contacts.filter {$0.hide == hide})
+                  // self.mobileContacts.append(contentsOf:contacts)
                     self.allmobileContacts = self.mobileContacts
                     DispatchQueue.main.async {
                         self.contactTableView.reloadData()
                     }
                 }else{
                     self.allemailContactsForHide.append(contentsOf:contacts)
-                    self.emailContacts.append(contentsOf:contacts.filter {$0.hide == false})
+                    self.emailContacts.append(contentsOf:contacts.filter {$0.hide == hide})
+                    let unhideContacts = contacts.filter {$0.hide == hide}
+                    if self.emailContacts.count < 10 || unhideContacts.count == 0{
+                        self.getContactList(page: self.allemailContactsForHide.count, filter: filter)
+                        return
+                    }
+                    
                     DispatchQueue.main.async {
                         self.emailContactTableView.reloadData()
                     }
                 }
                 self.hideLoader()
-                self.loadingStatus = false
+                DispatchQueue.main.asyncAfter(deadline:.now() + 0.5) {
+                    self.loadingStatus = false
+                }
+               
                 break
                
             case .failure(let error):
@@ -581,9 +635,15 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
 
     }
-    func hideContact(contact:ContactResponse,index:Int){
+    func hideContact(contact:ContactResponse,index:Int,hide:Bool = true){
         print(contact.toJSON())
-        let path = API.shared.baseUrlV2 + "contact-list/\(contact.Id ?? "")/user?action=hide"
+        var isHide = "unhide"
+        if hide{
+            isHide = "unhide"
+        }else{
+            isHide = "hide"
+        }
+        let path = API.shared.baseUrlV2 + "contact-list/\(contact.Id ?? "")/user?action=\(isHide)"
         print(path)
         var request = URLRequest(url:URL(string:path)!)
         //some header examples
@@ -597,9 +657,14 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             print(response)
             switch (response.result) {
             case .success:
-                self.showLoader()
+              //  self.showLoader()
                // self.mobileContacts.remove(at:index)
-                
+                if hide{
+                    self.selectedFilter = ContactStatus.hidden
+                }else{
+                    self.selectedFilter = ContactStatus.all
+                }
+               // self.selectedFilter = ContactStatus.all
                 self.getContactList()
                 break
                
@@ -637,6 +702,13 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 if let indexAllHidden = self.allmobileContactsForHide.firstIndex(where: {$0.Id == self.selectedContact?.Id}){
                     self.allmobileContactsForHide[indexAllHidden].status = ContactStatus.invited
                 }
+                if let indexMobile = self.emailContacts.firstIndex(where: {$0.Id == self.selectedContact?.Id}){
+                    self.emailContacts[indexMobile].status = ContactStatus.invited
+                }
+                if let indexAllHidden = self.allemailContactsForHide.firstIndex(where: {$0.Id == self.selectedContact?.Id}){
+                    self.allemailContactsForHide[indexAllHidden].status = ContactStatus.invited
+                }
+                self.emailContactTableView.reloadData()
                 self.contactTableView.reloadData()
                 self.hideLoader()
                 break
@@ -769,45 +841,46 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         switch sender.tag {
         case 1:
             self.selectedFilter = ContactStatus.all
-            self.showLoader()
+           // self.showLoader()
             self.getContactList( page:1,filter:ContactStatus.all)
             break
         case 2:
             self.selectedFilter = ContactStatus.recent
-            self.showLoader()
+           // self.showLoader()
             self.getContactList( page:1,filter:ContactStatus.recent)
             break
         case 3:
             self.selectedFilter = ContactStatus.pending
-            self.showLoader()
+           // self.showLoader()
             self.getContactList( page:1,filter:ContactStatus.pending)
             break
         case 4:
             self.selectedFilter = ContactStatus.invited
-            self.showLoader()
+            //self.showLoader()
             self.getContactList( page:1,filter:ContactStatus.invited)
             break
         case 5:
             break
         case 6:
             self.selectedFilter = ContactStatus.signedup
-            self.showLoader()
+           // self.showLoader()
             self.getContactList( page:1,filter:ContactStatus.signedup)
             break
         case 7:
             self.selectedFilter = ContactStatus.subscriber
-            self.showLoader()
+           // self.showLoader()
             self.getContactList( page:1,filter:ContactStatus.subscriber)
             break
         case 8:
             self.selectedFilter = ContactStatus.optout
-            self.showLoader()
+          //  self.showLoader()
             self.getContactList( page:1,filter:ContactStatus.optout)
             break
         case 9:
-            self.selectedFilter = ContactStatus.all
-            self.mobileContacts =  self.allmobileContactsForHide.filter {$0.hide == true}
-            contactTableView.reloadData()
+            //hidden
+            self.selectedFilter = ContactStatus.hidden
+          //  self.showLoader()
+            self.getContactList( page:1,filter:ContactStatus.hidden,hide:true)
             break
         default:
             mobileContacts = allmobileContacts
@@ -907,7 +980,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     view.addSubview(label)
                 }
             }
-            return view
+            return nil
         }
     }
     
@@ -1053,14 +1126,16 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             if indexPath.section == 1{
                 return UISwipeActionsConfiguration(actions: [])
             }
+            let ishide = self.emailContacts[indexPath.row].hide ?? false
             let editAction = UIContextualAction(style: .normal, title:  nil, handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
                   
-                self.hideContact(contact:self.emailContacts[indexPath.row],index:indexPath.row)
+                self.hideContact(contact:self.emailContacts[indexPath.row],index:indexPath.row,hide:ishide)
                    success(true)
                })
-             editAction.image = UISwipeActionsConfiguration.makeTitledImage(
-                image: #imageLiteral(resourceName: "hide"),
-                title: "Hide")
+            let title = !ishide ? "Hide" : "Unhide"
+            editAction.image = UISwipeActionsConfiguration.makeTitledImage(
+               image: #imageLiteral(resourceName: "hide"),
+               title: title)
              
             editAction.backgroundColor = #colorLiteral(red: 0.9156094193, green: 0.945283711, blue: 1, alpha: 1)
             let swipeActions = UISwipeActionsConfiguration(actions: [editAction])
@@ -1070,16 +1145,17 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             if indexPath.section == 1{
                 return UISwipeActionsConfiguration(actions: [])
             }
+            let ishide = self.mobileContacts[indexPath.row].hide ?? false
             let editAction = UIContextualAction(style: .normal, title:  nil, handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
                   
-                self.hideContact(contact:self.mobileContacts[indexPath.row],index:indexPath.row)
+                self.hideContact(contact:self.mobileContacts[indexPath.row],index:indexPath.row,hide:ishide)
                    success(true)
                })
               
-           
+             let title = !ishide ? "Hide" : "Unhide"
              editAction.image = UISwipeActionsConfiguration.makeTitledImage(
                 image: #imageLiteral(resourceName: "hide"),
-                title: "Hide")
+                title: title)
              
             editAction.backgroundColor = #colorLiteral(red: 0.9156094193, green: 0.945283711, blue: 1, alpha: 1)
             let swipeActions = UISwipeActionsConfiguration(actions: [editAction])
@@ -1112,6 +1188,11 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     // MARK: - Searchbar delegate
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar){
+        if searchBar.text == ""{
+            searchBar.resignFirstResponder()
+        }
+    }
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
          self.searchBar.showsCancelButton = true
          self.filterOptionView.isHidden = true
@@ -1235,7 +1316,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     func cutomHeaderView(title:String) -> UILabel {
         let label = UILabel()
-        label.frame = CGRect(x: 15,y: 6,width: 200,height: 20)
+        label.frame = CGRect(x: 15,y: 6,width: 200,height: 0)
         label.text = title
         label.textAlignment = .natural
         label.textColor = UIColor(red:0.36, green:0.36, blue:0.36, alpha:1.0)
@@ -1421,7 +1502,43 @@ extension ContactImportVC:UIScrollViewDelegate{
     //Pagination
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         self.filterOptionView.isHidden = true
+       
+        /*     let actualPosition = scrollView.panGestureRecognizer.translation(in: scrollView.superview)
+         if (actualPosition.y > 0){
+            // Dragging down
+            UIView.animate(withDuration: 0.5, animations: {
+                self.segmentViewHeight.constant = 84.0
+                self.stepViewHeight.constant = 50.0
+                    self.view.layoutIfNeeded()
+            })
+        }else{
+            // Dragging up
+            UIView.animate(withDuration: 0.5, animations: {
+                self.segmentViewHeight.constant = 0.0
+                self.stepViewHeight.constant = 0.0
+                    self.view.layoutIfNeeded()
+            })
+        }
         
+        if (self.lastContentOffset > scrollView.contentOffset.y) {
+                // move up
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.segmentViewHeight.constant = 84.0
+                    self.stepViewHeight.constant = 50.0
+                        self.view.layoutIfNeeded()
+                })
+            }
+            else if (self.lastContentOffset < scrollView.contentOffset.y) {
+               // move down
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.segmentViewHeight.constant = 0.0
+                    self.stepViewHeight.constant = 0.0
+                        self.view.layoutIfNeeded()
+                })
+            }
+
+            // update the new position acquired
+            self.lastContentOffset = scrollView.contentOffset.y */
     }
     /*  func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
         if scrollView == contactTableView || scrollView == emailContactTableView{
@@ -1453,7 +1570,7 @@ extension ContactImportVC:UIScrollViewDelegate{
             print(offsetY >= contentHeight - scrollView.frame.height)
             print(!loadingStatus)
             if (offsetY >= contentHeight - scrollView.frame.height) && !loadingStatus {
-                self.showLoader()
+              //  self.showLoader()
                 let page = (selectedContactType == ContactType.mobile) ? self.mobileContacts.count : self.emailContacts.count
                 self.getContactList(page: page, filter: self.selectedFilter)
             }
@@ -1464,7 +1581,7 @@ extension ContactImportVC:UIScrollViewDelegate{
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         if scrollView == contactTableView || scrollView == emailContactTableView{
-            let offsetY = scrollView.contentOffset.y
+         /*  let offsetY = scrollView.contentOffset.y
             print("offsetY \(offsetY)")
             if offsetY <= 84.0 + 50.0{
                 segmentViewHeight.constant = 84.0 - offsetY
@@ -1477,6 +1594,29 @@ extension ContactImportVC:UIScrollViewDelegate{
                 segmentViewHeight.constant = 0.0
                 stepViewHeight.constant = 0.0
             }
+            */
+            if self.loadingStatus{
+                return
+            }
+            if (self.lastContentOffset > scrollView.contentOffset.y) {
+                // move up
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.segmentViewHeight.constant = 84.0
+                    self.stepViewHeight.constant = 50.0
+                       // self.view.layoutIfNeeded()
+                })
+            }
+            else if (self.lastContentOffset < scrollView.contentOffset.y) {
+               // move down
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.segmentViewHeight.constant = 0.0
+                    self.stepViewHeight.constant = 0.0
+                       // self.view.layoutIfNeeded()
+                })
+            }
+
+            // update the new position acquired
+            self.lastContentOffset = scrollView.contentOffset.y //*/
         }
       
     }

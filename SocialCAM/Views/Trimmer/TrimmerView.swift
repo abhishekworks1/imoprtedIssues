@@ -140,7 +140,7 @@ open class TrimmerView: UIView {
         let view = UIView()
         view.frame = .zero
         view.backgroundColor = ApplicationSettings.appClearColor
-        view.layer.borderWidth = 2.0
+        view.layer.borderWidth = 3.0
         view.layer.cornerRadius = viewCornerRadius
         view.clipsToBounds = false
         view.layer.masksToBounds = true
@@ -282,6 +282,8 @@ open class TrimmerView: UIView {
         thumbsView.layer.masksToBounds = true
         thumbsView.translatesAutoresizingMaskIntoConstraints = false
         thumbsView.isUserInteractionEnabled = true
+        thumbsView.layer.borderWidth = 3.0
+        thumbsView.layer.borderColor = ApplicationSettings.appWhiteColor.cgColor
         return thumbsView
     }()
     

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -782,10 +783,10 @@
                                         </connections>
                                     </button>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hQ3-rH-WbZ" customClass="DragAndDropCollectionView" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="615" width="374" height="140"/>
+                                        <rect key="frame" x="20" y="565" width="374" height="160"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="140" id="vKC-XR-BLv"/>
+                                            <constraint firstAttribute="height" constant="160" id="vKC-XR-BLv"/>
                                         </constraints>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="nXq-x4-EHM">
                                             <size key="itemSize" width="41" height="98"/>
@@ -850,7 +851,7 @@
                                     <constraint firstItem="jNE-Xl-pHk" firstAttribute="top" secondItem="LaH-1Q-6xM" secondAttribute="bottom" constant="80" id="Y3k-qx-cdc"/>
                                     <constraint firstItem="S6m-Mh-Ptx" firstAttribute="height" secondItem="KCr-Ff-Y7S" secondAttribute="height" id="ZhL-vi-uXJ"/>
                                     <constraint firstItem="de9-ve-MUm" firstAttribute="leading" secondItem="PAl-yz-OHO" secondAttribute="leading" id="abl-a5-vJz"/>
-                                    <constraint firstItem="QY0-h1-waI" firstAttribute="top" secondItem="hQ3-rH-WbZ" secondAttribute="bottom" constant="-15" id="d9t-ZQ-F6Z"/>
+                                    <constraint firstItem="QY0-h1-waI" firstAttribute="top" secondItem="hQ3-rH-WbZ" secondAttribute="bottom" constant="15" id="d9t-ZQ-F6Z"/>
                                     <constraint firstItem="LaH-1Q-6xM" firstAttribute="leading" secondItem="PAl-yz-OHO" secondAttribute="leading" id="ePk-uy-AqE"/>
                                     <constraint firstItem="S6m-Mh-Ptx" firstAttribute="leading" secondItem="KCr-Ff-Y7S" secondAttribute="leading" id="eUC-vs-AUM"/>
                                     <constraint firstAttribute="trailing" secondItem="hQ3-rH-WbZ" secondAttribute="trailing" constant="20" id="eUf-IC-lQj"/>
@@ -1221,10 +1222,10 @@
                                         </variation>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V5B-aL-aGP">
-                                        <rect key="frame" x="0.0" y="20" width="56" height="60"/>
+                                        <rect key="frame" x="0.0" y="20" width="56" height="70"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qFh-PF-OqJ">
-                                                <rect key="frame" x="12" y="8" width="44" height="44"/>
+                                                <rect key="frame" x="12" y="13" width="44" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="pzD-nQ-G0Z"/>
                                                     <constraint firstAttribute="width" constant="44" id="ryO-HF-uF3"/>
@@ -1238,10 +1239,18 @@
                                                     <action selector="backButtonTapped:" destination="q2P-Bv-Tyf" eventType="touchUpInside" id="JjK-fB-3ia"/>
                                                 </connections>
                                             </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cancel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rwo-Vs-Ezz">
+                                                <rect key="frame" x="14" y="54" width="42" height="16"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <color key="textColor" name="Active1"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="60" id="LSX-Mv-alw"/>
+                                            <constraint firstAttribute="trailing" secondItem="rwo-Vs-Ezz" secondAttribute="trailing" id="H38-en-2O3"/>
+                                            <constraint firstAttribute="bottom" secondItem="rwo-Vs-Ezz" secondAttribute="bottom" id="KVy-GK-P0e"/>
+                                            <constraint firstAttribute="height" constant="70" id="LSX-Mv-alw"/>
                                             <constraint firstAttribute="trailing" secondItem="qFh-PF-OqJ" secondAttribute="trailing" id="Omq-Tx-MPO"/>
                                             <constraint firstItem="qFh-PF-OqJ" firstAttribute="leading" secondItem="V5B-aL-aGP" secondAttribute="leading" constant="12" id="a56-x4-gez"/>
                                             <constraint firstItem="qFh-PF-OqJ" firstAttribute="centerY" secondItem="V5B-aL-aGP" secondAttribute="centerY" id="pe5-gq-E5V"/>
@@ -2349,7 +2358,7 @@
                                         </connections>
                                     </button>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="u0p-TT-4gw" customClass="DragAndDropCollectionView" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="600" width="374" height="170"/>
+                                        <rect key="frame" x="20" y="585" width="374" height="170"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="170" id="Er1-nQ-8aL"/>
@@ -2377,10 +2386,10 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="G4S-rK-RYr" customClass="DragAndDropCollectionView" customModule="BoomiCam" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="755" width="374" height="95"/>
+                                        <rect key="frame" x="20" y="740" width="374" height="110"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="95" id="Wj9-oS-WJ0"/>
+                                            <constraint firstAttribute="height" constant="110" id="Wj9-oS-WJ0"/>
                                         </constraints>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="5" minimumInteritemSpacing="0.0" id="NHB-Nw-ZA0">
                                             <size key="itemSize" width="41" height="75"/>
@@ -2520,6 +2529,9 @@
         <image name="trimSplit" width="34" height="34"/>
         <image name="trimVideo" width="34" height="34"/>
         <image name="undo" width="20" height="20"/>
+        <namedColor name="Active1">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="tintColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

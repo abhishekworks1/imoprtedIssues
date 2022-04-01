@@ -212,6 +212,7 @@ class StoryEditorViewController: UIViewController {
     @IBOutlet weak var btnInstagram: UIButton!
     @IBOutlet weak var btnTwitter: UIButton!
     @IBOutlet weak var btnTiktok: UIButton!
+    @IBOutlet weak var lblSaveShare: UILabel!
     
     @IBOutlet weak var ivvwFacebook: UIImageView!
     @IBOutlet weak var ivvwYoutube: UIImageView!
@@ -336,6 +337,7 @@ class StoryEditorViewController: UIViewController {
     var isSagmentSelection = false
     var isCurrentAssetMuted = false
     var socialShareExportURL:URL?
+    var isShowToolTipView = false
     var isViewEditMode: Bool = false {
         didSet {
             editToolBarView.isHidden = isViewEditMode
@@ -369,6 +371,8 @@ class StoryEditorViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        videoProgressBar.timeSlider.layer.cornerRadius = videoProgressBar.timeSlider.frame.height/2
+        isShowToolTipView = UserDefaults.standard.bool(forKey: "isShowToolTipView")
         socialMediaViewTapGesture()
         if let isRegistered = Defaults.shared.isRegistered {
             if isRegistered {
@@ -414,7 +418,11 @@ class StoryEditorViewController: UIViewController {
         self.socialShareExportURL = nil
         self.socialMediaMainView.isHidden = true
         Defaults.shared.isEditSoundOff = false
-        
+        if cameraMode == .pic2Art {
+            lblSaveShare.text = R.string.localizable.savePic2art()
+        } else {
+            lblSaveShare.text = R.string.localizable.saveVideo()
+        }
     }
     
     
@@ -464,6 +472,7 @@ class StoryEditorViewController: UIViewController {
         super.viewDidAppear(animated)
         IQKeyboardManager.shared.enable = false
         IQKeyboardManager.shared.enableAutoToolbar = false
+        videoProgressBar.timeSlider.addTapGesture()
         videoProgressBar.layoutSubviews()
         isVideoPlay ? pauseVideo() : playVideo()
     }
@@ -890,10 +899,12 @@ extension StoryEditorViewController {
             self.currentStoryIndex = 0
             self.medias.removeAll()
             
-            for item in urls {
+            for (storyIndex, item) in urls.enumerated() {
+                let newIndex = storyIndex + 1
                 guard let storyEditorMedia = item.copy() as? StoryEditorMedia else {
                     return
                 }
+                storyEditorMedia.storyIndex = newIndex
                 self.medias.append(storyEditorMedia)
             }
             self.isVideoModified = true
@@ -1226,13 +1237,17 @@ extension StoryEditorViewController {
         hideToolBar(hide: false)
     }
     @IBAction func saveShareClicked(_ sender: UIButton) {
-        if Defaults.shared.isVideoSavedAfterRecording{
+        Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
+        referType = storyEditors[currentStoryIndex].referType
+        imageVideoExport(isDownload: true,isFromDoneTap:false)
+        btnSocialMediaBackClick(sender)
+        /*if Defaults.shared.isVideoSavedAfterRecording{
             Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
             referType = storyEditors[currentStoryIndex].referType
             imageVideoExport(isDownload: true,isFromDoneTap:true)
         }else{
             self.navigationController?.popViewController(animated: true)
-        }
+        } */
     }
   
     @IBAction func downloadClicked(_ sender: UIButton) {
@@ -1823,7 +1838,13 @@ extension StoryEditorViewController {
                 self.didSelect(type: QuickCam.SSUTagType.profilePicture, waitingListOptionType: nil, socialShareType: nil, screenType: SSUTagScreen.ssutTypes)
                 self.isSettingsChange = true
             }
-            openActionSheet()
+            if !isShowToolTipView {
+                openActionSheet()
+                isShowToolTipView = true
+                UserDefaults.standard.set(isShowToolTipView, forKey: "isShowToolTipView")
+            }
+            
+            
         } else {
             if let ssuTagSelectionViewController = R.storyboard.storyCameraViewController.ssuTagSelectionViewController() {
                 ssuTagSelectionViewController.delegate = self
@@ -1839,7 +1860,7 @@ extension StoryEditorViewController {
     func openActionSheet() {
         if Constant.Connectivity.isConnectedToInternet {
             if let selectLinkVC = R.storyboard.storyEditor.selectLinkViewController() {
-                selectLinkVC.modalPresentationStyle = .popover
+                selectLinkVC.modalPresentationStyle = .fullScreen
                 selectLinkVC.storyEditors = storyEditors
                 navigationController?.present(selectLinkVC, animated: true, completion: {
                     selectLinkVC.backgroundView.isUserInteractionEnabled = true
@@ -2102,11 +2123,17 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
             guard let _currentVideoAsset = medias[safe: indexPath.item]?.type else {
                 return storyEditorCell
             }
-            guard let newIndex = medias[safe: indexPath.item]?.storyIndex else {
-                return storyEditorCell
-            }
             
-            storyEditorCell.thumbnailNumberLabel.text = "\(newIndex)"
+            if isTrim == true {
+                guard let newIndex = medias[safe: indexPath.item]?.storyIndex else {
+                    return storyEditorCell
+                }
+                
+                storyEditorCell.thumbnailNumberLabel.text = "\(newIndex)"
+            } else {
+                storyEditorCell.thumbnailNumberLabel.text = "\(indexPath.item + 1)"
+            }
+           
             var avAsset: AVAsset?
             switch _currentVideoAsset {
             case .image:
@@ -2115,8 +2142,8 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
                 avAsset = asset
             }
             let seconds = Float(avAsset?.duration.seconds ?? 0.00)
-            let videoLenght = "\(seconds + 0.0)"
-            storyEditorCell.thumbnailTimeLabel.text = String(videoLenght.prefix(3))
+            let videoLenght = seconds
+            storyEditorCell.thumbnailTimeLabel.text = String(format: "%.1f", videoLenght)
             
              //String(format: "%s", avAsset?.duration.seconds)
             storyEditorCell.imageView.image = storyEditor.thumbnailImage
@@ -2404,7 +2431,7 @@ extension StoryEditorViewController {
       //  self.lblStoryTime.text = "\(progressTimeM):\(progressTimeS) / \(totalTimeM):\(totalTimeS)"
         
         if totalTimeMiliS == 0 {
-            self.lblStoryTime.text = "\(progressTimeS):\(progressTimeMiliS) / \(totalTimeS)"
+            self.lblStoryTime.text = "\(progressTimeS):\(progressTimeMiliS) / \(totalTimeS):0"
         } else {
             self.lblStoryTime.text = "\(progressTimeS):\(progressTimeMiliS) / \(totalTimeS):\(totalTimeMiliS)"
         }
@@ -2784,7 +2811,7 @@ extension StoryEditorViewController {
         }
     }
     
-    func shareWithActivity(url:URL? = nil,image:UIImage? = nil) {
+    func shareWithActivity(url:URL? = nil, image:UIImage? = nil) {
     
         var activityItems = [Any]()
         if let videoURL = url{
@@ -2793,6 +2820,7 @@ extension StoryEditorViewController {
         if let img = image{
             activityItems.append(img)
         }
+        
         let activityController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
 
         activityController.popoverPresentationController?.sourceView = self.view
@@ -2800,7 +2828,6 @@ extension StoryEditorViewController {
 
         self.present(activityController, animated: true, completion: nil)
     }
-    
 }
 
 enum SecurityError: Error {

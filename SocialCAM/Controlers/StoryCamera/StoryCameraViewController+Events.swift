@@ -17,7 +17,7 @@ extension StoryCameraViewController {
             isMute = !isMute
             setupMuteUI()
             Defaults.shared.isMicOn = isMute
-            Defaults.shared.callHapticFeedback(isHeavy: false)
+//            Defaults.shared.callHapticFeedback(isHeavy: false)
             if isMute {
                 Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_micOff)
 
@@ -105,7 +105,7 @@ extension StoryCameraViewController {
         if isVideoRecording {
             nextLevel.torchMode = NextLevelTorchMode(rawValue: flashMode.rawValue) ?? .auto
         }
-        Defaults.shared.callHapticFeedback(isHeavy: false)
+//        Defaults.shared.callHapticFeedback(isHeavy: false)
         Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_flash)
     }
     
@@ -143,7 +143,7 @@ extension StoryCameraViewController {
             }else{
                 Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_front)
             }
-            Defaults.shared.callHapticFeedback(isHeavy: false)
+//            Defaults.shared.callHapticFeedback(isHeavy: false)
             self.flipButton.isSelected = !self.flipButton.isSelected
             self.currentCameraPosition = (self.currentCameraPosition == .front) ? .back : .front
             self.setCameraPositionUI()
@@ -608,9 +608,13 @@ extension StoryCameraViewController {
                 if let asset = self.getRecordSession(videoModel: takenVideoUrls) as? AVURLAsset {
                     SCAlbum.shared.saveMovieToLibrary(movieURL: asset.url)
                 } else {
-                    for videoUrl in takenVideoUrls {
-                        if let url = videoUrl.url {
-                            SCAlbum.shared.saveMovieToLibrary(movieURL: url)
+                    var avAssetArray = [AVAsset]()
+                    let asset = self.getRecordSession(videoModel: takenVideoUrls)
+                    avAssetArray.removeAll()
+                    avAssetArray.append(asset)
+                    MeargeVide.mergeVideoArray(arrayVideos: avAssetArray) { (urlMeargeVide, error) in
+                        if let mergedVideoUrl = urlMeargeVide {
+                            SCAlbum.shared.saveMovieToLibrary(movieURL: mergedVideoUrl)
                         }
                     }
                 }
@@ -620,10 +624,37 @@ extension StoryCameraViewController {
     }
     
     @IBAction func discardSegementButtonClicked(_ sender: UIButton) {
+        isDiscardSingleSegment = true
+        discardTextMessageLabel.text = "Are you sure want to discard this segment?"
+        signleDiscardCheckBoxClickImageView.isHidden = false
+        discardCheckAndUnCheckBoxImageView.isHidden = true
+        isDiscardSingleCheckBoxClicked = UserDefaults.standard.bool(forKey: "isDiscardSingleCheckBoxClicked")
         Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
         if !self.takenVideoUrls.isEmpty {
-            showAlertOnDiscardVideoSegment()
+//            showAlertOnDiscardVideoSegment()
+            if isDiscardSingleCheckBoxClicked {
+                self.takenVideoUrls.removeLast()
+                self.totalVideoDuration.removeLast()
+                self.segmentsProgress.removeLast()
+                if let lastSegmentsprogress = self.segmentsProgress.last {
+                    self.progress = lastSegmentsprogress
+                } else {
+                    self.refreshCircularProgressBar()
+                    self.view.bringSubviewToFront(self.blurView)
+                    self.view.bringSubviewToFront(self.switchingAppView)
+                }
+                self.circularProgress.deleteLayer()
+                self.updateProgress()
+                if self.takenVideoUrls.isEmpty {
+                    self.discardSegmentButton.setImage(R.image.trimBack()?.alpha(0.5), for: .normal)
+                }
+            } else {
+                discardAllSegmentView.isHidden = false
+                view.bringSubviewToFront(discardAllSegmentView)
+            }
         }
+        
+        
     }
     
     @IBAction func btnNotYetTapped(_ sender: UIButton) {
