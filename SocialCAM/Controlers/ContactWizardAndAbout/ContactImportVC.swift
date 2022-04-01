@@ -378,7 +378,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             case .authorized: //access contacts
                 self.showLoader()
                 contactPermitView.isHidden = true
-                self.getContactList()
+                self.getContactList(firstTime:true)
                 break
             case .denied, .notDetermined:
                 break //request permission
@@ -533,7 +533,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }
         }
     }
-    func getContactList(source:String = "mobile",page:Int = 1,limit:Int = 20,filter:String = ContactStatus.all,hide:Bool = false){
+    func getContactList(source:String = "mobile",page:Int = 1,limit:Int = 20,filter:String = ContactStatus.all,hide:Bool = false,firstTime:Bool = false){
         
         var searchText = searchBar.text!
         let contactType = selectedContactType
@@ -562,8 +562,22 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     self.hideLoader()
                     return }
                    
+                if page == 1{
+                    if self.selectedContactType == ContactType.mobile{
+                        self.allmobileContactsForHide = [ContactResponse]()
+                        self.mobileContacts = [ContactResponse]()
+                        self.allmobileContacts = [ContactResponse]()
+                    }else{
+                        self.allemailContactsForHide = [ContactResponse]()
+                        self.emailContacts = [ContactResponse]()
+                    }
+                }
                 
                 let contacts = Mapper<ContactResponse>().mapArray(JSONArray:value)
+                if contacts.count == 0 && firstTime{
+                    self.syncButtonClicked(sender:self.syncButton)
+                    return
+                }
                 if page == 1{
                     if self.selectedContactType == ContactType.mobile{
                         self.allmobileContactsForHide = [ContactResponse]()
@@ -578,6 +592,15 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 if self.selectedContactType == ContactType.mobile{
                     self.allmobileContactsForHide.append(contentsOf:contacts)
                     self.mobileContacts.append(contentsOf:contacts.filter {$0.hide == hide})
+                    let unhideContacts = contacts.filter {$0.hide == hide}
+                  
+                    if self.mobileContacts.count < 10 || unhideContacts.count == 0{
+                      
+                        self.getContactList(page: self.allmobileContactsForHide.count, filter: filter)
+                        return
+                    }
+                   // self.mobileContacts.append(contentsOf:contacts.filter {$0.hide == hide})
+                  // self.mobileContacts.append(contentsOf:contacts)
                     self.allmobileContacts = self.mobileContacts
                     DispatchQueue.main.async {
                         self.contactTableView.reloadData()
@@ -585,6 +608,12 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 }else{
                     self.allemailContactsForHide.append(contentsOf:contacts)
                     self.emailContacts.append(contentsOf:contacts.filter {$0.hide == hide})
+                    let unhideContacts = contacts.filter {$0.hide == hide}
+                    if self.emailContacts.count < 10 || unhideContacts.count == 0{
+                        self.getContactList(page: self.allemailContactsForHide.count, filter: filter)
+                        return
+                    }
+                    
                     DispatchQueue.main.async {
                         self.emailContactTableView.reloadData()
                     }
@@ -606,9 +635,15 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
 
     }
-    func hideContact(contact:ContactResponse,index:Int){
+    func hideContact(contact:ContactResponse,index:Int,hide:Bool = true){
         print(contact.toJSON())
-        let path = API.shared.baseUrlV2 + "contact-list/\(contact.Id ?? "")/user?action=hide"
+        var isHide = "unhide"
+        if hide{
+            isHide = "unhide"
+        }else{
+            isHide = "hide"
+        }
+        let path = API.shared.baseUrlV2 + "contact-list/\(contact.Id ?? "")/user?action=\(isHide)"
         print(path)
         var request = URLRequest(url:URL(string:path)!)
         //some header examples
@@ -624,7 +659,12 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             case .success:
               //  self.showLoader()
                // self.mobileContacts.remove(at:index)
-                self.selectedFilter = ContactStatus.all
+                if hide{
+                    self.selectedFilter = ContactStatus.hidden
+                }else{
+                    self.selectedFilter = ContactStatus.all
+                }
+               // self.selectedFilter = ContactStatus.all
                 self.getContactList()
                 break
                
@@ -1086,14 +1126,16 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             if indexPath.section == 1{
                 return UISwipeActionsConfiguration(actions: [])
             }
+            let ishide = self.emailContacts[indexPath.row].hide ?? false
             let editAction = UIContextualAction(style: .normal, title:  nil, handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
                   
-                self.hideContact(contact:self.emailContacts[indexPath.row],index:indexPath.row)
+                self.hideContact(contact:self.emailContacts[indexPath.row],index:indexPath.row,hide:ishide)
                    success(true)
                })
-             editAction.image = UISwipeActionsConfiguration.makeTitledImage(
-                image: #imageLiteral(resourceName: "hide"),
-                title: "Hide")
+            let title = !ishide ? "Hide" : "Unhide"
+            editAction.image = UISwipeActionsConfiguration.makeTitledImage(
+               image: #imageLiteral(resourceName: "hide"),
+               title: title)
              
             editAction.backgroundColor = #colorLiteral(red: 0.9156094193, green: 0.945283711, blue: 1, alpha: 1)
             let swipeActions = UISwipeActionsConfiguration(actions: [editAction])
@@ -1103,16 +1145,17 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             if indexPath.section == 1{
                 return UISwipeActionsConfiguration(actions: [])
             }
+            let ishide = self.mobileContacts[indexPath.row].hide ?? false
             let editAction = UIContextualAction(style: .normal, title:  nil, handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
                   
-                self.hideContact(contact:self.mobileContacts[indexPath.row],index:indexPath.row)
+                self.hideContact(contact:self.mobileContacts[indexPath.row],index:indexPath.row,hide:ishide)
                    success(true)
                })
               
-           
+             let title = !ishide ? "Hide" : "Unhide"
              editAction.image = UISwipeActionsConfiguration.makeTitledImage(
                 image: #imageLiteral(resourceName: "hide"),
-                title: "Hide")
+                title: title)
              
             editAction.backgroundColor = #colorLiteral(red: 0.9156094193, green: 0.945283711, blue: 1, alpha: 1)
             let swipeActions = UISwipeActionsConfiguration(actions: [editAction])
@@ -1527,7 +1570,7 @@ extension ContactImportVC:UIScrollViewDelegate{
             print(offsetY >= contentHeight - scrollView.frame.height)
             print(!loadingStatus)
             if (offsetY >= contentHeight - scrollView.frame.height) && !loadingStatus {
-                self.showLoader()
+              //  self.showLoader()
                 let page = (selectedContactType == ContactType.mobile) ? self.mobileContacts.count : self.emailContacts.count
                 self.getContactList(page: page, filter: self.selectedFilter)
             }
