@@ -402,6 +402,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
     let minimumZoom: CGFloat = 1.0
     var maximumZoom: CGFloat = 3.0
     var lastZoomFactor: CGFloat = 1.0
+    var newCamera: AVCaptureDevice?
     var photoTapGestureRecognizer: UITapGestureRecognizer?
     var longPressGestureRecognizer: UILongPressGestureRecognizer?
     var panStartPoint: CGPoint = .zero
@@ -598,7 +599,59 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
             Defaults.shared.isFromSignup = false
             Defaults.shared.isSignupLoginFlow = false
         }
+        setupPic2ArtZoominAndOut()
     }
+    
+    func setupPic2ArtZoominAndOut() {
+        // Do any additional setup after loading the view.
+        newCamera = cameraWithPosition(position: currentCameraPosition)
+           //Add Pinch Gesture on CameraView.
+             let pinchRecognizer = UIPinchGestureRecognizer(target: self, action:#selector(pinch(_:)))
+        gestureView?.addGestureRecognizer(pinchRecognizer)
+    }
+    
+    // Find a camera with the specified AVCaptureDevicePosition, returning nil if one is not found
+
+      func cameraWithPosition(position: AVCaptureDevice.Position) -> AVCaptureDevice? {
+          let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaType.video, position: .unspecified)
+          for device in discoverySession.devices {
+                if device.position == position {
+                    return device
+                }
+           }
+           return nil
+      }
+    
+    @objc func pinch(_ pinch: UIPinchGestureRecognizer) {
+        guard let device = newCamera else { return }
+        
+        // Return zoom value between the minimum and maximum zoom values
+        func minMaxZoom(_ factor: CGFloat) -> CGFloat {
+            return min(min(max(factor, minimumZoom), maximumZoom), device.activeFormat.videoMaxZoomFactor)
+        }
+        
+        func update(scale factor: CGFloat) {
+            do {
+                try device.lockForConfiguration()
+                defer { device.unlockForConfiguration() }
+                device.videoZoomFactor = factor
+            } catch {
+                print("\(error.localizedDescription)")
+            }
+        }
+        
+        let newScaleFactor = minMaxZoom(pinch.scale * lastZoomFactor)
+        
+        switch pinch.state {
+        case .began: fallthrough
+        case .changed: update(scale: newScaleFactor)
+        case .ended:
+            lastZoomFactor = minMaxZoom(newScaleFactor)
+            update(scale: lastZoomFactor)
+        default: break
+        }
+    }
+     
     
     func setupTapGestureController() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapOnDiscardMainView))
@@ -3002,6 +3055,11 @@ extension StoryCameraViewController {
 extension StoryCameraViewController {
     private func hideShowTooltipView(shouldShow: Bool) {
         self.profilePicTooltip.isHidden = !shouldShow
+    }
+    
+    @IBAction func didTapCloseButtonBusiessDashboard(_ sender: UIButton) {
+        blurView.isHidden = true
+        businessDashbardConfirmPopupView.isHidden = true
     }
     
     @IBAction func btnDoNotShowAgainClicked(_ sender: UIButton) {
