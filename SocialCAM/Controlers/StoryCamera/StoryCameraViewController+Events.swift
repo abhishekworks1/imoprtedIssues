@@ -17,7 +17,7 @@ extension StoryCameraViewController {
             isMute = !isMute
             setupMuteUI()
             Defaults.shared.isMicOn = isMute
-            Defaults.shared.callHapticFeedback(isHeavy: false)
+//            Defaults.shared.callHapticFeedback(isHeavy: false)
             if isMute {
                 Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_micOff)
 
@@ -105,7 +105,7 @@ extension StoryCameraViewController {
         if isVideoRecording {
             nextLevel.torchMode = NextLevelTorchMode(rawValue: flashMode.rawValue) ?? .auto
         }
-        Defaults.shared.callHapticFeedback(isHeavy: false)
+//        Defaults.shared.callHapticFeedback(isHeavy: false)
         Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_flash)
     }
     
@@ -143,7 +143,7 @@ extension StoryCameraViewController {
             }else{
                 Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_front)
             }
-            Defaults.shared.callHapticFeedback(isHeavy: false)
+//            Defaults.shared.callHapticFeedback(isHeavy: false)
             self.flipButton.isSelected = !self.flipButton.isSelected
             self.currentCameraPosition = (self.currentCameraPosition == .front) ? .back : .front
             self.setCameraPositionUI()
