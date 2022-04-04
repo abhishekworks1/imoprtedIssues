@@ -91,9 +91,11 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var view1: UIView!
     @IBOutlet weak var view2: UIView!
     @IBOutlet weak var view3: UIView!
+    @IBOutlet weak var view4: UIView!
     @IBOutlet weak var badgebtn1: UIButton!
     @IBOutlet weak var badgebtn2: UIButton!
     @IBOutlet weak var badgebtn3: UIButton!
+    @IBOutlet weak var badgebtn4: UIButton!
     
     @IBOutlet weak var textMessageButton: UIButton!
     @IBOutlet weak var textMessageSeperatorView: UIView!
@@ -445,10 +447,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             view3.isHidden = false
             badgebtn3.setImage(UIImage.init(named: badgearry[2]), for: .normal)
         }
-//        if  badgearry.count >  3 {
-//            view4.isHidden = false
-//            badgebtn4.setImage(UIImage.init(named: badgearry[3]), for: .normal)
-//        }
+        if  badgearry.count >  3 {
+            //view4.isHidden = false
+            badgebtn4.setImage(UIImage.init(named: badgearry[3]), for: .normal)
+        }
     }
     
     fileprivate func loadContacts(filter: ContactsFilter) {
