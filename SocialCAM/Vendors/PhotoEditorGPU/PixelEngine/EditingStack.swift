@@ -134,6 +134,9 @@ open class EditingStack {
           )
       )
     }
+        print("*************************")
+        print(colorCubeStorage.filters.count)
+        print("*************************")
     set(availableColorCubeFilters: colorCubeStorage.filters)
 
   }

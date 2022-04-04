@@ -167,149 +167,148 @@ public final class PixelEditViewController: UIViewController {
 
   // MARK: - Functions
 
-  public override func viewDidLoad() {
-    super.viewDidLoad()
-    
+    public override func viewDidLoad() {
+        super.viewDidLoad()
+        
     layout: do {
-
-      root: do {
-
+        
+    root: do {
+        
         if editingStack == nil {
-          editingStack = SquareEditingStack.init(
-            source: imageSource,
-            previewSize: CGSize(width: view.bounds.width, height: view.bounds.height),
-            colorCubeStorage: colorCubeStorage
-          )
+            editingStack = SquareEditingStack.init(
+                source: imageSource,
+                previewSize: CGSize(width: view.bounds.width, height: view.bounds.height),
+                colorCubeStorage: colorCubeStorage
+            )
         }
- 
+        
         view.backgroundColor = ApplicationSettings.appWhiteColor
         
         let guide = UILayoutGuide()
         
         view.addLayoutGuide(guide)
-
+        
         view.addSubview(editContainerView)
         view.addSubview(controlContainerView)
         
         editContainerView.accessibilityIdentifier = "app.muukii.pixel.editContainerView"
         controlContainerView.accessibilityIdentifier = "app.muukii.pixel.controlContainerView"
-
+        
         editContainerView.translatesAutoresizingMaskIntoConstraints = false
         controlContainerView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-          guide.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-          guide.rightAnchor.constraint(equalTo: view.rightAnchor),
-          guide.leftAnchor.constraint(equalTo: view.leftAnchor),
-          guide.widthAnchor.constraint(equalTo: guide.heightAnchor, multiplier: 0.777777), {
-            let c = editContainerView.topAnchor.constraint(equalTo: guide.topAnchor)
-            c.priority = .defaultHigh
-            return c
-          }(), {
-            let c = editContainerView.rightAnchor.constraint(equalTo: guide.rightAnchor)
-            c.priority = .defaultHigh
-            return c
-          }(), {
-            let c = editContainerView.leftAnchor.constraint(equalTo: guide.leftAnchor)
-            c.priority = .defaultHigh
-            return c
-          }(), {
-            let c = editContainerView.bottomAnchor.constraint(equalTo: guide.bottomAnchor)
-            c.priority = .defaultHigh
-            return c
-          }(),
-          
-          editContainerView.centerXAnchor.constraint(equalTo: guide.centerXAnchor),
-          editContainerView.centerYAnchor.constraint(equalTo: guide.centerYAnchor),
-          
-          controlContainerView.topAnchor.constraint(equalTo: guide.bottomAnchor),
-          controlContainerView.rightAnchor.constraint(equalTo: view.rightAnchor),
-          controlContainerView.leftAnchor.constraint(equalTo: view.leftAnchor), {
-            if #available(iOS 11.0, *) {
-              return controlContainerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-            } else {
-              return controlContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-            }
-          }()
-          ])
-
+            guide.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            guide.rightAnchor.constraint(equalTo: view.rightAnchor),
+            guide.leftAnchor.constraint(equalTo: view.leftAnchor),
+            guide.widthAnchor.constraint(equalTo: guide.heightAnchor, multiplier: 0.9), {
+                let c = editContainerView.topAnchor.constraint(equalTo: guide.topAnchor)
+                c.priority = .defaultHigh
+                return c
+            }(), {
+                let c = editContainerView.rightAnchor.constraint(equalTo: guide.rightAnchor)
+                c.priority = .defaultHigh
+                return c
+            }(), {
+                let c = editContainerView.leftAnchor.constraint(equalTo: guide.leftAnchor)
+                c.priority = .defaultHigh
+                return c
+            }(), {
+                let c = editContainerView.bottomAnchor.constraint(equalTo: guide.bottomAnchor)
+                c.priority = .defaultHigh
+                return c
+            }(),
+            
+            editContainerView.centerXAnchor.constraint(equalTo: guide.centerXAnchor),
+            editContainerView.centerYAnchor.constraint(equalTo: guide.centerYAnchor),
+            
+            controlContainerView.topAnchor.constraint(equalTo: guide.bottomAnchor),
+            controlContainerView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            controlContainerView.leftAnchor.constraint(equalTo: view.leftAnchor), {
+                if #available(iOS 11.0, *) {
+                    return controlContainerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+                } else {
+                    return controlContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+                }
+            }()
+        ])
+        
         setAspect(editingStack.aspectRatio)
         
-      }
-
-      root: do {
+    }
+        
+    root: do {
         view.backgroundColor = Style.default.control.backgroundColor
-      }
-
-      edit: do {
-
+    }
+        
+    edit: do {
+        
         [
-          adjustmentView,
-          previewView,
-          maskingView
-          ].forEach { view in
+            adjustmentView,
+            previewView,
+            maskingView
+        ].forEach { view in
             view.translatesAutoresizingMaskIntoConstraints = false
             editContainerView.addSubview(view)
             NSLayoutConstraint.activate([
-              view.topAnchor.constraint(equalTo: view.superview!.topAnchor),
-              view.rightAnchor.constraint(equalTo: view.superview!.rightAnchor),
-              view.bottomAnchor.constraint(equalTo: view.superview!.bottomAnchor),
-              view.leftAnchor.constraint(equalTo: view.superview!.leftAnchor)
-              ])
+                view.topAnchor.constraint(equalTo: view.superview!.topAnchor),
+                view.rightAnchor.constraint(equalTo: view.superview!.rightAnchor),
+                view.bottomAnchor.constraint(equalTo: view.superview!.bottomAnchor),
+                view.leftAnchor.constraint(equalTo: view.superview!.leftAnchor)
+            ])
         }
         
-      }
-
-      control: do {
-
+    }
+        
+    control: do {
+        
         controlContainerView.addSubview(stackView)
-
+        
         stackView.frame = stackView.bounds
         stackView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-
+        
         stackView.push(
-          options.classes.control.rootControl.init(
-            context: context,
-            colorCubeControl: options.classes.control.colorCubeControl.init(
-              context: context,
-              originalImage: editingStack.cubeFilterPreviewSourceImage,
-              filters: editingStack.availableColorCubeFilters
-            )
-          ),
-          animated: false
+            options.classes.control.rootControl.init(
+                context: context,
+                colorCubeControl: options.classes.control.colorCubeControl.init(
+                    context: context,
+                    originalImage: editingStack.originalPreviewImage!,
+                    filters: editingStack.availableColorCubeFilters
+                )
+            ),
+            animated: false
         )
         stackView.notify(changedEdit: editingStack.currentEdit)
-
-      }
-
+        
     }
-
+        
+    }
+        
     bind: do {
-
-      context.didReceiveAction = { [weak self] action in
-
-        guard let self = self else { return }
-
-        self.didReceive(action: action)
-
-      }
-
+        
+        context.didReceiveAction = { [weak self] action in
+            
+            guard let self = self else { return }
+            
+            self.didReceive(action: action)
+            
+        }
+        
     }
-
+        
     start: do {
-
-      editingStack.delegate = self
-      view.layoutIfNeeded()
-      
-      previewView.originalImage = editingStack.originalPreviewImage
-      previewView.image = editingStack.previewImage
-      maskingView.image = editingStack.previewImage
-      maskingView.drawnPaths = editingStack.currentEdit.blurredMaskPaths
-
-      set(mode: mode)
+        
+        editingStack.delegate = self
+        view.layoutIfNeeded()
+        
+        previewView.originalImage = editingStack.adjustmentImage
+        previewView.image = editingStack.previewImage
+        maskingView.image = editingStack.previewImage
+        maskingView.drawnPaths = editingStack.currentEdit.blurredMaskPaths
+        set(mode: mode)
     }
-
-  }
+        
+    }
     
   // MARK: - Private Functions
   
@@ -372,7 +371,6 @@ public final class PixelEditViewController: UIViewController {
       maskingView.isHidden = false
       
       maskingView.isUserInteractionEnabled = true
-
       if maskingView.image != editingStack.previewImage {
         maskingView.image = editingStack.previewImage
       }
@@ -477,7 +475,7 @@ extension PixelEditViewController: EditingStackDelegate {
   public func editingStack(_ stack: EditingStack, didChangeCurrentEdit edit: EditingStack.Edit) {
     
     EditorLog.debug("[EditingStackDelegate] didChagneCurrentEdit")
-    
+      
     UIView.performWithoutAnimation {
       self.previewView.image = stack.previewImage
       self.previewView.originalImage = stack.originalPreviewImage
