@@ -19,6 +19,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 import Foundation
+import UIKit
 
 open class ColorCubeControlBase: ControlBase {
   
@@ -240,7 +241,6 @@ open class ColorCubeControl: ColorCubeControlBase, UICollectionViewDelegateFlowL
       layout: do {
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        
         contentView.addSubview(nameLabel)
         contentView.addSubview(imageView)
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -335,7 +335,7 @@ open class ColorCubeControl: ColorCubeControlBase, UICollectionViewDelegateFlowL
     open func set(originalImage: CIImage) {
       
       nameLabel.text = L10n.normal
-      imageView.image = UIImage(ciImage: originalImage, scale: contentScaleFactor, orientation: .up)
+      imageView.image = UIImage(ciImage: originalImage, scale: contentScaleFactor, orientation: .left)
     }
     
   }
@@ -349,9 +349,8 @@ open class ColorCubeControl: ColorCubeControlBase, UICollectionViewDelegateFlowL
     open func set(preview: PreviewFilterColorCube) {
       
       self.preview = preview
-
       nameLabel.text = preview.filter.name
-      imageView.image = UIImage(ciImage: preview.image, scale: contentScaleFactor, orientation: .up)
+      imageView.image = UIImage(ciImage: preview.image, scale: contentScaleFactor, orientation: .left)
     }
 
   }

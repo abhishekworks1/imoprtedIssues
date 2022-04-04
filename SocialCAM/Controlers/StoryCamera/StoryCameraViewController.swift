@@ -2593,7 +2593,7 @@ extension StoryCameraViewController {
         var medias: [StoryEditorMedia] = []
         for image in images {
             medias.append(StoryEditorMedia(type: .image(image)))
-            SCAlbum.shared.save(image: image)
+//            SCAlbum.shared.save(image: image)
         }
         switch medias[0].type {
         case let .image(image):
