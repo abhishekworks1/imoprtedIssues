@@ -290,7 +290,7 @@ open class TrimmerViewCut: UIView {
     
     // Return the minimum distance between the left and right view expressed in seconds
     open var minimumDistanceBetweenDraggableViews: CGFloat? {
-        return CGFloat(1.0)
+        return CGFloat(0.1)
             * thumbnailsView.durationSize
             / CGFloat(thumbnailsView.videoDuration.seconds)
     }
