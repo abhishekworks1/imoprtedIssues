@@ -161,8 +161,9 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
     @IBOutlet weak var twitterVerifiedView: UIView!
     @IBOutlet weak var preLunchBadge: UIView!
     @IBOutlet weak var foundingMergeBadge: UIView!
-    
     @IBOutlet weak var socialBadgeicon: UIView!
+    @IBOutlet weak var subscriptionBadgeicon: UIView!
+    
     @IBOutlet weak var userPlaceHolderImageView: UIImageView!
     @IBOutlet weak var nameTitleLabel: UILabel!
     @IBOutlet weak var joinedDateLabel: UILabel!
@@ -501,7 +502,8 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         preLunchBadge.isHidden = true
         foundingMergeBadge.isHidden = true
         socialBadgeicon.isHidden = true
-        
+        subscriptionBadgeicon.isHidden = true
+      
         if  badgearry.count >  0 {
             preLunchBadge.isHidden = false
         }
@@ -510,6 +512,9 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         }
         if  badgearry.count >  2 {
             socialBadgeicon.isHidden = false
+        }
+        if  badgearry.count >  3 {
+            subscriptionBadgeicon.isHidden = false
         }
     }
     

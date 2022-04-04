@@ -3602,7 +3602,7 @@ Countdown</string>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="8Xb-h3-R3T">
-                                                <rect key="frame" x="95" y="279.66666666666663" width="125" height="35"/>
+                                                <rect key="frame" x="72.666666666666686" y="279.66666666666663" width="170" height="35"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aea-3v-MoF">
                                                         <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
@@ -3622,7 +3622,7 @@ Countdown</string>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Snw-jK-O2E">
-                                                        <rect key="frame" x="45" y="0.0" width="35" height="35"/>
+                                                        <rect key="frame" x="44.999999999999986" y="0.0" width="35" height="35"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="foundingMemberBadge" translatesAutoresizingMaskIntoConstraints="NO" id="jny-49-Hko">
                                                                 <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
@@ -3639,7 +3639,7 @@ Countdown</string>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rSd-Q9-CCn">
-                                                        <rect key="frame" x="90" y="0.0" width="35" height="35"/>
+                                                        <rect key="frame" x="89.999999999999986" y="0.0" width="35" height="35"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="socialBadge" translatesAutoresizingMaskIntoConstraints="NO" id="fay-k8-MtJ">
                                                                 <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
@@ -3653,6 +3653,23 @@ Countdown</string>
                                                             <constraint firstAttribute="width" constant="35" id="Vfn-gw-0my"/>
                                                             <constraint firstItem="fay-k8-MtJ" firstAttribute="top" secondItem="rSd-Q9-CCn" secondAttribute="top" id="por-qz-Gzb"/>
                                                             <constraint firstAttribute="bottom" secondItem="fay-k8-MtJ" secondAttribute="bottom" id="uq2-n1-OiX"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0DY-RY-pGV">
+                                                        <rect key="frame" x="135" y="0.0" width="35" height="35"/>
+                                                        <subviews>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="socialBadge" translatesAutoresizingMaskIntoConstraints="NO" id="3AU-jO-lMk">
+                                                                <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
+                                                            </imageView>
+                                                        </subviews>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="trailing" secondItem="3AU-jO-lMk" secondAttribute="trailing" id="HwD-IC-ZLZ"/>
+                                                            <constraint firstItem="3AU-jO-lMk" firstAttribute="leading" secondItem="0DY-RY-pGV" secondAttribute="leading" id="SHe-hH-GTS"/>
+                                                            <constraint firstAttribute="height" constant="35" id="idh-IR-EI7"/>
+                                                            <constraint firstAttribute="width" constant="35" id="nWS-Ro-nmu"/>
+                                                            <constraint firstItem="3AU-jO-lMk" firstAttribute="top" secondItem="0DY-RY-pGV" secondAttribute="top" id="rKw-RJ-ZEe"/>
+                                                            <constraint firstAttribute="bottom" secondItem="3AU-jO-lMk" secondAttribute="bottom" id="sT1-K7-dtM"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
@@ -3816,6 +3833,7 @@ Countdown</string>
                         <outlet property="singleButtonSttackView" destination="JhL-7V-uVy" id="kuC-OB-AP3"/>
                         <outlet property="snapVerifiedView" destination="1lC-5O-32d" id="azO-V1-LWa"/>
                         <outlet property="socialBadgeicon" destination="rSd-Q9-CCn" id="UpO-rS-gep"/>
+                        <outlet property="subscriptionBadgeicon" destination="0DY-RY-pGV" id="dtc-AR-fbw"/>
                         <outlet property="twitterVerifiedView" destination="Qld-4c-1Hn" id="KD7-9Y-dQc"/>
                         <outlet property="userNametitleLabel" destination="qQ1-KD-IC2" id="peC-f1-Epb"/>
                         <outlet property="userPlaceHolderImageView" destination="9NP-UL-bh5" id="LUp-o4-Nfs"/>
@@ -8007,7 +8025,7 @@ Countdown</string>
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set Privacy" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oA9-xx-zBn">
-                                                    <rect key="frame" x="139" y="21.333333333333329" width="81" height="18.666666666666671"/>
+                                                    <rect key="frame" x="136" y="21" width="87.333333333333314" height="19.333333333333329"/>
                                                     <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="16"/>
                                                     <color key="textColor" name="AppPrimaryColor"/>
                                                     <nil key="highlightedColor"/>
@@ -8062,7 +8080,7 @@ Countdown</string>
                                                             </userDefinedRuntimeAttributes>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M9R-yY-caW">
-                                                            <rect key="frame" x="95" y="28.666666666666671" width="31.666666666666671" height="17.666666666666671"/>
+                                                            <rect key="frame" x="95" y="28.666666666666671" width="34.666666666666657" height="18"/>
                                                             <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="15"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -8492,7 +8510,7 @@ Countdown</string>
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
-            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="hideWatermarkBackgroundColor">
             <color red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
