@@ -540,7 +540,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         searchText = searchText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? ""
         print(searchText)
         let path = API.shared.baseUrlV2 + "contact-list?contactSource=\(source)&contactType=\(contactType)&searchText=\(searchText)&filterType=\(filter)&limit=\(limit)&page=\(page)"
-      
+      //  &hide=\(hide)
        // let path = API.shared.baseUrlV2 + "contact-list?contactSource=\(source))&searchText=\("Na")&filterType=\(filter)&limit=\(limit)&page=\(page)"
         print(path)
        // let parameter : Parameters =  ["Content-Type": "application/json"]
@@ -575,8 +575,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 
                 let contacts = Mapper<ContactResponse>().mapArray(JSONArray:value)
                 if contacts.count == 0 && firstTime{
-                    self.syncButtonClicked(sender:self.syncButton)
-                    return
+                  //  self.syncButtonClicked(sender:self.syncButton)
+                  //  return
                 }
                 if page == 1{
                     if self.selectedContactType == ContactType.mobile{
@@ -588,17 +588,24 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                         self.emailContacts = [ContactResponse]()
                     }
                 }
-                print(contacts.count)
+              //  print(contacts.count)
                 if self.selectedContactType == ContactType.mobile{
                     self.allmobileContactsForHide.append(contentsOf:contacts)
                     self.mobileContacts.append(contentsOf:contacts.filter {$0.hide == hide})
                     let unhideContacts = contacts.filter {$0.hide == hide}
-                  
-                    if self.mobileContacts.count < 10 || unhideContacts.count == 0{
-                      
-                        self.getContactList(page: self.allmobileContactsForHide.count, filter: filter)
+                    if unhideContacts.count < 10{
+                        print("page before\(page)")
+                        let pageCount =  page + (10 - unhideContacts.count)
+                        print("page after\(pageCount)")
+                        self.getContactList(page:pageCount, filter: filter)
                         return
                     }
+//                    if self.mobileContacts.count < 10 || unhideContacts.count == 0{
+//                      print("allmobileContactsForHide\(self.allmobileContactsForHide.count)")
+//                      print("mobileContacts\(self.mobileContacts.count)")
+//                        self.getContactList(page: self.allmobileContactsForHide.count, filter: filter)
+//                        return
+//                    }
                    // self.mobileContacts.append(contentsOf:contacts.filter {$0.hide == hide})
                   // self.mobileContacts.append(contentsOf:contacts)
                     self.allmobileContacts = self.mobileContacts
@@ -665,7 +672,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     self.selectedFilter = ContactStatus.all
                 }
                // self.selectedFilter = ContactStatus.all
-                self.getContactList()
+                self.getContactList(hide:hide)
                 break
                
             case .failure(let error):
@@ -746,6 +753,42 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     self.allemailContactsForHide[indexAllHidden].status = ContactStatus.invited
                 }
                 self.emailContactTableView.reloadData()
+                self.hideLoader()
+                break
+               
+            case .failure(let error):
+                print(error)
+                self.hideLoader()
+                break
+
+                //failure code here
+            }
+        }
+    }
+    // /api/contact-list/623d521766010bedccb2bfe7
+    func deleteContact(contact:ContactResponse,isEmail:Bool = false,index:Int){
+        let path = API.shared.baseUrlV2 + "contact-list/\(contact.Id ?? "")"
+        print(path)
+        var request = URLRequest(url:URL(string:path)!)
+        //some header examples
+        request.httpMethod = "DELETE"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(Defaults.shared.currentUser?.id ?? "", forHTTPHeaderField: "userid")
+        request.setValue(Defaults.shared.sessionToken ?? "", forHTTPHeaderField: "x-access-token")
+        request.setValue("1", forHTTPHeaderField: "deviceType")
+       
+        self.showLoader()
+        AF.request(request).responseJSON { response in
+            print(response)
+            switch (response.result) {
+            case .success:
+                if isEmail{
+                    self.emailContacts.remove(at:index)
+                    self.emailContactTableView.reloadData()
+                }else{
+                    self.mobileContacts.remove(at:index)
+                    self.contactTableView.reloadData()
+                }
                 self.hideLoader()
                 break
                
@@ -1163,10 +1206,57 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             return swipeActions
         }
         
+    }
+    @available(iOS 13.0, *)
+    func tableView(_ tableView: UITableView, previewForHighlightingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+           if let indexPath = configuration.identifier as? IndexPath, let cell = tableView.cellForRow(at: indexPath)  as? contactTableViewCell{
+            
+              let parameters = UIPreviewParameters()
+              parameters.backgroundColor = .clear
+            return UITargetedPreview(view: cell.contentView, parameters: parameters)
+            
+           } else{
+                 return nil
+           }
+     
+           
+    }
+      @available(iOS 13.0, *)
+    func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+            return UIContextMenuConfiguration(identifier: indexPath as NSIndexPath, previewProvider: nil) { _ in
+                return UIMenu(title: "", children: [
+                    UIAction(title: "Delete", image: UIImage(systemName: "")) { action in
+                        if tableView == self.emailContactTableView{
+                            let contact = self.emailContacts[indexPath.row]
+                            print(contact.email ?? "")
+                            self.deleteContact(contact: contact, isEmail: true, index: indexPath.row)
+                            
+                        }else if tableView == self.contactTableView{
+                            let contact = self.mobileContacts[indexPath.row]
+                            print(contact.mobile ?? "")
+                            self.deleteContact(contact: contact, isEmail: false, index: indexPath.row)
+                        }
+                        
+                    },UIAction(title: "Edit", image: UIImage(systemName: "")) { action in
+                        if tableView == self.emailContactTableView{
+                            let contact = self.emailContacts[indexPath.row]
+                            print(contact.email ?? "")
+                        }else if tableView == self.contactTableView{
+                            let contact = self.mobileContacts[indexPath.row]
+                            print(contact.mobile ?? "")
+                        }
+                        
+                       
+                       
+                        
+                    }
+                ])
+    }
+        
          
       
     }
-    
+
     
 //    MARK: - Creating Alert For User Text Enter
     
