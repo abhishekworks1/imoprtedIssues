@@ -596,13 +596,13 @@ extension OmitEditorViewController: TrimmerViewCutDelegate {
                 if let currentAsset = currentAsset(index: self.currentPage) {
                    let time = (CGFloat(currentAsset.duration.value)/CGFloat(currentAsset.duration.timescale))
                     print(finaltime)
-                    var checkwithTime: Float = 0.0
-                    if currentAsset.duration.seconds >= 10.0 {
-                        checkwithTime = 0.9
-                    } else {
-                        checkwithTime = 0.2
-                    }
-                    if Float(finaltime) > checkwithTime && Float(finaltime) < Float(currentAsset.duration.seconds) {
+                    let checkwithTime: Float = 0.1
+//                    if currentAsset.duration.seconds >= 10.0 {
+//                        checkwithTime = 0.9
+//                    } else {
+//                        checkwithTime = 0.2
+//                    }
+                    if Float(finaltime) >= checkwithTime && Float(finaltime) < Float(currentAsset.duration.seconds) {
                     doneView.alpha = 1
                     doneView.isUserInteractionEnabled = true
                     if #available(iOS 13.0, *) {
