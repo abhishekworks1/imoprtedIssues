@@ -597,8 +597,9 @@ open class TrimmerViewCut: UIView {
         addSubview(topTrimCornerView)
         addSubview(leftMaskView)
         addSubview(rightMaskView)
-        addSubview(leftDraggableView)
         addSubview(rightDraggableView)
+        addSubview(leftDraggableView)
+        
         
         topTrimCornerView.addSubview(leftTopCornerMaskView)
         topTrimCornerView.addSubview(leftBottomCornerMaskView)
@@ -616,8 +617,9 @@ open class TrimmerViewCut: UIView {
         setupPanGestures()
         minDistanceUpdate()
         
-        bringSubviewToFront(rightDraggableView)
+        
         bringSubviewToFront(leftDraggableView)
+        bringSubviewToFront(rightDraggableView)
     }
     
     private func minDistanceUpdate() {
@@ -731,7 +733,7 @@ open class TrimmerViewCut: UIView {
     @objc func handleLeftRightTap(_ sender: UITapGestureRecognizer) {
         return
         guard let view = sender.view else { return }
-        
+        bringSubviewToFront(leftDraggableView)
         let isLeftGesture = (view == leftDraggableView)
         if isHideLeftRightView { return }
         if isLeftGesture {
@@ -799,8 +801,10 @@ open class TrimmerViewCut: UIView {
             
         case .began:
             if isLeftGesture {
+                bringSubviewToFront(rightDraggableView)
                 currentLeadingConstraint = trimViewLeadingConstraint.constant
             } else {
+                bringSubviewToFront(leftDraggableView)
                 currentTrailingConstraint = trimViewTrailingConstraint.constant
             }
             

@@ -278,6 +278,7 @@ public final class PixelEditViewController: UIViewController {
             ),
             animated: false
         )
+        
         stackView.notify(changedEdit: editingStack.currentEdit)
         
     }
