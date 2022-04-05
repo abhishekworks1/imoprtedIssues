@@ -178,6 +178,12 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
     @IBOutlet weak var doubleButtonStackView: UIStackView!
     @IBOutlet weak var singleButtonSttackView: UIStackView!
     
+    @IBOutlet weak var businessDashboardStackView: UIStackView!
+    @IBOutlet weak var businessDashboardButton: UIButton!
+    @IBOutlet weak var businessDashbardConfirmPopupView: UIView!
+    @IBOutlet weak var btnDoNotShowAgainBusinessConfirmPopup: UIButton!
+    
+    
     // MARK: - Variables declaration
     var isDeletePopup = false
     let releaseType = Defaults.shared.releaseType
@@ -296,6 +302,29 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
     
     @IBAction func btnOkPopupTapped(_ sender: UIButton) {
         logoutPopupView.isHidden = true
+    }
+    @IBAction func businessDahboardConfirmPopupOkButtonClicked(_ sender: UIButton) {
+        
+        if let token = Defaults.shared.sessionToken {
+            let urlString = "\(websiteUrl)/redirect?token=\(token)"
+            guard let url = URL(string: urlString) else {
+                return
+            }
+            presentSafariBrowser(url: url)
+        }
+        Defaults.shared.callHapticFeedback(isHeavy: false)
+        Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_Bdashboard)
+        
+        businessDashbardConfirmPopupView.isHidden = true
+    }
+    @IBAction func doNotShowAgainBusinessCenterOpenPopupClicked(_ sender: UIButton) {
+        btnDoNotShowAgainBusinessConfirmPopup.isSelected = !btnDoNotShowAgainBusinessConfirmPopup.isSelected
+        Defaults.shared.isShowAllPopUpChecked = false
+        Defaults.shared.isDoNotShowAgainOpenBusinessCenterPopup = btnDoNotShowAgainBusinessConfirmPopup.isSelected
+       
+    }
+    @IBAction func didTapCloseButtonBusiessDashboard(_ sender: UIButton) {
+        businessDashbardConfirmPopupView.isHidden = true
     }
     
 }
@@ -706,13 +735,8 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             }
 
         } else if settingTitle.settingsType == .userDashboard {
-            if let token = Defaults.shared.sessionToken {
-                let urlString = "\(websiteUrl)/redirect?token=\(token)"
-                guard let url = URL(string: urlString) else {
-                    return
-                }
-                presentSafariBrowser(url: url)
-            }
+            openBussinessDashboard()
+           
         } else if settingTitle.settingsType == .checkUpdate {
             SSAppUpdater.shared.performCheck(isForceUpdate: false, showDefaultAlert: true) { (_) in
             }
@@ -726,7 +750,25 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             }
         }
     }
-    
+    func openBussinessDashboard(){
+//        print("isShowAllPopUpChecked: \(Defaults.shared.isShowAllPopUpChecked)\nisDoNotShowAgainOpenBusinessCenterPopup: \(Defaults.shared.isDoNotShowAgainOpenBusinessCenterPopup) ")
+        if Defaults.shared.isShowAllPopUpChecked == true && Defaults.shared.isDoNotShowAgainOpenBusinessCenterPopup == false {
+             businessDashbardConfirmPopupView.isHidden = false
+            btnDoNotShowAgainBusinessConfirmPopup.isSelected = Defaults.shared.isDoNotShowAgainOpenBusinessCenterPopup
+            self.view.bringSubviewToFront(businessDashbardConfirmPopupView)
+          //  lblQuickLinkTooltipView.text = R.string.localizable.quickLinkTooltip(R.string.localizable.businessCenter(), Defaults.shared.currentUser?.channelId ?? "")
+        }else{
+            if let token = Defaults.shared.sessionToken {
+                 let urlString = "\(websiteUrl)/redirect?token=\(token)"
+                 guard let url = URL(string: urlString) else {
+                     return
+                 }
+                 presentSafariBrowser(url: url)
+             }
+             Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
+             Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_Bdashboard)
+        }
+    }
     func viralCamLogout() {
         let objAlert = UIAlertController(title: Constant.Application.displayName, message: R.string.localizable.areYouSureYouWantToLogout(), preferredStyle: .alert)
         let actionlogOut = UIAlertAction(title: R.string.localizable.logout(), style: .default) { (_: UIAlertAction) in
