@@ -2732,10 +2732,10 @@ Countdown</string>
                                                                 <constraint firstAttribute="width" constant="35" id="G0H-gX-2tq"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="socialBadge" translatesAutoresizingMaskIntoConstraints="NO" id="6hx-2K-M6D">
+                                                        <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="foundingMemberBadge" translatesAutoresizingMaskIntoConstraints="NO" id="V7Y-P2-fkC">
                                                             <rect key="frame" x="0.0" y="0.0" width="0.0" height="35"/>
                                                         </imageView>
-                                                        <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="foundingMemberBadge" translatesAutoresizingMaskIntoConstraints="NO" id="V7Y-P2-fkC">
+                                                        <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="socialBadge" translatesAutoresizingMaskIntoConstraints="NO" id="6hx-2K-M6D">
                                                             <rect key="frame" x="0.0" y="0.0" width="0.0" height="35"/>
                                                         </imageView>
                                                         <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iosbadge" translatesAutoresizingMaskIntoConstraints="NO" id="jjD-57-6We">
@@ -3604,74 +3604,34 @@ Countdown</string>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="8Xb-h3-R3T">
                                                 <rect key="frame" x="72.666666666666686" y="279.66666666666663" width="170" height="35"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aea-3v-MoF">
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="prelaunchBadge" translatesAutoresizingMaskIntoConstraints="NO" id="bN9-Zp-ayz">
                                                         <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
-                                                        <subviews>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="prelaunchBadge" translatesAutoresizingMaskIntoConstraints="NO" id="bN9-Zp-ayz">
-                                                                <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
-                                                            </imageView>
-                                                        </subviews>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
-                                                            <constraint firstItem="bN9-Zp-ayz" firstAttribute="top" secondItem="aea-3v-MoF" secondAttribute="top" id="C9q-KZ-srE"/>
-                                                            <constraint firstItem="bN9-Zp-ayz" firstAttribute="leading" secondItem="aea-3v-MoF" secondAttribute="leading" id="QIy-MK-35E"/>
-                                                            <constraint firstAttribute="width" constant="35" id="QmJ-rZ-aeD"/>
-                                                            <constraint firstAttribute="trailing" secondItem="bN9-Zp-ayz" secondAttribute="trailing" id="bRr-LV-Nf5"/>
-                                                            <constraint firstAttribute="bottom" secondItem="bN9-Zp-ayz" secondAttribute="bottom" id="kD3-Ta-wxP"/>
-                                                            <constraint firstAttribute="height" constant="35" id="p0g-Hb-KQ0"/>
+                                                            <constraint firstAttribute="width" constant="35" id="rQ2-UL-9OD"/>
+                                                            <constraint firstAttribute="height" constant="35" id="swz-0Q-q2O"/>
                                                         </constraints>
-                                                    </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Snw-jK-O2E">
+                                                    </imageView>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="foundingMemberBadge" translatesAutoresizingMaskIntoConstraints="NO" id="jny-49-Hko">
                                                         <rect key="frame" x="44.999999999999986" y="0.0" width="35" height="35"/>
-                                                        <subviews>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="foundingMemberBadge" translatesAutoresizingMaskIntoConstraints="NO" id="jny-49-Hko">
-                                                                <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
-                                                            </imageView>
-                                                        </subviews>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
-                                                            <constraint firstItem="jny-49-Hko" firstAttribute="top" secondItem="Snw-jK-O2E" secondAttribute="top" id="3kD-SN-rdc"/>
-                                                            <constraint firstAttribute="trailing" secondItem="jny-49-Hko" secondAttribute="trailing" id="TJa-dj-Fnm"/>
-                                                            <constraint firstAttribute="height" constant="35" id="cbo-WM-7GS"/>
-                                                            <constraint firstItem="jny-49-Hko" firstAttribute="leading" secondItem="Snw-jK-O2E" secondAttribute="leading" id="jLu-Sp-BcS"/>
-                                                            <constraint firstAttribute="bottom" secondItem="jny-49-Hko" secondAttribute="bottom" id="nMC-N8-YIp"/>
-                                                            <constraint firstAttribute="width" constant="35" id="zUu-jj-AKL"/>
+                                                            <constraint firstAttribute="width" constant="35" id="Wow-z5-xHP"/>
+                                                            <constraint firstAttribute="height" constant="35" id="g5D-sD-CBW"/>
                                                         </constraints>
-                                                    </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rSd-Q9-CCn">
+                                                    </imageView>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="socialBadge" translatesAutoresizingMaskIntoConstraints="NO" id="fay-k8-MtJ">
                                                         <rect key="frame" x="89.999999999999986" y="0.0" width="35" height="35"/>
-                                                        <subviews>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="socialBadge" translatesAutoresizingMaskIntoConstraints="NO" id="fay-k8-MtJ">
-                                                                <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
-                                                            </imageView>
-                                                        </subviews>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="trailing" secondItem="fay-k8-MtJ" secondAttribute="trailing" id="3RX-s6-9Hl"/>
-                                                            <constraint firstAttribute="height" constant="35" id="BwZ-iu-up1"/>
-                                                            <constraint firstItem="fay-k8-MtJ" firstAttribute="leading" secondItem="rSd-Q9-CCn" secondAttribute="leading" id="FhS-ZI-Aj6"/>
-                                                            <constraint firstAttribute="width" constant="35" id="Vfn-gw-0my"/>
-                                                            <constraint firstItem="fay-k8-MtJ" firstAttribute="top" secondItem="rSd-Q9-CCn" secondAttribute="top" id="por-qz-Gzb"/>
-                                                            <constraint firstAttribute="bottom" secondItem="fay-k8-MtJ" secondAttribute="bottom" id="uq2-n1-OiX"/>
+                                                            <constraint firstAttribute="width" constant="35" id="YqH-xY-rIe"/>
+                                                            <constraint firstAttribute="height" constant="35" id="btf-b8-xHD"/>
                                                         </constraints>
-                                                    </view>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0DY-RY-pGV">
+                                                    </imageView>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iosbadge" translatesAutoresizingMaskIntoConstraints="NO" id="3AU-jO-lMk">
                                                         <rect key="frame" x="135" y="0.0" width="35" height="35"/>
-                                                        <subviews>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="socialBadge" translatesAutoresizingMaskIntoConstraints="NO" id="3AU-jO-lMk">
-                                                                <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
-                                                            </imageView>
-                                                        </subviews>
-                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="trailing" secondItem="3AU-jO-lMk" secondAttribute="trailing" id="HwD-IC-ZLZ"/>
-                                                            <constraint firstItem="3AU-jO-lMk" firstAttribute="leading" secondItem="0DY-RY-pGV" secondAttribute="leading" id="SHe-hH-GTS"/>
-                                                            <constraint firstAttribute="height" constant="35" id="idh-IR-EI7"/>
-                                                            <constraint firstAttribute="width" constant="35" id="nWS-Ro-nmu"/>
-                                                            <constraint firstItem="3AU-jO-lMk" firstAttribute="top" secondItem="0DY-RY-pGV" secondAttribute="top" id="rKw-RJ-ZEe"/>
-                                                            <constraint firstAttribute="bottom" secondItem="3AU-jO-lMk" secondAttribute="bottom" id="sT1-K7-dtM"/>
+                                                            <constraint firstAttribute="width" constant="35" id="noz-1t-Mts"/>
+                                                            <constraint firstAttribute="height" constant="35" id="vsP-yE-fJH"/>
                                                         </constraints>
-                                                    </view>
+                                                    </imageView>
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="tuO-My-18J">
@@ -3790,7 +3750,7 @@ Countdown</string>
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="590"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </view>
-                                        <blurEffect style="light"/>
+                                        <blurEffect style="dark"/>
                                     </visualEffectView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DIH-tV-lct">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="590"/>
@@ -3994,7 +3954,7 @@ Countdown</string>
                         <outlet property="businessDashbardConfirmPopupView" destination="VtV-CL-W0W" id="Ndh-pv-vGf"/>
                         <outlet property="doubleButtonStackView" destination="uba-ao-Fwt" id="Vwd-n8-OkE"/>
                         <outlet property="faceBookVerifiedView" destination="kzB-k5-rhf" id="Rwc-Bp-uLN"/>
-                        <outlet property="foundingMergeBadge" destination="Snw-jK-O2E" id="bLw-qo-oau"/>
+                        <outlet property="foundingMergeBadge" destination="jny-49-Hko" id="JW3-DQ-WZb"/>
                         <outlet property="imgAppLogo" destination="C5S-7v-OkQ" id="kcq-Fw-1hH"/>
                         <outlet property="joinedDateLabel" destination="KkJ-G7-nxe" id="Nou-cJ-InG"/>
                         <outlet property="lblAppInfo" destination="p4A-EK-sYV" id="lTR-AH-Tgs"/>
@@ -4002,13 +3962,13 @@ Countdown</string>
                         <outlet property="logoutPopupView" destination="VyN-by-AzL" id="6Vx-S0-IeK"/>
                         <outlet property="longPressPopupView" destination="DeM-Ch-kJ2" id="4WR-3z-jW0"/>
                         <outlet property="nameTitleLabel" destination="xwj-G2-t2C" id="fJw-zt-YA4"/>
-                        <outlet property="preLunchBadge" destination="aea-3v-MoF" id="cfw-h2-xj9"/>
+                        <outlet property="preLunchBadge" destination="bN9-Zp-ayz" id="KDF-xh-bN8"/>
                         <outlet property="profileDisplayView" destination="GZf-np-TaW" id="yQp-Yh-B36"/>
                         <outlet property="settingsTableView" destination="PB8-Zg-48F" id="RDy-vu-cMH"/>
                         <outlet property="singleButtonSttackView" destination="JhL-7V-uVy" id="kuC-OB-AP3"/>
                         <outlet property="snapVerifiedView" destination="1lC-5O-32d" id="azO-V1-LWa"/>
-                        <outlet property="socialBadgeicon" destination="rSd-Q9-CCn" id="UpO-rS-gep"/>
-                        <outlet property="subscriptionBadgeicon" destination="0DY-RY-pGV" id="dtc-AR-fbw"/>
+                        <outlet property="socialBadgeicon" destination="fay-k8-MtJ" id="Ixk-RK-4kY"/>
+                        <outlet property="subscriptionBadgeicon" destination="3AU-jO-lMk" id="zUJ-ep-JFE"/>
                         <outlet property="twitterVerifiedView" destination="Qld-4c-1Hn" id="KD7-9Y-dQc"/>
                         <outlet property="userNametitleLabel" destination="qQ1-KD-IC2" id="peC-f1-Epb"/>
                         <outlet property="userPlaceHolderImageView" destination="9NP-UL-bh5" id="LUp-o4-Nfs"/>
@@ -7239,7 +7199,7 @@ Countdown</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uNR-p6-Fbu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2335" y="155"/>
+            <point key="canvasLocation" x="2354" y="180"/>
         </scene>
         <!--System Settings View Controller-->
         <scene sceneID="Cjn-GW-L5K">

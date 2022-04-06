@@ -1251,21 +1251,21 @@ extension StoryEditorViewController {
     }
   
     @IBAction func downloadClicked(_ sender: UIButton) {
-        if isPic2ArtApp || cameraMode == .pic2Art {
-//            if Defaults.shared.isVideoSavedAfterRecording{
-                Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
-                referType = storyEditors[currentStoryIndex].referType
-                imageVideoExport(isDownload: true,isFromDoneTap:true)
-//            }else{
-//                self.navigationController?.popViewController(animated: true)
-//            }
-            return
-        }
+//        if isPic2ArtApp || cameraMode == .pic2Art {
+////            if Defaults.shared.isVideoSavedAfterRecording{
+//                Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
+//                referType = storyEditors[currentStoryIndex].referType
+//                imageVideoExport(isDownload: true,isFromDoneTap:true)
+////            }else{
+////                self.navigationController?.popViewController(animated: true)
+////            }
+//            return
+//        }
         
         //pop to recording screen if auto save is off
-        var isVideoModify = self.isVideoModified
-        var isVideoRecord = self.isVideoRecorded
-        if Defaults.shared.isVideoSavedAfterEditing == false {
+        let isVideoModify = self.isVideoModified
+        let isVideoRecord = self.isVideoRecorded
+        if Defaults.shared.isAutoSavePic2Art == false {
             let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
 
             alert.addAction(UIAlertAction(title: R.string.localizable.saveVideoThisTimeOnly(), style: .default , handler:{(UIAlertAction)in
@@ -1296,31 +1296,31 @@ extension StoryEditorViewController {
             //if isVideoSavedAfterEditing is on
             if Defaults.shared.isVideoSavedAfterRecording == false {
                 //isVideoSavedAfterRecording is false
-                if isVideoModify == false {
-                    if isVideoRecord {
-                        //source camera
-                        self.saveVideoInQuickCamFolder()
-                    } else {
-                        //source gallery
-                        let alert = UIAlertController(title: "", message: R.string.localizable.savingWillCreateAnIdenticalCopy(), preferredStyle: .actionSheet)
-                        
-                        alert.addAction(UIAlertAction(title: R.string.localizable.oK(), style: .default , handler:{ (UIAlertAction)in
-                            self.saveVideoInQuickCamFolder()
-                        }))
-                        
-                        alert.addAction(UIAlertAction(title: R.string.localizable.cancel(), style: .default , handler:{ (UIAlertAction)in
-                            self.navigationController?.popViewController(animated: true) //confirm once with Krushali
-                        }))
-                        
-                        self.present(alert, animated: true, completion: {
-                            print("completion block")
-                        })
-                    }
-                }
-                else {
+//                if isVideoModify == false {
+//                    if isVideoRecord {
+//                        //source camera
+//                        self.saveVideoInQuickCamFolder()
+//                    } else {
+//                        //source gallery
+//                        let alert = UIAlertController(title: "", message: R.string.localizable.savingWillCreateAnIdenticalCopy(), preferredStyle: .actionSheet)
+//                        
+//                        alert.addAction(UIAlertAction(title: R.string.localizable.oK(), style: .default , handler:{ (UIAlertAction)in
+//                            self.saveVideoInQuickCamFolder()
+//                        }))
+//                        
+//                        alert.addAction(UIAlertAction(title: R.string.localizable.cancel(), style: .default , handler:{ (UIAlertAction)in
+//                            self.navigationController?.popViewController(animated: true) //confirm once with Krushali
+//                        }))
+//                        
+//                        self.present(alert, animated: true, completion: {
+//                            print("completion block")
+//                        })
+//                    }
+//                }
+//                else {
                     // videoModified is true
                     self.saveVideoInQuickCamFolder()
-                }
+//                }
             }
             else {
                 //isVideoSavedAfterRecording is true
