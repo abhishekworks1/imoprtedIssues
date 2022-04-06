@@ -78,6 +78,7 @@ enum SettingsMode: Int {
     case hapticAll
     case hapticSome
     case aboutPage
+    case autoSavePic2Art
 }
 
 class StorySetting {

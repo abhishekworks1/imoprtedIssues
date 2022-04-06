@@ -26,6 +26,7 @@ class CameraSettings {
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.skipYoutubeLogin(), selected: false)], settingsType: .skipYoutubeLogin),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.saveVideoAfterRecording(), selected: false)], settingsType: .saveVideoAfterRecording),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.autoSaveAfterEditing(), selected: false)], settingsType: .autoSaveAfterEditing),
+        StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.autoSavePic2Art(), selected: false)], settingsType: .autoSavePic2Art),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.saveVideoAfterRecording(), selected: false)], settingsType: .muteRecordingSlowMotion),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.saveVideoAfterRecording(), selected: false)], settingsType: .muteRecordingFastMotion),
         StorySettings(name: "", settings: [StorySetting(name: R.string.localizable.muteHapticFeedback(), selected: false)], settingsType: .mutehapticFeedbackOnSpeedSelection),
@@ -130,6 +131,7 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
             cell.settingsName.text = Defaults.shared.supportedFrameRates?[indexPath.row]
         } else {
             let settings = settingTitle.settings[indexPath.row]
+            print(settings.name, indexPath.row)
             cell.settingsName.text = settings.name
         }
         
@@ -214,14 +216,16 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
                 return cell
             }
             return videoResolutionCell
-        } else if settingTitle.settingsType == .skipYoutubeLogin || settingTitle.settingsType == .saveVideoAfterRecording || settingTitle.settingsType == .autoSaveAfterEditing || settingTitle.settingsType == .muteRecordingSlowMotion || settingTitle.settingsType == .muteRecordingFastMotion  || settingTitle.settingsType == .mutehapticFeedbackOnSpeedSelection {
+        } else if settingTitle.settingsType == .skipYoutubeLogin || settingTitle.settingsType == .autoSavePic2Art || settingTitle.settingsType == .saveVideoAfterRecording || settingTitle.settingsType == .autoSaveAfterEditing || settingTitle.settingsType == .muteRecordingSlowMotion || settingTitle.settingsType == .muteRecordingFastMotion  || settingTitle.settingsType == .mutehapticFeedbackOnSpeedSelection || settingTitle.settingsType == .autoSavePic2Art {
             guard let systemSettingsCell: SystemSettingsCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.systemSettingsCell.identifier) as? SystemSettingsCell else {
                 fatalError("\(R.reuseIdentifier.systemSettingsCell.identifier) Not Found")
             }
             if settingTitle.settingsType == .skipYoutubeLogin {
                 systemSettingsCell.systemSettingType = .skipYoutubeLogin
                 systemSettingsCell.btnHelpTooltip.addTarget(self, action: #selector(showYoutubeLoginTooltip), for: .touchUpInside)
-            } else if settingTitle.settingsType == .saveVideoAfterRecording {
+            } else if settingTitle.settingsType == .autoSavePic2Art {
+                systemSettingsCell.systemSettingType = .autoSavePic2Art
+            }else if settingTitle.settingsType == .saveVideoAfterRecording {
                 systemSettingsCell.systemSettingType = .saveVideoAfterRecording
             } else if settingTitle.settingsType == .autoSaveAfterEditing {
                 systemSettingsCell.systemSettingType = .autoSaveAfterEditing
@@ -290,7 +294,7 @@ extension StorySettingsOptionsVC: UITableViewDataSource, UITableViewDelegate {
         let settingTitle = CameraSettings.storySettings[section]
         if settingTitle.settingsType == .supportedFrameRates {
             return 60
-        } else if settingTitle.settingsType == .skipYoutubeLogin || settingTitle.settingsType == .saveVideoAfterRecording  || settingTitle.settingsType == .autoSaveAfterEditing || settingTitle.settingsType == .muteRecordingSlowMotion || settingTitle.settingsType == .muteRecordingFastMotion || settingTitle.settingsType == .mutehapticFeedbackOnSpeedSelection {
+        } else if settingTitle.settingsType == .skipYoutubeLogin || settingTitle.settingsType == .autoSavePic2Art || settingTitle.settingsType == .saveVideoAfterRecording  || settingTitle.settingsType == .autoSaveAfterEditing || settingTitle.settingsType == .muteRecordingSlowMotion || settingTitle.settingsType == .muteRecordingFastMotion || settingTitle.settingsType == .mutehapticFeedbackOnSpeedSelection  {
             return 20
         } else if settingTitle.settingsType == .watermarkAlpha30 {
             return 40

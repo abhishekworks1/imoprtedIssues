@@ -1025,6 +1025,15 @@ class Defaults {
         }
     }
     
+    var isAutoSavePic2Art: Bool {
+        get {
+            return appDefaults?.value(forKey: "isAutoSavePic2Art") as? Bool ?? false
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isAutoSavePic2Art")
+        }
+    }
+    
     var isProfileTooltipHide: Bool {
         get {
             return appDefaults?.value(forKey: "isProfileTooltipShow") as? Bool ?? false
