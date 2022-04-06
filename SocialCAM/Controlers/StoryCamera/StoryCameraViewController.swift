@@ -623,6 +623,9 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
       }
     
     @objc func pinch(_ pinch: UIPinchGestureRecognizer) {
+        if recordingType != .pic2Art {
+            return
+        }
         guard let device = newCamera else { return }
         
         // Return zoom value between the minimum and maximum zoom values
@@ -643,9 +646,11 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         let newScaleFactor = minMaxZoom(pinch.scale * lastZoomFactor)
         
         switch pinch.state {
-        case .began: fallthrough
+        case .began:
+            bottomCameraViews.isUserInteractionEnabled = false
         case .changed: update(scale: newScaleFactor)
         case .ended:
+            bottomCameraViews.isUserInteractionEnabled = true
             lastZoomFactor = minMaxZoom(newScaleFactor)
             update(scale: lastZoomFactor)
         default: break
@@ -717,6 +722,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         view.bringSubviewToFront(appSurveyPopupView)
         view.bringSubviewToFront(businessDashbardConfirmPopupView)
         view.bringSubviewToFront(profilePicTooltip)
+
         self.syncUserModel { _ in
             if Defaults.shared.appMode == .basic &&  self.isFreshSession{
                 for (i,cameraMode) in self.cameraSliderView.stringArray.enumerated(){
@@ -1736,6 +1742,7 @@ extension StoryCameraViewController {
             
             let pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(handlePinchGestureRecognizer(_:)))
             gestureView.addGestureRecognizer(pinchGestureRecognizer)
+           
         }
         
         self.previewView = UIView(frame: self.baseView.bounds)
