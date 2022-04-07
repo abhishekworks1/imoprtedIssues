@@ -316,4 +316,8 @@ public class LoadingView: UIView {
         }
     }
     
+    func hideAdView(_ hide:Bool){
+        self.imgAdvertise.isHidden = hide
+    }
+    
 }

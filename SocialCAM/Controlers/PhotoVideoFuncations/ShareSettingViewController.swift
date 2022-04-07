@@ -51,6 +51,8 @@ class ShareSettingViewController: UIViewController {
     var isIncludeProfileImg = Defaults.shared.includeProfileImgForShare
     var isIncludeQrImg = Defaults.shared.includeQRImgForShare
 
+    let themeBlueColor = UIColor(hexString:"4F2AD8")
+    let logoImage = UIImage(named:"qr_applogo")
     // MARK: - View Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,8 +72,12 @@ class ShareSettingViewController: UIViewController {
             self.imgProfilePic.layer.cornerRadius = imgProfilePic.bounds.width / 2
             self.imgProfilePic.contentMode = .scaleAspectFill
         }
-        if let qrImageURL = Defaults.shared.currentUser?.qrcode {
-            self.imageQrCode.sd_setImage(with: URL.init(string: qrImageURL), placeholderImage: nil)
+//        if let qrImageURL = Defaults.shared.currentUser?.qrcode {
+//            self.imageQrCode.sd_setImage(with: URL.init(string: qrImageURL), placeholderImage: nil)
+//        }
+        if let referralPage = Defaults.shared.currentUser?.referralPage {
+            let image =  URL(string: referralPage)?.qrImage(using: themeBlueColor, logo: logoImage)
+            self.imageQrCode.image = image?.convert()
         }
         self.btnIncludeProfileImg.isSelected = Defaults.shared.includeProfileImgForShare == true
         self.btnIncludeQrImg.isSelected = Defaults.shared.includeQRImgForShare == true
@@ -115,8 +121,8 @@ class ShareSettingViewController: UIViewController {
     
     func setAttributedString() {
         if let channelId = Defaults.shared.currentUser?.channelId {
-            let channelCount = "\(websiteUrl)/\(channelId)".count
-            let myString = "\(websiteUrl)/\(channelId)"
+            let myString = "\(Defaults.shared.currentUser?.referralPage ?? "")"
+            let channelCount = myString.count
             let underlineAttribute = [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue]
             myMutableString = NSMutableAttributedString(string: myString, attributes: underlineAttribute)
             myMutableString.addAttribute(NSAttributedString.Key.foregroundColor, value: R.color.appPrimaryColor() ?? UIColor.systemBlue, range: NSRange(location: 0, length: channelCount))

@@ -24,7 +24,15 @@ class TwitterComposeViewController: UIViewController, UINavigationControllerDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        if #available(iOS 15, *) {
+                // Navigation Bar background color
+                let appearance = UINavigationBarAppearance()
+                appearance.configureWithOpaqueBackground()
+                appearance.backgroundColor = UIColor.lightGray
+                
+                navigationController?.navigationBar.standardAppearance = appearance
+                navigationController?.navigationBar.scrollEdgeAppearance = appearance
+            }
         self.title = R.string.localizable.newPost()
         let leftBarButton = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(self.closeAction))
         leftBarButton.title = R.string.localizable.cancel()

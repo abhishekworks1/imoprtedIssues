@@ -160,7 +160,7 @@ extension PhotoEditorViewController: UICollectionViewDataSource, KDDragAndDropCo
             var borderWidth: CGFloat = 0
             
             if (currentCamaraMode != .slideshow && self.currentPage == indexPath.row) || videoUrls[indexPath.row].isSelected {
-                borderColor = ApplicationSettings.appPrimaryColor.cgColor
+                borderColor = ApplicationSettings.appBorderColor.cgColor
                 borderWidth = 3
                 cell.lblVideoersiontag.isHidden = false
             } else {

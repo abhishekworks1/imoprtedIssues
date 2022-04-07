@@ -93,8 +93,8 @@ open class TrimmerView: UIView {
                 .constraint(equalTo: leftDraggableView.centerXAnchor)
             leftImageViewCenterY = leftImageView.centerYAnchor
                 .constraint(equalTo: leftDraggableView.centerYAnchor)
-            let heightAnc = leftImageView.heightAnchor.constraint(equalToConstant: 40)
-            let widthAnc = leftImageView.widthAnchor.constraint(equalToConstant: 15)
+            let heightAnc = leftImageView.heightAnchor.constraint(equalToConstant: 60)
+            let widthAnc = leftImageView.widthAnchor.constraint(equalToConstant: 20)
             NSLayoutConstraint.activate([heightAnc, widthAnc])
         }
     }
@@ -106,8 +106,8 @@ open class TrimmerView: UIView {
                 .constraint(equalTo: rightDraggableView.centerXAnchor)
             rightImageViewCenterY = rightImageView.centerYAnchor
                 .constraint(equalTo: rightDraggableView.centerYAnchor)
-            let heightAnc = rightImageView.heightAnchor.constraint(equalToConstant: 40)
-            let widthAnc = rightImageView.widthAnchor.constraint(equalToConstant: 15)
+            let heightAnc = rightImageView.heightAnchor.constraint(equalToConstant: 60)
+            let widthAnc = rightImageView.widthAnchor.constraint(equalToConstant: 20)
             NSLayoutConstraint.activate([heightAnc, widthAnc])
         }
     }
@@ -140,7 +140,7 @@ open class TrimmerView: UIView {
         let view = UIView()
         view.frame = .zero
         view.backgroundColor = ApplicationSettings.appClearColor
-        view.layer.borderWidth = 2.0
+        view.layer.borderWidth = 3.0
         view.layer.cornerRadius = viewCornerRadius
         view.clipsToBounds = false
         view.layer.masksToBounds = true
@@ -282,6 +282,8 @@ open class TrimmerView: UIView {
         thumbsView.layer.masksToBounds = true
         thumbsView.translatesAutoresizingMaskIntoConstraints = false
         thumbsView.isUserInteractionEnabled = true
+        thumbsView.layer.borderWidth = 3.0
+        thumbsView.layer.borderColor = ApplicationSettings.appWhiteColor.cgColor
         return thumbsView
     }()
     
@@ -316,9 +318,9 @@ open class TrimmerView: UIView {
     var thumbnailViewRect: CGRect {
         return CGRect(
             x: draggableViewWidth,
-            y: 0,
+            y: 30,
             width: bounds.width - 2 * draggableViewWidth,
-            height: bounds.height)
+            height: bounds.height - 30)
     }
    
     var leftPanGesture: UIPanGestureRecognizer = UIPanGestureRecognizer.init()
@@ -439,7 +441,7 @@ open class TrimmerView: UIView {
             .constraint(equalToConstant: 15)
         
         trimViewTopAnchorConstraint = trimView.topAnchor
-            .constraint(equalTo: topAnchor, constant: 0)
+            .constraint(equalTo: topAnchor, constant: 30)
         trimViewBottomAnchorConstraint = trimView.bottomAnchor
             .constraint(equalTo: bottomAnchor, constant: 0)
         trimViewLeadingConstraint = trimView.leadingAnchor
@@ -477,7 +479,7 @@ open class TrimmerView: UIView {
             .constraint(equalTo: leftDraggableView.leadingAnchor, constant: 0)
         
         rightMaskViewTopAnchor = rightMaskView.topAnchor
-            .constraint(equalTo: topAnchor, constant: 0)
+            .constraint(equalTo: topAnchor, constant: 30)
         rightMaskViewBottomAnchor = rightMaskView.bottomAnchor
             .constraint(equalTo: bottomAnchor, constant: 0)
         rightMaskViewTrailingAnchor = rightMaskView.trailingAnchor
@@ -488,9 +490,9 @@ open class TrimmerView: UIView {
         timePointerViewWidthgAnchor = timePointerView.widthAnchor
             .constraint(equalToConstant: timePointerViewWidth)
         timePointerViewHeightAnchor = timePointerView.heightAnchor
-            .constraint(equalToConstant: frame.height - borderWidth * 2)
+            .constraint(equalToConstant: frame.height - 20)
         timePointerViewTopAnchor = timePointerView.topAnchor
-            .constraint(equalTo: topAnchor, constant: borderWidth)
+            .constraint(equalTo: topAnchor, constant: borderWidth + 30)
         timePointerViewLeadingAnchor = timePointerView.leadingAnchor
             .constraint(equalTo: leftDraggableView.trailingAnchor, constant: 0)
         
@@ -499,7 +501,7 @@ open class TrimmerView: UIView {
         cutViewHeightAnchor = cutView.heightAnchor
             .constraint(equalToConstant: 35)
         cutViewTopAnchor = cutView.topAnchor
-            .constraint(equalTo: topAnchor, constant: -18)
+            .constraint(equalTo: topAnchor, constant: 0)
         cutViewLeadingAnchor = cutView.leadingAnchor
             .constraint(equalTo: leftDraggableView.trailingAnchor, constant: 15)
         
@@ -702,7 +704,8 @@ open class TrimmerView: UIView {
         trimView.addGestureRecognizer(thumbsPanGesture)
         
         let timePointerViewGesture = UIPanGestureRecognizer(target: self, action: #selector(handleTimePointerViewPan))
-       timePointerView.addGestureRecognizer(timePointerViewGesture)
+        timePointerView.addGestureRecognizer(timePointerViewGesture)
+        
         let cutTimePointerViewGesture = UIPanGestureRecognizer(target: self, action: #selector(handleCutTimePointerViewPan))
         cutView.addGestureRecognizer(cutTimePointerViewGesture)
         
@@ -726,7 +729,6 @@ open class TrimmerView: UIView {
             action: #selector(handlePan))
         rightDraggableView.addGestureRecognizer(rightPanGesture)
         
-       
     }
     
     @objc func handleTimePointerViewPan(_ sender: UIPanGestureRecognizer) {
@@ -849,7 +851,6 @@ open class TrimmerView: UIView {
     }
     
     @objc func handlePan(_ sender: UIPanGestureRecognizer) {
-        print("handlePan")
         guard let view = sender.view else { return }
         
         let isLeftGesture = (view == leftDraggableView)
@@ -869,7 +870,6 @@ open class TrimmerView: UIView {
             }
             
         case .changed:
-            
             self.layoutIfNeeded()
             
             let translation = sender.translation(in: view)

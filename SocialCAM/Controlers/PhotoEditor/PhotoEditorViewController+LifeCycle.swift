@@ -18,7 +18,7 @@ extension PhotoEditorViewController {
         super.viewDidLoad()
         bottomToolbar.isHidden = (storiCamType == .chat || storiCamType == .feed)
        
-        initLocation()
+//        initLocation()
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         setupColorSlider()
         setupFilter()

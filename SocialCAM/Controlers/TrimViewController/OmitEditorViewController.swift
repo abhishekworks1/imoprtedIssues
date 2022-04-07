@@ -42,6 +42,10 @@ class OmitEditorViewController: UIViewController,UIGestureRecognizerDelegate {
     @IBOutlet weak var resequenceButton: UIButton!
     @IBOutlet weak var resequenceLabel: UILabel!
     
+    @IBOutlet weak var doneButton: UIButton!
+    @IBOutlet weak var doneLabel: UILabel!
+    
+    
     var isOriginalSequence = false
     var undoMgr = MyUndoManager<Void>()
     var player: AVPlayer?
@@ -52,6 +56,7 @@ class OmitEditorViewController: UIViewController,UIGestureRecognizerDelegate {
     var isStartMovable: Bool = false
     var leftSidePlayer: AVPlayer?
     var rightSidePlayer: AVPlayer?
+    var isScrubbingDidChange = false
     var remineTime = 0
     
     // MARK: - Public Properties
@@ -69,6 +74,7 @@ class OmitEditorViewController: UIViewController,UIGestureRecognizerDelegate {
     var isPlayerInitialize = false
     var playbackTimeCheckerTimer: Timer?
     var doneHandler: ((_ urls: [StoryEditorMedia]) -> Void)?
+    var isLeftGesture = true
     @IBInspectable open var isTimePrecisionInfinity: Bool = false
     var tolerance: CMTime {
         return isTimePrecisionInfinity ? CMTime.indefinite : CMTime.zero
@@ -134,6 +140,13 @@ class OmitEditorViewController: UIViewController,UIGestureRecognizerDelegate {
         longPressGesture.delegate = self
         btnPlayPause.addGestureRecognizer(longPressGesture)
         
+        doneView.alpha = 0.5
+        doneView.isUserInteractionEnabled = false
+        if #available(iOS 13.0, *) {
+            doneButton.setImage(UIImage(named: "trimDone")?.withTintColor(UIColor.red, renderingMode: .automatic), for: .normal)
+            doneLabel.textColor = UIColor.red
+        }
+        
 //        leftPlayButton.isSelected = false
 //        rightPlayButton.isSelected = false
 //        doneView.alpha = 0.5
@@ -147,7 +160,7 @@ class OmitEditorViewController: UIViewController,UIGestureRecognizerDelegate {
                     return
                 }
                 let vnewStartTime = Float(startTime.seconds)
-                if vnewStartTime > 0.0 {
+                if vnewStartTime > 2.0 {
                     player?.seek(to: .zero)
                     guard let duration  = player?.currentItem?.duration else {
                         return
@@ -251,9 +264,10 @@ class OmitEditorViewController: UIViewController,UIGestureRecognizerDelegate {
     }
     
     /// Move the position bar to the given time.
-    func seek(to time: CMTime, cell: ImageCollectionViewCutCell) {
+    func seek(to time: CMTime, cell: ImageCollectionViewCutCell, startPipe: CMTime, endPipe: CMTime) {
         cell.imagesView.layoutIfNeeded()
-        cell.videoPlayerPlayback(to: time, asset: cell.trimmerView.thumbnailsView.asset)
+        cell.videoPlayerPlayback(to: time, asset: cell.trimmerView.thumbnailsView.asset, startPipe: startPipe, endPipe: endPipe)
+//        cell.videoPlayerPlayback(to: time, asset: cell.trimmerView.thumbnailsView.asset)
         cell.layoutIfNeeded()
     }
     
@@ -281,19 +295,38 @@ class OmitEditorViewController: UIViewController,UIGestureRecognizerDelegate {
                         return
                     }
                     
-                    
                     let currentAsset = self.currentAsset(index: currentPage)
-                    
                     cell.trimmerView.seek(to: playBackTime)
-                    seek(to: CMTime.init(seconds: playBackTime.seconds, preferredTimescale: 10000), cell: cell)
+                    seek(to: CMTime.init(seconds: playBackTime.seconds, preferredTimescale: 10000), cell: cell, startPipe: startTime, endPipe: endTime)
                     
-                    if playBackTime >= endTime {
-                        player.seek(to: startTime, toleranceBefore: tolerance, toleranceAfter: tolerance)
-                        cell.trimmerView.seek(to: startTime)
-                        seek(to: CMTime.init(seconds: startTime.seconds, preferredTimescale: 10000), cell: cell)
-                        cell.trimmerView.resetTimePointer()
-                        btnPlayPause.isSelected = false
-                        player.pause()
+                    if !isScrubbingDidChange {
+                        if playBackTime >= endTime {
+                            player.seek(to: startTime, toleranceBefore: tolerance, toleranceAfter: tolerance)
+                            cell.trimmerView.seek(to: startTime)
+                            seek(to: CMTime.init(seconds: startTime.seconds, preferredTimescale: 10000), cell: cell,startPipe: startTime, endPipe: endTime)
+                            cell.trimmerView.resetTimePointer()
+                            if isLeftGesture {
+                                if !isScrubbingDidChange {
+                                    btnPlayPause.isSelected = true
+                                    player.play()
+                                } else {
+                                    btnPlayPause.isSelected = false
+                                    player.pause()
+                                }
+                                
+                                
+                            } else {
+                                btnPlayPause.isSelected = true
+                                player.play()
+                            }
+                        }
+                    } else {
+                        
+                        if playBackTime >= endTime {
+                            seek(to: CMTime.init(seconds: startTime.seconds, preferredTimescale: 10000), cell: cell,startPipe: startTime, endPipe: endTime)
+                            btnPlayPause.isSelected = false
+                            player.pause()
+                        }
                     }
                 }
             }
@@ -350,8 +383,9 @@ extension OmitEditorViewController: UICollectionViewDataSource {
             guard let currentSelectedAsset = currentAsset(index: currentPage) else {
                 return cell
             }
+            cell.delegate = self
             cell.setEditLayout(indexPath: indexPath, currentPage: currentPage, currentAsset: currentSelectedAsset)
-            remineTime = cell.remainTimeMiliS
+//            remineTime = cell.remainTimeMiliS
 //            cell.trimmerView.rightImage = UIImage()
 //            cell.trimmerView.leftImage = UIImage()
 //            cell.leftTopView.isHidden = true
@@ -361,9 +395,16 @@ extension OmitEditorViewController: UICollectionViewDataSource {
                 return cell
             }
             cell.setLayout(indexPath: indexPath, currentPage: currentPage, currentAsset: currentAsset, storySegment: storySegment)
+            cell.lblSegmentCount.isHidden = true
+            cell.lblVideoDuration.isHidden = false
+            cell.segmentCountLabel.isHidden = false
+            cell.segmentCountLabel.text = "\(indexPath.item + 1)"
+            let duration = String(format: "%.1f", currentAsset.duration.seconds)
+            cell.lblVideoDuration.font = UIFont(name: "SFUIText-Regular", size: 11)
+            cell.lblVideoDuration.text = "  \(duration)"
         }
         cell.trimmerView.delegate = self
-        cell.trimmerView.alphaView = 1.0
+//        cell.trimmerView.alphaView = 0.5
         if let draggingPathOfCellBeingDragged = self.storyCollectionView.draggingPathOfCellBeingDragged {
             if draggingPathOfCellBeingDragged.item == indexPath.item {
                 cell.isHidden = true
@@ -411,9 +452,11 @@ extension OmitEditorViewController: UICollectionViewDelegate, UICollectionViewDe
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let storySegment = storyEditorMedias[indexPath.row]
         if collectionView == self.editStoryCollectionView {
-            return CGSize(width: Double(self.view.frame.width - 40), height: Double(118 * 1.17))
+            return CGSize(width: Double(self.view.frame.width - 40), height: Double(118 * 1.40))
         } else {
-            return CGSize(width: (Double(storySegment.count * 35)), height: Double(98))
+            return CGSize(width: 47.0,
+                          height: collectionView.frame.height)
+//            return CGSize(width: (Double(storySegment.count * 45)), height: Double(98))
         }
     }
     
@@ -515,43 +558,67 @@ extension OmitEditorViewController: TrimmerViewCutDelegate {
     func trimmerCutDidChangeDraggingPosition(_ trimmer: TrimmerViewCut, with currentTimeTrim: CMTime) {
         if let player = player,
            let cell: ImageCollectionViewCutCell = self.editStoryCollectionView.cellForItem(at: self.getCurrentIndexPath) as? ImageCollectionViewCutCell {
-            player.seek(to: currentTimeTrim, toleranceBefore: tolerance, toleranceAfter: tolerance)
-            self.seek(to: CMTime.init(seconds: currentTimeTrim.seconds, preferredTimescale: 10000), cell: cell)
+            guard let startTime = trimmer.startTime, let endTime = trimmer.endTime else { return }
+            var newStartpoint = currentTimeTrim.seconds - 1
+            if newStartpoint < 0 {
+                newStartpoint = 0
+            }
+            
+            let start = CMTimeMakeWithSeconds(newStartpoint, preferredTimescale:10000);
+         //   player.seek(to: currentTimeTrim, toleranceBefore: tolerance, toleranceAfter: tolerance)
+            
+            player.seek(to: currentTimeTrim, toleranceBefore: start, toleranceAfter: start)
+            self.seek(to: CMTime.init(seconds: currentTimeTrim.seconds, preferredTimescale: 10000), cell: cell, startPipe: startTime, endPipe: endTime)
+
         }
     }
     
     func trimmerCutDidEndDragging(_ trimmer: TrimmerViewCut, with startTime: CMTime, endTime: CMTime, isLeftGesture: Bool) {
+        self.isLeftGesture = isLeftGesture
         if let player = player {
             isStartMovable = false
             DispatchQueue.main.async { [self] in
-                if self.btnPlayPause.isSelected {
+//                if self.btnPlayPause.isSelected {
                     if let cell: ImageCollectionViewCutCell = self.editStoryCollectionView.cellForItem(at: self.getCurrentIndexPath) as? ImageCollectionViewCutCell {
                         if !isLeftGesture {
-                            guard let endTime = trimmer.endTime else {
+                            guard let startTime = trimmer.startTime, let endTime = trimmer.endTime else {
                                 return
                             }
                             let newEndTime = endTime - CMTime.init(seconds: 1, preferredTimescale: endTime.timescale)
                             player.seek(to: newEndTime, toleranceBefore: self.tolerance, toleranceAfter: self.tolerance)
-                            self.seek(to: CMTime.init(seconds: newEndTime.seconds, preferredTimescale: 10000), cell: cell)
+                            seek(to: CMTime.init(seconds: newEndTime.seconds, preferredTimescale: 10000), cell: cell, startPipe: startTime, endPipe: endTime)
                         }
                     }
                     player.play()
                     
-                }
+//                }
                 
                 let finaltime = endTime.seconds - startTime.seconds
-                if finaltime >= 1.0 {
+                if let currentAsset = currentAsset(index: self.currentPage) {
+                    let checkwithTime: Float = 0.1
+
+                    if Float(finaltime) >= checkwithTime && Float(finaltime) < Float(currentAsset.duration.seconds) {
                     doneView.alpha = 1
                     doneView.isUserInteractionEnabled = true
+                    if #available(iOS 13.0, *) {
+                        doneButton.setImage(UIImage(named: "trimDone")?.withTintColor(UIColor.white, renderingMode: .automatic), for: .normal)
+                        doneLabel.textColor = UIColor.white
+                    }
                 } else {
                     doneView.alpha = 0.5
                     doneView.isUserInteractionEnabled = false
+                    if #available(iOS 13.0, *) {
+                        doneButton.setImage(UIImage(named: "trimDone")?.withTintColor(UIColor.red, renderingMode: .automatic), for: .normal)
+                        doneLabel.textColor = UIColor.red
+                    }
                 }
             }
         }
     }
-    
+}
+
     func trimmerCutScrubbingDidChange(_ trimmer: TrimmerViewCut, with currentTimeScrub: CMTime) {
+        isScrubbingDidChange = true
         if let player = player {
             player.seek(to: currentTimeScrub, toleranceBefore: tolerance, toleranceAfter: tolerance)
             if player.timeControlStatus == .playing {
@@ -717,7 +784,7 @@ extension OmitEditorViewController {
                 guard let startTime = cell.trimmerView.startTime else {
                     return
                 }
-                cell.trimmerView.alphaView = 1.0
+//                cell.trimmerView.alphaView = 0.5
                 //cell.trimmerView.bgViewColorwithTrim = UIColor.clear
                 //cell.trimmerView.updateColorForCut()
                 player.seek(to: startTime, toleranceBefore: self.tolerance, toleranceAfter: self.tolerance)
@@ -924,9 +991,17 @@ extension OmitEditorViewController {
             if finaltime >= 1.0 {
                 doneView.alpha = 1
                 doneView.isUserInteractionEnabled = true
+                if #available(iOS 13.0, *) {
+                    doneButton.setImage(UIImage(named: "trimDone")?.withTintColor(UIColor.white, renderingMode: .automatic), for: .normal)
+                    doneLabel.textColor = UIColor.white
+                }
             } else {
                 doneView.alpha = 0.5
                 doneView.isUserInteractionEnabled = false
+                if #available(iOS 13.0, *) {
+                    doneButton.setImage(UIImage(named: "trimDone")?.withTintColor(UIColor.red, renderingMode: .automatic), for: .normal)
+                    doneLabel.textColor = UIColor.red
+                }
             }
             
             self.trimMultipleVideos(cell.trimmerView)
@@ -1019,42 +1094,16 @@ extension OmitEditorViewController {
     
     
     @IBAction func playPauseClicked(_ sender: Any) {
-        //        if let player = self.player {
-        //            if player.timeControlStatus == .playing {
-        //                player.pause()
-        //                btnPlayPause.isSelected = false
-        //                doneView.alpha = 1
-        //                doneView.isUserInteractionEnabled = true
-        //            } else {
-        //                player.play()
-        //                btnPlayPause.isSelected = true
-        //
-        ////                doneView.alpha = 0.5
-        ////                doneView.isUserInteractionEnabled = false
-        //            }
-        //        }
-        
-//        leftPlayButton.isSelected = false
-//        rightPlayButton.isSelected = false
-//        if !btnPlayPause.isSelected && !leftPlayButton.isSelected && !rightPlayButton.isSelected {
             if let player = self.player {
                 if player.timeControlStatus == .playing {
                     player.pause()
                     btnPlayPause.isSelected = false
-                    doneView.alpha = 1
-                    doneView.isUserInteractionEnabled = true
                 } else {
                     player.play()
                     btnPlayPause.isSelected = true
+                    isScrubbingDidChange = false
                 }
             }
-//        }
-//        else {
-//            player?.pause()
-//            btnPlayPause.isSelected = false
-//            doneView.alpha = 1
-//            doneView.isUserInteractionEnabled = true
-//        }
     }
     
     @IBAction func handleButtonClicked(_ sender: UIButton) {
@@ -1087,4 +1136,29 @@ extension OmitEditorViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
+}
+
+extension OmitEditorViewController: ImageCollectionViewCutCellDelegate {
+    func handleTapCutIcons(finalTime: Float) {
+        print(finalTime)
+        if let currentAsset = currentAsset(index: self.currentPage) {
+            let checkwithTime: Float = 0.1
+            
+            if Float(finalTime) >= checkwithTime && Float(finalTime) < Float(currentAsset.duration.seconds) {
+                doneView.alpha = 1
+                doneView.isUserInteractionEnabled = true
+                if #available(iOS 13.0, *) {
+                    doneButton.setImage(UIImage(named: "trimDone")?.withTintColor(UIColor.white, renderingMode: .automatic), for: .normal)
+                    doneLabel.textColor = UIColor.white
+                }
+            } else {
+                doneView.alpha = 0.5
+                doneView.isUserInteractionEnabled = false
+                if #available(iOS 13.0, *) {
+                    doneButton.setImage(UIImage(named: "trimDone")?.withTintColor(UIColor.red, renderingMode: .automatic), for: .normal)
+                    doneLabel.textColor = UIColor.red
+                }
+            }
+        }
+    }
 }

@@ -404,6 +404,7 @@ class ContactResponse: Mappable {
     var Id: String?
     var mobile: String?
     var name: String?
+    var email: String?
     var emailLink: String?
     var emailCount: NSNumber?
     var textLink: String?
@@ -411,6 +412,7 @@ class ContactResponse: Mappable {
     var trackReferral: Bool?
     var status: String?
     var emailOptedOut: Bool?
+    var hide: Bool?
 
     required init?(map: Map){
     }
@@ -418,6 +420,7 @@ class ContactResponse: Mappable {
     func mapping(map: Map) {
         Id <- map["_id"]
         mobile <- map["mobile"]
+        email <- map["email"]
         name <- map["name"]
         emailLink <- map["emailLink"]
         emailCount <- map["emailCount"]
@@ -426,5 +429,6 @@ class ContactResponse: Mappable {
         trackReferral <- map["trackReferral"]
         status <- map["status"]
         emailOptedOut <- map["emailOptedOut"]
+        hide <- map["hide"]
     }
 }

@@ -37,7 +37,7 @@ class VideoSliderView: UIView {
         slider.value = 0
         slider.minimumValue = 0
         slider.maximumValue = 1.0
-        slider.backgroundColor = UIColor.clear
+        slider.backgroundColor = UIColor.white
         slider.contentMode = ContentMode.scaleAspectFit
         slider.minimumTrackTintColor = ApplicationSettings.appPrimaryColor
         slider.maximumTrackTintColor = UIColor.clear
@@ -65,7 +65,7 @@ class VideoSliderView: UIView {
     
     func addSliderView() {
         self.addSubview(timeSlider)
-        timeSlider.heightAnchor.constraint(equalToConstant: 5).isActive = true
+        timeSlider.heightAnchor.constraint(equalToConstant: 2).isActive = true
         timeSlider.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
         timeSlider.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         timeSlider.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
@@ -269,5 +269,19 @@ class ProgressContainerView: UIView {
         } else {
             return super.hitTest(point, with: event)
         }
+    }
+}
+
+extension UISlider {
+    public func addTapGesture() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        addGestureRecognizer(tap)
+    }
+
+    @objc private func handleTap(_ sender: UITapGestureRecognizer) {
+        let location = sender.location(in: self)
+        let percent = minimumValue + Float(location.x / bounds.width) * maximumValue
+        setValue(percent, animated: true)
+        sendActions(for: .valueChanged)
     }
 }

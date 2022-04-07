@@ -93,8 +93,11 @@ class User: Codable, Mappable {
     var publicDisplayName: String?
     var privateDisplayName: String?
     var qrcode: String?
+    var quickStartPage: String?
+    var referralPage: String?
     var subscriptions : Subscriptions?
     var badges : [ParentBadges]?
+   
     required init?(map: Map) {
         
     }
@@ -197,6 +200,8 @@ class User: Codable, Mappable {
         publicDisplayName <- map["publicDisplayName"]
         privateDisplayName <- map["privateDisplayName"]
         qrcode <- map["qrcode"]
+        quickStartPage <- map["quickStartPage"]
+        referralPage <- map["referralPage"]
         subscriptions <- map["subscriptions"]
         badges <- map["badges"]
     }
@@ -250,6 +255,68 @@ class iOSsubcription: Codable, Mappable {
     
 }
 
+class ParentBadges: Codable,Mappable {
+
+    var Id: String?
+    var badgeId: String?
+    var userId: String?
+    var createdAt: String?
+    var updatedAt: String?
+    var V: Int?
+    var badge: Badge?
+
+    required init?(map: Map){
+    }
+
+    func mapping(map: Map) {
+        Id <- map["_id"]
+        badgeId <- map["badgeId"]
+        userId <- map["userId"]
+        createdAt <- map["createdAt"]
+        updatedAt <- map["updatedAt"]
+        V <- map["__v"]
+        badge <- map["badge"]
+    }
+}
+
+class Badge: Codable,Mappable {
+
+    var Id: String?
+    var description: String?
+    var code: String?
+    var name: String?
+    var createdAt: String?
+    var updatedAt: String?
+    var V: Int?
+    var meta: Meta?
+
+    required init?(map: Map){
+    }
+
+    func mapping(map: Map) {
+        Id <- map["_id"]
+        description <- map["description"]
+        code <- map["code"]
+        name <- map["name"]
+        createdAt <- map["createdAt"]
+        updatedAt <- map["updatedAt"]
+        V <- map["__v"]
+        meta <- map["meta"]
+    }
+}
+
+class Meta: Codable,Mappable {
+
+    var date: String?
+
+    required init?(map: Map){
+    }
+
+    func mapping(map: Map) {
+        date <- map["date"]
+    }
+}
+/*
 class ParentBadges: Codable, Mappable {
     var followingUser: FollowingUser?
     var id: String?
@@ -281,6 +348,7 @@ class FollowingUser: Codable, Mappable {
     }
     
 }
+
 class MainBadges: Codable, Mappable {
     var badge: Badge?
     var id: String?
@@ -314,3 +382,4 @@ class Badge: Codable, Mappable {
     }
     
 }
+*/

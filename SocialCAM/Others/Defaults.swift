@@ -1009,10 +1009,28 @@ class Defaults {
     
     var isVideoSavedAfterRecording: Bool {
         get {
-            return appDefaults?.value(forKey: "isVideoSavedAfterRecording") as? Bool ?? true
+            return appDefaults?.value(forKey: "isVideoSavedAfterRecording") as? Bool ?? false
         }
         set {
             appDefaults?.set(newValue, forKey: "isVideoSavedAfterRecording")
+        }
+    }
+    
+    var isVideoSavedAfterEditing: Bool {
+        get {
+            return appDefaults?.value(forKey: "isVideoSavedAfterEditing") as? Bool ?? false
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isVideoSavedAfterEditing")
+        }
+    }
+    
+    var isAutoSavePic2Art: Bool {
+        get {
+            return appDefaults?.value(forKey: "isAutoSavePic2Art") as? Bool ?? false
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isAutoSavePic2Art")
         }
     }
     
@@ -1271,27 +1289,27 @@ class Defaults {
             }
         }
     }
+ 
     func getbadgesArray() -> [String] {
         
         var imageArray = [String]()
+        print("Defaults.shared.currentUser \(String(describing: Defaults.shared.currentUser?.badges?[0].toJSON()))")
         //Defaults.shared.currentUser?.badges?[0].followingUser?.badges?[0].badge?.code
         if Defaults.shared.currentUser?.badges?.count ?? 0 > 0 {
-            if Defaults.shared.currentUser?.badges?[0].followingUser?.badges?.count ?? 0 > 0 {
-             
-                let badgesArray = Defaults.shared.currentUser?.badges?[0].followingUser?.badges
-                
-                for i in 0 ..< (badgesArray?.count ?? 0){
-                    let badge = badgesArray![i] as MainBadges
-                    let badImgname = self.imageNameBasedOnCode(code : badge.badge?.code ?? "")
-                    if badImgname.count > 0 {
-                        imageArray.append(badImgname)
-                    }
+            let badgesArray = Defaults.shared.currentUser?.badges
+            print("badgesArray \(imageArray)")
+            print("Defaults.shared.currentUser \(String(describing: Defaults.shared.currentUser?.toJSON()))")
+            for i in 0 ..< (badgesArray?.count ?? 0){
+                let badge = badgesArray![i] as ParentBadges
+                let badImgname = self.imageNameBasedOnCode(code : badge.badge?.code ?? "")
+                if badImgname.count > 0 {
+                    imageArray.append(badImgname)
                 }
             }
         }
+        print("Badges imageArray \(imageArray)")
         return imageArray
     }
-    
     
     func imageNameBasedOnCode(code:String) -> String{
         var imageName = ""

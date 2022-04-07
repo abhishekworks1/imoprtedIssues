@@ -6,7 +6,7 @@ import UIKit
 
 
 protocol contactCelldelegate : AnyObject {
-    func didPressButton(_ contact: PhoneContact ,mobileContact:ContactResponse?)
+    func didPressButton(_ contact: PhoneContact ,mobileContact:ContactResponse?,reInvite:Bool)
 }
 
 class contactTableViewCell: UITableViewCell {
@@ -28,7 +28,11 @@ class contactTableViewCell: UITableViewCell {
     }
     
     @IBAction func buttonPressed(_ sender: UIButton) {
-        cellDelegate?.didPressButton(phoneContactObj ?? PhoneContact(), mobileContact: mobileContactObj)
+        var reInvite = false
+        if mobileContactObj?.status == ContactStatus.invited{
+            reInvite = true
+        }
+        cellDelegate?.didPressButton(phoneContactObj ?? PhoneContact(), mobileContact: mobileContactObj, reInvite: reInvite)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

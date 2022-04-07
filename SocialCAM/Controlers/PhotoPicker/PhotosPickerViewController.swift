@@ -420,7 +420,8 @@ extension PhotosPickerViewController {
         guard let layout = self.collectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
         let count = CGFloat(self.configure.numberOfColumn)
         let width = (self.view.frame.size.width - (5 * (count - 1))) / count
-        self.thumbnailSize = CGSize(width: width, height: width)
+        let wi = Int(width)
+        self.thumbnailSize = CGSize(width: wi, height: wi)
         layout.itemSize = self.thumbnailSize
         self.collectionView.collectionViewLayout = layout
         self.placeholderThumbnail = centerAtRect(image: self.configure.placeholderIcon, rect: CGRect(x: 0, y: 0, width: width, height: width))

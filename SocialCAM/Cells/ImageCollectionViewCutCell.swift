@@ -10,15 +10,24 @@ import Foundation
 import UIKit
 import AVKit
 
+protocol ImageCollectionViewCutCellDelegate {
+    func handleTapCutIcons(finalTime: Float)
+}
+
 class ImageCollectionViewCutCell: UICollectionViewCell {
     
+    var delegate: ImageCollectionViewCutCellDelegate?
+    @IBOutlet weak var trimmerViewHeightConstraint: NSLayoutConstraint!
+    // @IBOutlet weak var trimmerViewHeightConstraint: TrimmerViewCut!
     @IBOutlet weak var imagesView: UIView!
     @IBOutlet weak var imagesStackView: UIStackView!
     @IBOutlet weak var lblSegmentCount: UILabel!
     @IBOutlet weak var lblVideoDuration: UILabel!
     @IBOutlet weak var lblVideoersiontag: UILabel!
     @IBOutlet weak var trimmerView: TrimmerViewCut!
-    var remainTimeMiliS: Int = 0
+    @IBOutlet weak var segmentCountLabel: UILabel!
+    var finalTime: Float = 0.0
+    var remainTimeMiliS: String = ""
     public var leftTopView: UIView = {
         let leftTopView = UIImageView.init(image: R.image.trim_leftWhite())
         leftTopView.frame = .zero
@@ -76,7 +85,7 @@ class ImageCollectionViewCutCell: UICollectionViewCell {
         var borderColor: CGColor! = ApplicationSettings.appClearColor.cgColor
         var borderWidth: CGFloat = 0
         if currentPage == indexPath.row || storySegment.first!.isSelected {
-            borderColor = ApplicationSettings.appPrimaryColor.cgColor
+            borderColor = ApplicationSettings.appBorderColor.cgColor
             borderWidth = 3
             self.lblVideoersiontag.isHidden = false
         } else {
@@ -155,7 +164,7 @@ class ImageCollectionViewCutCell: UICollectionViewCell {
         }
         imagesView.layer.cornerRadius = 5
         imagesView.layer.borderWidth = 3
-        imagesView.layer.borderColor = ApplicationSettings.appPrimaryColor.cgColor
+        imagesView.layer.borderColor = ApplicationSettings.appBorderColor.cgColor
         lblSegmentCount.text = "\(currentPage + 1)"
         lblSegmentCount.isHidden = true
         isEditMode = true
@@ -170,7 +179,7 @@ class ImageCollectionViewCutCell: UICollectionViewCell {
     }
     func loadAsset(_ asset: AVAsset) {
         trimmerView.layoutIfNeeded()
-        trimmerView.minVideoDurationAfterTrimming = 1.0
+        trimmerView.minVideoDurationAfterTrimming = 0.0
         trimmerView.thumbnailsView.asset = asset
         trimmerView.rightImage = R.image.cut_handle_icon()
         trimmerView.leftImage = R.image.cut_handle_icon()
@@ -181,20 +190,20 @@ class ImageCollectionViewCutCell: UICollectionViewCell {
         addSubview(rightTopView)
         
         let leftTopViewWidthAnchor = leftTopView.widthAnchor
-            .constraint(equalToConstant: 23)
+            .constraint(equalToConstant: 30)
         let leftTopViewHeightAnchor = leftTopView.heightAnchor
-            .constraint(equalToConstant: 23)
+            .constraint(equalToConstant: 30)
         let leftTopViewTopAnchor = leftTopView.topAnchor
-            .constraint(equalTo: topAnchor, constant: 110)
+            .constraint(equalTo: topAnchor, constant: 140)
         let leftTopViewLeadingAnchor = leftTopView.leadingAnchor
             .constraint(equalTo: self.trimmerView.leadingAnchor, constant: 0)
         
         let rightTopViewWidthAnchor = rightTopView.widthAnchor
-            .constraint(equalToConstant: 23)
+            .constraint(equalToConstant: 30)
         let rightTopViewHeightAnchor = rightTopView.heightAnchor
-            .constraint(equalToConstant: 23)
+            .constraint(equalToConstant: 30)
         let rightTopViewTopAnchor = rightTopView.topAnchor
-            .constraint(equalTo: topAnchor, constant: 110)
+            .constraint(equalTo: topAnchor, constant: 140)
         let rightTopViewLeadingAnchor = rightTopView.trailingAnchor
             .constraint(equalTo: self.trimmerView.trailingAnchor, constant: 0)
         
@@ -221,6 +230,7 @@ class ImageCollectionViewCutCell: UICollectionViewCell {
     }
     
     @objc func handleLeftRightTap(_ sender: UITapGestureRecognizer) {
+        
         guard let view = sender.view else { return }
         
         let isLeftGesture = (view == leftTopView)
@@ -244,6 +254,7 @@ class ImageCollectionViewCutCell: UICollectionViewCell {
                 - minDistance) - self.trimmerView.trimViewLeadingConstraint.constant
             let newPosition = max((self.trimmerView.trimViewWidthContraint.constant - ((self.trimmerView.frame.width - self.trimmerView.trimViewLeadingConstraint.constant) - self.trimmerView.timePointerViewLeadingAnchor.constant)), -maxConstraint)
             self.trimmerView.trimViewTrailingConstraint.constant = newPosition
+            
         }
         
         DispatchQueue.main.async {
@@ -252,15 +263,36 @@ class ImageCollectionViewCutCell: UICollectionViewCell {
         }
     }
 
-    func videoPlayerPlayback(to time: CMTime, asset: AVAsset) {
-        let (progressTimeM, progressTimeS) = Utils.secondsToHoursMinutesSeconds(Int(CMTimeGetSeconds(time)))
-        let progressTimeMiliS = Utils.secondsToMiliseconds(CMTimeGetSeconds(time))
-        let (totalTimeM, totalTimeS) = Utils.secondsToHoursMinutesSeconds(Int(Float(asset.duration.seconds).roundToPlaces(places: 0)))
-        let remainTime = asset.duration.seconds - CMTimeGetSeconds(time)
-        let (remainTimeM, remainTimeS) = Utils.secondsToHoursMinutesSeconds(Int(Float(remainTime).roundToPlaces(places: 0)))
-        let remainTimeMiliS = Utils.secondsToMiliseconds(remainTime)
-        self.remainTimeMiliS = remainTimeMiliS
-        self.lblVideoDuration.text = "\(progressTimeS):\(progressTimeMiliS) / \(remainTimeS):\(remainTimeMiliS)"
+//    func videoPlayerPlayback(to time: CMTime, asset: AVAsset) {
+//        let (progressTimeM, progressTimeS) = Utils.secondsToHoursMinutesSeconds(Int(CMTimeGetSeconds(time)))
+//        let progressTimeMiliS = Utils.secondsToMiliseconds(CMTimeGetSeconds(time))
+//        let (totalTimeM, totalTimeS) = Utils.secondsToHoursMinutesSeconds(Int(Float(asset.duration.seconds).roundToPlaces(places: 0)))
+//        let remainTime = asset.duration.seconds - CMTimeGetSeconds(time)
+//        let (remainTimeM, remainTimeS) = Utils.secondsToHoursMinutesSeconds(Int(Float(remainTime).roundToPlaces(places: 0)))
+//        let remainTimeMiliS = Utils.secondsToMiliseconds(remainTime)
+//        self.remainTimeMiliS = remainTimeMiliS
+//        self.lblVideoDuration.text = "\(progressTimeS).\(progressTimeMiliS) / \(remainTimeS).\(remainTimeMiliS)"
+//    }
+    
+    func videoPlayerPlayback(to time: CMTime, asset: AVAsset, startPipe: CMTime, endPipe: CMTime) {
+        var startT = Double()
+        if time == startPipe {
+            startT = 0.00
+        } else {
+            startT = time.seconds - startPipe.seconds
+        }
+        let progressTime = startT
+        var newProgressTime = String(format: "%.1f", progressTime)
+        if newProgressTime == "-0.0" || newProgressTime == "-0.1" || newProgressTime == "-0.2" || newProgressTime == "-0.3" || newProgressTime == "-0.4" || newProgressTime == "-0.5" || newProgressTime == "-0.6" || newProgressTime == "-0.7" || newProgressTime == "-0.8" || newProgressTime == "-0.9" {
+            newProgressTime = "0.0"
+        }
+        let totalTime = endPipe.seconds - startPipe.seconds
+        finalTime = Float(endPipe.seconds - startPipe.seconds)
+        let newFinalTime = String(format: "%.1f", totalTime)
+        let fullTime = "\(newProgressTime) / \(newFinalTime)"
+        self.lblVideoDuration.font = UIFont.systemFont(ofSize: 12, weight: .bold)
+        self.lblVideoDuration.text = fullTime
+        delegate?.handleTapCutIcons(finalTime: finalTime)
     }
     
     func hideLeftRightHandle() {

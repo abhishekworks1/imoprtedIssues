@@ -55,6 +55,7 @@ enum SettingsMode: Int {
     case referringChannelName
     case skipYoutubeLogin
     case saveVideoAfterRecording
+    case autoSaveAfterEditing
     case muteRecordingSlowMotion
     case muteRecordingFastMotion
     case shareSetting
@@ -77,6 +78,7 @@ enum SettingsMode: Int {
     case hapticAll
     case hapticSome
     case aboutPage
+    case autoSavePic2Art
 }
 
 class StorySetting {
@@ -154,8 +156,18 @@ class StorySettings {
 
 class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
     
+    @IBOutlet weak var youTubeVerifiedView: UIView!
+    @IBOutlet weak var snapVerifiedView: UIView!
+    @IBOutlet weak var faceBookVerifiedView: UIView!
+    @IBOutlet weak var twitterVerifiedView: UIView!
+    @IBOutlet weak var preLunchBadge: UIImageView!
+    @IBOutlet weak var foundingMergeBadge: UIImageView!
+    @IBOutlet weak var socialBadgeicon: UIImageView!
+    @IBOutlet weak var subscriptionBadgeicon: UIImageView!
+    
     @IBOutlet weak var userPlaceHolderImageView: UIImageView!
     @IBOutlet weak var nameTitleLabel: UILabel!
+    @IBOutlet weak var joinedDateLabel: UILabel!
     @IBOutlet weak var userNametitleLabel: UILabel!
     @IBOutlet weak var profileDisplayView: UIView!
     @IBOutlet weak var settingsTableView: UITableView!
@@ -167,6 +179,12 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
     @IBOutlet weak var doubleButtonStackView: UIStackView!
     @IBOutlet weak var singleButtonSttackView: UIStackView!
     
+    @IBOutlet weak var businessDashboardStackView: UIStackView!
+    @IBOutlet weak var businessDashboardButton: UIButton!
+    @IBOutlet weak var businessDashbardConfirmPopupView: UIView!
+    @IBOutlet weak var btnDoNotShowAgainBusinessConfirmPopup: UIButton!
+    
+    
     // MARK: - Variables declaration
     var isDeletePopup = false
     let releaseType = Defaults.shared.releaseType
@@ -174,6 +192,11 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpbadges()
+        self.faceBookVerifiedView.isHidden = true
+        self.twitterVerifiedView.isHidden = true
+        self.snapVerifiedView.isHidden = true
+        self.youTubeVerifiedView.isHidden = true
         lblAppInfo.text = "\(Constant.Application.displayName) - \(Constant.Application.appVersion)(\(Constant.Application.appBuildNumber))"
         lblLogoutPopup.text = R.string.localizable.areYouSureYouWantToLogoutFromApp("\(Constant.Application.displayName)")
         setupUI()
@@ -280,6 +303,29 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
     
     @IBAction func btnOkPopupTapped(_ sender: UIButton) {
         logoutPopupView.isHidden = true
+    }
+    @IBAction func businessDahboardConfirmPopupOkButtonClicked(_ sender: UIButton) {
+        
+        if let token = Defaults.shared.sessionToken {
+            let urlString = "\(websiteUrl)/redirect?token=\(token)"
+            guard let url = URL(string: urlString) else {
+                return
+            }
+            presentSafariBrowser(url: url)
+        }
+        Defaults.shared.callHapticFeedback(isHeavy: false)
+        Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_Bdashboard)
+        
+        businessDashbardConfirmPopupView.isHidden = true
+    }
+    @IBAction func doNotShowAgainBusinessCenterOpenPopupClicked(_ sender: UIButton) {
+        btnDoNotShowAgainBusinessConfirmPopup.isSelected = !btnDoNotShowAgainBusinessConfirmPopup.isSelected
+        Defaults.shared.isShowAllPopUpChecked = false
+        Defaults.shared.isDoNotShowAgainOpenBusinessCenterPopup = btnDoNotShowAgainBusinessConfirmPopup.isSelected
+       
+    }
+    @IBAction func didTapCloseButtonBusiessDashboard(_ sender: UIButton) {
+        businessDashbardConfirmPopupView.isHidden = true
     }
     
 }
@@ -452,12 +498,21 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         if section == 0 {
             headerView.btnProfilePic.addTarget(self, action: #selector(btnEditProfilePic), for: .touchUpInside)
         }
+        headerView.setUpbadges()
         headerView.btnProfilePic.tag = section
         headerView.callBackForReload = { [weak self] (isCalled) -> Void in
+            self?.getVerifiedSocialPlatforms()
+            self?.setUpbadges()
             headerView.badgeIconHeightConstraint.constant = 45
             self?.profileDisplayView.isHidden = false
+            let name = "\(Defaults.shared.currentUser?.firstName ?? "") \(Defaults.shared.currentUser?.lastName ?? "")"
             self?.nameTitleLabel.text = R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? "")
-            self?.userNametitleLabel.text = R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? "")
+            self?.userNametitleLabel.text = Defaults.shared.publicDisplayName
+            if let createdDate = Defaults.shared.currentUser?.created {
+                let date = CommonFunctions.getDateInSpecificFormat(dateInput: createdDate, dateOutput: R.string.localizable.mmmdYyyy())
+                self?.joinedDateLabel.text = R.string.localizable.sinceJoined(date)
+            }
+            //R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? "")
             if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
                 if userImageURL.isEmpty {
                     self?.userPlaceHolderImageView.isHidden = false
@@ -471,7 +526,44 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         
         return headerView
     }
-    
+    func setUpbadges() {
+        let badgearry = Defaults.shared.getbadgesArray()
+        preLunchBadge.isHidden = true
+        foundingMergeBadge.isHidden = true
+        socialBadgeicon.isHidden = true
+        subscriptionBadgeicon.isHidden = true
+        if  badgearry.count >  0 {
+            preLunchBadge.isHidden = false
+            preLunchBadge.image = UIImage.init(named: badgearry[0])
+        }
+        if  badgearry.count >  1 {
+            foundingMergeBadge.isHidden = false
+            foundingMergeBadge.image = UIImage.init(named: badgearry[1])
+        }
+        if  badgearry.count >  2 {
+            socialBadgeicon.isHidden = false
+            socialBadgeicon.image = UIImage.init(named: badgearry[2])
+        }
+        if  badgearry.count >  3 {
+            subscriptionBadgeicon.isHidden = false
+            subscriptionBadgeicon.image = UIImage.init(named: badgearry[3])
+        }
+    }
+    func getVerifiedSocialPlatforms() {
+        if let socialPlatforms = Defaults.shared.socialPlatforms {
+            for socialPlatform in socialPlatforms {
+                if socialPlatform == R.string.localizable.facebook().lowercased() {
+                    self.faceBookVerifiedView.isHidden = false
+                } else if socialPlatform == R.string.localizable.twitter().lowercased() {
+                    self.twitterVerifiedView.isHidden = false
+                } else if socialPlatform == R.string.localizable.snapchat().lowercased() {
+                    self.snapVerifiedView.isHidden = false
+                } else if socialPlatform == R.string.localizable.youtube().lowercased() {
+                    self.youTubeVerifiedView.isHidden = false
+                }
+            }
+        }
+    }
    
     
     @objc func btnEditProfilePic(sender: UIButton) {
@@ -645,13 +737,8 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             }
 
         } else if settingTitle.settingsType == .userDashboard {
-            if let token = Defaults.shared.sessionToken {
-                let urlString = "\(websiteUrl)/redirect?token=\(token)"
-                guard let url = URL(string: urlString) else {
-                    return
-                }
-                presentSafariBrowser(url: url)
-            }
+            openBussinessDashboard()
+           
         } else if settingTitle.settingsType == .checkUpdate {
             SSAppUpdater.shared.performCheck(isForceUpdate: false, showDefaultAlert: true) { (_) in
             }
@@ -665,7 +752,25 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             }
         }
     }
-    
+    func openBussinessDashboard(){
+//        print("isShowAllPopUpChecked: \(Defaults.shared.isShowAllPopUpChecked)\nisDoNotShowAgainOpenBusinessCenterPopup: \(Defaults.shared.isDoNotShowAgainOpenBusinessCenterPopup) ")
+        if Defaults.shared.isShowAllPopUpChecked == true && Defaults.shared.isDoNotShowAgainOpenBusinessCenterPopup == false {
+             businessDashbardConfirmPopupView.isHidden = false
+            btnDoNotShowAgainBusinessConfirmPopup.isSelected = Defaults.shared.isDoNotShowAgainOpenBusinessCenterPopup
+            self.view.bringSubviewToFront(businessDashbardConfirmPopupView)
+          //  lblQuickLinkTooltipView.text = R.string.localizable.quickLinkTooltip(R.string.localizable.businessCenter(), Defaults.shared.currentUser?.channelId ?? "")
+        }else{
+            if let token = Defaults.shared.sessionToken {
+                 let urlString = "\(websiteUrl)/redirect?token=\(token)"
+                 guard let url = URL(string: urlString) else {
+                     return
+                 }
+                 presentSafariBrowser(url: url)
+             }
+             Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
+             Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_Bdashboard)
+        }
+    }
     func viralCamLogout() {
         let objAlert = UIAlertController(title: Constant.Application.displayName, message: R.string.localizable.areYouSureYouWantToLogout(), preferredStyle: .alert)
         let actionlogOut = UIAlertAction(title: R.string.localizable.logout(), style: .default) { (_: UIAlertAction) in

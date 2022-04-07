@@ -13,6 +13,8 @@ import AVKit
 import IQKeyboardManagerSwift
 import ColorSlider
 import GoogleAPIClientForREST
+import SwiftUI
+import Photos
 
 class ShareStoryCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var storyImageView: UIImageView!
@@ -33,6 +35,7 @@ class ShareOptionTableViewCell: UITableViewCell {
 
 class StoryEditorMedia: CustomStringConvertible, NSCopying, Equatable {
    
+    var storyIndex: Int?
     var id: String
     var type: StoryEditorType
     var isSelected: Bool
@@ -209,6 +212,7 @@ class StoryEditorViewController: UIViewController {
     @IBOutlet weak var btnInstagram: UIButton!
     @IBOutlet weak var btnTwitter: UIButton!
     @IBOutlet weak var btnTiktok: UIButton!
+    @IBOutlet weak var lblSaveShare: UILabel!
     
     @IBOutlet weak var ivvwFacebook: UIImageView!
     @IBOutlet weak var ivvwYoutube: UIImageView!
@@ -259,6 +263,7 @@ class StoryEditorViewController: UIViewController {
         return avAsset
     }
     
+    var startDraggingIndex: Int?
     public var medias = [StoryEditorMedia]()
     public var selectedSlideShowMedias = [StoryEditorMedia]() {
         didSet {
@@ -278,6 +283,7 @@ class StoryEditorViewController: UIViewController {
             }
         }
     }
+    var draggableIndex = -1
 
     private var filteredImagesStory: [StoryEditorMedia] = []
     
@@ -305,6 +311,7 @@ class StoryEditorViewController: UIViewController {
     private var slideShowExportedURL: URL?
     var videoExportedURL: URL?
     
+    var isDragged = false
     public var referType: ReferType = .none
     var popupVC: STPopupController = STPopupController()
     var isCropped: Bool = false
@@ -325,8 +332,12 @@ class StoryEditorViewController: UIViewController {
     var storyEditorsSubviews: [StoryEditorView] = []
     var isTrim = false
     var isFromGallery = false
+    var isVideoModified = false
+    var isVideoRecorded = false
     var isSagmentSelection = false
+    var isCurrentAssetMuted = false
     var socialShareExportURL:URL?
+    var isShowToolTipView = false
     var isViewEditMode: Bool = false {
         didSet {
             editToolBarView.isHidden = isViewEditMode
@@ -360,6 +371,8 @@ class StoryEditorViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        videoProgressBar.timeSlider.layer.cornerRadius = videoProgressBar.timeSlider.frame.height/2
+        isShowToolTipView = UserDefaults.standard.bool(forKey: "isShowToolTipView")
         socialMediaViewTapGesture()
         if let isRegistered = Defaults.shared.isRegistered {
             if isRegistered {
@@ -405,7 +418,11 @@ class StoryEditorViewController: UIViewController {
         self.socialShareExportURL = nil
         self.socialMediaMainView.isHidden = true
         Defaults.shared.isEditSoundOff = false
-        
+        if cameraMode == .pic2Art {
+            lblSaveShare.text = R.string.localizable.savePic2art()
+        } else {
+            lblSaveShare.text = R.string.localizable.saveVideo()
+        }
     }
     
     
@@ -440,6 +457,9 @@ class StoryEditorViewController: UIViewController {
         isPublicDisplaynameWatermarkShow = Defaults.shared.publicDisplaynameWatermarkSetting == .show
         self.lblPublicDisplaynameWatermark.text = "@\(Defaults.shared.currentUser?.username ?? "")"
         setGestureViewForShowHide(view: storyEditors[currentStoryIndex])
+       
+        storyEditors[currentStoryIndex].isMuted = isCurrentAssetMuted
+        
         if Defaults.shared.appMode == .free {
             btnFastesteverWatermark.isSelected = true
             btnAppIdentifierWatermark.isSelected = true
@@ -452,6 +472,7 @@ class StoryEditorViewController: UIViewController {
         super.viewDidAppear(animated)
         IQKeyboardManager.shared.enable = false
         IQKeyboardManager.shared.enableAutoToolbar = false
+        videoProgressBar.timeSlider.addTapGesture()
         videoProgressBar.layoutSubviews()
         isVideoPlay ? pauseVideo() : playVideo()
     }
@@ -625,7 +646,7 @@ class StoryEditorViewController: UIViewController {
         }
         self.soundOptionView.isHidden = isImage
         self.trimOptionView.isHidden = isImage
-        self.splitOptionView.isHidden = isImage
+        self.splitOptionView.isHidden = true//isImage
         self.omitOptionView.isHidden = isImage
         var videoCount = 0
         for editor in storyEditors {
@@ -658,9 +679,9 @@ class StoryEditorViewController: UIViewController {
          
     func hideToolBar(hide: Bool, hideColorSlider: Bool = false) {
         editToolBarView.isHidden = hide
-        downloadView.isHidden = hide
+        downloadView.isHidden = true//hide
         backButtonView.isHidden = hide
-        deleteView.isHidden = hideColorSlider ? true : hide
+        deleteView.isHidden = true//hideColorSlider ? true : hide
         collectionView.isHidden = (storyEditors.count > 1) ? hide : true
         slideShowCollectionView.isHidden = !isSlideShow ? true : hide
         slideShowPreviewView.isHidden = !isSlideShow ? true : hide
@@ -758,6 +779,7 @@ extension StoryEditorViewController {
             guard let stickerImage = image else {
                 return
             }
+            self.isVideoModified = true
             self.didSelectSticker(StorySticker(image: stickerImage, type: .image))
             self.needToExportVideo()
             self.isSettingsChange = true
@@ -802,11 +824,13 @@ extension StoryEditorViewController {
     }
 
     @IBAction func soundClicked(_ sender: UIButton) {
+        isVideoModified = true
         Defaults.shared.callHapticFeedback(isHeavy: false)
         storyEditors[currentStoryIndex].isMuted = !storyEditors[currentStoryIndex].isMuted
         Defaults.shared.isEditSoundOff = storyEditors[currentStoryIndex].isMuted
         self.needToExportVideo()
         let soundIcon = storyEditors[currentStoryIndex].isMuted ? R.image.storySoundOff() : R.image.storySoundOn()
+        isCurrentAssetMuted = storyEditors[currentStoryIndex].isMuted ? true : false
         soundButton.setImage(soundIcon, for: .normal)
     }
     
@@ -837,6 +861,7 @@ extension StoryEditorViewController {
                 self.medias.append(storyEditorMedia)
             }
             self.isTrim = false
+//            self.isVideoModified = true
             self.medias.append(contentsOf: self.filteredImagesStory)
             if !self.storyEditorsSubviews.isEmpty {
                 self.storyEditorsSubviews.removeAll()
@@ -874,12 +899,15 @@ extension StoryEditorViewController {
             self.currentStoryIndex = 0
             self.medias.removeAll()
             
-            for item in urls {
+            for (storyIndex, item) in urls.enumerated() {
+                let newIndex = storyIndex + 1
                 guard let storyEditorMedia = item.copy() as? StoryEditorMedia else {
                     return
                 }
+                storyEditorMedia.storyIndex = newIndex
                 self.medias.append(storyEditorMedia)
             }
+            self.isVideoModified = true
             self.isTrim = true
             self.medias.append(contentsOf: self.filteredImagesStory)
             if !self.storyEditorsSubviews.isEmpty {
@@ -925,13 +953,16 @@ extension StoryEditorViewController {
             self.currentStoryIndex = 0
             self.medias.removeAll()
             
-            for item in urls {
+            for (storyIndex, item) in urls.enumerated() {
+                var newIndex = storyIndex + 1
                 guard let storyEditorMedia = item.copy() as? StoryEditorMedia else {
                     return
                 }
+                storyEditorMedia.storyIndex = newIndex
                 self.medias.append(storyEditorMedia)
             }
             self.isTrim = true
+            self.isVideoModified = true
             self.medias.append(contentsOf: self.filteredImagesStory)
             if !self.storyEditorsSubviews.isEmpty {
                 self.storyEditorsSubviews.removeAll()
@@ -978,6 +1009,7 @@ extension StoryEditorViewController {
                 self.medias.append(storyEditorMedia)
             }
             self.isTrim = true
+            self.isVideoModified = true
             self.medias.append(contentsOf: self.filteredImagesStory)
             if !self.storyEditorsSubviews.isEmpty {
                 self.storyEditorsSubviews.removeAll()
@@ -1204,9 +1236,110 @@ extension StoryEditorViewController {
         storyEditors[currentStoryIndex].endTextEditing()   //cancelTextEditing()
         hideToolBar(hide: false)
     }
-
+    @IBAction func saveShareClicked(_ sender: UIButton) {
+        Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
+        referType = storyEditors[currentStoryIndex].referType
+        imageVideoExport(isDownload: true,isFromDoneTap:false)
+        btnSocialMediaBackClick(sender)
+        /*if Defaults.shared.isVideoSavedAfterRecording{
+            Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
+            referType = storyEditors[currentStoryIndex].referType
+            imageVideoExport(isDownload: true,isFromDoneTap:true)
+        }else{
+            self.navigationController?.popViewController(animated: true)
+        } */
+    }
+  
     @IBAction func downloadClicked(_ sender: UIButton) {
-     //pop to recorrding screen if auto save is off
+//        if isPic2ArtApp || cameraMode == .pic2Art {
+////            if Defaults.shared.isVideoSavedAfterRecording{
+//                Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
+//                referType = storyEditors[currentStoryIndex].referType
+//                imageVideoExport(isDownload: true,isFromDoneTap:true)
+////            }else{
+////                self.navigationController?.popViewController(animated: true)
+////            }
+//            return
+//        }
+        
+        //pop to recording screen if auto save is off
+        let isVideoModify = self.isVideoModified
+        let isVideoRecord = self.isVideoRecorded
+        if Defaults.shared.isAutoSavePic2Art == false {
+            let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+
+            alert.addAction(UIAlertAction(title: R.string.localizable.saveVideoThisTimeOnly(), style: .default , handler:{(UIAlertAction)in
+                Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
+                self.referType = self.storyEditors[self.currentStoryIndex].referType
+                self.imageVideoExport(isDownload: true,isFromDoneTap:true)
+            }))
+            
+            alert.addAction(UIAlertAction(title: R.string.localizable.alwaysSaveEditedVideos(), style: .default , handler:{ (UIAlertAction)in
+                self.saveVideoInQuickCamFolder()
+            }))
+            
+            /*alert.addAction(UIAlertAction(title: R.string.localizable.discardVideoThisTimeOnly(), style: .default , handler:{ (UIAlertAction)in
+                self.navigationController?.popViewController(animated: true)
+            }))*/
+            
+            alert.addAction(UIAlertAction(title: R.string.localizable.cancel(), style: .cancel, handler:{ (UIAlertAction)in
+            }))
+            
+            //uncomment for iPad Support
+            //alert.popoverPresentationController?.sourceView = self.view
+            
+            self.present(alert, animated: true, completion: {
+                print("completion block")
+            })
+        }
+        else {
+            //if isVideoSavedAfterEditing is on
+            if Defaults.shared.isVideoSavedAfterRecording == false {
+                //isVideoSavedAfterRecording is false
+//                if isVideoModify == false {
+//                    if isVideoRecord {
+//                        //source camera
+//                        self.saveVideoInQuickCamFolder()
+//                    } else {
+//                        //source gallery
+//                        let alert = UIAlertController(title: "", message: R.string.localizable.savingWillCreateAnIdenticalCopy(), preferredStyle: .actionSheet)
+//                        
+//                        alert.addAction(UIAlertAction(title: R.string.localizable.oK(), style: .default , handler:{ (UIAlertAction)in
+//                            self.saveVideoInQuickCamFolder()
+//                        }))
+//                        
+//                        alert.addAction(UIAlertAction(title: R.string.localizable.cancel(), style: .default , handler:{ (UIAlertAction)in
+//                            self.navigationController?.popViewController(animated: true) //confirm once with Krushali
+//                        }))
+//                        
+//                        self.present(alert, animated: true, completion: {
+//                            print("completion block")
+//                        })
+//                    }
+//                }
+//                else {
+                    // videoModified is true
+                    self.saveVideoInQuickCamFolder()
+//                }
+            }
+            else {
+                //isVideoSavedAfterRecording is true
+                if isVideoModify == false {
+                    if isVideoRecord {
+                        self.navigationController?.popViewController(animated: true) //confirm once with Krushali
+                    } else {
+                        //video from gallery
+                        self.navigationController?.popViewController(animated: true) //confirm once with Krushali
+                    }
+                }
+                else {
+                    // videoModified is true
+                    self.saveVideoInQuickCamFolder()
+                }
+            }
+        }
+        //old code - 7-3-2022
+          /*
         if Defaults.shared.isVideoSavedAfterRecording{
             Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
             referType = storyEditors[currentStoryIndex].referType
@@ -1214,7 +1347,13 @@ extension StoryEditorViewController {
         }else{
             self.navigationController?.popViewController(animated: true)
         }
-        
+        */
+    }
+    func saveVideoInQuickCamFolder() {
+        Defaults.shared.isVideoSavedAfterEditing = true
+        Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
+        self.referType = self.storyEditors[self.currentStoryIndex].referType
+        self.imageVideoExport(isDownload: true,isFromDoneTap:true)
     }
     
     @IBAction func slideShowAutoFillClicked(_ sender: UIButton) {
@@ -1319,7 +1458,9 @@ extension StoryEditorViewController {
                     if isDownload {
                         self.saveImageOrVideoInGallery(image: image)
                         if isFromDoneTap{
-                            self.navigationController?.popViewController(animated: true)
+                            guard let storyCamVC = R.storyboard.storyCameraViewController.storyCameraViewController() else { return }
+                            storyCamVC.isfromPicsArt = true
+                            self.navigationController?.pushViewController(storyCamVC, animated: true)
                         }
                     } else {
                         if type == .more {
@@ -1346,35 +1487,61 @@ extension StoryEditorViewController {
                     }
                 } else {
                     self.isSettingsChange = false
-                    self.exportViewWithURL(asset, type: type) { [weak self] url in
-                        guard let `self` = self else { return }
-                        
-                        if let exportURL = url {
-                            self.videoExportedURL =  exportURL
-                            if isDownload {
-                                DispatchQueue.runOnMainThread {
-                                    self.saveImageOrVideoInGallery(exportURL: exportURL)
-                                    if isFromDoneTap{
-                                        self.navigationController?.popViewController(animated: true)
-                                    }
-                                }
-                            } else {
-                                DispatchQueue.runOnMainThread {
-                                    self.socialShareExportURL = exportURL
-                                    if type == .youtube {
-                                        self.checkYoutubeAuthentication(exportURL)
-                                    }else if type == .more {
-                                        self.shareWithActivity(url:exportURL)
-                                    } else {
-                                        SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type, referType: self.referType)
-                                    }
-                                    self.pauseVideo()
-                                    self.isVideoPlay = true
-                                }
+                    if type == .more {
+                        guard let asset = currentVideoAsset else { return }
+
+                        guard let exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetHighestQuality) else {
+                            print("Could not create AVAssetExportSession")
+                            return
+                        }
+
+                        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+                                    let outputURL = documentsURL.appendingPathComponent("\(UUID().uuidString).mp4")
+
+                        exportSession.outputURL = outputURL
+                        exportSession.outputFileType = AVFileType.mp4
+                        exportSession.shouldOptimizeForNetworkUse = true
+
+                        exportSession.exportAsynchronously {
+                            print("***************")
+                            print(outputURL)
+                            print("***************")
+                            DispatchQueue.main.async {
+                                self.shareWithActivity(url:outputURL)
                             }
-                        }else{
-                            if isFromDoneTap{
-                                self.navigationController?.popViewController(animated: true)
+                        }
+
+                    } else {
+                        self.exportViewWithURL(asset, type: type) { [weak self] url in
+                            guard let `self` = self else { return }
+                            
+                            if let exportURL = url {
+                                self.videoExportedURL = exportURL
+                                if isDownload {
+                                    DispatchQueue.runOnMainThread {
+                                        self.saveImageOrVideoInGallery(exportURL: exportURL)
+                                        if isFromDoneTap{
+                                            self.navigationController?.popViewController(animated: true)
+                                        }
+                                    }
+                                } else {
+                                    DispatchQueue.runOnMainThread {
+                                        self.socialShareExportURL = exportURL
+                                        if type == .youtube {
+                                            self.checkYoutubeAuthentication(exportURL)
+                                        }else if type == .more {
+                                            self.shareWithActivity(url:exportURL)
+                                        } else {
+                                            SocialShareVideo.shared.shareVideo(url: exportURL, socialType: type, referType: self.referType)
+                                        }
+                                        self.pauseVideo()
+                                        self.isVideoPlay = true
+                                    }
+                                }
+                            }else{
+                                if isFromDoneTap{
+                                    self.navigationController?.popViewController(animated: true)
+                                }
                             }
                         }
                     }
@@ -1534,10 +1701,12 @@ extension StoryEditorViewController {
     @objc private func backgroundViewDidTap() {
         popupVC.dismiss()
     }
+    
     @IBAction func btnSocialMediaBackClick(_ sender: UIButton) {
         self.socialShareExportURL = nil
         self.socialMediaMainView.isHidden = true
     }
+    
     @IBAction func btnSocialMediaDoneClick(_ sender: UIButton) {
         if Defaults.shared.isShowAllPopUpChecked == true {
             self.hideShowDiscardVideoPopup(shouldShow: true)
@@ -1560,9 +1729,9 @@ extension StoryEditorViewController {
             Defaults.shared.callHapticFeedback(isHeavy: false)
         }
     }
+    
     @IBAction func btnSocialMediaShareClick(_ sender: UIButton) {
         
-       
         if Defaults.shared.appMode == .free, !(sender.tag == 3) {
             showAlertForUpgradeSubscription()
         } else {
@@ -1570,6 +1739,7 @@ extension StoryEditorViewController {
                 guard let socialshareVC = R.storyboard.socialCamShareVC.socialCamShareVC() else {
                     return
                 }
+                
                 socialshareVC.btnStoryPostClicked = { [weak self] (selectedIndex) in
                     guard let `self` = self else { return }
                     self.popupVC.dismiss {
@@ -1662,12 +1832,19 @@ extension StoryEditorViewController {
     
     @IBAction func ssuButtonClicked(sender: UIButton) {
         if isQuickApp {
+            isVideoModified = true
             let followMeStoryShareViews = storyEditors[currentStoryIndex].subviews.filter({ return $0 is FollowMeStoryView })
             if followMeStoryShareViews.count != 1 && currentStoryIndex == 0 {
                 self.didSelect(type: QuickCam.SSUTagType.profilePicture, waitingListOptionType: nil, socialShareType: nil, screenType: SSUTagScreen.ssutTypes)
                 self.isSettingsChange = true
             }
-            openActionSheet()
+            if !isShowToolTipView {
+                openActionSheet()
+                isShowToolTipView = true
+                UserDefaults.standard.set(isShowToolTipView, forKey: "isShowToolTipView")
+            }
+            
+            
         } else {
             if let ssuTagSelectionViewController = R.storyboard.storyCameraViewController.ssuTagSelectionViewController() {
                 ssuTagSelectionViewController.delegate = self
@@ -1683,7 +1860,7 @@ extension StoryEditorViewController {
     func openActionSheet() {
         if Constant.Connectivity.isConnectedToInternet {
             if let selectLinkVC = R.storyboard.storyEditor.selectLinkViewController() {
-                selectLinkVC.modalPresentationStyle = .popover
+                selectLinkVC.modalPresentationStyle = .fullScreen
                 selectLinkVC.storyEditors = storyEditors
                 navigationController?.present(selectLinkVC, animated: true, completion: {
                     selectLinkVC.backgroundView.isUserInteractionEnabled = true
@@ -1703,6 +1880,7 @@ extension StoryEditorViewController {
                   let croppedUrl = self.croppedUrl else {
                 return
             }
+            self.isVideoModified = true
             let storyEditor = storyEditors[currentStoryIndex]
             storyEditor.isCropped = false
             storyEditor.replaceMedia(.video(image, AVAsset(url: croppedUrl)))
@@ -1719,6 +1897,7 @@ extension StoryEditorViewController {
                   let croppedUrl = self.croppedUrl else {
                 return
             }
+            self.isVideoModified = true
             let storyEditor = storyEditors[currentStoryIndex]
             storyEditor.isCropped = false
             storyEditor.replaceMedia(.video(image, AVAsset(url: croppedUrl)))
@@ -1755,6 +1934,7 @@ extension StoryEditorViewController {
     }
     
     @IBAction func fastesteverWatermarkButtonClicked(sender: UIButton) {
+        isVideoModified = true
         Defaults.shared.callHapticFeedback(isHeavy: false)
         isFastesteverWatermarkShow = !isFastesteverWatermarkShow
         btnFastesteverWatermark.isSelected = isFastesteverWatermarkShow
@@ -1763,6 +1943,7 @@ extension StoryEditorViewController {
     }
     
     @IBAction func publicDisplaynameButtonClicked(sender: UIButton) {
+        isVideoModified = true
         Defaults.shared.callHapticFeedback(isHeavy: false)
         isPublicDisplaynameWatermarkShow = !isPublicDisplaynameWatermarkShow
         btnSelectPublicDisplaynameWatermark.isSelected = isPublicDisplaynameWatermarkShow
@@ -1775,6 +1956,7 @@ extension StoryEditorViewController {
     }
     
     @IBAction func appIdentifierWatermarkButtonClicked(sender: UIButton) {
+        isVideoModified = true
         Defaults.shared.callHapticFeedback(isHeavy: false)
         isAppIdentifierWatermarkShow = !isAppIdentifierWatermarkShow
         btnAppIdentifierWatermark.isSelected = isAppIdentifierWatermarkShow
@@ -1936,11 +2118,22 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
             }
             
             let storyEditor = storyEditors[indexPath.item]
-            storyEditorCell.thumbnailNumberLabel.text = "\(indexPath.item + 1)"
+            
 //            let currentVideoAssest = Float(currentVideoAsset?.duration.seconds ?? 0.0)
             guard let _currentVideoAsset = medias[safe: indexPath.item]?.type else {
                 return storyEditorCell
             }
+            
+            if isTrim == true {
+                guard let newIndex = medias[safe: indexPath.item]?.storyIndex else {
+                    return storyEditorCell
+                }
+                
+                storyEditorCell.thumbnailNumberLabel.text = "\(newIndex)"
+            } else {
+                storyEditorCell.thumbnailNumberLabel.text = "\(indexPath.item + 1)"
+            }
+           
             var avAsset: AVAsset?
             switch _currentVideoAsset {
             case .image:
@@ -1949,8 +2142,8 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
                 avAsset = asset
             }
             let seconds = Float(avAsset?.duration.seconds ?? 0.00)
-            let videoLenght = "\(seconds + 1.0)"
-            storyEditorCell.thumbnailTimeLabel.text = String(videoLenght.prefix(3))
+            let videoLenght = seconds
+            storyEditorCell.thumbnailTimeLabel.text = String(format: "%.1f", videoLenght)
             
              //String(format: "%s", avAsset?.duration.seconds)
             storyEditorCell.imageView.image = storyEditor.thumbnailImage
@@ -1987,6 +2180,8 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
         storyEditors[indexPath.item].isHidden = false
         currentStoryIndex = indexPath.item
         print(currentStoryIndex)
+        storyEditors[currentStoryIndex].isMuted = isCurrentAssetMuted
+        setGestureViewForShowHide(view: storyEditors[currentStoryIndex])
         hideOptionIfNeeded()
         _ = storyEditors[currentStoryIndex].updatedThumbnailImage()
         nativeVideoPlayerRefresh()
@@ -1994,7 +2189,6 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
         self.collectionView.reloadData()
         self.shareCollectionView.reloadData()
         self.tableView.reloadData()
-        
         
     }
     
@@ -2037,10 +2231,14 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, cellIsDraggableAtIndexPath indexPath: IndexPath) -> Bool {
+        startDraggingIndex = indexPath.row
+        guard let cell = self.collectionView.cellForItem(at: indexPath) as? StoryEditorCell else { return false }
+        cell.imageView.layer.borderColor = R.color.appPrimaryColor()?.cgColor
         return (collectionView != slideShowCollectionView)
     }
     
     func collectionView(_ collectionView: UICollectionView, canMoveAt indexPath: IndexPath) -> Bool {
+        print(indexPath.row)
         return !isSlideShow
     }
     
@@ -2051,12 +2249,17 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
         for editor in storyEditors {
             editor.isHidden = true
         }
+        
         storyEditors[indexPath.item].isHidden = false
         currentStoryIndex = indexPath.item
+        deleteView.isHidden = false
         hideOptionIfNeeded()
     }
     
     func collectionView(_ collectionView: UICollectionView, stopDrag dataItem: AnyObject, atIndexPath indexPath: IndexPath?, sourceRect rect: CGRect) {
+        if indexPath?.item != nil {
+            medias.rearrange(from: startDraggingIndex!, to: indexPath!.item)
+        }
         if deleteView.frame.contains(rect.center) {
             if isSlideShow,
                 storyEditors.count == 3 {
@@ -2111,6 +2314,8 @@ extension StoryEditorViewController: DragAndDropCollectionViewDataSource, UIColl
                 }
             }
         }
+        deleteView.isHidden = true
+        collectionView.reloadData()
     }
     
 }
@@ -2195,7 +2400,7 @@ extension StoryEditorViewController {
             asset.duration.seconds != 0 else {
                 return
         }
-        self.videoPlayerPlayback(to: storyEditors[currentStoryIndex].currentTime, asset: asset,sliderValue:sliderValue)
+         self.videoPlayerPlayback(to: storyEditors[currentStoryIndex].currentTime, asset: asset,sliderValue:sliderValue)
     }
     
     func videoPlayerPlayback(to time: CMTime, asset: AVAsset,sliderValue:Float? = nil) {
@@ -2225,7 +2430,12 @@ extension StoryEditorViewController {
          }
       //  self.lblStoryTime.text = "\(progressTimeM):\(progressTimeS) / \(totalTimeM):\(totalTimeS)"
         
-        self.lblStoryTime.text = "\(progressTimeS):\(progressTimeMiliS) / \(totalTimeS):\(totalTimeMiliS)"
+        if totalTimeMiliS == 0 {
+            self.lblStoryTime.text = "\(progressTimeS):\(progressTimeMiliS) / \(totalTimeS):0"
+        } else {
+            self.lblStoryTime.text = "\(progressTimeS):\(progressTimeMiliS) / \(totalTimeS):\(totalTimeMiliS)"
+        }
+        
     }
     
     func startPlaybackTimeChecker() {
@@ -2485,11 +2695,8 @@ extension StoryEditorViewController {
                 }
                 loadingView.show(on: self.view, completion: {
                     loadingView.cancelClick = { _ in
-                        loadingView.progressView.stopBlink()
-                        loadingView.showTotalCount = false
-                        self.cancelExportVideoSession(view: loadingView, session: exportSession)
-                        //                        exportSession.cancelExporting()
-                        //                        loadingView.hide()
+                        exportSession.cancelExporting()
+                        loadingView.hide()
                     }
                 })
             }
@@ -2533,20 +2740,6 @@ extension StoryEditorViewController {
                     self.present(alert, animated: true, completion: nil)
                 }
         })
-    }
-    
-    func cancelExportVideoSession(view: LoadingView, session: StoryAssetExportSession)  {
-        let alert = UIAlertController(title: "Export Video", message: "Sure you want to cancel export video", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Resume", style: .default, handler: { resumeButton in
-            alert.dismiss(animated: true, completion: nil)
-        }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { cancelButton in
-//            view.cancelClick = { _ in
-                session.cancelExporting()
-                view.hide()
-//            }
-        }))
-        self.present(alert, animated: true, completion: nil)
     }
     
     func saveSlideShow(success: @escaping ((URL) -> Void), failure: @escaping ((Error) -> Void)) {
@@ -2618,7 +2811,7 @@ extension StoryEditorViewController {
         }
     }
     
-    func shareWithActivity(url:URL? = nil,image:UIImage? = nil) {
+    func shareWithActivity(url:URL? = nil, image:UIImage? = nil) {
     
         var activityItems = [Any]()
         if let videoURL = url{
@@ -2627,6 +2820,7 @@ extension StoryEditorViewController {
         if let img = image{
             activityItems.append(img)
         }
+        
         let activityController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
 
         activityController.popoverPresentationController?.sourceView = self.view
@@ -2634,7 +2828,6 @@ extension StoryEditorViewController {
 
         self.present(activityController, animated: true, completion: nil)
     }
-    
 }
 
 enum SecurityError: Error {
@@ -2677,4 +2870,10 @@ extension StoryEditorViewController {
         setUserSettings(appWatermark: sharedModel.appIdentifierWatermarkSetting.rawValue, fastesteverWatermark: sharedModel.fastestEverWatermarkSetting.rawValue, faceDetection: sharedModel.enableFaceDetection, guidelineThickness: sharedModel.cameraGuidelineThickness.rawValue, guidelineTypes: sharedModel.cameraGuidelineTypes.rawValue, guidelinesShow: sharedModel.enableGuildlines, iconPosition: sharedModel.swapeContols, supportedFrameRates: sharedModel.supportedFrameRates, videoResolution: sharedModel.videoResolution.rawValue, watermarkOpacity: sharedModel.waterarkOpacity, guidelineActiveColor: CommonFunctions.hexStringFromColor(color: sharedModel.cameraGuidelineActiveColor), guidelineInActiveColor: CommonFunctions.hexStringFromColor(color: sharedModel.cameraGuidelineInActiveColor))
     }
     
+}
+extension RangeReplaceableCollection where Indices: Equatable {
+    mutating func rearrange(from: Index, to: Index) {
+        precondition(from != to && indices.contains(from) && indices.contains(to), "invalid indices")
+        insert(remove(at: from), at: to)
+    }
 }

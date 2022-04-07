@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		031CFC7D7CC63F159F44A0ED /* Pods_SocialVids.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 736B91DAD1C5A3590DB5C1D6 /* Pods_SocialVids.framework */; };
+		090DB59027FC20B7009D8C7D /* StorySettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8205FD99236C3B50002B2603 /* StorySettingsVC.swift */; };
 		100FAC790F54C1FD67ED1721 /* Pods_QuickCamLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B965D2FAA33744D609D69C5E /* Pods_QuickCamLite.framework */; };
 		163C63BD658DB7C924FBBB2C /* Pods_SnapCamLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 192D67013DDEDAF0F2578071 /* Pods_SnapCamLite.framework */; };
 		18DB1BD26EB6FA26B8C7A18A /* Pods_BoomiCam.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF728F5D7E15CC1B1454C2A /* Pods_BoomiCam.framework */; };
@@ -28382,6 +28383,7 @@
 				827DAB9B24A4D021001A2259 /* ApplicationSettings.swift in Sources */,
 				827DABA324A4D1A4001A2259 /* Result.swift in Sources */,
 				827DAB9E24A4D0EA001A2259 /* SaveUserDefaultsProtocol.swift in Sources */,
+				090DB59027FC20B7009D8C7D /* StorySettingsVC.swift in Sources */,
 				827703F22547D9FD00BA319F /* SharedClass.swift in Sources */,
 				827DABA424A4D1B5001A2259 /* EditOption.swift in Sources */,
 				827DAB9724A4CF35001A2259 /* APIManager.swift in Sources */,
@@ -37878,10 +37880,10 @@
 				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 35;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = GA853MZ47V;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/SocialCAM/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -37912,9 +37914,9 @@
 				BITCODE_GENERATION_MODE = bitcode;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 35;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = GA853MZ47V;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/SocialCAM/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -38530,10 +38532,10 @@
 				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 35;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = GA853MZ47V;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/SocialCAM/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -39346,10 +39348,10 @@
 				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 35;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = GA853MZ47V;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "$(SRCROOT)/SocialCAM/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -40747,7 +40749,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 40;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = GA853MZ47V;
 				ENABLE_BITCODE = NO;
@@ -40762,6 +40764,7 @@
 					"-fembed-bitcode-marker",
 					"$(inherited)",
 				);
+				OTHER_CODE_SIGN_FLAGS = "--generate-entitlement-der";
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D QUICKAPP";
 				PRODUCT_BUNDLE_IDENTIFIER = app.quickcam.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -40782,7 +40785,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 40;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = GA853MZ47V;
 				ENABLE_BITCODE = NO;
@@ -40797,6 +40800,8 @@
 					"-fembed-bitcode-marker",
 					"$(inherited)",
 				);
+				OTHER_CODE_SIGN_FLAGS = "--generate-entitlement-der";
+				"OTHER_CODE_SIGN_FLAGS[sdk=*]" = "--generate-entitlement-der";
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D QUICKAPP";
 				PRODUCT_BUNDLE_IDENTIFIER = app.quickcam.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -40818,7 +40823,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 40;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = GA853MZ47V;
 				ENABLE_BITCODE = NO;
@@ -40833,6 +40838,7 @@
 					"-fembed-bitcode-marker",
 					"$(inherited)",
 				);
+				OTHER_CODE_SIGN_FLAGS = "--generate-entitlement-der";
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D QUICKAPP";
 				PRODUCT_BUNDLE_IDENTIFIER = app.quickcam.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -40854,7 +40860,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 40;
 				DEVELOPMENT_TEAM = GA853MZ47V;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "QuickCamLiteApp-Info.plist";
@@ -40868,6 +40874,7 @@
 					"-fembed-bitcode",
 					"$(inherited)",
 				);
+				OTHER_CODE_SIGN_FLAGS = "--generate-entitlement-der";
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS -D QUICKAPP";
 				PRODUCT_BUNDLE_IDENTIFIER = app.quickcam.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";

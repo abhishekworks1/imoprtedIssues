@@ -16,14 +16,29 @@ import ContactsUI
 //  ]
 //}
 struct InviteDetails:Codable{
-    var content: String?
-    var invitedFrom: String?
-    var contactListIds: [String]?
+    var content: String = ""
+    var invitedFrom: String = ""
+    var subject: String = ""
+    var contactListIds: [String] = [String]()
     
-    init(content:String,invitedFrom:String,contactListIds:[String]) {
+    init(content:String,subject:String = "",invitedFrom:String,contactListIds:[String]) {
         self.contactListIds = contactListIds
         self.content = content
+        self.subject = subject
         self.invitedFrom = invitedFrom
+        
+    }
+    
+}
+struct InviteEmailDetails:Codable{
+    var emailTitle: String = ""
+    var emailMessage: String = ""
+    var contactListIds: [String] = [String]()
+    
+    init(emailTitle:String,emailMessage:String,contactListIds:[String]) {
+        self.contactListIds = contactListIds
+        self.emailTitle = emailTitle
+        self.emailMessage = emailMessage
     }
     
 }

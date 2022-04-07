@@ -943,7 +943,7 @@ extension StoryEditorView {
         if view.center.y - (deleteView?.center.y ?? 0.0) > -250.0{
             deleteView?.isHidden = false
         }else{
-            deleteView?.isHidden = true
+            deleteView?.isHidden = false
         }
        
         recognizer.setTranslation(.zero, in: superView)

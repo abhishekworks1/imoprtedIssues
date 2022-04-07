@@ -57,14 +57,10 @@ class EditProfilePicViewController: UIViewController {
     @IBOutlet weak var btnSetFlags: UIButton!
     @IBOutlet weak var btnSelectDiscardPopupView: UIButton!
     
-    @IBOutlet weak var view1: UIView!
-    @IBOutlet weak var view2: UIView!
-    @IBOutlet weak var view3: UIView!
-    @IBOutlet weak var view4: UIView!
-    @IBOutlet weak var badgebtn1: UIButton!
-    @IBOutlet weak var badgebtn2: UIButton!
-    @IBOutlet weak var badgebtn3: UIButton!
-    @IBOutlet weak var badgebtn4: UIButton!
+    @IBOutlet weak var preLunchBadge: UIImageView!
+     @IBOutlet weak var foundingMergeBadge: UIImageView!
+     @IBOutlet weak var socialBadgeicon: UIImageView!
+     @IBOutlet weak var subscriptionBadgeicon: UIImageView!
 
 
     // MARK: - Variables declaration
@@ -89,6 +85,7 @@ class EditProfilePicViewController: UIViewController {
         super.viewDidLoad()
         self.view.isUserInteractionEnabled = true
         self.scrollView.delegate = self
+        
         self.lblUserName.text = "@\(Defaults.shared.currentUser?.channelId ?? "")"
         if let createdDate = Defaults.shared.currentUser?.created {
             let date = CommonFunctions.getDateInSpecificFormat(dateInput: createdDate, dateOutput: R.string.localizable.mmmdYyyy())
@@ -325,30 +322,29 @@ class EditProfilePicViewController: UIViewController {
     
     
     func setUpbadges() {
-        let badgearry = Defaults.shared.getbadgesArray()
-        view1.isHidden = true
-        view2.isHidden = true
-        view3.isHidden = true
-        view4.isHidden = true
-        
-        if  badgearry.count >  0 {
-            view1.isHidden = false
-            badgebtn1.setImage(UIImage.init(named: badgearry[0]), for: .normal)
+            let badgearry = Defaults.shared.getbadgesArray()
+            preLunchBadge.isHidden = true
+            foundingMergeBadge.isHidden = true
+            socialBadgeicon.isHidden = true
+            subscriptionBadgeicon.isHidden = true
+          
+            if  badgearry.count >  0 {
+                preLunchBadge.isHidden = false
+                preLunchBadge.image = UIImage.init(named: badgearry[0])
+            }
+            if  badgearry.count >  1 {
+                foundingMergeBadge.isHidden = false
+                foundingMergeBadge.image = UIImage.init(named: badgearry[1])
+            }
+            if  badgearry.count >  2 {
+                socialBadgeicon.isHidden = false
+                socialBadgeicon.image = UIImage.init(named: badgearry[2])
+            }
+            if  badgearry.count >  3 {
+                subscriptionBadgeicon.isHidden = false
+                subscriptionBadgeicon.image = UIImage.init(named: badgearry[3])
+            }
         }
-        if  badgearry.count >  1 {
-            view2.isHidden = false
-            badgebtn2.setImage(UIImage.init(named: badgearry[1]), for: .normal)
-        }
-        if  badgearry.count >  2 {
-            view3.isHidden = false
-            badgebtn3.setImage(UIImage.init(named: badgearry[2]), for: .normal)
-        }
-        if  badgearry.count >  3 {
-            view4.isHidden = false
-            badgebtn4.setImage(UIImage.init(named: badgearry[3]), for: .normal)
-        }
-    }
-    
 }
 
 extension EditProfilePicViewController: CountryPickerViewDelegate {
@@ -678,8 +674,12 @@ extension EditProfilePicViewController {
     }
     
     func getVerifiedSocialPlatforms() {
+        self.facebookVerifiedView.isHidden = true
+        self.twitterVerifiedView.isHidden = true
+        self.snapchatVerifiedView.isHidden = true
+        self.youtubeVerifiedView.isHidden = true
         if let socialPlatforms = Defaults.shared.socialPlatforms {
-            self.socialPlatformStackViewHeightConstraint.constant = 37
+            self.socialPlatformStackViewHeightConstraint.constant = 32
             for socialPlatform in socialPlatforms {
                 if socialPlatform == R.string.localizable.facebook().lowercased() {
                     self.facebookVerifiedView.isHidden = false

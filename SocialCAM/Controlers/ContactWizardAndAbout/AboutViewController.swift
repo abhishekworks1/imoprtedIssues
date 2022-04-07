@@ -14,7 +14,9 @@ class AboutViewController: UIViewController {
     @IBOutlet weak var otherLink: UIView!
     @IBOutlet weak var versionLbl: UILabel!
 
-    
+    @IBOutlet weak var tiktokView: UIView!
+    @IBOutlet weak var instagramView: UIView!
+    @IBOutlet weak var twitterView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -24,6 +26,17 @@ class AboutViewController: UIViewController {
     }
     
     // MARK: - Button Methods
+    func animateView(view:UIView){
+        UIView.animate(withDuration: 0.6,
+            animations: {
+                view.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+            },
+            completion: { _ in
+                UIView.animate(withDuration: 0.6) {
+                    view.transform = CGAffineTransform.identity
+                }
+        })
+    }
     @IBAction func onBack(_ sender: Any) {
         navigationController?.popViewController(animated: true)
     }
@@ -31,16 +44,19 @@ class AboutViewController: UIViewController {
         if let url = URL(string: "https://www.tiktok.com/@quickcamapp") {
             UIApplication.shared.open(url, options: [:])
         }
+        self.animateView(view:self.tiktokView)
     }
     @IBAction func twitterTapped(_ sender: UIButton) {
         if let url = URL(string: "https://twitter.com/QuickCamApp") {
             UIApplication.shared.open(url, options: [:])
         }
+        self.animateView(view:self.twitterView)
     }
     @IBAction func instagramTapped(_ sender: UIButton) {
         if let url = URL(string: "https://www.instagram.com/quickcam.app/") {
             UIApplication.shared.open(url, options: [:])
         }
+        self.animateView(view:self.instagramView)
     }
     
     @IBAction func websiteTapped(_ sender: UIButton) {

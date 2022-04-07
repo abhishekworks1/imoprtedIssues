@@ -45,6 +45,7 @@ class TrimEditorViewController: UIViewController {
     @IBOutlet weak var resequenceButton: UIButton!
     @IBOutlet weak var resequenceLabel: UILabel!
     
+    var isLeftGesture = true
     var isOriginalSequence = false
     var isFromSplitView = false
     var undoMgr = MyUndoManager<Void>()
@@ -54,6 +55,7 @@ class TrimEditorViewController: UIViewController {
     var draggingCell: IndexPath?
     var lastMergeCell: IndexPath?
     var isStartMovable: Bool = false
+    var isScrubbingDidChange = false
     
     // MARK: - Public Properties
     var videoUrls: [StoryEditorMedia] = []
@@ -73,7 +75,7 @@ class TrimEditorViewController: UIViewController {
     var tolerance: CMTime {
         return isTimePrecisionInfinity ? CMTime.indefinite : CMTime.zero
     }
-    var saveTime: CMTime = CMTime.zero
+//    var saveTime: CMTime = CMTime.zero
     
     var getCurrentIndexPath: IndexPath {
         return IndexPath.init(row: self.currentPage, section: 0)
@@ -105,13 +107,15 @@ class TrimEditorViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        doneView.alpha = 1
+        doneView.isUserInteractionEnabled = true
         setupLayout()
         for videoSegment in videoUrls {
             storyEditorMedias.append([videoSegment])
             resetStoryEditorMedias.append([videoSegment])
         }
-        doneView.alpha = 0.5
-        doneView.isUserInteractionEnabled = false
+//        doneView.alpha = 0.5
+//        doneView.isUserInteractionEnabled = false
         if isFromSplitView {
             splitView.isHidden = false
             storyView.isHidden = false
@@ -198,9 +202,9 @@ class TrimEditorViewController: UIViewController {
     }
     
     /// Move the position bar to the given time.
-    func seek(to time: CMTime, cell: ImageCollectionViewCell) {
+    func seek(to time: CMTime, cell: ImageCollectionViewCell, startPipe: CMTime, endPipe: CMTime) {
         cell.imagesView.layoutIfNeeded()
-        cell.videoPlayerPlayback(to: time, asset: cell.trimmerView.thumbnailsView.asset)
+        cell.videoPlayerPlayback(to: time, asset: cell.trimmerView.thumbnailsView.asset, startPipe: startPipe, endPipe: endPipe)
         cell.layoutIfNeeded()
     }
     
@@ -221,24 +225,56 @@ class TrimEditorViewController: UIViewController {
             return
         }
         if let player = self.player {
-            let playBackTime = player.currentTime()
+            var playBackTime = player.currentTime()
             if let cell: ImageCollectionViewCell = self.editStoryCollectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? ImageCollectionViewCell {
                 if !isStartMovable {
-                    guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
+                    guard var startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
                         return
                     }
                     
                     cell.trimmerView.seek(to: playBackTime)
-                    seek(to: CMTime.init(seconds: playBackTime.seconds, preferredTimescale: 10000), cell: cell)
+                    seek(to: CMTime.init(seconds: playBackTime.seconds, preferredTimescale: 10000), cell: cell, startPipe: startTime, endPipe: endTime)
                     
-                    if playBackTime >= endTime {
-                        player.seek(to: startTime, toleranceBefore: tolerance, toleranceAfter: tolerance)
-                        cell.trimmerView.seek(to: startTime)
-                        seek(to: CMTime.init(seconds: startTime.seconds, preferredTimescale: 10000), cell: cell)
-                        cell.trimmerView.resetTimePointer()
-                        btnPlayPause.isSelected = false
-                        player.pause()
+                    if !isScrubbingDidChange {
+                        if playBackTime >= endTime {
+                            player.seek(to: startTime, toleranceBefore: tolerance, toleranceAfter: tolerance)
+                            cell.trimmerView.seek(to: startTime)
+                            seek(to: CMTime.init(seconds: startTime.seconds, preferredTimescale: 10000), cell: cell,startPipe: startTime, endPipe: endTime)
+                            cell.trimmerView.resetTimePointer()
+                            if isLeftGesture {
+                                if !isScrubbingDidChange {
+                                    btnPlayPause.isSelected = true
+                                    player.play()
+                                } else {
+                                    btnPlayPause.isSelected = false
+                                    player.pause()
+                                }
+                            } else {
+                                btnPlayPause.isSelected = true
+                                player.play()
+                            }
+                        }
+                    } else {
+                        
+                        if playBackTime >= endTime {
+                            seek(to: CMTime.init(seconds: startTime.seconds, preferredTimescale: 10000), cell: cell,startPipe: startTime, endPipe: endTime)
+                            btnPlayPause.isSelected = false
+                            player.pause()
+                        }
                     }
+//                    if playBackTime >= endTime {
+//                        player.seek(to: startTime, toleranceBefore: tolerance, toleranceAfter: tolerance)
+//                        cell.trimmerView.seek(to: startTime)
+//                        seek(to: CMTime.init(seconds: startTime.seconds, preferredTimescale: 10000), cell: cell, startPipe: startTime, endPipe: endTime)
+//                        cell.trimmerView.resetTimePointer()
+//                        if isLeftGesture {
+//                            btnPlayPause.isSelected = false
+//                            player.pause()
+//                        } else {
+//                            btnPlayPause.isSelected = true
+//                            player.play()
+//                        }
+//                    }
                 }
             }
         }
@@ -301,13 +337,15 @@ extension TrimEditorViewController: UICollectionViewDataSource {
                 cell.trimmerView.leftImage = UIImage()
                 cell.leftTopView.isHidden = true
                 cell.rightTopView.isHidden = true
-                cell.trimmerView.isUserInteractionEnabled = false
+                cell.trimmerView.leftPanGesture.isEnabled = false
+                cell.trimmerView.rightPanGesture.isEnabled = false
             } else {
                 cell.trimmerView.rightImage = R.image.cut_handle_icon()
                 cell.trimmerView.leftImage = R.image.cut_handle_icon()
                 cell.leftTopView.isHidden = false
                 cell.rightTopView.isHidden = false
-                cell.trimmerView.isUserInteractionEnabled = true
+                cell.trimmerView.leftPanGesture.isEnabled = true
+                cell.trimmerView.rightPanGesture.isEnabled = true
             }
             
         } else {
@@ -315,6 +353,15 @@ extension TrimEditorViewController: UICollectionViewDataSource {
                 return cell
             }
             cell.setLayout(indexPath: indexPath, currentPage: currentPage, currentAsset: currentAsset, storySegment: storySegment)
+            
+                cell.lblSegmentCount.isHidden = true
+                cell.lblVideoDuration.isHidden = false
+                cell.segmentCountLabel.isHidden = false
+                cell.segmentCountLabel.text = "\(indexPath.item + 1)"
+                let duration = String(format: "%.1f", currentAsset.duration.seconds)
+                cell.lblVideoDuration.font = UIFont(name: "SFUIText-Regular", size: 11)
+                cell.lblVideoDuration.text = "  \(duration)"
+            
         }
         cell.trimmerView.delegate = self
         player?.isMuted = Defaults.shared.isEditSoundOff
@@ -349,7 +396,7 @@ extension TrimEditorViewController: UICollectionViewDelegate, UICollectionViewDe
         if collectionView == self.editStoryCollectionView {
             return
         }
-        currentPlayVideo = indexPath.row
+        currentPlayVideo = indexPath.item
         if currentPlayVideo == storyEditorMedias.count {
             currentPlayVideo = 0
         }
@@ -365,9 +412,12 @@ extension TrimEditorViewController: UICollectionViewDelegate, UICollectionViewDe
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let storySegment = storyEditorMedias[indexPath.row]
         if collectionView == self.editStoryCollectionView {
-            return CGSize(width: Double(self.view.frame.width - 40), height: Double(118 * 1.17))
+            return CGSize(width: Double(self.view.frame.width - 40), height: Double(118 * 1.30))
+//            return CGSize(width: Double(self.view.frame.width - 40), height: Double(118 * 1.17))
         } else {
-            return CGSize(width: (Double(storySegment.count * 35)), height: Double(98))
+            return CGSize(width: 47.0,
+                          height: collectionView.frame.height)
+//            return CGSize(width: (Double(storySegment.count * 45)), height: Double(98))
         }
     }
     
@@ -460,7 +510,7 @@ extension TrimEditorViewController: TrimmerViewDelegate {
         if let player = player {
             isStartMovable = true
             player.pause()
-            self.saveTime = player.currentTime()
+            
         }
     }
     
@@ -468,8 +518,9 @@ extension TrimEditorViewController: TrimmerViewDelegate {
         if let player = player,
            let cell: ImageCollectionViewCell = self.editStoryCollectionView.cellForItem(at: self.getCurrentIndexPath) as? ImageCollectionViewCell {
             
+            guard let startTime = trimmer.startTime, let endTime = trimmer.endTime else { return }
             var newStartpoint = currentTimeTrim.seconds - 1
-            if newStartpoint < 0{
+            if newStartpoint < 0 {
                 newStartpoint = 0
             }
             
@@ -477,23 +528,24 @@ extension TrimEditorViewController: TrimmerViewDelegate {
          //   player.seek(to: currentTimeTrim, toleranceBefore: tolerance, toleranceAfter: tolerance)
             
             player.seek(to: currentTimeTrim, toleranceBefore: start, toleranceAfter: start)
-            self.seek(to: CMTime.init(seconds: currentTimeTrim.seconds, preferredTimescale: 10000), cell: cell)
+            self.seek(to: CMTime.init(seconds: currentTimeTrim.seconds, preferredTimescale: 10000), cell: cell, startPipe: startTime, endPipe: endTime)
         }
     }
     
     func trimmerDidEndDragging(_ trimmer: TrimmerView, with startTime: CMTime, endTime: CMTime, isLeftGesture: Bool) {
+        self.isLeftGesture = isLeftGesture
         if let player = player {
             isStartMovable = false
             DispatchQueue.main.async {
                 if self.btnPlayPause.isSelected {
                     if let cell: ImageCollectionViewCell = self.editStoryCollectionView.cellForItem(at: self.getCurrentIndexPath) as? ImageCollectionViewCell {
                     if !isLeftGesture {
-                        guard let endTime = trimmer.endTime else {
+                        guard let startTime = trimmer.startTime, let endTime = trimmer.endTime else {
                             return
                         }
                         let newEndTime = endTime - CMTime.init(seconds: 1, preferredTimescale: endTime.timescale)
                         var newStartpoint = newEndTime.seconds - 0.5
-                        if newStartpoint < 0{
+                        if newStartpoint < 0 {
                             newStartpoint = 0
                         }
                         let start = CMTimeMakeWithSeconds(newStartpoint, preferredTimescale: endTime.timescale);
@@ -501,7 +553,7 @@ extension TrimEditorViewController: TrimmerViewDelegate {
                         print(newEndTime.seconds)
                         print(start.seconds)
                         player.seek(to: newEndTime, toleranceBefore: start, toleranceAfter: start)
-                        self.seek(to: CMTime.init(seconds: newEndTime.seconds, preferredTimescale: 10000), cell: cell)
+                        self.seek(to: CMTime.init(seconds: newEndTime.seconds, preferredTimescale: 10000), cell: cell, startPipe: startTime, endPipe: endTime)
                     }
                 }
                     player.play()
@@ -511,21 +563,24 @@ extension TrimEditorViewController: TrimmerViewDelegate {
     }
     
     func trimmerScrubbingDidChange(_ trimmer: TrimmerView, with currentTimeScrub: CMTime) {
+        isScrubbingDidChange = true
         if let player = player {
             player.seek(to: currentTimeScrub, toleranceBefore: tolerance, toleranceAfter: tolerance)
             if player.timeControlStatus == .playing {
                 player.pause()
             }
             if let cell: ImageCollectionViewCell = self.editStoryCollectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as? ImageCollectionViewCell {
-                guard let startTime = cell.trimmerView.startTime, let endTime = cell.trimmerView.endTime else {
+                guard let startTime = trimmer.startTime, let endTime = trimmer.endTime else {
                     return
                 }
                 cell.trimmerView.seek(to: currentTimeScrub)
                 
-                if currentTimeScrub >= endTime {
-                    cell.trimmerView.seek(to: startTime)
-                    cell.trimmerView.resetTimePointer()
-                }
+//                if btnPlayPause.isSelected {
+//                    if currentTimeScrub >= endTime {
+//                        cell.trimmerView.seek(to: startTime)
+//                        cell.trimmerView.resetTimePointer()
+//                    }
+//                }
             }
         }
     }
@@ -696,9 +751,9 @@ extension TrimEditorViewController {
     @IBAction func undoSButtonTapped(_ sender: AnyObject) {
         if undoMgr.canUndo() {
             undoMgr.undo()
-            DispatchQueue.main.async {
-                self.combineButton.isSelected = false
-                self.storyCollectionView.reloadData()
+            DispatchQueue.main.async { [self] in
+                combineButton.isSelected = false
+                storyCollectionView.reloadData()
             }
         }
     }
@@ -904,14 +959,14 @@ extension TrimEditorViewController {
             if player.timeControlStatus == .playing {
                 player.pause()
                 btnPlayPause.isSelected = false
-                doneView.alpha = 1
-                doneView.isUserInteractionEnabled = true
+                //                doneView.alpha = 1
+                //                doneView.isUserInteractionEnabled = true
             } else {
                 player.play()
                 btnPlayPause.isSelected = true
-                
-                doneView.alpha = 0.5
-                doneView.isUserInteractionEnabled = false
+                isScrubbingDidChange = false
+                //                doneView.alpha = 0.5
+                //                doneView.isUserInteractionEnabled = false
             }
         }
     }
@@ -929,9 +984,18 @@ extension TrimEditorViewController {
     @IBAction func didTapUndoButtonClicked(_ sender: UIButton) {
         if undoMgr.canUndo() {
             undoMgr.undo()
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [self] in
                 self.combineButton.isSelected = false
-                self.storyCollectionView.reloadData()
+                if currentPlayVideo == storyEditorMedias.count {
+                    currentPlayVideo = storyEditorMedias.count - 1
+                }
+                currentPage = currentPlayVideo
+                storyCollectionView.reloadData()
+                editStoryCollectionView.reloadData()
+                guard let currentAsset = self.currentAsset(index: currentPage) else {
+                    return
+                }
+                loadViewWith(asset: currentAsset)
             }
         }
     }

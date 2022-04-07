@@ -12,10 +12,12 @@ enum SystemSettingType {
     case showAllPopUps
     case skipYoutubeLogin
     case saveVideoAfterRecording
+    case autoSaveAfterEditing
     case muteRecordingSlowMotion
     case muteRecordingFastMotion
     case milestonesReached
     case mutehapticFeedbackOnSpeedSelection
+    case autoSavePic2Art
 }
 
 class SystemSettingsCell: UITableViewCell {
@@ -39,6 +41,14 @@ class SystemSettingsCell: UITableViewCell {
                 title.text = R.string.localizable.saveVideoAfterRecording()
                 btnHelpTooltip.isHidden = true
                 btnSelectShowAllPopup.isSelected = Defaults.shared.isVideoSavedAfterRecording
+            } else if systemSettingType == .autoSaveAfterEditing {
+                title.text = R.string.localizable.autoSaveAfterEditing()
+                btnHelpTooltip.isHidden = true
+                btnSelectShowAllPopup.isSelected = Defaults.shared.isVideoSavedAfterEditing
+            } else if systemSettingType == .autoSavePic2Art {
+                title.text = R.string.localizable.autoSavePic2Art()
+                btnHelpTooltip.isHidden = true
+                btnSelectShowAllPopup.isSelected = Defaults.shared.isAutoSavePic2Art
             } else if systemSettingType == .muteRecordingFastMotion {
                 title.text = R.string.localizable.muteWhileRecordingInFastMotion()
                 btnHelpTooltip.isHidden = true
@@ -74,11 +84,20 @@ class SystemSettingsCell: UITableViewCell {
             Defaults.shared.isDiscardVideoPopupHide = !btnSelectShowAllPopup.isSelected
             Defaults.shared.isToolTipHide = !btnSelectShowAllPopup.isSelected
             Defaults.shared.isEditProfileDiscardPopupChecked = !btnSelectShowAllPopup.isSelected
+            if Defaults.shared.isShowAllPopUpChecked {
+                Defaults.shared.isDoNotShowAgainOpenBusinessCenterPopup = false
+            }
         } else if systemSettingType == .skipYoutubeLogin {
             Defaults.shared.isSkipYoutubeLogin = !btnSelectShowAllPopup.isSelected
             btnSelectShowAllPopup.isSelected = !btnSelectShowAllPopup.isSelected
         } else if systemSettingType == .saveVideoAfterRecording {
             Defaults.shared.isVideoSavedAfterRecording = !btnSelectShowAllPopup.isSelected
+            btnSelectShowAllPopup.isSelected = !btnSelectShowAllPopup.isSelected
+        } else if systemSettingType == .autoSaveAfterEditing {
+            Defaults.shared.isVideoSavedAfterEditing = !btnSelectShowAllPopup.isSelected
+            btnSelectShowAllPopup.isSelected = !btnSelectShowAllPopup.isSelected
+        } else if systemSettingType == .autoSavePic2Art {
+            Defaults.shared.isAutoSavePic2Art = !btnSelectShowAllPopup.isSelected
             btnSelectShowAllPopup.isSelected = !btnSelectShowAllPopup.isSelected
         } else if systemSettingType == .muteRecordingSlowMotion {
             Defaults.shared.muteOnSlowMotion = !btnSelectShowAllPopup.isSelected
