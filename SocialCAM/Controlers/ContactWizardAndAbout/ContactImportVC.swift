@@ -87,13 +87,17 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var lblSinceDate: UILabel!
     @IBOutlet weak var lblDisplayName: UILabel!
 
-    @IBOutlet weak var socialPlatformsVerifiedBadgeView: UIView!
-    @IBOutlet weak var view1: UIView!
-    @IBOutlet weak var view2: UIView!
-    @IBOutlet weak var view3: UIView!
-    @IBOutlet weak var badgebtn1: UIButton!
-    @IBOutlet weak var badgebtn2: UIButton!
-    @IBOutlet weak var badgebtn3: UIButton!
+    
+    @IBOutlet weak var preLunchBadge: UIImageView!
+     @IBOutlet weak var foundingMergeBadge: UIImageView!
+     @IBOutlet weak var socialBadgeicon: UIImageView!
+     @IBOutlet weak var subscriptionBadgeicon: UIImageView!
+        
+    @IBOutlet weak var preLunchBadge1: UIImageView!
+     @IBOutlet weak var foundingMergeBadge1: UIImageView!
+     @IBOutlet weak var socialBadgeicon1: UIImageView!
+     @IBOutlet weak var subscriptionBadgeicon1: UIImageView!
+
     
     @IBOutlet weak var textMessageButton: UIButton!
     @IBOutlet weak var textMessageSeperatorView: UIView!
@@ -429,37 +433,60 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 }
             }
             self.imgProfileBadge.image = (socialPlatforms.count == 4) ? R.image.shareScreenRibbonProfileBadge() : R.image.shareScreenProfileBadge()
-            self.socialPlatformsVerifiedBadgeView.isHidden = socialPlatforms.count != 4
+            //self.socialPlatformsVerifiedBadgeView.isHidden = socialPlatforms.count != 4
         } else {
             self.verifiedView.isHidden = true
-            self.socialPlatformsVerifiedBadgeView.isHidden = true
+            //self.socialPlatformsVerifiedBadgeView.isHidden = true
         }
-    }
-    func setUpbadges() {
-        let badgearry = Defaults.shared.getbadgesArray()
-        view1.isHidden = true
-        view2.isHidden = true
-        view3.isHidden = true
-        //view4.isHidden = true
-        
-        if  badgearry.count >  0 {
-            view1.isHidden = false
-            badgebtn1.setImage(UIImage.init(named: badgearry[0]), for: .normal)
-        }
-        if  badgearry.count >  1 {
-            view2.isHidden = false
-            badgebtn2.setImage(UIImage.init(named: badgearry[1]), for: .normal)
-        }
-        if  badgearry.count >  2 {
-            view3.isHidden = false
-            badgebtn3.setImage(UIImage.init(named: badgearry[2]), for: .normal)
-        }
-//        if  badgearry.count >  3 {
-//            view4.isHidden = false
-//            badgebtn4.setImage(UIImage.init(named: badgearry[3]), for: .normal)
-//        }
     }
     
+    func setUpbadges() {
+           let badgearry = Defaults.shared.getbadgesArray()
+           preLunchBadge.isHidden = true
+           foundingMergeBadge.isHidden = true
+           socialBadgeicon.isHidden = true
+           subscriptionBadgeicon.isHidden = true
+         
+           if  badgearry.count >  0 {
+               preLunchBadge.isHidden = false
+               preLunchBadge.image = UIImage.init(named: badgearry[0])
+           }
+           if  badgearry.count >  1 {
+               foundingMergeBadge.isHidden = false
+               foundingMergeBadge.image = UIImage.init(named: badgearry[1])
+           }
+           if  badgearry.count >  2 {
+               socialBadgeicon.isHidden = false
+               socialBadgeicon.image = UIImage.init(named: badgearry[2])
+           }
+           if  badgearry.count >  3 {
+               subscriptionBadgeicon.isHidden = false
+               subscriptionBadgeicon.image = UIImage.init(named: badgearry[3])
+           }
+        
+        
+        preLunchBadge1.isHidden = true
+        foundingMergeBadge1.isHidden = true
+        socialBadgeicon1.isHidden = true
+        subscriptionBadgeicon1.isHidden = true
+      
+        if  badgearry.count >  0 {
+            preLunchBadge1.isHidden = false
+            preLunchBadge1.image = UIImage.init(named: badgearry[0])
+        }
+        if  badgearry.count >  1 {
+            foundingMergeBadge1.isHidden = false
+            foundingMergeBadge1.image = UIImage.init(named: badgearry[1])
+        }
+        if  badgearry.count >  2 {
+            socialBadgeicon1.isHidden = false
+            socialBadgeicon1.image = UIImage.init(named: badgearry[2])
+        }
+        if  badgearry.count >  3 {
+            subscriptionBadgeicon1.isHidden = false
+            subscriptionBadgeicon1.image = UIImage.init(named: badgearry[3])
+        }
+       }
     fileprivate func loadContacts(filter: ContactsFilter) {
         phoneContacts.removeAll()
         mailContacts.removeAll()

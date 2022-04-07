@@ -383,6 +383,7 @@ extension OmitEditorViewController: UICollectionViewDataSource {
             guard let currentSelectedAsset = currentAsset(index: currentPage) else {
                 return cell
             }
+            cell.delegate = self
             cell.setEditLayout(indexPath: indexPath, currentPage: currentPage, currentAsset: currentSelectedAsset)
 //            remineTime = cell.remainTimeMiliS
 //            cell.trimmerView.rightImage = UIImage()
@@ -594,15 +595,9 @@ extension OmitEditorViewController: TrimmerViewCutDelegate {
                 
                 let finaltime = endTime.seconds - startTime.seconds
                 if let currentAsset = currentAsset(index: self.currentPage) {
-                   let time = (CGFloat(currentAsset.duration.value)/CGFloat(currentAsset.duration.timescale))
-                    print(finaltime)
-                    var checkwithTime: Float = 0.0
-                    if currentAsset.duration.seconds >= 10.0 {
-                        checkwithTime = 0.9
-                    } else {
-                        checkwithTime = 0.2
-                    }
-                    if Float(finaltime) > checkwithTime && Float(finaltime) < Float(currentAsset.duration.seconds) {
+                    let checkwithTime: Float = 0.1
+
+                    if Float(finaltime) >= checkwithTime && Float(finaltime) < Float(currentAsset.duration.seconds) {
                     doneView.alpha = 1
                     doneView.isUserInteractionEnabled = true
                     if #available(iOS 13.0, *) {
@@ -1141,4 +1136,29 @@ extension OmitEditorViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
+}
+
+extension OmitEditorViewController: ImageCollectionViewCutCellDelegate {
+    func handleTapCutIcons(finalTime: Float) {
+        print(finalTime)
+        if let currentAsset = currentAsset(index: self.currentPage) {
+            let checkwithTime: Float = 0.1
+            
+            if Float(finalTime) >= checkwithTime && Float(finalTime) < Float(currentAsset.duration.seconds) {
+                doneView.alpha = 1
+                doneView.isUserInteractionEnabled = true
+                if #available(iOS 13.0, *) {
+                    doneButton.setImage(UIImage(named: "trimDone")?.withTintColor(UIColor.white, renderingMode: .automatic), for: .normal)
+                    doneLabel.textColor = UIColor.white
+                }
+            } else {
+                doneView.alpha = 0.5
+                doneView.isUserInteractionEnabled = false
+                if #available(iOS 13.0, *) {
+                    doneButton.setImage(UIImage(named: "trimDone")?.withTintColor(UIColor.red, renderingMode: .automatic), for: .normal)
+                    doneLabel.textColor = UIColor.red
+                }
+            }
+        }
+    }
 }
