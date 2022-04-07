@@ -773,7 +773,6 @@ open class TrimmerViewCut: UIView {
             - minDistance) + trimViewTrailingConstraint.constant
         
         let newPosition = min(currentLeadingConstraint + self.timePointerViewLeadingAnchor.constant, maxConstraint)
-        
         trimViewLeadingConstraint.constant = newPosition
     }
     
