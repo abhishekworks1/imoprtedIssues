@@ -1410,16 +1410,23 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
     }
     @IBAction func btnCopyReferralLink(_ sender: UIButton) {
+        UIPasteboard.general.string = "Hello world"
     }
     @IBAction func btnQuickCamAppAction(_ sender: UIButton) {
     }
     @IBAction func btnBusinessDashboardAction(_ sender: UIButton) {
     }
     @IBAction func btnTextShareAction(_ sender: UIButton) {
+        isSelectSMS = true
+        pageNo = 2
+        self.setupPage()
     }
     @IBAction func btnQRCodeShareAction(_ sender: UIButton) {
     }
     @IBAction func btnManualEmailAction(_ sender: UIButton) {
+        isSelectSMS = false
+        pageNo = 2
+        self.setupPage()
     }
     @IBAction func btnSocialSharingAction(_ sender: UIButton) {
     }

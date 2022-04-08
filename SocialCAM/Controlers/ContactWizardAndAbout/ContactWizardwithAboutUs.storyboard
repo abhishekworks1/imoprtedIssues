@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -689,7 +690,7 @@
                                                 </connections>
                                             </button>
                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't show again." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vjp-yL-3si">
-                                                <rect key="frame" x="73" y="65" width="129.5" height="0.0"/>
+                                                <rect key="frame" x="73" y="65" width="137.5" height="0.0"/>
                                                 <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -774,7 +775,7 @@
                                         <rect key="frame" x="57" y="378" width="300" height="140"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invite Again" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4ek-so-tRU">
-                                                <rect key="frame" x="15" y="24" width="270" height="20"/>
+                                                <rect key="frame" x="15" y="24" width="270" height="20.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="270" id="al7-Hs-2EL"/>
                                                 </constraints>
@@ -1430,7 +1431,7 @@
                                                                                 <state key="selected" image="checkBoxActive"/>
                                                                             </button>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Include Profile Image" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XfY-qK-xQi">
-                                                                                <rect key="frame" x="42" y="11" width="131.5" height="20"/>
+                                                                                <rect key="frame" x="42" y="11" width="142.5" height="20"/>
                                                                                 <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="14"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -1445,7 +1446,7 @@
                                                                                 <state key="selected" image="checkBoxActive"/>
                                                                             </button>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add QR code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X5b-cf-NbA">
-                                                                                <rect key="frame" x="227" y="11" width="85.5" height="20"/>
+                                                                                <rect key="frame" x="227" y="11" width="88.5" height="20"/>
                                                                                 <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="14"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -2305,8 +2306,8 @@
                                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="avm-1c-gNr">
-                                                                    <rect key="frame" x="20" y="213.5" width="374" height="60"/>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="avm-1c-gNr">
+                                                                    <rect key="frame" x="20" y="220.5" width="374" height="60"/>
                                                                     <subviews>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R7l-B3-Xoe">
                                                                             <rect key="frame" x="0.0" y="0.0" width="181" height="60"/>
@@ -2395,15 +2396,15 @@ Dashboard</string>
                                                                         <constraint firstAttribute="height" constant="60" id="0OI-j0-KGd"/>
                                                                     </constraints>
                                                                 </stackView>
-                                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p5A-nv-7lw">
-                                                                    <rect key="frame" x="0.0" y="273.5" width="414" height="0.5"/>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p5A-nv-7lw">
+                                                                    <rect key="frame" x="0.0" y="280.5" width="414" height="0.5"/>
                                                                     <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="0.5" id="moT-6U-m3U"/>
                                                                     </constraints>
                                                                 </view>
-                                                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="yIk-07-8mL">
-                                                                    <rect key="frame" x="57" y="286" width="300" height="276"/>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="yIk-07-8mL">
+                                                                    <rect key="frame" x="57" y="293" width="300" height="276"/>
                                                                     <subviews>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JSe-wh-X8D">
                                                                             <rect key="frame" x="0.0" y="0.0" width="300" height="60"/>
@@ -2608,9 +2609,9 @@ Dashboard</string>
                                                                     </constraints>
                                                                 </stackView>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g7X-Rv-5D7">
-                                                                    <rect key="frame" x="344" y="155.5" width="25" height="25"/>
+                                                                    <rect key="frame" x="344" y="153" width="25" height="30"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="height" constant="25" id="Cbn-4b-Wum"/>
+                                                                        <constraint firstAttribute="height" constant="30" id="Cbn-4b-Wum"/>
                                                                         <constraint firstAttribute="width" constant="25" id="Frs-1I-OaU"/>
                                                                     </constraints>
                                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -2630,6 +2631,7 @@ Dashboard</string>
                                                                 <constraint firstAttribute="trailing" secondItem="p5A-nv-7lw" secondAttribute="trailing" id="N3H-MR-SfD"/>
                                                                 <constraint firstAttribute="trailing" secondItem="9AK-Q4-Zh8" secondAttribute="trailing" constant="12" id="Q9V-WM-jTU"/>
                                                                 <constraint firstItem="9AK-Q4-Zh8" firstAttribute="leading" secondItem="Zdd-SJ-ri5" secondAttribute="leading" constant="12" id="RhV-q3-MVf"/>
+                                                                <constraint firstItem="avm-1c-gNr" firstAttribute="top" secondItem="VKf-hQ-yem" secondAttribute="bottom" constant="43.5" id="VL1-DT-jda"/>
                                                                 <constraint firstItem="9AK-Q4-Zh8" firstAttribute="top" secondItem="Zdd-SJ-ri5" secondAttribute="top" constant="30" id="Vio-9z-KlI"/>
                                                                 <constraint firstItem="yIk-07-8mL" firstAttribute="top" secondItem="p5A-nv-7lw" secondAttribute="bottom" constant="12" id="W09-jM-rKE"/>
                                                                 <constraint firstItem="leS-Z2-Mpq" firstAttribute="top" secondItem="zyw-RV-5Gs" secondAttribute="bottom" constant="10" id="WtK-Sb-mpF"/>
@@ -2652,20 +2654,20 @@ Dashboard</string>
                                                                     <rect key="frame" x="20" y="20" width="169.5" height="169.5"/>
                                                                     <subviews>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icforward" translatesAutoresizingMaskIntoConstraints="NO" id="JTY-VW-YDt">
-                                                                            <rect key="frame" x="129.5" y="102" width="25" height="25"/>
+                                                                            <rect key="frame" x="129.5" y="102.5" width="25" height="25"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="25" id="9B7-52-gN9"/>
                                                                                 <constraint firstAttribute="height" constant="25" id="fRE-cv-M8I"/>
                                                                             </constraints>
                                                                         </imageView>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mobile Sharing" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qbq-hf-ymb">
-                                                                            <rect key="frame" x="10" y="94" width="104.5" height="41"/>
+                                                                            <rect key="frame" x="10" y="94.5" width="104.5" height="41"/>
                                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                             <color key="textColor" red="0.0" green="0.49019607843137253" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="share_contact" translatesAutoresizingMaskIntoConstraints="NO" id="tod-uL-yPP">
-                                                                            <rect key="frame" x="20" y="32" width="35" height="35"/>
+                                                                            <rect key="frame" x="20" y="32.5" width="35" height="35"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="35" id="Itq-J3-kZm"/>
                                                                                 <constraint firstAttribute="width" constant="35" id="c7X-VA-SVw"/>
@@ -2714,7 +2716,7 @@ Dashboard</string>
                                                                     <rect key="frame" x="224.5" y="20" width="169.5" height="169.5"/>
                                                                     <subviews>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icforward" translatesAutoresizingMaskIntoConstraints="NO" id="ULT-7h-cxH">
-                                                                            <rect key="frame" x="129.5" y="102" width="25" height="25"/>
+                                                                            <rect key="frame" x="129.5" y="102.5" width="25" height="25"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="25" id="1ay-rt-K6t"/>
                                                                                 <constraint firstAttribute="height" constant="25" id="nrF-NG-CuF"/>
@@ -2727,7 +2729,7 @@ Dashboard</string>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="message_contact" translatesAutoresizingMaskIntoConstraints="NO" id="Fyh-Vg-bgv">
-                                                                            <rect key="frame" x="20" y="32" width="35" height="35"/>
+                                                                            <rect key="frame" x="20" y="32.5" width="35" height="35"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="35" id="0f6-Cz-744"/>
                                                                                 <constraint firstAttribute="width" constant="35" id="3We-fg-xk5"/>
@@ -2795,14 +2797,14 @@ Dashboard</string>
                                                                             </constraints>
                                                                         </imageView>
                                                                         <button hidden="YES" opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q9p-ht-RoQ">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="169.5" height="169.5"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="169.5" height="170"/>
                                                                             <state key="normal" title="Button"/>
                                                                             <connections>
                                                                                 <action selector="mainOptionsClick:" destination="zZw-wm-uWi" eventType="touchUpInside" id="y3G-Jp-4ey"/>
                                                                             </connections>
                                                                         </button>
                                                                         <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PvR-VU-81B">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="169.5" height="169.5"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="169.5" height="170"/>
                                                                             <connections>
                                                                                 <action selector="mainOptionsClick:" destination="zZw-wm-uWi" eventType="touchUpInside" id="BFi-4L-CgW"/>
                                                                             </connections>
@@ -3032,7 +3034,7 @@ Dashboard</string>
             <color red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
-            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="shareReferLinkBackgroundColor">
             <color red="0.94509803921568625" green="0.93725490196078431" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
