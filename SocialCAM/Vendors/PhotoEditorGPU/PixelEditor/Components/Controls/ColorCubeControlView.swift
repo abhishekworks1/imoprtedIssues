@@ -184,7 +184,7 @@ open class ColorCubeControl: ColorCubeControlBase, UICollectionViewDelegateFlowL
         print("**************\(indexPath.item)")
         print(filter.image)
         print("****************")
-        cell.set(preview: filter, images: filterImages[indexPath.item])
+        cell.set(preview: filter)
       updateSelected(cell: cell)
       return cell
     }
@@ -352,12 +352,11 @@ open class ColorCubeControl: ColorCubeControlBase, UICollectionViewDelegateFlowL
         
         open var preview: PreviewFilterColorCube?
         
-        open func set(preview: PreviewFilterColorCube,images: UIImage) {
+        open func set(preview: PreviewFilterColorCube) {
             
             self.preview = preview
             nameLabel.text = preview.filter.name
-            imageView.image = images
-//            UIImage(ciImage: preview.image, scale: contentScaleFactor, orientation: .left)
+            imageView.image = UIImage(ciImage: preview.image, scale: contentScaleFactor, orientation: .left)
         }
         
     }
