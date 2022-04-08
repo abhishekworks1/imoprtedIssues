@@ -355,7 +355,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             lblNum4.backgroundColor = .white
         }
         
-        if pageNo == 3{
+        if pageNo == 3 {
             page1view.isHidden = true
             page2view.isHidden = true
             page3view.isHidden = false
@@ -373,11 +373,13 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 page3NextBtn.setTitle("Next", for: .normal)
                 page3NextBtn.backgroundColor = blueColor1
                 page3NextBtn.setTitleColor(.white, for: .normal)
-
             }else{
-                page3NextBtn.setTitle("Done", for: .normal)
-                page3NextBtn.backgroundColor = .white
-                page3NextBtn.setTitleColor(blueColor1, for: .normal)
+                page3NextBtn.setTitle("Next", for: .normal)
+                page3NextBtn.backgroundColor = blueColor1
+                page3NextBtn.setTitleColor(.white, for: .normal)
+//                page3NextBtn.setTitle("Done", for: .normal)
+//                page3NextBtn.backgroundColor = .white
+//                page3NextBtn.setTitleColor(blueColor1, for: .normal)
             }
         }
         
@@ -1378,12 +1380,19 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             self.setupPage()
         }
        else if sender.tag == 2 {
+           pageNo = 4
+           self.setupPage()
            if isSelectSMS {
-               pageNo = 4
-               self.setupPage()
-           }else{
-               navigationController?.popViewController(animated: true)
+               //emailSelected(sender: UIButton())
+           } else {
+               emailSelected(sender: UIButton())
            }
+//          if isSelectSMS {
+//               pageNo = 4
+//               self.setupPage()
+//           }else{
+//               navigationController?.popViewController(animated: true)
+//           }
         }else if sender.tag == 3 {
             navigationController?.popViewController(animated: true)
         }
@@ -1410,7 +1419,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
     }
     @IBAction func btnCopyReferralLink(_ sender: UIButton) {
-        UIPasteboard.general.string = "Hello world"
+        if let channelId = Defaults.shared.currentUser?.channelId {
+            UIPasteboard.general.string = "\(websiteUrl)/\(channelId)"
+        }
     }
     @IBAction func btnQuickCamAppAction(_ sender: UIButton) {
     }
@@ -1433,6 +1444,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         self.setupPage()
     }
     @IBAction func btnSocialSharingAction(_ sender: UIButton) {
+        isSelectSMS = false
+        pageNo = 2
+        self.setupPage()
     }
     
     func presentSafariBrowser(url: URL) {
