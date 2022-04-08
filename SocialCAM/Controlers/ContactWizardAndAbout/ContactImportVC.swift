@@ -122,6 +122,13 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     fileprivate static let CELL_IDENTIFIER_CONTACT = "contactTableViewCell"
     
     @IBOutlet weak var searchBar: UISearchBar!
+    
+    //for View One
+    @IBOutlet weak var lblReferralLink: UILabel!
+   
+    
+    
+    
     var searchText:String = ""
     var selectedContact:ContactResponse?
     var inviteData:Data?
@@ -1392,6 +1399,24 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }
         }
     }
+    @IBAction func btnCopyReferralLink(_ sender: UIButton) {
+        if let channelId = Defaults.shared.currentUser?.channelId {
+            self.lblReferralLink.text = "\(websiteUrl)/\(channelId)"
+        }
+    }
+    @IBAction func btnQuickCamAppAction(_ sender: UIButton) {
+    }
+    @IBAction func btnBusinessDashboardAction(_ sender: UIButton) {
+    }
+    @IBAction func btnTextShareAction(_ sender: UIButton) {
+    }
+    @IBAction func btnQRCodeShareAction(_ sender: UIButton) {
+    }
+    @IBAction func btnManualEmailAction(_ sender: UIButton) {
+    }
+    @IBAction func btnSocialSharingAction(_ sender: UIButton) {
+    }
+    
     func presentSafariBrowser(url: URL) {
         let safariVC = SFSafariViewController(url: url)
         present(safariVC, animated: true, completion: nil)
