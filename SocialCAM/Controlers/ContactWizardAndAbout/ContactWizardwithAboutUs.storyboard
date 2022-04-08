@@ -1211,32 +1211,35 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="414" height="582"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QuickCam Referral Wizard" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9AK-Q4-Zh8">
-                                                                    <rect key="frame" x="12" y="30" width="390" height="27.5"/>
+                                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QuickCam Referral Wizard" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9AK-Q4-Zh8">
+                                                                    <rect key="frame" x="12" y="30" width="390" height="0.0"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" id="jL1-E3-YHd"/>
+                                                                    </constraints>
                                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="23"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share your QuickCam referral link" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zyw-RV-5Gs">
-                                                                    <rect key="frame" x="57" y="89.5" width="300.5" height="24"/>
+                                                                    <rect key="frame" x="57" y="30" width="300.5" height="24"/>
                                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ways to share from the web and mobile" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="leS-Z2-Mpq">
-                                                                    <rect key="frame" x="57" y="123.5" width="300" height="20.5"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select how you want to share your referral link" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="leS-Z2-Mpq">
+                                                                    <rect key="frame" x="32" y="64" width="350.5" height="20.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="https://ref.quickcam.app/mychannelname" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VKf-hQ-yem">
-                                                                    <rect key="frame" x="46.5" y="159" width="285.5" height="18"/>
+                                                                    <rect key="frame" x="46.5" y="99.5" width="285.5" height="18"/>
                                                                     <fontDescription key="fontDescription" type="italicSystem" pointSize="15"/>
                                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="avm-1c-gNr">
-                                                                    <rect key="frame" x="20" y="220.5" width="374" height="60"/>
+                                                                    <rect key="frame" x="20" y="161" width="374" height="60"/>
                                                                     <subviews>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R7l-B3-Xoe">
                                                                             <rect key="frame" x="0.0" y="0.0" width="181" height="60"/>
@@ -1326,14 +1329,14 @@ Dashboard</string>
                                                                     </constraints>
                                                                 </stackView>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p5A-nv-7lw">
-                                                                    <rect key="frame" x="0.0" y="280.5" width="414" height="0.5"/>
+                                                                    <rect key="frame" x="0.0" y="221" width="414" height="0.5"/>
                                                                     <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="0.5" id="moT-6U-m3U"/>
                                                                     </constraints>
                                                                 </view>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="yIk-07-8mL">
-                                                                    <rect key="frame" x="57" y="293" width="300" height="276"/>
+                                                                    <rect key="frame" x="57" y="233.5" width="300" height="276"/>
                                                                     <subviews>
                                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JSe-wh-X8D">
                                                                             <rect key="frame" x="0.0" y="0.0" width="300" height="60"/>
@@ -1538,7 +1541,7 @@ Dashboard</string>
                                                                     </constraints>
                                                                 </stackView>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g7X-Rv-5D7">
-                                                                    <rect key="frame" x="344" y="153" width="25" height="30"/>
+                                                                    <rect key="frame" x="344" y="93.5" width="25" height="30"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="30" id="Cbn-4b-Wum"/>
                                                                         <constraint firstAttribute="width" constant="25" id="Frs-1I-OaU"/>
@@ -1555,7 +1558,7 @@ Dashboard</string>
                                                                 <constraint firstItem="p5A-nv-7lw" firstAttribute="top" secondItem="avm-1c-gNr" secondAttribute="bottom" id="16x-xg-eyJ"/>
                                                                 <constraint firstItem="leS-Z2-Mpq" firstAttribute="centerX" secondItem="zyw-RV-5Gs" secondAttribute="centerX" id="2Dw-M3-ECo"/>
                                                                 <constraint firstItem="zyw-RV-5Gs" firstAttribute="centerX" secondItem="9AK-Q4-Zh8" secondAttribute="centerX" id="47z-Ja-ugW"/>
-                                                                <constraint firstItem="zyw-RV-5Gs" firstAttribute="top" secondItem="9AK-Q4-Zh8" secondAttribute="bottom" constant="32" id="5Jv-vd-bLg"/>
+                                                                <constraint firstItem="zyw-RV-5Gs" firstAttribute="top" secondItem="9AK-Q4-Zh8" secondAttribute="bottom" id="5Jv-vd-bLg"/>
                                                                 <constraint firstItem="p5A-nv-7lw" firstAttribute="leading" secondItem="Zdd-SJ-ri5" secondAttribute="leading" id="JuP-JH-JcM"/>
                                                                 <constraint firstAttribute="trailing" secondItem="p5A-nv-7lw" secondAttribute="trailing" id="N3H-MR-SfD"/>
                                                                 <constraint firstAttribute="trailing" secondItem="9AK-Q4-Zh8" secondAttribute="trailing" constant="12" id="Q9V-WM-jTU"/>
@@ -2896,8 +2899,8 @@ Dashboard</string>
                                     <constraint firstItem="Ui7-GS-IxZ" firstAttribute="height" secondItem="10s-iv-0Ca" secondAttribute="height" priority="250" id="zXW-gr-kcq"/>
                                 </constraints>
                             </scrollView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QuickCam" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="whI-Sq-5YS">
-                                <rect key="frame" x="164.5" y="55.5" width="85.5" height="21.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QuickCam Referral Wizard" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="whI-Sq-5YS">
+                                <rect key="frame" x="98.5" y="55.5" width="217" height="21.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                 <color key="textColor" red="0.19215686269999999" green="0.2470588235" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -3034,7 +3037,7 @@ Dashboard</string>
             <color red="0.9649999737739563" green="0.9649999737739563" blue="0.9649999737739563" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
-            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="shareReferLinkBackgroundColor">
             <color red="0.94509803921568625" green="0.93725490196078431" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
