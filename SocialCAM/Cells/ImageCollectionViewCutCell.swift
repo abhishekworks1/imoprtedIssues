@@ -245,7 +245,19 @@ class ImageCollectionViewCutCell: UICollectionViewCell {
             self.trimmerView.layoutSubviews()
         }
         if isLeftGesture {
-            self.trimmerView.updateLeadingHandleConstraint()
+//            self.trimmerView.updateLeadingHandleConstraint()
+            
+            guard let minDistance = self.trimmerView.minimumDistanceBetweenDraggableViews
+                else { return }
+            
+            let maxConstraint = (self.bounds.width
+                                 - (self.trimmerView.draggableViewWidth * 2)
+                                 - minDistance) + self.trimmerView.trimViewTrailingConstraint.constant
+            
+            let newPosition = min(self.trimmerView.currentLeadingConstraint + self.trimmerView.timePointerViewLeadingAnchor.constant, maxConstraint)
+            self.trimmerView.trimViewLeadingConstraint.constant = newPosition
+            delegate?.handleTapCutIcons(finalTime: finalTime)
+            print(finalTime)
         } else {
             guard let minDistance = self.trimmerView.minimumDistanceBetweenDraggableViews
                 else { return }
@@ -283,7 +295,10 @@ class ImageCollectionViewCutCell: UICollectionViewCell {
         }
         let progressTime = startT
         var newProgressTime = String(format: "%.1f", progressTime)
-        if newProgressTime == "-0.0" || newProgressTime == "-0.1" || newProgressTime == "-0.2" || newProgressTime == "-0.3" || newProgressTime == "-0.4" || newProgressTime == "-0.5" || newProgressTime == "-0.6" || newProgressTime == "-0.7" || newProgressTime == "-0.8" || newProgressTime == "-0.9" {
+//        if newProgressTime < "-0.0" || newProgressTime == "-0.1" || newProgressTime == "-0.2" || newProgressTime == "-0.3" || newProgressTime == "-0.4" || newProgressTime == "-0.5" || newProgressTime == "-0.6" || newProgressTime == "-0.7" || newProgressTime == "-0.8" || newProgressTime == "-0.9" {
+//            newProgressTime = "0.0"
+//        }
+        if newProgressTime < "0.0" {
             newProgressTime = "0.0"
         }
         let totalTime = endPipe.seconds - startPipe.seconds

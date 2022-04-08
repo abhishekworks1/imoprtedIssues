@@ -242,7 +242,16 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
       //  let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
       //  self.view.addGestureRecognizer(tap)
       //  self.syncButtonClicked(sender:self.syncButton)
-        self.textMessageSelected(sender:self.textMessageButton)
+      //  self.textMessageSelected(sender:self.textMessageButton)
+        textMessageButton.setTitleColor(ApplicationSettings.appPrimaryColor, for: .normal)
+        textMessageSeperatorView.backgroundColor = ApplicationSettings.appPrimaryColor
+        textMessageSeperatorViewHeight.constant = 3.0
+        
+        emailButton.setTitleColor(UIColor(hexString: "676767"), for: .normal)
+        emailSeperatorView.backgroundColor = UIColor(hexString: "676767")
+        emailSeperatorViewHeight.constant = 1.0
+        selectedContactType = ContactType.mobile
+        self.emailContactTableView.isHidden = true
     }
     @objc func handleTap(_ sender: UITapGestureRecognizer? = nil) {
         if !filterOptionView.isHidden{
@@ -625,15 +634,16 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
               //  print(contacts.count)
                 if self.selectedContactType == ContactType.mobile{
                     self.allmobileContactsForHide.append(contentsOf:contacts)
-                    self.mobileContacts.append(contentsOf:contacts.filter {$0.hide == hide})
-                    let unhideContacts = contacts.filter {$0.hide == hide}
-                    if unhideContacts.count < 10{
-                        print("page before\(page)")
-                        let pageCount =  page + (10 - unhideContacts.count)
-                        print("page after\(pageCount)")
-                        self.getContactList(page:pageCount, filter: filter)
-                        return
-                    }
+                    self.mobileContacts.append(contentsOf:contacts)
+                    //self.mobileContacts.append(contentsOf:contacts.filter {$0.hide == hide})
+//                    let unhideContacts = contacts.filter {$0.hide == hide}
+//                    if unhideContacts.count < 10{
+//                        print("page before\(page)")
+//                        let pageCount =  page + (10 - unhideContacts.count)
+//                        print("page after\(pageCount)")
+//                        self.getContactList(page:pageCount, filter: filter)
+//                        return
+//                    }
 //                    if self.mobileContacts.count < 10 || unhideContacts.count == 0{
 //                      print("allmobileContactsForHide\(self.allmobileContactsForHide.count)")
 //                      print("mobileContacts\(self.mobileContacts.count)")
@@ -649,11 +659,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 }else{
                     self.allemailContactsForHide.append(contentsOf:contacts)
                     self.emailContacts.append(contentsOf:contacts.filter {$0.hide == hide})
-                    let unhideContacts = contacts.filter {$0.hide == hide}
-                    if self.emailContacts.count < 10 || unhideContacts.count == 0{
-                        self.getContactList(page: self.allemailContactsForHide.count, filter: filter)
-                        return
-                    }
+                    
                     
                     DispatchQueue.main.async {
                         self.emailContactTableView.reloadData()
@@ -706,7 +712,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     self.selectedFilter = ContactStatus.all
                 }
                // self.selectedFilter = ContactStatus.all
-                self.getContactList(hide:hide)
+                self.getContactList(filter:self.selectedFilter,hide:hide)
                 break
                
             case .failure(let error):
@@ -1740,7 +1746,7 @@ extension ContactImportVC:UIScrollViewDelegate{
             if self.loadingStatus{
                 return
             }
-            if (self.lastContentOffset > scrollView.contentOffset.y) {
+        /*if (self.lastContentOffset > scrollView.contentOffset.y) {
                 // move up
                 UIView.animate(withDuration: 0.5, animations: {
                     self.segmentViewHeight.constant = 84.0
@@ -1758,7 +1764,8 @@ extension ContactImportVC:UIScrollViewDelegate{
             }
 
             // update the new position acquired
-            self.lastContentOffset = scrollView.contentOffset.y //*/
+            self.lastContentOffset = scrollView.contentOffset.y //
+             */
         }
       
     }
