@@ -1111,7 +1111,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             cell.contactImage.image = UIImage.init(named: "User_placeholder")
             cell.mobileContactObj = contact
            
-            if contact.status == ContactStatus.pending{
+            if contact.status == ContactStatus.pending {
                 cell.inviteBtn.isHidden = false
                 cell.inviteBtn.setTitle("Invite", for: .normal)
                 cell.inviteBtn.backgroundColor = UIColor(hex6:0xE9F1FF)
@@ -1422,6 +1422,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         self.setupPage()
     }
     @IBAction func btnQRCodeShareAction(_ sender: UIButton) {
+        print("Click on QR")
+        if let qrViewController = R.storyboard.editProfileViewController.qrCodeViewController() {
+            navigationController?.pushViewController(qrViewController, animated: true)
+        }
     }
     @IBAction func btnManualEmailAction(_ sender: UIButton) {
         isSelectSMS = false
