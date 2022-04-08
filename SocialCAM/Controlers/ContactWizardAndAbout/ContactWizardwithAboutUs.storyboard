@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -689,7 +690,7 @@
                                                 </connections>
                                             </button>
                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't show again." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vjp-yL-3si">
-                                                <rect key="frame" x="73" y="65" width="129.5" height="0.0"/>
+                                                <rect key="frame" x="73" y="65" width="137.5" height="0.0"/>
                                                 <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -774,7 +775,7 @@
                                         <rect key="frame" x="57" y="378" width="300" height="140"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invite Again" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4ek-so-tRU">
-                                                <rect key="frame" x="15" y="24" width="270" height="20"/>
+                                                <rect key="frame" x="15" y="24" width="270" height="20.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="270" id="al7-Hs-2EL"/>
                                                 </constraints>
@@ -1430,7 +1431,7 @@
                                                                                 <state key="selected" image="checkBoxActive"/>
                                                                             </button>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Include Profile Image" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XfY-qK-xQi">
-                                                                                <rect key="frame" x="42" y="11" width="131.5" height="20"/>
+                                                                                <rect key="frame" x="42" y="11" width="142.5" height="20"/>
                                                                                 <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="14"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -1445,7 +1446,7 @@
                                                                                 <state key="selected" image="checkBoxActive"/>
                                                                             </button>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add QR code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X5b-cf-NbA">
-                                                                                <rect key="frame" x="227" y="11" width="85.5" height="20"/>
+                                                                                <rect key="frame" x="227" y="11" width="88.5" height="20"/>
                                                                                 <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="14"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -2306,13 +2307,16 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g7X-Rv-5D7">
-                                                                    <rect key="frame" x="364.5" y="163.5" width="25" height="25"/>
+                                                                    <rect key="frame" x="364.5" y="163.5" width="20" height="25"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="25" id="Cbn-4b-Wum"/>
-                                                                        <constraint firstAttribute="width" constant="25" id="Frs-1I-OaU"/>
+                                                                        <constraint firstAttribute="width" constant="20" id="Frs-1I-OaU"/>
                                                                     </constraints>
                                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                                    <state key="normal" image="stethoscope.circle.fill" catalog="system"/>
+                                                                    <state key="normal" image="copyIcon"/>
+                                                                    <connections>
+                                                                        <action selector="btnCopyReferralLink:" destination="zZw-wm-uWi" eventType="touchUpInside" id="amn-Rp-dBW"/>
+                                                                    </connections>
                                                                 </button>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="avm-1c-gNr">
                                                                     <rect key="frame" x="20" y="213.5" width="374" height="60"/>
@@ -2326,8 +2330,11 @@
                                                                                     <state key="normal">
                                                                                         <color key="titleColor" systemColor="linkColor"/>
                                                                                     </state>
+                                                                                    <connections>
+                                                                                        <action selector="btnQuickCamAppAction:" destination="zZw-wm-uWi" eventType="touchUpInside" id="LGH-fx-hyc"/>
+                                                                                    </connections>
                                                                                 </button>
-                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="c92-2E-tDJ">
+                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="QCChat" translatesAutoresizingMaskIntoConstraints="NO" id="c92-2E-tDJ">
                                                                                     <rect key="frame" x="12" y="15" width="30" height="30"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="height" constant="30" id="WSS-kR-ga2"/>
@@ -2363,8 +2370,11 @@
                                                                                     <state key="normal">
                                                                                         <color key="titleColor" systemColor="linkColor"/>
                                                                                     </state>
+                                                                                    <connections>
+                                                                                        <action selector="btnBusinessDashboardAction:" destination="zZw-wm-uWi" eventType="touchUpInside" id="z0W-An-LKM"/>
+                                                                                    </connections>
                                                                                 </button>
-                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="REk-mk-v4j">
+                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BusinessDashboard" translatesAutoresizingMaskIntoConstraints="NO" id="REk-mk-v4j">
                                                                                     <rect key="frame" x="12" y="15" width="30" height="30"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="width" constant="30" id="GiI-T8-L77"/>
@@ -2417,8 +2427,11 @@ Dashboard</string>
                                                                                     <state key="normal">
                                                                                         <color key="titleColor" systemColor="linkColor"/>
                                                                                     </state>
+                                                                                    <connections>
+                                                                                        <action selector="btnTextShareAction:" destination="zZw-wm-uWi" eventType="touchUpInside" id="Y6W-6h-naD"/>
+                                                                                    </connections>
                                                                                 </button>
-                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4qL-0g-94P">
+                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TextShare" translatesAutoresizingMaskIntoConstraints="NO" id="4qL-0g-94P">
                                                                                     <rect key="frame" x="12" y="15" width="30" height="30"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="width" constant="30" id="EI4-jB-obn"/>
@@ -2431,11 +2444,11 @@ Dashboard</string>
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
-                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KyS-t0-fjC">
-                                                                                    <rect key="frame" x="258" y="15" width="30" height="30"/>
+                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowCircle" translatesAutoresizingMaskIntoConstraints="NO" id="KyS-t0-fjC">
+                                                                                    <rect key="frame" x="263" y="17.5" width="25" height="25"/>
                                                                                     <constraints>
-                                                                                        <constraint firstAttribute="height" constant="30" id="a1w-HG-aSW"/>
-                                                                                        <constraint firstAttribute="width" constant="30" id="r8p-Ht-p0t"/>
+                                                                                        <constraint firstAttribute="width" secondItem="KyS-t0-fjC" secondAttribute="height" multiplier="1:1" id="1wT-QF-u11"/>
+                                                                                        <constraint firstAttribute="height" constant="25" id="a1w-HG-aSW"/>
                                                                                     </constraints>
                                                                                 </imageView>
                                                                             </subviews>
@@ -2463,8 +2476,11 @@ Dashboard</string>
                                                                                     <state key="normal">
                                                                                         <color key="titleColor" systemColor="linkColor"/>
                                                                                     </state>
+                                                                                    <connections>
+                                                                                        <action selector="btnQRCodeShareAction:" destination="zZw-wm-uWi" eventType="touchUpInside" id="fHz-5f-blC"/>
+                                                                                    </connections>
                                                                                 </button>
-                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZNJ-73-tKk">
+                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="QRCodeShare" translatesAutoresizingMaskIntoConstraints="NO" id="ZNJ-73-tKk">
                                                                                     <rect key="frame" x="12" y="15" width="30" height="30"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="height" constant="30" id="6tR-ys-IrB"/>
@@ -2477,11 +2493,11 @@ Dashboard</string>
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
-                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Rnv-g8-bdu">
-                                                                                    <rect key="frame" x="258" y="15" width="30" height="30"/>
+                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowCircle" translatesAutoresizingMaskIntoConstraints="NO" id="Rnv-g8-bdu">
+                                                                                    <rect key="frame" x="263" y="17.5" width="25" height="25"/>
                                                                                     <constraints>
-                                                                                        <constraint firstAttribute="width" constant="30" id="R4f-ss-h96"/>
-                                                                                        <constraint firstAttribute="height" constant="30" id="W4M-99-cAB"/>
+                                                                                        <constraint firstAttribute="width" constant="25" id="R4f-ss-h96"/>
+                                                                                        <constraint firstAttribute="width" secondItem="Rnv-g8-bdu" secondAttribute="height" multiplier="1:1" id="sd0-bt-NDB"/>
                                                                                     </constraints>
                                                                                 </imageView>
                                                                             </subviews>
@@ -2509,8 +2525,11 @@ Dashboard</string>
                                                                                     <state key="normal">
                                                                                         <color key="titleColor" systemColor="linkColor"/>
                                                                                     </state>
+                                                                                    <connections>
+                                                                                        <action selector="btnManualEmailAction:" destination="zZw-wm-uWi" eventType="touchUpInside" id="VEJ-1b-znK"/>
+                                                                                    </connections>
                                                                                 </button>
-                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Yu8-Sj-bbM">
+                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ManualEmail" translatesAutoresizingMaskIntoConstraints="NO" id="Yu8-Sj-bbM">
                                                                                     <rect key="frame" x="12" y="15" width="30" height="30"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="height" constant="30" id="GjQ-7t-Nyo"/>
@@ -2523,11 +2542,11 @@ Dashboard</string>
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
-                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dbB-OO-FL7">
-                                                                                    <rect key="frame" x="258" y="15" width="30" height="30"/>
+                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowCircle" translatesAutoresizingMaskIntoConstraints="NO" id="dbB-OO-FL7">
+                                                                                    <rect key="frame" x="263" y="17.5" width="25" height="25"/>
                                                                                     <constraints>
-                                                                                        <constraint firstAttribute="height" constant="30" id="MMr-AV-Tcq"/>
-                                                                                        <constraint firstAttribute="width" constant="30" id="dgQ-Iy-ZNW"/>
+                                                                                        <constraint firstAttribute="height" constant="25" id="MMr-AV-Tcq"/>
+                                                                                        <constraint firstAttribute="width" secondItem="dbB-OO-FL7" secondAttribute="height" multiplier="1:1" id="wKw-FH-wtL"/>
                                                                                     </constraints>
                                                                                 </imageView>
                                                                             </subviews>
@@ -2555,8 +2574,11 @@ Dashboard</string>
                                                                                     <state key="normal">
                                                                                         <color key="titleColor" systemColor="linkColor"/>
                                                                                     </state>
+                                                                                    <connections>
+                                                                                        <action selector="btnSocialSharingAction:" destination="zZw-wm-uWi" eventType="touchUpInside" id="nxA-yV-tnz"/>
+                                                                                    </connections>
                                                                                 </button>
-                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mGJ-Ll-Ry0">
+                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SocialSharing" translatesAutoresizingMaskIntoConstraints="NO" id="mGJ-Ll-Ry0">
                                                                                     <rect key="frame" x="12" y="15" width="30" height="30"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="height" constant="30" id="U9v-5A-NCi"/>
@@ -2569,11 +2591,11 @@ Dashboard</string>
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
-                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GIM-lC-hRW">
-                                                                                    <rect key="frame" x="258" y="15" width="30" height="30"/>
+                                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowCircle" translatesAutoresizingMaskIntoConstraints="NO" id="GIM-lC-hRW">
+                                                                                    <rect key="frame" x="263" y="17.5" width="25" height="25"/>
                                                                                     <constraints>
-                                                                                        <constraint firstAttribute="width" constant="30" id="4RT-Hd-Z6T"/>
-                                                                                        <constraint firstAttribute="height" constant="30" id="5En-jt-y2i"/>
+                                                                                        <constraint firstAttribute="height" constant="25" id="5En-jt-y2i"/>
+                                                                                        <constraint firstAttribute="width" secondItem="GIM-lC-hRW" secondAttribute="height" multiplier="1:1" id="ry0-qj-ySI"/>
                                                                                     </constraints>
                                                                                 </imageView>
                                                                             </subviews>
@@ -2621,7 +2643,7 @@ Dashboard</string>
                                                                 <constraint firstItem="yIk-07-8mL" firstAttribute="centerX" secondItem="Zdd-SJ-ri5" secondAttribute="centerX" id="xAv-cQ-yn8"/>
                                                             </constraints>
                                                         </view>
-                                                        <view key="tableFooterView" contentMode="scaleToFill" id="i6G-T5-RXC">
+                                                        <view key="tableFooterView" hidden="YES" contentMode="scaleToFill" id="i6G-T5-RXC">
                                                             <rect key="frame" x="0.0" y="582" width="414" height="409.5"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <subviews>
@@ -2629,20 +2651,20 @@ Dashboard</string>
                                                                     <rect key="frame" x="20" y="20" width="169.5" height="169.5"/>
                                                                     <subviews>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icforward" translatesAutoresizingMaskIntoConstraints="NO" id="JTY-VW-YDt">
-                                                                            <rect key="frame" x="129.5" y="102.5" width="25" height="25"/>
+                                                                            <rect key="frame" x="129.5" y="102" width="25" height="25"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="25" id="9B7-52-gN9"/>
                                                                                 <constraint firstAttribute="height" constant="25" id="fRE-cv-M8I"/>
                                                                             </constraints>
                                                                         </imageView>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mobile Sharing" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qbq-hf-ymb">
-                                                                            <rect key="frame" x="10" y="94.5" width="104.5" height="41"/>
+                                                                            <rect key="frame" x="10" y="94" width="104.5" height="41"/>
                                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                             <color key="textColor" red="0.0" green="0.49019607843137253" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="share_contact" translatesAutoresizingMaskIntoConstraints="NO" id="tod-uL-yPP">
-                                                                            <rect key="frame" x="20" y="32.5" width="35" height="35"/>
+                                                                            <rect key="frame" x="20" y="32" width="35" height="35"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="35" id="Itq-J3-kZm"/>
                                                                                 <constraint firstAttribute="width" constant="35" id="c7X-VA-SVw"/>
@@ -2691,7 +2713,7 @@ Dashboard</string>
                                                                     <rect key="frame" x="224.5" y="20" width="169.5" height="169.5"/>
                                                                     <subviews>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icforward" translatesAutoresizingMaskIntoConstraints="NO" id="ULT-7h-cxH">
-                                                                            <rect key="frame" x="129.5" y="102.5" width="25" height="25"/>
+                                                                            <rect key="frame" x="129.5" y="102" width="25" height="25"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="25" id="1ay-rt-K6t"/>
                                                                                 <constraint firstAttribute="height" constant="25" id="nrF-NG-CuF"/>
@@ -2704,7 +2726,7 @@ Dashboard</string>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="message_contact" translatesAutoresizingMaskIntoConstraints="NO" id="Fyh-Vg-bgv">
-                                                                            <rect key="frame" x="20" y="32.5" width="35" height="35"/>
+                                                                            <rect key="frame" x="20" y="32" width="35" height="35"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="35" id="0f6-Cz-744"/>
                                                                                 <constraint firstAttribute="width" constant="35" id="3We-fg-xk5"/>
@@ -2772,14 +2794,14 @@ Dashboard</string>
                                                                             </constraints>
                                                                         </imageView>
                                                                         <button hidden="YES" opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q9p-ht-RoQ">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="169.5" height="170"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="169.5" height="169.5"/>
                                                                             <state key="normal" title="Button"/>
                                                                             <connections>
                                                                                 <action selector="mainOptionsClick:" destination="zZw-wm-uWi" eventType="touchUpInside" id="y3G-Jp-4ey"/>
                                                                             </connections>
                                                                         </button>
                                                                         <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PvR-VU-81B">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="169.5" height="170"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="169.5" height="169.5"/>
                                                                             <connections>
                                                                                 <action selector="mainOptionsClick:" destination="zZw-wm-uWi" eventType="touchUpInside" id="BFi-4L-CgW"/>
                                                                             </connections>
@@ -2926,6 +2948,7 @@ Dashboard</string>
                         <outlet property="lblNum2" destination="X9Y-8f-eQM" id="zAU-qW-ZSq"/>
                         <outlet property="lblNum3" destination="kc7-rz-jRl" id="N7A-I5-3sP"/>
                         <outlet property="lblNum4" destination="K2G-6V-vNi" id="goC-f3-KJ8"/>
+                        <outlet property="lblReferralLink" destination="VKf-hQ-yem" id="hcX-rS-UPL"/>
                         <outlet property="lblSinceDate" destination="qgq-Lg-8QU" id="l4m-hg-O8U"/>
                         <outlet property="lblUserName" destination="bCd-ga-2NY" id="QPz-Gp-CBc"/>
                         <outlet property="line1" destination="xXz-Le-gsS" id="5RY-fr-Gum"/>
@@ -2964,9 +2987,17 @@ Dashboard</string>
         </scene>
     </scenes>
     <resources>
+        <image name="BusinessDashboard" width="500" height="484"/>
+        <image name="ManualEmail" width="500" height="500"/>
+        <image name="QCChat" width="500" height="500"/>
+        <image name="QRCodeShare" width="500" height="458"/>
+        <image name="SocialSharing" width="500" height="522"/>
+        <image name="TextShare" width="500" height="500"/>
         <image name="User_placeholder" width="400" height="400"/>
+        <image name="arrowCircle" width="500" height="500"/>
         <image name="checkBoxActive" width="20" height="20"/>
         <image name="checkBoxInActive" width="20" height="20"/>
+        <image name="copyIcon" width="500" height="615"/>
         <image name="email_contact" width="28" height="22"/>
         <image name="facebookVerified" width="37" height="38"/>
         <image name="filter" width="512" height="512"/>
@@ -2986,7 +3017,6 @@ Dashboard</string>
         <image name="share_contact" width="24" height="28"/>
         <image name="snapchatVerified" width="37" height="39"/>
         <image name="socialBadge" width="48" height="74"/>
-        <image name="stethoscope.circle.fill" catalog="system" width="128" height="121"/>
         <image name="storyBack" width="19" height="19"/>
         <image name="sync" width="512" height="512"/>
         <image name="twitterVerified" width="37" height="38"/>
@@ -2998,10 +3028,10 @@ Dashboard</string>
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppLightWhiteColor">
-            <color red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.9649999737739563" green="0.9649999737739563" blue="0.9649999737739563" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
-            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="shareReferLinkBackgroundColor">
             <color red="0.94509803921568625" green="0.93725490196078431" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -232,6 +232,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         self.emailContactTableView.isHidden = true
         self.contactTableView.isHidden = false
         
+        if let channelId = Defaults.shared.currentUser?.channelId {
+            self.lblReferralLink.text = "\(websiteUrl)/\(channelId)"
+        }
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated) // No need for semicolon
@@ -1406,9 +1410,6 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
     }
     @IBAction func btnCopyReferralLink(_ sender: UIButton) {
-        if let channelId = Defaults.shared.currentUser?.channelId {
-            self.lblReferralLink.text = "\(websiteUrl)/\(channelId)"
-        }
     }
     @IBAction func btnQuickCamAppAction(_ sender: UIButton) {
     }
