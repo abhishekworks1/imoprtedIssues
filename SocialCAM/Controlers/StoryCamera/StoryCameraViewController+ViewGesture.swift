@@ -123,8 +123,7 @@ extension StoryCameraViewController: UIGestureRecognizerDelegate {
                 }
             } else if recordingType == .newNormal {
                 self.circularProgress.center = CGPoint(x: circularProgress.center.x + translation.x - 35,y: circularProgress.center.y + translation.y - 35)
-//                self.circularProgress.center = self.circularProgress.center
-            }else{
+            } else{
                 self.circularProgress.center = CGPoint(x: circularProgress.center.x + translation.x - 35,y: circularProgress.center.y + translation.y - 35)
             }
             if Defaults.shared.appMode != .free && self.recordingType != .promo {

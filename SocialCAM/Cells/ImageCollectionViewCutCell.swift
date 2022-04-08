@@ -10,8 +10,13 @@ import Foundation
 import UIKit
 import AVKit
 
+protocol ImageCollectionViewCutCellDelegate {
+    func handleTapCutIcons(finalTime: Float)
+}
+
 class ImageCollectionViewCutCell: UICollectionViewCell {
     
+    var delegate: ImageCollectionViewCutCellDelegate?
     @IBOutlet weak var trimmerViewHeightConstraint: NSLayoutConstraint!
     // @IBOutlet weak var trimmerViewHeightConstraint: TrimmerViewCut!
     @IBOutlet weak var imagesView: UIView!
@@ -21,6 +26,7 @@ class ImageCollectionViewCutCell: UICollectionViewCell {
     @IBOutlet weak var lblVideoersiontag: UILabel!
     @IBOutlet weak var trimmerView: TrimmerViewCut!
     @IBOutlet weak var segmentCountLabel: UILabel!
+    var finalTime: Float = 0.0
     var remainTimeMiliS: String = ""
     public var leftTopView: UIView = {
         let leftTopView = UIImageView.init(image: R.image.trim_leftWhite())
@@ -178,7 +184,6 @@ class ImageCollectionViewCutCell: UICollectionViewCell {
         trimmerView.rightImage = R.image.cut_handle_icon()
         trimmerView.leftImage = R.image.cut_handle_icon()
         trimmerView.thumbnailsView.isReloadImages = true
-//        trimmerViewHeightConstraint.constant = trimmerViewHeightConstraint.constant + 30
         trimmerView.layoutIfNeeded()
         
         addSubview(leftTopView)
@@ -225,6 +230,7 @@ class ImageCollectionViewCutCell: UICollectionViewCell {
     }
     
     @objc func handleLeftRightTap(_ sender: UITapGestureRecognizer) {
+        
         guard let view = sender.view else { return }
         
         let isLeftGesture = (view == leftTopView)
@@ -248,6 +254,7 @@ class ImageCollectionViewCutCell: UICollectionViewCell {
                 - minDistance) - self.trimmerView.trimViewLeadingConstraint.constant
             let newPosition = max((self.trimmerView.trimViewWidthContraint.constant - ((self.trimmerView.frame.width - self.trimmerView.trimViewLeadingConstraint.constant) - self.trimmerView.timePointerViewLeadingAnchor.constant)), -maxConstraint)
             self.trimmerView.trimViewTrailingConstraint.constant = newPosition
+            
         }
         
         DispatchQueue.main.async {
@@ -276,14 +283,16 @@ class ImageCollectionViewCutCell: UICollectionViewCell {
         }
         let progressTime = startT
         var newProgressTime = String(format: "%.1f", progressTime)
-        if newProgressTime == "-0.0" || newProgressTime == "-0.1" || newProgressTime == "-0.2" || newProgressTime == "-0.3" || newProgressTime == "-0.4" || newProgressTime == "-0.5" {
+        if newProgressTime == "-0.0" || newProgressTime == "-0.1" || newProgressTime == "-0.2" || newProgressTime == "-0.3" || newProgressTime == "-0.4" || newProgressTime == "-0.5" || newProgressTime == "-0.6" || newProgressTime == "-0.7" || newProgressTime == "-0.8" || newProgressTime == "-0.9" {
             newProgressTime = "0.0"
         }
         let totalTime = endPipe.seconds - startPipe.seconds
+        finalTime = Float(endPipe.seconds - startPipe.seconds)
         let newFinalTime = String(format: "%.1f", totalTime)
         let fullTime = "\(newProgressTime) / \(newFinalTime)"
         self.lblVideoDuration.font = UIFont.systemFont(ofSize: 12, weight: .bold)
         self.lblVideoDuration.text = fullTime
+        delegate?.handleTapCutIcons(finalTime: finalTime)
     }
     
     func hideLeftRightHandle() {

@@ -671,7 +671,7 @@ extension StoryCameraViewController {
     }
     
     @IBAction func btnBusinessDashboardTapped(_ sender: UIButton) {
-      if Defaults.shared.isDoNotShowAgainOpenBusinessCenterPopup == false {
+        if Defaults.shared.isShowAllPopUpChecked == true && Defaults.shared.isDoNotShowAgainOpenBusinessCenterPopup == false {
             blurView.isHidden = false
             businessDashbardConfirmPopupView.isHidden = false
             self.view.bringSubviewToFront(businessDashbardConfirmPopupView)

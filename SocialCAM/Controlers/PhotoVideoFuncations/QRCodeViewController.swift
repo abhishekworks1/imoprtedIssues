@@ -28,6 +28,13 @@ class QRCodeViewController: UIViewController {
     @IBOutlet weak var refferalPageBottomLineHeight: NSLayoutConstraint!
     @IBOutlet weak var navView: UIView!
     @IBOutlet weak var lblUsername: UILabel!
+    
+    @IBOutlet weak var preLunchBadge: UIImageView!
+    @IBOutlet weak var foundingMergeBadge: UIImageView!
+    @IBOutlet weak var socialBadgeicon: UIImageView!
+    @IBOutlet weak var subscriptionBadgeicon: UIImageView!
+    
+    
     let logoImage = UIImage(named:"qr_applogo")
     var refferelType:RefferelType = .quickStart
    //4541E1
@@ -35,15 +42,7 @@ class QRCodeViewController: UIViewController {
     let themeBlueColor = UIColor(hexString:"4F2AD8")
     let themeGreyColor = UIColor(hexString:"707070")
     
-    @IBOutlet weak var view1: UIView!
-    @IBOutlet weak var view2: UIView!
-    @IBOutlet weak var view3: UIView!
-    @IBOutlet weak var view4: UIView!
-    @IBOutlet weak var badgebtn1: UIButton!
-    @IBOutlet weak var badgebtn2: UIButton!
-    @IBOutlet weak var badgebtn3: UIButton!
-    @IBOutlet weak var badgebtn4: UIButton!
-
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
        
@@ -157,29 +156,29 @@ class QRCodeViewController: UIViewController {
     }
     
     func setUpbadges() {
-        let badgearry = Defaults.shared.getbadgesArray()
-        view1.isHidden = true
-        view2.isHidden = true
-        view3.isHidden = true
-        view4.isHidden = true
-        
-        if  badgearry.count >  0 {
-            view1.isHidden = false
-            badgebtn1.setImage(UIImage.init(named: badgearry[0]), for: .normal)
+            let badgearry = Defaults.shared.getbadgesArray()
+            preLunchBadge.isHidden = true
+            foundingMergeBadge.isHidden = true
+            socialBadgeicon.isHidden = true
+            subscriptionBadgeicon.isHidden = true
+          
+            if  badgearry.count >  0 {
+                preLunchBadge.isHidden = false
+                preLunchBadge.image = UIImage.init(named: badgearry[0])
+            }
+            if  badgearry.count >  1 {
+                foundingMergeBadge.isHidden = false
+                foundingMergeBadge.image = UIImage.init(named: badgearry[1])
+            }
+            if  badgearry.count >  2 {
+                socialBadgeicon.isHidden = false
+                socialBadgeicon.image = UIImage.init(named: badgearry[2])
+            }
+            if  badgearry.count >  3 {
+                subscriptionBadgeicon.isHidden = false
+                subscriptionBadgeicon.image = UIImage.init(named: badgearry[3])
+            }
         }
-        if  badgearry.count >  1 {
-            view2.isHidden = false
-            badgebtn2.setImage(UIImage.init(named: badgearry[1]), for: .normal)
-        }
-        if  badgearry.count >  2 {
-            view3.isHidden = false
-            badgebtn3.setImage(UIImage.init(named: badgearry[2]), for: .normal)
-        }
-        if  badgearry.count >  3 {
-            view4.isHidden = false
-            badgebtn4.setImage(UIImage.init(named: badgearry[3]), for: .normal)
-        }
-    }
     func generateQRCode(from string: String) -> UIImage? {
         let data = string.data(using: String.Encoding.ascii)
 

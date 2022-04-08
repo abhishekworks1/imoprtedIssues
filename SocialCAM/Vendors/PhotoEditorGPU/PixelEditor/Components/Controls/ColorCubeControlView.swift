@@ -19,6 +19,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 import Foundation
+import UIKit
 
 open class ColorCubeControlBase: ControlBase {
   
@@ -52,6 +53,8 @@ open class ColorCubeControl: ColorCubeControlBase, UICollectionViewDelegateFlowL
   private let originalImage: CIImage
   
   private let feedbackGenerator = UISelectionFeedbackGenerator()
+    
+    private let filterImages = [R.image.lut_M01()!,R.image.lut_M02()!,R.image.lut_M03()!,R.image.lut_M05()!,R.image.lut_M06()!,R.image.lut_M07()!,R.image.lut_M08()!,R.image.lut_M09()!,R.image.lut_M11()!,R.image.lut_M12()!,R.image.lut_M09()!,R.image.lut_M03()!]
   
   // MARK: - Functions
 
@@ -131,6 +134,7 @@ open class ColorCubeControl: ColorCubeControlBase, UICollectionViewDelegateFlowL
         updateSelected(cell: $0)
       }
       scrollToSelectedItem(animated: true)
+        collectionView.reloadData()
     }
   }
   
@@ -177,7 +181,10 @@ open class ColorCubeControl: ColorCubeControlBase, UICollectionViewDelegateFlowL
     case .selections:
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SelectionCell.identifier, for: indexPath) as! SelectionCell
       let filter = previews[indexPath.item]
-      cell.set(preview: filter)
+        print("**************\(indexPath.item)")
+        print(filter.image)
+        print("****************")
+        cell.set(preview: filter, images: filterImages[indexPath.item])
       updateSelected(cell: cell)
       return cell
     }
@@ -240,7 +247,6 @@ open class ColorCubeControl: ColorCubeControlBase, UICollectionViewDelegateFlowL
       layout: do {
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        
         contentView.addSubview(nameLabel)
         contentView.addSubview(imageView)
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -335,24 +341,24 @@ open class ColorCubeControl: ColorCubeControlBase, UICollectionViewDelegateFlowL
     open func set(originalImage: CIImage) {
       
       nameLabel.text = L10n.normal
-      imageView.image = UIImage(ciImage: originalImage, scale: contentScaleFactor, orientation: .up)
+      imageView.image = UIImage(ciImage: originalImage, scale: contentScaleFactor, orientation: .left)
     }
     
   }
 
-  open class SelectionCell: CellBase {
-
-    static let identifier = "me.muukii.PixelEditor.FilterCell"
-    
-    open var preview: PreviewFilterColorCube?
-
-    open func set(preview: PreviewFilterColorCube) {
-      
-      self.preview = preview
-
-      nameLabel.text = preview.filter.name
-      imageView.image = UIImage(ciImage: preview.image, scale: contentScaleFactor, orientation: .up)
+    open class SelectionCell: CellBase {
+        
+        static let identifier = "me.muukii.PixelEditor.FilterCell"
+        
+        open var preview: PreviewFilterColorCube?
+        
+        open func set(preview: PreviewFilterColorCube,images: UIImage) {
+            
+            self.preview = preview
+            nameLabel.text = preview.filter.name
+            imageView.image = images
+//            UIImage(ciImage: preview.image, scale: contentScaleFactor, orientation: .left)
+        }
+        
     }
-
-  }
 }
