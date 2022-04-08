@@ -313,8 +313,6 @@ class OmitEditorViewController: UIViewController,UIGestureRecognizerDelegate {
                                     btnPlayPause.isSelected = false
                                     player.pause()
                                 }
-                                
-                                
                             } else {
                                 btnPlayPause.isSelected = true
                                 player.play()
@@ -374,12 +372,14 @@ extension OmitEditorViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        player?.isMuted = Defaults.shared.isEditSoundOff
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.nib.imageCollectionViewCell.identifier, for: indexPath) as? ImageCollectionViewCutCell else {
             fatalError("Unable to find cell with '\(R.nib.imageCollectionViewCutCell.identifier)' reuseIdentifier")
         }
         let storySegment = storyEditorMedias[indexPath.row]
         
         if collectionView == self.editStoryCollectionView {
+            
             guard let currentSelectedAsset = currentAsset(index: currentPage) else {
                 return cell
             }
@@ -1140,11 +1140,11 @@ extension OmitEditorViewController {
 
 extension OmitEditorViewController: ImageCollectionViewCutCellDelegate {
     func handleTapCutIcons(finalTime: Float) {
-        print(finalTime)
+//        print(finalTime)
         if let currentAsset = currentAsset(index: self.currentPage) {
             let checkwithTime: Float = 0.1
             
-            if Float(finalTime) >= checkwithTime && Float(finalTime) < Float(currentAsset.duration.seconds) {
+            if Float(finalTime) > checkwithTime && Float(finalTime) < Float(currentAsset.duration.seconds) {
                 doneView.alpha = 1
                 doneView.isUserInteractionEnabled = true
                 if #available(iOS 13.0, *) {
