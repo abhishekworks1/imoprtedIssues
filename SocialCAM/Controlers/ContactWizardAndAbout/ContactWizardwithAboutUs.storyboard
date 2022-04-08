@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -690,7 +689,7 @@
                                                 </connections>
                                             </button>
                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't show again." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vjp-yL-3si">
-                                                <rect key="frame" x="73" y="65" width="137.5" height="0.0"/>
+                                                <rect key="frame" x="73" y="65" width="129.5" height="0.0"/>
                                                 <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -775,7 +774,7 @@
                                         <rect key="frame" x="57" y="378" width="300" height="140"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invite Again" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4ek-so-tRU">
-                                                <rect key="frame" x="15" y="24" width="270" height="20.5"/>
+                                                <rect key="frame" x="15" y="24" width="270" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="270" id="al7-Hs-2EL"/>
                                                 </constraints>
@@ -1431,7 +1430,7 @@
                                                                                 <state key="selected" image="checkBoxActive"/>
                                                                             </button>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Include Profile Image" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XfY-qK-xQi">
-                                                                                <rect key="frame" x="42" y="11" width="142.5" height="20"/>
+                                                                                <rect key="frame" x="42" y="11" width="131.5" height="20"/>
                                                                                 <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="14"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -1446,7 +1445,7 @@
                                                                                 <state key="selected" image="checkBoxActive"/>
                                                                             </button>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add QR code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X5b-cf-NbA">
-                                                                                <rect key="frame" x="227" y="11" width="88.5" height="20"/>
+                                                                                <rect key="frame" x="227" y="11" width="85.5" height="20"/>
                                                                                 <fontDescription key="fontDescription" name="SFUIText-Medium" family="SF UI Text" pointSize="14"/>
                                                                                 <nil key="textColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -2434,10 +2433,10 @@ Dashboard</string>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowCircle" translatesAutoresizingMaskIntoConstraints="NO" id="KyS-t0-fjC">
-                                                                                    <rect key="frame" x="263" y="17.5" width="25" height="25"/>
+                                                                                    <rect key="frame" x="268" y="20" width="20" height="20"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="width" secondItem="KyS-t0-fjC" secondAttribute="height" multiplier="1:1" id="1wT-QF-u11"/>
-                                                                                        <constraint firstAttribute="height" constant="25" id="a1w-HG-aSW"/>
+                                                                                        <constraint firstAttribute="height" constant="20" id="a1w-HG-aSW"/>
                                                                                     </constraints>
                                                                                 </imageView>
                                                                             </subviews>
@@ -2483,10 +2482,10 @@ Dashboard</string>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowCircle" translatesAutoresizingMaskIntoConstraints="NO" id="Rnv-g8-bdu">
-                                                                                    <rect key="frame" x="263" y="17.5" width="25" height="25"/>
+                                                                                    <rect key="frame" x="268" y="20" width="20" height="20"/>
                                                                                     <constraints>
-                                                                                        <constraint firstAttribute="width" constant="25" id="R4f-ss-h96"/>
-                                                                                        <constraint firstAttribute="width" secondItem="Rnv-g8-bdu" secondAttribute="height" multiplier="1:1" id="sd0-bt-NDB"/>
+                                                                                        <constraint firstAttribute="height" constant="20" id="0hq-vY-B9h"/>
+                                                                                        <constraint firstAttribute="width" secondItem="Rnv-g8-bdu" secondAttribute="height" multiplier="1:1" id="teY-xT-QQC"/>
                                                                                     </constraints>
                                                                                 </imageView>
                                                                             </subviews>
@@ -2532,9 +2531,9 @@ Dashboard</string>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowCircle" translatesAutoresizingMaskIntoConstraints="NO" id="dbB-OO-FL7">
-                                                                                    <rect key="frame" x="263" y="17.5" width="25" height="25"/>
+                                                                                    <rect key="frame" x="268" y="20" width="20" height="20"/>
                                                                                     <constraints>
-                                                                                        <constraint firstAttribute="height" constant="25" id="MMr-AV-Tcq"/>
+                                                                                        <constraint firstAttribute="height" constant="20" id="MMr-AV-Tcq"/>
                                                                                         <constraint firstAttribute="width" secondItem="dbB-OO-FL7" secondAttribute="height" multiplier="1:1" id="wKw-FH-wtL"/>
                                                                                     </constraints>
                                                                                 </imageView>
@@ -2581,9 +2580,9 @@ Dashboard</string>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowCircle" translatesAutoresizingMaskIntoConstraints="NO" id="GIM-lC-hRW">
-                                                                                    <rect key="frame" x="263" y="17.5" width="25" height="25"/>
+                                                                                    <rect key="frame" x="268" y="20" width="20" height="20"/>
                                                                                     <constraints>
-                                                                                        <constraint firstAttribute="height" constant="25" id="5En-jt-y2i"/>
+                                                                                        <constraint firstAttribute="height" constant="20" id="5En-jt-y2i"/>
                                                                                         <constraint firstAttribute="width" secondItem="GIM-lC-hRW" secondAttribute="height" multiplier="1:1" id="ry0-qj-ySI"/>
                                                                                     </constraints>
                                                                                 </imageView>
