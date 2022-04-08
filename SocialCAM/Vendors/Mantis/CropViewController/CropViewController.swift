@@ -311,7 +311,7 @@ public class CropViewController: UIViewController {
 
         NSLayoutConstraint.activate([
             colorSlider.centerXAnchor.constraint(equalTo:self.view.centerXAnchor, constant: 0),
-            colorSlider.bottomAnchor.constraint(equalTo:self.view.bottomAnchor, constant: -80),
+            colorSlider.bottomAnchor.constraint(equalTo:self.view.bottomAnchor, constant: -110),
             colorSlider.widthAnchor.constraint(equalToConstant: colorSliderWidth),
             colorSlider.heightAnchor.constraint(equalToConstant: 15)
         ])
