@@ -27,8 +27,10 @@ struct ContactStatus{
     static let all = "all"
     static let hidden = "hidden"
 }
-class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSource, contactCelldelegate , MFMessageComposeViewControllerDelegate , MFMailComposeViewControllerDelegate , UISearchBarDelegate, UINavigationControllerDelegate {
-    
+protocol ContactImportDelegate {
+    func didFinishEdit(contact:ContactResponse?)
+}
+class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSource, contactCelldelegate , MFMessageComposeViewControllerDelegate , MFMailComposeViewControllerDelegate , UISearchBarDelegate, UINavigationControllerDelegate,ContactImportDelegate {
     
 
     @IBOutlet weak var line1: UILabel!
@@ -228,9 +230,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated) // No need for semicolon
-//        if pageNo == 4 {
-//            ContactPermission()
-//        }
+
         filterOptionView.isHidden = true
       //  let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
       //  self.view.addGestureRecognizer(tap)
@@ -245,6 +245,12 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         emailSeperatorViewHeight.constant = 1.0
         selectedContactType = ContactType.mobile
         self.emailContactTableView.isHidden = true
+        
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        if pageNo == 4{
+            self.getContactList(source: self.selectedContactType,filter:self.selectedFilter)
+        }
     }
     @objc func handleTap(_ sender: UITapGestureRecognizer? = nil) {
         if !filterOptionView.isHidden{
@@ -1273,10 +1279,22 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     },UIAction(title: "Edit", image: UIImage(systemName: "")) { action in
                         if tableView == self.emailContactTableView{
                             let contact = self.emailContacts[indexPath.row]
+                            if let contactEdit = R.storyboard.contactWizardwithAboutUs.contactEditVC() {
+                                contactEdit.contact = contact
+                                contactEdit.isEmail = true
+                                contactEdit.delegate = self
+                                
+                                self.present(contactEdit, animated: true, completion: nil)
+                            }
                             print(contact.email ?? "")
                         }else if tableView == self.contactTableView{
                             let contact = self.mobileContacts[indexPath.row]
-                            print(contact.mobile ?? "")
+                            if let contactEdit = R.storyboard.contactWizardwithAboutUs.contactEditVC() {
+                                contactEdit.contact = contact
+                                contactEdit.isEmail = false
+                                contactEdit.delegate = self
+                                self.present(contactEdit, animated: true, completion: nil)
+                            }
                         }
                         
                        
@@ -1289,7 +1307,17 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
          
       
     }
-
+    func didFinishEdit(contact: ContactResponse?) {
+        
+        if let indexMobile = self.mobileContacts.firstIndex(where: {$0.Id == contact?.Id}){
+            self.mobileContacts[indexMobile].name = contact?.name
+        }
+        if let indexMobile = self.emailContacts.firstIndex(where: {$0.Id == contact?.Id}){
+            self.emailContacts[indexMobile].name = contact?.name
+        }
+        self.contactTableView.reloadData()
+        self.emailContactTableView.reloadData()
+    }
     
 //    MARK: - Creating Alert For User Text Enter
     

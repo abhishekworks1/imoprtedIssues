@@ -75,6 +75,7 @@ class OmitEditorViewController: UIViewController,UIGestureRecognizerDelegate {
     var playbackTimeCheckerTimer: Timer?
     var doneHandler: ((_ urls: [StoryEditorMedia]) -> Void)?
     var isLeftGesture = true
+    var latestPlayBackTime: CMTime? = .zero
     @IBInspectable open var isTimePrecisionInfinity: Bool = false
     var tolerance: CMTime {
         return isTimePrecisionInfinity ? CMTime.indefinite : CMTime.zero
@@ -446,7 +447,7 @@ extension OmitEditorViewController: UICollectionViewDelegate, UICollectionViewDe
         guard let currentAsset = self.currentAsset(index: currentPage) else {
             return
         }
-        loadViewWith(asset: currentAsset)
+//        loadViewWith(asset: currentAsset)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -647,6 +648,7 @@ extension OmitEditorViewController: TrimmerViewCutDelegate {
         // Todo: Swap to trim feature disable temp
         //if position.y >= -100 {
         // {
+        latestPlayBackTime = currentTimeScrub
         if let player = player {
             player.seek(to: currentTimeScrub, toleranceBefore: tolerance, toleranceAfter: tolerance)
             if btnPlayPause.isSelected {
@@ -1142,7 +1144,7 @@ extension OmitEditorViewController: ImageCollectionViewCutCellDelegate {
     func handleTapCutIcons(finalTime: Float) {
 //        print(finalTime)
         if let currentAsset = currentAsset(index: self.currentPage) {
-            let checkwithTime: Float = 0.1
+            let checkwithTime: Float = 0.2
             
             if Float(finalTime) > checkwithTime && Float(finalTime) < Float(currentAsset.duration.seconds) {
                 doneView.alpha = 1

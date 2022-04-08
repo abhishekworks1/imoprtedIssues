@@ -1,0 +1,103 @@
+//
+//  ContactEditVC.swift
+//  SocialCAM
+//
+//  Created by Navroz Huda on 08/04/22.
+//  Copyright © 2022 Viraj Patel. All rights reserved.
+//
+
+import UIKit
+import Alamofire
+
+
+struct EditContact:Codable{
+    var name: String = ""
+    init(name:String) {
+        self.name = name
+    }
+    
+}
+class ContactEditVC: UIViewController {
+
+    @IBOutlet weak var userImageview: UIImageView!
+    @IBOutlet weak var nameView: UIView!
+    @IBOutlet weak var emailView: UIView!
+    @IBOutlet weak var phoneView: UIView!
+    @IBOutlet weak var txtPhone: UITextField!
+    @IBOutlet weak var txtName: UITextField!
+    @IBOutlet weak var txtEmail: UITextField!
+    var isEmail = true
+    var contact:ContactResponse?
+    var delegate:ContactImportDelegate?
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        setUI()
+    }
+    
+    func setUI(){
+        if isEmail{
+            phoneView.isHidden = true
+        }else{
+            emailView.isHidden = true
+        }
+        txtPhone.delegate = self
+        txtName.delegate = self
+        txtEmail.delegate = self
+        
+        txtEmail.text = contact?.email
+        txtName.text = contact?.name
+        txtPhone.text = contact?.mobile
+        
+        txtPhone.isUserInteractionEnabled = false
+        txtEmail.isUserInteractionEnabled = false
+    }
+    @IBAction func doneClicked(sender:UIButton){
+        let editContact = EditContact(name:txtName.text!)
+        let jsonEncoder = JSONEncoder()
+        do {
+            let jsonData = try jsonEncoder.encode(editContact)
+            self.editContact(data:jsonData)
+           
+        } catch {
+            print("error")
+        }
+    }
+    @IBAction func cancelClicked(sender:UIButton){
+        self.dismiss(animated:true, completion: nil)
+    }
+    private func editContact(data:Data){
+       
+        let path = API.shared.baseUrlV2 + "contact-list/\(contact?.Id ?? "")/user/info"
+        print(path)
+        var request = URLRequest(url:URL(string:path)!)
+        //some header examples
+        request.httpMethod = "PUT"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(Defaults.shared.currentUser?.id ?? "", forHTTPHeaderField: "userid")
+        request.setValue(Defaults.shared.sessionToken ?? "", forHTTPHeaderField: "x-access-token")
+        request.setValue("1", forHTTPHeaderField: "deviceType")
+        request.httpBody = data
+        AF.request(request).responseJSON { response in
+            print(response)
+            switch (response.result) {
+            case .success:
+              //  self.showLoader()
+                self.contact?.name = self.txtName.text!
+                self.delegate?.didFinishEdit(contact:self.contact!)
+                self.dismiss(animated:true, completion: nil)
+                break
+               
+            case .failure(let error):
+                print(error)
+                break
+
+                //failure code here
+            }
+        }
+    }
+}
+extension ContactEditVC: UITextFieldDelegate {
+   
+    
+}
