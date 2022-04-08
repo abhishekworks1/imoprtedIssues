@@ -1497,6 +1497,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         label.font = UIFont.systemFont(ofSize: 17, weight: .medium)
         return label
     }
+    
     func openMessageComposer(mobileContact:ContactResponse?,reInvite :Bool = false){
         if let mobilecontact = mobileContact{
             self.selectedContact = mobilecontact
