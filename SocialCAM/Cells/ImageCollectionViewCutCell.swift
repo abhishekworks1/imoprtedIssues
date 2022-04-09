@@ -15,7 +15,7 @@ protocol ImageCollectionViewCutCellDelegate {
 }
 
 class ImageCollectionViewCutCell: UICollectionViewCell {
-    
+    var callback: ((_ sender: UITapGestureRecognizer) -> Void)?
     var delegate: ImageCollectionViewCutCellDelegate?
     @IBOutlet weak var trimmerViewHeightConstraint: NSLayoutConstraint!
     // @IBOutlet weak var trimmerViewHeightConstraint: TrimmerViewCut!
@@ -231,48 +231,48 @@ class ImageCollectionViewCutCell: UICollectionViewCell {
     
     @objc func handleLeftRightTap(_ sender: UITapGestureRecognizer) {
         
-        guard let view = sender.view else { return }
-        
-        let isLeftGesture = (view == leftTopView)
-        if self.trimmerView.isHideLeftRightView { return }
-        if isLeftGesture {
-            self.trimmerView.currentLeadingConstraint = self.trimmerView.trimViewLeadingConstraint.constant
-        } else {
-            self.trimmerView.currentTrailingConstraint = self.trimmerView.trimViewTrailingConstraint.constant
-        }
-        DispatchQueue.main.async {
-            self.trimmerView.layoutIfNeeded()
-            self.trimmerView.layoutSubviews()
-        }
-        if isLeftGesture {
-//            self.trimmerView.updateLeadingHandleConstraint()
-            
-            guard let minDistance = self.trimmerView.minimumDistanceBetweenDraggableViews
-                else { return }
-            
-            let maxConstraint = (self.bounds.width
-                                 - (self.trimmerView.draggableViewWidth * 2)
-                                 - minDistance) + self.trimmerView.trimViewTrailingConstraint.constant
-            
-            let newPosition = min(self.trimmerView.currentLeadingConstraint + self.trimmerView.timePointerViewLeadingAnchor.constant, maxConstraint)
-            self.trimmerView.trimViewLeadingConstraint.constant = newPosition
-            delegate?.handleTapCutIcons(finalTime: finalTime)
-            print(finalTime)
-        } else {
-            guard let minDistance = self.trimmerView.minimumDistanceBetweenDraggableViews
-                else { return }
-            let maxConstraint = (self.bounds.width
-                - (self.trimmerView.draggableViewWidth * 2)
-                - minDistance) - self.trimmerView.trimViewLeadingConstraint.constant
-            let newPosition = max((self.trimmerView.trimViewWidthContraint.constant - ((self.trimmerView.frame.width - self.trimmerView.trimViewLeadingConstraint.constant) - self.trimmerView.timePointerViewLeadingAnchor.constant)), -maxConstraint)
-            self.trimmerView.trimViewTrailingConstraint.constant = newPosition
-            
-        }
-        
-        DispatchQueue.main.async {
-            self.trimmerView.layoutIfNeeded()
-            self.trimmerView.layoutSubviews()
-        }
+        callback?(sender)
+//        guard let view = sender.view else { return }
+//        
+//        let isLeftGesture = (view == leftTopView)
+//        if self.trimmerView.isHideLeftRightView { return }
+//        if isLeftGesture {
+//            self.trimmerView.currentLeadingConstraint = self.trimmerView.trimViewLeadingConstraint.constant
+//        } else {
+//            self.trimmerView.currentTrailingConstraint = self.trimmerView.trimViewTrailingConstraint.constant
+//        }
+//        DispatchQueue.main.async {
+//            self.trimmerView.layoutIfNeeded()
+//            self.trimmerView.layoutSubviews()
+//        }
+//        if isLeftGesture {
+////            self.trimmerView.updateLeadingHandleConstraint()
+//            
+//            guard let minDistance = self.trimmerView.minimumDistanceBetweenDraggableViews
+//                else { return }
+//            
+//            let maxConstraint = (self.bounds.width
+//                                 - (self.trimmerView.draggableViewWidth * 2)
+//                                 - minDistance) + self.trimmerView.trimViewTrailingConstraint.constant
+//            
+//            let newPosition = min(self.trimmerView.currentLeadingConstraint + self.trimmerView.timePointerViewLeadingAnchor.constant, maxConstraint)
+//            self.trimmerView.trimViewLeadingConstraint.constant = newPosition
+//            delegate?.handleTapCutIcons(finalTime: finalTime)
+//        } else {
+//            guard let minDistance = self.trimmerView.minimumDistanceBetweenDraggableViews
+//                else { return }
+//            let maxConstraint = (self.bounds.width
+//                - (self.trimmerView.draggableViewWidth * 2)
+//                - minDistance) - self.trimmerView.trimViewLeadingConstraint.constant
+//            let newPosition = max((self.trimmerView.trimViewWidthContraint.constant - ((self.trimmerView.frame.width - self.trimmerView.trimViewLeadingConstraint.constant) - self.trimmerView.timePointerViewLeadingAnchor.constant)), -maxConstraint)
+//            self.trimmerView.trimViewTrailingConstraint.constant = newPosition
+//            
+//        }
+//        
+//        DispatchQueue.main.async {
+//            self.trimmerView.layoutIfNeeded()
+//            self.trimmerView.layoutSubviews()
+//        }
     }
 
 //    func videoPlayerPlayback(to time: CMTime, asset: AVAsset) {
