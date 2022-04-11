@@ -1197,7 +1197,7 @@ extension OmitEditorViewController: ImageCollectionViewCutCellDelegate {
     func handleTapCutIcons(finalTime: Float) {
 //        print(finalTime)
         if let currentAsset = currentAsset(index: self.currentPage) {
-            let checkwithTime: Float = 0.2
+            let checkwithTime: Float = 0.1
             
             if Float(finalTime) > checkwithTime && Float(finalTime) < Float(currentAsset.duration.seconds) {
                 doneView.alpha = 1
