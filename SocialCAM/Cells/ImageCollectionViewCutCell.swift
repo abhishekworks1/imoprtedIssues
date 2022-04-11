@@ -295,15 +295,18 @@ class ImageCollectionViewCutCell: UICollectionViewCell {
         }
         let progressTime = startT
         var newProgressTime = String(format: "%.1f", progressTime)
-//        if newProgressTime < "-0.0" || newProgressTime == "-0.1" || newProgressTime == "-0.2" || newProgressTime == "-0.3" || newProgressTime == "-0.4" || newProgressTime == "-0.5" || newProgressTime == "-0.6" || newProgressTime == "-0.7" || newProgressTime == "-0.8" || newProgressTime == "-0.9" {
-//            newProgressTime = "0.0"
-//        }
         if newProgressTime < "0.0" {
             newProgressTime = "0.0"
         }
-        let totalTime = endPipe.seconds - startPipe.seconds
+        let totalTime = Float(endPipe.seconds - startPipe.seconds)
         finalTime = Float(endPipe.seconds - startPipe.seconds)
-        let newFinalTime = String(format: "%.1f", totalTime)
+        var newFinalTime = String(format: "%.1f", totalTime)
+        if newFinalTime <= "0.1" {
+            newFinalTime = "0.0"
+        }
+        print("****************")
+        print("Last FinalTime: \(newFinalTime)")
+        print("****************")
         let fullTime = "\(newProgressTime) / \(newFinalTime)"
         self.lblVideoDuration.font = UIFont.systemFont(ofSize: 12, weight: .bold)
         self.lblVideoDuration.text = fullTime
