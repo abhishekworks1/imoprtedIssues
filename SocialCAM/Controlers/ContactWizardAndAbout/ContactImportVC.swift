@@ -58,7 +58,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     var isSelectSMS : Bool = false
     
     var listingResponse : msgTitleList? = nil
-    @IBOutlet weak var itemsTableView: UITableView!
+    var emailMsgListing : msgTitleList? = nil
+    var smsMsgListing : msgTitleList? = nil
+   @IBOutlet weak var itemsTableView: UITableView!
     
     @IBOutlet weak var btnDoNotShowAgain: UIButton!
     
@@ -157,6 +159,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         self.setupUI()
         self.setupPage()
         self.fetchTitleMessages()
+        self.fetchEmailMessages()
       //  self.getContactList()
     }
     // MARK: - UI setup
@@ -416,7 +419,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
     }
     func fetchTitleMessages(){
-        let path = API.shared.baseUrlV2 + Paths.referralTitle
+        let path = API.shared.baseUrlV2 + Paths.messageTitle
         let headerWithToken : HTTPHeaders =  ["Content-Type": "application/json",
                                        "userid": Defaults.shared.currentUser?.id ?? "",
                                        "deviceType": "1",
@@ -424,13 +427,27 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         let request = AF.request(path, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: headerWithToken, interceptor: nil)
 
         request.responseDecodable(of: msgTitleList?.self) {(resposnse) in
-            self.listingResponse = resposnse.value as? msgTitleList
-            if (self.listingResponse?.list.count ?? 0) > 0{
-                self.itemsTableView.reloadData()
-            }
+            self.smsMsgListing = resposnse.value as? msgTitleList
+//            if (self.listingResponse?.list.count ?? 0) > 0{
+//                self.itemsTableView.reloadData()
+//            }
         }
     }
-    
+    func fetchEmailMessages(){
+        let path = API.shared.baseUrlV2 + Paths.emailTitle
+        let headerWithToken : HTTPHeaders =  ["Content-Type": "application/json",
+                                       "userid": Defaults.shared.currentUser?.id ?? "",
+                                       "deviceType": "1",
+                                       "x-access-token": Defaults.shared.sessionToken ?? ""]
+        let request = AF.request(path, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: headerWithToken, interceptor: nil)
+
+        request.responseDecodable(of: msgTitleList?.self) {(resposnse) in
+            self.emailMsgListing = resposnse.value as? msgTitleList
+//            if (self.listingResponse?.list.count ?? 0) > 0{
+//                self.itemsTableView.reloadData()
+//            }
+        }
+    }
     func getVerifiedSocialPlatforms() {
         if let socialPlatforms = Defaults.shared.socialPlatforms, socialPlatforms.count > 0 {
             verifiedView.isHidden = false
@@ -1015,7 +1032,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     // MARK: - tableview Delegate
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if tableView == itemsTableView{
-            return 70
+            return UITableView.automaticDimension
         } else {
             return 75
         }
@@ -1031,7 +1048,11 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == itemsTableView{
-            return self.listingResponse?.list.count ?? 0
+            if isSelectSMS {
+                return self.smsMsgListing?.list.count ?? 0
+            } else {
+                return self.emailMsgListing?.list.count ?? 0
+            }
         }else if tableView == emailContactTableView{
             return emailContacts.count
         } else {
@@ -1078,19 +1099,34 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             let cell:messageTitleCell = self.itemsTableView.dequeueReusableCell(withIdentifier: ContactImportVC.CELL_IDENTIFIER) as! messageTitleCell
             cell.selectionStyle = UITableViewCell.SelectionStyle.none
             
-            let item = self.listingResponse?.list[indexPath.row]
+            var item = self.listingResponse?.list[indexPath.row]
+            if isSelectSMS {
+                item = self.smsMsgListing?.list[indexPath.row]
+            } else {
+                item = self.emailMsgListing?.list[indexPath.row]
+            }
             if item != nil {
                 cell.textLbl.text = item?.content ?? ""
             }
-            if selectedTitleRow == indexPath.row {
-                cell.selectionImageView.image = UIImage.init(named: "radioSelectedBlue")
-                txtLinkWithCheckOut = item?.content ?? ""
-            }else{
-                cell.selectionImageView.image = UIImage.init(named: "radioDeselectedBlue")
+//            if selectedTitleRow == indexPath.row {
+//                cell.selectionImageView.image = UIImage.init(named: "radioSelectedBlue")
+//                txtLinkWithCheckOut = item?.content ?? ""
+//            }else{
+//                cell.selectionImageView.image = UIImage.init(named: "radioDeselectedBlue")
+//            }
+            cell.setText(text: item?.content ?? "")
+            cell.setSeletedState(state: selectedTitleRow == indexPath.row, details: "XYZ\nABC\nABC")
+            cell.handleRatioButtonAction = { (isSelected) in
+                if isSelected {
+                    self.selectedTitleRow = indexPath.row
+                } else {
+                    self.selectedTitleRow = -1
+                }
+                self.itemsTableView.reloadData()
             }
             return cell
 
-        }  else if tableView == emailContactTableView{
+        }  else if tableView == emailContactTableView {
             let cell:contactTableViewCell = self.contactTableView.dequeueReusableCell(withIdentifier: ContactImportVC.CELL_IDENTIFIER_CONTACT) as! contactTableViewCell
             cell.selectionStyle = UITableViewCell.SelectionStyle.none
             cell.cellDelegate = self
@@ -1119,7 +1155,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 cell.inviteBtn.backgroundColor = UIColor(hex6:0xE9F1FF)
                 cell.inviteBtn.setTitleColor(UIColor(hex6:0x4285F4), for: .normal)
                 
-            }else if contact.status == ContactStatus.subscriber{
+            }else if contact.status == ContactStatus.subscriber {
                 cell.inviteBtn.isHidden = true
             }else{
                 cell.inviteBtn.isHidden = false
@@ -1165,7 +1201,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     cell.inviteBtn.setTitleColor(.white, for: .normal)
                 }
                 
-            }else {
+            }
+            else {
                 let contact = mailContacts[indexPath.row] as PhoneContact
                 cell.lblDisplayName.text = contact.name ?? ""
                 cell.lblNumberEmail.text = contact.email[0]
@@ -1431,6 +1468,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         isSelectSMS = true
         pageNo = 2
         self.setupPage()
+        self.itemsTableView.reloadData()
     }
     @IBAction func btnQRCodeShareAction(_ sender: UIButton) {
         print("Click on QR")
@@ -1442,6 +1480,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         isSelectSMS = false
         pageNo = 2
         self.setupPage()
+        self.itemsTableView.reloadData()
     }
     @IBAction func btnSocialSharingAction(_ sender: UIButton) {
         isSelectSMS = false

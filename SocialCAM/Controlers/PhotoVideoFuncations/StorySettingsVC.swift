@@ -621,7 +621,6 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 navigationController?.pushViewController(systemSettingsVC, animated: true)
             }
         } else if settingTitle.settingsType == .qrcode {
-            print("Click on QR")
             if let qrViewController = R.storyboard.editProfileViewController.qrCodeViewController() {
                 navigationController?.pushViewController(qrViewController, animated: true)
             }

@@ -1147,7 +1147,8 @@ public struct Paths {
     static let setUnFollow = "user/unfollow"
     static let onboarding = "/onboarding?token="
     static let redirect_uri = "&redirect_uri="
-    static let referralTitle = "template?type=message-content"
+    static let emailTitle = "template?type=message-content"
+    static let messageTitle = "template?type=email-content"
     
     static let inviteGuesViaMobile = "contact-list/mobile/status"
     static let createContactFroMobile = "contact-list/mobile"
