@@ -350,7 +350,7 @@ extension RefferalEditProfileViewController:  UIImagePickerControllerDelegate, U
 // MARK: - SharingSocialTypeDelegate
 extension RefferalEditProfileViewController: SharingSocialTypeDelegate {
     func shareSocialType(socialType: ProfileSocialShare) {
-        self.showHUD()
+        //self.showHUD()
         self.openSheet(socialType: socialType)
     }
     
