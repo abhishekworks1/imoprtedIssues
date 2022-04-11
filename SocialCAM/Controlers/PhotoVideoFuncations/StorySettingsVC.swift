@@ -625,7 +625,6 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             if let qrViewController = R.storyboard.editProfileViewController.qrCodeViewController() {
                 navigationController?.pushViewController(qrViewController, animated: true)
             }
-            
         }
         else if settingTitle.settingsType == .logout {
             lblLogoutPopup.text = R.string.localizable.areYouSureYouWantToLogoutFromApp("\(Constant.Application.displayName)")
@@ -732,10 +731,16 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
 //            if let shareSettingViewController = R.storyboard.editProfileViewController.shareSettingViewController() {
 //                navigationController?.pushViewController(shareSettingViewController, animated: true)
 //            }
-            if let contactWizardController = R.storyboard.refferalEditProfile.refferalEditProfileViewController() {
-                navigationController?.pushViewController(contactWizardController, animated: true)
+            let user = Defaults.shared.currentUser
+            if user?.profileThumbnail?.count ?? 0 > 0 && user?.profileImageURL?.count ?? 0 > 0 {
+                if let shareSettingViewController = R.storyboard.editProfileViewController.shareSettingViewController() {
+                    navigationController?.pushViewController(shareSettingViewController, animated: true)
+                }
+            } else {
+                if let contactWizardController = R.storyboard.refferalEditProfile.refferalEditProfileViewController() {
+                    navigationController?.pushViewController(contactWizardController, animated: true)
+                }
             }
-
         } else if settingTitle.settingsType == .userDashboard {
             openBussinessDashboard()
            
