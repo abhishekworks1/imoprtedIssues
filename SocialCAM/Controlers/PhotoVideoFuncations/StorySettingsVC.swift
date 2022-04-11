@@ -732,7 +732,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
 //            if let shareSettingViewController = R.storyboard.editProfileViewController.shareSettingViewController() {
 //                navigationController?.pushViewController(shareSettingViewController, animated: true)
 //            }
-            if let contactWizardController = R.storyboard.contactWizardwithAboutUs.contactImportVC() {
+            if let contactWizardController = R.storyboard.refferalEditProfile.refferalEditProfileViewController() {
                 navigationController?.pushViewController(contactWizardController, animated: true)
             }
 

@@ -628,6 +628,10 @@
 		275992F9310DBBE737278C07 /* Pods_FastCam.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D28990050E4D434A263290C3 /* Pods_FastCam.framework */; };
 		35E979832803FE0000A218E6 /* AboutStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35E979822803FE0000A218E6 /* AboutStoryboard.storyboard */; };
 		35E979842803FE0000A218E6 /* AboutStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35E979822803FE0000A218E6 /* AboutStoryboard.storyboard */; };
+		35E9798728042F0700A218E6 /* RefferalEditProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35E9798628042F0700A218E6 /* RefferalEditProfile.storyboard */; };
+		35E9798828042F0700A218E6 /* RefferalEditProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35E9798628042F0700A218E6 /* RefferalEditProfile.storyboard */; };
+		35E9798A28042F5800A218E6 /* RefferalEditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E9798928042F5800A218E6 /* RefferalEditProfileViewController.swift */; };
+		35E9798B28042F5800A218E6 /* RefferalEditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E9798928042F5800A218E6 /* RefferalEditProfileViewController.swift */; };
 		368B8CC623DAB55B207B22C6 /* Pods_SocialCAM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCD6217E3E3CCED24C4D1E1A /* Pods_SocialCAM.framework */; };
 		39CD909F15C7D502F1BECFB1 /* Pods_Viralvids.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B745205732387EF7B691824 /* Pods_Viralvids.framework */; };
 		3DE8FD13BE04AA698BCC360E /* Pods_SpeedCam.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B895EEE0048CB24034FD885 /* Pods_SpeedCam.framework */; };
@@ -15375,6 +15379,8 @@
 		2C5385B7FB968013B59EAA97 /* Pods-SocialCamMediaShare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialCamMediaShare.release.xcconfig"; path = "Target Support Files/Pods-SocialCamMediaShare/Pods-SocialCamMediaShare.release.xcconfig"; sourceTree = "<group>"; };
 		31974CCF361ADE2507BABFAD /* Pods-Pic2ArtShare.alpha.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pic2ArtShare.alpha.xcconfig"; path = "Target Support Files/Pods-Pic2ArtShare/Pods-Pic2ArtShare.alpha.xcconfig"; sourceTree = "<group>"; };
 		35E979822803FE0000A218E6 /* AboutStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AboutStoryboard.storyboard; sourceTree = "<group>"; };
+		35E9798628042F0700A218E6 /* RefferalEditProfile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RefferalEditProfile.storyboard; sourceTree = "<group>"; };
+		35E9798928042F5800A218E6 /* RefferalEditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefferalEditProfileViewController.swift; sourceTree = "<group>"; };
 		37104DEB6DB48DB9A4B50279 /* Pods-BoomiCam.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoomiCam.release.xcconfig"; path = "Target Support Files/Pods-BoomiCam/Pods-BoomiCam.release.xcconfig"; sourceTree = "<group>"; };
 		3B5CFE81A1B4CF4BFC007836 /* Pods-FastCam.alpha.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FastCam.alpha.xcconfig"; path = "Target Support Files/Pods-FastCam/Pods-FastCam.alpha.xcconfig"; sourceTree = "<group>"; };
 		3D316223FF43DF3C4848C8D1 /* Pods_TimeSpeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TimeSpeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -16804,6 +16810,15 @@
 			path = ViralCamVideos;
 			sourceTree = "<group>";
 		};
+		35E9798528042ECB00A218E6 /* RefferalEditProfile */ = {
+			isa = PBXGroup;
+			children = (
+				35E9798628042F0700A218E6 /* RefferalEditProfile.storyboard */,
+				35E9798928042F5800A218E6 /* RefferalEditProfileViewController.swift */,
+			);
+			path = RefferalEditProfile;
+			sourceTree = "<group>";
+		};
 		42EECCA896FCF095AA83BB36 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -18196,6 +18211,7 @@
 		824EB393236197F600205993 /* Controlers */ = {
 			isa = PBXGroup;
 			children = (
+				35E9798528042ECB00A218E6 /* RefferalEditProfile */,
 				9CA4AE9C27A65117001889DE /* ContactWizardAndAbout */,
 				82A404BC26FC6BF80032AC0F /* Notification */,
 				C241CB9025CD63D2003B66EE /* ForgotPasswordVC */,
@@ -20320,6 +20336,7 @@
 				35E979832803FE0000A218E6 /* AboutStoryboard.storyboard in Resources */,
 				82D1EBC7236FEE7F00A680E7 /* StickerCollectionViewCell.xib in Resources */,
 				8205FD33236C3B06002B2603 /* LUT_M07.png in Resources */,
+				35E9798728042F0700A218E6 /* RefferalEditProfile.storyboard in Resources */,
 				95EDD2C52460491F00DD3348 /* StoryCameraViewController.storyboard in Resources */,
 				8205FD35236C3B06002B2603 /* LUT_M12.png in Resources */,
 				82D1EC3E23702B4300A680E7 /* RedLips.JPG in Resources */,
@@ -22071,6 +22088,7 @@
 				C2F934C6264AA0CA006CA527 /* LUT_M03.png in Resources */,
 				C2F934C7264AA0CA006CA527 /* SlideshowImagesCell.xib in Resources */,
 				C2F934C8264AA0CA006CA527 /* TwitterCompose.storyboard in Resources */,
+				35E9798828042F0700A218E6 /* RefferalEditProfile.storyboard in Resources */,
 				C2F934C9264AA0CA006CA527 /* StartUp.mp3 in Resources */,
 				C21295B426BD187500733D9E /* QuickLinkTooltip2.gif in Resources */,
 				C2F934CA264AA0CA006CA527 /* WatermarksMedia.xcassets in Resources */,
@@ -26806,6 +26824,7 @@
 				824EB39C23619E3600205993 /* StoryCamShared.swift in Sources */,
 				8205FD4E236C3B06002B2603 /* FilterShadows.swift in Sources */,
 				8205FD48236C3B06002B2603 /* OvalBrush.swift in Sources */,
+				35E9798A28042F5800A218E6 /* RefferalEditProfileViewController.swift in Sources */,
 				82D1EBB1236FED4F00A680E7 /* HalfModalInteractiveTransition.swift in Sources */,
 				8205FAB1236C1001002B2603 /* ImageCropperView.swift in Sources */,
 				9546604A2387B5CC00A37AE0 /* CropToolbar.swift in Sources */,
@@ -33529,6 +33548,7 @@
 				C2F93315264AA0CA006CA527 /* SplashImages.swift in Sources */,
 				C2F93316264AA0CA006CA527 /* ReactionButtonConfig.swift in Sources */,
 				C2F93317264AA0CA006CA527 /* MMPlayerPassViewPresentatinController.swift in Sources */,
+				35E9798B28042F5800A218E6 /* RefferalEditProfileViewController.swift in Sources */,
 				C2F93318264AA0CA006CA527 /* Configurable.swift in Sources */,
 				C2F93319264AA0CA006CA527 /* ImageAssetExtension.swift in Sources */,
 				C2F9331A264AA0CA006CA527 /* KeyframeImageGenerator.swift in Sources */,
