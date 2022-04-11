@@ -1271,8 +1271,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
             return UIContextMenuConfiguration(identifier: indexPath as NSIndexPath, previewProvider: nil) { _ in
                 return UIMenu(title: "", children: [
-                    UIAction(title: "Delete", i
-                             ge: UIImage(systemName: "")) { action in
+                    UIAction(title: "Delete", image: UIImage(systemName: "")) { action in
                         if tableView == self.emailContactTableView{
                             let contact = self.emailContacts[indexPath.row]
                             print(contact.email ?? "")

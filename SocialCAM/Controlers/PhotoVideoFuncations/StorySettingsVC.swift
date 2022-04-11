@@ -747,7 +747,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 MIBlurPopup.show(userDetailsVC, on: self)
             }
         }else if settingTitle.settingsType == .aboutPage {
-            if let aboutViewController = R.storyboard.contactWizardwithAboutUs.aboutViewController() {
+            if let aboutViewController = R.storyboard.aboutStoryboard.aboutViewController() {
                 navigationController?.pushViewController(aboutViewController, animated: true)
             }
         }
