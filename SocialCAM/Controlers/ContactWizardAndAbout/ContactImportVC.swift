@@ -26,6 +26,7 @@ struct ContactStatus{
     static let optout = "optout"
     static let all = "all"
     static let hidden = "hidden"
+    static let opened = "opened"
 }
 protocol ContactImportDelegate {
     func didFinishEdit(contact:ContactResponse?)
@@ -942,6 +943,15 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             self.getContactList( page:1,filter:ContactStatus.invited)
             break
         case 5:
+            
+            if selectedContactType == ContactType.mobile{
+                self.mobileContacts = [ContactResponse]()
+                self.contactTableView.reloadData()
+            }else{
+                self.emailContacts = [ContactResponse]()
+                self.emailContactTableView.reloadData()
+            }
+           
             break
         case 6:
             self.selectedFilter = ContactStatus.signedup
