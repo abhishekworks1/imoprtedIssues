@@ -428,6 +428,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 
         request.responseDecodable(of: msgTitleList?.self) {(resposnse) in
             self.smsMsgListing = resposnse.value as? msgTitleList
+            print("smsMsgListing - \(self.smsMsgListing?.list)")
 //            if (self.listingResponse?.list.count ?? 0) > 0{
 //                self.itemsTableView.reloadData()
 //            }
@@ -443,6 +444,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 
         request.responseDecodable(of: msgTitleList?.self) {(resposnse) in
             self.emailMsgListing = resposnse.value as? msgTitleList
+            print("emailMsgListing - \(self.emailMsgListing?.list)")
 //            if (self.listingResponse?.list.count ?? 0) > 0{
 //                self.itemsTableView.reloadData()
 //            }
@@ -1099,23 +1101,19 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             let cell:messageTitleCell = self.itemsTableView.dequeueReusableCell(withIdentifier: ContactImportVC.CELL_IDENTIFIER) as! messageTitleCell
             cell.selectionStyle = UITableViewCell.SelectionStyle.none
             
-            var item = self.listingResponse?.list[indexPath.row]
+            var item : Titletext?
             if isSelectSMS {
                 item = self.smsMsgListing?.list[indexPath.row]
+                cell.setText(text: item?.content ?? "")
+                cell.setSeletedState(state: selectedTitleRow == indexPath.row, details: "")
+                print("isselectsms")
             } else {
                 item = self.emailMsgListing?.list[indexPath.row]
+                cell.setText(text: item?.content ?? "")
+                cell.setSeletedState(state: selectedTitleRow == indexPath.row, details: item?.subject ?? "")
             }
-            if item != nil {
-                cell.textLbl.text = item?.content ?? ""
-            }
-//            if selectedTitleRow == indexPath.row {
-//                cell.selectionImageView.image = UIImage.init(named: "radioSelectedBlue")
-//                txtLinkWithCheckOut = item?.content ?? ""
-//            }else{
-//                cell.selectionImageView.image = UIImage.init(named: "radioDeselectedBlue")
-//            }
-            cell.setText(text: item?.content ?? "")
-            cell.setSeletedState(state: selectedTitleRow == indexPath.row, details: "XYZ\nABC\nABC")
+          
+
             cell.handleRatioButtonAction = { (isSelected) in
                 if isSelected {
                     self.selectedTitleRow = indexPath.row
@@ -1227,24 +1225,26 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if tableView == itemsTableView{
-            selectedTitleRow = indexPath.row
-            let item = self.listingResponse?.list[indexPath.row]
-            if item != nil {
-                self.txtLinkWithCheckOut = item?.content ?? ""
-            }
-            itemsTableView.reloadData()
-            if txtLinkWithCheckOut != "" {
-                let finalText = "\(greetingMessage) \(txtLinkWithCheckOut)"
-                txtLinkWithCheckOut = finalText
-                print(txtLinkWithCheckOut)
+        if tableView == itemsTableView {
+            if selectedTitleRow != indexPath.row {
+                selectedTitleRow = indexPath.row
+                let item = self.listingResponse?.list[indexPath.row]
+                if item != nil {
+                    self.txtLinkWithCheckOut = item?.content ?? ""
+                }
+                itemsTableView.reloadData()
+                if txtLinkWithCheckOut != "" {
+                    let finalText = "\(greetingMessage) \(txtLinkWithCheckOut)"
+                    txtLinkWithCheckOut = finalText
+                    print(txtLinkWithCheckOut)
+                }
             }
         } else{
             self.view.endEditing(true)
         }
     }
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-       
+        
         if tableView == itemsTableView{
             return UISwipeActionsConfiguration(actions: [])
             

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -389,20 +389,20 @@
                                                                 <rect key="frame" x="20" y="20" width="169.5" height="169.5"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icforward" translatesAutoresizingMaskIntoConstraints="NO" id="JTY-VW-YDt">
-                                                                        <rect key="frame" x="129.5" y="102.5" width="25" height="25"/>
+                                                                        <rect key="frame" x="129.5" y="102" width="25" height="25"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="25" id="9B7-52-gN9"/>
                                                                             <constraint firstAttribute="height" constant="25" id="fRE-cv-M8I"/>
                                                                         </constraints>
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mobile Sharing" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qbq-hf-ymb">
-                                                                        <rect key="frame" x="10" y="94.5" width="104.5" height="41"/>
+                                                                        <rect key="frame" x="10" y="94" width="104.5" height="41"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                                         <color key="textColor" red="0.0" green="0.49019607843137253" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="share_contact" translatesAutoresizingMaskIntoConstraints="NO" id="tod-uL-yPP">
-                                                                        <rect key="frame" x="20" y="32.5" width="35" height="35"/>
+                                                                        <rect key="frame" x="20" y="32" width="35" height="35"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="35" id="Itq-J3-kZm"/>
                                                                             <constraint firstAttribute="width" constant="35" id="c7X-VA-SVw"/>
@@ -451,7 +451,7 @@
                                                                 <rect key="frame" x="224.5" y="20" width="169.5" height="169.5"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icforward" translatesAutoresizingMaskIntoConstraints="NO" id="ULT-7h-cxH">
-                                                                        <rect key="frame" x="129.5" y="102.5" width="25" height="25"/>
+                                                                        <rect key="frame" x="129.5" y="102" width="25" height="25"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="25" id="1ay-rt-K6t"/>
                                                                             <constraint firstAttribute="height" constant="25" id="nrF-NG-CuF"/>
@@ -464,7 +464,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="message_contact" translatesAutoresizingMaskIntoConstraints="NO" id="Fyh-Vg-bgv">
-                                                                        <rect key="frame" x="20" y="32.5" width="35" height="35"/>
+                                                                        <rect key="frame" x="20" y="32" width="35" height="35"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="35" id="0f6-Cz-744"/>
                                                                             <constraint firstAttribute="width" constant="35" id="3We-fg-xk5"/>
@@ -532,14 +532,14 @@
                                                                         </constraints>
                                                                     </imageView>
                                                                     <button hidden="YES" opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q9p-ht-RoQ">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="169.5" height="170"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="169.5" height="169.5"/>
                                                                         <state key="normal" title="Button"/>
                                                                         <connections>
                                                                             <action selector="mainOptionsClick:" destination="zZw-wm-uWi" eventType="touchUpInside" id="y3G-Jp-4ey"/>
                                                                         </connections>
                                                                     </button>
                                                                     <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PvR-VU-81B">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="169.5" height="170"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="169.5" height="169.5"/>
                                                                         <connections>
                                                                             <action selector="mainOptionsClick:" destination="zZw-wm-uWi" eventType="touchUpInside" id="BFi-4L-CgW"/>
                                                                         </connections>
@@ -2413,7 +2413,7 @@ Dashboard</string>
             <color red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
-            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="shareReferLinkBackgroundColor">
             <color red="0.94509803921568625" green="0.93725490196078431" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -21,7 +21,6 @@ class messageTitleCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
     
@@ -33,7 +32,8 @@ class messageTitleCell: UITableViewCell {
             selectedButton.setImage(UIImage(named: "radioDeselectedBlue"), for: .normal)
         } else {
             detailsLabel.isHidden = false
-            detailsLabel.text = "jh sjkahfkjdsh kjsahf kjas kjlfaskjdf hajkls fkjals hfakjlsd fhkjalsfh klajsdh fkjlsa d"
+            print("detail : \(details)")
+            detailsLabel.text = details
             selectedButton.setImage(UIImage(named: "radioSelectedBlue"), for: .normal)
         }
     }
