@@ -68,6 +68,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     fileprivate static let CELL_IDENTIFIER = "messageTitleCell"
 
     //share page declaration
+    var txtDetailForEmail: String = ""
     var txtLinkWithCheckOut: String = ""
     var ReferralLink: String = ""
     var greetingMessage: String = ""
@@ -245,6 +246,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 //        if pageNo == 4 {
 //            ContactPermission()
 //        }
+        
+
+        
         filterOptionView.isHidden = true
       //  let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
       //  self.view.addGestureRecognizer(tap)
@@ -1113,7 +1117,6 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 cell.setSeletedState(state: selectedTitleRow == indexPath.row, details: item?.subject ?? "")
             }
           
-
             cell.handleRatioButtonAction = { (isSelected) in
                 if isSelected {
                     self.selectedTitleRow = indexPath.row
@@ -1431,7 +1434,14 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 //               navigationController?.popViewController(animated: true)
 //           }
         }else if sender.tag == 3 {
-            navigationController?.popViewController(animated: true)
+            let referSuccess = ReferSuccessVC(nibName: R.nib.referSuccessVC.name, bundle: nil)
+            referSuccess.callback = { message in
+                self.pageNo = 1
+                self.setupPage()
+            }
+            navigationController?.pushViewController(referSuccess, animated: true)
+            
+            //navigationController?.popViewController(animated: true)
         }
         
     }
@@ -1483,9 +1493,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         self.itemsTableView.reloadData()
     }
     @IBAction func btnSocialSharingAction(_ sender: UIButton) {
-        isSelectSMS = false
+        isSelectSMS = true
         pageNo = 2
         self.setupPage()
+        self.itemsTableView.reloadData()
     }
     
     func presentSafariBrowser(url: URL) {

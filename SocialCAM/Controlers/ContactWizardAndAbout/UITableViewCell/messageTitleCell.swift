@@ -7,6 +7,7 @@ import UIKit
 
 class messageTitleCell: UITableViewCell {
     
+    @IBOutlet weak var detailView: UIView!
     @IBOutlet weak var selectedButton: UIButton!
     @IBOutlet  var textLbl: UILabel!
     @IBOutlet  var detailsLabel: UILabel!
@@ -27,12 +28,13 @@ class messageTitleCell: UITableViewCell {
     func setSeletedState(state: Bool, details: String) {
         isSelectedRadio = state
         if !state {
+            detailView.isHidden = true
             detailsLabel.text = ""
-            detailsLabel.isHidden = true
+            //detailsLabel.isHidden = true
             selectedButton.setImage(UIImage(named: "radioDeselectedBlue"), for: .normal)
         } else {
-            detailsLabel.isHidden = false
-            print("detail : \(details)")
+            detailView.isHidden = false
+            //detailsLabel.isHidden = false
             detailsLabel.text = details
             selectedButton.setImage(UIImage(named: "radioSelectedBlue"), for: .normal)
         }
