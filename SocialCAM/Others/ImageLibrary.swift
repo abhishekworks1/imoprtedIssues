@@ -121,7 +121,7 @@ public class ImageAsset: Equatable {
     public func extType() -> ImageExtType {
         var ext = ImageExtType.png
         if let fileName = self.originalFileName, let extention = URL(string: fileName)?.pathExtension.lowercased() {
-            ext = ImageExtType(rawValue: extention) ?? .png
+            ext = ImageExtType(rawValue: extention) ?? .jpg
         }
         return ext
     }

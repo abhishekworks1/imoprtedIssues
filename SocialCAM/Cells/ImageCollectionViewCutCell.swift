@@ -15,7 +15,7 @@ protocol ImageCollectionViewCutCellDelegate {
 }
 
 class ImageCollectionViewCutCell: UICollectionViewCell {
-    
+    var callback: ((_ sender: UITapGestureRecognizer) -> Void)?
     var delegate: ImageCollectionViewCutCellDelegate?
     @IBOutlet weak var trimmerViewHeightConstraint: NSLayoutConstraint!
     // @IBOutlet weak var trimmerViewHeightConstraint: TrimmerViewCut!
@@ -231,48 +231,48 @@ class ImageCollectionViewCutCell: UICollectionViewCell {
     
     @objc func handleLeftRightTap(_ sender: UITapGestureRecognizer) {
         
-        guard let view = sender.view else { return }
-        
-        let isLeftGesture = (view == leftTopView)
-        if self.trimmerView.isHideLeftRightView { return }
-        if isLeftGesture {
-            self.trimmerView.currentLeadingConstraint = self.trimmerView.trimViewLeadingConstraint.constant
-        } else {
-            self.trimmerView.currentTrailingConstraint = self.trimmerView.trimViewTrailingConstraint.constant
-        }
-        DispatchQueue.main.async {
-            self.trimmerView.layoutIfNeeded()
-            self.trimmerView.layoutSubviews()
-        }
-        if isLeftGesture {
-//            self.trimmerView.updateLeadingHandleConstraint()
-            
-            guard let minDistance = self.trimmerView.minimumDistanceBetweenDraggableViews
-                else { return }
-            
-            let maxConstraint = (self.bounds.width
-                                 - (self.trimmerView.draggableViewWidth * 2)
-                                 - minDistance) + self.trimmerView.trimViewTrailingConstraint.constant
-            
-            let newPosition = min(self.trimmerView.currentLeadingConstraint + self.trimmerView.timePointerViewLeadingAnchor.constant, maxConstraint)
-            self.trimmerView.trimViewLeadingConstraint.constant = newPosition
-            delegate?.handleTapCutIcons(finalTime: finalTime)
-            print(finalTime)
-        } else {
-            guard let minDistance = self.trimmerView.minimumDistanceBetweenDraggableViews
-                else { return }
-            let maxConstraint = (self.bounds.width
-                - (self.trimmerView.draggableViewWidth * 2)
-                - minDistance) - self.trimmerView.trimViewLeadingConstraint.constant
-            let newPosition = max((self.trimmerView.trimViewWidthContraint.constant - ((self.trimmerView.frame.width - self.trimmerView.trimViewLeadingConstraint.constant) - self.trimmerView.timePointerViewLeadingAnchor.constant)), -maxConstraint)
-            self.trimmerView.trimViewTrailingConstraint.constant = newPosition
-            
-        }
-        
-        DispatchQueue.main.async {
-            self.trimmerView.layoutIfNeeded()
-            self.trimmerView.layoutSubviews()
-        }
+        callback?(sender)
+//        guard let view = sender.view else { return }
+//        
+//        let isLeftGesture = (view == leftTopView)
+//        if self.trimmerView.isHideLeftRightView { return }
+//        if isLeftGesture {
+//            self.trimmerView.currentLeadingConstraint = self.trimmerView.trimViewLeadingConstraint.constant
+//        } else {
+//            self.trimmerView.currentTrailingConstraint = self.trimmerView.trimViewTrailingConstraint.constant
+//        }
+//        DispatchQueue.main.async {
+//            self.trimmerView.layoutIfNeeded()
+//            self.trimmerView.layoutSubviews()
+//        }
+//        if isLeftGesture {
+////            self.trimmerView.updateLeadingHandleConstraint()
+//            
+//            guard let minDistance = self.trimmerView.minimumDistanceBetweenDraggableViews
+//                else { return }
+//            
+//            let maxConstraint = (self.bounds.width
+//                                 - (self.trimmerView.draggableViewWidth * 2)
+//                                 - minDistance) + self.trimmerView.trimViewTrailingConstraint.constant
+//            
+//            let newPosition = min(self.trimmerView.currentLeadingConstraint + self.trimmerView.timePointerViewLeadingAnchor.constant, maxConstraint)
+//            self.trimmerView.trimViewLeadingConstraint.constant = newPosition
+//            delegate?.handleTapCutIcons(finalTime: finalTime)
+//        } else {
+//            guard let minDistance = self.trimmerView.minimumDistanceBetweenDraggableViews
+//                else { return }
+//            let maxConstraint = (self.bounds.width
+//                - (self.trimmerView.draggableViewWidth * 2)
+//                - minDistance) - self.trimmerView.trimViewLeadingConstraint.constant
+//            let newPosition = max((self.trimmerView.trimViewWidthContraint.constant - ((self.trimmerView.frame.width - self.trimmerView.trimViewLeadingConstraint.constant) - self.trimmerView.timePointerViewLeadingAnchor.constant)), -maxConstraint)
+//            self.trimmerView.trimViewTrailingConstraint.constant = newPosition
+//            
+//        }
+//        
+//        DispatchQueue.main.async {
+//            self.trimmerView.layoutIfNeeded()
+//            self.trimmerView.layoutSubviews()
+//        }
     }
 
 //    func videoPlayerPlayback(to time: CMTime, asset: AVAsset) {
@@ -295,15 +295,18 @@ class ImageCollectionViewCutCell: UICollectionViewCell {
         }
         let progressTime = startT
         var newProgressTime = String(format: "%.1f", progressTime)
-//        if newProgressTime < "-0.0" || newProgressTime == "-0.1" || newProgressTime == "-0.2" || newProgressTime == "-0.3" || newProgressTime == "-0.4" || newProgressTime == "-0.5" || newProgressTime == "-0.6" || newProgressTime == "-0.7" || newProgressTime == "-0.8" || newProgressTime == "-0.9" {
-//            newProgressTime = "0.0"
-//        }
         if newProgressTime < "0.0" {
             newProgressTime = "0.0"
         }
-        let totalTime = endPipe.seconds - startPipe.seconds
+        let totalTime = Float(endPipe.seconds - startPipe.seconds)
         finalTime = Float(endPipe.seconds - startPipe.seconds)
-        let newFinalTime = String(format: "%.1f", totalTime)
+        var newFinalTime = String(format: "%.1f", totalTime)
+        if newFinalTime <= "0.1" {
+            newFinalTime = "0.0"
+        }
+        print("****************")
+        print("Last FinalTime: \(newFinalTime)")
+        print("****************")
         let fullTime = "\(newProgressTime) / \(newFinalTime)"
         self.lblVideoDuration.font = UIFont.systemFont(ofSize: 12, weight: .bold)
         self.lblVideoDuration.text = fullTime
