@@ -324,10 +324,14 @@ class msgTitleList: Codable {
 public struct Titletext: Codable {
     var id: String?
     var content: String?
-    private enum CodingKeys: String, CodingKey
+    var subject: String?
+    var type: String?
+   private enum CodingKeys: String, CodingKey
     {
         case id = "_id"
         case content = "content"
+        case subject = "subject"
+        case type = "type"
     }
 }
 
