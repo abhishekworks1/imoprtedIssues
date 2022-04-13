@@ -13,6 +13,7 @@ import Contacts
 import MessageUI
 import ObjectMapper
 
+
 struct ContactType{
     static let mobile = "mobile"
     static let email = "email"
@@ -138,6 +139,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var lblReferralLink: UILabel!
    
     
+    @IBOutlet weak var businessDashboardStackView: UIStackView!
+    @IBOutlet weak var businessDashboardButton: UIButton!
+    @IBOutlet weak var businessDashbardConfirmPopupView: UIView!
+    @IBOutlet weak var btnDoNotShowAgainBusinessConfirmPopup: UIButton!
     
     
     var searchText:String = ""
@@ -1512,6 +1517,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBAction func btnQuickCamAppAction(_ sender: UIButton) {
     }
     @IBAction func btnBusinessDashboardAction(_ sender: UIButton) {
+        businessDashbardConfirmPopupView.isHidden = false
     }
     @IBAction func btnTextShareAction(_ sender: UIButton) {
         isSelectSMS = true
@@ -1581,6 +1587,31 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         
         ContactPermission()
     }
+    @IBAction func businessDahboardConfirmPopupOkButtonClicked(_ sender: UIButton) {
+        
+        if let token = Defaults.shared.sessionToken {
+            let urlString = "\(websiteUrl)/redirect?token=\(token)"
+            guard let url = URL(string: urlString) else {
+                return
+            }
+            presentSafariBrowser(url: url)
+        }
+        Defaults.shared.callHapticFeedback(isHeavy: false)
+        Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_Bdashboard)
+        
+        businessDashbardConfirmPopupView.isHidden = true
+    }
+    @IBAction func doNotShowAgainBusinessCenterOpenPopupClicked(_ sender: UIButton) {
+        btnDoNotShowAgainBusinessConfirmPopup.isSelected = !btnDoNotShowAgainBusinessConfirmPopup.isSelected
+        Defaults.shared.isShowAllPopUpChecked = false
+        Defaults.shared.isDoNotShowAgainOpenBusinessCenterPopup = btnDoNotShowAgainBusinessConfirmPopup.isSelected
+       
+    }
+    @IBAction func didTapCloseButtonBusiessDashboard(_ sender: UIButton) {
+        businessDashbardConfirmPopupView.isHidden = true
+    }
+    
+    
     func cutomHeaderView(title:String) -> UILabel {
         let label = UILabel()
         label.frame = CGRect(x: 15,y: 6,width: 200,height: 0)
