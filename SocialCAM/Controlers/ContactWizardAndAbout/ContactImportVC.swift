@@ -1138,6 +1138,13 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 }
                 self.itemsTableView.reloadData()
             }
+            if selectedTitleRow == indexPath.row {
+                //set data to share
+                self.txtLinkWithCheckOut = item?.content ?? ""
+                self.txtDetailForEmail = item?.subject ?? ""
+                let finalText = "\(greetingMessage) \(txtLinkWithCheckOut)"
+                txtLinkWithCheckOut = finalText
+            }
             return cell
 
         }  else if tableView == emailContactTableView {
@@ -1586,10 +1593,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 textComposer.body = urlwithString
                 textComposer.recipients = recipients
 
-                if MFMessageComposeViewController.canSendAttachments() {
+              /*  if MFMessageComposeViewController.canSendAttachments() {
                     let imageData = imageV.jpegData(compressionQuality: 1.0)
                     textComposer.addAttachmentData(imageData!, typeIdentifier: "image/jpg", filename: "photo.jpg")
-                }
+                } */
 
                 present(textComposer, animated: true)
             
@@ -1598,11 +1605,11 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     let mail = MFMailComposeViewController()
                     mail.mailComposeDelegate = self
                     mail.setToRecipients([mobileContact?.email ?? ""])
-                    mail.setSubject(urlString)
+                    mail.setSubject(self.txtDetailForEmail)
                     mail.setMessageBody(urlwithString, isHTML: false)
                     
-                    let imageData = imageV.jpegData(compressionQuality: 1.0)
-                    mail.addAttachmentData(imageData!, mimeType: "image/jpg", fileName: "photo.jpg")
+                   /* let imageData = imageV.jpegData(compressionQuality: 1.0)
+                    mail.addAttachmentData(imageData!, mimeType: "image/jpg", fileName: "photo.jpg") */
                     present(mail, animated: true)
                     
                     // Show third party email composer if default Mail app is not present
