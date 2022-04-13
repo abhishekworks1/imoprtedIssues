@@ -75,8 +75,11 @@ class RefferalEditProfileViewController: UIViewController {
             }
             self.dismissHUD()
             self.storyCameraVC.syncUserModel { (isComplete) in
-                self.setRedirection()
+//                self.setRedirection()
                 self.isImageSelected = false
+                if let contactWizardController = R.storyboard.contactWizardwithAboutUs.contactImportVC() {
+                    self.navigationController?.pushViewController(contactWizardController, animated: true)
+                }
             }
         }, onError: { error in
             self.dismissHUD()
