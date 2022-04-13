@@ -122,6 +122,14 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var contactPermitView: UIView!
     @IBOutlet weak var contactTableView: UITableView!
     @IBOutlet weak var emailContactTableView: UITableView!
+    
+    @IBOutlet weak var previewMainView: UIView!
+    @IBOutlet weak var previewView: UIView!
+    @IBOutlet weak var previewImageview: UIImageView!
+    @IBOutlet weak var lblpreviewText: UILabel!
+    @IBOutlet weak var lblpreviewUrl: UILabel!
+    @IBOutlet weak var socialSharePopupView: UIView!
+    
     fileprivate static let CELL_IDENTIFIER_CONTACT = "contactTableViewCell"
     
     @IBOutlet weak var searchBar: UISearchBar!
@@ -1048,6 +1056,18 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
         
     }
+    @IBAction func socialShareCloseClick(sender: UIButton) {
+        self.socialSharePopupView.isHidden = true
+    }
+    @IBAction func socialShareButtonClick(sender: UIButton) {
+        if sender.tag == 1{
+            //instagram
+        }else if sender.tag == 2{
+            //facebook
+        }else if sender.tag == 3{
+            //twitter
+        }
+    }
     // MARK: - tableview Delegate
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if tableView == itemsTableView{
@@ -1538,6 +1558,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @IBAction func shareOkButtonClicked(_ sender: UIButton) {
+        if previewMainView.isHidden == false{
+            socialSharePopupView.isHidden = false
+            return
+        }
             let urlString = self.txtLinkWithCheckOut
             let channelId = Defaults.shared.currentUser?.channelId ?? ""
             let urlwithString = urlString + "\n" + "\n" + " \(websiteUrl)/\(channelId)"
