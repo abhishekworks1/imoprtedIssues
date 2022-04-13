@@ -12,7 +12,15 @@ import Alamofire
 import Contacts
 import MessageUI
 import ObjectMapper
+import LinkPresentation
 
+enum ShareType:Int{
+    case textShare = 1
+    case qrcode = 2
+    case email = 3
+    case socialShare = 4
+    
+}
 struct ContactType{
     static let mobile = "mobile"
     static let email = "email"
@@ -30,7 +38,7 @@ struct ContactStatus{
 class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSource, contactCelldelegate , MFMessageComposeViewControllerDelegate , MFMailComposeViewControllerDelegate , UISearchBarDelegate, UINavigationControllerDelegate {
     
     
-
+    var shareType:ShareType = ShareType.textShare
     @IBOutlet weak var line1: UILabel!
     @IBOutlet weak var line2: UILabel!
     @IBOutlet weak var line3: UILabel!
@@ -271,6 +279,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         emailSeperatorViewHeight.constant = 1.0
         selectedContactType = ContactType.mobile
         self.emailContactTableView.isHidden = true
+        
+        setPreviewData()
     }
     @objc func handleTap(_ sender: UITapGestureRecognizer? = nil) {
         if !filterOptionView.isHidden{
@@ -397,6 +407,11 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 //                page3NextBtn.backgroundColor = .white
 //                page3NextBtn.setTitleColor(blueColor1, for: .normal)
             }
+            if shareType == ShareType.socialShare{
+                self.previewMainView.isHidden = false
+            }else{
+                
+            }
         }
         
         if pageNo == 4{
@@ -414,7 +429,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             lblNum3.backgroundColor = blueColor1
             lblNum4.backgroundColor = blueColor1
             
-          
+            self.previewMainView.isHidden = true
             switch CNContactStore.authorizationStatus(for: CNEntityType.contacts){
                 
             case .authorized: //access contacts
@@ -1011,6 +1026,57 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             break
         }
     }
+    func setPreviewData(){
+        if let referralPage = Defaults.shared.currentUser?.referralPage {
+            self.getLinkPreview(link:referralPage) { image in
+                
+            }
+        }
+    }
+    func getLinkPreview(link: String, completionHandler: @escaping (UIImage) -> Void) {
+        guard let url = URL(string: link) else {
+            return
+        }
+
+        if #available(iOS 13.0, *) {
+            let provider = LPMetadataProvider()
+            provider.startFetchingMetadata(for: url) { [weak self] metaData, error in
+                guard let `self` = self else {
+                    return
+                }
+                guard let data = metaData, error == nil else {
+                    if let previewImage = R.image.ssuQuickCam() {
+                        completionHandler(previewImage)
+                    }
+                    return
+                }
+               
+                DispatchQueue.main.async {
+                    self.lblpreviewUrl.text = data.url?.absoluteString ?? ""
+                    self.lblpreviewText.text = data.title ?? ""
+                    self.getImage(data: data) { [weak self] image in
+                        guard self != nil else { return }
+                        self?.previewImageview.image = image
+                        completionHandler(image)
+                    }
+                }
+            }
+        }
+    }
+    @available(iOS 13.0, *)
+    func getImage(data: LPLinkMetadata, handler: @escaping (UIImage) -> Void) {
+        data.iconProvider?.loadDataRepresentation(forTypeIdentifier: data.iconProvider!.registeredTypeIdentifiers[0], completionHandler: { (data, error) in
+            guard let imageData = data else {
+                return
+            }
+            if error != nil {
+                self.showAlert(alertMessage: error?.localizedDescription ?? "Error")
+            }
+            if let previewImage = UIImage(data: imageData) {
+                handler(previewImage)
+            }
+        })
+    }
     @IBAction func textMessageSelected(sender: UIButton) {
         if !isSelectSMS {
             isSelectSMS = true
@@ -1061,11 +1127,25 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     @IBAction func socialShareButtonClick(sender: UIButton) {
         if sender.tag == 1{
-            //instagram
+            //Message
         }else if sender.tag == 2{
-            //facebook
+            //facebook Messanger
         }else if sender.tag == 3{
-            //twitter
+            //Instagram
+        }else if sender.tag == 4{
+            //Whatsapp
+        }else if sender.tag == 5{
+            //Snapchat
+        }else if sender.tag == 6{
+            //Facebook
+        }else if sender.tag == 7{
+            //Twitter
+        }else if sender.tag == 8{
+            //Skype
+        }else if sender.tag == 9{
+            //Telegram
+        }else if sender.tag == 10{
+            //Wechat
         }
     }
     // MARK: - tableview Delegate
@@ -1514,6 +1594,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBAction func btnBusinessDashboardAction(_ sender: UIButton) {
     }
     @IBAction func btnTextShareAction(_ sender: UIButton) {
+        self.shareType = ShareType.textShare
         isSelectSMS = true
         pageNo = 2
         self.setupPage()
@@ -1521,17 +1602,20 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     @IBAction func btnQRCodeShareAction(_ sender: UIButton) {
         print("Click on QR")
+        self.shareType = ShareType.qrcode
         if let qrViewController = R.storyboard.editProfileViewController.qrCodeViewController() {
             navigationController?.pushViewController(qrViewController, animated: true)
         }
     }
     @IBAction func btnManualEmailAction(_ sender: UIButton) {
+        self.shareType = ShareType.email
         isSelectSMS = false
         pageNo = 2
         self.setupPage()
         self.itemsTableView.reloadData()
     }
     @IBAction func btnSocialSharingAction(_ sender: UIButton) {
+        self.shareType = ShareType.socialShare
         isSelectSMS = true
         pageNo = 2
         self.setupPage()
