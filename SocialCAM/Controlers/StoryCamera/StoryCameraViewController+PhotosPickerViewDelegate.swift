@@ -35,12 +35,20 @@ extension StoryCameraViewController: PhotosPickerViewControllerDelegate {
                 for video in withTLPHAssets {
                     exportGroup.enter()
                     if let asset = video.asset, video.assetType == .video {
-                        if Defaults.shared.appMode == .basic && self.recordingType == .promo && asset.duration >= 31.0 {
-                            self.showAlert(alertMessage: R.string.localizable.videoMoreThan30SecondsError())
+                        if Defaults.shared.appMode == .professional && self.recordingType == .promo && asset.duration >= 300.0 {
+                            self.showAlert(alertMessage: R.string.localizable.videoMoreThan300SecondsError())
                             return
                         }
-                        if Defaults.shared.appMode == .free && self.recordingType == .promo && asset.duration > 15.0 {
-                            self.showAlert(alertMessage: R.string.localizable.videoMoreThan15SecondsError())
+                        if Defaults.shared.appMode == .advanced && self.recordingType == .promo && asset.duration >= 120.0 {
+                            self.showAlert(alertMessage: R.string.localizable.videoMoreThan120SecondsError())
+                            return
+                        }
+                        if Defaults.shared.appMode == .basic && self.recordingType == .promo && asset.duration >= 60.0 {
+                            self.showAlert(alertMessage: R.string.localizable.videoMoreThan60SecondsError())
+                            return
+                        }
+                        if Defaults.shared.appMode == .free && self.recordingType == .promo && asset.duration >= 30.0 {
+                            self.showAlert(alertMessage: R.string.localizable.videoMoreThan30SecondsError())
                             return
                         } else if self.recordingType == .normal && asset.duration > 240.0 && isLiteApp {
                             self.showAlert(alertMessage: R.string.localizable.videoMoreThan240SecondsError())
