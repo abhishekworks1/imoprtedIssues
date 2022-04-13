@@ -33,10 +33,17 @@ class messageTitleCell: UITableViewCell {
             //detailsLabel.isHidden = true
             selectedButton.setImage(UIImage(named: "radioDeselectedBlue"), for: .normal)
         } else {
-            detailView.isHidden = false
-            //detailsLabel.isHidden = false
-            detailsLabel.text = details
-            selectedButton.setImage(UIImage(named: "radioSelectedBlue"), for: .normal)
+            if details.isEmpty {
+                detailView.isHidden = true
+                //detailsLabel.isHidden = false
+                detailsLabel.text = details
+                selectedButton.setImage(UIImage(named: "radioSelectedBlue"), for: .normal)
+            } else {
+                detailView.isHidden = false
+                //detailsLabel.isHidden = false
+                detailsLabel.text = details
+                selectedButton.setImage(UIImage(named: "radioSelectedBlue"), for: .normal)
+            }
         }
     }
     

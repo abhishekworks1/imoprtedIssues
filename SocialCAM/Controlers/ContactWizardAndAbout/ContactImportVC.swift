@@ -360,6 +360,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             lblNum2.backgroundColor = blueColor1
             lblNum3.backgroundColor = .white
             lblNum4.backgroundColor = .white
+            itemsTableView.reloadData()
         }
         
         if pageNo == 3 {
@@ -1003,6 +1004,12 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
     }
     @IBAction func textMessageSelected(sender: UIButton) {
+        if !isSelectSMS {
+            isSelectSMS = true
+            pageNo = 2
+            setupPage()
+            return
+        }
         textMessageButton.setTitleColor(ApplicationSettings.appPrimaryColor, for: .normal)
         textMessageSeperatorView.backgroundColor = ApplicationSettings.appPrimaryColor
         textMessageSeperatorViewHeight.constant = 3.0
@@ -1019,6 +1026,12 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
     }
     @IBAction func emailSelected(sender: UIButton) {
+        if isSelectSMS {
+            isSelectSMS = false
+            pageNo = 2
+            setupPage()
+            return
+        }
         emailButton.setTitleColor(ApplicationSettings.appPrimaryColor, for: .normal)
         emailSeperatorView.backgroundColor = ApplicationSettings.appPrimaryColor
         emailSeperatorViewHeight.constant = 3.0
@@ -1231,16 +1244,16 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         if tableView == itemsTableView {
             if selectedTitleRow != indexPath.row {
                 selectedTitleRow = indexPath.row
-                let item = self.listingResponse?.list[indexPath.row]
-                if item != nil {
-                    self.txtLinkWithCheckOut = item?.content ?? ""
-                }
+//                let item = self.listingResponse?.list[indexPath.row]
+//                if item != nil {
+//                    self.txtLinkWithCheckOut = item?.content ?? ""
+//                }
                 itemsTableView.reloadData()
-                if txtLinkWithCheckOut != "" {
-                    let finalText = "\(greetingMessage) \(txtLinkWithCheckOut)"
-                    txtLinkWithCheckOut = finalText
-                    print(txtLinkWithCheckOut)
-                }
+//                if txtLinkWithCheckOut != "" {
+//                    let finalText = "\(greetingMessage) \(txtLinkWithCheckOut)"
+//                    txtLinkWithCheckOut = finalText
+//                    print(txtLinkWithCheckOut)
+//                }
             }
         } else{
             self.view.endEditing(true)
@@ -1440,7 +1453,6 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 self.setupPage()
             }
             navigationController?.pushViewController(referSuccess, animated: true)
-            
             //navigationController?.popViewController(animated: true)
         }
         
