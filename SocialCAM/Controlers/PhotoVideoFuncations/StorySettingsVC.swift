@@ -736,18 +736,18 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             logoutPopupView.isHidden = false
         }
         else if settingTitle.settingsType == .shareSetting {
-          /* if let editProfileController = R.storyboard.refferalEditProfile.refferalEditProfileViewController() {
+          if let editProfileController = R.storyboard.refferalEditProfile.refferalEditProfileViewController() {
                 navigationController?.pushViewController(editProfileController, animated: true)
-            } */
-            if let userImageURL = Defaults.shared.currentUser?.profileImageURL , !userImageURL.isEmpty {
-                if let contactWizardController = R.storyboard.contactWizardwithAboutUs.contactImportVC() {
-                    navigationController?.pushViewController(contactWizardController, animated: true)
-                }
-            } else {
-                if let editProfileController = R.storyboard.refferalEditProfile.refferalEditProfileViewController() {
-                    navigationController?.pushViewController(editProfileController, animated: true)
-                }
             }
+//            if let userImageURL = Defaults.shared.currentUser?.profileImageURL , !userImageURL.isEmpty {
+//                if let contactWizardController = R.storyboard.contactWizardwithAboutUs.contactImportVC() {
+//                    navigationController?.pushViewController(contactWizardController, animated: true)
+//                }
+//            } else {
+//                if let editProfileController = R.storyboard.refferalEditProfile.refferalEditProfileViewController() {
+//                    navigationController?.pushViewController(editProfileController, animated: true)
+//                }
+//            }
         }
         else if settingTitle.settingsType == .userDashboard {
             openBussinessDashboard()

@@ -4,10 +4,16 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="SF-UI-Text-Semibold.otf">
+            <string>SFUIText-Semibold</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Refferal Edit Profile View Controller-->
         <scene sceneID="s0d-6b-0kx">
@@ -91,6 +97,9 @@
                                                             <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="17"/>
                                                             <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </buttonConfiguration>
+                                                        <connections>
+                                                            <action selector="didTapNextButtonClick:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="6GN-vg-aoa"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBlueColor"/>
@@ -244,18 +253,126 @@
                                     <constraint firstItem="9QT-JZ-gZX" firstAttribute="top" secondItem="JZX-Of-TCA" secondAttribute="bottom" constant="20" id="oC5-JT-yZ2"/>
                                 </constraints>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P74-o4-QXk" userLabel="Blur Back Ground View">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3H6-Lk-Ea0" userLabel="Activate Affiliate Link Popup">
+                                        <rect key="frame" x="17.5" y="132.5" width="285" height="303.5"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="User_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="BcY-4N-Tlw">
+                                                <rect key="frame" x="92.5" y="20" width="100" height="100"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="100" id="E58-zb-OaS"/>
+                                                    <constraint firstAttribute="width" secondItem="BcY-4N-Tlw" secondAttribute="height" multiplier="1:1" id="LQi-I2-sPc"/>
+                                                </constraints>
+                                            </imageView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="6Kn-g6-NlV">
+                                                <rect key="frame" x="18" y="140" width="249" height="66.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$social_platform login success!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ia0-yd-Oi4">
+                                                        <rect key="frame" x="0.0" y="0.0" width="249" height="43"/>
+                                                        <fontDescription key="fontDescription" name="SFUIText-Semibold" family="SF UI Text" pointSize="18"/>
+                                                        <color key="textColor" name="editProfileScreenPopupTextColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use this picture?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I70-xX-9zW">
+                                                        <rect key="frame" x="0.0" y="45" width="249" height="21.5"/>
+                                                        <fontDescription key="fontDescription" name="SFUIText-Semibold" family="SF UI Text" pointSize="18"/>
+                                                        <color key="textColor" name="editProfileScreenPopupTextColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="Raq-n9-9mE">
+                                                <rect key="frame" x="12" y="231.5" width="261" height="46"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2RV-5a-oy5">
+                                                        <rect key="frame" x="0.0" y="0.0" width="124" height="46"/>
+                                                        <color key="backgroundColor" name="AppPrimaryColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="124" id="FOi-YV-sic"/>
+                                                            <constraint firstAttribute="height" constant="46" id="oHQ-Ry-GhZ"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="SFUIText-Semibold" family="SF UI Text" pointSize="16"/>
+                                                        <state key="normal" title="Yes">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                                <real key="value" value="8"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="btnYesTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="kA1-p0-ECC"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DXb-3I-fc5">
+                                                        <rect key="frame" x="137" y="0.0" width="124" height="46"/>
+                                                        <color key="backgroundColor" name="AppPrimaryColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="124" id="Uue-rY-Kic"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="SFUIText-Semibold" family="SF UI Text" pointSize="16"/>
+                                                        <state key="normal" title="No">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                                <real key="value" value="8"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="btnNoTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="vgn-fH-g2L"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="6Kn-g6-NlV" firstAttribute="leading" secondItem="3H6-Lk-Ea0" secondAttribute="leading" constant="18" id="2Xl-Bd-Xvk"/>
+                                            <constraint firstItem="BcY-4N-Tlw" firstAttribute="centerX" secondItem="3H6-Lk-Ea0" secondAttribute="centerX" id="4Vs-kV-cHD"/>
+                                            <constraint firstItem="6Kn-g6-NlV" firstAttribute="top" secondItem="BcY-4N-Tlw" secondAttribute="bottom" constant="20" id="5eM-1Y-ge9"/>
+                                            <constraint firstAttribute="trailing" secondItem="6Kn-g6-NlV" secondAttribute="trailing" constant="18" id="AB9-nn-XP0"/>
+                                            <constraint firstAttribute="width" constant="285" id="DTg-gT-6K4"/>
+                                            <constraint firstItem="Raq-n9-9mE" firstAttribute="centerX" secondItem="3H6-Lk-Ea0" secondAttribute="centerX" id="GbV-A5-wAO"/>
+                                            <constraint firstAttribute="bottom" secondItem="Raq-n9-9mE" secondAttribute="bottom" constant="26" id="Nje-Pj-Dpz"/>
+                                            <constraint firstItem="Raq-n9-9mE" firstAttribute="top" secondItem="6Kn-g6-NlV" secondAttribute="bottom" constant="25" id="Z0s-9q-zdi"/>
+                                            <constraint firstItem="BcY-4N-Tlw" firstAttribute="top" secondItem="3H6-Lk-Ea0" secondAttribute="top" constant="20" id="n6g-N2-cDF"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusChat">
+                                                <real key="value" value="6"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" name="editProfilePopupBlurView"/>
+                                <constraints>
+                                    <constraint firstItem="3H6-Lk-Ea0" firstAttribute="centerY" secondItem="P74-o4-QXk" secondAttribute="centerY" id="wAa-iQ-a04"/>
+                                    <constraint firstItem="3H6-Lk-Ea0" firstAttribute="centerX" secondItem="P74-o4-QXk" secondAttribute="centerX" id="x4f-zt-YrG"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="P74-o4-QXk" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="541-be-Bdz"/>
                             <constraint firstItem="S1Z-OZ-rep" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="J32-AW-Osb"/>
                             <constraint firstItem="S1Z-OZ-rep" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="Yjx-9z-BTV"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="S1Z-OZ-rep" secondAttribute="trailing" id="ded-bP-Aa2"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="S1Z-OZ-rep" secondAttribute="bottom" id="eSl-2J-iQD"/>
+                            <constraint firstAttribute="trailing" secondItem="P74-o4-QXk" secondAttribute="trailing" id="euc-Ua-O7s"/>
+                            <constraint firstItem="P74-o4-QXk" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="sfu-cY-LAN"/>
+                            <constraint firstAttribute="bottom" secondItem="P74-o4-QXk" secondAttribute="bottom" id="ynf-El-VIU"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="imgProfilePic" destination="NDl-6T-dJZ" id="1Gj-1l-6gH"/>
+                        <outlet property="lblUseThisPicture" destination="I70-xX-9zW" id="ISf-lw-A8T"/>
+                        <outlet property="popupImgHeightConstraint" destination="E58-zb-OaS" id="pn0-bO-L41"/>
+                        <outlet property="popupImgView" destination="BcY-4N-Tlw" id="6JC-uz-Skn"/>
+                        <outlet property="socialSharePopupView" destination="P74-o4-QXk" id="WHK-az-aZy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -264,11 +381,21 @@
         </scene>
     </scenes>
     <resources>
+        <image name="User_placeholder" width="400" height="400"/>
         <image name="chevron.backward" catalog="system" width="96" height="128"/>
         <image name="foundingMemberBadge" width="226" height="342"/>
         <image name="prelaunchBadge" width="226" height="342"/>
         <image name="shareScreenProfileBadge" width="163" height="187"/>
         <image name="userBitmoji" width="57" height="65"/>
+        <namedColor name="AppPrimaryColor">
+            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="editProfilePopupBlurView">
+            <color red="0.35294117647058826" green="0.38039215686274508" blue="0.4823529411764706" alpha="0.30000001192092896" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="editProfileScreenPopupTextColor">
+            <color red="0.28235294117647058" green="0.28235294117647058" blue="0.28235294117647058" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
