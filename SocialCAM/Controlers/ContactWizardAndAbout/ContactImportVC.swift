@@ -412,11 +412,11 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 //                page3NextBtn.backgroundColor = .white
 //                page3NextBtn.setTitleColor(blueColor1, for: .normal)
             }
-            if shareType == ShareType.socialShare{
+//            if shareType == ShareType.socialShare{
                 self.previewMainView.isHidden = false
-            }else{
-                
-            }
+//            }else{
+//                
+//            }
         }
         
         if pageNo == 4{
@@ -1648,10 +1648,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @IBAction func shareOkButtonClicked(_ sender: UIButton) {
-        if previewMainView.isHidden == false{
+//        if shareType == ShareType.socialShare {
             socialSharePopupView.isHidden = false
             return
-        }
+//        }
             let urlString = self.txtLinkWithCheckOut
             let channelId = Defaults.shared.currentUser?.channelId ?? ""
             let urlwithString = urlString + "\n" + "\n" + " \(websiteUrl)/\(channelId)"
@@ -1682,20 +1682,16 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
         Defaults.shared.callHapticFeedback(isHeavy: false)
         Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_Bdashboard)
-        
         businessDashbardConfirmPopupView.isHidden = true
     }
     @IBAction func doNotShowAgainBusinessCenterOpenPopupClicked(_ sender: UIButton) {
         btnDoNotShowAgainBusinessConfirmPopup.isSelected = !btnDoNotShowAgainBusinessConfirmPopup.isSelected
         Defaults.shared.isShowAllPopUpChecked = false
         Defaults.shared.isDoNotShowAgainOpenBusinessCenterPopup = btnDoNotShowAgainBusinessConfirmPopup.isSelected
-       
     }
     @IBAction func didTapCloseButtonBusiessDashboard(_ sender: UIButton) {
         businessDashbardConfirmPopupView.isHidden = true
     }
-    
-    
     func cutomHeaderView(title:String) -> UILabel {
         let label = UILabel()
         label.frame = CGRect(x: 15,y: 6,width: 200,height: 0)
