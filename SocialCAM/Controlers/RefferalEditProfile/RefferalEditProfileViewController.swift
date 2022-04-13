@@ -10,17 +10,23 @@ import UIKit
 
 class RefferalEditProfileViewController: UIViewController {
     
+    @IBOutlet weak var popupImgView: UIImageView!
+    @IBOutlet weak var lblUseThisPicture: UILabel!
+    @IBOutlet weak var socialSharePopupView: UIView!
     @IBOutlet weak var imgProfilePic: UIImageView!
-
+    @IBOutlet weak var popupImgHeightConstraint: NSLayoutConstraint!
+    
     var isCroppedImage = false
     var imageSource = ""
     var socialPlatforms: [String] = []
     var croppedImg: UIImage?
     var uncroppedImg: UIImage?
     var isImageSelected = false
+    var isShareButtonSelected = false
     private var localImageUrl: URL?
-    
+    private lazy var storyCameraVC = StoryCameraViewController()
     private var imagePicker = UIImagePickerController()
+    var isSignUpFlow: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +41,87 @@ class RefferalEditProfileViewController: UIViewController {
     @IBAction func didTapChangeProfilePicButton(_ sender: UIButton) {
         openSocialShareVC()
     }
+    
+    @IBAction func btnYesTapped(_ sender: UIButton) {
+        showHidePopupView(isHide: true)
+        if isShareButtonSelected {
+//            btnOKTapped(sender)
+        }
+        if isImageSelected {
+            self.imgProfilePic.image = isCroppedImage ? self.croppedImg : self.uncroppedImg
+        }
+    }
+    
+    @IBAction func btnNoTapped(_ sender: UIButton) {
+        showHidePopupView(isHide: true)
+        if isShareButtonSelected {
+            isShareButtonSelected = false
+            self.goToShareScreen()
+        }
+    }
+    
+    @IBAction func didTapNextButtonClick(_ sender: UIButton) {
+        if isImageSelected {
+            if let img = imgProfilePic.image {
+                self.updateProfilePic(image: img)
+            }
+        }
+    }
+    
+    func updateProfilePic(image: UIImage) {
+        ProManagerApi.uploadPicture(image: image, imageSource: imageSource).request(Result<EmptyModel>.self).subscribe(onNext: { [weak self] (response) in
+            guard let `self` = self else {
+                return
+            }
+            self.dismissHUD()
+            self.storyCameraVC.syncUserModel { (isComplete) in
+//                self.setRedirection()
+                self.isImageSelected = false
+                if let contactWizardController = R.storyboard.contactWizardwithAboutUs.contactImportVC() {
+                    self.navigationController?.pushViewController(contactWizardController, animated: true)
+                }
+            }
+        }, onError: { error in
+            self.dismissHUD()
+            self.view.isUserInteractionEnabled = true
+        }, onCompleted: {
+        }).disposed(by: self.rx.disposeBag)
+    }
+    
+    func goToShareScreen() {
+        if let shareSettingVC = R.storyboard.editProfileViewController.shareSettingViewController() {
+            self.navigationController?.pushViewController(shareSettingVC, animated: true)
+        }
+    }
+    
+    func setRedirection() {
+        if self.isShareButtonSelected {
+            self.isShareButtonSelected = false
+            self.goToShareScreen()
+        } else {
+            self.setupMethod()
+        }
+    }
+    
+    func setupMethod() {
+        if isSignUpFlow {
+            self.dismiss(animated: false) {
+                if let isRegistered = Defaults.shared.isRegistered, isRegistered {
+                    let tooltipViewController = R.storyboard.loginViewController.tooltipViewController()
+                    Utils.appDelegate?.window?.rootViewController = tooltipViewController
+                    tooltipViewController?.blurView.isHidden = false
+                    tooltipViewController?.blurView.alpha = 0.7
+                    tooltipViewController?.signupTooltipView.isHidden = false
+                } else {
+                    let rootViewController: UIViewController? = R.storyboard.pageViewController.pageViewController()
+                    Utils.appDelegate?.window?.rootViewController = rootViewController
+                }
+            }
+        } else {
+            navigationController?.popViewController(animated: true)
+        }
+    }
+    
     
     func openSocialShareVC() {
         if let editProfileSocialShareVC = R.storyboard.editProfileViewController.editProfileSocialShareViewController() {
@@ -83,9 +170,12 @@ extension RefferalEditProfileViewController:  UIImagePickerControllerDelegate, U
             })
             imgProfilePic.layer.cornerRadius = imgProfilePic.bounds.width / 2
             imgProfilePic.contentMode = .scaleAspectFill
+//            imgProfilePic.image = image
 //            btnProfilePic.layer.cornerRadius = btnProfilePic.bounds.width / 2
         }
     }
+    
+
     
     func settingSocialPlatforms() {
         if imageSource != "" {
@@ -113,9 +203,9 @@ extension RefferalEditProfileViewController:  UIImagePickerControllerDelegate, U
             guard let `self` = self else {
                 return
             }
-//            self.storyCameraVC.syncUserModel { (isComplete) in
+            self.storyCameraVC.syncUserModel { (isComplete) in
 //                self.getVerifiedSocialPlatforms()
-//            }
+            }
         }, onError: { error in
         }, onCompleted: {
         }).disposed(by: self.rx.disposeBag)
@@ -345,18 +435,29 @@ extension RefferalEditProfileViewController:  UIImagePickerControllerDelegate, U
             navigationController?.pushViewController(editProfileCropVC, animated: true)
         }
     }
+    
+    func showHidePopupView(isHide: Bool) {
+        socialSharePopupView.bringSubviewToFront(self.view)
+        self.socialSharePopupView.isHidden = isHide
+        self.lblUseThisPicture.isHidden = isShareButtonSelected
+        self.popupImgHeightConstraint.constant = isShareButtonSelected ? 0 : 100
+        self.popupImgView.image = isCroppedImage ? self.croppedImg : self.uncroppedImg
+    }
+    
 }
 
 // MARK: - SharingSocialTypeDelegate
 extension RefferalEditProfileViewController: SharingSocialTypeDelegate {
     func shareSocialType(socialType: ProfileSocialShare) {
-        //self.showHUD()
+//        self.showHUD()
         self.openSheet(socialType: socialType)
     }
     
     func setCroppedImage(croppedImg: UIImage) {
         self.isCroppedImage = true
         self.croppedImg = croppedImg
+        showHidePopupView(isHide: false)
+        self.settingSocialPlatforms()
     }
     
     func setSocialPlatforms() {

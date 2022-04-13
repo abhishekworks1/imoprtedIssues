@@ -7,15 +7,23 @@
 //
 
 import UIKit
+import SafariServices
 
 class ReferSuccessVC: UIViewController {
 
     @IBOutlet weak var lblName: UILabel!
+    
+    @IBOutlet weak var businessDashboardStackView: UIStackView!
+//    @IBOutlet weak var businessDashboardButton: UIButton!
+    @IBOutlet weak var businessDashbardConfirmPopupView: UIView!
+    @IBOutlet weak var btnDoNotShowAgainBusinessConfirmPopup: UIButton!
+    
+    
     var callback : ((String) -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        lblName.text = "Great Job \(Defaults.shared.currentUser?.firstName ?? "")👍🏻"
+        lblName.text = "Great Job \(Defaults.shared.currentUser?.firstName ?? "") 👍🏻"
         // Do any additional setup after loading the view.
     }
 
@@ -31,6 +39,7 @@ class ReferSuccessVC: UIViewController {
     */
 
     @IBAction func BusinessDashboardAction(_ sender: Any) {
+        businessDashbardConfirmPopupView.isHidden = false
     }
     @IBAction func ReferMoreAction(_ sender: Any) {
         for controller in self.navigationController!.viewControllers as Array {
@@ -52,4 +61,32 @@ class ReferSuccessVC: UIViewController {
             }
         }
     }
+    @IBAction func businessDahboardConfirmPopupOkButtonClicked(_ sender: UIButton) {
+        
+        if let token = Defaults.shared.sessionToken {
+            let urlString = "\(websiteUrl)/redirect?token=\(token)"
+            guard let url = URL(string: urlString) else {
+                return
+            }
+            presentSafariBrowser(url: url)
+        }
+        Defaults.shared.callHapticFeedback(isHeavy: false)
+        Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_Bdashboard)
+        
+        businessDashbardConfirmPopupView.isHidden = true
+    }
+    @IBAction func doNotShowAgainBusinessCenterOpenPopupClicked(_ sender: UIButton) {
+        btnDoNotShowAgainBusinessConfirmPopup.isSelected = !btnDoNotShowAgainBusinessConfirmPopup.isSelected
+        Defaults.shared.isShowAllPopUpChecked = false
+        Defaults.shared.isDoNotShowAgainOpenBusinessCenterPopup = btnDoNotShowAgainBusinessConfirmPopup.isSelected
+       
+    }
+    @IBAction func didTapCloseButtonBusiessDashboard(_ sender: UIButton) {
+        businessDashbardConfirmPopupView.isHidden = true
+    }
+    func presentSafariBrowser(url: URL) {
+        let safariVC = SFSafariViewController(url: url)
+        present(safariVC, animated: true, completion: nil)
+    }
+    
 }
