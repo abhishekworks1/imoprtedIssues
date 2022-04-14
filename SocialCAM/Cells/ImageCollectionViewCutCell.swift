@@ -304,9 +304,6 @@ class ImageCollectionViewCutCell: UICollectionViewCell {
         if newFinalTime <= "0.1" {
             newFinalTime = "0.0"
         }
-        print("****************")
-        print("Last FinalTime: \(newFinalTime)")
-        print("****************")
         let fullTime = "\(newProgressTime) / \(newFinalTime)"
         self.lblVideoDuration.font = UIFont.systemFont(ofSize: 12, weight: .bold)
         self.lblVideoDuration.text = fullTime
