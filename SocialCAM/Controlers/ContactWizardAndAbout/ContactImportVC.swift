@@ -1630,6 +1630,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBAction func btnCopyReferralLink(_ sender: UIButton) {
         if let channelId = Defaults.shared.currentUser?.channelId {
             UIPasteboard.general.string = "\(websiteUrl)/\(channelId)"
+            DispatchQueue.runOnMainThread {
+                Utils.appDelegate?.window?.makeToast(R.string.localizable.linkCopied())
+            }
         }
     }
     @IBAction func btnQuickCamAppAction(_ sender: UIButton) {
