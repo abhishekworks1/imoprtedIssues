@@ -64,7 +64,8 @@ class ReferSuccessVC: UIViewController {
     @IBAction func businessDahboardConfirmPopupOkButtonClicked(_ sender: UIButton) {
         
         if let token = Defaults.shared.sessionToken {
-            let urlString = "\(websiteUrl)/redirect?token=\(token)"
+//            let urlString = "\(websiteUrl)/redirect?token=\(token)"
+            let urlString = "\(websiteUrl)/share-wizard"
             guard let url = URL(string: urlString) else {
                 return
             }

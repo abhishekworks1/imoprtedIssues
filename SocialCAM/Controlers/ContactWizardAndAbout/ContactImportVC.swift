@@ -189,9 +189,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     // MARK: - UI setup
     func setupUI(){
-        frwrdarrow1.setImageColor(color: UIColor(hexString: "007DFF"))
-        frwrdarrow2.setImageColor(color: UIColor(hexString: "7D46F5"))
-        frwrdarrow3.setImageColor(color: UIColor(hexString: "E48C4C"))
+//        frwrdarrow1.setImageColor(color: UIColor(hexString: "007DFF"))
+//        frwrdarrow2.setImageColor(color: UIColor(hexString: "7D46F5"))
+//        frwrdarrow3.setImageColor(color: UIColor(hexString: "E48C4C"))
 
         itemsTableView.register(UINib.init(nibName: ContactImportVC.CELL_IDENTIFIER, bundle: nil), forCellReuseIdentifier: ContactImportVC.CELL_IDENTIFIER)
         
@@ -213,7 +213,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         
         searchBar.delegate = self
         
-        
+          
         if let channelId = Defaults.shared.currentUser?.channelId {
             //self.txtLinkWithCheckOut = "\(R.string.localizable.checkOutThisCoolNewAppQuickCam())"
             self.ReferralLink = "\(websiteUrl)/\(channelId)"
@@ -378,7 +378,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             lblNum3.backgroundColor = .white
             lblNum4.backgroundColor = .white
         }
-        if pageNo == 2{
+        else if pageNo == 2{
             page1view.isHidden = true
             page2view.isHidden = false
             page3view.isHidden = true
@@ -394,8 +394,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             lblNum4.backgroundColor = .white
             itemsTableView.reloadData()
         }
-        
-        if pageNo == 3 {
+        else if pageNo == 3 {
             page1view.isHidden = true
             page2view.isHidden = true
             page3view.isHidden = false
@@ -422,13 +421,12 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 //                page3NextBtn.setTitleColor(blueColor1, for: .normal)
             }
 //            if shareType == ShareType.socialShare{
-                self.previewMainView.isHidden = false
+//                self.previewMainView.isHidden = false
 //            }else{
 //                
 //            }
         }
-        
-        if pageNo == 4{
+        else if pageNo == 4{
             page1view.isHidden = true
             page2view.isHidden = true
             page3view.isHidden = true
@@ -1689,8 +1687,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     @IBAction func shareOkButtonClicked(_ sender: UIButton) {
 //        if shareType == ShareType.socialShare {
-            socialSharePopupView.isHidden = false
-            return
+//            socialSharePopupView.isHidden = false
+//            return
 //        }
             let urlString = self.txtLinkWithCheckOut
             let channelId = Defaults.shared.currentUser?.channelId ?? ""
@@ -1713,13 +1711,14 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     @IBAction func businessDahboardConfirmPopupOkButtonClicked(_ sender: UIButton) {
         
-        if let token = Defaults.shared.sessionToken {
-            let urlString = "\(websiteUrl)/redirect?token=\(token)"
-            guard let url = URL(string: urlString) else {
+//        if let token = Defaults.shared.sessionToken {
+//        let urlString = "\(websiteUrl)/redirect?token=\(token)"
+        let urlString = "\(websiteUrl)/share-wizard"
+        guard let url = URL(string: urlString) else {
                 return
             }
             presentSafariBrowser(url: url)
-        }
+//        }
         Defaults.shared.callHapticFeedback(isHeavy: false)
         Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_Bdashboard)
         businessDashbardConfirmPopupView.isHidden = true
