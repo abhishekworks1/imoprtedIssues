@@ -13,6 +13,7 @@ import Contacts
 import MessageUI
 import ObjectMapper
 import LinkPresentation
+import URLEmbeddedView
 
 enum ShareType:Int{
     case textShare = 1
@@ -61,6 +62,12 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var frwrdarrow3: UIImageView!
     
     @IBOutlet weak var page3NextBtn: UIButton!
+    
+    @IBOutlet weak var textShareView: UIView!
+    @IBOutlet weak var qrCodeShareView: UIView!
+    @IBOutlet weak var manualEmailView: UIView!
+    @IBOutlet weak var socialShareView: UIView!
+    @IBOutlet weak var businessDashboardView: UIView!
     
     @IBOutlet weak var filterOptionView: UIView!
     var loadingStatus = false
@@ -189,9 +196,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     // MARK: - UI setup
     func setupUI(){
-        frwrdarrow1.setImageColor(color: UIColor(hexString: "007DFF"))
-        frwrdarrow2.setImageColor(color: UIColor(hexString: "7D46F5"))
-        frwrdarrow3.setImageColor(color: UIColor(hexString: "E48C4C"))
+//        frwrdarrow1.setImageColor(color: UIColor(hexString: "007DFF"))
+//        frwrdarrow2.setImageColor(color: UIColor(hexString: "7D46F5"))
+//        frwrdarrow3.setImageColor(color: UIColor(hexString: "E48C4C"))
 
         itemsTableView.register(UINib.init(nibName: ContactImportVC.CELL_IDENTIFIER, bundle: nil), forCellReuseIdentifier: ContactImportVC.CELL_IDENTIFIER)
         
@@ -213,7 +220,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         
         searchBar.delegate = self
         
-        
+          
         if let channelId = Defaults.shared.currentUser?.channelId {
             //self.txtLinkWithCheckOut = "\(R.string.localizable.checkOutThisCoolNewAppQuickCam())"
             self.ReferralLink = "\(websiteUrl)/\(channelId)"
@@ -264,6 +271,12 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             self.lblReferralLink.text = "\(websiteUrl)/\(channelId)"
         }
         
+        self.textShareView.dropShadow()
+        self.qrCodeShareView.dropShadow()
+        self.manualEmailView.dropShadow()
+        self.socialShareView.dropShadow()
+        self.businessDashboardView.dropShadow()
+       
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated) // No need for semicolon
@@ -378,7 +391,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             lblNum3.backgroundColor = .white
             lblNum4.backgroundColor = .white
         }
-        if pageNo == 2{
+        else if pageNo == 2{
             page1view.isHidden = true
             page2view.isHidden = false
             page3view.isHidden = true
@@ -394,8 +407,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             lblNum4.backgroundColor = .white
             itemsTableView.reloadData()
         }
-        
-        if pageNo == 3 {
+        else if pageNo == 3 {
             page1view.isHidden = true
             page2view.isHidden = true
             page3view.isHidden = false
@@ -409,26 +421,26 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             lblNum2.backgroundColor = blueColor1
             lblNum3.backgroundColor = blueColor1
             lblNum4.backgroundColor = .white
-            if isSelectSMS {
+           /* if isSelectSMS {
                 page3NextBtn.setTitle("Next", for: .normal)
                 page3NextBtn.backgroundColor = blueColor1
                 page3NextBtn.setTitleColor(.white, for: .normal)
             }else{
-                page3NextBtn.setTitle("Next", for: .normal)
-                page3NextBtn.backgroundColor = blueColor1
-                page3NextBtn.setTitleColor(.white, for: .normal)
-//                page3NextBtn.setTitle("Done", for: .normal)
-//                page3NextBtn.backgroundColor = .white
-//                page3NextBtn.setTitleColor(blueColor1, for: .normal)
+                page3NextBtn.setTitle("Done", for: .normal)
+                page3NextBtn.backgroundColor = .white
+                page3NextBtn.setTitleColor(blueColor1, for: .normal)
             }
-//            if shareType == ShareType.socialShare{
+            if shareType == ShareType.socialShare{
                 self.previewMainView.isHidden = false
-//            }else{
-//                
-//            }
+            }else{
+                
+            } */
+            page3NextBtn.setTitle("Next", for: .normal)
+            page3NextBtn.backgroundColor = blueColor1
+            page3NextBtn.setTitleColor(.white, for: .normal)
+            self.previewMainView.isHidden = false
         }
-        
-        if pageNo == 4{
+        else if pageNo == 4{
             page1view.isHidden = true
             page2view.isHidden = true
             page3view.isHidden = true
@@ -1057,11 +1069,24 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
     }
     func getLinkPreview(link: String, completionHandler: @escaping (UIImage) -> Void) {
+        
+        OGDataProvider.shared.fetchOGData(urlString: link) { [weak self] ogData, error in
+            guard let `self` = self else { return }
+            if let _ = error {
+                return
+            }
+            DispatchQueue.main.async {
+                self.lblpreviewUrl.text = link
+//                self.lblpreviewText.text = self.txtLinkWithCheckOut
+            }
+            if ogData.imageUrl != nil {
+                self.previewImageview.sd_setImage(with: ogData.imageUrl, placeholderImage: R.image.user_placeholder())
+            }
+        }
+        /* if #available(iOS 13.0, *) {
         guard let url = URL(string: link) else {
             return
         }
-
-        if #available(iOS 13.0, *) {
             let provider = LPMetadataProvider()
             provider.startFetchingMetadata(for: url) { [weak self] metaData, error in
                 guard let `self` = self else {
@@ -1073,20 +1098,22 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     }
                     return
                 }
-               
+                
                 DispatchQueue.main.async {
                     self.lblpreviewUrl.text = data.url?.absoluteString ?? ""
                     self.lblpreviewText.text = data.title ?? ""
-                    self.getImage(data: data) { [weak self] image in
-                        guard self != nil else { return }
+                }
+                self.getImage(data: data) { [weak self] image in
+                    guard self != nil else { return }
+                    DispatchQueue.main.async {
                         self?.previewImageview.image = image
                         completionHandler(image)
                     }
                 }
             }
-        }
+        }*/
     }
-    @available(iOS 13.0, *)
+  /*  @available(iOS 13.0, *)
     func getImage(data: LPLinkMetadata, handler: @escaping (UIImage) -> Void) {
         data.iconProvider?.loadDataRepresentation(forTypeIdentifier: data.iconProvider!.registeredTypeIdentifiers[0], completionHandler: { (data, error) in
             guard let imageData = data else {
@@ -1099,8 +1126,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 handler(previewImage)
             }
         })
-    }
+    } */
     @IBAction func textMessageSelected(sender: UIButton) {
+        searchBar.showsCancelButton = false
         if !isSelectSMS {
             isSelectSMS = true
             pageNo = 2
@@ -1123,6 +1151,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
     }
     @IBAction func emailSelected(sender: UIButton) {
+        searchBar.showsCancelButton = false
         if isSelectSMS {
             isSelectSMS = false
             pageNo = 2
@@ -1265,8 +1294,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 //set data to share
                 self.txtLinkWithCheckOut = item?.content ?? ""
                 self.txtDetailForEmail = item?.subject ?? ""
-                let finalText = "\(greetingMessage) \(txtLinkWithCheckOut)"
+                let finalText = "\(txtLinkWithCheckOut)"
                 txtLinkWithCheckOut = finalText
+                self.lblpreviewText.text = self.txtLinkWithCheckOut
             }
             return cell
 
@@ -1510,7 +1540,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
 //    MARK: - Creating Alert For User Text Enter
-    
+    //not used
     func openAlertTextView() {
         let alert = UIAlertController(title: "Greeting", message: "Please Enter Your Message", preferredStyle: .alert)
        alert.addTextField { customTextFiled in
@@ -1632,6 +1662,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBAction func btnCopyReferralLink(_ sender: UIButton) {
         if let channelId = Defaults.shared.currentUser?.channelId {
             UIPasteboard.general.string = "\(websiteUrl)/\(channelId)"
+            DispatchQueue.runOnMainThread {
+                Utils.appDelegate?.window?.makeToast(R.string.localizable.linkCopied())
+            }
         }
     }
     @IBAction func btnQuickCamAppAction(_ sender: UIButton) {
@@ -1689,8 +1722,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     @IBAction func shareOkButtonClicked(_ sender: UIButton) {
 //        if shareType == ShareType.socialShare {
-            socialSharePopupView.isHidden = false
-            return
+//            socialSharePopupView.isHidden = false
+//            return
 //        }
             let urlString = self.txtLinkWithCheckOut
             let channelId = Defaults.shared.currentUser?.channelId ?? ""
@@ -1713,13 +1746,14 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     @IBAction func businessDahboardConfirmPopupOkButtonClicked(_ sender: UIButton) {
         
-        if let token = Defaults.shared.sessionToken {
-            let urlString = "\(websiteUrl)/redirect?token=\(token)"
-            guard let url = URL(string: urlString) else {
+//        if let token = Defaults.shared.sessionToken {
+//        let urlString = "\(websiteUrl)/redirect?token=\(token)"
+        let urlString = "\(websiteUrl)/share-wizard"
+        guard let url = URL(string: urlString) else {
                 return
             }
             presentSafariBrowser(url: url)
-        }
+//        }
         Defaults.shared.callHapticFeedback(isHeavy: false)
         Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_Bdashboard)
         businessDashbardConfirmPopupView.isHidden = true
@@ -1802,7 +1836,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }
             let phoneNum = mobilecontact.mobile ?? ""
             let urlString = self.txtLinkWithCheckOut
-            let imageV = self.profileView.toImage()
+//            let imageV = self.profileView.toImage()
             let urlwithString = urlString + "\n" + "\n" + " \(mobilecontact.textLink ?? "")"
             if !MFMessageComposeViewController.canSendText() {
                     //showAlert("Text services are not available")
@@ -1815,10 +1849,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             textComposer.body = urlwithString
             textComposer.recipients = recipients
             
-            if MFMessageComposeViewController.canSendAttachments() {
+            /*if MFMessageComposeViewController.canSendAttachments() {
                 let imageData = imageV.jpegData(compressionQuality: 1.0)
                 textComposer.addAttachmentData(imageData!, typeIdentifier: "image/jpg", filename: "photo.jpg")
-            }
+            }*/
             
             self.validateInvite(contact:mobilecontact, completion: { success in
                 if success ?? false{

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -1157,7 +1157,7 @@
                         <outlet property="snapchatVerifiedView" destination="1R2-fR-ceP" id="00L-qK-U03"/>
                         <outlet property="socialBadgeReceivedPopupView" destination="hlf-Uc-W7z" id="IwM-PE-np1"/>
                         <outlet property="socialBadgeStackViewHeightConstraint" destination="UUj-Go-err" id="mO3-nP-vXT"/>
-                        <outlet property="socialBadgeicon" destination="O4h-Ly-kGY" id="6pe-5e-XBz"/>
+                        <outlet property="socialBadgeicon" destination="O4h-Ly-kGY" id="YaT-zM-Ae2"/>
                         <outlet property="socialPlatformStackViewHeightConstraint" destination="uLn-zh-799" id="o5t-kR-zDd"/>
                         <outlet property="socialSharePopupView" destination="xPd-JQ-tiK" id="ChG-8Z-ZoC"/>
                         <outlet property="subscriptionBadgeicon" destination="eVy-Em-2Qz" id="wY1-Zr-dis"/>
@@ -2622,7 +2622,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="frS-C1-Cxj">
                                                 <rect key="frame" x="0.0" y="0.0" width="207" height="60"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
-                                                <state key="normal" title="Raferral Page">
+                                                <state key="normal" title="Referral Page">
                                                     <color key="titleColor" red="0.30980392156862746" green="0.16470588235294117" blue="0.84705882352941175" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <connections>
@@ -2678,8 +2678,8 @@
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tal-3l-tIy">
                                                             <rect key="frame" x="0.0" y="60" width="290" height="440"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DK7-v4-hSl">
-                                                                    <rect key="frame" x="145" y="122" width="0.0" height="0.0"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="DK7-v4-hSl">
+                                                                    <rect key="frame" x="5" y="122" width="280" height="0.0"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                                     <color key="textColor" red="0.30980392159999998" green="0.1647058824" blue="0.84705882349999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
@@ -2743,6 +2743,8 @@
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="bottom" secondItem="O4E-3v-KrV" secondAttribute="bottom" constant="70" id="4ht-VV-e8o"/>
+                                                                <constraint firstAttribute="trailing" secondItem="DK7-v4-hSl" secondAttribute="trailing" constant="5" id="8Fg-2Q-xnM"/>
+                                                                <constraint firstItem="DK7-v4-hSl" firstAttribute="leading" secondItem="Tal-3l-tIy" secondAttribute="leading" constant="5" id="B8M-MM-to3"/>
                                                                 <constraint firstItem="DK7-v4-hSl" firstAttribute="centerX" secondItem="O4E-3v-KrV" secondAttribute="centerX" id="EoV-fd-BcC"/>
                                                                 <constraint firstItem="O4E-3v-KrV" firstAttribute="leading" secondItem="Tal-3l-tIy" secondAttribute="leading" constant="25" id="MTX-fs-XLY"/>
                                                                 <constraint firstItem="srp-d9-X8e" firstAttribute="centerX" secondItem="Tal-3l-tIy" secondAttribute="centerX" id="RBf-cQ-KyI"/>
@@ -3049,7 +3051,7 @@
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
-            <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.28999999165534973" green="0.56499999761581421" blue="0.88599997758865356" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="InActive5">
             <color red="0.89803921568627454" green="0.80000000000000004" blue="0.054901960784313725" alpha="0.69999998807907104" colorSpace="custom" customColorSpace="sRGB"/>

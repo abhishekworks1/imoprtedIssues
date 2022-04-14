@@ -11,7 +11,7 @@ import AVFoundation
 import SwiftVideoGenerator
 import AVKit
 import IQKeyboardManagerSwift
-import ColorSlider
+//import ColorSlider
 import GoogleAPIClientForREST
 import SwiftUI
 import Photos

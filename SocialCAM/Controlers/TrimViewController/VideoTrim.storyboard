@@ -30,7 +30,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="792"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pYe-68-dLd" customClass="GradientView" customModule="BoomiCam" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pYe-68-dLd">
                                         <rect key="frame" x="0.0" y="-30" width="414" height="100"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -800,15 +800,12 @@
                                             <outlet property="delegate" destination="Ovp-wb-YXy" id="BIF-ue-moT"/>
                                         </connections>
                                     </collectionView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jNE-Xl-pHk" customClass="GradientView" customModule="BoomiCam" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jNE-Xl-pHk">
                                         <rect key="frame" x="0.0" y="872" width="414" height="0.0"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" id="vu2-U3-LB8"/>
                                         </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="gradientFromtop" value="NO"/>
-                                        </userDefinedRuntimeAttributes>
                                     </view>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="QY0-h1-waI" customClass="DragAndDropCollectionView" customModule="BoomiCam" customModuleProvider="target">
                                         <rect key="frame" x="20" y="740" width="374" height="110"/>
@@ -886,7 +883,7 @@
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="bottomGradient" destination="jNE-Xl-pHk" id="jKf-9J-eR2"/>
+                        <outlet property="bottomGradient" destination="jNE-Xl-pHk" id="ZiQ-NZ-s9Z"/>
                         <outlet property="bottomToolbar" destination="de9-ve-MUm" id="XfT-ws-ec1"/>
                         <outlet property="btnPlayPause" destination="wH6-sc-7fw" id="VNA-DT-tBX"/>
                         <outlet property="closeButton" destination="usK-mJ-VP2" id="Oiz-cx-OTU"/>
@@ -906,7 +903,7 @@
                         <outlet property="storyCollectionView" destination="QY0-h1-waI" id="MIi-I3-E0g"/>
                         <outlet property="storyExportLabel" destination="MBt-z5-OKL" id="GaQ-Ga-CAD"/>
                         <outlet property="storyView" destination="tJL-CH-UCM" id="yOP-VU-534"/>
-                        <outlet property="topGradient" destination="pYe-68-dLd" id="lk5-sX-gbO"/>
+                        <outlet property="topGradient" destination="pYe-68-dLd" id="nuI-Iz-Ff1"/>
                         <outlet property="topToolbar" destination="cGb-bR-zO0" id="lz2-DV-UKf"/>
                         <outlet property="undoStoryButton" destination="6Qe-gB-Rvg" id="Rga-4U-zxO"/>
                         <outlet property="videoView" destination="LaH-1Q-6xM" id="mCK-Jg-ffV"/>
@@ -931,7 +928,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="792"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3CK-mg-Dl2" customClass="GradientView" customModule="BoomiCam" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3CK-mg-Dl2">
                                         <rect key="frame" x="0.0" y="-30" width="414" height="90"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -1282,7 +1279,7 @@
                                             <action selector="btnShowHideSegmentEditOption:" destination="q2P-Bv-Tyf" eventType="touchUpInside" id="uID-Dk-WVX"/>
                                         </connections>
                                     </button>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PzU-7C-5Wq" customClass="GradientView" customModule="BoomiCam" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PzU-7C-5Wq">
                                         <rect key="frame" x="0.0" y="792" width="414" height="80"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -1455,7 +1452,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="bottomGradient" destination="PzU-7C-5Wq" id="yXw-im-6bS"/>
+                        <outlet property="bottomGradient" destination="PzU-7C-5Wq" id="Rc1-gN-hBa"/>
                         <outlet property="btnPlayPause" destination="4or-w2-Xk2" id="1RF-Xc-YmU"/>
                         <outlet property="closeButton" destination="qFh-PF-OqJ" id="NJK-C2-Fut"/>
                         <outlet property="combineButton" destination="gek-UE-Ikd" id="tjK-z4-Nah"/>
@@ -1467,7 +1464,7 @@
                         <outlet property="segmentEditOptionView" destination="WOw-ca-WBf" id="i8z-fJ-hfF"/>
                         <outlet property="segmentTypeMergeView" destination="drN-7s-VfB" id="vjJ-Dr-SVP"/>
                         <outlet property="storyCollectionView" destination="wxP-uA-sLJ" id="hpg-Kp-x0H"/>
-                        <outlet property="topGradient" destination="3CK-mg-Dl2" id="Foj-3l-t6n"/>
+                        <outlet property="topGradient" destination="3CK-mg-Dl2" id="eZi-sO-C8W"/>
                         <outlet property="topToolbar" destination="V5B-aL-aGP" id="ghM-GJ-kke"/>
                         <outlet property="videoView" destination="vbm-iv-Mpy" id="jSz-Av-jw3"/>
                     </connections>
@@ -1491,7 +1488,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="792"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QUa-IU-wcD" customClass="GradientView" customModule="BoomiCam" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QUa-IU-wcD">
                                         <rect key="frame" x="0.0" y="-30" width="414" height="100"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -2375,7 +2372,7 @@
                                             <outlet property="delegate" destination="cyz-fG-TfG" id="Tkv-K0-9uc"/>
                                         </connections>
                                     </collectionView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DsQ-Mh-D1i" customClass="GradientView" customModule="BoomiCam" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DsQ-Mh-D1i">
                                         <rect key="frame" x="0.0" y="872" width="414" height="0.0"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -2461,7 +2458,7 @@
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="bottomGradient" destination="DsQ-Mh-D1i" id="AR9-mr-R7t"/>
+                        <outlet property="bottomGradient" destination="DsQ-Mh-D1i" id="1Ki-Bf-fHr"/>
                         <outlet property="bottomToolbar" destination="eZg-06-UXI" id="jWK-Yi-uVP"/>
                         <outlet property="btnPlayPause" destination="tyH-rI-R3h" id="7wO-o0-reQ"/>
                         <outlet property="closeButton" destination="02K-rb-dGN" id="Coh-5j-mww"/>
@@ -2484,7 +2481,7 @@
                         <outlet property="storyCollectionView" destination="G4S-rK-RYr" id="Gqr-On-4ST"/>
                         <outlet property="storyExportLabel" destination="jDS-QD-3C4" id="67a-AZ-NVv"/>
                         <outlet property="storyView" destination="nVX-tY-U4E" id="WDY-th-Nef"/>
-                        <outlet property="topGradient" destination="QUa-IU-wcD" id="j18-LJ-UfC"/>
+                        <outlet property="topGradient" destination="QUa-IU-wcD" id="IlA-i3-m6A"/>
                         <outlet property="topToolbar" destination="jKC-ah-71W" id="lns-9M-KBm"/>
                         <outlet property="videoView" destination="lR1-QS-qci" id="zfL-fY-hCD"/>
                     </connections>
