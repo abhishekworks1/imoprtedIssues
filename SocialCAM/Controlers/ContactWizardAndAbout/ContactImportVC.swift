@@ -1071,12 +1071,14 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     }
                     return
                 }
-               
+                
                 DispatchQueue.main.async {
                     self.lblpreviewUrl.text = data.url?.absoluteString ?? ""
                     self.lblpreviewText.text = data.title ?? ""
-                    self.getImage(data: data) { [weak self] image in
-                        guard self != nil else { return }
+                }
+                self.getImage(data: data) { [weak self] image in
+                    guard self != nil else { return }
+                    DispatchQueue.main.async {
                         self?.previewImageview.image = image
                         completionHandler(image)
                     }
