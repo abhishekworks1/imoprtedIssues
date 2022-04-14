@@ -24,7 +24,7 @@
 
 import UIKit
 import AVFoundation
-import ColorSlider
+//import ColorSlider
 public protocol CropViewControllerDelegate: class {
     func cropViewControllerDidCrop(_ cropViewController: CropViewController, cropped: UIImage,croppedBGcolor:UIColor)
     func cropViewControllerDidCrop(_ cropViewController: CropViewController, croppedURL: URL,croppedBGcolor:UIColor)

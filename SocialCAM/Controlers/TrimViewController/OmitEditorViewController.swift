@@ -647,7 +647,7 @@ extension OmitEditorViewController: TrimmerViewCutDelegate {
                     player.play()
                 }
                 print("***********************")
-                print(trimmer.minVideoDurationAfterTrimming)
+                print(trimmer.trimView.frame.width)
                 print("***********************")
                 let finaltime = endTime.seconds - startTime.seconds
                 if let currentAsset = currentAsset(index: self.currentPage) {
