@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -2678,8 +2678,8 @@
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tal-3l-tIy">
                                                             <rect key="frame" x="0.0" y="60" width="290" height="440"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DK7-v4-hSl">
-                                                                    <rect key="frame" x="145" y="122" width="0.0" height="0.0"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="DK7-v4-hSl">
+                                                                    <rect key="frame" x="5" y="122" width="280" height="0.0"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                                     <color key="textColor" red="0.30980392159999998" green="0.1647058824" blue="0.84705882349999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
@@ -2743,6 +2743,8 @@
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="bottom" secondItem="O4E-3v-KrV" secondAttribute="bottom" constant="70" id="4ht-VV-e8o"/>
+                                                                <constraint firstAttribute="trailing" secondItem="DK7-v4-hSl" secondAttribute="trailing" constant="5" id="8Fg-2Q-xnM"/>
+                                                                <constraint firstItem="DK7-v4-hSl" firstAttribute="leading" secondItem="Tal-3l-tIy" secondAttribute="leading" constant="5" id="B8M-MM-to3"/>
                                                                 <constraint firstItem="DK7-v4-hSl" firstAttribute="centerX" secondItem="O4E-3v-KrV" secondAttribute="centerX" id="EoV-fd-BcC"/>
                                                                 <constraint firstItem="O4E-3v-KrV" firstAttribute="leading" secondItem="Tal-3l-tIy" secondAttribute="leading" constant="25" id="MTX-fs-XLY"/>
                                                                 <constraint firstItem="srp-d9-X8e" firstAttribute="centerX" secondItem="Tal-3l-tIy" secondAttribute="centerX" id="RBf-cQ-KyI"/>

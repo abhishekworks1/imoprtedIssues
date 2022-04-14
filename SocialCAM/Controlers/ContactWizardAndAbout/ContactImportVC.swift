@@ -62,6 +62,11 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     @IBOutlet weak var page3NextBtn: UIButton!
     
+    @IBOutlet weak var textShareView: UIView!
+    @IBOutlet weak var qrCodeShareView: UIView!
+    @IBOutlet weak var manualEmailView: UIView!
+    @IBOutlet weak var socialShareView: UIView!
+    
     @IBOutlet weak var filterOptionView: UIView!
     var loadingStatus = false
     let blueColor1 = UIColor(red: 0/255, green: 125/255, blue: 255/255, alpha: 1.0)
@@ -263,6 +268,11 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         if let channelId = Defaults.shared.currentUser?.channelId {
             self.lblReferralLink.text = "\(websiteUrl)/\(channelId)"
         }
+        
+        self.textShareView.dropShadow()
+        self.qrCodeShareView.dropShadow()
+        self.manualEmailView.dropShadow()
+        self.socialShareView.dropShadow()
         
     }
     override func viewWillAppear(_ animated: Bool) {
