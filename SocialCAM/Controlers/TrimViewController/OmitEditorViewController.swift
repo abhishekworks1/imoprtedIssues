@@ -357,6 +357,29 @@ class OmitEditorViewController: UIViewController,UIGestureRecognizerDelegate {
             }
         }
     }
+    
+    
+    func enableAndDisableDoneButton(minDistance: CGFloat, finaltime: Float) {
+        if let currentAsset = currentAsset(index: self.currentPage) {
+            let checkwithTime: CGFloat = 6.0
+
+            if minDistance > checkwithTime && finaltime < Float(currentAsset.duration.seconds) {
+            doneView.alpha = 1
+            doneView.isUserInteractionEnabled = true
+            if #available(iOS 13.0, *) {
+                doneButton.setImage(UIImage(named: "trimDone")?.withTintColor(UIColor.white, renderingMode: .automatic), for: .normal)
+                doneLabel.textColor = UIColor.white
+            }
+        } else {
+            doneView.alpha = 0.5
+            doneView.isUserInteractionEnabled = false
+            if #available(iOS 13.0, *) {
+                doneButton.setImage(UIImage(named: "trimDone")?.withTintColor(UIColor.red, renderingMode: .automatic), for: .normal)
+                doneLabel.textColor = UIColor.red
+            }
+        }
+    }
+    }
 }
 
 // MARK: UICollectionViewDataSource
@@ -388,7 +411,7 @@ extension OmitEditorViewController: UICollectionViewDataSource {
             cell.delegate = self
             cell.setEditLayout(indexPath: indexPath, currentPage: currentPage, currentAsset: currentSelectedAsset)
             
-            cell.callback = { (sender) -> Void in
+            cell.callback = { [self] (sender) -> Void in
                 print("callback")
                 guard let view = sender.view else { return }
                 
@@ -434,6 +457,9 @@ extension OmitEditorViewController: UICollectionViewDataSource {
                     cell.trimmerView.layoutIfNeeded()
                     cell.trimmerView.layoutSubviews()
                 }
+                
+                let finaltime = Float(cell.trimmerView.endTime!.seconds - cell.trimmerView.startTime!.seconds)
+                enableAndDisableDoneButton(minDistance: cell.trimmerView.trimView.frame.width, finaltime: finaltime)
                 
             }
             
@@ -646,29 +672,28 @@ extension OmitEditorViewController: TrimmerViewCutDelegate {
                     
                     player.play()
                 }
-                print("***********************")
-                print(trimmer.trimView.frame.width)
-                print("***********************")
-                let finaltime = endTime.seconds - startTime.seconds
-                if let currentAsset = currentAsset(index: self.currentPage) {
-                    let checkwithTime: Float = 0.1
-
-                    if Float(finaltime) >= checkwithTime && Float(finaltime) < Float(currentAsset.duration.seconds) {
-                    doneView.alpha = 1
-                    doneView.isUserInteractionEnabled = true
-                    if #available(iOS 13.0, *) {
-                        doneButton.setImage(UIImage(named: "trimDone")?.withTintColor(UIColor.white, renderingMode: .automatic), for: .normal)
-                        doneLabel.textColor = UIColor.white
-                    }
-                } else {
-                    doneView.alpha = 0.5
-                    doneView.isUserInteractionEnabled = false
-                    if #available(iOS 13.0, *) {
-                        doneButton.setImage(UIImage(named: "trimDone")?.withTintColor(UIColor.red, renderingMode: .automatic), for: .normal)
-                        doneLabel.textColor = UIColor.red
-                    }
-                }
-            }
+                
+                let finaltime = Float(endTime.seconds - startTime.seconds)
+                enableAndDisableDoneButton(minDistance: trimmer.trimView.frame.width, finaltime: finaltime)
+//                if let currentAsset = currentAsset(index: self.currentPage) {
+//                    let checkwithTime: CGFloat = 6.0
+//
+//                    if trimmer.trimView.frame.width > checkwithTime && Float(finaltime) < Float(currentAsset.duration.seconds) {
+//                    doneView.alpha = 1
+//                    doneView.isUserInteractionEnabled = true
+//                    if #available(iOS 13.0, *) {
+//                        doneButton.setImage(UIImage(named: "trimDone")?.withTintColor(UIColor.white, renderingMode: .automatic), for: .normal)
+//                        doneLabel.textColor = UIColor.white
+//                    }
+//                } else {
+//                    doneView.alpha = 0.5
+//                    doneView.isUserInteractionEnabled = false
+//                    if #available(iOS 13.0, *) {
+//                        doneButton.setImage(UIImage(named: "trimDone")?.withTintColor(UIColor.red, renderingMode: .automatic), for: .normal)
+//                        doneLabel.textColor = UIColor.red
+//                    }
+//                }
+//            }
         }
     }
 }
@@ -1196,12 +1221,12 @@ extension OmitEditorViewController {
 }
 
 extension OmitEditorViewController: ImageCollectionViewCutCellDelegate {
-    func handleTapCutIcons(finalTime: Float) {
+    func handleTapCutIcons(finalTime: Float, width: CGFloat) {
 //        print(finalTime)
         if let currentAsset = currentAsset(index: self.currentPage) {
-            let checkwithTime: Float = 0.1
+            let checkwithTime: CGFloat = 6.0
             
-            if Float(finalTime) > checkwithTime && Float(finalTime) < Float(currentAsset.duration.seconds) {
+            if width > checkwithTime && Float(finalTime) < Float(currentAsset.duration.seconds) {
                 doneView.alpha = 1
                 doneView.isUserInteractionEnabled = true
                 if #available(iOS 13.0, *) {
