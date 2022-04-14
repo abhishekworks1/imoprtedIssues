@@ -14,7 +14,7 @@ import SCRecorder
 import IQKeyboardManagerSwift
 import CoreLocation
 import SwiftVideoGenerator
-import URLEmbeddedView
+//import URLEmbeddedView
 
 class BaseStoryTag {
     var view: BaseStoryTagView
