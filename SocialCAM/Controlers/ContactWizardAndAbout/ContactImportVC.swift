@@ -1079,8 +1079,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     self.lblpreviewText.text = data.title ?? ""
                     self.getImage(data: data) { [weak self] image in
                         guard self != nil else { return }
-                        self?.previewImageview.image = image
-                        completionHandler(image)
+                        DispatchQueue.main.async {
+                            self?.previewImageview.image = image
+                            completionHandler(image)
+                        }
                     }
                 }
             }
@@ -1101,6 +1103,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         })
     }
     @IBAction func textMessageSelected(sender: UIButton) {
+        searchBar.showsCancelButton = false
         if !isSelectSMS {
             isSelectSMS = true
             pageNo = 2
@@ -1123,6 +1126,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
     }
     @IBAction func emailSelected(sender: UIButton) {
+        searchBar.showsCancelButton = false
         if isSelectSMS {
             isSelectSMS = false
             pageNo = 2

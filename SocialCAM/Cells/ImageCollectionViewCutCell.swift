@@ -11,7 +11,7 @@ import UIKit
 import AVKit
 
 protocol ImageCollectionViewCutCellDelegate {
-    func handleTapCutIcons(finalTime: Float)
+    func handleTapCutIcons(finalTime: Float, width: CGFloat)
 }
 
 class ImageCollectionViewCutCell: UICollectionViewCell {
@@ -232,6 +232,7 @@ class ImageCollectionViewCutCell: UICollectionViewCell {
     @objc func handleLeftRightTap(_ sender: UITapGestureRecognizer) {
         
         callback?(sender)
+//        delegate?.handleTapCutIcons(finalTime: finalTime, width: trimmerView.frame.width)
 //        guard let view = sender.view else { return }
 //        
 //        let isLeftGesture = (view == leftTopView)
@@ -304,13 +305,10 @@ class ImageCollectionViewCutCell: UICollectionViewCell {
         if newFinalTime <= "0.1" {
             newFinalTime = "0.0"
         }
-        print("****************")
-        print("Last FinalTime: \(newFinalTime)")
-        print("****************")
         let fullTime = "\(newProgressTime) / \(newFinalTime)"
         self.lblVideoDuration.font = UIFont.systemFont(ofSize: 12, weight: .bold)
         self.lblVideoDuration.text = fullTime
-        delegate?.handleTapCutIcons(finalTime: finalTime)
+//        delegate?.handleTapCutIcons(finalTime: finalTime, width: trimmerView.frame.width)
     }
     
     func hideLeftRightHandle() {
