@@ -303,7 +303,7 @@ public class CropViewController: UIViewController {
         cropView.prepareForDeviceRotation()
     }    
     func setupColorSlider() {
-        colorSlider = ColorSlider(orientation: .horizontal, previewSide: .left)
+        colorSlider = ColorSlider(orientation: .horizontal, previewSide: .top)
         colorSlider.addTarget(self, action: #selector(colorSliderValueChanged(_:)), for: UIControl.Event.valueChanged)
         view.addSubview(colorSlider)
         let colorSliderWidth = CGFloat(175)
