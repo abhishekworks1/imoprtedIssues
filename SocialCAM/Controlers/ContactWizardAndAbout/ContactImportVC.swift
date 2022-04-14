@@ -13,6 +13,7 @@ import Contacts
 import MessageUI
 import ObjectMapper
 import LinkPresentation
+import URLEmbeddedView
 
 enum ShareType:Int{
     case textShare = 1
@@ -66,6 +67,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var qrCodeShareView: UIView!
     @IBOutlet weak var manualEmailView: UIView!
     @IBOutlet weak var socialShareView: UIView!
+    @IBOutlet weak var businessDashboardView: UIView!
     
     @IBOutlet weak var filterOptionView: UIView!
     var loadingStatus = false
@@ -273,7 +275,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         self.qrCodeShareView.dropShadow()
         self.manualEmailView.dropShadow()
         self.socialShareView.dropShadow()
-        
+        self.businessDashboardView.dropShadow()
+       
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated) // No need for semicolon
@@ -418,23 +421,24 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             lblNum2.backgroundColor = blueColor1
             lblNum3.backgroundColor = blueColor1
             lblNum4.backgroundColor = .white
-            if isSelectSMS {
+           /* if isSelectSMS {
                 page3NextBtn.setTitle("Next", for: .normal)
                 page3NextBtn.backgroundColor = blueColor1
                 page3NextBtn.setTitleColor(.white, for: .normal)
             }else{
-                page3NextBtn.setTitle("Next", for: .normal)
-                page3NextBtn.backgroundColor = blueColor1
-                page3NextBtn.setTitleColor(.white, for: .normal)
-//                page3NextBtn.setTitle("Done", for: .normal)
-//                page3NextBtn.backgroundColor = .white
-//                page3NextBtn.setTitleColor(blueColor1, for: .normal)
+                page3NextBtn.setTitle("Done", for: .normal)
+                page3NextBtn.backgroundColor = .white
+                page3NextBtn.setTitleColor(blueColor1, for: .normal)
             }
-//            if shareType == ShareType.socialShare{
-//                self.previewMainView.isHidden = false
-//            }else{
-//                
-//            }
+            if shareType == ShareType.socialShare{
+                self.previewMainView.isHidden = false
+            }else{
+                
+            } */
+            page3NextBtn.setTitle("Next", for: .normal)
+            page3NextBtn.backgroundColor = blueColor1
+            page3NextBtn.setTitleColor(.white, for: .normal)
+            self.previewMainView.isHidden = false
         }
         else if pageNo == 4{
             page1view.isHidden = true
@@ -1065,11 +1069,24 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
     }
     func getLinkPreview(link: String, completionHandler: @escaping (UIImage) -> Void) {
+        
+        OGDataProvider.shared.fetchOGData(urlString: link) { [weak self] ogData, error in
+            guard let `self` = self else { return }
+            if let _ = error {
+                return
+            }
+            DispatchQueue.main.async {
+                self.lblpreviewUrl.text = link
+//                self.lblpreviewText.text = self.txtLinkWithCheckOut
+            }
+            if ogData.imageUrl != nil {
+                self.previewImageview.sd_setImage(with: ogData.imageUrl, placeholderImage: R.image.user_placeholder())
+            }
+        }
+        /* if #available(iOS 13.0, *) {
         guard let url = URL(string: link) else {
             return
         }
-
-        if #available(iOS 13.0, *) {
             let provider = LPMetadataProvider()
             provider.startFetchingMetadata(for: url) { [weak self] metaData, error in
                 guard let `self` = self else {
@@ -1094,9 +1111,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     }
                 }
             }
-        }
+        }*/
     }
-    @available(iOS 13.0, *)
+  /*  @available(iOS 13.0, *)
     func getImage(data: LPLinkMetadata, handler: @escaping (UIImage) -> Void) {
         data.iconProvider?.loadDataRepresentation(forTypeIdentifier: data.iconProvider!.registeredTypeIdentifiers[0], completionHandler: { (data, error) in
             guard let imageData = data else {
@@ -1109,7 +1126,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 handler(previewImage)
             }
         })
-    }
+    } */
     @IBAction func textMessageSelected(sender: UIButton) {
         if !isSelectSMS {
             isSelectSMS = true
@@ -1275,8 +1292,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 //set data to share
                 self.txtLinkWithCheckOut = item?.content ?? ""
                 self.txtDetailForEmail = item?.subject ?? ""
-                let finalText = "\(greetingMessage) \(txtLinkWithCheckOut)"
+                let finalText = "\(txtLinkWithCheckOut)"
                 txtLinkWithCheckOut = finalText
+                self.lblpreviewText.text = self.txtLinkWithCheckOut
             }
             return cell
 
@@ -1520,7 +1538,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
 //    MARK: - Creating Alert For User Text Enter
-    
+    //not used
     func openAlertTextView() {
         let alert = UIAlertController(title: "Greeting", message: "Please Enter Your Message", preferredStyle: .alert)
        alert.addTextField { customTextFiled in
@@ -1816,7 +1834,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }
             let phoneNum = mobilecontact.mobile ?? ""
             let urlString = self.txtLinkWithCheckOut
-            let imageV = self.profileView.toImage()
+//            let imageV = self.profileView.toImage()
             let urlwithString = urlString + "\n" + "\n" + " \(mobilecontact.textLink ?? "")"
             if !MFMessageComposeViewController.canSendText() {
                     //showAlert("Text services are not available")
@@ -1829,10 +1847,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             textComposer.body = urlwithString
             textComposer.recipients = recipients
             
-            if MFMessageComposeViewController.canSendAttachments() {
+            /*if MFMessageComposeViewController.canSendAttachments() {
                 let imageData = imageV.jpegData(compressionQuality: 1.0)
                 textComposer.addAttachmentData(imageData!, typeIdentifier: "image/jpg", filename: "photo.jpg")
-            }
+            }*/
             
             self.validateInvite(contact:mobilecontact, completion: { success in
                 if success ?? false{
