@@ -44,6 +44,12 @@ class SubscriptionsViewController: UIViewController {
         if subscriptionType == .basic {
             bindViewModel(appMode: appMode ?? .basic)
             lblpriceTitle.text = "Introductory Price  | $1.99/month (3 months) \n Regular Price  | $2.99/month (after 3 months)"
+        }else if subscriptionType == .advanced {
+            bindViewModel(appMode: appMode ?? .basic)
+            lblpriceTitle.text = "Introductory Price  | $1.99/month (3 months) \n Regular Price  | $2.99/month (after 3 months)"
+        }else if subscriptionType == .professional {
+            bindViewModel(appMode: appMode ?? .basic)
+            lblpriceTitle.text = "Introductory Price  | $1.99/month (3 months) \n Regular Price  | $2.99/month (after 3 months)"
         }else{
             lblpriceTitle.text = "Free |   $0/month \n No subscription required"
 

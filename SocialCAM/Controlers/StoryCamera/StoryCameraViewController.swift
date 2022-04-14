@@ -2916,7 +2916,7 @@ extension StoryCameraViewController {
             }else{
                 Defaults.shared.appMode = .free
             }
-            
+        Defaults.shared.appMode = .free
 /*
          if(allowFullAccess){
               Allow access to premium content
