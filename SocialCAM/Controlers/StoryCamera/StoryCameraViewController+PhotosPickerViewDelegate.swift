@@ -35,12 +35,20 @@ extension StoryCameraViewController: PhotosPickerViewControllerDelegate {
                 for video in withTLPHAssets {
                     exportGroup.enter()
                     if let asset = video.asset, video.assetType == .video {
-                        if Defaults.shared.appMode == .basic && self.recordingType == .promo && asset.duration >= 31.0 {
-                            self.showAlert(alertMessage: R.string.localizable.videoMoreThan30SecondsError())
+                        if Defaults.shared.appMode == .professional && self.recordingType == .promo && asset.duration >= 300.0 {
+                            self.showAlert(alertMessage: R.string.localizable.videoMoreThan300SecondsError())
                             return
                         }
-                        if Defaults.shared.appMode == .free && self.recordingType == .promo && asset.duration > 15.0 {
-                            self.showAlert(alertMessage: R.string.localizable.videoMoreThan15SecondsError())
+                        if Defaults.shared.appMode == .advanced && self.recordingType == .promo && asset.duration >= 120.0 {
+                            self.showAlert(alertMessage: R.string.localizable.videoMoreThan120SecondsError())
+                            return
+                        }
+                        if Defaults.shared.appMode == .basic && self.recordingType == .promo && asset.duration >= 60.0 {
+                            self.showAlert(alertMessage: R.string.localizable.videoMoreThan60SecondsError())
+                            return
+                        }
+                        if Defaults.shared.appMode == .free && self.recordingType == .promo && asset.duration >= 30.0 {
+                            self.showAlert(alertMessage: R.string.localizable.videoMoreThan30SecondsError())
                             return
                         } else if self.recordingType == .normal && asset.duration > 240.0 && isLiteApp {
                             self.showAlert(alertMessage: R.string.localizable.videoMoreThan240SecondsError())
@@ -52,47 +60,48 @@ extension StoryCameraViewController: PhotosPickerViewControllerDelegate {
                         // iCloud download progress
                         options.progressHandler = { (progress, error, stop, info) in
 
-                        }
-                        let manager = PHImageManager.default()
-                        manager.requestAVAsset(forVideo: asset, options: options) { (avasset, _, _) in
-                            if let avassetURL = avasset as? AVURLAsset {
-                                let currentAsset = AVAsset(url: avassetURL.url)
-                                let assetSize = currentAsset.tracks(withMediaType: .video)[0].naturalSize
-                                if assetSize.height >= 2160 { // 3840 × 2160
-                                    VideoMediaHelper.shared.compressMovie(asset: currentAsset, filename: String.fileName + ".mp4", quality: .high, deleteSource: true, progressCallback: { _ in
-                                        
-                                    }) { [weak self] url in
-                                        guard let `self` = self else {
-                                            return
-                                        }
-                                        guard let videoUrl = url else {
-                                            return
-                                        }
-                                        imageVideoSegments.append(SegmentVideos(urlStr: videoUrl, thumbimage: video.thumbImage, numberOfSegement: String(self.takenSlideShowImages.count + 1)))
-                                        dispatchSemaphore.signal()
-                                        exportGroup.leave()
-                                    }
-                                } else {
-                                    imageVideoSegments.append(SegmentVideos(urlStr: avassetURL.url, thumbimage: video.thumbImage, numberOfSegement: String(self.takenSlideShowImages.count + 1)))
-                                    dispatchSemaphore.signal()
-                                    exportGroup.leave()
-                                }
-                            } else {
-                                self.showAlert(alertMessage: R.string.localizable.selectedVideoIsnTSupported())
-                                dispatchSemaphore.signal()
-                                exportGroup.leave()
-                            }
-                        }
-                        dispatchSemaphore.wait()
-                    } else if video.assetType == .image {
-                        imageVideoSegments.append(SegmentVideos(urlStr: URL.init(string: Constant.Application.imageIdentifier)!, thumbimage: video.fullResolutionImage, numberOfSegement: String(self.takenSlideShowImages.count + 1)))
-                        dispatchSemaphore.signal()
-                        exportGroup.leave()
-                    } else {
-                        dispatchSemaphore.signal()
-                        exportGroup.leave()
-                    }
+                       }
+                       let manager = PHImageManager.default()
+                       manager.requestAVAsset(forVideo: asset, options: options) { (avasset, _, _) in
+                           if let avassetURL = avasset as? AVURLAsset {
+                               let currentAsset = AVAsset(url: avassetURL.url)
+                               let assetSize = currentAsset.tracks(withMediaType: .video)[0].naturalSize
+                               if assetSize.height >= 2160 { // 3840 × 2160
+                                   VideoMediaHelper.shared.compressMovie(asset: currentAsset, filename: String.fileName + ".mp4", quality: .high, deleteSource: true, progressCallback: { _ in
+                                       
+                                   }) { [weak self] url in
+                                       guard let `self` = self else {
+                                           return
+                                       }
+                                       guard let videoUrl = url else {
+                                           return
+                                       }
+                                       imageVideoSegments.append(SegmentVideos(urlStr: videoUrl, thumbimage: video.thumbImage, numberOfSegement: String(self.takenSlideShowImages.count + 1)))
+                                       dispatchSemaphore.signal()
+                                       exportGroup.leave()
+                                   }
+                               } else {
+                                   imageVideoSegments.append(SegmentVideos(urlStr: avassetURL.url, thumbimage: video.thumbImage, numberOfSegement: String(self.takenSlideShowImages.count + 1)))
+                                   dispatchSemaphore.signal()
+                                   exportGroup.leave()
+                               }
+                           } else {
+                               self.showAlert(alertMessage: R.string.localizable.selectedVideoIsnTSupported())
+                               dispatchSemaphore.signal()
+                               exportGroup.leave()
+                           }
+                       }
+                       dispatchSemaphore.wait()
+                   } else if video.assetType == .image {
+                       imageVideoSegments.append(SegmentVideos(urlStr: URL.init(string: Constant.Application.imageIdentifier)!, thumbimage: video.fullResolutionImage, numberOfSegement: String(self.takenSlideShowImages.count + 1)))
+                       dispatchSemaphore.signal()
+                       exportGroup.leave()
+                   } else {
+                       dispatchSemaphore.signal()
+                       exportGroup.leave()
+                   }
                 }
+
                 exportGroup.notify(queue: exportQueue) {
                     print("finished......")
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {

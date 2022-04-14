@@ -621,19 +621,19 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 navigationController?.pushViewController(systemSettingsVC, animated: true)
             }
         } else if settingTitle.settingsType == .qrcode {
-            print("Click on QR")
             if let qrViewController = R.storyboard.editProfileViewController.qrCodeViewController() {
                 navigationController?.pushViewController(qrViewController, animated: true)
             }
-            
         }
         else if settingTitle.settingsType == .logout {
             lblLogoutPopup.text = R.string.localizable.areYouSureYouWantToLogoutFromApp("\(Constant.Application.displayName)")
             showHideButtonView(isHide: true)
             logoutPopupView.isHidden = false
-        } else if settingTitle.settingsType == .socialLogout {
+        }
+        else if settingTitle.settingsType == .socialLogout {
             logoutUser()
-        } else if settingTitle.settingsType == .socialLogins {
+        }
+        else if settingTitle.settingsType == .socialLogins {
             let socialLogin: SocialLogin = SocialLogin(rawValue: indexPath.row) ?? .facebook
             socialLoginLogout(socialLogin: socialLogin) { [weak self] (isLogin) in
                 guard let `self` = self else {
@@ -667,26 +667,32 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                     }
                 }
             }
-        } else if settingTitle.settingsType == .subscriptions {
+        }
+        else if settingTitle.settingsType == .subscriptions {
             guard Defaults.shared.appMode.rawValue != indexPath.row else {
                 return
             }
             self.enableMode(appMode: AppMode(rawValue: indexPath.row) ?? .free)
-        } else if settingTitle.settingsType == .faceDetection {
+        }
+        else if settingTitle.settingsType == .faceDetection {
             Defaults.shared.enableFaceDetection = !Defaults.shared.enableFaceDetection
             self.settingsTableView.reloadData()
-        } else if settingTitle.settingsType == .swapeContols {
+        }
+        else if settingTitle.settingsType == .swapeContols {
             Defaults.shared.swapeContols = !Defaults.shared.swapeContols
             self.settingsTableView.reloadData()
-        } else if settingTitle.settingsType == .channelManagement {
+        }
+        else if settingTitle.settingsType == .channelManagement {
             let chVc = R.storyboard.preRegistration.channelListViewController()
             chVc?.remainingPackageCountForOthers = Defaults.shared.currentUser?.remainingOtherUserPackageCount ?? 0
             self.navigationController?.pushViewController(chVc!, animated: true)
-        } else if settingTitle.settingsType == .socialConnections {
+        }
+        else if settingTitle.settingsType == .socialConnections {
             if let addSocialConnectionViewController = R.storyboard.socialConnection.addSocialConnectionViewController() {
                 navigationController?.pushViewController(addSocialConnectionViewController, animated: true)
             }
-        } else if settingTitle.settingsType == .termsAndConditions || settingTitle.settingsType == .privacyPolicy {
+        }
+        else if settingTitle.settingsType == .termsAndConditions || settingTitle.settingsType == .privacyPolicy {
             guard let legalVc = R.storyboard.legal.legalViewController() else { return }
             legalVc.isTermsAndConditions = settingTitle.settingsType == .termsAndConditions
             self.navigationController?.pushViewController(legalVc, animated: true)
@@ -728,15 +734,22 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             isDeletePopup = true
             showHideButtonView(isHide: true)
             logoutPopupView.isHidden = false
-        } else if settingTitle.settingsType == .shareSetting {
-//            if let shareSettingViewController = R.storyboard.editProfileViewController.shareSettingViewController() {
-//                navigationController?.pushViewController(shareSettingViewController, animated: true)
+        }
+        else if settingTitle.settingsType == .shareSetting {
+//          if let editProfileController = R.storyboard.refferalEditProfile.refferalEditProfileViewController() {
+//                navigationController?.pushViewController(editProfileController, animated: true)
 //            }
-            if let contactWizardController = R.storyboard.contactWizardwithAboutUs.contactImportVC() {
-                navigationController?.pushViewController(contactWizardController, animated: true)
+            if let userImageURL = Defaults.shared.currentUser?.profileImageURL , !userImageURL.isEmpty {
+                if let contactWizardController = R.storyboard.contactWizardwithAboutUs.contactImportVC() {
+                    navigationController?.pushViewController(contactWizardController, animated: true)
+                }
+            } else {
+                if let editProfileController = R.storyboard.refferalEditProfile.refferalEditProfileViewController() {
+                    navigationController?.pushViewController(editProfileController, animated: true)
+                }
             }
-
-        } else if settingTitle.settingsType == .userDashboard {
+        }
+        else if settingTitle.settingsType == .userDashboard {
             openBussinessDashboard()
            
         } else if settingTitle.settingsType == .checkUpdate {
@@ -747,7 +760,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                 MIBlurPopup.show(userDetailsVC, on: self)
             }
         }else if settingTitle.settingsType == .aboutPage {
-            if let aboutViewController = R.storyboard.contactWizardwithAboutUs.aboutViewController() {
+            if let aboutViewController = R.storyboard.aboutStoryboard.aboutViewController() {
                 navigationController?.pushViewController(aboutViewController, animated: true)
             }
         }

@@ -470,6 +470,13 @@ class StoryEditorViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        if cameraMode == .pic2Art {
+            if Defaults.shared.appMode == .free && Defaults.shared.appMode == .basic {
+                editOptionView.isHidden = true
+            } else {
+                editOptionView.isHidden = false
+            }
+        }
         IQKeyboardManager.shared.enable = false
         IQKeyboardManager.shared.enableAutoToolbar = false
         videoProgressBar.timeSlider.addTapGesture()

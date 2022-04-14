@@ -531,13 +531,21 @@ extension PhotosPickerViewController {
         }
         if isLiteApp,
             let asset = self.selectedAssets.first,
-            asset.assetType == .video,
-            Defaults.shared.appMode == .basic,
+            asset.assetType == .video{
+            if Defaults.shared.appMode == .basic,
+            asset.asset.duration >= 61.0 {
+                print(asset.asset.duration)
+                self.showAlert(alertMessage: R.string.localizable.videoMoreThan60SecondsError())
+                return
+            }
+            if Defaults.shared.appMode == .free,
             asset.asset.duration >= 31.0 {
-            print(asset.asset.duration)
-            self.showAlert(alertMessage: R.string.localizable.videoMoreThan30SecondsError())
-            return
-        } else if isLiteApp,
+                print(asset.asset.duration)
+                self.showAlert(alertMessage: R.string.localizable.videoMoreThan30SecondsError())
+                return
+            }
+        }
+        else if isLiteApp,
                   let asset = self.selectedAssets.first,
                   asset.assetType == .video,
                   Defaults.shared.appMode == .free,
