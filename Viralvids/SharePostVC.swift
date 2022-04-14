@@ -15,7 +15,7 @@ import UIKit
 import AVFoundation
 import RxSwift
 import Moya
-import URLEmbeddedView
+//import URLEmbeddedView
 import SSSpinnerButton
 
 class SharePostVC: UIViewController {
