@@ -10,11 +10,11 @@ import Foundation
 import UIKit
 import AVKit
 import SCRecorder
-import ColorSlider
+//import ColorSlider
 import IQKeyboardManagerSwift
 import CoreLocation
 import SwiftVideoGenerator
-import URLEmbeddedView
+//import URLEmbeddedView
 
 class BaseStoryTag {
     var view: BaseStoryTagView

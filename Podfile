@@ -32,7 +32,7 @@ def projectShared_pods
     pod 'OnlyPictures', :git => 'https://github.com/simformsolutions/OnlyPictures'
     pod 'FLAnimatedImage', '~> 1.0.16'
     pod 'SwiftVideoGenerator', :git => 'https://github.com/jasminpsimform/swift-video-generator', :branch => 'swift5'
-    pod 'ColorSlider', '4.4'
+    #pod 'ColorSlider', '4.4'
     pod 'IQKeyboardManagerSwift', '~> 6.5.6'
     pod 'FSPagerView', '~> 0.8.3'
     pod 'NVActivityIndicatorView', '5.1.1'

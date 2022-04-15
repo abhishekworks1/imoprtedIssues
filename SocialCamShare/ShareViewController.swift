@@ -8,7 +8,7 @@
 
 import UIKit
 import Social
-import URLEmbeddedView
+//import URLEmbeddedView
 import RxSwift
 import ObjectMapper
 import NSObject_Rx
