@@ -2913,10 +2913,31 @@ extension StoryCameraViewController {
                 }else{
                     Defaults.shared.appMode = .basic
                 }
+            }else if(Defaults.shared.subscriptionType == "advance")
+            {
+                if(Defaults.shared.isDowngradeSubscription ?? false == true){
+                    if (Defaults.shared.numberOfFreeTrialDays ?? 0 > 0){
+                        Defaults.shared.appMode = .advanced
+                    }else {
+                        Defaults.shared.appMode = .free
+                    }
+                }else{
+                    Defaults.shared.appMode = .advanced
+                }
+            }else if(Defaults.shared.subscriptionType == "pro")
+            {
+                if(Defaults.shared.isDowngradeSubscription ?? false == true){
+                    if (Defaults.shared.numberOfFreeTrialDays ?? 0 > 0){
+                        Defaults.shared.appMode = .professional
+                    }else {
+                        Defaults.shared.appMode = .free
+                    }
+                }else{
+                    Defaults.shared.appMode = .professional
+                }
             }else{
                 Defaults.shared.appMode = .free
             }
-        Defaults.shared.appMode = .free
 /*
          if(allowFullAccess){
               Allow access to premium content

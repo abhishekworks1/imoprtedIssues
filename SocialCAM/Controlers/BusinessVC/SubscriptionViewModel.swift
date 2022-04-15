@@ -54,6 +54,7 @@ class SubscriptionViewModel {
                     return
                 }
                 self.subscriptionPlanData = subscriptionsList
+                print(self.subscriptionPlanData.toJSON())
                 self.isSubscriptionPlansFetched.value = true
                 self.fetchIAPProducts()
             } else {

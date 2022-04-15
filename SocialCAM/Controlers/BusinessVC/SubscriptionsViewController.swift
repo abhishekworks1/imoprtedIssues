@@ -46,10 +46,10 @@ class SubscriptionsViewController: UIViewController {
             lblpriceTitle.text = "Introductory Price  | $1.99/month (3 months) \n Regular Price  | $2.99/month (after 3 months)"
         }else if subscriptionType == .advanced {
             bindViewModel(appMode: appMode ?? .basic)
-            lblpriceTitle.text = "Introductory Price  | $1.99/month (3 months) \n Regular Price  | $2.99/month (after 3 months)"
+            lblpriceTitle.text = "Regular Price  | $2.99/month"
         }else if subscriptionType == .professional {
             bindViewModel(appMode: appMode ?? .basic)
-            lblpriceTitle.text = "Introductory Price  | $1.99/month (3 months) \n Regular Price  | $2.99/month (after 3 months)"
+            lblpriceTitle.text = "\n Regular Price  | $4.99/month"
         }else{
             lblpriceTitle.text = "Free |   $0/month \n No subscription required"
 
@@ -243,10 +243,19 @@ class SubscriptionsViewController: UIViewController {
                 upgradeString = R.string.localizable.downgrade()
             }
             message = R.string.localizable.areYouSureSubscriptionMessage(upgradeString, appMode.description)
-            successMessage = R.string.localizable.advancedModeIsEnabled()
+            if isLiteApp {
+                successMessage = R.string.localizable.advancedModeIsEnabled()
+            } else {
+                successMessage = R.string.localizable.advancedModeIsEnabled()
+            }
+           
         case .professional:
             message = R.string.localizable.areYouSureSubscriptionMessage(R.string.localizable.upgrade(), appMode.description)
-            successMessage = R.string.localizable.professionalModeIsEnabled()
+            if isLiteApp {
+                successMessage = R.string.localizable.professionalModeIsEnabled()
+            } else {
+                successMessage = R.string.localizable.professionalModeIsEnabled()
+            }
         }
         
         let objAlert = UIAlertController(title: Constant.Application.displayName, message: message, preferredStyle: .alert)
@@ -291,10 +300,19 @@ class SubscriptionsViewController: UIViewController {
         }
         objAlert.addAction(cancelAction)
         objAlert.addAction(actionSave)
-        if isQuickApp && appMode == .basic {
-            let subscriptionData = subscriptionsList.filter({$0.productId == Constant.IAPProductIds.quickCamLiteBasic})
+        if isQuickApp{
+            var productid = Constant.IAPProductIds.quickCamLiteBasic
+            if appMode == .basic{
+                productid = Constant.IAPProductIds.quickCamLiteBasic
+            }else if appMode == .advanced{
+                productid = Constant.IAPProductIds.quickCamLiteAdvance
+            }else if appMode == .professional{
+                productid = Constant.IAPProductIds.quickCamLitePro
+            }
+            let subscriptionData = subscriptionsList.filter({$0.productId == productid})
             self.purchaseProduct(productIdentifire: subscriptionData.first?.productId ?? "", productServerID: subscriptionData.first?.id ?? "")
             self.appMode = appMode
+           
         } else if isQuickApp && appMode == .free {
             self.downgradePopupView.isHidden = false
         } else if appMode != .free || Defaults.shared.releaseType != .beta {
