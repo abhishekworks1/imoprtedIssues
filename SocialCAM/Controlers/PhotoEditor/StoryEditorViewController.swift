@@ -109,6 +109,7 @@ class StoryEditorViewController: UIViewController {
         }
     }
     @IBOutlet weak var playButtonBottomLayoutConstraint: NSLayoutConstraint!
+    @IBOutlet weak var waterMarkGIFView: UIView!
     
     @IBOutlet weak var shareCollectionView: UICollectionView!
     
@@ -179,6 +180,7 @@ class StoryEditorViewController: UIViewController {
     @IBOutlet weak var tiktokShareView: UIView!
    // @IBOutlet weak var storiCamShareView: UIView!
     
+    @IBOutlet weak var discardPopUpMessageLabel: UILabel!
     @IBOutlet weak var btnShowHideEditImage: UIButton!
     @IBOutlet weak var playPauseButton: UIButton!
     @IBOutlet weak var nativePlayerPlayPauseButton: UIButton!
@@ -741,6 +743,11 @@ class StoryEditorViewController: UIViewController {
     }
     
     func hideWatermarkView(isHide: Bool) {
+        if cameraMode == .pic2Art {
+            waterMarkGIFView.isHidden = true
+        } else {
+            waterMarkGIFView.isHidden = false
+        }
         cropPopupBlurView.isHidden = isHide
         watermarkOptionsView.isHidden = isHide
     }
@@ -1208,6 +1215,11 @@ extension StoryEditorViewController {
     }
     
     @IBAction func backClicked(_ sender: UIButton) {
+        if isPic2ArtApp || cameraMode == .pic2Art {
+            discardPopUpMessageLabel.text = "Are you sure you want to discard your Pic2Art?"
+        } else {
+            discardPopUpMessageLabel.text = "Are you sure you want to discard your video?"
+        }
         if Defaults.shared.isShowAllPopUpChecked == true {
             self.hideShowDiscardVideoPopup(shouldShow: true)
         } else if Defaults.shared.isDiscardVideoPopupHide == false {
@@ -1215,6 +1227,7 @@ extension StoryEditorViewController {
         } else {
             Defaults.shared.postViralCamModel = nil
             if isPic2ArtApp || cameraMode == .pic2Art {
+                
                 if let controllers = navigationController?.viewControllers,
                     controllers.count > 0 {
                     for controller in controllers {
