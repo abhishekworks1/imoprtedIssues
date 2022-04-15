@@ -327,8 +327,11 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
                         self.stopMotionCollectionView.reloadData()
                     }
                     if self.recordingType == .pic2Art {
+                        self.muteStackView.isHidden = true
                         self.speedSlider.isHidden = true
                         self.speedSliderView.isHidden = true
+                    } else {
+                        self.muteStackView.isHidden = false
                     }
                 }
             } else if recordingType == .custom {
