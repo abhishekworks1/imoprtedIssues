@@ -362,8 +362,9 @@ class OmitEditorViewController: UIViewController,UIGestureRecognizerDelegate {
     func enableAndDisableDoneButton(minDistance: CGFloat, finaltime: Float) {
         if let currentAsset = currentAsset(index: self.currentPage) {
             let checkwithTime: CGFloat = 6.0
-
-            if minDistance > checkwithTime && finaltime < Float(currentAsset.duration.seconds) {
+// TODO:- Add this line to if condition when touch left and right point touch together disable Done Button
+//            minDistance > checkwithTime &&
+            if finaltime < Float(currentAsset.duration.seconds) {
             doneView.alpha = 1
             doneView.isUserInteractionEnabled = true
             if #available(iOS 13.0, *) {
@@ -1225,8 +1226,9 @@ extension OmitEditorViewController: ImageCollectionViewCutCellDelegate {
 //        print(finalTime)
         if let currentAsset = currentAsset(index: self.currentPage) {
             let checkwithTime: CGFloat = 6.0
-            
-            if width > checkwithTime && Float(finalTime) < Float(currentAsset.duration.seconds) {
+// TODO:- Add this line to if condition when touch left and right point touch together disable Done Button
+//            width > checkwithTime &&
+            if Float(finalTime) < Float(currentAsset.duration.seconds) {
                 doneView.alpha = 1
                 doneView.isUserInteractionEnabled = true
                 if #available(iOS 13.0, *) {
