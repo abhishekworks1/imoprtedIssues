@@ -664,7 +664,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         let path = API.shared.baseUrlV2 + "contact-list?contactSource=\(source)&contactType=\(contactType)&searchText=\(searchText)&filterType=\(filter)&limit=\(limit)&page=\(page)"
       //  &hide=\(hide)
        // let path = API.shared.baseUrlV2 + "contact-list?contactSource=\(source))&searchText=\("Na")&filterType=\(filter)&limit=\(limit)&page=\(page)"
-        print(path)
+        print("contact->\(path)")
        // let parameter : Parameters =  ["Content-Type": "application/json"]
         let headerWithToken : HTTPHeaders =  ["Content-Type": "application/json",
                                        "userid": Defaults.shared.currentUser?.id ?? "",
@@ -1079,9 +1079,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 self.lblpreviewUrl.text = link
 //                self.lblpreviewText.text = self.txtLinkWithCheckOut
             }
-            if ogData.imageUrl != nil {
+//            if ogData.imageUrl != nil {
                 self.previewImageview.sd_setImage(with: ogData.imageUrl, placeholderImage: R.image.user_placeholder())
-            }
+//            }
         }
         /* if #available(iOS 13.0, *) {
         guard let url = URL(string: link) else {
@@ -1127,6 +1127,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }
         })
     } */
+    
     @IBAction func textMessageSelected(sender: UIButton) {
         searchBar.showsCancelButton = false
         if !isSelectSMS {
