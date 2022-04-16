@@ -1864,7 +1864,7 @@
                                         <color key="shadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <size key="shadowOffset" width="0.0" height="1"/>
                                     </label>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EHi-Fl-PHK" customClass="VideoSliderView" customModule="BoomiCam" customModuleProvider="target">
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EHi-Fl-PHK" customClass="VideoSliderView" customModule="BoomiCam" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="10" width="314" height="15"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -1876,6 +1876,15 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="h0O-YA-ere">
+                                        <rect key="frame" x="-2" y="0.0" width="318" height="31"/>
+                                        <color key="minimumTrackTintColor" name="AppPrimaryColor"/>
+                                        <color key="maximumTrackTintColor" name="AppWhiteColor"/>
+                                        <color key="thumbTintColor" name="AppPrimaryColor"/>
+                                        <connections>
+                                            <action selector="didChangeUISliderValue:" destination="f9j-8w-2WB" eventType="valueChanged" id="7nF-dX-FoX"/>
+                                        </connections>
+                                    </slider>
                                     <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="T16-MP-uo2" customClass="ProgressView" customModule="BoomiCam" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="20" width="414" height="3"/>
                                         <constraints>
@@ -1885,13 +1894,16 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="h0O-YA-ere" firstAttribute="leading" secondItem="gEK-ly-VTf" secondAttribute="leading" id="0YE-wE-hi9"/>
                                     <constraint firstItem="dAM-cc-QnM" firstAttribute="centerY" secondItem="EHi-Fl-PHK" secondAttribute="centerY" id="7Yf-ar-Ct0"/>
                                     <constraint firstAttribute="trailing" secondItem="EHi-Fl-PHK" secondAttribute="trailing" constant="100" id="DkB-CJ-Pyo"/>
+                                    <constraint firstItem="dAM-cc-QnM" firstAttribute="leading" secondItem="h0O-YA-ere" secondAttribute="trailing" id="F6i-49-QvH"/>
                                     <constraint firstAttribute="trailing" secondItem="dAM-cc-QnM" secondAttribute="trailing" id="OtE-RU-vwf"/>
                                     <constraint firstItem="EHi-Fl-PHK" firstAttribute="leading" secondItem="gEK-ly-VTf" secondAttribute="leading" id="QDb-1v-eUE"/>
                                     <constraint firstItem="T16-MP-uo2" firstAttribute="leading" secondItem="gEK-ly-VTf" secondAttribute="leading" id="Zp6-lf-ZLf"/>
                                     <constraint firstAttribute="bottom" secondItem="EHi-Fl-PHK" secondAttribute="bottom" id="kSM-mS-Abr"/>
                                     <constraint firstAttribute="trailing" secondItem="T16-MP-uo2" secondAttribute="trailing" id="rJl-6a-fED"/>
+                                    <constraint firstItem="h0O-YA-ere" firstAttribute="centerY" secondItem="gEK-ly-VTf" secondAttribute="centerY" constant="2.5" id="sK6-30-uem"/>
                                     <constraint firstAttribute="bottom" secondItem="T16-MP-uo2" secondAttribute="bottom" id="sNu-FT-2qm"/>
                                 </constraints>
                                 <variation key="default">
@@ -3541,7 +3553,7 @@
                         <outlet property="timeSpeedOptionView" destination="9rq-xy-EPr" id="EQn-R9-tSw"/>
                         <outlet property="trimOptionView" destination="nCY-HF-MLC" id="gU0-4p-zyb"/>
                         <outlet property="undoButton" destination="iLz-yd-XL6" id="fRl-7k-GVd"/>
-                        <outlet property="videoProgressBar" destination="EHi-Fl-PHK" id="Aeo-Nm-n8N"/>
+                        <outlet property="videoProgressBar" destination="h0O-YA-ere" id="Q2x-In-ket"/>
                         <outlet property="waterMarkGIFView" destination="jF5-0p-bpc" id="cbE-xx-RzI"/>
                         <outlet property="watermarkOptionsView" destination="CyM-i6-goR" id="yPD-7r-nYP"/>
                         <outlet property="watermarkView" destination="2Kn-pe-jkT" id="Gu9-7U-GE9"/>
