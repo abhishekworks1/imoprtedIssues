@@ -658,7 +658,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     func getContactList(source:String = "mobile",page:Int = 1,limit:Int = 20,filter:String = ContactStatus.all,hide:Bool = false,firstTime:Bool = false){
         
         var searchText = searchBar.text!
-        let contactType = selectedContactType
+        var contactType = selectedContactType
+        if self.shareType == ShareType.email{
+            contactType = ContactType.email
+        }
         searchText = searchText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? ""
         print(searchText)
         let path = API.shared.baseUrlV2 + "contact-list?contactSource=\(source)&contactType=\(contactType)&searchText=\(searchText)&filterType=\(filter)&limit=\(limit)&page=\(page)"
@@ -2052,7 +2055,7 @@ extension ContactImportVC:UIScrollViewDelegate{
             if self.loadingStatus{
                 return
             }
-        /*if (self.lastContentOffset > scrollView.contentOffset.y) {
+        if (self.lastContentOffset > scrollView.contentOffset.y) {
                 // move up
                 UIView.animate(withDuration: 0.5, animations: {
                     self.segmentViewHeight.constant = 84.0
@@ -2071,7 +2074,7 @@ extension ContactImportVC:UIScrollViewDelegate{
 
             // update the new position acquired
             self.lastContentOffset = scrollView.contentOffset.y //
-             */
+             
         }
       
     }
