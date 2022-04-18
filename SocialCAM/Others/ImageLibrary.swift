@@ -108,7 +108,7 @@ public class ImageAsset: Equatable {
     }
     
     public enum ImageExtType: String {
-        case png, jpg, gif, heic
+        case png, jpg, gif
     }
     
     public var originalFileName: String? {

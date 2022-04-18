@@ -966,7 +966,7 @@ class Defaults {
     
     var allowFullAccess: Bool? {
         get {
-            return appDefaults?.value(forKey: "allowFullAccess") as? Bool ?? false
+            return false//appDefaults?.value(forKey: "allowFullAccess") as? Bool ?? false
         }
         set {
             appDefaults?.set(newValue, forKey: "allowFullAccess")
