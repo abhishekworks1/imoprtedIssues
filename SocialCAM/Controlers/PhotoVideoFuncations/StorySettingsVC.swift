@@ -562,6 +562,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                     self.youTubeVerifiedView.isHidden = false
                 }
             }
+            socialBadgeicon.isHidden = (socialPlatforms.count == 4) ? false : true
         }
     }
    
