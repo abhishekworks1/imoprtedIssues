@@ -368,14 +368,14 @@ class OmitEditorViewController: UIViewController,UIGestureRecognizerDelegate {
             doneView.alpha = 1
             doneView.isUserInteractionEnabled = true
             if #available(iOS 13.0, *) {
-                doneButton.setImage(UIImage(named: "trimDone")?.withTintColor(UIColor.white, renderingMode: .automatic), for: .normal)
+                doneButton.setImage(R.image.trimDone()?.withTintColor(UIColor.white, renderingMode: .automatic), for: .normal)
                 doneLabel.textColor = UIColor.white
             }
         } else {
             doneView.alpha = 0.5
             doneView.isUserInteractionEnabled = false
             if #available(iOS 13.0, *) {
-                doneButton.setImage(UIImage(named: "trimDone")?.withTintColor(UIColor.red, renderingMode: .automatic), for: .normal)
+                doneButton.setImage(R.image.trimDone()?.withTintColor(UIColor.red, renderingMode: .automatic), for: .normal)
                 doneLabel.textColor = UIColor.red
             }
         }
@@ -1070,23 +1070,22 @@ extension OmitEditorViewController {
                 return
             }
             
-            let finaltime = endTime.seconds - startTime.seconds
-            if finaltime >= 1.0 {
-                doneView.alpha = 1
-                doneView.isUserInteractionEnabled = true
-                if #available(iOS 13.0, *) {
-                    doneButton.setImage(UIImage(named: "trimDone")?.withTintColor(UIColor.white, renderingMode: .automatic), for: .normal)
-                    doneLabel.textColor = UIColor.white
-                }
-            } else {
-                doneView.alpha = 0.5
-                doneView.isUserInteractionEnabled = false
-                if #available(iOS 13.0, *) {
-                    doneButton.setImage(UIImage(named: "trimDone")?.withTintColor(UIColor.red, renderingMode: .automatic), for: .normal)
-                    doneLabel.textColor = UIColor.red
-                }
-            }
-            
+//            let finaltime = endTime.seconds - startTime.seconds
+//            if finaltime >= 1.0 {
+//                doneView.alpha = 1
+//                doneView.isUserInteractionEnabled = true
+//                if #available(iOS 13.0, *) {
+//                    doneButton.setImage(UIImage(named: "trimDone")?.withTintColor(UIColor.white, renderingMode: .automatic), for: .normal)
+//                    doneLabel.textColor = UIColor.white
+//                }
+//            } else {
+//                doneView.alpha = 0.5
+//                doneView.isUserInteractionEnabled = false
+//                if #available(iOS 13.0, *) {
+//                    doneButton.setImage(UIImage(named: "trimDone")?.withTintColor(UIColor.red, renderingMode: .automatic), for: .normal)
+//                    doneLabel.textColor = UIColor.red
+//                }
+//            }
             self.trimMultipleVideos(cell.trimmerView)
             print("*************************")
             print(self.combinedstoryEditorMedias.count)
