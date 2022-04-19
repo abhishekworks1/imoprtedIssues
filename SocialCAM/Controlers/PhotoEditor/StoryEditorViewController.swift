@@ -1179,7 +1179,7 @@ extension StoryEditorViewController {
         var currentImage: UIImage?
         switch storyEditors[currentStoryIndex].type {
         case let .image(image):
-            currentImage = image
+            currentImage = image.resizeImageWith(newSize: CGSize.init(width: 750, height: 1334))
         default:
             break
         }
