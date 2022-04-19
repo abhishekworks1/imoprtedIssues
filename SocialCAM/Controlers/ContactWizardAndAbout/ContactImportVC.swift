@@ -108,7 +108,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var btnIncludeQrImg: UIButton!
     @IBOutlet weak var lblSinceDate: UILabel!
     @IBOutlet weak var lblDisplayName: UILabel!
-
+    @IBOutlet weak var btnShare: UIButton!
+    
     
     @IBOutlet weak var preLunchBadge: UIImageView!
      @IBOutlet weak var foundingMergeBadge: UIImageView!
@@ -376,6 +377,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     func setupPage(){
+        self.searchBar.endEditing(true)
         if pageNo == 1 {
             page1view.isHidden = false
             page2view.isHidden = true
@@ -429,12 +431,12 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 page3NextBtn.setTitle("Done", for: .normal)
                 page3NextBtn.backgroundColor = .white
                 page3NextBtn.setTitleColor(blueColor1, for: .normal)
-            }
-            if shareType == ShareType.socialShare{
-                self.previewMainView.isHidden = false
-            }else{
-                
             } */
+            if shareType == ShareType.socialShare{
+                self.btnShare.isHidden = false
+            }else{
+                self.btnShare.isHidden = true
+            }
             page3NextBtn.setTitle("Next", for: .normal)
             page3NextBtn.backgroundColor = blueColor1
             page3NextBtn.setTitleColor(.white, for: .normal)
@@ -1259,8 +1261,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 //                    view.layer.addSublayer(bottomLine)
                     view.addSubview(label)
                 }
-            }else if section == 1{
-                if mailContacts.count>0{
+            }else if section == 1 {
+                if mailContacts.count > 0 {
                     let label = cutomHeaderView(title: "Contact Emails")
                     view.backgroundColor = UIColor(red:0.97, green:0.97, blue:0.97, alpha:1.0)
 //                    let bottomLine = CALayer()

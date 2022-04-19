@@ -83,6 +83,7 @@ class QRCodeViewController: UIViewController {
        // imageQrCode.addGradient()
         self.quickStartClicked(self.quickStartButton)
         refferelType = .quickStart
+        getVerifiedSocialPlatforms()
     }
     @objc func handleSwipes(_ sender:UISwipeGestureRecognizer)
     {
@@ -179,6 +180,14 @@ class QRCodeViewController: UIViewController {
                 subscriptionBadgeicon.image = UIImage.init(named: badgearry[3])
             }
         }
+    
+    
+    func getVerifiedSocialPlatforms() {
+        if let socialPlatforms = Defaults.shared.socialPlatforms {
+            socialBadgeicon.isHidden = (socialPlatforms.count == 4) ? false : true
+        }
+    }
+    
     func generateQRCode(from string: String) -> UIImage? {
         let data = string.data(using: String.Encoding.ascii)
 
