@@ -1083,12 +1083,13 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }
             DispatchQueue.main.async {
                 self.lblpreviewUrl.text = link
+                self.previewImageview.layer.cornerRadius = self.previewImageview.bounds.width / 2
+                self.previewImageview.contentMode = .scaleAspectFill
 //                self.lblpreviewText.text = self.txtLinkWithCheckOut
             }
 //            if ogData.imageUrl != nil {
                self.previewImageview.sd_setImage(with: ogData.imageUrl, placeholderImage: R.image.user_placeholder())
-                self.previewImageview.layer.cornerRadius = previewImageview.bounds.width / 2
-                self.previewImageview.contentMode = .scaleAspectFill
+           
 //            }
         }
         /* if #available(iOS 13.0, *) {
