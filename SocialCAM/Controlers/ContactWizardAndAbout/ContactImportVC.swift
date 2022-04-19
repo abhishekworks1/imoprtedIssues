@@ -108,7 +108,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var btnIncludeQrImg: UIButton!
     @IBOutlet weak var lblSinceDate: UILabel!
     @IBOutlet weak var lblDisplayName: UILabel!
-
+    @IBOutlet weak var btnShare: UIButton!
+    
     
     @IBOutlet weak var preLunchBadge: UIImageView!
      @IBOutlet weak var foundingMergeBadge: UIImageView!
@@ -376,6 +377,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     func setupPage(){
+        self.searchBar.endEditing(true)
         if pageNo == 1 {
             page1view.isHidden = false
             page2view.isHidden = true
@@ -391,7 +393,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             lblNum3.backgroundColor = .white
             lblNum4.backgroundColor = .white
         }
-        else if pageNo == 2{
+        else if pageNo == 2 {
             page1view.isHidden = true
             page2view.isHidden = false
             page3view.isHidden = true
@@ -421,7 +423,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             lblNum2.backgroundColor = blueColor1
             lblNum3.backgroundColor = blueColor1
             lblNum4.backgroundColor = .white
-           /* if isSelectSMS {
+           /*if isSelectSMS {
                 page3NextBtn.setTitle("Next", for: .normal)
                 page3NextBtn.backgroundColor = blueColor1
                 page3NextBtn.setTitleColor(.white, for: .normal)
@@ -429,18 +431,18 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 page3NextBtn.setTitle("Done", for: .normal)
                 page3NextBtn.backgroundColor = .white
                 page3NextBtn.setTitleColor(blueColor1, for: .normal)
-            }
-            if shareType == ShareType.socialShare{
-                self.previewMainView.isHidden = false
-            }else{
-                
             } */
+            if shareType == ShareType.socialShare{
+                self.btnShare.isHidden = false
+            }else{
+                self.btnShare.isHidden = true
+            }
             page3NextBtn.setTitle("Next", for: .normal)
             page3NextBtn.backgroundColor = blueColor1
             page3NextBtn.setTitleColor(.white, for: .normal)
             self.previewMainView.isHidden = false
         }
-        else if pageNo == 4{
+        else if pageNo == 4 {
             page1view.isHidden = true
             page2view.isHidden = true
             page3view.isHidden = true
@@ -482,7 +484,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 
         request.responseDecodable(of: msgTitleList?.self) {(resposnse) in
             self.smsMsgListing = resposnse.value as? msgTitleList
-            print("smsMsgListing - \(self.smsMsgListing?.list)")
+            if self.isSelectSMS {
+                self.itemsTableView.reloadData()
+            }
+//            print("smsMsgListing - \(self.smsMsgListing?.list)")
 //            if (self.listingResponse?.list.count ?? 0) > 0{
 //                self.itemsTableView.reloadData()
 //            }
@@ -498,7 +503,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 
         request.responseDecodable(of: msgTitleList?.self) {(resposnse) in
             self.emailMsgListing = resposnse.value as? msgTitleList
-            print("emailMsgListing - \(self.emailMsgListing?.list)")
+            if !self.isSelectSMS {
+                self.itemsTableView.reloadData()
+            }
+//            print("emailMsgListing - \(self.emailMsgListing?.list)")
 //            if (self.listingResponse?.list.count ?? 0) > 0{
 //                self.itemsTableView.reloadData()
 //            }
@@ -658,13 +666,16 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     func getContactList(source:String = "mobile",page:Int = 1,limit:Int = 20,filter:String = ContactStatus.all,hide:Bool = false,firstTime:Bool = false){
         
         var searchText = searchBar.text!
-        let contactType = selectedContactType
+        var contactType = selectedContactType
+        if self.shareType == ShareType.email{
+            contactType = ContactType.email
+        }
         searchText = searchText.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? ""
         print(searchText)
         let path = API.shared.baseUrlV2 + "contact-list?contactSource=\(source)&contactType=\(contactType)&searchText=\(searchText)&filterType=\(filter)&limit=\(limit)&page=\(page)"
       //  &hide=\(hide)
        // let path = API.shared.baseUrlV2 + "contact-list?contactSource=\(source))&searchText=\("Na")&filterType=\(filter)&limit=\(limit)&page=\(page)"
-        print(path)
+        print("contact->\(path)")
        // let parameter : Parameters =  ["Content-Type": "application/json"]
         let headerWithToken : HTTPHeaders =  ["Content-Type": "application/json",
                                        "userid": Defaults.shared.currentUser?.id ?? "",
@@ -1070,6 +1081,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     func getLinkPreview(link: String, completionHandler: @escaping (UIImage) -> Void) {
         
+        
         OGDataProvider.shared.fetchOGData(urlString: link) { [weak self] ogData, error in
             guard let `self` = self else { return }
             if let _ = error {
@@ -1077,11 +1089,14 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }
             DispatchQueue.main.async {
                 self.lblpreviewUrl.text = link
+                self.previewImageview.layer.cornerRadius = self.previewImageview.bounds.width / 2
+                self.previewImageview.contentMode = .scaleAspectFill
 //                self.lblpreviewText.text = self.txtLinkWithCheckOut
             }
-            if ogData.imageUrl != nil {
-                self.previewImageview.sd_setImage(with: ogData.imageUrl, placeholderImage: R.image.user_placeholder())
-            }
+//            if ogData.imageUrl != nil {
+               self.previewImageview.sd_setImage(with: ogData.imageUrl, placeholderImage: R.image.user_placeholder())
+           
+//            }
         }
         /* if #available(iOS 13.0, *) {
         guard let url = URL(string: link) else {
@@ -1127,6 +1142,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }
         })
     } */
+    
     @IBAction func textMessageSelected(sender: UIButton) {
         searchBar.showsCancelButton = false
         if !isSelectSMS {
@@ -1250,8 +1266,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 //                    view.layer.addSublayer(bottomLine)
                     view.addSubview(label)
                 }
-            }else if section == 1{
-                if mailContacts.count>0{
+            }else if section == 1 {
+                if mailContacts.count > 0 {
                     let label = cutomHeaderView(title: "Contact Emails")
                     view.backgroundColor = UIColor(red:0.97, green:0.97, blue:0.97, alpha:1.0)
 //                    let bottomLine = CALayer()
@@ -1786,19 +1802,26 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             
             let phoneNum = mobilecontact.mobile ?? ""
             let urlString = self.txtLinkWithCheckOut
-            let imageV = self.profileView.toImage()
-            let urlwithString = urlString + "\n" + "\n" + " \(mobilecontact.textLink ?? "")"
+//            let imageV = self.profileView.toImage()
+//            let urlwithString = urlString + "\n" + "\n" + " \(mobilecontact.textLink ?? "")"
             
             if selectedContactType == ContactType.mobile{
                 if !MFMessageComposeViewController.canSendText() {
                         //showAlert("Text services are not available")
                         return
                 }
-
+                let reflink = "\(websiteUrl)/\(Defaults.shared.currentUser?.channelId ?? "")"
+                 let json = """
+                 {
+                     "contactId":"\(mobilecontact.Id ?? "")",
+                     "refType":"text"
+                 }
+                 """
+                let str = json.toBase64()
+                let urlwithString = urlString + "\n" + "\n" + reflink + "?refCode=\(str)"
                 let textComposer = MFMessageComposeViewController()
                 textComposer.messageComposeDelegate = self
                 let recipients:[String] = [phoneNum]
-             
                 textComposer.body = urlwithString
                 textComposer.recipients = recipients
 
@@ -1811,6 +1834,16 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             
             }else{
                 if MFMailComposeViewController.canSendMail() {
+                    let reflink = "\(websiteUrl)/\(Defaults.shared.currentUser?.channelId ?? "")"
+                     let json = """
+                     {
+                         "contactId":"\(mobilecontact.Id ?? "")",
+                         "refType":"email"
+                     }
+                     """
+                    let str = json.toBase64()
+                    let urlwithString = urlString + "\n" + "\n" + reflink + "?refCode=\(str)"
+                    
                     let mail = MFMailComposeViewController()
                     mail.mailComposeDelegate = self
                     mail.setToRecipients([mobileContact?.email ?? ""])
@@ -1827,20 +1860,32 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             
         }
     }
-    func didPressButton(_ contact: PhoneContact ,mobileContact:ContactResponse?,reInvite :Bool = false) {
+    func didPressButton(_ contact: PhoneContact, mobileContact:ContactResponse?,reInvite :Bool = false) {
         if let mobilecontact = mobileContact{
             self.selectedContact = mobilecontact
             if reInvite{
                 self.inviteAgainpopup.isHidden = false
                 return
             }
-            let phoneNum = mobilecontact.mobile ?? ""
+            // not used
+           /* let phoneNum = mobilecontact.mobile ?? ""
             let urlString = self.txtLinkWithCheckOut
-//            let imageV = self.profileView.toImage()
-            let urlwithString = urlString + "\n" + "\n" + " \(mobilecontact.textLink ?? "")"
+            //            let imageV = self.profileView.toImage()
+            //            let urlwithString = urlString + "\n" + "\n" + " \(mobilecontact.textLink ?? "")"
+            
+            let reflink = "\(websiteUrl)/\(Defaults.shared.currentUser?.channelId ?? "")"
+             let json = """
+             {
+                 "contactId":"\(mobilecontact.Id ?? "")",
+                 "refType":"text"
+             }
+             """
+            
+            let str = json.toBase64()
+            let urlwithString = urlString + "\n" + "\n" + reflink + "?refCode=\(str)"
             if !MFMessageComposeViewController.canSendText() {
-                    //showAlert("Text services are not available")
-                    return
+                //showAlert("Text services are not available")
+                return
             }
 
             let textComposer = MFMessageComposeViewController()
@@ -1848,7 +1893,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             let recipients:[String] = [phoneNum]
             textComposer.body = urlwithString
             textComposer.recipients = recipients
-            
+            */
             /*if MFMessageComposeViewController.canSendAttachments() {
                 let imageData = imageV.jpegData(compressionQuality: 1.0)
                 textComposer.addAttachmentData(imageData!, typeIdentifier: "image/jpg", filename: "photo.jpg")
@@ -2051,7 +2096,7 @@ extension ContactImportVC:UIScrollViewDelegate{
             if self.loadingStatus{
                 return
             }
-        /*if (self.lastContentOffset > scrollView.contentOffset.y) {
+        if (self.lastContentOffset > scrollView.contentOffset.y) {
                 // move up
                 UIView.animate(withDuration: 0.5, animations: {
                     self.segmentViewHeight.constant = 84.0
@@ -2070,7 +2115,7 @@ extension ContactImportVC:UIScrollViewDelegate{
 
             // update the new position acquired
             self.lastContentOffset = scrollView.contentOffset.y //
-             */
+             
         }
       
     }

@@ -42,7 +42,11 @@ class ShareSettingViewController: UIViewController {
     @IBOutlet weak var flagStackviewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var shareTooltipPopupView: UIView!
     @IBOutlet weak var btnDoNotShowAgain: UIButton!
-    @IBOutlet weak var socialPlatformsVerifiedBadgeView: UIView!
+    
+    @IBOutlet weak var subscriptionBadgeicon: UIView!
+    @IBOutlet weak var foundingMergeBadge: UIView!
+    @IBOutlet weak var preLunchBadge: UIView!
+    @IBOutlet weak var socialBadgeicon: UIView!
     @IBOutlet weak var socialBadgeStackView: UIStackView!
     @IBOutlet weak var lblDisplayName: UILabel!
     @IBOutlet weak var showFlagsView: UIStackView!
@@ -61,6 +65,7 @@ class ShareSettingViewController: UIViewController {
     
     // MARK: - Setup Methods
     func setup() {
+        setUpbadges()
         if let channelId = Defaults.shared.currentUser?.channelId {
             self.setAttributedString()
             self.txtLinkWithCheckOut.text = "\(R.string.localizable.checkOutThisCoolNewAppQuickCam())"
@@ -119,6 +124,31 @@ class ShareSettingViewController: UIViewController {
         present(safariVC, animated: true, completion: nil)
     }
     
+    func setUpbadges() {
+            let badgearry = Defaults.shared.getbadgesArray()
+            preLunchBadge.isHidden = true
+            foundingMergeBadge.isHidden = true
+            socialBadgeicon.isHidden = true
+            subscriptionBadgeicon.isHidden = true
+          
+            if  badgearry.count >  0 {
+                preLunchBadge.isHidden = false
+//                preLunchBadge.image = UIImage.init(named: badgearry[0])
+            }
+            if  badgearry.count >  1 {
+                foundingMergeBadge.isHidden = false
+//                foundingMergeBadge.image = UIImage.init(named: badgearry[1])
+            }
+            if  badgearry.count >  2 {
+                socialBadgeicon.isHidden = false
+//                socialBadgeicon.image = UIImage.init(named: badgearry[2])
+            }
+            if  badgearry.count >  3 {
+                subscriptionBadgeicon.isHidden = false
+//                subscriptionBadgeicon.image = UIImage.init(named: badgearry[3])
+            }
+        }
+    
     func setAttributedString() {
         if let channelId = Defaults.shared.currentUser?.channelId {
             let myString = "\(Defaults.shared.currentUser?.referralPage ?? "")"
@@ -145,10 +175,10 @@ class ShareSettingViewController: UIViewController {
                 }
             }
             self.imgProfileBadge.image = (socialPlatforms.count == 4) ? R.image.shareScreenRibbonProfileBadge() : R.image.shareScreenProfileBadge()
-            self.socialPlatformsVerifiedBadgeView.isHidden = socialPlatforms.count != 4
+            self.socialBadgeicon.isHidden = socialPlatforms.count != 4
         } else {
             self.verifiedView.isHidden = true
-            self.socialPlatformsVerifiedBadgeView.isHidden = true
+            self.socialBadgeicon.isHidden = true
         }
     }
     

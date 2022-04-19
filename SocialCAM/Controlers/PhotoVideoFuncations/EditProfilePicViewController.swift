@@ -683,23 +683,19 @@ extension EditProfilePicViewController {
             for socialPlatform in socialPlatforms {
                 if socialPlatform == R.string.localizable.facebook().lowercased() {
                     self.facebookVerifiedView.isHidden = false
-                    self.socialBadgeicon.isHidden = false
                 } else if socialPlatform == R.string.localizable.twitter().lowercased() {
                     self.twitterVerifiedView.isHidden = false
-                    self.socialBadgeicon.isHidden = false
                 } else if socialPlatform == R.string.localizable.snapchat().lowercased() {
                     self.snapchatVerifiedView.isHidden = false
-                    self.socialBadgeicon.isHidden = false
                 } else if socialPlatform == R.string.localizable.youtube().lowercased() {
                     self.youtubeVerifiedView.isHidden = false
-                    self.socialBadgeicon.isHidden = false
                 }
             }
             self.imgProfileBadge.image = (socialPlatforms.count == 4) ? R.image.shareScreenRibbonProfileBadge() : R.image.shareScreenProfileBadge()
-//            self.socialBadgeicon.isHidden = socialPlatforms.count != 4
+            self.socialBadgeicon.isHidden = (socialPlatforms.count == 4) ? false : true
         } else {
             self.socialPlatformStackViewHeightConstraint.constant = 0
-//            self.socialBadgeicon.isHidden = true
+            self.socialBadgeicon.isHidden = true
         }
     
     }

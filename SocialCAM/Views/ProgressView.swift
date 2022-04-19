@@ -41,12 +41,12 @@ class VideoSliderView: UIView {
         slider.contentMode = ContentMode.scaleAspectFit
         slider.minimumTrackTintColor = ApplicationSettings.appPrimaryColor
         slider.maximumTrackTintColor = UIColor.clear
-        slider.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .touchDown)
+        slider.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
         slider.translatesAutoresizingMaskIntoConstraints = false
-        slider.setThumbImage(R.image.icoRoundView()?.withImageTintColor(ApplicationSettings.appPrimaryColor), for: .normal)
-        slider.setThumbImage(R.image.icoRoundView()?.withImageTintColor(ApplicationSettings.appPrimaryColor), for: .highlighted)
+        slider.setThumbImage(R.image.newcircle()?.withImageTintColor(ApplicationSettings.appPrimaryColor), for: .normal)
+        slider.setThumbImage(R.image.newcircle()?.withImageTintColor(ApplicationSettings.appPrimaryColor), for: .highlighted)
         slider.addTarget(self, action: #selector(sliderValueChange(_:)), for: .valueChanged)
-        slider.addTarget(self, action: #selector(sliderAllTouchBegin(_:)), for: .touchDown)
+        slider.addTarget(self, action: #selector(sliderAllTouchBegin(_:)), for: .valueChanged)
         slider.addTarget(self, action: #selector(sliderAllTouchEnd(_:)), for: .touchCancel)
         slider.addTarget(self, action: #selector(sliderAllTouchEnd(_:)), for: .touchUpInside)
         slider.addTarget(self, action: #selector(sliderAllTouchEnd(_:)), for: .touchUpOutside)

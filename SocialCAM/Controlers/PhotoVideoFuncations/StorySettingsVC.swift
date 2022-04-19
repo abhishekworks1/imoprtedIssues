@@ -192,6 +192,20 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       /* let json = """
+        {
+            "contactId":"vhjgjghjhgjkvhjgjghjhgjk",
+            "refType":"qrCode"
+        }
+        """
+     
+        print("**********Josn String To Base 64**************")
+        let str = json.toBase64()
+        print(str)
+        print("************Josn String From Base 64************")
+        print(str.fromBase64() ?? "No Json Data Found")
+        print("************************")
+    */
         setUpbadges()
         self.faceBookVerifiedView.isHidden = true
         self.twitterVerifiedView.isHidden = true
@@ -207,7 +221,7 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         tapGesture.numberOfTapsRequired = 1
         profileDisplayView.addGestureRecognizer(tapGesture)
     }
-    
+  
     @objc func didTapProfileView(sender: UITapGestureRecognizer) {
         profileDisplayView.isHidden = true
     }
@@ -562,6 +576,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
                     self.youTubeVerifiedView.isHidden = false
                 }
             }
+            socialBadgeicon.isHidden = (socialPlatforms.count == 4) ? false : true
         }
     }
    
@@ -765,6 +780,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             }
         }
     }
+    
     func openBussinessDashboard(){
 //        print("isShowAllPopUpChecked: \(Defaults.shared.isShowAllPopUpChecked)\nisDoNotShowAgainOpenBusinessCenterPopup: \(Defaults.shared.isDoNotShowAgainOpenBusinessCenterPopup) ")
         if Defaults.shared.isShowAllPopUpChecked == true && Defaults.shared.isDoNotShowAgainOpenBusinessCenterPopup == false {
@@ -784,6 +800,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
              Defaults.shared.addEventWithName(eventName: Constant.EventName.cam_Bdashboard)
         }
     }
+        
     func viralCamLogout() {
         let objAlert = UIAlertController(title: Constant.Application.displayName, message: R.string.localizable.areYouSureYouWantToLogout(), preferredStyle: .alert)
         let actionlogOut = UIAlertAction(title: R.string.localizable.logout(), style: .default) { (_: UIAlertAction) in

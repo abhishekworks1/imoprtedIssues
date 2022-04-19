@@ -46,7 +46,7 @@ class SubscriptionContainerViewController: UIViewController {
         advancedSubscriptionVc.subscriptionType = .advanced
         proSubscriptionVc.subscriptionType = .professional
         if isLiteApp {
-            pagingViewController = PagingViewController(viewControllers: [freeSubscriptionVc, basicSubscriptionVc])
+            pagingViewController = PagingViewController(viewControllers: [freeSubscriptionVc, basicSubscriptionVc,advancedSubscriptionVc,proSubscriptionVc])
         } else {
             pagingViewController = PagingViewController(viewControllers: [freeSubscriptionVc, basicSubscriptionVc, advancedSubscriptionVc, proSubscriptionVc])
         }

@@ -642,9 +642,15 @@ enum AppMode: Int, AppMode_Enum {
                     "Pic2Art \n- Turn your pictures into artVideo editor features include\n- Add Bitmojis\n- Split, Trim and Crop\n- Watermark\n- Referral link\n- Share on all supported social mediaFaster Frames Per Second (FPS)",
                     "Custom Referral page for affiliatesBusiness Dashboard \n- Track your referrals, see who's subscribing and how much money you're earning."]
         case .advanced:
-            return ["Features to be decided"]
+            return ["QuickCam Camera Mode \n-  Record in normal speed\n-  Record in 2x, 3x, 4x and 5x fast motion\n-  Record in -2x, -3x, -4x and -5x slow motion\n-  Record up to 2 minutes\n- Record up to 15 segments\n-  HD, 1080, 2K video resolution\n - 30,60,120 Frames per second\nSave Mode",
+            "Pic2Art (iPhone only)\n- 44 Pic2Art filters\n- Pic2Art Photo Editor\n",
+            "Video Editor \n- Edit existing videos, up to 5 min\n - Edit up to 20 segments\n- Bitmoji integration\n - Split, Trim, Cut & Crop\n- Watermark\n- Referral link\n- Share to your Contacts by SMS text\n- Share on all supported social media",
+            "Referral Duplication\n- Custom Referral page for affiliates\n- Referral Wizard with Text and Email Inviter\n- QR Code Profile Badge\n- Android Pro  Subscriber Badge or\n- iPhone Pro  Subscriber Badge"]
         case .professional:
-            return ["Features to be decided"]
+            return ["QuickCam Camera Mode \n-  Record in normal speed\n-  Record in 2x, 3x, 4x and 5x fast motion\n-  Record in -2x, -3x, -4x and -5x slow motion\n-  Record up to 5 minutes\n- Record up to 20 segments\n-  All device supported  video resolutions\n- All device supported frames per second\n - Save Mode",
+                    "Pic2Art (iPhone only)\n- 44 Pic2Art filters\n- Pic2Art Photo Editor\n",
+                "Video Editor \n- Edit existing videos, up to 5 min\n - Edit up to 20 segments\n- Bitmoji integration\n - Split, Trim, Cut & Crop\n- Watermark\n- Referral link\n- Share to your Contacts by SMS text\n- Share on all supported social media",
+                "Referral Duplication\n- Custom Referral page for affiliates\n- Referral Wizard with Text and Email Inviter\n- QR Code Profile Badge\n- Android Pro  Subscriber Badge or\n- iPhone Pro  Subscriber Badge"]
         }
     }
 //    var features: [String] {

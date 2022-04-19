@@ -109,6 +109,7 @@ class StoryEditorViewController: UIViewController {
         }
     }
     @IBOutlet weak var playButtonBottomLayoutConstraint: NSLayoutConstraint!
+    @IBOutlet weak var waterMarkGIFView: UIView!
     
     @IBOutlet weak var shareCollectionView: UICollectionView!
     
@@ -179,6 +180,7 @@ class StoryEditorViewController: UIViewController {
     @IBOutlet weak var tiktokShareView: UIView!
    // @IBOutlet weak var storiCamShareView: UIView!
     
+    @IBOutlet weak var discardPopUpMessageLabel: UILabel!
     @IBOutlet weak var btnShowHideEditImage: UIButton!
     @IBOutlet weak var playPauseButton: UIButton!
     @IBOutlet weak var nativePlayerPlayPauseButton: UIButton!
@@ -190,7 +192,8 @@ class StoryEditorViewController: UIViewController {
     
     @IBOutlet weak var socialShareBottomView: UIView!
     @IBOutlet weak var progressBarView: UIView!
-    @IBOutlet weak var videoProgressBar: VideoSliderView!
+    @IBOutlet weak var videoProgressBar: UISlider!
+    //@IBOutlet weak var videoProgressBar: VideoSliderView!
     @IBOutlet weak var storyProgressBar: ProgressView!
     @IBOutlet weak var lblStoryTime: UILabel!
     
@@ -371,7 +374,7 @@ class StoryEditorViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        videoProgressBar.timeSlider.layer.cornerRadius = videoProgressBar.timeSlider.frame.height/2
+//        videoProgressBar.timeSlider.layer.cornerRadius = videoProgressBar.timeSlider.frame.height/2
         isShowToolTipView = UserDefaults.standard.bool(forKey: "isShowToolTipView")
         socialMediaViewTapGesture()
         if let isRegistered = Defaults.shared.isRegistered {
@@ -479,7 +482,7 @@ class StoryEditorViewController: UIViewController {
         }
         IQKeyboardManager.shared.enable = false
         IQKeyboardManager.shared.enableAutoToolbar = false
-        videoProgressBar.timeSlider.addTapGesture()
+        videoProgressBar.addTapGesture()
         videoProgressBar.layoutSubviews()
         isVideoPlay ? pauseVideo() : playVideo()
     }
@@ -741,6 +744,11 @@ class StoryEditorViewController: UIViewController {
     }
     
     func hideWatermarkView(isHide: Bool) {
+        if cameraMode == .pic2Art {
+            waterMarkGIFView.isHidden = true
+        } else {
+            waterMarkGIFView.isHidden = false
+        }
         cropPopupBlurView.isHidden = isHide
         watermarkOptionsView.isHidden = isHide
     }
@@ -754,6 +762,19 @@ class StoryEditorViewController: UIViewController {
     func hideShowDiscardVideoPopup(shouldShow: Bool) {
         self.discardVideoPopupView.isHidden = !shouldShow
     }
+    
+    @IBAction func didChangeUISliderValue(_ sender: UISlider) {
+        guard let asset = currentVideoAsset else {
+            return
+        }
+        let currentTime = CMTimeMakeWithSeconds(Float64(sender.value), preferredTimescale: asset.duration.timescale)
+        storyEditors[currentStoryIndex].seekTime = currentTime
+        self.playbackTimechecker(sliderValue:sender.value)
+//        self.videoProgressBar.currentTime = sender.value
+        self.videoProgressBar.value = sender.value
+        self.storyProgressBar.currentTime = TimeInterval(sender.value)
+    }
+    
     
 }
 
@@ -1158,7 +1179,7 @@ extension StoryEditorViewController {
         var currentImage: UIImage?
         switch storyEditors[currentStoryIndex].type {
         case let .image(image):
-            currentImage = image
+            currentImage = image.resizeImageWith(newSize: CGSize.init(width: 750, height: 1334))
         default:
             break
         }
@@ -1208,6 +1229,11 @@ extension StoryEditorViewController {
     }
     
     @IBAction func backClicked(_ sender: UIButton) {
+        if isPic2ArtApp || cameraMode == .pic2Art {
+            discardPopUpMessageLabel.text = "Are you sure you want to discard your Pic2Art?"
+        } else {
+            discardPopUpMessageLabel.text = "Are you sure you want to discard your video?"
+        }
         if Defaults.shared.isShowAllPopUpChecked == true {
             self.hideShowDiscardVideoPopup(shouldShow: true)
         } else if Defaults.shared.isDiscardVideoPopupHide == false {
@@ -1215,6 +1241,7 @@ extension StoryEditorViewController {
         } else {
             Defaults.shared.postViralCamModel = nil
             if isPic2ArtApp || cameraMode == .pic2Art {
+                
                 if let controllers = navigationController?.viewControllers,
                     controllers.count > 0 {
                     for controller in controllers {
@@ -2478,11 +2505,13 @@ extension StoryEditorViewController {
        
         if let val = sliderValue{
                self.storyProgressBar.currentTime = TimeInterval(val)
-               self.videoProgressBar.currentTime = Float(val)
+//            self.videoProgressBar.currentTime = Float(val)
+               self.videoProgressBar.value = Float(val)
                print(val)
         }else{
                self.storyProgressBar.currentTime = time.seconds
-               self.videoProgressBar.currentTime = Float(time.seconds)
+//            self.videoProgressBar.currentTime = Float(time.seconds)
+               self.videoProgressBar.value = Float(time.seconds)
          }
       //  self.lblStoryTime.text = "\(progressTimeM):\(progressTimeS) / \(totalTimeM):\(totalTimeS)"
         
@@ -2520,7 +2549,7 @@ extension StoryEditorViewController {
             self.storyProgressBar.duration = asset.duration.seconds
             self.videoProgressBar.maximumValue = Float(asset.duration.seconds)
             self.storyProgressBar.delegate = self
-            self.videoProgressBar.delegate = self
+//            self.videoProgressBar.delegate = self
         }
     }
     
@@ -2585,7 +2614,8 @@ extension StoryEditorViewController: PlayerControlViewDelegate {
         let currentTime = CMTimeMakeWithSeconds(Float64(sender.value), preferredTimescale: asset.duration.timescale)
         storyEditors[currentStoryIndex].seekTime = currentTime
         self.playbackTimechecker(sliderValue:sender.value)
-        self.videoProgressBar.currentTime = sender.value
+//        self.videoProgressBar.currentTime = sender.value
+        self.videoProgressBar.value = sender.value
         self.storyProgressBar.currentTime = TimeInterval(sender.value)
     }
     
