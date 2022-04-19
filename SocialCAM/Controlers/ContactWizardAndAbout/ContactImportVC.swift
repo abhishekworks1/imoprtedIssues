@@ -484,7 +484,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 
         request.responseDecodable(of: msgTitleList?.self) {(resposnse) in
             self.smsMsgListing = resposnse.value as? msgTitleList
-            print("smsMsgListing - \(self.smsMsgListing?.list)")
+            if self.isSelectSMS {
+                self.itemsTableView.reloadData()
+            }
+//            print("smsMsgListing - \(self.smsMsgListing?.list)")
 //            if (self.listingResponse?.list.count ?? 0) > 0{
 //                self.itemsTableView.reloadData()
 //            }
@@ -500,7 +503,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 
         request.responseDecodable(of: msgTitleList?.self) {(resposnse) in
             self.emailMsgListing = resposnse.value as? msgTitleList
-            print("emailMsgListing - \(self.emailMsgListing?.list)")
+            if !self.isSelectSMS {
+                self.itemsTableView.reloadData()
+            }
+//            print("emailMsgListing - \(self.emailMsgListing?.list)")
 //            if (self.listingResponse?.list.count ?? 0) > 0{
 //                self.itemsTableView.reloadData()
 //            }
