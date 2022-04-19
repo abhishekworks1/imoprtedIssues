@@ -1,7 +1,7 @@
 ## Device Info
-1. iPhone Model - required
-2. OS version - optional 
-3. QuickCam Build- required
+1. QuickCam Build- required
+2. iPhone Model - required 
+3. OS version - optional
 
 ## Current bug behavior?
 (Summarize the bug encountered)
@@ -16,7 +16,7 @@
 4. step 4
 
 ## Relevant logs and/or screenshots
-(Paste any relevant logs - please use code blocks (```) to format console output, logs, and code, as it's very hard to read otherwise.)
+(Paste screenshots)
 
 ##	Link to video post in Slack #qa-issues if applicable
 (Paste link if applicable)
@@ -46,10 +46,10 @@
  If issue is Design, how bad does it currently look?
  If issue is New Feature, Change Request or Suggestion, how necessary is the new feature/change?
 ) 
-/label ~"Sev-1" 
-/label ~"Sev-2" 
-/label ~"Sev-3" 
-/label ~"Sev-4" 
+/label ~"S1-Critical" 
+/label ~"S2-Major" 
+/label ~"S3-Moderate" 
+/label ~"S4-Minor" 
 
 ## Reproducibility 
 /label ~Reproducible
@@ -57,16 +57,17 @@
 /label ~Random 
 
 ##	Priority and Milestone
-(If issue IS a Sev 1, keep next 3 commands and manually DM Product Manager and Platform Manager/Team Lead on Slack)
-(If issue IS NOT a Sev 1, delete next 3 commands.)
-/label ~"P1-Top"  
+(If issue IS a S1-Critical or S2-Major, keep next 4 commands and manually DM Product Manager and Platform Manager/Team Lead on Slack)
+(If issue IS NOT a S1-Critical or S2-Major, delete next 4 commands.)
+/label ~"To Do" 
+/label ~"P1-Top" 
+/label ~"Must Fix" 
 /milestone %"Release 1.1"  
 /cc @henrympena @gaurang.pandya990 @deepalk93 
 
-(if issue IS NOT  a Sev 1, Keep next 2 commands.)
-(if issue IS a Sev 1, Delete next 2 commands.)
+(if issue IS NOT  a S1-Critical or S2-Major, Keep next 2 commands.)
 /label ~"P0 - PM to Assign" 
-/milestone %"Triage Milestone" 
+/milestone %"Release 1.1"  
 
 (Blocker?  Delete next line if issue is not blocking dev or qa.)
 /label ~Blocker 
