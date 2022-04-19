@@ -393,7 +393,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             lblNum3.backgroundColor = .white
             lblNum4.backgroundColor = .white
         }
-        else if pageNo == 2{
+        else if pageNo == 2 {
             page1view.isHidden = true
             page2view.isHidden = false
             page3view.isHidden = true
@@ -423,7 +423,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             lblNum2.backgroundColor = blueColor1
             lblNum3.backgroundColor = blueColor1
             lblNum4.backgroundColor = .white
-           /* if isSelectSMS {
+           /*if isSelectSMS {
                 page3NextBtn.setTitle("Next", for: .normal)
                 page3NextBtn.backgroundColor = blueColor1
                 page3NextBtn.setTitleColor(.white, for: .normal)
@@ -442,7 +442,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             page3NextBtn.setTitleColor(.white, for: .normal)
             self.previewMainView.isHidden = false
         }
-        else if pageNo == 4{
+        else if pageNo == 4 {
             page1view.isHidden = true
             page2view.isHidden = true
             page3view.isHidden = true
@@ -1802,19 +1802,26 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             
             let phoneNum = mobilecontact.mobile ?? ""
             let urlString = self.txtLinkWithCheckOut
-            let imageV = self.profileView.toImage()
-            let urlwithString = urlString + "\n" + "\n" + " \(mobilecontact.textLink ?? "")"
+//            let imageV = self.profileView.toImage()
+//            let urlwithString = urlString + "\n" + "\n" + " \(mobilecontact.textLink ?? "")"
             
             if selectedContactType == ContactType.mobile{
                 if !MFMessageComposeViewController.canSendText() {
                         //showAlert("Text services are not available")
                         return
                 }
-
+                let reflink = "\(websiteUrl)/\(Defaults.shared.currentUser?.channelId ?? "")"
+                 let json = """
+                 {
+                     "contactId":"\(mobilecontact.Id ?? "")",
+                     "refType":"text"
+                 }
+                 """
+                let str = json.toBase64()
+                let urlwithString = urlString + "\n" + "\n" + reflink + "?refCode=\(str)"
                 let textComposer = MFMessageComposeViewController()
                 textComposer.messageComposeDelegate = self
                 let recipients:[String] = [phoneNum]
-             
                 textComposer.body = urlwithString
                 textComposer.recipients = recipients
 
@@ -1827,6 +1834,16 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             
             }else{
                 if MFMailComposeViewController.canSendMail() {
+                    let reflink = "\(websiteUrl)/\(Defaults.shared.currentUser?.channelId ?? "")"
+                     let json = """
+                     {
+                         "contactId":"\(mobilecontact.Id ?? "")",
+                         "refType":"email"
+                     }
+                     """
+                    let str = json.toBase64()
+                    let urlwithString = urlString + "\n" + "\n" + reflink + "?refCode=\(str)"
+                    
                     let mail = MFMailComposeViewController()
                     mail.mailComposeDelegate = self
                     mail.setToRecipients([mobileContact?.email ?? ""])
@@ -1843,20 +1860,32 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             
         }
     }
-    func didPressButton(_ contact: PhoneContact ,mobileContact:ContactResponse?,reInvite :Bool = false) {
+    func didPressButton(_ contact: PhoneContact, mobileContact:ContactResponse?,reInvite :Bool = false) {
         if let mobilecontact = mobileContact{
             self.selectedContact = mobilecontact
             if reInvite{
                 self.inviteAgainpopup.isHidden = false
                 return
             }
-            let phoneNum = mobilecontact.mobile ?? ""
+            // not used
+           /* let phoneNum = mobilecontact.mobile ?? ""
             let urlString = self.txtLinkWithCheckOut
-//            let imageV = self.profileView.toImage()
-            let urlwithString = urlString + "\n" + "\n" + " \(mobilecontact.textLink ?? "")"
+            //            let imageV = self.profileView.toImage()
+            //            let urlwithString = urlString + "\n" + "\n" + " \(mobilecontact.textLink ?? "")"
+            
+            let reflink = "\(websiteUrl)/\(Defaults.shared.currentUser?.channelId ?? "")"
+             let json = """
+             {
+                 "contactId":"\(mobilecontact.Id ?? "")",
+                 "refType":"text"
+             }
+             """
+            
+            let str = json.toBase64()
+            let urlwithString = urlString + "\n" + "\n" + reflink + "?refCode=\(str)"
             if !MFMessageComposeViewController.canSendText() {
-                    //showAlert("Text services are not available")
-                    return
+                //showAlert("Text services are not available")
+                return
             }
 
             let textComposer = MFMessageComposeViewController()
@@ -1864,7 +1893,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             let recipients:[String] = [phoneNum]
             textComposer.body = urlwithString
             textComposer.recipients = recipients
-            
+            */
             /*if MFMessageComposeViewController.canSendAttachments() {
                 let imageData = imageV.jpegData(compressionQuality: 1.0)
                 textComposer.addAttachmentData(imageData!, typeIdentifier: "image/jpg", filename: "photo.jpg")
