@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -1347,22 +1347,23 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fep-Fa-64u">
-                                                                <rect key="frame" x="87" y="152.5" width="240" height="291"/>
+                                                                <rect key="frame" x="87" y="152.5" width="240" height="271"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="quickcamWatermarkLogo" translatesAutoresizingMaskIntoConstraints="NO" id="lEB-VG-O9L">
-                                                                        <rect key="frame" x="5" y="5" width="230" height="250"/>
+                                                                        <rect key="frame" x="5" y="5" width="230" height="230"/>
                                                                         <constraints>
-                                                                            <constraint firstAttribute="height" constant="250" id="IcN-uF-nea"/>
+                                                                            <constraint firstAttribute="width" constant="230" id="ToC-vg-oaT"/>
+                                                                            <constraint firstAttribute="height" constant="230" id="agV-DW-MwX"/>
                                                                         </constraints>
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="48P-bu-HOc">
-                                                                        <rect key="frame" x="10" y="267" width="220" height="0.0"/>
+                                                                        <rect key="frame" x="10" y="247" width="220" height="0.0"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u0L-Ut-8NI">
-                                                                        <rect key="frame" x="10" y="279" width="220" height="0.0"/>
+                                                                        <rect key="frame" x="10" y="259" width="220" height="0.0"/>
                                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -1392,7 +1393,6 @@
                                                         <constraints>
                                                             <constraint firstItem="Gfd-b1-m2d" firstAttribute="leading" secondItem="5Xk-jO-Vsy" secondAttribute="leading" constant="30" id="2bf-Ud-p6j"/>
                                                             <constraint firstItem="Fep-Fa-64u" firstAttribute="top" secondItem="Gfd-b1-m2d" secondAttribute="centerY" constant="60" id="6B1-JO-gwz"/>
-                                                            <constraint firstItem="Fep-Fa-64u" firstAttribute="width" secondItem="5Xk-jO-Vsy" secondAttribute="width" multiplier="0.57971" id="8pn-xJ-zEq"/>
                                                             <constraint firstItem="YBq-W3-UUF" firstAttribute="top" secondItem="5Xk-jO-Vsy" secondAttribute="top" constant="20" id="HeQ-xh-qyi"/>
                                                             <constraint firstItem="Gfd-b1-m2d" firstAttribute="centerX" secondItem="5Xk-jO-Vsy" secondAttribute="centerX" id="M9m-Y8-9Pm"/>
                                                             <constraint firstItem="YBq-W3-UUF" firstAttribute="centerX" secondItem="5Xk-jO-Vsy" secondAttribute="centerX" id="Okz-kL-qEx"/>
@@ -3331,7 +3331,7 @@
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppLightWhiteColor">
-            <color red="0.9649999737739563" green="0.9649999737739563" blue="0.9649999737739563" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="AppPrimaryColor">
             <color red="0.29019607843137257" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

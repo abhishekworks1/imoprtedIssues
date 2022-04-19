@@ -1073,6 +1073,11 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     func getLinkPreview(link: String, completionHandler: @escaping (UIImage) -> Void) {
         
+        if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
+            self.previewImageview.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: R.image.user_placeholder())
+            self.previewImageview.layer.cornerRadius = previewImageview.bounds.width / 2
+            self.previewImageview.contentMode = .scaleAspectFill
+        }
         OGDataProvider.shared.fetchOGData(urlString: link) { [weak self] ogData, error in
             guard let `self` = self else { return }
             if let _ = error {
@@ -1083,7 +1088,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 //                self.lblpreviewText.text = self.txtLinkWithCheckOut
             }
 //            if ogData.imageUrl != nil {
-                self.previewImageview.sd_setImage(with: ogData.imageUrl, placeholderImage: R.image.user_placeholder())
+            //    self.previewImageview.sd_setImage(with: ogData.imageUrl, placeholderImage: R.image.user_placeholder())
 //            }
         }
         /* if #available(iOS 13.0, *) {
