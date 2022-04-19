@@ -65,6 +65,7 @@ class ShareSettingViewController: UIViewController {
     
     // MARK: - Setup Methods
     func setup() {
+        setUpbadges()
         if let channelId = Defaults.shared.currentUser?.channelId {
             self.setAttributedString()
             self.txtLinkWithCheckOut.text = "\(R.string.localizable.checkOutThisCoolNewAppQuickCam())"
