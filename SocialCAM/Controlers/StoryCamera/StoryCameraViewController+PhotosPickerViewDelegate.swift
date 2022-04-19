@@ -143,26 +143,32 @@ extension UIImage {
     }
 }
 
-
 extension UIImage {
-    func resize(_ width: CGFloat, _ height:CGFloat) -> UIImage? {
-        let widthRatio  = width / size.width
-        let heightRatio = height / size.height
-        let ratio = widthRatio > heightRatio ? heightRatio : widthRatio
-        let newSize = CGSize(width: size.width * ratio, height: size.height * ratio)
-        let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
-        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
-        self.draw(in: rect)
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return newImage
-    }
-}
+    func scalePreservingAspectRatio(targetSize: CGSize) -> UIImage {
+        // Determine the scale factor that preserves aspect ratio
+        let widthRatio = targetSize.width / size.width
+        let heightRatio = targetSize.height / size.height
+        
+        let scaleFactor = min(widthRatio, heightRatio)
+        
+        // Compute the new image size that preserves aspect ratio
+        let scaledImageSize = CGSize(
+            width: size.width * scaleFactor,
+            height: size.height * scaleFactor
+        )
 
-extension UIImage {
-    func imageResized(to size: CGSize) -> UIImage {
-        return UIGraphicsImageRenderer(size: size).image { _ in
-            draw(in: CGRect(origin: .zero, size: size))
+        // Draw and return the resized UIImage
+        let renderer = UIGraphicsImageRenderer(
+            size: scaledImageSize
+        )
+
+        let scaledImage = renderer.image { _ in
+            self.draw(in: CGRect(
+                origin: .zero,
+                size: scaledImageSize
+            ))
         }
+        
+        return scaledImage
     }
 }
