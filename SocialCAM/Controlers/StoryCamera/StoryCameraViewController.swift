@@ -611,6 +611,7 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
            //Add Pinch Gesture on CameraView.
              let pinchRecognizer = UIPinchGestureRecognizer(target: self, action:#selector(pinch(_:)))
         gestureView?.addGestureRecognizer(pinchRecognizer)
+        bottomCameraViews.addGestureRecognizer(pinchRecognizer)
     }
     
     // Find a camera with the specified AVCaptureDevicePosition, returning nil if one is not found
@@ -649,15 +650,14 @@ class StoryCameraViewController: UIViewController, ScreenCaptureObservable {
         let newScaleFactor = minMaxZoom(pinch.scale * lastZoomFactor)
         
         switch pinch.state {
-        case .began:
-            bottomCameraViews.isUserInteractionEnabled = false
-        case .changed: update(scale: newScaleFactor)
+        case .changed:
+            update(scale: newScaleFactor)
         case .ended:
-            bottomCameraViews.isUserInteractionEnabled = true
             lastZoomFactor = minMaxZoom(newScaleFactor)
             update(scale: lastZoomFactor)
         default: break
         }
+        
     }
      
     
