@@ -479,6 +479,7 @@ class StoryEditorViewController: UIViewController {
             } else {
                 editOptionView.isHidden = false
             }
+            btnFastesteverWatermark.setImage(R.image.pic2artwatermark(), for: .normal)
         }
         IQKeyboardManager.shared.enable = false
         IQKeyboardManager.shared.enableAutoToolbar = false
@@ -1380,7 +1381,7 @@ extension StoryEditorViewController {
             }))
             
             alert.addAction(UIAlertAction(title: R.string.localizable.alwaysSaveEditedPic2art(), style: .default , handler:{ (UIAlertAction)in
-                self.saveVideoInQuickCamFolder()
+                self.savePic2ArtInQuickCamFolder()
             }))
 
             alert.addAction(UIAlertAction(title: R.string.localizable.cancel(), style: .cancel, handler:{ (UIAlertAction)in
@@ -1390,14 +1391,14 @@ extension StoryEditorViewController {
                 print("completion block")
             })
         }
-        else {
+       /* else {
             if Defaults.shared.isVideoSavedAfterRecording == false {
                     self.saveVideoInQuickCamFolder()
             }
             else {
                 self.navigationController?.popViewController(animated: true) //confirm once with Krushali
             }
-        }
+        }*/
     }
     
     func handleQuickCamVideoSave() {
@@ -1431,7 +1432,12 @@ extension StoryEditorViewController {
         }
     }
     
-    
+    func savePic2ArtInQuickCamFolder() {
+        Defaults.shared.isAutoSavePic2Art = true
+        Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
+        self.referType = self.storyEditors[self.currentStoryIndex].referType
+        self.imageVideoExport(isDownload: true,isFromDoneTap:true)
+    }
     func saveVideoInQuickCamFolder() {
         Defaults.shared.isVideoSavedAfterEditing = true
         Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
