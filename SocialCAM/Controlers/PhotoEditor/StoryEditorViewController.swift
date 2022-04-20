@@ -446,6 +446,9 @@ class StoryEditorViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.setSocialShareView()
+        if  cameraMode == .pic2Art {
+            self.imgFastestEverWatermark.image = R.image.pic2artwatermark()
+        }
         self.imgFastestEverWatermark.isHidden = Defaults.shared.fastestEverWatermarkSetting == .hide
         isFastesteverWatermarkShow = Defaults.shared.fastestEverWatermarkSetting == .show
         btnSelectFastesteverWatermark.isSelected = isFastesteverWatermarkShow
