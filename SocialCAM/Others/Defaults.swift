@@ -793,6 +793,14 @@ class Defaults {
         }
     }
     
+    var isDoNotShowAgainDeleteContactPopup: Bool {
+        get {
+            return appDefaults?.value(forKey: "isDoNotShowAgainDeleteContactPopup") as? Bool ?? false
+        }
+        set {
+            appDefaults?.set(newValue, forKey: "isDoNotShowAgainDeleteContactPopup")
+        }
+    }
     var isFirstTimePic2ArtRegistered: Bool? {
         get {
             return appDefaults?.value(forKey: "isFirstTimePic2ArtRegistered") as? Bool ?? true
