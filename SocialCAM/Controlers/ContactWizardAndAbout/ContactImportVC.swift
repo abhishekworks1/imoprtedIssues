@@ -470,6 +470,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 self.getContactList(firstTime:true)
                 break
             case .denied, .notDetermined:
+                contactPermitView.isHidden = true
+                self.getContactList(firstTime:true)
                 break //request permission
             case .restricted:
                 break
@@ -711,10 +713,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 }
                 
                 let contacts = Mapper<ContactResponse>().mapArray(JSONArray:value)
-                if contacts.count == 0 && firstTime{
-                  //  self.syncButtonClicked(sender:self.syncButton)
-                  //  return
-                }
+               
                 if page == 1{
                     if self.selectedContactType == ContactType.mobile{
                         self.allmobileContactsForHide = [ContactResponse]()
@@ -725,28 +724,14 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                         self.emailContacts = [ContactResponse]()
                     }
                 }
-              //  print(contacts.count)
                 if self.selectedContactType == ContactType.mobile{
                     self.allmobileContactsForHide.append(contentsOf:contacts)
                     self.mobileContacts.append(contentsOf:contacts)
-                    //self.mobileContacts.append(contentsOf:contacts.filter {$0.hide == hide})
-//                    let unhideContacts = contacts.filter {$0.hide == hide}
-//                    if unhideContacts.count < 10{
-//                        print("page before\(page)")
-//                        let pageCount =  page + (10 - unhideContacts.count)
-//                        print("page after\(pageCount)")
-//                        self.getContactList(page:pageCount, filter: filter)
-//                        return
-//                    }
-//                    if self.mobileContacts.count < 10 || unhideContacts.count == 0{
-//                      print("allmobileContactsForHide\(self.allmobileContactsForHide.count)")
-//                      print("mobileContacts\(self.mobileContacts.count)")
-//                        self.getContactList(page: self.allmobileContactsForHide.count, filter: filter)
-//                        return
-//                    }
-                   // self.mobileContacts.append(contentsOf:contacts.filter {$0.hide == hide})
-                  // self.mobileContacts.append(contentsOf:contacts)
+
                     self.allmobileContacts = self.mobileContacts
+                    if self.mobileContacts.count > 0{
+                        self.contactPermitView.isHidden = true
+                    }
                     DispatchQueue.main.async {
                         self.contactTableView.reloadData()
                     }
@@ -754,7 +739,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     self.allemailContactsForHide.append(contentsOf:contacts)
                     self.emailContacts.append(contentsOf:contacts.filter {$0.hide == hide})
                     
-                    
+                    if self.emailContacts.count > 0{
+                        self.contactPermitView.isHidden = true
+                    }
                     DispatchQueue.main.async {
                         self.emailContactTableView.reloadData()
                     }
@@ -1093,7 +1080,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }
             DispatchQueue.main.async {
                 self.lblpreviewUrl.text = link
-                self.previewImageview.layer.cornerRadius = self.previewImageview.bounds.width / 2
+              //  self.previewImageview.layer.cornerRadius = self.previewImageview.bounds.width / 2
             
 //                self.lblpreviewText.text = self.txtLinkWithCheckOut
             }
