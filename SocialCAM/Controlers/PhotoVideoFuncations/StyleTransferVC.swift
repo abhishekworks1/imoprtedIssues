@@ -529,7 +529,7 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
     }
     
     @objc func handleLongPressOnFilterImageView(_ gesture: UILongPressGestureRecognizer) {
-        Defaults.shared.callHapticFeedback(isHeavy: false)
+       // Defaults.shared.callHapticFeedback(isHeavy: false)
         if gesture.state == .began {
             selectedFilterIndexPath = IndexPath.init(row: gesture.view!.tag, section: 0)
             type = .image(image: filteredImage!)
@@ -647,6 +647,7 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
     }
     
     func applyStyle(index: Int) {
+        Defaults.shared.callHapticFeedback(isHeavy: false)
         if #available(iOS 12.0, *) {
             selectedIndex = index
             switch type {
@@ -869,7 +870,7 @@ extension StyleTransferVC: UICollectionViewDelegate {
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        Defaults.shared.callHapticFeedback(isHeavy: false)
+       // Defaults.shared.callHapticFeedback(isHeavy: false)
         guard indexPath.row != selectedIndex, !self.isProcessing, collectionView != self.imageCollectionView else {
             return
         }
