@@ -393,35 +393,35 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             }
             cell.onOffButton.isHidden = true
         }else if settingTitle.settingsType == .userDashboard {
-            hideUnhideImgButton(cell, R.image.iconBusinessDashboard())
+            hideUnhideImgButton(cell, R.image.settings_Dashboard())
         }else if settingTitle.settingsType == .editProfileCard {
-            hideUnhideImgButton(cell, R.image.iconAccount())
+            hideUnhideImgButton(cell, R.image.settings_EditProfileCard())
         }else if settingTitle.settingsType == .socialMediaConnections {
-            hideUnhideImgButton(cell, R.image.iconAccount())
+            hideUnhideImgButton(cell, R.image.settings_Account())
         }else if settingTitle.settingsType == .shareSetting {
-            hideUnhideImgButton(cell, R.image.iconShare())
+            hideUnhideImgButton(cell, R.image.settings_ShareYourRefereralLink())
         }else if settingTitle.settingsType == .qrcode {
-            hideUnhideImgButton(cell, R.image.ic_qrcode())
+            hideUnhideImgButton(cell, R.image.settings_QRCode())
         }else if settingTitle.settingsType == .accountSettings {
-            hideUnhideImgButton(cell, R.image.iconAccount())
+            hideUnhideImgButton(cell, R.image.settings_System())
         } else if settingTitle.settingsType == .cameraSettings {
-            hideUnhideImgButton(cell, R.image.iconCameraSettings())
+            hideUnhideImgButton(cell, R.image.settings_CameraSettings())
         } else if settingTitle.settingsType == .system {
-            hideUnhideImgButton(cell, R.image.iconSystem())
+            hideUnhideImgButton(cell, R.image.settings_System())
         } else if settingTitle.settingsType == .help {
-            hideUnhideImgButton(cell, R.image.iconHowItWorks())
+            hideUnhideImgButton(cell, R.image.settings_HowItWorks())
         }else if settingTitle.settingsType == .aboutPage {
-            hideUnhideImgButton(cell, R.image.iconHowItWorks())
+            hideUnhideImgButton(cell, R.image.settings_About())
         } else if settingTitle.settingsType == .logout {
-            hideUnhideImgButton(cell, R.image.iconLogout())
+            hideUnhideImgButton(cell, R.image.settings_Logout())
         } else if settingTitle.settingsType == .notification {
-            hideUnhideImgButton(cell, R.image.iconNotification())
+            hideUnhideImgButton(cell, R.image.settings_Notifications())
         } else if settingTitle.settingsType == .checkUpdate {
-            hideUnhideImgButton(cell, R.image.iconCheckUpdate())
+            hideUnhideImgButton(cell, R.image.settings_Notifications())
         } else if settingTitle.settingsType == .referringChannel {
-            hideUnhideImgButton(cell, R.image.iconReferringChannel())
+            hideUnhideImgButton(cell, R.image.settings_ReferringChannel())
         } else if settingTitle.settingsType == .subscription {
-            hideUnhideImgButton(cell, R.image.iconSubscription())
+            hideUnhideImgButton(cell, R.image.settings_Subscription())
         } else if settingTitle.settingsType == .socialLogins {
             cell.onOffButton.isHidden = true
             cell.onOffButton.isSelected = false
@@ -496,12 +496,14 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             } else {
                 headerView.userImage.image = ApplicationSettings.userPlaceHolder
             }
+            headerView.blueBgImg.isHidden = false
             headerView.title.text = R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? "")
             headerView.nameLabel.text = Defaults.shared.publicDisplayName ?? ""
             if let socialPlatForms = Defaults.shared.socialPlatforms {
                 headerView.imgSocialMediaBadge.isHidden = socialPlatForms.count != 4
             }
         } else {
+            headerView.blueBgImg.isHidden = true
             headerView.title.isHidden = true
             headerView.userImage.isHidden = true
             headerView.addProfilePic.isHidden = true
