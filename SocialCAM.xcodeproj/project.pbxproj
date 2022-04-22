@@ -626,6 +626,10 @@
 		23EB18F4244F21D700B6564A /* APIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EB18EE244F11AE00B6564A /* APIModels.swift */; };
 		250428470C44322499DD0E5D /* Pods_FastCamLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD2AF063A5F38539ACFB5BCC /* Pods_FastCamLite.framework */; };
 		275992F9310DBBE737278C07 /* Pods_FastCam.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D28990050E4D434A263290C3 /* Pods_FastCam.framework */; };
+		353395022812759B00549D73 /* SettingScreenTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353395002812759B00549D73 /* SettingScreenTableViewCell.swift */; };
+		353395032812759B00549D73 /* SettingScreenTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353395002812759B00549D73 /* SettingScreenTableViewCell.swift */; };
+		353395042812759B00549D73 /* SettingScreenTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 353395012812759B00549D73 /* SettingScreenTableViewCell.xib */; };
+		353395052812759B00549D73 /* SettingScreenTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 353395012812759B00549D73 /* SettingScreenTableViewCell.xib */; };
 		3546EAE628082C8C0043CA9B /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 3546EADB28082C8B0043CA9B /* LICENSE */; };
 		3546EAE728082C8C0043CA9B /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 3546EADB28082C8B0043CA9B /* LICENSE */; };
 		3546EAE828082C8C0043CA9B /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 3546EADC28082C8B0043CA9B /* README.md */; };
@@ -15402,6 +15406,8 @@
 		2B745205732387EF7B691824 /* Pods_Viralvids.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Viralvids.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C5385B7FB968013B59EAA97 /* Pods-SocialCamMediaShare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialCamMediaShare.release.xcconfig"; path = "Target Support Files/Pods-SocialCamMediaShare/Pods-SocialCamMediaShare.release.xcconfig"; sourceTree = "<group>"; };
 		31974CCF361ADE2507BABFAD /* Pods-Pic2ArtShare.alpha.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pic2ArtShare.alpha.xcconfig"; path = "Target Support Files/Pods-Pic2ArtShare/Pods-Pic2ArtShare.alpha.xcconfig"; sourceTree = "<group>"; };
+		353395002812759B00549D73 /* SettingScreenTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingScreenTableViewCell.swift; sourceTree = "<group>"; };
+		353395012812759B00549D73 /* SettingScreenTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingScreenTableViewCell.xib; sourceTree = "<group>"; };
 		3546EADB28082C8B0043CA9B /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		3546EADC28082C8B0043CA9B /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		3546EADE28082C8B0043CA9B /* PreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
@@ -16846,6 +16852,23 @@
 			path = ViralCamVideos;
 			sourceTree = "<group>";
 		};
+		353394FE2812755200549D73 /* SettingScreenCustomCell */ = {
+			isa = PBXGroup;
+			children = (
+				353394FF2812756300549D73 /* SettingTableViewCell */,
+			);
+			path = SettingScreenCustomCell;
+			sourceTree = "<group>";
+		};
+		353394FF2812756300549D73 /* SettingTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				353395002812759B00549D73 /* SettingScreenTableViewCell.swift */,
+				353395012812759B00549D73 /* SettingScreenTableViewCell.xib */,
+			);
+			path = SettingTableViewCell;
+			sourceTree = "<group>";
+		};
 		3546EADA28082C8B0043CA9B /* ColorSlider */ = {
 			isa = PBXGroup;
 			children = (
@@ -18060,6 +18083,7 @@
 		824AD522237BDABC00BF226F /* StoryCamera */ = {
 			isa = PBXGroup;
 			children = (
+				353394FE2812755200549D73 /* SettingScreenCustomCell */,
 				828F871E25CA6D1C000E645E /* RecorderStopScreen.swift */,
 				828F871F25CA6D1D000E645E /* RecorderStopScreen.xib */,
 				95AA66AE240FDA4900434C9A /* FollowMeStoryView.swift */,
@@ -20380,6 +20404,7 @@
 				8205FD37236C3B06002B2603 /* LUT_M05.png in Resources */,
 				95224B3D246C258E001AD3C4 /* SocialConnection.storyboard in Resources */,
 				8440D9AA28058A8700DFB3C6 /* ReferSuccessVC.xib in Resources */,
+				353395042812759B00549D73 /* SettingScreenTableViewCell.xib in Resources */,
 				82D1EC3F23702B4300A680E7 /* Naive.JPG in Resources */,
 				8205FD5A236C3B06002B2603 /* YUCIColorLookup.cikernel in Resources */,
 				8205FC42236C2C2F002B2603 /* SF-UI-Text-Medium.otf in Resources */,
@@ -22179,6 +22204,7 @@
 				3546EAE728082C8C0043CA9B /* LICENSE in Resources */,
 				9C7546D327A8F6C30041B8D5 /* messageTitleCell.xib in Resources */,
 				C22D936726787FB4004DAAD7 /* Pic2ArtTooltip1.gif in Resources */,
+				353395052812759B00549D73 /* SettingScreenTableViewCell.xib in Resources */,
 				C2F934D2264AA0CA006CA527 /* PreRegistration.storyboard in Resources */,
 				49DE0C3426F3871A00E7FC65 /* EditProfileViewController.storyboard in Resources */,
 				82923895272A60C500253ADA /* StateFlagAssets.xcassets in Resources */,
@@ -26654,6 +26680,7 @@
 				8205FAAC236C0FF0002B2603 /* MultiTextField.swift in Sources */,
 				8205FD73236C3B06002B2603 /* DoodleControlView.swift in Sources */,
 				3546EAEE28082C8C0043CA9B /* Gradient.swift in Sources */,
+				353395022812759B00549D73 /* SettingScreenTableViewCell.swift in Sources */,
 				821CF9F7248784E000EC1503 /* STPopupControllerTransitioningSlideVertical.m in Sources */,
 				8205FB2A236C1723002B2603 /* User.swift in Sources */,
 				8205FDA4236C3B81002B2603 /* TextImageCreaterVC.swift in Sources */,
@@ -33529,6 +33556,7 @@
 				8203869926FDD6BE001FB6BB /* UserDetailsVC.swift in Sources */,
 				8243DCEB271017910066BCB2 /* NotificationDetailsViewCell.swift in Sources */,
 				C2F932B4264AA0CA006CA527 /* CollageViewT203.swift in Sources */,
+				353395032812759B00549D73 /* SettingScreenTableViewCell.swift in Sources */,
 				C2F932B5264AA0CA006CA527 /* PickerViewCell.swift in Sources */,
 				C2F932B6264AA0CA006CA527 /* StoriCamManager.swift in Sources */,
 				C2F932B7264AA0CA006CA527 /* PreRegistrationViewController.swift in Sources */,
