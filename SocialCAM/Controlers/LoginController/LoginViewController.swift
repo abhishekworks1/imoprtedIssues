@@ -162,6 +162,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         guard let keycloakAuthViewController = R.storyboard.loginViewController.keycloakAuthViewController() else {
             return
         }
+        print(url)
         keycloakAuthViewController.urlString = url
         navigationController?.pushViewController(keycloakAuthViewController, animated: true)
     }
@@ -186,6 +187,7 @@ class LoginViewController: UIViewController, UIGestureRecognizerDelegate {
         } else {
             Defaults.shared.callHapticFeedback(isHeavy: false)
             isLoginButtonPressed = false
+            
             goToKeycloakWebview(url: "\(keycloakUrl)\(keycloakClientId)\(KeycloakRedirectLink.keycloakRedirectLinkName.lowercased())\(KeycloakRedirectLink.endUrl)\(KeycloakRedirectLink.fromLogin)")
         }
         Defaults.shared.addEventWithName(eventName: Constant.EventName.click_Login)
