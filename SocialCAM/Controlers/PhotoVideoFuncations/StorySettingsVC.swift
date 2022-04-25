@@ -178,13 +178,38 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
     @IBOutlet weak var longPressPopupView: UIView!
     @IBOutlet weak var doubleButtonStackView: UIStackView!
     @IBOutlet weak var singleButtonSttackView: UIStackView!
-    
+    @IBOutlet var btnTable: UIButton!
+    @IBOutlet var btnCollection: UIButton!
     @IBOutlet weak var businessDashboardStackView: UIStackView!
     @IBOutlet weak var businessDashboardButton: UIButton!
     @IBOutlet weak var businessDashbardConfirmPopupView: UIView!
     @IBOutlet weak var btnDoNotShowAgainBusinessConfirmPopup: UIButton!
+    @IBOutlet weak var settingCollectionView: UICollectionView!
     
     
+    //new settings header
+    
+//    @IBOutlet var imgfoundingMember: UIImageView!
+//    @IBOutlet weak var separator: UIView!
+//    @IBOutlet weak var nameLabel: UILabel!
+//    @IBOutlet weak var title: UILabel!
+//    @IBOutlet weak var arrowLabel: UILabel?
+//    @IBOutlet weak var userImage: UIImageView!
+//    @IBOutlet weak var userName: UILabel!
+//    @IBOutlet weak var btnProfilePic: UIButton!
+//    @IBOutlet weak var badgeIconHeightConstraint: NSLayoutConstraint!
+//    @IBOutlet weak var addProfilePic: UIImageView!
+  
+    @IBOutlet weak var imgSocialMediaBadge: UIImageView!
+    @IBOutlet weak var imgprelaunch: UIImageView!
+    @IBOutlet weak var imgfoundingMember: UIImageView!
+    @IBOutlet weak var imgSubscribeBadge: UIImageView!
+
+//    @IBOutlet weak var blueBgImg: UIImageView!
+//
+//    @IBOutlet weak var iconSettingsImage: UIImageView!
+//    @IBOutlet weak var badgesView: UIStackView!
+//
     // MARK: - Variables declaration
     var isDeletePopup = false
     let releaseType = Defaults.shared.releaseType
@@ -206,7 +231,15 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         print(str.fromBase64() ?? "No Json Data Found")
         print("************************")
     */
-        setUpbadges()
+        settingCollectionView.register(UINib(nibName: "SettingsCollectionCell", bundle: .main), forCellWithReuseIdentifier: "SettingsCollectionCell")
+        settingCollectionView.dataSource = self
+        settingCollectionView.delegate = self
+        guard let collectionView = settingCollectionView, let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
+        let margin: CGFloat = 10
+        flowLayout.minimumInteritemSpacing = margin
+        flowLayout.minimumLineSpacing = margin
+        flowLayout.sectionInset = UIEdgeInsets(top: margin, left: margin, bottom: margin, right: margin)
+        setUpbadgesTop()
         self.faceBookVerifiedView.isHidden = true
         self.twitterVerifiedView.isHidden = true
         self.snapVerifiedView.isHidden = true
@@ -220,6 +253,7 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapProfileView))
         tapGesture.numberOfTapsRequired = 1
         profileDisplayView.addGestureRecognizer(tapGesture)
+        
     }
   
     @objc func didTapProfileView(sender: UITapGestureRecognizer) {
@@ -254,7 +288,31 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
             break
         }
     }
-    
+    func setUpbadges() {
+        let badgearry = Defaults.shared.getbadgesArray()
+        imgprelaunch.isHidden = true
+        imgfoundingMember.isHidden = true
+        imgSocialMediaBadge.isHidden = true
+        imgSubscribeBadge.isHidden = true
+        
+        if  badgearry.count >  0 {
+            imgprelaunch.isHidden = false
+            imgprelaunch.image = UIImage.init(named: badgearry[0])
+        }
+        if  badgearry.count >  1 {
+            imgfoundingMember.isHidden = false
+            imgfoundingMember.image = UIImage.init(named: badgearry[1])
+        }
+        if  badgearry.count >  2 {
+            imgSocialMediaBadge.isHidden = false
+            imgSocialMediaBadge.image = UIImage.init(named: badgearry[2])
+        }
+        if  badgearry.count >  3 {
+            imgSubscribeBadge.isHidden = false
+            imgSubscribeBadge.image = UIImage.init(named: badgearry[3])
+        }
+    }
+  
     // MARK: - Setup UI Methods
     private func setupUI() {
         #if SOCIALCAMAPP
@@ -341,12 +399,24 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
     @IBAction func didTapCloseButtonBusiessDashboard(_ sender: UIButton) {
         businessDashbardConfirmPopupView.isHidden = true
     }
-    
+    @IBAction func showCollectionAction(_ sender: Any) {
+        btnTable.isSelected = false
+        btnCollection.isSelected = true
+        settingCollectionView.isHidden = false
+        settingsTableView.isHidden = true
+    }
+    @IBAction func showTableAction(_ sender: Any) {
+        btnTable.isSelected = true
+        btnCollection.isSelected = false
+        settingCollectionView.isHidden = true
+        settingsTableView.isHidden = false
+    }
 }
 
 extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
+        print("no of sections --> \(StorySettings.storySettings.count)")
         return StorySettings.storySettings.count
     }
     
@@ -354,16 +424,21 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         if StorySettings.storySettings[section].settingsType == .subscriptions {
             let item = StorySettings.storySettings[section]
             guard item.isCollapsible else {
+                print("no of row --> \(section)--\(StorySettings.storySettings[section].settings.count)")
                 return StorySettings.storySettings[section].settings.count
             }
             
             if item.isCollapsed {
+                print("no of roww --> \(section)--0")
                 return 0
             } else {
+                print("no of rowww --> \(section)--\(item.settings.count)")
                 return item.settings.count
             }
         }
+      
         
+        print("no of rowwww --> \(section)--\(StorySettings.storySettings[section].settings.count)")
         return StorySettings.storySettings[section].settings.count
     }
     
@@ -542,7 +617,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         
         return headerView
     }
-    func setUpbadges() {
+    func setUpbadgesTop() {
         let badgearry = Defaults.shared.getbadgesArray()
         preLunchBadge.isHidden = true
         foundingMergeBadge.isHidden = true
@@ -593,11 +668,15 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         let settingTitle = StorySettings.storySettings[section]
+        print("section--> \(section)")
         if settingTitle.settingsType == .subscriptions {
+            print("60")
             return 60
         } else if settingTitle.settingsType == .userDashboard {
+            print("80")
             return 80
         } else {
+            print("0")
             return 0
         }
     }
@@ -1156,5 +1235,260 @@ extension StorySettingsVC: HeaderViewDelegate {
             settingTitle.isCollapsed = collapsed
             self.settingsTableView?.reloadData()
         }
+    }
+}
+extension StorySettingsVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
+        return StorySettings.storySettings.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        socialImageView
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SettingsCollectionCell", for: indexPath) as! SettingsCollectionCell
+        let settingTitle = StorySettings.storySettings[indexPath.item]
+        let settings = settingTitle.settings[0]
+        cell.settingsName.text = settings.name
+        if settingTitle.settingsType == .userDashboard {
+            cell.socialImageView?.image = R.image.settings_Dashboard()
+        }else if settingTitle.settingsType == .editProfileCard {
+            cell.socialImageView?.image = R.image.settings_EditProfileCard()
+        }else if settingTitle.settingsType == .socialMediaConnections {
+            cell.socialImageView?.image = R.image.settings_Account()
+        }else if settingTitle.settingsType == .shareSetting {
+            cell.socialImageView?.image = R.image.settings_ShareYourRefereralLink()
+        }else if settingTitle.settingsType == .qrcode {
+            cell.socialImageView?.image =  R.image.settings_QRCode()
+        }else if settingTitle.settingsType == .accountSettings {
+            cell.socialImageView?.image = R.image.settings_System()
+        } else if settingTitle.settingsType == .cameraSettings {
+            cell.socialImageView?.image = R.image.settings_CameraSettings()
+        } else if settingTitle.settingsType == .system {
+            cell.socialImageView?.image = R.image.settings_System()
+        } else if settingTitle.settingsType == .help {
+            cell.socialImageView?.image = R.image.settings_HowItWorks()
+        }else if settingTitle.settingsType == .aboutPage {
+            cell.socialImageView?.image = R.image.settings_About()
+        } else if settingTitle.settingsType == .logout {
+            cell.socialImageView?.image = R.image.settings_Logout()
+        } else if settingTitle.settingsType == .notification {
+            cell.socialImageView?.image = R.image.settings_Notifications()
+        } else if settingTitle.settingsType == .checkUpdate {
+            cell.socialImageView?.image = R.image.settings_Notifications()
+        } else if settingTitle.settingsType == .referringChannel {
+            cell.socialImageView?.image = R.image.settings_ReferringChannel()
+        } else if settingTitle.settingsType == .subscription {
+            cell.socialImageView?.image = R.image.settings_Subscription()
+        }
+        return cell
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let settingTitle = StorySettings.storySettings[indexPath.item]
+       
+        if settingTitle.settingsType == .controlcenter {
+            if let baseUploadVC = R.storyboard.storyCameraViewController.baseUploadVC() {
+                navigationController?.pushViewController(baseUploadVC, animated: true)
+            }
+        } else if settingTitle.settingsType == .notification {
+            if let baseUploadVC = R.storyboard.notificationVC.notificationVC() {
+                navigationController?.pushViewController(baseUploadVC, animated: true)
+            }
+        } else if settingTitle.settingsType == .editProfileCard {
+            if let editProfilePicViewController = R.storyboard.editProfileViewController.editProfilePicViewController() {
+                navigationController?.pushViewController(editProfilePicViewController, animated: true)
+            }
+        } else if settingTitle.settingsType == .socialMediaConnections {
+            if let addSocialConnectionViewController = R.storyboard.socialConnection.addSocialConnectionViewController() {
+                navigationController?.pushViewController(addSocialConnectionViewController, animated: true)
+            }
+        } else if settingTitle.settingsType == .video {
+            if let viralCamVideos = R.storyboard.viralCamVideos.viralCamVideos() {
+                navigationController?.pushViewController(viralCamVideos, animated: true)
+            }
+        } else if settingTitle.settingsType == .cameraSettings {
+            if let storySettingsVC = R.storyboard.storyCameraViewController.storySettingsOptionsVC() {
+                navigationController?.pushViewController(storySettingsVC, animated: true)
+            }
+        } else if settingTitle.settingsType == .system {
+            if let systemSettingsVC = R.storyboard.storyCameraViewController.systemSettingsViewController() {
+                navigationController?.pushViewController(systemSettingsVC, animated: true)
+            }
+        } else if settingTitle.settingsType == .qrcode {
+            if let qrViewController = R.storyboard.editProfileViewController.qrCodeViewController() {
+                navigationController?.pushViewController(qrViewController, animated: true)
+            }
+        }
+        else if settingTitle.settingsType == .logout {
+            lblLogoutPopup.text = R.string.localizable.areYouSureYouWantToLogoutFromApp("\(Constant.Application.displayName)")
+            showHideButtonView(isHide: true)
+            logoutPopupView.isHidden = false
+        }
+        else if settingTitle.settingsType == .socialLogout {
+            logoutUser()
+        }
+        else if settingTitle.settingsType == .socialLogins {
+            let socialLogin: SocialLogin = SocialLogin(rawValue: indexPath.row) ?? .facebook
+            socialLoginLogout(socialLogin: socialLogin) { [weak self] (isLogin) in
+                guard let `self` = self else {
+                    return
+                }
+                if socialLogin == .storiCam, !isLogin {
+                    if let loginNav = R.storyboard.loginViewController.loginNavigation() {
+                        Defaults.shared.clearData()
+                        Utils.appDelegate?.window?.rootViewController = loginNav
+                        return
+                    }
+                } else if isLogin {
+                    var socialPlatform: String = "facebook"
+                    switch socialLogin {
+                    case .twitter:
+                        socialPlatform = "twitter"
+                    case .instagram:
+                        socialPlatform = "instagram"
+                    case .snapchat:
+                        socialPlatform = "snapchat"
+                    case .youtube:
+                        socialPlatform = "google"
+                    default:
+                        break
+                    }
+                    self.socialLoadProfile(socialLogin: socialLogin) { [weak self] (socialName, socialId) in
+                        guard let `self` = self else {
+                            return
+                        }
+                        self.connectSocial(socialPlatform: socialPlatform, socialId: socialId ?? "", socialName: socialName ?? "")
+                    }
+                }
+            }
+        }
+        else if settingTitle.settingsType == .subscriptions {
+            guard Defaults.shared.appMode.rawValue != indexPath.row else {
+                return
+            }
+            self.enableMode(appMode: AppMode(rawValue: indexPath.row) ?? .free)
+        }
+        else if settingTitle.settingsType == .faceDetection {
+            Defaults.shared.enableFaceDetection = !Defaults.shared.enableFaceDetection
+            self.settingsTableView.reloadData()
+        }
+        else if settingTitle.settingsType == .swapeContols {
+            Defaults.shared.swapeContols = !Defaults.shared.swapeContols
+            self.settingsTableView.reloadData()
+        }
+        else if settingTitle.settingsType == .channelManagement {
+            let chVc = R.storyboard.preRegistration.channelListViewController()
+            chVc?.remainingPackageCountForOthers = Defaults.shared.currentUser?.remainingOtherUserPackageCount ?? 0
+            self.navigationController?.pushViewController(chVc!, animated: true)
+        }
+        else if settingTitle.settingsType == .socialConnections {
+            if let addSocialConnectionViewController = R.storyboard.socialConnection.addSocialConnectionViewController() {
+                navigationController?.pushViewController(addSocialConnectionViewController, animated: true)
+            }
+        }
+        else if settingTitle.settingsType == .termsAndConditions || settingTitle.settingsType == .privacyPolicy {
+            guard let legalVc = R.storyboard.legal.legalViewController() else { return }
+            legalVc.isTermsAndConditions = settingTitle.settingsType == .termsAndConditions
+            self.navigationController?.pushViewController(legalVc, animated: true)
+        } else if settingTitle.settingsType == .subscription {
+            if Defaults.shared.allowFullAccess == true {
+                lblLogoutPopup.text = R.string.localizable.freeDuringBetaTest()
+                showHideButtonView(isHide: false)
+                logoutPopupView.isHidden = false
+            } else {
+                if let subscriptionVC = R.storyboard.subscription.subscriptionContainerViewController() {
+                    navigationController?.pushViewController(subscriptionVC, animated: true)
+                }
+            }
+        } else if settingTitle.settingsType == .goToWebsite {
+            if let yourAffiliateLinkVC = R.storyboard.storyCameraViewController.yourAffiliateLinkViewController() {
+                navigationController?.pushViewController(yourAffiliateLinkVC, animated: true)
+            }
+        } else if settingTitle.settingsType == .applicationSurvey {
+            if !isQuickApp {
+                guard let url = URL(string: Constant.URLs.applicationSurveyURL) else { return }
+                presentSafariBrowser(url: url)
+            }
+        } else if settingTitle.settingsType == .watermarkSettings {
+            if let watermarkSettingsVC = R.storyboard.storyCameraViewController.watermarkSettingsViewController() {
+                navigationController?.pushViewController(watermarkSettingsVC, animated: true)
+            }
+        } else if settingTitle.settingsType == .help {
+            if let helpSettingsViewController = R.storyboard.storyCameraViewController.helpSettingsViewController() {
+                navigationController?.pushViewController(helpSettingsViewController, animated: true)
+            }
+        } else if settingTitle.settingsType == .intellectualProperties {
+            // TODO: - Need to add redirection link
+        } else if settingTitle.settingsType == .accountSettings {
+            if let accountSettingsViewController = R.storyboard.storyCameraViewController.accountSettingsViewController() {
+                navigationController?.pushViewController(accountSettingsViewController, animated: true)
+            }
+        } else if settingTitle.settingsType == .deleteAccount {
+            lblLogoutPopup.text = R.string.localizable.areYouSureYouWantToDeactivateYourAccount()
+            isDeletePopup = true
+            showHideButtonView(isHide: true)
+            logoutPopupView.isHidden = false
+        }
+        else if settingTitle.settingsType == .shareSetting {
+//          if let editProfileController = R.storyboard.refferalEditProfile.refferalEditProfileViewController() {
+//                navigationController?.pushViewController(editProfileController, animated: true)
+//            }
+            if let userImageURL = Defaults.shared.currentUser?.profileImageURL , !userImageURL.isEmpty {
+                if let contactWizardController = R.storyboard.contactWizardwithAboutUs.contactImportVC() {
+                    navigationController?.pushViewController(contactWizardController, animated: true)
+                }
+            } else {
+                if let editProfileController = R.storyboard.refferalEditProfile.refferalEditProfileViewController() {
+                    navigationController?.pushViewController(editProfileController, animated: true)
+                }
+            }
+        }
+        else if settingTitle.settingsType == .userDashboard {
+            openBussinessDashboard()
+           
+        } else if settingTitle.settingsType == .checkUpdate {
+            SSAppUpdater.shared.performCheck(isForceUpdate: false, showDefaultAlert: true) { (_) in
+            }
+        } else if settingTitle.settingsType == .referringChannel {
+            if let userDetailsVC = R.storyboard.notificationVC.userDetailsVC() {
+                MIBlurPopup.show(userDetailsVC, on: self)
+            }
+        }else if settingTitle.settingsType == .aboutPage {
+            if let aboutViewController = R.storyboard.aboutStoryboard.aboutViewController() {
+                navigationController?.pushViewController(aboutViewController, animated: true)
+            }
+        }
+    }
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let noOfCellsInRow = 2   //number of column you want
+//            let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
+//            let totalSpace = flowLayout.sectionInset.left
+//                + flowLayout.sectionInset.right
+//                + (flowLayout.minimumInteritemSpacing * CGFloat(noOfCellsInRow - 1))
+//
+//            let size = Int((collectionView.bounds.width - totalSpace) / CGFloat(noOfCellsInRow))
+//            return CGSize(width: size, height: 150)
+        return CGSize(width: Int(collectionView.bounds.width/2), height: 150)
+    }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) //.zero
+    }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
     }
 }
