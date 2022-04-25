@@ -24,14 +24,15 @@
 ## Add Labels - Use the appropriate tags below and delete the others
 
 ## Mobile App Components  
-/label ~Camera 
-/label ~Pic2Art 
-/label ~"Video Editor" 
+label ~Camera 
 /label ~"Contact Manager" 
-/label ~Settings
-/label ~Subscription 
-/label ~"Referral Wizard" 
 /label ~Design
+/label ~"Gift Card"
+/label ~Pic2Art 
+/label ~"Referral Wizard" 
+/label ~Settings 
+/label ~Subscription 
+/label ~"Video Editor" 
 
 ## Type of issue
 /label ~Bug – error producing unexpected results
