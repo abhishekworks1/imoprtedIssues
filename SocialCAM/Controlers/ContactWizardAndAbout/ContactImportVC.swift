@@ -69,6 +69,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     @IBOutlet weak var socialShareView: UIView!
     @IBOutlet weak var businessDashboardView: UIView!
     
+    @IBOutlet weak var deleteContactConfirmationView: UIView!
+    @IBOutlet weak var deleteContactDoNotShowButton: UIButton!
     @IBOutlet weak var filterOptionView: UIView!
     var loadingStatus = false
     let blueColor1 = UIColor(red: 0/255, green: 125/255, blue: 255/255, alpha: 1.0)
@@ -277,6 +279,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         self.manualEmailView.dropShadow()
         self.socialShareView.dropShadow()
         self.businessDashboardView.dropShadow()
+        
+        previewImageview.contentMode = .scaleAspectFit
        
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -466,6 +470,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 self.getContactList(firstTime:true)
                 break
             case .denied, .notDetermined:
+                contactPermitView.isHidden = true
+                self.getContactList(firstTime:true)
                 break //request permission
             case .restricted:
                 break
@@ -707,10 +713,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                 }
                 
                 let contacts = Mapper<ContactResponse>().mapArray(JSONArray:value)
-                if contacts.count == 0 && firstTime{
-                  //  self.syncButtonClicked(sender:self.syncButton)
-                  //  return
-                }
+               
                 if page == 1{
                     if self.selectedContactType == ContactType.mobile{
                         self.allmobileContactsForHide = [ContactResponse]()
@@ -721,28 +724,14 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                         self.emailContacts = [ContactResponse]()
                     }
                 }
-              //  print(contacts.count)
                 if self.selectedContactType == ContactType.mobile{
                     self.allmobileContactsForHide.append(contentsOf:contacts)
                     self.mobileContacts.append(contentsOf:contacts)
-                    //self.mobileContacts.append(contentsOf:contacts.filter {$0.hide == hide})
-//                    let unhideContacts = contacts.filter {$0.hide == hide}
-//                    if unhideContacts.count < 10{
-//                        print("page before\(page)")
-//                        let pageCount =  page + (10 - unhideContacts.count)
-//                        print("page after\(pageCount)")
-//                        self.getContactList(page:pageCount, filter: filter)
-//                        return
-//                    }
-//                    if self.mobileContacts.count < 10 || unhideContacts.count == 0{
-//                      print("allmobileContactsForHide\(self.allmobileContactsForHide.count)")
-//                      print("mobileContacts\(self.mobileContacts.count)")
-//                        self.getContactList(page: self.allmobileContactsForHide.count, filter: filter)
-//                        return
-//                    }
-                   // self.mobileContacts.append(contentsOf:contacts.filter {$0.hide == hide})
-                  // self.mobileContacts.append(contentsOf:contacts)
+
                     self.allmobileContacts = self.mobileContacts
+                    if self.mobileContacts.count > 0{
+                        self.contactPermitView.isHidden = true
+                    }
                     DispatchQueue.main.async {
                         self.contactTableView.reloadData()
                     }
@@ -750,7 +739,9 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
                     self.allemailContactsForHide.append(contentsOf:contacts)
                     self.emailContacts.append(contentsOf:contacts.filter {$0.hide == hide})
                     
-                    
+                    if self.emailContacts.count > 0{
+                        self.contactPermitView.isHidden = true
+                    }
                     DispatchQueue.main.async {
                         self.emailContactTableView.reloadData()
                     }
@@ -1089,8 +1080,8 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             }
             DispatchQueue.main.async {
                 self.lblpreviewUrl.text = link
-                self.previewImageview.layer.cornerRadius = self.previewImageview.bounds.width / 2
-                self.previewImageview.contentMode = .scaleAspectFill
+              //  self.previewImageview.layer.cornerRadius = self.previewImageview.bounds.width / 2
+            
 //                self.lblpreviewText.text = self.txtLinkWithCheckOut
             }
 //            if ogData.imageUrl != nil {
@@ -1501,17 +1492,23 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             return UIContextMenuConfiguration(identifier: indexPath as NSIndexPath, previewProvider: nil) { _ in
                 return UIMenu(title: "", children: [
                     UIAction(title: "Delete", image: UIImage(systemName: "")) { action in
-                        if tableView == self.emailContactTableView{
-                            let contact = self.emailContacts[indexPath.row]
-                            print(contact.email ?? "")
-                            self.deleteContact(contact: contact, isEmail: true, index: indexPath.row)
-                            
-                        }else if tableView == self.contactTableView{
-                            let contact = self.mobileContacts[indexPath.row]
-                            print(contact.mobile ?? "")
-                            self.deleteContact(contact: contact, isEmail: false, index: indexPath.row)
-                        }
                         
+                        if Defaults.shared.isDoNotShowAgainDeleteContactPopup{
+                            self.deleteContactConfirmationView.isHidden = true
+                            if tableView == self.emailContactTableView{
+                                let contact = self.emailContacts[indexPath.row]
+                                print(contact.email ?? "")
+                                self.deleteContact(contact: contact, isEmail: true, index: indexPath.row)
+                                
+                            }else if tableView == self.contactTableView{
+                                let contact = self.mobileContacts[indexPath.row]
+                                print(contact.mobile ?? "")
+                                self.deleteContact(contact: contact, isEmail: false, index: indexPath.row)
+                            }
+                        }else{
+                            self.deleteContactConfirmationView.tag = indexPath.row
+                            self.deleteContactConfirmationView.isHidden = false
+                        }
                     },UIAction(title: "Edit", image: UIImage(systemName: "")) { action in
                         if tableView == self.emailContactTableView{
                             let contact = self.emailContacts[indexPath.row]
@@ -1985,15 +1982,27 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         
         controller.dismiss(animated: true, completion: nil)
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+   
+    @IBAction func deleteContactDoNotShowClick(_ sender: UIButton) {
+        
+        deleteContactDoNotShowButton.isSelected = !deleteContactDoNotShowButton.isSelected
+        Defaults.shared.isDoNotShowAgainDeleteContactPopup = deleteContactDoNotShowButton.isSelected
     }
-    */
+    @IBAction func deleteContactYesClick(_ sender: UIButton) {
+        deleteContactConfirmationView.isHidden = true
+        if selectedContactType == ContactType.mobile{
+            let contact = self.mobileContacts[deleteContactConfirmationView.tag]
+            print(contact.mobile ?? "")
+            self.deleteContact(contact: contact, isEmail: false, index: deleteContactConfirmationView.tag)
+        }else{
+            let contact = self.emailContacts[deleteContactConfirmationView.tag]
+            print(contact.mobile ?? "")
+            self.deleteContact(contact: contact, isEmail: true, index: deleteContactConfirmationView.tag)
+        }
+    }
+    @IBAction func deleteContactNoClick(_ sender: UIButton) {
+        deleteContactConfirmationView.isHidden = true
+    }
 
 }
 extension ContactImportVC:UIScrollViewDelegate{
