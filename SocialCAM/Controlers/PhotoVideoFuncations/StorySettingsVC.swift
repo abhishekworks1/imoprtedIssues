@@ -156,6 +156,7 @@ class StorySettings {
 
 class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
     
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var youTubeVerifiedView: UIView!
     @IBOutlet weak var snapVerifiedView: UIView!
     @IBOutlet weak var faceBookVerifiedView: UIView!
@@ -192,6 +193,7 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
        /* let json = """
         {
             "contactId":"vhjgjghjhgjkvhjgjghjhgjk",

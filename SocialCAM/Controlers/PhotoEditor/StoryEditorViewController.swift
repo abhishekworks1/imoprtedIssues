@@ -1393,6 +1393,10 @@ extension StoryEditorViewController {
             self.present(alert, animated: true, completion: {
                 print("completion block")
             })
+        } else {
+            Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
+            self.referType = self.storyEditors[self.currentStoryIndex].referType
+            self.imageVideoExport(isDownload: true,isFromDoneTap:true)
         }
        /* else {
             if Defaults.shared.isVideoSavedAfterRecording == false {
