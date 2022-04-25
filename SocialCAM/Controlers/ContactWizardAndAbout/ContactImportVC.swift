@@ -994,10 +994,63 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
             filterOptionView.isHidden = true
         }
     }
+    func hasContactPermission() -> Bool {
+        var hasPermission = false
+        
+        switch CNContactStore.authorizationStatus(for: CNEntityType.contacts){
+        case .authorized: //access contacts
+            hasPermission = true
+            break
+        case .denied, .notDetermined:
+            hasPermission = false
+            break //request permission
+        case .restricted:
+            hasPermission = false
+            break
+        @unknown default:
+            hasPermission = true
+            break
+        }
+        
+        
+        return hasPermission
+    }
+    func showContactPermission(){
+        if !hasContactPermission() {
+            let alertController = UIAlertController(title: "Contact Permission Required", message: "Please enable contact access permissions in settings.", preferredStyle: .alert)
+            
+            let okAction = UIAlertAction(title: "Settings", style: .default, handler: {(cAlertAction) in
+                //Redirect to Settings app
+                UIApplication.shared.open(URL(string:UIApplication.openSettingsURLString)!)
+            })
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+            alertController.addAction(cancelAction)
+            
+            alertController.addAction(okAction)
+            
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
+   
     @IBAction func syncButtonClicked(sender: UIButton) {
         filterOptionView.isHidden = true
-        self.showLoader()
-        self.loadContacts(filter: self.filter)
+        
+        switch CNContactStore.authorizationStatus(for: CNEntityType.contacts){
+        case .authorized: //access contacts
+            self.showLoader()
+            self.loadContacts(filter: self.filter)
+            break
+        case .denied, .notDetermined:
+            showContactPermission()
+            break //request permission
+        case .restricted:
+            showContactPermission()
+            break
+        @unknown default:
+            break
+        }
+       
        //ContactPermission()
     }
     @IBAction func filterOptionClicked(sender: UIButton) {
