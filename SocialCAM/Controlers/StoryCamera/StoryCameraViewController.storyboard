@@ -2791,7 +2791,7 @@ Countdown</string>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="PB8-Zg-48F">
-                                <rect key="frame" x="0.0" y="229" width="375" height="541"/>
+                                <rect key="frame" x="0.0" y="229" width="375" height="519"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -3441,7 +3441,7 @@ Countdown</string>
                                 </connections>
                             </tableView>
                             <collectionView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="UYr-tU-9P9">
-                                <rect key="frame" x="10" y="229" width="355" height="541"/>
+                                <rect key="frame" x="10" y="229" width="355" height="519"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="dIZ-xH-MNi">
                                     <size key="itemSize" width="128" height="128"/>
@@ -3452,10 +3452,10 @@ Countdown</string>
                                 <cells/>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="92p-n2-ebb">
-                                <rect key="frame" x="0.0" y="770" width="375" height="8"/>
+                                <rect key="frame" x="0.0" y="748" width="375" height="22"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="KKh-m1-iOL">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="8"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="22"/>
                                         <subviews>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AeR-GG-utV">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="0.0"/>
@@ -3495,10 +3495,10 @@ Countdown</string>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dp7-Bg-i7a">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="8"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="22"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Go-l7-5NG">
-                                                        <rect key="frame" x="22.000000000000007" y="0.0" width="109.66666666666669" height="8"/>
+                                                        <rect key="frame" x="22.000000000000007" y="0.0" width="109.66666666666669" height="22"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright © 2022" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ghP-cV-Uod">
                                                                 <rect key="frame" x="0.0" y="0.0" width="109.66666666666667" height="15.666666666666666"/>
@@ -3905,18 +3905,18 @@ Countdown</string>
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VtV-CL-W0W">
-                                <rect key="frame" x="0.0" y="88" width="375" height="682"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="660"/>
                                 <subviews>
                                     <visualEffectView opaque="NO" alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gGH-r1-0Bn">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="682"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="660"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="yze-8z-2xh">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="682"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="660"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </view>
                                         <blurEffect style="dark"/>
                                     </visualEffectView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DIH-tV-lct">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="682"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="660"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain"/>
@@ -3925,7 +3925,7 @@ Countdown</string>
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D5M-ls-0bk" userLabel="Business Dashboard popup View">
-                                        <rect key="frame" x="20" y="246" width="335" height="190"/>
+                                        <rect key="frame" x="20" y="235" width="335" height="190"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The QuickCam Business Dashboard will open in your default browser." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A1f-T7-ZTW">
                                                 <rect key="frame" x="15" y="24.999999999999996" width="305" height="40.666666666666657"/>
@@ -4077,7 +4077,7 @@ Countdown</string>
                         <viewLayoutGuide key="safeArea" id="y7W-1e-ghQ"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="y7W-1e-ghQ" firstAttribute="bottom" secondItem="PB8-Zg-48F" secondAttribute="bottom" constant="8" id="153-Ry-RXn"/>
+                            <constraint firstItem="y7W-1e-ghQ" firstAttribute="bottom" secondItem="PB8-Zg-48F" secondAttribute="bottom" constant="30" id="153-Ry-RXn"/>
                             <constraint firstItem="92p-n2-ebb" firstAttribute="top" secondItem="PB8-Zg-48F" secondAttribute="bottom" id="2V6-3J-Z9K"/>
                             <constraint firstItem="VyN-by-AzL" firstAttribute="top" secondItem="FgY-Cq-1Ko" secondAttribute="top" id="2a9-dw-KKF"/>
                             <constraint firstAttribute="bottom" secondItem="DeM-Ch-kJ2" secondAttribute="bottom" id="2w0-75-OCh"/>
@@ -4108,7 +4108,7 @@ Countdown</string>
                             <constraint firstItem="GNJ-5b-aFD" firstAttribute="top" secondItem="y7W-1e-ghQ" secondAttribute="top" id="ge3-kA-PhN"/>
                             <constraint firstItem="GNJ-5b-aFD" firstAttribute="leading" secondItem="y7W-1e-ghQ" secondAttribute="leading" constant="8" id="gzS-XF-Vq3"/>
                             <constraint firstItem="y7W-1e-ghQ" firstAttribute="trailing" secondItem="92p-n2-ebb" secondAttribute="trailing" id="hD6-fz-d89"/>
-                            <constraint firstItem="y7W-1e-ghQ" firstAttribute="bottom" secondItem="92p-n2-ebb" secondAttribute="bottom" id="he1-LA-uCj"/>
+                            <constraint firstItem="y7W-1e-ghQ" firstAttribute="bottom" secondItem="92p-n2-ebb" secondAttribute="bottom" constant="8" id="he1-LA-uCj"/>
                             <constraint firstItem="y7W-1e-ghQ" firstAttribute="trailing" secondItem="VyN-by-AzL" secondAttribute="trailing" id="k6V-YP-Rdz"/>
                             <constraint firstItem="y7W-1e-ghQ" firstAttribute="trailing" secondItem="PB8-Zg-48F" secondAttribute="trailing" id="ldJ-cf-4XN"/>
                             <constraint firstItem="VXB-7J-tKn" firstAttribute="centerY" secondItem="GNJ-5b-aFD" secondAttribute="centerY" id="lxm-OR-Gxq"/>
