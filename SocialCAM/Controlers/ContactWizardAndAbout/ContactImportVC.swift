@@ -1019,9 +1019,10 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         if !hasContactPermission() {
             let alertController = UIAlertController(title: "Contact Permission Required", message: "Please enable contact access permissions in settings.", preferredStyle: .alert)
             
-            let okAction = UIAlertAction(title: "Settings", style: .default, handler: {(cAlertAction) in
+            let okAction = UIAlertAction(title: "Enable", style: .default, handler: {(cAlertAction) in
                 //Redirect to Settings app
-                UIApplication.shared.open(URL(string:UIApplication.openSettingsURLString)!)
+                self.ContactPermission()
+              //  UIApplication.shared.open(URL(string:UIApplication.openSettingsURLString)!)
             })
             
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
