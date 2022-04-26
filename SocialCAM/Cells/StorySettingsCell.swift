@@ -17,10 +17,11 @@ class StorySettingsCell: UITableViewCell {
     @IBOutlet weak var lblPremiumVersionOnly: UILabel!
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var imgSettingsIcon: UIImageView!
+    @IBOutlet weak var shadowView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+//        shadowView.dropShadow(color: .lightGray, opacity: 0.5, offSet: CGSize(width: 1, height: 1), radius: 3, scale: true)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

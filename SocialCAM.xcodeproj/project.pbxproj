@@ -5659,6 +5659,10 @@
 		8440D9A928058A8700DFB3C6 /* ReferSuccessVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440D9A628058A8700DFB3C6 /* ReferSuccessVC.swift */; };
 		8440D9AA28058A8700DFB3C6 /* ReferSuccessVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8440D9A728058A8700DFB3C6 /* ReferSuccessVC.xib */; };
 		8440D9AB28058A8700DFB3C6 /* ReferSuccessVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8440D9A728058A8700DFB3C6 /* ReferSuccessVC.xib */; };
+		849EEC2E28169E120044DF13 /* SettingsCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849EEC2C28169E120044DF13 /* SettingsCollectionCell.swift */; };
+		849EEC2F28169E120044DF13 /* SettingsCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849EEC2C28169E120044DF13 /* SettingsCollectionCell.swift */; };
+		849EEC3028169E120044DF13 /* SettingsCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849EEC2D28169E120044DF13 /* SettingsCollectionCell.xib */; };
+		849EEC3128169E120044DF13 /* SettingsCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 849EEC2D28169E120044DF13 /* SettingsCollectionCell.xib */; };
 		8EFA1B8C4D9AD76B6FE202D5 /* Pods_FutbolCam.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D524DB754E4462DAF89EDEAC /* Pods_FutbolCam.framework */; };
 		95011A3423A0BF8300E7423D /* FilterResources in Resources */ = {isa = PBXBuildFile; fileRef = 95011A3323A0BF8300E7423D /* FilterResources */; };
 		950514BF239FA3F800F07D8F /* StoryEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950514BE239FA3F800F07D8F /* StoryEditorViewController.swift */; };
@@ -16263,6 +16267,8 @@
 		836CCA44492AC16792D73C11 /* Pods-BoomiCam.alpha.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoomiCam.alpha.xcconfig"; path = "Target Support Files/Pods-BoomiCam/Pods-BoomiCam.alpha.xcconfig"; sourceTree = "<group>"; };
 		8440D9A628058A8700DFB3C6 /* ReferSuccessVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferSuccessVC.swift; sourceTree = "<group>"; };
 		8440D9A728058A8700DFB3C6 /* ReferSuccessVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReferSuccessVC.xib; sourceTree = "<group>"; };
+		849EEC2C28169E120044DF13 /* SettingsCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCollectionCell.swift; sourceTree = "<group>"; };
+		849EEC2D28169E120044DF13 /* SettingsCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsCollectionCell.xib; sourceTree = "<group>"; };
 		872CB0932B2F6C092F0397B6 /* Pods_SpeedCamLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpeedCamLite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AC74AE5A11D7165F31DF267 /* Pods-FutbolCam.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FutbolCam.debug.xcconfig"; path = "Target Support Files/Pods-FutbolCam/Pods-FutbolCam.debug.xcconfig"; sourceTree = "<group>"; };
 		8B6173CADCDD1773AF2D64B7 /* Pods-QuickCamLiteExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuickCamLiteExtension.debug.xcconfig"; path = "Target Support Files/Pods-QuickCamLiteExtension/Pods-QuickCamLiteExtension.debug.xcconfig"; sourceTree = "<group>"; };
@@ -18892,6 +18898,15 @@
 			path = QuickCamLiteExtensionSetupUI;
 			sourceTree = "<group>";
 		};
+		849EEC2528169D330044DF13 /* CollectionCell */ = {
+			isa = PBXGroup;
+			children = (
+				849EEC2C28169E120044DF13 /* SettingsCollectionCell.swift */,
+				849EEC2D28169E120044DF13 /* SettingsCollectionCell.xib */,
+			);
+			path = CollectionCell;
+			sourceTree = "<group>";
+		};
 		951D5C9C24472AC600DBD742 /* ChannelPurchase */ = {
 			isa = PBXGroup;
 			children = (
@@ -19115,6 +19130,7 @@
 		9CA4AE9C27A65117001889DE /* ContactWizardAndAbout */ = {
 			isa = PBXGroup;
 			children = (
+				849EEC2528169D330044DF13 /* CollectionCell */,
 				9C7546CF27A8F6C20041B8D5 /* UITableViewCell */,
 				9CA4AEA027A6517A001889DE /* AboutViewController.swift */,
 				9C75F80327ACC1BC0026322F /* PhoneContact.swift */,
@@ -20566,6 +20582,7 @@
 				82D1EBE5236FF32F00A680E7 /* QueSliderCollectionViewCell.xib in Resources */,
 				8287D21623828FE00074FC39 /* YouTube.storyboard in Resources */,
 				C241CB9225CD63EE003B66EE /* ForgotPassword.storyboard in Resources */,
+				849EEC3028169E120044DF13 /* SettingsCollectionCell.xib in Resources */,
 				82D1EC4823702B4300A680E7 /* Thursday.JPG in Resources */,
 				82923883272A60C500253ADA /* StateFlagAssets.xcassets in Resources */,
 				82228397259224050074F5B0 /* Recorder.storyboard in Resources */,
@@ -22211,6 +22228,7 @@
 				C2F93495264AA0CA006CA527 /* LUT_M05.png in Resources */,
 				C2F93496264AA0CA006CA527 /* AllColors.xcassets in Resources */,
 				82046F8B26F33BFD0082EB3F /* CountryPicker.storyboard in Resources */,
+				849EEC3128169E120044DF13 /* SettingsCollectionCell.xib in Resources */,
 				C2F93497264AA0CA006CA527 /* Naive.JPG in Resources */,
 				C2F93498264AA0CA006CA527 /* YUCIColorLookup.cikernel in Resources */,
 				C2F9349A264AA0CA006CA527 /* SF-UI-Text-Medium.otf in Resources */,
@@ -27144,6 +27162,7 @@
 				825A2C0423E1AD94003BE8D5 /* FaceBookConstant.swift in Sources */,
 				828F872025CA6D1E000E645E /* RecorderStopScreen.swift in Sources */,
 				C239515326D6795F00C3C607 /* SSAppUpdaterEnums.swift in Sources */,
+				849EEC2E28169E120044DF13 /* SettingsCollectionCell.swift in Sources */,
 				8287D22023829BC60074FC39 /* KeywordViewController.swift in Sources */,
 				8287D21023826EE80074FC39 /* YouTubeSubscription.swift in Sources */,
 				8205FA88236C0F9C002B2603 /* CameraView.swift in Sources */,
@@ -34081,6 +34100,7 @@
 				C2F9342E264AA0CA006CA527 /* CIFilter.swift in Sources */,
 				C2F9342F264AA0CA006CA527 /* Weather.swift in Sources */,
 				C2F93430264AA0CA006CA527 /* SSUTagSelectionViewController.swift in Sources */,
+				849EEC2F28169E120044DF13 /* SettingsCollectionCell.swift in Sources */,
 				C2F93431264AA0CA006CA527 /* CropOverlayView.swift in Sources */,
 				C2F93432264AA0CA006CA527 /* CollageViewT313.swift in Sources */,
 				C2F93433264AA0CA006CA527 /* StorySwipeableFilterView.swift in Sources */,
