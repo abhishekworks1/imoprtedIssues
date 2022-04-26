@@ -120,8 +120,8 @@ class StorySettings {
                                                                       selected: true),
                                                          StorySetting(name: R.string.localizable.professional(),
                                                                       selected: true)], settingsType: .subscriptions),
-                                StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.businessDashboard(), selected: false)], settingsType: .userDashboard),
+                                /*StorySettings(name: "",
+                                              settings: [StorySetting(name: R.string.localizable.businessDashboard(), selected: false)], settingsType: .userDashboard),*/
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.subscriptions(), selected: false)], settingsType: .subscription),
                                 StorySettings(name: "",
@@ -189,16 +189,10 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
     
     //new settings header
     
-//    @IBOutlet var imgfoundingMember: UIImageView!
-//    @IBOutlet weak var separator: UIView!
-//    @IBOutlet weak var nameLabel: UILabel!
-//    @IBOutlet weak var title: UILabel!
-//    @IBOutlet weak var arrowLabel: UILabel?
-//    @IBOutlet weak var userImage: UIImageView!
-//    @IBOutlet weak var userName: UILabel!
-//    @IBOutlet weak var btnProfilePic: UIButton!
-//    @IBOutlet weak var badgeIconHeightConstraint: NSLayoutConstraint!
-//    @IBOutlet weak var addProfilePic: UIImageView!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var userImage: UIImageView!
+    @IBOutlet weak var userName: UILabel!
+    @IBOutlet weak var btnProfilePic: UIButton!
   
     @IBOutlet weak var imgSocialMediaBadge: UIImageView!
     @IBOutlet weak var imgprelaunch: UIImageView!
@@ -239,14 +233,15 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         flowLayout.minimumInteritemSpacing = margin
         flowLayout.minimumLineSpacing = margin
         flowLayout.sectionInset = UIEdgeInsets(top: margin, left: margin, bottom: margin, right: margin)
-        setUpbadgesTop()
-        self.faceBookVerifiedView.isHidden = true
+         self.faceBookVerifiedView.isHidden = true
         self.twitterVerifiedView.isHidden = true
         self.snapVerifiedView.isHidden = true
         self.youTubeVerifiedView.isHidden = true
         lblAppInfo.text = "\(Constant.Application.displayName) - \(Constant.Application.appVersion)(\(Constant.Application.appBuildNumber))"
         lblLogoutPopup.text = R.string.localizable.areYouSureYouWantToLogoutFromApp("\(Constant.Application.displayName)")
         setupUI()
+        setUpProfileHeader()
+       
         let longpress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(sender:)))
         longpress.minimumPressDuration = 0.5
         settingsTableView.addGestureRecognizer(longpress)
@@ -288,6 +283,7 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
             break
         }
     }
+    // MARK: - Setup UI Methods
     func setUpbadges() {
         let badgearry = Defaults.shared.getbadgesArray()
         imgprelaunch.isHidden = true
@@ -313,7 +309,31 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         }
     }
   
-    // MARK: - Setup UI Methods
+    func setUpProfileHeader() {
+        userImage.layer.cornerRadius = userImage.bounds.width / 2
+//        if settingTitle.settingsType == .userDashboard {
+          if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
+                userImage.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: ApplicationSettings.userPlaceHolder)
+            } else {
+                userImage.image = ApplicationSettings.userPlaceHolder
+            }
+        nameLabel.text = R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? "")
+        userName.text =  Defaults.shared.publicDisplayName ?? ""
+            if let socialPlatForms = Defaults.shared.socialPlatforms {
+                imgSocialMediaBadge.isHidden = socialPlatForms.count != 4
+            }
+        setUpbadges()
+//        setUpbadgesTop()
+      
+       /* } else {
+            blueBgImg.isHidden = true
+            title.isHidden = true
+            userImage.isHidden = true
+            addProfilePic.isHidden = true
+            badgesView.isHidden = true
+            imgSocialMediaBadge.isHidden = true
+        } */
+    }
     private func setupUI() {
         #if SOCIALCAMAPP
         imgAppLogo.image = R.image.socialCamSplashLogo()
@@ -411,6 +431,29 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         settingCollectionView.isHidden = true
         settingsTableView.isHidden = false
     }
+    @IBAction func showProfileAction(_ sender: Any) {
+        getVerifiedSocialPlatforms()
+        setUpbadges()
+        profileDisplayView.isHidden = false
+        let name = "\(Defaults.shared.currentUser?.firstName ?? "") \(Defaults.shared.currentUser?.lastName ?? "")"
+        nameTitleLabel.text = R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? "")
+        userNametitleLabel.text = Defaults.shared.publicDisplayName
+        if let createdDate = Defaults.shared.currentUser?.created {
+            let date = CommonFunctions.getDateInSpecificFormat(dateInput: createdDate, dateOutput: R.string.localizable.mmmdYyyy())
+            joinedDateLabel.text = R.string.localizable.sinceJoined(date)
+        }
+        //R.string.localizable.channelName(Defaults.shared.currentUser?.channelId ?? "")
+        if let userImageURL = Defaults.shared.currentUser?.profileImageURL {
+            if userImageURL.isEmpty {
+                userPlaceHolderImageView.isHidden = false
+            }
+            userPlaceHolderImageView.sd_setImage(with: URL.init(string: userImageURL), placeholderImage: ApplicationSettings.userPlaceHolder)
+        } else {
+            userPlaceHolderImageView.image = ApplicationSettings.userPlaceHolder
+        }
+        
+    }
+    
 }
 
 extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
@@ -538,6 +581,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return UIView()
         guard let headerView = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.storySettingsHeader.identifier) as? StorySettingsHeader else {
             fatalError("StorySettingsHeader Not Found")
         }
@@ -617,7 +661,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         
         return headerView
     }
-    func setUpbadgesTop() {
+   /* func setUpbadgesTop() {
         let badgearry = Defaults.shared.getbadgesArray()
         preLunchBadge.isHidden = true
         foundingMergeBadge.isHidden = true
@@ -639,7 +683,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
             subscriptionBadgeicon.isHidden = false
             subscriptionBadgeicon.image = UIImage.init(named: badgearry[3])
         }
-    }
+    } */
     func getVerifiedSocialPlatforms() {
         if let socialPlatforms = Defaults.shared.socialPlatforms {
             for socialPlatform in socialPlatforms {
@@ -657,7 +701,6 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         }
     }
    
-    
     @objc func btnEditProfilePic(sender: UIButton) {
         
 //        headerView.badgeIconHeightConstraint.constant = 45
@@ -667,6 +710,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 1
         let settingTitle = StorySettings.storySettings[section]
         print("section--> \(section)")
         if settingTitle.settingsType == .subscriptions {
