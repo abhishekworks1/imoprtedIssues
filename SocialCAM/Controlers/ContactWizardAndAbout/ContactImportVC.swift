@@ -1739,6 +1739,23 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         }
         
     }
+    
+    @IBAction func didTapReferalButtonClick(_ sender: UIButton) {
+        pageNo = 2
+        setupPage()
+    }
+    
+    @IBAction func didTapQuickStartButton(_ sender: Any) {
+        if let quickStartString = Defaults.shared.currentUser?.quickStartPage {
+            guard let url = URL(string: quickStartString) else {
+                return
+            }
+            presentSafariBrowser(url: url)
+        }
+    }
+    
+    
+    
     @IBAction func mainOptionsClick(_ sender: UIButton) {
         if sender.tag == 1 {
             isSelectSMS = false
