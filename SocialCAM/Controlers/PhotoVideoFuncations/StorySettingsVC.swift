@@ -120,8 +120,8 @@ class StorySettings {
                                                                       selected: true),
                                                          StorySetting(name: R.string.localizable.professional(),
                                                                       selected: true)], settingsType: .subscriptions),
-                                /*StorySettings(name: "",
-                                              settings: [StorySetting(name: R.string.localizable.businessDashboard(), selected: false)], settingsType: .userDashboard),*/
+                                StorySettings(name: "",
+                                              settings: [StorySetting(name: R.string.localizable.businessDashboard(), selected: false)], settingsType: .userDashboard),
                                 StorySettings(name: "",
                                               settings: [StorySetting(name: R.string.localizable.subscriptions(), selected: false)], settingsType: .subscription),
                                 StorySettings(name: "",
@@ -251,6 +251,11 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         tapGesture.numberOfTapsRequired = 1
         profileDisplayView.addGestureRecognizer(tapGesture)
         
+        if Defaults.shared.settingsPreference == 1 {
+            showCollectionAction(UIButton())
+        } else {
+            showTableAction(UIButton())
+        }
     }
   
     @objc func didTapProfileView(sender: UITapGestureRecognizer) {
@@ -292,22 +297,34 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         imgfoundingMember.isHidden = true
         imgSocialMediaBadge.isHidden = true
         imgSubscribeBadge.isHidden = true
+        preLunchBadge.isHidden = true
+        foundingMergeBadge.isHidden = true
+        socialBadgeicon.isHidden = true
+        subscriptionBadgeicon.isHidden = true
         
         if  badgearry.count >  0 {
             imgprelaunch.isHidden = false
+            preLunchBadge.isHidden = false
             imgprelaunch.image = UIImage.init(named: badgearry[0])
+            preLunchBadge.image = UIImage.init(named: badgearry[0])
         }
         if  badgearry.count >  1 {
             imgfoundingMember.isHidden = false
+            foundingMergeBadge.isHidden = false
             imgfoundingMember.image = UIImage.init(named: badgearry[1])
+            foundingMergeBadge.image = UIImage.init(named: badgearry[1])
         }
         if  badgearry.count >  2 {
             imgSocialMediaBadge.isHidden = false
+            socialBadgeicon.isHidden = false
             imgSocialMediaBadge.image = UIImage.init(named: badgearry[2])
+            socialBadgeicon.image = UIImage.init(named: badgearry[2])
         }
         if  badgearry.count >  3 {
             imgSubscribeBadge.isHidden = false
+            subscriptionBadgeicon.isHidden = false
             imgSubscribeBadge.image = UIImage.init(named: badgearry[3])
+            subscriptionBadgeicon.image = UIImage.init(named: badgearry[3])
         }
     }
   
@@ -426,12 +443,14 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         btnCollection.isSelected = true
         settingCollectionView.isHidden = false
         settingsTableView.isHidden = true
+        Defaults.shared.settingsPreference = 1
     }
     @IBAction func showTableAction(_ sender: Any) {
         btnTable.isSelected = true
         btnCollection.isSelected = false
         settingCollectionView.isHidden = true
         settingsTableView.isHidden = false
+        Defaults.shared.settingsPreference = 0
     }
     @IBAction func showProfileAction(_ sender: Any) {
         getVerifiedSocialPlatforms()
@@ -635,7 +654,7 @@ extension StorySettingsVC: UITableViewDataSource, UITableViewDelegate {
         if section == 0 {
             headerView.btnProfilePic.addTarget(self, action: #selector(btnEditProfilePic), for: .touchUpInside)
         }
-        headerView.setUpbadges()
+        
         headerView.btnProfilePic.tag = section
         headerView.callBackForReload = { [weak self] (isCalled) -> Void in
             self?.getVerifiedSocialPlatforms()
