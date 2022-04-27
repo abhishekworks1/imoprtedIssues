@@ -119,6 +119,8 @@ class StoryEditorViewController: UIViewController {
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var undoButton: UIButton!
     @IBOutlet weak var imgFastestEverWatermark: UIImageView!
+    @IBOutlet weak var imgQuickCamWaterMark: UIImageView!
+    @IBOutlet weak var userNameLabelWatermark: UILabel!
     var timeFloatArray = [Float]()
     @IBOutlet weak var specificBoomerangView: UIView! {
         didSet {
@@ -385,7 +387,8 @@ class StoryEditorViewController: UIViewController {
         }
         downloadViewGesture()
         imgViewMadeWithGif.loadGif(name: R.string.localizable.madeWithQuickCamLite())
-       self.lblUserNameWatermark.text = "@\(Defaults.shared.currentUser?.username ?? "")"
+        self.lblUserNameWatermark.text = "@\(Defaults.shared.currentUser?.username ?? "")"
+        self.userNameLabelWatermark.text = "@\(Defaults.shared.currentUser?.username ?? "")"
         setupFilterViews()
         setGestureViewForShowHide(view: storyEditors[currentStoryIndex])
         selectedSlideShowMedias = (0...20).map({ _ in StoryEditorMedia(type: .image(UIImage())) })
@@ -448,6 +451,7 @@ class StoryEditorViewController: UIViewController {
         self.setSocialShareView()
         if  cameraMode == .pic2Art {
             self.imgFastestEverWatermark.image = R.image.pic2artwatermark()
+            self.imgQuickCamWaterMark.image = R.image.quickcamWatermark()
         }
         self.imgFastestEverWatermark.isHidden = Defaults.shared.fastestEverWatermarkSetting == .hide
         isFastesteverWatermarkShow = Defaults.shared.fastestEverWatermarkSetting == .show
@@ -1393,6 +1397,10 @@ extension StoryEditorViewController {
             self.present(alert, animated: true, completion: {
                 print("completion block")
             })
+        } else {
+            Defaults.shared.callHapticFeedback(isHeavy: false,isImportant: true)
+            self.referType = self.storyEditors[self.currentStoryIndex].referType
+            self.imageVideoExport(isDownload: true,isFromDoneTap:true)
         }
        /* else {
             if Defaults.shared.isVideoSavedAfterRecording == false {
@@ -1548,7 +1556,11 @@ extension StoryEditorViewController {
             case .image:
                 if let image = storyEditors[currentStoryIndex].updatedThumbnailImage() {
                     if isDownload {
-                        self.saveImageOrVideoInGallery(image: image)
+                        if  cameraMode == .pic2Art && (self.isFastesteverWatermarkShow || self.isAppIdentifierWatermarkShow || self.isPublicDisplaynameWatermarkShow) {
+                            self.mergeImageAndTextWatermark(image: image)
+                        } else {
+                            self.saveImageOrVideoInGallery(image: image)
+                        }
                         if isFromDoneTap{
                             guard let storyCamVC = R.storyboard.storyCameraViewController.storyCameraViewController() else { return }
                             storyCamVC.isfromPicsArt = true
@@ -1733,6 +1745,52 @@ extension StoryEditorViewController {
         dispatchGroup.notify(queue: exportQueue, execute: {
             print("Download All Story")
         })
+    }
+    
+    func mergeImageAndTextWatermark(image: UIImage? = nil) {
+        if let saveImage = image {
+            UIGraphicsBeginImageContextWithOptions(imgFastestEverWatermark.bounds.size, false, 0)
+            imgFastestEverWatermark.drawHierarchy(in: imgFastestEverWatermark.bounds, afterScreenUpdates: true)
+            let imageWithFatestWatermark = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            
+            UIGraphicsBeginImageContextWithOptions(userNameLabelWatermark.bounds.size, false, 0)
+            userNameLabelWatermark.drawHierarchy(in: userNameLabelWatermark.bounds, afterScreenUpdates: true)
+            let imageWithUsernameWatermark = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            
+            UIGraphicsBeginImageContextWithOptions(imgQuickCamWaterMark.bounds.size, false, 0)
+            imgQuickCamWaterMark.drawHierarchy(in: imgQuickCamWaterMark.bounds, afterScreenUpdates: true)
+            let imageWithQuickCamWatermark = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            
+            //crate a uiimage from the current context and save it to camera roll.
+            UIGraphicsBeginImageContextWithOptions(saveImage.size, false, 0)
+            saveImage.draw(in: CGRect(x: 0, y: 0,
+                                      width: saveImage.size.width, height: saveImage.size.height))
+            
+            if self.isFastesteverWatermarkShow {
+                let fastestWaterMarkFrame = CGRect(x: imgFastestEverWatermark.frame.origin.x, y: imgFastestEverWatermark.frame.origin.y - imgFastestEverWatermark.frame.height, width: imgFastestEverWatermark.frame.width, height: imgFastestEverWatermark.frame.height)
+                
+                imageWithFatestWatermark?.draw(in: fastestWaterMarkFrame)
+            }
+            
+            let usernameWaterMarkFrame = CGRect(x: userNameLabelWatermark.frame.origin.x, y: userNameLabelWatermark.frame.origin.y - userNameLabelWatermark.frame.height - 25, width: userNameLabelWatermark.frame.width, height: userNameLabelWatermark.frame.height)
+            
+            if self.isAppIdentifierWatermarkShow {
+                let quickCamWaterMarkFrame = CGRect(x: imgQuickCamWaterMark.frame.origin.x, y: imgQuickCamWaterMark.frame.origin.y - imgQuickCamWaterMark.frame.height, width: imgQuickCamWaterMark.frame.width, height: imgQuickCamWaterMark.frame.height)
+                
+                imageWithUsernameWatermark?.draw(in: usernameWaterMarkFrame)
+                imageWithQuickCamWatermark?.draw(in: quickCamWaterMarkFrame)
+            }
+            if self.isPublicDisplaynameWatermarkShow {
+                imageWithUsernameWatermark?.draw(in: usernameWaterMarkFrame)
+            }
+            
+            let exportImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            UIImageWriteToSavedPhotosAlbum(exportImage ?? UIImage(), nil, nil, nil)
+        }
     }
     
     func saveImageOrVideoInGallery(image: UIImage? = nil, exportURL: URL? = nil) {
@@ -2082,6 +2140,15 @@ extension StoryEditorViewController {
         Defaults.shared.appIdentifierWatermarkSetting = self.isAppIdentifierWatermarkShow ? .show : .hide
         Defaults.shared.madeWithGifSetting = self.isMadeWithGifShow ? .show : .hide
         self.imgFastestEverWatermark.isHidden = !self.isFastesteverWatermarkShow
+        if self.isAppIdentifierWatermarkShow {
+            self.imgQuickCamWaterMark.isHidden = !self.isAppIdentifierWatermarkShow
+            self.userNameLabelWatermark.isHidden = !self.isAppIdentifierWatermarkShow
+        }
+        if self.isPublicDisplaynameWatermarkShow {
+            self.imgQuickCamWaterMark.isHidden = !self.isAppIdentifierWatermarkShow
+            self.userNameLabelWatermark.isHidden = !self.isPublicDisplaynameWatermarkShow
+        }
+        
         hideWatermarkView(isHide: true)
         callSetUserSetting()
         self.isSettingsChange = true

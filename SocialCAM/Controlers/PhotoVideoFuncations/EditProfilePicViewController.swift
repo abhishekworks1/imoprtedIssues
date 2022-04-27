@@ -93,7 +93,7 @@ class EditProfilePicViewController: UIViewController {
         }
         self.setPublicDisplayName()
         btnSelectCountry.isSelected = Defaults.shared.currentUser?.isShowFlags ?? false
-        self.setUpbadges()
+        
         
         DispatchQueue.main.async {
             if let flages = Defaults.shared.currentUser?.userStateFlags,
@@ -131,7 +131,7 @@ class EditProfilePicViewController: UIViewController {
             self.showFlagsView.isHidden = true
         }
         
-       
+        self.setUpbadges()
     }
     
     func settingSocialPlatforms() {
@@ -322,29 +322,29 @@ class EditProfilePicViewController: UIViewController {
     
     
     func setUpbadges() {
-            let badgearry = Defaults.shared.getbadgesArray()
-            preLunchBadge.isHidden = true
-            foundingMergeBadge.isHidden = true
-            socialBadgeicon.isHidden = true
-            subscriptionBadgeicon.isHidden = true
-          
-            if  badgearry.count >  0 {
-                preLunchBadge.isHidden = false
-                preLunchBadge.image = UIImage.init(named: badgearry[0])
-            }
-            if  badgearry.count >  1 {
-                foundingMergeBadge.isHidden = false
-                foundingMergeBadge.image = UIImage.init(named: badgearry[1])
-            }
-            if  badgearry.count >  2 {
-                socialBadgeicon.isHidden = false
-                socialBadgeicon.image = UIImage.init(named: badgearry[2])
-            }
-            if  badgearry.count >  3 {
-                subscriptionBadgeicon.isHidden = false
-                subscriptionBadgeicon.image = UIImage.init(named: badgearry[3])
-            }
+        let badgearry = Defaults.shared.getbadgesArray()
+        preLunchBadge.isHidden = true
+        foundingMergeBadge.isHidden = true
+        socialBadgeicon.isHidden = true
+        subscriptionBadgeicon.isHidden = true
+        
+        if  badgearry.count >  0 {
+            preLunchBadge.isHidden = false
+            preLunchBadge.image = UIImage.init(named: badgearry[0])
         }
+        if  badgearry.count >  1 {
+            foundingMergeBadge.isHidden = false
+            foundingMergeBadge.image = UIImage.init(named: badgearry[1])
+        }
+        if  badgearry.count >  2 {
+            socialBadgeicon.isHidden = false
+            socialBadgeicon.image = UIImage.init(named: badgearry[2])
+        }
+        if  badgearry.count >  3 {
+            subscriptionBadgeicon.isHidden = false
+            subscriptionBadgeicon.image = UIImage.init(named: badgearry[3])
+        }
+    }
 }
 
 extension EditProfilePicViewController: CountryPickerViewDelegate {

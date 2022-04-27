@@ -202,12 +202,15 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
     
     var isPic2ArtApp: Bool = false
     
+    var isViewDidLayoutCallFirstTime = true
+    
     deinit {
         print("Deinit \(self.description)")
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionView.infiniteLayout.isEnabled = false
         setData()
         setupLayout()
         addGestureRecognizers()
@@ -534,7 +537,7 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
             selectedFilterIndexPath = IndexPath.init(row: gesture.view!.tag, section: 0)
             type = .image(image: filteredImage!)
             self.applyStyle(index: gesture.view!.tag)
-            styleData[selectedFilterIndexPath.row].isSelected = true
+            styleData[selectedFilterIndexPath.item].isSelected = true
             self.collectionView.reloadData()
             applyFilter()
         }
@@ -819,18 +822,18 @@ extension StyleTransferVC: UICollectionViewDelegate {
             let borderColor: CGColor! = ApplicationSettings.appBlackColor.cgColor
             let borderWidth: CGFloat = 3
 
-            cell.imagesStackView.tag = indexPath.row
+            cell.imagesStackView.tag = indexPath.item
 
             var images = [SegmentVideos]()
 
-            images = [selectedItemArray[indexPath.row]]
+            images = [selectedItemArray[indexPath.item]]
 
             let views = cell.imagesStackView.subviews
             for view in views {
                 cell.imagesStackView.removeArrangedSubview(view)
             }
 
-            cell.lblSegmentCount.text = String(indexPath.row + 1)
+            cell.lblSegmentCount.text = String(indexPath.item + 1)
 
             for imageName in images {
                 let mainView = UIView.init(frame: CGRect(x: 0, y: 3, width: 41, height: 52))
@@ -852,10 +855,10 @@ extension StyleTransferVC: UICollectionViewDelegate {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.styleCollectionViewCell, for: indexPath) else {
                 return UICollectionViewCell()
             }
-            cell.styleImageView.image = styleData[indexPath.row % styleData.count].image
-            cell.tag = indexPath.row % styleData.count
-            cell.lblFilterNumber.text = "\(Int(indexPath.row % styleData.count) + 1)"
-            let borderWidth: CGFloat = styleData[indexPath.row % styleData.count].isSelected ? 2.0 : 0.0
+            cell.styleImageView.image = styleData[indexPath.item % styleData.count].image
+            cell.tag = indexPath.item % styleData.count
+            cell.lblFilterNumber.text = "\(Int(indexPath.item % styleData.count) + 1)"
+            let borderWidth: CGFloat = styleData[indexPath.item % styleData.count].isSelected ? 2.0 : 0.0
             cell.styleImageView.layer.borderWidth = borderWidth
             switch type {
             case .image:
@@ -882,13 +885,13 @@ extension StyleTransferVC: UICollectionViewDelegate {
         }
 
         for (index, style) in self.styleData.enumerated() {
-            style.isSelected = (index == (indexPath.row % styleData.count))
+            style.isSelected = (index == (indexPath.item % styleData.count))
         }
         collectionView.reloadData()
-        let xScrollOffset = CGFloat(indexPath.row)*UIScreen.width
+        let xScrollOffset = CGFloat(indexPath.item)*UIScreen.width
         self.scrollView.setContentOffset(CGPoint(x: xScrollOffset, y: 0),
                                          animated: false)
-        self.applyStyle(index: indexPath.row)
+        self.applyStyle(index: indexPath.item)
     }
 }
 

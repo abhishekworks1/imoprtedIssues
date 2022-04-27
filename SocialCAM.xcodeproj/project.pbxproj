@@ -626,6 +626,10 @@
 		23EB18F4244F21D700B6564A /* APIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23EB18EE244F11AE00B6564A /* APIModels.swift */; };
 		250428470C44322499DD0E5D /* Pods_FastCamLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD2AF063A5F38539ACFB5BCC /* Pods_FastCamLite.framework */; };
 		275992F9310DBBE737278C07 /* Pods_FastCam.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D28990050E4D434A263290C3 /* Pods_FastCam.framework */; };
+		353395022812759B00549D73 /* SettingScreenTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353395002812759B00549D73 /* SettingScreenTableViewCell.swift */; };
+		353395032812759B00549D73 /* SettingScreenTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353395002812759B00549D73 /* SettingScreenTableViewCell.swift */; };
+		353395042812759B00549D73 /* SettingScreenTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 353395012812759B00549D73 /* SettingScreenTableViewCell.xib */; };
+		353395052812759B00549D73 /* SettingScreenTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 353395012812759B00549D73 /* SettingScreenTableViewCell.xib */; };
 		3546EAE628082C8C0043CA9B /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 3546EADB28082C8B0043CA9B /* LICENSE */; };
 		3546EAE728082C8C0043CA9B /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 3546EADB28082C8B0043CA9B /* LICENSE */; };
 		3546EAE828082C8C0043CA9B /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 3546EADC28082C8B0043CA9B /* README.md */; };
@@ -644,6 +648,9 @@
 		3546EAF528082C8C0043CA9B /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3546EAE428082C8B0043CA9B /* GradientView.swift */; };
 		3546EAF628082C8C0043CA9B /* DefaultPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3546EAE528082C8B0043CA9B /* DefaultPreviewView.swift */; };
 		3546EAF728082C8C0043CA9B /* DefaultPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3546EAE528082C8B0043CA9B /* DefaultPreviewView.swift */; };
+		35663E0F2817C942000F25AC /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35663E0E2817C942000F25AC /* ShareViewController.swift */; };
+		35663E122817C942000F25AC /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35663E102817C942000F25AC /* MainInterface.storyboard */; };
+		35663E162817C942000F25AC /* ShareExtentionQuickCam.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 35663E0C2817C942000F25AC /* ShareExtentionQuickCam.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		35E979832803FE0000A218E6 /* AboutStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35E979822803FE0000A218E6 /* AboutStoryboard.storyboard */; };
 		35E979842803FE0000A218E6 /* AboutStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35E979822803FE0000A218E6 /* AboutStoryboard.storyboard */; };
 		35E9798728042F0700A218E6 /* RefferalEditProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35E9798628042F0700A218E6 /* RefferalEditProfile.storyboard */; };
@@ -15219,6 +15226,13 @@
 			remoteGlobalIDString = 230722A8244EBCB2009454B0;
 			remoteInfo = Viralvids;
 		};
+		35663E142817C942000F25AC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 824EB3702361959800205993 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 35663E0B2817C942000F25AC;
+			remoteInfo = ShareExtentionQuickCam;
+		};
 		8232CEB0240E2A2300AD8E63 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 824EB3702361959800205993 /* Project object */;
@@ -15292,6 +15306,17 @@
 			dstSubfolderSpec = 13;
 			files = (
 				230722B3244EBCB2009454B0 /* Viralvids.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		35663E172817C942000F25AC /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				35663E162817C942000F25AC /* ShareExtentionQuickCam.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -15406,6 +15431,8 @@
 		2B745205732387EF7B691824 /* Pods_Viralvids.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Viralvids.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C5385B7FB968013B59EAA97 /* Pods-SocialCamMediaShare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialCamMediaShare.release.xcconfig"; path = "Target Support Files/Pods-SocialCamMediaShare/Pods-SocialCamMediaShare.release.xcconfig"; sourceTree = "<group>"; };
 		31974CCF361ADE2507BABFAD /* Pods-Pic2ArtShare.alpha.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pic2ArtShare.alpha.xcconfig"; path = "Target Support Files/Pods-Pic2ArtShare/Pods-Pic2ArtShare.alpha.xcconfig"; sourceTree = "<group>"; };
+		353395002812759B00549D73 /* SettingScreenTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingScreenTableViewCell.swift; sourceTree = "<group>"; };
+		353395012812759B00549D73 /* SettingScreenTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingScreenTableViewCell.xib; sourceTree = "<group>"; };
 		3546EADB28082C8B0043CA9B /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		3546EADC28082C8B0043CA9B /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		3546EADE28082C8B0043CA9B /* PreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
@@ -15415,6 +15442,10 @@
 		3546EAE328082C8B0043CA9B /* HSBColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HSBColor.swift; sourceTree = "<group>"; };
 		3546EAE428082C8B0043CA9B /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		3546EAE528082C8B0043CA9B /* DefaultPreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultPreviewView.swift; sourceTree = "<group>"; };
+		35663E0C2817C942000F25AC /* ShareExtentionQuickCam.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareExtentionQuickCam.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		35663E0E2817C942000F25AC /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		35663E112817C942000F25AC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		35663E132817C942000F25AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		35E979822803FE0000A218E6 /* AboutStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AboutStoryboard.storyboard; sourceTree = "<group>"; };
 		35E9798628042F0700A218E6 /* RefferalEditProfile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RefferalEditProfile.storyboard; sourceTree = "<group>"; };
 		35E9798928042F5800A218E6 /* RefferalEditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefferalEditProfileViewController.swift; sourceTree = "<group>"; };
@@ -16546,6 +16577,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		35663E092817C942000F25AC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8232CEA5240E2A2300AD8E63 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -16852,6 +16890,23 @@
 			path = ViralCamVideos;
 			sourceTree = "<group>";
 		};
+		353394FE2812755200549D73 /* SettingScreenCustomCell */ = {
+			isa = PBXGroup;
+			children = (
+				353394FF2812756300549D73 /* SettingTableViewCell */,
+			);
+			path = SettingScreenCustomCell;
+			sourceTree = "<group>";
+		};
+		353394FF2812756300549D73 /* SettingTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				353395002812759B00549D73 /* SettingScreenTableViewCell.swift */,
+				353395012812759B00549D73 /* SettingScreenTableViewCell.xib */,
+			);
+			path = SettingTableViewCell;
+			sourceTree = "<group>";
+		};
 		3546EADA28082C8B0043CA9B /* ColorSlider */ = {
 			isa = PBXGroup;
 			children = (
@@ -16882,6 +16937,16 @@
 				3546EAE328082C8B0043CA9B /* HSBColor.swift */,
 			);
 			path = Internal;
+			sourceTree = "<group>";
+		};
+		35663E0D2817C942000F25AC /* ShareExtentionQuickCam */ = {
+			isa = PBXGroup;
+			children = (
+				35663E0E2817C942000F25AC /* ShareViewController.swift */,
+				35663E102817C942000F25AC /* MainInterface.storyboard */,
+				35663E132817C942000F25AC /* Info.plist */,
+			);
+			path = ShareExtentionQuickCam;
 			sourceTree = "<group>";
 		};
 		35E9798528042ECB00A218E6 /* RefferalEditProfile */ = {
@@ -18066,6 +18131,7 @@
 		824AD522237BDABC00BF226F /* StoryCamera */ = {
 			isa = PBXGroup;
 			children = (
+				353394FE2812755200549D73 /* SettingScreenCustomCell */,
 				828F871E25CA6D1C000E645E /* RecorderStopScreen.swift */,
 				828F871F25CA6D1D000E645E /* RecorderStopScreen.xib */,
 				95AA66AE240FDA4900434C9A /* FollowMeStoryView.swift */,
@@ -18178,6 +18244,7 @@
 				828F3B69258B8342001F4500 /* SocialScreenRecorderExtensionSetupUI */,
 				82E4D675259B465D005B41C1 /* QuickCamLiteExtension */,
 				82E4D680259B466D005B41C1 /* QuickCamLiteExtensionSetupUI */,
+				35663E0D2817C942000F25AC /* ShareExtentionQuickCam */,
 				824EB3792361959800205993 /* Products */,
 				42EECCA896FCF095AA83BB36 /* Pods */,
 				F6303928DF96F75577001E96 /* Frameworks */,
@@ -18234,6 +18301,7 @@
 				82E4D673259B465D005B41C1 /* QuickCamLiteExtension.appex */,
 				82E4D67D259B466D005B41C1 /* QuickCamLiteExtensionSetupUI.appex */,
 				C2F934EB264AA0CA006CA527 /* QuickCam.app */,
+				35663E0C2817C942000F25AC /* ShareExtentionQuickCam.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -19320,6 +19388,23 @@
 			productReference = 23CE8BF424349B110096233C /* ViralCam.app */;
 			productType = "com.apple.product-type.application";
 		};
+		35663E0B2817C942000F25AC /* ShareExtentionQuickCam */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 35663E1C2817C942000F25AC /* Build configuration list for PBXNativeTarget "ShareExtentionQuickCam" */;
+			buildPhases = (
+				35663E082817C942000F25AC /* Sources */,
+				35663E092817C942000F25AC /* Frameworks */,
+				35663E0A2817C942000F25AC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ShareExtentionQuickCam;
+			productName = ShareExtentionQuickCam;
+			productReference = 35663E0C2817C942000F25AC /* ShareExtentionQuickCam.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		8232CEA7240E2A2300AD8E63 /* SocialCamMediaShare */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8232CEB5240E2A2300AD8E63 /* Build configuration list for PBXNativeTarget "SocialCamMediaShare" */;
@@ -19728,10 +19813,12 @@
 				C2F93450264AA0CA006CA527 /* Resources */,
 				D9F452836C4930D2B8B8C2F3 /* [CP] Embed Pods Frameworks */,
 				6F713F8C33282169C9EB5921 /* [CP] Copy Pods Resources */,
+				35663E172817C942000F25AC /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				35663E152817C942000F25AC /* PBXTargetDependency */,
 			);
 			name = QuickCam;
 			productName = StoriCam;
@@ -19878,12 +19965,15 @@
 		824EB3702361959800205993 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1210;
+				LastSwiftUpdateCheck = 1330;
 				LastUpgradeCheck = 1250;
 				ORGANIZATIONNAME = "Viraj Patel";
 				TargetAttributes = {
 					230722A8244EBCB2009454B0 = {
 						CreatedOnToolsVersion = 11.4.1;
+					};
+					35663E0B2817C942000F25AC = {
+						CreatedOnToolsVersion = 13.3;
 					};
 					8232CEA7240E2A2300AD8E63 = {
 						CreatedOnToolsVersion = 11.2.1;
@@ -19955,6 +20045,7 @@
 				828F3B64258B8342001F4500 /* SocialScreenRecorderExtensionSetupUI */,
 				8274E3D7258B45DD00AE4FB0 /* SocialScreenRecorder */,
 				C2F931FC264AA0CA006CA527 /* QuickCam */,
+				35663E0B2817C942000F25AC /* ShareExtentionQuickCam */,
 			);
 		};
 /* End PBXProject section */
@@ -20131,6 +20222,14 @@
 				C241CBEA25CD765A003B66EE /* ForgotPassword.storyboard in Resources */,
 				23CE8BE924349B110096233C /* Thursday.JPG in Resources */,
 				822283B62592240B0074F5B0 /* Recorder.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		35663E0A2817C942000F25AC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				35663E122817C942000F25AC /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -20396,6 +20495,7 @@
 				8205FD37236C3B06002B2603 /* LUT_M05.png in Resources */,
 				95224B3D246C258E001AD3C4 /* SocialConnection.storyboard in Resources */,
 				8440D9AA28058A8700DFB3C6 /* ReferSuccessVC.xib in Resources */,
+				353395042812759B00549D73 /* SettingScreenTableViewCell.xib in Resources */,
 				82D1EC3F23702B4300A680E7 /* Naive.JPG in Resources */,
 				8205FD5A236C3B06002B2603 /* YUCIColorLookup.cikernel in Resources */,
 				8205FC42236C2C2F002B2603 /* SF-UI-Text-Medium.otf in Resources */,
@@ -22197,6 +22297,7 @@
 				3546EAE728082C8C0043CA9B /* LICENSE in Resources */,
 				9C7546D327A8F6C30041B8D5 /* messageTitleCell.xib in Resources */,
 				C22D936726787FB4004DAAD7 /* Pic2ArtTooltip1.gif in Resources */,
+				353395052812759B00549D73 /* SettingScreenTableViewCell.xib in Resources */,
 				C2F934D2264AA0CA006CA527 /* PreRegistration.storyboard in Resources */,
 				49DE0C3426F3871A00E7FC65 /* EditProfileViewController.storyboard in Resources */,
 				82923895272A60C500253ADA /* StateFlagAssets.xcassets in Resources */,
@@ -25742,6 +25843,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		35663E082817C942000F25AC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				35663E0F2817C942000F25AC /* ShareViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8232CEA4240E2A2300AD8E63 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -26672,6 +26781,7 @@
 				8205FAAC236C0FF0002B2603 /* MultiTextField.swift in Sources */,
 				8205FD73236C3B06002B2603 /* DoodleControlView.swift in Sources */,
 				3546EAEE28082C8C0043CA9B /* Gradient.swift in Sources */,
+				353395022812759B00549D73 /* SettingScreenTableViewCell.swift in Sources */,
 				821CF9F7248784E000EC1503 /* STPopupControllerTransitioningSlideVertical.m in Sources */,
 				8205FB2A236C1723002B2603 /* User.swift in Sources */,
 				8205FDA4236C3B81002B2603 /* TextImageCreaterVC.swift in Sources */,
@@ -33548,6 +33658,7 @@
 				8203869926FDD6BE001FB6BB /* UserDetailsVC.swift in Sources */,
 				8243DCEB271017910066BCB2 /* NotificationDetailsViewCell.swift in Sources */,
 				C2F932B4264AA0CA006CA527 /* CollageViewT203.swift in Sources */,
+				353395032812759B00549D73 /* SettingScreenTableViewCell.swift in Sources */,
 				C2F932B5264AA0CA006CA527 /* PickerViewCell.swift in Sources */,
 				C2F932B6264AA0CA006CA527 /* StoriCamManager.swift in Sources */,
 				C2F932B7264AA0CA006CA527 /* PreRegistrationViewController.swift in Sources */,
@@ -37425,6 +37536,11 @@
 			target = 230722A8244EBCB2009454B0 /* Viralvids */;
 			targetProxy = 230722B1244EBCB2009454B0 /* PBXContainerItemProxy */;
 		};
+		35663E152817C942000F25AC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 35663E0B2817C942000F25AC /* ShareExtentionQuickCam */;
+			targetProxy = 35663E142817C942000F25AC /* PBXContainerItemProxy */;
+		};
 		8232CEB1240E2A2300AD8E63 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8232CEA7240E2A2300AD8E63 /* SocialCamMediaShare */;
@@ -37485,6 +37601,14 @@
 			isa = PBXVariantGroup;
 			children = (
 				230722AE244EBCB2009454B0 /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
+		35663E102817C942000F25AC /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				35663E112817C942000F25AC /* Base */,
 			);
 			name = MainInterface.storyboard;
 			sourceTree = "<group>";
@@ -37707,6 +37831,118 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "SocialCAM/SocialCAM-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		35663E182817C942000F25AC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = GA853MZ47V;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ShareExtentionQuickCam/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ShareExtentionQuickCam;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Viraj Patel. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = app.quickcam.app.ShareExtentionQuickCam;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		35663E192817C942000F25AC /* Alpha */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = GA853MZ47V;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ShareExtentionQuickCam/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ShareExtentionQuickCam;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Viraj Patel. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = app.quickcam.app.ShareExtentionQuickCam;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Alpha;
+		};
+		35663E1A2817C942000F25AC /* Beta */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = GA853MZ47V;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ShareExtentionQuickCam/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ShareExtentionQuickCam;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Viraj Patel. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = app.quickcam.app.ShareExtentionQuickCam;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Beta;
+		};
+		35663E1B2817C942000F25AC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = GA853MZ47V;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ShareExtentionQuickCam/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ShareExtentionQuickCam;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Viraj Patel. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = app.quickcam.app.ShareExtentionQuickCam;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -40891,7 +41127,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 56;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = GA853MZ47V;
 				ENABLE_BITCODE = NO;
@@ -40927,7 +41163,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 56;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = GA853MZ47V;
 				ENABLE_BITCODE = NO;
@@ -40965,7 +41201,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 56;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = GA853MZ47V;
 				ENABLE_BITCODE = NO;
@@ -41002,7 +41238,7 @@
 				CODE_SIGN_ENTITLEMENTS = SocialCAM/SocialCam.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 56;
 				DEVELOPMENT_TEAM = GA853MZ47V;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "QuickCamLiteApp-Info.plist";
@@ -41460,6 +41696,17 @@
 				82D5EDBD255C063500E2FE74 /* Alpha */,
 				82D5EDD4255C064000E2FE74 /* Beta */,
 				23CE8BF324349B110096233C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		35663E1C2817C942000F25AC /* Build configuration list for PBXNativeTarget "ShareExtentionQuickCam" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				35663E182817C942000F25AC /* Debug */,
+				35663E192817C942000F25AC /* Alpha */,
+				35663E1A2817C942000F25AC /* Beta */,
+				35663E1B2817C942000F25AC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
