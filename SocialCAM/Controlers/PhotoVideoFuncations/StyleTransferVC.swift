@@ -534,12 +534,19 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
     @objc func handleLongPressOnFilterImageView(_ gesture: UILongPressGestureRecognizer) {
 //        Defaults.shared.callHapticFeedback(isHeavy: false)
         if gesture.state == .began {
-            selectedFilterIndexPath = IndexPath.init(row: gesture.view!.tag, section: 0)
-            type = .image(image: filteredImage!)
-            self.applyStyle(index: gesture.view!.tag)
-            styleData[selectedFilterIndexPath.item].isSelected = true
-            self.collectionView.reloadData()
-            applyFilter()
+            
+            let alert = UIAlertController(title: "Selected default Filter", message: "You are selcted default Filter", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Apply", style: .default, handler: { [self] applyBtn in
+                selectedFilterIndexPath = IndexPath.init(row: gesture.view!.tag, section: 0)
+                type = .image(image: filteredImage!)
+                self.applyStyle(index: gesture.view!.tag)
+                styleData[selectedFilterIndexPath.item].isSelected = true
+                self.collectionView.reloadData()
+                applyFilter()
+                UserDefaults.standard.setValue(selectedFilterIndexPath.item, forKey: "SelectedFilterIndex")
+            }))
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
         }
     }
     
@@ -574,6 +581,10 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
             type = .image(image: newImage)
             filterImageView.image = newImage
             orignalImage = newImage
+            
+            if let filterIndex = UserDefaults.standard.value(forKey: "SelectedFilterIndex") as? Int {
+                selectedIndex = filterIndex
+            }
             self.applyStyle(index: selectedIndex)
         case .video(let videoSegments, let index):
             btnAddImage.isHidden = true
@@ -683,6 +694,9 @@ class StyleTransferVC: UIViewController, CollageMakerVCDelegate {
                                 let tempImage = tempContext.createCGImage(ciImage, from: CGRect(x: 0, y: 0, width: CVPixelBufferGetWidth(predictionOutput.stylizedImage), height: CVPixelBufferGetHeight(predictionOutput.stylizedImage)))
                                 self.filteredImage = UIImage(cgImage: tempImage!)
                                 self.applyFilter()
+                                self.collectionView.reloadData()
+                                self.collectionView.selectItem(at: IndexPath(item: self.selectedIndex, section: 0), animated: false, scrollPosition: .centeredHorizontally)
+                                self.styleData[self.selectedIndex].isSelected = true
                             } catch let error as NSError {
                                 print("CoreML Model Error: \(error)")
                             }
