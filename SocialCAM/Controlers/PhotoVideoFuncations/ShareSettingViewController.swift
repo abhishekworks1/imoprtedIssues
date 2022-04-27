@@ -19,6 +19,12 @@ enum EmailType {
 class ShareSettingViewController: UIViewController {
     
     // MARK: - Outlets Declaration
+    @IBOutlet weak var preLunchBadgeImageView: UIImageView!
+    
+    @IBOutlet weak var foundingMergeBadgeImageView: UIImageView!
+    
+    @IBOutlet weak var socialBadgeiconImageView: UIImageView!
+    @IBOutlet weak var subscriptionBadgeiconImageView: UIImageView!
     @IBOutlet weak var lblHyperLink: UILabel!
     @IBOutlet weak var txtLinkWithCheckOut: UITextView!
     @IBOutlet weak var lblReferralLink: UILabel!
@@ -126,6 +132,7 @@ class ShareSettingViewController: UIViewController {
     
     func setUpbadges() {
             let badgearry = Defaults.shared.getbadgesArray()
+        print(badgearry)
             preLunchBadge.isHidden = true
             foundingMergeBadge.isHidden = true
             socialBadgeicon.isHidden = true
@@ -133,19 +140,19 @@ class ShareSettingViewController: UIViewController {
           
             if  badgearry.count >  0 {
                 preLunchBadge.isHidden = false
-//                preLunchBadge.image = UIImage.init(named: badgearry[0])
+                preLunchBadgeImageView.image = UIImage.init(named: badgearry[0])
             }
             if  badgearry.count >  1 {
                 foundingMergeBadge.isHidden = false
-//                foundingMergeBadge.image = UIImage.init(named: badgearry[1])
+                foundingMergeBadgeImageView.image = UIImage.init(named: badgearry[1])
             }
             if  badgearry.count >  2 {
                 socialBadgeicon.isHidden = false
-//                socialBadgeicon.image = UIImage.init(named: badgearry[2])
+                socialBadgeiconImageView.image = UIImage.init(named: badgearry[2])
             }
             if  badgearry.count >  3 {
                 subscriptionBadgeicon.isHidden = false
-//                subscriptionBadgeicon.image = UIImage.init(named: badgearry[3])
+                subscriptionBadgeiconImageView.image = UIImage.init(named: badgearry[3])
             }
         }
     

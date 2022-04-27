@@ -1828,15 +1828,22 @@
                                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ozI-rc-Y9c">
                                                                                         <rect key="frame" x="0.0" y="0.0" width="50" height="65"/>
                                                                                         <subviews>
-                                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fbb-LH-ZU8">
+                                                                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fbb-LH-ZU8">
                                                                                                 <rect key="frame" x="0.0" y="0.0" width="50" height="65"/>
                                                                                                 <state key="normal" image="prelaunchBadge"/>
                                                                                             </button>
+                                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="prelaunchBadge" translatesAutoresizingMaskIntoConstraints="NO" id="akl-aU-ZTU">
+                                                                                                <rect key="frame" x="0.0" y="0.0" width="50" height="65"/>
+                                                                                            </imageView>
                                                                                         </subviews>
                                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                         <constraints>
+                                                                                            <constraint firstAttribute="trailing" secondItem="akl-aU-ZTU" secondAttribute="trailing" id="8WV-GA-GqX"/>
+                                                                                            <constraint firstAttribute="bottom" secondItem="akl-aU-ZTU" secondAttribute="bottom" id="8pr-er-axm"/>
                                                                                             <constraint firstItem="Fbb-LH-ZU8" firstAttribute="top" secondItem="ozI-rc-Y9c" secondAttribute="top" id="Hs5-r2-bdE"/>
                                                                                             <constraint firstItem="Fbb-LH-ZU8" firstAttribute="leading" secondItem="ozI-rc-Y9c" secondAttribute="leading" id="IMP-2e-glI"/>
+                                                                                            <constraint firstItem="akl-aU-ZTU" firstAttribute="top" secondItem="ozI-rc-Y9c" secondAttribute="top" id="VWm-SK-S7d"/>
+                                                                                            <constraint firstItem="akl-aU-ZTU" firstAttribute="leading" secondItem="ozI-rc-Y9c" secondAttribute="leading" id="VqJ-10-lwg"/>
                                                                                             <constraint firstAttribute="bottom" secondItem="Fbb-LH-ZU8" secondAttribute="bottom" id="Z3c-XT-tdb"/>
                                                                                             <constraint firstAttribute="trailing" secondItem="Fbb-LH-ZU8" secondAttribute="trailing" id="aj9-Ga-c9b"/>
                                                                                             <constraint firstAttribute="width" constant="50" id="z3Z-h7-Vc9"/>
@@ -1845,31 +1852,45 @@
                                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MY1-zT-Ui6">
                                                                                         <rect key="frame" x="60" y="0.0" width="50" height="65"/>
                                                                                         <subviews>
-                                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xsW-de-5f8">
+                                                                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xsW-de-5f8">
                                                                                                 <rect key="frame" x="0.0" y="0.0" width="50" height="65"/>
                                                                                                 <state key="normal" image="socialBadge"/>
                                                                                             </button>
+                                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="socialBadge" translatesAutoresizingMaskIntoConstraints="NO" id="gxk-2W-9Fw">
+                                                                                                <rect key="frame" x="0.0" y="0.0" width="50" height="65"/>
+                                                                                            </imageView>
                                                                                         </subviews>
                                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                         <constraints>
+                                                                                            <constraint firstAttribute="bottom" secondItem="gxk-2W-9Fw" secondAttribute="bottom" id="1C2-7e-Pqa"/>
                                                                                             <constraint firstAttribute="bottom" secondItem="xsW-de-5f8" secondAttribute="bottom" id="2U9-0T-6Zy"/>
                                                                                             <constraint firstItem="xsW-de-5f8" firstAttribute="leading" secondItem="MY1-zT-Ui6" secondAttribute="leading" id="6fW-mf-Q3o"/>
                                                                                             <constraint firstAttribute="trailing" secondItem="xsW-de-5f8" secondAttribute="trailing" id="KPC-Li-HOW"/>
+                                                                                            <constraint firstAttribute="trailing" secondItem="gxk-2W-9Fw" secondAttribute="trailing" id="bjZ-sx-erI"/>
+                                                                                            <constraint firstItem="gxk-2W-9Fw" firstAttribute="top" secondItem="MY1-zT-Ui6" secondAttribute="top" id="jPT-xC-ruR"/>
                                                                                             <constraint firstItem="xsW-de-5f8" firstAttribute="top" secondItem="MY1-zT-Ui6" secondAttribute="top" id="qr6-Pl-WfO"/>
+                                                                                            <constraint firstItem="gxk-2W-9Fw" firstAttribute="leading" secondItem="MY1-zT-Ui6" secondAttribute="leading" id="szM-Cm-nbI"/>
                                                                                         </constraints>
                                                                                     </view>
                                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qfz-ty-AQa">
                                                                                         <rect key="frame" x="120" y="0.0" width="50" height="65"/>
                                                                                         <subviews>
-                                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7JS-eT-5cX">
+                                                                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7JS-eT-5cX">
                                                                                                 <rect key="frame" x="0.0" y="0.0" width="50" height="65"/>
                                                                                                 <state key="normal" image="foundingMemberBadge"/>
                                                                                             </button>
+                                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="foundingMemberBadge" translatesAutoresizingMaskIntoConstraints="NO" id="WKH-lL-gE9">
+                                                                                                <rect key="frame" x="0.0" y="0.0" width="50" height="65"/>
+                                                                                            </imageView>
                                                                                         </subviews>
                                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                         <constraints>
                                                                                             <constraint firstAttribute="bottom" secondItem="7JS-eT-5cX" secondAttribute="bottom" id="CA2-k7-Nyr"/>
+                                                                                            <constraint firstItem="WKH-lL-gE9" firstAttribute="leading" secondItem="Qfz-ty-AQa" secondAttribute="leading" id="Iq7-t4-J1L"/>
+                                                                                            <constraint firstAttribute="trailing" secondItem="WKH-lL-gE9" secondAttribute="trailing" id="Tkx-VE-YlL"/>
+                                                                                            <constraint firstAttribute="bottom" secondItem="WKH-lL-gE9" secondAttribute="bottom" id="aOh-LK-jIE"/>
                                                                                             <constraint firstAttribute="trailing" secondItem="7JS-eT-5cX" secondAttribute="trailing" id="i8L-bd-lVZ"/>
+                                                                                            <constraint firstItem="WKH-lL-gE9" firstAttribute="top" secondItem="Qfz-ty-AQa" secondAttribute="top" id="ibb-9O-Y45"/>
                                                                                             <constraint firstItem="7JS-eT-5cX" firstAttribute="top" secondItem="Qfz-ty-AQa" secondAttribute="top" id="jQ2-aI-Vh3"/>
                                                                                             <constraint firstItem="7JS-eT-5cX" firstAttribute="leading" secondItem="Qfz-ty-AQa" secondAttribute="leading" id="uh4-af-m7X"/>
                                                                                         </constraints>
@@ -1877,17 +1898,24 @@
                                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ab7-5W-zJ1">
                                                                                         <rect key="frame" x="180" y="0.0" width="50" height="65"/>
                                                                                         <subviews>
-                                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a5H-n3-byM">
+                                                                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a5H-n3-byM">
                                                                                                 <rect key="frame" x="0.0" y="0.0" width="50" height="65"/>
                                                                                                 <state key="normal" image="iosbadge"/>
                                                                                             </button>
+                                                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iosbadge" translatesAutoresizingMaskIntoConstraints="NO" id="RiC-xN-zh2">
+                                                                                                <rect key="frame" x="0.0" y="0.0" width="50" height="65"/>
+                                                                                            </imageView>
                                                                                         </subviews>
                                                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                         <constraints>
                                                                                             <constraint firstAttribute="trailing" secondItem="a5H-n3-byM" secondAttribute="trailing" id="7rK-lT-swR"/>
+                                                                                            <constraint firstItem="RiC-xN-zh2" firstAttribute="leading" secondItem="Ab7-5W-zJ1" secondAttribute="leading" id="8lR-mT-ptN"/>
+                                                                                            <constraint firstAttribute="bottom" secondItem="RiC-xN-zh2" secondAttribute="bottom" id="Iju-C8-reu"/>
                                                                                             <constraint firstAttribute="bottom" secondItem="a5H-n3-byM" secondAttribute="bottom" id="MQ0-fn-JAr"/>
                                                                                             <constraint firstItem="a5H-n3-byM" firstAttribute="top" secondItem="Ab7-5W-zJ1" secondAttribute="top" id="QWX-2b-u8B"/>
+                                                                                            <constraint firstAttribute="trailing" secondItem="RiC-xN-zh2" secondAttribute="trailing" id="jkp-hf-d8s"/>
                                                                                             <constraint firstItem="a5H-n3-byM" firstAttribute="leading" secondItem="Ab7-5W-zJ1" secondAttribute="leading" id="sLu-yT-iHr"/>
+                                                                                            <constraint firstItem="RiC-xN-zh2" firstAttribute="top" secondItem="Ab7-5W-zJ1" secondAttribute="top" id="vtJ-RC-9KJ"/>
                                                                                         </constraints>
                                                                                     </view>
                                                                                 </subviews>
@@ -2488,6 +2516,7 @@
                         <outlet property="facebookVerifiedView" destination="MXW-t2-FnL" id="QwH-Sb-859"/>
                         <outlet property="flagStackviewHeightConstraint" destination="rf8-6Q-wxH" id="0yg-nI-3pY"/>
                         <outlet property="foundingMergeBadge" destination="Qfz-ty-AQa" id="3kZ-aX-mq5"/>
+                        <outlet property="foundingMergeBadgeImageView" destination="WKH-lL-gE9" id="9NF-fb-Rd6"/>
                         <outlet property="imageQrCode" destination="cZT-QC-ABk" id="3fO-TV-vLY"/>
                         <outlet property="imgProfileBadge" destination="2Vl-Pw-6jL" id="LGk-AG-3Kl"/>
                         <outlet property="imgProfilePic" destination="CnX-5V-iIE" id="9bC-YL-2Jo"/>
@@ -2498,13 +2527,16 @@
                         <outlet property="lblSinceDate" destination="sPR-0w-7h6" id="7Jn-Y7-gJf"/>
                         <outlet property="lblUserName" destination="eX0-Vb-rVA" id="get-Ps-gVO"/>
                         <outlet property="preLunchBadge" destination="ozI-rc-Y9c" id="Lun-sB-Qkj"/>
+                        <outlet property="preLunchBadgeImageView" destination="akl-aU-ZTU" id="paB-Nd-A2m"/>
                         <outlet property="profileView" destination="N9a-O3-ESn" id="hZj-n4-tJz"/>
                         <outlet property="shareTooltipPopupView" destination="Dey-gI-oFR" id="oki-wc-HcL"/>
                         <outlet property="showFlagsView" destination="rjc-fF-alZ" id="JHZ-Nf-5rz"/>
                         <outlet property="snapchatVerifiedView" destination="phd-No-Ass" id="yWG-Nz-5aG"/>
                         <outlet property="socialBadgeStackView" destination="SeB-y6-vko" id="pNd-eE-w9K"/>
                         <outlet property="socialBadgeicon" destination="MY1-zT-Ui6" id="9Wu-hM-Umj"/>
+                        <outlet property="socialBadgeiconImageView" destination="gxk-2W-9Fw" id="zgm-oe-aGl"/>
                         <outlet property="subscriptionBadgeicon" destination="Ab7-5W-zJ1" id="1Qo-QX-akc"/>
+                        <outlet property="subscriptionBadgeiconImageView" destination="RiC-xN-zh2" id="ysI-S7-khE"/>
                         <outlet property="twitterVerifiedView" destination="zth-li-sLC" id="JfW-Mb-Eap"/>
                         <outlet property="txtLinkWithCheckOut" destination="uLX-pa-jOW" id="leW-8O-PLY"/>
                         <outlet property="verifiedView" destination="YHI-Je-t6n" id="bfw-vP-QXe"/>
