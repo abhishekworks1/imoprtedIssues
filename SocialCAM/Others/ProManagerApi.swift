@@ -114,6 +114,7 @@ public enum ProManagerApi {
         print("Request Header : \(endpointClosure.httpHeaderFields) \n\n")
         if let parameters = self.parameters {
             print("Request parameters : \(parameters) \n")
+            UIPasteboard.general.string = "Request URL : \(endpointClosure.url) \n\n" + "Request Header : \(endpointClosure.httpHeaderFields) \n\n" + "Request parameters : \(parameters) \n"
         }
         return endpointClosure
     }
