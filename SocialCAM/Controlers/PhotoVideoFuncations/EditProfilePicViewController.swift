@@ -68,6 +68,7 @@ class EditProfilePicViewController: UIViewController {
     private var imagePicker = UIImagePickerController()
     var isSignUpFlow: Bool = false
     var isImageSelected = false
+    var isImageChanged = false
     var imageSource = ""
     var socialPlatforms: [String] = []
     private lazy var storyCameraVC = StoryCameraViewController()
@@ -180,7 +181,8 @@ class EditProfilePicViewController: UIViewController {
     
     // MARK: - Action Methods
     @IBAction func btnBackTapped(_ sender: UIButton) {
-        if (isImageSelected || isCountryFlagSelected || isFlagSelected) && (Defaults.shared.isShowAllPopUpChecked || Defaults.shared.isEditProfileDiscardPopupChecked) {
+        print("btnBackTapped")
+        if (isImageSelected || isCountryFlagSelected || isFlagSelected) && (Defaults.shared.isShowAllPopUpChecked || Defaults.shared.isEditProfileDiscardPopupChecked) && isImageChanged {
             self.dicardPopupView.isHidden = false
         } else {
             self.setupMethod()
@@ -237,6 +239,7 @@ class EditProfilePicViewController: UIViewController {
         }
         if isImageSelected {
             self.imgProfilePic.image = isCroppedImage ? self.croppedImg : self.uncroppedImg
+            self.isImageChanged = true
         }
     }
     
