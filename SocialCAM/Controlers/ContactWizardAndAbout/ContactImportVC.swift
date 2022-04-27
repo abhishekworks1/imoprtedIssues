@@ -238,10 +238,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
 //        if let qrImageURL = Defaults.shared.currentUser?.qrcode {
 //            self.imageQrCode.sd_setImage(with: URL.init(string: qrImageURL), placeholderImage: nil)
 //        }
-//        if let referralPage = Defaults.shared.currentUser?.referralPage {
-            let image =  URL(string: urlToShare)?.qrImage(using: themeBlueColor, logo: logoImage)
-            self.imageQrCode.image = image?.convert()
-//        }
+
         self.btnIncludeProfileImg.isSelected = Defaults.shared.includeProfileImgForShare == true
         self.btnIncludeQrImg.isSelected = Defaults.shared.includeQRImgForShare == true
         self.getVerifiedSocialPlatforms()
@@ -270,10 +267,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         selectedContactType = ContactType.mobile
         self.emailContactTableView.isHidden = true
         self.contactTableView.isHidden = false
-        
-//        if let channelId = Defaults.shared.currentUser?.channelId {
-            self.lblReferralLink.text = urlToShare//"\(websiteUrl)/\(channelId)"
-//        }
+
         
         self.textShareView.dropShadow()
         self.qrCodeShareView.dropShadow()
@@ -283,6 +277,17 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         
         previewImageview.contentMode = .scaleAspectFit
        
+    }
+    func setupUIBasedOnUrlToShare() {
+        //        if let referralPage = Defaults.shared.currentUser?.referralPage {
+                    let image =  URL(string: urlToShare)?.qrImage(using: themeBlueColor, logo: logoImage)
+                    self.imageQrCode.image = image?.convert()
+        //        }
+        
+//        if let channelId = Defaults.shared.currentUser?.channelId {
+            self.lblReferralLink.text = urlToShare//"\(websiteUrl)/\(channelId)"
+//        }
+        setPreviewData()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated) // No need for semicolon
@@ -313,7 +318,7 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
         if pageNo == 4{
             self.getContactList(source: self.selectedContactType,filter:self.selectedFilter)
         }
-        setPreviewData()
+        
     }
     @objc func handleTap(_ sender: UITapGestureRecognizer? = nil) {
         if !filterOptionView.isHidden{
@@ -1738,23 +1743,23 @@ class ContactImportVC: UIViewController, UITableViewDelegate, UITableViewDataSou
     }
     
     @IBAction func didTapReferalButtonClick(_ sender: UIButton) {
-        if let shareUrl = Defaults.shared.currentUser?.quickStartPage {
-           urlToShare = shareUrl
-        }
-        pageNo = 2
-        setupPage()
-    }
-    
-    @IBAction func didTapQuickStartButton(_ sender: Any) {
         if let shareUrl = Defaults.shared.currentUser?.referralPage {
            urlToShare = shareUrl
         }
         pageNo = 2
         setupPage()
+        setupUIBasedOnUrlToShare()
     }
     
-    
-    
+    @IBAction func didTapQuickStartButton(_ sender: Any) {
+        if let shareUrl = Defaults.shared.currentUser?.quickStartPage {
+           urlToShare = shareUrl
+        }
+        pageNo = 2
+        setupPage()
+        setupUIBasedOnUrlToShare()
+    }
+
     @IBAction func mainOptionsClick(_ sender: UIButton) {
         if sender.tag == 1 {
             isSelectSMS = false
