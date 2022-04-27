@@ -249,6 +249,11 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         tapGesture.numberOfTapsRequired = 1
         profileDisplayView.addGestureRecognizer(tapGesture)
         
+        if Defaults.shared.settingsPreference == 1 {
+            showCollectionAction(UIButton())
+        } else {
+            showTableAction(UIButton())
+        }
     }
   
     @objc func didTapProfileView(sender: UITapGestureRecognizer) {
@@ -424,12 +429,14 @@ class StorySettingsVC: UIViewController,UIGestureRecognizerDelegate {
         btnCollection.isSelected = true
         settingCollectionView.isHidden = false
         settingsTableView.isHidden = true
+        Defaults.shared.settingsPreference = 1
     }
     @IBAction func showTableAction(_ sender: Any) {
         btnTable.isSelected = true
         btnCollection.isSelected = false
         settingCollectionView.isHidden = true
         settingsTableView.isHidden = false
+        Defaults.shared.settingsPreference = 0
     }
     @IBAction func showProfileAction(_ sender: Any) {
         getVerifiedSocialPlatforms()
